@@ -1,0 +1,13 @@
+// Font Size
+// SIZE
+// e.g. data-h2-font-size="b(normal) m(h3)"
+@mixin h2-utility-font-size(
+  $mediaKey,
+  $fontSizeMap
+) {
+  @each $sizeKey, $sizeValue in $fontSizeMap {
+    [data-h2-font-size*="#{$mediaKey}(#{$sizeKey})"] {
+      font-size: $sizeValue;
+    }
+  }
+}

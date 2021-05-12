@@ -1,0 +1,18 @@
+// Text Alignment
+// ALIGNMENT
+// e.g. data-h2-text-align="b(center)"
+$h2-map-text-align: (
+  "center": "center",
+  "justify": "justify",
+  "right": "right",
+  "left": "left"
+);
+@mixin h2-utility-text-align(
+  $mediaKey
+) {
+  @each $alignmentKey, $alignmentValue in $h2-map-text-align {
+    [data-h2-text-align*="#{$mediaKey}(#{$alignmentKey})"] {
+      text-align: #{$alignmentValue};
+    }
+  }
+}

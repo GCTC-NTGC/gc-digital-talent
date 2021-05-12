@@ -1,0 +1,19 @@
+// Justify Content
+// JUSTIFICATION
+// e.g. data-h2-justify-content="b(space-around)"
+$h2-map-justify-content: (
+  "center": center,
+  "flex-end": flex-end,
+  "flex-start": flex-start,
+  "space-around": space-around,
+  "space-between": space-between
+);
+@mixin h2-utility-justify-content(
+  $mediaKey
+) {
+  @each $justifyKey, $justifyValue in $h2-map-justify-content {
+    [data-h2-justify-content*="#{$mediaKey}(#{$justifyKey})"] {
+      justify-content: $justifyValue;
+    }
+  }
+}

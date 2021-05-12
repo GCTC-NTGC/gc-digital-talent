@@ -1,0 +1,24 @@
+// Overflow
+// OVERFLOW
+// e.g. data-h2-overflow="b(hidden)"
+$h2-map-overflow: (
+  "visible": visible,
+  "hidden": hidden,
+  "scroll": scroll,
+  "auto": auto
+);
+@mixin h2-utility-overflow(
+  $mediaKey
+) {
+  @each $overflowKey, $overflowValue in $h2-map-overflow {
+    [data-h2-overflow*="#{$mediaKey}(all, #{overflowKey})"] {
+      overflow: $overflowValue;
+    }
+    [data-h2-overflow*="#{$mediaKey}(x, #{overflowKey})"] {
+      overflow-x: $overflowValue;
+    }
+    [data-h2-overflow*="#{$mediaKey}(y, #{overflowKey})"] {
+      overflow-y: $overflowValue;
+    }
+  }
+}

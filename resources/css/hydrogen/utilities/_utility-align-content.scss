@@ -1,0 +1,20 @@
+// Align Content
+// ALIGNMENT
+// e.g. data-h2-align-content="b(flex-end)"
+$h2-map-align-content: (
+  "center": center,
+  "flex-end": flex-end,
+  "flex-start": flex-start,
+  "space-around": space-around,
+  "space-between": space-between,
+  "stretch": stretch
+);
+@mixin h2-utility-align-content(
+  $mediaKey
+) {
+  @each $alignKey, $alignValue in $h2-map-align-content {
+    [data-h2-align-content*="#{$mediaKey}(#{$alignKey})"] {
+      align-content: $alignValue;
+    }
+  }
+}

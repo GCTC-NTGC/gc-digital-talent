@@ -1,0 +1,194 @@
+@use "sass:color";
+
+@use "maps/map-media" as mediaMap;
+@use "maps/map-border-weight" as borderWeightMap;
+@use "maps/map-color" as colorMap;
+@use "maps/map-containers" as containerMap;
+@use "maps/map-font-families" as fontFamilyMap;
+@use "maps/map-gradient" as gradientMap;
+@use "maps/map-radius" as radiusMap;
+@use "maps/map-shadow" as shadowMap;
+@use "maps/map-whitespace" as whitespaceMap;
+
+@use "utilities/utility-align-content" as alignContentStyles;
+@use "utilities/utility-align-items" as alignItemStyles;
+@use "utilities/utility-align-self" as alignSelfStyles;
+@use "utilities/utility-bg-color" as bgColorStyles;
+@use "utilities/utility-border" as borderStyles;
+@use "utilities/utility-container" as containerStyles;
+@use "utilities/utility-display" as displayStyles;
+@use "utilities/utility-flex-direction" as flexDirectionStyles;
+// @use "utilities/utility-flex-grid" as flexGridStyles;
+@use "utilities/utility-flex-wrap" as flexWrapStyles;
+@use "utilities/utility-font-color" as fontColorStyles;
+@use "utilities/utility-font-family" as fontFamilyStyles;
+@use "utilities/utility-font-size" as fontSizeStyles;
+@use "utilities/utility-font-style" as fontStyleStyles;
+@use "utilities/utility-font-weight" as fontWeightStyles;
+@use "utilities/utility-justify-content" as justifyContentStyles;
+@use "utilities/utility-location" as locationStyles;
+@use "utilities/utility-margin" as marginStyles;
+@use "utilities/utility-overflow" as overflowStyles;
+@use "utilities/utility-padding" as paddingStyles;
+@use "utilities/utility-position" as positionStyles;
+@use "utilities/utility-radius" as radiusStyles;
+@use "utilities/utility-shadow" as shadowStyles;
+@use "utilities/utility-text-align" as textAlignStyles;
+@use "utilities/utility-visibility" as visibilityStyles;
+
+// Font Variables
+$h2-font-scale: 1.25;
+$h2-font-size-default: 1rem;
+$h2-font-size-caption: calc(#{$h2-font-size-default}/#{$h2-font-scale});
+$h2-font-size-h6: $h2-font-size-default;
+$h2-font-size-h5: calc(#{$h2-font-size-default}*#{$h2-font-scale});
+$h2-font-size-h4: calc(#{$h2-font-size-h5}*#{$h2-font-scale});
+$h2-font-size-h3: calc(#{$h2-font-size-h4}*#{$h2-font-scale});
+$h2-font-size-h2: calc(#{$h2-font-size-h3}*#{$h2-font-scale});
+$h2-font-size-h1: calc(#{$h2-font-size-h2}*#{$h2-font-scale});
+
+$h2-map-font-size: (
+  "h1": $h2-font-size-h1,
+  "h2": $h2-font-size-h2,
+  "h3": $h2-font-size-h3,
+  "h4": $h2-font-size-h4,
+  "h5": $h2-font-size-h5,
+  "h6": $h2-font-size-h6,
+  "normal": $h2-font-size-default,
+  "default": $h2-font-size-default,
+  "copy": $h2-font-size-default,
+  "caption": $h2-font-size-caption,
+);
+
+$h2-map-sides: (
+  "all": "",
+  "top": "-top",
+  "right": "-right",
+  "bottom": "-bottom",
+  "left": "-left",
+  "top-right": "",
+  "top-bottom": "",
+  "top-left": "",
+  "bottom-right": "",
+  "bottom-left": "",
+  "right-left": ""
+);
+
+@each $mediaKey, $mediaValue in mediaMap.$h2-map-media {
+  @media #{$mediaValue} {
+    @include alignContentStyles.h2-utility-align-content(
+      $mediaKey: $mediaKey
+    );
+  
+    @include alignItemStyles.h2-utility-align-items(
+      $mediaKey: $mediaKey
+    );
+  
+    @include alignSelfStyles.h2-utility-align-self(
+      $mediaKey: $mediaKey
+    );
+  
+    @include bgColorStyles.h2-utility-bg-color(
+      $mediaKey: $mediaKey,
+      $colorMap: colorMap.$h2-map-color,
+      $gradientMap: gradientMap.$h2-map-gradient
+    );
+  
+    @include borderStyles.h2-utility-border(
+      $mediaKey: $mediaKey,
+      $colorMap: colorMap.$h2-map-color,
+      $sideMap: $h2-map-sides,
+      $borderWeightMap: borderWeightMap.$h2-map-border-weight
+    );
+  
+    @include containerStyles.h2-utility-container(
+      $mediaKey: $mediaKey,
+      $containerMap: containerMap.$h2-map-containers
+    );
+  
+    @include displayStyles.h2-utility-display(
+      $mediaKey: $mediaKey
+    );
+  
+    @include flexDirectionStyles.h2-utility-flex-direction(
+      $mediaKey: $mediaKey
+    );
+
+    // @include flexGridStyles.h2-utility-flex-grid($mediaKey: $mediaKey);
+  
+    @include flexWrapStyles.h2-utility-flex-wrap(
+      $mediaKey: $mediaKey
+    );
+  
+    @include fontColorStyles.h2-utility-font-color(
+      $mediaKey: $mediaKey,
+      $colorMap: colorMap.$h2-map-color
+    );
+  
+    @include fontFamilyStyles.h2-utility-font-family(
+      $mediaKey: $mediaKey,
+      $fontFamilyMap: fontFamilyMap.$h2-map-font-families
+    );
+  
+    @include fontSizeStyles.h2-utility-font-size(
+      $mediaKey: $mediaKey,
+      $fontSizeMap: $h2-map-font-size
+    );
+  
+    @include fontStyleStyles.h2-utility-font-style(
+      $mediaKey: $mediaKey
+    );
+  
+    @include fontWeightStyles.h2-utility-font-weight(
+      $mediaKey: $mediaKey
+    );
+  
+    @include justifyContentStyles.h2-utility-justify-content(
+      $mediaKey: $mediaKey
+    );
+  
+    @include locationStyles.h2-utility-location(
+      $mediaKey: $mediaKey,
+      $sideMap: $h2-map-sides,
+      $whitespaceMap: whitespaceMap.$h2-map-whitespace
+    );
+  
+    @include marginStyles.h2-utility-margin(
+      $mediaKey: $mediaKey,
+      $sideMap: $h2-map-sides,
+      $whitespaceMap: whitespaceMap.$h2-map-whitespace
+    );
+  
+    @include overflowStyles.h2-utility-overflow(
+      $mediaKey: $mediaKey
+    );
+  
+    @include paddingStyles.h2-utility-padding(
+      $mediaKey: $mediaKey,
+      $sideMap: $h2-map-sides,
+      $whitespaceMap: whitespaceMap.$h2-map-whitespace
+    );
+  
+    @include positionStyles.h2-utility-position(
+      $mediaKey: $mediaKey
+    );
+  
+    @include radiusStyles.h2-utility-radius(
+      $mediaKey: $mediaKey,
+      $radiusMap: radiusMap.$h2-map-radius
+    );
+  
+    @include shadowStyles.h2-utility-shadow(
+      $mediaKey: $mediaKey,
+      $shadowMap: shadowMap.$h2-map-shadow
+    );
+  
+    @include textAlignStyles.h2-utility-text-align(
+      $mediaKey: $mediaKey
+    );
+  
+    @include visibilityStyles.h2-utility-visibility(
+      $mediaKey: $mediaKey
+    );
+  }
+}

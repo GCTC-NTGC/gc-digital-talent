@@ -1,0 +1,75 @@
+// Borders
+// COLOR, SIDE, STYLE, WEIGHT
+// e.g. data-h2-border="base(black, tb, solid, small)"
+$h2-map-border-style: (
+  "solid": solid, 
+  "dashed": dashed
+);
+@mixin h2-utility-border(
+  $mediaKey,
+  $colorMap,
+  $sideMap,
+  $borderWeightMap
+) {
+  @each $colorKey, $colorValue in $colorMap {
+    @each $sideKey, $sideValue in $sideMap {
+      @each $styleKey, $styleValue in $h2-map-border-style {
+        @each $weightKey, $weightValue in $borderWeightMap {
+          [data-h2-border*="#{$mediaKey}(#{$colorKey}, #{$sideKey}, #{$styleKey}, #{$weightKey})"] {
+            @if $sideKey == "all" {
+              border-color: $colorValue;
+              border-style: $styleValue;
+              border-width: $weightValue;
+            } @else if $sideKey == "top-bottom" or $sideKey == "tb" {
+              border-top-color: $colorValue;
+              border-bottom-color: $colorValue;
+              border-top-style: $styleValue;
+              border-bottom-style: $styleValue;
+              border-top-width: $weightValue;
+              border-bottom-width: $weightValue;
+            } @else if $sideKey == "right-left" or $sideKey == "rl" {
+              border-right-color: $colorValue;
+              border-left-color: $colorValue;
+              border-right-style: $styleValue;
+              border-left-style: $styleValue;
+              border-right-width: $weightValue;
+              border-left-width: $weightValue;
+            } @else if $sideKey == "top-right" {
+              border-right-color: $colorValue;
+              border-top-color: $colorValue;
+              border-right-style: $styleValue;
+              border-top-style: $styleValue;
+              border-right-width: $weightValue;
+              border-top-width: $weightValue;
+            } @else if $sideKey == "top-left" {
+              border-top-color: $colorValue;
+              border-left-color: $colorValue;
+              border-top-style: $styleValue;
+              border-left-style: $styleValue;
+              border-top-width: $weightValue;
+              border-left-width: $weightValue;
+            } @else if $sideKey == "bottom-right" {
+              border-right-color: $colorValue;
+              border-bottom-color: $colorValue;
+              border-right-style: $styleValue;
+              border-bottom-style: $styleValue;
+              border-right-width: $weightValue;
+              border-bottom-width: $weightValue;
+            } @else if $sideKey == "bottom-left" {
+              border-bottom-color: $colorValue;
+              border-left-color: $colorValue;
+              border-bottom-style: $styleValue;
+              border-left-style: $styleValue;
+              border-bottom-width: $weightValue;
+              border-left-width: $weightValue;
+            } @else {
+              border#{$sideValue}-color: $colorValue;
+              border#{$sideValue}-style: $styleValue;
+              border#{$sideValue}-width: $weightValue;
+            }
+          }
+        }
+      }
+    }
+  }
+}

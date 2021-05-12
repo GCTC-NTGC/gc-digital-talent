@@ -1,0 +1,21 @@
+// Containers
+// ALIGNMENT, SIZE
+// e.g. data-h2-container="base(center, medium)"
+$h2-map-container-alignment: (
+  "left": auto auto auto 0,
+  "center": 0 auto,
+  "right": auto 0 auto auto
+);
+@mixin h2-utility-container(
+  $mediaKey,
+  $containerMap
+) {
+  @each $containerKey, $containerValue in $containerMap {
+    @each $alignmentKey, $alignmentValue in $h2-map-container-alignment {
+      [data-h2-container*="#{$mediaKey}(#{$alignmentKey}, #{$containerKey})"] {
+        margin: $alignmentValue;
+        max-width: #{$containerValue};
+      }
+    }
+  }
+}

@@ -1,0 +1,19 @@
+// Align Items
+// ALIGNMENT
+// e.g. data-h2-align-items="b(stretch)"
+$h2-map-align-items: (
+  "baseline": baseline,
+  "center": center,
+  "flex-end": flex-end,
+  "flex-start": flex-start,
+  "stretch": stretch
+);
+@mixin h2-utility-align-items(
+  $mediaKey
+) {
+  @each $alignKey, $alignValue in $h2-map-align-items {
+    [data-h2-align-items*="#{$mediaKey}(#{$alignKey})"] {
+      align-items: $alignValue;
+    }
+  }
+}

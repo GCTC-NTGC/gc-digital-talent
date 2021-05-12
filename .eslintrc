@@ -1,0 +1,135 @@
+{
+   "parser": "@typescript-eslint/parser",
+   "env": {
+       "browser": true,
+       "es6": true,
+       "jest": true
+   },
+   "extends": [
+       "airbnb",
+       "plugin:react/recommended",
+       "plugin:testcafe/recommended",
+       "plugin:@typescript-eslint/recommended",
+       "plugin:prettier/recommended",
+       "prettier"
+   ],
+   "globals": {
+       "Atomics": "readonly",
+       "SharedArrayBuffer": "readonly"
+   },
+   "parserOptions": {
+       "ecmaFeatures": {
+           "jsx": true
+       },
+       "ecmaVersion": 2018,
+       "sourceType": "module",
+       "project": "./tsconfig.json"
+   },
+   "plugins": [
+       "prettier",
+       "react",
+       "react-hooks",
+       "testcafe",
+       "@typescript-eslint"
+   ],
+   "rules": {
+       "camelcase": "warn",
+       "consistent-return": "warn",
+       "import/no-extraneous-dependencies": [
+           "error",
+           {
+               "devDependencies": true,
+               "optionalDependencies": false,
+               "peerDependencies": false
+           }
+       ],
+       "import/extensions": [
+           "warn",
+           "never"
+       ],
+       "react/display-name": "off",
+       "react/prop-types": "off",
+       "react/jsx-filename-extension": [
+           1,
+           {
+               "extensions": [
+                   ".jsx",
+                   ".tsx"
+               ]
+           }
+       ],
+       "react/jsx-props-no-spreading": "off",
+       "react/require-default-props": "off",
+       "jsx-a11y/label-has-for": "off",
+       "react-hooks/rules-of-hooks": "error",
+       "react-hooks/exhaustive-deps": "warn",
+       "jsx-a11y/label-has-associated-control": [
+           2,
+           {
+               "assert": "either",
+               "depth": 3
+           }
+       ],
+       "no-param-reassign": "warn",
+       "jsx-a11y/no-noninteractive-element-to-interactive-role": [
+           "error",
+           {
+               "ul": [
+                   "listbox",
+                   "menu",
+                   "menubar",
+                   "radiogroup",
+                   "tablist",
+                   "tree",
+                   "treegrid"
+               ],
+               "ol": [
+                   "listbox",
+                   "menu",
+                   "menubar",
+                   "radiogroup",
+                   "tablist",
+                   "tree",
+                   "treegrid",
+                   "progressbar"
+               ],
+               "li": [
+                   "menuitem",
+                   "option",
+                   "row",
+                   "tab",
+                   "treeitem"
+               ],
+               "table": [
+                   "grid"
+               ],
+               "td": [
+                   "gridcell"
+               ]
+           }
+       ],
+       "@typescript-eslint/no-empty-function": "warn",
+       "no-use-before-define": "off",
+       "@typescript-eslint/ban-types": "warn",
+       "@typescript-eslint/no-use-before-define": "warn",
+       "no-shadow": "off",
+       "@typescript-eslint/no-shadow": "error"
+   },
+   "settings": {
+       "react": {
+           "version": "detect"
+       },
+       "import/resolver": {
+           "node": {
+               "extensions": [
+                   ".js",
+                   ".jsx",
+                   ".ts",
+                   ".tsx",
+                   ".test.ts",
+                   ".test.tsx"
+               ]
+           }
+       }
+   }
+}

@@ -1,0 +1,22 @@
+// Align Self
+// ALIGNMENT
+// e.g. data-h2-align-self="b(center)"
+$h2-map-align-self: (
+  "auto": auto,
+  "baseline": baseline,
+  "center": center,
+  "inherit": inherit,
+  "initial": initial,
+  "flex-end": flex-end,
+  "flex-start": flex-start,
+  "stretch": stretch
+);
+@mixin h2-utility-align-self(
+  $mediaKey
+) {
+  @each $alignKey, $alignValue in $h2-map-align-self {
+    [data-h2-align-self*="#{$mediaKey}(#{$alignKey})"] {
+      align-self: $alignValue;
+    }
+  }
+}

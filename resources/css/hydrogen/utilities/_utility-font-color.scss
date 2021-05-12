@@ -1,0 +1,18 @@
+// Font Color
+// [MODIFIER]COLOR[OPACITY]
+// e.g. data-h2-font-color="b(green)"
+// e.g. data-h2-font-color="b(green[.9])"
+// e.g. data-h2-font-color="b([light]green[.5])"
+@mixin h2-utility-font-color(
+  $mediaKey,
+  $colorMap
+) {
+  @each $colorKey, $colorValue in $colorMap {
+    [data-h2-font-color*="#{$mediaKey}(#{$colorKey})"] {
+      color: $colorValue;
+    }
+    [data-h2-color*="#{$mediaKey}(#{$colorKey})"] {
+      color: $colorValue;
+    }
+  }
+}

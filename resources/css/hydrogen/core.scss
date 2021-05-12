@@ -1,0 +1,136 @@
+// @use "utilities/core-flex-grid";
+
+$h2-whitespace-scale: 1.5;
+$h2-font-base-size: 112.5%;
+$h2-font-scale: 1.25;
+$h2-font-size-default: 1rem;
+$h2-font-size-caption: calc(#{$h2-font-size-default}/#{$h2-font-scale});
+$h2-font-size-h6: $h2-font-size-default;
+$h2-font-size-h5: calc(#{$h2-font-size-default}*#{$h2-font-scale});
+$h2-font-size-h4: calc(#{$h2-font-size-h5}*#{$h2-font-scale});
+$h2-font-size-h3: calc(#{$h2-font-size-h4}*#{$h2-font-scale});
+$h2-font-size-h2: calc(#{$h2-font-size-h3}*#{$h2-font-scale});
+$h2-font-size-h1: calc(#{$h2-font-size-h2}*#{$h2-font-scale});
+
+html {
+  box-sizing: border-box;
+  font-size: $h2-font-base-size;
+  * {
+    box-sizing: border-box;
+  }
+}
+
+body {
+  margin: 0; // Resets the default 8px value.
+  max-width: 100%;
+  min-height: 100vh;
+  position: relative;
+  width: 100%;
+}
+
+// Margin Resets
+blockquote,
+dl,
+fieldset,
+figure {
+  margin: 0;
+}
+
+// Max Image Widths
+img,
+iframe {
+  max-width: 100%;
+}
+// Headings
+h1, h2, h3, h4, h5, h6, p {
+  font-weight: normal;
+}
+h1 {
+  font-size: $h2-font-size-h1;
+  margin-top: calc((((1rem * #{$h2-whitespace-scale}) * #{$h2-whitespace-scale}) * #{$h2-whitespace-scale}) * #{$h2-whitespace-scale});
+}
+h2 {
+  font-size: $h2-font-size-h2;
+  margin-top: calc(((1rem * #{$h2-whitespace-scale}) * #{$h2-whitespace-scale}) * #{$h2-whitespace-scale});
+  margin-bottom: 1rem;
+}
+h3 {
+  font-size: $h2-font-size-h3;
+  margin-top: calc((1rem * #{$h2-whitespace-scale}) * #{$h2-whitespace-scale});
+  margin-bottom: 1rem;
+}
+h4 {
+  font-size: $h2-font-size-h4;
+  margin-top: calc(1rem * #{$h2-whitespace-scale});
+  margin-bottom: 1rem;
+}
+h5 {
+  font-size: $h2-font-size-h5;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+h6 {
+  font-size: $h2-font-size-h6;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+// Copy
+p, 
+div {
+  font-size: $h2-font-size-default
+}
+p {
+  margin-top: 1rem;
+}
+p+p {
+  margin-top: calc(1rem / #{$h2-whitespace-scale});
+}
+span {
+  color: inherit;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+}
+// Styled Typography
+em {
+  color: inherit;
+  font-family: inherit;
+  font-size: inherit;
+  font-style: italic;
+}
+strong {
+  color: inherit;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: 600;
+}
+// Anchors
+a {
+  color: inherit;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  text-decoration: underline;
+  transition: color .2s ease;
+}
+// Lists
+ul,
+ol {
+  margin: 0;
+  margin-top: 1rem;
+}
+li {
+  color: inherit;
+  font-family: inherit;
+  font-size: inherit;
+  margin-top: calc(1rem / #{$h2-whitespace-scale});
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+// Containers
+[data-h2-container] {
+  margin: 0 auto;
+  width: 90%;
+}

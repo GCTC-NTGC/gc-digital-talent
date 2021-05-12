@@ -1,0 +1,24 @@
+// Background Color
+@mixin h2-utility-bg-color(
+  $mediaKey,
+  $colorMap,
+  $gradientMap
+) {
+  // [MODIFIER]COLOR[OPACITY]
+  // e.g. data-h2-bg-color="b(green)"
+  // e.g. data-h2-bg-color="b(green[.9])"
+  // e.g. data-h2-bg-color="b([light]green[.5])"
+  @each $colorKey, $colorValue in $colorMap {
+    [data-h2-bg-color*="#{$mediaKey}(#{$colorKey})"] {
+      background-color: $colorValue;
+    }
+  }
+  // TYPE-DEGREE[STOP][STOP]
+  // e.g. data-h2-bg-color="b(linear-45[green][blue])"
+  // e.g. data-h2-bg-color="b(radial[blue][green])"
+  @each $gradientKey, $gradientValue in $gradientMap {
+    [data-h2-bg-color*="#{$mediaKey}(#{$gradientKey})"] {
+      background-image: #{$gradientValue};
+    }
+  }
+}

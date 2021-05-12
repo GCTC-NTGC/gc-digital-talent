@@ -1,0 +1,20 @@
+## Dependencies / Compiled Assets
+/node_modules
+/vendor
+/etc/ssl/
+!/etc/ssl/.gitkeep
+/report
+/public/css
+/public/js
+/public/mix-manifest.json
+.env
+
+# Lumen
+/vendor
+/.idea
+Homestead.json
+Homestead.yaml
+.phpunit.result.cache
+
+
+

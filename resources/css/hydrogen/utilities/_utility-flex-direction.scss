@@ -1,0 +1,18 @@
+// Flex Direction
+// DIRECTION
+// e.g. data-h2-flex-direction="b(column)"
+$h2-map-flex-direction: (
+  "column": column,
+  "column-reverse": column-reverse,
+  "row": row,
+  "row-reverse": row-reverse
+);
+@mixin h2-utility-flex-direction(
+  $mediaKey
+) {
+  @each $directionKey, $directionValue in $h2-map-flex-direction {
+    [data-h2-flex-direction*="#{$mediaKey}(#{$directionKey})"] {
+      flex-direction: $directionValue;
+    }
+  }
+}

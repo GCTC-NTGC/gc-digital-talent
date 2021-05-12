@@ -1,0 +1,37 @@
+// Padding
+// SIDE, SIZE
+// e.g. data-h2-padding="b(top-bottom, m)"
+// e.g. data-h2-padding="b(right, xxs)"
+@mixin h2-utility-padding(
+  $mediaKey,
+  $sideMap,
+  $whitespaceMap
+) {
+  @each $sideKey, $sideValue in $sideMap {
+    @each $whitespaceKey, $whitespaceValue in $whitespaceMap {
+      [data-h2-padding*="#{$mediaKey}(#{$sideKey}, #{$whitespaceKey})"] {
+        @if $sideKey == "top-bottom" or $sideKey == "tb" {
+          padding-top: #{$whitespaceValue};
+          padding-bottom: #{$whitespaceValue};
+        } @else if $sideKey == "right-left" or $sideKey == "rl" {
+          padding-right: #{$whitespaceValue};
+          padding-left: #{$whitespaceValue};
+        } @else if $sideKey == "top-right" {
+          padding-top: #{$whitespaceValue};
+          padding-right: #{$whitespaceValue};
+        } @else if $sideKey == "top-left" {
+          padding-top: #{$whitespaceValue};
+          padding-left: #{$whitespaceValue};
+        } @else if $sideKey == "bottom-right" {
+          padding-bottom: #{$whitespaceValue};
+          padding-right: #{$whitespaceValue};
+        } @else if $sideKey == "bottom-left" {
+          padding-bottom: #{$whitespaceValue};
+          padding-left: #{$whitespaceValue};
+        } @else {
+          padding#{$sideValue}: #{$whitespaceValue};
+        }
+      }
+    }
+  }
+}

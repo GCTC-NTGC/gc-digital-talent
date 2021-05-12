@@ -1,0 +1,29 @@
+// Visibility
+// VALUE
+// e.g. data-h2-visibility="b(visible)"
+@mixin h2-utility-visibility(
+  $mediaKey
+) {
+  [data-h2-visibility*="#{$mediaKey}(invisible)"]{
+    height: 1px;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    left: -100vw;
+    width: 1px;
+  }
+  [data-h2-visibility*="#{$mediaKey}(hidden)"] {
+    display: none;
+    visibility: hidden;
+  }
+  [data-h2-visibility*="#{$mediaKey}(visible)"] {
+    display: block;
+    height: auto;
+    overflow: auto;
+    position: static;
+    top: auto;
+    left: auto;
+    width: auto;
+    visibility: visible;
+  }
+}

@@ -1,0 +1,49 @@
+// Position: Location
+// SIDE, SIZE
+// e.g. data-h2-location="b(top, m)"
+// e.g. data-h2-location="b(right-left, xxs)"
+@mixin h2-utility-location(
+  $mediaKey,
+  $sideMap,
+  $whitespaceMap
+) {
+  @each $sideKey, $sideValue in $sideMap {
+    @each $whitespaceKey, $whitespaceValue in $whitespaceMap {
+      [data-h2-location*="#{$mediaKey}(#{$sideKey}, #{$whitespaceKey})"],
+      [data-h2-location*="#{$mediaKey}(#{$sideKey}, #{$whitespaceKey})"][data-h2-visibility] {
+        @if $sideKey == "top-bottom" or $sideKey == "tb" {
+          top: #{$whitespaceValue};
+          bottom: #{$whitespaceValue};
+        } @else if $sideKey == "right-left" or $sideKey == "rl" {
+          right: #{$whitespaceValue};
+          left: #{$whitespaceValue};
+        } @else if $sideKey == "top-right" {
+          top: #{$whitespaceValue};
+          right: #{$whitespaceValue};
+        } @else if $sideKey == "top-left" {
+          top: #{$whitespaceValue};
+          left: #{$whitespaceValue};
+        } @else if $sideKey == "bottom-right" {
+          bottom: #{$whitespaceValue};
+          right: #{$whitespaceValue};
+        } @else if $sideKey == "bottom-left" {
+          bottom: #{$whitespaceValue};
+          left: #{$whitespaceValue};
+        } @else if $sideKey == "top" {
+          top: #{$whitespaceValue};
+        } @else if $sideKey == "right" {
+          right: #{$whitespaceValue};
+        } @else if $sideKey == "bottom" {
+          bottom: #{$whitespaceValue};
+        } @else if $sideKey == "left" {
+          left: #{$whitespaceValue};
+        } @else if $sideKey == "all" {
+          top: #{$whitespaceValue};
+          right: #{$whitespaceValue};
+          bottom: #{$whitespaceValue};
+          left: #{$whitespaceValue};
+        }
+      }
+    }
+  }
+}

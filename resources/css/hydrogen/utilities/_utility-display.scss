@@ -1,0 +1,27 @@
+// Display
+// VALUE
+// e.g. data-h2-display="base(block)"
+$h2-map-display: (
+  "block": "block",
+  "inline": "inline",
+  "inline-block": "inline-block",
+  "flex": "flex",
+  "inline-flex": "inline-flex",
+  "grid": "grid",
+  "inline-grid": "inline-grid",
+  "flow-root": "flow-root",
+  "none": "none",
+  "contents": "contents",
+  "table": "table",
+  "table-row": "table-row",
+  "list-item": "list-item"
+);
+@mixin h2-utility-display(
+  $mediaKey
+) {
+  @each $displayKey, $displayValue in $h2-map-display {
+    [data-h2-display*="#{$mediaKey}(#{$displayKey})"] {
+      display: #{$displayValue};
+    }
+  }
+}

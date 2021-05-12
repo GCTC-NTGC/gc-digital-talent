@@ -1,0 +1,17 @@
+// Flex Wrap
+// WRAP
+// e.g. data-h2-flex-wrap="b(nowrap)"
+$h2-map-flex-wrap: (
+  "nowrap": nowrap,
+  "wrap": wrap,
+  "wrap-reverse": wrap-reverse
+);
+@mixin h2-utility-flex-wrap(
+  $mediaKey
+) {
+  @each $wrapKey, $wrapValue in $h2-map-flex-wrap {
+    [data-h2-flex-wrap*="#{$mediaKey}(#{$wrapKey})"] {
+      flex-wrap: $wrapValue;
+    }
+  }
+}

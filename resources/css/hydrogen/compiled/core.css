@@ -1,0 +1,130 @@
+html {
+  box-sizing: border-box;
+  font-size: 112.5%;
+}
+html * {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  max-width: 100%;
+  min-height: 100vh;
+  position: relative;
+  width: 100%;
+}
+
+blockquote,
+dl,
+fieldset,
+figure {
+  margin: 0;
+}
+
+img,
+iframe {
+  max-width: 100%;
+}
+
+h1, h2, h3, h4, h5, h6, p {
+  font-weight: normal;
+}
+
+h1 {
+  font-size: calc(calc(calc(calc(calc(1rem*1.25)*1.25)*1.25)*1.25)*1.25);
+  margin-top: calc((((1rem * 1.5) * 1.5) * 1.5) * 1.5);
+}
+
+h2 {
+  font-size: calc(calc(calc(calc(1rem*1.25)*1.25)*1.25)*1.25);
+  margin-top: calc(((1rem * 1.5) * 1.5) * 1.5);
+  margin-bottom: 1rem;
+}
+
+h3 {
+  font-size: calc(calc(calc(1rem*1.25)*1.25)*1.25);
+  margin-top: calc((1rem * 1.5) * 1.5);
+  margin-bottom: 1rem;
+}
+
+h4 {
+  font-size: calc(calc(1rem*1.25)*1.25);
+  margin-top: calc(1rem * 1.5);
+  margin-bottom: 1rem;
+}
+
+h5 {
+  font-size: calc(1rem*1.25);
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+h6 {
+  font-size: 1rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+p,
+div {
+  font-size: 1rem;
+}
+
+p {
+  margin-top: 1rem;
+}
+
+p + p {
+  margin-top: calc(1rem / 1.5);
+}
+
+span {
+  color: inherit;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+em {
+  color: inherit;
+  font-family: inherit;
+  font-size: inherit;
+  font-style: italic;
+}
+
+strong {
+  color: inherit;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: 600;
+}
+
+a {
+  color: inherit;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  text-decoration: underline;
+  transition: color 0.2s ease;
+}
+
+ul,
+ol {
+  margin: 0;
+  margin-top: 1rem;
+}
+
+li {
+  color: inherit;
+  font-family: inherit;
+  font-size: inherit;
+  margin-top: calc(1rem / 1.5);
+}
+li:last-child {
+  margin-bottom: 0;
+}
+
+[data-h2-container] {
+  margin: 0 auto;
+  width: 90%;
+}

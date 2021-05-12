@@ -1,0 +1,20 @@
+// Position
+// POSITION
+// e.g. data-h2-position="b(relative)"
+$h2-map-position: (
+  "static": static,
+  "relative": relative,
+  "fixed": fixed,
+  "absolute": absolute,
+  "sticky": sticky
+);
+@mixin h2-utility-position(
+  $mediaKey
+) {
+  @each $positionKey, $positionValue in $h2-map-position {
+    [data-h2-position*="#{$mediaKey}(#{$positionKey})"],
+    [data-h2-position*="#{$mediaKey}(#{$positionKey})"][data-h2-visibility] {
+      position: #{$positionValue};
+    }
+  }
+}

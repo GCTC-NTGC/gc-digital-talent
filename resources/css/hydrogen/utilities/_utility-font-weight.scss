@@ -1,0 +1,25 @@
+// Font Weight
+// WEIGHT
+// e.g. data-h2-font-weight="b(600)"
+$h2-map-font-weight: (
+  "100": 100,
+  "200": 200,
+  "300": 300,
+  "400": 400,
+  "normal": 400,
+  "500": 500,
+  "600": 600,
+  "700": 700,
+  "bold": 700,
+  "800": 800,
+  "900": 900
+);
+@mixin h2-utility-font-weight(
+  $mediaKey
+) {
+  @each $weightKey, $weightValue in $h2-map-font-weight {
+    [data-h2-font-weight*="#{$mediaKey}(#{$weightKey})"] {
+      font-weight: $weightValue;
+    }
+  }
+}
