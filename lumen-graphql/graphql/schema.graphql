@@ -1,0 +1,186 @@
+"A date string with format `Y-m-d`, e.g. `2011-05-23`."
+scalar Date @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date")
+
+"A datetime string with format `Y-m-d H:i:s`, e.g. `2018-05-23 13:43:32`."
+scalar DateTime @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\DateTime")
+
+"A RFC 5321 compliant email."
+scalar Email @scalar(class: "MLL\\GraphQLScalars\\Email")
+
+"A phone number string which must comply with E.123 international notation, including country code and with groups split by spaces."
+scalar PhoneNumber
+
+type LocalizedString {
+    en: String
+    fr: String
+}
+
+enum Language {
+    EN @enum(value: "en")
+    FR @enum(value: "fr")
+}
+
+type User {
+    id: ID!
+    firstName: String! @rename(attribute: "first_name")
+    lastName: String! @rename(attribute: "last_name")
+    email: Email!
+    telephone: PhoneNumber
+    preferredLang: Language @rename(attribute: "preferred_lang")
+}
+
+type Pool {
+    id: ID!
+    owner: User!
+    name: LocalizedString!
+    description: LocalizedString
+    classifications: [Classification]
+    essentialCriteria: [CmoAsset] @rename(attribute: "essential_criteria")
+    assetCriteria: [CmoAsset] @rename(attribute: "asset_criteria")
+    operationalRequirements: [OperationalRequirment] @rename(attribute: "operational_requirements")
+}
+
+enum PoolCandidateStatus {
+    AVAILABLE
+    PLACED
+    NO_LONGER_INTERESTED
+}
+
+type PoolCandidate {
+    id: ID!
+    pool: Pool!
+    user: User!
+    cmoIdentifier: ID @rename(attribute: "cmo_identifier")
+
+    """
+    Employment Equity fields
+    """
+    isWoman: Boolean @rename(attribute: "is_woman") @rename(attribute: "is_woman")
+    hasDisability: Boolean @rename(attribute: "has_disability")
+    isIndigenous: Boolean @rename(attribute: "is_indigenous")
+    isVisibleMinority: Boolean @rename(attribute: "is_visible_minority")
+
+    hasDiploma: Boolean @rename(attribute: "has_diploma")
+    languageAbility: LanguageAbility
+    locationPreferences: [WorkRegion]
+    acceptedOperationalRequirements: [OperationalRequirment]
+    expectedSalary: [SalaryRange]
+    expectedClassifications: [Classification]
+    cmoAssets: [CmoAsset]
+
+    status: PoolCandidateStatus!
+}
+
+enum LanguageAbility {
+    ENGLISH
+    FRENCH
+    BILINGUAL
+}
+
+enum WorkRegion {
+    TELEWORK
+    NATIONAL_CAPITAL
+    ATLANTIC
+    QUEBEC
+    ONTARIO
+    PRAIRIE
+    BRITISH_COLUMBIA
+    NORTH
+}
+
+"""
+eg Overtime as Required, Shift Work, Travel as Required, etc.
+"""
+enum OperationalRequirment {
+    OVERTIME_AS_REQUIRED
+    SHIFT_WORK
+    ON_CALL_24_7
+    TRAVEL_AS_REQUIRED
+    TRANSPORT_EQUIPMENT_20_KG
+    DRIVERS_LICENSE
+}
+
+# type OperationalRequirmentDB {
+#     id: ID!
+#     key: String!
+#     name: LocalizedString!
+# }
+
+"""
+Consider moving this to table to embed mapping to groups
+"""
+enum SalaryRange {
+    _50_59K
+    _60_69K
+    _70_79K
+    _80_89K
+    _90_99K
+    _100K_PLUS
+}
+
+type Classification {
+    id: ID!
+    name: LocalizedString
+    group: String!
+    level: Int!
+    minSalary: Int
+    maxSalary: Int
+}
+
+"""
+eg Application Development, Quality Asurance, Enterprise Architecture, IT Project Managment, etc.
+"""
+type CmoAsset {
+    id: ID!
+    key: String!
+    name: LocalizedString!
+}
+
+type Skill {
+    id: ID!
+    name: LocalizedString!
+    description: LocalizedString!
+}
+
+type Query {
+    users: [User]! @all
+    user(id: ID @eq): User @find
+    # skills: [Skill!]!
+}
+
+"""
+When creating a User, name and email are required.
+"""
+input CreateUserInput {
+    firstName: String! @rename(attribute: "first_name")
+    lastName: String! @rename(attribute: "last_name")
+    email: Email! @rules(apply: ["unique:users,email"])
+    telephone: PhoneNumber
+    preferredLang: Language @rename(attribute: "preferred_lang")
+    gender: String
+    hasDisability: Boolean @rename(attribute: "has_disability")
+    isIndigenous: Boolean @rename(attribute: "is_indigenous")
+    isVisibleMinority: Boolean @rename(attribute: "is_visible_minority")
+}
+
+"""
+When updating a User, all fields are optional, and email cannot be changed.
+"""
+input UpdateUserInput {
+   firstName: String @rename(attribute: "first_name")
+    lastName: String @rename(attribute: "last_name")
+    telephone: PhoneNumber
+    preferredLang: Language @rename(attribute: "preferred_lang")
+    gender: String
+    hasDisability: Boolean @rename(attribute: "has_disability")
+    isIndigenous: Boolean @rename(attribute: "is_indigenous")
+    isVisibleMinority: Boolean @rename(attribute: "is_visible_minority")
+}
+
+type Mutation {
+    createUser(user: CreateUserInput! @spread): User @create
+    updateUser(id: ID!, user: UpdateUserInput! @spread): User @update
+    deleteUser(id: ID!): User @delete(globalId: false)
+}
+
+
