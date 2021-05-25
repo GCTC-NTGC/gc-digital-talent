@@ -1,6 +1,6 @@
 ## Getting Started
 
-1. Ensure php and composer are installed. 
+1. Ensure php and composer are installed.
 2. Install dependencies with `composer install`
 3. Copy .env.example to .env and configure your local environment. Make sure to add a random string as your APP_KEY.
 4. Ensure pdo_pgsql is enabled in php by uncommenting the line `extension=pdo_pgsql` in your php.ini file.
@@ -17,4 +17,4 @@ To improve your editing experience, run `php artisan lighthouse:ide-helper` (not
 Documentation for the Lumen framework can be found on the [Lumen website](https://lumen.laravel.com/docs).
 
 Documentation on the Lighthouse GraphQL library can be found [here](https://lighthouse-php.com/).
-Lighthouse offers a [number of commands](https://lighthouse-php.com/5/api-reference/commands.html) which may be useful for devoloping your schema and data models: 
+Lighthouse offers a [number of commands](https://lighthouse-php.com/5/api-reference/commands.html) which may be useful for developing your schema and data models:

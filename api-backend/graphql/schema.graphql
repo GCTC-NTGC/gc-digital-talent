@@ -37,7 +37,7 @@ type Pool {
     classifications: [Classification]
     essentialCriteria: [CmoAsset] @rename(attribute: "essential_criteria")
     assetCriteria: [CmoAsset] @rename(attribute: "asset_criteria")
-    operationalRequirements: [OperationalRequirment] @rename(attribute: "operational_requirements")
+    operationalRequirements: [OperationalRequirement] @rename(attribute: "operational_requirements")
 }
 
 enum PoolCandidateStatus {
@@ -63,7 +63,7 @@ type PoolCandidate {
     hasDiploma: Boolean @rename(attribute: "has_diploma")
     languageAbility: LanguageAbility
     locationPreferences: [WorkRegion]
-    acceptedOperationalRequirements: [OperationalRequirment]
+    acceptedOperationalRequirements: [OperationalRequirement]
     expectedSalary: [SalaryRange]
     expectedClassifications: [Classification]
     cmoAssets: [CmoAsset]
@@ -91,7 +91,7 @@ enum WorkRegion {
 """
 eg Overtime as Required, Shift Work, Travel as Required, etc.
 """
-enum OperationalRequirment {
+enum OperationalRequirement {
     OVERTIME_AS_REQUIRED
     SHIFT_WORK
     ON_CALL_24_7
@@ -100,7 +100,7 @@ enum OperationalRequirment {
     DRIVERS_LICENSE
 }
 
-# type OperationalRequirmentDB {
+# type OperationalRequirementDB {
 #     id: ID!
 #     key: String!
 #     name: LocalizedString!
@@ -128,7 +128,7 @@ type Classification {
 }
 
 """
-eg Application Development, Quality Asurance, Enterprise Architecture, IT Project Managment, etc.
+eg Application Development, Quality Assurance, Enterprise Architecture, IT Project Management, etc.
 """
 type CmoAsset {
     id: ID!
