@@ -1,0 +1,37 @@
+version: '3.1'
+
+services:
+
+  postgres:
+    image: postgres:13.2
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: password1234
+    volumes:
+      - ./db:/docker-entrypoint-initdb.d/
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  adminer:
+    image: adminer
+    restart: always
+    links:
+      - postgres
+    ports:
+      - 8080:8080
+
+  php:
+    build: ./php-container
+    working_dir: /var/www/html
+    restart: always
+    volumes:
+      - ./php-container/src:/var/www/html/
+      - ../api-backend:/var/www/html/api-backend
+      - ../pools-admin:/var/www/html/pools-admin
+    ports:
+      - 8000:80
+      - 8001:443
+
+volumes:
+  pgdata:
