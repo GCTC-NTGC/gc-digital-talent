@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "Client side service using Lumen and ReactJS.",
   "main": "index.js",
+  "engines": {
+    "node": "14.16.1",
+    "npm": "7.12.0"
+  },
   "directories": {
     "test": "tests"
   },
