@@ -28,7 +28,7 @@ services:
     volumes:
       - ./php-container/src:/var/www/html/
       - ../api-backend:/var/www/html/api-backend
-      - ../pools-admin:/var/www/html/pools-admin
+      - ../admin:/var/www/html/admin
     ports:
       - 8000:80
       - 8001:443

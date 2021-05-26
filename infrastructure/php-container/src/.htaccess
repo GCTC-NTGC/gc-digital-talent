@@ -4,7 +4,7 @@
     RewriteRule ^phpinfo.php$ phpinfo.php [L]
     RewriteRule ^graphql-playground api-backend/public/graphql-playground [L]
     RewriteRule ^graphql api-backend/public/graphql [L]
-    RewriteRule ^(.*)$ pools-admin/public/$1 [L]
+    RewriteRule ^(.*)$ admin/public/$1 [L]
 </IfModule>
 
 #<IfModule mod_headers.c>
