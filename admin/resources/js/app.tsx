@@ -1,5 +1,17 @@
 import React from "react";
-import { render } from "react-dom";
+import ReactDOM from "react-dom";
+import { ApolloClient, InMemoryCache, gql } from "@apollo/client";
+import { ApolloProvider } from "@apollo/client/react";
 import Home from "./components/Home";
 
-render(<Home />, document.getElementById("app"));
+const client = new ApolloClient({
+  uri: process.env.API_URI,
+  cache: new InMemoryCache(),
+});
+
+ReactDOM.render(
+  <ApolloProvider client={client}>
+    <Home />
+  </ApolloProvider>,
+  document.getElementById("app"),
+);
