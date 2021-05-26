@@ -9,7 +9,7 @@
 4. Copy .env.example to .env and configure your local environment. Make sure to add a random string as your APP_KEY and set the API_URL to the GraphQL server's URL.
 5. If you are developing run `npm run h2-compile`. This will provide all the H2 style attributes. If you need a production ready css file then run `npm run h2-build`.
 6. Run `npm run dev` which will bundle up our assets.
-7. Start a development server with `php -S localhost:8080 -t public/`.
+7. Start a development server with `php -S localhost:3001 -t public/`.
 8. Visit https://localhost:8080 to view page.
 
 # Lumen PHP Framework
