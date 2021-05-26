@@ -2,8 +2,8 @@
     RewriteEngine on
     RewriteCond %{REQUEST_URI} ^(.*)
     RewriteRule ^phpinfo.php$ phpinfo.php [L]
-    RewriteRule ^graphql-playground api-backend/public/graphql-playground [L]
-    RewriteRule ^graphql api-backend/public/graphql [L]
+    RewriteRule ^graphql-playground api/public/graphql-playground [L]
+    RewriteRule ^graphql api/public/graphql [L]
     RewriteRule ^(.*)$ admin/public/$1 [L]
 </IfModule>
 

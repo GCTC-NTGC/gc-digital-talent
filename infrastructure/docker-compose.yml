@@ -27,7 +27,7 @@ services:
     restart: always
     volumes:
       - ./php-container/src:/var/www/html/
-      - ../api-backend:/var/www/html/api-backend
+      - ../api:/var/www/html/api
       - ../admin:/var/www/html/admin
     ports:
       - 8000:80
