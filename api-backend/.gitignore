@@ -7,3 +7,4 @@ Homestead.yaml
 programmatic-types.graphql
 schema-directives.graphql
 _lighthouse_ide_helper.php
+.DS_Store
