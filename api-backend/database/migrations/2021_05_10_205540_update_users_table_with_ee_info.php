@@ -13,7 +13,7 @@ class UpdateUsersTableWithEeInfo extends Migration
      */
     public function up()
     {
-        Schema::update('users', function (Blueprint $table) {
+        Schema::table('users', function (Blueprint $table) {
             $table->string('telephone')->nullable();
             $table->string('preferred_lang')->nullable();
             $table->string('gender')->nullable();
@@ -30,7 +30,7 @@ class UpdateUsersTableWithEeInfo extends Migration
      */
     public function down()
     {
-        Schema::update('users', function (Blueprint $table) {
+        Schema::table('users', function (Blueprint $table) {
             $table->dropColumn('telephone')->nullable();
             $table->dropColumn('preferred_lang');
             $table->dropColumn('gender');
