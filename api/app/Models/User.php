@@ -16,24 +16,17 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $email
  * @property string $first_name
  * @property string $last_name
- * @property string $password
+ * @property string $telephone
+ * @property string $preferred_lang
+ * @property Illuminate\Support\Carbon $created_at
+ * @property Illuminate\Support\Carbon $updated_at
  */
+
 class User extends Model
 // implements AuthenticatableContract, AuthorizableContract
 {
     // use Authenticatable, Authorizable, HasFactory;
     use HasFactory;
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'fist_name',
-        'last_name',
-        'email',
-    ];
 
     /**
      * The attributes excluded from the model's JSON form.
@@ -43,4 +36,8 @@ class User extends Model
     protected $hidden = [
         // 'password',
     ];
+
+    public function pools() {
+        return $this->hasMany(Pool::class);
+    }
 }

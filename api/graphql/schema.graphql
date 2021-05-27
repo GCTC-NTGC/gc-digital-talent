@@ -7,7 +7,7 @@ scalar DateTime @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date
 "A RFC 5321 compliant email."
 scalar Email @scalar(class: "MLL\\GraphQLScalars\\Email")
 
-"A phone number string which must comply with E.123 international notation, including country code and with groups split by spaces."
+"A phone number string which must comply with E.164 international notation, including country code and preceding '+'."
 scalar PhoneNumber
 
 type LocalizedString {
@@ -22,17 +22,18 @@ enum Language {
 
 type User {
     id: ID!
-    firstName: String! @rename(attribute: "first_name")
-    lastName: String! @rename(attribute: "last_name")
     email: Email!
+    firstName: String @rename(attribute: "first_name")
+    lastName: String @rename(attribute: "last_name")
     telephone: PhoneNumber
     preferredLang: Language @rename(attribute: "preferred_lang")
+    pools: [Pool] @hasMany
 }
 
 type Pool {
     id: ID!
-    owner: User!
-    name: LocalizedString!
+    owner: User @belongsTo(relation: "user")
+    name: LocalizedString
     description: LocalizedString
     classifications: [Classification]
     essentialCriteria: [CmoAsset] @rename(attribute: "essential_criteria")
@@ -48,8 +49,8 @@ enum PoolCandidateStatus {
 
 type PoolCandidate {
     id: ID!
-    pool: Pool!
-    user: User!
+    pool: Pool
+    user: User
     cmoIdentifier: ID @rename(attribute: "cmo_identifier")
 
     """
@@ -61,14 +62,14 @@ type PoolCandidate {
     isVisibleMinority: Boolean @rename(attribute: "is_visible_minority")
 
     hasDiploma: Boolean @rename(attribute: "has_diploma")
-    languageAbility: LanguageAbility
-    locationPreferences: [WorkRegion]
-    acceptedOperationalRequirements: [OperationalRequirement]
-    expectedSalary: [SalaryRange]
-    expectedClassifications: [Classification]
-    cmoAssets: [CmoAsset]
+    languageAbility: LanguageAbility @rename(attribute: "language_ability")
+    locationPreferences: [WorkRegion] @rename(attribute: "location_preferences")
+    acceptedOperationalRequirements: [OperationalRequirement] @rename(attribute: "accepted_operational_requirements")
+    expectedSalary: [SalaryRange] @rename(attribute: "expected_salary")
+    expectedClassifications: [Classification] @rename(attribute: "expected_classifications")
+    cmoAssets: [CmoAsset] @rename(attribute: "cmo_assets")
 
-    status: PoolCandidateStatus!
+    status: PoolCandidateStatus
 }
 
 enum LanguageAbility {
@@ -91,24 +92,21 @@ enum WorkRegion {
 """
 eg Overtime as Required, Shift Work, Travel as Required, etc.
 """
-enum OperationalRequirement {
-    OVERTIME_AS_REQUIRED
-    SHIFT_WORK
-    ON_CALL_24_7
-    TRAVEL_AS_REQUIRED
-    TRANSPORT_EQUIPMENT_20_KG
-    DRIVERS_LICENSE
+type OperationalRequirement {
+    id: ID!
+    key: String!
+    name: LocalizedString!
 }
-
-# type OperationalRequirementDB {
-#     id: ID!
-#     key: String!
-#     name: LocalizedString!
+# enum OperationalRequirement {
+#     OVERTIME_AS_REQUIRED
+#     SHIFT_WORK
+#     ON_CALL_24_7
+#     TRAVEL_AS_REQUIRED
+#     TRANSPORT_EQUIPMENT_20_KG
+#     DRIVERS_LICENSE
 # }
 
-"""
-Consider moving this to table to embed mapping to groups
-"""
+
 enum SalaryRange {
     _50_59K
     _60_69K
@@ -123,8 +121,8 @@ type Classification {
     name: LocalizedString
     group: String!
     level: Int!
-    minSalary: Int
-    maxSalary: Int
+    minSalary: Int @rename(attribute: "min_salary")
+    maxSalary: Int @rename(attribute: "max_salary")
 }
 
 """
@@ -138,14 +136,16 @@ type CmoAsset {
 
 type Skill {
     id: ID!
+    key: String!
     name: LocalizedString!
-    description: LocalizedString!
+    description: LocalizedString
 }
 
 type Query {
     users: [User]! @all
-    user(id: ID @eq): User @find
-    # skills: [Skill!]!
+    user(id: ID! @eq): User @find
+    pools(ownerId: ID @eq): [Pool]! @all
+    pool(id: ID! @eq): Pool @find
 }
 
 """
@@ -157,24 +157,20 @@ input CreateUserInput {
     email: Email! @rules(apply: ["unique:users,email"])
     telephone: PhoneNumber
     preferredLang: Language @rename(attribute: "preferred_lang")
-    gender: String
-    hasDisability: Boolean @rename(attribute: "has_disability")
-    isIndigenous: Boolean @rename(attribute: "is_indigenous")
-    isVisibleMinority: Boolean @rename(attribute: "is_visible_minority")
+    # gender: String
+    # hasDisability: Boolean @rename(attribute: "has_disability")
+    # isIndigenous: Boolean @rename(attribute: "is_indigenous")
+    # isVisibleMinority: Boolean @rename(attribute: "is_visible_minority")
 }
 
 """
 When updating a User, all fields are optional, and email cannot be changed.
 """
 input UpdateUserInput {
-   firstName: String @rename(attribute: "first_name")
+    firstName: String @rename(attribute: "first_name")
     lastName: String @rename(attribute: "last_name")
     telephone: PhoneNumber
     preferredLang: Language @rename(attribute: "preferred_lang")
-    gender: String
-    hasDisability: Boolean @rename(attribute: "has_disability")
-    isIndigenous: Boolean @rename(attribute: "is_indigenous")
-    isVisibleMinority: Boolean @rename(attribute: "is_visible_minority")
 }
 
 type Mutation {
