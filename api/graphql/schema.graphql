@@ -96,6 +96,7 @@ type OperationalRequirement {
     id: ID!
     key: String!
     name: LocalizedString!
+    description: LocalizedString
 }
 # enum OperationalRequirement {
 #     OVERTIME_AS_REQUIRED
@@ -132,6 +133,7 @@ type CmoAsset {
     id: ID!
     key: String!
     name: LocalizedString!
+    description: LocalizedString
 }
 
 type Skill {
