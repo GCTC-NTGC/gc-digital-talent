@@ -16,8 +16,8 @@ class CreatePoolsTable extends Migration
         Schema::create('pools', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->json('name')->default(json_encode(['en' => '', 'fr' => '']));
-            $table->json('description')->default(json_encode(['en' => '', 'fr' => '']));
+            $table->json('name')->nullable(false)->default(json_encode(['en' => '', 'fr' => '']));
+            $table->json('description')->nullable(false)->default(json_encode(['en' => '', 'fr' => '']));
             $table->foreignId('user_id');
         });
     }
