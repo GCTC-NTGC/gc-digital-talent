@@ -14,6 +14,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        $this->call(ClassificationSeeder::class);
+        $this->call(CmoAssetSeeder::class);
+        $this->call(OperationalRequirementSeeder::class);
+
         $this->call(UserSeeder::class);
         Pool::factory()->count(2)->create();
     }

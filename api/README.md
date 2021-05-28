@@ -57,6 +57,7 @@ When adding any new types to the schema, you will need to add a corresponding ta
 1. Define a db [migration](https://laravel.com/docs/8.x/migrations) which creates the table.
 2. Define a class which represents the [Eloquent](https://laravel.com/docs/8.x/eloquent) model in code.
 3. Add any directives to the schema necessary for linking the Type to the Eloquent model.
+4. (Optional) Create factory and db [seeders](https://laravel.com/docs/8.x/seeding) to generate test data.
 
 #### DB Migrations
 Generate a db migration that creates the table, using the command `php artisan make:migration Create<MyTableName>Table`.
@@ -84,3 +85,11 @@ After the eloquent models are defined, add Lighthouse [directives](https://light
 - Ensure your GraphQL Type and Eloquent Model share the same name.
 - Add the `@rename` attribute on any fields that don't exactly match the name of an Eloquent field (most likely to due to clashing case conventions).
 - Add [directives](https://lighthouse-php.com/5/eloquent/relationships.html) such as `@belongsTo` and `@hasMany` on fields that represent Eloquent relationships.
+
+#### Seeding data
+
+Most models should have an accompanying [Model Factory](https://laravel.com/docs/8.x/seeding#using-model-factories), which can be used to repeatedly generate items for local development, or unit tests.
+
+You should probably ensure some amount are generated in the main DatabaseSeeder.php file, or in another seeder file which is called by DatabaseSeeder.
+
+In the case of a lookup table expected to hold a fairly small amount of data, you may want to skip creating a Factory and simply define a seeder which adds specific values to the database, instead of random ones. In this case, you may want to use a method like `updateOrCreate` or `firstOrCreate` to ensure you don't create multiple entries for the same values.
