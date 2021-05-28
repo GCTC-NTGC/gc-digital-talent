@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { ApolloClient, InMemoryCache, gql } from "@apollo/client";
 import { ApolloProvider } from "@apollo/client/react";
-import AdminPage from "./components/AdminPage";
+import Home from "./components/Home";
 
 const client = new ApolloClient({
   uri: process.env.API_URI,
@@ -11,7 +11,7 @@ const client = new ApolloClient({
 
 ReactDOM.render(
   <ApolloProvider client={client}>
-    <AdminPage />
+    <Home />
   </ApolloProvider>,
   document.getElementById("app"),
 );

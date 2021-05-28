@@ -15,4 +15,5 @@
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
   },
+  "eslint.workingDirectories": ["admin"],
 }
