@@ -33,4 +33,17 @@ class Pool extends Model
     public function user() {
         return $this->belongsTo(User::class);
     }
+    public function classifications() {
+        return $this->belongsToMany(Classification::class);
+    }
+    public function operationalRequirements() {
+        return $this->belongsToMany(OperationalRequirement::class);
+    }
+    public function assetCriteria() {
+        return $this->belongsToMany(CmoAsset::class, 'asset_cmo_asset_pool');
+    }
+    public function essentialCriteria() {
+        return $this->belongsToMany(CmoAsset::class, 'essential_cmo_asset_pool');
+    }
+
 }

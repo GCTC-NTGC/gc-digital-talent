@@ -35,10 +35,10 @@ type Pool {
     owner: User @belongsTo(relation: "user")
     name: LocalizedString
     description: LocalizedString
-    classifications: [Classification]
-    essentialCriteria: [CmoAsset] @rename(attribute: "essential_criteria")
-    assetCriteria: [CmoAsset] @rename(attribute: "asset_criteria")
-    operationalRequirements: [OperationalRequirement] @rename(attribute: "operational_requirements")
+    classifications: [Classification] @belongsToMany
+    assetCriteria: [CmoAsset] @belongsToMany
+    essentialCriteria: [CmoAsset] @belongsToMany
+    operationalRequirements: [OperationalRequirement] @belongsToMany
 }
 
 enum PoolCandidateStatus {
