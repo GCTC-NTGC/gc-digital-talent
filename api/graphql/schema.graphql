@@ -56,7 +56,7 @@ type PoolCandidate {
     """
     Employment Equity fields
     """
-    isWoman: Boolean @rename(attribute: "is_woman") @rename(attribute: "is_woman")
+    isWoman: Boolean @rename(attribute: "is_woman")
     hasDisability: Boolean @rename(attribute: "has_disability")
     isIndigenous: Boolean @rename(attribute: "is_indigenous")
     isVisibleMinority: Boolean @rename(attribute: "is_visible_minority")

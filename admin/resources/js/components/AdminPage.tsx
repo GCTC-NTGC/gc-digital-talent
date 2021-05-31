@@ -1,0 +1,54 @@
+// import * as React from "react";
+// // import jsonServerProvider from "ra-data-json-server";
+// // import buildGraphQLProvider from "ra-data-graphql-simple";
+// import { ApolloClient, InMemoryCache, gql } from "@apollo/client";
+// import { Admin, DataProvider, Resource } from "react-admin";
+// import PostIcon from "@material-ui/icons/Book";
+// import UserIcon from "@material-ui/icons/Group";
+// import { UserList } from "./Users";
+// import { PostCreate, PostEdit, PostList } from "./Posts";
+// import Dashboard from "./Dashboard";
+// import authProvider from "../authProvider";
+
+// // const dataProvider = jsonServerProvider('https://jsonplaceholder.typicode.com');
+
+// // const client = new ApolloClient({
+// //   uri: process.env.API_URI,
+// //   cache: new InMemoryCache(),
+// // });
+
+// const AdminPage = () => {
+//   // const [dataProvider, setDataProvider] =
+//   //   React.useState<DataProvider | null>(null);
+
+//   // React.useEffect(() => {
+//   //   buildGraphQLProvider({ client }).then((dataProvider: DataProvider) =>
+//   //     setDataProvider(dataProvider),
+//   //   );
+//   // });
+
+//   return (
+//     <>
+//       {!dataProvider ? (
+//         <div>Loading</div>
+//       ) : (
+//         <Admin
+//           dashboard={Dashboard}
+//           authProvider={authProvider}
+//           dataProvider={dataProvider}
+//         >
+//           <Resource name="users" list={UserList} icon={UserIcon} />
+//           {/* <Resource
+//             name="posts"
+//             list={PostList}
+//             edit={PostEdit}
+//             create={PostCreate}
+//             icon={PostIcon}
+//           /> */}
+//         </Admin>
+//       )}
+//     </>
+//   );
+// };
+
+// export default AdminPage;
