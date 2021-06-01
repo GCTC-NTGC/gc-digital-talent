@@ -1,0 +1,34 @@
+{
+  "name": "@graphql-tools/relay-operation-optimizer/es5",
+  "version": "6.3.0",
+  "description": "Package for optimizing your GraphQL operations relay style.",
+  "sideEffects": false,
+  "peerDependencies": {
+    "graphql": "^14.0.0 || ^15.0.0"
+  },
+  "dependencies": {
+    "@graphql-tools/utils": "^7.1.0",
+    "relay-compiler": "10.1.0",
+    "tslib": "~2.0.1"
+  },
+  "repository": "git@github.com:ardatan/graphql-tools.git",
+  "keywords": [
+    "graphql",
+    "codegen",
+    "graphql-codegen",
+    "plugin",
+    "relay"
+  ],
+  "author": {
+    "name": "Laurin Quast",
+    "email": "laurinquast@googlemail.com",
+    "url": "https://github.com/n1ru4l"
+  },
+  "license": "MIT",
+  "main": "index.cjs.js",
+  "module": "index.esm.js",
+  "typings": "index.d.ts",
+  "typescript": {
+    "definition": "index.d.ts"
+  }
+}
