@@ -64,7 +64,7 @@ Generate a db migration that creates the table, using the command `php artisan m
 
 - Table and column names should be snake_case. Table names should be pluralized. A foreign id should use the singular name for the table, plus `_id`. Pivot tables should be a combination of the two table names, singular, in alphabetical order. In general, follow the Laravel [key conventions](https://laravel.com/docs/8.x/eloquent-relationships).
 - A new table should always include an id and timestamps, even if timestamps aren't in the schema. They're useful for debugging, and may be needed in the future.
-- The `string` column type has a max length of **191** characters. Use it for fields which represent enums, or which will only represent simple, short strings (eg emails, phone numbers). For any free-form text, use the `text` column type instead.
+- The `string` column type has a max length of **191** characters. Use it for fields which represent enums, or which will only represent simple, short strings (eg emails, phone numbers). For any free-form text, or fields which represent an array of enums, use the `text` column type instead.
 - It is good practice to make the nullability of a column explicit, with `->nullable()` or `->nullable(false)`. A non-nullable column is one that *must* be set at creation, or should have a default value.
 - Represent LocalizedStrings with a non-nullable `json` column, and set the default with `->default(json_encode(['en' => '', 'fr' => '']))`.
 - Use the `->foreignId` method to define foreign id columns.
