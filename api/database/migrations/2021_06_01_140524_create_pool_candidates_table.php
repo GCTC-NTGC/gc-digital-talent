@@ -46,7 +46,7 @@ class CreatePoolCandidatesTable extends Migration
             $table->foreignId('pool_candidate_id')->nullable(false);;
             $table->foreignId('classification_id')->nullable(false);;
         });
-        Schema::create('cmo_asset_candidate', function (Blueprint $table) {
+        Schema::create('cmo_asset_pool_candidate', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
             $table->foreignId('pool_candidate_id')->nullable(false);;
@@ -64,6 +64,6 @@ class CreatePoolCandidatesTable extends Migration
         Schema::dropIfExists('pool_candidates');
         Schema::dropIfExists('operational_requirement_pool_candidate');
         Schema::dropIfExists('classification_pool_candidate');
-        Schema::dropIfExists('cmo_asset_candidate');
+        Schema::dropIfExists('cmo_asset_pool_candidate');
     }
 }

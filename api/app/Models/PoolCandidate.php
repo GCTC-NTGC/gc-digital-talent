@@ -45,11 +45,11 @@ class PoolCandidate extends Model
     public function pool() {
         return $this->belongsTo(Pool::class);
     }
-    public function operationalRequirements() {
-        return $this->belongsToMany(OperationalRequirement::class);
+    public function acceptedOperationalRequirements() {
+        return $this->belongsToMany(OperationalRequirement::class, 'operational_requirement_pool_candidate');
     }
-    public function classifications() {
-        return $this->belongsToMany(Classification::class);
+    public function expectedClassifications() {
+        return $this->belongsToMany(Classification::class, 'classification_pool_candidate');
     }
     public function cmoAssets() {
         return $this->belongsToMany(CmoAsset::class);
