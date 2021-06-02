@@ -1,5 +1,5 @@
 import * as React from "react";
-import { useRecordContext } from 'react-admin';
+import { FieldProps, useRecordContext } from 'react-admin';
 import { makeStyles } from '@material-ui/core/styles';
 import LaunchIcon from '@material-ui/icons/Launch';
 
@@ -14,10 +14,10 @@ const useStyles = makeStyles({
     },
 });
 
-const MyUrlField = ({ source }: any) => {
+const MyUrlField = ({ source }: FieldProps): React.ReactElement | null => {
     const record = useRecordContext();
     const classes = useStyles();
-    return record ? (
+    return record && source ? (
         <a href={record[source]} className={classes.link}>
             {record[source]}
             <LaunchIcon className={classes.icon} />
