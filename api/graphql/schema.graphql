@@ -102,15 +102,6 @@ type OperationalRequirement {
     name: LocalizedString!
     description: LocalizedString
 }
-# enum OperationalRequirement {
-#     OVERTIME_AS_REQUIRED
-#     SHIFT_WORK
-#     ON_CALL_24_7
-#     TRAVEL_AS_REQUIRED
-#     TRANSPORT_EQUIPMENT_20_KG
-#     DRIVERS_LICENSE
-# }
-
 
 enum SalaryRange {
     _50_59K
@@ -140,13 +131,6 @@ type CmoAsset {
     description: LocalizedString
 }
 
-type Skill {
-    id: ID!
-    key: String!
-    name: LocalizedString!
-    description: LocalizedString
-}
-
 type Query {
     users: [User]! @all
     user(id: ID! @eq): User @find
@@ -154,6 +138,10 @@ type Query {
     pool(id: ID! @eq): Pool @find
     poolCandidates: [PoolCandidate]! @all
     poolCandidate(id: ID! @eq): PoolCandidate @find
+
+    classifications: [Classification]! @all
+    operationalRequirements: [OperationalRequirement]! @all
+    cmoAssets: [CmoAsset]! @all
 }
 
 """
@@ -165,10 +153,6 @@ input CreateUserInput {
     email: Email! @rules(apply: ["unique:users,email"])
     telephone: PhoneNumber
     preferredLang: Language @rename(attribute: "preferred_lang")
-    # gender: String
-    # hasDisability: Boolean @rename(attribute: "has_disability")
-    # isIndigenous: Boolean @rename(attribute: "is_indigenous")
-    # isVisibleMinority: Boolean @rename(attribute: "is_visible_minority")
 }
 
 """
