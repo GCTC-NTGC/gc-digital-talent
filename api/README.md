@@ -64,9 +64,10 @@ Generate a db migration that creates the table, using the command `php artisan m
 
 - Table and column names should be snake_case. Table names should be pluralized. A foreign id should use the singular name for the table, plus `_id`. Pivot tables should be a combination of the two table names, singular, in alphabetical order. In general, follow the Laravel [key conventions](https://laravel.com/docs/8.x/eloquent-relationships).
 - A new table should always include an id and timestamps, even if timestamps aren't in the schema. They're useful for debugging, and may be needed in the future.
-- The `string` column type has a max length of **191** characters. Use it for fields which represent enums, or which will only represent simple, short strings (eg emails, phone numbers). For any free-form text, or fields which represent an array of enums, use the `text` column type instead.
+- The `string` column type has a max length of **191** characters. Use it for fields which represent enums, or which will only represent simple, short strings (eg emails, phone numbers). For any free-form text use the `text` column type instead.
+- For a field which represents a list of enums, use a `jsonb` column.
 - It is good practice to make the nullability of a column explicit, with `->nullable()` or `->nullable(false)`. A non-nullable column is one that *must* be set at creation, or should have a default value.
-- Represent LocalizedStrings with a non-nullable `json` column, and set the default with `->default(json_encode(['en' => '', 'fr' => '']))`.
+- Represent LocalizedStrings with a non-nullable `jsonb` column, and set the default with `->default(json_encode(['en' => '', 'fr' => '']))`.
 - Use the `->foreignId` method to define foreign id columns.
 
 #### Eloquent Models
@@ -75,7 +76,7 @@ Define new models in the App\Models folder.
 
 - It is helpful to list the columns in class docstring.
 - It is not necessary to define the [fillable array](https://laravel.com/docs/8.x/eloquent#mass-assignment).
-- It *is* necessary to define the [casts array](https://laravel.com/docs/8.x/eloquent-mutators#attribute-casting) for certain fields. Any json columns in the database must be cast to 'array', and any dates or datetimes must be cast (besides updated_at and create_at, which Laravel casts by default).
+- It *is* necessary to define the [casts array](https://laravel.com/docs/8.x/eloquent-mutators#attribute-casting) for certain fields. Any json columns in the database must be cast to 'array' (such as LocalizedStrings or arrays of enums), and any dates or datetimes must be cast (besides updated_at and create_at, which Laravel casts by default).
 - Remember to define any [relationships](https://laravel.com/docs/8.x/eloquent-relationships) on the new class, and on existing classes it relates to.
 
 #### Touching up the Schema
@@ -92,4 +93,4 @@ Most models should have an accompanying [Model Factory](https://laravel.com/docs
 
 You should probably ensure some amount are generated in the main DatabaseSeeder.php file, or in another seeder file which is called by DatabaseSeeder.
 
-In the case of a lookup table expected to hold a fairly small amount of data, you may want to skip creating a Factory and simply define a seeder which adds specific values to the database, instead of random ones. In this case, you may want to use a method like `updateOrCreate` or `firstOrCreate` to ensure you don't create multiple entries for the same values.
+In the case of a lookup table expected to hold a fairly small amount of data, you may want to skip creating a Factory and simply define a seeder which adds specific values to the database, instead of random ones. In this case, you may want to use a method like `updateOrCreate` or `firstOrCreate` to ensure you don't add duplicate values when the seeder is run multiple times.
