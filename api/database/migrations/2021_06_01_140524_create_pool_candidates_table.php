@@ -27,8 +27,8 @@ class CreatePoolCandidatesTable extends Migration
 
             $table->boolean('has_diploma')->nullable(true);
             $table->string('language_ability')->nullable(true);
-            $table->text('location_preferences')->nullable(true);
-            $table->text('expected_salary')->nullable(true);
+            $table->jsonb('location_preferences')->nullable(true);
+            $table->jsonb('expected_salary')->nullable(true);
             $table->string('pool_candidate_status')->nullable(true);
 
             $table->foreignId('pool_id')->nullable(false);

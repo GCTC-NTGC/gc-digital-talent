@@ -28,6 +28,7 @@ type User {
     telephone: PhoneNumber
     preferredLang: Language @rename(attribute: "preferred_lang")
     pools: [Pool] @hasMany
+    poolCandidates: [PoolCandidate] @hasMany
 }
 
 type Pool {
@@ -39,6 +40,7 @@ type Pool {
     assetCriteria: [CmoAsset] @belongsToMany
     essentialCriteria: [CmoAsset] @belongsToMany
     operationalRequirements: [OperationalRequirement] @belongsToMany
+    poolCandidates: [PoolCandidate] @hasMany
 }
 
 enum PoolCandidateStatus {
@@ -50,8 +52,8 @@ enum PoolCandidateStatus {
 
 type PoolCandidate {
     id: ID!
-    pool: Pool
-    user: User
+    pool: Pool @belongsTo
+    user: User @belongsTo
 
     # cmoIdentifier can be an arbitrary string used to relate this candidate to an external database.
     cmoIdentifier: ID @rename(attribute: "cmo_identifier")
@@ -66,10 +68,10 @@ type PoolCandidate {
     hasDiploma: Boolean @rename(attribute: "has_diploma")
     languageAbility: LanguageAbility @rename(attribute: "language_ability")
     locationPreferences: [WorkRegion] @rename(attribute: "location_preferences")
-    acceptedOperationalRequirements: [OperationalRequirement] @rename(attribute: "accepted_operational_requirements")
+    acceptedOperationalRequirements: [OperationalRequirement] @belongsToMany
     expectedSalary: [SalaryRange] @rename(attribute: "expected_salary")
-    expectedClassifications: [Classification] @rename(attribute: "expected_classifications")
-    cmoAssets: [CmoAsset] @rename(attribute: "cmo_assets")
+    expectedClassifications: [Classification] @belongsToMany
+    cmoAssets: [CmoAsset] @belongsToMany
 
     status: PoolCandidateStatus
 }
@@ -148,8 +150,10 @@ type Skill {
 type Query {
     users: [User]! @all
     user(id: ID! @eq): User @find
-    pools(ownerId: ID @eq): [Pool]! @all
+    pools: [Pool]! @all
     pool(id: ID! @eq): Pool @find
+    poolCandidates: [PoolCandidate]! @all
+    poolCandidate(id: ID! @eq): PoolCandidate @find
 }
 
 """

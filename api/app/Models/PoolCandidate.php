@@ -17,8 +17,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property boolean $is_visible_minority
  * @property boolean $has_diploma
  * @property string $language_ability
- * @property string $location_preferences
- * @property string $expected_salary
+ * @property array $location_preferences
+ * @property array $expected_salary
  * @property string $pool_candidate_status
  * @property int $pool_id
  * @property int $user_id
@@ -37,6 +37,8 @@ class PoolCandidate extends Model
      */
     protected $casts = [
         'expiry_date' => 'date',
+        'location_preferences' => 'array',
+        'expected_salary' => 'array'
     ];
 
     public function user() {

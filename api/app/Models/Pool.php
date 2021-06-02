@@ -45,5 +45,7 @@ class Pool extends Model
     public function essentialCriteria() {
         return $this->belongsToMany(CmoAsset::class, 'essential_cmo_asset_pool');
     }
-
+    public function poolCandidates() {
+        return $this->hasMany(PoolCandidate::class);
+    }
 }

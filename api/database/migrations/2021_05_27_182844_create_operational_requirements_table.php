@@ -17,8 +17,8 @@ class CreateOperationalRequirementsTable extends Migration
             $table->id();
             $table->timestamps();
             $table->string('key')->nullable(false);
-            $table->json('name')->nullable(false)->default(json_encode(['en' => '', 'fr' => '']));
-            $table->json('description')->nullable(false)->default(json_encode(['en' => '', 'fr' => '']));
+            $table->jsonb('name')->nullable(false)->default(json_encode(['en' => '', 'fr' => '']));
+            $table->jsonb('description')->nullable(false)->default(json_encode(['en' => '', 'fr' => '']));
         });
     }
 

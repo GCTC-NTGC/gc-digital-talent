@@ -40,4 +40,7 @@ class User extends Model
     public function pools() {
         return $this->hasMany(Pool::class);
     }
+    public function poolCandidates() {
+        return $this->hasMany(PoolCandidate::class);
+    }
 }

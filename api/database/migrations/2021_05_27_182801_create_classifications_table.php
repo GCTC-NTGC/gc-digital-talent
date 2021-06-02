@@ -16,7 +16,7 @@ class CreateClassificationsTable extends Migration
         Schema::create('classifications', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->json('name')->nullable(false)->default(json_encode(['en' => '', 'fr' => '']));
+            $table->jsonb('name')->nullable(false)->default(json_encode(['en' => '', 'fr' => '']));
             $table->string('group')->nullable(false);
             $table->integer('level')->nullable(false);
             $table->integer('min_salary')->nullable();

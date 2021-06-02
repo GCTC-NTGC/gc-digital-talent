@@ -35,24 +35,30 @@ class PoolCandidateFactory extends Factory
             'is_visible_minority' => $this->faker->boolean(),
             'has_diploma' => $this->faker->boolean(),
             'language_ability' => $this->faker->randomElement(['FRENCH', 'ENGLISH', 'BILINGUAL']),
-            'location_preferences' => $this->faker->randomElement([
-                'TELEWORK',
-                'NATIONAL_CAPITAL',
-                'ATLANTIC',
-                'QUEBEC',
-                'ONTARIO',
-                'PRAIRIE',
-                'BRITISH_COLUMBIA',
-                'NORTH',
-            ]),
-            'expected_salary' => $this->faker->randomElement([
-                '_50_59K',
-                '_60_69K',
-                '_70_79K',
-                '_80_89K',
-                '_90_99K',
-                '_100K_PLUS',
-            ]),
+            'location_preferences' => $this->faker->randomElements(
+                [
+                    'TELEWORK',
+                    'NATIONAL_CAPITAL',
+                    'ATLANTIC',
+                    'QUEBEC',
+                    'ONTARIO',
+                    'PRAIRIE',
+                    'BRITISH_COLUMBIA',
+                    'NORTH',
+                ],
+                3
+            ),
+            'expected_salary' => $this->faker->randomElements(
+                [
+                    '_50_59K',
+                    '_60_69K',
+                    '_70_79K',
+                    '_80_89K',
+                    '_90_99K',
+                    '_100K_PLUS',
+                ],
+                3
+            ),
             'pool_candidate_status' => $this->faker->randomElement([
                 'AVAILABLE',
                 'PLACED_INDETERMINATE',
