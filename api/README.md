@@ -31,3 +31,23 @@ Documentation for the Lumen framework can be found on the [Lumen website](https:
 
 Documentation on the Lighthouse GraphQL library can be found [here](https://lighthouse-php.com/).
 Lighthouse offers a [number of commands](https://lighthouse-php.com/5/api-reference/commands.html) which may be useful for developing your schema and data models:
+
+## Generating Typescript Types
+
+1. Ensure the api service is running (visit http://localhost:8000/graphql-playground to confirm)
+
+2. Run
+
+```
+npm install
+```
+
+3. There is a script in the package.json file. To execute
+
+```
+npm run generate
+```
+
+File should be generated in the /src file called types.d.ts (as specified in the codegen.yml file)
+
+Done.
