@@ -3,3 +3,9 @@ generates:
   ./src/types.d.ts:
     plugins:
       - typescript
+    config:
+      scalars:
+        Date: string
+        DateTime: string
+        Email: string
+        PhoneNumber: string

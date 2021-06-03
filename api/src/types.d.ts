@@ -10,13 +10,13 @@ export type Scalars = {
   Int: number;
   Float: number;
   /** A date string with format `Y-m-d`, e.g. `2011-05-23`. */
-  Date: any;
+  Date: string;
   /** A datetime string with format `Y-m-d H:i:s`, e.g. `2018-05-23 13:43:32`. */
-  DateTime: any;
+  DateTime: string;
   /** A RFC 5321 compliant email. */
-  Email: any;
+  Email: string;
   /** A phone number string which must comply with E.123 international notation, including country code and with groups split by spaces. */
-  PhoneNumber: any;
+  PhoneNumber: string;
 };
 
 export type Classification = {
