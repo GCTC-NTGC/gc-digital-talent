@@ -1,9 +1,9 @@
 import * as React from "react";
-import { Card, CardContent, CardHeader } from '@material-ui/core';
+import { Card, CardContent, CardHeader } from "@material-ui/core";
 
-export default () => (
-    <Card>
-        <CardHeader title="Welcome to the administration" />
-        <CardContent>Lorem ipsum sic dolor amet...</CardContent>
-    </Card>
+export default (): React.ReactElement => (
+  <Card>
+    <CardHeader title="GC Digital Talent" />
+    <CardContent>GC Digital Talent</CardContent>
+  </Card>
 );
