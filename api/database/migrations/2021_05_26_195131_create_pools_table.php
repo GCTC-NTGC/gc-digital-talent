@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUsersTable extends Migration
+class CreatePoolsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,12 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('pools', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->string('email')->nullable(false);
-            $table->string('first_name')->nullable();
-            $table->string('last_name')->nullable();
-            $table->string('telephone')->nullable();
-            $table->string('preferred_lang')->nullable();
+            $table->jsonb('name')->nullable(false)->default(json_encode(['en' => '', 'fr' => '']));
+            $table->jsonb('description')->nullable(false)->default(json_encode(['en' => '', 'fr' => '']));
+            $table->foreignId('user_id');
         });
     }
 
@@ -31,6 +29,6 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('pools');
     }
 }

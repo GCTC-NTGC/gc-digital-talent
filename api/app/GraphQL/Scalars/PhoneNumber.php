@@ -15,13 +15,14 @@ class PhoneNumber extends Regex
      * @var string
      */
     public $description = <<<'DESCRIPTION'
-A phone number which complies with E.123 international notation.
-Such a phone number is composed of a country code (preceded by a '+'), and then three digit area code
-and a local number (in groups of three and four), divided into groups by spaces.
+A phone number which complies with E.164 international notation.
+Such a phone number is composed of a '+', a country code (1-3 digits), and then a subscriber number (1-12 digits).
+The number is not broken up by any spaces, dashes, parentheses, etc.
+Note that the country code for Canada and the US is +1.
 DESCRIPTION;
 
     public static function regex(): string
     {
-        return '/^\+[0-9]{1,3} [0-9]{3} [0-9]{3} [0-9]{4}$/';
+        return '/^\+[1-9]\d{1,14}$/';
     }
 }

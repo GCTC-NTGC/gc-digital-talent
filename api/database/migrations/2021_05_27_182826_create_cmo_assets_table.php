@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCandidatesTable extends Migration
+class CreateCmoAssetsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,12 @@ class CreateCandidatesTable extends Migration
      */
     public function up()
     {
-        Schema::create('candidates', function (Blueprint $table) {
+        Schema::create('cmo_assets', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->string('key')->nullable(false);
+            $table->jsonb('name')->nullable(false)->default(json_encode(['en' => '', 'fr' => '']));
+            $table->jsonb('description')->nullable(false)->default(json_encode(['en' => '', 'fr' => '']));
         });
     }
 
@@ -26,6 +29,6 @@ class CreateCandidatesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('candidates');
+        Schema::dropIfExists('cmo_assets');
     }
 }
