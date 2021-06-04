@@ -15,4 +15,5 @@
 
 $router->get('/', 'HomePageController@index');
 $router->get('/dashboard', 'DashboardController@index');
+$router->get('/dashboard/{page}', 'DashboardController@index');
 
