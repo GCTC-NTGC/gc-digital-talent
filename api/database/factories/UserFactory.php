@@ -25,6 +25,8 @@ class UserFactory extends Factory
             'first_name' => $this->faker->firstName(),
             'last_name' => $this->faker->lastName(),
             'email' => $this->faker->unique()->safeEmail,
+            'telephone' => $this->faker->e164PhoneNumber(),
+            'preferred_lang' => $this->faker->randomElement(['en', 'fr']),
         ];
     }
 }

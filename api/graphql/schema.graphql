@@ -7,7 +7,7 @@ scalar DateTime @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date
 "A RFC 5321 compliant email."
 scalar Email @scalar(class: "MLL\\GraphQLScalars\\Email")
 
-"A phone number string which must comply with E.123 international notation, including country code and with groups split by spaces."
+"A phone number string which must comply with E.164 international notation, including country code and preceding '+'."
 scalar PhoneNumber
 
 type LocalizedString {
@@ -22,53 +22,58 @@ enum Language {
 
 type User {
     id: ID!
-    firstName: String! @rename(attribute: "first_name")
-    lastName: String! @rename(attribute: "last_name")
     email: Email!
+    firstName: String @rename(attribute: "first_name")
+    lastName: String @rename(attribute: "last_name")
     telephone: PhoneNumber
     preferredLang: Language @rename(attribute: "preferred_lang")
+    pools: [Pool] @hasMany
+    poolCandidates: [PoolCandidate] @hasMany
 }
 
 type Pool {
     id: ID!
-    owner: User!
-    name: LocalizedString!
+    owner: User @belongsTo(relation: "user")
+    name: LocalizedString
     description: LocalizedString
-    classifications: [Classification]
-    essentialCriteria: [CmoAsset] @rename(attribute: "essential_criteria")
-    assetCriteria: [CmoAsset] @rename(attribute: "asset_criteria")
-    operationalRequirements: [OperationalRequirement] @rename(attribute: "operational_requirements")
+    classifications: [Classification] @belongsToMany
+    assetCriteria: [CmoAsset] @belongsToMany
+    essentialCriteria: [CmoAsset] @belongsToMany
+    operationalRequirements: [OperationalRequirement] @belongsToMany
+    poolCandidates: [PoolCandidate] @hasMany
 }
 
 enum PoolCandidateStatus {
     AVAILABLE
-    PLACED
+    PLACED_INDETERMINATE
+    PLACED_TERM
     NO_LONGER_INTERESTED
 }
 
 type PoolCandidate {
     id: ID!
-    pool: Pool!
-    user: User!
-    cmoIdentifier: ID @rename(attribute: "cmo_identifier")
+    pool: Pool @belongsTo
+    user: User @belongsTo
 
-    """
-    Employment Equity fields
-    """
+    # cmoIdentifier can be an arbitrary string used to relate this candidate to an external database.
+    cmoIdentifier: ID @rename(attribute: "cmo_identifier")
+    # Expiry date for this candidate being in the pool.
+    expiryDate: Date
+
     isWoman: Boolean @rename(attribute: "is_woman")
     hasDisability: Boolean @rename(attribute: "has_disability")
     isIndigenous: Boolean @rename(attribute: "is_indigenous")
     isVisibleMinority: Boolean @rename(attribute: "is_visible_minority")
 
     hasDiploma: Boolean @rename(attribute: "has_diploma")
-    languageAbility: LanguageAbility
-    locationPreferences: [WorkRegion]
-    acceptedOperationalRequirements: [OperationalRequirement]
-    expectedSalary: [SalaryRange]
-    expectedClassifications: [Classification]
-    cmoAssets: [CmoAsset]
+    languageAbility: LanguageAbility @rename(attribute: "language_ability")
+    locationPreferences: [WorkRegion] @rename(attribute: "location_preferences")
+    acceptedOperationalRequirements: [OperationalRequirement] @belongsToMany
+    expectedSalary: [SalaryRange] @rename(attribute: "expected_salary")
+    expectedClassifications: [Classification] @belongsToMany
+    cmoAssets: [CmoAsset] @belongsToMany
 
-    status: PoolCandidateStatus!
+    status: PoolCandidateStatus
 }
 
 enum LanguageAbility {
@@ -91,24 +96,13 @@ enum WorkRegion {
 """
 eg Overtime as Required, Shift Work, Travel as Required, etc.
 """
-enum OperationalRequirement {
-    OVERTIME_AS_REQUIRED
-    SHIFT_WORK
-    ON_CALL_24_7
-    TRAVEL_AS_REQUIRED
-    TRANSPORT_EQUIPMENT_20_KG
-    DRIVERS_LICENSE
+type OperationalRequirement {
+    id: ID!
+    key: String!
+    name: LocalizedString!
+    description: LocalizedString
 }
 
-# type OperationalRequirementDB {
-#     id: ID!
-#     key: String!
-#     name: LocalizedString!
-# }
-
-"""
-Consider moving this to table to embed mapping to groups
-"""
 enum SalaryRange {
     _50_59K
     _60_69K
@@ -123,8 +117,8 @@ type Classification {
     name: LocalizedString
     group: String!
     level: Int!
-    minSalary: Int
-    maxSalary: Int
+    minSalary: Int @rename(attribute: "min_salary")
+    maxSalary: Int @rename(attribute: "max_salary")
 }
 
 """
@@ -134,18 +128,20 @@ type CmoAsset {
     id: ID!
     key: String!
     name: LocalizedString!
-}
-
-type Skill {
-    id: ID!
-    name: LocalizedString!
-    description: LocalizedString!
+    description: LocalizedString
 }
 
 type Query {
     users: [User]! @all
-    user(id: ID @eq): User @find
-    # skills: [Skill!]!
+    user(id: ID! @eq): User @find
+    pools: [Pool]! @all
+    pool(id: ID! @eq): Pool @find
+    poolCandidates: [PoolCandidate]! @all
+    poolCandidate(id: ID! @eq): PoolCandidate @find
+
+    classifications: [Classification]! @all
+    operationalRequirements: [OperationalRequirement]! @all
+    cmoAssets: [CmoAsset]! @all
 }
 
 """
@@ -157,24 +153,16 @@ input CreateUserInput {
     email: Email! @rules(apply: ["unique:users,email"])
     telephone: PhoneNumber
     preferredLang: Language @rename(attribute: "preferred_lang")
-    gender: String
-    hasDisability: Boolean @rename(attribute: "has_disability")
-    isIndigenous: Boolean @rename(attribute: "is_indigenous")
-    isVisibleMinority: Boolean @rename(attribute: "is_visible_minority")
 }
 
 """
 When updating a User, all fields are optional, and email cannot be changed.
 """
 input UpdateUserInput {
-   firstName: String @rename(attribute: "first_name")
+    firstName: String @rename(attribute: "first_name")
     lastName: String @rename(attribute: "last_name")
     telephone: PhoneNumber
     preferredLang: Language @rename(attribute: "preferred_lang")
-    gender: String
-    hasDisability: Boolean @rename(attribute: "has_disability")
-    isIndigenous: Boolean @rename(attribute: "is_indigenous")
-    isVisibleMinority: Boolean @rename(attribute: "is_visible_minority")
 }
 
 type Mutation {
