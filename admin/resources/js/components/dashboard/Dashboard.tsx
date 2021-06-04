@@ -1,5 +1,6 @@
 import React from "react";
 import { Link, useLocation } from "../../helpers/router";
+import SideMenu, { MenuItem } from "../menu/SideMenu";
 
 export const exactMatch = (ref: string, test: string): boolean => ref == test;
 export const startsWith = (ref: string, test: string): boolean =>
@@ -30,23 +31,18 @@ export const Dashboard: React.FC = () => {
   return (
     <div>
       <p>Current path: {location.pathname}</p>
-      <nav>
-        <ul>
-          <li>
-            <MenuLink href="/dashboard" text="Home" isActive={exactMatch} />
-          </li>
-        </ul>
-        <ul>
-          <li>
-            <MenuLink href="/dashboard/users" text="Users" />
-          </li>
-        </ul>
-        <ul>
-          <li>
-            <MenuLink href="/dashboard/pools" text="Pools" />
-          </li>
-        </ul>
-      </nav>
+      <SideMenu
+        items={[
+          <MenuLink
+            key="home"
+            href="/dashboard"
+            text="Home"
+            isActive={exactMatch}
+          />,
+          <MenuLink key="users" href="/dashboard/users" text="Users" />,
+          <MenuLink key="pools" href="/dashboard/pools" text="Pools" />,
+        ]}
+      />
     </div>
   );
 };
