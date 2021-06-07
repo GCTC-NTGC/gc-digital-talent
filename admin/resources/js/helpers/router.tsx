@@ -51,7 +51,7 @@ export interface RouterResult {
 }
 
 export const useRouter = (
-  routes: Routes<any, RouterResult>,
+  routes: Routes<RouterResult>,
 ): React.ReactElement | null => {
   const location = useLocation();
   const router = useMemo(() => new UniversalRouter(routes), [routes]);
@@ -59,10 +59,12 @@ export const useRouter = (
   const path = location.pathname;
   // Render the result of routing
   useEffect((): void => {
-    router.resolve(path).then((result): void => {
-      if (result.redirect) {
+    router.resolve(path).then(async (r) => {
+      // r may or may not be a promise, so attempt to resolve it. A non-promise value will simply resove to itself.
+      const result = await Promise.resolve(r);
+      if (result?.redirect) {
         redirect(result.redirect);
-      } else {
+      } else if (result) {
         setComponent(result.component);
       }
     });
