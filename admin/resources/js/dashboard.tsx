@@ -1,5 +1,5 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { Dashboard } from "./components/dashboard/Dashboard";
+import { PoolDashboard } from "./components/PoolDashboard";
 
-ReactDOM.render(<Dashboard />, document.getElementById("app"));
+ReactDOM.render(<PoolDashboard />, document.getElementById("app"));

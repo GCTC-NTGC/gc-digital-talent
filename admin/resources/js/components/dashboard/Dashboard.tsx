@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactElement, useMemo } from "react";
 import { Routes } from "universal-router";
 import {
   Link,
@@ -12,12 +12,19 @@ export const exactMatch = (ref: string, test: string): boolean => ref === test;
 export const startsWith = (ref: string, test: string): boolean =>
   test.startsWith(ref);
 
-export const MenuLink: React.FC<{
+interface MenuLinkProps {
   href: string;
   text: string;
   title?: string;
   isActive?: (href: string, path: string) => boolean;
-}> = ({ href, text, title, isActive = startsWith }) => {
+}
+
+export const MenuLink: React.FC<MenuLinkProps> = ({
+  href,
+  text,
+  title,
+  isActive = startsWith,
+}) => {
   const location = useLocation();
   return (
     <Link href={href} title={title ?? ""}>
@@ -32,63 +39,72 @@ export const MenuLink: React.FC<{
   );
 };
 
-const routes: Routes<RouterResult> = [
-  {
-    path: "/dashboard",
-    action: () => ({
-      component: <p>Welcome Home</p>,
-    }),
-  },
-  {
-    path: "/dashboard/users",
-    action: () => ({
-      component: (
-        <div>
-          <p>Users Here</p>
-          <ul>
-            <li>user 1</li>
-            <li>user 2</li>
-            <li>user 3</li>
-            <li>user 4</li>
-            <li>user 5</li>
-          </ul>
-        </div>
-      ),
-    }),
-  },
-  {
-    path: "/dashboard/pools",
-    action: () => ({
-      component: (
-        <div>
-          <h2>Welcome to my Pool</h2>
-          <p>All our pools are the best here.</p>
-        </div>
-      ),
-    }),
-  },
-];
-
-export const Dashboard: React.FC = () => {
-  const location = useLocation();
-
-  const content = useRouter(routes);
+export const Dashboard: React.FC<{
+  menuItems: ReactElement[];
+  contentRoutes: Routes<RouterResult>;
+}> = ({ menuItems, contentRoutes }) => {
+  const content = useRouter(contentRoutes);
   return (
     <div>
-      <p>Current path: {location.pathname}</p>
-      <SideMenu
-        items={[
-          <MenuLink
-            key="home"
-            href="/dashboard"
-            text="Home"
-            isActive={exactMatch}
-          />,
-          <MenuLink key="users" href="/dashboard/users" text="Users" />,
-          <MenuLink key="pools" href="/dashboard/pools" text="Pools" />,
-        ]}
-      />
+      <SideMenu items={menuItems} />
       <div>{content}</div>
     </div>
   );
+};
+
+interface CrudDashboardProps {
+  resources: {
+    title: string;
+    href: string;
+    mainView: () => React.ReactElement;
+    createView?: () => React.ReactElement;
+    editView?: (id: string) => React.ReactElement;
+    menuIsActive?: MenuLinkProps["isActive"];
+  }[];
+}
+
+export const CrudDashboard: React.FC<CrudDashboardProps> = ({ resources }) => {
+  const menuItems = useMemo(
+    () =>
+      resources.map(({ title, href, menuIsActive }) => {
+        return (
+          <MenuLink
+            key={href}
+            href={href}
+            text={title}
+            isActive={menuIsActive}
+          />
+        );
+      }),
+    [resources],
+  );
+  const content: Routes<RouterResult> = resources.flatMap((resource) => {
+    const paths = [];
+    paths.push({
+      path: resource.href,
+      action: () => ({
+        component: resource.mainView(),
+      }),
+    });
+    if (resource.createView) {
+      const { createView } = resource;
+      paths.push({
+        path: `${resource.href}/create`,
+        action: () => ({
+          component: createView(),
+        }),
+      });
+    }
+    if (resource.editView) {
+      const { editView } = resource;
+      paths.push({
+        path: `${resource.href}/:id/edit`,
+        action: ({ params }: { params: any }) => ({
+          component: editView(params.id),
+        }),
+      });
+    }
+    return paths;
+  });
+  return <Dashboard menuItems={menuItems} contentRoutes={content} />;
 };
