@@ -1,8 +1,14 @@
 import React from "react";
-import { Link, useLocation } from "../../helpers/router";
-import SideMenu, { MenuItem } from "../menu/SideMenu";
+import { Routes } from "universal-router";
+import {
+  Link,
+  RouterResult,
+  useLocation,
+  useRouter,
+} from "../../helpers/router";
+import SideMenu from "../menu/SideMenu";
 
-export const exactMatch = (ref: string, test: string): boolean => ref == test;
+export const exactMatch = (ref: string, test: string): boolean => ref === test;
 export const startsWith = (ref: string, test: string): boolean =>
   test.startsWith(ref);
 
@@ -26,8 +32,47 @@ export const MenuLink: React.FC<{
   );
 };
 
+const routes: Routes<RouterResult> = [
+  {
+    path: "/dashboard",
+    action: () => ({
+      component: <p>Welcome Home</p>,
+    }),
+  },
+  {
+    path: "/dashboard/users",
+    action: () => ({
+      component: (
+        <div>
+          <p>Users Here</p>
+          <ul>
+            <li>user 1</li>
+            <li>user 2</li>
+            <li>user 3</li>
+            <li>user 4</li>
+            <li>user 5</li>
+          </ul>
+        </div>
+      ),
+    }),
+  },
+  {
+    path: "/dashboard/pools",
+    action: () => ({
+      component: (
+        <div>
+          <h2>Welcome to my Pool</h2>
+          <p>All our pools are the best here.</p>
+        </div>
+      ),
+    }),
+  },
+];
+
 export const Dashboard: React.FC = () => {
   const location = useLocation();
+
+  const content = useRouter(routes);
   return (
     <div>
       <p>Current path: {location.pathname}</p>
@@ -43,6 +88,7 @@ export const Dashboard: React.FC = () => {
           <MenuLink key="pools" href="/dashboard/pools" text="Pools" />,
         ]}
       />
+      <div>{content}</div>
     </div>
   );
 };
