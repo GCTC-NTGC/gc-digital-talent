@@ -1,12 +1,7 @@
-import React, { ReactElement } from "react";
+import React from "react";
 import { Routes } from "universal-router";
 import { Link, RouterResult, useLocation } from "../helpers/router";
-import {
-  CrudDashboard,
-  Dashboard,
-  exactMatch,
-  MenuLink,
-} from "./dashboard/Dashboard";
+import { Dashboard, exactMatch, MenuLink } from "./dashboard/Dashboard";
 
 const routes: Routes<RouterResult> = [
   {
@@ -93,70 +88,7 @@ export const PoolDashboard: React.FC = () => {
   return (
     <div>
       <p>Current path: {location.pathname}</p>
-      {/* <Dashboard menuItems={menuItems} contentRoutes={routes} /> */}
-      <CrudDashboard
-        resources={[
-          {
-            href: "/dashboard",
-            title: "Home",
-            menuIsActive: exactMatch,
-            mainView: () => <p>Welcome Home</p>,
-          },
-          {
-            href: "/dashboard/users",
-            title: "Users",
-            menuIsActive: exactMatch,
-            mainView: () => (
-              <div>
-                <p>Users Here</p>
-                <ul>
-                  <li>user 1</li>
-                  <li>user 2</li>
-                  <li>user 3</li>
-                  <li>user 4</li>
-                  <li>user 5</li>
-                </ul>
-              </div>
-            ),
-          },
-          {
-            href: "/dashboard/pools",
-            title: "Pools",
-            mainView: () => (
-              <div>
-                <h2>Welcome to my Pool</h2>
-                <p>All our pools are the best here.</p>
-                <p>
-                  <Link href="/dashboard/pools/create" title="">
-                    Create
-                  </Link>
-                </p>
-                <p>
-                  <Link href="/dashboard/pools/1/edit" title="">
-                    Edit 1
-                  </Link>
-                </p>
-              </div>
-            ),
-            createView: () => (
-              <div>
-                <h2>Here is where you can create a user</h2>
-                <p>useruseruseruser</p>
-              </div>
-            ),
-            editView: (id) => (
-              <div>
-                <h2>{`You are now editing Pool ${id}`}</h2>
-                <p>
-                  <Link href="/dashboard/pools" title="">
-                    Back
-                  </Link>
-                </p>
-              </div>
-            ),
-          },
-        ]}
-      />
+      <Dashboard menuItems={menuItems} contentRoutes={routes} />
     </div>
   );
 };
