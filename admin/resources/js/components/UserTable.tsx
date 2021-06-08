@@ -1,8 +1,14 @@
 import * as React from 'react';
-import { useTable, useSortBy } from 'react-table'
+import { useTable, useGlobalFilter, useSortBy } from 'react-table'
+import GlobalFilter from './GlobalFilter'
 
-const UserTable = (users): React.ReactElement => {
+interface UserTableProps {
+  users: any
+}
 
+const UserTable : React.FC<UserTableProps> = (
+  users,
+) => {
   const columns = React.useMemo(
     () => [
       {
@@ -44,11 +50,26 @@ const UserTable = (users): React.ReactElement => {
     headerGroups,
     rows,
     prepareRow,
-  } = useTable({ columns, data: data.users }, useSortBy)
+    state,
+    visibleColumns,
+    preGlobalFilteredRows,
+    setGlobalFilter,
+  } = useTable({ columns, data: data.users }, useGlobalFilter, useSortBy)
 
   return (
     <table {...getTableProps()}>
       <thead>
+        <tr>
+          <th
+            colSpan={visibleColumns.length}
+          >
+            <GlobalFilter
+              preGlobalFilteredRows={preGlobalFilteredRows}
+              globalFilter={state.globalFilter}
+              setGlobalFilter={setGlobalFilter}
+            />
+          </th>
+        </tr>
         {headerGroups.map(headerGroup => (
           <tr {...headerGroup.getHeaderGroupProps()}>
             {headerGroup.headers.map(column => (
