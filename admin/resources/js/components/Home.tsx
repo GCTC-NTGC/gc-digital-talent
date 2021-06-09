@@ -1,7 +1,6 @@
 import { gql, useQuery } from "@apollo/client";
 import * as React from "react";
 
-interface HomeProps {}
 type User = {
   id: number;
   firstName: string;
@@ -20,7 +19,7 @@ const GET_USERS = gql`
   }
 `;
 
-const Home: React.FunctionComponent<HomeProps> = (props) => {
+const Home: React.FunctionComponent = (props) => {
   const { loading, error, data } = useQuery(GET_USERS);
 
   if (loading) return <p>Fetching Users...</p>;

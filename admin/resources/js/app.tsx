@@ -1,5 +1,16 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import AdminPage from "./components/AdminPage";
+import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
+import Home from "./components/Home";
 
-ReactDOM.render(<AdminPage />, document.getElementById("app"));
+const client = new ApolloClient({
+  uri: process.env.API_URI,
+  cache: new InMemoryCache(),
+});
+
+ReactDOM.render(
+  <ApolloProvider client={client}>
+    <Home />
+  </ApolloProvider>,
+  document.getElementById("app"),
+);
