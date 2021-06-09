@@ -1,0 +1,14 @@
+schema: ../api/graphql/schema.graphql
+generates:
+  ./resources/js/types/api.d.ts:
+    plugins:
+      - typescript
+    config:
+      scalars:
+        Date: string
+        DateTime: string
+        Email: string
+        PhoneNumber: string
+hooks:
+  afterOneFileWrite:
+    - prettier --write
