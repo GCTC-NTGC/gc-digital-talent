@@ -7,6 +7,9 @@
     "test": "tests"
   },
   "scripts": {
+    "lint": "eslint ./resources/js --ext .js,.ts",
+    "lint:fix": "eslint ./resources/js --fix --ext .js,.ts",
+    "prettier": "prettier --write ./resources/js",
     "dev": "mix",
     "watch": "mix watch",
     "watch-poll": "mix watch -- --watch-options-poll=1000",
