@@ -28,7 +28,7 @@
     "@storybook/addon-links": "^6.2.9",
     "@storybook/builder-webpack5": "^6.2.9",
     "@storybook/react": "^6.2.9",
-    "@typescript-eslint/eslint-plugin": "^4.22.1",
+    "@typescript-eslint/eslint-plugin": "^4.26.1",
     "@typescript-eslint/parser": "^4.26.1",
     "babel-loader": "^8.2.2",
     "cross-env": "^7.0.3",
