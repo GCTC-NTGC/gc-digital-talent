@@ -2670,16 +2670,16 @@
         },
         {
             "name": "nesbot/carbon",
-            "version": "2.48.1",
+            "version": "2.49.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/briannesbitt/Carbon.git",
-                "reference": "8d1f50f1436fb4b05e7127360483dd9c6e73da16"
+                "reference": "93d9db91c0235c486875d22f1e08b50bdf3e6eee"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/8d1f50f1436fb4b05e7127360483dd9c6e73da16",
-                "reference": "8d1f50f1436fb4b05e7127360483dd9c6e73da16",
+                "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/93d9db91c0235c486875d22f1e08b50bdf3e6eee",
+                "reference": "93d9db91c0235c486875d22f1e08b50bdf3e6eee",
                 "shasum": ""
             },
             "require": {
@@ -2759,7 +2759,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-05-26T22:08:38+00:00"
+            "time": "2021-06-02T07:31:40+00:00"
         },
         {
             "name": "nikic/fast-route",
@@ -2869,16 +2869,16 @@
         },
         {
             "name": "nuwave/lighthouse",
-            "version": "v5.12.5",
+            "version": "v5.12.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nuwave/lighthouse.git",
-                "reference": "ef7ea7546dbdeb1f1b764b89b14f201551192838"
+                "reference": "d551c9dc1f35a873099cf29fdf3328b9254c6bc6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nuwave/lighthouse/zipball/ef7ea7546dbdeb1f1b764b89b14f201551192838",
-                "reference": "ef7ea7546dbdeb1f1b764b89b14f201551192838",
+                "url": "https://api.github.com/repos/nuwave/lighthouse/zipball/d551c9dc1f35a873099cf29fdf3328b9254c6bc6",
+                "reference": "d551c9dc1f35a873099cf29fdf3328b9254c6bc6",
                 "shasum": ""
             },
             "require": {
@@ -2994,7 +2994,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-06-08T15:19:32+00:00"
+            "time": "2021-06-09T15:15:44+00:00"
         },
         {
             "name": "opis/closure",
