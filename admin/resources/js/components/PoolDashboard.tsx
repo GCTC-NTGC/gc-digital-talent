@@ -54,7 +54,7 @@ const routes: Routes<RouterResult> = [
       component: (
         <div>
           <h2>Here is where you can create a Pool</h2>
-          <p>(Acutal Create form still pending...)</p>
+          <p>(Create form still pending...)</p>
         </div>
       ),
     }),
