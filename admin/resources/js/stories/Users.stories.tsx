@@ -3,6 +3,6 @@ import { storiesOf } from "@storybook/react";
 import UserTable from "../components/UserTable";
 import fakeUsers from "../fakeData/fakeUsers";
 
-storiesOf("Users", module).add("User Table", () => (
-  <UserTable users={fakeUsers} />
-));
+const stories = storiesOf("Components/User", module);
+
+stories.add("Users Table", () => <UserTable users={fakeUsers} />);
