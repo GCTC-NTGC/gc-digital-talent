@@ -53,8 +53,8 @@ const routes: Routes<RouterResult> = [
     action: () => ({
       component: (
         <div>
-          <h2>Here is where you can create a user</h2>
-          <p>useruseruseruser</p>
+          <h2>Here is where you can create a Pool</h2>
+          <p>(Acutal Create form still pending...)</p>
         </div>
       ),
     }),
