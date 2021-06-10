@@ -1,4 +1,6 @@
-export default {
+const messages = {
   required: "This field is required.",
-  telephone: "The field must follow this pattern +123243234.",
+  telephone: "This field must follow the pattern +123243234.",
 };
+
+export default messages;
