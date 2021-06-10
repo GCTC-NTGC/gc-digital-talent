@@ -8,7 +8,6 @@
    "extends": [
        "airbnb",
        "plugin:react/recommended",
-       "plugin:testcafe/recommended",
        "plugin:@typescript-eslint/recommended",
        "plugin:prettier/recommended",
        "prettier"
@@ -23,8 +22,9 @@
        },
        "ecmaVersion": 2018,
        "sourceType": "module",
-       "project": "./tsconfig.json"
+       "project": ["./tsconfig.json"]
    },
+   "ignorePatterns": ".eslintrc",
    "plugins": [
        "prettier",
        "react",
