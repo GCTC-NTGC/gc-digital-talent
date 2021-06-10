@@ -1,0 +1,10 @@
+query AllUsers {
+  users {
+    id
+    email
+    firstName
+    lastName
+    telephone
+    preferredLang
+  }
+}
