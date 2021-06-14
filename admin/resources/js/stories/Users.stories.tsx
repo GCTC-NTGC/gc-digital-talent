@@ -1,8 +1,40 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
+import { createClient } from "urql";
 import UserTable from "../components/UserTable";
 import fakeUsers from "../fakeData/fakeUsers";
+import { useAllUsersQuery } from "../api/generated";
+import ClientProvider from "../components/ClientProvider";
 
-const stories = storiesOf("Components/User", module);
+const userData = fakeUsers();
+// Its possible data may come back from api with missing data.
+const flawedUserData = [
+  { id: "100-bob", email: "bob@boop.com", lastName: null },
+  null,
+  ...userData,
+];
 
-stories.add("Users Table", () => <UserTable users={fakeUsers} />);
+const stories = storiesOf("Users", module);
+
+stories.add("User Table", () => <UserTable users={userData} />);
+stories.add("Users Table with flawed data", () => (
+  <UserTable users={flawedUserData} />
+));
+
+const client = createClient({
+  url: "http://localhost:8000/graphql",
+});
+const ApiUserTable = () => {
+  const [result, _reexecuteQuery] = useAllUsersQuery();
+  const { data, fetching, error } = result;
+
+  if (fetching) return <p>Loading...</p>;
+  if (error) return <p>Oh no... {error.message}</p>;
+
+  return <UserTable users={data?.users ?? []} />;
+};
+stories.add("Users Table with API data", () => (
+  <ClientProvider client={client}>
+    <ApiUserTable />
+  </ClientProvider>
+));
