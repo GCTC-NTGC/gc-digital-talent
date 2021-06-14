@@ -30,14 +30,7 @@ export const CreateUserForm: React.FunctionComponent<CreateUserFormProps> = ({
   }
 
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
-    const { firstName, lastName, email, telephone, preferredLang } = data;
-    await handleCreateUser({
-      firstName,
-      lastName,
-      email,
-      telephone,
-      preferredLang,
-    });
+    await handleCreateUser({ ...data });
   };
 
   return (
@@ -45,24 +38,28 @@ export const CreateUserForm: React.FunctionComponent<CreateUserFormProps> = ({
       <h2>Create a User</h2>
       <Form onSubmit={onSubmit}>
         <Input
+          id="firstName"
           label="First Name: "
           type="text"
           name="firstName"
           rules={{ required: errorMessages.required }}
         />
         <Input
+          id="lastName"
           label="Last Name: "
           type="text"
           name="lastName"
           rules={{ required: errorMessages.required }}
         />
         <Input
+          id="email"
           label="Email: "
           type="email"
           name="email"
           rules={{ required: errorMessages.required }}
         />
         <Input
+          id="telephone"
           label="Telephone: "
           type="tel"
           name="telephone"
@@ -75,6 +72,7 @@ export const CreateUserForm: React.FunctionComponent<CreateUserFormProps> = ({
           }}
         />
         <Select
+          id="preferredLang"
           label="Preferred Language: "
           name="preferredLang"
           rules={{ required: errorMessages.required }}
