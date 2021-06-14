@@ -1,6 +1,7 @@
 /* eslint-disable react/jsx-key */
 import React from "react";
-import { useTable } from "react-table";
+import { useTable, useGlobalFilter, useSortBy, Column } from "react-table";
+import GlobalFilter from "./GlobalFilter";
 
 interface TableProps {
   columns: any;
@@ -8,11 +9,25 @@ interface TableProps {
 }
 
 const Table: React.FunctionComponent<TableProps> = ({ columns, data }) => {
-  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
-    useTable({ columns, data });
+  const {
+    getTableProps,
+    getTableBodyProps,
+    headerGroups,
+    rows,
+    prepareRow,
+    setGlobalFilter,
+    state,
+    visibleColumns,
+    preGlobalFilteredRows,
+  } = useTable({ columns, data }, useGlobalFilter, useSortBy);
 
   return (
     <table {...getTableProps()} style={{ border: "solid 1px blue" }}>
+      <GlobalFilter
+        preGlobalFilteredRows={preGlobalFilteredRows}
+        globalFilter={state.globalFilter}
+        setGlobalFilter={setGlobalFilter}
+      />
       <thead>
         {headerGroups.map((headerGroup) => (
           <tr {...headerGroup.getHeaderGroupProps()}>

@@ -1,7 +1,7 @@
 import React, { useMemo } from "react";
 import { useTable, useGlobalFilter, useSortBy, Column } from "react-table";
-import GlobalFilter from "./GlobalFilter";
 import Table from "./Table";
+import GlobalFilter from "./GlobalFilter";
 
 interface UserTableProps {
   users: Array<{
@@ -47,9 +47,22 @@ const UserTable: React.FC<UserTableProps> = (users) => {
 
   const data = useMemo(() => users, [users]);
 
+  const {
+    getTableProps,
+    getTableBodyProps,
+    headerGroups,
+    rows,
+    prepareRow,
+    state,
+    visibleColumns,
+    preGlobalFilteredRows,
+    setGlobalFilter,
+  } = useTable({ columns, data: data.users }, useGlobalFilter, useSortBy);
+
   return (
     <>
-      <Table data={data} columns={columns} />
+      <p> Waffles </p>
+      <Table data={data.users} columns={columns} />
     </>
   );
 };
