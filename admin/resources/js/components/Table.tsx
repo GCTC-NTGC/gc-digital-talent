@@ -6,9 +6,14 @@ import GlobalFilter from "./GlobalFilter";
 interface TableProps {
   columns: any;
   data: any;
+  filter?: boolean;
 }
 
-const Table: React.FunctionComponent<TableProps> = ({ columns, data }) => {
+const Table: React.FunctionComponent<TableProps> = ({
+  columns,
+  data,
+  filter = true,
+}) => {
   const {
     getTableProps,
     getTableBodyProps,
@@ -23,11 +28,13 @@ const Table: React.FunctionComponent<TableProps> = ({ columns, data }) => {
 
   return (
     <table {...getTableProps()} style={{ border: "solid 1px blue" }}>
-      <GlobalFilter
-        preGlobalFilteredRows={preGlobalFilteredRows}
-        globalFilter={state.globalFilter}
-        setGlobalFilter={setGlobalFilter}
-      />
+      {filter ? (
+        <GlobalFilter
+          preGlobalFilteredRows={preGlobalFilteredRows}
+          globalFilter={state.globalFilter}
+          setGlobalFilter={setGlobalFilter}
+        />
+      ) : null}
       <thead>
         {headerGroups.map((headerGroup) => (
           <tr {...headerGroup.getHeaderGroupProps()}>
