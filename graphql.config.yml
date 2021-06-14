@@ -1,0 +1,6 @@
+# This config file allows the GraphQL.vscode-graphql extension to provide support for graphql files.
+projects:
+  api:
+    schema: "graphql/schema.graphql"
+  admin:
+    documents: "resources/js/**/*.graphql"

@@ -6,6 +6,16 @@
   "directories": {
     "test": "tests"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GCTC-NTGC/gc-digital-talent.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/GCTC-NTGC/gc-digital-talent/issues"
+  },
+  "homepage": "https://github.com/GCTC-NTGC/gc-digital-talent#readme",
   "scripts": {
     "lint": "eslint ./resources/js --ext .js,.ts",
     "lint:fix": "eslint ./resources/js --fix --ext .js,.ts",
@@ -18,13 +28,17 @@
     "h2-compile": "npx h2-compile",
     "h2-build": "npx h2-build",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "codegen": "graphql-codegen"
   },
-  "author": "",
-  "license": "ISC",
   "devDependencies": {
     "@babel/core": "^7.14.5",
     "@babel/preset-react": "^7.14.5",
+    "@graphql-codegen/add": "^2.0.2",
+    "@graphql-codegen/cli": "^1.21.5",
+    "@graphql-codegen/typescript": "^1.22.1",
+    "@graphql-codegen/typescript-operations": "^1.18.0",
+    "@graphql-codegen/typescript-urql": "^2.0.7",
     "@hydrogen-design-system/hydrogen.css": "^1.0.6",
     "@storybook/addon-actions": "^6.2.9",
     "@storybook/addon-essentials": "^6.2.9",
