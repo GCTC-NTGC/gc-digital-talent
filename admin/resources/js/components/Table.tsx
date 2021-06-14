@@ -22,7 +22,6 @@ const Table: React.FunctionComponent<TableProps> = ({
     prepareRow,
     setGlobalFilter,
     state,
-    visibleColumns,
     preGlobalFilteredRows,
   } = useTable({ columns, data }, useGlobalFilter, useSortBy);
 
@@ -42,13 +41,6 @@ const Table: React.FunctionComponent<TableProps> = ({
               <th
                 {...column.getHeaderProps(column.getSortByToggleProps())}
                 key={column.id}
-                style={{
-                  borderBottom: "solid 3px red",
-                  background: "aliceblue",
-                  color: "black",
-                  fontWeight: "bold",
-                  cursor: "pointer",
-                }}
               >
                 {column.render("Header")}
                 <span>
@@ -67,18 +59,7 @@ const Table: React.FunctionComponent<TableProps> = ({
           return (
             <tr {...row.getRowProps()}>
               {row.cells.map((cell) => {
-                return (
-                  <td
-                    {...cell.getCellProps()}
-                    style={{
-                      padding: "10px",
-                      border: "solid 1px gray",
-                      background: "papayawhip",
-                    }}
-                  >
-                    {cell.render("Cell")}
-                  </td>
-                );
+                return <td {...cell.getCellProps()}>{cell.render("Cell")}</td>;
               })}
             </tr>
           );
