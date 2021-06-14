@@ -40,15 +40,20 @@ const Table: React.FunctionComponent<TableProps> = ({
           <tr {...headerGroup.getHeaderGroupProps()}>
             {headerGroup.headers.map((column) => (
               <th
-                {...column.getHeaderProps()}
+                {...column.getHeaderProps(column.getSortByToggleProps())}
+                key={column.id}
                 style={{
                   borderBottom: "solid 3px red",
                   background: "aliceblue",
                   color: "black",
                   fontWeight: "bold",
+                  cursor: "pointer",
                 }}
               >
                 {column.render("Header")}
+                <span>
+                  {column.isSorted && (column.isSortedDesc ? " ▼" : " ▲")}
+                </span>
               </th>
             ))}
           </tr>
