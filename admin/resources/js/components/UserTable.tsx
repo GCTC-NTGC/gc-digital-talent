@@ -1,19 +1,10 @@
 import React, { useMemo } from "react";
-import { Column } from "react-table";
+import { useTable, useGlobalFilter, useSortBy, Column } from "react-table";
+import { AllUsersQuery } from "../api/generated";
+import { notEmpty } from "../helpers/util";
 import Table from "./Table";
 
-interface UserTableProps {
-  users: Array<{
-    id: number;
-    firstName: string;
-    lastName: string;
-    email: string;
-    telephone: string;
-    preferredLang: string;
-  }>;
-}
-
-const UserTable: React.FC<UserTableProps> = (users) => {
+const UserTable: React.FC<AllUsersQuery> = ({ users }) => {
   const columns: Array<Column> = useMemo(
     () => [
       {
@@ -44,11 +35,11 @@ const UserTable: React.FC<UserTableProps> = (users) => {
     [],
   );
 
-  const data = useMemo(() => users, [users]);
+  const data = useMemo(() => users.filter(notEmpty), [users]);
 
   return (
     <>
-      <Table data={data.users} columns={columns} />
+      <Table data={data} columns={columns} />
     </>
   );
 };

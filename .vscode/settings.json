@@ -28,4 +28,10 @@
   "[javascriptreact]": {
     "editor.tabSize": 2
   },
+  "[graphql]": {
+    "editor.tabSize": 2
+  },
+  "[json]": {
+    "editor.tabSize": 2
+  },
 }

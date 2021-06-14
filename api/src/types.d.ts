@@ -15,7 +15,7 @@ export type Scalars = {
   DateTime: string;
   /** A RFC 5321 compliant email. */
   Email: string;
-  /** A phone number string which must comply with E.123 international notation, including country code and with groups split by spaces. */
+  /** A phone number string which must comply with E.164 international notation, including country code and preceding '+'. */
   PhoneNumber: string;
 };
 
@@ -35,6 +35,7 @@ export type CmoAsset = {
   id: Scalars['ID'];
   key: Scalars['String'];
   name: LocalizedString;
+  description?: Maybe<LocalizedString>;
 };
 
 /** When creating a User, name and email are required. */
@@ -44,10 +45,6 @@ export type CreateUserInput = {
   email: Scalars['Email'];
   telephone?: Maybe<Scalars['PhoneNumber']>;
   preferredLang?: Maybe<Language>;
-  gender?: Maybe<Scalars['String']>;
-  hasDisability?: Maybe<Scalars['Boolean']>;
-  isIndigenous?: Maybe<Scalars['Boolean']>;
-  isVisibleMinority?: Maybe<Scalars['Boolean']>;
 };
 
 
@@ -94,14 +91,13 @@ export type MutationDeleteUserArgs = {
 };
 
 /** eg Overtime as Required, Shift Work, Travel as Required, etc. */
-export enum OperationalRequirement {
-  OvertimeAsRequired = 'OVERTIME_AS_REQUIRED',
-  ShiftWork = 'SHIFT_WORK',
-  OnCall_24_7 = 'ON_CALL_24_7',
-  TravelAsRequired = 'TRAVEL_AS_REQUIRED',
-  TransportEquipment_20Kg = 'TRANSPORT_EQUIPMENT_20_KG',
-  DriversLicense = 'DRIVERS_LICENSE'
-}
+export type OperationalRequirement = {
+  __typename?: 'OperationalRequirement';
+  id: Scalars['ID'];
+  key: Scalars['String'];
+  name: LocalizedString;
+  description?: Maybe<LocalizedString>;
+};
 
 /** Allows ordering a list of records. */
 export type OrderByClause = {
@@ -157,22 +153,23 @@ export type PaginatorInfo = {
 export type Pool = {
   __typename?: 'Pool';
   id: Scalars['ID'];
-  owner: User;
-  name: LocalizedString;
+  owner?: Maybe<User>;
+  name?: Maybe<LocalizedString>;
   description?: Maybe<LocalizedString>;
   classifications?: Maybe<Array<Maybe<Classification>>>;
-  essentialCriteria?: Maybe<Array<Maybe<CmoAsset>>>;
   assetCriteria?: Maybe<Array<Maybe<CmoAsset>>>;
+  essentialCriteria?: Maybe<Array<Maybe<CmoAsset>>>;
   operationalRequirements?: Maybe<Array<Maybe<OperationalRequirement>>>;
+  poolCandidates?: Maybe<Array<Maybe<PoolCandidate>>>;
 };
 
 export type PoolCandidate = {
   __typename?: 'PoolCandidate';
   id: Scalars['ID'];
-  pool: Pool;
-  user: User;
+  pool?: Maybe<Pool>;
+  user?: Maybe<User>;
   cmoIdentifier?: Maybe<Scalars['ID']>;
-  /** Employment Equity fields */
+  expiryDate?: Maybe<Scalars['Date']>;
   isWoman?: Maybe<Scalars['Boolean']>;
   hasDisability?: Maybe<Scalars['Boolean']>;
   isIndigenous?: Maybe<Scalars['Boolean']>;
@@ -184,12 +181,13 @@ export type PoolCandidate = {
   expectedSalary?: Maybe<Array<Maybe<SalaryRange>>>;
   expectedClassifications?: Maybe<Array<Maybe<Classification>>>;
   cmoAssets?: Maybe<Array<Maybe<CmoAsset>>>;
-  status: PoolCandidateStatus;
+  status?: Maybe<PoolCandidateStatus>;
 };
 
 export enum PoolCandidateStatus {
   Available = 'AVAILABLE',
-  Placed = 'PLACED',
+  PlacedIndeterminate = 'PLACED_INDETERMINATE',
+  PlacedTerm = 'PLACED_TERM',
   NoLongerInterested = 'NO_LONGER_INTERESTED'
 }
 
@@ -197,14 +195,30 @@ export type Query = {
   __typename?: 'Query';
   users: Array<Maybe<User>>;
   user?: Maybe<User>;
+  pools: Array<Maybe<Pool>>;
+  pool?: Maybe<Pool>;
+  poolCandidates: Array<Maybe<PoolCandidate>>;
+  poolCandidate?: Maybe<PoolCandidate>;
+  classifications: Array<Maybe<Classification>>;
+  operationalRequirements: Array<Maybe<OperationalRequirement>>;
+  cmoAssets: Array<Maybe<CmoAsset>>;
 };
 
 
 export type QueryUserArgs = {
-  id?: Maybe<Scalars['ID']>;
+  id: Scalars['ID'];
 };
 
-/** Consider moving this to table to embed mapping to groups */
+
+export type QueryPoolArgs = {
+  id: Scalars['ID'];
+};
+
+
+export type QueryPoolCandidateArgs = {
+  id: Scalars['ID'];
+};
+
 export enum SalaryRange {
   '50_59K' = '_50_59K',
   '60_69K' = '_60_69K',
@@ -227,13 +241,6 @@ export type SimplePaginatorInfo = {
   lastItem?: Maybe<Scalars['Int']>;
   /** Number of items per page in the collection. */
   perPage: Scalars['Int'];
-};
-
-export type Skill = {
-  __typename?: 'Skill';
-  id: Scalars['ID'];
-  name: LocalizedString;
-  description: LocalizedString;
 };
 
 /** The available directions for ordering a list of records. */
@@ -260,20 +267,18 @@ export type UpdateUserInput = {
   lastName?: Maybe<Scalars['String']>;
   telephone?: Maybe<Scalars['PhoneNumber']>;
   preferredLang?: Maybe<Language>;
-  gender?: Maybe<Scalars['String']>;
-  hasDisability?: Maybe<Scalars['Boolean']>;
-  isIndigenous?: Maybe<Scalars['Boolean']>;
-  isVisibleMinority?: Maybe<Scalars['Boolean']>;
 };
 
 export type User = {
   __typename?: 'User';
   id: Scalars['ID'];
-  firstName: Scalars['String'];
-  lastName: Scalars['String'];
   email: Scalars['Email'];
+  firstName?: Maybe<Scalars['String']>;
+  lastName?: Maybe<Scalars['String']>;
   telephone?: Maybe<Scalars['PhoneNumber']>;
   preferredLang?: Maybe<Language>;
+  pools?: Maybe<Array<Maybe<Pool>>>;
+  poolCandidates?: Maybe<Array<Maybe<PoolCandidate>>>;
 };
 
 export enum WorkRegion {
