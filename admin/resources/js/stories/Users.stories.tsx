@@ -3,10 +3,10 @@ import { storiesOf } from "@storybook/react";
 import { createClient } from "urql";
 import UserTable from "../components/UserTable";
 import fakeUsers from "../fakeData/fakeUsers";
-import { AllUsersQuery, useAllUsersQuery } from "../api/generated";
+import { useAllUsersQuery } from "../api/generated";
 import ClientProvider from "../components/ClientProvider";
 
-const userData = fakeUsers as unknown as AllUsersQuery["users"];
+const userData = fakeUsers();
 // Its possible data may come back from api with missing data.
 const flawedUserData = [
   { id: "100-bob", email: "bob@boop.com", lastName: null },
