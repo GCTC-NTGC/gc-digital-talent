@@ -225,6 +225,20 @@ export type AllUsersQuery = { __typename?: "Query" } & {
   >;
 };
 
+export type UpdateUserMutationVariables = Exact<{
+  id: Scalars["ID"];
+  user: UpdateUserInput;
+}>;
+
+export type UpdateUserMutation = { __typename?: "Mutation" } & {
+  updateUser?: Maybe<
+    { __typename?: "User" } & Pick<
+      User,
+      "id" | "firstName" | "lastName" | "email" | "telephone" | "preferredLang"
+    >
+  >;
+};
+
 export const AllUsersDocument = gql`
   query AllUsers {
     users {
@@ -242,4 +256,22 @@ export function useAllUsersQuery(
   options: Omit<Urql.UseQueryArgs<AllUsersQueryVariables>, "query"> = {},
 ) {
   return Urql.useQuery<AllUsersQuery>({ query: AllUsersDocument, ...options });
+}
+export const UpdateUserDocument = gql`
+  mutation UpdateUser($id: ID!, $user: UpdateUserInput!) {
+    updateUser(id: $id, user: $user) {
+      id
+      firstName
+      lastName
+      email
+      telephone
+      preferredLang
+    }
+  }
+`;
+
+export function useUpdateUserMutation() {
+  return Urql.useMutation<UpdateUserMutation, UpdateUserMutationVariables>(
+    UpdateUserDocument,
+  );
 }
