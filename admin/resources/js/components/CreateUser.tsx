@@ -1,7 +1,8 @@
 import { gql, useMutation } from "@apollo/client";
 import React from "react";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { SubmitHandler } from "react-hook-form";
 import errorMessages from "./form/errorMessages";
+import Form from "./form/Form";
 import Input from "./form/Input";
 import Select from "./form/Select";
 
@@ -28,7 +29,6 @@ export const CreateUserForm: React.FunctionComponent<CreateUserFormProps> = ({
     preferredLang: "en" | "fr";
   }
 
-  const { handleSubmit, control } = useForm<FormValues>();
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
     const { firstName, lastName, email, telephone, preferredLang } = data;
     await handleCreateUser({
@@ -43,59 +43,41 @@ export const CreateUserForm: React.FunctionComponent<CreateUserFormProps> = ({
   return (
     <section>
       <h2>Create a User</h2>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <Form onSubmit={onSubmit}>
         <Input
           label="First Name: "
           type="text"
-          control={control}
           name="firstName"
-          rules={{ required: true }}
-          ruleMessages={{
-            required: errorMessages.required,
-          }}
+          rules={{ required: errorMessages.required }}
         />
         <Input
           label="Last Name: "
           type="text"
-          control={control}
           name="lastName"
-          rules={{ required: true }}
-          ruleMessages={{
-            required: errorMessages.required,
-          }}
+          rules={{ required: errorMessages.required }}
         />
         <Input
           label="Email: "
           type="email"
-          control={control}
           name="email"
-          rules={{ required: true }}
-          ruleMessages={{
-            required: errorMessages.required,
-          }}
+          rules={{ required: errorMessages.required }}
         />
         <Input
           label="Telephone: "
           type="tel"
-          control={control}
           name="telephone"
           rules={{
-            required: true,
-            pattern: /^\+[1-9]\d{1,14}$/,
-          }}
-          ruleMessages={{
             required: errorMessages.required,
-            pattern: errorMessages.telephone,
+            pattern: {
+              value: /^\+[1-9]\d{1,14}$/,
+              message: errorMessages.telephone,
+            },
           }}
         />
         <Select
           label="Preferred Language: "
-          control={control}
           name="preferredLang"
-          rules={{ required: true }}
-          ruleMessages={{
-            required: errorMessages.required,
-          }}
+          rules={{ required: errorMessages.required }}
           options={[
             { value: "", text: "Select a language..." },
             { value: "en", text: "English" },
@@ -103,7 +85,7 @@ export const CreateUserForm: React.FunctionComponent<CreateUserFormProps> = ({
           ]}
         />
         <input type="submit" />
-      </form>
+      </Form>
     </section>
   );
 };
