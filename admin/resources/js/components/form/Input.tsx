@@ -2,15 +2,18 @@ import * as React from "react";
 import { RegisterOptions, useFormContext } from "react-hook-form";
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
-  /** The text for label associated with select input. */
+  /** HTML id used to identify the element. */
+  id: string;
+  /** Holds text for the label associated with the input element */
   label: string;
   /** A string specifying a name for the input control. */
   name: string;
-  /** Object set of validation rules to impose on input. */
+  /** Set of validation rules and error messages to impose on input. */
   rules?: RegisterOptions;
 }
 
 const Input: React.FunctionComponent<InputProps> = ({
+  id,
   label,
   name,
   rules = {},
@@ -24,8 +27,9 @@ const Input: React.FunctionComponent<InputProps> = ({
   const error = errors[name]?.message;
   return (
     <div>
-      <label htmlFor={name}>{label}</label>
+      <label htmlFor={id}>{label}</label>
       <input
+        id={id}
         {...register(name, rules)}
         type={type}
         aria-invalid={error ? "true" : "false"}

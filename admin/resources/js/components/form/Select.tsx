@@ -2,7 +2,9 @@ import * as React from "react";
 import { RegisterOptions, useFormContext } from "react-hook-form";
 
 interface SelectProps extends React.SelectHTMLAttributes<HTMLSelectElement> {
-  /** The text for label associated with select input. */
+  /** HTML id used to identify the element. */
+  id: string;
+  /** The text for the label associated with the select input. */
   label: string;
   /** A string specifying a name for the input control. */
   name: string;
@@ -13,6 +15,7 @@ interface SelectProps extends React.SelectHTMLAttributes<HTMLSelectElement> {
 }
 
 const Select: React.FunctionComponent<SelectProps> = ({
+  id,
   label,
   name,
   options,
@@ -26,8 +29,9 @@ const Select: React.FunctionComponent<SelectProps> = ({
   const error = errors[name]?.message;
   return (
     <div>
-      <label htmlFor={name}>{label}</label>
+      <label htmlFor={id}>{label}</label>
       <select
+        id={id}
         {...register(name, rules)}
         aria-invalid={error ? "true" : "false"}
         {...rest}
