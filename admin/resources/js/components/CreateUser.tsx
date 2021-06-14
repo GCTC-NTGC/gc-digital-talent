@@ -1,24 +1,16 @@
-import { gql, useMutation } from "@apollo/client";
 import React from "react";
 import { SubmitHandler } from "react-hook-form";
+import { Language, UpdateUserInput } from "../api/generated";
 import errorMessages from "./form/errorMessages";
 import Form from "./form/Form";
 import Input from "./form/Input";
 import Select from "./form/Select";
 
-interface User {
-  firstName: string;
-  lastName: string;
-  email: string;
-  telephone: string;
-  preferredLang: "en" | "fr";
+interface CreateUserProps {
+  handleCreateUser: (data: UpdateUserInput) => Promise<void>;
 }
 
-interface CreateUserFormProps {
-  handleCreateUser: (data: User) => Promise<void>;
-}
-
-export const CreateUserForm: React.FunctionComponent<CreateUserFormProps> = ({
+export const CreateUser: React.FunctionComponent<CreateUserProps> = ({
   handleCreateUser,
 }) => {
   interface FormValues {
@@ -26,7 +18,7 @@ export const CreateUserForm: React.FunctionComponent<CreateUserFormProps> = ({
     lastName: string;
     email: string;
     telephone: string;
-    preferredLang: "en" | "fr";
+    preferredLang: Language.En | Language.Fr;
   }
 
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
@@ -78,36 +70,14 @@ export const CreateUserForm: React.FunctionComponent<CreateUserFormProps> = ({
           rules={{ required: errorMessages.required }}
           options={[
             { value: "", text: "Select a language..." },
-            { value: "en", text: "English" },
-            { value: "fr", text: "French" },
+            { value: "EN", text: "English" },
+            { value: "FR", text: "French" },
           ]}
         />
         <input type="submit" />
       </Form>
     </section>
   );
-};
-
-const CREATE_USER = gql`
-  mutation createUser($user: User!) {
-    createUser(user: $user) {
-      firstName
-      lastName
-      email
-      telephone
-      preferredLang
-    }
-  }
-`;
-
-const CreateUser: React.FunctionComponent = (props) => {
-  const [createUser] = useMutation<{ createUser: User }>(CREATE_USER);
-
-  const handleCreateUser = async (data: User) => {
-    await createUser({ variables: { ...data } });
-  };
-
-  return <CreateUserForm handleCreateUser={handleCreateUser} />;
 };
 
 export default CreateUser;
