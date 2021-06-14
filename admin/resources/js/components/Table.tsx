@@ -26,7 +26,7 @@ const Table: React.FunctionComponent<TableProps> = ({
   } = useTable({ columns, data }, useGlobalFilter, useSortBy);
 
   return (
-    <table {...getTableProps()} style={{ border: "solid 1px blue" }}>
+    <table {...getTableProps()}>
       {filter ? (
         <GlobalFilter
           preGlobalFilteredRows={preGlobalFilteredRows}
