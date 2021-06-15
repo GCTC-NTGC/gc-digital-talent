@@ -1,7 +1,6 @@
 import React from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import errorMessages from "./form/errorMessages";
-import Form from "./form/Form";
 import Input from "./form/Input";
 import Select from "./form/Select";
 import Submit from "./form/Submit";
@@ -39,7 +38,7 @@ export const UpdateUserForm: React.FunctionComponent<UpdateUserFormProps> = ({
 
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
     return handleUpdateUser(user.id, data)
-      .then(() => reset(data)) // This resets the isDirty flag.
+      .then(reset) // Reset form with returned data. This resets isDirty flag.
       .catch(() => {
         // Something went wrong with handleUserUpdate.
         // Do nothing.
