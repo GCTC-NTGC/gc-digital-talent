@@ -39,6 +39,14 @@ export const UpdateUserForm: React.FunctionComponent<UpdateUserFormProps> = ({
       <FormProvider {...methods}>
         <form onSubmit={handleSubmit(onSubmit)}>
           <Input
+            id="email"
+            label="Email: "
+            type="text"
+            name="email"
+            value={initialUser.email}
+            disabled
+          />
+          <Input
             id="firstName"
             label="First Name: "
             type="text"
