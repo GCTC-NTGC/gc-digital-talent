@@ -1,10 +1,12 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
+import { action } from "@storybook/addon-actions";
 import { createClient } from "urql";
 import UserTable from "../components/UserTable";
 import fakeUsers from "../fakeData/fakeUsers";
-import { useAllUsersQuery } from "../api/generated";
+import { UpdateUserInput, useAllUsersQuery } from "../api/generated";
 import ClientProvider from "../components/ClientProvider";
+import { CreateUser } from "../components/CreateUser";
 
 const userData = fakeUsers();
 // Its possible data may come back from api with missing data.
@@ -38,3 +40,14 @@ stories.add("Users Table with API data", () => (
     <ApiUserTable />
   </ClientProvider>
 ));
+
+stories.add("Create User", () => {
+  return (
+    <CreateUser
+      handleCreateUser={async (data: UpdateUserInput) => {
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+        action("Create User")(data);
+      }}
+    />
+  );
+});
