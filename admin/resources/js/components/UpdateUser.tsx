@@ -1,43 +1,31 @@
 import React from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import {
+  Language,
+  UpdateUserInput,
+  User,
+  useUpdateUserMutation,
+} from "../api/generated";
 import errorMessages from "./form/errorMessages";
 import Input from "./form/Input";
 import Select from "./form/Select";
 import Submit from "./form/Submit";
 
-interface User {
-  id: string;
-  firstName: string;
-  lastName: string;
-  email: string;
-  telephone: string;
-  preferredLang: "EN" | "FR";
-}
-
+type FormValues = UpdateUserInput;
 interface UpdateUserFormProps {
-  user: User;
-  handleUpdateUser: (
-    id: string,
-    data: Omit<User, "email" | "id">,
-  ) => Promise<User>;
+  initialUser: User;
+  handleUpdateUser: (id: string, data: FormValues) => Promise<FormValues>;
 }
 
-// eslint-disable-next-line import/prefer-default-export
 export const UpdateUserForm: React.FunctionComponent<UpdateUserFormProps> = ({
-  user,
+  initialUser,
   handleUpdateUser,
 }) => {
-  interface FormValues {
-    firstName: string;
-    lastName: string;
-    telephone: string;
-    preferredLang: "EN" | "FR";
-  }
-  const methods = useForm<FormValues>({ defaultValues: user });
+  const methods = useForm<FormValues>({ defaultValues: initialUser });
   const { handleSubmit, reset } = methods;
 
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
-    return handleUpdateUser(user.id, data)
+    return handleUpdateUser(initialUser.id, data)
       .then(reset) // Reset form with returned data. This resets isDirty flag.
       .catch(() => {
         // Something went wrong with handleUserUpdate.
@@ -84,13 +72,33 @@ export const UpdateUserForm: React.FunctionComponent<UpdateUserFormProps> = ({
             rules={{ required: errorMessages.required }}
             options={[
               { value: "", text: "Select a language..." },
-              { value: "EN", text: "English" },
-              { value: "FR", text: "French" },
+              { value: Language.En, text: "English" },
+              { value: Language.Fr, text: "French" },
             ]}
           />
           <Submit />
         </form>
       </FormProvider>
     </section>
+  );
+};
+
+export const UpdateUser: React.FunctionComponent<{ initialUser: User }> = ({
+  initialUser,
+}) => {
+  const [_result, executeMutation] = useUpdateUserMutation();
+  const handleUpdateUser = (id: string, data: UpdateUserInput) =>
+    executeMutation({ id, user: data }).then((result) => {
+      if (result.data?.updateUser) {
+        return result.data?.updateUser;
+      }
+      return Promise.reject(result.error);
+    });
+
+  return (
+    <UpdateUserForm
+      initialUser={initialUser}
+      handleUpdateUser={handleUpdateUser}
+    />
   );
 };
