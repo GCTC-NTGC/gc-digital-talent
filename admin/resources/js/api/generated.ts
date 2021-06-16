@@ -207,6 +207,23 @@ export enum WorkRegion {
   North = "NORTH",
 }
 
+export type GetClassificationsQueryVariables = Exact<{ [key: string]: never }>;
+
+export type GetClassificationsQuery = { __typename?: "Query" } & {
+  classifications: Array<
+    Maybe<
+      { __typename?: "Classification" } & Pick<
+        Classification,
+        "id" | "group" | "level" | "minSalary" | "maxSalary"
+      > & {
+          name?: Maybe<
+            { __typename?: "LocalizedString" } & Pick<LocalizedString, "en">
+          >;
+        }
+    >
+  >;
+};
+
 export type AllUsersQueryVariables = Exact<{ [key: string]: never }>;
 
 export type AllUsersQuery = { __typename?: "Query" } & {
@@ -252,6 +269,32 @@ export type CreateUserMutation = { __typename?: "Mutation" } & {
   >;
 };
 
+export const GetClassificationsDocument = gql`
+  query GetClassifications {
+    classifications {
+      id
+      name {
+        en
+      }
+      group
+      level
+      minSalary
+      maxSalary
+    }
+  }
+`;
+
+export function useGetClassificationsQuery(
+  options: Omit<
+    Urql.UseQueryArgs<GetClassificationsQueryVariables>,
+    "query"
+  > = {},
+) {
+  return Urql.useQuery<GetClassificationsQuery>({
+    query: GetClassificationsDocument,
+    ...options,
+  });
+}
 export const AllUsersDocument = gql`
   query AllUsers {
     users {

@@ -10,11 +10,11 @@ export const Submit: React.FunctionComponent<{
   const defaultNotDirtyText = "Submitted";
   const defaultIsSubmittingText = "Submitting";
 
-  const { isDirty, isSubmitting } = useFormState();
+  const { isDirty, isSubmitting, isSubmitted } = useFormState();
   let currentText = text ?? defaultText;
   if (isSubmitting) {
     currentText = isSubmittingText ?? defaultIsSubmittingText;
-  } else if (!isDirty) {
+  } else if (!isDirty && isSubmitted) {
     currentText = notDirtyText ?? defaultNotDirtyText;
   }
 
