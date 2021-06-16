@@ -1,5 +1,6 @@
 import React from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import pick from "lodash/pick";
 import {
   Language,
   UpdateUserInput,
@@ -101,7 +102,13 @@ export const UpdateUser: React.FunctionComponent<{ userId: string }> = ({
 
   const [_result, executeMutation] = useUpdateUserMutation();
   const handleUpdateUser = (id: string, data: UpdateUserInput) =>
-    executeMutation({ id, user: data }).then((result) => {
+    /* We must pick only the fields belonging to UpdateUserInput, because its possible
+       the data object contains other props at runtime, and this will cause the
+       graphql operation to fail. */
+    executeMutation({
+      id,
+      user: pick(data, ["firstName", "lastName", "telephone", "preferredLang"]),
+    }).then((result) => {
       if (result.data?.updateUser) {
         return result.data?.updateUser;
       }
