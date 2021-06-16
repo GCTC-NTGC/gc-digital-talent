@@ -247,7 +247,7 @@ export type CreateUserMutation = { __typename?: "Mutation" } & {
   createUser?: Maybe<
     { __typename?: "User" } & Pick<
       User,
-      "id" | "firstName" | "lastName" | "email" | "telephone" | "preferredLang"
+      "firstName" | "lastName" | "email" | "telephone" | "preferredLang"
     >
   >;
 };
@@ -291,7 +291,6 @@ export function useUpdateUserMutation() {
 export const CreateUserDocument = gql`
   mutation CreateUser($user: CreateUserInput!) {
     createUser(user: $user) {
-      id
       firstName
       lastName
       email

@@ -22,7 +22,6 @@ mutation UpdateUser($id: ID!, $user: UpdateUserInput!) {
 
 mutation CreateUser($user: CreateUserInput!) {
   createUser(user: $user) {
-    id
     firstName
     lastName
     email
