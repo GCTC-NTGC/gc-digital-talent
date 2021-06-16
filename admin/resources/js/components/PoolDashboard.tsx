@@ -1,7 +1,12 @@
 import React from "react";
 import { Routes } from "universal-router";
+import { createClient } from "urql";
 import { Link, RouterResult, useLocation } from "../helpers/router";
+import ClientProvider from "./ClientProvider";
+import CreateUser from "./CreateUser";
 import { Dashboard, exactMatch, MenuLink } from "./dashboard/Dashboard";
+import { UpdateUser } from "./UpdateUser";
+import UserTableNetworked from "./UserTable";
 
 const routes: Routes<RouterResult> = [
   {
@@ -13,18 +18,19 @@ const routes: Routes<RouterResult> = [
   {
     path: "/dashboard/users",
     action: () => ({
-      component: (
-        <div>
-          <p>Users Here</p>
-          <ul>
-            <li>user 1</li>
-            <li>user 2</li>
-            <li>user 3</li>
-            <li>user 4</li>
-            <li>user 5</li>
-          </ul>
-        </div>
-      ),
+      component: <UserTableNetworked />,
+    }),
+  },
+  {
+    path: "/dashboard/users/create",
+    action: () => ({
+      component: <CreateUser />,
+    }),
+  },
+  {
+    path: "/dashboard/users/:id/edit",
+    action: ({ params }) => ({
+      component: <UpdateUser userId={params.id as string} />,
     }),
   },
   {
@@ -82,13 +88,19 @@ const menuItems = [
   <MenuLink key="pools" href="/dashboard/pools" text="Pools" />,
 ];
 
+const client = createClient({
+  url: "http://localhost:8000/graphql",
+});
+
 export const PoolDashboard: React.FC = () => {
   const location = useLocation();
 
   return (
     <div>
       <p>Current path: {location.pathname}</p>
-      <Dashboard menuItems={menuItems} contentRoutes={routes} />
+      <ClientProvider client={client}>
+        <Dashboard menuItems={menuItems} contentRoutes={routes} />
+      </ClientProvider>
     </div>
   );
 };

@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-key */
 import React from "react";
-import { useTable, useGlobalFilter, useSortBy, Column } from "react-table";
+import { useTable, useGlobalFilter, useSortBy } from "react-table";
 import GlobalFilter from "./GlobalFilter";
 
 interface TableProps {
