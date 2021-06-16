@@ -1,10 +1,10 @@
 import React, { useMemo } from "react";
-import { useTable, useGlobalFilter, useSortBy, Column } from "react-table";
-import { AllUsersQuery } from "../api/generated";
+import { Column } from "react-table";
+import { AllUsersQuery, useAllUsersQuery } from "../api/generated";
 import { notEmpty } from "../helpers/util";
 import Table from "./Table";
 
-const UserTable: React.FC<AllUsersQuery> = ({ users }) => {
+export const UserTable: React.FC<AllUsersQuery> = ({ users }) => {
   const columns: Array<Column> = useMemo(
     () => [
       {
@@ -44,4 +44,13 @@ const UserTable: React.FC<AllUsersQuery> = ({ users }) => {
   );
 };
 
-export default UserTable;
+export const UserTableNetworked: React.FunctionComponent = () => {
+  const [result, _reexecuteQuery] = useAllUsersQuery();
+  const { data, fetching, error } = result;
+
+  if (fetching) return <p>Loading...</p>;
+  if (error) return <p>Oh no... {error.message}</p>;
+  return <UserTable users={data?.users ?? []} />;
+};
+
+export default UserTableNetworked;

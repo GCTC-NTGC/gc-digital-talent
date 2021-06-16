@@ -2,7 +2,7 @@ import React from "react";
 import { storiesOf } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 import { createClient } from "urql";
-import UserTable from "../components/UserTable";
+import { UserTable } from "../components/UserTable";
 import fakeUsers from "../fakeData/fakeUsers";
 import {
   Language,
@@ -11,7 +11,7 @@ import {
   User,
 } from "../api/generated";
 import ClientProvider from "../components/ClientProvider";
-import { CreateUser } from "../components/CreateUser";
+import { CreateUserForm } from "../components/CreateUser";
 import { UpdateUserForm } from "../components/UpdateUser";
 
 const userData = fakeUsers();
@@ -49,7 +49,7 @@ stories.add("Users Table with API data", () => (
 
 stories.add("Create User", () => {
   return (
-    <CreateUser
+    <CreateUserForm
       handleCreateUser={async (data: UpdateUserInput) => {
         await new Promise((resolve) => setTimeout(resolve, 1000));
         action("Create User")(data);

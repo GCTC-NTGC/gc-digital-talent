@@ -6,11 +6,11 @@ import Form from "./form/Form";
 import Input from "./form/Input";
 import Select from "./form/Select";
 
-interface CreateUserProps {
+interface CreateUserFormProps {
   handleCreateUser: (data: UpdateUserInput) => Promise<void>;
 }
 
-export const CreateUser: React.FunctionComponent<CreateUserProps> = ({
+export const CreateUserForm: React.FunctionComponent<CreateUserFormProps> = ({
   handleCreateUser,
 }) => {
   interface FormValues {
@@ -78,6 +78,13 @@ export const CreateUser: React.FunctionComponent<CreateUserProps> = ({
       </Form>
     </section>
   );
+};
+
+export const CreateUser: React.FunctionComponent = () => {
+  const handleCreateUser = async () => {
+    // TODO: Use urql hook
+  };
+  return <CreateUserForm handleCreateUser={handleCreateUser} />;
 };
 
 export default CreateUser;
