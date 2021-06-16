@@ -44,7 +44,7 @@ export const UserTable: React.FC<AllUsersQuery> = ({ users }) => {
   );
 };
 
-export const UserTableNetworked: React.FunctionComponent = () => {
+export const ApiUserTable: React.FunctionComponent = () => {
   const [result, _reexecuteQuery] = useAllUsersQuery();
   const { data, fetching, error } = result;
 
@@ -52,5 +52,3 @@ export const UserTableNetworked: React.FunctionComponent = () => {
   if (error) return <p>Oh no... {error.message}</p>;
   return <UserTable users={data?.users ?? []} />;
 };
-
-export default UserTableNetworked;

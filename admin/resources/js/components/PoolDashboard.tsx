@@ -2,11 +2,12 @@ import React from "react";
 import { Routes } from "universal-router";
 import { createClient } from "urql";
 import { Link, RouterResult, useLocation } from "../helpers/router";
+import { ApiClassificationTable } from "./ClassificationTable";
 import ClientProvider from "./ClientProvider";
 import CreateUser from "./CreateUser";
 import { Dashboard, exactMatch, MenuLink } from "./dashboard/Dashboard";
 import { UpdateUser } from "./UpdateUser";
-import UserTableNetworked from "./UserTable";
+import { ApiUserTable } from "./UserTable";
 
 const routes: Routes<RouterResult> = [
   {
@@ -18,7 +19,7 @@ const routes: Routes<RouterResult> = [
   {
     path: "/dashboard/users",
     action: () => ({
-      component: <UserTableNetworked />,
+      component: <ApiUserTable />,
     }),
   },
   {
@@ -34,50 +35,9 @@ const routes: Routes<RouterResult> = [
     }),
   },
   {
-    path: "/dashboard/pools",
+    path: "/dashboard/classifications",
     action: () => ({
-      component: (
-        <div>
-          <h2>Welcome to my Pool</h2>
-          <p>All our pools are the best here.</p>
-          <p>
-            <Link href="/dashboard/pools/create" title="">
-              Create
-            </Link>
-          </p>
-          <p>
-            <Link href="/dashboard/pools/1/edit" title="">
-              Edit 1
-            </Link>
-          </p>
-        </div>
-      ),
-    }),
-  },
-  {
-    path: "/dashboard/pools/create",
-    action: () => ({
-      component: (
-        <div>
-          <h2>Here is where you can create a Pool</h2>
-          <p>(Create form still pending...)</p>
-        </div>
-      ),
-    }),
-  },
-  {
-    path: "/dashboard/pools/:id/edit",
-    action: ({ params }) => ({
-      component: (
-        <div>
-          <h2>{`You are now editing Pool ${params.id}`}</h2>
-          <p>
-            <Link href="/dashboard/pools" title="">
-              Back
-            </Link>
-          </p>
-        </div>
-      ),
+      component: <ApiClassificationTable />,
     }),
   },
 ];
@@ -85,7 +45,11 @@ const routes: Routes<RouterResult> = [
 const menuItems = [
   <MenuLink key="home" href="/dashboard" text="Home" isActive={exactMatch} />,
   <MenuLink key="users" href="/dashboard/users" text="Users" />,
-  <MenuLink key="pools" href="/dashboard/pools" text="Pools" />,
+  <MenuLink
+    key="users"
+    href="/dashboard/classifications"
+    text="Classifications"
+  />,
 ];
 
 const client = createClient({

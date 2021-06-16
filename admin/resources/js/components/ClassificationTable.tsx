@@ -1,10 +1,13 @@
 import React, { useMemo } from "react";
 import { Column } from "react-table";
-import { GetClassificationsQuery } from "../api/generated";
+import {
+  GetClassificationsQuery,
+  useGetClassificationsQuery,
+} from "../api/generated";
 import { notEmpty } from "../helpers/util";
 import Table from "./Table";
 
-const ClassificationTable: React.FC<GetClassificationsQuery> = ({
+export const ClassificationTable: React.FC<GetClassificationsQuery> = ({
   classifications,
 }) => {
   const columns: Array<Column> = useMemo(
@@ -49,4 +52,12 @@ const ClassificationTable: React.FC<GetClassificationsQuery> = ({
   );
 };
 
-export default ClassificationTable;
+export const ApiClassificationTable: React.FunctionComponent = () => {
+  const [result, _reexecuteQuery] = useGetClassificationsQuery();
+  const { data, fetching, error } = result;
+
+  if (fetching) return <p>Loading...</p>;
+  if (error) return <p>Oh no... {error.message}</p>;
+
+  return <ClassificationTable classifications={data?.classifications ?? []} />;
+};
