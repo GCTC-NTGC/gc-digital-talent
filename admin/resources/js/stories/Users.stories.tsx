@@ -5,13 +5,14 @@ import { createClient } from "urql";
 import UserTable from "../components/UserTable";
 import fakeUsers from "../fakeData/fakeUsers";
 import {
-  Language,
-  UpdateUserInput,
+  CreateUserInput,
   useAllUsersQuery,
+  Language,
   User,
 } from "../api/generated";
 import ClientProvider from "../components/ClientProvider";
-import { CreateUser } from "../components/CreateUser";
+import { CreateUserForm } from "../components/CreateUser";
+
 import { UpdateUserForm } from "../components/UpdateUser";
 
 const userData = fakeUsers();
@@ -47,12 +48,13 @@ stories.add("Users Table with API data", () => (
   </ClientProvider>
 ));
 
-stories.add("Create User", () => {
+stories.add("Create User Form", () => {
   return (
-    <CreateUser
-      handleCreateUser={async (data: UpdateUserInput) => {
+    <CreateUserForm
+      handleCreateUser={async (data: CreateUserInput) => {
         await new Promise((resolve) => setTimeout(resolve, 1000));
         action("Create User")(data);
+        return data;
       }}
     />
   );
