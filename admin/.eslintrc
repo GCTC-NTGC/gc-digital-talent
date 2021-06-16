@@ -113,9 +113,7 @@
        "@typescript-eslint/ban-types": "warn",
        "@typescript-eslint/no-use-before-define": "warn",
        "no-shadow": "off",
-       "@typescript-eslint/no-shadow": "error",
-       "no-nested-ternary": "off",
-       "no-underscore-dangle": "off"
+       "@typescript-eslint/no-shadow": "error"
    },
    "settings": {
        "react": {

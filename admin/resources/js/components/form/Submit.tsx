@@ -6,16 +6,17 @@ export const Submit: React.FunctionComponent<{
   notDirtyText?: string;
   isSubmittingText?: string;
 }> = ({ text, notDirtyText, isSubmittingText }) => {
-  const _text = text ?? "Submit";
-  const _notDirtyText = notDirtyText ?? "Submitted";
-  const _isSubmittingText = isSubmittingText ?? "Submitting";
-  const { isDirty, isSubmitting } = useFormState();
+  const defaultText = "Submit";
+  const defaultNotDirtyText = "Submitted";
+  const defaultIsSubmittingText = "Submitting";
 
-  const currentText = isSubmitting
-    ? _isSubmittingText
-    : !isDirty
-    ? _notDirtyText
-    : _text;
+  const { isDirty, isSubmitting } = useFormState();
+  let currentText = text ?? defaultText;
+  if (isSubmitting) {
+    currentText = isSubmittingText ?? defaultIsSubmittingText;
+  } else if (!isDirty) {
+    currentText = notDirtyText ?? defaultNotDirtyText;
+  }
 
   return (
     <button type="submit" disabled={isSubmitting || !isDirty}>
