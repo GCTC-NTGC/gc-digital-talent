@@ -244,9 +244,87 @@ input CreatePoolInput {
     poolCandidates: CreatePoolCandidateHasMany
 }
 
+input UpdateUserBelongsTo {
+    connect: ID
+}
+
+input UpdatePoolBelongsTo {
+    connect: ID
+}
+
+input UpdateClassificationInput {
+    name: LocalizedStringInput
+    group: String!
+    level: Int!
+    minSalary: Int @rename(attribute: "min_salary")
+    maxSalary: Int @rename(attribute: "max_salary")
+}
+
+input UpdateClassificationBelongsToMany {
+    create: [UpdateClassificationInput!]
+    connect: [ID!]
+}
+
+input UpdateCmoAssetInput {
+    key: String!
+    name: LocalizedStringInput!
+    description: LocalizedStringInput
+}
+
+input UpdateCmoAssetBelongsToMany {
+    create: [UpdateCmoAssetInput!]
+    connect: [ID!]
+}
+
+input UpdateOperationalRequirementInput {
+    key: String
+    name: LocalizedStringInput!
+    description: LocalizedStringInput
+}
+
+input UpdateOperationalRequirementBelongsToMany {
+    create: [UpdateOperationalRequirementInput!]
+    connect: [ID!]
+}
+
+input UpdatePoolCandidateInput {
+    pool: UpdatePoolBelongsTo @belongsTo
+    user: UpdateUserBelongsTo @belongsTo
+    cmoIdentifier: ID @rename(attribute: "cmo_identifier")
+    expiryDate: Date
+    isWoman: Boolean @rename(attribute: "is_woman")
+    hasDisability: Boolean @rename(attribute: "has_disability")
+    isIndigenous: Boolean @rename(attribute: "is_indigenous")
+    isVisibleMinority: Boolean @rename(attribute: "is_visible_minority")
+    hasDiploma: Boolean @rename(attribute: "has_diploma")
+    languageAbility: LanguageAbility @rename(attribute: "language_ability")
+    locationPreferences: [WorkRegion] @rename(attribute: "location_preferences")
+    acceptedOperationalRequirements: [OperationalRequirement] @belongsToMany
+    expectedSalary: [SalaryRange] @rename(attribute: "expected_salary")
+    expectedClassifications: [Classification] @belongsToMany
+    cmoAssets: [CmoAsset] @belongsToMany
+    status: PoolCandidateStatus
+}
+
+input UpdatePoolCandidateHasMany {
+    create: [UpdatePoolCandidateInput!]
+}
+
+input UpdatePoolInput {
+    owner: UpdateUserBelongsTo @rename(attribute: "user")
+    name: LocalizedStringInput
+    description: LocalizedStringInput
+    classifications: UpdateClassificationBelongsToMany
+    assetCriteria: UpdateCmoAssetBelongsToMany
+    essentialCriteria: UpdateCmoAssetBelongsToMany
+    operationalRequirements: UpdateOperationalRequirementBelongsToMany
+    poolCandidates: UpdatePoolCandidateHasMany
+}
+
 type Mutation {
     createUser(user: CreateUserInput! @spread): User @create
     updateUser(id: ID!, user: UpdateUserInput! @spread): User @update
     deleteUser(id: ID!): User @delete(globalId: false)
     createPool(pool: CreatePoolInput! @spread): Pool @create
+    updatePool(id: ID!, pool: UpdatePoolInput! @spread): Pool @update
 }
