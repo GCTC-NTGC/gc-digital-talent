@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useAsyncDebounce } from "react-table";
+import "regenerator-runtime/runtime.js"; // This is required for useAsyncDebounce to work; it makes up for something wrong with our webpack configuration.
 
 interface GlobalFilterProps {
   preGlobalFilteredRows: any;
