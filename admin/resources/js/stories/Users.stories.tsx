@@ -4,9 +4,9 @@ import { action } from "@storybook/addon-actions";
 import { createClient } from "urql";
 import UserTable from "../components/UserTable";
 import fakeUsers from "../fakeData/fakeUsers";
-import { UpdateUserInput, useAllUsersQuery } from "../api/generated";
+import { CreateUserInput, useAllUsersQuery } from "../api/generated";
 import ClientProvider from "../components/ClientProvider";
-import { CreateUser } from "../components/CreateUser";
+import { CreateUserForm } from "../components/CreateUser";
 
 const userData = fakeUsers();
 // Its possible data may come back from api with missing data.
@@ -41,13 +41,14 @@ stories.add("Users Table with API data", () => (
   </ClientProvider>
 ));
 
-stories.add("Create User", () => {
+stories.add("Create User Form", () => {
   return (
-    <CreateUser
-      handleCreateUser={async (data: UpdateUserInput) => {
-        await new Promise((resolve) => setTimeout(resolve, 1000));
-        action("Create User")(data);
-      }}
+    <CreateUserForm
+      handleCreateUser={async (data: CreateUserInput) => {
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+      action("Create User")(data);
+      return data;
+    }}
     />
   );
 });
