@@ -1,11 +1,15 @@
 import React, { useMemo } from "react";
 import { Column } from "react-table";
-import { AllUsersQuery, useAllUsersQuery } from "../api/generated";
+import { AllUsersQuery, useAllUsersQuery, User } from "../api/generated";
+import { Link, useLocation } from "../helpers/router";
 import { notEmpty } from "../helpers/util";
 import Table from "./Table";
 
-export const UserTable: React.FC<AllUsersQuery> = ({ users }) => {
-  const columns: Array<Column> = useMemo(
+export const UserTable: React.FC<AllUsersQuery & { editUrlRoot: string }> = ({
+  users,
+  editUrlRoot,
+}) => {
+  const columns: Array<Column<User>> = useMemo(
     () => [
       {
         Header: "ID",
@@ -31,8 +35,17 @@ export const UserTable: React.FC<AllUsersQuery> = ({ users }) => {
         Header: "Preferred Language",
         accessor: "preferredLang",
       },
+      {
+        Header: "",
+        id: "edit",
+        accessor: ({ id }) => (
+          <Link href={`${editUrlRoot}/${id}/edit`} title="">
+            Edit
+          </Link>
+        ),
+      },
     ],
-    [],
+    [editUrlRoot],
   );
 
   const data = useMemo(() => users.filter(notEmpty), [users]);
@@ -47,8 +60,9 @@ export const UserTable: React.FC<AllUsersQuery> = ({ users }) => {
 export const ApiUserTable: React.FunctionComponent = () => {
   const [result, _reexecuteQuery] = useAllUsersQuery();
   const { data, fetching, error } = result;
+  const { pathname } = useLocation();
 
   if (fetching) return <p>Loading...</p>;
   if (error) return <p>Oh no... {error.message}</p>;
-  return <UserTable users={data?.users ?? []} />;
+  return <UserTable users={data?.users ?? []} editUrlRoot={pathname} />;
 };

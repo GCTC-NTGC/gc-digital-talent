@@ -18,9 +18,9 @@ const flawedUserData = [
 
 const stories = storiesOf("Users", module);
 
-stories.add("User Table", () => <UserTable users={userData} />);
+stories.add("User Table", () => <UserTable users={userData} editUrlRoot="#" />);
 stories.add("Users Table with flawed data", () => (
-  <UserTable users={flawedUserData} />
+  <UserTable users={flawedUserData} editUrlRoot="#" />
 ));
 
 stories.add("Users Table with API data", () => (

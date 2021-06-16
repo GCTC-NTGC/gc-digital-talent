@@ -19,7 +19,14 @@ const routes: Routes<RouterResult> = [
   {
     path: "/dashboard/users",
     action: () => ({
-      component: <ApiUserTable />,
+      component: (
+        <div>
+          <Link href="/dashboard/users/create" title="">
+            Create User
+          </Link>
+          <ApiUserTable />,
+        </div>
+      ),
     }),
   },
   {

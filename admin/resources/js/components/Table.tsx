@@ -1,19 +1,19 @@
 /* eslint-disable react/jsx-key */
-import React from "react";
+import React, { ReactElement } from "react";
 import { useTable, useGlobalFilter, useSortBy } from "react-table";
 import GlobalFilter from "./GlobalFilter";
 
-interface TableProps {
+interface TableProps<T> {
   columns: any;
-  data: any;
+  data: T[];
   filter?: boolean;
 }
 
-const Table: React.FunctionComponent<TableProps> = ({
+function Table<T extends Record<string, unknown>>({
   columns,
   data,
   filter = true,
-}) => {
+}: TableProps<T>): ReactElement {
   const {
     getTableProps,
     getTableBodyProps,
@@ -23,7 +23,7 @@ const Table: React.FunctionComponent<TableProps> = ({
     setGlobalFilter,
     state,
     preGlobalFilteredRows,
-  } = useTable({ columns, data }, useGlobalFilter, useSortBy);
+  } = useTable<T>({ columns, data }, useGlobalFilter, useSortBy);
 
   return (
     <table {...getTableProps()}>
@@ -67,6 +67,6 @@ const Table: React.FunctionComponent<TableProps> = ({
       </tbody>
     </table>
   );
-};
+}
 
 export default Table;
