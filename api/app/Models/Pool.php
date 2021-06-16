@@ -4,6 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * Class Pool
@@ -30,22 +33,28 @@ class Pool extends Model
         'description' => 'array',
     ];
 
-    public function user() {
+    public function user(): BelongsTo
+    {
         return $this->belongsTo(User::class);
     }
-    public function classifications() {
+    public function classifications(): BelongsToMany
+    {
         return $this->belongsToMany(Classification::class);
     }
-    public function operationalRequirements() {
+    public function operationalRequirements(): BelongsToMany
+    {
         return $this->belongsToMany(OperationalRequirement::class);
     }
-    public function assetCriteria() {
+    public function assetCriteria(): BelongsToMany
+    {
         return $this->belongsToMany(CmoAsset::class, 'asset_cmo_asset_pool');
     }
-    public function essentialCriteria() {
+    public function essentialCriteria(): BelongsToMany
+    {
         return $this->belongsToMany(CmoAsset::class, 'essential_cmo_asset_pool');
     }
-    public function poolCandidates() {
+    public function poolCandidates(): HasMany
+    {
         return $this->hasMany(PoolCandidate::class);
     }
 }

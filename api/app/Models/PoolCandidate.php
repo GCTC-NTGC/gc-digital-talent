@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
  * Class PoolCandidate
@@ -41,19 +43,24 @@ class PoolCandidate extends Model
         'expected_salary' => 'array'
     ];
 
-    public function user() {
+    public function user(): BelongsTo
+    {
         return $this->belongsTo(User::class);
     }
-    public function pool() {
+    public function pool(): BelongsTo
+    {
         return $this->belongsTo(Pool::class);
     }
-    public function acceptedOperationalRequirements() {
+    public function acceptedOperationalRequirements(): BelongsToMany
+    {
         return $this->belongsToMany(OperationalRequirement::class, 'operational_requirement_pool_candidate');
     }
-    public function expectedClassifications() {
+    public function expectedClassifications(): BelongsToMany
+    {
         return $this->belongsToMany(Classification::class, 'classification_pool_candidate');
     }
-    public function cmoAssets() {
+    public function cmoAssets(): BelongsToMany
+    {
         return $this->belongsToMany(CmoAsset::class);
     }
 
