@@ -327,7 +327,6 @@ input UpdatePoolInput {
     operationalRequirements: UpdateOperationalRequirementBelongsToMany
     poolCandidates: UpdatePoolCandidateHasMany
 }
-
 type Mutation {
     createUser(user: CreateUserInput! @spread): User @create
     updateUser(id: ID!, user: UpdateUserInput! @spread): User @update
@@ -335,4 +334,7 @@ type Mutation {
     createPool(pool: CreatePoolInput! @spread): Pool @create
     updatePool(id: ID!, pool: UpdatePoolInput! @spread): Pool @update
     deletePool(id: ID!): Pool @delete(globalId: false)
+    createPoolCandidate(pool: CreatePoolCandidateInput! @spread): Pool @create
+    updatePoolCandidate(id: ID!, pool: UpdatePoolCandidateInput! @spread): PoolCandidate @update
+    deletePoolCandidate(id: ID!): PoolCandidate @delete(globalId: false)
 }
