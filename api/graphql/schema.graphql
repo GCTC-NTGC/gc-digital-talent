@@ -344,4 +344,7 @@ type Mutation {
     createCmoAsset(cmoAsset: CreateCmoAssetInput! @spread): CmoAsset @create
     updateCmoAsset(id: ID!, cmoAsset: UpdateCmoAssetInput! @spread): CmoAsset @update
     deleteCmoAsset(id: ID!): CmoAsset @delete(globalId: false)
+    createOperationalRequirement(operationalRequirement: CreateOperationalRequirementInput! @spread): OperationalRequirement @create
+    updateOperationalRequirement(id: ID!, operationalRequirement: UpdateCmoAssetInput! @spread): OperationalRequirement @update
+    deleteOperationalRequirement(id: ID!): OperationalRequirement @delete(globalId: false)
 }
