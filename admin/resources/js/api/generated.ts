@@ -269,6 +269,19 @@ export type UpdateUserMutation = { __typename?: "Mutation" } & {
   >;
 };
 
+export type CreateUserMutationVariables = Exact<{
+  user: CreateUserInput;
+}>;
+
+export type CreateUserMutation = { __typename?: "Mutation" } & {
+  createUser?: Maybe<
+    { __typename?: "User" } & Pick<
+      User,
+      "firstName" | "lastName" | "email" | "telephone" | "preferredLang"
+    >
+  >;
+};
+
 export const GetClassificationsDocument = gql`
   query GetClassifications {
     classifications {
@@ -347,5 +360,22 @@ export const UpdateUserDocument = gql`
 export function useUpdateUserMutation() {
   return Urql.useMutation<UpdateUserMutation, UpdateUserMutationVariables>(
     UpdateUserDocument,
+  );
+}
+export const CreateUserDocument = gql`
+  mutation CreateUser($user: CreateUserInput!) {
+    createUser(user: $user) {
+      firstName
+      lastName
+      email
+      telephone
+      preferredLang
+    }
+  }
+`;
+
+export function useCreateUserMutation() {
+  return Urql.useMutation<CreateUserMutation, CreateUserMutationVariables>(
+    CreateUserDocument,
   );
 }

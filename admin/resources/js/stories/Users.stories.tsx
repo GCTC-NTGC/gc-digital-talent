@@ -3,7 +3,7 @@ import { storiesOf } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 import { ApiUserTable, UserTable } from "../components/UserTable";
 import fakeUsers from "../fakeData/fakeUsers";
-import { Language, UpdateUserInput, User } from "../api/generated";
+import { CreateUserInput, Language, User } from "../api/generated";
 import ClientProvider from "../components/ClientProvider";
 import { CreateUserForm } from "../components/CreateUser";
 import { UpdateUserForm } from "../components/UpdateUser";
@@ -29,12 +29,13 @@ stories.add("Users Table with API data", () => (
   </ClientProvider>
 ));
 
-stories.add("Create User", () => {
+stories.add("Create User Form", () => {
   return (
     <CreateUserForm
-      handleCreateUser={async (data: UpdateUserInput) => {
+      handleCreateUser={async (data: CreateUserInput) => {
         await new Promise((resolve) => setTimeout(resolve, 1000));
         action("Create User")(data);
+        return data;
       }}
     />
   );
