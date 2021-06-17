@@ -339,6 +339,6 @@ type Mutation {
     updatePoolCandidate(id: ID!, pool: UpdatePoolCandidateInput! @spread): PoolCandidate @update
     deletePoolCandidate(id: ID!): PoolCandidate @delete(globalId: false)
     createClassification(classification: CreateClassificationInput! @spread): Classification @create
-    updateClassification(id: ID!, Classification: UpdateClassificationInput! @spread): Classification @update
+    updateClassification(id: ID!, classification: UpdateClassificationInput! @spread): Classification @update
     deleteClassification(id: ID!): Classification @delete(globalId: false)
 }
