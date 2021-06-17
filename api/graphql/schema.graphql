@@ -341,4 +341,7 @@ type Mutation {
     createClassification(classification: CreateClassificationInput! @spread): Classification @create
     updateClassification(id: ID!, classification: UpdateClassificationInput! @spread): Classification @update
     deleteClassification(id: ID!): Classification @delete(globalId: false)
+    createCmoAsset(cmoAsset: CreateCmoAssetInput! @spread): CmoAsset @create
+    updateCmoAsset(id: ID!, cmoAsset: UpdateCmoAssetInput! @spread): CmoAsset @update
+    deleteCmoAsset(id: ID!): CmoAsset @delete(globalId: false)
 }
