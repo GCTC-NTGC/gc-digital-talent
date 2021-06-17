@@ -263,6 +263,8 @@ input UpdateClassificationInput {
 input UpdateClassificationBelongsToMany {
     create: [UpdateClassificationInput!]
     connect: [ID!]
+    disconnect: [ID!]
+    delete: [ID!]
 }
 
 input UpdateCmoAssetInput {
@@ -274,6 +276,8 @@ input UpdateCmoAssetInput {
 input UpdateCmoAssetBelongsToMany {
     create: [UpdateCmoAssetInput!]
     connect: [ID!]
+    disconnect: [ID!]
+    delete: [ID!]
 }
 
 input UpdateOperationalRequirementInput {
@@ -285,6 +289,8 @@ input UpdateOperationalRequirementInput {
 input UpdateOperationalRequirementBelongsToMany {
     create: [UpdateOperationalRequirementInput!]
     connect: [ID!]
+    disconnect: [ID!]
+    delete: [ID!]
 }
 
 input UpdatePoolCandidateInput {
@@ -308,6 +314,7 @@ input UpdatePoolCandidateInput {
 
 input UpdatePoolCandidateHasMany {
     create: [UpdatePoolCandidateInput!]
+    delete: [ID!]
 }
 
 input UpdatePoolInput {
@@ -327,4 +334,5 @@ type Mutation {
     deleteUser(id: ID!): User @delete(globalId: false)
     createPool(pool: CreatePoolInput! @spread): Pool @create
     updatePool(id: ID!, pool: UpdatePoolInput! @spread): Pool @update
+    deletePool(id: ID!): Pool @delete(globalId: false)
 }
