@@ -4,7 +4,7 @@ import { createClient } from "urql";
 import { Link, RouterResult, useLocation } from "../helpers/router";
 import { ApiClassificationTable } from "./ClassificationTable";
 import ClientProvider from "./ClientProvider";
-import CreateUser from "./CreateUser";
+import { CreateUser } from "./CreateUser";
 import { Dashboard, exactMatch, MenuLink } from "./dashboard/Dashboard";
 import { UpdateUser } from "./UpdateUser";
 import { ApiUserTable } from "./UserTable";
