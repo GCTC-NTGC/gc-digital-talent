@@ -1,11 +1,11 @@
 import React, { useMemo } from "react";
 import { Column } from "react-table";
-import { GetClassificationsQuery } from "../api/generated";
+import { GetPoolCandidatesQuery } from "../api/generated";
 import { notEmpty } from "../helpers/util";
 import Table from "./Table";
 
-const ClassificationTable: React.FC<GetClassificationsQuery> = ({
-  classifications,
+const ClassificationTable: React.FC<GetPoolCandidatesQuery> = ({
+  poolCandidates,
 }) => {
   const columns: Array<Column> = useMemo(
     () => [
@@ -54,8 +54,8 @@ const ClassificationTable: React.FC<GetClassificationsQuery> = ({
   );
 
   const memoizedData = useMemo(
-    () => classifications.filter(notEmpty),
-    [classifications],
+    () => poolCandidates.filter(notEmpty),
+    [poolCandidates],
   );
 
   return (
