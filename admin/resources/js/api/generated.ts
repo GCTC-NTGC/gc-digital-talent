@@ -224,6 +224,27 @@ export type GetClassificationsQuery = { __typename?: "Query" } & {
   >;
 };
 
+export type GetCmoAssetsQueryVariables = Exact<{ [key: string]: never }>;
+
+export type GetCmoAssetsQuery = { __typename?: "Query" } & {
+  cmoAssets: Array<
+    Maybe<
+      { __typename?: "CmoAsset" } & Pick<CmoAsset, "id" | "key"> & {
+          name: { __typename?: "LocalizedString" } & Pick<
+            LocalizedString,
+            "en" | "fr"
+          >;
+          description?: Maybe<
+            { __typename?: "LocalizedString" } & Pick<
+              LocalizedString,
+              "en" | "fr"
+            >
+          >;
+        }
+    >
+  >;
+};
+
 export type AllUsersQueryVariables = Exact<{ [key: string]: never }>;
 
 export type AllUsersQuery = { __typename?: "Query" } & {
@@ -292,6 +313,31 @@ export function useGetClassificationsQuery(
 ) {
   return Urql.useQuery<GetClassificationsQuery>({
     query: GetClassificationsDocument,
+    ...options,
+  });
+}
+export const GetCmoAssetsDocument = gql`
+  query GetCmoAssets {
+    cmoAssets {
+      id
+      key
+      name {
+        en
+        fr
+      }
+      description {
+        en
+        fr
+      }
+    }
+  }
+`;
+
+export function useGetCmoAssetsQuery(
+  options: Omit<Urql.UseQueryArgs<GetCmoAssetsQueryVariables>, "query"> = {},
+) {
+  return Urql.useQuery<GetCmoAssetsQuery>({
+    query: GetCmoAssetsDocument,
     ...options,
   });
 }
