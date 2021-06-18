@@ -27,7 +27,7 @@ const ApiClassificationTable = () => {
 
   return <PoolCandidatesTable poolCandidates={data?.poolCandidates ?? []} />;
 };
-stories.add("Users Table with API data", () => (
+stories.add("Classifications Table with API data", () => (
   <ClientProvider client={client}>
     <ApiClassificationTable />
   </ClientProvider>
