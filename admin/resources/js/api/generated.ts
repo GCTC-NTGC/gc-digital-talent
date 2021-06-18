@@ -245,6 +245,32 @@ export type GetCmoAssetsQuery = { __typename?: "Query" } & {
   >;
 };
 
+export type GetOperationalRequirementsQueryVariables = Exact<{
+  [key: string]: never;
+}>;
+
+export type GetOperationalRequirementsQuery = { __typename?: "Query" } & {
+  operationalRequirements: Array<
+    Maybe<
+      { __typename?: "OperationalRequirement" } & Pick<
+        OperationalRequirement,
+        "id" | "key"
+      > & {
+          name: { __typename?: "LocalizedString" } & Pick<
+            LocalizedString,
+            "en" | "fr"
+          >;
+          description?: Maybe<
+            { __typename?: "LocalizedString" } & Pick<
+              LocalizedString,
+              "en" | "fr"
+            >
+          >;
+        }
+    >
+  >;
+};
+
 export type AllUsersQueryVariables = Exact<{ [key: string]: never }>;
 
 export type AllUsersQuery = { __typename?: "Query" } & {
@@ -338,6 +364,34 @@ export function useGetCmoAssetsQuery(
 ) {
   return Urql.useQuery<GetCmoAssetsQuery>({
     query: GetCmoAssetsDocument,
+    ...options,
+  });
+}
+export const GetOperationalRequirementsDocument = gql`
+  query GetOperationalRequirements {
+    operationalRequirements {
+      id
+      key
+      name {
+        en
+        fr
+      }
+      description {
+        en
+        fr
+      }
+    }
+  }
+`;
+
+export function useGetOperationalRequirementsQuery(
+  options: Omit<
+    Urql.UseQueryArgs<GetOperationalRequirementsQueryVariables>,
+    "query"
+  > = {},
+) {
+  return Urql.useQuery<GetOperationalRequirementsQuery>({
+    query: GetOperationalRequirementsDocument,
     ...options,
   });
 }
