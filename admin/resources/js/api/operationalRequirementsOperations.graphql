@@ -1,0 +1,14 @@
+query GetOperationalRequirements {
+  OperationalRequirements {
+    id,
+    key,
+    name {
+      en
+      fr
+    },
+    description {
+      en
+      fr
+    }
+  }
+}
