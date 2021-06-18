@@ -4,7 +4,7 @@ import { useTable, useGlobalFilter, useSortBy, Column } from "react-table";
 import GlobalFilter from "./GlobalFilter";
 
 interface TableProps {
-  columns: any;
+  columns: Array<Column>;
   data: any;
   filter?: boolean;
 }
