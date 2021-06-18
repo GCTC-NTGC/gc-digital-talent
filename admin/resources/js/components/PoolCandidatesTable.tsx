@@ -18,7 +18,7 @@ const ClassificationTable: React.FC<GetPoolCandidatesQuery> = ({
         accessor: "pool.name.en",
       },
       {
-        Header: "user",
+        Header: "User",
         accessor: "user.email",
       },
       {
@@ -27,23 +27,23 @@ const ClassificationTable: React.FC<GetPoolCandidatesQuery> = ({
       },
       {
         Header: "Woman",
-        accessor: "isWoman",
+        accessor: (d) => (d ? "Y" : "N"),
       },
       {
         Header: "Disability",
-        accessor: "hasDisability",
+        accessor: (d) => (d ? "Y" : "N"),
       },
       {
         Header: "Indigenous",
-        accessor: "isIndigenous",
+        accessor: (d) => (d ? "Y" : "N"),
       },
       {
         Header: "Visible Minority",
-        accessor: "isVisibleMinority",
+        accessor: (d) => (d ? "Y" : "N"),
       },
       {
         Header: "Diploma",
-        accessor: "hasDiploma",
+        accessor: (d) => (d ? "Y" : "N"),
       },
       {
         Header: "Language",
