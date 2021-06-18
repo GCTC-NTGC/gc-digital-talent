@@ -1,5 +1,5 @@
 query GetOperationalRequirements {
-  OperationalRequirements {
+  operationalRequirements {
     id,
     key,
     name {
