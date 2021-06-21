@@ -53,7 +53,7 @@ export const ClassificationTable: React.FC<GetClassificationsQuery> = ({
 };
 
 export const ApiClassificationTable: React.FunctionComponent = () => {
-  const [result, _reexecuteQuery] = useGetClassificationsQuery();
+  const [result] = useGetClassificationsQuery();
   const { data, fetching, error } = result;
 
   if (fetching) return <p>Loading...</p>;

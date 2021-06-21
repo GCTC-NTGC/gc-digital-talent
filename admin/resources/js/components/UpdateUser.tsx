@@ -96,11 +96,11 @@ export const UpdateUserForm: React.FunctionComponent<UpdateUserFormProps> = ({
 export const UpdateUser: React.FunctionComponent<{ userId: string }> = ({
   userId,
 }) => {
-  const [{ data: userData, fetching, error }, _reexecuteUser] = useUserQuery({
+  const [{ data: userData, fetching, error }] = useUserQuery({
     variables: { id: userId },
   });
 
-  const [_result, executeMutation] = useUpdateUserMutation();
+  const [, executeMutation] = useUpdateUserMutation();
   const handleUpdateUser = (id: string, data: UpdateUserInput) =>
     /* We must pick only the fields belonging to UpdateUserInput, because its possible
        the data object contains other props at runtime, and this will cause the
