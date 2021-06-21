@@ -53,15 +53,11 @@ const menuItems = [
   <MenuLink key="home" href="/dashboard" text="Home" isActive={exactMatch} />,
   <MenuLink key="users" href="/dashboard/users" text="Users" />,
   <MenuLink
-    key="users"
+    key="classifications"
     href="/dashboard/classifications"
     text="Classifications"
   />,
 ];
-
-const client = createClient({
-  url: "http://localhost:8000/graphql",
-});
 
 export const PoolDashboard: React.FC = () => {
   const location = useLocation();
@@ -69,7 +65,7 @@ export const PoolDashboard: React.FC = () => {
   return (
     <div>
       <p>Current path: {location.pathname}</p>
-      <ClientProvider client={client}>
+      <ClientProvider>
         <Dashboard menuItems={menuItems} contentRoutes={routes} />
       </ClientProvider>
     </div>
