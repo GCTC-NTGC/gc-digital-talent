@@ -78,7 +78,7 @@
     "history": "^5.0.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-hook-form": "^7.8.8",
+    "react-hook-form": "^7.9.0",
     "react-table": "^7.7.0",
     "universal-router": "^9.0.1",
     "urql": "^2.0.3"
