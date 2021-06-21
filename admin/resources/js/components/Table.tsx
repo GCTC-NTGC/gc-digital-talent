@@ -1,10 +1,10 @@
 /* eslint-disable react/jsx-key */
 import React, { ReactElement } from "react";
-import { useTable, useGlobalFilter, useSortBy } from "react-table";
+import { useTable, useGlobalFilter, useSortBy, Column } from "react-table";
 import GlobalFilter from "./GlobalFilter";
 
-interface TableProps<T> {
-  columns: any;
+interface TableProps<T extends Record<string, unknown>> {
+  columns: Column<T>[];
   data: T[];
   filter?: boolean;
 }

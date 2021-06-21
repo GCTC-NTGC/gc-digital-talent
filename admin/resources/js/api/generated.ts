@@ -224,6 +224,108 @@ export type GetClassificationsQuery = { __typename?: "Query" } & {
   >;
 };
 
+export type GetPoolCandidatesQueryVariables = Exact<{ [key: string]: never }>;
+
+export type GetPoolCandidatesQuery = { __typename?: "Query" } & {
+  poolCandidates: Array<
+    Maybe<
+      { __typename?: "PoolCandidate" } & Pick<
+        PoolCandidate,
+        | "id"
+        | "cmoIdentifier"
+        | "expiryDate"
+        | "isWoman"
+        | "hasDisability"
+        | "isIndigenous"
+        | "isVisibleMinority"
+        | "hasDiploma"
+        | "languageAbility"
+        | "locationPreferences"
+        | "expectedSalary"
+        | "status"
+      > & {
+          pool?: Maybe<
+            { __typename?: "Pool" } & Pick<Pool, "id"> & {
+                name?: Maybe<
+                  { __typename?: "LocalizedString" } & Pick<
+                    LocalizedString,
+                    "en" | "fr"
+                  >
+                >;
+                classifications?: Maybe<
+                  Array<
+                    Maybe<
+                      { __typename?: "Classification" } & Pick<
+                        Classification,
+                        "id" | "group" | "level"
+                      > & {
+                          name?: Maybe<
+                            { __typename?: "LocalizedString" } & Pick<
+                              LocalizedString,
+                              "en" | "fr"
+                            >
+                          >;
+                        }
+                    >
+                  >
+                >;
+              }
+          >;
+          user?: Maybe<
+            { __typename?: "User" } & Pick<
+              User,
+              "id" | "firstName" | "lastName" | "email"
+            >
+          >;
+          acceptedOperationalRequirements?: Maybe<
+            Array<
+              Maybe<
+                { __typename?: "OperationalRequirement" } & Pick<
+                  OperationalRequirement,
+                  "id"
+                > & {
+                    name: { __typename?: "LocalizedString" } & Pick<
+                      LocalizedString,
+                      "en" | "fr"
+                    >;
+                  }
+              >
+            >
+          >;
+          expectedClassifications?: Maybe<
+            Array<
+              Maybe<
+                { __typename?: "Classification" } & Pick<
+                  Classification,
+                  "id" | "group" | "level"
+                > & {
+                    name?: Maybe<
+                      { __typename?: "LocalizedString" } & Pick<
+                        LocalizedString,
+                        "en" | "fr"
+                      >
+                    >;
+                  }
+              >
+            >
+          >;
+          cmoAssets?: Maybe<
+            Array<
+              Maybe<
+                { __typename?: "CmoAsset" } & Pick<CmoAsset, "id"> & {
+                    name: { __typename?: "LocalizedString" } & Pick<
+                      LocalizedString,
+                      "en" | "fr"
+                    >;
+                  }
+              >
+            >
+          >;
+        }
+    >
+  >;
+};
+
 export type AllUsersQueryVariables = Exact<{ [key: string]: never }>;
 
 export type AllUsersQuery = { __typename?: "Query" } & {
@@ -305,6 +407,81 @@ export function useGetClassificationsQuery(
 ) {
   return Urql.useQuery<GetClassificationsQuery>({
     query: GetClassificationsDocument,
+    ...options,
+  });
+}
+export const GetPoolCandidatesDocument = gql`
+  query GetPoolCandidates {
+    poolCandidates {
+      id
+      pool {
+        id
+        name {
+          en
+          fr
+        }
+        classifications {
+          id
+          name {
+            en
+            fr
+          }
+          group
+          level
+        }
+      }
+      user {
+        id
+        firstName
+        lastName
+        email
+      }
+      cmoIdentifier
+      expiryDate
+      isWoman
+      hasDisability
+      isIndigenous
+      isVisibleMinority
+      hasDiploma
+      languageAbility
+      locationPreferences
+      acceptedOperationalRequirements {
+        id
+        name {
+          en
+          fr
+        }
+      }
+      expectedSalary
+      expectedClassifications {
+        id
+        name {
+          en
+          fr
+        }
+        group
+        level
+      }
+      cmoAssets {
+        id
+        name {
+          en
+          fr
+        }
+      }
+      status
+    }
+  }
+`;
+
+export function useGetPoolCandidatesQuery(
+  options: Omit<
+    Urql.UseQueryArgs<GetPoolCandidatesQueryVariables>,
+    "query"
+  > = {},
+) {
+  return Urql.useQuery<GetPoolCandidatesQuery>({
+    query: GetPoolCandidatesDocument,
     ...options,
   });
 }

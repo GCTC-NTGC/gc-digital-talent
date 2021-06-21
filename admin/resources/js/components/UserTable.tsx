@@ -52,7 +52,7 @@ export const UserTable: React.FC<AllUsersQuery & { editUrlRoot: string }> = ({
 
   return (
     <>
-      <Table data={data} columns={columns} />
+      <Table<User> data={data} columns={columns} />
     </>
   );
 };
