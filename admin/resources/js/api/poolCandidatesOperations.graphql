@@ -1,0 +1,61 @@
+query GetPoolCandidates {
+  poolCandidates {
+    id,
+    pool {
+      id,
+      name {
+        en,
+        fr
+      },
+      classifications {
+        id,
+        name {
+          en,
+          fr
+        },
+        group,
+        level
+      },
+    },
+    user {
+      id,
+      firstName,
+      lastName,
+      email
+    },
+    cmoIdentifier,
+    expiryDate,
+    isWoman,
+    hasDisability,
+    isIndigenous,
+    isVisibleMinority,
+    hasDiploma,
+    languageAbility,
+    locationPreferences,
+    acceptedOperationalRequirements {
+      id,
+      name {
+        en,
+        fr
+      }
+    },
+    expectedSalary,
+    expectedClassifications {
+      id,
+      name {
+        en,
+        fr
+      }
+      group,
+      level
+    }
+    cmoAssets {
+      id,
+      name {
+        en,
+        fr
+      }
+    },
+    status
+  }
+}
