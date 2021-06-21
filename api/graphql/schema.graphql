@@ -27,8 +27,8 @@ type User {
     lastName: String @rename(attribute: "last_name")
     telephone: PhoneNumber
     preferredLang: Language @rename(attribute: "preferred_lang")
-    pools: [Pool] @hasMany
-    poolCandidates: [PoolCandidate] @hasMany
+    pools: [Pool] @hasMany # Pools that a user owns
+    poolCandidates: [PoolCandidate] @hasMany # Pools candidates that a user owns
 }
 
 type Pool {
@@ -167,12 +167,13 @@ input LocalizedStringInput {
     fr: String
 }
 
-input CreateUserBelongsTo {
+input UserBelongsTo {
+    create: CreateUserInput
     connect: ID
 }
 
-input CreatePoolBelongsTo {
-    connect: ID
+input PoolBelongsTo {
+    connect: ID!
 }
 
 input CreateClassificationInput {
@@ -183,9 +184,8 @@ input CreateClassificationInput {
     maxSalary: Int @rename(attribute: "max_salary")
 }
 
-input CreateClassificationBelongsToMany {
-    create: [CreateClassificationInput!]
-    connect: [ID!]
+input ClassificationBelongsToMany {
+    sync: [ID!]
 }
 
 input CreateCmoAssetInput {
@@ -194,25 +194,23 @@ input CreateCmoAssetInput {
     description: LocalizedStringInput
 }
 
-input CreateCmoAssetBelongsToMany {
-    create: [CreateCmoAssetInput!]
-    connect: [ID!]
+input CmoAssetBelongsToMany {
+    sync: [ID!]
 }
 
 input CreateOperationalRequirementInput {
-    key: String
+    key: String!
     name: LocalizedStringInput!
     description: LocalizedStringInput
 }
 
-input CreateOperationalRequirementBelongsToMany {
-    create: [CreateOperationalRequirementInput!]
-    connect: [ID!]
+input OperationalRequirementBelongsToMany {
+    sync: [ID!]
 }
 
 input CreatePoolCandidateInput {
-    pool: CreatePoolBelongsTo @belongsTo
-    user: CreateUserBelongsTo @belongsTo
+    pool: PoolBelongsTo! @belongsTo
+    user: UserBelongsTo! @belongsTo
     cmoIdentifier: ID @rename(attribute: "cmo_identifier")
     expiryDate: Date
     isWoman: Boolean @rename(attribute: "is_woman")
@@ -222,49 +220,33 @@ input CreatePoolCandidateInput {
     hasDiploma: Boolean @rename(attribute: "has_diploma")
     languageAbility: LanguageAbility @rename(attribute: "language_ability")
     locationPreferences: [WorkRegion] @rename(attribute: "location_preferences")
-    acceptedOperationalRequirements: [OperationalRequirement] @belongsToMany
+    acceptedOperationalRequirements: OperationalRequirementBelongsToMany
     expectedSalary: [SalaryRange] @rename(attribute: "expected_salary")
-    expectedClassifications: [Classification] @belongsToMany
-    cmoAssets: [CmoAsset] @belongsToMany
+    expectedClassifications: ClassificationBelongsToMany
+    cmoAssets: CmoAssetBelongsToMany
     status: PoolCandidateStatus
 }
 
-input CreatePoolCandidateHasMany {
+input PoolCandidateHasMany {
     create: [CreatePoolCandidateInput!]
 }
 
 input CreatePoolInput {
-    owner: CreateUserBelongsTo @rename(attribute: "user")
+    owner: UserBelongsTo! @rename(attribute: "user")
     name: LocalizedStringInput
     description: LocalizedStringInput
-    classifications: CreateClassificationBelongsToMany
-    assetCriteria: CreateCmoAssetBelongsToMany
-    essentialCriteria: CreateCmoAssetBelongsToMany
-    operationalRequirements: CreateOperationalRequirementBelongsToMany
-    poolCandidates: CreatePoolCandidateHasMany
-}
-
-input UpdateUserBelongsTo {
-    connect: ID
-}
-
-input UpdatePoolBelongsTo {
-    connect: ID
+    classifications: ClassificationBelongsToMany
+    assetCriteria: CmoAssetBelongsToMany
+    essentialCriteria: CmoAssetBelongsToMany
+    operationalRequirements: OperationalRequirementBelongsToMany
+    poolCandidates: PoolCandidateHasMany
 }
 
 input UpdateClassificationInput {
     name: LocalizedStringInput
     group: String!
-    level: Int!
     minSalary: Int @rename(attribute: "min_salary")
     maxSalary: Int @rename(attribute: "max_salary")
-}
-
-input UpdateClassificationBelongsToMany {
-    create: [UpdateClassificationInput!]
-    connect: [ID!]
-    disconnect: [ID!]
-    delete: [ID!]
 }
 
 input UpdateCmoAssetInput {
@@ -273,29 +255,13 @@ input UpdateCmoAssetInput {
     description: LocalizedStringInput
 }
 
-input UpdateCmoAssetBelongsToMany {
-    create: [UpdateCmoAssetInput!]
-    connect: [ID!]
-    disconnect: [ID!]
-    delete: [ID!]
-}
-
 input UpdateOperationalRequirementInput {
     key: String
     name: LocalizedStringInput!
     description: LocalizedStringInput
 }
 
-input UpdateOperationalRequirementBelongsToMany {
-    create: [UpdateOperationalRequirementInput!]
-    connect: [ID!]
-    disconnect: [ID!]
-    delete: [ID!]
-}
-
 input UpdatePoolCandidateInput {
-    pool: UpdatePoolBelongsTo @belongsTo
-    user: UpdateUserBelongsTo @belongsTo
     cmoIdentifier: ID @rename(attribute: "cmo_identifier")
     expiryDate: Date
     isWoman: Boolean @rename(attribute: "is_woman")
@@ -305,27 +271,21 @@ input UpdatePoolCandidateInput {
     hasDiploma: Boolean @rename(attribute: "has_diploma")
     languageAbility: LanguageAbility @rename(attribute: "language_ability")
     locationPreferences: [WorkRegion] @rename(attribute: "location_preferences")
-    acceptedOperationalRequirements: [OperationalRequirement] @belongsToMany
+    acceptedOperationalRequirements: OperationalRequirementBelongsToMany
     expectedSalary: [SalaryRange] @rename(attribute: "expected_salary")
-    expectedClassifications: [Classification] @belongsToMany
-    cmoAssets: [CmoAsset] @belongsToMany
+    expectedClassifications: ClassificationBelongsToMany
+    cmoAssets: CmoAssetBelongsToMany
     status: PoolCandidateStatus
 }
 
-input UpdatePoolCandidateHasMany {
-    create: [UpdatePoolCandidateInput!]
-    delete: [ID!]
-}
-
 input UpdatePoolInput {
-    owner: UpdateUserBelongsTo @rename(attribute: "user")
+    owner: UserBelongsTo @rename(attribute: "user")
     name: LocalizedStringInput
     description: LocalizedStringInput
-    classifications: UpdateClassificationBelongsToMany
-    assetCriteria: UpdateCmoAssetBelongsToMany
-    essentialCriteria: UpdateCmoAssetBelongsToMany
-    operationalRequirements: UpdateOperationalRequirementBelongsToMany
-    poolCandidates: UpdatePoolCandidateHasMany
+    classifications: ClassificationBelongsToMany
+    assetCriteria: CmoAssetBelongsToMany
+    essentialCriteria: CmoAssetBelongsToMany
+    operationalRequirements: OperationalRequirementBelongsToMany
 }
 
 type Mutation {
@@ -335,8 +295,8 @@ type Mutation {
     createPool(pool: CreatePoolInput! @spread): Pool @create
     updatePool(id: ID!, pool: UpdatePoolInput! @spread): Pool @update
     deletePool(id: ID!): Pool @delete(globalId: false)
-    createPoolCandidate(pool: CreatePoolCandidateInput! @spread): Pool @create
-    updatePoolCandidate(id: ID!, pool: UpdatePoolCandidateInput! @spread): PoolCandidate @update
+    createPoolCandidate(poolCandidate: CreatePoolCandidateInput! @spread): PoolCandidate @create
+    updatePoolCandidate(id: ID!, poolCandidate: UpdatePoolCandidateInput! @spread): PoolCandidate @update
     deletePoolCandidate(id: ID!): PoolCandidate @delete(globalId: false)
     createClassification(classification: CreateClassificationInput! @spread): Classification @create
     updateClassification(id: ID!, classification: UpdateClassificationInput! @spread): Classification @update
