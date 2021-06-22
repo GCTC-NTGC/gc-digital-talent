@@ -2,44 +2,42 @@ import React, { useMemo } from "react";
 import { Column } from "react-table";
 import { GetClassificationsQuery } from "../api/generated";
 import { notEmpty } from "../helpers/util";
-import Table from "./Table";
+import Table, { FilterableColumn } from "./Table";
 
 const ClassificationTable: React.FC<GetClassificationsQuery> = ({
   classifications,
 }) => {
-  type FilterableColumn = Column & { isVisible: boolean };
-
   const columns: Array<FilterableColumn> = useMemo(
     () => [
       {
         Header: "ID",
         accessor: "id",
-        isVisible: true,
+        showCol: true,
       },
       {
         Header: "Name",
         accessor: "name.en",
-        isVisible: true,
+        showCol: true,
       },
       {
         Header: "Group",
         accessor: "group",
-        isVisible: true,
+        showCol: true,
       },
       {
         Header: "Level",
         accessor: "level",
-        isVisible: true,
+        showCol: true,
       },
       {
         Header: "Minimum Salary",
         accessor: "minSalary",
-        isVisible: false,
+        showCol: false,
       },
       {
         Header: "Maximum Salary",
         accessor: "maxSalary",
-        isVisible: false,
+        showCol: false,
       },
     ],
     [],

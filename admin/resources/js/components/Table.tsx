@@ -3,9 +3,12 @@ import React from "react";
 import { useTable, useGlobalFilter, useSortBy, Column } from "react-table";
 import GlobalFilter from "./GlobalFilter";
 import SettingsIcon from "../../../public/images/settings.png";
+import CheckmarkIcon from "../../../public/images/checkmark-icon.jpeg";
+
+export type FilterableColumn = Column & { showCol?: boolean };
 
 interface TableProps {
-  columns: Array<Column>;
+  columns: Array<FilterableColumn>;
   data: any;
   filter?: boolean;
 }
@@ -75,6 +78,33 @@ const Table: React.FunctionComponent<TableProps> = ({
                     display: "inline-block",
                   }}
                 />
+                <ul
+                  style={{
+                    listStyleType: "none",
+                    textAlign: "left",
+                    position: "absolute",
+                    marginLeft: "-35px",
+                    backgroundColor: "white",
+                  }}
+                >
+                  {columns.map((column) => (
+                    <li>
+                      {console.dir(column)}
+                      {column.showCol ? (
+                        <img
+                          src={CheckmarkIcon}
+                          style={{
+                            width: "10px",
+                            height: "10px",
+                            marginRight: "5px",
+                          }}
+                          alt="checkmark con"
+                        />
+                      ) : null}
+                      {column.Header}
+                    </li>
+                  ))}
+                </ul>
               </button>
             </th>
           </tr>
