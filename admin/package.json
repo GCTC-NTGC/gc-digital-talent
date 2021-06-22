@@ -36,7 +36,7 @@
     "@babel/preset-react": "^7.14.5",
     "@graphql-codegen/add": "^2.0.2",
     "@graphql-codegen/cli": "^1.21.5",
-    "@graphql-codegen/typescript": "^1.22.2",
+    "@graphql-codegen/typescript": "^1.22.3",
     "@graphql-codegen/typescript-operations": "^1.18.1",
     "@graphql-codegen/typescript-urql": "^2.0.9",
     "@hydrogen-design-system/hydrogen.css": "^1.0.6",
