@@ -207,6 +207,125 @@ export enum WorkRegion {
   North = "NORTH",
 }
 
+export type GetClassificationsQueryVariables = Exact<{ [key: string]: never }>;
+
+export type GetClassificationsQuery = { __typename?: "Query" } & {
+  classifications: Array<
+    Maybe<
+      { __typename?: "Classification" } & Pick<
+        Classification,
+        "id" | "group" | "level" | "minSalary" | "maxSalary"
+      > & {
+          name?: Maybe<
+            { __typename?: "LocalizedString" } & Pick<LocalizedString, "en">
+          >;
+        }
+    >
+  >;
+};
+
+export type GetPoolCandidatesQueryVariables = Exact<{ [key: string]: never }>;
+
+export type GetPoolCandidatesQuery = { __typename?: "Query" } & {
+  poolCandidates: Array<
+    Maybe<
+      { __typename?: "PoolCandidate" } & Pick<
+        PoolCandidate,
+        | "id"
+        | "cmoIdentifier"
+        | "expiryDate"
+        | "isWoman"
+        | "hasDisability"
+        | "isIndigenous"
+        | "isVisibleMinority"
+        | "hasDiploma"
+        | "languageAbility"
+        | "locationPreferences"
+        | "expectedSalary"
+        | "status"
+      > & {
+          pool?: Maybe<
+            { __typename?: "Pool" } & Pick<Pool, "id"> & {
+                name?: Maybe<
+                  { __typename?: "LocalizedString" } & Pick<
+                    LocalizedString,
+                    "en" | "fr"
+                  >
+                >;
+                classifications?: Maybe<
+                  Array<
+                    Maybe<
+                      { __typename?: "Classification" } & Pick<
+                        Classification,
+                        "id" | "group" | "level"
+                      > & {
+                          name?: Maybe<
+                            { __typename?: "LocalizedString" } & Pick<
+                              LocalizedString,
+                              "en" | "fr"
+                            >
+                          >;
+                        }
+                    >
+                  >
+                >;
+              }
+          >;
+          user?: Maybe<
+            { __typename?: "User" } & Pick<
+              User,
+              "id" | "firstName" | "lastName" | "email"
+            >
+          >;
+          acceptedOperationalRequirements?: Maybe<
+            Array<
+              Maybe<
+                { __typename?: "OperationalRequirement" } & Pick<
+                  OperationalRequirement,
+                  "id"
+                > & {
+                    name: { __typename?: "LocalizedString" } & Pick<
+                      LocalizedString,
+                      "en" | "fr"
+                    >;
+                  }
+              >
+            >
+          >;
+          expectedClassifications?: Maybe<
+            Array<
+              Maybe<
+                { __typename?: "Classification" } & Pick<
+                  Classification,
+                  "id" | "group" | "level"
+                > & {
+                    name?: Maybe<
+                      { __typename?: "LocalizedString" } & Pick<
+                        LocalizedString,
+                        "en" | "fr"
+                      >
+                    >;
+                  }
+              >
+            >
+          >;
+          cmoAssets?: Maybe<
+            Array<
+              Maybe<
+                { __typename?: "CmoAsset" } & Pick<CmoAsset, "id"> & {
+                    name: { __typename?: "LocalizedString" } & Pick<
+                      LocalizedString,
+                      "en" | "fr"
+                    >;
+                  }
+              >
+            >
+          >;
+        }
+    >
+  >;
+};
+
 export type AllUsersQueryVariables = Exact<{ [key: string]: never }>;
 
 export type AllUsersQuery = { __typename?: "Query" } & {
@@ -239,6 +358,120 @@ export type UpdateUserMutation = { __typename?: "Mutation" } & {
   >;
 };
 
+export type CreateUserMutationVariables = Exact<{
+  user: CreateUserInput;
+}>;
+
+export type CreateUserMutation = { __typename?: "Mutation" } & {
+  createUser?: Maybe<
+    { __typename?: "User" } & Pick<
+      User,
+      "firstName" | "lastName" | "email" | "telephone" | "preferredLang"
+    >
+  >;
+};
+
+export const GetClassificationsDocument = gql`
+  query GetClassifications {
+    classifications {
+      id
+      name {
+        en
+      }
+      group
+      level
+      minSalary
+      maxSalary
+    }
+  }
+`;
+
+export function useGetClassificationsQuery(
+  options: Omit<
+    Urql.UseQueryArgs<GetClassificationsQueryVariables>,
+    "query"
+  > = {},
+) {
+  return Urql.useQuery<GetClassificationsQuery>({
+    query: GetClassificationsDocument,
+    ...options,
+  });
+}
+export const GetPoolCandidatesDocument = gql`
+  query GetPoolCandidates {
+    poolCandidates {
+      id
+      pool {
+        id
+        name {
+          en
+          fr
+        }
+        classifications {
+          id
+          name {
+            en
+            fr
+          }
+          group
+          level
+        }
+      }
+      user {
+        id
+        firstName
+        lastName
+        email
+      }
+      cmoIdentifier
+      expiryDate
+      isWoman
+      hasDisability
+      isIndigenous
+      isVisibleMinority
+      hasDiploma
+      languageAbility
+      locationPreferences
+      acceptedOperationalRequirements {
+        id
+        name {
+          en
+          fr
+        }
+      }
+      expectedSalary
+      expectedClassifications {
+        id
+        name {
+          en
+          fr
+        }
+        group
+        level
+      }
+      cmoAssets {
+        id
+        name {
+          en
+          fr
+        }
+      }
+      status
+    }
+  }
+`;
+
+export function useGetPoolCandidatesQuery(
+  options: Omit<
+    Urql.UseQueryArgs<GetPoolCandidatesQueryVariables>,
+    "query"
+  > = {},
+) {
+  return Urql.useQuery<GetPoolCandidatesQuery>({
+    query: GetPoolCandidatesDocument,
+    ...options,
+  });
+}
 export const AllUsersDocument = gql`
   query AllUsers {
     users {
@@ -273,5 +506,22 @@ export const UpdateUserDocument = gql`
 export function useUpdateUserMutation() {
   return Urql.useMutation<UpdateUserMutation, UpdateUserMutationVariables>(
     UpdateUserDocument,
+  );
+}
+export const CreateUserDocument = gql`
+  mutation CreateUser($user: CreateUserInput!) {
+    createUser(user: $user) {
+      firstName
+      lastName
+      email
+      telephone
+      preferredLang
+    }
+  }
+`;
+
+export function useCreateUserMutation() {
+  return Urql.useMutation<CreateUserMutation, CreateUserMutationVariables>(
+    CreateUserDocument,
   );
 }

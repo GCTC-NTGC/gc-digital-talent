@@ -1,0 +1,12 @@
+query GetClassifications {
+  classifications {
+    id,
+    name {
+      en
+    },
+    group,
+    level,
+    minSalary,
+    maxSalary
+  }
+}
