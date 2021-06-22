@@ -1,10 +1,13 @@
 import React, { useMemo } from "react";
 import { Column } from "react-table";
-import { GetOperationalRequirementsQuery } from "../api/generated";
+import {
+  GetOperationalRequirementsQuery,
+  useGetOperationalRequirementsQuery,
+} from "../api/generated";
 import { notEmpty } from "../helpers/util";
 import Table from "./Table";
 
-const OperationalRequirementTable: React.FC<GetOperationalRequirementsQuery> =
+export const OperationalRequirementTable: React.FC<GetOperationalRequirementsQuery> =
   ({ operationalRequirements }) => {
     const columns: Array<Column> = useMemo(
       () => [
@@ -40,4 +43,16 @@ const OperationalRequirementTable: React.FC<GetOperationalRequirementsQuery> =
     );
   };
 
-export default OperationalRequirementTable;
+export const OperationalRequirementTableApi: React.FC = () => {
+  const [result] = useGetOperationalRequirementsQuery();
+  const { data, fetching, error } = result;
+
+  if (fetching) return <p>Loading...</p>;
+  if (error) return <p>Oh no... {error.message}</p>;
+
+  return (
+    <OperationalRequirementTable
+      operationalRequirements={data?.operationalRequirements ?? []}
+    />
+  );
+};
