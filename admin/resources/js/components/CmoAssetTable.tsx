@@ -1,10 +1,10 @@
 import React, { useMemo } from "react";
 import { Column } from "react-table";
-import { GetCmoAssetsQuery } from "../api/generated";
+import { GetCmoAssetsQuery, useGetCmoAssetsQuery } from "../api/generated";
 import { notEmpty } from "../helpers/util";
 import Table from "./Table";
 
-const CmoAssetTable: React.FC<GetCmoAssetsQuery> = ({ cmoAssets }) => {
+export const CmoAssetTable: React.FC<GetCmoAssetsQuery> = ({ cmoAssets }) => {
   const columns: Array<Column> = useMemo(
     () => [
       {
@@ -36,4 +36,12 @@ const CmoAssetTable: React.FC<GetCmoAssetsQuery> = ({ cmoAssets }) => {
   );
 };
 
-export default CmoAssetTable;
+export const CmoAssetTableApi: React.FC = () => {
+  const [result] = useGetCmoAssetsQuery();
+  const { data, fetching, error } = result;
+
+  if (fetching) return <p>Loading...</p>;
+  if (error) return <p>Oh no... {error.message}</p>;
+
+  return <CmoAssetTable cmoAssets={data?.cmoAssets ?? []} />;
+};
