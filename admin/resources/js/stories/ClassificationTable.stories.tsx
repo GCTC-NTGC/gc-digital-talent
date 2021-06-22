@@ -27,7 +27,7 @@ const ApiClassificationTable = () => {
 
   return <ClassificationTable classifications={data?.classifications ?? []} />;
 };
-stories.add("Users Table with API data", () => (
+stories.add("Classifications Table with API data", () => (
   <ClientProvider client={client}>
     <ApiClassificationTable />
   </ClientProvider>
