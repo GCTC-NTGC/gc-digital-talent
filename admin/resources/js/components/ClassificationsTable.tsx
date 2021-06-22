@@ -7,31 +7,39 @@ import Table from "./Table";
 const ClassificationTable: React.FC<GetClassificationsQuery> = ({
   classifications,
 }) => {
-  const columns: Array<Column> = useMemo(
+  type FilterableColumn = Column & { isVisible: boolean };
+
+  const columns: Array<FilterableColumn> = useMemo(
     () => [
       {
         Header: "ID",
         accessor: "id",
+        isVisible: true,
       },
       {
         Header: "Name",
         accessor: "name.en",
+        isVisible: true,
       },
       {
         Header: "Group",
         accessor: "group",
+        isVisible: true,
       },
       {
         Header: "Level",
         accessor: "level",
+        isVisible: true,
       },
       {
         Header: "Minimum Salary",
         accessor: "minSalary",
+        isVisible: false,
       },
       {
         Header: "Maximum Salary",
         accessor: "maxSalary",
+        isVisible: false,
       },
     ],
     [],

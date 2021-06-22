@@ -2,12 +2,17 @@
 import React from "react";
 import { useTable, useGlobalFilter, useSortBy, Column } from "react-table";
 import GlobalFilter from "./GlobalFilter";
+import SettingsIcon from "../../../public/images/settings.png";
 
 interface TableProps {
   columns: Array<Column>;
   data: any;
   filter?: boolean;
 }
+
+const toggleList = () => {
+  console.log("test");
+};
 
 const Table: React.FunctionComponent<TableProps> = ({
   columns,
@@ -48,6 +53,30 @@ const Table: React.FunctionComponent<TableProps> = ({
                 </span>
               </th>
             ))}
+            <th>
+              <button
+                style={{
+                  backgroundColor: "transparent",
+                  border: "0",
+                  boxShadow: "none",
+                  marginLeft: "15px",
+                  marginTop: "7px",
+                  cursor: "pointer",
+                }}
+                type="button"
+                onClick={toggleList}
+              >
+                <img
+                  src={SettingsIcon}
+                  alt="settings icon"
+                  style={{
+                    width: "25px",
+                    height: "25",
+                    display: "inline-block",
+                  }}
+                />
+              </button>
+            </th>
           </tr>
         ))}
       </thead>
