@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class UpdatePoolsTable extends Migration
+class UpdateUsersTableSoftDeletes extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class UpdatePoolsTable extends Migration
      */
     public function up()
     {
-        Schema::table('pools', function (Blueprint $table) {
+        Schema::table('users', function (Blueprint $table) {
             $table->softDeletes();
         });
     }
@@ -25,7 +25,7 @@ class UpdatePoolsTable extends Migration
      */
     public function down()
     {
-        Schema::table('pools', function (Blueprint $table) {
+        Schema::table('users', function (Blueprint $table) {
             $table->dropSoftDeletes();
         });
     }

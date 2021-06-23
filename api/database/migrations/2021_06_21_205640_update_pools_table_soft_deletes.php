@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class UpdateOperationalRequirementsTable extends Migration
+class UpdatePoolsTableSoftDeletes extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class UpdateOperationalRequirementsTable extends Migration
      */
     public function up()
     {
-        Schema::table('operational_requirements', function (Blueprint $table) {
+        Schema::table('pools', function (Blueprint $table) {
             $table->softDeletes();
         });
     }
@@ -25,7 +25,7 @@ class UpdateOperationalRequirementsTable extends Migration
      */
     public function down()
     {
-        Schema::table('operational_requirements', function (Blueprint $table) {
+        Schema::table('pools', function (Blueprint $table) {
             $table->dropSoftDeletes();
         });
     }
