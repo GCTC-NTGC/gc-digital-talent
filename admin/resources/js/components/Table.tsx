@@ -27,14 +27,18 @@ function Table<T extends Record<string, unknown>>({
 
   return (
     <table {...getTableProps()}>
-      {filter ? (
-        <GlobalFilter
-          preGlobalFilteredRows={preGlobalFilteredRows}
-          globalFilter={state.globalFilter}
-          setGlobalFilter={setGlobalFilter}
-        />
-      ) : null}
       <thead>
+        {filter ? (
+          <tr>
+            <td>
+              <GlobalFilter
+                preGlobalFilteredRows={preGlobalFilteredRows}
+                globalFilter={state.globalFilter}
+                setGlobalFilter={setGlobalFilter}
+              />
+            </td>
+          </tr>
+        ) : null}
         {headerGroups.map((headerGroup) => (
           <tr {...headerGroup.getHeaderGroupProps()}>
             {headerGroup.headers.map((column) => (
@@ -51,7 +55,6 @@ function Table<T extends Record<string, unknown>>({
           </tr>
         ))}
       </thead>
-
       <tbody {...getTableBodyProps()}>
         {rows.map((row) => {
           prepareRow(row);

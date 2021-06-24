@@ -224,6 +224,53 @@ export type GetClassificationsQuery = { __typename?: "Query" } & {
   >;
 };
 
+export type GetCmoAssetsQueryVariables = Exact<{ [key: string]: never }>;
+
+export type GetCmoAssetsQuery = { __typename?: "Query" } & {
+  cmoAssets: Array<
+    Maybe<
+      { __typename?: "CmoAsset" } & Pick<CmoAsset, "id" | "key"> & {
+          name: { __typename?: "LocalizedString" } & Pick<
+            LocalizedString,
+            "en" | "fr"
+          >;
+          description?: Maybe<
+            { __typename?: "LocalizedString" } & Pick<
+              LocalizedString,
+              "en" | "fr"
+            >
+          >;
+        }
+    >
+  >;
+};
+
+export type GetOperationalRequirementsQueryVariables = Exact<{
+  [key: string]: never;
+}>;
+
+export type GetOperationalRequirementsQuery = { __typename?: "Query" } & {
+  operationalRequirements: Array<
+    Maybe<
+      { __typename?: "OperationalRequirement" } & Pick<
+        OperationalRequirement,
+        "id" | "key"
+      > & {
+          name: { __typename?: "LocalizedString" } & Pick<
+            LocalizedString,
+            "en" | "fr"
+          >;
+          description?: Maybe<
+            { __typename?: "LocalizedString" } & Pick<
+              LocalizedString,
+              "en" | "fr"
+            >
+          >;
+        }
+    >
+  >;
+};
+
 export type GetPoolCandidatesQueryVariables = Exact<{ [key: string]: never }>;
 
 export type GetPoolCandidatesQuery = { __typename?: "Query" } & {
@@ -407,6 +454,59 @@ export function useGetClassificationsQuery(
 ) {
   return Urql.useQuery<GetClassificationsQuery>({
     query: GetClassificationsDocument,
+    ...options,
+  });
+}
+export const GetCmoAssetsDocument = gql`
+  query GetCmoAssets {
+    cmoAssets {
+      id
+      key
+      name {
+        en
+        fr
+      }
+      description {
+        en
+        fr
+      }
+    }
+  }
+`;
+
+export function useGetCmoAssetsQuery(
+  options: Omit<Urql.UseQueryArgs<GetCmoAssetsQueryVariables>, "query"> = {},
+) {
+  return Urql.useQuery<GetCmoAssetsQuery>({
+    query: GetCmoAssetsDocument,
+    ...options,
+  });
+}
+export const GetOperationalRequirementsDocument = gql`
+  query GetOperationalRequirements {
+    operationalRequirements {
+      id
+      key
+      name {
+        en
+        fr
+      }
+      description {
+        en
+        fr
+      }
+    }
+  }
+`;
+
+export function useGetOperationalRequirementsQuery(
+  options: Omit<
+    Urql.UseQueryArgs<GetOperationalRequirementsQueryVariables>,
+    "query"
+  > = {},
+) {
+  return Urql.useQuery<GetOperationalRequirementsQuery>({
+    query: GetOperationalRequirementsDocument,
     ...options,
   });
 }
