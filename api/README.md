@@ -54,7 +54,7 @@ Lighthouse offers a [number of commands](https://lighthouse-php.com/5/api-refere
 
 ### Think Schema First
 
-When designing the data model, define the graphql schema before considering the underlying implementation (i.e. the database). The schema should be designed to be as useful and easy to use as possible for consumers of the API, and does not need to match 1-to-1 with the database. 
+When designing the data model, define the graphql schema before considering the underlying implementation (i.e. the database). The schema should be designed to be as useful and easy to use as possible for consumers of the API, and does not need to match 1-to-1 with the database.
 
 For example, while foreign keys (e.g. user_id) are important for defining relationships in the database, they should probably not appear in the schema. A consumer is much more likely to want to query for the related entity directly.
 
@@ -96,6 +96,7 @@ Define new models in the App\Models folder.
 - It is not necessary to define the [fillable array](https://laravel.com/docs/8.x/eloquent#mass-assignment).
 - It *is* necessary to define the [casts array](https://laravel.com/docs/8.x/eloquent-mutators#attribute-casting) for certain fields. Any json columns in the database must be cast to 'array' (such as LocalizedStrings or arrays of enums), and any dates or datetimes must be cast (besides updated_at and create_at, which Laravel casts by default).
 - Remember to define any [relationships](https://laravel.com/docs/8.x/eloquent-relationships) on the new class, and on existing classes it relates to.
+- Remember to define [return types](https://lighthouse-php.com/5/eloquent/nested-mutations.html#return-types-required) on your relationship methods so that Lighthouse can detect them.
 
 #### Touching up the Schema
 
@@ -112,3 +113,7 @@ Most models should have an accompanying [Model Factory](https://laravel.com/docs
 You should probably ensure some amount are generated in the main DatabaseSeeder.php file, or in another seeder file which is called by DatabaseSeeder.
 
 In the case of a lookup table expected to hold a fairly small amount of data, you may want to skip creating a Factory and simply define a seeder which adds specific values to the database, instead of random ones. In this case, you may want to use a method like `updateOrCreate` or `firstOrCreate` to ensure you don't add duplicate values when the seeder is run multiple times.
+
+### GraphQL Mutations
+- Add `@rename` directive to [match function name in model](https://github.com/nuwave/lighthouse/issues/1840#issuecomment-835461405)
+
