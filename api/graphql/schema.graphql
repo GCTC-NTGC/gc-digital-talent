@@ -225,7 +225,7 @@ input CreatePoolCandidateInput {
     expectedSalary: [SalaryRange] @rename(attribute: "expected_salary")
     expectedClassifications: ClassificationBelongsToMany
     cmoAssets: CmoAssetBelongsToMany
-    status: PoolCandidateStatus @rename(attribute: "pool_candidate_status")
+    status: PoolCandidateStatus = AVAILABLE @rename(attribute: "pool_candidate_status")
 }
 
 input PoolCandidateHasMany {
