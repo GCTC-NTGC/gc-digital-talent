@@ -13,7 +13,6 @@
 |
 */
 
-$router->get('/', 'HomePageController@index');
-$router->get('/dashboard', 'DashboardController@index');
-$router->get('/dashboard/{page}', 'DashboardController@index');
+$router->get('/', 'DashboardController@index');
+$router->get('/{page}', 'DashboardController@index');
 
