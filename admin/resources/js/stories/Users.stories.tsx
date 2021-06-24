@@ -1,7 +1,7 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
-import { ApiUserTable, UserTable } from "../components/UserTable";
+import { UserTable, UserTableApi } from "../components/UserTable";
 import fakeUsers from "../fakeData/fakeUsers";
 import { CreateUserInput, Language, User } from "../api/generated";
 import ClientProvider from "../components/ClientProvider";
@@ -25,7 +25,7 @@ stories.add("Users Table with flawed data", () => (
 
 stories.add("Users Table with API data", () => (
   <ClientProvider>
-    <ApiUserTable />
+    <UserTableApi />
   </ClientProvider>
 ));
 

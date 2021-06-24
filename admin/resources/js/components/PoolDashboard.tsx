@@ -2,12 +2,12 @@ import React from "react";
 import { Routes } from "universal-router";
 import { createClient } from "urql";
 import { Link, RouterResult, useLocation } from "../helpers/router";
-import { ApiClassificationTable } from "./ClassificationTable";
+import { ClassificationTableApi } from "./ClassificationTable";
 import ClientProvider from "./ClientProvider";
 import { CreateUser } from "./CreateUser";
 import { Dashboard, exactMatch, MenuLink } from "./dashboard/Dashboard";
 import { UpdateUser } from "./UpdateUser";
-import { ApiUserTable } from "./UserTable";
+import { UserTableApi } from "./UserTable";
 
 const routes: Routes<RouterResult> = [
   {
@@ -24,7 +24,7 @@ const routes: Routes<RouterResult> = [
           <Link href="/dashboard/users/create" title="">
             Create User
           </Link>
-          <ApiUserTable />,
+          <UserTableApi />,
         </div>
       ),
     }),
@@ -44,7 +44,7 @@ const routes: Routes<RouterResult> = [
   {
     path: "/dashboard/classifications",
     action: () => ({
-      component: <ApiClassificationTable />,
+      component: <ClassificationTableApi />,
     }),
   },
 ];

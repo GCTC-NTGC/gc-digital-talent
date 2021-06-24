@@ -57,7 +57,7 @@ export const UserTable: React.FC<AllUsersQuery & { editUrlRoot: string }> = ({
   );
 };
 
-export const ApiUserTable: React.FunctionComponent = () => {
+export const UserTableApi: React.FunctionComponent = () => {
   const [result] = useAllUsersQuery();
   const { data, fetching, error } = result;
   const { pathname } = useLocation();

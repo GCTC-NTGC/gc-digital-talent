@@ -52,7 +52,7 @@ export const ClassificationTable: React.FC<GetClassificationsQuery> = ({
   );
 };
 
-export const ApiClassificationTable: React.FunctionComponent = () => {
+export const ClassificationTableApi: React.FunctionComponent = () => {
   const [result] = useGetClassificationsQuery();
   const { data, fetching, error } = result;
 
