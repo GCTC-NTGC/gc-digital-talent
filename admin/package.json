@@ -46,6 +46,7 @@
     "@storybook/builder-webpack5": "^6.3.0",
     "@storybook/manager-webpack5": "^6.3.0",
     "@storybook/react": "^6.3.0",
+    "@types/lodash": "^4.14.170",
     "@types/react-table": "^7.7.1",
     "@typescript-eslint/eslint-plugin": "^4.28.0",
     "@typescript-eslint/parser": "^4.28.0",
@@ -76,10 +77,12 @@
     "dotenv": "^10.0.0",
     "graphql": "^15.5.1",
     "history": "^5.0.0",
+    "lodash": "^4.17.21",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-hook-form": "^7.9.0",
     "react-table": "^7.7.0",
+    "regenerator-runtime": "^0.13.7",
     "universal-router": "^9.1.0",
     "urql": "^2.0.4"
   }
