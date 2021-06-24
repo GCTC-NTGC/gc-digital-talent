@@ -73,7 +73,7 @@ type PoolCandidate {
     expectedClassifications: [Classification] @belongsToMany
     cmoAssets: [CmoAsset] @belongsToMany
 
-    status: PoolCandidateStatus
+    status: PoolCandidateStatus @rename(attribute: "pool_candidate_status")
 }
 
 enum LanguageAbility {
@@ -225,7 +225,7 @@ input CreatePoolCandidateInput {
     expectedSalary: [SalaryRange] @rename(attribute: "expected_salary")
     expectedClassifications: ClassificationBelongsToMany
     cmoAssets: CmoAssetBelongsToMany
-    status: PoolCandidateStatus
+    status: PoolCandidateStatus @rename(attribute: "pool_candidate_status")
 }
 
 input PoolCandidateHasMany {
@@ -276,7 +276,7 @@ input UpdatePoolCandidateInput {
     expectedSalary: [SalaryRange] @rename(attribute: "expected_salary")
     expectedClassifications: ClassificationBelongsToMany
     cmoAssets: CmoAssetBelongsToMany
-    status: PoolCandidateStatus
+    status: PoolCandidateStatus @rename(attribute: "pool_candidate_status")
 }
 
 input UpdatePoolInput {
