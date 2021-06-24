@@ -170,7 +170,14 @@ input LocalizedStringInput {
 input UserBelongsTo {
     create: CreateUserInput
     connect: ID
-    update: ID
+    update: UpdateUserInput
+}
+
+"""
+When updating a PoolCandidate it is possible to update the related user, but not change which user it is related to.
+"""
+input UpdatePoolCandidateUserBelongsTo {
+    update: UpdateUserInput
 }
 
 input PoolBelongsTo {
@@ -262,7 +269,7 @@ input UpdateOperationalRequirementInput {
 }
 
 input UpdatePoolCandidateInput {
-    user: UserBelongsTo! @belongsTo
+    user: UpdatePoolCandidateUserBelongsTo @belongsTo
     cmoIdentifier: ID @rename(attribute: "cmo_identifier")
     expiryDate: Date
     isWoman: Boolean @rename(attribute: "is_woman")
