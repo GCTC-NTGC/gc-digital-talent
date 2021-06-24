@@ -11,13 +11,13 @@ import { UserTableApi } from "./UserTable";
 
 const routes: Routes<RouterResult> = [
   {
-    path: "/dashboard",
+    path: "/",
     action: () => ({
       component: <p>Welcome Home</p>,
     }),
   },
   {
-    path: "/dashboard/users",
+    path: "/users",
     action: () => ({
       component: (
         <div>

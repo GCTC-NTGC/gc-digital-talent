@@ -13,9 +13,9 @@
 |
 */
 
-$router->get('/', 'HomePageController@index');
-$router->get('/dashboard', 'DashboardController@index');
-$router->get('/dashboard/{page}', 'DashboardController@index');
-$router->get('/dashboard/{page}/create', 'DashboardController@index');
-$router->get('/dashboard/{page}/{id}/edit', 'DashboardController@index');
+
+$router->get('/', 'DashboardController@index');
+$router->get('/{page}', 'DashboardController@index');
+$router->get('/{page}/create', 'DashboardController@index');
+$router->get('/{page}/{id}/edit', 'DashboardController@index');
 
