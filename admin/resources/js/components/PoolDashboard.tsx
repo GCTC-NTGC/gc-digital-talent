@@ -1,6 +1,5 @@
 import React from "react";
 import { Routes } from "universal-router";
-import { createClient } from "urql";
 import { Link, RouterResult, useLocation } from "../helpers/router";
 import { ClassificationTableApi } from "./ClassificationTable";
 import ClientProvider from "./ClientProvider";
@@ -21,7 +20,7 @@ const routes: Routes<RouterResult> = [
     action: () => ({
       component: (
         <div>
-          <Link href="/dashboard/users/create" title="">
+          <Link href="/users/create" title="">
             Create User
           </Link>
           <UserTableApi />,
@@ -30,19 +29,19 @@ const routes: Routes<RouterResult> = [
     }),
   },
   {
-    path: "/dashboard/users/create",
+    path: "/users/create",
     action: () => ({
       component: <CreateUser />,
     }),
   },
   {
-    path: "/dashboard/users/:id/edit",
+    path: "/users/:id/edit",
     action: ({ params }) => ({
       component: <UpdateUser userId={params.id as string} />,
     }),
   },
   {
-    path: "/dashboard/classifications",
+    path: "/classifications",
     action: () => ({
       component: <ClassificationTableApi />,
     }),
@@ -50,11 +49,11 @@ const routes: Routes<RouterResult> = [
 ];
 
 const menuItems = [
-  <MenuLink key="home" href="/dashboard" text="Home" isActive={exactMatch} />,
-  <MenuLink key="users" href="/dashboard/users" text="Users" />,
+  <MenuLink key="home" href="" text="Home" isActive={exactMatch} />,
+  <MenuLink key="users" href="/users" text="Users" />,
   <MenuLink
     key="classifications"
-    href="/dashboard/classifications"
+    href="/classifications"
     text="Classifications"
   />,
 ];
