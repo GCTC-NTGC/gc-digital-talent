@@ -5,13 +5,13 @@ import { Dashboard, exactMatch, MenuLink } from "./dashboard/Dashboard";
 
 const routes: Routes<RouterResult> = [
   {
-    path: "/dashboard",
+    path: "/",
     action: () => ({
       component: <p>Welcome Home</p>,
     }),
   },
   {
-    path: "/dashboard/users",
+    path: "/users",
     action: () => ({
       component: (
         <div>
@@ -28,19 +28,19 @@ const routes: Routes<RouterResult> = [
     }),
   },
   {
-    path: "/dashboard/pools",
+    path: "/pools",
     action: () => ({
       component: (
         <div>
           <h2>Welcome to my Pool</h2>
           <p>All our pools are the best here.</p>
           <p>
-            <Link href="/dashboard/pools/create" title="">
+            <Link href="/pools/create" title="">
               Create
             </Link>
           </p>
           <p>
-            <Link href="/dashboard/pools/1/edit" title="">
+            <Link href="/pools/1/edit" title="">
               Edit 1
             </Link>
           </p>
@@ -49,7 +49,7 @@ const routes: Routes<RouterResult> = [
     }),
   },
   {
-    path: "/dashboard/pools/create",
+    path: "/pools/create",
     action: () => ({
       component: (
         <div>
@@ -60,13 +60,13 @@ const routes: Routes<RouterResult> = [
     }),
   },
   {
-    path: "/dashboard/pools/:id/edit",
+    path: "/pools/:id/edit",
     action: ({ params }) => ({
       component: (
         <div>
           <h2>{`You are now editing Pool ${params.id}`}</h2>
           <p>
-            <Link href="/dashboard/pools" title="">
+            <Link href="/pools" title="">
               Back
             </Link>
           </p>
@@ -77,9 +77,9 @@ const routes: Routes<RouterResult> = [
 ];
 
 const menuItems = [
-  <MenuLink key="home" href="/dashboard" text="Home" isActive={exactMatch} />,
-  <MenuLink key="users" href="/dashboard/users" text="Users" />,
-  <MenuLink key="pools" href="/dashboard/pools" text="Pools" />,
+  <MenuLink key="home" href="/" text="Home" isActive={exactMatch} />,
+  <MenuLink key="users" href="/users" text="Users" />,
+  <MenuLink key="pools" href="/pools" text="Pools" />,
 ];
 
 export const PoolDashboard: React.FC = () => {
