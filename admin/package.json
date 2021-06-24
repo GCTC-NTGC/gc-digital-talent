@@ -81,6 +81,6 @@
     "react-hook-form": "^7.9.0",
     "react-table": "^7.7.0",
     "universal-router": "^9.0.1",
-    "urql": "^2.0.3"
+    "urql": "^2.0.4"
   }
 }
