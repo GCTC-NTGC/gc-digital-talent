@@ -170,6 +170,7 @@ input LocalizedStringInput {
 input UserBelongsTo {
     create: CreateUserInput
     connect: ID
+    update: ID
 }
 
 input PoolBelongsTo {
@@ -232,36 +233,36 @@ input PoolCandidateHasMany {
 }
 
 input CreatePoolInput {
-    owner: UserBelongsTo! @rename(attribute: "user")
+    owner: UserBelongsTo @rename(attribute: "user")
     name: LocalizedStringInput
     description: LocalizedStringInput
     classifications: ClassificationBelongsToMany
     assetCriteria: CmoAssetBelongsToMany
     essentialCriteria: CmoAssetBelongsToMany
     operationalRequirements: OperationalRequirementBelongsToMany
-    poolCandidates: PoolCandidateHasMany
 }
 
 input UpdateClassificationInput {
     name: LocalizedStringInput
-    group: String!
+    group: String
     minSalary: Int @rename(attribute: "min_salary")
     maxSalary: Int @rename(attribute: "max_salary")
 }
 
 input UpdateCmoAssetInput {
-    key: String!
-    name: LocalizedStringInput!
+    key: String
+    name: LocalizedStringInput
     description: LocalizedStringInput
 }
 
 input UpdateOperationalRequirementInput {
     key: String
-    name: LocalizedStringInput!
+    name: LocalizedStringInput
     description: LocalizedStringInput
 }
 
 input UpdatePoolCandidateInput {
+    user: UserBelongsTo! @belongsTo
     cmoIdentifier: ID @rename(attribute: "cmo_identifier")
     expiryDate: Date
     isWoman: Boolean @rename(attribute: "is_woman")
