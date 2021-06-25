@@ -13,7 +13,9 @@ import Submit from "./form/Submit";
 
 type FormValues = CreateUserInput;
 interface CreateUserFormProps {
-  handleCreateUser: (data: FormValues) => Promise<CreateUserMutation["createUser"]>;
+  handleCreateUser: (
+    data: FormValues,
+  ) => Promise<CreateUserMutation["createUser"]>;
 }
 
 export const CreateUserForm: React.FunctionComponent<CreateUserFormProps> = ({
@@ -78,9 +80,9 @@ export const CreateUserForm: React.FunctionComponent<CreateUserFormProps> = ({
             name="preferredLang"
             rules={{ required: errorMessages.required }}
             options={[
-              { value: "", text: "Select a language..." },
-              { value: Language.En, text: "English" },
-              { value: Language.Fr, text: "French" },
+              { value: "", label: "Select a language..." },
+              { value: Language.En, label: "English" },
+              { value: Language.Fr, label: "French" },
             ]}
           />
           <Submit />
@@ -100,9 +102,5 @@ export const CreateUser: React.FunctionComponent = () => {
       return Promise.reject(result.error);
     });
 
-  return (
-    <CreateUserForm
-      handleCreateUser={handleCreateUser}
-    />
-  );
+  return <CreateUserForm handleCreateUser={handleCreateUser} />;
 };
