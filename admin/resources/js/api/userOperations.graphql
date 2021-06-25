@@ -9,6 +9,17 @@ query AllUsers {
   }
 }
 
+query User($id: ID!) {
+  user(id: $id) {
+    id
+    email
+    firstName
+    lastName
+    telephone
+    preferredLang
+  }
+}
+
 mutation UpdateUser($id: ID!, $user: UpdateUserInput!) {
   updateUser(id: $id, user: $user) {
     id

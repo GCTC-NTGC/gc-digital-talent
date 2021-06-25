@@ -5,7 +5,6 @@ import { action } from "@storybook/addon-actions";
 import PoolCandidatesTable from "../components/PoolCandidatesTable";
 import fakePoolCandidates from "../fakeData/fakePoolCandidates";
 import {
-  useGetPoolCandidatesQuery,
   CreatePoolCandidateInput,
   User,
   Classification,
@@ -26,31 +25,23 @@ import fakePools from "../fakeData/fakePools";
 import fakeCmoAssets from "../fakeData/fakeCmoAssets";
 import fakeOperationalRequirements from "../fakeData/fakeOperationalRequirements";
 import { UpdatePoolCandidateForm } from "../components/poolCandidate/UpdatePoolCandidate";
+import { ClassificationTableApi } from "../components/ClassificationTable";
 
 const poolCandidateData = fakePoolCandidates();
 // Its possible data may come back from api with missing data.
 
 const stories = storiesOf("Pool Candidates", module);
 
-stories.add("Pool Candidates Table", () => (
+stories.add("Classifications Table", () => (
   <PoolCandidatesTable poolCandidates={poolCandidateData} />
 ));
 
 const client = createClient({
   url: "http://localhost:8000/graphql",
 });
-const ApiClassificationTable = () => {
-  const [result, _reexecuteQuery] = useGetPoolCandidatesQuery();
-  const { data, fetching, error } = result;
-
-  if (fetching) return <p>Loading...</p>;
-  if (error) return <p>Oh no... {error.message}</p>;
-
-  return <PoolCandidatesTable poolCandidates={data?.poolCandidates ?? []} />;
-};
-stories.add("Pool Candidates Table with API data", () => (
+stories.add("Classifications Table with API data", () => (
   <ClientProvider client={client}>
-    <ApiClassificationTable />
+    <ClassificationTableApi />
   </ClientProvider>
 ));
 

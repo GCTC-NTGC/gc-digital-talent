@@ -86,14 +86,13 @@ export type CreatePoolCandidateInput = {
 };
 
 export type CreatePoolInput = {
-  owner: UserBelongsTo;
+  owner?: Maybe<UserBelongsTo>;
   name?: Maybe<LocalizedStringInput>;
   description?: Maybe<LocalizedStringInput>;
   classifications?: Maybe<ClassificationBelongsToMany>;
   assetCriteria?: Maybe<CmoAssetBelongsToMany>;
   essentialCriteria?: Maybe<CmoAssetBelongsToMany>;
   operationalRequirements?: Maybe<OperationalRequirementBelongsToMany>;
-  poolCandidates?: Maybe<PoolCandidateHasMany>;
 };
 
 /** When creating a User, name and email are required. */
@@ -433,24 +432,25 @@ export enum Trashed {
 
 export type UpdateClassificationInput = {
   name?: Maybe<LocalizedStringInput>;
-  group: Scalars['String'];
+  group?: Maybe<Scalars['String']>;
   minSalary?: Maybe<Scalars['Int']>;
   maxSalary?: Maybe<Scalars['Int']>;
 };
 
 export type UpdateCmoAssetInput = {
-  key: Scalars['String'];
-  name: LocalizedStringInput;
+  key?: Maybe<Scalars['String']>;
+  name?: Maybe<LocalizedStringInput>;
   description?: Maybe<LocalizedStringInput>;
 };
 
 export type UpdateOperationalRequirementInput = {
   key?: Maybe<Scalars['String']>;
-  name: LocalizedStringInput;
+  name?: Maybe<LocalizedStringInput>;
   description?: Maybe<LocalizedStringInput>;
 };
 
 export type UpdatePoolCandidateInput = {
+  user: UserBelongsTo;
   cmoIdentifier?: Maybe<Scalars['ID']>;
   expiryDate?: Maybe<Scalars['Date']>;
   isWoman?: Maybe<Scalars['Boolean']>;
@@ -475,7 +475,6 @@ export type UpdatePoolInput = {
   assetCriteria?: Maybe<CmoAssetBelongsToMany>;
   essentialCriteria?: Maybe<CmoAssetBelongsToMany>;
   operationalRequirements?: Maybe<OperationalRequirementBelongsToMany>;
-  poolCandidates?: Maybe<PoolCandidateHasMany>;
 };
 
 /** When updating a User, all fields are optional, and email cannot be changed. */
@@ -501,6 +500,7 @@ export type User = {
 export type UserBelongsTo = {
   create?: Maybe<CreateUserInput>;
   connect?: Maybe<Scalars['ID']>;
+  update?: Maybe<Scalars['ID']>;
 };
 
 export enum WorkRegion {

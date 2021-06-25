@@ -73,7 +73,7 @@ type PoolCandidate {
     expectedClassifications: [Classification] @belongsToMany
     cmoAssets: [CmoAsset] @belongsToMany
 
-    status: PoolCandidateStatus
+    status: PoolCandidateStatus @rename(attribute: "pool_candidate_status")
 }
 
 enum LanguageAbility {
@@ -170,6 +170,14 @@ input LocalizedStringInput {
 input UserBelongsTo {
     create: CreateUserInput
     connect: ID
+    update: UpdateUserInput
+}
+
+"""
+When updating a PoolCandidate it is possible to update the related user, but not change which user it is related to.
+"""
+input UpdatePoolCandidateUserBelongsTo {
+    update: UpdateUserInput
 }
 
 input PoolBelongsTo {
@@ -232,36 +240,36 @@ input PoolCandidateHasMany {
 }
 
 input CreatePoolInput {
-    owner: UserBelongsTo! @rename(attribute: "user")
+    owner: UserBelongsTo @rename(attribute: "user")
     name: LocalizedStringInput
     description: LocalizedStringInput
     classifications: ClassificationBelongsToMany
     assetCriteria: CmoAssetBelongsToMany
     essentialCriteria: CmoAssetBelongsToMany
     operationalRequirements: OperationalRequirementBelongsToMany
-    poolCandidates: PoolCandidateHasMany
 }
 
 input UpdateClassificationInput {
     name: LocalizedStringInput
-    group: String!
+    group: String
     minSalary: Int @rename(attribute: "min_salary")
     maxSalary: Int @rename(attribute: "max_salary")
 }
 
 input UpdateCmoAssetInput {
-    key: String!
-    name: LocalizedStringInput!
+    key: String
+    name: LocalizedStringInput
     description: LocalizedStringInput
 }
 
 input UpdateOperationalRequirementInput {
     key: String
-    name: LocalizedStringInput!
+    name: LocalizedStringInput
     description: LocalizedStringInput
 }
 
 input UpdatePoolCandidateInput {
+    user: UpdatePoolCandidateUserBelongsTo @belongsTo
     cmoIdentifier: ID @rename(attribute: "cmo_identifier")
     expiryDate: Date @rename(attribute: "expiry_date")
     isWoman: Boolean @rename(attribute: "is_woman")

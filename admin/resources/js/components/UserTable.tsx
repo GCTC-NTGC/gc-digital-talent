@@ -1,11 +1,15 @@
 import React, { useMemo } from "react";
-import { useTable, useGlobalFilter, useSortBy, Column } from "react-table";
-import { AllUsersQuery } from "../api/generated";
+import { Column } from "react-table";
+import { AllUsersQuery, useAllUsersQuery, User } from "../api/generated";
+import { Link, useLocation } from "../helpers/router";
 import { notEmpty } from "../helpers/util";
 import Table from "./Table";
 
-const UserTable: React.FC<AllUsersQuery> = ({ users }) => {
-  const columns: Array<Column> = useMemo(
+export const UserTable: React.FC<AllUsersQuery & { editUrlRoot: string }> = ({
+  users,
+  editUrlRoot,
+}) => {
+  const columns: Array<Column<User>> = useMemo(
     () => [
       {
         Header: "ID",
@@ -31,17 +35,34 @@ const UserTable: React.FC<AllUsersQuery> = ({ users }) => {
         Header: "Preferred Language",
         accessor: "preferredLang",
       },
+      {
+        Header: "",
+        id: "edit",
+        accessor: ({ id }) => (
+          <Link href={`${editUrlRoot}/${id}/edit`} title="">
+            Edit
+          </Link>
+        ),
+      },
     ],
-    [],
+    [editUrlRoot],
   );
 
   const data = useMemo(() => users.filter(notEmpty), [users]);
 
   return (
     <>
-      <Table data={data} columns={columns} />
+      <Table<User> data={data} columns={columns} />
     </>
   );
 };
 
-export default UserTable;
+export const UserTableApi: React.FunctionComponent = () => {
+  const [result] = useAllUsersQuery();
+  const { data, fetching, error } = result;
+  const { pathname } = useLocation();
+
+  if (fetching) return <p>Loading...</p>;
+  if (error) return <p>Oh no... {error.message}</p>;
+  return <UserTable users={data?.users ?? []} editUrlRoot={pathname} />;
+};
