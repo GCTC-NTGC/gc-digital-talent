@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-key */
-import React from "react";
+import React, { useState } from "react";
 import { useTable, useGlobalFilter, useSortBy, Column } from "react-table";
 import GlobalFilter from "./GlobalFilter";
 import SettingsIcon from "../../../public/images/settings.png";
@@ -12,10 +12,6 @@ interface TableProps {
   data: any;
   filter?: boolean;
 }
-
-const toggleList = () => {
-  console.log("test");
-};
 
 const Table: React.FunctionComponent<TableProps> = ({
   columns,
@@ -32,6 +28,9 @@ const Table: React.FunctionComponent<TableProps> = ({
     state,
     preGlobalFilteredRows,
   } = useTable({ columns, data }, useGlobalFilter, useSortBy);
+
+  const [showList, setShowList] = useState(false);
+  const [showColumns, setShowColumns] = useState(columns);
 
   return (
     <table {...getTableProps()}>
@@ -67,7 +66,9 @@ const Table: React.FunctionComponent<TableProps> = ({
                   cursor: "pointer",
                 }}
                 type="button"
-                onClick={toggleList}
+                onClick={() => {
+                  setShowList(!showList);
+                }}
               >
                 <img
                   src={SettingsIcon}
@@ -78,33 +79,53 @@ const Table: React.FunctionComponent<TableProps> = ({
                     display: "inline-block",
                   }}
                 />
-                <ul
-                  style={{
-                    listStyleType: "none",
-                    textAlign: "left",
-                    position: "absolute",
-                    marginLeft: "-35px",
-                    backgroundColor: "white",
-                  }}
-                >
-                  {columns.map((column) => (
-                    <li>
-                      {console.dir(column)}
-                      {column.showCol ? (
-                        <img
-                          src={CheckmarkIcon}
+                {showList && (
+                  <ul
+                    style={{
+                      listStyleType: "none",
+                      textAlign: "left",
+                      position: "absolute",
+                      marginLeft: "-35px",
+                      backgroundColor: "white",
+                    }}
+                  >
+                    {columns.map((column) => (
+                      <li>
+                        {column.showCol ? (
+                          <img
+                            src={CheckmarkIcon}
+                            style={{
+                              width: "10px",
+                              height: "10px",
+                              marginRight: "5px",
+                            }}
+                            alt="checkmark con"
+                          />
+                        ) : null}
+                        <button
+                          type="button"
                           style={{
-                            width: "10px",
-                            height: "10px",
-                            marginRight: "5px",
+                            border: "none",
+                            backgroundColor: "transparent",
                           }}
-                          alt="checkmark con"
-                        />
-                      ) : null}
-                      {column.Header}
-                    </li>
-                  ))}
-                </ul>
+                          onClick={() => {
+                            setShowColumns(
+                              showColumns.map((lColumn) => {
+                                if (lColumn.accessor === column.accessor) {
+                                  lColumn.showCol = !column.showCol;
+                                  return lColumn;
+                                }
+                                return lColumn;
+                              }),
+                            );
+                          }}
+                        >
+                          {column.Header}
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                )}
               </button>
             </th>
           </tr>
