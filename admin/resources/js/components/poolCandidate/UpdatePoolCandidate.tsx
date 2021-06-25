@@ -12,18 +12,22 @@ import {
   PoolCandidate,
   useUpdatePoolCandidateMutation,
   UpdatePoolCandidateMutation,
+  Scalars,
+  LocalizedString,
+  Maybe,
 } from "../../api/generated";
 import errorMessages from "../form/errorMessages";
 import Submit from "../form/Submit";
 import Select from "../form/Select";
 import Input from "../form/Input";
-import { enumToOptions, getValues } from "../../helpers/util";
+import { enumToOptions, getValues, notEmpty } from "../../helpers/util";
 import MultiSelect from "../form/MultiSelect";
 
 type Option<V> = { value: V; label: string };
+
 interface FormValues {
-  acceptedOperationalRequirements: Option<string>[];
-  cmoAssets: Option<string>[];
+  acceptedOperationalRequirements: Option<string>[] | undefined;
+  cmoAssets: Option<string>[] | undefined;
   cmoIdentifier: string | null;
   expectedClassifications: Option<string>[];
   expectedSalary: Option<SalaryRange>[];
@@ -37,6 +41,23 @@ interface FormValues {
   locationPreferences: Option<WorkRegion>[];
   status: PoolCandidateStatus | null;
 }
+type FormV = Pick<
+  PoolCandidate,
+  | "cmoIdentifier"
+  | "expiryDate"
+  | "hasDiploma"
+  | "hasDisability"
+  | "isIndigenous"
+  | "isVisibleMinority"
+  | "isWoman"
+  | "languageAbility"
+> & {
+  acceptedOperationalRequirements: Option<string>[] | undefined;
+  cmoAssets: Option<string>[] | undefined;
+  expectedClassifications: Option<string>[] | undefined;
+  expectedSalary: Option<SalaryRange>[] | undefined;
+  locationPreferences: Option<WorkRegion>[] | undefined;
+};
 
 interface UpdatePoolCandidateProps {
   classifications: Classification[];
@@ -59,49 +80,88 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<UpdatePoolCandidat
     operationalRequirements,
     handleUpdatePoolCandidate,
   }) => {
+    const lookupToOptions = (
+      lookupData?: Maybe<
+        Array<Maybe<{ id: Scalars["ID"]; name: Maybe<LocalizedString> }>>
+      >,
+    ): Option<string>[] => {
+      if (!lookupData) {
+        return [];
+      }
+      return lookupData.filter(notEmpty).map((x): Option<string> => {
+        return {
+          value: x.id,
+          label: x?.name?.en ?? "",
+        };
+      });
+    };
+    const classificationToOptions = (
+      classificationData?: Maybe<
+        Array<
+          Maybe<{
+            id: Scalars["ID"];
+            group: Maybe<string>;
+            level: Maybe<number>;
+          }>
+        >
+      >,
+    ): Option<string>[] => {
+      if (!classificationData) {
+        return [];
+      }
+      return classificationData.filter(notEmpty).map((x): Option<string> => {
+        return {
+          value: x.id,
+          label: `${x?.group}-${String(x?.level).padStart(2, "0")}`,
+        };
+      });
+    };
+    function enumOptions<T>(enumData?: Maybe<Array<Maybe<T>>>): Option<T>[] {
+      return enumData
+        ? enumData.filter(notEmpty).map((e) => ({ value: e, label: String(e) }))
+        : [];
+    }
+
     const dataToFormValues = (
       data: PoolCandidate | UpdatePoolCandidateMutation["updatePoolCandidate"],
-    ): FormValues => ({
+    ): FormV => ({
       // TODO: Convert rest of data to form values format (specifically the multi select).
-      acceptedOperationalRequirements: [],
-      cmoAssets: [],
-      cmoIdentifier: data?.cmoIdentifier || null,
-      expiryDate: data?.expiryDate || null,
-      expectedClassifications: [],
-      expectedSalary: [],
-      hasDiploma: data?.hasDiploma || null,
-      hasDisability: data?.hasDisability || null,
-      isIndigenous: data?.isIndigenous || null,
-      isWoman: data?.isWoman || null,
-      isVisibleMinority: data?.isVisibleMinority || null,
-      languageAbility: data?.languageAbility || null,
-      locationPreferences: [],
-      status: data?.status || null,
+      ...data,
+      acceptedOperationalRequirements: lookupToOptions(
+        data?.acceptedOperationalRequirements,
+      ),
+      cmoAssets: lookupToOptions(data?.cmoAssets),
+      expectedClassifications: classificationToOptions(
+        data?.expectedClassifications,
+      ),
+      expectedSalary: enumOptions(data?.expectedSalary),
+      //   data?.expectedSalary
+      //     ? data?.expectedSalary
+      //         .filter(notEmpty)
+      //         .map((e) => ({ value: e, label: e }))
+      //     : [],
+      locationPreferences: enumOptions(data?.locationPreferences),
+      // ? data?.locationPreferences
+      //     .filter(notEmpty)
+      //     .map((e) => ({ value: e, label: e }))
+      // : [],
     });
 
-    const formValuesToData = (
-      values: FormValues,
+    const formValuesToSubmitData = (
+      values: FormV,
     ): UpdatePoolCandidateInput => ({
-      cmoIdentifier: values.cmoIdentifier,
-      expiryDate: values.expiryDate,
-      isWoman: values.isWoman,
-      hasDisability: values.hasDisability,
-      isIndigenous: values.isIndigenous,
-      isVisibleMinority: values.isVisibleMinority,
-      hasDiploma: values.hasDiploma,
-      languageAbility: values.languageAbility,
-      locationPreferences: getValues(values.locationPreferences),
+      ...values,
+      locationPreferences: getValues(values.locationPreferences ?? []),
       acceptedOperationalRequirements: {
-        sync: getValues(values.acceptedOperationalRequirements),
+        sync: getValues(values.acceptedOperationalRequirements ?? []),
       },
-      expectedSalary: getValues(values.expectedSalary),
+      expectedSalary: getValues(values.expectedSalary ?? []),
       expectedClassifications: {
-        sync: getValues(values.expectedClassifications),
+        sync: getValues(values.expectedClassifications ?? []),
       },
       cmoAssets: {
-        sync: getValues(values.cmoAssets),
+        sync: getValues(values.cmoAssets ?? []),
       },
-      status: values.status,
     });
 
     const methods = useForm<FormValues>({
@@ -114,7 +174,7 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<UpdatePoolCandidat
     const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
       await handleUpdatePoolCandidate(
         initialPoolCandidate.id,
-        formValuesToData(data),
+        formValuesToSubmitData(data),
       )
         .then((resolved) => reset(dataToFormValues(resolved))) // Reset form with returned data. This resets isDirty flag.
         .catch(() => {

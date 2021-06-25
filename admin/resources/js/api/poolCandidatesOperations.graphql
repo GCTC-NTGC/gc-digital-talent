@@ -60,6 +60,75 @@ query GetPoolCandidates {
   }
 }
 
+query GetPoolCandidatesForForm {
+  poolCandidates {
+    id,
+    pool {
+      id,
+      name {
+        en,
+        fr
+      },
+      classifications {
+        id,
+        name {
+          en,
+          fr
+        },
+        group,
+        level
+      },
+    },
+    user {
+      id,
+      firstName,
+      lastName,
+      email
+    },
+    cmoIdentifier,
+    expiryDate,
+    isWoman,
+    hasDisability,
+    isIndigenous,
+    isVisibleMinority,
+    hasDiploma,
+    languageAbility,
+    locationPreferences,
+    acceptedOperationalRequirements {
+      id,
+      name {
+        en,
+        fr
+      }
+    },
+    expectedSalary,
+    expectedClassifications {
+      id,
+      name {
+        en,
+        fr
+      }
+      group,
+      level
+    }
+    cmoAssets {
+      id,
+      name {
+        en,
+        fr
+      }
+    },
+    status
+  },
+  operationalRequirements {
+    id
+    name {
+      en
+      fr
+    }
+  }
+}
+
 mutation createPoolCandidate($poolCandidate: CreatePoolCandidateInput!) {
   createPoolCandidate(poolCandidate: $poolCandidate) {
     pool {
@@ -104,13 +173,23 @@ mutation updatePoolCandidate($id: ID!, $poolCandidate: UpdatePoolCandidateInput!
     locationPreferences
     acceptedOperationalRequirements {
       id
+      name {
+        en
+        fr
+      }
     }
     expectedSalary
     expectedClassifications {
       id
+      group
+      level
     }
     cmoAssets {
       id
+      name {
+        en
+        fr
+      }
     }
     status
   }
