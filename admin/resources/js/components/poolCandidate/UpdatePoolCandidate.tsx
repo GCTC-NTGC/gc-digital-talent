@@ -20,28 +20,12 @@ import errorMessages from "../form/errorMessages";
 import Submit from "../form/Submit";
 import Select from "../form/Select";
 import Input from "../form/Input";
-import { enumToOptions, getValues, notEmpty } from "../../helpers/util";
+import { enumToOptions, getId, notEmpty } from "../../helpers/util";
 import MultiSelect from "../form/MultiSelect";
 
 type Option<V> = { value: V; label: string };
 
-interface FormValues {
-  acceptedOperationalRequirements: Option<string>[] | undefined;
-  cmoAssets: Option<string>[] | undefined;
-  cmoIdentifier: string | null;
-  expectedClassifications: Option<string>[];
-  expectedSalary: Option<SalaryRange>[];
-  expiryDate: string | null;
-  hasDiploma: boolean | null;
-  hasDisability: boolean | null;
-  isIndigenous: boolean | null;
-  isVisibleMinority: boolean | null;
-  isWoman: boolean | null;
-  languageAbility: LanguageAbility | null;
-  locationPreferences: Option<WorkRegion>[];
-  status: PoolCandidateStatus | null;
-}
-type FormV = Pick<
+type FormValues = Pick<
   PoolCandidate,
   | "cmoIdentifier"
   | "expiryDate"
@@ -51,12 +35,12 @@ type FormV = Pick<
   | "isVisibleMinority"
   | "isWoman"
   | "languageAbility"
+  | "expectedSalary"
+  | "locationPreferences"
 > & {
-  acceptedOperationalRequirements: Option<string>[] | undefined;
-  cmoAssets: Option<string>[] | undefined;
-  expectedClassifications: Option<string>[] | undefined;
-  expectedSalary: Option<SalaryRange>[] | undefined;
-  locationPreferences: Option<WorkRegion>[] | undefined;
+  acceptedOperationalRequirements: string[] | undefined;
+  cmoAssets: string[] | undefined;
+  expectedClassifications: string[] | undefined;
 };
 
 interface UpdatePoolCandidateProps {
@@ -80,93 +64,44 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<UpdatePoolCandidat
     operationalRequirements,
     handleUpdatePoolCandidate,
   }) => {
-    const lookupToOptions = (
-      lookupData?: Maybe<
-        Array<Maybe<{ id: Scalars["ID"]; name: Maybe<LocalizedString> }>>
-      >,
-    ): Option<string>[] => {
-      if (!lookupData) {
-        return [];
-      }
-      return lookupData.filter(notEmpty).map((x): Option<string> => {
-        return {
-          value: x.id,
-          label: x?.name?.en ?? "",
-        };
-      });
-    };
-    const classificationToOptions = (
-      classificationData?: Maybe<
-        Array<
-          Maybe<{
-            id: Scalars["ID"];
-            group: Maybe<string>;
-            level: Maybe<number>;
-          }>
-        >
-      >,
-    ): Option<string>[] => {
-      if (!classificationData) {
-        return [];
-      }
-      return classificationData.filter(notEmpty).map((x): Option<string> => {
-        return {
-          value: x.id,
-          label: `${x?.group}-${String(x?.level).padStart(2, "0")}`,
-        };
-      });
-    };
-    function enumOptions<T>(enumData?: Maybe<Array<Maybe<T>>>): Option<T>[] {
-      return enumData
-        ? enumData.filter(notEmpty).map((e) => ({ value: e, label: String(e) }))
-        : [];
+    function unpackMaybes<T>(data: Maybe<Array<Maybe<T>>> | undefined): T[] {
+      return data?.filter(notEmpty) ?? [];
     }
+    const unpackIds = (data: Maybe<Array<Maybe<{ id: string }>>> | undefined) =>
+      unpackMaybes<{ id: string }>(data).map(getId);
 
-    const dataToFormValues = (
+    const dataToFormValuesalues = (
       data: PoolCandidate | UpdatePoolCandidateMutation["updatePoolCandidate"],
-    ): FormV => ({
+    ): FormValues => ({
       // TODO: Convert rest of data to form values format (specifically the multi select).
       ...data,
-      acceptedOperationalRequirements: lookupToOptions(
+      acceptedOperationalRequirements: unpackIds(
         data?.acceptedOperationalRequirements,
       ),
-      cmoAssets: lookupToOptions(data?.cmoAssets),
-      expectedClassifications: classificationToOptions(
-        data?.expectedClassifications,
-      ),
-      expectedSalary: enumOptions(data?.expectedSalary),
-      //   data?.expectedSalary
-      //     ? data?.expectedSalary
-      //         .filter(notEmpty)
-      //         .map((e) => ({ value: e, label: e }))
-      //     : [],
-      locationPreferences: enumOptions(data?.locationPreferences),
-      // ? data?.locationPreferences
-      //     .filter(notEmpty)
-      //     .map((e) => ({ value: e, label: e }))
-      // : [],
+      cmoAssets: unpackIds(data?.cmoAssets),
+      expectedClassifications: unpackIds(data?.expectedClassifications),
+      expectedSalary: unpackMaybes(data?.expectedSalary),
+      locationPreferences: unpackMaybes(data?.locationPreferences),
     });
 
     const formValuesToSubmitData = (
-      values: FormV,
+      values: FormValues,
     ): UpdatePoolCandidateInput => ({
       ...values,
-      locationPreferences: getValues(values.locationPreferences ?? []),
       acceptedOperationalRequirements: {
-        sync: getValues(values.acceptedOperationalRequirements ?? []),
+        sync: values.acceptedOperationalRequirements,
       },
-      expectedSalary: getValues(values.expectedSalary ?? []),
       expectedClassifications: {
-        sync: getValues(values.expectedClassifications ?? []),
+        sync: values.expectedClassifications,
       },
       cmoAssets: {
-        sync: getValues(values.cmoAssets ?? []),
+        sync: values.cmoAssets,
       },
     });
 
     const methods = useForm<FormValues>({
       defaultValues: initialPoolCandidate
-        ? dataToFormValues(initialPoolCandidate)
+        ? dataToFormValuesalues(initialPoolCandidate)
         : {},
     });
     const { handleSubmit, reset } = methods;
@@ -176,16 +111,16 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<UpdatePoolCandidat
         initialPoolCandidate.id,
         formValuesToSubmitData(data),
       )
-        .then((resolved) => reset(dataToFormValues(resolved))) // Reset form with returned data. This resets isDirty flag.
+        .then((resolved) => reset(dataToFormValuesalues(resolved))) // Reset form with returned data. This resets isDirty flag.
         .catch(() => {
           // Something went wrong with handleCreatePoolCandidate.
           // Do nothing.
         });
     };
 
-    const cmoAssetOptions: Option<string>[] = cmoAssets.map(({ id, key }) => ({
+    const cmoAssetOptions: Option<string>[] = cmoAssets.map(({ id, name }) => ({
       value: id,
-      label: key,
+      label: name[locale] ?? "Error: name not loaded",
     }));
 
     const classificationOptions: Option<string>[] = classifications.map(

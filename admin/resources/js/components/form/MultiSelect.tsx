@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useMemo } from "react";
 import { Controller, RegisterOptions, useFormContext } from "react-hook-form";
 import ReactSelect from "react-select";
 
@@ -32,6 +32,17 @@ const MultiSelect: React.FunctionComponent<MultiSelectProps> = ({
     formState: { errors },
   } = useFormContext();
   const error = errors[name]?.message;
+  const optionMap = useMemo(() => {
+    const map = new Map();
+    options.forEach((option) => {
+      map.set(option.value, option.label);
+    });
+    return map;
+  }, [options]);
+  const valueToOption = (v: any) => ({
+    value: v,
+    label: optionMap.get(v) ?? String(v),
+  });
   return (
     <div>
       <label htmlFor={id}>{label}</label>
@@ -41,6 +52,10 @@ const MultiSelect: React.FunctionComponent<MultiSelectProps> = ({
           <ReactSelect
             isMulti
             {...field}
+            value={field.value ? field.value.map(valueToOption) : []}
+            onChange={
+              (x) => field.onChange(x ? x.map((option) => option.value) : x) // If x is null or undefined, return it to form
+            }
             placeholder={placeholder}
             options={options}
             required

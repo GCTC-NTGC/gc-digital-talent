@@ -173,23 +173,13 @@ mutation updatePoolCandidate($id: ID!, $poolCandidate: UpdatePoolCandidateInput!
     locationPreferences
     acceptedOperationalRequirements {
       id
-      name {
-        en
-        fr
-      }
     }
     expectedSalary
     expectedClassifications {
       id
-      group
-      level
     }
     cmoAssets {
       id
-      name {
-        en
-        fr
-      }
     }
     status
   }

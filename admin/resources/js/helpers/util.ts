@@ -53,3 +53,7 @@ export function enumToOptions<T>(
 export function getValues<T>(list: { value: T; label: string }[]): T[] {
   return list.map((x) => x.value);
 }
+
+export function getId<T extends { id: string }>(item: T): string {
+  return item.id;
+}
