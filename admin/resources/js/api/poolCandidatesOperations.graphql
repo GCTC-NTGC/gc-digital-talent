@@ -59,3 +59,59 @@ query GetPoolCandidates {
     status
   }
 }
+
+mutation createPoolCandidate($poolCandidate: CreatePoolCandidateInput!) {
+  createPoolCandidate(poolCandidate: $poolCandidate) {
+    pool {
+      id
+    }
+    user {
+      id
+    }
+    cmoIdentifier
+    expiryDate
+    isWoman
+    hasDisability
+    isIndigenous
+    isVisibleMinority
+    hasDiploma
+    languageAbility
+    locationPreferences
+    acceptedOperationalRequirements {
+      id
+    }
+    expectedSalary
+    expectedClassifications {
+      id
+    }
+    cmoAssets {
+      id
+    }
+    status
+  }
+}
+
+mutation updatePoolCandidate($id: ID!, $poolCandidate: UpdatePoolCandidateInput!) {
+  updatePoolCandidate(id: $id, poolCandidate: $poolCandidate) {
+    cmoIdentifier
+    expiryDate
+    isWoman
+    hasDisability
+    isIndigenous
+    isVisibleMinority
+    hasDiploma
+    languageAbility
+    locationPreferences
+    acceptedOperationalRequirements {
+      id
+    }
+    expectedSalary
+    expectedClassifications {
+      id
+    }
+    cmoAssets {
+      id
+    }
+    status
+  }
+}
