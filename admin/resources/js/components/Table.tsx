@@ -62,13 +62,9 @@ const Table: React.FunctionComponent<TableProps> = ({
     const column = columns.find((lColumn) => {
       return lColumn.accessor === id;
     });
-    return column?.showCol;
-  };
 
-  const getColumnIsVisible = (columnName: string): boolean | undefined => {
-    return columns.find((lColumn) => {
-      return lColumn.accessor === columnName;
-    })?.showCol;
+    if (column?.showCol === undefined) return true;
+    return column?.showCol;
   };
 
   return (
@@ -133,7 +129,7 @@ const Table: React.FunctionComponent<TableProps> = ({
                   >
                     {columns.map((column) => (
                       <li>
-                        {column.showCol ? (
+                        {column.showCol || column.showCol === undefined ? (
                           <img
                             src={CheckmarkIcon}
                             style={{
