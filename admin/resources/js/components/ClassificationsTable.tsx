@@ -43,6 +43,13 @@ const ClassificationTable: React.FC<GetClassificationsQuery> = ({
     [],
   );
 
+  const hiddenCols: string[] = [];
+  columns.forEach((column) => {
+    if (column.showCol === false && column.accessor) {
+      hiddenCols.push(column.accessor.toString());
+    }
+  });
+
   const memoizedData = useMemo(
     () => classifications.filter(notEmpty),
     [classifications],
@@ -50,7 +57,10 @@ const ClassificationTable: React.FC<GetClassificationsQuery> = ({
 
   return (
     <>
-      <Table data={memoizedData} columns={columns} />
+      <Table
+        data={memoizedData}
+        columns={columns} /* hiddenCols={hiddenCols} */
+      />
     </>
   );
 };

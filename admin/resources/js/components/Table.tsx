@@ -11,12 +11,14 @@ interface TableProps {
   columns: Array<FilterableColumn>;
   data: any;
   filter?: boolean;
+  hiddenCols?: string[];
 }
 
 const Table: React.FunctionComponent<TableProps> = ({
   columns,
   data,
   filter = true,
+  hiddenCols = [],
 }) => {
   const {
     getTableProps,
@@ -27,10 +29,47 @@ const Table: React.FunctionComponent<TableProps> = ({
     setGlobalFilter,
     state,
     preGlobalFilteredRows,
-  } = useTable({ columns, data }, useGlobalFilter, useSortBy);
+  } = useTable(
+    {
+      columns,
+      data,
+      initialState: {
+        hiddenColumns: hiddenCols,
+      },
+    },
+    useGlobalFilter,
+    useSortBy,
+  );
 
   const [showList, setShowList] = useState(false);
   const [showColumns, setShowColumns] = useState(columns);
+
+  // This is a hack to sync isVisible with showCol
+  headerGroups.map((headerGroup) => {
+    return headerGroup.headers.map((header) => {
+      const column = columns.find((lColumn) => {
+        return lColumn.accessor === header.id;
+      });
+
+      if (!column?.showCol === true) {
+        header.isVisible = false;
+      }
+      return header;
+    });
+  });
+
+  const shouldBeVisible = (id: string): boolean | undefined => {
+    const column = columns.find((lColumn) => {
+      return lColumn.accessor === id;
+    });
+    return column?.showCol;
+  };
+
+  const getColumnIsVisible = (columnName: string): boolean | undefined => {
+    return columns.find((lColumn) => {
+      return lColumn.accessor === columnName;
+    })?.showCol;
+  };
 
   return (
     <table {...getTableProps()}>
@@ -44,17 +83,20 @@ const Table: React.FunctionComponent<TableProps> = ({
       <thead>
         {headerGroups.map((headerGroup) => (
           <tr {...headerGroup.getHeaderGroupProps()}>
-            {headerGroup.headers.map((column) => (
-              <th
-                {...column.getHeaderProps(column.getSortByToggleProps())}
-                key={column.id}
-              >
-                {column.render("Header")}
-                <span>
-                  {column.isSorted && (column.isSortedDesc ? " ▼" : " ▲")}
-                </span>
-              </th>
-            ))}
+            {headerGroup.headers.map(
+              (column) =>
+                shouldBeVisible(column.id) && (
+                  <th
+                    {...column.getHeaderProps(column.getSortByToggleProps())}
+                    key={column.id}
+                  >
+                    {column.render("Header")}
+                    <span>
+                      {column.isSorted && (column.isSortedDesc ? " ▼" : " ▲")}
+                    </span>
+                  </th>
+                ),
+            )}
             <th>
               <button
                 style={{
@@ -135,10 +177,10 @@ const Table: React.FunctionComponent<TableProps> = ({
       <tbody {...getTableBodyProps()}>
         {rows.map((row) => {
           prepareRow(row);
-
           return (
             <tr {...row.getRowProps()}>
               {row.cells.map((cell) => {
+                if (!shouldBeVisible(cell.column.id)) return null;
                 return <td {...cell.getCellProps()}>{cell.render("Cell")}</td>;
               })}
             </tr>
