@@ -224,6 +224,53 @@ export type GetClassificationsQuery = { __typename?: "Query" } & {
   >;
 };
 
+export type GetCmoAssetsQueryVariables = Exact<{ [key: string]: never }>;
+
+export type GetCmoAssetsQuery = { __typename?: "Query" } & {
+  cmoAssets: Array<
+    Maybe<
+      { __typename?: "CmoAsset" } & Pick<CmoAsset, "id" | "key"> & {
+          name: { __typename?: "LocalizedString" } & Pick<
+            LocalizedString,
+            "en" | "fr"
+          >;
+          description?: Maybe<
+            { __typename?: "LocalizedString" } & Pick<
+              LocalizedString,
+              "en" | "fr"
+            >
+          >;
+        }
+    >
+  >;
+};
+
+export type GetOperationalRequirementsQueryVariables = Exact<{
+  [key: string]: never;
+}>;
+
+export type GetOperationalRequirementsQuery = { __typename?: "Query" } & {
+  operationalRequirements: Array<
+    Maybe<
+      { __typename?: "OperationalRequirement" } & Pick<
+        OperationalRequirement,
+        "id" | "key"
+      > & {
+          name: { __typename?: "LocalizedString" } & Pick<
+            LocalizedString,
+            "en" | "fr"
+          >;
+          description?: Maybe<
+            { __typename?: "LocalizedString" } & Pick<
+              LocalizedString,
+              "en" | "fr"
+            >
+          >;
+        }
+    >
+  >;
+};
+
 export type GetPoolCandidatesQueryVariables = Exact<{ [key: string]: never }>;
 
 export type GetPoolCandidatesQuery = { __typename?: "Query" } & {
@@ -344,6 +391,19 @@ export type AllUsersQuery = { __typename?: "Query" } & {
   >;
 };
 
+export type UserQueryVariables = Exact<{
+  id: Scalars["ID"];
+}>;
+
+export type UserQuery = { __typename?: "Query" } & {
+  user?: Maybe<
+    { __typename?: "User" } & Pick<
+      User,
+      "id" | "email" | "firstName" | "lastName" | "telephone" | "preferredLang"
+    >
+  >;
+};
+
 export type UpdateUserMutationVariables = Exact<{
   id: Scalars["ID"];
   user: UpdateUserInput;
@@ -394,6 +454,59 @@ export function useGetClassificationsQuery(
 ) {
   return Urql.useQuery<GetClassificationsQuery>({
     query: GetClassificationsDocument,
+    ...options,
+  });
+}
+export const GetCmoAssetsDocument = gql`
+  query GetCmoAssets {
+    cmoAssets {
+      id
+      key
+      name {
+        en
+        fr
+      }
+      description {
+        en
+        fr
+      }
+    }
+  }
+`;
+
+export function useGetCmoAssetsQuery(
+  options: Omit<Urql.UseQueryArgs<GetCmoAssetsQueryVariables>, "query"> = {},
+) {
+  return Urql.useQuery<GetCmoAssetsQuery>({
+    query: GetCmoAssetsDocument,
+    ...options,
+  });
+}
+export const GetOperationalRequirementsDocument = gql`
+  query GetOperationalRequirements {
+    operationalRequirements {
+      id
+      key
+      name {
+        en
+        fr
+      }
+      description {
+        en
+        fr
+      }
+    }
+  }
+`;
+
+export function useGetOperationalRequirementsQuery(
+  options: Omit<
+    Urql.UseQueryArgs<GetOperationalRequirementsQueryVariables>,
+    "query"
+  > = {},
+) {
+  return Urql.useQuery<GetOperationalRequirementsQuery>({
+    query: GetOperationalRequirementsDocument,
     ...options,
   });
 }
@@ -489,6 +602,24 @@ export function useAllUsersQuery(
   options: Omit<Urql.UseQueryArgs<AllUsersQueryVariables>, "query"> = {},
 ) {
   return Urql.useQuery<AllUsersQuery>({ query: AllUsersDocument, ...options });
+}
+export const UserDocument = gql`
+  query User($id: ID!) {
+    user(id: $id) {
+      id
+      email
+      firstName
+      lastName
+      telephone
+      preferredLang
+    }
+  }
+`;
+
+export function useUserQuery(
+  options: Omit<Urql.UseQueryArgs<UserQueryVariables>, "query"> = {},
+) {
+  return Urql.useQuery<UserQuery>({ query: UserDocument, ...options });
 }
 export const UpdateUserDocument = gql`
   mutation UpdateUser($id: ID!, $user: UpdateUserInput!) {

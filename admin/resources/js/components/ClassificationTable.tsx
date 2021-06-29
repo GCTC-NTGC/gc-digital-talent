@@ -1,13 +1,15 @@
 import React, { useMemo } from "react";
-import { Column } from "react-table";
-import { GetClassificationsQuery } from "../api/generated";
+import {
+  GetClassificationsQuery,
+  useGetClassificationsQuery,
+} from "../api/generated";
 import { notEmpty } from "../helpers/util";
 import Table, { FilterableColumn } from "./Table";
 
-const ClassificationTable: React.FC<GetClassificationsQuery> = ({
+export const ClassificationTable: React.FC<GetClassificationsQuery> = ({
   classifications,
 }) => {
-  const columns: Array<FilterableColumn> = useMemo(
+  const columns: Array<FilterableColumn<any>> = useMemo(
     () => [
       {
         Header: "ID",
@@ -57,12 +59,17 @@ const ClassificationTable: React.FC<GetClassificationsQuery> = ({
 
   return (
     <>
-      <Table
-        data={memoizedData}
-        columns={columns} /* hiddenCols={hiddenCols} */
-      />
+      <Table data={memoizedData} columns={columns} />
     </>
   );
 };
 
-export default ClassificationTable;
+export const ClassificationTableApi: React.FunctionComponent = () => {
+  const [result] = useGetClassificationsQuery();
+  const { data, fetching, error } = result;
+
+  if (fetching) return <p>Loading...</p>;
+  if (error) return <p>Oh no... {error.message}</p>;
+
+  return <ClassificationTable classifications={data?.classifications ?? []} />;
+};

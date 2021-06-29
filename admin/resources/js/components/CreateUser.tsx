@@ -13,7 +13,9 @@ import Submit from "./form/Submit";
 
 type FormValues = CreateUserInput;
 interface CreateUserFormProps {
-  handleCreateUser: (data: FormValues) => Promise<CreateUserMutation["createUser"]>;
+  handleCreateUser: (
+    data: FormValues,
+  ) => Promise<CreateUserMutation["createUser"]>;
 }
 
 export const CreateUserForm: React.FunctionComponent<CreateUserFormProps> = ({
@@ -100,9 +102,5 @@ export const CreateUser: React.FunctionComponent = () => {
       return Promise.reject(result.error);
     });
 
-  return (
-    <CreateUserForm
-      handleCreateUser={handleCreateUser}
-    />
-  );
+  return <CreateUserForm handleCreateUser={handleCreateUser} />;
 };

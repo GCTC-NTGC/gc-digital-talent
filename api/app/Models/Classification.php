@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * Class Classification
@@ -19,6 +20,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Classification extends Model
 {
+
+    use SoftDeletes;
+
     /**
      * The attributes that should be cast.
      *

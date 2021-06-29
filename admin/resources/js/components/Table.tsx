@@ -1,25 +1,27 @@
 /* eslint-disable react/jsx-key */
-import React, { useState } from "react";
+import React, { ReactElement, useState } from "react";
 import { useTable, useGlobalFilter, useSortBy, Column } from "react-table";
 import GlobalFilter from "./GlobalFilter";
 import SettingsIcon from "../../../public/images/settings.png";
 import CheckmarkIcon from "../../../public/images/checkmark-icon.jpeg";
 
-export type FilterableColumn = Column & { showCol?: boolean };
+export type FilterableColumn<T extends Record<string, unknown>> = Column<T> & {
+  showCol?: boolean;
+};
 
-interface TableProps {
-  columns: Array<FilterableColumn>;
-  data: any;
+interface TableProps<T extends Record<string, unknown>> {
+  columns: FilterableColumn<T>[];
+  data: T[];
   filter?: boolean;
   hiddenCols?: string[];
 }
 
-const Table: React.FunctionComponent<TableProps> = ({
+function Table<T extends Record<string, unknown>>({
   columns,
   data,
   filter = true,
   hiddenCols = [],
-}) => {
+}: TableProps<T>): ReactElement {
   const {
     getTableProps,
     getTableBodyProps,
@@ -29,7 +31,7 @@ const Table: React.FunctionComponent<TableProps> = ({
     setGlobalFilter,
     state,
     preGlobalFilteredRows,
-  } = useTable(
+  } = useTable<T>(
     {
       columns,
       data,
@@ -69,14 +71,18 @@ const Table: React.FunctionComponent<TableProps> = ({
 
   return (
     <table {...getTableProps()}>
-      {filter ? (
-        <GlobalFilter
-          preGlobalFilteredRows={preGlobalFilteredRows}
-          globalFilter={state.globalFilter}
-          setGlobalFilter={setGlobalFilter}
-        />
-      ) : null}
       <thead>
+        {filter ? (
+          <tr>
+            <td>
+              <GlobalFilter
+                preGlobalFilteredRows={preGlobalFilteredRows}
+                globalFilter={state.globalFilter}
+                setGlobalFilter={setGlobalFilter}
+              />
+            </td>
+          </tr>
+        ) : null}
         {headerGroups.map((headerGroup) => (
           <tr {...headerGroup.getHeaderGroupProps()}>
             {headerGroup.headers.map(
@@ -169,7 +175,6 @@ const Table: React.FunctionComponent<TableProps> = ({
           </tr>
         ))}
       </thead>
-
       <tbody {...getTableBodyProps()}>
         {rows.map((row) => {
           prepareRow(row);
@@ -185,6 +190,6 @@ const Table: React.FunctionComponent<TableProps> = ({
       </tbody>
     </table>
   );
-};
+}
 
 export default Table;

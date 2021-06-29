@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * Class User
@@ -21,11 +23,14 @@ use Illuminate\Database\Eloquent\Model;
 class User extends Model
 {
     use HasFactory;
+    use SoftDeletes;
 
-    public function pools() {
+    public function pools(): HasMany
+    {
         return $this->hasMany(Pool::class);
     }
-    public function poolCandidates() {
+    public function poolCandidates(): HasMany
+    {
         return $this->hasMany(PoolCandidate::class);
     }
 }
