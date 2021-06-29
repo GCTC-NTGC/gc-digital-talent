@@ -4,7 +4,6 @@ import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import {
   CmoAsset,
   UpdateCmoAssetInput,
-  UpdateCmoAssetMutation,
   useGetCmoAssetQuery,
   useUpdateCmoAssetMutation,
 } from "../../api/generated";
@@ -16,15 +15,12 @@ import TextArea from "../form/TextArea";
 type FormValues = UpdateCmoAssetInput;
 interface UpdateCmoAssetFormProps {
   initialCmoAsset: CmoAsset;
-  handleUpdateCmoAsset: (
-    id: string,
-    data: FormValues,
-  ) => Promise<UpdateCmoAssetMutation["updateCmoAsset"]>;
+  handleUpdateCmoAsset: (id: string, data: FormValues) => Promise<FormValues>;
 }
 
 export const UpdateCmoAssetForm: React.FunctionComponent<UpdateCmoAssetFormProps> =
   ({ initialCmoAsset, handleUpdateCmoAsset }) => {
-    const methods = useForm<FormValues>();
+    const methods = useForm<FormValues>({ defaultValues: initialCmoAsset });
     const { handleSubmit } = methods;
 
     const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {

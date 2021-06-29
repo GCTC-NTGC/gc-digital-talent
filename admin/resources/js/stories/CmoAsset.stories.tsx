@@ -6,11 +6,7 @@ import { CmoAssetTable, CmoAssetTableApi } from "../components/CmoAssetTable";
 import fakeCmoAssets from "../fakeData/fakeCmoAssets";
 import ClientProvider from "../components/ClientProvider";
 import { CreateCmoAssetForm } from "../components/cmoAssets/CreateCmoAsset";
-import {
-  CmoAsset,
-  CreateCmoAssetInput,
-  UpdateCmoAssetInput,
-} from "../api/generated";
+import { CmoAsset, CreateCmoAssetInput } from "../api/generated";
 import { UpdateCmoAssetForm } from "../components/cmoAssets/UpdateCmoAsset";
 
 const cmoAssetData = fakeCmoAssets();

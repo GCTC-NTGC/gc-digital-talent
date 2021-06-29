@@ -12,7 +12,6 @@ import { CreateOperationalRequirementForm } from "../components/operationalRequi
 import {
   CreateOperationalRequirementInput,
   OperationalRequirement,
-  UpdateOperationalRequirementInput,
 } from "../api/generated";
 import { UpdateOperationalRequirementForm } from "../components/operationalRequirements/UpdateOperationalRequirement";
 
@@ -66,7 +65,7 @@ stories.add("Update Operational Requirement Form", () => {
   return (
     <UpdateOperationalRequirementForm
       initialOperationalRequirement={operationalRequirement}
-      handleUpOperationalRequirement={async (id, data) => {
+      handleUpdateOperationalRequirement={async (id, data) => {
         await new Promise((resolve) => setTimeout(resolve, 1000));
         action("Update Operational Requirement Asset")(data);
         return data;

@@ -4,7 +4,6 @@ import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import {
   OperationalRequirement,
   UpdateOperationalRequirementInput,
-  UpdateOperationalRequirementMutation,
   useGetOperationalRequirementQuery,
   useUpdateOperationalRequirementMutation,
 } from "../../api/generated";
@@ -19,14 +18,14 @@ interface UpdateOperationalRequirementFormProps {
   handleUpdateOperationalRequirement: (
     id: string,
     data: FormValues,
-  ) => Promise<
-    UpdateOperationalRequirementMutation["updateOperationalRequirement"]
-  >;
+  ) => Promise<FormValues>;
 }
 
 export const UpdateOperationalRequirementForm: React.FunctionComponent<UpdateOperationalRequirementFormProps> =
   ({ initialOperationalRequirement, handleUpdateOperationalRequirement }) => {
-    const methods = useForm<FormValues>();
+    const methods = useForm<FormValues>({
+      defaultValues: initialOperationalRequirement,
+    });
     const { handleSubmit } = methods;
 
     const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
@@ -56,7 +55,7 @@ export const UpdateOperationalRequirementForm: React.FunctionComponent<UpdateOpe
             />
             <Input
               id="name_en"
-              name="name.en"
+              name="classifications.sync"
               label="Name: "
               type="text"
               rules={{ required: errorMessages.required }}
