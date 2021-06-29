@@ -1,3 +1,17 @@
+query getCmoAsset($id: ID!) {
+  cmoAsset(id: $id) {
+    id
+    key
+    name {
+      en
+      fr
+    }
+    description {
+      en
+      fr
+    }
+  }
+}
 query GetCmoAssets {
   cmoAssets {
     id,
@@ -12,3 +26,35 @@ query GetCmoAssets {
     }
   }
 }
+
+mutation createCmoAsset($cmoAsset: CreateCmoAssetInput!) {
+  createCmoAsset(cmoAsset: $cmoAsset) {
+    id
+    key
+    name {
+      en
+      fr
+    }
+    description {
+      en
+      fr
+    }
+  }
+}
+
+mutation updateCmoAsset($id: ID!, $cmoAsset: UpdateCmoAssetInput!) {
+  updateCmoAsset(id: $id, cmoAsset: $cmoAsset) {
+    id
+    key
+    name {
+      en
+      fr
+    }
+    description {
+      en
+      fr
+    }
+  }
+}
+
+

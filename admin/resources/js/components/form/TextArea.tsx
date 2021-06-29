@@ -2,7 +2,7 @@ import * as React from "react";
 import get from "lodash/get";
 import { RegisterOptions, useFormContext } from "react-hook-form";
 
-interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+interface TextAreaProps extends React.InputHTMLAttributes<HTMLTextAreaElement> {
   /** HTML id used to identify the element. */
   id: string;
   /** Holds text for the label associated with the input element */
@@ -13,12 +13,11 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   rules?: RegisterOptions;
 }
 
-const Input: React.FunctionComponent<InputProps> = ({
+const TextArea: React.FunctionComponent<TextAreaProps> = ({
   id,
   label,
   name,
   rules = {},
-  type,
   ...rest
 }) => {
   const {
@@ -31,10 +30,9 @@ const Input: React.FunctionComponent<InputProps> = ({
   return (
     <div>
       <label htmlFor={id}>{label}</label>
-      <input
+      <textarea
         id={id}
         {...register(name, rules)}
-        type={type}
         aria-invalid={error ? "true" : "false"}
         {...rest}
       />
@@ -43,4 +41,4 @@ const Input: React.FunctionComponent<InputProps> = ({
   );
 };
 
-export default Input;
+export default TextArea;
