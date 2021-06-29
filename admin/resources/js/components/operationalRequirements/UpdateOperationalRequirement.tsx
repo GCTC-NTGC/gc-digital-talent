@@ -55,7 +55,7 @@ export const UpdateOperationalRequirementForm: React.FunctionComponent<UpdateOpe
             />
             <Input
               id="name_en"
-              name="classifications.sync"
+              name="name.en"
               label="Name: "
               type="text"
               rules={{ required: errorMessages.required }}
