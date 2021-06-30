@@ -1621,7 +1621,7 @@
         },
         {
             "name": "illuminate/routing",
-            "version": "v8.47.0",
+            "version": "v8.49.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/illuminate/routing.git",
@@ -2868,16 +2868,16 @@
         },
         {
             "name": "nuwave/lighthouse",
-            "version": "v5.13.0",
+            "version": "v5.13.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nuwave/lighthouse.git",
-                "reference": "0d8f0fb8a3dd2791dda4c772f3db4b53ee072fb3"
+                "reference": "a189693e992198e0d2a013a5a41a45eedcdfe48d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nuwave/lighthouse/zipball/0d8f0fb8a3dd2791dda4c772f3db4b53ee072fb3",
-                "reference": "0d8f0fb8a3dd2791dda4c772f3db4b53ee072fb3",
+                "url": "https://api.github.com/repos/nuwave/lighthouse/zipball/a189693e992198e0d2a013a5a41a45eedcdfe48d",
+                "reference": "a189693e992198e0d2a013a5a41a45eedcdfe48d",
                 "shasum": ""
             },
             "require": {
@@ -2993,7 +2993,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-06-17T13:23:22+00:00"
+            "time": "2021-06-29T18:11:50+00:00"
         },
         {
             "name": "opis/closure",
