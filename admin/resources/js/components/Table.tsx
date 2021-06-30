@@ -78,6 +78,18 @@ function Table<T extends Record<string, unknown>>({
     return column?.showCol;
   };
 
+  const setShowColumns_helper = (column: FilterableColumn<T>) => {
+    return setShowColumns(
+      showColumns.map((lColumn) => {
+        if (lColumn.Header === column.Header) {
+          lColumn.showCol = !column.showCol;
+          return lColumn;
+        }
+        return lColumn;
+      }),
+    );
+  };
+
   return (
     <table {...getTableProps()}>
       <thead>
@@ -151,30 +163,28 @@ function Table<T extends Record<string, unknown>>({
                               width: "10px",
                               height: "10px",
                               marginRight: "5px",
+                              display: "inline-block",
                             }}
                             alt="checkmark con"
                           />
                         ) : null}
-                        <button
-                          type="button"
+                        <div
                           style={{
                             border: "none",
                             backgroundColor: "transparent",
+                            display: "inline-block",
+                          }}
+                          role="button"
+                          tabIndex={0}
+                          onKeyDown={() => {
+                            setShowColumns_helper(column);
                           }}
                           onClick={() => {
-                            setShowColumns(
-                              showColumns.map((lColumn) => {
-                                if (lColumn.Header === column.Header) {
-                                  lColumn.showCol = !column.showCol;
-                                  return lColumn;
-                                }
-                                return lColumn;
-                              }),
-                            );
+                            setShowColumns_helper(column);
                           }}
                         >
                           {column.Header}
-                        </button>
+                        </div>
                       </li>
                     ))}
                   </ul>
