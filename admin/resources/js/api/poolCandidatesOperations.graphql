@@ -1,3 +1,47 @@
+query getPoolCandidate($id: ID!) {
+  poolCandidate(id: $id) {
+    id
+    pool {
+      id
+    }
+    user {
+      id
+      email
+    }
+    cmoIdentifier
+    expiryDate
+    isWoman
+    hasDisability
+    isIndigenous
+    isVisibleMinority
+    hasDiploma
+    languageAbility
+    locationPreferences
+    acceptedOperationalRequirements {
+      id
+      key
+      name {
+        en
+        fr
+      }
+    }
+    expectedSalary
+		expectedClassifications {
+      id
+      group
+      level
+    }
+    cmoAssets {
+      id
+      key
+      name {
+        en
+        fr
+      }
+    }
+    status
+  }
+}
 query GetPoolCandidates {
   poolCandidates {
     id,
