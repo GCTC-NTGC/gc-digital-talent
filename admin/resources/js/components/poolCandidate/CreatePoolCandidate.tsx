@@ -1,5 +1,6 @@
 import * as React from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import { isEmpty } from "lodash";
 import {
   CreatePoolCandidateInput,
   Pool,
@@ -13,12 +14,17 @@ import {
   Classification,
   useCreatePoolCandidateMutation,
   CreatePoolCandidateMutation,
+  useGetClassificationsQuery,
+  useGetCmoAssetsQuery,
+  useGetOperationalRequirementsQuery,
+  useAllUsersQuery,
+  useGetPoolsQuery,
 } from "../../api/generated";
 import errorMessages from "../form/errorMessages";
 import Submit from "../form/Submit";
 import Select from "../form/Select";
 import Input from "../form/Input";
-import { enumToOptions, getValues } from "../../helpers/util";
+import { enumToOptions, getValues, notEmpty } from "../../helpers/util";
 import MultiSelect from "../form/MultiSelect";
 
 type Option<V> = { value: V; label: string };
@@ -94,6 +100,7 @@ export const CreatePoolCandidateForm: React.FunctionComponent<CreatePoolCandidat
     });
 
     const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
+      console.log(formValuesToData(data));
       await handleCreatePoolCandidate(formValuesToData(data))
         .then(() => {
           // TODO: Navigate to pool candidate dashboard.
@@ -276,6 +283,40 @@ export const CreatePoolCandidateForm: React.FunctionComponent<CreatePoolCandidat
   };
 
 export const CreatePoolCandidate: React.FunctionComponent = () => {
+  const [classificationsState] = useGetClassificationsQuery();
+  const classifications: Classification[] | [] =
+    classificationsState.data?.classifications.filter(notEmpty) ?? [];
+
+  const [cmoAssetState] = useGetCmoAssetsQuery();
+  const cmoAssets: CmoAsset[] =
+    cmoAssetState.data?.cmoAssets.filter(notEmpty) ?? [];
+
+  const [operationalRequirementState] = useGetOperationalRequirementsQuery();
+  const operationalRequirements: OperationalRequirement[] =
+    operationalRequirementState.data?.operationalRequirements.filter(
+      notEmpty,
+    ) ?? [];
+
+  const [poolsState] = useGetPoolsQuery();
+  const pools: Pool[] = poolsState.data?.pools.filter(notEmpty) ?? [];
+
+  const [usersState] = useAllUsersQuery();
+  const users: User[] = usersState.data?.users.filter(notEmpty) ?? [];
+
+  const fetchingData =
+    classificationsState.fetching ||
+    cmoAssetState.fetching ||
+    operationalRequirementState.fetching ||
+    poolsState.fetching ||
+    usersState.fetching;
+  const errors = [
+    classificationsState.error,
+    cmoAssetState.error,
+    operationalRequirementState.error,
+    poolsState.error,
+    usersState.error,
+  ];
+
   const [_result, executeMutation] = useCreatePoolCandidateMutation();
   const handleCreatePoolCandidate = (data: CreatePoolCandidateInput) =>
     executeMutation({ poolCandidate: data }).then((result) => {
@@ -285,15 +326,20 @@ export const CreatePoolCandidate: React.FunctionComponent = () => {
       return Promise.reject(result.error);
     });
 
-  // TODO: Query necessary data: classifications, cmoAssets, operationalRequirements, pools, users
+  if (fetchingData) return <p>Loading...</p>;
+  console.log(errors);
+  if (isEmpty(errors))
+    return (
+      <>{errors.map((error) => error && <p>Oh no... {error.message}</p>)}</>
+    );
   return (
     <CreatePoolCandidateForm
-      classifications={[]}
-      cmoAssets={[]}
+      classifications={classifications}
+      cmoAssets={cmoAssets}
       locale="en"
-      operationalRequirements={[]}
-      pools={[]}
-      users={[]}
+      operationalRequirements={operationalRequirements}
+      pools={pools}
+      users={users}
       handleCreatePoolCandidate={handleCreatePoolCandidate}
     />
   );

@@ -16,6 +16,7 @@ import {
   LanguageAbility,
   WorkRegion,
   PoolCandidateStatus,
+  SalaryRange,
 } from "../api/generated";
 import ClientProvider from "../components/ClientProvider";
 import { CreatePoolCandidateForm } from "../components/poolCandidate/CreatePoolCandidate";
@@ -66,11 +67,11 @@ stories.add("Create Pool Candidate Form", () => (
 stories.add("Update Pool Candidate Form", () => {
   const poolCandidate: PoolCandidate = {
     id: "1",
-    acceptedOperationalRequirements: [],
-    cmoAssets: [],
+    acceptedOperationalRequirements: [{ id: "1" }, { id: "2" }],
+    cmoAssets: [{ id: "1" }, { id: "2" }],
     cmoIdentifier: "cmo1",
-    expectedClassifications: [],
-    expectedSalary: [],
+    expectedClassifications: [{ id: "1" }, { id: "2" }],
+    expectedSalary: [SalaryRange["100KPlus"], SalaryRange["80_89K"]],
     expiryDate: "2021-06-27",
     hasDiploma: true,
     hasDisability: false,

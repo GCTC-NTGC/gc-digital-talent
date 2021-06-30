@@ -12,9 +12,11 @@ import {
   PoolCandidate,
   useUpdatePoolCandidateMutation,
   UpdatePoolCandidateMutation,
-  Scalars,
-  LocalizedString,
   Maybe,
+  useGetClassificationsQuery,
+  useGetCmoAssetsQuery,
+  useGetOperationalRequirementsQuery,
+  useGetPoolCandidateQuery,
 } from "../../api/generated";
 import errorMessages from "../form/errorMessages";
 import Submit from "../form/Submit";
@@ -70,7 +72,7 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<UpdatePoolCandidat
     const unpackIds = (data: Maybe<Array<Maybe<{ id: string }>>> | undefined) =>
       unpackMaybes<{ id: string }>(data).map(getId);
 
-    const dataToFormValuesalues = (
+    const dataToFormValues = (
       data: PoolCandidate | UpdatePoolCandidateMutation["updatePoolCandidate"],
     ): FormValues => ({
       // TODO: Convert rest of data to form values format (specifically the multi select).
@@ -100,9 +102,7 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<UpdatePoolCandidat
     });
 
     const methods = useForm<FormValues>({
-      defaultValues: initialPoolCandidate
-        ? dataToFormValuesalues(initialPoolCandidate)
-        : {},
+      defaultValues: dataToFormValues(initialPoolCandidate),
     });
     const { handleSubmit, reset } = methods;
 
@@ -111,7 +111,7 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<UpdatePoolCandidat
         initialPoolCandidate.id,
         formValuesToSubmitData(data),
       )
-        .then((resolved) => reset(dataToFormValuesalues(resolved))) // Reset form with returned data. This resets isDirty flag.
+        .then((resolved) => reset(dataToFormValues(resolved))) // Reset form with returned data. This resets isDirty flag.
         .catch(() => {
           // Something went wrong with handleCreatePoolCandidate.
           // Do nothing.
@@ -210,7 +210,7 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<UpdatePoolCandidat
               rules={{ required: errorMessages.required }}
             />
             <MultiSelect
-              id="acceptedOperationalRequirements"
+              id="acceptedOperationalRequirements.sync"
               name="acceptedOperationalRequirements"
               label="Operational Requirements: "
               placeholder="Select one or more operational requirements..."
@@ -258,8 +258,33 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<UpdatePoolCandidat
   };
 
 export const UpdatePoolCandidate: React.FunctionComponent<{
-  initialPoolCandidate: PoolCandidate;
-}> = ({ initialPoolCandidate }) => {
+  poolCandidateId: string;
+}> = ({ poolCandidateId }) => {
+  const [poolCandidateState] = useGetPoolCandidateQuery({
+    variables: { id: poolCandidateId },
+  });
+  const [classificationsState] = useGetClassificationsQuery();
+  const classifications: Classification[] | [] =
+    classificationsState.data?.classifications.filter(notEmpty) ?? [];
+
+  const [cmoAssetState] = useGetCmoAssetsQuery();
+  const cmoAssets = cmoAssetState.data?.cmoAssets.filter(notEmpty) ?? [];
+
+  const [operationalRequirementState] = useGetOperationalRequirementsQuery();
+  const operationalRequirements =
+    operationalRequirementState.data?.operationalRequirements.filter(
+      notEmpty,
+    ) ?? [];
+
+  const fetchingData =
+    classificationsState.fetching ||
+    cmoAssetState.fetching ||
+    operationalRequirementState.fetching;
+  const errors = [
+    classificationsState.error,
+    cmoAssetState.error,
+    operationalRequirementState.error,
+  ];
   const [_result, executeMutation] = useUpdatePoolCandidateMutation();
   const handleUpdatePoolCandidate = (
     id: string,
@@ -272,14 +297,21 @@ export const UpdatePoolCandidate: React.FunctionComponent<{
       return Promise.reject(result.error);
     });
 
-  return (
+  if (fetchingData) return <p>Loading...</p>;
+  if (errors.length !== 0)
+    return (
+      <>{errors.map((error) => error && <p>Oh no... {error.message}</p>)}</>
+    );
+  return poolCandidateState.data?.poolCandidate ? (
     <UpdatePoolCandidateForm
-      classifications={[]}
-      cmoAssets={[]}
-      initialPoolCandidate={initialPoolCandidate}
+      classifications={classifications}
+      cmoAssets={cmoAssets}
+      initialPoolCandidate={poolCandidateState.data.poolCandidate}
       locale="en"
-      operationalRequirements={[]}
+      operationalRequirements={operationalRequirements}
       handleUpdatePoolCandidate={handleUpdatePoolCandidate}
     />
+  ) : (
+    <p>{`Pool candidate ${poolCandidateId} was not found`}</p>
   );
 };
