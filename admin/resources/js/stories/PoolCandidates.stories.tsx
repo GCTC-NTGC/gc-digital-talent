@@ -2,7 +2,7 @@ import React from "react";
 import { storiesOf } from "@storybook/react";
 import { createClient } from "urql";
 import { action } from "@storybook/addon-actions";
-import PoolCandidatesTable from "../components/PoolCandidatesTable";
+import PoolCandidatesTable from "../components/poolCandidate/PoolCandidatesTable";
 import fakePoolCandidates from "../fakeData/fakePoolCandidates";
 import {
   CreatePoolCandidateInput,
@@ -33,18 +33,19 @@ const poolCandidateData = fakePoolCandidates();
 
 const stories = storiesOf("Pool Candidates", module);
 
-stories.add("Classifications Table", () => (
+stories.add("Pool Candidates Table", () => (
   <PoolCandidatesTable poolCandidates={poolCandidateData} />
 ));
 
-const client = createClient({
-  url: "http://localhost:8000/graphql",
-});
-stories.add("Classifications Table with API data", () => (
-  <ClientProvider client={client}>
-    <ClassificationTableApi />
-  </ClientProvider>
-));
+// TODO: Pool Candidates Table API
+// const client = createClient({
+//   url: "http://localhost:8000/graphql",
+// });
+// stories.add("Pool Candidates Table with API data", () => (
+//   <ClientProvider client={client}>
+//     <PoolCandidatesTable />
+//   </ClientProvider>
+// ));
 
 stories.add("Create Pool Candidate Form", () => (
   <CreatePoolCandidateForm
@@ -67,12 +68,18 @@ stories.add("Create Pool Candidate Form", () => (
 stories.add("Update Pool Candidate Form", () => {
   const poolCandidate: PoolCandidate = {
     id: "1",
-    acceptedOperationalRequirements: [{ id: "1" }, { id: "2" }],
-    cmoAssets: [{ id: "1" }, { id: "2" }],
+    acceptedOperationalRequirements: [
+      fakeOperationalRequirements()[0],
+      fakeOperationalRequirements()[1],
+    ],
+    cmoAssets: [fakeCmoAssets()[0], fakeCmoAssets()[1]],
     cmoIdentifier: "cmo1",
-    expectedClassifications: [{ id: "1" }, { id: "2" }],
+    expectedClassifications: [
+      fakeClassifications()[0],
+      fakeClassifications()[1],
+    ],
     expectedSalary: [SalaryRange["100KPlus"], SalaryRange["80_89K"]],
-    expiryDate: "2021-06-27",
+    expiryDate: new Date().toISOString().slice(0, 10),
     hasDiploma: true,
     hasDisability: false,
     isIndigenous: true,

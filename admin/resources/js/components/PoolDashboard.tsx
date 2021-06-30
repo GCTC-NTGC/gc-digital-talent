@@ -5,6 +5,7 @@ import { ClassificationTableApi } from "./ClassificationTable";
 import ClientProvider from "./ClientProvider";
 import { CreateUser } from "./CreateUser";
 import { Dashboard, exactMatch, MenuLink } from "./dashboard/Dashboard";
+import { CreatePoolCandidate } from "./poolCandidate/CreatePoolCandidate";
 import { UpdateUser } from "./UpdateUser";
 import { UserTableApi } from "./UserTable";
 
@@ -46,6 +47,12 @@ const routes: Routes<RouterResult> = [
       component: <ClassificationTableApi />,
     }),
   },
+  {
+    path: "/poolCandidates/create",
+    action: () => ({
+      component: <CreatePoolCandidate />,
+    }),
+  },
 ];
 
 const menuItems = [
@@ -55,6 +62,11 @@ const menuItems = [
     key="classifications"
     href="/classifications"
     text="Classifications"
+  />,
+  <MenuLink
+    key="poolCandidates"
+    href="/poolCandidates"
+    text="Pool Candidates"
   />,
 ];
 
