@@ -36,7 +36,7 @@ export const UserTable: React.FC<AllUsersQuery & { editUrlRoot: string }> = ({
         accessor: "preferredLang",
       },
       {
-        Header: "",
+        Header: "Edit",
         id: "edit",
         accessor: ({ id }) => (
           <Link href={`${editUrlRoot}/${id}/edit`} title="">

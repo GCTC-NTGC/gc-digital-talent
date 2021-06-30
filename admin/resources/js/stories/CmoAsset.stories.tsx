@@ -14,7 +14,7 @@ const cmoAssetData = fakeCmoAssets();
 const stories = storiesOf("CMO Assets", module);
 
 stories.add("CMO Assets Table", () => (
-  <CmoAssetTable cmoAssets={cmoAssetData} />
+  <CmoAssetTable cmoAssets={cmoAssetData} editUrlRoot="#" />
 ));
 
 const client = createClient({

@@ -22,6 +22,7 @@ const stories = storiesOf("Operational Requirements", module);
 stories.add("Operational Requirements Table", () => (
   <OperationalRequirementTable
     operationalRequirements={operationalRequirementData}
+    editUrlRoot="#"
   />
 ));
 
