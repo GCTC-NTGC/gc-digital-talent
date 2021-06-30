@@ -19,34 +19,38 @@ import {
   useGetOperationalRequirementsQuery,
   useAllUsersQuery,
   useGetPoolsQuery,
+  Maybe,
+  PoolCandidate,
 } from "../../api/generated";
 import errorMessages from "../form/errorMessages";
 import Submit from "../form/Submit";
 import Select from "../form/Select";
 import Input from "../form/Input";
-import { enumToOptions, getValues, notEmpty } from "../../helpers/util";
+import { enumToOptions, notEmpty } from "../../helpers/util";
 import MultiSelect from "../form/MultiSelect";
 
 type Option<V> = { value: V; label: string };
-interface FormValues {
-  acceptedOperationalRequirements: Option<string>[];
-  cmoAssets: Option<string>[];
-  cmoIdentifier: string;
-  expectedClassifications: Option<string>[];
-  expectedSalary: Option<SalaryRange>[];
-  expiryDate: string;
-  hasDiploma: boolean;
-  hasDisability: boolean;
-  isIndigenous: boolean;
-  isVisibleMinority: boolean;
-  isWoman: boolean;
-  languageAbility: LanguageAbility;
-  locationPreferences: Option<WorkRegion>[];
-  pool: string;
-  status: PoolCandidateStatus;
-  user: string;
-}
 
+type FormValues = Pick<
+  PoolCandidate,
+  | "cmoIdentifier"
+  | "expiryDate"
+  | "hasDiploma"
+  | "hasDisability"
+  | "isIndigenous"
+  | "isVisibleMinority"
+  | "isWoman"
+  | "languageAbility"
+  | "expectedSalary"
+  | "locationPreferences"
+  | "status"
+> & {
+  acceptedOperationalRequirements: string[] | undefined;
+  cmoAssets: string[] | undefined;
+  expectedClassifications: string[] | undefined;
+  pool: string;
+  user: string;
+};
 interface CreatePoolCandidateFormProps {
   classifications: Classification[];
   cmoAssets: CmoAsset[];
@@ -72,36 +76,25 @@ export const CreatePoolCandidateForm: React.FunctionComponent<CreatePoolCandidat
     const methods = useForm<FormValues>();
     const { handleSubmit } = methods;
 
-    const formValuesToData = (
+    const formValuesToSubmitData = (
       values: FormValues,
     ): CreatePoolCandidateInput => ({
+      ...values,
       acceptedOperationalRequirements: {
-        sync: getValues(values.acceptedOperationalRequirements),
+        sync: values.acceptedOperationalRequirements,
       },
       cmoAssets: {
-        sync: getValues(values.cmoAssets),
+        sync: values.cmoAssets,
       },
-      cmoIdentifier: values.cmoIdentifier,
       expectedClassifications: {
-        sync: getValues(values.expectedClassifications),
+        sync: values.expectedClassifications,
       },
-      expectedSalary: getValues(values.expectedSalary),
-      expiryDate: values.expiryDate,
-      hasDiploma: values.hasDiploma,
-      hasDisability: values.hasDisability,
-      isIndigenous: values.isIndigenous,
-      isVisibleMinority: values.isVisibleMinority,
-      isWoman: values.isWoman,
-      languageAbility: values.languageAbility,
-      locationPreferences: getValues(values.locationPreferences),
       pool: { connect: values.pool },
-      status: values.status,
       user: { connect: values.user },
     });
 
     const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
-      console.log(formValuesToData(data));
-      await handleCreatePoolCandidate(formValuesToData(data))
+      await handleCreatePoolCandidate(formValuesToSubmitData(data))
         .then(() => {
           // TODO: Navigate to pool candidate dashboard.
         })
@@ -143,7 +136,7 @@ export const CreatePoolCandidateForm: React.FunctionComponent<CreatePoolCandidat
 
     return (
       <section>
-        <h2>Edit Pool Candidate</h2>
+        <h2>Create Pool Candidate</h2>
         <FormProvider {...methods}>
           <form onSubmit={handleSubmit(onSubmit)}>
             <Select
@@ -327,7 +320,6 @@ export const CreatePoolCandidate: React.FunctionComponent = () => {
     });
 
   if (fetchingData) return <p>Loading...</p>;
-  console.log(errors);
   if (isEmpty(errors))
     return (
       <>{errors.map((error) => error && <p>Oh no... {error.message}</p>)}</>

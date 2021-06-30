@@ -58,7 +58,6 @@ const MultiSelect: React.FunctionComponent<MultiSelectProps> = ({
             }
             placeholder={placeholder}
             options={options}
-            required
           />
         )}
         control={control}

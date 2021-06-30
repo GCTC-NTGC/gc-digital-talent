@@ -24,6 +24,7 @@ import Select from "../form/Select";
 import Input from "../form/Input";
 import { enumToOptions, getId, notEmpty } from "../../helpers/util";
 import MultiSelect from "../form/MultiSelect";
+import { unpackIds, unpackMaybes } from "../form/formUtils";
 
 type Option<V> = { value: V; label: string };
 
@@ -39,6 +40,7 @@ type FormValues = Pick<
   | "languageAbility"
   | "expectedSalary"
   | "locationPreferences"
+  | "status"
 > & {
   acceptedOperationalRequirements: string[] | undefined;
   cmoAssets: string[] | undefined;
@@ -66,12 +68,6 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<UpdatePoolCandidat
     operationalRequirements,
     handleUpdatePoolCandidate,
   }) => {
-    function unpackMaybes<T>(data: Maybe<Array<Maybe<T>>> | undefined): T[] {
-      return data?.filter(notEmpty) ?? [];
-    }
-    const unpackIds = (data: Maybe<Array<Maybe<{ id: string }>>> | undefined) =>
-      unpackMaybes<{ id: string }>(data).map(getId);
-
     const dataToFormValues = (
       data: PoolCandidate | UpdatePoolCandidateMutation["updatePoolCandidate"],
     ): FormValues => ({
@@ -138,7 +134,7 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<UpdatePoolCandidat
 
     return (
       <section>
-        <h2>Edit Pool Candidate</h2>
+        <h2>Update Pool Candidate</h2>
         <FormProvider {...methods}>
           <form onSubmit={handleSubmit(onSubmit)}>
             <Input
