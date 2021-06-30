@@ -1,6 +1,13 @@
 /* eslint-disable react/jsx-key */
 import React, { ReactElement, useState } from "react";
-import { useTable, useGlobalFilter, useSortBy, Column } from "react-table";
+import {
+  useTable,
+  useGlobalFilter,
+  useSortBy,
+  Column,
+  Renderer,
+  HeaderProps,
+} from "react-table";
 import GlobalFilter from "./GlobalFilter";
 import SettingsIcon from "../../../public/images/settings.png";
 import CheckmarkIcon from "../../../public/images/checkmark-icon.jpeg";
@@ -60,9 +67,11 @@ function Table<T extends Record<string, unknown>>({
     });
   });
 
-  const shouldBeVisible = (id: string): boolean | undefined => {
+  const shouldBeVisible = (
+    header: Renderer<HeaderProps<T>> | undefined,
+  ): boolean | undefined => {
     const column = columns.find((lColumn) => {
-      return lColumn.accessor === id;
+      return lColumn.Header === header;
     });
 
     if (column?.showCol === undefined) return true;
@@ -87,7 +96,7 @@ function Table<T extends Record<string, unknown>>({
           <tr {...headerGroup.getHeaderGroupProps()}>
             {headerGroup.headers.map(
               (column) =>
-                shouldBeVisible(column.id) && (
+                shouldBeVisible(column.Header) && (
                   <th
                     {...column.getHeaderProps(column.getSortByToggleProps())}
                     key={column.id}
@@ -155,7 +164,7 @@ function Table<T extends Record<string, unknown>>({
                           onClick={() => {
                             setShowColumns(
                               showColumns.map((lColumn) => {
-                                if (lColumn.accessor === column.accessor) {
+                                if (lColumn.Header === column.Header) {
                                   lColumn.showCol = !column.showCol;
                                   return lColumn;
                                 }
@@ -181,7 +190,7 @@ function Table<T extends Record<string, unknown>>({
           return (
             <tr {...row.getRowProps()}>
               {row.cells.map((cell) => {
-                if (!shouldBeVisible(cell.column.id)) return null;
+                if (!shouldBeVisible(cell.column.Header)) return null;
                 return <td {...cell.getCellProps()}>{cell.render("Cell")}</td>;
               })}
             </tr>
