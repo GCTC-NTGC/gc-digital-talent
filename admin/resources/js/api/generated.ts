@@ -483,6 +483,70 @@ export type GetOperationalRequirementsQuery = { __typename?: "Query" } & {
   >;
 };
 
+export type GetPoolCandidateQueryVariables = Exact<{
+  id: Scalars["ID"];
+}>;
+
+export type GetPoolCandidateQuery = { __typename?: "Query" } & {
+  poolCandidate?: Maybe<
+    { __typename?: "PoolCandidate" } & Pick<
+      PoolCandidate,
+      | "id"
+      | "cmoIdentifier"
+      | "expiryDate"
+      | "isWoman"
+      | "hasDisability"
+      | "isIndigenous"
+      | "isVisibleMinority"
+      | "hasDiploma"
+      | "languageAbility"
+      | "locationPreferences"
+      | "expectedSalary"
+      | "status"
+    > & {
+        pool?: Maybe<{ __typename?: "Pool" } & Pick<Pool, "id">>;
+        user?: Maybe<{ __typename?: "User" } & Pick<User, "id" | "email">>;
+        acceptedOperationalRequirements?: Maybe<
+          Array<
+            Maybe<
+              { __typename?: "OperationalRequirement" } & Pick<
+                OperationalRequirement,
+                "id" | "key"
+              > & {
+                  name: { __typename?: "LocalizedString" } & Pick<
+                    LocalizedString,
+                    "en" | "fr"
+                  >;
+                }
+            >
+          >
+        >;
+        expectedClassifications?: Maybe<
+          Array<
+            Maybe<
+              { __typename?: "Classification" } & Pick<
+                Classification,
+                "id" | "group" | "level"
+              >
+            >
+          >
+        >;
+        cmoAssets?: Maybe<
+          Array<
+            Maybe<
+              { __typename?: "CmoAsset" } & Pick<CmoAsset, "id" | "key"> & {
+                  name: { __typename?: "LocalizedString" } & Pick<
+                    LocalizedString,
+                    "en" | "fr"
+                  >;
+                }
+            >
+          >
+        >;
+      }
+  >;
+};
+
 export type GetPoolCandidatesQueryVariables = Exact<{ [key: string]: never }>;
 
 export type GetPoolCandidatesQuery = { __typename?: "Query" } & {
@@ -775,35 +839,65 @@ export type UpdatePoolCandidateMutation = { __typename?: "Mutation" } & {
               { __typename?: "OperationalRequirement" } & Pick<
                 OperationalRequirement,
                 "id"
-              > & {
-                  name: { __typename?: "LocalizedString" } & Pick<
-                    LocalizedString,
-                    "en" | "fr"
-                  >;
-                }
+              >
             >
           >
         >;
         expectedClassifications?: Maybe<
           Array<
             Maybe<
-              { __typename?: "Classification" } & Pick<
-                Classification,
-                "id" | "group" | "level"
-              >
+              { __typename?: "Classification" } & Pick<Classification, "id">
             >
           >
         >;
         cmoAssets?: Maybe<
-          Array<
-            Maybe<
-              { __typename?: "CmoAsset" } & Pick<CmoAsset, "id"> & {
-                  name: { __typename?: "LocalizedString" } & Pick<
-                    LocalizedString,
-                    "en" | "fr"
-                  >;
-                }
+          Array<Maybe<{ __typename?: "CmoAsset" } & Pick<CmoAsset, "id">>>
+        >;
+      }
+  >;
+};
+
+export type GetPoolsQueryVariables = Exact<{ [key: string]: never }>;
+
+export type GetPoolsQuery = { __typename?: "Query" } & {
+  pools: Array<
+    Maybe<
+      { __typename?: "Pool" } & Pick<Pool, "id"> & {
+          owner?: Maybe<{ __typename?: "User" } & Pick<User, "id" | "email">>;
+          name?: Maybe<
+            { __typename?: "LocalizedString" } & Pick<
+              LocalizedString,
+              "en" | "fr"
             >
+          >;
+          description?: Maybe<
+            { __typename?: "LocalizedString" } & Pick<
+              LocalizedString,
+              "en" | "fr"
+            >
+          >;
+        }
+    >
+  >;
+};
+
+export type GetPoolQueryVariables = Exact<{
+  id: Scalars["ID"];
+}>;
+
+export type GetPoolQuery = { __typename?: "Query" } & {
+  pool?: Maybe<
+    { __typename?: "Pool" } & Pick<Pool, "id"> & {
+        name?: Maybe<
+          { __typename?: "LocalizedString" } & Pick<
+            LocalizedString,
+            "en" | "fr"
+          >
+        >;
+        description?: Maybe<
+          { __typename?: "LocalizedString" } & Pick<
+            LocalizedString,
+            "en" | "fr"
           >
         >;
       }
@@ -944,6 +1038,64 @@ export function useGetOperationalRequirementsQuery(
 ) {
   return Urql.useQuery<GetOperationalRequirementsQuery>({
     query: GetOperationalRequirementsDocument,
+    ...options,
+  });
+}
+export const GetPoolCandidateDocument = gql`
+  query getPoolCandidate($id: ID!) {
+    poolCandidate(id: $id) {
+      id
+      pool {
+        id
+      }
+      user {
+        id
+        email
+      }
+      cmoIdentifier
+      expiryDate
+      isWoman
+      hasDisability
+      isIndigenous
+      isVisibleMinority
+      hasDiploma
+      languageAbility
+      locationPreferences
+      acceptedOperationalRequirements {
+        id
+        key
+        name {
+          en
+          fr
+        }
+      }
+      expectedSalary
+      expectedClassifications {
+        id
+        group
+        level
+      }
+      cmoAssets {
+        id
+        key
+        name {
+          en
+          fr
+        }
+      }
+      status
+    }
+  }
+`;
+
+export function useGetPoolCandidateQuery(
+  options: Omit<
+    Urql.UseQueryArgs<GetPoolCandidateQueryVariables>,
+    "query"
+  > = {},
+) {
+  return Urql.useQuery<GetPoolCandidateQuery>({
+    query: GetPoolCandidateDocument,
     ...options,
   });
 }
@@ -1160,23 +1312,13 @@ export const UpdatePoolCandidateDocument = gql`
       locationPreferences
       acceptedOperationalRequirements {
         id
-        name {
-          en
-          fr
-        }
       }
       expectedSalary
       expectedClassifications {
         id
-        group
-        level
       }
       cmoAssets {
         id
-        name {
-          en
-          fr
-        }
       }
       status
     }
@@ -1188,6 +1330,52 @@ export function useUpdatePoolCandidateMutation() {
     UpdatePoolCandidateMutation,
     UpdatePoolCandidateMutationVariables
   >(UpdatePoolCandidateDocument);
+}
+export const GetPoolsDocument = gql`
+  query getPools {
+    pools {
+      id
+      owner {
+        id
+        email
+      }
+      name {
+        en
+        fr
+      }
+      description {
+        en
+        fr
+      }
+    }
+  }
+`;
+
+export function useGetPoolsQuery(
+  options: Omit<Urql.UseQueryArgs<GetPoolsQueryVariables>, "query"> = {},
+) {
+  return Urql.useQuery<GetPoolsQuery>({ query: GetPoolsDocument, ...options });
+}
+export const GetPoolDocument = gql`
+  query getPool($id: ID!) {
+    pool(id: $id) {
+      id
+      name {
+        en
+        fr
+      }
+      description {
+        en
+        fr
+      }
+    }
+  }
+`;
+
+export function useGetPoolQuery(
+  options: Omit<Urql.UseQueryArgs<GetPoolQueryVariables>, "query"> = {},
+) {
+  return Urql.useQuery<GetPoolQuery>({ query: GetPoolDocument, ...options });
 }
 export const AllUsersDocument = gql`
   query AllUsers {
