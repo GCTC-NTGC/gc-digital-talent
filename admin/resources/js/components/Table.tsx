@@ -155,7 +155,7 @@ function Table<T extends Record<string, unknown>>({
                     }}
                   >
                     {columns.map((column) => (
-                      <li>
+                      <li key={column.id}>
                         {column.showCol || column.showCol === undefined ? (
                           <img
                             src={CheckmarkIcon}
