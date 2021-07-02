@@ -5,6 +5,8 @@ import { ClassificationTableApi } from "./ClassificationTable";
 import ClientProvider from "./ClientProvider";
 import { CreateUser } from "./CreateUser";
 import { Dashboard, exactMatch, MenuLink } from "./dashboard/Dashboard";
+import ErrorContainer from "./ErrorContainer";
+import ErrorToast from "./ErrorToast";
 import { UpdateUser } from "./UpdateUser";
 import { UserTableApi } from "./UserTable";
 
@@ -64,9 +66,12 @@ export const PoolDashboard: React.FC = () => {
   return (
     <div>
       <p>Current path: {location.pathname}</p>
-      <ClientProvider>
-        <Dashboard menuItems={menuItems} contentRoutes={routes} />
-      </ClientProvider>
+      <ErrorContainer>
+        <ErrorToast />
+        <ClientProvider>
+          <Dashboard menuItems={menuItems} contentRoutes={routes} />
+        </ClientProvider>
+      </ErrorContainer>
     </div>
   );
 };
