@@ -43,7 +43,7 @@ export const UpdateOperationalRequirementForm: React.FunctionComponent<UpdateOpe
     };
     return (
       <section>
-        <h2>Update Cmo Asset</h2>
+        <h2>Update Operational Requirement</h2>
         <FormProvider {...methods}>
           <form onSubmit={handleSubmit(onSubmit)}>
             <Input

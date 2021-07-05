@@ -35,7 +35,7 @@ export const UpdateCmoAssetForm: React.FunctionComponent<UpdateCmoAssetFormProps
     };
     return (
       <section>
-        <h2>Update Cmo Asset</h2>
+        <h2>Update CMO Asset</h2>
         <FormProvider {...methods}>
           <form onSubmit={handleSubmit(onSubmit)}>
             <Input
