@@ -9,7 +9,7 @@ import Table, { FilterableColumn } from "./Table";
 export const ClassificationTable: React.FC<GetClassificationsQuery> = ({
   classifications,
 }) => {
-  const columns: Array<FilterableColumn<any>> = useMemo(
+  const columns: Array<FilterableColumn> = useMemo(
     () => [
       {
         Header: "ID",
@@ -59,7 +59,7 @@ export const ClassificationTable: React.FC<GetClassificationsQuery> = ({
 
   return (
     <>
-      <Table data={memoizedData} columns={columns} />
+      <Table data={memoizedData} columns={columns} hiddenCols={hiddenCols} />
     </>
   );
 };

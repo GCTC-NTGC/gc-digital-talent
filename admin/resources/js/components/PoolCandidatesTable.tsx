@@ -1,12 +1,13 @@
 import React, { useMemo } from "react";
+import { Column } from "react-table";
 import { GetPoolCandidatesQuery } from "../api/generated";
 import { notEmpty } from "../helpers/util";
-import Table, { FilterableColumn } from "./Table";
+import Table from "./Table";
 
 const ClassificationTable: React.FC<GetPoolCandidatesQuery> = ({
   poolCandidates,
 }) => {
-  const columns: Array<FilterableColumn> = useMemo(
+  const columns: Array<Column> = useMemo(
     () => [
       {
         Header: "ID",
