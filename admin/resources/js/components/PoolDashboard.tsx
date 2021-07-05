@@ -29,7 +29,7 @@ const routes: Routes<RouterResult> = [
           <Link href="/users/create" title="">
             Create User
           </Link>
-          <UserTableApi />,
+          <UserTableApi />
         </div>
       ),
     }),
@@ -60,7 +60,7 @@ const routes: Routes<RouterResult> = [
           <Link href="/cmo-assets/create" title="">
             Create CMO Asset
           </Link>
-          <CmoAssetTableApi />,
+          <CmoAssetTableApi />
         </div>
       ),
     }),
@@ -85,7 +85,7 @@ const routes: Routes<RouterResult> = [
           <Link href="/operational-requirements/create" title="">
             Create Operational Requirement
           </Link>
-          <OperationalRequirementTableApi />,
+          <OperationalRequirementTableApi />
         </div>
       ),
     }),
