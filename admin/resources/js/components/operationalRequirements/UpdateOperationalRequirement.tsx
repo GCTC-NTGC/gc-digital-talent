@@ -120,6 +120,6 @@ export const UpdateOperationalRequirement: React.FunctionComponent<{
       handleUpdateOperationalRequirement={handleUpdateOperationalRequirement}
     />
   ) : (
-    <p>{`Cmo Asset ${operationalRequirementId} not found.`}</p>
+    <p>{`CMO Asset ${operationalRequirementId} not found.`}</p>
   );
 };

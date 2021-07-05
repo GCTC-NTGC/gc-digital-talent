@@ -105,6 +105,6 @@ export const UpdateCmoAsset: React.FunctionComponent<{ cmoAssetId: string }> =
         handleUpdateCmoAsset={handleUpdateCmoAsset}
       />
     ) : (
-      <p>{`Cmo Asset ${cmoAssetId} not found.`}</p>
+      <p>{`CMO Asset ${cmoAssetId} not found.`}</p>
     );
   };
