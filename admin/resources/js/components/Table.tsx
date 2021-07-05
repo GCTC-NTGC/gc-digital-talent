@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-key */
-import React, { ReactElement, useState } from "react";
+import React, { ReactElement, useState, RefObject } from "react";
 import {
   useTable,
   useGlobalFilter,
@@ -12,12 +12,12 @@ import GlobalFilter from "./GlobalFilter";
 import SettingsIcon from "../../../public/images/settings.png";
 import CheckmarkIcon from "../../../public/images/checkmark-icon.jpeg";
 
-export type FilterableColumn<T extends Record<string, unknown>> = Column<T> & {
+export type FilterableColumn = Column & {
   showCol?: boolean;
 };
 
 interface TableProps<T extends Record<string, unknown>> {
-  columns: FilterableColumn<T>[];
+  columns: FilterableColumn[];
   data: T[];
   filter?: boolean;
   hiddenCols?: string[];
@@ -38,13 +38,12 @@ function Table<T extends Record<string, unknown>>({
     setGlobalFilter,
     state,
     preGlobalFilteredRows,
-  } = useTable<T>(
+    allColumns,
+    getToggleHideAllColumnsProps,
+  } = useTable(
     {
       columns,
       data,
-      initialState: {
-        hiddenColumns: hiddenCols,
-      },
     },
     useGlobalFilter,
     useSortBy,
@@ -53,19 +52,20 @@ function Table<T extends Record<string, unknown>>({
   const [showList, setShowList] = useState(false);
   const [showColumns, setShowColumns] = useState(columns);
 
-  // This is a hack to sync isVisible with showCol
-  headerGroups.map((headerGroup) => {
-    return headerGroup.headers.map((header) => {
-      const column = columns.find((lColumn) => {
-        return lColumn.accessor === header.id;
-      });
+  const IndeterminateCheckbox = React.forwardRef<RefObject<HTMLElement>, any>(
+    ({ indeterminate, ...rest }, ref) => {
+      const defaultRef = React.useRef<HTMLInputElement>(null);
+      const resolvedRef = ref || defaultRef;
 
-      if (!column?.showCol === true) {
-        header.isVisible = false;
-      }
-      return header;
-    });
-  });
+      React.useEffect(() => {
+        if (resolvedRef && resolvedRef.current) {
+          resolvedRef.current.indeterminate = indeterminate;
+        }
+      }, [resolvedRef, indeterminate]);
+
+      return <input type="checkbox" ref={resolvedRef} {...rest} />;
+    },
+  );
 
   const shouldBeVisible = (
     header: Renderer<HeaderProps<T>> | undefined,
@@ -78,7 +78,7 @@ function Table<T extends Record<string, unknown>>({
     return column?.showCol;
   };
 
-  const setShowColumns_helper = (column: FilterableColumn<T>) => {
+  const setShowColumns_helper = (column: FilterableColumn) => {
     return setShowColumns(
       showColumns.map((lColumn) => {
         if (lColumn.Header === column.Header) {
