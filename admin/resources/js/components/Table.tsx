@@ -52,20 +52,19 @@ function Table<T extends Record<string, unknown>>({
   const [showList, setShowList] = useState(false);
   const [showColumns, setShowColumns] = useState(columns);
 
-  const IndeterminateCheckbox = React.forwardRef<RefObject<HTMLElement>, any>(
-    ({ indeterminate, ...rest }, ref) => {
-      const defaultRef = React.useRef<HTMLInputElement>(null);
-      const resolvedRef = ref || defaultRef;
+  const IndeterminateCheckbox: React.FC<
+    (React.HTMLProps<HTMLInputElement> & { indeterminate: boolean }) | any
+  > = ({ indeterminate, ...rest }) => {
+    const ref = React.useRef<HTMLInputElement>(null);
 
-      React.useEffect(() => {
-        if (resolvedRef && resolvedRef.current) {
-          resolvedRef.current.indeterminate = indeterminate;
-        }
-      }, [resolvedRef, indeterminate]);
+    React.useEffect(() => {
+      if (ref.current) {
+        ref.current.indeterminate = indeterminate;
+      }
+    }, [ref, indeterminate]);
 
-      return <input type="checkbox" ref={resolvedRef} {...rest} />;
-    },
-  );
+    return <input type="checkbox" ref={ref} {...rest} />;
+  };
 
   const shouldBeVisible = (
     header: Renderer<HeaderProps<T>> | undefined,
@@ -101,6 +100,12 @@ function Table<T extends Record<string, unknown>>({
                 globalFilter={state.globalFilter}
                 setGlobalFilter={setGlobalFilter}
               />
+            </td>
+            <td>
+              <div>
+                <IndeterminateCheckbox {...getToggleHideAllColumnsProps()} />{" "}
+                Toggle All
+              </div>
             </td>
           </tr>
         ) : null}
