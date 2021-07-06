@@ -40,7 +40,7 @@ export const OperationalRequirementTable: React.FC<
         ),
       },
     ],
-    [],
+    [editUrlRoot],
   );
 
   const memoizedData = useMemo(

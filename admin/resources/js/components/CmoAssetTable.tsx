@@ -1,10 +1,6 @@
 import React, { useMemo } from "react";
 import { Column } from "react-table";
-import {
-  CmoAsset,
-  GetCmoAssetsQuery,
-  useGetCmoAssetsQuery,
-} from "../api/generated";
+import { GetCmoAssetsQuery, useGetCmoAssetsQuery } from "../api/generated";
 import { Link, useLocation } from "../helpers/router";
 import { notEmpty } from "../helpers/util";
 import Table from "./Table";
