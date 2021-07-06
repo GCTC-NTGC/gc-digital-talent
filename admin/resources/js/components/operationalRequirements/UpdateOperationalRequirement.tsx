@@ -95,14 +95,20 @@ export const UpdateOperationalRequirement: React.FunctionComponent<{
     useGetOperationalRequirementQuery({
       variables: { id: operationalRequirementId },
     });
-  const [_result, executeMutation] = useUpdateOperationalRequirementMutation();
+  const [, executeMutation] = useUpdateOperationalRequirementMutation();
   const handleUpdateOperationalRequirement = (
     id: string,
     data: UpdateOperationalRequirementInput,
   ) =>
     executeMutation({
       id,
-      operationalRequirement: pick(data, ["key", "name", "description"]),
+      operationalRequirement: pick(data, [
+        "key",
+        "name.en",
+        "name.fr",
+        "description.en",
+        "description.fr",
+      ]),
     }).then((result) => {
       if (result.data?.updateOperationalRequirement) {
         return result.data?.updateOperationalRequirement;

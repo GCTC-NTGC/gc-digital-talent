@@ -85,11 +85,17 @@ export const UpdateCmoAsset: React.FunctionComponent<{ cmoAssetId: string }> =
     const [{ data: cmoAssetData, fetching, error }] = useGetCmoAssetQuery({
       variables: { id: cmoAssetId },
     });
-    const [_result, executeMutation] = useUpdateCmoAssetMutation();
+    const [, executeMutation] = useUpdateCmoAssetMutation();
     const handleUpdateCmoAsset = (id: string, data: UpdateCmoAssetInput) =>
       executeMutation({
         id,
-        cmoAsset: pick(data, ["key", "name", "description"]),
+        cmoAsset: pick(data, [
+          "key",
+          "name.en",
+          "name.fr",
+          "description.en",
+          "description.fr",
+        ]),
       }).then((result) => {
         if (result.data?.updateCmoAsset) {
           return result.data?.updateCmoAsset;
