@@ -1,16 +1,7 @@
 /* eslint-disable react/jsx-key */
-import React, { ReactElement, useState, RefObject } from "react";
-import {
-  useTable,
-  useGlobalFilter,
-  useSortBy,
-  Column,
-  Renderer,
-  HeaderProps,
-} from "react-table";
+import React, { ReactElement, useState } from "react";
+import { useTable, useGlobalFilter, useSortBy, Column } from "react-table";
 import GlobalFilter from "./GlobalFilter";
-import SettingsIcon from "../../../public/images/settings.png";
-import CheckmarkIcon from "../../../public/images/checkmark-icon.jpeg";
 
 export type FilterableColumn = Column & {
   showCol?: boolean;
@@ -83,11 +74,8 @@ function Table<T extends Record<string, unknown>>({
             <td>
               <button
                 style={{
-                  backgroundColor: "transparent",
-                  border: "0",
-                  boxShadow: "none",
                   marginLeft: "15px",
-                  marginTop: "7px",
+                  marginTop: "2px",
                   cursor: "pointer",
                 }}
                 type="button"
@@ -95,33 +83,38 @@ function Table<T extends Record<string, unknown>>({
                   setShowList(!showList);
                 }}
               >
-                <img
-                  src={SettingsIcon}
-                  alt="settings icon"
-                  style={{
-                    width: "25px",
-                    height: "25",
-                    display: "inline-block",
-                  }}
-                />
+                Table Columns
               </button>
+              {showList ? (
+                <div
+                  style={{
+                    position: "absolute",
+                    backgroundColor: "white",
+                    padding: "10px",
+                    border: "1px solid grey",
+                    borderRadius: "5px",
+                  }}
+                >
+                  <div>
+                    <IndeterminateCheckbox
+                      {...getToggleHideAllColumnsProps()}
+                    />{" "}
+                    Toggle All
+                  </div>
+                  {allColumns.map((column) => (
+                    <div key={column.id}>
+                      <label>
+                        <input
+                          type="checkbox"
+                          {...column.getToggleHiddenProps()}
+                        />{" "}
+                        {column.id}
+                      </label>
+                    </div>
+                  ))}
+                </div>
+              ) : null}
             </td>
-          </tr>
-        ) : null}
-        {showList ? (
-          <tr>
-            <div>
-              <IndeterminateCheckbox {...getToggleHideAllColumnsProps()} />{" "}
-              Toggle All
-            </div>
-            {allColumns.map((column) => (
-              <div key={column.id}>
-                <label>
-                  <input type="checkbox" {...column.getToggleHiddenProps()} />{" "}
-                  {column.id}
-                </label>
-              </div>
-            ))}
           </tr>
         ) : null}
         {headerGroups.map((headerGroup) => (
