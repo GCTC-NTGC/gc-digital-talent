@@ -14,7 +14,7 @@ const cmoAssetData = fakeCmoAssets();
 const stories = storiesOf("CMO Assets", module);
 
 stories.add("CMO Assets Table", () => (
-  <CmoAssetTable cmoAssets={cmoAssetData} />
+  <CmoAssetTable cmoAssets={cmoAssetData} editUrlRoot="#" />
 ));
 
 const client = createClient({
@@ -27,19 +27,19 @@ stories.add("CMO Assets Table with API data", () => (
   </ClientProvider>
 ));
 
-stories.add("Create Cmo Asset Form", () => {
+stories.add("Create CMO Asset Form", () => {
   return (
     <CreateCmoAssetForm
       handleCreateCmoAsset={async (data: CreateCmoAssetInput) => {
         await new Promise((resolve) => setTimeout(resolve, 1000));
-        action("Create Cmo Asset")(data);
+        action("Create CMO Asset")(data);
         return data;
       }}
     />
   );
 });
 
-stories.add("Update Cmo Asset Form", () => {
+stories.add("Update CMO Asset Form", () => {
   const cmoAsset: CmoAsset = {
     id: "1",
     key: "web_development",
@@ -57,7 +57,7 @@ stories.add("Update Cmo Asset Form", () => {
       initialCmoAsset={cmoAsset}
       handleUpdateCmoAsset={async (id, data) => {
         await new Promise((resolve) => setTimeout(resolve, 1000));
-        action("Update Cmo Asset")(data);
+        action("Update CMO Asset")(data);
         return data;
       }}
     />

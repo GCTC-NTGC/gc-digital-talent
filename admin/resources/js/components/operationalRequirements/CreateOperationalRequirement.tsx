@@ -31,7 +31,7 @@ export const CreateOperationalRequirementForm: React.FunctionComponent<CreateOpe
     };
     return (
       <section>
-        <h2>Create Cmo Asset</h2>
+        <h2>Create Operational Requirement</h2>
         <FormProvider {...methods}>
           <form onSubmit={handleSubmit(onSubmit)}>
             <Input

@@ -31,7 +31,7 @@ export const CreateCmoAssetForm: React.FunctionComponent<CreateCmoAssetFormProps
     };
     return (
       <section>
-        <h2>Create Cmo Asset</h2>
+        <h2>Create CMO Asset</h2>
         <FormProvider {...methods}>
           <form onSubmit={handleSubmit(onSubmit)}>
             <Input
