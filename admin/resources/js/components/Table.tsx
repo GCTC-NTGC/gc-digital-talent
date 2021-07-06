@@ -44,13 +44,15 @@ function Table<T extends Record<string, unknown>>({
     {
       columns,
       data,
+      initialState: {
+        hiddenColumns: hiddenCols,
+      },
     },
     useGlobalFilter,
     useSortBy,
   );
 
   const [showList, setShowList] = useState(false);
-  const [showColumns, setShowColumns] = useState(columns);
 
   const IndeterminateCheckbox: React.FC<
     (React.HTMLProps<HTMLInputElement> & { indeterminate: boolean }) | any
@@ -66,29 +68,6 @@ function Table<T extends Record<string, unknown>>({
     return <input type="checkbox" ref={ref} {...rest} />;
   };
 
-  const shouldBeVisible = (
-    header: Renderer<HeaderProps<T>> | undefined,
-  ): boolean | undefined => {
-    const column = columns.find((lColumn) => {
-      return lColumn.Header === header;
-    });
-
-    if (column?.showCol === undefined) return true;
-    return column?.showCol;
-  };
-
-  const setShowColumns_helper = (column: FilterableColumn) => {
-    return setShowColumns(
-      showColumns.map((lColumn) => {
-        if (lColumn.Header === column.Header) {
-          lColumn.showCol = !column.showCol;
-          return lColumn;
-        }
-        return lColumn;
-      }),
-    );
-  };
-
   return (
     <table {...getTableProps()}>
       <thead>
@@ -102,30 +81,6 @@ function Table<T extends Record<string, unknown>>({
               />
             </td>
             <td>
-              <div>
-                <IndeterminateCheckbox {...getToggleHideAllColumnsProps()} />{" "}
-                Toggle All
-              </div>
-            </td>
-          </tr>
-        ) : null}
-        {headerGroups.map((headerGroup) => (
-          <tr {...headerGroup.getHeaderGroupProps()}>
-            {headerGroup.headers.map(
-              (column) =>
-                shouldBeVisible(column.Header) && (
-                  <th
-                    {...column.getHeaderProps(column.getSortByToggleProps())}
-                    key={column.id}
-                  >
-                    {column.render("Header")}
-                    <span>
-                      {column.isSorted && (column.isSortedDesc ? " ▼" : " ▲")}
-                    </span>
-                  </th>
-                ),
-            )}
-            <th>
               <button
                 style={{
                   backgroundColor: "transparent",
@@ -149,53 +104,39 @@ function Table<T extends Record<string, unknown>>({
                     display: "inline-block",
                   }}
                 />
-                {showList && (
-                  <ul
-                    style={{
-                      listStyleType: "none",
-                      textAlign: "left",
-                      position: "absolute",
-                      marginLeft: "-35px",
-                      backgroundColor: "white",
-                    }}
-                  >
-                    {columns.map((column) => (
-                      <li key={column.id}>
-                        {column.showCol || column.showCol === undefined ? (
-                          <img
-                            src={CheckmarkIcon}
-                            style={{
-                              width: "10px",
-                              height: "10px",
-                              marginRight: "5px",
-                              display: "inline-block",
-                            }}
-                            alt="checkmark con"
-                          />
-                        ) : null}
-                        <div
-                          style={{
-                            border: "none",
-                            backgroundColor: "transparent",
-                            display: "inline-block",
-                          }}
-                          role="button"
-                          tabIndex={0}
-                          onKeyDown={() => {
-                            setShowColumns_helper(column);
-                          }}
-                          onClick={() => {
-                            setShowColumns_helper(column);
-                          }}
-                        >
-                          {column.Header}
-                        </div>
-                      </li>
-                    ))}
-                  </ul>
-                )}
               </button>
-            </th>
+            </td>
+          </tr>
+        ) : null}
+        {showList ? (
+          <tr>
+            <div>
+              <IndeterminateCheckbox {...getToggleHideAllColumnsProps()} />{" "}
+              Toggle All
+            </div>
+            {allColumns.map((column) => (
+              <div key={column.id}>
+                <label>
+                  <input type="checkbox" {...column.getToggleHiddenProps()} />{" "}
+                  {column.id}
+                </label>
+              </div>
+            ))}
+          </tr>
+        ) : null}
+        {headerGroups.map((headerGroup) => (
+          <tr {...headerGroup.getHeaderGroupProps()}>
+            {headerGroup.headers.map((column) => (
+              <th
+                {...column.getHeaderProps(column.getSortByToggleProps())}
+                key={column.id}
+              >
+                {column.render("Header")}
+                <span>
+                  {column.isSorted && (column.isSortedDesc ? " ▼" : " ▲")}
+                </span>
+              </th>
+            ))}
           </tr>
         ))}
       </thead>
@@ -205,7 +146,6 @@ function Table<T extends Record<string, unknown>>({
           return (
             <tr {...row.getRowProps()}>
               {row.cells.map((cell) => {
-                if (!shouldBeVisible(cell.column.Header)) return null;
                 return <td {...cell.getCellProps()}>{cell.render("Cell")}</td>;
               })}
             </tr>
