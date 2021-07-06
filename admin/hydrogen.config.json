@@ -5,5 +5,94 @@
       "resources/views"
     ],
     "styles": "resources/css"
-  }
+  },
+  "colors": [
+    {
+      "name": "white",
+      "color": "#FFFFFF",
+      "opacity": false
+    },
+    {
+      "name": "black",
+      "color": "#1E1E23",
+      "opacity": false
+    },
+    {
+      "name": "gray",
+      "color": "#B9B9B9",
+      "opacity": false
+    },
+    {
+      "name": "darkgray",
+      "color": "#646464",
+      "opacity": false
+    },
+    {
+      "name": "lightgray",
+      "color": "#F0F0F0",
+      "opacity": false
+    },
+    {
+      "name": "gold",
+      "color": "#F9C160",
+      "opacity": false
+    },
+    {
+      "name": "darkgold",
+      "color": "#F8A812",
+      "opacity": false
+    },
+    {
+      "name": "lightgold",
+      "color": "#FBDCA5",
+      "opacity": false
+    },
+    {
+      "name": "darknavy",
+      "color": "#072131",
+      "opacity": false
+    },
+    {
+      "name": "lightnavy",
+      "color": "#1D2C4C",
+      "opacity": false
+    },
+    {
+      "name": "darkpurple",
+      "color": "#363661",
+      "opacity": false
+    },
+    {
+      "name": "lightpurple",
+      "color": "#674C90",
+      "opacity": false
+    }
+  ],
+  "fonts": [
+    {
+      "name": "sans",
+      "loadType": "webfont",
+      "value": "Open Sans, sans-serif",
+      "url": null
+    }
+  ],
+  "fontBaseSize": "112.5%",
+  "fontScale": "1.25",
+  "gradients": [
+    {
+      "type": "linear",
+      "angle": "70deg",
+      "colorStops": [
+        {
+          "name": "lightpurple",
+          "color": "#674C90"
+        },
+        {
+          "name": "lightnavy",
+          "color": "#1D2C4C"
+        }
+      ]
+    }
+  ],
+  "whitespaceScale": "1.5"
 }
