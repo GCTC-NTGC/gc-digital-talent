@@ -3,12 +3,8 @@ import React, { ReactElement, useState } from "react";
 import { useTable, useGlobalFilter, useSortBy, Column } from "react-table";
 import GlobalFilter from "./GlobalFilter";
 
-export type FilterableColumn = Column & {
-  showCol?: boolean;
-};
-
 interface TableProps<T extends Record<string, unknown>> {
-  columns: FilterableColumn[];
+  columns: Column[];
   data: T[];
   filter?: boolean;
   hiddenCols?: string[];

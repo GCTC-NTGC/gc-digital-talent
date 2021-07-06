@@ -1,56 +1,44 @@
 import React, { useMemo } from "react";
+import { Column } from "react-table";
 import {
   GetClassificationsQuery,
   useGetClassificationsQuery,
 } from "../api/generated";
 import { notEmpty } from "../helpers/util";
-import Table, { FilterableColumn } from "./Table";
+import Table from "./Table";
 
 export const ClassificationTable: React.FC<GetClassificationsQuery> = ({
   classifications,
 }) => {
-  const columns: Array<FilterableColumn> = useMemo(
+  const columns: Array<Column> = useMemo(
     () => [
       {
         Header: "ID",
         accessor: "id",
-        showCol: true,
       },
       {
         Header: "Name",
         accessor: "name.en",
-        showCol: true,
       },
       {
         Header: "Group",
         accessor: "group",
-        showCol: true,
       },
       {
         Header: "Level",
         accessor: "level",
-        showCol: true,
       },
       {
         Header: "Minimum Salary",
         accessor: "minSalary",
-        showCol: false,
       },
       {
         Header: "Maximum Salary",
         accessor: "maxSalary",
-        showCol: false,
       },
     ],
     [],
   );
-
-  const hiddenCols: string[] = [];
-  columns.forEach((column) => {
-    if (column.showCol === false && column.accessor) {
-      hiddenCols.push(column.accessor.toString());
-    }
-  });
 
   const memoizedData = useMemo(
     () => classifications.filter(notEmpty),
@@ -59,7 +47,11 @@ export const ClassificationTable: React.FC<GetClassificationsQuery> = ({
 
   return (
     <>
-      <Table data={memoizedData} columns={columns} hiddenCols={hiddenCols} />
+      <Table
+        data={memoizedData}
+        columns={columns}
+        hiddenCols={["minSalary", "maxSalary"]}
+      />
     </>
   );
 };
