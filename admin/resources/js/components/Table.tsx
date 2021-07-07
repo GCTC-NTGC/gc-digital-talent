@@ -14,6 +14,20 @@ interface TableProps<
   hiddenCols?: string[];
 }
 
+const IndeterminateCheckbox: React.FC<
+  React.HTMLProps<HTMLInputElement> & { indeterminate: boolean }
+> = ({ indeterminate, ...rest }) => {
+  const ref = React.useRef<HTMLInputElement>(null);
+
+  React.useEffect(() => {
+    if (ref.current) {
+      ref.current.indeterminate = indeterminate;
+    }
+  }, [ref, indeterminate]);
+
+  return <input type="checkbox" ref={ref} {...rest} />;
+};
+
 function Table<T extends Record<string, unknown>>({
   columns,
   data,
@@ -44,20 +58,6 @@ function Table<T extends Record<string, unknown>>({
   );
 
   const [showList, setShowList] = useState(false);
-
-  const IndeterminateCheckbox: React.FC<
-    (React.HTMLProps<HTMLInputElement> & { indeterminate: boolean }) | any
-  > = ({ indeterminate, ...rest }) => {
-    const ref = React.useRef<HTMLInputElement>(null);
-
-    React.useEffect(() => {
-      if (ref.current) {
-        ref.current.indeterminate = indeterminate;
-      }
-    }, [ref, indeterminate]);
-
-    return <input type="checkbox" ref={ref} {...rest} />;
-  };
 
   return (
     <table {...getTableProps()}>
@@ -97,7 +97,9 @@ function Table<T extends Record<string, unknown>>({
                 >
                   <div>
                     <IndeterminateCheckbox
-                      {...getToggleHideAllColumnsProps()}
+                      {...(getToggleHideAllColumnsProps() as React.ComponentProps<
+                        typeof IndeterminateCheckbox
+                      >)}
                     />{" "}
                     Toggle All
                   </div>
