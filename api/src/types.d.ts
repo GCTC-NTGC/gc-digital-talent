@@ -362,14 +362,16 @@ export enum PoolCandidateStatus {
 
 export type Query = {
   __typename?: 'Query';
-  users: Array<Maybe<User>>;
   user?: Maybe<User>;
-  pools: Array<Maybe<Pool>>;
+  users: Array<Maybe<User>>;
   pool?: Maybe<Pool>;
-  poolCandidates: Array<Maybe<PoolCandidate>>;
+  pools: Array<Maybe<Pool>>;
   poolCandidate?: Maybe<PoolCandidate>;
+  poolCandidates: Array<Maybe<PoolCandidate>>;
   classifications: Array<Maybe<Classification>>;
+  operationalRequirement?: Maybe<OperationalRequirement>;
   operationalRequirements: Array<Maybe<OperationalRequirement>>;
+  cmoAsset?: Maybe<CmoAsset>;
   cmoAssets: Array<Maybe<CmoAsset>>;
 };
 
@@ -385,6 +387,16 @@ export type QueryPoolArgs = {
 
 
 export type QueryPoolCandidateArgs = {
+  id: Scalars['ID'];
+};
+
+
+export type QueryOperationalRequirementArgs = {
+  id: Scalars['ID'];
+};
+
+
+export type QueryCmoAssetArgs = {
   id: Scalars['ID'];
 };
 
@@ -450,7 +462,7 @@ export type UpdateOperationalRequirementInput = {
 };
 
 export type UpdatePoolCandidateInput = {
-  user: UserBelongsTo;
+  user?: Maybe<UpdatePoolCandidateUserBelongsTo>;
   cmoIdentifier?: Maybe<Scalars['ID']>;
   expiryDate?: Maybe<Scalars['Date']>;
   isWoman?: Maybe<Scalars['Boolean']>;
@@ -465,6 +477,11 @@ export type UpdatePoolCandidateInput = {
   expectedClassifications?: Maybe<ClassificationBelongsToMany>;
   cmoAssets?: Maybe<CmoAssetBelongsToMany>;
   status?: Maybe<PoolCandidateStatus>;
+};
+
+/** When updating a PoolCandidate it is possible to update the related user, but not change which user it is related to. */
+export type UpdatePoolCandidateUserBelongsTo = {
+  update?: Maybe<UpdateUserInput>;
 };
 
 export type UpdatePoolInput = {
@@ -500,7 +517,7 @@ export type User = {
 export type UserBelongsTo = {
   create?: Maybe<CreateUserInput>;
   connect?: Maybe<Scalars['ID']>;
-  update?: Maybe<Scalars['ID']>;
+  update?: Maybe<UpdateUserInput>;
 };
 
 export enum WorkRegion {

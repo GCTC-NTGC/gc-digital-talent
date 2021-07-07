@@ -43,7 +43,7 @@ export const UpdateOperationalRequirementForm: React.FunctionComponent<UpdateOpe
     };
     return (
       <section>
-        <h2>Update Cmo Asset</h2>
+        <h2>Update Operational Requirement</h2>
         <FormProvider {...methods}>
           <form onSubmit={handleSubmit(onSubmit)}>
             <Input
@@ -95,14 +95,20 @@ export const UpdateOperationalRequirement: React.FunctionComponent<{
     useGetOperationalRequirementQuery({
       variables: { id: operationalRequirementId },
     });
-  const [_result, executeMutation] = useUpdateOperationalRequirementMutation();
+  const [, executeMutation] = useUpdateOperationalRequirementMutation();
   const handleUpdateOperationalRequirement = (
     id: string,
     data: UpdateOperationalRequirementInput,
   ) =>
     executeMutation({
       id,
-      operationalRequirement: pick(data, ["key", "name", "description"]),
+      operationalRequirement: pick(data, [
+        "key",
+        "name.en",
+        "name.fr",
+        "description.en",
+        "description.fr",
+      ]),
     }).then((result) => {
       if (result.data?.updateOperationalRequirement) {
         return result.data?.updateOperationalRequirement;
@@ -120,6 +126,6 @@ export const UpdateOperationalRequirement: React.FunctionComponent<{
       handleUpdateOperationalRequirement={handleUpdateOperationalRequirement}
     />
   ) : (
-    <p>{`Cmo Asset ${operationalRequirementId} not found.`}</p>
+    <p>{`CMO Asset ${operationalRequirementId} not found.`}</p>
   );
 };

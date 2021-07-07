@@ -22,6 +22,7 @@ const stories = storiesOf("Operational Requirements", module);
 stories.add("Operational Requirements Table", () => (
   <OperationalRequirementTable
     operationalRequirements={operationalRequirementData}
+    editUrlRoot="#"
   />
 ));
 
@@ -42,7 +43,7 @@ stories.add("Create Operational Requirement Form", () => {
         data: CreateOperationalRequirementInput,
       ) => {
         await new Promise((resolve) => setTimeout(resolve, 1000));
-        action("Create Cmo Asset")(data);
+        action("Create CMO Asset")(data);
         return data;
       }}
     />
