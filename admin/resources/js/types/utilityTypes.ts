@@ -12,7 +12,7 @@ type PathsToPrimitiveProps<T> = T extends Primitive
 /**
  * Joins tuples of strings into a dotted path.
  */
-type Join<T extends Primitive[], D extends string> = T extends []
+type Join<T extends Primitive[], D extends string = "."> = T extends []
   ? never
   : T extends [infer F]
   ? F
@@ -30,3 +30,49 @@ export type NestedPaths<T extends Record<string, any>> = Join<
   PathsToPrimitiveProps<T>,
   "."
 >;
+
+/**
+ * Gets the type of an object at a path, with the path in dot notation.
+ */
+type NestedPropType<T, Path extends string> = string extends Path
+  ? unknown
+  : Path extends keyof T
+  ? T[Path]
+  : Path extends `${infer K}.${infer R}`
+  ? K extends keyof T
+    ? NestedPropType<T[K], R>
+    : unknown
+  : unknown;
+
+/**
+ * Flatten nested objects, so that all primitive types are in a single layer of dot-notation keys.
+ */
+export type FlattenNested<T> = {
+  [P in NestedPaths<T> as Extract<P, string>]: P extends string
+    ? NestedPropType<T, P>
+    : never;
+};
+
+/**
+ * Given a type of Array<T>, return T.
+ */
+export type FromArray<T> = T extends Array<infer F> ? F : never;
+
+// The following examples help demonstrate exactly what these utility types to.
+type test = {
+  name: string;
+  parents: {
+    mom: string;
+    dad: string;
+    marriage: {
+      years: number;
+      happiness: string;
+      children: string[];
+    };
+  };
+};
+
+type paths = NestedPaths<test>;
+type years = NestedPropType<test, "parents.marriage.years">;
+type fromArray = FromArray<string>;
+type flattened = FlattenNested<test>;
