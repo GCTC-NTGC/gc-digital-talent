@@ -1,15 +1,19 @@
 import React, { useMemo } from "react";
-import { Column } from "react-table";
 import {
   GetOperationalRequirementsQuery,
   useGetOperationalRequirementsQuery,
 } from "../api/generated";
 import { notEmpty } from "../helpers/util";
-import Table from "./Table";
+import { FromArray } from "../types/utilityTypes";
+import Table, { ColumnsOf } from "./Table";
+
+type Data = NonNullable<
+  FromArray<GetOperationalRequirementsQuery["operationalRequirements"]>
+>;
 
 export const OperationalRequirementTable: React.FC<GetOperationalRequirementsQuery> =
   ({ operationalRequirements }) => {
-    const columns: Array<Column> = useMemo(
+    const columns = useMemo<ColumnsOf<Data>>(
       () => [
         {
           Header: "ID",
@@ -21,11 +25,13 @@ export const OperationalRequirementTable: React.FC<GetOperationalRequirementsQue
         },
         {
           Header: "Name",
-          accessor: "name.en",
+          id: "name",
+          accessor: (d) => d.name?.en,
         },
         {
           Header: "Description",
-          accessor: "description.en",
+          id: "description",
+          accessor: (d) => d.description?.en,
         },
       ],
       [],

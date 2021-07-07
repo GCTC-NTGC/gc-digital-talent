@@ -3,19 +3,23 @@ import React, { ReactElement, useState } from "react";
 import { useTable, useGlobalFilter, useSortBy, Column } from "react-table";
 import GlobalFilter from "./GlobalFilter";
 
-interface TableProps<T extends Record<string, unknown>> {
-  columns: Column[];
-  data: T[];
+export type ColumnsOf<T extends Record<string, unknown>> = Array<Column<T>>;
+
+interface TableProps<
+  T extends Record<string, unknown> = Record<string, unknown>,
+> {
+  columns: Array<Column<any>>;
+  data: Array<any>;
   filter?: boolean;
   hiddenCols?: string[];
 }
 
-function Table<T extends Record<string, unknown>>({
+function Table({
   columns,
   data,
   filter = true,
   hiddenCols = [],
-}: TableProps<T>): ReactElement {
+}: TableProps): ReactElement {
   const {
     getTableProps,
     getTableBodyProps,

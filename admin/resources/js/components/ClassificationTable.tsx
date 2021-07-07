@@ -1,16 +1,18 @@
 import React, { useMemo } from "react";
-import { Column } from "react-table";
 import {
   GetClassificationsQuery,
   useGetClassificationsQuery,
 } from "../api/generated";
 import { notEmpty } from "../helpers/util";
-import Table from "./Table";
+import { FromArray } from "../types/utilityTypes";
+import Table, { ColumnsOf } from "./Table";
+
+type Data = NonNullable<FromArray<GetClassificationsQuery["classifications"]>>;
 
 export const ClassificationTable: React.FC<GetClassificationsQuery> = ({
   classifications,
 }) => {
-  const columns: Array<Column> = useMemo(
+  const columns = useMemo<ColumnsOf<Data>>(
     () => [
       {
         Header: "ID",
@@ -18,7 +20,8 @@ export const ClassificationTable: React.FC<GetClassificationsQuery> = ({
       },
       {
         Header: "Name",
-        accessor: "name.en",
+        id: "name",
+        accessor: (d) => d.name?.en,
       },
       {
         Header: "Group",
