@@ -8,18 +8,18 @@ export type ColumnsOf<T extends Record<string, unknown>> = Array<Column<T>>;
 interface TableProps<
   T extends Record<string, unknown> = Record<string, unknown>,
 > {
-  columns: Array<Column<any>>;
-  data: Array<any>;
+  columns: Array<Column<T>>;
+  data: Array<T>;
   filter?: boolean;
   hiddenCols?: string[];
 }
 
-function Table({
+function Table<T extends Record<string, unknown>>({
   columns,
   data,
   filter = true,
   hiddenCols = [],
-}: TableProps): ReactElement {
+}: TableProps<T>): ReactElement {
   const {
     getTableProps,
     getTableBodyProps,
@@ -31,7 +31,7 @@ function Table({
     preGlobalFilteredRows,
     allColumns,
     getToggleHideAllColumnsProps,
-  } = useTable(
+  } = useTable<T>(
     {
       columns,
       data,
