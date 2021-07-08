@@ -66,6 +66,11 @@
       "name": "lightpurple",
       "color": "#674C90",
       "opacity": false
+    },
+    {
+      "name": "red",
+      "color": "#FF0000",
+      "opacity": false
     }
   ],
   "fonts": [
@@ -73,7 +78,7 @@
       "name": "sans",
       "loadType": "webfont",
       "value": "Open Sans, sans-serif",
-      "url": null
+      "url": "https://fonts.googleapis.com/css2?family=Open+Sans&display=swap"
     }
   ],
   "fontBaseSize": "112.5%",
@@ -94,5 +99,9 @@
       ]
     }
   ],
-  "whitespaceScale": "1.5"
+  "whitespaceScale": "1.5",
+  "flexgrid": {
+    "enabled": true,
+    "columns": 12
+  }
 }

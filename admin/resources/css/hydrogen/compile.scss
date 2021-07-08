@@ -18,7 +18,7 @@
 @use "utilities/utility-container" as containerStyles;
 @use "utilities/utility-display" as displayStyles;
 @use "utilities/utility-flex-direction" as flexDirectionStyles;
-// @use "utilities/utility-flex-grid" as flexGridStyles;
+@use "utilities/utility-flex-grid" as flexGridStyles;
 @use "utilities/utility-flex-wrap" as flexWrapStyles;
 @use "utilities/utility-font-color" as fontColorStyles;
 @use "utilities/utility-font-family" as fontFamilyStyles;
@@ -114,7 +114,7 @@ $h2-map-sides: (
       $mediaKey: $mediaKey
     );
 
-    // @include flexGridStyles.h2-utility-flex-grid($mediaKey: $mediaKey);
+    @include flexGridStyles.h2-utility-flex-grid($mediaKey: $mediaKey);
   
     @include flexWrapStyles.h2-utility-flex-wrap(
       $mediaKey: $mediaKey
