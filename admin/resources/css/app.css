@@ -1,0 +1,14 @@
+.input-label-button {
+    border: none;
+    text-decoration: none;
+    background: transparent;
+    cursor: pointer;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    vertical-align: middle;
+}
+
+.input-label-icon {
+    width: 25px;
+    height: auto;
+}
