@@ -5,8 +5,7 @@ import { ClassificationTableApi } from "./ClassificationTable";
 import ClientProvider from "./ClientProvider";
 import { CreateUser } from "./CreateUser";
 import { Dashboard, exactMatch, MenuLink } from "./dashboard/Dashboard";
-import ErrorContainer from "./ErrorContainer";
-import ErrorToast from "./ErrorToast";
+import ErrorContainer, { ErrorToast } from "./ErrorContainer";
 import { UpdateUser } from "./UpdateUser";
 import { UserTableApi } from "./UserTable";
 
