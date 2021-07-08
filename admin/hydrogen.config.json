@@ -33,6 +33,11 @@
       "opacity": false
     },
     {
+      "name": "red",
+      "color": "#FF0000",
+      "opacity": true
+    },
+    {
       "name": "gold",
       "color": "#F9C160",
       "opacity": false
