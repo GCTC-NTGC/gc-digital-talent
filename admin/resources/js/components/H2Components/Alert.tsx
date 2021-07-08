@@ -19,12 +19,11 @@ const DismissBtn: React.FC<
   </button>
 );
 
-type TitleProps = React.HTMLAttributes<HTMLParagraphElement>;
-const Title: React.FC<TitleProps> = ({ className, children, ...rest }) => (
-  <p className={className} {...rest}>
-    {children}
-  </p>
-);
+export interface AlertProps extends React.HTMLAttributes<HTMLDivElement> {
+  color: string;
+  position: "static" | "toast";
+  dismissBtn?: React.ReactElement;
+}
 
 interface AlertComposition {
   DismissBtn: React.FC<
@@ -33,13 +32,6 @@ interface AlertComposition {
       HTMLButtonElement
     >
   >;
-  Title: React.FunctionComponent<TitleProps>;
-}
-
-export interface AlertProps extends React.HTMLAttributes<HTMLDivElement> {
-  color: string;
-  position: "static" | "toast";
-  dismissBtn?: React.ReactElement;
 }
 
 const Alert: React.FC<AlertProps> & AlertComposition = ({
@@ -69,6 +61,5 @@ const Alert: React.FC<AlertProps> & AlertComposition = ({
 // Using the dot notation we explicitly set the composition relationships
 // between the Alert component and its sub components.
 Alert.DismissBtn = DismissBtn;
-Alert.Title = Title;
 
 export default Alert;

@@ -21,9 +21,9 @@ export const ErrorToast: React.FC = () => {
             </Alert.DismissBtn>
           }
         >
-          <Alert.Title>
+          <p>
             <strong>Something went wrong!</strong>
-          </Alert.Title>
+          </p>
           <p>{currentError}</p>
         </Alert>
       )}

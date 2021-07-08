@@ -36,7 +36,7 @@ const TemplateAlert: Story = (args) => {
         <Alert.DismissBtn onClick={action("Dismiss")}>Dismiss</Alert.DismissBtn>
       }
     >
-      <Alert.Title>{title}</Alert.Title>
+      <p>{title}</p>
       <p>{body}</p>
     </Alert>
   );
@@ -73,7 +73,7 @@ const TemplateAlertTrigger: Story = (args) => {
             </Alert.DismissBtn>
           }
         >
-          <Alert.Title>{title}</Alert.Title>
+          <p>{title}</p>
           <p>{body}</p>
         </Alert>
       )}
