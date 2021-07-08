@@ -2,25 +2,25 @@ import React, { useState } from "react";
 import { QuestionMarkCircleIcon, XCircleIcon } from "@heroicons/react/solid";
 
 export interface InputLabelProps {
-  id: string;
+  inputId: string;
   label: string;
   required: boolean;
   contextIsVisible?: boolean;
-  contextClickHandler?: (contextIsActive: boolean) => void;
+  contextToggleHandler?: (contextIsActive: boolean) => void;
 }
 
 const InputLabel: React.FC<InputLabelProps> = ({
-  id,
+  inputId,
   label,
   required,
-  contextClickHandler = () => {
+  contextToggleHandler = () => {
     /* returns nothing */
   },
   contextIsVisible = false,
 }): React.ReactElement => {
   const [contextIsActive, setContextIsActive] = useState(false);
   const clickHandler = () => {
-    contextClickHandler(!contextIsActive);
+    contextToggleHandler(!contextIsActive);
     setContextIsActive((currentState) => !currentState);
   };
   return (
@@ -29,7 +29,7 @@ const InputLabel: React.FC<InputLabelProps> = ({
       data-h2-font-family="b(sans)"
     >
       <div data-h2-flex-item="b(1of1) s(1of2)" data-h2-text-align="b(left)">
-        <label htmlFor={id}>{label}</label>
+        <label htmlFor={inputId}>{label}</label>
       </div>
       <div
         data-h2-flex-item="b(1of1) s(1of2)"
@@ -48,12 +48,12 @@ const InputLabel: React.FC<InputLabelProps> = ({
           >
             <>
               {contextIsActive ? (
-                <QuestionMarkCircleIcon
+                <XCircleIcon
                   style={{ width: "1rem" }}
                   data-h2-font-color="b(lightpurple)"
                 />
               ) : (
-                <XCircleIcon
+                <QuestionMarkCircleIcon
                   style={{ width: "1rem" }}
                   data-h2-font-color="b(lightpurple)"
                 />

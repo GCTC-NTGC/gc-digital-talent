@@ -9,7 +9,7 @@ export default {
   component: InputLabel,
   title: "Components/Input Label",
   argTypes: {
-    contextClickHandler: {
+    contextToggleHandler: {
       table: {
         disable: true,
       },
@@ -18,14 +18,17 @@ export default {
 } as Meta;
 
 const TemplateInputLabel: Story<InputLabelProps> = (args) => {
-  const { id } = args;
+  const { inputId } = args;
   return (
-    <div data-h2-flex-grid="b(middle, contained, flush, none)">
-      <div data-h2-flex-item="b(1of1)">
-        <InputLabel {...args} contextClickHandler={action("Context Clicked")} />
+    <div>
+      <div>
+        <InputLabel
+          {...args}
+          contextToggleHandler={action("Context Toggled")}
+        />
       </div>
-      <div data-h2-flex-item="b(1of1)">
-        <input id={id} type="text" style={{ minWidth: "100%" }} />
+      <div>
+        <input id={inputId} type="text" style={{ minWidth: "100%" }} />
       </div>
     </div>
   );
@@ -34,7 +37,7 @@ const TemplateInputLabel: Story<InputLabelProps> = (args) => {
 export const Input = TemplateInputLabel.bind({});
 
 Input.args = {
-  id: "firstName",
+  inputId: "firstName",
   label: "First Name",
   required: false,
   contextIsVisible: true,
