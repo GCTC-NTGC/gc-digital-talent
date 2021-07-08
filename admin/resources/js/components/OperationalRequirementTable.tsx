@@ -1,17 +1,21 @@
 import React, { useMemo } from "react";
-import { Column } from "react-table";
 import {
   GetOperationalRequirementsQuery,
   useGetOperationalRequirementsQuery,
 } from "../api/generated";
 import { Link, useLocation } from "../helpers/router";
 import { notEmpty } from "../helpers/util";
-import Table from "./Table";
+import { FromArray } from "../types/utilityTypes";
+import Table, { ColumnsOf } from "./Table";
+
+type Data = NonNullable<
+  FromArray<GetOperationalRequirementsQuery["operationalRequirements"]>
+>;
 
 export const OperationalRequirementTable: React.FC<
   GetOperationalRequirementsQuery & { editUrlRoot: string }
 > = ({ operationalRequirements, editUrlRoot }) => {
-  const columns: Array<Column<any>> = useMemo(
+  const columns = useMemo<ColumnsOf<Data>>(
     () => [
       {
         Header: "ID",
@@ -23,13 +27,14 @@ export const OperationalRequirementTable: React.FC<
       },
       {
         Header: "Name",
-        accessor: "name.en",
+        id: "name",
+        accessor: (d) => d.name?.en,
       },
       {
         Header: "Description",
-        accessor: "description.en",
+        id: "description",
+        accessor: (d) => d.description?.en,
       },
-
       {
         Header: "Edit",
         id: "edit",

@@ -18,3 +18,5 @@ Homestead.yaml
 
 # Hidden Files
 .DS_Store
+
+/storybook-static/*
