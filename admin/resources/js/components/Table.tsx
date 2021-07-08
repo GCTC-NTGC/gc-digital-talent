@@ -1,18 +1,38 @@
 /* eslint-disable react/jsx-key */
-import React, { ReactElement } from "react";
+import React, { ReactElement, useState } from "react";
 import { useTable, useGlobalFilter, useSortBy, Column } from "react-table";
 import GlobalFilter from "./GlobalFilter";
 
-interface TableProps<T extends Record<string, unknown>> {
-  columns: Column<T>[];
-  data: T[];
+export type ColumnsOf<T extends Record<string, unknown>> = Array<Column<T>>;
+
+interface TableProps<
+  T extends Record<string, unknown> = Record<string, unknown>,
+> {
+  columns: Array<Column<T>>;
+  data: Array<T>;
   filter?: boolean;
+  hiddenCols?: string[];
 }
+
+const IndeterminateCheckbox: React.FC<
+  React.HTMLProps<HTMLInputElement> & { indeterminate: boolean }
+> = ({ indeterminate, ...rest }) => {
+  const ref = React.useRef<HTMLInputElement>(null);
+
+  React.useEffect(() => {
+    if (ref.current) {
+      ref.current.indeterminate = indeterminate;
+    }
+  }, [ref, indeterminate]);
+
+  return <input type="checkbox" ref={ref} {...rest} />;
+};
 
 function Table<T extends Record<string, unknown>>({
   columns,
   data,
   filter = true,
+  hiddenCols = [],
 }: TableProps<T>): ReactElement {
   const {
     getTableProps,
@@ -23,7 +43,21 @@ function Table<T extends Record<string, unknown>>({
     setGlobalFilter,
     state,
     preGlobalFilteredRows,
-  } = useTable<T>({ columns, data }, useGlobalFilter, useSortBy);
+    allColumns,
+    getToggleHideAllColumnsProps,
+  } = useTable<T>(
+    {
+      columns,
+      data,
+      initialState: {
+        hiddenColumns: hiddenCols,
+      },
+    },
+    useGlobalFilter,
+    useSortBy,
+  );
+
+  const [showList, setShowList] = useState(false);
 
   return (
     <table {...getTableProps()}>
@@ -36,6 +70,52 @@ function Table<T extends Record<string, unknown>>({
                 globalFilter={state.globalFilter}
                 setGlobalFilter={setGlobalFilter}
               />
+            </td>
+            <td>
+              <button
+                style={{
+                  marginLeft: "15px",
+                  marginTop: "2px",
+                  cursor: "pointer",
+                }}
+                type="button"
+                onClick={() => {
+                  setShowList(!showList);
+                }}
+              >
+                Table Columns
+              </button>
+              {showList ? (
+                <div
+                  style={{
+                    position: "absolute",
+                    backgroundColor: "white",
+                    padding: "10px",
+                    border: "1px solid grey",
+                    borderRadius: "5px",
+                  }}
+                >
+                  <div>
+                    <IndeterminateCheckbox
+                      {...(getToggleHideAllColumnsProps() as React.ComponentProps<
+                        typeof IndeterminateCheckbox
+                      >)}
+                    />{" "}
+                    Toggle All
+                  </div>
+                  {allColumns.map((column) => (
+                    <div key={column.id}>
+                      <label>
+                        <input
+                          type="checkbox"
+                          {...column.getToggleHiddenProps()}
+                        />{" "}
+                        {column.id}
+                      </label>
+                    </div>
+                  ))}
+                </div>
+              ) : null}
             </td>
           </tr>
         ) : null}
@@ -58,7 +138,6 @@ function Table<T extends Record<string, unknown>>({
       <tbody {...getTableBodyProps()}>
         {rows.map((row) => {
           prepareRow(row);
-
           return (
             <tr {...row.getRowProps()}>
               {row.cells.map((cell) => {

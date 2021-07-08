@@ -1,0 +1,131 @@
+import { pick } from "lodash";
+import * as React from "react";
+import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import {
+  OperationalRequirement,
+  UpdateOperationalRequirementInput,
+  useGetOperationalRequirementQuery,
+  useUpdateOperationalRequirementMutation,
+} from "../../api/generated";
+import errorMessages from "../form/errorMessages";
+import Input from "../form/Input";
+import Submit from "../form/Submit";
+import TextArea from "../form/TextArea";
+
+type FormValues = UpdateOperationalRequirementInput;
+interface UpdateOperationalRequirementFormProps {
+  initialOperationalRequirement: OperationalRequirement;
+  handleUpdateOperationalRequirement: (
+    id: string,
+    data: FormValues,
+  ) => Promise<FormValues>;
+}
+
+export const UpdateOperationalRequirementForm: React.FunctionComponent<UpdateOperationalRequirementFormProps> =
+  ({ initialOperationalRequirement, handleUpdateOperationalRequirement }) => {
+    const methods = useForm<FormValues>({
+      defaultValues: initialOperationalRequirement,
+    });
+    const { handleSubmit } = methods;
+
+    const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
+      return handleUpdateOperationalRequirement(
+        initialOperationalRequirement.id,
+        data,
+      )
+        .then(() => {
+          // TODO: Navigate to cmo asset dashboard
+        })
+        .catch(() => {
+          // Something went wrong with handleUpdateOperationalRequirement.
+          // Do nothing.
+        });
+    };
+    return (
+      <section>
+        <h2>Update Operational Requirement</h2>
+        <FormProvider {...methods}>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <Input
+              id="key"
+              name="key"
+              label="Key: "
+              type="text"
+              rules={{ required: errorMessages.required }}
+            />
+            <Input
+              id="name_en"
+              name="name.en"
+              label="Name: "
+              type="text"
+              rules={{ required: errorMessages.required }}
+            />
+            <Input
+              id="name_fr"
+              name="name.fr"
+              label="Name FR: "
+              type="text"
+              rules={{ required: errorMessages.required }}
+            />
+            <TextArea
+              id="description_en"
+              name="description.en"
+              label="Description: "
+              type="text"
+              rules={{ required: errorMessages.required }}
+            />
+            <TextArea
+              id="description_fr"
+              name="description.fr"
+              label="Description FR: "
+              type="text"
+              rules={{ required: errorMessages.required }}
+            />
+            <Submit />
+          </form>
+        </FormProvider>
+      </section>
+    );
+  };
+
+export const UpdateOperationalRequirement: React.FunctionComponent<{
+  operationalRequirementId: string;
+}> = ({ operationalRequirementId }) => {
+  const [{ data: operationalRequirementData, fetching, error }] =
+    useGetOperationalRequirementQuery({
+      variables: { id: operationalRequirementId },
+    });
+  const [, executeMutation] = useUpdateOperationalRequirementMutation();
+  const handleUpdateOperationalRequirement = (
+    id: string,
+    data: UpdateOperationalRequirementInput,
+  ) =>
+    executeMutation({
+      id,
+      operationalRequirement: pick(data, [
+        "key",
+        "name.en",
+        "name.fr",
+        "description.en",
+        "description.fr",
+      ]),
+    }).then((result) => {
+      if (result.data?.updateOperationalRequirement) {
+        return result.data?.updateOperationalRequirement;
+      }
+      return Promise.reject(result.error);
+    });
+
+  if (fetching) return <p>Loading...</p>;
+  if (error) return <p>Oh no... {error.message}</p>;
+  return operationalRequirementData?.operationalRequirement ? (
+    <UpdateOperationalRequirementForm
+      initialOperationalRequirement={
+        operationalRequirementData.operationalRequirement
+      }
+      handleUpdateOperationalRequirement={handleUpdateOperationalRequirement}
+    />
+  ) : (
+    <p>{`CMO Asset ${operationalRequirementId} not found.`}</p>
+  );
+};
