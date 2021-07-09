@@ -41,4 +41,5 @@ Input.args = {
   label: "First Name",
   required: false,
   contextIsVisible: true,
+  hideOptional: false,
 };
