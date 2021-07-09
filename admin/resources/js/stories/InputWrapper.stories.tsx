@@ -26,7 +26,6 @@ InputWrapperWithTextInput.args = {
   label: "First Name",
   required: true,
   error: "This input is required",
-  contextToggleIsVisible: true,
   context:
     "We collect the above data for account purposes. It may be shared with Hiring Managers.",
 };

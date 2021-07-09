@@ -6,7 +6,6 @@ export interface InputWrapperProps {
   label: string;
   required: boolean;
   error?: string;
-  contextToggleIsVisible?: boolean;
   context?: string;
 }
 
@@ -15,7 +14,6 @@ export const InputWrapper: React.FC<InputWrapperProps> = ({
   label,
   required,
   error,
-  contextToggleIsVisible,
   context,
   children,
 }) => {
@@ -26,12 +24,12 @@ export const InputWrapper: React.FC<InputWrapperProps> = ({
         inputId={inputId}
         label={label}
         required={required}
-        contextIsVisible={contextToggleIsVisible}
+        contextIsVisible={context !== undefined && context !== ""}
         contextToggleHandler={setContextVisible}
       />
       {children}
       {error && <span role="alert">{error}</span>}
-      {contextVisible && context && contextToggleIsVisible && (
+      {contextVisible && context && (
         <p data-h2-bg-color="b(lightpurple)">{context}</p>
       )}
     </div>
