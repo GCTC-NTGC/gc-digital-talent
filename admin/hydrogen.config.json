@@ -71,11 +71,6 @@
       "name": "lightpurple",
       "color": "#674C90",
       "opacity": false
-    },
-    {
-      "name": "red",
-      "color": "#FF0000",
-      "opacity": false
     }
   ],
   "fonts": [
