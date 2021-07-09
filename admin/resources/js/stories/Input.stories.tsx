@@ -54,12 +54,3 @@ TelephoneInput.args = {
     },
   },
 };
-
-export const CheckboxInput = TemplateInput.bind({});
-
-CheckboxInput.args = {
-  type: "checkbox",
-  id: "hasDiploma",
-  name: "hasDiploma",
-  label: "Have a Diploma",
-};
