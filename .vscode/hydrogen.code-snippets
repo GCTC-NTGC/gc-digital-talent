@@ -1,0 +1,10 @@
+{
+	"Hydrogen Prefix" : {
+		"scope": "typescriptreact",
+		"prefix": "data-",
+		"body": [
+			"data-h2-$1=\"$2($3)\"",
+		],
+		"description": "Prefix of hydrogen attributes."
+	}
+}

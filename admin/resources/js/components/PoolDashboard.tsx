@@ -3,9 +3,14 @@ import { Routes } from "universal-router";
 import { Link, RouterResult, useLocation } from "../helpers/router";
 import { ClassificationTableApi } from "./ClassificationTable";
 import ClientProvider from "./ClientProvider";
+import { CreateCmoAsset } from "./cmoAssets/CreateCmoAsset";
+import { UpdateCmoAsset } from "./cmoAssets/UpdateCmoAsset";
+import { CmoAssetTableApi } from "./CmoAssetTable";
 import { CreateUser } from "./CreateUser";
 import { Dashboard, exactMatch, MenuLink } from "./dashboard/Dashboard";
-import { CreatePoolCandidate } from "./poolCandidate/CreatePoolCandidate";
+import { CreateOperationalRequirement } from "./operationalRequirements/CreateOperationalRequirement";
+import { UpdateOperationalRequirement } from "./operationalRequirements/UpdateOperationalRequirement";
+import { OperationalRequirementTableApi } from "./OperationalRequirementTable";
 import { UpdateUser } from "./UpdateUser";
 import { UserTableApi } from "./UserTable";
 
@@ -24,7 +29,7 @@ const routes: Routes<RouterResult> = [
           <Link href="/users/create" title="">
             Create User
           </Link>
-          <UserTableApi />,
+          <UserTableApi />
         </div>
       ),
     }),
@@ -48,9 +53,57 @@ const routes: Routes<RouterResult> = [
     }),
   },
   {
-    path: "/poolCandidates/create",
+    path: "/cmo-assets",
     action: () => ({
-      component: <CreatePoolCandidate />,
+      component: (
+        <div>
+          <Link href="/cmo-assets/create" title="">
+            Create CMO Asset
+          </Link>
+          <CmoAssetTableApi />
+        </div>
+      ),
+    }),
+  },
+  {
+    path: "/cmo-assets/create",
+    action: () => ({
+      component: <CreateCmoAsset />,
+    }),
+  },
+  {
+    path: "/cmo-assets/:id/edit",
+    action: ({ params }) => ({
+      component: <UpdateCmoAsset cmoAssetId={params.id as string} />,
+    }),
+  },
+  {
+    path: "/operational-requirements",
+    action: () => ({
+      component: (
+        <div>
+          <Link href="/operational-requirements/create" title="">
+            Create Operational Requirement
+          </Link>
+          <OperationalRequirementTableApi />
+        </div>
+      ),
+    }),
+  },
+  {
+    path: "/operational-requirements/create",
+    action: () => ({
+      component: <CreateOperationalRequirement />,
+    }),
+  },
+  {
+    path: "/operational-requirements/:id/edit",
+    action: ({ params }) => ({
+      component: (
+        <UpdateOperationalRequirement
+          operationalRequirementId={params.id as string}
+        />
+      ),
     }),
   },
 ];
@@ -63,10 +116,11 @@ const menuItems = [
     href="/classifications"
     text="Classifications"
   />,
+  <MenuLink key="cmo-assets" href="/cmo-assets" text="CMO Assets" />,
   <MenuLink
-    key="poolCandidates"
-    href="/poolCandidates"
-    text="Pool Candidates"
+    key="operational-requirements"
+    href="/operational-requirements"
+    text="Operational Requirements"
   />,
 ];
 

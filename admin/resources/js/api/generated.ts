@@ -298,14 +298,16 @@ export enum PoolCandidateStatus {
 
 export type Query = {
   __typename?: "Query";
-  users: Array<Maybe<User>>;
   user?: Maybe<User>;
-  pools: Array<Maybe<Pool>>;
+  users: Array<Maybe<User>>;
   pool?: Maybe<Pool>;
-  poolCandidates: Array<Maybe<PoolCandidate>>;
+  pools: Array<Maybe<Pool>>;
   poolCandidate?: Maybe<PoolCandidate>;
+  poolCandidates: Array<Maybe<PoolCandidate>>;
   classifications: Array<Maybe<Classification>>;
+  operationalRequirement?: Maybe<OperationalRequirement>;
   operationalRequirements: Array<Maybe<OperationalRequirement>>;
+  cmoAsset?: Maybe<CmoAsset>;
   cmoAssets: Array<Maybe<CmoAsset>>;
 };
 
@@ -318,6 +320,14 @@ export type QueryPoolArgs = {
 };
 
 export type QueryPoolCandidateArgs = {
+  id: Scalars["ID"];
+};
+
+export type QueryOperationalRequirementArgs = {
+  id: Scalars["ID"];
+};
+
+export type QueryCmoAssetArgs = {
   id: Scalars["ID"];
 };
 
@@ -436,6 +446,27 @@ export type GetClassificationsQuery = { __typename?: "Query" } & {
   >;
 };
 
+export type GetCmoAssetQueryVariables = Exact<{
+  id: Scalars["ID"];
+}>;
+
+export type GetCmoAssetQuery = { __typename?: "Query" } & {
+  cmoAsset?: Maybe<
+    { __typename?: "CmoAsset" } & Pick<CmoAsset, "id" | "key"> & {
+        name: { __typename?: "LocalizedString" } & Pick<
+          LocalizedString,
+          "en" | "fr"
+        >;
+        description?: Maybe<
+          { __typename?: "LocalizedString" } & Pick<
+            LocalizedString,
+            "en" | "fr"
+          >
+        >;
+      }
+  >;
+};
+
 export type GetCmoAssetsQueryVariables = Exact<{ [key: string]: never }>;
 
 export type GetCmoAssetsQuery = { __typename?: "Query" } & {
@@ -454,6 +485,73 @@ export type GetCmoAssetsQuery = { __typename?: "Query" } & {
           >;
         }
     >
+  >;
+};
+
+export type CreateCmoAssetMutationVariables = Exact<{
+  cmoAsset: CreateCmoAssetInput;
+}>;
+
+export type CreateCmoAssetMutation = { __typename?: "Mutation" } & {
+  createCmoAsset?: Maybe<
+    { __typename?: "CmoAsset" } & Pick<CmoAsset, "id" | "key"> & {
+        name: { __typename?: "LocalizedString" } & Pick<
+          LocalizedString,
+          "en" | "fr"
+        >;
+        description?: Maybe<
+          { __typename?: "LocalizedString" } & Pick<
+            LocalizedString,
+            "en" | "fr"
+          >
+        >;
+      }
+  >;
+};
+
+export type UpdateCmoAssetMutationVariables = Exact<{
+  id: Scalars["ID"];
+  cmoAsset: UpdateCmoAssetInput;
+}>;
+
+export type UpdateCmoAssetMutation = { __typename?: "Mutation" } & {
+  updateCmoAsset?: Maybe<
+    { __typename?: "CmoAsset" } & Pick<CmoAsset, "id" | "key"> & {
+        name: { __typename?: "LocalizedString" } & Pick<
+          LocalizedString,
+          "en" | "fr"
+        >;
+        description?: Maybe<
+          { __typename?: "LocalizedString" } & Pick<
+            LocalizedString,
+            "en" | "fr"
+          >
+        >;
+      }
+  >;
+};
+
+export type GetOperationalRequirementQueryVariables = Exact<{
+  id: Scalars["ID"];
+}>;
+
+export type GetOperationalRequirementQuery = { __typename?: "Query" } & {
+  operationalRequirement?: Maybe<
+    { __typename?: "OperationalRequirement" } & Pick<
+      OperationalRequirement,
+      "id" | "key"
+    > & {
+        name: { __typename?: "LocalizedString" } & Pick<
+          LocalizedString,
+          "en" | "fr"
+        >;
+        description?: Maybe<
+          { __typename?: "LocalizedString" } & Pick<
+            LocalizedString,
+            "en" | "fr"
+          >
+        >;
+      }
   >;
 };
 
@@ -480,6 +578,59 @@ export type GetOperationalRequirementsQuery = { __typename?: "Query" } & {
           >;
         }
     >
+  >;
+};
+
+export type CreateOperationalRequirementMutationVariables = Exact<{
+  operationalRequirement: CreateOperationalRequirementInput;
+}>;
+
+export type CreateOperationalRequirementMutation = {
+  __typename?: "Mutation";
+} & {
+  createOperationalRequirement?: Maybe<
+    { __typename?: "OperationalRequirement" } & Pick<
+      OperationalRequirement,
+      "id" | "key"
+    > & {
+        name: { __typename?: "LocalizedString" } & Pick<
+          LocalizedString,
+          "en" | "fr"
+        >;
+        description?: Maybe<
+          { __typename?: "LocalizedString" } & Pick<
+            LocalizedString,
+            "en" | "fr"
+          >
+        >;
+      }
+  >;
+};
+
+export type UpdateOperationalRequirementMutationVariables = Exact<{
+  id: Scalars["ID"];
+  operationalRequirement: UpdateOperationalRequirementInput;
+}>;
+
+export type UpdateOperationalRequirementMutation = {
+  __typename?: "Mutation";
+} & {
+  updateOperationalRequirement?: Maybe<
+    { __typename?: "OperationalRequirement" } & Pick<
+      OperationalRequirement,
+      "id" | "key"
+    > & {
+        name: { __typename?: "LocalizedString" } & Pick<
+          LocalizedString,
+          "en" | "fr"
+        >;
+        description?: Maybe<
+          { __typename?: "LocalizedString" } & Pick<
+            LocalizedString,
+            "en" | "fr"
+          >
+        >;
+      }
   >;
 };
 
@@ -881,29 +1032,6 @@ export type GetPoolsQuery = { __typename?: "Query" } & {
   >;
 };
 
-export type GetPoolQueryVariables = Exact<{
-  id: Scalars["ID"];
-}>;
-
-export type GetPoolQuery = { __typename?: "Query" } & {
-  pool?: Maybe<
-    { __typename?: "Pool" } & Pick<Pool, "id"> & {
-        name?: Maybe<
-          { __typename?: "LocalizedString" } & Pick<
-            LocalizedString,
-            "en" | "fr"
-          >
-        >;
-        description?: Maybe<
-          { __typename?: "LocalizedString" } & Pick<
-            LocalizedString,
-            "en" | "fr"
-          >
-        >;
-      }
-  >;
-};
-
 export type AllUsersQueryVariables = Exact<{ [key: string]: never }>;
 
 export type AllUsersQuery = { __typename?: "Query" } & {
@@ -988,6 +1116,31 @@ export function useGetClassificationsQuery(
     ...options,
   });
 }
+export const GetCmoAssetDocument = gql`
+  query getCmoAsset($id: ID!) {
+    cmoAsset(id: $id) {
+      id
+      key
+      name {
+        en
+        fr
+      }
+      description {
+        en
+        fr
+      }
+    }
+  }
+`;
+
+export function useGetCmoAssetQuery(
+  options: Omit<Urql.UseQueryArgs<GetCmoAssetQueryVariables>, "query"> = {},
+) {
+  return Urql.useQuery<GetCmoAssetQuery>({
+    query: GetCmoAssetDocument,
+    ...options,
+  });
+}
 export const GetCmoAssetsDocument = gql`
   query GetCmoAssets {
     cmoAssets {
@@ -1010,6 +1163,80 @@ export function useGetCmoAssetsQuery(
 ) {
   return Urql.useQuery<GetCmoAssetsQuery>({
     query: GetCmoAssetsDocument,
+    ...options,
+  });
+}
+export const CreateCmoAssetDocument = gql`
+  mutation createCmoAsset($cmoAsset: CreateCmoAssetInput!) {
+    createCmoAsset(cmoAsset: $cmoAsset) {
+      id
+      key
+      name {
+        en
+        fr
+      }
+      description {
+        en
+        fr
+      }
+    }
+  }
+`;
+
+export function useCreateCmoAssetMutation() {
+  return Urql.useMutation<
+    CreateCmoAssetMutation,
+    CreateCmoAssetMutationVariables
+  >(CreateCmoAssetDocument);
+}
+export const UpdateCmoAssetDocument = gql`
+  mutation updateCmoAsset($id: ID!, $cmoAsset: UpdateCmoAssetInput!) {
+    updateCmoAsset(id: $id, cmoAsset: $cmoAsset) {
+      id
+      key
+      name {
+        en
+        fr
+      }
+      description {
+        en
+        fr
+      }
+    }
+  }
+`;
+
+export function useUpdateCmoAssetMutation() {
+  return Urql.useMutation<
+    UpdateCmoAssetMutation,
+    UpdateCmoAssetMutationVariables
+  >(UpdateCmoAssetDocument);
+}
+export const GetOperationalRequirementDocument = gql`
+  query getOperationalRequirement($id: ID!) {
+    operationalRequirement(id: $id) {
+      id
+      key
+      name {
+        en
+        fr
+      }
+      description {
+        en
+        fr
+      }
+    }
+  }
+`;
+
+export function useGetOperationalRequirementQuery(
+  options: Omit<
+    Urql.UseQueryArgs<GetOperationalRequirementQueryVariables>,
+    "query"
+  > = {},
+) {
+  return Urql.useQuery<GetOperationalRequirementQuery>({
+    query: GetOperationalRequirementDocument,
     ...options,
   });
 }
@@ -1040,6 +1267,62 @@ export function useGetOperationalRequirementsQuery(
     query: GetOperationalRequirementsDocument,
     ...options,
   });
+}
+export const CreateOperationalRequirementDocument = gql`
+  mutation createOperationalRequirement(
+    $operationalRequirement: CreateOperationalRequirementInput!
+  ) {
+    createOperationalRequirement(
+      operationalRequirement: $operationalRequirement
+    ) {
+      id
+      key
+      name {
+        en
+        fr
+      }
+      description {
+        en
+        fr
+      }
+    }
+  }
+`;
+
+export function useCreateOperationalRequirementMutation() {
+  return Urql.useMutation<
+    CreateOperationalRequirementMutation,
+    CreateOperationalRequirementMutationVariables
+  >(CreateOperationalRequirementDocument);
+}
+export const UpdateOperationalRequirementDocument = gql`
+  mutation updateOperationalRequirement(
+    $id: ID!
+    $operationalRequirement: UpdateOperationalRequirementInput!
+  ) {
+    updateOperationalRequirement(
+      id: $id
+      operationalRequirement: $operationalRequirement
+    ) {
+      id
+      key
+      name {
+        en
+        fr
+      }
+      description {
+        en
+        fr
+      }
+    }
+  }
+`;
+
+export function useUpdateOperationalRequirementMutation() {
+  return Urql.useMutation<
+    UpdateOperationalRequirementMutation,
+    UpdateOperationalRequirementMutationVariables
+  >(UpdateOperationalRequirementDocument);
 }
 export const GetPoolCandidateDocument = gql`
   query getPoolCandidate($id: ID!) {
@@ -1355,27 +1638,6 @@ export function useGetPoolsQuery(
   options: Omit<Urql.UseQueryArgs<GetPoolsQueryVariables>, "query"> = {},
 ) {
   return Urql.useQuery<GetPoolsQuery>({ query: GetPoolsDocument, ...options });
-}
-export const GetPoolDocument = gql`
-  query getPool($id: ID!) {
-    pool(id: $id) {
-      id
-      name {
-        en
-        fr
-      }
-      description {
-        en
-        fr
-      }
-    }
-  }
-`;
-
-export function useGetPoolQuery(
-  options: Omit<Urql.UseQueryArgs<GetPoolQueryVariables>, "query"> = {},
-) {
-  return Urql.useQuery<GetPoolQuery>({ query: GetPoolDocument, ...options });
 }
 export const AllUsersDocument = gql`
   query AllUsers {

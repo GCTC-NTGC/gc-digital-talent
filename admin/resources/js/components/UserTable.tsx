@@ -1,15 +1,17 @@
 import React, { useMemo } from "react";
-import { Column } from "react-table";
-import { AllUsersQuery, useAllUsersQuery, User } from "../api/generated";
+import { AllUsersQuery, useAllUsersQuery } from "../api/generated";
 import { Link, useLocation } from "../helpers/router";
 import { notEmpty } from "../helpers/util";
-import Table from "./Table";
+import { FromArray } from "../types/utilityTypes";
+import Table, { ColumnsOf } from "./Table";
+
+type Data = NonNullable<FromArray<AllUsersQuery["users"]>>;
 
 export const UserTable: React.FC<AllUsersQuery & { editUrlRoot: string }> = ({
   users,
   editUrlRoot,
 }) => {
-  const columns: Array<Column<User>> = useMemo(
+  const columns = useMemo<ColumnsOf<Data>>(
     () => [
       {
         Header: "ID",
@@ -36,7 +38,7 @@ export const UserTable: React.FC<AllUsersQuery & { editUrlRoot: string }> = ({
         accessor: "preferredLang",
       },
       {
-        Header: "",
+        Header: "Edit",
         id: "edit",
         accessor: ({ id }) => (
           <Link href={`${editUrlRoot}/${id}/edit`} title="">
@@ -52,7 +54,7 @@ export const UserTable: React.FC<AllUsersQuery & { editUrlRoot: string }> = ({
 
   return (
     <>
-      <Table<User> data={data} columns={columns} />
+      <Table data={data} columns={columns} />
     </>
   );
 };

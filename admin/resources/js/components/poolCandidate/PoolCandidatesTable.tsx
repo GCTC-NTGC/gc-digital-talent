@@ -1,13 +1,15 @@
 import React, { useMemo } from "react";
-import { Column } from "react-table";
 import { GetPoolCandidatesQuery } from "../../api/generated";
 import { notEmpty } from "../../helpers/util";
-import Table from "../Table";
+import { FromArray } from "../../types/utilityTypes";
+import Table, { ColumnsOf } from "../Table";
 
-const ClassificationTable: React.FC<GetPoolCandidatesQuery> = ({
+type Data = NonNullable<FromArray<GetPoolCandidatesQuery["poolCandidates"]>>;
+
+const PoolCandidatesTable: React.FC<GetPoolCandidatesQuery> = ({
   poolCandidates,
 }) => {
-  const columns: Array<Column> = useMemo(
+  const columns = useMemo<ColumnsOf<Data>>(
     () => [
       {
         Header: "ID",
@@ -15,11 +17,13 @@ const ClassificationTable: React.FC<GetPoolCandidatesQuery> = ({
       },
       {
         Header: "Pool",
-        accessor: "pool.name.en",
+        id: "pool",
+        accessor: (d) => d.pool?.name?.en,
       },
       {
         Header: "User",
-        accessor: "user.email",
+        id: "user",
+        accessor: (d) => d.user?.email,
       },
       {
         Header: "Expiry",
@@ -27,23 +31,28 @@ const ClassificationTable: React.FC<GetPoolCandidatesQuery> = ({
       },
       {
         Header: "Woman",
-        accessor: (d) => (d ? "Y" : "N"),
+        accessor: (d) => (d.isWoman ? "Y" : "N"),
+        id: "woman",
       },
       {
         Header: "Disability",
-        accessor: (d) => (d ? "Y" : "N"),
+        accessor: (d) => (d.hasDisability ? "Y" : "N"),
+        id: "disability",
       },
       {
         Header: "Indigenous",
-        accessor: (d) => (d ? "Y" : "N"),
+        accessor: (d) => (d.isIndigenous ? "Y" : "N"),
+        id: "indigenous",
       },
       {
         Header: "Visible Minority",
-        accessor: (d) => (d ? "Y" : "N"),
+        accessor: (d) => (d.isVisibleMinority ? "Y" : "N"),
+        id: "visibleMinority",
       },
       {
         Header: "Diploma",
-        accessor: (d) => (d ? "Y" : "N"),
+        accessor: (d) => (d.hasDiploma ? "Y" : "N"),
+        id: "diploma",
       },
       {
         Header: "Language",
@@ -65,4 +74,4 @@ const ClassificationTable: React.FC<GetPoolCandidatesQuery> = ({
   );
 };
 
-export default ClassificationTable;
+export default PoolCandidatesTable;
