@@ -13,7 +13,7 @@
   <title>GC Talent</title>
 </head>
 <body>
-  <div id="app"></div>
+  <div id="app" data-h2-font-family="b(sans)"></div>
   <script src="{{ mix("js/dashboard.js") }}"></script>
 </body>
 </html>
