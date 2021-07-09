@@ -2,7 +2,8 @@ import * as React from "react";
 import get from "lodash/get";
 import { RegisterOptions, useFormContext } from "react-hook-form";
 
-interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+export interface InputProps
+  extends React.InputHTMLAttributes<HTMLInputElement> {
   /** HTML id used to identify the element. */
   id: string;
   /** Holds text for the label associated with the input element */
