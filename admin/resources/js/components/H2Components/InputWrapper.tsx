@@ -28,9 +28,15 @@ export const InputWrapper: React.FC<InputWrapperProps> = ({
         contextToggleHandler={setContextVisible}
       />
       {children}
-      {error && <span role="alert">{error}</span>}
+      {error && (
+        <p data-h2-font-size="b(caption)" role="alert">
+          {error}
+        </p>
+      )}
       {contextVisible && context && (
-        <p data-h2-bg-color="b(lightpurple)">{context}</p>
+        <p data-h2-font-size="b(caption)" data-h2-bg-color="b(lightpurple)">
+          {context}
+        </p>
       )}
     </div>
   );
