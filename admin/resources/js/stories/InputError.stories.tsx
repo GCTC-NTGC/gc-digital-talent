@@ -1,9 +1,9 @@
 import React from "react";
 import { Story, Meta } from "@storybook/react";
-import InputError from "../components/form/InputError";
+import InputError from "../components/H2Components/InputError";
 
 const meta: Meta = {
-  title: "Input Error",
+  title: "Components/Input Error",
   component: InputError,
   argTypes: {
     isVisible: { control: "boolean" },
