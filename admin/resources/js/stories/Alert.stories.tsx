@@ -7,17 +7,6 @@ export default {
   component: Alert,
   title: "Components/Alert",
   argTypes: {
-    title: {
-      control: { type: "text" },
-    },
-    body: {
-      control: { type: "text" },
-    },
-    color: {
-      table: {
-        disable: true,
-      },
-    },
     dismissBtn: {
       table: {
         disable: true,
