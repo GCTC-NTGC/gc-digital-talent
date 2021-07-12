@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import InputContext from "./InputContext";
+import InputError from "./InputError";
 import InputLabel from "./InputLabel";
 
 export interface InputWrapperProps {
@@ -36,14 +38,17 @@ export const InputWrapper: React.FC<InputWrapperProps> = ({
         {children}
       </div>
       {error && (
-        <p data-h2-font-size="b(caption)" role="alert">
-          {error}
-        </p>
+        <div data-h2-display="block" data-h2-margin="b(top, xxs)">
+          <InputError isVisible={!!error} error={error} />
+        </div>
       )}
       {contextVisible && context && (
-        <p data-h2-font-size="b(caption)" data-h2-bg-color="b(lightpurple)">
-          {context}
-        </p>
+        <div data-h2-display="block" data-h2-margin="b(top, xxs)">
+          <InputContext
+            isVisible={contextVisible && !!context}
+            context={context}
+          />
+        </div>
       )}
     </div>
   );
