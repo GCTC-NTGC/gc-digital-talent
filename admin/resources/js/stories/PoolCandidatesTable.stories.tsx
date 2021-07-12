@@ -11,14 +11,14 @@ const poolCandidateData = fakePoolCandidates();
 
 const stories = storiesOf("Pool Candidates", module);
 
-stories.add("Classifications Table", () => (
+stories.add("Pool Candidates Table", () => (
   <PoolCandidatesTable poolCandidates={poolCandidateData} />
 ));
 
 const client = createClient({
   url: "http://localhost:8000/graphql",
 });
-stories.add("Classifications Table with API data", () => (
+stories.add("Pool Candidates Table with API data", () => (
   <ClientProvider client={client}>
     <ClassificationTableApi />
   </ClientProvider>
