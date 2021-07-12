@@ -87,21 +87,21 @@ export const AlertTrigger = TemplateAlertTrigger.bind({});
 
 Informational.args = {
   position: "static",
-  color: "blue",
+  color: "lightgold",
   title: "Something To Be Aware Of",
   body: "Please note the information here before continuing.",
 };
 
 Error.args = {
   position: "static",
-  color: "pink",
+  color: "red",
   title: "Something Went Wrong",
   body: "Please fix something before continuing.",
 };
 
 AlertTrigger.args = {
   position: "toast",
-  color: "pink",
+  color: "red",
   title: "Something Went Wrong",
   body: "Please fix something before continuing.",
 };
