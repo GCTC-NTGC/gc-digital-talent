@@ -44,7 +44,7 @@ export const ErrorToast: React.FC = () => {
     <>
       {currentError !== null && (
         <Alert
-          color="pink"
+          color="red"
           position="toast"
           dismissBtn={
             <Alert.DismissBtn onClick={dismiss} aria-label="Dismiss">
