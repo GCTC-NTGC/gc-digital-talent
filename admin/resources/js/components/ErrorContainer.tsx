@@ -72,6 +72,7 @@ export const ErrorContainer: React.FC = ({ children }): React.ReactElement => {
         dispatch,
       }}
     >
+      <ErrorToast />
       {children}
     </ErrorContext.Provider>
   );
