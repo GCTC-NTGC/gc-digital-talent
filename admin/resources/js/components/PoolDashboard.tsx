@@ -8,7 +8,7 @@ import { UpdateCmoAsset } from "./cmoAssets/UpdateCmoAsset";
 import { CmoAssetTableApi } from "./CmoAssetTable";
 import { CreateUser } from "./CreateUser";
 import { Dashboard, exactMatch, MenuLink } from "./dashboard/Dashboard";
-import ErrorContainer, { ErrorToast } from "./ErrorContainer";
+import ErrorContainer from "./ErrorContainer";
 import { CreateOperationalRequirement } from "./operationalRequirements/CreateOperationalRequirement";
 import { UpdateOperationalRequirement } from "./operationalRequirements/UpdateOperationalRequirement";
 import { OperationalRequirementTableApi } from "./OperationalRequirementTable";
@@ -132,7 +132,6 @@ export const PoolDashboard: React.FC = () => {
     <div>
       <p>Current path: {location.pathname}</p>
       <ErrorContainer>
-        <ErrorToast />
         <ClientProvider>
           <Dashboard menuItems={menuItems} contentRoutes={routes} />
         </ClientProvider>
