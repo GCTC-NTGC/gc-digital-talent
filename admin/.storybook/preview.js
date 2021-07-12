@@ -10,3 +10,11 @@ export const parameters = {
     },
   },
 }
+
+export const decorators = [
+    (Story) => (
+      <div data-h2-font-family="b(sans)">
+        <Story />
+      </div>
+    ),
+  ];
