@@ -7,7 +7,7 @@ const meta: Meta = {
   component: InputContext,
   argTypes: {
     isVisible: { control: "boolean" },
-    error: { control: "text" },
+    context: { control: "text" },
   },
 };
 export default meta;
@@ -19,5 +19,5 @@ const Template: Story<React.ComponentProps<typeof InputContext>> = (args) => (
 export const Context = Template.bind({});
 Context.args = {
   isVisible: true,
-  error: "We collect the above data for account purposes.",
+  context: "We collect the above data for account purposes.",
 };
