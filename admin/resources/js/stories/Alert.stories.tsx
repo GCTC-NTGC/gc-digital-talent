@@ -76,7 +76,7 @@ export const AlertTrigger = TemplateAlertTrigger.bind({});
 
 Informational.args = {
   position: "static",
-  color: "lightgold",
+  color: "gold",
   title: "Something To Be Aware Of",
   body: "Please note the information here before continuing.",
 };
