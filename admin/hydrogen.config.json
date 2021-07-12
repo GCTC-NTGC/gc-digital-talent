@@ -70,7 +70,7 @@
     {
       "name": "lightpurple",
       "color": "#674C90",
-      "opacity": false
+      "opacity": true
     }
   ],
   "fonts": [
