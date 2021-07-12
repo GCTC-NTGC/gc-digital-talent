@@ -40,7 +40,7 @@
     {
       "name": "gold",
       "color": "#F9C160",
-      "opacity": false
+      "opacity": true
     },
     {
       "name": "darkgold",
