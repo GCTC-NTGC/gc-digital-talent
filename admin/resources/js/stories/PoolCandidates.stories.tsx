@@ -18,7 +18,6 @@ import {
   PoolCandidateStatus,
   SalaryRange,
 } from "../api/generated";
-import ClientProvider from "../components/ClientProvider";
 import { CreatePoolCandidateForm } from "../components/poolCandidate/CreatePoolCandidate";
 import fakeUsers from "../fakeData/fakeUsers";
 import fakeClassifications from "../fakeData/fakeClassifications";
@@ -26,7 +25,7 @@ import fakePools from "../fakeData/fakePools";
 import fakeCmoAssets from "../fakeData/fakeCmoAssets";
 import fakeOperationalRequirements from "../fakeData/fakeOperationalRequirements";
 import { UpdatePoolCandidateForm } from "../components/poolCandidate/UpdatePoolCandidate";
-import { ClassificationTableApi } from "../components/ClassificationTable";
+import { currentDate } from "../components/form/formUtils";
 
 const poolCandidateData = fakePoolCandidates();
 // Its possible data may come back from api with missing data.
@@ -79,7 +78,7 @@ stories.add("Update Pool Candidate Form", () => {
       fakeClassifications()[1],
     ],
     expectedSalary: [SalaryRange["100KPlus"], SalaryRange["80_89K"]],
-    expiryDate: new Date().toISOString().slice(0, 10),
+    expiryDate: currentDate(),
     hasDiploma: true,
     hasDisability: false,
     isIndigenous: true,
