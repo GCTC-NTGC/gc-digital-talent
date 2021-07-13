@@ -24,3 +24,36 @@ export const unpackIds = (
  * @returns string
  */
 export const currentDate = (): string => new Date().toISOString().slice(0, 10);
+
+/**
+ * Converts enum to a list of options for select input.
+ * @param list
+ * @returns Option
+ */
+export function enumToOptions<T>(
+  list: T,
+): { value: string | number; label: string }[] {
+  const entries = Object.entries(list);
+  const options: { value: string | number; label: string }[] = entries.reduce(
+    (
+      accumulator: { value: string | number; label: string }[],
+      currentValue,
+    ) => {
+      return [
+        ...accumulator,
+        { value: currentValue[1], label: currentValue[0] },
+      ];
+    },
+    [],
+  );
+  return options;
+}
+
+/**
+ * Creates a list of values from a list of options.
+ * @param list
+ * @returns array
+ */
+export function getValues<T>(list: { value: T; label: string }[]): T[] {
+  return list.map((x) => x.value);
+}
