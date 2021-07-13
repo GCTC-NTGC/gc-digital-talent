@@ -33,9 +33,14 @@
       "opacity": false
     },
     {
+      "name": "red",
+      "color": "#FF0000",
+      "opacity": true
+    },
+    {
       "name": "gold",
       "color": "#F9C160",
-      "opacity": false
+      "opacity": true
     },
     {
       "name": "darkgold",
@@ -65,12 +70,7 @@
     {
       "name": "lightpurple",
       "color": "#674C90",
-      "opacity": false
-    },
-    {
-      "name": "red",
-      "color": "#FF0000",
-      "opacity": false
+      "opacity": true
     }
   ],
   "fonts": [
