@@ -63,61 +63,61 @@ function Table<T extends Record<string, unknown>>({
     <table {...getTableProps()}>
       <thead>
         {filter ? (
-          <tr>
-            <td>
-              <GlobalFilter
-                preGlobalFilteredRows={preGlobalFilteredRows}
-                globalFilter={state.globalFilter}
-                setGlobalFilter={setGlobalFilter}
-              />
-            </td>
-            <td>
-              <button
-                style={{
-                  marginLeft: "15px",
-                  marginTop: "2px",
-                  cursor: "pointer",
-                }}
-                type="button"
-                onClick={() => {
-                  setShowList(!showList);
-                }}
-              >
-                Table Columns
-              </button>
-              {showList ? (
-                <div
-                  style={{
-                    position: "absolute",
-                    backgroundColor: "white",
-                    padding: "10px",
-                    border: "1px solid grey",
-                    borderRadius: "5px",
+          <>
+            <tr>
+              <td>
+                <GlobalFilter
+                  preGlobalFilteredRows={preGlobalFilteredRows}
+                  globalFilter={state.globalFilter}
+                  setGlobalFilter={setGlobalFilter}
+                />
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <button
+                  type="button"
+                  data-h2-display="b(block)"
+                  onClick={() => {
+                    setShowList(!showList);
                   }}
                 >
-                  <div>
-                    <IndeterminateCheckbox
-                      {...(getToggleHideAllColumnsProps() as React.ComponentProps<
-                        typeof IndeterminateCheckbox
-                      >)}
-                    />{" "}
-                    Toggle All
-                  </div>
-                  {allColumns.map((column) => (
-                    <div key={column.id}>
-                      <label>
-                        <input
-                          type="checkbox"
-                          {...column.getToggleHiddenProps()}
-                        />{" "}
-                        {column.id}
-                      </label>
+                  Table Columns
+                </button>
+                {showList ? (
+                  <div
+                    style={{
+                      position: "absolute",
+                      backgroundColor: "white",
+                      padding: "10px",
+                      border: "1px solid grey",
+                      borderRadius: "5px",
+                    }}
+                  >
+                    <div>
+                      <IndeterminateCheckbox
+                        {...(getToggleHideAllColumnsProps() as React.ComponentProps<
+                          typeof IndeterminateCheckbox
+                        >)}
+                      />{" "}
+                      Toggle All
                     </div>
-                  ))}
-                </div>
-              ) : null}
-            </td>
-          </tr>
+                    {allColumns.map((column) => (
+                      <div key={column.id}>
+                        <label>
+                          <input
+                            type="checkbox"
+                            {...column.getToggleHiddenProps()}
+                          />{" "}
+                          {column.id}
+                        </label>
+                      </div>
+                    ))}
+                  </div>
+                ) : null}
+              </td>
+            </tr>
+          </>
         ) : null}
         {headerGroups.map((headerGroup) => (
           <tr {...headerGroup.getHeaderGroupProps()}>
@@ -125,9 +125,12 @@ function Table<T extends Record<string, unknown>>({
               <th
                 {...column.getHeaderProps(column.getSortByToggleProps())}
                 key={column.id}
+                data-h2-padding="b(top-bottom, s) b(right-left, m)"
+                data-h2-text-align="b(center)"
+                data-h2-font-size="b(caption)"
               >
                 {column.render("Header")}
-                <span>
+                <span data-h2-color="b(lightpurple)">
                   {column.isSorted && (column.isSortedDesc ? " ▼" : " ▲")}
                 </span>
               </th>
@@ -141,7 +144,16 @@ function Table<T extends Record<string, unknown>>({
           return (
             <tr {...row.getRowProps()}>
               {row.cells.map((cell) => {
-                return <td {...cell.getCellProps()}>{cell.render("Cell")}</td>;
+                return (
+                  <td
+                    {...cell.getCellProps()}
+                    data-h2-padding="b(top-bottom, s) b(right-left, m)"
+                    data-h2-text-align="b(center)"
+                    data-h2-font-size="b(caption)"
+                  >
+                    {cell.render("Cell")}
+                  </td>
+                );
               })}
             </tr>
           );
