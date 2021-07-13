@@ -240,7 +240,10 @@ export const CreatePoolCandidateForm: React.FunctionComponent<CreatePoolCandidat
               label="Expected Salary: "
               name="expectedSalary"
               placeholder="Select one or more expected salaries..."
-              options={enumToOptions(SalaryRange)}
+              options={enumToOptions(SalaryRange).map(({ value }) => ({
+                value,
+                label: getSalaryRange(value),
+              }))}
               rules={{ required: errorMessages.required }}
             />
             <MultiSelect
