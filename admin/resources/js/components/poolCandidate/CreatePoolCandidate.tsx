@@ -112,7 +112,7 @@ export const CreatePoolCandidateForm: React.FunctionComponent<CreatePoolCandidat
     const classificationOptions: Option<string>[] = classifications.map(
       ({ id, group, level }) => ({
         value: id,
-        label: `${group}-${level}`,
+        label: `${group}-0${level}`,
       }),
     );
 

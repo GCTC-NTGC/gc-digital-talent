@@ -122,7 +122,7 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<UpdatePoolCandidat
     const classificationOptions: Option<string>[] = classifications.map(
       ({ id, group, level }) => ({
         value: id,
-        label: `${group}-${level}`,
+        label: `${group}-0${level}`,
       }),
     );
 
