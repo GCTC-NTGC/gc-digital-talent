@@ -17,6 +17,7 @@ import {
   WorkRegion,
   PoolCandidateStatus,
   SalaryRange,
+  UpdatePoolCandidateMutation,
 } from "../api/generated";
 import { CreatePoolCandidateForm } from "../components/poolCandidate/CreatePoolCandidate";
 import fakeUsers from "../fakeData/fakeUsers";
@@ -100,10 +101,15 @@ stories.add("Update Pool Candidate Form", () => {
       operationalRequirements={
         fakeOperationalRequirements() as OperationalRequirement[]
       }
-      handleUpdatePoolCandidate={async (id, data: UpdatePoolCandidateInput) => {
+      handleUpdatePoolCandidate={async (
+        id: string,
+        data: UpdatePoolCandidateInput,
+      ): Promise<UpdatePoolCandidateMutation["updatePoolCandidate"]> => {
         await new Promise((resolve) => setTimeout(resolve, 1000));
-        action("Update Pool Candidate")(data);
-        return null;
+        action("Update Pool Candidate")(id, data);
+        return Promise.resolve(
+          data as UpdatePoolCandidateMutation["updatePoolCandidate"],
+        );
       }}
     />
   );
