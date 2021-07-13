@@ -24,18 +24,20 @@ const InputLabel: React.FC<InputLabelProps> = ({
     setContextIsActive((currentState) => !currentState);
   };
   return (
-    <div
-      data-h2-flex-grid="b(middle, contained, flush, none)"
-      data-h2-font-family="b(sans)"
-    >
+    <div data-h2-flex-grid="b(middle, contained, flush, none)">
       <div data-h2-flex-item="b(1of1) s(1of2)" data-h2-text-align="b(left)">
-        <label htmlFor={inputId}>{label}</label>
+        <label data-h2-font-size="b(caption)" htmlFor={inputId}>
+          {label}
+        </label>
       </div>
       <div
         data-h2-flex-item="b(1of1) s(1of2)"
         data-h2-text-align="b(left) s(right)"
       >
-        <span data-h2-font-color={required ? "b(red)" : "b(darkgray)"}>
+        <span
+          data-h2-font-size="b(caption)"
+          data-h2-font-color={required ? "b(red)" : "b(darkgray)"}
+        >
           {required ? "Required" : "Optional"}
         </span>
         {contextIsVisible && (
@@ -49,12 +51,12 @@ const InputLabel: React.FC<InputLabelProps> = ({
             <>
               {contextIsActive ? (
                 <XCircleIcon
-                  style={{ width: "1rem" }}
+                  style={{ width: "calc(1rem/1.25)" }}
                   data-h2-font-color="b(lightpurple)"
                 />
               ) : (
                 <QuestionMarkCircleIcon
-                  style={{ width: "1rem" }}
+                  style={{ width: "calc(1rem/1.25)" }}
                   data-h2-font-color="b(lightpurple)"
                 />
               )}
