@@ -105,66 +105,34 @@ query GetPoolCandidates {
 }
 
 query GetPoolCandidatesForForm {
-  poolCandidates {
-    id,
-    pool {
-      id,
-      name {
-        en,
-        fr
-      },
-      classifications {
-        id,
-        name {
-          en,
-          fr
-        },
-        group,
-        level
-      },
-    },
-    user {
-      id,
-      firstName,
-      lastName,
-      email
-    },
-    cmoIdentifier,
-    expiryDate,
-    isWoman,
-    hasDisability,
-    isIndigenous,
-    isVisibleMinority,
-    hasDiploma,
-    languageAbility,
-    locationPreferences,
-    acceptedOperationalRequirements {
-      id,
-      name {
-        en,
-        fr
-      }
-    },
-    expectedSalary,
-    expectedClassifications {
-      id,
-      name {
-        en,
-        fr
-      }
-      group,
-      level
+  classifications {
+    id
+    group
+    level
+  }
+  users {
+    id
+    firstName
+    lastName
+    email
+  }
+  cmoAssets {
+    id
+    key
+    name {
+      en
+      fr
     }
-    cmoAssets {
-      id,
-      name {
-        en,
-        fr
-      }
-    },
-    status
-  },
+  }
   operationalRequirements {
+    id
+    key
+    name {
+      en
+      fr
+    }
+  }
+  pools {
     id
     name {
       en

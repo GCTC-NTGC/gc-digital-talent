@@ -1,6 +1,5 @@
 import * as React from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
-import { isEmpty } from "lodash";
 import {
   CreatePoolCandidateInput,
   Pool,
@@ -14,20 +13,17 @@ import {
   Classification,
   useCreatePoolCandidateMutation,
   CreatePoolCandidateMutation,
-  useGetClassificationsQuery,
-  useGetCmoAssetsQuery,
-  useGetOperationalRequirementsQuery,
-  useAllUsersQuery,
-  useGetPoolsQuery,
-  Maybe,
   PoolCandidate,
+  useGetPoolCandidatesForFormQuery,
 } from "../../api/generated";
 import errorMessages from "../form/errorMessages";
 import Submit from "../form/Submit";
 import Select from "../form/Select";
 import Input from "../form/Input";
-import { enumToOptions, notEmpty } from "../../helpers/util";
 import MultiSelect from "../form/MultiSelect";
+import { notEmpty } from "../../helpers/util";
+import { currentDate, enumToOptions } from "../form/formUtils";
+import { getSalaryRange } from "../../model/localizedConstants";
 
 type Option<V> = { value: V; label: string };
 
@@ -104,9 +100,9 @@ export const CreatePoolCandidateForm: React.FunctionComponent<CreatePoolCandidat
         });
     };
 
-    const cmoAssetOptions: Option<string>[] = cmoAssets.map(({ id, key }) => ({
+    const cmoAssetOptions: Option<string>[] = cmoAssets.map(({ id, name }) => ({
       value: id,
-      label: key,
+      label: name[locale] ?? "Error: name not loaded",
     }));
 
     const classificationOptions: Option<string>[] = classifications.map(
@@ -150,9 +146,9 @@ export const CreatePoolCandidateForm: React.FunctionComponent<CreatePoolCandidat
               rules={{ required: errorMessages.required }}
             />
             <Select
-              id="users"
+              id="user"
               label="Users: "
-              name="users"
+              name="user"
               options={[
                 { value: "", label: "Select a user..." },
                 ...userOptions,
@@ -279,39 +275,15 @@ export const CreatePoolCandidateForm: React.FunctionComponent<CreatePoolCandidat
   };
 
 export const CreatePoolCandidate: React.FunctionComponent = () => {
-  const [classificationsState] = useGetClassificationsQuery();
+  const [lookupResult] = useGetPoolCandidatesForFormQuery();
+  const { data: lookupData, fetching, error } = lookupResult;
   const classifications: Classification[] | [] =
-    classificationsState.data?.classifications.filter(notEmpty) ?? [];
-
-  const [cmoAssetState] = useGetCmoAssetsQuery();
-  const cmoAssets: CmoAsset[] =
-    cmoAssetState.data?.cmoAssets.filter(notEmpty) ?? [];
-
-  const [operationalRequirementState] = useGetOperationalRequirementsQuery();
+    lookupData?.classifications.filter(notEmpty) ?? [];
+  const cmoAssets: CmoAsset[] = lookupData?.cmoAssets.filter(notEmpty) ?? [];
   const operationalRequirements: OperationalRequirement[] =
-    operationalRequirementState.data?.operationalRequirements.filter(
-      notEmpty,
-    ) ?? [];
-
-  const [poolsState] = useGetPoolsQuery();
-  const pools: Pool[] = poolsState.data?.pools.filter(notEmpty) ?? [];
-
-  const [usersState] = useAllUsersQuery();
-  const users: User[] = usersState.data?.users.filter(notEmpty) ?? [];
-
-  const fetchingData =
-    classificationsState.fetching ||
-    cmoAssetState.fetching ||
-    operationalRequirementState.fetching ||
-    poolsState.fetching ||
-    usersState.fetching;
-  const errors = [
-    classificationsState.error,
-    cmoAssetState.error,
-    operationalRequirementState.error,
-    poolsState.error,
-    usersState.error,
-  ];
+    lookupData?.operationalRequirements.filter(notEmpty) ?? [];
+  const pools: Pool[] = lookupData?.pools.filter(notEmpty) ?? [];
+  const users: User[] = lookupData?.users.filter(notEmpty) ?? [];
 
   const [_result, executeMutation] = useCreatePoolCandidateMutation();
   const handleCreatePoolCandidate = (data: CreatePoolCandidateInput) =>
@@ -322,11 +294,9 @@ export const CreatePoolCandidate: React.FunctionComponent = () => {
       return Promise.reject(result.error);
     });
 
-  if (fetchingData) return <p>Loading...</p>;
-  if (isEmpty(errors))
-    return (
-      <>{errors.map((error) => error && <p>Oh no... {error.message}</p>)}</>
-    );
+  if (fetching) return <p>Loading...</p>;
+  if (error) return <p>Oh no... {error.message}</p>;
+
   return (
     <CreatePoolCandidateForm
       classifications={classifications}

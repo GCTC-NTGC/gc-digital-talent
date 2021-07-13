@@ -805,99 +805,28 @@ export type GetPoolCandidatesForFormQueryVariables = Exact<{
 }>;
 
 export type GetPoolCandidatesForFormQuery = { __typename?: "Query" } & {
-  poolCandidates: Array<
+  classifications: Array<
     Maybe<
-      { __typename?: "PoolCandidate" } & Pick<
-        PoolCandidate,
-        | "id"
-        | "cmoIdentifier"
-        | "expiryDate"
-        | "isWoman"
-        | "hasDisability"
-        | "isIndigenous"
-        | "isVisibleMinority"
-        | "hasDiploma"
-        | "languageAbility"
-        | "locationPreferences"
-        | "expectedSalary"
-        | "status"
-      > & {
-          pool?: Maybe<
-            { __typename?: "Pool" } & Pick<Pool, "id"> & {
-                name?: Maybe<
-                  { __typename?: "LocalizedString" } & Pick<
-                    LocalizedString,
-                    "en" | "fr"
-                  >
-                >;
-                classifications?: Maybe<
-                  Array<
-                    Maybe<
-                      { __typename?: "Classification" } & Pick<
-                        Classification,
-                        "id" | "group" | "level"
-                      > & {
-                          name?: Maybe<
-                            { __typename?: "LocalizedString" } & Pick<
-                              LocalizedString,
-                              "en" | "fr"
-                            >
-                          >;
-                        }
-                    >
-                  >
-                >;
-              }
-          >;
-          user?: Maybe<
-            { __typename?: "User" } & Pick<
-              User,
-              "id" | "firstName" | "lastName" | "email"
-            >
-          >;
-          acceptedOperationalRequirements?: Maybe<
-            Array<
-              Maybe<
-                { __typename?: "OperationalRequirement" } & Pick<
-                  OperationalRequirement,
-                  "id"
-                > & {
-                    name: { __typename?: "LocalizedString" } & Pick<
-                      LocalizedString,
-                      "en" | "fr"
-                    >;
-                  }
-              >
-            >
-          >;
-          expectedClassifications?: Maybe<
-            Array<
-              Maybe<
-                { __typename?: "Classification" } & Pick<
-                  Classification,
-                  "id" | "group" | "level"
-                > & {
-                    name?: Maybe<
-                      { __typename?: "LocalizedString" } & Pick<
-                        LocalizedString,
-                        "en" | "fr"
-                      >
-                    >;
-                  }
-              >
-            >
-          >;
-          cmoAssets?: Maybe<
-            Array<
-              Maybe<
-                { __typename?: "CmoAsset" } & Pick<CmoAsset, "id"> & {
-                    name: { __typename?: "LocalizedString" } & Pick<
-                      LocalizedString,
-                      "en" | "fr"
-                    >;
-                  }
-              >
-            >
+      { __typename?: "Classification" } & Pick<
+        Classification,
+        "id" | "group" | "level"
+      >
+    >
+  >;
+  users: Array<
+    Maybe<
+      { __typename?: "User" } & Pick<
+        User,
+        "id" | "firstName" | "lastName" | "email"
+      >
+    >
+  >;
+  cmoAssets: Array<
+    Maybe<
+      { __typename?: "CmoAsset" } & Pick<CmoAsset, "id" | "key"> & {
+          name: { __typename?: "LocalizedString" } & Pick<
+            LocalizedString,
+            "en" | "fr"
           >;
         }
     >
@@ -906,11 +835,23 @@ export type GetPoolCandidatesForFormQuery = { __typename?: "Query" } & {
     Maybe<
       { __typename?: "OperationalRequirement" } & Pick<
         OperationalRequirement,
-        "id"
+        "id" | "key"
       > & {
           name: { __typename?: "LocalizedString" } & Pick<
             LocalizedString,
             "en" | "fr"
+          >;
+        }
+    >
+  >;
+  pools: Array<
+    Maybe<
+      { __typename?: "Pool" } & Pick<Pool, "id"> & {
+          name?: Maybe<
+            { __typename?: "LocalizedString" } & Pick<
+              LocalizedString,
+              "en" | "fr"
+            >
           >;
         }
     >
@@ -1459,66 +1400,34 @@ export function useGetPoolCandidatesQuery(
 }
 export const GetPoolCandidatesForFormDocument = gql`
   query GetPoolCandidatesForForm {
-    poolCandidates {
+    classifications {
       id
-      pool {
-        id
-        name {
-          en
-          fr
-        }
-        classifications {
-          id
-          name {
-            en
-            fr
-          }
-          group
-          level
-        }
+      group
+      level
+    }
+    users {
+      id
+      firstName
+      lastName
+      email
+    }
+    cmoAssets {
+      id
+      key
+      name {
+        en
+        fr
       }
-      user {
-        id
-        firstName
-        lastName
-        email
-      }
-      cmoIdentifier
-      expiryDate
-      isWoman
-      hasDisability
-      isIndigenous
-      isVisibleMinority
-      hasDiploma
-      languageAbility
-      locationPreferences
-      acceptedOperationalRequirements {
-        id
-        name {
-          en
-          fr
-        }
-      }
-      expectedSalary
-      expectedClassifications {
-        id
-        name {
-          en
-          fr
-        }
-        group
-        level
-      }
-      cmoAssets {
-        id
-        name {
-          en
-          fr
-        }
-      }
-      status
     }
     operationalRequirements {
+      id
+      key
+      name {
+        en
+        fr
+      }
+    }
+    pools {
       id
       name {
         en

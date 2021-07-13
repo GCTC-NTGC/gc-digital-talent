@@ -12,19 +12,22 @@ import {
   PoolCandidate,
   useUpdatePoolCandidateMutation,
   UpdatePoolCandidateMutation,
-  Maybe,
-  useGetClassificationsQuery,
-  useGetCmoAssetsQuery,
-  useGetOperationalRequirementsQuery,
   useGetPoolCandidateQuery,
+  useGetPoolCandidatesForFormQuery,
 } from "../../api/generated";
 import errorMessages from "../form/errorMessages";
 import Submit from "../form/Submit";
 import Select from "../form/Select";
 import Input from "../form/Input";
-import { enumToOptions, getId, notEmpty } from "../../helpers/util";
+import { notEmpty } from "../../helpers/util";
 import MultiSelect from "../form/MultiSelect";
-import { unpackIds, unpackMaybes } from "../form/formUtils";
+import {
+  unpackIds,
+  unpackMaybes,
+  currentDate,
+  enumToOptions,
+} from "../form/formUtils";
+import { getSalaryRange } from "../../model/localizedConstants";
 
 type Option<V> = { value: V; label: string };
 
@@ -262,28 +265,20 @@ export const UpdatePoolCandidate: React.FunctionComponent<{
   const [poolCandidateState] = useGetPoolCandidateQuery({
     variables: { id: poolCandidateId },
   });
-  const [classificationsState] = useGetClassificationsQuery();
+  const { fetching: fetchingPoolCandidate, error: poolCandidateError } =
+    poolCandidateState;
+  const [lookupResult] = useGetPoolCandidatesForFormQuery();
+  const {
+    data: lookupData,
+    fetching: fetchingLookupData,
+    error: lookupDataError,
+  } = lookupResult;
   const classifications: Classification[] | [] =
-    classificationsState.data?.classifications.filter(notEmpty) ?? [];
+    lookupData?.classifications.filter(notEmpty) ?? [];
+  const cmoAssets: CmoAsset[] = lookupData?.cmoAssets.filter(notEmpty) ?? [];
+  const operationalRequirements: OperationalRequirement[] =
+    lookupData?.operationalRequirements.filter(notEmpty) ?? [];
 
-  const [cmoAssetState] = useGetCmoAssetsQuery();
-  const cmoAssets = cmoAssetState.data?.cmoAssets.filter(notEmpty) ?? [];
-
-  const [operationalRequirementState] = useGetOperationalRequirementsQuery();
-  const operationalRequirements =
-    operationalRequirementState.data?.operationalRequirements.filter(
-      notEmpty,
-    ) ?? [];
-
-  const fetchingData =
-    classificationsState.fetching ||
-    cmoAssetState.fetching ||
-    operationalRequirementState.fetching;
-  const errors = [
-    classificationsState.error,
-    cmoAssetState.error,
-    operationalRequirementState.error,
-  ];
   const [_result, executeMutation] = useUpdatePoolCandidateMutation();
   const handleUpdatePoolCandidate = (
     id: string,
@@ -296,11 +291,10 @@ export const UpdatePoolCandidate: React.FunctionComponent<{
       return Promise.reject(result.error);
     });
 
-  if (fetchingData) return <p>Loading...</p>;
-  if (errors.length !== 0)
-    return (
-      <>{errors.map((error) => error && <p>Oh no... {error.message}</p>)}</>
-    );
+  if (fetchingLookupData || fetchingPoolCandidate) return <p>Loading...</p>;
+  if (lookupDataError) return <p>Oh no... {lookupDataError.message}</p>;
+  if (poolCandidateError) return <p>Oh no... {poolCandidateError.message}</p>;
+
   return poolCandidateState.data?.poolCandidate ? (
     <UpdatePoolCandidateForm
       classifications={classifications}
