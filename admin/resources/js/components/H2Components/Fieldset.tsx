@@ -4,12 +4,19 @@ import InputContext from "./InputContext";
 import InputError from "./InputError";
 
 export interface FieldsetProps {
+  /** The text for the legend element. */
   legend: string;
+  /** The name of this form control. */
   name?: string;
+  /** Controls whether Required or Optional text appears above the fieldset. */
   required?: boolean;
+  /** If an error string is provided, it will appear below the fieldset inputs. */
   error?: string;
+  /** If a context string is provided, a small button will appear which, when toggled, shows the context string. */
   context?: string;
+  /** If true, all input elements in this fieldset will be disabled. */
   disabled?: boolean;
+  /** If true, and required is false, 'Optional' will not be shown above the fieldset. */
   hideOptional?: boolean;
 }
 
@@ -25,7 +32,13 @@ export const Fieldset: React.FC<FieldsetProps> = ({
 }) => {
   const [contextIsActive, setContextIsActive] = useState(false);
   return (
-    <fieldset name={name} disabled={disabled}>
+    <fieldset
+      name={name}
+      disabled={disabled}
+      style={{
+        border: "0 none",
+      }}
+    >
       <div data-h2-flex-grid="b(middle, contained, flush, none)">
         <div data-h2-flex-item="b(1of1) s(1of2)" data-h2-text-align="b(left)">
           <legend data-h2-font-size="b(caption)">{legend}</legend>
