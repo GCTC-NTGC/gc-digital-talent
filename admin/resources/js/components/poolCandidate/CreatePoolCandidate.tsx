@@ -174,7 +174,7 @@ export const CreatePoolCandidateForm: React.FunctionComponent<CreatePoolCandidat
               rules={{
                 required: errorMessages.required,
                 min: {
-                  value: new Date().toISOString().slice(0, 10),
+                  value: currentDate(),
                   message: errorMessages.futureDate,
                 },
               }}
