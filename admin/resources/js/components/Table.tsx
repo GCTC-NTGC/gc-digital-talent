@@ -2,6 +2,7 @@
 import React, { ReactElement, useState } from "react";
 import { useTable, useGlobalFilter, useSortBy, Column } from "react-table";
 import GlobalFilter from "./GlobalFilter";
+import Button from "./H2Components/Button";
 
 export type ColumnsOf<T extends Record<string, unknown>> = Array<Column<T>>;
 
@@ -65,7 +66,7 @@ function Table<T extends Record<string, unknown>>({
         {filter ? (
           <>
             <tr>
-              <td>
+              <td data-h2-padding="b(bottom, xs)">
                 <GlobalFilter
                   preGlobalFilteredRows={preGlobalFilteredRows}
                   globalFilter={state.globalFilter}
@@ -75,15 +76,15 @@ function Table<T extends Record<string, unknown>>({
             </tr>
             <tr>
               <td>
-                <button
-                  type="button"
-                  data-h2-display="b(block)"
+                <Button
+                  color="secondary"
+                  mode="solid"
                   onClick={() => {
                     setShowList(!showList);
                   }}
                 >
                   Table Columns
-                </button>
+                </Button>
                 {showList ? (
                   <div
                     style={{
