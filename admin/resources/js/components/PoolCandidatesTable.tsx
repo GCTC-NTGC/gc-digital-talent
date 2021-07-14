@@ -1,5 +1,8 @@
 import React, { useMemo } from "react";
-import { GetPoolCandidatesQuery } from "../api/generated";
+import {
+  GetPoolCandidatesQuery,
+  useGetPoolCandidatesQuery,
+} from "../api/generated";
 import { notEmpty } from "../helpers/util";
 import { FromArray } from "../types/utilityTypes";
 import Table, { ColumnsOf } from "./Table";
@@ -75,3 +78,13 @@ const PoolCandidatesTable: React.FC<GetPoolCandidatesQuery> = ({
 };
 
 export default PoolCandidatesTable;
+
+export const PoolCandidatesTableApi: React.FunctionComponent = () => {
+  const [result] = useGetPoolCandidatesQuery();
+  const { data, fetching, error } = result;
+
+  if (fetching) return <p>Loading...</p>;
+  if (error) return <p>Oh no... {error.message}</p>;
+
+  return <PoolCandidatesTable poolCandidates={data?.poolCandidates ?? []} />;
+};
