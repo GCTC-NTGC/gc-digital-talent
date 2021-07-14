@@ -3,8 +3,8 @@ import React from "react";
 export interface ButtonProps {
   children: React.ReactNode;
   color: "primary" | "secondary" | "cta" | "white";
-  style: "solid" | "outline" | "inline";
-  onClick?: () => void;
+  mode: "solid" | "outline" | "inline";
+  onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 const colorMap: Record<
@@ -87,18 +87,18 @@ const colorMap: Record<
 const Button: React.FC<ButtonProps> = ({
   children,
   color,
-  style,
+  mode,
   onClick,
 }): React.ReactElement => {
   return (
     <button
       type="button"
-      data-h2-border={`b(${colorMap[color][style].border}, all, solid, s)`}
+      data-h2-border={`b(${colorMap[color][mode].border}, all, solid, s)`}
       data-h2-radius="b(s)"
       data-h2-padding="b(top-bottom, xs) b(right-left, s)"
-      data-h2-bg-color={`b(${colorMap[color][style].background})`}
-      data-h2-font-color={`b(${colorMap[color][style].font})`}
-      data-h2-font-size="b(caption) m(h5)"
+      data-h2-bg-color={`b(${colorMap[color][mode].background})`}
+      data-h2-font-color={`b(${colorMap[color][mode].font})`}
+      data-h2-font-size="b(caption) m(normal)"
       data-h2-font-weight="b(400)"
       data-h2-font-style="b(underline)"
       style={{ cursor: "pointer" }}

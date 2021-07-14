@@ -10,10 +10,11 @@
   <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png")>
   <link rel="manifest" href="/site.webmanifest">
   <link href="{{ mix('css/hydrogen.css') }}" rel="stylesheet" type="text/css"/>
+  <link href="{{ mix('css/app.css') }}" rel="stylesheet" type="text/css"/>
   <title>GC Talent</title>
 </head>
 <body>
   <div id="app" data-h2-font-family="b(sans)"></div>
-  <script src="{{ mix("js/dashboard.js") }}"></script>
+  <script src="{{ mix('js/dashboard.js') }}"></script>
 </body>
 </html>
