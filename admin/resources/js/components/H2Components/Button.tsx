@@ -97,7 +97,6 @@ const Button: React.FC<ButtonProps> = ({
       data-h2-radius="b(s)"
       data-h2-padding="b(top-bottom, xs) b(right-left, s)"
       data-h2-bg-color={`b(${colorMap[color][style].background})`}
-      data-h2-font-family="b(sans)"
       data-h2-font-color={`b(${colorMap[color][style].font})`}
       data-h2-font-size="b(caption) m(h5)"
       data-h2-font-weight="b(400)"
