@@ -80,7 +80,7 @@ function Table<T extends Record<string, unknown>>({
                   color="secondary"
                   mode="solid"
                   onClick={() => {
-                    setShowList(!showList);
+                    setShowList((currentState) => !currentState);
                   }}
                 >
                   Table Columns
