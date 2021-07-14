@@ -1,9 +1,10 @@
-import * as React from "react";
+import React from "react";
 import get from "lodash/get";
 import { RegisterOptions, useFormContext } from "react-hook-form";
+import { InputWrapper } from "../H2Components/InputWrapper";
 
-export interface InputProps
-  extends React.InputHTMLAttributes<HTMLInputElement> {
+export interface CheckboxProps
+  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "type"> {
   /** HTML id used to identify the element. */
   id: string;
   /** Holds text for the label associated with the input element */
@@ -12,14 +13,16 @@ export interface InputProps
   name: string;
   /** Set of validation rules and error messages to impose on input. */
   rules?: RegisterOptions;
+  /** Optional context which user can view by toggling a button. */
+  context?: string;
 }
 
-const Input: React.FunctionComponent<InputProps> = ({
+const Checkbox: React.FunctionComponent<CheckboxProps> = ({
   id,
   label,
   name,
   rules = {},
-  type,
+  context,
   ...rest
 }) => {
   const {
@@ -30,18 +33,24 @@ const Input: React.FunctionComponent<InputProps> = ({
   const error = get(errors, name)?.message;
 
   return (
-    <div>
-      <label htmlFor={id}>{label}</label>
+    <InputWrapper
+      inputId={id}
+      label={label}
+      required={!!rules.required}
+      context={context}
+      error={error}
+      hideOptional
+    >
       <input
+        style={{ order: -1 }}
         id={id}
         {...register(name, rules)}
-        type={type}
+        type="checkbox"
         aria-invalid={error ? "true" : "false"}
         {...rest}
       />
-      {error && <span role="alert">{error}</span>}
-    </div>
+    </InputWrapper>
   );
 };
 
-export default Input;
+export default Checkbox;

@@ -7,6 +7,7 @@ export interface InputLabelProps {
   required: boolean;
   contextIsVisible?: boolean;
   contextToggleHandler?: (contextIsActive: boolean) => void;
+  hideOptional?: boolean;
 }
 
 const InputLabel: React.FC<InputLabelProps> = ({
@@ -17,6 +18,7 @@ const InputLabel: React.FC<InputLabelProps> = ({
     /* returns nothing */
   },
   contextIsVisible = false,
+  hideOptional = false,
 }): React.ReactElement => {
   const [contextIsActive, setContextIsActive] = useState(false);
   const clickHandler = () => {
@@ -34,12 +36,17 @@ const InputLabel: React.FC<InputLabelProps> = ({
         data-h2-flex-item="b(1of1) s(1of2)"
         data-h2-text-align="b(left) s(right)"
       >
-        <span
-          data-h2-font-size="b(caption)"
-          data-h2-font-color={required ? "b(red)" : "b(darkgray)"}
-        >
-          {required ? "Required" : "Optional"}
-        </span>
+        {
+          /** If hideOptional is true, only show text if required is true. */
+          (required || !hideOptional) && (
+            <span
+              data-h2-font-size="b(caption)"
+              data-h2-font-color={required ? "b(red)" : "b(darkgray)"}
+            >
+              {required ? "Required" : "Optional"}
+            </span>
+          )
+        }
         {contextIsVisible && (
           <button
             type="button"
