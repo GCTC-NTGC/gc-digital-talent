@@ -16,15 +16,11 @@ export default {
 } as Meta;
 
 const TemplateSelect: Story<SelectProps> = (args) => {
-  const { id } = args;
-  const methods = useForm<any>();
+  const methods = useForm<SelectProps>();
   return (
     <FormProvider {...methods}>
       <div>
         <Select {...args} />
-      </div>
-      <div>
-        <input id={id} type="text" style={{ minWidth: "100%" }} />
       </div>
     </FormProvider>
   );
