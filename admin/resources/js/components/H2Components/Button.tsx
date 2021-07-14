@@ -4,7 +4,7 @@ export interface ButtonProps {
   children: React.ReactNode;
   color: "primary" | "secondary" | "cta" | "white";
   mode: "solid" | "outline" | "inline";
-  onClick?: () => void;
+  onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 const colorMap: Record<
