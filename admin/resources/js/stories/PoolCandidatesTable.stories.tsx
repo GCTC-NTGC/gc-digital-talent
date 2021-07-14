@@ -1,10 +1,11 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
 import { createClient } from "urql";
-import PoolCandidatesTable from "../components/PoolCandidatesTable";
+import PoolCandidatesTable, {
+  PoolCandidatesTableApi,
+} from "../components/PoolCandidatesTable";
 import fakePoolCandidates from "../fakeData/fakePoolCandidates";
 import ClientProvider from "../components/ClientProvider";
-import { ClassificationTableApi } from "../components/ClassificationTable";
 
 const poolCandidateData = fakePoolCandidates();
 // Its possible data may come back from api with missing data.
@@ -20,6 +21,6 @@ const client = createClient({
 });
 stories.add("Pool Candidates Table with API data", () => (
   <ClientProvider client={client}>
-    <ClassificationTableApi />
+    <PoolCandidatesTableApi />
   </ClientProvider>
 ));
