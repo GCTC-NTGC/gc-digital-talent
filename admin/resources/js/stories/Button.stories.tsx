@@ -7,21 +7,6 @@ export default {
   component: Button,
   title: "Components/Button",
   argTypes: {
-    borderColor: {
-      table: {
-        disable: true,
-      },
-    },
-    backgroundColor: {
-      table: {
-        disable: true,
-      },
-    },
-    fontColor: {
-      table: {
-        disable: true,
-      },
-    },
     onClick: {
       table: {
         disable: true,
@@ -49,97 +34,85 @@ export const ButtonWhiteInline = TemplateButton.bind({});
 
 ButtonPrimary.args = {
   children: "Button Label",
-  borderColor: "lightpurple",
-  backgroundColor: "lightpurple",
-  fontColor: "white",
+  color: "primary",
+  style: "solid",
   onClick: action("Button clicked"),
 };
 
 ButtonPrimaryOutline.args = {
   children: "Button Label",
-  borderColor: "lightpurple",
-  backgroundColor: "[light]lightpurple[.1]",
-  fontColor: "lightpurple",
+  color: "primary",
+  style: "outline",
   onClick: action("Button clicked"),
 };
 
 ButtonPrimaryInline.args = {
   children: "Button Label",
-  borderColor: "[light]white[0]",
-  backgroundColor: "[light]white[0]",
-  fontColor: "lightpurple",
+  color: "primary",
+  style: "inline",
   onClick: action("Button clicked"),
 };
 
 ButtonSecondary.args = {
   children: "Button Label",
-  borderColor: "lightnavy",
-  backgroundColor: "lightnavy",
-  fontColor: "white",
+  color: "secondary",
+  style: "solid",
   onClick: action("Button clicked"),
 };
 
 ButtonSecondaryOutline.args = {
   children: "Button Label",
-  borderColor: "lightnavy",
-  backgroundColor: "[light]lightnavy[.1]",
-  fontColor: "lightnavy",
+  color: "secondary",
+  style: "outline",
   onClick: action("Button clicked"),
 };
 
 ButtonSecondaryInline.args = {
   children: "Button Label",
-  borderColor: "[light]white[0]",
-  backgroundColor: "[light]white[0]",
-  fontColor: "lightnavy",
+  color: "secondary",
+  style: "inline",
   onClick: action("Button clicked"),
 };
 
 ButtonCTA.args = {
   children: "Button Label",
-  borderColor: "darkgold",
-  backgroundColor: "darkgold",
-  fontColor: "black",
+  color: "cta",
+  style: "solid",
   onClick: action("Button clicked"),
 };
 
 ButtonCTAOutline.args = {
   children: "Button Label",
-  borderColor: "darkgold",
-  backgroundColor: "[light]darkgold[.1]",
-  fontColor: "darkgold",
+  color: "cta",
+  style: "outline",
   onClick: action("Button clicked"),
 };
 
 ButtonCTAInline.args = {
   children: "Button Label",
-  borderColor: "[light]white[0]",
-  backgroundColor: "[light]white[0]",
-  fontColor: "darkgold",
+  color: "cta",
+  style: "inline",
   onClick: action("Button clicked"),
 };
 
 ButtonWhite.args = {
   children: "Button Label",
-  borderColor: "white",
-  backgroundColor: "white",
-  fontColor: "lightpurple",
+  color: "white",
+  style: "solid",
   onClick: action("Button clicked"),
 };
 
 ButtonWhiteOutline.args = {
   children: "Button Label",
-  borderColor: "white",
-  backgroundColor: "[light]white[0]",
-  fontColor: "white",
+  color: "white",
+  style: "outline",
   onClick: action("Button clicked"),
 };
 
 ButtonWhiteInline.args = {
   children: "Button Label",
-  borderColor: "[light]white[0]",
-  backgroundColor: "[light]white[0]",
-  fontColor: "white",
+  color: "white",
+  style: "inline",
   onClick: action("Button clicked"),
 };
 
