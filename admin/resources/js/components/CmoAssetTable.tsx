@@ -1,8 +1,9 @@
 import React, { useMemo } from "react";
 import { GetCmoAssetsQuery, useGetCmoAssetsQuery } from "../api/generated";
-import { Link, useLocation } from "../helpers/router";
+import { navigate, useLocation } from "../helpers/router";
 import { notEmpty } from "../helpers/util";
 import { FromArray } from "../types/utilityTypes";
+import Button from "./H2Components/Button";
 import Table, { ColumnsOf } from "./Table";
 
 type Data = NonNullable<FromArray<GetCmoAssetsQuery["cmoAssets"]>>;
@@ -34,9 +35,16 @@ export const CmoAssetTable: React.FC<
         Header: "Edit",
         id: "edit",
         accessor: ({ id }) => (
-          <Link href={`${editUrlRoot}/${id}/edit`} title="">
+          <Button
+            color="white"
+            mode="solid"
+            onClick={(event) => {
+              event.preventDefault();
+              navigate(`${editUrlRoot}/${id}/edit`);
+            }}
+          >
             Edit
-          </Link>
+          </Button>
         ),
       },
     ],
