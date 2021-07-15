@@ -2,7 +2,9 @@ import React from "react";
 import { storiesOf } from "@storybook/react";
 import { createClient } from "urql";
 import { action } from "@storybook/addon-actions";
-import PoolCandidatesTable from "../components/poolCandidate/PoolCandidatesTable";
+import PoolCandidatesTable, {
+  PoolCandidatesTableApi,
+} from "../components/poolCandidate/PoolCandidatesTable";
 import fakePoolCandidates from "../fakeData/fakePoolCandidates";
 import {
   CreatePoolCandidateInput,
@@ -48,11 +50,11 @@ stories.add("Pool Candidates Table", () => (
 const client = createClient({
   url: "http://localhost:8000/graphql",
 });
-// stories.add("Pool Candidates Table with API data", () => (
-//   <ClientProvider client={client}>
-//     <PoolCandidatesTable />
-//   </ClientProvider>
-// ));
+stories.add("Pool Candidates Table with API data", () => (
+  <ClientProvider client={client}>
+    <PoolCandidatesTableApi />
+  </ClientProvider>
+));
 
 stories.add("Create Pool Candidate Form", () => (
   <CreatePoolCandidateForm

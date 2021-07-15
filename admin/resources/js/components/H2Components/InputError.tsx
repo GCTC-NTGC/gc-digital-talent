@@ -5,7 +5,7 @@ const InputError: React.FC<{ isVisible: boolean; error: string }> = ({
   isVisible,
 }) => {
   return isVisible ? (
-    <p
+    <span
       data-h2-display="b(inline-block)"
       data-h2-radius="b(s)"
       data-h2-bg-color="b(red[.1])"
@@ -15,7 +15,7 @@ const InputError: React.FC<{ isVisible: boolean; error: string }> = ({
       role="alert"
     >
       {error}
-    </p>
+    </span>
   ) : null;
 };
 
