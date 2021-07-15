@@ -1,6 +1,6 @@
 import React from "react";
 import { Routes } from "universal-router";
-import { Link, RouterResult, useLocation } from "../helpers/router";
+import { Link, RouterResult } from "../helpers/router";
 import { ClassificationTableApi } from "./ClassificationTable";
 import ClientProvider from "./ClientProvider";
 import { CreateCmoAsset } from "./cmoAssets/CreateCmoAsset";
@@ -126,11 +126,8 @@ const menuItems = [
 ];
 
 export const PoolDashboard: React.FC = () => {
-  const location = useLocation();
-
   return (
     <div>
-      <p>Current path: {location.pathname}</p>
       <ErrorContainer>
         <ClientProvider>
           <Dashboard menuItems={menuItems} contentRoutes={routes} />
