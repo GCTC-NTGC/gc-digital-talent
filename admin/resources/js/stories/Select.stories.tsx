@@ -72,8 +72,8 @@ SelectRequiredwInfo.args = {
   },
 };
 
-export const SelectRequiredwError = TemplateSelect.bind({});
-SelectRequiredwError.args = {
+export const SelectRequiredWithError = TemplateSelect.bind({});
+SelectRequiredWithError.args = {
   id: "uniqueId",
   label: "Select a dept",
   name: "departments",
@@ -81,6 +81,22 @@ SelectRequiredwError.args = {
     { value: 1, text: "CRA" },
     { value: 2, text: "CBSA" },
   ],
+  error: "The field above needs to be complete in order to proceed.",
+  rules: {
+    required: true,
+  },
+};
+
+export const SelectRequiredWithErrorAndContext = TemplateSelect.bind({});
+SelectRequiredWithErrorAndContext.args = {
+  id: "uniqueId",
+  label: "Select a dept",
+  name: "departments",
+  options: [
+    { value: 1, text: "CRA" },
+    { value: 2, text: "CBSA" },
+  ],
+  context: "We collect the above data for account purposes.",
   error: "The field above needs to be complete in order to proceed.",
   rules: {
     required: true,

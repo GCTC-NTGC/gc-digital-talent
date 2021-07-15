@@ -48,21 +48,32 @@ const Select: React.FunctionComponent<SelectProps> = ({
           </label>
         </div>
         <div data-h2-flex-item="b(1of2)">
-          <>
-            {contextIsActive ? (
-              <XCircleIcon
-                style={{ width: "calc(1rem/1.25)", float: "right" }}
-                data-h2-font-color="b(lightpurple)"
-                data-h2-margin="b(left, xxs)"
-              />
-            ) : (
-              <QuestionMarkCircleIcon
-                style={{ width: "calc(1rem/1.25)", float: "right" }}
-                data-h2-font-color="b(lightpurple)"
-                data-h2-margin="b(left, xxs)"
-              />
-            )}
-          </>
+          {context && (
+            <button
+              type="button"
+              style={{ float: "right" }}
+              className="input-label-context-button"
+              data-h2-margin="b(left, xxs)"
+              title="Toggle Context"
+              onClick={() =>
+                setContextIsActive((currentState) => !currentState)
+              }
+            >
+              <>
+                {contextIsActive ? (
+                  <XCircleIcon
+                    style={{ width: "calc(1rem/1.25)" }}
+                    data-h2-font-color="b(lightpurple)"
+                  />
+                ) : (
+                  <QuestionMarkCircleIcon
+                    style={{ width: "calc(1rem/1.25)" }}
+                    data-h2-font-color="b(lightpurple)"
+                  />
+                )}
+              </>
+            </button>
+          )}
           <label
             data-h2-font-size="b(caption)"
             data-h2-bg-color="b(theme-1)"
@@ -98,8 +109,12 @@ const Select: React.FunctionComponent<SelectProps> = ({
           </option>
         ))}
       </select>
-      {context && <InputContext isVisible={!!context} context={context} />}
       {error && <InputError isVisible={!!error} error={error} />}
+      {contextIsActive && context && (
+        <div data-h2-margin="b(top, xxs)">
+          <InputContext isVisible={!!context} context={context} />
+        </div>
+      )}
       {formError && <span role="alert">{formError}</span>}
     </div>
   );
