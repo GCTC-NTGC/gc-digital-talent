@@ -1,5 +1,6 @@
 import * as React from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import { pick } from "lodash";
 import {
   UpdatePoolCandidateInput,
   LanguageAbility,
@@ -12,8 +13,7 @@ import {
   PoolCandidate,
   useUpdatePoolCandidateMutation,
   UpdatePoolCandidateMutation,
-  useGetPoolCandidateQuery,
-  useGetPoolCandidatesForFormQuery,
+  useGetUpdatePoolCandidateDataQuery,
 } from "../../api/generated";
 import errorMessages from "../form/errorMessages";
 import Submit from "../form/Submit";
@@ -262,12 +262,9 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<UpdatePoolCandidat
 export const UpdatePoolCandidate: React.FunctionComponent<{
   poolCandidateId: string;
 }> = ({ poolCandidateId }) => {
-  const [poolCandidateState] = useGetPoolCandidateQuery({
+  const [lookupResult] = useGetUpdatePoolCandidateDataQuery({
     variables: { id: poolCandidateId },
   });
-  const { fetching: fetchingPoolCandidate, error: poolCandidateError } =
-    poolCandidateState;
-  const [lookupResult] = useGetPoolCandidatesForFormQuery();
   const {
     data: lookupData,
     fetching: fetchingLookupData,
@@ -284,22 +281,42 @@ export const UpdatePoolCandidate: React.FunctionComponent<{
     id: string,
     data: UpdatePoolCandidateInput,
   ) =>
-    executeMutation({ id, poolCandidate: data }).then((result) => {
+    /* We must pick only the fields belonging to UpdateUserInput, because its possible
+      the data object contains other props at runtime, and this will cause the
+      graphql operation to fail. */
+    executeMutation({
+      id,
+      poolCandidate: pick(data, [
+        "cmoIdentifier",
+        "expiryDate",
+        "isWoman",
+        "hasDisability",
+        "isIndigenous",
+        "isVisibleMinority",
+        "hasDiploma",
+        "languageAbility",
+        "locationPreferences",
+        "acceptedOperationalRequirements",
+        "expectedSalary",
+        "expectedClassifications",
+        "cmoAssets",
+        "status",
+      ]),
+    }).then((result) => {
       if (result.data?.updatePoolCandidate) {
         return result.data?.updatePoolCandidate;
       }
       return Promise.reject(result.error);
     });
 
-  if (fetchingLookupData || fetchingPoolCandidate) return <p>Loading...</p>;
+  if (fetchingLookupData) return <p>Loading...</p>;
   if (lookupDataError) return <p>Oh no... {lookupDataError.message}</p>;
-  if (poolCandidateError) return <p>Oh no... {poolCandidateError.message}</p>;
 
-  return poolCandidateState.data?.poolCandidate ? (
+  return lookupData?.poolCandidate ? (
     <UpdatePoolCandidateForm
       classifications={classifications}
       cmoAssets={cmoAssets}
-      initialPoolCandidate={poolCandidateState.data.poolCandidate}
+      initialPoolCandidate={lookupData.poolCandidate}
       locale="en"
       operationalRequirements={operationalRequirements}
       handleUpdatePoolCandidate={handleUpdatePoolCandidate}
