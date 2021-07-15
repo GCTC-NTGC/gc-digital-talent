@@ -687,7 +687,7 @@ export type PoolCandidateFragment = { __typename?: "PoolCandidate" } & Pick<
         Maybe<
           { __typename?: "OperationalRequirement" } & Pick<
             OperationalRequirement,
-            "id" | "key"
+            "id"
           > & {
               name: { __typename?: "LocalizedString" } & Pick<
                 LocalizedString,
@@ -717,7 +717,7 @@ export type PoolCandidateFragment = { __typename?: "PoolCandidate" } & Pick<
     cmoAssets?: Maybe<
       Array<
         Maybe<
-          { __typename?: "CmoAsset" } & Pick<CmoAsset, "id" | "key"> & {
+          { __typename?: "CmoAsset" } & Pick<CmoAsset, "id"> & {
               name: { __typename?: "LocalizedString" } & Pick<
                 LocalizedString,
                 "en" | "fr"
@@ -1134,7 +1134,6 @@ export const PoolCandidateFragmentDoc = gql`
     locationPreferences
     acceptedOperationalRequirements {
       id
-      key
       name {
         en
         fr
@@ -1152,7 +1151,6 @@ export const PoolCandidateFragmentDoc = gql`
     }
     cmoAssets {
       id
-      key
       name {
         en
         fr

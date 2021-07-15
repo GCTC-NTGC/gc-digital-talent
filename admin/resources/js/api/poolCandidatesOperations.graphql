@@ -1,62 +1,60 @@
 fragment poolCandidate on PoolCandidate {
-  id
+  id,
   pool {
-    id
+    id,
     name {
-      en
+      en,
       fr
-    }
+    },
     classifications {
-      id
+      id,
       name {
-        en
+        en,
         fr
-      }
-      group
+      },
+      group,
       level
-    }
-  }
+    },
+  },
   user {
-    id
-    firstName
-    lastName
+    id,
+    firstName,
+    lastName,
     email
-  }
-  cmoIdentifier
-  expiryDate
-  isWoman
-  hasDisability
-  isIndigenous
-  isVisibleMinority
-  hasDiploma
-  languageAbility
-  locationPreferences
+  },
+  cmoIdentifier,
+  expiryDate,
+  isWoman,
+  hasDisability,
+  isIndigenous,
+  isVisibleMinority,
+  hasDiploma,
+  languageAbility,
+  locationPreferences,
   acceptedOperationalRequirements {
-    id
-    key
+    id,
     name {
-      en
+      en,
       fr
     }
-  }
-  expectedSalary
+  },
+  expectedSalary,
   expectedClassifications {
-    id
+    id,
     name {
-      en
+      en,
       fr
     }
-    group
+    group,
     level
   }
   cmoAssets {
-    id
-    key
+    id,
     name {
-      en
+      en,
       fr
     }
-  }
+  },
   status
 }
 
