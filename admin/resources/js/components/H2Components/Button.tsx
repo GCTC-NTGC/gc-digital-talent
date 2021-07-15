@@ -1,9 +1,15 @@
 import React from "react";
 
 export interface ButtonProps {
+  /** The child elements to appear within the parent element. */
   children: React.ReactNode;
+  /** The style type of the element. */
   color: "primary" | "secondary" | "cta" | "white";
+  /** The style mode of the element. */
   mode: "solid" | "outline" | "inline";
+  /** Determines whether the element should be block level and 100% width. */
+  block?: boolean;
+  /** The click handler for the element. */
   onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
@@ -88,11 +94,13 @@ const Button: React.FC<ButtonProps> = ({
   children,
   color,
   mode,
+  block = false,
   onClick,
 }): React.ReactElement => {
   return (
     <button
       type="button"
+      data-h2-display={block ? "block" : "inline-block"}
       data-h2-border={`b(${colorMap[color][mode].border}, all, solid, s)`}
       data-h2-radius="b(s)"
       data-h2-padding="b(top-bottom, xs) b(right-left, s)"
@@ -101,7 +109,7 @@ const Button: React.FC<ButtonProps> = ({
       data-h2-font-size="b(caption) m(normal)"
       data-h2-font-weight="b(400)"
       data-h2-font-style="b(underline)"
-      style={{ cursor: "pointer" }}
+      style={{ cursor: "pointer", width: block ? "100%" : "auto" }}
       onClick={onClick}
     >
       {children}
