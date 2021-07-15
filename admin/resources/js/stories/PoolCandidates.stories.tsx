@@ -19,14 +19,21 @@ import {
   SalaryRange,
   UpdatePoolCandidateMutation,
 } from "../api/generated";
-import { CreatePoolCandidateForm } from "../components/poolCandidate/CreatePoolCandidate";
+import {
+  CreatePoolCandidate,
+  CreatePoolCandidateForm,
+} from "../components/poolCandidate/CreatePoolCandidate";
 import fakeUsers from "../fakeData/fakeUsers";
 import fakeClassifications from "../fakeData/fakeClassifications";
 import fakePools from "../fakeData/fakePools";
 import fakeCmoAssets from "../fakeData/fakeCmoAssets";
 import fakeOperationalRequirements from "../fakeData/fakeOperationalRequirements";
-import { UpdatePoolCandidateForm } from "../components/poolCandidate/UpdatePoolCandidate";
+import {
+  UpdatePoolCandidate,
+  UpdatePoolCandidateForm,
+} from "../components/poolCandidate/UpdatePoolCandidate";
 import { currentDate } from "../components/form/formUtils";
+import ClientProvider from "../components/ClientProvider";
 
 const poolCandidateData = fakePoolCandidates();
 // Its possible data may come back from api with missing data.
@@ -38,9 +45,9 @@ stories.add("Pool Candidates Table", () => (
 ));
 
 // TODO: Pool Candidates Table API
-// const client = createClient({
-//   url: "http://localhost:8000/graphql",
-// });
+const client = createClient({
+  url: "http://localhost:8000/graphql",
+});
 // stories.add("Pool Candidates Table with API data", () => (
 //   <ClientProvider client={client}>
 //     <PoolCandidatesTable />
@@ -112,5 +119,21 @@ stories.add("Update Pool Candidate Form", () => {
         );
       }}
     />
+  );
+});
+
+stories.add("Create Pool Candidate Form with API", () => {
+  return (
+    <ClientProvider client={client}>
+      <CreatePoolCandidate />
+    </ClientProvider>
+  );
+});
+
+stories.add("Update Pool Candidate Form with API", () => {
+  return (
+    <ClientProvider client={client}>
+      <UpdatePoolCandidate poolCandidateId="1" />
+    </ClientProvider>
   );
 });
