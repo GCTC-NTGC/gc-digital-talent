@@ -6,3 +6,16 @@
     background: transparent;
     cursor: pointer;
 }
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table tbody tr:nth-of-type(odd) {
+    background-color: rgba(71, 62, 114, 0.12);
+}
+
+table tbody tr:nth-of-type(even) {
+    background-color: #FAFAFA;
+}

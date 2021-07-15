@@ -10,27 +10,27 @@
     {
       "name": "white",
       "color": "#FFFFFF",
-      "opacity": false
+      "opacity": true
     },
     {
       "name": "black",
       "color": "#1E1E23",
-      "opacity": false
+      "opacity": true
     },
     {
       "name": "gray",
       "color": "#B9B9B9",
-      "opacity": false
+      "opacity": true
     },
     {
       "name": "darkgray",
       "color": "#646464",
-      "opacity": false
+      "opacity": true
     },
     {
       "name": "lightgray",
       "color": "#F0F0F0",
-      "opacity": false
+      "opacity": true
     },
     {
       "name": "red",
@@ -40,32 +40,32 @@
     {
       "name": "gold",
       "color": "#F9C160",
-      "opacity": false
+      "opacity": true
     },
     {
       "name": "darkgold",
       "color": "#F8A812",
-      "opacity": false
+      "opacity": true
     },
     {
       "name": "lightgold",
       "color": "#FBDCA5",
-      "opacity": false
+      "opacity": true
     },
     {
       "name": "darknavy",
       "color": "#072131",
-      "opacity": false
+      "opacity": true
     },
     {
       "name": "lightnavy",
       "color": "#1D2C4C",
-      "opacity": false
+      "opacity": true
     },
     {
       "name": "darkpurple",
       "color": "#363661",
-      "opacity": false
+      "opacity": true
     },
     {
       "name": "lightpurple",
