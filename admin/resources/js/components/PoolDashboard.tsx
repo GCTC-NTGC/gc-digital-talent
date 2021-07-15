@@ -13,7 +13,7 @@ import { CreateOperationalRequirement } from "./operationalRequirements/CreateOp
 import { UpdateOperationalRequirement } from "./operationalRequirements/UpdateOperationalRequirement";
 import { OperationalRequirementTableApi } from "./OperationalRequirementTable";
 import { CreatePoolCandidate } from "./poolCandidate/CreatePoolCandidate";
-import PoolCandidatesTable from "./poolCandidate/PoolCandidatesTable";
+import { PoolCandidatesTableApi } from "./poolCandidate/PoolCandidatesTable";
 import { UpdatePoolCandidate } from "./poolCandidate/UpdatePoolCandidate";
 import { UpdateUser } from "./UpdateUser";
 import { UserTableApi } from "./UserTable";
@@ -119,7 +119,7 @@ const routes: Routes<RouterResult> = [
           <Link href="/pool-candidates/create" title="">
             Create Pool Candidate
           </Link>
-          <div>add pool candidates table here!</div>
+          <PoolCandidatesTableApi />
         </div>
       ),
     }),

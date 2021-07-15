@@ -2,10 +2,10 @@ import React, { useMemo } from "react";
 import {
   GetPoolCandidatesQuery,
   useGetPoolCandidatesQuery,
-} from "../api/generated";
-import { notEmpty } from "../helpers/util";
-import { FromArray } from "../types/utilityTypes";
-import Table, { ColumnsOf } from "./Table";
+} from "../../api/generated";
+import { notEmpty } from "../../helpers/util";
+import { FromArray } from "../../types/utilityTypes";
+import Table, { ColumnsOf } from "../Table";
 
 type Data = NonNullable<FromArray<GetPoolCandidatesQuery["poolCandidates"]>>;
 
