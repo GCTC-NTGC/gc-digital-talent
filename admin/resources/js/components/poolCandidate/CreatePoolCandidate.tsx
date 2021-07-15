@@ -14,7 +14,7 @@ import {
   useCreatePoolCandidateMutation,
   CreatePoolCandidateMutation,
   PoolCandidate,
-  useGetPoolCandidatesForFormQuery,
+  useGetCreatePoolCandidateDataQuery,
 } from "../../api/generated";
 import errorMessages from "../form/errorMessages";
 import Submit from "../form/Submit";
@@ -275,7 +275,7 @@ export const CreatePoolCandidateForm: React.FunctionComponent<CreatePoolCandidat
   };
 
 export const CreatePoolCandidate: React.FunctionComponent = () => {
-  const [lookupResult] = useGetPoolCandidatesForFormQuery();
+  const [lookupResult] = useGetCreatePoolCandidateDataQuery();
   const { data: lookupData, fetching, error } = lookupResult;
   const classifications: Classification[] | [] =
     lookupData?.classifications.filter(notEmpty) ?? [];
