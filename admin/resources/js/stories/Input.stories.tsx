@@ -12,10 +12,12 @@ export default {
 
 const TemplateInput: Story<InputProps> = (args) => {
   return (
-    <Form onSubmit={action("Submit Form")}>
-      <Input {...args} />
-      <Submit />
-    </Form>
+    <div style={{ width: "20rem" }}>
+      <Form onSubmit={action("Submit Form")}>
+        <Input {...args} />
+        <Submit />
+      </Form>
+    </div>
   );
 };
 
@@ -27,6 +29,7 @@ TextInput.args = {
   label: "First Name",
   name: "firstName",
   rules: { required: "This field is required", maxLength: 100 },
+  context: "Additional context about this field.",
 };
 
 export const EmailInput = TemplateInput.bind({});
