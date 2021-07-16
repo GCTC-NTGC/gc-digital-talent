@@ -16,7 +16,7 @@ export const parameters = {
 const messages = {en: null, fr: null};
 setIntlConfig({
     locales: ["en", "fr"],
-    defaultLocale: "fr",
+    defaultLocale: "en",
     getMessages: (locale) => messages[locale],
 })
 
