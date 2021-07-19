@@ -7,7 +7,7 @@ export default {
   component: Button,
   title: "Components/Button",
   argTypes: {
-    children: {
+    label: {
       name: "label",
       type: { name: "string", required: true },
       defaultValue: "Button Label",
@@ -27,13 +27,13 @@ export default {
   },
 } as Meta;
 
-interface ButtonPropsAndChildren extends ButtonProps {
-  children: React.ReactNode;
-}
-
-const TemplateButton: Story<ButtonPropsAndChildren> = (args) => {
-  const { children } = args;
-  return <Button {...args}>{children}</Button>;
+const TemplateButton: Story<ButtonProps & { label: string }> = (args) => {
+  const { label, ...rest } = args;
+  return (
+    <Button {...rest}>
+      <span>{label}</span>
+    </Button>
+  );
 };
 
 export const ButtonPrimary = TemplateButton.bind({});
