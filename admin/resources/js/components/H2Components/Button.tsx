@@ -109,7 +109,11 @@ const Button: React.FC<ButtonProps> = ({
       data-h2-font-size="b(caption) m(normal)"
       data-h2-font-weight="b(400)"
       data-h2-font-style="b(underline)"
-      style={{ cursor: "pointer", width: block ? "100%" : "auto" }}
+      style={{
+        cursor: "pointer",
+        overflowWrap: "break-word",
+        width: block ? "100%" : "auto",
+      }}
       onClick={onClick}
     >
       {children}
