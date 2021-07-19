@@ -9,7 +9,7 @@ interface SelectProps extends React.SelectHTMLAttributes<HTMLSelectElement> {
   /** A string specifying a name for the input control. */
   name: string;
   /** List of options for the select element. */
-  options: { value: string | number; text: string }[];
+  options: { value: string | number; label: string }[];
   /** Object set of validation rules to impose on input. */
   rules?: RegisterOptions;
 }
@@ -36,7 +36,7 @@ const Select: React.FunctionComponent<SelectProps> = ({
         aria-invalid={error ? "true" : "false"}
         {...rest}
       >
-        {options.map(({ value, text }) => (
+        {options.map(({ value, label: text }) => (
           <option key={value} value={value}>
             {text}
           </option>
