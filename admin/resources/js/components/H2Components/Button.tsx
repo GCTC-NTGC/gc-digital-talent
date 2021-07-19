@@ -1,8 +1,6 @@
 import React from "react";
 
 export interface ButtonProps {
-  /** The child elements to appear within the parent element. */
-  children: React.ReactNode;
   /** The style type of the element. */
   color: "primary" | "secondary" | "cta" | "white";
   /** The style mode of the element. */

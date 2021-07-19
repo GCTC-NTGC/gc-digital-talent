@@ -7,6 +7,18 @@ export default {
   component: Button,
   title: "Components/Button",
   argTypes: {
+    children: {
+      name: "label",
+      type: { name: "string", required: true },
+      defaultValue: "Button Label",
+      table: {
+        type: { summary: "string" },
+        defaultValue: { summary: "Button Label" },
+      },
+      control: {
+        type: "text",
+      },
+    },
     onClick: {
       table: {
         disable: true,
@@ -15,8 +27,13 @@ export default {
   },
 } as Meta;
 
-const TemplateButton: Story<ButtonProps> = (args) => {
-  return <Button {...args} />;
+interface ButtonPropsAndChildren extends ButtonProps {
+  children: React.ReactNode;
+}
+
+const TemplateButton: Story<ButtonPropsAndChildren> = (args) => {
+  const { children } = args;
+  return <Button {...args}>{children}</Button>;
 };
 
 export const ButtonPrimary = TemplateButton.bind({});
@@ -33,84 +50,72 @@ export const ButtonWhiteOutline = TemplateButton.bind({});
 export const ButtonWhiteInline = TemplateButton.bind({});
 
 ButtonPrimary.args = {
-  children: "Button Label",
   color: "primary",
   mode: "solid",
   onClick: action("Button clicked"),
 };
 
 ButtonPrimaryOutline.args = {
-  children: "Button Label",
   color: "primary",
   mode: "outline",
   onClick: action("Button clicked"),
 };
 
 ButtonPrimaryInline.args = {
-  children: "Button Label",
   color: "primary",
   mode: "inline",
   onClick: action("Button clicked"),
 };
 
 ButtonSecondary.args = {
-  children: "Button Label",
   color: "secondary",
   mode: "solid",
   onClick: action("Button clicked"),
 };
 
 ButtonSecondaryOutline.args = {
-  children: "Button Label",
   color: "secondary",
   mode: "outline",
   onClick: action("Button clicked"),
 };
 
 ButtonSecondaryInline.args = {
-  children: "Button Label",
   color: "secondary",
   mode: "inline",
   onClick: action("Button clicked"),
 };
 
 ButtonCTA.args = {
-  children: "Button Label",
   color: "cta",
   mode: "solid",
   onClick: action("Button clicked"),
 };
 
 ButtonCTAOutline.args = {
-  children: "Button Label",
   color: "cta",
   mode: "outline",
   onClick: action("Button clicked"),
 };
 
 ButtonCTAInline.args = {
-  children: "Button Label",
   color: "cta",
   mode: "inline",
   onClick: action("Button clicked"),
 };
 
 ButtonWhite.args = {
-  children: "Button Label",
   color: "white",
   mode: "solid",
   onClick: action("Button clicked"),
 };
 
 ButtonWhiteOutline.args = {
-  children: "Button Label",
   color: "white",
   mode: "outline",
   onClick: action("Button clicked"),
 };
 
 ButtonWhiteInline.args = {
-  children: "Button Label",
   color: "white",
   mode: "inline",
   onClick: action("Button clicked"),
