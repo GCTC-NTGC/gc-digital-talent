@@ -74,6 +74,11 @@ type PoolCandidate {
     cmoAssets: [CmoAsset] @belongsToMany
 
     status: PoolCandidateStatus @rename(attribute: "pool_candidate_status")
+
+    firstLast: String @rename(attribute: "first_last")
+    email: String
+    telephone: String
+    preferredLang: String @rename(attribute: "preferred_lang")
 }
 
 enum LanguageAbility {

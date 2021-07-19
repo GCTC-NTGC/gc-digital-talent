@@ -347,6 +347,10 @@ export type PoolCandidate = {
   expectedClassifications?: Maybe<Array<Maybe<Classification>>>;
   cmoAssets?: Maybe<Array<Maybe<CmoAsset>>>;
   status?: Maybe<PoolCandidateStatus>;
+  firstLast?: Maybe<Scalars['String']>;
+  email?: Maybe<Scalars['String']>;
+  telephone?: Maybe<Scalars['String']>;
+  preferredLang?: Maybe<Scalars['String']>;
 };
 
 export type PoolCandidateHasMany = {
