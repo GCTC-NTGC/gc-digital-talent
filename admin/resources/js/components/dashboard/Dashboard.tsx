@@ -52,7 +52,7 @@ export const Dashboard: React.FC<{
       }}
     >
       <div
-        data-h2-flex-item="b(1of1) l(2of12)"
+        data-h2-flex-item="b(1of1) m(2of12)"
         data-h2-padding="b(all, m)"
         style={{
           background: "linear-gradient(90deg, #674C90 0%, #1D2C4C 100%)",
@@ -60,7 +60,7 @@ export const Dashboard: React.FC<{
       >
         <SideMenu items={menuItems} />
       </div>
-      <div data-h2-flex-item="b(1of1) l(10of12)" data-h2-padding="b(all, m)">
+      <div data-h2-flex-item="b(1of1) m(10of12)" data-h2-padding="b(all, m)">
         {content}
       </div>
     </div>
