@@ -37,6 +37,7 @@ const TemplateButton: Story<ButtonProps & { label: string }> = (args) => {
 };
 
 export const ButtonPrimary = TemplateButton.bind({});
+export const ButtonPrimaryBlock = TemplateButton.bind({});
 export const ButtonPrimaryOutline = TemplateButton.bind({});
 export const ButtonPrimaryInline = TemplateButton.bind({});
 export const ButtonSecondary = TemplateButton.bind({});
@@ -52,6 +53,13 @@ export const ButtonWhiteInline = TemplateButton.bind({});
 ButtonPrimary.args = {
   color: "primary",
   mode: "solid",
+  onClick: action("Button clicked"),
+};
+
+ButtonPrimaryBlock.args = {
+  color: "primary",
+  mode: "solid",
+  block: true,
   onClick: action("Button clicked"),
 };
 
