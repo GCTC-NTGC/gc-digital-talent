@@ -56,6 +56,10 @@ query GetPoolCandidates {
         fr
       }
     },
-    status
-  }
+    status,
+    firstLast,
+    email,
+    telephone,
+    preferredLang
+  },
 }
