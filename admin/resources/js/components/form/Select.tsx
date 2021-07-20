@@ -41,6 +41,7 @@ const Select: React.FunctionComponent<SelectProps> = ({
         label={label}
         required={!!rules?.required}
         context={context}
+        error={error}
         hideOptional
       >
         <select
@@ -54,7 +55,7 @@ const Select: React.FunctionComponent<SelectProps> = ({
           aria-invalid={error ? "true" : "false"}
           {...rest}
         >
-          <option value="" aria-label="Empty option" />
+          <option aria-label="Empty option" />
           {options.map(({ value, text }) => (
             <option data-h2-font-size="b(caption)" key={value} value={value}>
               {text}
