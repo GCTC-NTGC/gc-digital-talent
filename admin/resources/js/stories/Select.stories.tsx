@@ -1,7 +1,9 @@
 import React from "react";
 import { Story, Meta } from "@storybook/react";
-import { FormProvider, useForm } from "react-hook-form";
-import Select, { SelectProps } from "../components/H2Components/Select";
+import { action } from "@storybook/addon-actions";
+import Form from "../components/form/Form";
+import Select, { SelectProps } from "../components/form/Select";
+import Submit from "../components/form/Submit";
 
 export default {
   component: Select,
@@ -20,14 +22,14 @@ const TemplateSelect: Story<SelectProps> = (args) => {
     width: "25%",
   };
 
-  const methods = useForm<SelectProps>();
   return (
     <div style={style}>
-      <FormProvider {...methods}>
+      <Form onSubmit={action("Submit Form")}>
         <div>
           <Select {...args} />
+          <Submit />
         </div>
-      </FormProvider>
+      </Form>
     </div>
   );
 };
@@ -52,9 +54,7 @@ SelectRequired.args = {
     { value: 1, text: "CRA" },
     { value: 2, text: "CBSA" },
   ],
-  rules: {
-    required: true,
-  },
+  rules: { required: "This must be accepted to continue." },
 };
 
 export const SelectRequiredwInfo = TemplateSelect.bind({});
@@ -67,9 +67,7 @@ SelectRequiredwInfo.args = {
     { value: 2, text: "CBSA" },
   ],
   context: "We collect the above data for account purposes.",
-  rules: {
-    required: true,
-  },
+  rules: { required: "This must be accepted to continue." },
 };
 
 export const SelectRequiredWithError = TemplateSelect.bind({});
@@ -81,10 +79,7 @@ SelectRequiredWithError.args = {
     { value: 1, text: "CRA" },
     { value: 2, text: "CBSA" },
   ],
-  error: "The field above needs to be complete in order to proceed.",
-  rules: {
-    required: true,
-  },
+  rules: { required: "This must be accepted to continue." },
 };
 
 export const SelectRequiredWithErrorAndContext = TemplateSelect.bind({});
@@ -97,8 +92,5 @@ SelectRequiredWithErrorAndContext.args = {
     { value: 2, text: "CBSA" },
   ],
   context: "We collect the above data for account purposes.",
-  error: "The field above needs to be complete in order to proceed.",
-  rules: {
-    required: true,
-  },
+  rules: { required: "This must be accepted to continue." },
 };
