@@ -43,7 +43,7 @@ const Checkbox: React.FunctionComponent<CheckboxProps> = ({
     >
       <input
         style={{ order: -1, marginBottom: "0.5rem" }}
-        data-h2-margin="b(bottom-right, xs)"
+        data-h2-margin="b(right, xxs)"
         id={id}
         {...register(name, rules)}
         type="checkbox"
