@@ -6,7 +6,7 @@ const InputContext: React.FC<{ isVisible: boolean; context: string }> = ({
 }) => {
   return isVisible ? (
     <span
-      data-h2-display="b(inline-block)"
+      data-h2-display="b(block)"
       data-h2-radius="b(s)"
       data-h2-bg-color="b(lightpurple[.1])"
       data-h2-padding="b(all, xs)"
