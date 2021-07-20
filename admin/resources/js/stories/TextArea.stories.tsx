@@ -8,13 +8,30 @@ import TextArea, { TextAreaProps } from "../components/form/TextArea";
 export default {
   component: TextArea,
   title: "Form/TextArea",
+  argTypes: {
+    maxWidth: {
+      name: "Max Width",
+      type: { name: "string", required: true },
+      defaultValue: "20rem",
+      table: {
+        type: { summary: "string" },
+        defaultValue: { summary: "Button Label" },
+      },
+      control: {
+        type: "text",
+      },
+    },
+  },
 } as Meta;
 
-const TemplateTextArea: Story<TextAreaProps> = (args) => {
+const TemplateTextArea: Story<TextAreaProps & { maxWidth: string }> = (
+  args,
+) => {
+  const { maxWidth, ...rest } = args;
   return (
-    <div style={{ width: "20rem" }}>
+    <div style={{ maxWidth }}>
       <Form onSubmit={action("Submit Form")}>
-        <TextArea {...args} />
+        <TextArea {...rest} />
         <Submit />
       </Form>
     </div>
@@ -28,5 +45,8 @@ BasicTextArea.args = {
   context: "Additional context about this field.",
   label: "Description",
   name: "description",
-  rules: { required: "This field is required", maxLength: 100 },
+  rules: {
+    required: "This field is required",
+    maxLength: { value: 500, message: "Too long!" },
+  },
 };

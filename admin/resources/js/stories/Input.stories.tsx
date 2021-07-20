@@ -8,13 +8,28 @@ import Submit from "../components/form/Submit";
 export default {
   component: Input,
   title: "Form/Input",
+  argTypes: {
+    maxWidth: {
+      name: "Max Width",
+      type: { name: "string", required: true },
+      defaultValue: "20rem",
+      table: {
+        type: { summary: "string" },
+        defaultValue: { summary: "Button Label" },
+      },
+      control: {
+        type: "text",
+      },
+    },
+  },
 } as Meta;
 
-const TemplateInput: Story<InputProps> = (args) => {
+const TemplateInput: Story<InputProps & { maxWidth: string }> = (args) => {
+  const { maxWidth, ...rest } = args;
   return (
-    <div style={{ width: "20rem" }}>
+    <div style={{ maxWidth }}>
       <Form onSubmit={action("Submit Form")}>
-        <Input {...args} />
+        <Input {...rest} />
         <Submit />
       </Form>
     </div>
@@ -28,7 +43,10 @@ TextInput.args = {
   id: "firstName",
   label: "First Name",
   name: "firstName",
-  rules: { required: "This field is required", maxLength: 100 },
+  rules: {
+    required: "This field is required",
+    maxLength: { value: 50, message: "Too long!" },
+  },
   context: "Additional context about this field.",
 };
 
@@ -39,6 +57,16 @@ EmailInput.args = {
   id: "email",
   name: "email",
   label: "Email",
+  rules: { required: false },
+};
+
+export const PasswordInput = TemplateInput.bind({});
+
+PasswordInput.args = {
+  type: "password",
+  id: "password",
+  name: "password",
+  label: "Password",
   rules: { required: false },
 };
 
