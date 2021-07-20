@@ -1,98 +1,141 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
 import { Routes } from "universal-router";
-import { Link, RouterResult, useLocation } from "../helpers/router";
+import { createClient } from "urql";
+import { Link, RouterResult } from "../helpers/router";
 import {
   Dashboard,
   exactMatch,
   MenuLink,
 } from "../components/dashboard/Dashboard";
+import { ClassificationTableApi } from "../components/ClassificationTable";
+import { CreateCmoAsset } from "../components/cmoAssets/CreateCmoAsset";
+import { UpdateCmoAsset } from "../components/cmoAssets/UpdateCmoAsset";
+import { CmoAssetTableApi } from "../components/CmoAssetTable";
+import { CreateUser } from "../components/CreateUser";
+import { CreateOperationalRequirement } from "../components/operationalRequirements/CreateOperationalRequirement";
+import { UpdateOperationalRequirement } from "../components/operationalRequirements/UpdateOperationalRequirement";
+import { OperationalRequirementTableApi } from "../components/OperationalRequirementTable";
+import UpdateUser from "../components/UpdateUser";
+import { UserTableApi } from "../components/UserTable";
+import ClientProvider from "../components/ClientProvider";
 
 const routes: Routes<RouterResult> = [
   {
-    path: "/dashboard",
+    path: "/",
     action: () => ({
       component: <p>Welcome Home</p>,
     }),
   },
   {
-    path: "/dashboard/users",
+    path: "/users",
     action: () => ({
       component: (
         <div>
-          <p>Users Here</p>
-          <ul>
-            <li>user 1</li>
-            <li>user 2</li>
-            <li>user 3</li>
-            <li>user 4</li>
-            <li>user 5</li>
-          </ul>
+          <Link href="/users/create" title="">
+            Create User
+          </Link>
+          <UserTableApi />
         </div>
       ),
     }),
   },
   {
-    path: "/dashboard/pools",
+    path: "/users/create",
+    action: () => ({
+      component: <CreateUser />,
+    }),
+  },
+  {
+    path: "/users/:id/edit",
+    action: ({ params }) => ({
+      component: <UpdateUser userId={params.id as string} />,
+    }),
+  },
+  {
+    path: "/classifications",
+    action: () => ({
+      component: <ClassificationTableApi />,
+    }),
+  },
+  {
+    path: "/cmo-assets",
     action: () => ({
       component: (
         <div>
-          <h2>Welcome to my Pool</h2>
-          <p>All our pools are the best here.</p>
-          <p>
-            <Link href="/dashboard/pools/create" title="">
-              Create
-            </Link>
-          </p>
-          <p>
-            <Link href="/dashboard/pools/1/edit" title="">
-              Edit 1
-            </Link>
-          </p>
+          <Link href="/cmo-assets/create" title="">
+            Create CMO Asset
+          </Link>
+          <CmoAssetTableApi />
         </div>
       ),
     }),
   },
   {
-    path: "/dashboard/pools/create",
+    path: "/cmo-assets/create",
+    action: () => ({
+      component: <CreateCmoAsset />,
+    }),
+  },
+  {
+    path: "/cmo-assets/:id/edit",
+    action: ({ params }) => ({
+      component: <UpdateCmoAsset cmoAssetId={params.id as string} />,
+    }),
+  },
+  {
+    path: "/operational-requirements",
     action: () => ({
       component: (
         <div>
-          <h2>Here is where you can create a Pool</h2>
-          <p>(Create form still pending...)</p>
+          <Link href="/operational-requirements/create" title="">
+            Create Operational Requirement
+          </Link>
+          <OperationalRequirementTableApi />
         </div>
       ),
     }),
   },
   {
-    path: "/dashboard/pools/:id/edit",
+    path: "/operational-requirements/create",
+    action: () => ({
+      component: <CreateOperationalRequirement />,
+    }),
+  },
+  {
+    path: "/operational-requirements/:id/edit",
     action: ({ params }) => ({
       component: (
-        <div>
-          <h2>{`You are now editing Pool ${params.id}`}</h2>
-          <p>
-            <Link href="/dashboard/pools" title="">
-              Back
-            </Link>
-          </p>
-        </div>
+        <UpdateOperationalRequirement
+          operationalRequirementId={params.id as string}
+        />
       ),
     }),
   },
 ];
 
 const menuItems = [
-  <MenuLink key="home" href="/dashboard" text="Home" isActive={exactMatch} />,
-  <MenuLink key="users" href="/dashboard/users" text="Users" />,
-  <MenuLink key="pools" href="/dashboard/pools" text="Pools" />,
+  <MenuLink key="home" href="" text="Home" isActive={exactMatch} />,
+  <MenuLink key="users" href="/users" text="Users" />,
+  <MenuLink
+    key="classifications"
+    href="/classifications"
+    text="Classifications"
+  />,
+  <MenuLink key="cmo-assets" href="/cmo-assets" text="CMO Assets" />,
+  <MenuLink
+    key="operational-requirements"
+    href="/operational-requirements"
+    text="Operational Requirements"
+  />,
 ];
 
-storiesOf("Dashboard", module).add("Demo Dashboard", () => {
-  const location = useLocation();
-  return (
-    <div>
-      <p>Current path: {location.pathname}</p>
-      <Dashboard menuItems={menuItems} contentRoutes={routes} />
-    </div>
-  );
+const client = createClient({
+  url: "http://localhost:8000/graphql",
 });
+
+storiesOf("Dashboard", module).add("Demo Dashboard", () => (
+  <ClientProvider client={client}>
+    <Dashboard menuItems={menuItems} contentRoutes={routes} />
+  </ClientProvider>
+));
