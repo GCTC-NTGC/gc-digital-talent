@@ -15,6 +15,8 @@ export interface InputProps
   name: string;
   /** Set of validation rules and error messages to impose on input. */
   rules?: RegisterOptions;
+  /** Set the type of the input. */
+  type: "text" | "email" | "tel" | "password";
 }
 
 const Input: React.FunctionComponent<InputProps> = ({
