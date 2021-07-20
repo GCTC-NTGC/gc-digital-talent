@@ -4,7 +4,7 @@ import { RegisterOptions, useFormContext } from "react-hook-form";
 import InputWrapper from "../H2Components/InputWrapper";
 
 export interface TextAreaProps
-  extends React.InputHTMLAttributes<HTMLTextAreaElement> {
+  extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
   /** HTML id used to identify the element. */
   id: string;
   /** Optional context which user can view by toggling a button. */
@@ -45,7 +45,7 @@ const TextArea: React.FunctionComponent<TextAreaProps> = ({
           data-h2-padding="b(all, xxs)"
           data-h2-radius="b(s)"
           data-h2-border="b(darkgray, all, solid, s)"
-          style={{ width: "100%", height: "5rem" }}
+          style={{ width: "100%", resize: "vertical" }}
           id={id}
           {...register(name, rules)}
           aria-invalid={error ? "true" : "false"}
