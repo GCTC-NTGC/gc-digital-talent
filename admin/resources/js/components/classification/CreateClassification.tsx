@@ -77,7 +77,7 @@ export const CreateClassificationForm: React.FunctionComponent<CreateClassificat
               type="number"
               rules={{
                 required: errorMessages.required,
-                min: { value: 0, message: `${errorMessages.minSalary} 0` },
+                min: { value: 0, message: `${errorMessages.mustBeGreater} 0` },
               }}
             />
             <Input
@@ -89,7 +89,9 @@ export const CreateClassificationForm: React.FunctionComponent<CreateClassificat
                 required: errorMessages.required,
                 min: {
                   value: watchMinSalary || 0,
-                  message: `${errorMessages.minSalary} ${watchMinSalary || 0}`,
+                  message: `${errorMessages.mustBeGreater} ${
+                    watchMinSalary || 0
+                  }`,
                 },
               }}
             />
