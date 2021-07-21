@@ -14,6 +14,9 @@ import HomePage from "./HomePage";
 import OperationalRequirementPage from "./OperationalRequirementPage";
 import { CreateOperationalRequirement } from "./operationalRequirements/CreateOperationalRequirement";
 import { UpdateOperationalRequirement } from "./operationalRequirements/UpdateOperationalRequirement";
+import { CreatePoolCandidate } from "./poolCandidate/CreatePoolCandidate";
+import { UpdatePoolCandidate } from "./poolCandidate/UpdatePoolCandidate";
+import PoolCandidatePage from "./PoolCandidatePage";
 import { UpdateUser } from "./UpdateUser";
 import UserPage from "./UserPage";
 
@@ -42,6 +45,11 @@ const messages = defineMessages({
     id: "poolDashboard.menu.operationalRequirementsLabel",
     defaultMessage: "Operational Requirements",
     description: "Label displayed on the Operational Requirements menu item.",
+  },
+  menuPoolCandidates: {
+    id: "poolDashboard.menu.poolCandidatesLabel",
+    defaultMessage: "Pool Candidates",
+    description: "Label displayed on the Pool Candidates menu item.",
   },
 });
 
@@ -116,6 +124,24 @@ const routes: Routes<RouterResult> = [
       ),
     }),
   },
+  {
+    path: "/pool-candidates",
+    action: () => ({
+      component: <PoolCandidatePage />,
+    }),
+  },
+  {
+    path: "/pool-candidates/create",
+    action: () => ({
+      component: <CreatePoolCandidate />,
+    }),
+  },
+  {
+    path: "/pool-candidates/:id/edit",
+    action: ({ params }) => ({
+      component: <UpdatePoolCandidate poolCandidateId={params.id as string} />,
+    }),
+  },
 ];
 
 export const PoolDashboard: React.FC = () => {
@@ -146,6 +172,11 @@ export const PoolDashboard: React.FC = () => {
       key="operational-requirements"
       href="/operational-requirements"
       text={intl.formatMessage(messages.menuOperationalRequirements)}
+    />,
+    <MenuLink
+      key="pool-candidates"
+      href="/pool-candidates"
+      text={intl.formatMessage(messages.menuPoolCandidates)}
     />,
   ];
   return (

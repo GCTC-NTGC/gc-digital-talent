@@ -108,14 +108,12 @@ export const UpdateCmoAssetForm: React.FunctionComponent<UpdateCmoAssetFormProps
               id="description_en"
               name="description.en"
               label={intl.formatMessage(messages.descriptionEnLabel)}
-              type="text"
               rules={{ required: errorMessages.required }}
             />
             <TextArea
               id="description_fr"
               name="description.fr"
               label={intl.formatMessage(messages.descriptionFrLabel)}
-              type="text"
               rules={{ required: errorMessages.required }}
             />
             <Submit />

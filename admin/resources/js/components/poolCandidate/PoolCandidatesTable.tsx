@@ -3,11 +3,11 @@ import { defineMessages, useIntl } from "react-intl";
 import {
   GetPoolCandidatesQuery,
   useGetPoolCandidatesQuery,
-} from "../api/generated";
-import { notEmpty } from "../helpers/util";
-import { FromArray } from "../types/utilityTypes";
-import Table, { ColumnsOf } from "./Table";
-import commonMessages from "./commonMessages";
+} from "../../api/generated";
+import { notEmpty } from "../../helpers/util";
+import { FromArray } from "../../types/utilityTypes";
+import Table, { ColumnsOf } from "../Table";
+import commonMessages from "../commonMessages";
 
 const messages = defineMessages({
   columnIdTitle: {

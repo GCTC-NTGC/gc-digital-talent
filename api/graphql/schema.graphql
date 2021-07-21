@@ -222,7 +222,7 @@ input CreatePoolCandidateInput {
     pool: PoolBelongsTo! @belongsTo
     user: UserBelongsTo! @belongsTo
     cmoIdentifier: ID @rename(attribute: "cmo_identifier")
-    expiryDate: Date
+    expiryDate: Date @rename(attribute: "expiry_date")
     isWoman: Boolean @rename(attribute: "is_woman")
     hasDisability: Boolean @rename(attribute: "has_disability")
     isIndigenous: Boolean @rename(attribute: "is_indigenous")
@@ -273,7 +273,7 @@ input UpdateOperationalRequirementInput {
 input UpdatePoolCandidateInput {
     user: UpdatePoolCandidateUserBelongsTo @belongsTo
     cmoIdentifier: ID @rename(attribute: "cmo_identifier")
-    expiryDate: Date
+    expiryDate: Date @rename(attribute: "expiry_date")
     isWoman: Boolean @rename(attribute: "is_woman")
     hasDisability: Boolean @rename(attribute: "has_disability")
     isIndigenous: Boolean @rename(attribute: "is_indigenous")

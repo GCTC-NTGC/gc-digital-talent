@@ -143,15 +143,17 @@ export const UpdateUserForm: React.FunctionComponent<UpdateUserFormProps> = ({
             options={[
               {
                 value: "",
-                text: intl.formatMessage(messages.preferredLanguagePlaceholder),
+                label: intl.formatMessage(
+                  messages.preferredLanguagePlaceholder,
+                ),
               },
               {
                 value: Language.En,
-                text: intl.formatMessage(messages.preferredLanguageEnglish),
+                label: intl.formatMessage(messages.preferredLanguageEnglish),
               },
               {
                 value: Language.Fr,
-                text: intl.formatMessage(messages.preferredLanguageFrench),
+                label: intl.formatMessage(messages.preferredLanguageFrench),
               },
             ]}
           />
