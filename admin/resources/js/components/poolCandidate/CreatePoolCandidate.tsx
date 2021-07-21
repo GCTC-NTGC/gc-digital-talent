@@ -140,7 +140,7 @@ export const CreatePoolCandidateForm: React.FunctionComponent<CreatePoolCandidat
               label="Pool: "
               name="pool"
               options={[
-                { value: "", label: "Select a pool..." },
+                { value: "", label: "Select a pool...", disabled: true },
                 ...poolOptions,
               ]}
               rules={{ required: errorMessages.required }}
@@ -150,7 +150,7 @@ export const CreatePoolCandidateForm: React.FunctionComponent<CreatePoolCandidat
               label="Users: "
               name="user"
               options={[
-                { value: "", label: "Select a user..." },
+                { value: "", label: "Select a user...", disabled: true },
                 ...userOptions,
               ]}
               rules={{ required: errorMessages.required }}
@@ -210,7 +210,11 @@ export const CreatePoolCandidateForm: React.FunctionComponent<CreatePoolCandidat
               label="Language Ability: "
               name="languageAbility"
               options={[
-                { value: "", label: "Select a language ability..." },
+                {
+                  value: "",
+                  label: "Select a language ability...",
+                  disabled: true,
+                },
                 ...enumToOptions(LanguageAbility),
               ]}
               rules={{ required: errorMessages.required }}
@@ -263,7 +267,7 @@ export const CreatePoolCandidateForm: React.FunctionComponent<CreatePoolCandidat
               name="status"
               rules={{ required: errorMessages.required }}
               options={[
-                { value: "", label: "Select a status..." },
+                { value: "", label: "Select a status...", disabled: true },
                 ...enumToOptions(PoolCandidateStatus),
               ]}
             />

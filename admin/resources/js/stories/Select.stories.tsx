@@ -19,7 +19,10 @@ export default {
 
 const TemplateSelect: Story<SelectProps> = (args) => {
   return (
-    <Form onSubmit={action("Submit Form")}>
+    <Form
+      onSubmit={action("Submit Form")}
+      options={{ defaultValues: { departments: "" } }}
+    >
       <div>
         <Select {...args} />
         <Submit />
@@ -39,17 +42,25 @@ SelectDefault.args = {
   ],
 };
 
+export const SelectWithEmptyOption = TemplateSelect.bind({});
+SelectWithEmptyOption.args = {
+  ...SelectDefault.args,
+  options: [
+    { value: "", label: "Select an option...", disabled: true },
+    { value: 1, label: "CRA" },
+    { value: 2, label: "CBSA" },
+  ],
+};
+
 export const SelectRequired = TemplateSelect.bind({});
 SelectRequired.args = {
   ...SelectDefault.args,
-  emptyByDefault: true,
   rules: { required: "This must be accepted to continue." },
 };
 
 export const SelectRequiredwInfo = TemplateSelect.bind({});
 SelectRequiredwInfo.args = {
   ...SelectDefault.args,
-  emptyByDefault: true,
   context: "We collect the above data for account purposes.",
   rules: { required: "This must be accepted to continue." },
 };
@@ -57,14 +68,12 @@ SelectRequiredwInfo.args = {
 export const SelectRequiredWithError = TemplateSelect.bind({});
 SelectRequiredWithError.args = {
   ...SelectDefault.args,
-  emptyByDefault: true,
   rules: { required: "This must be accepted to continue." },
 };
 
 export const SelectRequiredWithErrorAndContext = TemplateSelect.bind({});
 SelectRequiredWithErrorAndContext.args = {
   ...SelectDefault.args,
-  emptyByDefault: true,
   context: "We collect the above data for account purposes.",
   rules: { required: "This must be accepted to continue." },
 };

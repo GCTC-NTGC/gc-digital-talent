@@ -195,7 +195,11 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<UpdatePoolCandidat
               label="Language Ability: "
               name="languageAbility"
               options={[
-                { value: "", label: "Select a language ability..." },
+                {
+                  value: "",
+                  label: "Select a language ability...",
+                  disabled: true,
+                },
                 ...enumToOptions(LanguageAbility),
               ]}
               rules={{ required: errorMessages.required }}
@@ -248,7 +252,7 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<UpdatePoolCandidat
               name="status"
               rules={{ required: errorMessages.required }}
               options={[
-                { value: "", label: "Select a status..." },
+                { value: "", label: "Select a status...", disabled: true },
                 ...enumToOptions(PoolCandidateStatus),
               ]}
             />
