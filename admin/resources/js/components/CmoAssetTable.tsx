@@ -1,38 +1,69 @@
 import React, { useMemo } from "react";
+import { defineMessages, useIntl } from "react-intl";
 import { GetCmoAssetsQuery, useGetCmoAssetsQuery } from "../api/generated";
 import { navigate, useLocation } from "../helpers/router";
 import { notEmpty } from "../helpers/util";
 import { FromArray } from "../types/utilityTypes";
+import commonMessages from "./commonMessages";
 import Button from "./H2Components/Button";
 import Table, { ColumnsOf } from "./Table";
+
+const messages = defineMessages({
+  columnIdTitle: {
+    id: "cmoAssetTable.column.idTitle",
+    defaultMessage: "ID",
+    description: "Title displayed on the CMO Asset table ID column.",
+  },
+  columnKeyTitle: {
+    id: "cmoAssetTable.column.keyTitle",
+    defaultMessage: "Key",
+    description: "Title displayed for the CMO Asset table Key column.",
+  },
+  columnNameTitle: {
+    id: "cmoAssetTable.column.nameTitle",
+    defaultMessage: "Name",
+    description: "Title displayed for the CMO Asset table Name column.",
+  },
+  columnDescriptionTitle: {
+    id: "cmoAssetTable.column.descriptionTitle",
+    defaultMessage: "Level",
+    description: "Title displayed for the CMO Asset table Description column.",
+  },
+  columnEditTitle: {
+    id: "cmoAssetTable.column.editTitle",
+    defaultMessage: "Edit",
+    description: "Title displayed for the CMO Asset table Edit column.",
+  },
+});
 
 type Data = NonNullable<FromArray<GetCmoAssetsQuery["cmoAssets"]>>;
 
 export const CmoAssetTable: React.FC<
   GetCmoAssetsQuery & { editUrlRoot: string }
 > = ({ cmoAssets, editUrlRoot }) => {
+  const intl = useIntl();
   const columns = useMemo<ColumnsOf<Data>>(
     () => [
       {
-        Header: "ID",
+        Header: intl.formatMessage(messages.columnIdTitle),
         accessor: "id",
       },
       {
-        Header: "Key",
+        Header: intl.formatMessage(messages.columnKeyTitle),
         accessor: "key",
       },
       {
-        Header: "Name",
+        Header: intl.formatMessage(messages.columnNameTitle),
         id: "name",
         accessor: (d) => d.name?.en,
       },
       {
-        Header: "Description",
+        Header: intl.formatMessage(messages.columnDescriptionTitle),
         id: "description",
         accessor: (d) => d.description?.en,
       },
       {
-        Header: "Edit",
+        Header: intl.formatMessage(messages.columnEditTitle),
         id: "edit",
         accessor: ({ id }) => (
           <Button
@@ -43,12 +74,12 @@ export const CmoAssetTable: React.FC<
               navigate(`${editUrlRoot}/${id}/edit`);
             }}
           >
-            Edit
+            {intl.formatMessage(messages.columnEditTitle)}
           </Button>
         ),
       },
     ],
-    [editUrlRoot],
+    [editUrlRoot, intl],
   );
 
   const memoizedData = useMemo(() => cmoAssets.filter(notEmpty), [cmoAssets]);
@@ -61,12 +92,18 @@ export const CmoAssetTable: React.FC<
 };
 
 export const CmoAssetTableApi: React.FC = () => {
+  const intl = useIntl();
   const [result] = useGetCmoAssetsQuery();
   const { data, fetching, error } = result;
   const { pathname } = useLocation();
 
-  if (fetching) return <p>Loading...</p>;
-  if (error) return <p>Oh no... {error.message}</p>;
+  if (fetching) return <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>;
+  if (error)
+    return (
+      <p>
+        {intl.formatMessage(commonMessages.errorTitle)} {error.message}
+      </p>
+    );
 
   return (
     <CmoAssetTable cmoAssets={data?.cmoAssets ?? []} editUrlRoot={pathname} />
