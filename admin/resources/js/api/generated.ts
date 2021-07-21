@@ -446,6 +446,26 @@ export type GetClassificationsQuery = { __typename?: "Query" } & {
   >;
 };
 
+export type CreateClassificationMutationVariables = Exact<{
+  classification: CreateClassificationInput;
+}>;
+
+export type CreateClassificationMutation = { __typename?: "Mutation" } & {
+  createClassification?: Maybe<
+    { __typename?: "Classification" } & Pick<
+      Classification,
+      "group" | "level" | "minSalary" | "maxSalary"
+    > & {
+        name?: Maybe<
+          { __typename?: "LocalizedString" } & Pick<
+            LocalizedString,
+            "en" | "fr"
+          >
+        >;
+      }
+  >;
+};
+
 export type GetCmoAssetQueryVariables = Exact<{
   id: Scalars["ID"];
 }>;
@@ -1232,6 +1252,27 @@ export function useGetClassificationsQuery(
     query: GetClassificationsDocument,
     ...options,
   });
+}
+export const CreateClassificationDocument = gql`
+  mutation createClassification($classification: CreateClassificationInput!) {
+    createClassification(classification: $classification) {
+      name {
+        en
+        fr
+      }
+      group
+      level
+      minSalary
+      maxSalary
+    }
+  }
+`;
+
+export function useCreateClassificationMutation() {
+  return Urql.useMutation<
+    CreateClassificationMutation,
+    CreateClassificationMutationVariables
+  >(CreateClassificationDocument);
 }
 export const GetCmoAssetDocument = gql`
   query getCmoAsset($id: ID!) {

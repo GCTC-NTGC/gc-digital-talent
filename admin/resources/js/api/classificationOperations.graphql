@@ -10,3 +10,16 @@ query GetClassifications {
     maxSalary
   }
 }
+
+mutation createClassification($classification: CreateClassificationInput!) {
+  createClassification(classification: $classification) {
+    name {
+      en
+      fr
+    }
+    group
+    level
+    minSalary
+    maxSalary
+  }
+}
