@@ -24,6 +24,7 @@ import MultiSelect from "../form/MultiSelect";
 import { notEmpty } from "../../helpers/util";
 import { currentDate, enumToOptions } from "../form/formUtils";
 import { getSalaryRange } from "../../model/localizedConstants";
+import Checkbox from "../form/Checkbox";
 
 type Option<V> = { value: V; label: string };
 
@@ -175,36 +176,23 @@ export const CreatePoolCandidateForm: React.FunctionComponent<CreatePoolCandidat
                 },
               }}
             />
-            <Input
-              id="isWoman"
-              label="Woman: "
-              type="checkbox"
-              name="isWoman"
-            />
-            <Input
+            <Checkbox id="isWoman" label="Woman: " name="isWoman" />
+            <Checkbox
               id="hasDisability"
               label="Has Disability: "
-              type="checkbox"
               name="hasDisability"
             />
-            <Input
+            <Checkbox
               id="isIndigenous"
               label="Indigenous: "
-              type="checkbox"
               name="isIndigenous"
             />
-            <Input
+            <Checkbox
               id="isVisibleMinority"
               label="Visible Minority: "
-              type="checkbox"
               name="isVisibleMinority"
             />
-            <Input
-              id="hasDiploma"
-              label="Has Diploma: "
-              type="checkbox"
-              name="hasDiploma"
-            />
+            <Checkbox id="hasDiploma" label="Has Diploma: " name="hasDiploma" />
             <Select
               id="languageAbility"
               label="Language Ability: "

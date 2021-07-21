@@ -59,14 +59,12 @@ export const CreateOperationalRequirementForm: React.FunctionComponent<CreateOpe
               id="description_en"
               name="description.en"
               label="Description: "
-              type="text"
               rules={{ required: errorMessages.required }}
             />
             <TextArea
               id="description_fr"
               name="description.fr"
               label="Description FR: "
-              type="text"
               rules={{ required: errorMessages.required }}
             />
             <Submit />
