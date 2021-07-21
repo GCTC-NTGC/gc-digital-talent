@@ -18,19 +18,13 @@ export default {
 } as Meta;
 
 const TemplateSelect: Story<SelectProps> = (args) => {
-  const style = {
-    width: "25%",
-  };
-
   return (
-    <div style={style}>
-      <Form onSubmit={action("Submit Form")}>
-        <div>
-          <Select {...args} />
-          <Submit />
-        </div>
-      </Form>
-    </div>
+    <Form onSubmit={action("Submit Form")}>
+      <div>
+        <Select {...args} />
+        <Submit />
+      </div>
+    </Form>
   );
 };
 
