@@ -1,6 +1,6 @@
 import React from "react";
 import { Story, Meta } from "@storybook/react";
-import InputContext from "../components/H2Components/InputContext";
+import InputContext from "../../components/H2Components/InputContext";
 
 const meta: Meta = {
   title: "Components/Input Context",

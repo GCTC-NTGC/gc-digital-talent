@@ -3,7 +3,7 @@ import { Story, Meta } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 import InputLabel, {
   InputLabelProps,
-} from "../components/H2Components/InputLabel";
+} from "../../components/H2Components/InputLabel";
 
 export default {
   component: InputLabel,

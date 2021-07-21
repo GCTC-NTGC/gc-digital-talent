@@ -1,9 +1,9 @@
 import React from "react";
 import { Story, Meta } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
-import Checklist, { ChecklistProps } from "../components/form/Checklist";
-import Form from "../components/form/Form";
-import Submit from "../components/form/Submit";
+import Checklist, { ChecklistProps } from "../../components/form/Checklist";
+import Form from "../../components/form/Form";
+import Submit from "../../components/form/Submit";
 
 export default {
   component: Checklist,
