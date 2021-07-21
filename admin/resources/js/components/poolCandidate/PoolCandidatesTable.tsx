@@ -1,4 +1,5 @@
 import React, { useMemo } from "react";
+import { CheckIcon, XIcon } from "@heroicons/react/solid";
 import {
   GetPoolCandidatesQuery,
   useGetPoolCandidatesQuery,
@@ -34,27 +35,62 @@ const PoolCandidatesTable: React.FC<GetPoolCandidatesQuery> = ({
       },
       {
         Header: "Woman",
-        accessor: (d) => (d.isWoman ? "Y" : "N"),
+        accessor: (d) => {
+          const { isWoman } = d;
+          return isWoman ? (
+            <CheckIcon style={{ width: "1rem" }} />
+          ) : (
+            <XIcon style={{ width: "1rem" }} />
+          );
+        },
         id: "woman",
       },
       {
         Header: "Disability",
-        accessor: (d) => (d.hasDisability ? "Y" : "N"),
+        accessor: (d) => {
+          const { hasDisability } = d;
+          return hasDisability ? (
+            <CheckIcon style={{ width: "1rem" }} />
+          ) : (
+            <XIcon style={{ width: "1rem" }} />
+          );
+        },
         id: "disability",
       },
       {
         Header: "Indigenous",
-        accessor: (d) => (d.isIndigenous ? "Y" : "N"),
+        accessor: (d) => {
+          const { isIndigenous } = d;
+          return isIndigenous ? (
+            <CheckIcon style={{ width: "1rem" }} />
+          ) : (
+            <XIcon style={{ width: "1rem" }} />
+          );
+        },
         id: "indigenous",
       },
       {
         Header: "Visible Minority",
-        accessor: (d) => (d.isVisibleMinority ? "Y" : "N"),
+        accessor: (d) => {
+          const { isVisibleMinority } = d;
+          return isVisibleMinority ? (
+            <CheckIcon style={{ width: "1rem" }} />
+          ) : (
+            <XIcon style={{ width: "1rem" }} />
+          );
+        },
         id: "visibleMinority",
       },
       {
         Header: "Diploma",
-        accessor: (d) => (d.hasDiploma ? "Y" : "N"),
+        accessor: (d) => {
+          const { hasDiploma } = d;
+          return hasDiploma ? (
+            <CheckIcon style={{ width: "1rem" }} />
+          ) : (
+            <XIcon style={{ width: "1rem" }} />
+          );
+        },
         id: "diploma",
       },
       {
