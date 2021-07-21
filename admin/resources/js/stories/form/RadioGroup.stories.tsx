@@ -22,7 +22,7 @@ const TemplateRadioGroup: Story<RadioGroupProps> = (args) => {
 export const BasicRadioGroup = TemplateRadioGroup.bind({});
 BasicRadioGroup.args = {
   idPrefix: "radiogroup",
-  legend: "Which items do you want to check?",
+  legend: "Which item do you want to check?",
   name: "radiogroup",
   items: [
     { value: "one", label: "Box One" },
@@ -34,7 +34,7 @@ BasicRadioGroup.args = {
 export const RequiredRadioGroup = TemplateRadioGroup.bind({});
 RequiredRadioGroup.args = {
   ...BasicRadioGroup.args,
-  rules: { required: "All items must be checked!" },
+  rules: { required: "At least one item must be checked!" },
 };
 
 export const RadioGroupWithContext = TemplateRadioGroup.bind({});
