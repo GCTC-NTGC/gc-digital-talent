@@ -107,8 +107,8 @@ export const CreateClassification: React.FunctionComponent = () => {
   const handleCreateClassification = (data: CreateClassificationInput) =>
     executeMutation({ classification: data }).then((result) => {
       console.log(result);
-      if (result.data?.classification) {
-        return result.data?.classification;
+      if (result.data?.createClassification) {
+        return result.data?.createClassification;
       }
       return Promise.reject(result.error);
     });

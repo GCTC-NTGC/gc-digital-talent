@@ -134,8 +134,8 @@ export const UpdateClassification: React.FunctionComponent<{
       id,
       classification: pick(data, ["name", "group", "minSalary", "maxSalary"]),
     }).then((result) => {
-      if (result.data?.classification) {
-        return result.data?.classification;
+      if (result.data?.updateClassification) {
+        return result.data?.updateClassification;
       }
       return Promise.reject(result.error);
     });
