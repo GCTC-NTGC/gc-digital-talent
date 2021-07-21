@@ -61,6 +61,22 @@ const PoolCandidatesTable: React.FC<GetPoolCandidatesQuery> = ({
         Header: "Language",
         accessor: "languageAbility",
       },
+      {
+        Header: "Name",
+        accessor: "firstLast",
+      },
+      {
+        Header: "Email",
+        accessor: "email",
+      },
+      {
+        Header: "Phone",
+        accessor: "telephone",
+      },
+      {
+        Header: "Preferred Lang",
+        accessor: "preferredLang",
+      },
     ],
     [],
   );
