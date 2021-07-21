@@ -80,7 +80,7 @@ export const CreateUserForm: React.FunctionComponent<CreateUserFormProps> = ({
             name="preferredLang"
             rules={{ required: errorMessages.required }}
             options={[
-              { value: "", label: "Select a language..." },
+              { value: "", label: "Select a language...", disabled: true },
               { value: Language.En, label: "English" },
               { value: Language.Fr, label: "French" },
             ]}
