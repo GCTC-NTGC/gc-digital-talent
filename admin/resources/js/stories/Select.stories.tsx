@@ -7,7 +7,7 @@ import Submit from "../components/form/Submit";
 
 export default {
   component: Select,
-  title: "Components/Select",
+  title: "Form/Select",
   argTypes: {
     contextToggleHandler: {
       table: {
@@ -40,57 +40,37 @@ SelectDefault.args = {
   label: "Select a dept",
   name: "departments",
   options: [
-    { value: 1, text: "CRA" },
-    { value: 2, text: "CBSA" },
+    { value: 1, label: "CRA" },
+    { value: 2, label: "CBSA" },
   ],
 };
 
 export const SelectRequired = TemplateSelect.bind({});
 SelectRequired.args = {
-  id: "uniqueId",
-  label: "Select a dept",
-  name: "departments",
-  options: [
-    { value: 1, text: "CRA" },
-    { value: 2, text: "CBSA" },
-  ],
+  ...SelectDefault.args,
+  emptyByDefault: true,
   rules: { required: "This must be accepted to continue." },
 };
 
 export const SelectRequiredwInfo = TemplateSelect.bind({});
 SelectRequiredwInfo.args = {
-  id: "uniqueId",
-  label: "Select a dept",
-  name: "departments",
-  options: [
-    { value: 1, text: "CRA" },
-    { value: 2, text: "CBSA" },
-  ],
+  ...SelectDefault.args,
+  emptyByDefault: true,
   context: "We collect the above data for account purposes.",
   rules: { required: "This must be accepted to continue." },
 };
 
 export const SelectRequiredWithError = TemplateSelect.bind({});
 SelectRequiredWithError.args = {
-  id: "uniqueId",
-  label: "Select a dept",
-  name: "departments",
-  options: [
-    { value: 1, text: "CRA" },
-    { value: 2, text: "CBSA" },
-  ],
+  ...SelectDefault.args,
+  emptyByDefault: true,
   rules: { required: "This must be accepted to continue." },
 };
 
 export const SelectRequiredWithErrorAndContext = TemplateSelect.bind({});
 SelectRequiredWithErrorAndContext.args = {
-  id: "uniqueId",
-  label: "Select a dept",
-  name: "departments",
-  options: [
-    { value: 1, text: "CRA" },
-    { value: 2, text: "CBSA" },
-  ],
+  ...SelectDefault.args,
+  emptyByDefault: true,
   context: "We collect the above data for account purposes.",
   rules: { required: "This must be accepted to continue." },
 };

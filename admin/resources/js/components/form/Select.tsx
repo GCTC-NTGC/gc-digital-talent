@@ -12,11 +12,13 @@ export interface SelectProps
   /** A string specifying a name for the input control. */
   name: string;
   /** List of options for the select element. */
-  options: { value: string | number; text: string }[];
+  options: { value: string | number; label: string }[];
   /** Object set of validation rules to impose on input. */
   rules?: RegisterOptions;
   /** Optional context which user can view by toggling a button. */
   context?: string;
+  /** Optional boolean to specify if the first option in the dropdown is an empty option */
+  emptyByDefault?: boolean;
 }
 
 const Select: React.FunctionComponent<SelectProps> = ({
@@ -26,6 +28,7 @@ const Select: React.FunctionComponent<SelectProps> = ({
   options,
   rules,
   context,
+  emptyByDefault,
   ...rest
 }) => {
   const {
@@ -55,10 +58,14 @@ const Select: React.FunctionComponent<SelectProps> = ({
           aria-invalid={error ? "true" : "false"}
           {...rest}
         >
-          <option aria-label="Empty option" />
-          {options.map(({ value, text }) => (
-            <option data-h2-font-size="b(caption)" key={value} value={value}>
-              {text}
+          {emptyByDefault && <option aria-label="Empty option" />}
+          {options.map((option) => (
+            <option
+              data-h2-font-size="b(caption)"
+              key={option.value}
+              value={option.value}
+            >
+              {option.label}
             </option>
           ))}
         </select>
