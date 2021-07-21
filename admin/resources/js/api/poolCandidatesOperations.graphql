@@ -55,7 +55,11 @@ fragment poolCandidate on PoolCandidate {
       fr
     }
   },
-  status
+  status,
+  firstLast,
+  email,
+  telephone,
+  preferredLang
 }
 
 fragment poolCandidateForm on PoolCandidate {
@@ -222,7 +226,11 @@ mutation createPoolCandidate($poolCandidate: CreatePoolCandidateInput!) {
     cmoAssets {
       id
     }
-    status
+    status,
+    firstLast,
+    email,
+    telephone,
+    preferredLang
   }
 }
 
