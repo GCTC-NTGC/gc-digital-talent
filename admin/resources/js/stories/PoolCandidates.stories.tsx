@@ -69,7 +69,7 @@ stories.add("Create Pool Candidate Form", () => (
     handleCreatePoolCandidate={async (data: CreatePoolCandidateInput) => {
       await new Promise((resolve) => setTimeout(resolve, 1000));
       action("Create Pool Candidate")(data);
-      return null;
+      return data;
     }}
   />
 ));
