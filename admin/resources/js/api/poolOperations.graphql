@@ -1,0 +1,17 @@
+query getPools {
+  pools {
+    id
+    owner {
+      id
+      email
+    }
+    name {
+      en
+      fr
+    }
+    description {
+      en
+      fr
+    }
+  }
+}

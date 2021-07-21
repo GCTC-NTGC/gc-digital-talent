@@ -1,10 +1,14 @@
 import * as React from "react";
 import get from "lodash/get";
 import { RegisterOptions, useFormContext } from "react-hook-form";
+import InputWrapper from "../H2Components/InputWrapper";
 
-interface TextAreaProps extends React.InputHTMLAttributes<HTMLTextAreaElement> {
+export interface TextAreaProps
+  extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
   /** HTML id used to identify the element. */
   id: string;
+  /** Optional context which user can view by toggling a button. */
+  context?: string;
   /** Holds text for the label associated with the input element */
   label: string;
   /** A string specifying a name for the input control. */
@@ -15,6 +19,7 @@ interface TextAreaProps extends React.InputHTMLAttributes<HTMLTextAreaElement> {
 
 const TextArea: React.FunctionComponent<TextAreaProps> = ({
   id,
+  context,
   label,
   name,
   rules = {},
@@ -28,15 +33,25 @@ const TextArea: React.FunctionComponent<TextAreaProps> = ({
   const error = get(errors, name)?.message;
 
   return (
-    <div>
-      <label htmlFor={id}>{label}</label>
-      <textarea
-        id={id}
-        {...register(name, rules)}
-        aria-invalid={error ? "true" : "false"}
-        {...rest}
-      />
-      {error && <span role="alert">{error}</span>}
+    <div data-h2-margin="b(bottom, xxs)">
+      <InputWrapper
+        inputId={id}
+        label={label}
+        required={!!rules.required}
+        context={context}
+        error={error}
+      >
+        <textarea
+          data-h2-padding="b(all, xxs)"
+          data-h2-radius="b(s)"
+          data-h2-border="b(darkgray, all, solid, s)"
+          style={{ width: "100%", resize: "vertical" }}
+          id={id}
+          {...register(name, rules)}
+          aria-invalid={error ? "true" : "false"}
+          {...rest}
+        />
+      </InputWrapper>
     </div>
   );
 };

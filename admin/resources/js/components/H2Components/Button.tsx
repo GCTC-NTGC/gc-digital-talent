@@ -1,10 +1,13 @@
 import React from "react";
 
-export interface ButtonProps {
-  children: React.ReactNode;
+export interface ButtonProps extends React.HTMLProps<HTMLButtonElement> {
+  /** The style type of the element. */
   color: "primary" | "secondary" | "cta" | "white";
+  /** The style mode of the element. */
   mode: "solid" | "outline" | "inline";
-  onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  /** Determines whether the element should be block level and 100% width. */
+  block?: boolean;
+  type?: "button" | "submit" | "reset" | undefined;
 }
 
 const colorMap: Record<
@@ -86,13 +89,17 @@ const colorMap: Record<
 
 const Button: React.FC<ButtonProps> = ({
   children,
+  type,
   color,
   mode,
-  onClick,
+  block = false,
+  ...rest
 }): React.ReactElement => {
   return (
     <button
-      type="button"
+      // eslint-disable-next-line react/button-has-type
+      type={type || "button"}
+      data-h2-display={block ? "block" : "inline-block"}
       data-h2-border={`b(${colorMap[color][mode].border}, all, solid, s)`}
       data-h2-radius="b(s)"
       data-h2-padding="b(top-bottom, xs) b(right-left, s)"
@@ -101,8 +108,12 @@ const Button: React.FC<ButtonProps> = ({
       data-h2-font-size="b(caption) m(normal)"
       data-h2-font-weight="b(400)"
       data-h2-font-style="b(underline)"
-      style={{ cursor: "pointer" }}
-      onClick={onClick}
+      style={{
+        cursor: "pointer",
+        overflowWrap: "break-word",
+        width: block ? "100%" : "auto",
+      }}
+      {...rest}
     >
       {children}
     </button>
