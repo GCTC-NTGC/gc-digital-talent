@@ -91,7 +91,7 @@ export const Fieldset: React.FC<FieldsetProps> = ({
       <div
         data-h2-border="b(darkgray, all, solid, s)"
         data-h2-radius="b(s)"
-        data-h2-padding="b(right-left, s) b(top-bottom, xs)"
+        data-h2-padding="b(right-left, s) b(top, xxs)"
       >
         {children}
       </div>
