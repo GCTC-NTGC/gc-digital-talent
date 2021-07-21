@@ -652,6 +652,10 @@ export type PoolCandidateFragment = { __typename?: "PoolCandidate" } & Pick<
   | "locationPreferences"
   | "expectedSalary"
   | "status"
+  | "firstLast"
+  | "email"
+  | "telephone"
+  | "preferredLang"
 > & {
     pool?: Maybe<
       { __typename?: "Pool" } & Pick<Pool, "id"> & {
@@ -952,6 +956,10 @@ export type CreatePoolCandidateMutation = { __typename?: "Mutation" } & {
       | "locationPreferences"
       | "expectedSalary"
       | "status"
+      | "firstLast"
+      | "email"
+      | "telephone"
+      | "preferredLang"
     > & {
         pool?: Maybe<{ __typename?: "Pool" } & Pick<Pool, "id">>;
         user?: Maybe<{ __typename?: "User" } & Pick<User, "id">>;
@@ -1165,6 +1173,10 @@ export const PoolCandidateFragmentDoc = gql`
       }
     }
     status
+    firstLast
+    email
+    telephone
+    preferredLang
   }
 `;
 export const PoolCandidateFormFragmentDoc = gql`
@@ -1625,6 +1637,10 @@ export const CreatePoolCandidateDocument = gql`
         id
       }
       status
+      firstLast
+      email
+      telephone
+      preferredLang
     }
   }
 `;
