@@ -106,7 +106,7 @@ export const ClassificationTableApi: React.FunctionComponent = () => {
   if (error)
     return (
       <p>
-        {intl.formatMessage(commonMessages.errorTitle)} {error.message}
+        {intl.formatMessage(commonMessages.loadingError)} {error.message}
       </p>
     );
 

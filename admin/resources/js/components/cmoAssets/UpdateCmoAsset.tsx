@@ -152,7 +152,7 @@ export const UpdateCmoAsset: React.FunctionComponent<{ cmoAssetId: string }> =
     if (error)
       return (
         <p>
-          {intl.formatMessage(commonMessages.errorTitle)} {error.message}
+          {intl.formatMessage(commonMessages.loadingError)} {error.message}
         </p>
       );
     return cmoAssetData?.cmoAsset ? (

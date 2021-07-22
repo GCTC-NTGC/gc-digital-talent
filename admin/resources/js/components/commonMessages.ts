@@ -2,14 +2,14 @@ import { defineMessages } from "react-intl";
 
 const messages = defineMessages({
   loadingTitle: {
-    id: "loadingTitle",
+    id: "common.loading.title",
     defaultMessage: "Loading...",
-    description: "Title displayed for a table loading state.",
+    description: "Title displayed for a table initial loading state.",
   },
-  errorTitle: {
-    id: "errorTitle",
+  loadingError: {
+    id: "common.loading.error",
     defaultMessage: "Oh no...",
-    description: "Title displayed for a table error state.",
+    description: "Title displayed for a table error loading state.",
   },
 });
 
