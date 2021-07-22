@@ -1,9 +1,9 @@
 import React from "react";
 import { Story, Meta } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
-import Input, { InputProps } from "../components/form/Input";
-import Form from "../components/form/Form";
-import Submit from "../components/form/Submit";
+import Input, { InputProps } from "../../components/form/Input";
+import Form from "../../components/form/Form";
+import Submit from "../../components/form/Submit";
 
 export default {
   component: Input,

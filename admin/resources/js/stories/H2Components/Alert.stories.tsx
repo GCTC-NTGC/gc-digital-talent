@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Story, Meta } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
-import Alert from "../components/H2Components/Alert";
+import Alert from "../../components/H2Components/Alert";
 
 export default {
   component: Alert,

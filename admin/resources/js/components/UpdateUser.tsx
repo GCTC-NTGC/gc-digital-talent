@@ -146,6 +146,7 @@ export const UpdateUserForm: React.FunctionComponent<UpdateUserFormProps> = ({
                 label: intl.formatMessage(
                   messages.preferredLanguagePlaceholder,
                 ),
+                disabled: true,
               },
               {
                 value: Language.En,

@@ -136,7 +136,10 @@ export const CreateUserForm: React.FunctionComponent<CreateUserFormProps> = ({
             options={[
               {
                 value: "",
-                label: intl.formatMessage(messages.preferredLanguagePlaceholder),
+                label: intl.formatMessage(
+                  messages.preferredLanguagePlaceholder,
+                ),
+                disabled: true,
               },
               {
                 value: Language.En,
