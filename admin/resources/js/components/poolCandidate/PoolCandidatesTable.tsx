@@ -7,6 +7,7 @@ import {
 import { notEmpty } from "../../helpers/util";
 import { FromArray } from "../../types/utilityTypes";
 import Table, { ColumnsOf } from "../Table";
+import TableBoolean from "../TableBoolean";
 import commonMessages from "../commonMessages";
 
 const messages = defineMessages({
@@ -100,27 +101,31 @@ const PoolCandidatesTable: React.FC<GetPoolCandidatesQuery> = ({
       },
       {
         Header: intl.formatMessage(messages.columnWomanTitle),
-        accessor: (d) => (d.isWoman ? "Y" : "N"),
+        accessor: ({ isWoman }) => <TableBoolean checked={isWoman} />,
         id: "woman",
       },
       {
         Header: intl.formatMessage(messages.columnDisabilityTitle),
-        accessor: (d) => (d.hasDisability ? "Y" : "N"),
+        accessor: ({ hasDisability }) => (
+          <TableBoolean checked={hasDisability} />
+        ),
         id: "disability",
       },
       {
         Header: intl.formatMessage(messages.columnIndigenousTitle),
-        accessor: (d) => (d.isIndigenous ? "Y" : "N"),
+        accessor: ({ isIndigenous }) => <TableBoolean checked={isIndigenous} />,
         id: "indigenous",
       },
       {
         Header: intl.formatMessage(messages.columnVisibleMinorityTitle),
-        accessor: (d) => (d.isVisibleMinority ? "Y" : "N"),
+        accessor: ({ isVisibleMinority }) => (
+          <TableBoolean checked={isVisibleMinority} />
+        ),
         id: "visibleMinority",
       },
       {
         Header: intl.formatMessage(messages.columnDiplomaTitle),
-        accessor: (d) => (d.hasDiploma ? "Y" : "N"),
+        accessor: ({ hasDiploma }) => <TableBoolean checked={hasDiploma} />,
         id: "diploma",
       },
       {
