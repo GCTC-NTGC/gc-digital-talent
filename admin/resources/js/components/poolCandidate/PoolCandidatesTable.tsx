@@ -1,5 +1,4 @@
 import React, { useMemo } from "react";
-import { CheckIcon, XIcon } from "@heroicons/react/solid";
 import {
   GetPoolCandidatesQuery,
   useGetPoolCandidatesQuery,
@@ -7,6 +6,7 @@ import {
 import { notEmpty } from "../../helpers/util";
 import { FromArray } from "../../types/utilityTypes";
 import Table, { ColumnsOf } from "../Table";
+import TableBoolean from "../TableBoolean";
 
 type Data = NonNullable<FromArray<GetPoolCandidatesQuery["poolCandidates"]>>;
 
@@ -35,62 +35,31 @@ const PoolCandidatesTable: React.FC<GetPoolCandidatesQuery> = ({
       },
       {
         Header: "Woman",
-        accessor: (d) => {
-          const { isWoman } = d;
-          return isWoman ? (
-            <CheckIcon style={{ width: "1rem" }} />
-          ) : (
-            <XIcon style={{ width: "1rem" }} />
-          );
-        },
+        accessor: ({ isWoman }) => <TableBoolean checked={isWoman} />,
         id: "woman",
       },
       {
         Header: "Disability",
-        accessor: (d) => {
-          const { hasDisability } = d;
-          return hasDisability ? (
-            <CheckIcon style={{ width: "1rem" }} />
-          ) : (
-            <XIcon style={{ width: "1rem" }} />
-          );
-        },
+        accessor: ({ hasDisability }) => (
+          <TableBoolean checked={hasDisability} />
+        ),
         id: "disability",
       },
       {
         Header: "Indigenous",
-        accessor: (d) => {
-          const { isIndigenous } = d;
-          return isIndigenous ? (
-            <CheckIcon style={{ width: "1rem" }} />
-          ) : (
-            <XIcon style={{ width: "1rem" }} />
-          );
-        },
+        accessor: ({ isIndigenous }) => <TableBoolean checked={isIndigenous} />,
         id: "indigenous",
       },
       {
         Header: "Visible Minority",
-        accessor: (d) => {
-          const { isVisibleMinority } = d;
-          return isVisibleMinority ? (
-            <CheckIcon style={{ width: "1rem" }} />
-          ) : (
-            <XIcon style={{ width: "1rem" }} />
-          );
-        },
+        accessor: ({ isVisibleMinority }) => (
+          <TableBoolean checked={isVisibleMinority} />
+        ),
         id: "visibleMinority",
       },
       {
         Header: "Diploma",
-        accessor: (d) => {
-          const { hasDiploma } = d;
-          return hasDiploma ? (
-            <CheckIcon style={{ width: "1rem" }} />
-          ) : (
-            <XIcon style={{ width: "1rem" }} />
-          );
-        },
+        accessor: ({ hasDiploma }) => <TableBoolean checked={hasDiploma} />,
         id: "diploma",
       },
       {
