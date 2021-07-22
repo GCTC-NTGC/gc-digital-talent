@@ -29,6 +29,7 @@ services:
       - ./php-container/src:/var/www/html/
       - ../api:/var/www/html/api
       - ../admin:/var/www/html/admin
+      - ../auth:/var/www/html/auth
     ports:
       - 8000:80
       - 8001:443
