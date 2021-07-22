@@ -1,6 +1,9 @@
 import React from "react";
 import { Story, Meta } from "@storybook/react";
-import { Fieldset, FieldsetProps } from "../components/H2Components/Fieldset";
+import {
+  Fieldset,
+  FieldsetProps,
+} from "../../components/H2Components/Fieldset";
 
 export default {
   component: Fieldset,

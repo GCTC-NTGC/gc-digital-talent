@@ -1,5 +1,19 @@
 import React, { useCallback, useContext, useReducer } from "react";
+import { defineMessages, useIntl } from "react-intl";
 import Alert from "./H2Components/Alert";
+
+const messages = defineMessages({
+  toastTitle: {
+    id: "errorToast.title",
+    defaultMessage: "Something went wrong!",
+    description: "Title displayed on the Error Toast component.",
+  },
+  dismissLabel: {
+    id: "errorToast.dismiss",
+    defaultMessage: "Dismiss",
+    description: "Label for the Error Toast dismiss button.",
+  },
+});
 
 type ErrorState = {
   errorQueue: string[];
@@ -34,6 +48,7 @@ export const ErrorContext = React.createContext<ErrorContextProps>({
 });
 
 export const ErrorToast: React.FC = () => {
+  const intl = useIntl();
   const { state, dispatch } = useContext(ErrorContext);
   const dismiss = useCallback(() => dispatch({ type: "pop" }), [dispatch]);
 
@@ -47,13 +62,16 @@ export const ErrorToast: React.FC = () => {
           color="red"
           position="toast"
           dismissBtn={
-            <Alert.DismissBtn onClick={dismiss} aria-label="Dismiss">
-              Dismiss
+            <Alert.DismissBtn
+              onClick={dismiss}
+              aria-label={intl.formatMessage(messages.dismissLabel)}
+            >
+              {intl.formatMessage(messages.dismissLabel)}
             </Alert.DismissBtn>
           }
         >
           <p>
-            <strong>Something went wrong!</strong>
+            <strong>{intl.formatMessage(messages.toastTitle)}</strong>
           </p>
           <p>{currentError}</p>
         </Alert>
