@@ -283,6 +283,11 @@ export type PoolCandidate = {
   expectedClassifications?: Maybe<Array<Maybe<Classification>>>;
   cmoAssets?: Maybe<Array<Maybe<CmoAsset>>>;
   status?: Maybe<PoolCandidateStatus>;
+  firstName?: Maybe<Scalars["String"]>;
+  lastName?: Maybe<Scalars["String"]>;
+  email?: Maybe<Scalars["String"]>;
+  telephone?: Maybe<Scalars["String"]>;
+  preferredLang?: Maybe<Scalars["String"]>;
 };
 
 export type PoolCandidateHasMany = {
@@ -648,6 +653,11 @@ export type PoolCandidateFragment = { __typename?: "PoolCandidate" } & Pick<
   | "locationPreferences"
   | "expectedSalary"
   | "status"
+  | "firstName"
+  | "lastName"
+  | "email"
+  | "telephone"
+  | "preferredLang"
 > & {
     pool?: Maybe<
       { __typename?: "Pool" } & Pick<Pool, "id"> & {
@@ -1157,6 +1167,11 @@ export const PoolCandidateFragmentDoc = gql`
       }
     }
     status
+    firstName
+    lastName
+    email
+    telephone
+    preferredLang
   }
 `;
 export const PoolCandidateFormFragmentDoc = gql`

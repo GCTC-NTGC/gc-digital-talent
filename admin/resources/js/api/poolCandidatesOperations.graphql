@@ -55,7 +55,12 @@ fragment poolCandidate on PoolCandidate {
       fr
     }
   },
-  status
+  status,
+  firstName,
+  lastName,
+  email,
+  telephone,
+  preferredLang
 }
 
 fragment poolCandidateForm on PoolCandidate {
