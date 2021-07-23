@@ -5,7 +5,7 @@ import { Link, RouterResult } from "../helpers/router";
 import { CreateClassification } from "./classification/CreateClassification";
 import { UpdateClassification } from "./classification/UpdateClassification";
 
-import { ClassificationTableApi } from "./ClassificationTable";
+import { ClassificationTableApi } from "./classification/ClassificationTable";
 import ClientProvider from "./ClientProvider";
 import CmoAssetPage from "./CmoAssetPage";
 import { CreateCmoAsset } from "./cmoAssets/CreateCmoAsset";

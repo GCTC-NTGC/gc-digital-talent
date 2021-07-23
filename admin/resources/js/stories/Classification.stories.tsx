@@ -5,7 +5,7 @@ import { action } from "@storybook/addon-actions";
 import {
   ClassificationTable,
   ClassificationTableApi,
-} from "../components/ClassificationTable";
+} from "../components/classification/ClassificationTable";
 import fakeClassifications from "../fakeData/fakeClassifications";
 import ClientProvider from "../components/ClientProvider";
 import {
