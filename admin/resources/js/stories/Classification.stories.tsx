@@ -28,7 +28,7 @@ const classificationData = fakeClassifications();
 const stories = storiesOf("Classifications", module);
 
 stories.add("Classifications Table", () => (
-  <ClassificationTable classifications={classificationData} />
+  <ClassificationTable classifications={classificationData} editUrlRoot="#" />
 ));
 const client = createClient({
   url: "http://localhost:8000/graphql",
