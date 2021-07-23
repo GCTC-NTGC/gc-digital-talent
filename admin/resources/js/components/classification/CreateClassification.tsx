@@ -7,6 +7,7 @@ import {
 } from "../../api/generated";
 import errorMessages from "../form/errorMessages";
 import Input from "../form/Input";
+import Select from "../form/Select";
 import Submit from "../form/Submit";
 
 type FormValues = CreateClassificationInput;
@@ -63,12 +64,22 @@ export const CreateClassificationForm: React.FunctionComponent<CreateClassificat
               type="text"
               rules={{ required: errorMessages.required }}
             />
-            <Input
+            <Select
               id="level"
               name="level"
               label="Level: "
-              type="number"
               rules={{ required: errorMessages.required }}
+              options={[
+                { value: 1, label: "1" },
+                { value: 2, label: "2" },
+                { value: 3, label: "3" },
+                { value: 4, label: "4" },
+                { value: 5, label: "5" },
+                { value: 6, label: "6" },
+                { value: 7, label: "7" },
+                { value: 8, label: "8" },
+                { value: 9, label: "9" },
+              ]}
             />
             <Input
               id="minSalary"
