@@ -4,15 +4,15 @@
 /etc/ssl/
 !/etc/ssl/.gitkeep
 /report
-/public/css
-/public/js
 /public/hot
 /public/storage
+/public/css
+/public/js
 /storage/*.key
 /public/mix-manifest.json
 .env
 
-# Lumen
+# Laravel
 /vendor
 /.idea
 Homestead.json

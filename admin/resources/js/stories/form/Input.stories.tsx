@@ -8,15 +8,13 @@ import Submit from "../../components/form/Submit";
 export default {
   component: Input,
   title: "Form/Input",
+  args: {
+    maxWidth: "20rem",
+  },
   argTypes: {
     maxWidth: {
       name: "Max Width",
       type: { name: "string", required: true },
-      defaultValue: "20rem",
-      table: {
-        type: { summary: "string" },
-        defaultValue: { summary: "Button Label" },
-      },
       control: {
         type: "text",
       },
