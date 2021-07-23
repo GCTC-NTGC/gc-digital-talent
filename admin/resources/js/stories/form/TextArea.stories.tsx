@@ -8,15 +8,13 @@ import TextArea, { TextAreaProps } from "../../components/form/TextArea";
 export default {
   component: TextArea,
   title: "Form/TextArea",
+  args: {
+    maxWidth: "20rem",
+  },
   argTypes: {
     maxWidth: {
       name: "Max Width",
       type: { name: "string", required: true },
-      defaultValue: "20rem",
-      table: {
-        type: { summary: "string" },
-        defaultValue: { summary: "Button Label" },
-      },
       control: {
         type: "text",
       },

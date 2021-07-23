@@ -6,15 +6,13 @@ import Button, { ButtonProps } from "../../components/H2Components/Button";
 export default {
   component: Button,
   title: "Components/Button",
+  args: {
+    label: "Button Label",
+  },
   argTypes: {
     label: {
       name: "label",
       type: { name: "string", required: true },
-      defaultValue: "Button Label",
-      table: {
-        type: { summary: "string" },
-        defaultValue: { summary: "Button Label" },
-      },
       control: {
         type: "text",
       },
