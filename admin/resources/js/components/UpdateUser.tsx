@@ -1,6 +1,8 @@
 import React from "react";
+import { defineMessages, useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import pick from "lodash/pick";
+import commonMessages from "./commonMessages";
 import {
   Language,
   UpdateUserInput,
@@ -13,6 +15,63 @@ import Input from "./form/Input";
 import Select from "./form/Select";
 import Submit from "./form/Submit";
 
+const messages = defineMessages({
+  headingTitle: {
+    id: "updateUser.headingTitle",
+    defaultMessage: "Update User",
+    description: "Title displayed on the Update a User form.",
+  },
+  emailLabel: {
+    id: "updateUser.field.emailLabel",
+    defaultMessage: "Email: ",
+    description: "Label displayed on the Update a User form Email field.",
+  },
+  firstNameLabel: {
+    id: "updateUser.field.firstNameLabel",
+    defaultMessage: "First Name: ",
+    description: "Label displayed on the Update a User form First Name field.",
+  },
+  lastNameLabel: {
+    id: "updateUser.field.lastNameLabel",
+    defaultMessage: "Last Name: ",
+    description: "Label displayed on the Update a User form Last Name field.",
+  },
+  telephoneLabel: {
+    id: "updateUser.field.telephoneLabel",
+    defaultMessage: "Telephone: ",
+    description: "Label displayed on the Update a User form Telephone field.",
+  },
+  preferredLanguageLabel: {
+    id: "updateUser.field.preferredLanguageLabel",
+    defaultMessage: "Preferred Language: ",
+    description:
+      "Label displayed on the Update a User form Preferred Language field.",
+  },
+  preferredLanguagePlaceholder: {
+    id: "updateUser.field.preferredLanguagePlaceholder",
+    defaultMessage: "Select a language...",
+    description:
+      "Option value displayed on the Update a User form Preferred Language field for blank.",
+  },
+  preferredLanguageEnglish: {
+    id: "updateUser.field.preferredLanguageEnglish",
+    defaultMessage: "English",
+    description:
+      "Option value displayed on the Update a User form Preferred Language field for English.",
+  },
+  preferredLanguageFrench: {
+    id: "updateUser.field.preferredLanguageFrench",
+    defaultMessage: "French",
+    description:
+      "Option value displayed on the Update a User form Preferred Language field for French.",
+  },
+  userNotFound: {
+    id: "updateUser.userNotFound",
+    defaultMessage: "User {userId} not found.",
+    description: "Message displayed for user not found.",
+  },
+});
+
 type FormValues = UpdateUserInput;
 interface UpdateUserFormProps {
   initialUser: User;
@@ -23,6 +82,7 @@ export const UpdateUserForm: React.FunctionComponent<UpdateUserFormProps> = ({
   initialUser,
   handleUpdateUser,
 }) => {
+  const intl = useIntl();
   const methods = useForm<FormValues>({ defaultValues: initialUser });
   const { handleSubmit, reset } = methods;
 
@@ -37,12 +97,12 @@ export const UpdateUserForm: React.FunctionComponent<UpdateUserFormProps> = ({
 
   return (
     <section>
-      <h2>Update a User</h2>
+      <h2>{intl.formatMessage(messages.headingTitle)}</h2>
       <FormProvider {...methods}>
         <form onSubmit={handleSubmit(onSubmit)}>
           <Input
             id="email"
-            label="Email: "
+            label={intl.formatMessage(messages.emailLabel)}
             type="text"
             name="email"
             value={initialUser.email}
@@ -50,21 +110,21 @@ export const UpdateUserForm: React.FunctionComponent<UpdateUserFormProps> = ({
           />
           <Input
             id="firstName"
-            label="First Name: "
+            label={intl.formatMessage(messages.firstNameLabel)}
             type="text"
             name="firstName"
             rules={{ required: errorMessages.required }}
           />
           <Input
             id="lastName"
-            label="Last Name: "
+            label={intl.formatMessage(messages.lastNameLabel)}
             type="text"
             name="lastName"
             rules={{ required: errorMessages.required }}
           />
           <Input
             id="telephone"
-            label="Telephone: "
+            label={intl.formatMessage(messages.telephoneLabel)}
             type="tel"
             name="telephone"
             rules={{
@@ -77,13 +137,25 @@ export const UpdateUserForm: React.FunctionComponent<UpdateUserFormProps> = ({
           />
           <Select
             id="preferredLang"
-            label="Preferred Language: "
+            label={intl.formatMessage(messages.preferredLanguageLabel)}
             name="preferredLang"
             rules={{ required: errorMessages.required }}
             options={[
-              { value: "", label: "Select a language..." },
-              { value: Language.En, label: "English" },
-              { value: Language.Fr, label: "French" },
+              {
+                value: "",
+                label: intl.formatMessage(
+                  messages.preferredLanguagePlaceholder,
+                ),
+                disabled: true,
+              },
+              {
+                value: Language.En,
+                label: intl.formatMessage(messages.preferredLanguageEnglish),
+              },
+              {
+                value: Language.Fr,
+                label: intl.formatMessage(messages.preferredLanguageFrench),
+              },
             ]}
           />
           <Submit />
@@ -96,6 +168,7 @@ export const UpdateUserForm: React.FunctionComponent<UpdateUserFormProps> = ({
 export const UpdateUser: React.FunctionComponent<{ userId: string }> = ({
   userId,
 }) => {
+  const intl = useIntl();
   const [{ data: userData, fetching, error }] = useUserQuery({
     variables: { id: userId },
   });
@@ -115,15 +188,20 @@ export const UpdateUser: React.FunctionComponent<{ userId: string }> = ({
       return Promise.reject(result.error);
     });
 
-  if (fetching) return <p>Loading...</p>;
-  if (error) return <p>Oh no... {error.message}</p>;
+  if (fetching) return <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>;
+  if (error)
+    return (
+      <p>
+        {intl.formatMessage(commonMessages.loadingError)} {error.message}
+      </p>
+    );
   return userData?.user ? (
     <UpdateUserForm
       initialUser={userData?.user}
       handleUpdateUser={handleUpdateUser}
     />
   ) : (
-    <p>{`User ${userId} not found.`}</p>
+    <p>{intl.formatMessage(messages.userNotFound, { userId })}</p>
   );
 };
 

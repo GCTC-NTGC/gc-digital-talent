@@ -1,44 +1,72 @@
 import React from "react";
+import { defineMessages, useIntl } from "react-intl";
 import { Routes } from "universal-router";
 import { Link, RouterResult } from "../helpers/router";
 import { CreateClassification } from "./classification/CreateClassification";
 import { UpdateClassification } from "./classification/UpdateClassification";
+
 import { ClassificationTableApi } from "./ClassificationTable";
 import ClientProvider from "./ClientProvider";
+import CmoAssetPage from "./CmoAssetPage";
 import { CreateCmoAsset } from "./cmoAssets/CreateCmoAsset";
 import { UpdateCmoAsset } from "./cmoAssets/UpdateCmoAsset";
-import { CmoAssetTableApi } from "./CmoAssetTable";
 import { CreateUser } from "./CreateUser";
 import { Dashboard, exactMatch, MenuLink } from "./dashboard/Dashboard";
 import ErrorContainer from "./ErrorContainer";
-import IntlContainer from "./IntlContainer";
+import HomePage from "./HomePage";
+import OperationalRequirementPage from "./OperationalRequirementPage";
 import { CreateOperationalRequirement } from "./operationalRequirements/CreateOperationalRequirement";
 import { UpdateOperationalRequirement } from "./operationalRequirements/UpdateOperationalRequirement";
-import { OperationalRequirementTableApi } from "./OperationalRequirementTable";
 import { CreatePoolCandidate } from "./poolCandidate/CreatePoolCandidate";
-import { PoolCandidatesTableApi } from "./poolCandidate/PoolCandidatesTable";
 import { UpdatePoolCandidate } from "./poolCandidate/UpdatePoolCandidate";
+import PoolCandidatePage from "./PoolCandidatePage";
 import { UpdateUser } from "./UpdateUser";
-import { UserTableApi } from "./UserTable";
+import UserPage from "./UserPage";
+
+const messages = defineMessages({
+  menuHome: {
+    id: "poolDashboard.menu.homeLabel",
+    defaultMessage: "Home",
+    description: "Label displayed on the Home menu item.",
+  },
+  menuUsers: {
+    id: "poolDashboard.menu.usersLabel",
+    defaultMessage: "Users",
+    description: "Label displayed on the Users menu item.",
+  },
+  menuClassifications: {
+    id: "poolDashboard.menu.classificationsLabel",
+    defaultMessage: "Classifications",
+    description: "Label displayed on the Classifications menu item.",
+  },
+  menuCmoAssets: {
+    id: "poolDashboard.menu.cmoAssetsLabel",
+    defaultMessage: "CMO Assets",
+    description: "Label displayed on the CMO Assets menu item.",
+  },
+  menuOperationalRequirements: {
+    id: "poolDashboard.menu.operationalRequirementsLabel",
+    defaultMessage: "Operational Requirements",
+    description: "Label displayed on the Operational Requirements menu item.",
+  },
+  menuPoolCandidates: {
+    id: "poolDashboard.menu.poolCandidatesLabel",
+    defaultMessage: "Pool Candidates",
+    description: "Label displayed on the Pool Candidates menu item.",
+  },
+});
 
 const routes: Routes<RouterResult> = [
   {
     path: "/",
     action: () => ({
-      component: <p>Welcome Home</p>,
+      component: <HomePage />,
     }),
   },
   {
     path: "/users",
     action: () => ({
-      component: (
-        <div>
-          <Link href="/users/create" title="">
-            Create User
-          </Link>
-          <UserTableApi />
-        </div>
-      ),
+      component: <UserPage />,
     }),
   },
   {
@@ -83,14 +111,7 @@ const routes: Routes<RouterResult> = [
   {
     path: "/cmo-assets",
     action: () => ({
-      component: (
-        <div>
-          <Link href="/cmo-assets/create" title="">
-            Create CMO Asset
-          </Link>
-          <CmoAssetTableApi />
-        </div>
-      ),
+      component: <CmoAssetPage />,
     }),
   },
   {
@@ -108,14 +129,7 @@ const routes: Routes<RouterResult> = [
   {
     path: "/operational-requirements",
     action: () => ({
-      component: (
-        <div>
-          <Link href="/operational-requirements/create" title="">
-            Create Operational Requirement
-          </Link>
-          <OperationalRequirementTableApi />
-        </div>
-      ),
+      component: <OperationalRequirementPage />,
     }),
   },
   {
@@ -134,18 +148,10 @@ const routes: Routes<RouterResult> = [
       ),
     }),
   },
-  // TODO: Finish and add pool candidate table api component
   {
     path: "/pool-candidates",
     action: () => ({
-      component: (
-        <div>
-          <Link href="/pool-candidates/create" title="">
-            Create Pool Candidate
-          </Link>
-          <PoolCandidatesTableApi />
-        </div>
-      ),
+      component: <PoolCandidatePage />,
     }),
   },
   {
@@ -162,38 +168,47 @@ const routes: Routes<RouterResult> = [
   },
 ];
 
-const menuItems = [
-  <MenuLink key="home" href="" text="Home" isActive={exactMatch} />,
-  <MenuLink key="users" href="/users" text="Users" />,
-  <MenuLink
-    key="classifications"
-    href="/classifications"
-    text="Classifications"
-  />,
-  <MenuLink key="cmo-assets" href="/cmo-assets" text="CMO Assets" />,
-  <MenuLink
-    key="operational-requirements"
-    href="/operational-requirements"
-    text="Operational Requirements"
-  />,
-  <MenuLink
-    key="pool-candidates"
-    href="/pool-candidates"
-    text="Pool Candidates"
-  />,
-];
-
 export const PoolDashboard: React.FC = () => {
+  const intl = useIntl();
+  const menuItems = [
+    <MenuLink
+      key="home"
+      href=""
+      text={intl.formatMessage(messages.menuHome)}
+      isActive={exactMatch}
+    />,
+    <MenuLink
+      key="users"
+      href="/users"
+      text={intl.formatMessage(messages.menuUsers)}
+    />,
+    <MenuLink
+      key="classifications"
+      href="/classifications"
+      text={intl.formatMessage(messages.menuClassifications)}
+    />,
+    <MenuLink
+      key="cmo-assets"
+      href="/cmo-assets"
+      text={intl.formatMessage(messages.menuCmoAssets)}
+    />,
+    <MenuLink
+      key="operational-requirements"
+      href="/operational-requirements"
+      text={intl.formatMessage(messages.menuOperationalRequirements)}
+    />,
+    <MenuLink
+      key="pool-candidates"
+      href="/pool-candidates"
+      text={intl.formatMessage(messages.menuPoolCandidates)}
+    />,
+  ];
   return (
-    <div>
-      <IntlContainer locale="en">
-        <ErrorContainer>
-          <ClientProvider>
-            <Dashboard menuItems={menuItems} contentRoutes={routes} />
-          </ClientProvider>
-        </ErrorContainer>
-      </IntlContainer>
-    </div>
+    <ErrorContainer>
+      <ClientProvider>
+        <Dashboard menuItems={menuItems} contentRoutes={routes} />
+      </ClientProvider>
+    </ErrorContainer>
   );
 };
 
