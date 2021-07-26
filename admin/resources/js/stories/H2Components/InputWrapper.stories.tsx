@@ -3,7 +3,7 @@ import { Story, Meta } from "@storybook/react";
 import {
   InputWrapper,
   InputWrapperProps,
-} from "../components/H2Components/InputWrapper";
+} from "../../components/H2Components/InputWrapper";
 
 export default {
   component: InputWrapper,

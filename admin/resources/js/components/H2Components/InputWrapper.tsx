@@ -23,8 +23,12 @@ export const InputWrapper: React.FC<InputWrapperProps> = ({
 }) => {
   const [contextVisible, setContextVisible] = useState(false);
   return (
-    <div>
-      <div data-h2-flex-grid="b(middle, contained, flush, none)">
+    <>
+      <div
+        data-h2-display="b(flex)"
+        data-h2-flex-wrap="b(wrap)"
+        data-h2-align-items="b(center)"
+      >
         <div style={{ flexGrow: 1 }}>
           <InputLabel
             inputId={inputId}
@@ -50,7 +54,7 @@ export const InputWrapper: React.FC<InputWrapperProps> = ({
           />
         </div>
       )}
-    </div>
+    </>
   );
 };
 

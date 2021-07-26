@@ -28,6 +28,7 @@ import {
   enumToOptions,
 } from "../form/formUtils";
 import { getSalaryRange } from "../../model/localizedConstants";
+import Checkbox from "../form/Checkbox";
 
 type Option<V> = { value: V; label: string };
 
@@ -160,42 +161,32 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<UpdatePoolCandidat
                 },
               }}
             />
-            <Input
-              id="isWoman"
-              label="Woman: "
-              type="checkbox"
-              name="isWoman"
-            />
-            <Input
+            <Checkbox id="isWoman" label="Woman: " name="isWoman" />
+            <Checkbox
               id="hasDisability"
               label="Has Disability: "
-              type="checkbox"
               name="hasDisability"
             />
-            <Input
+            <Checkbox
               id="isIndigenous"
               label="Indigenous: "
-              type="checkbox"
               name="isIndigenous"
             />
-            <Input
+            <Checkbox
               id="isVisibleMinority"
               label="Visible Minority: "
-              type="checkbox"
               name="isVisibleMinority"
-            />
-            <Input
-              id="hasDiploma"
-              label="Has Diploma: "
-              type="checkbox"
-              name="hasDiploma"
             />
             <Select
               id="languageAbility"
               label="Language Ability: "
               name="languageAbility"
               options={[
-                { value: "", label: "Select a language ability..." },
+                {
+                  value: "",
+                  label: "Select a language ability...",
+                  disabled: true,
+                },
                 ...enumToOptions(LanguageAbility),
               ]}
               rules={{ required: errorMessages.required }}
@@ -248,7 +239,7 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<UpdatePoolCandidat
               name="status"
               rules={{ required: errorMessages.required }}
               options={[
-                { value: "", label: "Select a status..." },
+                { value: "", label: "Select a status...", disabled: true },
                 ...enumToOptions(PoolCandidateStatus),
               ]}
             />

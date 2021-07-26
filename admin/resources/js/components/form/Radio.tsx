@@ -3,7 +3,7 @@ import get from "lodash/get";
 import { RegisterOptions, useFormContext } from "react-hook-form";
 import { InputWrapper } from "../H2Components/InputWrapper";
 
-export interface CheckboxProps
+export interface RadioProps
   extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "type"> {
   /** HTML id used to identify the element. */
   id: string;
@@ -17,7 +17,7 @@ export interface CheckboxProps
   context?: string;
 }
 
-const Checkbox: React.FunctionComponent<CheckboxProps> = ({
+const Radio: React.FunctionComponent<RadioProps> = ({
   id,
   label,
   name,
@@ -33,27 +33,24 @@ const Checkbox: React.FunctionComponent<CheckboxProps> = ({
   const error = get(errors, name)?.message;
 
   return (
-    <div data-h2-margin="b(bottom, xxs)">
-      <InputWrapper
-        inputId={id}
-        label={label}
-        required={!!rules.required}
-        context={context}
-        error={error}
-        hideOptional
-      >
-        <input
-          style={{ order: -1 }}
-          data-h2-margin="b(bottom-right, xxs)"
-          id={id}
-          {...register(name, rules)}
-          type="checkbox"
-          aria-invalid={error ? "true" : "false"}
-          {...rest}
-        />
-      </InputWrapper>
-    </div>
+    <InputWrapper
+      inputId={id}
+      label={label}
+      required={!!rules.required}
+      context={context}
+      error={error}
+      hideOptional
+    >
+      <input
+        style={{ order: -1 }}
+        data-h2-margin="b(bottom-right, xxs)"
+        id={id}
+        {...register(name, rules)}
+        type="radio"
+        {...rest}
+      />
+    </InputWrapper>
   );
 };
 
-export default Checkbox;
+export default Radio;

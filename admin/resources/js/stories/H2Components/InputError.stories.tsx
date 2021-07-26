@@ -1,6 +1,6 @@
 import React from "react";
 import { Story, Meta } from "@storybook/react";
-import InputError from "../components/H2Components/InputError";
+import InputError from "../../components/H2Components/InputError";
 
 const meta: Meta = {
   title: "Components/Input Error",

@@ -2,22 +2,22 @@ import * as React from "react";
 import get from "lodash/get";
 import { RegisterOptions, useFormContext } from "react-hook-form";
 import Fieldset from "../H2Components/Fieldset";
-import Checkbox from "./Checkbox";
+import Radio from "./Radio";
 import InputWrapper from "../H2Components/InputWrapper";
 
-export type Checkbox = { value: string | number; label: string };
+export type Radio = { value: string | number; label: string };
 
-export interface ChecklistProps {
+export interface RadioGroupProps {
   /** Each input element will be given an id to match to its label, of the form `${idPrefix}-${value}` */
   idPrefix: string;
-  /** Holds text for the legend associated with the checklist fieldset. */
+  /** Holds text for the legend associated with the RadioGroup fieldset. */
   legend: string;
   /** The name of this form control.
    * The form's value at this key should be of type Array<string|number>. */
   name: string;
-  /** A list of value and label representing the checkboxes shown.
-   * The form will represent the data at `name` as an array containing the values of the checked boxes. */
-  items: Checkbox[];
+  /** A list of value and label representing the Radios shown.
+   * The form will represent the data at `name` as a string containing the chosen value. */
+  items: Radio[];
   /** Set of validation rules and error messages to impose on all input elements. */
   rules?: RegisterOptions;
   /** If a context string is provided, a small button will appear which, when toggled, shows the context string below the inputs. */
@@ -32,7 +32,7 @@ export interface ChecklistProps {
  * Must be part of a form controlled by react-hook-form.
  * The form will represent the data at `name` as an array, containing the values of the checked boxes.
  */
-const Checklist: React.FunctionComponent<ChecklistProps> = ({
+const RadioGroup: React.FunctionComponent<RadioGroupProps> = ({
   idPrefix,
   legend,
   name,
@@ -77,8 +77,7 @@ const Checklist: React.FunctionComponent<ChecklistProps> = ({
               id={id}
               {...register(name, rules)}
               value={value}
-              type="checkbox"
-              aria-invalid={error ? "true" : "false"}
+              type="radio"
             />
           </InputWrapper>
         );
@@ -87,4 +86,4 @@ const Checklist: React.FunctionComponent<ChecklistProps> = ({
   );
 };
 
-export default Checklist;
+export default RadioGroup;

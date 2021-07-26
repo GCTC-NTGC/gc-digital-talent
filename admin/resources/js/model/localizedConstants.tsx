@@ -1,7 +1,7 @@
 import { SalaryRange } from "../api/generated";
 import { getOrThrowError } from "../helpers/util";
 
-export const getSalaryRanges = {
+export const salaryRanges = {
   [SalaryRange["50_59K"]]: "$50,000 - $59,000",
   [SalaryRange["60_69K"]]: "$60,000 - $69,000",
   [SalaryRange["70_79K"]]: "$70,000 - $79,000",
@@ -11,4 +11,4 @@ export const getSalaryRanges = {
 };
 
 export const getSalaryRange = (getSalaryId: string | number): string =>
-  getOrThrowError(getSalaryRanges, getSalaryId, "invalid Salary Range");
+  getOrThrowError(salaryRanges, getSalaryId, "invalid Salary Range");

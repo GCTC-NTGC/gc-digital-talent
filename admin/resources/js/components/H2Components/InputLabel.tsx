@@ -26,16 +26,17 @@ const InputLabel: React.FC<InputLabelProps> = ({
     setContextIsActive((currentState) => !currentState);
   };
   return (
-    <div data-h2-flex-grid="b(middle, contained, flush, none)">
-      <div data-h2-flex-item="b(1of1) s(1of2)" data-h2-text-align="b(left)">
+    <div
+      data-h2-display="b(flex)"
+      data-h2-flex-wrap="b(wrap)"
+      data-h2-margin="b(bottom, xxs)"
+    >
+      <div style={{ flex: "1" }}>
         <label data-h2-font-size="b(caption)" htmlFor={inputId}>
           {label}
         </label>
       </div>
-      <div
-        data-h2-flex-item="b(1of1) s(1of2)"
-        data-h2-text-align="b(left) s(right)"
-      >
+      <div>
         {
           /** If hideOptional is true, only show text if required is true. */
           (required || !hideOptional) && (

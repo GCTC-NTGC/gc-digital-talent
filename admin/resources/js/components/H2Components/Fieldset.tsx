@@ -37,16 +37,19 @@ export const Fieldset: React.FC<FieldsetProps> = ({
       disabled={disabled}
       style={{
         border: "0 none",
+        padding: "0",
       }}
+      data-h2-margin="b(bottom, xxs)"
     >
-      <div data-h2-flex-grid="b(middle, contained, flush, none)">
-        <div data-h2-flex-item="b(1of1) s(1of2)" data-h2-text-align="b(left)">
+      <div
+        data-h2-display="b(flex)"
+        data-h2-flex-wrap="b(wrap)"
+        data-h2-margin="b(bottom, xxs)"
+      >
+        <div style={{ flex: "1" }}>
           <legend data-h2-font-size="b(caption)">{legend}</legend>
         </div>
-        <div
-          data-h2-flex-item="b(1of1) s(1of2)"
-          data-h2-text-align="b(left) s(right)"
-        >
+        <div>
           {
             /** If hideOptional is true, only show text if required is true. */
             (required || !hideOptional) && (
@@ -88,7 +91,7 @@ export const Fieldset: React.FC<FieldsetProps> = ({
       <div
         data-h2-border="b(darkgray, all, solid, s)"
         data-h2-radius="b(s)"
-        data-h2-padding="b(right-left, s) b(top-bottom, xs)"
+        data-h2-padding="b(right-left, s) b(top, xxs)"
       >
         {children}
       </div>
