@@ -1,8 +1,11 @@
 import React from "react";
 import { defineMessages, useIntl } from "react-intl";
 import { Routes } from "universal-router";
-import { RouterResult } from "../helpers/router";
-import { ClassificationTableApi } from "./ClassificationTable";
+import { Link, RouterResult } from "../helpers/router";
+import { CreateClassification } from "./classification/CreateClassification";
+import { UpdateClassification } from "./classification/UpdateClassification";
+
+import { ClassificationTableApi } from "./classification/ClassificationTable";
 import ClientProvider from "./ClientProvider";
 import CmoAssetPage from "./CmoAssetPage";
 import { CreateCmoAsset } from "./cmoAssets/CreateCmoAsset";
@@ -81,7 +84,28 @@ const routes: Routes<RouterResult> = [
   {
     path: "/classifications",
     action: () => ({
-      component: <ClassificationTableApi />,
+      component: (
+        <div>
+          <Link href="/classifications/create" title="">
+            Create Classification
+          </Link>
+          <ClassificationTableApi />
+        </div>
+      ),
+    }),
+  },
+  {
+    path: "/classifications/create",
+    action: () => ({
+      component: <CreateClassification />,
+    }),
+  },
+  {
+    path: "/classifications/:id/edit",
+    action: ({ params }) => ({
+      component: (
+        <UpdateClassification classificationId={params.id as string} />
+      ),
     }),
   },
   {

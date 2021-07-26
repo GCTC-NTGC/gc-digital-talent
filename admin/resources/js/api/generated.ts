@@ -304,6 +304,7 @@ export type Query = {
   pools: Array<Maybe<Pool>>;
   poolCandidate?: Maybe<PoolCandidate>;
   poolCandidates: Array<Maybe<PoolCandidate>>;
+  classification?: Maybe<Classification>;
   classifications: Array<Maybe<Classification>>;
   operationalRequirement?: Maybe<OperationalRequirement>;
   operationalRequirements: Array<Maybe<OperationalRequirement>>;
@@ -320,6 +321,10 @@ export type QueryPoolArgs = {
 };
 
 export type QueryPoolCandidateArgs = {
+  id: Scalars["ID"];
+};
+
+export type QueryClassificationArgs = {
   id: Scalars["ID"];
 };
 
@@ -429,20 +434,71 @@ export enum WorkRegion {
   North = "NORTH",
 }
 
+export type ClassificationFragment = { __typename?: "Classification" } & Pick<
+  Classification,
+  "id" | "group" | "level" | "minSalary" | "maxSalary"
+> & {
+    name?: Maybe<
+      { __typename?: "LocalizedString" } & Pick<LocalizedString, "en" | "fr">
+    >;
+  };
+
+export type GetClassificationQueryVariables = Exact<{
+  id: Scalars["ID"];
+}>;
+
+export type GetClassificationQuery = { __typename?: "Query" } & {
+  classification?: Maybe<
+    { __typename?: "Classification" } & ClassificationFragment
+  >;
+};
+
 export type GetClassificationsQueryVariables = Exact<{ [key: string]: never }>;
 
 export type GetClassificationsQuery = { __typename?: "Query" } & {
   classifications: Array<
-    Maybe<
-      { __typename?: "Classification" } & Pick<
-        Classification,
-        "id" | "group" | "level" | "minSalary" | "maxSalary"
-      > & {
-          name?: Maybe<
-            { __typename?: "LocalizedString" } & Pick<LocalizedString, "en">
-          >;
-        }
-    >
+    Maybe<{ __typename?: "Classification" } & ClassificationFragment>
+  >;
+};
+
+export type CreateClassificationMutationVariables = Exact<{
+  classification: CreateClassificationInput;
+}>;
+
+export type CreateClassificationMutation = { __typename?: "Mutation" } & {
+  createClassification?: Maybe<
+    { __typename?: "Classification" } & Pick<
+      Classification,
+      "group" | "level" | "minSalary" | "maxSalary"
+    > & {
+        name?: Maybe<
+          { __typename?: "LocalizedString" } & Pick<
+            LocalizedString,
+            "en" | "fr"
+          >
+        >;
+      }
+  >;
+};
+
+export type UpdateClassificationMutationVariables = Exact<{
+  id: Scalars["ID"];
+  classification: UpdateClassificationInput;
+}>;
+
+export type UpdateClassificationMutation = { __typename?: "Mutation" } & {
+  updateClassification?: Maybe<
+    { __typename?: "Classification" } & Pick<
+      Classification,
+      "group" | "level" | "minSalary" | "maxSalary"
+    > & {
+        name?: Maybe<
+          { __typename?: "LocalizedString" } & Pick<
+            LocalizedString,
+            "en" | "fr"
+          >
+        >;
+      }
   >;
 };
 
@@ -1098,6 +1154,19 @@ export type CreateUserMutation = { __typename?: "Mutation" } & {
   >;
 };
 
+export const ClassificationFragmentDoc = gql`
+  fragment classification on Classification {
+    id
+    name {
+      en
+      fr
+    }
+    group
+    level
+    minSalary
+    maxSalary
+  }
+`;
 export const PoolCandidateFragmentDoc = gql`
   fragment poolCandidate on PoolCandidate {
     id
@@ -1207,19 +1276,33 @@ export const PoolCandidateFormFragmentDoc = gql`
     status
   }
 `;
+export const GetClassificationDocument = gql`
+  query getClassification($id: ID!) {
+    classification(id: $id) {
+      ...classification
+    }
+  }
+  ${ClassificationFragmentDoc}
+`;
+
+export function useGetClassificationQuery(
+  options: Omit<
+    Urql.UseQueryArgs<GetClassificationQueryVariables>,
+    "query"
+  > = {},
+) {
+  return Urql.useQuery<GetClassificationQuery>({
+    query: GetClassificationDocument,
+    ...options,
+  });
+}
 export const GetClassificationsDocument = gql`
   query GetClassifications {
     classifications {
-      id
-      name {
-        en
-      }
-      group
-      level
-      minSalary
-      maxSalary
+      ...classification
     }
   }
+  ${ClassificationFragmentDoc}
 `;
 
 export function useGetClassificationsQuery(
@@ -1232,6 +1315,51 @@ export function useGetClassificationsQuery(
     query: GetClassificationsDocument,
     ...options,
   });
+}
+export const CreateClassificationDocument = gql`
+  mutation createClassification($classification: CreateClassificationInput!) {
+    createClassification(classification: $classification) {
+      name {
+        en
+        fr
+      }
+      group
+      level
+      minSalary
+      maxSalary
+    }
+  }
+`;
+
+export function useCreateClassificationMutation() {
+  return Urql.useMutation<
+    CreateClassificationMutation,
+    CreateClassificationMutationVariables
+  >(CreateClassificationDocument);
+}
+export const UpdateClassificationDocument = gql`
+  mutation updateClassification(
+    $id: ID!
+    $classification: UpdateClassificationInput!
+  ) {
+    updateClassification(id: $id, classification: $classification) {
+      name {
+        en
+        fr
+      }
+      group
+      level
+      minSalary
+      maxSalary
+    }
+  }
+`;
+
+export function useUpdateClassificationMutation() {
+  return Urql.useMutation<
+    UpdateClassificationMutation,
+    UpdateClassificationMutationVariables
+  >(UpdateClassificationDocument);
 }
 export const GetCmoAssetDocument = gql`
   query getCmoAsset($id: ID!) {

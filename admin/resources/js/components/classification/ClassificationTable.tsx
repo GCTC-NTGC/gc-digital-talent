@@ -3,11 +3,13 @@ import { defineMessages, useIntl } from "react-intl";
 import {
   GetClassificationsQuery,
   useGetClassificationsQuery,
-} from "../api/generated";
-import { notEmpty } from "../helpers/util";
-import { FromArray } from "../types/utilityTypes";
-import commonMessages from "./commonMessages";
-import Table, { ColumnsOf } from "./Table";
+} from "../../api/generated";
+import { navigate, useLocation } from "../../helpers/router";
+import { notEmpty } from "../../helpers/util";
+import { FromArray } from "../../types/utilityTypes";
+import commonMessages from "../commonMessages";
+import Button from "../H2Components/Button";
+import Table, { ColumnsOf } from "../Table";
 
 const messages = defineMessages({
   columnIdTitle: {
@@ -42,13 +44,18 @@ const messages = defineMessages({
     description:
       "Title displayed for the Classification table Maximum Salary column.",
   },
+  columnEditTitle: {
+    id: "classificationTable.column.editTitle",
+    defaultMessage: "Edit",
+    description: "Title displayed for the Classification table Edit column.",
+  },
 });
 
 type Data = NonNullable<FromArray<GetClassificationsQuery["classifications"]>>;
 
-export const ClassificationTable: React.FC<GetClassificationsQuery> = ({
-  classifications,
-}) => {
+export const ClassificationTable: React.FC<
+  GetClassificationsQuery & { editUrlRoot: string }
+> = ({ classifications, editUrlRoot }) => {
   const intl = useIntl();
   const columns = useMemo<ColumnsOf<Data>>(
     () => [
@@ -77,8 +84,24 @@ export const ClassificationTable: React.FC<GetClassificationsQuery> = ({
         Header: intl.formatMessage(messages.columnMaximumSalaryTitle),
         accessor: "maxSalary",
       },
+      {
+        Header: intl.formatMessage(messages.columnEditTitle),
+        id: "edit",
+        accessor: ({ id }) => (
+          <Button
+            color="white"
+            mode="solid"
+            onClick={(event) => {
+              event.preventDefault();
+              navigate(`${editUrlRoot}/${id}/edit`);
+            }}
+          >
+            {intl.formatMessage(messages.columnEditTitle)}
+          </Button>
+        ),
+      },
     ],
-    [intl],
+    [editUrlRoot, intl],
   );
 
   const memoizedData = useMemo(
@@ -101,6 +124,7 @@ export const ClassificationTableApi: React.FunctionComponent = () => {
   const intl = useIntl();
   const [result] = useGetClassificationsQuery();
   const { data, fetching, error } = result;
+  const { pathname } = useLocation();
 
   if (fetching) return <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>;
   if (error)
@@ -110,5 +134,10 @@ export const ClassificationTableApi: React.FunctionComponent = () => {
       </p>
     );
 
-  return <ClassificationTable classifications={data?.classifications ?? []} />;
+  return (
+    <ClassificationTable
+      classifications={data?.classifications ?? []}
+      editUrlRoot={pathname}
+    />
+  );
 };

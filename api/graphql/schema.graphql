@@ -137,7 +137,7 @@ type Query {
     pools: [Pool]! @all
     poolCandidate(id: ID! @eq): PoolCandidate @find
     poolCandidates: [PoolCandidate]! @all
-
+    classification(id: ID! @eq): Classification @find
     classifications: [Classification]! @all
     operationalRequirement(id: ID! @eq): OperationalRequirement @find
     operationalRequirements: [OperationalRequirement]! @all
