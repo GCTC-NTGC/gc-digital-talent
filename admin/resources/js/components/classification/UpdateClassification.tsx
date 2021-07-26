@@ -1,6 +1,7 @@
 import { pick, upperCase } from "lodash";
 import * as React from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import { defineMessages, useIntl } from "react-intl";
 import {
   Classification,
   UpdateClassificationInput,
@@ -11,6 +12,19 @@ import errorMessages from "../form/errorMessages";
 import Input from "../form/Input";
 import Select from "../form/Select";
 import Submit from "../form/Submit";
+
+const messages = defineMessages({
+  headingTitle: {
+    id: "updateClassification.headingTitle",
+    defaultMessage: "Update Classification",
+    description: "Title displayed on the Update a Classification form.",
+  },
+  levelLabel: {
+    id: "updateClassification.levelLabel",
+    defaultMessage: "Select a level...",
+    description: "Label displayed for the default option on the Level field.",
+  },
+});
 
 type FormValues = UpdateClassificationInput;
 interface UpdateClassificationFormProps {
@@ -23,6 +37,7 @@ interface UpdateClassificationFormProps {
 
 export const UpdateClassificationForm: React.FunctionComponent<UpdateClassificationFormProps> =
   ({ initialClassification, handleUpdateClassification }) => {
+    const intl = useIntl();
     const methods = useForm<FormValues>({
       defaultValues: initialClassification,
     });
@@ -51,7 +66,7 @@ export const UpdateClassificationForm: React.FunctionComponent<UpdateClassificat
     };
     return (
       <section>
-        <h2>Update Classification</h2>
+        <h2>{intl.formatMessage(messages.headingTitle)}</h2>
         <FormProvider {...methods}>
           <form onSubmit={handleSubmit(onSubmit)}>
             <Input
@@ -80,6 +95,11 @@ export const UpdateClassificationForm: React.FunctionComponent<UpdateClassificat
               name="level"
               label="Level: "
               options={[
+                {
+                  value: "",
+                  label: intl.formatMessage(messages.levelLabel),
+                  disabled: true,
+                },
                 { value: 1, label: "1" },
                 { value: 2, label: "2" },
                 { value: 3, label: "3" },

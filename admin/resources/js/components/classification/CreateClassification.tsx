@@ -1,6 +1,7 @@
 import { upperCase } from "lodash";
 import * as React from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import { defineMessages, useIntl } from "react-intl";
 import {
   CreateClassificationInput,
   useCreateClassificationMutation,
@@ -10,6 +11,19 @@ import Input from "../form/Input";
 import Select from "../form/Select";
 import Submit from "../form/Submit";
 
+const messages = defineMessages({
+  headingTitle: {
+    id: "createClassification.headingTitle",
+    defaultMessage: "Create Classification",
+    description: "Title displayed on the Create a Classification form.",
+  },
+  levelLabel: {
+    id: "createClassification.levelLabel",
+    defaultMessage: "Select a level...",
+    description: "Label displayed for the default option on the Level field.",
+  },
+});
+
 type FormValues = CreateClassificationInput;
 interface CreateClassificationFormProps {
   handleCreateClassification: (data: FormValues) => Promise<FormValues>;
@@ -17,6 +31,7 @@ interface CreateClassificationFormProps {
 
 export const CreateClassificationForm: React.FunctionComponent<CreateClassificationFormProps> =
   ({ handleCreateClassification }) => {
+    const intl = useIntl();
     const methods = useForm<FormValues>();
     const { handleSubmit, watch } = methods;
     const watchMinSalary = watch("minSalary");
@@ -40,7 +55,7 @@ export const CreateClassificationForm: React.FunctionComponent<CreateClassificat
     };
     return (
       <section>
-        <h2>Create Classification</h2>
+        <h2>{intl.formatMessage(messages.headingTitle)}</h2>
         <FormProvider {...methods}>
           <form onSubmit={handleSubmit(onSubmit)}>
             <Input
@@ -70,6 +85,11 @@ export const CreateClassificationForm: React.FunctionComponent<CreateClassificat
               label="Level: "
               rules={{ required: errorMessages.required }}
               options={[
+                {
+                  value: "",
+                  label: intl.formatMessage(messages.levelLabel),
+                  disabled: true,
+                },
                 { value: 1, label: "1" },
                 { value: 2, label: "2" },
                 { value: 3, label: "3" },
