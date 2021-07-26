@@ -45,9 +45,9 @@ const messages = defineMessages({
       "Title displayed for the Classification table Maximum Salary column.",
   },
   columnEditTitle: {
-    id: "userTable.column.editTitle",
+    id: "classificationTable.column.editTitle",
     defaultMessage: "Edit",
-    description: "Title displayed for the User table Edit column.",
+    description: "Title displayed for the Classification table Edit column.",
   },
 });
 
