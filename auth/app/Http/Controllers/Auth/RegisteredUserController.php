@@ -49,13 +49,6 @@ class RegisteredUserController extends Controller
 
         event(new Registered($user));
 
-        // Create user in API Database.
-        (new User([
-            'first_name' => $request->first_name,
-            'last_name' => $request->last_name,
-            'email' => $request->email,
-        ]))->setConnection('pgsql_api')->save();
-
         Auth::login($user);
 
         return redirect(RouteServiceProvider::HOME);
