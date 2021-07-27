@@ -42,7 +42,7 @@
     "@hydrogen-design-system/hydrogen.css": "^1.0.7",
     "@storybook/addon-actions": "^6.3.6",
     "@storybook/addon-essentials": "^6.3.6",
-    "@storybook/addon-links": "^6.3.5",
+    "@storybook/addon-links": "^6.3.6",
     "@storybook/builder-webpack5": "^6.3.6",
     "@storybook/manager-webpack5": "^6.3.6",
     "@storybook/react": "^6.3.6",
