@@ -161,10 +161,6 @@ const PoolCandidatesTable: React.FC<GetPoolCandidatesQuery> = ({
         accessor: ({ firstName, lastName }) => `${firstName} ${lastName}`,
       },
       {
-        Header: intl.formatMessage(messages.emailTitle),
-        accessor: "email",
-      },
-      {
         Header: intl.formatMessage(messages.telephoneTitle),
         accessor: "telephone",
       },

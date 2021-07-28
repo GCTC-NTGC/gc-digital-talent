@@ -1,6 +1,7 @@
 /* THIS FILE IS AUTO-GENERATED, DO NOT EDIT */
 import { gql } from "urql";
 import * as Urql from "urql";
+
 export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: unknown }> = {
   [K in keyof T]: T[K];
