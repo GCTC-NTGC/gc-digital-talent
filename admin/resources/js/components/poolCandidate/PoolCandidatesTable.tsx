@@ -158,15 +158,17 @@ const PoolCandidatesTable: React.FC<GetPoolCandidatesQuery> = ({
       },
       {
         Header: intl.formatMessage(messages.nameTitle),
-        accessor: ({ firstName, lastName }) => `${firstName} ${lastName}`,
+        accessor: ({ user }) => `${user?.firstName} ${user?.lastName}`,
       },
       {
         Header: intl.formatMessage(messages.telephoneTitle),
-        accessor: "telephone",
+        id: "telephone",
+        accessor: ({ user }) => user?.telephone,
       },
       {
         Header: intl.formatMessage(messages.preferredLangTitle),
-        accessor: "preferredLang",
+        id: "preferredLang",
+        accessor: ({ user }) => user?.preferredLang,
       },
     ],
     [intl],
