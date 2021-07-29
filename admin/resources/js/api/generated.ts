@@ -1,7 +1,6 @@
 /* THIS FILE IS AUTO-GENERATED, DO NOT EDIT */
 import { gql } from "urql";
 import * as Urql from "urql";
-
 export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: unknown }> = {
   [K in keyof T]: T[K];
@@ -284,11 +283,6 @@ export type PoolCandidate = {
   expectedClassifications?: Maybe<Array<Maybe<Classification>>>;
   cmoAssets?: Maybe<Array<Maybe<CmoAsset>>>;
   status?: Maybe<PoolCandidateStatus>;
-  firstName?: Maybe<Scalars["String"]>;
-  lastName?: Maybe<Scalars["String"]>;
-  email?: Maybe<Scalars["String"]>;
-  telephone?: Maybe<Scalars["String"]>;
-  preferredLang?: Maybe<Scalars["String"]>;
 };
 
 export type PoolCandidateHasMany = {
@@ -654,11 +648,6 @@ export type PoolCandidateFragment = { __typename?: "PoolCandidate" } & Pick<
   | "locationPreferences"
   | "expectedSalary"
   | "status"
-  | "firstName"
-  | "lastName"
-  | "email"
-  | "telephone"
-  | "preferredLang"
 > & {
     pool?: Maybe<
       { __typename?: "Pool" } & Pick<Pool, "id"> & {
@@ -690,7 +679,12 @@ export type PoolCandidateFragment = { __typename?: "PoolCandidate" } & Pick<
     user?: Maybe<
       { __typename?: "User" } & Pick<
         User,
-        "id" | "firstName" | "lastName" | "email"
+        | "id"
+        | "firstName"
+        | "lastName"
+        | "email"
+        | "preferredLang"
+        | "telephone"
       >
     >;
     acceptedOperationalRequirements?: Maybe<
@@ -874,7 +868,12 @@ export type GetCreatePoolCandidateDataQuery = { __typename?: "Query" } & {
     Maybe<
       { __typename?: "User" } & Pick<
         User,
-        "id" | "firstName" | "lastName" | "email"
+        | "id"
+        | "firstName"
+        | "lastName"
+        | "email"
+        | "preferredLang"
+        | "telephone"
       >
     >
   >;
@@ -1133,6 +1132,8 @@ export const PoolCandidateFragmentDoc = gql`
       firstName
       lastName
       email
+      preferredLang
+      telephone
     }
     cmoIdentifier
     expiryDate
@@ -1168,11 +1169,6 @@ export const PoolCandidateFragmentDoc = gql`
       }
     }
     status
-    firstName
-    lastName
-    email
-    telephone
-    preferredLang
   }
 `;
 export const PoolCandidateFormFragmentDoc = gql`
@@ -1532,6 +1528,8 @@ export const GetCreatePoolCandidateDataDocument = gql`
       firstName
       lastName
       email
+      preferredLang
+      telephone
     }
   }
 `;
