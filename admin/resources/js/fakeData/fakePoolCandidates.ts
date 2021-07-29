@@ -50,6 +50,8 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       firstName: "Baron",
       lastName: "Barrows",
       email: "bwalter@example.org",
+      telephone: "613-165-5431",
+      preferredLang: Language.En,
     },
     cmoIdentifier: "omnis",
     expiryDate: null,
