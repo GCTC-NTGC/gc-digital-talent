@@ -9,7 +9,7 @@ import {
 } from "urql";
 import { ErrorContext } from "./ErrorContainer";
 
-const apiUrl = process.env.API_URI ?? "http://localhost:8000/graphql";
+const apiUri = process.env.API_URI ?? "http://localhost:8000/graphql";
 
 export const ClientProvider: React.FC<{ client?: Client }> = ({
   client,
@@ -21,7 +21,7 @@ export const ClientProvider: React.FC<{ client?: Client }> = ({
     return (
       client ??
       createClient({
-        url: apiUrl,
+        url: apiUri,
         exchanges: [
           errorExchange({
             onError: (error: CombinedError) => {
