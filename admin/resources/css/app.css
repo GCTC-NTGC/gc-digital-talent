@@ -19,3 +19,32 @@ table tbody tr:nth-of-type(odd) {
 table tbody tr:nth-of-type(even) {
     background-color: #FAFAFA;
 }
+
+.reset-ul {
+    list-style: none;
+    padding: 0;
+}
+
+body {
+    position: absolute;
+    margin: 0px;
+    overflow: hidden;
+    top: 0px;
+    bottom: 0px;
+    width: 100%;
+}
+
+.container {
+    height: 100vh;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.dashboard {
+    flex-grow: 1;
+}
+
+/* .footer {
+    background-color: #F8F8F8
+} */
