@@ -9,7 +9,7 @@ import {
 } from "urql";
 import { ErrorContext } from "./ErrorContainer";
 
-const apiUrl = process.env.API_URL ?? "http://localhost:8000/graphql";
+const apiUrl = process.env.API_URI ?? "http://localhost:8000/graphql";
 
 export const ClientProvider: React.FC<{ client?: Client }> = ({
   client,
