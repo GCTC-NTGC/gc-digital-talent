@@ -20,7 +20,9 @@ fragment poolCandidate on PoolCandidate {
     id,
     firstName,
     lastName,
-    email
+    email,
+    preferredLang
+    telephone
   },
   cmoIdentifier,
   expiryDate,
@@ -149,6 +151,8 @@ query getCreatePoolCandidateData {
     firstName
     lastName
     email
+    preferredLang
+    telephone
   }
 }
 

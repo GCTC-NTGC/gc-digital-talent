@@ -735,7 +735,12 @@ export type PoolCandidateFragment = { __typename?: "PoolCandidate" } & Pick<
     user?: Maybe<
       { __typename?: "User" } & Pick<
         User,
-        "id" | "firstName" | "lastName" | "email"
+        | "id"
+        | "firstName"
+        | "lastName"
+        | "email"
+        | "preferredLang"
+        | "telephone"
       >
     >;
     acceptedOperationalRequirements?: Maybe<
@@ -919,7 +924,12 @@ export type GetCreatePoolCandidateDataQuery = { __typename?: "Query" } & {
     Maybe<
       { __typename?: "User" } & Pick<
         User,
-        "id" | "firstName" | "lastName" | "email"
+        | "id"
+        | "firstName"
+        | "lastName"
+        | "email"
+        | "preferredLang"
+        | "telephone"
       >
     >
   >;
@@ -1191,6 +1201,8 @@ export const PoolCandidateFragmentDoc = gql`
       firstName
       lastName
       email
+      preferredLang
+      telephone
     }
     cmoIdentifier
     expiryDate
@@ -1644,6 +1656,8 @@ export const GetCreatePoolCandidateDataDocument = gql`
       firstName
       lastName
       email
+      preferredLang
+      telephone
     }
   }
 `;

@@ -71,6 +71,30 @@ const messages = defineMessages({
     description:
       "Title displayed for the Operational Requirement table Language column.",
   },
+  nameTitle: {
+    id: "poolCandidatesTable.column.firstLast",
+    defaultMessage: "Name",
+    description:
+      "Title displayed on the Operational Requirement table name column.",
+  },
+  emailTitle: {
+    id: "poolCandidatesTable.column.email",
+    defaultMessage: "Email",
+    description:
+      "Title displayed on the Operational Requirement table email column.",
+  },
+  telephoneTitle: {
+    id: "poolCandidatesTable.column.telephone",
+    defaultMessage: "Telephone",
+    description:
+      "Title displayed on the Operational Requirement table telephone column.",
+  },
+  preferredLangTitle: {
+    id: "poolCandidatesTable.column.preferred",
+    defaultMessage: "Preferred Lang",
+    description:
+      "Title displayed on the Operational Requirement table Preferred Lang column.",
+  },
 });
 
 type Data = NonNullable<FromArray<GetPoolCandidatesQuery["poolCandidates"]>>;
@@ -131,6 +155,20 @@ const PoolCandidatesTable: React.FC<GetPoolCandidatesQuery> = ({
       {
         Header: intl.formatMessage(messages.columnLanguageTitle),
         accessor: "languageAbility",
+      },
+      {
+        Header: intl.formatMessage(messages.nameTitle),
+        accessor: ({ user }) => `${user?.firstName} ${user?.lastName}`,
+      },
+      {
+        Header: intl.formatMessage(messages.telephoneTitle),
+        id: "telephone",
+        accessor: ({ user }) => user?.telephone,
+      },
+      {
+        Header: intl.formatMessage(messages.preferredLangTitle),
+        id: "preferredLang",
+        accessor: ({ user }) => user?.preferredLang,
       },
     ],
     [intl],
