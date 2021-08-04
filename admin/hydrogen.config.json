@@ -8,71 +8,75 @@
   },
   "colors": [
     {
-      "name": "white",
+      "key": "white",
       "color": "#FFFFFF",
       "opacity": true
     },
     {
-      "name": "black",
+      "key": "black",
       "color": "#1E1E23",
       "opacity": true
     },
     {
-      "name": "gray",
+      "key": "gray",
       "color": "#B9B9B9",
       "opacity": true
     },
     {
-      "name": "darkgray",
+      "key": "darkgray",
       "color": "#646464",
       "opacity": true
     },
     {
-      "name": "lightgray",
+      "key": "lightgray",
       "color": "#F0F0F0",
       "opacity": true
     },
     {
-      "name": "red",
+      "key": "red",
       "color": "#FF0000",
       "opacity": true
     },
     {
-      "name": "gold",
+      "key": "gold",
       "color": "#F9C160",
       "opacity": true
     },
     {
-      "name": "darkgold",
+      "key": "darkgold",
       "color": "#F8A812",
       "opacity": true
     },
     {
-      "name": "lightgold",
+      "key": "lightgold",
       "color": "#FBDCA5",
       "opacity": true
     },
     {
-      "name": "darknavy",
+      "key": "darknavy",
       "color": "#072131",
       "opacity": true
     },
     {
-      "name": "lightnavy",
+      "key": "lightnavy",
       "color": "#1D2C4C",
       "opacity": true
     },
     {
-      "name": "darkpurple",
+      "key": "darkpurple",
       "color": "#363661",
       "opacity": true
     },
     {
-      "name": "lightpurple",
+      "key": "lightpurple",
       "color": "#674C90",
       "opacity": true
     }
   ],
+  "flexgrid": {
+    "enabled": true,
+    "columns": 12
+  },
   "fonts": [
     {
       "name": "sans",
@@ -89,19 +93,15 @@
       "angle": "70deg",
       "colorStops": [
         {
-          "name": "lightpurple",
+          "key": "lightpurple",
           "color": "#674C90"
         },
         {
-          "name": "lightnavy",
+          "key": "lightnavy",
           "color": "#1D2C4C"
         }
       ]
     }
   ],
-  "whitespaceScale": "1.5",
-  "flexgrid": {
-    "enabled": true,
-    "columns": 12
-  }
+  "whitespaceScale": "1.5"
 }
