@@ -11,7 +11,6 @@ let dotenvplugin = new webpack.DefinePlugin({
 })
 
 mix.ts("resources/js/dashboard.tsx", "public/js")
-  .css("resources/css/hydrogen.css", "public/css")
   .css("resources/css/app.css", "public/css")
   .polyfill({
   enabled: true,
