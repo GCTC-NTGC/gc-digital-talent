@@ -4,7 +4,7 @@
       "resources/js",
       "resources/views"
     ],
-    "styles": "resources/css"
+    "styles": "public/css"
   },
   "colors": [
     {
@@ -79,7 +79,7 @@
   },
   "fonts": [
     {
-      "name": "sans",
+      "key": "sans",
       "loadType": "webfont",
       "value": "Open Sans, sans-serif",
       "url": "https://fonts.googleapis.com/css2?family=Open+Sans&display=swap"
