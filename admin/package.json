@@ -32,7 +32,7 @@
     "codegen": "graphql-codegen"
   },
   "devDependencies": {
-    "@babel/core": "^7.14.8",
+    "@babel/core": "^7.15.0",
     "@babel/preset-react": "^7.14.5",
     "@graphql-codegen/add": "^3.0.0",
     "@graphql-codegen/cli": "^2.0.1",
