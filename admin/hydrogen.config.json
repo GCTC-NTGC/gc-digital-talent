@@ -1,4 +1,6 @@
 {
+  "debug": false,
+  "mediaWarnings": false,
   "folders": {
     "markup": "resources/views",
     "scripts": "resources/js"
