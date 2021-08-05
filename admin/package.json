@@ -35,7 +35,7 @@
     "@babel/core": "^7.14.8",
     "@babel/preset-react": "^7.14.5",
     "@graphql-codegen/add": "^2.0.2",
-    "@graphql-codegen/cli": "^1.21.8",
+    "@graphql-codegen/cli": "^2.0.1",
     "@graphql-codegen/typescript": "^1.22.2",
     "@graphql-codegen/typescript-operations": "^1.18.4",
     "@graphql-codegen/typescript-urql": "^3.0.0",
