@@ -1,9 +1,7 @@
 {
   "folders": {
-    "markup": [
-      "resources/js",
-      "resources/views"
-    ],
+    "markup": "resources/views",
+    "scripts": "resources/js"
     "styles": "public/css"
   },
   "colors": [
