@@ -3,8 +3,8 @@
   "mediaWarnings": false,
   "folders": {
     "markup": "resources/views",
-    "scripts": "resources/js"
-    "styles": "public/css"
+    "scripts": "resources/js",
+    "styles": "resources/css"
   },
   "colors": [
     {
@@ -15,22 +15,22 @@
     {
       "key": "black",
       "color": "#1E1E23",
-      "opacity": true
+      "opacity": false
     },
     {
       "key": "gray",
       "color": "#B9B9B9",
-      "opacity": true
+      "opacity": false
     },
     {
       "key": "darkgray",
       "color": "#646464",
-      "opacity": true
+      "opacity": false
     },
     {
       "key": "lightgray",
       "color": "#F0F0F0",
-      "opacity": true
+      "opacity": false
     },
     {
       "key": "red",
@@ -40,7 +40,7 @@
     {
       "key": "gold",
       "color": "#F9C160",
-      "opacity": true
+      "opacity": false
     },
     {
       "key": "darkgold",
@@ -50,12 +50,12 @@
     {
       "key": "lightgold",
       "color": "#FBDCA5",
-      "opacity": true
+      "opacity": false
     },
     {
       "key": "darknavy",
       "color": "#072131",
-      "opacity": true
+      "opacity": false
     },
     {
       "key": "lightnavy",
@@ -65,7 +65,7 @@
     {
       "key": "darkpurple",
       "color": "#363661",
-      "opacity": true
+      "opacity": false
     },
     {
       "key": "lightpurple",
