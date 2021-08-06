@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\User;
 use Laravel\Lumen\Testing\DatabaseMigrations;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequestsLumen;
 
@@ -78,5 +79,32 @@ class UserTest extends TestCase
         ]);
         // Ensure user was saved
         $this->seeInDatabase('users', ['email' => 'jane@test.com']);
+    }
+
+    public function testUpdateUserRole()
+    {
+        $user = User::factory()->create(['roles' => []]);
+        $this->graphQL(/** @lang GraphQL */ '
+            mutation UpdateUser($id: ID!, $user: UpdateUserInput!) {
+                updateUser(id: $id, user: $user) {
+                    id
+                    roles
+                }
+            }
+        ', [
+            'id' => $user->id,
+            'user' => [
+                'roles' => ['ADMIN']
+            ]
+        ])->seeJson([
+            'data' => [
+                'updateUser' => [
+                    'id' => strval($user->id),
+                    'roles' => ['ADMIN']
+                ]
+            ]
+        ]);
+        // Ensure change was saved
+        $this->assertContains('ADMIN', $user->fresh()->roles);
     }
 }
