@@ -8,7 +8,7 @@ import Button from "./H2Components/Button";
 const messages = defineMessages({
   toggleTableColumnsLabel: {
     id: "table.toggleTableColumnsLabel",
-    defaultMessage: "Table Columns",
+    defaultMessage: "Hide/Show Table Columns",
     description: "Label displayed on the Table Columns toggle.",
   },
   toggleAllTableColumnsLabel: {
@@ -93,7 +93,7 @@ function Table<T extends Record<string, unknown>>({
               <td>
                 <Button
                   color="secondary"
-                  mode="solid"
+                  mode="inline"
                   onClick={() => {
                     setShowList((currentState) => !currentState);
                   }}
@@ -141,7 +141,7 @@ function Table<T extends Record<string, unknown>>({
               <th
                 {...column.getHeaderProps(column.getSortByToggleProps())}
                 key={column.id}
-                data-h2-padding="b(top-bottom, s) b(right-left, m)"
+                data-h2-padding="b(right-left, m)"
                 data-h2-text-align="b(center)"
                 data-h2-font-size="b(caption)"
               >
@@ -163,7 +163,7 @@ function Table<T extends Record<string, unknown>>({
                 return (
                   <td
                     {...cell.getCellProps()}
-                    data-h2-padding="b(top-bottom, s) b(right-left, m)"
+                    data-h2-padding="b(right-left, m)"
                     data-h2-text-align="b(center)"
                     data-h2-font-size="b(caption)"
                   >
