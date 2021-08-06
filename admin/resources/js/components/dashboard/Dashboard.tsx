@@ -54,10 +54,10 @@ export const Dashboard: React.FC<{
       <div
         data-h2-bg-color="b(lightnavy)"
         data-h2-flex-item="b(1of1) m(1of4) l(1of6)"
-        data-h2-padding="b(right-left, m)"
-
       >
-        <SideMenu items={menuItems} />
+        <div data-h2-padding="b(right-left, m)">
+          <SideMenu items={menuItems} />
+        </div>
       </div>
       <div
         data-h2-flex-item="b(1of1) m(3of4) l(5of6)"
