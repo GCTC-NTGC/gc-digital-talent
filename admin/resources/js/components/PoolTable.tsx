@@ -14,36 +14,15 @@ const messages = defineMessages({
     defaultMessage: "First Name",
     description: "Title displayed on the Pool table Unique Identifier column.",
   },
-  columnFirstNameTitle: {
-    id: "PoolTable.column.lastNameTitle",
+  columnOwnerEmail: {
+    id: "PoolTable.column.email",
     defaultMessage: "Last Name",
-    description: "Title displayed for the Pool table First Name column.",
-  },
-  columnLastNameTitle: {
-    id: "PoolTable.column.lastNameTitle",
-    defaultMessage: "Last Name",
-    description: "Title displayed for the Pool table Last Name column.",
-  },
-  columnDiploma: {
-    id: "PoolTable.column.diploma",
-    defaultMessage: "Email",
-    description: "Title displayed for the Pool table diploma column.",
+    description: "Title displayed for the Pool table email column.",
   },
   columnGroupAndLevel: {
     id: "PoolTable.column.groupAndLevel",
     defaultMessage: "Telephone",
     description: "Title displayed for the Pool table Group and Level column.",
-  },
-  columnOpsRequirements: {
-    id: "PoolTable.column.opsRequirements",
-    defaultMessage: "Preferred Language",
-    description:
-      "Title displayed for the Pool table Preferred Operational Requirements column.",
-  },
-  columnEmploymentEquity: {
-    id: "PoolTable.column.employmentEquity",
-    defaultMessage: "Edit",
-    description: "Title displayed for the Pool table Employment Equity column.",
   },
   columnEditTitle: {
     id: "userTable.column.editTitle",
@@ -66,37 +45,17 @@ export const PoolTable: React.FC<GetPoolsQuery & { editUrlRoot: string }> = ({
         accessor: "id",
       },
       {
-        Header: intl.formatMessage(messages.columnUniqueIdentifier),
-        accessor: ({ owner }) => `${owner?.firstName} ${owner?.lastName}`,
+        Header: intl.formatMessage(messages.columnOwnerEmail),
+        accessor: ({ owner }) => owner?.email,
       },
-      /*
-      {
-        Header: intl.formatMessage(messages.columnDiploma),
-        accessor: "diploma",
-      },
-      */
-      /*
       {
         Header: intl.formatMessage(messages.columnGroupAndLevel),
-        accessor: "email",
+        accessor: "classifications",
       },
-      */
-      /*
       {
-        Header: intl.formatMessage(messages.columnDiploma),
-        accessor: "telephone",
+        Header: intl.formatMessage(messages.columnUniqueIdentifier),
+        accessor: ({ owner }) => owner?.email,
       },
-      */
-      {
-        Header: intl.formatMessage(messages.columnOpsRequirements),
-        accessor: "operationalRequirements",
-      },
-      /*
-      {
-        Header: intl.formatMessage(messages.columnEmploymentEquity),
-        accessor: "preferredLang",
-      },
-      */
       {
         Header: intl.formatMessage(messages.columnEditTitle),
         id: "edit",

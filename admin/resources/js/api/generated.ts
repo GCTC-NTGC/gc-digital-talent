@@ -1,6 +1,7 @@
 /* THIS FILE IS AUTO-GENERATED, DO NOT EDIT */
 import { gql } from "urql";
 import * as Urql from "urql";
+
 export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: unknown }> = {
   [K in keyof T]: T[K];
@@ -1088,19 +1089,8 @@ export type GetPoolsQuery = { __typename?: "Query" } & {
   pools: Array<
     Maybe<
       { __typename?: "Pool" } & Pick<Pool, "id"> & {
-          owner?: Maybe<
-            { __typename?: "User" } & Pick<
-              User,
-              "id" | "email" | "firstName" | "lastName"
-            >
-          >;
+          owner?: Maybe<{ __typename?: "User" } & Pick<User, "id" | "email">>;
           name?: Maybe<
-            { __typename?: "LocalizedString" } & Pick<
-              LocalizedString,
-              "en" | "fr"
-            >
-          >;
-          description?: Maybe<
             { __typename?: "LocalizedString" } & Pick<
               LocalizedString,
               "en" | "fr"
@@ -1113,20 +1103,6 @@ export type GetPoolsQuery = { __typename?: "Query" } & {
                   Classification,
                   "group" | "level"
                 >
-              >
-            >
-          >;
-          operationalRequirements?: Maybe<
-            Array<
-              Maybe<
-                { __typename?: "OperationalRequirement" } & {
-                  description?: Maybe<
-                    { __typename?: "LocalizedString" } & Pick<
-                      LocalizedString,
-                      "en" | "fr"
-                    >
-                  >;
-                }
               >
             >
           >;
@@ -1837,26 +1813,14 @@ export const GetPoolsDocument = gql`
       owner {
         id
         email
-        firstName
-        lastName
       }
       name {
-        en
-        fr
-      }
-      description {
         en
         fr
       }
       classifications {
         group
         level
-      }
-      operationalRequirements {
-        description {
-          en
-          fr
-        }
       }
     }
   }

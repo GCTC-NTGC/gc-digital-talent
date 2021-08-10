@@ -8,6 +8,4 @@ const poolData = fakePools();
 
 const stories = storiesOf("Pools", module);
 
-stories.add("Pool Candidates Table", () => (
-  <PoolTable pools={poolData} editUrlRoot="#" />
-));
+stories.add("Pool Table", () => <PoolTable pools={poolData} editUrlRoot="#" />);
