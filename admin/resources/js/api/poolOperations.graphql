@@ -4,6 +4,8 @@ query getPools {
     owner {
       id
       email
+      firstName
+      lastName
     }
     name {
       en
@@ -13,5 +15,16 @@ query getPools {
       en
       fr
     }
+    classifications {
+      group
+      level
+    }
+    operationalRequirements {
+      description {
+        en
+        fr
+      }
+    }
   }
 }
+

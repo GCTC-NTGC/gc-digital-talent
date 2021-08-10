@@ -1088,7 +1088,12 @@ export type GetPoolsQuery = { __typename?: "Query" } & {
   pools: Array<
     Maybe<
       { __typename?: "Pool" } & Pick<Pool, "id"> & {
-          owner?: Maybe<{ __typename?: "User" } & Pick<User, "id" | "email">>;
+          owner?: Maybe<
+            { __typename?: "User" } & Pick<
+              User,
+              "id" | "email" | "firstName" | "lastName"
+            >
+          >;
           name?: Maybe<
             { __typename?: "LocalizedString" } & Pick<
               LocalizedString,
@@ -1099,6 +1104,30 @@ export type GetPoolsQuery = { __typename?: "Query" } & {
             { __typename?: "LocalizedString" } & Pick<
               LocalizedString,
               "en" | "fr"
+            >
+          >;
+          classifications?: Maybe<
+            Array<
+              Maybe<
+                { __typename?: "Classification" } & Pick<
+                  Classification,
+                  "group" | "level"
+                >
+              >
+            >
+          >;
+          operationalRequirements?: Maybe<
+            Array<
+              Maybe<
+                { __typename?: "OperationalRequirement" } & {
+                  description?: Maybe<
+                    { __typename?: "LocalizedString" } & Pick<
+                      LocalizedString,
+                      "en" | "fr"
+                    >
+                  >;
+                }
+              >
             >
           >;
         }
@@ -1808,6 +1837,8 @@ export const GetPoolsDocument = gql`
       owner {
         id
         email
+        firstName
+        lastName
       }
       name {
         en
@@ -1816,6 +1847,16 @@ export const GetPoolsDocument = gql`
       description {
         en
         fr
+      }
+      classifications {
+        group
+        level
+      }
+      operationalRequirements {
+        description {
+          en
+          fr
+        }
       }
     }
   }
