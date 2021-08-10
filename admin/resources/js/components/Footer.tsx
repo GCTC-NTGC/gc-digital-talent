@@ -86,7 +86,7 @@ const Footer: React.FunctionComponent<{}> = () => {
       label: intl.formatMessage(messages.privacyLabel),
     },
     {
-      route: `https://www.canada.ca/${intl.locale}.html`, // TODO: Change 'en' to dynamic locale
+      route: `https://www.canada.ca/${intl.locale}.html`,
       title: intl.formatMessage(messages.canadaTitle),
       label: intl.formatMessage(messages.canadaLabel),
     },
