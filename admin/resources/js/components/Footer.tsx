@@ -86,7 +86,7 @@ const Footer: React.FunctionComponent<{}> = () => {
       label: intl.formatMessage(messages.privacyLabel),
     },
     {
-      route: `https://www.canada.ca/en.html`, // TODO: Change 'en' to dynamic locale
+      route: `https://www.canada.ca/${intl.locale}.html`, // TODO: Change 'en' to dynamic locale
       title: intl.formatMessage(messages.canadaTitle),
       label: intl.formatMessage(messages.canadaLabel),
     },
@@ -95,10 +95,9 @@ const Footer: React.FunctionComponent<{}> = () => {
     <footer
       className="footer"
       data-h2-border="b(gray, top, solid, s)"
-      data-h2-padding="b(top-bottom, s) b(right-left, m)"
       data-h2-bg-color="b(lightgray[.6])"
     >
-      <div data-h2-flex-grid="b(middle, expanded, flush, xl)">
+      <div data-h2-flex-grid="b(middle, contained, flush, xl)">
         <div
           data-h2-flex-item="b(1of1) m(1of2)"
           data-h2-padding="b(left, xl)"
@@ -140,7 +139,7 @@ const Footer: React.FunctionComponent<{}> = () => {
           data-h2-text-align="b(center) m(right)"
         >
           <a
-            href="https://www.canada.ca/en.html" // TODO: Change 'en' to dynamic locale
+            href={`https://www.canada.ca/${intl.locale}.html`}
             title={intl.formatMessage(messages.canadaLogoTitle)}
             target="_blank"
             rel="noopener noreferrer"
