@@ -20,7 +20,7 @@ export const unpackIds = (
 ): string[] => unpackMaybes<{ id: string }>(data).map(getId);
 
 /**
- * Returns the current date in the format dd/mm/yyyy.
+ * Returns the current date in the format YYYY-MM-DD.
  * @returns string
  */
 export const currentDate = (): string => new Date().toISOString().slice(0, 10);
