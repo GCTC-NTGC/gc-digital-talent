@@ -86,7 +86,7 @@ const Footer: React.FunctionComponent = () => {
       label: intl.formatMessage(messages.privacyLabel),
     },
     {
-      route: `https://www.Canada.ca/${intl.locale}.html`,
+      route: `https://www.canada.ca/${intl.locale}.html`,
       title: intl.formatMessage(messages.canadaTitle),
       label: intl.formatMessage(messages.canadaLabel),
     },
@@ -139,7 +139,7 @@ const Footer: React.FunctionComponent = () => {
           data-h2-text-align="b(center) m(right)"
         >
           <a
-            href={`https://www.Canada.ca/${intl.locale}.html`}
+            href={`https://www.canada.ca/${intl.locale}.html`}
             title={intl.formatMessage(messages.canadaLogoTitle)}
             target="_blank"
             rel="noopener noreferrer"
