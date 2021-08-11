@@ -5,7 +5,7 @@ import { PoolCandidatesTableApi } from "./poolCandidate/PoolCandidatesTable";
 
 const messages = defineMessages({
   poolCandidateCreateHeading: {
-    id: "operationalRequirementPage.poolCandidateCreateHeading",
+    id: "poolCandidatePage.poolCandidateCreateHeading",
     defaultMessage: "Create Pool Candidate",
     description: "Heading displayed above the Pool Candidate Table component.",
   },
