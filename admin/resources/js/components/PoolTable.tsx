@@ -50,7 +50,10 @@ export const PoolTable: React.FC<GetPoolsQuery & { editUrlRoot: string }> = ({
       },
       {
         Header: intl.formatMessage(messages.columnGroupAndLevel),
-        accessor: "classifications",
+        accessor: ({ classifications }) =>
+          classifications?.map((classification) => {
+            return `${classification?.group} ${classification?.level}`;
+          }),
       },
       {
         Header: intl.formatMessage(messages.columnUniqueIdentifier),
@@ -77,9 +80,6 @@ export const PoolTable: React.FC<GetPoolsQuery & { editUrlRoot: string }> = ({
   );
 
   const data = useMemo(() => pools.filter(notEmpty), [pools]);
-
-  console.dir(data);
-  console.dir(columns);
 
   return (
     <>
