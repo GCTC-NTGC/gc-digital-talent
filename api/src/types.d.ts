@@ -268,45 +268,45 @@ export type OrderByClause = {
   order: SortOrder;
 };
 
-/** Pagination information about the corresponding list of items. */
+/** Information about pagination using a Relay style cursor connection. */
 export type PageInfo = {
   __typename?: 'PageInfo';
   /** When paginating forwards, are there more items? */
   hasNextPage: Scalars['Boolean'];
   /** When paginating backwards, are there more items? */
   hasPreviousPage: Scalars['Boolean'];
-  /** When paginating backwards, the cursor to continue. */
+  /** The cursor to continue paginating backwards. */
   startCursor?: Maybe<Scalars['String']>;
-  /** When paginating forwards, the cursor to continue. */
+  /** The cursor to continue paginating forwards. */
   endCursor?: Maybe<Scalars['String']>;
-  /** Total number of node in connection. */
-  total?: Maybe<Scalars['Int']>;
-  /** Count of nodes in current request. */
-  count?: Maybe<Scalars['Int']>;
-  /** Current page of request. */
-  currentPage?: Maybe<Scalars['Int']>;
-  /** Last page in connection. */
-  lastPage?: Maybe<Scalars['Int']>;
+  /** Total number of nodes in the paginated connection. */
+  total: Scalars['Int'];
+  /** Number of nodes in the current page. */
+  count: Scalars['Int'];
+  /** Index of the current page. */
+  currentPage: Scalars['Int'];
+  /** Index of the last available page. */
+  lastPage: Scalars['Int'];
 };
 
-/** Pagination information about the corresponding list of items. */
+/** Information about pagination using a fully featured paginator. */
 export type PaginatorInfo = {
   __typename?: 'PaginatorInfo';
-  /** Count of available items in the page. */
+  /** Number of items in the current page. */
   count: Scalars['Int'];
-  /** Current pagination page. */
+  /** Index of the current page. */
   currentPage: Scalars['Int'];
-  /** Index of first item in the current page. */
+  /** Index of the first item in the current page. */
   firstItem?: Maybe<Scalars['Int']>;
-  /** If collection has more pages. */
+  /** Are there more pages after this one? */
   hasMorePages: Scalars['Boolean'];
-  /** Index of last item in the current page. */
+  /** Index of the last item in the current page. */
   lastItem?: Maybe<Scalars['Int']>;
-  /** Last page number of the collection. */
+  /** Index of the last available page. */
   lastPage: Scalars['Int'];
-  /** Number of items per page in the collection. */
+  /** Number of items per page. */
   perPage: Scalars['Int'];
-  /** Total items available in the collection. */
+  /** Number of total available items. */
   total: Scalars['Int'];
 };
 
@@ -368,6 +368,7 @@ export type Query = {
   pools: Array<Maybe<Pool>>;
   poolCandidate?: Maybe<PoolCandidate>;
   poolCandidates: Array<Maybe<PoolCandidate>>;
+  classification?: Maybe<Classification>;
   classifications: Array<Maybe<Classification>>;
   operationalRequirement?: Maybe<OperationalRequirement>;
   operationalRequirements: Array<Maybe<OperationalRequirement>>;
@@ -391,6 +392,11 @@ export type QueryPoolCandidateArgs = {
 };
 
 
+export type QueryClassificationArgs = {
+  id: Scalars['ID'];
+};
+
+
 export type QueryOperationalRequirementArgs = {
   id: Scalars['ID'];
 };
@@ -409,18 +415,18 @@ export enum SalaryRange {
   '100KPlus' = '_100K_PLUS'
 }
 
-/** Pagination information about the corresponding list of items. */
+/** Information about pagination using a simple paginator. */
 export type SimplePaginatorInfo = {
   __typename?: 'SimplePaginatorInfo';
-  /** Count of available items in the page. */
+  /** Number of items in the current page. */
   count: Scalars['Int'];
-  /** Current pagination page. */
+  /** Index of the current page. */
   currentPage: Scalars['Int'];
-  /** Index of first item in the current page. */
+  /** Index of the first item in the current page. */
   firstItem?: Maybe<Scalars['Int']>;
-  /** Index of last item in the current page. */
+  /** Index of the last item in the current page. */
   lastItem?: Maybe<Scalars['Int']>;
-  /** Number of items per page in the collection. */
+  /** Number of items per page. */
   perPage: Scalars['Int'];
 };
 
