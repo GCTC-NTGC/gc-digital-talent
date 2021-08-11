@@ -11,17 +11,17 @@ import Table, { ColumnsOf } from "./Table";
 const messages = defineMessages({
   columnUniqueIdentifier: {
     id: "PoolTable.column.uniqueIdentifier",
-    defaultMessage: "First Name",
+    defaultMessage: "Id",
     description: "Title displayed on the Pool table Unique Identifier column.",
   },
   columnOwnerEmail: {
     id: "PoolTable.column.email",
-    defaultMessage: "Last Name",
+    defaultMessage: "Email",
     description: "Title displayed for the Pool table email column.",
   },
   columnGroupAndLevel: {
     id: "PoolTable.column.groupAndLevel",
-    defaultMessage: "Telephone",
+    defaultMessage: "Group and Level",
     description: "Title displayed for the Pool table Group and Level column.",
   },
   columnEditTitle: {
@@ -77,6 +77,9 @@ export const PoolTable: React.FC<GetPoolsQuery & { editUrlRoot: string }> = ({
   );
 
   const data = useMemo(() => pools.filter(notEmpty), [pools]);
+
+  console.dir(data);
+  console.dir(columns);
 
   return (
     <>
