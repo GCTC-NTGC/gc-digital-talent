@@ -7,6 +7,7 @@ import { notEmpty } from "../helpers/util";
 import { FromArray } from "../types/utilityTypes";
 import Button from "./H2Components/Button";
 import Table, { ColumnsOf } from "./Table";
+import Pill from "./H2Components/Pill";
 
 const messages = defineMessages({
   columnUniqueIdentifier: {
@@ -52,12 +53,15 @@ export const PoolTable: React.FC<GetPoolsQuery & { editUrlRoot: string }> = ({
         Header: intl.formatMessage(messages.columnGroupAndLevel),
         accessor: ({ classifications }) =>
           classifications?.map((classification) => {
-            return `${classification?.group} ${classification?.level}`;
+            let counter = 0;
+            counter += 1;
+            return (
+              <Pill
+                key={counter}
+                content={`${classification?.group} ${classification?.level}`}
+              />
+            );
           }),
-      },
-      {
-        Header: intl.formatMessage(messages.columnUniqueIdentifier),
-        accessor: ({ owner }) => owner?.email,
       },
       {
         Header: intl.formatMessage(messages.columnEditTitle),
