@@ -26,6 +26,7 @@
     "hot": "mix watch --hot",
     "production": "mix --production",
     "h2-compile": "npx h2-compile",
+    "h2-watch": "npx h2-watch",
     "h2-build": "npx h2-build",
     "storybook": "start-storybook -s ./public -p 6006",
     "build-storybook": "build-storybook",
