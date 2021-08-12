@@ -6,6 +6,7 @@ import {
   useLocation,
   useRouter,
 } from "../../helpers/router";
+import Footer from "../Footer";
 import SideMenu from "../menu/SideMenu";
 
 export const exactMatch = (ref: string, test: string): boolean => ref === test;
@@ -45,27 +46,28 @@ export const Dashboard: React.FC<{
 }> = ({ menuItems, contentRoutes }) => {
   const content = useRouter(contentRoutes);
   return (
-    <div
-      data-h2-flex-grid="b(stretch, contained, flush, none)"
-      style={{
-        minHeight: "100vh",
-      }}
-    >
-      <div
-        data-h2-flex-item="b(1of1) m(4of12) l(2of12)"
-        data-h2-padding="b(all, m)"
-        style={{
-          background: "linear-gradient(90deg, #674C90 0%, #1D2C4C 100%)",
-        }}
+    <div className="container">
+      <section
+        className="dashboard"
+        data-h2-flex-grid="b(stretch, contained, flush, none)"
       >
-        <SideMenu items={menuItems} />
-      </div>
-      <div
-        data-h2-flex-item="b(1of1) m(8of12) l(10of12)"
-        data-h2-padding="b(all, m)"
-      >
-        {content}
-      </div>
+        <div
+          data-h2-flex-item="b(1of1) m(4of12) l(2of12)"
+          data-h2-padding="b(all, m)"
+          style={{
+            background: "linear-gradient(90deg, #674C90 0%, #1D2C4C 100%)",
+          }}
+        >
+          <SideMenu items={menuItems} />
+        </div>
+        <div
+          data-h2-flex-item="b(1of1) m(8of12) l(10of12)"
+          data-h2-padding="b(all, m)"
+        >
+          {content}
+        </div>
+      </section>
+      <Footer />
     </div>
   );
 };
