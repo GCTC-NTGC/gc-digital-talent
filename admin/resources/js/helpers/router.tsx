@@ -60,7 +60,7 @@ export const useRouter = (
   // Render the result of routing
   useEffect((): void => {
     router.resolve(path).then(async (r) => {
-      // r may or may not be a promise, so attempt to resolve it. A non-promise value will simply resove to itself.
+      // r may or may not be a promise, so attempt to resolve it. A non-promise value will simply resolve to itself.
       const result = await Promise.resolve(r);
       if (result?.redirect) {
         redirect(result.redirect);
