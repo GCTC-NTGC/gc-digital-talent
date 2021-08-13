@@ -719,7 +719,7 @@ export type UpdateOperationalRequirementMutation = {
   }>;
 };
 
-export type PoolCandidateFragment = {
+export type PoolCandidateTableFragment = {
   __typename?: "PoolCandidate";
   id: string;
   cmoIdentifier?: Maybe<string>;
@@ -1416,8 +1416,8 @@ export const ClassificationFragmentDoc = gql`
     maxSalary
   }
 `;
-export const PoolCandidateFragmentDoc = gql`
-  fragment poolCandidate on PoolCandidate {
+export const PoolCandidateTableFragmentDoc = gql`
+  fragment poolCandidateTable on PoolCandidate {
     id
     pool {
       id
@@ -1823,10 +1823,10 @@ export function useUpdateOperationalRequirementMutation() {
 export const GetPoolCandidateDocument = gql`
   query getPoolCandidate($id: ID!) {
     poolCandidate(id: $id) {
-      ...poolCandidate
+      ...poolCandidateTable
     }
   }
-  ${PoolCandidateFragmentDoc}
+  ${PoolCandidateTableFragmentDoc}
 `;
 
 export function useGetPoolCandidateQuery(
@@ -1843,10 +1843,10 @@ export function useGetPoolCandidateQuery(
 export const GetPoolCandidatesDocument = gql`
   query GetPoolCandidates {
     poolCandidates {
-      ...poolCandidate
+      ...poolCandidateTable
     }
   }
-  ${PoolCandidateFragmentDoc}
+  ${PoolCandidateTableFragmentDoc}
 `;
 
 export function useGetPoolCandidatesQuery(

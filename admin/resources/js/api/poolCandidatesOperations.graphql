@@ -1,4 +1,4 @@
-fragment poolCandidate on PoolCandidate {
+fragment poolCandidateTable on PoolCandidate {
   id,
   pool {
     id,
@@ -108,12 +108,13 @@ fragment poolCandidateForm on PoolCandidate {
 }
 query getPoolCandidate($id: ID!) {
   poolCandidate(id: $id) {
-    ...poolCandidate
+    ...poolCandidateTable
   }
 }
+
 query GetPoolCandidates {
   poolCandidates {
-    ...poolCandidate
+    ...poolCandidateTable
   }
 }
 
