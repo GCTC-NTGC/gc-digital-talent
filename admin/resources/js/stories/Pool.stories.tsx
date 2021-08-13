@@ -29,7 +29,6 @@ stories.add("Create Pool Form", () => (
   <CreatePoolForm
     classifications={fakeClassifications() as Classification[]}
     cmoAssets={fakeCmoAssets() as CmoAsset[]}
-    locale="en"
     operationalRequirements={
       fakeOperationalRequirements() as OperationalRequirement[]
     }
@@ -42,7 +41,7 @@ stories.add("Create Pool Form", () => (
   />
 ));
 
-stories.add("Update Pool Candidate Form", () => {
+stories.add("Update Pool Form", () => {
   const pool: Pool = {
     id: "1",
     owner: fakeUsers()[0],
@@ -68,7 +67,6 @@ stories.add("Update Pool Candidate Form", () => {
       classifications={fakeClassifications() as Classification[]}
       cmoAssets={fakeCmoAssets() as CmoAsset[]}
       initialPool={pool}
-      locale="en"
       operationalRequirements={
         fakeOperationalRequirements() as OperationalRequirement[]
       }

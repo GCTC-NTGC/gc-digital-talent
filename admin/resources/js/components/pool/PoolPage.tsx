@@ -4,7 +4,7 @@ import { Link } from "../../helpers/router";
 
 const messages = defineMessages({
   poolCreateHeading: {
-    id: "operationalRequirementPage.poolCandidateCreateHeading",
+    id: "poolPage.poolCreateHeading",
     defaultMessage: "Create Pool",
     description: "Heading displayed above the Pool Table component.",
   },

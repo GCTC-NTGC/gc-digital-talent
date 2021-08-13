@@ -12,6 +12,7 @@ import {
   useGetCreatePoolDataQuery,
   User,
 } from "../../api/generated";
+import { getLocale } from "../../helpers/localize";
 import { notEmpty } from "../../helpers/util";
 import errorMessages from "../form/errorMessages";
 import Input from "../form/Input";
@@ -19,6 +20,8 @@ import MultiSelect from "../form/MultiSelect";
 import Select from "../form/Select";
 import Submit from "../form/Submit";
 import TextArea from "../form/TextArea";
+import messages from "./messages";
+import commonMessages from "../commonMessages";
 
 type Option<V> = { value: V; label: string };
 
@@ -33,7 +36,6 @@ type FormValues = Pick<Pool, "name" | "description"> & {
 interface CreatePoolFormProps {
   classifications: Classification[];
   cmoAssets: CmoAsset[];
-  locale: "en" | "fr";
   operationalRequirements: OperationalRequirement[];
   users: User[];
   handleCreatePool: (
@@ -44,12 +46,12 @@ interface CreatePoolFormProps {
 export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
   classifications,
   cmoAssets,
-  locale,
   operationalRequirements,
   users,
   handleCreatePool,
 }) => {
   const intl = useIntl();
+  const locale = getLocale(intl.locale);
   const methods = useForm<FormValues>();
   const { handleSubmit } = methods;
 
@@ -108,12 +110,12 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
 
   return (
     <section>
-      <h2>Update Pool</h2>
+      <h2>{intl.formatMessage(messages.createHeading)}</h2>
       <FormProvider {...methods}>
         <form onSubmit={handleSubmit(onSubmit)}>
           <Select
             id="owner"
-            label="Owner: "
+            label={intl.formatMessage(messages.ownerLabel)}
             name="owner"
             options={[
               { value: "", label: "Select a owner...", disabled: true },
@@ -124,47 +126,53 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
           <Input
             id="name_en"
             name="name.en"
-            label="Name: "
+            label={intl.formatMessage(messages.nameLabelEN)}
             type="text"
             rules={{ required: errorMessages.required }}
           />
           <Input
             id="name_fr"
             name="name.fr"
-            label="Name FR: "
+            label={intl.formatMessage(messages.nameLabelFR)}
             type="text"
             rules={{ required: errorMessages.required }}
           />
           <TextArea
             id="description_en"
             name="description.en"
-            label="Description EN:"
+            label={intl.formatMessage(messages.descriptionLabelEN)}
             rules={{ required: errorMessages.required }}
           />
           <TextArea
             id="description_fr"
             name="description.fr"
-            label="Description FR:"
+            label={intl.formatMessage(messages.descriptionLabelFR)}
             rules={{ required: errorMessages.required }}
           />
           <MultiSelect
             id="classifications"
-            label="Expected Classifications: "
-            placeholder="Select one or more classifications..."
+            label={intl.formatMessage(messages.classificationsLabel)}
+            placeholder={intl.formatMessage(
+              messages.classificationsPlaceholder,
+            )}
             name="classifications"
             options={classificationOptions}
             rules={{ required: errorMessages.required }}
           />
           <MultiSelect
             id="assetCriteria"
-            label="Asset Criteria: "
+            label={intl.formatMessage(messages.assetCriteriaLabel)}
+            placeholder={intl.formatMessage(messages.assetCriteriaPlaceholder)}
             name="assetCriteria"
             options={cmoAssetOptions}
             rules={{ required: errorMessages.required }}
           />
           <MultiSelect
             id="essentialCriteria"
-            label="Essential Criteria: "
+            label={intl.formatMessage(messages.essentialCriteriaLabel)}
+            placeholder={intl.formatMessage(
+              messages.essentialCriteriaPlaceholder,
+            )}
             name="essentialCriteria"
             options={cmoAssetOptions}
             rules={{ required: errorMessages.required }}
@@ -172,8 +180,10 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
           <MultiSelect
             id="operationalRequirements"
             name="operationalRequirements"
-            label="Operational Requirements: "
-            placeholder="Select one or more operational requirements..."
+            label={intl.formatMessage(messages.operationalRequirementsLabel)}
+            placeholder={intl.formatMessage(
+              messages.operationalRequirementsPlaceholder,
+            )}
             options={operationalRequirementOptions}
             rules={{ required: errorMessages.required }}
           />
@@ -185,6 +195,7 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
 };
 
 export const CreatePool: React.FunctionComponent = () => {
+  const intl = useIntl();
   const [lookupResult] = useGetCreatePoolDataQuery();
   const { data: lookupData, fetching, error } = lookupResult;
   const classifications: Classification[] | [] =
@@ -203,14 +214,18 @@ export const CreatePool: React.FunctionComponent = () => {
       return Promise.reject(result.error);
     });
 
-  if (fetching) return <p>Loading...</p>;
-  if (error) return <p>Oh no... {error.message}</p>;
+  if (fetching) return <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>;
+  if (error)
+    return (
+      <p>
+        {intl.formatMessage(commonMessages.loadingError)} {error.message}
+      </p>
+    );
 
   return (
     <CreatePoolForm
       classifications={classifications}
       cmoAssets={cmoAssets}
-      locale="en"
       operationalRequirements={operationalRequirements}
       users={users}
       handleCreatePool={handleCreatePool}
