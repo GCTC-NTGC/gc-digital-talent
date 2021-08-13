@@ -5,6 +5,7 @@
     RewriteRule ^graphql-playground api/public/graphql-playground [L]
     RewriteRule ^graphql api/public/graphql [L]
     RewriteRule ^(auth/.*)$ auth/public/$1 [L]
+    RewriteRule ^(oauth/.*)$ auth/public/$1 [L]
     RewriteRule ^(.*)$ admin/public/$1 [L]
 </IfModule>
 
