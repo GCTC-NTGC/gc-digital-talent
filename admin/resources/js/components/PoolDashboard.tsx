@@ -13,7 +13,6 @@ import { UpdateCmoAsset } from "./cmoAssets/UpdateCmoAsset";
 import { CreateUser } from "./CreateUser";
 import { Dashboard, exactMatch, MenuLink } from "./dashboard/Dashboard";
 import ErrorContainer from "./ErrorContainer";
-import HomePage from "./HomePage";
 import OperationalRequirementPage from "./OperationalRequirementPage";
 import { CreateOperationalRequirement } from "./operationalRequirements/CreateOperationalRequirement";
 import { UpdateOperationalRequirement } from "./operationalRequirements/UpdateOperationalRequirement";
@@ -57,12 +56,6 @@ const messages = defineMessages({
 });
 
 const routes: Routes<RouterResult> = [
-  {
-    path: "/",
-    action: () => ({
-      component: <HomePage />,
-    }),
-  },
   {
     path: "/users",
     action: () => ({
