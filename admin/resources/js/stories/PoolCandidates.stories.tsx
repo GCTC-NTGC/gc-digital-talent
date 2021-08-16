@@ -52,7 +52,7 @@ const client = createClient({
 });
 stories.add("Pool Candidates Table with API data", () => (
   <ClientProvider client={client}>
-    <PoolCandidatesTableApi />
+    <PoolCandidatesTableApi poolId="1" />
   </ClientProvider>
 ));
 
@@ -127,7 +127,7 @@ stories.add("Update Pool Candidate Form", () => {
 stories.add("Create Pool Candidate Form with API", () => {
   return (
     <ClientProvider client={client}>
-      <CreatePoolCandidate />
+      <CreatePoolCandidate poolId="1" />
     </ClientProvider>
   );
 });
