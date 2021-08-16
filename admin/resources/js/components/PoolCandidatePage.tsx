@@ -11,14 +11,20 @@ const messages = defineMessages({
   },
 });
 
-export const PoolCandidatePage: React.FC = () => {
+interface PoolCandidatePageProps {
+  poolId: string;
+}
+
+export const PoolCandidatePage: React.FC<PoolCandidatePageProps> = ({
+  poolId,
+}) => {
   const intl = useIntl();
   return (
     <div>
-      <Link href="/pool-candidates/create" title="">
+      <Link href={`/pool-candidates/${poolId}/create/`} title="">
         {intl.formatMessage(messages.poolCandidateCreateHeading)}
       </Link>
-      <PoolCandidatesTableApi />
+      <PoolCandidatesTableApi poolId={poolId} />
     </div>
   );
 };
