@@ -11,7 +11,7 @@ import CmoAssetPage from "./CmoAssetPage";
 import { CreateCmoAsset } from "./cmoAssets/CreateCmoAsset";
 import { UpdateCmoAsset } from "./cmoAssets/UpdateCmoAsset";
 import { CreateUser } from "./CreateUser";
-import { Dashboard, exactMatch, MenuLink } from "./dashboard/Dashboard";
+import { Dashboard, MenuHeading, MenuLink } from "./dashboard/Dashboard";
 import ErrorContainer from "./ErrorContainer";
 import OperationalRequirementPage from "./OperationalRequirementPage";
 import { CreateOperationalRequirement } from "./operationalRequirements/CreateOperationalRequirement";
@@ -22,11 +22,14 @@ import PoolCandidatePage from "./PoolCandidatePage";
 import { UpdateUser } from "./UpdateUser";
 import UserPage from "./UserPage";
 
+import { useGetPoolsQuery } from "../api/generated";
+import { getLocale } from "../helpers/localize";
+
 const messages = defineMessages({
-  menuHome: {
-    id: "poolDashboard.menu.homeLabel",
-    defaultMessage: "Home",
-    description: "Label displayed on the Home menu item.",
+  menuAdminTools: {
+    id: "poolDashboard.menu.adminToolsLabel",
+    defaultMessage: "Admin Tools",
+    description: "Label displayed on the Admin Tools menu item.",
   },
   menuUsers: {
     id: "poolDashboard.menu.usersLabel",
@@ -142,15 +145,15 @@ const routes: Routes<RouterResult> = [
     }),
   },
   {
-    path: "/pool-candidates",
-    action: () => ({
-      component: <PoolCandidatePage />,
+    path: "/pool-candidates/:id",
+    action: ({ params }) => ({
+      component: <PoolCandidatePage poolId={params.id as string} />,
     }),
   },
   {
-    path: "/pool-candidates/create",
-    action: () => ({
-      component: <CreatePoolCandidate />,
+    path: "/pool-candidates/:id/create",
+    action: ({ params }) => ({
+      component: <CreatePoolCandidate poolId={params.id as string} />,
     }),
   },
   {
@@ -162,13 +165,14 @@ const routes: Routes<RouterResult> = [
 ];
 
 export const PoolDashboard: React.FC = () => {
+  const [result] = useGetPoolsQuery();
+  const { data, fetching, error } = result;
   const intl = useIntl();
+
   const menuItems = [
-    <MenuLink
-      key="home"
-      href=""
-      text={intl.formatMessage(messages.menuHome)}
-      isActive={exactMatch}
+    <MenuHeading
+      key="admin-tools"
+      text={intl.formatMessage(messages.menuAdminTools)}
     />,
     <MenuLink
       key="users"
@@ -190,12 +194,26 @@ export const PoolDashboard: React.FC = () => {
       href="/operational-requirements"
       text={intl.formatMessage(messages.menuOperationalRequirements)}
     />,
-    <MenuLink
-      key="pool-candidates"
-      href="/pool-candidates"
-      text={intl.formatMessage(messages.menuPoolCandidates)}
-    />,
   ];
+
+  if (!fetching && !error) {
+    menuItems.push(
+      <MenuHeading
+        key="pool-candidates"
+        text={intl.formatMessage(messages.menuPoolCandidates)}
+      />,
+    );
+    data?.pools.map((pool) =>
+      menuItems.push(
+        <MenuLink
+          key={`/pool-candidates-${pool?.id}`}
+          href={`/pool-candidates/${pool?.id}`}
+          text={(pool?.name && pool?.name[getLocale(intl)]) ?? ""}
+        />,
+      ),
+    );
+  }
+
   return (
     <ErrorContainer>
       <ClientProvider>
