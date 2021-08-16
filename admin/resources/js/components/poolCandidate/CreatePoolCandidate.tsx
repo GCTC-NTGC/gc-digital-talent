@@ -54,6 +54,7 @@ interface CreatePoolCandidateFormProps {
   locale: "en" | "fr";
   operationalRequirements: OperationalRequirement[];
   pools: Pool[];
+  poolId?: string;
   users: User[];
   handleCreatePoolCandidate: (
     data: CreatePoolCandidateInput,
@@ -67,6 +68,7 @@ export const CreatePoolCandidateForm: React.FunctionComponent<CreatePoolCandidat
     locale,
     operationalRequirements,
     pools,
+    poolId,
     users,
     handleCreatePoolCandidate,
   }) => {
@@ -119,10 +121,14 @@ export const CreatePoolCandidateForm: React.FunctionComponent<CreatePoolCandidat
         label: name[locale] || "Error: operational requirement name not found.",
       }));
 
-    const poolOptions: Option<string>[] = pools.map(({ id, name }) => ({
+    const poolOptions: Option<string>[] = pools?.map(({ id, name }) => ({
       value: id,
       label: name?.[locale] || "Error: pool name not found",
     }));
+
+    const poolOptionsSingleOption = poolOptions?.find(
+      (pool) => pool.value === poolId,
+    );
 
     const userOptions: Option<string>[] = users.map(
       ({ id, firstName, lastName }) => ({
@@ -140,10 +146,14 @@ export const CreatePoolCandidateForm: React.FunctionComponent<CreatePoolCandidat
               id="pool"
               label="Pool: "
               name="pool"
-              options={[
-                { value: "", label: "Select a pool...", disabled: true },
-                ...poolOptions,
-              ]}
+              options={
+                poolOptionsSingleOption
+                  ? [poolOptionsSingleOption]
+                  : [
+                      { value: "", label: "Select a pool...", disabled: true },
+                      ...poolOptions,
+                    ]
+              }
               rules={{ required: errorMessages.required }}
             />
             <Select
@@ -266,38 +276,44 @@ export const CreatePoolCandidateForm: React.FunctionComponent<CreatePoolCandidat
     );
   };
 
-export const CreatePoolCandidate: React.FunctionComponent = () => {
-  const [lookupResult] = useGetCreatePoolCandidateDataQuery();
-  const { data: lookupData, fetching, error } = lookupResult;
-  const classifications: Classification[] | [] =
-    lookupData?.classifications.filter(notEmpty) ?? [];
-  const cmoAssets: CmoAsset[] = lookupData?.cmoAssets.filter(notEmpty) ?? [];
-  const operationalRequirements: OperationalRequirement[] =
-    lookupData?.operationalRequirements.filter(notEmpty) ?? [];
-  const pools: Pool[] = lookupData?.pools.filter(notEmpty) ?? [];
-  const users: User[] = lookupData?.users.filter(notEmpty) ?? [];
+interface CreatePoolCandidateProps {
+  poolId: string;
+}
 
-  const [_result, executeMutation] = useCreatePoolCandidateMutation();
-  const handleCreatePoolCandidate = (data: CreatePoolCandidateInput) =>
-    executeMutation({ poolCandidate: data }).then((result) => {
-      if (result.data?.createPoolCandidate) {
-        return result.data?.createPoolCandidate;
-      }
-      return Promise.reject(result.error);
-    });
+export const CreatePoolCandidate: React.FunctionComponent<CreatePoolCandidateProps> =
+  ({ poolId }) => {
+    const [lookupResult] = useGetCreatePoolCandidateDataQuery();
+    const { data: lookupData, fetching, error } = lookupResult;
+    const classifications: Classification[] | [] =
+      lookupData?.classifications.filter(notEmpty) ?? [];
+    const cmoAssets: CmoAsset[] = lookupData?.cmoAssets.filter(notEmpty) ?? [];
+    const operationalRequirements: OperationalRequirement[] =
+      lookupData?.operationalRequirements.filter(notEmpty) ?? [];
+    const pools: Pool[] = lookupData?.pools.filter(notEmpty) ?? [];
+    const users: User[] = lookupData?.users.filter(notEmpty) ?? [];
 
-  if (fetching) return <p>Loading...</p>;
-  if (error) return <p>Oh no... {error.message}</p>;
+    const [_result, executeMutation] = useCreatePoolCandidateMutation();
+    const handleCreatePoolCandidate = (data: CreatePoolCandidateInput) =>
+      executeMutation({ poolCandidate: data }).then((result) => {
+        if (result.data?.createPoolCandidate) {
+          return result.data?.createPoolCandidate;
+        }
+        return Promise.reject(result.error);
+      });
 
-  return (
-    <CreatePoolCandidateForm
-      classifications={classifications}
-      cmoAssets={cmoAssets}
-      locale="en"
-      operationalRequirements={operationalRequirements}
-      pools={pools}
-      users={users}
-      handleCreatePoolCandidate={handleCreatePoolCandidate}
-    />
-  );
-};
+    if (fetching) return <p>Loading...</p>;
+    if (error) return <p>Oh no... {error.message}</p>;
+
+    return (
+      <CreatePoolCandidateForm
+        classifications={classifications}
+        cmoAssets={cmoAssets}
+        locale="en"
+        operationalRequirements={operationalRequirements}
+        pools={pools}
+        poolId={poolId}
+        users={users}
+        handleCreatePoolCandidate={handleCreatePoolCandidate}
+      />
+    );
+  };
