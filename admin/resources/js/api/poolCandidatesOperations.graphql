@@ -118,6 +118,14 @@ query GetPoolCandidates {
   }
 }
 
+query getPoolCandidatesByPool($id: ID!) {
+  pool(id: $id) {
+    poolCandidates {
+      ...poolCandidateTable
+    }
+  }
+}
+
 query getCreatePoolCandidateData {
   classifications {
     id
