@@ -7,6 +7,7 @@ import {
   useRouter,
 } from "../../helpers/router";
 import Footer from "../Footer";
+import Button from "../H2Components/Button";
 import SideMenu from "../menu/SideMenu";
 
 export const exactMatch = (ref: string, test: string): boolean => ref === test;
@@ -36,6 +37,7 @@ export const MenuHeading: React.FC<MenuHeadingProps> = ({ text }) => {
     </span>
   );
 };
+
 interface MenuLinkProps {
   href: string;
   text: string;
@@ -57,7 +59,9 @@ export const MenuLink: React.FC<MenuLinkProps> = ({
           isActive(href, location.pathname) ? "b(700)" : "b(100)"
         }
       >
-        {text}
+        <Button color="white" mode="inline" block>
+          {text}
+        </Button>
       </div>
     </Link>
   );
@@ -76,7 +80,6 @@ export const Dashboard: React.FC<{
       >
         <div
           data-h2-flex-item="b(1of1) m(4of12) l(2of12)"
-          data-h2-padding="b(all, m)"
           style={{
             background: "linear-gradient(90deg, #674C90 0%, #1D2C4C 100%)",
           }}
