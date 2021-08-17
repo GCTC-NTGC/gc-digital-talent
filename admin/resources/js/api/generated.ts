@@ -1095,6 +1095,12 @@ export type GetPoolsQuery = { __typename?: "Query" } & {
               "en" | "fr"
             >
           >;
+          description?: Maybe<
+            { __typename?: "LocalizedString" } & Pick<
+              LocalizedString,
+              "en" | "fr"
+            >
+          >;
           classifications?: Maybe<
             Array<
               Maybe<
@@ -1814,6 +1820,10 @@ export const GetPoolsDocument = gql`
         email
       }
       name {
+        en
+        fr
+      }
+      description {
         en
         fr
       }

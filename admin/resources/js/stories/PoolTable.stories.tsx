@@ -6,7 +6,7 @@ import fakePools from "../fakeData/fakePools";
 import ClientProvider from "../components/ClientProvider";
 
 const poolData = fakePools();
-// Its possible data may come back from api with missing data.
+// It is possible data may come back from api with missing data.
 
 const stories = storiesOf("Pools", module);
 

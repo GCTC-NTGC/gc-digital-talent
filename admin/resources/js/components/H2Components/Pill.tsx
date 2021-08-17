@@ -10,6 +10,7 @@ const Pill: React.FC<{ content: string }> = ({ content }) => {
       data-h2-padding="b(all, s)"
       data-h2-color="b(darkpurple)"
       data-h2-font-size="b(caption)"
+      data-h2-margin="b(top-bottom, s)"
       role="cell"
     >
       {content}

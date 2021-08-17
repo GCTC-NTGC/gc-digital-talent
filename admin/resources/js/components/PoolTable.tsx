@@ -11,24 +11,24 @@ import Pill from "./H2Components/Pill";
 
 const messages = defineMessages({
   columnUniqueIdentifier: {
-    id: "PoolTable.column.uniqueIdentifier",
+    id: "poolTable.column.uniqueIdentifier",
     defaultMessage: "Id",
     description: "Title displayed on the Pool table Unique Identifier column.",
   },
   columnOwnerEmail: {
-    id: "PoolTable.column.email",
+    id: "poolTable.column.email",
     defaultMessage: "Email",
     description: "Title displayed for the Pool table email column.",
   },
   columnGroupAndLevel: {
-    id: "PoolTable.column.groupAndLevel",
+    id: "poolTable.column.groupAndLevel",
     defaultMessage: "Group and Level",
     description: "Title displayed for the Pool table Group and Level column.",
   },
   columnEditTitle: {
-    id: "userTable.column.editTitle",
+    id: "poolTable.column.editTitle",
     defaultMessage: "Edit",
-    description: "Title displayed for the User table Edit column.",
+    description: "Title displayed for the Pool table Edit column.",
   },
 });
 
@@ -53,11 +53,9 @@ export const PoolTable: React.FC<GetPoolsQuery & { editUrlRoot: string }> = ({
         Header: intl.formatMessage(messages.columnGroupAndLevel),
         accessor: ({ classifications }) =>
           classifications?.map((classification) => {
-            let counter = 0;
-            counter += 1;
             return (
               <Pill
-                key={counter}
+                key={`${classification?.group}-${classification?.level}`}
                 content={`${classification?.group}-${classification?.level}`}
               />
             );

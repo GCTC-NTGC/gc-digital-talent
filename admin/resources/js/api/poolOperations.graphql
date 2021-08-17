@@ -9,6 +9,10 @@ query getPools {
       en
       fr
     }
+    description {
+      en
+      fr
+    }
     classifications {
       group
       level
