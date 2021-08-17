@@ -34,4 +34,5 @@
   "[json]": {
     "editor.tabSize": 2
   },
+  "vscode-graphql.useSchemaFileDefinitions": true,
 }
