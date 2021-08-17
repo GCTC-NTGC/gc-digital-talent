@@ -188,11 +188,7 @@ const PoolCandidatesTable: React.FC<GetPoolCandidatesQuery> = ({
 
 export default PoolCandidatesTable;
 
-interface PoolCandidatesTableApiProps {
-  poolId: string;
-}
-
-export const PoolCandidatesTableApi: React.FC<PoolCandidatesTableApiProps> = ({
+export const PoolCandidatesTableApi: React.FC<{ poolId: string }> = ({
   poolId,
 }) => {
   const intl = useIntl();
