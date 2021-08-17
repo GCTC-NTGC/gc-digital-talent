@@ -15,7 +15,7 @@
 
 See `../infrastructure/README.md` for instructions for running this service, along with client services and a database, with a single docker-compose command.
 
-Note that you will still need to copy .evn.example to .env and add an APP_KEY.
+Note that you will still need to copy .env.example to .env and add an APP_KEY.
 
 To initialize the database from inside the container, run `docker-compose exec -w /var/www/html/api php sh -c "php artisan migrate --seed"`.
 

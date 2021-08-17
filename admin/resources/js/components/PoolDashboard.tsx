@@ -22,7 +22,9 @@ import { UpdatePoolCandidate } from "./poolCandidate/UpdatePoolCandidate";
 import PoolCandidatePage from "./PoolCandidatePage";
 import { UpdateUser } from "./UpdateUser";
 import UserPage from "./UserPage";
-import PoolPage from "./PoolPage";
+import PoolPage from "./pool/PoolPage";
+import { CreatePool } from "./pool/CreatePool";
+import { UpdatePool } from "./pool/UpdatePool";
 
 const messages = defineMessages({
   menuHome: {
@@ -176,6 +178,18 @@ const routes: Routes<RouterResult> = [
     path: "/pools",
     action: () => ({
       component: <PoolPage />,
+    }),
+  },
+  {
+    path: "/pools/create",
+    action: () => ({
+      component: <CreatePool />,
+    }),
+  },
+  {
+    path: "/pools/:id/edit",
+    action: ({ params }) => ({
+      component: <UpdatePool poolId={params.id as string} />,
     }),
   },
 ];

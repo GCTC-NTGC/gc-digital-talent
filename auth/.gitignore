@@ -11,6 +11,7 @@
 /storage/*.key
 /public/mix-manifest.json
 .env
+.rnd
 
 # Laravel
 /vendor

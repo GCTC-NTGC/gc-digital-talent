@@ -110,6 +110,7 @@ export type CreateUserInput = {
   email: Scalars["Email"];
   telephone?: Maybe<Scalars["PhoneNumber"]>;
   preferredLang?: Maybe<Language>;
+  roles?: Maybe<Array<Maybe<Role>>>;
 };
 
 export enum Language {
@@ -336,6 +337,10 @@ export type QueryCmoAssetArgs = {
   id: Scalars["ID"];
 };
 
+export enum Role {
+  Admin = "ADMIN",
+}
+
 export enum SalaryRange {
   "50_59K" = "_50_59K",
   "60_69K" = "_60_69K",
@@ -403,6 +408,7 @@ export type UpdateUserInput = {
   lastName?: Maybe<Scalars["String"]>;
   telephone?: Maybe<Scalars["PhoneNumber"]>;
   preferredLang?: Maybe<Language>;
+  roles?: Maybe<Array<Maybe<Role>>>;
 };
 
 export type User = {
@@ -413,6 +419,7 @@ export type User = {
   lastName?: Maybe<Scalars["String"]>;
   telephone?: Maybe<Scalars["PhoneNumber"]>;
   preferredLang?: Maybe<Language>;
+  roles?: Maybe<Array<Maybe<Role>>>;
   pools?: Maybe<Array<Maybe<Pool>>>;
   poolCandidates?: Maybe<Array<Maybe<PoolCandidate>>>;
 };
@@ -434,30 +441,59 @@ export enum WorkRegion {
   North = "NORTH",
 }
 
-export type ClassificationFragment = { __typename?: "Classification" } & Pick<
-  Classification,
-  "id" | "group" | "level" | "minSalary" | "maxSalary"
-> & {
-    name?: Maybe<
-      { __typename?: "LocalizedString" } & Pick<LocalizedString, "en" | "fr">
-    >;
-  };
+export type ClassificationFragment = {
+  __typename?: "Classification";
+  id: string;
+  group: string;
+  level: number;
+  minSalary?: Maybe<number>;
+  maxSalary?: Maybe<number>;
+  name?: Maybe<{
+    __typename?: "LocalizedString";
+    en?: Maybe<string>;
+    fr?: Maybe<string>;
+  }>;
+};
 
 export type GetClassificationQueryVariables = Exact<{
   id: Scalars["ID"];
 }>;
 
-export type GetClassificationQuery = { __typename?: "Query" } & {
-  classification?: Maybe<
-    { __typename?: "Classification" } & ClassificationFragment
-  >;
+export type GetClassificationQuery = {
+  __typename?: "Query";
+  classification?: Maybe<{
+    __typename?: "Classification";
+    id: string;
+    group: string;
+    level: number;
+    minSalary?: Maybe<number>;
+    maxSalary?: Maybe<number>;
+    name?: Maybe<{
+      __typename?: "LocalizedString";
+      en?: Maybe<string>;
+      fr?: Maybe<string>;
+    }>;
+  }>;
 };
 
 export type GetClassificationsQueryVariables = Exact<{ [key: string]: never }>;
 
-export type GetClassificationsQuery = { __typename?: "Query" } & {
+export type GetClassificationsQuery = {
+  __typename?: "Query";
   classifications: Array<
-    Maybe<{ __typename?: "Classification" } & ClassificationFragment>
+    Maybe<{
+      __typename?: "Classification";
+      id: string;
+      group: string;
+      level: number;
+      minSalary?: Maybe<number>;
+      maxSalary?: Maybe<number>;
+      name?: Maybe<{
+        __typename?: "LocalizedString";
+        en?: Maybe<string>;
+        fr?: Maybe<string>;
+      }>;
+    }>
   >;
 };
 
@@ -465,20 +501,20 @@ export type CreateClassificationMutationVariables = Exact<{
   classification: CreateClassificationInput;
 }>;
 
-export type CreateClassificationMutation = { __typename?: "Mutation" } & {
-  createClassification?: Maybe<
-    { __typename?: "Classification" } & Pick<
-      Classification,
-      "group" | "level" | "minSalary" | "maxSalary"
-    > & {
-        name?: Maybe<
-          { __typename?: "LocalizedString" } & Pick<
-            LocalizedString,
-            "en" | "fr"
-          >
-        >;
-      }
-  >;
+export type CreateClassificationMutation = {
+  __typename?: "Mutation";
+  createClassification?: Maybe<{
+    __typename?: "Classification";
+    group: string;
+    level: number;
+    minSalary?: Maybe<number>;
+    maxSalary?: Maybe<number>;
+    name?: Maybe<{
+      __typename?: "LocalizedString";
+      en?: Maybe<string>;
+      fr?: Maybe<string>;
+    }>;
+  }>;
 };
 
 export type UpdateClassificationMutationVariables = Exact<{
@@ -486,61 +522,65 @@ export type UpdateClassificationMutationVariables = Exact<{
   classification: UpdateClassificationInput;
 }>;
 
-export type UpdateClassificationMutation = { __typename?: "Mutation" } & {
-  updateClassification?: Maybe<
-    { __typename?: "Classification" } & Pick<
-      Classification,
-      "group" | "level" | "minSalary" | "maxSalary"
-    > & {
-        name?: Maybe<
-          { __typename?: "LocalizedString" } & Pick<
-            LocalizedString,
-            "en" | "fr"
-          >
-        >;
-      }
-  >;
+export type UpdateClassificationMutation = {
+  __typename?: "Mutation";
+  updateClassification?: Maybe<{
+    __typename?: "Classification";
+    group: string;
+    level: number;
+    minSalary?: Maybe<number>;
+    maxSalary?: Maybe<number>;
+    name?: Maybe<{
+      __typename?: "LocalizedString";
+      en?: Maybe<string>;
+      fr?: Maybe<string>;
+    }>;
+  }>;
 };
 
 export type GetCmoAssetQueryVariables = Exact<{
   id: Scalars["ID"];
 }>;
 
-export type GetCmoAssetQuery = { __typename?: "Query" } & {
-  cmoAsset?: Maybe<
-    { __typename?: "CmoAsset" } & Pick<CmoAsset, "id" | "key"> & {
-        name: { __typename?: "LocalizedString" } & Pick<
-          LocalizedString,
-          "en" | "fr"
-        >;
-        description?: Maybe<
-          { __typename?: "LocalizedString" } & Pick<
-            LocalizedString,
-            "en" | "fr"
-          >
-        >;
-      }
-  >;
+export type GetCmoAssetQuery = {
+  __typename?: "Query";
+  cmoAsset?: Maybe<{
+    __typename?: "CmoAsset";
+    id: string;
+    key: string;
+    name: {
+      __typename?: "LocalizedString";
+      en?: Maybe<string>;
+      fr?: Maybe<string>;
+    };
+    description?: Maybe<{
+      __typename?: "LocalizedString";
+      en?: Maybe<string>;
+      fr?: Maybe<string>;
+    }>;
+  }>;
 };
 
 export type GetCmoAssetsQueryVariables = Exact<{ [key: string]: never }>;
 
-export type GetCmoAssetsQuery = { __typename?: "Query" } & {
+export type GetCmoAssetsQuery = {
+  __typename?: "Query";
   cmoAssets: Array<
-    Maybe<
-      { __typename?: "CmoAsset" } & Pick<CmoAsset, "id" | "key"> & {
-          name: { __typename?: "LocalizedString" } & Pick<
-            LocalizedString,
-            "en" | "fr"
-          >;
-          description?: Maybe<
-            { __typename?: "LocalizedString" } & Pick<
-              LocalizedString,
-              "en" | "fr"
-            >
-          >;
-        }
-    >
+    Maybe<{
+      __typename?: "CmoAsset";
+      id: string;
+      key: string;
+      name: {
+        __typename?: "LocalizedString";
+        en?: Maybe<string>;
+        fr?: Maybe<string>;
+      };
+      description?: Maybe<{
+        __typename?: "LocalizedString";
+        en?: Maybe<string>;
+        fr?: Maybe<string>;
+      }>;
+    }>
   >;
 };
 
@@ -548,21 +588,23 @@ export type CreateCmoAssetMutationVariables = Exact<{
   cmoAsset: CreateCmoAssetInput;
 }>;
 
-export type CreateCmoAssetMutation = { __typename?: "Mutation" } & {
-  createCmoAsset?: Maybe<
-    { __typename?: "CmoAsset" } & Pick<CmoAsset, "id" | "key"> & {
-        name: { __typename?: "LocalizedString" } & Pick<
-          LocalizedString,
-          "en" | "fr"
-        >;
-        description?: Maybe<
-          { __typename?: "LocalizedString" } & Pick<
-            LocalizedString,
-            "en" | "fr"
-          >
-        >;
-      }
-  >;
+export type CreateCmoAssetMutation = {
+  __typename?: "Mutation";
+  createCmoAsset?: Maybe<{
+    __typename?: "CmoAsset";
+    id: string;
+    key: string;
+    name: {
+      __typename?: "LocalizedString";
+      en?: Maybe<string>;
+      fr?: Maybe<string>;
+    };
+    description?: Maybe<{
+      __typename?: "LocalizedString";
+      en?: Maybe<string>;
+      fr?: Maybe<string>;
+    }>;
+  }>;
 };
 
 export type UpdateCmoAssetMutationVariables = Exact<{
@@ -570,70 +612,70 @@ export type UpdateCmoAssetMutationVariables = Exact<{
   cmoAsset: UpdateCmoAssetInput;
 }>;
 
-export type UpdateCmoAssetMutation = { __typename?: "Mutation" } & {
-  updateCmoAsset?: Maybe<
-    { __typename?: "CmoAsset" } & Pick<CmoAsset, "id" | "key"> & {
-        name: { __typename?: "LocalizedString" } & Pick<
-          LocalizedString,
-          "en" | "fr"
-        >;
-        description?: Maybe<
-          { __typename?: "LocalizedString" } & Pick<
-            LocalizedString,
-            "en" | "fr"
-          >
-        >;
-      }
-  >;
+export type UpdateCmoAssetMutation = {
+  __typename?: "Mutation";
+  updateCmoAsset?: Maybe<{
+    __typename?: "CmoAsset";
+    id: string;
+    key: string;
+    name: {
+      __typename?: "LocalizedString";
+      en?: Maybe<string>;
+      fr?: Maybe<string>;
+    };
+    description?: Maybe<{
+      __typename?: "LocalizedString";
+      en?: Maybe<string>;
+      fr?: Maybe<string>;
+    }>;
+  }>;
 };
 
 export type GetOperationalRequirementQueryVariables = Exact<{
   id: Scalars["ID"];
 }>;
 
-export type GetOperationalRequirementQuery = { __typename?: "Query" } & {
-  operationalRequirement?: Maybe<
-    { __typename?: "OperationalRequirement" } & Pick<
-      OperationalRequirement,
-      "id" | "key"
-    > & {
-        name: { __typename?: "LocalizedString" } & Pick<
-          LocalizedString,
-          "en" | "fr"
-        >;
-        description?: Maybe<
-          { __typename?: "LocalizedString" } & Pick<
-            LocalizedString,
-            "en" | "fr"
-          >
-        >;
-      }
-  >;
+export type GetOperationalRequirementQuery = {
+  __typename?: "Query";
+  operationalRequirement?: Maybe<{
+    __typename?: "OperationalRequirement";
+    id: string;
+    key: string;
+    name: {
+      __typename?: "LocalizedString";
+      en?: Maybe<string>;
+      fr?: Maybe<string>;
+    };
+    description?: Maybe<{
+      __typename?: "LocalizedString";
+      en?: Maybe<string>;
+      fr?: Maybe<string>;
+    }>;
+  }>;
 };
 
 export type GetOperationalRequirementsQueryVariables = Exact<{
   [key: string]: never;
 }>;
 
-export type GetOperationalRequirementsQuery = { __typename?: "Query" } & {
+export type GetOperationalRequirementsQuery = {
+  __typename?: "Query";
   operationalRequirements: Array<
-    Maybe<
-      { __typename?: "OperationalRequirement" } & Pick<
-        OperationalRequirement,
-        "id" | "key"
-      > & {
-          name: { __typename?: "LocalizedString" } & Pick<
-            LocalizedString,
-            "en" | "fr"
-          >;
-          description?: Maybe<
-            { __typename?: "LocalizedString" } & Pick<
-              LocalizedString,
-              "en" | "fr"
-            >
-          >;
-        }
-    >
+    Maybe<{
+      __typename?: "OperationalRequirement";
+      id: string;
+      key: string;
+      name: {
+        __typename?: "LocalizedString";
+        en?: Maybe<string>;
+        fr?: Maybe<string>;
+      };
+      description?: Maybe<{
+        __typename?: "LocalizedString";
+        en?: Maybe<string>;
+        fr?: Maybe<string>;
+      }>;
+    }>
   >;
 };
 
@@ -643,24 +685,21 @@ export type CreateOperationalRequirementMutationVariables = Exact<{
 
 export type CreateOperationalRequirementMutation = {
   __typename?: "Mutation";
-} & {
-  createOperationalRequirement?: Maybe<
-    { __typename?: "OperationalRequirement" } & Pick<
-      OperationalRequirement,
-      "id" | "key"
-    > & {
-        name: { __typename?: "LocalizedString" } & Pick<
-          LocalizedString,
-          "en" | "fr"
-        >;
-        description?: Maybe<
-          { __typename?: "LocalizedString" } & Pick<
-            LocalizedString,
-            "en" | "fr"
-          >
-        >;
-      }
-  >;
+  createOperationalRequirement?: Maybe<{
+    __typename?: "OperationalRequirement";
+    id: string;
+    key: string;
+    name: {
+      __typename?: "LocalizedString";
+      en?: Maybe<string>;
+      fr?: Maybe<string>;
+    };
+    description?: Maybe<{
+      __typename?: "LocalizedString";
+      en?: Maybe<string>;
+      fr?: Maybe<string>;
+    }>;
+  }>;
 };
 
 export type UpdateOperationalRequirementMutationVariables = Exact<{
@@ -670,205 +709,368 @@ export type UpdateOperationalRequirementMutationVariables = Exact<{
 
 export type UpdateOperationalRequirementMutation = {
   __typename?: "Mutation";
-} & {
-  updateOperationalRequirement?: Maybe<
-    { __typename?: "OperationalRequirement" } & Pick<
-      OperationalRequirement,
-      "id" | "key"
-    > & {
-        name: { __typename?: "LocalizedString" } & Pick<
-          LocalizedString,
-          "en" | "fr"
-        >;
-        description?: Maybe<
-          { __typename?: "LocalizedString" } & Pick<
-            LocalizedString,
-            "en" | "fr"
-          >
-        >;
-      }
+  updateOperationalRequirement?: Maybe<{
+    __typename?: "OperationalRequirement";
+    id: string;
+    key: string;
+    name: {
+      __typename?: "LocalizedString";
+      en?: Maybe<string>;
+      fr?: Maybe<string>;
+    };
+    description?: Maybe<{
+      __typename?: "LocalizedString";
+      en?: Maybe<string>;
+      fr?: Maybe<string>;
+    }>;
+  }>;
+};
+
+export type PoolCandidateFragment = {
+  __typename?: "PoolCandidate";
+  id: string;
+  cmoIdentifier?: Maybe<string>;
+  expiryDate?: Maybe<string>;
+  isWoman?: Maybe<boolean>;
+  hasDisability?: Maybe<boolean>;
+  isIndigenous?: Maybe<boolean>;
+  isVisibleMinority?: Maybe<boolean>;
+  hasDiploma?: Maybe<boolean>;
+  languageAbility?: Maybe<LanguageAbility>;
+  locationPreferences?: Maybe<Array<Maybe<WorkRegion>>>;
+  expectedSalary?: Maybe<Array<Maybe<SalaryRange>>>;
+  status?: Maybe<PoolCandidateStatus>;
+  pool?: Maybe<{
+    __typename?: "Pool";
+    id: string;
+    name?: Maybe<{
+      __typename?: "LocalizedString";
+      en?: Maybe<string>;
+      fr?: Maybe<string>;
+    }>;
+    classifications?: Maybe<
+      Array<
+        Maybe<{
+          __typename?: "Classification";
+          id: string;
+          group: string;
+          level: number;
+          name?: Maybe<{
+            __typename?: "LocalizedString";
+            en?: Maybe<string>;
+            fr?: Maybe<string>;
+          }>;
+        }>
+      >
+    >;
+  }>;
+  user?: Maybe<{
+    __typename?: "User";
+    id: string;
+    firstName?: Maybe<string>;
+    lastName?: Maybe<string>;
+    email: string;
+    preferredLang?: Maybe<Language>;
+    telephone?: Maybe<string>;
+  }>;
+  acceptedOperationalRequirements?: Maybe<
+    Array<
+      Maybe<{
+        __typename?: "OperationalRequirement";
+        id: string;
+        name: {
+          __typename?: "LocalizedString";
+          en?: Maybe<string>;
+          fr?: Maybe<string>;
+        };
+      }>
+    >
+  >;
+  expectedClassifications?: Maybe<
+    Array<
+      Maybe<{
+        __typename?: "Classification";
+        id: string;
+        group: string;
+        level: number;
+        name?: Maybe<{
+          __typename?: "LocalizedString";
+          en?: Maybe<string>;
+          fr?: Maybe<string>;
+        }>;
+      }>
+    >
+  >;
+  cmoAssets?: Maybe<
+    Array<
+      Maybe<{
+        __typename?: "CmoAsset";
+        id: string;
+        name: {
+          __typename?: "LocalizedString";
+          en?: Maybe<string>;
+          fr?: Maybe<string>;
+        };
+      }>
+    >
   >;
 };
 
-export type PoolCandidateFragment = { __typename?: "PoolCandidate" } & Pick<
-  PoolCandidate,
-  | "id"
-  | "cmoIdentifier"
-  | "expiryDate"
-  | "isWoman"
-  | "hasDisability"
-  | "isIndigenous"
-  | "isVisibleMinority"
-  | "hasDiploma"
-  | "languageAbility"
-  | "locationPreferences"
-  | "expectedSalary"
-  | "status"
-> & {
-    pool?: Maybe<
-      { __typename?: "Pool" } & Pick<Pool, "id"> & {
-          name?: Maybe<
-            { __typename?: "LocalizedString" } & Pick<
-              LocalizedString,
-              "en" | "fr"
-            >
-          >;
-          classifications?: Maybe<
-            Array<
-              Maybe<
-                { __typename?: "Classification" } & Pick<
-                  Classification,
-                  "id" | "group" | "level"
-                > & {
-                    name?: Maybe<
-                      { __typename?: "LocalizedString" } & Pick<
-                        LocalizedString,
-                        "en" | "fr"
-                      >
-                    >;
-                  }
-              >
-            >
-          >;
-        }
-    >;
-    user?: Maybe<
-      { __typename?: "User" } & Pick<
-        User,
-        | "id"
-        | "firstName"
-        | "lastName"
-        | "email"
-        | "preferredLang"
-        | "telephone"
-      >
-    >;
-    acceptedOperationalRequirements?: Maybe<
-      Array<
-        Maybe<
-          { __typename?: "OperationalRequirement" } & Pick<
-            OperationalRequirement,
-            "id"
-          > & {
-              name: { __typename?: "LocalizedString" } & Pick<
-                LocalizedString,
-                "en" | "fr"
-              >;
-            }
-        >
-      >
-    >;
-    expectedClassifications?: Maybe<
-      Array<
-        Maybe<
-          { __typename?: "Classification" } & Pick<
-            Classification,
-            "id" | "group" | "level"
-          > & {
-              name?: Maybe<
-                { __typename?: "LocalizedString" } & Pick<
-                  LocalizedString,
-                  "en" | "fr"
-                >
-              >;
-            }
-        >
-      >
-    >;
-    cmoAssets?: Maybe<
-      Array<
-        Maybe<
-          { __typename?: "CmoAsset" } & Pick<CmoAsset, "id"> & {
-              name: { __typename?: "LocalizedString" } & Pick<
-                LocalizedString,
-                "en" | "fr"
-              >;
-            }
-        >
-      >
-    >;
-  };
-
-export type PoolCandidateFormFragment = { __typename?: "PoolCandidate" } & Pick<
-  PoolCandidate,
-  | "id"
-  | "cmoIdentifier"
-  | "expiryDate"
-  | "isWoman"
-  | "hasDisability"
-  | "isIndigenous"
-  | "isVisibleMinority"
-  | "hasDiploma"
-  | "languageAbility"
-  | "locationPreferences"
-  | "expectedSalary"
-  | "status"
-> & {
-    pool?: Maybe<
-      { __typename?: "Pool" } & Pick<Pool, "id"> & {
-          name?: Maybe<
-            { __typename?: "LocalizedString" } & Pick<
-              LocalizedString,
-              "en" | "fr"
-            >
-          >;
-        }
-    >;
-    user?: Maybe<{ __typename?: "User" } & Pick<User, "id" | "email">>;
-    acceptedOperationalRequirements?: Maybe<
-      Array<
-        Maybe<
-          { __typename?: "OperationalRequirement" } & Pick<
-            OperationalRequirement,
-            "id" | "key"
-          > & {
-              name: { __typename?: "LocalizedString" } & Pick<
-                LocalizedString,
-                "en" | "fr"
-              >;
-            }
-        >
-      >
-    >;
-    expectedClassifications?: Maybe<
-      Array<
-        Maybe<
-          { __typename?: "Classification" } & Pick<
-            Classification,
-            "id" | "group" | "level"
-          >
-        >
-      >
-    >;
-    cmoAssets?: Maybe<
-      Array<
-        Maybe<
-          { __typename?: "CmoAsset" } & Pick<CmoAsset, "id" | "key"> & {
-              name: { __typename?: "LocalizedString" } & Pick<
-                LocalizedString,
-                "en" | "fr"
-              >;
-            }
-        >
-      >
-    >;
-  };
+export type PoolCandidateFormFragment = {
+  __typename?: "PoolCandidate";
+  id: string;
+  cmoIdentifier?: Maybe<string>;
+  expiryDate?: Maybe<string>;
+  isWoman?: Maybe<boolean>;
+  hasDisability?: Maybe<boolean>;
+  isIndigenous?: Maybe<boolean>;
+  isVisibleMinority?: Maybe<boolean>;
+  hasDiploma?: Maybe<boolean>;
+  languageAbility?: Maybe<LanguageAbility>;
+  locationPreferences?: Maybe<Array<Maybe<WorkRegion>>>;
+  expectedSalary?: Maybe<Array<Maybe<SalaryRange>>>;
+  status?: Maybe<PoolCandidateStatus>;
+  pool?: Maybe<{
+    __typename?: "Pool";
+    id: string;
+    name?: Maybe<{
+      __typename?: "LocalizedString";
+      en?: Maybe<string>;
+      fr?: Maybe<string>;
+    }>;
+  }>;
+  user?: Maybe<{ __typename?: "User"; id: string; email: string }>;
+  acceptedOperationalRequirements?: Maybe<
+    Array<
+      Maybe<{
+        __typename?: "OperationalRequirement";
+        id: string;
+        key: string;
+        name: {
+          __typename?: "LocalizedString";
+          en?: Maybe<string>;
+          fr?: Maybe<string>;
+        };
+      }>
+    >
+  >;
+  expectedClassifications?: Maybe<
+    Array<
+      Maybe<{
+        __typename?: "Classification";
+        id: string;
+        group: string;
+        level: number;
+      }>
+    >
+  >;
+  cmoAssets?: Maybe<
+    Array<
+      Maybe<{
+        __typename?: "CmoAsset";
+        id: string;
+        key: string;
+        name: {
+          __typename?: "LocalizedString";
+          en?: Maybe<string>;
+          fr?: Maybe<string>;
+        };
+      }>
+    >
+  >;
+};
 
 export type GetPoolCandidateQueryVariables = Exact<{
   id: Scalars["ID"];
 }>;
 
-export type GetPoolCandidateQuery = { __typename?: "Query" } & {
-  poolCandidate?: Maybe<
-    { __typename?: "PoolCandidate" } & PoolCandidateFragment
-  >;
+export type GetPoolCandidateQuery = {
+  __typename?: "Query";
+  poolCandidate?: Maybe<{
+    __typename?: "PoolCandidate";
+    id: string;
+    cmoIdentifier?: Maybe<string>;
+    expiryDate?: Maybe<string>;
+    isWoman?: Maybe<boolean>;
+    hasDisability?: Maybe<boolean>;
+    isIndigenous?: Maybe<boolean>;
+    isVisibleMinority?: Maybe<boolean>;
+    hasDiploma?: Maybe<boolean>;
+    languageAbility?: Maybe<LanguageAbility>;
+    locationPreferences?: Maybe<Array<Maybe<WorkRegion>>>;
+    expectedSalary?: Maybe<Array<Maybe<SalaryRange>>>;
+    status?: Maybe<PoolCandidateStatus>;
+    pool?: Maybe<{
+      __typename?: "Pool";
+      id: string;
+      name?: Maybe<{
+        __typename?: "LocalizedString";
+        en?: Maybe<string>;
+        fr?: Maybe<string>;
+      }>;
+      classifications?: Maybe<
+        Array<
+          Maybe<{
+            __typename?: "Classification";
+            id: string;
+            group: string;
+            level: number;
+            name?: Maybe<{
+              __typename?: "LocalizedString";
+              en?: Maybe<string>;
+              fr?: Maybe<string>;
+            }>;
+          }>
+        >
+      >;
+    }>;
+    user?: Maybe<{
+      __typename?: "User";
+      id: string;
+      firstName?: Maybe<string>;
+      lastName?: Maybe<string>;
+      email: string;
+      preferredLang?: Maybe<Language>;
+      telephone?: Maybe<string>;
+    }>;
+    acceptedOperationalRequirements?: Maybe<
+      Array<
+        Maybe<{
+          __typename?: "OperationalRequirement";
+          id: string;
+          name: {
+            __typename?: "LocalizedString";
+            en?: Maybe<string>;
+            fr?: Maybe<string>;
+          };
+        }>
+      >
+    >;
+    expectedClassifications?: Maybe<
+      Array<
+        Maybe<{
+          __typename?: "Classification";
+          id: string;
+          group: string;
+          level: number;
+          name?: Maybe<{
+            __typename?: "LocalizedString";
+            en?: Maybe<string>;
+            fr?: Maybe<string>;
+          }>;
+        }>
+      >
+    >;
+    cmoAssets?: Maybe<
+      Array<
+        Maybe<{
+          __typename?: "CmoAsset";
+          id: string;
+          name: {
+            __typename?: "LocalizedString";
+            en?: Maybe<string>;
+            fr?: Maybe<string>;
+          };
+        }>
+      >
+    >;
+  }>;
 };
 
 export type GetPoolCandidatesQueryVariables = Exact<{ [key: string]: never }>;
 
-export type GetPoolCandidatesQuery = { __typename?: "Query" } & {
+export type GetPoolCandidatesQuery = {
+  __typename?: "Query";
   poolCandidates: Array<
-    Maybe<{ __typename?: "PoolCandidate" } & PoolCandidateFragment>
+    Maybe<{
+      __typename?: "PoolCandidate";
+      id: string;
+      cmoIdentifier?: Maybe<string>;
+      expiryDate?: Maybe<string>;
+      isWoman?: Maybe<boolean>;
+      hasDisability?: Maybe<boolean>;
+      isIndigenous?: Maybe<boolean>;
+      isVisibleMinority?: Maybe<boolean>;
+      hasDiploma?: Maybe<boolean>;
+      languageAbility?: Maybe<LanguageAbility>;
+      locationPreferences?: Maybe<Array<Maybe<WorkRegion>>>;
+      expectedSalary?: Maybe<Array<Maybe<SalaryRange>>>;
+      status?: Maybe<PoolCandidateStatus>;
+      pool?: Maybe<{
+        __typename?: "Pool";
+        id: string;
+        name?: Maybe<{
+          __typename?: "LocalizedString";
+          en?: Maybe<string>;
+          fr?: Maybe<string>;
+        }>;
+        classifications?: Maybe<
+          Array<
+            Maybe<{
+              __typename?: "Classification";
+              id: string;
+              group: string;
+              level: number;
+              name?: Maybe<{
+                __typename?: "LocalizedString";
+                en?: Maybe<string>;
+                fr?: Maybe<string>;
+              }>;
+            }>
+          >
+        >;
+      }>;
+      user?: Maybe<{
+        __typename?: "User";
+        id: string;
+        firstName?: Maybe<string>;
+        lastName?: Maybe<string>;
+        email: string;
+        preferredLang?: Maybe<Language>;
+        telephone?: Maybe<string>;
+      }>;
+      acceptedOperationalRequirements?: Maybe<
+        Array<
+          Maybe<{
+            __typename?: "OperationalRequirement";
+            id: string;
+            name: {
+              __typename?: "LocalizedString";
+              en?: Maybe<string>;
+              fr?: Maybe<string>;
+            };
+          }>
+        >
+      >;
+      expectedClassifications?: Maybe<
+        Array<
+          Maybe<{
+            __typename?: "Classification";
+            id: string;
+            group: string;
+            level: number;
+            name?: Maybe<{
+              __typename?: "LocalizedString";
+              en?: Maybe<string>;
+              fr?: Maybe<string>;
+            }>;
+          }>
+        >
+      >;
+      cmoAssets?: Maybe<
+        Array<
+          Maybe<{
+            __typename?: "CmoAsset";
+            id: string;
+            name: {
+              __typename?: "LocalizedString";
+              en?: Maybe<string>;
+              fr?: Maybe<string>;
+            };
+          }>
+        >
+      >;
+    }>
   >;
 };
 
@@ -876,62 +1078,61 @@ export type GetCreatePoolCandidateDataQueryVariables = Exact<{
   [key: string]: never;
 }>;
 
-export type GetCreatePoolCandidateDataQuery = { __typename?: "Query" } & {
+export type GetCreatePoolCandidateDataQuery = {
+  __typename?: "Query";
   classifications: Array<
-    Maybe<
-      { __typename?: "Classification" } & Pick<
-        Classification,
-        "id" | "group" | "level"
-      >
-    >
+    Maybe<{
+      __typename?: "Classification";
+      id: string;
+      group: string;
+      level: number;
+    }>
   >;
   cmoAssets: Array<
-    Maybe<
-      { __typename?: "CmoAsset" } & Pick<CmoAsset, "id" | "key"> & {
-          name: { __typename?: "LocalizedString" } & Pick<
-            LocalizedString,
-            "en" | "fr"
-          >;
-        }
-    >
+    Maybe<{
+      __typename?: "CmoAsset";
+      id: string;
+      key: string;
+      name: {
+        __typename?: "LocalizedString";
+        en?: Maybe<string>;
+        fr?: Maybe<string>;
+      };
+    }>
   >;
   operationalRequirements: Array<
-    Maybe<
-      { __typename?: "OperationalRequirement" } & Pick<
-        OperationalRequirement,
-        "id" | "key"
-      > & {
-          name: { __typename?: "LocalizedString" } & Pick<
-            LocalizedString,
-            "en" | "fr"
-          >;
-        }
-    >
+    Maybe<{
+      __typename?: "OperationalRequirement";
+      id: string;
+      key: string;
+      name: {
+        __typename?: "LocalizedString";
+        en?: Maybe<string>;
+        fr?: Maybe<string>;
+      };
+    }>
   >;
   pools: Array<
-    Maybe<
-      { __typename?: "Pool" } & Pick<Pool, "id"> & {
-          name?: Maybe<
-            { __typename?: "LocalizedString" } & Pick<
-              LocalizedString,
-              "en" | "fr"
-            >
-          >;
-        }
-    >
+    Maybe<{
+      __typename?: "Pool";
+      id: string;
+      name?: Maybe<{
+        __typename?: "LocalizedString";
+        en?: Maybe<string>;
+        fr?: Maybe<string>;
+      }>;
+    }>
   >;
   users: Array<
-    Maybe<
-      { __typename?: "User" } & Pick<
-        User,
-        | "id"
-        | "firstName"
-        | "lastName"
-        | "email"
-        | "preferredLang"
-        | "telephone"
-      >
-    >
+    Maybe<{
+      __typename?: "User";
+      id: string;
+      firstName?: Maybe<string>;
+      lastName?: Maybe<string>;
+      email: string;
+      preferredLang?: Maybe<Language>;
+      telephone?: Maybe<string>;
+    }>
   >;
 };
 
@@ -939,102 +1140,153 @@ export type GetUpdatePoolCandidateDataQueryVariables = Exact<{
   id: Scalars["ID"];
 }>;
 
-export type GetUpdatePoolCandidateDataQuery = { __typename?: "Query" } & {
+export type GetUpdatePoolCandidateDataQuery = {
+  __typename?: "Query";
   classifications: Array<
-    Maybe<
-      { __typename?: "Classification" } & Pick<
-        Classification,
-        "id" | "group" | "level"
-      >
-    >
+    Maybe<{
+      __typename?: "Classification";
+      id: string;
+      group: string;
+      level: number;
+    }>
   >;
   users: Array<
-    Maybe<{ __typename?: "User" } & Pick<User, "id" | "firstName" | "lastName">>
+    Maybe<{
+      __typename?: "User";
+      id: string;
+      firstName?: Maybe<string>;
+      lastName?: Maybe<string>;
+    }>
   >;
   cmoAssets: Array<
-    Maybe<
-      { __typename?: "CmoAsset" } & Pick<CmoAsset, "id" | "key"> & {
-          name: { __typename?: "LocalizedString" } & Pick<
-            LocalizedString,
-            "en" | "fr"
-          >;
-        }
-    >
+    Maybe<{
+      __typename?: "CmoAsset";
+      id: string;
+      key: string;
+      name: {
+        __typename?: "LocalizedString";
+        en?: Maybe<string>;
+        fr?: Maybe<string>;
+      };
+    }>
   >;
   operationalRequirements: Array<
-    Maybe<
-      { __typename?: "OperationalRequirement" } & Pick<
-        OperationalRequirement,
-        "id" | "key"
-      > & {
-          name: { __typename?: "LocalizedString" } & Pick<
-            LocalizedString,
-            "en" | "fr"
-          >;
-        }
-    >
+    Maybe<{
+      __typename?: "OperationalRequirement";
+      id: string;
+      key: string;
+      name: {
+        __typename?: "LocalizedString";
+        en?: Maybe<string>;
+        fr?: Maybe<string>;
+      };
+    }>
   >;
   pools: Array<
-    Maybe<
-      { __typename?: "Pool" } & Pick<Pool, "id"> & {
-          name?: Maybe<
-            { __typename?: "LocalizedString" } & Pick<
-              LocalizedString,
-              "en" | "fr"
-            >
-          >;
-        }
-    >
+    Maybe<{
+      __typename?: "Pool";
+      id: string;
+      name?: Maybe<{
+        __typename?: "LocalizedString";
+        en?: Maybe<string>;
+        fr?: Maybe<string>;
+      }>;
+    }>
   >;
-  poolCandidate?: Maybe<
-    { __typename?: "PoolCandidate" } & PoolCandidateFormFragment
-  >;
+  poolCandidate?: Maybe<{
+    __typename?: "PoolCandidate";
+    id: string;
+    cmoIdentifier?: Maybe<string>;
+    expiryDate?: Maybe<string>;
+    isWoman?: Maybe<boolean>;
+    hasDisability?: Maybe<boolean>;
+    isIndigenous?: Maybe<boolean>;
+    isVisibleMinority?: Maybe<boolean>;
+    hasDiploma?: Maybe<boolean>;
+    languageAbility?: Maybe<LanguageAbility>;
+    locationPreferences?: Maybe<Array<Maybe<WorkRegion>>>;
+    expectedSalary?: Maybe<Array<Maybe<SalaryRange>>>;
+    status?: Maybe<PoolCandidateStatus>;
+    pool?: Maybe<{
+      __typename?: "Pool";
+      id: string;
+      name?: Maybe<{
+        __typename?: "LocalizedString";
+        en?: Maybe<string>;
+        fr?: Maybe<string>;
+      }>;
+    }>;
+    user?: Maybe<{ __typename?: "User"; id: string; email: string }>;
+    acceptedOperationalRequirements?: Maybe<
+      Array<
+        Maybe<{
+          __typename?: "OperationalRequirement";
+          id: string;
+          key: string;
+          name: {
+            __typename?: "LocalizedString";
+            en?: Maybe<string>;
+            fr?: Maybe<string>;
+          };
+        }>
+      >
+    >;
+    expectedClassifications?: Maybe<
+      Array<
+        Maybe<{
+          __typename?: "Classification";
+          id: string;
+          group: string;
+          level: number;
+        }>
+      >
+    >;
+    cmoAssets?: Maybe<
+      Array<
+        Maybe<{
+          __typename?: "CmoAsset";
+          id: string;
+          key: string;
+          name: {
+            __typename?: "LocalizedString";
+            en?: Maybe<string>;
+            fr?: Maybe<string>;
+          };
+        }>
+      >
+    >;
+  }>;
 };
 
 export type CreatePoolCandidateMutationVariables = Exact<{
   poolCandidate: CreatePoolCandidateInput;
 }>;
 
-export type CreatePoolCandidateMutation = { __typename?: "Mutation" } & {
-  createPoolCandidate?: Maybe<
-    { __typename?: "PoolCandidate" } & Pick<
-      PoolCandidate,
-      | "cmoIdentifier"
-      | "expiryDate"
-      | "isWoman"
-      | "hasDisability"
-      | "isIndigenous"
-      | "isVisibleMinority"
-      | "hasDiploma"
-      | "languageAbility"
-      | "locationPreferences"
-      | "expectedSalary"
-      | "status"
-    > & {
-        pool?: Maybe<{ __typename?: "Pool" } & Pick<Pool, "id">>;
-        user?: Maybe<{ __typename?: "User" } & Pick<User, "id">>;
-        acceptedOperationalRequirements?: Maybe<
-          Array<
-            Maybe<
-              { __typename?: "OperationalRequirement" } & Pick<
-                OperationalRequirement,
-                "id"
-              >
-            >
-          >
-        >;
-        expectedClassifications?: Maybe<
-          Array<
-            Maybe<
-              { __typename?: "Classification" } & Pick<Classification, "id">
-            >
-          >
-        >;
-        cmoAssets?: Maybe<
-          Array<Maybe<{ __typename?: "CmoAsset" } & Pick<CmoAsset, "id">>>
-        >;
-      }
-  >;
+export type CreatePoolCandidateMutation = {
+  __typename?: "Mutation";
+  createPoolCandidate?: Maybe<{
+    __typename?: "PoolCandidate";
+    cmoIdentifier?: Maybe<string>;
+    expiryDate?: Maybe<string>;
+    isWoman?: Maybe<boolean>;
+    hasDisability?: Maybe<boolean>;
+    isIndigenous?: Maybe<boolean>;
+    isVisibleMinority?: Maybe<boolean>;
+    hasDiploma?: Maybe<boolean>;
+    languageAbility?: Maybe<LanguageAbility>;
+    locationPreferences?: Maybe<Array<Maybe<WorkRegion>>>;
+    expectedSalary?: Maybe<Array<Maybe<SalaryRange>>>;
+    status?: Maybe<PoolCandidateStatus>;
+    pool?: Maybe<{ __typename?: "Pool"; id: string }>;
+    user?: Maybe<{ __typename?: "User"; id: string }>;
+    acceptedOperationalRequirements?: Maybe<
+      Array<Maybe<{ __typename?: "OperationalRequirement"; id: string }>>
+    >;
+    expectedClassifications?: Maybe<
+      Array<Maybe<{ __typename?: "Classification"; id: string }>>
+    >;
+    cmoAssets?: Maybe<Array<Maybe<{ __typename?: "CmoAsset"; id: string }>>>;
+  }>;
 };
 
 export type UpdatePoolCandidateMutationVariables = Exact<{
@@ -1042,95 +1294,513 @@ export type UpdatePoolCandidateMutationVariables = Exact<{
   poolCandidate: UpdatePoolCandidateInput;
 }>;
 
-export type UpdatePoolCandidateMutation = { __typename?: "Mutation" } & {
-  updatePoolCandidate?: Maybe<
-    { __typename?: "PoolCandidate" } & Pick<
-      PoolCandidate,
-      | "cmoIdentifier"
-      | "expiryDate"
-      | "isWoman"
-      | "hasDisability"
-      | "isIndigenous"
-      | "isVisibleMinority"
-      | "hasDiploma"
-      | "languageAbility"
-      | "locationPreferences"
-      | "expectedSalary"
-      | "status"
-    > & {
-        acceptedOperationalRequirements?: Maybe<
-          Array<
-            Maybe<
-              { __typename?: "OperationalRequirement" } & Pick<
-                OperationalRequirement,
-                "id"
-              >
-            >
-          >
-        >;
-        expectedClassifications?: Maybe<
-          Array<
-            Maybe<
-              { __typename?: "Classification" } & Pick<Classification, "id">
-            >
-          >
-        >;
-        cmoAssets?: Maybe<
-          Array<Maybe<{ __typename?: "CmoAsset" } & Pick<CmoAsset, "id">>>
-        >;
-      }
+export type UpdatePoolCandidateMutation = {
+  __typename?: "Mutation";
+  updatePoolCandidate?: Maybe<{
+    __typename?: "PoolCandidate";
+    cmoIdentifier?: Maybe<string>;
+    expiryDate?: Maybe<string>;
+    isWoman?: Maybe<boolean>;
+    hasDisability?: Maybe<boolean>;
+    isIndigenous?: Maybe<boolean>;
+    isVisibleMinority?: Maybe<boolean>;
+    hasDiploma?: Maybe<boolean>;
+    languageAbility?: Maybe<LanguageAbility>;
+    locationPreferences?: Maybe<Array<Maybe<WorkRegion>>>;
+    expectedSalary?: Maybe<Array<Maybe<SalaryRange>>>;
+    status?: Maybe<PoolCandidateStatus>;
+    acceptedOperationalRequirements?: Maybe<
+      Array<Maybe<{ __typename?: "OperationalRequirement"; id: string }>>
+    >;
+    expectedClassifications?: Maybe<
+      Array<Maybe<{ __typename?: "Classification"; id: string }>>
+    >;
+    cmoAssets?: Maybe<Array<Maybe<{ __typename?: "CmoAsset"; id: string }>>>;
+  }>;
+};
+
+export type PoolFragment = {
+  __typename?: "Pool";
+  id: string;
+  owner?: Maybe<{
+    __typename?: "User";
+    id: string;
+    firstName?: Maybe<string>;
+    lastName?: Maybe<string>;
+    email: string;
+    preferredLang?: Maybe<Language>;
+    telephone?: Maybe<string>;
+  }>;
+  name?: Maybe<{
+    __typename?: "LocalizedString";
+    en?: Maybe<string>;
+    fr?: Maybe<string>;
+  }>;
+  description?: Maybe<{
+    __typename?: "LocalizedString";
+    en?: Maybe<string>;
+    fr?: Maybe<string>;
+  }>;
+  classifications?: Maybe<
+    Array<
+      Maybe<{
+        __typename?: "Classification";
+        id: string;
+        group: string;
+        level: number;
+        name?: Maybe<{
+          __typename?: "LocalizedString";
+          en?: Maybe<string>;
+          fr?: Maybe<string>;
+        }>;
+      }>
+    >
   >;
+  assetCriteria?: Maybe<
+    Array<
+      Maybe<{
+        __typename?: "CmoAsset";
+        id: string;
+        key: string;
+        name: {
+          __typename?: "LocalizedString";
+          en?: Maybe<string>;
+          fr?: Maybe<string>;
+        };
+      }>
+    >
+  >;
+  essentialCriteria?: Maybe<
+    Array<
+      Maybe<{
+        __typename?: "CmoAsset";
+        id: string;
+        key: string;
+        name: {
+          __typename?: "LocalizedString";
+          en?: Maybe<string>;
+          fr?: Maybe<string>;
+        };
+      }>
+    >
+  >;
+  operationalRequirements?: Maybe<
+    Array<
+      Maybe<{
+        __typename?: "OperationalRequirement";
+        id: string;
+        key: string;
+        name: {
+          __typename?: "LocalizedString";
+          en?: Maybe<string>;
+          fr?: Maybe<string>;
+        };
+      }>
+    >
+  >;
+};
+
+export type GetPoolQueryVariables = Exact<{
+  id: Scalars["ID"];
+}>;
+
+export type GetPoolQuery = {
+  __typename?: "Query";
+  pool?: Maybe<{
+    __typename?: "Pool";
+    id: string;
+    owner?: Maybe<{
+      __typename?: "User";
+      id: string;
+      firstName?: Maybe<string>;
+      lastName?: Maybe<string>;
+      email: string;
+      preferredLang?: Maybe<Language>;
+      telephone?: Maybe<string>;
+    }>;
+    name?: Maybe<{
+      __typename?: "LocalizedString";
+      en?: Maybe<string>;
+      fr?: Maybe<string>;
+    }>;
+    description?: Maybe<{
+      __typename?: "LocalizedString";
+      en?: Maybe<string>;
+      fr?: Maybe<string>;
+    }>;
+    classifications?: Maybe<
+      Array<
+        Maybe<{
+          __typename?: "Classification";
+          id: string;
+          group: string;
+          level: number;
+          name?: Maybe<{
+            __typename?: "LocalizedString";
+            en?: Maybe<string>;
+            fr?: Maybe<string>;
+          }>;
+        }>
+      >
+    >;
+    assetCriteria?: Maybe<
+      Array<
+        Maybe<{
+          __typename?: "CmoAsset";
+          id: string;
+          key: string;
+          name: {
+            __typename?: "LocalizedString";
+            en?: Maybe<string>;
+            fr?: Maybe<string>;
+          };
+        }>
+      >
+    >;
+    essentialCriteria?: Maybe<
+      Array<
+        Maybe<{
+          __typename?: "CmoAsset";
+          id: string;
+          key: string;
+          name: {
+            __typename?: "LocalizedString";
+            en?: Maybe<string>;
+            fr?: Maybe<string>;
+          };
+        }>
+      >
+    >;
+    operationalRequirements?: Maybe<
+      Array<
+        Maybe<{
+          __typename?: "OperationalRequirement";
+          id: string;
+          key: string;
+          name: {
+            __typename?: "LocalizedString";
+            en?: Maybe<string>;
+            fr?: Maybe<string>;
+          };
+        }>
+      >
+    >;
+  }>;
+};
+
+export type GetCreatePoolDataQueryVariables = Exact<{ [key: string]: never }>;
+
+export type GetCreatePoolDataQuery = {
+  __typename?: "Query";
+  users: Array<
+    Maybe<{
+      __typename?: "User";
+      id: string;
+      email: string;
+      firstName?: Maybe<string>;
+      lastName?: Maybe<string>;
+    }>
+  >;
+  classifications: Array<
+    Maybe<{
+      __typename?: "Classification";
+      id: string;
+      group: string;
+      level: number;
+    }>
+  >;
+  cmoAssets: Array<
+    Maybe<{
+      __typename?: "CmoAsset";
+      id: string;
+      key: string;
+      name: {
+        __typename?: "LocalizedString";
+        en?: Maybe<string>;
+        fr?: Maybe<string>;
+      };
+    }>
+  >;
+  operationalRequirements: Array<
+    Maybe<{
+      __typename?: "OperationalRequirement";
+      id: string;
+      key: string;
+      name: {
+        __typename?: "LocalizedString";
+        en?: Maybe<string>;
+        fr?: Maybe<string>;
+      };
+    }>
+  >;
+};
+
+export type GetUpdatePoolDataQueryVariables = Exact<{
+  id: Scalars["ID"];
+}>;
+
+export type GetUpdatePoolDataQuery = {
+  __typename?: "Query";
+  users: Array<
+    Maybe<{
+      __typename?: "User";
+      id: string;
+      email: string;
+      firstName?: Maybe<string>;
+      lastName?: Maybe<string>;
+    }>
+  >;
+  classifications: Array<
+    Maybe<{
+      __typename?: "Classification";
+      id: string;
+      group: string;
+      level: number;
+    }>
+  >;
+  cmoAssets: Array<
+    Maybe<{
+      __typename?: "CmoAsset";
+      id: string;
+      key: string;
+      name: {
+        __typename?: "LocalizedString";
+        en?: Maybe<string>;
+        fr?: Maybe<string>;
+      };
+    }>
+  >;
+  operationalRequirements: Array<
+    Maybe<{
+      __typename?: "OperationalRequirement";
+      id: string;
+      key: string;
+      name: {
+        __typename?: "LocalizedString";
+        en?: Maybe<string>;
+        fr?: Maybe<string>;
+      };
+    }>
+  >;
+  pool?: Maybe<{
+    __typename?: "Pool";
+    id: string;
+    owner?: Maybe<{
+      __typename?: "User";
+      id: string;
+      firstName?: Maybe<string>;
+      lastName?: Maybe<string>;
+      email: string;
+      preferredLang?: Maybe<Language>;
+      telephone?: Maybe<string>;
+    }>;
+    name?: Maybe<{
+      __typename?: "LocalizedString";
+      en?: Maybe<string>;
+      fr?: Maybe<string>;
+    }>;
+    description?: Maybe<{
+      __typename?: "LocalizedString";
+      en?: Maybe<string>;
+      fr?: Maybe<string>;
+    }>;
+    classifications?: Maybe<
+      Array<
+        Maybe<{
+          __typename?: "Classification";
+          id: string;
+          group: string;
+          level: number;
+          name?: Maybe<{
+            __typename?: "LocalizedString";
+            en?: Maybe<string>;
+            fr?: Maybe<string>;
+          }>;
+        }>
+      >
+    >;
+    assetCriteria?: Maybe<
+      Array<
+        Maybe<{
+          __typename?: "CmoAsset";
+          id: string;
+          key: string;
+          name: {
+            __typename?: "LocalizedString";
+            en?: Maybe<string>;
+            fr?: Maybe<string>;
+          };
+        }>
+      >
+    >;
+    essentialCriteria?: Maybe<
+      Array<
+        Maybe<{
+          __typename?: "CmoAsset";
+          id: string;
+          key: string;
+          name: {
+            __typename?: "LocalizedString";
+            en?: Maybe<string>;
+            fr?: Maybe<string>;
+          };
+        }>
+      >
+    >;
+    operationalRequirements?: Maybe<
+      Array<
+        Maybe<{
+          __typename?: "OperationalRequirement";
+          id: string;
+          key: string;
+          name: {
+            __typename?: "LocalizedString";
+            en?: Maybe<string>;
+            fr?: Maybe<string>;
+          };
+        }>
+      >
+    >;
+  }>;
 };
 
 export type GetPoolsQueryVariables = Exact<{ [key: string]: never }>;
 
-export type GetPoolsQuery = { __typename?: "Query" } & {
+export type GetPoolsQuery = {
+  __typename?: "Query";
   pools: Array<
-    Maybe<
-      { __typename?: "Pool" } & Pick<Pool, "id"> & {
-          owner?: Maybe<{ __typename?: "User" } & Pick<User, "id" | "email">>;
-          name?: Maybe<
-            { __typename?: "LocalizedString" } & Pick<
-              LocalizedString,
-              "en" | "fr"
-            >
-          >;
-          description?: Maybe<
-            { __typename?: "LocalizedString" } & Pick<
-              LocalizedString,
-              "en" | "fr"
-            >
-          >;
-          classifications?: Maybe<
-            Array<
-              Maybe<
-                { __typename?: "Classification" } & Pick<
-                  Classification,
-                  "group" | "level"
-                >
-              >
-            >
-          >;
-        }
-    >
+    Maybe<{
+      __typename?: "Pool";
+      id: string;
+      owner?: Maybe<{ __typename?: "User"; id: string; email: string }>;
+      name?: Maybe<{
+        __typename?: "LocalizedString";
+        en?: Maybe<string>;
+        fr?: Maybe<string>;
+      }>;
+      description?: Maybe<{
+        __typename?: "LocalizedString";
+        en?: Maybe<string>;
+        fr?: Maybe<string>;
+      }>;
+      classifications?: Maybe<
+        Array<
+          Maybe<{ __typename?: "Classification"; group: string; level: number }>
+        >
+      >;
+    }>
   >;
+};
+
+export type CreatePoolMutationVariables = Exact<{
+  pool: CreatePoolInput;
+}>;
+
+export type CreatePoolMutation = {
+  __typename?: "Mutation";
+  createPool?: Maybe<{
+    __typename?: "Pool";
+    owner?: Maybe<{ __typename?: "User"; id: string }>;
+    name?: Maybe<{
+      __typename?: "LocalizedString";
+      en?: Maybe<string>;
+      fr?: Maybe<string>;
+    }>;
+    description?: Maybe<{
+      __typename?: "LocalizedString";
+      en?: Maybe<string>;
+      fr?: Maybe<string>;
+    }>;
+    classifications?: Maybe<
+      Array<
+        Maybe<{
+          __typename?: "Classification";
+          id: string;
+          group: string;
+          level: number;
+        }>
+      >
+    >;
+    assetCriteria?: Maybe<
+      Array<Maybe<{ __typename?: "CmoAsset"; id: string; key: string }>>
+    >;
+    essentialCriteria?: Maybe<
+      Array<Maybe<{ __typename?: "CmoAsset"; id: string; key: string }>>
+    >;
+    operationalRequirements?: Maybe<
+      Array<
+        Maybe<{
+          __typename?: "OperationalRequirement";
+          id: string;
+          key: string;
+        }>
+      >
+    >;
+  }>;
+};
+
+export type UpdatePoolMutationVariables = Exact<{
+  id: Scalars["ID"];
+  pool: UpdatePoolInput;
+}>;
+
+export type UpdatePoolMutation = {
+  __typename?: "Mutation";
+  updatePool?: Maybe<{
+    __typename?: "Pool";
+    owner?: Maybe<{ __typename?: "User"; id: string }>;
+    name?: Maybe<{
+      __typename?: "LocalizedString";
+      en?: Maybe<string>;
+      fr?: Maybe<string>;
+    }>;
+    description?: Maybe<{
+      __typename?: "LocalizedString";
+      en?: Maybe<string>;
+      fr?: Maybe<string>;
+    }>;
+    classifications?: Maybe<
+      Array<
+        Maybe<{
+          __typename?: "Classification";
+          id: string;
+          group: string;
+          level: number;
+        }>
+      >
+    >;
+    assetCriteria?: Maybe<
+      Array<Maybe<{ __typename?: "CmoAsset"; id: string; key: string }>>
+    >;
+    essentialCriteria?: Maybe<
+      Array<Maybe<{ __typename?: "CmoAsset"; id: string; key: string }>>
+    >;
+    operationalRequirements?: Maybe<
+      Array<
+        Maybe<{
+          __typename?: "OperationalRequirement";
+          id: string;
+          key: string;
+        }>
+      >
+    >;
+  }>;
 };
 
 export type AllUsersQueryVariables = Exact<{ [key: string]: never }>;
 
-export type AllUsersQuery = { __typename?: "Query" } & {
+export type AllUsersQuery = {
+  __typename?: "Query";
   users: Array<
-    Maybe<
-      { __typename?: "User" } & Pick<
-        User,
-        | "id"
-        | "email"
-        | "firstName"
-        | "lastName"
-        | "telephone"
-        | "preferredLang"
-      >
-    >
+    Maybe<{
+      __typename?: "User";
+      id: string;
+      email: string;
+      firstName?: Maybe<string>;
+      lastName?: Maybe<string>;
+      telephone?: Maybe<string>;
+      preferredLang?: Maybe<Language>;
+    }>
   >;
 };
 
@@ -1138,13 +1808,17 @@ export type UserQueryVariables = Exact<{
   id: Scalars["ID"];
 }>;
 
-export type UserQuery = { __typename?: "Query" } & {
-  user?: Maybe<
-    { __typename?: "User" } & Pick<
-      User,
-      "id" | "email" | "firstName" | "lastName" | "telephone" | "preferredLang"
-    >
-  >;
+export type UserQuery = {
+  __typename?: "Query";
+  user?: Maybe<{
+    __typename?: "User";
+    id: string;
+    email: string;
+    firstName?: Maybe<string>;
+    lastName?: Maybe<string>;
+    telephone?: Maybe<string>;
+    preferredLang?: Maybe<Language>;
+  }>;
 };
 
 export type UpdateUserMutationVariables = Exact<{
@@ -1152,26 +1826,33 @@ export type UpdateUserMutationVariables = Exact<{
   user: UpdateUserInput;
 }>;
 
-export type UpdateUserMutation = { __typename?: "Mutation" } & {
-  updateUser?: Maybe<
-    { __typename?: "User" } & Pick<
-      User,
-      "id" | "firstName" | "lastName" | "email" | "telephone" | "preferredLang"
-    >
-  >;
+export type UpdateUserMutation = {
+  __typename?: "Mutation";
+  updateUser?: Maybe<{
+    __typename?: "User";
+    id: string;
+    firstName?: Maybe<string>;
+    lastName?: Maybe<string>;
+    email: string;
+    telephone?: Maybe<string>;
+    preferredLang?: Maybe<Language>;
+  }>;
 };
 
 export type CreateUserMutationVariables = Exact<{
   user: CreateUserInput;
 }>;
 
-export type CreateUserMutation = { __typename?: "Mutation" } & {
-  createUser?: Maybe<
-    { __typename?: "User" } & Pick<
-      User,
-      "firstName" | "lastName" | "email" | "telephone" | "preferredLang"
-    >
-  >;
+export type CreateUserMutation = {
+  __typename?: "Mutation";
+  createUser?: Maybe<{
+    __typename?: "User";
+    firstName?: Maybe<string>;
+    lastName?: Maybe<string>;
+    email: string;
+    telephone?: Maybe<string>;
+    preferredLang?: Maybe<Language>;
+  }>;
 };
 
 export const ClassificationFragmentDoc = gql`
@@ -1296,6 +1977,60 @@ export const PoolCandidateFormFragmentDoc = gql`
       }
     }
     status
+  }
+`;
+export const PoolFragmentDoc = gql`
+  fragment pool on Pool {
+    id
+    owner {
+      id
+      firstName
+      lastName
+      email
+      preferredLang
+      telephone
+    }
+    name {
+      en
+      fr
+    }
+    description {
+      en
+      fr
+    }
+    classifications {
+      id
+      name {
+        en
+        fr
+      }
+      group
+      level
+    }
+    assetCriteria {
+      id
+      key
+      name {
+        en
+        fr
+      }
+    }
+    essentialCriteria {
+      id
+      key
+      name {
+        en
+        fr
+      }
+    }
+    operationalRequirements {
+      id
+      key
+      name {
+        en
+        fr
+      }
+    }
   }
 `;
 export const GetClassificationDocument = gql`
@@ -1811,6 +2546,110 @@ export function useUpdatePoolCandidateMutation() {
     UpdatePoolCandidateMutationVariables
   >(UpdatePoolCandidateDocument);
 }
+export const GetPoolDocument = gql`
+  query getPool($id: ID!) {
+    pool(id: $id) {
+      ...pool
+    }
+  }
+  ${PoolFragmentDoc}
+`;
+
+export function useGetPoolQuery(
+  options: Omit<Urql.UseQueryArgs<GetPoolQueryVariables>, "query"> = {},
+) {
+  return Urql.useQuery<GetPoolQuery>({ query: GetPoolDocument, ...options });
+}
+export const GetCreatePoolDataDocument = gql`
+  query getCreatePoolData {
+    users {
+      id
+      email
+      firstName
+      lastName
+    }
+    classifications {
+      id
+      group
+      level
+    }
+    cmoAssets {
+      id
+      key
+      name {
+        en
+        fr
+      }
+    }
+    operationalRequirements {
+      id
+      key
+      name {
+        en
+        fr
+      }
+    }
+  }
+`;
+
+export function useGetCreatePoolDataQuery(
+  options: Omit<
+    Urql.UseQueryArgs<GetCreatePoolDataQueryVariables>,
+    "query"
+  > = {},
+) {
+  return Urql.useQuery<GetCreatePoolDataQuery>({
+    query: GetCreatePoolDataDocument,
+    ...options,
+  });
+}
+export const GetUpdatePoolDataDocument = gql`
+  query getUpdatePoolData($id: ID!) {
+    users {
+      id
+      email
+      firstName
+      lastName
+    }
+    classifications {
+      id
+      group
+      level
+    }
+    cmoAssets {
+      id
+      key
+      name {
+        en
+        fr
+      }
+    }
+    operationalRequirements {
+      id
+      key
+      name {
+        en
+        fr
+      }
+    }
+    pool(id: $id) {
+      ...pool
+    }
+  }
+  ${PoolFragmentDoc}
+`;
+
+export function useGetUpdatePoolDataQuery(
+  options: Omit<
+    Urql.UseQueryArgs<GetUpdatePoolDataQueryVariables>,
+    "query"
+  > = {},
+) {
+  return Urql.useQuery<GetUpdatePoolDataQuery>({
+    query: GetUpdatePoolDataDocument,
+    ...options,
+  });
+}
 export const GetPoolsDocument = gql`
   query getPools {
     pools {
@@ -1839,6 +2678,86 @@ export function useGetPoolsQuery(
   options: Omit<Urql.UseQueryArgs<GetPoolsQueryVariables>, "query"> = {},
 ) {
   return Urql.useQuery<GetPoolsQuery>({ query: GetPoolsDocument, ...options });
+}
+export const CreatePoolDocument = gql`
+  mutation createPool($pool: CreatePoolInput!) {
+    createPool(pool: $pool) {
+      owner {
+        id
+      }
+      name {
+        en
+        fr
+      }
+      description {
+        en
+        fr
+      }
+      classifications {
+        id
+        group
+        level
+      }
+      assetCriteria {
+        id
+        key
+      }
+      essentialCriteria {
+        id
+        key
+      }
+      operationalRequirements {
+        id
+        key
+      }
+    }
+  }
+`;
+
+export function useCreatePoolMutation() {
+  return Urql.useMutation<CreatePoolMutation, CreatePoolMutationVariables>(
+    CreatePoolDocument,
+  );
+}
+export const UpdatePoolDocument = gql`
+  mutation updatePool($id: ID!, $pool: UpdatePoolInput!) {
+    updatePool(id: $id, pool: $pool) {
+      owner {
+        id
+      }
+      name {
+        en
+        fr
+      }
+      description {
+        en
+        fr
+      }
+      classifications {
+        id
+        group
+        level
+      }
+      assetCriteria {
+        id
+        key
+      }
+      essentialCriteria {
+        id
+        key
+      }
+      operationalRequirements {
+        id
+        key
+      }
+    }
+  }
+`;
+
+export function useUpdatePoolMutation() {
+  return Urql.useMutation<UpdatePoolMutation, UpdatePoolMutationVariables>(
+    UpdatePoolDocument,
+  );
 }
 export const AllUsersDocument = gql`
   query AllUsers {
