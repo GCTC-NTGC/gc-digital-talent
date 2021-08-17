@@ -1312,6 +1312,351 @@ export type UpdatePoolCandidateMutation = {
   }>;
 };
 
+export type PoolFragment = {
+  __typename?: "Pool";
+  id: string;
+  owner?: Maybe<{
+    __typename?: "User";
+    id: string;
+    firstName?: Maybe<string>;
+    lastName?: Maybe<string>;
+    email: string;
+    preferredLang?: Maybe<Language>;
+    telephone?: Maybe<string>;
+  }>;
+  name?: Maybe<{
+    __typename?: "LocalizedString";
+    en?: Maybe<string>;
+    fr?: Maybe<string>;
+  }>;
+  description?: Maybe<{
+    __typename?: "LocalizedString";
+    en?: Maybe<string>;
+    fr?: Maybe<string>;
+  }>;
+  classifications?: Maybe<
+    Array<
+      Maybe<{
+        __typename?: "Classification";
+        id: string;
+        group: string;
+        level: number;
+        name?: Maybe<{
+          __typename?: "LocalizedString";
+          en?: Maybe<string>;
+          fr?: Maybe<string>;
+        }>;
+      }>
+    >
+  >;
+  assetCriteria?: Maybe<
+    Array<
+      Maybe<{
+        __typename?: "CmoAsset";
+        id: string;
+        key: string;
+        name: {
+          __typename?: "LocalizedString";
+          en?: Maybe<string>;
+          fr?: Maybe<string>;
+        };
+      }>
+    >
+  >;
+  essentialCriteria?: Maybe<
+    Array<
+      Maybe<{
+        __typename?: "CmoAsset";
+        id: string;
+        key: string;
+        name: {
+          __typename?: "LocalizedString";
+          en?: Maybe<string>;
+          fr?: Maybe<string>;
+        };
+      }>
+    >
+  >;
+  operationalRequirements?: Maybe<
+    Array<
+      Maybe<{
+        __typename?: "OperationalRequirement";
+        id: string;
+        key: string;
+        name: {
+          __typename?: "LocalizedString";
+          en?: Maybe<string>;
+          fr?: Maybe<string>;
+        };
+      }>
+    >
+  >;
+};
+
+export type GetPoolQueryVariables = Exact<{
+  id: Scalars["ID"];
+}>;
+
+export type GetPoolQuery = {
+  __typename?: "Query";
+  pool?: Maybe<{
+    __typename?: "Pool";
+    id: string;
+    owner?: Maybe<{
+      __typename?: "User";
+      id: string;
+      firstName?: Maybe<string>;
+      lastName?: Maybe<string>;
+      email: string;
+      preferredLang?: Maybe<Language>;
+      telephone?: Maybe<string>;
+    }>;
+    name?: Maybe<{
+      __typename?: "LocalizedString";
+      en?: Maybe<string>;
+      fr?: Maybe<string>;
+    }>;
+    description?: Maybe<{
+      __typename?: "LocalizedString";
+      en?: Maybe<string>;
+      fr?: Maybe<string>;
+    }>;
+    classifications?: Maybe<
+      Array<
+        Maybe<{
+          __typename?: "Classification";
+          id: string;
+          group: string;
+          level: number;
+          name?: Maybe<{
+            __typename?: "LocalizedString";
+            en?: Maybe<string>;
+            fr?: Maybe<string>;
+          }>;
+        }>
+      >
+    >;
+    assetCriteria?: Maybe<
+      Array<
+        Maybe<{
+          __typename?: "CmoAsset";
+          id: string;
+          key: string;
+          name: {
+            __typename?: "LocalizedString";
+            en?: Maybe<string>;
+            fr?: Maybe<string>;
+          };
+        }>
+      >
+    >;
+    essentialCriteria?: Maybe<
+      Array<
+        Maybe<{
+          __typename?: "CmoAsset";
+          id: string;
+          key: string;
+          name: {
+            __typename?: "LocalizedString";
+            en?: Maybe<string>;
+            fr?: Maybe<string>;
+          };
+        }>
+      >
+    >;
+    operationalRequirements?: Maybe<
+      Array<
+        Maybe<{
+          __typename?: "OperationalRequirement";
+          id: string;
+          key: string;
+          name: {
+            __typename?: "LocalizedString";
+            en?: Maybe<string>;
+            fr?: Maybe<string>;
+          };
+        }>
+      >
+    >;
+  }>;
+};
+
+export type GetCreatePoolDataQueryVariables = Exact<{ [key: string]: never }>;
+
+export type GetCreatePoolDataQuery = {
+  __typename?: "Query";
+  users: Array<
+    Maybe<{
+      __typename?: "User";
+      id: string;
+      email: string;
+      firstName?: Maybe<string>;
+      lastName?: Maybe<string>;
+    }>
+  >;
+  classifications: Array<
+    Maybe<{
+      __typename?: "Classification";
+      id: string;
+      group: string;
+      level: number;
+    }>
+  >;
+  cmoAssets: Array<
+    Maybe<{
+      __typename?: "CmoAsset";
+      id: string;
+      key: string;
+      name: {
+        __typename?: "LocalizedString";
+        en?: Maybe<string>;
+        fr?: Maybe<string>;
+      };
+    }>
+  >;
+  operationalRequirements: Array<
+    Maybe<{
+      __typename?: "OperationalRequirement";
+      id: string;
+      key: string;
+      name: {
+        __typename?: "LocalizedString";
+        en?: Maybe<string>;
+        fr?: Maybe<string>;
+      };
+    }>
+  >;
+};
+
+export type GetUpdatePoolDataQueryVariables = Exact<{
+  id: Scalars["ID"];
+}>;
+
+export type GetUpdatePoolDataQuery = {
+  __typename?: "Query";
+  users: Array<
+    Maybe<{
+      __typename?: "User";
+      id: string;
+      email: string;
+      firstName?: Maybe<string>;
+      lastName?: Maybe<string>;
+    }>
+  >;
+  classifications: Array<
+    Maybe<{
+      __typename?: "Classification";
+      id: string;
+      group: string;
+      level: number;
+    }>
+  >;
+  cmoAssets: Array<
+    Maybe<{
+      __typename?: "CmoAsset";
+      id: string;
+      key: string;
+      name: {
+        __typename?: "LocalizedString";
+        en?: Maybe<string>;
+        fr?: Maybe<string>;
+      };
+    }>
+  >;
+  operationalRequirements: Array<
+    Maybe<{
+      __typename?: "OperationalRequirement";
+      id: string;
+      key: string;
+      name: {
+        __typename?: "LocalizedString";
+        en?: Maybe<string>;
+        fr?: Maybe<string>;
+      };
+    }>
+  >;
+  pool?: Maybe<{
+    __typename?: "Pool";
+    id: string;
+    owner?: Maybe<{
+      __typename?: "User";
+      id: string;
+      firstName?: Maybe<string>;
+      lastName?: Maybe<string>;
+      email: string;
+      preferredLang?: Maybe<Language>;
+      telephone?: Maybe<string>;
+    }>;
+    name?: Maybe<{
+      __typename?: "LocalizedString";
+      en?: Maybe<string>;
+      fr?: Maybe<string>;
+    }>;
+    description?: Maybe<{
+      __typename?: "LocalizedString";
+      en?: Maybe<string>;
+      fr?: Maybe<string>;
+    }>;
+    classifications?: Maybe<
+      Array<
+        Maybe<{
+          __typename?: "Classification";
+          id: string;
+          group: string;
+          level: number;
+          name?: Maybe<{
+            __typename?: "LocalizedString";
+            en?: Maybe<string>;
+            fr?: Maybe<string>;
+          }>;
+        }>
+      >
+    >;
+    assetCriteria?: Maybe<
+      Array<
+        Maybe<{
+          __typename?: "CmoAsset";
+          id: string;
+          key: string;
+          name: {
+            __typename?: "LocalizedString";
+            en?: Maybe<string>;
+            fr?: Maybe<string>;
+          };
+        }>
+      >
+    >;
+    essentialCriteria?: Maybe<
+      Array<
+        Maybe<{
+          __typename?: "CmoAsset";
+          id: string;
+          key: string;
+          name: {
+            __typename?: "LocalizedString";
+            en?: Maybe<string>;
+            fr?: Maybe<string>;
+          };
+        }>
+      >
+    >;
+    operationalRequirements?: Maybe<
+      Array<
+        Maybe<{
+          __typename?: "OperationalRequirement";
+          id: string;
+          key: string;
+          name: {
+            __typename?: "LocalizedString";
+            en?: Maybe<string>;
+            fr?: Maybe<string>;
+          };
+        }>
+      >
+    >;
+  }>;
+};
+
 export type GetPoolsQueryVariables = Exact<{ [key: string]: never }>;
 
 export type GetPoolsQuery = {
@@ -1333,6 +1678,101 @@ export type GetPoolsQuery = {
       }>;
     }>
   >;
+};
+
+export type CreatePoolMutationVariables = Exact<{
+  pool: CreatePoolInput;
+}>;
+
+export type CreatePoolMutation = {
+  __typename?: "Mutation";
+  createPool?: Maybe<{
+    __typename?: "Pool";
+    owner?: Maybe<{ __typename?: "User"; id: string }>;
+    name?: Maybe<{
+      __typename?: "LocalizedString";
+      en?: Maybe<string>;
+      fr?: Maybe<string>;
+    }>;
+    description?: Maybe<{
+      __typename?: "LocalizedString";
+      en?: Maybe<string>;
+      fr?: Maybe<string>;
+    }>;
+    classifications?: Maybe<
+      Array<
+        Maybe<{
+          __typename?: "Classification";
+          id: string;
+          group: string;
+          level: number;
+        }>
+      >
+    >;
+    assetCriteria?: Maybe<
+      Array<Maybe<{ __typename?: "CmoAsset"; id: string; key: string }>>
+    >;
+    essentialCriteria?: Maybe<
+      Array<Maybe<{ __typename?: "CmoAsset"; id: string; key: string }>>
+    >;
+    operationalRequirements?: Maybe<
+      Array<
+        Maybe<{
+          __typename?: "OperationalRequirement";
+          id: string;
+          key: string;
+        }>
+      >
+    >;
+  }>;
+};
+
+export type UpdatePoolMutationVariables = Exact<{
+  id: Scalars["ID"];
+  pool: UpdatePoolInput;
+}>;
+
+export type UpdatePoolMutation = {
+  __typename?: "Mutation";
+  updatePool?: Maybe<{
+    __typename?: "Pool";
+    owner?: Maybe<{ __typename?: "User"; id: string }>;
+    name?: Maybe<{
+      __typename?: "LocalizedString";
+      en?: Maybe<string>;
+      fr?: Maybe<string>;
+    }>;
+    description?: Maybe<{
+      __typename?: "LocalizedString";
+      en?: Maybe<string>;
+      fr?: Maybe<string>;
+    }>;
+    classifications?: Maybe<
+      Array<
+        Maybe<{
+          __typename?: "Classification";
+          id: string;
+          group: string;
+          level: number;
+        }>
+      >
+    >;
+    assetCriteria?: Maybe<
+      Array<Maybe<{ __typename?: "CmoAsset"; id: string; key: string }>>
+    >;
+    essentialCriteria?: Maybe<
+      Array<Maybe<{ __typename?: "CmoAsset"; id: string; key: string }>>
+    >;
+    operationalRequirements?: Maybe<
+      Array<
+        Maybe<{
+          __typename?: "OperationalRequirement";
+          id: string;
+          key: string;
+        }>
+      >
+    >;
+  }>;
 };
 
 export type AllUsersQueryVariables = Exact<{ [key: string]: never }>;
@@ -1525,6 +1965,60 @@ export const PoolCandidateFormFragmentDoc = gql`
       }
     }
     status
+  }
+`;
+export const PoolFragmentDoc = gql`
+  fragment pool on Pool {
+    id
+    owner {
+      id
+      firstName
+      lastName
+      email
+      preferredLang
+      telephone
+    }
+    name {
+      en
+      fr
+    }
+    description {
+      en
+      fr
+    }
+    classifications {
+      id
+      name {
+        en
+        fr
+      }
+      group
+      level
+    }
+    assetCriteria {
+      id
+      key
+      name {
+        en
+        fr
+      }
+    }
+    essentialCriteria {
+      id
+      key
+      name {
+        en
+        fr
+      }
+    }
+    operationalRequirements {
+      id
+      key
+      name {
+        en
+        fr
+      }
+    }
   }
 `;
 export const GetClassificationDocument = gql`
@@ -2040,6 +2534,110 @@ export function useUpdatePoolCandidateMutation() {
     UpdatePoolCandidateMutationVariables
   >(UpdatePoolCandidateDocument);
 }
+export const GetPoolDocument = gql`
+  query getPool($id: ID!) {
+    pool(id: $id) {
+      ...pool
+    }
+  }
+  ${PoolFragmentDoc}
+`;
+
+export function useGetPoolQuery(
+  options: Omit<Urql.UseQueryArgs<GetPoolQueryVariables>, "query"> = {},
+) {
+  return Urql.useQuery<GetPoolQuery>({ query: GetPoolDocument, ...options });
+}
+export const GetCreatePoolDataDocument = gql`
+  query getCreatePoolData {
+    users {
+      id
+      email
+      firstName
+      lastName
+    }
+    classifications {
+      id
+      group
+      level
+    }
+    cmoAssets {
+      id
+      key
+      name {
+        en
+        fr
+      }
+    }
+    operationalRequirements {
+      id
+      key
+      name {
+        en
+        fr
+      }
+    }
+  }
+`;
+
+export function useGetCreatePoolDataQuery(
+  options: Omit<
+    Urql.UseQueryArgs<GetCreatePoolDataQueryVariables>,
+    "query"
+  > = {},
+) {
+  return Urql.useQuery<GetCreatePoolDataQuery>({
+    query: GetCreatePoolDataDocument,
+    ...options,
+  });
+}
+export const GetUpdatePoolDataDocument = gql`
+  query getUpdatePoolData($id: ID!) {
+    users {
+      id
+      email
+      firstName
+      lastName
+    }
+    classifications {
+      id
+      group
+      level
+    }
+    cmoAssets {
+      id
+      key
+      name {
+        en
+        fr
+      }
+    }
+    operationalRequirements {
+      id
+      key
+      name {
+        en
+        fr
+      }
+    }
+    pool(id: $id) {
+      ...pool
+    }
+  }
+  ${PoolFragmentDoc}
+`;
+
+export function useGetUpdatePoolDataQuery(
+  options: Omit<
+    Urql.UseQueryArgs<GetUpdatePoolDataQueryVariables>,
+    "query"
+  > = {},
+) {
+  return Urql.useQuery<GetUpdatePoolDataQuery>({
+    query: GetUpdatePoolDataDocument,
+    ...options,
+  });
+}
 export const GetPoolsDocument = gql`
   query getPools {
     pools {
@@ -2064,6 +2662,86 @@ export function useGetPoolsQuery(
   options: Omit<Urql.UseQueryArgs<GetPoolsQueryVariables>, "query"> = {},
 ) {
   return Urql.useQuery<GetPoolsQuery>({ query: GetPoolsDocument, ...options });
+}
+export const CreatePoolDocument = gql`
+  mutation createPool($pool: CreatePoolInput!) {
+    createPool(pool: $pool) {
+      owner {
+        id
+      }
+      name {
+        en
+        fr
+      }
+      description {
+        en
+        fr
+      }
+      classifications {
+        id
+        group
+        level
+      }
+      assetCriteria {
+        id
+        key
+      }
+      essentialCriteria {
+        id
+        key
+      }
+      operationalRequirements {
+        id
+        key
+      }
+    }
+  }
+`;
+
+export function useCreatePoolMutation() {
+  return Urql.useMutation<CreatePoolMutation, CreatePoolMutationVariables>(
+    CreatePoolDocument,
+  );
+}
+export const UpdatePoolDocument = gql`
+  mutation updatePool($id: ID!, $pool: UpdatePoolInput!) {
+    updatePool(id: $id, pool: $pool) {
+      owner {
+        id
+      }
+      name {
+        en
+        fr
+      }
+      description {
+        en
+        fr
+      }
+      classifications {
+        id
+        group
+        level
+      }
+      assetCriteria {
+        id
+        key
+      }
+      essentialCriteria {
+        id
+        key
+      }
+      operationalRequirements {
+        id
+        key
+      }
+    }
+  }
+`;
+
+export function useUpdatePoolMutation() {
+  return Urql.useMutation<UpdatePoolMutation, UpdatePoolMutationVariables>(
+    UpdatePoolDocument,
+  );
 }
 export const AllUsersDocument = gql`
   query AllUsers {
