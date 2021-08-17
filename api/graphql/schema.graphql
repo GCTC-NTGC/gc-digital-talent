@@ -20,6 +20,10 @@ enum Language {
     FR @enum(value: "fr")
 }
 
+enum Role {
+    ADMIN
+}
+
 type User {
     id: ID!
     email: Email!
@@ -27,6 +31,7 @@ type User {
     lastName: String @rename(attribute: "last_name")
     telephone: PhoneNumber
     preferredLang: Language @rename(attribute: "preferred_lang")
+    roles: [Role]
     pools: [Pool] @hasMany # Pools that a user owns
     poolCandidates: [PoolCandidate] @hasMany # Pools candidates that a user owns
 }
@@ -153,6 +158,7 @@ input CreateUserInput {
     email: Email! @rules(apply: ["unique:users,email"])
     telephone: PhoneNumber
     preferredLang: Language @rename(attribute: "preferred_lang")
+    roles: [Role] = []
 }
 """
 When updating a User, all fields are optional, and email cannot be changed.
@@ -162,6 +168,7 @@ input UpdateUserInput {
     lastName: String @rename(attribute: "last_name")
     telephone: PhoneNumber
     preferredLang: Language @rename(attribute: "preferred_lang")
+    roles: [Role]
 }
 
 input LocalizedStringInput {

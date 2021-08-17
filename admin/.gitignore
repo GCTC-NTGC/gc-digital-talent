@@ -20,3 +20,7 @@ Homestead.yaml
 .DS_Store
 
 /storybook-static/*
+
+# Hydrogen
+resources/css/hydrogen
+
