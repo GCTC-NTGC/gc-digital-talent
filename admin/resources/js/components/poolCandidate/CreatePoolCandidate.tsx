@@ -276,11 +276,7 @@ export const CreatePoolCandidateForm: React.FunctionComponent<CreatePoolCandidat
     );
   };
 
-interface CreatePoolCandidateProps {
-  poolId: string;
-}
-
-export const CreatePoolCandidate: React.FunctionComponent<CreatePoolCandidateProps> =
+export const CreatePoolCandidate: React.FunctionComponent<{ poolId: string }> =
   ({ poolId }) => {
     const [lookupResult] = useGetCreatePoolCandidateDataQuery();
     const { data: lookupData, fetching, error } = lookupResult;
