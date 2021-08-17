@@ -145,21 +145,23 @@ const routes: Routes<RouterResult> = [
     }),
   },
   {
-    path: "/pool-candidates/:id",
+    path: "/pools/:id/pool-candidates",
     action: ({ params }) => ({
       component: <PoolCandidatePage poolId={params.id as string} />,
     }),
   },
   {
-    path: "/pool-candidates/:id/create",
+    path: "/pools/:id/pool-candidates/create",
     action: ({ params }) => ({
       component: <CreatePoolCandidate poolId={params.id as string} />,
     }),
   },
   {
-    path: "/pool-candidates/:id/edit",
+    path: "/pools/:id/pool-candidates/:candidateId/edit",
     action: ({ params }) => ({
-      component: <UpdatePoolCandidate poolCandidateId={params.id as string} />,
+      component: (
+        <UpdatePoolCandidate poolCandidateId={params.candidateId as string} />
+      ),
     }),
   },
 ];
@@ -206,8 +208,8 @@ export const PoolDashboard: React.FC = () => {
     data?.pools.map((pool) =>
       menuItems.push(
         <MenuLink
-          key={`/pool-candidates-${pool?.id}`}
-          href={`/pool-candidates/${pool?.id}`}
+          key={`/pools/${pool?.id}/pool-candidates`}
+          href={`/pools/${pool?.id}/pool-candidates`}
           text={(pool?.name && pool?.name[getLocale(intl)]) ?? ""}
         />,
       ),
