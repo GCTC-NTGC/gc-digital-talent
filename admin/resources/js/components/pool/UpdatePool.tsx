@@ -152,27 +152,27 @@ export const UpdatePoolForm: React.FunctionComponent<UpdatePoolFormProps> = ({
           <Input
             id="name_en"
             name="name.en"
-            label={intl.formatMessage(messages.nameLabelEN)}
+            label={intl.formatMessage(messages.nameLabelEn)}
             type="text"
             rules={{ required: errorMessages.required }}
           />
           <Input
             id="name_fr"
             name="name.fr"
-            label={intl.formatMessage(messages.nameLabelFR)}
+            label={intl.formatMessage(messages.nameLabelFr)}
             type="text"
             rules={{ required: errorMessages.required }}
           />
           <TextArea
             id="description_en"
             name="description.en"
-            label={intl.formatMessage(messages.descriptionLabelEN)}
+            label={intl.formatMessage(messages.descriptionLabelEn)}
             rules={{ required: errorMessages.required }}
           />
           <TextArea
             id="description_fr"
             name="description.fr"
-            label={intl.formatMessage(messages.descriptionLabelFR)}
+            label={intl.formatMessage(messages.descriptionLabelFr)}
             rules={{ required: errorMessages.required }}
           />
           <MultiSelect

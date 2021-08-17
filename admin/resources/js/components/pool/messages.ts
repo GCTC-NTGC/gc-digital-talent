@@ -16,27 +16,26 @@ export default defineMessages({
     defaultMessage: "Owner: ",
     description: "Label displayed on the Pool form Owner field.",
   },
-  nameLabelEN: {
-    id: "pool.form.nameLabelEN",
+  nameLabelEn: {
+    id: "pool.form.nameLabelEn",
     defaultMessage: "Name (English): ",
     description: "Label displayed on the Pool form Name (English) field.",
   },
-  nameLabelFR: {
-    id: "pool.form.nameLabelFR",
-    defaultMessage: "Name (Français): ",
-    description: "Label displayed on the Pool form Name (Français) field.",
+  nameLabelFr: {
+    id: "pool.form.nameLabelFr",
+    defaultMessage: "Name (French): ",
+    description: "Label displayed on the Pool form Name (French) field.",
   },
-  descriptionLabelEN: {
-    id: "pool.form.descriptionLabelEN",
+  descriptionLabelEn: {
+    id: "pool.form.descriptionLabelEn",
     defaultMessage: "Description (English): ",
     description:
       "Label displayed on the Pool form Description (English) field.",
   },
-  descriptionLabelFR: {
-    id: "pool.form.descriptionLabelFR",
-    defaultMessage: "Description (Français): ",
-    description:
-      "Label displayed on the Pool form Description (Français) field.",
+  descriptionLabelFr: {
+    id: "pool.form.descriptionLabelFr",
+    defaultMessage: "Description (French): ",
+    description: "Label displayed on the Pool form Description (French) field.",
   },
   assetCriteriaLabel: {
     id: "pool.form.assetCriteriaLabel",
