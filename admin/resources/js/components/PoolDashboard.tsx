@@ -22,6 +22,7 @@ import { UpdatePoolCandidate } from "./poolCandidate/UpdatePoolCandidate";
 import PoolCandidatePage from "./PoolCandidatePage";
 import { UpdateUser } from "./UpdateUser";
 import UserPage from "./UserPage";
+import PoolPage from "./PoolPage";
 
 const messages = defineMessages({
   menuHome: {
@@ -53,6 +54,11 @@ const messages = defineMessages({
     id: "poolDashboard.menu.poolCandidatesLabel",
     defaultMessage: "Pool Candidates",
     description: "Label displayed on the Pool Candidates menu item.",
+  },
+  menuPools: {
+    id: "poolDashboard.menu.poolsLabel",
+    defaultMessage: "Pools",
+    description: "Label displayed on the Pools menu item.",
   },
 });
 
@@ -166,6 +172,12 @@ const routes: Routes<RouterResult> = [
       component: <UpdatePoolCandidate poolCandidateId={params.id as string} />,
     }),
   },
+  {
+    path: "/pools",
+    action: () => ({
+      component: <PoolPage />,
+    }),
+  },
 ];
 
 export const PoolDashboard: React.FC = () => {
@@ -201,6 +213,11 @@ export const PoolDashboard: React.FC = () => {
       key="pool-candidates"
       href="/pool-candidates"
       text={intl.formatMessage(messages.menuPoolCandidates)}
+    />,
+    <MenuLink
+      key="pools"
+      href="/pools"
+      text={intl.formatMessage(messages.menuPools)}
     />,
   ];
   return (
