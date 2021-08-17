@@ -72,7 +72,7 @@ export const CreatePoolCandidateForm: React.FunctionComponent<CreatePoolCandidat
     users,
     handleCreatePoolCandidate,
   }) => {
-    const methods = useForm<FormValues>();
+    const methods = useForm<FormValues>({ defaultValues: { pool: poolId } });
     const { handleSubmit } = methods;
 
     const formValuesToSubmitData = (
@@ -126,10 +126,6 @@ export const CreatePoolCandidateForm: React.FunctionComponent<CreatePoolCandidat
       label: name?.[locale] || "Error: pool name not found",
     }));
 
-    const poolOptionsSingleOption = poolOptions?.find(
-      (pool) => pool.value === poolId,
-    );
-
     const userOptions: Option<string>[] = users.map(
       ({ id, firstName, lastName }) => ({
         value: id,
@@ -146,14 +142,11 @@ export const CreatePoolCandidateForm: React.FunctionComponent<CreatePoolCandidat
               id="pool"
               label="Pool: "
               name="pool"
-              options={
-                poolOptionsSingleOption
-                  ? [poolOptionsSingleOption]
-                  : [
-                      { value: "", label: "Select a pool...", disabled: true },
-                      ...poolOptions,
-                    ]
-              }
+              options={[
+                { value: "", label: "Select a pool...", disabled: true },
+                ...poolOptions,
+              ]}
+              disabled={!!poolId}
               rules={{ required: errorMessages.required }}
             />
             <Select
