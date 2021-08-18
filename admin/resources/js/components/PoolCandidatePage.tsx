@@ -6,7 +6,7 @@ import Button from "./H2Components/Button";
 
 const messages = defineMessages({
   poolCandidateCreateHeading: {
-    id: "operationalRequirementPage.poolCandidateCreateHeading",
+    id: "poolCandidatePage.poolCandidateCreateHeading",
     defaultMessage: "Create Pool Candidate",
     description: "Heading displayed above the Pool Candidate Table component.",
   },

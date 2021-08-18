@@ -6,6 +6,7 @@ import {
   useLocation,
   useRouter,
 } from "../../helpers/router";
+import Footer from "../Footer";
 import SideMenu from "../menu/SideMenu";
 
 export const exactMatch = (ref: string, test: string): boolean => ref === test;
@@ -45,25 +46,22 @@ export const Dashboard: React.FC<{
 }> = ({ menuItems, contentRoutes }) => {
   const content = useRouter(contentRoutes);
   return (
-    <div
-      data-h2-flex-grid="b(stretch, contained, flush, none)"
-      style={{
-        minHeight: "100vh",
-      }}
-    >
-      <div
-        data-h2-bg-color="b(lightnavy)"
-        data-h2-flex-item="b(1of1) m(1of4) l(1of6)"
+    <div className="container">
+      <section
+        className="dashboard"
+        data-h2-flex-grid="b(stretch, contained, flush, none)"
       >
-        <div data-h2-padding="b(right-left, m)">
-          <SideMenu items={menuItems} />
+        <div
+          data-h2-bg-color="b(lightnavy)"
+          data-h2-flex-item="b(1of1) m(1of4) l(1of6)"
+        >
+          <div data-h2-padding="b(right-left, m)">
+            <SideMenu items={menuItems} />
+          </div>
         </div>
-      </div>
-      <div
-        data-h2-flex-item="b(1of1) m(3of4) l(5of6)"
-      >
-        {content}
-      </div>
+        <div data-h2-flex-item="b(1of1) m(8of12) l(10of12)">{content}</div>
+      </section>
+      <Footer />
     </div>
   );
 };

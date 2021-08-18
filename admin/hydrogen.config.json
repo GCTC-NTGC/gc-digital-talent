@@ -3,10 +3,7 @@
   "mediaWarnings": false,
   "folders": {
     "markup": "resources/views",
-    "scripts": [
-      "resources/js",
-      "public/js"
-    ],
+    "scripts": "resources/js",
     "styles": "resources/css"
   },
   "colors": [
@@ -31,7 +28,10 @@
     },
     {
       "key": "lightgray",
-      "color": "#F0F0F0"
+      "color": "#F0F0F0",
+      "opacities": [
+        ".6"
+      ]
     },
     {
       "key": "red",
@@ -72,6 +72,10 @@
       ]
     }
   ],
+  "flexgrid": {
+    "enabled": true,
+    "columns": 12
+  },
   "fonts": [
     {
       "key": "sans",
@@ -98,9 +102,5 @@
       ]
     }
   ],
-  "whitespaceScale": "1.5",
-  "flexgrid": {
-    "enabled": true,
-    "columns": 12
-  }
+  "whitespaceScale": "1.5"
 }

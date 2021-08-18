@@ -4,7 +4,6 @@ import { Routes } from "universal-router";
 import { Link, RouterResult } from "../helpers/router";
 import { CreateClassification } from "./classification/CreateClassification";
 import { UpdateClassification } from "./classification/UpdateClassification";
-
 import { ClassificationTableApi } from "./classification/ClassificationTable";
 import ClientProvider from "./ClientProvider";
 import CmoAssetPage from "./CmoAssetPage";
@@ -23,6 +22,9 @@ import PoolCandidatePage from "./PoolCandidatePage";
 import { UpdateUser } from "./UpdateUser";
 import UserPage from "./UserPage";
 import Button from "./H2Components/Button";
+import PoolPage from "./pool/PoolPage";
+import { CreatePool } from "./pool/CreatePool";
+import { UpdatePool } from "./pool/UpdatePool";
 
 const messages = defineMessages({
   menuHome: {
@@ -54,6 +56,11 @@ const messages = defineMessages({
     id: "poolDashboard.menu.poolCandidatesLabel",
     defaultMessage: "Pool Candidates",
     description: "Label displayed on the Pool Candidates menu item.",
+  },
+  menuPools: {
+    id: "poolDashboard.menu.poolsLabel",
+    defaultMessage: "Pools",
+    description: "Label displayed on the Pools menu item.",
   },
 });
 
@@ -89,19 +96,24 @@ const routes: Routes<RouterResult> = [
         <div>
           <header
             data-h2-bg-color="b(linear-70[lightpurple][lightnavy])"
-            data-h2-padding="b(top-bottom, l) b(right-left, xl)">
+            data-h2-padding="b(top-bottom, l) b(right-left, xl)"
+          >
             <div data-h2-flex-grid="b(middle, expanded, flush, l)">
               <div data-h2-flex-item="b(1of1) m(3of5)">
                 <h1
                   data-h2-font-color="b(white)"
                   data-h2-font-weight="b(800)"
                   data-h2-margin="b(all, none)"
-                  style={{ letterSpacing: "-2px" }}>Classifications</h1>
+                  style={{ letterSpacing: "-2px" }}
+                >
+                  Classifications
+                </h1>
               </div>
-              <div data-h2-flex-item="b(1of1) m(2of5)" data-h2-text-align="m(right)">
-                <Button
-                  color="white"
-                  mode="outline">
+              <div
+                data-h2-flex-item="b(1of1) m(2of5)"
+                data-h2-text-align="m(right)"
+              >
+                <Button color="white" mode="outline">
                   <Link href="/classifications/create" title="">
                     Create Classification
                   </Link>
@@ -186,6 +198,24 @@ const routes: Routes<RouterResult> = [
       component: <UpdatePoolCandidate poolCandidateId={params.id as string} />,
     }),
   },
+  {
+    path: "/pools",
+    action: () => ({
+      component: <PoolPage />,
+    }),
+  },
+  {
+    path: "/pools/create",
+    action: () => ({
+      component: <CreatePool />,
+    }),
+  },
+  {
+    path: "/pools/:id/edit",
+    action: ({ params }) => ({
+      component: <UpdatePool poolId={params.id as string} />,
+    }),
+  },
 ];
 
 export const PoolDashboard: React.FC = () => {
@@ -221,6 +251,11 @@ export const PoolDashboard: React.FC = () => {
       key="pool-candidates"
       href="/pool-candidates"
       text={intl.formatMessage(messages.menuPoolCandidates)}
+    />,
+    <MenuLink
+      key="pools"
+      href="/pools"
+      text={intl.formatMessage(messages.menuPools)}
     />,
   ];
   return (

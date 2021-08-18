@@ -16,6 +16,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property string $last_name
  * @property string $telephone
  * @property string $preferred_lang
+ * @property array $roles
  * @property Illuminate\Support\Carbon $created_at
  * @property Illuminate\Support\Carbon $updated_at
  */
@@ -24,6 +25,10 @@ class User extends Model
 {
     use HasFactory;
     use SoftDeletes;
+
+    protected $casts = [
+        'roles' => 'array',
+    ];
 
     public function pools(): HasMany
     {
