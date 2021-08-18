@@ -58,7 +58,7 @@ const messages = defineMessages({
     description: "Label displayed on the Pool Candidates menu item.",
   },
   menuPools: {
-    id: "poolDashboard.menu.poolLabel",
+    id: "poolDashboard.menu.poolsLabel",
     defaultMessage: "Pools",
     description: "Label displayed on the Pools menu item.",
   },

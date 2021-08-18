@@ -110,6 +110,7 @@ export type CreateUserInput = {
   email: Scalars["Email"];
   telephone?: Maybe<Scalars["PhoneNumber"]>;
   preferredLang?: Maybe<Language>;
+  roles?: Maybe<Array<Maybe<Role>>>;
 };
 
 export enum Language {
@@ -336,6 +337,10 @@ export type QueryCmoAssetArgs = {
   id: Scalars["ID"];
 };
 
+export enum Role {
+  Admin = "ADMIN",
+}
+
 export enum SalaryRange {
   "50_59K" = "_50_59K",
   "60_69K" = "_60_69K",
@@ -403,6 +408,7 @@ export type UpdateUserInput = {
   lastName?: Maybe<Scalars["String"]>;
   telephone?: Maybe<Scalars["PhoneNumber"]>;
   preferredLang?: Maybe<Language>;
+  roles?: Maybe<Array<Maybe<Role>>>;
 };
 
 export type User = {
@@ -413,6 +419,7 @@ export type User = {
   lastName?: Maybe<Scalars["String"]>;
   telephone?: Maybe<Scalars["PhoneNumber"]>;
   preferredLang?: Maybe<Language>;
+  roles?: Maybe<Array<Maybe<Role>>>;
   pools?: Maybe<Array<Maybe<Pool>>>;
   poolCandidates?: Maybe<Array<Maybe<PoolCandidate>>>;
 };
@@ -1676,6 +1683,11 @@ export type GetPoolsQuery = {
         en?: Maybe<string>;
         fr?: Maybe<string>;
       }>;
+      classifications?: Maybe<
+        Array<
+          Maybe<{ __typename?: "Classification"; group: string; level: number }>
+        >
+      >;
     }>
   >;
 };
@@ -2653,6 +2665,10 @@ export const GetPoolsDocument = gql`
       description {
         en
         fr
+      }
+      classifications {
+        group
+        level
       }
     }
   }
