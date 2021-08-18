@@ -75,7 +75,6 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<UpdatePoolCandidat
     const dataToFormValues = (
       data: PoolCandidate | UpdatePoolCandidateMutation["updatePoolCandidate"],
     ): FormValues => ({
-      // TODO: Convert rest of data to form values format (specifically the multi select).
       ...data,
       acceptedOperationalRequirements: unpackIds(
         data?.acceptedOperationalRequirements,
