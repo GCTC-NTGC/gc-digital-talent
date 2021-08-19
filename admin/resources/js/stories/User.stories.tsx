@@ -1,12 +1,12 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
-import { UserTable, UserTableApi } from "../components/UserTable";
+import { UserTable, UserTableApi } from "../components/user/UserTable";
 import fakeUsers from "../fakeData/fakeUsers";
 import { CreateUserInput, Language, User } from "../api/generated";
 import ClientProvider from "../components/ClientProvider";
-import { CreateUserForm } from "../components/CreateUser";
-import { UpdateUserForm } from "../components/UpdateUser";
+import { CreateUserForm } from "../components/user/CreateUser";
+import { UpdateUserForm } from "../components/user/UpdateUser";
 
 const userData = fakeUsers();
 // Its possible data may come back from api with missing data.

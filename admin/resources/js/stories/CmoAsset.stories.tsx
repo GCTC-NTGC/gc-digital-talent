@@ -2,12 +2,15 @@ import React from "react";
 import { storiesOf } from "@storybook/react";
 import { createClient } from "urql";
 import { action } from "@storybook/addon-actions";
-import { CmoAssetTable, CmoAssetTableApi } from "../components/CmoAssetTable";
+import {
+  CmoAssetTable,
+  CmoAssetTableApi,
+} from "../components/cmoAsset/CmoAssetTable";
 import fakeCmoAssets from "../fakeData/fakeCmoAssets";
 import ClientProvider from "../components/ClientProvider";
-import { CreateCmoAssetForm } from "../components/cmoAssets/CreateCmoAsset";
+import { CreateCmoAssetForm } from "../components/cmoAsset/CreateCmoAsset";
 import { CmoAsset, CreateCmoAssetInput } from "../api/generated";
-import { UpdateCmoAssetForm } from "../components/cmoAssets/UpdateCmoAsset";
+import { UpdateCmoAssetForm } from "../components/cmoAsset/UpdateCmoAsset";
 
 const cmoAssetData = fakeCmoAssets();
 

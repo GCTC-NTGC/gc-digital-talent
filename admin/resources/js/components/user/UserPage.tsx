@@ -1,6 +1,6 @@
 import React from "react";
 import { defineMessages, useIntl } from "react-intl";
-import { Link } from "../helpers/router";
+import { Link } from "../../helpers/router";
 import { UserTableApi } from "./UserTable";
 
 const messages = defineMessages({

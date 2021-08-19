@@ -1,7 +1,7 @@
 import React from "react";
 import { defineMessages, useIntl } from "react-intl";
 import { Link } from "../../helpers/router";
-import { PoolTableApi } from "../PoolTable";
+import { PoolTableApi } from "./PoolTable";
 
 const messages = defineMessages({
   poolCreateHeading: {
