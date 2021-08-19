@@ -13,9 +13,5 @@
 |
 */
 
-
 $router->get('/', 'DashboardController@index');
-$router->get('/{page}', 'DashboardController@index');
-$router->get('/{page}/create', 'DashboardController@index');
-$router->get('/{page}/{id}/edit', 'DashboardController@index');
-
+$router->get('/{any:.*}', 'DashboardController@index');

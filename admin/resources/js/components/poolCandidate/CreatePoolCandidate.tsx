@@ -54,6 +54,7 @@ interface CreatePoolCandidateFormProps {
   locale: "en" | "fr";
   operationalRequirements: OperationalRequirement[];
   pools: Pool[];
+  poolId?: string;
   users: User[];
   handleCreatePoolCandidate: (
     data: CreatePoolCandidateInput,
@@ -67,10 +68,11 @@ export const CreatePoolCandidateForm: React.FunctionComponent<CreatePoolCandidat
     locale,
     operationalRequirements,
     pools,
+    poolId,
     users,
     handleCreatePoolCandidate,
   }) => {
-    const methods = useForm<FormValues>();
+    const methods = useForm<FormValues>({ defaultValues: { pool: poolId } });
     const { handleSubmit } = methods;
 
     const formValuesToSubmitData = (
@@ -119,7 +121,7 @@ export const CreatePoolCandidateForm: React.FunctionComponent<CreatePoolCandidat
         label: name[locale] || "Error: operational requirement name not found.",
       }));
 
-    const poolOptions: Option<string>[] = pools.map(({ id, name }) => ({
+    const poolOptions: Option<string>[] = pools?.map(({ id, name }) => ({
       value: id,
       label: name?.[locale] || "Error: pool name not found",
     }));
@@ -144,6 +146,7 @@ export const CreatePoolCandidateForm: React.FunctionComponent<CreatePoolCandidat
                 { value: "", label: "Select a pool...", disabled: true },
                 ...poolOptions,
               ]}
+              disabled={!!poolId}
               rules={{ required: errorMessages.required }}
             />
             <Select
@@ -266,38 +269,40 @@ export const CreatePoolCandidateForm: React.FunctionComponent<CreatePoolCandidat
     );
   };
 
-export const CreatePoolCandidate: React.FunctionComponent = () => {
-  const [lookupResult] = useGetCreatePoolCandidateDataQuery();
-  const { data: lookupData, fetching, error } = lookupResult;
-  const classifications: Classification[] | [] =
-    lookupData?.classifications.filter(notEmpty) ?? [];
-  const cmoAssets: CmoAsset[] = lookupData?.cmoAssets.filter(notEmpty) ?? [];
-  const operationalRequirements: OperationalRequirement[] =
-    lookupData?.operationalRequirements.filter(notEmpty) ?? [];
-  const pools: Pool[] = lookupData?.pools.filter(notEmpty) ?? [];
-  const users: User[] = lookupData?.users.filter(notEmpty) ?? [];
+export const CreatePoolCandidate: React.FunctionComponent<{ poolId: string }> =
+  ({ poolId }) => {
+    const [lookupResult] = useGetCreatePoolCandidateDataQuery();
+    const { data: lookupData, fetching, error } = lookupResult;
+    const classifications: Classification[] | [] =
+      lookupData?.classifications.filter(notEmpty) ?? [];
+    const cmoAssets: CmoAsset[] = lookupData?.cmoAssets.filter(notEmpty) ?? [];
+    const operationalRequirements: OperationalRequirement[] =
+      lookupData?.operationalRequirements.filter(notEmpty) ?? [];
+    const pools: Pool[] = lookupData?.pools.filter(notEmpty) ?? [];
+    const users: User[] = lookupData?.users.filter(notEmpty) ?? [];
 
-  const [_result, executeMutation] = useCreatePoolCandidateMutation();
-  const handleCreatePoolCandidate = (data: CreatePoolCandidateInput) =>
-    executeMutation({ poolCandidate: data }).then((result) => {
-      if (result.data?.createPoolCandidate) {
-        return result.data?.createPoolCandidate;
-      }
-      return Promise.reject(result.error);
-    });
+    const [_result, executeMutation] = useCreatePoolCandidateMutation();
+    const handleCreatePoolCandidate = (data: CreatePoolCandidateInput) =>
+      executeMutation({ poolCandidate: data }).then((result) => {
+        if (result.data?.createPoolCandidate) {
+          return result.data?.createPoolCandidate;
+        }
+        return Promise.reject(result.error);
+      });
 
-  if (fetching) return <p>Loading...</p>;
-  if (error) return <p>Oh no... {error.message}</p>;
+    if (fetching) return <p>Loading...</p>;
+    if (error) return <p>Oh no... {error.message}</p>;
 
-  return (
-    <CreatePoolCandidateForm
-      classifications={classifications}
-      cmoAssets={cmoAssets}
-      locale="en"
-      operationalRequirements={operationalRequirements}
-      pools={pools}
-      users={users}
-      handleCreatePoolCandidate={handleCreatePoolCandidate}
-    />
-  );
-};
+    return (
+      <CreatePoolCandidateForm
+        classifications={classifications}
+        cmoAssets={cmoAssets}
+        locale="en"
+        operationalRequirements={operationalRequirements}
+        pools={pools}
+        poolId={poolId}
+        users={users}
+        handleCreatePoolCandidate={handleCreatePoolCandidate}
+      />
+    );
+  };
