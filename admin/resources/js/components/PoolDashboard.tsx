@@ -11,9 +11,8 @@ import CmoAssetPage from "./CmoAssetPage";
 import { CreateCmoAsset } from "./cmoAssets/CreateCmoAsset";
 import { UpdateCmoAsset } from "./cmoAssets/UpdateCmoAsset";
 import { CreateUser } from "./CreateUser";
-import { Dashboard, exactMatch, MenuLink } from "./dashboard/Dashboard";
+import { Dashboard, MenuHeading, MenuLink } from "./dashboard/Dashboard";
 import ErrorContainer from "./ErrorContainer";
-import HomePage from "./HomePage";
 import OperationalRequirementPage from "./OperationalRequirementPage";
 import { CreateOperationalRequirement } from "./operationalRequirements/CreateOperationalRequirement";
 import { UpdateOperationalRequirement } from "./operationalRequirements/UpdateOperationalRequirement";
@@ -26,11 +25,14 @@ import PoolPage from "./pool/PoolPage";
 import { CreatePool } from "./pool/CreatePool";
 import { UpdatePool } from "./pool/UpdatePool";
 
+import { useGetPoolsQuery } from "../api/generated";
+import { getLocale } from "../helpers/localize";
+
 const messages = defineMessages({
-  menuHome: {
-    id: "poolDashboard.menu.homeLabel",
-    defaultMessage: "Home",
-    description: "Label displayed on the Home menu item.",
+  menuAdminTools: {
+    id: "poolDashboard.menu.adminToolsLabel",
+    defaultMessage: "Admin Tools",
+    description: "Label displayed on the Admin Tools menu item.",
   },
   menuUsers: {
     id: "poolDashboard.menu.usersLabel",
@@ -65,12 +67,6 @@ const messages = defineMessages({
 });
 
 const routes: Routes<RouterResult> = [
-  {
-    path: "/",
-    action: () => ({
-      component: <HomePage />,
-    }),
-  },
   {
     path: "/users",
     action: () => ({
@@ -157,21 +153,23 @@ const routes: Routes<RouterResult> = [
     }),
   },
   {
-    path: "/pool-candidates",
-    action: () => ({
-      component: <PoolCandidatePage />,
-    }),
-  },
-  {
-    path: "/pool-candidates/create",
-    action: () => ({
-      component: <CreatePoolCandidate />,
-    }),
-  },
-  {
-    path: "/pool-candidates/:id/edit",
+    path: "/pools/:id/pool-candidates",
     action: ({ params }) => ({
-      component: <UpdatePoolCandidate poolCandidateId={params.id as string} />,
+      component: <PoolCandidatePage poolId={params.id as string} />,
+    }),
+  },
+  {
+    path: "/pools/:id/pool-candidates/create",
+    action: ({ params }) => ({
+      component: <CreatePoolCandidate poolId={params.id as string} />,
+    }),
+  },
+  {
+    path: "/pools/:id/pool-candidates/:candidateId/edit",
+    action: ({ params }) => ({
+      component: (
+        <UpdatePoolCandidate poolCandidateId={params.candidateId as string} />
+      ),
     }),
   },
   {
@@ -195,13 +193,14 @@ const routes: Routes<RouterResult> = [
 ];
 
 export const PoolDashboard: React.FC = () => {
+  const [result] = useGetPoolsQuery();
+  const { data, fetching, error } = result;
   const intl = useIntl();
+
   const menuItems = [
-    <MenuLink
-      key="home"
-      href=""
-      text={intl.formatMessage(messages.menuHome)}
-      isActive={exactMatch}
+    <MenuHeading
+      key="admin-tools"
+      text={intl.formatMessage(messages.menuAdminTools)}
     />,
     <MenuLink
       key="users"
@@ -224,16 +223,30 @@ export const PoolDashboard: React.FC = () => {
       text={intl.formatMessage(messages.menuOperationalRequirements)}
     />,
     <MenuLink
-      key="pool-candidates"
-      href="/pool-candidates"
-      text={intl.formatMessage(messages.menuPoolCandidates)}
-    />,
-    <MenuLink
       key="pools"
       href="/pools"
       text={intl.formatMessage(messages.menuPools)}
     />,
   ];
+
+  if (!fetching && !error) {
+    menuItems.push(
+      <MenuHeading
+        key="pool-candidates"
+        text={intl.formatMessage(messages.menuPoolCandidates)}
+      />,
+    );
+    data?.pools.map((pool) =>
+      menuItems.push(
+        <MenuLink
+          key={`/pools/${pool?.id}/pool-candidates`}
+          href={`/pools/${pool?.id}/pool-candidates`}
+          text={(pool?.name && pool?.name[getLocale(intl)]) ?? ""}
+        />,
+      ),
+    );
+  }
+
   return (
     <ErrorContainer>
       <ClientProvider>

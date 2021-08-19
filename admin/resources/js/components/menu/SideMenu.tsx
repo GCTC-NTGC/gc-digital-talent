@@ -1,5 +1,4 @@
 import React, { ReactElement } from "react";
-import Button from "../H2Components/Button";
 
 export const SideMenu: React.FunctionComponent<{
   items: ReactElement[];
@@ -15,10 +14,13 @@ export const SideMenu: React.FunctionComponent<{
       >
         {items.map((item) => {
           return (
-            <li key={item.key}>
-              <Button color="white" mode="solid" block>
-                {item}
-              </Button>
+            <li
+              key={item.key}
+              style={{
+                margin: "0",
+              }}
+            >
+              {item}
             </li>
           );
         })}

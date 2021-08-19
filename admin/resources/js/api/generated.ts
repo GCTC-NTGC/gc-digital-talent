@@ -726,7 +726,7 @@ export type UpdateOperationalRequirementMutation = {
   }>;
 };
 
-export type PoolCandidateFragment = {
+export type PoolCandidateTableFragment = {
   __typename?: "PoolCandidate";
   id: string;
   cmoIdentifier?: Maybe<string>;
@@ -1072,6 +1072,110 @@ export type GetPoolCandidatesQuery = {
       >;
     }>
   >;
+};
+
+export type GetPoolCandidatesByPoolQueryVariables = Exact<{
+  id: Scalars["ID"];
+}>;
+
+export type GetPoolCandidatesByPoolQuery = {
+  __typename?: "Query";
+  pool?: Maybe<{
+    __typename?: "Pool";
+    poolCandidates?: Maybe<
+      Array<
+        Maybe<{
+          __typename?: "PoolCandidate";
+          id: string;
+          cmoIdentifier?: Maybe<string>;
+          expiryDate?: Maybe<string>;
+          isWoman?: Maybe<boolean>;
+          hasDisability?: Maybe<boolean>;
+          isIndigenous?: Maybe<boolean>;
+          isVisibleMinority?: Maybe<boolean>;
+          hasDiploma?: Maybe<boolean>;
+          languageAbility?: Maybe<LanguageAbility>;
+          locationPreferences?: Maybe<Array<Maybe<WorkRegion>>>;
+          expectedSalary?: Maybe<Array<Maybe<SalaryRange>>>;
+          status?: Maybe<PoolCandidateStatus>;
+          pool?: Maybe<{
+            __typename?: "Pool";
+            id: string;
+            name?: Maybe<{
+              __typename?: "LocalizedString";
+              en?: Maybe<string>;
+              fr?: Maybe<string>;
+            }>;
+            classifications?: Maybe<
+              Array<
+                Maybe<{
+                  __typename?: "Classification";
+                  id: string;
+                  group: string;
+                  level: number;
+                  name?: Maybe<{
+                    __typename?: "LocalizedString";
+                    en?: Maybe<string>;
+                    fr?: Maybe<string>;
+                  }>;
+                }>
+              >
+            >;
+          }>;
+          user?: Maybe<{
+            __typename?: "User";
+            id: string;
+            firstName?: Maybe<string>;
+            lastName?: Maybe<string>;
+            email: string;
+            preferredLang?: Maybe<Language>;
+            telephone?: Maybe<string>;
+          }>;
+          acceptedOperationalRequirements?: Maybe<
+            Array<
+              Maybe<{
+                __typename?: "OperationalRequirement";
+                id: string;
+                name: {
+                  __typename?: "LocalizedString";
+                  en?: Maybe<string>;
+                  fr?: Maybe<string>;
+                };
+              }>
+            >
+          >;
+          expectedClassifications?: Maybe<
+            Array<
+              Maybe<{
+                __typename?: "Classification";
+                id: string;
+                group: string;
+                level: number;
+                name?: Maybe<{
+                  __typename?: "LocalizedString";
+                  en?: Maybe<string>;
+                  fr?: Maybe<string>;
+                }>;
+              }>
+            >
+          >;
+          cmoAssets?: Maybe<
+            Array<
+              Maybe<{
+                __typename?: "CmoAsset";
+                id: string;
+                name: {
+                  __typename?: "LocalizedString";
+                  en?: Maybe<string>;
+                  fr?: Maybe<string>;
+                };
+              }>
+            >
+          >;
+        }>
+      >
+    >;
+  }>;
 };
 
 export type GetCreatePoolCandidateDataQueryVariables = Exact<{
@@ -1868,8 +1972,8 @@ export const ClassificationFragmentDoc = gql`
     maxSalary
   }
 `;
-export const PoolCandidateFragmentDoc = gql`
-  fragment poolCandidate on PoolCandidate {
+export const PoolCandidateTableFragmentDoc = gql`
+  fragment poolCandidateTable on PoolCandidate {
     id
     pool {
       id
@@ -2329,10 +2433,10 @@ export function useUpdateOperationalRequirementMutation() {
 export const GetPoolCandidateDocument = gql`
   query getPoolCandidate($id: ID!) {
     poolCandidate(id: $id) {
-      ...poolCandidate
+      ...poolCandidateTable
     }
   }
-  ${PoolCandidateFragmentDoc}
+  ${PoolCandidateTableFragmentDoc}
 `;
 
 export function useGetPoolCandidateQuery(
@@ -2349,10 +2453,10 @@ export function useGetPoolCandidateQuery(
 export const GetPoolCandidatesDocument = gql`
   query GetPoolCandidates {
     poolCandidates {
-      ...poolCandidate
+      ...poolCandidateTable
     }
   }
-  ${PoolCandidateFragmentDoc}
+  ${PoolCandidateTableFragmentDoc}
 `;
 
 export function useGetPoolCandidatesQuery(
@@ -2363,6 +2467,28 @@ export function useGetPoolCandidatesQuery(
 ) {
   return Urql.useQuery<GetPoolCandidatesQuery>({
     query: GetPoolCandidatesDocument,
+    ...options,
+  });
+}
+export const GetPoolCandidatesByPoolDocument = gql`
+  query getPoolCandidatesByPool($id: ID!) {
+    pool(id: $id) {
+      poolCandidates {
+        ...poolCandidateTable
+      }
+    }
+  }
+  ${PoolCandidateTableFragmentDoc}
+`;
+
+export function useGetPoolCandidatesByPoolQuery(
+  options: Omit<
+    Urql.UseQueryArgs<GetPoolCandidatesByPoolQueryVariables>,
+    "query"
+  > = {},
+) {
+  return Urql.useQuery<GetPoolCandidatesByPoolQuery>({
+    query: GetPoolCandidatesByPoolDocument,
     ...options,
   });
 }
