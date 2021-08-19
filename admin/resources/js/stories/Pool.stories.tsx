@@ -18,12 +18,25 @@ import fakeOperationalRequirements from "../fakeData/fakeOperationalRequirements
 import fakeUsers from "../fakeData/fakeUsers";
 import { UpdatePool, UpdatePoolForm } from "../components/pool/UpdatePool";
 import ClientProvider from "../components/ClientProvider";
+import { PoolTable, PoolTableApi } from "../components/pool/PoolTable";
+import fakePools from "../fakeData/fakePools";
+
+const poolData = fakePools();
+// It is possible data may come back from api with missing data.
 
 const stories = storiesOf("Pools", module);
 
 const client = createClient({
   url: "http://localhost:8000/graphql",
 });
+
+stories.add("Pool Table", () => <PoolTable pools={poolData} editUrlRoot="#" />);
+
+stories.add("Pool Table Table with API data", () => (
+  <ClientProvider client={client}>
+    <PoolTableApi />
+  </ClientProvider>
+));
 
 stories.add("Create Pool Form", () => (
   <CreatePoolForm

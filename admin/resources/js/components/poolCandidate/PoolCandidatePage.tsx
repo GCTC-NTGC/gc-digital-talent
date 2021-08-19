@@ -1,7 +1,7 @@
 import React from "react";
 import { defineMessages, useIntl } from "react-intl";
-import { Link } from "../helpers/router";
-import { PoolCandidatesTableApi } from "./poolCandidate/PoolCandidatesTable";
+import { Link } from "../../helpers/router";
+import { PoolCandidatesTableApi } from "./PoolCandidatesTable";
 
 const messages = defineMessages({
   poolCandidateCreateHeading: {
