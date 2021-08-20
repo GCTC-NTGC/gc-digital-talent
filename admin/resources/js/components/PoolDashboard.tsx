@@ -4,7 +4,6 @@ import { Routes } from "universal-router";
 import { Link, RouterResult } from "../helpers/router";
 import { CreateClassification } from "./classification/CreateClassification";
 import { UpdateClassification } from "./classification/UpdateClassification";
-
 import { ClassificationTableApi } from "./classification/ClassificationTable";
 import ClientProvider from "./ClientProvider";
 import CmoAssetPage from "./cmoAsset/CmoAssetPage";
@@ -24,9 +23,9 @@ import UserPage from "./user/UserPage";
 import PoolPage from "./pool/PoolPage";
 import { CreatePool } from "./pool/CreatePool";
 import { UpdatePool } from "./pool/UpdatePool";
-
 import { useGetPoolsQuery } from "../api/generated";
 import { getLocale } from "../helpers/localize";
+import Toast from "./Toast";
 
 const messages = defineMessages({
   menuAdminTools: {
@@ -251,6 +250,7 @@ export const PoolDashboard: React.FC = () => {
     <ErrorContainer>
       <ClientProvider>
         <Dashboard menuItems={menuItems} contentRoutes={routes} />
+        <Toast />
       </ClientProvider>
     </ErrorContainer>
   );
