@@ -12,10 +12,7 @@ export interface ButtonProps extends React.HTMLProps<HTMLButtonElement> {
 
 const colorMap: Record<
   "primary" | "secondary" | "cta" | "white",
-  Record<
-    "solid" | "outline" | "inline",
-    Record<"border" | "background" | "font", string>
-  >
+  Record<"solid" | "outline" | "inline", Record<string, string>>
 > = {
   primary: {
     solid: {
