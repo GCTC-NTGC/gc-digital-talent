@@ -1,6 +1,8 @@
 import * as React from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { pick } from "lodash";
+import { toast } from "react-toastify";
+import { defineMessages, useIntl } from "react-intl";
 import {
   UpdatePoolCandidateInput,
   LanguageAbility,
@@ -29,6 +31,10 @@ import {
 } from "../form/formUtils";
 import { getSalaryRange } from "../../model/localizedConstants";
 import Checkbox from "../form/Checkbox";
+import { navigate } from "../../helpers/router";
+import { poolCandidateTable } from "../../helpers/routes";
+import { getLocale } from "../../helpers/localize";
+import messages from "./messages";
 
 type Option<V> = { value: V; label: string };
 
@@ -55,7 +61,6 @@ interface UpdatePoolCandidateProps {
   classifications: Classification[];
   cmoAssets: CmoAsset[];
   initialPoolCandidate: PoolCandidate;
-  locale: "en" | "fr";
   operationalRequirements: OperationalRequirement[];
   handleUpdatePoolCandidate: (
     id: string,
@@ -68,10 +73,11 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<UpdatePoolCandidat
     classifications,
     cmoAssets,
     initialPoolCandidate,
-    locale,
     operationalRequirements,
     handleUpdatePoolCandidate,
   }) => {
+    const intl = useIntl();
+    const locale = getLocale(intl);
     const dataToFormValues = (
       data: PoolCandidate | UpdatePoolCandidateMutation["updatePoolCandidate"],
     ): FormValues => ({
@@ -103,17 +109,19 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<UpdatePoolCandidat
     const methods = useForm<FormValues>({
       defaultValues: dataToFormValues(initialPoolCandidate),
     });
-    const { handleSubmit, reset } = methods;
+    const { handleSubmit } = methods;
 
     const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
       await handleUpdatePoolCandidate(
         initialPoolCandidate.id,
         formValuesToSubmitData(data),
       )
-        .then((resolved) => reset(dataToFormValues(resolved))) // Reset form with returned data. This resets isDirty flag.
+        .then(() => {
+          navigate(poolCandidateTable(locale));
+          toast.success(intl.formatMessage(messages.updateSuccess));
+        })
         .catch(() => {
-          // Something went wrong with handleCreatePoolCandidate.
-          // Do nothing.
+          toast.error(intl.formatMessage(messages.updateError));
         });
     };
 
@@ -137,19 +145,19 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<UpdatePoolCandidat
 
     return (
       <section>
-        <h2>Update Pool Candidate</h2>
+        <h2>{intl.formatMessage(messages.updateHeading)}</h2>
         <FormProvider {...methods}>
           <form onSubmit={handleSubmit(onSubmit)}>
             <Input
               id="cmoIdentifier"
-              label="Cmo Identifier: "
+              label={intl.formatMessage(messages.cmoIdentifierLabel)}
               type="text"
               name="cmoIdentifier"
               rules={{ required: errorMessages.required }}
             />
             <Input
               id="expiryDate"
-              label="Expiry Date: "
+              label={intl.formatMessage(messages.expiryDateLabel)}
               type="date"
               name="expiryDate"
               rules={{
@@ -160,57 +168,62 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<UpdatePoolCandidat
                 },
               }}
             />
-            <Checkbox id="isWoman" label="Woman: " name="isWoman" />
+            <Checkbox
+              id="isWoman"
+              label={intl.formatMessage(messages.isWomanLabel)}
+              name="isWoman"
+            />
             <Checkbox
               id="hasDisability"
-              label="Has Disability: "
+              label={intl.formatMessage(messages.hasDiplomaLabel)}
               name="hasDisability"
             />
             <Checkbox
               id="isIndigenous"
-              label="Indigenous: "
+              label={intl.formatMessage(messages.isIndigenousLabel)}
               name="isIndigenous"
             />
             <Checkbox
               id="isVisibleMinority"
-              label="Visible Minority: "
+              label={intl.formatMessage(messages.isVisibleMinorityLabel)}
               name="isVisibleMinority"
             />
             <Select
               id="languageAbility"
-              label="Language Ability: "
+              label={intl.formatMessage(messages.languageAbilityLabel)}
               name="languageAbility"
-              options={[
-                {
-                  value: "",
-                  label: "Select a language ability...",
-                  disabled: true,
-                },
-                ...enumToOptions(LanguageAbility),
-              ]}
+              options={enumToOptions(LanguageAbility)}
               rules={{ required: errorMessages.required }}
             />
             <MultiSelect
               id="locationPreferences"
               name="locationPreferences"
-              label="Location Preferences: "
-              placeholder="Select one or more location preferences..."
+              label={intl.formatMessage(messages.locationPreferencesLabel)}
+              placeholder={intl.formatMessage(
+                messages.locationPreferencesPlaceholder,
+              )}
               options={enumToOptions(WorkRegion)}
               rules={{ required: errorMessages.required }}
             />
             <MultiSelect
               id="acceptedOperationalRequirements.sync"
               name="acceptedOperationalRequirements"
-              label="Operational Requirements: "
-              placeholder="Select one or more operational requirements..."
+              label={intl.formatMessage(
+                messages.acceptedOperationalRequirementsLabel,
+              )}
+              placeholder={intl.formatMessage(
+                messages.acceptedOperationalRequirementsPlaceholder,
+              )}
               options={operationalRequirementOptions}
               rules={{ required: errorMessages.required }}
             />
             <MultiSelect
               id="expectedSalary"
-              label="Expected Salary: "
+              label={intl.formatMessage(messages.expectedSalaryLabel)}
               name="expectedSalary"
-              placeholder="Select one or more expected salaries..."
+              placeholder={intl.formatMessage(
+                messages.expectedSalaryPlaceholder,
+              )}
               options={enumToOptions(SalaryRange).map(({ value }) => ({
                 value,
                 label: getSalaryRange(value),
@@ -219,28 +232,29 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<UpdatePoolCandidat
             />
             <MultiSelect
               id="expectedClassifications"
-              label="Expected Classifications: "
-              placeholder="Select one or more classifications..."
+              label={intl.formatMessage(messages.expectedClassificationsLabel)}
+              placeholder={intl.formatMessage(
+                messages.expectedClassificationsPlaceholder,
+              )}
               name="expectedClassifications"
               options={classificationOptions}
               rules={{ required: errorMessages.required }}
             />
             <MultiSelect
               id="cmoAssets"
-              label="Cmo Assets: "
+              label={intl.formatMessage(messages.cmoAssetsLabel)}
+              placeholder={intl.formatMessage(messages.cmoAssetsPlaceholder)}
               name="cmoAssets"
               options={cmoAssetOptions}
               rules={{ required: errorMessages.required }}
             />
             <Select
               id="status"
-              label="Status: "
+              label={intl.formatMessage(messages.statusLabel)}
+              nullSelection={intl.formatMessage(messages.statusPlaceholder)}
               name="status"
               rules={{ required: errorMessages.required }}
-              options={[
-                { value: "", label: "Select a status...", disabled: true },
-                ...enumToOptions(PoolCandidateStatus),
-              ]}
+              options={enumToOptions(PoolCandidateStatus)}
             />
             <Submit />
           </form>
@@ -252,6 +266,7 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<UpdatePoolCandidat
 export const UpdatePoolCandidate: React.FunctionComponent<{
   poolCandidateId: string;
 }> = ({ poolCandidateId }) => {
+  const intl = useIntl();
   const [lookupResult] = useGetUpdatePoolCandidateDataQuery({
     variables: { id: poolCandidateId },
   });
@@ -307,11 +322,10 @@ export const UpdatePoolCandidate: React.FunctionComponent<{
       classifications={classifications}
       cmoAssets={cmoAssets}
       initialPoolCandidate={lookupData.poolCandidate}
-      locale="en"
       operationalRequirements={operationalRequirements}
       handleUpdatePoolCandidate={handleUpdatePoolCandidate}
     />
   ) : (
-    <p>{`Pool candidate ${poolCandidateId} was not found`}</p>
+    <p>{intl.formatMessage(messages.notFound, { poolCandidateId })}</p>
   );
 };

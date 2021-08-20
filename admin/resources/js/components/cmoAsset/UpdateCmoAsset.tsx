@@ -2,6 +2,7 @@ import { pick } from "lodash";
 import * as React from "react";
 import { defineMessages, useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 import {
   CmoAsset,
   UpdateCmoAssetInput,
@@ -13,48 +14,10 @@ import Input from "../form/Input";
 import Submit from "../form/Submit";
 import TextArea from "../form/TextArea";
 import commonMessages from "../commonMessages";
-
-const messages = defineMessages({
-  headingTitle: {
-    id: "updateCmoAsset.headingTitle",
-    defaultMessage: "Update CMO Asset",
-    description: "Title displayed on the Update a CMO Asset form.",
-  },
-  keyLabel: {
-    id: "updateCmoAsset.field.keyLabel",
-    defaultMessage: "Key: ",
-    description: "Label displayed on the Update a CMO Asset form Key field.",
-  },
-  nameEnLabel: {
-    id: "updateCmoAsset.field.nameEnLabel",
-    defaultMessage: "Name EN: ",
-    description:
-      "Label displayed on the Update a CMO Asset form Name (English) field.",
-  },
-  nameFrLabel: {
-    id: "updateCmoAsset.field.nameFrLabel",
-    defaultMessage: "Name FR: ",
-    description:
-      "Label displayed on the Update a CMO Asset form Name (French) field.",
-  },
-  descriptionEnLabel: {
-    id: "updateCmoAsset.field.descriptionEnLabel",
-    defaultMessage: "Description EN: ",
-    description:
-      "Label displayed on the Update a CMO Asset form Description (English) field.",
-  },
-  descriptionFrLabel: {
-    id: "updateCmoAsset.field.descriptionFrLabel",
-    defaultMessage: "Description FR: ",
-    description:
-      "Label displayed on the Update a CMO Asset form Description (French) field.",
-  },
-  cmoAssetNotFound: {
-    id: "updateCmoAsset.cmoAssetNotFound",
-    defaultMessage: "CMO Asset {cmoAssetId} not found.",
-    description: "Message displayed for CMO Asset not found.",
-  },
-});
+import { navigate } from "../../helpers/router";
+import { cmoAssetTable } from "../../helpers/routes";
+import { getLocale } from "../../helpers/localize";
+import messages from "./messages";
 
 type FormValues = UpdateCmoAssetInput;
 interface UpdateCmoAssetFormProps {
@@ -65,22 +28,23 @@ interface UpdateCmoAssetFormProps {
 export const UpdateCmoAssetForm: React.FunctionComponent<UpdateCmoAssetFormProps> =
   ({ initialCmoAsset, handleUpdateCmoAsset }) => {
     const intl = useIntl();
+    const locale = getLocale(intl);
     const methods = useForm<FormValues>({ defaultValues: initialCmoAsset });
     const { handleSubmit } = methods;
 
     const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
       return handleUpdateCmoAsset(initialCmoAsset.id, data)
         .then(() => {
-          // TODO: Navigate to cmo asset dashboard
+          navigate(cmoAssetTable(locale));
+          toast.success(intl.formatMessage(messages.updateSuccess));
         })
         .catch(() => {
-          // Something went wrong with handleUpdateCmoAsset.
-          // Do nothing.
+          toast.error(intl.formatMessage(messages.updateError));
         });
     };
     return (
       <section>
-        <h2>{intl.formatMessage(messages.headingTitle)}</h2>
+        <h2>{intl.formatMessage(messages.updateHeading)}</h2>
         <FormProvider {...methods}>
           <form onSubmit={handleSubmit(onSubmit)}>
             <Input
@@ -161,6 +125,6 @@ export const UpdateCmoAsset: React.FunctionComponent<{ cmoAssetId: string }> =
         handleUpdateCmoAsset={handleUpdateCmoAsset}
       />
     ) : (
-      <p>{intl.formatMessage(messages.cmoAssetNotFound, { cmoAssetId })}</p>
+      <p>{intl.formatMessage(messages.notFound, { cmoAssetId })}</p>
     );
   };

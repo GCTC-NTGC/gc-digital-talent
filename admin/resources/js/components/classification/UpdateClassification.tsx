@@ -1,30 +1,22 @@
 import { pick, upperCase } from "lodash";
 import * as React from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
-import { defineMessages, useIntl } from "react-intl";
+import { useIntl } from "react-intl";
+import { toast } from "react-toastify";
 import {
   Classification,
   UpdateClassificationInput,
   useGetClassificationQuery,
   useUpdateClassificationMutation,
 } from "../../api/generated";
+import { getLocale } from "../../helpers/localize";
+import { navigate } from "../../helpers/router";
+import { classificationTable } from "../../helpers/routes";
 import errorMessages from "../form/errorMessages";
 import Input from "../form/Input";
 import Select from "../form/Select";
 import Submit from "../form/Submit";
-
-const messages = defineMessages({
-  headingTitle: {
-    id: "updateClassification.headingTitle",
-    defaultMessage: "Update Classification",
-    description: "Title displayed on the Update a Classification form.",
-  },
-  levelLabel: {
-    id: "updateClassification.levelLabel",
-    defaultMessage: "Select a level...",
-    description: "Label displayed for the default option on the Level field.",
-  },
-});
+import messages from "./messages";
 
 type FormValues = UpdateClassificationInput;
 interface UpdateClassificationFormProps {
@@ -38,10 +30,11 @@ interface UpdateClassificationFormProps {
 export const UpdateClassificationForm: React.FunctionComponent<UpdateClassificationFormProps> =
   ({ initialClassification, handleUpdateClassification }) => {
     const intl = useIntl();
+    const locale = getLocale(intl);
     const methods = useForm<FormValues>({
       defaultValues: initialClassification,
     });
-    const { handleSubmit, watch, reset } = methods;
+    const { handleSubmit, watch } = methods;
     const watchMinSalary = watch("minSalary");
 
     const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
@@ -58,48 +51,46 @@ export const UpdateClassificationForm: React.FunctionComponent<UpdateClassificat
         initialClassification.id,
         classification,
       )
-        .then(reset) // Reset form with returned data. This resets isDirty flag.
+        .then(() => {
+          navigate(classificationTable(locale));
+          toast.success(intl.formatMessage(messages.updateSuccess));
+        })
         .catch(() => {
-          // Something went wrong with handleUpdateClassification.
-          // Do nothing.
+          toast.error(intl.formatMessage(messages.updateError));
         });
     };
     return (
       <section>
-        <h2>{intl.formatMessage(messages.headingTitle)}</h2>
+        <h2>{intl.formatMessage(messages.updateHeading)}</h2>
         <FormProvider {...methods}>
           <form onSubmit={handleSubmit(onSubmit)}>
             <Input
               id="name_en"
               name="name.en"
-              label="Name: "
+              label={intl.formatMessage(messages.nameEnLabel)}
               type="text"
               rules={{ required: errorMessages.required }}
             />
             <Input
               id="name_fr"
               name="name.fr"
-              label="Name FR: "
+              label={intl.formatMessage(messages.nameFrLabel)}
               type="text"
               rules={{ required: errorMessages.required }}
             />
             <Input
               id="group"
               name="group"
-              label="Group: "
+              label={intl.formatMessage(messages.groupLabel)}
               type="text"
               rules={{ required: errorMessages.required }}
             />
             <Select
               id="level"
               name="level"
-              label="Level: "
+              label={intl.formatMessage(messages.levelLabel)}
+              nullSelection={intl.formatMessage(messages.levelPlaceholder)}
               options={[
-                {
-                  value: "",
-                  label: intl.formatMessage(messages.levelLabel),
-                  disabled: true,
-                },
                 { value: 1, label: "1" },
                 { value: 2, label: "2" },
                 { value: 3, label: "3" },
@@ -115,7 +106,7 @@ export const UpdateClassificationForm: React.FunctionComponent<UpdateClassificat
             <Input
               id="minSalary"
               name="minSalary"
-              label="Minimum Salary: "
+              label={intl.formatMessage(messages.minSalaryLabel)}
               type="number"
               rules={{
                 required: errorMessages.required,
@@ -125,7 +116,7 @@ export const UpdateClassificationForm: React.FunctionComponent<UpdateClassificat
             <Input
               id="maxSalary"
               name="maxSalary"
-              label="Maximum Salary: "
+              label={intl.formatMessage(messages.maxSalaryLabel)}
               type="number"
               rules={{
                 required: errorMessages.required,
@@ -147,6 +138,7 @@ export const UpdateClassificationForm: React.FunctionComponent<UpdateClassificat
 export const UpdateClassification: React.FunctionComponent<{
   classificationId: string;
 }> = ({ classificationId }) => {
+  const intl = useIntl();
   const [{ data: classificationData, fetching, error }] =
     useGetClassificationQuery({
       variables: { id: classificationId },
@@ -178,6 +170,6 @@ export const UpdateClassification: React.FunctionComponent<{
       handleUpdateClassification={handleUpdateClassification}
     />
   ) : (
-    <p>{`Classification ${classificationId} not found.`}</p>
+    <p>{intl.formatMessage(messages.notFound, { classificationId })}</p>
   );
 };

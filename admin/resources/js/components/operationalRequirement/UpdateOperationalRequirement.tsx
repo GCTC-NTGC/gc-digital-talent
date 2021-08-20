@@ -1,16 +1,22 @@
 import { pick } from "lodash";
 import * as React from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import { useIntl } from "react-intl";
+import { toast } from "react-toastify";
 import {
   OperationalRequirement,
   UpdateOperationalRequirementInput,
   useGetOperationalRequirementQuery,
   useUpdateOperationalRequirementMutation,
 } from "../../api/generated";
+import { getLocale } from "../../helpers/localize";
+import { navigate } from "../../helpers/router";
+import { operationalRequirementTable } from "../../helpers/routes";
 import errorMessages from "../form/errorMessages";
 import Input from "../form/Input";
 import Submit from "../form/Submit";
 import TextArea from "../form/TextArea";
+import messages from "./messages";
 
 type FormValues = UpdateOperationalRequirementInput;
 interface UpdateOperationalRequirementFormProps {
@@ -23,6 +29,8 @@ interface UpdateOperationalRequirementFormProps {
 
 export const UpdateOperationalRequirementForm: React.FunctionComponent<UpdateOperationalRequirementFormProps> =
   ({ initialOperationalRequirement, handleUpdateOperationalRequirement }) => {
+    const intl = useIntl();
+    const locale = getLocale(intl);
     const methods = useForm<FormValues>({
       defaultValues: initialOperationalRequirement,
     });
@@ -34,16 +42,16 @@ export const UpdateOperationalRequirementForm: React.FunctionComponent<UpdateOpe
         data,
       )
         .then(() => {
-          // TODO: Navigate to cmo asset dashboard
+          navigate(operationalRequirementTable(locale));
+          toast.success(intl.formatMessage(messages.updateSuccess));
         })
         .catch(() => {
-          // Something went wrong with handleUpdateOperationalRequirement.
-          // Do nothing.
+          toast.error(intl.formatMessage(messages.updateError));
         });
     };
     return (
       <section>
-        <h2>Update Operational Requirement</h2>
+        <h2>{intl.formatMessage(messages.updateHeading)}</h2>
         <FormProvider {...methods}>
           <form onSubmit={handleSubmit(onSubmit)}>
             <Input
@@ -89,6 +97,7 @@ export const UpdateOperationalRequirementForm: React.FunctionComponent<UpdateOpe
 export const UpdateOperationalRequirement: React.FunctionComponent<{
   operationalRequirementId: string;
 }> = ({ operationalRequirementId }) => {
+  const intl = useIntl();
   const [{ data: operationalRequirementData, fetching, error }] =
     useGetOperationalRequirementQuery({
       variables: { id: operationalRequirementId },
@@ -124,6 +133,10 @@ export const UpdateOperationalRequirement: React.FunctionComponent<{
       handleUpdateOperationalRequirement={handleUpdateOperationalRequirement}
     />
   ) : (
-    <p>{`CMO Asset ${operationalRequirementId} not found.`}</p>
+    <p>
+      {intl.formatMessage(messages.operationalRequirementNotFound, {
+        operationalRequirementId,
+      })}
+    </p>
   );
 };

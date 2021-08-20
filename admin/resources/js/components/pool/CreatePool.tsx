@@ -1,6 +1,7 @@
 import * as React from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
+import { toast } from "react-toastify";
 import {
   Classification,
   CmoAsset,
@@ -22,6 +23,8 @@ import Submit from "../form/Submit";
 import TextArea from "../form/TextArea";
 import messages from "./messages";
 import commonMessages from "../commonMessages";
+import { navigate } from "../../helpers/router";
+import { poolTable } from "../../helpers/routes";
 
 type Option<V> = { value: V; label: string };
 
@@ -75,11 +78,11 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
     await handleCreatePool(formValuesToSubmitData(data))
       .then(() => {
-        // TODO: Navigate to pool dashboard.
+        navigate(poolTable(locale));
+        toast.success(intl.formatMessage(messages.createSuccess));
       })
       .catch(() => {
-        // Something went wrong with handleCreatePool.
-        // Do nothing.
+        toast.error(intl.formatMessage(messages.createError));
       });
   };
 

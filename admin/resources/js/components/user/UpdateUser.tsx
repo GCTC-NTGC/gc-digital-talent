@@ -2,6 +2,7 @@ import React from "react";
 import { defineMessages, useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import pick from "lodash/pick";
+import { toast } from "react-toastify";
 import commonMessages from "../commonMessages";
 import {
   Language,
@@ -14,63 +15,12 @@ import errorMessages from "../form/errorMessages";
 import Input from "../form/Input";
 import Select from "../form/Select";
 import Submit from "../form/Submit";
-
-const messages = defineMessages({
-  headingTitle: {
-    id: "updateUser.headingTitle",
-    defaultMessage: "Update User",
-    description: "Title displayed on the Update a User form.",
-  },
-  emailLabel: {
-    id: "updateUser.field.emailLabel",
-    defaultMessage: "Email: ",
-    description: "Label displayed on the Update a User form Email field.",
-  },
-  firstNameLabel: {
-    id: "updateUser.field.firstNameLabel",
-    defaultMessage: "First Name: ",
-    description: "Label displayed on the Update a User form First Name field.",
-  },
-  lastNameLabel: {
-    id: "updateUser.field.lastNameLabel",
-    defaultMessage: "Last Name: ",
-    description: "Label displayed on the Update a User form Last Name field.",
-  },
-  telephoneLabel: {
-    id: "updateUser.field.telephoneLabel",
-    defaultMessage: "Telephone: ",
-    description: "Label displayed on the Update a User form Telephone field.",
-  },
-  preferredLanguageLabel: {
-    id: "updateUser.field.preferredLanguageLabel",
-    defaultMessage: "Preferred Language: ",
-    description:
-      "Label displayed on the Update a User form Preferred Language field.",
-  },
-  preferredLanguagePlaceholder: {
-    id: "updateUser.field.preferredLanguagePlaceholder",
-    defaultMessage: "Select a language...",
-    description:
-      "Option value displayed on the Update a User form Preferred Language field for blank.",
-  },
-  preferredLanguageEnglish: {
-    id: "updateUser.field.preferredLanguageEnglish",
-    defaultMessage: "English",
-    description:
-      "Option value displayed on the Update a User form Preferred Language field for English.",
-  },
-  preferredLanguageFrench: {
-    id: "updateUser.field.preferredLanguageFrench",
-    defaultMessage: "French",
-    description:
-      "Option value displayed on the Update a User form Preferred Language field for French.",
-  },
-  userNotFound: {
-    id: "updateUser.userNotFound",
-    defaultMessage: "User {userId} not found.",
-    description: "Message displayed for user not found.",
-  },
-});
+import { navigate } from "../../helpers/router";
+import { userTable } from "../../helpers/routes";
+import { getLocale } from "../../helpers/localize";
+import messages from "./messages";
+import { enumToOptions } from "../form/formUtils";
+import { getLanguage } from "../../model/localizedConstants";
 
 type FormValues = UpdateUserInput;
 interface UpdateUserFormProps {
@@ -83,21 +33,24 @@ export const UpdateUserForm: React.FunctionComponent<UpdateUserFormProps> = ({
   handleUpdateUser,
 }) => {
   const intl = useIntl();
+  const locale = getLocale(intl);
   const methods = useForm<FormValues>({ defaultValues: initialUser });
-  const { handleSubmit, reset } = methods;
+  const { handleSubmit } = methods;
 
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
     return handleUpdateUser(initialUser.id, data)
-      .then(reset) // Reset form with returned data. This resets isDirty flag.
+      .then(() => {
+        navigate(userTable(locale));
+        toast.success(intl.formatMessage(messages.updateSuccess));
+      })
       .catch(() => {
-        // Something went wrong with handleUserUpdate.
-        // Do nothing.
+        toast.error(intl.formatMessage(messages.updateError));
       });
   };
 
   return (
     <section>
-      <h2>{intl.formatMessage(messages.headingTitle)}</h2>
+      <h2>{intl.formatMessage(messages.updateHeading)}</h2>
       <FormProvider {...methods}>
         <form onSubmit={handleSubmit(onSubmit)}>
           <Input
@@ -139,24 +92,14 @@ export const UpdateUserForm: React.FunctionComponent<UpdateUserFormProps> = ({
             id="preferredLang"
             label={intl.formatMessage(messages.preferredLanguageLabel)}
             name="preferredLang"
+            nullSelection={intl.formatMessage(
+              messages.preferredLanguagePlaceholder,
+            )}
             rules={{ required: errorMessages.required }}
-            options={[
-              {
-                value: "",
-                label: intl.formatMessage(
-                  messages.preferredLanguagePlaceholder,
-                ),
-                disabled: true,
-              },
-              {
-                value: Language.En,
-                label: intl.formatMessage(messages.preferredLanguageEnglish),
-              },
-              {
-                value: Language.Fr,
-                label: intl.formatMessage(messages.preferredLanguageFrench),
-              },
-            ]}
+            options={enumToOptions(Language).map(({ value }) => ({
+              value,
+              label: intl.formatMessage(getLanguage(value)),
+            }))}
           />
           <Submit />
         </form>

@@ -1,5 +1,7 @@
 import * as React from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import { toast } from "react-toastify";
+import { useIntl } from "react-intl";
 import {
   CreateOperationalRequirementInput,
   useCreateOperationalRequirementMutation,
@@ -8,6 +10,10 @@ import errorMessages from "../form/errorMessages";
 import Input from "../form/Input";
 import Submit from "../form/Submit";
 import TextArea from "../form/TextArea";
+import { navigate } from "../../helpers/router";
+import { operationalRequirementTable } from "../../helpers/routes";
+import { getLocale } from "../../helpers/localize";
+import messages from "./messages";
 
 type FormValues = CreateOperationalRequirementInput;
 interface CreateOperationalRequirementFormProps {
@@ -16,55 +22,57 @@ interface CreateOperationalRequirementFormProps {
 
 export const CreateOperationalRequirementForm: React.FunctionComponent<CreateOperationalRequirementFormProps> =
   ({ handleCreateOperationalRequirement }) => {
+    const intl = useIntl();
+    const locale = getLocale(intl);
     const methods = useForm<FormValues>();
     const { handleSubmit } = methods;
 
     const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
       return handleCreateOperationalRequirement(data)
         .then(() => {
-          // TODO: Navigate to cmo asset dashboard
+          navigate(operationalRequirementTable(locale));
+          toast.success(intl.formatMessage(messages.createSuccess));
         })
         .catch(() => {
-          // Something went wrong with handleCreateOperationalRequirement.
-          // Do nothing.
+          toast.error(intl.formatMessage(messages.createError));
         });
     };
     return (
       <section>
-        <h2>Create Operational Requirement</h2>
+        <h2>{intl.formatMessage(messages.createHeading)}</h2>
         <FormProvider {...methods}>
           <form onSubmit={handleSubmit(onSubmit)}>
             <Input
               id="key"
               name="key"
-              label="Key: "
+              label={intl.formatMessage(messages.keyLabel)}
               type="text"
               rules={{ required: errorMessages.required }}
             />
             <Input
               id="name_en"
               name="name.en"
-              label="Name: "
+              label={intl.formatMessage(messages.nameLabelEn)}
               type="text"
               rules={{ required: errorMessages.required }}
             />
             <Input
               id="name_fr"
               name="name.fr"
-              label="Name FR: "
+              label={intl.formatMessage(messages.nameLabelFr)}
               type="text"
               rules={{ required: errorMessages.required }}
             />
             <TextArea
               id="description_en"
               name="description.en"
-              label="Description: "
+              label={intl.formatMessage(messages.descriptionLabelEn)}
               rules={{ required: errorMessages.required }}
             />
             <TextArea
               id="description_fr"
               name="description.fr"
-              label="Description FR: "
+              label={intl.formatMessage(messages.descriptionLabelEn)}
               rules={{ required: errorMessages.required }}
             />
             <Submit />

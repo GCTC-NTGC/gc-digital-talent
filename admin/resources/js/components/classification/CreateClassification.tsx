@@ -1,7 +1,8 @@
 import { upperCase } from "lodash";
 import * as React from "react";
+import { toast } from "react-toastify";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
-import { defineMessages, useIntl } from "react-intl";
+import { useIntl } from "react-intl";
 import {
   CreateClassificationInput,
   useCreateClassificationMutation,
@@ -10,19 +11,10 @@ import errorMessages from "../form/errorMessages";
 import Input from "../form/Input";
 import Select from "../form/Select";
 import Submit from "../form/Submit";
-
-const messages = defineMessages({
-  headingTitle: {
-    id: "createClassification.headingTitle",
-    defaultMessage: "Create Classification",
-    description: "Title displayed on the Create a Classification form.",
-  },
-  levelLabel: {
-    id: "createClassification.levelLabel",
-    defaultMessage: "Select a level...",
-    description: "Label displayed for the default option on the Level field.",
-  },
-});
+import { navigate } from "../../helpers/router";
+import { classificationTable } from "../../helpers/routes";
+import { getLocale } from "../../helpers/localize";
+import messages from "./messages";
 
 type FormValues = CreateClassificationInput;
 interface CreateClassificationFormProps {
@@ -32,6 +24,7 @@ interface CreateClassificationFormProps {
 export const CreateClassificationForm: React.FunctionComponent<CreateClassificationFormProps> =
   ({ handleCreateClassification }) => {
     const intl = useIntl();
+    const locale = getLocale(intl);
     const methods = useForm<FormValues>();
     const { handleSubmit, watch } = methods;
     const watchMinSalary = watch("minSalary");
@@ -46,50 +39,46 @@ export const CreateClassificationForm: React.FunctionComponent<CreateClassificat
       };
       return handleCreateClassification(classification)
         .then(() => {
-          // TODO: Navigate to cmo asset dashboard
+          navigate(classificationTable(locale));
+          toast.success(intl.formatMessage(messages.createSuccess));
         })
         .catch(() => {
-          // Something went wrong with handleCreateClassification.
-          // Do nothing.
+          toast.error(intl.formatMessage(messages.createError));
         });
     };
     return (
       <section>
-        <h2>{intl.formatMessage(messages.headingTitle)}</h2>
+        <h2>{intl.formatMessage(messages.createHeading)}</h2>
         <FormProvider {...methods}>
           <form onSubmit={handleSubmit(onSubmit)}>
             <Input
               id="name_en"
               name="name.en"
-              label="Name: "
+              label={intl.formatMessage(messages.nameEnLabel)}
               type="text"
               rules={{ required: errorMessages.required }}
             />
             <Input
               id="name_fr"
               name="name.fr"
-              label="Name FR: "
+              label={intl.formatMessage(messages.nameFrLabel)}
               type="text"
               rules={{ required: errorMessages.required }}
             />
             <Input
               id="group"
               name="group"
-              label="Group: "
+              label={intl.formatMessage(messages.groupLabel)}
               type="text"
               rules={{ required: errorMessages.required }}
             />
             <Select
               id="level"
               name="level"
-              label="Level: "
+              label={intl.formatMessage(messages.levelLabel)}
+              nullSelection={intl.formatMessage(messages.levelPlaceholder)}
               rules={{ required: errorMessages.required }}
               options={[
-                {
-                  value: "",
-                  label: intl.formatMessage(messages.levelLabel),
-                  disabled: true,
-                },
                 { value: 1, label: "1" },
                 { value: 2, label: "2" },
                 { value: 3, label: "3" },
@@ -104,7 +93,7 @@ export const CreateClassificationForm: React.FunctionComponent<CreateClassificat
             <Input
               id="minSalary"
               name="minSalary"
-              label="Minimum Salary: "
+              label={intl.formatMessage(messages.minSalaryLabel)}
               type="number"
               rules={{
                 required: errorMessages.required,
@@ -114,7 +103,7 @@ export const CreateClassificationForm: React.FunctionComponent<CreateClassificat
             <Input
               id="maxSalary"
               name="maxSalary"
-              label="Maximum Salary: "
+              label={intl.formatMessage(messages.maxSalaryLabel)}
               type="number"
               rules={{
                 required: errorMessages.required,

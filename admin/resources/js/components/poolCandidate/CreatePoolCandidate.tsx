@@ -1,5 +1,7 @@
 import * as React from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import { toast } from "react-toastify";
+import { useIntl } from "react-intl";
 import {
   CreatePoolCandidateInput,
   Pool,
@@ -25,6 +27,10 @@ import { notEmpty } from "../../helpers/util";
 import { currentDate, enumToOptions } from "../form/formUtils";
 import { getSalaryRange } from "../../model/localizedConstants";
 import Checkbox from "../form/Checkbox";
+import { navigate } from "../../helpers/router";
+import { poolTable } from "../../helpers/routes";
+import { getLocale } from "../../helpers/localize";
+import messages from "./messages";
 
 type Option<V> = { value: V; label: string };
 
@@ -51,7 +57,6 @@ type FormValues = Pick<
 interface CreatePoolCandidateFormProps {
   classifications: Classification[];
   cmoAssets: CmoAsset[];
-  locale: "en" | "fr";
   operationalRequirements: OperationalRequirement[];
   pools: Pool[];
   poolId?: string;
@@ -65,13 +70,14 @@ export const CreatePoolCandidateForm: React.FunctionComponent<CreatePoolCandidat
   ({
     classifications,
     cmoAssets,
-    locale,
     operationalRequirements,
     pools,
     poolId,
     users,
     handleCreatePoolCandidate,
   }) => {
+    const intl = useIntl();
+    const locale = getLocale(intl);
     const methods = useForm<FormValues>({ defaultValues: { pool: poolId } });
     const { handleSubmit } = methods;
 
@@ -95,11 +101,11 @@ export const CreatePoolCandidateForm: React.FunctionComponent<CreatePoolCandidat
     const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
       await handleCreatePoolCandidate(formValuesToSubmitData(data))
         .then(() => {
-          // TODO: Navigate to pool candidate dashboard.
+          navigate(poolTable(locale));
+          toast.success(intl.formatMessage(messages.createSuccess));
         })
         .catch(() => {
-          // Something went wrong with handleCreatePoolCandidate.
-          // Do nothing.
+          toast.error(intl.formatMessage(messages.createError));
         });
     };
 
@@ -135,40 +141,36 @@ export const CreatePoolCandidateForm: React.FunctionComponent<CreatePoolCandidat
 
     return (
       <section>
-        <h2>Create Pool Candidate</h2>
+        <h2>{intl.formatMessage(messages.createHeading)}</h2>
         <FormProvider {...methods}>
           <form onSubmit={handleSubmit(onSubmit)}>
             <Select
               id="pool"
-              label="Pool: "
+              label={intl.formatMessage(messages.poolLabel)}
+              nullSelection={intl.formatMessage(messages.poolPlaceholder)}
               name="pool"
-              options={[
-                { value: "", label: "Select a pool...", disabled: true },
-                ...poolOptions,
-              ]}
+              options={poolOptions}
               disabled={!!poolId}
               rules={{ required: errorMessages.required }}
             />
             <Select
               id="user"
-              label="Users: "
+              label={intl.formatMessage(messages.userLabel)}
+              nullSelection={intl.formatMessage(messages.userPlaceholder)}
               name="user"
-              options={[
-                { value: "", label: "Select a user...", disabled: true },
-                ...userOptions,
-              ]}
+              options={userOptions}
               rules={{ required: errorMessages.required }}
             />
             <Input
               id="cmoIdentifier"
-              label="Cmo Identifier: "
+              label={intl.formatMessage(messages.cmoIdentifierLabel)}
               type="text"
               name="cmoIdentifier"
               rules={{ required: errorMessages.required }}
             />
             <Input
               id="expiryDate"
-              label="Expiry Date: "
+              label={intl.formatMessage(messages.expiryDateLabel)}
               type="date"
               name="expiryDate"
               rules={{
@@ -179,58 +181,70 @@ export const CreatePoolCandidateForm: React.FunctionComponent<CreatePoolCandidat
                 },
               }}
             />
-            <Checkbox id="isWoman" label="Woman: " name="isWoman" />
+            <Checkbox
+              id="isWoman"
+              label={intl.formatMessage(messages.isWomanLabel)}
+              name="isWoman"
+            />
             <Checkbox
               id="hasDisability"
-              label="Has Disability: "
+              label={intl.formatMessage(messages.hasDisabilityLabel)}
               name="hasDisability"
             />
             <Checkbox
               id="isIndigenous"
-              label="Indigenous: "
+              label={intl.formatMessage(messages.isIndigenousLabel)}
               name="isIndigenous"
             />
             <Checkbox
               id="isVisibleMinority"
-              label="Visible Minority: "
+              label={intl.formatMessage(messages.isVisibleMinorityLabel)}
               name="isVisibleMinority"
             />
-            <Checkbox id="hasDiploma" label="Has Diploma: " name="hasDiploma" />
+            <Checkbox
+              id="hasDiploma"
+              label={intl.formatMessage(messages.hasDiplomaLabel)}
+              name="hasDiploma"
+            />
             <Select
               id="languageAbility"
-              label="Language Ability: "
+              label={intl.formatMessage(messages.languageAbilityLabel)}
               name="languageAbility"
-              options={[
-                {
-                  value: "",
-                  label: "Select a language ability...",
-                  disabled: true,
-                },
-                ...enumToOptions(LanguageAbility),
-              ]}
+              nullSelection={intl.formatMessage(
+                messages.languageAbilityPlaceholder,
+              )}
+              options={enumToOptions(LanguageAbility)}
               rules={{ required: errorMessages.required }}
             />
             <MultiSelect
               id="locationPreferences"
               name="locationPreferences"
-              label="Location Preferences: "
-              placeholder="Select one or more location preferences..."
+              label={intl.formatMessage(messages.locationPreferencesLabel)}
+              placeholder={intl.formatMessage(
+                messages.locationPreferencesPlaceholder,
+              )}
               options={enumToOptions(WorkRegion)}
               rules={{ required: errorMessages.required }}
             />
             <MultiSelect
               id="acceptedOperationalRequirements"
               name="acceptedOperationalRequirements"
-              label="Operational Requirements: "
-              placeholder="Select one or more operational requirements..."
+              label={intl.formatMessage(
+                messages.acceptedOperationalRequirementsLabel,
+              )}
+              placeholder={intl.formatMessage(
+                messages.acceptedOperationalRequirementsPlaceholder,
+              )}
               options={operationalRequirementOptions}
               rules={{ required: errorMessages.required }}
             />
             <MultiSelect
               id="expectedSalary"
-              label="Expected Salary: "
+              label={intl.formatMessage(messages.expectedClassificationsLabel)}
               name="expectedSalary"
-              placeholder="Select one or more expected salaries..."
+              placeholder={intl.formatMessage(
+                messages.expectedClassificationsPlaceholder,
+              )}
               options={enumToOptions(SalaryRange).map(({ value }) => ({
                 value,
                 label: getSalaryRange(value),
@@ -239,28 +253,29 @@ export const CreatePoolCandidateForm: React.FunctionComponent<CreatePoolCandidat
             />
             <MultiSelect
               id="expectedClassifications"
-              label="Expected Classifications: "
-              placeholder="Select one or more classifications..."
+              label={intl.formatMessage(messages.expectedClassificationsLabel)}
+              placeholder={intl.formatMessage(
+                messages.expectedClassificationsPlaceholder,
+              )}
               name="expectedClassifications"
               options={classificationOptions}
               rules={{ required: errorMessages.required }}
             />
             <MultiSelect
               id="cmoAssets"
-              label="Cmo Assets: "
+              label={intl.formatMessage(messages.cmoAssetsLabel)}
+              placeholder={intl.formatMessage(messages.cmoAssetsPlaceholder)}
               name="cmoAssets"
               options={cmoAssetOptions}
               rules={{ required: errorMessages.required }}
             />
             <Select
               id="status"
-              label="Status: "
+              label={intl.formatMessage(messages.statusLabel)}
+              nullSelection={intl.formatMessage(messages.statusPlaceholder)}
               name="status"
               rules={{ required: errorMessages.required }}
-              options={[
-                { value: "", label: "Select a status...", disabled: true },
-                ...enumToOptions(PoolCandidateStatus),
-              ]}
+              options={enumToOptions(PoolCandidateStatus)}
             />
             <Submit />
           </form>
@@ -297,7 +312,6 @@ export const CreatePoolCandidate: React.FunctionComponent<{ poolId: string }> =
       <CreatePoolCandidateForm
         classifications={classifications}
         cmoAssets={cmoAssets}
-        locale="en"
         operationalRequirements={operationalRequirements}
         pools={pools}
         poolId={poolId}
