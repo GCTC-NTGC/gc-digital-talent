@@ -16,11 +16,11 @@ As each service runs on PHP server, you must install composer dependencies for e
 
 If you have Docker installed, you can use it to install dependencies (instead of having to install the correct version of PHP and composer) by running the following command in each project root:
 
-```docker run --rm --interactive --tty --volume $PWD:/app composer isntall```
+```docker run --rm --interactive --tty --volume $PWD:/app composer install```
 
 If running on windows with PowerShell, use `${PWD}` instead of `$PWD`:
 
-```docker run --rm --interactive --tty --volume $PWD:/app composer isntall```
+```docker run --rm --interactive --tty --volume ${PWD}:/app composer install```
 
 ### NPM dependencies (Javascript/Typescript)
 
