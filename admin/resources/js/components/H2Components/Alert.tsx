@@ -20,7 +20,7 @@ const DismissBtn: React.FC<
 );
 
 export interface AlertProps extends React.HTMLAttributes<HTMLDivElement> {
-  color: string;
+  color: "red" | "gold";
   position: "static" | "toast";
   dismissBtn?: React.ReactElement;
 }
@@ -51,13 +51,22 @@ const Alert: React.FC<AlertProps> & AlertComposition = ({
       "data-h2-position": "b(relative)",
     },
   };
+  const colorStyles = {
+    red: {
+      "data-h2-border": "b(red, all, solid, s)",
+      "data-h2-bg-color": "b(red[.1])",
+    },
+    gold: {
+      "data-h2-border": "b(gold, all, solid, s)",
+      "data-h2-bg-color": "b(gold[.1])",
+    },
+  };
   return (
     <div
       {...locationStyles[position]}
+      {...colorStyles[color]}
       data-h2-padding="b(all, s)"
       data-h2-radius="b(s)"
-      data-h2-border={`b(${color}, all, solid, s)`}
-      data-h2-bg-color={`b(${color}[.1])`}
     >
       <div role="alert" className={className} {...rest}>
         {dismissBtn}
