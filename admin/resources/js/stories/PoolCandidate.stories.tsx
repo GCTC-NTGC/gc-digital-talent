@@ -60,7 +60,6 @@ stories.add("Create Pool Candidate Form", () => (
   <CreatePoolCandidateForm
     users={fakeUsers() as User[]}
     classifications={fakeClassifications() as Classification[]}
-    locale="en"
     operationalRequirements={
       fakeOperationalRequirements() as OperationalRequirement[]
     }
@@ -106,7 +105,6 @@ stories.add("Update Pool Candidate Form", () => {
       classifications={fakeClassifications() as Classification[]}
       cmoAssets={fakeCmoAssets() as CmoAsset[]}
       initialPoolCandidate={poolCandidate}
-      locale="en"
       operationalRequirements={
         fakeOperationalRequirements() as OperationalRequirement[]
       }
