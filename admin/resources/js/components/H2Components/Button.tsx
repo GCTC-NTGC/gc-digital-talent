@@ -99,12 +99,14 @@ const Button: React.FC<ButtonProps> = ({
     <button
       // eslint-disable-next-line react/button-has-type
       type={type || "button"}
-      data-h2-display={block ? "block" : "inline-block"}
       data-h2-radius="b(s)"
       data-h2-padding="b(top-bottom, xs) b(right-left, s)"
       data-h2-font-size="b(caption) m(normal)"
       data-h2-font-weight="b(400)"
       data-h2-font-style="b(underline)"
+      {...(block
+        ? { "data-h2-display": "block" }
+        : { "data-h2-display": "inline-block" })}
       {...colorMap[color][mode]}
       style={{
         cursor: "pointer",

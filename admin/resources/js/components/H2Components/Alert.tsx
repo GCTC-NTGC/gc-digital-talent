@@ -41,21 +41,31 @@ const Alert: React.FC<AlertProps> & AlertComposition = ({
   className,
   children,
   ...rest
-}) => (
-  <div
-    data-h2-position={position === "toast" ? "b(fixed)" : "b(relative)"}
-    data-h2-location={position === "toast" ? "b(bottom-right, m)" : ""}
-    data-h2-padding="b(all, s)"
-    data-h2-radius="b(s)"
-    data-h2-border={`b(${color}, all, solid, s)`}
-    data-h2-bg-color={`b(${color}[.1])`}
-  >
-    <div role="alert" className={className} {...rest}>
-      {dismissBtn}
-      <div>{children}</div>
+}) => {
+  const locationStyles = {
+    toast: {
+      "data-h2-position": "b(fixed)",
+      "data-h2-location": "b(bottom-right, m)",
+    },
+    static: {
+      "data-h2-position": "b(relative)",
+    },
+  };
+  return (
+    <div
+      {...locationStyles[position]}
+      data-h2-padding="b(all, s)"
+      data-h2-radius="b(s)"
+      data-h2-border={`b(${color}, all, solid, s)`}
+      data-h2-bg-color={`b(${color}[.1])`}
+    >
+      <div role="alert" className={className} {...rest}>
+        {dismissBtn}
+        <div>{children}</div>
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 // We expose the children components here, as properties.
 // Using the dot notation we explicitly set the composition relationships

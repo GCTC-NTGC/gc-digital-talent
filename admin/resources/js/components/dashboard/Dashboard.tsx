@@ -30,9 +30,9 @@ export const MenuLink: React.FC<MenuLinkProps> = ({
   return (
     <Link href={href} title={title ?? ""}>
       <div
-        data-h2-font-weight={
-          isActive(href, location.pathname) ? "b(700)" : "b(100)"
-        }
+        {...(isActive(href, location.pathname)
+          ? { "data-h2-font-weight": "b(100)" }
+          : { "data-h2-font-weight": "b(700)" })}
       >
         {text}
       </div>
