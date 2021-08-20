@@ -88,6 +88,7 @@
     "react-intl": "^5.20.9",
     "react-select": "^4.3.1",
     "react-table": "^7.7.0",
+    "react-toastify": "^7.0.4",
     "regenerator-runtime": "^0.13.9",
     "universal-router": "^9.1.0",
     "urql": "^2.0.4"
