@@ -102,8 +102,8 @@ const Button: React.FC<ButtonProps> = ({
       data-h2-font-weight="b(400)"
       data-h2-font-style="b(underline)"
       {...(block
-        ? { "data-h2-display": "block" }
-        : { "data-h2-display": "inline-block" })}
+        ? { "data-h2-display": "b(block)" }
+        : { "data-h2-display": "b(inline-block)" })}
       {...colorMap[color][mode]}
       style={{
         cursor: "pointer",
