@@ -10,7 +10,7 @@ const InputContext: React.FC<{ isVisible: boolean; context: string }> = ({
       data-h2-radius="b(s)"
       data-h2-bg-color="b(lightpurple[.1])"
       data-h2-padding="b(all, xs)"
-      data-h2-color="b(lightpurple)"
+      data-h2-font-color="b(lightpurple)"
       data-h2-font-size="b(caption)"
       role="alert"
     >

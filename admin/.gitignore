@@ -22,5 +22,6 @@ Homestead.yaml
 /storybook-static/*
 
 # Hydrogen
-resources/css/hydrogen
+/resources/css/hydrogen
+/resources/css/hydrogen.css
 

@@ -1,11 +1,9 @@
 import React from "react";
 import { defineMessages, useIntl } from "react-intl";
 import { Routes } from "universal-router";
-import { Link, RouterResult } from "../helpers/router";
+import { RouterResult } from "../helpers/router";
 import { CreateClassification } from "./classification/CreateClassification";
 import { UpdateClassification } from "./classification/UpdateClassification";
-
-import { ClassificationTableApi } from "./classification/ClassificationTable";
 import ClientProvider from "./ClientProvider";
 import CmoAssetPage from "./cmoAsset/CmoAssetPage";
 import { CreateCmoAsset } from "./cmoAsset/CreateCmoAsset";
@@ -24,6 +22,7 @@ import UserPage from "./user/UserPage";
 import PoolPage from "./pool/PoolPage";
 import { CreatePool } from "./pool/CreatePool";
 import { UpdatePool } from "./pool/UpdatePool";
+import ClassificationPage from "./classification/ClassificationPage";
 
 import { useGetPoolsQuery } from "../api/generated";
 import { getLocale } from "../helpers/localize";
@@ -88,14 +87,7 @@ const routes: Routes<RouterResult> = [
   {
     path: "/admin/classifications",
     action: () => ({
-      component: (
-        <div>
-          <Link href="/admin/classifications/create" title="">
-            Create Classification
-          </Link>
-          <ClassificationTableApi />
-        </div>
-      ),
+      component: <ClassificationPage />,
     }),
   },
   {
