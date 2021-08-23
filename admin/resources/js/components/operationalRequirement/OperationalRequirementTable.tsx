@@ -1,46 +1,56 @@
 import React, { useMemo } from "react";
 import { defineMessages, useIntl } from "react-intl";
-import { GetCmoAssetsQuery, useGetCmoAssetsQuery } from "../api/generated";
-import { navigate, useLocation } from "../helpers/router";
-import { notEmpty } from "../helpers/util";
-import { FromArray } from "../types/utilityTypes";
-import commonMessages from "./commonMessages";
-import Button from "./H2Components/Button";
-import Table, { ColumnsOf } from "./Table";
+import {
+  GetOperationalRequirementsQuery,
+  useGetOperationalRequirementsQuery,
+} from "../../api/generated";
+import { navigate, useLocation } from "../../helpers/router";
+import { notEmpty } from "../../helpers/util";
+import { FromArray } from "../../types/utilityTypes";
+import commonMessages from "../commonMessages";
+import Button from "../H2Components/Button";
+import Table, { ColumnsOf } from "../Table";
 
 const messages = defineMessages({
   columnIdTitle: {
-    id: "cmoAssetTable.column.idTitle",
+    id: "operationalRequirementTable.column.idTitle",
     defaultMessage: "ID",
-    description: "Title displayed on the CMO Asset table ID column.",
+    description:
+      "Title displayed on the Operational Requirement table ID column.",
   },
   columnKeyTitle: {
-    id: "cmoAssetTable.column.keyTitle",
+    id: "operationalRequirementTable.column.keyTitle",
     defaultMessage: "Key",
-    description: "Title displayed for the CMO Asset table Key column.",
+    description:
+      "Title displayed for the Operational Requirement table Key column.",
   },
   columnNameTitle: {
-    id: "cmoAssetTable.column.nameTitle",
+    id: "operationalRequirementTable.column.nameTitle",
     defaultMessage: "Name",
-    description: "Title displayed for the CMO Asset table Name column.",
+    description:
+      "Title displayed for the Operational Requirement table Name column.",
   },
   columnDescriptionTitle: {
-    id: "cmoAssetTable.column.descriptionTitle",
+    id: "operationalRequirementTable.column.descriptionTitle",
     defaultMessage: "Level",
-    description: "Title displayed for the CMO Asset table Description column.",
+    description:
+      "Title displayed for the Operational Requirement table Description column.",
   },
   columnEditTitle: {
-    id: "cmoAssetTable.column.editTitle",
+    id: "operationalRequirementTable.column.editTitle",
     defaultMessage: "Edit",
-    description: "Title displayed for the CMO Asset table Edit column.",
+    description:
+      "Title displayed for the Operational Requirement table Edit column.",
   },
 });
 
-type Data = NonNullable<FromArray<GetCmoAssetsQuery["cmoAssets"]>>;
+type Data = NonNullable<
+  FromArray<GetOperationalRequirementsQuery["operationalRequirements"]>
+>;
 
-export const CmoAssetTable: React.FC<
-  GetCmoAssetsQuery & { editUrlRoot: string }
-> = ({ cmoAssets, editUrlRoot }) => {
+export const OperationalRequirementTable: React.FC<
+  GetOperationalRequirementsQuery & { editUrlRoot: string }
+> = ({ operationalRequirements, editUrlRoot }) => {
   const intl = useIntl();
   const columns = useMemo<ColumnsOf<Data>>(
     () => [
@@ -74,7 +84,7 @@ export const CmoAssetTable: React.FC<
               navigate(`${editUrlRoot}/${id}/edit`);
             }}
           >
-            {intl.formatMessage(messages.columnEditTitle)}
+            Edit
           </Button>
         ),
       },
@@ -82,7 +92,10 @@ export const CmoAssetTable: React.FC<
     [editUrlRoot, intl],
   );
 
-  const memoizedData = useMemo(() => cmoAssets.filter(notEmpty), [cmoAssets]);
+  const memoizedData = useMemo(
+    () => operationalRequirements.filter(notEmpty),
+    [operationalRequirements],
+  );
 
   return (
     <>
@@ -91,9 +104,9 @@ export const CmoAssetTable: React.FC<
   );
 };
 
-export const CmoAssetTableApi: React.FC = () => {
+export const OperationalRequirementTableApi: React.FC = () => {
   const intl = useIntl();
-  const [result] = useGetCmoAssetsQuery();
+  const [result] = useGetOperationalRequirementsQuery();
   const { data, fetching, error } = result;
   const { pathname } = useLocation();
 
@@ -106,6 +119,9 @@ export const CmoAssetTableApi: React.FC = () => {
     );
 
   return (
-    <CmoAssetTable cmoAssets={data?.cmoAssets ?? []} editUrlRoot={pathname} />
+    <OperationalRequirementTable
+      operationalRequirements={data?.operationalRequirements ?? []}
+      editUrlRoot={pathname}
+    />
   );
 };

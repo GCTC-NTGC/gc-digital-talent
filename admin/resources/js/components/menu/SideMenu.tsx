@@ -1,5 +1,4 @@
 import React, { ReactElement } from "react";
-import Button from "../H2Components/Button";
 
 export const SideMenu: React.FunctionComponent<{
   items: ReactElement[];
@@ -8,7 +7,8 @@ export const SideMenu: React.FunctionComponent<{
     <nav
       data-h2-padding="m(top-bottom, m)"
       data-h2-position="b(static) m(sticky)"
-      style={{ top: "0" }}>
+      style={{ top: "0" }}
+    >
       <ul
         style={{
           listStyle: "none",
@@ -25,7 +25,8 @@ export const SideMenu: React.FunctionComponent<{
                 data-h2-font-color="b(white)"
                 data-h2-padding="b(bottom, s)"
                 data-h2-margin="b(bottom, s)"
-                data-h2-font-style="b:h(reset)">
+                data-h2-font-style="b:h(reset)"
+              >
                 {item}
               </span>
             </li>

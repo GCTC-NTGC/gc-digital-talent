@@ -51,7 +51,7 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
   handleCreatePool,
 }) => {
   const intl = useIntl();
-  const locale = getLocale(intl.locale);
+  const locale = getLocale(intl);
   const methods = useForm<FormValues>();
   const { handleSubmit } = methods;
 

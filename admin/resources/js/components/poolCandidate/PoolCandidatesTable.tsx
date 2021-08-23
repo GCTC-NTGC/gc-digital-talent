@@ -2,7 +2,7 @@ import React, { useMemo } from "react";
 import { defineMessages, useIntl } from "react-intl";
 import {
   GetPoolCandidatesQuery,
-  useGetPoolCandidatesQuery,
+  useGetPoolCandidatesByPoolQuery,
 } from "../../api/generated";
 import { notEmpty } from "../../helpers/util";
 import { FromArray } from "../../types/utilityTypes";
@@ -188,9 +188,13 @@ const PoolCandidatesTable: React.FC<GetPoolCandidatesQuery> = ({
 
 export default PoolCandidatesTable;
 
-export const PoolCandidatesTableApi: React.FunctionComponent = () => {
+export const PoolCandidatesTableApi: React.FC<{ poolId: string }> = ({
+  poolId,
+}) => {
   const intl = useIntl();
-  const [result] = useGetPoolCandidatesQuery();
+  const [result] = useGetPoolCandidatesByPoolQuery({
+    variables: { id: poolId },
+  });
   const { data, fetching, error } = result;
 
   if (fetching) return <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>;
@@ -201,5 +205,7 @@ export const PoolCandidatesTableApi: React.FunctionComponent = () => {
       </p>
     );
 
-  return <PoolCandidatesTable poolCandidates={data?.poolCandidates ?? []} />;
+  return (
+    <PoolCandidatesTable poolCandidates={data?.pool?.poolCandidates ?? []} />
+  );
 };

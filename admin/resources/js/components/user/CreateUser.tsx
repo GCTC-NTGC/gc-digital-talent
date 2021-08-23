@@ -6,11 +6,11 @@ import {
   CreateUserInput,
   CreateUserMutation,
   useCreateUserMutation,
-} from "../api/generated";
-import errorMessages from "./form/errorMessages";
-import Input from "./form/Input";
-import Select from "./form/Select";
-import Submit from "./form/Submit";
+} from "../../api/generated";
+import errorMessages from "../form/errorMessages";
+import Input from "../form/Input";
+import Select from "../form/Select";
+import Submit from "../form/Submit";
 
 const messages = defineMessages({
   headingTitle: {

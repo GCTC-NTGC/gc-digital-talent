@@ -1,23 +1,25 @@
 import React from "react";
 import { defineMessages, useIntl } from "react-intl";
-import { Link } from "../helpers/router";
-import { CmoAssetTableApi } from "./CmoAssetTable";
+import { Link } from "../../helpers/router";
+import { OperationalRequirementTableApi } from "./OperationalRequirementTable";
 import Button from "./H2Components/Button";
 
 const messages = defineMessages({
   tableHeading: {
-    id: "cmoAssetPage.tableHeading",
-    defaultMessage: "CMO Assets",
-    description: "Heading displayed above the CMO Asset Table component.",
+    id: "operationalRequirementPage.tableHeading",
+    defaultMessage: "Operational Requirements",
+    description:
+      "Heading displayed above the Operational Requirement Table component.",
   },
   createHeading: {
-    id: "cmoAssetPage.createHeading",
-    defaultMessage: "Create CMO Asset",
-    description: "Heading displayed above the Create CMO Asset form.",
+    id: "operationalRequirementPage.createHeading",
+    defaultMessage: "Create Operational Requirement",
+    description:
+      "Heading displayed above the Create Operational Requirement form.",
   },
 });
 
-export const CmoAssetPage: React.FC = () => {
+export const OperationalRequirementPage: React.FC = () => {
   const intl = useIntl();
   return (
     <div>
@@ -41,16 +43,16 @@ export const CmoAssetPage: React.FC = () => {
             data-h2-text-align="m(right)"
           >
             <Button color="white" mode="outline">
-              <Link href="/cmo-assets/create" title="">
+              <Link href="/operational-requirements/create" title="">
                 {intl.formatMessage(messages.createHeading)}
               </Link>
             </Button>
           </div>
         </div>
       </header>
-      <CmoAssetTableApi />
+      <OperationalRequirementTableApi />
     </div>
   );
 };
 
-export default CmoAssetPage;
+export default OperationalRequirementPage;

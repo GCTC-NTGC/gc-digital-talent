@@ -1,8 +1,8 @@
 import React from "react";
 import { defineMessages, useIntl } from "react-intl";
-import { Link } from "../helpers/router";
-import { PoolCandidatesTableApi } from "./poolCandidate/PoolCandidatesTable";
-import Button from "./H2Components/Button";
+import { Link } from "../../helpers/router";
+import { PoolCandidatesTableApi } from "./PoolCandidatesTable";
+import Button from "../H2Components/Button";
 
 const messages = defineMessages({
   tableHeading: {
@@ -17,7 +17,7 @@ const messages = defineMessages({
   },
 });
 
-export const PoolCandidatePage: React.FC = () => {
+export const PoolCandidatePage: React.FC<{ poolId: string }> = ({ poolId }) => {
   const intl = useIntl();
   return (
     <div>
@@ -41,14 +41,14 @@ export const PoolCandidatePage: React.FC = () => {
             data-h2-text-align="m(right)"
           >
             <Button color="white" mode="outline">
-              <Link href="/pool-candidates/create" title="">
+              <Link href={`/pools/${poolId}/pool-candidates/create`} title="">
                 {intl.formatMessage(messages.createHeading)}
               </Link>
             </Button>
           </div>
         </div>
       </header>
-      <PoolCandidatesTableApi />
+      <PoolCandidatesTableApi poolId={poolId} />
     </div>
   );
 };

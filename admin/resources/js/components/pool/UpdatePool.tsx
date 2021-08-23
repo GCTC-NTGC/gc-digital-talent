@@ -56,7 +56,7 @@ export const UpdatePoolForm: React.FunctionComponent<UpdatePoolFormProps> = ({
   handleUpdatePool,
 }) => {
   const intl = useIntl();
-  const locale = getLocale(intl.locale);
+  const locale = getLocale(intl);
   const dataToFormValues = (
     data: Pool | UpdatePoolMutation["updatePool"],
   ): FormValues => ({

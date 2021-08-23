@@ -1,23 +1,23 @@
 import React from "react";
 import { defineMessages, useIntl } from "react-intl";
-import { Link } from "../helpers/router";
-import { UserTableApi } from "./UserTable";
+import { Link } from "../../helpers/router";
+import { CmoAssetTableApi } from "./CmoAssetTable";
 import Button from "./H2Components/Button";
 
 const messages = defineMessages({
   tableHeading: {
-    id: "userPage.userHeading",
-    defaultMessage: "Users",
-    description: "Heading displayed above the User Table component.",
+    id: "cmoAssetPage.tableHeading",
+    defaultMessage: "CMO Assets",
+    description: "Heading displayed above the CMO Asset Table component.",
   },
   createHeading: {
-    id: "userPage.createHeading",
-    defaultMessage: "Create User",
-    description: "Heading displayed above the Create User form.",
+    id: "cmoAssetPage.createHeading",
+    defaultMessage: "Create CMO Asset",
+    description: "Heading displayed above the Create CMO Asset form.",
   },
 });
 
-export const UserPage: React.FC = () => {
+export const CmoAssetPage: React.FC = () => {
   const intl = useIntl();
   return (
     <div>
@@ -41,16 +41,16 @@ export const UserPage: React.FC = () => {
             data-h2-text-align="m(right)"
           >
             <Button color="white" mode="outline">
-              <Link href="/users/create" title="">
+              <Link href="/cmo-assets/create" title="">
                 {intl.formatMessage(messages.createHeading)}
               </Link>
             </Button>
           </div>
         </div>
       </header>
-      <UserTableApi />
+      <CmoAssetTableApi />
     </div>
   );
 };
 
-export default UserPage;
+export default CmoAssetPage;

@@ -1,25 +1,23 @@
 import React from "react";
 import { defineMessages, useIntl } from "react-intl";
-import { Link } from "../helpers/router";
-import { OperationalRequirementTableApi } from "./OperationalRequirementTable";
+import { Link } from "../../helpers/router";
+import { UserTableApi } from "./UserTable";
 import Button from "./H2Components/Button";
 
 const messages = defineMessages({
   tableHeading: {
-    id: "operationalRequirementPage.tableHeading",
-    defaultMessage: "Operational Requirements",
-    description:
-      "Heading displayed above the Operational Requirement Table component.",
+    id: "userPage.userHeading",
+    defaultMessage: "Users",
+    description: "Heading displayed above the User Table component.",
   },
   createHeading: {
-    id: "operationalRequirementPage.createHeading",
-    defaultMessage: "Create Operational Requirement",
-    description:
-      "Heading displayed above the Create Operational Requirement form.",
+    id: "userPage.createHeading",
+    defaultMessage: "Create User",
+    description: "Heading displayed above the Create User form.",
   },
 });
 
-export const OperationalRequirementPage: React.FC = () => {
+export const UserPage: React.FC = () => {
   const intl = useIntl();
   return (
     <div>
@@ -43,16 +41,16 @@ export const OperationalRequirementPage: React.FC = () => {
             data-h2-text-align="m(right)"
           >
             <Button color="white" mode="outline">
-              <Link href="/operational-requirements/create" title="">
+              <Link href="/users/create" title="">
                 {intl.formatMessage(messages.createHeading)}
               </Link>
             </Button>
           </div>
         </div>
       </header>
-      <OperationalRequirementTableApi />
+      <UserTableApi />
     </div>
   );
 };
 
-export default OperationalRequirementPage;
+export default UserPage;
