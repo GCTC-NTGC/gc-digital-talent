@@ -79,19 +79,14 @@ export const Dashboard: React.FC<{
         data-h2-flex-grid="b(stretch, contained, flush, none)"
       >
         <div
-          data-h2-flex-item="b(1of1) m(4of12) l(2of12)"
-          style={{
-            background: "linear-gradient(90deg, #674C90 0%, #1D2C4C 100%)",
-          }}
+          data-h2-bg-color="b(lightnavy)"
+          data-h2-flex-item="b(1of1) m(1of4) l(1of6)"
         >
-          <SideMenu items={menuItems} />
+          <div data-h2-padding="b(right-left, m)">
+            <SideMenu items={menuItems} />
+          </div>
         </div>
-        <div
-          data-h2-flex-item="b(1of1) m(8of12) l(10of12)"
-          data-h2-padding="b(all, m)"
-        >
-          {content}
-        </div>
+        <div data-h2-flex-item="b(1of1) m(8of12) l(10of12)">{content}</div>
       </section>
       <Footer />
     </div>

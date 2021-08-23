@@ -11,6 +11,7 @@
       "key": "white",
       "color": "#FFFFFF",
       "opacities": [
+        "0",
         ".1"
       ]
     },
@@ -28,7 +29,10 @@
     },
     {
       "key": "lightgray",
-      "color": "#F0F0F0"
+      "color": "#F0F0F0",
+      "opacities": [
+        ".6"
+      ]
     },
     {
       "key": "red",
@@ -39,11 +43,17 @@
     },
     {
       "key": "gold",
-      "color": "#F9C160"
+      "color": "#F9C160",
+      "opacities": [
+        ".1"
+      ]
     },
     {
       "key": "darkgold",
-      "color": "#F8A812"
+      "color": "#F8A812",
+      "opacities": [
+        ".1"
+      ]
     },
     {
       "key": "lightgold",
@@ -55,7 +65,10 @@
     },
     {
       "key": "lightnavy",
-      "color": "#1D2C4C"
+      "color": "#1D2C4C",
+      "opacities": [
+        ".1"
+      ]
     },
     {
       "key": "darkpurple",

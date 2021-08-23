@@ -76,8 +76,8 @@ export const UserTable: React.FC<AllUsersQuery & { editUrlRoot: string }> = ({
         id: "edit",
         accessor: ({ id }) => (
           <Button
-            color="white"
-            mode="solid"
+            color="primary"
+            mode="inline"
             onClick={(event) => {
               event.preventDefault();
               navigate(`${editUrlRoot}/${id}/edit`);
