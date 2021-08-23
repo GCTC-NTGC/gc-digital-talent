@@ -12,77 +12,74 @@ export interface ButtonProps extends React.HTMLProps<HTMLButtonElement> {
 
 const colorMap: Record<
   "primary" | "secondary" | "cta" | "white",
-  Record<
-    "solid" | "outline" | "inline",
-    Record<"border" | "background" | "font", string>
-  >
+  Record<"solid" | "outline" | "inline", Record<string, string>>
 > = {
   primary: {
     solid: {
-      border: "lightpurple",
-      background: "lightpurple",
-      font: "white",
+      "data-h2-border": "b(lightpurple, all, solid, s)",
+      "data-h2-bg-color": "b(lightpurple)",
+      "data-h2-font-color": "b(white)",
     },
     outline: {
-      border: "lightpurple",
-      background: "[light]lightpurple[.1]",
-      font: "lightpurple",
+      "data-h2-border": "b(lightpurple, all, solid, s)",
+      "data-h2-bg-color": "b([light]lightpurple[.1])",
+      "data-h2-font-color": "b(lightpurple)",
     },
     inline: {
-      border: "[light]white[0]",
-      background: "[light]white[0]",
-      font: "lightpurple",
+      "data-h2-border": "b([light]white[0], all, solid, s)",
+      "data-h2-bg-color": "b([light]white[0])",
+      "data-h2-font-color": "b(lightpurple)",
     },
   },
   secondary: {
     solid: {
-      border: "lightnavy",
-      background: "lightnavy",
-      font: "white",
+      "data-h2-border": "b(lightnavy, all, solid, s)",
+      "data-h2-bg-color": "b(lightnavy)",
+      "data-h2-font-color": "b(white)",
     },
     outline: {
-      border: "lightnavy",
-      background: "[light]lightnavy[.1]",
-      font: "lightnavy",
+      "data-h2-border": "b(lightnavy, all, solid, s)",
+      "data-h2-bg-color": "b([light]lightnavy[.1])",
+      "data-h2-font-color": "b(lightnavy)",
     },
     inline: {
-      border: "[light]white[0]",
-      background: "[light]white[0]",
-      font: "lightnavy",
+      "data-h2-border": "b([light]white[0], all, solid, s)",
+      "data-h2-bg-color": "b([light]white[0])",
+      "data-h2-font-color": "b(lightnavy)",
     },
   },
   cta: {
     solid: {
-      border: "darkgold",
-      background: "darkgold",
-      font: "black",
+      "data-h2-border": "b(darkgold, all, solid, s)",
+      "data-h2-bg-color": "b(darkgold)",
+      "data-h2-font-color": "b(black)",
     },
     outline: {
-      border: "darkgold",
-      background: "[light]darkgold[.1]",
-      font: "darkgold",
+      "data-h2-border": "b(darkgold, all, solid, s)",
+      "data-h2-bg-color": "b([light]darkgold[.1])",
+      "data-h2-font-color": "b(darkgold)",
     },
     inline: {
-      border: "[light]white[0]",
-      background: "[light]white[0]",
-      font: "darkgold",
+      "data-h2-border": "b([light]white[0], all, solid, s)",
+      "data-h2-bg-color": "b([light]white[0])",
+      "data-h2-font-color": "b(darkgold)",
     },
   },
   white: {
     solid: {
-      border: "white",
-      background: "white",
-      font: "lightpurple",
+      "data-h2-border": "b(white, all, solid, s)",
+      "data-h2-bg-color": "b(white)",
+      "data-h2-font-color": "b(lightpurple)",
     },
     outline: {
-      border: "white",
-      background: "[light]white[0]",
-      font: "white",
+      "data-h2-border": "b(white, all, solid, s)",
+      "data-h2-bg-color": "b([light]white[0])",
+      "data-h2-font-color": "b(white)",
     },
     inline: {
-      border: "[light]white[0]",
-      background: "[light]white[0]",
-      font: "white",
+      "data-h2-border": "b([light]white[0], all, solid, s)",
+      "data-h2-bg-color": "b([light]white[0])",
+      "data-h2-font-color": "b(white)",
     },
   },
 };
@@ -99,15 +96,15 @@ const Button: React.FC<ButtonProps> = ({
     <button
       // eslint-disable-next-line react/button-has-type
       type={type || "button"}
-      data-h2-display={block ? "block" : "inline-block"}
-      data-h2-border={`b(${colorMap[color][mode].border}, all, solid, s)`}
       data-h2-radius="b(s)"
       data-h2-padding="b(top-bottom, xs) b(right-left, s)"
-      data-h2-bg-color={`b(${colorMap[color][mode].background})`}
-      data-h2-font-color={`b(${colorMap[color][mode].font})`}
       data-h2-font-size="b(caption) m(normal)"
       data-h2-font-weight="b(400)"
       data-h2-font-style="b(underline)"
+      {...(block
+        ? { "data-h2-display": "b(block)" }
+        : { "data-h2-display": "b(inline-block)" })}
+      {...colorMap[color][mode]}
       style={{
         cursor: "pointer",
         overflowWrap: "break-word",
