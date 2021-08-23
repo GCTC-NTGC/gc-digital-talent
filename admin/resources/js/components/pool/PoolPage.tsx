@@ -15,7 +15,7 @@ export const PoolPage: React.FC = () => {
   const intl = useIntl();
   return (
     <div>
-      <Link href="/pools/create" title="">
+      <Link href="/admin/pools/create" title="">
         {intl.formatMessage(messages.poolCreateHeading)}
       </Link>
       <PoolTableApi />

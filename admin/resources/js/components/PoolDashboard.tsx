@@ -68,29 +68,29 @@ const messages = defineMessages({
 
 const routes: Routes<RouterResult> = [
   {
-    path: "/users",
+    path: "/admin/users",
     action: () => ({
       component: <UserPage />,
     }),
   },
   {
-    path: "/users/create",
+    path: "/admin/users/create",
     action: () => ({
       component: <CreateUser />,
     }),
   },
   {
-    path: "/users/:id/edit",
+    path: "/admin/users/:id/edit",
     action: ({ params }) => ({
       component: <UpdateUser userId={params.id as string} />,
     }),
   },
   {
-    path: "/classifications",
+    path: "/admin/classifications",
     action: () => ({
       component: (
         <div>
-          <Link href="/classifications/create" title="">
+          <Link href="/admin/classifications/create" title="">
             Create Classification
           </Link>
           <ClassificationTableApi />
@@ -99,13 +99,13 @@ const routes: Routes<RouterResult> = [
     }),
   },
   {
-    path: "/classifications/create",
+    path: "/admin/classifications/create",
     action: () => ({
       component: <CreateClassification />,
     }),
   },
   {
-    path: "/classifications/:id/edit",
+    path: "/admin/classifications/:id/edit",
     action: ({ params }) => ({
       component: (
         <UpdateClassification classificationId={params.id as string} />
@@ -113,37 +113,37 @@ const routes: Routes<RouterResult> = [
     }),
   },
   {
-    path: "/cmo-assets",
+    path: "/admin/cmo-assets",
     action: () => ({
       component: <CmoAssetPage />,
     }),
   },
   {
-    path: "/cmo-assets/create",
+    path: "/admin/cmo-assets/create",
     action: () => ({
       component: <CreateCmoAsset />,
     }),
   },
   {
-    path: "/cmo-assets/:id/edit",
+    path: "/admin/cmo-assets/:id/edit",
     action: ({ params }) => ({
       component: <UpdateCmoAsset cmoAssetId={params.id as string} />,
     }),
   },
   {
-    path: "/operational-requirements",
+    path: "/admin/operational-requirements",
     action: () => ({
       component: <OperationalRequirementPage />,
     }),
   },
   {
-    path: "/operational-requirements/create",
+    path: "/admin/operational-requirements/create",
     action: () => ({
       component: <CreateOperationalRequirement />,
     }),
   },
   {
-    path: "/operational-requirements/:id/edit",
+    path: "/admin/operational-requirements/:id/edit",
     action: ({ params }) => ({
       component: (
         <UpdateOperationalRequirement
@@ -153,19 +153,19 @@ const routes: Routes<RouterResult> = [
     }),
   },
   {
-    path: "/pools/:id/pool-candidates",
+    path: "/admin/pools/:id/pool-candidates",
     action: ({ params }) => ({
       component: <PoolCandidatePage poolId={params.id as string} />,
     }),
   },
   {
-    path: "/pools/:id/pool-candidates/create",
+    path: "/admin/pools/:id/pool-candidates/create",
     action: ({ params }) => ({
       component: <CreatePoolCandidate poolId={params.id as string} />,
     }),
   },
   {
-    path: "/pools/:id/pool-candidates/:candidateId/edit",
+    path: "/admin/pools/:id/pool-candidates/:candidateId/edit",
     action: ({ params }) => ({
       component: (
         <UpdatePoolCandidate poolCandidateId={params.candidateId as string} />
@@ -173,19 +173,19 @@ const routes: Routes<RouterResult> = [
     }),
   },
   {
-    path: "/pools",
+    path: "/admin/pools",
     action: () => ({
       component: <PoolPage />,
     }),
   },
   {
-    path: "/pools/create",
+    path: "/admin/pools/create",
     action: () => ({
       component: <CreatePool />,
     }),
   },
   {
-    path: "/pools/:id/edit",
+    path: "/admin/pools/:id/edit",
     action: ({ params }) => ({
       component: <UpdatePool poolId={params.id as string} />,
     }),
@@ -204,27 +204,27 @@ export const PoolDashboard: React.FC = () => {
     />,
     <MenuLink
       key="users"
-      href="/users"
+      href="/admin/users"
       text={intl.formatMessage(messages.menuUsers)}
     />,
     <MenuLink
       key="classifications"
-      href="/classifications"
+      href="/admin/classifications"
       text={intl.formatMessage(messages.menuClassifications)}
     />,
     <MenuLink
       key="cmo-assets"
-      href="/cmo-assets"
+      href="/admin/cmo-assets"
       text={intl.formatMessage(messages.menuCmoAssets)}
     />,
     <MenuLink
       key="operational-requirements"
-      href="/operational-requirements"
+      href="/admin/operational-requirements"
       text={intl.formatMessage(messages.menuOperationalRequirements)}
     />,
     <MenuLink
       key="pools"
-      href="/pools"
+      href="/admin/pools"
       text={intl.formatMessage(messages.menuPools)}
     />,
   ];
@@ -239,8 +239,8 @@ export const PoolDashboard: React.FC = () => {
     data?.pools.map((pool) =>
       menuItems.push(
         <MenuLink
-          key={`/pools/${pool?.id}/pool-candidates`}
-          href={`/pools/${pool?.id}/pool-candidates`}
+          key={`/admin/pools/${pool?.id}/pool-candidates`}
+          href={`/admin/pools/${pool?.id}/pool-candidates`}
           text={(pool?.name && pool?.name[getLocale(intl)]) ?? ""}
         />,
       ),

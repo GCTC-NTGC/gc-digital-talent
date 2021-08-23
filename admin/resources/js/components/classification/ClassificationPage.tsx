@@ -15,7 +15,7 @@ export const ClassificationPage: React.FC = () => {
   const intl = useIntl();
   return (
     <div>
-      <Link href="/classifications/create" title="">
+      <Link href="/admin/classifications/create" title="">
         {intl.formatMessage(messages.classificationCreateHeading)}
       </Link>
       <ClassificationTableApi />

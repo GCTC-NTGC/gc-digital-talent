@@ -16,7 +16,7 @@ export const OperationalRequirementPage: React.FC = () => {
   const intl = useIntl();
   return (
     <div>
-      <Link href="/operational-requirements/create" title="">
+      <Link href="/admin/operational-requirements/create" title="">
         {intl.formatMessage(messages.operationalRequirementCreateHeading)}
       </Link>
       <OperationalRequirementTableApi />

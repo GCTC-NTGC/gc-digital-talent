@@ -15,7 +15,7 @@ export const UserPage: React.FC = () => {
   const intl = useIntl();
   return (
     <div>
-      <Link href="/users/create" title="">
+      <Link href="/admin/users/create" title="">
         {intl.formatMessage(messages.userCreateHeading)}
       </Link>
       <UserTableApi />

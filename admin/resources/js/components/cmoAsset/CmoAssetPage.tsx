@@ -15,7 +15,7 @@ export const CmoAssetPage: React.FC = () => {
   const intl = useIntl();
   return (
     <div>
-      <Link href="/cmo-assets/create" title="">
+      <Link href="/admin/cmo-assets/create" title="">
         {intl.formatMessage(messages.cmoAssetCreateHeading)}
       </Link>
       <CmoAssetTableApi />

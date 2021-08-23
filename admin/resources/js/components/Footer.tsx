@@ -146,7 +146,7 @@ const Footer: React.FunctionComponent = () => {
           >
             <img
               style={{ width: "12rem" }}
-              src="/images/logo_canada.png"
+              src="public/images/logo_canada.png"
               alt={intl.formatMessage(messages.canadaLogoAlt)}
             />
           </a>
