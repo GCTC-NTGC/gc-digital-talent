@@ -18,7 +18,7 @@ For more details about using or configuring Laravel Passport, visit the [documen
 
 # Using Authentication Service
 
-This authentication service uses [Laravel Passport](https://laravel.com/docs/8.x/passport) to implement the OAuth 2 spec. A good explanation of OAuth can be found [here](https://aaronparecki.com/oauth-2-simplified/).
+This authentication service uses [Laravel Passport](https://laravel.com/docs/8.x/passport) to implement the OAuth 2.0 spec. A good explanation of OAuth can be found [here](https://aaronparecki.com/oauth-2-simplified/).
 
 GC Talent is using OAuth to allow the separation of our authentication service and our API. In [OAuth terminology](https://aaronparecki.com/oauth-2-simplified/#roles), our /admin project is the "Client", our /auth project is the "Authorization Server", and the /api project is the "Resource Server".
 
@@ -26,13 +26,14 @@ The process begins by having the Client visit a particular url of the Authorizat
 
 If you visit the resulting url, the Authorization Server will redirect you to a login page (note that if you must register a new user at this point, you may have to restart the authorization process later). If you successfully log in, the Authorization Server will ask the user if they want to give the Client permission to access their identity. As long as they consent, they will then be redirected to the Client's _redirect_uri_.
 
-Since our Client does have a web server (despite relying on SPA like React code) we can use the [Authorization Code flow](https://aaronparecki.com/oauth-2-simplified/#web-server-apps), one of several OAuth 2 flows. In this flow, the redirect to the Client includes something called the __Authorization Code__ in a query parameter. At this point, instead of returning control directly to the user, the Client server must make a POST request [back to the Auth service](https://laravel.com/docs/8.x/passport#requesting-tokens-converting-authorization-codes-to-access-tokens) at http://localhost:8000/oauth/token, with more query parameters like their _client_secret_ and another redirect uri, to trade the __Authorization Code__ for an __Access Token__.
+Since our Client does have a web server (despite relying on SPA like React code) we can use the [Authorization Code flow](https://aaronparecki.com/oauth-2-simplified/#web-server-apps), one of several OAuth 2.0 flows. In this flow, the redirect to the Client includes something called the __Authorization Code__ in a query parameter. At this point, instead of returning control directly to the user, the Client server must make a POST request [back to the Auth service](https://laravel.com/docs/8.x/passport#requesting-tokens-converting-authorization-codes-to-access-tokens) at http://localhost:8000/oauth/token, with more query parameters like their _client_secret_ and another redirect uri, to trade the __Authorization Code__ for an __Access Token__.
 
 Finally, the __Access Token__ can be used by the client to access the API service. The token should be included with every request in an [Authorization Bearer header](https://laravel.com/docs/8.x/passport#passing-the-access-token).
 
 _TODO: Notes on how the API uses the token's JWT format and the Auth Server's public key to ensure the token is legit._
-\
-_TODO: Notes on the difference between OpenID Connect (OIDC) and OAuth 2. OIDC just specifies a couple more rules to follow when using OAuth 2 for [authentication more than authorization](https://stackoverflow.com/questions/6556522/authentication-versus-authorization). Such as using the openid scope, and including certain data in the Access Token JWT._
+
+## OpenID Connect (OIDC) and OAuth 2.0
+For OIDC, the initial request includes a scope of openid and in the final exchange, the Client receives both an Access Token and an ID Token. [This article](https://developer.okta.com/blog/2019/10/21/illustrated-guide-to-oauth-and-oidc) provides a deeper explanation on both OAuth 2.0 and OIDC.
 
 ## Why is this so complicated?
 
