@@ -87,48 +87,51 @@ function Table<T extends Record<string, unknown>>({
                 setGlobalFilter={setGlobalFilter}
               />
             </div>
-            <div data-h2-flex-item="b(1of1) m(2of3)" data-h2-text-align="b(center) m(right)">
-            <Button
-              color="secondary"
-              mode="inline"
-              onClick={() => {
-                setShowList((currentState) => !currentState);
-              }}
+            <div
+              data-h2-flex-item="b(1of1) m(2of3)"
+              data-h2-text-align="b(center) m(right)"
             >
-              {intl.formatMessage(messages.toggleTableColumnsLabel)}
-            </Button>
-            {showList ? (
-              <div
-                style={{
-                  position: "absolute",
-                  backgroundColor: "white",
-                  padding: "10px",
-                  border: "1px solid grey",
-                  borderRadius: "5px",
+              <Button
+                color="secondary"
+                mode="inline"
+                onClick={() => {
+                  setShowList((currentState) => !currentState);
                 }}
               >
-                <div>
-                  <IndeterminateCheckbox
-                    {...(getToggleHideAllColumnsProps() as React.ComponentProps<
-                      typeof IndeterminateCheckbox
-                    >)}
-                  />{" "}
-                  {intl.formatMessage(messages.toggleAllTableColumnsLabel)}
-                </div>
-                {allColumns.map((column) => (
-                  <div key={column.id}>
-                    <label>
-                      <input
-                        type="checkbox"
-                        {...column.getToggleHiddenProps()}
-                      />{" "}
-                      {column.id}
-                    </label>
+                {intl.formatMessage(messages.toggleTableColumnsLabel)}
+              </Button>
+              {showList ? (
+                <div
+                  style={{
+                    position: "absolute",
+                    backgroundColor: "white",
+                    padding: "10px",
+                    border: "1px solid grey",
+                    borderRadius: "5px",
+                  }}
+                >
+                  <div>
+                    <IndeterminateCheckbox
+                      {...(getToggleHideAllColumnsProps() as React.ComponentProps<
+                        typeof IndeterminateCheckbox
+                      >)}
+                    />{" "}
+                    {intl.formatMessage(messages.toggleAllTableColumnsLabel)}
                   </div>
-                ))}
-              </div>
-            ) : null}
-          </div>
+                  {allColumns.map((column) => (
+                    <div key={column.id}>
+                      <label>
+                        <input
+                          type="checkbox"
+                          {...column.getToggleHiddenProps()}
+                        />{" "}
+                        {column.id}
+                      </label>
+                    </div>
+                  ))}
+                </div>
+              ) : null}
+            </div>
           </div>
         </div>
       ) : null}
@@ -145,7 +148,7 @@ function Table<T extends Record<string, unknown>>({
                   data-h2-font-size="b(caption)"
                 >
                   {column.render("Header")}
-                  <span data-h2-color="b(lightpurple)">
+                  <span data-h2-font-color="b(lightpurple)">
                     {column.isSorted && (column.isSortedDesc ? " ▼" : " ▲")}
                   </span>
                 </th>
