@@ -2,7 +2,7 @@ import React from "react";
 import { defineMessages, useIntl } from "react-intl";
 import { Link } from "../../helpers/router";
 import { UserTableApi } from "./UserTable";
-import Button from "./H2Components/Button";
+import Button from "../H2Components/Button";
 
 const messages = defineMessages({
   tableHeading: {
