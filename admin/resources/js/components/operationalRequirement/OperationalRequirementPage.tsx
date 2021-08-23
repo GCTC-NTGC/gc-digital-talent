@@ -1,23 +1,25 @@
 import React from "react";
 import { defineMessages, useIntl } from "react-intl";
 import { Link } from "../../helpers/router";
+import { OperationalRequirementTableApi } from "./OperationalRequirementTable";
 import Button from "../H2Components/Button";
-import { PoolTableApi } from "./PoolTable";
 
 const messages = defineMessages({
   tableHeading: {
-    id: "poolPage.tableHeading",
-    defaultMessage: "Pools",
-    description: "Heading displayed above the Pool Table component.",
+    id: "operationalRequirementPage.tableHeading",
+    defaultMessage: "Operational Requirements",
+    description:
+      "Heading displayed above the Operational Requirement Table component.",
   },
   createHeading: {
-    id: "poolPage.createHeading",
-    defaultMessage: "Create Pool",
-    description: "Heading displayed above the Create Pool form.",
+    id: "operationalRequirementPage.createHeading",
+    defaultMessage: "Create Operational Requirement",
+    description:
+      "Heading displayed above the Create Operational Requirement form.",
   },
 });
 
-export const PoolPage: React.FC = () => {
+export const OperationalRequirementPage: React.FC = () => {
   const intl = useIntl();
   return (
     <div>
@@ -41,17 +43,16 @@ export const PoolPage: React.FC = () => {
             data-h2-text-align="m(right)"
           >
             <Button color="white" mode="outline">
-              <Link href="/pools/create" title="">
+              <Link href="/operational-requirements/create" title="">
                 {intl.formatMessage(messages.createHeading)}
               </Link>
             </Button>
           </div>
         </div>
       </header>
-
-      <PoolTableApi />
+      <OperationalRequirementTableApi />
     </div>
   );
 };
 
-export default PoolPage;
+export default OperationalRequirementPage;

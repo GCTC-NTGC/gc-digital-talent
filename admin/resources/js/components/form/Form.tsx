@@ -17,7 +17,7 @@ function Form<
   options,
 }: PropsWithChildren<{
   onSubmit: SubmitHandler<TFieldValues>;
-  options?: UseFormProps<TFieldValues, TContext>;
+  options?: UseFormProps<TFieldValues, any>;
 }>): ReactElement {
   const methods = useForm(options);
   const { handleSubmit } = methods;

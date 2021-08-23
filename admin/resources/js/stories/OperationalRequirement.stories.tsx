@@ -5,15 +5,15 @@ import { action } from "@storybook/addon-actions";
 import {
   OperationalRequirementTable,
   OperationalRequirementTableApi,
-} from "../components/OperationalRequirementTable";
+} from "../components/operationalRequirement/OperationalRequirementTable";
 import fakeOperationalRequirements from "../fakeData/fakeOperationalRequirements";
 import ClientProvider from "../components/ClientProvider";
-import { CreateOperationalRequirementForm } from "../components/operationalRequirements/CreateOperationalRequirement";
+import { CreateOperationalRequirementForm } from "../components/operationalRequirement/CreateOperationalRequirement";
 import {
   CreateOperationalRequirementInput,
   OperationalRequirement,
 } from "../api/generated";
-import { UpdateOperationalRequirementForm } from "../components/operationalRequirements/UpdateOperationalRequirement";
+import { UpdateOperationalRequirementForm } from "../components/operationalRequirement/UpdateOperationalRequirement";
 
 const operationalRequirementData = fakeOperationalRequirements();
 

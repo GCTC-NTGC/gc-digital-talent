@@ -1,23 +1,23 @@
 import React from "react";
 import { defineMessages, useIntl } from "react-intl";
 import { Link } from "../../helpers/router";
+import { UserTableApi } from "./UserTable";
 import Button from "../H2Components/Button";
-import { PoolTableApi } from "./PoolTable";
 
 const messages = defineMessages({
   tableHeading: {
-    id: "poolPage.tableHeading",
-    defaultMessage: "Pools",
-    description: "Heading displayed above the Pool Table component.",
+    id: "userPage.userHeading",
+    defaultMessage: "Users",
+    description: "Heading displayed above the User Table component.",
   },
   createHeading: {
-    id: "poolPage.createHeading",
-    defaultMessage: "Create Pool",
-    description: "Heading displayed above the Create Pool form.",
+    id: "userPage.createHeading",
+    defaultMessage: "Create User",
+    description: "Heading displayed above the Create User form.",
   },
 });
 
-export const PoolPage: React.FC = () => {
+export const UserPage: React.FC = () => {
   const intl = useIntl();
   return (
     <div>
@@ -41,17 +41,16 @@ export const PoolPage: React.FC = () => {
             data-h2-text-align="m(right)"
           >
             <Button color="white" mode="outline">
-              <Link href="/pools/create" title="">
+              <Link href="/users/create" title="">
                 {intl.formatMessage(messages.createHeading)}
               </Link>
             </Button>
           </div>
         </div>
       </header>
-
-      <PoolTableApi />
+      <UserTableApi />
     </div>
   );
 };
 
-export default PoolPage;
+export default UserPage;

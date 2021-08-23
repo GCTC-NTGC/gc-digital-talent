@@ -2,18 +2,18 @@ import React from "react";
 import { defineMessages, useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import pick from "lodash/pick";
-import commonMessages from "./commonMessages";
+import commonMessages from "../commonMessages";
 import {
   Language,
   UpdateUserInput,
   User,
   useUpdateUserMutation,
   useUserQuery,
-} from "../api/generated";
-import errorMessages from "./form/errorMessages";
-import Input from "./form/Input";
-import Select from "./form/Select";
-import Submit from "./form/Submit";
+} from "../../api/generated";
+import errorMessages from "../form/errorMessages";
+import Input from "../form/Input";
+import Select from "../form/Select";
+import Submit from "../form/Submit";
 
 const messages = defineMessages({
   headingTitle: {

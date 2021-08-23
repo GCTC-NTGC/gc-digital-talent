@@ -89,8 +89,8 @@ export const ClassificationTable: React.FC<
         id: "edit",
         accessor: ({ id }) => (
           <Button
-            color="white"
-            mode="solid"
+            color="primary"
+            mode="inline"
             onClick={(event) => {
               event.preventDefault();
               navigate(`${editUrlRoot}/${id}/edit`);

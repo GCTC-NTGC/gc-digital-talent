@@ -1,23 +1,23 @@
 import React from "react";
 import { defineMessages, useIntl } from "react-intl";
 import { Link } from "../../helpers/router";
+import { CmoAssetTableApi } from "./CmoAssetTable";
 import Button from "../H2Components/Button";
-import { PoolTableApi } from "./PoolTable";
 
 const messages = defineMessages({
   tableHeading: {
-    id: "poolPage.tableHeading",
-    defaultMessage: "Pools",
-    description: "Heading displayed above the Pool Table component.",
+    id: "cmoAssetPage.tableHeading",
+    defaultMessage: "CMO Assets",
+    description: "Heading displayed above the CMO Asset Table component.",
   },
   createHeading: {
-    id: "poolPage.createHeading",
-    defaultMessage: "Create Pool",
-    description: "Heading displayed above the Create Pool form.",
+    id: "cmoAssetPage.createHeading",
+    defaultMessage: "Create CMO Asset",
+    description: "Heading displayed above the Create CMO Asset form.",
   },
 });
 
-export const PoolPage: React.FC = () => {
+export const CmoAssetPage: React.FC = () => {
   const intl = useIntl();
   return (
     <div>
@@ -41,17 +41,16 @@ export const PoolPage: React.FC = () => {
             data-h2-text-align="m(right)"
           >
             <Button color="white" mode="outline">
-              <Link href="/pools/create" title="">
+              <Link href="/cmo-assets/create" title="">
                 {intl.formatMessage(messages.createHeading)}
               </Link>
             </Button>
           </div>
         </div>
       </header>
-
-      <PoolTableApi />
+      <CmoAssetTableApi />
     </div>
   );
 };
 
-export default PoolPage;
+export default CmoAssetPage;

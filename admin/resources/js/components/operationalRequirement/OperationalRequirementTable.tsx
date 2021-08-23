@@ -3,13 +3,13 @@ import { defineMessages, useIntl } from "react-intl";
 import {
   GetOperationalRequirementsQuery,
   useGetOperationalRequirementsQuery,
-} from "../api/generated";
-import { navigate, useLocation } from "../helpers/router";
-import { notEmpty } from "../helpers/util";
-import { FromArray } from "../types/utilityTypes";
-import commonMessages from "./commonMessages";
-import Button from "./H2Components/Button";
-import Table, { ColumnsOf } from "./Table";
+} from "../../api/generated";
+import { navigate, useLocation } from "../../helpers/router";
+import { notEmpty } from "../../helpers/util";
+import { FromArray } from "../../types/utilityTypes";
+import commonMessages from "../commonMessages";
+import Button from "../H2Components/Button";
+import Table, { ColumnsOf } from "../Table";
 
 const messages = defineMessages({
   columnIdTitle: {
@@ -77,8 +77,8 @@ export const OperationalRequirementTable: React.FC<
         id: "edit",
         accessor: ({ id }) => (
           <Button
-            color="white"
-            mode="solid"
+            color="primary"
+            mode="inline"
             onClick={(event) => {
               event.preventDefault();
               navigate(`${editUrlRoot}/${id}/edit`);

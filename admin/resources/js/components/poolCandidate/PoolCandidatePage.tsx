@@ -1,23 +1,23 @@
 import React from "react";
 import { defineMessages, useIntl } from "react-intl";
 import { Link } from "../../helpers/router";
+import { PoolCandidatesTableApi } from "./PoolCandidatesTable";
 import Button from "../H2Components/Button";
-import { PoolTableApi } from "./PoolTable";
 
 const messages = defineMessages({
   tableHeading: {
-    id: "poolPage.tableHeading",
-    defaultMessage: "Pools",
-    description: "Heading displayed above the Pool Table component.",
+    id: "poolCandidatePage.table",
+    defaultMessage: "Pool Candidates",
+    description: "Heading displayed above the Pool Candidate Table component.",
   },
   createHeading: {
-    id: "poolPage.createHeading",
-    defaultMessage: "Create Pool",
-    description: "Heading displayed above the Create Pool form.",
+    id: "poolCandidatePage.createHeading",
+    defaultMessage: "Create Pool Candidate",
+    description: "Heading displayed above the Create Pool Candidate form.",
   },
 });
 
-export const PoolPage: React.FC = () => {
+export const PoolCandidatePage: React.FC<{ poolId: string }> = ({ poolId }) => {
   const intl = useIntl();
   return (
     <div>
@@ -41,17 +41,16 @@ export const PoolPage: React.FC = () => {
             data-h2-text-align="m(right)"
           >
             <Button color="white" mode="outline">
-              <Link href="/pools/create" title="">
+              <Link href={`/pools/${poolId}/pool-candidates/create`} title="">
                 {intl.formatMessage(messages.createHeading)}
               </Link>
             </Button>
           </div>
         </div>
       </header>
-
-      <PoolTableApi />
+      <PoolCandidatesTableApi poolId={poolId} />
     </div>
   );
 };
 
-export default PoolPage;
+export default PoolCandidatePage;

@@ -1,12 +1,12 @@
 import React, { useMemo } from "react";
 import { defineMessages, useIntl } from "react-intl";
-import commonMessages from "./commonMessages";
-import { AllUsersQuery, useAllUsersQuery } from "../api/generated";
-import { navigate, useLocation } from "../helpers/router";
-import { notEmpty } from "../helpers/util";
-import { FromArray } from "../types/utilityTypes";
-import Button from "./H2Components/Button";
-import Table, { ColumnsOf } from "./Table";
+import commonMessages from "../commonMessages";
+import { AllUsersQuery, useAllUsersQuery } from "../../api/generated";
+import { navigate, useLocation } from "../../helpers/router";
+import { notEmpty } from "../../helpers/util";
+import { FromArray } from "../../types/utilityTypes";
+import Button from "../H2Components/Button";
+import Table, { ColumnsOf } from "../Table";
 
 const messages = defineMessages({
   columnFirstNameTitle: {
@@ -76,8 +76,8 @@ export const UserTable: React.FC<AllUsersQuery & { editUrlRoot: string }> = ({
         id: "edit",
         accessor: ({ id }) => (
           <Button
-            color="white"
-            mode="solid"
+            color="primary"
+            mode="inline"
             onClick={(event) => {
               event.preventDefault();
               navigate(`${editUrlRoot}/${id}/edit`);

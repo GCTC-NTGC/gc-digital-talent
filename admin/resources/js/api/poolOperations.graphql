@@ -133,6 +133,10 @@ query getPools {
       en
       fr
     }
+    classifications {
+      group
+      level
+    }
   }
 }
 
