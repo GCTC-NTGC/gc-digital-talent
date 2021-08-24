@@ -14,11 +14,7 @@ export const exactMatch = (ref: string, test: string): boolean => ref === test;
 export const startsWith = (ref: string, test: string): boolean =>
   test.startsWith(ref);
 
-interface MenuHeadingProps {
-  text: string;
-}
-
-export const MenuHeading: React.FC<MenuHeadingProps> = ({ text }) => {
+export const MenuHeading: React.FC<{ text: string }> = ({ text }) => {
   return (
     <span
       data-h2-display="b(block)"

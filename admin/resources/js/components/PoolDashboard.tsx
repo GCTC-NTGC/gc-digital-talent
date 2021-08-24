@@ -53,15 +53,15 @@ const messages = defineMessages({
     defaultMessage: "Operational Requirements",
     description: "Label displayed on the Operational Requirements menu item.",
   },
-  menuPoolCandidates: {
-    id: "poolDashboard.menu.poolCandidatesLabel",
-    defaultMessage: "Pool Candidates",
-    description: "Label displayed on the Pool Candidates menu item.",
-  },
   menuPools: {
     id: "poolDashboard.menu.poolsLabel",
     defaultMessage: "Pools",
     description: "Label displayed on the Pools menu item.",
+  },
+  menuPoolCandidates: {
+    id: "poolDashboard.menu.poolCandidatesLabel",
+    defaultMessage: "Pool Candidates",
+    description: "Label displayed on the Pool Candidates menu item.",
   },
 });
 
@@ -184,9 +184,34 @@ const routes: Routes<RouterResult> = [
   },
 ];
 
-export const PoolDashboard: React.FC = () => {
+const PoolList = () => {
+  const intl = useIntl();
   const [result] = useGetPoolsQuery();
   const { data, fetching, error } = result;
+  const items = [];
+
+  if (!fetching && !error) {
+    items.push(
+      <MenuHeading
+        key="pool-candidates"
+        text={intl.formatMessage(messages.menuPoolCandidates)}
+      />,
+    );
+    data?.pools.map((pool) =>
+      items.push(
+        <MenuLink
+          key={`pools/${pool?.id}/pool-candidates`}
+          href={`/pools/${pool?.id}/pool-candidates`}
+          text={(pool?.name && pool?.name[getLocale(intl)]) ?? ""}
+        />,
+      ),
+    );
+  }
+
+  return items;
+};
+
+export const PoolDashboard: React.FC = () => {
   const intl = useIntl();
 
   const menuItems = [
@@ -221,28 +246,13 @@ export const PoolDashboard: React.FC = () => {
     />,
   ];
 
-  if (!fetching && !error) {
-    menuItems.push(
-      <MenuHeading
-        key="pool-candidates"
-        text={intl.formatMessage(messages.menuPoolCandidates)}
-      />,
-    );
-    data?.pools.map((pool) =>
-      menuItems.push(
-        <MenuLink
-          key={`/pools/${pool?.id}/pool-candidates`}
-          href={`/pools/${pool?.id}/pool-candidates`}
-          text={(pool?.name && pool?.name[getLocale(intl)]) ?? ""}
-        />,
-      ),
-    );
-  }
-
   return (
     <ErrorContainer>
       <ClientProvider>
-        <Dashboard menuItems={menuItems} contentRoutes={routes} />
+        <Dashboard
+          menuItems={[...menuItems, ...PoolList()]}
+          contentRoutes={routes}
+        />
       </ClientProvider>
     </ErrorContainer>
   );
