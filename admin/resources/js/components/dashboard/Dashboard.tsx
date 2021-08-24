@@ -1,5 +1,8 @@
 import React, { ReactElement } from "react";
+import { defineMessages, useIntl } from "react-intl";
 import { Routes } from "universal-router";
+import { useGetPoolsQuery } from "../../api/generated";
+import { getLocale } from "../../helpers/localize";
 import {
   Link,
   RouterResult,
@@ -13,6 +16,14 @@ import SideMenu from "../menu/SideMenu";
 export const exactMatch = (ref: string, test: string): boolean => ref === test;
 export const startsWith = (ref: string, test: string): boolean =>
   test.startsWith(ref);
+
+const messages = defineMessages({
+  menuPoolCandidates: {
+    id: "poolDashboard.menu.poolCandidatesLabel",
+    defaultMessage: "Pool Candidates",
+    description: "Label displayed on the Pool Candidates menu item.",
+  },
+});
 
 export const MenuHeading: React.FC<{ text: string }> = ({ text }) => {
   return (
@@ -63,6 +74,33 @@ export const MenuLink: React.FC<MenuLinkProps> = ({
   );
 };
 
+const PoolListApi = () => {
+  const intl = useIntl();
+  const [result] = useGetPoolsQuery();
+  const { data, fetching, error } = result;
+  const items = [];
+
+  if (!fetching && !error) {
+    items.push(
+      <MenuHeading
+        key="pool-candidates"
+        text={intl.formatMessage(messages.menuPoolCandidates)}
+      />,
+    );
+    data?.pools.map((pool) =>
+      items.push(
+        <MenuLink
+          key={`pools/${pool?.id}/pool-candidates`}
+          href={`/pools/${pool?.id}/pool-candidates`}
+          text={(pool?.name && pool?.name[getLocale(intl)]) ?? ""}
+        />,
+      ),
+    );
+  }
+
+  return items;
+};
+
 export const Dashboard: React.FC<{
   menuItems: ReactElement[];
   contentRoutes: Routes<RouterResult>;
@@ -79,7 +117,7 @@ export const Dashboard: React.FC<{
           data-h2-flex-item="b(1of1) m(1of4) l(1of6)"
         >
           <div data-h2-padding="b(right-left, m)">
-            <SideMenu items={menuItems} />
+            <SideMenu items={[...menuItems, ...PoolListApi()]} />
           </div>
         </div>
         <div data-h2-flex-item="b(1of1) m(8of12) l(10of12)">{content}</div>

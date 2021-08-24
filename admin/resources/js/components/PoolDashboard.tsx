@@ -24,9 +24,6 @@ import { CreatePool } from "./pool/CreatePool";
 import { UpdatePool } from "./pool/UpdatePool";
 import ClassificationPage from "./classification/ClassificationPage";
 
-import { useGetPoolsQuery } from "../api/generated";
-import { getLocale } from "../helpers/localize";
-
 const messages = defineMessages({
   menuAdminTools: {
     id: "poolDashboard.menu.adminToolsLabel",
@@ -57,11 +54,6 @@ const messages = defineMessages({
     id: "poolDashboard.menu.poolsLabel",
     defaultMessage: "Pools",
     description: "Label displayed on the Pools menu item.",
-  },
-  menuPoolCandidates: {
-    id: "poolDashboard.menu.poolCandidatesLabel",
-    defaultMessage: "Pool Candidates",
-    description: "Label displayed on the Pool Candidates menu item.",
   },
 });
 
@@ -184,33 +176,6 @@ const routes: Routes<RouterResult> = [
   },
 ];
 
-const PoolList = () => {
-  const intl = useIntl();
-  const [result] = useGetPoolsQuery();
-  const { data, fetching, error } = result;
-  const items = [];
-
-  if (!fetching && !error) {
-    items.push(
-      <MenuHeading
-        key="pool-candidates"
-        text={intl.formatMessage(messages.menuPoolCandidates)}
-      />,
-    );
-    data?.pools.map((pool) =>
-      items.push(
-        <MenuLink
-          key={`pools/${pool?.id}/pool-candidates`}
-          href={`/pools/${pool?.id}/pool-candidates`}
-          text={(pool?.name && pool?.name[getLocale(intl)]) ?? ""}
-        />,
-      ),
-    );
-  }
-
-  return items;
-};
-
 export const PoolDashboard: React.FC = () => {
   const intl = useIntl();
 
@@ -249,10 +214,7 @@ export const PoolDashboard: React.FC = () => {
   return (
     <ErrorContainer>
       <ClientProvider>
-        <Dashboard
-          menuItems={[...menuItems, ...PoolList()]}
-          contentRoutes={routes}
-        />
+        <Dashboard menuItems={menuItems} contentRoutes={routes} />
       </ClientProvider>
     </ErrorContainer>
   );
