@@ -1,6 +1,6 @@
 import * as React from "react";
 import { defineMessages, useIntl } from "react-intl";
-import { Link } from "../helpers/router";
+import { imageUrl, Link } from "../helpers/router";
 import { currentDate } from "./form/formUtils";
 
 const messages = defineMessages({
@@ -146,7 +146,7 @@ const Footer: React.FunctionComponent = () => {
           >
             <img
               style={{ width: "12rem" }}
-              src="public/images/logo_canada.png"
+              src={imageUrl("logo_canada.png")}
               alt={intl.formatMessage(messages.canadaLogoAlt)}
             />
           </a>
