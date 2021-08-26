@@ -2,6 +2,7 @@ import { pick } from "lodash";
 import * as React from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
+import { toast } from "react-toastify";
 import {
   Classification,
   CmoAsset,
@@ -24,6 +25,8 @@ import TextArea from "../form/TextArea";
 import messages from "./messages";
 import commonMessages from "../commonMessages";
 import { getLocale } from "../../helpers/localize";
+import { navigate } from "../../helpers/router";
+import { poolTablePath } from "../../helpers/routes";
 
 type Option<V> = { value: V; label: string };
 
@@ -101,11 +104,11 @@ export const UpdatePoolForm: React.FunctionComponent<UpdatePoolFormProps> = ({
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
     await handleUpdatePool(initialPool.id, formValuesToSubmitData(data))
       .then(() => {
-        // TODO: Navigate to pool dashboard.
+        navigate(poolTablePath());
+        toast.success(intl.formatMessage(messages.updateSuccess));
       })
       .catch(() => {
-        // Something went wrong with handleUpdatePool.
-        // Do nothing.
+        toast.error(intl.formatMessage(messages.updateError));
       });
   };
 
@@ -276,11 +279,6 @@ export const UpdatePool: React.FunctionComponent<{
       handleUpdatePool={handleUpdatePool}
     />
   ) : (
-    <p>
-      {intl.formatMessage(commonMessages.notFound, {
-        type: "Pool",
-        id: poolId,
-      })}
-    </p>
+    <p>{intl.formatMessage(messages.notFound, { poolId })}</p>
   );
 };
