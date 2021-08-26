@@ -13,7 +13,6 @@ import Select from "../form/Select";
 import Submit from "../form/Submit";
 import { navigate } from "../../helpers/router";
 import { classificationTable } from "../../helpers/routes";
-import { getLocale } from "../../helpers/localize";
 import messages from "./messages";
 
 type FormValues = CreateClassificationInput;
@@ -24,7 +23,6 @@ interface CreateClassificationFormProps {
 export const CreateClassificationForm: React.FunctionComponent<CreateClassificationFormProps> =
   ({ handleCreateClassification }) => {
     const intl = useIntl();
-    const locale = getLocale(intl);
     const methods = useForm<FormValues>();
     const { handleSubmit, watch } = methods;
     const watchMinSalary = watch("minSalary");
@@ -39,7 +37,7 @@ export const CreateClassificationForm: React.FunctionComponent<CreateClassificat
       };
       return handleCreateClassification(classification)
         .then(() => {
-          navigate(classificationTable(locale));
+          navigate(classificationTable());
           toast.success(intl.formatMessage(messages.createSuccess));
         })
         .catch(() => {

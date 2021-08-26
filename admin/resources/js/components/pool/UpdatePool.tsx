@@ -104,7 +104,7 @@ export const UpdatePoolForm: React.FunctionComponent<UpdatePoolFormProps> = ({
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
     await handleUpdatePool(initialPool.id, formValuesToSubmitData(data))
       .then(() => {
-        navigate(poolTable(locale));
+        navigate(poolTable());
         toast.success(intl.formatMessage(messages.updateSuccess));
       })
       .catch(() => {

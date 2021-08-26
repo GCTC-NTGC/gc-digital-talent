@@ -2,7 +2,7 @@ import * as React from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { pick } from "lodash";
 import { toast } from "react-toastify";
-import { defineMessages, useIntl } from "react-intl";
+import { useIntl } from "react-intl";
 import {
   UpdatePoolCandidateInput,
   LanguageAbility,
@@ -117,7 +117,7 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<UpdatePoolCandidat
         formValuesToSubmitData(data),
       )
         .then(() => {
-          navigate(poolCandidateTable(locale));
+          navigate(poolCandidateTable(initialPoolCandidate.pool?.id || ""));
           toast.success(intl.formatMessage(messages.updateSuccess));
         })
         .catch(() => {

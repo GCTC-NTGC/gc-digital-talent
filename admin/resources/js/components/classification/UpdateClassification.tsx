@@ -9,7 +9,6 @@ import {
   useGetClassificationQuery,
   useUpdateClassificationMutation,
 } from "../../api/generated";
-import { getLocale } from "../../helpers/localize";
 import { navigate } from "../../helpers/router";
 import { classificationTable } from "../../helpers/routes";
 import errorMessages from "../form/errorMessages";
@@ -30,7 +29,6 @@ interface UpdateClassificationFormProps {
 export const UpdateClassificationForm: React.FunctionComponent<UpdateClassificationFormProps> =
   ({ initialClassification, handleUpdateClassification }) => {
     const intl = useIntl();
-    const locale = getLocale(intl);
     const methods = useForm<FormValues>({
       defaultValues: initialClassification,
     });
@@ -52,7 +50,7 @@ export const UpdateClassificationForm: React.FunctionComponent<UpdateClassificat
         classification,
       )
         .then(() => {
-          navigate(classificationTable(locale));
+          navigate(classificationTable());
           toast.success(intl.formatMessage(messages.updateSuccess));
         })
         .catch(() => {

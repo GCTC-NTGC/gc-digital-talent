@@ -78,7 +78,7 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
     await handleCreatePool(formValuesToSubmitData(data))
       .then(() => {
-        navigate(poolTable(locale));
+        navigate(poolTable());
         toast.success(intl.formatMessage(messages.createSuccess));
       })
       .catch(() => {

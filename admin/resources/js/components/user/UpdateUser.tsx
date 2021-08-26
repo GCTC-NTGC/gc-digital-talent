@@ -1,5 +1,5 @@
 import React from "react";
-import { defineMessages, useIntl } from "react-intl";
+import { useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import pick from "lodash/pick";
 import { toast } from "react-toastify";
@@ -33,14 +33,13 @@ export const UpdateUserForm: React.FunctionComponent<UpdateUserFormProps> = ({
   handleUpdateUser,
 }) => {
   const intl = useIntl();
-  const locale = getLocale(intl);
   const methods = useForm<FormValues>({ defaultValues: initialUser });
   const { handleSubmit } = methods;
 
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
     return handleUpdateUser(initialUser.id, data)
       .then(() => {
-        navigate(userTable(locale));
+        navigate(userTable());
         toast.success(intl.formatMessage(messages.updateSuccess));
       })
       .catch(() => {

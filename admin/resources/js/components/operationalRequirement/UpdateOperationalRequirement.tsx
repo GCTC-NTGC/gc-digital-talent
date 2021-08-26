@@ -9,7 +9,6 @@ import {
   useGetOperationalRequirementQuery,
   useUpdateOperationalRequirementMutation,
 } from "../../api/generated";
-import { getLocale } from "../../helpers/localize";
 import { navigate } from "../../helpers/router";
 import { operationalRequirementTable } from "../../helpers/routes";
 import errorMessages from "../form/errorMessages";
@@ -30,7 +29,6 @@ interface UpdateOperationalRequirementFormProps {
 export const UpdateOperationalRequirementForm: React.FunctionComponent<UpdateOperationalRequirementFormProps> =
   ({ initialOperationalRequirement, handleUpdateOperationalRequirement }) => {
     const intl = useIntl();
-    const locale = getLocale(intl);
     const methods = useForm<FormValues>({
       defaultValues: initialOperationalRequirement,
     });
@@ -42,7 +40,7 @@ export const UpdateOperationalRequirementForm: React.FunctionComponent<UpdateOpe
         data,
       )
         .then(() => {
-          navigate(operationalRequirementTable(locale));
+          navigate(operationalRequirementTable());
           toast.success(intl.formatMessage(messages.updateSuccess));
         })
         .catch(() => {

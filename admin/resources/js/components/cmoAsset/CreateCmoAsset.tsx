@@ -12,7 +12,6 @@ import Submit from "../form/Submit";
 import TextArea from "../form/TextArea";
 import { navigate } from "../../helpers/router";
 import { cmoAssetTable } from "../../helpers/routes";
-import { getLocale } from "../../helpers/localize";
 import messages from "./messages";
 
 type FormValues = CreateCmoAssetInput;
@@ -23,14 +22,13 @@ interface CreateCmoAssetFormProps {
 export const CreateCmoAssetForm: React.FunctionComponent<CreateCmoAssetFormProps> =
   ({ handleCreateCmoAsset }) => {
     const intl = useIntl();
-    const locale = getLocale(intl);
     const methods = useForm<FormValues>();
     const { handleSubmit } = methods;
 
     const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
       return handleCreateCmoAsset(data)
         .then(() => {
-          navigate(cmoAssetTable(locale));
+          navigate(cmoAssetTable());
           toast.success(intl.formatMessage(messages.createSuccess));
         })
         .catch(() => {

@@ -1,6 +1,6 @@
 import { pick } from "lodash";
 import * as React from "react";
-import { defineMessages, useIntl } from "react-intl";
+import { useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import {
@@ -16,7 +16,6 @@ import TextArea from "../form/TextArea";
 import commonMessages from "../commonMessages";
 import { navigate } from "../../helpers/router";
 import { cmoAssetTable } from "../../helpers/routes";
-import { getLocale } from "../../helpers/localize";
 import messages from "./messages";
 
 type FormValues = UpdateCmoAssetInput;
@@ -28,14 +27,13 @@ interface UpdateCmoAssetFormProps {
 export const UpdateCmoAssetForm: React.FunctionComponent<UpdateCmoAssetFormProps> =
   ({ initialCmoAsset, handleUpdateCmoAsset }) => {
     const intl = useIntl();
-    const locale = getLocale(intl);
     const methods = useForm<FormValues>({ defaultValues: initialCmoAsset });
     const { handleSubmit } = methods;
 
     const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
       return handleUpdateCmoAsset(initialCmoAsset.id, data)
         .then(() => {
-          navigate(cmoAssetTable(locale));
+          navigate(cmoAssetTable());
           toast.success(intl.formatMessage(messages.updateSuccess));
         })
         .catch(() => {
