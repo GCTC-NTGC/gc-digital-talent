@@ -8,7 +8,7 @@ import Button from "./H2Components/Button";
 const messages = defineMessages({
   toggleTableColumnsLabel: {
     id: "table.toggleTableColumnsLabel",
-    defaultMessage: "Table Columns",
+    defaultMessage: "Hide/Show Table Columns",
     description: "Label displayed on the Table Columns toggle.",
   },
   toggleAllTableColumnsLabel: {
@@ -76,106 +76,109 @@ function Table<T extends Record<string, unknown>>({
   const intl = useIntl();
 
   return (
-    <table {...getTableProps()}>
-      <thead>
-        {filter ? (
-          <>
-            <tr>
-              <td data-h2-padding="b(bottom, xs)">
-                <GlobalFilter
-                  preGlobalFilteredRows={preGlobalFilteredRows}
-                  globalFilter={state.globalFilter}
-                  setGlobalFilter={setGlobalFilter}
-                />
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <Button
-                  color="secondary"
-                  mode="solid"
-                  onClick={() => {
-                    setShowList((currentState) => !currentState);
+    <div>
+      {filter ? (
+        <div data-h2-padding="b(top-bottom, m) b(right-left, xl)">
+          <div data-h2-flex-grid="b(middle, expanded, flush, m)">
+            <div data-h2-flex-item="b(1of1) m(1of3)">
+              <GlobalFilter
+                preGlobalFilteredRows={preGlobalFilteredRows}
+                globalFilter={state.globalFilter}
+                setGlobalFilter={setGlobalFilter}
+              />
+            </div>
+            <div
+              data-h2-flex-item="b(1of1) m(2of3)"
+              data-h2-text-align="b(center) m(right)"
+            >
+              <Button
+                color="secondary"
+                mode="inline"
+                onClick={() => {
+                  setShowList((currentState) => !currentState);
+                }}
+              >
+                {intl.formatMessage(messages.toggleTableColumnsLabel)}
+              </Button>
+              {showList ? (
+                <div
+                  style={{
+                    position: "absolute",
+                    backgroundColor: "white",
+                    padding: "10px",
+                    border: "1px solid grey",
+                    borderRadius: "5px",
                   }}
                 >
-                  {intl.formatMessage(messages.toggleTableColumnsLabel)}
-                </Button>
-                {showList ? (
-                  <div
-                    style={{
-                      position: "absolute",
-                      backgroundColor: "white",
-                      padding: "10px",
-                      border: "1px solid grey",
-                      borderRadius: "5px",
-                    }}
-                  >
-                    <div>
-                      <IndeterminateCheckbox
-                        {...(getToggleHideAllColumnsProps() as React.ComponentProps<
-                          typeof IndeterminateCheckbox
-                        >)}
-                      />{" "}
-                      {intl.formatMessage(messages.toggleAllTableColumnsLabel)}
-                    </div>
-                    {allColumns.map((column) => (
-                      <div key={column.id}>
-                        <label>
-                          <input
-                            type="checkbox"
-                            {...column.getToggleHiddenProps()}
-                          />{" "}
-                          {column.id}
-                        </label>
-                      </div>
-                    ))}
+                  <div>
+                    <IndeterminateCheckbox
+                      {...(getToggleHideAllColumnsProps() as React.ComponentProps<
+                        typeof IndeterminateCheckbox
+                      >)}
+                    />{" "}
+                    {intl.formatMessage(messages.toggleAllTableColumnsLabel)}
                   </div>
-                ) : null}
-              </td>
+                  {allColumns.map((column) => (
+                    <div key={column.id}>
+                      <label>
+                        <input
+                          type="checkbox"
+                          {...column.getToggleHiddenProps()}
+                        />{" "}
+                        {column.id}
+                      </label>
+                    </div>
+                  ))}
+                </div>
+              ) : null}
+            </div>
+          </div>
+        </div>
+      ) : null}
+      <table {...getTableProps()}>
+        <thead>
+          {headerGroups.map((headerGroup) => (
+            <tr {...headerGroup.getHeaderGroupProps()}>
+              {headerGroup.headers.map((column) => (
+                <th
+                  {...column.getHeaderProps(column.getSortByToggleProps())}
+                  key={column.id}
+                  data-h2-padding="b(right-left, m)"
+                  data-h2-text-align="b(center)"
+                  data-h2-font-size="b(caption)"
+                >
+                  {column.render("Header")}
+                  <span data-h2-font-color="b(lightpurple)">
+                    {column.isSorted && (column.isSortedDesc ? " ▼" : " ▲")}
+                  </span>
+                </th>
+              ))}
             </tr>
-          </>
-        ) : null}
-        {headerGroups.map((headerGroup) => (
-          <tr {...headerGroup.getHeaderGroupProps()}>
-            {headerGroup.headers.map((column) => (
-              <th
-                {...column.getHeaderProps(column.getSortByToggleProps())}
-                key={column.id}
-                data-h2-padding="b(top-bottom, s) b(right-left, m)"
-                data-h2-text-align="b(center)"
-                data-h2-font-size="b(caption)"
-              >
-                {column.render("Header")}
-                <span data-h2-color="b(lightpurple)">
-                  {column.isSorted && (column.isSortedDesc ? " ▼" : " ▲")}
-                </span>
-              </th>
-            ))}
-          </tr>
-        ))}
-      </thead>
-      <tbody {...getTableBodyProps()}>
-        {rows.map((row) => {
-          prepareRow(row);
-          return (
-            <tr {...row.getRowProps()}>
-              {row.cells.map((cell) => {
-                return (
-                  <td
-                    {...cell.getCellProps()}
-                    data-h2-padding="b(top-bottom, s) b(right-left, m)"
-                    data-h2-text-align="b(center)"
-                    data-h2-font-size="b(caption)"
-                  >
-                    {cell.render("Cell")}
-                  </td>
-                );
-              })}
-            </tr>
-          );
-        })}
-      </tbody>
-    </table>
+          ))}
+        </thead>
+        <tbody {...getTableBodyProps()}>
+          {rows.map((row) => {
+            prepareRow(row);
+            return (
+              <tr {...row.getRowProps()}>
+                {row.cells.map((cell) => {
+                  return (
+                    <td
+                      {...cell.getCellProps()}
+                      data-h2-padding="b(right-left, m)"
+                      data-h2-text-align="b(center)"
+                      data-h2-font-size="b(caption)"
+                    >
+                      {cell.render("Cell")}
+                    </td>
+                  );
+                })}
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    </div>
   );
 }
 

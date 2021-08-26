@@ -55,7 +55,9 @@ export const Fieldset: React.FC<FieldsetProps> = ({
             (required || !hideOptional) && (
               <span
                 data-h2-font-size="b(caption)"
-                data-h2-font-color={required ? "b(red)" : "b(darkgray)"}
+                {...(required
+                  ? { "data-h2-font-color": "b(red)" }
+                  : { "data-h2-font-color": "b(darkgray" })}
               >
                 {required ? "Required" : "Optional"}
               </span>

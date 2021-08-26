@@ -1,10 +1,9 @@
 import React from "react";
 import { defineMessages, useIntl } from "react-intl";
 import { Routes } from "universal-router";
-import { Link, RouterResult } from "../helpers/router";
+import { RouterResult } from "../helpers/router";
 import { CreateClassification } from "./classification/CreateClassification";
 import { UpdateClassification } from "./classification/UpdateClassification";
-import { ClassificationTableApi } from "./classification/ClassificationTable";
 import ClientProvider from "./ClientProvider";
 import CmoAssetPage from "./cmoAsset/CmoAssetPage";
 import { CreateCmoAsset } from "./cmoAsset/CreateCmoAsset";
@@ -18,13 +17,12 @@ import { UpdateOperationalRequirement } from "./operationalRequirement/UpdateOpe
 import { CreatePoolCandidate } from "./poolCandidate/CreatePoolCandidate";
 import { UpdatePoolCandidate } from "./poolCandidate/UpdatePoolCandidate";
 import PoolCandidatePage from "./poolCandidate/PoolCandidatePage";
+import ClassificationPage from "./classification/ClassificationPage";
 import { UpdateUser } from "./user/UpdateUser";
 import UserPage from "./user/UserPage";
 import PoolPage from "./pool/PoolPage";
 import { CreatePool } from "./pool/CreatePool";
 import { UpdatePool } from "./pool/UpdatePool";
-import { useGetPoolsQuery } from "../api/generated";
-import { getLocale } from "../helpers/localize";
 import Toast from "./Toast";
 import {
   classificationCreate,
@@ -73,11 +71,6 @@ const messages = defineMessages({
     defaultMessage: "Operational Requirements",
     description: "Label displayed on the Operational Requirements menu item.",
   },
-  menuPoolCandidates: {
-    id: "poolDashboard.menu.poolCandidatesLabel",
-    defaultMessage: "Pool Candidates",
-    description: "Label displayed on the Pool Candidates menu item.",
-  },
   menuPools: {
     id: "poolDashboard.menu.poolsLabel",
     defaultMessage: "Pools",
@@ -107,14 +100,7 @@ const routes: Routes<RouterResult> = [
   {
     path: classificationTable(),
     action: () => ({
-      component: (
-        <div>
-          <Link href="/classifications/create" title="">
-            Create Classification
-          </Link>
-          <ClassificationTableApi />
-        </div>
-      ),
+      component: <ClassificationPage />,
     }),
   },
   {
@@ -212,8 +198,6 @@ const routes: Routes<RouterResult> = [
 ];
 
 export const PoolDashboard: React.FC = () => {
-  const [result] = useGetPoolsQuery();
-  const { data, fetching, error } = result;
   const intl = useIntl();
 
   const menuItems = [
@@ -247,24 +231,6 @@ export const PoolDashboard: React.FC = () => {
       text={intl.formatMessage(messages.menuPools)}
     />,
   ];
-
-  if (!fetching && !error) {
-    menuItems.push(
-      <MenuHeading
-        key="pool-candidates"
-        text={intl.formatMessage(messages.menuPoolCandidates)}
-      />,
-    );
-    data?.pools.map((pool) =>
-      menuItems.push(
-        <MenuLink
-          key={`/pools/${pool?.id}/pool-candidates`}
-          href={poolCandidateTable(pool?.id || "")}
-          text={(pool?.name && pool?.name[getLocale(intl)]) ?? ""}
-        />,
-      ),
-    );
-  }
 
   return (
     <ErrorContainer>

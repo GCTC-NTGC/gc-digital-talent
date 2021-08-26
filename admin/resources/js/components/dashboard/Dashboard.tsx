@@ -1,5 +1,8 @@
 import React, { ReactElement } from "react";
+import { defineMessages, useIntl } from "react-intl";
 import { Routes } from "universal-router";
+import { useGetPoolsQuery } from "../../api/generated";
+import { getLocale } from "../../helpers/localize";
 import {
   Link,
   RouterResult,
@@ -14,11 +17,15 @@ export const exactMatch = (ref: string, test: string): boolean => ref === test;
 export const startsWith = (ref: string, test: string): boolean =>
   test.startsWith(ref);
 
-interface MenuHeadingProps {
-  text: string;
-}
+const messages = defineMessages({
+  menuPoolCandidates: {
+    id: "poolDashboard.menu.poolCandidatesLabel",
+    defaultMessage: "Pool Candidates",
+    description: "Label displayed on the Pool Candidates menu item.",
+  },
+});
 
-export const MenuHeading: React.FC<MenuHeadingProps> = ({ text }) => {
+export const MenuHeading: React.FC<{ text: string }> = ({ text }) => {
   return (
     <span
       data-h2-display="b(block)"
@@ -55,9 +62,9 @@ export const MenuLink: React.FC<MenuLinkProps> = ({
   return (
     <Link href={href} title={title ?? ""}>
       <div
-        data-h2-font-weight={
-          isActive(href, location.pathname) ? "b(700)" : "b(100)"
-        }
+        {...(isActive(href, location.pathname)
+          ? { "data-h2-font-weight": "b(100)" }
+          : { "data-h2-font-weight": "b(700)" })}
       >
         <Button color="white" mode="inline" block>
           {text}
@@ -65,6 +72,33 @@ export const MenuLink: React.FC<MenuLinkProps> = ({
       </div>
     </Link>
   );
+};
+
+const PoolListApi = () => {
+  const intl = useIntl();
+  const [result] = useGetPoolsQuery();
+  const { data, fetching, error } = result;
+  const items = [];
+
+  if (!fetching && !error) {
+    items.push(
+      <MenuHeading
+        key="pool-candidates"
+        text={intl.formatMessage(messages.menuPoolCandidates)}
+      />,
+    );
+    data?.pools.map((pool) =>
+      items.push(
+        <MenuLink
+          key={`pools/${pool?.id}/pool-candidates`}
+          href={`/pools/${pool?.id}/pool-candidates`}
+          text={(pool?.name && pool?.name[getLocale(intl)]) ?? ""}
+        />,
+      ),
+    );
+  }
+
+  return items;
 };
 
 export const Dashboard: React.FC<{
@@ -79,19 +113,14 @@ export const Dashboard: React.FC<{
         data-h2-flex-grid="b(stretch, contained, flush, none)"
       >
         <div
-          data-h2-flex-item="b(1of1) m(4of12) l(2of12)"
-          style={{
-            background: "linear-gradient(90deg, #674C90 0%, #1D2C4C 100%)",
-          }}
+          data-h2-bg-color="b(lightnavy)"
+          data-h2-flex-item="b(1of1) m(1of4) l(1of6)"
         >
-          <SideMenu items={menuItems} />
+          <div data-h2-padding="b(right-left, m)">
+            <SideMenu items={[...menuItems, ...PoolListApi()]} />
+          </div>
         </div>
-        <div
-          data-h2-flex-item="b(1of1) m(8of12) l(10of12)"
-          data-h2-padding="b(all, m)"
-        >
-          {content}
-        </div>
+        <div data-h2-flex-item="b(1of1) m(8of12) l(10of12)">{content}</div>
       </section>
       <Footer />
     </div>
