@@ -13,33 +13,33 @@ export default defineMessages({
   },
   ownerLabel: {
     id: "pool.form.ownerLabel",
-    defaultMessage: "Owner: ",
+    defaultMessage: "Owner:",
     description: "Label displayed on the pool form owner field.",
   },
   nameLabelEn: {
     id: "pool.form.nameLabelEn",
-    defaultMessage: "Name (English): ",
+    defaultMessage: "Name (English):",
     description: "Label displayed on the pool form name (English) field.",
   },
   nameLabelFr: {
     id: "pool.form.nameLabelFr",
-    defaultMessage: "Name (French): ",
+    defaultMessage: "Name (French):",
     description: "Label displayed on the pool form name (French) field.",
   },
   descriptionLabelEn: {
     id: "pool.form.descriptionLabelEn",
-    defaultMessage: "Description (English): ",
+    defaultMessage: "Description (English):",
     description:
       "Label displayed on the pool form description (English) field.",
   },
   descriptionLabelFr: {
     id: "pool.form.descriptionLabelFr",
-    defaultMessage: "Description (French): ",
+    defaultMessage: "Description (French):",
     description: "Label displayed on the pool form description (French) field.",
   },
   assetCriteriaLabel: {
     id: "pool.form.assetCriteriaLabel",
-    defaultMessage: "Asset Criteria: ",
+    defaultMessage: "Asset Criteria:",
     description: "Label displayed on the pool form asset criteria field.",
   },
   assetCriteriaPlaceholder: {
@@ -49,7 +49,7 @@ export default defineMessages({
   },
   classificationsLabel: {
     id: "pool.form.classificationsLabel",
-    defaultMessage: "Classifications: ",
+    defaultMessage: "Classifications:",
     description: "Label displayed on the pool form classifications field.",
   },
   classificationsPlaceholder: {
@@ -60,7 +60,7 @@ export default defineMessages({
   },
   essentialCriteriaLabel: {
     id: "pool.form.essentialCriteriaLabel",
-    defaultMessage: "Essential Criteria: ",
+    defaultMessage: "Essential Criteria:",
     description: "Label displayed on the pool form essential criteria field.",
   },
   essentialCriteriaPlaceholder: {
@@ -71,7 +71,7 @@ export default defineMessages({
   },
   operationalRequirementsLabel: {
     id: "pool.form.operationalRequirementsLabel",
-    defaultMessage: "Operational Requirements: ",
+    defaultMessage: "Operational Requirements:",
     description:
       "Label displayed on the pool form operational requirements field.",
   },
@@ -91,7 +91,7 @@ export default defineMessages({
     id: "pool.form.updateSuccess",
     defaultMessage: "Pool updated successfully!",
     description:
-      "Message displayed to user after pool is created successfully.",
+      "Message displayed to user after pool is updated successfully.",
   },
   createError: {
     id: "pool.form.createError",

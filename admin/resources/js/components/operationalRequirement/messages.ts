@@ -15,31 +15,31 @@ export default defineMessages({
   },
   keyLabel: {
     id: "operationalRequirement.form.keyLabel",
-    defaultMessage: "Key: ",
+    defaultMessage: "Key:",
     description:
       "Label displayed on the operational requirement form key field.",
   },
   nameLabelEn: {
     id: "operationalRequirement.form.nameLabelEn",
-    defaultMessage: "Name (English): ",
+    defaultMessage: "Name (English):",
     description:
       "Label displayed on the operational requirement form name (English) field.",
   },
   nameLabelFr: {
     id: "operationalRequirement.form.nameLabelFr",
-    defaultMessage: "Name (French): ",
+    defaultMessage: "Name (French):",
     description:
       "Label displayed on the operational requirement form name (French) field.",
   },
   descriptionLabelEn: {
     id: "operationalRequirement.form.descriptionLabelEn",
-    defaultMessage: "Description (English): ",
+    defaultMessage: "Description (English):",
     description:
       "Label displayed on the operational requirement form description (English) field.",
   },
   descriptionLabelFr: {
     id: "operationalRequirement.form.descriptionLabelFr",
-    defaultMessage: "Description (French): ",
+    defaultMessage: "Description (French):",
     description:
       "Label displayed on the operational requirement form description (French) field.",
   },
@@ -51,9 +51,9 @@ export default defineMessages({
   },
   updateSuccess: {
     id: "operationalRequirement.form.updateSuccess",
-    defaultMessage: "Operational Requirement created successfully!",
+    defaultMessage: "Operational Requirement updated successfully!",
     description:
-      "Message displayed to user after operational requirement is created successfully.",
+      "Message displayed to user after operational requirement is updated successfully.",
   },
   createError: {
     id: "operationalRequirement.form.createError",

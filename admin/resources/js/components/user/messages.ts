@@ -13,34 +13,34 @@ export default defineMessages({
   },
   emailLabel: {
     id: "user.form.emailLabel",
-    defaultMessage: "Email: ",
+    defaultMessage: "Email:",
     description: "Label displayed on the user form email field.",
   },
   firstNameLabel: {
     id: "user.form.firstNameLabel",
-    defaultMessage: "First Name: ",
+    defaultMessage: "First Name:",
     description: "Label displayed on the user form first name field.",
   },
   lastNameLabel: {
     id: "user.form.lastNameLabel",
-    defaultMessage: "Last Name: ",
+    defaultMessage: "Last Name:",
     description: "Label displayed on the user form last name field.",
   },
   telephoneLabel: {
     id: "user.form.telephoneLabel",
-    defaultMessage: "Telephone: ",
+    defaultMessage: "Telephone:",
     description: "Label displayed on the user form telephone field.",
   },
   preferredLanguageLabel: {
     id: "user.form.preferredLanguageLabel",
-    defaultMessage: "Preferred Language: ",
+    defaultMessage: "Preferred Language:",
     description: "Label displayed on the user form preferred language field.",
   },
   preferredLanguagePlaceholder: {
     id: "user.form.preferredLanguagePlaceholder",
     defaultMessage: "Select a language...",
     description:
-      "Option value displayed on the user form preferred language field for blank.",
+      "Placeholder displayed on the user form preferred language field.",
   },
   createSuccess: {
     id: "user.form.createSuccess",

@@ -13,44 +13,44 @@ export default defineMessages({
   },
   keyLabel: {
     id: "cmoAsset.form.keyLabel",
-    defaultMessage: "Key: ",
+    defaultMessage: "Key:",
     description: "Label displayed on the create a cmo asset form key field.",
   },
   nameEnLabel: {
     id: "cmoAsset.form.nameEnLabel",
-    defaultMessage: "Name EN: ",
+    defaultMessage: "Name EN:",
     description:
       "Label displayed on the create a cmo asset form name (English) field.",
   },
   nameFrLabel: {
     id: "cmoAsset.form.nameFrLabel",
-    defaultMessage: "Name FR: ",
+    defaultMessage: "Name FR:",
     description:
       "Label displayed on the create a cmo asset form name (French) field.",
   },
   descriptionEnLabel: {
     id: "cmoAsset.form.descriptionEnLabel",
-    defaultMessage: "Description EN: ",
+    defaultMessage: "Description EN:",
     description:
       "Label displayed on the create a cmo asset form description (English) field.",
   },
   descriptionFrLabel: {
     id: "cmoAsset.form.descriptionFrLabel",
-    defaultMessage: "Description FR: ",
+    defaultMessage: "Description FR:",
     description:
       "Label displayed on the create a cmo asset form description (French) field.",
   },
   createSuccess: {
     id: "cmoAsset.form.createSuccess",
-    defaultMessage: "Operational Requirement created successfully!",
+    defaultMessage: "Cmo Asset created successfully!",
     description:
-      "Message displayed to user after operational requirement is created successfully.",
+      "Message displayed to user after cmo asset is created successfully.",
   },
   updateSuccess: {
     id: "cmoAsset.form.updateSuccess",
-    defaultMessage: "Operational Requirement created successfully!",
+    defaultMessage: "Cmo Asset updated successfully!",
     description:
-      "Message displayed to user after operational requirement is created successfully.",
+      "Message displayed to user after cmo asset is updated successfully.",
   },
   createError: {
     id: "cmoAsset.form.createError",

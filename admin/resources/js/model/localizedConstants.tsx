@@ -12,7 +12,7 @@ export const salaryRanges = {
 };
 
 export const getSalaryRange = (getSalaryId: string | number): string =>
-  getOrThrowError(salaryRanges, getSalaryId, "invalid Salary Range");
+  getOrThrowError(salaryRanges, getSalaryId, "Invalid Salary Range");
 
 export const languages = defineMessages({
   [Language.En]: {
@@ -28,4 +28,4 @@ export const languages = defineMessages({
 export const getLanguage = (
   getLanguageId: string | number,
 ): MessageDescriptor =>
-  getOrThrowError(languages, getLanguageId, "invalid Language");
+  getOrThrowError(languages, getLanguageId, "Invalid Language");

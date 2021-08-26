@@ -13,24 +13,24 @@ export default defineMessages({
   },
   keyLabel: {
     id: "classification.form.keyLabel",
-    defaultMessage: "Key: ",
+    defaultMessage: "Key:",
     description: "Label displayed on the classification form key field.",
   },
   nameEnLabel: {
     id: "classification.form.nameEnLabel",
-    defaultMessage: "Name (English): ",
+    defaultMessage: "Name (English):",
     description:
       "Label displayed on the classification form name (English) field.",
   },
   nameFrLabel: {
     id: "classification.form.nameFrLabel",
-    defaultMessage: "Name (French): ",
+    defaultMessage: "Name (French):",
     description:
       "Label displayed on the classification form name (French) field.",
   },
   levelLabel: {
     id: "classification.form.levelLabel",
-    defaultMessage: "Level: ",
+    defaultMessage: "Level:",
     description: "Label displayed on the classification form level field.",
   },
   levelPlaceholder: {
@@ -41,18 +41,18 @@ export default defineMessages({
   },
   groupLabel: {
     id: "classification.form.groupLabel",
-    defaultMessage: "Group: ",
+    defaultMessage: "Group:",
     description: "Label displayed for the classification form group field.",
   },
   minSalaryLabel: {
     id: "classification.form.minSalaryLabel",
-    defaultMessage: "Minimum Salary: ",
+    defaultMessage: "Minimum Salary:",
     description:
       "Label displayed for the classification form min salary field.",
   },
   maxSalaryLabel: {
     id: "classification.form.maxSalaryLabel",
-    defaultMessage: "Maximum Salary: ",
+    defaultMessage: "Maximum Salary:",
     description:
       "Label displayed for the classification form max salary field.",
   },
@@ -64,9 +64,9 @@ export default defineMessages({
   },
   updateSuccess: {
     id: "classification.form.updateSuccess",
-    defaultMessage: "Classification created successfully!",
+    defaultMessage: "Classification updated successfully!",
     description:
-      "Message displayed to user after classification is created successfully.",
+      "Message displayed to user after classification is updated successfully.",
   },
   createError: {
     id: "classification.form.createError",
