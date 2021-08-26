@@ -32,7 +32,7 @@ const client = createClient({
 
 stories.add("Pool Table", () => <PoolTable pools={poolData} editUrlRoot="#" />);
 
-stories.add("Pool Table Table with API data", () => (
+stories.add("Pool Table with API data", () => (
   <ClientProvider client={client}>
     <PoolTableApi />
   </ClientProvider>
