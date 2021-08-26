@@ -1,19 +1,6 @@
+import { XCircleIcon } from "@heroicons/react/solid";
 import React, { useCallback, useContext, useReducer } from "react";
-import { defineMessages, useIntl } from "react-intl";
-import Alert from "./H2Components/Alert";
-
-const messages = defineMessages({
-  toastTitle: {
-    id: "errorToast.title",
-    defaultMessage: "Something went wrong!",
-    description: "Title displayed on the Error Toast component.",
-  },
-  dismissLabel: {
-    id: "errorToast.dismiss",
-    defaultMessage: "Dismiss",
-    description: "Label for the Error Toast dismiss button.",
-  },
-});
+import { toast } from "react-toastify";
 
 type ErrorState = {
   errorQueue: string[];
@@ -47,41 +34,32 @@ export const ErrorContext = React.createContext<ErrorContextProps>({
   },
 });
 
-export const ErrorToast: React.FC = () => {
-  const intl = useIntl();
-  const { state, dispatch } = useContext(ErrorContext);
+const CloseButton = ({
+  closeToast,
+}: {
+  closeToast: React.MouseEventHandler;
+}) => {
+  const { dispatch } = useContext(ErrorContext);
   const dismiss = useCallback(() => dispatch({ type: "pop" }), [dispatch]);
-
-  // This toast will render the first error in the queue, if any.
-  const currentError = state.errorQueue.length > 0 ? state.errorQueue[0] : null;
-
   return (
-    <>
-      {currentError !== null && (
-        <Alert
-          color="red"
-          position="toast"
-          dismissBtn={
-            <Alert.DismissBtn
-              onClick={dismiss}
-              aria-label={intl.formatMessage(messages.dismissLabel)}
-            >
-              {intl.formatMessage(messages.dismissLabel)}
-            </Alert.DismissBtn>
-          }
-        >
-          <p>
-            <strong>{intl.formatMessage(messages.toastTitle)}</strong>
-          </p>
-          <p>{currentError}</p>
-        </Alert>
-      )}
-    </>
+    <XCircleIcon
+      style={{ width: "1rem" }}
+      onClick={(e) => {
+        dismiss();
+        closeToast(e);
+      }}
+    />
   );
 };
 
 export const ErrorContainer: React.FC = ({ children }): React.ReactElement => {
   const [state, dispatch] = useReducer(errorReducer, initialState);
+  const currentError = state.errorQueue.length > 0 ? state.errorQueue[0] : null;
+
+  toast.error(currentError, {
+    autoClose: false,
+    closeButton: CloseButton,
+  });
 
   return (
     <ErrorContext.Provider
@@ -90,7 +68,6 @@ export const ErrorContainer: React.FC = ({ children }): React.ReactElement => {
         dispatch,
       }}
     >
-      <ErrorToast />
       {children}
     </ErrorContext.Provider>
   );

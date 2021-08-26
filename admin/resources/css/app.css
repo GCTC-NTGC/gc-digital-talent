@@ -52,6 +52,10 @@ body {
     border-radius: .2rem;
 }
 
+.toast:last-child {
+    margin-top: 1rem;
+}
+
 .toast-success {
     background-color: #F9C160;
     color: #072131;
