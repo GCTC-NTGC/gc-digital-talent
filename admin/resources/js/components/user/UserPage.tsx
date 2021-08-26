@@ -1,6 +1,6 @@
 import React from "react";
 import { defineMessages, useIntl } from "react-intl";
-import { Link } from "../../helpers/router";
+import { baseUrl, Link } from "../../helpers/router";
 import { UserTableApi } from "./UserTable";
 import Button from "../H2Components/Button";
 
@@ -41,7 +41,7 @@ export const UserPage: React.FC = () => {
             data-h2-text-align="m(right)"
           >
             <Button color="white" mode="outline">
-              <Link href="/admin/users/create" title="">
+              <Link href={`${baseUrl()}/users/create`} title="">
                 {intl.formatMessage(messages.createHeading)}
               </Link>
             </Button>

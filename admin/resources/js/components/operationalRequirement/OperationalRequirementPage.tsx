@@ -1,6 +1,6 @@
 import React from "react";
 import { defineMessages, useIntl } from "react-intl";
-import { Link } from "../../helpers/router";
+import { baseUrl, Link } from "../../helpers/router";
 import { OperationalRequirementTableApi } from "./OperationalRequirementTable";
 import Button from "../H2Components/Button";
 
@@ -43,7 +43,10 @@ export const OperationalRequirementPage: React.FC = () => {
             data-h2-text-align="m(right)"
           >
             <Button color="white" mode="outline">
-              <Link href="/admin/operational-requirements/create" title="">
+              <Link
+                href={`${baseUrl()}/operational-requirements/create`}
+                title=""
+              >
                 {intl.formatMessage(messages.createHeading)}
               </Link>
             </Button>
