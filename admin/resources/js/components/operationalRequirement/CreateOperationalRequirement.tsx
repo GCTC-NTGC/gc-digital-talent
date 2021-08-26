@@ -11,7 +11,7 @@ import Input from "../form/Input";
 import Submit from "../form/Submit";
 import TextArea from "../form/TextArea";
 import { navigate } from "../../helpers/router";
-import { operationalRequirementTable } from "../../helpers/routes";
+import { operationalRequirementTablePath } from "../../helpers/routes";
 import messages from "./messages";
 
 type FormValues = CreateOperationalRequirementInput;
@@ -28,7 +28,7 @@ export const CreateOperationalRequirementForm: React.FunctionComponent<CreateOpe
     const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
       return handleCreateOperationalRequirement(data)
         .then(() => {
-          navigate(operationalRequirementTable());
+          navigate(operationalRequirementTablePath());
           toast.success(intl.formatMessage(messages.createSuccess));
         })
         .catch(() => {

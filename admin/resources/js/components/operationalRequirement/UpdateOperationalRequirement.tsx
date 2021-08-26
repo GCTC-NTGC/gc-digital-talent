@@ -10,7 +10,7 @@ import {
   useUpdateOperationalRequirementMutation,
 } from "../../api/generated";
 import { navigate } from "../../helpers/router";
-import { operationalRequirementTable } from "../../helpers/routes";
+import { operationalRequirementTablePath } from "../../helpers/routes";
 import errorMessages from "../form/errorMessages";
 import Input from "../form/Input";
 import Submit from "../form/Submit";
@@ -40,7 +40,7 @@ export const UpdateOperationalRequirementForm: React.FunctionComponent<UpdateOpe
         data,
       )
         .then(() => {
-          navigate(operationalRequirementTable());
+          navigate(operationalRequirementTablePath());
           toast.success(intl.formatMessage(messages.updateSuccess));
         })
         .catch(() => {

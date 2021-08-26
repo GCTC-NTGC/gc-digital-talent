@@ -12,7 +12,7 @@ import Input from "../form/Input";
 import Select from "../form/Select";
 import Submit from "../form/Submit";
 import { navigate } from "../../helpers/router";
-import { classificationTable } from "../../helpers/routes";
+import { classificationTablePath } from "../../helpers/routes";
 import messages from "./messages";
 
 type FormValues = CreateClassificationInput;
@@ -37,7 +37,7 @@ export const CreateClassificationForm: React.FunctionComponent<CreateClassificat
       };
       return handleCreateClassification(classification)
         .then(() => {
-          navigate(classificationTable());
+          navigate(classificationTablePath());
           toast.success(intl.formatMessage(messages.createSuccess));
         })
         .catch(() => {

@@ -24,7 +24,7 @@ import TextArea from "../form/TextArea";
 import messages from "./messages";
 import commonMessages from "../commonMessages";
 import { navigate } from "../../helpers/router";
-import { poolTable } from "../../helpers/routes";
+import { poolTablePath } from "../../helpers/routes";
 
 type Option<V> = { value: V; label: string };
 
@@ -78,7 +78,7 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
     await handleCreatePool(formValuesToSubmitData(data))
       .then(() => {
-        navigate(poolTable());
+        navigate(poolTablePath());
         toast.success(intl.formatMessage(messages.createSuccess));
       })
       .catch(() => {

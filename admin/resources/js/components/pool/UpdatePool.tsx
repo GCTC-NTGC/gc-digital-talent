@@ -26,7 +26,7 @@ import messages from "./messages";
 import commonMessages from "../commonMessages";
 import { getLocale } from "../../helpers/localize";
 import { navigate } from "../../helpers/router";
-import { poolTable } from "../../helpers/routes";
+import { poolTablePath } from "../../helpers/routes";
 
 type Option<V> = { value: V; label: string };
 
@@ -104,7 +104,7 @@ export const UpdatePoolForm: React.FunctionComponent<UpdatePoolFormProps> = ({
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
     await handleUpdatePool(initialPool.id, formValuesToSubmitData(data))
       .then(() => {
-        navigate(poolTable());
+        navigate(poolTablePath());
         toast.success(intl.formatMessage(messages.updateSuccess));
       })
       .catch(() => {

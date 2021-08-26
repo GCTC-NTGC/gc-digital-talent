@@ -42,13 +42,13 @@ export default defineMessages({
   },
   createSuccess: {
     id: "cmoAsset.form.createSuccess",
-    defaultMessage: "Cmo Asset created successfully!",
+    defaultMessage: "CMO Asset created successfully!",
     description:
       "Message displayed to user after cmo asset is created successfully.",
   },
   updateSuccess: {
     id: "cmoAsset.form.updateSuccess",
-    defaultMessage: "Cmo Asset updated successfully!",
+    defaultMessage: "CMO Asset updated successfully!",
     description:
       "Message displayed to user after cmo asset is updated successfully.",
   },

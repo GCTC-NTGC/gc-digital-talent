@@ -15,7 +15,7 @@ import Submit from "../form/Submit";
 import TextArea from "../form/TextArea";
 import commonMessages from "../commonMessages";
 import { navigate } from "../../helpers/router";
-import { cmoAssetTable } from "../../helpers/routes";
+import { cmoAssetTablePath } from "../../helpers/routes";
 import messages from "./messages";
 
 type FormValues = UpdateCmoAssetInput;
@@ -33,7 +33,7 @@ export const UpdateCmoAssetForm: React.FunctionComponent<UpdateCmoAssetFormProps
     const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
       return handleUpdateCmoAsset(initialCmoAsset.id, data)
         .then(() => {
-          navigate(cmoAssetTable());
+          navigate(cmoAssetTablePath());
           toast.success(intl.formatMessage(messages.updateSuccess));
         })
         .catch(() => {

@@ -13,8 +13,7 @@ import Input from "../form/Input";
 import Select from "../form/Select";
 import Submit from "../form/Submit";
 import { navigate } from "../../helpers/router";
-import { userTable } from "../../helpers/routes";
-import { getLocale } from "../../helpers/localize";
+import { userTablePath } from "../../helpers/routes";
 import messages from "./messages";
 import { enumToOptions } from "../form/formUtils";
 import { getLanguage } from "../../model/localizedConstants";
@@ -36,7 +35,7 @@ export const CreateUserForm: React.FunctionComponent<CreateUserFormProps> = ({
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
     return handleCreateUser(data)
       .then(() => {
-        navigate(userTable());
+        navigate(userTablePath());
         toast.success(intl.formatMessage(messages.createSuccess));
       })
       .catch(() => {

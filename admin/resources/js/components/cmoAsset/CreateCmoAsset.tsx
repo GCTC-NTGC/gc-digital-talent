@@ -11,7 +11,7 @@ import Input from "../form/Input";
 import Submit from "../form/Submit";
 import TextArea from "../form/TextArea";
 import { navigate } from "../../helpers/router";
-import { cmoAssetTable } from "../../helpers/routes";
+import { cmoAssetTablePath } from "../../helpers/routes";
 import messages from "./messages";
 
 type FormValues = CreateCmoAssetInput;
@@ -28,7 +28,7 @@ export const CreateCmoAssetForm: React.FunctionComponent<CreateCmoAssetFormProps
     const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
       return handleCreateCmoAsset(data)
         .then(() => {
-          navigate(cmoAssetTable());
+          navigate(cmoAssetTablePath());
           toast.success(intl.formatMessage(messages.createSuccess));
         })
         .catch(() => {

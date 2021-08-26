@@ -28,7 +28,7 @@ import { currentDate, enumToOptions } from "../form/formUtils";
 import { getSalaryRange } from "../../model/localizedConstants";
 import Checkbox from "../form/Checkbox";
 import { navigate } from "../../helpers/router";
-import { poolCandidateTable } from "../../helpers/routes";
+import { poolCandidateTablePath } from "../../helpers/routes";
 import { getLocale } from "../../helpers/localize";
 import messages from "./messages";
 
@@ -101,7 +101,7 @@ export const CreatePoolCandidateForm: React.FunctionComponent<CreatePoolCandidat
     const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
       await handleCreatePoolCandidate(formValuesToSubmitData(data))
         .then(() => {
-          navigate(poolCandidateTable(poolId || data.pool));
+          navigate(poolCandidateTablePath(poolId || data.pool));
           toast.success(intl.formatMessage(messages.createSuccess));
         })
         .catch(() => {

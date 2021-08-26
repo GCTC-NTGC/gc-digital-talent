@@ -10,7 +10,7 @@ import {
   useUpdateClassificationMutation,
 } from "../../api/generated";
 import { navigate } from "../../helpers/router";
-import { classificationTable } from "../../helpers/routes";
+import { classificationTablePath } from "../../helpers/routes";
 import errorMessages from "../form/errorMessages";
 import Input from "../form/Input";
 import Select from "../form/Select";
@@ -50,7 +50,7 @@ export const UpdateClassificationForm: React.FunctionComponent<UpdateClassificat
         classification,
       )
         .then(() => {
-          navigate(classificationTable());
+          navigate(classificationTablePath());
           toast.success(intl.formatMessage(messages.updateSuccess));
         })
         .catch(() => {

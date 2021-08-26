@@ -32,7 +32,7 @@ import {
 import { getSalaryRange } from "../../model/localizedConstants";
 import Checkbox from "../form/Checkbox";
 import { navigate } from "../../helpers/router";
-import { poolCandidateTable } from "../../helpers/routes";
+import { poolCandidateTablePath } from "../../helpers/routes";
 import { getLocale } from "../../helpers/localize";
 import messages from "./messages";
 
@@ -117,7 +117,7 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<UpdatePoolCandidat
         formValuesToSubmitData(data),
       )
         .then(() => {
-          navigate(poolCandidateTable(initialPoolCandidate.pool?.id || ""));
+          navigate(poolCandidateTablePath(initialPoolCandidate.pool?.id || ""));
           toast.success(intl.formatMessage(messages.updateSuccess));
         })
         .catch(() => {

@@ -1,32 +1,33 @@
-export const classificationTable = (): string => `/classifications`;
-export const classificationCreate = (): string => `/classifications/create`;
-export const classificationUpdate = (id: string): string =>
+export const classificationTablePath = (): string => `/classifications`;
+export const classificationCreatePath = (): string => `/classifications/create`;
+export const classificationUpdatePath = (id: string): string =>
   `/classifications/${id}/edit`;
 
-export const cmoAssetTable = (): string => `/cmo-assets`;
-export const cmoAssetCreate = (): string => `/cmo-assets/create`;
-export const cmoAssetUpdate = (id: string): string => `/cmo-assets/${id}/edit`;
+export const cmoAssetTablePath = (): string => `/cmo-assets`;
+export const cmoAssetCreatePath = (): string => `/cmo-assets/create`;
+export const cmoAssetUpdatePath = (id: string): string =>
+  `/cmo-assets/${id}/edit`;
 
-export const operationalRequirementTable = (): string =>
+export const operationalRequirementTablePath = (): string =>
   `/operational-requirements`;
-export const operationalRequirementCreate = (): string =>
+export const operationalRequirementCreatePath = (): string =>
   `/operational-requirements/create`;
-export const operationalRequirementUpdate = (id: string): string =>
+export const operationalRequirementUpdatePath = (id: string): string =>
   `/operational-requirements/${id}/edit`;
 
-export const poolTable = (): string => `/pools`;
-export const poolCreate = (): string => `/pools/create`;
-export const poolUpdate = (id: string): string => `/pools/${id}/edit`;
+export const poolTablePath = (): string => `/pools`;
+export const poolCreatePath = (): string => `/pools/create`;
+export const poolUpdatePath = (id: string): string => `/pools/${id}/edit`;
 
-export const poolCandidateTable = (poolId: string): string =>
+export const poolCandidateTablePath = (poolId: string): string =>
   `/pools/${poolId}/pool-candidates`;
-export const poolCandidateCreate = (poolId: string): string =>
+export const poolCandidateCreatePath = (poolId: string): string =>
   `/pools/${poolId}/pool-candidates/create`;
-export const poolCandidateUpdate = (
+export const poolCandidateUpdatePath = (
   poolId: string,
   poolCandidateId: string,
 ): string => `/pools/${poolId}/pool-candidates/${poolCandidateId}/edit`;
 
-export const userTable = (): string => `/users`;
-export const userCreate = (): string => `/users/create`;
-export const userUpdate = (id: string): string => `/users/${id}/edit`;
+export const userTablePath = (): string => `/users`;
+export const userCreatePath = (): string => `/users/create`;
+export const userUpdatePath = (id: string): string => `/users/${id}/edit`;
