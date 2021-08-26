@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ToastContainer } from "react-toastify";
+import { ToastContainer, Slide } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { XCircleIcon } from "@heroicons/react/solid";
 
@@ -22,6 +22,7 @@ const Toast: React.FunctionComponent = () => {
   return (
     <ToastContainer
       position="top-center"
+      transition={Slide}
       autoClose={5000}
       hideProgressBar
       newestOnTop={false}
