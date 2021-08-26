@@ -1,36 +1,32 @@
-export const classificationTable = (locale: string): string =>
-  `/classifications`;
-export const classificationCreate = (locale: string): string =>
-  `/classifications/create`;
-export const classificationUpdate = (locale: string, id: string): string =>
+export const classificationTable = (): string => `/classifications`;
+export const classificationCreate = (): string => `/classifications/create`;
+export const classificationUpdate = (id: string): string =>
   `/classifications/${id}/edit`;
 
-export const cmoAssetTable = (locale: string): string => `/cmoAssets`;
-export const cmoAssetCreate = (locale: string): string => `/cmoAssets/create`;
-export const cmoAssetUpdate = (locale: string, id: string): string =>
-  `/cmoAssets/${id}/edit`;
+export const cmoAssetTable = (): string => `/cmo-assets`;
+export const cmoAssetCreate = (): string => `/cmo-assets/create`;
+export const cmoAssetUpdate = (id: string): string => `/cmo-assets/${id}/edit`;
 
-export const operationalRequirementTable = (locale: string): string =>
-  `/operationalRequirements`;
-export const operationalRequirementCreate = (locale: string): string =>
-  `/operationalRequirements/create`;
-export const operationalRequirementUpdate = (
-  locale: string,
-  id: string,
-): string => `/operationalRequirements/${id}/edit`;
+export const operationalRequirementTable = (): string =>
+  `/operational-requirements`;
+export const operationalRequirementCreate = (): string =>
+  `/operational-requirements/create`;
+export const operationalRequirementUpdate = (id: string): string =>
+  `/operational-requirements/${id}/edit`;
 
-export const poolTable = (locale: string): string => `/pools`;
-export const poolCreate = (locale: string): string => `/pools/create`;
-export const poolUpdate = (locale: string, id: string): string =>
-  `/pools/${id}/edit`;
+export const poolTable = (): string => `/pools`;
+export const poolCreate = (): string => `/pools/create`;
+export const poolUpdate = (id: string): string => `/pools/${id}/edit`;
 
-export const poolCandidateTable = (locale: string): string => `/poolCandidates`;
-export const poolCandidateCreate = (locale: string): string =>
-  `/poolCandidates/create`;
-export const poolCandidateUpdate = (locale: string, id: string): string =>
-  `/poolCandidates/${id}/edit`;
+export const poolCandidateTable = (poolId: string): string =>
+  `/pools/${poolId}/pool-candidates`;
+export const poolCandidateCreate = (poolId: string): string =>
+  `/pools/${poolId}/pool-candidates/create`;
+export const poolCandidateUpdate = (
+  poolId: string,
+  poolCandidateId: string,
+): string => `/pools/${poolId}/pool-candidates/${poolCandidateId}/edit`;
 
-export const userTable = (locale: string): string => `/users`;
-export const userCreate = (locale: string): string => `/users/create`;
-export const userUpdate = (locale: string, id: string): string =>
-  `/users/${id}/edit`;
+export const userTable = (): string => `/users`;
+export const userCreate = (): string => `/users/create`;
+export const userUpdate = (id: string): string => `/users/${id}/edit`;
