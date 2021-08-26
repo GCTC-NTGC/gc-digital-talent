@@ -1,8 +1,9 @@
 import React from "react";
 import { defineMessages, useIntl } from "react-intl";
-import { baseUrl, Link } from "../../helpers/router";
+import { Link } from "../../helpers/router";
 import { OperationalRequirementTableApi } from "./OperationalRequirementTable";
 import Button from "../H2Components/Button";
+import { operationalRequirementCreatePath } from "../../helpers/routes";
 
 const messages = defineMessages({
   tableHeading: {
@@ -43,10 +44,7 @@ export const OperationalRequirementPage: React.FC = () => {
             data-h2-text-align="m(right)"
           >
             <Button color="white" mode="outline">
-              <Link
-                href={`${baseUrl()}/operational-requirements/create`}
-                title=""
-              >
+              <Link href={operationalRequirementCreatePath()} title="">
                 {intl.formatMessage(messages.createHeading)}
               </Link>
             </Button>
