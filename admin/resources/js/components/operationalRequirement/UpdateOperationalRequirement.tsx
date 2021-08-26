@@ -1,16 +1,21 @@
 import { pick } from "lodash";
 import * as React from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import { useIntl } from "react-intl";
+import { toast } from "react-toastify";
 import {
   OperationalRequirement,
   UpdateOperationalRequirementInput,
   useGetOperationalRequirementQuery,
   useUpdateOperationalRequirementMutation,
 } from "../../api/generated";
+import { navigate } from "../../helpers/router";
+import { operationalRequirementTablePath } from "../../helpers/routes";
 import errorMessages from "../form/errorMessages";
 import Input from "../form/Input";
 import Submit from "../form/Submit";
 import TextArea from "../form/TextArea";
+import messages from "./messages";
 
 type FormValues = UpdateOperationalRequirementInput;
 interface UpdateOperationalRequirementFormProps {
@@ -23,6 +28,7 @@ interface UpdateOperationalRequirementFormProps {
 
 export const UpdateOperationalRequirementForm: React.FunctionComponent<UpdateOperationalRequirementFormProps> =
   ({ initialOperationalRequirement, handleUpdateOperationalRequirement }) => {
+    const intl = useIntl();
     const methods = useForm<FormValues>({
       defaultValues: initialOperationalRequirement,
     });
@@ -34,49 +40,49 @@ export const UpdateOperationalRequirementForm: React.FunctionComponent<UpdateOpe
         data,
       )
         .then(() => {
-          // TODO: Navigate to cmo asset dashboard
+          navigate(operationalRequirementTablePath());
+          toast.success(intl.formatMessage(messages.updateSuccess));
         })
         .catch(() => {
-          // Something went wrong with handleUpdateOperationalRequirement.
-          // Do nothing.
+          toast.error(intl.formatMessage(messages.updateError));
         });
     };
     return (
       <section>
-        <h2>Update Operational Requirement</h2>
+        <h2>{intl.formatMessage(messages.updateHeading)}</h2>
         <FormProvider {...methods}>
           <form onSubmit={handleSubmit(onSubmit)}>
             <Input
               id="key"
               name="key"
-              label="Key: "
+              label={intl.formatMessage(messages.keyLabel)}
               type="text"
               rules={{ required: errorMessages.required }}
             />
             <Input
               id="name_en"
               name="name.en"
-              label="Name: "
+              label={intl.formatMessage(messages.nameLabelEn)}
               type="text"
               rules={{ required: errorMessages.required }}
             />
             <Input
               id="name_fr"
               name="name.fr"
-              label="Name FR: "
+              label={intl.formatMessage(messages.nameLabelFr)}
               type="text"
               rules={{ required: errorMessages.required }}
             />
             <TextArea
               id="description_en"
               name="description.en"
-              label="Description: "
+              label={intl.formatMessage(messages.descriptionLabelEn)}
               rules={{ required: errorMessages.required }}
             />
             <TextArea
               id="description_fr"
               name="description.fr"
-              label="Description FR: "
+              label={intl.formatMessage(messages.descriptionLabelFr)}
               rules={{ required: errorMessages.required }}
             />
             <Submit />
@@ -89,6 +95,7 @@ export const UpdateOperationalRequirementForm: React.FunctionComponent<UpdateOpe
 export const UpdateOperationalRequirement: React.FunctionComponent<{
   operationalRequirementId: string;
 }> = ({ operationalRequirementId }) => {
+  const intl = useIntl();
   const [{ data: operationalRequirementData, fetching, error }] =
     useGetOperationalRequirementQuery({
       variables: { id: operationalRequirementId },
@@ -124,6 +131,10 @@ export const UpdateOperationalRequirement: React.FunctionComponent<{
       handleUpdateOperationalRequirement={handleUpdateOperationalRequirement}
     />
   ) : (
-    <p>{`CMO Asset ${operationalRequirementId} not found.`}</p>
+    <p>
+      {intl.formatMessage(messages.operationalRequirementNotFound, {
+        operationalRequirementId,
+      })}
+    </p>
   );
 };

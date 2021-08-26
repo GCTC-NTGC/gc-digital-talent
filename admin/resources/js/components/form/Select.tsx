@@ -17,6 +17,8 @@ export interface SelectProps
   rules?: RegisterOptions;
   /** Optional context which user can view by toggling a button. */
   context?: string;
+  /** Null selection string provides a null value with instructions to user (eg. Select a department...) */
+  nullSelection?: string;
 }
 
 const Select: React.FunctionComponent<SelectProps> = ({
@@ -26,6 +28,7 @@ const Select: React.FunctionComponent<SelectProps> = ({
   options,
   rules,
   context,
+  nullSelection,
   ...rest
 }) => {
   const {
@@ -55,13 +58,16 @@ const Select: React.FunctionComponent<SelectProps> = ({
           aria-invalid={error ? "true" : "false"}
           {...rest}
         >
+          {nullSelection && (
+            <option value="" disabled selected={!!nullSelection}>
+              {nullSelection}
+            </option>
+          )}
           {options.map((option) => (
             <option
               data-h2-font-size="b(caption)"
               key={option.value}
               value={option.value}
-              disabled={option.disabled}
-              selected={option.disabled}
             >
               {option.label}
             </option>

@@ -17,12 +17,33 @@ import { UpdateOperationalRequirement } from "./operationalRequirement/UpdateOpe
 import { CreatePoolCandidate } from "./poolCandidate/CreatePoolCandidate";
 import { UpdatePoolCandidate } from "./poolCandidate/UpdatePoolCandidate";
 import PoolCandidatePage from "./poolCandidate/PoolCandidatePage";
+import ClassificationPage from "./classification/ClassificationPage";
 import { UpdateUser } from "./user/UpdateUser";
 import UserPage from "./user/UserPage";
 import PoolPage from "./pool/PoolPage";
 import { CreatePool } from "./pool/CreatePool";
 import { UpdatePool } from "./pool/UpdatePool";
-import ClassificationPage from "./classification/ClassificationPage";
+import Toast from "./Toast";
+import {
+  classificationCreatePath,
+  classificationTablePath,
+  classificationUpdatePath,
+  cmoAssetCreatePath,
+  cmoAssetTablePath,
+  cmoAssetUpdatePath,
+  operationalRequirementCreatePath,
+  operationalRequirementTablePath,
+  operationalRequirementUpdatePath,
+  poolCandidateCreatePath,
+  poolCandidateTablePath,
+  poolCandidateUpdatePath,
+  poolCreatePath,
+  poolTablePath,
+  poolUpdatePath,
+  userCreatePath,
+  userTablePath,
+  userUpdatePath,
+} from "../helpers/routes";
 
 const messages = defineMessages({
   menuAdminTools: {
@@ -59,37 +80,37 @@ const messages = defineMessages({
 
 const routes: Routes<RouterResult> = [
   {
-    path: "/users",
+    path: userTablePath(),
     action: () => ({
       component: <UserPage />,
     }),
   },
   {
-    path: "/users/create",
+    path: userCreatePath(),
     action: () => ({
       component: <CreateUser />,
     }),
   },
   {
-    path: "/users/:id/edit",
+    path: userUpdatePath(":id"),
     action: ({ params }) => ({
       component: <UpdateUser userId={params.id as string} />,
     }),
   },
   {
-    path: "/classifications",
+    path: classificationTablePath(),
     action: () => ({
       component: <ClassificationPage />,
     }),
   },
   {
-    path: "/classifications/create",
+    path: classificationCreatePath(),
     action: () => ({
       component: <CreateClassification />,
     }),
   },
   {
-    path: "/classifications/:id/edit",
+    path: classificationUpdatePath(":id"),
     action: ({ params }) => ({
       component: (
         <UpdateClassification classificationId={params.id as string} />
@@ -97,37 +118,37 @@ const routes: Routes<RouterResult> = [
     }),
   },
   {
-    path: "/cmo-assets",
+    path: cmoAssetTablePath(),
     action: () => ({
       component: <CmoAssetPage />,
     }),
   },
   {
-    path: "/cmo-assets/create",
+    path: cmoAssetCreatePath(),
     action: () => ({
       component: <CreateCmoAsset />,
     }),
   },
   {
-    path: "/cmo-assets/:id/edit",
+    path: cmoAssetUpdatePath(":id"),
     action: ({ params }) => ({
       component: <UpdateCmoAsset cmoAssetId={params.id as string} />,
     }),
   },
   {
-    path: "/operational-requirements",
+    path: operationalRequirementTablePath(),
     action: () => ({
       component: <OperationalRequirementPage />,
     }),
   },
   {
-    path: "/operational-requirements/create",
+    path: operationalRequirementCreatePath(),
     action: () => ({
       component: <CreateOperationalRequirement />,
     }),
   },
   {
-    path: "/operational-requirements/:id/edit",
+    path: operationalRequirementUpdatePath(":id"),
     action: ({ params }) => ({
       component: (
         <UpdateOperationalRequirement
@@ -137,19 +158,19 @@ const routes: Routes<RouterResult> = [
     }),
   },
   {
-    path: "/pools/:id/pool-candidates",
+    path: poolCandidateTablePath(":id"),
     action: ({ params }) => ({
       component: <PoolCandidatePage poolId={params.id as string} />,
     }),
   },
   {
-    path: "/pools/:id/pool-candidates/create",
+    path: poolCandidateCreatePath(":id"),
     action: ({ params }) => ({
       component: <CreatePoolCandidate poolId={params.id as string} />,
     }),
   },
   {
-    path: "/pools/:id/pool-candidates/:candidateId/edit",
+    path: poolCandidateUpdatePath(":id", ":id"),
     action: ({ params }) => ({
       component: (
         <UpdatePoolCandidate poolCandidateId={params.candidateId as string} />
@@ -157,19 +178,19 @@ const routes: Routes<RouterResult> = [
     }),
   },
   {
-    path: "/pools",
+    path: poolTablePath(),
     action: () => ({
       component: <PoolPage />,
     }),
   },
   {
-    path: "/pools/create",
+    path: poolCreatePath(),
     action: () => ({
       component: <CreatePool />,
     }),
   },
   {
-    path: "/pools/:id/edit",
+    path: poolUpdatePath(":id"),
     action: ({ params }) => ({
       component: <UpdatePool poolId={params.id as string} />,
     }),
@@ -186,27 +207,27 @@ export const PoolDashboard: React.FC = () => {
     />,
     <MenuLink
       key="users"
-      href="/users"
+      href={userTablePath()}
       text={intl.formatMessage(messages.menuUsers)}
     />,
     <MenuLink
       key="classifications"
-      href="/classifications"
+      href={classificationTablePath()}
       text={intl.formatMessage(messages.menuClassifications)}
     />,
     <MenuLink
       key="cmo-assets"
-      href="/cmo-assets"
+      href={cmoAssetTablePath()}
       text={intl.formatMessage(messages.menuCmoAssets)}
     />,
     <MenuLink
       key="operational-requirements"
-      href="/operational-requirements"
+      href={operationalRequirementTablePath()}
       text={intl.formatMessage(messages.menuOperationalRequirements)}
     />,
     <MenuLink
       key="pools"
-      href="/pools"
+      href={poolTablePath()}
       text={intl.formatMessage(messages.menuPools)}
     />,
   ];
@@ -215,6 +236,7 @@ export const PoolDashboard: React.FC = () => {
     <ErrorContainer>
       <ClientProvider>
         <Dashboard menuItems={menuItems} contentRoutes={routes} />
+        <Toast />
       </ClientProvider>
     </ErrorContainer>
   );

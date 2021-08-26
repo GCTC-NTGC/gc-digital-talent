@@ -1,6 +1,7 @@
 import React from "react";
-import { defineMessages, useIntl } from "react-intl";
+import { useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 import {
   Language,
   CreateUserInput,
@@ -11,58 +12,11 @@ import errorMessages from "../form/errorMessages";
 import Input from "../form/Input";
 import Select from "../form/Select";
 import Submit from "../form/Submit";
-
-const messages = defineMessages({
-  headingTitle: {
-    id: "createUser.headingTitle",
-    defaultMessage: "Create User",
-    description: "Title displayed on the Create a User form.",
-  },
-  emailLabel: {
-    id: "createUser.field.emailLabel",
-    defaultMessage: "Email: ",
-    description: "Label displayed on the Create a User form Email field.",
-  },
-  firstNameLabel: {
-    id: "createUser.field.firstNameLabel",
-    defaultMessage: "First Name: ",
-    description: "Label displayed on the Create a User form First Name field.",
-  },
-  lastNameLabel: {
-    id: "createUser.field.lastNameLabel",
-    defaultMessage: "Last Name: ",
-    description: "Label displayed on the Create a User form Last Name field.",
-  },
-  telephoneLabel: {
-    id: "createUser.field.telephoneLabel",
-    defaultMessage: "Telephone: ",
-    description: "Label displayed on the Create a User form Telephone field.",
-  },
-  preferredLanguageLabel: {
-    id: "createUser.field.preferredLanguageLabel",
-    defaultMessage: "Preferred Language: ",
-    description:
-      "Label displayed on the Create a User form Preferred Language field.",
-  },
-  preferredLanguagePlaceholder: {
-    id: "createUser.field.preferredLanguagePlaceholder",
-    defaultMessage: "Select a language...",
-    description:
-      "Option value displayed on the Create a User form Preferred Language field for blank.",
-  },
-  preferredLanguageEnglish: {
-    id: "createUser.field.preferredLanguageEnglish",
-    defaultMessage: "English",
-    description:
-      "Option value displayed on the Create a User form Preferred Language field for English.",
-  },
-  preferredLanguageFrench: {
-    id: "createUser.field.preferredLanguageFrench",
-    defaultMessage: "French",
-    description:
-      "Option value displayed on the Create a User form Preferred Language field for French.",
-  },
-});
+import { navigate } from "../../helpers/router";
+import { userTablePath } from "../../helpers/routes";
+import messages from "./messages";
+import { enumToOptions } from "../form/formUtils";
+import { getLanguage } from "../../model/localizedConstants";
 
 type FormValues = CreateUserInput;
 interface CreateUserFormProps {
@@ -81,17 +35,17 @@ export const CreateUserForm: React.FunctionComponent<CreateUserFormProps> = ({
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
     return handleCreateUser(data)
       .then(() => {
-        // TODO: Navigate to user dashboard.
+        navigate(userTablePath());
+        toast.success(intl.formatMessage(messages.createSuccess));
       })
       .catch(() => {
-        // Something went wrong with handleCreateUser.
-        // Do nothing.
+        toast.error(intl.formatMessage(messages.createError));
       });
   };
 
   return (
     <section>
-      <h2>{intl.formatMessage(messages.headingTitle)}</h2>
+      <h2>{intl.formatMessage(messages.createHeading)}</h2>
       <FormProvider {...methods}>
         <form onSubmit={handleSubmit(onSubmit)}>
           <Input
@@ -132,24 +86,14 @@ export const CreateUserForm: React.FunctionComponent<CreateUserFormProps> = ({
             id="preferredLang"
             label={intl.formatMessage(messages.preferredLanguageLabel)}
             name="preferredLang"
+            nullSelection={intl.formatMessage(
+              messages.preferredLanguagePlaceholder,
+            )}
             rules={{ required: errorMessages.required }}
-            options={[
-              {
-                value: "",
-                label: intl.formatMessage(
-                  messages.preferredLanguagePlaceholder,
-                ),
-                disabled: true,
-              },
-              {
-                value: Language.En,
-                label: intl.formatMessage(messages.preferredLanguageEnglish),
-              },
-              {
-                value: Language.Fr,
-                label: intl.formatMessage(messages.preferredLanguageFrench),
-              },
-            ]}
+            options={enumToOptions(Language).map(({ value }) => ({
+              value,
+              label: intl.formatMessage(getLanguage(value)),
+            }))}
           />
           <Submit />
         </form>
