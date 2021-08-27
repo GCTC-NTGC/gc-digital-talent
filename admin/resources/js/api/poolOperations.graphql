@@ -51,7 +51,7 @@ fragment pool on Pool {
   }
 }
 
-query getPool($id: ID!) {
+query getPool($id: Float!) {
   pool(id: $id) {
     ...pool
   }
@@ -85,7 +85,7 @@ query getCreatePoolData {
     }
   }
 }
-query getUpdatePoolData($id: ID!) {
+query getUpdatePoolData($id: Float!) {
   users {
     id
     email
@@ -173,7 +173,7 @@ mutation createPool($pool: CreatePoolInput!) {
   }
 }
 
-mutation updatePool($id: ID!, $pool: UpdatePoolInput!) {
+mutation updatePool($id: Float!, $pool: UpdatePoolInput!) {
   updatePool(id: $id, pool: $pool) {
     owner {
       id

@@ -44,7 +44,7 @@ stories.add("Create CMO Asset Form", () => {
 
 stories.add("Update CMO Asset Form", () => {
   const cmoAsset: CmoAsset = {
-    id: "1",
+    id: 1,
     key: "web_development",
     name: {
       en: "Web Development",

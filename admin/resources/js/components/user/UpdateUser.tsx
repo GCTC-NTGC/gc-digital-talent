@@ -24,7 +24,7 @@ import { getLanguage } from "../../model/localizedConstants";
 type FormValues = UpdateUserInput;
 interface UpdateUserFormProps {
   initialUser: User;
-  handleUpdateUser: (id: string, data: FormValues) => Promise<FormValues>;
+  handleUpdateUser: (id: number, data: FormValues) => Promise<FormValues>;
 }
 
 export const UpdateUserForm: React.FunctionComponent<UpdateUserFormProps> = ({
@@ -106,7 +106,7 @@ export const UpdateUserForm: React.FunctionComponent<UpdateUserFormProps> = ({
   );
 };
 
-export const UpdateUser: React.FunctionComponent<{ userId: string }> = ({
+export const UpdateUser: React.FunctionComponent<{ userId: number }> = ({
   userId,
 }) => {
   const intl = useIntl();
@@ -115,7 +115,7 @@ export const UpdateUser: React.FunctionComponent<{ userId: string }> = ({
   });
 
   const [, executeMutation] = useUpdateUserMutation();
-  const handleUpdateUser = (id: string, data: UpdateUserInput) =>
+  const handleUpdateUser = (id: number, data: UpdateUserInput) =>
     /* We must pick only the fields belonging to UpdateUserInput, because its possible
        the data object contains other props at runtime, and this will cause the
        graphql operation to fail. */

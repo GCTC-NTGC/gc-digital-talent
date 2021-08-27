@@ -106,7 +106,7 @@ fragment poolCandidateForm on PoolCandidate {
   }
   status
 }
-query getPoolCandidate($id: ID!) {
+query getPoolCandidate($id: Float!) {
   poolCandidate(id: $id) {
     ...poolCandidateTable
   }
@@ -118,7 +118,7 @@ query GetPoolCandidates {
   }
 }
 
-query getPoolCandidatesByPool($id: ID!) {
+query getPoolCandidatesByPool($id: Float!) {
   pool(id: $id) {
     poolCandidates {
       ...poolCandidateTable
@@ -165,7 +165,7 @@ query getCreatePoolCandidateData {
   }
 }
 
-query getUpdatePoolCandidateData($id: ID!) {
+query getUpdatePoolCandidateData($id: Float!) {
   classifications {
     id
     group
@@ -235,7 +235,7 @@ mutation createPoolCandidate($poolCandidate: CreatePoolCandidateInput!) {
   }
 }
 
-mutation updatePoolCandidate($id: ID!, $poolCandidate: UpdatePoolCandidateInput!) {
+mutation updatePoolCandidate($id: Float!, $poolCandidate: UpdatePoolCandidateInput!) {
   updatePoolCandidate(id: $id, poolCandidate: $poolCandidate) {
     cmoIdentifier
     expiryDate

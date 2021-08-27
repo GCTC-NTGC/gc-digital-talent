@@ -9,7 +9,7 @@ query AllUsers {
   }
 }
 
-query User($id: ID!) {
+query User($id: Float!) {
   user(id: $id) {
     id
     email
@@ -20,7 +20,7 @@ query User($id: ID!) {
   }
 }
 
-mutation UpdateUser($id: ID!, $user: UpdateUserInput!) {
+mutation UpdateUser($id: Float!, $user: UpdateUserInput!) {
   updateUser(id: $id, user: $user) {
     id
     firstName

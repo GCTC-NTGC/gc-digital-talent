@@ -51,7 +51,7 @@ stories.add("Create Classification Form", () => (
 
 stories.add("Update Classification Form", () => {
   const initialClassification: Classification = {
-    id: "1",
+    id: 1,
     name: {
       en: "Computer Systems",
       fr: "Computer Systems FR",

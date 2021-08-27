@@ -2,7 +2,7 @@ import { GetOperationalRequirementsQuery } from "../api/generated";
 
 export default (): GetOperationalRequirementsQuery["operationalRequirements"] => [
   {
-    id: "1",
+    id: 1,
     key: "overtime-as-required",
     name: {
       en: "Overtime as Required",
@@ -14,7 +14,7 @@ export default (): GetOperationalRequirementsQuery["operationalRequirements"] =>
     },
   },
   {
-    id: "2",
+    id: 2,
     key: "shift-work",
     name: {
       en: "Shift Work",
@@ -26,7 +26,7 @@ export default (): GetOperationalRequirementsQuery["operationalRequirements"] =>
     },
   },
   {
-    id: "3",
+    id: 3,
     key: "travel-as-required",
     name: {
       en: "Travel as Required",

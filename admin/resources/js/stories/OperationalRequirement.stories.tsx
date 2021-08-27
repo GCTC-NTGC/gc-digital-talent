@@ -52,7 +52,7 @@ stories.add("Create Operational Requirement Form", () => {
 
 stories.add("Update Operational Requirement Form", () => {
   const operationalRequirement: OperationalRequirement = {
-    id: "1",
+    id: 1,
     key: "overtime",
     name: {
       en: "Overtime",

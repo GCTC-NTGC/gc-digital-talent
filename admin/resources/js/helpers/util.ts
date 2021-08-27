@@ -21,7 +21,7 @@ export function empty<T>(
   return value === null || value === undefined;
 }
 
-export function getId<T extends { id: string }>(item: T): string {
+export function getId<T extends { id: number }>(item: T): number {
   return item.id;
 }
 

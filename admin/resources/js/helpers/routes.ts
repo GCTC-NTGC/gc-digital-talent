@@ -24,8 +24,8 @@ export const poolCandidateTablePath = (poolId: string): string =>
 export const poolCandidateCreatePath = (poolId: string): string =>
   `/pools/${poolId}/pool-candidates/create`;
 export const poolCandidateUpdatePath = (
-  poolId: string,
-  poolCandidateId: string,
+  poolId: number,
+  poolCandidateId: number,
 ): string => `/pools/${poolId}/pool-candidates/${poolCandidateId}/edit`;
 
 export const userTablePath = (): string => `/users`;

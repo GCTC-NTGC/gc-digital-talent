@@ -1,4 +1,4 @@
-query getCmoAsset($id: ID!) {
+query getCmoAsset($id: Float!) {
   cmoAsset(id: $id) {
     id
     key
@@ -42,7 +42,7 @@ mutation createCmoAsset($cmoAsset: CreateCmoAssetInput!) {
   }
 }
 
-mutation updateCmoAsset($id: ID!, $cmoAsset: UpdateCmoAssetInput!) {
+mutation updateCmoAsset($id: Float!, $cmoAsset: UpdateCmoAssetInput!) {
   updateCmoAsset(id: $id, cmoAsset: $cmoAsset) {
     id
     key

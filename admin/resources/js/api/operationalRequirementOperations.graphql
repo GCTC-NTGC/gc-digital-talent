@@ -1,4 +1,4 @@
-query getOperationalRequirement($id: ID!) {
+query getOperationalRequirement($id: Float!) {
   operationalRequirement(id: $id) {
     id
     key
@@ -43,7 +43,7 @@ mutation createOperationalRequirement($operationalRequirement: CreateOperational
   }
 }
 
-mutation updateOperationalRequirement($id: ID!, $operationalRequirement: UpdateOperationalRequirementInput!) {
+mutation updateOperationalRequirement($id: Float!, $operationalRequirement: UpdateOperationalRequirementInput!) {
   updateOperationalRequirement(id: $id, operationalRequirement: $operationalRequirement) {
     id
     key

@@ -3,7 +3,7 @@ import fakeUsers from "./fakeUsers";
 
 export default (): Pool[] => [
   {
-    id: "1",
+    id: 1,
     owner: fakeUsers()[0],
     name: {
       en: "Pool1",
@@ -15,7 +15,7 @@ export default (): Pool[] => [
     },
     classifications: [
       {
-        id: "2",
+        id: 2,
         name: {
           en: "Computer Systems",
           fr: "Systèmes d'ordinateurs",

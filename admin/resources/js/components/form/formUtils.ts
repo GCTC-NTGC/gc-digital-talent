@@ -16,8 +16,8 @@ export function unpackMaybes<T>(data: Maybe<Array<Maybe<T>>> | undefined): T[] {
  * @returns string[]
  */
 export const unpackIds = (
-  data: Maybe<Array<Maybe<{ id: string }>>> | undefined,
-): string[] => unpackMaybes<{ id: string }>(data).map(getId);
+  data: Maybe<Array<Maybe<{ id: number }>>> | undefined,
+): string[] => unpackMaybes<{ id: number }>(data).map(getId);
 
 /**
  * Returns the current date in the format YYYY-MM-DD.

@@ -75,7 +75,7 @@ stories.add("Create Pool Candidate Form", () => (
 
 stories.add("Update Pool Candidate Form", () => {
   const poolCandidate: PoolCandidate = {
-    id: "1",
+    id: 1,
     acceptedOperationalRequirements: [
       fakeOperationalRequirements()[0],
       fakeOperationalRequirements()[1],

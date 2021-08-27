@@ -1,6 +1,7 @@
 /* THIS FILE IS AUTO-GENERATED, DO NOT EDIT */
 import { gql } from "urql";
 import * as Urql from "urql";
+
 export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: unknown }> = {
   [K in keyof T]: T[K];
@@ -29,7 +30,7 @@ export type Scalars = {
 
 export type Classification = {
   __typename?: "Classification";
-  id: Scalars["ID"];
+  id: Scalars["Float"];
   name?: Maybe<LocalizedString>;
   group: Scalars["String"];
   level: Scalars["Int"];
@@ -38,20 +39,20 @@ export type Classification = {
 };
 
 export type ClassificationBelongsToMany = {
-  sync?: Maybe<Array<Scalars["ID"]>>;
+  sync?: Maybe<Array<Scalars["Float"]>>;
 };
 
 /** e.g. Application Development, Quality Assurance, Enterprise Architecture, IT Project Management, etc. */
 export type CmoAsset = {
   __typename?: "CmoAsset";
-  id: Scalars["ID"];
+  id: Scalars["Float"];
   key: Scalars["String"];
   name: LocalizedString;
   description?: Maybe<LocalizedString>;
 };
 
 export type CmoAssetBelongsToMany = {
-  sync?: Maybe<Array<Scalars["ID"]>>;
+  sync?: Maybe<Array<Scalars["Float"]>>;
 };
 
 export type CreateClassificationInput = {
@@ -162,12 +163,12 @@ export type MutationCreateUserArgs = {
 };
 
 export type MutationUpdateUserArgs = {
-  id: Scalars["ID"];
+  id: Scalars["Float"];
   user: UpdateUserInput;
 };
 
 export type MutationDeleteUserArgs = {
-  id: Scalars["ID"];
+  id: Scalars["Float"];
 };
 
 export type MutationCreatePoolArgs = {
@@ -175,12 +176,12 @@ export type MutationCreatePoolArgs = {
 };
 
 export type MutationUpdatePoolArgs = {
-  id: Scalars["ID"];
+  id: Scalars["Float"];
   pool: UpdatePoolInput;
 };
 
 export type MutationDeletePoolArgs = {
-  id: Scalars["ID"];
+  id: Scalars["Float"];
 };
 
 export type MutationCreatePoolCandidateArgs = {
@@ -188,12 +189,12 @@ export type MutationCreatePoolCandidateArgs = {
 };
 
 export type MutationUpdatePoolCandidateArgs = {
-  id: Scalars["ID"];
+  id: Scalars["Float"];
   poolCandidate: UpdatePoolCandidateInput;
 };
 
 export type MutationDeletePoolCandidateArgs = {
-  id: Scalars["ID"];
+  id: Scalars["Float"];
 };
 
 export type MutationCreateClassificationArgs = {
@@ -201,12 +202,12 @@ export type MutationCreateClassificationArgs = {
 };
 
 export type MutationUpdateClassificationArgs = {
-  id: Scalars["ID"];
+  id: Scalars["Float"];
   classification: UpdateClassificationInput;
 };
 
 export type MutationDeleteClassificationArgs = {
-  id: Scalars["ID"];
+  id: Scalars["Float"];
 };
 
 export type MutationCreateCmoAssetArgs = {
@@ -214,12 +215,12 @@ export type MutationCreateCmoAssetArgs = {
 };
 
 export type MutationUpdateCmoAssetArgs = {
-  id: Scalars["ID"];
+  id: Scalars["Float"];
   cmoAsset: UpdateCmoAssetInput;
 };
 
 export type MutationDeleteCmoAssetArgs = {
-  id: Scalars["ID"];
+  id: Scalars["Float"];
 };
 
 export type MutationCreateOperationalRequirementArgs = {
@@ -227,30 +228,30 @@ export type MutationCreateOperationalRequirementArgs = {
 };
 
 export type MutationUpdateOperationalRequirementArgs = {
-  id: Scalars["ID"];
+  id: Scalars["Float"];
   operationalRequirement: UpdateOperationalRequirementInput;
 };
 
 export type MutationDeleteOperationalRequirementArgs = {
-  id: Scalars["ID"];
+  id: Scalars["Float"];
 };
 
 /** e.g. Overtime as Required, Shift Work, Travel as Required, etc. */
 export type OperationalRequirement = {
   __typename?: "OperationalRequirement";
-  id: Scalars["ID"];
+  id: Scalars["Float"];
   key: Scalars["String"];
   name: LocalizedString;
   description?: Maybe<LocalizedString>;
 };
 
 export type OperationalRequirementBelongsToMany = {
-  sync?: Maybe<Array<Scalars["ID"]>>;
+  sync?: Maybe<Array<Scalars["Float"]>>;
 };
 
 export type Pool = {
   __typename?: "Pool";
-  id: Scalars["ID"];
+  id: Scalars["Float"];
   owner?: Maybe<User>;
   name?: Maybe<LocalizedString>;
   description?: Maybe<LocalizedString>;
@@ -262,12 +263,12 @@ export type Pool = {
 };
 
 export type PoolBelongsTo = {
-  connect: Scalars["ID"];
+  connect: Scalars["Float"];
 };
 
 export type PoolCandidate = {
   __typename?: "PoolCandidate";
-  id: Scalars["ID"];
+  id: Scalars["Float"];
   pool?: Maybe<Pool>;
   user?: Maybe<User>;
   cmoIdentifier?: Maybe<Scalars["ID"]>;
@@ -314,27 +315,27 @@ export type Query = {
 };
 
 export type QueryUserArgs = {
-  id: Scalars["ID"];
+  id: Scalars["Float"];
 };
 
 export type QueryPoolArgs = {
-  id: Scalars["ID"];
+  id: Scalars["Float"];
 };
 
 export type QueryPoolCandidateArgs = {
-  id: Scalars["ID"];
+  id: Scalars["Float"];
 };
 
 export type QueryClassificationArgs = {
-  id: Scalars["ID"];
+  id: Scalars["Float"];
 };
 
 export type QueryOperationalRequirementArgs = {
-  id: Scalars["ID"];
+  id: Scalars["Float"];
 };
 
 export type QueryCmoAssetArgs = {
-  id: Scalars["ID"];
+  id: Scalars["Float"];
 };
 
 export enum Role {
@@ -413,7 +414,7 @@ export type UpdateUserInput = {
 
 export type User = {
   __typename?: "User";
-  id: Scalars["ID"];
+  id: Scalars["Float"];
   email: Scalars["Email"];
   firstName?: Maybe<Scalars["String"]>;
   lastName?: Maybe<Scalars["String"]>;
@@ -443,7 +444,7 @@ export enum WorkRegion {
 
 export type ClassificationFragment = {
   __typename?: "Classification";
-  id: string;
+  id: number;
   group: string;
   level: number;
   minSalary?: Maybe<number>;
@@ -456,14 +457,14 @@ export type ClassificationFragment = {
 };
 
 export type GetClassificationQueryVariables = Exact<{
-  id: Scalars["ID"];
+  id: Scalars["Float"];
 }>;
 
 export type GetClassificationQuery = {
   __typename?: "Query";
   classification?: Maybe<{
     __typename?: "Classification";
-    id: string;
+    id: number;
     group: string;
     level: number;
     minSalary?: Maybe<number>;
@@ -483,7 +484,7 @@ export type GetClassificationsQuery = {
   classifications: Array<
     Maybe<{
       __typename?: "Classification";
-      id: string;
+      id: number;
       group: string;
       level: number;
       minSalary?: Maybe<number>;
@@ -518,7 +519,7 @@ export type CreateClassificationMutation = {
 };
 
 export type UpdateClassificationMutationVariables = Exact<{
-  id: Scalars["ID"];
+  id: Scalars["Float"];
   classification: UpdateClassificationInput;
 }>;
 
@@ -539,14 +540,14 @@ export type UpdateClassificationMutation = {
 };
 
 export type GetCmoAssetQueryVariables = Exact<{
-  id: Scalars["ID"];
+  id: Scalars["Float"];
 }>;
 
 export type GetCmoAssetQuery = {
   __typename?: "Query";
   cmoAsset?: Maybe<{
     __typename?: "CmoAsset";
-    id: string;
+    id: number;
     key: string;
     name: {
       __typename?: "LocalizedString";
@@ -568,7 +569,7 @@ export type GetCmoAssetsQuery = {
   cmoAssets: Array<
     Maybe<{
       __typename?: "CmoAsset";
-      id: string;
+      id: number;
       key: string;
       name: {
         __typename?: "LocalizedString";
@@ -592,7 +593,7 @@ export type CreateCmoAssetMutation = {
   __typename?: "Mutation";
   createCmoAsset?: Maybe<{
     __typename?: "CmoAsset";
-    id: string;
+    id: number;
     key: string;
     name: {
       __typename?: "LocalizedString";
@@ -608,7 +609,7 @@ export type CreateCmoAssetMutation = {
 };
 
 export type UpdateCmoAssetMutationVariables = Exact<{
-  id: Scalars["ID"];
+  id: Scalars["Float"];
   cmoAsset: UpdateCmoAssetInput;
 }>;
 
@@ -616,7 +617,7 @@ export type UpdateCmoAssetMutation = {
   __typename?: "Mutation";
   updateCmoAsset?: Maybe<{
     __typename?: "CmoAsset";
-    id: string;
+    id: number;
     key: string;
     name: {
       __typename?: "LocalizedString";
@@ -632,14 +633,14 @@ export type UpdateCmoAssetMutation = {
 };
 
 export type GetOperationalRequirementQueryVariables = Exact<{
-  id: Scalars["ID"];
+  id: Scalars["Float"];
 }>;
 
 export type GetOperationalRequirementQuery = {
   __typename?: "Query";
   operationalRequirement?: Maybe<{
     __typename?: "OperationalRequirement";
-    id: string;
+    id: number;
     key: string;
     name: {
       __typename?: "LocalizedString";
@@ -663,7 +664,7 @@ export type GetOperationalRequirementsQuery = {
   operationalRequirements: Array<
     Maybe<{
       __typename?: "OperationalRequirement";
-      id: string;
+      id: number;
       key: string;
       name: {
         __typename?: "LocalizedString";
@@ -687,7 +688,7 @@ export type CreateOperationalRequirementMutation = {
   __typename?: "Mutation";
   createOperationalRequirement?: Maybe<{
     __typename?: "OperationalRequirement";
-    id: string;
+    id: number;
     key: string;
     name: {
       __typename?: "LocalizedString";
@@ -703,7 +704,7 @@ export type CreateOperationalRequirementMutation = {
 };
 
 export type UpdateOperationalRequirementMutationVariables = Exact<{
-  id: Scalars["ID"];
+  id: Scalars["Float"];
   operationalRequirement: UpdateOperationalRequirementInput;
 }>;
 
@@ -711,7 +712,7 @@ export type UpdateOperationalRequirementMutation = {
   __typename?: "Mutation";
   updateOperationalRequirement?: Maybe<{
     __typename?: "OperationalRequirement";
-    id: string;
+    id: number;
     key: string;
     name: {
       __typename?: "LocalizedString";
@@ -728,7 +729,7 @@ export type UpdateOperationalRequirementMutation = {
 
 export type PoolCandidateTableFragment = {
   __typename?: "PoolCandidate";
-  id: string;
+  id: number;
   cmoIdentifier?: Maybe<string>;
   expiryDate?: Maybe<string>;
   isWoman?: Maybe<boolean>;
@@ -742,7 +743,7 @@ export type PoolCandidateTableFragment = {
   status?: Maybe<PoolCandidateStatus>;
   pool?: Maybe<{
     __typename?: "Pool";
-    id: string;
+    id: number;
     name?: Maybe<{
       __typename?: "LocalizedString";
       en?: Maybe<string>;
@@ -752,7 +753,7 @@ export type PoolCandidateTableFragment = {
       Array<
         Maybe<{
           __typename?: "Classification";
-          id: string;
+          id: number;
           group: string;
           level: number;
           name?: Maybe<{
@@ -766,7 +767,7 @@ export type PoolCandidateTableFragment = {
   }>;
   user?: Maybe<{
     __typename?: "User";
-    id: string;
+    id: number;
     firstName?: Maybe<string>;
     lastName?: Maybe<string>;
     email: string;
@@ -777,7 +778,7 @@ export type PoolCandidateTableFragment = {
     Array<
       Maybe<{
         __typename?: "OperationalRequirement";
-        id: string;
+        id: number;
         name: {
           __typename?: "LocalizedString";
           en?: Maybe<string>;
@@ -790,7 +791,7 @@ export type PoolCandidateTableFragment = {
     Array<
       Maybe<{
         __typename?: "Classification";
-        id: string;
+        id: number;
         group: string;
         level: number;
         name?: Maybe<{
@@ -805,7 +806,7 @@ export type PoolCandidateTableFragment = {
     Array<
       Maybe<{
         __typename?: "CmoAsset";
-        id: string;
+        id: number;
         name: {
           __typename?: "LocalizedString";
           en?: Maybe<string>;
@@ -818,7 +819,7 @@ export type PoolCandidateTableFragment = {
 
 export type PoolCandidateFormFragment = {
   __typename?: "PoolCandidate";
-  id: string;
+  id: number;
   cmoIdentifier?: Maybe<string>;
   expiryDate?: Maybe<string>;
   isWoman?: Maybe<boolean>;
@@ -832,19 +833,19 @@ export type PoolCandidateFormFragment = {
   status?: Maybe<PoolCandidateStatus>;
   pool?: Maybe<{
     __typename?: "Pool";
-    id: string;
+    id: number;
     name?: Maybe<{
       __typename?: "LocalizedString";
       en?: Maybe<string>;
       fr?: Maybe<string>;
     }>;
   }>;
-  user?: Maybe<{ __typename?: "User"; id: string; email: string }>;
+  user?: Maybe<{ __typename?: "User"; id: number; email: string }>;
   acceptedOperationalRequirements?: Maybe<
     Array<
       Maybe<{
         __typename?: "OperationalRequirement";
-        id: string;
+        id: number;
         key: string;
         name: {
           __typename?: "LocalizedString";
@@ -858,7 +859,7 @@ export type PoolCandidateFormFragment = {
     Array<
       Maybe<{
         __typename?: "Classification";
-        id: string;
+        id: number;
         group: string;
         level: number;
       }>
@@ -868,7 +869,7 @@ export type PoolCandidateFormFragment = {
     Array<
       Maybe<{
         __typename?: "CmoAsset";
-        id: string;
+        id: number;
         key: string;
         name: {
           __typename?: "LocalizedString";
@@ -881,14 +882,14 @@ export type PoolCandidateFormFragment = {
 };
 
 export type GetPoolCandidateQueryVariables = Exact<{
-  id: Scalars["ID"];
+  id: Scalars["Float"];
 }>;
 
 export type GetPoolCandidateQuery = {
   __typename?: "Query";
   poolCandidate?: Maybe<{
     __typename?: "PoolCandidate";
-    id: string;
+    id: number;
     cmoIdentifier?: Maybe<string>;
     expiryDate?: Maybe<string>;
     isWoman?: Maybe<boolean>;
@@ -902,7 +903,7 @@ export type GetPoolCandidateQuery = {
     status?: Maybe<PoolCandidateStatus>;
     pool?: Maybe<{
       __typename?: "Pool";
-      id: string;
+      id: number;
       name?: Maybe<{
         __typename?: "LocalizedString";
         en?: Maybe<string>;
@@ -912,7 +913,7 @@ export type GetPoolCandidateQuery = {
         Array<
           Maybe<{
             __typename?: "Classification";
-            id: string;
+            id: number;
             group: string;
             level: number;
             name?: Maybe<{
@@ -926,7 +927,7 @@ export type GetPoolCandidateQuery = {
     }>;
     user?: Maybe<{
       __typename?: "User";
-      id: string;
+      id: number;
       firstName?: Maybe<string>;
       lastName?: Maybe<string>;
       email: string;
@@ -937,7 +938,7 @@ export type GetPoolCandidateQuery = {
       Array<
         Maybe<{
           __typename?: "OperationalRequirement";
-          id: string;
+          id: number;
           name: {
             __typename?: "LocalizedString";
             en?: Maybe<string>;
@@ -950,7 +951,7 @@ export type GetPoolCandidateQuery = {
       Array<
         Maybe<{
           __typename?: "Classification";
-          id: string;
+          id: number;
           group: string;
           level: number;
           name?: Maybe<{
@@ -965,7 +966,7 @@ export type GetPoolCandidateQuery = {
       Array<
         Maybe<{
           __typename?: "CmoAsset";
-          id: string;
+          id: number;
           name: {
             __typename?: "LocalizedString";
             en?: Maybe<string>;
@@ -984,7 +985,7 @@ export type GetPoolCandidatesQuery = {
   poolCandidates: Array<
     Maybe<{
       __typename?: "PoolCandidate";
-      id: string;
+      id: number;
       cmoIdentifier?: Maybe<string>;
       expiryDate?: Maybe<string>;
       isWoman?: Maybe<boolean>;
@@ -998,7 +999,7 @@ export type GetPoolCandidatesQuery = {
       status?: Maybe<PoolCandidateStatus>;
       pool?: Maybe<{
         __typename?: "Pool";
-        id: string;
+        id: number;
         name?: Maybe<{
           __typename?: "LocalizedString";
           en?: Maybe<string>;
@@ -1008,7 +1009,7 @@ export type GetPoolCandidatesQuery = {
           Array<
             Maybe<{
               __typename?: "Classification";
-              id: string;
+              id: number;
               group: string;
               level: number;
               name?: Maybe<{
@@ -1022,7 +1023,7 @@ export type GetPoolCandidatesQuery = {
       }>;
       user?: Maybe<{
         __typename?: "User";
-        id: string;
+        id: number;
         firstName?: Maybe<string>;
         lastName?: Maybe<string>;
         email: string;
@@ -1033,7 +1034,7 @@ export type GetPoolCandidatesQuery = {
         Array<
           Maybe<{
             __typename?: "OperationalRequirement";
-            id: string;
+            id: number;
             name: {
               __typename?: "LocalizedString";
               en?: Maybe<string>;
@@ -1046,7 +1047,7 @@ export type GetPoolCandidatesQuery = {
         Array<
           Maybe<{
             __typename?: "Classification";
-            id: string;
+            id: number;
             group: string;
             level: number;
             name?: Maybe<{
@@ -1061,7 +1062,7 @@ export type GetPoolCandidatesQuery = {
         Array<
           Maybe<{
             __typename?: "CmoAsset";
-            id: string;
+            id: number;
             name: {
               __typename?: "LocalizedString";
               en?: Maybe<string>;
@@ -1075,7 +1076,7 @@ export type GetPoolCandidatesQuery = {
 };
 
 export type GetPoolCandidatesByPoolQueryVariables = Exact<{
-  id: Scalars["ID"];
+  id: Scalars["Float"];
 }>;
 
 export type GetPoolCandidatesByPoolQuery = {
@@ -1086,7 +1087,7 @@ export type GetPoolCandidatesByPoolQuery = {
       Array<
         Maybe<{
           __typename?: "PoolCandidate";
-          id: string;
+          id: number;
           cmoIdentifier?: Maybe<string>;
           expiryDate?: Maybe<string>;
           isWoman?: Maybe<boolean>;
@@ -1100,7 +1101,7 @@ export type GetPoolCandidatesByPoolQuery = {
           status?: Maybe<PoolCandidateStatus>;
           pool?: Maybe<{
             __typename?: "Pool";
-            id: string;
+            id: number;
             name?: Maybe<{
               __typename?: "LocalizedString";
               en?: Maybe<string>;
@@ -1110,7 +1111,7 @@ export type GetPoolCandidatesByPoolQuery = {
               Array<
                 Maybe<{
                   __typename?: "Classification";
-                  id: string;
+                  id: number;
                   group: string;
                   level: number;
                   name?: Maybe<{
@@ -1124,7 +1125,7 @@ export type GetPoolCandidatesByPoolQuery = {
           }>;
           user?: Maybe<{
             __typename?: "User";
-            id: string;
+            id: number;
             firstName?: Maybe<string>;
             lastName?: Maybe<string>;
             email: string;
@@ -1135,7 +1136,7 @@ export type GetPoolCandidatesByPoolQuery = {
             Array<
               Maybe<{
                 __typename?: "OperationalRequirement";
-                id: string;
+                id: number;
                 name: {
                   __typename?: "LocalizedString";
                   en?: Maybe<string>;
@@ -1148,7 +1149,7 @@ export type GetPoolCandidatesByPoolQuery = {
             Array<
               Maybe<{
                 __typename?: "Classification";
-                id: string;
+                id: number;
                 group: string;
                 level: number;
                 name?: Maybe<{
@@ -1163,7 +1164,7 @@ export type GetPoolCandidatesByPoolQuery = {
             Array<
               Maybe<{
                 __typename?: "CmoAsset";
-                id: string;
+                id: number;
                 name: {
                   __typename?: "LocalizedString";
                   en?: Maybe<string>;
@@ -1187,7 +1188,7 @@ export type GetCreatePoolCandidateDataQuery = {
   classifications: Array<
     Maybe<{
       __typename?: "Classification";
-      id: string;
+      id: number;
       group: string;
       level: number;
     }>
@@ -1195,7 +1196,7 @@ export type GetCreatePoolCandidateDataQuery = {
   cmoAssets: Array<
     Maybe<{
       __typename?: "CmoAsset";
-      id: string;
+      id: number;
       key: string;
       name: {
         __typename?: "LocalizedString";
@@ -1207,7 +1208,7 @@ export type GetCreatePoolCandidateDataQuery = {
   operationalRequirements: Array<
     Maybe<{
       __typename?: "OperationalRequirement";
-      id: string;
+      id: number;
       key: string;
       name: {
         __typename?: "LocalizedString";
@@ -1219,7 +1220,7 @@ export type GetCreatePoolCandidateDataQuery = {
   pools: Array<
     Maybe<{
       __typename?: "Pool";
-      id: string;
+      id: number;
       name?: Maybe<{
         __typename?: "LocalizedString";
         en?: Maybe<string>;
@@ -1230,7 +1231,7 @@ export type GetCreatePoolCandidateDataQuery = {
   users: Array<
     Maybe<{
       __typename?: "User";
-      id: string;
+      id: number;
       firstName?: Maybe<string>;
       lastName?: Maybe<string>;
       email: string;
@@ -1241,7 +1242,7 @@ export type GetCreatePoolCandidateDataQuery = {
 };
 
 export type GetUpdatePoolCandidateDataQueryVariables = Exact<{
-  id: Scalars["ID"];
+  id: Scalars["Float"];
 }>;
 
 export type GetUpdatePoolCandidateDataQuery = {
@@ -1249,7 +1250,7 @@ export type GetUpdatePoolCandidateDataQuery = {
   classifications: Array<
     Maybe<{
       __typename?: "Classification";
-      id: string;
+      id: number;
       group: string;
       level: number;
     }>
@@ -1257,7 +1258,7 @@ export type GetUpdatePoolCandidateDataQuery = {
   users: Array<
     Maybe<{
       __typename?: "User";
-      id: string;
+      id: number;
       firstName?: Maybe<string>;
       lastName?: Maybe<string>;
     }>
@@ -1265,7 +1266,7 @@ export type GetUpdatePoolCandidateDataQuery = {
   cmoAssets: Array<
     Maybe<{
       __typename?: "CmoAsset";
-      id: string;
+      id: number;
       key: string;
       name: {
         __typename?: "LocalizedString";
@@ -1277,7 +1278,7 @@ export type GetUpdatePoolCandidateDataQuery = {
   operationalRequirements: Array<
     Maybe<{
       __typename?: "OperationalRequirement";
-      id: string;
+      id: number;
       key: string;
       name: {
         __typename?: "LocalizedString";
@@ -1289,7 +1290,7 @@ export type GetUpdatePoolCandidateDataQuery = {
   pools: Array<
     Maybe<{
       __typename?: "Pool";
-      id: string;
+      id: number;
       name?: Maybe<{
         __typename?: "LocalizedString";
         en?: Maybe<string>;
@@ -1299,7 +1300,7 @@ export type GetUpdatePoolCandidateDataQuery = {
   >;
   poolCandidate?: Maybe<{
     __typename?: "PoolCandidate";
-    id: string;
+    id: number;
     cmoIdentifier?: Maybe<string>;
     expiryDate?: Maybe<string>;
     isWoman?: Maybe<boolean>;
@@ -1313,19 +1314,19 @@ export type GetUpdatePoolCandidateDataQuery = {
     status?: Maybe<PoolCandidateStatus>;
     pool?: Maybe<{
       __typename?: "Pool";
-      id: string;
+      id: number;
       name?: Maybe<{
         __typename?: "LocalizedString";
         en?: Maybe<string>;
         fr?: Maybe<string>;
       }>;
     }>;
-    user?: Maybe<{ __typename?: "User"; id: string; email: string }>;
+    user?: Maybe<{ __typename?: "User"; id: number; email: string }>;
     acceptedOperationalRequirements?: Maybe<
       Array<
         Maybe<{
           __typename?: "OperationalRequirement";
-          id: string;
+          id: number;
           key: string;
           name: {
             __typename?: "LocalizedString";
@@ -1339,7 +1340,7 @@ export type GetUpdatePoolCandidateDataQuery = {
       Array<
         Maybe<{
           __typename?: "Classification";
-          id: string;
+          id: number;
           group: string;
           level: number;
         }>
@@ -1349,7 +1350,7 @@ export type GetUpdatePoolCandidateDataQuery = {
       Array<
         Maybe<{
           __typename?: "CmoAsset";
-          id: string;
+          id: number;
           key: string;
           name: {
             __typename?: "LocalizedString";
@@ -1381,20 +1382,20 @@ export type CreatePoolCandidateMutation = {
     locationPreferences?: Maybe<Array<Maybe<WorkRegion>>>;
     expectedSalary?: Maybe<Array<Maybe<SalaryRange>>>;
     status?: Maybe<PoolCandidateStatus>;
-    pool?: Maybe<{ __typename?: "Pool"; id: string }>;
-    user?: Maybe<{ __typename?: "User"; id: string }>;
+    pool?: Maybe<{ __typename?: "Pool"; id: number }>;
+    user?: Maybe<{ __typename?: "User"; id: number }>;
     acceptedOperationalRequirements?: Maybe<
-      Array<Maybe<{ __typename?: "OperationalRequirement"; id: string }>>
+      Array<Maybe<{ __typename?: "OperationalRequirement"; id: number }>>
     >;
     expectedClassifications?: Maybe<
-      Array<Maybe<{ __typename?: "Classification"; id: string }>>
+      Array<Maybe<{ __typename?: "Classification"; id: number }>>
     >;
-    cmoAssets?: Maybe<Array<Maybe<{ __typename?: "CmoAsset"; id: string }>>>;
+    cmoAssets?: Maybe<Array<Maybe<{ __typename?: "CmoAsset"; id: number }>>>;
   }>;
 };
 
 export type UpdatePoolCandidateMutationVariables = Exact<{
-  id: Scalars["ID"];
+  id: Scalars["Float"];
   poolCandidate: UpdatePoolCandidateInput;
 }>;
 
@@ -1414,21 +1415,21 @@ export type UpdatePoolCandidateMutation = {
     expectedSalary?: Maybe<Array<Maybe<SalaryRange>>>;
     status?: Maybe<PoolCandidateStatus>;
     acceptedOperationalRequirements?: Maybe<
-      Array<Maybe<{ __typename?: "OperationalRequirement"; id: string }>>
+      Array<Maybe<{ __typename?: "OperationalRequirement"; id: number }>>
     >;
     expectedClassifications?: Maybe<
-      Array<Maybe<{ __typename?: "Classification"; id: string }>>
+      Array<Maybe<{ __typename?: "Classification"; id: number }>>
     >;
-    cmoAssets?: Maybe<Array<Maybe<{ __typename?: "CmoAsset"; id: string }>>>;
+    cmoAssets?: Maybe<Array<Maybe<{ __typename?: "CmoAsset"; id: number }>>>;
   }>;
 };
 
 export type PoolFragment = {
   __typename?: "Pool";
-  id: string;
+  id: number;
   owner?: Maybe<{
     __typename?: "User";
-    id: string;
+    id: number;
     firstName?: Maybe<string>;
     lastName?: Maybe<string>;
     email: string;
@@ -1449,7 +1450,7 @@ export type PoolFragment = {
     Array<
       Maybe<{
         __typename?: "Classification";
-        id: string;
+        id: number;
         group: string;
         level: number;
         name?: Maybe<{
@@ -1464,7 +1465,7 @@ export type PoolFragment = {
     Array<
       Maybe<{
         __typename?: "CmoAsset";
-        id: string;
+        id: number;
         key: string;
         name: {
           __typename?: "LocalizedString";
@@ -1478,7 +1479,7 @@ export type PoolFragment = {
     Array<
       Maybe<{
         __typename?: "CmoAsset";
-        id: string;
+        id: number;
         key: string;
         name: {
           __typename?: "LocalizedString";
@@ -1492,7 +1493,7 @@ export type PoolFragment = {
     Array<
       Maybe<{
         __typename?: "OperationalRequirement";
-        id: string;
+        id: number;
         key: string;
         name: {
           __typename?: "LocalizedString";
@@ -1505,17 +1506,17 @@ export type PoolFragment = {
 };
 
 export type GetPoolQueryVariables = Exact<{
-  id: Scalars["ID"];
+  id: Scalars["Float"];
 }>;
 
 export type GetPoolQuery = {
   __typename?: "Query";
   pool?: Maybe<{
     __typename?: "Pool";
-    id: string;
+    id: number;
     owner?: Maybe<{
       __typename?: "User";
-      id: string;
+      id: number;
       firstName?: Maybe<string>;
       lastName?: Maybe<string>;
       email: string;
@@ -1536,7 +1537,7 @@ export type GetPoolQuery = {
       Array<
         Maybe<{
           __typename?: "Classification";
-          id: string;
+          id: number;
           group: string;
           level: number;
           name?: Maybe<{
@@ -1551,7 +1552,7 @@ export type GetPoolQuery = {
       Array<
         Maybe<{
           __typename?: "CmoAsset";
-          id: string;
+          id: number;
           key: string;
           name: {
             __typename?: "LocalizedString";
@@ -1565,7 +1566,7 @@ export type GetPoolQuery = {
       Array<
         Maybe<{
           __typename?: "CmoAsset";
-          id: string;
+          id: number;
           key: string;
           name: {
             __typename?: "LocalizedString";
@@ -1579,7 +1580,7 @@ export type GetPoolQuery = {
       Array<
         Maybe<{
           __typename?: "OperationalRequirement";
-          id: string;
+          id: number;
           key: string;
           name: {
             __typename?: "LocalizedString";
@@ -1599,7 +1600,7 @@ export type GetCreatePoolDataQuery = {
   users: Array<
     Maybe<{
       __typename?: "User";
-      id: string;
+      id: number;
       email: string;
       firstName?: Maybe<string>;
       lastName?: Maybe<string>;
@@ -1608,7 +1609,7 @@ export type GetCreatePoolDataQuery = {
   classifications: Array<
     Maybe<{
       __typename?: "Classification";
-      id: string;
+      id: number;
       group: string;
       level: number;
     }>
@@ -1616,7 +1617,7 @@ export type GetCreatePoolDataQuery = {
   cmoAssets: Array<
     Maybe<{
       __typename?: "CmoAsset";
-      id: string;
+      id: number;
       key: string;
       name: {
         __typename?: "LocalizedString";
@@ -1628,7 +1629,7 @@ export type GetCreatePoolDataQuery = {
   operationalRequirements: Array<
     Maybe<{
       __typename?: "OperationalRequirement";
-      id: string;
+      id: number;
       key: string;
       name: {
         __typename?: "LocalizedString";
@@ -1640,7 +1641,7 @@ export type GetCreatePoolDataQuery = {
 };
 
 export type GetUpdatePoolDataQueryVariables = Exact<{
-  id: Scalars["ID"];
+  id: Scalars["Float"];
 }>;
 
 export type GetUpdatePoolDataQuery = {
@@ -1648,7 +1649,7 @@ export type GetUpdatePoolDataQuery = {
   users: Array<
     Maybe<{
       __typename?: "User";
-      id: string;
+      id: number;
       email: string;
       firstName?: Maybe<string>;
       lastName?: Maybe<string>;
@@ -1657,7 +1658,7 @@ export type GetUpdatePoolDataQuery = {
   classifications: Array<
     Maybe<{
       __typename?: "Classification";
-      id: string;
+      id: number;
       group: string;
       level: number;
     }>
@@ -1665,7 +1666,7 @@ export type GetUpdatePoolDataQuery = {
   cmoAssets: Array<
     Maybe<{
       __typename?: "CmoAsset";
-      id: string;
+      id: number;
       key: string;
       name: {
         __typename?: "LocalizedString";
@@ -1677,7 +1678,7 @@ export type GetUpdatePoolDataQuery = {
   operationalRequirements: Array<
     Maybe<{
       __typename?: "OperationalRequirement";
-      id: string;
+      id: number;
       key: string;
       name: {
         __typename?: "LocalizedString";
@@ -1688,10 +1689,10 @@ export type GetUpdatePoolDataQuery = {
   >;
   pool?: Maybe<{
     __typename?: "Pool";
-    id: string;
+    id: number;
     owner?: Maybe<{
       __typename?: "User";
-      id: string;
+      id: number;
       firstName?: Maybe<string>;
       lastName?: Maybe<string>;
       email: string;
@@ -1712,7 +1713,7 @@ export type GetUpdatePoolDataQuery = {
       Array<
         Maybe<{
           __typename?: "Classification";
-          id: string;
+          id: number;
           group: string;
           level: number;
           name?: Maybe<{
@@ -1727,7 +1728,7 @@ export type GetUpdatePoolDataQuery = {
       Array<
         Maybe<{
           __typename?: "CmoAsset";
-          id: string;
+          id: number;
           key: string;
           name: {
             __typename?: "LocalizedString";
@@ -1741,7 +1742,7 @@ export type GetUpdatePoolDataQuery = {
       Array<
         Maybe<{
           __typename?: "CmoAsset";
-          id: string;
+          id: number;
           key: string;
           name: {
             __typename?: "LocalizedString";
@@ -1755,7 +1756,7 @@ export type GetUpdatePoolDataQuery = {
       Array<
         Maybe<{
           __typename?: "OperationalRequirement";
-          id: string;
+          id: number;
           key: string;
           name: {
             __typename?: "LocalizedString";
@@ -1775,8 +1776,8 @@ export type GetPoolsQuery = {
   pools: Array<
     Maybe<{
       __typename?: "Pool";
-      id: string;
-      owner?: Maybe<{ __typename?: "User"; id: string; email: string }>;
+      id: number;
+      owner?: Maybe<{ __typename?: "User"; id: number; email: string }>;
       name?: Maybe<{
         __typename?: "LocalizedString";
         en?: Maybe<string>;
@@ -1804,7 +1805,7 @@ export type CreatePoolMutation = {
   __typename?: "Mutation";
   createPool?: Maybe<{
     __typename?: "Pool";
-    owner?: Maybe<{ __typename?: "User"; id: string }>;
+    owner?: Maybe<{ __typename?: "User"; id: number }>;
     name?: Maybe<{
       __typename?: "LocalizedString";
       en?: Maybe<string>;
@@ -1819,23 +1820,23 @@ export type CreatePoolMutation = {
       Array<
         Maybe<{
           __typename?: "Classification";
-          id: string;
+          id: number;
           group: string;
           level: number;
         }>
       >
     >;
     assetCriteria?: Maybe<
-      Array<Maybe<{ __typename?: "CmoAsset"; id: string; key: string }>>
+      Array<Maybe<{ __typename?: "CmoAsset"; id: number; key: string }>>
     >;
     essentialCriteria?: Maybe<
-      Array<Maybe<{ __typename?: "CmoAsset"; id: string; key: string }>>
+      Array<Maybe<{ __typename?: "CmoAsset"; id: number; key: string }>>
     >;
     operationalRequirements?: Maybe<
       Array<
         Maybe<{
           __typename?: "OperationalRequirement";
-          id: string;
+          id: number;
           key: string;
         }>
       >
@@ -1844,7 +1845,7 @@ export type CreatePoolMutation = {
 };
 
 export type UpdatePoolMutationVariables = Exact<{
-  id: Scalars["ID"];
+  id: Scalars["Float"];
   pool: UpdatePoolInput;
 }>;
 
@@ -1852,7 +1853,7 @@ export type UpdatePoolMutation = {
   __typename?: "Mutation";
   updatePool?: Maybe<{
     __typename?: "Pool";
-    owner?: Maybe<{ __typename?: "User"; id: string }>;
+    owner?: Maybe<{ __typename?: "User"; id: number }>;
     name?: Maybe<{
       __typename?: "LocalizedString";
       en?: Maybe<string>;
@@ -1867,23 +1868,23 @@ export type UpdatePoolMutation = {
       Array<
         Maybe<{
           __typename?: "Classification";
-          id: string;
+          id: number;
           group: string;
           level: number;
         }>
       >
     >;
     assetCriteria?: Maybe<
-      Array<Maybe<{ __typename?: "CmoAsset"; id: string; key: string }>>
+      Array<Maybe<{ __typename?: "CmoAsset"; id: number; key: string }>>
     >;
     essentialCriteria?: Maybe<
-      Array<Maybe<{ __typename?: "CmoAsset"; id: string; key: string }>>
+      Array<Maybe<{ __typename?: "CmoAsset"; id: number; key: string }>>
     >;
     operationalRequirements?: Maybe<
       Array<
         Maybe<{
           __typename?: "OperationalRequirement";
-          id: string;
+          id: number;
           key: string;
         }>
       >
@@ -1898,7 +1899,7 @@ export type AllUsersQuery = {
   users: Array<
     Maybe<{
       __typename?: "User";
-      id: string;
+      id: number;
       email: string;
       firstName?: Maybe<string>;
       lastName?: Maybe<string>;
@@ -1909,14 +1910,14 @@ export type AllUsersQuery = {
 };
 
 export type UserQueryVariables = Exact<{
-  id: Scalars["ID"];
+  id: Scalars["Float"];
 }>;
 
 export type UserQuery = {
   __typename?: "Query";
   user?: Maybe<{
     __typename?: "User";
-    id: string;
+    id: number;
     email: string;
     firstName?: Maybe<string>;
     lastName?: Maybe<string>;
@@ -1926,7 +1927,7 @@ export type UserQuery = {
 };
 
 export type UpdateUserMutationVariables = Exact<{
-  id: Scalars["ID"];
+  id: Scalars["Float"];
   user: UpdateUserInput;
 }>;
 
@@ -1934,7 +1935,7 @@ export type UpdateUserMutation = {
   __typename?: "Mutation";
   updateUser?: Maybe<{
     __typename?: "User";
-    id: string;
+    id: number;
     firstName?: Maybe<string>;
     lastName?: Maybe<string>;
     email: string;
@@ -2138,7 +2139,7 @@ export const PoolFragmentDoc = gql`
   }
 `;
 export const GetClassificationDocument = gql`
-  query getClassification($id: ID!) {
+  query getClassification($id: Float!) {
     classification(id: $id) {
       ...classification
     }
@@ -2200,7 +2201,7 @@ export function useCreateClassificationMutation() {
 }
 export const UpdateClassificationDocument = gql`
   mutation updateClassification(
-    $id: ID!
+    $id: Float!
     $classification: UpdateClassificationInput!
   ) {
     updateClassification(id: $id, classification: $classification) {
@@ -2223,7 +2224,7 @@ export function useUpdateClassificationMutation() {
   >(UpdateClassificationDocument);
 }
 export const GetCmoAssetDocument = gql`
-  query getCmoAsset($id: ID!) {
+  query getCmoAsset($id: Float!) {
     cmoAsset(id: $id) {
       id
       key
@@ -2296,7 +2297,7 @@ export function useCreateCmoAssetMutation() {
   >(CreateCmoAssetDocument);
 }
 export const UpdateCmoAssetDocument = gql`
-  mutation updateCmoAsset($id: ID!, $cmoAsset: UpdateCmoAssetInput!) {
+  mutation updateCmoAsset($id: Float!, $cmoAsset: UpdateCmoAssetInput!) {
     updateCmoAsset(id: $id, cmoAsset: $cmoAsset) {
       id
       key
@@ -2319,7 +2320,7 @@ export function useUpdateCmoAssetMutation() {
   >(UpdateCmoAssetDocument);
 }
 export const GetOperationalRequirementDocument = gql`
-  query getOperationalRequirement($id: ID!) {
+  query getOperationalRequirement($id: Float!) {
     operationalRequirement(id: $id) {
       id
       key
@@ -2403,7 +2404,7 @@ export function useCreateOperationalRequirementMutation() {
 }
 export const UpdateOperationalRequirementDocument = gql`
   mutation updateOperationalRequirement(
-    $id: ID!
+    $id: Float!
     $operationalRequirement: UpdateOperationalRequirementInput!
   ) {
     updateOperationalRequirement(
@@ -2431,7 +2432,7 @@ export function useUpdateOperationalRequirementMutation() {
   >(UpdateOperationalRequirementDocument);
 }
 export const GetPoolCandidateDocument = gql`
-  query getPoolCandidate($id: ID!) {
+  query getPoolCandidate($id: Float!) {
     poolCandidate(id: $id) {
       ...poolCandidateTable
     }
@@ -2471,7 +2472,7 @@ export function useGetPoolCandidatesQuery(
   });
 }
 export const GetPoolCandidatesByPoolDocument = gql`
-  query getPoolCandidatesByPool($id: ID!) {
+  query getPoolCandidatesByPool($id: Float!) {
     pool(id: $id) {
       poolCandidates {
         ...poolCandidateTable
@@ -2545,7 +2546,7 @@ export function useGetCreatePoolCandidateDataQuery(
   });
 }
 export const GetUpdatePoolCandidateDataDocument = gql`
-  query getUpdatePoolCandidateData($id: ID!) {
+  query getUpdatePoolCandidateData($id: Float!) {
     classifications {
       id
       group
@@ -2638,7 +2639,7 @@ export function useCreatePoolCandidateMutation() {
 }
 export const UpdatePoolCandidateDocument = gql`
   mutation updatePoolCandidate(
-    $id: ID!
+    $id: Float!
     $poolCandidate: UpdatePoolCandidateInput!
   ) {
     updatePoolCandidate(id: $id, poolCandidate: $poolCandidate) {
@@ -2673,7 +2674,7 @@ export function useUpdatePoolCandidateMutation() {
   >(UpdatePoolCandidateDocument);
 }
 export const GetPoolDocument = gql`
-  query getPool($id: ID!) {
+  query getPool($id: Float!) {
     pool(id: $id) {
       ...pool
     }
@@ -2730,7 +2731,7 @@ export function useGetCreatePoolDataQuery(
   });
 }
 export const GetUpdatePoolDataDocument = gql`
-  query getUpdatePoolData($id: ID!) {
+  query getUpdatePoolData($id: Float!) {
     users {
       id
       email
@@ -2846,7 +2847,7 @@ export function useCreatePoolMutation() {
   );
 }
 export const UpdatePoolDocument = gql`
-  mutation updatePool($id: ID!, $pool: UpdatePoolInput!) {
+  mutation updatePool($id: Float!, $pool: UpdatePoolInput!) {
     updatePool(id: $id, pool: $pool) {
       owner {
         id
@@ -2904,7 +2905,7 @@ export function useAllUsersQuery(
   return Urql.useQuery<AllUsersQuery>({ query: AllUsersDocument, ...options });
 }
 export const UserDocument = gql`
-  query User($id: ID!) {
+  query User($id: Float!) {
     user(id: $id) {
       id
       email
@@ -2922,7 +2923,7 @@ export function useUserQuery(
   return Urql.useQuery<UserQuery>({ query: UserDocument, ...options });
 }
 export const UpdateUserDocument = gql`
-  mutation UpdateUser($id: ID!, $user: UpdateUserInput!) {
+  mutation UpdateUser($id: Float!, $user: UpdateUserInput!) {
     updateUser(id: $id, user: $user) {
       id
       firstName

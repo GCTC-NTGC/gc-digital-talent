@@ -63,7 +63,7 @@ interface UpdatePoolCandidateProps {
   initialPoolCandidate: PoolCandidate;
   operationalRequirements: OperationalRequirement[];
   handleUpdatePoolCandidate: (
-    id: string,
+    id: number,
     data: UpdatePoolCandidateInput,
   ) => Promise<UpdatePoolCandidateMutation["updatePoolCandidate"]>;
 }
@@ -264,7 +264,7 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<UpdatePoolCandidat
   };
 
 export const UpdatePoolCandidate: React.FunctionComponent<{
-  poolCandidateId: string;
+  poolCandidateId: number;
 }> = ({ poolCandidateId }) => {
   const intl = useIntl();
   const [lookupResult] = useGetUpdatePoolCandidateDataQuery({
@@ -283,7 +283,7 @@ export const UpdatePoolCandidate: React.FunctionComponent<{
 
   const [_result, executeMutation] = useUpdatePoolCandidateMutation();
   const handleUpdatePoolCandidate = (
-    id: string,
+    id: number,
     data: UpdatePoolCandidateInput,
   ) =>
     /* We must pick only the fields belonging to UpdateUserInput, because its possible

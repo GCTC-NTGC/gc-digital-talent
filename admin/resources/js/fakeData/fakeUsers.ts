@@ -2,7 +2,7 @@ import { AllUsersQuery, Language } from "../api/generated";
 
 export default (): AllUsersQuery["users"] => [
   {
-    id: "1",
+    id: 1,
     firstName: "Maura",
     lastName: "Attow",
     email: "mattow0@ning.com",
@@ -10,7 +10,7 @@ export default (): AllUsersQuery["users"] => [
     preferredLang: Language.En,
   },
   {
-    id: "2",
+    id: 2,
     firstName: "Maegan",
     lastName: "Deeny",
     email: "mdeeny1@oaic.gov.au",
@@ -18,7 +18,7 @@ export default (): AllUsersQuery["users"] => [
     preferredLang: Language.Fr,
   },
   {
-    id: "3",
+    id: 3,
     firstName: "Priscilla",
     lastName: "Selbie",
     email: "pselbie2@mail.ru",
@@ -26,7 +26,7 @@ export default (): AllUsersQuery["users"] => [
     preferredLang: Language.En,
   },
   {
-    id: "4",
+    id: 4,
     firstName: "Gannie",
     lastName: "Oakwell",
     email: "goakwell3@netvibes.com",
@@ -34,7 +34,7 @@ export default (): AllUsersQuery["users"] => [
     preferredLang: Language.Fr,
   },
   {
-    id: "5",
+    id: 5,
     firstName: "Harvey",
     lastName: "Elleyne",
     email: "helleyne4@ftc.gov",
@@ -42,7 +42,7 @@ export default (): AllUsersQuery["users"] => [
     preferredLang: Language.Fr,
   },
   {
-    id: "6",
+    id: 6,
     firstName: "Zia",
     lastName: "By",
     email: "zby5@booking.com",
@@ -50,7 +50,7 @@ export default (): AllUsersQuery["users"] => [
     preferredLang: Language.Fr,
   },
   {
-    id: "7",
+    id: 7,
     firstName: "Sondra",
     lastName: "Barnes",
     email: "sbarnes6@howstuffworks.com",
@@ -58,7 +58,7 @@ export default (): AllUsersQuery["users"] => [
     preferredLang: Language.Fr,
   },
   {
-    id: "8",
+    id: 8,
     firstName: "Glen",
     lastName: "Lawden",
     email: "glawden7@cpanel.net",
@@ -66,7 +66,7 @@ export default (): AllUsersQuery["users"] => [
     preferredLang: Language.Fr,
   },
   {
-    id: "9",
+    id: 9,
     firstName: "Barret",
     lastName: "Moody",
     email: "bmoody8@businessweek.com",
@@ -74,7 +74,7 @@ export default (): AllUsersQuery["users"] => [
     preferredLang: Language.Fr,
   },
   {
-    id: "10",
+    id: 10,
     firstName: "Eward",
     lastName: "Silvers",
     email: "esilvers9@skype.com",
@@ -82,7 +82,7 @@ export default (): AllUsersQuery["users"] => [
     preferredLang: Language.Fr,
   },
   {
-    id: "11",
+    id: 11,
     firstName: "Aili",
     lastName: "Aasaf",
     email: "aaasafa@shinystat.com",
@@ -90,7 +90,7 @@ export default (): AllUsersQuery["users"] => [
     preferredLang: Language.Fr,
   },
   {
-    id: "12",
+    id: 12,
     firstName: "Marika",
     lastName: "Clayhill",
     email: "mclayhillb@google.pl",
@@ -98,7 +98,7 @@ export default (): AllUsersQuery["users"] => [
     preferredLang: Language.Fr,
   },
   {
-    id: "13",
+    id: 13,
     firstName: "Corrie",
     lastName: "MacBrearty",
     email: "cmacbreartyc@networkadvertising.org",
@@ -106,7 +106,7 @@ export default (): AllUsersQuery["users"] => [
     preferredLang: Language.Fr,
   },
   {
-    id: "14",
+    id: 14,
     firstName: "Marylinda",
     lastName: "Giffin",
     email: "mgiffind@weebly.com",
@@ -114,7 +114,7 @@ export default (): AllUsersQuery["users"] => [
     preferredLang: Language.Fr,
   },
   {
-    id: "15",
+    id: 15,
     firstName: "Darlene",
     lastName: "McCheyne",
     email: "dmccheynee@zimbio.com",
@@ -122,7 +122,7 @@ export default (): AllUsersQuery["users"] => [
     preferredLang: Language.Fr,
   },
   {
-    id: "16",
+    id: 16,
     firstName: "Betta",
     lastName: "Imison",
     email: "bimisonf@sogou.com",
@@ -130,7 +130,7 @@ export default (): AllUsersQuery["users"] => [
     preferredLang: Language.Fr,
   },
   {
-    id: "17",
+    id: 17,
     firstName: "Kennan",
     lastName: "Vasyagin",
     email: "kvasyaging@auda.org.au",
@@ -138,7 +138,7 @@ export default (): AllUsersQuery["users"] => [
     preferredLang: Language.Fr,
   },
   {
-    id: "18",
+    id: 18,
     firstName: "Nelie",
     lastName: "Newbury",
     email: "nnewburyh@eventbrite.com",
@@ -146,7 +146,7 @@ export default (): AllUsersQuery["users"] => [
     preferredLang: Language.Fr,
   },
   {
-    id: "19",
+    id: 19,
     firstName: "Burnard",
     lastName: "Clother",
     email: "bclotheri@harvard.edu",
@@ -154,7 +154,7 @@ export default (): AllUsersQuery["users"] => [
     preferredLang: Language.Fr,
   },
   {
-    id: "20",
+    id: 20,
     firstName: "Elena",
     lastName: "Gerrans",
     email: "egerransj@phpbb.com",
@@ -162,7 +162,7 @@ export default (): AllUsersQuery["users"] => [
     preferredLang: Language.Fr,
   },
   {
-    id: "21",
+    id: 21,
     firstName: "Slade",
     lastName: "Kilvington",
     email: "skilvingtonk@about.com",
@@ -170,7 +170,7 @@ export default (): AllUsersQuery["users"] => [
     preferredLang: Language.Fr,
   },
   {
-    id: "22",
+    id: 22,
     firstName: "Shirleen",
     lastName: "Maude",
     email: "smaudel@xinhuanet.com",
@@ -178,7 +178,7 @@ export default (): AllUsersQuery["users"] => [
     preferredLang: Language.Fr,
   },
   {
-    id: "23",
+    id: 23,
     firstName: "Mercie",
     lastName: "Plowes",
     email: "mplowesm@arstechnica.com",
@@ -186,7 +186,7 @@ export default (): AllUsersQuery["users"] => [
     preferredLang: Language.Fr,
   },
   {
-    id: "24",
+    id: 24,
     firstName: "Jacinda",
     lastName: "Astall",
     email: "jastalln@google.com.hk",
@@ -194,7 +194,7 @@ export default (): AllUsersQuery["users"] => [
     preferredLang: Language.Fr,
   },
   {
-    id: "25",
+    id: 25,
     firstName: "Fionnula",
     lastName: "Eggers",
     email: "feggerso@diigo.com",
@@ -202,7 +202,7 @@ export default (): AllUsersQuery["users"] => [
     preferredLang: Language.Fr,
   },
   {
-    id: "26",
+    id: 26,
     firstName: "Evaleen",
     lastName: "Lonnon",
     email: "elonnonp@twitpic.com",
@@ -210,7 +210,7 @@ export default (): AllUsersQuery["users"] => [
     preferredLang: Language.Fr,
   },
   {
-    id: "27",
+    id: 27,
     firstName: "Matti",
     lastName: "Ogdahl",
     email: "mogdahlq@webeden.co.uk",
@@ -218,7 +218,7 @@ export default (): AllUsersQuery["users"] => [
     preferredLang: Language.Fr,
   },
   {
-    id: "28",
+    id: 28,
     firstName: "Maddie",
     lastName: "Liversage",
     email: "mliversager@psu.edu",
@@ -226,7 +226,7 @@ export default (): AllUsersQuery["users"] => [
     preferredLang: Language.Fr,
   },
   {
-    id: "29",
+    id: 29,
     firstName: "Alissa",
     lastName: "De Robertis",
     email: "aderobertiss@washington.edu",
@@ -234,7 +234,7 @@ export default (): AllUsersQuery["users"] => [
     preferredLang: Language.Fr,
   },
   {
-    id: "30",
+    id: 30,
     firstName: "Jackelyn",
     lastName: "Kubach",
     email: "jkubacht@posterous.com",
@@ -242,7 +242,7 @@ export default (): AllUsersQuery["users"] => [
     preferredLang: Language.Fr,
   },
   {
-    id: "31",
+    id: 31,
     firstName: "Alphonse",
     lastName: "Benettolo",
     email: "abenettolou@oracle.com",
@@ -250,7 +250,7 @@ export default (): AllUsersQuery["users"] => [
     preferredLang: Language.Fr,
   },
   {
-    id: "32",
+    id: 32,
     firstName: "Zelig",
     lastName: "Molian",
     email: "zmolianv@blogs.com",
@@ -258,7 +258,7 @@ export default (): AllUsersQuery["users"] => [
     preferredLang: Language.Fr,
   },
   {
-    id: "33",
+    id: 33,
     firstName: "Inesita",
     lastName: "Baise",
     email: "ibaisew@timesonline.co.uk",
@@ -266,7 +266,7 @@ export default (): AllUsersQuery["users"] => [
     preferredLang: Language.Fr,
   },
   {
-    id: "34",
+    id: 34,
     firstName: "Wanids",
     lastName: "Peachment",
     email: "wpeachmentx@hp.com",
@@ -274,7 +274,7 @@ export default (): AllUsersQuery["users"] => [
     preferredLang: Language.Fr,
   },
   {
-    id: "35",
+    id: 35,
     firstName: "Germaine",
     lastName: "Covill",
     email: "gcovilly@quantcast.com",
@@ -282,7 +282,7 @@ export default (): AllUsersQuery["users"] => [
     preferredLang: Language.Fr,
   },
   {
-    id: "36",
+    id: 36,
     firstName: "Sarena",
     lastName: "Najafian",
     email: "snajafianz@people.com.cn",
@@ -290,7 +290,7 @@ export default (): AllUsersQuery["users"] => [
     preferredLang: Language.Fr,
   },
   {
-    id: "37",
+    id: 37,
     firstName: "Elton",
     lastName: "Matteini",
     email: "ematteini10@stumbleupon.com",
@@ -298,7 +298,7 @@ export default (): AllUsersQuery["users"] => [
     preferredLang: Language.Fr,
   },
   {
-    id: "38",
+    id: 38,
     firstName: "Blanch",
     lastName: "Emig",
     email: "bemig11@cnet.com",
@@ -306,7 +306,7 @@ export default (): AllUsersQuery["users"] => [
     preferredLang: Language.Fr,
   },
   {
-    id: "39",
+    id: 39,
     firstName: "Valeria",
     lastName: "Varren",
     email: "vvarren12@washington.edu",
@@ -314,7 +314,7 @@ export default (): AllUsersQuery["users"] => [
     preferredLang: Language.Fr,
   },
   {
-    id: "40",
+    id: 40,
     firstName: "Dori",
     lastName: "Penchen",
     email: "dpenchen13@home.pl",
@@ -322,7 +322,7 @@ export default (): AllUsersQuery["users"] => [
     preferredLang: Language.Fr,
   },
   {
-    id: "41",
+    id: 41,
     firstName: "Buddie",
     lastName: "MacCaffery",
     email: "bmaccaffery14@simplemachines.org",
@@ -330,7 +330,7 @@ export default (): AllUsersQuery["users"] => [
     preferredLang: Language.Fr,
   },
   {
-    id: "42",
+    id: 42,
     firstName: "Dylan",
     lastName: "Zmitruk",
     email: "dzmitruk15@wikimedia.org",
@@ -338,7 +338,7 @@ export default (): AllUsersQuery["users"] => [
     preferredLang: Language.Fr,
   },
   {
-    id: "43",
+    id: 43,
     firstName: "Gianina",
     lastName: "Pynn",
     email: "gpynn16@issuu.com",
@@ -346,7 +346,7 @@ export default (): AllUsersQuery["users"] => [
     preferredLang: Language.Fr,
   },
   {
-    id: "44",
+    id: 44,
     firstName: "Hedy",
     lastName: "Keable",
     email: "hkeable17@google.cn",
@@ -354,7 +354,7 @@ export default (): AllUsersQuery["users"] => [
     preferredLang: Language.Fr,
   },
   {
-    id: "45",
+    id: 45,
     firstName: "Davy",
     lastName: "O'Shirine",
     email: "doshirine18@opensource.org",
@@ -362,7 +362,7 @@ export default (): AllUsersQuery["users"] => [
     preferredLang: Language.Fr,
   },
   {
-    id: "46",
+    id: 46,
     firstName: "Marja",
     lastName: "Ewestace",
     email: "mewestace19@wiley.com",
@@ -370,7 +370,7 @@ export default (): AllUsersQuery["users"] => [
     preferredLang: Language.Fr,
   },
   {
-    id: "47",
+    id: 47,
     firstName: "Deeanne",
     lastName: "MacGinley",
     email: "dmacginley1a@themeforest.net",
@@ -378,7 +378,7 @@ export default (): AllUsersQuery["users"] => [
     preferredLang: Language.Fr,
   },
   {
-    id: "48",
+    id: 48,
     firstName: "Denys",
     lastName: "Krollmann",
     email: "dkrollmann1b@cocolog-nifty.com",
@@ -386,7 +386,7 @@ export default (): AllUsersQuery["users"] => [
     preferredLang: Language.Fr,
   },
   {
-    id: "49",
+    id: 49,
     firstName: "Cordie",
     lastName: "Girod",
     email: "cgirod1c@addtoany.com",
@@ -394,7 +394,7 @@ export default (): AllUsersQuery["users"] => [
     preferredLang: Language.Fr,
   },
   {
-    id: "50",
+    id: 50,
     firstName: "Hilary",
     lastName: "Snowman",
     email: "hsnowman1d@cisco.com",
@@ -402,7 +402,7 @@ export default (): AllUsersQuery["users"] => [
     preferredLang: Language.Fr,
   },
   {
-    id: "51",
+    id: 51,
     firstName: "Karena",
     lastName: "Whayman",
     email: "kwhayman1e@cdbaby.com",
@@ -410,7 +410,7 @@ export default (): AllUsersQuery["users"] => [
     preferredLang: Language.Fr,
   },
   {
-    id: "52",
+    id: 52,
     firstName: "Ludovico",
     lastName: "Walklott",
     email: "lwalklott1f@barnesandnoble.com",
@@ -418,7 +418,7 @@ export default (): AllUsersQuery["users"] => [
     preferredLang: Language.Fr,
   },
   {
-    id: "53",
+    id: 53,
     firstName: "Cordelie",
     lastName: "Kubasek",
     email: "ckubasek1g@aboutads.info",
@@ -426,7 +426,7 @@ export default (): AllUsersQuery["users"] => [
     preferredLang: Language.Fr,
   },
   {
-    id: "54",
+    id: 54,
     firstName: "Leslie",
     lastName: "Gradon",
     email: "lgradon1h@addthis.com",
@@ -434,7 +434,7 @@ export default (): AllUsersQuery["users"] => [
     preferredLang: Language.Fr,
   },
   {
-    id: "55",
+    id: 55,
     firstName: "Chaim",
     lastName: "Durrans",
     email: "cdurrans1i@smh.com.au",
@@ -442,7 +442,7 @@ export default (): AllUsersQuery["users"] => [
     preferredLang: Language.Fr,
   },
   {
-    id: "56",
+    id: 56,
     firstName: "Alli",
     lastName: "Pladen",
     email: "apladen1j@dyndns.org",
@@ -450,7 +450,7 @@ export default (): AllUsersQuery["users"] => [
     preferredLang: Language.Fr,
   },
   {
-    id: "57",
+    id: 57,
     firstName: "Berty",
     lastName: "Marnane",
     email: "bmarnane1k@google.it",
@@ -458,7 +458,7 @@ export default (): AllUsersQuery["users"] => [
     preferredLang: Language.Fr,
   },
   {
-    id: "58",
+    id: 58,
     firstName: "Darbie",
     lastName: "Gallyon",
     email: "dgallyon1l@posterous.com",
@@ -466,7 +466,7 @@ export default (): AllUsersQuery["users"] => [
     preferredLang: Language.Fr,
   },
   {
-    id: "59",
+    id: 59,
     firstName: "Teirtza",
     lastName: "Vogeler",
     email: "tvogeler1m@va.gov",
@@ -474,7 +474,7 @@ export default (): AllUsersQuery["users"] => [
     preferredLang: Language.En,
   },
   {
-    id: "60",
+    id: 60,
     firstName: "Guillaume",
     lastName: "Adenet",
     email: "gadenet1n@prnewswire.com",
@@ -482,7 +482,7 @@ export default (): AllUsersQuery["users"] => [
     preferredLang: Language.Fr,
   },
   {
-    id: "61",
+    id: 61,
     firstName: "Jacqui",
     lastName: "Bowerbank",
     email: "jbowerbank1o@cnet.com",
@@ -490,7 +490,7 @@ export default (): AllUsersQuery["users"] => [
     preferredLang: Language.Fr,
   },
   {
-    id: "62",
+    id: 62,
     firstName: "Robinia",
     lastName: "Mutimer",
     email: "rmutimer1p@army.mil",
@@ -498,7 +498,7 @@ export default (): AllUsersQuery["users"] => [
     preferredLang: Language.Fr,
   },
   {
-    id: "63",
+    id: 63,
     firstName: "Raychel",
     lastName: "Shailer",
     email: "rshailer1q@homestead.com",
@@ -506,7 +506,7 @@ export default (): AllUsersQuery["users"] => [
     preferredLang: Language.Fr,
   },
   {
-    id: "64",
+    id: 64,
     firstName: "Blaine",
     lastName: "Wyre",
     email: "bwyre1r@examiner.com",
@@ -514,7 +514,7 @@ export default (): AllUsersQuery["users"] => [
     preferredLang: Language.Fr,
   },
   {
-    id: "65",
+    id: 65,
     firstName: "Corbett",
     lastName: "Milton-White",
     email: "cmiltonwhite1s@vinaora.com",
@@ -522,7 +522,7 @@ export default (): AllUsersQuery["users"] => [
     preferredLang: Language.Fr,
   },
   {
-    id: "66",
+    id: 66,
     firstName: "Halsy",
     lastName: "Howlett",
     email: "hhowlett1t@miitbeian.gov.cn",
@@ -530,7 +530,7 @@ export default (): AllUsersQuery["users"] => [
     preferredLang: Language.Fr,
   },
   {
-    id: "67",
+    id: 67,
     firstName: "Ashby",
     lastName: "Gallichan",
     email: "agallichan1u@w3.org",
@@ -538,7 +538,7 @@ export default (): AllUsersQuery["users"] => [
     preferredLang: Language.Fr,
   },
   {
-    id: "68",
+    id: 68,
     firstName: "Trumaine",
     lastName: "Cuddehay",
     email: "tcuddehay1v@army.mil",
@@ -546,7 +546,7 @@ export default (): AllUsersQuery["users"] => [
     preferredLang: Language.Fr,
   },
   {
-    id: "69",
+    id: 69,
     firstName: "Tom",
     lastName: "McGonigle",
     email: "tmcgonigle1w@squidoo.com",
@@ -554,7 +554,7 @@ export default (): AllUsersQuery["users"] => [
     preferredLang: Language.Fr,
   },
   {
-    id: "70",
+    id: 70,
     firstName: "Sue",
     lastName: "Smeuin",
     email: "ssmeuin1x@opera.com",
@@ -562,7 +562,7 @@ export default (): AllUsersQuery["users"] => [
     preferredLang: Language.Fr,
   },
   {
-    id: "71",
+    id: 71,
     firstName: "Denny",
     lastName: "Adkins",
     email: "dadkins1y@china.com.cn",
@@ -570,7 +570,7 @@ export default (): AllUsersQuery["users"] => [
     preferredLang: Language.Fr,
   },
   {
-    id: "72",
+    id: 72,
     firstName: "Merci",
     lastName: "Winsper",
     email: "mwinsper1z@123-reg.co.uk",
@@ -578,7 +578,7 @@ export default (): AllUsersQuery["users"] => [
     preferredLang: Language.Fr,
   },
   {
-    id: "73",
+    id: 73,
     firstName: "Genevieve",
     lastName: "Shitliff",
     email: "gshitliff20@techcrunch.com",
@@ -586,7 +586,7 @@ export default (): AllUsersQuery["users"] => [
     preferredLang: Language.Fr,
   },
   {
-    id: "74",
+    id: 74,
     firstName: "Misty",
     lastName: "Boyle",
     email: "mboyle21@bbc.co.uk",
@@ -594,7 +594,7 @@ export default (): AllUsersQuery["users"] => [
     preferredLang: Language.Fr,
   },
   {
-    id: "75",
+    id: 75,
     firstName: "Laurice",
     lastName: "Vala",
     email: "lvala22@hugedomains.com",
@@ -602,7 +602,7 @@ export default (): AllUsersQuery["users"] => [
     preferredLang: Language.Fr,
   },
   {
-    id: "76",
+    id: 76,
     firstName: "Ofelia",
     lastName: "Utterson",
     email: "outterson23@histats.com",
@@ -610,7 +610,7 @@ export default (): AllUsersQuery["users"] => [
     preferredLang: Language.Fr,
   },
   {
-    id: "77",
+    id: 77,
     firstName: "Kira",
     lastName: "Arend",
     email: "karend24@berkeley.edu",
@@ -618,7 +618,7 @@ export default (): AllUsersQuery["users"] => [
     preferredLang: Language.Fr,
   },
   {
-    id: "78",
+    id: 78,
     firstName: "Sheri",
     lastName: "Hendin",
     email: "shendin25@cafepress.com",
@@ -626,7 +626,7 @@ export default (): AllUsersQuery["users"] => [
     preferredLang: Language.Fr,
   },
   {
-    id: "79",
+    id: 79,
     firstName: "Anselma",
     lastName: "Decourcy",
     email: "adecourcy26@sohu.com",
@@ -634,7 +634,7 @@ export default (): AllUsersQuery["users"] => [
     preferredLang: Language.Fr,
   },
   {
-    id: "80",
+    id: 80,
     firstName: "Leonie",
     lastName: "Milkeham",
     email: "lmilkeham27@youku.com",
@@ -642,7 +642,7 @@ export default (): AllUsersQuery["users"] => [
     preferredLang: Language.Fr,
   },
   {
-    id: "81",
+    id: 81,
     firstName: "Matti",
     lastName: "Sharpin",
     email: "msharpin28@who.int",
@@ -650,7 +650,7 @@ export default (): AllUsersQuery["users"] => [
     preferredLang: Language.Fr,
   },
   {
-    id: "82",
+    id: 82,
     firstName: "Barbette",
     lastName: "Lumpkin",
     email: "blumpkin29@mtv.com",
@@ -658,7 +658,7 @@ export default (): AllUsersQuery["users"] => [
     preferredLang: Language.Fr,
   },
   {
-    id: "83",
+    id: 83,
     firstName: "Pavia",
     lastName: "Flott",
     email: "pflott2a@webeden.co.uk",
@@ -666,7 +666,7 @@ export default (): AllUsersQuery["users"] => [
     preferredLang: Language.Fr,
   },
   {
-    id: "84",
+    id: 84,
     firstName: "Brande",
     lastName: "Guidelli",
     email: "bguidelli2b@kickstarter.com",
@@ -674,7 +674,7 @@ export default (): AllUsersQuery["users"] => [
     preferredLang: Language.Fr,
   },
   {
-    id: "85",
+    id: 85,
     firstName: "Bernarr",
     lastName: "Goncaves",
     email: "bgoncaves2c@hubpages.com",
@@ -682,7 +682,7 @@ export default (): AllUsersQuery["users"] => [
     preferredLang: Language.Fr,
   },
   {
-    id: "86",
+    id: 86,
     firstName: "Iosep",
     lastName: "Mosdell",
     email: "imosdell2d@slideshare.net",
@@ -690,7 +690,7 @@ export default (): AllUsersQuery["users"] => [
     preferredLang: Language.Fr,
   },
   {
-    id: "87",
+    id: 87,
     firstName: "Kasey",
     lastName: "Phillipps",
     email: "kphillipps2e@vkontakte.ru",
@@ -698,7 +698,7 @@ export default (): AllUsersQuery["users"] => [
     preferredLang: Language.Fr,
   },
   {
-    id: "88",
+    id: 88,
     firstName: "Maribel",
     lastName: "Trahmel",
     email: "mtrahmel2f@mapy.cz",
@@ -706,7 +706,7 @@ export default (): AllUsersQuery["users"] => [
     preferredLang: Language.Fr,
   },
   {
-    id: "89",
+    id: 89,
     firstName: "Bartlet",
     lastName: "Tart",
     email: "btart2g@apple.com",
@@ -714,7 +714,7 @@ export default (): AllUsersQuery["users"] => [
     preferredLang: Language.Fr,
   },
   {
-    id: "90",
+    id: 90,
     firstName: "Tanitansy",
     lastName: "Garman",
     email: "tgarman2h@free.fr",
@@ -722,7 +722,7 @@ export default (): AllUsersQuery["users"] => [
     preferredLang: Language.Fr,
   },
   {
-    id: "91",
+    id: 91,
     firstName: "Christophorus",
     lastName: "Evennett",
     email: "cevennett2i@smh.com.au",
@@ -730,7 +730,7 @@ export default (): AllUsersQuery["users"] => [
     preferredLang: Language.Fr,
   },
   {
-    id: "92",
+    id: 92,
     firstName: "Darb",
     lastName: "Toone",
     email: "dtoone2j@aboutads.info",
@@ -738,7 +738,7 @@ export default (): AllUsersQuery["users"] => [
     preferredLang: Language.Fr,
   },
   {
-    id: "93",
+    id: 93,
     firstName: "Audy",
     lastName: "Lambarton",
     email: "alambarton2k@ihg.com",
@@ -746,7 +746,7 @@ export default (): AllUsersQuery["users"] => [
     preferredLang: Language.Fr,
   },
   {
-    id: "94",
+    id: 94,
     firstName: "Sonny",
     lastName: "Lintall",
     email: "slintall2l@harvard.edu",
@@ -754,7 +754,7 @@ export default (): AllUsersQuery["users"] => [
     preferredLang: Language.Fr,
   },
   {
-    id: "95",
+    id: 95,
     firstName: "Parke",
     lastName: "Sawell",
     email: "psawell2m@cnbc.com",
@@ -762,7 +762,7 @@ export default (): AllUsersQuery["users"] => [
     preferredLang: Language.Fr,
   },
   {
-    id: "96",
+    id: 96,
     firstName: "Bab",
     lastName: "Meneur",
     email: "bmeneur2n@economist.com",
@@ -770,7 +770,7 @@ export default (): AllUsersQuery["users"] => [
     preferredLang: Language.Fr,
   },
   {
-    id: "97",
+    id: 97,
     firstName: "Pearce",
     lastName: "Ivain",
     email: "pivain2o@state.gov",
@@ -778,7 +778,7 @@ export default (): AllUsersQuery["users"] => [
     preferredLang: Language.Fr,
   },
   {
-    id: "98",
+    id: 98,
     firstName: "Glenna",
     lastName: "Pearcy",
     email: "gpearcy2p@scientificamerican.com",
@@ -786,7 +786,7 @@ export default (): AllUsersQuery["users"] => [
     preferredLang: Language.Fr,
   },
   {
-    id: "99",
+    id: 99,
     firstName: "Eudora",
     lastName: "Concannon",
     email: "econcannon2q@shinystat.com",
@@ -794,7 +794,7 @@ export default (): AllUsersQuery["users"] => [
     preferredLang: Language.En,
   },
   {
-    id: "100",
+    id: 100,
     firstName: "Raffaello",
     lastName: "Croshaw",
     email: "rcroshaw2r@wisc.edu",

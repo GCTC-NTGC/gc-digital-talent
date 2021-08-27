@@ -2,7 +2,7 @@ import { GetCmoAssetsQuery } from "../api/generated";
 
 export default (): GetCmoAssetsQuery["cmoAssets"] => [
   {
-    id: "1",
+    id: 1,
     key: "application-development",
     name: {
       en: "Application Development",
@@ -14,7 +14,7 @@ export default (): GetCmoAssetsQuery["cmoAssets"] => [
     },
   },
   {
-    id: "2",
+    id: 2,
     key: "quality-assurance",
     name: {
       en: "Quality Assurance",
@@ -26,7 +26,7 @@ export default (): GetCmoAssetsQuery["cmoAssets"] => [
     },
   },
   {
-    id: "3",
+    id: 3,
     key: "enterprise-architecture",
     name: {
       en: "Enterprise Architecture",
@@ -38,7 +38,7 @@ export default (): GetCmoAssetsQuery["cmoAssets"] => [
     },
   },
   {
-    id: "4",
+    id: 4,
     key: "it-project-management",
     name: {
       en: "IT Project Management",

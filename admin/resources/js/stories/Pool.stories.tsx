@@ -56,7 +56,7 @@ stories.add("Create Pool Form", () => (
 
 stories.add("Update Pool Form", () => {
   const pool: Pool = {
-    id: "1",
+    id: 1,
     owner: fakeUsers()[0],
     name: {
       en: "Pool Name",
