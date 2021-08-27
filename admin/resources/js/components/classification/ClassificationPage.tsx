@@ -3,6 +3,7 @@ import { defineMessages, useIntl } from "react-intl";
 import { Link } from "../../helpers/router";
 import { ClassificationTableApi } from "./ClassificationTable";
 import Button from "../H2Components/Button";
+import { classificationCreatePath } from "../../helpers/routes";
 
 const messages = defineMessages({
   tableHeading: {
@@ -41,7 +42,7 @@ export const ClassificationPage: React.FC = () => {
             data-h2-text-align="m(right)"
           >
             <Button color="white" mode="outline">
-              <Link href="/classifications/create" title="">
+              <Link href={classificationCreatePath()} title="">
                 {intl.formatMessage(messages.createHeading)}
               </Link>
             </Button>

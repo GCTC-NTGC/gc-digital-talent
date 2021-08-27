@@ -3,6 +3,7 @@ import { defineMessages, useIntl } from "react-intl";
 import { Link } from "../../helpers/router";
 import { PoolCandidatesTableApi } from "./PoolCandidatesTable";
 import Button from "../H2Components/Button";
+import { poolCandidateCreatePath } from "../../helpers/routes";
 
 const messages = defineMessages({
   tableHeading: {
@@ -41,7 +42,7 @@ export const PoolCandidatePage: React.FC<{ poolId: string }> = ({ poolId }) => {
             data-h2-text-align="m(right)"
           >
             <Button color="white" mode="outline">
-              <Link href={`/pools/${poolId}/pool-candidates/create`} title="">
+              <Link href={poolCandidateCreatePath(poolId)} title="">
                 {intl.formatMessage(messages.createHeading)}
               </Link>
             </Button>

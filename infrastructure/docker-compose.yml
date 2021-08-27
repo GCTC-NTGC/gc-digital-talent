@@ -30,6 +30,7 @@ services:
       - ../api:/var/www/html/api
       - ../admin:/var/www/html/admin
       - ../auth:/var/www/html/auth
+      - ../talentsearch:/var/www/html/talentsearch
     ports:
       - 8000:80
       - 8001:443

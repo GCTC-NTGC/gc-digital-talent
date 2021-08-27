@@ -9,6 +9,7 @@ import {
   useLocation,
   useRouter,
 } from "../../helpers/router";
+import { poolCandidateTablePath } from "../../helpers/routes";
 import Footer from "../Footer";
 import Button from "../H2Components/Button";
 import SideMenu from "../menu/SideMenu";
@@ -91,7 +92,7 @@ const PoolListApi = () => {
       items.push(
         <MenuLink
           key={`pools/${pool?.id}/pool-candidates`}
-          href={`/pools/${pool?.id}/pool-candidates`}
+          href={poolCandidateTablePath(pool?.id ?? "")}
           text={(pool?.name && pool?.name[getLocale(intl)]) ?? ""}
         />,
       ),
