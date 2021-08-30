@@ -226,8 +226,8 @@ input OperationalRequirementBelongsToMany {
 }
 
 input CreatePoolCandidateInput {
-    pool: PoolBelongsTo! @belongsTo
-    user: UserBelongsTo! @belongsTo
+    pool: PoolBelongsTo!
+    user: UserBelongsTo!
     cmoIdentifier: ID @rename(attribute: "cmo_identifier")
     expiryDate: Date @rename(attribute: "expiry_date")
     isWoman: Boolean @rename(attribute: "is_woman")
@@ -278,7 +278,7 @@ input UpdateOperationalRequirementInput {
 }
 
 input UpdatePoolCandidateInput {
-    user: UpdatePoolCandidateUserBelongsTo @belongsTo
+    user: UpdatePoolCandidateUserBelongsTo
     cmoIdentifier: ID @rename(attribute: "cmo_identifier")
     expiryDate: Date @rename(attribute: "expiry_date")
     isWoman: Boolean @rename(attribute: "is_woman")
