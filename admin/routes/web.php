@@ -12,6 +12,7 @@
 | and give it the Closure to call when that URI is requested.
 |
 */
-
-$router->get('/', 'DashboardController@index');
-$router->get('/{any:.*}', 'DashboardController@index');
+$router->group(['prefix' => env('APP_DIR')], function () use ($router) {
+    $router->get('/', 'DashboardController@index');
+    $router->get('/{any:.*}', 'DashboardController@index');
+});
