@@ -74,11 +74,10 @@ if (!function_exists('urlGenerator')) {
 if (!function_exists('asset')) {
     /**
      * @param $path
-     * @param bool $secured
      *
      * @return string
      */
-    function asset($path, $secured = false) {
-        return urlGenerator()->asset($path, $secured);
+    function asset($path) {
+       return config('app.asset_url') . $path;
     }
 }

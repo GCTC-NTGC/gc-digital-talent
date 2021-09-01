@@ -91,3 +91,24 @@ export const Link: React.FC<{ href: string; title: string }> = ({
     {children}
   </a>
 );
+
+/* eslint-disable no-useless-escape */
+function stripTrailingSlash(str: string): string {
+  return str.endsWith("/") ? str.slice(0, -1) : str;
+}
+
+export function baseUrl(): string {
+  const base: string = process.env.APP_URL ?? "http://localhost:8000/admin";
+  if (base !== null) {
+    return stripTrailingSlash(base);
+  }
+  return "";
+}
+
+/**
+ *
+ * @param imgFile The name of the img file, not including the /images/ path.
+ */
+export function imageUrl(imgFile: string): string {
+  return `${baseUrl()}/public/images/${imgFile}`;
+}

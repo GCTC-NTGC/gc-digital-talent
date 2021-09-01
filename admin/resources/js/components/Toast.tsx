@@ -37,6 +37,7 @@ const Toast: React.FunctionComponent = () => {
       }
       style={{ width: "400px" }}
       closeButton={CloseButton}
+      icon={false}
     />
   );
 };

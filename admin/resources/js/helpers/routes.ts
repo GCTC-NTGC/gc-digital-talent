@@ -1,33 +1,40 @@
-export const classificationTablePath = (): string => `/classifications`;
-export const classificationCreatePath = (): string => `/classifications/create`;
-export const classificationUpdatePath = (id: string): string =>
-  `/classifications/${id}/edit`;
+const appDir = process.env.APP_DIR ?? "admin";
 
-export const cmoAssetTablePath = (): string => `/cmo-assets`;
-export const cmoAssetCreatePath = (): string => `/cmo-assets/create`;
+export const classificationTablePath = (): string =>
+  `/${appDir}/classifications`;
+export const classificationCreatePath = (): string =>
+  `/${appDir}/classifications/create`;
+export const classificationUpdatePath = (id: string): string =>
+  `/${appDir}/classifications/${id}/edit`;
+
+export const cmoAssetTablePath = (): string => `/${appDir}/cmo-assets`;
+export const cmoAssetCreatePath = (): string => `/${appDir}/cmo-assets/create`;
 export const cmoAssetUpdatePath = (id: string): string =>
-  `/cmo-assets/${id}/edit`;
+  `/${appDir}/cmo-assets/${id}/edit`;
 
 export const operationalRequirementTablePath = (): string =>
-  `/operational-requirements`;
+  `/${appDir}/operational-requirements`;
 export const operationalRequirementCreatePath = (): string =>
-  `/operational-requirements/create`;
+  `/${appDir}/operational-requirements/create`;
 export const operationalRequirementUpdatePath = (id: string): string =>
-  `/operational-requirements/${id}/edit`;
+  `/${appDir}/operational-requirements/${id}/edit`;
 
-export const poolTablePath = (): string => `/pools`;
-export const poolCreatePath = (): string => `/pools/create`;
-export const poolUpdatePath = (id: string): string => `/pools/${id}/edit`;
+export const poolTablePath = (): string => `/${appDir}/pools`;
+export const poolCreatePath = (): string => `/${appDir}/pools/create`;
+export const poolUpdatePath = (id: string): string =>
+  `/${appDir}/pools/${id}/edit`;
 
 export const poolCandidateTablePath = (poolId: string): string =>
-  `/pools/${poolId}/pool-candidates`;
+  `/${appDir}/pools/${poolId}/pool-candidates`;
 export const poolCandidateCreatePath = (poolId: string): string =>
-  `/pools/${poolId}/pool-candidates/create`;
+  `/${appDir}/pools/${poolId}/pool-candidates/create`;
 export const poolCandidateUpdatePath = (
-  poolId: number,
-  poolCandidateId: number,
-): string => `/pools/${poolId}/pool-candidates/${poolCandidateId}/edit`;
+  poolId: string,
+  poolCandidateId: string,
+): string =>
+  `/${appDir}/pools/${poolId}/pool-candidates/${poolCandidateId}/edit`;
 
-export const userTablePath = (): string => `/users`;
-export const userCreatePath = (): string => `/users/create`;
-export const userUpdatePath = (id: string): string => `/users/${id}/edit`;
+export const userTablePath = (): string => `/${appDir}/users`;
+export const userCreatePath = (): string => `/${appDir}/users/create`;
+export const userUpdatePath = (id: string): string =>
+  `/${appDir}/users/${id}/edit`;
