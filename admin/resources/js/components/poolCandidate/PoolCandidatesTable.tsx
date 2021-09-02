@@ -1,14 +1,13 @@
 import React, { useMemo } from "react";
 import { defineMessages, useIntl } from "react-intl";
+import { notEmpty, commonMessages } from "common";
 import {
   GetPoolCandidatesQuery,
   useGetPoolCandidatesByPoolQuery,
 } from "../../api/generated";
-import { notEmpty } from "../../helpers/util";
 import { FromArray } from "../../types/utilityTypes";
 import Table, { ColumnsOf } from "../Table";
 import TableBoolean from "../TableBoolean";
-import commonMessages from "../commonMessages";
 
 const messages = defineMessages({
   columnIdTitle: {
