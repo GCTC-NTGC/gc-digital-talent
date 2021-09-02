@@ -1,9 +1,7 @@
 import React from "react";
 import { defineMessages, useIntl } from "react-intl";
-import { Link } from "../../helpers/router";
+import { Link, Button, classificationCreatePath } from "common";
 import { ClassificationTableApi } from "./ClassificationTable";
-import Button from "../H2Components/Button";
-import { classificationCreatePath } from "../../helpers/routes";
 
 const messages = defineMessages({
   tableHeading: {

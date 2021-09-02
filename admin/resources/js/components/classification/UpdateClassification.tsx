@@ -4,17 +4,19 @@ import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { toast } from "react-toastify";
 import {
+  errorMessages,
+  navigate,
+  Input,
+  Select,
+  Submit,
+  classificationTablePath,
+} from "common";
+import {
   Classification,
   UpdateClassificationInput,
   useGetClassificationQuery,
   useUpdateClassificationMutation,
 } from "../../api/generated";
-import { navigate } from "../../helpers/router";
-import { classificationTablePath } from "../../helpers/routes";
-import errorMessages from "../form/errorMessages";
-import Input from "../form/Input";
-import Select from "../form/Select";
-import Submit from "../form/Submit";
 import messages from "./messages";
 
 type FormValues = UpdateClassificationInput;
