@@ -1,7 +1,6 @@
 import * as React from "react";
+import { currentDate, imageUrl, Link } from "gc-digital-talent-common";
 import { defineMessages, useIntl } from "react-intl";
-import { imageUrl, Link } from "../helpers/router";
-import { currentDate } from "./form/formUtils";
 
 const messages = defineMessages({
   feedbackTitle: {

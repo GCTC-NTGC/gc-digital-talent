@@ -6,7 +6,7 @@ import {
   notEmpty,
   Button,
   commonMessages,
-} from "common";
+} from "gc-digital-talent-common";
 import {
   GetClassificationsQuery,
   useGetClassificationsQuery,

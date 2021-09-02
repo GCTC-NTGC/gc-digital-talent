@@ -14,7 +14,7 @@ import {
   commonMessages,
   navigate,
   poolTablePath,
-} from "common";
+} from "gc-digital-talent-common";
 import {
   Classification,
   CmoAsset,

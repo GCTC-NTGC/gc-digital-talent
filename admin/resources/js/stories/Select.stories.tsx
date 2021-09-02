@@ -1,9 +1,7 @@
 import React from "react";
 import { Story, Meta } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
-import Form from "../components/form/Form";
-import Select, { SelectProps } from "../components/form/Select";
-import Submit from "../components/form/Submit";
+import { Form, Select, Submit, SelectProps } from "gc-digital-talent-common";
 
 export default {
   component: Select,

@@ -1,21 +1,22 @@
 import Alert from "./components/Alert";
-import Button from "./components/Button";
-import Checkbox from "./components/Checkbox";
-import Checklist from "./components/Checklist";
-import Fieldset from "./components/Fieldset";
+import Button, { ButtonProps } from "./components/Button";
+import Checkbox, { CheckboxProps } from "./components/Checkbox";
+import Checklist, { ChecklistProps } from "./components/Checklist";
+import Fieldset, { FieldsetProps } from "./components/Fieldset";
 import Form from "./components/Form";
-import Input from "./components/Input";
+import Input, { InputProps } from "./components/Input";
 import InputContext from "./components/InputContext";
 import InputError from "./components/InputError";
-import InputWrapper from "./components/InputWrapper";
+import InputLabel, { InputLabelProps } from "./components/InputLabel";
+import InputWrapper, { InputWrapperProps } from "./components/InputWrapper";
 import Link from "./components/Link";
 import MultiSelect from "./components/MultiSelect";
 import Pill from "./components/Pill";
-import Radio from "./components/Radio";
-import RadioGroup from "./components/RadioGroup";
-import Select from "./components/Select";
+import Radio, { RadioProps } from "./components/Radio";
+import RadioGroup, { RadioGroupProps } from "./components/RadioGroup";
+import Select, { SelectProps } from "./components/Select";
 import Submit from "./components/Submit";
-import TextArea from "./components/TextArea";
+import TextArea, { TextAreaProps } from "./components/TextArea";
 import {
   Locales,
   RouterResult,
@@ -70,6 +71,7 @@ export {
   Input,
   InputContext,
   InputError,
+  InputLabel,
   InputWrapper,
   Link,
   MultiSelect,
@@ -121,7 +123,8 @@ export {
   getLanguage,
   getSalaryRange,
   languages,
-  salaryRanges,
+  salaryRanges
 };
-export type { Locales, RouterResult };
+
+export type { ButtonProps, CheckboxProps, ChecklistProps, FieldsetProps, InputProps, InputLabelProps, InputWrapperProps, RadioProps, RadioGroupProps, SelectProps, TextAreaProps, Locales, RouterResult };
 

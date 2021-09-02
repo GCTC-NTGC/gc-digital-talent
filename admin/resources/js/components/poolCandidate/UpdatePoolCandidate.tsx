@@ -19,7 +19,7 @@ import {
   navigate,
   poolCandidateTablePath,
   getLocale,
-} from "common";
+} from "gc-digital-talent-common";
 import {
   UpdatePoolCandidateInput,
   LanguageAbility,

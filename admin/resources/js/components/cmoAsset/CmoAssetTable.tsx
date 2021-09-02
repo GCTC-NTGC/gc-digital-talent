@@ -6,7 +6,7 @@ import {
   notEmpty,
   commonMessages,
   Button,
-} from "common";
+} from "gc-digital-talent-common";
 import { GetCmoAssetsQuery, useGetCmoAssetsQuery } from "../../api/generated";
 import { FromArray } from "../../types/utilityTypes";
 import Table, { ColumnsOf } from "../Table";

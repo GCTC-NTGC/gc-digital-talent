@@ -8,7 +8,7 @@ import {
   RouterResult,
   poolCandidateTablePath,
   getLocale,
-} from "common";
+} from "gc-digital-talent-common";
 import { Routes } from "universal-router";
 import { useGetPoolsQuery } from "../../api/generated";
 import SideMenu from "../menu/SideMenu";

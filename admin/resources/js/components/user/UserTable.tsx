@@ -6,7 +6,7 @@ import {
   useLocation,
   notEmpty,
   Button,
-} from "common";
+} from "gc-digital-talent-common";
 import { AllUsersQuery, useAllUsersQuery } from "../../api/generated";
 import { FromArray } from "../../types/utilityTypes";
 import Table, { ColumnsOf } from "../Table";

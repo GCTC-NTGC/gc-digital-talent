@@ -2,8 +2,8 @@
 import React, { ReactElement, useState } from "react";
 import { defineMessages, useIntl } from "react-intl";
 import { useTable, useGlobalFilter, useSortBy, Column } from "react-table";
+import { Button } from "gc-digital-talent-common";
 import GlobalFilter from "./GlobalFilter";
-import Button from "./H2Components/Button";
 
 const messages = defineMessages({
   toggleTableColumnsLabel: {

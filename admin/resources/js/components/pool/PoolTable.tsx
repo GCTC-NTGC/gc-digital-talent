@@ -7,7 +7,7 @@ import {
   notEmpty,
   Button,
   Pill,
-} from "common";
+} from "gc-digital-talent-common";
 import { GetPoolsQuery, useGetPoolsQuery } from "../../api/generated";
 import { FromArray } from "../../types/utilityTypes";
 import Table, { ColumnsOf } from "../Table";

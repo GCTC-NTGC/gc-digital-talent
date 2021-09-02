@@ -2,6 +2,7 @@ import React from "react";
 import { storiesOf } from "@storybook/react";
 import { createClient } from "urql";
 import { action } from "@storybook/addon-actions";
+import { currentDate } from "gc-digital-talent-common";
 import PoolCandidatesTable, {
   PoolCandidatesTableApi,
 } from "../components/poolCandidate/PoolCandidatesTable";
@@ -34,7 +35,6 @@ import {
   UpdatePoolCandidate,
   UpdatePoolCandidateForm,
 } from "../components/poolCandidate/UpdatePoolCandidate";
-import { currentDate } from "../components/form/formUtils";
 import ClientProvider from "../components/ClientProvider";
 
 const poolCandidateData = fakePoolCandidates();

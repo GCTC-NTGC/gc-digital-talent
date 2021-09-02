@@ -10,7 +10,7 @@ import {
   Select,
   Submit,
   classificationTablePath,
-} from "common";
+} from "gc-digital-talent-common";
 import {
   Classification,
   UpdateClassificationInput,

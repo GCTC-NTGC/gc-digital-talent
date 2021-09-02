@@ -11,7 +11,7 @@ import {
   userTablePath,
   enumToOptions,
   getLanguage,
-} from "common";
+} from "gc-digital-talent-common";
 import {
   Language,
   CreateUserInput,

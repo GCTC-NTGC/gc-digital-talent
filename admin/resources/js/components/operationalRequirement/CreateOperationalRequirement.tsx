@@ -9,7 +9,7 @@ import {
   TextArea,
   navigate,
   operationalRequirementTablePath,
-} from "common";
+} from "gc-digital-talent-common";
 import {
   CreateOperationalRequirementInput,
   useCreateOperationalRequirementMutation,

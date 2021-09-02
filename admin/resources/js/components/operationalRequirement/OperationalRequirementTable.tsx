@@ -6,7 +6,7 @@ import {
   notEmpty,
   commonMessages,
   Button,
-} from "common";
+} from "gc-digital-talent-common";
 import {
   GetOperationalRequirementsQuery,
   useGetOperationalRequirementsQuery,

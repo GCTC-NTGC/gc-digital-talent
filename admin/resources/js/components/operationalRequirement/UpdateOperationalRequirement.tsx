@@ -10,7 +10,7 @@ import {
   Input,
   Submit,
   TextArea,
-} from "common";
+} from "gc-digital-talent-common";
 import {
   OperationalRequirement,
   UpdateOperationalRequirementInput,

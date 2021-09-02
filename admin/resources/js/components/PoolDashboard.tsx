@@ -1,7 +1,27 @@
 import React from "react";
 import { defineMessages, useIntl } from "react-intl";
 import { Routes } from "universal-router";
-import { RouterResult } from "../helpers/router";
+import {
+  RouterResult,
+  classificationCreatePath,
+  classificationTablePath,
+  classificationUpdatePath,
+  cmoAssetCreatePath,
+  cmoAssetTablePath,
+  cmoAssetUpdatePath,
+  operationalRequirementCreatePath,
+  operationalRequirementTablePath,
+  operationalRequirementUpdatePath,
+  poolCandidateCreatePath,
+  poolCandidateTablePath,
+  poolCandidateUpdatePath,
+  poolCreatePath,
+  poolTablePath,
+  poolUpdatePath,
+  userCreatePath,
+  userTablePath,
+  userUpdatePath,
+} from "gc-digital-talent-common";
 import { CreateClassification } from "./classification/CreateClassification";
 import { UpdateClassification } from "./classification/UpdateClassification";
 import ClientProvider from "./ClientProvider";
@@ -24,26 +44,6 @@ import PoolPage from "./pool/PoolPage";
 import { CreatePool } from "./pool/CreatePool";
 import { UpdatePool } from "./pool/UpdatePool";
 import Toast from "./Toast";
-import {
-  classificationCreatePath,
-  classificationTablePath,
-  classificationUpdatePath,
-  cmoAssetCreatePath,
-  cmoAssetTablePath,
-  cmoAssetUpdatePath,
-  operationalRequirementCreatePath,
-  operationalRequirementTablePath,
-  operationalRequirementUpdatePath,
-  poolCandidateCreatePath,
-  poolCandidateTablePath,
-  poolCandidateUpdatePath,
-  poolCreatePath,
-  poolTablePath,
-  poolUpdatePath,
-  userCreatePath,
-  userTablePath,
-  userUpdatePath,
-} from "../helpers/routes";
 
 const messages = defineMessages({
   menuAdminTools: {

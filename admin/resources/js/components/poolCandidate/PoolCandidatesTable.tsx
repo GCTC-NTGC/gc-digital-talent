@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 import { defineMessages, useIntl } from "react-intl";
-import { notEmpty, commonMessages } from "common";
+import { notEmpty, commonMessages } from "gc-digital-talent-common";
 import {
   GetPoolCandidatesQuery,
   useGetPoolCandidatesByPoolQuery,

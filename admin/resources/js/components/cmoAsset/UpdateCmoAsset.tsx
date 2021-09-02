@@ -11,7 +11,7 @@ import {
   commonMessages,
   navigate,
   cmoAssetTablePath,
-} from "common";
+} from "gc-digital-talent-common";
 import {
   CmoAsset,
   UpdateCmoAssetInput,

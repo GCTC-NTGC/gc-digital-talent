@@ -2,12 +2,18 @@ import * as React from "react";
 import { useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
-import { Input, Submit, TextArea, navigate, cmoAssetTablePath } from "common";
+import {
+  Input,
+  Submit,
+  TextArea,
+  navigate,
+  cmoAssetTablePath,
+  errorMessages,
+} from "gc-digital-talent-common";
 import {
   CreateCmoAssetInput,
   useCreateCmoAssetMutation,
 } from "../../api/generated";
-import errorMessages from "../form/errorMessages";
 import messages from "./messages";
 
 type FormValues = CreateCmoAssetInput;

@@ -10,7 +10,7 @@ import {
   Submit,
   navigate,
   classificationTablePath,
-} from "common";
+} from "gc-digital-talent-common";
 import {
   CreateClassificationInput,
   useCreateClassificationMutation,

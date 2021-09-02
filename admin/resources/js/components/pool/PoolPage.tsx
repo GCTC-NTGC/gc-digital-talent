@@ -1,6 +1,6 @@
 import React from "react";
 import { defineMessages, useIntl } from "react-intl";
-import { Link, poolCreatePath, Button } from "common";
+import { Link, poolCreatePath, Button } from "gc-digital-talent-common";
 import { PoolTableApi } from "./PoolTable";
 
 const messages = defineMessages({

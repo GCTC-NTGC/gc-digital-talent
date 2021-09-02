@@ -1,6 +1,10 @@
 import React from "react";
 import { defineMessages, useIntl } from "react-intl";
-import { Link, Button, operationalRequirementCreatePath } from "common";
+import {
+  Link,
+  Button,
+  operationalRequirementCreatePath,
+} from "gc-digital-talent-common";
 import { OperationalRequirementTableApi } from "./OperationalRequirementTable";
 
 const messages = defineMessages({

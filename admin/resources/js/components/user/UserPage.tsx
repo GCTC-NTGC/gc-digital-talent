@@ -1,6 +1,6 @@
 import React from "react";
 import { defineMessages, useIntl } from "react-intl";
-import { Link, Button, userCreatePath } from "common";
+import { Link, Button, userCreatePath } from "gc-digital-talent-common";
 import { UserTableApi } from "./UserTable";
 
 const messages = defineMessages({
