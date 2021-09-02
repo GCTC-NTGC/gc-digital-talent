@@ -15,6 +15,7 @@ import Radio from "./components/Radio";
 import RadioGroup from "./components/RadioGroup";
 import Select from "./components/Select";
 import Submit from "./components/Submit";
+import TextArea from "./components/TextArea";
 import {
   Locales,
   RouterResult,
@@ -56,7 +57,8 @@ import {
   userTablePath,
   userUpdatePath,
 } from "./helpers";
-
+import { commonMessages, errorMessages } from "./messages";
+import { getLanguage, getSalaryRange, languages, salaryRanges } from "./constants";
 
 export {
   Alert,
@@ -76,6 +78,7 @@ export {
   RadioGroup,
   Select,
   Submit,
+  TextArea,
   baseUrl,
   classificationCreatePath,
   classificationTablePath,
@@ -112,7 +115,13 @@ export {
   useUrlHash,
   userCreatePath,
   userTablePath,
-  userUpdatePath
+  userUpdatePath,
+  commonMessages,
+  errorMessages,
+  getLanguage,
+  getSalaryRange,
+  languages,
+  salaryRanges,
 };
 export type { Locales, RouterResult };
 
