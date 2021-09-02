@@ -1,6 +1,6 @@
 {
   "name": "gc-digital-talent-common",
-  "version": "1.0.1",
+  "version": "1.0.6",
   "license": "MIT",
   "description": "Shared components and utilities for GC Digital Talent apps",
   "main": "lib/index.js",
@@ -29,8 +29,9 @@
   },
   "homepage": "https://github.com/GCTC-NTGC/gc-digital-talent#readme",
   "peerDependencies": {
-    "react": "^16.8.0",
-    "react-dom": "^16.8.0"
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-hook-form": "^7.14.2"
   },
   "devDependencies": {
     "@babel/core": "^7.15.0",
@@ -48,9 +49,22 @@
     "@types/lodash": "^4.14.172",
     "@types/react": "^17.0.19",
     "@types/react-select": "^4.0.17",
+    "@typescript-eslint/eslint-plugin": "^4.30.0",
+    "@typescript-eslint/parser": "^4.30.0",
     "babel-loader": "^8.2.2",
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.24.2",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-promise": "^5.1.0",
+    "eslint-plugin-react": "^7.25.1",
+    "eslint-plugin-react-hooks": "^4.2.0",
     "history": "^5.0.1",
     "lodash": "^4.17.21",
+    "prettier": "^2.3.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-hook-form": "^7.14.2",
