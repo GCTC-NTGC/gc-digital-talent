@@ -1,0 +1,67 @@
+{
+  "name": "common-new",
+  "version": "1.0.0",
+  "license": "MIT",
+  "description": "Shared components and utilities for GC Digital Talent apps",
+  "main": "lib/index.js",
+  "module": "lib/index.esm.js",
+  "types": "lib/index.d.ts",
+  "files": [
+    "lib"
+  ],
+  "scripts": {
+    "build": "rollup -c",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook",
+    "codegen": "graphql-codegen"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GCTC-NTGC/gc-digital-talent.git"
+  },
+  "author": "",
+  "bugs": {
+    "url": "https://github.com/GCTC-NTGC/gc-digital-talent/issues"
+  },
+  "homepage": "https://github.com/GCTC-NTGC/gc-digital-talent#readme",
+  "peerDependencies": {
+    "react": "^16.8.0",
+    "react-dom": "^16.8.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.15.0",
+    "@graphql-codegen/add": "^3.1.0",
+    "@graphql-codegen/cli": "^2.1.1",
+    "@graphql-codegen/typescript": "^2.1.2",
+    "@graphql-codegen/typescript-operations": "^2.1.2",
+    "@graphql-codegen/typescript-urql": "^3.1.2",
+    "@heroicons/react": "^1.0.4",
+    "@storybook/addon-actions": "^6.3.7",
+    "@storybook/addon-essentials": "^6.3.7",
+    "@storybook/addon-links": "^6.3.7",
+    "@storybook/react": "^6.3.7",
+    "@types/lodash": "^4.14.172",
+    "@types/react": "^17.0.19",
+    "@types/react-select": "^4.0.17",
+    "babel-loader": "^8.2.2",
+    "history": "^5.0.1",
+    "lodash": "^4.17.21",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-hook-form": "^7.14.2",
+    "react-intl": "^5.20.10",
+    "react-select": "^4.3.1",
+    "typescript": "^4.4.2",
+    "universal-router": "^9.1.0"
+  },
+  "dependencies": {
+    "@rollup/plugin-commonjs": "^20.0.0",
+    "@rollup/plugin-node-resolve": "^13.0.4",
+    "postcss": "^8.3.6",
+    "rollup": "^2.56.3",
+    "rollup-plugin-peer-deps-external": "^2.2.4",
+    "rollup-plugin-postcss": "^4.0.1",
+    "rollup-plugin-typescript2": "^0.30.0"
+  }
+}
