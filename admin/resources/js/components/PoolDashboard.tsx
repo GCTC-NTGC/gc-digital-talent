@@ -170,7 +170,7 @@ const routes: Routes<RouterResult> = [
     }),
   },
   {
-    path: poolCandidateUpdatePath(":id", ":id"),
+    path: poolCandidateUpdatePath(":poolId", ":candidateId"),
     action: ({ params }) => ({
       component: (
         <UpdatePoolCandidate poolCandidateId={params.candidateId as string} />

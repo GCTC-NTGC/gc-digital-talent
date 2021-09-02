@@ -43,7 +43,7 @@ const poolCandidateData = fakePoolCandidates();
 const stories = storiesOf("Pool Candidates", module);
 
 stories.add("Pool Candidates Table", () => (
-  <PoolCandidatesTable poolCandidates={poolCandidateData} />
+  <PoolCandidatesTable poolCandidates={poolCandidateData} editUrlRoot="#" />
 ));
 
 // TODO: Pool Candidates Table API
