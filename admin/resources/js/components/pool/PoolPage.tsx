@@ -1,8 +1,6 @@
 import React from "react";
 import { defineMessages, useIntl } from "react-intl";
-import { Link } from "../../helpers/router";
-import { poolCreatePath } from "../../helpers/routes";
-import Button from "../H2Components/Button";
+import { Link, poolCreatePath, Button } from "common";
 import { PoolTableApi } from "./PoolTable";
 
 const messages = defineMessages({
