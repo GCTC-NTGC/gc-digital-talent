@@ -1,9 +1,7 @@
 import React from "react";
 import { defineMessages, useIntl } from "react-intl";
-import { Link } from "../../helpers/router";
+import { Link, Button, cmoAssetCreatePath } from "common";
 import { CmoAssetTableApi } from "./CmoAssetTable";
-import Button from "../H2Components/Button";
-import { cmoAssetCreatePath } from "../../helpers/routes";
 
 const messages = defineMessages({
   tableHeading: {
