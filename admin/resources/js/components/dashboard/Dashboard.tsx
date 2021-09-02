@@ -1,18 +1,18 @@
 import React, { ReactElement } from "react";
 import { defineMessages, useIntl } from "react-intl";
-import { Routes } from "universal-router";
-import { useGetPoolsQuery } from "../../api/generated";
-import { getLocale } from "../../helpers/localize";
 import {
+  Button,
   Link,
-  RouterResult,
   useLocation,
   useRouter,
-} from "../../helpers/router";
-import { poolCandidateTablePath } from "../../helpers/routes";
-import Footer from "../Footer";
-import Button from "../H2Components/Button";
+  RouterResult,
+  poolCandidateTablePath,
+  getLocale,
+} from "common";
+import { Routes } from "universal-router";
+import { useGetPoolsQuery } from "../../api/generated";
 import SideMenu from "../menu/SideMenu";
+import Footer from "../Footer";
 
 export const exactMatch = (ref: string, test: string): boolean => ref === test;
 export const startsWith = (ref: string, test: string): boolean =>
