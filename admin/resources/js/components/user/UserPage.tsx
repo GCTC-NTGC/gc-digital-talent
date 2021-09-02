@@ -1,9 +1,7 @@
 import React from "react";
 import { defineMessages, useIntl } from "react-intl";
-import { Link } from "../../helpers/router";
+import { Link, Button, userCreatePath } from "common";
 import { UserTableApi } from "./UserTable";
-import Button from "../H2Components/Button";
-import { userCreatePath } from "../../helpers/routes";
 
 const messages = defineMessages({
   tableHeading: {
