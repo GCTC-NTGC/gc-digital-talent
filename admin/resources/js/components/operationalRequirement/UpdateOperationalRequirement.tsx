@@ -4,17 +4,19 @@ import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { toast } from "react-toastify";
 import {
+  navigate,
+  operationalRequirementTablePath,
+  errorMessages,
+  Input,
+  Submit,
+  TextArea,
+} from "common";
+import {
   OperationalRequirement,
   UpdateOperationalRequirementInput,
   useGetOperationalRequirementQuery,
   useUpdateOperationalRequirementMutation,
 } from "../../api/generated";
-import { navigate } from "../../helpers/router";
-import { operationalRequirementTablePath } from "../../helpers/routes";
-import errorMessages from "../form/errorMessages";
-import Input from "../form/Input";
-import Submit from "../form/Submit";
-import TextArea from "../form/TextArea";
 import messages from "./messages";
 
 type FormValues = UpdateOperationalRequirementInput;

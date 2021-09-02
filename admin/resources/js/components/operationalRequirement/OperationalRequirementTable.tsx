@@ -1,14 +1,17 @@
 import React, { useMemo } from "react";
 import { defineMessages, useIntl } from "react-intl";
 import {
+  navigate,
+  useLocation,
+  notEmpty,
+  commonMessages,
+  Button,
+} from "common";
+import {
   GetOperationalRequirementsQuery,
   useGetOperationalRequirementsQuery,
 } from "../../api/generated";
-import { navigate, useLocation } from "../../helpers/router";
-import { notEmpty } from "../../helpers/util";
 import { FromArray } from "../../types/utilityTypes";
-import commonMessages from "../commonMessages";
-import Button from "../H2Components/Button";
 import Table, { ColumnsOf } from "../Table";
 
 const messages = defineMessages({
