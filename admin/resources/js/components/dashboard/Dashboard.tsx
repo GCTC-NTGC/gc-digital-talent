@@ -61,16 +61,22 @@ export const MenuLink: React.FC<MenuLinkProps> = ({
 }) => {
   const location = useLocation();
   return (
-    <Link href={href} title={title ?? ""}>
-      <div
-        {...(isActive(href, location.pathname)
-          ? { "data-h2-font-weight": "b(100)" }
-          : { "data-h2-font-weight": "b(700)" })}
+    <Link
+      href={href}
+      title={title ?? ""}
+      {...(isActive(href, location.pathname)
+        ? { "data-h2-font-style": "b(reset)" }
+        : { "data-h2-font-style": "b(underline)" })}
+    >
+      <Button
+        color="white"
+        mode="inline"
+        block
+        active={isActive(href, location.pathname)}
+        tabIndex={-1}
       >
-        <Button color="white" mode="inline" block>
-          {text}
-        </Button>
-      </div>
+        {text}
+      </Button>
     </Link>
   );
 };
