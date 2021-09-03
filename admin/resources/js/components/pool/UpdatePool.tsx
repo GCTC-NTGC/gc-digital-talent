@@ -146,10 +146,8 @@ export const UpdatePoolForm: React.FunctionComponent<UpdatePoolFormProps> = ({
             id="owner"
             label={intl.formatMessage(messages.ownerLabel)}
             name="owner"
-            options={[
-              { value: "", label: "Select a owner...", disabled: true },
-              ...userOptions,
-            ]}
+            nullSelection={intl.formatMessage(messages.ownerPlaceholder)}
+            options={userOptions}
             rules={{ required: errorMessages.required }}
           />
           <Input
