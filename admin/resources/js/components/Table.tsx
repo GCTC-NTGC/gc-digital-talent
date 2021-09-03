@@ -91,46 +91,50 @@ function Table<T extends Record<string, unknown>>({
               data-h2-flex-item="b(1of1) m(2of3)"
               data-h2-text-align="b(center) m(right)"
             >
-              <Button
-                color="secondary"
-                mode="inline"
-                onClick={() => {
-                  setShowList((currentState) => !currentState);
-                }}
-              >
-                {intl.formatMessage(messages.toggleTableColumnsLabel)}
-              </Button>
-              {showList ? (
-                <div
-                  style={{
-                    position: "absolute",
-                    backgroundColor: "white",
-                    padding: "10px",
-                    border: "1px solid grey",
-                    borderRadius: "5px",
+              <div data-h2-position="b(relative)" style={{ float: "right" }}>
+                <Button
+                  color="secondary"
+                  mode="inline"
+                  onClick={() => {
+                    setShowList((currentState) => !currentState);
                   }}
                 >
-                  <div>
-                    <IndeterminateCheckbox
-                      {...(getToggleHideAllColumnsProps() as React.ComponentProps<
-                        typeof IndeterminateCheckbox
-                      >)}
-                    />{" "}
-                    {intl.formatMessage(messages.toggleAllTableColumnsLabel)}
-                  </div>
-                  {allColumns.map((column) => (
-                    <div key={column.id}>
-                      <label>
-                        <input
-                          type="checkbox"
-                          {...column.getToggleHiddenProps()}
-                        />{" "}
-                        {column.id}
-                      </label>
+                  {intl.formatMessage(messages.toggleTableColumnsLabel)}
+                </Button>
+                {showList ? (
+                  <div
+                    data-h2-position="b(absolute)"
+                    data-h2-margin="b(right-left, s)"
+                    data-h2-padding="b(all, s)"
+                    data-h2-border="b(gray, all, solid, s)"
+                    data-h2-radius="b(s)"
+                    data-h2-bg-color="b(white)"
+                    style={{
+                      textAlign: "left",
+                    }}
+                  >
+                    <div>
+                      <IndeterminateCheckbox
+                        {...(getToggleHideAllColumnsProps() as React.ComponentProps<
+                          typeof IndeterminateCheckbox
+                        >)}
+                      />{" "}
+                      {intl.formatMessage(messages.toggleAllTableColumnsLabel)}
                     </div>
-                  ))}
-                </div>
-              ) : null}
+                    {allColumns.map((column) => (
+                      <div key={column.id}>
+                        <label>
+                          <input
+                            type="checkbox"
+                            {...column.getToggleHiddenProps()}
+                          />{" "}
+                          {column.id}
+                        </label>
+                      </div>
+                    ))}
+                  </div>
+                ) : null}
+              </div>
             </div>
           </div>
         </div>
