@@ -57,9 +57,10 @@ const Select: React.FunctionComponent<SelectProps> = ({
           {...register(name, rules)}
           aria-invalid={error ? "true" : "false"}
           {...rest}
+          defaultValue=""
         >
           {nullSelection && (
-            <option value="" disabled selected={!!nullSelection}>
+            <option value="" disabled>
               {nullSelection}
             </option>
           )}
