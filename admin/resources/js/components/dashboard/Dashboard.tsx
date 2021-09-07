@@ -68,14 +68,14 @@ export const MenuLink: React.FC<MenuLinkProps> = ({
         ? { "data-h2-font-style": "b(reset)" }
         : { "data-h2-font-style": "b(underline)" })}
     >
-      <Button
-        color="white"
-        mode="inline"
-        block
-        active={isActive(href, location.pathname)}
-        tabIndex={-1}
-      >
-        {text}
+      <Button color="white" mode="inline" block tabIndex={-1}>
+        <span
+          {...(isActive(href, location.pathname)
+            ? { "data-h2-font-weight": "b(700)" }
+            : { "data-h2-font-weight": "b(100)" })}
+        >
+          {text}
+        </span>
       </Button>
     </Link>
   );
