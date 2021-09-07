@@ -13,12 +13,11 @@
 
 5. Every client which will use this auth server needs its own id and secret. You can generate a new client by running `php artisan passport:client`.
 
-Note that steps 2, 4 and 5 require a database connection. If you running this using the local /infrastructure setup, you may need to run the php commands with a container.
-
+Note that steps 2, 4 and 5 require a database connection. If you're running this using the local /infrastructure setup, you may need to run the php commands within the container.
 
 For more details about using or configuring Laravel Passport, visit the [documentation](https://laravel.com/docs/8.x/passport).
 
-# Using Authentication Service
+## Using Authentication Service
 
 This authentication service uses [Laravel Passport](https://laravel.com/docs/8.x/passport) to implement the OAuth 2.0 spec. A good explanation of OAuth can be found [here](https://aaronparecki.com/oauth-2-simplified/).
 
@@ -35,6 +34,7 @@ Finally, the __Access Token__ can be used by the client to access the API servic
 _TODO: Notes on how the API uses the token's JWT format and the Auth Server's public key to ensure the token is legit._
 
 ## OpenID Connect (OIDC) and OAuth 2.0
+
 For OIDC, the initial request includes a scope of openid and in the final exchange, the Client receives both an Access Token and an ID Token. [This article](https://developer.okta.com/blog/2019/10/21/illustrated-guide-to-oauth-and-oidc) provides a deeper explanation on both OAuth 2.0 and OIDC.
 
 ## Why is this so complicated?
