@@ -35,6 +35,7 @@ import { navigate } from "../../helpers/router";
 import { poolCandidateTablePath } from "../../helpers/routes";
 import { getLocale } from "../../helpers/localize";
 import messages from "./messages";
+import commonMessages from "../commonMessages";
 
 type Option<V> = { value: V; label: string };
 
@@ -314,8 +315,15 @@ export const UpdatePoolCandidate: React.FunctionComponent<{
       return Promise.reject(result.error);
     });
 
-  if (fetchingLookupData) return <p>Loading...</p>;
-  if (lookupDataError) return <p>Oh no... {lookupDataError.message}</p>;
+  if (fetchingLookupData)
+    return <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>;
+  if (lookupDataError)
+    return (
+      <p>
+        {intl.formatMessage(commonMessages.loadingError)}{" "}
+        {lookupDataError.message}
+      </p>
+    );
 
   return lookupData?.poolCandidate ? (
     <UpdatePoolCandidateForm

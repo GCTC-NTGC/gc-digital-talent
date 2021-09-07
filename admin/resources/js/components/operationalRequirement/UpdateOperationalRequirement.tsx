@@ -11,6 +11,7 @@ import {
 } from "../../api/generated";
 import { navigate } from "../../helpers/router";
 import { operationalRequirementTablePath } from "../../helpers/routes";
+import commonMessages from "../commonMessages";
 import errorMessages from "../form/errorMessages";
 import Input from "../form/Input";
 import Submit from "../form/Submit";
@@ -121,8 +122,13 @@ export const UpdateOperationalRequirement: React.FunctionComponent<{
       return Promise.reject(result.error);
     });
 
-  if (fetching) return <p>Loading...</p>;
-  if (error) return <p>Oh no... {error.message}</p>;
+  if (fetching) return <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>;
+  if (error)
+    return (
+      <p>
+        {intl.formatMessage(commonMessages.loadingError)} {error.message}
+      </p>
+    );
   return operationalRequirementData?.operationalRequirement ? (
     <UpdateOperationalRequirementForm
       initialOperationalRequirement={

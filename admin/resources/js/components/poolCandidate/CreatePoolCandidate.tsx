@@ -31,6 +31,7 @@ import { navigate } from "../../helpers/router";
 import { poolCandidateTablePath } from "../../helpers/routes";
 import { getLocale } from "../../helpers/localize";
 import messages from "./messages";
+import commonMessages from "../commonMessages";
 
 type Option<V> = { value: V; label: string };
 
@@ -286,6 +287,7 @@ export const CreatePoolCandidateForm: React.FunctionComponent<CreatePoolCandidat
 
 export const CreatePoolCandidate: React.FunctionComponent<{ poolId: string }> =
   ({ poolId }) => {
+    const intl = useIntl();
     const [lookupResult] = useGetCreatePoolCandidateDataQuery();
     const { data: lookupData, fetching, error } = lookupResult;
     const classifications: Classification[] | [] =
@@ -305,8 +307,14 @@ export const CreatePoolCandidate: React.FunctionComponent<{ poolId: string }> =
         return Promise.reject(result.error);
       });
 
-    if (fetching) return <p>Loading...</p>;
-    if (error) return <p>Oh no... {error.message}</p>;
+    if (fetching)
+      return <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>;
+    if (error)
+      return (
+        <p>
+          {intl.formatMessage(commonMessages.loadingError)} {error.message}
+        </p>
+      );
 
     return (
       <CreatePoolCandidateForm
