@@ -47,36 +47,34 @@ class AuthServiceProvider extends ServiceProvider
             }
             if ($request->bearerToken()) {
                 $bearerToken = $request->bearerToken(); // 1. extract JWT access token from request.
-                if ($bearerToken) {
-                    $config = Configuration::forAsymmetricSigner(
-                        new Signer\Rsa\Sha256(),
-                        InMemory::empty(),
-                        InMemory::plainText(env('AUTH_SERVER_PUBLIC_KEY')),
-                    );
-                    $clock = new SystemClock(new DateTimeZone(config('app.timezone')));
-                    $token = $config->parser()->parse($bearerToken);
-                    assert($token instanceof UnencryptedToken);
-                    $config->setValidationConstraints(
-                        new IssuedBy(env('AUTH_SERVER_ISS')),
-                        new RelatedTo($token->claims()->get('sub')),
-                        new LooseValidAt($clock),
-                        new SignedWith($config->signer(), $config->verificationKey()),
-                    );
-                    $constraints = $config->validationConstraints();
+                $config = Configuration::forAsymmetricSigner(
+                    new Signer\Rsa\Sha256(),
+                    InMemory::empty(), // Private key is only used for generating tokens, which is not being done here, therefore empty is used.
+                    InMemory::plainText(env('AUTH_SERVER_PUBLIC_KEY')),
+                );
+                $clock = new SystemClock(new DateTimeZone(config('app.timezone')));
+                $token = $config->parser()->parse($bearerToken);
+                assert($token instanceof UnencryptedToken);
+                $config->setValidationConstraints(
+                    new IssuedBy(env('AUTH_SERVER_ISS')),
+                    new RelatedTo($token->claims()->get('sub')),
+                    new LooseValidAt($clock),
+                    new SignedWith($config->signer(), $config->verificationKey()),
+                );
+                $constraints = $config->validationConstraints();
 
-                    try { // 2. validate access token.
-                        $config->validator()->assert($token, ...$constraints);
-                    } catch (RequiredConstraintsViolated $e) {
-                        Log::notice($e->violations());
-                        return abort(401, 'Authorization token not valid.');
-                    }
+                try { // 2. validate access token.
+                    $config->validator()->assert($token, ...$constraints);
+                } catch (RequiredConstraintsViolated $e) {
+                    Log::notice($e->violations());
+                    return abort(401, 'Authorization token not valid.');
+                }
 
-                    $userMatch = User::where('id', $token->claims()->get('sub'))->first(); // 3. match "sub" claim to user id.
-                    if($userMatch) {
-                        return $userMatch;
-                    } else {
-                        return null;
-                    }
+                $userMatch = User::where('id', $token->claims()->get('sub'))->first(); // 3. match "sub" claim to user id.
+                if($userMatch) {
+                    return $userMatch;
+                } else {
+                    return null;
                 }
             }
         });
