@@ -11,6 +11,7 @@ import TableBoolean from "../TableBoolean";
 import commonMessages from "../commonMessages";
 import Button from "../H2Components/Button";
 import { navigate, useLocation } from "../../helpers/router";
+import DashboardContentContainer from "../DashboardContentContainer";
 
 const messages = defineMessages({
   columnIdTitle: {
@@ -214,12 +215,19 @@ export const PoolCandidatesTableApi: React.FC<{ poolId: string }> = ({
   const { data, fetching, error } = result;
   const { pathname } = useLocation();
 
-  if (fetching) return <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>;
+  if (fetching)
+    return (
+      <DashboardContentContainer>
+        <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>
+      </DashboardContentContainer>
+    );
   if (error)
     return (
-      <p>
-        {intl.formatMessage(commonMessages.loadingError)} {error.message}
-      </p>
+      <DashboardContentContainer>
+        <p>
+          {intl.formatMessage(commonMessages.loadingError)} {error.message}
+        </p>
+      </DashboardContentContainer>
     );
 
   return (

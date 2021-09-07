@@ -32,6 +32,7 @@ import { poolCandidateTablePath } from "../../helpers/routes";
 import { getLocale } from "../../helpers/localize";
 import messages from "./messages";
 import commonMessages from "../commonMessages";
+import DashboardContentContainer from "../DashboardContentContainer";
 
 type Option<V> = { value: V; label: string };
 
@@ -308,23 +309,31 @@ export const CreatePoolCandidate: React.FunctionComponent<{ poolId: string }> =
       });
 
     if (fetching)
-      return <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>;
+      return (
+        <DashboardContentContainer>
+          <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>
+        </DashboardContentContainer>
+      );
     if (error)
       return (
-        <p>
-          {intl.formatMessage(commonMessages.loadingError)} {error.message}
-        </p>
+        <DashboardContentContainer>
+          <p>
+            {intl.formatMessage(commonMessages.loadingError)} {error.message}
+          </p>
+        </DashboardContentContainer>
       );
 
     return (
-      <CreatePoolCandidateForm
-        classifications={classifications}
-        cmoAssets={cmoAssets}
-        operationalRequirements={operationalRequirements}
-        pools={pools}
-        poolId={poolId}
-        users={users}
-        handleCreatePoolCandidate={handleCreatePoolCandidate}
-      />
+      <DashboardContentContainer>
+        <CreatePoolCandidateForm
+          classifications={classifications}
+          cmoAssets={cmoAssets}
+          operationalRequirements={operationalRequirements}
+          pools={pools}
+          poolId={poolId}
+          users={users}
+          handleCreatePoolCandidate={handleCreatePoolCandidate}
+        />
+      </DashboardContentContainer>
     );
   };

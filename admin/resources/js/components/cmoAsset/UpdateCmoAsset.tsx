@@ -17,6 +17,7 @@ import commonMessages from "../commonMessages";
 import { navigate } from "../../helpers/router";
 import { cmoAssetTablePath } from "../../helpers/routes";
 import messages from "./messages";
+import DashboardContentContainer from "../DashboardContentContainer";
 
 type FormValues = UpdateCmoAssetInput;
 interface UpdateCmoAssetFormProps {
@@ -110,19 +111,29 @@ export const UpdateCmoAsset: React.FunctionComponent<{ cmoAssetId: string }> =
       });
 
     if (fetching)
-      return <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>;
+      return (
+        <DashboardContentContainer>
+          <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>
+        </DashboardContentContainer>
+      );
     if (error)
       return (
-        <p>
-          {intl.formatMessage(commonMessages.loadingError)} {error.message}
-        </p>
+        <DashboardContentContainer>
+          <p>
+            {intl.formatMessage(commonMessages.loadingError)} {error.message}
+          </p>
+        </DashboardContentContainer>
       );
     return cmoAssetData?.cmoAsset ? (
-      <UpdateCmoAssetForm
-        initialCmoAsset={cmoAssetData.cmoAsset}
-        handleUpdateCmoAsset={handleUpdateCmoAsset}
-      />
+      <DashboardContentContainer>
+        <UpdateCmoAssetForm
+          initialCmoAsset={cmoAssetData.cmoAsset}
+          handleUpdateCmoAsset={handleUpdateCmoAsset}
+        />
+      </DashboardContentContainer>
     ) : (
-      <p>{intl.formatMessage(messages.notFound, { cmoAssetId })}</p>
+      <DashboardContentContainer>
+        <p>{intl.formatMessage(messages.notFound, { cmoAssetId })}</p>
+      </DashboardContentContainer>
     );
   };
