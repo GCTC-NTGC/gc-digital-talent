@@ -58,8 +58,8 @@ SelectRequired.args = {
   rules: { required: "This must be accepted to continue." },
 };
 
-export const SelectRequiredwInfo = TemplateSelect.bind({});
-SelectRequiredwInfo.args = {
+export const SelectRequiredWithInfo = TemplateSelect.bind({});
+SelectRequiredWithInfo.args = {
   ...SelectDefault.args,
   context: "We collect the above data for account purposes.",
   rules: { required: "This must be accepted to continue." },

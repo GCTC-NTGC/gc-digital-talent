@@ -11,11 +11,6 @@ const messages = defineMessages({
     defaultMessage: "Oh no...",
     description: "Title displayed for a table error loading state.",
   },
-  notFound: {
-    id: "common.loading.notFound",
-    defaultMessage: "{type} {id} not found.",
-    description: "Message displayed for when requested data fails to load.",
-  },
 });
 
 export default messages;

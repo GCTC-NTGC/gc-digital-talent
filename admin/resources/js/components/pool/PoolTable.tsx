@@ -8,6 +8,7 @@ import { FromArray } from "../../types/utilityTypes";
 import Button from "../H2Components/Button";
 import Table, { ColumnsOf } from "../Table";
 import Pill from "../H2Components/Pill";
+import { getLocale } from "../../helpers/localize";
 
 const messages = defineMessages({
   columnUniqueIdentifier: {
@@ -15,10 +16,20 @@ const messages = defineMessages({
     defaultMessage: "Id",
     description: "Title displayed on the Pool table Unique Identifier column.",
   },
+  columnPoolName: {
+    id: "poolTable.column.poolName",
+    defaultMessage: "Pool Name",
+    description: "Title displayed for the Pool table pool name column.",
+  },
+  columnPoolDescription: {
+    id: "poolTable.column.poolDescription",
+    defaultMessage: "Pool Description",
+    description: "Title displayed for the Pool table pool description column.",
+  },
   columnOwnerEmail: {
     id: "poolTable.column.email",
-    defaultMessage: "Email",
-    description: "Title displayed for the Pool table email column.",
+    defaultMessage: "Owner",
+    description: "Title displayed for the Pool table owner email column.",
   },
   columnGroupAndLevel: {
     id: "poolTable.column.groupAndLevel",
@@ -44,6 +55,16 @@ export const PoolTable: React.FC<GetPoolsQuery & { editUrlRoot: string }> = ({
       {
         Header: intl.formatMessage(messages.columnUniqueIdentifier),
         accessor: "id",
+      },
+      {
+        Header: intl.formatMessage(messages.columnPoolName),
+        id: "name",
+        accessor: (d) => (d.name ? d.name[getLocale(intl)] : ""),
+      },
+      {
+        Header: intl.formatMessage(messages.columnPoolDescription),
+        id: "description",
+        accessor: (d) => (d.description ? d.description[getLocale(intl)] : ""),
       },
       {
         Header: intl.formatMessage(messages.columnOwnerEmail),
@@ -85,7 +106,7 @@ export const PoolTable: React.FC<GetPoolsQuery & { editUrlRoot: string }> = ({
 
   return (
     <>
-      <Table data={data} columns={columns} />
+      <Table data={data} columns={columns} hiddenCols={["id", "description"]} />
     </>
   );
 };

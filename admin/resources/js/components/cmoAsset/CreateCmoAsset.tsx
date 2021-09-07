@@ -1,6 +1,7 @@
 import * as React from "react";
-import { defineMessages, useIntl } from "react-intl";
+import { useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 import {
   CreateCmoAssetInput,
   useCreateCmoAssetMutation,
@@ -9,43 +10,9 @@ import errorMessages from "../form/errorMessages";
 import Input from "../form/Input";
 import Submit from "../form/Submit";
 import TextArea from "../form/TextArea";
-
-const messages = defineMessages({
-  headingTitle: {
-    id: "createCmoAsset.headingTitle",
-    defaultMessage: "Create CMO Asset",
-    description: "Title displayed on the Create a CMO Asset form.",
-  },
-  keyLabel: {
-    id: "createCmoAsset.field.keyLabel",
-    defaultMessage: "Key: ",
-    description: "Label displayed on the Create a CMO Asset form Key field.",
-  },
-  nameEnLabel: {
-    id: "createCmoAsset.field.nameEnLabel",
-    defaultMessage: "Name EN: ",
-    description:
-      "Label displayed on the Create a CMO Asset form Name (English) field.",
-  },
-  nameFrLabel: {
-    id: "createCmoAsset.field.nameFrLabel",
-    defaultMessage: "Name FR: ",
-    description:
-      "Label displayed on the Create a CMO Asset form Name (French) field.",
-  },
-  descriptionEnLabel: {
-    id: "createCmoAsset.field.descriptionEnLabel",
-    defaultMessage: "Description EN: ",
-    description:
-      "Label displayed on the Create a CMO Asset form Description (English) field.",
-  },
-  descriptionFrLabel: {
-    id: "createCmoAsset.field.descriptionFrLabel",
-    defaultMessage: "Description FR: ",
-    description:
-      "Label displayed on the Create a CMO Asset form Description (French) field.",
-  },
-});
+import { navigate } from "../../helpers/router";
+import { cmoAssetTablePath } from "../../helpers/routes";
+import messages from "./messages";
 
 type FormValues = CreateCmoAssetInput;
 interface CreateCmoAssetFormProps {
@@ -61,16 +28,16 @@ export const CreateCmoAssetForm: React.FunctionComponent<CreateCmoAssetFormProps
     const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
       return handleCreateCmoAsset(data)
         .then(() => {
-          // TODO: Navigate to cmo asset dashboard
+          navigate(cmoAssetTablePath());
+          toast.success(intl.formatMessage(messages.createSuccess));
         })
         .catch(() => {
-          // Something went wrong with handleCreateCmoAsset.
-          // Do nothing.
+          toast.error(intl.formatMessage(messages.createError));
         });
     };
     return (
       <section>
-        <h2>{intl.formatMessage(messages.headingTitle)}</h2>
+        <h2>{intl.formatMessage(messages.createHeading)}</h2>
         <FormProvider {...methods}>
           <form onSubmit={handleSubmit(onSubmit)}>
             <Input

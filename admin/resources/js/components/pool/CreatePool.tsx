@@ -1,6 +1,7 @@
 import * as React from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
+import { toast } from "react-toastify";
 import {
   Classification,
   CmoAsset,
@@ -22,6 +23,8 @@ import Submit from "../form/Submit";
 import TextArea from "../form/TextArea";
 import messages from "./messages";
 import commonMessages from "../commonMessages";
+import { navigate } from "../../helpers/router";
+import { poolTablePath } from "../../helpers/routes";
 
 type Option<V> = { value: V; label: string };
 
@@ -75,11 +78,11 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
     await handleCreatePool(formValuesToSubmitData(data))
       .then(() => {
-        // TODO: Navigate to pool dashboard.
+        navigate(poolTablePath());
+        toast.success(intl.formatMessage(messages.createSuccess));
       })
       .catch(() => {
-        // Something went wrong with handleCreatePool.
-        // Do nothing.
+        toast.error(intl.formatMessage(messages.createError));
       });
   };
 
@@ -117,10 +120,8 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
             id="owner"
             label={intl.formatMessage(messages.ownerLabel)}
             name="owner"
-            options={[
-              { value: "", label: "Select a owner...", disabled: true },
-              ...userOptions,
-            ]}
+            nullSelection={intl.formatMessage(messages.ownerPlaceholder)}
+            options={userOptions}
             rules={{ required: errorMessages.required }}
           />
           <Input

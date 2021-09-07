@@ -1,5 +1,7 @@
 # Laravel Passport Config
 
+0. Run `composer install` and `npm install` to install dependencies.
+
 1. As with any Laravel application, you should run start by running `php artisan key:generate`.
 
 2. The Passport migrations will create the tables your application needs to store OAuth2 clients and access tokens:
