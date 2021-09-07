@@ -41,7 +41,7 @@
     "@graphql-codegen/typescript-operations": "^2.1.2",
     "@graphql-codegen/typescript-urql": "^3.1.2",
     "@hydrogen-design-system/hydrogen.css": "^1.1.5",
-    "@storybook/addon-actions": "^6.3.7",
+    "@storybook/addon-actions": "^6.3.8",
     "@storybook/addon-essentials": "^6.3.7",
     "@storybook/addon-links": "^6.3.7",
     "@storybook/builder-webpack5": "^6.3.8",
