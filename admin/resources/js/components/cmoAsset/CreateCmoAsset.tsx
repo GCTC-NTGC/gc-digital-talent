@@ -13,6 +13,7 @@ import TextArea from "../form/TextArea";
 import { navigate } from "../../helpers/router";
 import { cmoAssetTablePath } from "../../helpers/routes";
 import messages from "./messages";
+import DashboardContentContainer from "../DashboardContentContainer";
 
 type FormValues = CreateCmoAssetInput;
 interface CreateCmoAssetFormProps {
@@ -90,5 +91,9 @@ export const CreateCmoAsset: React.FunctionComponent = () => {
       return Promise.reject(result.error);
     });
 
-  return <CreateCmoAssetForm handleCreateCmoAsset={handleCreateCmoAsset} />;
+  return (
+    <DashboardContentContainer>
+      <CreateCmoAssetForm handleCreateCmoAsset={handleCreateCmoAsset} />
+    </DashboardContentContainer>
+  );
 };

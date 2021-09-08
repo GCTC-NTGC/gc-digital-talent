@@ -14,6 +14,7 @@ import Submit from "../form/Submit";
 import { navigate } from "../../helpers/router";
 import { classificationTablePath } from "../../helpers/routes";
 import messages from "./messages";
+import DashboardContentContainer from "../DashboardContentContainer";
 
 type FormValues = CreateClassificationInput;
 interface CreateClassificationFormProps {
@@ -131,8 +132,10 @@ export const CreateClassification: React.FunctionComponent = () => {
     });
 
   return (
-    <CreateClassificationForm
-      handleCreateClassification={handleCreateClassification}
-    />
+    <DashboardContentContainer>
+      <CreateClassificationForm
+        handleCreateClassification={handleCreateClassification}
+      />
+    </DashboardContentContainer>
   );
 };

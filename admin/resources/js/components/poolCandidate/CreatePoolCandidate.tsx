@@ -31,6 +31,8 @@ import { navigate } from "../../helpers/router";
 import { poolCandidateTablePath } from "../../helpers/routes";
 import { getLocale } from "../../helpers/localize";
 import messages from "./messages";
+import commonMessages from "../commonMessages";
+import DashboardContentContainer from "../DashboardContentContainer";
 
 type Option<V> = { value: V; label: string };
 
@@ -286,6 +288,7 @@ export const CreatePoolCandidateForm: React.FunctionComponent<CreatePoolCandidat
 
 export const CreatePoolCandidate: React.FunctionComponent<{ poolId: string }> =
   ({ poolId }) => {
+    const intl = useIntl();
     const [lookupResult] = useGetCreatePoolCandidateDataQuery();
     const { data: lookupData, fetching, error } = lookupResult;
     const classifications: Classification[] | [] =
@@ -305,18 +308,32 @@ export const CreatePoolCandidate: React.FunctionComponent<{ poolId: string }> =
         return Promise.reject(result.error);
       });
 
-    if (fetching) return <p>Loading...</p>;
-    if (error) return <p>Oh no... {error.message}</p>;
+    if (fetching)
+      return (
+        <DashboardContentContainer>
+          <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>
+        </DashboardContentContainer>
+      );
+    if (error)
+      return (
+        <DashboardContentContainer>
+          <p>
+            {intl.formatMessage(commonMessages.loadingError)} {error.message}
+          </p>
+        </DashboardContentContainer>
+      );
 
     return (
-      <CreatePoolCandidateForm
-        classifications={classifications}
-        cmoAssets={cmoAssets}
-        operationalRequirements={operationalRequirements}
-        pools={pools}
-        poolId={poolId}
-        users={users}
-        handleCreatePoolCandidate={handleCreatePoolCandidate}
-      />
+      <DashboardContentContainer>
+        <CreatePoolCandidateForm
+          classifications={classifications}
+          cmoAssets={cmoAssets}
+          operationalRequirements={operationalRequirements}
+          pools={pools}
+          poolId={poolId}
+          users={users}
+          handleCreatePoolCandidate={handleCreatePoolCandidate}
+        />
+      </DashboardContentContainer>
     );
   };

@@ -9,6 +9,7 @@ import Button from "../H2Components/Button";
 import Table, { ColumnsOf } from "../Table";
 import Pill from "../H2Components/Pill";
 import { getLocale } from "../../helpers/localize";
+import DashboardContentContainer from "../DashboardContentContainer";
 
 const messages = defineMessages({
   columnUniqueIdentifier: {
@@ -117,12 +118,19 @@ export const PoolTableApi: React.FunctionComponent = () => {
   const { data, fetching, error } = result;
   const { pathname } = useLocation();
 
-  if (fetching) return <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>;
+  if (fetching)
+    return (
+      <DashboardContentContainer>
+        <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>
+      </DashboardContentContainer>
+    );
   if (error)
     return (
-      <p>
-        {intl.formatMessage(commonMessages.loadingError)} {error.message}
-      </p>
+      <DashboardContentContainer>
+        <p>
+          {intl.formatMessage(commonMessages.loadingError)} {error.message}
+        </p>
+      </DashboardContentContainer>
     );
 
   return <PoolTable pools={data?.pools ?? []} editUrlRoot={pathname} />;

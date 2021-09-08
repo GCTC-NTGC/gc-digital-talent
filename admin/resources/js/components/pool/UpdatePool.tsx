@@ -27,6 +27,7 @@ import commonMessages from "../commonMessages";
 import { getLocale } from "../../helpers/localize";
 import { navigate } from "../../helpers/router";
 import { poolTablePath } from "../../helpers/routes";
+import DashboardContentContainer from "../DashboardContentContainer";
 
 type Option<V> = { value: V; label: string };
 
@@ -259,24 +260,35 @@ export const UpdatePool: React.FunctionComponent<{
       return Promise.reject(result.error);
     });
 
-  if (fetching) return <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>;
+  if (fetching)
+    return (
+      <DashboardContentContainer>
+        <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>
+      </DashboardContentContainer>
+    );
   if (error)
     return (
-      <p>
-        {intl.formatMessage(commonMessages.loadingError)} {error.message}
-      </p>
+      <DashboardContentContainer>
+        <p>
+          {intl.formatMessage(commonMessages.loadingError)} {error.message}
+        </p>
+      </DashboardContentContainer>
     );
 
   return lookupData?.pool ? (
-    <UpdatePoolForm
-      classifications={classifications}
-      cmoAssets={cmoAssets}
-      initialPool={lookupData.pool}
-      operationalRequirements={operationalRequirements}
-      users={users}
-      handleUpdatePool={handleUpdatePool}
-    />
+    <DashboardContentContainer>
+      <UpdatePoolForm
+        classifications={classifications}
+        cmoAssets={cmoAssets}
+        initialPool={lookupData.pool}
+        operationalRequirements={operationalRequirements}
+        users={users}
+        handleUpdatePool={handleUpdatePool}
+      />
+    </DashboardContentContainer>
   ) : (
-    <p>{intl.formatMessage(messages.notFound, { poolId })}</p>
+    <DashboardContentContainer>
+      <p>{intl.formatMessage(messages.notFound, { poolId })}</p>
+    </DashboardContentContainer>
   );
 };

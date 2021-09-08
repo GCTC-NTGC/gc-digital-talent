@@ -43,7 +43,7 @@ stories.add("Create Operational Requirement Form", () => {
         data: CreateOperationalRequirementInput,
       ) => {
         await new Promise((resolve) => setTimeout(resolve, 1000));
-        action("Create CMO Asset")(data);
+        action("Create Operational Requirement")(data);
         return data;
       }}
     />
@@ -68,7 +68,7 @@ stories.add("Update Operational Requirement Form", () => {
       initialOperationalRequirement={operationalRequirement}
       handleUpdateOperationalRequirement={async (id, data) => {
         await new Promise((resolve) => setTimeout(resolve, 1000));
-        action("Update Operational Requirement Asset")(data);
+        action("Update Operational Requirement")(data);
         return data;
       }}
     />
