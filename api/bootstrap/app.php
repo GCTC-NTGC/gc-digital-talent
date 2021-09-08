@@ -23,7 +23,7 @@ $app = new Laravel\Lumen\Application(
     dirname(__DIR__)
 );
 
-// $app->withFacades();
+$app->withFacades();
 
 $app->withEloquent();
 
@@ -102,6 +102,7 @@ $app->middleware([
 $app->register(App\Providers\AuthServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
 $app->register(\Nuwave\Lighthouse\LighthouseServiceProvider::class);
+$app->register(\Nuwave\Lighthouse\Auth\AuthServiceProvider::class);
 $app->register(\Nuwave\Lighthouse\GlobalId\GlobalIdServiceProvider::class);
 $app->register(\Nuwave\Lighthouse\OrderBy\OrderByServiceProvider::class);
 $app->register(\Nuwave\Lighthouse\Pagination\PaginationServiceProvider::class);
