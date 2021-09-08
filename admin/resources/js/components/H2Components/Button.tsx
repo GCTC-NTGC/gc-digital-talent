@@ -99,8 +99,6 @@ const Button: React.FC<ButtonProps> = ({
       data-h2-radius="b(s)"
       data-h2-padding="b(top-bottom, xs) b(right-left, s)"
       data-h2-font-size="b(caption) m(normal)"
-      data-h2-font-weight="b(400)"
-      data-h2-font-style="b(underline)"
       {...(block
         ? { "data-h2-display": "b(block)" }
         : { "data-h2-display": "b(inline-block)" })}

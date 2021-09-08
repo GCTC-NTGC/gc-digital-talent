@@ -25,6 +25,7 @@ import messages from "./messages";
 import commonMessages from "../commonMessages";
 import { navigate } from "../../helpers/router";
 import { poolTablePath } from "../../helpers/routes";
+import DashboardContentContainer from "../DashboardContentContainer";
 
 type Option<V> = { value: V; label: string };
 
@@ -120,10 +121,8 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
             id="owner"
             label={intl.formatMessage(messages.ownerLabel)}
             name="owner"
-            options={[
-              { value: "", label: "Select a owner...", disabled: true },
-              ...userOptions,
-            ]}
+            nullSelection={intl.formatMessage(messages.ownerPlaceholder)}
+            options={userOptions}
             rules={{ required: errorMessages.required }}
           />
           <Input
@@ -217,21 +216,30 @@ export const CreatePool: React.FunctionComponent = () => {
       return Promise.reject(result.error);
     });
 
-  if (fetching) return <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>;
+  if (fetching)
+    return (
+      <DashboardContentContainer>
+        <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>
+      </DashboardContentContainer>
+    );
   if (error)
     return (
-      <p>
-        {intl.formatMessage(commonMessages.loadingError)} {error.message}
-      </p>
+      <DashboardContentContainer>
+        <p>
+          {intl.formatMessage(commonMessages.loadingError)} {error.message}
+        </p>
+      </DashboardContentContainer>
     );
 
   return (
-    <CreatePoolForm
-      classifications={classifications}
-      cmoAssets={cmoAssets}
-      operationalRequirements={operationalRequirements}
-      users={users}
-      handleCreatePool={handleCreatePool}
-    />
+    <DashboardContentContainer>
+      <CreatePoolForm
+        classifications={classifications}
+        cmoAssets={cmoAssets}
+        operationalRequirements={operationalRequirements}
+        users={users}
+        handleCreatePool={handleCreatePool}
+      />
+    </DashboardContentContainer>
   );
 };

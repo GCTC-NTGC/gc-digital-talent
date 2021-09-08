@@ -17,6 +17,7 @@ import { userTablePath } from "../../helpers/routes";
 import messages from "./messages";
 import { enumToOptions } from "../form/formUtils";
 import { getLanguage } from "../../model/localizedConstants";
+import DashboardContentContainer from "../DashboardContentContainer";
 
 type FormValues = CreateUserInput;
 interface CreateUserFormProps {
@@ -112,5 +113,9 @@ export const CreateUser: React.FunctionComponent = () => {
       return Promise.reject(result.error);
     });
 
-  return <CreateUserForm handleCreateUser={handleCreateUser} />;
+  return (
+    <DashboardContentContainer>
+      <CreateUserForm handleCreateUser={handleCreateUser} />
+    </DashboardContentContainer>
+  );
 };

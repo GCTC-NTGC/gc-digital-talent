@@ -17,6 +17,5 @@ $router->group(['prefix' => env('APP_DIR')], function () use ($router) {
     $router->get('auth-callback', 'AuthController@authCallback');
 
     $router->get('/', 'DashboardController@index');
-
     $router->get('/{any:.*}', 'DashboardController@index');
 });

@@ -16,6 +16,11 @@ export default defineMessages({
     defaultMessage: "Owner:",
     description: "Label displayed on the pool form owner field.",
   },
+  ownerPlaceholder: {
+    id: "pool.form.ownerPlaceholder",
+    defaultMessage: "Select an owner...",
+    description: "Placeholder displayed on the pool form owner field.",
+  },
   nameLabelEn: {
     id: "pool.form.nameLabelEn",
     defaultMessage: "Name (English):",

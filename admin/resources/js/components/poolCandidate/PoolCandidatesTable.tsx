@@ -9,99 +9,100 @@ import { FromArray } from "../../types/utilityTypes";
 import Table, { ColumnsOf } from "../Table";
 import TableBoolean from "../TableBoolean";
 import commonMessages from "../commonMessages";
+import Button from "../H2Components/Button";
+import { navigate, useLocation } from "../../helpers/router";
+import DashboardContentContainer from "../DashboardContentContainer";
 
 const messages = defineMessages({
   columnIdTitle: {
     id: "poolCandidatesTable.column.idTitle",
     defaultMessage: "ID",
-    description:
-      "Title displayed on the Operational Requirement table ID column.",
+    description: "Title displayed on the Pool Candidates table ID column.",
   },
   columnPoolTitle: {
     id: "poolCandidatesTable.column.poolTitle",
     defaultMessage: "Pool",
-    description:
-      "Title displayed for the Operational Requirement table Pool column.",
+    description: "Title displayed for the Pool Candidates table Pool column.",
   },
   columnUserTitle: {
     id: "poolCandidatesTable.column.userTitle",
     defaultMessage: "User",
-    description:
-      "Title displayed for the Operational Requirement table User column.",
+    description: "Title displayed for the Pool Candidates table User column.",
   },
   columnExpiryTitle: {
     id: "poolCandidatesTable.column.expiryTitle",
     defaultMessage: "Expiry",
-    description:
-      "Title displayed for the Operational Requirement table Expiry column.",
+    description: "Title displayed for the Pool Candidates table Expiry column.",
   },
   columnWomanTitle: {
     id: "poolCandidatesTable.column.womanTitle",
     defaultMessage: "Woman",
-    description:
-      "Title displayed for the Operational Requirement table Woman column.",
+    description: "Title displayed for the Pool Candidates table Woman column.",
   },
   columnDisabilityTitle: {
     id: "poolCandidatesTable.column.disabilityTitle",
     defaultMessage: "Disability",
     description:
-      "Title displayed for the Operational Requirement table Disability column.",
+      "Title displayed for the Pool Candidates table Disability column.",
   },
   columnIndigenousTitle: {
     id: "poolCandidatesTable.column.indigenousTitle",
     defaultMessage: "Indigenous",
     description:
-      "Title displayed for the Operational Requirement table Indigenous column.",
+      "Title displayed for the Pool Candidates table Indigenous column.",
   },
   columnVisibleMinorityTitle: {
     id: "poolCandidatesTable.column.visibleMinorityTitle",
     defaultMessage: "Visible Minority",
     description:
-      "Title displayed for the Operational Requirement table Visible Minority column.",
+      "Title displayed for the Pool Candidates table Visible Minority column.",
   },
   columnDiplomaTitle: {
     id: "poolCandidatesTable.column.diplomaTitle",
     defaultMessage: "Diploma",
     description:
-      "Title displayed for the Operational Requirement table Diploma column.",
+      "Title displayed for the Pool Candidates table Diploma column.",
   },
   columnLanguageTitle: {
     id: "poolCandidatesTable.column.languageTitle",
     defaultMessage: "Language",
     description:
-      "Title displayed for the Operational Requirement table Language column.",
+      "Title displayed for the Pool Candidates table Language column.",
   },
   nameTitle: {
     id: "poolCandidatesTable.column.firstLast",
     defaultMessage: "Name",
-    description:
-      "Title displayed on the Operational Requirement table name column.",
+    description: "Title displayed on the Pool Candidates table name column.",
   },
   emailTitle: {
     id: "poolCandidatesTable.column.email",
     defaultMessage: "Email",
-    description:
-      "Title displayed on the Operational Requirement table email column.",
+    description: "Title displayed on the Pool Candidates table email column.",
   },
   telephoneTitle: {
     id: "poolCandidatesTable.column.telephone",
     defaultMessage: "Telephone",
     description:
-      "Title displayed on the Operational Requirement table telephone column.",
+      "Title displayed on the Pool Candidates table telephone column.",
   },
   preferredLangTitle: {
     id: "poolCandidatesTable.column.preferred",
     defaultMessage: "Preferred Lang",
     description:
-      "Title displayed on the Operational Requirement table Preferred Lang column.",
+      "Title displayed on the Pool Candidates table Preferred Lang column.",
+  },
+  columnEditTitle: {
+    id: "poolCandidatesTable.column.editTitle",
+    defaultMessage: "Edit",
+    description: "Title displayed for the Pool Candidates table Edit column.",
   },
 });
 
 type Data = NonNullable<FromArray<GetPoolCandidatesQuery["poolCandidates"]>>;
 
-const PoolCandidatesTable: React.FC<GetPoolCandidatesQuery> = ({
-  poolCandidates,
-}) => {
+const PoolCandidatesTable: React.FC<
+  GetPoolCandidatesQuery & { editUrlRoot: string }
+> = ({ poolCandidates, editUrlRoot }) => {
   const intl = useIntl();
   const columns = useMemo<ColumnsOf<Data>>(
     () => [
@@ -170,8 +171,24 @@ const PoolCandidatesTable: React.FC<GetPoolCandidatesQuery> = ({
         id: "preferredLang",
         accessor: ({ user }) => user?.preferredLang,
       },
+      {
+        Header: intl.formatMessage(messages.columnEditTitle),
+        id: "edit",
+        accessor: ({ id }) => (
+          <Button
+            color="primary"
+            mode="inline"
+            onClick={(event) => {
+              event.preventDefault();
+              navigate(`${editUrlRoot}/${id}/edit`);
+            }}
+          >
+            {intl.formatMessage(messages.columnEditTitle)}
+          </Button>
+        ),
+      },
     ],
-    [intl],
+    [intl, editUrlRoot],
   );
 
   const memoizedData = useMemo(
@@ -196,16 +213,27 @@ export const PoolCandidatesTableApi: React.FC<{ poolId: string }> = ({
     variables: { id: poolId },
   });
   const { data, fetching, error } = result;
+  const { pathname } = useLocation();
 
-  if (fetching) return <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>;
+  if (fetching)
+    return (
+      <DashboardContentContainer>
+        <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>
+      </DashboardContentContainer>
+    );
   if (error)
     return (
-      <p>
-        {intl.formatMessage(commonMessages.loadingError)} {error.message}
-      </p>
+      <DashboardContentContainer>
+        <p>
+          {intl.formatMessage(commonMessages.loadingError)} {error.message}
+        </p>
+      </DashboardContentContainer>
     );
 
   return (
-    <PoolCandidatesTable poolCandidates={data?.pool?.poolCandidates ?? []} />
+    <PoolCandidatesTable
+      poolCandidates={data?.pool?.poolCandidates ?? []}
+      editUrlRoot={pathname}
+    />
   );
 };
