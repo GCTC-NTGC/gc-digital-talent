@@ -35,6 +35,8 @@ import { navigate } from "../../helpers/router";
 import { poolCandidateTablePath } from "../../helpers/routes";
 import { getLocale } from "../../helpers/localize";
 import messages from "./messages";
+import commonMessages from "../commonMessages";
+import DashboardContentContainer from "../DashboardContentContainer";
 
 type Option<V> = { value: V; label: string };
 
@@ -314,18 +316,35 @@ export const UpdatePoolCandidate: React.FunctionComponent<{
       return Promise.reject(result.error);
     });
 
-  if (fetchingLookupData) return <p>Loading...</p>;
-  if (lookupDataError) return <p>Oh no... {lookupDataError.message}</p>;
+  if (fetchingLookupData)
+    return (
+      <DashboardContentContainer>
+        <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>
+      </DashboardContentContainer>
+    );
+  if (lookupDataError)
+    return (
+      <DashboardContentContainer>
+        <p>
+          {intl.formatMessage(commonMessages.loadingError)}{" "}
+          {lookupDataError.message}
+        </p>
+      </DashboardContentContainer>
+    );
 
   return lookupData?.poolCandidate ? (
-    <UpdatePoolCandidateForm
-      classifications={classifications}
-      cmoAssets={cmoAssets}
-      initialPoolCandidate={lookupData.poolCandidate}
-      operationalRequirements={operationalRequirements}
-      handleUpdatePoolCandidate={handleUpdatePoolCandidate}
-    />
+    <DashboardContentContainer>
+      <UpdatePoolCandidateForm
+        classifications={classifications}
+        cmoAssets={cmoAssets}
+        initialPoolCandidate={lookupData.poolCandidate}
+        operationalRequirements={operationalRequirements}
+        handleUpdatePoolCandidate={handleUpdatePoolCandidate}
+      />
+    </DashboardContentContainer>
   ) : (
-    <p>{intl.formatMessage(messages.notFound, { poolCandidateId })}</p>
+    <DashboardContentContainer>
+      <p>{intl.formatMessage(messages.notFound, { poolCandidateId })}</p>
+    </DashboardContentContainer>
   );
 };

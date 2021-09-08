@@ -8,6 +8,7 @@ import { navigate, useLocation } from "../../helpers/router";
 import { notEmpty } from "../../helpers/util";
 import { FromArray } from "../../types/utilityTypes";
 import commonMessages from "../commonMessages";
+import DashboardContentContainer from "../DashboardContentContainer";
 import Button from "../H2Components/Button";
 import Table, { ColumnsOf } from "../Table";
 
@@ -126,12 +127,19 @@ export const ClassificationTableApi: React.FunctionComponent = () => {
   const { data, fetching, error } = result;
   const { pathname } = useLocation();
 
-  if (fetching) return <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>;
+  if (fetching)
+    return (
+      <DashboardContentContainer>
+        <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>
+      </DashboardContentContainer>
+    );
   if (error)
     return (
-      <p>
-        {intl.formatMessage(commonMessages.loadingError)} {error.message}
-      </p>
+      <DashboardContentContainer>
+        <p>
+          {intl.formatMessage(commonMessages.loadingError)} {error.message}
+        </p>
+      </DashboardContentContainer>
     );
 
   return (

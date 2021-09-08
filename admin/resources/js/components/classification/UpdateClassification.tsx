@@ -11,10 +11,14 @@ import {
 } from "../../api/generated";
 import { navigate } from "../../helpers/router";
 import { classificationTablePath } from "../../helpers/routes";
+import commonMessages from "../commonMessages";
 import errorMessages from "../form/errorMessages";
 import Input from "../form/Input";
 import Select from "../form/Select";
 import Submit from "../form/Submit";
+import LoadingContainer, {
+  DashboardContentContainer,
+} from "../DashboardContentContainer";
 import messages from "./messages";
 
 type FormValues = UpdateClassificationInput;
@@ -160,14 +164,30 @@ export const UpdateClassification: React.FunctionComponent<{
       return Promise.reject(result.error);
     });
 
-  if (fetching) return <p>Loading...</p>;
-  if (error) return <p>Oh no... {error.message}</p>;
+  if (fetching)
+    return (
+      <DashboardContentContainer>
+        <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>
+      </DashboardContentContainer>
+    );
+  if (error)
+    return (
+      <DashboardContentContainer>
+        <p>
+          {intl.formatMessage(commonMessages.loadingError)} {error.message}
+        </p>
+      </DashboardContentContainer>
+    );
   return classificationData?.classification ? (
-    <UpdateClassificationForm
-      initialClassification={classificationData?.classification}
-      handleUpdateClassification={handleUpdateClassification}
-    />
+    <DashboardContentContainer>
+      <UpdateClassificationForm
+        initialClassification={classificationData?.classification}
+        handleUpdateClassification={handleUpdateClassification}
+      />
+    </DashboardContentContainer>
   ) : (
-    <p>{intl.formatMessage(messages.notFound, { classificationId })}</p>
+    <DashboardContentContainer>
+      <p>{intl.formatMessage(messages.notFound, { classificationId })}</p>
+    </DashboardContentContainer>
   );
 };
