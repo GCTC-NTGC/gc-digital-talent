@@ -136,6 +136,7 @@ type CmoAsset {
     description: LocalizedString
 }
 type Query {
+    me: User @auth
     user(id: ID! @eq): User @find
     users: [User]! @all
     pool(id: ID! @eq): Pool @find

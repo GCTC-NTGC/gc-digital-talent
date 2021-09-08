@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Auth\Authenticatable as AuthenticableTrait;
 
 /**
  * Class User
@@ -21,10 +23,11 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property Illuminate\Support\Carbon $updated_at
  */
 
-class User extends Model
+class User extends Model implements Authenticatable
 {
     use HasFactory;
     use SoftDeletes;
+    use AuthenticableTrait;
 
     protected $casts = [
         'roles' => 'array',

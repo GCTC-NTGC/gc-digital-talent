@@ -66,7 +66,11 @@ class AuthServiceProvider extends ServiceProvider
                 try { // 2. validate access token.
                     $config->validator()->assert($token, ...$constraints);
                 } catch (RequiredConstraintsViolated $e) {
-                    Log::notice($e->violations());
+                    $violations = [];
+                    foreach ($e->violations() as $violationError) {
+                        array_push($violations, $violationError->getMessage());
+                    }
+                    Log::notice('Authorization token not valid: ', $violations);
                     return abort(401, 'Authorization token not valid.');
                 }
 
