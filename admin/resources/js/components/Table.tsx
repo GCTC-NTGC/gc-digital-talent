@@ -128,7 +128,7 @@ function Table<T extends Record<string, unknown>>({
                             type="checkbox"
                             {...column.getToggleHiddenProps()}
                           />{" "}
-                          {column.id}
+                          {column.Header}
                         </label>
                       </div>
                     ))}
