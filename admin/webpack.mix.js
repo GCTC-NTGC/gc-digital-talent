@@ -2,6 +2,7 @@ require('dotenv').config();
 require('laravel-mix-polyfill');
 
 const mix = require("laravel-mix");
+const path = require("path");
 
 let webpack = require('webpack')
 let dotenvplugin = new webpack.DefinePlugin({
@@ -22,7 +23,14 @@ mix.ts("resources/js/dashboard.tsx", "public/js")
 mix.webpackConfig({
   plugins: [
     dotenvplugin,
-  ]
+  ],
+  resolve: {
+    alias: {
+      "react": path.resolve('./node_modules/react'),
+      "react-dom": path.resolve('./node_modules/react-dom'),
+      "react-hook-form": path.resolve('./node_modules/react-hook-form'),
+    }
+  }
 });
 
 mix.version();
