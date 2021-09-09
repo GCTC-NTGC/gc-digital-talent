@@ -66,9 +66,9 @@ class UserPolicy
     {
         if($user->isAdmin()){
             if($user->id !== $model->id){
-                return false; // Do not allow user to delete their own model.
-            } else {
                 return true;
+            } else {
+                return false; // Do not allow user to delete their own model.
             }
         } else {
             return false;
@@ -98,9 +98,9 @@ class UserPolicy
     {
         if($user->isAdmin()){
             if($user->id !== $model->id){
-                return false; // Do not allow user to permanently delete their own model.
-            } else {
                 return true;
+            } else {
+                return false; // Do not allow user to delete their own model.
             }
         } else {
             return false;
