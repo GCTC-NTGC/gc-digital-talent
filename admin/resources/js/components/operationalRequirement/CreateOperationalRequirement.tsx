@@ -3,13 +3,15 @@ import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { useIntl } from "react-intl";
 import {
-  errorMessages,
   Input,
   Submit,
   TextArea,
+} from "gc-digital-talent-common/lib/components";
+import {
   navigate,
   operationalRequirementTablePath,
-} from "gc-digital-talent-common";
+} from "gc-digital-talent-common/lib/helpers";
+import { errorMessages } from "gc-digital-talent-common/lib/messages";
 import {
   CreateOperationalRequirementInput,
   useCreateOperationalRequirementMutation,

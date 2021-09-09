@@ -4,13 +4,18 @@ import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { toast } from "react-toastify";
 import {
-  navigate,
-  operationalRequirementTablePath,
-  errorMessages,
   Input,
   Submit,
   TextArea,
-} from "gc-digital-talent-common";
+} from "gc-digital-talent-common/lib/components";
+import {
+  navigate,
+  operationalRequirementTablePath,
+} from "gc-digital-talent-common/lib/helpers";
+import {
+  errorMessages,
+  commonMessages,
+} from "gc-digital-talent-common/lib/messages";
 import {
   OperationalRequirement,
   UpdateOperationalRequirementInput,
@@ -123,8 +128,13 @@ export const UpdateOperationalRequirement: React.FunctionComponent<{
       return Promise.reject(result.error);
     });
 
-  if (fetching) return <p>Loading...</p>;
-  if (error) return <p>Oh no... {error.message}</p>;
+  if (fetching) return <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>;
+  if (error)
+    return (
+      <p>
+        {intl.formatMessage(commonMessages.loadingError)} {error.message}
+      </p>
+    );
   return operationalRequirementData?.operationalRequirement ? (
     <UpdateOperationalRequirementForm
       initialOperationalRequirement={
