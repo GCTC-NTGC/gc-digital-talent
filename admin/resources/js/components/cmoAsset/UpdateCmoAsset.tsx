@@ -4,14 +4,18 @@ import { useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import {
-  errorMessages,
   Input,
   Submit,
   TextArea,
-  commonMessages,
+} from "gc-digital-talent-common/lib/components";
+import {
   navigate,
   cmoAssetTablePath,
-} from "gc-digital-talent-common";
+} from "gc-digital-talent-common/lib/helpers";
+import {
+  errorMessages,
+  commonMessages,
+} from "gc-digital-talent-common/lib/messages";
 import {
   CmoAsset,
   UpdateCmoAssetInput,
