@@ -137,18 +137,18 @@ type CmoAsset {
 }
 type Query {
     me: User @auth
-    user(id: ID! @eq): User @find
-    users: [User]! @all
-    pool(id: ID! @eq): Pool @find
-    pools: [Pool]! @all
-    poolCandidate(id: ID! @eq): PoolCandidate @find
-    poolCandidates: [PoolCandidate]! @all
-    classification(id: ID! @eq): Classification @find
-    classifications: [Classification]! @all
-    operationalRequirement(id: ID! @eq): OperationalRequirement @find
-    operationalRequirements: [OperationalRequirement]! @all
-    cmoAsset(id: ID! @eq): CmoAsset @find
-    cmoAssets: [CmoAsset]! @all
+    user(id: ID! @eq): User @find @guard @can(ability: "view")
+    users: [User]! @all @guard @can(ability: "viewAny")
+    pool(id: ID! @eq): Pool @find @guard @can(ability: "view")
+    pools: [Pool]! @all @guard @can(ability: "viewAny")
+    poolCandidate(id: ID! @eq): PoolCandidate @find @guard @can(ability: "view")
+    poolCandidates: [PoolCandidate]! @all @guard @can(ability: "viewAny")
+    classification(id: ID! @eq): Classification @find @guard @can(ability: "view")
+    classifications: [Classification]! @all @guard @can(ability: "viewAny")
+    operationalRequirement(id: ID! @eq): OperationalRequirement @find @guard @can(ability: "view")
+    operationalRequirements: [OperationalRequirement]! @all @guard @can(ability: "viewAny")
+    cmoAsset(id: ID! @eq): CmoAsset @find @guard @can(ability: "view")
+    cmoAssets: [CmoAsset]! @all @guard @can(ability: "viewAny")
 }
 """
 When creating a User, name and email are required.
@@ -307,22 +307,22 @@ input UpdatePoolInput {
 }
 
 type Mutation {
-    createUser(user: CreateUserInput! @spread): User @create
-    updateUser(id: ID!, user: UpdateUserInput! @spread): User @update
-    deleteUser(id: ID!): User @delete(globalId: false)
-    createPool(pool: CreatePoolInput! @spread): Pool @create
-    updatePool(id: ID!, pool: UpdatePoolInput! @spread): Pool @update
-    deletePool(id: ID!): Pool @delete(globalId: false)
-    createPoolCandidate(poolCandidate: CreatePoolCandidateInput! @spread): PoolCandidate @create
-    updatePoolCandidate(id: ID!, poolCandidate: UpdatePoolCandidateInput! @spread): PoolCandidate @update
-    deletePoolCandidate(id: ID!): PoolCandidate @delete(globalId: false)
-    createClassification(classification: CreateClassificationInput! @spread): Classification @create
-    updateClassification(id: ID!, classification: UpdateClassificationInput! @spread): Classification @update
-    deleteClassification(id: ID!): Classification @delete(globalId: false)
-    createCmoAsset(cmoAsset: CreateCmoAssetInput! @spread): CmoAsset @create
-    updateCmoAsset(id: ID!, cmoAsset: UpdateCmoAssetInput! @spread): CmoAsset @update
-    deleteCmoAsset(id: ID!): CmoAsset @delete(globalId: false)
-    createOperationalRequirement(operationalRequirement: CreateOperationalRequirementInput! @spread): OperationalRequirement @create
-    updateOperationalRequirement(id: ID!, operationalRequirement: UpdateOperationalRequirementInput! @spread): OperationalRequirement @update
-    deleteOperationalRequirement(id: ID!): OperationalRequirement @delete(globalId: false)
+    createUser(user: CreateUserInput! @spread): User @create @guard @can(ability: "create")
+    updateUser(id: ID!, user: UpdateUserInput! @spread): User @update @guard @can(ability: "update", find: "id")
+    deleteUser(id: ID!): User @delete(globalId: false) @guard @can(ability: "delete", find: "id")
+    createPool(pool: CreatePoolInput! @spread): Pool @create @guard @can(ability: "create")
+    updatePool(id: ID!, pool: UpdatePoolInput! @spread): Pool @update @guard @can(ability: "update", find: "id")
+    deletePool(id: ID!): Pool @delete(globalId: false) @guard @can(ability: "delete", find: "id")
+    createPoolCandidate(poolCandidate: CreatePoolCandidateInput! @spread): PoolCandidate @create @guard @can(ability: "create")
+    updatePoolCandidate(id: ID!, poolCandidate: UpdatePoolCandidateInput! @spread): PoolCandidate @update @guard @can(ability: "update", find: "id")
+    deletePoolCandidate(id: ID!): PoolCandidate @delete(globalId: false) @guard @can(ability: "delete", find: "id")
+    createClassification(classification: CreateClassificationInput! @spread): Classification @create @guard @can(ability: "create")
+    updateClassification(id: ID!, classification: UpdateClassificationInput! @spread): Classification @update @guard @can(ability: "update", find: "id")
+    deleteClassification(id: ID!): Classification @delete(globalId: false) @guard @can(ability: "delete", find: "id")
+    createCmoAsset(cmoAsset: CreateCmoAssetInput! @spread): CmoAsset @create @guard @can(ability: "create")
+    updateCmoAsset(id: ID!, cmoAsset: UpdateCmoAssetInput! @spread): CmoAsset @update @guard @can(ability: "update", find: "id")
+    deleteCmoAsset(id: ID!): CmoAsset @delete(globalId: false) @guard @can(ability: "delete", find: "id")
+    createOperationalRequirement(operationalRequirement: CreateOperationalRequirementInput! @spread): OperationalRequirement @create @guard @can(ability: "create")
+    updateOperationalRequirement(id: ID!, operationalRequirement: UpdateOperationalRequirementInput! @spread): OperationalRequirement @update @guard @can(ability: "update", find: "id")
+    deleteOperationalRequirement(id: ID!): OperationalRequirement @delete(globalId: false) @guard @can(ability: "delete", find: "id")
 }
