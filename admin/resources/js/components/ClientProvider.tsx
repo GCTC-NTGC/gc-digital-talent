@@ -1,4 +1,4 @@
-import React, { useContext, useMemo } from "react";
+import React, { useContext, useEffect, useMemo } from "react";
 import {
   Client,
   CombinedError,
@@ -7,6 +7,11 @@ import {
   errorExchange,
   Provider,
 } from "urql";
+import {
+  parseUrlQueryParameters,
+  redirect,
+  useLocation,
+} from "../helpers/router";
 import { ErrorContext } from "./ErrorContainer";
 
 const apiUri = process.env.API_URI ?? "http://localhost:8000/graphql";
@@ -16,6 +21,18 @@ export const ClientProvider: React.FC<{ client?: Client }> = ({
   children,
 }) => {
   const { dispatch } = useContext(ErrorContext);
+  const location = useLocation();
+  useEffect(() => {
+    const queryParams = parseUrlQueryParameters(location);
+    const accessToken = queryParams.access_token;
+    if (accessToken && queryParams.token_type === "Bearer") {
+      localStorage.setItem("access_token", accessToken);
+      redirect({
+        ...location,
+        search: "",
+      });
+    }
+  }, [location]);
 
   const internalClient = useMemo(() => {
     return (

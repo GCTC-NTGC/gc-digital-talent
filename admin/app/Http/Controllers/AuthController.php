@@ -50,7 +50,7 @@ class AuthController extends Controller
         //         // 'redirect_uri' => env('APP_URL').'/token-callback',
         //         'code' => $request->code,
         //     ]));
-
-        return $response->json();
+        $query = http_build_query($response->json());
+        return redirect(env('APP_URL').'?'.$query);
     }
 }

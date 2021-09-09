@@ -53,3 +53,13 @@ export function hasKey<T>(
 ): boolean {
   return object[key] !== undefined;
 }
+
+/** Return a copy of the object with specific property removed */
+export function deleteProperty<T, K extends keyof T>(
+  obj: T,
+  key: K,
+): Omit<T, K> {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { [key]: _, ...newObj } = obj;
+  return newObj;
+}
