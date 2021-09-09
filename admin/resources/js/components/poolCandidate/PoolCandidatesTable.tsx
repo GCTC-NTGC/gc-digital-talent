@@ -1,12 +1,12 @@
 import React, { useMemo } from "react";
 import { defineMessages, useIntl } from "react-intl";
+import { Button } from "gc-digital-talent-common/lib/components";
 import {
   notEmpty,
   navigate,
-  Button,
   useLocation,
-  commonMessages,
-} from "gc-digital-talent-common";
+} from "gc-digital-talent-common/lib/helpers";
+import { commonMessages } from "gc-digital-talent-common/lib/messages";
 import {
   GetPoolCandidatesQuery,
   useGetPoolCandidatesByPoolQuery,

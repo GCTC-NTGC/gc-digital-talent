@@ -4,22 +4,27 @@ import { pick } from "lodash";
 import { toast } from "react-toastify";
 import { useIntl } from "react-intl";
 import {
-  errorMessages,
   Submit,
   Select,
   Input,
-  notEmpty,
   MultiSelect,
-  unpackIds,
-  unpackMaybes,
+  Checkbox,
+} from "gc-digital-talent-common/lib/components";
+import {
+  notEmpty,
   currentDate,
   enumToOptions,
-  getSalaryRange,
-  Checkbox,
   navigate,
-  poolCandidateTablePath,
   getLocale,
-} from "gc-digital-talent-common";
+  unpackIds,
+  unpackMaybes,
+  poolCandidateTablePath,
+} from "gc-digital-talent-common/lib/helpers";
+import { getSalaryRange } from "gc-digital-talent-common/lib/constants";
+import {
+  errorMessages,
+  commonMessages,
+} from "gc-digital-talent-common/lib/messages";
 import {
   UpdatePoolCandidateInput,
   LanguageAbility,
@@ -314,9 +319,15 @@ export const UpdatePoolCandidate: React.FunctionComponent<{
       return Promise.reject(result.error);
     });
 
-  if (fetchingLookupData) return <p>Loading...</p>;
-  if (lookupDataError) return <p>Oh no... {lookupDataError.message}</p>;
-
+  if (fetchingLookupData)
+    return <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>;
+  if (lookupDataError)
+    return (
+      <p>
+        {intl.formatMessage(commonMessages.loadingError)}{" "}
+        {lookupDataError.message}
+      </p>
+    );
   return lookupData?.poolCandidate ? (
     <UpdatePoolCandidateForm
       classifications={classifications}
