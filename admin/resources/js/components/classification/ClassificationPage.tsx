@@ -1,10 +1,7 @@
 import React from "react";
 import { defineMessages, useIntl } from "react-intl";
-import {
-  Link,
-  Button,
-  classificationCreatePath,
-} from "gc-digital-talent-common";
+import { Button, Link } from "gc-digital-talent-common/lib/components";
+import { classificationCreatePath } from "gc-digital-talent-common/lib/helpers";
 import { ClassificationTableApi } from "./ClassificationTable";
 
 const messages = defineMessages({
@@ -16,7 +13,7 @@ const messages = defineMessages({
   createHeading: {
     id: "classificationPage.createHeading",
     defaultMessage: "Create Classification",
-    description: "Heading displayed above the Create Classification fprm.",
+    description: "Heading displayed above the Create Classification form.",
   },
 });
 

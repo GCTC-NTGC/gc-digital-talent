@@ -3,14 +3,12 @@ import * as React from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { toast } from "react-toastify";
+import { Input, Select, Submit } from "gc-digital-talent-common/lib/components";
 import {
-  errorMessages,
   navigate,
-  Input,
-  Select,
-  Submit,
   classificationTablePath,
-} from "gc-digital-talent-common";
+} from "gc-digital-talent-common/lib/helpers";
+import { errorMessages } from "gc-digital-talent-common/lib/messages";
 import {
   Classification,
   UpdateClassificationInput,
