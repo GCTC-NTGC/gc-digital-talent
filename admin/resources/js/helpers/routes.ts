@@ -1,5 +1,8 @@
 const appDir = process.env.APP_DIR ?? "admin";
 
+export const homePath = (): string => `/${appDir}`;
+export const homePublicPath = (): string => `/${appDir}/public/${appDir}`;
+
 export const classificationTablePath = (): string =>
   `/${appDir}/classifications`;
 export const classificationCreatePath = (): string =>

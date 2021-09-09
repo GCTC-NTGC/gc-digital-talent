@@ -31,6 +31,8 @@ import {
   cmoAssetCreatePath,
   cmoAssetTablePath,
   cmoAssetUpdatePath,
+  homePath,
+  homePublicPath,
   operationalRequirementCreatePath,
   operationalRequirementTablePath,
   operationalRequirementUpdatePath,
@@ -79,6 +81,13 @@ const messages = defineMessages({
 });
 
 const routes: Routes<RouterResult> = [
+  {
+    path: [homePath(), homePublicPath()],
+    action: () => ({
+      component: <div />,
+      redirect: poolTablePath(),
+    }),
+  },
   {
     path: userTablePath(),
     action: () => ({
