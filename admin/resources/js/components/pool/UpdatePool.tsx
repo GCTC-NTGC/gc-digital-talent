@@ -4,19 +4,23 @@ import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { toast } from "react-toastify";
 import {
-  notEmpty,
-  errorMessages,
-  unpackIds,
   Input,
   MultiSelect,
   Select,
   Submit,
   TextArea,
-  commonMessages,
+} from "gc-digital-talent-common/lib/components";
+import {
+  notEmpty,
+  unpackIds,
   getLocale,
   navigate,
   poolTablePath,
-} from "gc-digital-talent-common";
+} from "gc-digital-talent-common/lib/helpers";
+import {
+  errorMessages,
+  commonMessages,
+} from "gc-digital-talent-common/lib/messages";
 import {
   Classification,
   CmoAsset,
