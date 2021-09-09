@@ -1,12 +1,12 @@
 import React, { useMemo } from "react";
 import { defineMessages, useIntl } from "react-intl";
+import { Button } from "gc-digital-talent-common/lib/components";
 import {
-  commonMessages,
   navigate,
   useLocation,
   notEmpty,
-  Button,
-} from "gc-digital-talent-common";
+} from "gc-digital-talent-common/lib/helpers";
+import { commonMessages } from "gc-digital-talent-common/lib/messages";
 import { AllUsersQuery, useAllUsersQuery } from "../../api/generated";
 import { FromArray } from "../../types/utilityTypes";
 import Table, { ColumnsOf } from "../Table";
