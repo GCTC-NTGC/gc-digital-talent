@@ -89,6 +89,6 @@ class PoolPolicy
      */
     public function forceDelete(User $user, Pool $pool)
     {
-        return $user->isAdmin();
+        return false;
     }
 }

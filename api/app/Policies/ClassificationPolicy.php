@@ -89,6 +89,6 @@ class ClassificationPolicy
      */
     public function forceDelete(User $user, Classification $classification)
     {
-        return $user->isAdmin();
+        return false;
     }
 }

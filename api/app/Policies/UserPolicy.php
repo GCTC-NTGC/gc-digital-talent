@@ -96,14 +96,6 @@ class UserPolicy
      */
     public function forceDelete(User $user, User $model)
     {
-        if($user->isAdmin()){
-            if($user->id !== $model->id){
-                return true;
-            } else {
-                return false; // Do not allow user to delete their own model.
-            }
-        } else {
-            return false;
-        }
+        return false;
     }
 }

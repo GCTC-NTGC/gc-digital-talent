@@ -89,6 +89,6 @@ class CmoAssetPolicy
      */
     public function forceDelete(User $user, CmoAsset $cmoAsset)
     {
-        return $user->isAdmin();
+        return false;
     }
 }

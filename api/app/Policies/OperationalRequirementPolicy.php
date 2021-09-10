@@ -89,6 +89,6 @@ class OperationalRequirementPolicy
      */
     public function forceDelete(User $user, OperationalRequirement $operationalRequirement)
     {
-        return $user->isAdmin();
+        return false;
     }
 }
