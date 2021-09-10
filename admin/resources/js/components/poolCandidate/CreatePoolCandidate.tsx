@@ -18,7 +18,10 @@ import {
   poolCandidateTablePath,
 } from "gc-digital-talent-common/helpers";
 import { getSalaryRange } from "gc-digital-talent-common/constants";
-import { errorMessages } from "gc-digital-talent-common/messages";
+import {
+  errorMessages,
+  commonMessages,
+} from "gc-digital-talent-common/messages";
 import {
   CreatePoolCandidateInput,
   Pool,
@@ -36,7 +39,6 @@ import {
   useGetCreatePoolCandidateDataQuery,
 } from "../../api/generated";
 import messages from "./messages";
-import commonMessages from "../commonMessages";
 import DashboardContentContainer from "../DashboardContentContainer";
 
 type Option<V> = { value: V; label: string };
