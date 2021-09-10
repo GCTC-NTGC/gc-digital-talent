@@ -1,0 +1,6 @@
+query getMyName {
+  me {
+    firstName
+    lastName
+  }
+}
