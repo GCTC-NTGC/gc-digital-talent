@@ -1,4 +1,5 @@
 /node_modules
-/lib
+/lib/*
+!/lib/package.json
 /src/css/hydrogen
 /src/css/hydrogen.css
