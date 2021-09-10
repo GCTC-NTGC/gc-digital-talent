@@ -27,7 +27,7 @@ const REFRESH_TOKEN = "refresh_token";
 
 interface AuthState {
   token: string;
-  refreshToken: string;
+  refreshToken: string | null;
 }
 
 const logout = (): void => {
@@ -46,7 +46,7 @@ const getAuth = async ({
   if (!authState) {
     const token = localStorage.getItem(ACCESS_TOKEN);
     const refreshToken = localStorage.getItem(REFRESH_TOKEN);
-    if (token && refreshToken) {
+    if (token) {
       return { token, refreshToken };
     }
     return null;
@@ -86,7 +86,6 @@ const addAuthToOperation = ({
 };
 
 const didAuthError = ({ error }: { error: CombinedError }): boolean => {
-  //   console.log(error); // TODO: what does a 401 status code error look like?
   return (
     error.response.status === 401 ||
     error.graphQLErrors.some((e) => e.extensions?.code === "FORBIDDEN")
