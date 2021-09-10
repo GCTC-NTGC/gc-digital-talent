@@ -13,6 +13,7 @@ import {
   useCreateOperationalRequirementMutation,
 } from "../../api/generated";
 import messages from "./messages";
+import DashboardContentContainer from "../DashboardContentContainer";
 
 type FormValues = CreateOperationalRequirementInput;
 interface CreateOperationalRequirementFormProps {
@@ -93,8 +94,10 @@ export const CreateOperationalRequirement: React.FunctionComponent = () => {
     });
 
   return (
-    <CreateOperationalRequirementForm
-      handleCreateOperationalRequirement={handleCreateOperationalRequirement}
-    />
+    <DashboardContentContainer>
+      <CreateOperationalRequirementForm
+        handleCreateOperationalRequirement={handleCreateOperationalRequirement}
+      />
+    </DashboardContentContainer>
   );
 };

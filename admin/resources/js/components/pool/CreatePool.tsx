@@ -31,6 +31,7 @@ import {
   User,
 } from "../../api/generated";
 import messages from "./messages";
+import DashboardContentContainer from "../DashboardContentContainer";
 
 type Option<V> = { value: V; label: string };
 
@@ -221,21 +222,30 @@ export const CreatePool: React.FunctionComponent = () => {
       return Promise.reject(result.error);
     });
 
-  if (fetching) return <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>;
+  if (fetching)
+    return (
+      <DashboardContentContainer>
+        <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>
+      </DashboardContentContainer>
+    );
   if (error)
     return (
-      <p>
-        {intl.formatMessage(commonMessages.loadingError)} {error.message}
-      </p>
+      <DashboardContentContainer>
+        <p>
+          {intl.formatMessage(commonMessages.loadingError)} {error.message}
+        </p>
+      </DashboardContentContainer>
     );
 
   return (
-    <CreatePoolForm
-      classifications={classifications}
-      cmoAssets={cmoAssets}
-      operationalRequirements={operationalRequirements}
-      users={users}
-      handleCreatePool={handleCreatePool}
-    />
+    <DashboardContentContainer>
+      <CreatePoolForm
+        classifications={classifications}
+        cmoAssets={cmoAssets}
+        operationalRequirements={operationalRequirements}
+        users={users}
+        handleCreatePool={handleCreatePool}
+      />
+    </DashboardContentContainer>
   );
 };

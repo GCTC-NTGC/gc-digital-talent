@@ -40,6 +40,7 @@ import {
   useGetUpdatePoolCandidateDataQuery,
 } from "../../api/generated";
 import messages from "./messages";
+import DashboardContentContainer from "../DashboardContentContainer";
 
 type Option<V> = { value: V; label: string };
 
@@ -320,23 +321,34 @@ export const UpdatePoolCandidate: React.FunctionComponent<{
     });
 
   if (fetchingLookupData)
-    return <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>;
+    return (
+      <DashboardContentContainer>
+        <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>
+      </DashboardContentContainer>
+    );
   if (lookupDataError)
     return (
-      <p>
-        {intl.formatMessage(commonMessages.loadingError)}{" "}
-        {lookupDataError.message}
-      </p>
+      <DashboardContentContainer>
+        <p>
+          {intl.formatMessage(commonMessages.loadingError)}{" "}
+          {lookupDataError.message}
+        </p>
+      </DashboardContentContainer>
     );
+
   return lookupData?.poolCandidate ? (
-    <UpdatePoolCandidateForm
-      classifications={classifications}
-      cmoAssets={cmoAssets}
-      initialPoolCandidate={lookupData.poolCandidate}
-      operationalRequirements={operationalRequirements}
-      handleUpdatePoolCandidate={handleUpdatePoolCandidate}
-    />
+    <DashboardContentContainer>
+      <UpdatePoolCandidateForm
+        classifications={classifications}
+        cmoAssets={cmoAssets}
+        initialPoolCandidate={lookupData.poolCandidate}
+        operationalRequirements={operationalRequirements}
+        handleUpdatePoolCandidate={handleUpdatePoolCandidate}
+      />
+    </DashboardContentContainer>
   ) : (
-    <p>{intl.formatMessage(messages.notFound, { poolCandidateId })}</p>
+    <DashboardContentContainer>
+      <p>{intl.formatMessage(messages.notFound, { poolCandidateId })}</p>
+    </DashboardContentContainer>
   );
 };

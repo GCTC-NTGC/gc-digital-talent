@@ -18,6 +18,7 @@ import {
   useGetOperationalRequirementQuery,
   useUpdateOperationalRequirementMutation,
 } from "../../api/generated";
+import DashboardContentContainer from "../DashboardContentContainer";
 import messages from "./messages";
 
 type FormValues = UpdateOperationalRequirementInput;
@@ -124,25 +125,36 @@ export const UpdateOperationalRequirement: React.FunctionComponent<{
       return Promise.reject(result.error);
     });
 
-  if (fetching) return <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>;
+  if (fetching)
+    return (
+      <DashboardContentContainer>
+        <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>
+      </DashboardContentContainer>
+    );
   if (error)
     return (
-      <p>
-        {intl.formatMessage(commonMessages.loadingError)} {error.message}
-      </p>
+      <DashboardContentContainer>
+        <p>
+          {intl.formatMessage(commonMessages.loadingError)} {error.message}
+        </p>
+      </DashboardContentContainer>
     );
   return operationalRequirementData?.operationalRequirement ? (
-    <UpdateOperationalRequirementForm
-      initialOperationalRequirement={
-        operationalRequirementData.operationalRequirement
-      }
-      handleUpdateOperationalRequirement={handleUpdateOperationalRequirement}
-    />
+    <DashboardContentContainer>
+      <UpdateOperationalRequirementForm
+        initialOperationalRequirement={
+          operationalRequirementData.operationalRequirement
+        }
+        handleUpdateOperationalRequirement={handleUpdateOperationalRequirement}
+      />
+    </DashboardContentContainer>
   ) : (
-    <p>
-      {intl.formatMessage(messages.operationalRequirementNotFound, {
-        operationalRequirementId,
-      })}
-    </p>
+    <DashboardContentContainer>
+      <p>
+        {intl.formatMessage(messages.operationalRequirementNotFound, {
+          operationalRequirementId,
+        })}
+      </p>
+    </DashboardContentContainer>
   );
 };

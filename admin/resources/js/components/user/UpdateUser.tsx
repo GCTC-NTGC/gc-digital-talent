@@ -22,6 +22,7 @@ import {
   useUserQuery,
 } from "../../api/generated";
 import messages from "./messages";
+import DashboardContentContainer from "../DashboardContentContainer";
 
 type FormValues = UpdateUserInput;
 interface UpdateUserFormProps {
@@ -131,20 +132,31 @@ export const UpdateUser: React.FunctionComponent<{ userId: string }> = ({
       return Promise.reject(result.error);
     });
 
-  if (fetching) return <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>;
+  if (fetching)
+    return (
+      <DashboardContentContainer>
+        <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>
+      </DashboardContentContainer>
+    );
   if (error)
     return (
-      <p>
-        {intl.formatMessage(commonMessages.loadingError)} {error.message}
-      </p>
+      <DashboardContentContainer>
+        <p>
+          {intl.formatMessage(commonMessages.loadingError)} {error.message}
+        </p>
+      </DashboardContentContainer>
     );
   return userData?.user ? (
-    <UpdateUserForm
-      initialUser={userData?.user}
-      handleUpdateUser={handleUpdateUser}
-    />
+    <DashboardContentContainer>
+      <UpdateUserForm
+        initialUser={userData?.user}
+        handleUpdateUser={handleUpdateUser}
+      />
+    </DashboardContentContainer>
   ) : (
-    <p>{intl.formatMessage(messages.userNotFound, { userId })}</p>
+    <DashboardContentContainer>
+      <p>{intl.formatMessage(messages.userNotFound, { userId })}</p>
+    </DashboardContentContainer>
   );
 };
 

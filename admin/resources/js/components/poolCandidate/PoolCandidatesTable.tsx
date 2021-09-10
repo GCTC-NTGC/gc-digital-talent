@@ -14,6 +14,7 @@ import {
 import { FromArray } from "../../types/utilityTypes";
 import Table, { ColumnsOf } from "../Table";
 import TableBoolean from "../TableBoolean";
+import DashboardContentContainer from "../DashboardContentContainer";
 
 const messages = defineMessages({
   columnIdTitle: {
@@ -217,12 +218,19 @@ export const PoolCandidatesTableApi: React.FC<{ poolId: string }> = ({
   const { data, fetching, error } = result;
   const { pathname } = useLocation();
 
-  if (fetching) return <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>;
+  if (fetching)
+    return (
+      <DashboardContentContainer>
+        <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>
+      </DashboardContentContainer>
+    );
   if (error)
     return (
-      <p>
-        {intl.formatMessage(commonMessages.loadingError)} {error.message}
-      </p>
+      <DashboardContentContainer>
+        <p>
+          {intl.formatMessage(commonMessages.loadingError)} {error.message}
+        </p>
+      </DashboardContentContainer>
     );
 
   return (

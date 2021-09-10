@@ -8,13 +8,19 @@ import {
   navigate,
   classificationTablePath,
 } from "gc-digital-talent-common/helpers";
-import { errorMessages } from "gc-digital-talent-common/messages";
+import {
+  errorMessages,
+  commonMessages,
+} from "gc-digital-talent-common/messages";
 import {
   Classification,
   UpdateClassificationInput,
   useGetClassificationQuery,
   useUpdateClassificationMutation,
 } from "../../api/generated";
+import LoadingContainer, {
+  DashboardContentContainer,
+} from "../DashboardContentContainer";
 import messages from "./messages";
 
 type FormValues = UpdateClassificationInput;
@@ -160,14 +166,30 @@ export const UpdateClassification: React.FunctionComponent<{
       return Promise.reject(result.error);
     });
 
-  if (fetching) return <p>Loading...</p>;
-  if (error) return <p>Oh no... {error.message}</p>;
+  if (fetching)
+    return (
+      <DashboardContentContainer>
+        <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>
+      </DashboardContentContainer>
+    );
+  if (error)
+    return (
+      <DashboardContentContainer>
+        <p>
+          {intl.formatMessage(commonMessages.loadingError)} {error.message}
+        </p>
+      </DashboardContentContainer>
+    );
   return classificationData?.classification ? (
-    <UpdateClassificationForm
-      initialClassification={classificationData?.classification}
-      handleUpdateClassification={handleUpdateClassification}
-    />
+    <DashboardContentContainer>
+      <UpdateClassificationForm
+        initialClassification={classificationData?.classification}
+        handleUpdateClassification={handleUpdateClassification}
+      />
+    </DashboardContentContainer>
   ) : (
-    <p>{intl.formatMessage(messages.notFound, { classificationId })}</p>
+    <DashboardContentContainer>
+      <p>{intl.formatMessage(messages.notFound, { classificationId })}</p>
+    </DashboardContentContainer>
   );
 };
