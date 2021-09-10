@@ -33,7 +33,7 @@ const modules = resources.map((resource) => ({
     }
   ],
   plugins
-}))
+}));
 
 export default [{
   input: "src/index.ts",
@@ -49,5 +49,7 @@ export default [{
       sourcemap: true
     }
   ],
-  plugins
-}, ...modules];
+  plugins,
+},
+  ...modules
+];
