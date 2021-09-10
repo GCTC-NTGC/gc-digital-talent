@@ -13,7 +13,14 @@ class UpdatePoolsTableIdType extends Migration
      */
     public function up()
     {
-        DB::statement('ALTER TABLE "pools" ALTER COLUMN id TYPE text');
+        #DB::statement('ALTER TABLE "pools" ALTER COLUMN id TYPE uuid USING id::uuid');
+        DB::statement('ALTER TABLE "pools" ALTER COLUMN id SET DATA TYPE UUID USING (uuid_generate_v4());');
+
+
+        #Schema::table('pools', function (Blueprint $table) {
+        #    $table->uuid('id', 50)
+        #    ->change();
+        #});
     }
 
     /**
@@ -23,6 +30,6 @@ class UpdatePoolsTableIdType extends Migration
      */
     public function down()
     {
-        DB::statement('ALTER TABLE "pools" ALTER COLUMN id TYPE BIGINT');
+        DB::statement('ALTER TABLE "pools" ALTER COLUMN id TYPE BIGINT USING id::BIGINT');
     }
 }
