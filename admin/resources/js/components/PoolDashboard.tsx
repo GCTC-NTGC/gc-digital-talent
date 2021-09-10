@@ -85,7 +85,7 @@ const routes: Routes<RouterResult> = [
     path: [homePath(), homePublicPath()],
     action: () => ({
       component: <div />,
-      redirect: poolTablePath(),
+      redirect: poolTablePath(), // TODO: Which page should be treated as the dashboard Landing page?
     }),
   },
   {
