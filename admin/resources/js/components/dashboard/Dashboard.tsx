@@ -1,14 +1,13 @@
 import React, { ReactElement } from "react";
 import { defineMessages, useIntl } from "react-intl";
+import { Button, Link } from "gc-digital-talent-common/components";
 import {
-  Button,
-  Link,
   useLocation,
   useRouter,
   RouterResult,
   poolCandidateTablePath,
   getLocale,
-} from "gc-digital-talent-common";
+} from "gc-digital-talent-common/helpers";
 import { Routes } from "universal-router";
 import { useGetPoolsQuery } from "../../api/generated";
 import SideMenu from "../menu/SideMenu";

@@ -9,7 +9,7 @@ import {
   Input,
   MultiSelect,
   Checkbox,
-} from "gc-digital-talent-common/lib/components";
+} from "gc-digital-talent-common/components";
 import {
   notEmpty,
   currentDate,
@@ -19,12 +19,12 @@ import {
   unpackIds,
   unpackMaybes,
   poolCandidateTablePath,
-} from "gc-digital-talent-common/lib/helpers";
-import { getSalaryRange } from "gc-digital-talent-common/lib/constants";
+} from "gc-digital-talent-common/helpers";
+import { getSalaryRange } from "gc-digital-talent-common/constants";
 import {
   errorMessages,
   commonMessages,
-} from "gc-digital-talent-common/lib/messages";
+} from "gc-digital-talent-common/messages";
 import {
   UpdatePoolCandidateInput,
   LanguageAbility,

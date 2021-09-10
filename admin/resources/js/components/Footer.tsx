@@ -1,5 +1,6 @@
 import * as React from "react";
-import { currentDate, imageUrl, Link } from "gc-digital-talent-common";
+import { Link } from "gc-digital-talent-common/components";
+import { currentDate, imageUrl } from "gc-digital-talent-common/helpers";
 import { defineMessages, useIntl } from "react-intl";
 
 const messages = defineMessages({

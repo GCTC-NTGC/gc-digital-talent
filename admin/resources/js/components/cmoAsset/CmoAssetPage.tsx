@@ -1,7 +1,7 @@
 import React from "react";
 import { defineMessages, useIntl } from "react-intl";
-import { Link, Button } from "gc-digital-talent-common/lib/components";
-import { cmoAssetCreatePath } from "gc-digital-talent-common/lib/helpers";
+import { Link, Button } from "gc-digital-talent-common/components";
+import { cmoAssetCreatePath } from "gc-digital-talent-common/helpers";
 import { CmoAssetTableApi } from "./CmoAssetTable";
 
 const messages = defineMessages({

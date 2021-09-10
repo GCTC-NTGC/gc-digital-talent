@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { defineMessages, useIntl } from "react-intl";
 import { useAsyncDebounce } from "react-table";
 import "regenerator-runtime/runtime.js"; // This is required for useAsyncDebounce to work; it makes up for something wrong with our webpack configuration.
-import { InputWrapper } from "gc-digital-talent-common";
+import { InputWrapper } from "gc-digital-talent-common/components";
 
 const messages = defineMessages({
   searchLabel: {

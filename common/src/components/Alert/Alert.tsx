@@ -25,7 +25,7 @@ export interface AlertProps extends React.HTMLAttributes<HTMLDivElement> {
   dismissBtn?: React.ReactElement;
 }
 
-interface AlertComposition {
+export interface AlertComposition {
   DismissBtn: React.FC<
     DetailedHTMLProps<
       React.ButtonHTMLAttributes<HTMLButtonElement>,

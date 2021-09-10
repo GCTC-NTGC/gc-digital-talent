@@ -21,7 +21,7 @@ import {
   userCreatePath,
   userTablePath,
   userUpdatePath,
-} from "gc-digital-talent-common";
+} from "gc-digital-talent-common/helpers";
 import { CreateClassification } from "./classification/CreateClassification";
 import { UpdateClassification } from "./classification/UpdateClassification";
 import ClientProvider from "./ClientProvider";
@@ -78,6 +78,7 @@ const messages = defineMessages({
   },
 });
 
+console.log(userTablePath());
 const routes: Routes<RouterResult> = [
   {
     path: userTablePath(),

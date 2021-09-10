@@ -1,5 +1,5 @@
 import Alert from "./components/Alert";
-import Button, { ButtonProps } from "./components/Button";
+import { Button, ButtonProps } from "./components/Button";
 import Checkbox, { CheckboxProps } from "./components/Checkbox";
 import Checklist, { ChecklistProps } from "./components/Checklist";
 import Fieldset, { FieldsetProps } from "./components/Fieldset";

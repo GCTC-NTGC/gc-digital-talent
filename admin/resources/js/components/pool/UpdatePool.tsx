@@ -9,18 +9,18 @@ import {
   Select,
   Submit,
   TextArea,
-} from "gc-digital-talent-common/lib/components";
+} from "gc-digital-talent-common/components";
 import {
   notEmpty,
   unpackIds,
   getLocale,
   navigate,
   poolTablePath,
-} from "gc-digital-talent-common/lib/helpers";
+} from "gc-digital-talent-common/helpers";
 import {
   errorMessages,
   commonMessages,
-} from "gc-digital-talent-common/lib/messages";
+} from "gc-digital-talent-common/messages";
 import {
   Classification,
   CmoAsset,

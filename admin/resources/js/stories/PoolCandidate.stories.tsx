@@ -2,7 +2,7 @@ import React from "react";
 import { storiesOf } from "@storybook/react";
 import { createClient } from "urql";
 import { action } from "@storybook/addon-actions";
-import { currentDate } from "gc-digital-talent-common";
+import { currentDate } from "gc-digital-talent-common/helpers";
 import PoolCandidatesTable, {
   PoolCandidatesTableApi,
 } from "../components/poolCandidate/PoolCandidatesTable";

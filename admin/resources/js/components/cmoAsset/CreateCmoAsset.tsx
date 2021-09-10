@@ -6,12 +6,12 @@ import {
   Input,
   Submit,
   TextArea,
-} from "gc-digital-talent-common/lib/components";
+} from "gc-digital-talent-common/components";
 import {
   navigate,
   cmoAssetTablePath,
-} from "gc-digital-talent-common/lib/helpers";
-import { errorMessages } from "gc-digital-talent-common/lib/messages";
+} from "gc-digital-talent-common/helpers";
+import { errorMessages } from "gc-digital-talent-common/messages";
 import {
   CreateCmoAssetInput,
   useCreateCmoAssetMutation,

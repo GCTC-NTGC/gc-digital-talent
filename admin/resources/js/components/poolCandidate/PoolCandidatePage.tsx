@@ -1,7 +1,7 @@
 import React from "react";
 import { defineMessages, useIntl } from "react-intl";
-import { Link, Button } from "gc-digital-talent-common/lib/components";
-import { poolCandidateCreatePath } from "gc-digital-talent-common/lib/helpers";
+import { Link, Button } from "gc-digital-talent-common/components";
+import { poolCandidateCreatePath } from "gc-digital-talent-common/helpers";
 import { PoolCandidatesTableApi } from "./PoolCandidatesTable";
 
 const messages = defineMessages({

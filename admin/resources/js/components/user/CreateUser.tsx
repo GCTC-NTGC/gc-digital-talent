@@ -2,14 +2,14 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
-import { Input, Select, Submit } from "gc-digital-talent-common/lib/components";
+import { Input, Select, Submit } from "gc-digital-talent-common/components";
 import {
   navigate,
   enumToOptions,
   userTablePath,
-} from "gc-digital-talent-common/lib/helpers";
-import { getLanguage } from "gc-digital-talent-common/lib/constants";
-import { errorMessages } from "gc-digital-talent-common/lib/messages";
+} from "gc-digital-talent-common/helpers";
+import { getLanguage } from "gc-digital-talent-common/constants";
+import { errorMessages } from "gc-digital-talent-common/messages";
 import {
   Language,
   CreateUserInput,
