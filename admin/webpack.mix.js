@@ -29,6 +29,7 @@ mix.webpackConfig({
       "react": path.resolve('./node_modules/react'),
       "react-dom": path.resolve('./node_modules/react-dom'),
       "react-hook-form": path.resolve('./node_modules/react-hook-form'),
+      "gc-digital-talent-common": path.resolve('../common/src'),
     }
   }
 });
