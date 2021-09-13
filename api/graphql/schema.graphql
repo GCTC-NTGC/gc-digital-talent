@@ -135,6 +135,13 @@ type CmoAsset {
     name: LocalizedString!
     description: LocalizedString
 }
+
+type Department {
+    id: ID!
+    department_number: Int! @rename(attribute: "department_number")
+    name: LocalizedString
+}
+
 type Query {
     me: User @auth
     user(id: ID! @eq): User @find @guard @can(ability: "view")
@@ -149,6 +156,8 @@ type Query {
     operationalRequirements: [OperationalRequirement]! @all @guard @can(ability: "viewAny")
     cmoAsset(id: ID! @eq): CmoAsset @find @guard @can(ability: "view")
     cmoAssets: [CmoAsset]! @all @guard @can(ability: "viewAny")
+    department(id: ID! @eq): Department @find @guard @can(ability: "viewAny")
+    departments: [Department]! @all @guard @can(ability: "view")
 }
 """
 When creating a User, name and email are required.
@@ -306,6 +315,16 @@ input UpdatePoolInput {
     operationalRequirements: OperationalRequirementBelongsToMany
 }
 
+input CreateDepartmentInput {
+    departmentNumber: Int! @rename(attribute: "department_number")
+    name: LocalizedStringInput
+}
+
+input UpdateDepartmentInput {
+    departmentNumber: Int @rename(attribute: "department_number")
+    name: LocalizedStringInput
+}
+
 type Mutation {
     createUser(user: CreateUserInput! @spread): User @create @guard @can(ability: "create")
     updateUser(id: ID!, user: UpdateUserInput! @spread): User @update @guard @can(ability: "update", find: "id")
@@ -325,4 +344,7 @@ type Mutation {
     createOperationalRequirement(operationalRequirement: CreateOperationalRequirementInput! @spread): OperationalRequirement @create @guard @can(ability: "create")
     updateOperationalRequirement(id: ID!, operationalRequirement: UpdateOperationalRequirementInput! @spread): OperationalRequirement @update @guard @can(ability: "update", find: "id")
     deleteOperationalRequirement(id: ID!): OperationalRequirement @delete(globalId: false) @guard @can(ability: "delete", find: "id")
+    createDepartment(department: CreateDepartmentInput! @spread): Department @create @guard @can(ability: "create")
+    updateDepartment(id: ID!, department: UpdateDepartmentInput! @spread): Department @update @can(ability: "update", find: "id")
+    deleteDepartment(id: ID!): User @delete(globalId: false) @guard @can(ability: "delete", find: "id")
 }

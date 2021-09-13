@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
         $this->call(ClassificationSeeder::class);
         $this->call(CmoAssetSeeder::class);
         $this->call(OperationalRequirementSeeder::class);
+        $this->call(DepartmentSeeder::class);
 
         User::factory()->count(5)->create();
         Pool::factory()->count(2)->create();
