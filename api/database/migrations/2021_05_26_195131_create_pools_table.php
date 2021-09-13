@@ -14,12 +14,14 @@ class CreatePoolsTable extends Migration
     public function up()
     {
         Schema::create('pools', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id');
+            $table->primary('id');
             $table->timestamps();
             $table->jsonb('name')->nullable(false)->default(json_encode(['en' => '', 'fr' => '']));
             $table->jsonb('description')->nullable(false)->default(json_encode(['en' => '', 'fr' => '']));
             $table->foreignId('user_id');
         });
+        DB::statement('ALTER TABLE pools ALTER COLUMN id SET DEFAULT uuid_generate_v4();');
     }
 
     /**
