@@ -6,6 +6,7 @@ use DateTimeZone;
 
 use App\Models\Classification;
 use App\Models\CmoAsset;
+use App\Models\Department;
 use App\Models\OperationalRequirement;
 use App\Models\PoolCandidate;
 use App\Models\Pool;
@@ -13,6 +14,7 @@ use App\Models\User;
 
 use App\Policies\ClassificationPolicy;
 use App\Policies\CmoAssetPolicy;
+use App\Policies\DepartmentPolicy;
 use App\Policies\OperationalRequirementPolicy;
 use App\Policies\PoolCandidatePolicy;
 use App\Policies\PoolPolicy;
@@ -58,6 +60,7 @@ class AuthServiceProvider extends ServiceProvider
 
         Gate::policy(Classification::class, ClassificationPolicy::class);
         Gate::policy(CmoAsset::class, CmoAssetPolicy::class);
+        Gate::policy(Department::class, DepartmentPolicy::class);
         Gate::policy(OperationalRequirement::class, OperationalRequirementPolicy::class);
         Gate::policy(PoolCandidate::class, PoolCandidatePolicy::class);
         Gate::policy(Pool::class, PoolPolicy::class);
