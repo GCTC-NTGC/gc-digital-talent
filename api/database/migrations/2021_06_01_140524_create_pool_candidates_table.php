@@ -14,9 +14,9 @@ class CreatePoolCandidatesTable extends Migration
     public function up()
     {
         Schema::create('pool_candidates', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id');
+            $table->primary('id');
             $table->timestamps();
-
             $table->string('cmo_identifier')->nullable(true);
             $table->date('expiry_date')->nullable(true);
 
@@ -34,24 +34,31 @@ class CreatePoolCandidatesTable extends Migration
             $table->foreignId('pool_id')->nullable(false);
             $table->foreignId('user_id')->nullable(false);
         });
+        DB::statement('ALTER TABLE pool_candidates ALTER COLUMN id SET DEFAULT uuid_generate_v4();');
         Schema::create('operational_requirement_pool_candidate', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id');
+            $table->primary('id');
             $table->timestamps();
             $table->foreignId('pool_candidate_id')->nullable(false);;
             $table->foreignId('operational_requirement_id')->nullable(false);;
         });
+        DB::statement('ALTER TABLE operational_requirement_pool_candidate ALTER COLUMN id SET DEFAULT uuid_generate_v4();');
         Schema::create('classification_pool_candidate', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id');
+            $table->primary('id');
             $table->timestamps();
             $table->foreignId('pool_candidate_id')->nullable(false);;
             $table->foreignId('classification_id')->nullable(false);;
         });
+        DB::statement('ALTER TABLE classification_pool_candidate ALTER COLUMN id SET DEFAULT uuid_generate_v4();');
         Schema::create('cmo_asset_pool_candidate', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id');
+            $table->primary('id');
             $table->timestamps();
             $table->foreignId('pool_candidate_id')->nullable(false);;
             $table->foreignId('cmo_asset_id')->nullable(false);;
         });
+        DB::statement('ALTER TABLE cmo_asset_pool_candidate ALTER COLUMN id SET DEFAULT uuid_generate_v4();');
     }
 
     /**

@@ -14,7 +14,8 @@ class CreateUsersTable extends Migration
     public function up()
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id');
+            $table->primary('id');
             $table->timestamps();
             $table->string('email')->nullable(false);
             $table->string('first_name')->nullable();
@@ -22,6 +23,7 @@ class CreateUsersTable extends Migration
             $table->string('telephone')->nullable();
             $table->string('preferred_lang')->nullable();
         });
+        DB::statement('ALTER TABLE users ALTER COLUMN id SET DEFAULT uuid_generate_v4();');
     }
 
     /**

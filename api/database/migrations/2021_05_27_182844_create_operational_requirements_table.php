@@ -14,12 +14,14 @@ class CreateOperationalRequirementsTable extends Migration
     public function up()
     {
         Schema::create('operational_requirements', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id');
+            $table->primary('id');
             $table->timestamps();
             $table->string('key')->nullable(false);
             $table->jsonb('name')->nullable(false)->default(json_encode(['en' => '', 'fr' => '']));
             $table->jsonb('description')->nullable(false)->default(json_encode(['en' => '', 'fr' => '']));
         });
+        DB::statement('ALTER TABLE operational_requirements ALTER COLUMN id SET DEFAULT uuid_generate_v4();');
     }
 
     /**
