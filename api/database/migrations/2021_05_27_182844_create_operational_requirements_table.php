@@ -14,8 +14,7 @@ class CreateOperationalRequirementsTable extends Migration
     public function up()
     {
         Schema::create('operational_requirements', function (Blueprint $table) {
-            $table->uuid('id');
-            $table->primary('id');
+            $table->uuid('id')->primary('id');
             $table->timestamps();
             $table->string('key')->nullable(false);
             $table->jsonb('name')->nullable(false)->default(json_encode(['en' => '', 'fr' => '']));

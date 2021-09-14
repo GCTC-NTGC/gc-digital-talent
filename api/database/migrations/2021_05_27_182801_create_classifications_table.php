@@ -14,8 +14,7 @@ class CreateClassificationsTable extends Migration
     public function up()
     {
         Schema::create('classifications', function (Blueprint $table) {
-            $table->uuid('id');
-            $table->primary('id');
+            $table->uuid('id')->primary('id');
             $table->timestamps();
             $table->jsonb('name')->nullable(false)->default(json_encode(['en' => '', 'fr' => '']));
             $table->string('group')->nullable(false);
