@@ -24,7 +24,10 @@
        "sourceType": "module",
        "project": ["./tsconfig.json"]
    },
-   "ignorePatterns": ".eslintrc",
+   "ignorePatterns": [
+       ".eslintrc",
+       "generated.ts"
+   ],
    "plugins": [
        "prettier",
        "react",
@@ -35,14 +38,7 @@
    "rules": {
        "camelcase": "warn",
        "consistent-return": "warn",
-       "import/no-extraneous-dependencies": [
-           "error",
-           {
-               "devDependencies": true,
-               "optionalDependencies": false,
-               "peerDependencies": false
-           }
-       ],
+       "import/no-extraneous-dependencies": "off",
        "import/extensions": [
            "warn",
            "never"
@@ -128,6 +124,17 @@
                    ".tsx",
                    ".test.ts",
                    ".test.tsx"
+               ]
+           },
+           "alias": {
+               "map": [
+                   ["gc-digital-talent-common", "../common/src"]
+               ],
+               "extensions": [
+                   ".js",
+                   ".jsx",
+                   ".ts",
+                   ".tsx"
                ]
            }
        }
