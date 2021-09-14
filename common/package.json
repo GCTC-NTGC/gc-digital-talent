@@ -3,15 +3,7 @@
   "version": "1.0.11",
   "license": "MIT",
   "description": "Shared components and utilities for GC Digital Talent apps",
-  "main": "lib/index.js",
-  "module": "lib/index.esm.js",
-  "types": "lib/index.d.ts",
-  "files": [
-    "lib"
-  ],
   "scripts": {
-    "build": "rollup -c",
-    "watch": "rollup -c -w",
     "test": "echo \"Error: no test specified\" && exit 1",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
@@ -52,7 +44,6 @@
     "@types/react-select": "^4.0.17",
     "@typescript-eslint/eslint-plugin": "^4.30.0",
     "@typescript-eslint/parser": "^4.30.0",
-    "babel-loader": "^8.2.2",
     "eslint": "^7.32.0",
     "eslint-config-airbnb": "^18.2.1",
     "eslint-config-prettier": "^8.3.0",
@@ -75,14 +66,5 @@
     "typescript": "^4.4.2",
     "universal-router": "^9.1.0",
     "urql": "^2.0.4"
-  },
-  "dependencies": {
-    "@rollup/plugin-commonjs": "^20.0.0",
-    "@rollup/plugin-node-resolve": "^13.0.4",
-    "postcss": "^8.3.6",
-    "rollup": "^2.56.3",
-    "rollup-plugin-peer-deps-external": "^2.2.4",
-    "rollup-plugin-postcss": "^4.0.1",
-    "rollup-plugin-typescript2": "^0.30.0"
   }
 }
