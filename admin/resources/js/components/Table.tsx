@@ -2,7 +2,7 @@
 import React, { ReactElement, useState } from "react";
 import { defineMessages, useIntl } from "react-intl";
 import { useTable, useGlobalFilter, useSortBy, Column } from "react-table";
-import { Button } from "gc-digital-talent-common/components";
+import { Button } from "@common/components";
 import GlobalFilter from "./GlobalFilter";
 
 const messages = defineMessages({

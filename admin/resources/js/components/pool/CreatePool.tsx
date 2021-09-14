@@ -8,17 +8,17 @@ import {
   Select,
   Submit,
   TextArea,
-} from "gc-digital-talent-common/components";
+} from "@common/components";
 import {
   getLocale,
   notEmpty,
   navigate,
   poolTablePath,
-} from "gc-digital-talent-common/helpers";
+} from "@common/helpers";
 import {
   errorMessages,
   commonMessages,
-} from "gc-digital-talent-common/messages";
+} from "@common/messages";
 import {
   Classification,
   CmoAsset,

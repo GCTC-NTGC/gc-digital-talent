@@ -128,7 +128,7 @@
            },
            "alias": {
                "map": [
-                   ["gc-digital-talent-common", "../common/src"]
+                   ["@common", "../common/src"]
                ],
                "extensions": [
                    ".js",

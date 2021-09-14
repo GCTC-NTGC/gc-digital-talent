@@ -7,15 +7,15 @@ import {
   Input,
   Submit,
   TextArea,
-} from "gc-digital-talent-common/components";
+} from "@common/components";
 import {
   navigate,
   cmoAssetTablePath,
-} from "gc-digital-talent-common/helpers";
+} from "@common/helpers";
 import {
   errorMessages,
   commonMessages,
-} from "gc-digital-talent-common/messages";
+} from "@common/messages";
 import {
   CmoAsset,
   UpdateCmoAssetInput,

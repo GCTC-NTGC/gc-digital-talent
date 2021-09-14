@@ -8,7 +8,7 @@ import {
   Input,
   MultiSelect,
   Checkbox,
-} from "gc-digital-talent-common/components";
+} from "@common/components";
 import {
   notEmpty,
   currentDate,
@@ -16,12 +16,12 @@ import {
   navigate,
   getLocale,
   poolCandidateTablePath,
-} from "gc-digital-talent-common/helpers";
-import { getSalaryRange } from "gc-digital-talent-common/constants";
+} from "@common/helpers";
+import { getSalaryRange } from "@common/constants";
 import {
   errorMessages,
   commonMessages,
-} from "gc-digital-talent-common/messages";
+} from "@common/messages";
 import {
   CreatePoolCandidateInput,
   Pool,

@@ -1,12 +1,12 @@
 import React, { useMemo } from "react";
 import { defineMessages, useIntl } from "react-intl";
-import { Button } from "gc-digital-talent-common/components";
+import { Button } from "@common/components";
 import {
   navigate,
   useLocation,
   notEmpty,
-} from "gc-digital-talent-common/helpers";
-import { commonMessages } from "gc-digital-talent-common/messages";
+} from "@common/helpers";
+import { commonMessages } from "@common/messages";
 import { GetCmoAssetsQuery, useGetCmoAssetsQuery } from "../../api/generated";
 import { FromArray } from "../../types/utilityTypes";
 import DashboardContentContainer from "../DashboardContentContainer";

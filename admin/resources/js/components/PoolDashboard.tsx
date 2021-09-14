@@ -21,7 +21,7 @@ import {
   userCreatePath,
   userTablePath,
   userUpdatePath,
-} from "gc-digital-talent-common/helpers";
+} from "@common/helpers";
 import { CreateClassification } from "./classification/CreateClassification";
 import { UpdateClassification } from "./classification/UpdateClassification";
 import ClientProvider from "./ClientProvider";

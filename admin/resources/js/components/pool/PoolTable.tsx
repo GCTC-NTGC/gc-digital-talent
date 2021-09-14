@@ -1,13 +1,13 @@
 import React, { useMemo } from "react";
 import { defineMessages, useIntl } from "react-intl";
-import { Button, Pill } from "gc-digital-talent-common/components";
+import { Button, Pill } from "@common/components";
 import {
   navigate,
   notEmpty,
   getLocale,
   useLocation,
-} from "gc-digital-talent-common/helpers";
-import { commonMessages } from "gc-digital-talent-common/messages";
+} from "@common/helpers";
+import { commonMessages } from "@common/messages";
 import { GetPoolsQuery, useGetPoolsQuery } from "../../api/generated";
 import { FromArray } from "../../types/utilityTypes";
 import Table, { ColumnsOf } from "../Table";

@@ -3,17 +3,17 @@ import { useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import pick from "lodash/pick";
 import { toast } from "react-toastify";
-import { Select, Submit, Input } from "gc-digital-talent-common/components";
+import { Select, Submit, Input } from "@common/components";
 import {
   navigate,
   enumToOptions,
   userTablePath,
-} from "gc-digital-talent-common/helpers";
+} from "@common/helpers";
 import {
   errorMessages,
   commonMessages,
-} from "gc-digital-talent-common/messages";
-import { getLanguage } from "gc-digital-talent-common/constants";
+} from "@common/messages";
+import { getLanguage } from "@common/constants";
 import {
   Language,
   UpdateUserInput,

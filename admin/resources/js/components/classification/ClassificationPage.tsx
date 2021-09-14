@@ -1,7 +1,7 @@
 import React from "react";
 import { defineMessages, useIntl } from "react-intl";
-import { Button, Link } from "gc-digital-talent-common/components";
-import { classificationCreatePath } from "gc-digital-talent-common/helpers";
+import { Button, Link } from "@common/components";
+import { classificationCreatePath } from "@common/helpers";
 import { ClassificationTableApi } from "./ClassificationTable";
 
 const messages = defineMessages({
