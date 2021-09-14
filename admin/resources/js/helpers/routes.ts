@@ -12,6 +12,12 @@ export const cmoAssetCreatePath = (): string => `/${appDir}/cmo-assets/create`;
 export const cmoAssetUpdatePath = (id: string): string =>
   `/${appDir}/cmo-assets/${id}/edit`;
 
+export const departmentTablePath = (): string => `/${appDir}/departments`;
+export const departmentCreatePath = (): string =>
+  `/${appDir}/departments/create`;
+export const departmentUpdatePath = (id: string): string =>
+  `/${appDir}/departments/${id}/edit`;
+
 export const operationalRequirementTablePath = (): string =>
   `/${appDir}/operational-requirements`;
 export const operationalRequirementCreatePath = (): string =>
