@@ -5,10 +5,12 @@ export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: unknown }> = {
   [K in keyof T]: T[K];
 };
-export type MakeOptional<T, K extends keyof T> = Omit<T, K> &
-  { [SubKey in K]?: Maybe<T[SubKey]> };
-export type MakeMaybe<T, K extends keyof T> = Omit<T, K> &
-  { [SubKey in K]: Maybe<T[SubKey]> };
+export type MakeOptional<T, K extends keyof T> = Omit<T, K> & {
+  [SubKey in K]?: Maybe<T[SubKey]>;
+};
+export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
+  [SubKey in K]: Maybe<T[SubKey]>;
+};
 export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
@@ -29,12 +31,12 @@ export type Scalars = {
 
 export type Classification = {
   __typename?: "Classification";
-  id: Scalars["ID"];
-  name?: Maybe<LocalizedString>;
   group: Scalars["String"];
+  id: Scalars["ID"];
   level: Scalars["Int"];
-  minSalary?: Maybe<Scalars["Int"]>;
   maxSalary?: Maybe<Scalars["Int"]>;
+  minSalary?: Maybe<Scalars["Int"]>;
+  name?: Maybe<LocalizedString>;
 };
 
 export type ClassificationBelongsToMany = {
@@ -44,10 +46,10 @@ export type ClassificationBelongsToMany = {
 /** e.g. Application Development, Quality Assurance, Enterprise Architecture, IT Project Management, etc. */
 export type CmoAsset = {
   __typename?: "CmoAsset";
+  description?: Maybe<LocalizedString>;
   id: Scalars["ID"];
   key: Scalars["String"];
   name: LocalizedString;
-  description?: Maybe<LocalizedString>;
 };
 
 export type CmoAssetBelongsToMany = {
@@ -55,62 +57,74 @@ export type CmoAssetBelongsToMany = {
 };
 
 export type CreateClassificationInput = {
-  name?: Maybe<LocalizedStringInput>;
   group: Scalars["String"];
   level: Scalars["Int"];
-  minSalary?: Maybe<Scalars["Int"]>;
   maxSalary?: Maybe<Scalars["Int"]>;
+  minSalary?: Maybe<Scalars["Int"]>;
+  name?: Maybe<LocalizedStringInput>;
 };
 
 export type CreateCmoAssetInput = {
+  description?: Maybe<LocalizedStringInput>;
   key: Scalars["String"];
   name: LocalizedStringInput;
-  description?: Maybe<LocalizedStringInput>;
+};
+
+export type CreateDepartmentInput = {
+  departmentNumber: Scalars["Int"];
+  name?: Maybe<LocalizedStringInput>;
 };
 
 export type CreateOperationalRequirementInput = {
+  description?: Maybe<LocalizedStringInput>;
   key: Scalars["String"];
   name: LocalizedStringInput;
-  description?: Maybe<LocalizedStringInput>;
 };
 
 export type CreatePoolCandidateInput = {
-  pool: PoolBelongsTo;
-  user: UserBelongsTo;
+  acceptedOperationalRequirements?: Maybe<OperationalRequirementBelongsToMany>;
+  cmoAssets?: Maybe<CmoAssetBelongsToMany>;
   cmoIdentifier?: Maybe<Scalars["ID"]>;
+  expectedClassifications?: Maybe<ClassificationBelongsToMany>;
+  expectedSalary?: Maybe<Array<Maybe<SalaryRange>>>;
   expiryDate?: Maybe<Scalars["Date"]>;
-  isWoman?: Maybe<Scalars["Boolean"]>;
+  hasDiploma?: Maybe<Scalars["Boolean"]>;
   hasDisability?: Maybe<Scalars["Boolean"]>;
   isIndigenous?: Maybe<Scalars["Boolean"]>;
   isVisibleMinority?: Maybe<Scalars["Boolean"]>;
-  hasDiploma?: Maybe<Scalars["Boolean"]>;
+  isWoman?: Maybe<Scalars["Boolean"]>;
   languageAbility?: Maybe<LanguageAbility>;
   locationPreferences?: Maybe<Array<Maybe<WorkRegion>>>;
-  acceptedOperationalRequirements?: Maybe<OperationalRequirementBelongsToMany>;
-  expectedSalary?: Maybe<Array<Maybe<SalaryRange>>>;
-  expectedClassifications?: Maybe<ClassificationBelongsToMany>;
-  cmoAssets?: Maybe<CmoAssetBelongsToMany>;
+  pool: PoolBelongsTo;
   status?: Maybe<PoolCandidateStatus>;
+  user: UserBelongsTo;
 };
 
 export type CreatePoolInput = {
-  owner?: Maybe<UserBelongsTo>;
-  name?: Maybe<LocalizedStringInput>;
-  description?: Maybe<LocalizedStringInput>;
-  classifications?: Maybe<ClassificationBelongsToMany>;
   assetCriteria?: Maybe<CmoAssetBelongsToMany>;
+  classifications?: Maybe<ClassificationBelongsToMany>;
+  description?: Maybe<LocalizedStringInput>;
   essentialCriteria?: Maybe<CmoAssetBelongsToMany>;
+  name?: Maybe<LocalizedStringInput>;
   operationalRequirements?: Maybe<OperationalRequirementBelongsToMany>;
+  owner?: Maybe<UserBelongsTo>;
 };
 
 /** When creating a User, name and email are required. */
 export type CreateUserInput = {
+  email: Scalars["Email"];
   firstName: Scalars["String"];
   lastName: Scalars["String"];
-  email: Scalars["Email"];
-  telephone?: Maybe<Scalars["PhoneNumber"]>;
   preferredLang?: Maybe<Language>;
   roles?: Maybe<Array<Maybe<Role>>>;
+  telephone?: Maybe<Scalars["PhoneNumber"]>;
+};
+
+export type Department = {
+  __typename?: "Department";
+  department_number: Scalars["Int"];
+  id: Scalars["ID"];
+  name?: Maybe<LocalizedString>;
 };
 
 export enum Language {
@@ -119,9 +133,9 @@ export enum Language {
 }
 
 export enum LanguageAbility {
+  Bilingual = "BILINGUAL",
   English = "ENGLISH",
   French = "FRENCH",
-  Bilingual = "BILINGUAL",
 }
 
 export type LocalizedString = {
@@ -137,93 +151,98 @@ export type LocalizedStringInput = {
 
 export type Mutation = {
   __typename?: "Mutation";
-  createUser?: Maybe<User>;
-  updateUser?: Maybe<User>;
-  deleteUser?: Maybe<User>;
-  createPool?: Maybe<Pool>;
-  updatePool?: Maybe<Pool>;
-  deletePool?: Maybe<Pool>;
-  createPoolCandidate?: Maybe<PoolCandidate>;
-  updatePoolCandidate?: Maybe<PoolCandidate>;
-  deletePoolCandidate?: Maybe<PoolCandidate>;
   createClassification?: Maybe<Classification>;
-  updateClassification?: Maybe<Classification>;
-  deleteClassification?: Maybe<Classification>;
   createCmoAsset?: Maybe<CmoAsset>;
-  updateCmoAsset?: Maybe<CmoAsset>;
-  deleteCmoAsset?: Maybe<CmoAsset>;
+  createDepartment?: Maybe<Department>;
   createOperationalRequirement?: Maybe<OperationalRequirement>;
-  updateOperationalRequirement?: Maybe<OperationalRequirement>;
+  createPool?: Maybe<Pool>;
+  createPoolCandidate?: Maybe<PoolCandidate>;
+  createUser?: Maybe<User>;
+  deleteClassification?: Maybe<Classification>;
+  deleteCmoAsset?: Maybe<CmoAsset>;
+  deleteDepartment?: Maybe<User>;
   deleteOperationalRequirement?: Maybe<OperationalRequirement>;
-};
-
-export type MutationCreateUserArgs = {
-  user: CreateUserInput;
-};
-
-export type MutationUpdateUserArgs = {
-  id: Scalars["ID"];
-  user: UpdateUserInput;
-};
-
-export type MutationDeleteUserArgs = {
-  id: Scalars["ID"];
-};
-
-export type MutationCreatePoolArgs = {
-  pool: CreatePoolInput;
-};
-
-export type MutationUpdatePoolArgs = {
-  id: Scalars["ID"];
-  pool: UpdatePoolInput;
-};
-
-export type MutationDeletePoolArgs = {
-  id: Scalars["ID"];
-};
-
-export type MutationCreatePoolCandidateArgs = {
-  poolCandidate: CreatePoolCandidateInput;
-};
-
-export type MutationUpdatePoolCandidateArgs = {
-  id: Scalars["ID"];
-  poolCandidate: UpdatePoolCandidateInput;
-};
-
-export type MutationDeletePoolCandidateArgs = {
-  id: Scalars["ID"];
+  deletePool?: Maybe<Pool>;
+  deletePoolCandidate?: Maybe<PoolCandidate>;
+  deleteUser?: Maybe<User>;
+  updateClassification?: Maybe<Classification>;
+  updateCmoAsset?: Maybe<CmoAsset>;
+  updateDepartment?: Maybe<Department>;
+  updateOperationalRequirement?: Maybe<OperationalRequirement>;
+  updatePool?: Maybe<Pool>;
+  updatePoolCandidate?: Maybe<PoolCandidate>;
+  updateUser?: Maybe<User>;
 };
 
 export type MutationCreateClassificationArgs = {
   classification: CreateClassificationInput;
 };
 
-export type MutationUpdateClassificationArgs = {
-  id: Scalars["ID"];
-  classification: UpdateClassificationInput;
+export type MutationCreateCmoAssetArgs = {
+  cmoAsset: CreateCmoAssetInput;
+};
+
+export type MutationCreateDepartmentArgs = {
+  department: CreateDepartmentInput;
+};
+
+export type MutationCreateOperationalRequirementArgs = {
+  operationalRequirement: CreateOperationalRequirementInput;
+};
+
+export type MutationCreatePoolArgs = {
+  pool: CreatePoolInput;
+};
+
+export type MutationCreatePoolCandidateArgs = {
+  poolCandidate: CreatePoolCandidateInput;
+};
+
+export type MutationCreateUserArgs = {
+  user: CreateUserInput;
 };
 
 export type MutationDeleteClassificationArgs = {
   id: Scalars["ID"];
 };
 
-export type MutationCreateCmoAssetArgs = {
-  cmoAsset: CreateCmoAssetInput;
-};
-
-export type MutationUpdateCmoAssetArgs = {
-  id: Scalars["ID"];
-  cmoAsset: UpdateCmoAssetInput;
-};
-
 export type MutationDeleteCmoAssetArgs = {
   id: Scalars["ID"];
 };
 
-export type MutationCreateOperationalRequirementArgs = {
-  operationalRequirement: CreateOperationalRequirementInput;
+export type MutationDeleteDepartmentArgs = {
+  id: Scalars["ID"];
+};
+
+export type MutationDeleteOperationalRequirementArgs = {
+  id: Scalars["ID"];
+};
+
+export type MutationDeletePoolArgs = {
+  id: Scalars["ID"];
+};
+
+export type MutationDeletePoolCandidateArgs = {
+  id: Scalars["ID"];
+};
+
+export type MutationDeleteUserArgs = {
+  id: Scalars["ID"];
+};
+
+export type MutationUpdateClassificationArgs = {
+  classification: UpdateClassificationInput;
+  id: Scalars["ID"];
+};
+
+export type MutationUpdateCmoAssetArgs = {
+  cmoAsset: UpdateCmoAssetInput;
+  id: Scalars["ID"];
+};
+
+export type MutationUpdateDepartmentArgs = {
+  department: UpdateDepartmentInput;
+  id: Scalars["ID"];
 };
 
 export type MutationUpdateOperationalRequirementArgs = {
@@ -231,17 +250,28 @@ export type MutationUpdateOperationalRequirementArgs = {
   operationalRequirement: UpdateOperationalRequirementInput;
 };
 
-export type MutationDeleteOperationalRequirementArgs = {
+export type MutationUpdatePoolArgs = {
   id: Scalars["ID"];
+  pool: UpdatePoolInput;
+};
+
+export type MutationUpdatePoolCandidateArgs = {
+  id: Scalars["ID"];
+  poolCandidate: UpdatePoolCandidateInput;
+};
+
+export type MutationUpdateUserArgs = {
+  id: Scalars["ID"];
+  user: UpdateUserInput;
 };
 
 /** e.g. Overtime as Required, Shift Work, Travel as Required, etc. */
 export type OperationalRequirement = {
   __typename?: "OperationalRequirement";
+  description?: Maybe<LocalizedString>;
   id: Scalars["ID"];
   key: Scalars["String"];
   name: LocalizedString;
-  description?: Maybe<LocalizedString>;
 };
 
 export type OperationalRequirementBelongsToMany = {
@@ -250,14 +280,14 @@ export type OperationalRequirementBelongsToMany = {
 
 export type Pool = {
   __typename?: "Pool";
-  id: Scalars["ID"];
-  owner?: Maybe<User>;
-  name?: Maybe<LocalizedString>;
-  description?: Maybe<LocalizedString>;
-  classifications?: Maybe<Array<Maybe<Classification>>>;
   assetCriteria?: Maybe<Array<Maybe<CmoAsset>>>;
+  classifications?: Maybe<Array<Maybe<Classification>>>;
+  description?: Maybe<LocalizedString>;
   essentialCriteria?: Maybe<Array<Maybe<CmoAsset>>>;
+  id: Scalars["ID"];
+  name?: Maybe<LocalizedString>;
   operationalRequirements?: Maybe<Array<Maybe<OperationalRequirement>>>;
+  owner?: Maybe<User>;
   poolCandidates?: Maybe<Array<Maybe<PoolCandidate>>>;
 };
 
@@ -267,23 +297,23 @@ export type PoolBelongsTo = {
 
 export type PoolCandidate = {
   __typename?: "PoolCandidate";
-  id: Scalars["ID"];
-  pool?: Maybe<Pool>;
-  user?: Maybe<User>;
+  acceptedOperationalRequirements?: Maybe<Array<Maybe<OperationalRequirement>>>;
+  cmoAssets?: Maybe<Array<Maybe<CmoAsset>>>;
   cmoIdentifier?: Maybe<Scalars["ID"]>;
+  expectedClassifications?: Maybe<Array<Maybe<Classification>>>;
+  expectedSalary?: Maybe<Array<Maybe<SalaryRange>>>;
   expiryDate?: Maybe<Scalars["Date"]>;
-  isWoman?: Maybe<Scalars["Boolean"]>;
+  hasDiploma?: Maybe<Scalars["Boolean"]>;
   hasDisability?: Maybe<Scalars["Boolean"]>;
+  id: Scalars["ID"];
   isIndigenous?: Maybe<Scalars["Boolean"]>;
   isVisibleMinority?: Maybe<Scalars["Boolean"]>;
-  hasDiploma?: Maybe<Scalars["Boolean"]>;
+  isWoman?: Maybe<Scalars["Boolean"]>;
   languageAbility?: Maybe<LanguageAbility>;
   locationPreferences?: Maybe<Array<Maybe<WorkRegion>>>;
-  acceptedOperationalRequirements?: Maybe<Array<Maybe<OperationalRequirement>>>;
-  expectedSalary?: Maybe<Array<Maybe<SalaryRange>>>;
-  expectedClassifications?: Maybe<Array<Maybe<Classification>>>;
-  cmoAssets?: Maybe<Array<Maybe<CmoAsset>>>;
+  pool?: Maybe<Pool>;
   status?: Maybe<PoolCandidateStatus>;
+  user?: Maybe<User>;
 };
 
 export type PoolCandidateHasMany = {
@@ -292,28 +322,43 @@ export type PoolCandidateHasMany = {
 
 export enum PoolCandidateStatus {
   Available = "AVAILABLE",
+  NoLongerInterested = "NO_LONGER_INTERESTED",
   PlacedIndeterminate = "PLACED_INDETERMINATE",
   PlacedTerm = "PLACED_TERM",
-  NoLongerInterested = "NO_LONGER_INTERESTED",
 }
 
 export type Query = {
   __typename?: "Query";
-  user?: Maybe<User>;
-  users: Array<Maybe<User>>;
-  pool?: Maybe<Pool>;
-  pools: Array<Maybe<Pool>>;
-  poolCandidate?: Maybe<PoolCandidate>;
-  poolCandidates: Array<Maybe<PoolCandidate>>;
   classification?: Maybe<Classification>;
   classifications: Array<Maybe<Classification>>;
-  operationalRequirement?: Maybe<OperationalRequirement>;
-  operationalRequirements: Array<Maybe<OperationalRequirement>>;
   cmoAsset?: Maybe<CmoAsset>;
   cmoAssets: Array<Maybe<CmoAsset>>;
+  department?: Maybe<Department>;
+  departments: Array<Maybe<Department>>;
+  me?: Maybe<User>;
+  operationalRequirement?: Maybe<OperationalRequirement>;
+  operationalRequirements: Array<Maybe<OperationalRequirement>>;
+  pool?: Maybe<Pool>;
+  poolCandidate?: Maybe<PoolCandidate>;
+  poolCandidates: Array<Maybe<PoolCandidate>>;
+  pools: Array<Maybe<Pool>>;
+  user?: Maybe<User>;
+  users: Array<Maybe<User>>;
 };
 
-export type QueryUserArgs = {
+export type QueryClassificationArgs = {
+  id: Scalars["ID"];
+};
+
+export type QueryCmoAssetArgs = {
+  id: Scalars["ID"];
+};
+
+export type QueryDepartmentArgs = {
+  id: Scalars["ID"];
+};
+
+export type QueryOperationalRequirementArgs = {
   id: Scalars["ID"];
 };
 
@@ -325,15 +370,7 @@ export type QueryPoolCandidateArgs = {
   id: Scalars["ID"];
 };
 
-export type QueryClassificationArgs = {
-  id: Scalars["ID"];
-};
-
-export type QueryOperationalRequirementArgs = {
-  id: Scalars["ID"];
-};
-
-export type QueryCmoAssetArgs = {
+export type QueryUserArgs = {
   id: Scalars["ID"];
 };
 
@@ -351,40 +388,45 @@ export enum SalaryRange {
 }
 
 export type UpdateClassificationInput = {
-  name?: Maybe<LocalizedStringInput>;
   group?: Maybe<Scalars["String"]>;
-  minSalary?: Maybe<Scalars["Int"]>;
   maxSalary?: Maybe<Scalars["Int"]>;
+  minSalary?: Maybe<Scalars["Int"]>;
+  name?: Maybe<LocalizedStringInput>;
 };
 
 export type UpdateCmoAssetInput = {
+  description?: Maybe<LocalizedStringInput>;
   key?: Maybe<Scalars["String"]>;
   name?: Maybe<LocalizedStringInput>;
-  description?: Maybe<LocalizedStringInput>;
+};
+
+export type UpdateDepartmentInput = {
+  departmentNumber?: Maybe<Scalars["Int"]>;
+  name?: Maybe<LocalizedStringInput>;
 };
 
 export type UpdateOperationalRequirementInput = {
+  description?: Maybe<LocalizedStringInput>;
   key?: Maybe<Scalars["String"]>;
   name?: Maybe<LocalizedStringInput>;
-  description?: Maybe<LocalizedStringInput>;
 };
 
 export type UpdatePoolCandidateInput = {
-  user?: Maybe<UpdatePoolCandidateUserBelongsTo>;
+  acceptedOperationalRequirements?: Maybe<OperationalRequirementBelongsToMany>;
+  cmoAssets?: Maybe<CmoAssetBelongsToMany>;
   cmoIdentifier?: Maybe<Scalars["ID"]>;
+  expectedClassifications?: Maybe<ClassificationBelongsToMany>;
+  expectedSalary?: Maybe<Array<Maybe<SalaryRange>>>;
   expiryDate?: Maybe<Scalars["Date"]>;
-  isWoman?: Maybe<Scalars["Boolean"]>;
+  hasDiploma?: Maybe<Scalars["Boolean"]>;
   hasDisability?: Maybe<Scalars["Boolean"]>;
   isIndigenous?: Maybe<Scalars["Boolean"]>;
   isVisibleMinority?: Maybe<Scalars["Boolean"]>;
-  hasDiploma?: Maybe<Scalars["Boolean"]>;
+  isWoman?: Maybe<Scalars["Boolean"]>;
   languageAbility?: Maybe<LanguageAbility>;
   locationPreferences?: Maybe<Array<Maybe<WorkRegion>>>;
-  acceptedOperationalRequirements?: Maybe<OperationalRequirementBelongsToMany>;
-  expectedSalary?: Maybe<Array<Maybe<SalaryRange>>>;
-  expectedClassifications?: Maybe<ClassificationBelongsToMany>;
-  cmoAssets?: Maybe<CmoAssetBelongsToMany>;
   status?: Maybe<PoolCandidateStatus>;
+  user?: Maybe<UpdatePoolCandidateUserBelongsTo>;
 };
 
 /** When updating a PoolCandidate it is possible to update the related user, but not change which user it is related to. */
@@ -393,52 +435,52 @@ export type UpdatePoolCandidateUserBelongsTo = {
 };
 
 export type UpdatePoolInput = {
-  owner?: Maybe<UserBelongsTo>;
-  name?: Maybe<LocalizedStringInput>;
-  description?: Maybe<LocalizedStringInput>;
-  classifications?: Maybe<ClassificationBelongsToMany>;
   assetCriteria?: Maybe<CmoAssetBelongsToMany>;
+  classifications?: Maybe<ClassificationBelongsToMany>;
+  description?: Maybe<LocalizedStringInput>;
   essentialCriteria?: Maybe<CmoAssetBelongsToMany>;
+  name?: Maybe<LocalizedStringInput>;
   operationalRequirements?: Maybe<OperationalRequirementBelongsToMany>;
+  owner?: Maybe<UserBelongsTo>;
 };
 
 /** When updating a User, all fields are optional, and email cannot be changed. */
 export type UpdateUserInput = {
   firstName?: Maybe<Scalars["String"]>;
   lastName?: Maybe<Scalars["String"]>;
-  telephone?: Maybe<Scalars["PhoneNumber"]>;
   preferredLang?: Maybe<Language>;
   roles?: Maybe<Array<Maybe<Role>>>;
+  telephone?: Maybe<Scalars["PhoneNumber"]>;
 };
 
 export type User = {
   __typename?: "User";
-  id: Scalars["ID"];
   email: Scalars["Email"];
   firstName?: Maybe<Scalars["String"]>;
+  id: Scalars["ID"];
   lastName?: Maybe<Scalars["String"]>;
-  telephone?: Maybe<Scalars["PhoneNumber"]>;
+  poolCandidates?: Maybe<Array<Maybe<PoolCandidate>>>;
+  pools?: Maybe<Array<Maybe<Pool>>>;
   preferredLang?: Maybe<Language>;
   roles?: Maybe<Array<Maybe<Role>>>;
-  pools?: Maybe<Array<Maybe<Pool>>>;
-  poolCandidates?: Maybe<Array<Maybe<PoolCandidate>>>;
+  telephone?: Maybe<Scalars["PhoneNumber"]>;
 };
 
 export type UserBelongsTo = {
-  create?: Maybe<CreateUserInput>;
   connect?: Maybe<Scalars["ID"]>;
+  create?: Maybe<CreateUserInput>;
   update?: Maybe<UpdateUserInput>;
 };
 
 export enum WorkRegion {
-  Telework = "TELEWORK",
-  NationalCapital = "NATIONAL_CAPITAL",
   Atlantic = "ATLANTIC",
-  Quebec = "QUEBEC",
+  BritishColumbia = "BRITISH_COLUMBIA",
+  NationalCapital = "NATIONAL_CAPITAL",
+  North = "NORTH",
   Ontario = "ONTARIO",
   Prairie = "PRAIRIE",
-  BritishColumbia = "BRITISH_COLUMBIA",
-  North = "NORTH",
+  Quebec = "QUEBEC",
+  Telework = "TELEWORK",
 }
 
 export type ClassificationFragment = {
@@ -624,6 +666,79 @@ export type UpdateCmoAssetMutation = {
       fr?: Maybe<string>;
     };
     description?: Maybe<{
+      __typename?: "LocalizedString";
+      en?: Maybe<string>;
+      fr?: Maybe<string>;
+    }>;
+  }>;
+};
+
+export type DepartmentsQueryVariables = Exact<{ [key: string]: never }>;
+
+export type DepartmentsQuery = {
+  __typename?: "Query";
+  departments: Array<
+    Maybe<{
+      __typename?: "Department";
+      id: string;
+      department_number: number;
+      name?: Maybe<{
+        __typename?: "LocalizedString";
+        en?: Maybe<string>;
+        fr?: Maybe<string>;
+      }>;
+    }>
+  >;
+};
+
+export type DepartmentQueryVariables = Exact<{
+  id: Scalars["ID"];
+}>;
+
+export type DepartmentQuery = {
+  __typename?: "Query";
+  department?: Maybe<{
+    __typename?: "Department";
+    id: string;
+    department_number: number;
+    name?: Maybe<{
+      __typename?: "LocalizedString";
+      en?: Maybe<string>;
+      fr?: Maybe<string>;
+    }>;
+  }>;
+};
+
+export type CreateDepartmentMutationVariables = Exact<{
+  department: CreateDepartmentInput;
+}>;
+
+export type CreateDepartmentMutation = {
+  __typename?: "Mutation";
+  createDepartment?: Maybe<{
+    __typename?: "Department";
+    id: string;
+    department_number: number;
+    name?: Maybe<{
+      __typename?: "LocalizedString";
+      en?: Maybe<string>;
+      fr?: Maybe<string>;
+    }>;
+  }>;
+};
+
+export type UpdateDepartmentMutationVariables = Exact<{
+  id: Scalars["ID"];
+  department: UpdateDepartmentInput;
+}>;
+
+export type UpdateDepartmentMutation = {
+  __typename?: "Mutation";
+  updateDepartment?: Maybe<{
+    __typename?: "Department";
+    id: string;
+    department_number: number;
+    name?: Maybe<{
       __typename?: "LocalizedString";
       en?: Maybe<string>;
       fr?: Maybe<string>;
@@ -2317,6 +2432,86 @@ export function useUpdateCmoAssetMutation() {
     UpdateCmoAssetMutation,
     UpdateCmoAssetMutationVariables
   >(UpdateCmoAssetDocument);
+}
+export const DepartmentsDocument = gql`
+  query departments {
+    departments {
+      id
+      department_number
+      name {
+        en
+        fr
+      }
+    }
+  }
+`;
+
+export function useDepartmentsQuery(
+  options: Omit<Urql.UseQueryArgs<DepartmentsQueryVariables>, "query"> = {},
+) {
+  return Urql.useQuery<DepartmentsQuery>({
+    query: DepartmentsDocument,
+    ...options,
+  });
+}
+export const DepartmentDocument = gql`
+  query department($id: ID!) {
+    department(id: $id) {
+      id
+      department_number
+      name {
+        en
+        fr
+      }
+    }
+  }
+`;
+
+export function useDepartmentQuery(
+  options: Omit<Urql.UseQueryArgs<DepartmentQueryVariables>, "query"> = {},
+) {
+  return Urql.useQuery<DepartmentQuery>({
+    query: DepartmentDocument,
+    ...options,
+  });
+}
+export const CreateDepartmentDocument = gql`
+  mutation createDepartment($department: CreateDepartmentInput!) {
+    createDepartment(department: $department) {
+      id
+      department_number
+      name {
+        en
+        fr
+      }
+    }
+  }
+`;
+
+export function useCreateDepartmentMutation() {
+  return Urql.useMutation<
+    CreateDepartmentMutation,
+    CreateDepartmentMutationVariables
+  >(CreateDepartmentDocument);
+}
+export const UpdateDepartmentDocument = gql`
+  mutation updateDepartment($id: ID!, $department: UpdateDepartmentInput!) {
+    updateDepartment(id: $id, department: $department) {
+      id
+      department_number
+      name {
+        en
+        fr
+      }
+    }
+  }
+`;
+
+export function useUpdateDepartmentMutation() {
+  return Urql.useMutation<
+    UpdateDepartmentMutation,
+    UpdateDepartmentMutationVariables
+  >(UpdateDepartmentDocument);
 }
 export const GetOperationalRequirementDocument = gql`
   query getOperationalRequirement($id: ID!) {
