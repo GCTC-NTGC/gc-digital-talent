@@ -19,28 +19,28 @@ class CreatePoolLookupPivotTables extends Migration
             $table->foreignId('classification_id');
             $table->foreignId('pool_id');
         });
-        DB::statement('ALTER TABLE classification_pool ALTER COLUMN id SET DEFAULT uuid_generate_v4();');
+        DB::statement('ALTER TABLE classification_pool ALTER COLUMN id SET DEFAULT gen_random_uuid();');
         Schema::create('essential_cmo_asset_pool', function (Blueprint $table) {
             $table->uuid('id')->primary('id');
             $table->timestamps();
             $table->foreignId('cmo_asset_id');
             $table->foreignId('pool_id');
         });
-        DB::statement('ALTER TABLE essential_cmo_asset_pool ALTER COLUMN id SET DEFAULT uuid_generate_v4();');
+        DB::statement('ALTER TABLE essential_cmo_asset_pool ALTER COLUMN id SET DEFAULT gen_random_uuid();');
         Schema::create('asset_cmo_asset_pool', function (Blueprint $table) {
             $table->uuid('id')->primary('id');
             $table->timestamps();
             $table->foreignId('cmo_asset_id');
             $table->foreignId('pool_id');
         });
-        DB::statement('ALTER TABLE asset_cmo_asset_pool ALTER COLUMN id SET DEFAULT uuid_generate_v4();');
+        DB::statement('ALTER TABLE asset_cmo_asset_pool ALTER COLUMN id SET DEFAULT gen_random_uuid();');
         Schema::create('operational_requirement_pool', function (Blueprint $table) {
             $table->uuid('id')->primary('id');
             $table->timestamps();
             $table->foreignId('operational_requirement_id');
             $table->foreignId('pool_id');
         });
-        DB::statement('ALTER TABLE operational_requirement_pool ALTER COLUMN id SET DEFAULT uuid_generate_v4();');
+        DB::statement('ALTER TABLE operational_requirement_pool ALTER COLUMN id SET DEFAULT gen_random_uuid();');
     }
 
     /**

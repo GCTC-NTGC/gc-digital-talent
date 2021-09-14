@@ -20,7 +20,7 @@ class CreateCmoAssetsTable extends Migration
             $table->jsonb('name')->nullable(false)->default(json_encode(['en' => '', 'fr' => '']));
             $table->jsonb('description')->nullable(false)->default(json_encode(['en' => '', 'fr' => '']));
         });
-        DB::statement('ALTER TABLE cmo_assets ALTER COLUMN id SET DEFAULT uuid_generate_v4();');
+        DB::statement('ALTER TABLE cmo_assets ALTER COLUMN id SET DEFAULT gen_random_uuid();');
     }
 
     /**
