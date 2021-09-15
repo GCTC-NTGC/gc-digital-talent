@@ -14,7 +14,7 @@ class CreateClassificationsTable extends Migration
     public function up()
     {
         Schema::create('classifications', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary('id');
             $table->timestamps();
             $table->jsonb('name')->nullable(false)->default(json_encode(['en' => '', 'fr' => '']));
             $table->string('group')->nullable(false);
@@ -22,6 +22,7 @@ class CreateClassificationsTable extends Migration
             $table->integer('min_salary')->nullable();
             $table->integer('max_salary')->nullable();
         });
+        DB::statement('ALTER TABLE classifications ALTER COLUMN id SET DEFAULT gen_random_uuid();');
     }
 
     /**

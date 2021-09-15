@@ -14,9 +14,8 @@ class CreatePoolCandidatesTable extends Migration
     public function up()
     {
         Schema::create('pool_candidates', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary('id');
             $table->timestamps();
-
             $table->string('cmo_identifier')->nullable(true);
             $table->date('expiry_date')->nullable(true);
 
@@ -30,28 +29,31 @@ class CreatePoolCandidatesTable extends Migration
             $table->jsonb('location_preferences')->nullable(true);
             $table->jsonb('expected_salary')->nullable(true);
             $table->string('pool_candidate_status')->nullable(true);
-
-            $table->foreignId('pool_id')->nullable(false);
-            $table->foreignId('user_id')->nullable(false);
+            $table->string('pool_id', 36)->references('id')->on('pools')->nullable(false);
+            $table->string('user_id', 36)->references('id')->on('users')->nullable(false);
         });
+        DB::statement('ALTER TABLE pool_candidates ALTER COLUMN id SET DEFAULT gen_random_uuid();');
         Schema::create('operational_requirement_pool_candidate', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary('id');
             $table->timestamps();
-            $table->foreignId('pool_candidate_id')->nullable(false);;
-            $table->foreignId('operational_requirement_id')->nullable(false);;
+            $table->string('pool_candidate_id', 36)->references('id')->on('pool_candidates')->nullable(false);
+            $table->string('operational_requirement_id', 36)->references('id')->on('operational_requirements')->nullable(false);
         });
+        DB::statement('ALTER TABLE operational_requirement_pool_candidate ALTER COLUMN id SET DEFAULT gen_random_uuid();');
         Schema::create('classification_pool_candidate', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary('id');
             $table->timestamps();
-            $table->foreignId('pool_candidate_id')->nullable(false);;
-            $table->foreignId('classification_id')->nullable(false);;
+            $table->string('pool_candidate_id', 36)->references('id')->on('pool_candidates')->nullable(false);
+            $table->string('classification_id', 36)->references('id')->on('classifications')->nullable(false);
         });
+        DB::statement('ALTER TABLE classification_pool_candidate ALTER COLUMN id SET DEFAULT gen_random_uuid();');
         Schema::create('cmo_asset_pool_candidate', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary('id');
             $table->timestamps();
-            $table->foreignId('pool_candidate_id')->nullable(false);;
-            $table->foreignId('cmo_asset_id')->nullable(false);;
+            $table->string('pool_candidate_id', 36)->references('id')->on('pool_candidates')->nullable(false);
+            $table->string('cmo_asset_id', 36)->references('id')->on('cmo_assets')->nullable(false);
         });
+        DB::statement('ALTER TABLE cmo_asset_pool_candidate ALTER COLUMN id SET DEFAULT gen_random_uuid();');
     }
 
     /**
