@@ -1,8 +1,7 @@
 import React from "react";
 import { defineMessages, useIntl } from "react-intl";
-import { Link } from "../../helpers/router";
-import Button from "../H2Components/Button";
-import { departmentCreatePath } from "../../helpers/routes";
+import { Link, Button } from "@common/components";
+import { departmentCreatePath } from "../../adminRoutes";
 import { DepartmentTableApi } from "./DepartmentTable";
 
 const messages = defineMessages({

@@ -1,11 +1,11 @@
 import React, { useMemo } from "react";
 import { defineMessages, useIntl } from "react-intl";
-import commonMessages from "../commonMessages";
+import commonMessages from "@common/messages/commonMessages";
+import { navigate, useLocation } from "@common/helpers/router";
+import { notEmpty } from "@common/helpers/util";
+import { FromArray } from "@common/types/utilityTypes";
+import Button from "@common/components/Button";
 import { DepartmentsQuery, useDepartmentsQuery } from "../../api/generated";
-import { navigate, useLocation } from "../../helpers/router";
-import { notEmpty } from "../../helpers/util";
-import { FromArray } from "../../types/utilityTypes";
-import Button from "../H2Components/Button";
 import Table, { ColumnsOf } from "../Table";
 import DashboardContentContainer from "../DashboardContentContainer";
 
