@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePoolsTable extends Migration
+class CreateDepartmentsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,13 @@ class CreatePoolsTable extends Migration
      */
     public function up()
     {
-        Schema::create('pools', function (Blueprint $table) {
-            $table->uuid('id')->primary('id');
+        Schema::create('departments', function (Blueprint $table) {
+            $table->id();
             $table->timestamps();
+            $table->integer('department_number')->unique();
             $table->jsonb('name')->nullable(false)->default(json_encode(['en' => '', 'fr' => '']));
-            $table->jsonb('description')->nullable(false)->default(json_encode(['en' => '', 'fr' => '']));
-            $table->string('user_id', 36)->references('id')->on('users');
+            $table->softDeletes();
         });
-        DB::statement('ALTER TABLE pools ALTER COLUMN id SET DEFAULT gen_random_uuid();');
     }
 
     /**
@@ -30,6 +29,6 @@ class CreatePoolsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pools');
+        Schema::dropIfExists('department');
     }
 }

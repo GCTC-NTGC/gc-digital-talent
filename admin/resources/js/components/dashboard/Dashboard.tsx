@@ -122,7 +122,7 @@ export const Dashboard: React.FC<{
             <SideMenu items={[...menuItems, ...PoolListApi()]} />
           </div>
         </div>
-        <div data-h2-flex-item="b(1of1) m(8of12) l(10of12)">{content}</div>
+        <div data-h2-flex-item="b(1of1) m(9of12) l(10of12)">{content}</div>
       </section>
       <Footer />
     </div>

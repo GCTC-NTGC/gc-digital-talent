@@ -6,31 +6,26 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
- * Class Classification
+ * Class Department
  *
  * @property int $id
+ * @property int department_number
  * @property array $name
- * @property string $group
- * @property int $level
- * @property int $min_salary
- * @property int $max_salary
  * @property Illuminate\Support\Carbon $created_at
  * @property Illuminate\Support\Carbon $updated_at
+ * @property Illuminate\Support\Carbon $deleted_at
  */
 
-class Classification extends Model
-{
-
+ class Department extends Model
+ {
     use SoftDeletes;
 
-    protected $keyType = 'string';
-
     /**
-     * The attributes that should be cast.
-     *
-     * @var array
-     */
-    protected $casts = [
+      * The attributes that should be case.
+      *
+      * @var array
+      */
+      protected $casts = [
         'name' => 'array',
-    ];
-}
+      ];
+ }

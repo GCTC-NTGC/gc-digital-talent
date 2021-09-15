@@ -9,6 +9,7 @@ import {
   cmoAssetCreatePath,
   cmoAssetTablePath,
   cmoAssetUpdatePath,
+  departmentTablePath,
   operationalRequirementCreatePath,
   operationalRequirementTablePath,
   operationalRequirementUpdatePath,
@@ -44,6 +45,7 @@ import PoolPage from "./pool/PoolPage";
 import { CreatePool } from "./pool/CreatePool";
 import { UpdatePool } from "./pool/UpdatePool";
 import Toast from "./Toast";
+import DepartmentPage from "./department/DepartmentPage";
 
 const messages = defineMessages({
   menuAdminTools: {
@@ -75,6 +77,11 @@ const messages = defineMessages({
     id: "poolDashboard.menu.poolsLabel",
     defaultMessage: "Pools",
     description: "Label displayed on the Pools menu item.",
+  },
+  menuDepartments: {
+    id: "poolDashboard.menu.departmentsLabel",
+    defaultMessage: "Departments",
+    description: "Label displayed on the Departments menu item.",
   },
 });
 
@@ -196,6 +203,12 @@ const routes: Routes<RouterResult> = [
       component: <UpdatePool poolId={params.id as string} />,
     }),
   },
+  {
+    path: departmentTablePath(),
+    action: () => ({
+      component: <DepartmentPage />,
+    }),
+  },
 ];
 
 export const PoolDashboard: React.FC = () => {
@@ -230,6 +243,11 @@ export const PoolDashboard: React.FC = () => {
       key="pools"
       href={poolTablePath()}
       text={intl.formatMessage(messages.menuPools)}
+    />,
+    <MenuLink
+      key="departments"
+      href={departmentTablePath()}
+      text={intl.formatMessage(messages.menuDepartments)}
     />,
   ];
 

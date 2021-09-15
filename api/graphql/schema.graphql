@@ -135,6 +135,13 @@ type CmoAsset {
     name: LocalizedString!
     description: LocalizedString
 }
+
+type Department {
+    id: ID!
+    department_number: Int! @rename(attribute: "department_number")
+    name: LocalizedString
+}
+
 type Query {
     me: User @auth
     user(id: ID! @eq): User @find
@@ -149,6 +156,8 @@ type Query {
     operationalRequirements: [OperationalRequirement]! @all
     cmoAsset(id: ID! @eq): CmoAsset @find
     cmoAssets: [CmoAsset]! @all
+    department(id: ID! @eq): Department @find
+    departments: [Department]! @all
 }
 """
 When creating a User, name and email are required.
@@ -306,6 +315,16 @@ input UpdatePoolInput {
     operationalRequirements: OperationalRequirementBelongsToMany
 }
 
+input CreateDepartmentInput {
+    departmentNumber: Int! @rename(attribute: "department_number")
+    name: LocalizedStringInput
+}
+
+input UpdateDepartmentInput {
+    departmentNumber: Int @rename(attribute: "department_number")
+    name: LocalizedStringInput
+}
+
 type Mutation {
     createUser(user: CreateUserInput! @spread): User @create
     updateUser(id: ID!, user: UpdateUserInput! @spread): User @update
@@ -325,4 +344,7 @@ type Mutation {
     createOperationalRequirement(operationalRequirement: CreateOperationalRequirementInput! @spread): OperationalRequirement @create
     updateOperationalRequirement(id: ID!, operationalRequirement: UpdateOperationalRequirementInput! @spread): OperationalRequirement @update
     deleteOperationalRequirement(id: ID!): OperationalRequirement @delete(globalId: false)
+    createDepartment(department: CreateDepartmentInput! @spread): Department @create
+    updateDepartment(id: ID!, department: UpdateDepartmentInput! @spread): Department @update
+    deleteDepartment(id: ID!): User @delete(globalId: false)
 }
