@@ -17,8 +17,8 @@
   },
   "homepage": "https://github.com/GCTC-NTGC/gc-digital-talent#readme",
   "scripts": {
-    "lint": "eslint ./resources/js --ext .js,.ts",
-    "lint:fix": "eslint ./resources/js --fix --ext .js,.ts",
+    "lint": "eslint ./resources/js --ext .js,.ts,.jsx,.tsx",
+    "lint:fix": "eslint ./resources/js --fix --ext .js,.ts,.jsx,.tsx",
     "prettier": "prettier --write ./resources/js",
     "dev": "mix",
     "watch": "mix watch",
@@ -64,7 +64,6 @@
     "eslint-plugin-promise": "^5.1.0",
     "eslint-plugin-react": "^7.25.1",
     "eslint-plugin-react-hooks": "^4.2.0",
-    "eslint-plugin-testcafe": "^0.2.1",
     "laravel-mix": "^6.0.29",
     "laravel-mix-polyfill": "^3.0.1",
     "postcss": "^8.3.6",
