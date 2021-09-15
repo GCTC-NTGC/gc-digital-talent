@@ -1,7 +1,7 @@
 import React from "react";
 import { Story, Meta } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
-import Form from "..";
+import Form from "../BasicForm";
 import Select, { SelectProps } from ".";
 import Submit from "../Submit";
 

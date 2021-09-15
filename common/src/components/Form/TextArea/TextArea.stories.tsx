@@ -1,7 +1,7 @@
 import React from "react";
 import { action } from "@storybook/addon-actions";
 import { Meta, Story } from "@storybook/react";
-import Form from "..";
+import Form from "../BasicForm";
 import Submit from "../Submit";
 import TextArea, { TextAreaProps } from ".";
 
