@@ -114,6 +114,9 @@ $app->register(MLL\GraphQLPlayground\GraphQLPlaygroundServiceProvider::class);
 $app->register(\Fideloper\Proxy\TrustedProxyServiceProvider::class);
 $app->register(\Laravel\Tinker\TinkerServiceProvider::class);
 
+$app->register(App\Providers\GraphQLServiceProvider::class);
+
+
 
 /*
 |--------------------------------------------------------------------------
