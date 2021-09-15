@@ -18,7 +18,7 @@ class CreatePoolsTable extends Migration
             $table->timestamps();
             $table->jsonb('name')->nullable(false)->default(json_encode(['en' => '', 'fr' => '']));
             $table->jsonb('description')->nullable(false)->default(json_encode(['en' => '', 'fr' => '']));
-            $table->foreignId('user_id');
+            $table->string('user_id', 36)->references('id')->on('users');
         });
         DB::statement('ALTER TABLE pools ALTER COLUMN id SET DEFAULT gen_random_uuid();');
     }
