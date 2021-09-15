@@ -1,1 +1,1 @@
-export { default } from "./Pill";
+export { default, Pill } from "./Pill";

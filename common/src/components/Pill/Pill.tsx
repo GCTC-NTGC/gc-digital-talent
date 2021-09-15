@@ -1,6 +1,6 @@
 import React from "react";
 
-const Pill: React.FC<{ content: string }> = ({ content }) => {
+export const Pill: React.FC<{ content: string }> = ({ content }) => {
   return (
     <span
       data-h2-border="b(darkpurple, all, solid, s)"

@@ -84,7 +84,7 @@ const colorMap: Record<
   },
 };
 
-const Button: React.FC<ButtonProps> = ({
+export const Button: React.FC<ButtonProps> = ({
   children,
   type,
   color,

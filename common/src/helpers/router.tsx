@@ -73,25 +73,6 @@ export const useRouter = (
   return component;
 };
 
-export const Link: React.FC<{ href: string; title: string }> = ({
-  href,
-  title,
-  children,
-  ...props
-}): React.ReactElement => (
-  <a
-    href={href}
-    title={title}
-    {...props}
-    onClick={(event): void => {
-      event.preventDefault();
-      navigate(href);
-    }}
-  >
-    {children}
-  </a>
-);
-
 /* eslint-disable no-useless-escape */
 function stripTrailingSlash(str: string): string {
   return str.endsWith("/") ? str.slice(0, -1) : str;

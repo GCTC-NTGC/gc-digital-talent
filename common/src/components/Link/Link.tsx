@@ -1,7 +1,7 @@
 import React from "react";
-import { navigate } from "../../helpers";
+import { navigate } from "../../helpers/router";
 
-const Link: React.FC<{ href: string; title: string }> = ({
+export const Link: React.FC<{ href: string; title: string }> = ({
   href,
   title,
   children,
