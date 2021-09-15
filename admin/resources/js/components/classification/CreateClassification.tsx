@@ -12,7 +12,7 @@ import {
 } from "../../api/generated";
 import messages from "./messages";
 import DashboardContentContainer from "../DashboardContentContainer";
-import { classificationTablePath } from "../../routes";
+import { classificationTablePath } from "../../adminRoutes";
 
 type FormValues = CreateClassificationInput;
 interface CreateClassificationFormProps {

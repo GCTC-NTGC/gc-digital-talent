@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 import { Input, Select, Submit } from "@common/components/form";
 import { navigate } from "@common/helpers/router";
 import { errorMessages, commonMessages } from "@common/messages";
-import { classificationTablePath } from "../../routes";
+import { classificationTablePath } from "../../adminRoutes";
 import {
   Classification,
   UpdateClassificationInput,

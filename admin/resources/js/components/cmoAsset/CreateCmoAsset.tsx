@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import { Input, Submit, TextArea } from "@common/components/form";
 import { navigate } from "@common/helpers/router";
 import { errorMessages } from "@common/messages";
-import { cmoAssetTablePath } from "../../routes";
+import { cmoAssetTablePath } from "../../adminRoutes";
 import {
   CreateCmoAssetInput,
   useCreateCmoAssetMutation,

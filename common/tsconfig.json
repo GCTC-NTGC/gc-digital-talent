@@ -24,9 +24,9 @@
   },
   "include": [
     "src"
-, "../admin/resources/js/routes.ts"  ],
+  ],
   "exclude": [
-      "node_modules",
-      "lib"
+    "node_modules",
+    "lib"
   ]
 }

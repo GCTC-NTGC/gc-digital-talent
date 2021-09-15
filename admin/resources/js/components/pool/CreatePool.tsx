@@ -13,7 +13,7 @@ import { getLocale } from "@common/helpers/localize";
 import { notEmpty } from "@common/helpers/util";
 import { navigate } from "@common/helpers/router";
 import { errorMessages, commonMessages } from "@common/messages";
-import { poolTablePath } from "../../routes";
+import { poolTablePath } from "../../adminRoutes";
 import {
   Classification,
   CmoAsset,

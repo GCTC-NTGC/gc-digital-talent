@@ -21,7 +21,7 @@ import { navigate } from "@common/helpers/router";
 import { getLocale } from "@common/helpers/localize";
 import { getSalaryRange } from "@common/constants/localizedConstants";
 import { errorMessages, commonMessages } from "@common/messages";
-import { poolCandidateTablePath } from "../../routes";
+import { poolCandidateTablePath } from "../../adminRoutes";
 import {
   UpdatePoolCandidateInput,
   LanguageAbility,

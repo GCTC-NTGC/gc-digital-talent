@@ -15,7 +15,7 @@ import { unpackIds } from "@common/helpers/formUtils";
 import { getLocale } from "@common/helpers/localize";
 import { navigate } from "@common/helpers/router";
 import { errorMessages, commonMessages } from "@common/messages";
-import { poolTablePath } from "../../routes";
+import { poolTablePath } from "../../adminRoutes";
 import {
   Classification,
   CmoAsset,

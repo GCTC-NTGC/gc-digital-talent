@@ -7,7 +7,7 @@ import { navigate } from "@common/helpers/router";
 import { enumToOptions } from "@common/helpers/formUtils";
 import { getLanguage } from "@common/constants/localizedConstants";
 import { errorMessages } from "@common/messages";
-import { userTablePath } from "../../routes";
+import { userTablePath } from "../../adminRoutes";
 import {
   Language,
   CreateUserInput,

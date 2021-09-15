@@ -5,7 +5,7 @@ import { useIntl } from "react-intl";
 import { Input, Submit, TextArea } from "@common/components/form";
 import { navigate } from "@common/helpers/router";
 import { errorMessages } from "@common/messages";
-import { operationalRequirementTablePath } from "../../routes";
+import { operationalRequirementTablePath } from "../../adminRoutes";
 import {
   CreateOperationalRequirementInput,
   useCreateOperationalRequirementMutation,

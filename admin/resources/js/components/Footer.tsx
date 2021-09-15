@@ -3,6 +3,7 @@ import { Link } from "@common/components";
 import { currentDate } from "@common/helpers/formUtils";
 import { imageUrl } from "@common/helpers/router";
 import { defineMessages, useIntl } from "react-intl";
+import { BASE_URL } from "../adminConstants";
 
 const messages = defineMessages({
   feedbackTitle: {
@@ -147,7 +148,7 @@ const Footer: React.FunctionComponent = () => {
           >
             <img
               style={{ width: "12rem" }}
-              src={imageUrl("logo_canada.png")}
+              src={imageUrl(BASE_URL, "logo_canada.png")}
               alt={intl.formatMessage(messages.canadaLogoAlt)}
             />
           </a>

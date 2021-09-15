@@ -2,7 +2,7 @@ import React from "react";
 import { defineMessages, useIntl } from "react-intl";
 import Button from "@common/components/Button";
 import Link from "@common/components/Link";
-import { classificationCreatePath } from "../../routes";
+import { classificationCreatePath } from "../../adminRoutes";
 import { ClassificationTableApi } from "./ClassificationTable";
 
 const messages = defineMessages({

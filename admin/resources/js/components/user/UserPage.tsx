@@ -1,7 +1,7 @@
 import React from "react";
 import { defineMessages, useIntl } from "react-intl";
 import { Link, Button } from "@common/components";
-import { userCreatePath } from "../../routes";
+import { userCreatePath } from "../../adminRoutes";
 import { UserTableApi } from "./UserTable";
 
 const messages = defineMessages({

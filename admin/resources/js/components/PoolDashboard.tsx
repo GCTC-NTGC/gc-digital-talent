@@ -21,7 +21,7 @@ import {
   userCreatePath,
   userTablePath,
   userUpdatePath,
-} from "../routes";
+} from "../adminRoutes";
 import { CreateClassification } from "./classification/CreateClassification";
 import { UpdateClassification } from "./classification/UpdateClassification";
 import ClientProvider from "./ClientProvider";
