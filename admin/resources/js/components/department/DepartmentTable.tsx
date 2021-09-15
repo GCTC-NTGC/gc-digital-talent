@@ -12,8 +12,9 @@ import DashboardContentContainer from "../DashboardContentContainer";
 const messages = defineMessages({
   columnDepartmentNumberTitle: {
     id: "departmentTable.column.departmentNumber",
-    defaultMessage: "Department #:",
-    description: "Title displayed for the Department table Name column.",
+    defaultMessage: "Department #",
+    description:
+      "Title displayed for the Department table Department # column.",
   },
   columnNameTitle: {
     id: "departmentTable.column.nameTitle",
