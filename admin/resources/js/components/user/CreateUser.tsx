@@ -2,14 +2,12 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
-import { Input, Select, Submit } from "@common/components";
-import {
-  navigate,
-  enumToOptions,
-  userTablePath,
-} from "@common/helpers";
-import { getLanguage } from "@common/constants";
+import { Input, Select, Submit } from "@common/components/form";
+import { navigate } from "@common/helpers/router";
+import { enumToOptions } from "@common/helpers/formUtils";
+import { getLanguage } from "@common/constants/localizedConstants";
 import { errorMessages } from "@common/messages";
+import { userTablePath } from "../../routes";
 import {
   Language,
   CreateUserInput,

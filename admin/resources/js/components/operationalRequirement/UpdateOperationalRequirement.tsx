@@ -3,15 +3,10 @@ import * as React from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { toast } from "react-toastify";
-import { Input, Submit, TextArea } from "@common/components";
-import {
-  navigate,
-  operationalRequirementTablePath,
-} from "@common/helpers";
-import {
-  errorMessages,
-  commonMessages,
-} from "@common/messages";
+import { Input, Submit, TextArea } from "@common/components/form";
+import { navigate } from "@common/helpers/router";
+import { errorMessages, commonMessages } from "@common/messages";
+import { operationalRequirementTablePath } from "../../routes";
 import {
   OperationalRequirement,
   UpdateOperationalRequirementInput,

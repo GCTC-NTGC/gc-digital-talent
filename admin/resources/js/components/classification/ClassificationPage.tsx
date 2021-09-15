@@ -1,7 +1,8 @@
 import React from "react";
 import { defineMessages, useIntl } from "react-intl";
-import { Button, Link } from "@common/components";
-import { classificationCreatePath } from "@common/helpers";
+import Button from "@common/components/Button";
+import Link from "@common/components/Link";
+import { classificationCreatePath } from "../../routes";
 import { ClassificationTableApi } from "./ClassificationTable";
 
 const messages = defineMessages({

@@ -1,7 +1,7 @@
 import React from "react";
 import { defineMessages, useIntl } from "react-intl";
 import { Link, Button } from "@common/components";
-import { operationalRequirementCreatePath } from "@common/helpers";
+import { operationalRequirementCreatePath } from "../../routes";
 import { OperationalRequirementTableApi } from "./OperationalRequirementTable";
 
 const messages = defineMessages({

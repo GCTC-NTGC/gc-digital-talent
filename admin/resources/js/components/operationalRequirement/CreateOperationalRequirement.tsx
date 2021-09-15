@@ -2,12 +2,10 @@ import * as React from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { useIntl } from "react-intl";
-import { Input, Submit, TextArea } from "@common/components";
-import {
-  navigate,
-  operationalRequirementTablePath,
-} from "@common/helpers";
+import { Input, Submit, TextArea } from "@common/components/form";
+import { navigate } from "@common/helpers/router";
 import { errorMessages } from "@common/messages";
+import { operationalRequirementTablePath } from "../../routes";
 import {
   CreateOperationalRequirementInput,
   useCreateOperationalRequirementMutation,

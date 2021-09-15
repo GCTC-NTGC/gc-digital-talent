@@ -1,8 +1,8 @@
 import React from "react";
 import { defineMessages, useIntl } from "react-intl";
 import { Routes } from "universal-router";
+import { RouterResult } from "@common/helpers/router";
 import {
-  RouterResult,
   classificationCreatePath,
   classificationTablePath,
   classificationUpdatePath,
@@ -21,7 +21,7 @@ import {
   userCreatePath,
   userTablePath,
   userUpdatePath,
-} from "@common/helpers";
+} from "../routes";
 import { CreateClassification } from "./classification/CreateClassification";
 import { UpdateClassification } from "./classification/UpdateClassification";
 import ClientProvider from "./ClientProvider";

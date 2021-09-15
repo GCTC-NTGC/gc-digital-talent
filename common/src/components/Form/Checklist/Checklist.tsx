@@ -2,7 +2,7 @@ import * as React from "react";
 import get from "lodash/get";
 import { RegisterOptions, useFormContext } from "react-hook-form";
 import Checkbox from "../Checkbox";
-import { InputWrapper, Fieldset } from "../../InputPartials";
+import { InputWrapper, Fieldset } from "../../inputPartials";
 
 export type Checkbox = { value: string | number; label: string };
 

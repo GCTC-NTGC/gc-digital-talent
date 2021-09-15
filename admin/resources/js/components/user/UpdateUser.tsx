@@ -3,17 +3,12 @@ import { useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import pick from "lodash/pick";
 import { toast } from "react-toastify";
-import { Select, Submit, Input } from "@common/components";
-import {
-  navigate,
-  enumToOptions,
-  userTablePath,
-} from "@common/helpers";
-import {
-  errorMessages,
-  commonMessages,
-} from "@common/messages";
-import { getLanguage } from "@common/constants";
+import { Select, Submit, Input } from "@common/components/form";
+import { navigate } from "@common/helpers/router";
+import { enumToOptions } from "@common/helpers/formUtils";
+import { errorMessages, commonMessages } from "@common/messages";
+import { getLanguage } from "@common/constants/localizedConstants";
+import { userTablePath } from "../../routes";
 import {
   Language,
   UpdateUserInput,

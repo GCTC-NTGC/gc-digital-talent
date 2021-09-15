@@ -1,14 +1,10 @@
 import React, { ReactElement } from "react";
 import { defineMessages, useIntl } from "react-intl";
-import { Button, Link } from "@common/components";
-import {
-  useLocation,
-  useRouter,
-  RouterResult,
-  poolCandidateTablePath,
-  getLocale,
-} from "@common/helpers";
+import { useLocation, useRouter, RouterResult } from "@common/helpers/router";
+import { getLocale } from "@common/helpers/localize";
 import { Routes } from "universal-router";
+import { Button, Link } from "@common/components";
+import { poolCandidateTablePath } from "../../routes";
 import { useGetPoolsQuery } from "../../api/generated";
 import SideMenu from "../menu/SideMenu";
 import Footer from "../Footer";

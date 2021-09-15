@@ -1,15 +1,12 @@
 import React, { useMemo } from "react";
 import { defineMessages, useIntl } from "react-intl";
 import { Button, Pill } from "@common/components";
-import {
-  navigate,
-  notEmpty,
-  getLocale,
-  useLocation,
-} from "@common/helpers";
+import { navigate, useLocation } from "@common/helpers/router";
+import { notEmpty } from "@common/helpers/util";
+import { getLocale } from "@common/helpers/localize";
 import { commonMessages } from "@common/messages";
+import { FromArray } from "@common/types/utilityTypes";
 import { GetPoolsQuery, useGetPoolsQuery } from "../../api/generated";
-import { FromArray } from "../../types/utilityTypes";
 import Table, { ColumnsOf } from "../Table";
 import DashboardContentContainer from "../DashboardContentContainer";
 

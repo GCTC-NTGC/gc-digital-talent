@@ -1,9 +1,6 @@
 import React from "react";
 import { Story, Meta } from "@storybook/react";
-import {
-  InputWrapper,
-  InputWrapperProps,
-} from "./InputWrapper";
+import { InputWrapper, InputWrapperProps } from "./InputWrapper";
 
 export default {
   component: InputWrapper,

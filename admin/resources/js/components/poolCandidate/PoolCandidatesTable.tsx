@@ -1,17 +1,14 @@
 import React, { useMemo } from "react";
 import { defineMessages, useIntl } from "react-intl";
 import { Button } from "@common/components";
-import {
-  notEmpty,
-  navigate,
-  useLocation,
-} from "@common/helpers";
+import { notEmpty } from "@common/helpers/util";
+import { navigate, useLocation } from "@common/helpers/router";
 import { commonMessages } from "@common/messages";
+import { FromArray } from "@common/types/utilityTypes";
 import {
   GetPoolCandidatesQuery,
   useGetPoolCandidatesByPoolQuery,
 } from "../../api/generated";
-import { FromArray } from "../../types/utilityTypes";
 import Table, { ColumnsOf } from "../Table";
 import TableBoolean from "../TableBoolean";
 import DashboardContentContainer from "../DashboardContentContainer";

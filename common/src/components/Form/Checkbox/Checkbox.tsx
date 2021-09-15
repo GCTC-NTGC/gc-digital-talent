@@ -1,7 +1,7 @@
 import React from "react";
 import get from "lodash/get";
 import { RegisterOptions, useFormContext } from "react-hook-form";
-import { InputWrapper } from "../../InputPartials";
+import { InputWrapper } from "../../inputPartials";
 
 export interface CheckboxProps
   extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "type"> {

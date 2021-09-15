@@ -1,10 +1,14 @@
+import { Meta } from "@storybook/react";
 import React from "react";
-import { Meta } from "@storybook/react/types-6-0";
-import Button, { ButtonProps } from "./Button";
+import Button from "./Button";
 
 export default {
   title: "Components/Button",
   component: Button,
 } as Meta;
 
-export const PrimaryButton = () => <Button color="primary" mode="solid">Button</Button>;
+export const PrimaryButton = () => (
+  <Button color="primary" mode="solid">
+    Button
+  </Button>
+);

@@ -1,7 +1,7 @@
 import React from "react";
 import { RegisterOptions, useFormContext } from "react-hook-form";
 import get from "lodash/get";
-import { InputWrapper } from "../../InputPartials";
+import { InputWrapper } from "../../inputPartials";
 
 export interface SelectProps
   extends React.SelectHTMLAttributes<HTMLSelectElement> {
