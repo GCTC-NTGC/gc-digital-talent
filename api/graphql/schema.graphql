@@ -150,6 +150,12 @@ type Query {
     pools: [Pool]! @all
     poolCandidate(id: ID! @eq): PoolCandidate @find
     poolCandidates: [PoolCandidate]! @all
+    poolCandidatesFilter(where: _
+        @whereConditions(columns: ["has_diploma", "location_preferences", "language_ability", "is_woman", "has_disability", "is_indigenous", "is_visible_minority"]),
+        hasExpectedClassifications: _ @whereHasConditions(columns: ["group", "level"]),
+        hasAcceptedOperationalRequirements: _ @whereHasConditions(columns: ["id", "key"]),
+        hasCmoAssets: _ @whereHasConditions(columns: ["id", "key"]),
+    ): Int! @count(model: "PoolCandidate")
     classification(id: ID! @eq): Classification @find
     classifications: [Classification]! @all
     operationalRequirement(id: ID! @eq): OperationalRequirement @find
