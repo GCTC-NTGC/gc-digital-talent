@@ -29,6 +29,8 @@ class User extends Model implements Authenticatable
     use SoftDeletes;
     use AuthenticableTrait;
 
+    protected $keyType = 'string';
+
     protected $casts = [
         'roles' => 'array',
     ];

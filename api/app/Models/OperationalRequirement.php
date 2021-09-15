@@ -20,6 +20,8 @@ class OperationalRequirement extends Model
 {
     use SoftDeletes;
 
+    protected $keyType = 'string';
+
     /**
      * The attributes that should be cast.
      *

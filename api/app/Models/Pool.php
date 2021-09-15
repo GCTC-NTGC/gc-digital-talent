@@ -25,6 +25,8 @@ class Pool extends Model
     use HasFactory;
     use SoftDeletes;
 
+    protected $keyType = 'string';
+
     /**
      * The attributes that should be cast.
      *

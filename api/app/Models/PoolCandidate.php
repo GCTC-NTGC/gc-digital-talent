@@ -34,11 +34,14 @@ class PoolCandidate extends Model
     use HasFactory;
     use SoftDeletes;
 
+    protected $keyType = 'string';
+
     /**
      * The attributes that should be cast.
      *
      * @var array
      */
+
     protected $casts = [
         'expiry_date' => 'date',
         'location_preferences' => 'array',
