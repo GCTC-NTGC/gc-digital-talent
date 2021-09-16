@@ -66,6 +66,11 @@ export type CreateCmoAssetInput = {
   description?: Maybe<LocalizedStringInput>;
 };
 
+export type CreateDepartmentInput = {
+  departmentNumber: Scalars["Int"];
+  name?: Maybe<LocalizedStringInput>;
+};
+
 export type CreateOperationalRequirementInput = {
   key: Scalars["String"];
   name: LocalizedStringInput;
@@ -111,6 +116,13 @@ export type CreateUserInput = {
   roles?: Maybe<Array<Maybe<Role>>>;
 };
 
+export type Department = {
+  __typename?: "Department";
+  id: Scalars["ID"];
+  department_number: Scalars["Int"];
+  name?: Maybe<LocalizedString>;
+};
+
 export enum Language {
   En = "EN",
   Fr = "FR",
@@ -153,6 +165,9 @@ export type Mutation = {
   createOperationalRequirement?: Maybe<OperationalRequirement>;
   updateOperationalRequirement?: Maybe<OperationalRequirement>;
   deleteOperationalRequirement?: Maybe<OperationalRequirement>;
+  createDepartment?: Maybe<Department>;
+  updateDepartment?: Maybe<Department>;
+  deleteDepartment?: Maybe<User>;
 };
 
 export type MutationCreateUserArgs = {
@@ -233,6 +248,19 @@ export type MutationDeleteOperationalRequirementArgs = {
   id: Scalars["ID"];
 };
 
+export type MutationCreateDepartmentArgs = {
+  department: CreateDepartmentInput;
+};
+
+export type MutationUpdateDepartmentArgs = {
+  id: Scalars["ID"];
+  department: UpdateDepartmentInput;
+};
+
+export type MutationDeleteDepartmentArgs = {
+  id: Scalars["ID"];
+};
+
 /** e.g. Overtime as Required, Shift Work, Travel as Required, etc. */
 export type OperationalRequirement = {
   __typename?: "OperationalRequirement";
@@ -297,6 +325,7 @@ export enum PoolCandidateStatus {
 
 export type Query = {
   __typename?: "Query";
+  me?: Maybe<User>;
   user?: Maybe<User>;
   users: Array<Maybe<User>>;
   pool?: Maybe<Pool>;
@@ -309,6 +338,8 @@ export type Query = {
   operationalRequirements: Array<Maybe<OperationalRequirement>>;
   cmoAsset?: Maybe<CmoAsset>;
   cmoAssets: Array<Maybe<CmoAsset>>;
+  department?: Maybe<Department>;
+  departments: Array<Maybe<Department>>;
 };
 
 export type QueryUserArgs = {
@@ -332,6 +363,10 @@ export type QueryOperationalRequirementArgs = {
 };
 
 export type QueryCmoAssetArgs = {
+  id: Scalars["ID"];
+};
+
+export type QueryDepartmentArgs = {
   id: Scalars["ID"];
 };
 
@@ -359,6 +394,11 @@ export type UpdateCmoAssetInput = {
   key?: Maybe<Scalars["String"]>;
   name?: Maybe<LocalizedStringInput>;
   description?: Maybe<LocalizedStringInput>;
+};
+
+export type UpdateDepartmentInput = {
+  departmentNumber?: Maybe<Scalars["Int"]>;
+  name?: Maybe<LocalizedStringInput>;
 };
 
 export type UpdateOperationalRequirementInput = {
