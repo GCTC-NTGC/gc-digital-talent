@@ -19,13 +19,13 @@ export default defineMessages({
   },
   nameEnLabel: {
     id: "department.form.nameEnLabel",
-    defaultMessage: "Name EN:",
+    defaultMessage: "Name (English):",
     description:
       "Label displayed on the create a department form name (English) field.",
   },
   nameFrLabel: {
     id: "department.form.nameFrLabel",
-    defaultMessage: "Name FR:",
+    defaultMessage: "Name (French):",
     description:
       "Label displayed on the create a department form name (French) field.",
   },
