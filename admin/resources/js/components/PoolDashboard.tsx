@@ -31,7 +31,9 @@ import {
   cmoAssetCreatePath,
   cmoAssetTablePath,
   cmoAssetUpdatePath,
+  departmentCreatePath,
   departmentTablePath,
+  departmentUpdatePath,
   operationalRequirementCreatePath,
   operationalRequirementTablePath,
   operationalRequirementUpdatePath,
@@ -46,6 +48,8 @@ import {
   userUpdatePath,
 } from "../helpers/routes";
 import DepartmentPage from "./department/DepartmentPage";
+import { CreateDepartment } from "./department/CreateDepartment";
+import { UpdateDepartment } from "./department/UpdateDepartment";
 
 const messages = defineMessages({
   menuAdminTools: {
@@ -206,6 +210,18 @@ const routes: Routes<RouterResult> = [
     path: departmentTablePath(),
     action: () => ({
       component: <DepartmentPage />,
+    }),
+  },
+  {
+    path: departmentCreatePath(),
+    action: () => ({
+      component: <CreateDepartment />,
+    }),
+  },
+  {
+    path: departmentUpdatePath(":id"),
+    action: ({ params }) => ({
+      component: <UpdateDepartment departmentId={params.id as string} />,
     }),
   },
 ];
