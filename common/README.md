@@ -9,43 +9,45 @@ We've set up our projects as subfolders which can import directly from this fold
 To import code from this folder in another Javascript package in a sibling folder, follow these steps:
 
 1. In the webpackConfig object of `webpack.mix.js` (or your webpack.config.js file, if seperate) add the following code:
-```
-resolve: {
-    alias: {
-      "@common": path.resolve('../common/src'),
-      "react": path.resolve('./node_modules/react'),
-      "react-dom": path.resolve('./node_modules/react-dom'),
-      "react-hook-form": path.resolve('./node_modules/react-hook-form'),
-    }
-  }
-```
+    
+    ```
+    resolve: {
+        alias: {
+          "@common": path.resolve('../common/src'),
+          "react": path.resolve('./node_modules/react'),
+          "react-dom": path.resolve('./node_modules/react-dom'),
+          "react-hook-form": path.resolve('./node_modules/react-hook-form'),
+        }
+      }
+    ```
+    If using Storybook, you will need to add the same aliases to [Storybook's webpack](https://storybook.js.org/docs/react/configure/webpack) config as well.
 
 2. Add the following code to `tsconfig.json`:
-```
-"baseUrl": "./",
-"paths": {
-    "@common/*": ["../common/src/*"],
-},
-```
+    ```
+    "baseUrl": "./",
+    "paths": {
+        "@common/*": ["../common/src/*"],
+    },
+    ```
 
 3. If using ESLint with the [eslint-plugin-import](https://www.npmjs.com/package/eslint-plugin-import) plugin (note: this in included in airbnb's eslint config), then install the [eslint-import-resolver-alias](https://www.npmjs.com/package/eslint-import-resolver-alias) plugin. Then, ensure your .eslint config file includes the following "alias" block, nested as shown:
-```
-"settings": {
-  "import/resolver": {
-    "alias": {
-      "map": [
-        ["@common", "../common/src"]
-      ],
-      "extensions": [
-        ".js",
-        ".jsx",
-        ".ts",
-        ".tsx"
-      ]
+    ```
+    "settings": {
+      "import/resolver": {
+        "alias": {
+          "map": [
+            ["@common", "../common/src"]
+          ],
+          "extensions": [
+            ".js",
+            ".jsx",
+            ".ts",
+            ".tsx"
+          ]
+        }
+      }
     }
-  }
-}
-```
+    ```
 
 4. (If you did step 3.) Turn off the "no-extraneous-dependencies" eslint rule by adding `"import/no-extraneous-dependencies": "off",` to the rules section of .eslintrc
 
