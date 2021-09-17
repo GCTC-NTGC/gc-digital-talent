@@ -1,7 +1,7 @@
 import React, { ReactElement } from "react";
 import { defineMessages, useIntl } from "react-intl";
 import { Routes } from "universal-router";
-import { useGetMyNameQuery, useGetPoolsQuery } from "../../api/generated";
+import { useGetPoolsQuery } from "../../api/generated";
 import { getLocale } from "../../helpers/localize";
 import {
   Link,
@@ -113,8 +113,6 @@ export const Dashboard: React.FC<{
   contentRoutes: Routes<RouterResult>;
 }> = ({ menuItems, contentRoutes }) => {
   const content = useRouter(contentRoutes);
-  const [{ data }] = useGetMyNameQuery();
-  const myName = data?.me ? `${data?.me.firstName} ${data?.me.lastName}` : null;
   return (
     <div className="container">
       <section
@@ -129,12 +127,7 @@ export const Dashboard: React.FC<{
             <SideMenu items={[...menuItems, ...PoolListApi()]} />
           </div>
         </div>
-        <div data-h2-flex-item="b(1of1) m(8of12) l(10of12)">
-          <div data-h2-text-align="b(right)">
-            {myName ? <p>{`Welcome, ${myName}`}</p> : <a href="login">Login</a>}
-          </div>
-          {content}
-        </div>
+        <div data-h2-flex-item="b(1of1) m(8of12) l(10of12)">{content}</div>
       </section>
       <Footer />
     </div>
