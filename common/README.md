@@ -8,7 +8,7 @@ We've set up our projects as subfolders which can import directly from this fold
 
 To import code from this folder in another Javascript package in a sibling folder, follow these steps:
 
-1. In the webpackConfig object of `webpack.mix.js` (or your webpack.config.js file, if seperate) add the following code:
+1. In the webpackConfig object of `webpack.mix.js` (or your webpack.config.js file, if separate) add the following code:
     
     ```
     resolve: {
