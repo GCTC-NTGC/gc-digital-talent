@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -29,7 +30,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
         'name' => 'array',
       ];
 
-      public function candidateSearchRequests() // phpcs:ignore
+      public function candidateSearchRequests(): HasMany
       {
           return $this->hasMany(CandidateSearchRequest::class);
       }
