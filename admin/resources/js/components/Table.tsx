@@ -114,12 +114,16 @@ function Table<T extends Record<string, unknown>>({
                     }}
                   >
                     <div>
-                      <IndeterminateCheckbox
-                        {...(getToggleHideAllColumnsProps() as React.ComponentProps<
-                          typeof IndeterminateCheckbox
-                        >)}
-                      />{" "}
-                      {intl.formatMessage(messages.toggleAllTableColumnsLabel)}
+                      <label>
+                        <IndeterminateCheckbox
+                          {...(getToggleHideAllColumnsProps() as React.ComponentProps<
+                            typeof IndeterminateCheckbox
+                          >)}
+                        />{" "}
+                        {intl.formatMessage(
+                          messages.toggleAllTableColumnsLabel,
+                        )}
+                      </label>
                     </div>
                     {allColumns.map((column) => (
                       <div key={column.id}>
