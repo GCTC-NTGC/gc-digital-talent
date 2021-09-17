@@ -14,12 +14,13 @@ class CreateDepartmentsTable extends Migration
     public function up()
     {
         Schema::create('departments', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary('id');
             $table->timestamps();
             $table->integer('department_number')->unique();
             $table->jsonb('name')->nullable(false)->default(json_encode(['en' => '', 'fr' => '']));
             $table->softDeletes();
         });
+        DB::statement('ALTER TABLE departments ALTER COLUMN id SET DEFAULT gen_random_uuid();');
     }
 
     /**
