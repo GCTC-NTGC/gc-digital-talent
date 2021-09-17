@@ -3,7 +3,11 @@
 namespace Database\Factories;
 
 use App\Models\CandidateSearchRequest;
+use App\Models\Classification;
+use App\Models\CmoAsset;
 use App\Models\Department;
+use App\Models\OperationalRequirement;
+use App\Models\PoolCandidateFilter;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class CandidateSearchRequestFactory extends Factory

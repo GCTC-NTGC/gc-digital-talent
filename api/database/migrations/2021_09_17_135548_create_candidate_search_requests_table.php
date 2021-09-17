@@ -21,7 +21,7 @@ class CreateCandidateSearchRequestsTable extends Migration
             $table->string('department_id')->references('id')->on('departments');
             $table->string("job_title");
             $table->text("additional_comments")->nullable();
-            // $table->jsonb("summary_of_filters");
+            $table->text("pool_candidate_filter_id")->references('id')->on('pool_candidate_filters');
             $table->date("requested_date");
             $table->text("status");
             $table->text("admin_notes")->nullable();
