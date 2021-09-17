@@ -28,4 +28,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
       protected $casts = [
         'name' => 'array',
       ];
+
+      public function candidateSearchRequests() // phpcs:ignore
+      {
+          return $this->hasMany(CandidateSearchRequest::class);
+      }
  }
