@@ -46,6 +46,7 @@ import {
   userTablePath,
   userUpdatePath,
 } from "../helpers/routes";
+import AuthContainer from "./AuthContainer";
 
 const messages = defineMessages({
   menuAdminTools: {
@@ -243,10 +244,12 @@ export const PoolDashboard: React.FC = () => {
 
   return (
     <ErrorContainer>
-      <ClientProvider>
-        <Dashboard menuItems={menuItems} contentRoutes={routes} />
-        <Toast />
-      </ClientProvider>
+      <AuthContainer>
+        <ClientProvider>
+          <Dashboard menuItems={menuItems} contentRoutes={routes} />
+          <Toast />
+        </ClientProvider>
+      </AuthContainer>
     </ErrorContainer>
   );
 };
