@@ -147,16 +147,30 @@ enum Status {
     DONE
 }
 
+type PoolCandidateFilter {
+    id: ID!
+    classifications: [Classification]
+    cmoAssets: [CmoAssets]
+    hasDiploma: Boolean @rename(attribute: "has_diploma")
+    hasDisability: Boolean @rename(attribute: "has_disability")
+    isIndigenous: Boolean @rename(attribute: "is_indigenous")
+    isVisibleMinority: Boolean @rename(attribute: "is_visible_minority")
+    isWoman: Boolean @rename(attribute: "is_woman")
+    languageAbility: LanguageAbility @rename(attribute: "language_ability")
+    operationalRequirements: [OperationalRequirement] @rename(attribute: "operational_requirements")
+    workRegion: [WorkRegion] @rename(attribute: "work_region")
+}
+
 type CandidateSearchRequest {
     id: ID!
     fullName: String! @rename(attribute: "full_name")
     email: String!
-    department: Department @hasOne
+    department: Department! @hasOne
     jobTitle: String! @rename(attribute: "job_title")
-    additionalComments: String! @rename(attribute: "additional_comments")
-    # summaryOfFilters:
+    additionalComments: String @rename(attribute: "additional_comments")
+    poolCandidateFilters: PoolCandidateFilter! @hasOne
     requestedDate: Date! @rename(attribute: "requested_date")
-    status: Status
+    status: Status!
     adminNotes: String @rename(attribute: "admin_notes")
 }
 
@@ -182,6 +196,7 @@ type Query {
     cmoAssets: [CmoAsset]! @all @guard @can(ability: "viewAny")
     department(id: ID! @eq): Department @find @guard @can(ability: "viewAny")
     departments: [Department]! @all @guard @can(ability: "view")
+    candidateFilterSearch
 }
 """
 When creating a User, name and email are required.
