@@ -142,6 +142,24 @@ type Department {
     name: LocalizedString
 }
 
+enum Status {
+    PENDING
+    DONE
+}
+
+type CandidateSearchRequest {
+    id: ID!
+    fullName: String! @rename(attribute: "full_name")
+    email: String!
+    department: Department @hasOne
+    jobTitle: String! @rename(attribute: "job_title")
+    additionalComments: String! @rename(attribute: "additional_comments")
+    # summaryOfFilters:
+    requestedDate: Date! @rename(attribute: "requested_date")
+    status: Status
+    adminNotes: String @rename(attribute: "admin_notes")
+}
+
 type Query {
     me: User @auth
     user(id: ID! @eq): User @find @guard @can(ability: "view")
