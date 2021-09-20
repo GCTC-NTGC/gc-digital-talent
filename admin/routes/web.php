@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\AuthController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -12,10 +15,10 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::prefix(config('app_dir'))->group(function () {
-    Route::get('/login', 'AuthController@login');
-    Route::get('/auth-callback', 'AuthController@authCallback');
+Route::prefix(config('app.app_dir'))->group(function () {
+    Route::get('/login', [AuthController::class, 'login']);
+    Route::get('/auth-callback', [AuthController::class, 'authCallback']);
 
-    Route::get('/', 'DashboardController@index');
-    Route::get('/{any:.*}', 'DashboardController@index');
+    Route::get('/', [DashboardController::class, 'index']);
+    Route::get('/{any:.*}', [DashboardController::class, 'index']);
 });
