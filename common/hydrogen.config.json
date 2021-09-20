@@ -2,7 +2,7 @@
   "debug": false,
   "mediaWarnings": false,
   "folders": {
-    "scripts": "src/components",
+    "scripts": "src",
     "styles": "src/css"
   },
   "colors": [
