@@ -1,5 +1,5 @@
 import { authExchange } from "@urql/exchange-auth";
-import React, { useContext, useEffect, useMemo } from "react";
+import React, { useCallback, useContext, useMemo } from "react";
 import {
   Client,
   CombinedError,
@@ -12,50 +12,15 @@ import {
   Operation,
   makeOperation,
 } from "urql";
-import {
-  parseUrlQueryParameters,
-  redirect,
-  useLocation,
-} from "../helpers/router";
-import { homePath } from "../helpers/routes";
+import { AuthContext } from "./AuthContainer";
 import { ErrorContext } from "./ErrorContainer";
 
 const apiUri = process.env.API_URI ?? "http://localhost:8000/graphql";
 
-const ACCESS_TOKEN = "access_token";
-const REFRESH_TOKEN = "refresh_token";
-
 interface AuthState {
-  token: string;
+  accessToken: string;
   refreshToken: string | null;
 }
-
-const logout = (): void => {
-  // To log out, remove tokens from local storage and do a hard refresh to clear anything cached by urql or react.
-  // TODO: Is there anything else we should do, in terms of notifying user?
-  localStorage.removeItem(ACCESS_TOKEN);
-  localStorage.removeItem(REFRESH_TOKEN);
-  window.location.href = homePath();
-};
-
-const getAuth = async ({
-  authState,
-}: {
-  authState: AuthState | null;
-}): Promise<AuthState | null> => {
-  if (!authState) {
-    const token = localStorage.getItem(ACCESS_TOKEN);
-    const refreshToken = localStorage.getItem(REFRESH_TOKEN);
-    if (token) {
-      return { token, refreshToken };
-    }
-    return null;
-  }
-  // If authState is not null, and getAuth is called again, then it means authentication failed for some reason.
-  // TODO: This is where we could try using the refresh token, instead of logging out.
-  logout();
-  return null;
-};
 
 const addAuthToOperation = ({
   authState,
@@ -64,7 +29,7 @@ const addAuthToOperation = ({
   authState: AuthState | null;
   operation: Operation;
 }): Operation => {
-  if (!authState || !authState.token) {
+  if (!authState || !authState.accessToken) {
     return operation;
   }
 
@@ -79,7 +44,7 @@ const addAuthToOperation = ({
       ...fetchOptions,
       headers: {
         ...fetchOptions.headers,
-        Authorization: `Bearer ${authState.token}`,
+        Authorization: `Bearer ${authState.accessToken}`,
       },
     },
   });
@@ -96,24 +61,25 @@ export const ClientProvider: React.FC<{ client?: Client }> = ({
   client,
   children,
 }) => {
-  const location = useLocation();
-  useEffect(() => {
-    const queryParams = parseUrlQueryParameters(location);
-    const accessToken = queryParams.access_token;
-    if (accessToken && queryParams.token_type === "Bearer") {
-      // If url query parameters contain an access token, save it in local storage and then redirect to remove the url query params.
-      localStorage.setItem(ACCESS_TOKEN, accessToken);
-      if (queryParams.refresh_token) {
-        localStorage.setItem(REFRESH_TOKEN, queryParams.refresh_token);
-      }
-      redirect({
-        ...location,
-        search: "",
-      });
-    }
-  }, [location]);
+  const { accessToken, refreshToken, logout } = useContext(AuthContext);
 
   const { dispatch } = useContext(ErrorContext);
+
+  const getAuth = useCallback(
+    async ({ authState }): Promise<AuthState | null> => {
+      if (!authState) {
+        if (accessToken) {
+          return { accessToken, refreshToken };
+        }
+        return null;
+      }
+      // If authState is not null, and getAuth is called again, then it means authentication failed for some reason.
+      // TODO: This is where we could try using the refresh token, instead of logging out.
+      logout();
+      return null;
+    },
+    [accessToken, refreshToken, logout],
+  );
 
   const internalClient = useMemo(() => {
     return (
@@ -140,7 +106,7 @@ export const ClientProvider: React.FC<{ client?: Client }> = ({
         ],
       })
     );
-  }, [client, dispatch]);
+  }, [client, dispatch, getAuth]);
 
   return <Provider value={internalClient}>{children}</Provider>;
 };

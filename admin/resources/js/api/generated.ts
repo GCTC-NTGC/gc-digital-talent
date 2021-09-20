@@ -632,17 +632,6 @@ export type UpdateCmoAssetMutation = {
   }>;
 };
 
-export type GetMyNameQueryVariables = Exact<{ [key: string]: never }>;
-
-export type GetMyNameQuery = {
-  __typename?: "Query";
-  me?: Maybe<{
-    __typename?: "User";
-    firstName?: Maybe<string>;
-    lastName?: Maybe<string>;
-  }>;
-};
-
 export type GetOperationalRequirementQueryVariables = Exact<{
   id: Scalars["ID"];
 }>;
@@ -2329,23 +2318,6 @@ export function useUpdateCmoAssetMutation() {
     UpdateCmoAssetMutation,
     UpdateCmoAssetMutationVariables
   >(UpdateCmoAssetDocument);
-}
-export const GetMyNameDocument = gql`
-  query getMyName {
-    me {
-      firstName
-      lastName
-    }
-  }
-`;
-
-export function useGetMyNameQuery(
-  options: Omit<Urql.UseQueryArgs<GetMyNameQueryVariables>, "query"> = {},
-) {
-  return Urql.useQuery<GetMyNameQuery>({
-    query: GetMyNameDocument,
-    ...options,
-  });
 }
 export const GetOperationalRequirementDocument = gql`
   query getOperationalRequirement($id: ID!) {
