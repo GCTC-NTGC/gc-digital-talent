@@ -3,6 +3,18 @@ import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { toast } from "react-toastify";
 import {
+  Input,
+  MultiSelect,
+  Select,
+  Submit,
+  TextArea,
+} from "@common/components/form";
+import { getLocale } from "@common/helpers/localize";
+import { notEmpty } from "@common/helpers/util";
+import { navigate } from "@common/helpers/router";
+import { errorMessages, commonMessages } from "@common/messages";
+import { poolTablePath } from "../../adminRoutes";
+import {
   Classification,
   CmoAsset,
   CreatePoolInput,
@@ -13,18 +25,7 @@ import {
   useGetCreatePoolDataQuery,
   User,
 } from "../../api/generated";
-import { getLocale } from "../../helpers/localize";
-import { notEmpty } from "../../helpers/util";
-import errorMessages from "../form/errorMessages";
-import Input from "../form/Input";
-import MultiSelect from "../form/MultiSelect";
-import Select from "../form/Select";
-import Submit from "../form/Submit";
-import TextArea from "../form/TextArea";
 import messages from "./messages";
-import commonMessages from "../commonMessages";
-import { navigate } from "../../helpers/router";
-import { poolTablePath } from "../../helpers/routes";
 import DashboardContentContainer from "../DashboardContentContainer";
 
 type Option<V> = { value: V; label: string };

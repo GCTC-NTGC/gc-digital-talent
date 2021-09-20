@@ -1,0 +1,19 @@
+schema: ../api/graphql/schema.graphql
+generates:
+  ./src/api/generated.ts:
+    plugins:
+      - add
+      - typescript
+      - typescript-operations
+      - typescript-urql
+    config:
+      content: '/* THIS FILE IS AUTO-GENERATED, DO NOT EDIT */'
+      scalars:
+        Date: string
+        DateTime: string
+        Email: string
+        PhoneNumber: string
+      gqlImport: urql#gql
+hooks:
+  afterOneFileWrite:
+    - prettier --write

@@ -3,6 +3,20 @@ import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { useIntl } from "react-intl";
 import {
+  Submit,
+  Select,
+  Input,
+  MultiSelect,
+  Checkbox,
+} from "@common/components/form";
+import { notEmpty } from "@common/helpers/util";
+import { currentDate, enumToOptions } from "@common/helpers/formUtils";
+import { navigate } from "@common/helpers/router";
+import { getLocale } from "@common/helpers/localize";
+import { getSalaryRange } from "@common/constants/localizedConstants";
+import { errorMessages, commonMessages } from "@common/messages";
+import { poolCandidateTablePath } from "../../adminRoutes";
+import {
   CreatePoolCandidateInput,
   Pool,
   LanguageAbility,
@@ -18,20 +32,7 @@ import {
   PoolCandidate,
   useGetCreatePoolCandidateDataQuery,
 } from "../../api/generated";
-import errorMessages from "../form/errorMessages";
-import Submit from "../form/Submit";
-import Select from "../form/Select";
-import Input from "../form/Input";
-import MultiSelect from "../form/MultiSelect";
-import { notEmpty } from "../../helpers/util";
-import { currentDate, enumToOptions } from "../form/formUtils";
-import { getSalaryRange } from "../../model/localizedConstants";
-import Checkbox from "../form/Checkbox";
-import { navigate } from "../../helpers/router";
-import { poolCandidateTablePath } from "../../helpers/routes";
-import { getLocale } from "../../helpers/localize";
 import messages from "./messages";
-import commonMessages from "../commonMessages";
 import DashboardContentContainer from "../DashboardContentContainer";
 
 type Option<V> = { value: V; label: string };

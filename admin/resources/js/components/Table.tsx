@@ -2,8 +2,8 @@
 import React, { ReactElement, useState } from "react";
 import { defineMessages, useIntl } from "react-intl";
 import { useTable, useGlobalFilter, useSortBy, Column } from "react-table";
+import { Button } from "@common/components";
 import GlobalFilter from "./GlobalFilter";
-import Button from "./H2Components/Button";
 
 const messages = defineMessages({
   toggleTableColumnsLabel: {
@@ -57,7 +57,6 @@ function Table<T extends Record<string, unknown>>({
     prepareRow,
     setGlobalFilter,
     state,
-    preGlobalFilteredRows,
     allColumns,
     getToggleHideAllColumnsProps,
   } = useTable<T>(
@@ -82,7 +81,6 @@ function Table<T extends Record<string, unknown>>({
           <div data-h2-flex-grid="b(middle, expanded, flush, m)">
             <div data-h2-flex-item="b(1of1) m(1of3)">
               <GlobalFilter
-                preGlobalFilteredRows={preGlobalFilteredRows}
                 globalFilter={state.globalFilter}
                 setGlobalFilter={setGlobalFilter}
               />
