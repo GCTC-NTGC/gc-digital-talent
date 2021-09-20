@@ -3,6 +3,10 @@ import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { toast } from "react-toastify";
 import pick from "lodash/pick";
+import { navigate } from "@common/helpers/router";
+import { Input, Submit } from "@common/components/form";
+import { errorMessages, commonMessages } from "@common/messages";
+import { departmentTablePath } from "../../adminRoutes";
 import {
   Department,
   UpdateDepartmentInput,
@@ -10,14 +14,8 @@ import {
   useDepartmentQuery,
   useUpdateDepartmentMutation,
 } from "../../api/generated";
-import { navigate } from "../../helpers/router";
-import { departmentTablePath } from "../../helpers/routes";
-import Input from "../form/Input";
 import messages from "./messages";
-import errorMessages from "../form/errorMessages";
 import DashboardContentContainer from "../DashboardContentContainer";
-import Submit from "../form/Submit";
-import commonMessages from "../commonMessages";
 
 type FormValues = UpdateDepartmentInput;
 
