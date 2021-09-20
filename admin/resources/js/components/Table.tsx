@@ -82,7 +82,6 @@ function Table<T extends Record<string, unknown>>({
           <div data-h2-flex-grid="b(middle, expanded, flush, m)">
             <div data-h2-flex-item="b(1of1) m(1of3)">
               <GlobalFilter
-                preGlobalFilteredRows={preGlobalFilteredRows}
                 globalFilter={state.globalFilter}
                 setGlobalFilter={setGlobalFilter}
               />
