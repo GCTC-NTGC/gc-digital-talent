@@ -43,4 +43,8 @@ class User extends Model implements Authenticatable
     {
         return $this->hasMany(PoolCandidate::class);
     }
+    public function isAdmin(): bool
+    {
+        return in_array('ADMIN', $this->roles);
+    }
 }

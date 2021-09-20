@@ -10,6 +10,8 @@ import {
   cmoAssetTablePath,
   cmoAssetUpdatePath,
   departmentTablePath,
+  departmentCreatePath,
+  departmentUpdatePath,
   operationalRequirementCreatePath,
   operationalRequirementTablePath,
   operationalRequirementUpdatePath,
@@ -46,6 +48,8 @@ import { CreatePool } from "./pool/CreatePool";
 import { UpdatePool } from "./pool/UpdatePool";
 import Toast from "./Toast";
 import DepartmentPage from "./department/DepartmentPage";
+import { CreateDepartment } from "./department/CreateDepartment";
+import { UpdateDepartment } from "./department/UpdateDepartment";
 
 const messages = defineMessages({
   menuAdminTools: {
@@ -207,6 +211,18 @@ const routes: Routes<RouterResult> = [
     path: departmentTablePath(),
     action: () => ({
       component: <DepartmentPage />,
+    }),
+  },
+  {
+    path: departmentCreatePath(),
+    action: () => ({
+      component: <CreateDepartment />,
+    }),
+  },
+  {
+    path: departmentUpdatePath(":id"),
+    action: ({ params }) => ({
+      component: <UpdateDepartment departmentId={params.id as string} />,
     }),
   },
 ];
