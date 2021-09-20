@@ -57,7 +57,6 @@ function Table<T extends Record<string, unknown>>({
     prepareRow,
     setGlobalFilter,
     state,
-    preGlobalFilteredRows,
     allColumns,
     getToggleHideAllColumnsProps,
   } = useTable<T>(
