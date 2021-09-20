@@ -1,0 +1,43 @@
+query departments {
+  departments {
+    id
+    department_number
+    name {
+      en
+      fr
+    }
+  }
+}
+
+query department($id: ID!) {
+  department(id: $id) {
+    id
+    department_number
+    name {
+      en
+      fr
+    }
+  }
+}
+
+mutation createDepartment($department: CreateDepartmentInput!) {
+  createDepartment(department: $department) {
+    id
+    department_number
+    name {
+      en
+      fr
+    }
+  }
+}
+
+mutation updateDepartment($id: ID!, $department: UpdateDepartmentInput!) {
+  updateDepartment(id: $id, department: $department) {
+    id
+    department_number
+    name {
+      en
+      fr
+    }
+  }
+}

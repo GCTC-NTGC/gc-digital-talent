@@ -1,16 +1,16 @@
 import React, { useMemo } from "react";
 import { defineMessages, useIntl } from "react-intl";
+import { Button } from "@common/components";
+import { notEmpty } from "@common/helpers/util";
+import { navigate, useLocation } from "@common/helpers/router";
+import { commonMessages } from "@common/messages";
+import { FromArray } from "@common/types/utilityTypes";
 import {
   GetPoolCandidatesQuery,
   useGetPoolCandidatesByPoolQuery,
 } from "../../api/generated";
-import { notEmpty } from "../../helpers/util";
-import { FromArray } from "../../types/utilityTypes";
 import Table, { ColumnsOf } from "../Table";
 import TableBoolean from "../TableBoolean";
-import commonMessages from "../commonMessages";
-import Button from "../H2Components/Button";
-import { navigate, useLocation } from "../../helpers/router";
 import DashboardContentContainer from "../DashboardContentContainer";
 
 const messages = defineMessages({

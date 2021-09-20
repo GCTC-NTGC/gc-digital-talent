@@ -3,20 +3,17 @@ import * as React from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { toast } from "react-toastify";
+import { Input, Submit, TextArea } from "@common/components/form";
+import { navigate } from "@common/helpers/router";
+import { errorMessages, commonMessages } from "@common/messages";
+import { operationalRequirementTablePath } from "../../adminRoutes";
 import {
   OperationalRequirement,
   UpdateOperationalRequirementInput,
   useGetOperationalRequirementQuery,
   useUpdateOperationalRequirementMutation,
 } from "../../api/generated";
-import { navigate } from "../../helpers/router";
-import { operationalRequirementTablePath } from "../../helpers/routes";
-import commonMessages from "../commonMessages";
 import DashboardContentContainer from "../DashboardContentContainer";
-import errorMessages from "../form/errorMessages";
-import Input from "../form/Input";
-import Submit from "../form/Submit";
-import TextArea from "../form/TextArea";
 import messages from "./messages";
 
 type FormValues = UpdateOperationalRequirementInput;

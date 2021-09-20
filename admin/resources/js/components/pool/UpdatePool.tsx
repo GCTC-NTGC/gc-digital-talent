@@ -4,6 +4,19 @@ import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { toast } from "react-toastify";
 import {
+  Input,
+  MultiSelect,
+  Select,
+  Submit,
+  TextArea,
+} from "@common/components/form";
+import { notEmpty } from "@common/helpers/util";
+import { unpackIds } from "@common/helpers/formUtils";
+import { getLocale } from "@common/helpers/localize";
+import { navigate } from "@common/helpers/router";
+import { errorMessages, commonMessages } from "@common/messages";
+import { poolTablePath } from "../../adminRoutes";
+import {
   Classification,
   CmoAsset,
   OperationalRequirement,
@@ -14,19 +27,7 @@ import {
   User,
   useUpdatePoolMutation,
 } from "../../api/generated";
-import { notEmpty } from "../../helpers/util";
-import errorMessages from "../form/errorMessages";
-import { unpackIds } from "../form/formUtils";
-import Input from "../form/Input";
-import MultiSelect from "../form/MultiSelect";
-import Select from "../form/Select";
-import Submit from "../form/Submit";
-import TextArea from "../form/TextArea";
 import messages from "./messages";
-import commonMessages from "../commonMessages";
-import { getLocale } from "../../helpers/localize";
-import { navigate } from "../../helpers/router";
-import { poolTablePath } from "../../helpers/routes";
 import DashboardContentContainer from "../DashboardContentContainer";
 
 type Option<V> = { value: V; label: string };

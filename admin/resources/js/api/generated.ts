@@ -5,10 +5,12 @@ export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: unknown }> = {
   [K in keyof T]: T[K];
 };
-export type MakeOptional<T, K extends keyof T> = Omit<T, K> &
-  { [SubKey in K]?: Maybe<T[SubKey]> };
-export type MakeMaybe<T, K extends keyof T> = Omit<T, K> &
-  { [SubKey in K]: Maybe<T[SubKey]> };
+export type MakeOptional<T, K extends keyof T> = Omit<T, K> & {
+  [SubKey in K]?: Maybe<T[SubKey]>;
+};
+export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
+  [SubKey in K]: Maybe<T[SubKey]>;
+};
 export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
@@ -68,6 +70,11 @@ export type CreateCmoAssetInput = {
   name: LocalizedStringInput;
 };
 
+export type CreateDepartmentInput = {
+  departmentNumber: Scalars["Int"];
+  name?: Maybe<LocalizedStringInput>;
+};
+
 export type CreateOperationalRequirementInput = {
   description?: Maybe<LocalizedStringInput>;
   key: Scalars["String"];
@@ -113,6 +120,13 @@ export type CreateUserInput = {
   telephone?: Maybe<Scalars["PhoneNumber"]>;
 };
 
+export type Department = {
+  __typename?: "Department";
+  department_number: Scalars["Int"];
+  id: Scalars["ID"];
+  name?: Maybe<LocalizedString>;
+};
+
 export enum Language {
   En = "EN",
   Fr = "FR",
@@ -139,18 +153,21 @@ export type Mutation = {
   __typename?: "Mutation";
   createClassification?: Maybe<Classification>;
   createCmoAsset?: Maybe<CmoAsset>;
+  createDepartment?: Maybe<Department>;
   createOperationalRequirement?: Maybe<OperationalRequirement>;
   createPool?: Maybe<Pool>;
   createPoolCandidate?: Maybe<PoolCandidate>;
   createUser?: Maybe<User>;
   deleteClassification?: Maybe<Classification>;
   deleteCmoAsset?: Maybe<CmoAsset>;
+  deleteDepartment?: Maybe<User>;
   deleteOperationalRequirement?: Maybe<OperationalRequirement>;
   deletePool?: Maybe<Pool>;
   deletePoolCandidate?: Maybe<PoolCandidate>;
   deleteUser?: Maybe<User>;
   updateClassification?: Maybe<Classification>;
   updateCmoAsset?: Maybe<CmoAsset>;
+  updateDepartment?: Maybe<Department>;
   updateOperationalRequirement?: Maybe<OperationalRequirement>;
   updatePool?: Maybe<Pool>;
   updatePoolCandidate?: Maybe<PoolCandidate>;
@@ -163,6 +180,10 @@ export type MutationCreateClassificationArgs = {
 
 export type MutationCreateCmoAssetArgs = {
   cmoAsset: CreateCmoAssetInput;
+};
+
+export type MutationCreateDepartmentArgs = {
+  department: CreateDepartmentInput;
 };
 
 export type MutationCreateOperationalRequirementArgs = {
@@ -186,6 +207,10 @@ export type MutationDeleteClassificationArgs = {
 };
 
 export type MutationDeleteCmoAssetArgs = {
+  id: Scalars["ID"];
+};
+
+export type MutationDeleteDepartmentArgs = {
   id: Scalars["ID"];
 };
 
@@ -213,11 +238,12 @@ export type MutationUpdateClassificationArgs = {
 export type MutationUpdateCmoAssetArgs = {
   cmoAsset: UpdateCmoAssetInput;
   id: Scalars["ID"];
+  operationalRequirement: UpdateOperationalRequirementInput;
 };
 
-export type MutationUpdateOperationalRequirementArgs = {
+export type MutationUpdateDepartmentArgs = {
+  department: UpdateDepartmentInput;
   id: Scalars["ID"];
-  operationalRequirement: UpdateOperationalRequirementInput;
 };
 
 export type MutationUpdatePoolArgs = {
@@ -303,6 +329,8 @@ export type Query = {
   classifications: Array<Maybe<Classification>>;
   cmoAsset?: Maybe<CmoAsset>;
   cmoAssets: Array<Maybe<CmoAsset>>;
+  department?: Maybe<Department>;
+  departments: Array<Maybe<Department>>;
   me?: Maybe<User>;
   operationalRequirement?: Maybe<OperationalRequirement>;
   operationalRequirements: Array<Maybe<OperationalRequirement>>;
@@ -319,6 +347,10 @@ export type QueryClassificationArgs = {
 };
 
 export type QueryCmoAssetArgs = {
+  id: Scalars["ID"];
+};
+
+export type QueryDepartmentArgs = {
   id: Scalars["ID"];
 };
 
@@ -361,6 +393,11 @@ export type UpdateClassificationInput = {
 export type UpdateCmoAssetInput = {
   description?: Maybe<LocalizedStringInput>;
   key?: Maybe<Scalars["String"]>;
+  name?: Maybe<LocalizedStringInput>;
+};
+
+export type UpdateDepartmentInput = {
+  departmentNumber?: Maybe<Scalars["Int"]>;
   name?: Maybe<LocalizedStringInput>;
 };
 
@@ -625,6 +662,79 @@ export type UpdateCmoAssetMutation = {
       fr?: Maybe<string>;
     };
     description?: Maybe<{
+      __typename?: "LocalizedString";
+      en?: Maybe<string>;
+      fr?: Maybe<string>;
+    }>;
+  }>;
+};
+
+export type DepartmentsQueryVariables = Exact<{ [key: string]: never }>;
+
+export type DepartmentsQuery = {
+  __typename?: "Query";
+  departments: Array<
+    Maybe<{
+      __typename?: "Department";
+      id: string;
+      department_number: number;
+      name?: Maybe<{
+        __typename?: "LocalizedString";
+        en?: Maybe<string>;
+        fr?: Maybe<string>;
+      }>;
+    }>
+  >;
+};
+
+export type DepartmentQueryVariables = Exact<{
+  id: Scalars["ID"];
+}>;
+
+export type DepartmentQuery = {
+  __typename?: "Query";
+  department?: Maybe<{
+    __typename?: "Department";
+    id: string;
+    department_number: number;
+    name?: Maybe<{
+      __typename?: "LocalizedString";
+      en?: Maybe<string>;
+      fr?: Maybe<string>;
+    }>;
+  }>;
+};
+
+export type CreateDepartmentMutationVariables = Exact<{
+  department: CreateDepartmentInput;
+}>;
+
+export type CreateDepartmentMutation = {
+  __typename?: "Mutation";
+  createDepartment?: Maybe<{
+    __typename?: "Department";
+    id: string;
+    department_number: number;
+    name?: Maybe<{
+      __typename?: "LocalizedString";
+      en?: Maybe<string>;
+      fr?: Maybe<string>;
+    }>;
+  }>;
+};
+
+export type UpdateDepartmentMutationVariables = Exact<{
+  id: Scalars["ID"];
+  department: UpdateDepartmentInput;
+}>;
+
+export type UpdateDepartmentMutation = {
+  __typename?: "Mutation";
+  updateDepartment?: Maybe<{
+    __typename?: "Department";
+    id: string;
+    department_number: number;
+    name?: Maybe<{
       __typename?: "LocalizedString";
       en?: Maybe<string>;
       fr?: Maybe<string>;
@@ -2318,6 +2428,86 @@ export function useUpdateCmoAssetMutation() {
     UpdateCmoAssetMutation,
     UpdateCmoAssetMutationVariables
   >(UpdateCmoAssetDocument);
+}
+export const DepartmentsDocument = gql`
+  query departments {
+    departments {
+      id
+      department_number
+      name {
+        en
+        fr
+      }
+    }
+  }
+`;
+
+export function useDepartmentsQuery(
+  options: Omit<Urql.UseQueryArgs<DepartmentsQueryVariables>, "query"> = {},
+) {
+  return Urql.useQuery<DepartmentsQuery>({
+    query: DepartmentsDocument,
+    ...options,
+  });
+}
+export const DepartmentDocument = gql`
+  query department($id: ID!) {
+    department(id: $id) {
+      id
+      department_number
+      name {
+        en
+        fr
+      }
+    }
+  }
+`;
+
+export function useDepartmentQuery(
+  options: Omit<Urql.UseQueryArgs<DepartmentQueryVariables>, "query"> = {},
+) {
+  return Urql.useQuery<DepartmentQuery>({
+    query: DepartmentDocument,
+    ...options,
+  });
+}
+export const CreateDepartmentDocument = gql`
+  mutation createDepartment($department: CreateDepartmentInput!) {
+    createDepartment(department: $department) {
+      id
+      department_number
+      name {
+        en
+        fr
+      }
+    }
+  }
+`;
+
+export function useCreateDepartmentMutation() {
+  return Urql.useMutation<
+    CreateDepartmentMutation,
+    CreateDepartmentMutationVariables
+  >(CreateDepartmentDocument);
+}
+export const UpdateDepartmentDocument = gql`
+  mutation updateDepartment($id: ID!, $department: UpdateDepartmentInput!) {
+    updateDepartment(id: $id, department: $department) {
+      id
+      department_number
+      name {
+        en
+        fr
+      }
+    }
+  }
+`;
+
+export function useUpdateDepartmentMutation() {
+  return Urql.useMutation<
+    UpdateDepartmentMutation,
+    UpdateDepartmentMutationVariables
+  >(UpdateDepartmentDocument);
 }
 export const GetOperationalRequirementDocument = gql`
   query getOperationalRequirement($id: ID!) {

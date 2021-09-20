@@ -2,21 +2,19 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
+import { Input, Select, Submit } from "@common/components/form";
+import { navigate } from "@common/helpers/router";
+import { enumToOptions } from "@common/helpers/formUtils";
+import { getLanguage } from "@common/constants/localizedConstants";
+import { errorMessages } from "@common/messages";
+import { userTablePath } from "../../adminRoutes";
 import {
   Language,
   CreateUserInput,
   CreateUserMutation,
   useCreateUserMutation,
 } from "../../api/generated";
-import errorMessages from "../form/errorMessages";
-import Input from "../form/Input";
-import Select from "../form/Select";
-import Submit from "../form/Submit";
-import { navigate } from "../../helpers/router";
-import { userTablePath } from "../../helpers/routes";
 import messages from "./messages";
-import { enumToOptions } from "../form/formUtils";
-import { getLanguage } from "../../model/localizedConstants";
 import DashboardContentContainer from "../DashboardContentContainer";
 
 type FormValues = CreateUserInput;
