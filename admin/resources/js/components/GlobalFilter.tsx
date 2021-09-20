@@ -18,13 +18,11 @@ const messages = defineMessages({
   },
 });
 interface GlobalFilterProps {
-  preGlobalFilteredRows: any;
   globalFilter: any;
   setGlobalFilter: any;
 }
 
 const GlobalFilter: React.FC<GlobalFilterProps> = ({
-  preGlobalFilteredRows,
   globalFilter,
   setGlobalFilter,
 }) => {

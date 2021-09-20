@@ -73,11 +73,6 @@ export const useRouter = (
   return component;
 };
 
-/* eslint-disable no-useless-escape */
-function stripTrailingSlash(str: string): string {
-  return str.endsWith("/") ? str.slice(0, -1) : str;
-}
-
 /**
  *
  * @param imgFile The name of the img file, not including the /images/ path.

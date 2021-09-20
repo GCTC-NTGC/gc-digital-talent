@@ -89,7 +89,6 @@ const messages = defineMessages({
   },
 });
 
-console.log(userTablePath());
 const routes: Routes<RouterResult> = [
   {
     path: userTablePath(),
