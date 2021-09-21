@@ -2,18 +2,17 @@ import * as React from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { toast } from "react-toastify";
+import { navigate } from "@common/helpers/router";
+import { Input, Submit } from "@common/components/form";
+import { errorMessages } from "@common/messages";
+import messages from "./messages";
+import { departmentTablePath } from "../../adminRoutes";
 import {
   CreateDepartmentInput,
   CreateDepartmentMutation,
   useCreateDepartmentMutation,
 } from "../../api/generated";
-import { navigate } from "../../helpers/router";
-import { departmentTablePath } from "../../helpers/routes";
-import Input from "../form/Input";
-import messages from "./messages";
-import errorMessages from "../form/errorMessages";
 import DashboardContentContainer from "../DashboardContentContainer";
-import Submit from "../form/Submit";
 
 type FormValues = CreateDepartmentInput;
 

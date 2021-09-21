@@ -15,7 +15,7 @@
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
   },
-  "eslint.workingDirectories": ["admin"],
+  "eslint.workingDirectories": ["admin", "common", "talentsearch"],
   "[typescriptreact]": {
     "editor.tabSize": 2
   },

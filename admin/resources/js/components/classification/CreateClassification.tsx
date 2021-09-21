@@ -3,18 +3,16 @@ import * as React from "react";
 import { toast } from "react-toastify";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
+import { Input, Select, Submit } from "@common/components/form";
+import { navigate } from "@common/helpers/router";
+import { errorMessages } from "@common/messages";
 import {
   CreateClassificationInput,
   useCreateClassificationMutation,
 } from "../../api/generated";
-import errorMessages from "../form/errorMessages";
-import Input from "../form/Input";
-import Select from "../form/Select";
-import Submit from "../form/Submit";
-import { navigate } from "../../helpers/router";
-import { classificationTablePath } from "../../helpers/routes";
 import messages from "./messages";
 import DashboardContentContainer from "../DashboardContentContainer";
+import { classificationTablePath } from "../../adminRoutes";
 
 type FormValues = CreateClassificationInput;
 interface CreateClassificationFormProps {

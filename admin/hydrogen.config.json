@@ -3,7 +3,7 @@
   "mediaWarnings": false,
   "folders": {
     "markup": "resources/views",
-    "scripts": "resources/js",
+    "scripts": ["resources/js", "../common/src"],
     "styles": "resources/css"
   },
   "colors": [

@@ -1,0 +1,75 @@
+{
+  "name": "gc-digital-talent-common",
+  "version": "1.0.11",
+  "license": "MIT",
+  "description": "Shared components and utilities for GC Digital Talent apps",
+  "scripts": {
+    "lint": "eslint ./src --ext .js,.ts,.jsx,.tsx",
+    "lint:fix": "eslint ./src --fix --ext .js,.ts,.jsx,.tsx",
+    "prettier": "prettier --write ./src",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook",
+    "codegen": "graphql-codegen",
+    "h2-compile": "npx h2-compile",
+    "h2-watch": "npx h2-watch",
+    "h2-build": "npx h2-build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GCTC-NTGC/gc-digital-talent.git"
+  },
+  "author": "",
+  "bugs": {
+    "url": "https://github.com/GCTC-NTGC/gc-digital-talent/issues"
+  },
+  "homepage": "https://github.com/GCTC-NTGC/gc-digital-talent#readme",
+  "peerDependencies": {
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-hook-form": "^7.14.2"
+  },
+  "dependencies": {
+    "@heroicons/react": "^1.0.4",
+    "history": "^5.0.1",
+    "lodash": "^4.17.21",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-hook-form": "^7.14.2",
+    "react-intl": "^5.20.10",
+    "react-select": "^4.3.1",
+    "universal-router": "^9.1.0",
+    "urql": "^2.0.4"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.15.0",
+    "@graphql-codegen/add": "^3.1.0",
+    "@graphql-codegen/cli": "^2.1.1",
+    "@graphql-codegen/typescript": "^2.1.2",
+    "@graphql-codegen/typescript-operations": "^2.1.2",
+    "@graphql-codegen/typescript-urql": "^3.1.2",
+    "@hydrogen-design-system/hydrogen.css": "^1.1.5",
+    "@storybook/addon-actions": "^6.3.7",
+    "@storybook/addon-essentials": "^6.3.7",
+    "@storybook/addon-links": "^6.3.7",
+    "@storybook/react": "^6.3.7",
+    "@types/lodash": "^4.14.172",
+    "@types/react": "^17.0.19",
+    "@types/react-select": "^4.0.17",
+    "@typescript-eslint/eslint-plugin": "^4.30.0",
+    "@typescript-eslint/parser": "^4.30.0",
+    "eslint": "^7.32.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.24.2",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-promise": "^5.1.0",
+    "eslint-plugin-react": "^7.25.1",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "prettier": "^2.3.2",
+    "storybook-addon-intl": "^2.4.1",
+    "typescript": "^4.4.2"
+  }
+}
