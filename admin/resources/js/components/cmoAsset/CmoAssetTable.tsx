@@ -1,12 +1,12 @@
 import React, { useMemo } from "react";
 import { defineMessages, useIntl } from "react-intl";
+import { Button } from "@common/components/Button";
+import { navigate, useLocation } from "@common/helpers/router";
+import { notEmpty } from "@common/helpers/util";
+import { commonMessages } from "@common/messages";
+import { FromArray } from "@common/types/utilityTypes";
 import { GetCmoAssetsQuery, useGetCmoAssetsQuery } from "../../api/generated";
-import { navigate, useLocation } from "../../helpers/router";
-import { notEmpty } from "../../helpers/util";
-import { FromArray } from "../../types/utilityTypes";
-import commonMessages from "../commonMessages";
 import DashboardContentContainer from "../DashboardContentContainer";
-import Button from "../H2Components/Button";
 import Table, { ColumnsOf } from "../Table";
 
 const messages = defineMessages({

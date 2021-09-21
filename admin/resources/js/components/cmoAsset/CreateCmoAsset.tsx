@@ -2,16 +2,14 @@ import * as React from "react";
 import { useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
+import { Input, Submit, TextArea } from "@common/components/form";
+import { navigate } from "@common/helpers/router";
+import { errorMessages } from "@common/messages";
+import { cmoAssetTablePath } from "../../adminRoutes";
 import {
   CreateCmoAssetInput,
   useCreateCmoAssetMutation,
 } from "../../api/generated";
-import errorMessages from "../form/errorMessages";
-import Input from "../form/Input";
-import Submit from "../form/Submit";
-import TextArea from "../form/TextArea";
-import { navigate } from "../../helpers/router";
-import { cmoAssetTablePath } from "../../helpers/routes";
 import messages from "./messages";
 import DashboardContentContainer from "../DashboardContentContainer";
 

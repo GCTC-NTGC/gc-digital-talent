@@ -3,7 +3,12 @@ import { useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import pick from "lodash/pick";
 import { toast } from "react-toastify";
-import commonMessages from "../commonMessages";
+import { Select, Submit, Input } from "@common/components/form";
+import { navigate } from "@common/helpers/router";
+import { enumToOptions } from "@common/helpers/formUtils";
+import { errorMessages, commonMessages } from "@common/messages";
+import { getLanguage } from "@common/constants/localizedConstants";
+import { userTablePath } from "../../adminRoutes";
 import {
   Language,
   UpdateUserInput,
@@ -11,15 +16,7 @@ import {
   useUpdateUserMutation,
   useUserQuery,
 } from "../../api/generated";
-import errorMessages from "../form/errorMessages";
-import Input from "../form/Input";
-import Select from "../form/Select";
-import Submit from "../form/Submit";
-import { navigate } from "../../helpers/router";
-import { userTablePath } from "../../helpers/routes";
 import messages from "./messages";
-import { enumToOptions } from "../form/formUtils";
-import { getLanguage } from "../../model/localizedConstants";
 import DashboardContentContainer from "../DashboardContentContainer";
 
 type FormValues = UpdateUserInput;

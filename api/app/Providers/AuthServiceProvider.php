@@ -3,7 +3,24 @@
 namespace App\Providers;
 
 use DateTimeZone;
+
+use App\Models\Classification;
+use App\Models\CmoAsset;
+use App\Models\Department;
+use App\Models\OperationalRequirement;
+use App\Models\PoolCandidate;
+use App\Models\Pool;
 use App\Models\User;
+
+use App\Policies\ClassificationPolicy;
+use App\Policies\CmoAssetPolicy;
+use App\Policies\DepartmentPolicy;
+use App\Policies\OperationalRequirementPolicy;
+use App\Policies\PoolCandidatePolicy;
+use App\Policies\PoolPolicy;
+use App\Policies\UserPolicy;
+
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Log;
 use Lcobucci\JWT\Configuration;
@@ -40,6 +57,14 @@ class AuthServiceProvider extends ServiceProvider
         // application. The callback which receives the incoming request instance
         // should return either a User instance or null. You're free to obtain
         // the User instance via an API token or any other method necessary.
+
+        Gate::policy(Classification::class, ClassificationPolicy::class);
+        Gate::policy(CmoAsset::class, CmoAssetPolicy::class);
+        Gate::policy(Department::class, DepartmentPolicy::class);
+        Gate::policy(OperationalRequirement::class, OperationalRequirementPolicy::class);
+        Gate::policy(PoolCandidate::class, PoolCandidatePolicy::class);
+        Gate::policy(Pool::class, PoolPolicy::class);
+        Gate::policy(User::class, UserPolicy::class);
 
         $this->app['auth']->viaRequest('api', function ($request) {
             if ($request->input('api_token')) {

@@ -29,6 +29,8 @@ class User extends Model implements Authenticatable
     use SoftDeletes;
     use AuthenticableTrait;
 
+    protected $keyType = 'string';
+
     protected $casts = [
         'roles' => 'array',
     ];
@@ -40,5 +42,9 @@ class User extends Model implements Authenticatable
     public function poolCandidates(): HasMany
     {
         return $this->hasMany(PoolCandidate::class);
+    }
+    public function isAdmin(): bool
+    {
+        return in_array('ADMIN', $this->roles);
     }
 }

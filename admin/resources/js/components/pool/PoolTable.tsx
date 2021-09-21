@@ -1,14 +1,13 @@
 import React, { useMemo } from "react";
 import { defineMessages, useIntl } from "react-intl";
-import commonMessages from "../commonMessages";
+import { Button, Pill } from "@common/components";
+import { navigate, useLocation } from "@common/helpers/router";
+import { notEmpty } from "@common/helpers/util";
+import { getLocale } from "@common/helpers/localize";
+import { commonMessages } from "@common/messages";
+import { FromArray } from "@common/types/utilityTypes";
 import { GetPoolsQuery, useGetPoolsQuery } from "../../api/generated";
-import { navigate, useLocation } from "../../helpers/router";
-import { notEmpty } from "../../helpers/util";
-import { FromArray } from "../../types/utilityTypes";
-import Button from "../H2Components/Button";
 import Table, { ColumnsOf } from "../Table";
-import Pill from "../H2Components/Pill";
-import { getLocale } from "../../helpers/localize";
 import DashboardContentContainer from "../DashboardContentContainer";
 
 const messages = defineMessages({

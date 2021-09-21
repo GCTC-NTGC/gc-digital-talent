@@ -3,8 +3,8 @@ import {
   parseUrlQueryParameters,
   redirect,
   useLocation,
-} from "../helpers/router";
-import { homePath } from "../helpers/routes";
+} from "@common/helpers/router";
+import { homePath } from "../adminRoutes";
 
 const ACCESS_TOKEN = "access_token";
 const REFRESH_TOKEN = "refresh_token";

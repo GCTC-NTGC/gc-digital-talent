@@ -1,9 +1,8 @@
 import React from "react";
 import { defineMessages, useIntl } from "react-intl";
-import { Link } from "../../helpers/router";
+import { Link, Button } from "@common/components";
+import { operationalRequirementCreatePath } from "../../adminRoutes";
 import { OperationalRequirementTableApi } from "./OperationalRequirementTable";
-import Button from "../H2Components/Button";
-import { operationalRequirementCreatePath } from "../../helpers/routes";
 
 const messages = defineMessages({
   tableHeading: {

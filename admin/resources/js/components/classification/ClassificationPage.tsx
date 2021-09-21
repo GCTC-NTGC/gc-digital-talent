@@ -1,9 +1,9 @@
 import React from "react";
 import { defineMessages, useIntl } from "react-intl";
-import { Link } from "../../helpers/router";
+import Button from "@common/components/Button";
+import Link from "@common/components/Link";
+import { classificationCreatePath } from "../../adminRoutes";
 import { ClassificationTableApi } from "./ClassificationTable";
-import Button from "../H2Components/Button";
-import { classificationCreatePath } from "../../helpers/routes";
 
 const messages = defineMessages({
   tableHeading: {
@@ -14,7 +14,7 @@ const messages = defineMessages({
   createHeading: {
     id: "classificationPage.createHeading",
     defaultMessage: "Create Classification",
-    description: "Heading displayed above the Create Classification fprm.",
+    description: "Heading displayed above the Create Classification form.",
   },
 });
 

@@ -1,18 +1,13 @@
 import React, { ReactElement } from "react";
 import { defineMessages, useIntl } from "react-intl";
+import { useLocation, useRouter, RouterResult } from "@common/helpers/router";
+import { getLocale } from "@common/helpers/localize";
 import { Routes } from "universal-router";
+import { Button, Link } from "@common/components";
+import { poolCandidateTablePath } from "../../adminRoutes";
 import { useGetPoolsQuery } from "../../api/generated";
-import { getLocale } from "../../helpers/localize";
-import {
-  Link,
-  RouterResult,
-  useLocation,
-  useRouter,
-} from "../../helpers/router";
-import { poolCandidateTablePath } from "../../helpers/routes";
-import Footer from "../Footer";
-import Button from "../H2Components/Button";
 import SideMenu from "../menu/SideMenu";
+import Footer from "../Footer";
 
 export const exactMatch = (ref: string, test: string): boolean => ref === test;
 export const startsWith = (ref: string, test: string): boolean =>
@@ -127,7 +122,7 @@ export const Dashboard: React.FC<{
             <SideMenu items={[...menuItems, ...PoolListApi()]} />
           </div>
         </div>
-        <div data-h2-flex-item="b(1of1) m(8of12) l(10of12)">{content}</div>
+        <div data-h2-flex-item="b(1of1) m(9of12) l(10of12)">{content}</div>
       </section>
       <Footer />
     </div>

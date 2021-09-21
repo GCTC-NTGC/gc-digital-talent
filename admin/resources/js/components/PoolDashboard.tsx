@@ -1,7 +1,32 @@
 import React from "react";
 import { defineMessages, useIntl } from "react-intl";
 import { Routes } from "universal-router";
-import { RouterResult } from "../helpers/router";
+import { RouterResult } from "@common/helpers/router";
+import {
+  classificationCreatePath,
+  classificationTablePath,
+  classificationUpdatePath,
+  cmoAssetCreatePath,
+  cmoAssetTablePath,
+  cmoAssetUpdatePath,
+  departmentTablePath,
+  departmentCreatePath,
+  departmentUpdatePath,
+  operationalRequirementCreatePath,
+  operationalRequirementTablePath,
+  operationalRequirementUpdatePath,
+  poolCandidateCreatePath,
+  poolCandidateTablePath,
+  poolCandidateUpdatePath,
+  poolCreatePath,
+  poolTablePath,
+  poolUpdatePath,
+  userCreatePath,
+  userTablePath,
+  userUpdatePath,
+  homePath,
+  homePublicPath,
+} from "../adminRoutes";
 import { CreateClassification } from "./classification/CreateClassification";
 import { UpdateClassification } from "./classification/UpdateClassification";
 import ClientProvider from "./ClientProvider";
@@ -24,29 +49,10 @@ import PoolPage from "./pool/PoolPage";
 import { CreatePool } from "./pool/CreatePool";
 import { UpdatePool } from "./pool/UpdatePool";
 import Toast from "./Toast";
-import {
-  classificationCreatePath,
-  classificationTablePath,
-  classificationUpdatePath,
-  cmoAssetCreatePath,
-  cmoAssetTablePath,
-  cmoAssetUpdatePath,
-  homePath,
-  homePublicPath,
-  operationalRequirementCreatePath,
-  operationalRequirementTablePath,
-  operationalRequirementUpdatePath,
-  poolCandidateCreatePath,
-  poolCandidateTablePath,
-  poolCandidateUpdatePath,
-  poolCreatePath,
-  poolTablePath,
-  poolUpdatePath,
-  userCreatePath,
-  userTablePath,
-  userUpdatePath,
-} from "../helpers/routes";
 import AuthContainer from "./AuthContainer";
+import DepartmentPage from "./department/DepartmentPage";
+import { CreateDepartment } from "./department/CreateDepartment";
+import { UpdateDepartment } from "./department/UpdateDepartment";
 
 const messages = defineMessages({
   menuAdminTools: {
@@ -78,6 +84,11 @@ const messages = defineMessages({
     id: "poolDashboard.menu.poolsLabel",
     defaultMessage: "Pools",
     description: "Label displayed on the Pools menu item.",
+  },
+  menuDepartments: {
+    id: "poolDashboard.menu.departmentsLabel",
+    defaultMessage: "Departments",
+    description: "Label displayed on the Departments menu item.",
   },
 });
 
@@ -205,6 +216,24 @@ const routes: Routes<RouterResult> = [
       component: <UpdatePool poolId={params.id as string} />,
     }),
   },
+  {
+    path: departmentTablePath(),
+    action: () => ({
+      component: <DepartmentPage />,
+    }),
+  },
+  {
+    path: departmentCreatePath(),
+    action: () => ({
+      component: <CreateDepartment />,
+    }),
+  },
+  {
+    path: departmentUpdatePath(":id"),
+    action: ({ params }) => ({
+      component: <UpdateDepartment departmentId={params.id as string} />,
+    }),
+  },
 ];
 
 export const PoolDashboard: React.FC = () => {
@@ -239,6 +268,11 @@ export const PoolDashboard: React.FC = () => {
       key="pools"
       href={poolTablePath()}
       text={intl.formatMessage(messages.menuPools)}
+    />,
+    <MenuLink
+      key="departments"
+      href={departmentTablePath()}
+      text={intl.formatMessage(messages.menuDepartments)}
     />,
   ];
 
