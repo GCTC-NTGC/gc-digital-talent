@@ -27,6 +27,7 @@ enum Role {
 type User {
     id: ID!
     email: Email!
+    sub: String
     firstName: String @rename(attribute: "first_name")
     lastName: String @rename(attribute: "last_name")
     telephone: PhoneNumber

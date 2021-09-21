@@ -244,12 +244,16 @@ export type MutationUpdateClassificationArgs = {
 export type MutationUpdateCmoAssetArgs = {
   cmoAsset: UpdateCmoAssetInput;
   id: Scalars["ID"];
-  operationalRequirement: UpdateOperationalRequirementInput;
 };
 
 export type MutationUpdateDepartmentArgs = {
   department: UpdateDepartmentInput;
   id: Scalars["ID"];
+};
+
+export type MutationUpdateOperationalRequirementArgs = {
+  id: Scalars["ID"];
+  operationalRequirement: UpdateOperationalRequirementInput;
 };
 
 export type MutationUpdatePoolArgs = {
@@ -750,6 +754,7 @@ export type User = {
   pools?: Maybe<Array<Maybe<Pool>>>;
   preferredLang?: Maybe<Language>;
   roles?: Maybe<Array<Maybe<Role>>>;
+  sub?: Maybe<Scalars["String"]>;
   telephone?: Maybe<Scalars["PhoneNumber"]>;
 };
 

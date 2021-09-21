@@ -17,6 +17,7 @@ class UserSeeder extends Seeder
         if (!User::where(['email' => 'admin@test.com'])->first()) {
             User::factory()->create([
                 'email' => 'admin@test.com',
+                'sub' => 'admin@test.com',
                 'roles' => ['ADMIN']
             ]);
         }
