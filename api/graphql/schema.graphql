@@ -161,7 +161,7 @@ type PoolCandidateFilter {
     workRegion: [WorkRegion] @rename(attribute: "work_region")
 }
 
-type CandidateSearchRequest {
+type PoolCandidateSearchRequest {
     id: ID!
     fullName: String! @rename(attribute: "full_name")
     email: String!
@@ -196,7 +196,6 @@ type Query {
     cmoAssets: [CmoAsset]! @all @guard @can(ability: "viewAny")
     department(id: ID! @eq): Department @find @guard @can(ability: "viewAny")
     departments: [Department]! @all @guard @can(ability: "view")
-    candidateFilterSearch
 }
 """
 When creating a User, name and email are required.

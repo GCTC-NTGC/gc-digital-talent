@@ -22,7 +22,7 @@ class DatabaseSeeder extends Seeder
         $this->call(OperationalRequirementSeeder::class);
         $this->call(DepartmentSeeder::class);
         $this->call(PoolCandidateFilterSeeder::class);
-        $this->call(CandidateSearchRequestSeeder::class);
+        $this->call(PoolCandidateSearchRequestSeeder::class);
 
         User::factory()->count(5)->create();
         Pool::factory()->count(2)->create();

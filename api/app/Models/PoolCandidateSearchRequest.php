@@ -8,24 +8,24 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
- * Class Department
+ * Class PoolCandidateSearchRequest
  *
  * @property int $id
- * @property int $full_name
- * @property array $email
- * @property array $department_id
- * @property array $job_title
- * @property array $additional_comments
- * @property array $summary_of_filters
- * @property array $requested_date
- * @property array $status
- * @property array $admin_notes
+ * @property string $full_name
+ * @property string $email
+ * @property int $department_id
+ * @property string $job_title
+ * @property string $additional_comments
+ * @property string $pool_candidate_filter_id
+ * @property Illuminate\Support\Carbon $requested_date
+ * @property string $status
+ * @property string $admin_notes
  * @property Illuminate\Support\Carbon $created_at
  * @property Illuminate\Support\Carbon $updated_at
  * @property Illuminate\Support\Carbon $deleted_at
  */
 
- class CandidateSearchRequest extends Model
+ class PoolCandidateSearchRequest extends Model
  {
    use SoftDeletes;
    use HasFactory;

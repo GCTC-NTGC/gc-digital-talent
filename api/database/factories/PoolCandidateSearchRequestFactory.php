@@ -2,22 +2,18 @@
 
 namespace Database\Factories;
 
-use App\Models\CandidateSearchRequest;
-use App\Models\Classification;
-use App\Models\CmoAsset;
+use App\Models\PoolCandidateSearchRequest;
 use App\Models\Department;
-use App\Models\OperationalRequirement;
-use App\Models\PoolCandidateFilter;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class CandidateSearchRequestFactory extends Factory
+class PoolCandidateSearchRequestFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = CandidateSearchRequest::class;
+    protected $model = PoolCandidateSearchRequest::class;
 
     /**
      * Define the model's default state.
