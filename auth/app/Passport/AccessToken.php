@@ -2,6 +2,7 @@
 
 namespace App\Passport;
 
+use App\Models\User;
 use DateTimeImmutable;
 use League\OAuth2\Server\CryptKey;
 use Lcobucci\JWT\Signer\Rsa\Sha256;
@@ -58,10 +59,12 @@ class AccessToken extends BaseToken {
     private function convertToJWT()
     {
         $this->initJwtConfiguration();
+        // default identifier is the model id, but we want to use email instead as access token identifier (ie "sub" field).
+        $email = User::find($this->getClient()->getIdentifier())->email;
         return $this->jwtConfiguration->builder()
                 ->issuedBy(env("APP_URL"))
                 ->permittedFor($this->getClient()->getIdentifier())
-                ->identifiedBy($this->getIdentifier())
+                ->identifiedBy($email)
                 ->issuedAt(new DateTimeImmutable())
                 ->canOnlyBeUsedAfter(new DateTimeImmutable())
                 ->expiresAt($this->getExpiryDateTime())
