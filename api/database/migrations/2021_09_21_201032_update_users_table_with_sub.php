@@ -21,7 +21,7 @@ class UpdateUsersTableWithSub extends Migration
         });
         // After creating the sub column, we can set it on existing users to match email.
         DB::statement('UPDATE users SET sub = email');
-        // After sub is set to email, we can dissallow it being null in the future.
+        // After sub is set to email, we can disallow it being null in the future.
         Schema::table('users', function (Blueprint $table) {
             $table->string('sub')->nullable(false)->change();
         });
