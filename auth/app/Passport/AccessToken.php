@@ -59,16 +59,16 @@ class AccessToken extends BaseToken {
     private function convertToJWT()
     {
         $this->initJwtConfiguration();
-        // default identifier is the model id, but we want to use email instead as access token identifier (ie "sub" field).
-        $email = User::find($this->getClient()->getIdentifier())->email;
+        // default sub field value is the user model id, but we want to use email instead.
+        $email = User::find($this->getUserIdentifier())->email;
         return $this->jwtConfiguration->builder()
                 ->issuedBy(env("APP_URL"))
                 ->permittedFor($this->getClient()->getIdentifier())
-                ->identifiedBy($email)
+                ->identifiedBy($this->getIdentifier())
                 ->issuedAt(new DateTimeImmutable())
                 ->canOnlyBeUsedAfter(new DateTimeImmutable())
                 ->expiresAt($this->getExpiryDateTime())
-                ->relatedTo((string) $this->getUserIdentifier())
+                ->relatedTo($email)
                 ->withClaim('scopes', $this->getScopes())
                 ->getToken($this->jwtConfiguration->signer(), $this->jwtConfiguration->signingKey());
 	}
