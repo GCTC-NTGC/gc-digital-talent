@@ -14,6 +14,7 @@ use Illuminate\Auth\Authenticatable as AuthenticableTrait;
  *
  * @property int $id
  * @property string $email
+ * @property string $sub
  * @property string $first_name
  * @property string $last_name
  * @property string $telephone

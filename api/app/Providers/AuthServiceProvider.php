@@ -99,7 +99,7 @@ class AuthServiceProvider extends ServiceProvider
                     return abort(401, 'Authorization token not valid.');
                 }
 
-                $userMatch = User::where('id', $token->claims()->get('sub'))->first(); // 3. match "sub" claim to user id.
+                $userMatch = User::where('sub', $token->claims()->get('sub'))->first(); // 3. match "sub" claim to user 'sub' field.
                 if($userMatch) {
                     return $userMatch;
                 } else {

@@ -687,6 +687,7 @@ input UpdateUserInput {
 type User {
   id: ID!
   email: Email!
+  sub: String
   firstName: String
   lastName: String
   telephone: PhoneNumber

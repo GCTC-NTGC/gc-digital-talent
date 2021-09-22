@@ -66,7 +66,7 @@ class PoolCandidateFactory extends Factory
                 'NO_LONGER_INTERESTED',
             ]),
             'user_id' => User::factory(),
-            'user_id' => Pool::factory(),
+            'pool_id' => Pool::factory(),
         ];
     }
 

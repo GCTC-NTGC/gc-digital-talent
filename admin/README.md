@@ -13,6 +13,8 @@
 8. Start a development server with `php -S localhost:3001 -t public/`.
 9. Visit https://localhost:8080 to view page.
 
+9. Run `php artisan passport:client` in the sibling /auth directory (or `docker-compose exec -w /var/www/html/auth php sh -c "php artisan passport:client"` in the /infrastructure directory). Set it to redirect to `http://localhost:8000/admin/auth-callback`. Copy the Client ID and Client secret to OAUTH_CLIENT_ID and OAUTH_CLIENT_SECRET env variables.
+
 # Local Development
 
 ## Linting and Formatting

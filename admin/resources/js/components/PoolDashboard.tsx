@@ -24,6 +24,8 @@ import {
   userCreatePath,
   userTablePath,
   userUpdatePath,
+  homePath,
+  homePublicPath,
 } from "../adminRoutes";
 import { CreateClassification } from "./classification/CreateClassification";
 import { UpdateClassification } from "./classification/UpdateClassification";
@@ -47,6 +49,7 @@ import PoolPage from "./pool/PoolPage";
 import { CreatePool } from "./pool/CreatePool";
 import { UpdatePool } from "./pool/UpdatePool";
 import Toast from "./Toast";
+import AuthContainer from "./AuthContainer";
 import DepartmentPage from "./department/DepartmentPage";
 import { CreateDepartment } from "./department/CreateDepartment";
 import { UpdateDepartment } from "./department/UpdateDepartment";
@@ -90,6 +93,13 @@ const messages = defineMessages({
 });
 
 const routes: Routes<RouterResult> = [
+  {
+    path: [homePath(), homePublicPath()],
+    action: () => ({
+      component: <div />,
+      redirect: poolTablePath(), // TODO: Which page should be treated as the dashboard Landing page?
+    }),
+  },
   {
     path: userTablePath(),
     action: () => ({
@@ -268,10 +278,12 @@ export const PoolDashboard: React.FC = () => {
 
   return (
     <ErrorContainer>
-      <ClientProvider>
-        <Dashboard menuItems={menuItems} contentRoutes={routes} />
-        <Toast />
-      </ClientProvider>
+      <AuthContainer>
+        <ClientProvider>
+          <Dashboard menuItems={menuItems} contentRoutes={routes} />
+          <Toast />
+        </ClientProvider>
+      </AuthContainer>
     </ErrorContainer>
   );
 };

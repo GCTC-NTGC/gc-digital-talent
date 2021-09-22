@@ -754,6 +754,7 @@ export type User = {
   pools?: Maybe<Array<Maybe<Pool>>>;
   preferredLang?: Maybe<Language>;
   roles?: Maybe<Array<Maybe<Role>>>;
+  sub?: Maybe<Scalars["String"]>;
   telephone?: Maybe<Scalars["PhoneNumber"]>;
 };
 
