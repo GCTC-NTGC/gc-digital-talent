@@ -150,7 +150,7 @@ enum Status {
 type PoolCandidateFilter {
     id: ID!
     classifications: [Classification]
-    cmoAssets: [CmoAssets]
+    cmoAssets: [CmoAsset]
     hasDiploma: Boolean @rename(attribute: "has_diploma")
     hasDisability: Boolean @rename(attribute: "has_disability")
     isIndigenous: Boolean @rename(attribute: "is_indigenous")
