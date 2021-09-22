@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 class CreatePoolsTable extends Migration
 {
@@ -18,7 +19,7 @@ class CreatePoolsTable extends Migration
             $table->timestamps();
             $table->jsonb('name')->nullable(false)->default(json_encode(['en' => '', 'fr' => '']));
             $table->jsonb('description')->nullable(false)->default(json_encode(['en' => '', 'fr' => '']));
-            $table->string('user_id', 36)->references('id')->on('users');
+            $table->uuid('user_id')->references('id')->on('users');
         });
         DB::statement('ALTER TABLE pools ALTER COLUMN id SET DEFAULT gen_random_uuid();');
     }
