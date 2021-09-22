@@ -22,8 +22,9 @@ class DatabaseSeeder extends Seeder
         $this->call(OperationalRequirementSeeder::class);
         $this->call(DepartmentSeeder::class);
 
-        User::factory()->count(5)->create();
-        Pool::factory()->count(2)->create();
+        $this->call(UserSeeder::class);
+        $this->call(PoolSeeder::class);
+
         PoolCandidate::factory()
             ->count(60)
             ->state(new Sequence(
