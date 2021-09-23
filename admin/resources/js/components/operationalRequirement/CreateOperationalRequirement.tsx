@@ -36,45 +36,49 @@ export const CreateOperationalRequirementForm: React.FunctionComponent<CreateOpe
     };
     return (
       <section>
-        <h2>{intl.formatMessage(messages.createHeading)}</h2>
-        <FormProvider {...methods}>
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <Input
-              id="key"
-              name="key"
-              label={intl.formatMessage(messages.keyLabel)}
-              type="text"
-              rules={{ required: errorMessages.required }}
-            />
-            <Input
-              id="name_en"
-              name="name.en"
-              label={intl.formatMessage(messages.nameLabelEn)}
-              type="text"
-              rules={{ required: errorMessages.required }}
-            />
-            <Input
-              id="name_fr"
-              name="name.fr"
-              label={intl.formatMessage(messages.nameLabelFr)}
-              type="text"
-              rules={{ required: errorMessages.required }}
-            />
-            <TextArea
-              id="description_en"
-              name="description.en"
-              label={intl.formatMessage(messages.descriptionLabelEn)}
-              rules={{ required: errorMessages.required }}
-            />
-            <TextArea
-              id="description_fr"
-              name="description.fr"
-              label={intl.formatMessage(messages.descriptionLabelFr)}
-              rules={{ required: errorMessages.required }}
-            />
-            <Submit />
-          </form>
-        </FormProvider>
+        <h2
+          data-h2-text-align="b(center)"
+          data-h2-margin="b(top, none)">{intl.formatMessage(messages.createHeading)}</h2>
+        <div data-h2-container="b(center, s)">
+          <FormProvider {...methods}>
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <Input
+                id="key"
+                name="key"
+                label={intl.formatMessage(messages.keyLabel)}
+                type="text"
+                rules={{ required: errorMessages.required }}
+              />
+              <Input
+                id="name_en"
+                name="name.en"
+                label={intl.formatMessage(messages.nameLabelEn)}
+                type="text"
+                rules={{ required: errorMessages.required }}
+              />
+              <Input
+                id="name_fr"
+                name="name.fr"
+                label={intl.formatMessage(messages.nameLabelFr)}
+                type="text"
+                rules={{ required: errorMessages.required }}
+              />
+              <TextArea
+                id="description_en"
+                name="description.en"
+                label={intl.formatMessage(messages.descriptionLabelEn)}
+                rules={{ required: errorMessages.required }}
+              />
+              <TextArea
+                id="description_fr"
+                name="description.fr"
+                label={intl.formatMessage(messages.descriptionLabelFr)}
+                rules={{ required: errorMessages.required }}
+              />
+              <Submit />
+            </form>
+          </FormProvider>
+        </div>
       </section>
     );
   };

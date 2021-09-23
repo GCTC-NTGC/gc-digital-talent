@@ -118,13 +118,18 @@ export const Dashboard: React.FC<{
           data-h2-bg-color="b(lightnavy)"
           data-h2-flex-item="b(1of1) m(1of4) l(1of6)"
         >
-          <div data-h2-padding="b(right-left, m)">
+          <div
+            data-h2-padding="b(right-left, m)"
+            data-h2-position="b(static) m(sticky)"
+            style={{ top: "0", maxHeight: "100vh", overflow: "auto" }}>
             <SideMenu items={[...menuItems, ...PoolListApi()]} />
           </div>
         </div>
-        <div data-h2-flex-item="b(1of1) m(9of12) l(10of12)">{content}</div>
+        <div data-h2-flex-item="b(1of1) m(9of12) l(10of12)">
+          {content}
+          <Footer />
+        </div>
       </section>
-      <Footer />
     </div>
   );
 };

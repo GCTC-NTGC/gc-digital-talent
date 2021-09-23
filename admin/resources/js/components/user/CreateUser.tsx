@@ -44,59 +44,63 @@ export const CreateUserForm: React.FunctionComponent<CreateUserFormProps> = ({
 
   return (
     <section>
-      <h2>{intl.formatMessage(messages.createHeading)}</h2>
-      <FormProvider {...methods}>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <Input
-            id="email"
-            label={intl.formatMessage(messages.emailLabel)}
-            type="text"
-            name="email"
-            rules={{ required: errorMessages.required }}
-          />
-          <Input
-            id="firstName"
-            label={intl.formatMessage(messages.firstNameLabel)}
-            type="text"
-            name="firstName"
-            rules={{ required: errorMessages.required }}
-          />
-          <Input
-            id="lastName"
-            label={intl.formatMessage(messages.lastNameLabel)}
-            type="text"
-            name="lastName"
-            rules={{ required: errorMessages.required }}
-          />
-          <Input
-            id="telephone"
-            label={intl.formatMessage(messages.telephoneLabel)}
-            type="tel"
-            name="telephone"
-            rules={{
-              required: errorMessages.required,
-              pattern: {
-                value: /^\+[1-9]\d{1,14}$/,
-                message: errorMessages.telephone,
-              },
-            }}
-          />
-          <Select
-            id="preferredLang"
-            label={intl.formatMessage(messages.preferredLanguageLabel)}
-            name="preferredLang"
-            nullSelection={intl.formatMessage(
-              messages.preferredLanguagePlaceholder,
-            )}
-            rules={{ required: errorMessages.required }}
-            options={enumToOptions(Language).map(({ value }) => ({
-              value,
-              label: intl.formatMessage(getLanguage(value)),
-            }))}
-          />
-          <Submit />
-        </form>
-      </FormProvider>
+      <h2
+        data-h2-text-align="b(center)"
+        data-h2-margin="b(top, none)">{intl.formatMessage(messages.createHeading)}</h2>
+      <div data-h2-container="b(center, s)">
+        <FormProvider {...methods}>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <Input
+              id="email"
+              label={intl.formatMessage(messages.emailLabel)}
+              type="text"
+              name="email"
+              rules={{ required: errorMessages.required }}
+            />
+            <Input
+              id="firstName"
+              label={intl.formatMessage(messages.firstNameLabel)}
+              type="text"
+              name="firstName"
+              rules={{ required: errorMessages.required }}
+            />
+            <Input
+              id="lastName"
+              label={intl.formatMessage(messages.lastNameLabel)}
+              type="text"
+              name="lastName"
+              rules={{ required: errorMessages.required }}
+            />
+            <Input
+              id="telephone"
+              label={intl.formatMessage(messages.telephoneLabel)}
+              type="tel"
+              name="telephone"
+              rules={{
+                required: errorMessages.required,
+                pattern: {
+                  value: /^\+[1-9]\d{1,14}$/,
+                  message: errorMessages.telephone,
+                },
+              }}
+            />
+            <Select
+              id="preferredLang"
+              label={intl.formatMessage(messages.preferredLanguageLabel)}
+              name="preferredLang"
+              nullSelection={intl.formatMessage(
+                messages.preferredLanguagePlaceholder,
+              )}
+              rules={{ required: errorMessages.required }}
+              options={enumToOptions(Language).map(({ value }) => ({
+                value,
+                label: intl.formatMessage(getLanguage(value)),
+              }))}
+            />
+            <Submit />
+          </form>
+        </FormProvider>
+      </div>
     </section>
   );
 };
