@@ -5,6 +5,7 @@ import { RouterResult } from "../helpers/router";
 import ClientProvider from "./ClientProvider";
 import ErrorContainer from "./ErrorContainer";
 import { Dashboard, MenuLink } from "./Dashboard";
+import SearchPage from "./search/SearchPage";
 
 const messages = defineMessages({
   menuHome: {
@@ -17,14 +18,14 @@ const messages = defineMessages({
 const routes: Routes<RouterResult> = [
   {
     path: "/",
-    action: ({}) => ({
+    action: () => ({
       component: <div>Placeholder Home content.</div>,
     }),
   },
   {
-    path: "/page1",
+    path: "/search",
     action: () => ({
-      component: <div>Placeholder Page 1 content.</div>,
+      component: <SearchPage />,
     }),
   },
 ];
@@ -38,7 +39,7 @@ export const SearchDashboard: React.FC = () => {
       href="/"
       text={intl.formatMessage(messages.menuHome)}
     />,
-    <MenuLink key="page1" href="/page1" text="Page 1" />,
+    <MenuLink key="search" href="/search" text="Search" />,
   ];
 
   return (
