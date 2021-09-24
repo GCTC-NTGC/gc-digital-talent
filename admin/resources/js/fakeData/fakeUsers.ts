@@ -1,4 +1,4 @@
-import { GetUsersQuery, Language, Role } from "../api/generated";
+import { GetUsersQuery, Language } from "../api/generated";
 
 export default (): GetUsersQuery["users"] => [
   {
@@ -8,7 +8,6 @@ export default (): GetUsersQuery["users"] => [
     lastName: "Gusikowski",
     telephone: "+15406728498",
     preferredLang: Language.En,
-    roles: Role.Admin,
   },
   {
     id: "460f9f57-9982-43cc-b68e-c5f11afc3208",
@@ -17,7 +16,6 @@ export default (): GetUsersQuery["users"] => [
     lastName: "Mitchell",
     telephone: "+13468269689",
     preferredLang: Language.En,
-    roles: [],
   },
   {
     id: "cd38135e-64dd-440f-a899-96c6dd2ee44f",
@@ -26,7 +24,6 @@ export default (): GetUsersQuery["users"] => [
     lastName: "Anderson",
     telephone: "+19047202182",
     preferredLang: Language.Fr,
-    roles: [],
   },
   {
     id: "d7899103-be0f-4ab5-8cc1-b70673612643",
@@ -35,7 +32,6 @@ export default (): GetUsersQuery["users"] => [
     lastName: "Hermann",
     telephone: "+19019412469",
     preferredLang: Language.Fr,
-    roles: [],
   },
   {
     id: "2a4c8a3f-6c9b-4fcc-8611-805c4eba7f2a",
@@ -44,7 +40,6 @@ export default (): GetUsersQuery["users"] => [
     lastName: "Turner",
     telephone: "+15864882946",
     preferredLang: Language.En,
-    roles: [],
   },
   {
     id: "5ad40af0-b03b-4f6b-bdf2-a56e1385d588",
@@ -53,7 +48,6 @@ export default (): GetUsersQuery["users"] => [
     lastName: "Ebert",
     telephone: "+15406447119",
     preferredLang: Language.En,
-    roles: [],
   },
   {
     id: "f6d907db-23c6-47a8-8aa9-8ec81df013d0",
@@ -62,7 +56,6 @@ export default (): GetUsersQuery["users"] => [
     lastName: "Krajcik",
     telephone: "+14806934650",
     preferredLang: Language.Fr,
-    roles: [],
   },
   {
     id: "d88cbfe0-6497-456a-95fb-aebf898f54c9",
@@ -71,7 +64,6 @@ export default (): GetUsersQuery["users"] => [
     lastName: "Keeling",
     telephone: "+12064553409",
     preferredLang: Language.Fr,
-    roles: [],
   },
   {
     id: "50c87aae-fe40-4cae-a352-e25e2717548e",
@@ -80,7 +72,6 @@ export default (): GetUsersQuery["users"] => [
     lastName: "Terry",
     telephone: "+14455453144",
     preferredLang: Language.En,
-    roles: [],
   },
   {
     id: "ab6d1081-7d5b-4880-8586-367761b8d7ed",
@@ -89,7 +80,6 @@ export default (): GetUsersQuery["users"] => [
     lastName: "Langworth",
     telephone: "+12407112242",
     preferredLang: Language.En,
-    roles: [],
   },
   {
     id: "87fe1aa5-4bf8-4d3f-94e7-bc6f23ccc307",
@@ -98,7 +88,6 @@ export default (): GetUsersQuery["users"] => [
     lastName: "Weissnat",
     telephone: "+16618814011",
     preferredLang: Language.En,
-    roles: [],
   },
   {
     id: "d67d23c8-b222-4d82-a383-57b8ff2f6b8b",
@@ -107,7 +96,6 @@ export default (): GetUsersQuery["users"] => [
     lastName: "Barrows",
     telephone: "+16617102103",
     preferredLang: Language.En,
-    roles: [],
   },
   {
     id: "0f492b60-f0c5-4174-8f16-0f474e395265",
@@ -116,7 +104,6 @@ export default (): GetUsersQuery["users"] => [
     lastName: "Zemlak",
     telephone: "+18061536684",
     preferredLang: Language.Fr,
-    roles: [],
   },
   {
     id: "0fed9983-f5bb-4d7e-9b98-57d77a1c7268",
@@ -125,7 +112,6 @@ export default (): GetUsersQuery["users"] => [
     lastName: "Walsh",
     telephone: "+15120244517",
     preferredLang: Language.En,
-    roles: [],
   },
   {
     id: "9558b120-3b7d-4695-8383-669c47630b09",
@@ -134,7 +120,6 @@ export default (): GetUsersQuery["users"] => [
     lastName: "Stamm",
     telephone: "+14044855538",
     preferredLang: Language.Fr,
-    roles: [],
   },
   {
     id: "1c978aa2-59f5-4292-8ffa-b04696f235cc",
@@ -143,7 +128,6 @@ export default (): GetUsersQuery["users"] => [
     lastName: "Hickle",
     telephone: "+15090272573",
     preferredLang: Language.En,
-    roles: [],
   },
   {
     id: "3b34aa95-6dcf-4032-a9c5-78d8fa41748b",
@@ -152,7 +136,6 @@ export default (): GetUsersQuery["users"] => [
     lastName: "Schiller",
     telephone: "+14806005497",
     preferredLang: Language.En,
-    roles: [],
   },
   {
     id: "b7b09808-8092-4a40-91b9-59c91bc98afd",
@@ -161,7 +144,6 @@ export default (): GetUsersQuery["users"] => [
     lastName: "Fisher",
     telephone: "+12081420675",
     preferredLang: Language.En,
-    roles: [],
   },
   {
     id: "f9114c7a-ae25-4646-b7bd-b46bfe596b0e",
@@ -170,7 +152,6 @@ export default (): GetUsersQuery["users"] => [
     lastName: "Collins",
     telephone: "+13075623433",
     preferredLang: Language.En,
-    roles: [],
   },
   {
     id: "478c2326-7720-4942-a6e0-8f468722438f",
@@ -179,7 +160,6 @@ export default (): GetUsersQuery["users"] => [
     lastName: "Romaguera",
     telephone: "+19250784544",
     preferredLang: Language.En,
-    roles: [],
   },
   {
     id: "0607492f-df04-4c3e-9b66-24f44b64ce23",
@@ -188,7 +168,6 @@ export default (): GetUsersQuery["users"] => [
     lastName: "Batz",
     telephone: "+15127009401",
     preferredLang: Language.Fr,
-    roles: [],
   },
   {
     id: "b3f80d6a-40ca-4c22-901f-c52e369cb736",
@@ -197,7 +176,6 @@ export default (): GetUsersQuery["users"] => [
     lastName: "Robel",
     telephone: "+12401490246",
     preferredLang: Language.Fr,
-    roles: [],
   },
   {
     id: "03e4b958-a1f1-4416-9025-8b7cc29096f9",
@@ -206,7 +184,6 @@ export default (): GetUsersQuery["users"] => [
     lastName: "Carter",
     telephone: "+19783497034",
     preferredLang: Language.En,
-    roles: [],
   },
   {
     id: "c78fd76f-4064-4171-af58-11ac53bca7ad",
@@ -215,7 +192,6 @@ export default (): GetUsersQuery["users"] => [
     lastName: "Koss",
     telephone: "+14631271383",
     preferredLang: Language.Fr,
-    roles: [],
   },
   {
     id: "9be0042d-db75-4b5e-a48d-29429d418f1e",
@@ -224,7 +200,6 @@ export default (): GetUsersQuery["users"] => [
     lastName: "Schmeler",
     telephone: "+19067192303",
     preferredLang: Language.Fr,
-    roles: [],
   },
   {
     id: "db6128f0-506f-4bae-9516-027d6aad7008",
@@ -233,7 +208,6 @@ export default (): GetUsersQuery["users"] => [
     lastName: "Adams",
     telephone: "+19346701790",
     preferredLang: Language.Fr,
-    roles: [],
   },
   {
     id: "bf8798a1-2391-4bc3-84bf-bafb23f524ae",
@@ -242,7 +216,6 @@ export default (): GetUsersQuery["users"] => [
     lastName: "Gleason",
     telephone: "+17240639348",
     preferredLang: Language.Fr,
-    roles: [],
   },
   {
     id: "acd606ab-e1b9-494d-86c9-0ff25bc5a15f",
@@ -251,7 +224,6 @@ export default (): GetUsersQuery["users"] => [
     lastName: "Block",
     telephone: "+17244947240",
     preferredLang: Language.Fr,
-    roles: [],
   },
   {
     id: "9f6c9731-ae0c-4738-9322-ec5535dda45c",
@@ -260,7 +232,6 @@ export default (): GetUsersQuery["users"] => [
     lastName: "Graham",
     telephone: "+14349532281",
     preferredLang: Language.En,
-    roles: [],
   },
   {
     id: "fde3c681-e8ee-4b10-8879-283c8c4f8d35",
@@ -269,7 +240,6 @@ export default (): GetUsersQuery["users"] => [
     lastName: "Rowe",
     telephone: "+13185350711",
     preferredLang: Language.En,
-    roles: [],
   },
   {
     id: "55ae2e7f-0477-4dd7-8091-f52bd2af4f42",
@@ -278,7 +248,6 @@ export default (): GetUsersQuery["users"] => [
     lastName: "Gorczany",
     telephone: "+16615006047",
     preferredLang: Language.En,
-    roles: [],
   },
   {
     id: "1ba46224-1a8b-4edc-8bee-67848723eab8",
@@ -287,7 +256,6 @@ export default (): GetUsersQuery["users"] => [
     lastName: "Pouros",
     telephone: "+17814272757",
     preferredLang: Language.Fr,
-    roles: [],
   },
   {
     id: "2c832985-a492-4f03-8c8b-124ff6d6c334",
@@ -296,7 +264,6 @@ export default (): GetUsersQuery["users"] => [
     lastName: "Rice",
     telephone: "+17549184386",
     preferredLang: Language.En,
-    roles: [],
   },
   {
     id: "b8978b4a-0a8a-4a15-8b23-878e4a49bf17",
@@ -305,7 +272,6 @@ export default (): GetUsersQuery["users"] => [
     lastName: "Russel",
     telephone: "+15031156077",
     preferredLang: Language.Fr,
-    roles: [],
   },
   {
     id: "9b58e685-64d3-4aad-be57-65a13bc0e46b",
@@ -314,7 +280,6 @@ export default (): GetUsersQuery["users"] => [
     lastName: "Barton",
     telephone: "+15515322999",
     preferredLang: Language.Fr,
-    roles: [],
   },
   {
     id: "82c12f53-ea8f-4d32-9b19-ff7fa495a059",
@@ -323,7 +288,6 @@ export default (): GetUsersQuery["users"] => [
     lastName: "Yost",
     telephone: "+12523411377",
     preferredLang: Language.En,
-    roles: [],
   },
   {
     id: "893f8d22-c9ff-4142-abb8-fd3dd9d0e81b",
@@ -332,7 +296,6 @@ export default (): GetUsersQuery["users"] => [
     lastName: "West",
     telephone: "+13164261246",
     preferredLang: Language.En,
-    roles: [],
   },
   {
     id: "a5482a96-0d95-4213-b919-6e1f83b6bf68",
@@ -341,7 +304,6 @@ export default (): GetUsersQuery["users"] => [
     lastName: "Schimmel",
     telephone: "+13643699456",
     preferredLang: Language.En,
-    roles: [],
   },
   {
     id: "4ad195c1-708d-414d-9ead-065f1c6cc179",
@@ -350,7 +312,6 @@ export default (): GetUsersQuery["users"] => [
     lastName: "Goldner",
     telephone: "+12603796073",
     preferredLang: Language.Fr,
-    roles: [],
   },
   {
     id: "a89e6831-1aa0-4b80-97c2-634e7e650594",
@@ -359,7 +320,6 @@ export default (): GetUsersQuery["users"] => [
     lastName: "Ebert",
     telephone: "+19566932701",
     preferredLang: Language.Fr,
-    roles: [],
   },
   {
     id: "70e8dfaf-812c-4bc6-8f89-a844b2998511",
@@ -368,7 +328,6 @@ export default (): GetUsersQuery["users"] => [
     lastName: "Schaden",
     telephone: "+12546641535",
     preferredLang: Language.En,
-    roles: [],
   },
   {
     id: "6c5b50b8-b3e1-4b72-9afe-b5e25943217c",
@@ -377,7 +336,6 @@ export default (): GetUsersQuery["users"] => [
     lastName: "Block",
     telephone: "+13865115545",
     preferredLang: Language.En,
-    roles: [],
   },
   {
     id: "b1c55163-de77-4f8f-9659-e3c3a132ee7b",
@@ -386,7 +344,6 @@ export default (): GetUsersQuery["users"] => [
     lastName: "Nikolaus",
     telephone: "+19124942286",
     preferredLang: Language.En,
-    roles: [],
   },
   {
     id: "0f807758-0b7c-48d5-97e1-249e4b94d4ad",
@@ -395,7 +352,6 @@ export default (): GetUsersQuery["users"] => [
     lastName: "Kris",
     telephone: "+15162330985",
     preferredLang: Language.Fr,
-    roles: [],
   },
   {
     id: "18e58308-a2a4-4513-a24a-10689b4968d3",
@@ -404,7 +360,6 @@ export default (): GetUsersQuery["users"] => [
     lastName: "Heidenreich",
     telephone: "+15640983284",
     preferredLang: Language.En,
-    roles: [],
   },
   {
     id: "aa73953f-25d6-4dbc-917e-c7b1c81e2754",
@@ -413,7 +368,6 @@ export default (): GetUsersQuery["users"] => [
     lastName: "Buckridge",
     telephone: "+16820436265",
     preferredLang: Language.Fr,
-    roles: [],
   },
   {
     id: "38943463-8577-4802-b2f2-78e7ba1a5e51",
@@ -422,7 +376,6 @@ export default (): GetUsersQuery["users"] => [
     lastName: "Senger",
     telephone: "+19402705777",
     preferredLang: Language.En,
-    roles: [],
   },
   {
     id: "d9ddcc93-ced2-4cd4-910a-dd23da2ba74b",
@@ -431,7 +384,6 @@ export default (): GetUsersQuery["users"] => [
     lastName: "Boehm",
     telephone: "+17154879400",
     preferredLang: Language.Fr,
-    roles: [],
   },
   {
     id: "457807e2-7f7a-40e0-b2ac-17821762e7cc",
@@ -440,7 +392,6 @@ export default (): GetUsersQuery["users"] => [
     lastName: "Pouros",
     telephone: "+12203956565",
     preferredLang: Language.Fr,
-    roles: [],
   },
   {
     id: "6d4740fa-35b5-4875-b47b-e1b340982625",
@@ -449,7 +400,6 @@ export default (): GetUsersQuery["users"] => [
     lastName: "Dickinson",
     telephone: "+15851365813",
     preferredLang: Language.Fr,
-    roles: [],
   },
   {
     id: "15fc81e9-da3b-4fcf-81a2-f3f9097429a6",
@@ -458,7 +408,6 @@ export default (): GetUsersQuery["users"] => [
     lastName: "Moen",
     telephone: "+19544553813",
     preferredLang: Language.En,
-    roles: [],
   },
   {
     id: "7dff881d-420d-4b18-80fc-11fc9ebcbd56",
@@ -467,7 +416,6 @@ export default (): GetUsersQuery["users"] => [
     lastName: "Thompson",
     telephone: "+12016395482",
     preferredLang: Language.En,
-    roles: [],
   },
   {
     id: "39adda1b-a58a-45d7-89d6-5c1431a9cee1",
@@ -476,7 +424,6 @@ export default (): GetUsersQuery["users"] => [
     lastName: "Doyle",
     telephone: "+18789196905",
     preferredLang: Language.En,
-    roles: [],
   },
   {
     id: "209a393d-cfbf-4219-84bc-26cac8a9cfab",
@@ -485,7 +432,6 @@ export default (): GetUsersQuery["users"] => [
     lastName: "Brekke",
     telephone: "+17433386609",
     preferredLang: Language.En,
-    roles: [],
   },
   {
     id: "fa0d1ffa-a9d2-44b7-8573-bf665eacf632",
@@ -494,7 +440,6 @@ export default (): GetUsersQuery["users"] => [
     lastName: "Terry",
     telephone: "+16239858854",
     preferredLang: Language.En,
-    roles: [],
   },
   {
     id: "b1ebfcab-58f9-413b-8b37-3138968993f8",
@@ -503,7 +448,6 @@ export default (): GetUsersQuery["users"] => [
     lastName: "Kuhn",
     telephone: "+19703192795",
     preferredLang: Language.En,
-    roles: [],
   },
   {
     id: "7c806ab2-33a2-49cc-b1b4-62d0536a87c1",
@@ -512,7 +456,6 @@ export default (): GetUsersQuery["users"] => [
     lastName: "Bartoletti",
     telephone: "+18150249092",
     preferredLang: Language.Fr,
-    roles: [],
   },
   {
     id: "3c7f9956-75dd-4aef-82b8-24b2fa6d6dab",
@@ -521,7 +464,6 @@ export default (): GetUsersQuery["users"] => [
     lastName: "Champlin",
     telephone: "+13519534390",
     preferredLang: Language.Fr,
-    roles: [],
   },
   {
     id: "e8fec91e-4bd1-4963-a4d0-97ab9b9fe1fa",
@@ -530,7 +472,6 @@ export default (): GetUsersQuery["users"] => [
     lastName: "Feest",
     telephone: "+18477547374",
     preferredLang: Language.Fr,
-    roles: [],
   },
   {
     id: "18527360-2a01-4b58-85bd-4a1f980febee",
@@ -539,7 +480,6 @@ export default (): GetUsersQuery["users"] => [
     lastName: "Dietrich",
     telephone: "+13853167632",
     preferredLang: Language.En,
-    roles: [],
   },
   {
     id: "c4c9d18c-a28c-45a2-b4ae-087382720724",
@@ -548,6 +488,5 @@ export default (): GetUsersQuery["users"] => [
     lastName: "Blick",
     telephone: "+18136214350",
     preferredLang: Language.Fr,
-    roles: [],
   },
 ];
