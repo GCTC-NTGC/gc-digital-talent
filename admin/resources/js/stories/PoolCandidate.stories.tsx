@@ -95,19 +95,3 @@ stories.add("Update Pool Candidate Form", () => {
     />
   );
 });
-
-stories.add("Create Pool Candidate Form with API", () => {
-  return (
-    <ClientProvider client={client}>
-      <CreatePoolCandidate poolId="1" />
-    </ClientProvider>
-  );
-});
-
-stories.add("Update Pool Candidate Form with API", () => {
-  return (
-    <ClientProvider client={client}>
-      <UpdatePoolCandidate poolCandidateId="1" />
-    </ClientProvider>
-  );
-});

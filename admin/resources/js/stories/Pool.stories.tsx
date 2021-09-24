@@ -80,11 +80,3 @@ stories.add("Create Pool Form with API", () => {
     </ClientProvider>
   );
 });
-
-stories.add("Update Pool Form with API", () => {
-  return (
-    <ClientProvider client={client}>
-      <UpdatePool poolId="1" />
-    </ClientProvider>
-  );
-});

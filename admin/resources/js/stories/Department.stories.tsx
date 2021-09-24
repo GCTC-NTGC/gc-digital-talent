@@ -74,11 +74,3 @@ stories.add("Update Department Form", () => {
     />
   );
 });
-
-stories.add("Update Department Form with API", () => {
-  return (
-    <ClientProvider client={client}>
-      <UpdateDepartment departmentId="1" />
-    </ClientProvider>
-  );
-});

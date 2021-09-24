@@ -73,11 +73,3 @@ stories.add("Create Classification Form with API", () => {
     </ClientProvider>
   );
 });
-
-stories.add("Update Classification Form with API", () => {
-  return (
-    <ClientProvider client={client}>
-      <UpdateClassification classificationId="2" />
-    </ClientProvider>
-  );
-});
