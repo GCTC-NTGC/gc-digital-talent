@@ -43,18 +43,8 @@ stories.add("Create CMO Asset Form", () => {
 });
 
 stories.add("Update CMO Asset Form", () => {
-  const cmoAsset: CmoAsset = {
-    id: "1",
-    key: "web_development",
-    name: {
-      en: "Web Development",
-      fr: "Web Development FR",
-    },
-    description: {
-      en: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptatem, itaque?",
-      fr: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptatem, itaque?",
-    },
-  };
+  const cmoAsset: CmoAsset = cmoAssetData[0];
+
   return (
     <UpdateCmoAssetForm
       initialCmoAsset={cmoAsset}

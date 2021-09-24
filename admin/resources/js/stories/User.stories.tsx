@@ -9,7 +9,7 @@ import { CreateUserForm } from "../components/user/CreateUser";
 import { UpdateUserForm } from "../components/user/UpdateUser";
 
 const userData = fakeUsers();
-// Its possible data may come back from api with missing data.
+// It's possible data may come back from api with missing data.
 const flawedUserData = [
   { id: "100-bob", email: "bob@boop.com", lastName: null },
   null,
@@ -42,14 +42,7 @@ stories.add("Create User Form", () => {
 });
 
 stories.add("Update User Form", () => {
-  const user: User = {
-    id: "1",
-    firstName: "Maura",
-    lastName: "Attow",
-    email: "mattow0@ning.com",
-    telephone: "+867365373244",
-    preferredLang: Language.En,
-  };
+  const user: User = userData[0];
   return (
     <UpdateUserForm
       initialUser={user}
@@ -62,14 +55,7 @@ stories.add("Update User Form", () => {
   );
 });
 stories.add("Update User Form with failing submit", () => {
-  const user: User = {
-    id: "1",
-    firstName: "Maura",
-    lastName: "Attow",
-    email: "mattow0@ning.com",
-    telephone: "+867365373244",
-    preferredLang: Language.En,
-  };
+  const user: User = userData[0];
   return (
     <UpdateUserForm
       initialUser={user}

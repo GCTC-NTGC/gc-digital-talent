@@ -23,7 +23,6 @@ import {
 } from "../components/classification/UpdateClassification";
 
 const classificationData = fakeClassifications();
-// Its possible data may come back from api with missing data.
 
 const stories = storiesOf("Classifications", module);
 
@@ -50,17 +49,7 @@ stories.add("Create Classification Form", () => (
 ));
 
 stories.add("Update Classification Form", () => {
-  const initialClassification: Classification = {
-    id: "1",
-    name: {
-      en: "Computer Systems",
-      fr: "Computer Systems FR",
-    },
-    group: "CS",
-    level: 1,
-    minSalary: 50000,
-    maxSalary: 100000,
-  };
+  const initialClassification: Classification = classificationData[0];
 
   return (
     <UpdateClassificationForm
