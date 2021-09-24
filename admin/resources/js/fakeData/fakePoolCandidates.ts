@@ -4,6 +4,7 @@ import {
   WorkRegion,
   SalaryRange,
   Language,
+  PoolCandidateStatus,
 } from "../api/generated";
 import fakePools from "./fakePools";
 
@@ -112,7 +113,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
         },
       },
     ],
-    status: "AVAILABLE",
+    status: PoolCandidateStatus.Available,
   },
   {
     id: "55638f7d-151c-4910-81de-01f0ea0271b6",
@@ -218,7 +219,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
         },
       },
     ],
-    status: "PLACED_TERM",
+    status: PoolCandidateStatus.PlacedTerm,
   },
   {
     id: "4ff52aba-1861-4ef0-a158-48964fdf3b85",
@@ -324,7 +325,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
         },
       },
     ],
-    status: "PLACED_INDETERMINATE",
+    status: PoolCandidateStatus.PlacedIndeterminate,
   },
   {
     id: "0a03f6bf-918e-4e2d-90c9-a682b9fa23c2",
@@ -430,7 +431,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
         },
       },
     ],
-    status: "PLACED_INDETERMINATE",
+    status: PoolCandidateStatus.PlacedIndeterminate,
   },
   {
     id: "159b9f95-aecd-47c3-a117-1c84f5cb0c4b",
@@ -536,7 +537,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
         },
       },
     ],
-    status: "NO_LONGER_INTERESTED",
+    status: PoolCandidateStatus.NoLongerInterested,
   },
   {
     id: "0946e7f1-6321-4723-83b3-4aa426f20a01",
@@ -642,7 +643,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
         },
       },
     ],
-    status: "PLACED_INDETERMINATE",
+    status: PoolCandidateStatus.PlacedIndeterminate,
   },
   {
     id: "b2370648-5be2-44b7-a8d2-55fe1a50b47a",
@@ -748,7 +749,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
         },
       },
     ],
-    status: "NO_LONGER_INTERESTED",
+    status: PoolCandidateStatus.NoLongerInterested,
   },
   {
     id: "7fd16d5d-deee-49e1-bc26-b1db1a280fb6",
@@ -854,7 +855,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
         },
       },
     ],
-    status: "AVAILABLE",
+    status: PoolCandidateStatus.Available,
   },
   {
     id: "432423e6-9ae7-4894-a2d4-db9374352bd0",
@@ -960,7 +961,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
         },
       },
     ],
-    status: "NO_LONGER_INTERESTED",
+    status: PoolCandidateStatus.NoLongerInterested,
   },
   {
     id: "a3b892bc-9ad0-42b8-8ac6-71e800320989",
@@ -1066,7 +1067,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
         },
       },
     ],
-    status: "PLACED_INDETERMINATE",
+    status: PoolCandidateStatus.PlacedIndeterminate,
   },
   {
     id: "78ccc3f9-20a0-41ef-93d9-8710f7368d09",
@@ -1172,7 +1173,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
         },
       },
     ],
-    status: "PLACED_TERM",
+    status: PoolCandidateStatus.PlacedTerm,
   },
   {
     id: "016c55cf-c454-4693-91f7-31067faaf0fb",
@@ -1278,7 +1279,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
         },
       },
     ],
-    status: "AVAILABLE",
+    status: PoolCandidateStatus.Available,
   },
   {
     id: "9d4d22f1-1dee-4be5-902c-1a569213896e",
@@ -1384,7 +1385,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
         },
       },
     ],
-    status: "AVAILABLE",
+    status: PoolCandidateStatus.Available,
   },
   {
     id: "f07ea1bb-c5ca-432e-ac8b-d4f50264e8ed",
@@ -1490,7 +1491,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
         },
       },
     ],
-    status: "PLACED_INDETERMINATE",
+    status: PoolCandidateStatus.PlacedIndeterminate,
   },
   {
     id: "4d6de092-a5bf-4872-9ce1-cbf202655a1b",
@@ -1596,7 +1597,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
         },
       },
     ],
-    status: "PLACED_INDETERMINATE",
+    status: PoolCandidateStatus.PlacedIndeterminate,
   },
   {
     id: "9c04cb45-8b13-4b26-82b3-ac98d17a9661",
@@ -1702,7 +1703,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
         },
       },
     ],
-    status: "NO_LONGER_INTERESTED",
+    status: PoolCandidateStatus.NoLongerInterested,
   },
   {
     id: "7d0e1f02-da3a-449d-ba0b-edadc33b9456",
@@ -1808,7 +1809,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
         },
       },
     ],
-    status: "NO_LONGER_INTERESTED",
+    status: PoolCandidateStatus.NoLongerInterested,
   },
   {
     id: "2f6d3a40-c9b0-48de-8ec4-37ce04116d74",
@@ -1914,7 +1915,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
         },
       },
     ],
-    status: "PLACED_INDETERMINATE",
+    status: PoolCandidateStatus.PlacedIndeterminate,
   },
   {
     id: "c4626353-2505-4751-bbe4-2c60d4a85106",
@@ -2020,7 +2021,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
         },
       },
     ],
-    status: "PLACED_INDETERMINATE",
+    status: PoolCandidateStatus.PlacedIndeterminate,
   },
   {
     id: "0d06a3c3-6a8e-474d-8cb3-0b0b934e8a12",
@@ -2126,7 +2127,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
         },
       },
     ],
-    status: "PLACED_INDETERMINATE",
+    status: PoolCandidateStatus.PlacedIndeterminate,
   },
   {
     id: "e430b2e3-5afe-4416-9ac4-08a940c1aa33",
@@ -2232,7 +2233,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
         },
       },
     ],
-    status: "AVAILABLE",
+    status: PoolCandidateStatus.Available,
   },
   {
     id: "0c835ab3-edfa-4196-9425-2cc82b4fdda0",
@@ -2338,7 +2339,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
         },
       },
     ],
-    status: "AVAILABLE",
+    status: PoolCandidateStatus.Available,
   },
   {
     id: "c62a489a-de4e-4691-9105-33520fcc2ec5",
@@ -2444,7 +2445,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
         },
       },
     ],
-    status: "PLACED_TERM",
+    status: PoolCandidateStatus.PlacedTerm,
   },
   {
     id: "65b7a781-86f2-4682-b4f2-771abf1111a6",
@@ -2550,7 +2551,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
         },
       },
     ],
-    status: "PLACED_INDETERMINATE",
+    status: PoolCandidateStatus.PlacedIndeterminate,
   },
   {
     id: "64ac7922-e981-4533-818e-eaa9516a7efd",
@@ -2656,7 +2657,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
         },
       },
     ],
-    status: "PLACED_INDETERMINATE",
+    status: PoolCandidateStatus.PlacedIndeterminate,
   },
   {
     id: "8214423a-f114-4737-a1e1-1f3a6374fd02",
@@ -2762,7 +2763,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
         },
       },
     ],
-    status: "NO_LONGER_INTERESTED",
+    status: PoolCandidateStatus.NoLongerInterested,
   },
   {
     id: "97d41d3e-d3f5-41dd-a2e5-70c3ab0e300c",
@@ -2868,7 +2869,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
         },
       },
     ],
-    status: "NO_LONGER_INTERESTED",
+    status: PoolCandidateStatus.NoLongerInterested,
   },
   {
     id: "ae53f059-478d-4748-a9e0-c5b54f852bcd",
@@ -2974,7 +2975,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
         },
       },
     ],
-    status: "PLACED_INDETERMINATE",
+    status: PoolCandidateStatus.PlacedIndeterminate,
   },
   {
     id: "2948f91d-1bd0-4000-b5a1-0527d56ce00e",
@@ -3080,7 +3081,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
         },
       },
     ],
-    status: "PLACED_TERM",
+    status: PoolCandidateStatus.PlacedTerm,
   },
   {
     id: "1f62df56-09bf-4077-a102-b0cb7298709a",
@@ -3186,7 +3187,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
         },
       },
     ],
-    status: "NO_LONGER_INTERESTED",
+    status: PoolCandidateStatus.NoLongerInterested,
   },
   {
     id: "17c8d0fb-680e-4b97-b5a6-0a2b1d028db9",
@@ -3292,7 +3293,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
         },
       },
     ],
-    status: "PLACED_INDETERMINATE",
+    status: PoolCandidateStatus.PlacedIndeterminate,
   },
   {
     id: "9312c6f6-ad82-4ae4-b6fa-86c5873437e8",
@@ -3398,7 +3399,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
         },
       },
     ],
-    status: "NO_LONGER_INTERESTED",
+    status: PoolCandidateStatus.NoLongerInterested,
   },
   {
     id: "c4adc03f-ec35-448a-a4aa-559ed0fccf07",
@@ -3504,7 +3505,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
         },
       },
     ],
-    status: "NO_LONGER_INTERESTED",
+    status: PoolCandidateStatus.NoLongerInterested,
   },
   {
     id: "cb3c5383-241c-487d-bb34-d29cf81beef9",
@@ -3610,7 +3611,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
         },
       },
     ],
-    status: "AVAILABLE",
+    status: PoolCandidateStatus.Available,
   },
   {
     id: "d19fc9d4-6d48-41fd-b54b-02a4e603ef7b",
@@ -3716,7 +3717,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
         },
       },
     ],
-    status: "PLACED_INDETERMINATE",
+    status: PoolCandidateStatus.PlacedIndeterminate,
   },
   {
     id: "1717a411-7085-4640-bde3-5f98e204d386",
@@ -3822,7 +3823,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
         },
       },
     ],
-    status: "PLACED_TERM",
+    status: PoolCandidateStatus.PlacedTerm,
   },
   {
     id: "6946d4a3-15b7-4fd2-b827-8fcf14149245",
@@ -3928,7 +3929,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
         },
       },
     ],
-    status: "AVAILABLE",
+    status: PoolCandidateStatus.Available,
   },
   {
     id: "42c3596d-baa1-4ea8-8664-003792ce369a",
@@ -4034,7 +4035,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
         },
       },
     ],
-    status: "PLACED_TERM",
+    status: PoolCandidateStatus.PlacedTerm,
   },
   {
     id: "4ff5b3b9-0415-44ef-b5b3-379e45e25d4d",
@@ -4140,7 +4141,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
         },
       },
     ],
-    status: "NO_LONGER_INTERESTED",
+    status: PoolCandidateStatus.NoLongerInterested,
   },
   {
     id: "dbc71478-13b5-4358-8bca-f82d5745b953",
@@ -4246,7 +4247,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
         },
       },
     ],
-    status: "PLACED_INDETERMINATE",
+    status: PoolCandidateStatus.PlacedIndeterminate,
   },
   {
     id: "fc488967-b902-4c8f-bc52-6bcabed91f8f",
@@ -4352,7 +4353,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
         },
       },
     ],
-    status: "PLACED_TERM",
+    status: PoolCandidateStatus.PlacedTerm,
   },
   {
     id: "a6f1e259-960d-4fec-b685-23b561d52c92",
@@ -4458,7 +4459,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
         },
       },
     ],
-    status: "PLACED_INDETERMINATE",
+    status: PoolCandidateStatus.PlacedIndeterminate,
   },
   {
     id: "903db2ac-861c-4ada-9a05-bbaa0ed47361",
@@ -4564,7 +4565,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
         },
       },
     ],
-    status: "PLACED_TERM",
+    status: PoolCandidateStatus.PlacedTerm,
   },
   {
     id: "21946127-af85-4c56-b886-55fc2d80242c",
@@ -4670,7 +4671,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
         },
       },
     ],
-    status: "AVAILABLE",
+    status: PoolCandidateStatus.Available,
   },
   {
     id: "223c81d0-c111-4d56-a302-a0850c8ce1c8",
@@ -4776,7 +4777,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
         },
       },
     ],
-    status: "PLACED_TERM",
+    status: PoolCandidateStatus.PlacedTerm,
   },
   {
     id: "4e52646d-6373-422a-af5e-020c07ee5f3c",
@@ -4882,7 +4883,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
         },
       },
     ],
-    status: "PLACED_INDETERMINATE",
+    status: PoolCandidateStatus.PlacedIndeterminate,
   },
   {
     id: "e6c1ef4f-caef-4865-9515-a0f0d9b5813d",
@@ -4988,7 +4989,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
         },
       },
     ],
-    status: "PLACED_TERM",
+    status: PoolCandidateStatus.PlacedTerm,
   },
   {
     id: "caa01b24-1b87-46a1-acf5-2db2ee026e74",
@@ -5094,7 +5095,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
         },
       },
     ],
-    status: "PLACED_TERM",
+    status: PoolCandidateStatus.PlacedTerm,
   },
   {
     id: "0b8f299e-775b-4a33-840d-b80aba51f951",
@@ -5200,7 +5201,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
         },
       },
     ],
-    status: "AVAILABLE",
+    status: PoolCandidateStatus.Available,
   },
   {
     id: "fc738aaa-8649-4e6f-b22e-ac88bb6f3cb8",
@@ -5306,7 +5307,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
         },
       },
     ],
-    status: "PLACED_TERM",
+    status: PoolCandidateStatus.PlacedTerm,
   },
   {
     id: "e444b226-2c22-41b6-b78d-d5fd650c114b",
@@ -5412,7 +5413,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
         },
       },
     ],
-    status: "NO_LONGER_INTERESTED",
+    status: PoolCandidateStatus.NoLongerInterested,
   },
   {
     id: "7fe407ae-f790-4328-949c-cb1856788e70",
@@ -5518,7 +5519,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
         },
       },
     ],
-    status: "AVAILABLE",
+    status: PoolCandidateStatus.Available,
   },
   {
     id: "59ca96ca-8d67-4182-9af9-d8b3e5be8f07",
@@ -5624,7 +5625,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
         },
       },
     ],
-    status: "PLACED_INDETERMINATE",
+    status: PoolCandidateStatus.PlacedIndeterminate,
   },
   {
     id: "ef494973-055a-4a24-a452-7dc2504d5d98",
@@ -5730,7 +5731,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
         },
       },
     ],
-    status: "AVAILABLE",
+    status: PoolCandidateStatus.Available,
   },
   {
     id: "c408ebdf-af2d-41a9-93c5-1370f4390323",
@@ -5836,7 +5837,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
         },
       },
     ],
-    status: "NO_LONGER_INTERESTED",
+    status: PoolCandidateStatus.NoLongerInterested,
   },
   {
     id: "b8d339a0-c4f4-4dc7-97ec-1998c90045c5",
@@ -5942,7 +5943,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
         },
       },
     ],
-    status: "NO_LONGER_INTERESTED",
+    status: PoolCandidateStatus.NoLongerInterested,
   },
   {
     id: "0e89c6d1-3087-4bdc-9a7f-48536bff8bc4",
@@ -6048,7 +6049,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
         },
       },
     ],
-    status: "PLACED_INDETERMINATE",
+    status: PoolCandidateStatus.PlacedIndeterminate,
   },
   {
     id: "dddcf4aa-2866-4c13-ba69-b77cb13db39a",
@@ -6154,7 +6155,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
         },
       },
     ],
-    status: "PLACED_TERM",
+    status: PoolCandidateStatus.PlacedTerm,
   },
   {
     id: "81ebe1a8-84d8-4f06-9d92-8a835b991aed",
@@ -6260,7 +6261,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
         },
       },
     ],
-    status: "AVAILABLE",
+    status: PoolCandidateStatus.Available,
   },
   {
     id: "9a8eb813-1d94-4bb2-8f5f-310f1e3b6cd0",
@@ -6366,6 +6367,6 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
         },
       },
     ],
-    status: "AVAILABLE",
+    status: PoolCandidateStatus.Available,
   },
 ];
