@@ -1,22 +1,11 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
-import { createClient } from "urql";
 import { action } from "@storybook/addon-actions";
-import ClientProvider from "../components/ClientProvider";
-import {
-  DepartmentTable,
-  DepartmentTableApi,
-} from "../components/department/DepartmentTable";
+import { DepartmentTable } from "../components/department/DepartmentTable";
 import fakeDepartments from "../fakeData/fakeDepartments";
-import {
-  CreateDepartment,
-  CreateDepartmentForm,
-} from "../components/department/CreateDepartment";
+import { CreateDepartmentForm } from "../components/department/CreateDepartment";
 import { CreateDepartmentInput, Department } from "../api/generated";
-import {
-  UpdateDepartment,
-  UpdateDepartmentForm,
-} from "../components/department/UpdateDepartment";
+import { UpdateDepartmentForm } from "../components/department/UpdateDepartment";
 
 const departmentData = fakeDepartments();
 
@@ -24,16 +13,6 @@ const stories = storiesOf("Departments", module);
 
 stories.add("Departments Table", () => (
   <DepartmentTable departments={departmentData} editUrlRoot="#" />
-));
-
-const client = createClient({
-  url: "http://localhost:8000/graphql",
-});
-
-stories.add("Departments Table with API data", () => (
-  <ClientProvider client={client}>
-    <DepartmentTableApi />
-  </ClientProvider>
 ));
 
 stories.add("Create Department Form", () => {
@@ -48,17 +27,8 @@ stories.add("Create Department Form", () => {
   );
 });
 
-stories.add("Create Department Form with API", () => {
-  return (
-    <ClientProvider client={client}>
-      <CreateDepartment />
-    </ClientProvider>
-  );
-});
-
 stories.add("Update Department Form", () => {
   const department: Department = departmentData[0];
-
   return (
     <UpdateDepartmentForm
       initialDepartment={department}
