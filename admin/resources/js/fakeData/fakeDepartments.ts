@@ -1,24 +1,8 @@
-import { DepartmentsQuery } from "../api/generated";
+import { GetDepartmentsQuery } from "../api/generated";
 
-export default (): DepartmentsQuery["departments"] => [
+export default (): GetDepartmentsQuery["departments"] => [
   {
-    id: "1",
-    department_number: 1,
-    name: {
-      en: "Agriculture and Agri-Food",
-      fr: "Agriculture et de l'Agroalimentaire",
-    },
-  },
-  {
-    id: "2",
-    department_number: 2,
-    name: {
-      en: "Office of the Auditor General",
-      fr: "Bureau du vérificateur général",
-    },
-  },
-  {
-    id: "3",
+    id: "dd9b0a72-e2b8-4e61-b7fb-79ebae7978fb",
     department_number: 4,
     name: {
       en: "Public Service Commission",
@@ -26,19 +10,35 @@ export default (): DepartmentsQuery["departments"] => [
     },
   },
   {
-    id: "4",
-    department_number: 5,
+    id: "54ca5bee-2928-4c72-a6e2-2241d65d5c4f",
+    department_number: 6,
     name: {
-      en: "Foreign Affairs",
-      fr: "Affaires étrangères",
+      en: "Finance (Department of)",
+      fr: "Finances (Ministère des)",
     },
   },
   {
-    id: "5",
-    department_number: 6,
+    id: "790176b0-b3de-4f95-b259-dda8262327f7",
+    department_number: 22,
     name: {
-      en: "Finance",
-      fr: "Finances",
+      en: "Health (Department of)",
+      fr: "Santé (Ministère de la)",
+    },
+  },
+  {
+    id: "1a02573f-665e-4460-a3c5-aa1a52ef508d",
+    department_number: 34,
+    name: {
+      en: "Transport (Department of)",
+      fr: "Transports (Ministère des)",
+    },
+  },
+  {
+    id: "3d2c4bd8-616f-467e-a4b4-2c0c5f2322b0",
+    department_number: 56,
+    name: {
+      en: "Treasury Board Secretariat",
+      fr: "Secrétariat du Conseil du Trésor",
     },
   },
 ];
