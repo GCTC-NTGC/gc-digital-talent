@@ -3,6 +3,7 @@
   "version": "1.0.11",
   "license": "MIT",
   "description": "Shared components and utilities for GC Digital Talent apps",
+  "type":"module",
   "scripts": {
     "lint": "eslint ./src --ext .js,.ts,.jsx,.tsx",
     "lint:fix": "eslint ./src --fix --ext .js,.ts,.jsx,.tsx",
@@ -13,7 +14,8 @@
     "codegen": "graphql-codegen",
     "h2-compile": "npx h2-compile",
     "h2-watch": "npx h2-watch",
-    "h2-build": "npx h2-build"
+    "h2-build": "npx h2-build",
+    "check-intl-admin": "node ./src/tooling/checkIntl.js --en ../admin/resources/js/lang/en.json --fr ../admin/resources/js/lang/fr.json"
   },
   "repository": {
     "type": "git",
@@ -70,6 +72,7 @@
     "eslint-plugin-react-hooks": "^4.2.0",
     "prettier": "^2.3.2",
     "storybook-addon-intl": "^2.4.1",
-    "typescript": "^4.4.2"
+    "typescript": "^4.4.2",
+    "yargs": "^16.2.0"
   }
 }
