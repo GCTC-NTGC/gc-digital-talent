@@ -4,7 +4,10 @@ import { RegisterOptions, useFormContext } from "react-hook-form";
 import { InputWrapper } from "../../inputPartials";
 
 export interface InputProps
-  extends React.InputHTMLAttributes<HTMLInputElement> {
+  extends Omit<
+    React.InputHTMLAttributes<HTMLInputElement>,
+    "capture" | "type"
+  > {
   /** HTML id used to identify the element. */
   id: string;
   /** Optional context which user can view by toggling a button. */
