@@ -14,14 +14,14 @@ class AuthController extends Controller
         $request->session()->put('state', $state = Str::random(40));
 
         $query = http_build_query([
-            'client_id' => env('OAUTH_CLIENT_ID'),
-            'redirect_uri' => env('APP_URL').'/auth-callback',
+            'client_id' => env('OAUTH_ADMIN_CLIENT_ID'),
+            'redirect_uri' => env('ADMIN_APP_URL') . '/auth-callback',
             'response_type' => 'code',
             'scope' => 'openid',
             'state' => $state,
         ]);
 
-        return redirect(env('OAUTH_URI').'?'.$query);
+        return redirect(env('OAUTH_URI') . '?' . $query);
     }
 
     public function authCallback(Request $request)
@@ -35,13 +35,12 @@ class AuthController extends Controller
 
         $response = Http::asForm()->post(env('OAUTH_TOKEN_URI'), [
             'grant_type' => 'authorization_code',
-            'client_id' => env('OAUTH_CLIENT_ID'),
-            'client_secret' => env('OAUTH_CLIENT_SECRET'),
-            'redirect_uri' => env('APP_URL').'/auth-callback',
+            'client_id' => env('OAUTH_ADMIN_CLIENT_ID'),
+            'client_secret' => env('OAUTH_ADMIN_CLIENT_SECRET'),
+            'redirect_uri' => env('ADMIN_APP_URL') . '/auth-callback',
             'code' => $request->code,
         ]);
-
         $query = http_build_query($response->json());
-        return redirect(env('APP_URL').'?'.$query);
+        return redirect(env('ADMIN_APP_URL') . '?' . $query);
     }
 }
