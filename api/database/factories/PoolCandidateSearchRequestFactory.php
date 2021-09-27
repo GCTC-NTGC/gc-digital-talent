@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\PoolCandidateSearchRequest;
 use App\Models\Department;
+use App\Models\PoolCandidateFilter;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class PoolCandidateSearchRequestFactory extends Factory
@@ -32,5 +33,13 @@ class PoolCandidateSearchRequestFactory extends Factory
         'status' => $this->faker->randomElement(['PENDING', 'DONE']),
         'admin_notes' => $this->faker->text(),
       ];
+    }
+
+    public function configure()
+    {
+        return $this->afterCreating(function (PoolCandidateSearchRequest $searchRequest) {
+            $filter = factory(PoolCandidateFilter::class)->create();
+            $searchRequest->poolCandidateFilters()->save($filter);
+        });
     }
 }
