@@ -1,5 +1,8 @@
 import { APP_DIR } from "./adminConstants";
 
+export const homePath = (): string => `/${APP_DIR}`;
+export const homePublicPath = (): string => `/${APP_DIR}/public/${APP_DIR}`;
+
 export const classificationTablePath = (): string =>
   `/${APP_DIR}/classifications`;
 export const classificationCreatePath = (): string =>

@@ -25,7 +25,7 @@ $app = new Laravel\Lumen\Application(
 
 require_once __DIR__.'/helpers.php';
 
-// $app->withFacades();
+$app->withFacades();
 
 // $app->withEloquent();
 
@@ -62,6 +62,7 @@ $app->singleton(
 */
 
 $app->configure('app');
+$app->configure('trustedproxy');
 
 /*
 |--------------------------------------------------------------------------
