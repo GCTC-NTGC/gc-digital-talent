@@ -53,7 +53,6 @@ return [
     */
 
     'url' => env('AUTH_APP_URL', 'http://localhost'),
-
     'asset_url' => env('AUTH_ASSET_URL', null),
     'mix_url' => env('AUTH_MIX_ASSET_URL', null),
 
