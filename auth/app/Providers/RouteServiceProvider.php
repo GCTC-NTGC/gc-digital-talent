@@ -38,12 +38,12 @@ class RouteServiceProvider extends ServiceProvider
         $this->configureRateLimiting();
 
         $this->routes(function () {
-            Route::prefix(env('AUTH_APP_DIR') . '/api')
+            Route::prefix(config('app.app_dir') . '/api')
                 ->middleware('api')
                 ->namespace($this->namespace)
                 ->group(base_path('routes/api.php'));
 
-            Route::prefix(env('AUTH_APP_DIR'))
+            Route::prefix(config('app.app_dir'))
                 ->middleware('web')
                 ->namespace($this->namespace)
                 ->group(base_path('routes/web.php'));
