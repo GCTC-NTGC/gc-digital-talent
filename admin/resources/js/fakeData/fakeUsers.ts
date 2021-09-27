@@ -1,6 +1,6 @@
-import { GetUsersQuery, Language } from "../api/generated";
+import { AllUsersQuery, Language } from "../api/generated";
 
-export default (): GetUsersQuery["users"] => [
+export default (): AllUsersQuery["users"] => [
   {
     id: "35f17f57-eab8-4496-b48d-9e750be1d0ad",
     email: "admin@test.com",
