@@ -3,12 +3,12 @@ import { storiesOf } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 import { UserTable } from "../components/user/UserTable";
 import fakeUsers from "../fakeData/fakeUsers";
-import { CreateUserInput, User } from "../api/generated";
+import { CreateUserInput, Language, User } from "../api/generated";
 import { CreateUserForm } from "../components/user/CreateUser";
 import { UpdateUserForm } from "../components/user/UpdateUser";
 
 const userData = fakeUsers();
-// Its possible data may come back from api with missing data.
+// It is possible data may come back from api with missing data.
 const flawedUserData = [
   { id: "100-bob", email: "bob@boop.com", lastName: null },
   null,
