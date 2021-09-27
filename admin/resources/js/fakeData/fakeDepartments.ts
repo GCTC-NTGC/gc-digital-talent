@@ -1,6 +1,6 @@
-import { GetDepartmentsQuery } from "../api/generated";
+import { Department } from "../api/generated";
 
-export default (): GetDepartmentsQuery["departments"] => [
+export default (): Department[] => [
   {
     id: "dd9b0a72-e2b8-4e61-b7fb-79ebae7978fb",
     department_number: 4,
