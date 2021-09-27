@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
- * Class PoolCandidate
+ * Class PoolCandidateFilter
  *
  * @property int $id
  * @property boolean $has_diploma
@@ -53,10 +53,10 @@ class PoolCandidateFilter extends Model
     }
     public function cmoAssets(): BelongsToMany
     {
-        return $this->belongsToMany(CmoAsset::class);
+        return $this->belongsToMany(CmoAsset::class, 'cmo_asset_pool_candidate_filter');
     }
-    public function poolCandidateFilter(): BelongsTo
+    public function poolCandidateSearchRequest(): BelongsTo
     {
-        return $this->belongsTo(\App\Models\PoolCandidateFilter::class);
+        return $this->belongsTo(\App\Models\PoolCandidateSearchRequest::class);
     }
 }
