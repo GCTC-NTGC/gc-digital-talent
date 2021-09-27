@@ -1,7 +1,6 @@
 import { GetPoolsQuery } from "../api/generated";
 import fakeUsers from "./fakeUsers";
 import fakeClassifications from "./fakeClassifications";
-import fakeOperationalRequirements from "./fakeOperationalRequirements";
 
 export default (): GetPoolsQuery["pools"] => [
   {
@@ -16,13 +15,6 @@ export default (): GetPoolsQuery["pools"] => [
       fr: "",
     },
     classifications: [fakeClassifications()[2], fakeClassifications()[3]],
-    assetCriteria: [],
-    essentialCriteria: [],
-    operationalRequirements: [
-      fakeOperationalRequirements()[4],
-      fakeClassifications()[5],
-    ],
-    poolCandidates: [],
   },
   {
     id: "c0c8a577-7488-42ea-85e4-d0c99d98d60f",
@@ -36,12 +28,5 @@ export default (): GetPoolsQuery["pools"] => [
       fr: "",
     },
     classifications: [fakeClassifications()[0], fakeClassifications()[1]],
-    assetCriteria: [],
-    essentialCriteria: [],
-    operationalRequirements: [
-      fakeOperationalRequirements()[2],
-      fakeClassifications()[3],
-    ],
-    poolCandidates: [],
   },
 ];
