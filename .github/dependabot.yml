@@ -29,7 +29,7 @@ updates:
     schedule:
       interval: "daily"
 
-- package-ecosystem: "composer"
+  - package-ecosystem: "composer"
     # Files stored in `auth` directory
     directory: "/auth"
     schedule:
