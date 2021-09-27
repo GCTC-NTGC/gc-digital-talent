@@ -30,7 +30,7 @@ class PoolCandidateFilterFactory extends Factory
             'is_indigenous' => $this->faker->boolean(),
             'is_visible_minority' => $this->faker->boolean(),
             'is_woman' => $this->faker->boolean(),
-            'language_ability' => $this->faker->randomElement(['FRENCH', 'ENGLISH', 'BILINGUAL']),
+            'language_ability' => $this->faker->randomElement(['FRENCH', 'ENGLISH', 'BILINGUAL', null]),
             'work_region' => $this->faker->randomElements(
                 [
                     'TELEWORK',
