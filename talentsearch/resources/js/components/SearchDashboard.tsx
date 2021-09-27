@@ -19,7 +19,16 @@ const routes: Routes<RouterResult> = [
   {
     path: "/",
     action: () => ({
-      component: <div>Placeholder Home content.</div>,
+      component: (
+        <div data-h2-flex-grid="b(middle, contained, flush, xl)">
+          <div
+            data-h2-flex-item="b(1of1) m(1of2)"
+            data-h2-text-align="b(center) m(left)"
+          >
+            Placeholder Home content.
+          </div>
+        </div>
+      ),
     }),
   },
   {
