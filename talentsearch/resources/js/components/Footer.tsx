@@ -95,14 +95,12 @@ const Footer: React.FunctionComponent = () => {
   ];
   return (
     <footer
-      className="footer"
       data-h2-border="b(gray, top, solid, s)"
       data-h2-bg-color="b(lightgray[.6])"
     >
       <div data-h2-flex-grid="b(middle, contained, flush, xl)">
         <div
           data-h2-flex-item="b(1of1) m(1of2)"
-          data-h2-padding="b(left, xl)"
           data-h2-text-align="b(center) m(left)"
         >
           <nav>
