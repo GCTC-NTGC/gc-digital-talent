@@ -32,14 +32,7 @@ class PoolCandidateSearchRequestFactory extends Factory
         'requested_date' => $this->faker->dateTimeBetween('-2 years', '-1 hour'),
         'status' => $this->faker->randomElement(['PENDING', 'DONE']),
         'admin_notes' => $this->faker->text(),
+        'pool_candidate_filter_id' => PoolCandidateFilter::factory(),
       ];
-    }
-
-    public function configure()
-    {
-        return $this->afterCreating(function (PoolCandidateSearchRequest $searchRequest) {
-            $filter = factory(PoolCandidateFilter::class)->create();
-            $searchRequest->poolCandidateFilters()->save($filter);
-        });
     }
 }
