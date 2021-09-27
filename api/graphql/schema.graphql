@@ -158,7 +158,8 @@ type PoolCandidateFilter {
     isWoman: Boolean @rename(attribute: "is_woman")
     languageAbility: LanguageAbility @rename(attribute: "language_ability")
     operationalRequirements: [OperationalRequirement] @rename(attribute: "operational_requirements")
-    workRegion: [WorkRegion] @rename(attribute: "work_region")
+    workRegions: [WorkRegion] @rename(attribute: "work_regions")
+    pools: [Pool]
 }
 
 type PoolCandidateSearchRequest {
@@ -168,7 +169,7 @@ type PoolCandidateSearchRequest {
     department: Department! @hasOne
     jobTitle: String! @rename(attribute: "job_title")
     additionalComments: String @rename(attribute: "additional_comments")
-    poolCandidateFilters: PoolCandidateFilter! @hasOne
+    poolCandidateFilterId: PoolCandidateFilter! @hasOne @rename(attribute: "pool_candidate_filter_id")
     requestedDate: Date! @rename(attribute: "requested_date")
     status: Status!
     adminNotes: String @rename(attribute: "admin_notes")

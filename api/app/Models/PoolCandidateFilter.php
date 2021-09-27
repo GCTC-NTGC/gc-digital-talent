@@ -18,7 +18,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property boolean $is_visible_minority
  * @property boolean $is_woman
  * @property string $language_ability
- * @property array $work_region
+ * @property array $work_regions
  * @property array $expected_salary
  * @property Illuminate\Support\Carbon $created_at
  * @property Illuminate\Support\Carbon $updated_at
@@ -40,7 +40,7 @@ class PoolCandidateFilter extends Model
 
     protected $casts = [
         'requested_date' => 'date',
-        'work_region' => 'array',
+        'work_regions' => 'array',
     ];
 
     public function operationalRequirements(): BelongsToMany
@@ -54,6 +54,10 @@ class PoolCandidateFilter extends Model
     public function cmoAssets(): BelongsToMany
     {
         return $this->belongsToMany(CmoAsset::class, 'cmo_asset_pool_candidate_filter');
+    }
+    public function pools(): BelongsToMany
+    {
+        return $this->belongsToMany(Pool::class, 'pool_pool_candidate_filter');
     }
     public function poolCandidateSearchRequest(): BelongsTo
     {

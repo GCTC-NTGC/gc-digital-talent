@@ -22,7 +22,7 @@ class CreatePoolCandidateFiltersTable extends Migration
             $table->boolean('is_indigenous')->nullable(true);
             $table->boolean('is_visible_minority')->nullable(true);
             $table->string('language_ability')->nullable(true);
-            $table->jsonb('work_region')->nullable(true);
+            $table->jsonb('work_regions')->nullable(true);
             $table->softDeletes();
         });
         DB::statement('ALTER TABLE pool_candidate_filters ALTER COLUMN id SET DEFAULT gen_random_uuid();');
@@ -47,6 +47,13 @@ class CreatePoolCandidateFiltersTable extends Migration
             $table->uuid('cmo_asset_id')->references('id')->on('cmo_assets')->nullable(false);
         });
         DB::statement('ALTER TABLE cmo_asset_pool_candidate_filter ALTER COLUMN id SET DEFAULT gen_random_uuid();');
+        Schema::create('pool_pool_candidate_filter', function (Blueprint $table) {
+            $table->uuid('id')->primary('id');
+            $table->timestamps();
+            $table->uuid('pool_candidate_filter_id')->references('id')->on('pool_candidate_filters')->nullable(false);
+            $table->uuid('pool_id')->references('id')->on('pools')->nullable(false);
+        });
+        DB::statement('ALTER TABLE pool_pool_candidate_filter ALTER COLUMN id SET DEFAULT gen_random_uuid();');
     }
 
     /**
@@ -60,5 +67,6 @@ class CreatePoolCandidateFiltersTable extends Migration
         Schema::dropIfExists('operational_requirement_pool_candidate_filter');
         Schema::dropIfExists('classification_pool_candidate_filter');
         Schema::dropIfExists('cmo_asset_pool_candidate_filter');
+        Schema::dropIfExists('pool_pool_candidate_filter');
     }
 }

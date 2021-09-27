@@ -5,6 +5,7 @@ namespace Database\Factories;
 use App\Models\Classification;
 use App\Models\CmoAsset;
 use App\Models\OperationalRequirement;
+use App\Models\Pool;
 use App\Models\PoolCandidateFilter;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -31,7 +32,7 @@ class PoolCandidateFilterFactory extends Factory
             'is_visible_minority' => $this->faker->boolean(),
             'is_woman' => $this->faker->boolean(),
             'language_ability' => $this->faker->randomElement(['FRENCH', 'ENGLISH', 'BILINGUAL', null]),
-            'work_region' => $this->faker->randomElements(
+            'work_regions' => $this->faker->randomElements(
                 [
                     'TELEWORK',
                     'NATIONAL_CAPITAL',
@@ -53,9 +54,11 @@ class PoolCandidateFilterFactory extends Factory
             $assets = CmoAsset::inRandomOrder()->limit(4)->get();
             $classifications = Classification::inRandomOrder()->limit(3)->get();
             $requirements = OperationalRequirement::inRandomOrder()->limit(2)->get();
+            $pools = Pool::inRandomOrder()->limit(2)->get();
             $filter->cmoAssets()->saveMany($assets);
             $filter->classifications()->saveMany($classifications);
             $filter->operationalRequirements()->saveMany($requirements);
+            $filter->pools()->saveMany($requirements);
         });
     }
 }
