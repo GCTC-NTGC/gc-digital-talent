@@ -2,6 +2,7 @@ import React, { ReactElement } from "react";
 import { Routes } from "universal-router";
 import { Link, RouterResult, useLocation, useRouter } from "../helpers/router";
 import Footer from "./Footer";
+import Header from "./Header";
 import NavMenu from "./menu/NavMenu";
 
 export const startsWith = (ref: string, test: string): boolean =>
@@ -22,7 +23,13 @@ export const MenuLink: React.FC<MenuLinkProps> = ({
 }) => {
   const location = useLocation();
   return (
-    <Link href={href} title={title ?? ""}>
+    <Link
+      href={href}
+      title={title ?? ""}
+      {...{
+        "data-h2-color": "b(lightpurple)",
+      }}
+    >
       <div
         data-h2-font-weight={
           isActive(href, location.pathname) ? "b(700)" : "b(100)"
@@ -41,13 +48,10 @@ export const Dashboard: React.FC<{
   const content = useRouter(contentRoutes);
   return (
     <>
-      <section>
-        <NavMenu items={menuItems} />
-      </section>
-      <section>{content}</section>
-      <section>
-        <Footer />
-      </section>
+      <Header />
+      <NavMenu items={menuItems} />
+      <div>{content}</div>
+      <Footer />
     </>
   );
 };
