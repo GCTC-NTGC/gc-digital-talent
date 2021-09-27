@@ -23,26 +23,13 @@ To initialize the database from inside the container, run `docker-compose exec -
 
 To improve your editing experience, run `php artisan lighthouse:ide-helper` (note: this is configured to run after composer install) and use an IDE plugin like [GraphQL](https://marketplace.visualstudio.com/items?itemName=GraphQL.vscode-graphql).
 
-## Generating Typescript Types
+## Compiling the Schema
 
-1. Ensure the api service is running (visit http://localhost:8000/graphql-playground to confirm)
+Some Lighthouse directives can manipulate the schema, like @whereConditions which generates an Input definition. This means that the final schema of this server may not quite match the `./graphql/schema.graphql` file. 
 
-2. Run
+If you need static access to the compiled schema, run `php artisan lighthouse:print-schema --write`, which outputs the compiled schema to `./storage/app/lighthouse-schema.graphql`.
 
-```
-npm install
-```
-
-3. There is a script in the package.json file. To execute
-
-```
-npm run generate
-```
-
-File should be generated in the /src file called types.d.ts (as specified in the codegen.yml file)
-
-Done.
-
+_If any other projects need to reference this server's schema for code generation, that is the file they should use._
 ## Documentation
 
 Documentation for the Lumen framework can be found on the [Lumen website](https://lumen.laravel.com/docs).
