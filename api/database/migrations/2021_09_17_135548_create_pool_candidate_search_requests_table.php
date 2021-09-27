@@ -21,7 +21,7 @@ class CreatePoolCandidateSearchRequestsTable extends Migration
             $table->string('department_id')->references('id')->on('departments');
             $table->string("job_title");
             $table->text("additional_comments")->nullable();
-            $table->string("pool_candidate_filter_id")->references('id')->on('pool_candidate_filters');
+            $table->uuid("pool_candidate_filter_id")->references('id')->on('pool_candidate_filters');
             $table->dateTime("requested_date");
             $table->string("status");
             $table->text("admin_notes")->nullable();

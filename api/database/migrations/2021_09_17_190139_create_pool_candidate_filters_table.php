@@ -29,22 +29,22 @@ class CreatePoolCandidateFiltersTable extends Migration
         Schema::create('operational_requirement_pool_candidate_filter', function (Blueprint $table) {
             $table->uuid('id')->primary('id');
             $table->timestamps();
-            $table->string('pool_candidate_filter_id', 36)->references('id')->on('pool_candidate_filters')->nullable(false);
-            $table->string('operational_requirement_id', 36)->references('id')->on('operational_requirements')->nullable(false);
+            $table->uuid('pool_candidate_filter_id')->references('id')->on('pool_candidate_filters')->nullable(false);
+            $table->uuid('operational_requirement_id')->references('id')->on('operational_requirements')->nullable(false);
         });
         DB::statement('ALTER TABLE operational_requirement_pool_candidate_filter ALTER COLUMN id SET DEFAULT gen_random_uuid();');
         Schema::create('classification_pool_candidate_filter', function (Blueprint $table) {
             $table->uuid('id')->primary('id');
             $table->timestamps();
-            $table->string('pool_candidate_filter_id', 36)->references('id')->on('pool_candidate_filters')->nullable(false);
-            $table->string('classification_id', 36)->references('id')->on('classifications')->nullable(false);
+            $table->uuid('pool_candidate_filter_id')->references('id')->on('pool_candidate_filters')->nullable(false);
+            $table->uuid('classification_id')->references('id')->on('classifications')->nullable(false);
         });
         DB::statement('ALTER TABLE classification_pool_candidate_filter ALTER COLUMN id SET DEFAULT gen_random_uuid();');
         Schema::create('cmo_asset_pool_candidate_filter', function (Blueprint $table) {
             $table->uuid('id')->primary('id');
             $table->timestamps();
-            $table->string('pool_candidate_filter_id', 36)->references('id')->on('pool_candidate_filters')->nullable(false);
-            $table->string('cmo_asset_id', 36)->references('id')->on('cmo_assets')->nullable(false);
+            $table->uuid('pool_candidate_filter_id')->references('id')->on('pool_candidate_filters')->nullable(false);
+            $table->uuid('cmo_asset_id')->references('id')->on('cmo_assets')->nullable(false);
         });
         DB::statement('ALTER TABLE cmo_asset_pool_candidate_filter ALTER COLUMN id SET DEFAULT gen_random_uuid();');
     }
