@@ -36,8 +36,18 @@ stories.add("Create Operational Requirement Form", () => {
 });
 
 stories.add("Update Operational Requirement Form", () => {
-  const operationalRequirement: OperationalRequirement =
-    operationalRequirementData[0];
+  const operationalRequirement: OperationalRequirement = {
+    id: "1",
+    key: "overtime",
+    name: {
+      en: "Overtime",
+      fr: "Overtime FR",
+    },
+    description: {
+      en: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptatem, itaque?",
+      fr: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptatem, itaque?",
+    },
+  };
   return (
     <UpdateOperationalRequirementForm
       initialOperationalRequirement={operationalRequirement}

@@ -20,6 +20,7 @@ import { PoolTable } from "../components/pool/PoolTable";
 import fakePools from "../fakeData/fakePools";
 
 const poolData = fakePools();
+// It is possible data may come back from api with missing data.
 
 const stories = storiesOf("Pools", module);
 
@@ -42,7 +43,26 @@ stories.add("Create Pool Form", () => (
 ));
 
 stories.add("Update Pool Form", () => {
-  const pool: Pool = poolData[0];
+  const pool: Pool = {
+    id: "1",
+    owner: fakeUsers()[0],
+    name: {
+      en: "Pool Name",
+      fr: "Pool Name FR",
+    },
+    description: {
+      en: "Pool Description",
+      fr: "Pool Description FR",
+    },
+    classifications: [fakeClassifications()[0], fakeClassifications()[1]],
+    assetCriteria: [fakeCmoAssets()[0], fakeCmoAssets()[1]],
+    essentialCriteria: [fakeCmoAssets()[0], fakeCmoAssets()[1]],
+    operationalRequirements: [
+      fakeOperationalRequirements()[0],
+      fakeOperationalRequirements()[1],
+    ],
+  };
+
   return (
     <UpdatePoolForm
       classifications={fakeClassifications() as Classification[]}

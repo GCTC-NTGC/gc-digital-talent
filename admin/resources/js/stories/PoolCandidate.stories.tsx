@@ -23,6 +23,7 @@ import fakeOperationalRequirements from "../fakeData/fakeOperationalRequirements
 import { UpdatePoolCandidateForm } from "../components/poolCandidate/UpdatePoolCandidate";
 
 const poolCandidateData = fakePoolCandidates();
+// Its possible data may come back from api with missing data.
 
 const stories = storiesOf("Pool Candidates", module);
 
@@ -48,7 +49,32 @@ stories.add("Create Pool Candidate Form", () => (
 ));
 
 stories.add("Update Pool Candidate Form", () => {
-  const poolCandidate: PoolCandidate = poolCandidateData[0];
+  const poolCandidate: PoolCandidate = {
+    id: "1",
+    acceptedOperationalRequirements: [
+      fakeOperationalRequirements()[0],
+      fakeOperationalRequirements()[1],
+    ],
+    cmoAssets: [fakeCmoAssets()[0], fakeCmoAssets()[1]],
+    cmoIdentifier: "cmo1",
+    expectedClassifications: [
+      fakeClassifications()[0],
+      fakeClassifications()[1],
+    ],
+    expectedSalary: [SalaryRange["100KPlus"], SalaryRange["80_89K"]],
+    expiryDate: currentDate(),
+    hasDiploma: true,
+    hasDisability: false,
+    isIndigenous: true,
+    isVisibleMinority: false,
+    isWoman: true,
+    languageAbility: LanguageAbility.Bilingual,
+    locationPreferences: [WorkRegion.BritishColumbia, WorkRegion.Ontario],
+    pool: null,
+    user: null,
+    status: PoolCandidateStatus.Available,
+  };
+
   return (
     <UpdatePoolCandidateForm
       classifications={fakeClassifications() as Classification[]}

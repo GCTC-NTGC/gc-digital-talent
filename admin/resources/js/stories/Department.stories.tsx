@@ -7,12 +7,10 @@ import { CreateDepartmentForm } from "../components/department/CreateDepartment"
 import { CreateDepartmentInput, Department } from "../api/generated";
 import { UpdateDepartmentForm } from "../components/department/UpdateDepartment";
 
-const departmentData = fakeDepartments();
-
 const stories = storiesOf("Departments", module);
 
 stories.add("Departments Table", () => (
-  <DepartmentTable departments={departmentData} editUrlRoot="#" />
+  <DepartmentTable departments={fakeDepartments()} editUrlRoot="#" />
 ));
 
 stories.add("Create Department Form", () => {
@@ -28,7 +26,15 @@ stories.add("Create Department Form", () => {
 });
 
 stories.add("Update Department Form", () => {
-  const department: Department = departmentData[0];
+  const department: Department = {
+    id: "1",
+    department_number: 1,
+    name: {
+      en: "Agriculture and Agri-Food",
+      fr: "Agriculture et de l'Agroalimentaire",
+    },
+  };
+
   return (
     <UpdateDepartmentForm
       initialDepartment={department}
