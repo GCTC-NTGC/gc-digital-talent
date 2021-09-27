@@ -20,6 +20,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  {
     use SoftDeletes;
 
+    protected $keyType = 'string';
+
     /**
       * The attributes that should be case.
       *
