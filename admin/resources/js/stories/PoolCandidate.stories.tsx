@@ -1,6 +1,7 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
+import { currentDate } from "@common/helpers/formUtils";
 import PoolCandidatesTable from "../components/poolCandidate/PoolCandidatesTable";
 import fakePoolCandidates from "../fakeData/fakePoolCandidates";
 import {
@@ -13,6 +14,10 @@ import {
   UpdatePoolCandidateInput,
   PoolCandidate,
   UpdatePoolCandidateMutation,
+  PoolCandidateStatus,
+  WorkRegion,
+  LanguageAbility,
+  SalaryRange,
 } from "../api/generated";
 import { CreatePoolCandidateForm } from "../components/poolCandidate/CreatePoolCandidate";
 import fakeUsers from "../fakeData/fakeUsers";
@@ -23,7 +28,6 @@ import fakeOperationalRequirements from "../fakeData/fakeOperationalRequirements
 import { UpdatePoolCandidateForm } from "../components/poolCandidate/UpdatePoolCandidate";
 
 const poolCandidateData = fakePoolCandidates();
-// Its possible data may come back from api with missing data.
 
 const stories = storiesOf("Pool Candidates", module);
 
