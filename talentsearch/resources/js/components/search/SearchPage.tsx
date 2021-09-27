@@ -37,14 +37,15 @@ const messages = defineMessages({
   },
 });
 
-export const ClassificationPage: React.FC = () => {
+export const SearchPage: React.FC = () => {
   const intl = useIntl();
   return (
-    <div>
+    <>
       <div
         data-h2-position="b(relative)"
+        data-h2-padding="b(bottom, l) l(bottom, none)"
+        className="hero"
         style={{
-          height: "380px",
           background: `linear-gradient(70deg, rgba(103, 76, 144, 0.9), rgba(29, 44, 76, 1)), url(${imageUrl(
             BASE_URL,
             "hero-background-search.png",
@@ -63,28 +64,14 @@ export const ClassificationPage: React.FC = () => {
         >
           {intl.formatMessage(messages.pageTitle)}
         </h1>
-        <p
-          data-h2-padding="b(all, xs)"
-          data-h2-text-align="b(center)"
-          data-h2-font-color="b(white)"
-          data-h2-font-weight="b(300)"
-        >
-          TODO:{" "}
-          <a href="/" title="Breadcrumbs">
-            Breadcrumbs
-          </a>{" "}
-          / Current Page
-        </p>
         <div
-          data-h2-position="b(absolute)"
+          data-h2-position="b(relative) s(relative) m(relative) l(absolute)"
           data-h2-bg-color="b(white)"
-          data-h2-margin="b(right-left, xxl)"
-          data-h2-padding="b(top-bottom, l) b(right-left, m)"
+          data-h2-margin="b(top-bottom, xs) b(right-left, xs) l(right-left, xxl)"
+          data-h2-padding="b(top-bottom, m) b(right-left, m) l(top-bottom, l) l(right-left, m)"
           data-h2-radius="b(s)"
           data-h2-shadow="b(s)"
-          style={{
-            bottom: "-4rem",
-          }}
+          className="hero-sub"
         >
           <h2
             data-h2-font-color="b(black)"
@@ -98,7 +85,7 @@ export const ClassificationPage: React.FC = () => {
       </div>
       <div
         data-h2-margin="b(right-left, s)"
-        data-h2-padding="b(top, xxl) b(bottom, l) b(right-left, xl)"
+        data-h2-padding="b(top, xl) b(bottom, s) b(right-left, s) l(top, xxl) l(bottom, l) l(right-left, xl)"
       >
         <h2
           data-h2-font-color="b(black)"
@@ -109,8 +96,8 @@ export const ClassificationPage: React.FC = () => {
         </h2>
         <p>{intl.formatMessage(messages.pageHowToContent)}</p>
       </div>
-    </div>
+    </>
   );
 };
 
-export default ClassificationPage;
+export default SearchPage;
