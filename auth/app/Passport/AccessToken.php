@@ -4,13 +4,14 @@ namespace App\Passport;
 
 use App\Models\User;
 use DateTimeImmutable;
-use League\OAuth2\Server\CryptKey;
-use Lcobucci\JWT\Signer\Rsa\Sha256;
 use Laravel\Passport\Bridge\AccessToken as BaseToken;
 use Lcobucci\JWT\Configuration;
 use Lcobucci\JWT\Signer\Key\InMemory;
+use Lcobucci\JWT\Signer\Rsa\Sha256;
+use League\OAuth2\Server\CryptKey;
 
-class AccessToken extends BaseToken {
+class AccessToken extends BaseToken
+{
 
     /**
      * @var CryptKey
@@ -42,7 +43,7 @@ class AccessToken extends BaseToken {
         );
     }
 
-     /**
+    /**
      * Generate a string representation from the access token
      */
     public function __toString()
@@ -50,7 +51,7 @@ class AccessToken extends BaseToken {
         return $this->convertToJWT()->toString();
     }
 
-	/**
+    /**
      * OVERRIDE
      * Generate a JWT from the access token
      *
@@ -62,14 +63,14 @@ class AccessToken extends BaseToken {
         // default sub field value is the user model id, but we want to use email instead.
         $email = User::find($this->getUserIdentifier())->email;
         return $this->jwtConfiguration->builder()
-                ->issuedBy(env("APP_URL"))
-                ->permittedFor($this->getClient()->getIdentifier())
-                ->identifiedBy($this->getIdentifier())
-                ->issuedAt(new DateTimeImmutable())
-                ->canOnlyBeUsedAfter(new DateTimeImmutable())
-                ->expiresAt($this->getExpiryDateTime())
-                ->relatedTo($email)
-                ->withClaim('scopes', $this->getScopes())
-                ->getToken($this->jwtConfiguration->signer(), $this->jwtConfiguration->signingKey());
-	}
+            ->issuedBy(env("AUTH_APP_URL"))
+            ->permittedFor($this->getClient()->getIdentifier())
+            ->identifiedBy($this->getIdentifier())
+            ->issuedAt(new DateTimeImmutable())
+            ->canOnlyBeUsedAfter(new DateTimeImmutable())
+            ->expiresAt($this->getExpiryDateTime())
+            ->relatedTo($email)
+            ->withClaim('scopes', $this->getScopes())
+            ->getToken($this->jwtConfiguration->signer(), $this->jwtConfiguration->signingKey());
+    }
 }
