@@ -27,6 +27,7 @@ enum Role {
 type User {
     id: ID!
     email: Email!
+    sub: String
     firstName: String @rename(attribute: "first_name")
     lastName: String @rename(attribute: "last_name")
     telephone: PhoneNumber
@@ -177,11 +178,11 @@ type PoolCandidateSearchRequest {
 
 type Query {
     me: User @auth
-    user(id: ID! @eq): User @find @guard @can(ability: "view")
+    user(id: ID! @eq): User @find @guard @can(ability: "view", query: true)
     users: [User]! @all @guard @can(ability: "viewAny")
-    pool(id: ID! @eq): Pool @find @guard @can(ability: "view")
+    pool(id: ID! @eq): Pool @find @guard @can(ability: "view", query: true)
     pools: [Pool]! @all @guard @can(ability: "viewAny")
-    poolCandidate(id: ID! @eq): PoolCandidate @find @guard @can(ability: "view")
+    poolCandidate(id: ID! @eq): PoolCandidate @find @guard @can(ability: "view", query: true)
     poolCandidates: [PoolCandidate]! @all @guard @can(ability: "viewAny")
     poolCandidatesFilter(where: _
         @whereConditions(columns: ["has_diploma", "location_preferences", "language_ability", "is_woman", "has_disability", "is_indigenous", "is_visible_minority"]),
@@ -189,14 +190,14 @@ type Query {
         hasAcceptedOperationalRequirements: _ @whereHasConditions(columns: ["id", "key"]),
         hasCmoAssets: _ @whereHasConditions(columns: ["id", "key"]),
     ): Int! @count(model: "PoolCandidate")
-    classification(id: ID! @eq): Classification @find @guard @can(ability: "view")
+    classification(id: ID! @eq): Classification @find @guard @can(ability: "view", query: true)
     classifications: [Classification]! @all @guard @can(ability: "viewAny")
-    operationalRequirement(id: ID! @eq): OperationalRequirement @find @guard @can(ability: "view")
+    operationalRequirement(id: ID! @eq): OperationalRequirement @find @guard @can(ability: "view", query: true)
     operationalRequirements: [OperationalRequirement]! @all @guard @can(ability: "viewAny")
-    cmoAsset(id: ID! @eq): CmoAsset @find @guard @can(ability: "view")
+    cmoAsset(id: ID! @eq): CmoAsset @find @guard @can(ability: "view", query: true)
     cmoAssets: [CmoAsset]! @all @guard @can(ability: "viewAny")
     department(id: ID! @eq): Department @find @guard @can(ability: "viewAny")
-    departments: [Department]! @all @guard @can(ability: "view")
+    departments: [Department]! @all @guard @can(ability: "view", query: true)
 }
 """
 When creating a User, name and email are required.

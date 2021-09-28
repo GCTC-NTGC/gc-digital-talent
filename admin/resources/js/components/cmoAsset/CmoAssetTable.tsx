@@ -27,7 +27,7 @@ const messages = defineMessages({
   },
   columnDescriptionTitle: {
     id: "cmoAssetTable.column.descriptionTitle",
-    defaultMessage: "Level",
+    defaultMessage: "Description",
     description: "Title displayed for the CMO Asset table Description column.",
   },
   columnEditTitle: {

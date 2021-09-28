@@ -1,11 +1,8 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
-import { createClient } from "urql";
 import { action } from "@storybook/addon-actions";
 import { currentDate } from "@common/helpers/formUtils";
-import PoolCandidatesTable, {
-  PoolCandidatesTableApi,
-} from "../components/poolCandidate/PoolCandidatesTable";
+import PoolCandidatesTable from "../components/poolCandidate/PoolCandidatesTable";
 import fakePoolCandidates from "../fakeData/fakePoolCandidates";
 import {
   CreatePoolCandidateInput,
@@ -16,44 +13,26 @@ import {
   CmoAsset,
   UpdatePoolCandidateInput,
   PoolCandidate,
-  LanguageAbility,
-  WorkRegion,
-  PoolCandidateStatus,
-  SalaryRange,
   UpdatePoolCandidateMutation,
+  PoolCandidateStatus,
+  WorkRegion,
+  LanguageAbility,
+  SalaryRange,
 } from "../api/generated";
-import {
-  CreatePoolCandidate,
-  CreatePoolCandidateForm,
-} from "../components/poolCandidate/CreatePoolCandidate";
+import { CreatePoolCandidateForm } from "../components/poolCandidate/CreatePoolCandidate";
 import fakeUsers from "../fakeData/fakeUsers";
 import fakeClassifications from "../fakeData/fakeClassifications";
 import fakePools from "../fakeData/fakePools";
 import fakeCmoAssets from "../fakeData/fakeCmoAssets";
 import fakeOperationalRequirements from "../fakeData/fakeOperationalRequirements";
-import {
-  UpdatePoolCandidate,
-  UpdatePoolCandidateForm,
-} from "../components/poolCandidate/UpdatePoolCandidate";
-import ClientProvider from "../components/ClientProvider";
+import { UpdatePoolCandidateForm } from "../components/poolCandidate/UpdatePoolCandidate";
 
 const poolCandidateData = fakePoolCandidates();
-// Its possible data may come back from api with missing data.
 
 const stories = storiesOf("Pool Candidates", module);
 
 stories.add("Pool Candidates Table", () => (
   <PoolCandidatesTable poolCandidates={poolCandidateData} editUrlRoot="#" />
-));
-
-// TODO: Pool Candidates Table API
-const client = createClient({
-  url: "http://localhost:8000/graphql",
-});
-stories.add("Pool Candidates Table with API data", () => (
-  <ClientProvider client={client}>
-    <PoolCandidatesTableApi poolId="1" />
-  </ClientProvider>
 ));
 
 stories.add("Create Pool Candidate Form", () => (
@@ -119,21 +98,5 @@ stories.add("Update Pool Candidate Form", () => {
         );
       }}
     />
-  );
-});
-
-stories.add("Create Pool Candidate Form with API", () => {
-  return (
-    <ClientProvider client={client}>
-      <CreatePoolCandidate poolId="1" />
-    </ClientProvider>
-  );
-});
-
-stories.add("Update Pool Candidate Form with API", () => {
-  return (
-    <ClientProvider client={client}>
-      <UpdatePoolCandidate poolCandidateId="1" />
-    </ClientProvider>
   );
 });

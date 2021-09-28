@@ -34,7 +34,7 @@ const messages = defineMessages({
   },
   columnDescriptionTitle: {
     id: "operationalRequirementTable.column.descriptionTitle",
-    defaultMessage: "Level",
+    defaultMessage: "Description",
     description:
       "Title displayed for the Operational Requirement table Description column.",
   },

@@ -1,13 +1,8 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
-import { createClient } from "urql";
 import { action } from "@storybook/addon-actions";
-import {
-  CmoAssetTable,
-  CmoAssetTableApi,
-} from "../components/cmoAsset/CmoAssetTable";
+import { CmoAssetTable } from "../components/cmoAsset/CmoAssetTable";
 import fakeCmoAssets from "../fakeData/fakeCmoAssets";
-import ClientProvider from "../components/ClientProvider";
 import { CreateCmoAssetForm } from "../components/cmoAsset/CreateCmoAsset";
 import { CmoAsset, CreateCmoAssetInput } from "../api/generated";
 import { UpdateCmoAssetForm } from "../components/cmoAsset/UpdateCmoAsset";
@@ -18,16 +13,6 @@ const stories = storiesOf("CMO Assets", module);
 
 stories.add("CMO Assets Table", () => (
   <CmoAssetTable cmoAssets={cmoAssetData} editUrlRoot="#" />
-));
-
-const client = createClient({
-  url: "http://localhost:8000/graphql",
-});
-
-stories.add("CMO Assets Table with API data", () => (
-  <ClientProvider client={client}>
-    <CmoAssetTableApi />
-  </ClientProvider>
 ));
 
 stories.add("Create CMO Asset Form", () => {

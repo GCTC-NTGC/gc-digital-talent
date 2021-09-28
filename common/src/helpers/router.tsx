@@ -1,12 +1,26 @@
-import { createBrowserHistory, Location } from "history";
+import { createBrowserHistory, Location, Path } from "history";
 import UniversalRouter, { Routes } from "universal-router";
 import React, { useState, useEffect, useMemo, ReactElement } from "react";
+import fromPairs from "lodash/fromPairs";
+import toPairs from "lodash/toPairs";
 
 const HISTORY = createBrowserHistory();
 
 // Current implementation adapted from https://codesandbox.io/s/vyx8q7jvk7
 
 export const useLocation = (): Location => {
+  const history = HISTORY;
+  const [location, setLocation] = useState<Location>(history.location);
+  useEffect((): (() => void) => {
+    const unListen = history.listen(({ location: newLocation }): void =>
+      setLocation(newLocation),
+    );
+    return (): void => unListen();
+  }, [history]);
+  return location;
+};
+
+export const useUrlQuery = (): Location => {
   const history = HISTORY;
   const [location, setLocation] = useState<Location>(history.location);
   useEffect((): (() => void) => {
@@ -37,11 +51,11 @@ export const useUrlHash = (): string => {
   return location.hash;
 };
 
-export const navigate = (url: string): void => {
+export const navigate = (url: string | Partial<Path>): void => {
   HISTORY.push(url);
 };
 
-export const redirect = (url: string): void => {
+export const redirect = (url: string | Partial<Path>): void => {
   HISTORY.replace(url);
 };
 
@@ -79,4 +93,25 @@ export const useRouter = (
  */
 export function imageUrl(baseUrl: string, imgFile: string): string {
   return `${baseUrl}/public/images/${imgFile}`;
+}
+
+export function parseUrlQueryParameters(
+  location: Location,
+): Record<string, string> {
+  const queryString = location.search.startsWith("?")
+    ? location.search.substring(1)
+    : location.search;
+  const stringPairs = queryString
+    .split("&")
+    .map((pair) => pair.split("=").map(decodeURIComponent));
+  return fromPairs(stringPairs);
+}
+
+export function queryParametersToSearchString(
+  queryParams: Record<string, string>,
+): string {
+  const queryString = toPairs(queryParams)
+    .map(([a, b]) => `${encodeURIComponent(a)}=${encodeURIComponent(b)}`)
+    .join("&");
+  return queryString ? `?${queryString}` : "";
 }
