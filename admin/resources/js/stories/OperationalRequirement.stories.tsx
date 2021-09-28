@@ -1,13 +1,8 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
-import { createClient } from "urql";
 import { action } from "@storybook/addon-actions";
-import {
-  OperationalRequirementTable,
-  OperationalRequirementTableApi,
-} from "../components/operationalRequirement/OperationalRequirementTable";
+import { OperationalRequirementTable } from "../components/operationalRequirement/OperationalRequirementTable";
 import fakeOperationalRequirements from "../fakeData/fakeOperationalRequirements";
-import ClientProvider from "../components/ClientProvider";
 import { CreateOperationalRequirementForm } from "../components/operationalRequirement/CreateOperationalRequirement";
 import {
   CreateOperationalRequirementInput,
@@ -24,16 +19,6 @@ stories.add("Operational Requirements Table", () => (
     operationalRequirements={operationalRequirementData}
     editUrlRoot="#"
   />
-));
-
-const client = createClient({
-  url: "http://localhost:8000/graphql",
-});
-
-stories.add("Operational Requirements Table with API data", () => (
-  <ClientProvider client={client}>
-    <OperationalRequirementTableApi />
-  </ClientProvider>
 ));
 
 stories.add("Create Operational Requirement Form", () => {

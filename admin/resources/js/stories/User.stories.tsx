@@ -1,15 +1,14 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
-import { UserTable, UserTableApi } from "../components/user/UserTable";
+import { UserTable } from "../components/user/UserTable";
 import fakeUsers from "../fakeData/fakeUsers";
 import { CreateUserInput, Language, User } from "../api/generated";
-import ClientProvider from "../components/ClientProvider";
 import { CreateUserForm } from "../components/user/CreateUser";
 import { UpdateUserForm } from "../components/user/UpdateUser";
 
 const userData = fakeUsers();
-// Its possible data may come back from api with missing data.
+// It is possible data may come back from api with missing data.
 const flawedUserData = [
   { id: "100-bob", email: "bob@boop.com", lastName: null },
   null,
@@ -18,15 +17,11 @@ const flawedUserData = [
 
 const stories = storiesOf("Users", module);
 
-stories.add("User Table", () => <UserTable users={userData} editUrlRoot="#" />);
+stories.add("Users Table", () => (
+  <UserTable users={userData} editUrlRoot="#" />
+));
 stories.add("Users Table with flawed data", () => (
   <UserTable users={flawedUserData} editUrlRoot="#" />
-));
-
-stories.add("Users Table with API data", () => (
-  <ClientProvider>
-    <UserTableApi />
-  </ClientProvider>
 ));
 
 stories.add("Create User Form", () => {
