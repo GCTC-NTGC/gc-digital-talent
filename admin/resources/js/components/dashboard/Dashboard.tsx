@@ -121,11 +121,16 @@ export const Dashboard: React.FC<{
           <div
             data-h2-padding="b(right-left, m)"
             data-h2-position="b(static) m(sticky)"
-            style={{ top: "0", maxHeight: "100vh", overflow: "auto" }}>
+            style={{ top: "0", maxHeight: "100vh", overflow: "auto" }}
+          >
             <SideMenu items={[...menuItems, ...PoolListApi()]} />
           </div>
         </div>
-        <div data-h2-flex-item="b(1of1) m(9of12) l(10of12)">
+        <div
+          data-h2-flex-item="b(1of1) m(9of12) l(10of12)"
+          data-h2-display="b(flex)"
+          style={{ flexDirection: "column" }}
+        >
           {content}
           <Footer />
         </div>
