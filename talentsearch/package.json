@@ -33,7 +33,7 @@
     "codegen": "graphql-codegen"
   },
   "devDependencies": {
-    "@babel/core": "^7.15.0",
+    "@babel/core": "^7.15.5",
     "@babel/preset-react": "^7.14.5",
     "@graphql-codegen/add": "^3.1.0",
     "@graphql-codegen/cli": "^2.1.1",
@@ -43,14 +43,14 @@
     "@hydrogen-design-system/hydrogen.css": "^1.1.4",
     "@storybook/addon-actions": "^6.3.7",
     "@storybook/addon-essentials": "^6.3.7",
-    "@storybook/addon-links": "^6.3.7",
+    "@storybook/addon-links": "^6.3.8",
     "@storybook/builder-webpack5": "^6.3.7",
     "@storybook/manager-webpack5": "^6.3.7",
-    "@storybook/react": "^6.3.7",
+    "@storybook/react": "^6.3.8",
     "@types/lodash": "^4.14.172",
     "@types/react-table": "^7.7.2",
     "@typescript-eslint/eslint-plugin": "^4.29.2",
-    "@typescript-eslint/parser": "^4.29.2",
+    "@typescript-eslint/parser": "^4.32.0",
     "babel-loader": "^8.2.2",
     "cross-env": "^7.0.3",
     "eslint": "^7.32.0",
@@ -71,7 +71,7 @@
     "react-refresh": "^0.10.0",
     "storybook-addon-intl": "^2.4.1",
     "ts-loader": "^9.2.5",
-    "typescript": "^4.3.5"
+    "typescript": "^4.4.3"
   },
   "dependencies": {
     "@heroicons/react": "^1.0.4",
