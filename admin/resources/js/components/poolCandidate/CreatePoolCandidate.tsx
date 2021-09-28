@@ -144,9 +144,9 @@ export const CreatePoolCandidateForm: React.FunctionComponent<CreatePoolCandidat
 
     return (
       <section>
-        <h2
-          data-h2-text-align="b(center)"
-          data-h2-margin="b(top, none)">{intl.formatMessage(messages.createHeading)}</h2>
+        <h2 data-h2-text-align="b(center)" data-h2-margin="b(top, none)">
+          {intl.formatMessage(messages.createHeading)}
+        </h2>
         <div data-h2-container="b(center, s)">
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(onSubmit)}>
@@ -246,7 +246,9 @@ export const CreatePoolCandidateForm: React.FunctionComponent<CreatePoolCandidat
               />
               <MultiSelect
                 id="expectedSalary"
-                label={intl.formatMessage(messages.expectedClassificationsLabel)}
+                label={intl.formatMessage(
+                  messages.expectedClassificationsLabel,
+                )}
                 name="expectedSalary"
                 placeholder={intl.formatMessage(
                   messages.expectedClassificationsPlaceholder,
@@ -259,7 +261,9 @@ export const CreatePoolCandidateForm: React.FunctionComponent<CreatePoolCandidat
               />
               <MultiSelect
                 id="expectedClassifications"
-                label={intl.formatMessage(messages.expectedClassificationsLabel)}
+                label={intl.formatMessage(
+                  messages.expectedClassificationsLabel,
+                )}
                 placeholder={intl.formatMessage(
                   messages.expectedClassificationsPlaceholder,
                 )}

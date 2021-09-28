@@ -45,9 +45,9 @@ export const CreateClassificationForm: React.FunctionComponent<CreateClassificat
     };
     return (
       <section>
-        <h2
-          data-h2-text-align="b(center)"
-          data-h2-margin="b(top, none)">{intl.formatMessage(messages.createHeading)}</h2>
+        <h2 data-h2-text-align="b(center)" data-h2-margin="b(top, none)">
+          {intl.formatMessage(messages.createHeading)}
+        </h2>
         <div data-h2-container="b(center, s)">
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(onSubmit)}>
@@ -97,7 +97,10 @@ export const CreateClassificationForm: React.FunctionComponent<CreateClassificat
                 type="number"
                 rules={{
                   required: errorMessages.required,
-                  min: { value: 0, message: `${errorMessages.mustBeGreater} 0` },
+                  min: {
+                    value: 0,
+                    message: `${errorMessages.mustBeGreater} 0`,
+                  },
                 }}
               />
               <Input

@@ -115,9 +115,9 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
 
   return (
     <section>
-      <h2
-        data-h2-text-align="b(center)"
-        data-h2-margin="b(top, none)">{intl.formatMessage(messages.createHeading)}</h2>
+      <h2 data-h2-text-align="b(center)" data-h2-margin="b(top, none)">
+        {intl.formatMessage(messages.createHeading)}
+      </h2>
       <div data-h2-container="b(center, s)">
         <FormProvider {...methods}>
           <form onSubmit={handleSubmit(onSubmit)}>
@@ -168,7 +168,9 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
             <MultiSelect
               id="assetCriteria"
               label={intl.formatMessage(messages.assetCriteriaLabel)}
-              placeholder={intl.formatMessage(messages.assetCriteriaPlaceholder)}
+              placeholder={intl.formatMessage(
+                messages.assetCriteriaPlaceholder,
+              )}
               name="assetCriteria"
               options={cmoAssetOptions}
               rules={{ required: errorMessages.required }}

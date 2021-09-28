@@ -36,9 +36,9 @@ export const CreateCmoAssetForm: React.FunctionComponent<CreateCmoAssetFormProps
     };
     return (
       <section>
-        <h2
-          data-h2-text-align="b(center)"
-          data-h2-margin="b(top, none)">{intl.formatMessage(messages.createHeading)}</h2>
+        <h2 data-h2-text-align="b(center)" data-h2-margin="b(top, none)">
+          {intl.formatMessage(messages.createHeading)}
+        </h2>
         <div data-h2-container="b(center, s)">
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(onSubmit)}>
