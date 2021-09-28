@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 class CreatePoolLookupPivotTables extends Migration
@@ -16,8 +17,8 @@ class CreatePoolLookupPivotTables extends Migration
         Schema::create('classification_pool', function (Blueprint $table) {
             $table->uuid('id')->primary('id');
             $table->timestamps();
-            $table->string('classification_id', 36)->references('id')->on('classifications');
-            $table->string('pool_id', 36)->references('id')->on('pools');
+            $table->uuid('classification_id')->references('id')->on('classifications');
+            $table->uuid('pool_id')->references('id')->on('pools');
             // $table->foreignId('classification_id');
             // $table->foreignId('pool_id');
 
@@ -28,8 +29,8 @@ class CreatePoolLookupPivotTables extends Migration
             $table->timestamps();
             // $table->foreignId('cmo_asset_id');
             // $table->foreignId('pool_id');
-            $table->string('cmo_asset_id', 36)->references('id')->on('cmo_assets');
-            $table->string('pool_id', 36)->references('id')->on('pools');
+            $table->uuid('cmo_asset_id')->references('id')->on('cmo_assets');
+            $table->uuid('pool_id')->references('id')->on('pools');
         });
         DB::statement('ALTER TABLE essential_cmo_asset_pool ALTER COLUMN id SET DEFAULT gen_random_uuid();');
         Schema::create('asset_cmo_asset_pool', function (Blueprint $table) {
@@ -37,8 +38,8 @@ class CreatePoolLookupPivotTables extends Migration
             $table->timestamps();
             // $table->foreignId('cmo_asset_id');
             // $table->foreignId('pool_id');
-            $table->string('cmo_asset_id', 36)->references('id')->on('cmo_assets');
-            $table->string('pool_id', 36)->references('id')->on('pools');
+            $table->uuid('cmo_asset_id')->references('id')->on('cmo_assets');
+            $table->uuid('pool_id')->references('id')->on('pools');
         });
         DB::statement('ALTER TABLE asset_cmo_asset_pool ALTER COLUMN id SET DEFAULT gen_random_uuid();');
         Schema::create('operational_requirement_pool', function (Blueprint $table) {
@@ -46,8 +47,8 @@ class CreatePoolLookupPivotTables extends Migration
             $table->timestamps();
             // $table->foreignId('operational_requirement_id');
             // $table->foreignId('pool_id');
-            $table->string('operational_requirement_id', 36)->references('id')->on('operational_requirements');
-            $table->string('pool_id', 36)->references('id')->on('pools');
+            $table->uuid('operational_requirement_id')->references('id')->on('operational_requirements');
+            $table->uuid('pool_id')->references('id')->on('pools');
         });
         DB::statement('ALTER TABLE operational_requirement_pool ALTER COLUMN id SET DEFAULT gen_random_uuid();');
     }

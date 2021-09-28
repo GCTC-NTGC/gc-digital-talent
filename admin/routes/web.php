@@ -12,7 +12,10 @@
 | and give it the Closure to call when that URI is requested.
 |
 */
-$router->group(['prefix' => env('APP_DIR')], function () use ($router) {
+$router->group(['prefix' => env('ADMIN_APP_DIR')], function () use ($router) {
+    $router->get('login', 'AuthController@login');
+    $router->get('auth-callback', 'AuthController@authCallback');
+
     $router->get('/', 'DashboardController@index');
     $router->get('/{any:.*}', 'DashboardController@index');
 });
