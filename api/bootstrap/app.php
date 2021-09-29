@@ -60,8 +60,10 @@ $app->singleton(
 */
 
 $app->configure('app');
+$app->configure('appCustom');
 $app->configure('trustedproxy');
 $app->configure('lighthouse');
+$app->configure('oauth');
 
 
 /*

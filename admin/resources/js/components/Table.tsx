@@ -141,49 +141,53 @@ function Table<T extends Record<string, unknown>>({
           </div>
         </div>
       ) : null}
-      <table {...getTableProps()}>
-        <thead>
-          {headerGroups.map((headerGroup) => (
-            <tr {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map((column) => (
-                <th
-                  {...column.getHeaderProps(column.getSortByToggleProps())}
-                  key={column.id}
-                  data-h2-padding="b(right-left, m)"
-                  data-h2-text-align="b(center)"
-                  data-h2-font-size="b(caption)"
-                >
-                  {column.render("Header")}
-                  <span data-h2-font-color="b(lightpurple)">
-                    {column.isSorted && (column.isSortedDesc ? " ▼" : " ▲")}
-                  </span>
-                </th>
-              ))}
-            </tr>
-          ))}
-        </thead>
-        <tbody {...getTableBodyProps()}>
-          {rows.map((row) => {
-            prepareRow(row);
-            return (
-              <tr {...row.getRowProps()}>
-                {row.cells.map((cell) => {
-                  return (
-                    <td
-                      {...cell.getCellProps()}
-                      data-h2-padding="b(right-left, m)"
-                      data-h2-text-align="b(center)"
-                      data-h2-font-size="b(caption)"
-                    >
-                      {cell.render("Cell")}
-                    </td>
-                  );
-                })}
+      <div
+        data-h2-overflow="b(all, auto)"
+        style={{ maxWidth: "100%" }}>
+        <table {...getTableProps()}>
+          <thead>
+            {headerGroups.map((headerGroup) => (
+              <tr {...headerGroup.getHeaderGroupProps()}>
+                {headerGroup.headers.map((column) => (
+                  <th
+                    {...column.getHeaderProps(column.getSortByToggleProps())}
+                    key={column.id}
+                    data-h2-padding="b(right-left, m)"
+                    data-h2-text-align="b(left)"
+                    data-h2-font-size="b(caption)"
+                  >
+                    {column.render("Header")}
+                    <span data-h2-font-color="b(lightpurple)">
+                      {column.isSorted && (column.isSortedDesc ? " ▼" : " ▲")}
+                    </span>
+                  </th>
+                ))}
               </tr>
-            );
-          })}
-        </tbody>
-      </table>
+            ))}
+          </thead>
+          <tbody {...getTableBodyProps()}>
+            {rows.map((row) => {
+              prepareRow(row);
+              return (
+                <tr {...row.getRowProps()}>
+                  {row.cells.map((cell) => {
+                    return (
+                      <td
+                        {...cell.getCellProps()}
+                        data-h2-padding="b(right-left, m)"
+                        data-h2-text-align="b(left)"
+                        data-h2-font-size="b(caption)"
+                      >
+                        {cell.render("Cell")}
+                      </td>
+                    );
+                  })}
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }

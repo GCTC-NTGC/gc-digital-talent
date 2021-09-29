@@ -44,33 +44,37 @@ export const CreateDepartmentForm: React.FunctionComponent<CreateDepartmentProps
 
     return (
       <section>
-        <h2>{intl.formatMessage(messages.createHeading)}</h2>
-        <FormProvider {...methods}>
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <Input
-              id="departmentNumber"
-              name="departmentNumber"
-              label={intl.formatMessage(messages.departmentNumberLabel)}
-              type="number"
-              rules={{ required: errorMessages.required }}
-            />
-            <Input
-              id="name_en"
-              name="name.en"
-              label={intl.formatMessage(messages.nameEnLabel)}
-              type="text"
-              rules={{ required: errorMessages.required }}
-            />
-            <Input
-              id="name_fr"
-              name="name.fr"
-              label={intl.formatMessage(messages.nameFrLabel)}
-              type="text"
-              rules={{ required: errorMessages.required }}
-            />
-            <Submit />
-          </form>
-        </FormProvider>
+        <h2 data-h2-text-align="b(center)" data-h2-margin="b(top, none)">
+          {intl.formatMessage(messages.createHeading)}
+        </h2>
+        <div data-h2-container="b(center, s)">
+          <FormProvider {...methods}>
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <Input
+                id="departmentNumber"
+                name="departmentNumber"
+                label={intl.formatMessage(messages.departmentNumberLabel)}
+                type="number"
+                rules={{ required: errorMessages.required }}
+              />
+              <Input
+                id="name_en"
+                name="name.en"
+                label={intl.formatMessage(messages.nameEnLabel)}
+                type="text"
+                rules={{ required: errorMessages.required }}
+              />
+              <Input
+                id="name_fr"
+                name="name.fr"
+                label={intl.formatMessage(messages.nameFrLabel)}
+                type="text"
+                rules={{ required: errorMessages.required }}
+              />
+              <Submit />
+            </form>
+          </FormProvider>
+        </div>
       </section>
     );
   };

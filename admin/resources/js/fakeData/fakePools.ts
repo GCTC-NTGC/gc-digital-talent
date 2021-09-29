@@ -1,34 +1,32 @@
-import { Pool } from "../api/generated";
+import { GetPoolsQuery } from "../api/generated";
 import fakeUsers from "./fakeUsers";
+import fakeClassifications from "./fakeClassifications";
 
-export default (): Pool[] => [
+export default (): GetPoolsQuery["pools"] => [
   {
-    id: "1",
+    id: "6fd959be-5265-4286-ab65-fbfd526e5e37",
     owner: fakeUsers()[0],
     name: {
-      en: "Pool1",
-      fr: "Pool1FR",
+      en: "CMO",
+      fr: "CMO",
     },
     description: {
-      en: "Autem qui voluptas cumque. Molestiae dolor beatae tempora porro. Dolorem eligendi tempora consectetur id nostrum nihil. Quis et aut sit eveniet voluptatum. Quod veritatis vitae dignissimos provident.",
-      fr: "A perferendis ut iste saepe error nihil. Fugiat eum qui et molestiae sapiente aperiam. Dolorum est nemo quasi consequatur ipsam facere fuga. In aliquid corrupti consequatur.",
+      en: "",
+      fr: "",
     },
-    classifications: [
-      {
-        id: "2",
-        name: {
-          en: "Computer Systems",
-          fr: "Systèmes d'ordinateurs",
-        },
-        group: "CS",
-        level: 2,
-        minSalary: 75129,
-        maxSalary: 91953,
-      },
-    ],
-    assetCriteria: [],
-    essentialCriteria: [],
-    operationalRequirements: [],
-    poolCandidates: [],
+    classifications: [fakeClassifications()[2], fakeClassifications()[3]],
+  },
+  {
+    id: "c0c8a577-7488-42ea-85e4-d0c99d98d60f",
+    owner: fakeUsers()[1],
+    name: {
+      en: "Indigenous Apprenticeship Program",
+      fr: "Indigenous Apprenticeship Program FR",
+    },
+    description: {
+      en: "",
+      fr: "",
+    },
+    classifications: [fakeClassifications()[0], fakeClassifications()[1]],
   },
 ];

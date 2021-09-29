@@ -141,84 +141,90 @@ export const UpdatePoolForm: React.FunctionComponent<UpdatePoolFormProps> = ({
 
   return (
     <section>
-      <h2>{intl.formatMessage(messages.updateHeading)}</h2>
-      <FormProvider {...methods}>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <Select
-            id="owner"
-            label={intl.formatMessage(messages.ownerLabel)}
-            name="owner"
-            nullSelection={intl.formatMessage(messages.ownerPlaceholder)}
-            options={userOptions}
-            rules={{ required: errorMessages.required }}
-          />
-          <Input
-            id="name_en"
-            name="name.en"
-            label={intl.formatMessage(messages.nameLabelEn)}
-            type="text"
-            rules={{ required: errorMessages.required }}
-          />
-          <Input
-            id="name_fr"
-            name="name.fr"
-            label={intl.formatMessage(messages.nameLabelFr)}
-            type="text"
-            rules={{ required: errorMessages.required }}
-          />
-          <TextArea
-            id="description_en"
-            name="description.en"
-            label={intl.formatMessage(messages.descriptionLabelEn)}
-            rules={{ required: errorMessages.required }}
-          />
-          <TextArea
-            id="description_fr"
-            name="description.fr"
-            label={intl.formatMessage(messages.descriptionLabelFr)}
-            rules={{ required: errorMessages.required }}
-          />
-          <MultiSelect
-            id="classifications"
-            label={intl.formatMessage(messages.classificationsLabel)}
-            placeholder={intl.formatMessage(
-              messages.classificationsPlaceholder,
-            )}
-            name="classifications"
-            options={classificationOptions}
-            rules={{ required: errorMessages.required }}
-          />
-          <MultiSelect
-            id="assetCriteria"
-            label={intl.formatMessage(messages.assetCriteriaLabel)}
-            placeholder={intl.formatMessage(messages.assetCriteriaPlaceholder)}
-            name="assetCriteria"
-            options={cmoAssetOptions}
-            rules={{ required: errorMessages.required }}
-          />
-          <MultiSelect
-            id="essentialCriteria"
-            label={intl.formatMessage(messages.essentialCriteriaLabel)}
-            placeholder={intl.formatMessage(
-              messages.essentialCriteriaPlaceholder,
-            )}
-            name="essentialCriteria"
-            options={cmoAssetOptions}
-            rules={{ required: errorMessages.required }}
-          />
-          <MultiSelect
-            id="operationalRequirements"
-            name="operationalRequirements"
-            label={intl.formatMessage(messages.operationalRequirementsLabel)}
-            placeholder={intl.formatMessage(
-              messages.operationalRequirementsPlaceholder,
-            )}
-            options={operationalRequirementOptions}
-            rules={{ required: errorMessages.required }}
-          />
-          <Submit />
-        </form>
-      </FormProvider>
+      <h2 data-h2-text-align="b(center)" data-h2-margin="b(top, none)">
+        {intl.formatMessage(messages.updateHeading)}
+      </h2>
+      <div data-h2-container="b(center, s)">
+        <FormProvider {...methods}>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <Select
+              id="owner"
+              label={intl.formatMessage(messages.ownerLabel)}
+              name="owner"
+              nullSelection={intl.formatMessage(messages.ownerPlaceholder)}
+              options={userOptions}
+              rules={{ required: errorMessages.required }}
+            />
+            <Input
+              id="name_en"
+              name="name.en"
+              label={intl.formatMessage(messages.nameLabelEn)}
+              type="text"
+              rules={{ required: errorMessages.required }}
+            />
+            <Input
+              id="name_fr"
+              name="name.fr"
+              label={intl.formatMessage(messages.nameLabelFr)}
+              type="text"
+              rules={{ required: errorMessages.required }}
+            />
+            <TextArea
+              id="description_en"
+              name="description.en"
+              label={intl.formatMessage(messages.descriptionLabelEn)}
+              rules={{ required: errorMessages.required }}
+            />
+            <TextArea
+              id="description_fr"
+              name="description.fr"
+              label={intl.formatMessage(messages.descriptionLabelFr)}
+              rules={{ required: errorMessages.required }}
+            />
+            <MultiSelect
+              id="classifications"
+              label={intl.formatMessage(messages.classificationsLabel)}
+              placeholder={intl.formatMessage(
+                messages.classificationsPlaceholder,
+              )}
+              name="classifications"
+              options={classificationOptions}
+              rules={{ required: errorMessages.required }}
+            />
+            <MultiSelect
+              id="assetCriteria"
+              label={intl.formatMessage(messages.assetCriteriaLabel)}
+              placeholder={intl.formatMessage(
+                messages.assetCriteriaPlaceholder,
+              )}
+              name="assetCriteria"
+              options={cmoAssetOptions}
+              rules={{ required: errorMessages.required }}
+            />
+            <MultiSelect
+              id="essentialCriteria"
+              label={intl.formatMessage(messages.essentialCriteriaLabel)}
+              placeholder={intl.formatMessage(
+                messages.essentialCriteriaPlaceholder,
+              )}
+              name="essentialCriteria"
+              options={cmoAssetOptions}
+              rules={{ required: errorMessages.required }}
+            />
+            <MultiSelect
+              id="operationalRequirements"
+              name="operationalRequirements"
+              label={intl.formatMessage(messages.operationalRequirementsLabel)}
+              placeholder={intl.formatMessage(
+                messages.operationalRequirementsPlaceholder,
+              )}
+              options={operationalRequirementOptions}
+              rules={{ required: errorMessages.required }}
+            />
+            <Submit />
+          </form>
+        </FormProvider>
+      </div>
     </section>
   );
 };
