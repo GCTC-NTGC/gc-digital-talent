@@ -15,7 +15,7 @@
     "h2-compile": "npx h2-compile",
     "h2-watch": "npx h2-watch",
     "h2-build": "npx h2-build",
-    "check-intl-admin": "node ./src/tooling/checkIntl.js --en ../admin/resources/js/lang/en.json --fr ../admin/resources/js/lang/fr.json"
+    "check-intl-admin": "node ./src/tooling/checkIntl.js --en ../admin/resources/js/lang/en.json --fr ../admin/resources/js/lang/fr.json -r -o ../admin/resources/js/lang/untranslated.json -w ../admin/resources/js/lang/whitelist.json"
   },
   "repository": {
     "type": "git",
