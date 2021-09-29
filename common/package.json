@@ -3,7 +3,7 @@
   "version": "1.0.11",
   "license": "MIT",
   "description": "Shared components and utilities for GC Digital Talent apps",
-  "type":"module",
+  "type": "module",
   "scripts": {
     "lint": "eslint ./src --ext .js,.ts,.jsx,.tsx",
     "lint:fix": "eslint ./src --fix --ext .js,.ts,.jsx,.tsx",
@@ -15,7 +15,12 @@
     "h2-compile": "npx h2-compile",
     "h2-watch": "npx h2-watch",
     "h2-build": "npx h2-build",
-    "check-intl-admin": "node ./src/tooling/checkIntl.js --en ../admin/resources/js/lang/en.json --fr ../admin/resources/js/lang/fr.json -r -o ../admin/resources/js/lang/untranslated.json -w ../admin/resources/js/lang/whitelist.json"
+    "intl-extract": "formatjs extract ./src/**/*.ts* --ignore ./**/*d.ts --out-file src/lang/en.json",
+    "intl-compile": "formatjs compile src/lang/fr.json --out-file src/lang/frCompiled.json",
+    "check-intl-common": "node ./src/tooling/checkIntl.js --en src/lang/en.json --fr src/lang/fr.json -r -o src/lang/untranslated.json -w src/lang/whitelist.json",
+    "check-intl-common-merge": "node src/tooling/checkIntl.js --en src/lang/en.json --fr src/lang/fr.json -r -o src/lang/untranslated.json -w src/lang/whitelist.json -m src/lang/newTranslations.json",
+    "check-intl-admin": "node ./src/tooling/checkIntl.js --en ../admin/resources/js/lang/en.json --fr ../admin/resources/js/lang/fr.json -r -o ../admin/resources/js/lang/untranslated.json -w ../admin/resources/js/lang/whitelist.json",
+    "check-intl-admin-merge": "node ./src/tooling/checkIntl.js --en ../admin/resources/js/lang/en.json --fr ../admin/resources/js/lang/fr.json -r -o ../admin/resources/js/lang/untranslated.json -w ../admin/resources/js/lang/whitelist.json -m ../admin/resources/js/lang/newTranslations.json"
   },
   "repository": {
     "type": "git",
@@ -45,6 +50,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.15.0",
+    "@formatjs/cli": "^4.3.1",
     "@graphql-codegen/add": "^3.1.0",
     "@graphql-codegen/cli": "^2.1.1",
     "@graphql-codegen/typescript": "^2.1.2",

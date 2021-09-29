@@ -68,4 +68,23 @@ Step 3 will resolve the "no-unresolved" eslint error when importing using the "@
 
 Unfortunately, I do not know a good way around the "no-extraneous-dependencies" eslint error, hence turning that rule off entirely in step 4.
 
+# Translation Utility script
+
+This project contains a script (`src/tooling/checkIntl.js`) to help manage your react-intl translations files. It has been written to run without any dependencies or compilation. It is expected to be used along with the [formatjs cli](https://formatjs.io/docs/tooling/cli). Here are the recommended steps to handling translation:
+
+1. Run [formatjs extract](https://formatjs.io/docs/tooling/cli#extraction) to generate an **en.json** file with all your original strings.
+    - If this is the first time running this, also create an **fr.json** file consisting of an empty object `{}`, and a **whitelist.json** file consisting of an empty array `[]`.
+2. Run `checkIntl` with options specifying your `--en`, `--fr` and `--whitelist` files to check whether your **fr.json** file is up to date. This is the simplest use of the checkIntl script.
+3. More than likely you actually want to fix the fr file if you have untranslated strings. To this end, run `checkIntl` with the previous options, along with the `--output-untranslated` and `--rm-orphaned` options (a new file path and a boolean flag, respectively).
+4. Provide the outputted **untranslated** file to your translators, asking them to only change _defaultMessage_ field for each entry.
+5. When you reveive the file back from your translators, save it under a new name and rerun `checkIntl` with all the previous options, along with the `--merge-fr` option (a path to the new file).
+6. If, after translation, some entries are the same in English and French, add the keys to **whitelist.json**.
+7. Run [formatjs compile](https://formatjs.io/docs/tooling/cli#compilation) to transform **fr.json** into **frCompiled.json**. This latter file is what react-intl must load messages from.
+
+### On source control
+Only **fr.json** and **whitelist.json** need to be checked into source control. The other files created during this process are generated as needed or only used to communicate with translators, and may be deleted after use.
+
+### On running the commands
+It is most convenient to save the commands from step 3 and step 4 as scripts in a **package.json** file. For example, `npm run check-intl-admin` and `npm run check-intl-admin-merge` will execute those commands for the **/admin** folder.
+
 
