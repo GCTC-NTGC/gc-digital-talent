@@ -75,13 +75,13 @@ class AuthServiceProvider extends ServiceProvider
                 $config = Configuration::forAsymmetricSigner(
                     new Signer\Rsa\Sha256(),
                     InMemory::empty(), // Private key is only used for generating tokens, which is not being done here, therefore empty is used.
-                    InMemory::plainText(env('AUTH_SERVER_PUBLIC_KEY')),
+                    InMemory::plainText(config('oauth.public_key')),
                 );
                 $clock = new SystemClock(new DateTimeZone(config('app.timezone')));
                 $token = $config->parser()->parse($bearerToken);
                 assert($token instanceof UnencryptedToken);
                 $config->setValidationConstraints(
-                    new IssuedBy(env('AUTH_SERVER_ISS')),
+                    new IssuedBy(config('oauth.iss')),
                     new RelatedTo($token->claims()->get('sub')),
                     new LooseValidAt($clock),
                     new SignedWith($config->signer(), $config->verificationKey()),

@@ -63,7 +63,7 @@ class AccessToken extends BaseToken
         // default sub field value is the user model id, but we want to use email instead.
         $email = User::find($this->getUserIdentifier())->email;
         return $this->jwtConfiguration->builder()
-            ->issuedBy(env("AUTH_APP_URL"))
+            ->issuedBy(config('app.url'))
             ->permittedFor($this->getClient()->getIdentifier())
             ->identifiedBy($this->getIdentifier())
             ->issuedAt(new DateTimeImmutable())
