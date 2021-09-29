@@ -170,7 +170,7 @@ type PoolCandidateSearchRequest {
     department: Department @hasOne
     jobTitle: String @rename(attribute: "job_title")
     additionalComments: String @rename(attribute: "additional_comments")
-    poolCandidateFilterId: PoolCandidateFilter! @hasOne @rename(attribute: "pool_candidate_filter_id")
+    poolCandidateFilter: PoolCandidateFilter! @hasOne
     requestedDate: Date @rename(attribute: "requested_date")
     status: PoolCandidateSearchStatus
     adminNotes: String @rename(attribute: "admin_notes")
