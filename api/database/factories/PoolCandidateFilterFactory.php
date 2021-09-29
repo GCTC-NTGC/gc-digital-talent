@@ -54,7 +54,7 @@ class PoolCandidateFilterFactory extends Factory
             $assets = CmoAsset::inRandomOrder()->limit(4)->get();
             $classifications = Classification::inRandomOrder()->limit(3)->get();
             $requirements = OperationalRequirement::inRandomOrder()->limit(2)->get();
-            $pools = Pool::inRandomOrder()->limit(2)->get();
+            $pools = Pool::inRandomOrder()->limit(1)->get();
             $filter->cmoAssets()->saveMany($assets);
             $filter->classifications()->saveMany($classifications);
             $filter->operationalRequirements()->saveMany($requirements);
