@@ -58,7 +58,7 @@ class PoolCandidateFilterFactory extends Factory
             $filter->cmoAssets()->saveMany($assets);
             $filter->classifications()->saveMany($classifications);
             $filter->operationalRequirements()->saveMany($requirements);
-            $filter->pools()->saveMany($requirements);
+            $filter->pools()->saveMany($pools);
         });
     }
 }
