@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint-disable no-console */
-import yargs from "yargs";
-import fs from "fs/promises";
+const fs = require("fs");
+const yargs = require("yargs");
 
 const { argv } = yargs(process.argv.slice(2))
   .option("en", {
@@ -37,20 +38,22 @@ const { argv } = yargs(process.argv.slice(2))
   })
   .help();
 
-const en = await fs.readFile(argv.en).then(JSON.parse);
-const frOriginal = await fs.readFile(argv.fr).then(JSON.parse);
+const en = JSON.parse(fs.readFileSync(argv.en));
+const frOriginal = JSON.parse(fs.readFileSync(argv.fr));
 const frNew = argv["merge-fr"]
-  ? await fs.readFile(argv["merge-fr"]).then(JSON.parse)
+  ? JSON.parse(fs.readFileSync(argv["merge-fr"]))
   : {};
 const fr = { ...frOriginal, ...frNew };
 const whitelist = argv.whitelist
-  ? await fs.readFile(argv.whitelist).then(JSON.parse)
+  ? JSON.parse(fs.readFileSync(argv.whitelist))
   : [];
 // Used to track changes that may need to be made to fr.json, so we only update it once.
 let outputFr = null;
 
-const saveJson = async (file, obj) =>
-  fs.writeFile(file, JSON.stringify(obj, null, 2));
+const saveJson = (file, obj) =>
+  fs.writeFile(file, JSON.stringify(obj, null, 2), {}, () => {
+    /** Do nothing */
+  });
 
 if (Object.keys(frNew).length > 0) {
   outputFr = fr;

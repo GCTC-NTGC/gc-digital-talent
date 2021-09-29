@@ -3,7 +3,6 @@
   "version": "1.0.11",
   "license": "MIT",
   "description": "Shared components and utilities for GC Digital Talent apps",
-  "type": "module",
   "scripts": {
     "lint": "eslint ./src --ext .js,.ts,.jsx,.tsx",
     "lint:fix": "eslint ./src --fix --ext .js,.ts,.jsx,.tsx",
