@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * Class PoolCandidateSearchRequest
@@ -45,8 +44,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
           return $this->belongsTo(\App\Models\Lookup\Department::class);
       }
 
-      public function poolCandidateFilters(): HasMany
+      public function poolCandidateFilters(): BelongsTo
     {
-        return $this->hasMany(\App\Models\PoolCandidateFilter::class);
+        return $this->belongsTo(\App\Models\PoolCandidateFilter::class);
     }
  }

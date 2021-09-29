@@ -5,8 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 /**
  * Class PoolCandidateFilter
@@ -59,8 +59,8 @@ class PoolCandidateFilter extends Model
     {
         return $this->belongsToMany(Pool::class, 'pool_pool_candidate_filter');
     }
-    public function poolCandidateSearchRequest(): BelongsTo
+    public function poolCandidateSearchRequest(): HasOne
     {
-        return $this->belongsTo(\App\Models\PoolCandidateSearchRequest::class);
+        return $this->hasOne(\App\Models\PoolCandidateSearchRequest::class);
     }
 }
