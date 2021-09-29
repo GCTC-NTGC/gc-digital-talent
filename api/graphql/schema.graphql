@@ -165,14 +165,14 @@ type PoolCandidateFilter {
 
 type PoolCandidateSearchRequest {
     id: ID!
-    fullName: String! @rename(attribute: "full_name")
-    email: String!
-    department: Department! @hasOne
-    jobTitle: String! @rename(attribute: "job_title")
+    fullName: String @rename(attribute: "full_name")
+    email: String
+    department: Department @hasOne
+    jobTitle: String @rename(attribute: "job_title")
     additionalComments: String @rename(attribute: "additional_comments")
     poolCandidateFilterId: PoolCandidateFilter! @hasOne @rename(attribute: "pool_candidate_filter_id")
-    requestedDate: Date! @rename(attribute: "requested_date")
-    status: Status!
+    requestedDate: Date @rename(attribute: "requested_date")
+    status: CandidateSearchStatus
     adminNotes: String @rename(attribute: "admin_notes")
 }
 
