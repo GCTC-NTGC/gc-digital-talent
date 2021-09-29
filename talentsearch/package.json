@@ -66,7 +66,7 @@
     "eslint-plugin-testcafe": "^0.2.1",
     "laravel-mix": "^6.0.28",
     "laravel-mix-polyfill": "^3.0.1",
-    "postcss": "^8.3.6",
+    "postcss": "^8.3.8",
     "prettier": "^2.3.2",
     "react-refresh": "^0.10.0",
     "storybook-addon-intl": "^2.4.1",
