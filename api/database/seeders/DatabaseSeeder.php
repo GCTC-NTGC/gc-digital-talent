@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Pool;
 use App\Models\PoolCandidate;
-use App\Models\User;
+use App\Models\PoolCandidateSearchRequest;
 use Illuminate\Database\Eloquent\Factories\Sequence;
 use Illuminate\Database\Seeder;
 
@@ -21,7 +21,6 @@ class DatabaseSeeder extends Seeder
         $this->call(CmoAssetSeeder::class);
         $this->call(OperationalRequirementSeeder::class);
         $this->call(DepartmentSeeder::class);
-        $this->call(PoolCandidateSearchRequestSeeder::class);
 
         $this->call(UserSeeder::class);
         $this->call(PoolSeeder::class);
@@ -32,5 +31,7 @@ class DatabaseSeeder extends Seeder
                 fn () => ['pool_id' => Pool::inRandomOrder()->first()->id],
             ))
             ->create();
+
+        PoolCandidateSearchRequest::factory()->count(10)->create();
     }
 }
