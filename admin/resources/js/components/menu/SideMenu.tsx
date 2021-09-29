@@ -6,7 +6,6 @@ export const SideMenu: React.FunctionComponent<{
   return (
     <nav
       data-h2-padding="m(top-bottom, m)"
-      data-h2-position="b(static) m(sticky)"
       style={{ top: "0" }}
     >
       <ul

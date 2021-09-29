@@ -148,120 +148,126 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<UpdatePoolCandidat
 
     return (
       <section>
-        <h2>{intl.formatMessage(messages.updateHeading)}</h2>
-        <FormProvider {...methods}>
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <Input
-              id="cmoIdentifier"
-              label={intl.formatMessage(messages.cmoIdentifierLabel)}
-              type="text"
-              name="cmoIdentifier"
-              rules={{ required: errorMessages.required }}
-            />
-            <Input
-              id="expiryDate"
-              label={intl.formatMessage(messages.expiryDateLabel)}
-              type="date"
-              name="expiryDate"
-              rules={{
-                required: errorMessages.required,
-                min: {
-                  value: currentDate(),
-                  message: errorMessages.futureDate,
-                },
-              }}
-            />
-            <Checkbox
-              id="isWoman"
-              label={intl.formatMessage(messages.isWomanLabel)}
-              name="isWoman"
-            />
-            <Checkbox
-              id="hasDisability"
-              label={intl.formatMessage(messages.hasDiplomaLabel)}
-              name="hasDisability"
-            />
-            <Checkbox
-              id="isIndigenous"
-              label={intl.formatMessage(messages.isIndigenousLabel)}
-              name="isIndigenous"
-            />
-            <Checkbox
-              id="isVisibleMinority"
-              label={intl.formatMessage(messages.isVisibleMinorityLabel)}
-              name="isVisibleMinority"
-            />
-            <Select
-              id="languageAbility"
-              label={intl.formatMessage(messages.languageAbilityLabel)}
-              name="languageAbility"
-              options={enumToOptions(LanguageAbility)}
-              rules={{ required: errorMessages.required }}
-            />
-            <MultiSelect
-              id="locationPreferences"
-              name="locationPreferences"
-              label={intl.formatMessage(messages.locationPreferencesLabel)}
-              placeholder={intl.formatMessage(
-                messages.locationPreferencesPlaceholder,
-              )}
-              options={enumToOptions(WorkRegion)}
-              rules={{ required: errorMessages.required }}
-            />
-            <MultiSelect
-              id="acceptedOperationalRequirements.sync"
-              name="acceptedOperationalRequirements"
-              label={intl.formatMessage(
-                messages.acceptedOperationalRequirementsLabel,
-              )}
-              placeholder={intl.formatMessage(
-                messages.acceptedOperationalRequirementsPlaceholder,
-              )}
-              options={operationalRequirementOptions}
-              rules={{ required: errorMessages.required }}
-            />
-            <MultiSelect
-              id="expectedSalary"
-              label={intl.formatMessage(messages.expectedSalaryLabel)}
-              name="expectedSalary"
-              placeholder={intl.formatMessage(
-                messages.expectedSalaryPlaceholder,
-              )}
-              options={enumToOptions(SalaryRange).map(({ value }) => ({
-                value,
-                label: getSalaryRange(value),
-              }))}
-              rules={{ required: errorMessages.required }}
-            />
-            <MultiSelect
-              id="expectedClassifications"
-              label={intl.formatMessage(messages.expectedClassificationsLabel)}
-              placeholder={intl.formatMessage(
-                messages.expectedClassificationsPlaceholder,
-              )}
-              name="expectedClassifications"
-              options={classificationOptions}
-              rules={{ required: errorMessages.required }}
-            />
-            <MultiSelect
-              id="cmoAssets"
-              label={intl.formatMessage(messages.cmoAssetsLabel)}
-              placeholder={intl.formatMessage(messages.cmoAssetsPlaceholder)}
-              name="cmoAssets"
-              options={cmoAssetOptions}
-              rules={{ required: errorMessages.required }}
-            />
-            <Select
-              id="status"
-              label={intl.formatMessage(messages.statusLabel)}
-              nullSelection={intl.formatMessage(messages.statusPlaceholder)}
-              name="status"
-              rules={{ required: errorMessages.required }}
-              options={enumToOptions(PoolCandidateStatus)}
-            />
-            <Submit />
-          </form>
-        </FormProvider>
+        <h2 data-h2-text-align="b(center)" data-h2-margin="b(top, none)">
+          {intl.formatMessage(messages.updateHeading)}
+        </h2>
+        <div data-h2-container="b(center, s)">
+          <FormProvider {...methods}>
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <Input
+                id="cmoIdentifier"
+                label={intl.formatMessage(messages.cmoIdentifierLabel)}
+                type="text"
+                name="cmoIdentifier"
+                rules={{ required: errorMessages.required }}
+              />
+              <Input
+                id="expiryDate"
+                label={intl.formatMessage(messages.expiryDateLabel)}
+                type="date"
+                name="expiryDate"
+                rules={{
+                  required: errorMessages.required,
+                  min: {
+                    value: currentDate(),
+                    message: errorMessages.futureDate,
+                  },
+                }}
+              />
+              <Checkbox
+                id="isWoman"
+                label={intl.formatMessage(messages.isWomanLabel)}
+                name="isWoman"
+              />
+              <Checkbox
+                id="hasDisability"
+                label={intl.formatMessage(messages.hasDiplomaLabel)}
+                name="hasDisability"
+              />
+              <Checkbox
+                id="isIndigenous"
+                label={intl.formatMessage(messages.isIndigenousLabel)}
+                name="isIndigenous"
+              />
+              <Checkbox
+                id="isVisibleMinority"
+                label={intl.formatMessage(messages.isVisibleMinorityLabel)}
+                name="isVisibleMinority"
+              />
+              <Select
+                id="languageAbility"
+                label={intl.formatMessage(messages.languageAbilityLabel)}
+                name="languageAbility"
+                options={enumToOptions(LanguageAbility)}
+                rules={{ required: errorMessages.required }}
+              />
+              <MultiSelect
+                id="locationPreferences"
+                name="locationPreferences"
+                label={intl.formatMessage(messages.locationPreferencesLabel)}
+                placeholder={intl.formatMessage(
+                  messages.locationPreferencesPlaceholder,
+                )}
+                options={enumToOptions(WorkRegion)}
+                rules={{ required: errorMessages.required }}
+              />
+              <MultiSelect
+                id="acceptedOperationalRequirements.sync"
+                name="acceptedOperationalRequirements"
+                label={intl.formatMessage(
+                  messages.acceptedOperationalRequirementsLabel,
+                )}
+                placeholder={intl.formatMessage(
+                  messages.acceptedOperationalRequirementsPlaceholder,
+                )}
+                options={operationalRequirementOptions}
+                rules={{ required: errorMessages.required }}
+              />
+              <MultiSelect
+                id="expectedSalary"
+                label={intl.formatMessage(messages.expectedSalaryLabel)}
+                name="expectedSalary"
+                placeholder={intl.formatMessage(
+                  messages.expectedSalaryPlaceholder,
+                )}
+                options={enumToOptions(SalaryRange).map(({ value }) => ({
+                  value,
+                  label: getSalaryRange(value),
+                }))}
+                rules={{ required: errorMessages.required }}
+              />
+              <MultiSelect
+                id="expectedClassifications"
+                label={intl.formatMessage(
+                  messages.expectedClassificationsLabel,
+                )}
+                placeholder={intl.formatMessage(
+                  messages.expectedClassificationsPlaceholder,
+                )}
+                name="expectedClassifications"
+                options={classificationOptions}
+                rules={{ required: errorMessages.required }}
+              />
+              <MultiSelect
+                id="cmoAssets"
+                label={intl.formatMessage(messages.cmoAssetsLabel)}
+                placeholder={intl.formatMessage(messages.cmoAssetsPlaceholder)}
+                name="cmoAssets"
+                options={cmoAssetOptions}
+                rules={{ required: errorMessages.required }}
+              />
+              <Select
+                id="status"
+                label={intl.formatMessage(messages.statusLabel)}
+                nullSelection={intl.formatMessage(messages.statusPlaceholder)}
+                name="status"
+                rules={{ required: errorMessages.required }}
+                options={enumToOptions(PoolCandidateStatus)}
+              />
+              <Submit />
+            </form>
+          </FormProvider>
+        </div>
       </section>
     );
   };

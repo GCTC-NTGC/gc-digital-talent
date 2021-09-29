@@ -1,11 +1,14 @@
 import React from "react";
 import { useFormState } from "react-hook-form";
+import { Button } from "../..";
 
 export const Submit: React.FunctionComponent<{
   text?: string;
   notDirtyText?: string;
   isSubmittingText?: string;
-}> = ({ text, notDirtyText, isSubmittingText }) => {
+  color?: "primary" | "secondary" | "cta" | "white";
+  mode?: "solid" | "outline" | "inline";
+}> = ({ text, notDirtyText, isSubmittingText, color, mode }) => {
   const defaultText = "Submit";
   const defaultNotDirtyText = "Submitted";
   const defaultIsSubmittingText = "Submitting";
@@ -19,9 +22,14 @@ export const Submit: React.FunctionComponent<{
   }
 
   return (
-    <button type="submit" disabled={isSubmitting || !isDirty}>
+    <Button
+      color={color || "primary"}
+      mode={mode || "solid"}
+      type="submit"
+      disabled={isSubmitting || !isDirty}
+    >
       {currentText}
-    </button>
+    </Button>
   );
 };
 
