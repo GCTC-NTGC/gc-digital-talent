@@ -1,9 +1,9 @@
 import React, { ReactElement } from "react";
 import { Routes } from "universal-router";
+import NavMenu from "@common/components/NavMenu";
 import { Link, RouterResult, useLocation, useRouter } from "../helpers/router";
 import Footer from "./Footer";
 import Header from "./Header";
-import NavMenu from "./menu/NavMenu";
 
 export const startsWith = (ref: string, test: string): boolean =>
   test.startsWith(ref);
