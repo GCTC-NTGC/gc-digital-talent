@@ -89,6 +89,6 @@
     "react-select": "^4.3.1",
     "regenerator-runtime": "^0.13.9",
     "universal-router": "^9.1.0",
-    "urql": "^2.0.4"
+    "urql": "^2.0.5"
   }
 }
