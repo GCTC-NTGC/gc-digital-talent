@@ -14,6 +14,11 @@ const messages = defineMessages({
     defaultMessage: "Home",
     description: "Label displayed on the Home menu item.",
   },
+  menuSearch: {
+    id: "talentSearch.menu.searchLabel",
+    defaultMessage: "Search",
+    description: "Label displayed on the Search menu item.",
+  },
 });
 
 const routes: Routes<RouterResult> = [
@@ -49,7 +54,11 @@ export const SearchDashboard: React.FC = () => {
       href={homePath()}
       text={intl.formatMessage(messages.menuHome)}
     />,
-    <MenuLink key="search" href={searchDashboardPath()} text="Search" />,
+    <MenuLink
+      key="search"
+      href={searchDashboardPath()}
+      text={intl.formatMessage(messages.menuSearch)}
+    />,
   ];
 
   return (
