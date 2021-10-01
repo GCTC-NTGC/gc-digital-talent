@@ -6,6 +6,7 @@ import ClientProvider from "./ClientProvider";
 import ErrorContainer from "./ErrorContainer";
 import { Dashboard, MenuLink } from "./Dashboard";
 import SearchPage from "./search/SearchPage";
+import { homePath, searchDashboardPath } from "../talentSearchRoutes";
 
 const messages = defineMessages({
   menuHome: {
@@ -17,7 +18,7 @@ const messages = defineMessages({
 
 const routes: Routes<RouterResult> = [
   {
-    path: "/",
+    path: homePath(),
     action: () => ({
       component: (
         <div data-h2-flex-grid="b(middle, contained, flush, xl)">
@@ -32,7 +33,7 @@ const routes: Routes<RouterResult> = [
     }),
   },
   {
-    path: "/search",
+    path: searchDashboardPath(),
     action: () => ({
       component: <SearchPage />,
     }),
@@ -45,10 +46,10 @@ export const SearchDashboard: React.FC = () => {
   const menuItems = [
     <MenuLink
       key="home"
-      href="/"
+      href={homePath()}
       text={intl.formatMessage(messages.menuHome)}
     />,
-    <MenuLink key="search" href="/search" text="Search" />,
+    <MenuLink key="search" href={searchDashboardPath()} text="Search" />,
   ];
 
   return (
