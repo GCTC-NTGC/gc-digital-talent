@@ -5,19 +5,19 @@ import { BASE_URL } from "../talentSearchConstants";
 
 const messages = defineMessages({
   canadaLogoTitle: {
-    id: "footer.canadaLogoTitle",
+    id: "header.canadaLogoTitle",
     defaultMessage: "Visit Canada.ca.",
-    description: "Title for the Canada logo in the Footer.",
+    description: "Title for the Canada logo in the Header.",
   },
   canadaLogoLabel: {
-    id: "footer.canadaLogoLabel",
+    id: "header.canadaLogoLabel",
     defaultMessage: "Canada.ca",
-    description: "Label for the Canada logo in the Footer.",
+    description: "Label for the Canada logo in the Header.",
   },
   canadaLogoAlt: {
-    id: "footer.canadaLogoLabel",
+    id: "header.canadaLogoLabel",
     defaultMessage: "Canada's Logo.",
-    description: "Alt text for the Canada logo in the Footer.",
+    description: "Alt text for the Canada logo in the Header.",
   },
 });
 
