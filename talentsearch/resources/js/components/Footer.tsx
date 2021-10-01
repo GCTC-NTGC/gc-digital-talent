@@ -50,7 +50,7 @@ const messages = defineMessages({
     id: "footer.dateModified",
     defaultMessage: "Date Modified",
     description:
-      "Header for the sites last date modification found in the footer.",
+      "Header for the sites last date modification found in the Footer.",
   },
   canadaLogoTitle: {
     id: "footer.canadaLogoTitle",
