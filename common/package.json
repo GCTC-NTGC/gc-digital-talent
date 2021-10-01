@@ -38,7 +38,7 @@
     "react-dom": "^17.0.2",
     "react-hook-form": "^7.14.2",
     "react-intl": "^5.20.10",
-    "react-select": "^4.3.1",
+    "react-select": "^5.0.0",
     "universal-router": "^9.1.0",
     "urql": "^2.0.4"
   },
