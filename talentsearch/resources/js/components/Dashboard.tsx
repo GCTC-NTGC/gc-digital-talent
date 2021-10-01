@@ -5,8 +5,7 @@ import { Link, RouterResult, useLocation, useRouter } from "../helpers/router";
 import Footer from "./Footer";
 import Header from "./Header";
 
-export const startsWith = (ref: string, test: string): boolean =>
-  test.startsWith(ref);
+export const equalTo = (ref: string, test: string): boolean => ref === test;
 
 interface MenuLinkProps {
   href: string;
@@ -19,7 +18,7 @@ export const MenuLink: React.FC<MenuLinkProps> = ({
   href,
   text,
   title,
-  isActive = startsWith,
+  isActive = equalTo,
 }) => {
   const location = useLocation();
   return (
