@@ -1,7 +1,7 @@
 import { imageUrl } from "@common/helpers/router";
 import React from "react";
 import { defineMessages, useIntl } from "react-intl";
-import { BASE_PUBLIC_URL } from "../../talentSearchConstants";
+import { BASE_URL } from "../../talentSearchConstants";
 
 const messages = defineMessages({
   pageTitle: {
@@ -47,7 +47,7 @@ export const SearchPage: React.FC = () => {
         className="hero"
         style={{
           background: `linear-gradient(70deg, rgba(103, 76, 144, 0.9), rgba(29, 44, 76, 1)), url(${imageUrl(
-            BASE_PUBLIC_URL,
+            BASE_URL,
             "hero-background-search.png",
           )})`,
           backgroundSize: "cover",
