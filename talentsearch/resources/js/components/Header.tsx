@@ -1,7 +1,7 @@
 import * as React from "react";
 import { imageUrl } from "@common/helpers/router";
 import { defineMessages, useIntl } from "react-intl";
-import { BASE_URL } from "../talentSearchConstants";
+import { BASE_PUBLIC_URL } from "../talentSearchConstants";
 
 const messages = defineMessages({
   canadaLogoTitle: {
@@ -38,7 +38,7 @@ const Header: React.FunctionComponent = () => {
           >
             <img
               style={{ width: "20rem" }}
-              src={imageUrl(BASE_URL, "logo_goc_colour.svg")}
+              src={imageUrl(BASE_PUBLIC_URL, "logo_goc_colour.svg")}
               alt={intl.formatMessage(messages.canadaLogoAlt)}
             />
           </a>
