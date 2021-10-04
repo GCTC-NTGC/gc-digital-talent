@@ -11,7 +11,7 @@ let dotenvplugin = new webpack.DefinePlugin({
   }
 })
 
-mix.ts("resources/js/dashboard.tsx", "public/js")
+mix.ts("resources/js/pageContainer.tsx", "public/js")
   .css("resources/css/hydrogen.css", "public/css")
   .css("../common/src/css/common.css", "public/css")
   .css("resources/css/app.css", "public/css")

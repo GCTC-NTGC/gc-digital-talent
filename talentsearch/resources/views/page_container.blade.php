@@ -16,6 +16,6 @@
 </head>
 <body>
   <div id="app" data-h2-font-family="b(sans)"></div>
-  <script src="{{ mix('js/dashboard.js') }}"></script>
+  <script src="{{ mix('js/pageContainer.js') }}"></script>
 </body>
 </html>

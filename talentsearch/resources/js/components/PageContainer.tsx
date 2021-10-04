@@ -40,7 +40,7 @@ export const MenuLink: React.FC<MenuLinkProps> = ({
   );
 };
 
-export const Dashboard: React.FC<{
+export const Container: React.FC<{
   menuItems: ReactElement[];
   contentRoutes: Routes<RouterResult>;
 }> = ({ menuItems, contentRoutes }) => {

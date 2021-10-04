@@ -1,2 +1,2 @@
 export const homePath = (): string => "/";
-export const searchDashboardPath = (): string => `${homePath()}search`;
+export const searchPath = (): string => `${homePath()}search`;

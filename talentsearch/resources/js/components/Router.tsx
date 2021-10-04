@@ -4,9 +4,10 @@ import { Routes } from "universal-router";
 import { RouterResult } from "../helpers/router";
 import ClientProvider from "./ClientProvider";
 import ErrorContainer from "./ErrorContainer";
-import { Dashboard, MenuLink } from "./Dashboard";
+import { Container, MenuLink } from "./PageContainer";
 import SearchPage from "./search/SearchPage";
-import { homePath, searchDashboardPath } from "../talentSearchRoutes";
+import { homePath, searchPath } from "../talentSearchRoutes";
+import HomePage from "./HomePage";
 
 const messages = defineMessages({
   menuHome: {
@@ -25,27 +26,18 @@ const routes: Routes<RouterResult> = [
   {
     path: homePath(),
     action: () => ({
-      component: (
-        <div data-h2-flex-grid="b(middle, contained, flush, xl)">
-          <div
-            data-h2-flex-item="b(1of1) m(1of2)"
-            data-h2-text-align="b(center) m(left)"
-          >
-            Placeholder Home content.
-          </div>
-        </div>
-      ),
+      component: <HomePage />,
     }),
   },
   {
-    path: searchDashboardPath(),
+    path: searchPath(),
     action: () => ({
       component: <SearchPage />,
     }),
   },
 ];
 
-export const SearchDashboard: React.FC = () => {
+export const Router: React.FC = () => {
   const intl = useIntl();
 
   const menuItems = [
@@ -56,7 +48,7 @@ export const SearchDashboard: React.FC = () => {
     />,
     <MenuLink
       key="search"
-      href={searchDashboardPath()}
+      href={searchPath()}
       text={intl.formatMessage(messages.menuSearch)}
     />,
   ];
@@ -64,10 +56,10 @@ export const SearchDashboard: React.FC = () => {
   return (
     <ErrorContainer>
       <ClientProvider>
-        <Dashboard menuItems={menuItems} contentRoutes={routes} />
+        <Container menuItems={menuItems} contentRoutes={routes} />
       </ClientProvider>
     </ErrorContainer>
   );
 };
 
-export default SearchDashboard;
+export default Router;

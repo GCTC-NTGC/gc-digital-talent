@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-class DashboardController extends Controller
+class PageContainerController extends Controller
 {
     /**
      * Show the homepage.
@@ -12,6 +12,6 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        return view('dashboard');
+        return view('page_container');
     }
 }

@@ -1,11 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import IntlContainer from "./components/IntlContainer";
-import { SearchDashboard } from "./components/SearchDashboard";
+import { Router } from "./components/Router";
 
 ReactDOM.render(
   <IntlContainer locale="en">
-    <SearchDashboard />
+    <Router />
   </IntlContainer>,
   document.getElementById("app"),
 );
