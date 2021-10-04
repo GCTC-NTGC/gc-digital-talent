@@ -13,5 +13,5 @@
 |
 */
 
-$router->get('/', 'DashboardController@index');
-$router->get('/{any:.*}', 'DashboardController@index');
+$router->get('/', 'TalentSearchController@index');
+$router->get('/{any:.*}', 'TalentSearchController@index');

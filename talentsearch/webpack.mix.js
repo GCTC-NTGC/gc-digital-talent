@@ -2,16 +2,20 @@ require('dotenv').config();
 require('laravel-mix-polyfill');
 
 const mix = require("laravel-mix");
+const path = require("path");
 
 let webpack = require('webpack')
 let dotenvplugin = new webpack.DefinePlugin({
   'process.env': {
-      API_URI: JSON.stringify(process.env.API_URI)
+      API_URI: JSON.stringify(process.env.API_URI),
+      TALENTSEARCH_APP_URL: JSON.stringify(process.env.TALENTSEARCH_APP_URL),
+      TALENTSEARCH_APP_DIR: JSON.stringify(process.env.TALENTSEARCH_APP_DIR),
   }
 })
 
-mix.ts("resources/js/dashboard.tsx", "public/js")
+mix.ts("resources/js/pageContainer.tsx", "public/js")
   .css("resources/css/hydrogen.css", "public/css")
+  .css("../common/src/css/common.css", "public/css")
   .css("resources/css/app.css", "public/css")
   .polyfill({
   enabled: true,
@@ -22,7 +26,15 @@ mix.ts("resources/js/dashboard.tsx", "public/js")
 mix.webpackConfig({
   plugins: [
     dotenvplugin,
-  ]
+  ],
+  resolve: {
+    alias: {
+      "react": path.resolve('./node_modules/react'),
+      "react-dom": path.resolve('./node_modules/react-dom'),
+      "react-hook-form": path.resolve('./node_modules/react-hook-form'),
+      "@common": path.resolve('../common/src'),
+    }
+  }
 });
 
 mix.version();
