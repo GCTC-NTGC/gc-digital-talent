@@ -7,7 +7,9 @@ const path = require("path");
 let webpack = require('webpack')
 let dotenvplugin = new webpack.DefinePlugin({
   'process.env': {
-      API_URI: JSON.stringify(process.env.API_URI)
+      API_URI: JSON.stringify(process.env.API_URI),
+      ADMIN_APP_URL: JSON.stringify(process.env.ADMIN_APP_URL),
+      ADMIN_APP_DIR: JSON.stringify(process.env.ADMIN_APP_DIR),
   }
 })
 
