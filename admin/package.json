@@ -31,7 +31,7 @@
     "storybook": "start-storybook -s ./public -p 6006",
     "build-storybook": "build-storybook",
     "codegen": "graphql-codegen",
-    "intl-extract": "formatjs extract ./resources/js/**/*.ts* --ignore ./**/*d.ts --out-file resources/js/lang/en.json",
+    "intl-extract": "formatjs extract ./resources/js/**/*.ts* --ignore ./**/*d.ts --out-file resources/js/lang/en.json --id-interpolation-pattern [sha512:contenthash:base64:6]",
     "intl-compile": "formatjs compile ./resources/js/lang/fr.json --out-file ./resources/js/lang/frCompiled.json"
   },
   "devDependencies": {
