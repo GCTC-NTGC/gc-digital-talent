@@ -6,12 +6,10 @@ import { InputWrapper } from "@common/components/inputPartials";
 
 const messages = defineMessages({
   searchLabel: {
-    id: "globalFilter.field.searchLabel",
     defaultMessage: "Search",
     description: "Label displayed on the Global Filter form Search field.",
   },
   searchPlaceholder: {
-    id: "createUser.field.searchPlaceholder",
     defaultMessage: "Start writing here...",
     description:
       "Placeholder displayed on the Global Filter form Search field.",

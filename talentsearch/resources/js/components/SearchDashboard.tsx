@@ -8,7 +8,6 @@ import { Dashboard, MenuLink } from "./Dashboard";
 
 const messages = defineMessages({
   menuHome: {
-    id: "talentSearch.menu.homeLabel",
     defaultMessage: "Home",
     description: "Label displayed on the Home menu item.",
   },

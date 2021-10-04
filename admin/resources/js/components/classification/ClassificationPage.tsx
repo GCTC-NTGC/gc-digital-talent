@@ -7,12 +7,10 @@ import { ClassificationTableApi } from "./ClassificationTable";
 
 const messages = defineMessages({
   tableHeading: {
-    id: "classificationPage.tableHeading",
     defaultMessage: "Classifications",
     description: "Heading displayed above the Classification Table component.",
   },
   createHeading: {
-    id: "classificationPage.createHeading",
     defaultMessage: "Create Classification",
     description: "Heading displayed above the Create Classification form.",
   },

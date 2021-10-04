@@ -15,31 +15,26 @@ import Table, { ColumnsOf } from "../Table";
 
 const messages = defineMessages({
   columnIdTitle: {
-    id: "operationalRequirementTable.column.idTitle",
     defaultMessage: "ID",
     description:
       "Title displayed on the Operational Requirement table ID column.",
   },
   columnKeyTitle: {
-    id: "operationalRequirementTable.column.keyTitle",
     defaultMessage: "Key",
     description:
       "Title displayed for the Operational Requirement table Key column.",
   },
   columnNameTitle: {
-    id: "operationalRequirementTable.column.nameTitle",
     defaultMessage: "Name",
     description:
       "Title displayed for the Operational Requirement table Name column.",
   },
   columnDescriptionTitle: {
-    id: "operationalRequirementTable.column.descriptionTitle",
     defaultMessage: "Description",
     description:
       "Title displayed for the Operational Requirement table Description column.",
   },
   columnEditTitle: {
-    id: "operationalRequirementTable.column.editTitle",
     defaultMessage: "Edit",
     description:
       "Title displayed for the Operational Requirement table Edit column.",
@@ -66,17 +61,14 @@ export const OperationalRequirementTable: React.FC<
       },
       {
         Header: intl.formatMessage(messages.columnNameTitle),
-        id: "name",
         accessor: (d) => d.name?.en,
       },
       {
         Header: intl.formatMessage(messages.columnDescriptionTitle),
-        id: "description",
         accessor: (d) => d.description?.en,
       },
       {
         Header: intl.formatMessage(messages.columnEditTitle),
-        id: "edit",
         accessor: ({ id }) => (
           <Button
             color="primary"

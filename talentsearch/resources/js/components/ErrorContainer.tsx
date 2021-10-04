@@ -4,12 +4,10 @@ import Alert from "./H2Components/Alert";
 
 const messages = defineMessages({
   toastTitle: {
-    id: "errorToast.title",
     defaultMessage: "Something went wrong!",
     description: "Title displayed on the Error Toast component.",
   },
   dismissLabel: {
-    id: "errorToast.dismiss",
     defaultMessage: "Dismiss",
     description: "Label for the Error Toast dismiss button.",
   },

@@ -14,39 +14,32 @@ import Table, { ColumnsOf } from "../Table";
 
 const messages = defineMessages({
   columnIdTitle: {
-    id: "classificationTable.column.idTitle",
     defaultMessage: "ID",
     description: "Title displayed on the Classification table ID column.",
   },
   columnNameTitle: {
-    id: "classificationTable.column.nameTitle",
     defaultMessage: "Name",
     description: "Title displayed for the Classification table Name column.",
   },
   columnGroupTitle: {
-    id: "classificationTable.column.groupTitle",
     defaultMessage: "Group",
     description: "Title displayed for the Classification table Group column.",
   },
   columnLevelTitle: {
-    id: "classificationTable.column.levelTitle",
     defaultMessage: "Level",
     description: "Title displayed for the Classification table Level column.",
   },
   columnMinimumSalaryTitle: {
-    id: "classificationTable.column.minimumSalaryTitle",
     defaultMessage: "Minimum Salary",
     description:
       "Title displayed for the Classification table Minimum Salary column.",
   },
   columnMaximumSalaryTitle: {
-    id: "classificationTable.column.maximumSalaryTitle",
     defaultMessage: "Maximum Salary",
     description:
       "Title displayed for the Classification table Maximum Salary column.",
   },
   columnEditTitle: {
-    id: "classificationTable.column.editTitle",
     defaultMessage: "Edit",
     description: "Title displayed for the Classification table Edit column.",
   },
@@ -66,7 +59,6 @@ export const ClassificationTable: React.FC<
       },
       {
         Header: intl.formatMessage(messages.columnNameTitle),
-        id: "name",
         accessor: (d) => d.name?.en,
       },
       {
@@ -87,7 +79,6 @@ export const ClassificationTable: React.FC<
       },
       {
         Header: intl.formatMessage(messages.columnEditTitle),
-        id: "edit",
         accessor: ({ id }) => (
           <Button
             color="primary"

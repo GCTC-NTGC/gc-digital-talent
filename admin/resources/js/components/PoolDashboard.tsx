@@ -56,37 +56,30 @@ import { UpdateDepartment } from "./department/UpdateDepartment";
 
 const messages = defineMessages({
   menuAdminTools: {
-    id: "poolDashboard.menu.adminToolsLabel",
     defaultMessage: "Admin Tools",
     description: "Label displayed on the Admin Tools menu item.",
   },
   menuUsers: {
-    id: "poolDashboard.menu.usersLabel",
     defaultMessage: "Users",
     description: "Label displayed on the Users menu item.",
   },
   menuClassifications: {
-    id: "poolDashboard.menu.classificationsLabel",
     defaultMessage: "Classifications",
     description: "Label displayed on the Classifications menu item.",
   },
   menuCmoAssets: {
-    id: "poolDashboard.menu.cmoAssetsLabel",
     defaultMessage: "CMO Assets",
     description: "Label displayed on the CMO Assets menu item.",
   },
   menuOperationalRequirements: {
-    id: "poolDashboard.menu.operationalRequirementsLabel",
     defaultMessage: "Operational Requirements",
     description: "Label displayed on the Operational Requirements menu item.",
   },
   menuPools: {
-    id: "poolDashboard.menu.poolsLabel",
     defaultMessage: "Pools",
     description: "Label displayed on the Pools menu item.",
   },
   menuDepartments: {
-    id: "poolDashboard.menu.departmentsLabel",
     defaultMessage: "Departments",
     description: "Label displayed on the Departments menu item.",
   },

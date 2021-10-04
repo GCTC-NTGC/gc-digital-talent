@@ -16,11 +16,9 @@ export const getSalaryRange = (getSalaryId: string | number): string =>
 
 export const languages = defineMessages({
   [Language.En]: {
-    id: "language.en",
     defaultMessage: "English",
   },
   [Language.Fr]: {
-    id: "language.fr",
     defaultMessage: "French",
   },
 });

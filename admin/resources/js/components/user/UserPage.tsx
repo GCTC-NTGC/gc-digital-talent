@@ -6,12 +6,10 @@ import { UserTableApi } from "./UserTable";
 
 const messages = defineMessages({
   tableHeading: {
-    id: "userPage.userHeading",
     defaultMessage: "Users",
     description: "Heading displayed above the User Table component.",
   },
   createHeading: {
-    id: "userPage.createHeading",
     defaultMessage: "Create User",
     description: "Heading displayed above the Create User form.",
   },
