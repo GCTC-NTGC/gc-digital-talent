@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-class PageContainerController extends Controller
+class TalentSearchController extends Controller
 {
     /**
      * Show the homepage.

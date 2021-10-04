@@ -13,5 +13,5 @@
 |
 */
 
-$router->get('/', 'PageContainerController@index');
-$router->get('/{any:.*}', 'PageContainerController@index');
+$router->get('/', 'TalentSearchController@index');
+$router->get('/{any:.*}', 'TalentSearchController@index');
