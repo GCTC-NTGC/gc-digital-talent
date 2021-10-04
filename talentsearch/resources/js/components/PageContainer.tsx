@@ -40,7 +40,7 @@ export const MenuLink: React.FC<MenuLinkProps> = ({
   );
 };
 
-export const Container: React.FC<{
+export const PageContainer: React.FC<{
   menuItems: ReactElement[];
   contentRoutes: Routes<RouterResult>;
 }> = ({ menuItems, contentRoutes }) => {
@@ -54,3 +54,5 @@ export const Container: React.FC<{
     </>
   );
 };
+
+export default PageContainer;
