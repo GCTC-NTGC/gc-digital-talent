@@ -66,7 +66,7 @@
     "eslint-plugin-react-hooks": "^4.2.0",
     "laravel-mix": "^6.0.31",
     "laravel-mix-polyfill": "^3.0.1",
-    "postcss": "^8.3.8",
+    "postcss": "^8.3.9",
     "prettier": "^2.4.1",
     "react-refresh": "^0.10.0",
     "storybook-addon-intl": "^2.4.1",
