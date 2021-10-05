@@ -20,5 +20,5 @@ Route::prefix(config('app.app_dir'))->group(function () {
     Route::get('/auth-callback', [AuthController::class, 'authCallback']);
 
     Route::get('/', [DashboardController::class, 'index']);
-    Route::get('/{any:.*}', [DashboardController::class, 'index']);
+    Route::get('/{any}', [DashboardController::class, 'index'])->where('any', '.*');
 });
