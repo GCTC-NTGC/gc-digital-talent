@@ -29,3 +29,23 @@ export const getLanguage = (
   getLanguageId: string | number,
 ): MessageDescriptor =>
   getOrThrowError(languages, getLanguageId, "Invalid Language");
+
+export const educationRequirements = defineMessages({
+  hasDiploma: {
+    id: "hasDiploma",
+    defaultMessage: "Required diploma from post-secondary institution",
+  },
+  doesNotHaveDiploma: {
+    id: "doesNotHaveDiploma",
+    defaultMessage: "Can accept a combination of work experience and education",
+  },
+});
+
+export const getEducationRequirement = (
+  getEducationRequirementId: string | number,
+): MessageDescriptor =>
+  getOrThrowError(
+    educationRequirements,
+    getEducationRequirementId,
+    "Invalid Education Requirement",
+  );
