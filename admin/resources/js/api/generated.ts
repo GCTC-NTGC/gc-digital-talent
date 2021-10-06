@@ -372,9 +372,44 @@ export type PoolCandidate = {
   user?: Maybe<User>;
 };
 
+export type PoolCandidateFilter = {
+  __typename?: "PoolCandidateFilter";
+  classifications?: Maybe<Array<Maybe<Classification>>>;
+  cmoAssets?: Maybe<Array<Maybe<CmoAsset>>>;
+  hasDiploma?: Maybe<Scalars["Boolean"]>;
+  hasDisability?: Maybe<Scalars["Boolean"]>;
+  id: Scalars["ID"];
+  isIndigenous?: Maybe<Scalars["Boolean"]>;
+  isVisibleMinority?: Maybe<Scalars["Boolean"]>;
+  isWoman?: Maybe<Scalars["Boolean"]>;
+  languageAbility?: Maybe<LanguageAbility>;
+  operationalRequirements?: Maybe<Array<Maybe<OperationalRequirement>>>;
+  pools?: Maybe<Array<Maybe<Pool>>>;
+  workRegions?: Maybe<Array<Maybe<WorkRegion>>>;
+};
+
 export type PoolCandidateHasMany = {
   create?: Maybe<Array<CreatePoolCandidateInput>>;
 };
+
+export type PoolCandidateSearchRequest = {
+  __typename?: "PoolCandidateSearchRequest";
+  additionalComments?: Maybe<Scalars["String"]>;
+  adminNotes?: Maybe<Scalars["String"]>;
+  department?: Maybe<Department>;
+  email?: Maybe<Scalars["String"]>;
+  fullName?: Maybe<Scalars["String"]>;
+  id: Scalars["ID"];
+  jobTitle?: Maybe<Scalars["String"]>;
+  poolCandidateFilter: PoolCandidateFilter;
+  requestedDate?: Maybe<Scalars["Date"]>;
+  status?: Maybe<PoolCandidateSearchStatus>;
+};
+
+export enum PoolCandidateSearchStatus {
+  Done = "DONE",
+  Pending = "PENDING",
+}
 
 export enum PoolCandidateStatus {
   Available = "AVAILABLE",
@@ -396,6 +431,8 @@ export type Query = {
   operationalRequirements: Array<Maybe<OperationalRequirement>>;
   pool?: Maybe<Pool>;
   poolCandidate?: Maybe<PoolCandidate>;
+  poolCandidateFilter?: Maybe<PoolCandidateFilter>;
+  poolCandidateFilters: Array<Maybe<PoolCandidateFilter>>;
   poolCandidates: Array<Maybe<PoolCandidate>>;
   poolCandidatesFilter: Scalars["Int"];
   pools: Array<Maybe<Pool>>;
@@ -424,6 +461,10 @@ export type QueryPoolArgs = {
 };
 
 export type QueryPoolCandidateArgs = {
+  id: Scalars["ID"];
+};
+
+export type QueryPoolCandidateFilterArgs = {
   id: Scalars["ID"];
 };
 
@@ -808,13 +849,16 @@ export type ClassificationFragment = {
   id: string;
   group: string;
   level: number;
-  minSalary?: Maybe<number>;
-  maxSalary?: Maybe<number>;
-  name?: Maybe<{
-    __typename?: "LocalizedString";
-    en?: Maybe<string>;
-    fr?: Maybe<string>;
-  }>;
+  minSalary?: number | null | undefined;
+  maxSalary?: number | null | undefined;
+  name?:
+    | {
+        __typename?: "LocalizedString";
+        en?: string | null | undefined;
+        fr?: string | null | undefined;
+      }
+    | null
+    | undefined;
 };
 
 export type GetClassificationQueryVariables = Exact<{
@@ -823,19 +867,25 @@ export type GetClassificationQueryVariables = Exact<{
 
 export type GetClassificationQuery = {
   __typename?: "Query";
-  classification?: Maybe<{
-    __typename?: "Classification";
-    id: string;
-    group: string;
-    level: number;
-    minSalary?: Maybe<number>;
-    maxSalary?: Maybe<number>;
-    name?: Maybe<{
-      __typename?: "LocalizedString";
-      en?: Maybe<string>;
-      fr?: Maybe<string>;
-    }>;
-  }>;
+  classification?:
+    | {
+        __typename?: "Classification";
+        id: string;
+        group: string;
+        level: number;
+        minSalary?: number | null | undefined;
+        maxSalary?: number | null | undefined;
+        name?:
+          | {
+              __typename?: "LocalizedString";
+              en?: string | null | undefined;
+              fr?: string | null | undefined;
+            }
+          | null
+          | undefined;
+      }
+    | null
+    | undefined;
 };
 
 export type GetClassificationsQueryVariables = Exact<{ [key: string]: never }>;
@@ -843,19 +893,24 @@ export type GetClassificationsQueryVariables = Exact<{ [key: string]: never }>;
 export type GetClassificationsQuery = {
   __typename?: "Query";
   classifications: Array<
-    Maybe<{
-      __typename?: "Classification";
-      id: string;
-      group: string;
-      level: number;
-      minSalary?: Maybe<number>;
-      maxSalary?: Maybe<number>;
-      name?: Maybe<{
-        __typename?: "LocalizedString";
-        en?: Maybe<string>;
-        fr?: Maybe<string>;
-      }>;
-    }>
+    | {
+        __typename?: "Classification";
+        id: string;
+        group: string;
+        level: number;
+        minSalary?: number | null | undefined;
+        maxSalary?: number | null | undefined;
+        name?:
+          | {
+              __typename?: "LocalizedString";
+              en?: string | null | undefined;
+              fr?: string | null | undefined;
+            }
+          | null
+          | undefined;
+      }
+    | null
+    | undefined
   >;
 };
 
@@ -865,18 +920,24 @@ export type CreateClassificationMutationVariables = Exact<{
 
 export type CreateClassificationMutation = {
   __typename?: "Mutation";
-  createClassification?: Maybe<{
-    __typename?: "Classification";
-    group: string;
-    level: number;
-    minSalary?: Maybe<number>;
-    maxSalary?: Maybe<number>;
-    name?: Maybe<{
-      __typename?: "LocalizedString";
-      en?: Maybe<string>;
-      fr?: Maybe<string>;
-    }>;
-  }>;
+  createClassification?:
+    | {
+        __typename?: "Classification";
+        group: string;
+        level: number;
+        minSalary?: number | null | undefined;
+        maxSalary?: number | null | undefined;
+        name?:
+          | {
+              __typename?: "LocalizedString";
+              en?: string | null | undefined;
+              fr?: string | null | undefined;
+            }
+          | null
+          | undefined;
+      }
+    | null
+    | undefined;
 };
 
 export type UpdateClassificationMutationVariables = Exact<{
@@ -886,18 +947,24 @@ export type UpdateClassificationMutationVariables = Exact<{
 
 export type UpdateClassificationMutation = {
   __typename?: "Mutation";
-  updateClassification?: Maybe<{
-    __typename?: "Classification";
-    group: string;
-    level: number;
-    minSalary?: Maybe<number>;
-    maxSalary?: Maybe<number>;
-    name?: Maybe<{
-      __typename?: "LocalizedString";
-      en?: Maybe<string>;
-      fr?: Maybe<string>;
-    }>;
-  }>;
+  updateClassification?:
+    | {
+        __typename?: "Classification";
+        group: string;
+        level: number;
+        minSalary?: number | null | undefined;
+        maxSalary?: number | null | undefined;
+        name?:
+          | {
+              __typename?: "LocalizedString";
+              en?: string | null | undefined;
+              fr?: string | null | undefined;
+            }
+          | null
+          | undefined;
+      }
+    | null
+    | undefined;
 };
 
 export type GetCmoAssetQueryVariables = Exact<{
@@ -906,21 +973,27 @@ export type GetCmoAssetQueryVariables = Exact<{
 
 export type GetCmoAssetQuery = {
   __typename?: "Query";
-  cmoAsset?: Maybe<{
-    __typename?: "CmoAsset";
-    id: string;
-    key: string;
-    name: {
-      __typename?: "LocalizedString";
-      en?: Maybe<string>;
-      fr?: Maybe<string>;
-    };
-    description?: Maybe<{
-      __typename?: "LocalizedString";
-      en?: Maybe<string>;
-      fr?: Maybe<string>;
-    }>;
-  }>;
+  cmoAsset?:
+    | {
+        __typename?: "CmoAsset";
+        id: string;
+        key: string;
+        name: {
+          __typename?: "LocalizedString";
+          en?: string | null | undefined;
+          fr?: string | null | undefined;
+        };
+        description?:
+          | {
+              __typename?: "LocalizedString";
+              en?: string | null | undefined;
+              fr?: string | null | undefined;
+            }
+          | null
+          | undefined;
+      }
+    | null
+    | undefined;
 };
 
 export type GetCmoAssetsQueryVariables = Exact<{ [key: string]: never }>;
@@ -928,21 +1001,26 @@ export type GetCmoAssetsQueryVariables = Exact<{ [key: string]: never }>;
 export type GetCmoAssetsQuery = {
   __typename?: "Query";
   cmoAssets: Array<
-    Maybe<{
-      __typename?: "CmoAsset";
-      id: string;
-      key: string;
-      name: {
-        __typename?: "LocalizedString";
-        en?: Maybe<string>;
-        fr?: Maybe<string>;
-      };
-      description?: Maybe<{
-        __typename?: "LocalizedString";
-        en?: Maybe<string>;
-        fr?: Maybe<string>;
-      }>;
-    }>
+    | {
+        __typename?: "CmoAsset";
+        id: string;
+        key: string;
+        name: {
+          __typename?: "LocalizedString";
+          en?: string | null | undefined;
+          fr?: string | null | undefined;
+        };
+        description?:
+          | {
+              __typename?: "LocalizedString";
+              en?: string | null | undefined;
+              fr?: string | null | undefined;
+            }
+          | null
+          | undefined;
+      }
+    | null
+    | undefined
   >;
 };
 
@@ -952,21 +1030,27 @@ export type CreateCmoAssetMutationVariables = Exact<{
 
 export type CreateCmoAssetMutation = {
   __typename?: "Mutation";
-  createCmoAsset?: Maybe<{
-    __typename?: "CmoAsset";
-    id: string;
-    key: string;
-    name: {
-      __typename?: "LocalizedString";
-      en?: Maybe<string>;
-      fr?: Maybe<string>;
-    };
-    description?: Maybe<{
-      __typename?: "LocalizedString";
-      en?: Maybe<string>;
-      fr?: Maybe<string>;
-    }>;
-  }>;
+  createCmoAsset?:
+    | {
+        __typename?: "CmoAsset";
+        id: string;
+        key: string;
+        name: {
+          __typename?: "LocalizedString";
+          en?: string | null | undefined;
+          fr?: string | null | undefined;
+        };
+        description?:
+          | {
+              __typename?: "LocalizedString";
+              en?: string | null | undefined;
+              fr?: string | null | undefined;
+            }
+          | null
+          | undefined;
+      }
+    | null
+    | undefined;
 };
 
 export type UpdateCmoAssetMutationVariables = Exact<{
@@ -976,21 +1060,27 @@ export type UpdateCmoAssetMutationVariables = Exact<{
 
 export type UpdateCmoAssetMutation = {
   __typename?: "Mutation";
-  updateCmoAsset?: Maybe<{
-    __typename?: "CmoAsset";
-    id: string;
-    key: string;
-    name: {
-      __typename?: "LocalizedString";
-      en?: Maybe<string>;
-      fr?: Maybe<string>;
-    };
-    description?: Maybe<{
-      __typename?: "LocalizedString";
-      en?: Maybe<string>;
-      fr?: Maybe<string>;
-    }>;
-  }>;
+  updateCmoAsset?:
+    | {
+        __typename?: "CmoAsset";
+        id: string;
+        key: string;
+        name: {
+          __typename?: "LocalizedString";
+          en?: string | null | undefined;
+          fr?: string | null | undefined;
+        };
+        description?:
+          | {
+              __typename?: "LocalizedString";
+              en?: string | null | undefined;
+              fr?: string | null | undefined;
+            }
+          | null
+          | undefined;
+      }
+    | null
+    | undefined;
 };
 
 export type DepartmentsQueryVariables = Exact<{ [key: string]: never }>;
@@ -998,16 +1088,21 @@ export type DepartmentsQueryVariables = Exact<{ [key: string]: never }>;
 export type DepartmentsQuery = {
   __typename?: "Query";
   departments: Array<
-    Maybe<{
-      __typename?: "Department";
-      id: string;
-      department_number: number;
-      name?: Maybe<{
-        __typename?: "LocalizedString";
-        en?: Maybe<string>;
-        fr?: Maybe<string>;
-      }>;
-    }>
+    | {
+        __typename?: "Department";
+        id: string;
+        department_number: number;
+        name?:
+          | {
+              __typename?: "LocalizedString";
+              en?: string | null | undefined;
+              fr?: string | null | undefined;
+            }
+          | null
+          | undefined;
+      }
+    | null
+    | undefined
   >;
 };
 
@@ -1017,16 +1112,22 @@ export type DepartmentQueryVariables = Exact<{
 
 export type DepartmentQuery = {
   __typename?: "Query";
-  department?: Maybe<{
-    __typename?: "Department";
-    id: string;
-    department_number: number;
-    name?: Maybe<{
-      __typename?: "LocalizedString";
-      en?: Maybe<string>;
-      fr?: Maybe<string>;
-    }>;
-  }>;
+  department?:
+    | {
+        __typename?: "Department";
+        id: string;
+        department_number: number;
+        name?:
+          | {
+              __typename?: "LocalizedString";
+              en?: string | null | undefined;
+              fr?: string | null | undefined;
+            }
+          | null
+          | undefined;
+      }
+    | null
+    | undefined;
 };
 
 export type CreateDepartmentMutationVariables = Exact<{
@@ -1035,16 +1136,22 @@ export type CreateDepartmentMutationVariables = Exact<{
 
 export type CreateDepartmentMutation = {
   __typename?: "Mutation";
-  createDepartment?: Maybe<{
-    __typename?: "Department";
-    id: string;
-    department_number: number;
-    name?: Maybe<{
-      __typename?: "LocalizedString";
-      en?: Maybe<string>;
-      fr?: Maybe<string>;
-    }>;
-  }>;
+  createDepartment?:
+    | {
+        __typename?: "Department";
+        id: string;
+        department_number: number;
+        name?:
+          | {
+              __typename?: "LocalizedString";
+              en?: string | null | undefined;
+              fr?: string | null | undefined;
+            }
+          | null
+          | undefined;
+      }
+    | null
+    | undefined;
 };
 
 export type UpdateDepartmentMutationVariables = Exact<{
@@ -1054,16 +1161,22 @@ export type UpdateDepartmentMutationVariables = Exact<{
 
 export type UpdateDepartmentMutation = {
   __typename?: "Mutation";
-  updateDepartment?: Maybe<{
-    __typename?: "Department";
-    id: string;
-    department_number: number;
-    name?: Maybe<{
-      __typename?: "LocalizedString";
-      en?: Maybe<string>;
-      fr?: Maybe<string>;
-    }>;
-  }>;
+  updateDepartment?:
+    | {
+        __typename?: "Department";
+        id: string;
+        department_number: number;
+        name?:
+          | {
+              __typename?: "LocalizedString";
+              en?: string | null | undefined;
+              fr?: string | null | undefined;
+            }
+          | null
+          | undefined;
+      }
+    | null
+    | undefined;
 };
 
 export type GetOperationalRequirementQueryVariables = Exact<{
@@ -1072,21 +1185,27 @@ export type GetOperationalRequirementQueryVariables = Exact<{
 
 export type GetOperationalRequirementQuery = {
   __typename?: "Query";
-  operationalRequirement?: Maybe<{
-    __typename?: "OperationalRequirement";
-    id: string;
-    key: string;
-    name: {
-      __typename?: "LocalizedString";
-      en?: Maybe<string>;
-      fr?: Maybe<string>;
-    };
-    description?: Maybe<{
-      __typename?: "LocalizedString";
-      en?: Maybe<string>;
-      fr?: Maybe<string>;
-    }>;
-  }>;
+  operationalRequirement?:
+    | {
+        __typename?: "OperationalRequirement";
+        id: string;
+        key: string;
+        name: {
+          __typename?: "LocalizedString";
+          en?: string | null | undefined;
+          fr?: string | null | undefined;
+        };
+        description?:
+          | {
+              __typename?: "LocalizedString";
+              en?: string | null | undefined;
+              fr?: string | null | undefined;
+            }
+          | null
+          | undefined;
+      }
+    | null
+    | undefined;
 };
 
 export type GetOperationalRequirementsQueryVariables = Exact<{
@@ -1096,21 +1215,26 @@ export type GetOperationalRequirementsQueryVariables = Exact<{
 export type GetOperationalRequirementsQuery = {
   __typename?: "Query";
   operationalRequirements: Array<
-    Maybe<{
-      __typename?: "OperationalRequirement";
-      id: string;
-      key: string;
-      name: {
-        __typename?: "LocalizedString";
-        en?: Maybe<string>;
-        fr?: Maybe<string>;
-      };
-      description?: Maybe<{
-        __typename?: "LocalizedString";
-        en?: Maybe<string>;
-        fr?: Maybe<string>;
-      }>;
-    }>
+    | {
+        __typename?: "OperationalRequirement";
+        id: string;
+        key: string;
+        name: {
+          __typename?: "LocalizedString";
+          en?: string | null | undefined;
+          fr?: string | null | undefined;
+        };
+        description?:
+          | {
+              __typename?: "LocalizedString";
+              en?: string | null | undefined;
+              fr?: string | null | undefined;
+            }
+          | null
+          | undefined;
+      }
+    | null
+    | undefined
   >;
 };
 
@@ -1120,21 +1244,27 @@ export type CreateOperationalRequirementMutationVariables = Exact<{
 
 export type CreateOperationalRequirementMutation = {
   __typename?: "Mutation";
-  createOperationalRequirement?: Maybe<{
-    __typename?: "OperationalRequirement";
-    id: string;
-    key: string;
-    name: {
-      __typename?: "LocalizedString";
-      en?: Maybe<string>;
-      fr?: Maybe<string>;
-    };
-    description?: Maybe<{
-      __typename?: "LocalizedString";
-      en?: Maybe<string>;
-      fr?: Maybe<string>;
-    }>;
-  }>;
+  createOperationalRequirement?:
+    | {
+        __typename?: "OperationalRequirement";
+        id: string;
+        key: string;
+        name: {
+          __typename?: "LocalizedString";
+          en?: string | null | undefined;
+          fr?: string | null | undefined;
+        };
+        description?:
+          | {
+              __typename?: "LocalizedString";
+              en?: string | null | undefined;
+              fr?: string | null | undefined;
+            }
+          | null
+          | undefined;
+      }
+    | null
+    | undefined;
 };
 
 export type UpdateOperationalRequirementMutationVariables = Exact<{
@@ -1144,175 +1274,370 @@ export type UpdateOperationalRequirementMutationVariables = Exact<{
 
 export type UpdateOperationalRequirementMutation = {
   __typename?: "Mutation";
-  updateOperationalRequirement?: Maybe<{
-    __typename?: "OperationalRequirement";
-    id: string;
-    key: string;
-    name: {
-      __typename?: "LocalizedString";
-      en?: Maybe<string>;
-      fr?: Maybe<string>;
-    };
-    description?: Maybe<{
-      __typename?: "LocalizedString";
-      en?: Maybe<string>;
-      fr?: Maybe<string>;
-    }>;
-  }>;
+  updateOperationalRequirement?:
+    | {
+        __typename?: "OperationalRequirement";
+        id: string;
+        key: string;
+        name: {
+          __typename?: "LocalizedString";
+          en?: string | null | undefined;
+          fr?: string | null | undefined;
+        };
+        description?:
+          | {
+              __typename?: "LocalizedString";
+              en?: string | null | undefined;
+              fr?: string | null | undefined;
+            }
+          | null
+          | undefined;
+      }
+    | null
+    | undefined;
+};
+
+export type GetPoolCandidateFilterQueryVariables = Exact<{
+  id: Scalars["ID"];
+}>;
+
+export type GetPoolCandidateFilterQuery = {
+  __typename?: "Query";
+  poolCandidateFilter?:
+    | {
+        __typename?: "PoolCandidateFilter";
+        id: string;
+        hasDiploma?: boolean | null | undefined;
+        hasDisability?: boolean | null | undefined;
+        isIndigenous?: boolean | null | undefined;
+        isVisibleMinority?: boolean | null | undefined;
+        isWoman?: boolean | null | undefined;
+        languageAbility?: LanguageAbility | null | undefined;
+        workRegions?: Array<WorkRegion | null | undefined> | null | undefined;
+        classifications?:
+          | Array<
+              | {
+                  __typename?: "Classification";
+                  id: string;
+                  group: string;
+                  level: number;
+                }
+              | null
+              | undefined
+            >
+          | null
+          | undefined;
+        cmoAssets?:
+          | Array<
+              | {
+                  __typename?: "CmoAsset";
+                  id: string;
+                  key: string;
+                  name: {
+                    __typename?: "LocalizedString";
+                    en?: string | null | undefined;
+                    fr?: string | null | undefined;
+                  };
+                }
+              | null
+              | undefined
+            >
+          | null
+          | undefined;
+        operationalRequirements?:
+          | Array<
+              | {
+                  __typename?: "OperationalRequirement";
+                  id: string;
+                  key: string;
+                  name: {
+                    __typename?: "LocalizedString";
+                    en?: string | null | undefined;
+                    fr?: string | null | undefined;
+                  };
+                }
+              | null
+              | undefined
+            >
+          | null
+          | undefined;
+        pools?:
+          | Array<{ __typename?: "Pool"; id: string } | null | undefined>
+          | null
+          | undefined;
+      }
+    | null
+    | undefined;
+};
+
+export type GetPoolCandidateFiltersQueryVariables = Exact<{
+  [key: string]: never;
+}>;
+
+export type GetPoolCandidateFiltersQuery = {
+  __typename?: "Query";
+  poolCandidateFilters: Array<
+    | {
+        __typename?: "PoolCandidateFilter";
+        id: string;
+        hasDiploma?: boolean | null | undefined;
+        hasDisability?: boolean | null | undefined;
+        isIndigenous?: boolean | null | undefined;
+        isVisibleMinority?: boolean | null | undefined;
+        isWoman?: boolean | null | undefined;
+        languageAbility?: LanguageAbility | null | undefined;
+        workRegions?: Array<WorkRegion | null | undefined> | null | undefined;
+        classifications?:
+          | Array<
+              | {
+                  __typename?: "Classification";
+                  id: string;
+                  group: string;
+                  level: number;
+                }
+              | null
+              | undefined
+            >
+          | null
+          | undefined;
+        cmoAssets?:
+          | Array<
+              | {
+                  __typename?: "CmoAsset";
+                  id: string;
+                  key: string;
+                  name: {
+                    __typename?: "LocalizedString";
+                    en?: string | null | undefined;
+                    fr?: string | null | undefined;
+                  };
+                }
+              | null
+              | undefined
+            >
+          | null
+          | undefined;
+        operationalRequirements?:
+          | Array<
+              | {
+                  __typename?: "OperationalRequirement";
+                  id: string;
+                  key: string;
+                  name: {
+                    __typename?: "LocalizedString";
+                    en?: string | null | undefined;
+                    fr?: string | null | undefined;
+                  };
+                }
+              | null
+              | undefined
+            >
+          | null
+          | undefined;
+        pools?:
+          | Array<{ __typename?: "Pool"; id: string } | null | undefined>
+          | null
+          | undefined;
+      }
+    | null
+    | undefined
+  >;
 };
 
 export type PoolCandidateTableFragment = {
   __typename?: "PoolCandidate";
   id: string;
-  cmoIdentifier?: Maybe<string>;
-  expiryDate?: Maybe<string>;
-  isWoman?: Maybe<boolean>;
-  hasDisability?: Maybe<boolean>;
-  isIndigenous?: Maybe<boolean>;
-  isVisibleMinority?: Maybe<boolean>;
-  hasDiploma?: Maybe<boolean>;
-  languageAbility?: Maybe<LanguageAbility>;
-  locationPreferences?: Maybe<Array<Maybe<WorkRegion>>>;
-  expectedSalary?: Maybe<Array<Maybe<SalaryRange>>>;
-  status?: Maybe<PoolCandidateStatus>;
-  pool?: Maybe<{
-    __typename?: "Pool";
-    id: string;
-    name?: Maybe<{
-      __typename?: "LocalizedString";
-      en?: Maybe<string>;
-      fr?: Maybe<string>;
-    }>;
-    classifications?: Maybe<
-      Array<
-        Maybe<{
-          __typename?: "Classification";
-          id: string;
-          group: string;
-          level: number;
-          name?: Maybe<{
-            __typename?: "LocalizedString";
-            en?: Maybe<string>;
-            fr?: Maybe<string>;
-          }>;
-        }>
+  cmoIdentifier?: string | null | undefined;
+  expiryDate?: string | null | undefined;
+  isWoman?: boolean | null | undefined;
+  hasDisability?: boolean | null | undefined;
+  isIndigenous?: boolean | null | undefined;
+  isVisibleMinority?: boolean | null | undefined;
+  hasDiploma?: boolean | null | undefined;
+  languageAbility?: LanguageAbility | null | undefined;
+  locationPreferences?: Array<WorkRegion | null | undefined> | null | undefined;
+  expectedSalary?: Array<SalaryRange | null | undefined> | null | undefined;
+  status?: PoolCandidateStatus | null | undefined;
+  pool?:
+    | {
+        __typename?: "Pool";
+        id: string;
+        name?:
+          | {
+              __typename?: "LocalizedString";
+              en?: string | null | undefined;
+              fr?: string | null | undefined;
+            }
+          | null
+          | undefined;
+        classifications?:
+          | Array<
+              | {
+                  __typename?: "Classification";
+                  id: string;
+                  group: string;
+                  level: number;
+                  name?:
+                    | {
+                        __typename?: "LocalizedString";
+                        en?: string | null | undefined;
+                        fr?: string | null | undefined;
+                      }
+                    | null
+                    | undefined;
+                }
+              | null
+              | undefined
+            >
+          | null
+          | undefined;
+      }
+    | null
+    | undefined;
+  user?:
+    | {
+        __typename?: "User";
+        id: string;
+        firstName?: string | null | undefined;
+        lastName?: string | null | undefined;
+        email: string;
+        preferredLang?: Language | null | undefined;
+        telephone?: string | null | undefined;
+      }
+    | null
+    | undefined;
+  acceptedOperationalRequirements?:
+    | Array<
+        | {
+            __typename?: "OperationalRequirement";
+            id: string;
+            name: {
+              __typename?: "LocalizedString";
+              en?: string | null | undefined;
+              fr?: string | null | undefined;
+            };
+          }
+        | null
+        | undefined
       >
-    >;
-  }>;
-  user?: Maybe<{
-    __typename?: "User";
-    id: string;
-    firstName?: Maybe<string>;
-    lastName?: Maybe<string>;
-    email: string;
-    preferredLang?: Maybe<Language>;
-    telephone?: Maybe<string>;
-  }>;
-  acceptedOperationalRequirements?: Maybe<
-    Array<
-      Maybe<{
-        __typename?: "OperationalRequirement";
-        id: string;
-        name: {
-          __typename?: "LocalizedString";
-          en?: Maybe<string>;
-          fr?: Maybe<string>;
-        };
-      }>
-    >
-  >;
-  expectedClassifications?: Maybe<
-    Array<
-      Maybe<{
-        __typename?: "Classification";
-        id: string;
-        group: string;
-        level: number;
-        name?: Maybe<{
-          __typename?: "LocalizedString";
-          en?: Maybe<string>;
-          fr?: Maybe<string>;
-        }>;
-      }>
-    >
-  >;
-  cmoAssets?: Maybe<
-    Array<
-      Maybe<{
-        __typename?: "CmoAsset";
-        id: string;
-        name: {
-          __typename?: "LocalizedString";
-          en?: Maybe<string>;
-          fr?: Maybe<string>;
-        };
-      }>
-    >
-  >;
+    | null
+    | undefined;
+  expectedClassifications?:
+    | Array<
+        | {
+            __typename?: "Classification";
+            id: string;
+            group: string;
+            level: number;
+            name?:
+              | {
+                  __typename?: "LocalizedString";
+                  en?: string | null | undefined;
+                  fr?: string | null | undefined;
+                }
+              | null
+              | undefined;
+          }
+        | null
+        | undefined
+      >
+    | null
+    | undefined;
+  cmoAssets?:
+    | Array<
+        | {
+            __typename?: "CmoAsset";
+            id: string;
+            name: {
+              __typename?: "LocalizedString";
+              en?: string | null | undefined;
+              fr?: string | null | undefined;
+            };
+          }
+        | null
+        | undefined
+      >
+    | null
+    | undefined;
 };
 
 export type PoolCandidateFormFragment = {
   __typename?: "PoolCandidate";
   id: string;
-  cmoIdentifier?: Maybe<string>;
-  expiryDate?: Maybe<string>;
-  isWoman?: Maybe<boolean>;
-  hasDisability?: Maybe<boolean>;
-  isIndigenous?: Maybe<boolean>;
-  isVisibleMinority?: Maybe<boolean>;
-  hasDiploma?: Maybe<boolean>;
-  languageAbility?: Maybe<LanguageAbility>;
-  locationPreferences?: Maybe<Array<Maybe<WorkRegion>>>;
-  expectedSalary?: Maybe<Array<Maybe<SalaryRange>>>;
-  status?: Maybe<PoolCandidateStatus>;
-  pool?: Maybe<{
-    __typename?: "Pool";
-    id: string;
-    name?: Maybe<{
-      __typename?: "LocalizedString";
-      en?: Maybe<string>;
-      fr?: Maybe<string>;
-    }>;
-  }>;
-  user?: Maybe<{ __typename?: "User"; id: string; email: string }>;
-  acceptedOperationalRequirements?: Maybe<
-    Array<
-      Maybe<{
-        __typename?: "OperationalRequirement";
+  cmoIdentifier?: string | null | undefined;
+  expiryDate?: string | null | undefined;
+  isWoman?: boolean | null | undefined;
+  hasDisability?: boolean | null | undefined;
+  isIndigenous?: boolean | null | undefined;
+  isVisibleMinority?: boolean | null | undefined;
+  hasDiploma?: boolean | null | undefined;
+  languageAbility?: LanguageAbility | null | undefined;
+  locationPreferences?: Array<WorkRegion | null | undefined> | null | undefined;
+  expectedSalary?: Array<SalaryRange | null | undefined> | null | undefined;
+  status?: PoolCandidateStatus | null | undefined;
+  pool?:
+    | {
+        __typename?: "Pool";
         id: string;
-        key: string;
-        name: {
-          __typename?: "LocalizedString";
-          en?: Maybe<string>;
-          fr?: Maybe<string>;
-        };
-      }>
-    >
-  >;
-  expectedClassifications?: Maybe<
-    Array<
-      Maybe<{
-        __typename?: "Classification";
-        id: string;
-        group: string;
-        level: number;
-      }>
-    >
-  >;
-  cmoAssets?: Maybe<
-    Array<
-      Maybe<{
-        __typename?: "CmoAsset";
-        id: string;
-        key: string;
-        name: {
-          __typename?: "LocalizedString";
-          en?: Maybe<string>;
-          fr?: Maybe<string>;
-        };
-      }>
-    >
-  >;
+        name?:
+          | {
+              __typename?: "LocalizedString";
+              en?: string | null | undefined;
+              fr?: string | null | undefined;
+            }
+          | null
+          | undefined;
+      }
+    | null
+    | undefined;
+  user?: { __typename?: "User"; id: string; email: string } | null | undefined;
+  acceptedOperationalRequirements?:
+    | Array<
+        | {
+            __typename?: "OperationalRequirement";
+            id: string;
+            key: string;
+            name: {
+              __typename?: "LocalizedString";
+              en?: string | null | undefined;
+              fr?: string | null | undefined;
+            };
+          }
+        | null
+        | undefined
+      >
+    | null
+    | undefined;
+  expectedClassifications?:
+    | Array<
+        | {
+            __typename?: "Classification";
+            id: string;
+            group: string;
+            level: number;
+          }
+        | null
+        | undefined
+      >
+    | null
+    | undefined;
+  cmoAssets?:
+    | Array<
+        | {
+            __typename?: "CmoAsset";
+            id: string;
+            key: string;
+            name: {
+              __typename?: "LocalizedString";
+              en?: string | null | undefined;
+              fr?: string | null | undefined;
+            };
+          }
+        | null
+        | undefined
+      >
+    | null
+    | undefined;
 };
 
 export type GetPoolCandidateQueryVariables = Exact<{
@@ -1321,95 +1646,131 @@ export type GetPoolCandidateQueryVariables = Exact<{
 
 export type GetPoolCandidateQuery = {
   __typename?: "Query";
-  poolCandidate?: Maybe<{
-    __typename?: "PoolCandidate";
-    id: string;
-    cmoIdentifier?: Maybe<string>;
-    expiryDate?: Maybe<string>;
-    isWoman?: Maybe<boolean>;
-    hasDisability?: Maybe<boolean>;
-    isIndigenous?: Maybe<boolean>;
-    isVisibleMinority?: Maybe<boolean>;
-    hasDiploma?: Maybe<boolean>;
-    languageAbility?: Maybe<LanguageAbility>;
-    locationPreferences?: Maybe<Array<Maybe<WorkRegion>>>;
-    expectedSalary?: Maybe<Array<Maybe<SalaryRange>>>;
-    status?: Maybe<PoolCandidateStatus>;
-    pool?: Maybe<{
-      __typename?: "Pool";
-      id: string;
-      name?: Maybe<{
-        __typename?: "LocalizedString";
-        en?: Maybe<string>;
-        fr?: Maybe<string>;
-      }>;
-      classifications?: Maybe<
-        Array<
-          Maybe<{
-            __typename?: "Classification";
-            id: string;
-            group: string;
-            level: number;
-            name?: Maybe<{
-              __typename?: "LocalizedString";
-              en?: Maybe<string>;
-              fr?: Maybe<string>;
-            }>;
-          }>
-        >
-      >;
-    }>;
-    user?: Maybe<{
-      __typename?: "User";
-      id: string;
-      firstName?: Maybe<string>;
-      lastName?: Maybe<string>;
-      email: string;
-      preferredLang?: Maybe<Language>;
-      telephone?: Maybe<string>;
-    }>;
-    acceptedOperationalRequirements?: Maybe<
-      Array<
-        Maybe<{
-          __typename?: "OperationalRequirement";
-          id: string;
-          name: {
-            __typename?: "LocalizedString";
-            en?: Maybe<string>;
-            fr?: Maybe<string>;
-          };
-        }>
-      >
-    >;
-    expectedClassifications?: Maybe<
-      Array<
-        Maybe<{
-          __typename?: "Classification";
-          id: string;
-          group: string;
-          level: number;
-          name?: Maybe<{
-            __typename?: "LocalizedString";
-            en?: Maybe<string>;
-            fr?: Maybe<string>;
-          }>;
-        }>
-      >
-    >;
-    cmoAssets?: Maybe<
-      Array<
-        Maybe<{
-          __typename?: "CmoAsset";
-          id: string;
-          name: {
-            __typename?: "LocalizedString";
-            en?: Maybe<string>;
-            fr?: Maybe<string>;
-          };
-        }>
-      >
-    >;
-  }>;
+  poolCandidate?:
+    | {
+        __typename?: "PoolCandidate";
+        id: string;
+        cmoIdentifier?: string | null | undefined;
+        expiryDate?: string | null | undefined;
+        isWoman?: boolean | null | undefined;
+        hasDisability?: boolean | null | undefined;
+        isIndigenous?: boolean | null | undefined;
+        isVisibleMinority?: boolean | null | undefined;
+        hasDiploma?: boolean | null | undefined;
+        languageAbility?: LanguageAbility | null | undefined;
+        locationPreferences?:
+          | Array<WorkRegion | null | undefined>
+          | null
+          | undefined;
+        expectedSalary?:
+          | Array<SalaryRange | null | undefined>
+          | null
+          | undefined;
+        status?: PoolCandidateStatus | null | undefined;
+        pool?:
+          | {
+              __typename?: "Pool";
+              id: string;
+              name?:
+                | {
+                    __typename?: "LocalizedString";
+                    en?: string | null | undefined;
+                    fr?: string | null | undefined;
+                  }
+                | null
+                | undefined;
+              classifications?:
+                | Array<
+                    | {
+                        __typename?: "Classification";
+                        id: string;
+                        group: string;
+                        level: number;
+                        name?:
+                          | {
+                              __typename?: "LocalizedString";
+                              en?: string | null | undefined;
+                              fr?: string | null | undefined;
+                            }
+                          | null
+                          | undefined;
+                      }
+                    | null
+                    | undefined
+                  >
+                | null
+                | undefined;
+            }
+          | null
+          | undefined;
+        user?:
+          | {
+              __typename?: "User";
+              id: string;
+              firstName?: string | null | undefined;
+              lastName?: string | null | undefined;
+              email: string;
+              preferredLang?: Language | null | undefined;
+              telephone?: string | null | undefined;
+            }
+          | null
+          | undefined;
+        acceptedOperationalRequirements?:
+          | Array<
+              | {
+                  __typename?: "OperationalRequirement";
+                  id: string;
+                  name: {
+                    __typename?: "LocalizedString";
+                    en?: string | null | undefined;
+                    fr?: string | null | undefined;
+                  };
+                }
+              | null
+              | undefined
+            >
+          | null
+          | undefined;
+        expectedClassifications?:
+          | Array<
+              | {
+                  __typename?: "Classification";
+                  id: string;
+                  group: string;
+                  level: number;
+                  name?:
+                    | {
+                        __typename?: "LocalizedString";
+                        en?: string | null | undefined;
+                        fr?: string | null | undefined;
+                      }
+                    | null
+                    | undefined;
+                }
+              | null
+              | undefined
+            >
+          | null
+          | undefined;
+        cmoAssets?:
+          | Array<
+              | {
+                  __typename?: "CmoAsset";
+                  id: string;
+                  name: {
+                    __typename?: "LocalizedString";
+                    en?: string | null | undefined;
+                    fr?: string | null | undefined;
+                  };
+                }
+              | null
+              | undefined
+            >
+          | null
+          | undefined;
+      }
+    | null
+    | undefined;
 };
 
 export type GetPoolCandidatesQueryVariables = Exact<{ [key: string]: never }>;
@@ -1417,95 +1778,130 @@ export type GetPoolCandidatesQueryVariables = Exact<{ [key: string]: never }>;
 export type GetPoolCandidatesQuery = {
   __typename?: "Query";
   poolCandidates: Array<
-    Maybe<{
-      __typename?: "PoolCandidate";
-      id: string;
-      cmoIdentifier?: Maybe<string>;
-      expiryDate?: Maybe<string>;
-      isWoman?: Maybe<boolean>;
-      hasDisability?: Maybe<boolean>;
-      isIndigenous?: Maybe<boolean>;
-      isVisibleMinority?: Maybe<boolean>;
-      hasDiploma?: Maybe<boolean>;
-      languageAbility?: Maybe<LanguageAbility>;
-      locationPreferences?: Maybe<Array<Maybe<WorkRegion>>>;
-      expectedSalary?: Maybe<Array<Maybe<SalaryRange>>>;
-      status?: Maybe<PoolCandidateStatus>;
-      pool?: Maybe<{
-        __typename?: "Pool";
+    | {
+        __typename?: "PoolCandidate";
         id: string;
-        name?: Maybe<{
-          __typename?: "LocalizedString";
-          en?: Maybe<string>;
-          fr?: Maybe<string>;
-        }>;
-        classifications?: Maybe<
-          Array<
-            Maybe<{
-              __typename?: "Classification";
+        cmoIdentifier?: string | null | undefined;
+        expiryDate?: string | null | undefined;
+        isWoman?: boolean | null | undefined;
+        hasDisability?: boolean | null | undefined;
+        isIndigenous?: boolean | null | undefined;
+        isVisibleMinority?: boolean | null | undefined;
+        hasDiploma?: boolean | null | undefined;
+        languageAbility?: LanguageAbility | null | undefined;
+        locationPreferences?:
+          | Array<WorkRegion | null | undefined>
+          | null
+          | undefined;
+        expectedSalary?:
+          | Array<SalaryRange | null | undefined>
+          | null
+          | undefined;
+        status?: PoolCandidateStatus | null | undefined;
+        pool?:
+          | {
+              __typename?: "Pool";
               id: string;
-              group: string;
-              level: number;
-              name?: Maybe<{
-                __typename?: "LocalizedString";
-                en?: Maybe<string>;
-                fr?: Maybe<string>;
-              }>;
-            }>
-          >
-        >;
-      }>;
-      user?: Maybe<{
-        __typename?: "User";
-        id: string;
-        firstName?: Maybe<string>;
-        lastName?: Maybe<string>;
-        email: string;
-        preferredLang?: Maybe<Language>;
-        telephone?: Maybe<string>;
-      }>;
-      acceptedOperationalRequirements?: Maybe<
-        Array<
-          Maybe<{
-            __typename?: "OperationalRequirement";
-            id: string;
-            name: {
-              __typename?: "LocalizedString";
-              en?: Maybe<string>;
-              fr?: Maybe<string>;
-            };
-          }>
-        >
-      >;
-      expectedClassifications?: Maybe<
-        Array<
-          Maybe<{
-            __typename?: "Classification";
-            id: string;
-            group: string;
-            level: number;
-            name?: Maybe<{
-              __typename?: "LocalizedString";
-              en?: Maybe<string>;
-              fr?: Maybe<string>;
-            }>;
-          }>
-        >
-      >;
-      cmoAssets?: Maybe<
-        Array<
-          Maybe<{
-            __typename?: "CmoAsset";
-            id: string;
-            name: {
-              __typename?: "LocalizedString";
-              en?: Maybe<string>;
-              fr?: Maybe<string>;
-            };
-          }>
-        >
-      >;
-    }>
+              name?:
+                | {
+                    __typename?: "LocalizedString";
+                    en?: string | null | undefined;
+                    fr?: string | null | undefined;
+                  }
+                | null
+                | undefined;
+              classifications?:
+                | Array<
+                    | {
+                        __typename?: "Classification";
+                        id: string;
+                        group: string;
+                        level: number;
+                        name?:
+                          | {
+                              __typename?: "LocalizedString";
+                              en?: string | null | undefined;
+                              fr?: string | null | undefined;
+                            }
+                          | null
+                          | undefined;
+                      }
+                    | null
+                    | undefined
+                  >
+                | null
+                | undefined;
+            }
+          | null
+          | undefined;
+        user?:
+          | {
+              __typename?: "User";
+              id: string;
+              firstName?: string | null | undefined;
+              lastName?: string | null | undefined;
+              email: string;
+              preferredLang?: Language | null | undefined;
+              telephone?: string | null | undefined;
+            }
+          | null
+          | undefined;
+        acceptedOperationalRequirements?:
+          | Array<
+              | {
+                  __typename?: "OperationalRequirement";
+                  id: string;
+                  name: {
+                    __typename?: "LocalizedString";
+                    en?: string | null | undefined;
+                    fr?: string | null | undefined;
+                  };
+                }
+              | null
+              | undefined
+            >
+          | null
+          | undefined;
+        expectedClassifications?:
+          | Array<
+              | {
+                  __typename?: "Classification";
+                  id: string;
+                  group: string;
+                  level: number;
+                  name?:
+                    | {
+                        __typename?: "LocalizedString";
+                        en?: string | null | undefined;
+                        fr?: string | null | undefined;
+                      }
+                    | null
+                    | undefined;
+                }
+              | null
+              | undefined
+            >
+          | null
+          | undefined;
+        cmoAssets?:
+          | Array<
+              | {
+                  __typename?: "CmoAsset";
+                  id: string;
+                  name: {
+                    __typename?: "LocalizedString";
+                    en?: string | null | undefined;
+                    fr?: string | null | undefined;
+                  };
+                }
+              | null
+              | undefined
+            >
+          | null
+          | undefined;
+      }
+    | null
+    | undefined
   >;
 };
 
@@ -1515,102 +1911,141 @@ export type GetPoolCandidatesByPoolQueryVariables = Exact<{
 
 export type GetPoolCandidatesByPoolQuery = {
   __typename?: "Query";
-  pool?: Maybe<{
-    __typename?: "Pool";
-    poolCandidates?: Maybe<
-      Array<
-        Maybe<{
-          __typename?: "PoolCandidate";
-          id: string;
-          cmoIdentifier?: Maybe<string>;
-          expiryDate?: Maybe<string>;
-          isWoman?: Maybe<boolean>;
-          hasDisability?: Maybe<boolean>;
-          isIndigenous?: Maybe<boolean>;
-          isVisibleMinority?: Maybe<boolean>;
-          hasDiploma?: Maybe<boolean>;
-          languageAbility?: Maybe<LanguageAbility>;
-          locationPreferences?: Maybe<Array<Maybe<WorkRegion>>>;
-          expectedSalary?: Maybe<Array<Maybe<SalaryRange>>>;
-          status?: Maybe<PoolCandidateStatus>;
-          pool?: Maybe<{
-            __typename?: "Pool";
-            id: string;
-            name?: Maybe<{
-              __typename?: "LocalizedString";
-              en?: Maybe<string>;
-              fr?: Maybe<string>;
-            }>;
-            classifications?: Maybe<
-              Array<
-                Maybe<{
-                  __typename?: "Classification";
+  pool?:
+    | {
+        __typename?: "Pool";
+        poolCandidates?:
+          | Array<
+              | {
+                  __typename?: "PoolCandidate";
                   id: string;
-                  group: string;
-                  level: number;
-                  name?: Maybe<{
-                    __typename?: "LocalizedString";
-                    en?: Maybe<string>;
-                    fr?: Maybe<string>;
-                  }>;
-                }>
-              >
-            >;
-          }>;
-          user?: Maybe<{
-            __typename?: "User";
-            id: string;
-            firstName?: Maybe<string>;
-            lastName?: Maybe<string>;
-            email: string;
-            preferredLang?: Maybe<Language>;
-            telephone?: Maybe<string>;
-          }>;
-          acceptedOperationalRequirements?: Maybe<
-            Array<
-              Maybe<{
-                __typename?: "OperationalRequirement";
-                id: string;
-                name: {
-                  __typename?: "LocalizedString";
-                  en?: Maybe<string>;
-                  fr?: Maybe<string>;
-                };
-              }>
+                  cmoIdentifier?: string | null | undefined;
+                  expiryDate?: string | null | undefined;
+                  isWoman?: boolean | null | undefined;
+                  hasDisability?: boolean | null | undefined;
+                  isIndigenous?: boolean | null | undefined;
+                  isVisibleMinority?: boolean | null | undefined;
+                  hasDiploma?: boolean | null | undefined;
+                  languageAbility?: LanguageAbility | null | undefined;
+                  locationPreferences?:
+                    | Array<WorkRegion | null | undefined>
+                    | null
+                    | undefined;
+                  expectedSalary?:
+                    | Array<SalaryRange | null | undefined>
+                    | null
+                    | undefined;
+                  status?: PoolCandidateStatus | null | undefined;
+                  pool?:
+                    | {
+                        __typename?: "Pool";
+                        id: string;
+                        name?:
+                          | {
+                              __typename?: "LocalizedString";
+                              en?: string | null | undefined;
+                              fr?: string | null | undefined;
+                            }
+                          | null
+                          | undefined;
+                        classifications?:
+                          | Array<
+                              | {
+                                  __typename?: "Classification";
+                                  id: string;
+                                  group: string;
+                                  level: number;
+                                  name?:
+                                    | {
+                                        __typename?: "LocalizedString";
+                                        en?: string | null | undefined;
+                                        fr?: string | null | undefined;
+                                      }
+                                    | null
+                                    | undefined;
+                                }
+                              | null
+                              | undefined
+                            >
+                          | null
+                          | undefined;
+                      }
+                    | null
+                    | undefined;
+                  user?:
+                    | {
+                        __typename?: "User";
+                        id: string;
+                        firstName?: string | null | undefined;
+                        lastName?: string | null | undefined;
+                        email: string;
+                        preferredLang?: Language | null | undefined;
+                        telephone?: string | null | undefined;
+                      }
+                    | null
+                    | undefined;
+                  acceptedOperationalRequirements?:
+                    | Array<
+                        | {
+                            __typename?: "OperationalRequirement";
+                            id: string;
+                            name: {
+                              __typename?: "LocalizedString";
+                              en?: string | null | undefined;
+                              fr?: string | null | undefined;
+                            };
+                          }
+                        | null
+                        | undefined
+                      >
+                    | null
+                    | undefined;
+                  expectedClassifications?:
+                    | Array<
+                        | {
+                            __typename?: "Classification";
+                            id: string;
+                            group: string;
+                            level: number;
+                            name?:
+                              | {
+                                  __typename?: "LocalizedString";
+                                  en?: string | null | undefined;
+                                  fr?: string | null | undefined;
+                                }
+                              | null
+                              | undefined;
+                          }
+                        | null
+                        | undefined
+                      >
+                    | null
+                    | undefined;
+                  cmoAssets?:
+                    | Array<
+                        | {
+                            __typename?: "CmoAsset";
+                            id: string;
+                            name: {
+                              __typename?: "LocalizedString";
+                              en?: string | null | undefined;
+                              fr?: string | null | undefined;
+                            };
+                          }
+                        | null
+                        | undefined
+                      >
+                    | null
+                    | undefined;
+                }
+              | null
+              | undefined
             >
-          >;
-          expectedClassifications?: Maybe<
-            Array<
-              Maybe<{
-                __typename?: "Classification";
-                id: string;
-                group: string;
-                level: number;
-                name?: Maybe<{
-                  __typename?: "LocalizedString";
-                  en?: Maybe<string>;
-                  fr?: Maybe<string>;
-                }>;
-              }>
-            >
-          >;
-          cmoAssets?: Maybe<
-            Array<
-              Maybe<{
-                __typename?: "CmoAsset";
-                id: string;
-                name: {
-                  __typename?: "LocalizedString";
-                  en?: Maybe<string>;
-                  fr?: Maybe<string>;
-                };
-              }>
-            >
-          >;
-        }>
-      >
-    >;
-  }>;
+          | null
+          | undefined;
+      }
+    | null
+    | undefined;
 };
 
 export type GetCreatePoolCandidateDataQueryVariables = Exact<{
@@ -1620,58 +2055,71 @@ export type GetCreatePoolCandidateDataQueryVariables = Exact<{
 export type GetCreatePoolCandidateDataQuery = {
   __typename?: "Query";
   classifications: Array<
-    Maybe<{
-      __typename?: "Classification";
-      id: string;
-      group: string;
-      level: number;
-    }>
+    | {
+        __typename?: "Classification";
+        id: string;
+        group: string;
+        level: number;
+      }
+    | null
+    | undefined
   >;
   cmoAssets: Array<
-    Maybe<{
-      __typename?: "CmoAsset";
-      id: string;
-      key: string;
-      name: {
-        __typename?: "LocalizedString";
-        en?: Maybe<string>;
-        fr?: Maybe<string>;
-      };
-    }>
+    | {
+        __typename?: "CmoAsset";
+        id: string;
+        key: string;
+        name: {
+          __typename?: "LocalizedString";
+          en?: string | null | undefined;
+          fr?: string | null | undefined;
+        };
+      }
+    | null
+    | undefined
   >;
   operationalRequirements: Array<
-    Maybe<{
-      __typename?: "OperationalRequirement";
-      id: string;
-      key: string;
-      name: {
-        __typename?: "LocalizedString";
-        en?: Maybe<string>;
-        fr?: Maybe<string>;
-      };
-    }>
+    | {
+        __typename?: "OperationalRequirement";
+        id: string;
+        key: string;
+        name: {
+          __typename?: "LocalizedString";
+          en?: string | null | undefined;
+          fr?: string | null | undefined;
+        };
+      }
+    | null
+    | undefined
   >;
   pools: Array<
-    Maybe<{
-      __typename?: "Pool";
-      id: string;
-      name?: Maybe<{
-        __typename?: "LocalizedString";
-        en?: Maybe<string>;
-        fr?: Maybe<string>;
-      }>;
-    }>
+    | {
+        __typename?: "Pool";
+        id: string;
+        name?:
+          | {
+              __typename?: "LocalizedString";
+              en?: string | null | undefined;
+              fr?: string | null | undefined;
+            }
+          | null
+          | undefined;
+      }
+    | null
+    | undefined
   >;
   users: Array<
-    Maybe<{
-      __typename?: "User";
-      id: string;
-      firstName?: Maybe<string>;
-      lastName?: Maybe<string>;
-      email: string;
-      preferredLang?: Maybe<Language>;
-      telephone?: Maybe<string>;
-    }>
+    | {
+        __typename?: "User";
+        id: string;
+        firstName?: string | null | undefined;
+        lastName?: string | null | undefined;
+        email: string;
+        preferredLang?: Language | null | undefined;
+        telephone?: string | null | undefined;
+      }
+    | null
+    | undefined
   >;
 };
 
@@ -1682,119 +2130,159 @@ export type GetUpdatePoolCandidateDataQueryVariables = Exact<{
 export type GetUpdatePoolCandidateDataQuery = {
   __typename?: "Query";
   classifications: Array<
-    Maybe<{
-      __typename?: "Classification";
-      id: string;
-      group: string;
-      level: number;
-    }>
+    | {
+        __typename?: "Classification";
+        id: string;
+        group: string;
+        level: number;
+      }
+    | null
+    | undefined
   >;
   users: Array<
-    Maybe<{
-      __typename?: "User";
-      id: string;
-      firstName?: Maybe<string>;
-      lastName?: Maybe<string>;
-    }>
+    | {
+        __typename?: "User";
+        id: string;
+        firstName?: string | null | undefined;
+        lastName?: string | null | undefined;
+      }
+    | null
+    | undefined
   >;
   cmoAssets: Array<
-    Maybe<{
-      __typename?: "CmoAsset";
-      id: string;
-      key: string;
-      name: {
-        __typename?: "LocalizedString";
-        en?: Maybe<string>;
-        fr?: Maybe<string>;
-      };
-    }>
+    | {
+        __typename?: "CmoAsset";
+        id: string;
+        key: string;
+        name: {
+          __typename?: "LocalizedString";
+          en?: string | null | undefined;
+          fr?: string | null | undefined;
+        };
+      }
+    | null
+    | undefined
   >;
   operationalRequirements: Array<
-    Maybe<{
-      __typename?: "OperationalRequirement";
-      id: string;
-      key: string;
-      name: {
-        __typename?: "LocalizedString";
-        en?: Maybe<string>;
-        fr?: Maybe<string>;
-      };
-    }>
+    | {
+        __typename?: "OperationalRequirement";
+        id: string;
+        key: string;
+        name: {
+          __typename?: "LocalizedString";
+          en?: string | null | undefined;
+          fr?: string | null | undefined;
+        };
+      }
+    | null
+    | undefined
   >;
   pools: Array<
-    Maybe<{
-      __typename?: "Pool";
-      id: string;
-      name?: Maybe<{
-        __typename?: "LocalizedString";
-        en?: Maybe<string>;
-        fr?: Maybe<string>;
-      }>;
-    }>
+    | {
+        __typename?: "Pool";
+        id: string;
+        name?:
+          | {
+              __typename?: "LocalizedString";
+              en?: string | null | undefined;
+              fr?: string | null | undefined;
+            }
+          | null
+          | undefined;
+      }
+    | null
+    | undefined
   >;
-  poolCandidate?: Maybe<{
-    __typename?: "PoolCandidate";
-    id: string;
-    cmoIdentifier?: Maybe<string>;
-    expiryDate?: Maybe<string>;
-    isWoman?: Maybe<boolean>;
-    hasDisability?: Maybe<boolean>;
-    isIndigenous?: Maybe<boolean>;
-    isVisibleMinority?: Maybe<boolean>;
-    hasDiploma?: Maybe<boolean>;
-    languageAbility?: Maybe<LanguageAbility>;
-    locationPreferences?: Maybe<Array<Maybe<WorkRegion>>>;
-    expectedSalary?: Maybe<Array<Maybe<SalaryRange>>>;
-    status?: Maybe<PoolCandidateStatus>;
-    pool?: Maybe<{
-      __typename?: "Pool";
-      id: string;
-      name?: Maybe<{
-        __typename?: "LocalizedString";
-        en?: Maybe<string>;
-        fr?: Maybe<string>;
-      }>;
-    }>;
-    user?: Maybe<{ __typename?: "User"; id: string; email: string }>;
-    acceptedOperationalRequirements?: Maybe<
-      Array<
-        Maybe<{
-          __typename?: "OperationalRequirement";
-          id: string;
-          key: string;
-          name: {
-            __typename?: "LocalizedString";
-            en?: Maybe<string>;
-            fr?: Maybe<string>;
-          };
-        }>
-      >
-    >;
-    expectedClassifications?: Maybe<
-      Array<
-        Maybe<{
-          __typename?: "Classification";
-          id: string;
-          group: string;
-          level: number;
-        }>
-      >
-    >;
-    cmoAssets?: Maybe<
-      Array<
-        Maybe<{
-          __typename?: "CmoAsset";
-          id: string;
-          key: string;
-          name: {
-            __typename?: "LocalizedString";
-            en?: Maybe<string>;
-            fr?: Maybe<string>;
-          };
-        }>
-      >
-    >;
-  }>;
+  poolCandidate?:
+    | {
+        __typename?: "PoolCandidate";
+        id: string;
+        cmoIdentifier?: string | null | undefined;
+        expiryDate?: string | null | undefined;
+        isWoman?: boolean | null | undefined;
+        hasDisability?: boolean | null | undefined;
+        isIndigenous?: boolean | null | undefined;
+        isVisibleMinority?: boolean | null | undefined;
+        hasDiploma?: boolean | null | undefined;
+        languageAbility?: LanguageAbility | null | undefined;
+        locationPreferences?:
+          | Array<WorkRegion | null | undefined>
+          | null
+          | undefined;
+        expectedSalary?:
+          | Array<SalaryRange | null | undefined>
+          | null
+          | undefined;
+        status?: PoolCandidateStatus | null | undefined;
+        pool?:
+          | {
+              __typename?: "Pool";
+              id: string;
+              name?:
+                | {
+                    __typename?: "LocalizedString";
+                    en?: string | null | undefined;
+                    fr?: string | null | undefined;
+                  }
+                | null
+                | undefined;
+            }
+          | null
+          | undefined;
+        user?:
+          | { __typename?: "User"; id: string; email: string }
+          | null
+          | undefined;
+        acceptedOperationalRequirements?:
+          | Array<
+              | {
+                  __typename?: "OperationalRequirement";
+                  id: string;
+                  key: string;
+                  name: {
+                    __typename?: "LocalizedString";
+                    en?: string | null | undefined;
+                    fr?: string | null | undefined;
+                  };
+                }
+              | null
+              | undefined
+            >
+          | null
+          | undefined;
+        expectedClassifications?:
+          | Array<
+              | {
+                  __typename?: "Classification";
+                  id: string;
+                  group: string;
+                  level: number;
+                }
+              | null
+              | undefined
+            >
+          | null
+          | undefined;
+        cmoAssets?:
+          | Array<
+              | {
+                  __typename?: "CmoAsset";
+                  id: string;
+                  key: string;
+                  name: {
+                    __typename?: "LocalizedString";
+                    en?: string | null | undefined;
+                    fr?: string | null | undefined;
+                  };
+                }
+              | null
+              | undefined
+            >
+          | null
+          | undefined;
+      }
+    | null
+    | undefined;
 };
 
 export type CreatePoolCandidateMutationVariables = Exact<{
@@ -1803,29 +2291,49 @@ export type CreatePoolCandidateMutationVariables = Exact<{
 
 export type CreatePoolCandidateMutation = {
   __typename?: "Mutation";
-  createPoolCandidate?: Maybe<{
-    __typename?: "PoolCandidate";
-    cmoIdentifier?: Maybe<string>;
-    expiryDate?: Maybe<string>;
-    isWoman?: Maybe<boolean>;
-    hasDisability?: Maybe<boolean>;
-    isIndigenous?: Maybe<boolean>;
-    isVisibleMinority?: Maybe<boolean>;
-    hasDiploma?: Maybe<boolean>;
-    languageAbility?: Maybe<LanguageAbility>;
-    locationPreferences?: Maybe<Array<Maybe<WorkRegion>>>;
-    expectedSalary?: Maybe<Array<Maybe<SalaryRange>>>;
-    status?: Maybe<PoolCandidateStatus>;
-    pool?: Maybe<{ __typename?: "Pool"; id: string }>;
-    user?: Maybe<{ __typename?: "User"; id: string }>;
-    acceptedOperationalRequirements?: Maybe<
-      Array<Maybe<{ __typename?: "OperationalRequirement"; id: string }>>
-    >;
-    expectedClassifications?: Maybe<
-      Array<Maybe<{ __typename?: "Classification"; id: string }>>
-    >;
-    cmoAssets?: Maybe<Array<Maybe<{ __typename?: "CmoAsset"; id: string }>>>;
-  }>;
+  createPoolCandidate?:
+    | {
+        __typename?: "PoolCandidate";
+        cmoIdentifier?: string | null | undefined;
+        expiryDate?: string | null | undefined;
+        isWoman?: boolean | null | undefined;
+        hasDisability?: boolean | null | undefined;
+        isIndigenous?: boolean | null | undefined;
+        isVisibleMinority?: boolean | null | undefined;
+        hasDiploma?: boolean | null | undefined;
+        languageAbility?: LanguageAbility | null | undefined;
+        locationPreferences?:
+          | Array<WorkRegion | null | undefined>
+          | null
+          | undefined;
+        expectedSalary?:
+          | Array<SalaryRange | null | undefined>
+          | null
+          | undefined;
+        status?: PoolCandidateStatus | null | undefined;
+        pool?: { __typename?: "Pool"; id: string } | null | undefined;
+        user?: { __typename?: "User"; id: string } | null | undefined;
+        acceptedOperationalRequirements?:
+          | Array<
+              | { __typename?: "OperationalRequirement"; id: string }
+              | null
+              | undefined
+            >
+          | null
+          | undefined;
+        expectedClassifications?:
+          | Array<
+              { __typename?: "Classification"; id: string } | null | undefined
+            >
+          | null
+          | undefined;
+        cmoAssets?:
+          | Array<{ __typename?: "CmoAsset"; id: string } | null | undefined>
+          | null
+          | undefined;
+      }
+    | null
+    | undefined;
 };
 
 export type UpdatePoolCandidateMutationVariables = Exact<{
@@ -1835,108 +2343,152 @@ export type UpdatePoolCandidateMutationVariables = Exact<{
 
 export type UpdatePoolCandidateMutation = {
   __typename?: "Mutation";
-  updatePoolCandidate?: Maybe<{
-    __typename?: "PoolCandidate";
-    cmoIdentifier?: Maybe<string>;
-    expiryDate?: Maybe<string>;
-    isWoman?: Maybe<boolean>;
-    hasDisability?: Maybe<boolean>;
-    isIndigenous?: Maybe<boolean>;
-    isVisibleMinority?: Maybe<boolean>;
-    hasDiploma?: Maybe<boolean>;
-    languageAbility?: Maybe<LanguageAbility>;
-    locationPreferences?: Maybe<Array<Maybe<WorkRegion>>>;
-    expectedSalary?: Maybe<Array<Maybe<SalaryRange>>>;
-    status?: Maybe<PoolCandidateStatus>;
-    acceptedOperationalRequirements?: Maybe<
-      Array<Maybe<{ __typename?: "OperationalRequirement"; id: string }>>
-    >;
-    expectedClassifications?: Maybe<
-      Array<Maybe<{ __typename?: "Classification"; id: string }>>
-    >;
-    cmoAssets?: Maybe<Array<Maybe<{ __typename?: "CmoAsset"; id: string }>>>;
-  }>;
+  updatePoolCandidate?:
+    | {
+        __typename?: "PoolCandidate";
+        cmoIdentifier?: string | null | undefined;
+        expiryDate?: string | null | undefined;
+        isWoman?: boolean | null | undefined;
+        hasDisability?: boolean | null | undefined;
+        isIndigenous?: boolean | null | undefined;
+        isVisibleMinority?: boolean | null | undefined;
+        hasDiploma?: boolean | null | undefined;
+        languageAbility?: LanguageAbility | null | undefined;
+        locationPreferences?:
+          | Array<WorkRegion | null | undefined>
+          | null
+          | undefined;
+        expectedSalary?:
+          | Array<SalaryRange | null | undefined>
+          | null
+          | undefined;
+        status?: PoolCandidateStatus | null | undefined;
+        acceptedOperationalRequirements?:
+          | Array<
+              | { __typename?: "OperationalRequirement"; id: string }
+              | null
+              | undefined
+            >
+          | null
+          | undefined;
+        expectedClassifications?:
+          | Array<
+              { __typename?: "Classification"; id: string } | null | undefined
+            >
+          | null
+          | undefined;
+        cmoAssets?:
+          | Array<{ __typename?: "CmoAsset"; id: string } | null | undefined>
+          | null
+          | undefined;
+      }
+    | null
+    | undefined;
 };
 
 export type PoolFragment = {
   __typename?: "Pool";
   id: string;
-  owner?: Maybe<{
-    __typename?: "User";
-    id: string;
-    firstName?: Maybe<string>;
-    lastName?: Maybe<string>;
-    email: string;
-    preferredLang?: Maybe<Language>;
-    telephone?: Maybe<string>;
-  }>;
-  name?: Maybe<{
-    __typename?: "LocalizedString";
-    en?: Maybe<string>;
-    fr?: Maybe<string>;
-  }>;
-  description?: Maybe<{
-    __typename?: "LocalizedString";
-    en?: Maybe<string>;
-    fr?: Maybe<string>;
-  }>;
-  classifications?: Maybe<
-    Array<
-      Maybe<{
-        __typename?: "Classification";
+  owner?:
+    | {
+        __typename?: "User";
         id: string;
-        group: string;
-        level: number;
-        name?: Maybe<{
-          __typename?: "LocalizedString";
-          en?: Maybe<string>;
-          fr?: Maybe<string>;
-        }>;
-      }>
-    >
-  >;
-  assetCriteria?: Maybe<
-    Array<
-      Maybe<{
-        __typename?: "CmoAsset";
-        id: string;
-        key: string;
-        name: {
-          __typename?: "LocalizedString";
-          en?: Maybe<string>;
-          fr?: Maybe<string>;
-        };
-      }>
-    >
-  >;
-  essentialCriteria?: Maybe<
-    Array<
-      Maybe<{
-        __typename?: "CmoAsset";
-        id: string;
-        key: string;
-        name: {
-          __typename?: "LocalizedString";
-          en?: Maybe<string>;
-          fr?: Maybe<string>;
-        };
-      }>
-    >
-  >;
-  operationalRequirements?: Maybe<
-    Array<
-      Maybe<{
-        __typename?: "OperationalRequirement";
-        id: string;
-        key: string;
-        name: {
-          __typename?: "LocalizedString";
-          en?: Maybe<string>;
-          fr?: Maybe<string>;
-        };
-      }>
-    >
-  >;
+        firstName?: string | null | undefined;
+        lastName?: string | null | undefined;
+        email: string;
+        preferredLang?: Language | null | undefined;
+        telephone?: string | null | undefined;
+      }
+    | null
+    | undefined;
+  name?:
+    | {
+        __typename?: "LocalizedString";
+        en?: string | null | undefined;
+        fr?: string | null | undefined;
+      }
+    | null
+    | undefined;
+  description?:
+    | {
+        __typename?: "LocalizedString";
+        en?: string | null | undefined;
+        fr?: string | null | undefined;
+      }
+    | null
+    | undefined;
+  classifications?:
+    | Array<
+        | {
+            __typename?: "Classification";
+            id: string;
+            group: string;
+            level: number;
+            name?:
+              | {
+                  __typename?: "LocalizedString";
+                  en?: string | null | undefined;
+                  fr?: string | null | undefined;
+                }
+              | null
+              | undefined;
+          }
+        | null
+        | undefined
+      >
+    | null
+    | undefined;
+  assetCriteria?:
+    | Array<
+        | {
+            __typename?: "CmoAsset";
+            id: string;
+            key: string;
+            name: {
+              __typename?: "LocalizedString";
+              en?: string | null | undefined;
+              fr?: string | null | undefined;
+            };
+          }
+        | null
+        | undefined
+      >
+    | null
+    | undefined;
+  essentialCriteria?:
+    | Array<
+        | {
+            __typename?: "CmoAsset";
+            id: string;
+            key: string;
+            name: {
+              __typename?: "LocalizedString";
+              en?: string | null | undefined;
+              fr?: string | null | undefined;
+            };
+          }
+        | null
+        | undefined
+      >
+    | null
+    | undefined;
+  operationalRequirements?:
+    | Array<
+        | {
+            __typename?: "OperationalRequirement";
+            id: string;
+            key: string;
+            name: {
+              __typename?: "LocalizedString";
+              en?: string | null | undefined;
+              fr?: string | null | undefined;
+            };
+          }
+        | null
+        | undefined
+      >
+    | null
+    | undefined;
 };
 
 export type GetPoolQueryVariables = Exact<{
@@ -1945,86 +2497,113 @@ export type GetPoolQueryVariables = Exact<{
 
 export type GetPoolQuery = {
   __typename?: "Query";
-  pool?: Maybe<{
-    __typename?: "Pool";
-    id: string;
-    owner?: Maybe<{
-      __typename?: "User";
-      id: string;
-      firstName?: Maybe<string>;
-      lastName?: Maybe<string>;
-      email: string;
-      preferredLang?: Maybe<Language>;
-      telephone?: Maybe<string>;
-    }>;
-    name?: Maybe<{
-      __typename?: "LocalizedString";
-      en?: Maybe<string>;
-      fr?: Maybe<string>;
-    }>;
-    description?: Maybe<{
-      __typename?: "LocalizedString";
-      en?: Maybe<string>;
-      fr?: Maybe<string>;
-    }>;
-    classifications?: Maybe<
-      Array<
-        Maybe<{
-          __typename?: "Classification";
-          id: string;
-          group: string;
-          level: number;
-          name?: Maybe<{
-            __typename?: "LocalizedString";
-            en?: Maybe<string>;
-            fr?: Maybe<string>;
-          }>;
-        }>
-      >
-    >;
-    assetCriteria?: Maybe<
-      Array<
-        Maybe<{
-          __typename?: "CmoAsset";
-          id: string;
-          key: string;
-          name: {
-            __typename?: "LocalizedString";
-            en?: Maybe<string>;
-            fr?: Maybe<string>;
-          };
-        }>
-      >
-    >;
-    essentialCriteria?: Maybe<
-      Array<
-        Maybe<{
-          __typename?: "CmoAsset";
-          id: string;
-          key: string;
-          name: {
-            __typename?: "LocalizedString";
-            en?: Maybe<string>;
-            fr?: Maybe<string>;
-          };
-        }>
-      >
-    >;
-    operationalRequirements?: Maybe<
-      Array<
-        Maybe<{
-          __typename?: "OperationalRequirement";
-          id: string;
-          key: string;
-          name: {
-            __typename?: "LocalizedString";
-            en?: Maybe<string>;
-            fr?: Maybe<string>;
-          };
-        }>
-      >
-    >;
-  }>;
+  pool?:
+    | {
+        __typename?: "Pool";
+        id: string;
+        owner?:
+          | {
+              __typename?: "User";
+              id: string;
+              firstName?: string | null | undefined;
+              lastName?: string | null | undefined;
+              email: string;
+              preferredLang?: Language | null | undefined;
+              telephone?: string | null | undefined;
+            }
+          | null
+          | undefined;
+        name?:
+          | {
+              __typename?: "LocalizedString";
+              en?: string | null | undefined;
+              fr?: string | null | undefined;
+            }
+          | null
+          | undefined;
+        description?:
+          | {
+              __typename?: "LocalizedString";
+              en?: string | null | undefined;
+              fr?: string | null | undefined;
+            }
+          | null
+          | undefined;
+        classifications?:
+          | Array<
+              | {
+                  __typename?: "Classification";
+                  id: string;
+                  group: string;
+                  level: number;
+                  name?:
+                    | {
+                        __typename?: "LocalizedString";
+                        en?: string | null | undefined;
+                        fr?: string | null | undefined;
+                      }
+                    | null
+                    | undefined;
+                }
+              | null
+              | undefined
+            >
+          | null
+          | undefined;
+        assetCriteria?:
+          | Array<
+              | {
+                  __typename?: "CmoAsset";
+                  id: string;
+                  key: string;
+                  name: {
+                    __typename?: "LocalizedString";
+                    en?: string | null | undefined;
+                    fr?: string | null | undefined;
+                  };
+                }
+              | null
+              | undefined
+            >
+          | null
+          | undefined;
+        essentialCriteria?:
+          | Array<
+              | {
+                  __typename?: "CmoAsset";
+                  id: string;
+                  key: string;
+                  name: {
+                    __typename?: "LocalizedString";
+                    en?: string | null | undefined;
+                    fr?: string | null | undefined;
+                  };
+                }
+              | null
+              | undefined
+            >
+          | null
+          | undefined;
+        operationalRequirements?:
+          | Array<
+              | {
+                  __typename?: "OperationalRequirement";
+                  id: string;
+                  key: string;
+                  name: {
+                    __typename?: "LocalizedString";
+                    en?: string | null | undefined;
+                    fr?: string | null | undefined;
+                  };
+                }
+              | null
+              | undefined
+            >
+          | null
+          | undefined;
+      }
+    | null
+    | undefined;
 };
 
 export type GetCreatePoolDataQueryVariables = Exact<{ [key: string]: never }>;
@@ -2032,45 +2611,53 @@ export type GetCreatePoolDataQueryVariables = Exact<{ [key: string]: never }>;
 export type GetCreatePoolDataQuery = {
   __typename?: "Query";
   users: Array<
-    Maybe<{
-      __typename?: "User";
-      id: string;
-      email: string;
-      firstName?: Maybe<string>;
-      lastName?: Maybe<string>;
-    }>
+    | {
+        __typename?: "User";
+        id: string;
+        email: string;
+        firstName?: string | null | undefined;
+        lastName?: string | null | undefined;
+      }
+    | null
+    | undefined
   >;
   classifications: Array<
-    Maybe<{
-      __typename?: "Classification";
-      id: string;
-      group: string;
-      level: number;
-    }>
+    | {
+        __typename?: "Classification";
+        id: string;
+        group: string;
+        level: number;
+      }
+    | null
+    | undefined
   >;
   cmoAssets: Array<
-    Maybe<{
-      __typename?: "CmoAsset";
-      id: string;
-      key: string;
-      name: {
-        __typename?: "LocalizedString";
-        en?: Maybe<string>;
-        fr?: Maybe<string>;
-      };
-    }>
+    | {
+        __typename?: "CmoAsset";
+        id: string;
+        key: string;
+        name: {
+          __typename?: "LocalizedString";
+          en?: string | null | undefined;
+          fr?: string | null | undefined;
+        };
+      }
+    | null
+    | undefined
   >;
   operationalRequirements: Array<
-    Maybe<{
-      __typename?: "OperationalRequirement";
-      id: string;
-      key: string;
-      name: {
-        __typename?: "LocalizedString";
-        en?: Maybe<string>;
-        fr?: Maybe<string>;
-      };
-    }>
+    | {
+        __typename?: "OperationalRequirement";
+        id: string;
+        key: string;
+        name: {
+          __typename?: "LocalizedString";
+          en?: string | null | undefined;
+          fr?: string | null | undefined;
+        };
+      }
+    | null
+    | undefined
   >;
 };
 
@@ -2081,126 +2668,161 @@ export type GetUpdatePoolDataQueryVariables = Exact<{
 export type GetUpdatePoolDataQuery = {
   __typename?: "Query";
   users: Array<
-    Maybe<{
-      __typename?: "User";
-      id: string;
-      email: string;
-      firstName?: Maybe<string>;
-      lastName?: Maybe<string>;
-    }>
+    | {
+        __typename?: "User";
+        id: string;
+        email: string;
+        firstName?: string | null | undefined;
+        lastName?: string | null | undefined;
+      }
+    | null
+    | undefined
   >;
   classifications: Array<
-    Maybe<{
-      __typename?: "Classification";
-      id: string;
-      group: string;
-      level: number;
-    }>
+    | {
+        __typename?: "Classification";
+        id: string;
+        group: string;
+        level: number;
+      }
+    | null
+    | undefined
   >;
   cmoAssets: Array<
-    Maybe<{
-      __typename?: "CmoAsset";
-      id: string;
-      key: string;
-      name: {
-        __typename?: "LocalizedString";
-        en?: Maybe<string>;
-        fr?: Maybe<string>;
-      };
-    }>
+    | {
+        __typename?: "CmoAsset";
+        id: string;
+        key: string;
+        name: {
+          __typename?: "LocalizedString";
+          en?: string | null | undefined;
+          fr?: string | null | undefined;
+        };
+      }
+    | null
+    | undefined
   >;
   operationalRequirements: Array<
-    Maybe<{
-      __typename?: "OperationalRequirement";
-      id: string;
-      key: string;
-      name: {
-        __typename?: "LocalizedString";
-        en?: Maybe<string>;
-        fr?: Maybe<string>;
-      };
-    }>
+    | {
+        __typename?: "OperationalRequirement";
+        id: string;
+        key: string;
+        name: {
+          __typename?: "LocalizedString";
+          en?: string | null | undefined;
+          fr?: string | null | undefined;
+        };
+      }
+    | null
+    | undefined
   >;
-  pool?: Maybe<{
-    __typename?: "Pool";
-    id: string;
-    owner?: Maybe<{
-      __typename?: "User";
-      id: string;
-      firstName?: Maybe<string>;
-      lastName?: Maybe<string>;
-      email: string;
-      preferredLang?: Maybe<Language>;
-      telephone?: Maybe<string>;
-    }>;
-    name?: Maybe<{
-      __typename?: "LocalizedString";
-      en?: Maybe<string>;
-      fr?: Maybe<string>;
-    }>;
-    description?: Maybe<{
-      __typename?: "LocalizedString";
-      en?: Maybe<string>;
-      fr?: Maybe<string>;
-    }>;
-    classifications?: Maybe<
-      Array<
-        Maybe<{
-          __typename?: "Classification";
-          id: string;
-          group: string;
-          level: number;
-          name?: Maybe<{
-            __typename?: "LocalizedString";
-            en?: Maybe<string>;
-            fr?: Maybe<string>;
-          }>;
-        }>
-      >
-    >;
-    assetCriteria?: Maybe<
-      Array<
-        Maybe<{
-          __typename?: "CmoAsset";
-          id: string;
-          key: string;
-          name: {
-            __typename?: "LocalizedString";
-            en?: Maybe<string>;
-            fr?: Maybe<string>;
-          };
-        }>
-      >
-    >;
-    essentialCriteria?: Maybe<
-      Array<
-        Maybe<{
-          __typename?: "CmoAsset";
-          id: string;
-          key: string;
-          name: {
-            __typename?: "LocalizedString";
-            en?: Maybe<string>;
-            fr?: Maybe<string>;
-          };
-        }>
-      >
-    >;
-    operationalRequirements?: Maybe<
-      Array<
-        Maybe<{
-          __typename?: "OperationalRequirement";
-          id: string;
-          key: string;
-          name: {
-            __typename?: "LocalizedString";
-            en?: Maybe<string>;
-            fr?: Maybe<string>;
-          };
-        }>
-      >
-    >;
-  }>;
+  pool?:
+    | {
+        __typename?: "Pool";
+        id: string;
+        owner?:
+          | {
+              __typename?: "User";
+              id: string;
+              firstName?: string | null | undefined;
+              lastName?: string | null | undefined;
+              email: string;
+              preferredLang?: Language | null | undefined;
+              telephone?: string | null | undefined;
+            }
+          | null
+          | undefined;
+        name?:
+          | {
+              __typename?: "LocalizedString";
+              en?: string | null | undefined;
+              fr?: string | null | undefined;
+            }
+          | null
+          | undefined;
+        description?:
+          | {
+              __typename?: "LocalizedString";
+              en?: string | null | undefined;
+              fr?: string | null | undefined;
+            }
+          | null
+          | undefined;
+        classifications?:
+          | Array<
+              | {
+                  __typename?: "Classification";
+                  id: string;
+                  group: string;
+                  level: number;
+                  name?:
+                    | {
+                        __typename?: "LocalizedString";
+                        en?: string | null | undefined;
+                        fr?: string | null | undefined;
+                      }
+                    | null
+                    | undefined;
+                }
+              | null
+              | undefined
+            >
+          | null
+          | undefined;
+        assetCriteria?:
+          | Array<
+              | {
+                  __typename?: "CmoAsset";
+                  id: string;
+                  key: string;
+                  name: {
+                    __typename?: "LocalizedString";
+                    en?: string | null | undefined;
+                    fr?: string | null | undefined;
+                  };
+                }
+              | null
+              | undefined
+            >
+          | null
+          | undefined;
+        essentialCriteria?:
+          | Array<
+              | {
+                  __typename?: "CmoAsset";
+                  id: string;
+                  key: string;
+                  name: {
+                    __typename?: "LocalizedString";
+                    en?: string | null | undefined;
+                    fr?: string | null | undefined;
+                  };
+                }
+              | null
+              | undefined
+            >
+          | null
+          | undefined;
+        operationalRequirements?:
+          | Array<
+              | {
+                  __typename?: "OperationalRequirement";
+                  id: string;
+                  key: string;
+                  name: {
+                    __typename?: "LocalizedString";
+                    en?: string | null | undefined;
+                    fr?: string | null | undefined;
+                  };
+                }
+              | null
+              | undefined
+            >
+          | null
+          | undefined;
+      }
+    | null
+    | undefined;
 };
 
 export type GetPoolsQueryVariables = Exact<{ [key: string]: never }>;
@@ -2208,26 +2830,40 @@ export type GetPoolsQueryVariables = Exact<{ [key: string]: never }>;
 export type GetPoolsQuery = {
   __typename?: "Query";
   pools: Array<
-    Maybe<{
-      __typename?: "Pool";
-      id: string;
-      owner?: Maybe<{ __typename?: "User"; id: string; email: string }>;
-      name?: Maybe<{
-        __typename?: "LocalizedString";
-        en?: Maybe<string>;
-        fr?: Maybe<string>;
-      }>;
-      description?: Maybe<{
-        __typename?: "LocalizedString";
-        en?: Maybe<string>;
-        fr?: Maybe<string>;
-      }>;
-      classifications?: Maybe<
-        Array<
-          Maybe<{ __typename?: "Classification"; group: string; level: number }>
-        >
-      >;
-    }>
+    | {
+        __typename?: "Pool";
+        id: string;
+        owner?:
+          | { __typename?: "User"; id: string; email: string }
+          | null
+          | undefined;
+        name?:
+          | {
+              __typename?: "LocalizedString";
+              en?: string | null | undefined;
+              fr?: string | null | undefined;
+            }
+          | null
+          | undefined;
+        description?:
+          | {
+              __typename?: "LocalizedString";
+              en?: string | null | undefined;
+              fr?: string | null | undefined;
+            }
+          | null
+          | undefined;
+        classifications?:
+          | Array<
+              | { __typename?: "Classification"; group: string; level: number }
+              | null
+              | undefined
+            >
+          | null
+          | undefined;
+      }
+    | null
+    | undefined
   >;
 };
 
@@ -2237,45 +2873,70 @@ export type CreatePoolMutationVariables = Exact<{
 
 export type CreatePoolMutation = {
   __typename?: "Mutation";
-  createPool?: Maybe<{
-    __typename?: "Pool";
-    owner?: Maybe<{ __typename?: "User"; id: string }>;
-    name?: Maybe<{
-      __typename?: "LocalizedString";
-      en?: Maybe<string>;
-      fr?: Maybe<string>;
-    }>;
-    description?: Maybe<{
-      __typename?: "LocalizedString";
-      en?: Maybe<string>;
-      fr?: Maybe<string>;
-    }>;
-    classifications?: Maybe<
-      Array<
-        Maybe<{
-          __typename?: "Classification";
-          id: string;
-          group: string;
-          level: number;
-        }>
-      >
-    >;
-    assetCriteria?: Maybe<
-      Array<Maybe<{ __typename?: "CmoAsset"; id: string; key: string }>>
-    >;
-    essentialCriteria?: Maybe<
-      Array<Maybe<{ __typename?: "CmoAsset"; id: string; key: string }>>
-    >;
-    operationalRequirements?: Maybe<
-      Array<
-        Maybe<{
-          __typename?: "OperationalRequirement";
-          id: string;
-          key: string;
-        }>
-      >
-    >;
-  }>;
+  createPool?:
+    | {
+        __typename?: "Pool";
+        owner?: { __typename?: "User"; id: string } | null | undefined;
+        name?:
+          | {
+              __typename?: "LocalizedString";
+              en?: string | null | undefined;
+              fr?: string | null | undefined;
+            }
+          | null
+          | undefined;
+        description?:
+          | {
+              __typename?: "LocalizedString";
+              en?: string | null | undefined;
+              fr?: string | null | undefined;
+            }
+          | null
+          | undefined;
+        classifications?:
+          | Array<
+              | {
+                  __typename?: "Classification";
+                  id: string;
+                  group: string;
+                  level: number;
+                }
+              | null
+              | undefined
+            >
+          | null
+          | undefined;
+        assetCriteria?:
+          | Array<
+              | { __typename?: "CmoAsset"; id: string; key: string }
+              | null
+              | undefined
+            >
+          | null
+          | undefined;
+        essentialCriteria?:
+          | Array<
+              | { __typename?: "CmoAsset"; id: string; key: string }
+              | null
+              | undefined
+            >
+          | null
+          | undefined;
+        operationalRequirements?:
+          | Array<
+              | {
+                  __typename?: "OperationalRequirement";
+                  id: string;
+                  key: string;
+                }
+              | null
+              | undefined
+            >
+          | null
+          | undefined;
+      }
+    | null
+    | undefined;
 };
 
 export type UpdatePoolMutationVariables = Exact<{
@@ -2285,45 +2946,70 @@ export type UpdatePoolMutationVariables = Exact<{
 
 export type UpdatePoolMutation = {
   __typename?: "Mutation";
-  updatePool?: Maybe<{
-    __typename?: "Pool";
-    owner?: Maybe<{ __typename?: "User"; id: string }>;
-    name?: Maybe<{
-      __typename?: "LocalizedString";
-      en?: Maybe<string>;
-      fr?: Maybe<string>;
-    }>;
-    description?: Maybe<{
-      __typename?: "LocalizedString";
-      en?: Maybe<string>;
-      fr?: Maybe<string>;
-    }>;
-    classifications?: Maybe<
-      Array<
-        Maybe<{
-          __typename?: "Classification";
-          id: string;
-          group: string;
-          level: number;
-        }>
-      >
-    >;
-    assetCriteria?: Maybe<
-      Array<Maybe<{ __typename?: "CmoAsset"; id: string; key: string }>>
-    >;
-    essentialCriteria?: Maybe<
-      Array<Maybe<{ __typename?: "CmoAsset"; id: string; key: string }>>
-    >;
-    operationalRequirements?: Maybe<
-      Array<
-        Maybe<{
-          __typename?: "OperationalRequirement";
-          id: string;
-          key: string;
-        }>
-      >
-    >;
-  }>;
+  updatePool?:
+    | {
+        __typename?: "Pool";
+        owner?: { __typename?: "User"; id: string } | null | undefined;
+        name?:
+          | {
+              __typename?: "LocalizedString";
+              en?: string | null | undefined;
+              fr?: string | null | undefined;
+            }
+          | null
+          | undefined;
+        description?:
+          | {
+              __typename?: "LocalizedString";
+              en?: string | null | undefined;
+              fr?: string | null | undefined;
+            }
+          | null
+          | undefined;
+        classifications?:
+          | Array<
+              | {
+                  __typename?: "Classification";
+                  id: string;
+                  group: string;
+                  level: number;
+                }
+              | null
+              | undefined
+            >
+          | null
+          | undefined;
+        assetCriteria?:
+          | Array<
+              | { __typename?: "CmoAsset"; id: string; key: string }
+              | null
+              | undefined
+            >
+          | null
+          | undefined;
+        essentialCriteria?:
+          | Array<
+              | { __typename?: "CmoAsset"; id: string; key: string }
+              | null
+              | undefined
+            >
+          | null
+          | undefined;
+        operationalRequirements?:
+          | Array<
+              | {
+                  __typename?: "OperationalRequirement";
+                  id: string;
+                  key: string;
+                }
+              | null
+              | undefined
+            >
+          | null
+          | undefined;
+      }
+    | null
+    | undefined;
 };
 
 export type AllUsersQueryVariables = Exact<{ [key: string]: never }>;
@@ -2331,15 +3017,17 @@ export type AllUsersQueryVariables = Exact<{ [key: string]: never }>;
 export type AllUsersQuery = {
   __typename?: "Query";
   users: Array<
-    Maybe<{
-      __typename?: "User";
-      id: string;
-      email: string;
-      firstName?: Maybe<string>;
-      lastName?: Maybe<string>;
-      telephone?: Maybe<string>;
-      preferredLang?: Maybe<Language>;
-    }>
+    | {
+        __typename?: "User";
+        id: string;
+        email: string;
+        firstName?: string | null | undefined;
+        lastName?: string | null | undefined;
+        telephone?: string | null | undefined;
+        preferredLang?: Language | null | undefined;
+      }
+    | null
+    | undefined
   >;
 };
 
@@ -2349,15 +3037,18 @@ export type UserQueryVariables = Exact<{
 
 export type UserQuery = {
   __typename?: "Query";
-  user?: Maybe<{
-    __typename?: "User";
-    id: string;
-    email: string;
-    firstName?: Maybe<string>;
-    lastName?: Maybe<string>;
-    telephone?: Maybe<string>;
-    preferredLang?: Maybe<Language>;
-  }>;
+  user?:
+    | {
+        __typename?: "User";
+        id: string;
+        email: string;
+        firstName?: string | null | undefined;
+        lastName?: string | null | undefined;
+        telephone?: string | null | undefined;
+        preferredLang?: Language | null | undefined;
+      }
+    | null
+    | undefined;
 };
 
 export type UpdateUserMutationVariables = Exact<{
@@ -2367,15 +3058,18 @@ export type UpdateUserMutationVariables = Exact<{
 
 export type UpdateUserMutation = {
   __typename?: "Mutation";
-  updateUser?: Maybe<{
-    __typename?: "User";
-    id: string;
-    firstName?: Maybe<string>;
-    lastName?: Maybe<string>;
-    email: string;
-    telephone?: Maybe<string>;
-    preferredLang?: Maybe<Language>;
-  }>;
+  updateUser?:
+    | {
+        __typename?: "User";
+        id: string;
+        firstName?: string | null | undefined;
+        lastName?: string | null | undefined;
+        email: string;
+        telephone?: string | null | undefined;
+        preferredLang?: Language | null | undefined;
+      }
+    | null
+    | undefined;
 };
 
 export type CreateUserMutationVariables = Exact<{
@@ -2384,14 +3078,17 @@ export type CreateUserMutationVariables = Exact<{
 
 export type CreateUserMutation = {
   __typename?: "Mutation";
-  createUser?: Maybe<{
-    __typename?: "User";
-    firstName?: Maybe<string>;
-    lastName?: Maybe<string>;
-    email: string;
-    telephone?: Maybe<string>;
-    preferredLang?: Maybe<Language>;
-  }>;
+  createUser?:
+    | {
+        __typename?: "User";
+        firstName?: string | null | undefined;
+        lastName?: string | null | undefined;
+        email: string;
+        telephone?: string | null | undefined;
+        preferredLang?: Language | null | undefined;
+      }
+    | null
+    | undefined;
 };
 
 export const ClassificationFragmentDoc = gql`
@@ -2944,6 +3641,106 @@ export function useUpdateOperationalRequirementMutation() {
     UpdateOperationalRequirementMutation,
     UpdateOperationalRequirementMutationVariables
   >(UpdateOperationalRequirementDocument);
+}
+export const GetPoolCandidateFilterDocument = gql`
+  query getPoolCandidateFilter($id: ID!) {
+    poolCandidateFilter(id: $id) {
+      id
+      classifications {
+        id
+        group
+        level
+      }
+      cmoAssets {
+        id
+        key
+        name {
+          en
+          fr
+        }
+      }
+      hasDiploma
+      hasDisability
+      isIndigenous
+      isVisibleMinority
+      isWoman
+      languageAbility
+      operationalRequirements {
+        id
+        key
+        name {
+          en
+          fr
+        }
+      }
+      workRegions
+      pools {
+        id
+      }
+    }
+  }
+`;
+
+export function useGetPoolCandidateFilterQuery(
+  options: Omit<
+    Urql.UseQueryArgs<GetPoolCandidateFilterQueryVariables>,
+    "query"
+  > = {},
+) {
+  return Urql.useQuery<GetPoolCandidateFilterQuery>({
+    query: GetPoolCandidateFilterDocument,
+    ...options,
+  });
+}
+export const GetPoolCandidateFiltersDocument = gql`
+  query getPoolCandidateFilters {
+    poolCandidateFilters {
+      id
+      classifications {
+        id
+        group
+        level
+      }
+      cmoAssets {
+        id
+        key
+        name {
+          en
+          fr
+        }
+      }
+      hasDiploma
+      hasDisability
+      isIndigenous
+      isVisibleMinority
+      isWoman
+      languageAbility
+      operationalRequirements {
+        id
+        key
+        name {
+          en
+          fr
+        }
+      }
+      workRegions
+      pools {
+        id
+      }
+    }
+  }
+`;
+
+export function useGetPoolCandidateFiltersQuery(
+  options: Omit<
+    Urql.UseQueryArgs<GetPoolCandidateFiltersQueryVariables>,
+    "query"
+  > = {},
+) {
+  return Urql.useQuery<GetPoolCandidateFiltersQuery>({
+    query: GetPoolCandidateFiltersDocument,
+    ...options,
+  });
 }
 export const GetPoolCandidateDocument = gql`
   query getPoolCandidate($id: ID!) {
