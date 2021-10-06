@@ -1,0 +1,73 @@
+query getPoolCandidateFilter($id: ID!) {
+  poolCandidateFilter(id: $id) {
+    id
+    classifications {
+      id
+      group
+      level
+    }
+    cmoAssets {
+      id
+      key
+      name {
+        en
+        fr
+      }
+    }
+    hasDiploma
+    hasDisability
+    isIndigenous
+    isVisibleMinority
+    isWoman
+    languageAbility
+    operationalRequirements {
+      id
+      key
+      name {
+        en
+        fr
+      }
+    }
+    workRegions
+    pools {
+      id
+    }
+  }
+}
+
+query getPoolCandidateFilters {
+  poolCandidateFilters {
+    id
+    classifications {
+      id
+      group
+      level
+    }
+    cmoAssets {
+      id
+      key
+      name {
+        en
+        fr
+      }
+    }
+    hasDiploma
+    hasDisability
+    isIndigenous
+    isVisibleMinority
+    isWoman
+    languageAbility
+    operationalRequirements {
+      id
+      key
+      name {
+        en
+        fr
+      }
+    }
+    workRegions
+    pools {
+      id
+    }
+  }
+}
