@@ -2,8 +2,15 @@ import React from "react";
 import { storiesOf } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 import { currentDate } from "@common/helpers/formUtils";
+import {
+  fakeClassifications,
+  fakeCmoAssets,
+  fakeUsers,
+  fakePools,
+  fakeOperationalRequirements,
+  fakePoolCandidates,
+} from "@common/fakeData";
 import PoolCandidatesTable from "../components/poolCandidate/PoolCandidatesTable";
-import fakePoolCandidates from "../fakeData/fakePoolCandidates";
 import {
   CreatePoolCandidateInput,
   User,
@@ -20,11 +27,6 @@ import {
   SalaryRange,
 } from "../api/generated";
 import { CreatePoolCandidateForm } from "../components/poolCandidate/CreatePoolCandidate";
-import fakeUsers from "../fakeData/fakeUsers";
-import fakeClassifications from "../fakeData/fakeClassifications";
-import fakePools from "../fakeData/fakePools";
-import fakeCmoAssets from "../fakeData/fakeCmoAssets";
-import fakeOperationalRequirements from "../fakeData/fakeOperationalRequirements";
 import { UpdatePoolCandidateForm } from "../components/poolCandidate/UpdatePoolCandidate";
 
 const poolCandidateData = fakePoolCandidates();
