@@ -20,11 +20,6 @@ table tbody tr:nth-of-type(even) {
     background-color: #FAFAFA;
 }
 
-.reset-ul {
-    list-style: none;
-    padding: 0;
-}
-
 body {
     position: absolute;
     margin: 0px;

@@ -10,6 +10,7 @@
   <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('/images/favicon-16x16.png') }}">
   <link rel="manifest" href="{{ asset('/site.webmanifest') }}">
   <link href="{{ asset(mix('/css/hydrogen.css')) }}" rel="stylesheet" type="text/css"/>
+  <link href="{{ asset(mix('/css/common.css')) }}" rel="stylesheet" type="text/css"/>
   <link href="{{ asset(mix('/css/app.css')) }}" rel="stylesheet" type="text/css"/>
   <title>{{ config('app.name') }}</title>
 </head>
