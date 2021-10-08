@@ -1,10 +1,12 @@
+import { uniqueId } from "lodash";
 import * as React from "react";
-import { FormattedMessage } from "react-intl";
+import { useIntl } from "react-intl";
 
 const SummaryBlock: React.FunctionComponent<{
-  title: React.ReactNode;
+  title: string;
   content: string | string[] | undefined;
 }> = ({ title, content }) => {
+  const intl = useIntl();
   return (
     <div data-h2-padding="b(bottom, s)">
       <div data-h2-visibility="b(visible) s(hidden)">
@@ -21,13 +23,11 @@ const SummaryBlock: React.FunctionComponent<{
           </p>
         ) : (
           <p data-h2-display="b(inline)" data-h2-color="b(lightpurple)">
-            {content ?? (
-              <FormattedMessage
-                id="noAnswer"
-                defaultMessage="N/A"
-                description="Text shown when the filter was not selected"
-              />
-            )}
+            {content ??
+              intl.formatMessage({
+                defaultMessage: "N/A",
+                description: "Text shown when the filter was not selected",
+              })}
           </p>
         )}
       </div>
@@ -42,18 +42,16 @@ const SummaryBlock: React.FunctionComponent<{
         {content instanceof Array ? (
           <ul data-h2-color="b(lightpurple)">
             {content.map((text) => (
-              <li>{text}</li>
+              <li key={uniqueId()}>{text}</li>
             ))}
           </ul>
         ) : (
           <p data-h2-display="b(inline)" data-h2-color="b(lightpurple)">
-            {content ?? (
-              <FormattedMessage
-                id="noAnswer"
-                defaultMessage="N/A"
-                description="Text shown when the filter was not selected"
-              />
-            )}
+            {content ??
+              intl.formatMessage({
+                defaultMessage: "N/A",
+                description: "Text shown when the filter was not selected",
+              })}
           </p>
         )}
       </div>
@@ -84,14 +82,14 @@ const SummaryOfFilters: React.FunctionComponent<SummaryOfFiltersProps> = ({
   typeOfOpportunity,
   workLocation,
 }) => {
+  const intl = useIntl();
   return (
     <section data-h2-padding="b(right-left, l)">
       <h2 data-h2-font-weight="b(500)">
-        <FormattedMessage
-          id="summaryofFilters"
-          defaultMessage="Summary of filters"
-          description="Title of Summary of filters section"
-        />
+        {intl.formatMessage({
+          defaultMessage: "Summary of filters",
+          description: "Title of Summary of filters section",
+        })}
       </h2>
       <div data-h2-flex-grid="b(top, contained, flush, xs)">
         <div
@@ -101,43 +99,36 @@ const SummaryOfFilters: React.FunctionComponent<SummaryOfFiltersProps> = ({
         >
           <div data-h2-padding="s(right, s)">
             <SummaryBlock
-              title={
-                <FormattedMessage
-                  id="classification"
-                  defaultMessage="Group and level"
-                  description="Title for classifications on summary of filters section"
-                />
-              }
+              title={intl.formatMessage({
+                defaultMessage: "Group and level",
+                description:
+                  "Title for classifications on summary of filters section",
+              })}
               content={classifications}
             />
             <SummaryBlock
-              title={
-                <FormattedMessage
-                  id="educationLevel"
-                  defaultMessage="Education Level"
-                  description="Title for classifications section on summary of filters section"
-                />
-              }
+              title={intl.formatMessage({
+                defaultMessage: "Education Level",
+                description:
+                  "Title for classifications section on summary of filters section",
+              })}
               content={educationLevel}
             />
             <SummaryBlock
-              title={
-                <FormattedMessage
-                  id="typeOfOpportunity"
-                  defaultMessage="Type of opportunity"
-                  description="Title for type of opportunity section on summary of filters section"
-                />
-              }
+              title={intl.formatMessage({
+                defaultMessage: "Type of opportunity",
+                description:
+                  "Title for type of opportunity section on summary of filters section",
+              })}
               content={typeOfOpportunity}
             />
             <SummaryBlock
-              title={
-                <FormattedMessage
-                  id="conditionsOfEmployment"
-                  defaultMessage="Conditions of employment / Operational requirements"
-                  description="Title for operational requirements section on summary of filters section"
-                />
-              }
+              title={intl.formatMessage({
+                defaultMessage:
+                  "Conditions of employment / Operational requirements",
+                description:
+                  "Title for operational requirements section on summary of filters section",
+              })}
               content={operationalRequirements}
             />
           </div>
@@ -149,62 +140,54 @@ const SummaryOfFilters: React.FunctionComponent<SummaryOfFiltersProps> = ({
         >
           <div data-h2-padding="s(left, xxl)">
             <SummaryBlock
-              title={
-                <FormattedMessage
-                  id="workLocation"
-                  defaultMessage=" Work Location"
-                  description="Title for work location section on summary of filters section"
-                />
-              }
+              title={intl.formatMessage({
+                defaultMessage: "Work Location",
+                description:
+                  "Title for work location section on summary of filters section",
+              })}
               content={workLocation}
             />
             <SummaryBlock
-              title={
-                <FormattedMessage
-                  id="workLanguage"
-                  defaultMessage="Work language ability"
-                  description="Title for work language on summary of filters section"
-                />
-              }
+              title={intl.formatMessage({
+                defaultMessage: "Work language ability",
+                description:
+                  "Title for work language on summary of filters section",
+              })}
               content={languageAbility}
             />
             <SummaryBlock
-              title={
-                <FormattedMessage
-                  id="employmentEquity"
-                  defaultMessage="Employment equity"
-                  description="Title for employment equity section on summary of filters section"
-                />
-              }
+              title={intl.formatMessage({
+                defaultMessage: "Employment equity",
+                description:
+                  "Title for employment equity section on summary of filters section",
+              })}
               content={employmentEquity}
             />
             <SummaryBlock
-              title={
-                <FormattedMessage
-                  id="skills"
-                  defaultMessage="Skills"
-                  description="Title for skills section on summary of filters section"
-                />
-              }
+              title={intl.formatMessage({
+                defaultMessage: "Skills",
+                description:
+                  "Title for skills section on summary of filters section",
+              })}
               content={skills}
             />
           </div>
         </div>
         <p data-h2-flex-item="b(1of1)" data-h2-font-weight="b(600)">
-          <FormattedMessage
-            id="poolCandidates"
-            defaultMessage="Request for pool candidates: <span>{totalEstimatedCandidates, plural,
-              zero {no candidates}
-              one {1 candidate}
-              other {{totalEstimatedCandidates} estimated candidates}}</span>"
-            description="Total estimated candidates message in summary of filters"
-            values={{
+          {intl.formatMessage(
+            {
+              defaultMessage:
+                "Request for pool candidates: <span>{totalEstimatedCandidates, plural, zero {no candidates} one {1 candidate} other {{totalEstimatedCandidates} estimated candidates}}</span>",
+              description:
+                "Total estimated candidates message in summary of filters",
+            },
+            {
               span: (msg: string): JSX.Element => (
                 <span data-h2-color="b(lightpurple)">{msg}</span>
               ),
               totalEstimatedCandidates,
-            }}
-          />
+            },
+          )}
         </p>
       </div>
     </section>
