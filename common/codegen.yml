@@ -14,6 +14,7 @@ generates:
         Email: string
         PhoneNumber: string
       gqlImport: urql#gql
+      maybeValue: T | null | undefined
 hooks:
   afterOneFileWrite:
     - prettier --write
