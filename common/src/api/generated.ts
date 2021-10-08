@@ -1,13 +1,15 @@
 /* THIS FILE IS AUTO-GENERATED, DO NOT EDIT */
 import { gql } from "urql";
-export type Maybe<T> = T | null;
+export type Maybe<T> = T | null | undefined;
 export type Exact<T extends { [key: string]: unknown }> = {
   [K in keyof T]: T[K];
 };
-export type MakeOptional<T, K extends keyof T> = Omit<T, K> &
-  { [SubKey in K]?: Maybe<T[SubKey]> };
-export type MakeMaybe<T, K extends keyof T> = Omit<T, K> &
-  { [SubKey in K]: Maybe<T[SubKey]> };
+export type MakeOptional<T, K extends keyof T> = Omit<T, K> & {
+  [SubKey in K]?: Maybe<T[SubKey]>;
+};
+export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
+  [SubKey in K]: Maybe<T[SubKey]>;
+};
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -33,12 +35,12 @@ export type Scalars = {
 
 export type Classification = {
   __typename?: "Classification";
-  id: Scalars["ID"];
-  name?: Maybe<LocalizedString>;
   group: Scalars["String"];
+  id: Scalars["ID"];
   level: Scalars["Int"];
-  minSalary?: Maybe<Scalars["Int"]>;
   maxSalary?: Maybe<Scalars["Int"]>;
+  minSalary?: Maybe<Scalars["Int"]>;
+  name?: Maybe<LocalizedString>;
 };
 
 export type ClassificationBelongsToMany = {
@@ -48,10 +50,10 @@ export type ClassificationBelongsToMany = {
 /** e.g. Application Development, Quality Assurance, Enterprise Architecture, IT Project Management, etc. */
 export type CmoAsset = {
   __typename?: "CmoAsset";
+  description?: Maybe<LocalizedString>;
   id: Scalars["ID"];
   key: Scalars["String"];
   name: LocalizedString;
-  description?: Maybe<LocalizedString>;
 };
 
 export type CmoAssetBelongsToMany = {
@@ -59,17 +61,17 @@ export type CmoAssetBelongsToMany = {
 };
 
 export type CreateClassificationInput = {
-  name?: Maybe<LocalizedStringInput>;
   group: Scalars["String"];
   level: Scalars["Int"];
-  minSalary?: Maybe<Scalars["Int"]>;
   maxSalary?: Maybe<Scalars["Int"]>;
+  minSalary?: Maybe<Scalars["Int"]>;
+  name?: Maybe<LocalizedStringInput>;
 };
 
 export type CreateCmoAssetInput = {
+  description?: Maybe<LocalizedStringInput>;
   key: Scalars["String"];
   name: LocalizedStringInput;
-  description?: Maybe<LocalizedStringInput>;
 };
 
 export type CreateDepartmentInput = {
@@ -78,54 +80,54 @@ export type CreateDepartmentInput = {
 };
 
 export type CreateOperationalRequirementInput = {
+  description?: Maybe<LocalizedStringInput>;
   key: Scalars["String"];
   name: LocalizedStringInput;
-  description?: Maybe<LocalizedStringInput>;
 };
 
 export type CreatePoolCandidateInput = {
-  pool: PoolBelongsTo;
-  user: UserBelongsTo;
+  acceptedOperationalRequirements?: Maybe<OperationalRequirementBelongsToMany>;
+  cmoAssets?: Maybe<CmoAssetBelongsToMany>;
   cmoIdentifier?: Maybe<Scalars["ID"]>;
+  expectedClassifications?: Maybe<ClassificationBelongsToMany>;
+  expectedSalary?: Maybe<Array<Maybe<SalaryRange>>>;
   expiryDate?: Maybe<Scalars["Date"]>;
-  isWoman?: Maybe<Scalars["Boolean"]>;
+  hasDiploma?: Maybe<Scalars["Boolean"]>;
   hasDisability?: Maybe<Scalars["Boolean"]>;
   isIndigenous?: Maybe<Scalars["Boolean"]>;
   isVisibleMinority?: Maybe<Scalars["Boolean"]>;
-  hasDiploma?: Maybe<Scalars["Boolean"]>;
+  isWoman?: Maybe<Scalars["Boolean"]>;
   languageAbility?: Maybe<LanguageAbility>;
   locationPreferences?: Maybe<Array<Maybe<WorkRegion>>>;
-  acceptedOperationalRequirements?: Maybe<OperationalRequirementBelongsToMany>;
-  expectedSalary?: Maybe<Array<Maybe<SalaryRange>>>;
-  expectedClassifications?: Maybe<ClassificationBelongsToMany>;
-  cmoAssets?: Maybe<CmoAssetBelongsToMany>;
+  pool: PoolBelongsTo;
   status?: Maybe<PoolCandidateStatus>;
+  user: UserBelongsTo;
 };
 
 export type CreatePoolInput = {
-  owner?: Maybe<UserBelongsTo>;
-  name?: Maybe<LocalizedStringInput>;
-  description?: Maybe<LocalizedStringInput>;
-  classifications?: Maybe<ClassificationBelongsToMany>;
   assetCriteria?: Maybe<CmoAssetBelongsToMany>;
+  classifications?: Maybe<ClassificationBelongsToMany>;
+  description?: Maybe<LocalizedStringInput>;
   essentialCriteria?: Maybe<CmoAssetBelongsToMany>;
+  name?: Maybe<LocalizedStringInput>;
   operationalRequirements?: Maybe<OperationalRequirementBelongsToMany>;
+  owner?: Maybe<UserBelongsTo>;
 };
 
 /** When creating a User, name and email are required. */
 export type CreateUserInput = {
+  email: Scalars["Email"];
   firstName: Scalars["String"];
   lastName: Scalars["String"];
-  email: Scalars["Email"];
-  telephone?: Maybe<Scalars["PhoneNumber"]>;
   preferredLang?: Maybe<Language>;
   roles?: Maybe<Array<Maybe<Role>>>;
+  telephone?: Maybe<Scalars["PhoneNumber"]>;
 };
 
 export type Department = {
   __typename?: "Department";
-  id: Scalars["ID"];
   department_number: Scalars["Int"];
+  id: Scalars["ID"];
   name?: Maybe<LocalizedString>;
 };
 
@@ -135,9 +137,9 @@ export enum Language {
 }
 
 export enum LanguageAbility {
+  Bilingual = "BILINGUAL",
   English = "ENGLISH",
   French = "FRENCH",
-  Bilingual = "BILINGUAL",
 }
 
 export type LocalizedString = {
@@ -153,96 +155,98 @@ export type LocalizedStringInput = {
 
 export type Mutation = {
   __typename?: "Mutation";
-  createUser?: Maybe<User>;
-  updateUser?: Maybe<User>;
-  deleteUser?: Maybe<User>;
-  createPool?: Maybe<Pool>;
-  updatePool?: Maybe<Pool>;
-  deletePool?: Maybe<Pool>;
-  createPoolCandidate?: Maybe<PoolCandidate>;
-  updatePoolCandidate?: Maybe<PoolCandidate>;
-  deletePoolCandidate?: Maybe<PoolCandidate>;
   createClassification?: Maybe<Classification>;
-  updateClassification?: Maybe<Classification>;
-  deleteClassification?: Maybe<Classification>;
   createCmoAsset?: Maybe<CmoAsset>;
-  updateCmoAsset?: Maybe<CmoAsset>;
-  deleteCmoAsset?: Maybe<CmoAsset>;
-  createOperationalRequirement?: Maybe<OperationalRequirement>;
-  updateOperationalRequirement?: Maybe<OperationalRequirement>;
-  deleteOperationalRequirement?: Maybe<OperationalRequirement>;
   createDepartment?: Maybe<Department>;
-  updateDepartment?: Maybe<Department>;
+  createOperationalRequirement?: Maybe<OperationalRequirement>;
+  createPool?: Maybe<Pool>;
+  createPoolCandidate?: Maybe<PoolCandidate>;
+  createUser?: Maybe<User>;
+  deleteClassification?: Maybe<Classification>;
+  deleteCmoAsset?: Maybe<CmoAsset>;
   deleteDepartment?: Maybe<User>;
-};
-
-export type MutationCreateUserArgs = {
-  user: CreateUserInput;
-};
-
-export type MutationUpdateUserArgs = {
-  id: Scalars["ID"];
-  user: UpdateUserInput;
-};
-
-export type MutationDeleteUserArgs = {
-  id: Scalars["ID"];
-};
-
-export type MutationCreatePoolArgs = {
-  pool: CreatePoolInput;
-};
-
-export type MutationUpdatePoolArgs = {
-  id: Scalars["ID"];
-  pool: UpdatePoolInput;
-};
-
-export type MutationDeletePoolArgs = {
-  id: Scalars["ID"];
-};
-
-export type MutationCreatePoolCandidateArgs = {
-  poolCandidate: CreatePoolCandidateInput;
-};
-
-export type MutationUpdatePoolCandidateArgs = {
-  id: Scalars["ID"];
-  poolCandidate: UpdatePoolCandidateInput;
-};
-
-export type MutationDeletePoolCandidateArgs = {
-  id: Scalars["ID"];
+  deleteOperationalRequirement?: Maybe<OperationalRequirement>;
+  deletePool?: Maybe<Pool>;
+  deletePoolCandidate?: Maybe<PoolCandidate>;
+  deleteUser?: Maybe<User>;
+  updateClassification?: Maybe<Classification>;
+  updateCmoAsset?: Maybe<CmoAsset>;
+  updateDepartment?: Maybe<Department>;
+  updateOperationalRequirement?: Maybe<OperationalRequirement>;
+  updatePool?: Maybe<Pool>;
+  updatePoolCandidate?: Maybe<PoolCandidate>;
+  updateUser?: Maybe<User>;
 };
 
 export type MutationCreateClassificationArgs = {
   classification: CreateClassificationInput;
 };
 
-export type MutationUpdateClassificationArgs = {
-  id: Scalars["ID"];
-  classification: UpdateClassificationInput;
+export type MutationCreateCmoAssetArgs = {
+  cmoAsset: CreateCmoAssetInput;
+};
+
+export type MutationCreateDepartmentArgs = {
+  department: CreateDepartmentInput;
+};
+
+export type MutationCreateOperationalRequirementArgs = {
+  operationalRequirement: CreateOperationalRequirementInput;
+};
+
+export type MutationCreatePoolArgs = {
+  pool: CreatePoolInput;
+};
+
+export type MutationCreatePoolCandidateArgs = {
+  poolCandidate: CreatePoolCandidateInput;
+};
+
+export type MutationCreateUserArgs = {
+  user: CreateUserInput;
 };
 
 export type MutationDeleteClassificationArgs = {
   id: Scalars["ID"];
 };
 
-export type MutationCreateCmoAssetArgs = {
-  cmoAsset: CreateCmoAssetInput;
-};
-
-export type MutationUpdateCmoAssetArgs = {
-  id: Scalars["ID"];
-  cmoAsset: UpdateCmoAssetInput;
-};
-
 export type MutationDeleteCmoAssetArgs = {
   id: Scalars["ID"];
 };
 
-export type MutationCreateOperationalRequirementArgs = {
-  operationalRequirement: CreateOperationalRequirementInput;
+export type MutationDeleteDepartmentArgs = {
+  id: Scalars["ID"];
+};
+
+export type MutationDeleteOperationalRequirementArgs = {
+  id: Scalars["ID"];
+};
+
+export type MutationDeletePoolArgs = {
+  id: Scalars["ID"];
+};
+
+export type MutationDeletePoolCandidateArgs = {
+  id: Scalars["ID"];
+};
+
+export type MutationDeleteUserArgs = {
+  id: Scalars["ID"];
+};
+
+export type MutationUpdateClassificationArgs = {
+  classification: UpdateClassificationInput;
+  id: Scalars["ID"];
+};
+
+export type MutationUpdateCmoAssetArgs = {
+  cmoAsset: UpdateCmoAssetInput;
+  id: Scalars["ID"];
+};
+
+export type MutationUpdateDepartmentArgs = {
+  department: UpdateDepartmentInput;
+  id: Scalars["ID"];
 };
 
 export type MutationUpdateOperationalRequirementArgs = {
@@ -250,30 +254,28 @@ export type MutationUpdateOperationalRequirementArgs = {
   operationalRequirement: UpdateOperationalRequirementInput;
 };
 
-export type MutationDeleteOperationalRequirementArgs = {
+export type MutationUpdatePoolArgs = {
   id: Scalars["ID"];
+  pool: UpdatePoolInput;
 };
 
-export type MutationCreateDepartmentArgs = {
-  department: CreateDepartmentInput;
+export type MutationUpdatePoolCandidateArgs = {
+  id: Scalars["ID"];
+  poolCandidate: UpdatePoolCandidateInput;
 };
 
-export type MutationUpdateDepartmentArgs = {
+export type MutationUpdateUserArgs = {
   id: Scalars["ID"];
-  department: UpdateDepartmentInput;
-};
-
-export type MutationDeleteDepartmentArgs = {
-  id: Scalars["ID"];
+  user: UpdateUserInput;
 };
 
 /** e.g. Overtime as Required, Shift Work, Travel as Required, etc. */
 export type OperationalRequirement = {
   __typename?: "OperationalRequirement";
+  description?: Maybe<LocalizedString>;
   id: Scalars["ID"];
   key: Scalars["String"];
   name: LocalizedString;
-  description?: Maybe<LocalizedString>;
 };
 
 export type OperationalRequirementBelongsToMany = {
@@ -291,22 +293,22 @@ export type OrderByClause = {
 /** Information about pagination using a Relay style cursor connection. */
 export type PageInfo = {
   __typename?: "PageInfo";
-  /** When paginating forwards, are there more items? */
-  hasNextPage: Scalars["Boolean"];
-  /** When paginating backwards, are there more items? */
-  hasPreviousPage: Scalars["Boolean"];
-  /** The cursor to continue paginating backwards. */
-  startCursor?: Maybe<Scalars["String"]>;
-  /** The cursor to continue paginating forwards. */
-  endCursor?: Maybe<Scalars["String"]>;
-  /** Total number of nodes in the paginated connection. */
-  total: Scalars["Int"];
   /** Number of nodes in the current page. */
   count: Scalars["Int"];
   /** Index of the current page. */
   currentPage: Scalars["Int"];
+  /** The cursor to continue paginating forwards. */
+  endCursor?: Maybe<Scalars["String"]>;
+  /** When paginating forwards, are there more items? */
+  hasNextPage: Scalars["Boolean"];
+  /** When paginating backwards, are there more items? */
+  hasPreviousPage: Scalars["Boolean"];
   /** Index of the last available page. */
   lastPage: Scalars["Int"];
+  /** The cursor to continue paginating backwards. */
+  startCursor?: Maybe<Scalars["String"]>;
+  /** Total number of nodes in the paginated connection. */
+  total: Scalars["Int"];
 };
 
 /** Information about pagination using a fully featured paginator. */
@@ -332,14 +334,14 @@ export type PaginatorInfo = {
 
 export type Pool = {
   __typename?: "Pool";
-  id: Scalars["ID"];
-  owner?: Maybe<User>;
-  name?: Maybe<LocalizedString>;
-  description?: Maybe<LocalizedString>;
-  classifications?: Maybe<Array<Maybe<Classification>>>;
   assetCriteria?: Maybe<Array<Maybe<CmoAsset>>>;
+  classifications?: Maybe<Array<Maybe<Classification>>>;
+  description?: Maybe<LocalizedString>;
   essentialCriteria?: Maybe<Array<Maybe<CmoAsset>>>;
+  id: Scalars["ID"];
+  name?: Maybe<LocalizedString>;
   operationalRequirements?: Maybe<Array<Maybe<OperationalRequirement>>>;
+  owner?: Maybe<User>;
   poolCandidates?: Maybe<Array<Maybe<PoolCandidate>>>;
 };
 
@@ -349,57 +351,104 @@ export type PoolBelongsTo = {
 
 export type PoolCandidate = {
   __typename?: "PoolCandidate";
-  id: Scalars["ID"];
-  pool?: Maybe<Pool>;
-  user?: Maybe<User>;
+  acceptedOperationalRequirements?: Maybe<Array<Maybe<OperationalRequirement>>>;
+  cmoAssets?: Maybe<Array<Maybe<CmoAsset>>>;
   cmoIdentifier?: Maybe<Scalars["ID"]>;
+  expectedClassifications?: Maybe<Array<Maybe<Classification>>>;
+  expectedSalary?: Maybe<Array<Maybe<SalaryRange>>>;
   expiryDate?: Maybe<Scalars["Date"]>;
-  isWoman?: Maybe<Scalars["Boolean"]>;
+  hasDiploma?: Maybe<Scalars["Boolean"]>;
   hasDisability?: Maybe<Scalars["Boolean"]>;
+  id: Scalars["ID"];
   isIndigenous?: Maybe<Scalars["Boolean"]>;
   isVisibleMinority?: Maybe<Scalars["Boolean"]>;
-  hasDiploma?: Maybe<Scalars["Boolean"]>;
+  isWoman?: Maybe<Scalars["Boolean"]>;
   languageAbility?: Maybe<LanguageAbility>;
   locationPreferences?: Maybe<Array<Maybe<WorkRegion>>>;
-  acceptedOperationalRequirements?: Maybe<Array<Maybe<OperationalRequirement>>>;
-  expectedSalary?: Maybe<Array<Maybe<SalaryRange>>>;
-  expectedClassifications?: Maybe<Array<Maybe<Classification>>>;
-  cmoAssets?: Maybe<Array<Maybe<CmoAsset>>>;
+  pool?: Maybe<Pool>;
   status?: Maybe<PoolCandidateStatus>;
+  user?: Maybe<User>;
+};
+
+export type PoolCandidateFilter = {
+  __typename?: "PoolCandidateFilter";
+  classifications?: Maybe<Array<Maybe<Classification>>>;
+  cmoAssets?: Maybe<Array<Maybe<CmoAsset>>>;
+  hasDiploma?: Maybe<Scalars["Boolean"]>;
+  hasDisability?: Maybe<Scalars["Boolean"]>;
+  id: Scalars["ID"];
+  isIndigenous?: Maybe<Scalars["Boolean"]>;
+  isVisibleMinority?: Maybe<Scalars["Boolean"]>;
+  isWoman?: Maybe<Scalars["Boolean"]>;
+  languageAbility?: Maybe<LanguageAbility>;
+  operationalRequirements?: Maybe<Array<Maybe<OperationalRequirement>>>;
+  pools?: Maybe<Array<Maybe<Pool>>>;
+  workRegions?: Maybe<Array<Maybe<WorkRegion>>>;
 };
 
 export type PoolCandidateHasMany = {
   create?: Maybe<Array<CreatePoolCandidateInput>>;
 };
 
+export type PoolCandidateSearchRequest = {
+  __typename?: "PoolCandidateSearchRequest";
+  additionalComments?: Maybe<Scalars["String"]>;
+  adminNotes?: Maybe<Scalars["String"]>;
+  department?: Maybe<Department>;
+  email?: Maybe<Scalars["String"]>;
+  fullName?: Maybe<Scalars["String"]>;
+  id: Scalars["ID"];
+  jobTitle?: Maybe<Scalars["String"]>;
+  poolCandidateFilter: PoolCandidateFilter;
+  requestedDate?: Maybe<Scalars["Date"]>;
+  status?: Maybe<PoolCandidateSearchStatus>;
+};
+
+export enum PoolCandidateSearchStatus {
+  Done = "DONE",
+  Pending = "PENDING",
+}
+
 export enum PoolCandidateStatus {
   Available = "AVAILABLE",
+  NoLongerInterested = "NO_LONGER_INTERESTED",
   PlacedIndeterminate = "PLACED_INDETERMINATE",
   PlacedTerm = "PLACED_TERM",
-  NoLongerInterested = "NO_LONGER_INTERESTED",
 }
 
 export type Query = {
   __typename?: "Query";
-  me?: Maybe<User>;
-  user?: Maybe<User>;
-  users: Array<Maybe<User>>;
-  pool?: Maybe<Pool>;
-  pools: Array<Maybe<Pool>>;
-  poolCandidate?: Maybe<PoolCandidate>;
-  poolCandidates: Array<Maybe<PoolCandidate>>;
-  poolCandidatesFilter: Scalars["Int"];
   classification?: Maybe<Classification>;
   classifications: Array<Maybe<Classification>>;
-  operationalRequirement?: Maybe<OperationalRequirement>;
-  operationalRequirements: Array<Maybe<OperationalRequirement>>;
   cmoAsset?: Maybe<CmoAsset>;
   cmoAssets: Array<Maybe<CmoAsset>>;
   department?: Maybe<Department>;
   departments: Array<Maybe<Department>>;
+  me?: Maybe<User>;
+  operationalRequirement?: Maybe<OperationalRequirement>;
+  operationalRequirements: Array<Maybe<OperationalRequirement>>;
+  pool?: Maybe<Pool>;
+  poolCandidate?: Maybe<PoolCandidate>;
+  poolCandidates: Array<Maybe<PoolCandidate>>;
+  poolCandidatesFilter: Scalars["Int"];
+  pools: Array<Maybe<Pool>>;
+  user?: Maybe<User>;
+  users: Array<Maybe<User>>;
 };
 
-export type QueryUserArgs = {
+export type QueryClassificationArgs = {
+  id: Scalars["ID"];
+};
+
+export type QueryCmoAssetArgs = {
+  id: Scalars["ID"];
+};
+
+export type QueryDepartmentArgs = {
+  id: Scalars["ID"];
+};
+
+export type QueryOperationalRequirementArgs = {
   id: Scalars["ID"];
 };
 
@@ -412,25 +461,13 @@ export type QueryPoolCandidateArgs = {
 };
 
 export type QueryPoolCandidatesFilterArgs = {
-  where?: Maybe<QueryPoolCandidatesFilterWhereWhereConditions>;
-  hasExpectedClassifications?: Maybe<QueryPoolCandidatesFilterHasExpectedClassificationsWhereHasConditions>;
   hasAcceptedOperationalRequirements?: Maybe<QueryPoolCandidatesFilterHasAcceptedOperationalRequirementsWhereHasConditions>;
   hasCmoAssets?: Maybe<QueryPoolCandidatesFilterHasCmoAssetsWhereHasConditions>;
+  hasExpectedClassifications?: Maybe<QueryPoolCandidatesFilterHasExpectedClassificationsWhereHasConditions>;
+  where?: Maybe<QueryPoolCandidatesFilterWhereWhereConditions>;
 };
 
-export type QueryClassificationArgs = {
-  id: Scalars["ID"];
-};
-
-export type QueryOperationalRequirementArgs = {
-  id: Scalars["ID"];
-};
-
-export type QueryCmoAssetArgs = {
-  id: Scalars["ID"];
-};
-
-export type QueryDepartmentArgs = {
+export type QueryUserArgs = {
   id: Scalars["ID"];
 };
 
@@ -443,22 +480,22 @@ export enum QueryPoolCandidatesFilterHasAcceptedOperationalRequirementsColumn {
 /** Dynamic WHERE conditions for the `hasAcceptedOperationalRequirements` argument on the query `poolCandidatesFilter`. */
 export type QueryPoolCandidatesFilterHasAcceptedOperationalRequirementsWhereHasConditions =
   {
+    /** A set of conditions that requires all conditions to match. */
+    AND?: Maybe<
+      Array<QueryPoolCandidatesFilterHasAcceptedOperationalRequirementsWhereHasConditions>
+    >;
+    /** Check whether a relation exists. Extra conditions or a minimum amount can be applied. */
+    HAS?: Maybe<QueryPoolCandidatesFilterHasAcceptedOperationalRequirementsWhereHasConditionsRelation>;
+    /** A set of conditions that requires at least one condition to match. */
+    OR?: Maybe<
+      Array<QueryPoolCandidatesFilterHasAcceptedOperationalRequirementsWhereHasConditions>
+    >;
     /** The column that is used for the condition. */
     column?: Maybe<QueryPoolCandidatesFilterHasAcceptedOperationalRequirementsColumn>;
     /** The operator that is used for the condition. */
     operator?: Maybe<SqlOperator>;
     /** The value that is used for the condition. */
     value?: Maybe<Scalars["Mixed"]>;
-    /** A set of conditions that requires all conditions to match. */
-    AND?: Maybe<
-      Array<QueryPoolCandidatesFilterHasAcceptedOperationalRequirementsWhereHasConditions>
-    >;
-    /** A set of conditions that requires at least one condition to match. */
-    OR?: Maybe<
-      Array<QueryPoolCandidatesFilterHasAcceptedOperationalRequirementsWhereHasConditions>
-    >;
-    /** Check whether a relation exists. Extra conditions or a minimum amount can be applied. */
-    HAS?: Maybe<QueryPoolCandidatesFilterHasAcceptedOperationalRequirementsWhereHasConditionsRelation>;
   };
 
 /**
@@ -468,14 +505,14 @@ export type QueryPoolCandidatesFilterHasAcceptedOperationalRequirementsWhereHasC
  */
 export type QueryPoolCandidatesFilterHasAcceptedOperationalRequirementsWhereHasConditionsRelation =
   {
-    /** The relation that is checked. */
-    relation: Scalars["String"];
-    /** The comparison operator to test against the amount. */
-    operator?: Maybe<SqlOperator>;
     /** The amount to test. */
     amount?: Maybe<Scalars["Int"]>;
     /** Additional condition logic. */
     condition?: Maybe<QueryPoolCandidatesFilterHasAcceptedOperationalRequirementsWhereHasConditions>;
+    /** The comparison operator to test against the amount. */
+    operator?: Maybe<SqlOperator>;
+    /** The relation that is checked. */
+    relation: Scalars["String"];
   };
 
 /** Allowed column names for the `hasCmoAssets` argument on field `poolCandidatesFilter` on type `Query`. */
@@ -486,30 +523,30 @@ export enum QueryPoolCandidatesFilterHasCmoAssetsColumn {
 
 /** Dynamic WHERE conditions for the `hasCmoAssets` argument on the query `poolCandidatesFilter`. */
 export type QueryPoolCandidatesFilterHasCmoAssetsWhereHasConditions = {
+  /** A set of conditions that requires all conditions to match. */
+  AND?: Maybe<Array<QueryPoolCandidatesFilterHasCmoAssetsWhereHasConditions>>;
+  /** Check whether a relation exists. Extra conditions or a minimum amount can be applied. */
+  HAS?: Maybe<QueryPoolCandidatesFilterHasCmoAssetsWhereHasConditionsRelation>;
+  /** A set of conditions that requires at least one condition to match. */
+  OR?: Maybe<Array<QueryPoolCandidatesFilterHasCmoAssetsWhereHasConditions>>;
   /** The column that is used for the condition. */
   column?: Maybe<QueryPoolCandidatesFilterHasCmoAssetsColumn>;
   /** The operator that is used for the condition. */
   operator?: Maybe<SqlOperator>;
   /** The value that is used for the condition. */
   value?: Maybe<Scalars["Mixed"]>;
-  /** A set of conditions that requires all conditions to match. */
-  AND?: Maybe<Array<QueryPoolCandidatesFilterHasCmoAssetsWhereHasConditions>>;
-  /** A set of conditions that requires at least one condition to match. */
-  OR?: Maybe<Array<QueryPoolCandidatesFilterHasCmoAssetsWhereHasConditions>>;
-  /** Check whether a relation exists. Extra conditions or a minimum amount can be applied. */
-  HAS?: Maybe<QueryPoolCandidatesFilterHasCmoAssetsWhereHasConditionsRelation>;
 };
 
 /** Dynamic HAS conditions for WHERE conditions for the `hasCmoAssets` argument on the query `poolCandidatesFilter`. */
 export type QueryPoolCandidatesFilterHasCmoAssetsWhereHasConditionsRelation = {
-  /** The relation that is checked. */
-  relation: Scalars["String"];
-  /** The comparison operator to test against the amount. */
-  operator?: Maybe<SqlOperator>;
   /** The amount to test. */
   amount?: Maybe<Scalars["Int"]>;
   /** Additional condition logic. */
   condition?: Maybe<QueryPoolCandidatesFilterHasCmoAssetsWhereHasConditions>;
+  /** The comparison operator to test against the amount. */
+  operator?: Maybe<SqlOperator>;
+  /** The relation that is checked. */
+  relation: Scalars["String"];
 };
 
 /** Allowed column names for the `hasExpectedClassifications` argument on field `poolCandidatesFilter` on type `Query`. */
@@ -521,22 +558,22 @@ export enum QueryPoolCandidatesFilterHasExpectedClassificationsColumn {
 /** Dynamic WHERE conditions for the `hasExpectedClassifications` argument on the query `poolCandidatesFilter`. */
 export type QueryPoolCandidatesFilterHasExpectedClassificationsWhereHasConditions =
   {
+    /** A set of conditions that requires all conditions to match. */
+    AND?: Maybe<
+      Array<QueryPoolCandidatesFilterHasExpectedClassificationsWhereHasConditions>
+    >;
+    /** Check whether a relation exists. Extra conditions or a minimum amount can be applied. */
+    HAS?: Maybe<QueryPoolCandidatesFilterHasExpectedClassificationsWhereHasConditionsRelation>;
+    /** A set of conditions that requires at least one condition to match. */
+    OR?: Maybe<
+      Array<QueryPoolCandidatesFilterHasExpectedClassificationsWhereHasConditions>
+    >;
     /** The column that is used for the condition. */
     column?: Maybe<QueryPoolCandidatesFilterHasExpectedClassificationsColumn>;
     /** The operator that is used for the condition. */
     operator?: Maybe<SqlOperator>;
     /** The value that is used for the condition. */
     value?: Maybe<Scalars["Mixed"]>;
-    /** A set of conditions that requires all conditions to match. */
-    AND?: Maybe<
-      Array<QueryPoolCandidatesFilterHasExpectedClassificationsWhereHasConditions>
-    >;
-    /** A set of conditions that requires at least one condition to match. */
-    OR?: Maybe<
-      Array<QueryPoolCandidatesFilterHasExpectedClassificationsWhereHasConditions>
-    >;
-    /** Check whether a relation exists. Extra conditions or a minimum amount can be applied. */
-    HAS?: Maybe<QueryPoolCandidatesFilterHasExpectedClassificationsWhereHasConditionsRelation>;
   };
 
 /**
@@ -545,53 +582,53 @@ export type QueryPoolCandidatesFilterHasExpectedClassificationsWhereHasCondition
  */
 export type QueryPoolCandidatesFilterHasExpectedClassificationsWhereHasConditionsRelation =
   {
-    /** The relation that is checked. */
-    relation: Scalars["String"];
-    /** The comparison operator to test against the amount. */
-    operator?: Maybe<SqlOperator>;
     /** The amount to test. */
     amount?: Maybe<Scalars["Int"]>;
     /** Additional condition logic. */
     condition?: Maybe<QueryPoolCandidatesFilterHasExpectedClassificationsWhereHasConditions>;
+    /** The comparison operator to test against the amount. */
+    operator?: Maybe<SqlOperator>;
+    /** The relation that is checked. */
+    relation: Scalars["String"];
   };
 
 /** Allowed column names for the `where` argument on field `poolCandidatesFilter` on type `Query`. */
 export enum QueryPoolCandidatesFilterWhereColumn {
   HasDiploma = "HAS_DIPLOMA",
-  LocationPreferences = "LOCATION_PREFERENCES",
-  LanguageAbility = "LANGUAGE_ABILITY",
-  IsWoman = "IS_WOMAN",
   HasDisability = "HAS_DISABILITY",
   IsIndigenous = "IS_INDIGENOUS",
   IsVisibleMinority = "IS_VISIBLE_MINORITY",
+  IsWoman = "IS_WOMAN",
+  LanguageAbility = "LANGUAGE_ABILITY",
+  LocationPreferences = "LOCATION_PREFERENCES",
 }
 
 /** Dynamic WHERE conditions for the `where` argument on the query `poolCandidatesFilter`. */
 export type QueryPoolCandidatesFilterWhereWhereConditions = {
+  /** A set of conditions that requires all conditions to match. */
+  AND?: Maybe<Array<QueryPoolCandidatesFilterWhereWhereConditions>>;
+  /** Check whether a relation exists. Extra conditions or a minimum amount can be applied. */
+  HAS?: Maybe<QueryPoolCandidatesFilterWhereWhereConditionsRelation>;
+  /** A set of conditions that requires at least one condition to match. */
+  OR?: Maybe<Array<QueryPoolCandidatesFilterWhereWhereConditions>>;
   /** The column that is used for the condition. */
   column?: Maybe<QueryPoolCandidatesFilterWhereColumn>;
   /** The operator that is used for the condition. */
   operator?: Maybe<SqlOperator>;
   /** The value that is used for the condition. */
   value?: Maybe<Scalars["Mixed"]>;
-  /** A set of conditions that requires all conditions to match. */
-  AND?: Maybe<Array<QueryPoolCandidatesFilterWhereWhereConditions>>;
-  /** A set of conditions that requires at least one condition to match. */
-  OR?: Maybe<Array<QueryPoolCandidatesFilterWhereWhereConditions>>;
-  /** Check whether a relation exists. Extra conditions or a minimum amount can be applied. */
-  HAS?: Maybe<QueryPoolCandidatesFilterWhereWhereConditionsRelation>;
 };
 
 /** Dynamic HAS conditions for WHERE conditions for the `where` argument on the query `poolCandidatesFilter`. */
 export type QueryPoolCandidatesFilterWhereWhereConditionsRelation = {
-  /** The relation that is checked. */
-  relation: Scalars["String"];
-  /** The comparison operator to test against the amount. */
-  operator?: Maybe<SqlOperator>;
   /** The amount to test. */
   amount?: Maybe<Scalars["Int"]>;
   /** Additional condition logic. */
   condition?: Maybe<QueryPoolCandidatesFilterWhereWhereConditions>;
+  /** The comparison operator to test against the amount. */
+  operator?: Maybe<SqlOperator>;
+  /** The relation that is checked. */
+  relation: Scalars["String"];
 };
 
 export enum Role {
@@ -600,36 +637,36 @@ export enum Role {
 
 /** The available SQL operators that are used to filter query results. */
 export enum SqlOperator {
+  /** Whether a value is within a range of values (`BETWEEN`) */
+  Between = "BETWEEN",
+  /** Whether a value a set of values contains a value (`@>`) */
+  Contains = "CONTAINS",
   /** Equal operator (`=`) */
   Eq = "EQ",
-  /** Not equal operator (`!=`) */
-  Neq = "NEQ",
   /** Greater than operator (`>`) */
   Gt = "GT",
   /** Greater than or equal operator (`>=`) */
   Gte = "GTE",
+  /** Whether a value is within a set of values (`IN`) */
+  In = "IN",
+  /** Whether a value is not null (`IS NOT NULL`) */
+  IsNotNull = "IS_NOT_NULL",
+  /** Whether a value is null (`IS NULL`) */
+  IsNull = "IS_NULL",
+  /** Simple pattern matching (`LIKE`) */
+  Like = "LIKE",
   /** Less than operator (`<`) */
   Lt = "LT",
   /** Less than or equal operator (`<=`) */
   Lte = "LTE",
-  /** Simple pattern matching (`LIKE`) */
-  Like = "LIKE",
-  /** Negation of simple pattern matching (`NOT LIKE`) */
-  NotLike = "NOT_LIKE",
-  /** Whether a value is within a set of values (`IN`) */
-  In = "IN",
-  /** Whether a value is not within a set of values (`NOT IN`) */
-  NotIn = "NOT_IN",
-  /** Whether a value is within a range of values (`BETWEEN`) */
-  Between = "BETWEEN",
+  /** Not equal operator (`!=`) */
+  Neq = "NEQ",
   /** Whether a value is not within a range of values (`NOT BETWEEN`) */
   NotBetween = "NOT_BETWEEN",
-  /** Whether a value is null (`IS NULL`) */
-  IsNull = "IS_NULL",
-  /** Whether a value is not null (`IS NOT NULL`) */
-  IsNotNull = "IS_NOT_NULL",
-  /** Whether a value a set of values contains a value (`@>`) */
-  Contains = "CONTAINS",
+  /** Whether a value is not within a set of values (`NOT IN`) */
+  NotIn = "NOT_IN",
+  /** Negation of simple pattern matching (`NOT LIKE`) */
+  NotLike = "NOT_LIKE",
 }
 
 export enum SalaryRange {
@@ -675,16 +712,16 @@ export enum Trashed {
 }
 
 export type UpdateClassificationInput = {
-  name?: Maybe<LocalizedStringInput>;
   group?: Maybe<Scalars["String"]>;
-  minSalary?: Maybe<Scalars["Int"]>;
   maxSalary?: Maybe<Scalars["Int"]>;
+  minSalary?: Maybe<Scalars["Int"]>;
+  name?: Maybe<LocalizedStringInput>;
 };
 
 export type UpdateCmoAssetInput = {
+  description?: Maybe<LocalizedStringInput>;
   key?: Maybe<Scalars["String"]>;
   name?: Maybe<LocalizedStringInput>;
-  description?: Maybe<LocalizedStringInput>;
 };
 
 export type UpdateDepartmentInput = {
@@ -693,27 +730,27 @@ export type UpdateDepartmentInput = {
 };
 
 export type UpdateOperationalRequirementInput = {
+  description?: Maybe<LocalizedStringInput>;
   key?: Maybe<Scalars["String"]>;
   name?: Maybe<LocalizedStringInput>;
-  description?: Maybe<LocalizedStringInput>;
 };
 
 export type UpdatePoolCandidateInput = {
-  user?: Maybe<UpdatePoolCandidateUserBelongsTo>;
+  acceptedOperationalRequirements?: Maybe<OperationalRequirementBelongsToMany>;
+  cmoAssets?: Maybe<CmoAssetBelongsToMany>;
   cmoIdentifier?: Maybe<Scalars["ID"]>;
+  expectedClassifications?: Maybe<ClassificationBelongsToMany>;
+  expectedSalary?: Maybe<Array<Maybe<SalaryRange>>>;
   expiryDate?: Maybe<Scalars["Date"]>;
-  isWoman?: Maybe<Scalars["Boolean"]>;
+  hasDiploma?: Maybe<Scalars["Boolean"]>;
   hasDisability?: Maybe<Scalars["Boolean"]>;
   isIndigenous?: Maybe<Scalars["Boolean"]>;
   isVisibleMinority?: Maybe<Scalars["Boolean"]>;
-  hasDiploma?: Maybe<Scalars["Boolean"]>;
+  isWoman?: Maybe<Scalars["Boolean"]>;
   languageAbility?: Maybe<LanguageAbility>;
   locationPreferences?: Maybe<Array<Maybe<WorkRegion>>>;
-  acceptedOperationalRequirements?: Maybe<OperationalRequirementBelongsToMany>;
-  expectedSalary?: Maybe<Array<Maybe<SalaryRange>>>;
-  expectedClassifications?: Maybe<ClassificationBelongsToMany>;
-  cmoAssets?: Maybe<CmoAssetBelongsToMany>;
   status?: Maybe<PoolCandidateStatus>;
+  user?: Maybe<UpdatePoolCandidateUserBelongsTo>;
 };
 
 /** When updating a PoolCandidate it is possible to update the related user, but not change which user it is related to. */
@@ -722,79 +759,79 @@ export type UpdatePoolCandidateUserBelongsTo = {
 };
 
 export type UpdatePoolInput = {
-  owner?: Maybe<UserBelongsTo>;
-  name?: Maybe<LocalizedStringInput>;
-  description?: Maybe<LocalizedStringInput>;
-  classifications?: Maybe<ClassificationBelongsToMany>;
   assetCriteria?: Maybe<CmoAssetBelongsToMany>;
+  classifications?: Maybe<ClassificationBelongsToMany>;
+  description?: Maybe<LocalizedStringInput>;
   essentialCriteria?: Maybe<CmoAssetBelongsToMany>;
+  name?: Maybe<LocalizedStringInput>;
   operationalRequirements?: Maybe<OperationalRequirementBelongsToMany>;
+  owner?: Maybe<UserBelongsTo>;
 };
 
 /** When updating a User, all fields are optional, and email cannot be changed. */
 export type UpdateUserInput = {
   firstName?: Maybe<Scalars["String"]>;
   lastName?: Maybe<Scalars["String"]>;
-  telephone?: Maybe<Scalars["PhoneNumber"]>;
   preferredLang?: Maybe<Language>;
   roles?: Maybe<Array<Maybe<Role>>>;
+  telephone?: Maybe<Scalars["PhoneNumber"]>;
 };
 
 export type User = {
   __typename?: "User";
-  id: Scalars["ID"];
   email: Scalars["Email"];
-  sub?: Maybe<Scalars["String"]>;
   firstName?: Maybe<Scalars["String"]>;
+  id: Scalars["ID"];
   lastName?: Maybe<Scalars["String"]>;
-  telephone?: Maybe<Scalars["PhoneNumber"]>;
+  poolCandidates?: Maybe<Array<Maybe<PoolCandidate>>>;
+  pools?: Maybe<Array<Maybe<Pool>>>;
   preferredLang?: Maybe<Language>;
   roles?: Maybe<Array<Maybe<Role>>>;
-  pools?: Maybe<Array<Maybe<Pool>>>;
-  poolCandidates?: Maybe<Array<Maybe<PoolCandidate>>>;
+  sub?: Maybe<Scalars["String"]>;
+  telephone?: Maybe<Scalars["PhoneNumber"]>;
 };
 
 export type UserBelongsTo = {
-  create?: Maybe<CreateUserInput>;
   connect?: Maybe<Scalars["ID"]>;
+  create?: Maybe<CreateUserInput>;
   update?: Maybe<UpdateUserInput>;
 };
 
 /** Dynamic WHERE conditions for queries. */
 export type WhereConditions = {
+  /** A set of conditions that requires all conditions to match. */
+  AND?: Maybe<Array<WhereConditions>>;
+  /** Check whether a relation exists. Extra conditions or a minimum amount can be applied. */
+  HAS?: Maybe<WhereConditionsRelation>;
+  /** A set of conditions that requires at least one condition to match. */
+  OR?: Maybe<Array<WhereConditions>>;
   /** The column that is used for the condition. */
   column?: Maybe<Scalars["String"]>;
   /** The operator that is used for the condition. */
   operator?: Maybe<SqlOperator>;
   /** The value that is used for the condition. */
   value?: Maybe<Scalars["Mixed"]>;
-  /** A set of conditions that requires all conditions to match. */
-  AND?: Maybe<Array<WhereConditions>>;
-  /** A set of conditions that requires at least one condition to match. */
-  OR?: Maybe<Array<WhereConditions>>;
-  /** Check whether a relation exists. Extra conditions or a minimum amount can be applied. */
-  HAS?: Maybe<WhereConditionsRelation>;
 };
 
 /** Dynamic HAS conditions for WHERE condition queries. */
 export type WhereConditionsRelation = {
-  /** The relation that is checked. */
-  relation: Scalars["String"];
-  /** The comparison operator to test against the amount. */
-  operator?: Maybe<SqlOperator>;
   /** The amount to test. */
   amount?: Maybe<Scalars["Int"]>;
   /** Additional condition logic. */
   condition?: Maybe<WhereConditions>;
+  /** The comparison operator to test against the amount. */
+  operator?: Maybe<SqlOperator>;
+  /** The relation that is checked. */
+  relation: Scalars["String"];
 };
 
 export enum WorkRegion {
-  Telework = "TELEWORK",
-  NationalCapital = "NATIONAL_CAPITAL",
   Atlantic = "ATLANTIC",
-  Quebec = "QUEBEC",
+  BritishColumbia = "BRITISH_COLUMBIA",
+  NationalCapital = "NATIONAL_CAPITAL",
+  North = "NORTH",
   Ontario = "ONTARIO",
   Prairie = "PRAIRIE",
-  BritishColumbia = "BRITISH_COLUMBIA",
-  North = "NORTH",
+  Quebec = "QUEBEC",
+  Telework = "TELEWORK",
 }

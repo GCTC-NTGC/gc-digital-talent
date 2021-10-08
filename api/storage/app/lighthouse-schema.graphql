@@ -274,8 +274,41 @@ type PoolCandidate {
   status: PoolCandidateStatus
 }
 
+type PoolCandidateFilter {
+  id: ID!
+  classifications: [Classification]
+  cmoAssets: [CmoAsset]
+  hasDiploma: Boolean
+  hasDisability: Boolean
+  isIndigenous: Boolean
+  isVisibleMinority: Boolean
+  isWoman: Boolean
+  languageAbility: LanguageAbility
+  operationalRequirements: [OperationalRequirement]
+  workRegions: [WorkRegion]
+  pools: [Pool]
+}
+
 input PoolCandidateHasMany {
   create: [CreatePoolCandidateInput!]
+}
+
+type PoolCandidateSearchRequest {
+  id: ID!
+  fullName: String
+  email: String
+  department: Department
+  jobTitle: String
+  additionalComments: String
+  poolCandidateFilter: PoolCandidateFilter!
+  requestedDate: Date
+  status: PoolCandidateSearchStatus
+  adminNotes: String
+}
+
+enum PoolCandidateSearchStatus {
+  PENDING
+  DONE
 }
 
 enum PoolCandidateStatus {
