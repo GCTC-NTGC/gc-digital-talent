@@ -1,12 +1,17 @@
 <IfModule mod_rewrite.c>
     RewriteEngine on
+
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_URI} (.+)/$
+    RewriteRule ^ %1 [L,R=301]
+
     RewriteCond %{REQUEST_URI} ^(.*)
     RewriteRule ^phpinfo.php$ phpinfo.php [L]
     RewriteRule ^graphql-playground api/public/graphql-playground [L]
     RewriteRule ^graphql api/public/graphql [L]
-    RewriteRule ^(auth/.*)$ auth/public/$1 [L]
-    RewriteRule ^(oauth/.*)$ auth/public/$1 [L]
-    RewriteRule ^(admin/.*)$ admin/public/$1 [L]
+    RewriteRule ^auth/(.*)$ auth/public/$1 [L]
+    RewriteRule ^oauth/(.*)$ auth/public/$1 [L]
+    RewriteRule ^admin/(.*)$ admin/public/$1 [L]
     RewriteRule ^public/(.*)$ talentsearch/public/$1 [L]
     RewriteRule ^(.*)$ talentsearch/public/$1 [L]
 </IfModule>
