@@ -68,7 +68,7 @@ Step 3 will resolve the "no-unresolved" eslint error when importing using the "@
 
 Unfortunately, I do not know a good way around the "no-extraneous-dependencies" eslint error, hence turning that rule off entirely in step 4.
 
-# Translation Utility script
+### Translation Utility script
 
 This project contains a script (`src/tooling/checkIntl.js`) to help manage your react-intl translations files. It has been written to run without any dependencies or compilation. It is expected to be used along with the [formatjs cli](https://formatjs.io/docs/tooling/cli). Here are the recommended steps to handling translation:
 
@@ -77,7 +77,7 @@ This project contains a script (`src/tooling/checkIntl.js`) to help manage your 
 2. Run `checkIntl` with options specifying your `--en`, `--fr` and `--whitelist` files to check whether your **fr.json** file is up to date. This is the simplest use of the checkIntl script.
 3. More than likely you actually want to fix the fr file if you have untranslated strings. To this end, run `checkIntl` with the previous options, along with the `--output-untranslated` and `--rm-orphaned` options (a new file path and a boolean flag, respectively).
 4. Provide the outputted **untranslated** file to your translators, asking them to only change _defaultMessage_ field for each entry.
-5. When you reveive the file back from your translators, save it under a new name and rerun `checkIntl` with all the previous options, along with the `--merge-fr` option (a path to the new file).
+5. When you receive the file back from your translators, save it under a new name and rerun `checkIntl` with all the previous options, along with the `--merge-fr` option (a path to the new file).
 6. If, after translation, some entries are the same in English and French, add the keys to **whitelist.json**.
 7. Run [formatjs compile](https://formatjs.io/docs/tooling/cli#compilation) to transform **fr.json** into **frCompiled.json**. This latter file is what react-intl must load messages from.
 
