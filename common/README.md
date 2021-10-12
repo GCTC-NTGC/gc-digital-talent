@@ -85,6 +85,6 @@ This project contains a script (`src/tooling/checkIntl.js`) to help manage your 
 Only **fr.json** and **whitelist.json** need to be checked into source control. The other files created during this process are generated as needed or only used to communicate with translators, and may be deleted after use.
 
 ### On running the commands
-It is most convenient to save the commands from step 3 and step 4 as scripts in a **package.json** file. For example, `npm run check-intl-admin` and `npm run check-intl-admin-merge` will execute those commands for the **/admin** folder.
+It is most convenient to save the commands from step 3 and step 5 as scripts in a **package.json** file. For example, `npm run check-intl-admin` and `npm run check-intl-admin-merge` will execute those commands for the **/admin** folder.
 
 
