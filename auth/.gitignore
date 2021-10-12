@@ -12,6 +12,8 @@
 /public/mix-manifest.json
 .env
 .rnd
+public/js/app.js
+public/css/app.css
 
 # Laravel
 /vendor
