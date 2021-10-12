@@ -64,7 +64,7 @@
     "eslint-plugin-react": "^7.26.1",
     "eslint-plugin-react-hooks": "^4.2.0",
     "eslint-plugin-testcafe": "^0.2.1",
-    "laravel-mix": "^6.0.31",
+    "laravel-mix": "^6.0.34",
     "laravel-mix-polyfill": "^3.0.1",
     "postcss": "^8.3.9",
     "prettier": "^2.4.1",
