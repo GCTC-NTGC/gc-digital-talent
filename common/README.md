@@ -68,23 +68,26 @@ Step 3 will resolve the "no-unresolved" eslint error when importing using the "@
 
 Unfortunately, I do not know a good way around the "no-extraneous-dependencies" eslint error, hence turning that rule off entirely in step 4.
 
-### Translation Utility script
+# Translation Utility script
 
-This project contains a script (`src/tooling/checkIntl.js`) to help manage your react-intl translations files. It has been written to run without any dependencies or compilation. It is expected to be used along with the [formatjs cli](https://formatjs.io/docs/tooling/cli). Here are the recommended steps to handling translation:
+This project contains a script (`src/tooling/checkIntl.js`) to help manage your react-intl translations files. It has been written to run without any dependencies or compilation. It is expected to be used along with the [formatjs cli](https://formatjs.io/docs/tooling/cli). 
 
-1. Run [formatjs extract](https://formatjs.io/docs/tooling/cli#extraction) to generate an **en.json** file with all your original strings.
-    - If this is the first time running this, also create an **fr.json** file consisting of an empty object `{}`, and a **whitelist.json** file consisting of an empty array `[]`.
-2. Run `checkIntl` with options specifying your `--en`, `--fr` and `--whitelist` files to check whether your **fr.json** file is up to date. This is the simplest use of the checkIntl script.
-3. More than likely you actually want to fix the fr file if you have untranslated strings. To this end, run `checkIntl` with the previous options, along with the `--output-untranslated` and `--rm-orphaned` options (a new file path and a boolean flag, respectively).
-4. Provide the outputted **untranslated** file to your translators, asking them to only change _defaultMessage_ field for each entry.
-5. When you receive the file back from your translators, save it under a new name and rerun `checkIntl` with all the previous options, along with the `--merge-fr` option (a path to the new file).
-6. If, after translation, some entries are the same in English and French, add the keys to **whitelist.json**.
-7. Run [formatjs compile](https://formatjs.io/docs/tooling/cli#compilation) to transform **fr.json** into **frCompiled.json**. This latter file is what react-intl must load messages from.
+### Directions
+The checkIntl script can be run with different flags and options. For more details on how individual options work, see the checkIntl file itself. In practice, it is easiest to save the commands, with options included, as **package.json** scripts. 
+
+Note: each project using react-intl (eg admin, common, talentsearch, etc) requires its own set of commands, and must be managed seperately.
+
+For example, to ensure translations in the admin project are up to date:
+1. Run `npm instl-extract` in the project you are managing (in this case, /admin).
+2. Run `npm run check-intl-common` (from the /common folder). This generates a **untranslated.json** file in the admin project's lang folder.
+3. Send **untranslated.json** for translation, asking them to only translated "defaultMessage" fields.
+4. Save the translated version which comes back as **newTranslations.json** in the same lang folder.
+5. Run `npm run check-intl-common-merge` (again from the /common folder).
+6. If you see any warnings about untranslated entries which simply match in English and French, add the key to the array in **whitelist.json** and repeat step 4.
+7. Run `npm intl-compile` in the /admin folder.
 
 ### On source control
-Only **fr.json** and **whitelist.json** need to be checked into source control. The other files created during this process are generated as needed or only used to communicate with translators, and may be deleted after use.
+Only **fr.json** and **whitelist.json** need to be checked into source control. The other files created during this process are generated as needed or only used to communicate with translators, should be added to .gitignore, and may be deleted after use.
 
-### On running the commands
-It is most convenient to save the commands from step 3 and step 5 as scripts in a **package.json** file. For example, `npm run check-intl-admin` and `npm run check-intl-admin-merge` will execute those commands for the **/admin** folder.
 
 
