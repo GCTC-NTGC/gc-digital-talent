@@ -80,7 +80,7 @@ Note: each project using react-intl (eg admin, common, talentsearch, etc) requir
 For example, to ensure translations in the admin project are up to date:
 1. Run `npm instl-extract` in the project you are managing (in this case, /admin).
 2. Run `npm run check-intl-common` (from the /common folder). This generates a **untranslated.json** file in the admin project's lang folder.
-3. Send **untranslated.json** for translation, asking them to only translated "defaultMessage" fields.
+3. Send **untranslated.json** for translation, asking them to only translate the "defaultMessage" fields.
 4. Save the translated version which comes back as **newTranslations.json** in the same lang folder.
 5. Run `npm run check-intl-common-merge` (again from the /common folder).
 6. If you see any warnings about untranslated entries which simply match in English and French, add the key to the array in **whitelist.json** and repeat step 4.
