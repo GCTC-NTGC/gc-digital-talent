@@ -5,17 +5,14 @@ import { BASE_URL } from "../talentSearchConstants";
 
 const messages = defineMessages({
   canadaLogoTitle: {
-    id: "header.canadaLogoTitle",
     defaultMessage: "Visit Canada.ca.",
     description: "Title for the Canada logo in the Header.",
   },
   canadaLogoLabel: {
-    id: "header.canadaLogoLabel",
     defaultMessage: "Canada.ca",
     description: "Label for the Canada logo in the Header.",
   },
   canadaLogoAlt: {
-    id: "header.canadaLogoLabel",
     defaultMessage: "Canada's Logo.",
     description: "Alt text for the Canada logo in the Header.",
   },

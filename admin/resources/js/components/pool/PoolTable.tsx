@@ -12,32 +12,26 @@ import DashboardContentContainer from "../DashboardContentContainer";
 
 const messages = defineMessages({
   columnUniqueIdentifier: {
-    id: "poolTable.column.uniqueIdentifier",
     defaultMessage: "Id",
     description: "Title displayed on the Pool table Unique Identifier column.",
   },
   columnPoolName: {
-    id: "poolTable.column.poolName",
     defaultMessage: "Pool Name",
     description: "Title displayed for the Pool table pool name column.",
   },
   columnPoolDescription: {
-    id: "poolTable.column.poolDescription",
     defaultMessage: "Pool Description",
     description: "Title displayed for the Pool table pool description column.",
   },
   columnOwnerEmail: {
-    id: "poolTable.column.email",
     defaultMessage: "Owner",
     description: "Title displayed for the Pool table owner email column.",
   },
   columnGroupAndLevel: {
-    id: "poolTable.column.groupAndLevel",
     defaultMessage: "Group and Level",
     description: "Title displayed for the Pool table Group and Level column.",
   },
   columnEditTitle: {
-    id: "poolTable.column.editTitle",
     defaultMessage: "Edit",
     description: "Title displayed for the Pool table Edit column.",
   },
@@ -58,12 +52,10 @@ export const PoolTable: React.FC<GetPoolsQuery & { editUrlRoot: string }> = ({
       },
       {
         Header: intl.formatMessage(messages.columnPoolName),
-        id: "name",
         accessor: (d) => (d.name ? d.name[getLocale(intl)] : ""),
       },
       {
         Header: intl.formatMessage(messages.columnPoolDescription),
-        id: "description",
         accessor: (d) => (d.description ? d.description[getLocale(intl)] : ""),
       },
       {
@@ -84,7 +76,6 @@ export const PoolTable: React.FC<GetPoolsQuery & { editUrlRoot: string }> = ({
       },
       {
         Header: intl.formatMessage(messages.columnEditTitle),
-        id: "edit",
         accessor: ({ id }) => (
           <Button
             color="primary"

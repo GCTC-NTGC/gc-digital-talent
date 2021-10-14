@@ -11,27 +11,22 @@ import Table, { ColumnsOf } from "../Table";
 
 const messages = defineMessages({
   columnIdTitle: {
-    id: "cmoAssetTable.column.idTitle",
     defaultMessage: "ID",
     description: "Title displayed on the CMO Asset table ID column.",
   },
   columnKeyTitle: {
-    id: "cmoAssetTable.column.keyTitle",
     defaultMessage: "Key",
     description: "Title displayed for the CMO Asset table Key column.",
   },
   columnNameTitle: {
-    id: "cmoAssetTable.column.nameTitle",
     defaultMessage: "Name",
     description: "Title displayed for the CMO Asset table Name column.",
   },
   columnDescriptionTitle: {
-    id: "cmoAssetTable.column.descriptionTitle",
     defaultMessage: "Description",
     description: "Title displayed for the CMO Asset table Description column.",
   },
   columnEditTitle: {
-    id: "cmoAssetTable.column.editTitle",
     defaultMessage: "Edit",
     description: "Title displayed for the CMO Asset table Edit column.",
   },
@@ -55,17 +50,14 @@ export const CmoAssetTable: React.FC<
       },
       {
         Header: intl.formatMessage(messages.columnNameTitle),
-        id: "name",
         accessor: (d) => d.name?.en,
       },
       {
         Header: intl.formatMessage(messages.columnDescriptionTitle),
-        id: "description",
         accessor: (d) => d.description?.en,
       },
       {
         Header: intl.formatMessage(messages.columnEditTitle),
-        id: "edit",
         accessor: ({ id }) => (
           <Button
             color="primary"

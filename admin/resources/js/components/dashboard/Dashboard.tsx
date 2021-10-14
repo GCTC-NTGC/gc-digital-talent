@@ -16,7 +16,6 @@ export const startsWith = (ref: string, test: string): boolean =>
 
 const messages = defineMessages({
   menuPoolCandidates: {
-    id: "poolDashboard.menu.poolCandidatesLabel",
     defaultMessage: "Pool Candidates",
     description: "Label displayed on the Pool Candidates menu item.",
   },

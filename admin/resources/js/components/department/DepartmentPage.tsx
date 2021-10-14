@@ -6,12 +6,10 @@ import { DepartmentTableApi } from "./DepartmentTable";
 
 const messages = defineMessages({
   tableHeading: {
-    id: "departmentPage.tableHeading",
     defaultMessage: "Departments",
     description: "Heading displayed above the Department Table component.",
   },
   createHeading: {
-    id: "departmentPage.createHeading",
     defaultMessage: "Create Department",
     description: "Heading displayed above the Create Department form.",
   },

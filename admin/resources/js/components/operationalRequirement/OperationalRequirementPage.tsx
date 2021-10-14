@@ -6,13 +6,11 @@ import { OperationalRequirementTableApi } from "./OperationalRequirementTable";
 
 const messages = defineMessages({
   tableHeading: {
-    id: "operationalRequirementPage.tableHeading",
     defaultMessage: "Operational Requirements",
     description:
       "Heading displayed above the Operational Requirement Table component.",
   },
   createHeading: {
-    id: "operationalRequirementPage.createHeading",
     defaultMessage: "Create Operational Requirement",
     description:
       "Heading displayed above the Create Operational Requirement form.",

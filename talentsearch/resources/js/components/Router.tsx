@@ -11,12 +11,10 @@ import HomePage from "./HomePage";
 
 const messages = defineMessages({
   menuHome: {
-    id: "talentSearch.menu.homeLabel",
     defaultMessage: "Home",
     description: "Label displayed on the Home menu item.",
   },
   menuSearch: {
-    id: "talentSearch.menu.searchLabel",
     defaultMessage: "Search",
     description: "Label displayed on the Search menu item.",
   },
