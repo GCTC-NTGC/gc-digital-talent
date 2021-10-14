@@ -1,8 +1,8 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
+import { fakeOperationalRequirements } from "@common/fakeData";
 import { OperationalRequirementTable } from "../components/operationalRequirement/OperationalRequirementTable";
-import fakeOperationalRequirements from "../fakeData/fakeOperationalRequirements";
 import { CreateOperationalRequirementForm } from "../components/operationalRequirement/CreateOperationalRequirement";
 import {
   CreateOperationalRequirementInput,

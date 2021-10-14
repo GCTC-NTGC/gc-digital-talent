@@ -1,8 +1,8 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
+import { fakeCmoAssets } from "@common/fakeData";
 import { CmoAssetTable } from "../components/cmoAsset/CmoAssetTable";
-import fakeCmoAssets from "../fakeData/fakeCmoAssets";
 import { CreateCmoAssetForm } from "../components/cmoAsset/CreateCmoAsset";
 import { CmoAsset, CreateCmoAssetInput } from "../api/generated";
 import { UpdateCmoAssetForm } from "../components/cmoAsset/UpdateCmoAsset";

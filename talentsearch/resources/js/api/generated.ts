@@ -429,6 +429,8 @@ export type Query = {
   operationalRequirements: Array<Maybe<OperationalRequirement>>;
   pool?: Maybe<Pool>;
   poolCandidate?: Maybe<PoolCandidate>;
+  poolCandidateFilter?: Maybe<PoolCandidateFilter>;
+  poolCandidateFilters: Array<Maybe<PoolCandidateFilter>>;
   poolCandidates: Array<Maybe<PoolCandidate>>;
   poolCandidatesFilter: Scalars["Int"];
   pools: Array<Maybe<Pool>>;
@@ -457,6 +459,10 @@ export type QueryPoolArgs = {
 };
 
 export type QueryPoolCandidateArgs = {
+  id: Scalars["ID"];
+};
+
+export type QueryPoolCandidateFilterArgs = {
   id: Scalars["ID"];
 };
 

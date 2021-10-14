@@ -335,6 +335,8 @@ type Query {
   cmoAssets: [CmoAsset]!
   department(id: ID!): Department
   departments: [Department]!
+  poolCandidateFilter(id: ID!): PoolCandidateFilter
+  poolCandidateFilters: [PoolCandidateFilter]!
 }
 
 """

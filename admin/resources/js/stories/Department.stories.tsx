@@ -1,8 +1,8 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
+import { fakeDepartments } from "@common/fakeData";
 import { DepartmentTable } from "../components/department/DepartmentTable";
-import fakeDepartments from "../fakeData/fakeDepartments";
 import { CreateDepartmentForm } from "../components/department/CreateDepartment";
 import { CreateDepartmentInput, Department } from "../api/generated";
 import { UpdateDepartmentForm } from "../components/department/UpdateDepartment";
