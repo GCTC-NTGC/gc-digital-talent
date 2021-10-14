@@ -8,6 +8,7 @@ import { poolCandidateTablePath } from "../../adminRoutes";
 import { useGetPoolsQuery } from "../../api/generated";
 import SideMenu from "../menu/SideMenu";
 import Footer from "../Footer";
+import Header from "../Header";
 
 export const exactMatch = (ref: string, test: string): boolean => ref === test;
 export const startsWith = (ref: string, test: string): boolean =>
@@ -130,6 +131,7 @@ export const Dashboard: React.FC<{
           data-h2-display="b(flex)"
           style={{ flexDirection: "column" }}
         >
+          <Header />
           {content}
           <Footer />
         </div>
