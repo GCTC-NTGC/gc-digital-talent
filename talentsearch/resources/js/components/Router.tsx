@@ -15,7 +15,6 @@ const messages = defineMessages({
     description: "Label displayed on the Home menu item.",
   },
   menuSearch: {
-    id: "talentSearch.menu.searchLabel",
     defaultMessage: "Search",
     description: "Label displayed on the Search menu item.",
   },

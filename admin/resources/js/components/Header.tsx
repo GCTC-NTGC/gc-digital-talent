@@ -15,7 +15,6 @@ const Header: React.FunctionComponent = () => {
           <a
             href={`https://www.canada.ca/${intl.locale}.html`}
             title={intl.formatMessage({
-              id: "header.canadaLogoTitle",
               defaultMessage: "Visit Canada.ca",
               description: "Title for the Canada logo in the Header.",
             })}
@@ -26,7 +25,6 @@ const Header: React.FunctionComponent = () => {
               style={{ width: "20rem" }}
               src={imageUrl(BASE_URL, "logo_goc_colour.svg")}
               alt={intl.formatMessage({
-                id: "header.canadaLogoAlt",
                 defaultMessage: "Canada's Logo.",
                 description: "Alt text for the Canada logo in the Header.",
               })}
