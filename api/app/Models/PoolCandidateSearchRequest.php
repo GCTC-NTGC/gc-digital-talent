@@ -25,27 +25,29 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property Illuminate\Support\Carbon $deleted_at
  */
 
- class PoolCandidateSearchRequest extends Model
- {
-   use SoftDeletes;
-   use HasFactory;
+class PoolCandidateSearchRequest extends Model
+{
+    use SoftDeletes;
+    use HasFactory;
+
+    protected $keyType = 'string';
 
     /**
-      * The attributes that should be cast.
-      *
-      * @var array
-      */
-      protected $casts = [
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
         'requested_date' => 'date',
-      ];
+    ];
 
-      public function department(): BelongsTo
-      {
-          return $this->belongsTo(\App\Models\Lookup\Department::class);
-      }
-
-      public function poolCandidateFilters(): BelongsTo
+    public function department(): BelongsTo
     {
-        return $this->belongsTo(\App\Models\PoolCandidateFilter::class);
+        return $this->belongsTo(Department::class);
     }
- }
+
+    public function poolCandidateFilter(): BelongsTo
+    {
+        return $this->belongsTo(PoolCandidateFilter::class);
+    }
+}

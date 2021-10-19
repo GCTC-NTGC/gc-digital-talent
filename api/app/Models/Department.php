@@ -17,23 +17,23 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property Illuminate\Support\Carbon $deleted_at
  */
 
- class Department extends Model
- {
+class Department extends Model
+{
     use SoftDeletes;
 
     protected $keyType = 'string';
 
     /**
-      * The attributes that should be case.
-      *
-      * @var array
-      */
-      protected $casts = [
+     * The attributes that should be case.
+     *
+     * @var array
+     */
+    protected $casts = [
         'name' => 'array',
-      ];
+    ];
 
-      public function candidateSearchRequests(): HasMany
-      {
-          return $this->hasMany(CandidateSearchRequest::class);
-      }
- }
+    public function candidateSearchRequests(): HasMany
+    {
+        return $this->hasMany(PoolCandidateSearchRequest::class);
+    }
+}

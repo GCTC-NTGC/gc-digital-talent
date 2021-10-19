@@ -139,7 +139,7 @@ type CmoAsset {
 
 type Department {
     id: ID!
-    department_number: Int! @rename(attribute: "department_number")
+    departmentNumber: Int! @rename(attribute: "department_number")
     name: LocalizedString
 }
 
@@ -166,12 +166,12 @@ type PoolCandidateFilter {
 type PoolCandidateSearchRequest {
     id: ID!
     fullName: String @rename(attribute: "full_name")
-    email: String
-    department: Department @hasOne
+    email: Email
+    department: Department @belongsTo
     jobTitle: String @rename(attribute: "job_title")
     additionalComments: String @rename(attribute: "additional_comments")
-    poolCandidateFilter: PoolCandidateFilter! @hasOne
-    requestedDate: Date @rename(attribute: "requested_date")
+    poolCandidateFilter: PoolCandidateFilter! @belongsTo
+    requestedDate: DateTime @rename(attribute: "created_at")
     status: PoolCandidateSearchStatus
     adminNotes: String @rename(attribute: "admin_notes")
 }
@@ -184,12 +184,20 @@ type Query {
     pools: [Pool]! @all @guard @can(ability: "viewAny")
     poolCandidate(id: ID! @eq): PoolCandidate @find @guard @can(ability: "view", query: true)
     poolCandidates: [PoolCandidate]! @all @guard @can(ability: "viewAny")
-    poolCandidatesFilter(where: _
+    # countPoolCandidates returns the number of candidates matching its filters, and requires no special permissions.
+    countPoolCandidates(where: _
         @whereConditions(columns: ["has_diploma", "location_preferences", "language_ability", "is_woman", "has_disability", "is_indigenous", "is_visible_minority"]),
         hasExpectedClassifications: _ @whereHasConditions(columns: ["group", "level"]),
         hasAcceptedOperationalRequirements: _ @whereHasConditions(columns: ["id", "key"]),
         hasCmoAssets: _ @whereHasConditions(columns: ["id", "key"]),
     ): Int! @count(model: "PoolCandidate")
+    # searchPoolCandidates returns the actual candidates matching a filter, and requires permissions.
+    searchPoolCandidates(where: _
+        @whereConditions(columns: ["has_diploma", "location_preferences", "language_ability", "is_woman", "has_disability", "is_indigenous", "is_visible_minority"]),
+        hasExpectedClassifications: _ @whereHasConditions(columns: ["group", "level"]),
+        hasAcceptedOperationalRequirements: _ @whereHasConditions(columns: ["id", "key"]),
+        hasCmoAssets: _ @whereHasConditions(columns: ["id", "key"]),
+    ): [PoolCandidate]! @all @guard @can(ability: "viewAny")
     classification(id: ID! @eq): Classification @find @guard @can(ability: "view", query: true)
     classifications: [Classification]! @all @guard @can(ability: "viewAny")
     operationalRequirement(id: ID! @eq): OperationalRequirement @find @guard @can(ability: "view", query: true)
@@ -198,6 +206,10 @@ type Query {
     cmoAssets: [CmoAsset]! @all @guard @can(ability: "viewAny")
     department(id: ID! @eq): Department @find @guard @can(ability: "viewAny")
     departments: [Department]! @all @guard @can(ability: "view", query: true)
+    poolCandidateFilter(id: ID! @eq): PoolCandidateFilter @find @guard @can(ability: "view", query: true)
+    poolCandidateFilters: [PoolCandidateFilter]! @all @guard @can(ability: "viewAny")
+    poolCandidateSearchRequest(id: ID! @eq): PoolCandidateSearchRequest @find @guard @can(ability: "view", query: true)
+    poolCandidateSearchRequests: [PoolCandidateSearchRequest]! @all @guard @can(ability: "viewAny")
 }
 """
 When creating a User, name and email are required.
