@@ -184,6 +184,7 @@ type Mutation {
   updateDepartment(id: ID!, department: UpdateDepartmentInput!): Department
   deleteDepartment(id: ID!): User
   createPoolCandidateSearchRequest(poolCandidateSearchRequest: CreatePoolCandidateSearchRequestInput!): PoolCandidateSearchRequest
+  updatePoolCandidateSearchRequest(id: ID!, poolCandidateSearchRequest: UpdatePoolCandidateSearchRequestInput!): PoolCandidateSearchRequest
 }
 
 """e.g. Overtime as Required, Shift Work, Travel as Required, etc."""
@@ -936,6 +937,11 @@ input UpdatePoolCandidateInput {
   expectedClassifications: ClassificationBelongsToMany
   cmoAssets: CmoAssetBelongsToMany
   status: PoolCandidateStatus
+}
+
+input UpdatePoolCandidateSearchRequestInput {
+  adminNotes: String
+  status: PoolCandidateSearchStatus
 }
 
 """
