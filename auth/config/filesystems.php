@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'default' => env('FILESYSTEM_DRIVER', 'custom'),
+    'default' => env('FILESYSTEM_DRIVER', 'local'),
 
     /*
     |--------------------------------------------------------------------------
@@ -37,7 +37,7 @@ return [
 
         'custom' => [
             'driver' => 'local',
-            'root' => '../../../storage_auth',
+            'root' => '/tmp/auth/storage',
         ],
 
         'public' => [

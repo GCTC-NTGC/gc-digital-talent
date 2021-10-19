@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__.'/../vendor/autoload.php';
+require_once __DIR__ . '/../vendor/autoload.php';
 
 (new Laravel\Lumen\Bootstrap\LoadEnvironmentVariables(
     dirname(__DIR__)
@@ -64,6 +64,7 @@ $app->configure('appCustom');
 $app->configure('trustedproxy');
 $app->configure('lighthouse');
 $app->configure('oauth');
+$app->configure('filesystems');
 
 
 /*
@@ -79,7 +80,7 @@ $app->configure('oauth');
 
 $app->middleware([
     App\Http\Middleware\CorsMiddleware::class
- ]);
+]);
 
 // $app->middleware([
 //     App\Http\Middleware\ExampleMiddleware::class
@@ -134,7 +135,7 @@ $app->register(App\Providers\GraphQLServiceProvider::class);
 $app->router->group([
     'namespace' => 'App\Http\Controllers',
 ], function ($router) {
-    require __DIR__.'/../routes/web.php';
+    require __DIR__ . '/../routes/web.php';
 });
 
 return $app;

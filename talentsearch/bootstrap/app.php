@@ -23,7 +23,7 @@ $app = new Laravel\Lumen\Application(
     dirname(__DIR__)
 );
 
-require_once __DIR__.'/helpers.php';
+require_once __DIR__ . '/helpers.php';
 
 // $app->withFacades();
 
@@ -63,6 +63,7 @@ $app->singleton(
 
 $app->configure('app');
 $app->configure('trustedproxy');
+$app->configure('filesystems');
 
 /*
 |--------------------------------------------------------------------------
