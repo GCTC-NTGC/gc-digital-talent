@@ -377,6 +377,43 @@ input UpdateDepartmentInput {
     name: LocalizedStringInput
 }
 
+input PoolBelongsToMany {
+    sync: [ID!]
+}
+
+input DepartmentBelongsTo {
+    connect: ID!
+}
+
+input CreatePoolCandidateFilterInput {
+    classifications: ClassificationBelongsToMany
+    cmoAssets: CmoAssetBelongsToMany
+    hasDiploma: Boolean @rename(attribute: "has_diploma")
+    hasDisability: Boolean @rename(attribute: "has_disability")
+    isIndigenous: Boolean @rename(attribute: "is_indigenous")
+    isVisibleMinority: Boolean @rename(attribute: "is_visible_minority")
+    isWoman: Boolean @rename(attribute: "is_woman")
+    languageAbility:LanguageAbility @rename(attribute: "language_ability")
+    operationalRequirements: OperationalRequirementBelongsToMany
+    workRegions: [WorkRegion] @rename(attribute: "work_regions")
+    pools: PoolBelongsToMany
+}
+
+input PoolCandidateFilterBelongsTo {
+    create: CreatePoolCandidateFilterInput!
+}
+
+input CreatePoolCandidateSearchRequestInput {
+    fullName: String! @rename(attribute: "full_name")
+    email: Email!
+    department: DepartmentBelongsTo!
+    jobTitle: String! @rename(attribute: "job_title")
+    additionalComments: String @rename(attribute: "additional_comments")
+    poolCandidateFilter: PoolCandidateFilterBelongsTo!
+    # requestedDate will be set to current date in Eloquent model.
+    # status will be set to PENDING in Eloquent model.
+}
+
 type Mutation {
     createUser(user: CreateUserInput! @spread): User @create @guard @can(ability: "create")
     updateUser(id: ID!, user: UpdateUserInput! @spread): User @update @guard @can(ability: "update", find: "id")
@@ -399,4 +436,5 @@ type Mutation {
     createDepartment(department: CreateDepartmentInput! @spread): Department @create @guard @can(ability: "create")
     updateDepartment(id: ID!, department: UpdateDepartmentInput! @spread): Department @update @can(ability: "update", find: "id")
     deleteDepartment(id: ID!): User @delete(globalId: false) @guard @can(ability: "delete", find: "id")
+    createPoolCandidateSearchRequest(poolCandidateSearchRequest: CreatePoolCandidateSearchRequestInput! @spread): PoolCandidateSearchRequest @create @can(ability: "create")
 }

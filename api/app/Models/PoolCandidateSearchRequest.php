@@ -17,7 +17,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property string $job_title
  * @property string $additional_comments
  * @property string $pool_candidate_filter_id
- * @property Illuminate\Support\Carbon $requested_date
  * @property string $status
  * @property string $admin_notes
  * @property Illuminate\Support\Carbon $created_at
@@ -33,12 +32,12 @@ class PoolCandidateSearchRequest extends Model
     protected $keyType = 'string';
 
     /**
-     * The attributes that should be cast.
+     * The model's default values for attributes.
      *
      * @var array
      */
-    protected $casts = [
-        'requested_date' => 'date',
+    protected $attributes = [
+        'status' => 'PENDING',
     ];
 
     public function department(): BelongsTo

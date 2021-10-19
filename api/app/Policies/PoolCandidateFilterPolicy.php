@@ -39,7 +39,7 @@ class PoolCandidateFilterPolicy
      * @param  \App\Models\User  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function create()
+    public function create(User $user = null)
     {
         return true;
     }
