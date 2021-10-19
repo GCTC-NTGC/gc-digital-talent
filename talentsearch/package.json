@@ -89,7 +89,7 @@
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-hook-form": "^7.17.4",
-    "react-intl": "^5.20.9",
+    "react-intl": "^5.20.13",
     "react-select": "^5.1.0",
     "react-toastify": "^8.0.2",
     "regenerator-runtime": "^0.13.9",
