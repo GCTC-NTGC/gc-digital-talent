@@ -1,6 +1,6 @@
 /* THIS FILE IS AUTO-GENERATED, DO NOT EDIT */
 import { gql } from "urql";
-export type Maybe<T> = T | null;
+export type Maybe<T> = T | null | undefined;
 export type Exact<T extends { [key: string]: unknown }> = {
   [K in keyof T]: T[K];
 };
@@ -429,6 +429,8 @@ export type Query = {
   operationalRequirements: Array<Maybe<OperationalRequirement>>;
   pool?: Maybe<Pool>;
   poolCandidate?: Maybe<PoolCandidate>;
+  poolCandidateFilter?: Maybe<PoolCandidateFilter>;
+  poolCandidateFilters: Array<Maybe<PoolCandidateFilter>>;
   poolCandidates: Array<Maybe<PoolCandidate>>;
   poolCandidatesFilter: Scalars["Int"];
   pools: Array<Maybe<Pool>>;
@@ -457,6 +459,10 @@ export type QueryPoolArgs = {
 };
 
 export type QueryPoolCandidateArgs = {
+  id: Scalars["ID"];
+};
+
+export type QueryPoolCandidateFilterArgs = {
   id: Scalars["ID"];
 };
 

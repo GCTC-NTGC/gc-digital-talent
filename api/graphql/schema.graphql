@@ -198,6 +198,8 @@ type Query {
     cmoAssets: [CmoAsset]! @all @guard @can(ability: "viewAny")
     department(id: ID! @eq): Department @find @guard @can(ability: "viewAny")
     departments: [Department]! @all @guard @can(ability: "view", query: true)
+    poolCandidateFilter(id: ID! @eq): PoolCandidateFilter @find @guard @can(ability: "viewAny")
+    poolCandidateFilters: [PoolCandidateFilter]! @all @guard @can(ability: "view", query: true)
 }
 """
 When creating a User, name and email are required.

@@ -6,12 +6,14 @@
 /report
 /public/hot
 /public/storage
-/public/css
-/public/js
+/public/css/*
+/public/js/*
 /storage/*.key
 /public/mix-manifest.json
 .env
 .rnd
+public/js/app.js
+public/css/app.css
 
 # Laravel
 /vendor

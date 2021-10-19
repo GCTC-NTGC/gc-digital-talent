@@ -16,11 +16,9 @@ export const getSalaryRange = (getSalaryId: string | number): string =>
 
 export const languages = defineMessages({
   [Language.En]: {
-    id: "language.en",
     defaultMessage: "English",
   },
   [Language.Fr]: {
-    id: "language.fr",
     defaultMessage: "French",
   },
 });
@@ -29,3 +27,23 @@ export const getLanguage = (
   getLanguageId: string | number,
 ): MessageDescriptor =>
   getOrThrowError(languages, getLanguageId, "Invalid Language");
+
+export const educationRequirements = defineMessages({
+  hasDiploma: {
+    id: "hasDiploma",
+    defaultMessage: "Required diploma from post-secondary institution",
+  },
+  doesNotHaveDiploma: {
+    id: "doesNotHaveDiploma",
+    defaultMessage: "Can accept a combination of work experience and education",
+  },
+});
+
+export const getEducationRequirement = (
+  getEducationRequirementId: string | number,
+): MessageDescriptor =>
+  getOrThrowError(
+    educationRequirements,
+    getEducationRequirementId,
+    "Invalid Education Requirement",
+  );

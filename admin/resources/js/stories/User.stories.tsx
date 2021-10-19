@@ -1,8 +1,8 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
+import { fakeUsers } from "@common/fakeData";
 import { UserTable } from "../components/user/UserTable";
-import fakeUsers from "../fakeData/fakeUsers";
 import { CreateUserInput, Language, User } from "../api/generated";
 import { CreateUserForm } from "../components/user/CreateUser";
 import { UpdateUserForm } from "../components/user/UpdateUser";

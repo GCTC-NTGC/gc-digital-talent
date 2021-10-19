@@ -1,4 +1,5 @@
 schema: ../api/storage/app/lighthouse-schema.graphql
+documents: ../admin/resources/js/**/*.graphql
 generates:
   ./src/api/generated.ts:
     plugins:
@@ -14,6 +15,7 @@ generates:
         Email: string
         PhoneNumber: string
       gqlImport: urql#gql
+      maybeValue: T | null | undefined
 hooks:
   afterOneFileWrite:
     - prettier --write

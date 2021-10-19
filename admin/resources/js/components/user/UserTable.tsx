@@ -11,33 +11,27 @@ import DashboardContentContainer from "../DashboardContentContainer";
 
 const messages = defineMessages({
   columnFirstNameTitle: {
-    id: "userTable.column.firstNameTitle",
     defaultMessage: "First Name",
     description: "Title displayed on the User table First Name column.",
   },
   columnLastNameTitle: {
-    id: "userTable.column.lastNameTitle",
     defaultMessage: "Last Name",
     description: "Title displayed for the User table Last Name column.",
   },
   columnEmailTitle: {
-    id: "userTable.column.emailTitle",
     defaultMessage: "Email",
     description: "Title displayed for the User table Email column.",
   },
   columnTelephoneTitle: {
-    id: "userTable.column.telephoneTitle",
     defaultMessage: "Telephone",
     description: "Title displayed for the User table Telephone column.",
   },
   columnPreferredLanguageTitle: {
-    id: "userTable.column.preferredLanguageTitle",
     defaultMessage: "Preferred Language",
     description:
       "Title displayed for the User table Preferred Language column.",
   },
   columnEditTitle: {
-    id: "userTable.column.editTitle",
     defaultMessage: "Edit",
     description: "Title displayed for the User table Edit column.",
   },
@@ -74,7 +68,6 @@ export const UserTable: React.FC<AllUsersQuery & { editUrlRoot: string }> = ({
       },
       {
         Header: intl.formatMessage(messages.columnEditTitle),
-        id: "edit",
         accessor: ({ id }) => (
           <Button
             color="primary"

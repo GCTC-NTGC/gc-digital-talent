@@ -7,63 +7,51 @@ import { BASE_URL } from "../adminConstants";
 
 const messages = defineMessages({
   feedbackTitle: {
-    id: "footer.feedbackTitle",
     defaultMessage: "Submit feedback to GC Talent Cloud via email.",
     description: "Title for the feedback link in the Footer.",
   },
   feedbackLabel: {
-    id: "footer.feedbackLabel",
     defaultMessage: "Feedback",
     description: "Label for the feedback link in the Footer.",
   },
   termsAndConditionsTitle: {
-    id: "footer.termsAndConditionsTitle",
     defaultMessage: "View our terms and conditions.",
     description: "Title for the terms and conditions link in the Footer.",
   },
   termsAndConditionsLabel: {
-    id: "footer.termsAndConditionsLabel",
     defaultMessage: "Terms & Conditions",
     description: "Label for the terms and conditions link in the Footer.",
   },
   privacyTitle: {
-    id: "footer.privacyTitle",
     defaultMessage: "View our privacy policy.",
     description: "Title for the privacy link in the Footer.",
   },
   privacyLabel: {
-    id: "footer.privacyLabel",
     defaultMessage: "Privacy Policy",
     description: "Label for the privacy link in the Footer.",
   },
   canadaTitle: {
-    id: "footer.canadaTitle",
     defaultMessage: "Visit Canada.ca.",
     description: "Title for the Canada link in the Footer.",
   },
   canadaLabel: {
-    id: "footer.canadaLabel",
     defaultMessage: "Canada.ca",
     description: "Label for the Canada link in the Footer.",
   },
   dateModified: {
-    id: "footer.dateModified",
     defaultMessage: "Date Modified",
     description:
       "Header for the sites last date modification found in the footer.",
   },
   canadaLogoTitle: {
-    id: "footer.canadaLogoTitle",
     defaultMessage: "Visit Canada.ca.",
     description: "Title for the Canada logo in the Footer.",
   },
   canadaLogoLabel: {
-    id: "footer.canadaLogoLabel",
     defaultMessage: "Canada.ca",
     description: "Label for the Canada logo in the Footer.",
   },
   canadaLogoAlt: {
-    id: "footer.canadaLogoLabel",
     defaultMessage: "Canada's Logo.",
     description: "Alt text for the Canada logo in the Footer.",
   },

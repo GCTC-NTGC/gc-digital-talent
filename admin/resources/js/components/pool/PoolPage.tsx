@@ -6,12 +6,10 @@ import { PoolTableApi } from "./PoolTable";
 
 const messages = defineMessages({
   tableHeading: {
-    id: "poolPage.tableHeading",
     defaultMessage: "Pools",
     description: "Heading displayed above the Pool Table component.",
   },
   createHeading: {
-    id: "poolPage.createHeading",
     defaultMessage: "Create Pool",
     description: "Heading displayed above the Create Pool form.",
   },

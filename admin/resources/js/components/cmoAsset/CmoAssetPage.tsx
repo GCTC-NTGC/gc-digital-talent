@@ -7,12 +7,10 @@ import { CmoAssetTableApi } from "./CmoAssetTable";
 
 const messages = defineMessages({
   tableHeading: {
-    id: "cmoAssetPage.tableHeading",
     defaultMessage: "CMO Assets",
     description: "Heading displayed above the CMO Asset Table component.",
   },
   createHeading: {
-    id: "cmoAssetPage.createHeading",
     defaultMessage: "Create CMO Asset",
     description: "Heading displayed above the Create CMO Asset form.",
   },

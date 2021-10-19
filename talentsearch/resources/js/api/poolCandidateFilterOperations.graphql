@@ -1,0 +1,46 @@
+fragment poolCandidateFilter on PoolCandidateFilter {
+  id
+  classifications {
+    id
+    group
+    level
+  }
+  cmoAssets {
+    id
+    key
+    name {
+      en
+      fr
+    }
+  }
+  hasDiploma
+  hasDisability
+  isIndigenous
+  isVisibleMinority
+  isWoman
+  languageAbility
+  operationalRequirements {
+    id
+    key
+    name {
+      en
+      fr
+    }
+  }
+  workRegions
+  pools {
+    id
+  }
+}
+
+query getPoolCandidateFilter($id: ID!) {
+  poolCandidateFilter(id: $id) {
+    ...poolCandidateFilter
+  }
+}
+
+query getPoolCandidateFilters {
+  poolCandidateFilters {
+    ...poolCandidateFilter
+  }
+}

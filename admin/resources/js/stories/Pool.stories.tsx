@@ -2,6 +2,13 @@ import React from "react";
 import { action } from "@storybook/addon-actions";
 import { storiesOf } from "@storybook/react";
 import {
+  fakeClassifications,
+  fakeCmoAssets,
+  fakeUsers,
+  fakePools,
+  fakeOperationalRequirements,
+} from "@common/fakeData";
+import {
   Classification,
   CmoAsset,
   CreatePoolInput,
@@ -11,13 +18,8 @@ import {
   User,
 } from "../api/generated";
 import { CreatePoolForm } from "../components/pool/CreatePool";
-import fakeClassifications from "../fakeData/fakeClassifications";
-import fakeCmoAssets from "../fakeData/fakeCmoAssets";
-import fakeOperationalRequirements from "../fakeData/fakeOperationalRequirements";
-import fakeUsers from "../fakeData/fakeUsers";
 import { UpdatePoolForm } from "../components/pool/UpdatePool";
 import { PoolTable } from "../components/pool/PoolTable";
-import fakePools from "../fakeData/fakePools";
 
 const poolData = fakePools();
 // It is possible data may come back from api with missing data.

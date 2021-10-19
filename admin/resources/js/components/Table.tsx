@@ -7,12 +7,10 @@ import GlobalFilter from "./GlobalFilter";
 
 const messages = defineMessages({
   toggleTableColumnsLabel: {
-    id: "table.toggleTableColumnsLabel",
     defaultMessage: "Hide/Show Table Columns",
     description: "Label displayed on the Table Columns toggle.",
   },
   toggleAllTableColumnsLabel: {
-    id: "table.toggleAllTableColumnsLabel",
     defaultMessage: "Toggle All",
     description: "Label displayed on the Table Columns toggle fieldset.",
   },
@@ -141,9 +139,7 @@ function Table<T extends Record<string, unknown>>({
           </div>
         </div>
       ) : null}
-      <div
-        data-h2-overflow="b(all, auto)"
-        style={{ maxWidth: "100%" }}>
+      <div data-h2-overflow="b(all, auto)" style={{ maxWidth: "100%" }}>
         <table {...getTableProps()}>
           <thead>
             {headerGroups.map((headerGroup) => (

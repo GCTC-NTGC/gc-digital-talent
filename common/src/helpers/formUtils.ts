@@ -6,7 +6,7 @@ import { getId, notEmpty } from "./util";
  * @param data
  * @returns T[]
  */
-export function unpackMaybes<T>(data: Maybe<Array<Maybe<T>>> | undefined): T[] {
+export function unpackMaybes<T>(data: Maybe<Array<Maybe<T>>>): T[] {
   return data?.filter(notEmpty) ?? [];
 }
 
@@ -16,7 +16,7 @@ export function unpackMaybes<T>(data: Maybe<Array<Maybe<T>>> | undefined): T[] {
  * @returns string[]
  */
 export const unpackIds = (
-  data: Maybe<Array<Maybe<{ id: string }>>> | undefined,
+  data: Maybe<Array<Maybe<{ id: string }>>>,
 ): string[] => unpackMaybes<{ id: string }>(data).map(getId);
 
 /**

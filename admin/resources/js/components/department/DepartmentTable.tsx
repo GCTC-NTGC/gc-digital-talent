@@ -11,18 +11,15 @@ import DashboardContentContainer from "../DashboardContentContainer";
 
 const messages = defineMessages({
   columnDepartmentNumberTitle: {
-    id: "departmentTable.column.departmentNumber",
     defaultMessage: "Department #",
     description:
       "Title displayed for the Department table Department # column.",
   },
   columnNameTitle: {
-    id: "departmentTable.column.nameTitle",
     defaultMessage: "Name",
     description: "Title displayed for the Department table Name column.",
   },
   columnEditTitle: {
-    id: "departmentTable.column.editTitle",
     defaultMessage: "Edit",
     description: "Title displayed for the Department table Edit column.",
   },
@@ -42,12 +39,10 @@ export const DepartmentTable: React.FC<
       },
       {
         Header: intl.formatMessage(messages.columnNameTitle),
-        id: "name",
         accessor: (d) => d.name?.en,
       },
       {
         Header: intl.formatMessage(messages.columnEditTitle),
-        id: "edit",
         accessor: ({ id }) => (
           <Button
             color="primary"

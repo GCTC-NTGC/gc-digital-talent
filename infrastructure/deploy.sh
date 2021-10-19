@@ -13,10 +13,21 @@ cat << '__EOF__' > $(System.DefaultWorkingDirectory)/$(Release.PrimaryArtifactSo
 
 <IfModule mod_rewrite.c>
     RewriteEngine on
+
+#   remove trailing slash
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_URI} (.+)/$
+    RewriteRule ^ %1 [L,R=301]
+
     RewriteCond %{REQUEST_URI} ^(.*)
-    RewriteRule ^graphql-playground$ api/public/graphql-playground [L]
-    RewriteRule ^graphql$ api/public/graphql [L]
-    RewriteRule ^(.*)$ admin/public/$1 [L]
+    RewriteRule ^phpinfo.php$ phpinfo.php [L]
+    RewriteRule ^graphql-playground api/public/graphql-playground [L]
+    RewriteRule ^graphql api/public/graphql [L]
+    RewriteRule ^auth/(.*)$ auth/public/$1 [L]
+    RewriteRule ^oauth/(.*)$ auth/public/$1 [L]
+    RewriteRule ^admin/(.*)$ admin/public/$1 [L]
+    RewriteRule ^public/(.*)$ talentsearch/public/$1 [L]
+    RewriteRule ^(.*)$ talentsearch/public/$1 [L]
 </IfModule>
 
 <IfModule mod_headers.c>
@@ -40,28 +51,77 @@ __EOF__
 ### Dependencies
 
 sudo composer selfupdate
-sudo npm install -g npm
 
-# Lumen / GraphQL
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+source ~/.bash_profile
+nvm install v14.18.1
+nvm install-latest-npm
+
+### Common
+
+cd $(System.DefaultWorkingDirectory)/$(Release.PrimaryArtifactSourceAlias)/common
+
+nvm use
+npm install
+npm run codegen
+#npm install --production
+
+### API
 
 cd $(System.DefaultWorkingDirectory)/$(Release.PrimaryArtifactSourceAlias)/api
 
-composer install
+composer install --no-dev
+sudo chown -R www-data ./storage ./vendor
+sudo chmod -R 775 ./ ./storage
+php artisan lighthouse:print-schema --write
+
+### Auth
+
+cd $(System.DefaultWorkingDirectory)/$(Release.PrimaryArtifactSourceAlias)/auth
+
+nvm use
+composer install --no-dev
+npm install
+npm run production
+npm install --production
+sudo chown -R www-data ./storage ./vendor
+sudo chmod -R 775 ./ ./storage
+php artisan config:cache
+
+### Talentsearch
+
+cd $(System.DefaultWorkingDirectory)/$(Release.PrimaryArtifactSourceAlias)/talentsearch
+
+nvm use
+composer install --no-dev
+npm install
+npm i @graphql-codegen/typescript --save-dev
+npm rebuild node-sass
+npm run h2-build
+npm run codegen
+npm run production
+npm install --production
 sudo chown -R www-data ./storage ./vendor
 sudo chmod -R 775 ./ ./storage
 
-# Lumen / React
+### Admin
 
 cd $(System.DefaultWorkingDirectory)/$(Release.PrimaryArtifactSourceAlias)/admin
 
-composer install
+nvm use
+composer install --no-dev
 npm install
 npm rebuild node-sass
 npm run h2-build
+npm run codegen
 npm run dev
+#npm run production
+npm install --production
 sudo chown -R www-data ./storage ./vendor
 sudo chmod -R 775 ./ ./storage
+php artisan config:cache
 
 ### Startup command
 
-cd api/ && php artisan migrate -n --force
+cd api/ && php artisan migrate -n --force && cd /home/site/wwwroot/auth/ && php artisan migrate -n --force
