@@ -2944,6 +2944,216 @@ export type CreateUserMutation = {
     | undefined;
 };
 
+export type PoolCandidateFilterFragment = {
+  __typename?: "PoolCandidateFilter";
+  id: string;
+  hasDiploma?: boolean | null | undefined;
+  hasDisability?: boolean | null | undefined;
+  isIndigenous?: boolean | null | undefined;
+  isVisibleMinority?: boolean | null | undefined;
+  isWoman?: boolean | null | undefined;
+  languageAbility?: LanguageAbility | null | undefined;
+  workRegions?: Array<WorkRegion | null | undefined> | null | undefined;
+  classifications?:
+    | Array<
+        | {
+            __typename?: "Classification";
+            id: string;
+            group: string;
+            level: number;
+          }
+        | null
+        | undefined
+      >
+    | null
+    | undefined;
+  cmoAssets?:
+    | Array<
+        | {
+            __typename?: "CmoAsset";
+            id: string;
+            key: string;
+            name: {
+              __typename?: "LocalizedString";
+              en?: string | null | undefined;
+              fr?: string | null | undefined;
+            };
+          }
+        | null
+        | undefined
+      >
+    | null
+    | undefined;
+  operationalRequirements?:
+    | Array<
+        | {
+            __typename?: "OperationalRequirement";
+            id: string;
+            key: string;
+            name: {
+              __typename?: "LocalizedString";
+              en?: string | null | undefined;
+              fr?: string | null | undefined;
+            };
+          }
+        | null
+        | undefined
+      >
+    | null
+    | undefined;
+  pools?:
+    | Array<{ __typename?: "Pool"; id: string } | null | undefined>
+    | null
+    | undefined;
+};
+
+export type GetPoolCandidateFilterQueryVariables = Exact<{
+  id: Scalars["ID"];
+}>;
+
+export type GetPoolCandidateFilterQuery = {
+  __typename?: "Query";
+  poolCandidateFilter?:
+    | {
+        __typename?: "PoolCandidateFilter";
+        id: string;
+        hasDiploma?: boolean | null | undefined;
+        hasDisability?: boolean | null | undefined;
+        isIndigenous?: boolean | null | undefined;
+        isVisibleMinority?: boolean | null | undefined;
+        isWoman?: boolean | null | undefined;
+        languageAbility?: LanguageAbility | null | undefined;
+        workRegions?: Array<WorkRegion | null | undefined> | null | undefined;
+        classifications?:
+          | Array<
+              | {
+                  __typename?: "Classification";
+                  id: string;
+                  group: string;
+                  level: number;
+                }
+              | null
+              | undefined
+            >
+          | null
+          | undefined;
+        cmoAssets?:
+          | Array<
+              | {
+                  __typename?: "CmoAsset";
+                  id: string;
+                  key: string;
+                  name: {
+                    __typename?: "LocalizedString";
+                    en?: string | null | undefined;
+                    fr?: string | null | undefined;
+                  };
+                }
+              | null
+              | undefined
+            >
+          | null
+          | undefined;
+        operationalRequirements?:
+          | Array<
+              | {
+                  __typename?: "OperationalRequirement";
+                  id: string;
+                  key: string;
+                  name: {
+                    __typename?: "LocalizedString";
+                    en?: string | null | undefined;
+                    fr?: string | null | undefined;
+                  };
+                }
+              | null
+              | undefined
+            >
+          | null
+          | undefined;
+        pools?:
+          | Array<{ __typename?: "Pool"; id: string } | null | undefined>
+          | null
+          | undefined;
+      }
+    | null
+    | undefined;
+};
+
+export type GetPoolCandidateFiltersQueryVariables = Exact<{
+  [key: string]: never;
+}>;
+
+export type GetPoolCandidateFiltersQuery = {
+  __typename?: "Query";
+  poolCandidateFilters: Array<
+    | {
+        __typename?: "PoolCandidateFilter";
+        id: string;
+        hasDiploma?: boolean | null | undefined;
+        hasDisability?: boolean | null | undefined;
+        isIndigenous?: boolean | null | undefined;
+        isVisibleMinority?: boolean | null | undefined;
+        isWoman?: boolean | null | undefined;
+        languageAbility?: LanguageAbility | null | undefined;
+        workRegions?: Array<WorkRegion | null | undefined> | null | undefined;
+        classifications?:
+          | Array<
+              | {
+                  __typename?: "Classification";
+                  id: string;
+                  group: string;
+                  level: number;
+                }
+              | null
+              | undefined
+            >
+          | null
+          | undefined;
+        cmoAssets?:
+          | Array<
+              | {
+                  __typename?: "CmoAsset";
+                  id: string;
+                  key: string;
+                  name: {
+                    __typename?: "LocalizedString";
+                    en?: string | null | undefined;
+                    fr?: string | null | undefined;
+                  };
+                }
+              | null
+              | undefined
+            >
+          | null
+          | undefined;
+        operationalRequirements?:
+          | Array<
+              | {
+                  __typename?: "OperationalRequirement";
+                  id: string;
+                  key: string;
+                  name: {
+                    __typename?: "LocalizedString";
+                    en?: string | null | undefined;
+                    fr?: string | null | undefined;
+                  };
+                }
+              | null
+              | undefined
+            >
+          | null
+          | undefined;
+        pools?:
+          | Array<{ __typename?: "Pool"; id: string } | null | undefined>
+          | null
+          | undefined;
+      }
+    | null
+    | undefined
+  >;
+};
+
 export const ClassificationFragmentDoc = gql`
   fragment classification on Classification {
     id
@@ -3119,6 +3329,42 @@ export const PoolFragmentDoc = gql`
         en
         fr
       }
+    }
+  }
+`;
+export const PoolCandidateFilterFragmentDoc = gql`
+  fragment poolCandidateFilter on PoolCandidateFilter {
+    id
+    classifications {
+      id
+      group
+      level
+    }
+    cmoAssets {
+      id
+      key
+      name {
+        en
+        fr
+      }
+    }
+    hasDiploma
+    hasDisability
+    isIndigenous
+    isVisibleMinority
+    isWoman
+    languageAbility
+    operationalRequirements {
+      id
+      key
+      name {
+        en
+        fr
+      }
+    }
+    workRegions
+    pools {
+      id
     }
   }
 `;
@@ -4020,4 +4266,44 @@ export function useCreateUserMutation() {
   return Urql.useMutation<CreateUserMutation, CreateUserMutationVariables>(
     CreateUserDocument,
   );
+}
+export const GetPoolCandidateFilterDocument = gql`
+  query getPoolCandidateFilter($id: ID!) {
+    poolCandidateFilter(id: $id) {
+      ...poolCandidateFilter
+    }
+  }
+  ${PoolCandidateFilterFragmentDoc}
+`;
+
+export function useGetPoolCandidateFilterQuery(
+  options: Omit<
+    Urql.UseQueryArgs<GetPoolCandidateFilterQueryVariables>,
+    "query"
+  > = {},
+) {
+  return Urql.useQuery<GetPoolCandidateFilterQuery>({
+    query: GetPoolCandidateFilterDocument,
+    ...options,
+  });
+}
+export const GetPoolCandidateFiltersDocument = gql`
+  query getPoolCandidateFilters {
+    poolCandidateFilters {
+      ...poolCandidateFilter
+    }
+  }
+  ${PoolCandidateFilterFragmentDoc}
+`;
+
+export function useGetPoolCandidateFiltersQuery(
+  options: Omit<
+    Urql.UseQueryArgs<GetPoolCandidateFiltersQueryVariables>,
+    "query"
+  > = {},
+) {
+  return Urql.useQuery<GetPoolCandidateFiltersQuery>({
+    query: GetPoolCandidateFiltersDocument,
+    ...options,
+  });
 }
