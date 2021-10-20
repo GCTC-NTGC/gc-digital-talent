@@ -126,7 +126,7 @@ export const SearchPage: React.FC = () => {
         data-h2-flex-grid="b(top, contained, flush, xl)"
         data-h2-container="b(center, l)"
       >
-        <div data-h2-flex-item="b(1of1) s(2of3)">
+        <div data-h2-flex-item="b(1of1) s(2of3)" style={{ paddingBottom: "0" }}>
           <h2
             data-h2-font-color="b(black)"
             data-h2-font-weight="b(300)"
@@ -155,7 +155,7 @@ export const SearchPage: React.FC = () => {
             totalEstimatedCandidates={totalEstimatedCandidates}
           />
         </div>
-        <div data-h2-flex-item="b(1of1)">
+        <div data-h2-flex-item="b(1of1)" style={{ paddingTop: "0" }}>
           <div
             data-h2-shadow="b(m)"
             data-h2-padding="b(top-bottom, xs) b(left, s)"
@@ -230,10 +230,7 @@ export const SearchPage: React.FC = () => {
                 {intl.formatMessage({ defaultMessage: "Pool Owner" })}:{" "}
                 {pool?.owner?.firstName} {pool?.owner?.lastName}
               </p>
-              <p
-                data-h2-margin="b(bottom, none)"
-                data-h2-font-size="b(caption)"
-              >
+              <p data-h2-margin="b(bottom, s)" data-h2-font-size="b(caption)">
                 {pool.description?.[locale]}
               </p>
             </div>
