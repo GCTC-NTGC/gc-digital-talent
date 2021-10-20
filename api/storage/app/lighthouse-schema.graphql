@@ -50,6 +50,20 @@ input CreateOperationalRequirementInput {
   description: LocalizedStringInput
 }
 
+input CreatePoolCandidateFilterInput {
+  classifications: ClassificationBelongsToMany
+  cmoAssets: CmoAssetBelongsToMany
+  hasDiploma: Boolean
+  hasDisability: Boolean
+  isIndigenous: Boolean
+  isVisibleMinority: Boolean
+  isWoman: Boolean
+  languageAbility: LanguageAbility
+  operationalRequirements: OperationalRequirementBelongsToMany
+  workRegions: [WorkRegion]
+  pools: PoolBelongsToMany
+}
+
 input CreatePoolCandidateInput {
   pool: PoolBelongsTo!
   user: UserBelongsTo!
@@ -67,6 +81,15 @@ input CreatePoolCandidateInput {
   expectedClassifications: ClassificationBelongsToMany
   cmoAssets: CmoAssetBelongsToMany
   status: PoolCandidateStatus = AVAILABLE
+}
+
+input CreatePoolCandidateSearchRequestInput {
+  fullName: String!
+  email: Email!
+  department: DepartmentBelongsTo!
+  jobTitle: String!
+  additionalComments: String
+  poolCandidateFilter: PoolCandidateFilterBelongsTo!
 }
 
 input CreatePoolInput {
@@ -99,8 +122,12 @@ scalar DateTime
 
 type Department {
   id: ID!
-  department_number: Int!
+  departmentNumber: Int!
   name: LocalizedString
+}
+
+input DepartmentBelongsTo {
+  connect: ID!
 }
 
 """A RFC 5321 compliant email."""
@@ -156,6 +183,8 @@ type Mutation {
   createDepartment(department: CreateDepartmentInput!): Department
   updateDepartment(id: ID!, department: UpdateDepartmentInput!): Department
   deleteDepartment(id: ID!): User
+  createPoolCandidateSearchRequest(poolCandidateSearchRequest: CreatePoolCandidateSearchRequestInput!): PoolCandidateSearchRequest
+  updatePoolCandidateSearchRequest(id: ID!, poolCandidateSearchRequest: UpdatePoolCandidateSearchRequestInput!): PoolCandidateSearchRequest
 }
 
 """e.g. Overtime as Required, Shift Work, Travel as Required, etc."""
@@ -254,6 +283,10 @@ input PoolBelongsTo {
   connect: ID!
 }
 
+input PoolBelongsToMany {
+  sync: [ID!]
+}
+
 type PoolCandidate {
   id: ID!
   pool: Pool
@@ -289,6 +322,10 @@ type PoolCandidateFilter {
   pools: [Pool]
 }
 
+input PoolCandidateFilterBelongsTo {
+  create: CreatePoolCandidateFilterInput!
+}
+
 input PoolCandidateHasMany {
   create: [CreatePoolCandidateInput!]
 }
@@ -296,12 +333,12 @@ input PoolCandidateHasMany {
 type PoolCandidateSearchRequest {
   id: ID!
   fullName: String
-  email: String
+  email: Email
   department: Department
   jobTitle: String
   additionalComments: String
   poolCandidateFilter: PoolCandidateFilter!
-  requestedDate: Date
+  requestedDate: DateTime
   status: PoolCandidateSearchStatus
   adminNotes: String
 }
@@ -326,7 +363,8 @@ type Query {
   pools: [Pool]!
   poolCandidate(id: ID!): PoolCandidate
   poolCandidates: [PoolCandidate]!
-  poolCandidatesFilter(where: QueryPoolCandidatesFilterWhereWhereConditions, hasExpectedClassifications: QueryPoolCandidatesFilterHasExpectedClassificationsWhereHasConditions, hasAcceptedOperationalRequirements: QueryPoolCandidatesFilterHasAcceptedOperationalRequirementsWhereHasConditions, hasCmoAssets: QueryPoolCandidatesFilterHasCmoAssetsWhereHasConditions): Int!
+  countPoolCandidates(where: QueryCountPoolCandidatesWhereWhereConditions, hasExpectedClassifications: QueryCountPoolCandidatesHasExpectedClassificationsWhereHasConditions, hasAcceptedOperationalRequirements: QueryCountPoolCandidatesHasAcceptedOperationalRequirementsWhereHasConditions, hasCmoAssets: QueryCountPoolCandidatesHasCmoAssetsWhereHasConditions): Int!
+  searchPoolCandidates(where: QuerySearchPoolCandidatesWhereWhereConditions, hasExpectedClassifications: QuerySearchPoolCandidatesHasExpectedClassificationsWhereHasConditions, hasAcceptedOperationalRequirements: QuerySearchPoolCandidatesHasAcceptedOperationalRequirementsWhereHasConditions, hasCmoAssets: QuerySearchPoolCandidatesHasCmoAssetsWhereHasConditions): [PoolCandidate]!
   classification(id: ID!): Classification
   classifications: [Classification]!
   operationalRequirement(id: ID!): OperationalRequirement
@@ -337,22 +375,24 @@ type Query {
   departments: [Department]!
   poolCandidateFilter(id: ID!): PoolCandidateFilter
   poolCandidateFilters: [PoolCandidateFilter]!
+  poolCandidateSearchRequest(id: ID!): PoolCandidateSearchRequest
+  poolCandidateSearchRequests: [PoolCandidateSearchRequest]!
 }
 
 """
-Allowed column names for the `hasAcceptedOperationalRequirements` argument on field `poolCandidatesFilter` on type `Query`.
+Allowed column names for the `hasAcceptedOperationalRequirements` argument on field `countPoolCandidates` on type `Query`.
 """
-enum QueryPoolCandidatesFilterHasAcceptedOperationalRequirementsColumn {
+enum QueryCountPoolCandidatesHasAcceptedOperationalRequirementsColumn {
   ID
   KEY
 }
 
 """
-Dynamic WHERE conditions for the `hasAcceptedOperationalRequirements` argument on the query `poolCandidatesFilter`.
+Dynamic WHERE conditions for the `hasAcceptedOperationalRequirements` argument on the query `countPoolCandidates`.
 """
-input QueryPoolCandidatesFilterHasAcceptedOperationalRequirementsWhereHasConditions {
+input QueryCountPoolCandidatesHasAcceptedOperationalRequirementsWhereHasConditions {
   """The column that is used for the condition."""
-  column: QueryPoolCandidatesFilterHasAcceptedOperationalRequirementsColumn
+  column: QueryCountPoolCandidatesHasAcceptedOperationalRequirementsColumn
 
   """The operator that is used for the condition."""
   operator: SQLOperator = EQ
@@ -361,23 +401,23 @@ input QueryPoolCandidatesFilterHasAcceptedOperationalRequirementsWhereHasConditi
   value: Mixed
 
   """A set of conditions that requires all conditions to match."""
-  AND: [QueryPoolCandidatesFilterHasAcceptedOperationalRequirementsWhereHasConditions!]
+  AND: [QueryCountPoolCandidatesHasAcceptedOperationalRequirementsWhereHasConditions!]
 
   """A set of conditions that requires at least one condition to match."""
-  OR: [QueryPoolCandidatesFilterHasAcceptedOperationalRequirementsWhereHasConditions!]
+  OR: [QueryCountPoolCandidatesHasAcceptedOperationalRequirementsWhereHasConditions!]
 
   """
   Check whether a relation exists. Extra conditions or a minimum amount can be applied.
   """
-  HAS: QueryPoolCandidatesFilterHasAcceptedOperationalRequirementsWhereHasConditionsRelation
+  HAS: QueryCountPoolCandidatesHasAcceptedOperationalRequirementsWhereHasConditionsRelation
 }
 
 """
 Dynamic HAS conditions for WHERE conditions for the
 `hasAcceptedOperationalRequirements` argument on the query
-`poolCandidatesFilter`.
+`countPoolCandidates`.
 """
-input QueryPoolCandidatesFilterHasAcceptedOperationalRequirementsWhereHasConditionsRelation {
+input QueryCountPoolCandidatesHasAcceptedOperationalRequirementsWhereHasConditionsRelation {
   """The relation that is checked."""
   relation: String!
 
@@ -388,23 +428,23 @@ input QueryPoolCandidatesFilterHasAcceptedOperationalRequirementsWhereHasConditi
   amount: Int = 1
 
   """Additional condition logic."""
-  condition: QueryPoolCandidatesFilterHasAcceptedOperationalRequirementsWhereHasConditions
+  condition: QueryCountPoolCandidatesHasAcceptedOperationalRequirementsWhereHasConditions
 }
 
 """
-Allowed column names for the `hasCmoAssets` argument on field `poolCandidatesFilter` on type `Query`.
+Allowed column names for the `hasCmoAssets` argument on field `countPoolCandidates` on type `Query`.
 """
-enum QueryPoolCandidatesFilterHasCmoAssetsColumn {
+enum QueryCountPoolCandidatesHasCmoAssetsColumn {
   ID
   KEY
 }
 
 """
-Dynamic WHERE conditions for the `hasCmoAssets` argument on the query `poolCandidatesFilter`.
+Dynamic WHERE conditions for the `hasCmoAssets` argument on the query `countPoolCandidates`.
 """
-input QueryPoolCandidatesFilterHasCmoAssetsWhereHasConditions {
+input QueryCountPoolCandidatesHasCmoAssetsWhereHasConditions {
   """The column that is used for the condition."""
-  column: QueryPoolCandidatesFilterHasCmoAssetsColumn
+  column: QueryCountPoolCandidatesHasCmoAssetsColumn
 
   """The operator that is used for the condition."""
   operator: SQLOperator = EQ
@@ -413,21 +453,21 @@ input QueryPoolCandidatesFilterHasCmoAssetsWhereHasConditions {
   value: Mixed
 
   """A set of conditions that requires all conditions to match."""
-  AND: [QueryPoolCandidatesFilterHasCmoAssetsWhereHasConditions!]
+  AND: [QueryCountPoolCandidatesHasCmoAssetsWhereHasConditions!]
 
   """A set of conditions that requires at least one condition to match."""
-  OR: [QueryPoolCandidatesFilterHasCmoAssetsWhereHasConditions!]
+  OR: [QueryCountPoolCandidatesHasCmoAssetsWhereHasConditions!]
 
   """
   Check whether a relation exists. Extra conditions or a minimum amount can be applied.
   """
-  HAS: QueryPoolCandidatesFilterHasCmoAssetsWhereHasConditionsRelation
+  HAS: QueryCountPoolCandidatesHasCmoAssetsWhereHasConditionsRelation
 }
 
 """
-Dynamic HAS conditions for WHERE conditions for the `hasCmoAssets` argument on the query `poolCandidatesFilter`.
+Dynamic HAS conditions for WHERE conditions for the `hasCmoAssets` argument on the query `countPoolCandidates`.
 """
-input QueryPoolCandidatesFilterHasCmoAssetsWhereHasConditionsRelation {
+input QueryCountPoolCandidatesHasCmoAssetsWhereHasConditionsRelation {
   """The relation that is checked."""
   relation: String!
 
@@ -438,23 +478,23 @@ input QueryPoolCandidatesFilterHasCmoAssetsWhereHasConditionsRelation {
   amount: Int = 1
 
   """Additional condition logic."""
-  condition: QueryPoolCandidatesFilterHasCmoAssetsWhereHasConditions
+  condition: QueryCountPoolCandidatesHasCmoAssetsWhereHasConditions
 }
 
 """
-Allowed column names for the `hasExpectedClassifications` argument on field `poolCandidatesFilter` on type `Query`.
+Allowed column names for the `hasExpectedClassifications` argument on field `countPoolCandidates` on type `Query`.
 """
-enum QueryPoolCandidatesFilterHasExpectedClassificationsColumn {
+enum QueryCountPoolCandidatesHasExpectedClassificationsColumn {
   GROUP
   LEVEL
 }
 
 """
-Dynamic WHERE conditions for the `hasExpectedClassifications` argument on the query `poolCandidatesFilter`.
+Dynamic WHERE conditions for the `hasExpectedClassifications` argument on the query `countPoolCandidates`.
 """
-input QueryPoolCandidatesFilterHasExpectedClassificationsWhereHasConditions {
+input QueryCountPoolCandidatesHasExpectedClassificationsWhereHasConditions {
   """The column that is used for the condition."""
-  column: QueryPoolCandidatesFilterHasExpectedClassificationsColumn
+  column: QueryCountPoolCandidatesHasExpectedClassificationsColumn
 
   """The operator that is used for the condition."""
   operator: SQLOperator = EQ
@@ -463,22 +503,22 @@ input QueryPoolCandidatesFilterHasExpectedClassificationsWhereHasConditions {
   value: Mixed
 
   """A set of conditions that requires all conditions to match."""
-  AND: [QueryPoolCandidatesFilterHasExpectedClassificationsWhereHasConditions!]
+  AND: [QueryCountPoolCandidatesHasExpectedClassificationsWhereHasConditions!]
 
   """A set of conditions that requires at least one condition to match."""
-  OR: [QueryPoolCandidatesFilterHasExpectedClassificationsWhereHasConditions!]
+  OR: [QueryCountPoolCandidatesHasExpectedClassificationsWhereHasConditions!]
 
   """
   Check whether a relation exists. Extra conditions or a minimum amount can be applied.
   """
-  HAS: QueryPoolCandidatesFilterHasExpectedClassificationsWhereHasConditionsRelation
+  HAS: QueryCountPoolCandidatesHasExpectedClassificationsWhereHasConditionsRelation
 }
 
 """
 Dynamic HAS conditions for WHERE conditions for the `hasExpectedClassifications`
-argument on the query `poolCandidatesFilter`.
+argument on the query `countPoolCandidates`.
 """
-input QueryPoolCandidatesFilterHasExpectedClassificationsWhereHasConditionsRelation {
+input QueryCountPoolCandidatesHasExpectedClassificationsWhereHasConditionsRelation {
   """The relation that is checked."""
   relation: String!
 
@@ -489,13 +529,13 @@ input QueryPoolCandidatesFilterHasExpectedClassificationsWhereHasConditionsRelat
   amount: Int = 1
 
   """Additional condition logic."""
-  condition: QueryPoolCandidatesFilterHasExpectedClassificationsWhereHasConditions
+  condition: QueryCountPoolCandidatesHasExpectedClassificationsWhereHasConditions
 }
 
 """
-Allowed column names for the `where` argument on field `poolCandidatesFilter` on type `Query`.
+Allowed column names for the `where` argument on field `countPoolCandidates` on type `Query`.
 """
-enum QueryPoolCandidatesFilterWhereColumn {
+enum QueryCountPoolCandidatesWhereColumn {
   HAS_DIPLOMA
   LOCATION_PREFERENCES
   LANGUAGE_ABILITY
@@ -506,11 +546,11 @@ enum QueryPoolCandidatesFilterWhereColumn {
 }
 
 """
-Dynamic WHERE conditions for the `where` argument on the query `poolCandidatesFilter`.
+Dynamic WHERE conditions for the `where` argument on the query `countPoolCandidates`.
 """
-input QueryPoolCandidatesFilterWhereWhereConditions {
+input QueryCountPoolCandidatesWhereWhereConditions {
   """The column that is used for the condition."""
-  column: QueryPoolCandidatesFilterWhereColumn
+  column: QueryCountPoolCandidatesWhereColumn
 
   """The operator that is used for the condition."""
   operator: SQLOperator = EQ
@@ -519,21 +559,21 @@ input QueryPoolCandidatesFilterWhereWhereConditions {
   value: Mixed
 
   """A set of conditions that requires all conditions to match."""
-  AND: [QueryPoolCandidatesFilterWhereWhereConditions!]
+  AND: [QueryCountPoolCandidatesWhereWhereConditions!]
 
   """A set of conditions that requires at least one condition to match."""
-  OR: [QueryPoolCandidatesFilterWhereWhereConditions!]
+  OR: [QueryCountPoolCandidatesWhereWhereConditions!]
 
   """
   Check whether a relation exists. Extra conditions or a minimum amount can be applied.
   """
-  HAS: QueryPoolCandidatesFilterWhereWhereConditionsRelation
+  HAS: QueryCountPoolCandidatesWhereWhereConditionsRelation
 }
 
 """
-Dynamic HAS conditions for WHERE conditions for the `where` argument on the query `poolCandidatesFilter`.
+Dynamic HAS conditions for WHERE conditions for the `where` argument on the query `countPoolCandidates`.
 """
-input QueryPoolCandidatesFilterWhereWhereConditionsRelation {
+input QueryCountPoolCandidatesWhereWhereConditionsRelation {
   """The relation that is checked."""
   relation: String!
 
@@ -544,7 +584,215 @@ input QueryPoolCandidatesFilterWhereWhereConditionsRelation {
   amount: Int = 1
 
   """Additional condition logic."""
-  condition: QueryPoolCandidatesFilterWhereWhereConditions
+  condition: QueryCountPoolCandidatesWhereWhereConditions
+}
+
+"""
+Allowed column names for the `hasAcceptedOperationalRequirements` argument on field `searchPoolCandidates` on type `Query`.
+"""
+enum QuerySearchPoolCandidatesHasAcceptedOperationalRequirementsColumn {
+  ID
+  KEY
+}
+
+"""
+Dynamic WHERE conditions for the `hasAcceptedOperationalRequirements` argument on the query `searchPoolCandidates`.
+"""
+input QuerySearchPoolCandidatesHasAcceptedOperationalRequirementsWhereHasConditions {
+  """The column that is used for the condition."""
+  column: QuerySearchPoolCandidatesHasAcceptedOperationalRequirementsColumn
+
+  """The operator that is used for the condition."""
+  operator: SQLOperator = EQ
+
+  """The value that is used for the condition."""
+  value: Mixed
+
+  """A set of conditions that requires all conditions to match."""
+  AND: [QuerySearchPoolCandidatesHasAcceptedOperationalRequirementsWhereHasConditions!]
+
+  """A set of conditions that requires at least one condition to match."""
+  OR: [QuerySearchPoolCandidatesHasAcceptedOperationalRequirementsWhereHasConditions!]
+
+  """
+  Check whether a relation exists. Extra conditions or a minimum amount can be applied.
+  """
+  HAS: QuerySearchPoolCandidatesHasAcceptedOperationalRequirementsWhereHasConditionsRelation
+}
+
+"""
+Dynamic HAS conditions for WHERE conditions for the
+`hasAcceptedOperationalRequirements` argument on the query
+`searchPoolCandidates`.
+"""
+input QuerySearchPoolCandidatesHasAcceptedOperationalRequirementsWhereHasConditionsRelation {
+  """The relation that is checked."""
+  relation: String!
+
+  """The comparison operator to test against the amount."""
+  operator: SQLOperator = GTE
+
+  """The amount to test."""
+  amount: Int = 1
+
+  """Additional condition logic."""
+  condition: QuerySearchPoolCandidatesHasAcceptedOperationalRequirementsWhereHasConditions
+}
+
+"""
+Allowed column names for the `hasCmoAssets` argument on field `searchPoolCandidates` on type `Query`.
+"""
+enum QuerySearchPoolCandidatesHasCmoAssetsColumn {
+  ID
+  KEY
+}
+
+"""
+Dynamic WHERE conditions for the `hasCmoAssets` argument on the query `searchPoolCandidates`.
+"""
+input QuerySearchPoolCandidatesHasCmoAssetsWhereHasConditions {
+  """The column that is used for the condition."""
+  column: QuerySearchPoolCandidatesHasCmoAssetsColumn
+
+  """The operator that is used for the condition."""
+  operator: SQLOperator = EQ
+
+  """The value that is used for the condition."""
+  value: Mixed
+
+  """A set of conditions that requires all conditions to match."""
+  AND: [QuerySearchPoolCandidatesHasCmoAssetsWhereHasConditions!]
+
+  """A set of conditions that requires at least one condition to match."""
+  OR: [QuerySearchPoolCandidatesHasCmoAssetsWhereHasConditions!]
+
+  """
+  Check whether a relation exists. Extra conditions or a minimum amount can be applied.
+  """
+  HAS: QuerySearchPoolCandidatesHasCmoAssetsWhereHasConditionsRelation
+}
+
+"""
+Dynamic HAS conditions for WHERE conditions for the `hasCmoAssets` argument on the query `searchPoolCandidates`.
+"""
+input QuerySearchPoolCandidatesHasCmoAssetsWhereHasConditionsRelation {
+  """The relation that is checked."""
+  relation: String!
+
+  """The comparison operator to test against the amount."""
+  operator: SQLOperator = GTE
+
+  """The amount to test."""
+  amount: Int = 1
+
+  """Additional condition logic."""
+  condition: QuerySearchPoolCandidatesHasCmoAssetsWhereHasConditions
+}
+
+"""
+Allowed column names for the `hasExpectedClassifications` argument on field `searchPoolCandidates` on type `Query`.
+"""
+enum QuerySearchPoolCandidatesHasExpectedClassificationsColumn {
+  GROUP
+  LEVEL
+}
+
+"""
+Dynamic WHERE conditions for the `hasExpectedClassifications` argument on the query `searchPoolCandidates`.
+"""
+input QuerySearchPoolCandidatesHasExpectedClassificationsWhereHasConditions {
+  """The column that is used for the condition."""
+  column: QuerySearchPoolCandidatesHasExpectedClassificationsColumn
+
+  """The operator that is used for the condition."""
+  operator: SQLOperator = EQ
+
+  """The value that is used for the condition."""
+  value: Mixed
+
+  """A set of conditions that requires all conditions to match."""
+  AND: [QuerySearchPoolCandidatesHasExpectedClassificationsWhereHasConditions!]
+
+  """A set of conditions that requires at least one condition to match."""
+  OR: [QuerySearchPoolCandidatesHasExpectedClassificationsWhereHasConditions!]
+
+  """
+  Check whether a relation exists. Extra conditions or a minimum amount can be applied.
+  """
+  HAS: QuerySearchPoolCandidatesHasExpectedClassificationsWhereHasConditionsRelation
+}
+
+"""
+Dynamic HAS conditions for WHERE conditions for the `hasExpectedClassifications`
+argument on the query `searchPoolCandidates`.
+"""
+input QuerySearchPoolCandidatesHasExpectedClassificationsWhereHasConditionsRelation {
+  """The relation that is checked."""
+  relation: String!
+
+  """The comparison operator to test against the amount."""
+  operator: SQLOperator = GTE
+
+  """The amount to test."""
+  amount: Int = 1
+
+  """Additional condition logic."""
+  condition: QuerySearchPoolCandidatesHasExpectedClassificationsWhereHasConditions
+}
+
+"""
+Allowed column names for the `where` argument on field `searchPoolCandidates` on type `Query`.
+"""
+enum QuerySearchPoolCandidatesWhereColumn {
+  HAS_DIPLOMA
+  LOCATION_PREFERENCES
+  LANGUAGE_ABILITY
+  IS_WOMAN
+  HAS_DISABILITY
+  IS_INDIGENOUS
+  IS_VISIBLE_MINORITY
+}
+
+"""
+Dynamic WHERE conditions for the `where` argument on the query `searchPoolCandidates`.
+"""
+input QuerySearchPoolCandidatesWhereWhereConditions {
+  """The column that is used for the condition."""
+  column: QuerySearchPoolCandidatesWhereColumn
+
+  """The operator that is used for the condition."""
+  operator: SQLOperator = EQ
+
+  """The value that is used for the condition."""
+  value: Mixed
+
+  """A set of conditions that requires all conditions to match."""
+  AND: [QuerySearchPoolCandidatesWhereWhereConditions!]
+
+  """A set of conditions that requires at least one condition to match."""
+  OR: [QuerySearchPoolCandidatesWhereWhereConditions!]
+
+  """
+  Check whether a relation exists. Extra conditions or a minimum amount can be applied.
+  """
+  HAS: QuerySearchPoolCandidatesWhereWhereConditionsRelation
+}
+
+"""
+Dynamic HAS conditions for WHERE conditions for the `where` argument on the query `searchPoolCandidates`.
+"""
+input QuerySearchPoolCandidatesWhereWhereConditionsRelation {
+  """The relation that is checked."""
+  relation: String!
+
+  """The comparison operator to test against the amount."""
+  operator: SQLOperator = GTE
+
+  """The amount to test."""
+  amount: Int = 1
+
+  """Additional condition logic."""
+  condition: QuerySearchPoolCandidatesWhereWhereConditions
 }
 
 enum Role {
@@ -689,6 +937,11 @@ input UpdatePoolCandidateInput {
   expectedClassifications: ClassificationBelongsToMany
   cmoAssets: CmoAssetBelongsToMany
   status: PoolCandidateStatus
+}
+
+input UpdatePoolCandidateSearchRequestInput {
+  adminNotes: String
+  status: PoolCandidateSearchStatus
 }
 
 """

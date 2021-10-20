@@ -29,7 +29,6 @@ class PoolCandidateSearchRequestFactory extends Factory
         'department_id' => Department::inRandomOrder()->first()->id,
         'job_title' => $this->faker->jobTitle(),
         'additional_comments' => $this->faker->text(),
-        'requested_date' => $this->faker->dateTimeBetween('-2 years', '-1 hour'),
         'status' => $this->faker->randomElement(['PENDING', 'DONE']),
         'admin_notes' => $this->faker->text(),
         'pool_candidate_filter_id' => PoolCandidateFilter::factory(),
