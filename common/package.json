@@ -30,6 +30,10 @@
     "url": "https://github.com/GCTC-NTGC/gc-digital-talent/issues"
   },
   "homepage": "https://github.com/GCTC-NTGC/gc-digital-talent#readme",
+  "engines": {
+    "node": "14.18.1",
+    "npm": ">=8.0.0"
+  },
   "peerDependencies": {
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
