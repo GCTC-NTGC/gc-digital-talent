@@ -5,6 +5,8 @@ import {
   getLanguage,
   educationRequirements,
   getEducationRequirement,
+  languageAbilities,
+  getLanguageAbility,
 } from "./localizedConstants";
 
 export {
@@ -14,4 +16,6 @@ export {
   getLanguage,
   educationRequirements,
   getEducationRequirement,
+  languageAbilities,
+  getLanguageAbility,
 };

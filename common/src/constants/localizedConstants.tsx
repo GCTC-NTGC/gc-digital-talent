@@ -1,5 +1,5 @@
 import { defineMessages, MessageDescriptor } from "react-intl";
-import { Language, SalaryRange } from "../api/generated";
+import { Language, LanguageAbility, SalaryRange } from "../api/generated";
 import { getOrThrowError } from "../helpers/util";
 
 export const salaryRanges = {
@@ -46,4 +46,25 @@ export const getEducationRequirement = (
     educationRequirements,
     getEducationRequirementId,
     "Invalid Education Requirement",
+  );
+
+export const languageAbilities = defineMessages({
+  [LanguageAbility.English]: {
+    defaultMessage: "English only",
+  },
+  [LanguageAbility.French]: {
+    defaultMessage: "French only",
+  },
+  [LanguageAbility.Bilingual]: {
+    defaultMessage: "Bilingual, English, and French",
+  },
+});
+
+export const getLanguageAbility = (
+  getLanguageAbilityId: string | number,
+): MessageDescriptor =>
+  getOrThrowError(
+    languageAbilities,
+    getLanguageAbilityId,
+    "Invalid Language Ability",
   );

@@ -18,11 +18,17 @@ const SummaryBlock: React.FunctionComponent<{
           {title}:
         </p>
         {content instanceof Array ? (
-          <p data-h2-display="b(inline)" data-h2-color="b(lightpurple)">
+          <p
+            data-h2-display="b(inline)"
+            data-h2-font-color="b(lightpurple) s(black)"
+          >
             {content.map((text): string => text).join(", ")}
           </p>
         ) : (
-          <p data-h2-display="b(inline)" data-h2-color="b(lightpurple)">
+          <p
+            data-h2-display="b(inline)"
+            data-h2-font-color="b(lightpurple) s(black)"
+          >
             {content ??
               intl.formatMessage({
                 defaultMessage: "N/A",
@@ -40,13 +46,16 @@ const SummaryBlock: React.FunctionComponent<{
           {title}
         </p>
         {content instanceof Array ? (
-          <ul data-h2-color="b(lightpurple)">
+          <ul data-h2-font-color="b(lightpurple) s(black)">
             {content.map((text) => (
               <li key={uniqueId()}>{text}</li>
             ))}
           </ul>
         ) : (
-          <p data-h2-display="b(inline)" data-h2-color="b(lightpurple)">
+          <p
+            data-h2-display="b(inline)"
+            data-h2-font-color="b(lightpurple) s(black)"
+          >
             {content ??
               intl.formatMessage({
                 defaultMessage: "N/A",
@@ -183,7 +192,7 @@ const SummaryOfFilters: React.FunctionComponent<SummaryOfFiltersProps> = ({
             },
             {
               span: (msg: string): JSX.Element => (
-                <span data-h2-color="b(lightpurple)">{msg}</span>
+                <span data-h2-font-color="b(lightpurple)">{msg}</span>
               ),
               totalEstimatedCandidates,
             },
