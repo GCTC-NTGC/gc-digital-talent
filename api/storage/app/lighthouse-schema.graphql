@@ -50,6 +50,20 @@ input CreateOperationalRequirementInput {
   description: LocalizedStringInput
 }
 
+input CreatePoolCandidateFilter {
+  classifications: ClassificationBelongsToMany
+  cmoAssets: CmoAssetBelongsToMany
+  hasDiploma: Boolean
+  hasDisability: Boolean
+  isIndigenous: Boolean
+  isVisibleMinority: Boolean
+  isWoman: Boolean
+  languageAbility: LanguageAbility
+  operationalRequirements: OperationalRequirementBelongsToMany
+  workRegions: [WorkRegion]
+  pools: PoolBelongsToMany
+}
+
 input CreatePoolCandidateInput {
   pool: PoolBelongsTo!
   user: UserBelongsTo!
@@ -252,6 +266,10 @@ type Pool {
 
 input PoolBelongsTo {
   connect: ID!
+}
+
+input PoolBelongsToMany {
+  sync: [ID!]
 }
 
 type PoolCandidate {
