@@ -112,5 +112,18 @@
       ]
     }
   ],
-  "whitespaceScale": "1.5"
+  "whitespaceScale": "1.5",
+  "radius": [
+    {
+      "key": "s",
+      "value": "10px"
+    },
+    {
+      "key": "m",
+      "value": "50rem"
+    },{
+      "key": "l",
+      "value": "100%"
+    }
+  ]
 }
