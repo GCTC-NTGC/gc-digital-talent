@@ -32,7 +32,7 @@ class Department extends Model
         'name' => 'array',
     ];
 
-    public function candidateSearchRequests(): HasMany
+    public function poolCandidateSearchRequests(): HasMany
     {
         return $this->hasMany(PoolCandidateSearchRequest::class);
     }
