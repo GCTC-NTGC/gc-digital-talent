@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AuthController;
+use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,10 +16,19 @@ use App\Http\Controllers\AuthController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::prefix(config('app.app_dir'))->group(function () {
-    Route::get('/login', [AuthController::class, 'login']);
-    Route::get('/auth-callback', [AuthController::class, 'authCallback']);
+Route::group([
+    'prefix' => LaravelLocalization::setLocale(),
+    'middleware' => [ 'localeCookieRedirect', 'localizationRedirect' ]
+], function() {
+    Route::prefix(config('app.app_dir'))->group(function () {
+        Route::get('/login', [AuthController::class, 'login']);
+        Route::get('/auth-callback', [AuthController::class, 'authCallback']);
 
-    Route::get('/', [DashboardController::class, 'index']);
-    Route::get('/{any}', [DashboardController::class, 'index'])->where('any', '.*');
+        Route::get('/test', function () {
+            return 'Hello world';
+        });
+
+        Route::get('/', [DashboardController::class, 'index']);
+        Route::get('/{any}', [DashboardController::class, 'index'])->where('any', '.*');
+    });
 });

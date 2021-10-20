@@ -6,7 +6,7 @@
     RewriteRule ^graphql api/public/graphql [L]
     RewriteRule ^(auth/.*)$ auth/public/$1 [L]
     RewriteRule ^(oauth/.*)$ auth/public/$1 [L]
-    RewriteRule ^(admin/.*)$ admin/public/$1 [L]
+    RewriteRule ^(en/|fr/)?(admin)(/.*)?$ admin/public/$1$2$3 [L]
     RewriteRule ^public/(.*)$ talentsearch/public/$1 [L]
     RewriteRule ^(.*)$ talentsearch/public/$1 [L]
 </IfModule>
