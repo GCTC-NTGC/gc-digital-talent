@@ -32,13 +32,13 @@ const EstimatedCandidates: React.FunctionComponent<IEstimatedCandidatesProps> =
             {intl.formatMessage(
               {
                 defaultMessage:
-                  "There are approximately <span>{totalEstimatedCandidates}</span> candidates right now who meet your criteria.",
+                  "There are approximately <b>{totalEstimatedCandidates}</b> candidates right now who meet your criteria.",
                 description:
                   "Message for total estimated candidates box next to search form.",
               },
               {
-                span: (msg: string): JSX.Element => (
-                  <span data-h2-font-weight="b(800)">{msg}</span>
+                b: (msg: string): JSX.Element => (
+                  <b data-h2-font-weight="b(800)">{msg}</b>
                 ),
                 totalEstimatedCandidates,
               },
