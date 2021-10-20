@@ -16,12 +16,14 @@ import {
 } from "../../api/generated";
 
 const FilterBlock: React.FunctionComponent<{
+  id: string;
   title: string | React.ReactNode;
   text: string;
-}> = ({ title, text, children }) => {
+}> = ({ id, title, text, children }) => {
   return (
     <div>
       <h3
+        id={id}
         data-h2-font-size="b(h4)"
         data-h2-font-weight="b(700)"
         data-h2-margin="b(bottom, m)"
@@ -80,7 +82,7 @@ const SearchForm: React.FunctionComponent<SearchFormProps> = ({
   const methods = useForm<FormValues>({
     defaultValues: dataToFormValues(initialPoolCandidateFilter),
   });
-  const { handleSubmit } = methods;
+  const { handleSubmit, watch } = methods;
 
   const classificationOptions: Option<string>[] = classifications.map(
     ({ id, group, level }) => ({
@@ -100,6 +102,12 @@ const SearchForm: React.FunctionComponent<SearchFormProps> = ({
       label: name[locale] || "Error: operational requirement name not found.",
     }));
 
+  const classificationFilterCount = watch("classifications")?.length;
+  const cmoAssetFilterCount = watch("cmoAssets")?.length;
+  const operationalRequirementFilterCount = watch(
+    "operationalRequirements",
+  )?.length;
+
   return (
     <FormProvider {...methods}>
       <form
@@ -108,6 +116,7 @@ const SearchForm: React.FunctionComponent<SearchFormProps> = ({
         })}
       >
         <FilterBlock
+          id="classificationsFilter"
           title={intl.formatMessage({
             defaultMessage: "Classification filter",
             description:
@@ -136,6 +145,7 @@ const SearchForm: React.FunctionComponent<SearchFormProps> = ({
           />
         </FilterBlock>
         <FilterBlock
+          id="educationRequirementFilter"
           title={intl.formatMessage({
             defaultMessage: "Education requirement for the job",
             description:
@@ -175,6 +185,7 @@ const SearchForm: React.FunctionComponent<SearchFormProps> = ({
           />
         </FilterBlock>
         <FilterBlock
+          id="operationalRequrementFilter"
           title={intl.formatMessage({
             defaultMessage:
               "Conditions of employment / Operational requirements",
@@ -196,6 +207,7 @@ const SearchForm: React.FunctionComponent<SearchFormProps> = ({
           />
         </FilterBlock>
         <FilterBlock
+          id="workLocationFilter"
           title={intl.formatMessage({
             defaultMessage: "Work location",
             description:
@@ -224,6 +236,7 @@ const SearchForm: React.FunctionComponent<SearchFormProps> = ({
           />
         </FilterBlock>
         <FilterBlock
+          id="workingLanguageFilter"
           title={intl.formatMessage({
             defaultMessage: "Working language ability",
             description:
@@ -255,6 +268,7 @@ const SearchForm: React.FunctionComponent<SearchFormProps> = ({
           />
         </FilterBlock>
         <FilterBlock
+          id="employmentEquityFilter"
           title={intl.formatMessage({
             defaultMessage: "Employment equity",
             description:
@@ -314,6 +328,7 @@ const SearchForm: React.FunctionComponent<SearchFormProps> = ({
           />
         </FilterBlock>
         <FilterBlock
+          id="cmoAssetFilter"
           title={intl.formatMessage({
             defaultMessage: "Skill filters",
             description:
@@ -333,28 +348,98 @@ const SearchForm: React.FunctionComponent<SearchFormProps> = ({
             items={cmoAssetOptions}
           />
         </FilterBlock>
-        <FilterBlock
-          title={intl.formatMessage(
-            {
-              defaultMessage:
-                "Results: <span>{totalEstimatedCandidates}</span> matching candidates",
-              description:
-                "Heading for total matching candidates in results section of search page.",
-            },
-            {
-              span: (msg: string): JSX.Element => (
-                <span data-h2-font-color="b(lightpurple)">{msg}</span>
-              ),
-              totalEstimatedCandidates,
-            },
-          )}
-          text={intl.formatMessage({
-            defaultMessage:
-              "To improve your results, try removing some of these filters:",
-            description:
-              "Heading for total matching candidates in results section of search page.",
-          })}
-        />
+        <div>
+          <div>
+            <h3
+              data-h2-font-size="b(h4)"
+              data-h2-font-weight="b(700)"
+              data-h2-margin="b(bottom, m)"
+            >
+              {intl.formatMessage(
+                {
+                  defaultMessage:
+                    "Results: <span>{totalEstimatedCandidates}</span> matching candidates",
+                  description:
+                    "Heading for total matching candidates in results section of search page.",
+                },
+                {
+                  span: (msg: string): JSX.Element => (
+                    <span data-h2-font-color="b(lightpurple)">{msg}</span>
+                  ),
+                  totalEstimatedCandidates,
+                },
+              )}
+            </h3>
+            {(classificationFilterCount && classificationFilterCount > 0) ||
+            (cmoAssetFilterCount && cmoAssetFilterCount > 0) ||
+            (operationalRequirementFilterCount &&
+              operationalRequirementFilterCount > 0) ? (
+              <p data-h2-font-size="b(caption)" data-h2-margin="b(bottom, m)">
+                {intl.formatMessage({
+                  defaultMessage:
+                    "To improve your results, try removing some of these filters",
+                  description:
+                    "Heading for total matching candidates in results section of search page.",
+                })}
+                :{" "}
+                {classificationFilterCount && classificationFilterCount > 0 ? (
+                  <a
+                    href="#classificationsFilter"
+                    data-h2-font-color="b(lightpurple)"
+                    data-h2-font-weight="b(700)"
+                  >
+                    {intl.formatMessage(
+                      {
+                        defaultMessage:
+                          "Classification Filters ({classificationFilterCount}),",
+                      },
+                      { classificationFilterCount },
+                    )}
+                  </a>
+                ) : (
+                  ""
+                )}{" "}
+                {operationalRequirementFilterCount &&
+                operationalRequirementFilterCount > 0 ? (
+                  <a
+                    href="#operationalRequrementFilter"
+                    data-h2-font-color="b(lightpurple)"
+                    data-h2-font-weight="b(700)"
+                  >
+                    {intl.formatMessage(
+                      {
+                        defaultMessage:
+                          "Conditions of Employment ({operationalRequirementFilterCount}),",
+                      },
+                      { operationalRequirementFilterCount },
+                    )}
+                  </a>
+                ) : (
+                  ""
+                )}{" "}
+                {cmoAssetFilterCount && cmoAssetFilterCount > 0 ? (
+                  <a
+                    href="#cmoAssetFilter"
+                    data-h2-font-color="b(lightpurple)"
+                    data-h2-font-weight="b(700)"
+                  >
+                    {intl.formatMessage(
+                      {
+                        defaultMessage:
+                          "Skills Filters ({cmoAssetFilterCount})",
+                      },
+                      { cmoAssetFilterCount },
+                    )}
+                  </a>
+                ) : (
+                  ""
+                )}
+              </p>
+            ) : (
+              ""
+            )}
+          </div>
+        </div>
       </form>
     </FormProvider>
   );
