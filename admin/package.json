@@ -16,6 +16,10 @@
     "url": "https://github.com/GCTC-NTGC/gc-digital-talent/issues"
   },
   "homepage": "https://github.com/GCTC-NTGC/gc-digital-talent#readme",
+  "engines": {
+    "node": "14.18.1",
+    "npm": ">=8.0.0"
+  },
   "scripts": {
     "lint": "eslint ./resources/js --ext .js,.ts,.jsx,.tsx",
     "lint:fix": "eslint ./resources/js --fix --ext .js,.ts,.jsx,.tsx",
@@ -52,7 +56,7 @@
     "@storybook/manager-webpack5": "^6.3.12",
     "@storybook/react": "^6.3.12",
     "@types/lodash": "^4.14.175",
-    "@types/react-table": "^7.7.6",
+    "@types/react-table": "^7.7.7",
     "@typescript-eslint/eslint-plugin": "^5.1.0",
     "@typescript-eslint/parser": "^5.1.0",
     "babel-loader": "^8.2.2",
@@ -89,7 +93,7 @@
     "lodash": "^4.17.21",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-hook-form": "^7.17.4",
+    "react-hook-form": "^7.17.5",
     "react-intl": "^5.20.13",
     "react-select": "^5.1.0",
     "react-table": "^7.7.0",

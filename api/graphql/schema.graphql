@@ -150,17 +150,17 @@ enum PoolCandidateSearchStatus {
 
 type PoolCandidateFilter {
     id: ID!
-    classifications: [Classification]
-    cmoAssets: [CmoAsset]
+    classifications: [Classification] @belongsToMany
+    cmoAssets: [CmoAsset] @belongsToMany
     hasDiploma: Boolean @rename(attribute: "has_diploma")
     hasDisability: Boolean @rename(attribute: "has_disability")
     isIndigenous: Boolean @rename(attribute: "is_indigenous")
     isVisibleMinority: Boolean @rename(attribute: "is_visible_minority")
     isWoman: Boolean @rename(attribute: "is_woman")
     languageAbility: LanguageAbility @rename(attribute: "language_ability")
-    operationalRequirements: [OperationalRequirement] @rename(attribute: "operational_requirements")
+    operationalRequirements: [OperationalRequirement] @belongsToMany
     workRegions: [WorkRegion] @rename(attribute: "work_regions")
-    pools: [Pool]
+    pools: [Pool] @belongsToMany
 }
 
 type PoolCandidateSearchRequest {

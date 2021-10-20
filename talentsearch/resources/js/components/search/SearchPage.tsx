@@ -1,7 +1,26 @@
+import { Button } from "@common/components";
+import {
+  fakeClassifications,
+  fakeCmoAssets,
+  fakeOperationalRequirements,
+  fakePools,
+} from "@common/fakeData";
+import { getLocale } from "@common/helpers/localize";
 import { imageUrl } from "@common/helpers/router";
 import React from "react";
 import { defineMessages, useIntl } from "react-intl";
+import {
+  PoolCandidateFilter,
+  LanguageAbility,
+  WorkRegion,
+  Classification,
+  CmoAsset,
+  OperationalRequirement,
+  Pool,
+} from "../../api/generated";
 import { BASE_URL } from "../../talentSearchConstants";
+import EstimatedCandidates from "./EstimatedCandidates";
+import SearchForm from "./SearchForm";
 
 const messages = defineMessages({
   pageTitle: {
@@ -34,11 +53,36 @@ const messages = defineMessages({
 
 export const SearchPage: React.FC = () => {
   const intl = useIntl();
+  const locale = getLocale(intl);
+
+  // TODO: Replace fake data with data fetched from api.
+  const pool: Pool = fakePools()[0] as Pool;
+
+  const poolCandidateFilter: PoolCandidateFilter = {
+    id: "1",
+    operationalRequirements: [
+      fakeOperationalRequirements()[0],
+      fakeOperationalRequirements()[1],
+    ],
+    cmoAssets: [fakeCmoAssets()[0], fakeCmoAssets()[1]],
+    classifications: [fakeClassifications()[0], fakeClassifications()[1]],
+    hasDiploma: true,
+    hasDisability: false,
+    isIndigenous: true,
+    isVisibleMinority: false,
+    isWoman: true,
+    languageAbility: LanguageAbility.Bilingual,
+    workRegions: [WorkRegion.BritishColumbia, WorkRegion.Ontario],
+    pools: null,
+  };
+
+  const totalEstimatedCandidates = 10;
   return (
     <>
       <div
         data-h2-position="b(relative)"
         data-h2-padding="b(bottom, l) l(bottom, none)"
+        data-h2-margin="b(bottom, l) l(bottom, xxl)"
         className="hero"
         style={{
           background: `linear-gradient(70deg, rgba(103, 76, 144, 0.9), rgba(29, 44, 76, 1)), url(${imageUrl(
@@ -79,17 +123,143 @@ export const SearchPage: React.FC = () => {
         </div>
       </div>
       <div
-        data-h2-margin="b(right-left, s)"
-        data-h2-padding="b(top, xl) b(bottom, s) b(right-left, s) l(top, xxl) l(bottom, l) l(right-left, xl)"
+        data-h2-flex-grid="b(top, contained, flush, xl)"
+        data-h2-container="b(center, l)"
       >
-        <h2
-          data-h2-font-color="b(black)"
-          data-h2-font-weight="b(300)"
-          data-h2-margin="b(all, none)"
+        <div data-h2-flex-item="b(1of1) s(2of3)" style={{ paddingBottom: "0" }}>
+          <h2
+            data-h2-font-color="b(black)"
+            data-h2-font-weight="b(300)"
+            data-h2-margin="b(all, none)"
+          >
+            {intl.formatMessage(messages.pageHowToHeading)}
+          </h2>
+          <p>{intl.formatMessage(messages.pageHowToContent)}</p>
+          <SearchForm
+            totalEstimatedCandidates={totalEstimatedCandidates}
+            classifications={fakeClassifications() as Classification[]}
+            cmoAssets={fakeCmoAssets() as CmoAsset[]}
+            initialPoolCandidateFilter={poolCandidateFilter}
+            operationalRequirements={
+              fakeOperationalRequirements() as OperationalRequirement[]
+            }
+          />
+        </div>
+        <div
+          data-h2-flex-item="b(1of1) s(1of3)"
+          data-h2-visibility="b(hidden) s(visible)"
+          data-h2-position="b(sticky)"
+          style={{ top: "0", right: "0" }}
         >
-          {intl.formatMessage(messages.pageHowToHeading)}
-        </h2>
-        <p>{intl.formatMessage(messages.pageHowToContent)}</p>
+          <EstimatedCandidates
+            totalEstimatedCandidates={totalEstimatedCandidates}
+          />
+        </div>
+        <div data-h2-flex-item="b(1of1)" style={{ paddingTop: "0" }}>
+          <div
+            data-h2-shadow="b(m)"
+            data-h2-padding="b(top-bottom, xs) b(left, s)"
+            data-h2-border="b(darkgray, left, solid, l)"
+          >
+            <p data-h2-margin="b(bottom, none)">
+              {intl.formatMessage({
+                defaultMessage: "We can still help!",
+                description:
+                  "Heading for helping user if no candidates matched the filters chosen.",
+              })}
+            </p>
+            <p data-h2-margin="b(top, xxs)" data-h2-font-size="b(caption)">
+              {intl.formatMessage(
+                {
+                  defaultMessage:
+                    "If there are no matching candidates <a>Get in touch!</a>",
+                  description:
+                    "Message for helping user if no candidates matched the filters chosen.",
+                },
+                {
+                  a: (msg: string): JSX.Element => (
+                    <a href="/search" data-h2-font-weight="b(700)">
+                      {msg}
+                    </a>
+                  ),
+                },
+              )}
+            </p>
+          </div>
+          <div
+            data-h2-shadow="b(m)"
+            data-h2-border="b(lightnavy, left, solid, l)"
+            data-h2-margin="b(top, s) b(bottom, m)"
+            data-h2-flex-grid="b(middle, contained, flush, xl)"
+          >
+            <div
+              data-h2-flex-item="b(1of1) m(1of2)"
+              style={{ padding: "0", paddingLeft: "1rem" }}
+            >
+              <p data-h2-margin="b(bottom, none)" data-h2-font-weight="b(700)">
+                {pool?.name?.[locale]}
+              </p>
+              <p
+                data-h2-margin="b(top, xxs) b(bottom, m)"
+                data-h2-font-weight="b(100)"
+              >
+                {intl.formatMessage(
+                  {
+                    defaultMessage:
+                      "There are <span>{totalEstimatedCandidates}</span> matching candidates in this pool",
+                    description:
+                      "Message for total estimated candidates box next to search form.",
+                  },
+                  {
+                    span: (msg: string): JSX.Element => (
+                      <span
+                        data-h2-font-weight="b(700)"
+                        data-h2-font-color="b(lightpurple)"
+                      >
+                        {msg}
+                      </span>
+                    ),
+                    totalEstimatedCandidates,
+                  },
+                )}
+              </p>
+              <p
+                data-h2-margin="b(bottom, none)"
+                data-h2-font-size="b(caption)"
+              >
+                {intl.formatMessage({ defaultMessage: "Pool Owner" })}:{" "}
+                {pool?.owner?.firstName} {pool?.owner?.lastName}
+              </p>
+              <p data-h2-margin="b(bottom, s)" data-h2-font-size="b(caption)">
+                {pool.description?.[locale]}
+              </p>
+            </div>
+            <div
+              data-h2-flex-item="b(1of1) m(1of2)"
+              data-h2-display="b(flex)"
+              data-h2-justify-content="b(center) m(flex-end)"
+            >
+              <Button color="cta" mode="solid">
+                {intl.formatMessage({
+                  defaultMessage: "Request Candidates",
+                  description:
+                    "Button link message on search page that takes user to the request form.",
+                })}
+              </Button>
+            </div>
+          </div>
+          <a
+            href="/search"
+            data-h2-font-size="b(caption)"
+            data-h2-font-weight="b(700)"
+          >
+            {intl.formatMessage({
+              defaultMessage: "Not what you're looking for? Get in touch!",
+              description:
+                "Message for helping user if no candidates matched the filters chosen.",
+            })}
+          </a>
+        </div>
       </div>
     </>
   );
