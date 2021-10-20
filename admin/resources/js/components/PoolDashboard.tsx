@@ -24,7 +24,7 @@ import {
   userCreatePath,
   userTablePath,
   userUpdatePath,
-  homePath,
+  basePath,
   homePublicPath,
 } from "../adminRoutes";
 import { CreateClassification } from "./classification/CreateClassification";
@@ -87,7 +87,7 @@ const messages = defineMessages({
 
 const routes: Routes<RouterResult> = [
   {
-    path: [homePath(), homePublicPath()],
+    path: [basePath(), homePublicPath()],
     action: () => ({
       component: <div />,
       redirect: poolTablePath(), // TODO: Which page should be treated as the dashboard Landing page?
