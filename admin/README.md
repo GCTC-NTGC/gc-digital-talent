@@ -15,6 +15,17 @@
 
 9. Run `php artisan passport:client` in the sibling /auth directory (or `docker-compose exec -w /var/www/html/auth php sh -c "php artisan passport:client"` in the /infrastructure directory). Set it to redirect to `http://localhost:8000/admin/auth-callback`. Copy the Client ID and Client secret to OAUTH_ADMIN_CLIENT_ID and OAUTH_ADMIN_CLIENT_SECRET env variables.
 
+# Deployment
+
+When deploying a laravel app, you normally want to run several [artisan commands](https://laravel.com/docs/8.x/deployment#optimization) for optimized performance. 
+**Note**: since we are using [this](https://github.com/mcamara/laravel-localization#caching-routes) localization package, one of the commands is slightly different from usual. 
+
+When deploying on prod, you should run:
+- `composer install --optimize-autoloader --no-dev`
+- `php artisan config:cache`
+- `php artisan route:trans:cache`
+- `php artisan view:cache`
+
 # Local Development
 
 ## Linting and Formatting
