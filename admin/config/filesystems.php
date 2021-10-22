@@ -35,9 +35,9 @@ return [
             'root' => storage_path('app'),
         ],
 
-        'custom' => [
+        'tmp' => [
             'driver' => 'local',
-            'root' => '/tmp/admin/storage',
+            'root' => '/tmp/admin/storage/app',
         ],
 
         'public' => [

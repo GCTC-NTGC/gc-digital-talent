@@ -56,7 +56,7 @@ return [
 
         'tmp' => [
             'driver' => 'file',
-            'path' => '/tmp/admin/storage/framework/cache/data',
+            'path' => '/tmp/api/storage/framework/cache/data',
         ],
 
         'memcached' => [

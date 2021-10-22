@@ -28,9 +28,12 @@ return [
     |
     */
 
-    'compiled' => env(
-        'VIEW_COMPILED_PATH',
-        realpath(storage_path('framework/views'))
-    ),
+    'compiled' =>
+        env('USE_TMP_STORAGE', false)
+        ? '/tmp/admin/storage/framework/views'
+        : env(
+            'VIEW_COMPILED_PATH',
+            realpath(storage_path('framework/views'))
+        ),
 
 ];

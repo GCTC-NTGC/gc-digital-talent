@@ -59,7 +59,7 @@ return [
     |
     */
 
-    'files' => storage_path('framework/sessions'),
+    'files' => env('USE_TMP_STORAGE', false) ? '/tmp/auth/storage/framework/sessions' : storage_path('framework/sessions'),
 
     /*
     |--------------------------------------------------------------------------
