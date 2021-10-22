@@ -93,7 +93,7 @@ const SummaryOfFilters: React.FunctionComponent<SummaryOfFiltersProps> = ({
 }) => {
   const intl = useIntl();
   return (
-    <section data-h2-padding="b(right-left, l)">
+    <section>
       <h2 data-h2-font-weight="b(500)">
         {intl.formatMessage({
           defaultMessage: "Summary of filters",
