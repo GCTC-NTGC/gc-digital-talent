@@ -28,7 +28,7 @@ stories.add("Create Department Form", () => {
 stories.add("Update Department Form", () => {
   const department: Department = {
     id: "1",
-    department_number: 1,
+    departmentNumber: 1,
     name: {
       en: "Agriculture and Agri-Food",
       fr: "Agriculture et de l'Agroalimentaire",
@@ -43,7 +43,7 @@ stories.add("Update Department Form", () => {
         action("Update Department")(data);
         return {
           id,
-          department_number: data.departmentNumber || 0,
+          departmentNumber: data.departmentNumber || 0,
           name: data.name,
         };
       }}
