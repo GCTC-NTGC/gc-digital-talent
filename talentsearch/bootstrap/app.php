@@ -62,11 +62,10 @@ $app->singleton(
 */
 
 $app->configure('app');
-$app->configure('trustedproxy');
-$app->configure('filesystems');
 $app->configure('cache');
+$app->configure('filesystems');
 $app->configure('logging');
-$app->configure('session');
+$app->configure('trustedproxy');
 $app->configure('view');
 
 /*
