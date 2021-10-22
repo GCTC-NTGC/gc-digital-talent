@@ -32,7 +32,7 @@ export const UpdateDepartmentForm: React.FunctionComponent<UpdateDepartmentProps
     const intl = useIntl();
     const methods = useForm<FormValues>({
       defaultValues: {
-        departmentNumber: initialDepartment.department_number,
+        departmentNumber: initialDepartment.departmentNumber,
         name: initialDepartment.name,
       },
     });
