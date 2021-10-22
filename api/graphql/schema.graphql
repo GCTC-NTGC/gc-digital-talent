@@ -140,7 +140,7 @@ type CmoAsset {
 type Department {
     id: ID!
     departmentNumber: Int! @rename(attribute: "department_number")
-    name: LocalizedString
+    name: LocalizedString!
 }
 
 enum PoolCandidateSearchStatus {
