@@ -49,11 +49,11 @@ export const Select: React.FunctionComponent<SelectProps> = ({
       >
         <select
           data-h2-radius="b(s)"
-          data-h2-padding="b(top-bottom, xxs) b(left, xxs)"
-          data-h2-margin="b(bottom, xs)"
+          data-h2-padding="b(left, xxs)"
+          data-h2-margin="b(bottom, xxs)"
           data-h2-font-size="b(normal)"
           id={id}
-          style={{ width: "100%" }}
+          style={{ width: "100%", paddingTop: "4.5px", paddingBottom: "4.5px" }}
           {...register(name, rules)}
           aria-invalid={error ? "true" : "false"}
           {...rest}

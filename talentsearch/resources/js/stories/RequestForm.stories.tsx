@@ -2,7 +2,7 @@ import React from "react";
 import { storiesOf } from "@storybook/react";
 import { fakePoolCandidateFilters } from "@common/fakeData";
 import { PoolCandidateFilter } from "@common/api/generated";
-import SummaryOfFilters from "../components/requestForm/SummaryOfFilters";
+import SummaryOfFilters from "../components/request/SummaryOfFilters";
 import { LanguageAbility } from "../api/generated";
 
 const stories = storiesOf("Request Form Page", module);
