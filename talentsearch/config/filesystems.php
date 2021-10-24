@@ -35,9 +35,9 @@ return [
             'root' => storage_path('app'),
         ],
 
-        'custom' => [
+        'tmp' => [
             'driver' => 'local',
-            'root' => '/tmp/talentsearch/storage',
+            'root' => '/tmp/talentsearch/storage/app',
         ],
 
         'public' => [

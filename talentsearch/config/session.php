@@ -59,7 +59,7 @@ return [
     |
     */
 
-    'files' => '/tmp/talentsearch/storage/framework/sessions',
+    'files' => env('USE_TMP_STORAGE', false) ? '/tmp/talentsearch/storage/framework/sessions' : storage_path('framework/sessions'),
 
     /*
     |--------------------------------------------------------------------------

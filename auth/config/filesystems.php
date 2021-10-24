@@ -37,7 +37,7 @@ return [
 
         'custom' => [
             'driver' => 'local',
-            'root' => '/tmp/auth/storage',
+            'root' => '/tmp/auth/storage/app',
         ],
 
         'public' => [

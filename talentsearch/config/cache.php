@@ -54,7 +54,7 @@ return [
             'path' => storage_path('framework/cache/data'),
         ],
 
-        'custom' => [
+        'tmp' => [
             'driver' => 'file',
             'path' => '/tmp/talentsearch/storage/framework/cache/data',
         ],
