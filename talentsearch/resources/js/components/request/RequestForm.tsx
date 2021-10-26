@@ -3,33 +3,81 @@ import * as React from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { fakePoolCandidateFilters } from "@common/fakeData";
 import { useIntl } from "react-intl";
-import { errorMessages } from "@common/messages";
+import { commonMessages, errorMessages } from "@common/messages";
 import { getLocale } from "@common/helpers/localize";
 import { Button } from "@common/components";
+import { notEmpty } from "@common/helpers/util";
+import { searchPath } from "resources/js/talentSearchRoutes";
+import { toast } from "react-toastify";
+import { navigate } from "@common/helpers/router";
 import {
   Department,
-  PoolCandidateSearchRequest,
   PoolCandidateFilter,
   LanguageAbility,
+  CreatePoolCandidateSearchRequestInput,
+  useGetPoolCandidateSearchRequestDataQuery,
+  useCreatePoolCandidateSearchRequestMutation,
+  CreatePoolCandidateSearchRequestMutation,
 } from "../../api/generated";
 import SummaryOfFilters from "./SummaryOfFilters";
 
 type Option<V> = { value: V; label: string };
-type FormValues = PoolCandidateSearchRequest;
+type FormValues = Pick<
+  CreatePoolCandidateSearchRequestInput,
+  | "fullName"
+  | "email"
+  | "jobTitle"
+  | "additionalComments"
+  | "poolCandidateFilter"
+> & {
+  department: string;
+};
 interface RequestFormProps {
   departments: Department[];
+  handleCreatePoolCandidateSearchRequest: (
+    data: CreatePoolCandidateSearchRequestInput,
+  ) => Promise<
+    CreatePoolCandidateSearchRequestMutation["createPoolCandidateSearchRequest"]
+  >;
 }
 
-const RequestForm: React.FunctionComponent<RequestFormProps> = ({
+export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
   departments,
+  handleCreatePoolCandidateSearchRequest,
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const methods = useForm();
   const { handleSubmit } = methods;
 
+  const formValuesToSubmitData = (
+    values: FormValues,
+  ): CreatePoolCandidateSearchRequestInput => ({
+    ...values,
+    department: { connect: values.department },
+  });
+
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
-    return console.log("Submit");
+    return handleCreatePoolCandidateSearchRequest(formValuesToSubmitData(data))
+      .then(() => {
+        navigate(searchPath());
+        toast.success(
+          intl.formatMessage({
+            defaultMessage: "Request created successfully!",
+            description:
+              "Message displayed to user after a pool candidate request is created successfully.",
+          }),
+        );
+      })
+      .catch(() => {
+        toast.error(
+          intl.formatMessage({
+            defaultMessage: "Error: creating request failed",
+            description:
+              "Message displayed to user after a pool candidate request fails to get created.",
+          }),
+        );
+      });
   };
 
   const departmentOptions: Option<string>[] = departments.map(
@@ -216,4 +264,35 @@ const RequestForm: React.FunctionComponent<RequestFormProps> = ({
   );
 };
 
-export default RequestForm;
+export const CreateRequestForm: React.FunctionComponent = () => {
+  const intl = useIntl();
+  const [lookupResult] = useGetPoolCandidateSearchRequestDataQuery();
+  const { data: lookupData, fetching, error } = lookupResult;
+
+  const departments: Department[] =
+    lookupData?.departments.filter(notEmpty) ?? [];
+
+  const [_result, executeMutation] =
+    useCreatePoolCandidateSearchRequestMutation();
+  const handleCreatePoolCandidateSearchRequest = (
+    data: CreatePoolCandidateSearchRequestInput,
+  ) =>
+    executeMutation({ poolCandidateSearchRequest: data }).then((result) => {
+      if (result.data?.createPoolCandidateSearchRequest) {
+        return result.data?.createPoolCandidateSearchRequest;
+      }
+      return Promise.reject(result.error);
+    });
+
+  if (fetching) return <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>;
+  if (error) return <p>{intl.formatMessage(commonMessages.loadingError)}</p>;
+
+  return (
+    <RequestForm
+      departments={departments}
+      handleCreatePoolCandidateSearchRequest={
+        handleCreatePoolCandidateSearchRequest
+      }
+    />
+  );
+};

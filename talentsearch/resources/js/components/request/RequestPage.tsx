@@ -1,11 +1,8 @@
 import * as React from "react";
 import { useIntl } from "react-intl";
+import { CreateRequestForm } from "./RequestForm";
 
-import RequestForm from "./RequestForm";
-
-interface RequestPageProps {}
-
-const RequestPage: React.FunctionComponent<RequestPageProps> = (props) => {
+const RequestPage: React.FunctionComponent = (props) => {
   const intl = useIntl();
 
   return (
@@ -35,7 +32,7 @@ const RequestPage: React.FunctionComponent<RequestPageProps> = (props) => {
         data-h2-padding="b(all, l) b(right, xxl)"
         data-h2-bg-color="b(white)"
       >
-        <RequestForm departments={[]} />
+        <CreateRequestForm />
       </div>
     </section>
   );
