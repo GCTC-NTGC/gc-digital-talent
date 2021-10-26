@@ -276,7 +276,7 @@ const SearchForm: React.FunctionComponent<SearchFormProps> = ({
           })}
           text={intl.formatMessage({
             defaultMessage:
-              "Managers can request candidates by employment equity group(s) to address current of future representation gaps in the workforce. (Catergories reflect EE data defined under the Public Service Employment Act and collected through the PSC application process. For consistency, this platform reflects the PSC's category terminlogy.)",
+              "Managers can request candidates by employment equity group(s) to address current of future representation gaps in the workforce. (Categories reflect EE data defined under the Public Service Employment Act and collected through the PSC application process. For consistency, this platform reflects the PSC's category terminlogy.)",
             description:
               "Message describing the employment equity filter in the search form.",
           })}
