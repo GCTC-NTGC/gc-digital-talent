@@ -3,15 +3,15 @@ import { storiesOf } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 import { fakeDepartments } from "@common/fakeData";
 import { Department } from "@common/api/generated";
-import { CreateRequest } from "../components/request/CreateRequest";
+import { RequestForm } from "../components/request/CreateRequest";
 import { CreatePoolCandidateSearchRequestInput } from "../api/generated";
 
 const stories = storiesOf("Search Request Form", module);
 
 stories.add("Create Search Request Form", () => {
   return (
-    <CreateRequest
-      departments={fakeDepartments() as Department[]}
+    <RequestForm
+      departments={fakeDepartments()}
       handleCreatePoolCandidateSearchRequest={async (
         data: CreatePoolCandidateSearchRequestInput,
       ) => {

@@ -7,9 +7,9 @@ import { commonMessages, errorMessages } from "@common/messages";
 import { getLocale } from "@common/helpers/localize";
 import { Button } from "@common/components";
 import { notEmpty } from "@common/helpers/util";
-import { searchPath } from "resources/js/talentSearchRoutes";
 import { toast } from "react-toastify";
 import { navigate } from "@common/helpers/router";
+import { searchPath } from "../../talentSearchRoutes";
 import {
   Department,
   PoolCandidateFilter,
@@ -285,7 +285,12 @@ export const CreateRequest: React.FunctionComponent = () => {
     });
 
   if (fetching) return <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>;
-  if (error) return <p>{intl.formatMessage(commonMessages.loadingError)}</p>;
+  if (error)
+    return (
+      <p>
+        {intl.formatMessage(commonMessages.loadingError)} {error.message}
+      </p>
+    );
 
   return (
     <RequestForm
