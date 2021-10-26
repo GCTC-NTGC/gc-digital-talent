@@ -35,7 +35,7 @@ export const DepartmentTable: React.FC<
     () => [
       {
         Header: intl.formatMessage(messages.columnDepartmentNumberTitle),
-        accessor: "department_number",
+        accessor: "departmentNumber",
       },
       {
         Header: intl.formatMessage(messages.columnNameTitle),
