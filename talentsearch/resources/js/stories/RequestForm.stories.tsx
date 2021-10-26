@@ -1,47 +1,24 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
-import { fakePoolCandidateFilters } from "@common/fakeData";
-import { PoolCandidateFilter } from "@common/api/generated";
-import SummaryOfFilters from "../components/request/SummaryOfFilters";
-import { LanguageAbility } from "../api/generated";
+import { action } from "@storybook/addon-actions";
+import { fakeDepartments } from "@common/fakeData";
+import { Department } from "@common/api/generated";
+import { CreateRequest } from "../components/request/CreateRequest";
+import { CreatePoolCandidateSearchRequestInput } from "../api/generated";
 
-const stories = storiesOf("Request Form Page", module);
+const stories = storiesOf("Search Request Form", module);
 
-stories.add("Summary of Filters", () => {
-  const poolCandidateFilter: PoolCandidateFilter =
-    fakePoolCandidateFilters()[0] as PoolCandidateFilter;
-  const classifications: string[] | undefined =
-    poolCandidateFilter.classifications?.map(
-      (classification) =>
-        `${classification?.group.toLocaleUpperCase()}-0${
-          classification?.level
-        }`,
-    );
-  const educationLevel: string | undefined = poolCandidateFilter.hasDiploma
-    ? "Required diploma from post-secondary institution"
-    : "Can accept a combination of work experience and education";
-  const employmentEquity: string[] | undefined = ["Woman", "Visible Minority"];
-  const operationalRequirements: string[] | undefined =
-    poolCandidateFilter.operationalRequirements?.map(
-      (operationalRequirement) =>
-        operationalRequirement?.name.en || "operational requirement",
-    );
-  const skills: string[] | undefined = poolCandidateFilter.cmoAssets?.map(
-    (cmoAsset) => cmoAsset?.name.en || "cmo asset",
-  );
-  const typeOfOpportunity = "Indeterminate position";
-  const workLocation: string[] = poolCandidateFilter.workRegions as string[];
+stories.add("Create Search Request Form", () => {
   return (
-    <SummaryOfFilters
-      classifications={classifications}
-      educationLevel={educationLevel}
-      employmentEquity={employmentEquity}
-      languageAbility={LanguageAbility.Bilingual}
-      operationalRequirements={operationalRequirements}
-      skills={skills}
-      totalEstimatedCandidates={12}
-      typeOfOpportunity={typeOfOpportunity}
-      workLocation={workLocation}
+    <CreateRequest
+      departments={fakeDepartments() as Department[]}
+      handleCreatePoolCandidateSearchRequest={async (
+        data: CreatePoolCandidateSearchRequestInput,
+      ) => {
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+        action("Create Pool Candidate Search Request")(data);
+        return null;
+      }}
     />
   );
 });
