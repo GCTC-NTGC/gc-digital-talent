@@ -185,7 +185,7 @@ const SearchForm: React.FunctionComponent<SearchFormProps> = ({
           />
         </FilterBlock>
         <FilterBlock
-          id="operationalRequrementFilter"
+          id="operationalRequirementFilter"
           title={intl.formatMessage({
             defaultMessage:
               "Conditions of employment / Operational requirements",
@@ -402,7 +402,7 @@ const SearchForm: React.FunctionComponent<SearchFormProps> = ({
                 {operationalRequirementFilterCount &&
                 operationalRequirementFilterCount > 0 ? (
                   <a
-                    href="#operationalRequrementFilter"
+                    href="#operationalRequirementFilter"
                     data-h2-font-color="b(lightpurple)"
                     data-h2-font-weight="b(700)"
                   >
