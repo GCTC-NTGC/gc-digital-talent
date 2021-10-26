@@ -1514,6 +1514,51 @@ export type GetPoolCandidateFilterDataQuery = {
     | undefined;
 };
 
+export type GetPoolCandidateSearchRequestDataQueryVariables = Exact<{
+  [key: string]: never;
+}>;
+
+export type GetPoolCandidateSearchRequestDataQuery = {
+  __typename?: "Query";
+  departments: Array<
+    | {
+        __typename?: "Department";
+        id: string;
+        departmentNumber: number;
+        name: {
+          __typename?: "LocalizedString";
+          en?: string | null | undefined;
+          fr?: string | null | undefined;
+        };
+      }
+    | null
+    | undefined
+  >;
+};
+
+export type CreatePoolCandidateSearchRequestMutationVariables = Exact<{
+  poolCandidateSearchRequest: CreatePoolCandidateSearchRequestInput;
+}>;
+
+export type CreatePoolCandidateSearchRequestMutation = {
+  __typename?: "Mutation";
+  createPoolCandidateSearchRequest?:
+    | {
+        __typename?: "PoolCandidateSearchRequest";
+        fullName?: string | null | undefined;
+        email?: string | null | undefined;
+        jobTitle?: string | null | undefined;
+        additionalComments?: string | null | undefined;
+        department?:
+          | { __typename?: "Department"; id: string }
+          | null
+          | undefined;
+        poolCandidateFilter: { __typename?: "PoolCandidateFilter"; id: string };
+      }
+    | null
+    | undefined;
+};
+
 export const PoolCandidateFilterFragmentDoc = gql`
   fragment poolCandidateFilter on PoolCandidateFilter {
     id
@@ -1642,4 +1687,55 @@ export function useGetPoolCandidateFilterDataQuery(
     query: GetPoolCandidateFilterDataDocument,
     ...options,
   });
+}
+export const GetPoolCandidateSearchRequestDataDocument = gql`
+  query getPoolCandidateSearchRequestData {
+    departments {
+      id
+      departmentNumber
+      name {
+        en
+        fr
+      }
+    }
+  }
+`;
+
+export function useGetPoolCandidateSearchRequestDataQuery(
+  options: Omit<
+    Urql.UseQueryArgs<GetPoolCandidateSearchRequestDataQueryVariables>,
+    "query"
+  > = {},
+) {
+  return Urql.useQuery<GetPoolCandidateSearchRequestDataQuery>({
+    query: GetPoolCandidateSearchRequestDataDocument,
+    ...options,
+  });
+}
+export const CreatePoolCandidateSearchRequestDocument = gql`
+  mutation createPoolCandidateSearchRequest(
+    $poolCandidateSearchRequest: CreatePoolCandidateSearchRequestInput!
+  ) {
+    createPoolCandidateSearchRequest(
+      poolCandidateSearchRequest: $poolCandidateSearchRequest
+    ) {
+      fullName
+      email
+      department {
+        id
+      }
+      jobTitle
+      additionalComments
+      poolCandidateFilter {
+        id
+      }
+    }
+  }
+`;
+
+export function useCreatePoolCandidateSearchRequestMutation() {
+  return Urql.useMutation<
+    CreatePoolCandidateSearchRequestMutation,
+    CreatePoolCandidateSearchRequestMutationVariables
+  >(CreatePoolCandidateSearchRequestDocument);
 }
