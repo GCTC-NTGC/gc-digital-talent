@@ -133,12 +133,12 @@ const SearchForm: React.FunctionComponent<SearchFormProps> = ({
             id="classifications"
             label={intl.formatMessage({
               defaultMessage: "Classification filter",
-              description: "Label for classfication filter in search form.",
+              description: "Label for classification filter in search form.",
             })}
             placeholder={intl.formatMessage({
               defaultMessage: "Select one or more classification(s)",
               description:
-                "Placeholder for classfication filter in search form.",
+                "Placeholder for classification filter in search form.",
             })}
             name="classifications"
             options={classificationOptions}
