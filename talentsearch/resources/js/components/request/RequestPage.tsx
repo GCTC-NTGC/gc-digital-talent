@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useIntl } from "react-intl";
-import { CreateRequestForm } from "./RequestForm";
+import { CreateRequest } from "./CreateRequest";
 
 const RequestPage: React.FunctionComponent = (props) => {
   const intl = useIntl();
@@ -32,7 +32,7 @@ const RequestPage: React.FunctionComponent = (props) => {
         data-h2-padding="b(all, l) b(right, xxl)"
         data-h2-bg-color="b(white)"
       >
-        <CreateRequestForm />
+        <CreateRequest />
       </div>
     </section>
   );

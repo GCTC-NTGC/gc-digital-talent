@@ -264,7 +264,7 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
   );
 };
 
-export const CreateRequestForm: React.FunctionComponent = () => {
+export const CreateRequest: React.FunctionComponent = () => {
   const intl = useIntl();
   const [lookupResult] = useGetPoolCandidateSearchRequestDataQuery();
   const { data: lookupData, fetching, error } = lookupResult;
