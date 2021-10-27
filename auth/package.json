@@ -17,7 +17,7 @@
         "@tailwindcss/forms": "^0.3.4",
         "alpinejs": "^3.4.2",
         "autoprefixer": "^10.3.7",
-        "axios": "^0.23",
+        "axios": "^0.24",
         "laravel-mix": "^6.0.34",
         "lodash": "^4.17.19",
         "postcss": "^8.3.11",
