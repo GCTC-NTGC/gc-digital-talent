@@ -7,7 +7,7 @@ import {
 } from "@common/fakeData";
 import { getLocale } from "@common/helpers/localize";
 import { imageUrl } from "@common/helpers/router";
-import React from "react";
+import React, { useState } from "react";
 import { defineMessages, useIntl } from "react-intl";
 import {
   PoolCandidateFilter,
@@ -51,30 +51,113 @@ const messages = defineMessages({
   },
 });
 
-export const SearchPage: React.FC = () => {
+export const SearchFilterAdvice: React.FC<{
+  classificationFilterCount: number;
+  cmoAssetFilterCount: number;
+  operationalRequirementFilterCount: number;
+}> = ({
+  classificationFilterCount,
+  cmoAssetFilterCount,
+  operationalRequirementFilterCount,
+}) => {
+  const intl = useIntl();
+  if (
+    classificationFilterCount === 0 &&
+    cmoAssetFilterCount === 0 &&
+    operationalRequirementFilterCount === 0
+  ) {
+    return null;
+  }
+
+  const reccomendations = [];
+  if (classificationFilterCount > 0) {
+    reccomendations.push(
+      <a
+        href="#classificationsFilter"
+        data-h2-font-color="b(lightpurple)"
+        data-h2-font-weight="b(700)"
+      >
+        {intl.formatMessage(
+          {
+            defaultMessage:
+              "Classification Filters ({classificationFilterCount}),",
+          },
+          { classificationFilterCount },
+        )}
+      </a>,
+    );
+  }
+  if (operationalRequirementFilterCount > 0) {
+    reccomendations.push(
+      <a
+        href="#operationalRequirementFilter"
+        data-h2-font-color="b(lightpurple)"
+        data-h2-font-weight="b(700)"
+      >
+        {intl.formatMessage(
+          {
+            defaultMessage:
+              "Conditions of Employment ({operationalRequirementFilterCount}),",
+          },
+          { operationalRequirementFilterCount },
+        )}
+      </a>,
+    );
+  }
+  if (cmoAssetFilterCount > 0) {
+    reccomendations.push(
+      <a
+        href="#cmoAssetFilter"
+        data-h2-font-color="b(lightpurple)"
+        data-h2-font-weight="b(700)"
+      >
+        {intl.formatMessage(
+          {
+            defaultMessage: "Skills Filters ({cmoAssetFilterCount})",
+          },
+          { cmoAssetFilterCount },
+        )}
+      </a>,
+    );
+  }
+
+  return (
+    <p data-h2-font-size="b(caption)" data-h2-margin="b(bottom, m)">
+      {intl.formatMessage({
+        defaultMessage:
+          "To improve your results, try removing some of these filters:",
+        description:
+          "Heading for total matching candidates in results section of search page.",
+      })}{" "}
+      {reccomendations.map((link, i) => (
+        <>
+          {i > 0 && ", "}
+          {link}
+        </>
+      ))}
+    </p>
+  );
+};
+
+export const SearchPage: React.FC<{
+  classifications: Classification[];
+  cmoAssets: CmoAsset[];
+  operationalRequirements: OperationalRequirement[];
+}> = ({ classifications, cmoAssets, operationalRequirements }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
 
   // TODO: Replace fake data with data fetched from api.
   const pool: Pool = fakePools()[0] as Pool;
 
-  const poolCandidateFilter: PoolCandidateFilter = {
-    id: "1",
-    operationalRequirements: [
-      fakeOperationalRequirements()[0],
-      fakeOperationalRequirements()[1],
-    ],
-    cmoAssets: [fakeCmoAssets()[0], fakeCmoAssets()[1]],
-    classifications: [fakeClassifications()[0], fakeClassifications()[1]],
-    hasDiploma: true,
-    hasDisability: false,
-    isIndigenous: true,
-    isVisibleMinority: false,
-    isWoman: true,
-    languageAbility: LanguageAbility.Bilingual,
-    workRegions: [WorkRegion.BritishColumbia, WorkRegion.Ontario],
-    pools: null,
-  };
+  const [filter, setFilter] = useState<PoolCandidateFilter | undefined>(
+    undefined,
+  );
+
+  const classificationFilterCount = filter?.classifications?.length ?? 0;
+  const cmoAssetFilterCount = filter?.cmoAssets?.length ?? 0;
+  const operationalRequirementFilterCount =
+    filter?.operationalRequirements?.length ?? 0;
 
   const totalEstimatedCandidates = 10;
   return (
@@ -137,14 +220,42 @@ export const SearchPage: React.FC = () => {
           <p>{intl.formatMessage(messages.pageHowToContent)}</p>
           <SearchForm
             totalEstimatedCandidates={totalEstimatedCandidates}
-            classifications={fakeClassifications() as Classification[]}
-            cmoAssets={fakeCmoAssets() as CmoAsset[]}
-            initialPoolCandidateFilter={poolCandidateFilter}
-            operationalRequirements={
-              fakeOperationalRequirements() as OperationalRequirement[]
-            }
-            handleUpdateFilter={console.log}
+            classifications={classifications}
+            cmoAssets={cmoAssets}
+            operationalRequirements={operationalRequirements}
+            handleUpdateFilter={setFilter}
           />
+          <div>
+            <div>
+              <h3
+                data-h2-font-size="b(h4)"
+                data-h2-font-weight="b(700)"
+                data-h2-margin="b(bottom, m)"
+              >
+                {intl.formatMessage(
+                  {
+                    defaultMessage:
+                      "Results: <span>{totalEstimatedCandidates}</span> matching candidates",
+                    description:
+                      "Heading for total matching candidates in results section of search page.",
+                  },
+                  {
+                    span: (msg: string): JSX.Element => (
+                      <span data-h2-font-color="b(lightpurple)">{msg}</span>
+                    ),
+                    totalEstimatedCandidates,
+                  },
+                )}
+              </h3>
+              <SearchFilterAdvice
+                classificationFilterCount={classificationFilterCount}
+                cmoAssetFilterCount={cmoAssetFilterCount}
+                operationalRequirementFilterCount={
+                  operationalRequirementFilterCount
+                }
+              />
+            </div>
+          </div>
         </div>
         <div
           data-h2-flex-item="b(1of1) s(1of3)"

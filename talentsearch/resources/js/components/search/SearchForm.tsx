@@ -134,29 +134,23 @@ const SearchForm: React.FunctionComponent<SearchFormProps> = ({
     handleUpdateFilter(formValuesToData(values));
   }, [values]);
 
-  const classificationOptions: Option<string>[] = classifications.map(
+  const classificationOptions: Option<string>[] = useMemo(() => classifications.map(
     ({ id, group, level }) => ({
       value: id,
       label: `${group}-0${level}`,
     }),
-  );
+  ), [classifications]);
 
-  const cmoAssetOptions: Option<string>[] = cmoAssets.map(({ id, name }) => ({
+  const cmoAssetOptions: Option<string>[] = useMemo(() => cmoAssets.map(({ id, name }) => ({
     value: id,
     label: name[locale] ?? "Error: name not loaded",
-  }));
+  })), [cmoAssets, locale]);
 
   const operationalRequirementOptions: Option<string>[] =
-    operationalRequirements.map(({ id, name }) => ({
+    useMemo( () => operationalRequirements.map(({ id, name }) => ({
       value: id,
       label: name[locale] || "Error: operational requirement name not found.",
-    }));
-
-  const classificationFilterCount = watch("classifications")?.length;
-  const cmoAssetFilterCount = watch("cmoAssets")?.length;
-  const operationalRequirementFilterCount = watch(
-    "operationalRequirements",
-  )?.length;
+    })), [operationalRequirements, locale]);
 
   return (
     <FormProvider {...methods}>
@@ -398,98 +392,7 @@ const SearchForm: React.FunctionComponent<SearchFormProps> = ({
             items={cmoAssetOptions}
           />
         </FilterBlock>
-        <div>
-          <div>
-            <h3
-              data-h2-font-size="b(h4)"
-              data-h2-font-weight="b(700)"
-              data-h2-margin="b(bottom, m)"
-            >
-              {intl.formatMessage(
-                {
-                  defaultMessage:
-                    "Results: <span>{totalEstimatedCandidates}</span> matching candidates",
-                  description:
-                    "Heading for total matching candidates in results section of search page.",
-                },
-                {
-                  span: (msg: string): JSX.Element => (
-                    <span data-h2-font-color="b(lightpurple)">{msg}</span>
-                  ),
-                  totalEstimatedCandidates,
-                },
-              )}
-            </h3>
-            {(classificationFilterCount && classificationFilterCount > 0) ||
-            (cmoAssetFilterCount && cmoAssetFilterCount > 0) ||
-            (operationalRequirementFilterCount &&
-              operationalRequirementFilterCount > 0) ? (
-              <p data-h2-font-size="b(caption)" data-h2-margin="b(bottom, m)">
-                {intl.formatMessage({
-                  defaultMessage:
-                    "To improve your results, try removing some of these filters",
-                  description:
-                    "Heading for total matching candidates in results section of search page.",
-                })}
-                :{" "}
-                {classificationFilterCount && classificationFilterCount > 0 ? (
-                  <a
-                    href="#classificationsFilter"
-                    data-h2-font-color="b(lightpurple)"
-                    data-h2-font-weight="b(700)"
-                  >
-                    {intl.formatMessage(
-                      {
-                        defaultMessage:
-                          "Classification Filters ({classificationFilterCount}),",
-                      },
-                      { classificationFilterCount },
-                    )}
-                  </a>
-                ) : (
-                  ""
-                )}{" "}
-                {operationalRequirementFilterCount &&
-                operationalRequirementFilterCount > 0 ? (
-                  <a
-                    href="#operationalRequirementFilter"
-                    data-h2-font-color="b(lightpurple)"
-                    data-h2-font-weight="b(700)"
-                  >
-                    {intl.formatMessage(
-                      {
-                        defaultMessage:
-                          "Conditions of Employment ({operationalRequirementFilterCount}),",
-                      },
-                      { operationalRequirementFilterCount },
-                    )}
-                  </a>
-                ) : (
-                  ""
-                )}{" "}
-                {cmoAssetFilterCount && cmoAssetFilterCount > 0 ? (
-                  <a
-                    href="#cmoAssetFilter"
-                    data-h2-font-color="b(lightpurple)"
-                    data-h2-font-weight="b(700)"
-                  >
-                    {intl.formatMessage(
-                      {
-                        defaultMessage:
-                          "Skills Filters ({cmoAssetFilterCount})",
-                      },
-                      { cmoAssetFilterCount },
-                    )}
-                  </a>
-                ) : (
-                  ""
-                )}
-              </p>
-            ) : (
-              ""
-            )}
-          </div>
-        </div>
+
       </form>
     </FormProvider>
   );
