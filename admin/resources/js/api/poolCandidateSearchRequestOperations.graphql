@@ -1,0 +1,23 @@
+query getPoolCandidateSearchRequests {
+  poolCandidateSearchRequests {
+    id
+    fullName
+    email
+    department {
+      id
+      departmentNumber
+      name {
+        en
+        fr
+      }
+    }
+    jobTitle
+    additionalComments
+    poolCandidateFilter {
+      id
+    }
+    requestedDate
+    status
+    adminNotes
+  }
+}
