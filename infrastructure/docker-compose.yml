@@ -34,6 +34,22 @@ services:
     ports:
       - 8000:80
       - 8001:443
+      
+  maintenance:    
+    build: ./maintenance-container
+    working_dir: /root/scripts
+    deploy:
+      mode: replicated
+      replicas: 0
+    volumes:
+      - maintenancedata:/root
+      - ../maintenance/scripts:/root/scripts
+      - ../api:/var/www/html/api
+      - ../admin:/var/www/html/admin
+      - ../auth:/var/www/html/auth
+      - ../talentsearch:/var/www/html/talentsearch
+      - ../common:/var/www/html/common
 
 volumes:
   pgdata:
+  maintenancedata:
