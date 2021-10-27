@@ -1,5 +1,6 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
+import { action } from "@storybook/addon-actions";
 import {
   fakeClassifications,
   fakeCmoAssets,
@@ -45,6 +46,21 @@ stories.add("Search Form", () => {
       operationalRequirements={
         fakeOperationalRequirements() as OperationalRequirement[]
       }
+      handleUpdateFilter={action("updateFilter")}
+    />
+  );
+});
+
+stories.add("Empty Search Form", () => {
+  return (
+    <SearchForm
+      totalEstimatedCandidates={10}
+      classifications={fakeClassifications() as Classification[]}
+      cmoAssets={fakeCmoAssets() as CmoAsset[]}
+      operationalRequirements={
+        fakeOperationalRequirements() as OperationalRequirement[]
+      }
+      handleUpdateFilter={action("updateFilter")}
     />
   );
 });

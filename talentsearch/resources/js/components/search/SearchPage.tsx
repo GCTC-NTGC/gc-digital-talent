@@ -143,6 +143,7 @@ export const SearchPage: React.FC = () => {
             operationalRequirements={
               fakeOperationalRequirements() as OperationalRequirement[]
             }
+            handleUpdateFilter={console.log}
           />
         </div>
         <div

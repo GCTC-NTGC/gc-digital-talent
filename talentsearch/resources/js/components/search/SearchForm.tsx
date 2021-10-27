@@ -1,11 +1,11 @@
-import * as React from "react";
+import React, { useEffect, useMemo } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { Checklist, MultiSelect, RadioGroup } from "@common/components/form";
-import { Checkbox } from "@common/components/form/Checklist";
 import { getLocale } from "@common/helpers/localize";
 import { enumToOptions, unpackIds } from "@common/helpers/formUtils";
 import { getLanguageAbility } from "@common/constants";
+import { Id } from "@common/types/utilityTypes";
 import {
   Classification,
   CmoAsset,
@@ -43,18 +43,27 @@ type FormValues = Pick<
   PoolCandidateFilter,
   "languageAbility" | "workRegions"
 > & {
-  classifications: string[] | undefined;
-  cmoAssets: string[] | undefined;
-  operationalRequirements: string[] | undefined;
+  classifications: Id[] | undefined;
+  cmoAssets: Id[] | undefined;
+  operationalRequirements: Id[] | undefined;
   employmentEquity: string[] | undefined;
+  hasDiploma: "has_diploma" | "no_diploma";
 };
 
 interface SearchFormProps {
   classifications: Classification[];
   cmoAssets: CmoAsset[];
-  initialPoolCandidateFilter: PoolCandidateFilter;
+  initialPoolCandidateFilter?: PoolCandidateFilter;
   operationalRequirements: OperationalRequirement[];
   totalEstimatedCandidates: number;
+  handleUpdateFilter: (filter: PoolCandidateFilter) => void;
+}
+
+function mapIdToValue<T extends { id: Id }>(objs: T[]): Map<Id, T> {
+  return objs.reduce((map, obj) => {
+    map.set(obj.id, obj);
+    return map;
+  }, new Map());
 }
 
 const SearchForm: React.FunctionComponent<SearchFormProps> = ({
@@ -63,26 +72,67 @@ const SearchForm: React.FunctionComponent<SearchFormProps> = ({
   initialPoolCandidateFilter,
   operationalRequirements,
   totalEstimatedCandidates,
+  handleUpdateFilter,
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
-  const dataToFormValues = (data: PoolCandidateFilter): FormValues => ({
-    ...data,
-    classifications: unpackIds(data?.classifications),
-    cmoAssets: unpackIds(data?.cmoAssets),
-    operationalRequirements: unpackIds(data?.operationalRequirements),
-    employmentEquity: [
-      data.isIndigenous ? "isIndigenous" : "",
-      data.isVisibleMinority ? "isVisibleMinority" : "",
-      data.hasDisability ? "hasDisability" : "",
-      data.isWoman ? "isWoman" : "",
-    ],
+  const dataToFormValues = (data: PoolCandidateFilter | undefined): FormValues => {
+    return {
+      ...data,
+      classifications: unpackIds(data?.classifications),
+      cmoAssets: unpackIds(data?.cmoAssets),
+      operationalRequirements: unpackIds(data?.operationalRequirements),
+      hasDiploma: data?.hasDiploma ? "has_diploma" : "no_diploma",
+      employmentEquity: [
+        data?.isIndigenous ? "isIndigenous" : "",
+        data?.isVisibleMinority ? "isVisibleMinority" : "",
+        data?.hasDisability ? "hasDisability" : "",
+        data?.isWoman ? "isWoman" : "",
+      ],
+    };
+  };
+
+  const classificationMap = useMemo(
+    () => mapIdToValue(classifications),
+    [classifications],
+  );
+  const assetMap = useMemo(() => mapIdToValue(cmoAssets), [cmoAssets]);
+  const requirementMap = useMemo(
+    () => mapIdToValue(operationalRequirements),
+    [operationalRequirements],
+  );
+
+  const formValuesToData = (values: FormValues): PoolCandidateFilter => ({
+    id: "0",
+    classifications: values.classifications?.map((id) =>
+      classificationMap.get(id),
+    ),
+    cmoAssets: values.cmoAssets?.map((id) => assetMap.get(id)),
+    operationalRequirements: values.operationalRequirements?.map((id) =>
+      requirementMap.get(id),
+    ),
+    // Note: If the user selects no_diploma it means they do not require a diploma.
+    // This corresponds to an undefined hasDiploma field in PoolCandidateFilter.
+    // Setting this field to false would require a lack of diploma instead.
+    ...(values.hasDiploma ? { hasDiploma: true } : {}),
+    hasDisability: values.employmentEquity?.includes("hasDisability"),
+    isIndigenous: values.employmentEquity?.includes("isIndigenous"),
+    isVisibleMinority: values.employmentEquity?.includes("isVisibleMinority"),
+    isWoman: values.employmentEquity?.includes("isWoman"),
+    languageAbility: values.languageAbility,
+    workRegions: values.workRegions,
   });
 
   const methods = useForm<FormValues>({
     defaultValues: dataToFormValues(initialPoolCandidateFilter),
   });
   const { handleSubmit, watch } = methods;
+
+  const values = watch();
+  useEffect(() => {
+    console.log(values);
+    handleUpdateFilter(formValuesToData(values));
+  }, [values]);
 
   const classificationOptions: Option<string>[] = classifications.map(
     ({ id, group, level }) => ({
@@ -111,9 +161,9 @@ const SearchForm: React.FunctionComponent<SearchFormProps> = ({
   return (
     <FormProvider {...methods}>
       <form
-        onSubmit={handleSubmit(() => {
-          console.log("Submit");
-        })}
+        onSubmit={handleSubmit((values) =>
+          handleUpdateFilter(formValuesToData(values)),
+        )}
       >
         <FilterBlock
           id="classificationsFilter"
