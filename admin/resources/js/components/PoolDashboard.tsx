@@ -26,6 +26,8 @@ import {
   userUpdatePath,
   homePath,
   homePublicPath,
+  searchRequestTablePath,
+  searchRequestUpdatePath,
 } from "../adminRoutes";
 import { CreateClassification } from "./classification/CreateClassification";
 import { UpdateClassification } from "./classification/UpdateClassification";
@@ -53,6 +55,7 @@ import AuthContainer from "./AuthContainer";
 import DepartmentPage from "./department/DepartmentPage";
 import { CreateDepartment } from "./department/CreateDepartment";
 import { UpdateDepartment } from "./department/UpdateDepartment";
+import SearchRequestPage from "./searchRequest/SearchRequestPage";
 
 const messages = defineMessages({
   menuAdminTools: {
@@ -227,12 +230,33 @@ const routes: Routes<RouterResult> = [
       component: <UpdateDepartment departmentId={params.id as string} />,
     }),
   },
+  {
+    path: searchRequestTablePath(),
+    action: () => ({
+      component: <SearchRequestPage />,
+    }),
+  },
 ];
 
 export const PoolDashboard: React.FC = () => {
   const intl = useIntl();
 
   const menuItems = [
+    <MenuHeading
+      key="search-requests"
+      text={intl.formatMessage({
+        defaultMessage: "Requests",
+        description: "Label displayed on the requests menu item.",
+      })}
+    />,
+    <MenuLink
+      key="all-requests"
+      href={searchRequestTablePath()}
+      text={intl.formatMessage({
+        defaultMessage: "All Requests",
+        description: "Label displayed on the all requests menu item.",
+      })}
+    />,
     <MenuHeading
       key="admin-tools"
       text={intl.formatMessage(messages.menuAdminTools)}
