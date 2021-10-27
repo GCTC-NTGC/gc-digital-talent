@@ -1522,6 +1522,46 @@ export type UpdateOperationalRequirementMutation = {
     | undefined;
 };
 
+export type GetPoolCandidateSearchRequestsQueryVariables = Exact<{
+  [key: string]: never;
+}>;
+
+export type GetPoolCandidateSearchRequestsQuery = {
+  __typename?: "Query";
+  poolCandidateSearchRequests: Array<
+    | {
+        __typename?: "PoolCandidateSearchRequest";
+        id: string;
+        fullName?: string | null | undefined;
+        email?: string | null | undefined;
+        jobTitle?: string | null | undefined;
+        additionalComments?: string | null | undefined;
+        requestedDate?: string | null | undefined;
+        status?: PoolCandidateSearchStatus | null | undefined;
+        adminNotes?: string | null | undefined;
+        department?:
+          | {
+              __typename?: "Department";
+              id: string;
+              departmentNumber: number;
+              name?:
+                | {
+                    __typename?: "LocalizedString";
+                    en?: string | null | undefined;
+                    fr?: string | null | undefined;
+                  }
+                | null
+                | undefined;
+            }
+          | null
+          | undefined;
+        poolCandidateFilter: { __typename?: "PoolCandidateFilter"; id: string };
+      }
+    | null
+    | undefined
+  >;
+};
+
 export type PoolCandidateTableFragment = {
   __typename?: "PoolCandidate";
   id: string;
@@ -4212,6 +4252,43 @@ export function useUpdateOperationalRequirementMutation() {
     UpdateOperationalRequirementMutation,
     UpdateOperationalRequirementMutationVariables
   >(UpdateOperationalRequirementDocument);
+}
+export const GetPoolCandidateSearchRequestsDocument = gql`
+  query getPoolCandidateSearchRequests {
+    poolCandidateSearchRequests {
+      id
+      fullName
+      email
+      department {
+        id
+        departmentNumber
+        name {
+          en
+          fr
+        }
+      }
+      jobTitle
+      additionalComments
+      poolCandidateFilter {
+        id
+      }
+      requestedDate
+      status
+      adminNotes
+    }
+  }
+`;
+
+export function useGetPoolCandidateSearchRequestsQuery(
+  options: Omit<
+    Urql.UseQueryArgs<GetPoolCandidateSearchRequestsQueryVariables>,
+    "query"
+  > = {},
+) {
+  return Urql.useQuery<GetPoolCandidateSearchRequestsQuery>({
+    query: GetPoolCandidateSearchRequestsDocument,
+    ...options,
+  });
 }
 export const GetPoolCandidateDocument = gql`
   query getPoolCandidate($id: ID!) {
