@@ -1,20 +1,19 @@
 import { Button } from "@common/components";
-import {
-  fakeClassifications,
-  fakeCmoAssets,
-  fakeOperationalRequirements,
-  fakePools,
-} from "@common/fakeData";
+import { fakePools } from "@common/fakeData";
 import { getLocale } from "@common/helpers/localize";
 import { imageUrl } from "@common/helpers/router";
+import { notEmpty } from "@common/helpers/util";
 import React, { useState } from "react";
 import { defineMessages, useIntl } from "react-intl";
+import commonMessages from "@common/messages/commonMessages";
 import {
   PoolCandidateFilter,
   Classification,
   CmoAsset,
   OperationalRequirement,
   Pool,
+  useGetSearchFormDataQuery,
+  useCountPoolCandidatesQuery,
 } from "../../api/generated";
 import { BASE_URL } from "../../talentSearchConstants";
 import EstimatedCandidates from "./EstimatedCandidates";
@@ -142,22 +141,27 @@ export const SearchPage: React.FC<{
   classifications: Classification[];
   cmoAssets: CmoAsset[];
   operationalRequirements: OperationalRequirement[];
-}> = ({ classifications, cmoAssets, operationalRequirements }) => {
+  pool: Pool;
+  candidateCount: number;
+  candidateFilter: PoolCandidateFilter | undefined;
+  updateCandidateFilter: (candidateFilter: PoolCandidateFilter) => void;
+}> = ({
+  classifications,
+  cmoAssets,
+  operationalRequirements,
+  pool,
+  candidateCount,
+  candidateFilter,
+  updateCandidateFilter,
+}) => {
   const intl = useIntl();
   const locale = getLocale(intl);
 
-  // TODO: Replace fake data with data fetched from api.
-  const pool: Pool = fakePools()[0] as Pool;
-
-  const [filter, setFilter] = useState<PoolCandidateFilter | undefined>(
-    undefined,
-  );
-  const [candidateCount, setCandidateCount] = useState(0);
-
-  const classificationFilterCount = filter?.classifications?.length ?? 0;
-  const cmoAssetFilterCount = filter?.cmoAssets?.length ?? 0;
+  const classificationFilterCount =
+    candidateFilter?.classifications?.length ?? 0;
+  const cmoAssetFilterCount = candidateFilter?.cmoAssets?.length ?? 0;
   const operationalRequirementFilterCount =
-    filter?.operationalRequirements?.length ?? 0;
+    candidateFilter?.operationalRequirements?.length ?? 0;
 
   return (
     <>
@@ -221,10 +225,7 @@ export const SearchPage: React.FC<{
             classifications={classifications}
             cmoAssets={cmoAssets}
             operationalRequirements={operationalRequirements}
-            handleUpdateFilter={(f) => {
-              setFilter(f);
-              setCandidateCount((x) => x + 1);
-            }}
+            updateCandidateFilter={updateCandidateFilter}
           />
           <div>
             <div>
@@ -244,7 +245,7 @@ export const SearchPage: React.FC<{
                     span: (msg: string): JSX.Element => (
                       <span data-h2-font-color="b(lightpurple)">{msg}</span>
                     ),
-                    candidateCount,
+                    totalEstimatedCandidates: candidateCount,
                   },
                 )}
               </h3>
@@ -330,7 +331,7 @@ export const SearchPage: React.FC<{
                         {msg}
                       </span>
                     ),
-                    candidateCount,
+                    totalEstimatedCandidates: candidateCount,
                   },
                 )}
               </p>
@@ -376,14 +377,40 @@ export const SearchPage: React.FC<{
   );
 };
 
-export const SearchPageWrapper: React.FC = () => {
+export const SearchPageApi: React.FC = () => {
+  const intl = useIntl();
+  const [{ data, fetching, error }] = useGetSearchFormDataQuery();
+  const pool = fakePools()[0] as Pool; // TODO: add to SearchFormDataQuery
+
+  const [candidateFilter, setCandidateFilter] = useState<
+    PoolCandidateFilter | undefined
+  >(undefined);
+  const [{ data: countData }] = useCountPoolCandidatesQuery({});
+  // TODO: Do we need to display error for countData? -> maybe the notification is enough
+
+  if (fetching) {
+    return <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>;
+  }
+  if (error) {
+    return (
+      <p>
+        {intl.formatMessage(commonMessages.loadingError)} {error.message}
+      </p>
+    );
+  }
+  const candidateCount = countData?.countPoolCandidates ?? 0;
+  console.log(candidateCount);
   return (
     <SearchPage
-      classifications={fakeClassifications() as Classification[]}
-      cmoAssets={fakeCmoAssets() as CmoAsset[]}
+      classifications={data?.classifications.filter(notEmpty) ?? []}
+      cmoAssets={data?.cmoAssets.filter(notEmpty) ?? []}
       operationalRequirements={
-        fakeOperationalRequirements() as OperationalRequirement[]
+        data?.operationalRequirements.filter(notEmpty) ?? []
       }
+      pool={pool}
+      candidateFilter={candidateFilter}
+      candidateCount={candidateCount}
+      updateCandidateFilter={setCandidateFilter}
     />
   );
 };

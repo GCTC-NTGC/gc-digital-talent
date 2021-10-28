@@ -1514,6 +1514,62 @@ export type GetPoolCandidateFilterDataQuery = {
     | undefined;
 };
 
+export type GetSearchFormDataQueryVariables = Exact<{ [key: string]: never }>;
+
+export type GetSearchFormDataQuery = {
+  __typename?: "Query";
+  classifications: Array<
+    | {
+        __typename?: "Classification";
+        id: string;
+        group: string;
+        level: number;
+      }
+    | null
+    | undefined
+  >;
+  cmoAssets: Array<
+    | {
+        __typename?: "CmoAsset";
+        id: string;
+        key: string;
+        name: {
+          __typename?: "LocalizedString";
+          en?: string | null | undefined;
+          fr?: string | null | undefined;
+        };
+      }
+    | null
+    | undefined
+  >;
+  operationalRequirements: Array<
+    | {
+        __typename?: "OperationalRequirement";
+        id: string;
+        key: string;
+        name: {
+          __typename?: "LocalizedString";
+          en?: string | null | undefined;
+          fr?: string | null | undefined;
+        };
+      }
+    | null
+    | undefined
+  >;
+};
+
+export type CountPoolCandidatesQueryVariables = Exact<{
+  where?: Maybe<QueryCountPoolCandidatesWhereWhereConditions>;
+  hasExpectedClassifications?: Maybe<QueryCountPoolCandidatesHasExpectedClassificationsWhereHasConditions>;
+  hasAcceptedOperationalRequirements?: Maybe<QueryCountPoolCandidatesHasAcceptedOperationalRequirementsWhereHasConditions>;
+  hasCmoAssets?: Maybe<QueryCountPoolCandidatesHasCmoAssetsWhereHasConditions>;
+}>;
+
+export type CountPoolCandidatesQuery = {
+  __typename?: "Query";
+  countPoolCandidates: number;
+};
+
 export const PoolCandidateFilterFragmentDoc = gql`
   fragment poolCandidateFilter on PoolCandidateFilter {
     id
@@ -1640,6 +1696,70 @@ export function useGetPoolCandidateFilterDataQuery(
 ) {
   return Urql.useQuery<GetPoolCandidateFilterDataQuery>({
     query: GetPoolCandidateFilterDataDocument,
+    ...options,
+  });
+}
+export const GetSearchFormDataDocument = gql`
+  query getSearchFormData {
+    classifications {
+      id
+      group
+      level
+    }
+    cmoAssets {
+      id
+      key
+      name {
+        en
+        fr
+      }
+    }
+    operationalRequirements {
+      id
+      key
+      name {
+        en
+        fr
+      }
+    }
+  }
+`;
+
+export function useGetSearchFormDataQuery(
+  options: Omit<
+    Urql.UseQueryArgs<GetSearchFormDataQueryVariables>,
+    "query"
+  > = {},
+) {
+  return Urql.useQuery<GetSearchFormDataQuery>({
+    query: GetSearchFormDataDocument,
+    ...options,
+  });
+}
+export const CountPoolCandidatesDocument = gql`
+  query countPoolCandidates(
+    $where: QueryCountPoolCandidatesWhereWhereConditions
+    $hasExpectedClassifications: QueryCountPoolCandidatesHasExpectedClassificationsWhereHasConditions
+    $hasAcceptedOperationalRequirements: QueryCountPoolCandidatesHasAcceptedOperationalRequirementsWhereHasConditions
+    $hasCmoAssets: QueryCountPoolCandidatesHasCmoAssetsWhereHasConditions
+  ) {
+    countPoolCandidates(
+      where: $where
+      hasExpectedClassifications: $hasExpectedClassifications
+      hasAcceptedOperationalRequirements: $hasAcceptedOperationalRequirements
+      hasCmoAssets: $hasCmoAssets
+    )
+  }
+`;
+
+export function useCountPoolCandidatesQuery(
+  options: Omit<
+    Urql.UseQueryArgs<CountPoolCandidatesQueryVariables>,
+    "query"
+  > = {},
+) {
+  return Urql.useQuery<CountPoolCandidatesQuery>({
+    query: CountPoolCandidatesDocument,
     ...options,
   });
 }

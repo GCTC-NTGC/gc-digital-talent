@@ -1,0 +1,37 @@
+query getSearchFormData {
+  classifications {
+    id
+    group
+    level
+  }
+  cmoAssets {
+    id
+    key
+    name {
+      en
+      fr
+    }
+  }
+  operationalRequirements {
+    id
+    key
+    name {
+      en
+      fr
+    }
+  }
+}
+
+query countPoolCandidates(
+  $where: QueryCountPoolCandidatesWhereWhereConditions
+  $hasExpectedClassifications: QueryCountPoolCandidatesHasExpectedClassificationsWhereHasConditions
+  $hasAcceptedOperationalRequirements: QueryCountPoolCandidatesHasAcceptedOperationalRequirementsWhereHasConditions
+  $hasCmoAssets: QueryCountPoolCandidatesHasCmoAssetsWhereHasConditions
+) {
+  countPoolCandidates(
+    where: $where
+    hasExpectedClassifications: $hasExpectedClassifications
+    hasAcceptedOperationalRequirements: $hasAcceptedOperationalRequirements
+    hasCmoAssets: $hasCmoAssets
+  )
+}

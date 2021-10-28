@@ -39,14 +39,13 @@ stories.add("Search Form", () => {
 
   return (
     <SearchForm
-      totalEstimatedCandidates={10}
       classifications={fakeClassifications() as Classification[]}
       cmoAssets={fakeCmoAssets() as CmoAsset[]}
       initialPoolCandidateFilter={poolCandidateFilter}
       operationalRequirements={
         fakeOperationalRequirements() as OperationalRequirement[]
       }
-      handleUpdateFilter={action("updateFilter")}
+      updateCandidateFilter={action("updateCandidateFilter")}
     />
   );
 });
@@ -59,7 +58,7 @@ stories.add("Empty Search Form", () => {
       operationalRequirements={
         fakeOperationalRequirements() as OperationalRequirement[]
       }
-      handleUpdateFilter={action("updateFilter")}
+      updateCandidateFilter={action("updateCandidateFilter")}
     />
   );
 });

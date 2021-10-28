@@ -75,7 +75,7 @@ export interface SearchFormProps {
   cmoAssets: CmoAsset[];
   initialPoolCandidateFilter?: PoolCandidateFilter;
   operationalRequirements: OperationalRequirement[];
-  handleUpdateFilter: (filter: PoolCandidateFilter) => void;
+  updateCandidateFilter: (filter: PoolCandidateFilter) => void;
 }
 
 function mapIdToValue<T extends { id: Id }>(objs: T[]): Map<Id, T> {
@@ -90,7 +90,7 @@ const SearchForm: React.FunctionComponent<SearchFormProps> = ({
   cmoAssets,
   initialPoolCandidateFilter,
   operationalRequirements,
-  handleUpdateFilter,
+  updateCandidateFilter,
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
@@ -134,15 +134,15 @@ const SearchForm: React.FunctionComponent<SearchFormProps> = ({
   });
   const { watch } = methods;
 
-  // Whenever form values change (with some debounce allowance), call handleUpdateFilter
+  // Whenever form values change (with some debounce allowance), call updateCandidateFilter
   const formValues = watch();
   const submitDebounced = useCallback(
     debounce((values: FormValues) => {
-      if (handleUpdateFilter) {
-        handleUpdateFilter(formValuesToData(values));
+      if (updateCandidateFilter) {
+        updateCandidateFilter(formValuesToData(values));
       }
     }, 500),
-    [formValuesToData, handleUpdateFilter],
+    [formValuesToData, updateCandidateFilter],
   );
   // Use deep comparison to prevent infinite re-rendering
   useDeepCompareEffect(() => {
