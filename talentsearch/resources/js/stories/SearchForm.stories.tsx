@@ -54,7 +54,6 @@ stories.add("Search Form", () => {
 stories.add("Empty Search Form", () => {
   return (
     <SearchForm
-      totalEstimatedCandidates={10}
       classifications={fakeClassifications() as Classification[]}
       cmoAssets={fakeCmoAssets() as CmoAsset[]}
       operationalRequirements={

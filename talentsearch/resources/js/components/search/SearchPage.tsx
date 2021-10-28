@@ -11,8 +11,6 @@ import React, { useState } from "react";
 import { defineMessages, useIntl } from "react-intl";
 import {
   PoolCandidateFilter,
-  LanguageAbility,
-  WorkRegion,
   Classification,
   CmoAsset,
   OperationalRequirement,
@@ -130,10 +128,11 @@ export const SearchFilterAdvice: React.FC<{
           "Heading for total matching candidates in results section of search page.",
       })}{" "}
       {reccomendations.map((link, i) => (
-        <>
+        // eslint-disable-next-line react/no-array-index-key
+        <span key={i}>
           {i > 0 && ", "}
           {link}
-        </>
+        </span>
       ))}
     </p>
   );
@@ -153,13 +152,13 @@ export const SearchPage: React.FC<{
   const [filter, setFilter] = useState<PoolCandidateFilter | undefined>(
     undefined,
   );
+  const [candidateCount, setCandidateCount] = useState(0);
 
   const classificationFilterCount = filter?.classifications?.length ?? 0;
   const cmoAssetFilterCount = filter?.cmoAssets?.length ?? 0;
   const operationalRequirementFilterCount =
     filter?.operationalRequirements?.length ?? 0;
 
-  const totalEstimatedCandidates = 10;
   return (
     <>
       <div
@@ -219,11 +218,13 @@ export const SearchPage: React.FC<{
           </h2>
           <p>{intl.formatMessage(messages.pageHowToContent)}</p>
           <SearchForm
-            totalEstimatedCandidates={totalEstimatedCandidates}
             classifications={classifications}
             cmoAssets={cmoAssets}
             operationalRequirements={operationalRequirements}
-            handleUpdateFilter={setFilter}
+            handleUpdateFilter={(f) => {
+              setFilter(f);
+              setCandidateCount((x) => x + 1);
+            }}
           />
           <div>
             <div>
@@ -243,7 +244,7 @@ export const SearchPage: React.FC<{
                     span: (msg: string): JSX.Element => (
                       <span data-h2-font-color="b(lightpurple)">{msg}</span>
                     ),
-                    totalEstimatedCandidates,
+                    candidateCount,
                   },
                 )}
               </h3>
@@ -263,9 +264,7 @@ export const SearchPage: React.FC<{
           data-h2-position="b(sticky)"
           style={{ top: "0", right: "0" }}
         >
-          <EstimatedCandidates
-            totalEstimatedCandidates={totalEstimatedCandidates}
-          />
+          <EstimatedCandidates totalEstimatedCandidates={candidateCount} />
         </div>
         <div data-h2-flex-item="b(1of1)" style={{ paddingTop: "0" }}>
           <div
@@ -331,7 +330,7 @@ export const SearchPage: React.FC<{
                         {msg}
                       </span>
                     ),
-                    totalEstimatedCandidates,
+                    candidateCount,
                   },
                 )}
               </p>
@@ -374,6 +373,18 @@ export const SearchPage: React.FC<{
         </div>
       </div>
     </>
+  );
+};
+
+export const SearchPageWrapper: React.FC = () => {
+  return (
+    <SearchPage
+      classifications={fakeClassifications() as Classification[]}
+      cmoAssets={fakeCmoAssets() as CmoAsset[]}
+      operationalRequirements={
+        fakeOperationalRequirements() as OperationalRequirement[]
+      }
+    />
   );
 };
 

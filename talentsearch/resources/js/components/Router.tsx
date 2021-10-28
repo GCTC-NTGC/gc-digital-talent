@@ -5,7 +5,7 @@ import { RouterResult } from "../helpers/router";
 import ClientProvider from "./ClientProvider";
 import ErrorContainer from "./ErrorContainer";
 import PageContainer, { MenuLink } from "./PageContainer";
-import SearchPage from "./search/SearchPage";
+import { SearchPageWrapper } from "./search/SearchPage";
 import { homePath, searchPath } from "../talentSearchRoutes";
 import HomePage from "./HomePage";
 
@@ -30,7 +30,7 @@ const routes: Routes<RouterResult> = [
   {
     path: searchPath(),
     action: () => ({
-      component: <SearchPage />,
+      component: <SearchPageWrapper />,
     }),
   },
 ];

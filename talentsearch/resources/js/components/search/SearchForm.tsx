@@ -75,7 +75,6 @@ export interface SearchFormProps {
   cmoAssets: CmoAsset[];
   initialPoolCandidateFilter?: PoolCandidateFilter;
   operationalRequirements: OperationalRequirement[];
-  totalEstimatedCandidates: number;
   handleUpdateFilter: (filter: PoolCandidateFilter) => void;
 }
 
@@ -91,7 +90,6 @@ const SearchForm: React.FunctionComponent<SearchFormProps> = ({
   cmoAssets,
   initialPoolCandidateFilter,
   operationalRequirements,
-  totalEstimatedCandidates,
   handleUpdateFilter,
 }) => {
   const intl = useIntl();
