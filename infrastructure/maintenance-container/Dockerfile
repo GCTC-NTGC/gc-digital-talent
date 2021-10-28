@@ -4,9 +4,8 @@ FROM ubuntu:latest
 # installing tzdata has an interactive prompt by default
 RUN apt-get update \
   && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends tzdata \
-  && apt-get install -y php7.4 php-mbstring php-xml php-pgsql \  
-  && apt-get install -y perl \  
-  && apt-get install -y wget
+  && apt-get install -y perl unzip wget curl \
+  && apt-get install -y php7.4 php-mbstring php-xml php-pgsql php-zip
 
 # install nvm, not available from apt
 # https://github.com/nvm-sh/nvm
