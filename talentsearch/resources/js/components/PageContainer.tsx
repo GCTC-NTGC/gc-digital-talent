@@ -1,7 +1,8 @@
 import React, { ReactElement } from "react";
 import { Routes } from "universal-router";
 import NavMenu from "@common/components/NavMenu";
-import { Link, RouterResult, useLocation, useRouter } from "../helpers/router";
+import { RouterResult, useLocation, useRouter } from "@common/helpers/router";
+import { Link } from "@common/components";
 import Footer from "./Footer";
 import Header from "./Header";
 

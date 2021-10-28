@@ -1,7 +1,7 @@
 import React from "react";
 import { defineMessages, useIntl } from "react-intl";
 import { Routes } from "universal-router";
-import { RouterResult } from "../helpers/router";
+import { RouterResult } from "@common/helpers/router";
 import ClientProvider from "./ClientProvider";
 import ErrorContainer from "./ErrorContainer";
 import PageContainer, { MenuLink } from "./PageContainer";
