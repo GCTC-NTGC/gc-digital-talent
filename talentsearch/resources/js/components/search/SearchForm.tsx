@@ -1,11 +1,13 @@
-import React, { useEffect, useMemo } from "react";
-import { FormProvider, useForm } from "react-hook-form";
+import React, { useEffect, useMemo, useRef, useCallback } from "react";
+import { FormProvider, useForm, useWatch } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { Checklist, MultiSelect, RadioGroup } from "@common/components/form";
 import { getLocale } from "@common/helpers/localize";
 import { enumToOptions, unpackIds } from "@common/helpers/formUtils";
 import { getLanguageAbility } from "@common/constants";
 import { Id } from "@common/types/utilityTypes";
+import useDeepCompareEffect from "@common/hooks/useDeepCompareEffect";
+import { debounce } from "debounce";
 import {
   Classification,
   CmoAsset,
@@ -38,6 +40,24 @@ const FilterBlock: React.FunctionComponent<{
   );
 };
 
+const dataToFormValues = (
+  data: PoolCandidateFilter | undefined,
+): FormValues => {
+  return {
+    ...data,
+    classifications: unpackIds(data?.classifications),
+    cmoAssets: unpackIds(data?.cmoAssets),
+    operationalRequirements: unpackIds(data?.operationalRequirements),
+    hasDiploma: data?.hasDiploma ? "has_diploma" : "no_diploma",
+    employmentEquity: [
+      data?.isIndigenous ? "isIndigenous" : "",
+      data?.isVisibleMinority ? "isVisibleMinority" : "",
+      data?.hasDisability ? "hasDisability" : "",
+      data?.isWoman ? "isWoman" : "",
+    ],
+  };
+};
+
 type Option<V> = { value: V; label: string };
 type FormValues = Pick<
   PoolCandidateFilter,
@@ -50,7 +70,7 @@ type FormValues = Pick<
   hasDiploma: "has_diploma" | "no_diploma";
 };
 
-interface SearchFormProps {
+export interface SearchFormProps {
   classifications: Classification[];
   cmoAssets: CmoAsset[];
   initialPoolCandidateFilter?: PoolCandidateFilter;
@@ -76,21 +96,6 @@ const SearchForm: React.FunctionComponent<SearchFormProps> = ({
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
-  const dataToFormValues = (data: PoolCandidateFilter | undefined): FormValues => {
-    return {
-      ...data,
-      classifications: unpackIds(data?.classifications),
-      cmoAssets: unpackIds(data?.cmoAssets),
-      operationalRequirements: unpackIds(data?.operationalRequirements),
-      hasDiploma: data?.hasDiploma ? "has_diploma" : "no_diploma",
-      employmentEquity: [
-        data?.isIndigenous ? "isIndigenous" : "",
-        data?.isVisibleMinority ? "isVisibleMinority" : "",
-        data?.hasDisability ? "hasDisability" : "",
-        data?.isWoman ? "isWoman" : "",
-      ],
-    };
-  };
 
   const classificationMap = useMemo(
     () => mapIdToValue(classifications),
@@ -102,63 +107,84 @@ const SearchForm: React.FunctionComponent<SearchFormProps> = ({
     [operationalRequirements],
   );
 
-  const formValuesToData = (values: FormValues): PoolCandidateFilter => ({
-    id: "0",
-    classifications: values.classifications?.map((id) =>
-      classificationMap.get(id),
-    ),
-    cmoAssets: values.cmoAssets?.map((id) => assetMap.get(id)),
-    operationalRequirements: values.operationalRequirements?.map((id) =>
-      requirementMap.get(id),
-    ),
-    // Note: If the user selects no_diploma it means they do not require a diploma.
-    // This corresponds to an undefined hasDiploma field in PoolCandidateFilter.
-    // Setting this field to false would require a lack of diploma instead.
-    ...(values.hasDiploma ? { hasDiploma: true } : {}),
-    hasDisability: values.employmentEquity?.includes("hasDisability"),
-    isIndigenous: values.employmentEquity?.includes("isIndigenous"),
-    isVisibleMinority: values.employmentEquity?.includes("isVisibleMinority"),
-    isWoman: values.employmentEquity?.includes("isWoman"),
-    languageAbility: values.languageAbility,
-    workRegions: values.workRegions,
-  });
+  const formValuesToData = useCallback(
+    (values: FormValues): PoolCandidateFilter => ({
+      id: "0",
+      classifications: values.classifications?.map((id) =>
+        classificationMap.get(id),
+      ),
+      cmoAssets: values.cmoAssets?.map((id) => assetMap.get(id)),
+      operationalRequirements: values.operationalRequirements?.map((id) =>
+        requirementMap.get(id),
+      ),
+      // Note: If the user selects no_diploma it means they do not require a diploma.
+      // This corresponds to an undefined hasDiploma field in PoolCandidateFilter.
+      // Setting this field to false would require a lack of diploma instead.
+      ...(values.hasDiploma ? { hasDiploma: true } : {}),
+      hasDisability: values.employmentEquity?.includes("hasDisability"),
+      isIndigenous: values.employmentEquity?.includes("isIndigenous"),
+      isVisibleMinority: values.employmentEquity?.includes("isVisibleMinority"),
+      isWoman: values.employmentEquity?.includes("isWoman"),
+      languageAbility: values.languageAbility,
+      workRegions: values.workRegions,
+    }),
+    [classificationMap, assetMap, requirementMap],
+  );
 
   const methods = useForm<FormValues>({
     defaultValues: dataToFormValues(initialPoolCandidateFilter),
   });
-  const { handleSubmit, watch } = methods;
+  const { watch } = methods;
 
-  const values = watch();
-  useEffect(() => {
-    console.log(values);
-    handleUpdateFilter(formValuesToData(values));
-  }, [values]);
+  // Whenever form values change (with some debounce allowance), call handleUpdateFilter
+  const formValues = watch();
+  const submitDebounced = useCallback(
+    debounce((values: FormValues) => {
+      if (handleUpdateFilter) {
+        handleUpdateFilter(formValuesToData(values));
+      }
+    }, 500),
+    [formValuesToData, handleUpdateFilter],
+  );
+  // Use deep comparison to prevent infinite re-rendering
+  useDeepCompareEffect(() => {
+    submitDebounced(formValues);
+    return () => {
+      // Clear debounce timer when component unmounts
+      submitDebounced.clear();
+    };
+  }, [formValues]);
 
-  const classificationOptions: Option<string>[] = useMemo(() => classifications.map(
-    ({ id, group, level }) => ({
-      value: id,
-      label: `${group}-0${level}`,
-    }),
-  ), [classifications]);
+  const classificationOptions: Option<string>[] = useMemo(
+    () =>
+      classifications.map(({ id, group, level }) => ({
+        value: id,
+        label: `${group}-0${level}`,
+      })),
+    [classifications],
+  );
 
-  const cmoAssetOptions: Option<string>[] = useMemo(() => cmoAssets.map(({ id, name }) => ({
-    value: id,
-    label: name[locale] ?? "Error: name not loaded",
-  })), [cmoAssets, locale]);
+  const cmoAssetOptions: Option<string>[] = useMemo(
+    () =>
+      cmoAssets.map(({ id, name }) => ({
+        value: id,
+        label: name[locale] ?? "Error: name not loaded",
+      })),
+    [cmoAssets, locale],
+  );
 
-  const operationalRequirementOptions: Option<string>[] =
-    useMemo( () => operationalRequirements.map(({ id, name }) => ({
-      value: id,
-      label: name[locale] || "Error: operational requirement name not found.",
-    })), [operationalRequirements, locale]);
+  const operationalRequirementOptions: Option<string>[] = useMemo(
+    () =>
+      operationalRequirements.map(({ id, name }) => ({
+        value: id,
+        label: name[locale] || "Error: operational requirement name not found.",
+      })),
+    [operationalRequirements, locale],
+  );
 
   return (
     <FormProvider {...methods}>
-      <form
-        onSubmit={handleSubmit((values) =>
-          handleUpdateFilter(formValuesToData(values)),
-        )}
-      >
+      <form>
         <FilterBlock
           id="classificationsFilter"
           title={intl.formatMessage({
@@ -392,7 +418,6 @@ const SearchForm: React.FunctionComponent<SearchFormProps> = ({
             items={cmoAssetOptions}
           />
         </FilterBlock>
-
       </form>
     </FormProvider>
   );
