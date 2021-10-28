@@ -48,7 +48,7 @@ const dataToFormValues = (
     classifications: unpackIds(data?.classifications),
     cmoAssets: unpackIds(data?.cmoAssets),
     operationalRequirements: unpackIds(data?.operationalRequirements),
-    hasDiploma: data?.hasDiploma ? "has_diploma" : "no_diploma",
+    educationRequirement: data?.hasDiploma ? "has_diploma" : "no_diploma",
     employmentEquity: [
       data?.isIndigenous ? "isIndigenous" : "",
       data?.isVisibleMinority ? "isVisibleMinority" : "",
@@ -67,7 +67,7 @@ type FormValues = Pick<
   cmoAssets: Id[] | undefined;
   operationalRequirements: Id[] | undefined;
   employmentEquity: string[] | undefined;
-  hasDiploma: "has_diploma" | "no_diploma";
+  educationRequirement: "has_diploma" | "no_diploma";
 };
 
 export interface SearchFormProps {
@@ -115,16 +115,29 @@ const SearchForm: React.FunctionComponent<SearchFormProps> = ({
       operationalRequirements: values.operationalRequirements?.map((id) =>
         requirementMap.get(id),
       ),
-      // Note: If the user selects no_diploma it means they do not require a diploma.
-      // This corresponds to an undefined hasDiploma field in PoolCandidateFilter.
-      // Setting this field to false would require a lack of diploma instead.
-      ...(values.hasDiploma ? { hasDiploma: true } : {}),
+      hasDiploma: values.educationRequirement === "has_diploma",
       hasDisability: values.employmentEquity?.includes("hasDisability"),
       isIndigenous: values.employmentEquity?.includes("isIndigenous"),
       isVisibleMinority: values.employmentEquity?.includes("isVisibleMinority"),
       isWoman: values.employmentEquity?.includes("isWoman"),
       languageAbility: values.languageAbility,
       workRegions: values.workRegions,
+
+      //   // Note: If a field in the the filter is set to false, candidates with a value of true for that field will be excluded.
+      //   // In most cases, a value of "false" in the form means the user is ambivalient about that field, so we skip adding it to the filter object entirely.
+      //   ...(values.hasDiploma === "has_diploma" ? { hasDiploma: true } : {}),
+      //   ...(values.employmentEquity?.includes("hasDisability")
+      //     ? { hasDisability: true }
+      //     : {}),
+      //   ...(values.employmentEquity?.includes("isIndigenous")
+      //     ? { isIndigenous: true }
+      //     : {}),
+      //   ...(values.employmentEquity?.includes("isVisibleMinority")
+      //     ? { isVisibleMinority: true }
+      //     : {}),
+      //   ...(values.employmentEquity?.includes("isWoman")
+      //     ? { isWoman: true }
+      //     : {}),
     }),
     [classificationMap, assetMap, requirementMap],
   );
@@ -139,9 +152,10 @@ const SearchForm: React.FunctionComponent<SearchFormProps> = ({
   const submitDebounced = useCallback(
     debounce((values: FormValues) => {
       if (updateCandidateFilter) {
+        console.log(values);
         updateCandidateFilter(formValuesToData(values));
       }
-    }, 500),
+    }, 200),
     [formValuesToData, updateCandidateFilter],
   );
   // Use deep comparison to prevent infinite re-rendering

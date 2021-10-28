@@ -5,7 +5,6 @@ import { imageUrl } from "@common/helpers/router";
 import { notEmpty } from "@common/helpers/util";
 import React, { useState } from "react";
 import { defineMessages, useIntl } from "react-intl";
-import commonMessages from "@common/messages/commonMessages";
 import {
   PoolCandidateFilter,
   Classification,
@@ -14,6 +13,10 @@ import {
   Pool,
   useGetSearchFormDataQuery,
   useCountPoolCandidatesQuery,
+  CountPoolCandidatesQueryVariables,
+  QueryCountPoolCandidatesWhereWhereConditions,
+  QueryCountPoolCandidatesWhereColumn,
+  SqlOperator,
 } from "../../api/generated";
 import { BASE_URL } from "../../talentSearchConstants";
 import EstimatedCandidates from "./EstimatedCandidates";
@@ -377,29 +380,63 @@ export const SearchPage: React.FC<{
   );
 };
 
+const candidateFilterToQueryArgs = (
+  filter: PoolCandidateFilter | undefined,
+): CountPoolCandidatesQueryVariables => {
+  if (filter === undefined) {
+    return {};
+  }
+
+  const Column = QueryCountPoolCandidatesWhereColumn;
+  // For most boolean fields which are false in filter, we want to exclude that field from the query entirely, NOT set it to false.
+  const whereFilters: QueryCountPoolCandidatesWhereWhereConditions[] = [
+    filter.hasDiploma ? { column: Column.HasDiploma, value: true } : null,
+    filter.hasDisability
+      ? {
+          column: Column.HasDisability,
+          value: true,
+        }
+      : null,
+    filter.isIndigenous ? { column: Column.IsIndigenous, value: true } : null,
+    filter.isVisibleMinority
+      ? { column: Column.IsVisibleMinority, value: true }
+      : null,
+    filter.isWoman ? { column: Column.IsWoman, value: true } : null,
+    filter.languageAbility
+      ? { column: Column.LanguageAbility, value: filter.languageAbility }
+      : null,
+    filter.workRegions && filter.workRegions.length > 0
+      ? {
+          // For work regions, we want to match any user willing to accept any of the filtered regions
+          OR: filter.workRegions.map((region) => ({
+            column: Column.LocationPreferences,
+            operator: SqlOperator.Contains,
+            value: region,
+          })),
+        }
+      : null,
+  ].filter(notEmpty);
+
+  return {
+    where: {
+      AND: whereFilters,
+    },
+  };
+};
+
 export const SearchPageApi: React.FC = () => {
-  const intl = useIntl();
-  const [{ data, fetching, error }] = useGetSearchFormDataQuery();
+  const [{ data }] = useGetSearchFormDataQuery();
   const pool = fakePools()[0] as Pool; // TODO: add to SearchFormDataQuery
 
   const [candidateFilter, setCandidateFilter] = useState<
     PoolCandidateFilter | undefined
   >(undefined);
-  const [{ data: countData }] = useCountPoolCandidatesQuery({});
-  // TODO: Do we need to display error for countData? -> maybe the notification is enough
+  const [{ data: countData }] = useCountPoolCandidatesQuery({
+    variables: candidateFilterToQueryArgs(candidateFilter),
+  });
 
-  if (fetching) {
-    return <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>;
-  }
-  if (error) {
-    return (
-      <p>
-        {intl.formatMessage(commonMessages.loadingError)} {error.message}
-      </p>
-    );
-  }
   const candidateCount = countData?.countPoolCandidates ?? 0;
-  console.log(candidateCount);
+
   return (
     <SearchPage
       classifications={data?.classifications.filter(notEmpty) ?? []}
