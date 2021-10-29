@@ -133,12 +133,12 @@ const SearchForm: React.FunctionComponent<SearchFormProps> = ({
             id="classifications"
             label={intl.formatMessage({
               defaultMessage: "Classification filter",
-              description: "Label for classfication filter in search form.",
+              description: "Label for classification filter in search form.",
             })}
             placeholder={intl.formatMessage({
               defaultMessage: "Select one or more classification(s)",
               description:
-                "Placeholder for classfication filter in search form.",
+                "Placeholder for classification filter in search form.",
             })}
             name="classifications"
             options={classificationOptions}
@@ -185,7 +185,7 @@ const SearchForm: React.FunctionComponent<SearchFormProps> = ({
           />
         </FilterBlock>
         <FilterBlock
-          id="operationalRequrementFilter"
+          id="operationalRequirementFilter"
           title={intl.formatMessage({
             defaultMessage:
               "Conditions of employment / Operational requirements",
@@ -276,7 +276,7 @@ const SearchForm: React.FunctionComponent<SearchFormProps> = ({
           })}
           text={intl.formatMessage({
             defaultMessage:
-              "Managers can request candidates by employment equity group(s) to address current of future representation gaps in the workforce. (Catergories reflect EE data defined under the Public Service Employment Act and collected through the PSC application process. For consistency, this platform reflects the PSC's category terminlogy.)",
+              "Managers can request candidates by employment equity group(s) to address current of future representation gaps in the workforce. (Categories reflect EE data defined under the Public Service Employment Act and collected through the PSC application process. For consistency, this platform reflects the PSC's category terminology.)",
             description:
               "Message describing the employment equity filter in the search form.",
           })}
@@ -402,7 +402,7 @@ const SearchForm: React.FunctionComponent<SearchFormProps> = ({
                 {operationalRequirementFilterCount &&
                 operationalRequirementFilterCount > 0 ? (
                   <a
-                    href="#operationalRequrementFilter"
+                    href="#operationalRequirementFilter"
                     data-h2-font-color="b(lightpurple)"
                     data-h2-font-weight="b(700)"
                   >
