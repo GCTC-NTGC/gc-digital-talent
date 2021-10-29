@@ -176,6 +176,20 @@ type PoolCandidateSearchRequest {
     adminNotes: String @rename(attribute: "admin_notes")
 }
 
+input ClassiicationFilterInput {
+    group: String!
+    level: Int!
+}
+
+input KeyFilterInput {
+    key: String!
+}
+
+input PoolCandidateFilterInput {
+    classifications: [ClassiicationFilterInput]
+    cmoAssets: [KeyFilterInput]
+}
+
 type Query {
     me: User @auth
     user(id: ID! @eq): User @find @guard @can(ability: "view", query: true)
@@ -190,6 +204,7 @@ type Query {
         hasExpectedClassifications: _ @whereHasConditions(columns: ["group", "level"]),
         hasAcceptedOperationalRequirements: _ @whereHasConditions(columns: ["id", "key"]),
         hasCmoAssets: _ @whereHasConditions(columns: ["id", "key"]),
+        withFilter: PoolCandidateFilterInput @scope,
     ): Int! @count(model: "PoolCandidate")
     # searchPoolCandidates returns the actual candidates matching a filter, and requires permissions.
     searchPoolCandidates(where: _

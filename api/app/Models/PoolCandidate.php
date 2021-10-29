@@ -69,4 +69,27 @@ class PoolCandidate extends Model
         return $this->belongsToMany(CmoAsset::class);
     }
 
+    public function scopeWithFilter($query, $filter)
+    {
+        if (array_key_exists('classifications', $filter)) {
+            // Classifications act as an OR filter. The query should return candidates with any of the classifications.
+            // A single whereHas clause for the relationship, containing mulitple orWhere clauses accomplishes this.
+            $query->whereHas('classifications', function ($query) use ($filter) {
+                foreach ($filter['classifications'] as $classification) {
+                    $query->orWhere(function($query) use ($classification) {
+                        $query->where('group', $classification['group'])->where('level', $classification['level']);
+                    });
+                }
+            });
+        }
+        if (array_key_exists('cmoAssets', $filter)) {
+            // CmoAssets act as an AND filter. The query should only returns candidates with ALL of the assets.
+            // This is accomplished with multiple whereHas clauses for the cmoAssets relationship.
+            foreach ($filter['cmoAssets'] as $cmoAsset) {
+                $query->whereHas('cmoAssets', function ($query) use ($cmoAsset) {
+                    $query->where('key', $cmoAsset['key']);
+                });
+            }
+        }
+    }
 }
