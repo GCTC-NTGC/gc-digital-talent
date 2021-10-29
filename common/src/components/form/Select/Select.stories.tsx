@@ -1,6 +1,7 @@
 import React from "react";
 import { Story, Meta } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
+import { uniqueId } from "lodash";
 import Form from "../BasicForm";
 import Select, { SelectProps } from ".";
 import Submit from "../Submit";
@@ -33,7 +34,7 @@ const TemplateSelect: Story<SelectProps> = (args) => {
 
 export const SelectDefault = TemplateSelect.bind({});
 SelectDefault.args = {
-  id: "uniqueId",
+  id: uniqueId(),
   label: "Select a dept",
   name: "departments",
   options: [
