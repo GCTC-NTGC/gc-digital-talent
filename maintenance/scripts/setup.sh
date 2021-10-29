@@ -3,8 +3,8 @@
 #setup nvm
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-nvm install --lts
-nvm use --lts
+nvm install 14.18.1
+nvm install-latest-npm
 
 # setup common project
 cd /var/www/html/common

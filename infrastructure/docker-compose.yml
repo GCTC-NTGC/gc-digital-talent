@@ -49,7 +49,8 @@ services:
       - ../auth:/var/www/html/auth
       - ../talentsearch:/var/www/html/talentsearch
       - ../common:/var/www/html/common
-
+    ports:
+      - "9229:9229"
 volumes:
   pgdata:
   maintenancedata:
