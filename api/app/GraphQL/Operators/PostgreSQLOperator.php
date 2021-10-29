@@ -53,7 +53,7 @@ enum SQLOperator {
     "Whether a value is not null (`IS NOT NULL`)"
     IS_NOT_NULL @enum(value: "NotNull")
 
-    "Whether a value a set of values contains a value (`@>`)"
+    "Whether a set of values contains a value (`@>`)"
     CONTAINS @enum(value: "JsonContains")
 }
 GRAPHQL;
