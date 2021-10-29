@@ -17,6 +17,9 @@ import {
   QueryCountPoolCandidatesWhereWhereConditions,
   QueryCountPoolCandidatesWhereColumn,
   SqlOperator,
+  QueryCountPoolCandidatesHasExpectedClassificationsColumn,
+  QueryCountPoolCandidatesHasCmoAssetsColumn,
+  QueryCountPoolCandidatesHasAcceptedOperationalRequirementsColumn,
 } from "../../api/generated";
 import { BASE_URL } from "../../talentSearchConstants";
 import EstimatedCandidates from "./EstimatedCandidates";
@@ -417,11 +420,58 @@ const candidateFilterToQueryArgs = (
       : null,
   ].filter(notEmpty);
 
-  return {
+  const ClassificationsColumn =
+    QueryCountPoolCandidatesHasExpectedClassificationsColumn;
+  const classifications = filter.classifications?.filter(notEmpty) ?? [];
+  const hasClassifications =
+    classifications.length > 0
+      ? {
+          OR: classifications.map((classification) => ({
+            AND: [
+              {
+                column: ClassificationsColumn.Group,
+                value: classification.group,
+              },
+              {
+                column: ClassificationsColumn.Level,
+                value: classification.level,
+              },
+            ],
+          })),
+        }
+      : null;
+  const cmoAssets = filter.cmoAssets?.filter(notEmpty) ?? [];
+  const hasCmoAssets =
+    cmoAssets.length > 0
+      ? {
+          AND: cmoAssets.map((asset) => ({
+            column: QueryCountPoolCandidatesHasCmoAssetsColumn.Key,
+            operator: SqlOperator.In,
+            value: [asset.key],
+          })),
+        }
+      : null;
+  const operationalRequirements =
+    filter.operationalRequirements?.filter(notEmpty) ?? [];
+  const hasOperationalRequirements =
+    operationalRequirements.length > 0
+      ? {
+          column:
+            QueryCountPoolCandidatesHasAcceptedOperationalRequirementsColumn.Key,
+          operator: SqlOperator.In,
+          value: operationalRequirements.map((requirement) => requirement.key),
+        }
+      : null;
+
+  const query = {
     where: {
       AND: whereFilters,
     },
+    hasExpectedClassifications: hasClassifications,
+    hasCmoAssets,
+    hasAcceptedOperationalRequirements: hasOperationalRequirements,
   };
+  return query;
 };
 
 export const SearchPageApi: React.FC = () => {

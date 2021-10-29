@@ -122,22 +122,6 @@ const SearchForm: React.FunctionComponent<SearchFormProps> = ({
       isWoman: values.employmentEquity?.includes("isWoman"),
       languageAbility: values.languageAbility,
       workRegions: values.workRegions,
-
-      //   // Note: If a field in the the filter is set to false, candidates with a value of true for that field will be excluded.
-      //   // In most cases, a value of "false" in the form means the user is ambivalient about that field, so we skip adding it to the filter object entirely.
-      //   ...(values.hasDiploma === "has_diploma" ? { hasDiploma: true } : {}),
-      //   ...(values.employmentEquity?.includes("hasDisability")
-      //     ? { hasDisability: true }
-      //     : {}),
-      //   ...(values.employmentEquity?.includes("isIndigenous")
-      //     ? { isIndigenous: true }
-      //     : {}),
-      //   ...(values.employmentEquity?.includes("isVisibleMinority")
-      //     ? { isVisibleMinority: true }
-      //     : {}),
-      //   ...(values.employmentEquity?.includes("isWoman")
-      //     ? { isWoman: true }
-      //     : {}),
     }),
     [classificationMap, assetMap, requirementMap],
   );
