@@ -22,16 +22,6 @@ query getSearchFormData {
   }
 }
 
-query countPoolCandidates(
-  $where: QueryCountPoolCandidatesWhereWhereConditions
-  $hasExpectedClassifications: QueryCountPoolCandidatesHasExpectedClassificationsWhereHasConditions
-  $hasAcceptedOperationalRequirements: QueryCountPoolCandidatesHasAcceptedOperationalRequirementsWhereHasConditions
-  $hasCmoAssets: QueryCountPoolCandidatesHasCmoAssetsWhereHasConditions
-) {
-  countPoolCandidates(
-    where: $where
-    hasExpectedClassifications: $hasExpectedClassifications
-    hasAcceptedOperationalRequirements: $hasAcceptedOperationalRequirements
-    hasCmoAssets: $hasCmoAssets
-  )
+query countPoolCandidates($where: PoolCandidateFilterInput) {
+  countPoolCandidates(where: $where)
 }

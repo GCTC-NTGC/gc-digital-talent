@@ -1260,10 +1260,7 @@ export type GetSearchFormDataQuery = {
 };
 
 export type CountPoolCandidatesQueryVariables = Exact<{
-  where?: Maybe<QueryCountPoolCandidatesWhereWhereConditions>;
-  hasExpectedClassifications?: Maybe<QueryCountPoolCandidatesHasExpectedClassificationsWhereHasConditions>;
-  hasAcceptedOperationalRequirements?: Maybe<QueryCountPoolCandidatesHasAcceptedOperationalRequirementsWhereHasConditions>;
-  hasCmoAssets?: Maybe<QueryCountPoolCandidatesHasCmoAssetsWhereHasConditions>;
+  where?: Maybe<PoolCandidateFilterInput>;
 }>;
 
 export type CountPoolCandidatesQuery = {
@@ -1438,18 +1435,8 @@ export function useGetSearchFormDataQuery(
   });
 }
 export const CountPoolCandidatesDocument = gql`
-  query countPoolCandidates(
-    $where: QueryCountPoolCandidatesWhereWhereConditions
-    $hasExpectedClassifications: QueryCountPoolCandidatesHasExpectedClassificationsWhereHasConditions
-    $hasAcceptedOperationalRequirements: QueryCountPoolCandidatesHasAcceptedOperationalRequirementsWhereHasConditions
-    $hasCmoAssets: QueryCountPoolCandidatesHasCmoAssetsWhereHasConditions
-  ) {
-    countPoolCandidates(
-      where: $where
-      hasExpectedClassifications: $hasExpectedClassifications
-      hasAcceptedOperationalRequirements: $hasAcceptedOperationalRequirements
-      hasCmoAssets: $hasCmoAssets
-    )
+  query countPoolCandidates($where: PoolCandidateFilterInput) {
+    countPoolCandidates(where: $where)
   }
 `;
 

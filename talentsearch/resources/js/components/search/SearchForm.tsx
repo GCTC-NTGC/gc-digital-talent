@@ -15,6 +15,7 @@ import {
   WorkRegion,
   LanguageAbility,
   PoolCandidateFilter,
+  PoolCandidateFilterInput,
 } from "../../api/generated";
 
 const FilterBlock: React.FunctionComponent<{
@@ -75,7 +76,7 @@ export interface SearchFormProps {
   cmoAssets: CmoAsset[];
   initialPoolCandidateFilter?: PoolCandidateFilter;
   operationalRequirements: OperationalRequirement[];
-  updateCandidateFilter: (filter: PoolCandidateFilter) => void;
+  updateCandidateFilter: (filter: PoolCandidateFilterInput) => void;
 }
 
 function mapIdToValue<T extends { id: Id }>(objs: T[]): Map<Id, T> {
@@ -106,8 +107,7 @@ const SearchForm: React.FunctionComponent<SearchFormProps> = ({
   );
 
   const formValuesToData = useCallback(
-    (values: FormValues): PoolCandidateFilter => ({
-      id: "0",
+    (values: FormValues): PoolCandidateFilterInput => ({
       classifications: values.classifications?.map((id) =>
         classificationMap.get(id),
       ),
@@ -136,7 +136,6 @@ const SearchForm: React.FunctionComponent<SearchFormProps> = ({
   const submitDebounced = useCallback(
     debounce((values: FormValues) => {
       if (updateCandidateFilter) {
-        console.log(values);
         updateCandidateFilter(formValuesToData(values));
       }
     }, 200),

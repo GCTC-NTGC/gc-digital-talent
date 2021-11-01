@@ -5,6 +5,7 @@ import { imageUrl } from "@common/helpers/router";
 import { notEmpty } from "@common/helpers/util";
 import React, { useState } from "react";
 import { defineMessages, useIntl } from "react-intl";
+import pick from "lodash/pick";
 import {
   PoolCandidateFilter,
   Classification,
@@ -14,12 +15,7 @@ import {
   useGetSearchFormDataQuery,
   useCountPoolCandidatesQuery,
   CountPoolCandidatesQueryVariables,
-  QueryCountPoolCandidatesWhereWhereConditions,
-  QueryCountPoolCandidatesWhereColumn,
-  SqlOperator,
-  QueryCountPoolCandidatesHasExpectedClassificationsColumn,
-  QueryCountPoolCandidatesHasCmoAssetsColumn,
-  QueryCountPoolCandidatesHasAcceptedOperationalRequirementsColumn,
+  PoolCandidateFilterInput,
 } from "../../api/generated";
 import { BASE_URL } from "../../talentSearchConstants";
 import EstimatedCandidates from "./EstimatedCandidates";
@@ -149,8 +145,8 @@ export const SearchPage: React.FC<{
   operationalRequirements: OperationalRequirement[];
   pool: Pool;
   candidateCount: number;
-  candidateFilter: PoolCandidateFilter | undefined;
-  updateCandidateFilter: (candidateFilter: PoolCandidateFilter) => void;
+  candidateFilter: PoolCandidateFilterInput | undefined;
+  updateCandidateFilter: (candidateFilter: PoolCandidateFilterInput) => void;
 }> = ({
   classifications,
   cmoAssets,
@@ -384,94 +380,113 @@ export const SearchPage: React.FC<{
 };
 
 const candidateFilterToQueryArgs = (
-  filter: PoolCandidateFilter | undefined,
+  filter: PoolCandidateFilterInput | undefined,
 ): CountPoolCandidatesQueryVariables => {
   if (filter === undefined) {
     return {};
   }
+  /* We must pick only the fields belonging to PoolCandidateFilterInput, because its possible
+     the data object contains other props at runtime, and this will cause the
+     graphql operation to fail. */
 
-  const Column = QueryCountPoolCandidatesWhereColumn;
-  // For most boolean fields which are false in filter, we want to exclude that field from the query entirely, NOT set it to false.
-  const whereFilters: QueryCountPoolCandidatesWhereWhereConditions[] = [
-    filter.hasDiploma ? { column: Column.HasDiploma, value: true } : null,
-    filter.hasDisability
-      ? {
-          column: Column.HasDisability,
-          value: true,
-        }
-      : null,
-    filter.isIndigenous ? { column: Column.IsIndigenous, value: true } : null,
-    filter.isVisibleMinority
-      ? { column: Column.IsVisibleMinority, value: true }
-      : null,
-    filter.isWoman ? { column: Column.IsWoman, value: true } : null,
-    filter.languageAbility
-      ? { column: Column.LanguageAbility, value: filter.languageAbility }
-      : null,
-    filter.workRegions && filter.workRegions.length > 0
-      ? {
-          // For work regions, we want to match any user willing to accept any of the filtered regions
-          OR: filter.workRegions.map((region) => ({
-            column: Column.LocationPreferences,
-            operator: SqlOperator.Contains,
-            value: region,
-          })),
-        }
-      : null,
-  ].filter(notEmpty);
+  // Apply pick to each element of an array.
+  const pickMap = (
+    list: any[] | null | undefined,
+    keys: string | string[],
+  ): any[] | undefined => list?.map((item) => pick(item, keys));
 
-  const ClassificationsColumn =
-    QueryCountPoolCandidatesHasExpectedClassificationsColumn;
-  const classifications = filter.classifications?.filter(notEmpty) ?? [];
-  const hasClassifications =
-    classifications.length > 0
-      ? {
-          OR: classifications.map((classification) => ({
-            AND: [
-              {
-                column: ClassificationsColumn.Group,
-                value: classification.group,
-              },
-              {
-                column: ClassificationsColumn.Level,
-                value: classification.level,
-              },
-            ],
-          })),
-        }
-      : null;
-  const cmoAssets = filter.cmoAssets?.filter(notEmpty) ?? [];
-  const hasCmoAssets =
-    cmoAssets.length > 0
-      ? {
-          AND: cmoAssets.map((asset) => ({
-            column: QueryCountPoolCandidatesHasCmoAssetsColumn.Key,
-            operator: SqlOperator.In,
-            value: [asset.key],
-          })),
-        }
-      : null;
-  const operationalRequirements =
-    filter.operationalRequirements?.filter(notEmpty) ?? [];
-  const hasOperationalRequirements =
-    operationalRequirements.length > 0
-      ? {
-          column:
-            QueryCountPoolCandidatesHasAcceptedOperationalRequirementsColumn.Key,
-          operator: SqlOperator.In,
-          value: operationalRequirements.map((requirement) => requirement.key),
-        }
-      : null;
-
-  const query = {
+  return {
     where: {
-      AND: whereFilters,
+      ...filter,
+      classifications: pickMap(filter.classifications, ["group", "level"]),
+      cmoAssets: pickMap(filter.cmoAssets, "key"),
+      operationalRequirements: pickMap(filter.cmoAssets, "key"),
+      pools: pickMap(filter.pools, "id"),
     },
-    hasExpectedClassifications: hasClassifications,
-    hasCmoAssets,
-    hasAcceptedOperationalRequirements: hasOperationalRequirements,
   };
-  return query;
+
+  //   const Column = QueryCountPoolCandidatesWhereColumn;
+  //   // For most boolean fields which are false in filter, we want to exclude that field from the query entirely, NOT set it to false.
+  //   const whereFilters: QueryCountPoolCandidatesWhereWhereConditions[] = [
+  //     filter.hasDiploma ? { column: Column.HasDiploma, value: true } : null,
+  //     filter.hasDisability
+  //       ? {
+  //           column: Column.HasDisability,
+  //           value: true,
+  //         }
+  //       : null,
+  //     filter.isIndigenous ? { column: Column.IsIndigenous, value: true } : null,
+  //     filter.isVisibleMinority
+  //       ? { column: Column.IsVisibleMinority, value: true }
+  //       : null,
+  //     filter.isWoman ? { column: Column.IsWoman, value: true } : null,
+  //     filter.languageAbility
+  //       ? { column: Column.LanguageAbility, value: filter.languageAbility }
+  //       : null,
+  //     filter.workRegions && filter.workRegions.length > 0
+  //       ? {
+  //           // For work regions, we want to match any user willing to accept any of the filtered regions
+  //           OR: filter.workRegions.map((region) => ({
+  //             column: Column.LocationPreferences,
+  //             operator: SqlOperator.Contains,
+  //             value: region,
+  //           })),
+  //         }
+  //       : null,
+  //   ].filter(notEmpty);
+
+  //   const ClassificationsColumn =
+  //     QueryCountPoolCandidatesHasExpectedClassificationsColumn;
+  //   const classifications = filter.classifications?.filter(notEmpty) ?? [];
+  //   const hasClassifications =
+  //     classifications.length > 0
+  //       ? {
+  //           OR: classifications.map((classification) => ({
+  //             AND: [
+  //               {
+  //                 column: ClassificationsColumn.Group,
+  //                 value: classification.group,
+  //               },
+  //               {
+  //                 column: ClassificationsColumn.Level,
+  //                 value: classification.level,
+  //               },
+  //             ],
+  //           })),
+  //         }
+  //       : null;
+  //   const cmoAssets = filter.cmoAssets?.filter(notEmpty) ?? [];
+  //   const hasCmoAssets =
+  //     cmoAssets.length > 0
+  //       ? {
+  //           AND: cmoAssets.map((asset) => ({
+  //             column: QueryCountPoolCandidatesHasCmoAssetsColumn.Key,
+  //             operator: SqlOperator.In,
+  //             value: [asset.key],
+  //           })),
+  //         }
+  //       : null;
+  //   const operationalRequirements =
+  //     filter.operationalRequirements?.filter(notEmpty) ?? [];
+  //   const hasOperationalRequirements =
+  //     operationalRequirements.length > 0
+  //       ? {
+  //           column:
+  //             QueryCountPoolCandidatesHasAcceptedOperationalRequirementsColumn.Key,
+  //           operator: SqlOperator.In,
+  //           value: operationalRequirements.map((requirement) => requirement.key),
+  //         }
+  //       : null;
+
+  //   const query = {
+  //     where: {
+  //       AND: whereFilters,
+  //     },
+  //     hasExpectedClassifications: hasClassifications,
+  //     hasCmoAssets,
+  //     hasAcceptedOperationalRequirements: hasOperationalRequirements,
+  //   };
+  //   return query;
 };
 
 export const SearchPageApi: React.FC = () => {
@@ -479,7 +494,7 @@ export const SearchPageApi: React.FC = () => {
   const pool = fakePools()[0] as Pool; // TODO: add to SearchFormDataQuery
 
   const [candidateFilter, setCandidateFilter] = useState<
-    PoolCandidateFilter | undefined
+    PoolCandidateFilterInput | undefined
   >(undefined);
   const [{ data: countData }] = useCountPoolCandidatesQuery({
     variables: candidateFilterToQueryArgs(candidateFilter),
