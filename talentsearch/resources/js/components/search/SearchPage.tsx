@@ -7,7 +7,6 @@ import React, { useState } from "react";
 import { defineMessages, useIntl } from "react-intl";
 import pick from "lodash/pick";
 import {
-  PoolCandidateFilter,
   Classification,
   CmoAsset,
   OperationalRequirement,
@@ -70,56 +69,64 @@ export const SearchFilterAdvice: React.FC<{
 
   const reccomendations = [];
   if (classificationFilterCount > 0) {
-    reccomendations.push(
-      <a
-        href="#classificationsFilter"
-        data-h2-font-color="b(lightpurple)"
-        data-h2-font-weight="b(700)"
-      >
-        {intl.formatMessage(
-          {
-            defaultMessage:
-              "Classification Filters ({classificationFilterCount}),",
-          },
-          { classificationFilterCount },
-        )}
-      </a>,
-    );
+    reccomendations.push({
+      key: "classifications",
+      link: (
+        <a
+          href="#classificationsFilter"
+          data-h2-font-color="b(lightpurple)"
+          data-h2-font-weight="b(700)"
+        >
+          {intl.formatMessage(
+            {
+              defaultMessage:
+                "Classification Filters ({classificationFilterCount})",
+            },
+            { classificationFilterCount },
+          )}
+        </a>
+      ),
+    });
   }
   if (operationalRequirementFilterCount > 0) {
-    reccomendations.push(
-      <a
-        href="#operationalRequirementFilter"
-        data-h2-font-color="b(lightpurple)"
-        data-h2-font-weight="b(700)"
-      >
-        {intl.formatMessage(
-          {
-            defaultMessage:
-              "Conditions of Employment ({operationalRequirementFilterCount}),",
-          },
-          { operationalRequirementFilterCount },
-        )}
-      </a>,
-    );
+    reccomendations.push({
+      key: "operationalRequirements",
+      link: (
+        <a
+          href="#operationalRequirementFilter"
+          data-h2-font-color="b(lightpurple)"
+          data-h2-font-weight="b(700)"
+        >
+          {intl.formatMessage(
+            {
+              defaultMessage:
+                "Conditions of Employment ({operationalRequirementFilterCount})",
+            },
+            { operationalRequirementFilterCount },
+          )}
+        </a>
+      ),
+    });
   }
   if (cmoAssetFilterCount > 0) {
-    reccomendations.push(
-      <a
-        href="#cmoAssetFilter"
-        data-h2-font-color="b(lightpurple)"
-        data-h2-font-weight="b(700)"
-      >
-        {intl.formatMessage(
-          {
-            defaultMessage: "Skills Filters ({cmoAssetFilterCount})",
-          },
-          { cmoAssetFilterCount },
-        )}
-      </a>,
-    );
+    reccomendations.push({
+      key: "cmoAssets",
+      link: (
+        <a
+          href="#cmoAssetFilter"
+          data-h2-font-color="b(lightpurple)"
+          data-h2-font-weight="b(700)"
+        >
+          {intl.formatMessage(
+            {
+              defaultMessage: "Skills Filters ({cmoAssetFilterCount})",
+            },
+            { cmoAssetFilterCount },
+          )}
+        </a>
+      ),
+    });
   }
-
   return (
     <p data-h2-font-size="b(caption)" data-h2-margin="b(bottom, m)">
       {intl.formatMessage({
@@ -128,10 +135,9 @@ export const SearchFilterAdvice: React.FC<{
         description:
           "Heading for total matching candidates in results section of search page.",
       })}{" "}
-      {reccomendations.map((link, i) => (
-        // eslint-disable-next-line react/no-array-index-key
-        <span key={i}>
-          {i > 0 && ", "}
+      {reccomendations.map(({ key, link }, index) => (
+        <span key={key}>
+          {index > 0 && ", "}
           {link}
         </span>
       ))}
@@ -404,89 +410,6 @@ const candidateFilterToQueryArgs = (
       pools: pickMap(filter.pools, "id"),
     },
   };
-
-  //   const Column = QueryCountPoolCandidatesWhereColumn;
-  //   // For most boolean fields which are false in filter, we want to exclude that field from the query entirely, NOT set it to false.
-  //   const whereFilters: QueryCountPoolCandidatesWhereWhereConditions[] = [
-  //     filter.hasDiploma ? { column: Column.HasDiploma, value: true } : null,
-  //     filter.hasDisability
-  //       ? {
-  //           column: Column.HasDisability,
-  //           value: true,
-  //         }
-  //       : null,
-  //     filter.isIndigenous ? { column: Column.IsIndigenous, value: true } : null,
-  //     filter.isVisibleMinority
-  //       ? { column: Column.IsVisibleMinority, value: true }
-  //       : null,
-  //     filter.isWoman ? { column: Column.IsWoman, value: true } : null,
-  //     filter.languageAbility
-  //       ? { column: Column.LanguageAbility, value: filter.languageAbility }
-  //       : null,
-  //     filter.workRegions && filter.workRegions.length > 0
-  //       ? {
-  //           // For work regions, we want to match any user willing to accept any of the filtered regions
-  //           OR: filter.workRegions.map((region) => ({
-  //             column: Column.LocationPreferences,
-  //             operator: SqlOperator.Contains,
-  //             value: region,
-  //           })),
-  //         }
-  //       : null,
-  //   ].filter(notEmpty);
-
-  //   const ClassificationsColumn =
-  //     QueryCountPoolCandidatesHasExpectedClassificationsColumn;
-  //   const classifications = filter.classifications?.filter(notEmpty) ?? [];
-  //   const hasClassifications =
-  //     classifications.length > 0
-  //       ? {
-  //           OR: classifications.map((classification) => ({
-  //             AND: [
-  //               {
-  //                 column: ClassificationsColumn.Group,
-  //                 value: classification.group,
-  //               },
-  //               {
-  //                 column: ClassificationsColumn.Level,
-  //                 value: classification.level,
-  //               },
-  //             ],
-  //           })),
-  //         }
-  //       : null;
-  //   const cmoAssets = filter.cmoAssets?.filter(notEmpty) ?? [];
-  //   const hasCmoAssets =
-  //     cmoAssets.length > 0
-  //       ? {
-  //           AND: cmoAssets.map((asset) => ({
-  //             column: QueryCountPoolCandidatesHasCmoAssetsColumn.Key,
-  //             operator: SqlOperator.In,
-  //             value: [asset.key],
-  //           })),
-  //         }
-  //       : null;
-  //   const operationalRequirements =
-  //     filter.operationalRequirements?.filter(notEmpty) ?? [];
-  //   const hasOperationalRequirements =
-  //     operationalRequirements.length > 0
-  //       ? {
-  //           column:
-  //             QueryCountPoolCandidatesHasAcceptedOperationalRequirementsColumn.Key,
-  //           operator: SqlOperator.In,
-  //           value: operationalRequirements.map((requirement) => requirement.key),
-  //         }
-  //       : null;
-
-  //   const query = {
-  //     where: {
-  //       AND: whereFilters,
-  //     },
-  //     hasExpectedClassifications: hasClassifications,
-  //     hasCmoAssets,
-  //     hasAcceptedOperationalRequirements: hasOperationalRequirements,
-  //   };
-  //   return query;
 };
 
 export const SearchPageApi: React.FC = () => {
