@@ -400,7 +400,7 @@ const candidateFilterToQueryArgs = (
       ...filter,
       classifications: pickMap(filter.classifications, ["group", "level"]),
       cmoAssets: pickMap(filter.cmoAssets, "key"),
-      operationalRequirements: pickMap(filter.cmoAssets, "key"),
+      operationalRequirements: pickMap(filter.operationalRequirements, "key"),
       pools: pickMap(filter.pools, "id"),
     },
   };

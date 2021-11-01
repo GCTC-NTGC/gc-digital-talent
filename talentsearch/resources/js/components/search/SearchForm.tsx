@@ -120,7 +120,11 @@ const SearchForm: React.FunctionComponent<SearchFormProps> = ({
       isIndigenous: values.employmentEquity?.includes("isIndigenous"),
       isVisibleMinority: values.employmentEquity?.includes("isVisibleMinority"),
       isWoman: values.employmentEquity?.includes("isWoman"),
-      languageAbility: values.languageAbility,
+      ...(values.languageAbility === "ENGLISH" ||
+      values.languageAbility === "FRENCH" ||
+      values.languageAbility === "BILINGUAL"
+        ? { languageAbility: values.languageAbility }
+        : {}), // Ensure null in FormValues is converted to undefined
       workRegions: values.workRegions,
     }),
     [classificationMap, assetMap, requirementMap],
