@@ -192,11 +192,11 @@ input PoolFilterInput {
 input PoolCandidateFilterInput {
     classifications: [ClassificationFilterInput] @builder(method: "App\\Models\\PoolCandidate@filterByClassifications")
     cmoAssets: [KeyFilterInput] @builder(method: "App\\Models\\PoolCandidate@filterByCmoAssets")
-    hasDiploma: Boolean @where(key:  "has_diploma")
-    hasDisability: Boolean @where(key: "has_disability")
-    isIndigenous: Boolean @where(key: "is_indigenous")
-    isVisibleMinority: Boolean @where(key: "is_visible_minority")
-    isWoman: Boolean @where(key: "is_woman")
+    hasDiploma: Boolean @scope
+    hasDisability: Boolean @scope
+    isIndigenous: Boolean @scope
+    isVisibleMinority: Boolean @scope
+    isWoman: Boolean @scope
     languageAbility: LanguageAbility @where(key: "language_ability")
     operationalRequirements: [KeyFilterInput] @builder(method: "App\\Models\\PoolCandidate@filterByOperationalRequirements")
     workRegions: [WorkRegion] @builder(method: "App\\Models\\PoolCandidate@filterByWorkRegions")
