@@ -76,7 +76,7 @@ class PoolCandidate extends Model
         // TODO: Handle the mapping between classifications and salaries here
 
         // Classifications act as an OR filter. The query should return candidates with any of the classifications.
-        // A single whereHas clause for the relationship, containing mulitple orWhere clauses accomplishes this.
+        // A single whereHas clause for the relationship, containing multiple orWhere clauses accomplishes this.
         return $query->whereHas('expectedClassifications', function ($query) use ($classifications) {
             foreach ($classifications as $index => $classification) {
                 if ($index === 0) {
