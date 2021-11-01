@@ -76,7 +76,7 @@ class PoolCandidate extends Model
         // TODO: Handle the mapping between classifications and salaries here
 
         // Classifications act as an OR filter. The query should return candidates with any of the classifications.
-        // A single whereHas clause for the relationship, containing mulitple orWhere clauses accomplishes this.
+        // A single whereHas clause for the relationship, containing multiple orWhere clauses accomplishes this.
         return $query->whereHas('expectedClassifications', function ($query) use ($classifications) {
             foreach ($classifications as $index => $classification) {
                 if ($index === 0) {
@@ -131,6 +131,10 @@ class PoolCandidate extends Model
     }
     public function filterByPools(Builder $query, array $pools): Builder
     {
+        if (empty($pools)) {
+            return $query;
+        }
+
         // Pool acts as an OR filter. The query should return candidates in ANY of the pools.
         $poolIds = [];
         foreach ($pools as $pool) {
@@ -139,5 +143,42 @@ class PoolCandidate extends Model
         $query->whereIn('pool_id', $poolIds);
         return $query;
     }
+
+    public function scopeHasDiploma(Builder $query, bool $hasDiploma): Builder
+    {
+        if ($hasDiploma) {
+            $query->where('has_diploma', true);
+        }
+        return $query;
+    }
+    public function scopeHasDisability(Builder $query, bool $hasDisability): Builder
+    {
+        if ($hasDisability) {
+            $query->where('has_disability', true);
+        }
+        return $query;
+    }
+    public function scopeIsIndigenous(Builder $query, bool $isIndigenous): Builder
+    {
+        if ($isIndigenous) {
+            $query->where('is_indigenous', true);
+        }
+        return $query;
+    }
+    public function scopeIsVisibleMinority(Builder $query, bool $isVisibleMinority): Builder
+    {
+        if ($isVisibleMinority) {
+            $query->where('is_visible_minority', true);
+        }
+        return $query;
+    }
+    public function scopeIsWoman(Builder $query, bool $isWoman): Builder
+    {
+        if ($isWoman) {
+            $query->where('is_woman', true);
+        }
+        return $query;
+    }
+
 
 }
