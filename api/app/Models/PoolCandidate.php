@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Builder;
 
 /**
  * Class PoolCandidate
@@ -69,27 +70,74 @@ class PoolCandidate extends Model
         return $this->belongsToMany(CmoAsset::class);
     }
 
-    public function scopeWithFilter($query, $filter)
+
+    public function filterByClassifications(Builder $query, array $classifications): Builder
     {
-        if (array_key_exists('classifications', $filter)) {
-            // Classifications act as an OR filter. The query should return candidates with any of the classifications.
-            // A single whereHas clause for the relationship, containing mulitple orWhere clauses accomplishes this.
-            $query->whereHas('classifications', function ($query) use ($filter) {
-                foreach ($filter['classifications'] as $classification) {
+        // TODO: Handle the mapping between classifications and salaries here
+
+        // Classifications act as an OR filter. The query should return candidates with any of the classifications.
+        // A single whereHas clause for the relationship, containing mulitple orWhere clauses accomplishes this.
+        return $query->whereHas('expectedClassifications', function ($query) use ($classifications) {
+            foreach ($classifications as $index => $classification) {
+                if ($index === 0) {
+                    // First iteration must use where instead of orWhere
+                    $query->where(function($query) use ($classification) {
+                        $query->where('group', $classification['group'])->where('level', $classification['level']);
+                    });
+                } else {
                     $query->orWhere(function($query) use ($classification) {
                         $query->where('group', $classification['group'])->where('level', $classification['level']);
                     });
                 }
+
+            }
+        });
+    }
+    public function filterByCmoAssets(Builder $query, array $cmoAssets): Builder
+    {
+        // CmoAssets act as an AND filter. The query should only return candidates with ALL of the assets.
+        // This is accomplished with multiple whereHas clauses for the cmoAssets relationship.
+        foreach ($cmoAssets as $cmoAsset) {
+            $query->whereHas('cmoAssets', function ($query) use ($cmoAsset) {
+                $query->where('key', $cmoAsset['key']);
             });
         }
-        if (array_key_exists('cmoAssets', $filter)) {
-            // CmoAssets act as an AND filter. The query should only returns candidates with ALL of the assets.
-            // This is accomplished with multiple whereHas clauses for the cmoAssets relationship.
-            foreach ($filter['cmoAssets'] as $cmoAsset) {
-                $query->whereHas('cmoAssets', function ($query) use ($cmoAsset) {
-                    $query->where('key', $cmoAsset['key']);
-                });
-            }
-        }
+        return $query;
     }
+    public function filterByOperationalRequirements(Builder $query, array $operationalRequirements): Builder
+    {
+        // OperationalRequirements act as an AND filter. The query should only return candidates willing to accept ALL of the requirements.
+        foreach ($operationalRequirements as $requirement) {
+            $query->whereHas('acceptedOperationalRequirements', function ($query) use ($requirement) {
+                $query->where('key', $requirement['key']);
+            });
+        }
+        return $query;
+    }
+    public function filterByWorkRegions(Builder $query, array $workRegions): Builder
+    {
+        // WorkRegion acts as an OR filter. The query should return candidates willing to work in ANY of the regions.
+        $query->where(function($query) use ($workRegions) {
+            foreach($workRegions as $index => $region) {
+                if ($index === 0) {
+                    // First iteration must use where instead of orWhere
+                    $query->whereJsonContains('location_preferences', $region);
+                } else {
+                    $query->orWhereJsonContains('location_preferences', $region);
+                }
+            }
+        });
+        return $query;
+    }
+    public function filterByPools(Builder $query, array $pools): Builder
+    {
+        // Pool acts as an OR filter. The query should return candidates in ANY of the pools.
+        $poolIds = [];
+        foreach ($pools as $pool) {
+            array_push($poolIds, $pool['id']);
+        }
+        $query->whereIn('pool_id', $poolIds);
+        return $query;
+    }
+
 }
