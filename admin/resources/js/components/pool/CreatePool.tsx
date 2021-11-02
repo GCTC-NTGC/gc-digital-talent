@@ -143,6 +143,20 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
               type="text"
               rules={{ required: errorMessages.required }}
             />
+            <Input
+              id="key"
+              name="key"
+              label={intl.formatMessage(messages.keyLabel)}
+              context={intl.formatMessage(messages.keyContext)}
+              type="text"
+              rules={{
+                required: errorMessages.required,
+                pattern: {
+                  value: /^[a-z]+(_[a-z]+)*$/,
+                  message: intl.formatMessage(messages.keyPattern),
+                },
+              }}
+            />
             <TextArea
               id="description_en"
               name="description.en"

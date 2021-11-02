@@ -25,6 +25,19 @@ export default defineMessages({
     defaultMessage: "Name (French):",
     description: "Label displayed on the pool form name (French) field.",
   },
+  keyLabel: {
+    defaultMessage: "Key:",
+    description: "Label displayed on the 'key' input field.",
+  },
+  keyContext: {
+    defaultMessage:
+      "The 'key' is a string that uniquely identifies a Pool. It should be based on the Pool's english name, and be descriptive but concise. A good example would be \"digial_careers\". It may be used in the code to specify this particular Pool, so it cannot be changed later.",
+    description:
+      "Additional context describing the purpose of the Pool's 'key' field.",
+  },
+  keyPattern: {
+    defaultMessage: "Please use only lowercase letters and underscores",
+  },
   descriptionLabelEn: {
     defaultMessage: "Description (English):",
     description:
