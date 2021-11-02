@@ -48,7 +48,7 @@
     "@graphql-codegen/typescript": "^2.3.0",
     "@graphql-codegen/typescript-operations": "^2.2.0",
     "@graphql-codegen/typescript-urql": "^3.3.0",
-    "@hydrogen-design-system/hydrogen.css": "^1.1.10",
+    "@hydrogen-design-system/hydrogen.css": "^1.1.11",
     "@storybook/addon-actions": "^6.3.12",
     "@storybook/addon-essentials": "^6.3.12",
     "@storybook/addon-links": "^6.3.12",
