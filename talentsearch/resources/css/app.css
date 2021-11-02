@@ -1,8 +1,5 @@
 /* b */
 @media screen {
-    .hero {
-        height: 100%;
-    }
     .hero-sub {
         bottom: none;
     }
@@ -10,9 +7,6 @@
 
 /* s */
 @media screen and (min-width:48em){
-    .hero {
-        height: 100%;
-    }
     .hero-sub {
         bottom: none;
     }
@@ -20,9 +14,6 @@
 
 /* m */
 @media screen and (min-width:64em){
-    .hero {
-        height: 100%;
-    }
     .hero-sub {
         bottom: none;
     }
@@ -30,9 +21,6 @@
 
 /* l */
 @media screen and (min-width:100em){
-    .hero {
-        height: 380px;
-    }
     .hero-sub {
         bottom: -4rem;
     }

@@ -83,7 +83,6 @@ export const SearchPage: React.FC = () => {
         data-h2-position="b(relative)"
         data-h2-padding="b(bottom, l) l(bottom, none)"
         data-h2-margin="b(bottom, l) l(bottom, xxl)"
-        className="hero"
         style={{
           background: `linear-gradient(70deg, rgba(103, 76, 144, 0.9), rgba(29, 44, 76, 1)), url(${imageUrl(
             BASE_URL,
