@@ -153,7 +153,7 @@ export type Department = {
   __typename?: "Department";
   departmentNumber: Scalars["Int"];
   id: Scalars["ID"];
-  name?: Maybe<LocalizedString>;
+  name: LocalizedString;
 };
 
 export type DepartmentBelongsTo = {
@@ -1317,14 +1317,11 @@ export type DepartmentsQuery = {
         __typename?: "Department";
         id: string;
         departmentNumber: number;
-        name?:
-          | {
-              __typename?: "LocalizedString";
-              en?: string | null | undefined;
-              fr?: string | null | undefined;
-            }
-          | null
-          | undefined;
+        name: {
+          __typename?: "LocalizedString";
+          en?: string | null | undefined;
+          fr?: string | null | undefined;
+        };
       }
     | null
     | undefined
@@ -1342,14 +1339,11 @@ export type DepartmentQuery = {
         __typename?: "Department";
         id: string;
         departmentNumber: number;
-        name?:
-          | {
-              __typename?: "LocalizedString";
-              en?: string | null | undefined;
-              fr?: string | null | undefined;
-            }
-          | null
-          | undefined;
+        name: {
+          __typename?: "LocalizedString";
+          en?: string | null | undefined;
+          fr?: string | null | undefined;
+        };
       }
     | null
     | undefined;
@@ -1366,14 +1360,11 @@ export type CreateDepartmentMutation = {
         __typename?: "Department";
         id: string;
         departmentNumber: number;
-        name?:
-          | {
-              __typename?: "LocalizedString";
-              en?: string | null | undefined;
-              fr?: string | null | undefined;
-            }
-          | null
-          | undefined;
+        name: {
+          __typename?: "LocalizedString";
+          en?: string | null | undefined;
+          fr?: string | null | undefined;
+        };
       }
     | null
     | undefined;
@@ -1391,14 +1382,11 @@ export type UpdateDepartmentMutation = {
         __typename?: "Department";
         id: string;
         departmentNumber: number;
-        name?:
-          | {
-              __typename?: "LocalizedString";
-              en?: string | null | undefined;
-              fr?: string | null | undefined;
-            }
-          | null
-          | undefined;
+        name: {
+          __typename?: "LocalizedString";
+          en?: string | null | undefined;
+          fr?: string | null | undefined;
+        };
       }
     | null
     | undefined;
