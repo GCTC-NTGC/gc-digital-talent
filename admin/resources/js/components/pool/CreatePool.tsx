@@ -30,7 +30,12 @@ import DashboardContentContainer from "../DashboardContentContainer";
 
 type Option<V> = { value: V; label: string };
 
-type FormValues = Pick<Pool, "name" | "description"> & {
+type FormValues = Pick<Pool, "description"> & {
+  key: string;
+  name: {
+    en: string;
+    fr: string;
+  };
   assetCriteria: string[] | undefined;
   classifications: string[] | undefined;
   essentialCriteria: string[] | undefined;

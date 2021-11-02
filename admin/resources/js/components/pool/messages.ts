@@ -31,7 +31,7 @@ export default defineMessages({
   },
   keyContext: {
     defaultMessage:
-      "The 'key' is a string that uniquely identifies a Pool. It should be based on the Pool's english name, and be descriptive but concise. A good example would be \"digial_careers\". It may be used in the code to specify this particular Pool, so it cannot be changed later.",
+      "The 'key' is a string that uniquely identifies a Pool. It should be based on the Pool's english name, and it should be concise. A good example would be \"digial_careers\". It may be used in the code to refer to this particular Pool, so it cannot be changed later.",
     description:
       "Additional context describing the purpose of the Pool's 'key' field.",
   },
