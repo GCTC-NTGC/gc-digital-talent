@@ -217,6 +217,7 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
                 description:
                   "Label for additional comments textarea in the request form.",
               })}
+              rows={8}
             />
           </div>
           <SummaryOfFilters
