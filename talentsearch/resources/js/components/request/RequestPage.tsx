@@ -2,7 +2,7 @@ import * as React from "react";
 import { useIntl } from "react-intl";
 import { CreateRequest } from "./CreateRequest";
 
-const RequestPage: React.FunctionComponent = (props) => {
+const RequestPage: React.FunctionComponent = () => {
   const intl = useIntl();
 
   return (

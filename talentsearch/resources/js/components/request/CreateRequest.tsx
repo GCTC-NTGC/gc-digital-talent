@@ -34,6 +34,7 @@ type FormValues = Pick<
 };
 interface RequestFormProps {
   departments: Department[];
+  poolCandidateFilter: PoolCandidateFilter;
   handleCreatePoolCandidateSearchRequest: (
     data: CreatePoolCandidateSearchRequestInput,
   ) => Promise<
@@ -43,6 +44,7 @@ interface RequestFormProps {
 
 export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
   departments,
+  poolCandidateFilter,
   handleCreatePoolCandidateSearchRequest,
 }) => {
   const intl = useIntl();
@@ -87,9 +89,6 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
     }),
   );
 
-  // TODO: Replace fake data with data from api
-  const poolCandidateFilter: PoolCandidateFilter =
-    fakePoolCandidateFilters()[0] as PoolCandidateFilter;
   const classifications: string[] | undefined =
     poolCandidateFilter.classifications?.map(
       (classification) =>
@@ -145,7 +144,7 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
                 description: "Label for full name input in the request form",
               })}
               placeholder={intl.formatMessage({
-                defaultMessage: "First and last name...",
+                defaultMessage: "Full name...",
                 description:
                   "Placeholder for full name input in the request form.",
               })}
@@ -168,10 +167,7 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
               rules={{ required: errorMessages.required }}
             />
           </div>
-          <div
-            style={{ paddingLeft: "1rem" }}
-            data-h2-flex-item="b(1of1) m(1of2)"
-          >
+          <div data-h2-flex-item="b(1of1) m(1of2)">
             <Select
               id="department"
               name="department"
@@ -295,6 +291,7 @@ export const CreateRequest: React.FunctionComponent = () => {
   return (
     <RequestForm
       departments={departments}
+      poolCandidateFilter={fakePoolCandidateFilters()[0] as PoolCandidateFilter} // TODO: Replace with poolCandidateFilter from history
       handleCreatePoolCandidateSearchRequest={
         handleCreatePoolCandidateSearchRequest
       }
