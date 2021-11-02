@@ -20,6 +20,8 @@ export interface InputProps
   rules?: RegisterOptions;
   /** Set the type of the input. */
   type: "text" | "number" | "email" | "tel" | "password" | "date";
+  /** If input is not required, hide the 'Optional' label */
+  hideOptional?: boolean;
 }
 
 export const Input: React.FunctionComponent<InputProps> = ({
@@ -29,6 +31,7 @@ export const Input: React.FunctionComponent<InputProps> = ({
   name,
   rules = {},
   type,
+  hideOptional,
   ...rest
 }) => {
   const {
@@ -46,6 +49,7 @@ export const Input: React.FunctionComponent<InputProps> = ({
         required={!!rules.required}
         context={context}
         error={error}
+        hideOptional={hideOptional}
       >
         <input
           data-h2-padding="b(all, xxs)"
