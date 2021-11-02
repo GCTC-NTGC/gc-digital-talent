@@ -178,28 +178,28 @@ type PoolCandidateSearchRequest {
 
 type Query {
     me: User @auth
-    user(id: ID! @eq): User @find @guard @can(ability: "view", query: true)
-    users: [User]! @all @guard @can(ability: "viewAny")
-    pool(id: ID! @eq): Pool @find @guard @can(ability: "view", query: true)
-    pools: [Pool]! @all @guard @can(ability: "viewAny")
-    poolCandidate(id: ID! @eq): PoolCandidate @find @guard @can(ability: "view", query: true)
-    poolCandidates: [PoolCandidate]! @all @guard @can(ability: "viewAny")
+    user(id: ID! @eq): User @find
+    users: [User]! @all
+    pool(id: ID! @eq): Pool @find
+    pools: [Pool]! @all
+    poolCandidate(id: ID! @eq): PoolCandidate @find
+    poolCandidates: [PoolCandidate]! @all
     poolCandidatesFilter(where: _
         @whereConditions(columns: ["has_diploma", "location_preferences", "language_ability", "is_woman", "has_disability", "is_indigenous", "is_visible_minority"]),
         hasExpectedClassifications: _ @whereHasConditions(columns: ["group", "level"]),
         hasAcceptedOperationalRequirements: _ @whereHasConditions(columns: ["id", "key"]),
         hasCmoAssets: _ @whereHasConditions(columns: ["id", "key"]),
     ): Int! @count(model: "PoolCandidate")
-    classification(id: ID! @eq): Classification @find @guard @can(ability: "view", query: true)
-    classifications: [Classification]! @all @guard @can(ability: "viewAny")
-    operationalRequirement(id: ID! @eq): OperationalRequirement @find @guard @can(ability: "view", query: true)
-    operationalRequirements: [OperationalRequirement]! @all @guard @can(ability: "viewAny")
-    cmoAsset(id: ID! @eq): CmoAsset @find @guard @can(ability: "view", query: true)
-    cmoAssets: [CmoAsset]! @all @guard @can(ability: "viewAny")
-    department(id: ID! @eq): Department @find @guard @can(ability: "viewAny")
-    departments: [Department]! @all @guard @can(ability: "view", query: true)
-    poolCandidateFilter(id: ID! @eq): PoolCandidateFilter @find @guard @can(ability: "viewAny")
-    poolCandidateFilters: [PoolCandidateFilter]! @all @guard @can(ability: "view", query: true)
+    classification(id: ID! @eq): Classification @find
+    classifications: [Classification]! @all
+    operationalRequirement(id: ID! @eq): OperationalRequirement @find
+    operationalRequirements: [OperationalRequirement]! @all
+    cmoAsset(id: ID! @eq): CmoAsset @find
+    cmoAssets: [CmoAsset]! @all
+    department(id: ID! @eq): Department @find
+    departments: [Department]! @all
+    poolCandidateFilter(id: ID! @eq): PoolCandidateFilter @find
+    poolCandidateFilters: [PoolCandidateFilter]! @all
 }
 """
 When creating a User, name and email are required.
