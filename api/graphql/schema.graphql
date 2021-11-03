@@ -41,6 +41,7 @@ type Pool {
     id: ID!
     owner: User @belongsTo(relation: "user")
     name: LocalizedString
+    key: String
     description: LocalizedString
     classifications: [Classification] @belongsToMany
     assetCriteria: [CmoAsset] @belongsToMany
@@ -328,8 +329,9 @@ input PoolCandidateHasMany {
 }
 
 input CreatePoolInput {
-    owner: UserBelongsTo @rename(attribute: "user")
-    name: LocalizedStringInput
+    owner: UserBelongsTo! @rename(attribute: "user")
+    name: LocalizedStringInput!
+    key: String!
     description: LocalizedStringInput
     classifications: ClassificationBelongsToMany
     assetCriteria: CmoAssetBelongsToMany

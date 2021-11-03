@@ -19,6 +19,10 @@ const messages = defineMessages({
     defaultMessage: "Pool Name",
     description: "Title displayed for the Pool table pool name column.",
   },
+  columnPoolKey: {
+    defaultMessage: "Key",
+    description: "Title displayed for the Pool table key column.",
+  },
   columnPoolDescription: {
     defaultMessage: "Pool Description",
     description: "Title displayed for the Pool table pool description column.",
@@ -49,6 +53,10 @@ export const PoolTable: React.FC<GetPoolsQuery & { editUrlRoot: string }> = ({
       {
         Header: intl.formatMessage(messages.columnUniqueIdentifier),
         accessor: "id",
+      },
+      {
+        Header: intl.formatMessage(messages.columnPoolKey),
+        accessor: "key",
       },
       {
         Header: intl.formatMessage(messages.columnPoolName),

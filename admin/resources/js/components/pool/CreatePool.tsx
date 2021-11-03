@@ -30,7 +30,12 @@ import DashboardContentContainer from "../DashboardContentContainer";
 
 type Option<V> = { value: V; label: string };
 
-type FormValues = Pick<Pool, "name" | "description"> & {
+type FormValues = Pick<Pool, "description"> & {
+  key: string;
+  name: {
+    en: string;
+    fr: string;
+  };
   assetCriteria: string[] | undefined;
   classifications: string[] | undefined;
   essentialCriteria: string[] | undefined;
@@ -142,6 +147,20 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
               label={intl.formatMessage(messages.nameLabelFr)}
               type="text"
               rules={{ required: errorMessages.required }}
+            />
+            <Input
+              id="key"
+              name="key"
+              label={intl.formatMessage(messages.keyLabel)}
+              context={intl.formatMessage(messages.keyContext)}
+              type="text"
+              rules={{
+                required: errorMessages.required,
+                pattern: {
+                  value: /^[a-z]+(_[a-z]+)*$/,
+                  message: intl.formatMessage(messages.keyPattern),
+                },
+              }}
             />
             <TextArea
               id="description_en"

@@ -139,9 +139,10 @@ export type CreatePoolInput = {
   classifications?: Maybe<ClassificationBelongsToMany>;
   description?: Maybe<LocalizedStringInput>;
   essentialCriteria?: Maybe<CmoAssetBelongsToMany>;
-  name?: Maybe<LocalizedStringInput>;
+  key: Scalars["String"];
+  name: LocalizedStringInput;
   operationalRequirements?: Maybe<OperationalRequirementBelongsToMany>;
-  owner?: Maybe<UserBelongsTo>;
+  owner: UserBelongsTo;
 };
 
 /** When creating a User, name and email are required. */
@@ -388,6 +389,7 @@ export type Pool = {
   description?: Maybe<LocalizedString>;
   essentialCriteria?: Maybe<Array<Maybe<CmoAsset>>>;
   id: Scalars["ID"];
+  key?: Maybe<Scalars["String"]>;
   name?: Maybe<LocalizedString>;
   operationalRequirements?: Maybe<Array<Maybe<OperationalRequirement>>>;
   owner?: Maybe<User>;
@@ -2168,6 +2170,7 @@ export type UpdatePoolCandidateMutation = {
 export type PoolFragment = {
   __typename?: "Pool";
   id: string;
+  key?: string | null | undefined;
   owner?:
     | {
         __typename?: "User";
@@ -2280,6 +2283,7 @@ export type GetPoolQuery = {
     | {
         __typename?: "Pool";
         id: string;
+        key?: string | null | undefined;
         owner?:
           | {
               __typename?: "User";
@@ -2499,6 +2503,7 @@ export type GetUpdatePoolDataQuery = {
     | {
         __typename?: "Pool";
         id: string;
+        key?: string | null | undefined;
         owner?:
           | {
               __typename?: "User";
@@ -2612,6 +2617,7 @@ export type GetPoolsQuery = {
     | {
         __typename?: "Pool";
         id: string;
+        key?: string | null | undefined;
         owner?:
           | { __typename?: "User"; id: string; email: string }
           | null
@@ -2655,6 +2661,7 @@ export type CreatePoolMutation = {
   createPool?:
     | {
         __typename?: "Pool";
+        key?: string | null | undefined;
         owner?: { __typename?: "User"; id: string } | null | undefined;
         name?:
           | {
@@ -2728,6 +2735,7 @@ export type UpdatePoolMutation = {
   updatePool?:
     | {
         __typename?: "Pool";
+        key?: string | null | undefined;
         owner?: { __typename?: "User"; id: string } | null | undefined;
         name?:
           | {
@@ -3454,6 +3462,7 @@ export const PoolFragmentDoc = gql`
       en
       fr
     }
+    key
     description {
       en
       fr
@@ -4272,6 +4281,7 @@ export const GetPoolsDocument = gql`
         en
         fr
       }
+      key
       description {
         en
         fr
@@ -4299,6 +4309,7 @@ export const CreatePoolDocument = gql`
         en
         fr
       }
+      key
       description {
         en
         fr
@@ -4339,6 +4350,7 @@ export const UpdatePoolDocument = gql`
         en
         fr
       }
+      key
       description {
         en
         fr
