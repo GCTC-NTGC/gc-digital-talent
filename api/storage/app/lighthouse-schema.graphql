@@ -98,8 +98,9 @@ input CreatePoolCandidateSearchRequestInput {
 }
 
 input CreatePoolInput {
-  owner: UserBelongsTo
-  name: LocalizedStringInput
+  owner: UserBelongsTo!
+  name: LocalizedStringInput!
+  key: String!
   description: LocalizedStringInput
   classifications: ClassificationBelongsToMany
   assetCriteria: CmoAssetBelongsToMany
@@ -280,6 +281,7 @@ type Pool {
   id: ID!
   owner: User
   name: LocalizedString
+  key: String
   description: LocalizedString
   classifications: [Classification]
   assetCriteria: [CmoAsset]
