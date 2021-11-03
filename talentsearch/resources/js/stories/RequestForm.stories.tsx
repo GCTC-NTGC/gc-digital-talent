@@ -10,7 +10,7 @@ import {
 
 const stories = storiesOf("Search Request Form", module);
 
-stories.add("Create Search Request Form", () => {
+stories.add("Search Request Form", () => {
   return (
     <RequestForm
       departments={fakeDepartments()}
