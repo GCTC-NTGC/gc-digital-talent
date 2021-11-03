@@ -34,8 +34,8 @@ services:
     ports:
       - 8000:80
       - 8001:443
-      
-  maintenance:    
+
+  maintenance:
     build: ./maintenance-container
     working_dir: /root/scripts
     deploy:
