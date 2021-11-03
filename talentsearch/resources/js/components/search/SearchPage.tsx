@@ -151,6 +151,7 @@ export const SearchPage: React.FC<{
   operationalRequirements: OperationalRequirement[];
   pool: Pool;
   candidateCount: number;
+  updatePending?: boolean;
   candidateFilter: PoolCandidateFilterInput | undefined;
   updateCandidateFilter: (candidateFilter: PoolCandidateFilterInput) => void;
 }> = ({
@@ -159,6 +160,7 @@ export const SearchPage: React.FC<{
   operationalRequirements,
   pool,
   candidateCount,
+  updatePending,
   candidateFilter,
   updateCandidateFilter,
 }) => {
@@ -273,7 +275,10 @@ export const SearchPage: React.FC<{
           data-h2-position="b(sticky)"
           style={{ top: "0", right: "0" }}
         >
-          <EstimatedCandidates totalEstimatedCandidates={candidateCount} />
+          <EstimatedCandidates
+            totalEstimatedCandidates={candidateCount}
+            updatePending={updatePending}
+          />
         </div>
         <div data-h2-flex-item="b(1of1)" style={{ paddingTop: "0" }}>
           <div
@@ -419,9 +424,10 @@ export const SearchPageApi: React.FC = () => {
   const [candidateFilter, setCandidateFilter] = useState<
     PoolCandidateFilterInput | undefined
   >(undefined);
-  const [{ data: countData }] = useCountPoolCandidatesQuery({
-    variables: candidateFilterToQueryArgs(candidateFilter),
-  });
+  const [{ data: countData, fetching: countFetching }] =
+    useCountPoolCandidatesQuery({
+      variables: candidateFilterToQueryArgs(candidateFilter),
+    });
 
   const candidateCount = countData?.countPoolCandidates ?? 0;
 
@@ -435,6 +441,7 @@ export const SearchPageApi: React.FC = () => {
       pool={pool}
       candidateFilter={candidateFilter}
       candidateCount={candidateCount}
+      updatePending={countFetching}
       updateCandidateFilter={setCandidateFilter}
     />
   );

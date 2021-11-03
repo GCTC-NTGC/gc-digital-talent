@@ -1,12 +1,13 @@
 import * as React from "react";
 import { useIntl } from "react-intl";
 
-interface IEstimatedCandidatesProps {
+interface EstimatedCandidatesProps {
   totalEstimatedCandidates: number;
+  updatePending?: boolean;
 }
 
-const EstimatedCandidates: React.FunctionComponent<IEstimatedCandidatesProps> =
-  ({ totalEstimatedCandidates }) => {
+const EstimatedCandidates: React.FunctionComponent<EstimatedCandidatesProps> =
+  ({ totalEstimatedCandidates, updatePending }) => {
     const intl = useIntl();
     return (
       <div data-h2-border="b(lightgray, all, solid, s)" data-h2-shadow="b(m)">
@@ -44,6 +45,8 @@ const EstimatedCandidates: React.FunctionComponent<IEstimatedCandidatesProps> =
               },
             )}
           </p>
+          {/** TODO: se a better "loading" indicator than static elipses. */}
+          {updatePending && <p data-h2-text-align="b(center)">...</p>}
         </div>
       </div>
     );
