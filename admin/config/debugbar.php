@@ -14,7 +14,7 @@ return [
      |
      */
 
-    'enabled' => env('DEBUGBAR_ENABLED', false),
+    'enabled' => env('DEBUGBAR_ENABLED', env('APP_DEBUG', false)),
     'except' => [
         'telescope*',
         'horizon*',
