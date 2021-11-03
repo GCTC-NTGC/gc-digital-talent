@@ -221,8 +221,8 @@ type Query {
     operationalRequirements: [OperationalRequirement]! @all @guard @can(ability: "viewAny")
     cmoAsset(id: ID! @eq): CmoAsset @find @guard @can(ability: "view", query: true)
     cmoAssets: [CmoAsset]! @all @guard @can(ability: "viewAny")
-    department(id: ID! @eq): Department @find @guard @can(ability: "viewAny")
-    departments: [Department]! @all @guard @can(ability: "view", query: true)
+    department(id: ID! @eq): Department @find
+    departments: [Department]! @all
     poolCandidateFilter(id: ID! @eq): PoolCandidateFilter @find @guard @can(ability: "view", query: true)
     poolCandidateFilters: [PoolCandidateFilter]! @all @guard @can(ability: "viewAny")
     poolCandidateSearchRequest(id: ID! @eq): PoolCandidateSearchRequest @find @guard @can(ability: "view", query: true)
