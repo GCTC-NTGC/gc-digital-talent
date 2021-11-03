@@ -81,8 +81,8 @@ export const SearchPage: React.FC = () => {
     <>
       <div
         data-h2-position="b(relative)"
-        data-h2-padding="b(bottom, l) l(bottom, none)"
-        data-h2-margin="b(bottom, l) l(bottom, xxl)"
+        data-h2-padding="b(bottom, l)"
+        data-h2-margin="b(bottom, xxl)"
         style={{
           background: `linear-gradient(70deg, rgba(103, 76, 144, 0.9), rgba(29, 44, 76, 1)), url(${imageUrl(
             BASE_URL,
@@ -90,6 +90,7 @@ export const SearchPage: React.FC = () => {
           )})`,
           backgroundSize: "cover",
           backgroundBlendMode: "multiply",
+          minHeight: "15rem",
         }}
       >
         <h1
@@ -103,13 +104,13 @@ export const SearchPage: React.FC = () => {
           {intl.formatMessage(messages.pageTitle)}
         </h1>
         <div
-          data-h2-position="b(relative) s(relative) m(relative) l(absolute)"
+          data-h2-position="b(static) m(absolute)"
           data-h2-bg-color="b(white)"
-          data-h2-margin="b(top-bottom, xs) b(right-left, xs) l(right-left, xxl)"
+          data-h2-margin="b(top-bottom, xs) b(right-left, xs) s(right-left, xxl)"
           data-h2-padding="b(top-bottom, m) b(right-left, m) l(top-bottom, l) l(right-left, m)"
           data-h2-radius="b(s)"
           data-h2-shadow="b(s)"
-          className="hero-sub"
+          style={{ bottom: "-5rem" }}
         >
           <h2
             data-h2-font-color="b(black)"
