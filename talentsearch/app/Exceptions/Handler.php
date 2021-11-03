@@ -17,10 +17,10 @@ class Handler extends ExceptionHandler
      * @var array
      */
     protected $dontReport = [
-        AuthorizationException::class,
-        HttpException::class,
-        ModelNotFoundException::class,
-        ValidationException::class,
+        // AuthorizationException::class,
+        // HttpException::class,
+        // ModelNotFoundException::class,
+        // ValidationException::class,
     ];
 
     /**
@@ -49,6 +49,11 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $exception)
     {
+        if ($exception instanceof HttpException) {
+            $statusCode = $exception->getStatusCode();
+            $message = $exception->getMessage();
+            return $statusCode . " - TALENTSEARCH " . $message;
+        }
         return parent::render($request, $exception);
     }
 }
