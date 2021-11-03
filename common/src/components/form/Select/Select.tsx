@@ -38,7 +38,7 @@ export const Select: React.FunctionComponent<SelectProps> = ({
 
   const error = get(errors, name)?.message;
   return (
-    <div>
+    <div data-h2-margin="b(bottom, xxs)">
       <InputWrapper
         inputId={id}
         label={label}
@@ -50,7 +50,6 @@ export const Select: React.FunctionComponent<SelectProps> = ({
         <select
           data-h2-radius="b(s)"
           data-h2-padding="b(left, xxs)"
-          data-h2-margin="b(bottom, xxs)"
           data-h2-font-size="b(normal)"
           id={id}
           style={{ width: "100%", paddingTop: "4.5px", paddingBottom: "4.5px" }}
