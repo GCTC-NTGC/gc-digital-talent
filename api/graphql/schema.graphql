@@ -41,6 +41,7 @@ type Pool {
     id: ID!
     owner: User @belongsTo(relation: "user")
     name: LocalizedString
+    key: String
     description: LocalizedString
     classifications: [Classification] @belongsToMany
     assetCriteria: [CmoAsset] @belongsToMany
@@ -176,6 +177,33 @@ type PoolCandidateSearchRequest {
     adminNotes: String @rename(attribute: "admin_notes")
 }
 
+input ClassificationFilterInput {
+    group: String!
+    level: Int!
+}
+
+input KeyFilterInput {
+    key: String!
+}
+
+input PoolFilterInput {
+    id: ID!
+}
+
+input PoolCandidateFilterInput {
+    classifications: [ClassificationFilterInput] @builder(method: "App\\Models\\PoolCandidate@filterByClassifications")
+    cmoAssets: [KeyFilterInput] @builder(method: "App\\Models\\PoolCandidate@filterByCmoAssets")
+    hasDiploma: Boolean @scope
+    hasDisability: Boolean @scope
+    isIndigenous: Boolean @scope
+    isVisibleMinority: Boolean @scope
+    isWoman: Boolean @scope
+    languageAbility: LanguageAbility @where(key: "language_ability")
+    operationalRequirements: [KeyFilterInput] @builder(method: "App\\Models\\PoolCandidate@filterByOperationalRequirements")
+    workRegions: [WorkRegion] @builder(method: "App\\Models\\PoolCandidate@filterByWorkRegions")
+    pools: [PoolFilterInput] @builder(method: "App\\Models\\PoolCandidate@filterByPools")
+}
+
 type Query {
     me: User @auth
     user(id: ID! @eq): User @find @guard @can(ability: "view", query: true)
@@ -185,19 +213,9 @@ type Query {
     poolCandidate(id: ID! @eq): PoolCandidate @find @guard @can(ability: "view", query: true)
     poolCandidates: [PoolCandidate]! @all @guard @can(ability: "viewAny")
     # countPoolCandidates returns the number of candidates matching its filters, and requires no special permissions.
-    countPoolCandidates(where: _
-        @whereConditions(columns: ["has_diploma", "location_preferences", "language_ability", "is_woman", "has_disability", "is_indigenous", "is_visible_minority"]),
-        hasExpectedClassifications: _ @whereHasConditions(columns: ["group", "level"]),
-        hasAcceptedOperationalRequirements: _ @whereHasConditions(columns: ["id", "key"]),
-        hasCmoAssets: _ @whereHasConditions(columns: ["id", "key"]),
-    ): Int! @count(model: "PoolCandidate")
+    countPoolCandidates(where: PoolCandidateFilterInput): Int! @count(model: "PoolCandidate")
     # searchPoolCandidates returns the actual candidates matching a filter, and requires permissions.
-    searchPoolCandidates(where: _
-        @whereConditions(columns: ["has_diploma", "location_preferences", "language_ability", "is_woman", "has_disability", "is_indigenous", "is_visible_minority"]),
-        hasExpectedClassifications: _ @whereHasConditions(columns: ["group", "level"]),
-        hasAcceptedOperationalRequirements: _ @whereHasConditions(columns: ["id", "key"]),
-        hasCmoAssets: _ @whereHasConditions(columns: ["id", "key"]),
-    ): [PoolCandidate]! @all @guard @can(ability: "viewAny")
+    searchPoolCandidates(where: PoolCandidateFilterInput): [PoolCandidate]! @all @guard @can(ability: "viewAny")
     classification(id: ID! @eq): Classification @find @guard @can(ability: "view", query: true)
     classifications: [Classification]! @all @guard @can(ability: "viewAny")
     operationalRequirement(id: ID! @eq): OperationalRequirement @find @guard @can(ability: "view", query: true)
@@ -311,8 +329,9 @@ input PoolCandidateHasMany {
 }
 
 input CreatePoolInput {
-    owner: UserBelongsTo @rename(attribute: "user")
-    name: LocalizedStringInput
+    owner: UserBelongsTo! @rename(attribute: "user")
+    name: LocalizedStringInput!
+    key: String!
     description: LocalizedStringInput
     classifications: ClassificationBelongsToMany
     assetCriteria: CmoAssetBelongsToMany

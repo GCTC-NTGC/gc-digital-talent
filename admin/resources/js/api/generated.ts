@@ -49,6 +49,11 @@ export type ClassificationBelongsToMany = {
   sync?: Maybe<Array<Scalars["ID"]>>;
 };
 
+export type ClassificationFilterInput = {
+  group: Scalars["String"];
+  level: Scalars["Int"];
+};
+
 /** e.g. Application Development, Quality Assurance, Enterprise Architecture, IT Project Management, etc. */
 export type CmoAsset = {
   __typename?: "CmoAsset";
@@ -134,9 +139,10 @@ export type CreatePoolInput = {
   classifications?: Maybe<ClassificationBelongsToMany>;
   description?: Maybe<LocalizedStringInput>;
   essentialCriteria?: Maybe<CmoAssetBelongsToMany>;
-  name?: Maybe<LocalizedStringInput>;
+  key: Scalars["String"];
+  name: LocalizedStringInput;
   operationalRequirements?: Maybe<OperationalRequirementBelongsToMany>;
-  owner?: Maybe<UserBelongsTo>;
+  owner: UserBelongsTo;
 };
 
 /** When creating a User, name and email are required. */
@@ -158,6 +164,10 @@ export type Department = {
 
 export type DepartmentBelongsTo = {
   connect: Scalars["ID"];
+};
+
+export type KeyFilterInput = {
+  key: Scalars["String"];
 };
 
 export enum Language {
@@ -379,6 +389,7 @@ export type Pool = {
   description?: Maybe<LocalizedString>;
   essentialCriteria?: Maybe<Array<Maybe<CmoAsset>>>;
   id: Scalars["ID"];
+  key?: Maybe<Scalars["String"]>;
   name?: Maybe<LocalizedString>;
   operationalRequirements?: Maybe<Array<Maybe<OperationalRequirement>>>;
   owner?: Maybe<User>;
@@ -434,6 +445,20 @@ export type PoolCandidateFilterBelongsTo = {
   create: CreatePoolCandidateFilterInput;
 };
 
+export type PoolCandidateFilterInput = {
+  classifications?: Maybe<Array<Maybe<ClassificationFilterInput>>>;
+  cmoAssets?: Maybe<Array<Maybe<KeyFilterInput>>>;
+  hasDiploma?: Maybe<Scalars["Boolean"]>;
+  hasDisability?: Maybe<Scalars["Boolean"]>;
+  isIndigenous?: Maybe<Scalars["Boolean"]>;
+  isVisibleMinority?: Maybe<Scalars["Boolean"]>;
+  isWoman?: Maybe<Scalars["Boolean"]>;
+  languageAbility?: Maybe<LanguageAbility>;
+  operationalRequirements?: Maybe<Array<Maybe<KeyFilterInput>>>;
+  pools?: Maybe<Array<Maybe<PoolFilterInput>>>;
+  workRegions?: Maybe<Array<Maybe<WorkRegion>>>;
+};
+
 export type PoolCandidateHasMany = {
   create?: Maybe<Array<CreatePoolCandidateInput>>;
 };
@@ -463,6 +488,10 @@ export enum PoolCandidateStatus {
   PlacedIndeterminate = "PLACED_INDETERMINATE",
   PlacedTerm = "PLACED_TERM",
 }
+
+export type PoolFilterInput = {
+  id: Scalars["ID"];
+};
 
 export type Query = {
   __typename?: "Query";
@@ -498,10 +527,7 @@ export type QueryCmoAssetArgs = {
 };
 
 export type QueryCountPoolCandidatesArgs = {
-  hasAcceptedOperationalRequirements?: Maybe<QueryCountPoolCandidatesHasAcceptedOperationalRequirementsWhereHasConditions>;
-  hasCmoAssets?: Maybe<QueryCountPoolCandidatesHasCmoAssetsWhereHasConditions>;
-  hasExpectedClassifications?: Maybe<QueryCountPoolCandidatesHasExpectedClassificationsWhereHasConditions>;
-  where?: Maybe<QueryCountPoolCandidatesWhereWhereConditions>;
+  where?: Maybe<PoolCandidateFilterInput>;
 };
 
 export type QueryDepartmentArgs = {
@@ -529,334 +555,11 @@ export type QueryPoolCandidateSearchRequestArgs = {
 };
 
 export type QuerySearchPoolCandidatesArgs = {
-  hasAcceptedOperationalRequirements?: Maybe<QuerySearchPoolCandidatesHasAcceptedOperationalRequirementsWhereHasConditions>;
-  hasCmoAssets?: Maybe<QuerySearchPoolCandidatesHasCmoAssetsWhereHasConditions>;
-  hasExpectedClassifications?: Maybe<QuerySearchPoolCandidatesHasExpectedClassificationsWhereHasConditions>;
-  where?: Maybe<QuerySearchPoolCandidatesWhereWhereConditions>;
+  where?: Maybe<PoolCandidateFilterInput>;
 };
 
 export type QueryUserArgs = {
   id: Scalars["ID"];
-};
-
-/** Allowed column names for the `hasAcceptedOperationalRequirements` argument on field `countPoolCandidates` on type `Query`. */
-export enum QueryCountPoolCandidatesHasAcceptedOperationalRequirementsColumn {
-  Id = "ID",
-  Key = "KEY",
-}
-
-/** Dynamic WHERE conditions for the `hasAcceptedOperationalRequirements` argument on the query `countPoolCandidates`. */
-export type QueryCountPoolCandidatesHasAcceptedOperationalRequirementsWhereHasConditions =
-  {
-    /** A set of conditions that requires all conditions to match. */
-    AND?: Maybe<
-      Array<QueryCountPoolCandidatesHasAcceptedOperationalRequirementsWhereHasConditions>
-    >;
-    /** Check whether a relation exists. Extra conditions or a minimum amount can be applied. */
-    HAS?: Maybe<QueryCountPoolCandidatesHasAcceptedOperationalRequirementsWhereHasConditionsRelation>;
-    /** A set of conditions that requires at least one condition to match. */
-    OR?: Maybe<
-      Array<QueryCountPoolCandidatesHasAcceptedOperationalRequirementsWhereHasConditions>
-    >;
-    /** The column that is used for the condition. */
-    column?: Maybe<QueryCountPoolCandidatesHasAcceptedOperationalRequirementsColumn>;
-    /** The operator that is used for the condition. */
-    operator?: Maybe<SqlOperator>;
-    /** The value that is used for the condition. */
-    value?: Maybe<Scalars["Mixed"]>;
-  };
-
-/**
- * Dynamic HAS conditions for WHERE conditions for the
- * `hasAcceptedOperationalRequirements` argument on the query
- * `countPoolCandidates`.
- */
-export type QueryCountPoolCandidatesHasAcceptedOperationalRequirementsWhereHasConditionsRelation =
-  {
-    /** The amount to test. */
-    amount?: Maybe<Scalars["Int"]>;
-    /** Additional condition logic. */
-    condition?: Maybe<QueryCountPoolCandidatesHasAcceptedOperationalRequirementsWhereHasConditions>;
-    /** The comparison operator to test against the amount. */
-    operator?: Maybe<SqlOperator>;
-    /** The relation that is checked. */
-    relation: Scalars["String"];
-  };
-
-/** Allowed column names for the `hasCmoAssets` argument on field `countPoolCandidates` on type `Query`. */
-export enum QueryCountPoolCandidatesHasCmoAssetsColumn {
-  Id = "ID",
-  Key = "KEY",
-}
-
-/** Dynamic WHERE conditions for the `hasCmoAssets` argument on the query `countPoolCandidates`. */
-export type QueryCountPoolCandidatesHasCmoAssetsWhereHasConditions = {
-  /** A set of conditions that requires all conditions to match. */
-  AND?: Maybe<Array<QueryCountPoolCandidatesHasCmoAssetsWhereHasConditions>>;
-  /** Check whether a relation exists. Extra conditions or a minimum amount can be applied. */
-  HAS?: Maybe<QueryCountPoolCandidatesHasCmoAssetsWhereHasConditionsRelation>;
-  /** A set of conditions that requires at least one condition to match. */
-  OR?: Maybe<Array<QueryCountPoolCandidatesHasCmoAssetsWhereHasConditions>>;
-  /** The column that is used for the condition. */
-  column?: Maybe<QueryCountPoolCandidatesHasCmoAssetsColumn>;
-  /** The operator that is used for the condition. */
-  operator?: Maybe<SqlOperator>;
-  /** The value that is used for the condition. */
-  value?: Maybe<Scalars["Mixed"]>;
-};
-
-/** Dynamic HAS conditions for WHERE conditions for the `hasCmoAssets` argument on the query `countPoolCandidates`. */
-export type QueryCountPoolCandidatesHasCmoAssetsWhereHasConditionsRelation = {
-  /** The amount to test. */
-  amount?: Maybe<Scalars["Int"]>;
-  /** Additional condition logic. */
-  condition?: Maybe<QueryCountPoolCandidatesHasCmoAssetsWhereHasConditions>;
-  /** The comparison operator to test against the amount. */
-  operator?: Maybe<SqlOperator>;
-  /** The relation that is checked. */
-  relation: Scalars["String"];
-};
-
-/** Allowed column names for the `hasExpectedClassifications` argument on field `countPoolCandidates` on type `Query`. */
-export enum QueryCountPoolCandidatesHasExpectedClassificationsColumn {
-  Group = "GROUP",
-  Level = "LEVEL",
-}
-
-/** Dynamic WHERE conditions for the `hasExpectedClassifications` argument on the query `countPoolCandidates`. */
-export type QueryCountPoolCandidatesHasExpectedClassificationsWhereHasConditions =
-  {
-    /** A set of conditions that requires all conditions to match. */
-    AND?: Maybe<
-      Array<QueryCountPoolCandidatesHasExpectedClassificationsWhereHasConditions>
-    >;
-    /** Check whether a relation exists. Extra conditions or a minimum amount can be applied. */
-    HAS?: Maybe<QueryCountPoolCandidatesHasExpectedClassificationsWhereHasConditionsRelation>;
-    /** A set of conditions that requires at least one condition to match. */
-    OR?: Maybe<
-      Array<QueryCountPoolCandidatesHasExpectedClassificationsWhereHasConditions>
-    >;
-    /** The column that is used for the condition. */
-    column?: Maybe<QueryCountPoolCandidatesHasExpectedClassificationsColumn>;
-    /** The operator that is used for the condition. */
-    operator?: Maybe<SqlOperator>;
-    /** The value that is used for the condition. */
-    value?: Maybe<Scalars["Mixed"]>;
-  };
-
-/**
- * Dynamic HAS conditions for WHERE conditions for the `hasExpectedClassifications`
- * argument on the query `countPoolCandidates`.
- */
-export type QueryCountPoolCandidatesHasExpectedClassificationsWhereHasConditionsRelation =
-  {
-    /** The amount to test. */
-    amount?: Maybe<Scalars["Int"]>;
-    /** Additional condition logic. */
-    condition?: Maybe<QueryCountPoolCandidatesHasExpectedClassificationsWhereHasConditions>;
-    /** The comparison operator to test against the amount. */
-    operator?: Maybe<SqlOperator>;
-    /** The relation that is checked. */
-    relation: Scalars["String"];
-  };
-
-/** Allowed column names for the `where` argument on field `countPoolCandidates` on type `Query`. */
-export enum QueryCountPoolCandidatesWhereColumn {
-  HasDiploma = "HAS_DIPLOMA",
-  HasDisability = "HAS_DISABILITY",
-  IsIndigenous = "IS_INDIGENOUS",
-  IsVisibleMinority = "IS_VISIBLE_MINORITY",
-  IsWoman = "IS_WOMAN",
-  LanguageAbility = "LANGUAGE_ABILITY",
-  LocationPreferences = "LOCATION_PREFERENCES",
-}
-
-/** Dynamic WHERE conditions for the `where` argument on the query `countPoolCandidates`. */
-export type QueryCountPoolCandidatesWhereWhereConditions = {
-  /** A set of conditions that requires all conditions to match. */
-  AND?: Maybe<Array<QueryCountPoolCandidatesWhereWhereConditions>>;
-  /** Check whether a relation exists. Extra conditions or a minimum amount can be applied. */
-  HAS?: Maybe<QueryCountPoolCandidatesWhereWhereConditionsRelation>;
-  /** A set of conditions that requires at least one condition to match. */
-  OR?: Maybe<Array<QueryCountPoolCandidatesWhereWhereConditions>>;
-  /** The column that is used for the condition. */
-  column?: Maybe<QueryCountPoolCandidatesWhereColumn>;
-  /** The operator that is used for the condition. */
-  operator?: Maybe<SqlOperator>;
-  /** The value that is used for the condition. */
-  value?: Maybe<Scalars["Mixed"]>;
-};
-
-/** Dynamic HAS conditions for WHERE conditions for the `where` argument on the query `countPoolCandidates`. */
-export type QueryCountPoolCandidatesWhereWhereConditionsRelation = {
-  /** The amount to test. */
-  amount?: Maybe<Scalars["Int"]>;
-  /** Additional condition logic. */
-  condition?: Maybe<QueryCountPoolCandidatesWhereWhereConditions>;
-  /** The comparison operator to test against the amount. */
-  operator?: Maybe<SqlOperator>;
-  /** The relation that is checked. */
-  relation: Scalars["String"];
-};
-
-/** Allowed column names for the `hasAcceptedOperationalRequirements` argument on field `searchPoolCandidates` on type `Query`. */
-export enum QuerySearchPoolCandidatesHasAcceptedOperationalRequirementsColumn {
-  Id = "ID",
-  Key = "KEY",
-}
-
-/** Dynamic WHERE conditions for the `hasAcceptedOperationalRequirements` argument on the query `searchPoolCandidates`. */
-export type QuerySearchPoolCandidatesHasAcceptedOperationalRequirementsWhereHasConditions =
-  {
-    /** A set of conditions that requires all conditions to match. */
-    AND?: Maybe<
-      Array<QuerySearchPoolCandidatesHasAcceptedOperationalRequirementsWhereHasConditions>
-    >;
-    /** Check whether a relation exists. Extra conditions or a minimum amount can be applied. */
-    HAS?: Maybe<QuerySearchPoolCandidatesHasAcceptedOperationalRequirementsWhereHasConditionsRelation>;
-    /** A set of conditions that requires at least one condition to match. */
-    OR?: Maybe<
-      Array<QuerySearchPoolCandidatesHasAcceptedOperationalRequirementsWhereHasConditions>
-    >;
-    /** The column that is used for the condition. */
-    column?: Maybe<QuerySearchPoolCandidatesHasAcceptedOperationalRequirementsColumn>;
-    /** The operator that is used for the condition. */
-    operator?: Maybe<SqlOperator>;
-    /** The value that is used for the condition. */
-    value?: Maybe<Scalars["Mixed"]>;
-  };
-
-/**
- * Dynamic HAS conditions for WHERE conditions for the
- * `hasAcceptedOperationalRequirements` argument on the query
- * `searchPoolCandidates`.
- */
-export type QuerySearchPoolCandidatesHasAcceptedOperationalRequirementsWhereHasConditionsRelation =
-  {
-    /** The amount to test. */
-    amount?: Maybe<Scalars["Int"]>;
-    /** Additional condition logic. */
-    condition?: Maybe<QuerySearchPoolCandidatesHasAcceptedOperationalRequirementsWhereHasConditions>;
-    /** The comparison operator to test against the amount. */
-    operator?: Maybe<SqlOperator>;
-    /** The relation that is checked. */
-    relation: Scalars["String"];
-  };
-
-/** Allowed column names for the `hasCmoAssets` argument on field `searchPoolCandidates` on type `Query`. */
-export enum QuerySearchPoolCandidatesHasCmoAssetsColumn {
-  Id = "ID",
-  Key = "KEY",
-}
-
-/** Dynamic WHERE conditions for the `hasCmoAssets` argument on the query `searchPoolCandidates`. */
-export type QuerySearchPoolCandidatesHasCmoAssetsWhereHasConditions = {
-  /** A set of conditions that requires all conditions to match. */
-  AND?: Maybe<Array<QuerySearchPoolCandidatesHasCmoAssetsWhereHasConditions>>;
-  /** Check whether a relation exists. Extra conditions or a minimum amount can be applied. */
-  HAS?: Maybe<QuerySearchPoolCandidatesHasCmoAssetsWhereHasConditionsRelation>;
-  /** A set of conditions that requires at least one condition to match. */
-  OR?: Maybe<Array<QuerySearchPoolCandidatesHasCmoAssetsWhereHasConditions>>;
-  /** The column that is used for the condition. */
-  column?: Maybe<QuerySearchPoolCandidatesHasCmoAssetsColumn>;
-  /** The operator that is used for the condition. */
-  operator?: Maybe<SqlOperator>;
-  /** The value that is used for the condition. */
-  value?: Maybe<Scalars["Mixed"]>;
-};
-
-/** Dynamic HAS conditions for WHERE conditions for the `hasCmoAssets` argument on the query `searchPoolCandidates`. */
-export type QuerySearchPoolCandidatesHasCmoAssetsWhereHasConditionsRelation = {
-  /** The amount to test. */
-  amount?: Maybe<Scalars["Int"]>;
-  /** Additional condition logic. */
-  condition?: Maybe<QuerySearchPoolCandidatesHasCmoAssetsWhereHasConditions>;
-  /** The comparison operator to test against the amount. */
-  operator?: Maybe<SqlOperator>;
-  /** The relation that is checked. */
-  relation: Scalars["String"];
-};
-
-/** Allowed column names for the `hasExpectedClassifications` argument on field `searchPoolCandidates` on type `Query`. */
-export enum QuerySearchPoolCandidatesHasExpectedClassificationsColumn {
-  Group = "GROUP",
-  Level = "LEVEL",
-}
-
-/** Dynamic WHERE conditions for the `hasExpectedClassifications` argument on the query `searchPoolCandidates`. */
-export type QuerySearchPoolCandidatesHasExpectedClassificationsWhereHasConditions =
-  {
-    /** A set of conditions that requires all conditions to match. */
-    AND?: Maybe<
-      Array<QuerySearchPoolCandidatesHasExpectedClassificationsWhereHasConditions>
-    >;
-    /** Check whether a relation exists. Extra conditions or a minimum amount can be applied. */
-    HAS?: Maybe<QuerySearchPoolCandidatesHasExpectedClassificationsWhereHasConditionsRelation>;
-    /** A set of conditions that requires at least one condition to match. */
-    OR?: Maybe<
-      Array<QuerySearchPoolCandidatesHasExpectedClassificationsWhereHasConditions>
-    >;
-    /** The column that is used for the condition. */
-    column?: Maybe<QuerySearchPoolCandidatesHasExpectedClassificationsColumn>;
-    /** The operator that is used for the condition. */
-    operator?: Maybe<SqlOperator>;
-    /** The value that is used for the condition. */
-    value?: Maybe<Scalars["Mixed"]>;
-  };
-
-/**
- * Dynamic HAS conditions for WHERE conditions for the `hasExpectedClassifications`
- * argument on the query `searchPoolCandidates`.
- */
-export type QuerySearchPoolCandidatesHasExpectedClassificationsWhereHasConditionsRelation =
-  {
-    /** The amount to test. */
-    amount?: Maybe<Scalars["Int"]>;
-    /** Additional condition logic. */
-    condition?: Maybe<QuerySearchPoolCandidatesHasExpectedClassificationsWhereHasConditions>;
-    /** The comparison operator to test against the amount. */
-    operator?: Maybe<SqlOperator>;
-    /** The relation that is checked. */
-    relation: Scalars["String"];
-  };
-
-/** Allowed column names for the `where` argument on field `searchPoolCandidates` on type `Query`. */
-export enum QuerySearchPoolCandidatesWhereColumn {
-  HasDiploma = "HAS_DIPLOMA",
-  HasDisability = "HAS_DISABILITY",
-  IsIndigenous = "IS_INDIGENOUS",
-  IsVisibleMinority = "IS_VISIBLE_MINORITY",
-  IsWoman = "IS_WOMAN",
-  LanguageAbility = "LANGUAGE_ABILITY",
-  LocationPreferences = "LOCATION_PREFERENCES",
-}
-
-/** Dynamic WHERE conditions for the `where` argument on the query `searchPoolCandidates`. */
-export type QuerySearchPoolCandidatesWhereWhereConditions = {
-  /** A set of conditions that requires all conditions to match. */
-  AND?: Maybe<Array<QuerySearchPoolCandidatesWhereWhereConditions>>;
-  /** Check whether a relation exists. Extra conditions or a minimum amount can be applied. */
-  HAS?: Maybe<QuerySearchPoolCandidatesWhereWhereConditionsRelation>;
-  /** A set of conditions that requires at least one condition to match. */
-  OR?: Maybe<Array<QuerySearchPoolCandidatesWhereWhereConditions>>;
-  /** The column that is used for the condition. */
-  column?: Maybe<QuerySearchPoolCandidatesWhereColumn>;
-  /** The operator that is used for the condition. */
-  operator?: Maybe<SqlOperator>;
-  /** The value that is used for the condition. */
-  value?: Maybe<Scalars["Mixed"]>;
-};
-
-/** Dynamic HAS conditions for WHERE conditions for the `where` argument on the query `searchPoolCandidates`. */
-export type QuerySearchPoolCandidatesWhereWhereConditionsRelation = {
-  /** The amount to test. */
-  amount?: Maybe<Scalars["Int"]>;
-  /** Additional condition logic. */
-  condition?: Maybe<QuerySearchPoolCandidatesWhereWhereConditions>;
-  /** The comparison operator to test against the amount. */
-  operator?: Maybe<SqlOperator>;
-  /** The relation that is checked. */
-  relation: Scalars["String"];
 };
 
 export enum Role {
@@ -867,7 +570,7 @@ export enum Role {
 export enum SqlOperator {
   /** Whether a value is within a range of values (`BETWEEN`) */
   Between = "BETWEEN",
-  /** Whether a value a set of values contains a value (`@>`) */
+  /** Whether a set of values contains a value (`@>`) */
   Contains = "CONTAINS",
   /** Equal operator (`=`) */
   Eq = "EQ",
@@ -2507,6 +2210,7 @@ export type UpdatePoolCandidateMutation = {
 export type PoolFragment = {
   __typename?: "Pool";
   id: string;
+  key?: string | null | undefined;
   owner?:
     | {
         __typename?: "User";
@@ -2619,6 +2323,7 @@ export type GetPoolQuery = {
     | {
         __typename?: "Pool";
         id: string;
+        key?: string | null | undefined;
         owner?:
           | {
               __typename?: "User";
@@ -2838,6 +2543,7 @@ export type GetUpdatePoolDataQuery = {
     | {
         __typename?: "Pool";
         id: string;
+        key?: string | null | undefined;
         owner?:
           | {
               __typename?: "User";
@@ -2951,6 +2657,7 @@ export type GetPoolsQuery = {
     | {
         __typename?: "Pool";
         id: string;
+        key?: string | null | undefined;
         owner?:
           | { __typename?: "User"; id: string; email: string }
           | null
@@ -2994,6 +2701,7 @@ export type CreatePoolMutation = {
   createPool?:
     | {
         __typename?: "Pool";
+        key?: string | null | undefined;
         owner?: { __typename?: "User"; id: string } | null | undefined;
         name?:
           | {
@@ -3067,6 +2775,7 @@ export type UpdatePoolMutation = {
   updatePool?:
     | {
         __typename?: "Pool";
+        key?: string | null | undefined;
         owner?: { __typename?: "User"; id: string } | null | undefined;
         name?:
           | {
@@ -3348,6 +3057,7 @@ export const PoolFragmentDoc = gql`
       en
       fr
     }
+    key
     description {
       en
       fr
@@ -4155,6 +3865,7 @@ export const GetPoolsDocument = gql`
         en
         fr
       }
+      key
       description {
         en
         fr
@@ -4182,6 +3893,7 @@ export const CreatePoolDocument = gql`
         en
         fr
       }
+      key
       description {
         en
         fr
@@ -4222,6 +3934,7 @@ export const UpdatePoolDocument = gql`
         en
         fr
       }
+      key
       description {
         en
         fr
