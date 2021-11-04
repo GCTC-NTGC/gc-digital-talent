@@ -1,7 +1,6 @@
 import { createBrowserHistory, Location } from "history";
 import UniversalRouter, { Routes } from "universal-router";
 import React, { useState, useEffect, useMemo, ReactElement } from "react";
-import NotFound  from "../components/NotFound";
 
 const HISTORY = createBrowserHistory();
 
@@ -53,6 +52,7 @@ export interface RouterResult {
 
 export const useRouter = (
   routes: Routes<RouterResult>,
+  missingRouteComponent: ReactElement
 ): React.ReactElement | null => {
   const location = useLocation();
   const router = useMemo(() => new UniversalRouter(routes), [routes]);
@@ -70,7 +70,7 @@ export const useRouter = (
       }
     })
     .catch(async (r) => {
-      setComponent(<NotFound />);
+      setComponent(missingRouteComponent);
     });
   }, [path, router]);
 

@@ -9,6 +9,7 @@ import { useGetPoolsQuery } from "../../api/generated";
 import SideMenu from "../menu/SideMenu";
 import Footer from "../Footer";
 import Header from "../Header";
+import NotFound from "../NotFound";
 
 export const exactMatch = (ref: string, test: string): boolean => ref === test;
 export const startsWith = (ref: string, test: string): boolean =>
@@ -107,7 +108,7 @@ export const Dashboard: React.FC<{
   menuItems: ReactElement[];
   contentRoutes: Routes<RouterResult>;
 }> = ({ menuItems, contentRoutes }) => {
-  const content = useRouter(contentRoutes);
+  const content = useRouter(contentRoutes, <NotFound/>);
   return (
     <div className="container">
       <section
