@@ -45,7 +45,7 @@ export const PageContainer: React.FC<{
   menuItems: ReactElement[];
   contentRoutes: Routes<RouterResult>;
 }> = ({ menuItems, contentRoutes }) => {
-  const content = useRouter(contentRoutes, <NotFound/>);
+  const content = useRouter(contentRoutes, <NotFound />);
   return (
     <>
       <Header />

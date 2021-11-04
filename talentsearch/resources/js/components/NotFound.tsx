@@ -8,8 +8,10 @@ const messages = defineMessages({
     description: "Heading for the message saying the page was not found.",
   },
   notFoundMessage: {
-    defaultMessage: "Oops, it looks like you've landed on a page that either doesn't exist or has moved. That's okay, here are a few options for other pages that may help you get rolling.",
-    description: "Detailed message saying the page was not found and suggesting some links.",
+    defaultMessage:
+      "Oops, it looks like you've landed on a page that either doesn't exist or has moved. That's okay, here are a few options for other pages that may help you get rolling.",
+    description:
+      "Detailed message saying the page was not found and suggesting some links.",
   },
   homeLinkTitle: {
     defaultMessage: "Home",
@@ -28,7 +30,8 @@ const messages = defineMessages({
     description: "Text for link to application search.",
   },
   contactUsMessageTextPart: {
-    defaultMessage: "If you still haven't found what you're looking for please ",
+    defaultMessage:
+      "If you still haven't found what you're looking for please ",
     description: "Invitation to contact us for help - text part.",
   },
   contactUsMessageLinkPart: {
