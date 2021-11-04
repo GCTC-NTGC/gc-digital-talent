@@ -4,6 +4,7 @@ import NavMenu from "@common/components/NavMenu";
 import { Link, RouterResult, useLocation, useRouter } from "../helpers/router";
 import Footer from "./Footer";
 import Header from "./Header";
+import NotFound from "./NotFound";
 
 export const exactMatch = (ref: string, test: string): boolean => ref === test;
 
@@ -44,7 +45,7 @@ export const PageContainer: React.FC<{
   menuItems: ReactElement[];
   contentRoutes: Routes<RouterResult>;
 }> = ({ menuItems, contentRoutes }) => {
-  const content = useRouter(contentRoutes);
+  const content = useRouter(contentRoutes, <NotFound/>);
   return (
     <>
       <Header />
