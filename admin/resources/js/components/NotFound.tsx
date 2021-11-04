@@ -7,11 +7,13 @@ const messages = defineMessages({
     description: "Heading for the message saying the page was not found.",
   },
   notFoundMessage: {
-    defaultMessage: "Oops, it looks like you've landed on a page that either doesn't exist or has moved.",
+    defaultMessage:
+      "Oops, it looks like you've landed on a page that either doesn't exist or has moved.",
     description: "Detailed message saying the page was not found.",
   },
   contactUsMessageTextPart: {
-    defaultMessage: "If you still haven't found what you're looking for please ",
+    defaultMessage:
+      "If you still haven't found what you're looking for please ",
     description: "Invitation to contact us for help - text part.",
   },
   contactUsMessageLinkPart: {
@@ -27,7 +29,7 @@ const messages = defineMessages({
 export const NotFound: React.FC = () => {
   const intl = useIntl();
   return (
-<div
+    <div
       data-h2-flex-grid="b(top, contained, flush, xl)"
       data-h2-container="b(center, l)"
     >
@@ -37,18 +39,17 @@ export const NotFound: React.FC = () => {
           data-h2-font-weight="b(700)"
           data-h2-margin="b(bottom, m)"
         >
-          { intl.formatMessage(messages.notFoundHeading) }
-
+          {intl.formatMessage(messages.notFoundHeading)}
         </h3>
-        <p>{ intl.formatMessage(messages.notFoundMessage) }</p>
+        <p>{intl.formatMessage(messages.notFoundMessage)}</p>
         <p>
-          { intl.formatMessage(messages.contactUsMessageTextPart) }
+          {intl.formatMessage(messages.contactUsMessageTextPart)}
           &nbsp;
           <a
             href="mailto:talent.cloud-nuage.de.talents@tbs-sct.gc.ca"
-            title={ intl.formatMessage(messages.contactUsTitle) }
+            title={intl.formatMessage(messages.contactUsTitle)}
           >
-            { intl.formatMessage(messages.contactUsMessageLinkPart) }
+            {intl.formatMessage(messages.contactUsMessageLinkPart)}
           </a>
           .
         </p>
