@@ -27,7 +27,6 @@ import {
   homePath,
   homePublicPath,
   searchRequestTablePath,
-  searchRequestUpdatePath,
 } from "../adminRoutes";
 import { CreateClassification } from "./classification/CreateClassification";
 import { UpdateClassification } from "./classification/UpdateClassification";
