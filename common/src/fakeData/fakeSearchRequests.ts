@@ -21,6 +21,15 @@ export default (): GetPoolCandidateSearchRequestsQuery["poolCandidateSearchReque
       "Dignissimos quas culpa expedita sint autem. Ducimus sint et libero sequi tempore perspiciatis delectus architecto.",
     poolCandidateFilter: {
       id: "5aadfd79-6009-42fe-a42d-53e100aa4d13",
+      pools: [
+        {
+          id: "0ac7c89b-5cc0-4b40-a6b8-e70b7b2adbfb",
+          name: {
+            en: "CMO Digital Careers",
+            fr: "CMO Carrières Numériques",
+          },
+        },
+      ],
     },
     requestedDate: "2021-10-27 15:06:18",
     status: PoolCandidateSearchStatus.Done,
@@ -44,6 +53,15 @@ export default (): GetPoolCandidateSearchRequestsQuery["poolCandidateSearchReque
       "Enim aut incidunt ut qui consequatur animi rerum. Ex harum omnis sunt deleniti illo. Exercitationem molestias corrupti iure. Odit cumque ut tempora quo.",
     poolCandidateFilter: {
       id: "833596a3-13fc-49b2-a0d6-a3cae9e25447",
+      pools: [
+        {
+          id: "0ac7c89b-5cc0-4b40-a6b8-e70b7b2adbfb",
+          name: {
+            en: "Indigenous Apprenticeship Program",
+            fr: "Indigenous Apprenticeship Program FR",
+          },
+        },
+      ],
     },
     requestedDate: "2021-10-27 15:06:18",
     status: PoolCandidateSearchStatus.Pending,
@@ -67,6 +85,15 @@ export default (): GetPoolCandidateSearchRequestsQuery["poolCandidateSearchReque
       "Qui odit eius ea et rem. Aut sed tempora commodi itaque quia ipsa aut. Sed ut eos dicta cumque id.",
     poolCandidateFilter: {
       id: "dd071d66-c072-458e-8fa3-52eb538e92db",
+      pools: [
+        {
+          id: "0ac7c89b-5cc0-4b40-a6b8-e70b7b2adbfb",
+          name: {
+            en: "CMO Digital Careers",
+            fr: "CMO Carrières Numériques",
+          },
+        },
+      ],
     },
     requestedDate: "2021-10-27 15:06:18",
     status: PoolCandidateSearchStatus.Done,
@@ -113,6 +140,15 @@ export default (): GetPoolCandidateSearchRequestsQuery["poolCandidateSearchReque
       "Ut et modi possimus qui nam officia. Ut autem quidem earum doloremque labore omnis. Earum quo aut enim enim laborum ex earum.",
     poolCandidateFilter: {
       id: "5bac0512-dc3e-4788-a717-10ccde14e236",
+      pools: [
+        {
+          id: "0ac7c89b-5cc0-4b40-a6b8-e70b7b2adbfb",
+          name: {
+            en: "Indigenous Apprenticeship Program",
+            fr: "Indigenous Apprenticeship Program FR",
+          },
+        },
+      ],
     },
     requestedDate: "2021-10-27 15:06:18",
     status: PoolCandidateSearchStatus.Pending,
@@ -136,6 +172,15 @@ export default (): GetPoolCandidateSearchRequestsQuery["poolCandidateSearchReque
       "Consectetur fugiat qui aliquam perspiciatis. Magni ratione molestiae sit harum. Et rerum saepe modi ut. Repudiandae magni quam amet error et dolor culpa.",
     poolCandidateFilter: {
       id: "a33aadaf-76f3-4f22-b0b8-22864849c306",
+      pools: [
+        {
+          id: "0ac7c89b-5cc0-4b40-a6b8-e70b7b2adbfb",
+          name: {
+            en: "CMO Digital Careers",
+            fr: "CMO Carrières Numériques",
+          },
+        },
+      ],
     },
     requestedDate: "2021-10-27 15:06:18",
     status: PoolCandidateSearchStatus.Pending,
@@ -159,6 +204,15 @@ export default (): GetPoolCandidateSearchRequestsQuery["poolCandidateSearchReque
       "Tempora voluptatibus nemo facilis suscipit quam. Distinctio illum quia quia nam porro fuga. Qui totam architecto quod est fuga id quia sint.",
     poolCandidateFilter: {
       id: "30a63883-261a-4799-959c-01af36c888bc",
+      pools: [
+        {
+          id: "0ac7c89b-5cc0-4b40-a6b8-e70b7b2adbfb",
+          name: {
+            en: "Indigenous Apprenticeship Program",
+            fr: "Indigenous Apprenticeship Program FR",
+          },
+        },
+      ],
     },
     requestedDate: "2021-10-27 15:06:18",
     status: PoolCandidateSearchStatus.Pending,
@@ -182,6 +236,15 @@ export default (): GetPoolCandidateSearchRequestsQuery["poolCandidateSearchReque
       "Quam ipsam quia quia et. Ex eligendi quaerat nobis accusamus autem sit. Quos quos quis impedit pariatur autem. Placeat itaque unde quam.",
     poolCandidateFilter: {
       id: "c1afc4c6-ef7b-47ce-851e-e2c0221982fe",
+      pools: [
+        {
+          id: "0ac7c89b-5cc0-4b40-a6b8-e70b7b2adbfb",
+          name: {
+            en: "CMO Digital Careers",
+            fr: "CMO Carrières Numériques",
+          },
+        },
+      ],
     },
     requestedDate: "2021-10-27 15:06:18",
     status: PoolCandidateSearchStatus.Pending,
@@ -205,6 +268,15 @@ export default (): GetPoolCandidateSearchRequestsQuery["poolCandidateSearchReque
       "Nisi iste tenetur itaque natus amet. Eveniet incidunt neque sed consequatur sed. Nesciunt sed itaque est odit neque. Voluptatem voluptate voluptatem ut.",
     poolCandidateFilter: {
       id: "f8710b0a-3afc-4804-9e1c-d103c1860551",
+      pools: [
+        {
+          id: "0ac7c89b-5cc0-4b40-a6b8-e70b7b2adbfb",
+          name: {
+            en: "Indigenous Apprenticeship Program",
+            fr: "Indigenous Apprenticeship Program FR",
+          },
+        },
+      ],
     },
     requestedDate: "2021-10-27 15:06:18",
     status: PoolCandidateSearchStatus.Pending,
@@ -228,6 +300,15 @@ export default (): GetPoolCandidateSearchRequestsQuery["poolCandidateSearchReque
       "Sint accusamus aspernatur dolores. Dolor asperiores eos alias. Voluptatem porro quod omnis harum est.",
     poolCandidateFilter: {
       id: "f30f5cf6-b909-4f23-97b1-3a20eeebb9cc",
+      pools: [
+        {
+          id: "0ac7c89b-5cc0-4b40-a6b8-e70b7b2adbfb",
+          name: {
+            en: "Indigenous Apprenticeship Program",
+            fr: "Indigenous Apprenticeship Program FR",
+          },
+        },
+      ],
     },
     requestedDate: "2021-10-27 15:06:18",
     status: PoolCandidateSearchStatus.Done,
