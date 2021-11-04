@@ -57,6 +57,9 @@ mix.webpackConfig({
   module: {
     rules: [reactIntlTransformRule],
   },
+  output: {
+    hashFunction: 'md4'
+  },
 });
 
 mix.version();

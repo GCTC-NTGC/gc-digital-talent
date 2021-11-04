@@ -41,6 +41,7 @@ type Pool {
     id: ID!
     owner: User @belongsTo(relation: "user")
     name: LocalizedString
+    key: String
     description: LocalizedString
     classifications: [Classification] @belongsToMany
     assetCriteria: [CmoAsset] @belongsToMany
@@ -139,7 +140,7 @@ type CmoAsset {
 
 type Department {
     id: ID!
-    department_number: Int! @rename(attribute: "department_number")
+    departmentNumber: Int! @rename(attribute: "department_number")
     name: LocalizedString
 }
 
@@ -150,56 +151,83 @@ enum PoolCandidateSearchStatus {
 
 type PoolCandidateFilter {
     id: ID!
-    classifications: [Classification]
-    cmoAssets: [CmoAsset]
+    classifications: [Classification] @belongsToMany
+    cmoAssets: [CmoAsset] @belongsToMany
     hasDiploma: Boolean @rename(attribute: "has_diploma")
     hasDisability: Boolean @rename(attribute: "has_disability")
     isIndigenous: Boolean @rename(attribute: "is_indigenous")
     isVisibleMinority: Boolean @rename(attribute: "is_visible_minority")
     isWoman: Boolean @rename(attribute: "is_woman")
     languageAbility: LanguageAbility @rename(attribute: "language_ability")
-    operationalRequirements: [OperationalRequirement] @rename(attribute: "operational_requirements")
+    operationalRequirements: [OperationalRequirement] @belongsToMany
     workRegions: [WorkRegion] @rename(attribute: "work_regions")
-    pools: [Pool]
+    pools: [Pool] @belongsToMany
 }
 
 type PoolCandidateSearchRequest {
     id: ID!
     fullName: String @rename(attribute: "full_name")
-    email: String
-    department: Department @hasOne
+    email: Email
+    department: Department @belongsTo
     jobTitle: String @rename(attribute: "job_title")
     additionalComments: String @rename(attribute: "additional_comments")
-    poolCandidateFilter: PoolCandidateFilter! @hasOne
-    requestedDate: Date @rename(attribute: "requested_date")
+    poolCandidateFilter: PoolCandidateFilter! @belongsTo
+    requestedDate: DateTime @rename(attribute: "created_at")
     status: PoolCandidateSearchStatus
     adminNotes: String @rename(attribute: "admin_notes")
 }
 
+input ClassificationFilterInput {
+    group: String!
+    level: Int!
+}
+
+input KeyFilterInput {
+    key: String!
+}
+
+input PoolFilterInput {
+    id: ID!
+}
+
+input PoolCandidateFilterInput {
+    classifications: [ClassificationFilterInput] @builder(method: "App\\Models\\PoolCandidate@filterByClassifications")
+    cmoAssets: [KeyFilterInput] @builder(method: "App\\Models\\PoolCandidate@filterByCmoAssets")
+    hasDiploma: Boolean @scope
+    hasDisability: Boolean @scope
+    isIndigenous: Boolean @scope
+    isVisibleMinority: Boolean @scope
+    isWoman: Boolean @scope
+    languageAbility: LanguageAbility @where(key: "language_ability")
+    operationalRequirements: [KeyFilterInput] @builder(method: "App\\Models\\PoolCandidate@filterByOperationalRequirements")
+    workRegions: [WorkRegion] @builder(method: "App\\Models\\PoolCandidate@filterByWorkRegions")
+    pools: [PoolFilterInput] @builder(method: "App\\Models\\PoolCandidate@filterByPools")
+}
+
 type Query {
     me: User @auth
-    user(id: ID! @eq): User @find
-    users: [User]! @all
-    pool(id: ID! @eq): Pool @find
-    pools: [Pool]! @all
-    poolCandidate(id: ID! @eq): PoolCandidate @find
-    poolCandidates: [PoolCandidate]! @all
-    poolCandidatesFilter(where: _
-        @whereConditions(columns: ["has_diploma", "location_preferences", "language_ability", "is_woman", "has_disability", "is_indigenous", "is_visible_minority"]),
-        hasExpectedClassifications: _ @whereHasConditions(columns: ["group", "level"]),
-        hasAcceptedOperationalRequirements: _ @whereHasConditions(columns: ["id", "key"]),
-        hasCmoAssets: _ @whereHasConditions(columns: ["id", "key"]),
-    ): Int! @count(model: "PoolCandidate")
-    classification(id: ID! @eq): Classification @find
-    classifications: [Classification]! @all
-    operationalRequirement(id: ID! @eq): OperationalRequirement @find
-    operationalRequirements: [OperationalRequirement]! @all
-    cmoAsset(id: ID! @eq): CmoAsset @find
-    cmoAssets: [CmoAsset]! @all
-    department(id: ID! @eq): Department @find
-    departments: [Department]! @all
-    poolCandidateFilter(id: ID! @eq): PoolCandidateFilter @find
-    poolCandidateFilters: [PoolCandidateFilter]! @all
+    user(id: ID! @eq): User @find @guard @can(ability: "view", query: true)
+    users: [User]! @all @guard @can(ability: "viewAny")
+    pool(id: ID! @eq): Pool @find @guard @can(ability: "view", query: true)
+    pools: [Pool]! @all @guard @can(ability: "viewAny")
+    poolCandidate(id: ID! @eq): PoolCandidate @find @guard @can(ability: "view", query: true)
+    poolCandidates: [PoolCandidate]! @all @guard @can(ability: "viewAny")
+    # countPoolCandidates returns the number of candidates matching its filters, and requires no special permissions.
+    countPoolCandidates(where: PoolCandidateFilterInput): Int! @count(model: "PoolCandidate")
+    # searchPoolCandidates returns the actual candidates matching a filter, and requires permissions.
+    searchPoolCandidates(where: PoolCandidateFilterInput): [PoolCandidate]! @all @guard @can(ability: "viewAny")
+    classification(id: ID! @eq): Classification @find @guard @can(ability: "view", query: true)
+    classifications: [Classification]! @all @guard @can(ability: "viewAny")
+    operationalRequirement(id: ID! @eq): OperationalRequirement @find @guard @can(ability: "view", query: true)
+    operationalRequirements: [OperationalRequirement]! @all @guard @can(ability: "viewAny")
+    cmoAsset(id: ID! @eq): CmoAsset @find @guard @can(ability: "view", query: true)
+    cmoAssets: [CmoAsset]! @all @guard @can(ability: "viewAny")
+    department(id: ID! @eq): Department @find @guard @can(ability: "viewAny")
+    departments: [Department]! @all @guard @can(ability: "view", query: true)
+    poolCandidateFilter(id: ID! @eq): PoolCandidateFilter @find @guard @can(ability: "view", query: true)
+    poolCandidateFilters: [PoolCandidateFilter]! @all @guard @can(ability: "viewAny")
+    poolCandidateSearchRequest(id: ID! @eq): PoolCandidateSearchRequest @find @guard @can(ability: "view", query: true)
+    poolCandidateSearchRequests: [PoolCandidateSearchRequest]! @all @guard @can(ability: "viewAny")
 }
 """
 When creating a User, name and email are required.
@@ -301,8 +329,9 @@ input PoolCandidateHasMany {
 }
 
 input CreatePoolInput {
-    owner: UserBelongsTo @rename(attribute: "user")
-    name: LocalizedStringInput
+    owner: UserBelongsTo! @rename(attribute: "user")
+    name: LocalizedStringInput!
+    key: String!
     description: LocalizedStringInput
     classifications: ClassificationBelongsToMany
     assetCriteria: CmoAssetBelongsToMany
@@ -367,6 +396,48 @@ input UpdateDepartmentInput {
     name: LocalizedStringInput
 }
 
+input PoolBelongsToMany {
+    sync: [ID!]
+}
+
+input DepartmentBelongsTo {
+    connect: ID!
+}
+
+input CreatePoolCandidateFilterInput {
+    classifications: ClassificationBelongsToMany
+    cmoAssets: CmoAssetBelongsToMany
+    hasDiploma: Boolean @rename(attribute: "has_diploma")
+    hasDisability: Boolean @rename(attribute: "has_disability")
+    isIndigenous: Boolean @rename(attribute: "is_indigenous")
+    isVisibleMinority: Boolean @rename(attribute: "is_visible_minority")
+    isWoman: Boolean @rename(attribute: "is_woman")
+    languageAbility:LanguageAbility @rename(attribute: "language_ability")
+    operationalRequirements: OperationalRequirementBelongsToMany
+    workRegions: [WorkRegion] @rename(attribute: "work_regions")
+    pools: PoolBelongsToMany
+}
+
+input PoolCandidateFilterBelongsTo {
+    create: CreatePoolCandidateFilterInput!
+}
+
+input CreatePoolCandidateSearchRequestInput {
+    fullName: String! @rename(attribute: "full_name")
+    email: Email!
+    department: DepartmentBelongsTo!
+    jobTitle: String! @rename(attribute: "job_title")
+    additionalComments: String @rename(attribute: "additional_comments")
+    poolCandidateFilter: PoolCandidateFilterBelongsTo!
+    # requestedDate will be set to current date in Eloquent model.
+    # status will be set to PENDING in Eloquent model.
+}
+
+input UpdatePoolCandidateSearchRequestInput {
+    adminNotes: String @rename(attribute: "admin_notes")
+    status: PoolCandidateSearchStatus
+}
+
 type Mutation {
     createUser(user: CreateUserInput! @spread): User @create @guard @can(ability: "create")
     updateUser(id: ID!, user: UpdateUserInput! @spread): User @update @guard @can(ability: "update", find: "id")
@@ -389,4 +460,6 @@ type Mutation {
     createDepartment(department: CreateDepartmentInput! @spread): Department @create @guard @can(ability: "create")
     updateDepartment(id: ID!, department: UpdateDepartmentInput! @spread): Department @update @can(ability: "update", find: "id")
     deleteDepartment(id: ID!): User @delete(globalId: false) @guard @can(ability: "delete", find: "id")
+    createPoolCandidateSearchRequest(poolCandidateSearchRequest: CreatePoolCandidateSearchRequestInput! @spread): PoolCandidateSearchRequest @create @can(ability: "create")
+    updatePoolCandidateSearchRequest(id: ID!, poolCandidateSearchRequest: UpdatePoolCandidateSearchRequestInput! @spread): PoolCandidateSearchRequest @update @guard @can(ability: "update", find: "id")
 }

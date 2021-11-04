@@ -30,6 +30,10 @@
     "url": "https://github.com/GCTC-NTGC/gc-digital-talent/issues"
   },
   "homepage": "https://github.com/GCTC-NTGC/gc-digital-talent#readme",
+  "engines": {
+    "node": "14.18.1",
+    "npm": ">=8.0.0"
+  },
   "peerDependencies": {
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -37,7 +41,7 @@
   },
   "dependencies": {
     "@heroicons/react": "^1.0.4",
-    "graphql": "^15.6.0",
+    "graphql": "^16.0.1",
     "history": "^5.0.1",
     "lodash": "^4.17.21",
     "react": "^17.0.2",
