@@ -74,7 +74,7 @@ export const SearchRequestTable: React.FunctionComponent<GetPoolCandidateSearchR
         defaultMessage: "Pool",
         description: "Title displayed on the search request table pool column.",
       }),
-       accessor: ({ poolCandidateFilter }) => poolCandidateFilter.id
+       accessor: ({ poolCandidateFilter }) => poolCandidateFilter.pools?.map((pool) => pool?.name?.[locale]).join(" ,")
      },
     {
       Header: intl.formatMessage({

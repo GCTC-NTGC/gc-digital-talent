@@ -15,6 +15,13 @@ query getPoolCandidateSearchRequests {
     additionalComments
     poolCandidateFilter {
       id
+      pools {
+        id
+        name {
+          en
+          fr
+        }
+      }
     }
     requestedDate
     status
