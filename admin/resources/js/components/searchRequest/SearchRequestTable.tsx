@@ -44,7 +44,7 @@ export const SearchRequestTable: React.FunctionComponent<GetPoolCandidateSearchR
      {
        Header: intl.formatMessage({
         defaultMessage: "Manager",
-        description: "Title displayed on the search request table first name column.",
+        description: "Title displayed on the search request table manager column.",
       }),
        accessor: "fullName"
      },
@@ -108,7 +108,7 @@ export const SearchRequestTable: React.FunctionComponent<GetPoolCandidateSearchR
 
  return (
    <>
-    <Table data={memoizedData} columns={columns} />
+    <Table data={memoizedData} columns={columns} hiddenCols={["id"]} />
    </>
  )
 };

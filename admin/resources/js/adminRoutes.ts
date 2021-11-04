@@ -52,6 +52,6 @@ export const userUpdatePath = (id: string): string =>
   `/${ADMIN_APP_DIR}/users/${id}/edit`;
 
 export const searchRequestTablePath = (): string =>
-  `/${ADMIN_APP_DIR}/searchRequests`;
+  `/${ADMIN_APP_DIR}/search-requests`;
 export const searchRequestUpdatePath = (id: string): string =>
-  `/${ADMIN_APP_DIR}/searchRequests/${id}/edit`;
+  `/${ADMIN_APP_DIR}/search-requests/${id}/edit`;
