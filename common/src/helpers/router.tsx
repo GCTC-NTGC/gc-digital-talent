@@ -85,8 +85,7 @@ export const useRouter = (
     })
     .catch(async (r) => {
       setComponent(missingRouteComponent);
-    })
-   ;
+    });
   }, [path, router]);
 
   return component;
