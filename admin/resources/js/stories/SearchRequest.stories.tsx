@@ -6,7 +6,7 @@ import { SearchRequestTable } from "../components/searchRequest/SearchRequestTab
 
 const stories = storiesOf("Search Results", module);
 
-stories.add("Search Result Table", () => (
+stories.add("Search Results Table", () => (
   <SearchRequestTable
     poolCandidateSearchRequests={fakeSearchRequests()}
     editUrlRoot="#"
