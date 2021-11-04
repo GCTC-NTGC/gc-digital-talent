@@ -145,7 +145,7 @@ export const SearchFilterAdvice: React.FC<{
   );
 };
 
-export const SearchPage: React.FC<{
+export interface SearchPageProps {
   classifications: Classification[];
   cmoAssets: CmoAsset[];
   operationalRequirements: OperationalRequirement[];
@@ -154,7 +154,9 @@ export const SearchPage: React.FC<{
   updatePending?: boolean;
   candidateFilter: PoolCandidateFilterInput | undefined;
   updateCandidateFilter: (candidateFilter: PoolCandidateFilterInput) => void;
-}> = ({
+}
+
+export const SearchPage: React.FC<SearchPageProps> = ({
   classifications,
   cmoAssets,
   operationalRequirements,
