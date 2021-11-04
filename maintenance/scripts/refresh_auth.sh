@@ -6,6 +6,7 @@ export NVM_DIR="$HOME/.nvm"
 
 cd /var/www/html/auth
 composer install
+php artisan migrate
 php artisan config:cache
 nvm install --latest-npm
 npm install
