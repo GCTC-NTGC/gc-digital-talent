@@ -108,7 +108,7 @@ export const SearchRequestTable: React.FunctionComponent<GetPoolCandidateSearchR
 
  return (
    <>
-    <Table data={memoizedData} columns={columns} />
+    <Table data={memoizedData} columns={columns} hiddenCols={["id"]} />
    </>
  )
 };
