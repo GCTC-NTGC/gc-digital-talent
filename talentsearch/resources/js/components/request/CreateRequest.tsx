@@ -35,6 +35,7 @@ type FormValues = Pick<
 interface RequestFormProps {
   departments: Department[];
   poolCandidateFilter: PoolCandidateFilter;
+  totalEstimatedCandidates: number;
   handleCreatePoolCandidateSearchRequest: (
     data: CreatePoolCandidateSearchRequestInput,
   ) => Promise<
@@ -45,6 +46,7 @@ interface RequestFormProps {
 export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
   departments,
   poolCandidateFilter,
+  totalEstimatedCandidates,
   handleCreatePoolCandidateSearchRequest,
 }) => {
   const intl = useIntl();
@@ -131,74 +133,75 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
           onSubmit={handleSubmit(onSubmit)}
           data-h2-flex-grid="b(top, contained, padded, none)"
         >
-          <div
-            style={{ paddingRight: "1rem" }}
-            data-h2-flex-item="b(1of1) m(1of2)"
-          >
-            <Input
-              id="fullName"
-              type="text"
-              name="fullName"
-              label={intl.formatMessage({
-                defaultMessage: "Full Name",
-                description: "Label for full name input in the request form",
-              })}
-              placeholder={intl.formatMessage({
-                defaultMessage: "Full name...",
-                description:
-                  "Placeholder for full name input in the request form.",
-              })}
-              rules={{ required: errorMessages.required }}
-            />
-            <Input
-              id="email"
-              type="email"
-              name="email"
-              label={intl.formatMessage({
-                defaultMessage: "Government e-mail",
-                description:
-                  "Label for government email input in the request form",
-              })}
-              placeholder={intl.formatMessage({
-                defaultMessage: "example@canada.ca...",
-                description:
-                  "Placeholder for government email input in the request form",
-              })}
-              rules={{ required: errorMessages.required }}
-            />
+          <div data-h2-flex-item="b(1of1) m(1of2)">
+            <div data-h2-padding="b(right, none) m(right, l)">
+              <Input
+                id="fullName"
+                type="text"
+                name="fullName"
+                label={intl.formatMessage({
+                  defaultMessage: "Full Name",
+                  description: "Label for full name input in the request form",
+                })}
+                placeholder={intl.formatMessage({
+                  defaultMessage: "Full name...",
+                  description:
+                    "Placeholder for full name input in the request form.",
+                })}
+                rules={{ required: errorMessages.required }}
+              />
+              <Input
+                id="email"
+                type="email"
+                name="email"
+                label={intl.formatMessage({
+                  defaultMessage: "Government e-mail",
+                  description:
+                    "Label for government email input in the request form",
+                })}
+                placeholder={intl.formatMessage({
+                  defaultMessage: "example@canada.ca...",
+                  description:
+                    "Placeholder for government email input in the request form",
+                })}
+                rules={{ required: errorMessages.required }}
+              />
+            </div>
           </div>
           <div data-h2-flex-item="b(1of1) m(1of2)">
-            <Select
-              id="department"
-              name="department"
-              label={intl.formatMessage({
-                defaultMessage: "Department / Hiring Organization",
-                description:
-                  "Label for department select input in the request form",
-              })}
-              nullSelection={intl.formatMessage({
-                defaultMessage: "Select a department...",
-                description:
-                  "Null selection for department select input in the request form.",
-              })}
-              options={departmentOptions}
-              rules={{ required: errorMessages.required }}
-            />
-            <Input
-              id="jobTitle"
-              type="text"
-              name="jobTitle"
-              label={intl.formatMessage({
-                defaultMessage: "What is the job title for this position?",
-                description: "Label for job title input in the request form",
-              })}
-              placeholder={intl.formatMessage({
-                defaultMessage: "Developer...",
-                description:
-                  "Placeholder for job title input in the request form.",
-              })}
-              rules={{ required: errorMessages.required }}
-            />
+            <div data-h2-padding="b(left, none) m(left, l)">
+              <Select
+                id="department"
+                name="department"
+                label={intl.formatMessage({
+                  defaultMessage: "Department / Hiring Organization",
+                  description:
+                    "Label for department select input in the request form",
+                })}
+                nullSelection={intl.formatMessage({
+                  defaultMessage: "Select a department...",
+                  description:
+                    "Null selection for department select input in the request form.",
+                })}
+                options={departmentOptions}
+                rules={{ required: errorMessages.required }}
+              />
+              <Input
+                id="jobTitle"
+                type="text"
+                name="jobTitle"
+                label={intl.formatMessage({
+                  defaultMessage: "What is the job title for this position?",
+                  description: "Label for job title input in the request form",
+                })}
+                placeholder={intl.formatMessage({
+                  defaultMessage: "Developer...",
+                  description:
+                    "Placeholder for job title input in the request form.",
+                })}
+                rules={{ required: errorMessages.required }}
+              />
+            </div>
           </div>
           <div data-h2-flex-item="b(1of1)">
             <p>
@@ -224,10 +227,10 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
             classifications={classifications}
             educationLevel={educationLevel}
             employmentEquity={employmentEquity}
-            languageAbility={LanguageAbility.Bilingual}
+            languageAbility={poolCandidateFilter.languageAbility}
             operationalRequirements={operationalRequirements}
             skills={skills}
-            totalEstimatedCandidates={12}
+            totalEstimatedCandidates={totalEstimatedCandidates}
             typeOfOpportunity={typeOfOpportunity}
             workLocation={workLocation}
           />
@@ -293,6 +296,7 @@ export const CreateRequest: React.FunctionComponent = () => {
     <RequestForm
       departments={departments}
       poolCandidateFilter={fakePoolCandidateFilters()[0] as PoolCandidateFilter} // TODO: Replace with poolCandidateFilter from history
+      totalEstimatedCandidates={10} // TODO: Replace with poolCandidateFilter from history
       handleCreatePoolCandidateSearchRequest={
         handleCreatePoolCandidateSearchRequest
       }
