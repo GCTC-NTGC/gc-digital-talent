@@ -139,9 +139,10 @@ export type CreatePoolInput = {
   classifications?: Maybe<ClassificationBelongsToMany>;
   description?: Maybe<LocalizedStringInput>;
   essentialCriteria?: Maybe<CmoAssetBelongsToMany>;
-  name?: Maybe<LocalizedStringInput>;
+  key: Scalars["String"];
+  name: LocalizedStringInput;
   operationalRequirements?: Maybe<OperationalRequirementBelongsToMany>;
-  owner?: Maybe<UserBelongsTo>;
+  owner: UserBelongsTo;
 };
 
 /** When creating a User, name and email are required. */
@@ -388,6 +389,7 @@ export type Pool = {
   description?: Maybe<LocalizedString>;
   essentialCriteria?: Maybe<Array<Maybe<CmoAsset>>>;
   id: Scalars["ID"];
+  key?: Maybe<Scalars["String"]>;
   name?: Maybe<LocalizedString>;
   operationalRequirements?: Maybe<Array<Maybe<OperationalRequirement>>>;
   owner?: Maybe<User>;

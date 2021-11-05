@@ -28,6 +28,7 @@ class PoolFactory extends Factory
         $name = $this->faker->company();
         return [
             'name' => ['en' => $name, 'fr' => $name],
+            'key' => strtolower(preg_replace('/\s+/', '_', $name)),
             'description' => ['en' => $this->faker->paragraph(), 'fr' => $this->faker->paragraph()],
             'user_id' => User::factory(),
         ];
