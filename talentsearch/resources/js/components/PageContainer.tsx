@@ -42,12 +42,9 @@ export const MenuLink: React.FC<MenuLinkProps> = ({
   );
 };
 
-export const PageContainer: React.FC<{
-  menuItems: ReactElement[];
-  contentRoutes: Routes<RouterResult>;
-}> = ({ menuItems, contentRoutes }) => {
+const TalentSearchNotFound: React.FC = () => {
   const intl = useIntl();
-  const notFoundComponent = (
+  return (
     <NotFound
       headingMessage={intl.formatMessage({
         description: "Heading for the message saying the page was not found.",
@@ -63,7 +60,14 @@ export const PageContainer: React.FC<{
       </p>
     </NotFound>
   );
-  const content = useRouter(contentRoutes, notFoundComponent);
+}
+
+export const PageContainer: React.FC<{
+  menuItems: ReactElement[];
+  contentRoutes: Routes<RouterResult>;
+}> = ({ menuItems, contentRoutes }) => {
+
+  const content = useRouter(contentRoutes, <TalentSearchNotFound />);
 
   return (
     <>
