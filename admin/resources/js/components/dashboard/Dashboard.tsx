@@ -9,7 +9,7 @@ import { useGetPoolsQuery } from "../../api/generated";
 import SideMenu from "../menu/SideMenu";
 import Footer from "../Footer";
 import Header from "../Header";
-import NotFound from "../NotFound";
+import NotFound from "@common/components/NotFound";
 
 export const exactMatch = (ref: string, test: string): boolean => ref === test;
 export const startsWith = (ref: string, test: string): boolean =>
@@ -108,7 +108,24 @@ export const Dashboard: React.FC<{
   menuItems: ReactElement[];
   contentRoutes: Routes<RouterResult>;
 }> = ({ menuItems, contentRoutes }) => {
-  const content = useRouter(contentRoutes, <NotFound />);
+  const intl = useIntl();
+  const notFoundComponent = (
+    <NotFound
+      headingMessage={intl.formatMessage({
+        description: "Heading for the message saying the page was not found.",
+        defaultMessage: "Sorry, we can't find the page you were looking for.",
+      })}
+    >
+      <p>
+        {intl.formatMessage({
+          description: "Detailed message saying the page was not found.",
+          defaultMessage:
+            "Oops, it looks like you've landed on a page that either doesn't exist or has moved.",
+        })}
+      </p>
+    </NotFound>
+  );
+  const content = useRouter(contentRoutes, notFoundComponent);
   return (
     <div className="container">
       <section
