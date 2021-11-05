@@ -13,7 +13,6 @@ import { searchPath } from "../../talentSearchRoutes";
 import {
   Department,
   PoolCandidateFilter,
-  LanguageAbility,
   CreatePoolCandidateSearchRequestInput,
   useGetPoolCandidateSearchRequestDataQuery,
   useCreatePoolCandidateSearchRequestMutation,
