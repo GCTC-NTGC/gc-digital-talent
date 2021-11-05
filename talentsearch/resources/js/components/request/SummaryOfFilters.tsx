@@ -1,10 +1,11 @@
 import { uniqueId } from "lodash";
 import * as React from "react";
 import { useIntl } from "react-intl";
+import { Maybe } from "resources/js/api/generated";
 
 const SummaryBlock: React.FunctionComponent<{
   title: string;
-  content: string | string[] | undefined;
+  content: Maybe<string> | Maybe<string[]>;
 }> = ({ title, content }) => {
   const intl = useIntl();
   return (
@@ -69,15 +70,15 @@ const SummaryBlock: React.FunctionComponent<{
 };
 
 interface SummaryOfFiltersProps {
-  classifications?: string[];
-  educationLevel?: string;
-  employmentEquity?: string[];
-  languageAbility?: string;
-  operationalRequirements?: string[];
-  skills?: string[];
-  totalEstimatedCandidates?: number;
-  typeOfOpportunity?: string;
-  workLocation?: string[];
+  classifications: Maybe<string[]>;
+  educationLevel: Maybe<string>;
+  employmentEquity: Maybe<string[]>;
+  languageAbility: Maybe<string>;
+  operationalRequirements: Maybe<string[]>;
+  skills: Maybe<string[]>;
+  totalEstimatedCandidates: Maybe<number>;
+  typeOfOpportunity: Maybe<string>;
+  workLocation: Maybe<string[]>;
 }
 
 const SummaryOfFilters: React.FunctionComponent<SummaryOfFiltersProps> = ({
