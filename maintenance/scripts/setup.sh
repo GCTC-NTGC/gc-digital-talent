@@ -10,7 +10,6 @@ cp .env.example .env
 composer install
 php artisan key:generate
 php artisan migrate
-#php artisan passport:keys # gives an "Encryption keys already exist." error.
 php artisan passport:client --personal --name="Laravel Personal Access Client" > personal_access_client.txt
 /root/scripts/update_auth_env.sh
 rm personal_access_client.txt
@@ -38,6 +37,7 @@ chmod -R 775 ./ ./storage
 cd /var/www/html/common
 nvm install --latest-npm
 npm install
+npm run h2-build
 npm run codegen
 
 # setup talentsearch project
