@@ -7,4 +7,5 @@ export NVM_DIR="$HOME/.nvm"
 cd /var/www/html/common
 nvm install --latest-npm
 npm install
+npm run h2-build
 npm run codegen
