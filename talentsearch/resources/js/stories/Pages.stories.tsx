@@ -13,7 +13,3 @@ stories.add("Home Page", () => {
 stories.add("Search Page", () => {
   return <SearchPage />;
 });
-
-stories.add("Request Page", () => {
-  return <RequestPage />;
-});

@@ -15,6 +15,7 @@ stories.add("Search Request Form", () => {
     <RequestForm
       departments={fakeDepartments()}
       poolCandidateFilter={fakePoolCandidateFilters()[0] as PoolCandidateFilter}
+      totalEstimatedCandidates={10}
       handleCreatePoolCandidateSearchRequest={async (
         data: CreatePoolCandidateSearchRequestInput,
       ) => {
