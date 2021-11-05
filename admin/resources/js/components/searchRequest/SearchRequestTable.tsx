@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import { defineMessages, useIntl } from "react-intl";
+import { useIntl } from "react-intl";
 import { Button } from "@common/components";
 import { notEmpty } from "@common/helpers/util";
 import { navigate, useLocation } from "@common/helpers/router";
@@ -12,6 +12,7 @@ import {
 import Table, { ColumnsOf } from "../Table";
 import DashboardContentContainer from "../DashboardContentContainer";
 import { getLocale } from "@common/helpers/localize";
+import { poolCandidateTablePath } from "../../adminRoutes";
 
 type Data = NonNullable<FromArray<GetPoolCandidateSearchRequestsQuery["poolCandidateSearchRequests"]>>;
 
@@ -74,7 +75,7 @@ export const SearchRequestTable: React.FunctionComponent<GetPoolCandidateSearchR
         defaultMessage: "Pool",
         description: "Title displayed on the search request table pool column.",
       }),
-       accessor: ({ poolCandidateFilter }) => poolCandidateFilter.pools?.map((pool) => pool?.name?.[locale]).join(" ,")
+       accessor: ({ poolCandidateFilter }) => (<>{poolCandidateFilter.pools?.map((pool) => pool && <a href={poolCandidateTablePath(pool.id)}>{pool.name?.[locale]}</a>)}</>)
      },
     {
       Header: intl.formatMessage({
