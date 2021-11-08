@@ -1,4 +1,5 @@
-import { uniqueId } from "lodash";
+import { notEmpty } from "@common/helpers/util";
+import { uniqueId, isEmpty } from "lodash";
 import * as React from "react";
 import { useIntl } from "react-intl";
 import { Maybe } from "resources/js/api/generated";
@@ -18,7 +19,7 @@ const SummaryBlock: React.FunctionComponent<{
         >
           {title}:
         </p>
-        {content instanceof Array ? (
+        {content instanceof Array && content.length > 0 ? (
           <p
             data-h2-display="b(inline)"
             data-h2-font-color="b(lightpurple) s(black)"
@@ -30,11 +31,12 @@ const SummaryBlock: React.FunctionComponent<{
             data-h2-display="b(inline)"
             data-h2-font-color="b(lightpurple) s(black)"
           >
-            {content ??
-              intl.formatMessage({
-                defaultMessage: "N/A",
-                description: "Text shown when the filter was not selected",
-              })}
+            {content && !isEmpty(content)
+              ? content
+              : intl.formatMessage({
+                  defaultMessage: "N/A",
+                  description: "Text shown when the filter was not selected",
+                })}
           </p>
         )}
       </div>
@@ -46,7 +48,7 @@ const SummaryBlock: React.FunctionComponent<{
         >
           {title}
         </p>
-        {content instanceof Array ? (
+        {content instanceof Array && content.length > 0 ? (
           <ul data-h2-font-color="b(lightpurple) s(black)">
             {content.map((text) => (
               <li key={uniqueId()}>{text}</li>
@@ -57,11 +59,12 @@ const SummaryBlock: React.FunctionComponent<{
             data-h2-display="b(inline)"
             data-h2-font-color="b(lightpurple) s(black)"
           >
-            {content ??
-              intl.formatMessage({
-                defaultMessage: "N/A",
-                description: "Text shown when the filter was not selected",
-              })}
+            {content && !isEmpty(content)
+              ? content
+              : intl.formatMessage({
+                  defaultMessage: "N/A",
+                  description: "Text shown when the filter was not selected",
+                })}
           </p>
         )}
       </div>

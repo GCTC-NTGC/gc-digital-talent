@@ -31,6 +31,10 @@ const RequestPage: React.FunctionComponent = () => {
         data-h2-shadow="b(s)"
         data-h2-padding="b(all, l) b(right, xxl)"
         data-h2-bg-color="b(white)"
+        data-h2-display="b(flex)"
+        data-h2-justify-content="b(center)"
+        data-h2-align-items="b(center)"
+        style={{ minHeight: "70rem" }}
       >
         <CreateRequest />
       </div>
