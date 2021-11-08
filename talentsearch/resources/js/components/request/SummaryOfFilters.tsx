@@ -1,4 +1,3 @@
-import { notEmpty } from "@common/helpers/util";
 import { uniqueId, isEmpty } from "lodash";
 import * as React from "react";
 import { useIntl } from "react-intl";
@@ -115,7 +114,7 @@ const SummaryOfFilters: React.FunctionComponent<SummaryOfFiltersProps> = ({
               title={intl.formatMessage({
                 defaultMessage: "Group and level",
                 description:
-                  "Title for classifications on summary of filters section",
+                  "Title for group and level on summary of filters section",
               })}
               content={classifications}
             />
@@ -123,7 +122,7 @@ const SummaryOfFilters: React.FunctionComponent<SummaryOfFiltersProps> = ({
               title={intl.formatMessage({
                 defaultMessage: "Education Level",
                 description:
-                  "Title for classifications section on summary of filters section",
+                  "Title for education level on summary of filters section",
               })}
               content={educationLevel}
             />
@@ -190,11 +189,21 @@ const SummaryOfFilters: React.FunctionComponent<SummaryOfFiltersProps> = ({
           {intl.formatMessage(
             {
               defaultMessage:
-                "Request for pool candidates: <span>{totalEstimatedCandidates, plural, zero {no candidates} one {1 candidate} other {{totalEstimatedCandidates} estimated candidates}}</span>",
+                "Request for pool candidates: <null></null> <span>{totalEstimatedCandidates, plural, zero {no candidates} one {1 candidate} other {{totalEstimatedCandidates} estimated candidates}}</span>",
               description:
                 "Total estimated candidates message in summary of filters",
             },
             {
+              null: (): JSX.Element => (
+                <span data-h2-font-color="b(lightpurple)">
+                  {totalEstimatedCandidates === null &&
+                    intl.formatMessage({
+                      defaultMessage: "N/A",
+                      description:
+                        "Text shown when the filter was not selected",
+                    })}
+                </span>
+              ),
               span: (msg: string): JSX.Element => (
                 <span data-h2-font-color="b(lightpurple)">{msg}</span>
               ),

@@ -1,23 +1,9 @@
 import { Button } from "@common/components";
-import {
-  fakeClassifications,
-  fakeCmoAssets,
-  fakeOperationalRequirements,
-  fakePools,
-} from "@common/fakeData";
 import { getLocale } from "@common/helpers/localize";
 import { imageUrl } from "@common/helpers/router";
 import React from "react";
 import { defineMessages, useIntl } from "react-intl";
-import {
-  PoolCandidateFilter,
-  LanguageAbility,
-  WorkRegion,
-  Classification,
-  CmoAsset,
-  OperationalRequirement,
-  Pool,
-} from "../../api/generated";
+import { Pool } from "../../api/generated";
 import { BASE_URL } from "../../talentSearchConstants";
 import EstimatedCandidates from "./EstimatedCandidates";
 import SearchForm from "./SearchForm";
@@ -56,27 +42,28 @@ export const SearchPage: React.FC = () => {
   const locale = getLocale(intl);
 
   // TODO: Replace fake data with data fetched from api.
-  const pool: Pool = fakePools()[0] as Pool;
-
-  const poolCandidateFilter: PoolCandidateFilter = {
-    id: "1",
-    operationalRequirements: [
-      fakeOperationalRequirements()[0],
-      fakeOperationalRequirements()[1],
-    ],
-    cmoAssets: [fakeCmoAssets()[0], fakeCmoAssets()[1]],
-    classifications: [fakeClassifications()[0], fakeClassifications()[1]],
-    hasDiploma: true,
-    hasDisability: false,
-    isIndigenous: true,
-    isVisibleMinority: false,
-    isWoman: true,
-    languageAbility: LanguageAbility.Bilingual,
-    workRegions: [WorkRegion.BritishColumbia, WorkRegion.Ontario],
-    pools: null,
+  const pool: Pool | null = {
+    id: "",
+    owner: {
+      id: "",
+      email: "",
+      firstName: "",
+      lastName: "",
+      telephone: "",
+      preferredLang: null,
+    },
+    name: {
+      en: "",
+      fr: "",
+    },
+    description: {
+      en: "",
+      fr: "",
+    },
+    classifications: [],
   };
+  const totalEstimatedCandidates = 0;
 
-  const totalEstimatedCandidates = 10;
   return (
     <>
       <div
@@ -135,14 +122,12 @@ export const SearchPage: React.FC = () => {
             {intl.formatMessage(messages.pageHowToHeading)}
           </h2>
           <p>{intl.formatMessage(messages.pageHowToContent)}</p>
+          {/* TODO: Replace component with wrapper component that fetches data from api */}
           <SearchForm
             totalEstimatedCandidates={totalEstimatedCandidates}
-            classifications={fakeClassifications() as Classification[]}
-            cmoAssets={fakeCmoAssets() as CmoAsset[]}
-            initialPoolCandidateFilter={poolCandidateFilter}
-            operationalRequirements={
-              fakeOperationalRequirements() as OperationalRequirement[]
-            }
+            classifications={[]}
+            cmoAssets={[]}
+            operationalRequirements={[]}
           />
         </div>
         <div
@@ -197,7 +182,13 @@ export const SearchPage: React.FC = () => {
               style={{ padding: "0", paddingLeft: "1rem" }}
             >
               <p data-h2-margin="b(bottom, none)" data-h2-font-weight="b(700)">
-                {pool?.name?.[locale]}
+                {pool.name?.[locale]
+                  ? pool.name?.[locale]
+                  : intl.formatMessage({
+                      defaultMessage: "N/A",
+                      description:
+                        "Text shown when the filter was not selected",
+                    })}
               </p>
               <p
                 data-h2-margin="b(top, xxs) b(bottom, m)"
@@ -228,10 +219,29 @@ export const SearchPage: React.FC = () => {
                 data-h2-font-size="b(caption)"
               >
                 {intl.formatMessage({ defaultMessage: "Pool Owner" })}:{" "}
-                {pool?.owner?.firstName} {pool?.owner?.lastName}
+                {pool.owner?.firstName
+                  ? pool.owner?.firstName
+                  : intl.formatMessage({
+                      defaultMessage: "N/A",
+                      description:
+                        "Text shown when the filter was not selected",
+                    })}{" "}
+                {pool.owner?.lastName
+                  ? pool.owner?.lastName
+                  : intl.formatMessage({
+                      defaultMessage: "N/A",
+                      description:
+                        "Text shown when the filter was not selected",
+                    })}
               </p>
               <p data-h2-margin="b(bottom, s)" data-h2-font-size="b(caption)">
-                {pool.description?.[locale]}
+                {pool.description?.[locale]
+                  ? pool.description?.[locale]
+                  : intl.formatMessage({
+                      defaultMessage: "N/A",
+                      description:
+                        "Text shown when the filter was not selected",
+                    })}
               </p>
             </div>
             <div

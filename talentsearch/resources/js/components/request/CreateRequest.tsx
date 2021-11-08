@@ -1,7 +1,6 @@
 import { Input, Select, Submit, TextArea } from "@common/components/form";
 import * as React from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
-import { fakePoolCandidateFilters } from "@common/fakeData";
 import { useIntl } from "react-intl";
 import { commonMessages, errorMessages } from "@common/messages";
 import { getLocale } from "@common/helpers/localize";
@@ -17,6 +16,7 @@ import {
   useGetPoolCandidateSearchRequestDataQuery,
   useCreatePoolCandidateSearchRequestMutation,
   CreatePoolCandidateSearchRequestMutation,
+  Maybe,
 } from "../../api/generated";
 import SummaryOfFilters from "./SummaryOfFilters";
 
@@ -33,8 +33,8 @@ type FormValues = Pick<
 };
 interface RequestFormProps {
   departments: Department[];
-  poolCandidateFilter: PoolCandidateFilter;
-  totalEstimatedCandidates: number;
+  poolCandidateFilter: Maybe<PoolCandidateFilter>;
+  totalEstimatedCandidates: Maybe<number>;
   handleCreatePoolCandidateSearchRequest: (
     data: CreatePoolCandidateSearchRequestInput,
   ) => Promise<
@@ -96,26 +96,26 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
     }),
   );
   const classifications: string[] | undefined =
-    poolCandidateFilter.classifications?.map(
+    poolCandidateFilter?.classifications?.map(
       (classification) =>
         `${classification?.group.toLocaleUpperCase()}-0${
           classification?.level
         }`,
     );
-  const educationLevel: string | undefined = poolCandidateFilter.hasDiploma
+  const educationLevel: string | undefined = poolCandidateFilter?.hasDiploma
     ? intl.formatMessage({
         defaultMessage: "Required diploma from post-secondary institution",
         description:
-          "Education level message when candidate has a disploma found on the request page.",
+          "Education level message when candidate has a diploma found on the request page.",
       })
     : intl.formatMessage({
         defaultMessage:
           "Can accept a combination of work experience and education",
         description:
-          "Education level message when candidate does not have a disploma found on the request page.",
+          "Education level message when candidate does not have a diploma found on the request page.",
       });
   const employmentEquity: string[] | undefined = [
-    ...(poolCandidateFilter.isWoman
+    ...(poolCandidateFilter?.isWoman
       ? [
           intl.formatMessage({
             defaultMessage: "Woman",
@@ -124,7 +124,7 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
           }),
         ]
       : []),
-    ...(poolCandidateFilter.isVisibleMinority
+    ...(poolCandidateFilter?.isVisibleMinority
       ? [
           intl.formatMessage({
             defaultMessage: "Visible Minority",
@@ -133,7 +133,7 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
           }),
         ]
       : []),
-    ...(poolCandidateFilter.isIndigenous
+    ...(poolCandidateFilter?.isIndigenous
       ? [
           intl.formatMessage({
             defaultMessage: "Indigenous",
@@ -142,7 +142,7 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
           }),
         ]
       : []),
-    ...(poolCandidateFilter.hasDisability
+    ...(poolCandidateFilter?.hasDisability
       ? [
           intl.formatMessage({
             defaultMessage: "Disibility",
@@ -153,7 +153,7 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
       : []),
   ];
   const operationalRequirements: string[] | undefined =
-    poolCandidateFilter.operationalRequirements?.map(
+    poolCandidateFilter?.operationalRequirements?.map(
       (operationalRequirement) =>
         operationalRequirement?.name.en ||
         intl.formatMessage({
@@ -162,7 +162,7 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
             "Error message when operational requirement name is not found on request page.",
         }),
     );
-  const skills: string[] | undefined = poolCandidateFilter.cmoAssets?.map(
+  const skills: string[] | undefined = poolCandidateFilter?.cmoAssets?.map(
     (cmoAsset) =>
       cmoAsset?.name.en ||
       intl.formatMessage({
@@ -172,7 +172,7 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
       }),
   );
   const typeOfOpportunity = ""; // TODO: Replace with data fetched from api
-  const workLocation: string[] = poolCandidateFilter.workRegions as string[];
+  const workLocation: string[] = poolCandidateFilter?.workRegions as string[];
 
   return (
     <div>
@@ -297,7 +297,7 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
             classifications={classifications}
             educationLevel={educationLevel}
             employmentEquity={employmentEquity}
-            languageAbility={poolCandidateFilter.languageAbility}
+            languageAbility={poolCandidateFilter?.languageAbility}
             operationalRequirements={operationalRequirements}
             skills={skills}
             totalEstimatedCandidates={totalEstimatedCandidates}
@@ -365,8 +365,8 @@ export const CreateRequest: React.FunctionComponent = () => {
   return (
     <RequestForm
       departments={departments}
-      poolCandidateFilter={fakePoolCandidateFilters()[0] as PoolCandidateFilter} // TODO: Replace with poolCandidateFilter from history
-      totalEstimatedCandidates={10} // TODO: Replace with poolCandidateFilter from history
+      poolCandidateFilter={null} // TODO: Replace with poolCandidateFilter from history
+      totalEstimatedCandidates={null} // TODO: Replace with poolCandidateFilter from history
       handleCreatePoolCandidateSearchRequest={
         handleCreatePoolCandidateSearchRequest
       }
