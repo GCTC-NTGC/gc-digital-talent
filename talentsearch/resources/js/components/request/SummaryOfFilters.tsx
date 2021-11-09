@@ -1,10 +1,11 @@
-import { uniqueId } from "lodash";
+import { uniqueId, isEmpty } from "lodash";
 import * as React from "react";
 import { useIntl } from "react-intl";
+import { Maybe } from "resources/js/api/generated";
 
 const SummaryBlock: React.FunctionComponent<{
   title: string;
-  content: string | string[] | undefined;
+  content: Maybe<string> | Maybe<string[]>;
 }> = ({ title, content }) => {
   const intl = useIntl();
   return (
@@ -17,23 +18,18 @@ const SummaryBlock: React.FunctionComponent<{
         >
           {title}:
         </p>
-        {content instanceof Array ? (
-          <p
-            data-h2-display="b(inline)"
-            data-h2-font-color="b(lightpurple) s(black)"
-          >
+        {content instanceof Array && content.length > 0 ? (
+          <p data-h2-display="b(inline)" data-h2-font-color="b(black)">
             {content.map((text): string => text).join(", ")}
           </p>
         ) : (
-          <p
-            data-h2-display="b(inline)"
-            data-h2-font-color="b(lightpurple) s(black)"
-          >
-            {content ??
-              intl.formatMessage({
-                defaultMessage: "N/A",
-                description: "Text shown when the filter was not selected",
-              })}
+          <p data-h2-display="b(inline)" data-h2-font-color="b(black)">
+            {content && !isEmpty(content)
+              ? content
+              : intl.formatMessage({
+                  defaultMessage: "N/A",
+                  description: "Text shown when the filter was not selected",
+                })}
           </p>
         )}
       </div>
@@ -45,22 +41,20 @@ const SummaryBlock: React.FunctionComponent<{
         >
           {title}
         </p>
-        {content instanceof Array ? (
-          <ul data-h2-font-color="b(lightpurple) s(black)">
+        {content instanceof Array && content.length > 0 ? (
+          <ul data-h2-font-color="b(black)">
             {content.map((text) => (
               <li key={uniqueId()}>{text}</li>
             ))}
           </ul>
         ) : (
-          <p
-            data-h2-display="b(inline)"
-            data-h2-font-color="b(lightpurple) s(black)"
-          >
-            {content ??
-              intl.formatMessage({
-                defaultMessage: "N/A",
-                description: "Text shown when the filter was not selected",
-              })}
+          <p data-h2-display="b(inline)" data-h2-font-color="b(black)">
+            {content && !isEmpty(content)
+              ? content
+              : intl.formatMessage({
+                  defaultMessage: "N/A",
+                  description: "Text shown when the filter was not selected",
+                })}
           </p>
         )}
       </div>
@@ -69,15 +63,15 @@ const SummaryBlock: React.FunctionComponent<{
 };
 
 interface SummaryOfFiltersProps {
-  classifications?: string[];
-  educationLevel?: string;
-  employmentEquity?: string[];
-  languageAbility?: string;
-  operationalRequirements?: string[];
-  skills?: string[];
-  totalEstimatedCandidates?: number;
-  typeOfOpportunity?: string;
-  workLocation?: string[];
+  classifications: Maybe<string[]>;
+  educationLevel: Maybe<string>;
+  employmentEquity: Maybe<string[]>;
+  languageAbility: Maybe<string>;
+  operationalRequirements: Maybe<string[]>;
+  skills: Maybe<string[]>;
+  totalEstimatedCandidates: Maybe<number>;
+  typeOfOpportunity: Maybe<string>;
+  workLocation: Maybe<string[]>;
 }
 
 const SummaryOfFilters: React.FunctionComponent<SummaryOfFiltersProps> = ({
@@ -93,7 +87,7 @@ const SummaryOfFilters: React.FunctionComponent<SummaryOfFiltersProps> = ({
 }) => {
   const intl = useIntl();
   return (
-    <section data-h2-padding="b(right-left, l)">
+    <section>
       <h2 data-h2-font-weight="b(500)">
         {intl.formatMessage({
           defaultMessage: "Summary of filters",
@@ -111,7 +105,7 @@ const SummaryOfFilters: React.FunctionComponent<SummaryOfFiltersProps> = ({
               title={intl.formatMessage({
                 defaultMessage: "Group and level",
                 description:
-                  "Title for classifications on summary of filters section",
+                  "Title for group and level on summary of filters section",
               })}
               content={classifications}
             />
@@ -119,7 +113,7 @@ const SummaryOfFilters: React.FunctionComponent<SummaryOfFiltersProps> = ({
               title={intl.formatMessage({
                 defaultMessage: "Education Level",
                 description:
-                  "Title for classifications section on summary of filters section",
+                  "Title for education level on summary of filters section",
               })}
               content={educationLevel}
             />
@@ -186,11 +180,21 @@ const SummaryOfFilters: React.FunctionComponent<SummaryOfFiltersProps> = ({
           {intl.formatMessage(
             {
               defaultMessage:
-                "Request for pool candidates: <span>{totalEstimatedCandidates, plural, zero {no candidates} one {1 candidate} other {{totalEstimatedCandidates} estimated candidates}}</span>",
+                "Request for pool candidates: <null></null> <span>{totalEstimatedCandidates, plural, zero {no candidates} one {1 candidate} other {{totalEstimatedCandidates} estimated candidates}}</span>",
               description:
                 "Total estimated candidates message in summary of filters",
             },
             {
+              null: (): JSX.Element => (
+                <span data-h2-font-color="b(lightpurple)">
+                  {totalEstimatedCandidates === null &&
+                    intl.formatMessage({
+                      defaultMessage: "N/A",
+                      description:
+                        "Text shown when the filter was not selected",
+                    })}
+                </span>
+              ),
               span: (msg: string): JSX.Element => (
                 <span data-h2-font-color="b(lightpurple)">{msg}</span>
               ),

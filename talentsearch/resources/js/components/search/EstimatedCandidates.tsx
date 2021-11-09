@@ -1,11 +1,11 @@
 import * as React from "react";
 import { useIntl } from "react-intl";
 
-interface IEstimatedCandidatesProps {
+interface EstimatedCandidatesProps {
   totalEstimatedCandidates: number;
 }
 
-const EstimatedCandidates: React.FunctionComponent<IEstimatedCandidatesProps> =
+const EstimatedCandidates: React.FunctionComponent<EstimatedCandidatesProps> =
   ({ totalEstimatedCandidates }) => {
     const intl = useIntl();
     return (

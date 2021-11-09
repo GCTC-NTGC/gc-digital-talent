@@ -2,9 +2,8 @@ import * as React from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { Checklist, MultiSelect, RadioGroup } from "@common/components/form";
-import { Checkbox } from "@common/components/form/Checklist";
 import { getLocale } from "@common/helpers/localize";
-import { enumToOptions, unpackIds } from "@common/helpers/formUtils";
+import { enumToOptions } from "@common/helpers/formUtils";
 import { getLanguageAbility } from "@common/constants";
 import {
   Classification,
@@ -52,7 +51,6 @@ type FormValues = Pick<
 interface SearchFormProps {
   classifications: Classification[];
   cmoAssets: CmoAsset[];
-  initialPoolCandidateFilter: PoolCandidateFilter;
   operationalRequirements: OperationalRequirement[];
   totalEstimatedCandidates: number;
 }
@@ -60,28 +58,13 @@ interface SearchFormProps {
 const SearchForm: React.FunctionComponent<SearchFormProps> = ({
   classifications,
   cmoAssets,
-  initialPoolCandidateFilter,
   operationalRequirements,
   totalEstimatedCandidates,
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
-  const dataToFormValues = (data: PoolCandidateFilter): FormValues => ({
-    ...data,
-    classifications: unpackIds(data?.classifications),
-    cmoAssets: unpackIds(data?.cmoAssets),
-    operationalRequirements: unpackIds(data?.operationalRequirements),
-    employmentEquity: [
-      data.isIndigenous ? "isIndigenous" : "",
-      data.isVisibleMinority ? "isVisibleMinority" : "",
-      data.hasDisability ? "hasDisability" : "",
-      data.isWoman ? "isWoman" : "",
-    ],
-  });
 
-  const methods = useForm<FormValues>({
-    defaultValues: dataToFormValues(initialPoolCandidateFilter),
-  });
+  const methods = useForm<FormValues>();
   const { handleSubmit, watch } = methods;
 
   const classificationOptions: Option<string>[] = classifications.map(
