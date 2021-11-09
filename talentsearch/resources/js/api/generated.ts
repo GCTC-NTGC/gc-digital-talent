@@ -707,6 +707,7 @@ export type UpdatePoolInput = {
 /** When updating a User, all fields are optional, and email cannot be changed. */
 export type UpdateUserInput = {
   firstName?: Maybe<Scalars["String"]>;
+  id?: Maybe<Scalars["ID"]>;
   lastName?: Maybe<Scalars["String"]>;
   preferredLang?: Maybe<Language>;
   roles?: Maybe<Array<Maybe<Role>>>;
