@@ -46,12 +46,21 @@ export const PageContainer: React.FC<{
 }> = ({ menuItems, contentRoutes }) => {
   const content = useRouter(contentRoutes);
   return (
-    <>
-      <Header />
-      <NavMenu items={menuItems} />
+    <div
+      className="container"
+      data-h2-display="b(flex)"
+      data-h2-flex-direction="b(column)"
+      style={{ height: "100vh", margin: "0" }}
+    >
+      <div>
+        <Header />
+        <NavMenu items={menuItems} />
+      </div>
       <div>{content}</div>
-      <Footer />
-    </>
+      <div style={{ marginTop: "auto" }}>
+        <Footer />
+      </div>
+    </div>
   );
 };
 
