@@ -19,17 +19,11 @@ const SummaryBlock: React.FunctionComponent<{
           {title}:
         </p>
         {content instanceof Array && content.length > 0 ? (
-          <p
-            data-h2-display="b(inline)"
-            data-h2-font-color="b(lightpurple) s(black)"
-          >
+          <p data-h2-display="b(inline)" data-h2-font-color="b(black)">
             {content.map((text): string => text).join(", ")}
           </p>
         ) : (
-          <p
-            data-h2-display="b(inline)"
-            data-h2-font-color="b(lightpurple) s(black)"
-          >
+          <p data-h2-display="b(inline)" data-h2-font-color="b(black)">
             {content && !isEmpty(content)
               ? content
               : intl.formatMessage({
@@ -48,16 +42,13 @@ const SummaryBlock: React.FunctionComponent<{
           {title}
         </p>
         {content instanceof Array && content.length > 0 ? (
-          <ul data-h2-font-color="b(lightpurple) s(black)">
+          <ul data-h2-font-color="b(black)">
             {content.map((text) => (
               <li key={uniqueId()}>{text}</li>
             ))}
           </ul>
         ) : (
-          <p
-            data-h2-display="b(inline)"
-            data-h2-font-color="b(lightpurple) s(black)"
-          >
+          <p data-h2-display="b(inline)" data-h2-font-color="b(black)">
             {content && !isEmpty(content)
               ? content
               : intl.formatMessage({

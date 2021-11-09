@@ -145,9 +145,9 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
     ...(poolCandidateFilter?.hasDisability
       ? [
           intl.formatMessage({
-            defaultMessage: "Disibility",
+            defaultMessage: "Disability",
             description:
-              "Message for disibility option in the employment equity section of the request page.",
+              "Message for disability option in the employment equity section of the request page.",
           }),
         ]
       : []),
