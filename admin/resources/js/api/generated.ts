@@ -1235,14 +1235,11 @@ export type GetPoolCandidateSearchRequestsQuery = {
               __typename?: "Department";
               id: string;
               departmentNumber: number;
-              name?:
-                | {
-                    __typename?: "LocalizedString";
-                    en?: string | null | undefined;
-                    fr?: string | null | undefined;
-                  }
-                | null
-                | undefined;
+              name: {
+                __typename?: "LocalizedString";
+                en?: string | null | undefined;
+                fr?: string | null | undefined;
+              };
             }
           | null
           | undefined;
