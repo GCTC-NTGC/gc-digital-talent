@@ -159,7 +159,7 @@ export type Department = {
   __typename?: "Department";
   departmentNumber: Scalars["Int"];
   id: Scalars["ID"];
-  name?: Maybe<LocalizedString>;
+  name: LocalizedString;
 };
 
 export type DepartmentBelongsTo = {
@@ -1020,14 +1020,11 @@ export type DepartmentsQuery = {
         __typename?: "Department";
         id: string;
         departmentNumber: number;
-        name?:
-          | {
-              __typename?: "LocalizedString";
-              en?: string | null | undefined;
-              fr?: string | null | undefined;
-            }
-          | null
-          | undefined;
+        name: {
+          __typename?: "LocalizedString";
+          en?: string | null | undefined;
+          fr?: string | null | undefined;
+        };
       }
     | null
     | undefined
@@ -1045,14 +1042,11 @@ export type DepartmentQuery = {
         __typename?: "Department";
         id: string;
         departmentNumber: number;
-        name?:
-          | {
-              __typename?: "LocalizedString";
-              en?: string | null | undefined;
-              fr?: string | null | undefined;
-            }
-          | null
-          | undefined;
+        name: {
+          __typename?: "LocalizedString";
+          en?: string | null | undefined;
+          fr?: string | null | undefined;
+        };
       }
     | null
     | undefined;
@@ -1069,14 +1063,11 @@ export type CreateDepartmentMutation = {
         __typename?: "Department";
         id: string;
         departmentNumber: number;
-        name?:
-          | {
-              __typename?: "LocalizedString";
-              en?: string | null | undefined;
-              fr?: string | null | undefined;
-            }
-          | null
-          | undefined;
+        name: {
+          __typename?: "LocalizedString";
+          en?: string | null | undefined;
+          fr?: string | null | undefined;
+        };
       }
     | null
     | undefined;
@@ -1094,14 +1085,11 @@ export type UpdateDepartmentMutation = {
         __typename?: "Department";
         id: string;
         departmentNumber: number;
-        name?:
-          | {
-              __typename?: "LocalizedString";
-              en?: string | null | undefined;
-              fr?: string | null | undefined;
-            }
-          | null
-          | undefined;
+        name: {
+          __typename?: "LocalizedString";
+          en?: string | null | undefined;
+          fr?: string | null | undefined;
+        };
       }
     | null
     | undefined;
@@ -1223,6 +1211,65 @@ export type UpdateOperationalRequirementMutation = {
       }
     | null
     | undefined;
+};
+
+export type GetPoolCandidateSearchRequestsQueryVariables = Exact<{
+  [key: string]: never;
+}>;
+
+export type GetPoolCandidateSearchRequestsQuery = {
+  __typename?: "Query";
+  poolCandidateSearchRequests: Array<
+    | {
+        __typename?: "PoolCandidateSearchRequest";
+        id: string;
+        fullName?: string | null | undefined;
+        email?: string | null | undefined;
+        jobTitle?: string | null | undefined;
+        additionalComments?: string | null | undefined;
+        requestedDate?: string | null | undefined;
+        status?: PoolCandidateSearchStatus | null | undefined;
+        adminNotes?: string | null | undefined;
+        department?:
+          | {
+              __typename?: "Department";
+              id: string;
+              departmentNumber: number;
+              name: {
+                __typename?: "LocalizedString";
+                en?: string | null | undefined;
+                fr?: string | null | undefined;
+              };
+            }
+          | null
+          | undefined;
+        poolCandidateFilter: {
+          __typename?: "PoolCandidateFilter";
+          id: string;
+          pools?:
+            | Array<
+                | {
+                    __typename?: "Pool";
+                    id: string;
+                    name?:
+                      | {
+                          __typename?: "LocalizedString";
+                          en?: string | null | undefined;
+                          fr?: string | null | undefined;
+                        }
+                      | null
+                      | undefined;
+                  }
+                | null
+                | undefined
+              >
+            | null
+            | undefined;
+        };
+      }
+    | null
+    | undefined
+  >;
 };
 
 export type PoolCandidateTableFragment = {
@@ -3323,6 +3370,51 @@ export type GetPoolCandidateFilterDataQuery = {
     | undefined;
 };
 
+export type GetPoolCandidateSearchRequestDataQueryVariables = Exact<{
+  [key: string]: never;
+}>;
+
+export type GetPoolCandidateSearchRequestDataQuery = {
+  __typename?: "Query";
+  departments: Array<
+    | {
+        __typename?: "Department";
+        id: string;
+        departmentNumber: number;
+        name: {
+          __typename?: "LocalizedString";
+          en?: string | null | undefined;
+          fr?: string | null | undefined;
+        };
+      }
+    | null
+    | undefined
+  >;
+};
+
+export type CreatePoolCandidateSearchRequestMutationVariables = Exact<{
+  poolCandidateSearchRequest: CreatePoolCandidateSearchRequestInput;
+}>;
+
+export type CreatePoolCandidateSearchRequestMutation = {
+  __typename?: "Mutation";
+  createPoolCandidateSearchRequest?:
+    | {
+        __typename?: "PoolCandidateSearchRequest";
+        fullName?: string | null | undefined;
+        email?: string | null | undefined;
+        jobTitle?: string | null | undefined;
+        additionalComments?: string | null | undefined;
+        department?:
+          | { __typename?: "Department"; id: string }
+          | null
+          | undefined;
+        poolCandidateFilter: { __typename?: "PoolCandidateFilter"; id: string };
+      }
+    | null
+    | undefined;
+};
+
 export const ClassificationFragmentDoc = gql`
   fragment classification on Classification {
     id
@@ -3922,6 +4014,50 @@ export function useUpdateOperationalRequirementMutation() {
     UpdateOperationalRequirementMutation,
     UpdateOperationalRequirementMutationVariables
   >(UpdateOperationalRequirementDocument);
+}
+export const GetPoolCandidateSearchRequestsDocument = gql`
+  query getPoolCandidateSearchRequests {
+    poolCandidateSearchRequests {
+      id
+      fullName
+      email
+      department {
+        id
+        departmentNumber
+        name {
+          en
+          fr
+        }
+      }
+      jobTitle
+      additionalComments
+      poolCandidateFilter {
+        id
+        pools {
+          id
+          name {
+            en
+            fr
+          }
+        }
+      }
+      requestedDate
+      status
+      adminNotes
+    }
+  }
+`;
+
+export function useGetPoolCandidateSearchRequestsQuery(
+  options: Omit<
+    Urql.UseQueryArgs<GetPoolCandidateSearchRequestsQueryVariables>,
+    "query"
+  > = {},
+) {
+  return Urql.useQuery<GetPoolCandidateSearchRequestsQuery>({
+    query: GetPoolCandidateSearchRequestsDocument,
+    ...options,
+  });
 }
 export const GetPoolCandidateDocument = gql`
   query getPoolCandidate($id: ID!) {
@@ -4532,4 +4668,55 @@ export function useGetPoolCandidateFilterDataQuery(
     query: GetPoolCandidateFilterDataDocument,
     ...options,
   });
+}
+export const GetPoolCandidateSearchRequestDataDocument = gql`
+  query getPoolCandidateSearchRequestData {
+    departments {
+      id
+      departmentNumber
+      name {
+        en
+        fr
+      }
+    }
+  }
+`;
+
+export function useGetPoolCandidateSearchRequestDataQuery(
+  options: Omit<
+    Urql.UseQueryArgs<GetPoolCandidateSearchRequestDataQueryVariables>,
+    "query"
+  > = {},
+) {
+  return Urql.useQuery<GetPoolCandidateSearchRequestDataQuery>({
+    query: GetPoolCandidateSearchRequestDataDocument,
+    ...options,
+  });
+}
+export const CreatePoolCandidateSearchRequestDocument = gql`
+  mutation createPoolCandidateSearchRequest(
+    $poolCandidateSearchRequest: CreatePoolCandidateSearchRequestInput!
+  ) {
+    createPoolCandidateSearchRequest(
+      poolCandidateSearchRequest: $poolCandidateSearchRequest
+    ) {
+      fullName
+      email
+      department {
+        id
+      }
+      jobTitle
+      additionalComments
+      poolCandidateFilter {
+        id
+      }
+    }
+  }
+`;
+
+export function useCreatePoolCandidateSearchRequestMutation() {
+  return Urql.useMutation<
+    CreatePoolCandidateSearchRequestMutation,
+    CreatePoolCandidateSearchRequestMutationVariables
+  >(CreatePoolCandidateSearchRequestDocument);
 }

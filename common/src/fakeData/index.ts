@@ -6,6 +6,7 @@ import fakePools from "./fakePools";
 import fakePoolCandidates from "./fakePoolCandidates";
 import fakePoolCandidateFilters from "./fakePoolCandidateFilters";
 import fakeUsers from "./fakeUsers";
+import fakeSearchRequests from "./fakeSearchRequests";
 
 export {
   fakeClassifications,
@@ -16,4 +17,5 @@ export {
   fakePoolCandidates,
   fakePoolCandidateFilters,
   fakeUsers,
+  fakeSearchRequests,
 };

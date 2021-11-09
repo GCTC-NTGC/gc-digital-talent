@@ -129,7 +129,7 @@ scalar DateTime
 type Department {
   id: ID!
   departmentNumber: Int!
-  name: LocalizedString
+  name: LocalizedString!
 }
 
 input DepartmentBelongsTo {
