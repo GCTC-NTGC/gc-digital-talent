@@ -47,13 +47,6 @@ export const UpdateCmoAssetForm: React.FunctionComponent<UpdateCmoAssetFormProps
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(onSubmit)}>
               <Input
-                id="key"
-                name="key"
-                label={intl.formatMessage(messages.keyLabel)}
-                type="text"
-                rules={{ required: errorMessages.required }}
-              />
-              <Input
                 id="name_en"
                 name="name.en"
                 label={intl.formatMessage(messages.nameEnLabel)}
@@ -98,7 +91,6 @@ export const UpdateCmoAsset: React.FunctionComponent<{ cmoAssetId: string }> =
       executeMutation({
         id,
         cmoAsset: pick(data, [
-          "key",
           "name.en",
           "name.fr",
           "description.en",

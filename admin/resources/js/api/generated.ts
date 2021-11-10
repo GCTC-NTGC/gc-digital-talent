@@ -651,7 +651,6 @@ export type UpdateClassificationInput = {
 
 export type UpdateCmoAssetInput = {
   description?: Maybe<LocalizedStringInput>;
-  key?: Maybe<Scalars["String"]>;
   name?: Maybe<LocalizedStringInput>;
 };
 
@@ -662,7 +661,6 @@ export type UpdateDepartmentInput = {
 
 export type UpdateOperationalRequirementInput = {
   description?: Maybe<LocalizedStringInput>;
-  key?: Maybe<Scalars["String"]>;
   name?: Maybe<LocalizedStringInput>;
 };
 
