@@ -53,7 +53,16 @@ export const CreateCmoAssetForm: React.FunctionComponent<CreateCmoAssetFormProps
                     "Additional context describing the purpose of the CMO Asset's 'key' field.",
                 })}
                 type="text"
-                rules={{ required: errorMessages.required }}
+                rules={{
+                  required: errorMessages.required,
+                  pattern: {
+                    value: /^[a-z]+(_[a-z]+)*$/,
+                    message: intl.formatMessage({
+                      defaultMessage:
+                        "Please use only lowercase letters and underscores.",
+                    }),
+                  },
+                }}
               />
               <Input
                 id="name_en"

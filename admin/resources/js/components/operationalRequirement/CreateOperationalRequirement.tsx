@@ -53,7 +53,16 @@ export const CreateOperationalRequirementForm: React.FunctionComponent<CreateOpe
                     "Additional context describing the purpose of the Operational Requirement's 'key' field.",
                 })}
                 type="text"
-                rules={{ required: errorMessages.required }}
+                rules={{
+                  required: errorMessages.required,
+                  pattern: {
+                    value: /^[a-z]+(_[a-z]+)*$/,
+                    message: intl.formatMessage({
+                      defaultMessage:
+                        "Please use only lowercase letters and underscores.",
+                    }),
+                  },
+                }}
               />
               <Input
                 id="name_en"
