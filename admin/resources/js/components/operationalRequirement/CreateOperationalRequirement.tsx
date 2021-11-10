@@ -46,6 +46,12 @@ export const CreateOperationalRequirementForm: React.FunctionComponent<CreateOpe
                 id="key"
                 name="key"
                 label={intl.formatMessage(messages.keyLabel)}
+                context={intl.formatMessage({
+                  defaultMessage:
+                    "The 'key' is a string that uniquely identifies an Operational Requirement. It should be based on the Operational Requirement's English name, and it should be concise. A good example would be \"shift_work\". It may be used in the code to refer to this particular Operational Requirement, so it cannot be changed later.",
+                  description:
+                    "Additional context describing the purpose of the Operational Requirement's 'key' field.",
+                })}
                 type="text"
                 rules={{ required: errorMessages.required }}
               />

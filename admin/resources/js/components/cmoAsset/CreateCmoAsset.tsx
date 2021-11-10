@@ -46,6 +46,12 @@ export const CreateCmoAssetForm: React.FunctionComponent<CreateCmoAssetFormProps
                 id="key"
                 name="key"
                 label={intl.formatMessage(messages.keyLabel)}
+                context={intl.formatMessage({
+                  defaultMessage:
+                    "The 'key' is a string that uniquely identifies a CMO Asset. It should be based on the CMO Asset's English name, and it should be concise. A good example would be \"information_management\". It may be used in the code to refer to this particular CMO Asset, so it cannot be changed later.",
+                  description:
+                    "Additional context describing the purpose of the CMO Asset's 'key' field.",
+                })}
                 type="text"
                 rules={{ required: errorMessages.required }}
               />
