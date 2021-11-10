@@ -19,8 +19,12 @@ import {
 } from "@common/helpers/formUtils";
 import { navigate } from "@common/helpers/router";
 import { getLocale } from "@common/helpers/localize";
-import { getSalaryRange } from "@common/constants/localizedConstants";
+import {
+  getSalaryRange,
+  getLanguage,
+} from "@common/constants/localizedConstants";
 import { errorMessages, commonMessages } from "@common/messages";
+import { Scalars, User } from "@common/api/generated";
 import { poolCandidateTablePath } from "../../adminRoutes";
 import {
   UpdatePoolCandidateInput,
@@ -39,9 +43,8 @@ import {
 } from "../../api/generated";
 import poolCandidateMessages from "./messages";
 import userMessages from "../user/messages";
-import { getLanguage } from "@common/constants/localizedConstants";
+
 import DashboardContentContainer from "../DashboardContentContainer";
-import { Scalars, User } from "@common/api/generated";
 
 type Option<V> = { value: V; label: string };
 
@@ -401,7 +404,7 @@ export const UpdatePoolCandidate: React.FunctionComponent<{
   const operationalRequirements: OperationalRequirement[] =
     lookupData?.operationalRequirements.filter(notEmpty) ?? [];
 
-  const [_result, executeMutation] = useUpdatePoolCandidateMutation();
+  const [, executeMutation] = useUpdatePoolCandidateMutation();
   const handleUpdatePoolCandidate = (
     id: string,
     data: UpdatePoolCandidateInput,
