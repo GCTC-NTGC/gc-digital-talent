@@ -2,10 +2,10 @@ import React, { ReactElement } from "react";
 import { Routes } from "universal-router";
 import { useIntl } from "react-intl";
 import NavMenu from "@common/components/NavMenu";
+import NotFound from "@common/components/NotFound";
 import { Link, RouterResult, useLocation, useRouter } from "../helpers/router";
 import Footer from "./Footer";
 import Header from "./Header";
-import NotFound from "@common/components/NotFound";
 
 export const exactMatch = (ref: string, test: string): boolean => ref === test;
 
@@ -60,13 +60,12 @@ const TalentSearchNotFound: React.FC = () => {
       </p>
     </NotFound>
   );
-}
+};
 
 export const PageContainer: React.FC<{
   menuItems: ReactElement[];
   contentRoutes: Routes<RouterResult>;
 }> = ({ menuItems, contentRoutes }) => {
-
   const content = useRouter(contentRoutes, <TalentSearchNotFound />);
 
   return (

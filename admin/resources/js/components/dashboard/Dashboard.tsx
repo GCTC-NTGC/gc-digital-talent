@@ -4,12 +4,12 @@ import { useLocation, useRouter, RouterResult } from "@common/helpers/router";
 import { getLocale } from "@common/helpers/localize";
 import { Routes } from "universal-router";
 import { Button, Link } from "@common/components";
+import NotFound from "@common/components/NotFound";
 import { poolCandidateTablePath } from "../../adminRoutes";
 import { useGetPoolsQuery } from "../../api/generated";
 import SideMenu from "../menu/SideMenu";
 import Footer from "../Footer";
 import Header from "../Header";
-import NotFound from "@common/components/NotFound";
 
 export const exactMatch = (ref: string, test: string): boolean => ref === test;
 export const startsWith = (ref: string, test: string): boolean =>
@@ -104,7 +104,7 @@ const PoolListApi = () => {
   return items;
 };
 
-const AdminNotFound : React.FC = () => {
+const AdminNotFound: React.FC = () => {
   const intl = useIntl();
   return (
     <NotFound
@@ -122,13 +122,12 @@ const AdminNotFound : React.FC = () => {
       </p>
     </NotFound>
   );
-}
+};
 
 export const Dashboard: React.FC<{
   menuItems: ReactElement[];
   contentRoutes: Routes<RouterResult>;
 }> = ({ menuItems, contentRoutes }) => {
-
   const content = useRouter(contentRoutes, <AdminNotFound />);
   return (
     <div className="container">
