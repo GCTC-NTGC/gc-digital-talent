@@ -37,9 +37,17 @@ type User {
     poolCandidates: [PoolCandidate] @hasMany # Pools candidates that a user owns
 }
 
+type PoolOwnerPublicProfile {
+    id: ID!
+    email: Email
+    firstName: String @rename(attribute: "first_name")
+    lastName: String @rename(attribute: "last_name")
+}
+
 type Pool {
     id: ID!
-    owner: User @belongsTo(relation: "user")
+    owner: User @belongsTo(relation: "user") @can(ability: "view", query: true)
+    ownerPublicProfile: PoolOwnerPublicProfile @belongsTo(relation: "user")
     name: LocalizedString
     key: String
     description: LocalizedString
@@ -47,7 +55,7 @@ type Pool {
     assetCriteria: [CmoAsset] @belongsToMany
     essentialCriteria: [CmoAsset] @belongsToMany
     operationalRequirements: [OperationalRequirement] @belongsToMany
-    poolCandidates: [PoolCandidate] @hasMany
+    poolCandidates: [PoolCandidate] @hasMany @can(ability: "viewAny")
 }
 
 enum PoolCandidateStatus {
@@ -208,7 +216,8 @@ type Query {
     me: User @auth
     user(id: ID! @eq): User @find @guard @can(ability: "view", query: true)
     users: [User]! @all @guard @can(ability: "viewAny")
-    pool(id: ID! @eq): Pool @find @guard @can(ability: "view", query: true)
+    pool(id: ID! @eq): Pool @find
+    poolByKey(key: String! @eq): Pool @find
     pools: [Pool]! @all @guard @can(ability: "viewAny")
     poolCandidate(id: ID! @eq): PoolCandidate @find @guard @can(ability: "view", query: true)
     poolCandidates: [PoolCandidate]! @all @guard @can(ability: "viewAny")
