@@ -59,6 +59,7 @@ export const UpdateUserForm: React.FunctionComponent<UpdateUserFormProps> = ({
               name="email"
               value={initialUser.email}
               disabled
+              hideOptional
             />
             <Input
               id="firstName"
