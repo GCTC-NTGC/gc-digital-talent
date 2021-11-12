@@ -280,6 +280,7 @@ scalar PhoneNumber
 type Pool {
   id: ID!
   owner: User
+  ownerPublicProfile: PoolOwnerPublicProfile
   name: LocalizedString
   key: String
   description: LocalizedString
@@ -384,11 +385,19 @@ input PoolFilterInput {
   id: ID!
 }
 
+type PoolOwnerPublicProfile {
+  id: ID!
+  email: Email
+  firstName: String
+  lastName: String
+}
+
 type Query {
   me: User
   user(id: ID!): User
   users: [User]!
   pool(id: ID!): Pool
+  poolByKey(key: String!): Pool
   pools: [Pool]!
   poolCandidate(id: ID!): PoolCandidate
   poolCandidates: [PoolCandidate]!
