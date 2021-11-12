@@ -1,0 +1,661 @@
+type Classification {
+  id: ID!
+  name: LocalizedString
+  group: String!
+  level: Int!
+  minSalary: Int
+  maxSalary: Int
+}
+
+input ClassificationBelongsToMany {
+  sync: [ID!]
+}
+
+input ClassificationFilterInput {
+  group: String!
+  level: Int!
+}
+
+"""
+e.g. Application Development, Quality Assurance, Enterprise Architecture, IT Project Management, etc.
+"""
+type CmoAsset {
+  id: ID!
+  key: String!
+  name: LocalizedString!
+  description: LocalizedString
+}
+
+input CmoAssetBelongsToMany {
+  sync: [ID!]
+}
+
+input CreateClassificationInput {
+  name: LocalizedStringInput
+  group: String!
+  level: Int!
+  minSalary: Int
+  maxSalary: Int
+}
+
+input CreateCmoAssetInput {
+  key: String!
+  name: LocalizedStringInput!
+  description: LocalizedStringInput
+}
+
+input CreateDepartmentInput {
+  departmentNumber: Int!
+  name: LocalizedStringInput
+}
+
+input CreateOperationalRequirementInput {
+  key: String!
+  name: LocalizedStringInput!
+  description: LocalizedStringInput
+}
+
+input CreatePoolCandidateFilterInput {
+  classifications: ClassificationBelongsToMany
+  cmoAssets: CmoAssetBelongsToMany
+  hasDiploma: Boolean
+  hasDisability: Boolean
+  isIndigenous: Boolean
+  isVisibleMinority: Boolean
+  isWoman: Boolean
+  languageAbility: LanguageAbility
+  operationalRequirements: OperationalRequirementBelongsToMany
+  workRegions: [WorkRegion]
+  pools: PoolBelongsToMany
+}
+
+input CreatePoolCandidateInput {
+  pool: PoolBelongsTo!
+  user: UserBelongsTo!
+  cmoIdentifier: ID
+  expiryDate: Date
+  isWoman: Boolean
+  hasDisability: Boolean
+  isIndigenous: Boolean
+  isVisibleMinority: Boolean
+  hasDiploma: Boolean
+  languageAbility: LanguageAbility
+  locationPreferences: [WorkRegion]
+  acceptedOperationalRequirements: OperationalRequirementBelongsToMany
+  expectedSalary: [SalaryRange]
+  expectedClassifications: ClassificationBelongsToMany
+  cmoAssets: CmoAssetBelongsToMany
+  status: PoolCandidateStatus = AVAILABLE
+}
+
+input CreatePoolCandidateSearchRequestInput {
+  fullName: String!
+  email: Email!
+  department: DepartmentBelongsTo!
+  jobTitle: String!
+  additionalComments: String
+  poolCandidateFilter: PoolCandidateFilterBelongsTo!
+}
+
+input CreatePoolInput {
+  owner: UserBelongsTo!
+  name: LocalizedStringInput!
+  key: String!
+  description: LocalizedStringInput
+  classifications: ClassificationBelongsToMany
+  assetCriteria: CmoAssetBelongsToMany
+  essentialCriteria: CmoAssetBelongsToMany
+  operationalRequirements: OperationalRequirementBelongsToMany
+}
+
+"""When creating a User, name and email are required."""
+input CreateUserInput {
+  firstName: String!
+  lastName: String!
+  email: Email!
+  telephone: PhoneNumber
+  preferredLang: Language
+  roles: [Role] = []
+}
+
+"""A date string with format `Y-m-d`, e.g. `2011-05-23`."""
+scalar Date
+
+"""
+A datetime string with format `Y-m-d H:i:s`, e.g. `2018-05-23 13:43:32`.
+"""
+scalar DateTime
+
+type Department {
+  id: ID!
+  departmentNumber: Int!
+  name: LocalizedString!
+}
+
+input DepartmentBelongsTo {
+  connect: ID!
+}
+
+"""A RFC 5321 compliant email."""
+scalar Email
+
+input KeyFilterInput {
+  key: String!
+}
+
+enum Language {
+  EN
+  FR
+}
+
+enum LanguageAbility {
+  ENGLISH
+  FRENCH
+  BILINGUAL
+}
+
+type LocalizedString {
+  en: String
+  fr: String
+}
+
+input LocalizedStringInput {
+  en: String
+  fr: String
+}
+
+"""
+Loose type that allows any value. Be careful when passing in large `Int` or `Float` literals,
+as they may not be parsed correctly on the server side. Use `String` literals if you are
+dealing with really large numbers to be on the safe side.
+"""
+scalar Mixed
+
+type Mutation {
+  createUser(user: CreateUserInput!): User
+  updateUser(id: ID!, user: UpdateUserInput!): User
+  deleteUser(id: ID!): User
+  createPool(pool: CreatePoolInput!): Pool
+  updatePool(id: ID!, pool: UpdatePoolInput!): Pool
+  deletePool(id: ID!): Pool
+  createPoolCandidate(poolCandidate: CreatePoolCandidateInput!): PoolCandidate
+  updatePoolCandidate(id: ID!, poolCandidate: UpdatePoolCandidateInput!): PoolCandidate
+  deletePoolCandidate(id: ID!): PoolCandidate
+  createClassification(classification: CreateClassificationInput!): Classification
+  updateClassification(id: ID!, classification: UpdateClassificationInput!): Classification
+  deleteClassification(id: ID!): Classification
+  createCmoAsset(cmoAsset: CreateCmoAssetInput!): CmoAsset
+  updateCmoAsset(id: ID!, cmoAsset: UpdateCmoAssetInput!): CmoAsset
+  deleteCmoAsset(id: ID!): CmoAsset
+  createOperationalRequirement(operationalRequirement: CreateOperationalRequirementInput!): OperationalRequirement
+  updateOperationalRequirement(id: ID!, operationalRequirement: UpdateOperationalRequirementInput!): OperationalRequirement
+  deleteOperationalRequirement(id: ID!): OperationalRequirement
+  createDepartment(department: CreateDepartmentInput!): Department
+  updateDepartment(id: ID!, department: UpdateDepartmentInput!): Department
+  deleteDepartment(id: ID!): User
+  createPoolCandidateSearchRequest(poolCandidateSearchRequest: CreatePoolCandidateSearchRequestInput!): PoolCandidateSearchRequest
+  updatePoolCandidateSearchRequest(id: ID!, poolCandidateSearchRequest: UpdatePoolCandidateSearchRequestInput!): PoolCandidateSearchRequest
+}
+
+"""e.g. Overtime as Required, Shift Work, Travel as Required, etc."""
+type OperationalRequirement {
+  id: ID!
+  key: String!
+  name: LocalizedString!
+  description: LocalizedString
+}
+
+input OperationalRequirementBelongsToMany {
+  sync: [ID!]
+}
+
+"""Allows ordering a list of records."""
+input OrderByClause {
+  """The column that is used for ordering."""
+  column: String!
+
+  """The direction that is used for ordering."""
+  order: SortOrder!
+}
+
+"""Information about pagination using a Relay style cursor connection."""
+type PageInfo {
+  """When paginating forwards, are there more items?"""
+  hasNextPage: Boolean!
+
+  """When paginating backwards, are there more items?"""
+  hasPreviousPage: Boolean!
+
+  """The cursor to continue paginating backwards."""
+  startCursor: String
+
+  """The cursor to continue paginating forwards."""
+  endCursor: String
+
+  """Total number of nodes in the paginated connection."""
+  total: Int!
+
+  """Number of nodes in the current page."""
+  count: Int!
+
+  """Index of the current page."""
+  currentPage: Int!
+
+  """Index of the last available page."""
+  lastPage: Int!
+}
+
+"""Information about pagination using a fully featured paginator."""
+type PaginatorInfo {
+  """Number of items in the current page."""
+  count: Int!
+
+  """Index of the current page."""
+  currentPage: Int!
+
+  """Index of the first item in the current page."""
+  firstItem: Int
+
+  """Are there more pages after this one?"""
+  hasMorePages: Boolean!
+
+  """Index of the last item in the current page."""
+  lastItem: Int
+
+  """Index of the last available page."""
+  lastPage: Int!
+
+  """Number of items per page."""
+  perPage: Int!
+
+  """Number of total available items."""
+  total: Int!
+}
+
+"""
+A phone number string which must comply with E.164 international notation, including country code and preceding '+'.
+"""
+scalar PhoneNumber
+
+type Pool {
+  id: ID!
+  owner: User
+  ownerPublicProfile: PoolOwnerPublicProfile
+  name: LocalizedString
+  key: String
+  description: LocalizedString
+  classifications: [Classification]
+  assetCriteria: [CmoAsset]
+  essentialCriteria: [CmoAsset]
+  operationalRequirements: [OperationalRequirement]
+  poolCandidates: [PoolCandidate]
+}
+
+input PoolBelongsTo {
+  connect: ID!
+}
+
+input PoolBelongsToMany {
+  sync: [ID!]
+}
+
+type PoolCandidate {
+  id: ID!
+  pool: Pool
+  user: User
+  cmoIdentifier: ID
+  expiryDate: Date
+  isWoman: Boolean
+  hasDisability: Boolean
+  isIndigenous: Boolean
+  isVisibleMinority: Boolean
+  hasDiploma: Boolean
+  languageAbility: LanguageAbility
+  locationPreferences: [WorkRegion]
+  acceptedOperationalRequirements: [OperationalRequirement]
+  expectedSalary: [SalaryRange]
+  expectedClassifications: [Classification]
+  cmoAssets: [CmoAsset]
+  status: PoolCandidateStatus
+}
+
+type PoolCandidateFilter {
+  id: ID!
+  classifications: [Classification]
+  cmoAssets: [CmoAsset]
+  hasDiploma: Boolean
+  hasDisability: Boolean
+  isIndigenous: Boolean
+  isVisibleMinority: Boolean
+  isWoman: Boolean
+  languageAbility: LanguageAbility
+  operationalRequirements: [OperationalRequirement]
+  workRegions: [WorkRegion]
+  pools: [Pool]
+}
+
+input PoolCandidateFilterBelongsTo {
+  create: CreatePoolCandidateFilterInput!
+}
+
+input PoolCandidateFilterInput {
+  classifications: [ClassificationFilterInput]
+  cmoAssets: [KeyFilterInput]
+  hasDiploma: Boolean
+  hasDisability: Boolean
+  isIndigenous: Boolean
+  isVisibleMinority: Boolean
+  isWoman: Boolean
+  languageAbility: LanguageAbility
+  operationalRequirements: [KeyFilterInput]
+  workRegions: [WorkRegion]
+  pools: [PoolFilterInput]
+}
+
+input PoolCandidateHasMany {
+  create: [CreatePoolCandidateInput!]
+}
+
+type PoolCandidateSearchRequest {
+  id: ID!
+  fullName: String
+  email: Email
+  department: Department
+  jobTitle: String
+  additionalComments: String
+  poolCandidateFilter: PoolCandidateFilter!
+  requestedDate: DateTime
+  status: PoolCandidateSearchStatus
+  adminNotes: String
+}
+
+enum PoolCandidateSearchStatus {
+  PENDING
+  DONE
+}
+
+enum PoolCandidateStatus {
+  AVAILABLE
+  PLACED_INDETERMINATE
+  PLACED_TERM
+  NO_LONGER_INTERESTED
+}
+
+input PoolFilterInput {
+  id: ID!
+}
+
+type PoolOwnerPublicProfile {
+  id: ID!
+  email: Email
+  firstName: String
+  lastName: String
+}
+
+type Query {
+  me: User
+  user(id: ID!): User
+  users: [User]!
+  pool(id: ID!): Pool
+  poolByKey(key: String!): Pool
+  pools: [Pool]!
+  poolCandidate(id: ID!): PoolCandidate
+  poolCandidates: [PoolCandidate]!
+  countPoolCandidates(where: PoolCandidateFilterInput): Int!
+  searchPoolCandidates(where: PoolCandidateFilterInput): [PoolCandidate]!
+  classification(id: ID!): Classification
+  classifications: [Classification]!
+  operationalRequirement(id: ID!): OperationalRequirement
+  operationalRequirements: [OperationalRequirement]!
+  cmoAsset(id: ID!): CmoAsset
+  cmoAssets: [CmoAsset]!
+  department(id: ID!): Department
+  departments: [Department]!
+  poolCandidateFilter(id: ID!): PoolCandidateFilter
+  poolCandidateFilters: [PoolCandidateFilter]!
+  poolCandidateSearchRequest(id: ID!): PoolCandidateSearchRequest
+  poolCandidateSearchRequests: [PoolCandidateSearchRequest]!
+}
+
+enum Role {
+  ADMIN
+}
+
+"""The available SQL operators that are used to filter query results."""
+enum SQLOperator {
+  """Equal operator (`=`)"""
+  EQ
+
+  """Not equal operator (`!=`)"""
+  NEQ
+
+  """Greater than operator (`>`)"""
+  GT
+
+  """Greater than or equal operator (`>=`)"""
+  GTE
+
+  """Less than operator (`<`)"""
+  LT
+
+  """Less than or equal operator (`<=`)"""
+  LTE
+
+  """Simple pattern matching (`LIKE`)"""
+  LIKE
+
+  """Negation of simple pattern matching (`NOT LIKE`)"""
+  NOT_LIKE
+
+  """Whether a value is within a set of values (`IN`)"""
+  IN
+
+  """Whether a value is not within a set of values (`NOT IN`)"""
+  NOT_IN
+
+  """Whether a value is within a range of values (`BETWEEN`)"""
+  BETWEEN
+
+  """Whether a value is not within a range of values (`NOT BETWEEN`)"""
+  NOT_BETWEEN
+
+  """Whether a value is null (`IS NULL`)"""
+  IS_NULL
+
+  """Whether a value is not null (`IS NOT NULL`)"""
+  IS_NOT_NULL
+
+  """Whether a set of values contains a value (`@>`)"""
+  CONTAINS
+}
+
+enum SalaryRange {
+  _50_59K
+  _60_69K
+  _70_79K
+  _80_89K
+  _90_99K
+  _100K_PLUS
+}
+
+"""Information about pagination using a simple paginator."""
+type SimplePaginatorInfo {
+  """Number of items in the current page."""
+  count: Int!
+
+  """Index of the current page."""
+  currentPage: Int!
+
+  """Index of the first item in the current page."""
+  firstItem: Int
+
+  """Index of the last item in the current page."""
+  lastItem: Int
+
+  """Number of items per page."""
+  perPage: Int!
+}
+
+"""The available directions for ordering a list of records."""
+enum SortOrder {
+  """Sort records in ascending order."""
+  ASC
+
+  """Sort records in descending order."""
+  DESC
+}
+
+"""
+Specify if you want to include or exclude trashed results from a query.
+"""
+enum Trashed {
+  """Only return trashed results."""
+  ONLY
+
+  """Return both trashed and non-trashed results."""
+  WITH
+
+  """Only return non-trashed results."""
+  WITHOUT
+}
+
+input UpdateClassificationInput {
+  name: LocalizedStringInput
+  group: String
+  minSalary: Int
+  maxSalary: Int
+}
+
+input UpdateCmoAssetInput {
+  name: LocalizedStringInput
+  description: LocalizedStringInput
+}
+
+input UpdateDepartmentInput {
+  departmentNumber: Int
+  name: LocalizedStringInput
+}
+
+input UpdateOperationalRequirementInput {
+  name: LocalizedStringInput
+  description: LocalizedStringInput
+}
+
+input UpdatePoolCandidateInput {
+  user: UpdatePoolCandidateUserBelongsTo
+  cmoIdentifier: ID
+  expiryDate: Date
+  isWoman: Boolean
+  hasDisability: Boolean
+  isIndigenous: Boolean
+  isVisibleMinority: Boolean
+  hasDiploma: Boolean
+  languageAbility: LanguageAbility
+  locationPreferences: [WorkRegion]
+  acceptedOperationalRequirements: OperationalRequirementBelongsToMany
+  expectedSalary: [SalaryRange]
+  expectedClassifications: ClassificationBelongsToMany
+  cmoAssets: CmoAssetBelongsToMany
+  status: PoolCandidateStatus
+}
+
+input UpdatePoolCandidateSearchRequestInput {
+  adminNotes: String
+  status: PoolCandidateSearchStatus
+}
+
+"""
+When updating a PoolCandidate it is possible to update the related user, but not change which user it is related to.
+"""
+input UpdatePoolCandidateUserBelongsTo {
+  update: UpdateUserInput
+}
+
+input UpdatePoolInput {
+  owner: UserBelongsTo
+  name: LocalizedStringInput
+  description: LocalizedStringInput
+  classifications: ClassificationBelongsToMany
+  assetCriteria: CmoAssetBelongsToMany
+  essentialCriteria: CmoAssetBelongsToMany
+  operationalRequirements: OperationalRequirementBelongsToMany
+}
+
+"""
+When updating a User, all fields are optional, and email cannot be changed.
+"""
+input UpdateUserInput {
+  firstName: String
+  lastName: String
+  telephone: PhoneNumber
+  preferredLang: Language
+  roles: [Role]
+}
+
+type User {
+  id: ID!
+  email: Email!
+  sub: String
+  firstName: String
+  lastName: String
+  telephone: PhoneNumber
+  preferredLang: Language
+  roles: [Role]
+  pools: [Pool]
+  poolCandidates: [PoolCandidate]
+}
+
+input UserBelongsTo {
+  create: CreateUserInput
+  connect: ID
+  update: UpdateUserInput
+}
+
+"""Dynamic WHERE conditions for queries."""
+input WhereConditions {
+  """The column that is used for the condition."""
+  column: String
+
+  """The operator that is used for the condition."""
+  operator: SQLOperator = EQ
+
+  """The value that is used for the condition."""
+  value: Mixed
+
+  """A set of conditions that requires all conditions to match."""
+  AND: [WhereConditions!]
+
+  """A set of conditions that requires at least one condition to match."""
+  OR: [WhereConditions!]
+
+  """
+  Check whether a relation exists. Extra conditions or a minimum amount can be applied.
+  """
+  HAS: WhereConditionsRelation
+}
+
+"""Dynamic HAS conditions for WHERE condition queries."""
+input WhereConditionsRelation {
+  """The relation that is checked."""
+  relation: String!
+
+  """The comparison operator to test against the amount."""
+  operator: SQLOperator = GTE
+
+  """The amount to test."""
+  amount: Int = 1
+
+  """Additional condition logic."""
+  condition: WhereConditions
+}
+
+enum WorkRegion {
+  TELEWORK
+  NATIONAL_CAPITAL
+  ATLANTIC
+  QUEBEC
+  ONTARIO
+  PRAIRIE
+  BRITISH_COLUMBIA
+  NORTH
+}
