@@ -1,5 +1,5 @@
 import React from "react";
-import { defineMessages, useIntl } from "react-intl";
+import { useIntl } from "react-intl";
 import { Routes } from "universal-router";
 import { RouterResult } from "@common/helpers/router";
 import {
@@ -26,6 +26,7 @@ import {
   userUpdatePath,
   homePath,
   homePublicPath,
+  searchRequestTablePath,
 } from "../adminRoutes";
 import { CreateClassification } from "./classification/CreateClassification";
 import { UpdateClassification } from "./classification/UpdateClassification";
@@ -53,37 +54,7 @@ import AuthContainer from "./AuthContainer";
 import DepartmentPage from "./department/DepartmentPage";
 import { CreateDepartment } from "./department/CreateDepartment";
 import { UpdateDepartment } from "./department/UpdateDepartment";
-
-const messages = defineMessages({
-  menuAdminTools: {
-    defaultMessage: "Admin Tools",
-    description: "Label displayed on the Admin Tools menu item.",
-  },
-  menuUsers: {
-    defaultMessage: "Users",
-    description: "Label displayed on the Users menu item.",
-  },
-  menuClassifications: {
-    defaultMessage: "Classifications",
-    description: "Label displayed on the Classifications menu item.",
-  },
-  menuCmoAssets: {
-    defaultMessage: "CMO Assets",
-    description: "Label displayed on the CMO Assets menu item.",
-  },
-  menuOperationalRequirements: {
-    defaultMessage: "Operational Requirements",
-    description: "Label displayed on the Operational Requirements menu item.",
-  },
-  menuPools: {
-    defaultMessage: "Pools",
-    description: "Label displayed on the Pools menu item.",
-  },
-  menuDepartments: {
-    defaultMessage: "Departments",
-    description: "Label displayed on the Departments menu item.",
-  },
-});
+import SearchRequestPage from "./searchRequest/SearchRequestPage";
 
 const routes: Routes<RouterResult> = [
   {
@@ -227,6 +198,12 @@ const routes: Routes<RouterResult> = [
       component: <UpdateDepartment departmentId={params.id as string} />,
     }),
   },
+  {
+    path: searchRequestTablePath(),
+    action: () => ({
+      component: <SearchRequestPage />,
+    }),
+  },
 ];
 
 export const PoolDashboard: React.FC = () => {
@@ -234,38 +211,75 @@ export const PoolDashboard: React.FC = () => {
 
   const menuItems = [
     <MenuHeading
+      key="search-requests"
+      text={intl.formatMessage({
+        defaultMessage: "Requests",
+        description: "Label displayed on the requests menu item.",
+      })}
+    />,
+    <MenuLink
+      key="all-requests"
+      href={searchRequestTablePath()}
+      text={intl.formatMessage({
+        defaultMessage: "All Requests",
+        description: "Label displayed on the all requests menu item.",
+      })}
+    />,
+    <MenuHeading
       key="admin-tools"
-      text={intl.formatMessage(messages.menuAdminTools)}
+      text={intl.formatMessage({
+        defaultMessage: "Admin Tools",
+        description: "Label displayed on the Admin Tools menu item.",
+      })}
     />,
     <MenuLink
       key="users"
       href={userTablePath()}
-      text={intl.formatMessage(messages.menuUsers)}
+      text={intl.formatMessage({
+        defaultMessage: "Users",
+        description: "Label displayed on the Users menu item.",
+      })}
     />,
     <MenuLink
       key="classifications"
       href={classificationTablePath()}
-      text={intl.formatMessage(messages.menuClassifications)}
+      text={intl.formatMessage({
+        defaultMessage: "Classifications",
+        description: "Label displayed on the Classifications menu item.",
+      })}
     />,
     <MenuLink
       key="cmo-assets"
       href={cmoAssetTablePath()}
-      text={intl.formatMessage(messages.menuCmoAssets)}
+      text={intl.formatMessage({
+        defaultMessage: "CMO Assets",
+        description: "Label displayed on the CMO Assets menu item.",
+      })}
     />,
     <MenuLink
       key="operational-requirements"
       href={operationalRequirementTablePath()}
-      text={intl.formatMessage(messages.menuOperationalRequirements)}
+      text={intl.formatMessage({
+        defaultMessage: "Operational Requirements",
+        description:
+          "Label displayed on the Operational Requirements menu item.",
+      })}
     />,
     <MenuLink
       key="pools"
       href={poolTablePath()}
-      text={intl.formatMessage(messages.menuPools)}
+      text={intl.formatMessage({
+        defaultMessage: "Pools",
+        description: "Label displayed on the Pools menu item.",
+      })}
     />,
     <MenuLink
       key="departments"
       href={departmentTablePath()}
-      text={intl.formatMessage(messages.menuDepartments)}
+      text={intl.formatMessage({
+        defaultMessage: "Departments",
+        description: "Label displayed on the Departments menu item.",
+      })}
     />,
   ];
 

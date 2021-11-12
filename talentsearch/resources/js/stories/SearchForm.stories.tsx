@@ -10,9 +10,7 @@ import SearchForm, { SearchFormProps } from "../components/search/SearchForm";
 import {
   Classification,
   CmoAsset,
-  LanguageAbility,
   OperationalRequirement,
-  WorkRegion,
 } from "../api/generated";
 
 export default {
@@ -27,30 +25,8 @@ export default {
   },
 } as Meta;
 
-// const stories = storiesOf("Search Form", module);
 const TemplateSearchForm: Story<SearchFormProps> = (args) => {
   return <SearchForm {...args} />;
 };
 
 export const Form = TemplateSearchForm.bind({});
-export const FormWithInitialData = TemplateSearchForm.bind({});
-
-FormWithInitialData.args = {
-  initialPoolCandidateFilter: {
-    id: "1",
-    operationalRequirements: [
-      fakeOperationalRequirements()[0],
-      fakeOperationalRequirements()[1],
-    ],
-    cmoAssets: [fakeCmoAssets()[0], fakeCmoAssets()[1]],
-    classifications: [fakeClassifications()[0], fakeClassifications()[1]],
-    hasDiploma: true,
-    hasDisability: false,
-    isIndigenous: true,
-    isVisibleMinority: false,
-    isWoman: true,
-    languageAbility: LanguageAbility.Bilingual,
-    workRegions: [WorkRegion.BritishColumbia, WorkRegion.Ontario],
-    pools: null,
-  },
-};

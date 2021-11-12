@@ -4,6 +4,7 @@ import { useLocation, useRouter, RouterResult } from "@common/helpers/router";
 import { getLocale } from "@common/helpers/localize";
 import { Routes } from "universal-router";
 import { Button, Link } from "@common/components";
+import NotFound from "@common/components/NotFound";
 import { poolCandidateTablePath } from "../../adminRoutes";
 import { useGetPoolsQuery } from "../../api/generated";
 import SideMenu from "../menu/SideMenu";
@@ -103,11 +104,31 @@ const PoolListApi = () => {
   return items;
 };
 
+const AdminNotFound: React.FC = () => {
+  const intl = useIntl();
+  return (
+    <NotFound
+      headingMessage={intl.formatMessage({
+        description: "Heading for the message saying the page was not found.",
+        defaultMessage: "Sorry, we can't find the page you were looking for.",
+      })}
+    >
+      <p>
+        {intl.formatMessage({
+          description: "Detailed message saying the page was not found.",
+          defaultMessage:
+            "Oops, it looks like you've landed on a page that either doesn't exist or has moved.",
+        })}
+      </p>
+    </NotFound>
+  );
+};
+
 export const Dashboard: React.FC<{
   menuItems: ReactElement[];
   contentRoutes: Routes<RouterResult>;
 }> = ({ menuItems, contentRoutes }) => {
-  const content = useRouter(contentRoutes);
+  const content = useRouter(contentRoutes, <AdminNotFound />);
   return (
     <div className="container">
       <section

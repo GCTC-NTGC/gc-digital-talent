@@ -141,7 +141,7 @@ type CmoAsset {
 type Department {
     id: ID!
     departmentNumber: Int! @rename(attribute: "department_number")
-    name: LocalizedString
+    name: LocalizedString!
 }
 
 enum PoolCandidateSearchStatus {
@@ -347,13 +347,11 @@ input UpdateClassificationInput {
 }
 
 input UpdateCmoAssetInput {
-    key: String
     name: LocalizedStringInput
     description: LocalizedStringInput
 }
 
 input UpdateOperationalRequirementInput {
-    key: String
     name: LocalizedStringInput
     description: LocalizedStringInput
 }

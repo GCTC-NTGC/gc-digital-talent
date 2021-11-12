@@ -1,9 +1,9 @@
-import React, { useEffect, useMemo, useRef, useCallback } from "react";
-import { FormProvider, useForm, useWatch } from "react-hook-form";
+import React, { useMemo, useCallback } from "react";
+import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { Checklist, MultiSelect, RadioGroup } from "@common/components/form";
 import { getLocale } from "@common/helpers/localize";
-import { enumToOptions, unpackIds } from "@common/helpers/formUtils";
+import { enumToOptions } from "@common/helpers/formUtils";
 import { getLanguageAbility } from "@common/constants";
 import { Id } from "@common/types/utilityTypes";
 import useDeepCompareEffect from "@common/hooks/useDeepCompareEffect";
@@ -41,24 +41,6 @@ const FilterBlock: React.FunctionComponent<{
   );
 };
 
-const dataToFormValues = (
-  data: PoolCandidateFilter | undefined,
-): FormValues => {
-  return {
-    ...data,
-    classifications: unpackIds(data?.classifications),
-    cmoAssets: unpackIds(data?.cmoAssets),
-    operationalRequirements: unpackIds(data?.operationalRequirements),
-    educationRequirement: data?.hasDiploma ? "has_diploma" : "no_diploma",
-    employmentEquity: [
-      data?.isIndigenous ? "isIndigenous" : "",
-      data?.isVisibleMinority ? "isVisibleMinority" : "",
-      data?.hasDisability ? "hasDisability" : "",
-      data?.isWoman ? "isWoman" : "",
-    ],
-  };
-};
-
 type Option<V> = { value: V; label: string };
 type FormValues = Pick<
   PoolCandidateFilter,
@@ -74,7 +56,6 @@ type FormValues = Pick<
 export interface SearchFormProps {
   classifications: Classification[];
   cmoAssets: CmoAsset[];
-  initialPoolCandidateFilter?: PoolCandidateFilter;
   operationalRequirements: OperationalRequirement[];
   updateCandidateFilter: (filter: PoolCandidateFilterInput) => void;
 }
@@ -89,7 +70,6 @@ function mapIdToValue<T extends { id: Id }>(objs: T[]): Map<Id, T> {
 const SearchForm: React.FunctionComponent<SearchFormProps> = ({
   classifications,
   cmoAssets,
-  initialPoolCandidateFilter,
   operationalRequirements,
   updateCandidateFilter,
 }) => {
@@ -130,9 +110,7 @@ const SearchForm: React.FunctionComponent<SearchFormProps> = ({
     [classificationMap, assetMap, requirementMap],
   );
 
-  const methods = useForm<FormValues>({
-    defaultValues: dataToFormValues(initialPoolCandidateFilter),
-  });
+  const methods = useForm<FormValues>();
   const { watch } = methods;
 
   // Whenever form values change (with some debounce allowance), call updateCandidateFilter

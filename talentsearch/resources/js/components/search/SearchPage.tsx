@@ -1,5 +1,4 @@
 import { Button } from "@common/components";
-import { fakePools } from "@common/fakeData";
 import { getLocale } from "@common/helpers/localize";
 import { imageUrl } from "@common/helpers/router";
 import { notEmpty } from "@common/helpers/util";
@@ -10,11 +9,11 @@ import {
   Classification,
   CmoAsset,
   OperationalRequirement,
-  Pool,
   useGetSearchFormDataQuery,
   useCountPoolCandidatesQuery,
   CountPoolCandidatesQueryVariables,
   PoolCandidateFilterInput,
+  Pool,
 } from "../../api/generated";
 import { BASE_URL } from "../../talentSearchConstants";
 import EstimatedCandidates from "./EstimatedCandidates";
@@ -179,9 +178,8 @@ export const SearchPage: React.FC<SearchPageProps> = ({
     <>
       <div
         data-h2-position="b(relative)"
-        data-h2-padding="b(bottom, l) l(bottom, none)"
-        data-h2-margin="b(bottom, l) l(bottom, xxl)"
-        className="hero"
+        data-h2-padding="b(bottom, l)"
+        data-h2-margin="b(bottom, xxl)"
         style={{
           background: `linear-gradient(70deg, rgba(103, 76, 144, 0.9), rgba(29, 44, 76, 1)), url(${imageUrl(
             BASE_URL,
@@ -189,6 +187,7 @@ export const SearchPage: React.FC<SearchPageProps> = ({
           )})`,
           backgroundSize: "cover",
           backgroundBlendMode: "multiply",
+          minHeight: "15rem",
         }}
       >
         <h1
@@ -202,13 +201,13 @@ export const SearchPage: React.FC<SearchPageProps> = ({
           {intl.formatMessage(messages.pageTitle)}
         </h1>
         <div
-          data-h2-position="b(relative) s(relative) m(relative) l(absolute)"
+          data-h2-position="b(static) m(absolute)"
           data-h2-bg-color="b(white)"
-          data-h2-margin="b(top-bottom, xs) b(right-left, xs) l(right-left, xxl)"
+          data-h2-margin="b(top-bottom, xs) b(right-left, xs) s(right-left, xxl)"
           data-h2-padding="b(top-bottom, m) b(right-left, m) l(top-bottom, l) l(right-left, m)"
           data-h2-radius="b(s)"
           data-h2-shadow="b(s)"
-          className="hero-sub"
+          style={{ bottom: "-5rem" }}
         >
           <h2
             data-h2-font-color="b(black)"
@@ -324,7 +323,13 @@ export const SearchPage: React.FC<SearchPageProps> = ({
               style={{ padding: "0", paddingLeft: "1rem" }}
             >
               <p data-h2-margin="b(bottom, none)" data-h2-font-weight="b(700)">
-                {pool?.name?.[locale]}
+                {pool.name?.[locale]
+                  ? pool.name?.[locale]
+                  : intl.formatMessage({
+                      defaultMessage: "N/A",
+                      description:
+                        "Text shown when the filter was not selected",
+                    })}
               </p>
               <p
                 data-h2-margin="b(top, xxs) b(bottom, m)"
@@ -355,10 +360,29 @@ export const SearchPage: React.FC<SearchPageProps> = ({
                 data-h2-font-size="b(caption)"
               >
                 {intl.formatMessage({ defaultMessage: "Pool Owner" })}:{" "}
-                {pool?.owner?.firstName} {pool?.owner?.lastName}
+                {pool.owner?.firstName
+                  ? pool.owner?.firstName
+                  : intl.formatMessage({
+                      defaultMessage: "N/A",
+                      description:
+                        "Text shown when the filter was not selected",
+                    })}{" "}
+                {pool.owner?.lastName
+                  ? pool.owner?.lastName
+                  : intl.formatMessage({
+                      defaultMessage: "N/A",
+                      description:
+                        "Text shown when the filter was not selected",
+                    })}
               </p>
               <p data-h2-margin="b(bottom, s)" data-h2-font-size="b(caption)">
-                {pool.description?.[locale]}
+                {pool.description?.[locale]
+                  ? pool.description?.[locale]
+                  : intl.formatMessage({
+                      defaultMessage: "N/A",
+                      description:
+                        "Text shown when the filter was not selected",
+                    })}
               </p>
             </div>
             <div
@@ -421,7 +445,27 @@ const candidateFilterToQueryArgs = (
 
 export const SearchPageApi: React.FC = () => {
   const [{ data }] = useGetSearchFormDataQuery();
-  const pool = fakePools()[0] as Pool; // TODO: add to SearchFormDataQuery
+  // TODO: Replace fake data with data fetched from api.
+  const pool: Pool | null = {
+    id: "",
+    owner: {
+      id: "",
+      email: "",
+      firstName: "",
+      lastName: "",
+      telephone: "",
+      preferredLang: null,
+    },
+    name: {
+      en: "",
+      fr: "",
+    },
+    description: {
+      en: "",
+      fr: "",
+    },
+    classifications: [],
+  };
 
   const [candidateFilter, setCandidateFilter] = useState<
     PoolCandidateFilterInput | undefined
