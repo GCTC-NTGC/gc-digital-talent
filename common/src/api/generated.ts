@@ -393,6 +393,7 @@ export type Pool = {
   name?: Maybe<LocalizedString>;
   operationalRequirements?: Maybe<Array<Maybe<OperationalRequirement>>>;
   owner?: Maybe<User>;
+  ownerPublicProfile?: Maybe<PoolOwnerPublicProfile>;
   poolCandidates?: Maybe<Array<Maybe<PoolCandidate>>>;
 };
 
@@ -493,6 +494,14 @@ export type PoolFilterInput = {
   id: Scalars["ID"];
 };
 
+export type PoolOwnerPublicProfile = {
+  __typename?: "PoolOwnerPublicProfile";
+  email?: Maybe<Scalars["Email"]>;
+  firstName?: Maybe<Scalars["String"]>;
+  id: Scalars["ID"];
+  lastName?: Maybe<Scalars["String"]>;
+};
+
 export type Query = {
   __typename?: "Query";
   classification?: Maybe<Classification>;
@@ -506,6 +515,7 @@ export type Query = {
   operationalRequirement?: Maybe<OperationalRequirement>;
   operationalRequirements: Array<Maybe<OperationalRequirement>>;
   pool?: Maybe<Pool>;
+  poolByKey?: Maybe<Pool>;
   poolCandidate?: Maybe<PoolCandidate>;
   poolCandidateFilter?: Maybe<PoolCandidateFilter>;
   poolCandidateFilters: Array<Maybe<PoolCandidateFilter>>;
@@ -540,6 +550,10 @@ export type QueryOperationalRequirementArgs = {
 
 export type QueryPoolArgs = {
   id: Scalars["ID"];
+};
+
+export type QueryPoolByKeyArgs = {
+  key: Scalars["String"];
 };
 
 export type QueryPoolCandidateArgs = {
@@ -3368,50 +3382,6 @@ export type GetPoolCandidateFilterDataQuery = {
     | undefined;
 };
 
-export type GetSearchFormDataQueryVariables = Exact<{ [key: string]: never }>;
-
-export type GetSearchFormDataQuery = {
-  __typename?: "Query";
-  classifications: Array<
-    | {
-        __typename?: "Classification";
-        id: string;
-        group: string;
-        level: number;
-      }
-    | null
-    | undefined
-  >;
-  cmoAssets: Array<
-    | {
-        __typename?: "CmoAsset";
-        id: string;
-        key: string;
-        name: {
-          __typename?: "LocalizedString";
-          en?: string | null | undefined;
-          fr?: string | null | undefined;
-        };
-      }
-    | null
-    | undefined
-  >;
-  operationalRequirements: Array<
-    | {
-        __typename?: "OperationalRequirement";
-        id: string;
-        key: string;
-        name: {
-          __typename?: "LocalizedString";
-          en?: string | null | undefined;
-          fr?: string | null | undefined;
-        };
-      }
-    | null
-    | undefined
-  >;
-};
-
 export type CountPoolCandidatesQueryVariables = Exact<{
   where?: Maybe<PoolCandidateFilterInput>;
 }>;
@@ -3419,6 +3389,111 @@ export type CountPoolCandidatesQueryVariables = Exact<{
 export type CountPoolCandidatesQuery = {
   __typename?: "Query";
   countPoolCandidates: number;
+};
+
+export type GetSearchFormDataQueryVariables = Exact<{
+  poolKey: Scalars["String"];
+}>;
+
+export type GetSearchFormDataQuery = {
+  __typename?: "Query";
+  poolByKey?:
+    | {
+        __typename?: "Pool";
+        id: string;
+        key?: string | null | undefined;
+        ownerPublicProfile?:
+          | {
+              __typename?: "PoolOwnerPublicProfile";
+              email?: string | null | undefined;
+              firstName?: string | null | undefined;
+              lastName?: string | null | undefined;
+            }
+          | null
+          | undefined;
+        name?:
+          | {
+              __typename?: "LocalizedString";
+              en?: string | null | undefined;
+              fr?: string | null | undefined;
+            }
+          | null
+          | undefined;
+        description?:
+          | {
+              __typename?: "LocalizedString";
+              en?: string | null | undefined;
+              fr?: string | null | undefined;
+            }
+          | null
+          | undefined;
+        classifications?:
+          | Array<
+              | {
+                  __typename?: "Classification";
+                  id: string;
+                  group: string;
+                  level: number;
+                }
+              | null
+              | undefined
+            >
+          | null
+          | undefined;
+        assetCriteria?:
+          | Array<
+              | {
+                  __typename?: "CmoAsset";
+                  id: string;
+                  key: string;
+                  name: {
+                    __typename?: "LocalizedString";
+                    en?: string | null | undefined;
+                    fr?: string | null | undefined;
+                  };
+                }
+              | null
+              | undefined
+            >
+          | null
+          | undefined;
+        essentialCriteria?:
+          | Array<
+              | {
+                  __typename?: "CmoAsset";
+                  id: string;
+                  key: string;
+                  name: {
+                    __typename?: "LocalizedString";
+                    en?: string | null | undefined;
+                    fr?: string | null | undefined;
+                  };
+                }
+              | null
+              | undefined
+            >
+          | null
+          | undefined;
+        operationalRequirements?:
+          | Array<
+              | {
+                  __typename?: "OperationalRequirement";
+                  id: string;
+                  key: string;
+                  name: {
+                    __typename?: "LocalizedString";
+                    en?: string | null | undefined;
+                    fr?: string | null | undefined;
+                  };
+                }
+              | null
+              | undefined
+            >
+          | null
+          | undefined;
+      }
+    | null
+    | undefined;
 };
 
 export type GetPoolCandidateSearchRequestDataQueryVariables = Exact<{
@@ -4720,43 +4795,6 @@ export function useGetPoolCandidateFilterDataQuery(
     ...options,
   });
 }
-export const GetSearchFormDataDocument = gql`
-  query getSearchFormData {
-    classifications {
-      id
-      group
-      level
-    }
-    cmoAssets {
-      id
-      key
-      name {
-        en
-        fr
-      }
-    }
-    operationalRequirements {
-      id
-      key
-      name {
-        en
-        fr
-      }
-    }
-  }
-`;
-
-export function useGetSearchFormDataQuery(
-  options: Omit<
-    Urql.UseQueryArgs<GetSearchFormDataQueryVariables>,
-    "query"
-  > = {},
-) {
-  return Urql.useQuery<GetSearchFormDataQuery>({
-    query: GetSearchFormDataDocument,
-    ...options,
-  });
-}
 export const CountPoolCandidatesDocument = gql`
   query countPoolCandidates($where: PoolCandidateFilterInput) {
     countPoolCandidates(where: $where)
@@ -4771,6 +4809,68 @@ export function useCountPoolCandidatesQuery(
 ) {
   return Urql.useQuery<CountPoolCandidatesQuery>({
     query: CountPoolCandidatesDocument,
+    ...options,
+  });
+}
+export const GetSearchFormDataDocument = gql`
+  query getSearchFormData($poolKey: String!) {
+    poolByKey(key: $poolKey) {
+      id
+      key
+      ownerPublicProfile {
+        email
+        firstName
+        lastName
+      }
+      name {
+        en
+        fr
+      }
+      description {
+        en
+        fr
+      }
+      classifications {
+        id
+        group
+        level
+      }
+      assetCriteria {
+        id
+        key
+        name {
+          en
+          fr
+        }
+      }
+      essentialCriteria {
+        id
+        key
+        name {
+          en
+          fr
+        }
+      }
+      operationalRequirements {
+        id
+        key
+        name {
+          en
+          fr
+        }
+      }
+    }
+  }
+`;
+
+export function useGetSearchFormDataQuery(
+  options: Omit<
+    Urql.UseQueryArgs<GetSearchFormDataQueryVariables>,
+    "query"
+  > = {},
+) {
+  return Urql.useQuery<GetSearchFormDataQuery>({
+    query: GetSearchFormDataDocument,
     ...options,
   });
 }

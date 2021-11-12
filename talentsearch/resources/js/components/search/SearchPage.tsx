@@ -14,8 +14,12 @@ import {
   CountPoolCandidatesQueryVariables,
   PoolCandidateFilterInput,
   Pool,
+  PoolOwnerPublicProfile,
 } from "../../api/generated";
-import { BASE_URL } from "../../talentSearchConstants";
+import {
+  BASE_URL,
+  DIGITAL_CAREERS_POOL_KEY,
+} from "../../talentSearchConstants";
 import EstimatedCandidates from "./EstimatedCandidates";
 import SearchForm from "./SearchForm";
 
@@ -148,7 +152,8 @@ export interface SearchPageProps {
   classifications: Classification[];
   cmoAssets: CmoAsset[];
   operationalRequirements: OperationalRequirement[];
-  pool: Pool;
+  pool?: Pick<Pool, "name" | "description">;
+  poolOwner?: Pick<PoolOwnerPublicProfile, "firstName" | "lastName">;
   candidateCount: number;
   updatePending?: boolean;
   candidateFilter: PoolCandidateFilterInput | undefined;
@@ -160,6 +165,7 @@ export const SearchPage: React.FC<SearchPageProps> = ({
   cmoAssets,
   operationalRequirements,
   pool,
+  poolOwner,
   candidateCount,
   updatePending,
   candidateFilter,
@@ -323,8 +329,8 @@ export const SearchPage: React.FC<SearchPageProps> = ({
               style={{ padding: "0", paddingLeft: "1rem" }}
             >
               <p data-h2-margin="b(bottom, none)" data-h2-font-weight="b(700)">
-                {pool.name?.[locale]
-                  ? pool.name?.[locale]
+                {pool?.name?.[locale]
+                  ? pool?.name?.[locale]
                   : intl.formatMessage({
                       defaultMessage: "N/A",
                       description:
@@ -359,30 +365,27 @@ export const SearchPage: React.FC<SearchPageProps> = ({
                 data-h2-margin="b(bottom, none)"
                 data-h2-font-size="b(caption)"
               >
-                {intl.formatMessage({ defaultMessage: "Pool Owner" })}:{" "}
-                {pool.owner?.firstName
-                  ? pool.owner?.firstName
-                  : intl.formatMessage({
-                      defaultMessage: "N/A",
-                      description:
-                        "Text shown when the filter was not selected",
-                    })}{" "}
-                {pool.owner?.lastName
-                  ? pool.owner?.lastName
-                  : intl.formatMessage({
-                      defaultMessage: "N/A",
-                      description:
-                        "Text shown when the filter was not selected",
-                    })}
+                {intl.formatMessage(
+                  {
+                    defaultMessage: "Pool Owner: {firstName} {lastName}",
+                    description: "Text showing the owner of the HR pool.",
+                  },
+                  {
+                    firstName: poolOwner?.firstName,
+                    lastName: poolOwner?.lastName,
+                  },
+                )}
               </p>
               <p data-h2-margin="b(bottom, s)" data-h2-font-size="b(caption)">
-                {pool.description?.[locale]
-                  ? pool.description?.[locale]
-                  : intl.formatMessage({
-                      defaultMessage: "N/A",
-                      description:
-                        "Text shown when the filter was not selected",
-                    })}
+                {
+                  pool?.description?.[locale]
+                  //   ? pool.description?.[locale]
+                  //   : intl.formatMessage({
+                  //       defaultMessage: "N/A",
+                  //       description:
+                  //         "Text shown when the filter was not selected",
+                  //     })}
+                }
               </p>
             </div>
             <div
@@ -444,28 +447,10 @@ const candidateFilterToQueryArgs = (
 };
 
 export const SearchPageApi: React.FC = () => {
-  const [{ data }] = useGetSearchFormDataQuery();
-  // TODO: Replace fake data with data fetched from api.
-  const pool: Pool | null = {
-    id: "",
-    owner: {
-      id: "",
-      email: "",
-      firstName: "",
-      lastName: "",
-      telephone: "",
-      preferredLang: null,
-    },
-    name: {
-      en: "",
-      fr: "",
-    },
-    description: {
-      en: "",
-      fr: "",
-    },
-    classifications: [],
-  };
+  const [{ data }] = useGetSearchFormDataQuery({
+    variables: { poolKey: DIGITAL_CAREERS_POOL_KEY },
+  });
+  const pool = data?.poolByKey;
 
   const [candidateFilter, setCandidateFilter] = useState<
     PoolCandidateFilterInput | undefined
@@ -479,12 +464,13 @@ export const SearchPageApi: React.FC = () => {
 
   return (
     <SearchPage
-      classifications={data?.classifications.filter(notEmpty) ?? []}
-      cmoAssets={data?.cmoAssets.filter(notEmpty) ?? []}
+      classifications={pool?.classifications?.filter(notEmpty) ?? []}
+      cmoAssets={pool?.assetCriteria?.filter(notEmpty) ?? []}
       operationalRequirements={
-        data?.operationalRequirements.filter(notEmpty) ?? []
+        pool?.operationalRequirements?.filter(notEmpty) ?? []
       }
-      pool={pool}
+      pool={pool ?? undefined}
+      poolOwner={pool?.ownerPublicProfile ?? undefined}
       candidateFilter={candidateFilter}
       candidateCount={candidateCount}
       updatePending={countFetching}

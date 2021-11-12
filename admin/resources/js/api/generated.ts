@@ -393,6 +393,7 @@ export type Pool = {
   name?: Maybe<LocalizedString>;
   operationalRequirements?: Maybe<Array<Maybe<OperationalRequirement>>>;
   owner?: Maybe<User>;
+  ownerPublicProfile?: Maybe<PoolOwnerPublicProfile>;
   poolCandidates?: Maybe<Array<Maybe<PoolCandidate>>>;
 };
 
@@ -493,6 +494,14 @@ export type PoolFilterInput = {
   id: Scalars["ID"];
 };
 
+export type PoolOwnerPublicProfile = {
+  __typename?: "PoolOwnerPublicProfile";
+  email?: Maybe<Scalars["Email"]>;
+  firstName?: Maybe<Scalars["String"]>;
+  id: Scalars["ID"];
+  lastName?: Maybe<Scalars["String"]>;
+};
+
 export type Query = {
   __typename?: "Query";
   classification?: Maybe<Classification>;
@@ -506,6 +515,7 @@ export type Query = {
   operationalRequirement?: Maybe<OperationalRequirement>;
   operationalRequirements: Array<Maybe<OperationalRequirement>>;
   pool?: Maybe<Pool>;
+  poolByKey?: Maybe<Pool>;
   poolCandidate?: Maybe<PoolCandidate>;
   poolCandidateFilter?: Maybe<PoolCandidateFilter>;
   poolCandidateFilters: Array<Maybe<PoolCandidateFilter>>;
@@ -540,6 +550,10 @@ export type QueryOperationalRequirementArgs = {
 
 export type QueryPoolArgs = {
   id: Scalars["ID"];
+};
+
+export type QueryPoolByKeyArgs = {
+  key: Scalars["String"];
 };
 
 export type QueryPoolCandidateArgs = {
