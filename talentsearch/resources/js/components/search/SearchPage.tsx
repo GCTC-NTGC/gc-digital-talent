@@ -421,6 +421,7 @@ export const SearchPage: React.FC<SearchPageProps> = ({
 
 const candidateFilterToQueryArgs = (
   filter: PoolCandidateFilterInput | undefined,
+  poolId: string | undefined,
 ): CountPoolCandidatesQueryVariables => {
   if (filter === undefined) {
     return {};
@@ -441,7 +442,7 @@ const candidateFilterToQueryArgs = (
       classifications: pickMap(filter.classifications, ["group", "level"]),
       cmoAssets: pickMap(filter.cmoAssets, "key"),
       operationalRequirements: pickMap(filter.operationalRequirements, "key"),
-      pools: pickMap(filter.pools, "id"),
+      pools: poolId ? [{ id: poolId }] : pickMap(filter.pools, "id"),
     },
   };
 };
@@ -457,7 +458,7 @@ export const SearchPageApi: React.FC = () => {
   >(undefined);
   const [{ data: countData, fetching: countFetching }] =
     useCountPoolCandidatesQuery({
-      variables: candidateFilterToQueryArgs(candidateFilter),
+      variables: candidateFilterToQueryArgs(candidateFilter, pool?.id),
     });
 
   const candidateCount = countData?.countPoolCandidates ?? 0;
