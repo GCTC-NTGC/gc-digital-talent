@@ -84,7 +84,8 @@ class AuthServiceProvider extends ServiceProvider
                     new IssuedBy(config('oauth.iss')),
                     new RelatedTo($token->claims()->get('sub')),
                     new LooseValidAt($clock),
-                    new SignedWith($config->signer(), $config->verificationKey()),
+                    // TODO: VALIDATE TOKEN WITH PUBLIC KEY AS SOON AS WE'RE CONNECTED TO SiC
+                    // new SignedWith($config->signer(), $config->verificationKey()),
                 );
                 $constraints = $config->validationConstraints();
 
