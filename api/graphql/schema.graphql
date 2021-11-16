@@ -347,13 +347,11 @@ input UpdateClassificationInput {
 }
 
 input UpdateCmoAssetInput {
-    key: String
     name: LocalizedStringInput
     description: LocalizedStringInput
 }
 
 input UpdateOperationalRequirementInput {
-    key: String
     name: LocalizedStringInput
     description: LocalizedStringInput
 }

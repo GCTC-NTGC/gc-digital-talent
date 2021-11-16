@@ -55,13 +55,6 @@ export const UpdateOperationalRequirementForm: React.FunctionComponent<UpdateOpe
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(onSubmit)}>
               <Input
-                id="key"
-                name="key"
-                label={intl.formatMessage(messages.keyLabel)}
-                type="text"
-                rules={{ required: errorMessages.required }}
-              />
-              <Input
                 id="name_en"
                 name="name.en"
                 label={intl.formatMessage(messages.nameLabelEn)}
@@ -111,7 +104,6 @@ export const UpdateOperationalRequirement: React.FunctionComponent<{
     executeMutation({
       id,
       operationalRequirement: pick(data, [
-        "key",
         "name.en",
         "name.fr",
         "description.en",
