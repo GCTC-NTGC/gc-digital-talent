@@ -51,11 +51,15 @@ export const AuthContainer: React.FC = ({ children }) => {
         localStorage.setItem(REFRESH_TOKEN, refreshToken);
       }
       setTokens({ accessToken, refreshToken });
+      console.log(accessToken, refreshToken);
+      console.log({ accessToken, refreshToken });
       // Then, redirect to the same url but without all the query parameters.
       redirect({
         ...location,
         search: "",
       });
+      console.log(accessToken, refreshToken);
+      console.log({ accessToken, refreshToken });
     }
   }, [location]);
 
