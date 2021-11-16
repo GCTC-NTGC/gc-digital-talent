@@ -40,10 +40,12 @@ export const AuthContainer: React.FC = ({ children }) => {
   });
 
   const location = useLocation();
+  console.log({ location });
   useEffect(() => {
     const queryParams = parseUrlQueryParameters(location);
     const accessToken = queryParams.access_token;
     const refreshToken = queryParams.refresh_token;
+    console.log({ accessToken, refreshToken });
     if (accessToken && queryParams.token_type === "Bearer") {
       // If url query parameters contain an access token, save it in local storage and in state hook.
       localStorage.setItem(ACCESS_TOKEN, accessToken);
@@ -51,15 +53,11 @@ export const AuthContainer: React.FC = ({ children }) => {
         localStorage.setItem(REFRESH_TOKEN, refreshToken);
       }
       setTokens({ accessToken, refreshToken });
-      console.log(accessToken, refreshToken);
-      console.log({ accessToken, refreshToken });
       // Then, redirect to the same url but without all the query parameters.
       redirect({
         ...location,
         search: "",
       });
-      console.log(accessToken, refreshToken);
-      console.log({ accessToken, refreshToken });
     }
   }, [location]);
 
