@@ -576,6 +576,7 @@ input UpdatePoolInput {
 When updating a User, all fields are optional, and email cannot be changed.
 """
 input UpdateUserInput {
+  id: ID
   firstName: String
   lastName: String
   telephone: PhoneNumber
