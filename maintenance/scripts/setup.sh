@@ -8,13 +8,16 @@ export NVM_DIR="$HOME/.nvm"
 cd /var/www/html/auth
 cp .env.example .env
 composer install
+php artisan migrate:fresh --seed
+php artisan passport:keys --force
 php artisan key:generate
-php artisan migrate
 php artisan passport:client --personal --name="Laravel Personal Access Client" > personal_access_client.txt
 /root/scripts/update_auth_env.sh
 rm personal_access_client.txt
-php artisan db:seed
-php artisan config:cache
+php artisan passport:client -n --name="admin" --redirect_uri="http://localhost:8000/admin/auth-callback" > admin_secret.txt
+/root/scripts/update_admin_env.sh
+rm admin_secret.txt
+php artisan config:clear
 nvm install --latest-npm
 npm install
 npm run dev
@@ -26,8 +29,7 @@ cd /var/www/html/api
 cp .env.example .env
 /root/scripts/update_env_appkey.sh .env
 composer install
-php artisan migrate:fresh
-php artisan db:seed
+php artisan migrate:fresh --seed
 php artisan lighthouse:print-schema --write
 /root/scripts/update_api_env.sh
 chown -R www-data ./storage ./vendor
@@ -45,6 +47,7 @@ cd /var/www/html/talentsearch
 cp .env.example .env
 /root/scripts/update_env_appkey.sh .env
 composer install
+php artisan config:clear
 nvm install --latest-npm
 npm install
 npm rebuild node-sass
@@ -59,12 +62,7 @@ cd /var/www/html/admin
 cp .env.example .env
 /root/scripts/update_env_appkey.sh .env
 composer install
-cd /var/www/html/auth
-php artisan passport:client --user_id="1" --name="admin" --redirect_uri="http://localhost:8000/admin/auth-callback" > admin_secret.txt
-/root/scripts/update_admin_env.sh
-rm admin_secret.txt
-cd /var/www/html/admin
-php artisan config:cache
+php artisan config:clear
 nvm install --latest-npm
 npm install
 npm rebuild node-sass
