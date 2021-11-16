@@ -24,7 +24,7 @@ import {
   getLanguage,
 } from "@common/constants/localizedConstants";
 import { errorMessages, commonMessages } from "@common/messages";
-import { Scalars, User } from "@common/api/generated";
+import { User } from "@common/api/generated";
 import { poolCandidateTablePath } from "../../adminRoutes";
 import {
   UpdatePoolCandidateInput,
@@ -66,7 +66,7 @@ type FormValues = Pick<
     User,
     "email" | "firstName" | "lastName" | "telephone" | "preferredLang"
   > & {
-    userId: Scalars["ID"]; // can't use pick since we need a new name
+    userId: User["id"]; // can't use pick since we need a new name
     acceptedOperationalRequirements: string[] | undefined;
     cmoAssets: string[] | undefined;
     expectedClassifications: string[] | undefined;
