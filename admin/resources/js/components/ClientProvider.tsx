@@ -29,6 +29,11 @@ const addAuthToOperation = ({
   authState: AuthState | null;
   operation: Operation;
 }): Operation => {
+  console.log(
+    "Is auth added to graphql operation?",
+    authState && authState.accessToken,
+  );
+
   if (!authState || !authState.accessToken) {
     return operation;
   }
@@ -51,6 +56,12 @@ const addAuthToOperation = ({
 };
 
 const didAuthError = ({ error }: { error: CombinedError }): boolean => {
+  console.log(
+    "Did graphql auth error?",
+    error.response.status === 401 ||
+      error.graphQLErrors.some((e) => e.extensions?.code === "FORBIDDEN"),
+  );
+  console.log("grpahql response:", error);
   return (
     error.response.status === 401 ||
     error.graphQLErrors.some((e) => e.extensions?.code === "FORBIDDEN")
