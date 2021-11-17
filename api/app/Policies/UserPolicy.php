@@ -39,10 +39,13 @@ class UserPolicy
      * @param  \App\Models\User  $model
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function viewPublic(User $user, User $model)
+    public function viewPublic(?User $user, User $model)
     {
-        return ($user !== null && $this->view($user, $model))
-            || $model->loadCount('pools') > 0; // Any owner of a pool must be partially visible to even guest users
+        if ($user !== null && $this->view($user, $model)) {
+            return true;
+        }
+        $model->loadCount('pools');
+        return $model->pools_count > 0; // Any owner of a pool must be partially visible to even guest users
     }
 
     /**
