@@ -16,7 +16,7 @@ class CopyFieldDirective extends BaseDirective implements FieldMiddleware
     {
         return /** @lang GraphQL */ <<<'GRAPHQL'
 """
-Populate the sub value from the model into the arguments.
+Populate the target field with a copy of the source field.
 """
 directive @copyField(
     """
