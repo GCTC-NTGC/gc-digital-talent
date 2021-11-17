@@ -29,15 +29,15 @@ enum Role {
 
 type User {
     id: ID!
-    email: Email!
-    sub: String
-    firstName: String @rename(attribute: "first_name")
-    lastName: String @rename(attribute: "last_name")
+    email: Email! @parentCan(ability: "viewPublic")
+    sub: String @parentCan(ability: "view")
+    firstName: String @rename(attribute: "first_name") @parentCan(ability: "viewPublic")
+    lastName: String @rename(attribute: "last_name") @parentCan(ability: "viewPublic")
     telephone: PhoneNumber  @parentCan(ability: "view")
-    preferredLang: Language @rename(attribute: "preferred_lang")
-    roles: [Role]
-    pools: [Pool] @hasMany # Pools that a user owns
-    poolCandidates: [PoolCandidate] @hasMany # Pools candidates that a user owns
+    preferredLang: Language @rename(attribute: "preferred_lang") @parentCan(ability: "view")
+    roles: [Role] @parentCan(ability: "view")
+    pools: [Pool] @hasMany @parentCan(ability: "view") # Pools that a user owns
+    poolCandidates: [PoolCandidate] @hasMany @parentCan(ability: "view") # Pools candidates that a user owns
 }
 
 type PoolOwnerPublicProfile {
