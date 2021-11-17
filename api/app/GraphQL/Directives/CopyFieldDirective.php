@@ -10,7 +10,7 @@ use Nuwave\Lighthouse\Schema\Values\FieldValue;
 use Nuwave\Lighthouse\Support\Contracts\FieldMiddleware;
 use Nuwave\Lighthouse\Support\Contracts\GraphQLContext;
 
-class PopulateSubDirective extends BaseDirective implements FieldMiddleware
+class CopyFieldDirective extends BaseDirective implements FieldMiddleware
 {
     public static function definition(): string
     {
@@ -18,11 +18,15 @@ class PopulateSubDirective extends BaseDirective implements FieldMiddleware
 """
 Populate the sub value from the model into the arguments.
 """
-directive @populateSub(
+directive @copyField(
     """
     The source field of the argument from which the value is injected.
     """
     source: String!
+    """
+    The target field of the argument to which the value is injected.
+    """
+    target: String!
 ) repeatable on FIELD_DEFINITION
 GRAPHQL;
     }
@@ -35,7 +39,13 @@ GRAPHQL;
         $argumentSource = $this->directiveArgValue('source');
         if (! $argumentSource) {
             throw new DefinitionException(
-                "The `populateSub` directive on {$fieldValue->getParentName()} [{$fieldValue->getFieldName()}] must have a `source` argument"
+                "The `copyField` directive on {$fieldValue->getParentName()} [{$fieldValue->getFieldName()}] must have a `source` argument"
+            );
+        }
+        $argumentTarget = $this->directiveArgValue('target');
+        if (! $argumentTarget) {
+            throw new DefinitionException(
+                "The `copyField` directive on {$fieldValue->getParentName()} [{$fieldValue->getFieldName()}] must have a `target` argument"
             );
         }
 
@@ -43,9 +53,9 @@ GRAPHQL;
 
         return $next(
             $fieldValue->setResolver(
-                function ($rootValue, array $args, GraphQLContext $context, ResolveInfo $resolveInfo) use ($argumentSource, $previousResolver) {
-                    $subValue = data_get($args, $argumentSource);
-                    $resolveInfo->argumentSet->addValue('sub', $subValue);
+                function ($rootValue, array $args, GraphQLContext $context, ResolveInfo $resolveInfo) use ($argumentSource, $argumentTarget, $previousResolver) {
+                    $sourceValue = data_get($args, $argumentSource);
+                    $resolveInfo->argumentSet->addValue($argumentTarget, $sourceValue);
 
                     return $previousResolver(
                         $rootValue,
