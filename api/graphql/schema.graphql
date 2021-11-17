@@ -438,7 +438,7 @@ input UpdatePoolCandidateSearchRequestInput {
 }
 
 type Mutation {
-    createUser(user: CreateUserInput! @spread): User @create @guard @can(ability: "create")
+    createUser(user: CreateUserInput! @spread): User @create @guard @can(ability: "create") @copyField(source: "email", target: "sub")
     updateUser(id: ID!, user: UpdateUserInput! @spread): User @update @guard @can(ability: "update", find: "id")
     deleteUser(id: ID!): User @delete(globalId: false) @guard @can(ability: "delete", find: "id")
     createPool(pool: CreatePoolInput! @spread): Pool @create @guard @can(ability: "create")
