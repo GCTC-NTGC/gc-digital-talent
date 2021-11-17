@@ -17,7 +17,7 @@ class AuthController extends Controller
             'client_id' => config('oauth.client_id'),
             'redirect_uri' => config('app.url') . '/auth-callback',
             'response_type' => 'code',
-            'scope' => 'openid',
+            'scope' => ['openid', 'email', 'profile'] 
             'state' => $state,
         ]);
 
