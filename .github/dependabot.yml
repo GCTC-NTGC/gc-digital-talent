@@ -10,45 +10,53 @@ updates:
     directory: "/api"
     schedule:
       interval: "weekly"
+    open-pull-requests-limit: 15
 
   - package-ecosystem: "npm"
     # Files stored in `admin` directory
     directory: "/admin"
     schedule:
       interval: "weekly"
+    open-pull-requests-limit: 15
 
   - package-ecosystem: "composer"
     # Files stored in `admin` directory
     directory: "/admin"
     schedule:
       interval: "weekly"
+    open-pull-requests-limit: 15
 
   - package-ecosystem: "npm"
     # Files stored in `auth` directory
     directory: "/auth"
     schedule:
       interval: "weekly"
+    open-pull-requests-limit: 15
 
   - package-ecosystem: "composer"
     # Files stored in `auth` directory
     directory: "/auth"
     schedule:
       interval: "weekly"
+    open-pull-requests-limit: 15
 
   - package-ecosystem: "npm"
     # Files stored in `talentsearch` directory
     directory: "/talentsearch"
     schedule:
       interval: "weekly"
+    open-pull-requests-limit: 15
 
   - package-ecosystem: "composer"
     # Files stored in `talentsearch` directory
     directory: "/talentsearch"
     schedule:
       interval: "weekly"
+    open-pull-requests-limit: 15
 
   - package-ecosystem: "npm"
     # Files stored in `common` directory
     directory: "/common"
     schedule:
       interval: "weekly"
+    open-pull-requests-limit: 15
