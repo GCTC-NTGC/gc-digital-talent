@@ -48,4 +48,9 @@ class User extends Model implements Authenticatable
     {
         return in_array('ADMIN', $this->roles);
     }
+    public function setEmailAttribute($value)
+    {
+        $this->attributes['email'] = $value;
+        $this->attributes['sub'] = $this->attributes['email']; // to support authentication
+    }
 }
