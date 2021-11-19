@@ -78,12 +78,14 @@ export const ClientProvider: React.FC<{ client?: Client }> = ({
 
   const getAuth = useCallback(
     async ({ authState }): Promise<AuthState | null> => {
+      console.log("In getAuth", { authState, accessToken });
       if (!authState) {
         if (accessToken) {
           return { accessToken, refreshToken };
         }
         return null;
       }
+      console.log("In getAuth, calling logout");
       // If authState is not null, and getAuth is called again, then it means authentication failed for some reason.
       // TODO: This is where we could try using the refresh token, instead of logging out.
       logout();
