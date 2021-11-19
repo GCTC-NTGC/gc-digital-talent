@@ -17,7 +17,7 @@ class AuthController extends Controller
             'client_id' => config('oauth.client_id'),
             'redirect_uri' => config('app.url') . '/auth-callback',
             'response_type' => 'code',
-            'scope' => ['openid', 'email', 'profile'] 
+            'scope' => ['openid', 'email', 'profile']
             'state' => $state,
         ]);
 
@@ -41,6 +41,6 @@ class AuthController extends Controller
             'code' => $request->code,
         ]);
         $query = http_build_query($response->json());
-        return redirect(config('app.url') . '?' . $query);
+        return redirect(config('app.url') . '/?' . $query); // Add trailing backslash to callback url, to get around server redirect issue
     }
 }
