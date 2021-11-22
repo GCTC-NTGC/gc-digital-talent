@@ -651,7 +651,6 @@ export type UpdateClassificationInput = {
 
 export type UpdateCmoAssetInput = {
   description?: Maybe<LocalizedStringInput>;
-  key?: Maybe<Scalars["String"]>;
   name?: Maybe<LocalizedStringInput>;
 };
 
@@ -662,7 +661,6 @@ export type UpdateDepartmentInput = {
 
 export type UpdateOperationalRequirementInput = {
   description?: Maybe<LocalizedStringInput>;
-  key?: Maybe<Scalars["String"]>;
   name?: Maybe<LocalizedStringInput>;
 };
 
@@ -707,6 +705,7 @@ export type UpdatePoolInput = {
 /** When updating a User, all fields are optional, and email cannot be changed. */
 export type UpdateUserInput = {
   firstName?: Maybe<Scalars["String"]>;
+  id?: Maybe<Scalars["ID"]>;
   lastName?: Maybe<Scalars["String"]>;
   preferredLang?: Maybe<Language>;
   roles?: Maybe<Array<Maybe<Role>>>;
@@ -1967,16 +1966,6 @@ export type GetUpdatePoolCandidateDataQuery = {
     | null
     | undefined
   >;
-  users: Array<
-    | {
-        __typename?: "User";
-        id: string;
-        firstName?: string | null | undefined;
-        lastName?: string | null | undefined;
-      }
-    | null
-    | undefined
-  >;
   cmoAssets: Array<
     | {
         __typename?: "CmoAsset";
@@ -2042,6 +2031,18 @@ export type GetUpdatePoolCandidateDataQuery = {
           | null
           | undefined;
         status?: PoolCandidateStatus | null | undefined;
+        user?:
+          | {
+              __typename?: "User";
+              id: string;
+              email: string;
+              firstName?: string | null | undefined;
+              lastName?: string | null | undefined;
+              telephone?: string | null | undefined;
+              preferredLang?: Language | null | undefined;
+            }
+          | null
+          | undefined;
         pool?:
           | {
               __typename?: "Pool";
@@ -2055,10 +2056,6 @@ export type GetUpdatePoolCandidateDataQuery = {
                 | null
                 | undefined;
             }
-          | null
-          | undefined;
-        user?:
-          | { __typename?: "User"; id: string; email: string }
           | null
           | undefined;
         acceptedOperationalRequirements?:
@@ -3642,11 +3639,6 @@ export const GetUpdatePoolCandidateDataDocument = gql`
       group
       level
     }
-    users {
-      id
-      firstName
-      lastName
-    }
     cmoAssets {
       id
       key
@@ -3671,6 +3663,14 @@ export const GetUpdatePoolCandidateDataDocument = gql`
       }
     }
     poolCandidate(id: $id) {
+      user {
+        id
+        email
+        firstName
+        lastName
+        telephone
+        preferredLang
+      }
       ...poolCandidateForm
     }
   }
