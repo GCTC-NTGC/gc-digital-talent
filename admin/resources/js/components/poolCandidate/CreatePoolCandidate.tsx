@@ -89,7 +89,9 @@ const UserFormSection: React.FunctionComponent<{
   return (
     <>
       <div
-        data-h2-visibility={userMode === "existing" ? undefined : "b(hidden)"}
+        {...(userMode === "existing"
+          ? { "data-h2-visibility": "initial" }
+          : { "data-h2-visibility": "b(hidden)" })}
       >
         <Select
           id="user"
@@ -105,7 +107,11 @@ const UserFormSection: React.FunctionComponent<{
           }}
         />
       </div>
-      <div data-h2-visibility={userMode === "new" ? null : "b(hidden)"}>
+      <div
+        {...(userMode === "new"
+          ? { "data-h2-visibility": "initial" }
+          : { "data-h2-visibility": "b(hidden)" })}
+      >
         <Input
           id="email"
           label={intl.formatMessage(userMessages.emailLabel)}
@@ -293,17 +299,12 @@ export const CreatePoolCandidateForm: React.FunctionComponent<CreatePoolCandidat
         <div data-h2-container="b(center, s)">
           <FormProvider {...methods}>
             <form onSubmit={handleSubmit(onSubmit)}>
-              <Select
-                id="pool"
-                label={intl.formatMessage(poolCandidateMessages.poolLabel)}
-                nullSelection={intl.formatMessage(
-                  poolCandidateMessages.poolPlaceholder,
-                )}
-                name="pool"
-                options={poolOptions}
-                disabled={!!poolId}
-                rules={{ required: errorMessages.required }}
-              />
+              <h4>
+                {intl.formatMessage({
+                  description: "Heading for the user information section",
+                  defaultMessage: "User Information",
+                })}
+              </h4>
               <RadioGroup
                 idPrefix="userMode"
                 legend="User Assignment"
@@ -315,6 +316,23 @@ export const CreatePoolCandidateForm: React.FunctionComponent<CreatePoolCandidat
                 rules={{ required: errorMessages.required }}
               />
               <UserFormSection control={control} userOptions={userOptions} />
+              <h4>
+                {intl.formatMessage({
+                  description: "Heading for the candidate information section",
+                  defaultMessage: "Candidate Information",
+                })}
+              </h4>
+              <Select
+                id="pool"
+                label={intl.formatMessage(poolCandidateMessages.poolLabel)}
+                nullSelection={intl.formatMessage(
+                  poolCandidateMessages.poolPlaceholder,
+                )}
+                name="pool"
+                options={poolOptions}
+                disabled={!!poolId}
+                rules={{ required: errorMessages.required }}
+              />
               <Input
                 id="cmoIdentifier"
                 label={intl.formatMessage(
