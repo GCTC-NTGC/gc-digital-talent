@@ -5,7 +5,7 @@ import {
   fakeCmoAssets,
   fakeOperationalRequirements,
 } from "@common/fakeData";
-import SearchForm from "../components/search/SearchForm";
+import {SearchForm} from "../components/search/SearchForm";
 import {
   Classification,
   CmoAsset,

@@ -219,12 +219,12 @@ type Query {
     countPoolCandidates(where: PoolCandidateFilterInput): Int! @count(model: "PoolCandidate")
     # searchPoolCandidates returns the actual candidates matching a filter, and requires permissions.
     searchPoolCandidates(where: PoolCandidateFilterInput): [PoolCandidate]! @all @guard @can(ability: "viewAny")
-    classification(id: ID! @eq): Classification @find @guard @can(ability: "view", query: true)
-    classifications: [Classification]! @all @guard @can(ability: "viewAny")
-    operationalRequirement(id: ID! @eq): OperationalRequirement @find @guard @can(ability: "view", query: true)
-    operationalRequirements: [OperationalRequirement]! @all @guard @can(ability: "viewAny")
-    cmoAsset(id: ID! @eq): CmoAsset @find @guard @can(ability: "view", query: true)
-    cmoAssets: [CmoAsset]! @all @guard @can(ability: "viewAny")
+    classification(id: ID! @eq): Classification @find
+    classifications: [Classification]! @all
+    operationalRequirement(id: ID! @eq): OperationalRequirement @find
+    operationalRequirements: [OperationalRequirement]! @all
+    cmoAsset(id: ID! @eq): CmoAsset @find
+    cmoAssets: [CmoAsset]! @all
     department(id: ID! @eq): Department @find
     departments: [Department]! @all
     poolCandidateFilter(id: ID! @eq): PoolCandidateFilter @find @guard @can(ability: "view", query: true)

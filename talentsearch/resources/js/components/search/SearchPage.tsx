@@ -6,7 +6,7 @@ import { defineMessages, useIntl } from "react-intl";
 import { Pool } from "../../api/generated";
 import { BASE_URL } from "../../talentSearchConstants";
 import EstimatedCandidates from "./EstimatedCandidates";
-import SearchForm from "./SearchForm";
+import {SearchFormApi} from "./SearchForm";
 
 const messages = defineMessages({
   pageTitle: {
@@ -60,7 +60,6 @@ export const SearchPage: React.FC = () => {
       en: "",
       fr: "",
     },
-    classifications: [],
   };
   const totalEstimatedCandidates = 0;
 
@@ -122,12 +121,8 @@ export const SearchPage: React.FC = () => {
             {intl.formatMessage(messages.pageHowToHeading)}
           </h2>
           <p>{intl.formatMessage(messages.pageHowToContent)}</p>
-          {/* TODO: Replace component with wrapper component that fetches data from api */}
-          <SearchForm
+          <SearchFormApi
             totalEstimatedCandidates={totalEstimatedCandidates}
-            classifications={[]}
-            cmoAssets={[]}
-            operationalRequirements={[]}
           />
         </div>
         <div

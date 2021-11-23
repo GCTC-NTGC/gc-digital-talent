@@ -12,7 +12,10 @@ import {
   WorkRegion,
   LanguageAbility,
   PoolCandidateFilter,
+  useGetSearchFormDataQuery,
 } from "../../api/generated";
+import { notEmpty } from "@common/helpers/util";
+import { commonMessages } from "@common/messages";
 
 const FilterBlock: React.FunctionComponent<{
   id: string;
@@ -55,7 +58,7 @@ interface SearchFormProps {
   totalEstimatedCandidates: number;
 }
 
-const SearchForm: React.FunctionComponent<SearchFormProps> = ({
+export const SearchForm: React.FunctionComponent<SearchFormProps> = ({
   classifications,
   cmoAssets,
   operationalRequirements,
@@ -428,4 +431,47 @@ const SearchForm: React.FunctionComponent<SearchFormProps> = ({
   );
 };
 
-export default SearchForm;
+export const SearchFormApi: React.FunctionComponent<{ totalEstimatedCandidates: number }> = ({ totalEstimatedCandidates }) => {
+  const intl = useIntl();
+  const [lookupResult] = useGetSearchFormDataQuery();
+  const { data: lookupData, fetching, error} = lookupResult;
+  const classifications: Classification[] | [] =
+      lookupData?.classifications.filter(notEmpty) ?? [];
+  const cmoAssets: CmoAsset[] = lookupData?.cmoAssets.filter(notEmpty) ?? [];
+  const operationalRequirements: OperationalRequirement[] =
+    lookupData?.operationalRequirements.filter(notEmpty) ?? [];
+
+  if (fetching)
+    return (
+      <div
+        data-h2-display="b(flex)"
+        data-h2-justify-content="b(center)"
+        data-h2-align-items="b(center)"
+        style={{ minHeight: "20rem"}}
+      >
+        <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>
+      </div>
+    );
+  if (error)
+    return (
+      <div
+        data-h2-display="b(flex)"
+        data-h2-justify-content="b(center)"
+        data-h2-align-items="b(center)"
+        style={{ minHeight: "20rem"}}
+      >
+        <p>
+          {intl.formatMessage(commonMessages.loadingError)} {error.message}
+        </p>
+      </div>
+  );
+
+  return (
+    <SearchForm
+      classifications={classifications}
+      cmoAssets={cmoAssets}
+      operationalRequirements={operationalRequirements}
+      totalEstimatedCandidates={totalEstimatedCandidates}
+    />
+  );
+}
