@@ -10,6 +10,9 @@ scalar Email @scalar(class: "MLL\\GraphQLScalars\\Email")
 "A phone number string which must comply with E.164 international notation, including country code and preceding '+'."
 scalar PhoneNumber
 
+"A human readable ID"
+scalar KeyString
+
 type LocalizedString {
     en: String
     fr: String
@@ -41,7 +44,7 @@ type Pool {
     id: ID!
     owner: User @belongsTo(relation: "user")
     name: LocalizedString
-    key: String
+    key: KeyString
     description: LocalizedString
     classifications: [Classification] @belongsToMany
     assetCriteria: [CmoAsset] @belongsToMany
@@ -105,7 +108,7 @@ e.g. Overtime as Required, Shift Work, Travel as Required, etc.
 """
 type OperationalRequirement {
     id: ID!
-    key: String!
+    key: KeyString!
     name: LocalizedString!
     description: LocalizedString
 }
@@ -133,7 +136,7 @@ e.g. Application Development, Quality Assurance, Enterprise Architecture, IT Pro
 """
 type CmoAsset {
     id: ID!
-    key: String!
+    key: KeyString!
     name: LocalizedString!
     description: LocalizedString
 }
@@ -183,7 +186,7 @@ input ClassificationFilterInput {
 }
 
 input KeyFilterInput {
-    key: String!
+    key: KeyString!
 }
 
 input PoolFilterInput {
@@ -216,12 +219,12 @@ type Query {
     countPoolCandidates(where: PoolCandidateFilterInput): Int! @count(model: "PoolCandidate")
     # searchPoolCandidates returns the actual candidates matching a filter, and requires permissions.
     searchPoolCandidates(where: PoolCandidateFilterInput): [PoolCandidate]! @all @guard @can(ability: "viewAny")
-    classification(id: ID! @eq): Classification @find @guard @can(ability: "view", query: true)
-    classifications: [Classification]! @all @guard @can(ability: "viewAny")
-    operationalRequirement(id: ID! @eq): OperationalRequirement @find @guard @can(ability: "view", query: true)
-    operationalRequirements: [OperationalRequirement]! @all @guard @can(ability: "viewAny")
-    cmoAsset(id: ID! @eq): CmoAsset @find @guard @can(ability: "view", query: true)
-    cmoAssets: [CmoAsset]! @all @guard @can(ability: "viewAny")
+    classification(id: ID! @eq): Classification @find
+    classifications: [Classification]! @all
+    operationalRequirement(id: ID! @eq): OperationalRequirement @find
+    operationalRequirements: [OperationalRequirement]! @all
+    cmoAsset(id: ID! @eq): CmoAsset @find
+    cmoAssets: [CmoAsset]! @all
     department(id: ID! @eq): Department @find
     departments: [Department]! @all
     poolCandidateFilter(id: ID! @eq): PoolCandidateFilter @find @guard @can(ability: "view", query: true)
@@ -287,7 +290,7 @@ input ClassificationBelongsToMany {
 }
 
 input CreateCmoAssetInput {
-    key: String!
+    key: KeyString!
     name: LocalizedStringInput!
     description: LocalizedStringInput
 }
@@ -297,7 +300,7 @@ input CmoAssetBelongsToMany {
 }
 
 input CreateOperationalRequirementInput {
-    key: String!
+    key: KeyString!
     name: LocalizedStringInput!
     description: LocalizedStringInput
 }
@@ -332,7 +335,7 @@ input PoolCandidateHasMany {
 input CreatePoolInput {
     owner: UserBelongsTo! @rename(attribute: "user")
     name: LocalizedStringInput!
-    key: String!
+    key: KeyString!
     description: LocalizedStringInput
     classifications: ClassificationBelongsToMany
     assetCriteria: CmoAssetBelongsToMany

@@ -57,7 +57,7 @@ query getPoolCandidateFilters {
   }
 }
 
-query getPoolCandidateFilterData($id: ID!) {
+query getSearchFormData {
   classifications {
     id
     group
@@ -78,8 +78,5 @@ query getPoolCandidateFilterData($id: ID!) {
       en
       fr
     }
-  }
-  poolCandidateFilter(id: $id) {
-      ...poolCandidateFilter
   }
 }

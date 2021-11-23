@@ -13,24 +13,24 @@ class CmoAssetPolicy
     /**
      * Determine whether the user can view any models.
      *
-     * @param  \App\Models\User  $user
+     * @param  \App\Models\User|null  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function viewAny(User $user)
+    public function viewAny(User $user = null)
     {
-        return $user->isAdmin();
+        return true;
     }
 
     /**
      * Determine whether the user can view the model.
      *
-     * @param  \App\Models\User  $user
+     * @param  \App\Models\User|null $user
      * @param  \App\Models\CmoAsset  $cmoAsset
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, CmoAsset $cmoAsset)
+    public function view(User $user = null)
     {
-        return $user->isAdmin();
+        return true;
     }
 
     /**
