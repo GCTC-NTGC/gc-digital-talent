@@ -112,6 +112,7 @@ $app->register(\Nuwave\Lighthouse\Scout\ScoutServiceProvider::class);
 $app->register(\Nuwave\Lighthouse\SoftDeletes\SoftDeletesServiceProvider::class);
 $app->register(\Nuwave\Lighthouse\Validation\ValidationServiceProvider::class);
 $app->register(\Nuwave\Lighthouse\WhereConditions\WhereConditionsServiceProvider::class);
+//$app->register(\Nuwave\Lighthouse\Tracing\TracingServiceProvider::class,);
 $app->register(MLL\GraphQLPlayground\GraphQLPlaygroundServiceProvider::class);
 $app->register(\Fideloper\Proxy\TrustedProxyServiceProvider::class);
 $app->register(\Laravel\Tinker\TinkerServiceProvider::class);
