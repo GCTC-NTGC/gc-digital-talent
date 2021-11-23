@@ -2,6 +2,7 @@
 import { gql } from "urql";
 import * as Urql from "urql";
 export type Maybe<T> = T | null | undefined;
+export type InputMaybe<T> = T | null | undefined;
 export type Exact<T extends { [key: string]: unknown }> = {
   [K in keyof T]: T[K];
 };
@@ -25,6 +26,8 @@ export type Scalars = {
   DateTime: string;
   /** A RFC 5321 compliant email. */
   Email: string;
+  /** A human readable ID */
+  KeyString: any;
   /**
    * Loose type that allows any value. Be careful when passing in large `Int` or `Float` literals,
    * as they may not be parsed correctly on the server side. Use `String` literals if you are
@@ -46,7 +49,7 @@ export type Classification = {
 };
 
 export type ClassificationBelongsToMany = {
-  sync?: Maybe<Array<Scalars["ID"]>>;
+  sync?: InputMaybe<Array<Scalars["ID"]>>;
 };
 
 export type ClassificationFilterInput = {
@@ -59,74 +62,74 @@ export type CmoAsset = {
   __typename?: "CmoAsset";
   description?: Maybe<LocalizedString>;
   id: Scalars["ID"];
-  key: Scalars["String"];
+  key: Scalars["KeyString"];
   name: LocalizedString;
 };
 
 export type CmoAssetBelongsToMany = {
-  sync?: Maybe<Array<Scalars["ID"]>>;
+  sync?: InputMaybe<Array<Scalars["ID"]>>;
 };
 
 export type CreateClassificationInput = {
   group: Scalars["String"];
   level: Scalars["Int"];
-  maxSalary?: Maybe<Scalars["Int"]>;
-  minSalary?: Maybe<Scalars["Int"]>;
-  name?: Maybe<LocalizedStringInput>;
+  maxSalary?: InputMaybe<Scalars["Int"]>;
+  minSalary?: InputMaybe<Scalars["Int"]>;
+  name?: InputMaybe<LocalizedStringInput>;
 };
 
 export type CreateCmoAssetInput = {
-  description?: Maybe<LocalizedStringInput>;
-  key: Scalars["String"];
+  description?: InputMaybe<LocalizedStringInput>;
+  key: Scalars["KeyString"];
   name: LocalizedStringInput;
 };
 
 export type CreateDepartmentInput = {
   departmentNumber: Scalars["Int"];
-  name?: Maybe<LocalizedStringInput>;
+  name?: InputMaybe<LocalizedStringInput>;
 };
 
 export type CreateOperationalRequirementInput = {
-  description?: Maybe<LocalizedStringInput>;
-  key: Scalars["String"];
+  description?: InputMaybe<LocalizedStringInput>;
+  key: Scalars["KeyString"];
   name: LocalizedStringInput;
 };
 
 export type CreatePoolCandidateFilterInput = {
-  classifications?: Maybe<ClassificationBelongsToMany>;
-  cmoAssets?: Maybe<CmoAssetBelongsToMany>;
-  hasDiploma?: Maybe<Scalars["Boolean"]>;
-  hasDisability?: Maybe<Scalars["Boolean"]>;
-  isIndigenous?: Maybe<Scalars["Boolean"]>;
-  isVisibleMinority?: Maybe<Scalars["Boolean"]>;
-  isWoman?: Maybe<Scalars["Boolean"]>;
-  languageAbility?: Maybe<LanguageAbility>;
-  operationalRequirements?: Maybe<OperationalRequirementBelongsToMany>;
-  pools?: Maybe<PoolBelongsToMany>;
-  workRegions?: Maybe<Array<Maybe<WorkRegion>>>;
+  classifications?: InputMaybe<ClassificationBelongsToMany>;
+  cmoAssets?: InputMaybe<CmoAssetBelongsToMany>;
+  hasDiploma?: InputMaybe<Scalars["Boolean"]>;
+  hasDisability?: InputMaybe<Scalars["Boolean"]>;
+  isIndigenous?: InputMaybe<Scalars["Boolean"]>;
+  isVisibleMinority?: InputMaybe<Scalars["Boolean"]>;
+  isWoman?: InputMaybe<Scalars["Boolean"]>;
+  languageAbility?: InputMaybe<LanguageAbility>;
+  operationalRequirements?: InputMaybe<OperationalRequirementBelongsToMany>;
+  pools?: InputMaybe<PoolBelongsToMany>;
+  workRegions?: InputMaybe<Array<InputMaybe<WorkRegion>>>;
 };
 
 export type CreatePoolCandidateInput = {
-  acceptedOperationalRequirements?: Maybe<OperationalRequirementBelongsToMany>;
-  cmoAssets?: Maybe<CmoAssetBelongsToMany>;
-  cmoIdentifier?: Maybe<Scalars["ID"]>;
-  expectedClassifications?: Maybe<ClassificationBelongsToMany>;
-  expectedSalary?: Maybe<Array<Maybe<SalaryRange>>>;
-  expiryDate?: Maybe<Scalars["Date"]>;
-  hasDiploma?: Maybe<Scalars["Boolean"]>;
-  hasDisability?: Maybe<Scalars["Boolean"]>;
-  isIndigenous?: Maybe<Scalars["Boolean"]>;
-  isVisibleMinority?: Maybe<Scalars["Boolean"]>;
-  isWoman?: Maybe<Scalars["Boolean"]>;
-  languageAbility?: Maybe<LanguageAbility>;
-  locationPreferences?: Maybe<Array<Maybe<WorkRegion>>>;
+  acceptedOperationalRequirements?: InputMaybe<OperationalRequirementBelongsToMany>;
+  cmoAssets?: InputMaybe<CmoAssetBelongsToMany>;
+  cmoIdentifier?: InputMaybe<Scalars["ID"]>;
+  expectedClassifications?: InputMaybe<ClassificationBelongsToMany>;
+  expectedSalary?: InputMaybe<Array<InputMaybe<SalaryRange>>>;
+  expiryDate?: InputMaybe<Scalars["Date"]>;
+  hasDiploma?: InputMaybe<Scalars["Boolean"]>;
+  hasDisability?: InputMaybe<Scalars["Boolean"]>;
+  isIndigenous?: InputMaybe<Scalars["Boolean"]>;
+  isVisibleMinority?: InputMaybe<Scalars["Boolean"]>;
+  isWoman?: InputMaybe<Scalars["Boolean"]>;
+  languageAbility?: InputMaybe<LanguageAbility>;
+  locationPreferences?: InputMaybe<Array<InputMaybe<WorkRegion>>>;
   pool: PoolBelongsTo;
-  status?: Maybe<PoolCandidateStatus>;
+  status?: InputMaybe<PoolCandidateStatus>;
   user: UserBelongsTo;
 };
 
 export type CreatePoolCandidateSearchRequestInput = {
-  additionalComments?: Maybe<Scalars["String"]>;
+  additionalComments?: InputMaybe<Scalars["String"]>;
   department: DepartmentBelongsTo;
   email: Scalars["Email"];
   fullName: Scalars["String"];
@@ -135,13 +138,13 @@ export type CreatePoolCandidateSearchRequestInput = {
 };
 
 export type CreatePoolInput = {
-  assetCriteria?: Maybe<CmoAssetBelongsToMany>;
-  classifications?: Maybe<ClassificationBelongsToMany>;
-  description?: Maybe<LocalizedStringInput>;
-  essentialCriteria?: Maybe<CmoAssetBelongsToMany>;
-  key: Scalars["String"];
+  assetCriteria?: InputMaybe<CmoAssetBelongsToMany>;
+  classifications?: InputMaybe<ClassificationBelongsToMany>;
+  description?: InputMaybe<LocalizedStringInput>;
+  essentialCriteria?: InputMaybe<CmoAssetBelongsToMany>;
+  key: Scalars["KeyString"];
   name: LocalizedStringInput;
-  operationalRequirements?: Maybe<OperationalRequirementBelongsToMany>;
+  operationalRequirements?: InputMaybe<OperationalRequirementBelongsToMany>;
   owner: UserBelongsTo;
 };
 
@@ -150,9 +153,9 @@ export type CreateUserInput = {
   email: Scalars["Email"];
   firstName: Scalars["String"];
   lastName: Scalars["String"];
-  preferredLang?: Maybe<Language>;
-  roles?: Maybe<Array<Maybe<Role>>>;
-  telephone?: Maybe<Scalars["PhoneNumber"]>;
+  preferredLang?: InputMaybe<Language>;
+  roles?: InputMaybe<Array<InputMaybe<Role>>>;
+  telephone?: InputMaybe<Scalars["PhoneNumber"]>;
 };
 
 export type Department = {
@@ -167,7 +170,7 @@ export type DepartmentBelongsTo = {
 };
 
 export type KeyFilterInput = {
-  key: Scalars["String"];
+  key: Scalars["KeyString"];
 };
 
 export enum Language {
@@ -188,8 +191,8 @@ export type LocalizedString = {
 };
 
 export type LocalizedStringInput = {
-  en?: Maybe<Scalars["String"]>;
-  fr?: Maybe<Scalars["String"]>;
+  en?: InputMaybe<Scalars["String"]>;
+  fr?: InputMaybe<Scalars["String"]>;
 };
 
 export type Mutation = {
@@ -324,12 +327,12 @@ export type OperationalRequirement = {
   __typename?: "OperationalRequirement";
   description?: Maybe<LocalizedString>;
   id: Scalars["ID"];
-  key: Scalars["String"];
+  key: Scalars["KeyString"];
   name: LocalizedString;
 };
 
 export type OperationalRequirementBelongsToMany = {
-  sync?: Maybe<Array<Scalars["ID"]>>;
+  sync?: InputMaybe<Array<Scalars["ID"]>>;
 };
 
 /** Allows ordering a list of records. */
@@ -389,7 +392,7 @@ export type Pool = {
   description?: Maybe<LocalizedString>;
   essentialCriteria?: Maybe<Array<Maybe<CmoAsset>>>;
   id: Scalars["ID"];
-  key?: Maybe<Scalars["String"]>;
+  key?: Maybe<Scalars["KeyString"]>;
   name?: Maybe<LocalizedString>;
   operationalRequirements?: Maybe<Array<Maybe<OperationalRequirement>>>;
   owner?: Maybe<User>;
@@ -401,7 +404,7 @@ export type PoolBelongsTo = {
 };
 
 export type PoolBelongsToMany = {
-  sync?: Maybe<Array<Scalars["ID"]>>;
+  sync?: InputMaybe<Array<Scalars["ID"]>>;
 };
 
 export type PoolCandidate = {
@@ -446,21 +449,21 @@ export type PoolCandidateFilterBelongsTo = {
 };
 
 export type PoolCandidateFilterInput = {
-  classifications?: Maybe<Array<Maybe<ClassificationFilterInput>>>;
-  cmoAssets?: Maybe<Array<Maybe<KeyFilterInput>>>;
-  hasDiploma?: Maybe<Scalars["Boolean"]>;
-  hasDisability?: Maybe<Scalars["Boolean"]>;
-  isIndigenous?: Maybe<Scalars["Boolean"]>;
-  isVisibleMinority?: Maybe<Scalars["Boolean"]>;
-  isWoman?: Maybe<Scalars["Boolean"]>;
-  languageAbility?: Maybe<LanguageAbility>;
-  operationalRequirements?: Maybe<Array<Maybe<KeyFilterInput>>>;
-  pools?: Maybe<Array<Maybe<PoolFilterInput>>>;
-  workRegions?: Maybe<Array<Maybe<WorkRegion>>>;
+  classifications?: InputMaybe<Array<InputMaybe<ClassificationFilterInput>>>;
+  cmoAssets?: InputMaybe<Array<InputMaybe<KeyFilterInput>>>;
+  hasDiploma?: InputMaybe<Scalars["Boolean"]>;
+  hasDisability?: InputMaybe<Scalars["Boolean"]>;
+  isIndigenous?: InputMaybe<Scalars["Boolean"]>;
+  isVisibleMinority?: InputMaybe<Scalars["Boolean"]>;
+  isWoman?: InputMaybe<Scalars["Boolean"]>;
+  languageAbility?: InputMaybe<LanguageAbility>;
+  operationalRequirements?: InputMaybe<Array<InputMaybe<KeyFilterInput>>>;
+  pools?: InputMaybe<Array<InputMaybe<PoolFilterInput>>>;
+  workRegions?: InputMaybe<Array<InputMaybe<WorkRegion>>>;
 };
 
 export type PoolCandidateHasMany = {
-  create?: Maybe<Array<CreatePoolCandidateInput>>;
+  create?: InputMaybe<Array<CreatePoolCandidateInput>>;
 };
 
 export type PoolCandidateSearchRequest = {
@@ -527,7 +530,7 @@ export type QueryCmoAssetArgs = {
 };
 
 export type QueryCountPoolCandidatesArgs = {
-  where?: Maybe<PoolCandidateFilterInput>;
+  where?: InputMaybe<PoolCandidateFilterInput>;
 };
 
 export type QueryDepartmentArgs = {
@@ -555,7 +558,7 @@ export type QueryPoolCandidateSearchRequestArgs = {
 };
 
 export type QuerySearchPoolCandidatesArgs = {
-  where?: Maybe<PoolCandidateFilterInput>;
+  where?: InputMaybe<PoolCandidateFilterInput>;
 };
 
 export type QueryUserArgs = {
@@ -643,75 +646,73 @@ export enum Trashed {
 }
 
 export type UpdateClassificationInput = {
-  group?: Maybe<Scalars["String"]>;
-  maxSalary?: Maybe<Scalars["Int"]>;
-  minSalary?: Maybe<Scalars["Int"]>;
-  name?: Maybe<LocalizedStringInput>;
+  group?: InputMaybe<Scalars["String"]>;
+  maxSalary?: InputMaybe<Scalars["Int"]>;
+  minSalary?: InputMaybe<Scalars["Int"]>;
+  name?: InputMaybe<LocalizedStringInput>;
 };
 
 export type UpdateCmoAssetInput = {
-  description?: Maybe<LocalizedStringInput>;
-  key?: Maybe<Scalars["String"]>;
-  name?: Maybe<LocalizedStringInput>;
+  description?: InputMaybe<LocalizedStringInput>;
+  name?: InputMaybe<LocalizedStringInput>;
 };
 
 export type UpdateDepartmentInput = {
-  departmentNumber?: Maybe<Scalars["Int"]>;
-  name?: Maybe<LocalizedStringInput>;
+  departmentNumber?: InputMaybe<Scalars["Int"]>;
+  name?: InputMaybe<LocalizedStringInput>;
 };
 
 export type UpdateOperationalRequirementInput = {
-  description?: Maybe<LocalizedStringInput>;
-  key?: Maybe<Scalars["String"]>;
-  name?: Maybe<LocalizedStringInput>;
+  description?: InputMaybe<LocalizedStringInput>;
+  name?: InputMaybe<LocalizedStringInput>;
 };
 
 export type UpdatePoolCandidateInput = {
-  acceptedOperationalRequirements?: Maybe<OperationalRequirementBelongsToMany>;
-  cmoAssets?: Maybe<CmoAssetBelongsToMany>;
-  cmoIdentifier?: Maybe<Scalars["ID"]>;
-  expectedClassifications?: Maybe<ClassificationBelongsToMany>;
-  expectedSalary?: Maybe<Array<Maybe<SalaryRange>>>;
-  expiryDate?: Maybe<Scalars["Date"]>;
-  hasDiploma?: Maybe<Scalars["Boolean"]>;
-  hasDisability?: Maybe<Scalars["Boolean"]>;
-  isIndigenous?: Maybe<Scalars["Boolean"]>;
-  isVisibleMinority?: Maybe<Scalars["Boolean"]>;
-  isWoman?: Maybe<Scalars["Boolean"]>;
-  languageAbility?: Maybe<LanguageAbility>;
-  locationPreferences?: Maybe<Array<Maybe<WorkRegion>>>;
-  status?: Maybe<PoolCandidateStatus>;
-  user?: Maybe<UpdatePoolCandidateUserBelongsTo>;
+  acceptedOperationalRequirements?: InputMaybe<OperationalRequirementBelongsToMany>;
+  cmoAssets?: InputMaybe<CmoAssetBelongsToMany>;
+  cmoIdentifier?: InputMaybe<Scalars["ID"]>;
+  expectedClassifications?: InputMaybe<ClassificationBelongsToMany>;
+  expectedSalary?: InputMaybe<Array<InputMaybe<SalaryRange>>>;
+  expiryDate?: InputMaybe<Scalars["Date"]>;
+  hasDiploma?: InputMaybe<Scalars["Boolean"]>;
+  hasDisability?: InputMaybe<Scalars["Boolean"]>;
+  isIndigenous?: InputMaybe<Scalars["Boolean"]>;
+  isVisibleMinority?: InputMaybe<Scalars["Boolean"]>;
+  isWoman?: InputMaybe<Scalars["Boolean"]>;
+  languageAbility?: InputMaybe<LanguageAbility>;
+  locationPreferences?: InputMaybe<Array<InputMaybe<WorkRegion>>>;
+  status?: InputMaybe<PoolCandidateStatus>;
+  user?: InputMaybe<UpdatePoolCandidateUserBelongsTo>;
 };
 
 export type UpdatePoolCandidateSearchRequestInput = {
-  adminNotes?: Maybe<Scalars["String"]>;
-  status?: Maybe<PoolCandidateSearchStatus>;
+  adminNotes?: InputMaybe<Scalars["String"]>;
+  status?: InputMaybe<PoolCandidateSearchStatus>;
 };
 
 /** When updating a PoolCandidate it is possible to update the related user, but not change which user it is related to. */
 export type UpdatePoolCandidateUserBelongsTo = {
-  update?: Maybe<UpdateUserInput>;
+  update?: InputMaybe<UpdateUserInput>;
 };
 
 export type UpdatePoolInput = {
-  assetCriteria?: Maybe<CmoAssetBelongsToMany>;
-  classifications?: Maybe<ClassificationBelongsToMany>;
-  description?: Maybe<LocalizedStringInput>;
-  essentialCriteria?: Maybe<CmoAssetBelongsToMany>;
-  name?: Maybe<LocalizedStringInput>;
-  operationalRequirements?: Maybe<OperationalRequirementBelongsToMany>;
-  owner?: Maybe<UserBelongsTo>;
+  assetCriteria?: InputMaybe<CmoAssetBelongsToMany>;
+  classifications?: InputMaybe<ClassificationBelongsToMany>;
+  description?: InputMaybe<LocalizedStringInput>;
+  essentialCriteria?: InputMaybe<CmoAssetBelongsToMany>;
+  name?: InputMaybe<LocalizedStringInput>;
+  operationalRequirements?: InputMaybe<OperationalRequirementBelongsToMany>;
+  owner?: InputMaybe<UserBelongsTo>;
 };
 
 /** When updating a User, all fields are optional, and email cannot be changed. */
 export type UpdateUserInput = {
-  firstName?: Maybe<Scalars["String"]>;
-  id?: Maybe<Scalars["ID"]>;
-  lastName?: Maybe<Scalars["String"]>;
-  preferredLang?: Maybe<Language>;
-  roles?: Maybe<Array<Maybe<Role>>>;
-  telephone?: Maybe<Scalars["PhoneNumber"]>;
+  firstName?: InputMaybe<Scalars["String"]>;
+  id?: InputMaybe<Scalars["ID"]>;
+  lastName?: InputMaybe<Scalars["String"]>;
+  preferredLang?: InputMaybe<Language>;
+  roles?: InputMaybe<Array<InputMaybe<Role>>>;
+  telephone?: InputMaybe<Scalars["PhoneNumber"]>;
 };
 
 export type User = {
@@ -729,35 +730,35 @@ export type User = {
 };
 
 export type UserBelongsTo = {
-  connect?: Maybe<Scalars["ID"]>;
-  create?: Maybe<CreateUserInput>;
-  update?: Maybe<UpdateUserInput>;
+  connect?: InputMaybe<Scalars["ID"]>;
+  create?: InputMaybe<CreateUserInput>;
+  update?: InputMaybe<UpdateUserInput>;
 };
 
 /** Dynamic WHERE conditions for queries. */
 export type WhereConditions = {
   /** A set of conditions that requires all conditions to match. */
-  AND?: Maybe<Array<WhereConditions>>;
+  AND?: InputMaybe<Array<WhereConditions>>;
   /** Check whether a relation exists. Extra conditions or a minimum amount can be applied. */
-  HAS?: Maybe<WhereConditionsRelation>;
+  HAS?: InputMaybe<WhereConditionsRelation>;
   /** A set of conditions that requires at least one condition to match. */
-  OR?: Maybe<Array<WhereConditions>>;
+  OR?: InputMaybe<Array<WhereConditions>>;
   /** The column that is used for the condition. */
-  column?: Maybe<Scalars["String"]>;
+  column?: InputMaybe<Scalars["String"]>;
   /** The operator that is used for the condition. */
-  operator?: Maybe<SqlOperator>;
+  operator?: InputMaybe<SqlOperator>;
   /** The value that is used for the condition. */
-  value?: Maybe<Scalars["Mixed"]>;
+  value?: InputMaybe<Scalars["Mixed"]>;
 };
 
 /** Dynamic HAS conditions for WHERE condition queries. */
 export type WhereConditionsRelation = {
   /** The amount to test. */
-  amount?: Maybe<Scalars["Int"]>;
+  amount?: InputMaybe<Scalars["Int"]>;
   /** Additional condition logic. */
-  condition?: Maybe<WhereConditions>;
+  condition?: InputMaybe<WhereConditions>;
   /** The comparison operator to test against the amount. */
-  operator?: Maybe<SqlOperator>;
+  operator?: InputMaybe<SqlOperator>;
   /** The relation that is checked. */
   relation: Scalars["String"];
 };
@@ -801,7 +802,7 @@ export type PoolCandidateFilterFragment = {
         | {
             __typename?: "CmoAsset";
             id: string;
-            key: string;
+            key: any;
             name: {
               __typename?: "LocalizedString";
               en?: string | null | undefined;
@@ -818,7 +819,7 @@ export type PoolCandidateFilterFragment = {
         | {
             __typename?: "OperationalRequirement";
             id: string;
-            key: string;
+            key: any;
             name: {
               __typename?: "LocalizedString";
               en?: string | null | undefined;
@@ -902,7 +903,7 @@ export type GetPoolCandidateFilterQuery = {
               | {
                   __typename?: "CmoAsset";
                   id: string;
-                  key: string;
+                  key: any;
                   name: {
                     __typename?: "LocalizedString";
                     en?: string | null | undefined;
@@ -919,7 +920,7 @@ export type GetPoolCandidateFilterQuery = {
               | {
                   __typename?: "OperationalRequirement";
                   id: string;
-                  key: string;
+                  key: any;
                   name: {
                     __typename?: "LocalizedString";
                     en?: string | null | undefined;
@@ -1006,7 +1007,7 @@ export type GetPoolCandidateFiltersQuery = {
               | {
                   __typename?: "CmoAsset";
                   id: string;
-                  key: string;
+                  key: any;
                   name: {
                     __typename?: "LocalizedString";
                     en?: string | null | undefined;
@@ -1023,7 +1024,7 @@ export type GetPoolCandidateFiltersQuery = {
               | {
                   __typename?: "OperationalRequirement";
                   id: string;
-                  key: string;
+                  key: any;
                   name: {
                     __typename?: "LocalizedString";
                     en?: string | null | undefined;
@@ -1096,7 +1097,7 @@ export type GetPoolCandidateFilterDataQuery = {
     | {
         __typename?: "CmoAsset";
         id: string;
-        key: string;
+        key: any;
         name: {
           __typename?: "LocalizedString";
           en?: string | null | undefined;
@@ -1110,7 +1111,7 @@ export type GetPoolCandidateFilterDataQuery = {
     | {
         __typename?: "OperationalRequirement";
         id: string;
-        key: string;
+        key: any;
         name: {
           __typename?: "LocalizedString";
           en?: string | null | undefined;
@@ -1149,7 +1150,7 @@ export type GetPoolCandidateFilterDataQuery = {
               | {
                   __typename?: "CmoAsset";
                   id: string;
-                  key: string;
+                  key: any;
                   name: {
                     __typename?: "LocalizedString";
                     en?: string | null | undefined;
@@ -1166,7 +1167,7 @@ export type GetPoolCandidateFilterDataQuery = {
               | {
                   __typename?: "OperationalRequirement";
                   id: string;
-                  key: string;
+                  key: any;
                   name: {
                     __typename?: "LocalizedString";
                     en?: string | null | undefined;
