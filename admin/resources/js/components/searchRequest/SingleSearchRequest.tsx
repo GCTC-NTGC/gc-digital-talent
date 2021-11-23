@@ -160,7 +160,7 @@ export const SingleSearchRequest: React.FunctionComponent<SingleSearchRequestPro
     const poolCandidateFilterInput: PoolCandidateFilterInput = {
       classifications: [
         ...(poolCandidateFilter.classifications
-          ? poolCandidateFilter?.classifications
+          ? poolCandidateFilter.classifications
               .filter(notEmpty)
               .map(({ group, level }) => {
                 return {
