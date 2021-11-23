@@ -12,7 +12,6 @@ import {
   UpdatePoolCandidateSearchRequestInput,
   useUpdatePoolCandidateSearchRequestMutation,
 } from "../../api/generated";
-import DashboardContentContainer from "../DashboardContentContainer";
 
 type FormValues = UpdatePoolCandidateSearchRequestInput;
 
