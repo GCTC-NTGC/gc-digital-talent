@@ -310,8 +310,22 @@ export const CreatePoolCandidateForm: React.FunctionComponent<CreatePoolCandidat
                 legend="User Assignment"
                 name="userMode"
                 items={[
-                  { value: "existing", label: "Assign Existing User" },
-                  { value: "new", label: "Create New User" },
+                  {
+                    value: "existing",
+                    label: intl.formatMessage({
+                      defaultMessage: "Assign Existing User",
+                      description:
+                        "Label for the existing user assignment option in the create pool candidate form.",
+                    }),
+                  },
+                  {
+                    value: "new",
+                    label: intl.formatMessage({
+                      defaultMessage: "Create New User",
+                      description:
+                        "Label for the new user assignment option in the create pool candidate form.",
+                    }),
+                  },
                 ]}
                 rules={{ required: errorMessages.required }}
               />
