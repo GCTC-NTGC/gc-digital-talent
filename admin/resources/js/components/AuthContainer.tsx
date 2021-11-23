@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import {
+  clearQueryParams,
   parseUrlQueryParameters,
-  redirect,
   useLocation,
 } from "@common/helpers/router";
 import { homePath } from "../adminRoutes";
@@ -33,37 +33,51 @@ const logoutAndRefresh = (): void => {
   window.location.href = homePath();
 };
 
-export var AuthContainer: React.FC = function ({ children }) {
-  const [tokens, setTokens] = useState({
+function getTokensFromLocation(
+  location: ReturnType<typeof useLocation>,
+): { accessToken: string; refreshToken: string | null } | null {
+  const queryParams = parseUrlQueryParameters(location);
+  const accessToken: string | null = queryParams.access_token ?? null;
+  const refreshToken: string | null = queryParams.refresh_token ?? null;
+  if (accessToken && queryParams.token_type === "Bearer") {
+    return {
+      accessToken,
+      refreshToken,
+    };
+  }
+  return null;
+}
+
+export const AuthContainer: React.FC = ({ children }) => {
+  const [stateTokens, setTokens] = useState({
     accessToken: localStorage.getItem(ACCESS_TOKEN),
     refreshToken: localStorage.getItem(REFRESH_TOKEN),
   });
 
   const location = useLocation();
-  console.log("Auth container, location:", location);
-  useEffect(() => {
-    const queryParams = parseUrlQueryParameters(location);
-    const accessToken = queryParams.access_token;
-    const refreshToken = queryParams.refresh_token;
-    if (accessToken && queryParams.token_type === "Bearer") {
-      // If url query parameters contain an access token, save it in local storage and in state hook.
-      localStorage.setItem(ACCESS_TOKEN, accessToken);
-      if (refreshToken) {
-        localStorage.setItem(REFRESH_TOKEN, refreshToken);
-      }
-      setTokens({ accessToken, refreshToken });
-      // Then, redirect to the same url but without all the query parameters.
-      redirect({
-        ...location,
-        search: "",
-      });
-    }
-  }, [location]);
+  const newTokens = getTokensFromLocation(location);
 
+  // If newTokens is not null, then we have a new access token in the url. Save it in local storage and in state hook, then clear query parameters.
+  useEffect(() => {
+    if (newTokens?.accessToken) {
+      setTokens({
+        accessToken: newTokens.accessToken,
+        refreshToken: newTokens.refreshToken,
+      });
+      localStorage.setItem(ACCESS_TOKEN, newTokens.accessToken);
+      if (newTokens?.refreshToken) {
+        localStorage.setItem(REFRESH_TOKEN, newTokens.refreshToken);
+      }
+      clearQueryParams();
+    }
+  }, [newTokens?.accessToken, newTokens?.refreshToken]); // Check for tokens individually so a new tokens object with identical contents doesn't trigger a re-render.
+
+  // If tokens were just found in the url, then get them from newTokens instead of state hook, which will update asyncronously.
+  const tokens = newTokens ?? stateTokens;
   const state = useMemo<AuthState>(() => {
-    console.log("In AuthContainer; new tokens:", tokens);
     return {
-      ...tokens,
+      accessToken: tokens.accessToken,
+      refreshToken: tokens.refreshToken,
       loggedIn: !!tokens.accessToken,
       logout: tokens.accessToken
         ? logoutAndRefresh
@@ -71,7 +85,7 @@ export var AuthContainer: React.FC = function ({ children }) {
             /* If not logged in, logout does nothing. */
           },
     };
-  }, [tokens]);
+  }, [tokens.accessToken, tokens.refreshToken]);
 
   return <AuthContext.Provider value={state}>{children}</AuthContext.Provider>;
 };
