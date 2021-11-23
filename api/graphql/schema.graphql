@@ -30,18 +30,18 @@ enum Role {
 type User {
     # There are some cases where some fields, such as email and names, should be visible while others aren't. Therefore we use field-level permissions to distinguish them.
     id: ID!
-    email: Email! @canAsParent(ability: "viewPublic")
-    sub: String @canAsParent(ability: "view")
-    firstName: String @rename(attribute: "first_name") @canAsParent(ability: "viewPublic")
-    lastName: String @rename(attribute: "last_name") @canAsParent(ability: "viewPublic")
-    telephone: PhoneNumber  @canAsParent(ability: "view")
-    preferredLang: Language @rename(attribute: "preferred_lang") @canAsParent(ability: "view")
-    roles: [Role] @canAsParent(ability: "view")
-    pools: [Pool] @hasMany @canAsParent(ability: "view") # Pools that a user owns
-    poolCandidates: [PoolCandidate] @hasMany @canAsParent(ability: "view") # Pools candidates that a user owns
+    email: Email!
+    sub: String
+    firstName: String @rename(attribute: "first_name")
+    lastName: String @rename(attribute: "last_name")
+    telephone: PhoneNumber
+    preferredLang: Language @rename(attribute: "preferred_lang")
+    roles: [Role]
+    pools: [Pool] @hasMany # Pools that a user owns
+    poolCandidates: [PoolCandidate] @hasMany # Pools candidates that a user owns
 }
 
-type PoolOwnerPublicProfile {
+type UserPublicProfile {
     id: ID!
     email: Email
     firstName: String @rename(attribute: "first_name")
@@ -51,7 +51,7 @@ type PoolOwnerPublicProfile {
 type Pool {
     id: ID!
     owner: User @belongsTo(relation: "user")
-    ownerPublicProfile: PoolOwnerPublicProfile @belongsTo(relation: "user")
+    ownerPublicProfile: UserPublicProfile @belongsTo(relation: "user")
     name: LocalizedString
     key: KeyString
     description: LocalizedString

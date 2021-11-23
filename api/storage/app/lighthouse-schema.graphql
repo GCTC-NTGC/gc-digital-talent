@@ -21,7 +21,7 @@ e.g. Application Development, Quality Assurance, Enterprise Architecture, IT Pro
 """
 type CmoAsset {
   id: ID!
-  key: String!
+  key: KeyString!
   name: LocalizedString!
   description: LocalizedString
 }
@@ -39,7 +39,7 @@ input CreateClassificationInput {
 }
 
 input CreateCmoAssetInput {
-  key: String!
+  key: KeyString!
   name: LocalizedStringInput!
   description: LocalizedStringInput
 }
@@ -50,7 +50,7 @@ input CreateDepartmentInput {
 }
 
 input CreateOperationalRequirementInput {
-  key: String!
+  key: KeyString!
   name: LocalizedStringInput!
   description: LocalizedStringInput
 }
@@ -100,7 +100,7 @@ input CreatePoolCandidateSearchRequestInput {
 input CreatePoolInput {
   owner: UserBelongsTo!
   name: LocalizedStringInput!
-  key: String!
+  key: KeyString!
   description: LocalizedStringInput
   classifications: ClassificationBelongsToMany
   assetCriteria: CmoAssetBelongsToMany
@@ -140,8 +140,11 @@ input DepartmentBelongsTo {
 scalar Email
 
 input KeyFilterInput {
-  key: String!
+  key: KeyString!
 }
+
+"""A human readable ID"""
+scalar KeyString
 
 enum Language {
   EN
@@ -200,7 +203,7 @@ type Mutation {
 """e.g. Overtime as Required, Shift Work, Travel as Required, etc."""
 type OperationalRequirement {
   id: ID!
-  key: String!
+  key: KeyString!
   name: LocalizedString!
   description: LocalizedString
 }
@@ -280,9 +283,9 @@ scalar PhoneNumber
 type Pool {
   id: ID!
   owner: User
-  ownerPublicProfile: PoolOwnerPublicProfile
+  ownerPublicProfile: UserPublicProfile
   name: LocalizedString
-  key: String
+  key: KeyString
   description: LocalizedString
   classifications: [Classification]
   assetCriteria: [CmoAsset]
@@ -383,13 +386,6 @@ enum PoolCandidateStatus {
 
 input PoolFilterInput {
   id: ID!
-}
-
-type PoolOwnerPublicProfile {
-  id: ID!
-  email: Email
-  firstName: String
-  lastName: String
 }
 
 type Query {
@@ -585,6 +581,7 @@ input UpdatePoolInput {
 When updating a User, all fields are optional, and email cannot be changed.
 """
 input UpdateUserInput {
+  id: ID
   firstName: String
   lastName: String
   telephone: PhoneNumber
@@ -609,6 +606,13 @@ input UserBelongsTo {
   create: CreateUserInput
   connect: ID
   update: UpdateUserInput
+}
+
+type UserPublicProfile {
+  id: ID!
+  email: Email
+  firstName: String
+  lastName: String
 }
 
 """Dynamic WHERE conditions for queries."""
