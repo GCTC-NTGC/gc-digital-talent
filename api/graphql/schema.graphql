@@ -10,6 +10,9 @@ scalar Email @scalar(class: "MLL\\GraphQLScalars\\Email")
 "A phone number string which must comply with E.164 international notation, including country code and preceding '+'."
 scalar PhoneNumber
 
+"A human readable ID"
+scalar KeyString
+
 type LocalizedString {
     en: String
     fr: String
@@ -41,7 +44,7 @@ type Pool {
     id: ID!
     owner: User @belongsTo(relation: "user")
     name: LocalizedString
-    key: String
+    key: KeyString
     description: LocalizedString
     classifications: [Classification] @belongsToMany
     assetCriteria: [CmoAsset] @belongsToMany
@@ -105,7 +108,7 @@ e.g. Overtime as Required, Shift Work, Travel as Required, etc.
 """
 type OperationalRequirement {
     id: ID!
-    key: String!
+    key: KeyString!
     name: LocalizedString!
     description: LocalizedString
 }
@@ -133,7 +136,7 @@ e.g. Application Development, Quality Assurance, Enterprise Architecture, IT Pro
 """
 type CmoAsset {
     id: ID!
-    key: String!
+    key: KeyString!
     name: LocalizedString!
     description: LocalizedString
 }
@@ -183,7 +186,7 @@ input ClassificationFilterInput {
 }
 
 input KeyFilterInput {
-    key: String!
+    key: KeyString!
 }
 
 input PoolFilterInput {
@@ -244,6 +247,7 @@ input CreateUserInput {
 When updating a User, all fields are optional, and email cannot be changed.
 """
 input UpdateUserInput {
+    id: ID
     firstName: String @rename(attribute: "first_name")
     lastName: String @rename(attribute: "last_name")
     telephone: PhoneNumber
@@ -286,7 +290,7 @@ input ClassificationBelongsToMany {
 }
 
 input CreateCmoAssetInput {
-    key: String!
+    key: KeyString!
     name: LocalizedStringInput!
     description: LocalizedStringInput
 }
@@ -296,7 +300,7 @@ input CmoAssetBelongsToMany {
 }
 
 input CreateOperationalRequirementInput {
-    key: String!
+    key: KeyString!
     name: LocalizedStringInput!
     description: LocalizedStringInput
 }
@@ -331,7 +335,7 @@ input PoolCandidateHasMany {
 input CreatePoolInput {
     owner: UserBelongsTo! @rename(attribute: "user")
     name: LocalizedStringInput!
-    key: String!
+    key: KeyString!
     description: LocalizedStringInput
     classifications: ClassificationBelongsToMany
     assetCriteria: CmoAssetBelongsToMany
@@ -437,7 +441,7 @@ input UpdatePoolCandidateSearchRequestInput {
 }
 
 type Mutation {
-    createUser(user: CreateUserInput! @spread): User @create @guard @can(ability: "create")
+    createUser(user: CreateUserInput! @spread): User @create @guard @can(ability: "create") @copyField(source: "email", target: "sub")
     updateUser(id: ID!, user: UpdateUserInput! @spread): User @update @guard @can(ability: "update", find: "id")
     deleteUser(id: ID!): User @delete(globalId: false) @guard @can(ability: "delete", find: "id")
     createPool(pool: CreatePoolInput! @spread): Pool @create @guard @can(ability: "create")
