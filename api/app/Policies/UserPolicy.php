@@ -29,7 +29,23 @@ class UserPolicy
      */
     public function view(User $user, User $model)
     {
-        return $user->isAdmin();
+        return $user->isAdmin() || $user->id === $model->id;
+    }
+
+    /**
+     * Determine whether the user can view a more limited, public version of the model model.
+     *
+     * @param  \App\Models\User|null  $user
+     * @param  \App\Models\User  $model
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function viewPublic(?User $user, User $model)
+    {
+        if ($user !== null && $this->view($user, $model)) {
+            return true;
+        }
+        $model->loadCount('pools');
+        return $model->pools_count > 0; // Any owner of a pool must be partially visible to even guest users
     }
 
     /**
@@ -52,7 +68,7 @@ class UserPolicy
      */
     public function update(User $user, User $model)
     {
-        return $user->isAdmin();
+        return $user->isAdmin() || $user->id === $model->id;
     }
 
     /**
