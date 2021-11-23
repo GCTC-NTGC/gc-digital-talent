@@ -16,7 +16,9 @@ class AuthClientServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->bind(AuthClientInterface::class, OpenIdClientService::class);
-        //$this->app->bind(AuthClientInterface::class, LocalAuthClientService::class);
+        if(env('AUTH_SERVER_ROOT'))
+            $this->app->bind(AuthClientInterface::class, OpenIdClientService::class);
+        else
+            $this->app->bind(AuthClientInterface::class, LocalAuthClientService::class);
     }
 }
