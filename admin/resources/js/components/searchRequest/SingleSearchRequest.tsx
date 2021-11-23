@@ -4,7 +4,6 @@ import SearchRequestFilters, {
 } from "@common/components/SearchRequestFilters";
 import * as React from "react";
 import { useIntl } from "react-intl";
-import { useLocation } from "@common/helpers/router";
 import { commonMessages } from "@common/messages";
 import { notEmpty } from "@common/helpers/util";
 import {
@@ -14,7 +13,6 @@ import {
 } from "../../api/generated";
 import { SingleSearchRequestTableApi } from "./SingleSearchRequestTable";
 import { UpdateSearchRequest } from "./UpdateSearchRequest";
-import DashboardContentContainer from "../DashboardContentContainer";
 
 const ManagerInfo: React.FunctionComponent<{
   searchRequest: PoolCandidateSearchRequest;
@@ -40,7 +38,10 @@ const ManagerInfo: React.FunctionComponent<{
             "Heading for the manager info section of the single search request view.",
         })}
       </h2>
-      <div data-h2-flex-grid="b(top, contained, flush, none)">
+      <div
+        data-h2-flex-grid="b(top, contained, flush, none)"
+        style={{ overflowWrap: "break-word" }}
+      >
         <div
           data-h2-flex-item="b(1of1) s(1of4)"
           data-h2-border="s(lightgray, right, solid, s)"
@@ -70,7 +71,7 @@ const ManagerInfo: React.FunctionComponent<{
         >
           <div
             data-h2-padding="s(right-left, s)"
-            data-h2-text-align="b(center)"
+            data-h2-text-align="b(left) s(center)"
           >
             <FilterBlock
               title={intl.formatMessage({
@@ -96,7 +97,7 @@ const ManagerInfo: React.FunctionComponent<{
         >
           <div
             data-h2-padding="s(right-left, s)"
-            data-h2-text-align="b(center)"
+            data-h2-text-align="b(left) s(center)"
           >
             <FilterBlock
               title={intl.formatMessage({
@@ -124,7 +125,10 @@ const ManagerInfo: React.FunctionComponent<{
           </div>
         </div>
         <div data-h2-flex-item="b(1of1) s(1of4)">
-          <div data-h2-padding="s(left, s)" data-h2-text-align="b(center)">
+          <div
+            data-h2-padding="s(left, s)"
+            data-h2-text-align="b(left) s(center)"
+          >
             <FilterBlock
               title={intl.formatMessage({
                 defaultMessage: "Date Requested",
@@ -261,38 +265,27 @@ export const SingleSearchRequestApi: React.FunctionComponent<{
       variables: { id: searchRequestId },
     });
 
-  if (fetching)
-    return (
-      <DashboardContentContainer>
-        <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>
-      </DashboardContentContainer>
-    );
+  if (fetching) return <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>;
   if (error)
     return (
-      <DashboardContentContainer>
-        <p>
-          {intl.formatMessage(commonMessages.loadingError)} {error.message}
-        </p>
-      </DashboardContentContainer>
+      <p>
+        {intl.formatMessage(commonMessages.loadingError)} {error.message}
+      </p>
     );
   return searchRequestData?.poolCandidateSearchRequest ? (
-    <DashboardContentContainer>
-      <SingleSearchRequest
-        searchRequest={searchRequestData?.poolCandidateSearchRequest}
-      />
-    </DashboardContentContainer>
+    <SingleSearchRequest
+      searchRequest={searchRequestData?.poolCandidateSearchRequest}
+    />
   ) : (
-    <DashboardContentContainer>
-      <p>
-        {intl.formatMessage(
-          {
-            defaultMessage: "Search Request {searchRequestId} not found.",
-            description:
-              "Message displayed for search request not found on single search request page.",
-          },
-          { searchRequestId },
-        )}
-      </p>
-    </DashboardContentContainer>
+    <p>
+      {intl.formatMessage(
+        {
+          defaultMessage: "Search Request {searchRequestId} not found.",
+          description:
+            "Message displayed for search request not found on single search request page.",
+        },
+        { searchRequestId },
+      )}
+    </p>
   );
 };
