@@ -1,25 +1,18 @@
 <?php
 namespace App\Services;
 
-use App\Services\Contracts\AuthConfigInterface;
-use App\Services\Contracts\KeySetInterface;
+use App\Services\Contracts\AuthClientInterface;
+use Exception;
 use Lcobucci\JWT\Configuration;
 use Lcobucci\JWT\Signer;
 use Lcobucci\JWT\Signer\Key\InMemory;
 use Illuminate\Support\Facades\Cache;
 
-class JwksService implements KeySetInterface
+class OpenIdClientService implements AuthClientInterface
 {
-    protected $authConfig;
-
-    public function __construct(AuthConfigInterface $authConfig)
-    {
-        $this->authConfig = $authConfig;
-    }
-
     public function getConfiguration(string $keyId) : ?Configuration
     {
-        $jwks_uri = $this->authConfig->getJwksUri();
+        $jwks_uri = $this->getJwksUri();
         $jsonString = Cache::remember('jwks_json_string', 60, function() use($jwks_uri) // only get jwks content every minute
         {
             return file_get_contents($jwks_uri);
@@ -46,6 +39,8 @@ class JwksService implements KeySetInterface
 
     private function mapObjectToConfig(object $value): ?Configuration
     {
+        // any objects that can't be mapped return a null and will be ignored
+
         $publicKeyUse = data_get($value, 'use');
         if($publicKeyUse != 'sig')
             return null; // only take signing keys for use
@@ -74,5 +69,37 @@ class JwksService implements KeySetInterface
         );
 
         return $config;
+    }
+
+    private function getConfigObject() : object{
+        $jsonString = Cache::remember('openid_config_json_string', 60, function() { // only get content every minute
+            $authRootEnvName = 'AUTH_SERVER_ROOT';
+            $root = env($authRootEnvName);
+            if(!$root)
+                throw new Exception('No environment variable ' . $authRootEnvName);
+            $configUri = $root . '/.well-known/openid-configuration';
+            return file_get_contents($configUri);
+        });
+
+        return json_decode($jsonString);
+    }
+
+    public function getIssuer(): string
+    {
+        return $this->getConfigProperty('issuer');
+    }
+
+    private function getJwksUri(): string
+    {
+        return $this->getConfigProperty('jwks_uri');
+    }
+
+    private function getConfigProperty(string $propertyName): string
+    {
+        $obj = $this->getConfigObject();
+        $uri = data_get($obj, $propertyName);
+        if(!$uri)
+            throw new Exception('No ' . $propertyName . ' property found in OpenID configuration');
+        return $uri;
     }
 }

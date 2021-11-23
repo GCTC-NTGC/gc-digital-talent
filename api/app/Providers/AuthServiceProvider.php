@@ -2,8 +2,6 @@
 
 namespace App\Providers;
 
-use App\Library\Services\Jwks;
-use App\Library\Services\JwksService;
 use DateTimeZone;
 
 use App\Models\Classification;
@@ -21,10 +19,7 @@ use App\Policies\OperationalRequirementPolicy;
 use App\Policies\PoolCandidatePolicy;
 use App\Policies\PoolPolicy;
 use App\Policies\UserPolicy;
-use App\Services\Contracts\AuthConfigInterface;
-use App\Services\Contracts\KeySetInterface;
-use Error;
-use Exception;
+use App\Services\Contracts\AuthClientInterface;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Log;
@@ -54,7 +49,7 @@ class AuthServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot(KeySetInterface $keySet, AuthConfigInterface $authConfig)
+    public function boot(AuthClientInterface $authClient)
     {
         // Here you may define how you wish users to be authenticated for your Lumen
         // application. The callback which receives the incoming request instance
@@ -69,27 +64,27 @@ class AuthServiceProvider extends ServiceProvider
         Gate::policy(Pool::class, PoolPolicy::class);
         Gate::policy(User::class, UserPolicy::class);
 
-        $this->app['auth']->viaRequest('api', function ($request) use ($keySet, $authConfig) {
+        $this->app['auth']->viaRequest('api', function ($request) use ($authClient) {
             if ($request->input('api_token')) {
                 return User::where('api_token', $request->input('api_token'))->first();
             }
             if ($request->bearerToken()) {
                 $bearerToken = $request->bearerToken(); // 1. extract JWT access token from request.
 
-                $unsecuredConfig = Configuration::forUnsecuredSigner();
+                $unsecuredConfig = Configuration::forUnsecuredSigner(); // need a config to parse the token and get the key id
                 $unsecuredToken = $unsecuredConfig->parser()->parse($bearerToken);
 
                 $keyId = strval($unsecuredToken->headers()->get('kid'));
-                $config = $keySet->getConfiguration($keyId);
+                $config = $authClient->getConfiguration($keyId);
 
                 $clock = new SystemClock(new DateTimeZone(config('app.timezone')));
                 $token = $config->parser()->parse($bearerToken);
 
                 assert($token instanceof UnencryptedToken);
                 $config->setValidationConstraints(
-                    new IssuedBy($authConfig->getIssuer()),
+                    new IssuedBy($authClient->getIssuer()),
                     new RelatedTo($token->claims()->get('sub')),
-                    //new LooseValidAt($clock),
+                    new LooseValidAt($clock),
                     new SignedWith($config->signer(), $config->verificationKey()),
                 );
                 $constraints = $config->validationConstraints();
