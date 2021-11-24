@@ -1,9 +1,9 @@
 import { uniqueId, isEmpty } from "lodash";
 import * as React from "react";
 import { useIntl } from "react-intl";
-import { Maybe } from "resources/js/api/generated";
+import { Maybe, PoolCandidateFilter } from "../../api/generated";
 
-const SummaryBlock: React.FunctionComponent<{
+export const FilterBlock: React.FunctionComponent<{
   title: string;
   content: Maybe<string> | Maybe<string[]>;
 }> = ({ title, content }) => {
@@ -14,7 +14,7 @@ const SummaryBlock: React.FunctionComponent<{
         <p
           data-h2-display="b(inline)"
           data-h2-padding="b(right, xxs)"
-          data-h2-font-weight="s(600) b(500)"
+          data-h2-font-weight="b(600)"
         >
           {title}:
         </p>
@@ -62,46 +62,101 @@ const SummaryBlock: React.FunctionComponent<{
   );
 };
 
-interface SummaryOfFiltersProps {
-  classifications: Maybe<string[]>;
-  educationLevel: Maybe<string>;
-  employmentEquity: Maybe<string[]>;
-  languageAbility: Maybe<string>;
-  operationalRequirements: Maybe<string[]>;
-  skills: Maybe<string[]>;
-  totalEstimatedCandidates: Maybe<number>;
-  typeOfOpportunity: Maybe<string>;
-  workLocation: Maybe<string[]>;
+interface SearchRequestFiltersProps {
+  poolCandidateFilter: Maybe<PoolCandidateFilter>;
 }
 
-const SummaryOfFilters: React.FunctionComponent<SummaryOfFiltersProps> = ({
-  classifications,
-  educationLevel,
-  employmentEquity,
-  languageAbility,
-  operationalRequirements,
-  skills,
-  totalEstimatedCandidates,
-  typeOfOpportunity,
-  workLocation,
-}) => {
-  const intl = useIntl();
-  return (
-    <section>
-      <h2 data-h2-font-weight="b(500)">
-        {intl.formatMessage({
-          defaultMessage: "Summary of filters",
-          description: "Title of Summary of filters section",
-        })}
-      </h2>
-      <div data-h2-flex-grid="b(top, contained, flush, xs)">
+export const SearchRequestFilters: React.FunctionComponent<SearchRequestFiltersProps> =
+  ({ poolCandidateFilter }) => {
+    const intl = useIntl();
+
+    const classifications: string[] | undefined =
+      poolCandidateFilter?.classifications?.map(
+        (classification) =>
+          `${classification?.group.toLocaleUpperCase()}-0${
+            classification?.level
+          }`,
+      );
+    const educationLevel: string | undefined = poolCandidateFilter?.hasDiploma
+      ? intl.formatMessage({
+          defaultMessage: "Required diploma from post-secondary institution",
+          description:
+            "Education level message when candidate has a diploma found on the request page.",
+        })
+      : intl.formatMessage({
+          defaultMessage:
+            "Can accept a combination of work experience and education",
+          description:
+            "Education level message when candidate does not have a diploma found on the request page.",
+        });
+    const employmentEquity: string[] | undefined = [
+      ...(poolCandidateFilter?.isWoman
+        ? [
+            intl.formatMessage({
+              defaultMessage: "Woman",
+              description:
+                "Message for woman option in the employment equity section of the request page.",
+            }),
+          ]
+        : []),
+      ...(poolCandidateFilter?.isVisibleMinority
+        ? [
+            intl.formatMessage({
+              defaultMessage: "Visible Minority",
+              description:
+                "Message for visible minority option in the employment equity section of the request page.",
+            }),
+          ]
+        : []),
+      ...(poolCandidateFilter?.isIndigenous
+        ? [
+            intl.formatMessage({
+              defaultMessage: "Indigenous",
+              description:
+                "Message for indigenous option in the employment equity section of the request page.",
+            }),
+          ]
+        : []),
+      ...(poolCandidateFilter?.hasDisability
+        ? [
+            intl.formatMessage({
+              defaultMessage: "Disability",
+              description:
+                "Message for disability option in the employment equity section of the request page.",
+            }),
+          ]
+        : []),
+    ];
+    const operationalRequirements: string[] | undefined =
+      poolCandidateFilter?.operationalRequirements?.map(
+        (operationalRequirement) =>
+          operationalRequirement?.name.en ||
+          intl.formatMessage({
+            defaultMessage: "Error: operational requirement name not found",
+            description:
+              "Error message when operational requirement name is not found on request page.",
+          }),
+      );
+    const skills: string[] | undefined = poolCandidateFilter?.cmoAssets?.map(
+      (cmoAsset) =>
+        cmoAsset?.name.en ||
+        intl.formatMessage({
+          defaultMessage: "Error: skill name not found",
+          description:
+            "Error message when cmo asset name is not found on request page.",
+        }),
+    );
+    const typeOfOpportunity = ""; // TODO: Replace with data fetched from api
+    const workLocation: string[] = poolCandidateFilter?.workRegions as string[];
+    return (
+      <section data-h2-flex-grid="b(top, contained, flush, xs)">
         <div
           data-h2-flex-item="b(1of1) s(1of2)"
           data-h2-border="s(lightgray, right, solid, s)"
           style={{ paddingBottom: "0" }}
         >
           <div data-h2-padding="s(right, s)">
-            <SummaryBlock
+            <FilterBlock
               title={intl.formatMessage({
                 defaultMessage: "Group and level",
                 description:
@@ -109,7 +164,7 @@ const SummaryOfFilters: React.FunctionComponent<SummaryOfFiltersProps> = ({
               })}
               content={classifications}
             />
-            <SummaryBlock
+            <FilterBlock
               title={intl.formatMessage({
                 defaultMessage: "Education Level",
                 description:
@@ -117,7 +172,7 @@ const SummaryOfFilters: React.FunctionComponent<SummaryOfFiltersProps> = ({
               })}
               content={educationLevel}
             />
-            <SummaryBlock
+            <FilterBlock
               title={intl.formatMessage({
                 defaultMessage: "Type of opportunity",
                 description:
@@ -125,7 +180,7 @@ const SummaryOfFilters: React.FunctionComponent<SummaryOfFiltersProps> = ({
               })}
               content={typeOfOpportunity}
             />
-            <SummaryBlock
+            <FilterBlock
               title={intl.formatMessage({
                 defaultMessage:
                   "Conditions of employment / Operational requirements",
@@ -142,7 +197,7 @@ const SummaryOfFilters: React.FunctionComponent<SummaryOfFiltersProps> = ({
           style={{ paddingTop: "0" }}
         >
           <div data-h2-padding="s(left, xxl)">
-            <SummaryBlock
+            <FilterBlock
               title={intl.formatMessage({
                 defaultMessage: "Work Location",
                 description:
@@ -150,15 +205,15 @@ const SummaryOfFilters: React.FunctionComponent<SummaryOfFiltersProps> = ({
               })}
               content={workLocation}
             />
-            <SummaryBlock
+            <FilterBlock
               title={intl.formatMessage({
                 defaultMessage: "Work language ability",
                 description:
                   "Title for work language on summary of filters section",
               })}
-              content={languageAbility}
+              content={poolCandidateFilter?.languageAbility}
             />
-            <SummaryBlock
+            <FilterBlock
               title={intl.formatMessage({
                 defaultMessage: "Employment equity",
                 description:
@@ -166,7 +221,7 @@ const SummaryOfFilters: React.FunctionComponent<SummaryOfFiltersProps> = ({
               })}
               content={employmentEquity}
             />
-            <SummaryBlock
+            <FilterBlock
               title={intl.formatMessage({
                 defaultMessage: "Skills",
                 description:
@@ -176,35 +231,8 @@ const SummaryOfFilters: React.FunctionComponent<SummaryOfFiltersProps> = ({
             />
           </div>
         </div>
-        <p data-h2-flex-item="b(1of1)" data-h2-font-weight="b(600)">
-          {intl.formatMessage(
-            {
-              defaultMessage:
-                "Request for pool candidates: <null></null> <span>{totalEstimatedCandidates, plural, zero {no candidates} one {1 candidate} other {{totalEstimatedCandidates} estimated candidates}}</span>",
-              description:
-                "Total estimated candidates message in summary of filters",
-            },
-            {
-              null: (): JSX.Element => (
-                <span data-h2-font-color="b(lightpurple)">
-                  {totalEstimatedCandidates === null &&
-                    intl.formatMessage({
-                      defaultMessage: "N/A",
-                      description:
-                        "Text shown when the filter was not selected",
-                    })}
-                </span>
-              ),
-              span: (msg: string): JSX.Element => (
-                <span data-h2-font-color="b(lightpurple)">{msg}</span>
-              ),
-              totalEstimatedCandidates,
-            },
-          )}
-        </p>
-      </div>
-    </section>
-  );
-};
+      </section>
+    );
+  };
 
-export default SummaryOfFilters;
+export default SearchRequestFilters;

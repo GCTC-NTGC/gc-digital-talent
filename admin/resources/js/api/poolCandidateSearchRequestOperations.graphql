@@ -1,29 +1,123 @@
-query getPoolCandidateSearchRequests {
-  poolCandidateSearchRequests {
+fragment poolCandidateSearchRequest on PoolCandidateSearchRequest {
+  id
+  fullName
+  email
+  department {
     id
-    fullName
-    email
-    department {
+    departmentNumber
+    name {
+      en
+      fr
+    }
+  }
+  jobTitle
+  additionalComments
+  poolCandidateFilter {
+    id
+    classifications {
       id
-      departmentNumber
+      name {
+        en
+        fr
+      }
+      group
+      level
+    }
+    cmoAssets {
+      id
+      key
       name {
         en
         fr
       }
     }
-    jobTitle
-    additionalComments
-    poolCandidateFilter {
+    hasDiploma
+    hasDisability
+    isIndigenous
+    isVisibleMinority
+    isWoman
+    languageAbility
+    operationalRequirements {
       id
-      pools {
-        id
-        name {
-          en
-          fr
-        }
+      key
+      name {
+        en
+        fr
       }
     }
-    requestedDate
+    workRegions
+    pools {
+      id
+      name {
+        en
+        fr
+      }
+    }
+
+  }
+  requestedDate
+  status
+  adminNotes
+}
+query getPoolCandidateSearchRequests {
+  poolCandidateSearchRequests {
+    ...poolCandidateSearchRequest
+  }
+}
+
+query getPoolCandidateSearchRequest($id: ID!) {
+  poolCandidateSearchRequest(id: $id) {
+    ...poolCandidateSearchRequest
+  }
+}
+
+query searchPoolCandidates($poolCandidateFilter: PoolCandidateFilterInput) {
+  searchPoolCandidates(where: $poolCandidateFilter) {
+    id
+    user {
+      id
+      email
+      firstName
+      lastName
+    }
+    expectedClassifications {
+      id
+      name {
+        en
+        fr
+      }
+      group
+      level
+    }
+    acceptedOperationalRequirements {
+      id
+      key
+      name {
+        en
+        fr
+      }
+    }
+    isWoman
+    hasDisability
+    isIndigenous
+    isVisibleMinority
+    cmoAssets {
+      id
+      key
+      name {
+        en
+        fr
+      }
+    }
+    pool {
+      id
+    }
+  }
+}
+
+mutation updatePoolCandidateSearchRequest($id: ID!, $poolCandidateSearchRequest: UpdatePoolCandidateSearchRequestInput!) {
+  updatePoolCandidateSearchRequest(id: $id, poolCandidateSearchRequest: $poolCandidateSearchRequest) {
+    id
     status
     adminNotes
   }
