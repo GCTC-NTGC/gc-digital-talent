@@ -159,6 +159,7 @@ interface SingleSearchRequestProps {
 export const SingleSearchRequest: React.FunctionComponent<SingleSearchRequestProps> =
   ({ searchRequest }) => {
     const intl = useIntl();
+    const locale = getLocale(intl);
     const { additionalComments, poolCandidateFilter } = searchRequest;
 
     const poolCandidateFilterInput: PoolCandidateFilterInput = {
@@ -214,6 +215,23 @@ export const SingleSearchRequest: React.FunctionComponent<SingleSearchRequestPro
 
     return (
       <section>
+        <p>
+          {intl.formatMessage(
+            {
+              defaultMessage:
+                "<span>{jobTitle}</span> at <span>{department}</span>",
+              description:
+                "Subtitle displayed above the single search request component.",
+            },
+            {
+              span: (msg: string): JSX.Element => (
+                <span data-h2-font-weight="b(600)">{msg}</span>
+              ),
+              jobTitle: searchRequest.jobTitle,
+              department: searchRequest.department?.name[locale],
+            },
+          )}
+        </p>
         <ManagerInfo searchRequest={searchRequest} />
         <div>
           <h2 data-h2-font-size="b(h4)">
