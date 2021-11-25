@@ -6,7 +6,6 @@ return [
      */
     'authorize_uri' => env('OAUTH_URI', null),
     'token_uri' => env('OAUTH_TOKEN_URI', null),
-    'redirect_uri' => env('OAUTH_ADMIN_REDIRECT_URI', null),
 
     /**
      * This server's client id and secret, known to the OAuth server.

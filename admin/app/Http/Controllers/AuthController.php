@@ -15,7 +15,7 @@ class AuthController extends Controller
 
         $query = http_build_query([
             'client_id' => config('oauth.client_id'),
-            'redirect_uri' => config('oauth.redirect_uri'),
+            'redirect_uri' => config('app.url') . '/auth-callback',
             'response_type' => 'code',
             'scope' => 'openid',
             'state' => $state,
@@ -37,7 +37,7 @@ class AuthController extends Controller
             'grant_type' => 'authorization_code',
             'client_id' => config('oauth.client_id'),
             'client_secret' => config('oauth.client_secret'),
-            'redirect_uri' => config('oauth.redirect_uri'),
+            'redirect_uri' => config('app.url') . '/auth-callback',
             'code' => $request->code,
         ]);
         $query = http_build_query($response->json());

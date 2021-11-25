@@ -44,7 +44,12 @@ export const AuthContainer: React.FC = ({ children }) => {
     const queryParams = parseUrlQueryParameters(location);
     const accessToken = queryParams.access_token;
     const refreshToken = queryParams.refresh_token;
-    if (accessToken && queryParams.token_type === "Bearer") {
+    if (
+      accessToken &&
+      queryParams.token_type.localeCompare("Bearer", "en", {
+        sensitivity: "base",
+      }) === 0
+    ) {
       // If url query parameters contain an access token, save it in local storage and in state hook.
       localStorage.setItem(ACCESS_TOKEN, accessToken);
       if (refreshToken) {
