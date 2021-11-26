@@ -19,7 +19,7 @@ nvm install --latest-npm
 npm install
 npm run dev
 chown -R www-data ./storage ./vendor
-chmod -R 775 ./ ./storage
+chmod -R 775 ./storage
 
 # setup api project
 cd /var/www/html/api
@@ -30,7 +30,7 @@ php artisan migrate:fresh --seed
 php artisan lighthouse:print-schema --write
 /root/scripts/update_api_env.sh
 chown -R www-data ./storage ./vendor
-chmod -R 775 ./ ./storage
+chmod -R 775 ./storage
 
 # setup common project
 cd /var/www/html/common
@@ -51,7 +51,7 @@ npm run h2-build
 npm run codegen
 npm run dev
 chown -R www-data ./storage ./vendor
-chmod -R 775 ./ ./storage
+chmod -R 775 ./storage
 
 # setup admin project
 cd /var/www/html/admin
@@ -71,4 +71,4 @@ npm run h2-build
 npm run codegen
 npm run dev
 chown -R www-data ./storage ./vendor
-chmod -R 775 ./ ./storage
+chmod -R 775 ./storage

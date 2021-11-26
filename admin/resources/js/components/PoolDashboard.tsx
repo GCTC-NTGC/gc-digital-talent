@@ -27,6 +27,7 @@ import {
   homePath,
   homePublicPath,
   searchRequestTablePath,
+  searchRequestUpdatePath,
 } from "../adminRoutes";
 import { CreateClassification } from "./classification/CreateClassification";
 import { UpdateClassification } from "./classification/UpdateClassification";
@@ -55,6 +56,7 @@ import DepartmentPage from "./department/DepartmentPage";
 import { CreateDepartment } from "./department/CreateDepartment";
 import { UpdateDepartment } from "./department/UpdateDepartment";
 import SearchRequestPage from "./searchRequest/SearchRequestPage";
+import SingleSearchRequestPage from "./searchRequest/SingleSearchRequestPage";
 
 const routes: Routes<RouterResult> = [
   {
@@ -202,6 +204,14 @@ const routes: Routes<RouterResult> = [
     path: searchRequestTablePath(),
     action: () => ({
       component: <SearchRequestPage />,
+    }),
+  },
+  {
+    path: searchRequestUpdatePath(":id"),
+    action: ({ params }) => ({
+      component: (
+        <SingleSearchRequestPage searchRequestId={params.id as string} />
+      ),
     }),
   },
 ];

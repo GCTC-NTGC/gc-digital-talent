@@ -8,7 +8,7 @@ export const Submit: React.FunctionComponent<{
   isSubmittingText?: string;
   color?: "primary" | "secondary" | "cta" | "white";
   mode?: "solid" | "outline" | "inline";
-}> = ({ text, notDirtyText, isSubmittingText, color, mode }) => {
+}> = ({ text, notDirtyText, isSubmittingText, color, mode, ...rest }) => {
   const defaultText = "Submit";
   const defaultNotDirtyText = "Submitted";
   const defaultIsSubmittingText = "Submitting";
@@ -27,6 +27,7 @@ export const Submit: React.FunctionComponent<{
       mode={mode || "solid"}
       type="submit"
       disabled={isSubmitting || !isDirty}
+      {...rest}
     >
       {currentText}
     </Button>
