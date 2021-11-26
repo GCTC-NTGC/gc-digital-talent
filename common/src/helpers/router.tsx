@@ -1,4 +1,4 @@
-import { createBrowserHistory, Location, Path } from "history";
+import { createBrowserHistory, Location, Path, State } from "history";
 import UniversalRouter, { Routes } from "universal-router";
 import React, { useState, useEffect, useMemo, ReactElement } from "react";
 import fromPairs from "lodash/fromPairs";
@@ -57,6 +57,14 @@ export const navigate = (url: string | Partial<Path>): void => {
 
 export const redirect = (url: string | Partial<Path>): void => {
   HISTORY.replace(url);
+};
+
+export const navigateBack = (): void => {
+  HISTORY.back();
+};
+
+export const pushToStateThenNavigate = (url: string, state: State): void => {
+  HISTORY.push(url, { some: state });
 };
 
 export interface RouterResult {
@@ -121,3 +129,22 @@ export function queryParametersToSearchString(
     .join("&");
   return queryString ? `?${queryString}` : "";
 }
+
+export const Link: React.FC<{ href: string; title: string }> = ({
+  href,
+  title,
+  children,
+  ...props
+}): React.ReactElement => (
+  <a
+    href={href}
+    title={title}
+    {...props}
+    onClick={(event): void => {
+      event.preventDefault();
+      navigate(href);
+    }}
+  >
+    {children}
+  </a>
+);
