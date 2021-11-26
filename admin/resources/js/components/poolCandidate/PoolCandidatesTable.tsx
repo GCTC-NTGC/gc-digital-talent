@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import { defineMessages, useIntl } from "react-intl";
+import { defineMessages, IntlShape, useIntl } from "react-intl";
 import { Button } from "@common/components";
 import { notEmpty } from "@common/helpers/util";
 import { navigate, useLocation } from "@common/helpers/router";
@@ -85,6 +85,25 @@ const messages = defineMessages({
 
 type Data = NonNullable<FromArray<GetPoolCandidatesQuery["poolCandidates"]>>;
 
+function tableBooleanAccessor(checked: boolean | null | undefined) {
+  return <TableBoolean checked={checked} />;
+}
+
+function editButtonAccessor(id: string, editUrlRoot: string, intl: IntlShape) {
+  return (
+    <Button
+      color="primary"
+      mode="inline"
+      onClick={(event) => {
+        event.preventDefault();
+        navigate(`${editUrlRoot}/${id}/edit`);
+      }}
+    >
+      {intl.formatMessage(messages.columnEditTitle)}
+    </Button>
+  );
+}
+
 const PoolCandidatesTable: React.FC<
   GetPoolCandidatesQuery & { editUrlRoot: string }
 > = ({ poolCandidates, editUrlRoot }) => {
@@ -109,27 +128,23 @@ const PoolCandidatesTable: React.FC<
       },
       {
         Header: intl.formatMessage(messages.columnWomanTitle),
-        accessor: ({ isWoman }) => <TableBoolean checked={isWoman} />,
+        accessor: (d) => tableBooleanAccessor(d.isWoman), // callback extracted to separate function to stabilize memoized component
       },
       {
         Header: intl.formatMessage(messages.columnDisabilityTitle),
-        accessor: ({ hasDisability }) => (
-          <TableBoolean checked={hasDisability} />
-        ),
+        accessor: (d) => tableBooleanAccessor(d.hasDisability), // callback extracted to separate function to stabilize memoized component
       },
       {
         Header: intl.formatMessage(messages.columnIndigenousTitle),
-        accessor: ({ isIndigenous }) => <TableBoolean checked={isIndigenous} />,
+        accessor: (d) => tableBooleanAccessor(d.isIndigenous), // callback extracted to separate function to stabilize memoized component
       },
       {
         Header: intl.formatMessage(messages.columnVisibleMinorityTitle),
-        accessor: ({ isVisibleMinority }) => (
-          <TableBoolean checked={isVisibleMinority} />
-        ),
+        accessor: (d) => tableBooleanAccessor(d.isVisibleMinority), // callback extracted to separate function to stabilize memoized component
       },
       {
         Header: intl.formatMessage(messages.columnDiplomaTitle),
-        accessor: ({ hasDiploma }) => <TableBoolean checked={hasDiploma} />,
+        accessor: (d) => tableBooleanAccessor(d.hasDiploma), // callback extracted to separate function to stabilize memoized component
       },
       {
         Header: intl.formatMessage(messages.columnLanguageTitle),
@@ -149,18 +164,7 @@ const PoolCandidatesTable: React.FC<
       },
       {
         Header: intl.formatMessage(messages.columnEditTitle),
-        accessor: ({ id }) => (
-          <Button
-            color="primary"
-            mode="inline"
-            onClick={(event) => {
-              event.preventDefault();
-              navigate(`${editUrlRoot}/${id}/edit`);
-            }}
-          >
-            {intl.formatMessage(messages.columnEditTitle)}
-          </Button>
-        ),
+        accessor: (d) => editButtonAccessor(d.id, editUrlRoot, intl), // callback extracted to separate function to stabilize memoized component
       },
     ],
     [intl, editUrlRoot],
@@ -171,11 +175,7 @@ const PoolCandidatesTable: React.FC<
     [poolCandidates],
   );
 
-  return (
-    <>
-      <Table data={memoizedData} columns={columns} />
-    </>
-  );
+  return <Table data={memoizedData} columns={columns} />;
 };
 
 export default PoolCandidatesTable;

@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import { defineMessages, useIntl } from "react-intl";
+import { defineMessages, IntlShape, useIntl } from "react-intl";
 import { Button, Pill } from "@common/components";
 import { navigate, useLocation } from "@common/helpers/router";
 import { notEmpty } from "@common/helpers/util";
@@ -43,6 +43,21 @@ const messages = defineMessages({
 
 type Data = NonNullable<FromArray<GetPoolsQuery["pools"]>>;
 
+function editButtonAccessor(id: string, editUrlRoot: string, intl: IntlShape) {
+  return (
+    <Button
+      color="primary"
+      mode="inline"
+      onClick={(event) => {
+        event.preventDefault();
+        navigate(`${editUrlRoot}/${id}/edit`);
+      }}
+    >
+      {intl.formatMessage(messages.columnEditTitle)}
+    </Button>
+  );
+}
+
 export const PoolTable: React.FC<GetPoolsQuery & { editUrlRoot: string }> = ({
   pools,
   editUrlRoot,
@@ -84,18 +99,7 @@ export const PoolTable: React.FC<GetPoolsQuery & { editUrlRoot: string }> = ({
       },
       {
         Header: intl.formatMessage(messages.columnEditTitle),
-        accessor: ({ id }) => (
-          <Button
-            color="primary"
-            mode="inline"
-            onClick={(event) => {
-              event.preventDefault();
-              navigate(`${editUrlRoot}/${id}/edit`);
-            }}
-          >
-            {intl.formatMessage(messages.columnEditTitle)}
-          </Button>
-        ),
+        accessor: (d) => editButtonAccessor(d.id, editUrlRoot, intl), // callback extracted to separate function to stabilize memoized component
       },
     ],
     [editUrlRoot, intl],
@@ -104,9 +108,7 @@ export const PoolTable: React.FC<GetPoolsQuery & { editUrlRoot: string }> = ({
   const data = useMemo(() => pools.filter(notEmpty), [pools]);
 
   return (
-    <>
-      <Table data={data} columns={columns} hiddenCols={["id", "description"]} />
-    </>
+    <Table data={data} columns={columns} hiddenCols={["id", "description"]} />
   );
 };
 

@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import { defineMessages, useIntl } from "react-intl";
+import { defineMessages, IntlShape, useIntl } from "react-intl";
 import commonMessages from "@common/messages/commonMessages";
 import { navigate, useLocation } from "@common/helpers/router";
 import { notEmpty } from "@common/helpers/util";
@@ -27,6 +27,21 @@ const messages = defineMessages({
 
 type Data = NonNullable<FromArray<DepartmentsQuery["departments"]>>;
 
+function editButtonAccessor(id: string, editUrlRoot: string, intl: IntlShape) {
+  return (
+    <Button
+      color="primary"
+      mode="inline"
+      onClick={(event) => {
+        event.preventDefault();
+        navigate(`${editUrlRoot}/${id}/edit`);
+      }}
+    >
+      {intl.formatMessage(messages.columnEditTitle)}
+    </Button>
+  );
+}
+
 export const DepartmentTable: React.FC<
   DepartmentsQuery & { editUrlRoot: string }
 > = ({ departments, editUrlRoot }) => {
@@ -43,18 +58,7 @@ export const DepartmentTable: React.FC<
       },
       {
         Header: intl.formatMessage(messages.columnEditTitle),
-        accessor: ({ id }) => (
-          <Button
-            color="primary"
-            mode="inline"
-            onClick={(event) => {
-              event.preventDefault();
-              navigate(`${editUrlRoot}/${id}/edit`);
-            }}
-          >
-            {intl.formatMessage(messages.columnEditTitle)}
-          </Button>
-        ),
+        accessor: (d) => editButtonAccessor(d.id, editUrlRoot, intl), // callback extracted to separate function to stabilize memoized component
       },
     ],
     [editUrlRoot, intl],
@@ -62,11 +66,7 @@ export const DepartmentTable: React.FC<
 
   const data = useMemo(() => departments.filter(notEmpty), [departments]);
 
-  return (
-    <>
-      <Table data={data} columns={columns} />
-    </>
-  );
+  return <Table data={data} columns={columns} />;
 };
 
 export const DepartmentTableApi: React.FunctionComponent = () => {

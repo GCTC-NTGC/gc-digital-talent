@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import { defineMessages, useIntl } from "react-intl";
+import { defineMessages, IntlShape, useIntl } from "react-intl";
 import { Button } from "@common/components";
 
 import { navigate, useLocation } from "@common/helpers/router";
@@ -45,6 +45,21 @@ type Data = NonNullable<
   FromArray<GetOperationalRequirementsQuery["operationalRequirements"]>
 >;
 
+function editButtonAccessor(id: string, editUrlRoot: string, intl: IntlShape) {
+  return (
+    <Button
+      color="primary"
+      mode="inline"
+      onClick={(event) => {
+        event.preventDefault();
+        navigate(`${editUrlRoot}/${id}/edit`);
+      }}
+    >
+      {intl.formatMessage(messages.columnEditTitle)}
+    </Button>
+  );
+}
+
 export const OperationalRequirementTable: React.FC<
   GetOperationalRequirementsQuery & { editUrlRoot: string }
 > = ({ operationalRequirements, editUrlRoot }) => {
@@ -69,18 +84,7 @@ export const OperationalRequirementTable: React.FC<
       },
       {
         Header: intl.formatMessage(messages.columnEditTitle),
-        accessor: ({ id }) => (
-          <Button
-            color="primary"
-            mode="inline"
-            onClick={(event) => {
-              event.preventDefault();
-              navigate(`${editUrlRoot}/${id}/edit`);
-            }}
-          >
-            Edit
-          </Button>
-        ),
+        accessor: (d) => editButtonAccessor(d.id, editUrlRoot, intl), // callback extracted to separate function to stabilize memoized component
       },
     ],
     [editUrlRoot, intl],
@@ -91,11 +95,7 @@ export const OperationalRequirementTable: React.FC<
     [operationalRequirements],
   );
 
-  return (
-    <>
-      <Table data={memoizedData} columns={columns} />
-    </>
-  );
+  return <Table data={memoizedData} columns={columns} />;
 };
 
 export const OperationalRequirementTableApi: React.FC = () => {

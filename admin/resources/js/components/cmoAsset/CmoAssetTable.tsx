@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import { defineMessages, useIntl } from "react-intl";
+import { defineMessages, IntlShape, useIntl } from "react-intl";
 import { Button } from "@common/components/Button";
 import { navigate, useLocation } from "@common/helpers/router";
 import { notEmpty } from "@common/helpers/util";
@@ -34,6 +34,21 @@ const messages = defineMessages({
 
 type Data = NonNullable<FromArray<GetCmoAssetsQuery["cmoAssets"]>>;
 
+function editButtonAccessor(id: string, editUrlRoot: string, intl: IntlShape) {
+  return (
+    <Button
+      color="primary"
+      mode="inline"
+      onClick={(event) => {
+        event.preventDefault();
+        navigate(`${editUrlRoot}/${id}/edit`);
+      }}
+    >
+      {intl.formatMessage(messages.columnEditTitle)}
+    </Button>
+  );
+}
+
 export const CmoAssetTable: React.FC<
   GetCmoAssetsQuery & { editUrlRoot: string }
 > = ({ cmoAssets, editUrlRoot }) => {
@@ -58,18 +73,7 @@ export const CmoAssetTable: React.FC<
       },
       {
         Header: intl.formatMessage(messages.columnEditTitle),
-        accessor: ({ id }) => (
-          <Button
-            color="primary"
-            mode="inline"
-            onClick={(event) => {
-              event.preventDefault();
-              navigate(`${editUrlRoot}/${id}/edit`);
-            }}
-          >
-            {intl.formatMessage(messages.columnEditTitle)}
-          </Button>
-        ),
+        accessor: (d) => editButtonAccessor(d.id, editUrlRoot, intl), // callback extracted to separate function to stabilize memoized component
       },
     ],
     [editUrlRoot, intl],
@@ -77,11 +81,7 @@ export const CmoAssetTable: React.FC<
 
   const memoizedData = useMemo(() => cmoAssets.filter(notEmpty), [cmoAssets]);
 
-  return (
-    <>
-      <Table data={memoizedData} columns={columns} />
-    </>
-  );
+  return <Table data={memoizedData} columns={columns} />;
 };
 
 export const CmoAssetTableApi: React.FC = () => {
