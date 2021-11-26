@@ -443,11 +443,11 @@ export const CreatePoolCandidateForm: React.FunctionComponent<CreatePoolCandidat
               <MultiSelect
                 id="expectedSalary"
                 label={intl.formatMessage(
-                  poolCandidateMessages.expectedClassificationsLabel,
+                  poolCandidateMessages.expectedSalaryLabel,
                 )}
                 name="expectedSalary"
                 placeholder={intl.formatMessage(
-                  poolCandidateMessages.expectedClassificationsPlaceholder,
+                  poolCandidateMessages.expectedSalaryPlaceholder,
                 )}
                 options={enumToOptions(SalaryRange).map(({ value }) => ({
                   value,
