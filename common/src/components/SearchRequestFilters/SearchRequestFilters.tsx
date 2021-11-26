@@ -148,6 +148,12 @@ export const SearchRequestFilters: React.FunctionComponent<SearchRequestFiltersP
     );
     const typeOfOpportunity = ""; // TODO: Replace with data fetched from api
     const workLocation: string[] = poolCandidateFilter?.workRegions as string[];
+    const languageAbility =
+      poolCandidateFilter?.languageAbility === null
+        ? intl.formatMessage({
+            defaultMessage: "Any language",
+          })
+        : poolCandidateFilter?.languageAbility;
     return (
       <section data-h2-flex-grid="b(top, contained, flush, xs)">
         <div
@@ -211,7 +217,7 @@ export const SearchRequestFilters: React.FunctionComponent<SearchRequestFiltersP
                 description:
                   "Title for work language on summary of filters section",
               })}
-              content={poolCandidateFilter?.languageAbility}
+              content={languageAbility}
             />
             <FilterBlock
               title={intl.formatMessage({
