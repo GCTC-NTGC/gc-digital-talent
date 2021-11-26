@@ -3,7 +3,12 @@ import { Routes } from "universal-router";
 import { useIntl } from "react-intl";
 import NavMenu from "@common/components/NavMenu";
 import NotFound from "@common/components/NotFound";
-import { Link, RouterResult, useLocation, useRouter } from "../helpers/router";
+import {
+  Link,
+  RouterResult,
+  useLocation,
+  useRouter,
+} from "@common/helpers/router";
 import Footer from "./Footer";
 import Header from "./Header";
 
