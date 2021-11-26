@@ -39,7 +39,7 @@ function getTokensFromLocation(
   const queryParams = parseUrlQueryParameters(location);
   const accessToken: string | null = queryParams.access_token ?? null;
   const refreshToken: string | null = queryParams.refresh_token ?? null;
-  if (accessToken && queryParams.token_type === "Bearer") {
+  if (accessToken && queryParams.token_type?.toUpperCase() === "BEARER") {
     return {
       accessToken,
       refreshToken,
