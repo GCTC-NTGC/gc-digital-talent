@@ -1,13 +1,13 @@
 import React, { useMemo } from "react";
-import { defineMessages, IntlShape, useIntl } from "react-intl";
-import { Button } from "@common/components";
-import { navigate, useLocation } from "@common/helpers/router";
+import { defineMessages, useIntl } from "react-intl";
+import { useLocation } from "@common/helpers/router";
 import { notEmpty } from "@common/helpers/util";
 import { commonMessages } from "@common/messages";
 import { FromArray } from "@common/types/utilityTypes";
 import { AllUsersQuery, useAllUsersQuery } from "../../api/generated";
 import Table, { ColumnsOf } from "../Table";
 import DashboardContentContainer from "../DashboardContentContainer";
+import { tableEditButtonAccessor } from "../TableEditButton";
 
 const messages = defineMessages({
   columnFirstNameTitle: {
@@ -39,21 +39,6 @@ const messages = defineMessages({
 
 type Data = NonNullable<FromArray<AllUsersQuery["users"]>>;
 
-function editButtonAccessor(id: string, editUrlRoot: string, intl: IntlShape) {
-  return (
-    <Button
-      color="primary"
-      mode="inline"
-      onClick={(event) => {
-        event.preventDefault();
-        navigate(`${editUrlRoot}/${id}/edit`);
-      }}
-    >
-      {intl.formatMessage(messages.columnEditTitle)}
-    </Button>
-  );
-}
-
 export const UserTable: React.FC<AllUsersQuery & { editUrlRoot: string }> = ({
   users,
   editUrlRoot,
@@ -83,7 +68,7 @@ export const UserTable: React.FC<AllUsersQuery & { editUrlRoot: string }> = ({
       },
       {
         Header: intl.formatMessage(messages.columnEditTitle),
-        accessor: (d) => editButtonAccessor(d.id, editUrlRoot, intl), // callback extracted to separate function to stabilize memoized component
+        accessor: (d) => tableEditButtonAccessor(d.id, editUrlRoot), // callback extracted to separate function to stabilize memoized component
       },
     ],
     [editUrlRoot, intl],

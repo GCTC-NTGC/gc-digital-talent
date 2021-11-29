@@ -1,8 +1,7 @@
 import React, { useMemo } from "react";
-import { defineMessages, IntlShape, useIntl } from "react-intl";
-import { Button } from "@common/components";
+import { defineMessages, useIntl } from "react-intl";
 import { notEmpty } from "@common/helpers/util";
-import { navigate, useLocation } from "@common/helpers/router";
+import { useLocation } from "@common/helpers/router";
 import { commonMessages } from "@common/messages";
 import { FromArray } from "@common/types/utilityTypes";
 import {
@@ -10,8 +9,9 @@ import {
   useGetPoolCandidatesByPoolQuery,
 } from "../../api/generated";
 import Table, { ColumnsOf } from "../Table";
-import TableBoolean from "../TableBoolean";
+import { tableBooleanAccessor } from "../TableBoolean";
 import DashboardContentContainer from "../DashboardContentContainer";
+import { tableEditButtonAccessor } from "../TableEditButton";
 
 const messages = defineMessages({
   columnIdTitle: {
@@ -85,25 +85,6 @@ const messages = defineMessages({
 
 type Data = NonNullable<FromArray<GetPoolCandidatesQuery["poolCandidates"]>>;
 
-function tableBooleanAccessor(checked: boolean | null | undefined) {
-  return <TableBoolean checked={checked} />;
-}
-
-function editButtonAccessor(id: string, editUrlRoot: string, intl: IntlShape) {
-  return (
-    <Button
-      color="primary"
-      mode="inline"
-      onClick={(event) => {
-        event.preventDefault();
-        navigate(`${editUrlRoot}/${id}/edit`);
-      }}
-    >
-      {intl.formatMessage(messages.columnEditTitle)}
-    </Button>
-  );
-}
-
 const PoolCandidatesTable: React.FC<
   GetPoolCandidatesQuery & { editUrlRoot: string }
 > = ({ poolCandidates, editUrlRoot }) => {
@@ -164,7 +145,7 @@ const PoolCandidatesTable: React.FC<
       },
       {
         Header: intl.formatMessage(messages.columnEditTitle),
-        accessor: (d) => editButtonAccessor(d.id, editUrlRoot, intl), // callback extracted to separate function to stabilize memoized component
+        accessor: (d) => tableEditButtonAccessor(d.id, editUrlRoot), // callback extracted to separate function to stabilize memoized component
       },
     ],
     [intl, editUrlRoot],

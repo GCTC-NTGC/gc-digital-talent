@@ -1,8 +1,6 @@
 import React, { useMemo } from "react";
-import { defineMessages, IntlShape, useIntl } from "react-intl";
-import { Button } from "@common/components";
-
-import { navigate, useLocation } from "@common/helpers/router";
+import { defineMessages, useIntl } from "react-intl";
+import { useLocation } from "@common/helpers/router";
 import { notEmpty } from "@common/helpers/util";
 import { commonMessages } from "@common/messages";
 import { FromArray } from "@common/types/utilityTypes";
@@ -12,6 +10,7 @@ import {
 } from "../../api/generated";
 import DashboardContentContainer from "../DashboardContentContainer";
 import Table, { ColumnsOf } from "../Table";
+import { tableEditButtonAccessor } from "../TableEditButton";
 
 const messages = defineMessages({
   columnIdTitle: {
@@ -45,21 +44,6 @@ type Data = NonNullable<
   FromArray<GetOperationalRequirementsQuery["operationalRequirements"]>
 >;
 
-function editButtonAccessor(id: string, editUrlRoot: string, intl: IntlShape) {
-  return (
-    <Button
-      color="primary"
-      mode="inline"
-      onClick={(event) => {
-        event.preventDefault();
-        navigate(`${editUrlRoot}/${id}/edit`);
-      }}
-    >
-      {intl.formatMessage(messages.columnEditTitle)}
-    </Button>
-  );
-}
-
 export const OperationalRequirementTable: React.FC<
   GetOperationalRequirementsQuery & { editUrlRoot: string }
 > = ({ operationalRequirements, editUrlRoot }) => {
@@ -84,7 +68,7 @@ export const OperationalRequirementTable: React.FC<
       },
       {
         Header: intl.formatMessage(messages.columnEditTitle),
-        accessor: (d) => editButtonAccessor(d.id, editUrlRoot, intl), // callback extracted to separate function to stabilize memoized component
+        accessor: (d) => tableEditButtonAccessor(d.id, editUrlRoot), // callback extracted to separate function to stabilize memoized component
       },
     ],
     [editUrlRoot, intl],
