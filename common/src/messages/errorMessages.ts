@@ -16,8 +16,9 @@ const messages = defineMessages({
     description: "Error message that the provided date must be in the future.",
   },
   mustBeGreater: {
-    defaultMessage: "Value must be greater than",
-    description: "Error message that the provided value must be greater.",
+    defaultMessage: "Value must be greater than {value}",
+    description:
+      "Error message that the provided value must be greater than some referenced minimum value.",
   },
 });
 
