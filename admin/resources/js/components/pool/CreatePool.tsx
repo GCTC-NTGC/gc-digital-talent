@@ -132,21 +132,21 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
               name="owner"
               nullSelection={intl.formatMessage(messages.ownerPlaceholder)}
               options={userOptions}
-              rules={{ required: errorMessages.required }}
+              rules={{ required: intl.formatMessage(errorMessages.required) }}
             />
             <Input
               id="name_en"
               name="name.en"
               label={intl.formatMessage(messages.nameLabelEn)}
               type="text"
-              rules={{ required: errorMessages.required }}
+              rules={{ required: intl.formatMessage(errorMessages.required) }}
             />
             <Input
               id="name_fr"
               name="name.fr"
               label={intl.formatMessage(messages.nameLabelFr)}
               type="text"
-              rules={{ required: errorMessages.required }}
+              rules={{ required: intl.formatMessage(errorMessages.required) }}
             />
             <Input
               id="key"
@@ -155,7 +155,7 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
               context={intl.formatMessage(messages.keyContext)}
               type="text"
               rules={{
-                required: errorMessages.required,
+                required: intl.formatMessage(errorMessages.required),
                 pattern: {
                   value: /^[a-z]+(_[a-z]+)*$/,
                   message: intl.formatMessage(messages.keyPattern),
@@ -166,13 +166,13 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
               id="description_en"
               name="description.en"
               label={intl.formatMessage(messages.descriptionLabelEn)}
-              rules={{ required: errorMessages.required }}
+              rules={{ required: intl.formatMessage(errorMessages.required) }}
             />
             <TextArea
               id="description_fr"
               name="description.fr"
               label={intl.formatMessage(messages.descriptionLabelFr)}
-              rules={{ required: errorMessages.required }}
+              rules={{ required: intl.formatMessage(errorMessages.required) }}
             />
             <MultiSelect
               id="classifications"
@@ -182,7 +182,7 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
               )}
               name="classifications"
               options={classificationOptions}
-              rules={{ required: errorMessages.required }}
+              rules={{ required: intl.formatMessage(errorMessages.required) }}
             />
             <MultiSelect
               id="assetCriteria"
@@ -192,7 +192,7 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
               )}
               name="assetCriteria"
               options={cmoAssetOptions}
-              rules={{ required: errorMessages.required }}
+              rules={{ required: intl.formatMessage(errorMessages.required) }}
             />
             <MultiSelect
               id="essentialCriteria"
@@ -202,7 +202,7 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
               )}
               name="essentialCriteria"
               options={cmoAssetOptions}
-              rules={{ required: errorMessages.required }}
+              rules={{ required: intl.formatMessage(errorMessages.required) }}
             />
             <MultiSelect
               id="operationalRequirements"
@@ -212,7 +212,7 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
                 messages.operationalRequirementsPlaceholder,
               )}
               options={operationalRequirementOptions}
-              rules={{ required: errorMessages.required }}
+              rules={{ required: intl.formatMessage(errorMessages.required) }}
             />
             <Submit />
           </form>

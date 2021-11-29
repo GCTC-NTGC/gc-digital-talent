@@ -157,7 +157,7 @@ export const CreatePoolCandidateForm: React.FunctionComponent<CreatePoolCandidat
                 name="pool"
                 options={poolOptions}
                 disabled={!!poolId}
-                rules={{ required: errorMessages.required }}
+                rules={{ required: intl.formatMessage(errorMessages.required) }}
               />
               <Select
                 id="user"
@@ -165,14 +165,14 @@ export const CreatePoolCandidateForm: React.FunctionComponent<CreatePoolCandidat
                 nullSelection={intl.formatMessage(messages.userPlaceholder)}
                 name="user"
                 options={userOptions}
-                rules={{ required: errorMessages.required }}
+                rules={{ required: intl.formatMessage(errorMessages.required) }}
               />
               <Input
                 id="cmoIdentifier"
                 label={intl.formatMessage(messages.cmoIdentifierLabel)}
                 type="text"
                 name="cmoIdentifier"
-                rules={{ required: errorMessages.required }}
+                rules={{ required: intl.formatMessage(errorMessages.required) }}
               />
               <Input
                 id="expiryDate"
@@ -180,10 +180,10 @@ export const CreatePoolCandidateForm: React.FunctionComponent<CreatePoolCandidat
                 type="date"
                 name="expiryDate"
                 rules={{
-                  required: errorMessages.required,
+                  required: intl.formatMessage(errorMessages.required),
                   min: {
                     value: currentDate(),
-                    message: errorMessages.futureDate,
+                    message: intl.formatMessage(errorMessages.futureDate),
                   },
                 }}
               />
@@ -220,7 +220,7 @@ export const CreatePoolCandidateForm: React.FunctionComponent<CreatePoolCandidat
                   messages.languageAbilityPlaceholder,
                 )}
                 options={enumToOptions(LanguageAbility)}
-                rules={{ required: errorMessages.required }}
+                rules={{ required: intl.formatMessage(errorMessages.required) }}
               />
               <MultiSelect
                 id="locationPreferences"
@@ -230,7 +230,7 @@ export const CreatePoolCandidateForm: React.FunctionComponent<CreatePoolCandidat
                   messages.locationPreferencesPlaceholder,
                 )}
                 options={enumToOptions(WorkRegion)}
-                rules={{ required: errorMessages.required }}
+                rules={{ required: intl.formatMessage(errorMessages.required) }}
               />
               <MultiSelect
                 id="acceptedOperationalRequirements"
@@ -242,7 +242,7 @@ export const CreatePoolCandidateForm: React.FunctionComponent<CreatePoolCandidat
                   messages.acceptedOperationalRequirementsPlaceholder,
                 )}
                 options={operationalRequirementOptions}
-                rules={{ required: errorMessages.required }}
+                rules={{ required: intl.formatMessage(errorMessages.required) }}
               />
               <MultiSelect
                 id="expectedSalary"
@@ -257,7 +257,7 @@ export const CreatePoolCandidateForm: React.FunctionComponent<CreatePoolCandidat
                   value,
                   label: getSalaryRange(value),
                 }))}
-                rules={{ required: errorMessages.required }}
+                rules={{ required: intl.formatMessage(errorMessages.required) }}
               />
               <MultiSelect
                 id="expectedClassifications"
@@ -269,7 +269,7 @@ export const CreatePoolCandidateForm: React.FunctionComponent<CreatePoolCandidat
                 )}
                 name="expectedClassifications"
                 options={classificationOptions}
-                rules={{ required: errorMessages.required }}
+                rules={{ required: intl.formatMessage(errorMessages.required) }}
               />
               <MultiSelect
                 id="cmoAssets"
@@ -277,14 +277,14 @@ export const CreatePoolCandidateForm: React.FunctionComponent<CreatePoolCandidat
                 placeholder={intl.formatMessage(messages.cmoAssetsPlaceholder)}
                 name="cmoAssets"
                 options={cmoAssetOptions}
-                rules={{ required: errorMessages.required }}
+                rules={{ required: intl.formatMessage(errorMessages.required) }}
               />
               <Select
                 id="status"
                 label={intl.formatMessage(messages.statusLabel)}
                 nullSelection={intl.formatMessage(messages.statusPlaceholder)}
                 name="status"
-                rules={{ required: errorMessages.required }}
+                rules={{ required: intl.formatMessage(errorMessages.required) }}
                 options={enumToOptions(PoolCandidateStatus)}
               />
               <Submit />
