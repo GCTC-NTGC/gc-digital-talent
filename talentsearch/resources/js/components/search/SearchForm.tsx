@@ -5,6 +5,8 @@ import { Checklist, MultiSelect, RadioGroup } from "@common/components/form";
 import { getLocale } from "@common/helpers/localize";
 import { enumToOptions } from "@common/helpers/formUtils";
 import { getLanguageAbility } from "@common/constants";
+import { notEmpty } from "@common/helpers/util";
+import { commonMessages } from "@common/messages";
 import {
   Classification,
   CmoAsset,
@@ -14,8 +16,6 @@ import {
   PoolCandidateFilter,
   useGetSearchFormDataQuery,
 } from "../../api/generated";
-import { notEmpty } from "@common/helpers/util";
-import { commonMessages } from "@common/messages";
 
 const FilterBlock: React.FunctionComponent<{
   id: string;
@@ -94,6 +94,9 @@ export const SearchForm: React.FunctionComponent<SearchFormProps> = ({
     "operationalRequirements",
   )?.length;
 
+  function span(msg: string): JSX.Element {
+    return <span data-h2-font-color="b(lightpurple)">{msg}</span>;
+  }
   return (
     <FormProvider {...methods}>
       <form
@@ -349,9 +352,7 @@ export const SearchForm: React.FunctionComponent<SearchFormProps> = ({
                     "Heading for total matching candidates in results section of search page.",
                 },
                 {
-                  span: (msg: string): JSX.Element => (
-                    <span data-h2-font-color="b(lightpurple)">{msg}</span>
-                  ),
+                  span,
                   totalEstimatedCandidates,
                 },
               )}
@@ -431,12 +432,14 @@ export const SearchForm: React.FunctionComponent<SearchFormProps> = ({
   );
 };
 
-export const SearchFormApi: React.FunctionComponent<{ totalEstimatedCandidates: number }> = ({ totalEstimatedCandidates }) => {
+export const SearchFormApi: React.FunctionComponent<{
+  totalEstimatedCandidates: number;
+}> = ({ totalEstimatedCandidates }) => {
   const intl = useIntl();
   const [lookupResult] = useGetSearchFormDataQuery();
-  const { data: lookupData, fetching, error} = lookupResult;
+  const { data: lookupData, fetching, error } = lookupResult;
   const classifications: Classification[] | [] =
-      lookupData?.classifications.filter(notEmpty) ?? [];
+    lookupData?.classifications.filter(notEmpty) ?? [];
   const cmoAssets: CmoAsset[] = lookupData?.cmoAssets.filter(notEmpty) ?? [];
   const operationalRequirements: OperationalRequirement[] =
     lookupData?.operationalRequirements.filter(notEmpty) ?? [];
@@ -447,7 +450,7 @@ export const SearchFormApi: React.FunctionComponent<{ totalEstimatedCandidates: 
         data-h2-display="b(flex)"
         data-h2-justify-content="b(center)"
         data-h2-align-items="b(center)"
-        style={{ minHeight: "20rem"}}
+        style={{ minHeight: "20rem" }}
       >
         <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>
       </div>
@@ -458,13 +461,13 @@ export const SearchFormApi: React.FunctionComponent<{ totalEstimatedCandidates: 
         data-h2-display="b(flex)"
         data-h2-justify-content="b(center)"
         data-h2-align-items="b(center)"
-        style={{ minHeight: "20rem"}}
+        style={{ minHeight: "20rem" }}
       >
         <p>
           {intl.formatMessage(commonMessages.loadingError)} {error.message}
         </p>
       </div>
-  );
+    );
 
   return (
     <SearchForm
@@ -474,4 +477,4 @@ export const SearchFormApi: React.FunctionComponent<{ totalEstimatedCandidates: 
       totalEstimatedCandidates={totalEstimatedCandidates}
     />
   );
-}
+};
