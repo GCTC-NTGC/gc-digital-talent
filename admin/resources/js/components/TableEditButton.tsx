@@ -4,7 +4,9 @@ import { useIntl } from "react-intl";
 import { navigate } from "@common/helpers/router";
 
 export interface TableEditButtonProps {
+  /** Id of the object in the table. */
   id: string;
+  /** The current url root. */
   editUrlRoot: string;
 }
 
