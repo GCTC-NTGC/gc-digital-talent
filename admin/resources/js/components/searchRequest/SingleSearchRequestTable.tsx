@@ -20,9 +20,9 @@ type Data = NonNullable<
 >;
 
 function tableEditButtonAccessor(
+  intl: IntlShape,
   userId?: string,
   poolId?: string,
-  intl: IntlShape,
 ) {
   return (
     <Button
@@ -30,7 +30,7 @@ function tableEditButtonAccessor(
       mode="inline"
       onClick={(event) => {
         event.preventDefault();
-        navigate(poolCandidateUpdatePath(userId || "", poolId || "")); // TODO: Where should user be taken if this value is empty?
+        navigate(poolCandidateUpdatePath(userId || "", poolId || "")); // TODO: Where should the user be taken if this value is empty?
       }}
     >
       {intl.formatMessage({
@@ -200,7 +200,7 @@ export const SingleSearchRequestTable: React.FunctionComponent<
             "Title displayed for the single search request table edit column.",
         }),
         accessor: ({ user, pool }) =>
-          tableEditButtonAccessor(user?.id, pool?.id, intl),
+          tableEditButtonAccessor(intl, user?.id, pool?.id),
       },
     ],
     [intl, locale],
