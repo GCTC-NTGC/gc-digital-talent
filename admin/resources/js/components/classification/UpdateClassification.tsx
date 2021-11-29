@@ -69,21 +69,21 @@ export const UpdateClassificationForm: React.FunctionComponent<UpdateClassificat
                 name="name.en"
                 label={intl.formatMessage(messages.nameEnLabel)}
                 type="text"
-                rules={{ required: errorMessages.required }}
+                rules={{ required: intl.formatMessage(errorMessages.required) }}
               />
               <Input
                 id="name_fr"
                 name="name.fr"
                 label={intl.formatMessage(messages.nameFrLabel)}
                 type="text"
-                rules={{ required: errorMessages.required }}
+                rules={{ required: intl.formatMessage(errorMessages.required) }}
               />
               <Input
                 id="group"
                 name="group"
                 label={intl.formatMessage(messages.groupLabel)}
                 type="text"
-                rules={{ required: errorMessages.required }}
+                rules={{ required: intl.formatMessage(errorMessages.required) }}
               />
               <Select
                 id="level"
@@ -109,7 +109,7 @@ export const UpdateClassificationForm: React.FunctionComponent<UpdateClassificat
                 label={intl.formatMessage(messages.minSalaryLabel)}
                 type="number"
                 rules={{
-                  required: errorMessages.required,
+                  required: intl.formatMessage(errorMessages.required),
                   min: {
                     value: 0,
                     message: `${errorMessages.mustBeGreater} 0`,
@@ -122,7 +122,7 @@ export const UpdateClassificationForm: React.FunctionComponent<UpdateClassificat
                 label={intl.formatMessage(messages.maxSalaryLabel)}
                 type="number"
                 rules={{
-                  required: errorMessages.required,
+                  required: intl.formatMessage(errorMessages.required),
                   min: {
                     value: watchMinSalary || 0,
                     message: `${errorMessages.mustBeGreater} ${

@@ -56,28 +56,28 @@ export const CreateClassificationForm: React.FunctionComponent<CreateClassificat
                 name="name.en"
                 label={intl.formatMessage(messages.nameEnLabel)}
                 type="text"
-                rules={{ required: errorMessages.required }}
+                rules={{ required: intl.formatMessage(errorMessages.required) }}
               />
               <Input
                 id="name_fr"
                 name="name.fr"
                 label={intl.formatMessage(messages.nameFrLabel)}
                 type="text"
-                rules={{ required: errorMessages.required }}
+                rules={{ required: intl.formatMessage(errorMessages.required) }}
               />
               <Input
                 id="group"
                 name="group"
                 label={intl.formatMessage(messages.groupLabel)}
                 type="text"
-                rules={{ required: errorMessages.required }}
+                rules={{ required: intl.formatMessage(errorMessages.required) }}
               />
               <Select
                 id="level"
                 name="level"
                 label={intl.formatMessage(messages.levelLabel)}
                 nullSelection={intl.formatMessage(messages.levelPlaceholder)}
-                rules={{ required: errorMessages.required }}
+                rules={{ required: intl.formatMessage(errorMessages.required) }}
                 options={[
                   { value: 1, label: "1" },
                   { value: 2, label: "2" },
@@ -96,7 +96,7 @@ export const CreateClassificationForm: React.FunctionComponent<CreateClassificat
                 label={intl.formatMessage(messages.minSalaryLabel)}
                 type="number"
                 rules={{
-                  required: errorMessages.required,
+                  required: intl.formatMessage(errorMessages.required),
                   min: {
                     value: 0,
                     message: `${errorMessages.mustBeGreater} 0`,
@@ -109,7 +109,7 @@ export const CreateClassificationForm: React.FunctionComponent<CreateClassificat
                 label={intl.formatMessage(messages.maxSalaryLabel)}
                 type="number"
                 rules={{
-                  required: errorMessages.required,
+                  required: intl.formatMessage(errorMessages.required),
                   min: {
                     value: watchMinSalary || 0,
                     message: `${errorMessages.mustBeGreater} ${

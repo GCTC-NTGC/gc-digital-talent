@@ -55,21 +55,21 @@ export const CreateDepartmentForm: React.FunctionComponent<CreateDepartmentProps
                 name="departmentNumber"
                 label={intl.formatMessage(messages.departmentNumberLabel)}
                 type="number"
-                rules={{ required: errorMessages.required }}
+                rules={{ required: intl.formatMessage(errorMessages.required) }}
               />
               <Input
                 id="name_en"
                 name="name.en"
                 label={intl.formatMessage(messages.nameEnLabel)}
                 type="text"
-                rules={{ required: errorMessages.required }}
+                rules={{ required: intl.formatMessage(errorMessages.required) }}
               />
               <Input
                 id="name_fr"
                 name="name.fr"
                 label={intl.formatMessage(messages.nameFrLabel)}
                 type="text"
-                rules={{ required: errorMessages.required }}
+                rules={{ required: intl.formatMessage(errorMessages.required) }}
               />
               <Submit />
             </form>
