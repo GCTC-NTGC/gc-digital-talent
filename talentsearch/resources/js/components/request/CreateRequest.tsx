@@ -128,6 +128,22 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
     }),
   );
 
+  function totalEstimatedCandidatesNull(): JSX.Element {
+    return (
+      <span data-h2-font-color="b(lightpurple)">
+        {totalEstimatedCandidates === null &&
+          intl.formatMessage({
+            defaultMessage: "N/A",
+            description: "Text shown when the filter was not selected",
+          })}
+      </span>
+    );
+  }
+
+  function span(msg: string): JSX.Element {
+    return <span data-h2-font-color="b(lightpurple)">{msg}</span>;
+  }
+
   return (
     <section>
       <h2 data-h2-margin="b(top, none)">
@@ -263,19 +279,8 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
                   "Total estimated candidates message in summary of filters",
               },
               {
-                null: (): JSX.Element => (
-                  <span data-h2-font-color="b(lightpurple)">
-                    {totalEstimatedCandidates === null &&
-                      intl.formatMessage({
-                        defaultMessage: "N/A",
-                        description:
-                          "Text shown when the filter was not selected",
-                      })}
-                  </span>
-                ),
-                span: (msg: string): JSX.Element => (
-                  <span data-h2-font-color="b(lightpurple)">{msg}</span>
-                ),
+                null: totalEstimatedCandidatesNull,
+                span,
                 totalEstimatedCandidates,
               },
             )}

@@ -59,6 +59,15 @@ export const redirect = (url: string | Partial<Path>): void => {
   HISTORY.replace(url);
 };
 
+export const clearQueryParams = (): void => {
+  if (!HISTORY.location.search) {
+    return;
+  }
+  HISTORY.replace({
+    search: "",
+  });
+};
+
 export const navigateBack = (): void => {
   HISTORY.back();
 };

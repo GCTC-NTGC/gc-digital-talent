@@ -1,13 +1,13 @@
 import React, { useMemo } from "react";
 import { defineMessages, useIntl } from "react-intl";
-import { Button } from "@common/components/Button";
-import { navigate, useLocation } from "@common/helpers/router";
+import { useLocation } from "@common/helpers/router";
 import { notEmpty } from "@common/helpers/util";
 import { commonMessages } from "@common/messages";
 import { FromArray } from "@common/types/utilityTypes";
 import { GetCmoAssetsQuery, useGetCmoAssetsQuery } from "../../api/generated";
 import DashboardContentContainer from "../DashboardContentContainer";
 import Table, { ColumnsOf } from "../Table";
+import { tableEditButtonAccessor } from "../TableEditButton";
 
 const messages = defineMessages({
   columnIdTitle: {
@@ -58,18 +58,7 @@ export const CmoAssetTable: React.FC<
       },
       {
         Header: intl.formatMessage(messages.columnEditTitle),
-        accessor: ({ id }) => (
-          <Button
-            color="primary"
-            mode="inline"
-            onClick={(event) => {
-              event.preventDefault();
-              navigate(`${editUrlRoot}/${id}/edit`);
-            }}
-          >
-            {intl.formatMessage(messages.columnEditTitle)}
-          </Button>
-        ),
+        accessor: (d) => tableEditButtonAccessor(d.id, editUrlRoot), // callback extracted to separate function to stabilize memoized component
       },
     ],
     [editUrlRoot, intl],
@@ -77,11 +66,7 @@ export const CmoAssetTable: React.FC<
 
   const memoizedData = useMemo(() => cmoAssets.filter(notEmpty), [cmoAssets]);
 
-  return (
-    <>
-      <Table data={memoizedData} columns={columns} />
-    </>
-  );
+  return <Table data={memoizedData} columns={columns} />;
 };
 
 export const CmoAssetTableApi: React.FC = () => {

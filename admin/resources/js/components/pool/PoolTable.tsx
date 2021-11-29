@@ -1,7 +1,7 @@
 import React, { useMemo } from "react";
 import { defineMessages, useIntl } from "react-intl";
-import { Button, Pill } from "@common/components";
-import { navigate, useLocation } from "@common/helpers/router";
+import { Pill } from "@common/components";
+import { useLocation } from "@common/helpers/router";
 import { notEmpty } from "@common/helpers/util";
 import { getLocale } from "@common/helpers/localize";
 import { commonMessages } from "@common/messages";
@@ -9,6 +9,7 @@ import { FromArray } from "@common/types/utilityTypes";
 import { GetPoolsQuery, useGetPoolsQuery } from "../../api/generated";
 import Table, { ColumnsOf } from "../Table";
 import DashboardContentContainer from "../DashboardContentContainer";
+import { tableEditButtonAccessor } from "../TableEditButton";
 
 const messages = defineMessages({
   columnUniqueIdentifier: {
@@ -84,18 +85,7 @@ export const PoolTable: React.FC<GetPoolsQuery & { editUrlRoot: string }> = ({
       },
       {
         Header: intl.formatMessage(messages.columnEditTitle),
-        accessor: ({ id }) => (
-          <Button
-            color="primary"
-            mode="inline"
-            onClick={(event) => {
-              event.preventDefault();
-              navigate(`${editUrlRoot}/${id}/edit`);
-            }}
-          >
-            {intl.formatMessage(messages.columnEditTitle)}
-          </Button>
-        ),
+        accessor: (d) => tableEditButtonAccessor(d.id, editUrlRoot), // callback extracted to separate function to stabilize memoized component
       },
     ],
     [editUrlRoot, intl],
@@ -104,9 +94,7 @@ export const PoolTable: React.FC<GetPoolsQuery & { editUrlRoot: string }> = ({
   const data = useMemo(() => pools.filter(notEmpty), [pools]);
 
   return (
-    <>
-      <Table data={data} columns={columns} hiddenCols={["id", "description"]} />
-    </>
+    <Table data={data} columns={columns} hiddenCols={["id", "description"]} />
   );
 };
 

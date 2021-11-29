@@ -255,6 +255,19 @@ export const SearchForm: React.FunctionComponent<SearchFormProps> = ({
   };
 
   const useHandleSubmit = () => handleSubmit(onSubmit)();
+
+  function span(msg: string): JSX.Element {
+    return <span data-h2-font-color="b(lightpurple)">{msg}</span>;
+  }
+
+  function a(msg: string): JSX.Element {
+    return (
+      <a href="/search" data-h2-font-weight="b(700)">
+        {msg}
+      </a>
+    );
+  }
+
   return (
     <section>
       <FormProvider {...methods}>
@@ -543,9 +556,7 @@ export const SearchForm: React.FunctionComponent<SearchFormProps> = ({
                       "Heading for total matching candidates in results section of search page.",
                   },
                   {
-                    span: (msg: string): JSX.Element => (
-                      <span data-h2-font-color="b(lightpurple)">{msg}</span>
-                    ),
+                    span,
                     totalEstimatedCandidates,
                   },
                 )}
@@ -643,11 +654,7 @@ export const SearchForm: React.FunctionComponent<SearchFormProps> = ({
                         "Message for helping user if no candidates matched the filters chosen.",
                     },
                     {
-                      a: (msg: string): JSX.Element => (
-                        <a href="/search" data-h2-font-weight="b(700)">
-                          {msg}
-                        </a>
-                      ),
+                      a,
                     },
                   )}
                 </p>
