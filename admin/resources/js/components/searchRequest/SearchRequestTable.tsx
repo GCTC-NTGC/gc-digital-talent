@@ -1,8 +1,7 @@
 import React, { useMemo } from "react";
 import { useIntl } from "react-intl";
-import { Button } from "@common/components";
 import { notEmpty } from "@common/helpers/util";
-import { navigate, useLocation } from "@common/helpers/router";
+import { useLocation } from "@common/helpers/router";
 import { commonMessages } from "@common/messages";
 import { FromArray } from "@common/types/utilityTypes";
 import { getLocale } from "@common/helpers/localize";
@@ -13,31 +12,11 @@ import {
 import Table, { ColumnsOf } from "../Table";
 import DashboardContentContainer from "../DashboardContentContainer";
 import { poolCandidateTablePath } from "../../adminRoutes";
+import { tableEditButtonAccessor } from "../TableEditButton";
 
 type Data = NonNullable<
   FromArray<GetPoolCandidateSearchRequestsQuery["poolCandidateSearchRequests"]>
 >;
-
-const EditButton: React.FunctionComponent<{ id: string; editUrlRoot: string }> =
-  ({ id, editUrlRoot }) => {
-    const intl = useIntl();
-    return (
-      <Button
-        color="primary"
-        mode="inline"
-        onClick={(event) => {
-          event.preventDefault();
-          navigate(`${editUrlRoot}/${id}/edit`);
-        }}
-      >
-        {intl.formatMessage({
-          defaultMessage: "Edit",
-          description:
-            "Title displayed for the search request table edit column.",
-        })}
-      </Button>
-    );
-  };
 
 export const SearchRequestTable: React.FunctionComponent<
   GetPoolCandidateSearchRequestsQuery & { editUrlRoot: string }
@@ -124,7 +103,7 @@ export const SearchRequestTable: React.FunctionComponent<
           description:
             "Title displayed for the search request table edit column.",
         }),
-        accessor: ({ id }) => <EditButton id={id} editUrlRoot={editUrlRoot} />,
+        accessor: ({ id }) => tableEditButtonAccessor(id, editUrlRoot),
       },
     ],
     [intl, locale, editUrlRoot],

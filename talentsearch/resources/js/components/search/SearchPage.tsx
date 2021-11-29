@@ -6,7 +6,7 @@ import { defineMessages, useIntl } from "react-intl";
 import { Pool } from "../../api/generated";
 import { BASE_URL } from "../../talentSearchConstants";
 import EstimatedCandidates from "./EstimatedCandidates";
-import {SearchFormApi} from "./SearchForm";
+import { SearchFormApi } from "./SearchForm";
 
 const messages = defineMessages({
   pageTitle: {
@@ -62,6 +62,22 @@ export const SearchPage: React.FC = () => {
     },
   };
   const totalEstimatedCandidates = 0;
+
+  function a(msg: string): JSX.Element {
+    return (
+      <a href="/search" data-h2-font-weight="b(700)">
+        {msg}
+      </a>
+    );
+  }
+
+  function span(msg: string): JSX.Element {
+    return (
+      <span data-h2-font-weight="b(700)" data-h2-font-color="b(lightpurple)">
+        {msg}
+      </span>
+    );
+  }
 
   return (
     <>
@@ -121,9 +137,7 @@ export const SearchPage: React.FC = () => {
             {intl.formatMessage(messages.pageHowToHeading)}
           </h2>
           <p>{intl.formatMessage(messages.pageHowToContent)}</p>
-          <SearchFormApi
-            totalEstimatedCandidates={totalEstimatedCandidates}
-          />
+          <SearchFormApi totalEstimatedCandidates={totalEstimatedCandidates} />
         </div>
         <div
           data-h2-flex-item="b(1of1) s(1of3)"
@@ -157,11 +171,7 @@ export const SearchPage: React.FC = () => {
                     "Message for helping user if no candidates matched the filters chosen.",
                 },
                 {
-                  a: (msg: string): JSX.Element => (
-                    <a href="/search" data-h2-font-weight="b(700)">
-                      {msg}
-                    </a>
-                  ),
+                  a,
                 },
               )}
             </p>
@@ -197,14 +207,7 @@ export const SearchPage: React.FC = () => {
                       "Message for total estimated candidates box next to search form.",
                   },
                   {
-                    span: (msg: string): JSX.Element => (
-                      <span
-                        data-h2-font-weight="b(700)"
-                        data-h2-font-color="b(lightpurple)"
-                      >
-                        {msg}
-                      </span>
-                    ),
+                    span,
                     totalEstimatedCandidates,
                   },
                 )}
