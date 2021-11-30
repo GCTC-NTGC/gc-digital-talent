@@ -28,7 +28,7 @@ class DepartmentPolicy
      * @param  \App\Models\Department  $department
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user)
+    public function view(User $user = null)
     {
         return true;
     }

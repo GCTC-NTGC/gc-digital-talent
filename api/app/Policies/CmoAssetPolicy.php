@@ -24,7 +24,7 @@ class CmoAssetPolicy
     /**
      * Determine whether the user can view the model.
      *
-     * @param  \App\Models\User|null  $user
+     * @param  \App\Models\User|null $user
      * @param  \App\Models\CmoAsset  $cmoAsset
      * @return \Illuminate\Auth\Access\Response|bool
      */

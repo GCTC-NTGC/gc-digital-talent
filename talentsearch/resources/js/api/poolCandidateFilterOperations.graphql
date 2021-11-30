@@ -56,30 +56,3 @@ query getPoolCandidateFilters {
     ...poolCandidateFilter
   }
 }
-
-query getPoolCandidateFilterData($id: ID!) {
-  classifications {
-    id
-    group
-    level
-  }
-  cmoAssets {
-    id
-    key
-    name {
-      en
-      fr
-    }
-  }
-  operationalRequirements {
-    id
-    key
-    name {
-      en
-      fr
-    }
-  }
-  poolCandidateFilter(id: $id) {
-      ...poolCandidateFilter
-  }
-}

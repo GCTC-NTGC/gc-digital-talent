@@ -51,6 +51,8 @@ mix.webpackConfig({
       react: path.resolve("./node_modules/react"),
       "react-dom": path.resolve("./node_modules/react-dom"),
       "react-hook-form": path.resolve("./node_modules/react-hook-form"),
+      "react-intl": path.resolve("./node_modules/react-intl"),
+      "react-toastify": path.resolve("./node_modules/react-toastify"),
       "@common": path.resolve("../common/src"),
     },
   },

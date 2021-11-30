@@ -10,6 +10,9 @@ scalar Email @scalar(class: "MLL\\GraphQLScalars\\Email")
 "A phone number string which must comply with E.164 international notation, including country code and preceding '+'."
 scalar PhoneNumber
 
+"A human readable ID"
+scalar KeyString
+
 type LocalizedString {
     en: String
     fr: String
@@ -25,6 +28,7 @@ enum Role {
 }
 
 type User {
+    # There are some cases where some fields, such as email and names, should be visible while others aren't. Therefore we use field-level permissions to distinguish them.
     id: ID!
     email: Email!
     sub: String
@@ -37,7 +41,7 @@ type User {
     poolCandidates: [PoolCandidate] @hasMany # Pools candidates that a user owns
 }
 
-type PoolOwnerPublicProfile {
+type UserPublicProfile {
     id: ID!
     email: Email
     firstName: String @rename(attribute: "first_name")
@@ -46,10 +50,10 @@ type PoolOwnerPublicProfile {
 
 type Pool {
     id: ID!
-    owner: User @belongsTo(relation: "user") @can(ability: "view", query: true)
-    ownerPublicProfile: PoolOwnerPublicProfile @belongsTo(relation: "user")
+    owner: User @belongsTo(relation: "user")
+    ownerPublicProfile: UserPublicProfile @belongsTo(relation: "user")
     name: LocalizedString
-    key: String
+    key: KeyString
     description: LocalizedString
     classifications: [Classification] @belongsToMany
     assetCriteria: [CmoAsset] @belongsToMany
@@ -113,7 +117,7 @@ e.g. Overtime as Required, Shift Work, Travel as Required, etc.
 """
 type OperationalRequirement {
     id: ID!
-    key: String!
+    key: KeyString!
     name: LocalizedString!
     description: LocalizedString
 }
@@ -141,7 +145,7 @@ e.g. Application Development, Quality Assurance, Enterprise Architecture, IT Pro
 """
 type CmoAsset {
     id: ID!
-    key: String!
+    key: KeyString!
     name: LocalizedString!
     description: LocalizedString
 }
@@ -191,7 +195,7 @@ input ClassificationFilterInput {
 }
 
 input KeyFilterInput {
-    key: String!
+    key: KeyString!
 }
 
 input PoolFilterInput {
@@ -218,7 +222,7 @@ type Query {
     users: [User]! @all @guard @can(ability: "viewAny")
     pool(id: ID! @eq): Pool @find
     poolByKey(key: String! @eq): Pool @find
-    pools: [Pool]! @all @guard @can(ability: "viewAny")
+    pools: [Pool]! @all
     poolCandidate(id: ID! @eq): PoolCandidate @find @guard @can(ability: "view", query: true)
     poolCandidates: [PoolCandidate]! @all @guard @can(ability: "viewAny")
     # countPoolCandidates returns the number of candidates matching its filters, and requires no special permissions.
@@ -296,7 +300,7 @@ input ClassificationBelongsToMany {
 }
 
 input CreateCmoAssetInput {
-    key: String!
+    key: KeyString!
     name: LocalizedStringInput!
     description: LocalizedStringInput
 }
@@ -306,7 +310,7 @@ input CmoAssetBelongsToMany {
 }
 
 input CreateOperationalRequirementInput {
-    key: String!
+    key: KeyString!
     name: LocalizedStringInput!
     description: LocalizedStringInput
 }
@@ -341,7 +345,7 @@ input PoolCandidateHasMany {
 input CreatePoolInput {
     owner: UserBelongsTo! @rename(attribute: "user")
     name: LocalizedStringInput!
-    key: String!
+    key: KeyString!
     description: LocalizedStringInput
     classifications: ClassificationBelongsToMany
     assetCriteria: CmoAssetBelongsToMany

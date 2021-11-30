@@ -59,26 +59,26 @@ export const UpdateOperationalRequirementForm: React.FunctionComponent<UpdateOpe
                 name="name.en"
                 label={intl.formatMessage(messages.nameLabelEn)}
                 type="text"
-                rules={{ required: errorMessages.required }}
+                rules={{ required: intl.formatMessage(errorMessages.required) }}
               />
               <Input
                 id="name_fr"
                 name="name.fr"
                 label={intl.formatMessage(messages.nameLabelFr)}
                 type="text"
-                rules={{ required: errorMessages.required }}
+                rules={{ required: intl.formatMessage(errorMessages.required) }}
               />
               <TextArea
                 id="description_en"
                 name="description.en"
                 label={intl.formatMessage(messages.descriptionLabelEn)}
-                rules={{ required: errorMessages.required }}
+                rules={{ required: intl.formatMessage(errorMessages.required) }}
               />
               <TextArea
                 id="description_fr"
                 name="description.fr"
                 label={intl.formatMessage(messages.descriptionLabelFr)}
-                rules={{ required: errorMessages.required }}
+                rules={{ required: intl.formatMessage(errorMessages.required) }}
               />
               <Submit />
             </form>

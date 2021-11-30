@@ -14,7 +14,7 @@ import {
   CountPoolCandidatesQueryVariables,
   PoolCandidateFilterInput,
   Pool,
-  PoolOwnerPublicProfile,
+  UserPublicProfile,
 } from "../../api/generated";
 import {
   BASE_URL,
@@ -153,7 +153,7 @@ export interface SearchPageProps {
   cmoAssets: CmoAsset[];
   operationalRequirements: OperationalRequirement[];
   pool?: Pick<Pool, "name" | "description">;
-  poolOwner?: Pick<PoolOwnerPublicProfile, "firstName" | "lastName">;
+  poolOwner?: Pick<UserPublicProfile, "firstName" | "lastName">;
   candidateCount: number;
   updatePending?: boolean;
   candidateFilter: PoolCandidateFilterInput | undefined;
@@ -204,7 +204,11 @@ export const SearchPage: React.FC<SearchPageProps> = ({
           data-h2-font-weight="b(800)"
           style={{ letterSpacing: "-2px" }}
         >
-          {intl.formatMessage(messages.pageTitle)}
+          {intl.formatMessage({
+            defaultMessage: "Search the Digital Talent Pool",
+            description:
+              "Title displayed in the hero section of the Search page.",
+          })}
         </h1>
         <div
           data-h2-position="b(static) m(absolute)"
@@ -220,22 +224,11 @@ export const SearchPage: React.FC<SearchPageProps> = ({
             data-h2-font-weight="b(300)"
             data-h2-margin="b(all, none)"
           >
-            {intl.formatMessage(messages.pageAboutHeading)}
-          </h2>
-          <p>{intl.formatMessage(messages.pageAboutContent)}</p>
-        </div>
-      </div>
-      <div
-        data-h2-flex-grid="b(top, contained, flush, xl)"
-        data-h2-container="b(center, l)"
-      >
-        <div data-h2-flex-item="b(1of1) s(2of3)" style={{ paddingBottom: "0" }}>
-          <h2
-            data-h2-font-color="b(black)"
-            data-h2-font-weight="b(300)"
-            data-h2-margin="b(all, none)"
-          >
-            {intl.formatMessage(messages.pageHowToHeading)}
+            {intl.formatMessage({
+              defaultMessage: "About the CS - Digital Talent Pool",
+              description:
+                "Heading displayed in the About area of the hero section of the Search page.",
+            })}
           </h2>
           <p>{intl.formatMessage(messages.pageHowToContent)}</p>
           <SearchForm
@@ -408,13 +401,15 @@ export const SearchPage: React.FC<SearchPageProps> = ({
             data-h2-font-weight="b(700)"
           >
             {intl.formatMessage({
-              defaultMessage: "Not what you're looking for? Get in touch!",
+              defaultMessage:
+                "This pool is open to most departments and agencies. Candidates in the pool vary from just starting their career to seasoned professionals with several years of work experience. This is an ongoing recruitment pool, which means new candidates are being added every week.",
               description:
-                "Message for helping user if no candidates matched the filters chosen.",
+                "Content displayed in the About area of the hero section of the Search page.",
             })}
-          </a>
+          </p>
         </div>
       </div>
+      <SearchFormApi />
     </>
   );
 };

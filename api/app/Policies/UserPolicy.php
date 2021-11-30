@@ -33,6 +33,22 @@ class UserPolicy
     }
 
     /**
+     * Determine whether the user can view a more limited, public version of the model model.
+     *
+     * @param  \App\Models\User|null  $user
+     * @param  \App\Models\User  $model
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function viewPublic(?User $user, User $model)
+    {
+        if ($user !== null && $this->view($user, $model)) {
+            return true;
+        }
+        $model->loadCount('pools');
+        return $model->pools_count > 0; // Any owner of a pool must be partially visible to even guest users
+    }
+
+    /**
      * Determine whether the user can create models.
      *
      * @param  \App\Models\User  $user

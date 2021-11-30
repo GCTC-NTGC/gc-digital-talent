@@ -5,6 +5,7 @@ import {
   fakeClassifications,
   fakeCmoAssets,
   fakeOperationalRequirements,
+  fakePools,
 } from "@common/fakeData";
 import SearchForm, { SearchFormProps } from "../components/search/SearchForm";
 import {

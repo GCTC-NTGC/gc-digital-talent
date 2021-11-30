@@ -55,21 +55,21 @@ export const CreateUserForm: React.FunctionComponent<CreateUserFormProps> = ({
               label={intl.formatMessage(messages.emailLabel)}
               type="text"
               name="email"
-              rules={{ required: errorMessages.required }}
+              rules={{ required: intl.formatMessage(errorMessages.required) }}
             />
             <Input
               id="firstName"
               label={intl.formatMessage(messages.firstNameLabel)}
               type="text"
               name="firstName"
-              rules={{ required: errorMessages.required }}
+              rules={{ required: intl.formatMessage(errorMessages.required) }}
             />
             <Input
               id="lastName"
               label={intl.formatMessage(messages.lastNameLabel)}
               type="text"
               name="lastName"
-              rules={{ required: errorMessages.required }}
+              rules={{ required: intl.formatMessage(errorMessages.required) }}
             />
             <Input
               id="telephone"
@@ -77,10 +77,10 @@ export const CreateUserForm: React.FunctionComponent<CreateUserFormProps> = ({
               type="tel"
               name="telephone"
               rules={{
-                required: errorMessages.required,
+                required: intl.formatMessage(errorMessages.required),
                 pattern: {
                   value: /^\+[1-9]\d{1,14}$/,
-                  message: errorMessages.telephone,
+                  message: intl.formatMessage(errorMessages.telephone),
                 },
               }}
             />
@@ -91,7 +91,7 @@ export const CreateUserForm: React.FunctionComponent<CreateUserFormProps> = ({
               nullSelection={intl.formatMessage(
                 messages.preferredLanguagePlaceholder,
               )}
-              rules={{ required: errorMessages.required }}
+              rules={{ required: intl.formatMessage(errorMessages.required) }}
               options={enumToOptions(Language).map(({ value }) => ({
                 value,
                 label: intl.formatMessage(getLanguage(value)),

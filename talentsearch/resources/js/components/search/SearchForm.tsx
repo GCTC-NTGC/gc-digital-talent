@@ -17,6 +17,7 @@ import {
   PoolCandidateFilter,
   PoolCandidateFilterInput,
 } from "../../api/generated";
+import EstimatedCandidates from "./EstimatedCandidates";
 
 const FilterBlock: React.FunctionComponent<{
   id: string;
@@ -37,6 +38,109 @@ const FilterBlock: React.FunctionComponent<{
         {text}
       </p>
       {children && <div style={{ maxWidth: "30rem" }}>{children}</div>}
+    </div>
+  );
+};
+
+const PoolBlock: React.FunctionComponent<{
+  pool: Pool;
+  totalEstimatedCandidates: number;
+  setPoolIdValue: (poolId: string) => void;
+  handleSubmit: () => void;
+}> = ({ pool, totalEstimatedCandidates, setPoolIdValue, handleSubmit }) => {
+  const intl = useIntl();
+  const locale = getLocale(intl);
+
+  function span(msg: string) {
+    return (
+      <span data-h2-font-weight="b(700)" data-h2-font-color="b(lightpurple)">
+        {msg}
+      </span>
+    );
+  }
+
+  return (
+    <div
+      data-h2-shadow="b(m)"
+      data-h2-border="b(lightnavy, left, solid, l)"
+      data-h2-margin="b(top, s) b(bottom, m)"
+      data-h2-flex-grid="b(middle, contained, flush, xl)"
+    >
+      <div
+        data-h2-flex-item="b(1of1) m(1of2)"
+        style={{ padding: "0", paddingLeft: "1rem" }}
+      >
+        <p data-h2-margin="b(bottom, none)" data-h2-font-weight="b(700)">
+          {pool.name?.[locale]
+            ? pool.name?.[locale]
+            : intl.formatMessage({
+                defaultMessage: "N/A",
+                description: "Text shown when the filter was not selected",
+              })}
+        </p>
+        <p
+          data-h2-margin="b(top, xxs) b(bottom, m)"
+          data-h2-font-weight="b(100)"
+        >
+          {intl.formatMessage(
+            {
+              defaultMessage:
+                "There are <span>{totalEstimatedCandidates}</span> matching candidates in this pool",
+              description:
+                "Message for total estimated candidates box next to search form.",
+            },
+            {
+              span,
+              totalEstimatedCandidates,
+            },
+          )}
+        </p>
+        <p data-h2-margin="b(bottom, none)" data-h2-font-size="b(caption)">
+          {intl.formatMessage({ defaultMessage: "Pool Owner" })}:{" "}
+          {pool.owner?.firstName
+            ? pool.owner?.firstName
+            : intl.formatMessage({
+                defaultMessage: "N/A",
+                description: "Text shown when the filter was not selected",
+              })}{" "}
+          {pool.owner?.lastName
+            ? pool.owner?.lastName
+            : intl.formatMessage({
+                defaultMessage: "N/A",
+                description: "Text shown when the filter was not selected",
+              })}
+        </p>
+        <p data-h2-margin="b(bottom, s)" data-h2-font-size="b(caption)">
+          {pool.description?.[locale]
+            ? pool.description?.[locale]
+            : intl.formatMessage({
+                defaultMessage: "N/A",
+                description: "Text shown when the filter was not selected",
+              })}
+        </p>
+      </div>
+      <div
+        data-h2-flex-item="b(1of1) m(1of2)"
+        data-h2-display="b(flex)"
+        data-h2-justify-content="b(center) m(flex-end)"
+      >
+        <Button
+          color="cta"
+          mode="solid"
+          onClick={() => {
+            // Set the poolId state
+            setPoolIdValue(pool.id);
+            // Fire submit handler with form data and save to history state api.
+            handleSubmit();
+          }}
+        >
+          {intl.formatMessage({
+            defaultMessage: "Request Candidates",
+            description:
+              "Button link message on search page that takes user to the request form.",
+          })}
+        </Button>
+      </div>
     </div>
   );
 };
@@ -67,7 +171,7 @@ function mapIdToValue<T extends { id: Id }>(objs: T[]): Map<Id, T> {
   }, new Map());
 }
 
-const SearchForm: React.FunctionComponent<SearchFormProps> = ({
+export const SearchForm: React.FunctionComponent<SearchFormProps> = ({
   classifications,
   cmoAssets,
   operationalRequirements,
@@ -75,6 +179,7 @@ const SearchForm: React.FunctionComponent<SearchFormProps> = ({
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
+  const location = useLocation();
 
   const classificationMap = useMemo(
     () => mapIdToValue(classifications),
@@ -158,6 +263,73 @@ const SearchForm: React.FunctionComponent<SearchFormProps> = ({
       })),
     [operationalRequirements, locale],
   );
+
+  const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
+    // Build the poolCandidateFilter that will be stored into the history.state api.
+    const poolCandidateFilter: PoolCandidateFilter = {
+      id: "",
+      classifications:
+        data.classifications && data.classifications.length > 0
+          ? data.classifications?.map((classification) => {
+              const newClassification = classifications.find(
+                ({ id }) => id === classification,
+              );
+              return newClassification;
+            })
+          : [],
+      cmoAssets:
+        data.cmoAssets && data.cmoAssets.length > 0
+          ? data.cmoAssets.map((cmoAsset) => {
+              const newCmoAsset = cmoAssets.find(({ id }) => id === cmoAsset);
+              return newCmoAsset;
+            })
+          : [],
+      operationalRequirements:
+        data.operationalRequirements && data.operationalRequirements.length > 0
+          ? data.operationalRequirements.map((operationalRequirement) => {
+              const newOperationalRequirement = operationalRequirements.find(
+                ({ id }) => id === operationalRequirement,
+              );
+              return newOperationalRequirement;
+            })
+          : [],
+      pools: pools.filter(({ id }) => id === data.poolId),
+      hasDiploma: !!Number(data.hasDiploma),
+      hasDisability: data.employmentEquity
+        ? data.employmentEquity?.includes("hasDisability")
+        : false,
+      isIndigenous: data.employmentEquity
+        ? data.employmentEquity?.includes("isIndigenous")
+        : false,
+      isVisibleMinority: data.employmentEquity
+        ? data.employmentEquity?.includes("isVisibleMinority")
+        : false,
+      isWoman: data.employmentEquity
+        ? data.employmentEquity?.includes("isWoman")
+        : false,
+      languageAbility:
+        data.languageAbility === "null" ? null : data.languageAbility,
+      workRegions: data.workRegions,
+    };
+    return pushToStateThenNavigate(requestPath(), {
+      poolCandidateFilter,
+      initialValues: data,
+    });
+  };
+
+  const useHandleSubmit = () => handleSubmit(onSubmit)();
+
+  function span(msg: string): JSX.Element {
+    return <span data-h2-font-color="b(lightpurple)">{msg}</span>;
+  }
+
+  function a(msg: string): JSX.Element {
+    return (
+      <a href="/search" data-h2-font-weight="b(700)">
+        {msg}
+      </a>
+    );
+  }
 
   return (
     <FormProvider {...methods}>
@@ -400,4 +572,49 @@ const SearchForm: React.FunctionComponent<SearchFormProps> = ({
   );
 };
 
-export default SearchForm;
+export const SearchFormApi: React.FunctionComponent = () => {
+  const intl = useIntl();
+  const [lookupResult] = useGetSearchFormDataQuery();
+  const { data: lookupData, fetching, error } = lookupResult;
+  const classifications: Classification[] | [] =
+    lookupData?.classifications.filter(notEmpty) ?? [];
+  const cmoAssets: CmoAsset[] = lookupData?.cmoAssets.filter(notEmpty) ?? [];
+  const operationalRequirements: OperationalRequirement[] =
+    lookupData?.operationalRequirements.filter(notEmpty) ?? [];
+  const pools: Pool[] = lookupData?.pools.filter(notEmpty) ?? [];
+
+  if (fetching)
+    return (
+      <div
+        data-h2-display="b(flex)"
+        data-h2-justify-content="b(center)"
+        data-h2-align-items="b(center)"
+        style={{ minHeight: "20rem" }}
+      >
+        <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>
+      </div>
+    );
+  if (error)
+    return (
+      <div
+        data-h2-display="b(flex)"
+        data-h2-justify-content="b(center)"
+        data-h2-align-items="b(center)"
+        style={{ minHeight: "20rem" }}
+      >
+        <p>
+          {intl.formatMessage(commonMessages.loadingError)} {error.message}
+        </p>
+      </div>
+    );
+
+  return (
+    <SearchForm
+      classifications={classifications}
+      cmoAssets={cmoAssets}
+      operationalRequirements={operationalRequirements}
+      pools={pools}
+      totalEstimatedCandidates={0} // TODO: Replace with number of candidates queried from api.
+    />
+  );
+};

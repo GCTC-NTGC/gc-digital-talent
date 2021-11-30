@@ -1,5 +1,5 @@
 import pick from "lodash/pick";
-import { Pool, PoolOwnerPublicProfile } from "../api/generated";
+import { Pool, UserPublicProfile } from "../api/generated";
 import fakeUsers from "./fakeUsers";
 import fakeClassifications from "./fakeClassifications";
 
@@ -12,7 +12,7 @@ export default (): Pool[] => [
       "email",
       "firstName",
       "lastName",
-    ]) as PoolOwnerPublicProfile,
+    ]) as UserPublicProfile,
     name: {
       en: "CMO",
       fr: "CMO",

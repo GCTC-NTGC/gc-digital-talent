@@ -1,9 +1,15 @@
 import * as React from "react";
 import { useIntl } from "react-intl";
+import { useLocation } from "@common/helpers/router";
+import { PoolCandidateFilter } from "../../api/generated";
 import { CreateRequest } from "./CreateRequest";
 
 const RequestPage: React.FunctionComponent = () => {
   const intl = useIntl();
+  const location = useLocation();
+  const poolCandidateFilter: PoolCandidateFilter = location.state
+    ? location.state.some.poolCandidateFilter
+    : null;
 
   return (
     <section
@@ -36,7 +42,7 @@ const RequestPage: React.FunctionComponent = () => {
         data-h2-align-items="b(center)"
         style={{ minHeight: "70rem" }}
       >
-        <CreateRequest />
+        <CreateRequest poolCandidateFilter={poolCandidateFilter} />
       </div>
     </section>
   );
