@@ -83,308 +83,296 @@ interface UpdatePoolCandidateProps {
   ) => Promise<UpdatePoolCandidateMutation["updatePoolCandidate"]>;
 }
 
-export const UpdatePoolCandidateForm: React.FunctionComponent<UpdatePoolCandidateProps> =
-  ({
-    classifications,
-    cmoAssets,
-    initialPoolCandidate,
-    operationalRequirements,
-    handleUpdatePoolCandidate,
-  }) => {
-    const intl = useIntl();
-    const locale = getLocale(intl);
-    const dataToFormValues = (data: PoolCandidate): FormValues => ({
-      ...data,
-      acceptedOperationalRequirements: unpackIds(
-        data?.acceptedOperationalRequirements,
-      ),
-      cmoAssets: unpackIds(data?.cmoAssets),
-      expectedClassifications: unpackIds(data?.expectedClassifications),
-      expectedSalary: unpackMaybes(data?.expectedSalary),
-      locationPreferences: unpackMaybes(data?.locationPreferences),
-      userId: data?.user?.id ?? "",
-      email: data?.user?.email ?? "",
-      firstName: data?.user?.firstName,
-      lastName: data?.user?.lastName,
-      telephone: data?.user?.telephone,
-      preferredLang: data?.user?.preferredLang,
-    });
+export const UpdatePoolCandidateForm: React.FunctionComponent<
+  UpdatePoolCandidateProps
+> = ({
+  classifications,
+  cmoAssets,
+  initialPoolCandidate,
+  operationalRequirements,
+  handleUpdatePoolCandidate,
+}) => {
+  const intl = useIntl();
+  const locale = getLocale(intl);
+  const dataToFormValues = (data: PoolCandidate): FormValues => ({
+    ...data,
+    acceptedOperationalRequirements: unpackIds(
+      data?.acceptedOperationalRequirements,
+    ),
+    cmoAssets: unpackIds(data?.cmoAssets),
+    expectedClassifications: unpackIds(data?.expectedClassifications),
+    expectedSalary: unpackMaybes(data?.expectedSalary),
+    locationPreferences: unpackMaybes(data?.locationPreferences),
+    userId: data?.user?.id ?? "",
+    email: data?.user?.email ?? "",
+    firstName: data?.user?.firstName,
+    lastName: data?.user?.lastName,
+    telephone: data?.user?.telephone,
+    preferredLang: data?.user?.preferredLang,
+  });
 
-    const formValuesToSubmitData = (
-      values: FormValues,
-    ): UpdatePoolCandidateInput => ({
-      ...values,
-      acceptedOperationalRequirements: {
-        sync: values.acceptedOperationalRequirements,
+  const formValuesToSubmitData = (
+    values: FormValues,
+  ): UpdatePoolCandidateInput => ({
+    ...values,
+    acceptedOperationalRequirements: {
+      sync: values.acceptedOperationalRequirements,
+    },
+    expectedClassifications: {
+      sync: values.expectedClassifications,
+    },
+    cmoAssets: {
+      sync: values.cmoAssets,
+    },
+    user: {
+      update: {
+        id: values.userId,
+        firstName: values.firstName,
+        lastName: values.lastName,
+        telephone: values.telephone,
+        preferredLang: values.preferredLang,
       },
-      expectedClassifications: {
-        sync: values.expectedClassifications,
-      },
-      cmoAssets: {
-        sync: values.cmoAssets,
-      },
-      user: {
-        update: {
-          id: values.userId,
-          firstName: values.firstName,
-          lastName: values.lastName,
-          telephone: values.telephone,
-          preferredLang: values.preferredLang,
-        },
-      },
-    });
+    },
+  });
 
-    const methods = useForm<FormValues>({
-      defaultValues: dataToFormValues(initialPoolCandidate),
-    });
-    const { handleSubmit } = methods;
+  const methods = useForm<FormValues>({
+    defaultValues: dataToFormValues(initialPoolCandidate),
+  });
+  const { handleSubmit } = methods;
 
-    const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
-      await handleUpdatePoolCandidate(
-        initialPoolCandidate.id,
-        formValuesToSubmitData(data),
-      )
-        .then(() => {
-          navigate(poolCandidateTablePath(initialPoolCandidate.pool?.id || ""));
-          toast.success(
-            intl.formatMessage(poolCandidateMessages.updateSuccess),
-          );
-        })
-        .catch(() => {
-          toast.error(intl.formatMessage(poolCandidateMessages.updateError));
-        });
-    };
+  const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
+    await handleUpdatePoolCandidate(
+      initialPoolCandidate.id,
+      formValuesToSubmitData(data),
+    )
+      .then(() => {
+        navigate(poolCandidateTablePath(initialPoolCandidate.pool?.id || ""));
+        toast.success(intl.formatMessage(poolCandidateMessages.updateSuccess));
+      })
+      .catch(() => {
+        toast.error(intl.formatMessage(poolCandidateMessages.updateError));
+      });
+  };
 
-    const cmoAssetOptions: Option<string>[] = cmoAssets.map(({ id, name }) => ({
+  const cmoAssetOptions: Option<string>[] = cmoAssets.map(({ id, name }) => ({
+    value: id,
+    label: name[locale] ?? "Error: name not loaded",
+  }));
+
+  const classificationOptions: Option<string>[] = classifications.map(
+    ({ id, group, level }) => ({
       value: id,
-      label: name[locale] ?? "Error: name not loaded",
+      label: `${group}-0${level}`,
+    }),
+  );
+
+  const operationalRequirementOptions: Option<string>[] =
+    operationalRequirements.map(({ id, name }) => ({
+      value: id,
+      label: name[locale] || "Error: operational requirement name not found.",
     }));
 
-    const classificationOptions: Option<string>[] = classifications.map(
-      ({ id, group, level }) => ({
-        value: id,
-        label: `${group}-0${level}`,
-      }),
-    );
-
-    const operationalRequirementOptions: Option<string>[] =
-      operationalRequirements.map(({ id, name }) => ({
-        value: id,
-        label: name[locale] || "Error: operational requirement name not found.",
-      }));
-
-    return (
-      <>
-        <section>
-          <h2 data-h2-text-align="b(center)" data-h2-margin="b(top, none)">
-            {intl.formatMessage(poolCandidateMessages.updateHeading)}
-          </h2>
-          <div data-h2-container="b(center, s)">
-            <FormProvider {...methods}>
-              <form onSubmit={handleSubmit(onSubmit)}>
-                <h4>
-                  {intl.formatMessage({
-                    description: "Heading for the user information section",
-                    defaultMessage: "User Information",
-                  })}
-                </h4>
-                <Input
-                  id="email"
-                  label={intl.formatMessage(userMessages.emailLabel)}
-                  type="text"
-                  name="email"
-                  disabled
-                  hideOptional
-                />
-                <Input
-                  id="firstName"
-                  label={intl.formatMessage(userMessages.firstNameLabel)}
-                  type="text"
-                  name="firstName"
-                  rules={{ required: errorMessages.required }}
-                />
-                <Input
-                  id="lastName"
-                  label={intl.formatMessage(userMessages.lastNameLabel)}
-                  type="text"
-                  name="lastName"
-                  rules={{ required: errorMessages.required }}
-                />
-                <Input
-                  id="telephone"
-                  label={intl.formatMessage(userMessages.telephoneLabel)}
-                  type="tel"
-                  name="telephone"
-                  rules={{
-                    required: errorMessages.required,
-                    pattern: {
-                      value: /^\+[1-9]\d{1,14}$/,
-                      message: errorMessages.telephone,
-                    },
-                  }}
-                />
-                <Select
-                  id="preferredLang"
-                  label={intl.formatMessage(
-                    userMessages.preferredLanguageLabel,
-                  )}
-                  name="preferredLang"
-                  nullSelection={intl.formatMessage(
-                    userMessages.preferredLanguagePlaceholder,
-                  )}
-                  rules={{ required: errorMessages.required }}
-                  options={enumToOptions(Language).map(({ value }) => ({
-                    value,
-                    label: intl.formatMessage(getLanguage(value)),
-                  }))}
-                />
-                <h4>
-                  {intl.formatMessage({
-                    description:
-                      "Heading for the candidate information section",
-                    defaultMessage: "Candidate Information",
-                  })}
-                </h4>
-                <Input
-                  id="cmoIdentifier"
-                  label={intl.formatMessage(
-                    poolCandidateMessages.cmoIdentifierLabel,
-                  )}
-                  type="text"
-                  name="cmoIdentifier"
-                  rules={{ required: errorMessages.required }}
-                />
-                <Input
-                  id="expiryDate"
-                  label={intl.formatMessage(
-                    poolCandidateMessages.expiryDateLabel,
-                  )}
-                  type="date"
-                  name="expiryDate"
-                  rules={{
-                    required: errorMessages.required,
-                    min: {
-                      value: currentDate(),
-                      message: errorMessages.futureDate,
-                    },
-                  }}
-                />
-                <Checkbox
-                  id="isWoman"
-                  label={intl.formatMessage(poolCandidateMessages.isWomanLabel)}
-                  name="isWoman"
-                />
-                <Checkbox
-                  id="hasDisability"
-                  label={intl.formatMessage(
-                    poolCandidateMessages.hasDiplomaLabel,
-                  )}
-                  name="hasDisability"
-                />
-                <Checkbox
-                  id="isIndigenous"
-                  label={intl.formatMessage(
-                    poolCandidateMessages.isIndigenousLabel,
-                  )}
-                  name="isIndigenous"
-                />
-                <Checkbox
-                  id="isVisibleMinority"
-                  label={intl.formatMessage(
-                    poolCandidateMessages.isVisibleMinorityLabel,
-                  )}
-                  name="isVisibleMinority"
-                />
-                <Select
-                  id="languageAbility"
-                  label={intl.formatMessage(
-                    poolCandidateMessages.languageAbilityLabel,
-                  )}
-                  name="languageAbility"
-                  options={enumToOptions(LanguageAbility)}
-                  rules={{ required: errorMessages.required }}
-                />
-                <MultiSelect
-                  id="locationPreferences"
-                  name="locationPreferences"
-                  label={intl.formatMessage(
-                    poolCandidateMessages.locationPreferencesLabel,
-                  )}
-                  placeholder={intl.formatMessage(
-                    poolCandidateMessages.locationPreferencesPlaceholder,
-                  )}
-                  options={enumToOptions(WorkRegion)}
-                  rules={{ required: errorMessages.required }}
-                />
-                <MultiSelect
-                  id="acceptedOperationalRequirements.sync"
-                  name="acceptedOperationalRequirements"
-                  label={intl.formatMessage(
-                    poolCandidateMessages.acceptedOperationalRequirementsLabel,
-                  )}
-                  placeholder={intl.formatMessage(
-                    poolCandidateMessages.acceptedOperationalRequirementsPlaceholder,
-                  )}
-                  options={operationalRequirementOptions}
-                  rules={{ required: errorMessages.required }}
-                />
-                <MultiSelect
-                  id="expectedSalary"
-                  label={intl.formatMessage(
-                    poolCandidateMessages.expectedSalaryLabel,
-                  )}
-                  name="expectedSalary"
-                  placeholder={intl.formatMessage(
-                    poolCandidateMessages.expectedSalaryPlaceholder,
-                  )}
-                  options={enumToOptions(SalaryRange).map(({ value }) => ({
-                    value,
-                    label: getSalaryRange(value),
-                  }))}
-                  rules={{ required: errorMessages.required }}
-                />
-                <MultiSelect
-                  id="expectedClassifications"
-                  label={intl.formatMessage(
-                    poolCandidateMessages.expectedClassificationsLabel,
-                  )}
-                  placeholder={intl.formatMessage(
-                    poolCandidateMessages.expectedClassificationsPlaceholder,
-                  )}
-                  name="expectedClassifications"
-                  options={classificationOptions}
-                  rules={{ required: errorMessages.required }}
-                />
-                <MultiSelect
-                  id="cmoAssets"
-                  label={intl.formatMessage(
-                    poolCandidateMessages.cmoAssetsLabel,
-                  )}
-                  placeholder={intl.formatMessage(
-                    poolCandidateMessages.cmoAssetsPlaceholder,
-                  )}
-                  name="cmoAssets"
-                  options={cmoAssetOptions}
-                  rules={{ required: errorMessages.required }}
-                />
-                <Select
-                  id="status"
-                  label={intl.formatMessage(poolCandidateMessages.statusLabel)}
-                  nullSelection={intl.formatMessage(
-                    poolCandidateMessages.statusPlaceholder,
-                  )}
-                  name="status"
-                  rules={{ required: errorMessages.required }}
-                  options={enumToOptions(PoolCandidateStatus)}
-                />
-                <Submit />
-              </form>
-            </FormProvider>
-          </div>
-        </section>
-      </>
-    );
-  };
+  return (
+    <section>
+      <h2 data-h2-text-align="b(center)" data-h2-margin="b(top, none)">
+        {intl.formatMessage(poolCandidateMessages.updateHeading)}
+      </h2>
+      <div data-h2-container="b(center, s)">
+        <FormProvider {...methods}>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <h4>
+              {intl.formatMessage({
+                description: "Heading for the user information section",
+                defaultMessage: "User Information",
+              })}
+            </h4>
+            <Input
+              id="email"
+              label={intl.formatMessage(userMessages.emailLabel)}
+              type="text"
+              name="email"
+              disabled
+              hideOptional
+            />
+            <Input
+              id="firstName"
+              label={intl.formatMessage(userMessages.firstNameLabel)}
+              type="text"
+              name="firstName"
+              rules={{ required: intl.formatMessage(errorMessages.required) }}
+            />
+            <Input
+              id="lastName"
+              label={intl.formatMessage(userMessages.lastNameLabel)}
+              type="text"
+              name="lastName"
+              rules={{ required: intl.formatMessage(errorMessages.required) }}
+            />
+            <Input
+              id="telephone"
+              label={intl.formatMessage(userMessages.telephoneLabel)}
+              type="tel"
+              name="telephone"
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+                pattern: {
+                  value: /^\+[1-9]\d{1,14}$/,
+                  message: intl.formatMessage(errorMessages.telephone),
+                },
+              }}
+            />
+            <Select
+              id="preferredLang"
+              label={intl.formatMessage(userMessages.preferredLanguageLabel)}
+              name="preferredLang"
+              nullSelection={intl.formatMessage(
+                userMessages.preferredLanguagePlaceholder,
+              )}
+              rules={{ required: intl.formatMessage(errorMessages.required) }}
+              options={enumToOptions(Language).map(({ value }) => ({
+                value,
+                label: intl.formatMessage(getLanguage(value)),
+              }))}
+            />
+            <h4>
+              {intl.formatMessage({
+                description: "Heading for the candidate information section",
+                defaultMessage: "Candidate Information",
+              })}
+            </h4>
+            <Input
+              id="cmoIdentifier"
+              label={intl.formatMessage(
+                poolCandidateMessages.cmoIdentifierLabel,
+              )}
+              type="text"
+              name="cmoIdentifier"
+              rules={{ required: intl.formatMessage(errorMessages.required) }}
+            />
+            <Input
+              id="expiryDate"
+              label={intl.formatMessage(poolCandidateMessages.expiryDateLabel)}
+              type="date"
+              name="expiryDate"
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+                min: {
+                  value: currentDate(),
+                  message: intl.formatMessage(errorMessages.futureDate),
+                },
+              }}
+            />
+            <Checkbox
+              id="isWoman"
+              label={intl.formatMessage(poolCandidateMessages.isWomanLabel)}
+              name="isWoman"
+            />
+            <Checkbox
+              id="hasDisability"
+              label={intl.formatMessage(poolCandidateMessages.hasDiplomaLabel)}
+              name="hasDisability"
+            />
+            <Checkbox
+              id="isIndigenous"
+              label={intl.formatMessage(
+                poolCandidateMessages.isIndigenousLabel,
+              )}
+              name="isIndigenous"
+            />
+            <Checkbox
+              id="isVisibleMinority"
+              label={intl.formatMessage(
+                poolCandidateMessages.isVisibleMinorityLabel,
+              )}
+              name="isVisibleMinority"
+            />
+            <Select
+              id="languageAbility"
+              label={intl.formatMessage(
+                poolCandidateMessages.languageAbilityLabel,
+              )}
+              name="languageAbility"
+              options={enumToOptions(LanguageAbility)}
+              rules={{ required: intl.formatMessage(errorMessages.required) }}
+            />
+            <MultiSelect
+              id="locationPreferences"
+              name="locationPreferences"
+              label={intl.formatMessage(
+                poolCandidateMessages.locationPreferencesLabel,
+              )}
+              placeholder={intl.formatMessage(
+                poolCandidateMessages.locationPreferencesPlaceholder,
+              )}
+              options={enumToOptions(WorkRegion)}
+              rules={{ required: intl.formatMessage(errorMessages.required) }}
+            />
+            <MultiSelect
+              id="acceptedOperationalRequirements.sync"
+              name="acceptedOperationalRequirements"
+              label={intl.formatMessage(
+                poolCandidateMessages.acceptedOperationalRequirementsLabel,
+              )}
+              placeholder={intl.formatMessage(
+                poolCandidateMessages.acceptedOperationalRequirementsPlaceholder,
+              )}
+              options={operationalRequirementOptions}
+              rules={{ required: intl.formatMessage(errorMessages.required) }}
+            />
+            <MultiSelect
+              id="expectedSalary"
+              label={intl.formatMessage(
+                poolCandidateMessages.expectedSalaryLabel,
+              )}
+              name="expectedSalary"
+              placeholder={intl.formatMessage(
+                poolCandidateMessages.expectedSalaryPlaceholder,
+              )}
+              options={enumToOptions(SalaryRange).map(({ value }) => ({
+                value,
+                label: getSalaryRange(value),
+              }))}
+              rules={{ required: intl.formatMessage(errorMessages.required) }}
+            />
+            <MultiSelect
+              id="expectedClassifications"
+              label={intl.formatMessage(
+                poolCandidateMessages.expectedClassificationsLabel,
+              )}
+              placeholder={intl.formatMessage(
+                poolCandidateMessages.expectedClassificationsPlaceholder,
+              )}
+              name="expectedClassifications"
+              options={classificationOptions}
+              rules={{ required: intl.formatMessage(errorMessages.required) }}
+            />
+            <MultiSelect
+              id="cmoAssets"
+              label={intl.formatMessage(poolCandidateMessages.cmoAssetsLabel)}
+              placeholder={intl.formatMessage(
+                poolCandidateMessages.cmoAssetsPlaceholder,
+              )}
+              name="cmoAssets"
+              options={cmoAssetOptions}
+              rules={{ required: intl.formatMessage(errorMessages.required) }}
+            />
+            <Select
+              id="status"
+              label={intl.formatMessage(poolCandidateMessages.statusLabel)}
+              nullSelection={intl.formatMessage(
+                poolCandidateMessages.statusPlaceholder,
+              )}
+              name="status"
+              rules={{ required: intl.formatMessage(errorMessages.required) }}
+              options={enumToOptions(PoolCandidateStatus)}
+            />
+            <Submit />
+          </form>
+        </FormProvider>
+      </div>
+    </section>
+  );
+};
 
 export const UpdatePoolCandidate: React.FunctionComponent<{
   poolCandidateId: string;

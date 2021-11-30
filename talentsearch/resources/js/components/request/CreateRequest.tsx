@@ -7,7 +7,11 @@ import { getLocale } from "@common/helpers/localize";
 import { Button } from "@common/components";
 import { notEmpty } from "@common/helpers/util";
 import { toast } from "react-toastify";
-import { navigate } from "@common/helpers/router";
+import {
+  navigate,
+  pushToStateThenNavigate,
+  useLocation,
+} from "@common/helpers/router";
 import { SearchRequestFilters } from "@common/components/SearchRequestFilters";
 import { searchPath } from "../../talentSearchRoutes";
 import {
@@ -51,12 +55,46 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
   const intl = useIntl();
   const locale = getLocale(intl);
   const methods = useForm();
+  const location = useLocation();
   const { handleSubmit } = methods;
+
+  const { initialValues } = location.state.some;
 
   const formValuesToSubmitData = (
     values: FormValues,
   ): CreatePoolCandidateSearchRequestInput => ({
     ...values,
+    poolCandidateFilter: {
+      create: {
+        classifications: {
+          sync: poolCandidateFilter?.classifications
+            ?.filter(notEmpty)
+            .map(({ id }) => id),
+        },
+        cmoAssets: {
+          sync: poolCandidateFilter?.cmoAssets
+            ?.filter(notEmpty)
+            .map(({ id }) => id),
+        },
+        hasDiploma: poolCandidateFilter?.hasDiploma,
+        hasDisability: poolCandidateFilter?.hasDisability,
+        isIndigenous: poolCandidateFilter?.isIndigenous,
+        isVisibleMinority: poolCandidateFilter?.isVisibleMinority,
+        isWoman: poolCandidateFilter?.isWoman,
+        languageAbility: poolCandidateFilter?.languageAbility,
+        operationalRequirements: {
+          sync: poolCandidateFilter?.operationalRequirements
+            ?.filter(notEmpty)
+            .map(({ id }) => id),
+        },
+        pools: {
+          sync: poolCandidateFilter?.pools
+            ?.filter(notEmpty)
+            .map(({ id }) => id),
+        },
+        workRegions: poolCandidateFilter?.workRegions,
+      },
+    },
     department: { connect: values.department },
   });
 
@@ -96,6 +134,22 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
     }),
   );
 
+  function totalEstimatedCandidatesNull(): JSX.Element {
+    return (
+      <span data-h2-font-color="b(lightpurple)">
+        {totalEstimatedCandidates === null &&
+          intl.formatMessage({
+            defaultMessage: "N/A",
+            description: "Text shown when the filter was not selected",
+          })}
+      </span>
+    );
+  }
+
+  function span(msg: string): JSX.Element {
+    return <span data-h2-font-color="b(lightpurple)">{msg}</span>;
+  }
+
   return (
     <section>
       <h2 data-h2-margin="b(top, none)">
@@ -130,7 +184,9 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
                     description:
                       "Placeholder for full name input in the request form.",
                   })}
-                  rules={{ required: errorMessages.required }}
+                  rules={{
+                    required: intl.formatMessage(errorMessages.required),
+                  }}
                 />
               </div>
             </div>
@@ -150,7 +206,9 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
                       "Null selection for department select input in the request form.",
                   })}
                   options={departmentOptions}
-                  rules={{ required: errorMessages.required }}
+                  rules={{
+                    required: intl.formatMessage(errorMessages.required),
+                  }}
                 />
               </div>
             </div>
@@ -170,7 +228,9 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
                     description:
                       "Placeholder for government email input in the request form",
                   })}
-                  rules={{ required: errorMessages.required }}
+                  rules={{
+                    required: intl.formatMessage(errorMessages.required),
+                  }}
                 />
               </div>
             </div>
@@ -190,7 +250,9 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
                     description:
                       "Placeholder for job title input in the request form.",
                   })}
-                  rules={{ required: errorMessages.required }}
+                  rules={{
+                    required: intl.formatMessage(errorMessages.required),
+                  }}
                 />
               </div>
             </div>
@@ -231,19 +293,8 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
                   "Total estimated candidates message in summary of filters",
               },
               {
-                null: (): JSX.Element => (
-                  <span data-h2-font-color="b(lightpurple)">
-                    {totalEstimatedCandidates === null &&
-                      intl.formatMessage({
-                        defaultMessage: "N/A",
-                        description:
-                          "Text shown when the filter was not selected",
-                      })}
-                  </span>
-                ),
-                span: (msg: string): JSX.Element => (
-                  <span data-h2-font-color="b(lightpurple)">{msg}</span>
-                ),
+                null: totalEstimatedCandidatesNull,
+                span,
                 totalEstimatedCandidates,
               },
             )}
@@ -256,7 +307,17 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
             })}
           </p>
           <div data-h2-flex-item="b(1of1)">
-            <Button color="primary" mode="outline" data-h2-margin="b(right, s)">
+            <Button
+              color="primary"
+              mode="outline"
+              data-h2-margin="b(right, s)"
+              onClick={() => {
+                // Save the initial search form values to the state so they are available to user when click back.
+                pushToStateThenNavigate(searchPath(), {
+                  initialValues,
+                });
+              }}
+            >
               {intl.formatMessage({
                 defaultMessage: "Back",
                 description:
@@ -278,7 +339,9 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
   );
 };
 
-export const CreateRequest: React.FunctionComponent = () => {
+export const CreateRequest: React.FunctionComponent<{
+  poolCandidateFilter: PoolCandidateFilter;
+}> = ({ poolCandidateFilter }) => {
   const intl = useIntl();
   const [lookupResult] = useGetPoolCandidateSearchRequestDataQuery();
   const { data: lookupData, fetching, error } = lookupResult;
@@ -286,8 +349,7 @@ export const CreateRequest: React.FunctionComponent = () => {
   const departments: Department[] =
     lookupData?.departments.filter(notEmpty) ?? [];
 
-  const [_result, executeMutation] =
-    useCreatePoolCandidateSearchRequestMutation();
+  const [, executeMutation] = useCreatePoolCandidateSearchRequestMutation();
   const handleCreatePoolCandidateSearchRequest = (
     data: CreatePoolCandidateSearchRequestInput,
   ) =>
@@ -309,8 +371,8 @@ export const CreateRequest: React.FunctionComponent = () => {
   return (
     <RequestForm
       departments={departments}
-      poolCandidateFilter={null} // TODO: Replace with poolCandidateFilter from history
-      totalEstimatedCandidates={null} // TODO: Replace with poolCandidateFilter from history
+      poolCandidateFilter={poolCandidateFilter}
+      totalEstimatedCandidates={null} // TODO: Replace with estimated total queried from api.
       handleCreatePoolCandidateSearchRequest={
         handleCreatePoolCandidateSearchRequest
       }
