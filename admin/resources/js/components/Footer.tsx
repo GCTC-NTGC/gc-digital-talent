@@ -2,7 +2,7 @@ import * as React from "react";
 import { Link } from "@common/components";
 import { currentDate } from "@common/helpers/formUtils";
 import { imageUrl } from "@common/helpers/router";
-import { FormattedMessage, useIntl } from "react-intl";
+import { useIntl } from "react-intl";
 import { BASE_URL } from "../adminConstants";
 
 const Footer: React.FunctionComponent = () => {
@@ -93,11 +93,14 @@ const Footer: React.FunctionComponent = () => {
             data-h2-font-color="b([dark]gray)"
             data-h2-margin="b(bottom, none) b(top, m)"
           >
-            <FormattedMessage
-              description="Header for the sites last date modification found in the footer."
-              defaultMessage="Date Modified: {currentDate}"
-              values={{ currentDate: currentDate() }}
-            />
+            {intl.formatMessage(
+              {
+                defaultMessage: "Date Modified: {currentDate}",
+                description:
+                  "Header for the sites last date modification found in the footer.",
+              },
+              { currentDate: currentDate() },
+            )}
           </p>
         </div>
         <div

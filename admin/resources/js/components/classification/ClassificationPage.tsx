@@ -1,11 +1,12 @@
 import React from "react";
-import { FormattedMessage } from "react-intl";
+import { useIntl } from "react-intl";
 import Button from "@common/components/Button";
 import Link from "@common/components/Link";
 import { classificationCreatePath } from "../../adminRoutes";
 import { ClassificationTableApi } from "./ClassificationTable";
 
 export const ClassificationPage: React.FC = () => {
+  const intl = useIntl();
   return (
     <div>
       <header
@@ -20,10 +21,11 @@ export const ClassificationPage: React.FC = () => {
               data-h2-margin="b(all, none)"
               style={{ letterSpacing: "-2px" }}
             >
-              <FormattedMessage
-                description="Heading displayed above the Classification Table component."
-                defaultMessage="Classifications"
-              />
+              {intl.formatMessage({
+                defaultMessage: "Classifications",
+                description:
+                  "Heading displayed above the Classification Table component.",
+              })}
             </h1>
           </div>
           <div
@@ -32,10 +34,11 @@ export const ClassificationPage: React.FC = () => {
           >
             <Button color="white" mode="outline">
               <Link href={classificationCreatePath()} title="">
-                <FormattedMessage
-                  description="Heading displayed above the Create Classification form."
-                  defaultMessage="Create Classification"
-                />
+                {intl.formatMessage({
+                  defaultMessage: "Create Classification",
+                  description:
+                    "Heading displayed above the Create Classification form.",
+                })}
               </Link>
             </Button>
           </div>

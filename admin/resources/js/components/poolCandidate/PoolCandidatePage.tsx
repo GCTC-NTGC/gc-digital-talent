@@ -1,10 +1,11 @@
 import React from "react";
-import { FormattedMessage } from "react-intl";
+import { useIntl } from "react-intl";
 import { Link, Button } from "@common/components";
 import { poolCandidateCreatePath } from "../../adminRoutes";
 import { PoolCandidatesTableApi } from "./PoolCandidatesTable";
 
 export const PoolCandidatePage: React.FC<{ poolId: string }> = ({ poolId }) => {
+  const intl = useIntl();
   return (
     <div>
       <header
@@ -19,10 +20,11 @@ export const PoolCandidatePage: React.FC<{ poolId: string }> = ({ poolId }) => {
               data-h2-margin="b(all, none)"
               style={{ letterSpacing: "-2px" }}
             >
-              <FormattedMessage
-                description="Heading displayed above the Pool Candidate Table component."
-                defaultMessage="Pool Candidates"
-              />
+              {intl.formatMessage({
+                defaultMessage: "Pool Candidates",
+                description:
+                  "Heading displayed above the Pool Candidate Table component.",
+              })}
             </h1>
           </div>
           <div
@@ -31,10 +33,11 @@ export const PoolCandidatePage: React.FC<{ poolId: string }> = ({ poolId }) => {
           >
             <Button color="white" mode="outline">
               <Link href={poolCandidateCreatePath(poolId)} title="">
-                <FormattedMessage
-                  description="Heading displayed above the Create Pool Candidate form."
-                  defaultMessage="Create Pool Candidate"
-                />
+                {intl.formatMessage({
+                  defaultMessage: "Create Pool Candidate",
+                  description:
+                    "Heading displayed above the Create Pool Candidate form.",
+                })}
               </Link>
             </Button>
           </div>

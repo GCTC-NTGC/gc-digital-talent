@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-key */
 import React, { ReactElement, useState } from "react";
-import { FormattedMessage, useIntl } from "react-intl";
+import { useIntl } from "react-intl";
 import { useTable, useGlobalFilter, useSortBy, Column } from "react-table";
 import { Button } from "@common/components";
 import GlobalFilter from "./GlobalFilter";
@@ -84,10 +84,10 @@ function Table<T extends Record<string, unknown>>({
                     setShowList((currentState) => !currentState);
                   }}
                 >
-                  <FormattedMessage
-                    description="Label displayed on the Table Columns toggle."
-                    defaultMessage="Hide/Show Table Columns"
-                  />
+                  {intl.formatMessage({
+                    defaultMessage: "Hide/Show Table Columns",
+                    description: "Label displayed on the Table Columns toggle.",
+                  })}
                 </Button>
                 {showList ? (
                   <div
@@ -108,10 +108,11 @@ function Table<T extends Record<string, unknown>>({
                             typeof IndeterminateCheckbox
                           >)}
                         />{" "}
-                        <FormattedMessage
-                          description="Label displayed on the Table Columns toggle fieldset."
-                          defaultMessage="Toggle All"
-                        />
+                        {intl.formatMessage({
+                          defaultMessage: "Toggle All",
+                          description:
+                            "Label displayed on the Table Columns toggle fieldset.",
+                        })}
                       </label>
                     </div>
                     {allColumns.map((column) => (

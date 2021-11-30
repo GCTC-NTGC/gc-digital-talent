@@ -1,10 +1,11 @@
 import React from "react";
-import { FormattedMessage } from "react-intl";
+import { useIntl } from "react-intl";
 import { Link, Button } from "@common/components";
 import { operationalRequirementCreatePath } from "../../adminRoutes";
 import { OperationalRequirementTableApi } from "./OperationalRequirementTable";
 
 export const OperationalRequirementPage: React.FC = () => {
+  const intl = useIntl();
   return (
     <div>
       <header
@@ -19,10 +20,11 @@ export const OperationalRequirementPage: React.FC = () => {
               data-h2-margin="b(all, none)"
               style={{ letterSpacing: "-2px" }}
             >
-              <FormattedMessage
-                description="Heading displayed above the Operational Requirement Table component."
-                defaultMessage="Operational Requirements"
-              />
+              {intl.formatMessage({
+                defaultMessage: "Operational Requirements",
+                description:
+                  "Heading displayed above the Operational Requirement Table component.",
+              })}
             </h1>
           </div>
           <div
@@ -31,10 +33,11 @@ export const OperationalRequirementPage: React.FC = () => {
           >
             <Button color="white" mode="outline">
               <Link href={operationalRequirementCreatePath()} title="">
-                <FormattedMessage
-                  description="Heading displayed above the Create Operational Requirement form."
-                  defaultMessage="Create Operational Requirement"
-                />
+                {intl.formatMessage({
+                  defaultMessage: "Create Operational Requirement",
+                  description:
+                    "Heading displayed above the Create Operational Requirement form.",
+                })}
               </Link>
             </Button>
           </div>
