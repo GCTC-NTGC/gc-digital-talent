@@ -2,6 +2,7 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { Routes } from "universal-router";
 import { RouterResult } from "@common/helpers/router";
+import Toast from "@common/components/Toast";
 import {
   classificationCreatePath,
   classificationTablePath,
@@ -50,7 +51,6 @@ import UserPage from "./user/UserPage";
 import PoolPage from "./pool/PoolPage";
 import { CreatePool } from "./pool/CreatePool";
 import { UpdatePool } from "./pool/UpdatePool";
-import Toast from "./Toast";
 import AuthContainer from "./AuthContainer";
 import DepartmentPage from "./department/DepartmentPage";
 import { CreateDepartment } from "./department/CreateDepartment";
