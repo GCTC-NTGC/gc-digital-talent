@@ -148,7 +148,7 @@ const PoolBlock: React.FunctionComponent<{
 
 type Option<V> = { value: V; label: string };
 type FormValues = Pick<PoolCandidateFilter, "workRegions"> & {
-  hasDiploma: number;
+  hasDiploma: string;
   languageAbility: LanguageAbility | "null";
   classifications: string[] | undefined;
   cmoAssets: string[] | undefined;
@@ -234,7 +234,7 @@ export const SearchForm: React.FunctionComponent<SearchFormProps> = ({
             })
           : [],
       pools: pools.filter(({ id }) => id === data.poolId),
-      hasDiploma: !!data.hasDiploma,
+      hasDiploma: !!Number(data.hasDiploma),
       hasDisability: data.employmentEquity
         ? data.employmentEquity?.includes("hasDisability")
         : false,
@@ -346,7 +346,7 @@ export const SearchForm: React.FunctionComponent<SearchFormProps> = ({
                   name="hasDiploma"
                   items={[
                     {
-                      value: 0,
+                      value: "0",
                       label: intl.formatMessage({
                         defaultMessage:
                           "Can accept a combination of work experience and education",
@@ -355,7 +355,7 @@ export const SearchForm: React.FunctionComponent<SearchFormProps> = ({
                       }),
                     },
                     {
-                      value: 1,
+                      value: "1",
                       label: intl.formatMessage({
                         defaultMessage:
                           "Required diploma from post-secondary institution",
