@@ -14,7 +14,11 @@ const EstimatedCandidates: React.FunctionComponent<
 > = ({ totalEstimatedCandidates }) => {
   const intl = useIntl();
   return (
-    <div data-h2-border="b(lightgray, all, solid, s)" data-h2-shadow="b(m)">
+    <div
+      data-h2-bg-color="b(white)"
+      data-h2-border="b(lightgray, all, solid, s)"
+      data-h2-shadow="b(m)"
+    >
       <div
         data-h2-bg-color="b(linear-70[lightpurple][lightnavy])"
         data-h2-padding="b(top-bottom, s) b(left, s) b(right, s)"
