@@ -95,7 +95,6 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
     return handleCreatePoolCandidateSearchRequest(formValuesToSubmitData(data))
       .then(() => {
         navigate(searchPath());
-        console.log(toast);
         toast.success(
           intl.formatMessage({
             defaultMessage: "Request created successfully!",
