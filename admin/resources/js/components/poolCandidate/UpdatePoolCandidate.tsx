@@ -269,7 +269,9 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<
             />
             <Checkbox
               id="hasDisability"
-              label={intl.formatMessage(poolCandidateMessages.hasDiplomaLabel)}
+              label={intl.formatMessage(
+                poolCandidateMessages.hasDisabilityLabel,
+              )}
               name="hasDisability"
             />
             <Checkbox
