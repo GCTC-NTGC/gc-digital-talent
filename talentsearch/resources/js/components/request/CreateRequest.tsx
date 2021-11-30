@@ -8,6 +8,7 @@ import { Button } from "@common/components";
 import { notEmpty } from "@common/helpers/util";
 import { toast } from "react-toastify";
 import { navigate } from "@common/helpers/router";
+import { SearchRequestFilters } from "@common/components/SearchRequestFilters";
 import { searchPath } from "../../talentSearchRoutes";
 import {
   Department,
@@ -18,7 +19,6 @@ import {
   CreatePoolCandidateSearchRequestMutation,
   Maybe,
 } from "../../api/generated";
-import SummaryOfFilters from "./SummaryOfFilters";
 
 type Option<V> = { value: V; label: string };
 type FormValues = Pick<
@@ -95,87 +95,25 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
         }),
     }),
   );
-  const classifications: string[] | undefined =
-    poolCandidateFilter?.classifications?.map(
-      (classification) =>
-        `${classification?.group.toLocaleUpperCase()}-0${
-          classification?.level
-        }`,
+
+  function totalEstimatedCandidatesNull(): JSX.Element {
+    return (
+      <span data-h2-font-color="b(lightpurple)">
+        {totalEstimatedCandidates === null &&
+          intl.formatMessage({
+            defaultMessage: "N/A",
+            description: "Text shown when the filter was not selected",
+          })}
+      </span>
     );
-  const educationLevel: string | undefined = poolCandidateFilter?.hasDiploma
-    ? intl.formatMessage({
-        defaultMessage: "Required diploma from post-secondary institution",
-        description:
-          "Education level message when candidate has a diploma found on the request page.",
-      })
-    : intl.formatMessage({
-        defaultMessage:
-          "Can accept a combination of work experience and education",
-        description:
-          "Education level message when candidate does not have a diploma found on the request page.",
-      });
-  const employmentEquity: string[] | undefined = [
-    ...(poolCandidateFilter?.isWoman
-      ? [
-          intl.formatMessage({
-            defaultMessage: "Woman",
-            description:
-              "Message for woman option in the employment equity section of the request page.",
-          }),
-        ]
-      : []),
-    ...(poolCandidateFilter?.isVisibleMinority
-      ? [
-          intl.formatMessage({
-            defaultMessage: "Visible Minority",
-            description:
-              "Message for visible minority option in the employment equity section of the request page.",
-          }),
-        ]
-      : []),
-    ...(poolCandidateFilter?.isIndigenous
-      ? [
-          intl.formatMessage({
-            defaultMessage: "Indigenous",
-            description:
-              "Message for indigenous option in the employment equity section of the request page.",
-          }),
-        ]
-      : []),
-    ...(poolCandidateFilter?.hasDisability
-      ? [
-          intl.formatMessage({
-            defaultMessage: "Disability",
-            description:
-              "Message for disability option in the employment equity section of the request page.",
-          }),
-        ]
-      : []),
-  ];
-  const operationalRequirements: string[] | undefined =
-    poolCandidateFilter?.operationalRequirements?.map(
-      (operationalRequirement) =>
-        operationalRequirement?.name.en ||
-        intl.formatMessage({
-          defaultMessage: "Error: operational requirement name not found",
-          description:
-            "Error message when operational requirement name is not found on request page.",
-        }),
-    );
-  const skills: string[] | undefined = poolCandidateFilter?.cmoAssets?.map(
-    (cmoAsset) =>
-      cmoAsset?.name.en ||
-      intl.formatMessage({
-        defaultMessage: "Error: skill name not found",
-        description:
-          "Error message when cmo asset name is not found on request page.",
-      }),
-  );
-  const typeOfOpportunity = ""; // TODO: Replace with data fetched from api
-  const workLocation: string[] = poolCandidateFilter?.workRegions as string[];
+  }
+
+  function span(msg: string): JSX.Element {
+    return <span data-h2-font-color="b(lightpurple)">{msg}</span>;
+  }
 
   return (
-    <div>
+    <section>
       <h2 data-h2-margin="b(top, none)">
         {intl.formatMessage({
           defaultMessage: "Request Form",
@@ -208,7 +146,9 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
                     description:
                       "Placeholder for full name input in the request form.",
                   })}
-                  rules={{ required: errorMessages.required }}
+                  rules={{
+                    required: intl.formatMessage(errorMessages.required),
+                  }}
                 />
               </div>
             </div>
@@ -228,7 +168,9 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
                       "Null selection for department select input in the request form.",
                   })}
                   options={departmentOptions}
-                  rules={{ required: errorMessages.required }}
+                  rules={{
+                    required: intl.formatMessage(errorMessages.required),
+                  }}
                 />
               </div>
             </div>
@@ -248,7 +190,9 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
                     description:
                       "Placeholder for government email input in the request form",
                   })}
-                  rules={{ required: errorMessages.required }}
+                  rules={{
+                    required: intl.formatMessage(errorMessages.required),
+                  }}
                 />
               </div>
             </div>
@@ -268,7 +212,9 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
                     description:
                       "Placeholder for job title input in the request form.",
                   })}
-                  rules={{ required: errorMessages.required }}
+                  rules={{
+                    required: intl.formatMessage(errorMessages.required),
+                  }}
                 />
               </div>
             </div>
@@ -293,17 +239,28 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
               rows={8}
             />
           </div>
-          <SummaryOfFilters
-            classifications={classifications}
-            educationLevel={educationLevel}
-            employmentEquity={employmentEquity}
-            languageAbility={poolCandidateFilter?.languageAbility}
-            operationalRequirements={operationalRequirements}
-            skills={skills}
-            totalEstimatedCandidates={totalEstimatedCandidates}
-            typeOfOpportunity={typeOfOpportunity}
-            workLocation={workLocation}
-          />
+          <h2 data-h2-font-weight="b(500)">
+            {intl.formatMessage({
+              defaultMessage: "Summary of filters",
+              description: "Title of Summary of filters section",
+            })}
+          </h2>
+          <SearchRequestFilters poolCandidateFilter={poolCandidateFilter} />
+          <p data-h2-font-weight="b(600)">
+            {intl.formatMessage(
+              {
+                defaultMessage:
+                  "Request for pool candidates: <null></null> <span>{totalEstimatedCandidates, plural, zero {no candidates} one {1 candidate} other {{totalEstimatedCandidates} estimated candidates}}</span>",
+                description:
+                  "Total estimated candidates message in summary of filters",
+              },
+              {
+                null: totalEstimatedCandidatesNull,
+                span,
+                totalEstimatedCandidates,
+              },
+            )}
+          </p>
           <p>
             {intl.formatMessage({
               defaultMessage:
@@ -330,7 +287,7 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
           </div>
         </form>
       </FormProvider>
-    </div>
+    </section>
   );
 };
 

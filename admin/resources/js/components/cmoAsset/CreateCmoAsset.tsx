@@ -54,7 +54,7 @@ export const CreateCmoAssetForm: React.FunctionComponent<CreateCmoAssetFormProps
                 })}
                 type="text"
                 rules={{
-                  required: errorMessages.required,
+                  required: intl.formatMessage(errorMessages.required),
                   pattern: {
                     value: /^[a-z]+(_[a-z]+)*$/,
                     message: intl.formatMessage({
@@ -69,26 +69,26 @@ export const CreateCmoAssetForm: React.FunctionComponent<CreateCmoAssetFormProps
                 name="name.en"
                 label={intl.formatMessage(messages.nameEnLabel)}
                 type="text"
-                rules={{ required: errorMessages.required }}
+                rules={{ required: intl.formatMessage(errorMessages.required) }}
               />
               <Input
                 id="name_fr"
                 name="name.fr"
                 label={intl.formatMessage(messages.nameFrLabel)}
                 type="text"
-                rules={{ required: errorMessages.required }}
+                rules={{ required: intl.formatMessage(errorMessages.required) }}
               />
               <TextArea
                 id="description_en"
                 name="description.en"
                 label={intl.formatMessage(messages.descriptionEnLabel)}
-                rules={{ required: errorMessages.required }}
+                rules={{ required: intl.formatMessage(errorMessages.required) }}
               />
               <TextArea
                 id="description_fr"
                 name="description.fr"
                 label={intl.formatMessage(messages.descriptionFrLabel)}
-                rules={{ required: errorMessages.required }}
+                rules={{ required: intl.formatMessage(errorMessages.required) }}
               />
               <Submit />
             </form>

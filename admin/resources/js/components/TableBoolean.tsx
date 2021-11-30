@@ -14,3 +14,7 @@ function TableBoolean({ checked }: TableBooleanProps): ReactElement {
 }
 
 export default TableBoolean;
+
+export function tableBooleanAccessor(checked: boolean | null | undefined) {
+  return <TableBoolean checked={checked} />;
+}
