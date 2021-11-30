@@ -48,4 +48,35 @@ class User extends Model implements Authenticatable
     {
         return in_array('ADMIN', $this->roles);
     }
+
+     /**
+     * Boot function for using with User Events
+     *
+     * @return void
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($model)
+        {
+            $model->generateSubject();
+        });
+    }
+
+     /**
+     * Generates the value for the User::sub field. Used to
+     * support authentication.
+     * @return bool
+     */
+    protected function generateSubject()
+    {
+        // TODO when moving to Sign In Canada we won't be using email any more
+        $this->attributes['sub'] = $this->attributes['email'];
+
+        if( is_null($this->attributes['sub']) )
+            return false; // failed to create subject
+        else
+            return true;
+    }
 }
