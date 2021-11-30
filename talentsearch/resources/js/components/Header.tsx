@@ -1,22 +1,7 @@
 import * as React from "react";
 import { imageUrl } from "@common/helpers/router";
-import { defineMessages, useIntl } from "react-intl";
+import { useIntl } from "react-intl";
 import { BASE_URL } from "../talentSearchConstants";
-
-const messages = defineMessages({
-  canadaLogoTitle: {
-    defaultMessage: "Visit Canada.ca.",
-    description: "Title for the Canada logo in the Header.",
-  },
-  canadaLogoLabel: {
-    defaultMessage: "Canada.ca",
-    description: "Label for the Canada logo in the Header.",
-  },
-  canadaLogoAlt: {
-    defaultMessage: "Canada's Logo.",
-    description: "Alt text for the Canada logo in the Header.",
-  },
-});
 
 const Header: React.FunctionComponent = () => {
   const intl = useIntl();
@@ -29,14 +14,20 @@ const Header: React.FunctionComponent = () => {
         >
           <a
             href={`https://www.canada.ca/${intl.locale}.html`}
-            title={intl.formatMessage(messages.canadaLogoTitle)}
+            title={intl.formatMessage({
+              defaultMessage: "Visit Canada.ca.",
+              description: "Title for the Canada logo in the Header.",
+            })}
             target="_blank"
             rel="noopener noreferrer"
           >
             <img
               style={{ width: "20rem" }}
               src={imageUrl(BASE_URL, "logo_goc_colour.svg")}
-              alt={intl.formatMessage(messages.canadaLogoAlt)}
+              alt={intl.formatMessage({
+                defaultMessage: "Canada's Logo.",
+                description: "Alt text for the Canada logo in the Header.",
+              })}
             />
           </a>
         </div>

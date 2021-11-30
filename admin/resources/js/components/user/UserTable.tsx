@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import { defineMessages, useIntl } from "react-intl";
+import { useIntl } from "react-intl";
 import { useLocation } from "@common/helpers/router";
 import { notEmpty } from "@common/helpers/util";
 import { commonMessages } from "@common/messages";
@@ -8,34 +8,6 @@ import { AllUsersQuery, useAllUsersQuery } from "../../api/generated";
 import Table, { ColumnsOf } from "../Table";
 import DashboardContentContainer from "../DashboardContentContainer";
 import { tableEditButtonAccessor } from "../TableEditButton";
-
-const messages = defineMessages({
-  columnFirstNameTitle: {
-    defaultMessage: "First Name",
-    description: "Title displayed on the User table First Name column.",
-  },
-  columnLastNameTitle: {
-    defaultMessage: "Last Name",
-    description: "Title displayed for the User table Last Name column.",
-  },
-  columnEmailTitle: {
-    defaultMessage: "Email",
-    description: "Title displayed for the User table Email column.",
-  },
-  columnTelephoneTitle: {
-    defaultMessage: "Telephone",
-    description: "Title displayed for the User table Telephone column.",
-  },
-  columnPreferredLanguageTitle: {
-    defaultMessage: "Preferred Language",
-    description:
-      "Title displayed for the User table Preferred Language column.",
-  },
-  columnEditTitle: {
-    defaultMessage: "Edit",
-    description: "Title displayed for the User table Edit column.",
-  },
-});
 
 type Data = NonNullable<FromArray<AllUsersQuery["users"]>>;
 
@@ -47,27 +19,46 @@ export const UserTable: React.FC<AllUsersQuery & { editUrlRoot: string }> = ({
   const columns = useMemo<ColumnsOf<Data>>(
     () => [
       {
-        Header: intl.formatMessage(messages.columnFirstNameTitle),
+        Header: intl.formatMessage({
+          defaultMessage: "First Name",
+          description: "Title displayed on the User table First Name column.",
+        }),
         accessor: "firstName",
       },
       {
-        Header: intl.formatMessage(messages.columnLastNameTitle),
+        Header: intl.formatMessage({
+          defaultMessage: "Last Name",
+          description: "Title displayed for the User table Last Name column.",
+        }),
         accessor: "lastName",
       },
       {
-        Header: intl.formatMessage(messages.columnEmailTitle),
+        Header: intl.formatMessage({
+          defaultMessage: "Email",
+          description: "Title displayed for the User table Email column.",
+        }),
         accessor: "email",
       },
       {
-        Header: intl.formatMessage(messages.columnTelephoneTitle),
+        Header: intl.formatMessage({
+          defaultMessage: "Telephone",
+          description: "Title displayed for the User table Telephone column.",
+        }),
         accessor: "telephone",
       },
       {
-        Header: intl.formatMessage(messages.columnPreferredLanguageTitle),
+        Header: intl.formatMessage({
+          defaultMessage: "Preferred Language",
+          description:
+            "Title displayed for the User table Preferred Language column.",
+        }),
         accessor: "preferredLang",
       },
       {
-        Header: intl.formatMessage(messages.columnEditTitle),
+        Header: intl.formatMessage({
+          defaultMessage: "Edit",
+          description: "Title displayed for the User table Edit column.",
+        }),
         accessor: (d) => tableEditButtonAccessor(d.id, editUrlRoot), // callback extracted to separate function to stabilize memoized component
       },
     ],

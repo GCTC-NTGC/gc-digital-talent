@@ -1,22 +1,10 @@
 import React from "react";
-import { defineMessages, useIntl } from "react-intl";
+import { FormattedMessage } from "react-intl";
 import { Link, Button } from "@common/components";
 import { poolCreatePath } from "../../adminRoutes";
 import { PoolTableApi } from "./PoolTable";
 
-const messages = defineMessages({
-  tableHeading: {
-    defaultMessage: "Pools",
-    description: "Heading displayed above the Pool Table component.",
-  },
-  createHeading: {
-    defaultMessage: "Create Pool",
-    description: "Heading displayed above the Create Pool form.",
-  },
-});
-
 export const PoolPage: React.FC = () => {
-  const intl = useIntl();
   return (
     <div>
       <header
@@ -31,7 +19,10 @@ export const PoolPage: React.FC = () => {
               data-h2-margin="b(all, none)"
               style={{ letterSpacing: "-2px" }}
             >
-              {intl.formatMessage(messages.tableHeading)}
+              <FormattedMessage
+                description="Heading displayed above the Pool Table component."
+                defaultMessage="Pools"
+              />
             </h1>
           </div>
           <div
@@ -40,7 +31,10 @@ export const PoolPage: React.FC = () => {
           >
             <Button color="white" mode="outline">
               <Link href={poolCreatePath()} title="">
-                {intl.formatMessage(messages.createHeading)}
+                <FormattedMessage
+                  description="Heading displayed above the Create Pool form."
+                  defaultMessage="Create Pool"
+                />
               </Link>
             </Button>
           </div>

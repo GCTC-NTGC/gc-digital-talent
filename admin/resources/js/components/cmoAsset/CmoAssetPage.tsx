@@ -1,23 +1,11 @@
 import React from "react";
-import { defineMessages, useIntl } from "react-intl";
+import { FormattedMessage } from "react-intl";
 import Button from "@common/components/Button";
 import Link from "@common/components/Link";
 import { cmoAssetCreatePath } from "../../adminRoutes";
 import { CmoAssetTableApi } from "./CmoAssetTable";
 
-const messages = defineMessages({
-  tableHeading: {
-    defaultMessage: "CMO Assets",
-    description: "Heading displayed above the CMO Asset Table component.",
-  },
-  createHeading: {
-    defaultMessage: "Create CMO Asset",
-    description: "Heading displayed above the Create CMO Asset form.",
-  },
-});
-
 export const CmoAssetPage: React.FC = () => {
-  const intl = useIntl();
   return (
     <div>
       <header
@@ -32,7 +20,10 @@ export const CmoAssetPage: React.FC = () => {
               data-h2-margin="b(all, none)"
               style={{ letterSpacing: "-2px" }}
             >
-              {intl.formatMessage(messages.tableHeading)}
+              <FormattedMessage
+                description="Heading displayed above the CMO Asset Table component."
+                defaultMessage="CMO Assets"
+              />
             </h1>
           </div>
           <div
@@ -41,7 +32,10 @@ export const CmoAssetPage: React.FC = () => {
           >
             <Button color="white" mode="outline">
               <Link href={cmoAssetCreatePath()} title="">
-                {intl.formatMessage(messages.createHeading)}
+                <FormattedMessage
+                  description="Heading displayed above the Create CMO Asset form."
+                  defaultMessage="Create CMO Asset"
+                />
               </Link>
             </Button>
           </div>

@@ -1,22 +1,10 @@
 import React from "react";
-import { defineMessages, useIntl } from "react-intl";
+import { FormattedMessage } from "react-intl";
 import { Link, Button } from "@common/components";
 import { departmentCreatePath } from "../../adminRoutes";
 import { DepartmentTableApi } from "./DepartmentTable";
 
-const messages = defineMessages({
-  tableHeading: {
-    defaultMessage: "Departments",
-    description: "Heading displayed above the Department Table component.",
-  },
-  createHeading: {
-    defaultMessage: "Create Department",
-    description: "Heading displayed above the Create Department form.",
-  },
-});
-
 export const DepartmentPage: React.FC = () => {
-  const intl = useIntl();
   return (
     <div>
       <header
@@ -31,7 +19,10 @@ export const DepartmentPage: React.FC = () => {
               data-h2-margin="b(all, none)"
               style={{ letterSpacing: "-2px" }}
             >
-              {intl.formatMessage(messages.tableHeading)}
+              <FormattedMessage
+                description="Heading displayed above the Department Table component."
+                defaultMessage="Departments"
+              />
             </h1>
           </div>
           <div
@@ -40,7 +31,10 @@ export const DepartmentPage: React.FC = () => {
           >
             <Button color="white" mode="outline">
               <Link href={departmentCreatePath()} title="">
-                {intl.formatMessage(messages.createHeading)}
+                <FormattedMessage
+                  description="Heading displayed above the Create Department form."
+                  defaultMessage="Create Department"
+                />
               </Link>
             </Button>
           </div>

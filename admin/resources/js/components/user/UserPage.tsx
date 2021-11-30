@@ -1,22 +1,10 @@
 import React from "react";
-import { defineMessages, useIntl } from "react-intl";
+import { FormattedMessage } from "react-intl";
 import { Link, Button } from "@common/components";
 import { userCreatePath } from "../../adminRoutes";
 import { UserTableApi } from "./UserTable";
 
-const messages = defineMessages({
-  tableHeading: {
-    defaultMessage: "Users",
-    description: "Heading displayed above the User Table component.",
-  },
-  createHeading: {
-    defaultMessage: "Create User",
-    description: "Heading displayed above the Create User form.",
-  },
-});
-
 export const UserPage: React.FC = () => {
-  const intl = useIntl();
   return (
     <div>
       <header
@@ -31,7 +19,10 @@ export const UserPage: React.FC = () => {
               data-h2-margin="b(all, none)"
               style={{ letterSpacing: "-2px" }}
             >
-              {intl.formatMessage(messages.tableHeading)}
+              <FormattedMessage
+                description="Heading displayed above the User Table component."
+                defaultMessage="Users"
+              />
             </h1>
           </div>
           <div
@@ -40,7 +31,10 @@ export const UserPage: React.FC = () => {
           >
             <Button color="white" mode="outline">
               <Link href={userCreatePath()} title="">
-                {intl.formatMessage(messages.createHeading)}
+                <FormattedMessage
+                  description="Heading displayed above the Create User form."
+                  defaultMessage="Create User"
+                />
               </Link>
             </Button>
           </div>

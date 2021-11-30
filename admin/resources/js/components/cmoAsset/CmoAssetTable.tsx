@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import { defineMessages, useIntl } from "react-intl";
+import { useIntl } from "react-intl";
 import { useLocation } from "@common/helpers/router";
 import { notEmpty } from "@common/helpers/util";
 import { commonMessages } from "@common/messages";
@@ -8,29 +8,6 @@ import { GetCmoAssetsQuery, useGetCmoAssetsQuery } from "../../api/generated";
 import DashboardContentContainer from "../DashboardContentContainer";
 import Table, { ColumnsOf } from "../Table";
 import { tableEditButtonAccessor } from "../TableEditButton";
-
-const messages = defineMessages({
-  columnIdTitle: {
-    defaultMessage: "ID",
-    description: "Title displayed on the CMO Asset table ID column.",
-  },
-  columnKeyTitle: {
-    defaultMessage: "Key",
-    description: "Title displayed for the CMO Asset table Key column.",
-  },
-  columnNameTitle: {
-    defaultMessage: "Name",
-    description: "Title displayed for the CMO Asset table Name column.",
-  },
-  columnDescriptionTitle: {
-    defaultMessage: "Description",
-    description: "Title displayed for the CMO Asset table Description column.",
-  },
-  columnEditTitle: {
-    defaultMessage: "Edit",
-    description: "Title displayed for the CMO Asset table Edit column.",
-  },
-});
 
 type Data = NonNullable<FromArray<GetCmoAssetsQuery["cmoAssets"]>>;
 
@@ -41,23 +18,39 @@ export const CmoAssetTable: React.FC<
   const columns = useMemo<ColumnsOf<Data>>(
     () => [
       {
-        Header: intl.formatMessage(messages.columnIdTitle),
+        Header: intl.formatMessage({
+          defaultMessage: "ID",
+          description: "Title displayed on the CMO Asset table ID column.",
+        }),
         accessor: "id",
       },
       {
-        Header: intl.formatMessage(messages.columnKeyTitle),
+        Header: intl.formatMessage({
+          defaultMessage: "Key",
+          description: "Title displayed for the CMO Asset table Key column.",
+        }),
         accessor: "key",
       },
       {
-        Header: intl.formatMessage(messages.columnNameTitle),
+        Header: intl.formatMessage({
+          defaultMessage: "Name",
+          description: "Title displayed for the CMO Asset table Name column.",
+        }),
         accessor: (d) => d.name?.en,
       },
       {
-        Header: intl.formatMessage(messages.columnDescriptionTitle),
+        Header: intl.formatMessage({
+          defaultMessage: "Description",
+          description:
+            "Title displayed for the CMO Asset table Description column.",
+        }),
         accessor: (d) => d.description?.en,
       },
       {
-        Header: intl.formatMessage(messages.columnEditTitle),
+        Header: intl.formatMessage({
+          defaultMessage: "Edit",
+          description: "Title displayed for the CMO Asset table Edit column.",
+        }),
         accessor: (d) => tableEditButtonAccessor(d.id, editUrlRoot), // callback extracted to separate function to stabilize memoized component
       },
     ],

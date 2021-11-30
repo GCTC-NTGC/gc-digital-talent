@@ -1,16 +1,7 @@
 import React from "react";
-import { defineMessages, useIntl } from "react-intl";
-
-const messages = defineMessages({
-  pageTitle: {
-    id: "homePage.title",
-    defaultMessage: "Welcome to GC Talent Home page",
-    description: "Title displayed in the hero section of the Home page.",
-  },
-});
+import { FormattedMessage } from "react-intl";
 
 export const HomePage: React.FC = () => {
-  const intl = useIntl();
   return (
     <div
       data-h2-position="b(relative)"
@@ -22,7 +13,10 @@ export const HomePage: React.FC = () => {
         data-h2-font-weight="b(800)"
         style={{ letterSpacing: "-2px" }}
       >
-        {intl.formatMessage(messages.pageTitle)}
+        <FormattedMessage
+          description="Title displayed in the hero section of the Home page."
+          defaultMessage="Welcome to GC Talent Home page"
+        />
       </h1>
     </div>
   );
