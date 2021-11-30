@@ -8,7 +8,7 @@ const RequestPage: React.FunctionComponent = () => {
   const intl = useIntl();
   const location = useLocation();
   const poolCandidateFilter: PoolCandidateFilter = location.state
-    ? location.state.some
+    ? location.state.some.poolCandidateFilter
     : null;
 
   return (

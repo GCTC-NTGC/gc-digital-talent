@@ -7,7 +7,11 @@ import { getLocale } from "@common/helpers/localize";
 import { Button } from "@common/components";
 import { notEmpty } from "@common/helpers/util";
 import { toast } from "react-toastify";
-import { navigate, navigateBack } from "@common/helpers/router";
+import {
+  navigate,
+  pushToStateThenNavigate,
+  useLocation,
+} from "@common/helpers/router";
 import { SearchRequestFilters } from "@common/components/SearchRequestFilters";
 import { searchPath } from "../../talentSearchRoutes";
 import {
@@ -51,7 +55,10 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
   const intl = useIntl();
   const locale = getLocale(intl);
   const methods = useForm();
+  const location = useLocation();
   const { handleSubmit } = methods;
+
+  const { initialValues } = location.state.some;
 
   const formValuesToSubmitData = (
     values: FormValues,
@@ -304,7 +311,12 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
               color="primary"
               mode="outline"
               data-h2-margin="b(right, s)"
-              onClick={navigateBack}
+              onClick={() => {
+                // Save the initial search form values to the state so they are available to user when click back.
+                pushToStateThenNavigate(searchPath(), {
+                  initialValues,
+                });
+              }}
             >
               {intl.formatMessage({
                 defaultMessage: "Back",
@@ -337,8 +349,7 @@ export const CreateRequest: React.FunctionComponent<{
   const departments: Department[] =
     lookupData?.departments.filter(notEmpty) ?? [];
 
-  const [_result, executeMutation] =
-    useCreatePoolCandidateSearchRequestMutation();
+  const [, executeMutation] = useCreatePoolCandidateSearchRequestMutation();
   const handleCreatePoolCandidateSearchRequest = (
     data: CreatePoolCandidateSearchRequestInput,
   ) =>

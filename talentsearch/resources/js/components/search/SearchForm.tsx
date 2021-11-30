@@ -8,7 +8,7 @@ import { getLanguageAbility } from "@common/constants";
 import { notEmpty } from "@common/helpers/util";
 import { commonMessages } from "@common/messages";
 import { Button } from "@common/components";
-import { pushToStateThenNavigate } from "@common/helpers/router";
+import { pushToStateThenNavigate, useLocation } from "@common/helpers/router";
 import { requestPath } from "../../talentSearchRoutes";
 import {
   Classification,
@@ -53,6 +53,15 @@ const PoolBlock: React.FunctionComponent<{
 }> = ({ pool, totalEstimatedCandidates, setPoolIdValue, handleSubmit }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
+
+  function span(msg: string) {
+    return (
+      <span data-h2-font-weight="b(700)" data-h2-font-color="b(lightpurple)">
+        {msg}
+      </span>
+    );
+  }
+
   return (
     <div
       data-h2-shadow="b(m)"
@@ -84,14 +93,7 @@ const PoolBlock: React.FunctionComponent<{
                 "Message for total estimated candidates box next to search form.",
             },
             {
-              span: (msg: string): JSX.Element => (
-                <span
-                  data-h2-font-weight="b(700)"
-                  data-h2-font-color="b(lightpurple)"
-                >
-                  {msg}
-                </span>
-              ),
+              span,
               totalEstimatedCandidates,
             },
           )}
@@ -174,8 +176,16 @@ export const SearchForm: React.FunctionComponent<SearchFormProps> = ({
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
+  const location = useLocation();
 
-  const methods = useForm<FormValues>();
+  // The location state holds the initial values plugged in from user. This is required if the user decides to click back and change any values.
+  const initialValues = location.state
+    ? location.state.some.initialValues
+    : null;
+
+  const methods = useForm<FormValues>({
+    defaultValues: initialValues,
+  });
   const { handleSubmit, watch, setValue } = methods;
 
   const setPoolIdValue = (poolId: string) => setValue("poolId", poolId);
@@ -206,7 +216,7 @@ export const SearchForm: React.FunctionComponent<SearchFormProps> = ({
 
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
     // Build the poolCandidateFilter that will be stored into the history.state api.
-    const state: PoolCandidateFilter = {
+    const poolCandidateFilter: PoolCandidateFilter = {
       id: "",
       classifications:
         data.classifications && data.classifications.length > 0
@@ -251,7 +261,10 @@ export const SearchForm: React.FunctionComponent<SearchFormProps> = ({
         data.languageAbility === "null" ? null : data.languageAbility,
       workRegions: data.workRegions,
     };
-    return pushToStateThenNavigate(requestPath(), state);
+    return pushToStateThenNavigate(requestPath(), {
+      poolCandidateFilter,
+      initialValues: data,
+    });
   };
 
   const useHandleSubmit = () => handleSubmit(onSubmit)();
