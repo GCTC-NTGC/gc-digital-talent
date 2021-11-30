@@ -78,7 +78,6 @@ export const SearchRequestFilters: React.FunctionComponent<
           classification?.level
         }`,
     );
-  console.log(poolCandidateFilter?.hasDiploma);
   const educationLevel: string | undefined = poolCandidateFilter?.hasDiploma
     ? intl.formatMessage({
         defaultMessage: "Required diploma from post-secondary institution",
