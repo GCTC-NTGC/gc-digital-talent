@@ -178,7 +178,9 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
                     description:
                       "Placeholder for full name input in the request form.",
                   })}
-                  rules={{ required: errorMessages.required }}
+                  rules={{
+                    required: intl.formatMessage(errorMessages.required),
+                  }}
                 />
               </div>
             </div>
@@ -198,7 +200,9 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
                       "Null selection for department select input in the request form.",
                   })}
                   options={departmentOptions}
-                  rules={{ required: errorMessages.required }}
+                  rules={{
+                    required: intl.formatMessage(errorMessages.required),
+                  }}
                 />
               </div>
             </div>
@@ -218,7 +222,9 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
                     description:
                       "Placeholder for government email input in the request form",
                   })}
-                  rules={{ required: errorMessages.required }}
+                  rules={{
+                    required: intl.formatMessage(errorMessages.required),
+                  }}
                 />
               </div>
             </div>
@@ -238,7 +244,9 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
                     description:
                       "Placeholder for job title input in the request form.",
                   })}
-                  rules={{ required: errorMessages.required }}
+                  rules={{
+                    required: intl.formatMessage(errorMessages.required),
+                  }}
                 />
               </div>
             </div>
