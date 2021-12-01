@@ -4,7 +4,6 @@ import SearchRequestFilters, {
 } from "@common/components/SearchRequestFilters";
 import * as React from "react";
 import { useIntl } from "react-intl";
-import { commonMessages } from "@common/messages";
 import { notEmpty } from "@common/helpers/util";
 import {
   PoolCandidateFilterInput,
@@ -285,17 +284,23 @@ export const SingleSearchRequestApi: React.FunctionComponent<{
       variables: { id: searchRequestId },
     });
 
-  if (fetching) return <p>{intl.formatMessage( {
-    defaultMessage: "Loading...",
-    description: "Title displayed for a table initial loading state.",
-  })}</p>;
+  if (fetching)
+    return (
+      <p>
+        {intl.formatMessage({
+          defaultMessage: "Loading...",
+          description: "Title displayed for a table initial loading state.",
+        })}
+      </p>
+    );
   if (error)
     return (
       <p>
         {intl.formatMessage({
-    defaultMessage: "Oh no...",
-    description: "Title displayed for a table error loading state.",
-  })} {error.message}
+          defaultMessage: "Oh no...",
+          description: "Title displayed for a table error loading state.",
+        })}
+        {error.message}
       </p>
     );
   return searchRequestData?.poolCandidateSearchRequest ? (
