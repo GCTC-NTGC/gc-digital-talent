@@ -285,11 +285,17 @@ export const SingleSearchRequestApi: React.FunctionComponent<{
       variables: { id: searchRequestId },
     });
 
-  if (fetching) return <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>;
+  if (fetching) return <p>{intl.formatMessage( {
+    defaultMessage: "Loading...",
+    description: "Title displayed for a table initial loading state.",
+  })}</p>;
   if (error)
     return (
       <p>
-        {intl.formatMessage(commonMessages.loadingError)} {error.message}
+        {intl.formatMessage({
+    defaultMessage: "Oh no...",
+    description: "Title displayed for a table error loading state.",
+  })} {error.message}
       </p>
     );
   return searchRequestData?.poolCandidateSearchRequest ? (

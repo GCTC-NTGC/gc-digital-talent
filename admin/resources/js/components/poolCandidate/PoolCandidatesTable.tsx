@@ -160,14 +160,20 @@ export const PoolCandidatesTableApi: React.FC<{ poolId: string }> = ({
   if (fetching)
     return (
       <DashboardContentContainer>
-        <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>
+        <p>{intl.formatMessage( {
+    defaultMessage: "Loading...",
+    description: "Title displayed for a table initial loading state.",
+  })}</p>
       </DashboardContentContainer>
     );
   if (error)
     return (
       <DashboardContentContainer>
         <p>
-          {intl.formatMessage(commonMessages.loadingError)} {error.message}
+          {intl.formatMessage({
+    defaultMessage: "Oh no...",
+    description: "Title displayed for a table error loading state.",
+  })} {error.message}
         </p>
       </DashboardContentContainer>
     );

@@ -2,7 +2,6 @@ import React, { useMemo } from "react";
 import { useIntl } from "react-intl";
 import { notEmpty } from "@common/helpers/util";
 import { useLocation } from "@common/helpers/router";
-import { commonMessages } from "@common/messages";
 import { FromArray } from "@common/types/utilityTypes";
 import { getLocale } from "@common/helpers/localize";
 import {
@@ -126,14 +125,23 @@ export const SearchRequestTableApi: React.FunctionComponent = () => {
   if (fetching)
     return (
       <DashboardContentContainer>
-        <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>
+        <p>
+          {intl.formatMessage({
+            defaultMessage: "Loading...",
+            description: "Title displayed for a table initial loading state.",
+          })}
+        </p>
       </DashboardContentContainer>
     );
   if (error)
     return (
       <DashboardContentContainer>
         <p>
-          {intl.formatMessage(commonMessages.loadingError)} {error.message}
+          {intl.formatMessage({
+            defaultMessage: "Oh no...",
+            description: "Title displayed for a table error loading state.",
+          })}{" "}
+          {error.message}
         </p>
       </DashboardContentContainer>
     );

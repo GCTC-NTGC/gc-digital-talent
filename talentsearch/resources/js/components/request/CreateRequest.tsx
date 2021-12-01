@@ -2,7 +2,6 @@ import { Input, Select, Submit, TextArea } from "@common/components/form";
 import * as React from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
-import { commonMessages, errorMessages } from "@common/messages";
 import { getLocale } from "@common/helpers/localize";
 import { Button } from "@common/components";
 import { notEmpty } from "@common/helpers/util";
@@ -185,7 +184,11 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
                       "Placeholder for full name input in the request form.",
                   })}
                   rules={{
-                    required: intl.formatMessage(errorMessages.required),
+                    required: intl.formatMessage({
+                      defaultMessage: "This field is required.",
+                      description:
+                        "Error message that this field must filled for the form to be valid.",
+                    }),
                   }}
                 />
               </div>
@@ -207,7 +210,11 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
                   })}
                   options={departmentOptions}
                   rules={{
-                    required: intl.formatMessage(errorMessages.required),
+                    required: intl.formatMessage({
+                      defaultMessage: "This field is required.",
+                      description:
+                        "Error message that this field must filled for the form to be valid.",
+                    }),
                   }}
                 />
               </div>
@@ -229,7 +236,11 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
                       "Placeholder for government email input in the request form",
                   })}
                   rules={{
-                    required: intl.formatMessage(errorMessages.required),
+                    required: intl.formatMessage({
+                      defaultMessage: "This field is required.",
+                      description:
+                        "Error message that this field must filled for the form to be valid.",
+                    }),
                   }}
                 />
               </div>
@@ -251,7 +262,11 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
                       "Placeholder for job title input in the request form.",
                   })}
                   rules={{
-                    required: intl.formatMessage(errorMessages.required),
+                    required: intl.formatMessage({
+                      defaultMessage: "This field is required.",
+                      description:
+                        "Error message that this field must filled for the form to be valid.",
+                    }),
                   }}
                 />
               </div>
@@ -360,11 +375,23 @@ export const CreateRequest: React.FunctionComponent<{
       return Promise.reject(result.error);
     });
 
-  if (fetching) return <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>;
+  if (fetching)
+    return (
+      <p>
+        {intl.formatMessage({
+          defaultMessage: "Loading...",
+          description: "Title displayed for a table initial loading state.",
+        })}
+      </p>
+    );
   if (error)
     return (
       <p>
-        {intl.formatMessage(commonMessages.loadingError)} {error.message}
+        {intl.formatMessage({
+          defaultMessage: "Oh no...",
+          description: "Title displayed for a table error loading state.",
+        })}{" "}
+        {error.message}
       </p>
     );
 

@@ -5,7 +5,6 @@ import { useIntl } from "react-intl";
 import { toast } from "react-toastify";
 import { Input, Select, Submit } from "@common/components/form";
 import { navigate } from "@common/helpers/router";
-import { errorMessages, commonMessages } from "@common/messages";
 import { classificationTablePath } from "../../adminRoutes";
 import {
   Classification,
@@ -14,7 +13,6 @@ import {
   useUpdateClassificationMutation,
 } from "../../api/generated";
 import { DashboardContentContainer } from "../DashboardContentContainer";
-import messages from "./messages";
 
 type FormValues = UpdateClassificationInput;
 interface UpdateClassificationFormProps {
@@ -48,16 +46,31 @@ export const UpdateClassificationForm: React.FunctionComponent<
     return handleUpdateClassification(initialClassification.id, classification)
       .then(() => {
         navigate(classificationTablePath());
-        toast.success(intl.formatMessage(messages.updateSuccess));
+        toast.success(
+          intl.formatMessage({
+            defaultMessage: "Classification updated successfully!",
+            description:
+              "Message displayed to user after classification is updated successfully.",
+          }),
+        );
       })
       .catch(() => {
-        toast.error(intl.formatMessage(messages.updateError));
+        toast.error(
+          intl.formatMessage({
+            defaultMessage: "Error: updating classification failed",
+            description:
+              "Message displayed to user after classification fails to get updated.",
+          }),
+        );
       });
   };
   return (
     <section>
       <h2 data-h2-text-align="b(center)" data-h2-margin="b(top, none)">
-        {intl.formatMessage(messages.updateHeading)}
+        {intl.formatMessage({
+          defaultMessage: "Update Classification",
+          description: "Title displayed on the update a classification form.",
+        })}
       </h2>
       <div data-h2-container="b(center, s)">
         <FormProvider {...methods}>
@@ -65,29 +78,67 @@ export const UpdateClassificationForm: React.FunctionComponent<
             <Input
               id="name_en"
               name="name.en"
-              label={intl.formatMessage(messages.nameEnLabel)}
+              label={intl.formatMessage({
+                defaultMessage: "Name (English):",
+                description:
+                  "Label displayed on the classification form name (English) field.",
+              })}
               type="text"
-              rules={{ required: intl.formatMessage(errorMessages.required) }}
+              rules={{
+                required: intl.formatMessage({
+                  defaultMessage: "This field is required.",
+                  description:
+                    "Error message that this field must filled for the form to be valid.",
+                }),
+              }}
             />
             <Input
               id="name_fr"
               name="name.fr"
-              label={intl.formatMessage(messages.nameFrLabel)}
+              label={intl.formatMessage({
+                defaultMessage: "Name (French):",
+                description:
+                  "Label displayed on the classification form name (French) field.",
+              })}
               type="text"
-              rules={{ required: intl.formatMessage(errorMessages.required) }}
+              rules={{
+                required: intl.formatMessage({
+                  defaultMessage: "This field is required.",
+                  description:
+                    "Error message that this field must filled for the form to be valid.",
+                }),
+              }}
             />
             <Input
               id="group"
               name="group"
-              label={intl.formatMessage(messages.groupLabel)}
+              label={intl.formatMessage({
+                defaultMessage: "Group:",
+                description:
+                  "Label displayed for the classification form group field.",
+              })}
               type="text"
-              rules={{ required: intl.formatMessage(errorMessages.required) }}
+              rules={{
+                required: intl.formatMessage({
+                  defaultMessage: "This field is required.",
+                  description:
+                    "Error message that this field must filled for the form to be valid.",
+                }),
+              }}
             />
             <Select
               id="level"
               name="level"
-              label={intl.formatMessage(messages.levelLabel)}
-              nullSelection={intl.formatMessage(messages.levelPlaceholder)}
+              label={intl.formatMessage({
+                defaultMessage: "Level:",
+                description:
+                  "Label displayed on the classification form level field.",
+              })}
+              nullSelection={intl.formatMessage({
+                defaultMessage: "Select a level...",
+                description:
+                  "Placeholder displayed on the classification form level field.",
+              })}
               options={[
                 { value: 1, label: "1" },
                 { value: 2, label: "2" },
@@ -104,30 +155,60 @@ export const UpdateClassificationForm: React.FunctionComponent<
             <Input
               id="minSalary"
               name="minSalary"
-              label={intl.formatMessage(messages.minSalaryLabel)}
+              label={intl.formatMessage({
+                defaultMessage: "Minimum Salary:",
+                description:
+                  "Label displayed for the classification form min salary field.",
+              })}
               type="number"
               rules={{
-                required: intl.formatMessage(errorMessages.required),
+                required: intl.formatMessage({
+                  defaultMessage: "This field is required.",
+                  description:
+                    "Error message that this field must filled for the form to be valid.",
+                }),
                 min: {
                   value: 0,
-                  message: intl.formatMessage(errorMessages.mustBeGreater, {
-                    value: 0,
-                  }),
+                  message: intl.formatMessage(
+                    {
+                      defaultMessage: "Value must be greater than {value}",
+                      description:
+                        "Error message that the provided value must be greater than some referenced minimum value.",
+                    },
+                    {
+                      value: 0,
+                    },
+                  ),
                 },
               }}
             />
             <Input
               id="maxSalary"
               name="maxSalary"
-              label={intl.formatMessage(messages.maxSalaryLabel)}
+              label={intl.formatMessage({
+                defaultMessage: "Maximum Salary:",
+                description:
+                  "Label displayed for the classification form max salary field.",
+              })}
               type="number"
               rules={{
-                required: intl.formatMessage(errorMessages.required),
+                required: intl.formatMessage({
+                  defaultMessage: "This field is required.",
+                  description:
+                    "Error message that this field must filled for the form to be valid.",
+                }),
                 min: {
                   value: watchMinSalary || 0,
-                  message: intl.formatMessage(errorMessages.mustBeGreater, {
-                    value: watchMinSalary || 0,
-                  }),
+                  message: intl.formatMessage(
+                    {
+                      defaultMessage: "Value must be greater than {value}",
+                      description:
+                        "Error message that the provided value must be greater than some referenced minimum value.",
+                    },
+                    {
+                      value: watchMinSalary || 0,
+                    },
+                  ),
                 },
               }}
             />
@@ -169,14 +250,23 @@ export const UpdateClassification: React.FunctionComponent<{
   if (fetching)
     return (
       <DashboardContentContainer>
-        <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>
+        <p>
+          {intl.formatMessage({
+            defaultMessage: "Loading...",
+            description: "Title displayed for a table initial loading state.",
+          })}
+        </p>
       </DashboardContentContainer>
     );
   if (error)
     return (
       <DashboardContentContainer>
         <p>
-          {intl.formatMessage(commonMessages.loadingError)} {error.message}
+          {intl.formatMessage({
+            defaultMessage: "Oh no...",
+            description: "Title displayed for a table error loading state.",
+          })}{" "}
+          {error.message}
         </p>
       </DashboardContentContainer>
     );
@@ -189,7 +279,15 @@ export const UpdateClassification: React.FunctionComponent<{
     </DashboardContentContainer>
   ) : (
     <DashboardContentContainer>
-      <p>{intl.formatMessage(messages.notFound, { classificationId })}</p>
+      <p>
+        {intl.formatMessage(
+          {
+            defaultMessage: "Classification {classificationId} not found.",
+            description: "Message displayed for classification not found.",
+          },
+          { classificationId },
+        )}
+      </p>
     </DashboardContentContainer>
   );
 };
