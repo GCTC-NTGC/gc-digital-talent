@@ -211,7 +211,7 @@ export const UpdateUser: React.FunctionComponent<{ userId: string }> = ({
           {intl.formatMessage({
             defaultMessage: "Oh no...",
             description: "Title displayed for a table error loading state.",
-          })}{" "}
+          })}
           {error.message}
         </p>
       </DashboardContentContainer>
