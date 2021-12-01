@@ -269,7 +269,9 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<
             />
             <Checkbox
               id="hasDisability"
-              label={intl.formatMessage(poolCandidateMessages.hasDiplomaLabel)}
+              label={intl.formatMessage(
+                poolCandidateMessages.hasDisabilityLabel,
+              )}
               name="hasDisability"
             />
             <Checkbox
@@ -285,6 +287,11 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<
                 poolCandidateMessages.isVisibleMinorityLabel,
               )}
               name="isVisibleMinority"
+            />
+            <Checkbox
+              id="hasDiploma"
+              label={intl.formatMessage(poolCandidateMessages.hasDiplomaLabel)}
+              name="hasDiploma"
             />
             <Select
               id="languageAbility"
