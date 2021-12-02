@@ -14,10 +14,9 @@ DirectorySlash off
     RewriteRule ^auth(/(.*))?$ auth/public/$2 [L]
     RewriteRule ^oauth(/(.*))?$ auth/public/$2 [L]
     RewriteRule ^admin(/(.*))?$ admin/public/$2 [L]
-    RewriteRule ^talentsearch(/(.*))?$ talentsearch/public/$2 [L]
 
-    #RewriteRule ^public/(.*)$ talentsearch/public/$1 [L]
-    #RewriteRule ^(.*)$ talentsearch/public/$1 [L]
+    RewriteRule ^public/(.*)$ talentsearch/public/$1 [L]
+    RewriteRule ^(.*)$ talentsearch/public/$1 [L]
 </IfModule>
 
 #<IfModule mod_headers.c>
