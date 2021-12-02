@@ -105,10 +105,10 @@ class PoolCandidate extends Model
         $parameters = [];
         $sql = <<<RAWSQL1
 
-SELECT NULL
+SELECT NULL    -- find all candidates where a salary/group combination matches a classification filter
   FROM (
-    SELECT
-      t.id,
+    SELECT    -- convert salary ranges to numeric min/max values
+      t.candidate_id,
       CASE t.salary_range_id
         WHEN '_50_59K' THEN 50000
         WHEN '_60_69K' THEN 60000
@@ -124,17 +124,22 @@ SELECT NULL
         WHEN '_80_89K' THEN 89999
         WHEN '_90_99K' THEN 99999
         WHEN '_100K_PLUS' THEN 2147483647
-      END max_salary
+      END max_salary,
+      t.classification_group
     FROM (
-      SELECT
-        pc.id,
-        JSONB_ARRAY_ELEMENTS_TEXT(pc.expected_salary) salary_range_id
+      SELECT    -- find all combinations of salary range and classification group for each candidate
+        pc.id candidate_id,
+        JSONB_ARRAY_ELEMENTS_TEXT(pc.expected_salary) salary_range_id,
+        c.group classification_group
       FROM pool_candidates pc
+      JOIN classification_pool_candidate cpc ON pc.id = cpc.pool_candidate_id
+      JOIN classifications c ON cpc.classification_id = c.id
     ) t
   ) u
-    JOIN classifications c ON
-      c.max_salary >= u.min_salary
-      AND c.min_salary <= u.max_salary
+  JOIN classifications c ON
+    c.max_salary >= u.min_salary
+    AND c.min_salary <= u.max_salary
+    AND c.group = u.classification_group
   WHERE (
 
 RAWSQL1;
@@ -151,7 +156,7 @@ RAWSQL1;
 
         $sql .= <<<RAWSQL2
   )
-  AND u.id = "pool_candidates".id
+  AND u.candidate_id = "pool_candidates".id
 
 RAWSQL2;
 
