@@ -1,4 +1,4 @@
-import { createBrowserHistory, Location, Path } from "history";
+import { createBrowserHistory, Location, Path, State } from "history";
 import UniversalRouter, { Routes } from "universal-router";
 import React, { useState, useEffect, useMemo, ReactElement } from "react";
 import fromPairs from "lodash/fromPairs";
@@ -59,6 +59,23 @@ export const redirect = (url: string | Partial<Path>): void => {
   HISTORY.replace(url);
 };
 
+export const clearQueryParams = (): void => {
+  if (!HISTORY.location.search) {
+    return;
+  }
+  HISTORY.replace({
+    search: "",
+  });
+};
+
+export const navigateBack = (): void => {
+  HISTORY.back();
+};
+
+export const pushToStateThenNavigate = (url: string, state: State): void => {
+  HISTORY.push(url, { some: state });
+};
+
 export interface RouterResult {
   component: ReactElement;
   redirect?: string;
@@ -66,6 +83,7 @@ export interface RouterResult {
 
 export const useRouter = (
   routes: Routes<RouterResult>,
+  missingRouteComponent: ReactElement,
 ): React.ReactElement | null => {
   const location = useLocation();
   const router = useMemo(() => new UniversalRouter(routes), [routes]);
@@ -73,15 +91,20 @@ export const useRouter = (
   const path = location.pathname;
   // Render the result of routing
   useEffect((): void => {
-    router.resolve(path).then(async (r) => {
-      // r may or may not be a promise, so attempt to resolve it. A non-promise value will simply resolve to itself.
-      const result = await Promise.resolve(r);
-      if (result?.redirect) {
-        redirect(result.redirect);
-      } else if (result) {
-        setComponent(result.component);
-      }
-    });
+    router
+      .resolve(path)
+      .then(async (r) => {
+        // r may or may not be a promise, so attempt to resolve it. A non-promise value will simply resolve to itself.
+        const result = await Promise.resolve(r);
+        if (result?.redirect) {
+          redirect(result.redirect);
+        } else if (result) {
+          setComponent(result.component);
+        }
+      })
+      .catch(async (r) => {
+        setComponent(missingRouteComponent);
+      });
   }, [path, router]);
 
   return component;
@@ -115,3 +138,22 @@ export function queryParametersToSearchString(
     .join("&");
   return queryString ? `?${queryString}` : "";
 }
+
+export const Link: React.FC<{ href: string; title: string }> = ({
+  href,
+  title,
+  children,
+  ...props
+}): React.ReactElement => (
+  <a
+    href={href}
+    title={title}
+    {...props}
+    onClick={(event): void => {
+      event.preventDefault();
+      navigate(href);
+    }}
+  >
+    {children}
+  </a>
+);

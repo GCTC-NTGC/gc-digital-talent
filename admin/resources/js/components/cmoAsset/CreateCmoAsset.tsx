@@ -46,34 +46,49 @@ export const CreateCmoAssetForm: React.FunctionComponent<CreateCmoAssetFormProps
                 id="key"
                 name="key"
                 label={intl.formatMessage(messages.keyLabel)}
+                context={intl.formatMessage({
+                  defaultMessage:
+                    "The 'key' is a string that uniquely identifies a CMO Asset. It should be based on the CMO Asset's English name, and it should be concise. A good example would be \"information_management\". It may be used in the code to refer to this particular CMO Asset, so it cannot be changed later.",
+                  description:
+                    "Additional context describing the purpose of the CMO Asset's 'key' field.",
+                })}
                 type="text"
-                rules={{ required: errorMessages.required }}
+                rules={{
+                  required: intl.formatMessage(errorMessages.required),
+                  pattern: {
+                    value: /^[a-z]+(_[a-z]+)*$/,
+                    message: intl.formatMessage({
+                      defaultMessage:
+                        "Please use only lowercase letters and underscores.",
+                    }),
+                  },
+                }}
               />
               <Input
                 id="name_en"
                 name="name.en"
                 label={intl.formatMessage(messages.nameEnLabel)}
                 type="text"
-                rules={{ required: errorMessages.required }}
+                rules={{ required: intl.formatMessage(errorMessages.required) }}
               />
               <Input
                 id="name_fr"
                 name="name.fr"
                 label={intl.formatMessage(messages.nameFrLabel)}
                 type="text"
-                rules={{ required: errorMessages.required }}
+                rules={{ required: intl.formatMessage(errorMessages.required) }}
               />
               <TextArea
                 id="description_en"
                 name="description.en"
                 label={intl.formatMessage(messages.descriptionEnLabel)}
-                rules={{ required: errorMessages.required }}
+                rules={{ required: intl.formatMessage(errorMessages.required) }}
               />
               <TextArea
                 id="description_fr"
                 name="description.fr"
                 label={intl.formatMessage(messages.descriptionFrLabel)}
-                rules={{ required: errorMessages.required }}
+                rules={{ required: intl.formatMessage(errorMessages.required) }}
               />
               <Submit />
             </form>

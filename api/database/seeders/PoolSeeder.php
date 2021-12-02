@@ -19,9 +19,10 @@ class PoolSeeder extends Seeder
         $pools = [
             [
                 'name' => [
-                    'en' => 'CMO',
-                    'fr' => 'CMO'
+                    'en' => 'CMO Digital Careers',
+                    'fr' => 'CMO Carrières Numériques'
                 ],
+                'key' => 'digital_careers',
                 'user_id' => User::where('email', 'admin@test.com')->first()->id,
             ],
             [
@@ -29,6 +30,7 @@ class PoolSeeder extends Seeder
                     'en' => 'Indigenous Apprenticeship Program',
                     'fr' => 'Indigenous Apprenticeship Program FR'
                 ],
+                'key' => 'indigenous_apprenticeship',
                 'user_id' => User::where('email', 'admin@test.com')->first()->id,
             ],
         ];

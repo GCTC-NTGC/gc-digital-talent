@@ -52,6 +52,8 @@ __EOF__
 
 sudo composer selfupdate
 
+export TALENTSEARCH_APP_DIR=""
+
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 source ~/.bash_profile
@@ -115,8 +117,7 @@ npm install
 npm rebuild node-sass
 npm run h2-build
 npm run codegen
-npm run dev
-#npm run production
+npm run production
 npm install --production
 sudo chown -R www-data ./storage ./vendor
 sudo chmod -R 775 ./ ./storage

@@ -171,11 +171,6 @@ query getUpdatePoolCandidateData($id: ID!) {
     group
     level
   }
-  users {
-    id
-    firstName
-    lastName
-  }
   cmoAssets {
     id
     key
@@ -200,7 +195,16 @@ query getUpdatePoolCandidateData($id: ID!) {
     }
   }
   poolCandidate(id: $id) {
-      ...poolCandidateForm
+    # to allow simultaneous editing of the associated user entity
+    user {
+      id
+      email
+      firstName
+      lastName
+      telephone
+      preferredLang
+    }
+    ...poolCandidateForm
   }
 }
 
@@ -235,7 +239,10 @@ mutation createPoolCandidate($poolCandidate: CreatePoolCandidateInput!) {
   }
 }
 
-mutation updatePoolCandidate($id: ID!, $poolCandidate: UpdatePoolCandidateInput!) {
+mutation updatePoolCandidate(
+  $id: ID!
+  $poolCandidate: UpdatePoolCandidateInput!
+) {
   updatePoolCandidate(id: $id, poolCandidate: $poolCandidate) {
     cmoIdentifier
     expiryDate

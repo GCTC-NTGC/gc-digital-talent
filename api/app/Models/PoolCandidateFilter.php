@@ -61,6 +61,6 @@ class PoolCandidateFilter extends Model
     }
     public function poolCandidateSearchRequest(): HasOne
     {
-        return $this->hasOne(\App\Models\PoolCandidateSearchRequest::class);
+        return $this->hasOne(PoolCandidateSearchRequest::class);
     }
 }

@@ -1,3 +1,5 @@
+DirectorySlash off
+
 <IfModule mod_rewrite.c>
     RewriteEngine on
 

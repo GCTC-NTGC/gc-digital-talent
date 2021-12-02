@@ -74,3 +74,8 @@ export const userCreatePath = (locale: Locales = "en"): string =>
   `${basePath(locale)}/users/create`;
 export const userUpdatePath = (id: string, locale: Locales = "en"): string =>
   `${basePath(locale)}/users/${id}/edit`;
+
+export const searchRequestTablePath = (): string =>
+  `/${ADMIN_APP_DIR}/search-requests`;
+export const searchRequestUpdatePath = (id: string): string =>
+  `/${ADMIN_APP_DIR}/search-requests/${id}/edit`;

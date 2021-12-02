@@ -30,6 +30,18 @@ fragment poolCandidateFilter on PoolCandidateFilter {
   workRegions
   pools {
     id
+    name {
+      en
+      fr
+    }
+    description {
+      en
+      fr
+    }
+    owner {
+      firstName
+      lastName
+    }
   }
 }
 
@@ -42,5 +54,46 @@ query getPoolCandidateFilter($id: ID!) {
 query getPoolCandidateFilters {
   poolCandidateFilters {
     ...poolCandidateFilter
+  }
+}
+
+query getSearchFormData {
+  classifications {
+    id
+    group
+    level
+  }
+  cmoAssets {
+    id
+    key
+    name {
+      en
+      fr
+    }
+  }
+  operationalRequirements {
+    id
+    key
+    name {
+      en
+      fr
+    }
+  }
+  pools {
+    id
+    name {
+      en
+      fr
+    }
+    owner {
+      id
+      firstName
+      lastName
+      email
+    }
+    description {
+      en
+      fr
+    }
   }
 }

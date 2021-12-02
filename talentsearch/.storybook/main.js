@@ -1,4 +1,24 @@
 const path = require("path");
+const TsTransformer = require("@formatjs/ts-transformer");
+const transform = TsTransformer.transform;
+// This uses ts-loader to inject generated ids into react-intl messages.
+const reactIntlTransformRule = {
+  test: /\.tsx?$/,
+  loader: "ts-loader",
+  options: {
+    getCustomTransformers() {
+      return {
+        before: [
+          transform({
+            overrideIdFn: "[sha512:contenthash:base64:6]",
+          }),
+        ],
+      };
+    },
+  },
+  exclude: /node_modules/,
+};
+
 module.exports = {
   "stories": [
     "../resources/js/stories/**/*.stories.mdx",
@@ -22,8 +42,14 @@ module.exports = {
         "react": path.resolve('./node_modules/react'),
         "react-dom": path.resolve('./node_modules/react-dom'),
         "react-hook-form": path.resolve('./node_modules/react-hook-form'),
+        "react-intl": path.resolve("./node_modules/react-intl"),
         "@common": path.resolve('../common/src'),
     }
+
+    config.module.rules = [
+      ...config.module.rules,
+      reactIntlTransformRule,
+    ];
 
     return config;
   },
