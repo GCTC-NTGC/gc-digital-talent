@@ -2,6 +2,7 @@ import React, { useMemo } from "react";
 import { useIntl } from "react-intl";
 import { useLocation } from "@common/helpers/router";
 import { notEmpty } from "@common/helpers/util";
+import { commonMessages } from "@common/messages";
 import { FromArray } from "@common/types/utilityTypes";
 import { GetCmoAssetsQuery, useGetCmoAssetsQuery } from "../../api/generated";
 import DashboardContentContainer from "../DashboardContentContainer";
@@ -70,22 +71,14 @@ export const CmoAssetTableApi: React.FC = () => {
   if (fetching)
     return (
       <DashboardContentContainer>
-        <p>
-          {intl.formatMessage({
-            defaultMessage: "Loading...",
-            description: "Title displayed for a table initial loading state.",
-          })}
-        </p>
+        <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>
       </DashboardContentContainer>
     );
   if (error)
     return (
       <DashboardContentContainer>
         <p>
-          {intl.formatMessage({
-            defaultMessage: "Oh no...",
-            description: "Title displayed for a table error loading state.",
-          })}
+          {intl.formatMessage(commonMessages.loadingError)}
           {error.message}
         </p>
       </DashboardContentContainer>

@@ -3,6 +3,7 @@ import { IntlShape, useIntl } from "react-intl";
 import { Button, Pill } from "@common/components";
 import { notEmpty } from "@common/helpers/util";
 import { navigate } from "@common/helpers/router";
+import { commonMessages } from "@common/messages";
 import { FromArray } from "@common/types/utilityTypes";
 import { getLocale } from "@common/helpers/localize";
 import {
@@ -225,22 +226,14 @@ export const SingleSearchRequestTableApi: React.FunctionComponent<{
   if (fetching)
     return (
       <DashboardContentContainer>
-        <p>
-          {intl.formatMessage({
-            defaultMessage: "Loading...",
-            description: "Title displayed for a table initial loading state.",
-          })}
-        </p>
+        <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>
       </DashboardContentContainer>
     );
   if (error)
     return (
       <DashboardContentContainer>
         <p>
-          {intl.formatMessage({
-            defaultMessage: "Oh no...",
-            description: "Title displayed for a table error loading state.",
-          })}
+          {intl.formatMessage(commonMessages.loadingError)}
           {error.message}
         </p>
       </DashboardContentContainer>

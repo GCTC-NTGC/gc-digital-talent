@@ -5,6 +5,7 @@ import { useIntl } from "react-intl";
 import { toast } from "react-toastify";
 import { Input, Select, Submit } from "@common/components/form";
 import { navigate } from "@common/helpers/router";
+import { errorMessages, commonMessages } from "@common/messages";
 import { classificationTablePath } from "../../adminRoutes";
 import {
   Classification,
@@ -85,11 +86,7 @@ export const UpdateClassificationForm: React.FunctionComponent<
               })}
               type="text"
               rules={{
-                required: intl.formatMessage({
-                  defaultMessage: "This field is required.",
-                  description:
-                    "Error message that this field must filled for the form to be valid.",
-                }),
+                required: intl.formatMessage(errorMessages.required),
               }}
             />
             <Input
@@ -102,11 +99,7 @@ export const UpdateClassificationForm: React.FunctionComponent<
               })}
               type="text"
               rules={{
-                required: intl.formatMessage({
-                  defaultMessage: "This field is required.",
-                  description:
-                    "Error message that this field must filled for the form to be valid.",
-                }),
+                required: intl.formatMessage(errorMessages.required),
               }}
             />
             <Input
@@ -119,11 +112,7 @@ export const UpdateClassificationForm: React.FunctionComponent<
               })}
               type="text"
               rules={{
-                required: intl.formatMessage({
-                  defaultMessage: "This field is required.",
-                  description:
-                    "Error message that this field must filled for the form to be valid.",
-                }),
+                required: intl.formatMessage(errorMessages.required),
               }}
             />
             <Select
@@ -162,23 +151,12 @@ export const UpdateClassificationForm: React.FunctionComponent<
               })}
               type="number"
               rules={{
-                required: intl.formatMessage({
-                  defaultMessage: "This field is required.",
-                  description:
-                    "Error message that this field must filled for the form to be valid.",
-                }),
+                required: intl.formatMessage(errorMessages.required),
                 min: {
                   value: 0,
-                  message: intl.formatMessage(
-                    {
-                      defaultMessage: "Value must be greater than {value}",
-                      description:
-                        "Error message that the provided value must be greater than some referenced minimum value.",
-                    },
-                    {
-                      value: 0,
-                    },
-                  ),
+                  message: intl.formatMessage(errorMessages.mustBeGreater, {
+                    value: 0,
+                  }),
                 },
               }}
             />
@@ -192,23 +170,12 @@ export const UpdateClassificationForm: React.FunctionComponent<
               })}
               type="number"
               rules={{
-                required: intl.formatMessage({
-                  defaultMessage: "This field is required.",
-                  description:
-                    "Error message that this field must filled for the form to be valid.",
-                }),
+                required: intl.formatMessage(errorMessages.required),
                 min: {
                   value: watchMinSalary || 0,
-                  message: intl.formatMessage(
-                    {
-                      defaultMessage: "Value must be greater than {value}",
-                      description:
-                        "Error message that the provided value must be greater than some referenced minimum value.",
-                    },
-                    {
-                      value: watchMinSalary || 0,
-                    },
-                  ),
+                  message: intl.formatMessage(errorMessages.mustBeGreater, {
+                    value: watchMinSalary || 0,
+                  }),
                 },
               }}
             />
@@ -250,22 +217,14 @@ export const UpdateClassification: React.FunctionComponent<{
   if (fetching)
     return (
       <DashboardContentContainer>
-        <p>
-          {intl.formatMessage({
-            defaultMessage: "Loading...",
-            description: "Title displayed for a table initial loading state.",
-          })}
-        </p>
+        <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>
       </DashboardContentContainer>
     );
   if (error)
     return (
       <DashboardContentContainer>
         <p>
-          {intl.formatMessage({
-            defaultMessage: "Oh no...",
-            description: "Title displayed for a table error loading state.",
-          })}
+          {intl.formatMessage(commonMessages.loadingError)}
           {error.message}
         </p>
       </DashboardContentContainer>

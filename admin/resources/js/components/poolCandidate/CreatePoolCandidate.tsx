@@ -24,6 +24,7 @@ import {
   getSalaryRange,
   getLanguage,
 } from "@common/constants/localizedConstants";
+import { errorMessages, commonMessages } from "@common/messages";
 import { poolCandidateTablePath } from "../../adminRoutes";
 import {
   CreatePoolCandidateInput,
@@ -107,11 +108,7 @@ const UserFormSection: React.FunctionComponent<{
           rules={{
             required:
               userMode === "existing"
-                ? intl.formatMessage({
-                    defaultMessage: "This field is required.",
-                    description:
-                      "Error message that this field must filled for the form to be valid.",
-                  })
+                ? intl.formatMessage(errorMessages.required)
                 : undefined,
           }}
         />
@@ -132,11 +129,7 @@ const UserFormSection: React.FunctionComponent<{
           rules={{
             required:
               userMode === "new"
-                ? intl.formatMessage({
-                    defaultMessage: "This field is required.",
-                    description:
-                      "Error message that this field must filled for the form to be valid.",
-                  })
+                ? intl.formatMessage(errorMessages.required)
                 : undefined,
           }}
         />
@@ -151,11 +144,7 @@ const UserFormSection: React.FunctionComponent<{
           rules={{
             required:
               userMode === "new"
-                ? intl.formatMessage({
-                    defaultMessage: "This field is required.",
-                    description:
-                      "Error message that this field must filled for the form to be valid.",
-                  })
+                ? intl.formatMessage(errorMessages.required)
                 : undefined,
           }}
         />
@@ -170,11 +159,7 @@ const UserFormSection: React.FunctionComponent<{
           rules={{
             required:
               userMode === "new"
-                ? intl.formatMessage({
-                    defaultMessage: "This field is required.",
-                    description:
-                      "Error message that this field must filled for the form to be valid.",
-                  })
+                ? intl.formatMessage(errorMessages.required)
                 : undefined,
           }}
         />
@@ -189,20 +174,11 @@ const UserFormSection: React.FunctionComponent<{
           rules={{
             required:
               userMode === "new"
-                ? intl.formatMessage({
-                    defaultMessage: "This field is required.",
-                    description:
-                      "Error message that this field must filled for the form to be valid.",
-                  })
+                ? intl.formatMessage(errorMessages.required)
                 : undefined,
             pattern: {
               value: /^\+[1-9]\d{1,14}$/,
-              message: intl.formatMessage({
-                defaultMessage:
-                  "This field must follow the pattern +123243234.",
-                description:
-                  "Error message that the field must contain a phone number validated by the specified pattern.",
-              }),
+              message: intl.formatMessage(errorMessages.telephone),
             },
           }}
         />
@@ -222,11 +198,7 @@ const UserFormSection: React.FunctionComponent<{
           rules={{
             required:
               userMode === "new"
-                ? intl.formatMessage({
-                    defaultMessage: "This field is required.",
-                    description:
-                      "Error message that this field must filled for the form to be valid.",
-                  })
+                ? intl.formatMessage(errorMessages.required)
                 : undefined,
           }}
           options={enumToOptions(Language).map(({ value }) => ({
@@ -409,11 +381,7 @@ export const CreatePoolCandidateForm: React.FunctionComponent<
                 },
               ]}
               rules={{
-                required: intl.formatMessage({
-                  defaultMessage: "This field is required.",
-                  description:
-                    "Error message that this field must filled for the form to be valid.",
-                }),
+                required: intl.formatMessage(errorMessages.required),
               }}
             />
             <UserFormSection control={control} userOptions={userOptions} />
@@ -439,11 +407,7 @@ export const CreatePoolCandidateForm: React.FunctionComponent<
               options={poolOptions}
               disabled={!!poolId}
               rules={{
-                required: intl.formatMessage({
-                  defaultMessage: "This field is required.",
-                  description:
-                    "Error message that this field must filled for the form to be valid.",
-                }),
+                required: intl.formatMessage(errorMessages.required),
               }}
             />
             <Select
@@ -461,11 +425,7 @@ export const CreatePoolCandidateForm: React.FunctionComponent<
               name="user"
               options={userOptions}
               rules={{
-                required: intl.formatMessage({
-                  defaultMessage: "This field is required.",
-                  description:
-                    "Error message that this field must filled for the form to be valid.",
-                }),
+                required: intl.formatMessage(errorMessages.required),
               }}
             />
             <Input
@@ -478,11 +438,7 @@ export const CreatePoolCandidateForm: React.FunctionComponent<
               type="text"
               name="cmoIdentifier"
               rules={{
-                required: intl.formatMessage({
-                  defaultMessage: "This field is required.",
-                  description:
-                    "Error message that this field must filled for the form to be valid.",
-                }),
+                required: intl.formatMessage(errorMessages.required),
               }}
             />
             <Input
@@ -495,18 +451,10 @@ export const CreatePoolCandidateForm: React.FunctionComponent<
               type="date"
               name="expiryDate"
               rules={{
-                required: intl.formatMessage({
-                  defaultMessage: "This field is required.",
-                  description:
-                    "Error message that this field must filled for the form to be valid.",
-                }),
+                required: intl.formatMessage(errorMessages.required),
                 min: {
                   value: currentDate(),
-                  message: intl.formatMessage({
-                    defaultMessage: "This field must use future dates only.",
-                    description:
-                      "Error message that the provided date must be in the future.",
-                  }),
+                  message: intl.formatMessage(errorMessages.futureDate),
                 },
               }}
             />
@@ -570,11 +518,7 @@ export const CreatePoolCandidateForm: React.FunctionComponent<
               })}
               options={enumToOptions(LanguageAbility)}
               rules={{
-                required: intl.formatMessage({
-                  defaultMessage: "This field is required.",
-                  description:
-                    "Error message that this field must filled for the form to be valid.",
-                }),
+                required: intl.formatMessage(errorMessages.required),
               }}
             />
             <MultiSelect
@@ -592,11 +536,7 @@ export const CreatePoolCandidateForm: React.FunctionComponent<
               })}
               options={enumToOptions(WorkRegion)}
               rules={{
-                required: intl.formatMessage({
-                  defaultMessage: "This field is required.",
-                  description:
-                    "Error message that this field must filled for the form to be valid.",
-                }),
+                required: intl.formatMessage(errorMessages.required),
               }}
             />
             <MultiSelect
@@ -615,11 +555,7 @@ export const CreatePoolCandidateForm: React.FunctionComponent<
               })}
               options={operationalRequirementOptions}
               rules={{
-                required: intl.formatMessage({
-                  defaultMessage: "This field is required.",
-                  description:
-                    "Error message that this field must filled for the form to be valid.",
-                }),
+                required: intl.formatMessage(errorMessages.required),
               }}
             />
             <MultiSelect
@@ -640,11 +576,7 @@ export const CreatePoolCandidateForm: React.FunctionComponent<
                 label: getSalaryRange(value),
               }))}
               rules={{
-                required: intl.formatMessage({
-                  defaultMessage: "This field is required.",
-                  description:
-                    "Error message that this field must filled for the form to be valid.",
-                }),
+                required: intl.formatMessage(errorMessages.required),
               }}
             />
             <MultiSelect
@@ -662,11 +594,7 @@ export const CreatePoolCandidateForm: React.FunctionComponent<
               name="expectedClassifications"
               options={classificationOptions}
               rules={{
-                required: intl.formatMessage({
-                  defaultMessage: "This field is required.",
-                  description:
-                    "Error message that this field must filled for the form to be valid.",
-                }),
+                required: intl.formatMessage(errorMessages.required),
               }}
             />
             <MultiSelect
@@ -684,11 +612,7 @@ export const CreatePoolCandidateForm: React.FunctionComponent<
               name="cmoAssets"
               options={cmoAssetOptions}
               rules={{
-                required: intl.formatMessage({
-                  defaultMessage: "This field is required.",
-                  description:
-                    "Error message that this field must filled for the form to be valid.",
-                }),
+                required: intl.formatMessage(errorMessages.required),
               }}
             />
             <Select
@@ -705,11 +629,7 @@ export const CreatePoolCandidateForm: React.FunctionComponent<
               })}
               name="status"
               rules={{
-                required: intl.formatMessage({
-                  defaultMessage: "This field is required.",
-                  description:
-                    "Error message that this field must filled for the form to be valid.",
-                }),
+                required: intl.formatMessage(errorMessages.required),
               }}
               options={enumToOptions(PoolCandidateStatus)}
             />
@@ -747,22 +667,14 @@ export const CreatePoolCandidate: React.FunctionComponent<{
   if (fetching)
     return (
       <DashboardContentContainer>
-        <p>
-          {intl.formatMessage({
-            defaultMessage: "Loading...",
-            description: "Title displayed for a table initial loading state.",
-          })}
-        </p>
+        <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>
       </DashboardContentContainer>
     );
   if (error)
     return (
       <DashboardContentContainer>
         <p>
-          {intl.formatMessage({
-            defaultMessage: "Oh no...",
-            description: "Title displayed for a table error loading state.",
-          })}
+          {intl.formatMessage(commonMessages.loadingError)}
           {error.message}
         </p>
       </DashboardContentContainer>

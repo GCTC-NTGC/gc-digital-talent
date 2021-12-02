@@ -5,6 +5,7 @@ import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { Input, Submit, TextArea } from "@common/components/form";
 import { navigate } from "@common/helpers/router";
+import { errorMessages, commonMessages } from "@common/messages";
 import { cmoAssetTablePath } from "../../adminRoutes";
 import {
   CmoAsset,
@@ -70,11 +71,7 @@ export const UpdateCmoAssetForm: React.FunctionComponent<
               })}
               type="text"
               rules={{
-                required: intl.formatMessage({
-                  defaultMessage: "This field is required.",
-                  description:
-                    "Error message that this field must filled for the form to be valid.",
-                }),
+                required: intl.formatMessage(errorMessages.required),
               }}
             />
             <Input
@@ -87,11 +84,7 @@ export const UpdateCmoAssetForm: React.FunctionComponent<
               })}
               type="text"
               rules={{
-                required: intl.formatMessage({
-                  defaultMessage: "This field is required.",
-                  description:
-                    "Error message that this field must filled for the form to be valid.",
-                }),
+                required: intl.formatMessage(errorMessages.required),
               }}
             />
             <TextArea
@@ -103,11 +96,7 @@ export const UpdateCmoAssetForm: React.FunctionComponent<
                   "Label displayed on the create a cmo asset form description (English) field.",
               })}
               rules={{
-                required: intl.formatMessage({
-                  defaultMessage: "This field is required.",
-                  description:
-                    "Error message that this field must filled for the form to be valid.",
-                }),
+                required: intl.formatMessage(errorMessages.required),
               }}
             />
             <TextArea
@@ -119,11 +108,7 @@ export const UpdateCmoAssetForm: React.FunctionComponent<
                   "Label displayed on the create a cmo asset form description (French) field.",
               })}
               rules={{
-                required: intl.formatMessage({
-                  defaultMessage: "This field is required.",
-                  description:
-                    "Error message that this field must filled for the form to be valid.",
-                }),
+                required: intl.formatMessage(errorMessages.required),
               }}
             />
             <Submit />
@@ -161,22 +146,14 @@ export const UpdateCmoAsset: React.FunctionComponent<{
   if (fetching)
     return (
       <DashboardContentContainer>
-        <p>
-          {intl.formatMessage({
-            defaultMessage: "Loading...",
-            description: "Title displayed for a table initial loading state.",
-          })}
-        </p>
+        <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>
       </DashboardContentContainer>
     );
   if (error)
     return (
       <DashboardContentContainer>
         <p>
-          {intl.formatMessage({
-            defaultMessage: "Oh no...",
-            description: "Title displayed for a table error loading state.",
-          })}
+          {intl.formatMessage(commonMessages.loadingError)}
           {error.message}
         </p>
       </DashboardContentContainer>

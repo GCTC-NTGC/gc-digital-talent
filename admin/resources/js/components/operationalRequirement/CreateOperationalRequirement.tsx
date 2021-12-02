@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import { useIntl } from "react-intl";
 import { Input, Submit, TextArea } from "@common/components/form";
 import { navigate } from "@common/helpers/router";
+import { errorMessages } from "@common/messages";
 import { operationalRequirementTablePath } from "../../adminRoutes";
 import {
   CreateOperationalRequirementInput,
@@ -73,11 +74,7 @@ export const CreateOperationalRequirementForm: React.FunctionComponent<
               })}
               type="text"
               rules={{
-                required: intl.formatMessage({
-                  defaultMessage: "This field is required.",
-                  description:
-                    "Error message that this field must filled for the form to be valid.",
-                }),
+                required: intl.formatMessage(errorMessages.required),
                 pattern: {
                   value: /^[a-z]+(_[a-z]+)*$/,
                   message: intl.formatMessage({
@@ -97,11 +94,7 @@ export const CreateOperationalRequirementForm: React.FunctionComponent<
               })}
               type="text"
               rules={{
-                required: intl.formatMessage({
-                  defaultMessage: "This field is required.",
-                  description:
-                    "Error message that this field must filled for the form to be valid.",
-                }),
+                required: intl.formatMessage(errorMessages.required),
               }}
             />
             <Input
@@ -114,11 +107,7 @@ export const CreateOperationalRequirementForm: React.FunctionComponent<
               })}
               type="text"
               rules={{
-                required: intl.formatMessage({
-                  defaultMessage: "This field is required.",
-                  description:
-                    "Error message that this field must filled for the form to be valid.",
-                }),
+                required: intl.formatMessage(errorMessages.required),
               }}
             />
             <TextArea
@@ -130,11 +119,7 @@ export const CreateOperationalRequirementForm: React.FunctionComponent<
                   "Label displayed on the operational requirement form description (English) field.",
               })}
               rules={{
-                required: intl.formatMessage({
-                  defaultMessage: "This field is required.",
-                  description:
-                    "Error message that this field must filled for the form to be valid.",
-                }),
+                required: intl.formatMessage(errorMessages.required),
               }}
             />
             <TextArea
@@ -146,11 +131,7 @@ export const CreateOperationalRequirementForm: React.FunctionComponent<
                   "Label displayed on the operational requirement form description (French) field.",
               })}
               rules={{
-                required: intl.formatMessage({
-                  defaultMessage: "This field is required.",
-                  description:
-                    "Error message that this field must filled for the form to be valid.",
-                }),
+                required: intl.formatMessage(errorMessages.required),
               }}
             />
             <Submit />

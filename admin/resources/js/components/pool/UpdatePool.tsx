@@ -14,6 +14,7 @@ import { notEmpty } from "@common/helpers/util";
 import { unpackIds } from "@common/helpers/formUtils";
 import { getLocale } from "@common/helpers/localize";
 import { navigate } from "@common/helpers/router";
+import { errorMessages, commonMessages } from "@common/messages";
 import { poolTablePath } from "../../adminRoutes";
 import {
   Classification,
@@ -174,11 +175,7 @@ export const UpdatePoolForm: React.FunctionComponent<UpdatePoolFormProps> = ({
               })}
               options={userOptions}
               rules={{
-                required: intl.formatMessage({
-                  defaultMessage: "This field is required.",
-                  description:
-                    "Error message that this field must filled for the form to be valid.",
-                }),
+                required: intl.formatMessage(errorMessages.required),
               }}
             />
             <Input
@@ -191,11 +188,7 @@ export const UpdatePoolForm: React.FunctionComponent<UpdatePoolFormProps> = ({
               })}
               type="text"
               rules={{
-                required: intl.formatMessage({
-                  defaultMessage: "This field is required.",
-                  description:
-                    "Error message that this field must filled for the form to be valid.",
-                }),
+                required: intl.formatMessage(errorMessages.required),
               }}
             />
             <Input
@@ -208,11 +201,7 @@ export const UpdatePoolForm: React.FunctionComponent<UpdatePoolFormProps> = ({
               })}
               type="text"
               rules={{
-                required: intl.formatMessage({
-                  defaultMessage: "This field is required.",
-                  description:
-                    "Error message that this field must filled for the form to be valid.",
-                }),
+                required: intl.formatMessage(errorMessages.required),
               }}
             />
             <TextArea
@@ -224,11 +213,7 @@ export const UpdatePoolForm: React.FunctionComponent<UpdatePoolFormProps> = ({
                   "Label displayed on the pool form description (English) field.",
               })}
               rules={{
-                required: intl.formatMessage({
-                  defaultMessage: "This field is required.",
-                  description:
-                    "Error message that this field must filled for the form to be valid.",
-                }),
+                required: intl.formatMessage(errorMessages.required),
               }}
             />
             <TextArea
@@ -240,11 +225,7 @@ export const UpdatePoolForm: React.FunctionComponent<UpdatePoolFormProps> = ({
                   "Label displayed on the pool form description (French) field.",
               })}
               rules={{
-                required: intl.formatMessage({
-                  defaultMessage: "This field is required.",
-                  description:
-                    "Error message that this field must filled for the form to be valid.",
-                }),
+                required: intl.formatMessage(errorMessages.required),
               }}
             />
             <MultiSelect
@@ -262,11 +243,7 @@ export const UpdatePoolForm: React.FunctionComponent<UpdatePoolFormProps> = ({
               name="classifications"
               options={classificationOptions}
               rules={{
-                required: intl.formatMessage({
-                  defaultMessage: "This field is required.",
-                  description:
-                    "Error message that this field must filled for the form to be valid.",
-                }),
+                required: intl.formatMessage(errorMessages.required),
               }}
             />
             <MultiSelect
@@ -284,11 +261,7 @@ export const UpdatePoolForm: React.FunctionComponent<UpdatePoolFormProps> = ({
               name="assetCriteria"
               options={cmoAssetOptions}
               rules={{
-                required: intl.formatMessage({
-                  defaultMessage: "This field is required.",
-                  description:
-                    "Error message that this field must filled for the form to be valid.",
-                }),
+                required: intl.formatMessage(errorMessages.required),
               }}
             />
             <MultiSelect
@@ -306,11 +279,7 @@ export const UpdatePoolForm: React.FunctionComponent<UpdatePoolFormProps> = ({
               name="essentialCriteria"
               options={cmoAssetOptions}
               rules={{
-                required: intl.formatMessage({
-                  defaultMessage: "This field is required.",
-                  description:
-                    "Error message that this field must filled for the form to be valid.",
-                }),
+                required: intl.formatMessage(errorMessages.required),
               }}
             />
             <MultiSelect
@@ -329,11 +298,7 @@ export const UpdatePoolForm: React.FunctionComponent<UpdatePoolFormProps> = ({
               })}
               options={operationalRequirementOptions}
               rules={{
-                required: intl.formatMessage({
-                  defaultMessage: "This field is required.",
-                  description:
-                    "Error message that this field must filled for the form to be valid.",
-                }),
+                required: intl.formatMessage(errorMessages.required),
               }}
             />
             <Submit />
@@ -385,22 +350,14 @@ export const UpdatePool: React.FunctionComponent<{
   if (fetching)
     return (
       <DashboardContentContainer>
-        <p>
-          {intl.formatMessage({
-            defaultMessage: "Loading...",
-            description: "Title displayed for a table initial loading state.",
-          })}
-        </p>
+        <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>
       </DashboardContentContainer>
     );
   if (error)
     return (
       <DashboardContentContainer>
         <p>
-          {intl.formatMessage({
-            defaultMessage: "Oh no...",
-            description: "Title displayed for a table error loading state.",
-          })}
+          {intl.formatMessage(commonMessages.loadingError)}
           {error.message}
         </p>
       </DashboardContentContainer>

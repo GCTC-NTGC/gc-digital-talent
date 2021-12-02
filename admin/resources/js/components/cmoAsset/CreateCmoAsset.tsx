@@ -4,6 +4,7 @@ import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { Input, Submit, TextArea } from "@common/components/form";
 import { navigate } from "@common/helpers/router";
+import { errorMessages } from "@common/messages";
 import { cmoAssetTablePath } from "../../adminRoutes";
 import {
   CreateCmoAssetInput,
@@ -72,11 +73,7 @@ export const CreateCmoAssetForm: React.FunctionComponent<
               })}
               type="text"
               rules={{
-                required: intl.formatMessage({
-                  defaultMessage: "This field is required.",
-                  description:
-                    "Error message that this field must filled for the form to be valid.",
-                }),
+                required: intl.formatMessage(errorMessages.required),
                 pattern: {
                   value: /^[a-z]+(_[a-z]+)*$/,
                   message: intl.formatMessage({
@@ -96,11 +93,7 @@ export const CreateCmoAssetForm: React.FunctionComponent<
               })}
               type="text"
               rules={{
-                required: intl.formatMessage({
-                  defaultMessage: "This field is required.",
-                  description:
-                    "Error message that this field must filled for the form to be valid.",
-                }),
+                required: intl.formatMessage(errorMessages.required),
               }}
             />
             <Input
@@ -113,11 +106,7 @@ export const CreateCmoAssetForm: React.FunctionComponent<
               })}
               type="text"
               rules={{
-                required: intl.formatMessage({
-                  defaultMessage: "This field is required.",
-                  description:
-                    "Error message that this field must filled for the form to be valid.",
-                }),
+                required: intl.formatMessage(errorMessages.required),
               }}
             />
             <TextArea
@@ -129,11 +118,7 @@ export const CreateCmoAssetForm: React.FunctionComponent<
                   "Label displayed on the create a cmo asset form description (English) field.",
               })}
               rules={{
-                required: intl.formatMessage({
-                  defaultMessage: "This field is required.",
-                  description:
-                    "Error message that this field must filled for the form to be valid.",
-                }),
+                required: intl.formatMessage(errorMessages.required),
               }}
             />
             <TextArea
@@ -145,11 +130,7 @@ export const CreateCmoAssetForm: React.FunctionComponent<
                   "Label displayed on the create a cmo asset form description (French) field.",
               })}
               rules={{
-                required: intl.formatMessage({
-                  defaultMessage: "This field is required.",
-                  description:
-                    "Error message that this field must filled for the form to be valid.",
-                }),
+                required: intl.formatMessage(errorMessages.required),
               }}
             />
             <Submit />

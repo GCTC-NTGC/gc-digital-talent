@@ -6,6 +6,7 @@ import { Input, Select, Submit } from "@common/components/form";
 import { navigate } from "@common/helpers/router";
 import { enumToOptions } from "@common/helpers/formUtils";
 import { getLanguage } from "@common/constants/localizedConstants";
+import { errorMessages } from "@common/messages";
 import { userTablePath } from "../../adminRoutes";
 import {
   Language,
@@ -72,11 +73,7 @@ export const CreateUserForm: React.FunctionComponent<CreateUserFormProps> = ({
               type="text"
               name="email"
               rules={{
-                required: intl.formatMessage({
-                  defaultMessage: "This field is required.",
-                  description:
-                    "Error message that this field must filled for the form to be valid.",
-                }),
+                required: intl.formatMessage(errorMessages.required),
               }}
             />
             <Input
@@ -89,11 +86,7 @@ export const CreateUserForm: React.FunctionComponent<CreateUserFormProps> = ({
               type="text"
               name="firstName"
               rules={{
-                required: intl.formatMessage({
-                  defaultMessage: "This field is required.",
-                  description:
-                    "Error message that this field must filled for the form to be valid.",
-                }),
+                required: intl.formatMessage(errorMessages.required),
               }}
             />
             <Input
@@ -106,11 +99,7 @@ export const CreateUserForm: React.FunctionComponent<CreateUserFormProps> = ({
               type="text"
               name="lastName"
               rules={{
-                required: intl.formatMessage({
-                  defaultMessage: "This field is required.",
-                  description:
-                    "Error message that this field must filled for the form to be valid.",
-                }),
+                required: intl.formatMessage(errorMessages.required),
               }}
             />
             <Input
@@ -123,19 +112,10 @@ export const CreateUserForm: React.FunctionComponent<CreateUserFormProps> = ({
               type="tel"
               name="telephone"
               rules={{
-                required: intl.formatMessage({
-                  defaultMessage: "This field is required.",
-                  description:
-                    "Error message that this field must filled for the form to be valid.",
-                }),
+                required: intl.formatMessage(errorMessages.required),
                 pattern: {
                   value: /^\+[1-9]\d{1,14}$/,
-                  message: intl.formatMessage({
-                    defaultMessage:
-                      "This field must follow the pattern +123243234.",
-                    description:
-                      "Error message that the field must contain a phone number validated by the specified pattern.",
-                  }),
+                  message: intl.formatMessage(errorMessages.telephone),
                 },
               }}
             />
@@ -153,11 +133,7 @@ export const CreateUserForm: React.FunctionComponent<CreateUserFormProps> = ({
                   "Placeholder displayed on the user form preferred language field.",
               })}
               rules={{
-                required: intl.formatMessage({
-                  defaultMessage: "This field is required.",
-                  description:
-                    "Error message that this field must filled for the form to be valid.",
-                }),
+                required: intl.formatMessage(errorMessages.required),
               }}
               options={enumToOptions(Language).map(({ value }) => ({
                 value,

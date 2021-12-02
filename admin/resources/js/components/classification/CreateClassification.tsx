@@ -5,6 +5,7 @@ import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { Input, Select, Submit } from "@common/components/form";
 import { navigate } from "@common/helpers/router";
+import { errorMessages } from "@common/messages";
 import {
   CreateClassificationInput,
   useCreateClassificationMutation,
@@ -75,11 +76,7 @@ export const CreateClassificationForm: React.FunctionComponent<
               })}
               type="text"
               rules={{
-                required: intl.formatMessage({
-                  defaultMessage: "This field is required.",
-                  description:
-                    "Error message that this field must filled for the form to be valid.",
-                }),
+                required: intl.formatMessage(errorMessages.required),
               }}
             />
             <Input
@@ -92,11 +89,7 @@ export const CreateClassificationForm: React.FunctionComponent<
               })}
               type="text"
               rules={{
-                required: intl.formatMessage({
-                  defaultMessage: "This field is required.",
-                  description:
-                    "Error message that this field must filled for the form to be valid.",
-                }),
+                required: intl.formatMessage(errorMessages.required),
               }}
             />
             <Input
@@ -109,11 +102,7 @@ export const CreateClassificationForm: React.FunctionComponent<
               })}
               type="text"
               rules={{
-                required: intl.formatMessage({
-                  defaultMessage: "This field is required.",
-                  description:
-                    "Error message that this field must filled for the form to be valid.",
-                }),
+                required: intl.formatMessage(errorMessages.required),
               }}
             />
             <Select
@@ -130,11 +119,7 @@ export const CreateClassificationForm: React.FunctionComponent<
                   "Placeholder displayed on the classification form level field.",
               })}
               rules={{
-                required: intl.formatMessage({
-                  defaultMessage: "This field is required.",
-                  description:
-                    "Error message that this field must filled for the form to be valid.",
-                }),
+                required: intl.formatMessage(errorMessages.required),
               }}
               options={[
                 { value: 1, label: "1" },
@@ -158,23 +143,12 @@ export const CreateClassificationForm: React.FunctionComponent<
               })}
               type="number"
               rules={{
-                required: intl.formatMessage({
-                  defaultMessage: "This field is required.",
-                  description:
-                    "Error message that this field must filled for the form to be valid.",
-                }),
+                required: intl.formatMessage(errorMessages.required),
                 min: {
                   value: 0,
-                  message: intl.formatMessage(
-                    {
-                      defaultMessage: "Value must be greater than {value}",
-                      description:
-                        "Error message that the provided value must be greater than some referenced minimum value.",
-                    },
-                    {
-                      value: 0,
-                    },
-                  ),
+                  message: intl.formatMessage(errorMessages.mustBeGreater, {
+                    value: 0,
+                  }),
                 },
               }}
             />
@@ -188,23 +162,12 @@ export const CreateClassificationForm: React.FunctionComponent<
               })}
               type="number"
               rules={{
-                required: intl.formatMessage({
-                  defaultMessage: "This field is required.",
-                  description:
-                    "Error message that this field must filled for the form to be valid.",
-                }),
+                required: intl.formatMessage(errorMessages.required),
                 min: {
                   value: watchMinSalary || 0,
-                  message: intl.formatMessage(
-                    {
-                      defaultMessage: "Value must be greater than {value}",
-                      description:
-                        "Error message that the provided value must be greater than some referenced minimum value.",
-                    },
-                    {
-                      value: watchMinSalary || 0,
-                    },
-                  ),
+                  message: intl.formatMessage(errorMessages.mustBeGreater, {
+                    value: watchMinSalary || 0,
+                  }),
                 },
               }}
             />

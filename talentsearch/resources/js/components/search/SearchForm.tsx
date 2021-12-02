@@ -6,6 +6,7 @@ import { getLocale } from "@common/helpers/localize";
 import { enumToOptions } from "@common/helpers/formUtils";
 import { getLanguageAbility } from "@common/constants";
 import { notEmpty } from "@common/helpers/util";
+import { commonMessages } from "@common/messages";
 import { Button } from "@common/components";
 import { pushToStateThenNavigate, useLocation } from "@common/helpers/router";
 import { requestPath } from "../../talentSearchRoutes";
@@ -720,12 +721,7 @@ export const SearchFormApi: React.FunctionComponent = () => {
         data-h2-align-items="b(center)"
         style={{ minHeight: "20rem" }}
       >
-        <p>
-          {intl.formatMessage({
-            defaultMessage: "Loading...",
-            description: "Title displayed for a table initial loading state.",
-          })}
-        </p>
+        <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>
       </div>
     );
   if (error)
@@ -737,10 +733,7 @@ export const SearchFormApi: React.FunctionComponent = () => {
         style={{ minHeight: "20rem" }}
       >
         <p>
-          {intl.formatMessage({
-            defaultMessage: "Oh no...",
-            description: "Title displayed for a table error loading state.",
-          })}
+          {intl.formatMessage(commonMessages.loadingError)}
           {error.message}
         </p>
       </div>

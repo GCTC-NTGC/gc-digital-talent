@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import pick from "lodash/pick";
 import { navigate } from "@common/helpers/router";
 import { Input, Submit } from "@common/components/form";
+import { errorMessages, commonMessages } from "@common/messages";
 import { departmentTablePath } from "../../adminRoutes";
 import {
   Department,
@@ -84,11 +85,7 @@ export const UpdateDepartmentForm: React.FunctionComponent<
               })}
               type="number"
               rules={{
-                required: intl.formatMessage({
-                  defaultMessage: "This field is required.",
-                  description:
-                    "Error message that this field must filled for the form to be valid.",
-                }),
+                required: intl.formatMessage(errorMessages.required),
               }}
             />
             <Input
@@ -101,11 +98,7 @@ export const UpdateDepartmentForm: React.FunctionComponent<
               })}
               type="text"
               rules={{
-                required: intl.formatMessage({
-                  defaultMessage: "This field is required.",
-                  description:
-                    "Error message that this field must filled for the form to be valid.",
-                }),
+                required: intl.formatMessage(errorMessages.required),
               }}
             />
             <Input
@@ -118,11 +111,7 @@ export const UpdateDepartmentForm: React.FunctionComponent<
               })}
               type="text"
               rules={{
-                required: intl.formatMessage({
-                  defaultMessage: "This field is required.",
-                  description:
-                    "Error message that this field must filled for the form to be valid.",
-                }),
+                required: intl.formatMessage(errorMessages.required),
               }}
             />
             <Submit />
@@ -155,20 +144,14 @@ export const UpdateDepartment: React.FunctionComponent<{
   if (fetching)
     return (
       <DashboardContentContainer>
-        <p>{intl.formatMessage( {
-    defaultMessage: "Loading...",
-    description: "Title displayed for a table initial loading state.",
-  })}</p>
+        <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>
       </DashboardContentContainer>
     );
   if (error)
     return (
       <DashboardContentContainer>
         <p>
-          {intl.formatMessage({
-    defaultMessage: "Oh no...",
-    description: "Title displayed for a table error loading state.",
-  })} {error.message}
+          {intl.formatMessage(commonMessages.loadingError)} {error.message}
         </p>
       </DashboardContentContainer>
     );

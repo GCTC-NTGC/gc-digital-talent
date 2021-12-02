@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import { Select, Submit, Input } from "@common/components/form";
 import { navigate } from "@common/helpers/router";
 import { enumToOptions } from "@common/helpers/formUtils";
+import { errorMessages, commonMessages } from "@common/messages";
 import { getLanguage } from "@common/constants/localizedConstants";
 import { userTablePath } from "../../adminRoutes";
 import {
@@ -87,11 +88,7 @@ export const UpdateUserForm: React.FunctionComponent<UpdateUserFormProps> = ({
               type="text"
               name="firstName"
               rules={{
-                required: intl.formatMessage({
-                  defaultMessage: "This field is required.",
-                  description:
-                    "Error message that this field must filled for the form to be valid.",
-                }),
+                required: intl.formatMessage(errorMessages.required),
               }}
             />
             <Input
@@ -104,11 +101,7 @@ export const UpdateUserForm: React.FunctionComponent<UpdateUserFormProps> = ({
               type="text"
               name="lastName"
               rules={{
-                required: intl.formatMessage({
-                  defaultMessage: "This field is required.",
-                  description:
-                    "Error message that this field must filled for the form to be valid.",
-                }),
+                required: intl.formatMessage(errorMessages.required),
               }}
             />
             <Input
@@ -121,19 +114,10 @@ export const UpdateUserForm: React.FunctionComponent<UpdateUserFormProps> = ({
               type="tel"
               name="telephone"
               rules={{
-                required: intl.formatMessage({
-                  defaultMessage: "This field is required.",
-                  description:
-                    "Error message that this field must filled for the form to be valid.",
-                }),
+                required: intl.formatMessage(errorMessages.required),
                 pattern: {
                   value: /^\+[1-9]\d{1,14}$/,
-                  message: intl.formatMessage({
-                    defaultMessage:
-                      "This field must follow the pattern +123243234.",
-                    description:
-                      "Error message that the field must contain a phone number validated by the specified pattern.",
-                  }),
+                  message: intl.formatMessage(errorMessages.telephone),
                 },
               }}
             />
@@ -151,11 +135,7 @@ export const UpdateUserForm: React.FunctionComponent<UpdateUserFormProps> = ({
                   "Placeholder displayed on the user form preferred language field.",
               })}
               rules={{
-                required: intl.formatMessage({
-                  defaultMessage: "This field is required.",
-                  description:
-                    "Error message that this field must filled for the form to be valid.",
-                }),
+                required: intl.formatMessage(errorMessages.required),
               }}
               options={enumToOptions(Language).map(({ value }) => ({
                 value,
@@ -196,22 +176,14 @@ export const UpdateUser: React.FunctionComponent<{ userId: string }> = ({
   if (fetching)
     return (
       <DashboardContentContainer>
-        <p>
-          {intl.formatMessage({
-            defaultMessage: "Loading...",
-            description: "Title displayed for a table initial loading state.",
-          })}
-        </p>
+        <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>
       </DashboardContentContainer>
     );
   if (error)
     return (
       <DashboardContentContainer>
         <p>
-          {intl.formatMessage({
-            defaultMessage: "Oh no...",
-            description: "Title displayed for a table error loading state.",
-          })}
+          {intl.formatMessage(commonMessages.loadingError)}
           {error.message}
         </p>
       </DashboardContentContainer>

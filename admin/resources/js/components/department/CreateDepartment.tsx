@@ -4,6 +4,7 @@ import { useIntl } from "react-intl";
 import { toast } from "react-toastify";
 import { navigate } from "@common/helpers/router";
 import { Input, Submit } from "@common/components/form";
+import { errorMessages } from "@common/messages";
 import { departmentTablePath } from "../../adminRoutes";
 import {
   CreateDepartmentInput,
@@ -74,11 +75,7 @@ export const CreateDepartmentForm: React.FunctionComponent<
               })}
               type="number"
               rules={{
-                required: intl.formatMessage({
-                  defaultMessage: "This field is required.",
-                  description:
-                    "Error message that this field must filled for the form to be valid.",
-                }),
+                required: intl.formatMessage(errorMessages.required),
               }}
             />
             <Input
@@ -91,11 +88,7 @@ export const CreateDepartmentForm: React.FunctionComponent<
               })}
               type="text"
               rules={{
-                required: intl.formatMessage({
-                  defaultMessage: "This field is required.",
-                  description:
-                    "Error message that this field must filled for the form to be valid.",
-                }),
+                required: intl.formatMessage(errorMessages.required),
               }}
             />
             <Input
@@ -108,11 +101,7 @@ export const CreateDepartmentForm: React.FunctionComponent<
               })}
               type="text"
               rules={{
-                required: intl.formatMessage({
-                  defaultMessage: "This field is required.",
-                  description:
-                    "Error message that this field must filled for the form to be valid.",
-                }),
+                required: intl.formatMessage(errorMessages.required),
               }}
             />
             <Submit />
