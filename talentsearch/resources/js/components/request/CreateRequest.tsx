@@ -58,7 +58,9 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
   const location = useLocation();
   const { handleSubmit } = methods;
 
-  const { initialValues } = location.state.some;
+  const initialValues = location.state
+    ? location.state.some.initialValues
+    : null;
 
   const formValuesToSubmitData = (
     values: FormValues,
