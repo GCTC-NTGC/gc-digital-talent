@@ -8,6 +8,7 @@ import {
   RouterResult,
   useLocation,
   useRouter,
+  ScrollToTop,
 } from "@common/helpers/router";
 import Footer from "./Footer";
 import Header from "./Header";
@@ -72,23 +73,27 @@ export const PageContainer: React.FC<{
   contentRoutes: Routes<RouterResult>;
 }> = ({ menuItems, contentRoutes }) => {
   const content = useRouter(contentRoutes, <TalentSearchNotFound />);
+  const tracker: HTMLElement | null = document.getElementById("app");
+  const trackerOffsetTop: number = tracker ? tracker.offsetTop : 0;
 
   return (
-    <div
-      className="container"
-      data-h2-display="b(flex)"
-      data-h2-flex-direction="b(column)"
-      style={{ height: "100vh", margin: "0" }}
-    >
-      <div>
-        <Header />
-        <NavMenu items={menuItems} />
+    <ScrollToTop offsetTop={trackerOffsetTop} scrollBehaviorAuto>
+      <div
+        className="container"
+        data-h2-display="b(flex)"
+        data-h2-flex-direction="b(column)"
+        style={{ height: "100vh", margin: "0" }}
+      >
+        <div>
+          <Header />
+          <NavMenu items={menuItems} />
+        </div>
+        <div>{content}</div>
+        <div style={{ marginTop: "auto" }}>
+          <Footer />
+        </div>
       </div>
-      <div>{content}</div>
-      <div style={{ marginTop: "auto" }}>
-        <Footer />
-      </div>
-    </div>
+    </ScrollToTop>
   );
 };
 
