@@ -1,5 +1,5 @@
 import React, { ReactElement } from "react";
-import { defineMessages, useIntl } from "react-intl";
+import { useIntl } from "react-intl";
 import { useLocation, useRouter, RouterResult } from "@common/helpers/router";
 import { getLocale } from "@common/helpers/localize";
 import { Routes } from "universal-router";
@@ -14,13 +14,6 @@ import Header from "../Header";
 export const exactMatch = (ref: string, test: string): boolean => ref === test;
 export const startsWith = (ref: string, test: string): boolean =>
   test.startsWith(ref);
-
-const messages = defineMessages({
-  menuPoolCandidates: {
-    defaultMessage: "Pool Candidates",
-    description: "Label displayed on the Pool Candidates menu item.",
-  },
-});
 
 export const MenuHeading: React.FC<{ text: string }> = ({ text }) => {
   return (
@@ -87,7 +80,10 @@ const PoolListApi = () => {
     items.push(
       <MenuHeading
         key="pool-candidates"
-        text={intl.formatMessage(messages.menuPoolCandidates)}
+        text={intl.formatMessage({
+          defaultMessage: "Pool Candidates",
+          description: "Label displayed on the Pool Candidates menu item.",
+        })}
       />,
     );
     data?.pools.map((pool) =>

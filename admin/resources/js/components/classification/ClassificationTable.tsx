@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import { defineMessages, useIntl } from "react-intl";
+import { useIntl } from "react-intl";
 import { useLocation } from "@common/helpers/router";
 import { notEmpty } from "@common/helpers/util";
 import { commonMessages } from "@common/messages";
@@ -12,39 +12,6 @@ import DashboardContentContainer from "../DashboardContentContainer";
 import Table, { ColumnsOf } from "../Table";
 import { tableEditButtonAccessor } from "../TableEditButton";
 
-const messages = defineMessages({
-  columnIdTitle: {
-    defaultMessage: "ID",
-    description: "Title displayed on the Classification table ID column.",
-  },
-  columnNameTitle: {
-    defaultMessage: "Name",
-    description: "Title displayed for the Classification table Name column.",
-  },
-  columnGroupTitle: {
-    defaultMessage: "Group",
-    description: "Title displayed for the Classification table Group column.",
-  },
-  columnLevelTitle: {
-    defaultMessage: "Level",
-    description: "Title displayed for the Classification table Level column.",
-  },
-  columnMinimumSalaryTitle: {
-    defaultMessage: "Minimum Salary",
-    description:
-      "Title displayed for the Classification table Minimum Salary column.",
-  },
-  columnMaximumSalaryTitle: {
-    defaultMessage: "Maximum Salary",
-    description:
-      "Title displayed for the Classification table Maximum Salary column.",
-  },
-  columnEditTitle: {
-    defaultMessage: "Edit",
-    description: "Title displayed for the Classification table Edit column.",
-  },
-});
-
 type Data = NonNullable<FromArray<GetClassificationsQuery["classifications"]>>;
 
 export const ClassificationTable: React.FC<
@@ -54,31 +21,58 @@ export const ClassificationTable: React.FC<
   const columns = useMemo<ColumnsOf<Data>>(
     () => [
       {
-        Header: intl.formatMessage(messages.columnIdTitle),
+        Header: intl.formatMessage({
+          defaultMessage: "ID",
+          description: "Title displayed on the Classification table ID column.",
+        }),
         accessor: "id",
       },
       {
-        Header: intl.formatMessage(messages.columnNameTitle),
+        Header: intl.formatMessage({
+          defaultMessage: "Name",
+          description:
+            "Title displayed for the Classification table Name column.",
+        }),
         accessor: (d) => d.name?.en,
       },
       {
-        Header: intl.formatMessage(messages.columnGroupTitle),
+        Header: intl.formatMessage({
+          defaultMessage: "Group",
+          description:
+            "Title displayed for the Classification table Group column.",
+        }),
         accessor: "group",
       },
       {
-        Header: intl.formatMessage(messages.columnLevelTitle),
+        Header: intl.formatMessage({
+          defaultMessage: "Level",
+          description:
+            "Title displayed for the Classification table Level column.",
+        }),
         accessor: "level",
       },
       {
-        Header: intl.formatMessage(messages.columnMinimumSalaryTitle),
+        Header: intl.formatMessage({
+          defaultMessage: "Minimum Salary",
+          description:
+            "Title displayed for the Classification table Minimum Salary column.",
+        }),
         accessor: "minSalary",
       },
       {
-        Header: intl.formatMessage(messages.columnMaximumSalaryTitle),
+        Header: intl.formatMessage({
+          defaultMessage: "Maximum Salary",
+          description:
+            "Title displayed for the Classification table Maximum Salary column.",
+        }),
         accessor: "maxSalary",
       },
       {
-        Header: intl.formatMessage(messages.columnEditTitle),
+        Header: intl.formatMessage({
+          defaultMessage: "Edit",
+          description:
+            "Title displayed for the Classification table Edit column.",
+        }),
         accessor: (d) => tableEditButtonAccessor(d.id, editUrlRoot), // callback extracted to separate function to stabilize memoized component
       },
     ],

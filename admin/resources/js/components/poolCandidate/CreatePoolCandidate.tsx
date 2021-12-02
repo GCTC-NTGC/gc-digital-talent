@@ -43,8 +43,6 @@ import {
   useGetCreatePoolCandidateDataQuery,
   Language,
 } from "../../api/generated";
-import poolCandidateMessages from "./messages";
-import userMessages from "../user/messages";
 import DashboardContentContainer from "../DashboardContentContainer";
 
 type Option<V> = { value: V; label: string };
@@ -95,10 +93,16 @@ const UserFormSection: React.FunctionComponent<{
       >
         <Select
           id="user"
-          label={intl.formatMessage(poolCandidateMessages.userLabel)}
-          nullSelection={intl.formatMessage(
-            poolCandidateMessages.userPlaceholder,
-          )}
+          label={intl.formatMessage({
+            defaultMessage: "User:",
+            description:
+              "Label displayed on the pool candidate form user field.",
+          })}
+          nullSelection={intl.formatMessage({
+            defaultMessage: "Select a user...",
+            description:
+              "Placeholder displayed on the pool candidate form user field.",
+          })}
           name="user"
           options={userOptions}
           rules={{
@@ -116,7 +120,10 @@ const UserFormSection: React.FunctionComponent<{
       >
         <Input
           id="email"
-          label={intl.formatMessage(userMessages.emailLabel)}
+          label={intl.formatMessage({
+            defaultMessage: "Email:",
+            description: "Label displayed on the user form email field.",
+          })}
           type="text"
           name="email"
           rules={{
@@ -128,7 +135,10 @@ const UserFormSection: React.FunctionComponent<{
         />
         <Input
           id="firstName"
-          label={intl.formatMessage(userMessages.firstNameLabel)}
+          label={intl.formatMessage({
+            defaultMessage: "First Name:",
+            description: "Label displayed on the user form first name field.",
+          })}
           type="text"
           name="firstName"
           rules={{
@@ -140,7 +150,10 @@ const UserFormSection: React.FunctionComponent<{
         />
         <Input
           id="lastName"
-          label={intl.formatMessage(userMessages.lastNameLabel)}
+          label={intl.formatMessage({
+            defaultMessage: "Last Name:",
+            description: "Label displayed on the user form last name field.",
+          })}
           type="text"
           name="lastName"
           rules={{
@@ -152,7 +165,10 @@ const UserFormSection: React.FunctionComponent<{
         />
         <Input
           id="telephone"
-          label={intl.formatMessage(userMessages.telephoneLabel)}
+          label={intl.formatMessage({
+            defaultMessage: "Telephone:",
+            description: "Label displayed on the user form telephone field.",
+          })}
           type="tel"
           name="telephone"
           rules={{
@@ -168,11 +184,17 @@ const UserFormSection: React.FunctionComponent<{
         />
         <Select
           id="preferredLang"
-          label={intl.formatMessage(userMessages.preferredLanguageLabel)}
+          label={intl.formatMessage({
+            defaultMessage: "Preferred Language:",
+            description:
+              "Label displayed on the user form preferred language field.",
+          })}
           name="preferredLang"
-          nullSelection={intl.formatMessage(
-            userMessages.preferredLanguagePlaceholder,
-          )}
+          nullSelection={intl.formatMessage({
+            defaultMessage: "Select a language...",
+            description:
+              "Placeholder displayed on the user form preferred language field.",
+          })}
           rules={{
             required:
               userMode === "new"
@@ -270,10 +292,22 @@ export const CreatePoolCandidateForm: React.FunctionComponent<
     await handleCreatePoolCandidate(formValuesToSubmitData(data))
       .then(() => {
         navigate(poolCandidateTablePath(poolId || data.pool));
-        toast.success(intl.formatMessage(poolCandidateMessages.createSuccess));
+        toast.success(
+          intl.formatMessage({
+            defaultMessage: "Pool Candidate created successfully!",
+            description:
+              "Message displayed to user after pool candidate is created successfully.",
+          }),
+        );
       })
       .catch(() => {
-        toast.error(intl.formatMessage(poolCandidateMessages.createError));
+        toast.error(
+          intl.formatMessage({
+            defaultMessage: "Error: creating pool candidate failed",
+            description:
+              "Message displayed to pool candidate after pool candidate fails to get created.",
+          }),
+        );
       });
   };
 
@@ -310,7 +344,10 @@ export const CreatePoolCandidateForm: React.FunctionComponent<
   return (
     <section>
       <h2 data-h2-text-align="b(center)" data-h2-margin="b(top, none)">
-        {intl.formatMessage(poolCandidateMessages.createHeading)}
+        {intl.formatMessage({
+          defaultMessage: "Create Pool Candidate",
+          description: "Title displayed on the create a user form.",
+        })}
       </h2>
       <div data-h2-container="b(center, s)">
         <FormProvider {...methods}>
@@ -343,7 +380,9 @@ export const CreatePoolCandidateForm: React.FunctionComponent<
                   }),
                 },
               ]}
-              rules={{ required: intl.formatMessage(errorMessages.required) }}
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
             />
             <UserFormSection control={control} userOptions={userOptions} />
             <h4>
@@ -354,37 +393,61 @@ export const CreatePoolCandidateForm: React.FunctionComponent<
             </h4>
             <Select
               id="pool"
-              label={intl.formatMessage(poolCandidateMessages.poolLabel)}
-              nullSelection={intl.formatMessage(
-                poolCandidateMessages.poolPlaceholder,
-              )}
+              label={intl.formatMessage({
+                defaultMessage: "Pool:",
+                description:
+                  "Label displayed on the pool candidate form pool field.",
+              })}
+              nullSelection={intl.formatMessage({
+                defaultMessage: "Select a pool...",
+                description:
+                  "Placeholder displayed on the pool candidate form Pool field.",
+              })}
               name="pool"
               options={poolOptions}
               disabled={!!poolId}
-              rules={{ required: intl.formatMessage(errorMessages.required) }}
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
             />
             <Select
               id="user"
-              label={intl.formatMessage(poolCandidateMessages.userLabel)}
-              nullSelection={intl.formatMessage(
-                poolCandidateMessages.userPlaceholder,
-              )}
+              label={intl.formatMessage({
+                defaultMessage: "User:",
+                description:
+                  "Label displayed on the pool candidate form user field.",
+              })}
+              nullSelection={intl.formatMessage({
+                defaultMessage: "Select a user...",
+                description:
+                  "Placeholder displayed on the pool candidate form user field.",
+              })}
               name="user"
               options={userOptions}
-              rules={{ required: intl.formatMessage(errorMessages.required) }}
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
             />
             <Input
               id="cmoIdentifier"
-              label={intl.formatMessage(
-                poolCandidateMessages.cmoIdentifierLabel,
-              )}
+              label={intl.formatMessage({
+                defaultMessage: "CMO Identifier:",
+                description:
+                  "Label displayed on the pool candidate form cmo identifier field.",
+              })}
               type="text"
               name="cmoIdentifier"
-              rules={{ required: intl.formatMessage(errorMessages.required) }}
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
             />
             <Input
               id="expiryDate"
-              label={intl.formatMessage(poolCandidateMessages.expiryDateLabel)}
+              label={intl.formatMessage({
+                defaultMessage: "Expiry Date: ",
+                description:
+                  "Label displayed on the pool candidate form expiry date field.",
+              })}
               type="date"
               name="expiryDate"
               rules={{
@@ -397,116 +460,177 @@ export const CreatePoolCandidateForm: React.FunctionComponent<
             />
             <Checkbox
               id="isWoman"
-              label={intl.formatMessage(poolCandidateMessages.isWomanLabel)}
+              label={intl.formatMessage({
+                defaultMessage: "Woman:",
+                description:
+                  "Label displayed on the pool candidate form is woman field.",
+              })}
               name="isWoman"
             />
             <Checkbox
               id="hasDisability"
-              label={intl.formatMessage(
-                poolCandidateMessages.hasDisabilityLabel,
-              )}
+              label={intl.formatMessage({
+                defaultMessage: "Has Disability:",
+                description:
+                  "Label displayed on the pool candidate form has disability field.",
+              })}
               name="hasDisability"
             />
             <Checkbox
               id="isIndigenous"
-              label={intl.formatMessage(
-                poolCandidateMessages.isIndigenousLabel,
-              )}
+              label={intl.formatMessage({
+                defaultMessage: "Indigenous:",
+                description:
+                  "Placeholder displayed on the pool candidate form is indigenous field.",
+              })}
               name="isIndigenous"
             />
             <Checkbox
               id="isVisibleMinority"
-              label={intl.formatMessage(
-                poolCandidateMessages.isVisibleMinorityLabel,
-              )}
+              label={intl.formatMessage({
+                defaultMessage: "Visible Minority:",
+                description:
+                  "Label displayed on the pool candidate form is visible minority field.",
+              })}
               name="isVisibleMinority"
             />
             <Checkbox
               id="hasDiploma"
-              label={intl.formatMessage(poolCandidateMessages.hasDiplomaLabel)}
+              label={intl.formatMessage({
+                defaultMessage: "Has Diploma:",
+                description:
+                  "Label displayed on the pool candidate form has diploma field.",
+              })}
               name="hasDiploma"
             />
             <Select
               id="languageAbility"
-              label={intl.formatMessage(
-                poolCandidateMessages.languageAbilityLabel,
-              )}
+              label={intl.formatMessage({
+                defaultMessage: "Language Ability:",
+                description:
+                  "Label displayed on the pool candidate form language ability field.",
+              })}
               name="languageAbility"
-              nullSelection={intl.formatMessage(
-                poolCandidateMessages.languageAbilityPlaceholder,
-              )}
+              nullSelection={intl.formatMessage({
+                defaultMessage: "Select a language ability...",
+                description:
+                  "Placeholder displayed on the pool candidate form language ability field.",
+              })}
               options={enumToOptions(LanguageAbility)}
-              rules={{ required: intl.formatMessage(errorMessages.required) }}
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
             />
             <MultiSelect
               id="locationPreferences"
               name="locationPreferences"
-              label={intl.formatMessage(
-                poolCandidateMessages.locationPreferencesLabel,
-              )}
-              placeholder={intl.formatMessage(
-                poolCandidateMessages.locationPreferencesPlaceholder,
-              )}
+              label={intl.formatMessage({
+                defaultMessage: "Location Preferences:",
+                description:
+                  "Label displayed on the pool candidate form location preferences field.",
+              })}
+              placeholder={intl.formatMessage({
+                defaultMessage: "Select one or more location preferences...",
+                description:
+                  "Placeholder displayed on the pool candidate form location preferences field.",
+              })}
               options={enumToOptions(WorkRegion)}
-              rules={{ required: intl.formatMessage(errorMessages.required) }}
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
             />
             <MultiSelect
               id="acceptedOperationalRequirements"
               name="acceptedOperationalRequirements"
-              label={intl.formatMessage(
-                poolCandidateMessages.acceptedOperationalRequirementsLabel,
-              )}
-              placeholder={intl.formatMessage(
-                poolCandidateMessages.acceptedOperationalRequirementsPlaceholder,
-              )}
+              label={intl.formatMessage({
+                defaultMessage: "Operational Requirements:",
+                description:
+                  "Label displayed on the pool candidate form operational requirements field.",
+              })}
+              placeholder={intl.formatMessage({
+                defaultMessage:
+                  "Select one or more operational requirements...",
+                description:
+                  "Placeholder displayed on the pool candidate form operational requirements field.",
+              })}
               options={operationalRequirementOptions}
-              rules={{ required: intl.formatMessage(errorMessages.required) }}
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
             />
             <MultiSelect
               id="expectedSalary"
-              label={intl.formatMessage(
-                poolCandidateMessages.expectedSalaryLabel,
-              )}
+              label={intl.formatMessage({
+                defaultMessage: "Expected Salary:",
+                description:
+                  "Label displayed on the pool candidate form expected salary field.",
+              })}
               name="expectedSalary"
-              placeholder={intl.formatMessage(
-                poolCandidateMessages.expectedSalaryPlaceholder,
-              )}
+              placeholder={intl.formatMessage({
+                defaultMessage: "Select one or more expected salaries...",
+                description:
+                  "Placeholder displayed on the pool candidate form expected salary field.",
+              })}
               options={enumToOptions(SalaryRange).map(({ value }) => ({
                 value,
                 label: getSalaryRange(value),
               }))}
-              rules={{ required: intl.formatMessage(errorMessages.required) }}
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
             />
             <MultiSelect
               id="expectedClassifications"
-              label={intl.formatMessage(
-                poolCandidateMessages.expectedClassificationsLabel,
-              )}
-              placeholder={intl.formatMessage(
-                poolCandidateMessages.expectedClassificationsPlaceholder,
-              )}
+              label={intl.formatMessage({
+                defaultMessage: "Expected Classifications:",
+                description:
+                  "Label displayed on the pool candidate form expected classifications field.",
+              })}
+              placeholder={intl.formatMessage({
+                defaultMessage: "Select one or more classifications...",
+                description:
+                  "Placeholder displayed on the pool candidate form expected classifications field.",
+              })}
               name="expectedClassifications"
               options={classificationOptions}
-              rules={{ required: intl.formatMessage(errorMessages.required) }}
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
             />
             <MultiSelect
               id="cmoAssets"
-              label={intl.formatMessage(poolCandidateMessages.cmoAssetsLabel)}
-              placeholder={intl.formatMessage(
-                poolCandidateMessages.cmoAssetsPlaceholder,
-              )}
+              label={intl.formatMessage({
+                defaultMessage: "CMO Assets:",
+                description:
+                  "Label displayed on the pool candidate form cmo assets field.",
+              })}
+              placeholder={intl.formatMessage({
+                defaultMessage: "Select one or more CMO Assets...",
+                description:
+                  "Placeholder displayed on the pool candidate form cmo assets field.",
+              })}
               name="cmoAssets"
               options={cmoAssetOptions}
-              rules={{ required: intl.formatMessage(errorMessages.required) }}
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
             />
             <Select
               id="status"
-              label={intl.formatMessage(poolCandidateMessages.statusLabel)}
-              nullSelection={intl.formatMessage(
-                poolCandidateMessages.statusPlaceholder,
-              )}
+              label={intl.formatMessage({
+                defaultMessage: "Status:",
+                description:
+                  "Label displayed on the pool candidate form status field.",
+              })}
+              nullSelection={intl.formatMessage({
+                defaultMessage: "Select a status...",
+                description:
+                  "Placeholder displayed on the pool candidate form status field.",
+              })}
               name="status"
-              rules={{ required: intl.formatMessage(errorMessages.required) }}
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
               options={enumToOptions(PoolCandidateStatus)}
             />
             <Submit />
@@ -550,7 +674,8 @@ export const CreatePoolCandidate: React.FunctionComponent<{
     return (
       <DashboardContentContainer>
         <p>
-          {intl.formatMessage(commonMessages.loadingError)} {error.message}
+          {intl.formatMessage(commonMessages.loadingError)}
+          {error.message}
         </p>
       </DashboardContentContainer>
     );

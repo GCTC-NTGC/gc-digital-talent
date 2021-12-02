@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import { defineMessages, useIntl } from "react-intl";
+import { useIntl } from "react-intl";
 import commonMessages from "@common/messages/commonMessages";
 import { useLocation } from "@common/helpers/router";
 import { notEmpty } from "@common/helpers/util";
@@ -8,22 +8,6 @@ import { DepartmentsQuery, useDepartmentsQuery } from "../../api/generated";
 import Table, { ColumnsOf } from "../Table";
 import DashboardContentContainer from "../DashboardContentContainer";
 import { tableEditButtonAccessor } from "../TableEditButton";
-
-const messages = defineMessages({
-  columnDepartmentNumberTitle: {
-    defaultMessage: "Department #",
-    description:
-      "Title displayed for the Department table Department # column.",
-  },
-  columnNameTitle: {
-    defaultMessage: "Name",
-    description: "Title displayed for the Department table Name column.",
-  },
-  columnEditTitle: {
-    defaultMessage: "Edit",
-    description: "Title displayed for the Department table Edit column.",
-  },
-});
 
 type Data = NonNullable<FromArray<DepartmentsQuery["departments"]>>;
 
@@ -34,15 +18,25 @@ export const DepartmentTable: React.FC<
   const columns = useMemo<ColumnsOf<Data>>(
     () => [
       {
-        Header: intl.formatMessage(messages.columnDepartmentNumberTitle),
+        Header: intl.formatMessage({
+          defaultMessage: "Department #",
+          description:
+            "Title displayed for the Department table Department # column.",
+        }),
         accessor: "departmentNumber",
       },
       {
-        Header: intl.formatMessage(messages.columnNameTitle),
+        Header: intl.formatMessage({
+          defaultMessage: "Name",
+          description: "Title displayed for the Department table Name column.",
+        }),
         accessor: (d) => d.name?.en,
       },
       {
-        Header: intl.formatMessage(messages.columnEditTitle),
+        Header: intl.formatMessage({
+          defaultMessage: "Edit",
+          description: "Title displayed for the Department table Edit column.",
+        }),
         accessor: (d) => tableEditButtonAccessor(d.id, editUrlRoot), // callback extracted to separate function to stabilize memoized component
       },
     ],
@@ -70,7 +64,8 @@ export const DepartmentTableApi: React.FunctionComponent = () => {
     return (
       <DashboardContentContainer>
         <p>
-          {intl.formatMessage(commonMessages.loadingError)} {error.message}
+          {intl.formatMessage(commonMessages.loadingError)}
+          {error.message}
         </p>
       </DashboardContentContainer>
     );
