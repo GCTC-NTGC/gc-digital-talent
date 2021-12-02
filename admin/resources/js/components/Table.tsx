@@ -1,20 +1,9 @@
 /* eslint-disable react/jsx-key */
 import React, { ReactElement, useState } from "react";
-import { defineMessages, useIntl } from "react-intl";
+import { useIntl } from "react-intl";
 import { useTable, useGlobalFilter, useSortBy, Column } from "react-table";
 import { Button } from "@common/components";
 import GlobalFilter from "./GlobalFilter";
-
-const messages = defineMessages({
-  toggleTableColumnsLabel: {
-    defaultMessage: "Hide/Show Table Columns",
-    description: "Label displayed on the Table Columns toggle.",
-  },
-  toggleAllTableColumnsLabel: {
-    defaultMessage: "Toggle All",
-    description: "Label displayed on the Table Columns toggle fieldset.",
-  },
-});
 
 export type ColumnsOf<T extends Record<string, unknown>> = Array<Column<T>>;
 
@@ -95,7 +84,10 @@ function Table<T extends Record<string, unknown>>({
                     setShowList((currentState) => !currentState);
                   }}
                 >
-                  {intl.formatMessage(messages.toggleTableColumnsLabel)}
+                  {intl.formatMessage({
+                    defaultMessage: "Hide/Show Table Columns",
+                    description: "Label displayed on the Table Columns toggle.",
+                  })}
                 </Button>
                 {showList ? (
                   <div
@@ -116,9 +108,11 @@ function Table<T extends Record<string, unknown>>({
                             typeof IndeterminateCheckbox
                           >)}
                         />{" "}
-                        {intl.formatMessage(
-                          messages.toggleAllTableColumnsLabel,
-                        )}
+                        {intl.formatMessage({
+                          defaultMessage: "Toggle All",
+                          description:
+                            "Label displayed on the Table Columns toggle fieldset.",
+                        })}
                       </label>
                     </div>
                     {allColumns.map((column) => (

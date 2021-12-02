@@ -79,4 +79,21 @@ query getSearchFormData {
       fr
     }
   }
+  pools {
+    id
+    name {
+      en
+      fr
+    }
+    owner {
+      id
+      firstName
+      lastName
+      email
+    }
+    description {
+      en
+      fr
+    }
+  }
 }

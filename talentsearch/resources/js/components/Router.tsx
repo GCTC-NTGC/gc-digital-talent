@@ -1,7 +1,8 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { Routes } from "universal-router";
-import { RouterResult } from "../helpers/router";
+import { RouterResult } from "@common/helpers/router";
+import Toast from "@common/components/Toast";
 import ClientProvider from "./ClientProvider";
 import ErrorContainer from "./ErrorContainer";
 import PageContainer, { MenuLink } from "./PageContainer";
@@ -65,6 +66,7 @@ export const Router: React.FC = () => {
     <ErrorContainer>
       <ClientProvider>
         <PageContainer menuItems={menuItems} contentRoutes={routes} />
+        <Toast />
       </ClientProvider>
     </ErrorContainer>
   );

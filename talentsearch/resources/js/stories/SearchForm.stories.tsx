@@ -4,15 +4,14 @@ import {
   fakeClassifications,
   fakeCmoAssets,
   fakeOperationalRequirements,
+  fakePools,
 } from "@common/fakeData";
-import {SearchForm} from "../components/search/SearchForm";
+import { SearchForm } from "../components/search/SearchForm";
 import {
   Classification,
   CmoAsset,
-  LanguageAbility,
   OperationalRequirement,
-  PoolCandidateFilter,
-  WorkRegion,
+  Pool,
 } from "../api/generated";
 
 const stories = storiesOf("Search Form", module);
@@ -26,6 +25,7 @@ stories.add("Search Form", () => {
       operationalRequirements={
         fakeOperationalRequirements() as OperationalRequirement[]
       }
+      pools={fakePools() as Pool[]}
     />
   );
 });

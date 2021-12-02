@@ -6,7 +6,6 @@ export NVM_DIR="$HOME/.nvm"
 
 cd /var/www/html/talentsearch
 composer install
-php artisan config:clear
 nvm install --latest-npm
 npm install
 npm rebuild node-sass

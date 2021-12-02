@@ -2,6 +2,7 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { Routes } from "universal-router";
 import { RouterResult } from "@common/helpers/router";
+import Toast from "@common/components/Toast";
 import {
   classificationCreatePath,
   classificationTablePath,
@@ -27,6 +28,7 @@ import {
   homePath,
   homePublicPath,
   searchRequestTablePath,
+  searchRequestUpdatePath,
 } from "../adminRoutes";
 import { CreateClassification } from "./classification/CreateClassification";
 import { UpdateClassification } from "./classification/UpdateClassification";
@@ -49,12 +51,12 @@ import UserPage from "./user/UserPage";
 import PoolPage from "./pool/PoolPage";
 import { CreatePool } from "./pool/CreatePool";
 import { UpdatePool } from "./pool/UpdatePool";
-import Toast from "./Toast";
 import AuthContainer from "./AuthContainer";
 import DepartmentPage from "./department/DepartmentPage";
 import { CreateDepartment } from "./department/CreateDepartment";
 import { UpdateDepartment } from "./department/UpdateDepartment";
 import SearchRequestPage from "./searchRequest/SearchRequestPage";
+import SingleSearchRequestPage from "./searchRequest/SingleSearchRequestPage";
 
 const routes: Routes<RouterResult> = [
   {
@@ -202,6 +204,14 @@ const routes: Routes<RouterResult> = [
     path: searchRequestTablePath(),
     action: () => ({
       component: <SearchRequestPage />,
+    }),
+  },
+  {
+    path: searchRequestUpdatePath(":id"),
+    action: ({ params }) => ({
+      component: (
+        <SingleSearchRequestPage searchRequestId={params.id as string} />
+      ),
     }),
   },
 ];

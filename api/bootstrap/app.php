@@ -120,8 +120,7 @@ $app->register(\Fideloper\Proxy\TrustedProxyServiceProvider::class);
 $app->register(\Laravel\Tinker\TinkerServiceProvider::class);
 
 $app->register(App\Providers\GraphQLServiceProvider::class);
-
-
+$app->register(App\Providers\AuthClientServiceProvider::class);
 
 /*
 |--------------------------------------------------------------------------

@@ -1,3 +1,5 @@
+DirectorySlash off
+
 <IfModule mod_rewrite.c>
     RewriteEngine on
 
@@ -9,12 +11,13 @@
     RewriteRule ^phpinfo.php$ phpinfo.php [L]
     RewriteRule ^graphql-playground api/public/graphql-playground [L]
     RewriteRule ^graphql api/public/graphql [L]
-    RewriteRule ^auth/(.*)$ auth/public/$1 [L]
-    RewriteRule ^oauth/(.*)$ auth/public/$1 [L]
-    RewriteRule ^admin/(.*)$ admin/public/$1 [L]
-    RewriteRule ^public/(.*)$ talentsearch/public/$1 [L]
-    RewriteRule ^_debugbar/(.*)$ admin/public/_debugbar/$1 [L]
-    RewriteRule ^(.*)$ talentsearch/public/$1 [L]
+    RewriteRule ^auth(/(.*))?$ auth/public/$2 [L]
+    RewriteRule ^oauth(/(.*))?$ auth/public/$2 [L]
+    RewriteRule ^admin(/(.*))?$ admin/public/$2 [L]
+    RewriteRule ^talentsearch(/(.*))?$ talentsearch/public/$2 [L]
+
+    #RewriteRule ^public/(.*)$ talentsearch/public/$1 [L]
+    #RewriteRule ^(.*)$ talentsearch/public/$1 [L]
 </IfModule>
 
 #<IfModule mod_headers.c>

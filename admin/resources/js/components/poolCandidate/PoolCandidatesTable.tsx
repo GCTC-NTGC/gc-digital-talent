@@ -1,8 +1,7 @@
 import React, { useMemo } from "react";
-import { defineMessages, useIntl } from "react-intl";
-import { Button } from "@common/components";
+import { useIntl } from "react-intl";
 import { notEmpty } from "@common/helpers/util";
-import { navigate, useLocation } from "@common/helpers/router";
+import { useLocation } from "@common/helpers/router";
 import { commonMessages } from "@common/messages";
 import { FromArray } from "@common/types/utilityTypes";
 import {
@@ -10,78 +9,9 @@ import {
   useGetPoolCandidatesByPoolQuery,
 } from "../../api/generated";
 import Table, { ColumnsOf } from "../Table";
-import TableBoolean from "../TableBoolean";
+import { tableBooleanAccessor } from "../TableBoolean";
 import DashboardContentContainer from "../DashboardContentContainer";
-
-const messages = defineMessages({
-  columnIdTitle: {
-    defaultMessage: "ID",
-    description: "Title displayed on the Pool Candidates table ID column.",
-  },
-  columnPoolTitle: {
-    defaultMessage: "Pool",
-    description: "Title displayed for the Pool Candidates table Pool column.",
-  },
-  columnUserTitle: {
-    defaultMessage: "User",
-    description: "Title displayed for the Pool Candidates table User column.",
-  },
-  columnExpiryTitle: {
-    defaultMessage: "Expiry",
-    description: "Title displayed for the Pool Candidates table Expiry column.",
-  },
-  columnWomanTitle: {
-    defaultMessage: "Woman",
-    description: "Title displayed for the Pool Candidates table Woman column.",
-  },
-  columnDisabilityTitle: {
-    defaultMessage: "Disability",
-    description:
-      "Title displayed for the Pool Candidates table Disability column.",
-  },
-  columnIndigenousTitle: {
-    defaultMessage: "Indigenous",
-    description:
-      "Title displayed for the Pool Candidates table Indigenous column.",
-  },
-  columnVisibleMinorityTitle: {
-    defaultMessage: "Visible Minority",
-    description:
-      "Title displayed for the Pool Candidates table Visible Minority column.",
-  },
-  columnDiplomaTitle: {
-    defaultMessage: "Diploma",
-    description:
-      "Title displayed for the Pool Candidates table Diploma column.",
-  },
-  columnLanguageTitle: {
-    defaultMessage: "Language",
-    description:
-      "Title displayed for the Pool Candidates table Language column.",
-  },
-  nameTitle: {
-    defaultMessage: "Name",
-    description: "Title displayed on the Pool Candidates table name column.",
-  },
-  emailTitle: {
-    defaultMessage: "Email",
-    description: "Title displayed on the Pool Candidates table email column.",
-  },
-  telephoneTitle: {
-    defaultMessage: "Telephone",
-    description:
-      "Title displayed on the Pool Candidates table telephone column.",
-  },
-  preferredLangTitle: {
-    defaultMessage: "Preferred Lang",
-    description:
-      "Title displayed on the Pool Candidates table Preferred Lang column.",
-  },
-  columnEditTitle: {
-    defaultMessage: "Edit",
-    description: "Title displayed for the Pool Candidates table Edit column.",
-  },
-});
+import { tableEditButtonAccessor } from "../TableEditButton";
 
 type Data = NonNullable<FromArray<GetPoolCandidatesQuery["poolCandidates"]>>;
 
@@ -92,75 +22,116 @@ const PoolCandidatesTable: React.FC<
   const columns = useMemo<ColumnsOf<Data>>(
     () => [
       {
-        Header: intl.formatMessage(messages.columnIdTitle),
+        Header: intl.formatMessage({
+          defaultMessage: "ID",
+          description:
+            "Title displayed on the Pool Candidates table ID column.",
+        }),
         accessor: "cmoIdentifier",
       },
       {
-        Header: intl.formatMessage(messages.columnPoolTitle),
+        Header: intl.formatMessage({
+          defaultMessage: "Pool",
+          description:
+            "Title displayed for the Pool Candidates table Pool column.",
+        }),
         accessor: (d) => d.pool?.name?.en,
       },
       {
-        Header: intl.formatMessage(messages.columnUserTitle),
+        Header: intl.formatMessage({
+          defaultMessage: "User",
+          description:
+            "Title displayed for the Pool Candidates table User column.",
+        }),
         accessor: (d) => d.user?.email,
       },
       {
-        Header: intl.formatMessage(messages.columnExpiryTitle),
+        Header: intl.formatMessage({
+          defaultMessage: "Expiry",
+          description:
+            "Title displayed for the Pool Candidates table Expiry column.",
+        }),
         accessor: "expiryDate",
       },
       {
-        Header: intl.formatMessage(messages.columnWomanTitle),
-        accessor: ({ isWoman }) => <TableBoolean checked={isWoman} />,
+        Header: intl.formatMessage({
+          defaultMessage: "Woman",
+          description:
+            "Title displayed for the Pool Candidates table Woman column.",
+        }),
+        accessor: (d) => tableBooleanAccessor(d.isWoman), // callback extracted to separate function to stabilize memoized component
       },
       {
-        Header: intl.formatMessage(messages.columnDisabilityTitle),
-        accessor: ({ hasDisability }) => (
-          <TableBoolean checked={hasDisability} />
-        ),
+        Header: intl.formatMessage({
+          defaultMessage: "Disability",
+          description:
+            "Title displayed for the Pool Candidates table Disability column.",
+        }),
+        accessor: (d) => tableBooleanAccessor(d.hasDisability), // callback extracted to separate function to stabilize memoized component
       },
       {
-        Header: intl.formatMessage(messages.columnIndigenousTitle),
-        accessor: ({ isIndigenous }) => <TableBoolean checked={isIndigenous} />,
+        Header: intl.formatMessage({
+          defaultMessage: "Indigenous",
+          description:
+            "Title displayed for the Pool Candidates table Indigenous column.",
+        }),
+        accessor: (d) => tableBooleanAccessor(d.isIndigenous), // callback extracted to separate function to stabilize memoized component
       },
       {
-        Header: intl.formatMessage(messages.columnVisibleMinorityTitle),
-        accessor: ({ isVisibleMinority }) => (
-          <TableBoolean checked={isVisibleMinority} />
-        ),
+        Header: intl.formatMessage({
+          defaultMessage: "Visible Minority",
+          description:
+            "Title displayed for the Pool Candidates table Visible Minority column.",
+        }),
+        accessor: (d) => tableBooleanAccessor(d.isVisibleMinority), // callback extracted to separate function to stabilize memoized component
       },
       {
-        Header: intl.formatMessage(messages.columnDiplomaTitle),
-        accessor: ({ hasDiploma }) => <TableBoolean checked={hasDiploma} />,
+        Header: intl.formatMessage({
+          defaultMessage: "Diploma",
+          description:
+            "Title displayed for the Pool Candidates table Diploma column.",
+        }),
+        accessor: (d) => tableBooleanAccessor(d.hasDiploma), // callback extracted to separate function to stabilize memoized component
       },
       {
-        Header: intl.formatMessage(messages.columnLanguageTitle),
+        Header: intl.formatMessage({
+          defaultMessage: "Language",
+          description:
+            "Title displayed for the Pool Candidates table Language column.",
+        }),
         accessor: "languageAbility",
       },
       {
-        Header: intl.formatMessage(messages.nameTitle),
+        Header: intl.formatMessage({
+          defaultMessage: "Name",
+          description:
+            "Title displayed on the Pool Candidates table name column.",
+        }),
         accessor: ({ user }) => `${user?.firstName} ${user?.lastName}`,
       },
       {
-        Header: intl.formatMessage(messages.telephoneTitle),
+        Header: intl.formatMessage({
+          defaultMessage: "Telephone",
+          description:
+            "Title displayed on the Pool Candidates table telephone column.",
+        }),
         accessor: ({ user }) => user?.telephone,
       },
       {
-        Header: intl.formatMessage(messages.preferredLangTitle),
+        Header: intl.formatMessage({
+          defaultMessage: "Preferred Lang",
+          description:
+            "Title displayed on the Pool Candidates table Preferred Lang column.",
+        }),
         accessor: ({ user }) => user?.preferredLang,
       },
       {
-        Header: intl.formatMessage(messages.columnEditTitle),
-        accessor: ({ id }) => (
-          <Button
-            color="primary"
-            mode="inline"
-            onClick={(event) => {
-              event.preventDefault();
-              navigate(`${editUrlRoot}/${id}/edit`);
-            }}
-          >
-            {intl.formatMessage(messages.columnEditTitle)}
-          </Button>
-        ),
+        Header: intl.formatMessage({
+          defaultMessage: "Edit",
+          description:
+            "Title displayed for the Pool Candidates table Edit column.",
+        }),
+        accessor: (d) => tableEditButtonAccessor(d.id, editUrlRoot), // callback extracted to separate function to stabilize memoized component
       },
     ],
     [intl, editUrlRoot],
@@ -171,11 +142,7 @@ const PoolCandidatesTable: React.FC<
     [poolCandidates],
   );
 
-  return (
-    <>
-      <Table data={memoizedData} columns={columns} />
-    </>
-  );
+  return <Table data={memoizedData} columns={columns} />;
 };
 
 export default PoolCandidatesTable;
@@ -200,7 +167,8 @@ export const PoolCandidatesTableApi: React.FC<{ poolId: string }> = ({
     return (
       <DashboardContentContainer>
         <p>
-          {intl.formatMessage(commonMessages.loadingError)} {error.message}
+          {intl.formatMessage(commonMessages.loadingError)}
+          {error.message}
         </p>
       </DashboardContentContainer>
     );

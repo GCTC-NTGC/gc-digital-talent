@@ -1,8 +1,6 @@
 import React, { useMemo } from "react";
-import { defineMessages, useIntl } from "react-intl";
-import { Button } from "@common/components";
-
-import { navigate, useLocation } from "@common/helpers/router";
+import { useIntl } from "react-intl";
+import { useLocation } from "@common/helpers/router";
 import { notEmpty } from "@common/helpers/util";
 import { commonMessages } from "@common/messages";
 import { FromArray } from "@common/types/utilityTypes";
@@ -12,34 +10,7 @@ import {
 } from "../../api/generated";
 import DashboardContentContainer from "../DashboardContentContainer";
 import Table, { ColumnsOf } from "../Table";
-
-const messages = defineMessages({
-  columnIdTitle: {
-    defaultMessage: "ID",
-    description:
-      "Title displayed on the Operational Requirement table ID column.",
-  },
-  columnKeyTitle: {
-    defaultMessage: "Key",
-    description:
-      "Title displayed for the Operational Requirement table Key column.",
-  },
-  columnNameTitle: {
-    defaultMessage: "Name",
-    description:
-      "Title displayed for the Operational Requirement table Name column.",
-  },
-  columnDescriptionTitle: {
-    defaultMessage: "Description",
-    description:
-      "Title displayed for the Operational Requirement table Description column.",
-  },
-  columnEditTitle: {
-    defaultMessage: "Edit",
-    description:
-      "Title displayed for the Operational Requirement table Edit column.",
-  },
-});
+import { tableEditButtonAccessor } from "../TableEditButton";
 
 type Data = NonNullable<
   FromArray<GetOperationalRequirementsQuery["operationalRequirements"]>
@@ -52,35 +23,44 @@ export const OperationalRequirementTable: React.FC<
   const columns = useMemo<ColumnsOf<Data>>(
     () => [
       {
-        Header: intl.formatMessage(messages.columnIdTitle),
+        Header: intl.formatMessage({
+          defaultMessage: "ID",
+          description:
+            "Title displayed on the Operational Requirement table ID column.",
+        }),
         accessor: "id",
       },
       {
-        Header: intl.formatMessage(messages.columnKeyTitle),
+        Header: intl.formatMessage({
+          defaultMessage: "Key",
+          description:
+            "Title displayed for the Operational Requirement table Key column.",
+        }),
         accessor: "key",
       },
       {
-        Header: intl.formatMessage(messages.columnNameTitle),
+        Header: intl.formatMessage({
+          defaultMessage: "Name",
+          description:
+            "Title displayed for the Operational Requirement table Name column.",
+        }),
         accessor: (d) => d.name?.en,
       },
       {
-        Header: intl.formatMessage(messages.columnDescriptionTitle),
+        Header: intl.formatMessage({
+          defaultMessage: "Description",
+          description:
+            "Title displayed for the Operational Requirement table Description column.",
+        }),
         accessor: (d) => d.description?.en,
       },
       {
-        Header: intl.formatMessage(messages.columnEditTitle),
-        accessor: ({ id }) => (
-          <Button
-            color="primary"
-            mode="inline"
-            onClick={(event) => {
-              event.preventDefault();
-              navigate(`${editUrlRoot}/${id}/edit`);
-            }}
-          >
-            Edit
-          </Button>
-        ),
+        Header: intl.formatMessage({
+          defaultMessage: "Edit",
+          description:
+            "Title displayed for the Operational Requirement table Edit column.",
+        }),
+        accessor: (d) => tableEditButtonAccessor(d.id, editUrlRoot), // callback extracted to separate function to stabilize memoized component
       },
     ],
     [editUrlRoot, intl],
@@ -91,11 +71,7 @@ export const OperationalRequirementTable: React.FC<
     [operationalRequirements],
   );
 
-  return (
-    <>
-      <Table data={memoizedData} columns={columns} />
-    </>
-  );
+  return <Table data={memoizedData} columns={columns} />;
 };
 
 export const OperationalRequirementTableApi: React.FC = () => {
@@ -114,7 +90,8 @@ export const OperationalRequirementTableApi: React.FC = () => {
     return (
       <DashboardContentContainer>
         <p>
-          {intl.formatMessage(commonMessages.loadingError)} {error.message}
+          {intl.formatMessage(commonMessages.loadingError)}
+          {error.message}
         </p>
       </DashboardContentContainer>
     );

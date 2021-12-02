@@ -16,7 +16,6 @@ import {
   useUpdateUserMutation,
   useUserQuery,
 } from "../../api/generated";
-import messages from "./messages";
 import DashboardContentContainer from "../DashboardContentContainer";
 
 type FormValues = UpdateUserInput;
@@ -37,24 +36,42 @@ export const UpdateUserForm: React.FunctionComponent<UpdateUserFormProps> = ({
     return handleUpdateUser(initialUser.id, data)
       .then(() => {
         navigate(userTablePath());
-        toast.success(intl.formatMessage(messages.updateSuccess));
+        toast.success(
+          intl.formatMessage({
+            defaultMessage: "User updated successfully!",
+            description:
+              "Message displayed to user after user is updated successfully.",
+          }),
+        );
       })
       .catch(() => {
-        toast.error(intl.formatMessage(messages.updateError));
+        toast.error(
+          intl.formatMessage({
+            defaultMessage: "Error: updating user failed",
+            description:
+              "Message displayed to user after user fails to get updated.",
+          }),
+        );
       });
   };
 
   return (
     <section>
       <h2 data-h2-text-align="b(center)" data-h2-margin="b(top, none)">
-        {intl.formatMessage(messages.updateHeading)}
+        {intl.formatMessage({
+          defaultMessage: "Update User",
+          description: "Title displayed on the update a user form.",
+        })}
       </h2>
       <div data-h2-container="b(center, s)">
         <FormProvider {...methods}>
           <form onSubmit={handleSubmit(onSubmit)}>
             <Input
               id="email"
-              label={intl.formatMessage(messages.emailLabel)}
+              label={intl.formatMessage({
+                defaultMessage: "Email:",
+                description: "Label displayed on the user form email field.",
+              })}
               type="text"
               name="email"
               value={initialUser.email}
@@ -63,39 +80,63 @@ export const UpdateUserForm: React.FunctionComponent<UpdateUserFormProps> = ({
             />
             <Input
               id="firstName"
-              label={intl.formatMessage(messages.firstNameLabel)}
+              label={intl.formatMessage({
+                defaultMessage: "First Name:",
+                description:
+                  "Label displayed on the user form first name field.",
+              })}
               type="text"
               name="firstName"
-              rules={{ required: errorMessages.required }}
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
             />
             <Input
               id="lastName"
-              label={intl.formatMessage(messages.lastNameLabel)}
+              label={intl.formatMessage({
+                defaultMessage: "Last Name:",
+                description:
+                  "Label displayed on the user form last name field.",
+              })}
               type="text"
               name="lastName"
-              rules={{ required: errorMessages.required }}
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
             />
             <Input
               id="telephone"
-              label={intl.formatMessage(messages.telephoneLabel)}
+              label={intl.formatMessage({
+                defaultMessage: "Telephone:",
+                description:
+                  "Label displayed on the user form telephone field.",
+              })}
               type="tel"
               name="telephone"
               rules={{
-                required: errorMessages.required,
+                required: intl.formatMessage(errorMessages.required),
                 pattern: {
                   value: /^\+[1-9]\d{1,14}$/,
-                  message: errorMessages.telephone,
+                  message: intl.formatMessage(errorMessages.telephone),
                 },
               }}
             />
             <Select
               id="preferredLang"
-              label={intl.formatMessage(messages.preferredLanguageLabel)}
+              label={intl.formatMessage({
+                defaultMessage: "Preferred Language:",
+                description:
+                  "Label displayed on the user form preferred language field.",
+              })}
               name="preferredLang"
-              nullSelection={intl.formatMessage(
-                messages.preferredLanguagePlaceholder,
-              )}
-              rules={{ required: errorMessages.required }}
+              nullSelection={intl.formatMessage({
+                defaultMessage: "Select a language...",
+                description:
+                  "Placeholder displayed on the user form preferred language field.",
+              })}
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
               options={enumToOptions(Language).map(({ value }) => ({
                 value,
                 label: intl.formatMessage(getLanguage(value)),
@@ -142,7 +183,8 @@ export const UpdateUser: React.FunctionComponent<{ userId: string }> = ({
     return (
       <DashboardContentContainer>
         <p>
-          {intl.formatMessage(commonMessages.loadingError)} {error.message}
+          {intl.formatMessage(commonMessages.loadingError)}
+          {error.message}
         </p>
       </DashboardContentContainer>
     );
@@ -155,7 +197,15 @@ export const UpdateUser: React.FunctionComponent<{ userId: string }> = ({
     </DashboardContentContainer>
   ) : (
     <DashboardContentContainer>
-      <p>{intl.formatMessage(messages.userNotFound, { userId })}</p>
+      <p>
+        {intl.formatMessage(
+          {
+            defaultMessage: "User {userId} not found.",
+            description: "Message displayed for user not found.",
+          },
+          { userId },
+        )}
+      </p>
     </DashboardContentContainer>
   );
 };
