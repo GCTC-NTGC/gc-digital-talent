@@ -157,3 +157,41 @@ export const Link: React.FC<{ href: string; title: string }> = ({
     {children}
   </a>
 );
+
+interface ScrollToTopProps {
+  /** The top position of element relative to the viewport.  */
+  offsetTop?: number;
+  /** Set the scroll behavior to 'auto'. Default = 'smooth' */
+  scrollBehaviorAuto?: boolean;
+  children: React.ReactElement | null;
+}
+
+export const ScrollToTop: React.FC<ScrollToTopProps> = ({
+  offsetTop,
+  scrollBehaviorAuto,
+  children,
+}): React.ReactElement => {
+  const [prevPathname, setPrevPathName] = useState(window.location.pathname);
+  const setScrollBehaviour = (scrollBehavior: string): void => {
+    const body: HTMLElement | null = document.querySelector("html");
+    if (body) {
+      body.style.scrollBehavior = scrollBehavior;
+    }
+  };
+  useEffect(() => {
+    if (prevPathname !== window.location.pathname) {
+      // switch to auto scroll transition
+      if (scrollBehaviorAuto) setScrollBehaviour("auto");
+      if (offsetTop) {
+        window.scrollTo(0, offsetTop);
+      } else {
+        window.scrollTo(0, 0);
+      }
+      // switch back to smooth scroll transition
+      setScrollBehaviour("smooth");
+    }
+    setPrevPathName(window.location.pathname);
+  }, [prevPathname, scrollBehaviorAuto, children, offsetTop]);
+
+  return <div>{children}</div>;
+};
