@@ -72,7 +72,7 @@ export const UpdateUserForm: React.FunctionComponent<UpdateUserFormProps> = ({
                 defaultMessage: "Email:",
                 description: "Label displayed on the user form email field.",
               })}
-              type="text"
+              type="email"
               name="email"
               value={initialUser.email}
               disabled

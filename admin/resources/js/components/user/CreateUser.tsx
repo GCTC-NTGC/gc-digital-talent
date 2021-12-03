@@ -70,7 +70,7 @@ export const CreateUserForm: React.FunctionComponent<CreateUserFormProps> = ({
                 defaultMessage: "Email:",
                 description: "Label displayed on the user form email field.",
               })}
-              type="text"
+              type="email"
               name="email"
               rules={{
                 required: intl.formatMessage(errorMessages.required),
