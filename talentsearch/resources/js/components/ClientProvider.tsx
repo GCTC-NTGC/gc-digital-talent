@@ -1,4 +1,4 @@
-import React, { useContext, useMemo } from "react";
+import React, { useMemo } from "react";
 import {
   Client,
   CombinedError,
@@ -7,7 +7,7 @@ import {
   errorExchange,
   Provider,
 } from "urql";
-import { ErrorContext } from "./ErrorContainer";
+import { toast } from "react-toastify";
 
 const apiUri = process.env.API_URI ?? "http://localhost:8000/graphql";
 
@@ -15,8 +15,6 @@ export const ClientProvider: React.FC<{ client?: Client }> = ({
   client,
   children,
 }) => {
-  const { dispatch } = useContext(ErrorContext);
-
   const internalClient = useMemo(() => {
     return (
       client ??
@@ -25,17 +23,14 @@ export const ClientProvider: React.FC<{ client?: Client }> = ({
         exchanges: [
           errorExchange({
             onError: (error: CombinedError) => {
-              dispatch({
-                type: "push",
-                payload: error.message,
-              });
+              toast.error(error.message);
             },
           }),
           ...defaultExchanges,
         ],
       })
     );
-  }, [client, dispatch]);
+  }, [client]);
 
   return <Provider value={internalClient}>{children}</Provider>;
 };

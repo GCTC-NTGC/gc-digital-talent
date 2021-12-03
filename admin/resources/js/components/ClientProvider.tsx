@@ -1,5 +1,6 @@
 import { authExchange } from "@urql/exchange-auth";
 import React, { useCallback, useContext, useMemo } from "react";
+import { toast } from "react-toastify";
 import {
   Client,
   CombinedError,
@@ -13,7 +14,6 @@ import {
   makeOperation,
 } from "urql";
 import { AuthContext } from "./AuthContainer";
-import { ErrorContext } from "./ErrorContainer";
 
 const apiUri = process.env.API_URI ?? "http://localhost:8000/graphql";
 
@@ -63,8 +63,6 @@ export const ClientProvider: React.FC<{ client?: Client }> = ({
 }) => {
   const { accessToken, refreshToken, logout } = useContext(AuthContext);
 
-  const { dispatch } = useContext(ErrorContext);
-
   const getAuth = useCallback(
     async ({ authState }): Promise<AuthState | null> => {
       if (!authState) {
@@ -89,10 +87,7 @@ export const ClientProvider: React.FC<{ client?: Client }> = ({
         exchanges: [
           errorExchange({
             onError: (error: CombinedError) => {
-              dispatch({
-                type: "push",
-                payload: error.message,
-              });
+              toast.error(error.message);
             },
           }),
           dedupExchange,
@@ -106,7 +101,7 @@ export const ClientProvider: React.FC<{ client?: Client }> = ({
         ],
       })
     );
-  }, [client, dispatch, getAuth]);
+  }, [client, getAuth]);
 
   return <Provider value={internalClient}>{children}</Provider>;
 };
