@@ -26,7 +26,7 @@ export const Submit: React.FunctionComponent<{
       color={color || "primary"}
       mode={mode || "solid"}
       type="submit"
-      disabled={isSubmitting || !isDirty}
+      disabled={isSubmitting}
       {...rest}
     >
       {currentText}
