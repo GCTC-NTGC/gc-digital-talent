@@ -157,7 +157,6 @@ export const Link: React.FC<{ href: string; title: string }> = ({
     {children}
   </a>
 );
-
 interface ScrollToTopProps {
   /** The top position of element relative to the viewport.  */
   offsetTop?: number;
@@ -167,7 +166,7 @@ interface ScrollToTopProps {
 }
 
 export const ScrollToTop: React.FC<ScrollToTopProps> = ({
-  offsetTop,
+  offsetTop = 0,
   scrollBehaviorAuto,
   children,
 }): React.ReactElement => {
@@ -182,11 +181,7 @@ export const ScrollToTop: React.FC<ScrollToTopProps> = ({
     if (prevPathname !== window.location.pathname) {
       // switch to auto scroll transition
       if (scrollBehaviorAuto) setScrollBehaviour("auto");
-      if (offsetTop) {
-        window.scrollTo(0, offsetTop);
-      } else {
-        window.scrollTo(0, 0);
-      }
+      window.scrollTo(0, offsetTop);
       // switch back to smooth scroll transition
       setScrollBehaviour("smooth");
     }
