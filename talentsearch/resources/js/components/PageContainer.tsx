@@ -73,11 +73,8 @@ export const PageContainer: React.FC<{
   contentRoutes: Routes<RouterResult>;
 }> = ({ menuItems, contentRoutes }) => {
   const content = useRouter(contentRoutes, <TalentSearchNotFound />);
-  const tracker: HTMLElement | null = document.getElementById("app");
-  const trackerOffsetTop: number = tracker ? tracker.offsetTop : 0;
-
   return (
-    <ScrollToTop offsetTop={trackerOffsetTop} scrollBehaviorAuto>
+    <ScrollToTop>
       <div
         className="container"
         data-h2-display="b(flex)"
