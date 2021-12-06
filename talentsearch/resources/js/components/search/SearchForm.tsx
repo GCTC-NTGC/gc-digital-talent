@@ -603,7 +603,8 @@ export const SearchFormApi: React.FunctionComponent = () => {
         style={{ minHeight: "20rem" }}
       >
         <p>
-          {intl.formatMessage(commonMessages.loadingError)} {error.message}
+          {intl.formatMessage(commonMessages.loadingError)}
+          {error.message}
         </p>
       </div>
     );

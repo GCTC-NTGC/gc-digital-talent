@@ -2,9 +2,14 @@ import React, { ReactElement } from "react";
 import { Routes } from "universal-router";
 import { useIntl } from "react-intl";
 import NavMenu from "@common/components/NavMenu";
-import { RouterResult, useLocation, useRouter } from "@common/helpers/router";
 import { Link } from "@common/components";
 import NotFound from "@common/components/NotFound";
+import {
+  RouterResult,
+  useLocation,
+  useRouter,
+  ScrollToTop,
+} from "@common/helpers/router";
 import Footer from "./Footer";
 import Header from "./Header";
 
@@ -68,23 +73,24 @@ export const PageContainer: React.FC<{
   contentRoutes: Routes<RouterResult>;
 }> = ({ menuItems, contentRoutes }) => {
   const content = useRouter(contentRoutes, <TalentSearchNotFound />);
-
   return (
-    <div
-      className="container"
-      data-h2-display="b(flex)"
-      data-h2-flex-direction="b(column)"
-      style={{ height: "100vh", margin: "0" }}
-    >
-      <div>
-        <Header />
-        <NavMenu items={menuItems} />
+    <ScrollToTop>
+      <div
+        className="container"
+        data-h2-display="b(flex)"
+        data-h2-flex-direction="b(column)"
+        style={{ height: "100vh", margin: "0" }}
+      >
+        <div>
+          <Header />
+          <NavMenu items={menuItems} />
+        </div>
+        <div>{content}</div>
+        <div style={{ marginTop: "auto" }}>
+          <Footer />
+        </div>
       </div>
-      <div>{content}</div>
-      <div style={{ marginTop: "auto" }}>
-        <Footer />
-      </div>
-    </div>
+    </ScrollToTop>
   );
 };
 

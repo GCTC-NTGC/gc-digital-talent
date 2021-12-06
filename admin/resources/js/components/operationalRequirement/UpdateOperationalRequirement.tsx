@@ -14,7 +14,6 @@ import {
   useUpdateOperationalRequirementMutation,
 } from "../../api/generated";
 import DashboardContentContainer from "../DashboardContentContainer";
-import messages from "./messages";
 
 type FormValues = UpdateOperationalRequirementInput;
 interface UpdateOperationalRequirementFormProps {
@@ -25,68 +24,109 @@ interface UpdateOperationalRequirementFormProps {
   ) => Promise<FormValues>;
 }
 
-export const UpdateOperationalRequirementForm: React.FunctionComponent<UpdateOperationalRequirementFormProps> =
-  ({ initialOperationalRequirement, handleUpdateOperationalRequirement }) => {
-    const intl = useIntl();
-    const methods = useForm<FormValues>({
-      defaultValues: initialOperationalRequirement,
-    });
-    const { handleSubmit } = methods;
+export const UpdateOperationalRequirementForm: React.FunctionComponent<
+  UpdateOperationalRequirementFormProps
+> = ({ initialOperationalRequirement, handleUpdateOperationalRequirement }) => {
+  const intl = useIntl();
+  const methods = useForm<FormValues>({
+    defaultValues: initialOperationalRequirement,
+  });
+  const { handleSubmit } = methods;
 
-    const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
-      return handleUpdateOperationalRequirement(
-        initialOperationalRequirement.id,
-        data,
-      )
-        .then(() => {
-          navigate(operationalRequirementTablePath());
-          toast.success(intl.formatMessage(messages.updateSuccess));
-        })
-        .catch(() => {
-          toast.error(intl.formatMessage(messages.updateError));
-        });
-    };
-    return (
-      <section>
-        <h2 data-h2-text-align="b(center)" data-h2-margin="b(top, none)">
-          {intl.formatMessage(messages.updateHeading)}
-        </h2>
-        <div data-h2-container="b(center, s)">
-          <FormProvider {...methods}>
-            <form onSubmit={handleSubmit(onSubmit)}>
-              <Input
-                id="name_en"
-                name="name.en"
-                label={intl.formatMessage(messages.nameLabelEn)}
-                type="text"
-                rules={{ required: intl.formatMessage(errorMessages.required) }}
-              />
-              <Input
-                id="name_fr"
-                name="name.fr"
-                label={intl.formatMessage(messages.nameLabelFr)}
-                type="text"
-                rules={{ required: intl.formatMessage(errorMessages.required) }}
-              />
-              <TextArea
-                id="description_en"
-                name="description.en"
-                label={intl.formatMessage(messages.descriptionLabelEn)}
-                rules={{ required: intl.formatMessage(errorMessages.required) }}
-              />
-              <TextArea
-                id="description_fr"
-                name="description.fr"
-                label={intl.formatMessage(messages.descriptionLabelFr)}
-                rules={{ required: intl.formatMessage(errorMessages.required) }}
-              />
-              <Submit />
-            </form>
-          </FormProvider>
-        </div>
-      </section>
-    );
+  const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
+    return handleUpdateOperationalRequirement(
+      initialOperationalRequirement.id,
+      data,
+    )
+      .then(() => {
+        navigate(operationalRequirementTablePath());
+        toast.success(
+          intl.formatMessage({
+            defaultMessage: "Operational Requirement updated successfully!",
+            description:
+              "Message displayed to user after operational requirement is updated successfully.",
+          }),
+        );
+      })
+      .catch(() => {
+        toast.error(
+          intl.formatMessage({
+            defaultMessage: "Error: updating operational requirement failed",
+            description:
+              "Message displayed to user after operational requirement fails to get updated.",
+          }),
+        );
+      });
   };
+  return (
+    <section>
+      <h2 data-h2-text-align="b(center)" data-h2-margin="b(top, none)">
+        {intl.formatMessage({
+          defaultMessage: "Update Operational Requirement",
+          description:
+            "Title displayed on the update a operational requirement form.",
+        })}
+      </h2>
+      <div data-h2-container="b(center, s)">
+        <FormProvider {...methods}>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <Input
+              id="name_en"
+              name="name.en"
+              label={intl.formatMessage({
+                defaultMessage: "Name (English):",
+                description:
+                  "Label displayed on the operational requirement form name (English) field.",
+              })}
+              type="text"
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
+            />
+            <Input
+              id="name_fr"
+              name="name.fr"
+              label={intl.formatMessage({
+                defaultMessage: "Name (French):",
+                description:
+                  "Label displayed on the operational requirement form name (French) field.",
+              })}
+              type="text"
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
+            />
+            <TextArea
+              id="description_en"
+              name="description.en"
+              label={intl.formatMessage({
+                defaultMessage: "Description (English):",
+                description:
+                  "Label displayed on the operational requirement form description (English) field.",
+              })}
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
+            />
+            <TextArea
+              id="description_fr"
+              name="description.fr"
+              label={intl.formatMessage({
+                defaultMessage: "Description (French):",
+                description:
+                  "Label displayed on the operational requirement form description (French) field.",
+              })}
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
+            />
+            <Submit />
+          </form>
+        </FormProvider>
+      </div>
+    </section>
+  );
+};
 
 export const UpdateOperationalRequirement: React.FunctionComponent<{
   operationalRequirementId: string;
@@ -126,7 +166,8 @@ export const UpdateOperationalRequirement: React.FunctionComponent<{
     return (
       <DashboardContentContainer>
         <p>
-          {intl.formatMessage(commonMessages.loadingError)} {error.message}
+          {intl.formatMessage(commonMessages.loadingError)}
+          {error.message}
         </p>
       </DashboardContentContainer>
     );
@@ -142,9 +183,17 @@ export const UpdateOperationalRequirement: React.FunctionComponent<{
   ) : (
     <DashboardContentContainer>
       <p>
-        {intl.formatMessage(messages.operationalRequirementNotFound, {
-          operationalRequirementId,
-        })}
+        {intl.formatMessage(
+          {
+            defaultMessage:
+              "Operational Requirement {operationalRequirementId} not found.",
+            description:
+              "Message displayed for operational requirement not found.",
+          },
+          {
+            operationalRequirementId,
+          },
+        )}
       </p>
     </DashboardContentContainer>
   );

@@ -27,7 +27,6 @@ import {
   User,
   useUpdatePoolMutation,
 } from "../../api/generated";
-import messages from "./messages";
 import DashboardContentContainer from "../DashboardContentContainer";
 
 type Option<V> = { value: V; label: string };
@@ -107,10 +106,22 @@ export const UpdatePoolForm: React.FunctionComponent<UpdatePoolFormProps> = ({
     await handleUpdatePool(initialPool.id, formValuesToSubmitData(data))
       .then(() => {
         navigate(poolTablePath());
-        toast.success(intl.formatMessage(messages.updateSuccess));
+        toast.success(
+          intl.formatMessage({
+            defaultMessage: "Pool updated successfully!",
+            description:
+              "Message displayed to user after pool is updated successfully.",
+          }),
+        );
       })
       .catch(() => {
-        toast.error(intl.formatMessage(messages.updateError));
+        toast.error(
+          intl.formatMessage({
+            defaultMessage: "Error: updating pool failed",
+            description:
+              "Message displayed to pool after pool fails to get updated.",
+          }),
+        );
       });
   };
 
@@ -142,84 +153,153 @@ export const UpdatePoolForm: React.FunctionComponent<UpdatePoolFormProps> = ({
   return (
     <section>
       <h2 data-h2-text-align="b(center)" data-h2-margin="b(top, none)">
-        {intl.formatMessage(messages.updateHeading)}
+        {intl.formatMessage({
+          defaultMessage: "Update Pool",
+          description: "Title displayed on the update a pool form.",
+        })}
       </h2>
       <div data-h2-container="b(center, s)">
         <FormProvider {...methods}>
           <form onSubmit={handleSubmit(onSubmit)}>
             <Select
               id="owner"
-              label={intl.formatMessage(messages.ownerLabel)}
+              label={intl.formatMessage({
+                defaultMessage: "Owner:",
+                description: "Label displayed on the pool form owner field.",
+              })}
               name="owner"
-              nullSelection={intl.formatMessage(messages.ownerPlaceholder)}
+              nullSelection={intl.formatMessage({
+                defaultMessage: "Select an owner...",
+                description:
+                  "Placeholder displayed on the pool form owner field.",
+              })}
               options={userOptions}
-              rules={{ required: intl.formatMessage(errorMessages.required) }}
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
             />
             <Input
               id="name_en"
               name="name.en"
-              label={intl.formatMessage(messages.nameLabelEn)}
+              label={intl.formatMessage({
+                defaultMessage: "Name (English):",
+                description:
+                  "Label displayed on the pool form name (English) field.",
+              })}
               type="text"
-              rules={{ required: intl.formatMessage(errorMessages.required) }}
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
             />
             <Input
               id="name_fr"
               name="name.fr"
-              label={intl.formatMessage(messages.nameLabelFr)}
+              label={intl.formatMessage({
+                defaultMessage: "Name (French):",
+                description:
+                  "Label displayed on the pool form name (French) field.",
+              })}
               type="text"
-              rules={{ required: intl.formatMessage(errorMessages.required) }}
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
             />
             <TextArea
               id="description_en"
               name="description.en"
-              label={intl.formatMessage(messages.descriptionLabelEn)}
-              rules={{ required: intl.formatMessage(errorMessages.required) }}
+              label={intl.formatMessage({
+                defaultMessage: "Description (English):",
+                description:
+                  "Label displayed on the pool form description (English) field.",
+              })}
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
             />
             <TextArea
               id="description_fr"
               name="description.fr"
-              label={intl.formatMessage(messages.descriptionLabelFr)}
-              rules={{ required: intl.formatMessage(errorMessages.required) }}
+              label={intl.formatMessage({
+                defaultMessage: "Description (French):",
+                description:
+                  "Label displayed on the pool form description (French) field.",
+              })}
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
             />
             <MultiSelect
               id="classifications"
-              label={intl.formatMessage(messages.classificationsLabel)}
-              placeholder={intl.formatMessage(
-                messages.classificationsPlaceholder,
-              )}
+              label={intl.formatMessage({
+                defaultMessage: "Classifications:",
+                description:
+                  "Label displayed on the pool form classifications field.",
+              })}
+              placeholder={intl.formatMessage({
+                defaultMessage: "Select one or more classifications...",
+                description:
+                  "Placeholder displayed on the pool form classifications field.",
+              })}
               name="classifications"
               options={classificationOptions}
-              rules={{ required: intl.formatMessage(errorMessages.required) }}
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
             />
             <MultiSelect
               id="assetCriteria"
-              label={intl.formatMessage(messages.assetCriteriaLabel)}
-              placeholder={intl.formatMessage(
-                messages.assetCriteriaPlaceholder,
-              )}
+              label={intl.formatMessage({
+                defaultMessage: "Asset Criteria:",
+                description:
+                  "Label displayed on the pool form asset criteria field.",
+              })}
+              placeholder={intl.formatMessage({
+                defaultMessage: "Select one or more asset...",
+                description:
+                  "Placeholder displayed on the pool form asset criteria field.",
+              })}
               name="assetCriteria"
               options={cmoAssetOptions}
-              rules={{ required: intl.formatMessage(errorMessages.required) }}
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
             />
             <MultiSelect
               id="essentialCriteria"
-              label={intl.formatMessage(messages.essentialCriteriaLabel)}
-              placeholder={intl.formatMessage(
-                messages.essentialCriteriaPlaceholder,
-              )}
+              label={intl.formatMessage({
+                defaultMessage: "Essential Criteria:",
+                description:
+                  "Label displayed on the pool form essential criteria field.",
+              })}
+              placeholder={intl.formatMessage({
+                defaultMessage: "Select one or more essential...",
+                description:
+                  "Placeholder displayed on the pool form essential criteria field.",
+              })}
               name="essentialCriteria"
               options={cmoAssetOptions}
-              rules={{ required: intl.formatMessage(errorMessages.required) }}
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
             />
             <MultiSelect
               id="operationalRequirements"
               name="operationalRequirements"
-              label={intl.formatMessage(messages.operationalRequirementsLabel)}
-              placeholder={intl.formatMessage(
-                messages.operationalRequirementsPlaceholder,
-              )}
+              label={intl.formatMessage({
+                defaultMessage: "Operational Requirements:",
+                description:
+                  "Label displayed on the pool form operational requirements field.",
+              })}
+              placeholder={intl.formatMessage({
+                defaultMessage:
+                  "Select one or more operational requirements...",
+                description:
+                  "Placeholder displayed on the pool form operational requirements field.",
+              })}
               options={operationalRequirementOptions}
-              rules={{ required: intl.formatMessage(errorMessages.required) }}
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
             />
             <Submit />
           </form>
@@ -277,7 +357,8 @@ export const UpdatePool: React.FunctionComponent<{
     return (
       <DashboardContentContainer>
         <p>
-          {intl.formatMessage(commonMessages.loadingError)} {error.message}
+          {intl.formatMessage(commonMessages.loadingError)}
+          {error.message}
         </p>
       </DashboardContentContainer>
     );
@@ -295,7 +376,15 @@ export const UpdatePool: React.FunctionComponent<{
     </DashboardContentContainer>
   ) : (
     <DashboardContentContainer>
-      <p>{intl.formatMessage(messages.notFound, { poolId })}</p>
+      <p>
+        {intl.formatMessage(
+          {
+            defaultMessage: "Pool {poolId} not found.",
+            description: "Message displayed for pool not found.",
+          },
+          { poolId },
+        )}
+      </p>
     </DashboardContentContainer>
   );
 };
