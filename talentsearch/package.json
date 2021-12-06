@@ -54,7 +54,7 @@
     "@storybook/addon-links": "^6.4.0",
     "@storybook/builder-webpack5": "^6.4.0",
     "@storybook/manager-webpack5": "^6.4.0",
-    "@storybook/react": "^6.4.7",
+    "@storybook/react": "^6.4.8",
     "@types/lodash": "^4.14.177",
     "@types/react-table": "^7.7.8",
     "@typescript-eslint/eslint-plugin": "^5.4.0",
