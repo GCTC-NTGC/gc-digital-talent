@@ -114,8 +114,9 @@ export const useRouter = (
  *
  * @param imgFile The name of the img file, not including the /images/ path.
  */
-export function imageUrl(baseUrl: string, imgFile: string): string {
-  return `${baseUrl}/public/images/${imgFile}`;
+export function imageUrl(imgFile: string): string {
+ const baseUrl =  process.env.TALENTSEARCH_APP_URL;
+  return  `${baseUrl}/public/images/${imgFile}`;
 }
 
 export function parseUrlQueryParameters(
