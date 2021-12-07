@@ -6,6 +6,7 @@ return [
      */
     'authorize_uri' => env('OAUTH_URI', null),
     'token_uri' => env('OAUTH_TOKEN_URI', null),
+    'redirct_uri' => env('OAUTH_REDIRECT_URI', config('app.url') . '/auth-callback'),
 
     /**
      * This server's client id and secret, known to the OAuth server.
