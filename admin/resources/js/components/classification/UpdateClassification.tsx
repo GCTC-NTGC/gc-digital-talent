@@ -80,7 +80,7 @@ export const UpdateClassificationForm: React.FunctionComponent<
               id="name_en"
               name="name.en"
               label={intl.formatMessage({
-                defaultMessage: "Name (English):",
+                defaultMessage: "Name (English)",
                 description:
                   "Label displayed on the classification form name (English) field.",
               })}
@@ -93,7 +93,7 @@ export const UpdateClassificationForm: React.FunctionComponent<
               id="name_fr"
               name="name.fr"
               label={intl.formatMessage({
-                defaultMessage: "Name (French):",
+                defaultMessage: "Name (French)",
                 description:
                   "Label displayed on the classification form name (French) field.",
               })}
@@ -106,7 +106,7 @@ export const UpdateClassificationForm: React.FunctionComponent<
               id="group"
               name="group"
               label={intl.formatMessage({
-                defaultMessage: "Group:",
+                defaultMessage: "Group",
                 description:
                   "Label displayed for the classification form group field.",
               })}
@@ -119,7 +119,7 @@ export const UpdateClassificationForm: React.FunctionComponent<
               id="level"
               name="level"
               label={intl.formatMessage({
-                defaultMessage: "Level:",
+                defaultMessage: "Level",
                 description:
                   "Label displayed on the classification form level field.",
               })}
@@ -145,7 +145,7 @@ export const UpdateClassificationForm: React.FunctionComponent<
               id="minSalary"
               name="minSalary"
               label={intl.formatMessage({
-                defaultMessage: "Minimum Salary:",
+                defaultMessage: "Minimum Salary",
                 description:
                   "Label displayed for the classification form min salary field.",
               })}
@@ -164,7 +164,7 @@ export const UpdateClassificationForm: React.FunctionComponent<
               id="maxSalary"
               name="maxSalary"
               label={intl.formatMessage({
-                defaultMessage: "Maximum Salary:",
+                defaultMessage: "Maximum Salary",
                 description:
                   "Label displayed for the classification form max salary field.",
               })}

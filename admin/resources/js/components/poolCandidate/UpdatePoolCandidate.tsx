@@ -202,7 +202,7 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<
             <Input
               id="email"
               label={intl.formatMessage({
-                defaultMessage: "Email:",
+                defaultMessage: "Email",
                 description: "Label displayed on the user form email field.",
               })}
               type="email"
@@ -213,7 +213,7 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<
             <Input
               id="firstName"
               label={intl.formatMessage({
-                defaultMessage: "First Name:",
+                defaultMessage: "First Name",
                 description:
                   "Label displayed on the user form first name field.",
               })}
@@ -226,7 +226,7 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<
             <Input
               id="lastName"
               label={intl.formatMessage({
-                defaultMessage: "Last Name:",
+                defaultMessage: "Last Name",
                 description:
                   "Label displayed on the user form last name field.",
               })}
@@ -239,7 +239,7 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<
             <Input
               id="telephone"
               label={intl.formatMessage({
-                defaultMessage: "Telephone:",
+                defaultMessage: "Telephone",
                 description:
                   "Label displayed on the user form telephone field.",
               })}
@@ -256,7 +256,7 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<
             <Select
               id="preferredLang"
               label={intl.formatMessage({
-                defaultMessage: "Preferred Language:",
+                defaultMessage: "Preferred Language",
                 description:
                   "Label displayed on the user form preferred language field.",
               })}
@@ -283,7 +283,7 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<
             <Input
               id="cmoIdentifier"
               label={intl.formatMessage({
-                defaultMessage: "CMO Identifier:",
+                defaultMessage: "CMO Identifier",
                 description:
                   "Label displayed on the pool candidate form cmo identifier field.",
               })}
@@ -313,7 +313,7 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<
             <Checkbox
               id="isWoman"
               label={intl.formatMessage({
-                defaultMessage: "Woman:",
+                defaultMessage: "Woman",
                 description:
                   "Label displayed on the pool candidate form is woman field.",
               })}
@@ -322,7 +322,7 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<
             <Checkbox
               id="hasDisability"
               label={intl.formatMessage({
-                defaultMessage: "Has Disability:",
+                defaultMessage: "Has Disability",
                 description:
                   "Label displayed on the pool candidate form has disability field.",
               })}
@@ -331,7 +331,7 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<
             <Checkbox
               id="isIndigenous"
               label={intl.formatMessage({
-                defaultMessage: "Indigenous:",
+                defaultMessage: "Indigenous",
                 description:
                   "Placeholder displayed on the pool candidate form is indigenous field.",
               })}
@@ -340,7 +340,7 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<
             <Checkbox
               id="isVisibleMinority"
               label={intl.formatMessage({
-                defaultMessage: "Visible Minority:",
+                defaultMessage: "Visible Minority",
                 description:
                   "Label displayed on the pool candidate form is visible minority field.",
               })}
@@ -349,7 +349,7 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<
             <Checkbox
               id="hasDiploma"
               label={intl.formatMessage({
-                defaultMessage: "Has Diploma:",
+                defaultMessage: "Has Diploma",
                 description:
                   "Label displayed on the pool candidate form has diploma field.",
               })}
@@ -358,7 +358,7 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<
             <Select
               id="languageAbility"
               label={intl.formatMessage({
-                defaultMessage: "Language Ability:",
+                defaultMessage: "Language Ability",
                 description:
                   "Label displayed on the pool candidate form language ability field.",
               })}
@@ -372,7 +372,7 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<
               id="locationPreferences"
               name="locationPreferences"
               label={intl.formatMessage({
-                defaultMessage: "Location Preferences:",
+                defaultMessage: "Location Preferences",
                 description:
                   "Label displayed on the pool candidate form location preferences field.",
               })}
@@ -390,7 +390,7 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<
               id="acceptedOperationalRequirements.sync"
               name="acceptedOperationalRequirements"
               label={intl.formatMessage({
-                defaultMessage: "Operational Requirements:",
+                defaultMessage: "Operational Requirements",
                 description:
                   "Label displayed on the pool candidate form operational requirements field.",
               })}
@@ -408,7 +408,7 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<
             <MultiSelect
               id="expectedSalary"
               label={intl.formatMessage({
-                defaultMessage: "Expected Salary:",
+                defaultMessage: "Expected Salary",
                 description:
                   "Label displayed on the pool candidate form expected salary field.",
               })}
@@ -429,7 +429,7 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<
             <MultiSelect
               id="expectedClassifications"
               label={intl.formatMessage({
-                defaultMessage: "Expected Classifications:",
+                defaultMessage: "Expected Classifications",
                 description:
                   "Label displayed on the pool candidate form expected classifications field.",
               })}
@@ -447,7 +447,7 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<
             <MultiSelect
               id="cmoAssets"
               label={intl.formatMessage({
-                defaultMessage: "CMO Assets:",
+                defaultMessage: "CMO Assets",
                 description:
                   "Label displayed on the pool candidate form cmo assets field.",
               })}
@@ -465,7 +465,7 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<
             <Select
               id="status"
               label={intl.formatMessage({
-                defaultMessage: "Status:",
+                defaultMessage: "Status",
                 description:
                   "Label displayed on the pool candidate form status field.",
               })}

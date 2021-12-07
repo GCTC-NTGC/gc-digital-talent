@@ -67,7 +67,7 @@ export const CreateUserForm: React.FunctionComponent<CreateUserFormProps> = ({
             <Input
               id="email"
               label={intl.formatMessage({
-                defaultMessage: "Email:",
+                defaultMessage: "Email",
                 description: "Label displayed on the user form email field.",
               })}
               type="email"
@@ -79,7 +79,7 @@ export const CreateUserForm: React.FunctionComponent<CreateUserFormProps> = ({
             <Input
               id="firstName"
               label={intl.formatMessage({
-                defaultMessage: "First Name:",
+                defaultMessage: "First Name",
                 description:
                   "Label displayed on the user form first name field.",
               })}
@@ -92,7 +92,7 @@ export const CreateUserForm: React.FunctionComponent<CreateUserFormProps> = ({
             <Input
               id="lastName"
               label={intl.formatMessage({
-                defaultMessage: "Last Name:",
+                defaultMessage: "Last Name",
                 description:
                   "Label displayed on the user form last name field.",
               })}
@@ -105,7 +105,7 @@ export const CreateUserForm: React.FunctionComponent<CreateUserFormProps> = ({
             <Input
               id="telephone"
               label={intl.formatMessage({
-                defaultMessage: "Telephone:",
+                defaultMessage: "Telephone",
                 description:
                   "Label displayed on the user form telephone field.",
               })}
@@ -122,7 +122,7 @@ export const CreateUserForm: React.FunctionComponent<CreateUserFormProps> = ({
             <Select
               id="preferredLang"
               label={intl.formatMessage({
-                defaultMessage: "Preferred Language:",
+                defaultMessage: "Preferred Language",
                 description:
                   "Label displayed on the user form preferred language field.",
               })}

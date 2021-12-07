@@ -69,7 +69,7 @@ export const CreateDepartmentForm: React.FunctionComponent<
               id="departmentNumber"
               name="departmentNumber"
               label={intl.formatMessage({
-                defaultMessage: "Department #:",
+                defaultMessage: "Department #",
                 description:
                   "Label displayed on the create a department form department number field.",
               })}
@@ -82,7 +82,7 @@ export const CreateDepartmentForm: React.FunctionComponent<
               id="name_en"
               name="name.en"
               label={intl.formatMessage({
-                defaultMessage: "Name (English):",
+                defaultMessage: "Name (English)",
                 description:
                   "Label displayed on the create a department form name (English) field.",
               })}
@@ -95,7 +95,7 @@ export const CreateDepartmentForm: React.FunctionComponent<
               id="name_fr"
               name="name.fr"
               label={intl.formatMessage({
-                defaultMessage: "Name (French):",
+                defaultMessage: "Name (French)",
                 description:
                   "Label displayed on the create a department form name (French) field.",
               })}
