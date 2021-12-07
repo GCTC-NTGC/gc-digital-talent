@@ -2,14 +2,25 @@ DirectorySlash off
 
 <IfModule mod_rewrite.c>
     RewriteEngine on
-    RewriteCond %{REQUEST_URI} ^(.*)
-    RewriteRule ^phpinfo.php$ phpinfo.php [L]
-    RewriteRule ^graphql-playground api/public/graphql-playground [L]
-    RewriteRule ^graphql api/public/graphql [L]
-    RewriteRule ^auth(/.*)?$ auth/public/ [L]
-    RewriteRule ^oauth(/.*)?$ auth/public/ [L]
-    RewriteRule ^admin(/.*)?$ admin/public/ [L]
+
+    # Strip trailing slash from all urls and redirect back to public url, unless already pointing to a public folder
+    RewriteCond %{REQUEST_URI} ^/(.+)/$
+    RewriteCond %{REQUEST_URI} !/public/$
+    RewriteRule ^ %{ENV:APP_URL}/%1 [L,R=301]
+
+    # Rewrite api requests
+    RewriteRule ^graphql-playground$ api/public/graphql-playground [L]
+    RewriteRule ^graphql$ api/public/graphql [L]
+
+    # Send admin requests to admin public folder; don't rewrite twice.
+    RewriteCond %{REQUEST_URI} !^admin/public/
+    RewriteRule ^admin(/(.*))?$ admin/public/$2 [L]
+
+    # Send /public requests to talentsearch public folder
     RewriteRule ^public/(.*)$ talentsearch/public/$1 [L]
+
+    # Send all other requests to talentsearch
+    RewriteCond %{REQUEST_URI} !^talentsearch/public/
     RewriteRule ^(.*)$ talentsearch/public/$1 [L]
 </IfModule>
 
