@@ -1,6 +1,6 @@
 # Welcome to the GC Digital Talent Common folder
 
-This folder is meant to hold code shared between multiple other subprojects. In practice, this currently extends only to React components and other TypeScript code. 
+This folder is meant to hold code shared between multiple other subprojects. In practice, this currently extends only to React components and other TypeScript code.
 
 We've set up our projects as subfolders which can import directly from this folder. As such, it is not necessary to build, bundle or deploy the Common folder as a node module. It _is_ still necessary to include dependencies of Common code in the local package.json file.
 
@@ -9,7 +9,7 @@ We've set up our projects as subfolders which can import directly from this fold
 To import code from this folder in another Javascript package in a sibling folder, follow these steps:
 
 1. In the webpackConfig object of `webpack.mix.js` (or your webpack.config.js file, if separate) add the following code:
-    
+
     ```
     resolve: {
         alias: {
@@ -70,21 +70,21 @@ Unfortunately, I do not know a good way around the "no-extraneous-dependencies" 
 
 # Translation Utility script
 
-This project contains a script (`src/tooling/checkIntl.js`) to help manage your react-intl translations files. It has been written to run without any dependencies or compilation. It is expected to be used along with the [formatjs cli](https://formatjs.io/docs/tooling/cli). 
+This project contains a script (`src/tooling/checkIntl.js`) to help manage your react-intl translations files. It has been written to run without any dependencies or compilation. It is expected to be used along with the [formatjs cli](https://formatjs.io/docs/tooling/cli).
 
 ### Directions
-The checkIntl script can be run with different flags and options. For more details on how individual options work, see the checkIntl file itself. In practice, it is easiest to save the commands, with options included, as **package.json** scripts. 
+The checkIntl script can be run with different flags and options. For more details on how individual options work, see the checkIntl file itself. In practice, it is easiest to save the commands, with options included, as **package.json** scripts.
 
-Note: each project using react-intl (eg admin, common, talentsearch, etc) requires its own set of commands, and must be managed seperately.
+Note: each project using react-intl (e.g. admin, common, talentsearch, etc.) requires its own set of commands, and must be managed separately.
 
 For example, to ensure translations in the admin project are up to date:
-1. Run `npm instl-extract` in the project you are managing (in this case, /admin).
+1. Run `npm run intl-extract` in the project you are managing (in this case, /admin).
 2. Run `npm run check-intl-common` (from the /common folder). This generates a **untranslated.json** file in the admin project's lang folder.
 3. Send **untranslated.json** for translation, asking them to only translate the "defaultMessage" fields.
 4. Save the translated version which comes back as **newTranslations.json** in the same lang folder.
 5. Run `npm run check-intl-common-merge` (again from the /common folder).
 6. If you see any warnings about untranslated entries which simply match in English and French, add the key to the array in **whitelist.json** and repeat step 4.
-7. Run `npm intl-compile` in the /admin folder.
+7. Run `npm run intl-compile` in the /admin folder.
 
 ### On source control
 Only **fr.json** and **whitelist.json** need to be checked into source control. The other files created during this process are generated as needed or only used to communicate with translators, should be added to .gitignore, and may be deleted after use.
