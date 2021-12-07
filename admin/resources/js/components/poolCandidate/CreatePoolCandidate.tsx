@@ -444,7 +444,7 @@ export const CreatePoolCandidateForm: React.FunctionComponent<
             <Input
               id="expiryDate"
               label={intl.formatMessage({
-                defaultMessage: "Expiry Date: ",
+                defaultMessage: "Expiry Date",
                 description:
                   "Label displayed on the pool candidate form expiry date field.",
               })}
