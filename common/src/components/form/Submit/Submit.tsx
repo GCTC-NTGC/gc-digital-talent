@@ -4,21 +4,21 @@ import { Button } from "../..";
 
 export const Submit: React.FunctionComponent<{
   text?: string;
-  notDirtyText?: string;
+  submittedText?: string;
   isSubmittingText?: string;
   color?: "primary" | "secondary" | "cta" | "white";
   mode?: "solid" | "outline" | "inline";
-}> = ({ text, notDirtyText, isSubmittingText, color, mode, ...rest }) => {
+}> = ({ text, submittedText, isSubmittingText, color, mode, ...rest }) => {
   const defaultText = "Submit";
-  const defaultNotDirtyText = "Submitted";
+  const defaultSubmittedText = "Submitted";
   const defaultIsSubmittingText = "Submitting";
 
-  const { isDirty, isSubmitting, isSubmitted } = useFormState();
+  const { isDirty, isSubmitting, isSubmitted, isValid } = useFormState();
   let currentText = text ?? defaultText;
   if (isSubmitting) {
     currentText = isSubmittingText ?? defaultIsSubmittingText;
-  } else if (!isDirty && isSubmitted) {
-    currentText = notDirtyText ?? defaultNotDirtyText;
+  } else if (!isDirty && isSubmitted && isValid) {
+    currentText = submittedText ?? defaultSubmittedText;
   }
 
   return (
@@ -26,7 +26,7 @@ export const Submit: React.FunctionComponent<{
       color={color || "primary"}
       mode={mode || "solid"}
       type="submit"
-      disabled={isSubmitting || !isDirty}
+      disabled={isSubmitting}
       {...rest}
     >
       {currentText}

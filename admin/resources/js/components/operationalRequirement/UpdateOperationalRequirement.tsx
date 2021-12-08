@@ -74,7 +74,7 @@ export const UpdateOperationalRequirementForm: React.FunctionComponent<
               id="name_en"
               name="name.en"
               label={intl.formatMessage({
-                defaultMessage: "Name (English):",
+                defaultMessage: "Name (English)",
                 description:
                   "Label displayed on the operational requirement form name (English) field.",
               })}
@@ -87,7 +87,7 @@ export const UpdateOperationalRequirementForm: React.FunctionComponent<
               id="name_fr"
               name="name.fr"
               label={intl.formatMessage({
-                defaultMessage: "Name (French):",
+                defaultMessage: "Name (French)",
                 description:
                   "Label displayed on the operational requirement form name (French) field.",
               })}
@@ -100,7 +100,7 @@ export const UpdateOperationalRequirementForm: React.FunctionComponent<
               id="description_en"
               name="description.en"
               label={intl.formatMessage({
-                defaultMessage: "Description (English):",
+                defaultMessage: "Description (English)",
                 description:
                   "Label displayed on the operational requirement form description (English) field.",
               })}
@@ -112,7 +112,7 @@ export const UpdateOperationalRequirementForm: React.FunctionComponent<
               id="description_fr"
               name="description.fr"
               label={intl.formatMessage({
-                defaultMessage: "Description (French):",
+                defaultMessage: "Description (French)",
                 description:
                   "Label displayed on the operational requirement form description (French) field.",
               })}

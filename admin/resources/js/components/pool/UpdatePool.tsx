@@ -164,7 +164,7 @@ export const UpdatePoolForm: React.FunctionComponent<UpdatePoolFormProps> = ({
             <Select
               id="owner"
               label={intl.formatMessage({
-                defaultMessage: "Owner:",
+                defaultMessage: "Owner",
                 description: "Label displayed on the pool form owner field.",
               })}
               name="owner"
@@ -182,7 +182,7 @@ export const UpdatePoolForm: React.FunctionComponent<UpdatePoolFormProps> = ({
               id="name_en"
               name="name.en"
               label={intl.formatMessage({
-                defaultMessage: "Name (English):",
+                defaultMessage: "Name (English)",
                 description:
                   "Label displayed on the pool form name (English) field.",
               })}
@@ -195,7 +195,7 @@ export const UpdatePoolForm: React.FunctionComponent<UpdatePoolFormProps> = ({
               id="name_fr"
               name="name.fr"
               label={intl.formatMessage({
-                defaultMessage: "Name (French):",
+                defaultMessage: "Name (French)",
                 description:
                   "Label displayed on the pool form name (French) field.",
               })}
@@ -208,7 +208,7 @@ export const UpdatePoolForm: React.FunctionComponent<UpdatePoolFormProps> = ({
               id="description_en"
               name="description.en"
               label={intl.formatMessage({
-                defaultMessage: "Description (English):",
+                defaultMessage: "Description (English)",
                 description:
                   "Label displayed on the pool form description (English) field.",
               })}
@@ -220,7 +220,7 @@ export const UpdatePoolForm: React.FunctionComponent<UpdatePoolFormProps> = ({
               id="description_fr"
               name="description.fr"
               label={intl.formatMessage({
-                defaultMessage: "Description (French):",
+                defaultMessage: "Description (French)",
                 description:
                   "Label displayed on the pool form description (French) field.",
               })}
@@ -231,7 +231,7 @@ export const UpdatePoolForm: React.FunctionComponent<UpdatePoolFormProps> = ({
             <MultiSelect
               id="classifications"
               label={intl.formatMessage({
-                defaultMessage: "Classifications:",
+                defaultMessage: "Classifications",
                 description:
                   "Label displayed on the pool form classifications field.",
               })}
@@ -249,7 +249,7 @@ export const UpdatePoolForm: React.FunctionComponent<UpdatePoolFormProps> = ({
             <MultiSelect
               id="assetCriteria"
               label={intl.formatMessage({
-                defaultMessage: "Asset Criteria:",
+                defaultMessage: "Asset Criteria",
                 description:
                   "Label displayed on the pool form asset criteria field.",
               })}
@@ -267,7 +267,7 @@ export const UpdatePoolForm: React.FunctionComponent<UpdatePoolFormProps> = ({
             <MultiSelect
               id="essentialCriteria"
               label={intl.formatMessage({
-                defaultMessage: "Essential Criteria:",
+                defaultMessage: "Essential Criteria",
                 description:
                   "Label displayed on the pool form essential criteria field.",
               })}
@@ -286,7 +286,7 @@ export const UpdatePoolForm: React.FunctionComponent<UpdatePoolFormProps> = ({
               id="operationalRequirements"
               name="operationalRequirements"
               label={intl.formatMessage({
-                defaultMessage: "Operational Requirements:",
+                defaultMessage: "Operational Requirements",
                 description:
                   "Label displayed on the pool form operational requirements field.",
               })}

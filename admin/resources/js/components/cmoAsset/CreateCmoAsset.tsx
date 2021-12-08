@@ -61,7 +61,7 @@ export const CreateCmoAssetForm: React.FunctionComponent<
               id="key"
               name="key"
               label={intl.formatMessage({
-                defaultMessage: "Key:",
+                defaultMessage: "Key",
                 description:
                   "Label displayed on the create a cmo asset form key field.",
               })}
@@ -87,7 +87,7 @@ export const CreateCmoAssetForm: React.FunctionComponent<
               id="name_en"
               name="name.en"
               label={intl.formatMessage({
-                defaultMessage: "Name EN:",
+                defaultMessage: "Name EN",
                 description:
                   "Label displayed on the create a cmo asset form name (English) field.",
               })}
@@ -100,7 +100,7 @@ export const CreateCmoAssetForm: React.FunctionComponent<
               id="name_fr"
               name="name.fr"
               label={intl.formatMessage({
-                defaultMessage: "Name FR:",
+                defaultMessage: "Name FR",
                 description:
                   "Label displayed on the create a cmo asset form name (French) field.",
               })}
@@ -113,7 +113,7 @@ export const CreateCmoAssetForm: React.FunctionComponent<
               id="description_en"
               name="description.en"
               label={intl.formatMessage({
-                defaultMessage: "Description EN:",
+                defaultMessage: "Description EN",
                 description:
                   "Label displayed on the create a cmo asset form description (English) field.",
               })}
@@ -125,7 +125,7 @@ export const CreateCmoAssetForm: React.FunctionComponent<
               id="description_fr"
               name="description.fr"
               label={intl.formatMessage({
-                defaultMessage: "Description FR:",
+                defaultMessage: "Description FR",
                 description:
                   "Label displayed on the create a cmo asset form description (French) field.",
               })}
