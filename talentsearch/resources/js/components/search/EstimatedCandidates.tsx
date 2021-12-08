@@ -2,19 +2,25 @@ import * as React from "react";
 import { useIntl } from "react-intl";
 
 interface EstimatedCandidatesProps {
-  totalEstimatedCandidates: number;
+  candidateCount: number;
   updatePending?: boolean;
 }
 
 const EstimatedCandidates: React.FunctionComponent<
   EstimatedCandidatesProps
-> = ({ totalEstimatedCandidates, updatePending }) => {
+> = ({ candidateCount, updatePending }) => {
   const intl = useIntl();
+
+  function b(msg: string) {
+    return <b data-h2-font-weight="b(800)">{msg}</b>;
+  }
+
   return (
     <div
       data-h2-bg-color="b(white)"
       data-h2-border="b(lightgray, all, solid, s)"
       data-h2-shadow="b(m)"
+      className={updatePending ? "blink_me" : ""}
     >
       <div
         data-h2-bg-color="b(linear-70[lightpurple][lightnavy])"
@@ -35,33 +41,19 @@ const EstimatedCandidates: React.FunctionComponent<
       </div>
       <div data-h2-margin="b(top-bottom, m) b(right-left, l)">
         <p data-h2-text-align="b(center)">
-          {intl.formatMessage({
-            defaultMessage:
-              "There are approximately <span>{totalEstimatedCandidates}</span> candidates right now who meet your criteria.",
-            description:
-              "Heading for total estimated candidates box next to search form.",
-          })}
-        </p>
-      </div>
-      <div data-h2-margin="b(top-bottom, m) b(right-left, l)">
-        <p data-h2-text-align="b(center)">
           {intl.formatMessage(
             {
               defaultMessage:
-                "There are approximately <b>{totalEstimatedCandidates}</b> candidates right now who meet your criteria.",
+                "There are approximately <b>{candidateCount}</b> candidates right now who meet your criteria.",
               description:
                 "Message for total estimated candidates box next to search form.",
             },
             {
-              b: (msg: string): JSX.Element => (
-                <b data-h2-font-weight="b(800)">{msg}</b>
-              ),
-              totalEstimatedCandidates,
+              b,
+              candidateCount,
             },
           )}
         </p>
-        {/** TODO: se a better "loading" indicator than static elipses. */}
-        {updatePending && <p data-h2-text-align="b(center)">...</p>}
       </div>
     </div>
   );
