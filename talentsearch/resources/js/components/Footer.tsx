@@ -3,7 +3,7 @@ import { Link } from "@common/components";
 import { currentDate } from "@common/helpers/formUtils";
 import { imageUrl } from "@common/helpers/router";
 import { useIntl } from "react-intl";
-import { BASE_URL } from "../talentSearchConstants";
+import { BASE_URL_DIR } from "../talentSearchConstants";
 
 const Footer: React.FunctionComponent = () => {
   const intl = useIntl();
@@ -116,7 +116,7 @@ const Footer: React.FunctionComponent = () => {
           >
             <img
               style={{ width: "12rem" }}
-              src={imageUrl(BASE_URL, "logo_canada.png")}
+              src={imageUrl(BASE_URL_DIR, "logo_canada.png")}
               alt={intl.formatMessage({
                 defaultMessage: "Canada's Logo.",
                 description: "Alt text for the Canada logo in the Footer.",
