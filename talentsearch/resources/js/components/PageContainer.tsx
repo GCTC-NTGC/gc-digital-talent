@@ -11,7 +11,7 @@ import {
   ScrollToTop,
 } from "@common/helpers/router";
 import Header from "@common/components/Header";
-import Footer from "./Footer";
+import Footer from "@common/components/Footer";
 import { BASE_URL } from "../talentSearchConstants";
 
 export const exactMatch = (ref: string, test: string): boolean => ref === test;
@@ -88,7 +88,7 @@ export const PageContainer: React.FC<{
         </div>
         <div>{content}</div>
         <div style={{ marginTop: "auto" }}>
-          <Footer />
+          <Footer baseUrl={BASE_URL} />
         </div>
       </div>
     </ScrollToTop>

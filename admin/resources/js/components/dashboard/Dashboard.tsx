@@ -6,11 +6,11 @@ import { Routes } from "universal-router";
 import { Button, Link } from "@common/components";
 import NotFound from "@common/components/NotFound";
 import Header from "@common/components/Header";
+import Footer from "@common/components/Footer";
+import { BASE_URL } from "../../adminConstants";
 import { poolCandidateTablePath } from "../../adminRoutes";
 import { useGetPoolsQuery } from "../../api/generated";
 import SideMenu from "../menu/SideMenu";
-import Footer from "../Footer";
-import { BASE_URL } from "../../adminConstants";
 
 export const exactMatch = (ref: string, test: string): boolean => ref === test;
 export const startsWith = (ref: string, test: string): boolean =>
@@ -151,7 +151,7 @@ export const Dashboard: React.FC<{
         >
           <Header baseUrl={BASE_URL} />
           {content}
-          <Footer />
+          <Footer baseUrl={BASE_URL} />
         </div>
       </section>
     </div>
