@@ -16,7 +16,7 @@ import {
 } from "../../api/generated";
 import { DIGITAL_CAREERS_POOL_KEY } from "../../talentSearchConstants";
 import EstimatedCandidates from "./EstimatedCandidates";
-import { SearchForm } from "./SearchForm";
+import { FormValues, SearchForm } from "./SearchForm";
 import SearchFilterAdvice from "./SearchFilterAdvice";
 import SearchPools from "./SearchPools";
 import { requestPath } from "../../talentSearchRoutes";
@@ -68,11 +68,13 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
     );
   }
 
+  const [initialValues, setInitialValues] = useState<FormValues | null>(null);
+
   const onSubmit = async () => {
-    console.log("searchContainer", candidateFilter);
     return pushToStateThenNavigate(requestPath(), {
       candidateFilter,
-      initialValues: {}, // TODO: Get initial values from SearchForm using state to get initial values
+      candidateCount,
+      initialValues,
     });
   };
 
@@ -110,6 +112,7 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
             cmoAssets={cmoAssets}
             operationalRequirements={operationalRequirements}
             updateCandidateFilter={updateCandidateFilter}
+            updateInitialValues={setInitialValues}
           />
         </div>
         <div

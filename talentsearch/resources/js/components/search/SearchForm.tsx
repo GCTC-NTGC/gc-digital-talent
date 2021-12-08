@@ -8,6 +8,7 @@ import { getLanguageAbility } from "@common/constants";
 import { Id } from "@common/types/utilityTypes";
 import useDeepCompareEffect from "@common/hooks/useDeepCompareEffect";
 import { debounce } from "debounce";
+import { useLocation } from "@common/helpers/router";
 import {
   Classification,
   CmoAsset,
@@ -53,7 +54,7 @@ function mapIdToValue<T extends { id: Id }>(objs: T[]): Map<Id, T> {
 }
 
 type Option<V> = { value: V; label: string };
-type FormValues = Pick<
+export type FormValues = Pick<
   PoolCandidateFilter,
   "languageAbility" | "workRegions"
 > & {
@@ -69,6 +70,7 @@ export interface SearchFormProps {
   cmoAssets: CmoAsset[];
   operationalRequirements: OperationalRequirement[];
   updateCandidateFilter: (filter: PoolCandidateFilterInput) => void;
+  updateInitialValues: (initialValues: FormValues) => void;
 }
 
 export const SearchForm: React.FunctionComponent<SearchFormProps> = ({
@@ -76,9 +78,11 @@ export const SearchForm: React.FunctionComponent<SearchFormProps> = ({
   cmoAssets,
   operationalRequirements,
   updateCandidateFilter,
+  updateInitialValues,
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
+  const location = useLocation();
 
   const classificationMap = useMemo(
     () => mapIdToValue(classifications),
@@ -114,8 +118,12 @@ export const SearchForm: React.FunctionComponent<SearchFormProps> = ({
     [classificationMap, assetMap, requirementMap],
   );
 
-  const methods = useForm<FormValues>();
-  const { watch, getValues } = methods;
+  // The location state holds the initial values plugged in from user. This is required if the user decides to click back and change any values.
+  const initialValues = location.state
+    ? location.state.some.initialValues
+    : null;
+  const methods = useForm<FormValues>({ defaultValues: initialValues });
+  const { watch } = methods;
 
   // Whenever form values change (with some debounce allowance), call updateCandidateFilter
   const formValues = watch();
@@ -127,9 +135,11 @@ export const SearchForm: React.FunctionComponent<SearchFormProps> = ({
     }, 200),
     [formValuesToData, updateCandidateFilter],
   );
+
   // Use deep comparison to prevent infinite re-rendering
   useDeepCompareEffect(() => {
     submitDebounced(formValues);
+    updateInitialValues(formValues);
     return () => {
       // Clear debounce timer when component unmounts
       submitDebounced.clear();
@@ -161,10 +171,6 @@ export const SearchForm: React.FunctionComponent<SearchFormProps> = ({
         label: name[locale] || "Error: operational requirement name not found.",
       })),
     [operationalRequirements, locale],
-  );
-
-  console.log(
-    getValues("classifications")?.map((id) => classificationMap.get(id)),
   );
 
   return (
@@ -407,51 +413,3 @@ export const SearchForm: React.FunctionComponent<SearchFormProps> = ({
     </FormProvider>
   );
 };
-
-// export const SearchFormApi: React.FunctionComponent = () => {
-//   const intl = useIntl();
-//   const [lookupResult] = useGetSearchFormDataQuery();
-//   const { data: lookupData, fetching, error } = lookupResult;
-//   const classifications: Classification[] | [] =
-//     lookupData?.classifications.filter(notEmpty) ?? [];
-//   const cmoAssets: CmoAsset[] = lookupData?.cmoAssets.filter(notEmpty) ?? [];
-//   const operationalRequirements: OperationalRequirement[] =
-//     lookupData?.operationalRequirements.filter(notEmpty) ?? [];
-//   const pools: Pool[] = lookupData?.pools.filter(notEmpty) ?? [];
-
-//   if (fetching)
-//     return (
-//       <div
-//         data-h2-display="b(flex)"
-//         data-h2-justify-content="b(center)"
-//         data-h2-align-items="b(center)"
-//         style={{ minHeight: "20rem" }}
-//       >
-//         <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>
-//       </div>
-//     );
-//   if (error)
-//     return (
-//       <div
-//         data-h2-display="b(flex)"
-//         data-h2-justify-content="b(center)"
-//         data-h2-align-items="b(center)"
-//         style={{ minHeight: "20rem" }}
-//       >
-//         <p>
-//           {intl.formatMessage(commonMessages.loadingError)}
-//           {error.message}
-//         </p>
-//       </div>
-//     );
-
-//   return (
-//     <SearchForm
-//       classifications={classifications}
-//       cmoAssets={cmoAssets}
-//       operationalRequirements={operationalRequirements}
-//       pools={pools}
-//       totalEstimatedCandidates={0} // TODO: Replace with number of candidates queried from api.
-//     />
-//   );
-// };
