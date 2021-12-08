@@ -125,4 +125,8 @@ php artisan config:cache
 
 ### Startup command
 
+#### Development
 cd api/ && php artisan migrate -n --force && cd /home/site/wwwroot/auth/ && php artisan migrate -n --force
+
+#### Production
+#cd api/ && php artisan migrate -n --force && php artisan db:seed --class=ProdSeeder && cd /home/site/wwwroot/auth/ && php artisan migrate -n --force

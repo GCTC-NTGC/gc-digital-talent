@@ -95,9 +95,9 @@ const PoolCandidatesTable: React.FC<
       },
       {
         Header: intl.formatMessage({
-          defaultMessage: "Language",
+          defaultMessage: "Language Ability",
           description:
-            "Title displayed for the Pool Candidates table Language column.",
+            "Title displayed for the Pool Candidates table Language Ability column.",
         }),
         accessor: "languageAbility",
       },
@@ -119,7 +119,7 @@ const PoolCandidatesTable: React.FC<
       },
       {
         Header: intl.formatMessage({
-          defaultMessage: "Preferred Lang",
+          defaultMessage: "Preferred Language",
           description:
             "Title displayed on the Pool Candidates table Preferred Lang column.",
         }),
