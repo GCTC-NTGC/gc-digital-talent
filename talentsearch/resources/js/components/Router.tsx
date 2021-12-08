@@ -6,7 +6,7 @@ import Toast from "@common/components/Toast";
 import ClientProvider from "./ClientProvider";
 import ErrorContainer from "./ErrorContainer";
 import PageContainer, { MenuLink } from "./PageContainer";
-import { SearchPageApi } from "./search/SearchPage";
+import SearchPage from "./search/SearchPage";
 import { homePath, requestPath, searchPath } from "../talentSearchRoutes";
 import HomePage from "./HomePage";
 import RequestPage from "./request/RequestPage";
@@ -21,7 +21,7 @@ const routes: Routes<RouterResult> = [
   {
     path: searchPath(),
     action: () => ({
-      component: <SearchPageApi />,
+      component: <SearchPage />,
     }),
   },
   {
