@@ -8,9 +8,9 @@ import {
   fakePools,
 } from "@common/fakeData";
 import {
-  SearchPage as SearchPageComponent,
-  SearchPageProps,
-} from "../components/search/SearchPage";
+  SearchContainer as SearchPageComponent,
+  SearchContainerProps as SearchPageProps,
+} from "../components/search/SearchContainer";
 import {
   Classification,
   CmoAsset,
