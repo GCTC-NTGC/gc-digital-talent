@@ -10,8 +10,9 @@ import {
   useRouter,
   ScrollToTop,
 } from "@common/helpers/router";
+import Header from "@common/components/Header";
 import Footer from "./Footer";
-import Header from "./Header";
+import { BASE_URL } from "../talentSearchConstants";
 
 export const exactMatch = (ref: string, test: string): boolean => ref === test;
 
@@ -82,7 +83,7 @@ export const PageContainer: React.FC<{
         style={{ height: "100vh", margin: "0" }}
       >
         <div>
-          <Header />
+          <Header baseUrl={BASE_URL} />
           <NavMenu items={menuItems} />
         </div>
         <div>{content}</div>
