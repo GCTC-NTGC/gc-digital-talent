@@ -102,6 +102,11 @@ class PoolCandidate extends Model
         // Since salary ranges are text enums a custom SQL subquery is used to convert them to
         // numeric values and compare them to specified classifications
 
+        // This subquery only works for a non-zero number of filter classifications.
+        // If passed zero classifications then return same query builder unchanged.
+        if(count($classifications) == 0)
+            return $query;
+
         $parameters = [];
         $sql = <<<RAWSQL1
 
