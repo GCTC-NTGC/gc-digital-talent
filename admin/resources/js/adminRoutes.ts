@@ -46,8 +46,7 @@ export const poolCandidateUpdatePath = (
   poolCandidateId: string,
 ): string =>
   path.join(
-    "/",
-    ADMIN_APP_DIR,
+    homePath(),
     "pools",
     poolId,
     "pool-candidates",
