@@ -19,17 +19,11 @@ use App\Policies\OperationalRequirementPolicy;
 use App\Policies\PoolCandidatePolicy;
 use App\Policies\PoolPolicy;
 use App\Policies\UserPolicy;
-use App\Services\Contracts\AuthClientInterface;
+use App\Services\Contracts\BearerTokenServiceInterface;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Log;
-use Lcobucci\JWT\Configuration;
-use Lcobucci\JWT\UnencryptedToken;
-use Lcobucci\JWT\Validation\Constraint\IssuedBy;
-use Lcobucci\JWT\Validation\Constraint\RelatedTo;
-use Lcobucci\JWT\Validation\Constraint\LooseValidAt;
-use Lcobucci\JWT\Validation\Constraint\SignedWith;
-use Lcobucci\Clock\SystemClock;
+use Lcobucci\JWT\Token\DataSet;
 use Lcobucci\JWT\Validation\RequiredConstraintsViolated;
 
 class AuthServiceProvider extends ServiceProvider
@@ -49,7 +43,7 @@ class AuthServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot(AuthClientInterface $authClient)
+    public function boot(BearerTokenServiceInterface $tokenService)
     {
         // Here you may define how you wish users to be authenticated for your Lumen
         // application. The callback which receives the incoming request instance
@@ -64,49 +58,36 @@ class AuthServiceProvider extends ServiceProvider
         Gate::policy(Pool::class, PoolPolicy::class);
         Gate::policy(User::class, UserPolicy::class);
 
-        $this->app['auth']->viaRequest('api', function ($request) use ($authClient) {
-            if ($request->input('api_token')) {
-                return User::where('api_token', $request->input('api_token'))->first();
+        $this->app['auth']->viaRequest('api', function ($request) use ($tokenService) {
+
+            $bearerToken = $request->bearerToken(); // 1. extract JWT access token from request.
+
+            if (!$bearerToken) {
+                Log::notice('Expected to find a bearer token on request but did not find one.');
+                return abort(401, 'No authorization token found.');
             }
-            if ($request->bearerToken()) {
-                $bearerToken = $request->bearerToken(); // 1. extract JWT access token from request.
 
-                $unsecuredConfig = Configuration::forUnsecuredSigner(); // need a config to parse the token and get the key id
-                $unsecuredToken = $unsecuredConfig->parser()->parse($bearerToken);
-
-                $keyId = strval($unsecuredToken->headers()->get('kid'));
-                $config = $authClient->getConfiguration($keyId);
-
-                $clock = new SystemClock(new DateTimeZone(config('app.timezone')));
-                $token = $config->parser()->parse($bearerToken);
-
-                assert($token instanceof UnencryptedToken);
-                $config->setValidationConstraints(
-                    new IssuedBy($authClient->getIssuer()),
-                    new RelatedTo($token->claims()->get('sub')),
-                    new LooseValidAt($clock),
-                    new SignedWith($config->signer(), $config->verificationKey()),
-                );
-                $constraints = $config->validationConstraints();
-
-                try { // 2. validate access token.
-                    $config->validator()->assert($token, ...$constraints);
-                } catch (RequiredConstraintsViolated $e) {
-                    $violations = [];
-                    foreach ($e->violations() as $violationError) {
-                        array_push($violations, $violationError->getMessage());
-                    }
-                    Log::notice('Authorization token not valid: ', $violations);
-                    return abort(401, 'Authorization token not valid.');
+            $sub = '';
+            try {
+                $claims = $tokenService->validateAndGetClaims($bearerToken);  // 2. validate access token.
+                $sub = $claims->get('sub');
+            } catch (RequiredConstraintsViolated $e) {
+                $violations = [];
+                foreach ($e->violations() as $violationError) {
+                    array_push($violations, $violationError->getMessage());
                 }
-
-                $userMatch = User::where('sub', $token->claims()->get('sub'))->first(); // 3. match "sub" claim to user 'sub' field.
-                if($userMatch) {
-                    return $userMatch;
-                } else {
-                    return null;
-                }
+                Log::notice('Authorization token not valid: ', $violations);
+                return abort(401, 'Authorization token not valid.');
             }
+
+            $userMatch = User::where('sub', $sub)->first(); // 3. match "sub" claim to user 'sub' field.
+            if($userMatch) {
+                return $userMatch;
+            } else {
+                Log::notice('No user found for given subscriber: '.$sub);
+                return abort(401, 'No user found for given subscriber.');;
+            }
+
         });
     }
 }
