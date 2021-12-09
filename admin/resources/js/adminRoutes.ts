@@ -1,4 +1,4 @@
-import { ADMIN_APP_DIR } from "./adminConstants";
+import ADMIN_APP_DIR from "./adminConstants";
 
 export const homePath = (): string => `/${ADMIN_APP_DIR}`;
 export const homePublicPath = (): string =>
