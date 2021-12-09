@@ -491,7 +491,7 @@ export const SearchForm: React.FunctionComponent<SearchFormProps> = ({
                     {
                       value: "isIndigenous",
                       label: intl.formatMessage({
-                        defaultMessage: "Aboriginal",
+                        defaultMessage: "Indigenous",
                         description:
                           "Checklist option for employment equity filter in search form.",
                       }),
