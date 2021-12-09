@@ -1,7 +1,7 @@
 import React from "react";
 import { imageUrl } from "@common/helpers/router";
 import { useIntl } from "react-intl";
-import { BASE_URL_DIR } from "../../talentSearchConstants";
+import { homePath } from "../../talentSearchRoutes";
 import { SearchFormApi } from "./SearchForm";
 
 export const SearchPage: React.FC = () => {
@@ -15,7 +15,7 @@ export const SearchPage: React.FC = () => {
         data-h2-margin="b(bottom, xxl)"
         style={{
           background: `linear-gradient(70deg, rgba(103, 76, 144, 0.9), rgba(29, 44, 76, 1)), url(${imageUrl(
-            BASE_URL_DIR,
+            homePath(),
             "hero-background-search.png",
           )})`,
           backgroundSize: "cover",

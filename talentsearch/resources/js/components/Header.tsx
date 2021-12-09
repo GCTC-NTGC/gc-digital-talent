@@ -1,7 +1,7 @@
 import * as React from "react";
 import { imageUrl } from "@common/helpers/router";
 import { useIntl } from "react-intl";
-import { BASE_URL_DIR } from "../talentSearchConstants";
+import { homePath } from "../talentSearchRoutes";
 
 const Header: React.FunctionComponent = () => {
   const intl = useIntl();
@@ -23,7 +23,7 @@ const Header: React.FunctionComponent = () => {
           >
             <img
               style={{ width: "20rem" }}
-              src={imageUrl(BASE_URL_DIR, "logo_goc_colour.svg")}
+              src={imageUrl(homePath(), "logo_goc_colour.svg")}
               alt={intl.formatMessage({
                 defaultMessage: "Canada's Logo.",
                 description: "Alt text for the Canada logo in the Header.",
