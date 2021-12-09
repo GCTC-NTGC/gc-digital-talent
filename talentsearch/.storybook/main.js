@@ -20,6 +20,7 @@ const reactIntlTransformRule = {
 };
 
 module.exports = {
+  "staticDirs": ['../public'],
   "stories": [
     "../resources/js/stories/**/*.stories.mdx",
     "../resources/js/stories/**/*.stories.@(js|jsx|ts|tsx)"
