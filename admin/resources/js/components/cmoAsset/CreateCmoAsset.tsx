@@ -87,7 +87,7 @@ export const CreateCmoAssetForm: React.FunctionComponent<
               id="name_en"
               name="name.en"
               label={intl.formatMessage({
-                defaultMessage: "Name EN",
+                defaultMessage: "Name (English)",
                 description:
                   "Label displayed on the create a cmo asset form name (English) field.",
               })}
@@ -100,7 +100,7 @@ export const CreateCmoAssetForm: React.FunctionComponent<
               id="name_fr"
               name="name.fr"
               label={intl.formatMessage({
-                defaultMessage: "Name FR",
+                defaultMessage: "Name (French)",
                 description:
                   "Label displayed on the create a cmo asset form name (French) field.",
               })}
@@ -113,7 +113,7 @@ export const CreateCmoAssetForm: React.FunctionComponent<
               id="description_en"
               name="description.en"
               label={intl.formatMessage({
-                defaultMessage: "Description EN",
+                defaultMessage: "Description (English)",
                 description:
                   "Label displayed on the create a cmo asset form description (English) field.",
               })}
@@ -125,7 +125,7 @@ export const CreateCmoAssetForm: React.FunctionComponent<
               id="description_fr"
               name="description.fr"
               label={intl.formatMessage({
-                defaultMessage: "Description FR",
+                defaultMessage: "Description (French)",
                 description:
                   "Label displayed on the create a cmo asset form description (French) field.",
               })}

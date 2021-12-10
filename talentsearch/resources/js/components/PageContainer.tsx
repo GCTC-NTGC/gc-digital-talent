@@ -10,8 +10,9 @@ import {
   useRouter,
   ScrollToTop,
 } from "@common/helpers/router";
-import Footer from "./Footer";
-import Header from "./Header";
+import Header from "@common/components/Header";
+import Footer from "@common/components/Footer";
+import TALENTSEARCH_APP_DIR from "../talentSearchConstants";
 
 export const exactMatch = (ref: string, test: string): boolean => ref === test;
 
@@ -34,7 +35,7 @@ export const MenuLink: React.FC<MenuLinkProps> = ({
       href={href}
       title={title ?? ""}
       {...{
-        "data-h2-color": "b(lightpurple)",
+        "data-h2-font-color": "b(lightpurple)",
       }}
     >
       <div
@@ -82,12 +83,12 @@ export const PageContainer: React.FC<{
         style={{ height: "100vh", margin: "0" }}
       >
         <div>
-          <Header />
+          <Header baseUrl={TALENTSEARCH_APP_DIR} />
           <NavMenu items={menuItems} />
         </div>
         <div>{content}</div>
         <div style={{ marginTop: "auto" }}>
-          <Footer />
+          <Footer baseUrl={TALENTSEARCH_APP_DIR} />
         </div>
       </div>
     </ScrollToTop>
