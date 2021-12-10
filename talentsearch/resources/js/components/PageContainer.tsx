@@ -12,7 +12,7 @@ import {
 } from "@common/helpers/router";
 import Header from "@common/components/Header";
 import Footer from "@common/components/Footer";
-import { BASE_URL } from "../talentSearchConstants";
+import TALENTSEARCH_APP_DIR from "../talentSearchConstants";
 
 export const exactMatch = (ref: string, test: string): boolean => ref === test;
 
@@ -83,12 +83,12 @@ export const PageContainer: React.FC<{
         style={{ height: "100vh", margin: "0" }}
       >
         <div>
-          <Header baseUrl={BASE_URL} />
+          <Header baseUrl={TALENTSEARCH_APP_DIR} />
           <NavMenu items={menuItems} />
         </div>
         <div>{content}</div>
         <div style={{ marginTop: "auto" }}>
-          <Footer baseUrl={BASE_URL} />
+          <Footer baseUrl={TALENTSEARCH_APP_DIR} />
         </div>
       </div>
     </ScrollToTop>

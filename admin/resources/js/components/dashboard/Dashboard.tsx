@@ -7,7 +7,7 @@ import { Button, Link } from "@common/components";
 import NotFound from "@common/components/NotFound";
 import Header from "@common/components/Header";
 import Footer from "@common/components/Footer";
-import { BASE_URL } from "../../adminConstants";
+import ADMIN_APP_DIR from "../../adminConstants";
 import { poolCandidateTablePath } from "../../adminRoutes";
 import { useGetPoolsQuery } from "../../api/generated";
 import SideMenu from "../menu/SideMenu";
@@ -149,9 +149,9 @@ export const Dashboard: React.FC<{
           data-h2-display="b(flex)"
           style={{ flexDirection: "column" }}
         >
-          <Header baseUrl={BASE_URL} />
+          <Header baseUrl={ADMIN_APP_DIR} />
           {content}
-          <Footer baseUrl={BASE_URL} />
+          <Footer baseUrl={ADMIN_APP_DIR} />
         </div>
       </section>
     </div>
