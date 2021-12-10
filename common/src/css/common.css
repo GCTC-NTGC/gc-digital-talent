@@ -2,3 +2,12 @@
     list-style: none;
     padding: 0;
 }
+
+.input-label-context-button {
+    border: none;
+    padding: 0;
+    vertical-align: middle;
+    text-decoration: none;
+    background: transparent;
+    cursor: pointer;
+}

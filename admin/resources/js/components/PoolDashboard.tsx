@@ -26,7 +26,6 @@ import {
   userTablePath,
   userUpdatePath,
   homePath,
-  homePublicPath,
   searchRequestTablePath,
   searchRequestUpdatePath,
 } from "../adminRoutes";
@@ -59,7 +58,7 @@ import SingleSearchRequestPage from "./searchRequest/SingleSearchRequestPage";
 
 const routes: Routes<RouterResult> = [
   {
-    path: [homePath(), homePublicPath()],
+    path: [homePath()],
     action: () => ({
       component: <div />,
       redirect: poolTablePath(), // TODO: Which page should be treated as the dashboard Landing page?
