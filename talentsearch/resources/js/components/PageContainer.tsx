@@ -34,7 +34,7 @@ export const MenuLink: React.FC<MenuLinkProps> = ({
       href={href}
       title={title ?? ""}
       {...{
-        "data-h2-color": "b(lightpurple)",
+        "data-h2-font-color": "b(lightpurple)",
       }}
     >
       <div
