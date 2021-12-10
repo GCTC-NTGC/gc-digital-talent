@@ -1,6 +1,6 @@
 
 import path from "path-browserify";
-import ADMIN_APP_DIR from "./adminConstants";>>>>>>> main
+import ADMIN_APP_DIR from "./adminConstants";
 
 export const homePath = (): string => path.join("/", ADMIN_APP_DIR); // leading slash in case empty base url
 
