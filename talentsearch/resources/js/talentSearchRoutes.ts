@@ -1,4 +1,3 @@
-
 import path from "path-browserify";
 import TALENTSEARCH_APP_DIR from "./talentSearchConstants";
 

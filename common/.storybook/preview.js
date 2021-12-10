@@ -1,4 +1,5 @@
 import "../src/css/hydrogen.css"
+import "../src/css/common.css"
 import { setIntlConfig, withIntl } from 'storybook-addon-intl';
 
 export const parameters = {

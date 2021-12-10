@@ -1,9 +1,10 @@
-import * as React from "react";
-import { imageUrl } from "@common/helpers/router";
+import React from "react";
 import { useIntl } from "react-intl";
-import { homePath } from "../talentSearchRoutes";
+import { imageUrl } from "../../helpers/router";
 
-const Header: React.FunctionComponent = () => {
+export const Header: React.FunctionComponent<{
+  baseUrl: string;
+}> = ({ baseUrl }) => {
   const intl = useIntl();
   return (
     <header data-h2-border="b(gray, bottom, solid, s)">
@@ -15,7 +16,7 @@ const Header: React.FunctionComponent = () => {
           <a
             href={`https://www.canada.ca/${intl.locale}.html`}
             title={intl.formatMessage({
-              defaultMessage: "Visit Canada.ca.",
+              defaultMessage: "Visit Canada.ca",
               description: "Title for the Canada logo in the Header.",
             })}
             target="_blank"
@@ -23,7 +24,7 @@ const Header: React.FunctionComponent = () => {
           >
             <img
               style={{ width: "20rem" }}
-              src={imageUrl(homePath(), "logo_goc_colour.svg")}
+              src={imageUrl(baseUrl, "logo_goc_colour.svg")}
               alt={intl.formatMessage({
                 defaultMessage: "Canada's Logo.",
                 description: "Alt text for the Canada logo in the Header.",
