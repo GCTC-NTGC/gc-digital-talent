@@ -65,6 +65,7 @@ $app->configure('app');
 $app->configure('cache');
 $app->configure('filesystems');
 $app->configure('trustedproxy');
+$app->configure('view');
 
 /*
 |--------------------------------------------------------------------------
