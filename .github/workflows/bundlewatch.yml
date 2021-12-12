@@ -1,0 +1,68 @@
+name: "bundlewatch runner"
+
+on:
+  push:
+    # Generating bundlesize for mainline allows comparison of PR runs against baseline via bundlewatch hosted service.
+    branches: ["main"]
+    paths:
+      - .github/workflows/bundlewatch.yml
+      - common/**
+      - talentsearch/**
+      - admin/**
+      - auth/**
+  pull_request:
+    types: ["opened", "reopened", "synchronize"]
+    paths:
+      - .github/workflows/bundlewatch.yml
+      - common/**
+      - talentsearch/**
+      - admin/**
+      - auth/**
+
+jobs:
+  bundlewatch:
+    runs-on: ubuntu-latest
+    env:
+      # Used to write status check on PRs within upstream repo.
+      # Note: Will not work for PRs from forks.
+      BUNDLEWATCH_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # Use native docker command within docker-compose
+      COMPOSE_DOCKER_CLI_BUILD: 1
+      # Use buildkit to speed up docker command
+      DOCKER_BUILDKIT: 1
+
+    steps:
+    - uses: actions/checkout@v2.4.0
+
+    - name: "Build Docker images"
+      working-directory: infrastructure
+      run: |
+        docker-compose up --detach
+
+    - name: "Build production apps"
+      working-directory: infrastructure
+      run: |
+        docker-compose run --rm -e BUILD_SCRIPT=production maintenance bash setup.sh
+
+    - name: Install Bundlewatch
+      run: npm install -g bundlewatch@0.2.6
+
+    - name: "Run Bundlewatch"
+      env:
+        CI_BRANCH_DEFAULT: ${{ github.event.repository.default_branch }}
+
+        PR_COMMIT_SHA: ${{ github.event.pull_request.head.sha }}
+        PR_BRANCH: ${{ github.event.pull_request.head.ref }}
+        # Overrides `ci.repoBranchBase` (bundlewatch config)
+        PR_BRANCH_BASE: ${{ github.event.pull_request.base.ref }}
+
+        PUSH_COMMIT_SHA: ${{ github.event.after }}
+        # PUSH_BRANCH: see below (needs processing)
+        PUSH_BRANCH_BASE: ${{ github.event.repository.default_branch }}
+      # Creating empty `package.json` is a work-around to run bundlewatch from root of monorepo.
+      # See: https://github.com/bundlewatch/bundlewatch/pull/170#issuecomment-648881619
+      #
+      # GITHUB_REF is in format `refs/heads/branch-name`, so need to strip first part.
+      run: |
+        echo {} > package.json
+        PUSH_BRANCH=${GITHUB_REF#refs/heads/} npx bundlewatch --config .bundlewatch.config.js

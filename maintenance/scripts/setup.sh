@@ -1,5 +1,7 @@
 #! /bin/bash
 
+BUILD_SCRIPT="${BUILD_SCRIPT:=dev}"
+
 #setup nvm
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
@@ -17,7 +19,7 @@ rm personal_access_client.txt
 php artisan config:clear
 nvm install --latest-npm
 npm install
-npm run dev
+npm run ${BUILD_SCRIPT}
 chown -R www-data ./storage ./vendor
 chmod -R 775 ./storage
 
@@ -49,7 +51,7 @@ npm install
 npm rebuild node-sass
 npm run h2-build
 npm run codegen
-npm run dev
+npm run ${BUILD_SCRIPT}
 chown -R www-data ./storage ./vendor
 chmod -R 775 ./storage
 
@@ -69,6 +71,6 @@ npm install
 npm rebuild node-sass
 npm run h2-build
 npm run codegen
-npm run dev
+npm run ${BUILD_SCRIPT}
 chown -R www-data ./storage ./vendor
 chmod -R 775 ./storage
