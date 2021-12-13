@@ -1,4 +1,4 @@
-FROM node:14.18.1-bullseye-slim
+FROM ubuntu:latest
 
 # install apt packages
 # installing tzdata has an interactive prompt by default
