@@ -1,11 +1,22 @@
 #! /bin/bash
+# Purpose: Build and seed all apps in one environment, in either development or production mode.
+#
+# Usage:
+#
+#     ~$ [ BUILD_SCRIPT=production ] ./setup.sh
 
 # Fail out of script immediately if any single command fails.
 # See: https://gist.github.com/mohanpedala/1e2ff5661761d3abd0385e8223e16425
 set -euxo pipefail
 
-silent () {
-  # Disable command echoing for wrapped shell commands.
+###################################################
+# Run a shell command with debug echoing disabled.
+# Arguments:
+#   Command to execute
+# Outputs:
+#   Writes command output to stdout without debug lines
+###################################################
+quiet () {
   { local -; set +x; } 2> /dev/null
   "$@"
 }
@@ -14,7 +25,7 @@ BUILD_SCRIPT="${BUILD_SCRIPT:=dev}"
 
 #setup nvm
 export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && silent \. "$NVM_DIR/nvm.sh"
+[ -s "$NVM_DIR/nvm.sh" ] && quiet \. "$NVM_DIR/nvm.sh"
 
 # setup auth project
 cd /var/www/html/auth
@@ -27,7 +38,8 @@ php artisan passport:client --personal --name="Laravel Personal Access Client" >
 /root/scripts/update_auth_env.sh
 rm personal_access_client.txt
 php artisan config:clear
-silent nvm install --latest-npm
+quiet nvm install --latest-npm
+export PATH=$NVM_BIN:$PATH
 npm install
 npm run ${BUILD_SCRIPT}
 chown -R www-data ./storage ./vendor
@@ -46,7 +58,8 @@ chmod -R 775 ./storage
 
 # setup common project
 cd /var/www/html/common
-silent nvm install --latest-npm
+quiet nvm install --latest-npm
+export PATH=$NVM_BIN:$PATH
 npm install
 npm run h2-build
 npm run codegen
@@ -56,7 +69,8 @@ cd /var/www/html/talentsearch
 cp .env.example .env
 /root/scripts/update_env_appkey.sh .env
 composer install
-silent nvm install --latest-npm
+quiet nvm install --latest-npm
+export PATH=$NVM_BIN:$PATH
 npm install
 npm rebuild node-sass
 npm run h2-build
@@ -76,7 +90,8 @@ php artisan passport:client -n --name="admin" --redirect_uri="http://localhost:8
 rm admin_secret.txt
 cd /var/www/html/admin
 php artisan config:clear
-silent nvm install --latest-npm
+quiet nvm install --latest-npm
+export PATH=$NVM_BIN:$PATH
 npm install
 npm rebuild node-sass
 npm run h2-build
