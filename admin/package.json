@@ -57,7 +57,7 @@
     "@storybook/react": "^6.4.8",
     "@types/lodash": "^4.14.177",
     "@types/path-browserify": "^1.0.0",
-    "@types/react-table": "^7.7.8",
+    "@types/react-table": "^7.7.9",
     "@typescript-eslint/eslint-plugin": "^5.6.0",
     "@typescript-eslint/parser": "^5.6.0",
     "babel-loader": "^8.2.3",
