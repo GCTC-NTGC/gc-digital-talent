@@ -96,18 +96,27 @@ export const SearchForm: React.FunctionComponent<SearchFormProps> = ({
 
   const formValuesToData = useCallback(
     (values: FormValues): PoolCandidateFilterInput => ({
-      classifications: values.classifications?.map((id) =>
-        classificationMap.get(id),
-      ),
-      cmoAssets: values.cmoAssets?.map((id) => assetMap.get(id)),
-      operationalRequirements: values.operationalRequirements?.map((id) =>
-        requirementMap.get(id),
-      ),
+      classifications: values.classifications
+        ? values.classifications?.map((id) => classificationMap.get(id))
+        : [],
+      cmoAssets: values.cmoAssets
+        ? values.cmoAssets?.map((id) => assetMap.get(id))
+        : [],
+      operationalRequirements: values.operationalRequirements
+        ? values.operationalRequirements?.map((id) => requirementMap.get(id))
+        : [],
       hasDiploma: values.educationRequirement === "has_diploma",
-      hasDisability: values.employmentEquity?.includes("hasDisability"),
-      isIndigenous: values.employmentEquity?.includes("isIndigenous"),
-      isVisibleMinority: values.employmentEquity?.includes("isVisibleMinority"),
-      isWoman: values.employmentEquity?.includes("isWoman"),
+      hasDisability:
+        values.employmentEquity &&
+        values.employmentEquity?.includes("hasDisability"),
+      isIndigenous:
+        values.employmentEquity &&
+        values.employmentEquity?.includes("isIndigenous"),
+      isVisibleMinority:
+        values.employmentEquity &&
+        values.employmentEquity?.includes("isVisibleMinority"),
+      isWoman:
+        values.employmentEquity && values.employmentEquity?.includes("isWoman"),
       ...(values.languageAbility === "ENGLISH" ||
       values.languageAbility === "FRENCH" ||
       values.languageAbility === "BILINGUAL"
