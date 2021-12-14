@@ -2,7 +2,6 @@
 namespace App\Services;
 
 use DateTimeZone;
-use Exception;
 use Lcobucci\Clock\SystemClock;
 use Lcobucci\JWT\Configuration;
 use Lcobucci\JWT\Signer;

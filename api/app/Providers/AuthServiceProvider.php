@@ -2,8 +2,6 @@
 
 namespace App\Providers;
 
-use DateTimeZone;
-
 use App\Models\Classification;
 use App\Models\CmoAsset;
 use App\Models\Department;
@@ -23,7 +21,6 @@ use App\Services\Contracts\BearerTokenServiceInterface;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Log;
-use Lcobucci\JWT\Token\DataSet;
 use Lcobucci\JWT\Validation\RequiredConstraintsViolated;
 
 class AuthServiceProvider extends ServiceProvider

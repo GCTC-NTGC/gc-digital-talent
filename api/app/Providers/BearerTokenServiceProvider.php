@@ -20,7 +20,7 @@ class BearerTokenServiceProvider extends ServiceProvider
             $this->app->singleton(BearerTokenServiceInterface::class, function () {
                 return new OpenIdBearerTokenService(
                     env('APP_TIMEZONE'),
-                    env('AUTH_SERVER_ROOT').'.well-known/openid-configuration'
+                    env('AUTH_SERVER_ROOT').'/.well-known/openid-configuration'
                 );
             });
         else

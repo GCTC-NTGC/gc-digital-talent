@@ -29,6 +29,7 @@ class OpenIdBearerTokenService implements BearerTokenServiceInterface
         $this->configUri = $configUri;
     }
 
+    // parse the jwks json document and build a dictionary of key id to configuration object
     private function parseJwksJsonString(string $jsonString) : array
     {
         $obj = json_decode($jsonString);
@@ -43,10 +44,10 @@ class OpenIdBearerTokenService implements BearerTokenServiceInterface
         return $dictionary;
     }
 
+    // take a single key entry and build a Lcobucci\JWT\Configuration object for it
+    // any objects that can't be mapped return a null and will be filtered out later
     private function mapKeyEntryToConfig(object $value): ?Configuration
     {
-        // any objects that can't be mapped return a null and will be ignored
-
         $publicKeyUse = data_get($value, 'use');
         if($publicKeyUse != 'sig')
             return null; // only take signing keys for use
@@ -77,6 +78,7 @@ class OpenIdBearerTokenService implements BearerTokenServiceInterface
         return $config;
     }
 
+    // get a configuration property from the openid configuration json document
     private function getConfigProperty(string $propertyName): string
     {
         $jsonString = Cache::remember('openid_config_json_string', 60, function() { // only get content every minute
@@ -90,6 +92,7 @@ class OpenIdBearerTokenService implements BearerTokenServiceInterface
         return $uri;
     }
 
+    // get a Lcobucci\JWT\Configuration object for a given key ID
     private function getConfiguration(string $keyId) : ?Configuration
     {
         if(!$keyId)
