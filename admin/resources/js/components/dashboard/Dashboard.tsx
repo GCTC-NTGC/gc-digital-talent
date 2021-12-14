@@ -5,11 +5,12 @@ import { getLocale } from "@common/helpers/localize";
 import { Routes } from "universal-router";
 import { Button, Link } from "@common/components";
 import NotFound from "@common/components/NotFound";
+import Header from "@common/components/Header";
+import Footer from "@common/components/Footer";
+import ADMIN_APP_DIR from "../../adminConstants";
 import { poolCandidateTablePath } from "../../adminRoutes";
 import { useGetPoolsQuery } from "../../api/generated";
 import SideMenu from "../menu/SideMenu";
-import Footer from "../Footer";
-import Header from "../Header";
 
 export const exactMatch = (ref: string, test: string): boolean => ref === test;
 export const startsWith = (ref: string, test: string): boolean =>
@@ -148,9 +149,9 @@ export const Dashboard: React.FC<{
           data-h2-display="b(flex)"
           style={{ flexDirection: "column" }}
         >
-          <Header />
+          <Header baseUrl={ADMIN_APP_DIR} />
           {content}
-          <Footer />
+          <Footer baseUrl={ADMIN_APP_DIR} />
         </div>
       </section>
     </div>
