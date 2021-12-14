@@ -4,7 +4,6 @@ import { Routes } from "universal-router";
 import { RouterResult } from "@common/helpers/router";
 import Toast from "@common/components/Toast";
 import ClientProvider from "./ClientProvider";
-import ErrorContainer from "./ErrorContainer";
 import PageContainer, { MenuLink } from "./PageContainer";
 import SearchPage from "./search/SearchPage";
 import { homePath, requestPath, searchPath } from "../talentSearchRoutes";
@@ -63,12 +62,10 @@ export const Router: React.FC = () => {
   ];
 
   return (
-    <ErrorContainer>
-      <ClientProvider>
-        <PageContainer menuItems={menuItems} contentRoutes={routes} />
-        <Toast />
-      </ClientProvider>
-    </ErrorContainer>
+    <ClientProvider>
+      <PageContainer menuItems={menuItems} contentRoutes={routes} />
+      <Toast />
+    </ClientProvider>
   );
 };
 

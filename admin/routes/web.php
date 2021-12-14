@@ -32,3 +32,8 @@ Route::group([
         Route::get('/{any}', [DashboardController::class, 'index'])->where('any', '.*');
     });
 });
+
+// We may be redirecting the auth-callback route from the server root back here using Apache rewrite.
+Route::prefix('')->group(function () {
+    Route::get('/auth-callback', [AuthController::class, 'authCallback']);
+});

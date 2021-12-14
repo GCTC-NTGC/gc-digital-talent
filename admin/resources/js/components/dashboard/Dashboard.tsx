@@ -1,26 +1,20 @@
 import React, { ReactElement } from "react";
-import { defineMessages, useIntl } from "react-intl";
+import { useIntl } from "react-intl";
 import { useLocation, useRouter, RouterResult } from "@common/helpers/router";
 import { getLocale } from "@common/helpers/localize";
 import { Routes } from "universal-router";
 import { Button, Link } from "@common/components";
 import NotFound from "@common/components/NotFound";
+import Header from "@common/components/Header";
+import Footer from "@common/components/Footer";
+import ADMIN_APP_DIR from "../../adminConstants";
 import { poolCandidateTablePath } from "../../adminRoutes";
 import { useGetPoolsQuery } from "../../api/generated";
 import SideMenu from "../menu/SideMenu";
-import Footer from "../Footer";
-import Header from "../Header";
 
 export const exactMatch = (ref: string, test: string): boolean => ref === test;
 export const startsWith = (ref: string, test: string): boolean =>
   test.startsWith(ref);
-
-const messages = defineMessages({
-  menuPoolCandidates: {
-    defaultMessage: "Pool Candidates",
-    description: "Label displayed on the Pool Candidates menu item.",
-  },
-});
 
 export const MenuHeading: React.FC<{ text: string }> = ({ text }) => {
   return (
@@ -87,7 +81,10 @@ const PoolListApi = () => {
     items.push(
       <MenuHeading
         key="pool-candidates"
-        text={intl.formatMessage(messages.menuPoolCandidates)}
+        text={intl.formatMessage({
+          defaultMessage: "Pool Candidates",
+          description: "Label displayed on the Pool Candidates menu item.",
+        })}
       />,
     );
     data?.pools.map((pool) =>
@@ -152,9 +149,9 @@ export const Dashboard: React.FC<{
           data-h2-display="b(flex)"
           style={{ flexDirection: "column" }}
         >
-          <Header />
+          <Header baseUrl={ADMIN_APP_DIR} />
           {content}
-          <Footer />
+          <Footer baseUrl={ADMIN_APP_DIR} />
         </div>
       </section>
     </div>

@@ -25,8 +25,7 @@ import {
   userCreatePath,
   userTablePath,
   userUpdatePath,
-  basePath,
-  homePublicPath,
+  homePath,
   searchRequestTablePath,
   searchRequestUpdatePath,
 } from "../adminRoutes";
@@ -38,7 +37,6 @@ import { CreateCmoAsset } from "./cmoAsset/CreateCmoAsset";
 import { UpdateCmoAsset } from "./cmoAsset/UpdateCmoAsset";
 import { CreateUser } from "./user/CreateUser";
 import { Dashboard, MenuHeading, MenuLink } from "./dashboard/Dashboard";
-import ErrorContainer from "./ErrorContainer";
 import OperationalRequirementPage from "./operationalRequirement/OperationalRequirementPage";
 import { CreateOperationalRequirement } from "./operationalRequirement/CreateOperationalRequirement";
 import { UpdateOperationalRequirement } from "./operationalRequirement/UpdateOperationalRequirement";
@@ -60,7 +58,7 @@ import SingleSearchRequestPage from "./searchRequest/SingleSearchRequestPage";
 
 const routes: Routes<RouterResult> = [
   {
-    path: [basePath(), homePublicPath()],
+    path: [homePath()],
     action: () => ({
       component: <div />,
       redirect: poolTablePath(), // TODO: Which page should be treated as the dashboard Landing page?
@@ -294,14 +292,12 @@ export const PoolDashboard: React.FC = () => {
   ];
 
   return (
-    <ErrorContainer>
-      <AuthContainer>
-        <ClientProvider>
-          <Dashboard menuItems={menuItems} contentRoutes={routes} />
-          <Toast />
-        </ClientProvider>
-      </AuthContainer>
-    </ErrorContainer>
+    <AuthContainer>
+      <ClientProvider>
+        <Dashboard menuItems={menuItems} contentRoutes={routes} />
+        <Toast />
+      </ClientProvider>
+    </AuthContainer>
   );
 };
 

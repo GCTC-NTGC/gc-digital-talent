@@ -157,3 +157,16 @@ export const Link: React.FC<{ href: string; title: string }> = ({
     {children}
   </a>
 );
+
+export const ScrollToTop: React.FC<{ children: React.ReactElement }> = ({
+  children,
+}): React.ReactElement => {
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "auto",
+    });
+  }, [children]);
+  return children;
+};

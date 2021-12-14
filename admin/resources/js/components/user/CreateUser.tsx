@@ -14,7 +14,6 @@ import {
   CreateUserMutation,
   useCreateUserMutation,
 } from "../../api/generated";
-import messages from "./messages";
 import DashboardContentContainer from "../DashboardContentContainer";
 
 type FormValues = CreateUserInput;
@@ -35,45 +34,81 @@ export const CreateUserForm: React.FunctionComponent<CreateUserFormProps> = ({
     return handleCreateUser(data)
       .then(() => {
         navigate(userTablePath());
-        toast.success(intl.formatMessage(messages.createSuccess));
+        toast.success(
+          intl.formatMessage({
+            defaultMessage: "User created successfully!",
+            description:
+              "Message displayed to user after user is created successfully.",
+          }),
+        );
       })
       .catch(() => {
-        toast.error(intl.formatMessage(messages.createError));
+        toast.error(
+          intl.formatMessage({
+            defaultMessage: "Error: creating user failed",
+            description:
+              "Message displayed to user after user fails to get created.",
+          }),
+        );
       });
   };
 
   return (
     <section>
       <h2 data-h2-text-align="b(center)" data-h2-margin="b(top, none)">
-        {intl.formatMessage(messages.createHeading)}
+        {intl.formatMessage({
+          defaultMessage: "Create User",
+          description: "Title displayed on the create a user form.",
+        })}
       </h2>
       <div data-h2-container="b(center, s)">
         <FormProvider {...methods}>
           <form onSubmit={handleSubmit(onSubmit)}>
             <Input
               id="email"
-              label={intl.formatMessage(messages.emailLabel)}
-              type="text"
+              label={intl.formatMessage({
+                defaultMessage: "Email",
+                description: "Label displayed on the user form email field.",
+              })}
+              type="email"
               name="email"
-              rules={{ required: intl.formatMessage(errorMessages.required) }}
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
             />
             <Input
               id="firstName"
-              label={intl.formatMessage(messages.firstNameLabel)}
+              label={intl.formatMessage({
+                defaultMessage: "First Name",
+                description:
+                  "Label displayed on the user form first name field.",
+              })}
               type="text"
               name="firstName"
-              rules={{ required: intl.formatMessage(errorMessages.required) }}
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
             />
             <Input
               id="lastName"
-              label={intl.formatMessage(messages.lastNameLabel)}
+              label={intl.formatMessage({
+                defaultMessage: "Last Name",
+                description:
+                  "Label displayed on the user form last name field.",
+              })}
               type="text"
               name="lastName"
-              rules={{ required: intl.formatMessage(errorMessages.required) }}
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
             />
             <Input
               id="telephone"
-              label={intl.formatMessage(messages.telephoneLabel)}
+              label={intl.formatMessage({
+                defaultMessage: "Telephone",
+                description:
+                  "Label displayed on the user form telephone field.",
+              })}
               type="tel"
               name="telephone"
               rules={{
@@ -86,12 +121,20 @@ export const CreateUserForm: React.FunctionComponent<CreateUserFormProps> = ({
             />
             <Select
               id="preferredLang"
-              label={intl.formatMessage(messages.preferredLanguageLabel)}
+              label={intl.formatMessage({
+                defaultMessage: "Preferred Language",
+                description:
+                  "Label displayed on the user form preferred language field.",
+              })}
               name="preferredLang"
-              nullSelection={intl.formatMessage(
-                messages.preferredLanguagePlaceholder,
-              )}
-              rules={{ required: intl.formatMessage(errorMessages.required) }}
+              nullSelection={intl.formatMessage({
+                defaultMessage: "Select a language...",
+                description:
+                  "Placeholder displayed on the user form preferred language field.",
+              })}
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
               options={enumToOptions(Language).map(({ value }) => ({
                 value,
                 label: intl.formatMessage(getLanguage(value)),

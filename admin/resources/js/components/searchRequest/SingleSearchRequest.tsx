@@ -289,7 +289,8 @@ export const SingleSearchRequestApi: React.FunctionComponent<{
   if (error)
     return (
       <p>
-        {intl.formatMessage(commonMessages.loadingError)} {error.message}
+        {intl.formatMessage(commonMessages.loadingError)}
+        {error.message}
       </p>
     );
   return searchRequestData?.poolCandidateSearchRequest ? (

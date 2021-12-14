@@ -491,7 +491,7 @@ export const SearchForm: React.FunctionComponent<SearchFormProps> = ({
                     {
                       value: "isIndigenous",
                       label: intl.formatMessage({
-                        defaultMessage: "Aboriginal",
+                        defaultMessage: "Indigenous",
                         description:
                           "Checklist option for employment equity filter in search form.",
                       }),
@@ -733,7 +733,8 @@ export const SearchFormApi: React.FunctionComponent = () => {
         style={{ minHeight: "20rem" }}
       >
         <p>
-          {intl.formatMessage(commonMessages.loadingError)} {error.message}
+          {intl.formatMessage(commonMessages.loadingError)}
+          {error.message}
         </p>
       </div>
     );

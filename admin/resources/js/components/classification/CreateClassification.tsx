@@ -10,7 +10,6 @@ import {
   CreateClassificationInput,
   useCreateClassificationMutation,
 } from "../../api/generated";
-import messages from "./messages";
 import DashboardContentContainer from "../DashboardContentContainer";
 import { classificationTablePath } from "../../adminRoutes";
 
@@ -38,16 +37,31 @@ export const CreateClassificationForm: React.FunctionComponent<
     return handleCreateClassification(classification)
       .then(() => {
         navigate(classificationTablePath());
-        toast.success(intl.formatMessage(messages.createSuccess));
+        toast.success(
+          intl.formatMessage({
+            defaultMessage: "Classification created successfully!",
+            description:
+              "Message displayed to user after classification is created successfully.",
+          }),
+        );
       })
       .catch(() => {
-        toast.error(intl.formatMessage(messages.createError));
+        toast.error(
+          intl.formatMessage({
+            defaultMessage: "Error: creating classification failed",
+            description:
+              "Message displayed to user after classification fails to get created.",
+          }),
+        );
       });
   };
   return (
     <section>
       <h2 data-h2-text-align="b(center)" data-h2-margin="b(top, none)">
-        {intl.formatMessage(messages.createHeading)}
+        {intl.formatMessage({
+          defaultMessage: "Create Classification",
+          description: "Title displayed on the create a classification form.",
+        })}
       </h2>
       <div data-h2-container="b(center, s)">
         <FormProvider {...methods}>
@@ -55,30 +69,58 @@ export const CreateClassificationForm: React.FunctionComponent<
             <Input
               id="name_en"
               name="name.en"
-              label={intl.formatMessage(messages.nameEnLabel)}
+              label={intl.formatMessage({
+                defaultMessage: "Name (English)",
+                description:
+                  "Label displayed on the classification form name (English) field.",
+              })}
               type="text"
-              rules={{ required: intl.formatMessage(errorMessages.required) }}
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
             />
             <Input
               id="name_fr"
               name="name.fr"
-              label={intl.formatMessage(messages.nameFrLabel)}
+              label={intl.formatMessage({
+                defaultMessage: "Name (French)",
+                description:
+                  "Label displayed on the classification form name (French) field.",
+              })}
               type="text"
-              rules={{ required: intl.formatMessage(errorMessages.required) }}
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
             />
             <Input
               id="group"
               name="group"
-              label={intl.formatMessage(messages.groupLabel)}
+              label={intl.formatMessage({
+                defaultMessage: "Group",
+                description:
+                  "Label displayed for the classification form group field.",
+              })}
               type="text"
-              rules={{ required: intl.formatMessage(errorMessages.required) }}
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
             />
             <Select
               id="level"
               name="level"
-              label={intl.formatMessage(messages.levelLabel)}
-              nullSelection={intl.formatMessage(messages.levelPlaceholder)}
-              rules={{ required: intl.formatMessage(errorMessages.required) }}
+              label={intl.formatMessage({
+                defaultMessage: "Level",
+                description:
+                  "Label displayed on the classification form level field.",
+              })}
+              nullSelection={intl.formatMessage({
+                defaultMessage: "Select a level...",
+                description:
+                  "Placeholder displayed on the classification form level field.",
+              })}
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
               options={[
                 { value: 1, label: "1" },
                 { value: 2, label: "2" },
@@ -94,7 +136,11 @@ export const CreateClassificationForm: React.FunctionComponent<
             <Input
               id="minSalary"
               name="minSalary"
-              label={intl.formatMessage(messages.minSalaryLabel)}
+              label={intl.formatMessage({
+                defaultMessage: "Minimum Salary",
+                description:
+                  "Label displayed for the classification form min salary field.",
+              })}
               type="number"
               rules={{
                 required: intl.formatMessage(errorMessages.required),
@@ -109,7 +155,11 @@ export const CreateClassificationForm: React.FunctionComponent<
             <Input
               id="maxSalary"
               name="maxSalary"
-              label={intl.formatMessage(messages.maxSalaryLabel)}
+              label={intl.formatMessage({
+                defaultMessage: "Maximum Salary",
+                description:
+                  "Label displayed for the classification form max salary field.",
+              })}
               type="number"
               rules={{
                 required: intl.formatMessage(errorMessages.required),

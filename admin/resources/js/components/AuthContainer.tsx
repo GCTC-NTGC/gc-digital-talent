@@ -4,7 +4,7 @@ import {
   parseUrlQueryParameters,
   useLocation,
 } from "@common/helpers/router";
-import { basePath } from "../adminRoutes";
+import { homePath } from "../adminRoutes";
 
 const ACCESS_TOKEN = "access_token";
 const REFRESH_TOKEN = "refresh_token";
@@ -30,7 +30,7 @@ const logoutAndRefresh = (): void => {
   // TODO: Is there anything else we should do, in terms of notifying user?
   localStorage.removeItem(ACCESS_TOKEN);
   localStorage.removeItem(REFRESH_TOKEN);
-  window.location.href = basePath();
+  window.location.href = homePath();
 };
 
 function getTokensFromLocation(

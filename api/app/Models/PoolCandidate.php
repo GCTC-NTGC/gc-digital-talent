@@ -73,11 +73,9 @@ class PoolCandidate extends Model
 
     public function filterByClassifications(Builder $query, array $classifications): Builder
     {
-        // TODO: Handle the mapping between classifications and salaries here
-
         // Classifications act as an OR filter. The query should return candidates with any of the classifications.
         // A single whereHas clause for the relationship, containing multiple orWhere clauses accomplishes this.
-        return $query->whereHas('expectedClassifications', function ($query) use ($classifications) {
+        $query->whereHas('expectedClassifications', function ($query) use ($classifications) {
             foreach ($classifications as $index => $classification) {
                 if ($index === 0) {
                     // First iteration must use where instead of orWhere
@@ -89,10 +87,87 @@ class PoolCandidate extends Model
                         $query->where('group', $classification['group'])->where('level', $classification['level']);
                     });
                 }
-
             }
         });
+
+        $this->orFilterByClassificationToSalary($query, $classifications);
+
+        return $query;
     }
+
+    private function orFilterByClassificationToSalary(Builder $query, array $classifications): Builder
+    {
+        // When managers search for a classification, also return any users whose expected salary
+        // ranges overlap with the min/max salaries of any of those classifications.
+        // Since salary ranges are text enums a custom SQL subquery is used to convert them to
+        // numeric values and compare them to specified classifications
+
+        // This subquery only works for a non-zero number of filter classifications.
+        // If passed zero classifications then return same query builder unchanged.
+        if(count($classifications) == 0)
+            return $query;
+
+        $parameters = [];
+        $sql = <<<RAWSQL1
+
+SELECT NULL    -- find all candidates where a salary/group combination matches a classification filter
+  FROM (
+    SELECT    -- convert salary ranges to numeric min/max values
+      t.candidate_id,
+      CASE t.salary_range_id
+        WHEN '_50_59K' THEN 50000
+        WHEN '_60_69K' THEN 60000
+        WHEN '_70_79K' THEN 70000
+        WHEN '_80_89K' THEN 80000
+        WHEN '_90_99K' THEN 90000
+        WHEN '_100K_PLUS' THEN 100000
+      END min_salary,
+      CASE t.salary_range_id
+        WHEN '_50_59K' THEN 59999
+        WHEN '_60_69K' THEN 69999
+        WHEN '_70_79K' THEN 79999
+        WHEN '_80_89K' THEN 89999
+        WHEN '_90_99K' THEN 99999
+        WHEN '_100K_PLUS' THEN 2147483647
+      END max_salary,
+      t.classification_group
+    FROM (
+      SELECT    -- find all combinations of salary range and classification group for each candidate
+        pc.id candidate_id,
+        JSONB_ARRAY_ELEMENTS_TEXT(pc.expected_salary) salary_range_id,
+        c.group classification_group
+      FROM pool_candidates pc
+      JOIN classification_pool_candidate cpc ON pc.id = cpc.pool_candidate_id
+      JOIN classifications c ON cpc.classification_id = c.id
+    ) t
+  ) u
+  JOIN classifications c ON
+    c.max_salary >= u.min_salary
+    AND c.min_salary <= u.max_salary
+    AND c.group = u.classification_group
+  WHERE (
+
+RAWSQL1;
+
+        foreach ($classifications as $index => $classification) {
+            if ($index === 0) {
+                // First iteration must use where instead of orWhere
+                $sql .= '(c.group = ? AND c.level = ?)';
+            } else {
+                $sql .= ' OR (c.group = ? AND c.level = ?)';
+            }
+            array_push($parameters, [$classification['group'], $classification['level']]);
+        }
+
+        $sql .= <<<RAWSQL2
+  )
+  AND u.candidate_id = "pool_candidates".id
+
+RAWSQL2;
+
+        return $query->orWhereRaw('EXISTS (' . $sql . ')', $parameters);
+    }
+
     public function filterByCmoAssets(Builder $query, array $cmoAssets): Builder
     {
         // CmoAssets act as an AND filter. The query should only return candidates with ALL of the assets.

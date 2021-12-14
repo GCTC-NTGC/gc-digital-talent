@@ -14,7 +14,6 @@ import {
   useDepartmentQuery,
   useUpdateDepartmentMutation,
 } from "../../api/generated";
-import messages from "./messages";
 import DashboardContentContainer from "../DashboardContentContainer";
 
 type FormValues = UpdateDepartmentInput;
@@ -27,67 +26,101 @@ interface UpdateDepartmentProps {
   ) => Promise<UpdateDepartmentMutation["updateDepartment"]>;
 }
 
-export const UpdateDepartmentForm: React.FunctionComponent<UpdateDepartmentProps> =
-  ({ initialDepartment, handleUpdateDepartment }) => {
-    const intl = useIntl();
-    const methods = useForm<FormValues>({
-      defaultValues: {
-        departmentNumber: initialDepartment.departmentNumber,
-        name: initialDepartment.name,
-      },
-    });
-    const { handleSubmit } = methods;
+export const UpdateDepartmentForm: React.FunctionComponent<
+  UpdateDepartmentProps
+> = ({ initialDepartment, handleUpdateDepartment }) => {
+  const intl = useIntl();
+  const methods = useForm<FormValues>({
+    defaultValues: {
+      departmentNumber: initialDepartment.departmentNumber,
+      name: initialDepartment.name,
+    },
+  });
+  const { handleSubmit } = methods;
 
-    const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
-      return handleUpdateDepartment(initialDepartment.id, {
-        departmentNumber: Number(data.departmentNumber),
-        name: data.name,
+  const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
+    return handleUpdateDepartment(initialDepartment.id, {
+      departmentNumber: Number(data.departmentNumber),
+      name: data.name,
+    })
+      .then(() => {
+        navigate(departmentTablePath());
+        toast.success(
+          intl.formatMessage({
+            defaultMessage: "Department updated successfully!",
+            description:
+              "Message displayed to user after department is updated successfully.",
+          }),
+        );
       })
-        .then(() => {
-          navigate(departmentTablePath());
-          toast.success(intl.formatMessage(messages.updateSuccess));
-        })
-        .catch(() => {
-          toast.error(intl.formatMessage(messages.updateError));
-        });
-    };
-
-    return (
-      <section>
-        <h2 data-h2-text-align="b(center)" data-h2-margin="b(top, none)">
-          {intl.formatMessage(messages.updateHeading)}
-        </h2>
-        <div data-h2-container="b(center, s)">
-          <FormProvider {...methods}>
-            <form onSubmit={handleSubmit(onSubmit)}>
-              <Input
-                id="departmentNumber"
-                name="departmentNumber"
-                label={intl.formatMessage(messages.departmentNumberLabel)}
-                type="number"
-                rules={{ required: intl.formatMessage(errorMessages.required) }}
-              />
-              <Input
-                id="name_en"
-                name="name.en"
-                label={intl.formatMessage(messages.nameEnLabel)}
-                type="text"
-                rules={{ required: intl.formatMessage(errorMessages.required) }}
-              />
-              <Input
-                id="name_fr"
-                name="name.fr"
-                label={intl.formatMessage(messages.nameFrLabel)}
-                type="text"
-                rules={{ required: intl.formatMessage(errorMessages.required) }}
-              />
-              <Submit />
-            </form>
-          </FormProvider>
-        </div>
-      </section>
-    );
+      .catch(() => {
+        toast.error(
+          intl.formatMessage({
+            defaultMessage: "Error: updating department failed",
+            description:
+              "Message displayed to user after department fails to get updated.",
+          }),
+        );
+      });
   };
+
+  return (
+    <section>
+      <h2 data-h2-text-align="b(center)" data-h2-margin="b(top, none)">
+        {intl.formatMessage({
+          defaultMessage: "Update Department",
+          description: "Title displayed on the update a department form.",
+        })}
+      </h2>
+      <div data-h2-container="b(center, s)">
+        <FormProvider {...methods}>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <Input
+              id="departmentNumber"
+              name="departmentNumber"
+              label={intl.formatMessage({
+                defaultMessage: "Department #",
+                description:
+                  "Label displayed on the create a department form department number field.",
+              })}
+              type="number"
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
+            />
+            <Input
+              id="name_en"
+              name="name.en"
+              label={intl.formatMessage({
+                defaultMessage: "Name (English)",
+                description:
+                  "Label displayed on the create a department form name (English) field.",
+              })}
+              type="text"
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
+            />
+            <Input
+              id="name_fr"
+              name="name.fr"
+              label={intl.formatMessage({
+                defaultMessage: "Name (French)",
+                description:
+                  "Label displayed on the create a department form name (French) field.",
+              })}
+              type="text"
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
+            />
+            <Submit />
+          </form>
+        </FormProvider>
+      </div>
+    </section>
+  );
+};
 
 export const UpdateDepartment: React.FunctionComponent<{
   departmentId: string;
@@ -131,7 +164,15 @@ export const UpdateDepartment: React.FunctionComponent<{
     </DashboardContentContainer>
   ) : (
     <DashboardContentContainer>
-      <p>{intl.formatMessage(messages.notFound, { departmentId })}</p>
+      <p>
+        {intl.formatMessage(
+          {
+            defaultMessage: "Department {departmentId} not found.",
+            description: "Message displayed for department not found.",
+          },
+          { departmentId },
+        )}
+      </p>
     </DashboardContentContainer>
   );
 };

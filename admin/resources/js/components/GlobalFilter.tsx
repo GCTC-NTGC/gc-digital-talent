@@ -1,20 +1,9 @@
 import React, { useState } from "react";
-import { defineMessages, useIntl } from "react-intl";
+import { useIntl } from "react-intl";
 import { useAsyncDebounce } from "react-table";
 import "regenerator-runtime/runtime.js"; // This is required for useAsyncDebounce to work; it makes up for something wrong with our webpack configuration.
 import { InputWrapper } from "@common/components/inputPartials";
 
-const messages = defineMessages({
-  searchLabel: {
-    defaultMessage: "Search",
-    description: "Label displayed on the Global Filter form Search field.",
-  },
-  searchPlaceholder: {
-    defaultMessage: "Start writing here...",
-    description:
-      "Placeholder displayed on the Global Filter form Search field.",
-  },
-});
 interface GlobalFilterProps {
   globalFilter: any;
   setGlobalFilter: any;
@@ -33,7 +22,10 @@ const GlobalFilter: React.FC<GlobalFilterProps> = ({
   return (
     <InputWrapper
       inputId="searchTable"
-      label={intl.formatMessage(messages.searchLabel)}
+      label={intl.formatMessage({
+        defaultMessage: "Search",
+        description: "Label displayed on the Global Filter form Search field.",
+      })}
       required={false}
     >
       <input
@@ -45,7 +37,11 @@ const GlobalFilter: React.FC<GlobalFilterProps> = ({
           setValue(e.target.value);
           onChange(e.target.value);
         }}
-        placeholder={intl.formatMessage(messages.searchPlaceholder)}
+        placeholder={intl.formatMessage({
+          defaultMessage: "Start writing here...",
+          description:
+            "Placeholder displayed on the Global Filter form Search field.",
+        })}
       />
     </InputWrapper>
   );

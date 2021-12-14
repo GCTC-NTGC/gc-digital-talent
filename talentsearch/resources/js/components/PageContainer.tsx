@@ -8,9 +8,11 @@ import {
   RouterResult,
   useLocation,
   useRouter,
+  ScrollToTop,
 } from "@common/helpers/router";
-import Footer from "./Footer";
-import Header from "./Header";
+import Header from "@common/components/Header";
+import Footer from "@common/components/Footer";
+import TALENTSEARCH_APP_DIR from "../talentSearchConstants";
 
 export const exactMatch = (ref: string, test: string): boolean => ref === test;
 
@@ -33,7 +35,7 @@ export const MenuLink: React.FC<MenuLinkProps> = ({
       href={href}
       title={title ?? ""}
       {...{
-        "data-h2-color": "b(lightpurple)",
+        "data-h2-font-color": "b(lightpurple)",
       }}
     >
       <div
@@ -72,23 +74,24 @@ export const PageContainer: React.FC<{
   contentRoutes: Routes<RouterResult>;
 }> = ({ menuItems, contentRoutes }) => {
   const content = useRouter(contentRoutes, <TalentSearchNotFound />);
-
   return (
-    <div
-      className="container"
-      data-h2-display="b(flex)"
-      data-h2-flex-direction="b(column)"
-      style={{ height: "100vh", margin: "0" }}
-    >
-      <div>
-        <Header />
-        <NavMenu items={menuItems} />
+    <ScrollToTop>
+      <div
+        className="container"
+        data-h2-display="b(flex)"
+        data-h2-flex-direction="b(column)"
+        style={{ height: "100vh", margin: "0" }}
+      >
+        <div>
+          <Header baseUrl={TALENTSEARCH_APP_DIR} />
+          <NavMenu items={menuItems} />
+        </div>
+        <div>{content}</div>
+        <div style={{ marginTop: "auto" }}>
+          <Footer baseUrl={TALENTSEARCH_APP_DIR} />
+        </div>
       </div>
-      <div>{content}</div>
-      <div style={{ marginTop: "auto" }}>
-        <Footer />
-      </div>
-    </div>
+    </ScrollToTop>
   );
 };
 
