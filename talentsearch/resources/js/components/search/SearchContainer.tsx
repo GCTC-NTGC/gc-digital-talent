@@ -161,13 +161,14 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
             data-h2-padding="b(top-bottom, xs) b(left, s)"
             data-h2-border="b(darkgray, left, solid, l)"
           >
-            <p data-h2-margin="b(bottom, none)">
-              {intl.formatMessage({
-                defaultMessage: "We can still help!",
-                description:
-                  "Heading for helping user if no candidates matched the filters chosen.",
-              })}
-            </p>
+              <p data-h2-margin="b(bottom, none)">
+                {intl.formatMessage({
+                  defaultMessage: "We can still help!",
+                  description:
+                    "Heading for helping user if no candidates matched the filters chosen.",
+                })}
+              </p>
+            )}
             <p data-h2-margin="b(top, xxs)" data-h2-font-size="b(caption)">
               {intl.formatMessage(
                 {
