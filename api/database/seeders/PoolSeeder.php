@@ -2,7 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\Classification;
 use App\Models\CmoAsset;
+use App\Models\OperationalRequirement;
 use App\Models\Pool;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -38,7 +40,15 @@ class PoolSeeder extends Seeder
             $identifier = [
                 'name->en' => $pool['name']['en'],
             ];
-            Pool::updateOrCreate($identifier, $pool);
+            $newPool = Pool::updateOrCreate($identifier, $pool);
+            // Attach data to pool
+            $assets = CmoAsset::inRandomOrder()->limit(4)->get();
+            $classifications = Classification::inRandomOrder()->limit(3)->get();
+            $requirements = OperationalRequirement::inRandomOrder()->limit(2)->get();
+            $newPool->essentialCriteria()->saveMany($assets->slice(0,2));
+            $newPool->assetCriteria()->saveMany($assets->slice(2,2));
+            $newPool->classifications()->saveMany($classifications);
+            $newPool->operationalRequirements()->saveMany($requirements);
         }
     }
 }
