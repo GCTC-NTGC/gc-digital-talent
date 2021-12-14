@@ -24,16 +24,6 @@
   font-weight: 600;
 }
 
-.blink_me {
-  animation: blinker 1.5s linear infinite;
-}
-
-@keyframes blinker {
-  50% {
-    opacity: 50%;
-  }
-}
-
 .lds-dual-ring {
   display: inline-block;
   /* width: 2rem; */

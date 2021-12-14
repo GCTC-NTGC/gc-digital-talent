@@ -12,7 +12,11 @@ const EstimatedCandidates: React.FunctionComponent<
   const intl = useIntl();
 
   function b(msg: string) {
-    return <b data-h2-font-weight="b(800)">{msg}</b>;
+    return updatePending ? (
+      <div className="lds-dual-ring" />
+    ) : (
+      <span data-h2-font-weight="b(800)">{msg}</span>
+    );
   }
 
   return (
@@ -20,7 +24,6 @@ const EstimatedCandidates: React.FunctionComponent<
       data-h2-bg-color="b(white)"
       data-h2-border="b(lightgray, all, solid, s)"
       data-h2-shadow="b(m)"
-      className={updatePending ? "blink_me" : ""}
     >
       <div
         data-h2-bg-color="b(linear-70[lightpurple][lightnavy])"
