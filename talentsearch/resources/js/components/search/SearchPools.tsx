@@ -20,7 +20,7 @@ const SearchPools: React.FunctionComponent<SearchPoolsProps> = ({
   const intl = useIntl();
   const locale = getLocale(intl);
 
-  function span(msg: string) {
+  function bold(msg: string) {
     return (
       <span data-h2-font-weight="b(700)" data-h2-font-color="b(lightpurple)">
         {msg}
@@ -43,12 +43,12 @@ const SearchPools: React.FunctionComponent<SearchPoolsProps> = ({
           {intl.formatMessage(
             {
               defaultMessage:
-                "There are <span>{candidateCount}</span> matching candidates in this pool",
+                "There are <bold>{candidateCount}</bold> matching candidates in this pool",
               description:
                 "Message for total estimated candidates box next to search form.",
             },
             {
-              span,
+              bold,
               candidateCount,
             },
           )}
