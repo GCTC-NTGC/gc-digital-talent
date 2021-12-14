@@ -31,6 +31,8 @@ export interface SearchContainerProps {
   updatePending?: boolean;
   candidateFilter: PoolCandidateFilterInput | undefined;
   updateCandidateFilter: (candidateFilter: PoolCandidateFilterInput) => void;
+  updateInitialValues: (initialValues: FormValues) => void;
+  handleSubmit: () => Promise<void>;
 }
 
 export const SearchContainer: React.FC<SearchContainerProps> = ({
@@ -43,6 +45,8 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
   updatePending,
   candidateFilter,
   updateCandidateFilter,
+  updateInitialValues,
+  handleSubmit,
 }) => {
   const intl = useIntl();
 
@@ -67,16 +71,6 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
       </a>
     );
   }
-
-  const [initialValues, setInitialValues] = useState<FormValues | null>(null);
-
-  const onSubmit = async () => {
-    return pushToStateThenNavigate(requestPath(), {
-      candidateFilter,
-      candidateCount,
-      initialValues,
-    });
-  };
 
   return (
     <div>
@@ -112,7 +106,7 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
             cmoAssets={cmoAssets}
             operationalRequirements={operationalRequirements}
             updateCandidateFilter={updateCandidateFilter}
-            updateInitialValues={setInitialValues}
+            updateInitialValues={updateInitialValues}
           />
         </div>
         <div
@@ -156,11 +150,13 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
           />
         </div>
         <div data-h2-flex-item="b(1of1)" style={{ paddingTop: "0" }}>
-          <div
-            data-h2-shadow="b(m)"
-            data-h2-padding="b(top-bottom, xs) b(left, s)"
-            data-h2-border="b(darkgray, left, solid, l)"
-          >
+          {candidateCount === 0 && (
+            <div
+              data-h2-shadow="b(m)"
+              data-h2-padding="b(top-bottom, xs) b(left, s)"
+              data-h2-border="b(darkgray, left, solid, l)"
+            >
+              (
               <p data-h2-margin="b(bottom, none)">
                 {intl.formatMessage({
                   defaultMessage: "We can still help!",
@@ -168,21 +164,22 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
                     "Heading for helping user if no candidates matched the filters chosen.",
                 })}
               </p>
-            )}
-            <p data-h2-margin="b(top, xxs)" data-h2-font-size="b(caption)">
-              {intl.formatMessage(
-                {
-                  defaultMessage:
-                    "If there are no matching candidates <a>Get in touch!</a>",
-                  description:
-                    "Message for helping user if no candidates matched the filters chosen.",
-                },
-                {
-                  a,
-                },
-              )}
-            </p>
-          </div>
+              )
+              <p data-h2-margin="b(top, xxs)" data-h2-font-size="b(caption)">
+                {intl.formatMessage(
+                  {
+                    defaultMessage:
+                      "If there are no matching candidates <a>Get in touch!</a>",
+                    description:
+                      "Message for helping user if no candidates matched the filters chosen.",
+                  },
+                  {
+                    a,
+                  },
+                )}
+              </p>
+            </div>
+          )}
           <div
             data-h2-shadow="b(m)"
             data-h2-border="b(lightnavy, left, solid, l)"
@@ -193,7 +190,7 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
               candidateCount={candidateCount}
               pool={pool}
               poolOwner={poolOwner}
-              handleSubmit={onSubmit}
+              handleSubmit={handleSubmit}
             />
           </div>
         </div>
@@ -248,6 +245,16 @@ export const SearchContainerApi: React.FC = () => {
 
   const candidateCount = countData?.countPoolCandidates ?? 0;
 
+  const [initialValues, setInitialValues] = useState<FormValues | null>(null);
+
+  const onSubmit = async () => {
+    return pushToStateThenNavigate(requestPath(), {
+      candidateFilter,
+      candidateCount,
+      initialValues,
+    });
+  };
+
   return (
     <SearchContainer
       classifications={pool?.classifications?.filter(notEmpty) ?? []}
@@ -261,6 +268,8 @@ export const SearchContainerApi: React.FC = () => {
       candidateCount={candidateCount}
       updatePending={countFetching}
       updateCandidateFilter={setCandidateFilter}
+      updateInitialValues={setInitialValues}
+      handleSubmit={onSubmit}
     />
   );
 };

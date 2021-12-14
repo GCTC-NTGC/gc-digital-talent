@@ -168,18 +168,29 @@ export const SearchForm: React.FunctionComponent<SearchFormProps> = ({
     () =>
       cmoAssets.map(({ id, name }) => ({
         value: id,
-        label: name[locale] ?? "Error: name not loaded",
+        label:
+          name[locale] ??
+          intl.formatMessage({
+            defaultMessage: "Error: name not loaded",
+            description: "Error message for cmo asset filer on search form.",
+          }),
       })),
-    [cmoAssets, locale],
+    [cmoAssets, locale, intl],
   );
 
   const operationalRequirementOptions: Option<string>[] = useMemo(
     () =>
       operationalRequirements.map(({ id, name }) => ({
         value: id,
-        label: name[locale] || "Error: operational requirement name not found.",
+        label:
+          name[locale] ||
+          intl.formatMessage({
+            defaultMessage: "Error: operational requirement name not found.",
+            description:
+              "Error message on operational requirements filter on search form.",
+          }),
       })),
-    [operationalRequirements, locale],
+    [operationalRequirements, locale, intl],
   );
 
   return (
