@@ -11,9 +11,9 @@ const EstimatedCandidates: React.FunctionComponent<
 > = ({ candidateCount, updatePending }) => {
   const intl = useIntl();
 
-  function b(msg: string) {
+  function weight(msg: string) {
     return updatePending ? (
-      <div className="lds-dual-ring" />
+      <span className="lds-dual-ring" />
     ) : (
       <span data-h2-font-weight="b(800)">{msg}</span>
     );
@@ -47,12 +47,12 @@ const EstimatedCandidates: React.FunctionComponent<
           {intl.formatMessage(
             {
               defaultMessage:
-                "There are approximately <b>{candidateCount}</b> candidates right now who meet your criteria.",
+                "There are approximately <weight>{candidateCount}</weight> candidates right now who meet your criteria.",
               description:
                 "Message for total estimated candidates box next to search form.",
             },
             {
-              b,
+              weight,
               candidateCount,
             },
           )}
