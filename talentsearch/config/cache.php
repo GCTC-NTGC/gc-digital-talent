@@ -56,7 +56,7 @@ return [
 
         'tmp' => [
             'driver' => 'file',
-            'path' => '/tmp/admin/storage/framework/cache/data',
+            'path' => '/tmp/talentsearch/storage/framework/cache/data',
         ],
 
         'memcached' => [
@@ -110,6 +110,6 @@ return [
     |
     */
 
-    'prefix' => env('CACHE_PREFIX', Str::slug(env('APP_NAME', 'laravel'), '_').'_cache'),
+    'prefix' => env('CACHE_PREFIX', Str::slug(env('APP_NAME', 'laravel'), '_') . '_cache'),
 
 ];

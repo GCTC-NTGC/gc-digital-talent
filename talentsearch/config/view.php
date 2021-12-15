@@ -28,9 +28,8 @@ return [
     |
     */
 
-    // A somewhat hacky solution to enable deploying the app in a read-only directory
     'compiled' => env('USE_TMP_STORAGE', false)
-        ? '/tmp/auth/storage/framework/views'
+        ? '/tmp/talentsearch/storage/framework/views'
         : env(
             'VIEW_COMPILED_PATH',
             realpath(storage_path('framework/views'))
