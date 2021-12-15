@@ -13,5 +13,27 @@
 |
 */
 
-$router->get('/', 'TalentSearchController@index');
-$router->get('/{any:.*}', 'TalentSearchController@index');
+$router->group([
+    'prefix' => 'en',
+], function() use ($router) {
+    $router->get('/', 'TalentSearchController@index');
+});
+
+$router->group([
+    'prefix' => 'en',
+], function() use ($router) {
+    $router->get('/{any:.*}', 'TalentSearchController@index');
+});
+
+$router->group([
+    'prefix' => 'fr',
+], function() use ($router) {
+    $router->get('/', 'TalentSearchController@index');
+});
+
+$router->group([
+    'prefix' => 'fr',
+], function() use ($router) {
+    $router->get('/{any:.*}', 'TalentSearchController@index');
+});
+

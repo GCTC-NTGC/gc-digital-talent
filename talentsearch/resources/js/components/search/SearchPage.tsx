@@ -1,10 +1,11 @@
 import React from "react";
 import { imageUrl } from "@common/helpers/router";
 import { useIntl } from "react-intl";
+import { getLocale } from "@common/helpers/localize";
 import { homePath } from "../../talentSearchRoutes";
 import { SearchFormApi } from "./SearchForm";
 
-export const SearchPage: React.FC = () => {
+export const SearchPage: React.FC<{ lang: string }> = ({ lang }) => {
   const intl = useIntl();
 
   return (
@@ -15,7 +16,7 @@ export const SearchPage: React.FC = () => {
         data-h2-margin="b(bottom, xxl)"
         style={{
           background: `linear-gradient(70deg, rgba(103, 76, 144, 0.9), rgba(29, 44, 76, 1)), url(${imageUrl(
-            homePath(),
+            homePath(getLocale(intl)),
             "hero-background-search.png",
           )})`,
           backgroundSize: "cover",

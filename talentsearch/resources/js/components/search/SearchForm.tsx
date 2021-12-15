@@ -261,7 +261,7 @@ export const SearchForm: React.FunctionComponent<SearchFormProps> = ({
         data.languageAbility === "null" ? null : data.languageAbility,
       workRegions: data.workRegions,
     };
-    return pushToStateThenNavigate(requestPath(), {
+    return pushToStateThenNavigate(requestPath(getLocale(intl)), {
       poolCandidateFilter,
       initialValues: data,
     });

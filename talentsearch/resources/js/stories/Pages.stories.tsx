@@ -7,9 +7,9 @@ import RequestPage from "../components/request/RequestPage";
 const stories = storiesOf("Pages", module);
 
 stories.add("Home Page", () => {
-  return <HomePage />;
+  return <HomePage lang="en" />;
 });
 
 stories.add("Search Page", () => {
-  return <SearchPage />;
+  return <SearchPage lang="en" />;
 });

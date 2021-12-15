@@ -103,7 +103,7 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     return handleCreatePoolCandidateSearchRequest(formValuesToSubmitData(data))
       .then(() => {
-        navigate(searchPath());
+        navigate(searchPath(getLocale(intl)));
         toast.success(
           intl.formatMessage({
             defaultMessage: "Request created successfully!",
@@ -315,7 +315,7 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
               data-h2-margin="b(right, s)"
               onClick={() => {
                 // Save the initial search form values to the state so they are available to user when click back.
-                pushToStateThenNavigate(searchPath(), {
+                pushToStateThenNavigate(searchPath(getLocale(intl)), {
                   initialValues,
                 });
               }}

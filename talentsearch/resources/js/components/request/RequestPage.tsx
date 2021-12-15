@@ -4,7 +4,7 @@ import { useLocation } from "@common/helpers/router";
 import { PoolCandidateFilter } from "../../api/generated";
 import { CreateRequest } from "./CreateRequest";
 
-const RequestPage: React.FunctionComponent = () => {
+const RequestPage: React.FC<{ lang: string }> = ({ lang }) => {
   const intl = useIntl();
   const location = useLocation();
   const poolCandidateFilter: PoolCandidateFilter = location.state

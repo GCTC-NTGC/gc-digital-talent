@@ -74,6 +74,8 @@ export const PageContainer: React.FC<{
   contentRoutes: Routes<RouterResult>;
 }> = ({ menuItems, contentRoutes }) => {
   const content = useRouter(contentRoutes, <TalentSearchNotFound />);
+  const { pathname } = useLocation();
+
   return (
     <ScrollToTop>
       <div
@@ -83,7 +85,7 @@ export const PageContainer: React.FC<{
         style={{ height: "100vh", margin: "0" }}
       >
         <div>
-          <Header baseUrl={TALENTSEARCH_APP_DIR} />
+          <Header baseUrl={TALENTSEARCH_APP_DIR} currentPath={pathname} />
           <NavMenu items={menuItems} />
         </div>
         <div>{content}</div>

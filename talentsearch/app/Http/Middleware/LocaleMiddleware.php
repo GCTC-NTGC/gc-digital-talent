@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 
-class ExampleMiddleware
+class LocaleMiddleware
 {
     /**
      * Handle an incoming request.
@@ -15,6 +15,7 @@ class ExampleMiddleware
      */
     public function handle($request, Closure $next)
     {
+        config(['app.locale' => substr( parse_url( $request->fullUrl() )['path'], 1, 2)]);
         return $next($request);
     }
 }

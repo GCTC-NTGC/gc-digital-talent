@@ -1,7 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-export const HomePage: React.FC = () => {
+export const HomePage: React.FC<{ lang: string }> = ({ lang }) => {
   const intl = useIntl();
   return (
     <div

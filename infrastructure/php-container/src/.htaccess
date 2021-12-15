@@ -17,6 +17,8 @@ DirectorySlash off
     RewriteRule ^admin(/.*)?$ admin/public/ [L]
     RewriteRule ^en/admin(/.*)?$ admin/public/en$1 [L]
     RewriteRule ^fr/admin(/.*)?$ admin/public/fr$1 [L]
+    # RewriteRule ^en(/.*)?$ talentsearch/public/en$1 [L]
+    # RewriteRule ^fr(/.*)?$ talentsearch/public/fr$1 [L]
     RewriteRule ^public/(.*)$ talentsearch/public/$1 [L]
     RewriteRule ^(.*)$ talentsearch/public/$1 [L]
 </IfModule>
