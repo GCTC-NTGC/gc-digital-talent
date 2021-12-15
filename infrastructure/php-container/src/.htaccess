@@ -11,14 +11,12 @@ DirectorySlash off
     RewriteRule ^phpinfo.php$ phpinfo.php [L]
     RewriteRule ^graphql-playground api/public/graphql-playground [L]
     RewriteRule ^graphql api/public/graphql [L]
-    RewriteRule ^auth/(.*)$ auth/public/$1 [L]
-    RewriteRule ^oauth/(.*)$ auth/public/$1 [L]
+    RewriteRule ^auth(/.*)?$ auth/public/ [L]
+    RewriteRule ^oauth(/.*)?$ auth/public/ [L]
     RewriteRule ^auth-callback admin/public/ [L]
-
     RewriteRule ^admin(/.*)?$ admin/public/ [L]
     RewriteRule ^en/admin(/.*)?$ admin/public/en$1 [L]
     RewriteRule ^fr/admin(/.*)?$ admin/public/fr$1 [L]
-
     RewriteRule ^public/(.*)$ talentsearch/public/$1 [L]
     RewriteRule ^(.*)$ talentsearch/public/$1 [L]
 </IfModule>
