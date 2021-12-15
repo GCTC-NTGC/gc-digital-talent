@@ -91,7 +91,10 @@ export const SearchRequestTable: React.FunctionComponent<
           poolCandidateFilter.pools?.map(
             (pool) =>
               pool && (
-                <a key={pool.id} href={poolCandidateTablePath(pool.id)}>
+                <a
+                  key={pool.id}
+                  href={poolCandidateTablePath(pool.id, getLocale(intl))}
+                >
                   {pool.name?.[locale]}
                 </a>
               ),

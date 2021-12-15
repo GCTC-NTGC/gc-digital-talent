@@ -2,10 +2,11 @@ import React from "react";
 import { useIntl } from "react-intl";
 import Button from "@common/components/Button";
 import Link from "@common/components/Link";
+import { getLocale } from "@common/helpers/localize";
 import { cmoAssetCreatePath } from "../../adminRoutes";
 import { CmoAssetTableApi } from "./CmoAssetTable";
 
-export const CmoAssetPage: React.FC = () => {
+export const CmoAssetPage: React.FC<{ lang: string }> = ({ lang }) => {
   const intl = useIntl();
   return (
     <div>
@@ -33,7 +34,7 @@ export const CmoAssetPage: React.FC = () => {
             data-h2-text-align="m(right)"
           >
             <Button color="white" mode="outline">
-              <Link href={cmoAssetCreatePath()} title="">
+              <Link href={cmoAssetCreatePath(getLocale(intl))} title="">
                 {intl.formatMessage({
                   defaultMessage: "Create CMO Asset",
                   description:

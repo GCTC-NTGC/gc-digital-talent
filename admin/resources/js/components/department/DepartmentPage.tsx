@@ -1,10 +1,13 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { Link, Button } from "@common/components";
+import { getLocale } from "@common/helpers/localize";
 import { departmentCreatePath } from "../../adminRoutes";
 import { DepartmentTableApi } from "./DepartmentTable";
 
-export const DepartmentPage: React.FC = () => {
+export const DepartmentPage: React.FC<{
+  lang: string;
+}> = ({ lang }) => {
   const intl = useIntl();
   return (
     <div>
@@ -32,7 +35,7 @@ export const DepartmentPage: React.FC = () => {
             data-h2-text-align="m(right)"
           >
             <Button color="white" mode="outline">
-              <Link href={departmentCreatePath()} title="">
+              <Link href={departmentCreatePath(getLocale(intl))} title="">
                 {intl.formatMessage({
                   defaultMessage: "Create Department",
                   description:

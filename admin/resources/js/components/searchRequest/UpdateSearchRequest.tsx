@@ -1,6 +1,7 @@
 import { PoolCandidateSearchRequest } from "@common/api/generated";
 import { Button } from "@common/components";
 import { Submit, TextArea } from "@common/components/form";
+import { getLocale } from "@common/helpers/localize";
 import { navigate } from "@common/helpers/router";
 import * as React from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
@@ -134,7 +135,7 @@ export const UpdateSearchRequestForm: React.FunctionComponent<
                 color="primary"
                 mode="outline"
                 onClick={() => {
-                  navigate(searchRequestTablePath());
+                  navigate(searchRequestTablePath(getLocale(intl)));
                 }}
                 data-h2-margin="b(top, m) b(right, m)"
               >

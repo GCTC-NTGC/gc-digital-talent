@@ -84,7 +84,7 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
     await handleCreatePool(formValuesToSubmitData(data))
       .then(() => {
-        navigate(poolTablePath());
+        navigate(poolTablePath(getLocale(intl)));
         toast.success(
           intl.formatMessage({
             defaultMessage: "Pool created successfully!",

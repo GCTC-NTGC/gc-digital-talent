@@ -2,10 +2,11 @@ import React from "react";
 import { useIntl } from "react-intl";
 import Button from "@common/components/Button";
 import Link from "@common/components/Link";
+import { getLocale } from "@common/helpers/localize";
 import { classificationCreatePath } from "../../adminRoutes";
 import { ClassificationTableApi } from "./ClassificationTable";
 
-export const ClassificationPage: React.FC = () => {
+export const ClassificationPage: React.FC<{ lang: string }> = ({ lang }) => {
   const intl = useIntl();
   return (
     <div>
@@ -33,7 +34,7 @@ export const ClassificationPage: React.FC = () => {
             data-h2-text-align="m(right)"
           >
             <Button color="white" mode="outline">
-              <Link href={classificationCreatePath()} title="">
+              <Link href={classificationCreatePath(getLocale(intl))} title="">
                 {intl.formatMessage({
                   defaultMessage: "Create Classification",
                   description:

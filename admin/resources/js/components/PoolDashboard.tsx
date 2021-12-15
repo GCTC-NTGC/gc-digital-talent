@@ -3,6 +3,7 @@ import { useIntl } from "react-intl";
 import { Routes } from "universal-router";
 import { RouterResult } from "@common/helpers/router";
 import Toast from "@common/components/Toast";
+import { getLocale } from "@common/helpers/localize";
 import {
   classificationCreatePath,
   classificationTablePath,
@@ -58,44 +59,44 @@ import SingleSearchRequestPage from "./searchRequest/SingleSearchRequestPage";
 
 const routes: Routes<RouterResult> = [
   {
-    path: [homePath()],
-    action: () => ({
+    path: [homePath(":lang")],
+    action: ({ params }) => ({
       component: <div />,
-      redirect: poolTablePath(), // TODO: Which page should be treated as the dashboard Landing page?
+      redirect: poolTablePath(params.lang as string), // TODO: Which page should be treated as the dashboard Landing page?
     }),
   },
   {
-    path: userTablePath(),
-    action: () => ({
-      component: <UserPage />,
+    path: userTablePath(":lang"),
+    action: ({ params }) => ({
+      component: <UserPage lang={params.lang as string} />,
     }),
   },
   {
-    path: userCreatePath(),
+    path: userCreatePath(":lang"),
     action: () => ({
       component: <CreateUser />,
     }),
   },
   {
-    path: userUpdatePath(":id"),
+    path: userUpdatePath(":id", ":lang"),
     action: ({ params }) => ({
       component: <UpdateUser userId={params.id as string} />,
     }),
   },
   {
-    path: classificationTablePath(),
-    action: () => ({
-      component: <ClassificationPage />,
+    path: classificationTablePath(":lang"),
+    action: ({ params }) => ({
+      component: <ClassificationPage lang={params.lang as string} />,
     }),
   },
   {
-    path: classificationCreatePath(),
+    path: classificationCreatePath(":lang"),
     action: () => ({
       component: <CreateClassification />,
     }),
   },
   {
-    path: classificationUpdatePath(":id"),
+    path: classificationUpdatePath(":id", ":lang"),
     action: ({ params }) => ({
       component: (
         <UpdateClassification classificationId={params.id as string} />
@@ -103,37 +104,37 @@ const routes: Routes<RouterResult> = [
     }),
   },
   {
-    path: cmoAssetTablePath(),
-    action: () => ({
-      component: <CmoAssetPage />,
+    path: cmoAssetTablePath(":lang"),
+    action: ({ params }) => ({
+      component: <CmoAssetPage lang={params.lang as string} />,
     }),
   },
   {
-    path: cmoAssetCreatePath(),
+    path: cmoAssetCreatePath(":lang"),
     action: () => ({
       component: <CreateCmoAsset />,
     }),
   },
   {
-    path: cmoAssetUpdatePath(":id"),
+    path: cmoAssetUpdatePath(":id", ":lang"),
     action: ({ params }) => ({
       component: <UpdateCmoAsset cmoAssetId={params.id as string} />,
     }),
   },
   {
-    path: operationalRequirementTablePath(),
-    action: () => ({
-      component: <OperationalRequirementPage />,
+    path: operationalRequirementTablePath(":lang"),
+    action: ({ params }) => ({
+      component: <OperationalRequirementPage lang={params.lang as string} />,
     }),
   },
   {
-    path: operationalRequirementCreatePath(),
+    path: operationalRequirementCreatePath(":lang"),
     action: () => ({
       component: <CreateOperationalRequirement />,
     }),
   },
   {
-    path: operationalRequirementUpdatePath(":id"),
+    path: operationalRequirementUpdatePath(":id", ":lang"),
     action: ({ params }) => ({
       component: (
         <UpdateOperationalRequirement
@@ -143,19 +144,24 @@ const routes: Routes<RouterResult> = [
     }),
   },
   {
-    path: poolCandidateTablePath(":id"),
+    path: poolCandidateTablePath(":id", ":lang"),
     action: ({ params }) => ({
-      component: <PoolCandidatePage poolId={params.id as string} />,
+      component: (
+        <PoolCandidatePage
+          lang={params.lang as string}
+          poolId={params.id as string}
+        />
+      ),
     }),
   },
   {
-    path: poolCandidateCreatePath(":id"),
+    path: poolCandidateCreatePath(":id", ":lang"),
     action: ({ params }) => ({
       component: <CreatePoolCandidate poolId={params.id as string} />,
     }),
   },
   {
-    path: poolCandidateUpdatePath(":poolId", ":candidateId"),
+    path: poolCandidateUpdatePath(":poolId", ":candidateId", ":lang"),
     action: ({ params }) => ({
       component: (
         <UpdatePoolCandidate poolCandidateId={params.candidateId as string} />
@@ -163,52 +169,55 @@ const routes: Routes<RouterResult> = [
     }),
   },
   {
-    path: poolTablePath(),
-    action: () => ({
-      component: <PoolPage />,
+    path: poolTablePath(":lang"),
+    action: ({ params }) => ({
+      component: <PoolPage lang={params.lang as string} />,
     }),
   },
   {
-    path: poolCreatePath(),
+    path: poolCreatePath(":lang"),
     action: () => ({
       component: <CreatePool />,
     }),
   },
   {
-    path: poolUpdatePath(":id"),
+    path: poolUpdatePath(":id", ":lang"),
     action: ({ params }) => ({
       component: <UpdatePool poolId={params.id as string} />,
     }),
   },
   {
-    path: departmentTablePath(),
-    action: () => ({
-      component: <DepartmentPage />,
+    path: departmentTablePath(":lang"),
+    action: ({ params }) => ({
+      component: <DepartmentPage lang={params.lang as string} />,
     }),
   },
   {
-    path: departmentCreatePath(),
+    path: departmentCreatePath(":lang"),
     action: () => ({
       component: <CreateDepartment />,
     }),
   },
   {
-    path: departmentUpdatePath(":id"),
+    path: departmentUpdatePath(":id", ":lang"),
     action: ({ params }) => ({
       component: <UpdateDepartment departmentId={params.id as string} />,
     }),
   },
   {
-    path: searchRequestTablePath(),
-    action: () => ({
-      component: <SearchRequestPage />,
+    path: searchRequestTablePath(":lang"),
+    action: ({ params }) => ({
+      component: <SearchRequestPage lang={params.lang as string} />,
     }),
   },
   {
-    path: searchRequestUpdatePath(":id"),
+    path: searchRequestUpdatePath(":id", ":lang"),
     action: ({ params }) => ({
       component: (
-        <SingleSearchRequestPage searchRequestId={params.id as string} />
+        <SingleSearchRequestPage
+          lang={params.lang as string}
+          searchRequestId={params.id as string}
+        />
       ),
     }),
   },
@@ -227,7 +236,7 @@ export const PoolDashboard: React.FC = () => {
     />,
     <MenuLink
       key="all-requests"
-      href={searchRequestTablePath()}
+      href={searchRequestTablePath(getLocale(intl))}
       text={intl.formatMessage({
         defaultMessage: "All Requests",
         description: "Label displayed on the all requests menu item.",
@@ -242,7 +251,7 @@ export const PoolDashboard: React.FC = () => {
     />,
     <MenuLink
       key="users"
-      href={userTablePath()}
+      href={userTablePath(getLocale(intl))}
       text={intl.formatMessage({
         defaultMessage: "Users",
         description: "Label displayed on the Users menu item.",
@@ -250,7 +259,7 @@ export const PoolDashboard: React.FC = () => {
     />,
     <MenuLink
       key="classifications"
-      href={classificationTablePath()}
+      href={classificationTablePath(getLocale(intl))}
       text={intl.formatMessage({
         defaultMessage: "Classifications",
         description: "Label displayed on the Classifications menu item.",
@@ -258,7 +267,7 @@ export const PoolDashboard: React.FC = () => {
     />,
     <MenuLink
       key="cmo-assets"
-      href={cmoAssetTablePath()}
+      href={cmoAssetTablePath(getLocale(intl))}
       text={intl.formatMessage({
         defaultMessage: "CMO Assets",
         description: "Label displayed on the CMO Assets menu item.",
@@ -266,7 +275,7 @@ export const PoolDashboard: React.FC = () => {
     />,
     <MenuLink
       key="operational-requirements"
-      href={operationalRequirementTablePath()}
+      href={operationalRequirementTablePath(getLocale(intl))}
       text={intl.formatMessage({
         defaultMessage: "Operational Requirements",
         description:
@@ -275,7 +284,7 @@ export const PoolDashboard: React.FC = () => {
     />,
     <MenuLink
       key="pools"
-      href={poolTablePath()}
+      href={poolTablePath(getLocale(intl))}
       text={intl.formatMessage({
         defaultMessage: "Pools",
         description: "Label displayed on the Pools menu item.",
@@ -283,13 +292,15 @@ export const PoolDashboard: React.FC = () => {
     />,
     <MenuLink
       key="departments"
-      href={departmentTablePath()}
+      href={departmentTablePath(getLocale(intl))}
       text={intl.formatMessage({
         defaultMessage: "Departments",
         description: "Label displayed on the Departments menu item.",
       })}
     />,
   ];
+
+  console.log(routes);
 
   return (
     <AuthContainer>

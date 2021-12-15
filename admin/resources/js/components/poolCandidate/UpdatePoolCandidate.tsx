@@ -144,7 +144,12 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<
       formValuesToSubmitData(data),
     )
       .then(() => {
-        navigate(poolCandidateTablePath(initialPoolCandidate.pool?.id || ""));
+        navigate(
+          poolCandidateTablePath(
+            initialPoolCandidate.pool?.id || "",
+            getLocale(intl),
+          ),
+        );
         toast.success(
           intl.formatMessage({
             defaultMessage: "Pool Candidate updated successfully!",

@@ -6,6 +6,7 @@ import { useIntl } from "react-intl";
 import { Input, Select, Submit } from "@common/components/form";
 import { navigate } from "@common/helpers/router";
 import { errorMessages } from "@common/messages";
+import { getLocale } from "@common/helpers/localize";
 import {
   CreateClassificationInput,
   useCreateClassificationMutation,
@@ -36,7 +37,7 @@ export const CreateClassificationForm: React.FunctionComponent<
     };
     return handleCreateClassification(classification)
       .then(() => {
-        navigate(classificationTablePath());
+        navigate(classificationTablePath(getLocale(intl)));
         toast.success(
           intl.formatMessage({
             defaultMessage: "Classification created successfully!",

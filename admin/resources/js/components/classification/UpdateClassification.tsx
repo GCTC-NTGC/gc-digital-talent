@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import { Input, Select, Submit } from "@common/components/form";
 import { navigate } from "@common/helpers/router";
 import { errorMessages, commonMessages } from "@common/messages";
+import { getLocale } from "@common/helpers/localize";
 import { classificationTablePath } from "../../adminRoutes";
 import {
   Classification,
@@ -46,7 +47,7 @@ export const UpdateClassificationForm: React.FunctionComponent<
     };
     return handleUpdateClassification(initialClassification.id, classification)
       .then(() => {
-        navigate(classificationTablePath());
+        navigate(classificationTablePath(getLocale(intl)));
         toast.success(
           intl.formatMessage({
             defaultMessage: "Classification updated successfully!",

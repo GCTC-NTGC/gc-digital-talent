@@ -2,7 +2,9 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { SearchRequestTableApi } from "./SearchRequestTable";
 
-export const SearchRequestPage: React.FunctionComponent = () => {
+export const SearchRequestPage: React.FunctionComponent<{ lang: string }> = ({
+  lang,
+}) => {
   const intl = useIntl();
   return (
     <div>

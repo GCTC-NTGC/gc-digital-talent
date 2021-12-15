@@ -8,6 +8,7 @@ import { navigate } from "@common/helpers/router";
 import { enumToOptions } from "@common/helpers/formUtils";
 import { errorMessages, commonMessages } from "@common/messages";
 import { getLanguage } from "@common/constants/localizedConstants";
+import { getLocale } from "@common/helpers/localize";
 import { userTablePath } from "../../adminRoutes";
 import {
   Language,
@@ -35,7 +36,7 @@ export const UpdateUserForm: React.FunctionComponent<UpdateUserFormProps> = ({
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
     return handleUpdateUser(initialUser.id, data)
       .then(() => {
-        navigate(userTablePath());
+        navigate(userTablePath(getLocale(intl)));
         toast.success(
           intl.formatMessage({
             defaultMessage: "User updated successfully!",
@@ -150,9 +151,9 @@ export const UpdateUserForm: React.FunctionComponent<UpdateUserFormProps> = ({
   );
 };
 
-export const UpdateUser: React.FunctionComponent<{ userId: string }> = ({
-  userId,
-}) => {
+export const UpdateUser: React.FunctionComponent<{
+  userId: string;
+}> = ({ userId }) => {
   const intl = useIntl();
   const [{ data: userData, fetching, error }] = useUserQuery({
     variables: { id: userId },

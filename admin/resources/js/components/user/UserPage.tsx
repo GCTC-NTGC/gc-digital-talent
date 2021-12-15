@@ -4,7 +4,9 @@ import { Link, Button } from "@common/components";
 import { userCreatePath } from "../../adminRoutes";
 import { UserTableApi } from "./UserTable";
 
-export const UserPage: React.FC = () => {
+export const UserPage: React.FunctionComponent<{ lang: string }> = ({
+  lang,
+}) => {
   const intl = useIntl();
   return (
     <div>
@@ -32,7 +34,7 @@ export const UserPage: React.FC = () => {
             data-h2-text-align="m(right)"
           >
             <Button color="white" mode="outline">
-              <Link href={userCreatePath()} title="">
+              <Link href={userCreatePath(lang)} title="">
                 {intl.formatMessage({
                   defaultMessage: "Create User",
                   description: "Heading displayed above the Create User form.",

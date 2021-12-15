@@ -6,6 +6,7 @@ import pick from "lodash/pick";
 import { navigate } from "@common/helpers/router";
 import { Input, Submit } from "@common/components/form";
 import { errorMessages, commonMessages } from "@common/messages";
+import { getLocale } from "@common/helpers/localize";
 import { departmentTablePath } from "../../adminRoutes";
 import {
   Department,
@@ -44,7 +45,7 @@ export const UpdateDepartmentForm: React.FunctionComponent<
       name: data.name,
     })
       .then(() => {
-        navigate(departmentTablePath());
+        navigate(departmentTablePath(getLocale(intl)));
         toast.success(
           intl.formatMessage({
             defaultMessage: "Department updated successfully!",

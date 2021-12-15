@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import { Input, Submit, TextArea } from "@common/components/form";
 import { navigate } from "@common/helpers/router";
 import { errorMessages } from "@common/messages";
+import { getLocale } from "@common/helpers/localize";
 import { cmoAssetTablePath } from "../../adminRoutes";
 import {
   CreateCmoAssetInput,
@@ -27,7 +28,7 @@ export const CreateCmoAssetForm: React.FunctionComponent<
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
     return handleCreateCmoAsset(data)
       .then(() => {
-        navigate(cmoAssetTablePath());
+        navigate(cmoAssetTablePath(getLocale(intl)));
         toast.success(
           intl.formatMessage({
             defaultMessage: "CMO Asset created successfully!",

@@ -23,11 +23,6 @@ Route::group([
     Route::prefix(config('app.app_dir'))->group(function () {
         Route::get('/login', [AuthController::class, 'login']);
         Route::get('/auth-callback', [AuthController::class, 'authCallback']);
-
-        Route::get('/test', function () {
-            return 'Hello world';
-        });
-
         Route::get('/', [DashboardController::class, 'index']);
         Route::get('/{any}', [DashboardController::class, 'index'])->where('any', '.*');
     });

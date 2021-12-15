@@ -1,10 +1,13 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { Link, Button } from "@common/components";
+import { getLocale } from "@common/helpers/localize";
 import { operationalRequirementCreatePath } from "../../adminRoutes";
 import { OperationalRequirementTableApi } from "./OperationalRequirementTable";
 
-export const OperationalRequirementPage: React.FC = () => {
+export const OperationalRequirementPage: React.FC<{ lang: string }> = ({
+  lang,
+}) => {
   const intl = useIntl();
   return (
     <div>
@@ -32,7 +35,10 @@ export const OperationalRequirementPage: React.FC = () => {
             data-h2-text-align="m(right)"
           >
             <Button color="white" mode="outline">
-              <Link href={operationalRequirementCreatePath()} title="">
+              <Link
+                href={operationalRequirementCreatePath(getLocale(intl))}
+                title=""
+              >
                 {intl.formatMessage({
                   defaultMessage: "Create Operational Requirement",
                   description:

@@ -91,7 +91,7 @@ const PoolListApi = () => {
       items.push(
         <MenuLink
           key={`pools/${pool?.id}/pool-candidates`}
-          href={poolCandidateTablePath(pool?.id ?? "")}
+          href={poolCandidateTablePath(pool?.id ?? "", getLocale(intl))}
           text={(pool?.name && pool?.name[getLocale(intl)]) ?? ""}
         />,
       ),
@@ -126,6 +126,8 @@ export const Dashboard: React.FC<{
   contentRoutes: Routes<RouterResult>;
 }> = ({ menuItems, contentRoutes }) => {
   const content = useRouter(contentRoutes, <AdminNotFound />);
+  const { pathname } = useLocation();
+
   return (
     <div className="container">
       <section
@@ -149,7 +151,7 @@ export const Dashboard: React.FC<{
           data-h2-display="b(flex)"
           style={{ flexDirection: "column" }}
         >
-          <Header baseUrl={ADMIN_APP_DIR} />
+          <Header baseUrl={ADMIN_APP_DIR} currentPath={pathname} />
           {content}
           <Footer baseUrl={ADMIN_APP_DIR} />
         </div>

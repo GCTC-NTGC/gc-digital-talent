@@ -7,6 +7,7 @@ import { navigate } from "@common/helpers/router";
 import { enumToOptions } from "@common/helpers/formUtils";
 import { getLanguage } from "@common/constants/localizedConstants";
 import { errorMessages } from "@common/messages";
+import { getLocale } from "@common/helpers/localize";
 import { userTablePath } from "../../adminRoutes";
 import {
   Language,
@@ -33,7 +34,7 @@ export const CreateUserForm: React.FunctionComponent<CreateUserFormProps> = ({
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
     return handleCreateUser(data)
       .then(() => {
-        navigate(userTablePath());
+        navigate(userTablePath(getLocale(intl)));
         toast.success(
           intl.formatMessage({
             defaultMessage: "User created successfully!",

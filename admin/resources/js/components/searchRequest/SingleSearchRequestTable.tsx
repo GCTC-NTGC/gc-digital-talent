@@ -30,7 +30,9 @@ function tableEditButtonAccessor(
       mode="inline"
       onClick={(event) => {
         event.preventDefault();
-        navigate(poolCandidateUpdatePath(userId || "", poolId || "")); // TODO: Where should the user be taken if this value is empty?
+        navigate(
+          poolCandidateUpdatePath(userId || "", poolId || "", getLocale(intl)),
+        ); // TODO: Where should the user be taken if this value is empty?
       }}
     >
       {intl.formatMessage({

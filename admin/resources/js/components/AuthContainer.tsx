@@ -4,6 +4,8 @@ import {
   parseUrlQueryParameters,
   useLocation,
 } from "@common/helpers/router";
+import { getLocale } from "@common/helpers/localize";
+import { IntlShape, useIntl } from "react-intl";
 import { homePath } from "../adminRoutes";
 
 const ACCESS_TOKEN = "access_token";
@@ -30,7 +32,7 @@ const logoutAndRefresh = (): void => {
   // TODO: Is there anything else we should do, in terms of notifying user?
   localStorage.removeItem(ACCESS_TOKEN);
   localStorage.removeItem(REFRESH_TOKEN);
-  window.location.href = homePath();
+  window.location.href = homePath("en"); // TODO: Make locale dynamic.
 };
 
 function getTokensFromLocation(
@@ -72,7 +74,7 @@ export const AuthContainer: React.FC = ({ children }) => {
     }
   }, [newTokens?.accessToken, newTokens?.refreshToken]); // Check for tokens individually so a new tokens object with identical contents doesn't trigger a re-render.
 
-  // If tokens were just found in the url, then get them from newTokens instead of state hook, which will update asyncronously.
+  // If tokens were just found in the url, then get them from newTokens instead of state hook, which will update asynchronously.
   const tokens = newTokens ?? stateTokens;
   const state = useMemo<AuthState>(() => {
     return {
