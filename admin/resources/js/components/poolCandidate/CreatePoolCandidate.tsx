@@ -410,24 +410,6 @@ export const CreatePoolCandidateForm: React.FunctionComponent<
                 required: intl.formatMessage(errorMessages.required),
               }}
             />
-            <Select
-              id="user"
-              label={intl.formatMessage({
-                defaultMessage: "User",
-                description:
-                  "Label displayed on the pool candidate form user field.",
-              })}
-              nullSelection={intl.formatMessage({
-                defaultMessage: "Select a user...",
-                description:
-                  "Placeholder displayed on the pool candidate form user field.",
-              })}
-              name="user"
-              options={userOptions}
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
-            />
             <Input
               id="cmoIdentifier"
               label={intl.formatMessage({
