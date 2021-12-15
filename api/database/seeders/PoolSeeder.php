@@ -43,8 +43,8 @@ class PoolSeeder extends Seeder
             $newPool = Pool::updateOrCreate($identifier, $pool);
             // Attach data to pool
             $assets = CmoAsset::inRandomOrder()->limit(4)->get();
-            $classifications = Classification::inRandomOrder()->limit(3)->get();
-            $requirements = OperationalRequirement::inRandomOrder()->limit(2)->get();
+            $classifications = Classification::inRandomOrder()->limit(5)->get();
+            $requirements = OperationalRequirement::inRandomOrder()->limit(5)->get();
             $newPool->essentialCriteria()->saveMany($assets->slice(0,2));
             $newPool->assetCriteria()->saveMany($assets->slice(2,2));
             $newPool->classifications()->saveMany($classifications);
