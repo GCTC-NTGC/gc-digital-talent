@@ -1,0 +1,17 @@
+Authenticatable
+gctalent
+heroicons
+jwks
+Laravel
+Laravelista
+Lcobucci
+nuage
+Nuwave
+pgsql
+Queueable
+subquery
+TALENTSEARCH
+TELEWORK
+toastify
+Unencrypted
+urql

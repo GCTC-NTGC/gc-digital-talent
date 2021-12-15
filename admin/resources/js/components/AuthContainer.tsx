@@ -72,7 +72,7 @@ export const AuthContainer: React.FC = ({ children }) => {
     }
   }, [newTokens?.accessToken, newTokens?.refreshToken]); // Check for tokens individually so a new tokens object with identical contents doesn't trigger a re-render.
 
-  // If tokens were just found in the url, then get them from newTokens instead of state hook, which will update asyncronously.
+  // If tokens were just found in the url, then get them from newTokens instead of state hook, which will update asynchronously.
   const tokens = newTokens ?? stateTokens;
   const state = useMemo<AuthState>(() => {
     return {

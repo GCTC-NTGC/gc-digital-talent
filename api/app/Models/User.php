@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Contracts\Auth\Authenticatable;
-use Illuminate\Auth\Authenticatable as AuthenticableTrait;
+use Illuminate\Auth\Authenticatable as AuthenticatableTrait;
 
 /**
  * Class User
@@ -28,7 +28,7 @@ class User extends Model implements Authenticatable
 {
     use HasFactory;
     use SoftDeletes;
-    use AuthenticableTrait;
+    use AuthenticatableTrait;
 
     protected $keyType = 'string';
 
