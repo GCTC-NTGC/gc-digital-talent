@@ -1,6 +1,6 @@
 {
-    "name": "laravel/lumen",
-    "description": "The Laravel Lumen Framework.",
+    "name": "gc-digital-talent/talentsearch",
+    "description": "The Talent Search site.",
     "keywords": [
         "framework",
         "laravel",
@@ -9,7 +9,7 @@
     "license": "MIT",
     "type": "project",
     "require": {
-        "php": "^7.3|^8.0",
+        "php": "^8.0",
         "fideloper/proxy": "^4.4",
         "laravel/lumen-framework": "^8.0"
     },
@@ -37,7 +37,7 @@
         "sort-packages": true,
         "optimize-autoloader": true,
         "platform": {
-            "php": "7.4.26"
+            "php": "8.0.13"
         }
     },
     "minimum-stability": "dev",
