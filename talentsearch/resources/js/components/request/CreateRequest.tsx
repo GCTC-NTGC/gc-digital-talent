@@ -36,7 +36,7 @@ type FormValues = Pick<
 > & {
   department: string;
 };
-interface RequestFormProps {
+export interface RequestFormProps {
   departments: Department[];
   poolCandidateFilter: Maybe<PoolCandidateFilter>;
   candidateCount: Maybe<number>;

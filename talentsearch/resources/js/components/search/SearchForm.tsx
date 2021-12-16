@@ -5,7 +5,6 @@ import { Checklist, MultiSelect, RadioGroup } from "@common/components/form";
 import { getLocale } from "@common/helpers/localize";
 import { enumToOptions } from "@common/helpers/formUtils";
 import { getLanguageAbility } from "@common/constants";
-import { Id } from "@common/types/utilityTypes";
 import useDeepCompareEffect from "@common/hooks/useDeepCompareEffect";
 import { debounce } from "debounce";
 import { useLocation } from "@common/helpers/router";
@@ -46,7 +45,7 @@ const FilterBlock: React.FunctionComponent<{
   );
 };
 
-function mapIdToValue<T extends { id: Id }>(objs: T[]): Map<Id, T> {
+function mapIdToValue<T extends { id: string }>(objs: T[]): Map<string, T> {
   return objs.reduce((map, obj) => {
     map.set(obj.id, obj);
     return map;
@@ -58,9 +57,9 @@ export type FormValues = Pick<
   PoolCandidateFilter,
   "languageAbility" | "workRegions"
 > & {
-  classifications: Id[] | undefined;
-  cmoAssets: Id[] | undefined;
-  operationalRequirements: Id[] | undefined;
+  classifications: string[] | undefined;
+  cmoAssets: string[] | undefined;
+  operationalRequirements: string[] | undefined;
   employmentEquity: string[] | undefined;
   educationRequirement: "has_diploma" | "no_diploma";
   poolId: string;
