@@ -36,19 +36,17 @@ class PoolSeeder extends Seeder
                 'user_id' => User::where('email', 'admin@test.com')->first()->id,
             ],
         ];
-        foreach ($pools as $pool) {
+
+        foreach ($pools as $poolData) {
             $identifier = [
-                'name->en' => $pool['name']['en'],
+                'key' => $poolData['key'],
             ];
-            $newPool = Pool::updateOrCreate($identifier, $pool);
-            // Attach data to pool
-            $assets = CmoAsset::inRandomOrder()->limit(4)->get();
-            $classifications = Classification::inRandomOrder()->limit(5)->get();
-            $requirements = OperationalRequirement::inRandomOrder()->limit(5)->get();
-            $newPool->essentialCriteria()->saveMany($assets->slice(0,2));
-            $newPool->assetCriteria()->saveMany($assets->slice(2,2));
-            $newPool->classifications()->saveMany($classifications);
-            $newPool->operationalRequirements()->saveMany($requirements);
+            $poolModel = Pool::where($identifier)->first();
+            if (!$poolModel) {
+                Pool::factory()->create($poolData);
+            } else {
+                $poolModel->update($poolData);
+            }
         }
     }
 }
