@@ -21,7 +21,7 @@ You'll need to install:
 - [Composer](https://getcomposer.org/)
 
 ### Composer dependencies (PHP)
-As each service runs on a PHP server, you must install composer dependencies for each. The project expects to use PHP 7.4 and Composer v2.
+As each service runs on a PHP server, you must install composer dependencies for each. The project expects to use PHP 8.0 and Composer v2.
 
 If you have Docker installed, you can use it to install dependencies (instead of having to install the correct version of PHP and composer) by running the following command in each project root:
 
