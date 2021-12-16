@@ -76,5 +76,3 @@ type paths = NestedPaths<test>;
 type years = NestedPropType<test, "parents.marriage.years">;
 type fromArray = FromArray<string>;
 type flattened = FlattenNested<test>;
-
-export type Id = string; // An alias for string, which can describe the intent of certain fields.
