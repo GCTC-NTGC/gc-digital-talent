@@ -17,7 +17,7 @@ Finally, head on into the relevant directory for the service you'd like to work 
 You'll need to install:
 - [Docker Desktop](https://www.docker.com/products/docker-desktop)
 - [Node & NPM](https://nodejs.org/en/)
-- [PHP 7.4](https://www.php.net/downloads)
+- [PHP 8.0](https://www.php.net/downloads)
 - [Composer](https://getcomposer.org/)
 
 ### Composer dependencies (PHP)
