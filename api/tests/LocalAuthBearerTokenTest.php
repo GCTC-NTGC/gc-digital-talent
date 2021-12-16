@@ -29,9 +29,8 @@ class LocalAuthBearerTokenTest extends TestCase
      * @test
      * A valid token is provided and validated.  The test checks that the right sub value is returned.
      */
-    public function it_accepts_a_good_token_and_returns_the_right_sub()
+    public function testAcceptsGoodTokenAndReturnsCorrectSub()
     {
-        //$token = 'eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJodHRwOi8vdGVzdC5jb20iLCJzdWIiOiIxMjM0NTY3ODkwIiwiaWF0IjowLCJleHAiOjIxNDc0ODM2NDd9.G8HuIKwidOxRTgTKQCw1Lo_rU0j8PD57i9TfY5RIYqo3osCILwyDKCd31f6luZvy49PT4R_x-_ZOFMmkb6_pnuJGSHYv_EpZcYWCrI2X5USox4IrQ4mmFGZP8pPJOeBIAS00i_Unab-LR2mnqNCT-EsZOA7sHcJTDyNB4FSsHtmZNKXtsw335DSuDb6nIa77SV1gmhPIA7LKnxgSvacxtSDr9LbEqX-mwXfMSxTOWsLosBwqHHjc2W3tWlPHEAkLqGMsEl6miZK7RSAPXUE16vlGM9QccCidZWXBXi9lZ_tVkHIIsRIXdiS1RTc8VMtumi1_vRMFU4dheypRQQ68ww';
         $token = 'eyJraWQiOiJrZXkxIiwidHlwIjoiSldUIiwiYWxnIjoiUlMyNTYifQ.eyJpc3MiOiJodHRwOi8vdGVzdC5jb20iLCJzdWIiOiIxMjM0NTY3ODkwIiwiaWF0IjowLCJleHAiOjIxNDc0ODM2NDd9.sIaKxvPPqAb9adEmXitcB3UCM2NU6_fxsPNdiD430hHsgEe_RQWIipQAQlp9gWDVRTQ_frESNmf65p0wklEz6rgo8JvmXPOm5xAQlbnab0JDMwq4ZG3cp5X-kqLLTbG2yj6T_zygATh9ZrgoLlCb-Zs56crxjOYBEItrKqez3YR2ZURQStBtrg9mIssFyErjRO_QVClf9FK-x68rdRJOtYSMhAImhtTfNTq0NnvrnduJQe7OQggKjZG_7reI5difVf8GVgoBbniLxYR3ZEPTkl7m6XWhSqcs-E3C0m98rVX7oitkX38HvaBXzfE1Ow9qseeQqB3UldBsYnLOyMZI0Nvp19SROT3Ss6rVXWxqsO6W8nuO-33WAmtcDZ-8IaZruO-e_bFpvev7HTEbqFFycV3uZCpg9B3gzfZR6mXRx-B7mPJC8PIjDbUMg9oFhnt_UhwgsdFQCXd2q_Dh_BMX9jXCpsStGneA-XOKuR3gpY0LsqB8ITH2XzGMIdCAHKWGZIAHctGt2v7bkpE9cgICfJxYeEcDW-v8IFTDOYPBjmB2CpvUNfZxosI1lYcJMa7-0wAyiw-ZelQj3Xt7xUwa9RqwUrSS09OGgtklR0azkrSOksI4ihj1l4QIKviRnZlfMuV3xnMa8NYXOtOk_dkRaK2nba0kU2ijILjpvQXzBAQ';
         /** analyze token at https://jwt.io/
          {
@@ -48,7 +47,7 @@ class LocalAuthBearerTokenTest extends TestCase
      * @test
      * An empty string is proved and should be rejected.
      */
-    public function it_rejects_an_empty_token()
+    public function testRejectsEmptyToken()
     {
         $this->expectException(Exception::class);
         $token = '';
@@ -58,7 +57,7 @@ class LocalAuthBearerTokenTest extends TestCase
      * @test
      * An nonsense string is provided and should be rejected.
      */
-    public function it_rejects_a_nonsense_token()
+    public function testRejectsNonsenseToken()
     {
         $this->expectException(Exception::class);
         $token = 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
@@ -68,7 +67,7 @@ class LocalAuthBearerTokenTest extends TestCase
      * @test
      * A token is provided but has the wrong issuer and should be rejected.
      */
-    public function it_rejects_an_incorrect_issuer()
+    public function testRejectsIncorrectIssuer()
     {
         $this->expectException(Exception::class);
         $token = 'eyJraWQiOiJrZXkxIiwidHlwIjoiSldUIiwiYWxnIjoiUlMyNTYifQ.eyJpc3MiOiJodHRwOi8vd3Jvbmdkb21haW4uY29tIiwic3ViIjoiMTIzNDU2Nzg5MCIsImlhdCI6MCwiZXhwIjoyMTQ3NDgzNjQ3fQ.nQ1Yzl2qTqvaKXZ7RuJ5dzhd4udsSCYurASqoov1-eaYWi4PfUI-UGEPRTBqfQ0xLEasjXa_a20Od5lrLvvlcDrfjI-K018-rsfveHpbGWKW7R-Yxw6vbfghVqpGF3HMSowOqnAOkRWFbHvYMPAV75Rjto6MoQASmJ2gGTrYtUdzerHVgDaaCH4idwg4eDhiDktD1-75t7iITPIik2Lcm1SycL9wf20Cl166njNtjNIwlcLj666qypj8qbeUgzRzOCRf4-zEoA9oX4shN-QVzokmlgmH-13vApn3a67YJ-aYvnTIYK2Kq1BEB2NJGdkfXAINbYToFj3-L5OHcy8u4EFmoGsPTVHwHXqKosMu2ItlzBGuyGKnNZtAdlHoI22cQjp74T6kJ8_XrPuz0PJoolHT2outBGd9SgE5ociymjXIO-gex-PLE_ysACKzjOxkNJaEbXIvxsqVcGxDjxyN5wcWGkw1Ca1yHv2uyUhObTN2SG59STq6AAzErvnjOLPVHmQTTXklaIFwJmC7NZEkQmb4obQUo9Q1gilkzR4A0zzY96zskOXU7djcWS9Bmf-YHdIC0APHoTkCBt8GaaYyQL6MDmeWjCjL6KdOedLgJ9YxXzmzei8p4C6Qjq9GSZzTa5sYldB9-CYU5JBtQRMoMzC1xOsvCikoZf7DhgeZ8y0';
@@ -86,7 +85,7 @@ class LocalAuthBearerTokenTest extends TestCase
      * @test
      * A token is provided but has expired and should be rejected.
      */
-    public function it_rejects_an_expired_token()
+    public function testRejectsExpiredToken()
     {
         $this->expectException(Exception::class);
         $token = 'eyJraWQiOiJrZXkxIiwidHlwIjoiSldUIiwiYWxnIjoiUlMyNTYifQ.eyJpc3MiOiJodHRwOi8vdGVzdC5jb20iLCJzdWIiOiIxMjM0NTY3ODkwIiwiaWF0IjowLCJleHAiOjF9.dZ5b1kNmaZeJys0iS6pytjh74Avzu9u5M1zLoIMKXrABRP2bf-D7IYtkajFv-fyiOwnKUHYZgLLv8HFIykOLlFvK0nJFXPSKOXo_ndPUi93FNQA8POZbxTbErD34jotEbu9WW2gmlL1cp-fFLpDEeF3Gth4PZ--ixD0PBEEP9zsSHGMm2_8JFZwjv3AXRE6a1iJ3nd_zKfI8JhRG5QvTz8yJfksEDgC3PP5NvjT0UG8U1dABptcKBibLznayrIsoxLrTN_YqZdsC0Mog0l-Pvs5V51K4JMvolwdsZsl5AIYl8ga0tfanNmXC0XLg3KeaRyDnOuouwh1TYvrQi1U4I6KftCO7eySQB0Ve51i84189CBpikbyJsWq0Zcn1OjYUjqIrnbmISKKTYlvj4s8gsRJwZP6waPBYPVZDkM9tudQ6O30e454bCoRGZecx6KlvEQi6FWHluywqMHsNBcdIfJ1Qh7aOcEUBMICHZLdrgZrHiXLCcEL8dXqKpd-BAV1nyd_0-8_1AGlIjM_kJZL6pI1p5xoBr0jFCCyXCDQ_40LQc6Zaj1oF60gj66wMOwLmF2YwivPQL0vd3UU74M9nVyvGsyaUdiCmkhelG-vqdqFr7HTmrks9NRWZZFzKlsNHzK1hTBC5innuN0GL1Xn3O5FX80XFKg5x-cFeyUpb8rU';
@@ -102,9 +101,9 @@ class LocalAuthBearerTokenTest extends TestCase
     }
     /**
      * @test
-     * A token is provided but the issuing datetime is in the futured and shoudl be rejected.
+     * A token is provided but the issuing datetime is in the future and should be rejected.
      */
-    public function it_rejects_a_future_token()
+    public function testRejectsFutureToken()
     {
         $this->expectException(Exception::class);
         $token = 'eyJraWQiOiJrZXkxIiwidHlwIjoiSldUIiwiYWxnIjoiUlMyNTYifQ.eyJpc3MiOiJodHRwOi8vdGVzdC5jb20iLCJzdWIiOiIxMjM0NTY3ODkwIiwiaWF0IjoyMTQ3NDgzNjQ2LCJleHAiOjIxNDc0ODM2NDd9.LUdcCTwZmGlVL945V5pT1kHlMHVuVeEwW86zq0iprKeNyU3b63VroSyz5KuXBOPIXuD59a_mg1DjrzlFN7byucrHIhECZoPoG0tCaCRibrI1bcc13jAm39VffIa6EAKBSYQlSuOP7y4JJoxa1NceeLBkfycONYQrAoipxayuOYzFvZUdxKGZemUsM0mHL57Pz971komENoXfnsAG0ym97N99E0ufckoEr1NvGLnOEFaMxk802Y6esP9D49OAHVi9FBQLWMgiL3n6qBVRgvhUbiknejIOvlLD2X3Oad7eLgCqGO-fyCnZHySEXAUvDq9z_a49SrzOLH1oJs_RHtoKUq8-45xuKtNs_VAV83yjbKJ_tkuY8MaQaUKwjVARPFdMxLmKBsHe8lsWrbe6HJcXP__nLf_Uug-RFPVJHTpcuH7lcPhP1RTfsq965xRHs6ikJ8cGbcRMeJr5bG1z2bovu0sji9KPJ4ZNkbRfmNYzS_ET-DmdF4cnqoJHlAH6S5bE0fyfn0kV6hxA9rhq-hUB6fYS2dJnjth-cklr5Ar2Kh5nI7CkzTMYCmULKuv7q2wPb3NqsX2PYS2_cSC5bZEr9EzTWQEZN2CGSJNWImHHuPJzs4bcmTEW1MeiR9YSnA2cg6SEItC2QLa4Ltzjd73MFyDlgPTyzOB6IuT8rkFzYd4';
@@ -122,7 +121,7 @@ class LocalAuthBearerTokenTest extends TestCase
      * @test
      * This is a good and valid token but was not signed by the expected key so it should be rejected
      */
-    public function it_rejects_a_token_signed_with_a_different_key()
+    public function testRejectsTokenSignedWithDifferentKey()
     {
         $this->expectException(Exception::class);
         // actually signed with key2
