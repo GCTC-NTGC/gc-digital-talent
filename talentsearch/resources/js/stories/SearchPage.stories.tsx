@@ -32,6 +32,8 @@ export default {
     candidateCount: 10,
     updatePending: false,
     updateCandidateFilter: action("updateCandidateFilter"),
+    updateInitialValues: action("updateInitialValues"),
+    handleSubmit: action("handleSubmit"),
   },
 } as Meta;
 
