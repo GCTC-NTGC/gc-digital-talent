@@ -15,7 +15,14 @@ class LocaleMiddleware
      */
     public function handle($request, Closure $next)
     {
-        config(['app.locale' => substr( parse_url( $request->fullUrl() )['path'], 1, 2)]);
+        $parsed_url = parse_url($request->fullUrl());
+
+        if(array_key_exists('path', $parsed_url))
+        {
+            $path = $parsed_url['path'];
+            if(strlen($path) > 3)
+                config(['app.locale' => substr(parse_url($request->fullUrl())['path'], 1, 2)]);
+        }
         return $next($request);
     }
 }

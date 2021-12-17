@@ -37,3 +37,11 @@ $router->group([
     $router->get('/{any:.*}', 'TalentSearchController@index');
 });
 
+$router->get('/', function() {
+    return redirect('/en');
+});
+
+$router->get('/{any:.*}', function($any) {
+    return redirect('/en/'.$any);
+});
+
