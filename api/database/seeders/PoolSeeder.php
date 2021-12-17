@@ -2,7 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\Classification;
 use App\Models\CmoAsset;
+use App\Models\OperationalRequirement;
 use App\Models\Pool;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -34,11 +36,17 @@ class PoolSeeder extends Seeder
                 'user_id' => User::where('email', 'admin@test.com')->first()->id,
             ],
         ];
-        foreach ($pools as $pool) {
+
+        foreach ($pools as $poolData) {
             $identifier = [
-                'name->en' => $pool['name']['en'],
+                'key' => $poolData['key'],
             ];
-            Pool::updateOrCreate($identifier, $pool);
+            $poolModel = Pool::where($identifier)->first();
+            if (!$poolModel) {
+                Pool::factory()->create($poolData);
+            } else {
+                $poolModel->update($poolData);
+            }
         }
     }
 }

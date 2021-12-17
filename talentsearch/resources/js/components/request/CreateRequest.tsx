@@ -23,6 +23,7 @@ import {
   CreatePoolCandidateSearchRequestMutation,
   Maybe,
 } from "../../api/generated";
+import { FormValues as SearchFormValues } from "../search/SearchForm";
 
 type Option<V> = { value: V; label: string };
 type FormValues = Pick<
@@ -35,10 +36,11 @@ type FormValues = Pick<
 > & {
   department: string;
 };
-interface RequestFormProps {
+export interface RequestFormProps {
   departments: Department[];
   poolCandidateFilter: Maybe<PoolCandidateFilter>;
-  totalEstimatedCandidates: Maybe<number>;
+  candidateCount: Maybe<number>;
+  searchFormInitialValues?: SearchFormValues;
   handleCreatePoolCandidateSearchRequest: (
     data: CreatePoolCandidateSearchRequestInput,
   ) => Promise<
@@ -49,56 +51,72 @@ interface RequestFormProps {
 export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
   departments,
   poolCandidateFilter,
-  totalEstimatedCandidates,
+  candidateCount,
+  searchFormInitialValues,
   handleCreatePoolCandidateSearchRequest,
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const methods = useForm();
-  const location = useLocation();
   const { handleSubmit } = methods;
-
-  const initialValues = location.state
-    ? location.state.some.initialValues
-    : null;
 
   const formValuesToSubmitData = (
     values: FormValues,
-  ): CreatePoolCandidateSearchRequestInput => ({
-    ...values,
-    poolCandidateFilter: {
-      create: {
-        classifications: {
-          sync: poolCandidateFilter?.classifications
-            ?.filter(notEmpty)
-            .map(({ id }) => id),
+  ): CreatePoolCandidateSearchRequestInput => {
+    return {
+      ...values,
+      poolCandidateFilter: {
+        create: {
+          classifications: {
+            sync: poolCandidateFilter?.classifications
+              ? poolCandidateFilter?.classifications
+                  ?.filter(notEmpty)
+                  .map(({ id }) => id)
+              : [],
+          },
+          cmoAssets: {
+            sync: poolCandidateFilter?.cmoAssets
+              ? poolCandidateFilter?.cmoAssets
+                  ?.filter(notEmpty)
+                  .map(({ id }) => id)
+              : [],
+          },
+          hasDiploma: poolCandidateFilter?.hasDiploma
+            ? poolCandidateFilter?.hasDiploma
+            : false,
+          hasDisability: poolCandidateFilter?.hasDisability
+            ? poolCandidateFilter?.hasDisability
+            : false,
+          isIndigenous: poolCandidateFilter?.isIndigenous
+            ? poolCandidateFilter?.isIndigenous
+            : false,
+          isVisibleMinority: poolCandidateFilter?.isVisibleMinority
+            ? poolCandidateFilter?.isVisibleMinority
+            : false,
+          isWoman: poolCandidateFilter?.isWoman
+            ? poolCandidateFilter?.isWoman
+            : false,
+          languageAbility: poolCandidateFilter?.languageAbility,
+          operationalRequirements: {
+            sync: poolCandidateFilter?.operationalRequirements
+              ? poolCandidateFilter?.operationalRequirements
+                  ?.filter(notEmpty)
+                  .map(({ id }) => id)
+              : [],
+          },
+          pools: {
+            sync: poolCandidateFilter?.pools
+              ? poolCandidateFilter?.pools?.filter(notEmpty).map(({ id }) => id)
+              : [],
+          },
+          workRegions: poolCandidateFilter?.workRegions
+            ? poolCandidateFilter?.workRegions
+            : [],
         },
-        cmoAssets: {
-          sync: poolCandidateFilter?.cmoAssets
-            ?.filter(notEmpty)
-            .map(({ id }) => id),
-        },
-        hasDiploma: poolCandidateFilter?.hasDiploma,
-        hasDisability: poolCandidateFilter?.hasDisability,
-        isIndigenous: poolCandidateFilter?.isIndigenous,
-        isVisibleMinority: poolCandidateFilter?.isVisibleMinority,
-        isWoman: poolCandidateFilter?.isWoman,
-        languageAbility: poolCandidateFilter?.languageAbility,
-        operationalRequirements: {
-          sync: poolCandidateFilter?.operationalRequirements
-            ?.filter(notEmpty)
-            .map(({ id }) => id),
-        },
-        pools: {
-          sync: poolCandidateFilter?.pools
-            ?.filter(notEmpty)
-            .map(({ id }) => id),
-        },
-        workRegions: poolCandidateFilter?.workRegions,
       },
-    },
-    department: { connect: values.department },
-  });
+      department: { connect: values.department },
+    };
+  };
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     return handleCreatePoolCandidateSearchRequest(formValuesToSubmitData(data))
@@ -135,18 +153,6 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
         }),
     }),
   );
-
-  function totalEstimatedCandidatesNull(): JSX.Element {
-    return (
-      <span data-h2-font-color="b(lightpurple)">
-        {totalEstimatedCandidates === null &&
-          intl.formatMessage({
-            defaultMessage: "N/A",
-            description: "Text shown when the filter was not selected",
-          })}
-      </span>
-    );
-  }
 
   function span(msg: string): JSX.Element {
     return <span data-h2-font-color="b(lightpurple)">{msg}</span>;
@@ -290,14 +296,13 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
             {intl.formatMessage(
               {
                 defaultMessage:
-                  "Request for pool candidates: <null></null> <span>{totalEstimatedCandidates, plural, zero {no candidates} one {1 candidate} other {{totalEstimatedCandidates} estimated candidates}}</span>",
+                  "Request for pool candidates: <span>{candidateCount, plural, zero {no candidates} one {1 candidate} other {{candidateCount} estimated candidates}}</span>",
                 description:
                   "Total estimated candidates message in summary of filters",
               },
               {
-                null: totalEstimatedCandidatesNull,
                 span,
-                totalEstimatedCandidates,
+                candidateCount,
               },
             )}
           </p>
@@ -316,7 +321,7 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
               onClick={() => {
                 // Save the initial search form values to the state so they are available to user when click back.
                 pushToStateThenNavigate(searchPath(), {
-                  initialValues,
+                  searchFormInitialValues,
                 });
               }}
             >
@@ -343,7 +348,9 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
 
 export const CreateRequest: React.FunctionComponent<{
   poolCandidateFilter: PoolCandidateFilter;
-}> = ({ poolCandidateFilter }) => {
+  candidateCount: Maybe<number>;
+  searchFormInitialValues: SearchFormValues;
+}> = ({ poolCandidateFilter, candidateCount, searchFormInitialValues }) => {
   const intl = useIntl();
   const [lookupResult] = useGetPoolCandidateSearchRequestDataQuery();
   const { data: lookupData, fetching, error } = lookupResult;
@@ -374,7 +381,8 @@ export const CreateRequest: React.FunctionComponent<{
     <RequestForm
       departments={departments}
       poolCandidateFilter={poolCandidateFilter}
-      totalEstimatedCandidates={null} // TODO: Replace with estimated total queried from api.
+      candidateCount={candidateCount}
+      searchFormInitialValues={searchFormInitialValues}
       handleCreatePoolCandidateSearchRequest={
         handleCreatePoolCandidateSearchRequest
       }

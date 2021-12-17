@@ -6,41 +6,45 @@ import {
   fakeCmoAssets,
   fakeOperationalRequirements,
   fakePools,
-  fakeUsers,
 } from "@common/fakeData";
-import { pick } from "lodash";
-import { SearchForm, SearchFormProps } from "../components/search/SearchForm";
+import {
+  SearchContainer as SearchPageComponent,
+  SearchContainerProps as SearchPageProps,
+} from "../components/search/SearchContainer";
 import {
   Classification,
   CmoAsset,
   OperationalRequirement,
+  Pool,
 } from "../api/generated";
-import {
-  SearchContainer,
-  SearchContainerProps,
-} from "../components/search/SearchContainer";
 
 export default {
-  component: SearchContainer,
-  title: "Search Form",
+  component: SearchPageComponent,
+  title: "Search Page",
   args: {
     classifications: fakeClassifications() as Classification[],
     cmoAssets: fakeCmoAssets() as CmoAsset[],
     operationalRequirements:
       fakeOperationalRequirements() as OperationalRequirement[],
-    pool: pick(fakePools()[0], ["name", "description"]),
-    poolOwner: pick(fakeUsers()[0], ["firstName", "lastName"]),
+
+    pool: fakePools()[0] as Pool,
+    poolOwner: fakePools()[0].ownerPublicProfile as Pool["ownerPublicProfile"],
     candidateCount: 10,
-    updatePending: { control: false },
-    candidateFilter: action("updateCandidateFilter"),
+    updatePending: false,
     updateCandidateFilter: action("updateCandidateFilter"),
     updateInitialValues: action("updateInitialValues"),
     handleSubmit: action("handleSubmit"),
   },
 } as Meta;
 
-const TemplateSearchForm: Story<SearchContainerProps> = (args) => {
-  return <SearchContainer {...args} />;
+const TemplateSearchPage: Story<SearchPageProps> = (args) => {
+  return <SearchPageComponent {...args} />;
 };
 
-export const Form = TemplateSearchForm.bind({});
+export const SearchPage = TemplateSearchPage.bind({});
+export const UpdatingSearchPage = TemplateSearchPage.bind({});
+
+UpdatingSearchPage.args = {
+  ...SearchPage.args,
+  updatePending: true,
+};
