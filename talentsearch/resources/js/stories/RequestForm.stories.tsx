@@ -107,7 +107,9 @@ export default {
     handleCreatePoolCandidateSearchRequest: async (
       data: CreatePoolCandidateSearchRequestInput,
     ) => {
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      await new Promise((resolve) => {
+        setTimeout(resolve, 1000);
+      });
       action("Create Pool Candidate Search Request")(data);
       return null;
     },
