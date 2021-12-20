@@ -2,6 +2,7 @@ import { uniqueId, isEmpty } from "lodash";
 import * as React from "react";
 import { useIntl } from "react-intl";
 import { Maybe, PoolCandidateFilter } from "../../api/generated";
+import { getWorkRegion } from "../../constants/localizedConstants";
 
 export const FilterBlock: React.FunctionComponent<{
   title: string;
@@ -210,7 +211,9 @@ export const SearchRequestFilters: React.FunctionComponent<
               description:
                 "Title for work location section on summary of filters section",
             })}
-            content={workLocation}
+            content={workLocation.map((id) =>
+              intl.formatMessage(getWorkRegion(id)),
+            )}
           />
           <FilterBlock
             title={intl.formatMessage({

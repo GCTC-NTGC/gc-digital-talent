@@ -6,6 +6,7 @@ import * as React from "react";
 import { useIntl } from "react-intl";
 import { commonMessages } from "@common/messages";
 import { notEmpty } from "@common/helpers/util";
+import { getPoolCandidateSearchStatus } from "@common/constants/localizedConstants";
 import {
   PoolCandidateFilterInput,
   PoolCandidateSearchRequest,
@@ -120,7 +121,9 @@ const ManagerInfo: React.FunctionComponent<{
                 description:
                   "Title for the status block in the manager info section of the single search request view.",
               })}
-              content={status}
+              content={intl.formatMessage(
+                getPoolCandidateSearchStatus(status ?? ""),
+              )}
             />
           </div>
         </div>
