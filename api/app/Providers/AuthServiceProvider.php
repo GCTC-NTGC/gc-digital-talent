@@ -58,31 +58,27 @@ class AuthServiceProvider extends ServiceProvider
         $this->app['auth']->viaRequest('api', function ($request) use ($tokenService) {
 
             $bearerToken = $request->bearerToken(); // 1. extract JWT access token from request.
-
-            if (!$bearerToken) {
-                Log::notice('Expected to find a bearer token on request but did not find one.');
-                return abort(401, 'No authorization token found.');
-            }
-
-            $sub = '';
-            try {
-                $claims = $tokenService->validateAndGetClaims($bearerToken);  // 2. validate access token.
-                $sub = $claims->get('sub');
-            } catch (RequiredConstraintsViolated $e) {
-                $violations = [];
-                foreach ($e->violations() as $violationError) {
-                    array_push($violations, $violationError->getMessage());
+            if($bearerToken)
+            {
+                try {
+                    $claims = $tokenService->validateAndGetClaims($bearerToken);  // 2. validate access token.
+                    $sub = $claims->get('sub');
+                } catch (RequiredConstraintsViolated $e) {
+                    $violations = [];
+                    foreach ($e->violations() as $violationError) {
+                        array_push($violations, $violationError->getMessage());
+                    }
+                    Log::notice('Authorization token not valid: ', $violations);
+                    return abort(401, 'Authorization token not valid.');
                 }
-                Log::notice('Authorization token not valid: ', $violations);
-                return abort(401, 'Authorization token not valid.');
-            }
 
-            $userMatch = User::where('sub', $sub)->first(); // 3. match "sub" claim to user 'sub' field.
-            if($userMatch) {
-                return $userMatch;
-            } else {
-                Log::notice('No user found for given subscriber: '.$sub);
-                return abort(401, 'No user found for given subscriber.');;
+                $userMatch = User::where('sub', $sub)->first(); // 3. match "sub" claim to user 'sub' field.
+                if($userMatch) {
+                    return $userMatch;
+                } else {
+                    Log::notice('No user found for given subscriber: '.$sub);
+                    return null;
+                }
             }
 
         });
