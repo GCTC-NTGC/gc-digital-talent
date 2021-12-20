@@ -3,21 +3,23 @@ import { useIntl } from "react-intl";
 import { useLocation } from "@common/helpers/router";
 import { PoolCandidateFilter } from "../../api/generated";
 import { CreateRequest } from "./CreateRequest";
+import { FormValues as SearchFormValues } from "../search/SearchForm";
+
+type LocationState = {
+  some: {
+    candidateFilter: PoolCandidateFilter;
+    initialValues: SearchFormValues;
+    candidateCount: number;
+  };
+};
 
 const RequestPage: React.FunctionComponent = () => {
   const intl = useIntl();
   const location = useLocation();
-  const poolCandidateFilter: PoolCandidateFilter = location.state
-    ? location.state.some.candidateFilter
-    : null;
-
-  const initialValues = location.state
-    ? location.state.some.initialValues
-    : null;
-
-  const candidateCount = location.state
-    ? location.state.some.candidateCount
-    : null;
+  const state = location.state as LocationState;
+  const poolCandidateFilter = state ? state.some.candidateFilter : null;
+  const initialValues = state ? state.some.initialValues : null;
+  const candidateCount = state ? state.some.candidateCount : null;
 
   return (
     <section

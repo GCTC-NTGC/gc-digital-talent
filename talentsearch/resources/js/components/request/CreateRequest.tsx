@@ -7,11 +7,7 @@ import { getLocale } from "@common/helpers/localize";
 import { Button } from "@common/components";
 import { notEmpty } from "@common/helpers/util";
 import { toast } from "react-toastify";
-import {
-  navigate,
-  pushToStateThenNavigate,
-  useLocation,
-} from "@common/helpers/router";
+import { navigate, pushToStateThenNavigate } from "@common/helpers/router";
 import { SearchRequestFilters } from "@common/components/SearchRequestFilters";
 import { searchPath } from "../../talentSearchRoutes";
 import {
@@ -40,7 +36,7 @@ export interface RequestFormProps {
   departments: Department[];
   poolCandidateFilter: Maybe<PoolCandidateFilter>;
   candidateCount: Maybe<number>;
-  searchFormInitialValues?: SearchFormValues;
+  searchFormInitialValues: Maybe<SearchFormValues>;
   handleCreatePoolCandidateSearchRequest: (
     data: CreatePoolCandidateSearchRequestInput,
   ) => Promise<
@@ -347,9 +343,9 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
 };
 
 export const CreateRequest: React.FunctionComponent<{
-  poolCandidateFilter: PoolCandidateFilter;
+  poolCandidateFilter: Maybe<PoolCandidateFilter>;
   candidateCount: Maybe<number>;
-  searchFormInitialValues: SearchFormValues;
+  searchFormInitialValues: Maybe<SearchFormValues>;
 }> = ({ poolCandidateFilter, candidateCount, searchFormInitialValues }) => {
   const intl = useIntl();
   const [lookupResult] = useGetPoolCandidateSearchRequestDataQuery();
