@@ -3,6 +3,7 @@ import UniversalRouter, { Routes } from "universal-router";
 import React, { useState, useEffect, useMemo, ReactElement } from "react";
 import fromPairs from "lodash/fromPairs";
 import toPairs from "lodash/toPairs";
+import path from "path-browserify";
 
 const HISTORY = createBrowserHistory();
 
@@ -88,11 +89,11 @@ export const useRouter = (
   const location = useLocation();
   const router = useMemo(() => new UniversalRouter(routes), [routes]);
   const [component, setComponent] = useState<React.ReactElement | null>(null);
-  const path = location.pathname;
+  const pathName = location.pathname;
   // Render the result of routing
   useEffect((): void => {
     router
-      .resolve(path)
+      .resolve(pathName)
       .then(async (r) => {
         // r may or may not be a promise, so attempt to resolve it. A non-promise value will simply resolve to itself.
         const result = await Promise.resolve(r);
@@ -102,10 +103,10 @@ export const useRouter = (
           setComponent(result.component);
         }
       })
-      .catch(async (r) => {
+      .catch(async () => {
         setComponent(missingRouteComponent);
       });
-  }, [path, router]);
+  }, [missingRouteComponent, pathName, router]);
 
   return component;
 };
@@ -115,7 +116,7 @@ export const useRouter = (
  * @param imgFile The name of the img file, not including the /images/ path.
  */
 export function imageUrl(baseUrl: string, imgFile: string): string {
-  return `${baseUrl}/public/images/${imgFile}`;
+  return path.join(baseUrl, "/public/images/", imgFile);
 }
 
 export function parseUrlQueryParameters(
