@@ -2,9 +2,9 @@ import React, { ReactElement } from "react";
 import { Routes } from "universal-router";
 import { useIntl } from "react-intl";
 import NavMenu from "@common/components/NavMenu";
+import { Link } from "@common/components";
 import NotFound from "@common/components/NotFound";
 import {
-  Link,
   RouterResult,
   useLocation,
   useRouter,

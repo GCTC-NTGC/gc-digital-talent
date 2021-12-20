@@ -46,6 +46,7 @@ export const SingleSearchRequestTable: React.FunctionComponent<
 > = ({ searchPoolCandidates }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
+
   const columns = useMemo<ColumnsOf<Data>>(
     () => [
       {

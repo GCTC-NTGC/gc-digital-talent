@@ -210,7 +210,7 @@ export const SingleSearchRequest: React.FunctionComponent<
     isIndigenous: poolCandidateFilter.isIndigenous,
     isVisibleMinority: poolCandidateFilter.isVisibleMinority,
     isWoman: poolCandidateFilter.isWoman,
-    languageAbility: poolCandidateFilter.languageAbility,
+    languageAbility: poolCandidateFilter.languageAbility || undefined,
     workRegions: poolCandidateFilter.workRegions,
   };
 

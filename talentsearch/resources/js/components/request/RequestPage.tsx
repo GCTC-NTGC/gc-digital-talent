@@ -8,7 +8,15 @@ const RequestPage: React.FunctionComponent = () => {
   const intl = useIntl();
   const location = useLocation();
   const poolCandidateFilter: PoolCandidateFilter = location.state
-    ? location.state.some.poolCandidateFilter
+    ? location.state.some.candidateFilter
+    : null;
+
+  const initialValues = location.state
+    ? location.state.some.initialValues
+    : null;
+
+  const candidateCount = location.state
+    ? location.state.some.candidateCount
     : null;
 
   return (
@@ -42,7 +50,11 @@ const RequestPage: React.FunctionComponent = () => {
         data-h2-align-items="b(center)"
         style={{ minHeight: "70rem" }}
       >
-        <CreateRequest poolCandidateFilter={poolCandidateFilter} />
+        <CreateRequest
+          poolCandidateFilter={poolCandidateFilter}
+          searchFormInitialValues={initialValues}
+          candidateCount={candidateCount}
+        />
       </div>
     </section>
   );

@@ -1,11 +1,18 @@
-import { GetPoolsQuery } from "../api/generated";
+import pick from "lodash/pick";
+import { Pool, UserPublicProfile } from "../api/generated";
 import fakeUsers from "./fakeUsers";
 import fakeClassifications from "./fakeClassifications";
 
-export default (): GetPoolsQuery["pools"] => [
+export default (): Pool[] => [
   {
     id: "6fd959be-5265-4286-ab65-fbfd526e5e37",
     owner: fakeUsers()[0],
+    ownerPublicProfile: pick(fakeUsers()[0], [
+      "id",
+      "email",
+      "firstName",
+      "lastName",
+    ]) as UserPublicProfile,
     name: {
       en: "CMO",
       fr: "CMO",
