@@ -64,6 +64,12 @@ export type FormValues = Pick<
   educationRequirement: "has_diploma" | "no_diploma";
   poolId: string;
 };
+
+type LocationState = {
+  some: {
+    initialValues: FormValues;
+  };
+};
 export interface SearchFormProps {
   classifications: Classification[];
   cmoAssets: CmoAsset[];
@@ -127,9 +133,8 @@ export const SearchForm: React.FunctionComponent<SearchFormProps> = ({
   );
 
   // The location state holds the initial values plugged in from user. This is required if the user decides to click back and change any values.
-  const initialValues = location.state
-    ? location.state.some.initialValues
-    : null;
+  const state = location.state as LocationState;
+  const initialValues = state ? state.some.initialValues : {};
   const methods = useForm<FormValues>({ defaultValues: initialValues });
   const { watch } = methods;
 
