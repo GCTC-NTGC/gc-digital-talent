@@ -28,13 +28,19 @@ const languageAbilityAccessor = (
   intl: IntlShape,
 ) => (
   <span>
-    {intl.formatMessage(getLanguageAbility(languageAbility as string))}
+    {languageAbility
+      ? intl.formatMessage(getLanguageAbility(languageAbility as string))
+      : ""}
   </span>
 );
 const preferredLanguageAccessor = (
   language: Language | null | undefined,
   intl: IntlShape,
-) => <span>{intl.formatMessage(getLanguage(language as string))}</span>;
+) => (
+  <span>
+    {language ? intl.formatMessage(getLanguage(language as string)) : ""}
+  </span>
+);
 
 const PoolCandidatesTable: React.FC<
   GetPoolCandidatesQuery & { editUrlRoot: string }

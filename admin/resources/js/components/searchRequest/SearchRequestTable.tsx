@@ -26,7 +26,9 @@ const statusAccessor = (
   intl: IntlShape,
 ) => (
   <span>
-    {intl.formatMessage(getPoolCandidateSearchStatus(status as string))}
+    {status
+      ? intl.formatMessage(getPoolCandidateSearchStatus(status as string))
+      : ""}
   </span>
 );
 
