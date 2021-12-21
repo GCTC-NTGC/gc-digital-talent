@@ -8,6 +8,7 @@ import { getLanguageAbility } from "@common/constants";
 import useDeepCompareEffect from "@common/hooks/useDeepCompareEffect";
 import { debounce } from "debounce";
 import { useLocation } from "@common/helpers/router";
+import { getWorkRegion } from "@common/constants/localizedConstants";
 import {
   Classification,
   CmoAsset,
@@ -317,7 +318,10 @@ export const SearchForm: React.FunctionComponent<SearchFormProps> = ({
               description:
                 "Placeholder for work location filter in search form.",
             })}
-            options={enumToOptions(WorkRegion)}
+            options={enumToOptions(WorkRegion).map(({ value }) => ({
+              value,
+              label: intl.formatMessage(getWorkRegion(value)),
+            }))}
           />
         </FilterBlock>
         <FilterBlock

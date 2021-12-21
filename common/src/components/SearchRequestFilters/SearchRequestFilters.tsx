@@ -2,7 +2,10 @@ import { uniqueId, isEmpty } from "lodash";
 import * as React from "react";
 import { useIntl } from "react-intl";
 import { Maybe, PoolCandidateFilter } from "../../api/generated";
-import { getWorkRegion } from "../../constants/localizedConstants";
+import {
+  getLanguageAbility,
+  getWorkRegion,
+} from "../../constants/localizedConstants";
 
 export const FilterBlock: React.FunctionComponent<{
   title: string;
@@ -139,6 +142,18 @@ export const SearchRequestFilters: React.FunctionComponent<
             "Error message when operational requirement name is not found on request page.",
         }),
     );
+  const workLocationIds: string[] =
+    (poolCandidateFilter?.workRegions as string[]) ?? [];
+  const workLocations: string[] | undefined = workLocationIds.map((id) =>
+    intl.formatMessage(getWorkRegion(id)),
+  );
+  const languageAbility: string = poolCandidateFilter?.languageAbility
+    ? intl.formatMessage(
+        getLanguageAbility(poolCandidateFilter?.languageAbility),
+      )
+    : intl.formatMessage({
+        defaultMessage: "Any language",
+      });
   const skills: string[] | undefined = poolCandidateFilter?.cmoAssets?.map(
     (cmoAsset) =>
       cmoAsset?.name.en ||
@@ -149,13 +164,7 @@ export const SearchRequestFilters: React.FunctionComponent<
       }),
   );
   const typeOfOpportunity = ""; // TODO: Replace with data fetched from api
-  const workLocation: string[] = poolCandidateFilter?.workRegions as string[];
-  const languageAbility =
-    poolCandidateFilter?.languageAbility === null
-      ? intl.formatMessage({
-          defaultMessage: "Any language",
-        })
-      : poolCandidateFilter?.languageAbility;
+
   return (
     <section data-h2-flex-grid="b(top, contained, flush, xs)">
       <div
@@ -211,9 +220,7 @@ export const SearchRequestFilters: React.FunctionComponent<
               description:
                 "Title for work location section on summary of filters section",
             })}
-            content={workLocation.map((id) =>
-              intl.formatMessage(getWorkRegion(id)),
-            )}
+            content={workLocations}
           />
           <FilterBlock
             title={intl.formatMessage({
