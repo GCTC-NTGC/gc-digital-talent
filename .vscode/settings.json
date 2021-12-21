@@ -57,6 +57,7 @@
     "composer.json",
     "composer.lock",
     "generated.ts",
-    "tsconfig.json"
+    "tsconfig.json",
+    ".eslintrc"
   ]
 }
