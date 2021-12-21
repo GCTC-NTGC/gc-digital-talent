@@ -16,7 +16,11 @@ type Data = NonNullable<FromArray<AllUsersQuery["users"]>>;
 const languageAccessor = (
   language: Language | null | undefined,
   intl: IntlShape,
-) => <span>{intl.formatMessage(getLanguage(language as string))}</span>;
+) => (
+  <span>
+    {language ? intl.formatMessage(getLanguage(language as string)) : ""}
+  </span>
+);
 
 export const UserTable: React.FC<AllUsersQuery & { editUrlRoot: string }> = ({
   users,
