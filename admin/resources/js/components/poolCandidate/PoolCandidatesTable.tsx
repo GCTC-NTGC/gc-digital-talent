@@ -4,6 +4,7 @@ import { notEmpty } from "@common/helpers/util";
 import { useLocation } from "@common/helpers/router";
 import { commonMessages } from "@common/messages";
 import { FromArray } from "@common/types/utilityTypes";
+import { getLocale } from "@common/helpers/localize";
 import {
   getLanguage,
   getLanguageAbility,
@@ -55,7 +56,7 @@ const PoolCandidatesTable: React.FC<
           description:
             "Title displayed for the Pool Candidates table Pool column.",
         }),
-        accessor: (d) => d.pool?.name?.en,
+        accessor: (d) => d.pool?.name?.[getLocale(intl)],
       },
       {
         Header: intl.formatMessage({

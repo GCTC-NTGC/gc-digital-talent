@@ -121,9 +121,15 @@ const ManagerInfo: React.FunctionComponent<{
                 description:
                   "Title for the status block in the manager info section of the single search request view.",
               })}
-              content={intl.formatMessage(
-                getPoolCandidateSearchStatus(status ?? ""),
-              )}
+              content={
+                status
+                  ? intl.formatMessage(getPoolCandidateSearchStatus(status))
+                  : intl.formatMessage({
+                      defaultMessage: "N/A",
+                      description:
+                        "Text shown when the filter was not selected",
+                    })
+              }
             />
           </div>
         </div>

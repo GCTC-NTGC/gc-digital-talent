@@ -24,9 +24,11 @@ export const getSalaryRange = (salaryId: string | number): string =>
 export const languages = defineMessages({
   [Language.En]: {
     defaultMessage: "English",
+    description: "The language English.",
   },
   [Language.Fr]: {
     defaultMessage: "French",
+    description: "The language French.",
   },
 });
 
@@ -56,12 +58,15 @@ export const getEducationRequirement = (
 export const languageAbilities = defineMessages({
   [LanguageAbility.English]: {
     defaultMessage: "English only",
+    description: "The language ability is English only.",
   },
   [LanguageAbility.French]: {
     defaultMessage: "French only",
+    description: "The language ability is French only.",
   },
   [LanguageAbility.Bilingual]: {
     defaultMessage: "Bilingual, English, and French",
+    description: "The language ability is bilingual - both English and French.",
   },
 });
 
@@ -77,27 +82,35 @@ export const getLanguageAbility = (
 export const workRegions = defineMessages({
   [WorkRegion.Atlantic]: {
     defaultMessage: "Atlantic",
+    description: "The work region of Canada described as Atlantic.",
   },
   [WorkRegion.BritishColumbia]: {
     defaultMessage: "British Columbia",
+    description: "The work region of Canada described as British Columbia.",
   },
   [WorkRegion.NationalCapital]: {
     defaultMessage: "National Capital",
+    description: "The work region of Canada described as National Capital.",
   },
   [WorkRegion.North]: {
     defaultMessage: "North",
+    description: "The work region of Canada described as North.",
   },
   [WorkRegion.Ontario]: {
     defaultMessage: "Ontario",
+    description: "The work region of Canada described as Ontario.",
   },
   [WorkRegion.Prairie]: {
     defaultMessage: "Prairie",
+    description: "The work region of Canada described as Prairie.",
   },
   [WorkRegion.Quebec]: {
     defaultMessage: "Quebec",
+    description: "The work region of Canada described as Quebec.",
   },
   [WorkRegion.Telework]: {
     defaultMessage: "Telework",
+    description: "The work region of Canada described as Telework.",
   },
 });
 
@@ -113,15 +126,19 @@ export const getWorkRegion = (
 export const poolCandidateStatuses = defineMessages({
   [PoolCandidateStatus.Available]: {
     defaultMessage: "Available",
+    description: "The pool candidate's status is Available.",
   },
   [PoolCandidateStatus.NoLongerInterested]: {
     defaultMessage: "No Longer Interested",
+    description: "The pool candidate's status is No Longer Interested.",
   },
   [PoolCandidateStatus.PlacedIndeterminate]: {
     defaultMessage: "Placed Indeterminate",
+    description: "The pool candidate's status is Placed Indeterminate.",
   },
   [PoolCandidateStatus.PlacedTerm]: {
     defaultMessage: "Placed Term",
+    description: "The pool candidate's status is Placed Term.",
   },
 });
 
@@ -137,9 +154,11 @@ export const getPoolCandidateStatus = (
 export const poolCandidateSearchStatuses = defineMessages({
   [PoolCandidateSearchStatus.Done]: {
     defaultMessage: "Done",
+    description: "The search status is Done.",
   },
   [PoolCandidateSearchStatus.Pending]: {
     defaultMessage: "Pending",
+    description: "The search status is Pending.",
   },
 });
 
