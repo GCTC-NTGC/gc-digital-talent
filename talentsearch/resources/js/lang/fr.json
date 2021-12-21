@@ -1,8 +1,4 @@
 {
-  "+6BCqp": {
-    "defaultMessage": "Consultez nos modalités.",
-    "description": "Title for the terms and conditions link in the Footer."
-  },
   "+ZXZj+": {
     "defaultMessage": "S’il n’y a aucun candidat qui répond aux critères <a>Communiquez avec nous! </a>",
     "description": "Message for helping user if no candidates matched the filters chosen."
@@ -23,10 +19,6 @@
   "09x+E7": {
     "defaultMessage": "Nombre approximative de candidats",
     "description": "Heading for total estimated candidates box next to search form."
-  },
-  "1J4e+j": {
-    "defaultMessage": "Commentaires",
-    "description": "Label for the feedback link in the Footer."
   },
   "3DiXRk": {
     "defaultMessage": "Il y a <span>{totalEstiméDesCandidats}</span> candidats qui répondent aux critères dans ce bassin",
@@ -76,10 +68,6 @@
     "defaultMessage": "Erreur : Échec de la création de la demande",
     "description": "Message displayed to user after a pool candidate request fails to get created."
   },
-  "9nLx6d": {
-    "defaultMessage": "Visitez canada.ca.",
-    "description": "Title for the Canada link in the Footer."
-  },
   "AvBSV+": {
     "defaultMessage": "Oh non...",
     "description": "Title displayed for a table error loading state."
@@ -95,10 +83,6 @@
   "B7fcr5": {
     "defaultMessage": "Chargement...",
     "description": "Title displayed for a table initial loading state."
-  },
-  "CQLx6F": {
-    "defaultMessage": "Visitez canada.ca.",
-    "description": "Title for the Canada logo in the Footer."
   },
   "F+WFWB": {
     "defaultMessage": "Région",
@@ -139,10 +123,6 @@
   "M3nkdY": {
     "defaultMessage": "Accueil",
     "description": "Label displayed on the Home menu item."
-  },
-  "MxuMT5": {
-    "defaultMessage": "Consultez notre politique de confidentialité.",
-    "description": "Title for the privacy link in the Footer."
   },
   "N6+rnM": {
     "defaultMessage": "example@canada.ca...",
@@ -199,10 +179,6 @@
     "defaultMessage": "Filtre de classification",
     "description": "Label for classification filter in search form."
   },
-  "VcOlXA": {
-    "defaultMessage": "Politique de confidentialité",
-    "description": "Label for the privacy link in the Footer."
-  },
   "VhrFQG": {
     "defaultMessage": "Pour améliorer vos résultats, essayez de supprimer certains de ces filtres",
     "description": "Heading for total matching candidates in results section of search page."
@@ -219,21 +195,9 @@
     "defaultMessage": "Ce bassin est ouvert à la plupart des ministères et organismes. Les candidats dans le bassin sont aussi bien des personnes en début de carrière que des professionnels chevronnés ayant plusieurs années d’expérience professionnelle. Il s’agit d’un bassin de recrutement continu, ce qui signifie que d’autres candidats sont ajoutés chaque semaine.",
     "description": "Content displayed in the About area of the hero section of the Search page."
   },
-  "ZE77nf": {
-    "defaultMessage": "canada.ca",
-    "description": "Label for the Canada link in the Footer."
-  },
-  "ZGpncy": {
-    "defaultMessage": "Modalités",
-    "description": "Label for the terms and conditions link in the Footer."
-  },
   "Za/qCZ": {
     "defaultMessage": "Les gestionnaires peuvent demander des candidats par groupe d’équité en matière d’emploi pour combler les écarts actuels et futurs de représentation au sein de l’effectif. (Les catégories reflètent les données sur l’équité en matière d’emploi définies en vertu de la Loi sur l’emploi dans la fonction publique et recueillies dans le cadre du processus de demande de la CFP. Par souci d’uniformité, cette plateforme reflète la terminologie des catégories de la CFP.)",
     "description": "Message describing the employment equity filter in the search form."
-  },
-  "ZumF63": {
-    "defaultMessage": "Logo du Canada.",
-    "description": "Alt text for the Canada logo in the Footer."
   },
   "Zzd/sJ": {
     "defaultMessage": "Dans ce champ, veuillez inclure tous les détails et qualifications supplémentaires que vous recherchez auprès des candidats, comme les langages de programmation, les certifications, les connaissances ou un lieu de travail particulier.",
@@ -294,10 +258,6 @@
     "defaultMessage": "Filtres de compétences",
     "description": "Heading for skill filters section of the search form."
   },
-  "kTHMa+": {
-    "defaultMessage": "Logo du Canada.",
-    "description": "Alt text for the Canada logo in the Header."
-  },
   "laGCzG": {
     "defaultMessage": "Conditions d’emploi/Exigences opérationnelles",
     "description": "Heading for operational requirements section of the search form."
@@ -306,17 +266,9 @@
     "defaultMessage": "Courriel du gouvernement",
     "description": "Label for government email input in the request form"
   },
-  "mZMdKM": {
-    "defaultMessage": "Soumettre des commentaires sur le Nuage de talents du GC par courriel.",
-    "description": "Title for the feedback link in the Footer."
-  },
   "mhtcMd": {
     "defaultMessage": "La plupart des emplois dans la collectivité numérique n’exigent pas de diplôme. Modifiez cette information seulement si le poste nécessite un diplôme.",
     "description": "Message describing the education requirement filter of the search form."
-  },
-  "nRMaY6": {
-    "defaultMessage": "Date de modification : {currentDate}",
-    "description": "Header for the sites last date modification found in the Footer."
   },
   "p72C40": {
     "defaultMessage": "Compétence linguistique au travail",
@@ -337,10 +289,6 @@
   "v7sYE7": {
     "defaultMessage": "Si vous avez des exigences plus détaillées concernant le lieu de travail, veuillez nous en faire part dans la section des commentaires du formulaire de soumission.",
     "description": "Message describing the work location filter in the search form."
-  },
-  "x4ALp8": {
-    "defaultMessage": "Visiter canada.ca.",
-    "description": "Title for the Canada logo in the Header."
   },
   "zz9pwK": {
     "defaultMessage": "Développeur...",

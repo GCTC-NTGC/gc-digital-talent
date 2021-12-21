@@ -1,8 +1,4 @@
 {
-  "+6BCqp": {
-    "defaultMessage": "Consulter nos modalités.",
-    "description": "Title for the terms and conditions link in the Footer."
-  },
   "+e8VZ8": {
     "defaultMessage": "Erreur : Échec de la mise à jour de l’actif du BGC",
     "description": "Message displayed to user after cmo asset fails to get updated."
@@ -18,10 +14,6 @@
   "/YiBdv": {
     "defaultMessage": "No de ministère",
     "description": "Label displayed on the create a department form department number field."
-  },
-  "/rTUU/": {
-    "defaultMessage": "Date de modification : {currentDate}",
-    "description": "Header for the sites last date modification found in the footer."
   },
   "/uqLeF": {
     "defaultMessage": "Créer un utilisateur",
@@ -46,10 +38,6 @@
   "154pGu": {
     "defaultMessage": "Utilisateurs",
     "description": "Label displayed on the Users menu item."
-  },
-  "1J4e+j": {
-    "defaultMessage": "Commentaires",
-    "description": "Label for the feedback link in the Footer."
   },
   "1THfui": {
     "defaultMessage": "Renseignements sur le candidat",
@@ -195,10 +183,6 @@
     "defaultMessage": "Salaire minimal",
     "description": "Title displayed for the Classification table Minimum Salary column."
   },
-  "9nLx6d": {
-    "defaultMessage": "Visiter canada.ca.",
-    "description": "Title for the Canada link in the Footer."
-  },
   "9uaL60": {
     "defaultMessage": "Nom EN",
     "description": "Label displayed on the create a cmo asset form name (English) field."
@@ -238,10 +222,6 @@
   "Bu20w5": {
     "defaultMessage": "Minorité visible",
     "description": "Title displayed for the Pool Candidates table Visible Minority column."
-  },
-  "CQLx6F": {
-    "defaultMessage": "Visiter canada.ca.",
-    "description": "Title for the Canada logo in the Footer."
   },
   "CcOlo0": {
     "defaultMessage": "Clé",
@@ -415,10 +395,6 @@
     "defaultMessage": "Créer un actif du BGC",
     "description": "Title displayed on the create a cmo asset form."
   },
-  "MxuMT5": {
-    "defaultMessage": "Consulter notre politique de confidentialité.",
-    "description": "Title for the privacy link in the Footer."
-  },
   "N67tO0": {
     "defaultMessage": "Nom de famille",
     "description": "Title displayed for the User table Last Name column."
@@ -543,10 +519,6 @@
     "defaultMessage": "Erreur : Échec de la création du ministère",
     "description": "Message displayed to user after department fails to get created."
   },
-  "VcOlXA": {
-    "defaultMessage": "Politique de confidentialité",
-    "description": "Label for the privacy link in the Footer."
-  },
   "VgbJiw": {
     "defaultMessage": "Responsable",
     "description": "Title displayed for the Pool table owner email column."
@@ -607,14 +579,7 @@
     "defaultMessage": "Erreur : Échec de la création du bassin de candidats",
     "description": "Message displayed to pool candidate after pool candidate fails to get created."
   },
-  "ZE77nf": {
-    "defaultMessage": "canada.ca",
-    "description": "Label for the Canada link in the Footer."
-  },
-  "ZGpncy": {
-    "defaultMessage": "Modalités",
-    "description": "Label for the terms and conditions link in the Footer."
-  },
+
   "ZH3zx+": {
     "defaultMessage": "Créer un nouvel utilisateur",
     "description": "Label for the new user assignment option in the create pool candidate form."
@@ -638,10 +603,6 @@
   "ZbpbD6": {
     "defaultMessage": "Créer un ministère",
     "description": "Heading displayed above the Create Department form."
-  },
-  "ZumF63": {
-    "defaultMessage": "Logo du Canada.",
-    "description": "Alt text for the Canada logo in the Footer."
   },
   "a48ztb": {
     "defaultMessage": "Erreur : Échec de la création de l’exigence opérationnelle",
@@ -721,10 +682,6 @@
   "f24Z8p": {
     "defaultMessage": "Identifiant",
     "description": "Title displayed on the search request table id column."
-  },
-  "f3qFB3": {
-    "defaultMessage": "Visiter canada.ca.",
-    "description": "Title for the Canada logo in the Header."
   },
   "f9E/6Q": {
     "defaultMessage": "Sélectionner une ou plusieurs exigences opérationnelles...",
@@ -818,10 +775,6 @@
     "defaultMessage": "Description (français)",
     "description": "Label displayed on the operational requirement form description (French) field."
   },
-  "kTHMa+": {
-    "defaultMessage": "Logo du Canada.",
-    "description": "Alt text for the Canada logo in the Header."
-  },
   "kt5dPm": {
     "defaultMessage": "Identifiant",
     "description": "Title displayed on the Pool table Unique Identifier column."
@@ -841,10 +794,6 @@
   "lo2bSB": {
     "defaultMessage": "Modifier",
     "description": "Title displayed for the single search request table edit column."
-  },
-  "mZMdKM": {
-    "defaultMessage": "Soumettre des commentaires au Nuage de talents du GC par courriel.",
-    "description": "Title for the feedback link in the Footer."
   },
   "mbxksT": {
     "defaultMessage": "Prénom",

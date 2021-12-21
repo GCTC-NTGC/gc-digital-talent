@@ -114,5 +114,57 @@
   "vyQv+i": {
     "defaultMessage": "Erreur : Nom de la compétence introuvable",
     "description": "Error message when cmo asset name is not found on request page."
+  },
+  "+6BCqp": {
+    "defaultMessage": "Consulter nos modalités.",
+    "description": "Title for the terms and conditions link in the Footer."
+  },
+  "/rTUU/": {
+    "defaultMessage": "Date de modification : {currentDate}",
+    "description": "Header for the sites last date modification found in the footer."
+  },
+  "1J4e+j": {
+    "defaultMessage": "Commentaires",
+    "description": "Label for the feedback link in the Footer."
+  },
+  "4Cif02": {
+    "defaultMessage": "Visiter canada.ca.",
+    "description": "Title for the Canada logo in the Footer."
+  },
+  "MxuMT5": {
+    "defaultMessage": "Consulter notre politique de confidentialité.",
+    "description": "Title for the privacy link in the Footer."
+  },
+  "VcOlXA": {
+    "defaultMessage": "Politique de confidentialité",
+    "description": "Label for the privacy link in the Footer."
+  },
+  "ZE77nf": {
+    "defaultMessage": "canada.ca",
+    "description": "Label for the Canada link in the Footer."
+  },
+  "ZGpncy": {
+    "defaultMessage": "Modalités",
+    "description": "Label for the terms and conditions link in the Footer."
+  },
+  "ZumF63": {
+    "defaultMessage": "Logo du Canada.",
+    "description": "Alt text for the Canada logo in the Footer."
+  },
+  "f3qFB3": {
+    "defaultMessage": "Visiter canada.ca.",
+    "description": "Title for the Canada logo in the Header."
+  },
+  "kTHMa+": {
+    "defaultMessage": "Logo du Canada.",
+    "description": "Alt text for the Canada logo in the Header."
+  },
+  "mZMdKM": {
+    "defaultMessage": "Soumettre des commentaires au Nuage de talents du GC par courriel.",
+    "description": "Title for the feedback link in the Footer."
+  },
+  "rTfqcy": {
+    "defaultMessage": "Visiter canada.ca.",
+    "description": "Title for the Canada link in the Footer."
   }
 }
