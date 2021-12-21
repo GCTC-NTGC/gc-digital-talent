@@ -1,0 +1,55 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Admin Localhost Firefox",
+      "type": "firefox",
+      "request": "launch",
+      "reAttach": true,
+      "url": "http://localhost:8000/admin",
+      "webRoot": "${workspaceFolder}",
+      "keepProfileChanges": true,
+      "profile": "Dev",
+      "pathMappings": [
+        {
+          "url": "webpack://admin/resources",
+          "path": "${workspaceFolder}/admin/resources"
+        },
+        {
+          "url": "webpack://admin/common",
+          "path": "${workspaceFolder}/common"
+        }
+      ],
+      "reloadOnChange": {
+        "watch": [
+          "${workspaceFolder}/admin/public/js/**"
+        ]
+      }
+    },
+    {
+      "name": "Admin Localhost Talent Search",
+      "type": "firefox",
+      "request": "launch",
+      "reAttach": true,
+      "url": "http://localhost:8000",
+      "webRoot": "${workspaceFolder}",
+      "keepProfileChanges": true,
+      "profile": "Dev",
+      "pathMappings": [
+        {
+          "url": "webpack://talentsearch/resources",
+          "path": "${workspaceFolder}/talentsearch/resources"
+        },
+        {
+          "url": "webpack://talentsearch/common",
+          "path": "${workspaceFolder}/common"
+        }
+      ],
+      "reloadOnChange": {
+        "watch": [
+          "${workspaceFolder}/talentsearch/public/js/**"
+        ]
+      }
+    }
+  ]
+}
