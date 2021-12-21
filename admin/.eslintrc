@@ -28,7 +28,8 @@
     },
     "ignorePatterns": [
         ".eslintrc",
-        "generated.ts"
+        "generated.ts",
+        "webpack.mix.js"
     ],
     "plugins": [
         "prettier",
