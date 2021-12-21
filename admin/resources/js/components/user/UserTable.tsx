@@ -1,15 +1,22 @@
 import React, { useMemo } from "react";
-import { useIntl } from "react-intl";
+import { IntlShape, useIntl } from "react-intl";
 import { useLocation } from "@common/helpers/router";
 import { notEmpty } from "@common/helpers/util";
 import { commonMessages } from "@common/messages";
 import { FromArray } from "@common/types/utilityTypes";
-import { AllUsersQuery, useAllUsersQuery } from "../../api/generated";
+import { getLanguage } from "@common/constants/localizedConstants";
+import { AllUsersQuery, Language, useAllUsersQuery } from "../../api/generated";
 import Table, { ColumnsOf } from "../Table";
 import DashboardContentContainer from "../DashboardContentContainer";
 import { tableEditButtonAccessor } from "../TableEditButton";
 
 type Data = NonNullable<FromArray<AllUsersQuery["users"]>>;
+
+// callbacks extracted to separate function to stabilize memoized component
+const languageAccessor = (
+  language: Language | null | undefined,
+  intl: IntlShape,
+) => <span>{intl.formatMessage(getLanguage(language as string))}</span>;
 
 export const UserTable: React.FC<AllUsersQuery & { editUrlRoot: string }> = ({
   users,
@@ -52,7 +59,7 @@ export const UserTable: React.FC<AllUsersQuery & { editUrlRoot: string }> = ({
           description:
             "Title displayed for the User table Preferred Language column.",
         }),
-        accessor: "preferredLang",
+        accessor: (user) => languageAccessor(user.preferredLang, intl),
       },
       {
         Header: intl.formatMessage({

@@ -1,11 +1,17 @@
 import React, { useMemo } from "react";
-import { useIntl } from "react-intl";
+import { IntlShape, useIntl } from "react-intl";
 import { notEmpty } from "@common/helpers/util";
 import { useLocation } from "@common/helpers/router";
 import { commonMessages } from "@common/messages";
 import { FromArray } from "@common/types/utilityTypes";
 import {
+  getLanguage,
+  getLanguageAbility,
+} from "@common/constants/localizedConstants";
+import {
   GetPoolCandidatesQuery,
+  Language,
+  LanguageAbility,
   useGetPoolCandidatesByPoolQuery,
 } from "../../api/generated";
 import Table, { ColumnsOf } from "../Table";
@@ -14,6 +20,20 @@ import DashboardContentContainer from "../DashboardContentContainer";
 import { tableEditButtonAccessor } from "../TableEditButton";
 
 type Data = NonNullable<FromArray<GetPoolCandidatesQuery["poolCandidates"]>>;
+
+// callbacks extracted to separate function to stabilize memoized component
+const languageAbilityAccessor = (
+  languageAbility: LanguageAbility | null | undefined,
+  intl: IntlShape,
+) => (
+  <span>
+    {intl.formatMessage(getLanguageAbility(languageAbility as string))}
+  </span>
+);
+const preferredLanguageAccessor = (
+  language: Language | null | undefined,
+  intl: IntlShape,
+) => <span>{intl.formatMessage(getLanguage(language as string))}</span>;
 
 const PoolCandidatesTable: React.FC<
   GetPoolCandidatesQuery & { editUrlRoot: string }
@@ -99,7 +119,8 @@ const PoolCandidatesTable: React.FC<
           description:
             "Title displayed for the Pool Candidates table Language Ability column.",
         }),
-        accessor: "languageAbility",
+        accessor: (poolCandidate) =>
+          languageAbilityAccessor(poolCandidate.languageAbility, intl),
       },
       {
         Header: intl.formatMessage({
@@ -123,7 +144,8 @@ const PoolCandidatesTable: React.FC<
           description:
             "Title displayed on the Pool Candidates table Preferred Lang column.",
         }),
-        accessor: ({ user }) => user?.preferredLang,
+        accessor: ({ user }) =>
+          preferredLanguageAccessor(user?.preferredLang, intl),
       },
       {
         Header: intl.formatMessage({
