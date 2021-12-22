@@ -36,7 +36,8 @@
     "build-storybook": "build-storybook",
     "codegen": "graphql-codegen",
     "intl-extract": "formatjs extract ./resources/js/**/*.ts* --ignore ./**/*d.ts --out-file resources/js/lang/en.json --id-interpolation-pattern [sha512:contenthash:base64:6]",
-    "intl-compile": "formatjs compile ./resources/js/lang/fr.json --out-file ./resources/js/lang/frCompiled.json"
+    "intl-compile": "formatjs compile ./resources/js/lang/fr.json --out-file ./resources/js/lang/frCompiled.json",
+    "test": "jest"
   },
   "devDependencies": {
     "@babel/core": "^7.16.5",
@@ -56,6 +57,7 @@
     "@storybook/manager-webpack5": "^6.4.9",
     "@storybook/react": "^6.4.9",
     "@types/debounce": "^1.2.1",
+    "@types/jest": "^27.0.3",
     "@types/lodash": "^4.14.178",
     "@types/path-browserify": "^1.0.0",
     "@types/react-table": "^7.7.9",
@@ -75,12 +77,14 @@
     "eslint-plugin-react": "^7.27.1",
     "eslint-plugin-react-hooks": "^4.3.0",
     "eslint-plugin-testcafe": "^0.2.1",
+    "jest": "^27.4.5",
     "laravel-mix": "^6.0.39",
     "laravel-mix-polyfill": "^3.0.1",
     "postcss": "^8.4.5",
     "prettier": "^2.5.1",
     "react-refresh": "^0.11.0",
     "storybook-addon-intl": "^2.4.1",
+    "ts-jest": "^27.1.2",
     "ts-loader": "^9.2.6",
     "typescript": "^4.5.4"
   },
@@ -104,5 +108,13 @@
     "regenerator-runtime": "^0.13.9",
     "universal-router": "^9.1.0",
     "urql": "^2.0.6"
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "node",
+    "verbose": true,
+    "moduleNameMapper": {
+      "common": "../common/src"
+    }
   }
 }
