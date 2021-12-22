@@ -3,9 +3,6 @@
     "defaultMessage": "S’il n’y a aucun candidat qui répond aux critères <a>Communiquez avec nous! </a>",
     "description": "Message for helping user if no candidates matched the filters chosen."
   },
-  "/7l25w": {
-    "defaultMessage": "Conditions d’emploi ({operationalRequirementFilterCount}),"
-  },
   "/DbKFl": {
     "defaultMessage": "Filtres de compétences ({cmoAssetFilterCount})"
   },
@@ -19,14 +16,6 @@
   "09x+E7": {
     "defaultMessage": "Nombre approximative de candidats",
     "description": "Heading for total estimated candidates box next to search form."
-  },
-  "3DiXRk": {
-    "defaultMessage": "Il y a <span>{totalEstiméDesCandidats}</span> candidats qui répondent aux critères dans ce bassin",
-    "description": "Message for total estimated candidates box next to search form."
-  },
-  "3pe2qL": {
-    "defaultMessage": "Autochtones",
-    "description": "Checklist option for employment equity filter in search form."
   },
   "3vIS20": {
     "defaultMessage": "Bienvenue à la page d’accueil du Nuage de talents du GC",
@@ -51,14 +40,6 @@
   "7lCUIL": {
     "defaultMessage": "Quel est le titre du poste?",
     "description": "Label for job title input in the request form"
-  },
-  "8MiUt9": {
-    "defaultMessage": "Demande de candidats du bassin : <null></null> <span>{totalEstimatedCandidates, plural, zero {aucun candidat} one {1 candidat} other {{totalEstimatedCandidates} candidats estimés}}</span>",
-    "description": "Total estimated candidates message in summary of filters"
-  },
-  "8XMa75": {
-    "defaultMessage": "Résultats : <span>{totalEstimatedCandidates}</span> candidats correspondants",
-    "description": "Heading for total matching candidates in results section of search page."
   },
   "8tIJXO": {
     "defaultMessage": "Tous les candidats de ce bassin ont aussi été évalués en fonction de quatre compétences générales essentielles. Il s’agit de certaines des compétences que les candidats ont déclaré posséder. Ces compétences n’ont pas été évaluées au préalable. Si vous avez des exigences plus détaillées concernant les compétences, veuillez nous en faire part dans la section des commentaires du formulaire de soumission. ",
@@ -148,13 +129,6 @@
     "defaultMessage": "Les candidats bilingues ont été évalués et satisfont à un niveau minimal de compétence en bilinguisme (BBB).",
     "description": "Message describing the work language ability filter in the search form."
   },
-  "PWIQBK": {
-    "defaultMessage": "Il y a actuellement environ <span>{totalEstimatedCandidates}</span> candidats qui répondent à vos critères.",
-    "description": "Message for total estimated candidates box next to search form."
-  },
-  "RB37Hy": {
-    "defaultMessage": "Filtres de classification ({classificationFilterCount}),"
-  },
   "S7e4QT": {
     "defaultMessage": "Remarque : Si vous sélectionnez plus d’un groupe visé par l’équité en matière d’emploi, TOUS les candidats qui se sont déclarés membres de N’IMPORTE LEQUEL des groupes visés par l’équité en matière d’emploi sélectionnés seront recommandés. Si vous avez des exigences plus détaillées concernant l’équité en matière d’emploi, veuillez nous en faire part dans la section des commentaires du formulaire de soumission.",
     "description": "Context for employment equity filter in search form."
@@ -179,10 +153,6 @@
     "defaultMessage": "Filtre de classification",
     "description": "Label for classification filter in search form."
   },
-  "VhrFQG": {
-    "defaultMessage": "Pour améliorer vos résultats, essayez de supprimer certains de ces filtres",
-    "description": "Heading for total matching candidates in results section of search page."
-  },
   "WE/Nu+": {
     "defaultMessage": "Sélectionnez un ministère...",
     "description": "Null selection for department select input in the request form."
@@ -202,9 +172,6 @@
   "Zzd/sJ": {
     "defaultMessage": "Dans ce champ, veuillez inclure tous les détails et qualifications supplémentaires que vous recherchez auprès des candidats, comme les langages de programmation, les certifications, les connaissances ou un lieu de travail particulier.",
     "description": "Blurb before additional comments textarea in the request form."
-  },
-  "a84NZj": {
-    "defaultMessage": "Propriétaire du bassin"
   },
   "asqSAJ": {
     "defaultMessage": "Sélectionnez un emplacement...",
@@ -230,10 +197,6 @@
     "defaultMessage": "Résumé des filtres",
     "description": "Title of Summary of filters section"
   },
-  "eo4wCU": {
-    "defaultMessage": "Vous ne trouvez pas ce que vous cherchez? Communiquez avec nous!",
-    "description": "Message for helping user if no candidates matched the filters chosen."
-  },
   "gUb3PY": {
     "defaultMessage": "Demande créée avec succès!",
     "description": "Message displayed to user after a pool candidate request is created successfully."
@@ -245,10 +208,6 @@
   "i7hOcw": {
     "defaultMessage": "Demande",
     "description": "Label displayed on the Request menu item."
-  },
-  "i9AjuX": {
-    "defaultMessage": "S.O.",
-    "description": "Text shown when the filter was not selected"
   },
   "iNsxYi": {
     "defaultMessage": "Sélectionnez une ou plusieurs classifications",
@@ -293,5 +252,35 @@
   "zz9pwK": {
     "defaultMessage": "Développeur...",
     "description": "Placeholder for job title input in the request form."
+  },
+  "1D83X4": {
+    "defaultMessage": "Résultats : <span>{candidateCount}</span> candidats correspondants",
+    "description": "Heading for total matching candidates in results section of search page."
+  },
+  "5IfAK9": {
+    "defaultMessage": "Demande de candidats du bassin : <span>{candidateCount, plural, zero {aucun candidat} one {1 candidat} other {{candidateCount} candidats estimés}}</span>",
+    "description": "Total estimated candidates message in summary of filters"
+  },
+  "GJ95sc": {
+    "defaultMessage": "Autochtones",
+    "description": "Checklist option for employment equity filter in search form."
+  },
+  "LRysDa": {
+    "defaultMessage": "Filtres de classification ({classificationFilterCount}),"
+  },
+  "ertbzM": {
+    "defaultMessage": "Il y a actuellement environ <weight>{candidateCount}</weight> candidats qui répondent à vos critères.",
+    "description": "Message for total estimated candidates box next to search form."
+  },
+  "ky585k": {
+    "defaultMessage": "Conditions d’emploi ({operationalRequirementFilterCount}),"
+  },
+  "nEU8Bk": {
+    "defaultMessage": "Il y a <bold>{candidateCount}</bold> candidats qui répondent aux critères dans ce bassin",
+    "description": "Message for total estimated candidates box next to search form."
+  },
+  "zDzzb/": {
+    "defaultMessage": "Pour améliorer vos résultats, essayez de supprimer certains de ces filtres",
+    "description": "Heading for total matching candidates in results section of search page."
   }
 }

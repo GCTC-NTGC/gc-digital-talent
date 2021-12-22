@@ -14,9 +14,6 @@
   "0/8x/z": {
     "defaultMessage": "N’importe quelle langue"
   },
-  "4Px1vY": {
-    "defaultMessage": "Français seulement"
-  },
   "4RK/oW": {
     "defaultMessage": "Minorité visible",
     "description": "Message for visible minority option in the employment equity section of the request page."
@@ -61,12 +58,6 @@
     "defaultMessage": "Compétence linguistique au travail",
     "description": "Title for work language on summary of filters section"
   },
-  "WkrNSk": {
-    "defaultMessage": "Anglais"
-  },
-  "XMQKgS": {
-    "defaultMessage": "Anglais seulement"
-  },
   "YKqt+1": {
     "defaultMessage": "Niveau d’études",
     "description": "Title for education level on summary of filters section"
@@ -101,14 +92,8 @@
     "defaultMessage": "S.O.",
     "description": "Text shown when the filter was not selected"
   },
-  "njAU72": {
-    "defaultMessage": "Français"
-  },
-  "pZPkbK": {
-    "defaultMessage": "Bilingue, anglais, et français."
-  },
   "trzCtG": {
-    "defaultMessage": "La valeur doit être supérieure à {valeur}",
+    "defaultMessage": "La valeur doit être supérieure à {value}",
     "description": "Error message that the provided value must be greater than some referenced minimum value."
   },
   "vyQv+i": {
@@ -116,7 +101,7 @@
     "description": "Error message when cmo asset name is not found on request page."
   },
   "+6BCqp": {
-    "defaultMessage": "Consulter nos modalités.",
+    "defaultMessage": "Consultez nos modalités.",
     "description": "Title for the terms and conditions link in the Footer."
   },
   "/rTUU/": {
@@ -128,7 +113,7 @@
     "description": "Label for the feedback link in the Footer."
   },
   "4Cif02": {
-    "defaultMessage": "Visiter canada.ca.",
+    "defaultMessage": "Visiter canada.ca",
     "description": "Title for the Canada logo in the Footer."
   },
   "MxuMT5": {
@@ -164,7 +149,27 @@
     "description": "Title for the feedback link in the Footer."
   },
   "rTfqcy": {
-    "defaultMessage": "Visiter canada.ca.",
+    "defaultMessage": "Visitez canada.ca.",
     "description": "Title for the Canada link in the Footer."
+  },
+  "/Wpu2N": {
+    "defaultMessage": "Bilingue, anglais, et français.",
+    "description": "The language ability is bilingual - both English and French."
+  },
+  "h3lIyO": {
+    "defaultMessage": "Français",
+    "description": "The language French."
+  },
+  "RaypPP": {
+    "defaultMessage": "Anglais",
+    "description": "The language English."
+  },
+  "WcXADs": {
+    "defaultMessage": "Anglais seulement",
+    "description": "The language ability is English only."
+  },
+  "wT3L9C": {
+    "defaultMessage": "Français seulement",
+    "description": "The language ability is French only."
   }
 }
