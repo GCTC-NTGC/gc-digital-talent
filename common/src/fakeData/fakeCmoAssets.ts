@@ -1,6 +1,6 @@
-import { GetCmoAssetsQuery } from "../api/generated";
+import { CmoAsset } from "../api/generated";
 
-export default (): GetCmoAssetsQuery["cmoAssets"] => [
+export default (): CmoAsset[] => [
   {
     id: "dc6bd4ae-bf14-4900-b403-e6772476e8c0",
     key: "app_dev",
