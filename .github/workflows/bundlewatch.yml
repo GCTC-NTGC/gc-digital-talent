@@ -55,7 +55,7 @@ jobs:
     - name: "Build production apps"
       working-directory: infrastructure
       run: |
-        docker-compose run --rm -e BUILD_SCRIPT=production maintenance bash setup.sh
+        docker-compose run --rm -e BUILD_SCRIPT=production maintenance bash -i setup.sh
 
     - name: Install Bundlewatch
       run: npm install -g bundlewatch@0.2.6
