@@ -7,19 +7,7 @@
 
 # Fail out of script immediately if any single command fails.
 # See: https://gist.github.com/mohanpedala/1e2ff5661761d3abd0385e8223e16425
-set -euxo pipefail
-
-###################################################
-# Run a shell command with debug echoing disabled.
-# Arguments:
-#   Command to execute
-# Outputs:
-#   Writes command output to stdout without debug lines
-###################################################
-quiet () {
-  { local -; set +x; } 2> /dev/null
-  "$@"
-}
+set -euo pipefail
 
 BUILD_SCRIPT="${BUILD_SCRIPT:=dev}"
 
@@ -38,8 +26,8 @@ php artisan passport:client --personal --name="Laravel Personal Access Client" >
 /root/scripts/update_auth_env.sh
 rm personal_access_client.txt
 php artisan config:clear
-quiet nvm install --latest-npm
-export PATH=$NVM_BIN:$PATH
+nvm install
+npm install --global npm@6.x
 npm install
 npm run ${BUILD_SCRIPT}
 chown -R www-data ./storage ./vendor
@@ -58,8 +46,8 @@ chmod -R 775 ./storage
 
 # setup common project
 cd /var/www/html/common
-quiet nvm install --latest-npm
-export PATH=$NVM_BIN:$PATH
+nvm install
+npm install --global npm@6.x
 npm install
 npm run h2-build
 npm run codegen
@@ -69,8 +57,8 @@ cd /var/www/html/talentsearch
 cp .env.example .env
 /root/scripts/update_env_appkey.sh .env
 composer install
-quiet nvm install --latest-npm
-export PATH=$NVM_BIN:$PATH
+nvm install
+npm install --global npm@6.x
 npm install
 npm rebuild node-sass
 npm run h2-build
@@ -90,8 +78,8 @@ php artisan passport:client -n --name="admin" --redirect_uri="http://localhost:8
 rm admin_secret.txt
 cd /var/www/html/admin
 php artisan config:clear
-quiet nvm install --latest-npm
-export PATH=$NVM_BIN:$PATH
+nvm install
+npm install --global npm@6.x
 npm install
 npm rebuild node-sass
 npm run h2-build
