@@ -13,7 +13,7 @@ BUILD_SCRIPT="${BUILD_SCRIPT:=dev}"
 
 #setup nvm
 export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && quiet \. "$NVM_DIR/nvm.sh"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 
 # setup auth project
 cd /var/www/html/auth
