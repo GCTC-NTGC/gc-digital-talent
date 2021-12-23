@@ -49,8 +49,8 @@ jobs:
     # See: https://github.com/lhotari/action-upterm
     - name: Create upterm session for debug
       uses: lhotari/action-upterm@v1
-      # if: ${{ false }}
-      if: ${{ always() }}
+      if: ${{ false }}
+      # if: ${{ always() }}
 
     - name: "Build production apps"
       working-directory: infrastructure
