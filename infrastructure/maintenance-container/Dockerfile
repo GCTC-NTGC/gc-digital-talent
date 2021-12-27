@@ -1,11 +1,13 @@
 FROM ubuntu:latest
 
 # install apt packages
-# installing tzdata has an interactive prompt by default
+#   - installing tzdata has an interactive prompt by default
+#   - install default nodejs to avoid npm (v7+) run-script issue when using docker on CI.
 RUN apt-get update \
   && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends tzdata \
   && apt-get install -y perl unzip wget curl \
-  && apt-get install -y php7.4 php-mbstring php-xml php-pgsql php-zip
+  && apt-get install -y php7.4 php-mbstring php-xml php-pgsql php-zip \
+  && apt-get install -y nodejs
 
 # install nvm, not available from apt
 # https://github.com/nvm-sh/nvm
