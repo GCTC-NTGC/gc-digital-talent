@@ -59,5 +59,6 @@
     "generated.ts",
     "tsconfig.json",
     ".eslintrc"
-  ]
+  ],
+  "jest.jestCommandLine": "test"
 }

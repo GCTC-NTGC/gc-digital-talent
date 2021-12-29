@@ -5,6 +5,7 @@ export const HomePage: React.FC = () => {
   const intl = useIntl();
   return (
     <div
+      data-testid="homePage"
       data-h2-position="b(relative)"
       data-h2-padding="b(bottom, l) l(bottom, none)"
     >
@@ -15,6 +16,7 @@ export const HomePage: React.FC = () => {
         style={{ letterSpacing: "-2px" }}
       >
         {intl.formatMessage({
+          id: "messageId",
           defaultMessage: "Welcome to GC Talent Home page",
           description: "Title displayed in the hero section of the Home page.",
         })}
