@@ -977,5 +977,21 @@
   "zwcUgi": {
     "defaultMessage": "Ministère",
     "description": "Title for the department block in the manager info section of the single search request view."
+  },
+  "U6V+uR": {
+    "defaultMessage": "Nom (anglais)",
+    "description": "Label displayed on the create a cmo asset form name (English) field."
+  },
+  "oVWttp": {
+    "defaultMessage": "Description (français)",
+    "description": "Label displayed on the create a cmo asset form description (French) field."
+  },
+  "pHVKt/": {
+    "defaultMessage": "Nom (français)",
+    "description": "Label displayed on the create a cmo asset form name (French) field."
+  },
+  "zgaPwN": {
+    "defaultMessage": "Description (anglais)",
+    "description": "Label displayed on the create a cmo asset form description (English) field."
   }
 }

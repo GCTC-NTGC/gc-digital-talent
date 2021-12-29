@@ -282,5 +282,17 @@
   "zDzzb/": {
     "defaultMessage": "Pour améliorer vos résultats, essayez de supprimer certains de ces filtres",
     "description": "Heading for total matching candidates in results section of search page."
+  },
+  "+EIe4h": {
+    "defaultMessage": "Erreur : nom de l’exigence opérationnelle introuvable",
+    "description": "Error message on operational requirements filter on search form."
+  },
+  "/quEXs": {
+    "defaultMessage": "Propriétaire du bassin : {Prénom} {Nom de famille}",
+    "description": "Text showing the owner of the HR pool."
+  },
+  "m+d9ls": {
+    "defaultMessage": "Erreur : nom pas chargé",
+    "description": "Error message for cmo asset filer on search form."
   }
 }
