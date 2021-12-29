@@ -183,10 +183,6 @@
     "defaultMessage": "Salaire minimal",
     "description": "Title displayed for the Classification table Minimum Salary column."
   },
-  "9uaL60": {
-    "defaultMessage": "Nom EN",
-    "description": "Label displayed on the create a cmo asset form name (English) field."
-  },
   "AAmd5G": {
     "defaultMessage": "Demande de renseignements",
     "description": "Heading for the request information section of the single search request view."
@@ -375,10 +371,6 @@
     "defaultMessage": "Erreur : Échec de la mise à jour de la classification",
     "description": "Message displayed to user after classification fails to get updated."
   },
-  "LuTA/e": {
-    "defaultMessage": "Nom FR",
-    "description": "Label displayed on the create a cmo asset form name (French) field."
-  },
   "Lzd38d": {
     "defaultMessage": "Statut",
     "description": "Title for the status block in the manager info section of the single search request view."
@@ -426,10 +418,6 @@
   "P5iow/": {
     "defaultMessage": "Clé",
     "description": "Title displayed for the Operational Requirement table Key column."
-  },
-  "PeSHRZ": {
-    "defaultMessage": "Description FR",
-    "description": "Label displayed on the create a cmo asset form description (French) field."
   },
   "QCTZUv": {
     "defaultMessage": "Recherche",
@@ -579,7 +567,6 @@
     "defaultMessage": "Erreur : Échec de la création du bassin de candidats",
     "description": "Message displayed to pool candidate after pool candidate fails to get created."
   },
-
   "ZH3zx+": {
     "defaultMessage": "Créer un nouvel utilisateur",
     "description": "Label for the new user assignment option in the create pool candidate form."
@@ -730,10 +717,6 @@
   "hiZAeF": {
     "defaultMessage": "Courriel",
     "description": "Title displayed on the search request table email column."
-  },
-  "hlurSw": {
-    "defaultMessage": "Description EN",
-    "description": "Label displayed on the create a cmo asset form description (English) field."
   },
   "hnyrdl": {
     "defaultMessage": "Classifications",
@@ -994,5 +977,21 @@
   "zwcUgi": {
     "defaultMessage": "Ministère",
     "description": "Title for the department block in the manager info section of the single search request view."
+  },
+  "U6V+uR": {
+    "defaultMessage": "Nom (anglais)",
+    "description": "Label displayed on the create a cmo asset form name (English) field."
+  },
+  "oVWttp": {
+    "defaultMessage": "Description (français)",
+    "description": "Label displayed on the create a cmo asset form description (French) field."
+  },
+  "pHVKt/": {
+    "defaultMessage": "Nom (français)",
+    "description": "Label displayed on the create a cmo asset form name (French) field."
+  },
+  "zgaPwN": {
+    "defaultMessage": "Description (anglais)",
+    "description": "Label displayed on the create a cmo asset form description (English) field."
   }
 }
