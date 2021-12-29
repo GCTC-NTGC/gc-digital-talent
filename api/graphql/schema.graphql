@@ -189,6 +189,29 @@ type PoolCandidateSearchRequest {
     adminNotes: String @rename(attribute: "admin_notes")
 }
 
+type SkillCategoryGroup {
+    id: ID!
+    name: LocalizedString!
+    key: KeyString!
+    skillCategories: [SkillCategory] @hasMany
+}
+
+type SkillCategory {
+    id: ID!
+    name: LocalizedString!
+    key: KeyString!
+    skillCategoryGroup: SkillCategoryGroup @belongsTo
+    skills: [Skill] @hasMany
+}
+
+type Skill {
+    id: ID!
+    name: LocalizedString!
+    key: KeyString!
+    description: LocalizedString
+    skillCategory: SkillCategory @belongsTo
+}
+
 input ClassificationFilterInput {
     group: String!
     level: Int!
@@ -241,6 +264,9 @@ type Query {
     poolCandidateFilters: [PoolCandidateFilter]! @all @guard @can(ability: "viewAny")
     poolCandidateSearchRequest(id: ID! @eq): PoolCandidateSearchRequest @find @guard @can(ability: "view", query: true)
     poolCandidateSearchRequests: [PoolCandidateSearchRequest]! @all @guard @can(ability: "viewAny")
+    skillCategoryGroups: [SkillCategoryGroup]! @all
+    skillCategories: [SkillCategory]! @all
+    skills: [Skill]! @all
 }
 """
 When creating a User, name and email are required.
