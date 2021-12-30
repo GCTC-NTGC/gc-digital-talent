@@ -5,7 +5,7 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
 import IntlProvider from "react-intl/src/components/provider";
-import HomePage from "../../resources/js/components/HomePage";
+import HomePage from "../components/HomePage";
 
 function renderHomePage() {
   return render(
