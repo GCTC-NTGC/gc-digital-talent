@@ -1,9 +1,9 @@
 import {
-  GetPoolCandidateSearchRequestsQuery,
+  PoolCandidateSearchRequest,
   PoolCandidateSearchStatus,
 } from "../api/generated";
 
-export default (): GetPoolCandidateSearchRequestsQuery["poolCandidateSearchRequests"] => [
+export default (): PoolCandidateSearchRequest[] => [
   {
     id: "c586e8a0-0587-4683-b179-159b67859c35",
     fullName: "Prof. Amely Gerlach III",

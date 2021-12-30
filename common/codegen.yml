@@ -1,7 +1,4 @@
 schema: ../api/storage/app/lighthouse-schema.graphql
-documents:
-  - ../admin/resources/js/**/*.graphql
-  - ../talentsearch/resources/js/**/*.graphql
 generates:
   ./src/api/generated.ts:
     plugins:
