@@ -1,6 +1,6 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
-import { fakeSearchPoolCandidates, fakeSearchRequests } from "@common/fakeData";
+import { fakePoolCandidates, fakeSearchRequests } from "@common/fakeData";
 import { action } from "@storybook/addon-actions";
 import { SearchRequestTable } from "../components/searchRequest/SearchRequestTable";
 import { PoolCandidateSearchRequest } from "../api/generated";
@@ -18,7 +18,7 @@ stories.add("Search Request Table", () => (
 ));
 
 stories.add("Single Search Request Table", () => (
-  <SingleSearchRequestTable searchPoolCandidates={fakeSearchPoolCandidates()} />
+  <SingleSearchRequestTable searchPoolCandidates={fakePoolCandidates()} />
 ));
 
 stories.add("Update Single Search Request", () => (

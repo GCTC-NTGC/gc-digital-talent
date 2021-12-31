@@ -1,279 +1,285 @@
+import faker from "faker";
 import { Classification } from "../api/generated";
 
-export default (): Classification[] => [
-  {
-    id: "41cf28d5-399a-4bd3-a5a3-3acdd3f2f90f",
-    name: {
-      en: "Computer Systems",
-      fr: "Systèmes d'ordinateurs",
+export default (): Classification[] => {
+  faker.seed(0); // repeatable results
+  faker.setLocale("en");
+
+  return [
+    {
+      id: faker.datatype.uuid(),
+      name: {
+        en: "Computer Systems",
+        fr: "Systèmes d'ordinateurs",
+      },
+      group: "CS",
+      level: 1,
+      minSalary: 50000,
+      maxSalary: 80000,
     },
-    group: "CS",
-    level: 1,
-    minSalary: 50000,
-    maxSalary: 80000,
-  },
-  {
-    id: "e9d27d17-41d3-41b3-8234-5642509b39aa",
-    name: {
-      en: "Computer Systems",
-      fr: "Systèmes d'ordinateurs",
+    {
+      id: faker.datatype.uuid(),
+      name: {
+        en: "Computer Systems",
+        fr: "Systèmes d'ordinateurs",
+      },
+      group: "CS",
+      level: 2,
+      minSalary: 65000,
+      maxSalary: 94000,
     },
-    group: "CS",
-    level: 2,
-    minSalary: 65000,
-    maxSalary: 94000,
-  },
-  {
-    id: "e0fb670a-2a34-4498-8ca3-20dff264c447",
-    name: {
-      en: "Computer Systems",
-      fr: "Systèmes d'ordinateurs",
+    {
+      id: faker.datatype.uuid(),
+      name: {
+        en: "Computer Systems",
+        fr: "Systèmes d'ordinateurs",
+      },
+      group: "CS",
+      level: 3,
+      minSalary: 83000,
+      maxSalary: 113000,
     },
-    group: "CS",
-    level: 3,
-    minSalary: 83000,
-    maxSalary: 113000,
-  },
-  {
-    id: "2dcc2974-959c-4a5c-a5bd-c60eb4975f1f",
-    name: {
-      en: "Computer Systems",
-      fr: "Systèmes d'ordinateurs",
+    {
+      id: faker.datatype.uuid(),
+      name: {
+        en: "Computer Systems",
+        fr: "Systèmes d'ordinateurs",
+      },
+      group: "CS",
+      level: 4,
+      minSalary: 94000,
+      maxSalary: 130000,
     },
-    group: "CS",
-    level: 4,
-    minSalary: 94000,
-    maxSalary: 130000,
-  },
-  {
-    id: "01aa3bd4-e8a8-4c1d-99bb-48571c197ed1",
-    name: {
-      en: "Computer Systems",
-      fr: "Systèmes d'ordinateurs",
+    {
+      id: faker.datatype.uuid(),
+      name: {
+        en: "Computer Systems",
+        fr: "Systèmes d'ordinateurs",
+      },
+      group: "CS",
+      level: 5,
+      minSalary: 105000,
+      maxSalary: 157000,
     },
-    group: "CS",
-    level: 5,
-    minSalary: 105000,
-    maxSalary: 157000,
-  },
-  {
-    id: "0930b4b4-416d-4865-89a9-c945a4de44bb",
-    name: {
-      en: "Administrative Services",
-      fr: "Services des programmes et de l'administration",
+    {
+      id: faker.datatype.uuid(),
+      name: {
+        en: "Administrative Services",
+        fr: "Services des programmes et de l'administration",
+      },
+      group: "AS",
+      level: 1,
+      minSalary: 50000,
+      maxSalary: 80000,
     },
-    group: "AS",
-    level: 1,
-    minSalary: 50000,
-    maxSalary: 80000,
-  },
-  {
-    id: "0cf106e6-bd8d-482d-9c0f-e5ba2ce43bdb",
-    name: {
-      en: "Administrative Services",
-      fr: "Services des programmes et de l'administration",
+    {
+      id: faker.datatype.uuid(),
+      name: {
+        en: "Administrative Services",
+        fr: "Services des programmes et de l'administration",
+      },
+      group: "AS",
+      level: 2,
+      minSalary: 65000,
+      maxSalary: 94000,
     },
-    group: "AS",
-    level: 2,
-    minSalary: 65000,
-    maxSalary: 94000,
-  },
-  {
-    id: "3d07534b-6c5c-41fc-b0ba-d4d2b3737449",
-    name: {
-      en: "Administrative Services",
-      fr: "Services des programmes et de l'administration",
+    {
+      id: faker.datatype.uuid(),
+      name: {
+        en: "Administrative Services",
+        fr: "Services des programmes et de l'administration",
+      },
+      group: "AS",
+      level: 3,
+      minSalary: 83000,
+      maxSalary: 113000,
     },
-    group: "AS",
-    level: 3,
-    minSalary: 83000,
-    maxSalary: 113000,
-  },
-  {
-    id: "8d224b3e-1bfa-4868-8732-48979d517f97",
-    name: {
-      en: "Administrative Services",
-      fr: "Services des programmes et de l'administration",
+    {
+      id: faker.datatype.uuid(),
+      name: {
+        en: "Administrative Services",
+        fr: "Services des programmes et de l'administration",
+      },
+      group: "AS",
+      level: 4,
+      minSalary: 94000,
+      maxSalary: 130000,
     },
-    group: "AS",
-    level: 4,
-    minSalary: 94000,
-    maxSalary: 130000,
-  },
-  {
-    id: "d52751c5-d78b-4b7e-a001-4308786340a0",
-    name: {
-      en: "Administrative Services",
-      fr: "Services des programmes et de l'administration",
+    {
+      id: faker.datatype.uuid(),
+      name: {
+        en: "Administrative Services",
+        fr: "Services des programmes et de l'administration",
+      },
+      group: "AS",
+      level: 5,
+      minSalary: 105000,
+      maxSalary: 157000,
     },
-    group: "AS",
-    level: 5,
-    minSalary: 105000,
-    maxSalary: 157000,
-  },
-  {
-    id: "701d4ba9-0aed-49a2-a45e-615f6a83c2f7",
-    name: {
-      en: "Economics and Social Science Services",
-      fr: "Économique et services de sciences sociales",
+    {
+      id: faker.datatype.uuid(),
+      name: {
+        en: "Economics and Social Science Services",
+        fr: "Économique et services de sciences sociales",
+      },
+      group: "EC",
+      level: 1,
+      minSalary: 50000,
+      maxSalary: 80000,
     },
-    group: "EC",
-    level: 1,
-    minSalary: 50000,
-    maxSalary: 80000,
-  },
-  {
-    id: "27d0b81f-1f59-4e03-91cc-fada5d1c9e48",
-    name: {
-      en: "Economics and Social Science Services",
-      fr: "Économique et services de sciences sociales",
+    {
+      id: faker.datatype.uuid(),
+      name: {
+        en: "Economics and Social Science Services",
+        fr: "Économique et services de sciences sociales",
+      },
+      group: "EC",
+      level: 2,
+      minSalary: 65000,
+      maxSalary: 94000,
     },
-    group: "EC",
-    level: 2,
-    minSalary: 65000,
-    maxSalary: 94000,
-  },
-  {
-    id: "ab37a738-89ff-4463-97c5-c782ed73c156",
-    name: {
-      en: "Economics and Social Science Services",
-      fr: "Économique et services de sciences sociales",
+    {
+      id: faker.datatype.uuid(),
+      name: {
+        en: "Economics and Social Science Services",
+        fr: "Économique et services de sciences sociales",
+      },
+      group: "EC",
+      level: 3,
+      minSalary: 83000,
+      maxSalary: 113000,
     },
-    group: "EC",
-    level: 3,
-    minSalary: 83000,
-    maxSalary: 113000,
-  },
-  {
-    id: "fdc7bcd7-3849-4a1d-a03e-12ef9afbe1f2",
-    name: {
-      en: "Economics and Social Science Services",
-      fr: "Économique et services de sciences sociales",
+    {
+      id: faker.datatype.uuid(),
+      name: {
+        en: "Economics and Social Science Services",
+        fr: "Économique et services de sciences sociales",
+      },
+      group: "EC",
+      level: 4,
+      minSalary: 94000,
+      maxSalary: 130000,
     },
-    group: "EC",
-    level: 4,
-    minSalary: 94000,
-    maxSalary: 130000,
-  },
-  {
-    id: "38b1d34a-822f-40a1-befe-6b9ad0025428",
-    name: {
-      en: "Economics and Social Science Services",
-      fr: "Économique et services de sciences sociales",
+    {
+      id: faker.datatype.uuid(),
+      name: {
+        en: "Economics and Social Science Services",
+        fr: "Économique et services de sciences sociales",
+      },
+      group: "EC",
+      level: 5,
+      minSalary: 105000,
+      maxSalary: 157000,
     },
-    group: "EC",
-    level: 5,
-    minSalary: 105000,
-    maxSalary: 157000,
-  },
-  {
-    id: "61bc37ec-94f9-4f72-a82a-4402126ae7e1",
-    name: {
-      en: "Programme Administration",
-      fr: "Administration des programmes",
+    {
+      id: faker.datatype.uuid(),
+      name: {
+        en: "Programme Administration",
+        fr: "Administration des programmes",
+      },
+      group: "PM",
+      level: 1,
+      minSalary: 50000,
+      maxSalary: 80000,
     },
-    group: "PM",
-    level: 1,
-    minSalary: 50000,
-    maxSalary: 80000,
-  },
-  {
-    id: "61f43e75-c8dc-471b-b794-1adfd1e6daec",
-    name: {
-      en: "Programme Administration",
-      fr: "Administration des programmes",
+    {
+      id: faker.datatype.uuid(),
+      name: {
+        en: "Programme Administration",
+        fr: "Administration des programmes",
+      },
+      group: "PM",
+      level: 2,
+      minSalary: 65000,
+      maxSalary: 94000,
     },
-    group: "PM",
-    level: 2,
-    minSalary: 65000,
-    maxSalary: 94000,
-  },
-  {
-    id: "a9576596-f0f0-4763-8796-3da272c5173b",
-    name: {
-      en: "Programme Administration",
-      fr: "Administration des programmes",
+    {
+      id: faker.datatype.uuid(),
+      name: {
+        en: "Programme Administration",
+        fr: "Administration des programmes",
+      },
+      group: "PM",
+      level: 3,
+      minSalary: 83000,
+      maxSalary: 113000,
     },
-    group: "PM",
-    level: 3,
-    minSalary: 83000,
-    maxSalary: 113000,
-  },
-  {
-    id: "3ce1bcb7-0f27-4a99-a1e9-f51be19e9b97",
-    name: {
-      en: "Programme Administration",
-      fr: "Administration des programmes",
+    {
+      id: faker.datatype.uuid(),
+      name: {
+        en: "Programme Administration",
+        fr: "Administration des programmes",
+      },
+      group: "PM",
+      level: 4,
+      minSalary: 94000,
+      maxSalary: 130000,
     },
-    group: "PM",
-    level: 4,
-    minSalary: 94000,
-    maxSalary: 130000,
-  },
-  {
-    id: "883c24b3-3aff-42d5-b6f7-b2ee775a4748",
-    name: {
-      en: "Programme Administration",
-      fr: "Administration des programmes",
+    {
+      id: faker.datatype.uuid(),
+      name: {
+        en: "Programme Administration",
+        fr: "Administration des programmes",
+      },
+      group: "PM",
+      level: 5,
+      minSalary: 105000,
+      maxSalary: 157000,
     },
-    group: "PM",
-    level: 5,
-    minSalary: 105000,
-    maxSalary: 157000,
-  },
-  {
-    id: "cbbbcfc8-c64b-4823-a6d1-e3080b4f76bd",
-    name: {
-      en: "Information Services",
-      fr: "Services d'information",
+    {
+      id: faker.datatype.uuid(),
+      name: {
+        en: "Information Services",
+        fr: "Services d'information",
+      },
+      group: "IS",
+      level: 1,
+      minSalary: 50000,
+      maxSalary: 80000,
     },
-    group: "IS",
-    level: 1,
-    minSalary: 50000,
-    maxSalary: 80000,
-  },
-  {
-    id: "32ba207c-3ee5-4d11-acd7-578baa84c05e",
-    name: {
-      en: "Information Services",
-      fr: "Services d'information",
+    {
+      id: faker.datatype.uuid(),
+      name: {
+        en: "Information Services",
+        fr: "Services d'information",
+      },
+      group: "IS",
+      level: 2,
+      minSalary: 65000,
+      maxSalary: 94000,
     },
-    group: "IS",
-    level: 2,
-    minSalary: 65000,
-    maxSalary: 94000,
-  },
-  {
-    id: "2b7060ca-98f4-4ea6-b078-22f2d165b3ae",
-    name: {
-      en: "Information Services",
-      fr: "Services d'information",
+    {
+      id: faker.datatype.uuid(),
+      name: {
+        en: "Information Services",
+        fr: "Services d'information",
+      },
+      group: "IS",
+      level: 3,
+      minSalary: 83000,
+      maxSalary: 113000,
     },
-    group: "IS",
-    level: 3,
-    minSalary: 83000,
-    maxSalary: 113000,
-  },
-  {
-    id: "074d21b3-1d62-4d27-afa2-0b5e218b8573",
-    name: {
-      en: "Information Services",
-      fr: "Services d'information",
+    {
+      id: faker.datatype.uuid(),
+      name: {
+        en: "Information Services",
+        fr: "Services d'information",
+      },
+      group: "IS",
+      level: 4,
+      minSalary: 94000,
+      maxSalary: 130000,
     },
-    group: "IS",
-    level: 4,
-    minSalary: 94000,
-    maxSalary: 130000,
-  },
-  {
-    id: "5cef26b0-eb95-485e-8d98-85d3a18d8bfe",
-    name: {
-      en: "Information Services",
-      fr: "Services d'information",
+    {
+      id: faker.datatype.uuid(),
+      name: {
+        en: "Information Services",
+        fr: "Services d'information",
+      },
+      group: "IS",
+      level: 5,
+      minSalary: 105000,
+      maxSalary: 157000,
     },
-    group: "IS",
-    level: 5,
-    minSalary: 105000,
-    maxSalary: 157000,
-  },
-];
+  ];
+};
