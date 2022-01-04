@@ -5,7 +5,6 @@ use App\Models\CmoAsset;
 use App\Models\OperationalRequirement;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
-use GraphQL\Type\Definition\EnumType;
 use Laravel\Lumen\Testing\DatabaseMigrations;
 use Nuwave\Lighthouse\Testing\ClearsSchemaCache;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequestsLumen;
