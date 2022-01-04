@@ -2,14 +2,13 @@
  * @jest-environment jsdom
  */
 
-import {  screen } from "@testing-library/react";
+import React from "react";
+import { screen } from "@testing-library/react";
 import { render } from "./test-utils";
 import HomePage from "../components/HomePage";
 
 function renderHomePage() {
-  return render(
-      <HomePage />
-  );
+  return render(<HomePage />);
 }
 
 describe("Home Page Tests", () => {
