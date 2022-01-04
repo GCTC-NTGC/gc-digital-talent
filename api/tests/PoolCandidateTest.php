@@ -90,7 +90,7 @@ class PoolCandidateTest extends TestCase
 
     // Create new cmoAsset and attach to 2 new pool candidates.
     $cmoAsset = CmoAsset::factory()->create([
-      'id' => 'new_cmo_asset'
+      'key' => 'new_cmo_asset'
     ]);
     PoolCandidate::factory()->count(2)->create()->each(function($candidate) use ($cmoAsset) {
       $candidate->cmoAssets()->save($cmoAsset);
@@ -116,7 +116,7 @@ class PoolCandidateTest extends TestCase
       }
     ', [
       'where' => [
-        'cmoAssets' => [[ 'id' => 'new_cmo_asset' ]],
+        'cmoAssets' => [[ 'key' => 'new_cmo_asset' ]],
       ]
     ])->seeJson([
       'data' => [
@@ -207,7 +207,6 @@ class PoolCandidateTest extends TestCase
     PoolCandidate::factory()->count(5)->create();
 
     // Create new cmoAsset and attach to 2 new pool candidates.
-    $id = strtolower(preg_replace('/\s+/', '_', 'test'));
     $pool = Pool::factory()->create();
     PoolCandidate::factory()->count(2)->create()->each(function($candidate) use ($pool) {
       $candidate->pool()->associate($pool);
@@ -249,7 +248,7 @@ class PoolCandidateTest extends TestCase
       }
     ', [
       'where' => [
-        'pools' => [[ 'id' => 'unknown_id' ]],
+        'pools' => [[ 'id' => '00000000-0000-0000-0000-000000000000' ]],
       ]
     ])->seeJson([
       'data' => [
@@ -299,7 +298,7 @@ class PoolCandidateTest extends TestCase
       ]
     ]);
 
-    // Assert query with unknown operationalRequirement filter will return 0
+    // Assert query with filter set to false will return all candidates
     $this->graphQL(/** @lang Graphql */ '
       query countPoolCandidates($where: PoolCandidateFilterInput) {
         countPoolCandidates(where: $where)
@@ -326,7 +325,7 @@ class PoolCandidateTest extends TestCase
       'is_woman' => false,
     ]);
 
-    // Create new operationalRequirement and attach to 2 new pool candidates.
+    // Create one new candidate for each EmploymentEquity filter
     PoolCandidate::factory()->create([
       'has_disability' => true,
       'is_indigenous' => false,
@@ -352,7 +351,7 @@ class PoolCandidateTest extends TestCase
       'is_woman' => true,
     ]);
 
-    // Assert query will with no operationalRequirements filter will return all candidates
+    // Assert query will with no EmploymentEquity filter will return all candidates
     $this->graphQL(/** @lang Graphql */ '
       query countPoolCandidates($where: PoolCandidateFilterInput) {
         countPoolCandidates(where: $where)
@@ -365,7 +364,7 @@ class PoolCandidateTest extends TestCase
       ]
     ]);
 
-    // Assert query with operationalRequirement filter will return correct candidate count
+    // Assert query with EmploymentEquity filter will return correct candidate count
     $this->graphQL(/** @lang Graphql */ '
       query countPoolCandidates($where: PoolCandidateFilterInput) {
         countPoolCandidates(where: $where)
@@ -379,7 +378,7 @@ class PoolCandidateTest extends TestCase
         'countPoolCandidates' => 1
       ]
     ]);
-    // Assert query with operationalRequirement filter will return correct candidate count
+    // Assert query with EmploymentEquity filter will return correct candidate count
     $this->graphQL(/** @lang Graphql */ '
       query countPoolCandidates($where: PoolCandidateFilterInput) {
         countPoolCandidates(where: $where)
@@ -393,7 +392,7 @@ class PoolCandidateTest extends TestCase
         'countPoolCandidates' => 1
       ]
     ]);
-    // Assert query with operationalRequirement filter will return correct candidate count
+    // Assert query with EmploymentEquity filter will return correct candidate count
     $this->graphQL(/** @lang Graphql */ '
       query countPoolCandidates($where: PoolCandidateFilterInput) {
         countPoolCandidates(where: $where)
@@ -407,7 +406,7 @@ class PoolCandidateTest extends TestCase
         'countPoolCandidates' => 1
       ]
     ]);
-    // Assert query with operationalRequirement filter will return correct candidate count
+    // Assert query with EmploymentEquity filter will return correct candidate count
     $this->graphQL(/** @lang Graphql */ '
       query countPoolCandidates($where: PoolCandidateFilterInput) {
         countPoolCandidates(where: $where)
@@ -422,7 +421,7 @@ class PoolCandidateTest extends TestCase
       ]
     ]);
 
-    // Assert query with unknown operationalRequirement filter will return 0
+    // Assert query with all EmploymentEquity filters set to false will return all candidates
     $this->graphQL(/** @lang Graphql */ '
       query countPoolCandidates($where: PoolCandidateFilterInput) {
         countPoolCandidates(where: $where)
@@ -449,7 +448,7 @@ class PoolCandidateTest extends TestCase
       'language_ability' => 'TEST'
     ]);
 
-    // Create new operationalRequirement and attach to 2 new pool candidates.
+    // Create new LanguageAbility and attach to 3 new pool candidates.
     PoolCandidate::factory()->create([
       'language_ability' => 'FRENCH'
     ]);
@@ -460,7 +459,7 @@ class PoolCandidateTest extends TestCase
       'language_ability' => 'BILINGUAL'
     ]);
 
-    // Assert query will with no operationalRequirements filter will return all candidates
+    // Assert query will with no LanguageAbility filter will return all candidates
     $this->graphQL(/** @lang Graphql */ '
       query countPoolCandidates($where: PoolCandidateFilterInput) {
         countPoolCandidates(where: $where)
@@ -473,7 +472,7 @@ class PoolCandidateTest extends TestCase
       ]
     ]);
 
-    // Assert query with operationalRequirement filter will return correct candidate count
+    // Assert query with LanguageAbility filter will return correct candidate count
     $this->graphQL(/** @lang Graphql */ '
       query countPoolCandidates($where: PoolCandidateFilterInput) {
         countPoolCandidates(where: $where)
@@ -487,21 +486,7 @@ class PoolCandidateTest extends TestCase
         'countPoolCandidates' => 1
       ]
     ]);
-    // Assert query with operationalRequirement filter will return correct candidate count
-    $this->graphQL(/** @lang Graphql */ '
-      query countPoolCandidates($where: PoolCandidateFilterInput) {
-        countPoolCandidates(where: $where)
-      }
-    ', [
-      'where' => [
-        'languageAbility' => "ENGLISH",
-      ]
-    ])->seeJson([
-      'data' => [
-        'countPoolCandidates' => 1
-      ]
-    ]);
-    // Assert query with operationalRequirement filter will return correct candidate count
+    // Assert query with LanguageAbility filter will return correct candidate count
     $this->graphQL(/** @lang Graphql */ '
       query countPoolCandidates($where: PoolCandidateFilterInput) {
         countPoolCandidates(where: $where)
@@ -515,7 +500,7 @@ class PoolCandidateTest extends TestCase
         'countPoolCandidates' => 1
       ]
     ]);
-    // Assert query with operationalRequirement filter will return correct candidate count
+    // Assert query with LanguageAbility filter will return correct candidate count
     $this->graphQL(/** @lang Graphql */ '
       query countPoolCandidates($where: PoolCandidateFilterInput) {
         countPoolCandidates(where: $where)
@@ -529,7 +514,7 @@ class PoolCandidateTest extends TestCase
         'countPoolCandidates' => 1
       ]
     ]);
-    // Assert query with operationalRequirement filter will return correct candidate count
+    // Assert query with a null LanguageAbility filter will return no candidates
     $this->graphQL(/** @lang Graphql */ '
       query countPoolCandidates($where: PoolCandidateFilterInput) {
         countPoolCandidates(where: $where)
@@ -547,17 +532,17 @@ class PoolCandidateTest extends TestCase
 
   public function testFilterByWorkRegions(): void
   {
-
+    // Create 5 new pool candidates for ONTARIO.
     PoolCandidate::factory()->count(5)->create([
       'location_preferences' => ["ONTARIO"],
     ]);
 
-    // Create new operationalRequirement and attach to 2 new pool candidates.
+    // Create 2 new pool candidates for TELEWORK.
     PoolCandidate::factory()->count(2)->create([
       'location_preferences' => ["TELEWORK"],
     ]);
 
-    // Assert query will with no operationalRequirements filter will return all candidates
+    // Assert query will with no WorkRegion filter will return all candidates
     $this->graphQL(/** @lang Graphql */ '
       query countPoolCandidates($where: PoolCandidateFilterInput) {
         countPoolCandidates(where: $where)
@@ -585,7 +570,7 @@ class PoolCandidateTest extends TestCase
       ]
     ]);
 
-    // Assert query with unknown operationalRequirement filter will return 0
+    // Assert query with empty WorkRegion filter will return 0
     $this->graphQL(/** @lang Graphql */ '
       query countPoolCandidates($where: PoolCandidateFilterInput) {
         countPoolCandidates(where: $where)
