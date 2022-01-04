@@ -2,16 +2,13 @@
  * @jest-environment jsdom
  */
 
-import React from "react";
-import { render, screen } from "@testing-library/react";
-import IntlProvider from "react-intl/src/components/provider";
+import {  screen } from "@testing-library/react";
+import { render } from "./test-utils";
 import HomePage from "../components/HomePage";
 
 function renderHomePage() {
   return render(
-    <IntlProvider locale="en">
       <HomePage />
-    </IntlProvider>,
   );
 }
 
