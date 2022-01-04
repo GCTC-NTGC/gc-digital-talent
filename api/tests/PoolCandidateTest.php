@@ -8,7 +8,6 @@ use App\Models\PoolCandidate;
 use Laravel\Lumen\Testing\DatabaseMigrations;
 use Nuwave\Lighthouse\Testing\ClearsSchemaCache;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequestsLumen;
-// use PHPUnit\Framework\TestCase;
 
 class PoolCandidateTest extends TestCase
 {
