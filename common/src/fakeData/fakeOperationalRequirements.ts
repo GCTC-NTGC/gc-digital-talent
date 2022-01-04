@@ -1,6 +1,6 @@
-import { GetOperationalRequirementsQuery } from "../api/generated";
+import { OperationalRequirement } from "../api/generated";
 
-export default (): GetOperationalRequirementsQuery["operationalRequirements"] => [
+export default (): OperationalRequirement[] => [
   {
     id: "d9b5d0ea-d711-44e7-91a6-e43b261fa359",
     key: "overtime",

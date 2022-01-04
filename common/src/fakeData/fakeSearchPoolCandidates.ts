@@ -1,6 +1,6 @@
-import { SearchPoolCandidatesQuery } from "../api/generated";
+import { PoolCandidate } from "../api/generated";
 
-export default (): SearchPoolCandidatesQuery["searchPoolCandidates"] => [
+export default (): PoolCandidate[] => [
   {
     id: "1d21fa5a-3452-4b59-b38b-2d3ac29db42a",
     user: {

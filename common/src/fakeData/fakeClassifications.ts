@@ -1,6 +1,6 @@
-import { GetClassificationsQuery } from "../api/generated";
+import { Classification } from "../api/generated";
 
-export default (): GetClassificationsQuery["classifications"] => [
+export default (): Classification[] => [
   {
     id: "41cf28d5-399a-4bd3-a5a3-3acdd3f2f90f",
     name: {

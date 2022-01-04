@@ -1,14 +1,14 @@
 import {
-  GetPoolCandidatesQuery,
   LanguageAbility,
   WorkRegion,
   SalaryRange,
   Language,
   PoolCandidateStatus,
+  PoolCandidate,
 } from "../api/generated";
 import fakeClassifications from "./fakeClassifications";
 
-export default (): GetPoolCandidatesQuery["poolCandidates"] => [
+export default (): PoolCandidate[] => [
   {
     id: "b0c4653c-e865-49a9-a63e-c741f85306ce",
     pool: {
@@ -43,6 +43,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
     acceptedOperationalRequirements: [
       {
         id: "f92cf3d9-f283-4776-bb93-27b067ad2008",
+        key: "driver",
         name: {
           en: "Driver's license",
           fr: "Permis de conduire",
@@ -50,6 +51,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "dba77b57-6727-4321-af8b-1d5af2ec59a8",
+        key: "24-7",
         name: {
           en: "24/7 on-call",
           fr: "Garde 24/7",
@@ -93,6 +95,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
     cmoAssets: [
       {
         id: "b2349f51-059f-4914-8e27-d5c5f3e10e6b",
+        key: "testing",
         name: {
           en: "Application Testing / Quality Assurance",
           fr: "Test d'application / Assurance qualité",
@@ -100,6 +103,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "a6b269a0-01c1-4255-b429-6648a483884b",
+        key: "itba",
         name: {
           en: "IT Business Analyst / IT Project Management",
           fr: "Analyste d'affaires TI / Gestion de projets TI",
@@ -107,6 +111,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "b3890a40-d694-45e3-9cd0-e5edfeed6c64",
+        key: "infra",
         name: {
           en: "Infrastructure/Operations",
           fr: "Infrastructure/Opérations",
@@ -114,6 +119,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "dc6bd4ae-bf14-4900-b403-e6772476e8c0",
+        key: "app_dev",
         name: {
           en: "Application Development",
           fr: "Développement d'applications",
@@ -156,6 +162,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
     acceptedOperationalRequirements: [
       {
         id: "f97303f4-f77c-471a-900c-5a14f4c178fa",
+        key: "travel",
         name: {
           en: "Travel as required",
           fr: "Déplacements selon les besoins",
@@ -163,6 +170,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "dba77b57-6727-4321-af8b-1d5af2ec59a8",
+        key: "24-7",
         name: {
           en: "24/7 on-call",
           fr: "Garde 24/7",
@@ -206,6 +214,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
     cmoAssets: [
       {
         id: "ac044805-fd37-4e9f-9616-5855f0458e49",
+        key: "im",
         name: {
           en: "Information Management (IM)",
           fr: "Gestion de l'information (IM)",
@@ -213,6 +222,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "a6b269a0-01c1-4255-b429-6648a483884b",
+        key: "itba",
         name: {
           en: "IT Business Analyst / IT Project Management",
           fr: "Analyste d'affaires TI / Gestion de projets TI",
@@ -220,6 +230,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "b2349f51-059f-4914-8e27-d5c5f3e10e6b",
+        key: "testing",
         name: {
           en: "Application Testing / Quality Assurance",
           fr: "Test d'application / Assurance qualité",
@@ -227,6 +238,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "cb7ee148-73ae-4d42-82d5-fa918d0e84a8",
+        key: "dba",
         name: {
           en: "Database Administration",
           fr: "Administration de bases de données",
@@ -269,6 +281,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
     acceptedOperationalRequirements: [
       {
         id: "d9b5d0ea-d711-44e7-91a6-e43b261fa359",
+        key: "overtime",
         name: {
           en: "Overtime as required",
           fr: "Heures supplémentaires selon les besoins",
@@ -276,6 +289,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "52191788-5649-417f-8b49-520dcf664a18",
+        key: "20kg",
         name: {
           en: "Transport equipment up to 20kg",
           fr: "Transport de matériel jusqu'à 20 kg",
@@ -319,6 +333,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
     cmoAssets: [
       {
         id: "ac044805-fd37-4e9f-9616-5855f0458e49",
+        key: "im",
         name: {
           en: "Information Management (IM)",
           fr: "Gestion de l'information (IM)",
@@ -326,6 +341,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "b2349f51-059f-4914-8e27-d5c5f3e10e6b",
+        key: "testing",
         name: {
           en: "Application Testing / Quality Assurance",
           fr: "Test d'application / Assurance qualité",
@@ -333,6 +349,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "d3d2faf5-28aa-47f5-a0a1-1b9c2159e174",
+        key: "data_science",
         name: {
           en: "Data Science / Analysis",
           fr: "Science des données / Analyse",
@@ -340,6 +357,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "1d1e5258-0e8d-4d38-8691-854bc98c14f9",
+        key: "cyber",
         name: {
           en: "Cybersecurity / Information Security / IT Security",
           fr: "Cybersécurité / Sécurité de l'information / Sécurité informatique",
@@ -382,6 +400,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
     acceptedOperationalRequirements: [
       {
         id: "f92cf3d9-f283-4776-bb93-27b067ad2008",
+        key: "driver",
         name: {
           en: "Driver's license",
           fr: "Permis de conduire",
@@ -389,6 +408,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "f97303f4-f77c-471a-900c-5a14f4c178fa",
+        key: "travel",
         name: {
           en: "Travel as required",
           fr: "Déplacements selon les besoins",
@@ -432,6 +452,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
     cmoAssets: [
       {
         id: "b2349f51-059f-4914-8e27-d5c5f3e10e6b",
+        key: "testing",
         name: {
           en: "Application Testing / Quality Assurance",
           fr: "Test d'application / Assurance qualité",
@@ -439,6 +460,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "b3890a40-d694-45e3-9cd0-e5edfeed6c64",
+        key: "infra",
         name: {
           en: "Infrastructure/Operations",
           fr: "Infrastructure/Opérations",
@@ -446,6 +468,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "cb7ee148-73ae-4d42-82d5-fa918d0e84a8",
+        key: "dba",
         name: {
           en: "Database Administration",
           fr: "Administration de bases de données",
@@ -453,6 +476,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "fa0262fd-cbd0-4711-a522-cb171b597668",
+        key: "ea",
         name: {
           en: "Enterprise Architecture (EA)",
           fr: "Architecture d'entreprise (EA)",
@@ -495,6 +519,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
     acceptedOperationalRequirements: [
       {
         id: "6827429d-b8b8-475e-b7db-2b892437dbc4",
+        key: "shift_work",
         name: {
           en: "Shift work",
           fr: "Travail posté",
@@ -502,6 +527,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "dba77b57-6727-4321-af8b-1d5af2ec59a8",
+        key: "24-7",
         name: {
           en: "24/7 on-call",
           fr: "Garde 24/7",
@@ -545,6 +571,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
     cmoAssets: [
       {
         id: "dc6bd4ae-bf14-4900-b403-e6772476e8c0",
+        key: "app_dev",
         name: {
           en: "Application Development",
           fr: "Développement d'applications",
@@ -552,6 +579,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "d3d2faf5-28aa-47f5-a0a1-1b9c2159e174",
+        key: "data_science",
         name: {
           en: "Data Science / Analysis",
           fr: "Science des données / Analyse",
@@ -559,6 +587,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "a6b269a0-01c1-4255-b429-6648a483884b",
+        key: "itba",
         name: {
           en: "IT Business Analyst / IT Project Management",
           fr: "Analyste d'affaires TI / Gestion de projets TI",
@@ -566,6 +595,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "cb7ee148-73ae-4d42-82d5-fa918d0e84a8",
+        key: "dba",
         name: {
           en: "Database Administration",
           fr: "Administration de bases de données",
@@ -608,6 +638,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
     acceptedOperationalRequirements: [
       {
         id: "f97303f4-f77c-471a-900c-5a14f4c178fa",
+        key: "travel",
         name: {
           en: "Travel as required",
           fr: "Déplacements selon les besoins",
@@ -615,6 +646,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "6827429d-b8b8-475e-b7db-2b892437dbc4",
+        key: "shift_work",
         name: {
           en: "Shift work",
           fr: "Travail posté",
@@ -658,6 +690,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
     cmoAssets: [
       {
         id: "a6b269a0-01c1-4255-b429-6648a483884b",
+        key: "itba",
         name: {
           en: "IT Business Analyst / IT Project Management",
           fr: "Analyste d'affaires TI / Gestion de projets TI",
@@ -665,6 +698,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "d3d2faf5-28aa-47f5-a0a1-1b9c2159e174",
+        key: "data_science",
         name: {
           en: "Data Science / Analysis",
           fr: "Science des données / Analyse",
@@ -672,6 +706,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "ac044805-fd37-4e9f-9616-5855f0458e49",
+        key: "im",
         name: {
           en: "Information Management (IM)",
           fr: "Gestion de l'information (IM)",
@@ -679,6 +714,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "dc6bd4ae-bf14-4900-b403-e6772476e8c0",
+        key: "app_dev",
         name: {
           en: "Application Development",
           fr: "Développement d'applications",
@@ -721,6 +757,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
     acceptedOperationalRequirements: [
       {
         id: "d9b5d0ea-d711-44e7-91a6-e43b261fa359",
+        key: "overtime",
         name: {
           en: "Overtime as required",
           fr: "Heures supplémentaires selon les besoins",
@@ -728,6 +765,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "dba77b57-6727-4321-af8b-1d5af2ec59a8",
+        key: "24-7",
         name: {
           en: "24/7 on-call",
           fr: "Garde 24/7",
@@ -771,6 +809,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
     cmoAssets: [
       {
         id: "ac044805-fd37-4e9f-9616-5855f0458e49",
+        key: "im",
         name: {
           en: "Information Management (IM)",
           fr: "Gestion de l'information (IM)",
@@ -778,6 +817,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "d3d2faf5-28aa-47f5-a0a1-1b9c2159e174",
+        key: "data_science",
         name: {
           en: "Data Science / Analysis",
           fr: "Science des données / Analyse",
@@ -785,6 +825,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "b2349f51-059f-4914-8e27-d5c5f3e10e6b",
+        key: "testing",
         name: {
           en: "Application Testing / Quality Assurance",
           fr: "Test d'application / Assurance qualité",
@@ -792,6 +833,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "b3890a40-d694-45e3-9cd0-e5edfeed6c64",
+        key: "infra",
         name: {
           en: "Infrastructure/Operations",
           fr: "Infrastructure/Opérations",
@@ -834,6 +876,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
     acceptedOperationalRequirements: [
       {
         id: "6827429d-b8b8-475e-b7db-2b892437dbc4",
+        key: "shift_work",
         name: {
           en: "Shift work",
           fr: "Travail posté",
@@ -841,6 +884,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "52191788-5649-417f-8b49-520dcf664a18",
+        key: "20kg",
         name: {
           en: "Transport equipment up to 20kg",
           fr: "Transport de matériel jusqu'à 20 kg",
@@ -884,6 +928,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
     cmoAssets: [
       {
         id: "1d1e5258-0e8d-4d38-8691-854bc98c14f9",
+        key: "cyber",
         name: {
           en: "Cybersecurity / Information Security / IT Security",
           fr: "Cybersécurité / Sécurité de l'information / Sécurité informatique",
@@ -891,6 +936,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "a6b269a0-01c1-4255-b429-6648a483884b",
+        key: "itba",
         name: {
           en: "IT Business Analyst / IT Project Management",
           fr: "Analyste d'affaires TI / Gestion de projets TI",
@@ -898,6 +944,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "fa0262fd-cbd0-4711-a522-cb171b597668",
+        key: "ea",
         name: {
           en: "Enterprise Architecture (EA)",
           fr: "Architecture d'entreprise (EA)",
@@ -905,6 +952,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "dc6bd4ae-bf14-4900-b403-e6772476e8c0",
+        key: "app_dev",
         name: {
           en: "Application Development",
           fr: "Développement d'applications",
@@ -947,6 +995,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
     acceptedOperationalRequirements: [
       {
         id: "6827429d-b8b8-475e-b7db-2b892437dbc4",
+        key: "shift_work",
         name: {
           en: "Shift work",
           fr: "Travail posté",
@@ -954,6 +1003,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "f97303f4-f77c-471a-900c-5a14f4c178fa",
+        key: "travel",
         name: {
           en: "Travel as required",
           fr: "Déplacements selon les besoins",
@@ -997,6 +1047,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
     cmoAssets: [
       {
         id: "ac044805-fd37-4e9f-9616-5855f0458e49",
+        key: "im",
         name: {
           en: "Information Management (IM)",
           fr: "Gestion de l'information (IM)",
@@ -1004,6 +1055,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "a6b269a0-01c1-4255-b429-6648a483884b",
+        key: "itba",
         name: {
           en: "IT Business Analyst / IT Project Management",
           fr: "Analyste d'affaires TI / Gestion de projets TI",
@@ -1011,6 +1063,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "d3d2faf5-28aa-47f5-a0a1-1b9c2159e174",
+        key: "data_science",
         name: {
           en: "Data Science / Analysis",
           fr: "Science des données / Analyse",
@@ -1018,6 +1071,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "dc6bd4ae-bf14-4900-b403-e6772476e8c0",
+        key: "app_dev",
         name: {
           en: "Application Development",
           fr: "Développement d'applications",
@@ -1060,6 +1114,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
     acceptedOperationalRequirements: [
       {
         id: "f97303f4-f77c-471a-900c-5a14f4c178fa",
+        key: "travel",
         name: {
           en: "Travel as required",
           fr: "Déplacements selon les besoins",
@@ -1067,6 +1122,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "6827429d-b8b8-475e-b7db-2b892437dbc4",
+        key: "shift_work",
         name: {
           en: "Shift work",
           fr: "Travail posté",
@@ -1110,6 +1166,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
     cmoAssets: [
       {
         id: "b3890a40-d694-45e3-9cd0-e5edfeed6c64",
+        key: "infra",
         name: {
           en: "Infrastructure/Operations",
           fr: "Infrastructure/Opérations",
@@ -1117,6 +1174,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "d3d2faf5-28aa-47f5-a0a1-1b9c2159e174",
+        key: "data_science",
         name: {
           en: "Data Science / Analysis",
           fr: "Science des données / Analyse",
@@ -1124,6 +1182,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "cb7ee148-73ae-4d42-82d5-fa918d0e84a8",
+        key: "dba",
         name: {
           en: "Database Administration",
           fr: "Administration de bases de données",
@@ -1131,6 +1190,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "dc6bd4ae-bf14-4900-b403-e6772476e8c0",
+        key: "app_dev",
         name: {
           en: "Application Development",
           fr: "Développement d'applications",
@@ -1173,6 +1233,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
     acceptedOperationalRequirements: [
       {
         id: "d9b5d0ea-d711-44e7-91a6-e43b261fa359",
+        key: "overtime",
         name: {
           en: "Overtime as required",
           fr: "Heures supplémentaires selon les besoins",
@@ -1180,6 +1241,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "dba77b57-6727-4321-af8b-1d5af2ec59a8",
+        key: "24-7",
         name: {
           en: "24/7 on-call",
           fr: "Garde 24/7",
@@ -1223,6 +1285,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
     cmoAssets: [
       {
         id: "b2349f51-059f-4914-8e27-d5c5f3e10e6b",
+        key: "testing",
         name: {
           en: "Application Testing / Quality Assurance",
           fr: "Test d'application / Assurance qualité",
@@ -1230,6 +1293,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "ac044805-fd37-4e9f-9616-5855f0458e49",
+        key: "im",
         name: {
           en: "Information Management (IM)",
           fr: "Gestion de l'information (IM)",
@@ -1237,6 +1301,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "1d1e5258-0e8d-4d38-8691-854bc98c14f9",
+        key: "cyber",
         name: {
           en: "Cybersecurity / Information Security / IT Security",
           fr: "Cybersécurité / Sécurité de l'information / Sécurité informatique",
@@ -1244,6 +1309,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "dc6bd4ae-bf14-4900-b403-e6772476e8c0",
+        key: "app_dev",
         name: {
           en: "Application Development",
           fr: "Développement d'applications",
@@ -1286,6 +1352,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
     acceptedOperationalRequirements: [
       {
         id: "6827429d-b8b8-475e-b7db-2b892437dbc4",
+        key: "shift_work",
         name: {
           en: "Shift work",
           fr: "Travail posté",
@@ -1293,6 +1360,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "52191788-5649-417f-8b49-520dcf664a18",
+        key: "20kg",
         name: {
           en: "Transport equipment up to 20kg",
           fr: "Transport de matériel jusqu'à 20 kg",
@@ -1336,6 +1404,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
     cmoAssets: [
       {
         id: "a6b269a0-01c1-4255-b429-6648a483884b",
+        key: "itba",
         name: {
           en: "IT Business Analyst / IT Project Management",
           fr: "Analyste d'affaires TI / Gestion de projets TI",
@@ -1343,6 +1412,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "b2349f51-059f-4914-8e27-d5c5f3e10e6b",
+        key: "testing",
         name: {
           en: "Application Testing / Quality Assurance",
           fr: "Test d'application / Assurance qualité",
@@ -1350,6 +1420,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "b3890a40-d694-45e3-9cd0-e5edfeed6c64",
+        key: "infra",
         name: {
           en: "Infrastructure/Operations",
           fr: "Infrastructure/Opérations",
@@ -1357,6 +1428,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "1d1e5258-0e8d-4d38-8691-854bc98c14f9",
+        key: "cyber",
         name: {
           en: "Cybersecurity / Information Security / IT Security",
           fr: "Cybersécurité / Sécurité de l'information / Sécurité informatique",
@@ -1399,6 +1471,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
     acceptedOperationalRequirements: [
       {
         id: "d9b5d0ea-d711-44e7-91a6-e43b261fa359",
+        key: "overtime",
         name: {
           en: "Overtime as required",
           fr: "Heures supplémentaires selon les besoins",
@@ -1406,6 +1479,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "f92cf3d9-f283-4776-bb93-27b067ad2008",
+        key: "driver",
         name: {
           en: "Driver's license",
           fr: "Permis de conduire",
@@ -1449,6 +1523,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
     cmoAssets: [
       {
         id: "1d1e5258-0e8d-4d38-8691-854bc98c14f9",
+        key: "cyber",
         name: {
           en: "Cybersecurity / Information Security / IT Security",
           fr: "Cybersécurité / Sécurité de l'information / Sécurité informatique",
@@ -1456,6 +1531,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "ac044805-fd37-4e9f-9616-5855f0458e49",
+        key: "im",
         name: {
           en: "Information Management (IM)",
           fr: "Gestion de l'information (IM)",
@@ -1463,6 +1539,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "cb7ee148-73ae-4d42-82d5-fa918d0e84a8",
+        key: "dba",
         name: {
           en: "Database Administration",
           fr: "Administration de bases de données",
@@ -1470,6 +1547,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "fa0262fd-cbd0-4711-a522-cb171b597668",
+        key: "ea",
         name: {
           en: "Enterprise Architecture (EA)",
           fr: "Architecture d'entreprise (EA)",
@@ -1512,6 +1590,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
     acceptedOperationalRequirements: [
       {
         id: "52191788-5649-417f-8b49-520dcf664a18",
+        key: "20kg",
         name: {
           en: "Transport equipment up to 20kg",
           fr: "Transport de matériel jusqu'à 20 kg",
@@ -1519,6 +1598,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "dba77b57-6727-4321-af8b-1d5af2ec59a8",
+        key: "24-7",
         name: {
           en: "24/7 on-call",
           fr: "Garde 24/7",
@@ -1562,6 +1642,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
     cmoAssets: [
       {
         id: "b3890a40-d694-45e3-9cd0-e5edfeed6c64",
+        key: "infra",
         name: {
           en: "Infrastructure/Operations",
           fr: "Infrastructure/Opérations",
@@ -1569,6 +1650,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "cb7ee148-73ae-4d42-82d5-fa918d0e84a8",
+        key: "dba",
         name: {
           en: "Database Administration",
           fr: "Administration de bases de données",
@@ -1576,6 +1658,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "dc6bd4ae-bf14-4900-b403-e6772476e8c0",
+        key: "app_dev",
         name: {
           en: "Application Development",
           fr: "Développement d'applications",
@@ -1583,6 +1666,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "1d1e5258-0e8d-4d38-8691-854bc98c14f9",
+        key: "cyber",
         name: {
           en: "Cybersecurity / Information Security / IT Security",
           fr: "Cybersécurité / Sécurité de l'information / Sécurité informatique",
@@ -1625,6 +1709,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
     acceptedOperationalRequirements: [
       {
         id: "dba77b57-6727-4321-af8b-1d5af2ec59a8",
+        key: "24-7",
         name: {
           en: "24/7 on-call",
           fr: "Garde 24/7",
@@ -1632,6 +1717,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "f97303f4-f77c-471a-900c-5a14f4c178fa",
+        key: "travel",
         name: {
           en: "Travel as required",
           fr: "Déplacements selon les besoins",
@@ -1675,6 +1761,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
     cmoAssets: [
       {
         id: "a6b269a0-01c1-4255-b429-6648a483884b",
+        key: "itba",
         name: {
           en: "IT Business Analyst / IT Project Management",
           fr: "Analyste d'affaires TI / Gestion de projets TI",
@@ -1682,6 +1769,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "cb7ee148-73ae-4d42-82d5-fa918d0e84a8",
+        key: "dba",
         name: {
           en: "Database Administration",
           fr: "Administration de bases de données",
@@ -1689,6 +1777,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "1d1e5258-0e8d-4d38-8691-854bc98c14f9",
+        key: "cyber",
         name: {
           en: "Cybersecurity / Information Security / IT Security",
           fr: "Cybersécurité / Sécurité de l'information / Sécurité informatique",
@@ -1696,6 +1785,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "fa0262fd-cbd0-4711-a522-cb171b597668",
+        key: "ea",
         name: {
           en: "Enterprise Architecture (EA)",
           fr: "Architecture d'entreprise (EA)",
@@ -1738,6 +1828,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
     acceptedOperationalRequirements: [
       {
         id: "f97303f4-f77c-471a-900c-5a14f4c178fa",
+        key: "travel",
         name: {
           en: "Travel as required",
           fr: "Déplacements selon les besoins",
@@ -1745,6 +1836,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "f92cf3d9-f283-4776-bb93-27b067ad2008",
+        key: "driver",
         name: {
           en: "Driver's license",
           fr: "Permis de conduire",
@@ -1788,6 +1880,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
     cmoAssets: [
       {
         id: "ac044805-fd37-4e9f-9616-5855f0458e49",
+        key: "im",
         name: {
           en: "Information Management (IM)",
           fr: "Gestion de l'information (IM)",
@@ -1795,6 +1888,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "b2349f51-059f-4914-8e27-d5c5f3e10e6b",
+        key: "testing",
         name: {
           en: "Application Testing / Quality Assurance",
           fr: "Test d'application / Assurance qualité",
@@ -1802,6 +1896,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "b3890a40-d694-45e3-9cd0-e5edfeed6c64",
+        key: "infra",
         name: {
           en: "Infrastructure/Operations",
           fr: "Infrastructure/Opérations",
@@ -1809,6 +1904,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "a6b269a0-01c1-4255-b429-6648a483884b",
+        key: "itba",
         name: {
           en: "IT Business Analyst / IT Project Management",
           fr: "Analyste d'affaires TI / Gestion de projets TI",
@@ -1851,6 +1947,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
     acceptedOperationalRequirements: [
       {
         id: "52191788-5649-417f-8b49-520dcf664a18",
+        key: "20kg",
         name: {
           en: "Transport equipment up to 20kg",
           fr: "Transport de matériel jusqu'à 20 kg",
@@ -1858,6 +1955,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "f92cf3d9-f283-4776-bb93-27b067ad2008",
+        key: "driver",
         name: {
           en: "Driver's license",
           fr: "Permis de conduire",
@@ -1901,6 +1999,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
     cmoAssets: [
       {
         id: "dc6bd4ae-bf14-4900-b403-e6772476e8c0",
+        key: "app_dev",
         name: {
           en: "Application Development",
           fr: "Développement d'applications",
@@ -1908,6 +2007,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "b2349f51-059f-4914-8e27-d5c5f3e10e6b",
+        key: "testing",
         name: {
           en: "Application Testing / Quality Assurance",
           fr: "Test d'application / Assurance qualité",
@@ -1915,6 +2015,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "a6b269a0-01c1-4255-b429-6648a483884b",
+        key: "itba",
         name: {
           en: "IT Business Analyst / IT Project Management",
           fr: "Analyste d'affaires TI / Gestion de projets TI",
@@ -1922,6 +2023,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "d3d2faf5-28aa-47f5-a0a1-1b9c2159e174",
+        key: "data_science",
         name: {
           en: "Data Science / Analysis",
           fr: "Science des données / Analyse",
@@ -1964,6 +2066,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
     acceptedOperationalRequirements: [
       {
         id: "6827429d-b8b8-475e-b7db-2b892437dbc4",
+        key: "shift_work",
         name: {
           en: "Shift work",
           fr: "Travail posté",
@@ -1971,6 +2074,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "dba77b57-6727-4321-af8b-1d5af2ec59a8",
+        key: "24-7",
         name: {
           en: "24/7 on-call",
           fr: "Garde 24/7",
@@ -2014,6 +2118,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
     cmoAssets: [
       {
         id: "b2349f51-059f-4914-8e27-d5c5f3e10e6b",
+        key: "testing",
         name: {
           en: "Application Testing / Quality Assurance",
           fr: "Test d'application / Assurance qualité",
@@ -2021,6 +2126,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "cb7ee148-73ae-4d42-82d5-fa918d0e84a8",
+        key: "dba",
         name: {
           en: "Database Administration",
           fr: "Administration de bases de données",
@@ -2028,6 +2134,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "ac044805-fd37-4e9f-9616-5855f0458e49",
+        key: "im",
         name: {
           en: "Information Management (IM)",
           fr: "Gestion de l'information (IM)",
@@ -2035,6 +2142,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "d3d2faf5-28aa-47f5-a0a1-1b9c2159e174",
+        key: "data_science",
         name: {
           en: "Data Science / Analysis",
           fr: "Science des données / Analyse",
@@ -2077,6 +2185,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
     acceptedOperationalRequirements: [
       {
         id: "f92cf3d9-f283-4776-bb93-27b067ad2008",
+        key: "driver",
         name: {
           en: "Driver's license",
           fr: "Permis de conduire",
@@ -2084,6 +2193,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "d9b5d0ea-d711-44e7-91a6-e43b261fa359",
+        key: "overtime",
         name: {
           en: "Overtime as required",
           fr: "Heures supplémentaires selon les besoins",
@@ -2127,6 +2237,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
     cmoAssets: [
       {
         id: "a6b269a0-01c1-4255-b429-6648a483884b",
+        key: "itba",
         name: {
           en: "IT Business Analyst / IT Project Management",
           fr: "Analyste d'affaires TI / Gestion de projets TI",
@@ -2134,6 +2245,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "b2349f51-059f-4914-8e27-d5c5f3e10e6b",
+        key: "testing",
         name: {
           en: "Application Testing / Quality Assurance",
           fr: "Test d'application / Assurance qualité",
@@ -2141,6 +2253,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "ac044805-fd37-4e9f-9616-5855f0458e49",
+        key: "im",
         name: {
           en: "Information Management (IM)",
           fr: "Gestion de l'information (IM)",
@@ -2148,6 +2261,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "dc6bd4ae-bf14-4900-b403-e6772476e8c0",
+        key: "app_dev",
         name: {
           en: "Application Development",
           fr: "Développement d'applications",
@@ -2190,6 +2304,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
     acceptedOperationalRequirements: [
       {
         id: "d9b5d0ea-d711-44e7-91a6-e43b261fa359",
+        key: "overtime",
         name: {
           en: "Overtime as required",
           fr: "Heures supplémentaires selon les besoins",
@@ -2197,6 +2312,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "f92cf3d9-f283-4776-bb93-27b067ad2008",
+        key: "driver",
         name: {
           en: "Driver's license",
           fr: "Permis de conduire",
@@ -2240,6 +2356,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
     cmoAssets: [
       {
         id: "a6b269a0-01c1-4255-b429-6648a483884b",
+        key: "itba",
         name: {
           en: "IT Business Analyst / IT Project Management",
           fr: "Analyste d'affaires TI / Gestion de projets TI",
@@ -2247,6 +2364,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "ac044805-fd37-4e9f-9616-5855f0458e49",
+        key: "im",
         name: {
           en: "Information Management (IM)",
           fr: "Gestion de l'information (IM)",
@@ -2254,6 +2372,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "cb7ee148-73ae-4d42-82d5-fa918d0e84a8",
+        key: "dba",
         name: {
           en: "Database Administration",
           fr: "Administration de bases de données",
@@ -2261,6 +2380,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "dc6bd4ae-bf14-4900-b403-e6772476e8c0",
+        key: "app_dev",
         name: {
           en: "Application Development",
           fr: "Développement d'applications",
@@ -2303,6 +2423,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
     acceptedOperationalRequirements: [
       {
         id: "6827429d-b8b8-475e-b7db-2b892437dbc4",
+        key: "shift_work",
         name: {
           en: "Shift work",
           fr: "Travail posté",
@@ -2310,6 +2431,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "52191788-5649-417f-8b49-520dcf664a18",
+        key: "20kg",
         name: {
           en: "Transport equipment up to 20kg",
           fr: "Transport de matériel jusqu'à 20 kg",
@@ -2353,6 +2475,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
     cmoAssets: [
       {
         id: "1d1e5258-0e8d-4d38-8691-854bc98c14f9",
+        key: "cyber",
         name: {
           en: "Cybersecurity / Information Security / IT Security",
           fr: "Cybersécurité / Sécurité de l'information / Sécurité informatique",
@@ -2360,6 +2483,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "b2349f51-059f-4914-8e27-d5c5f3e10e6b",
+        key: "testing",
         name: {
           en: "Application Testing / Quality Assurance",
           fr: "Test d'application / Assurance qualité",
@@ -2367,6 +2491,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "fa0262fd-cbd0-4711-a522-cb171b597668",
+        key: "ea",
         name: {
           en: "Enterprise Architecture (EA)",
           fr: "Architecture d'entreprise (EA)",
@@ -2374,6 +2499,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "d3d2faf5-28aa-47f5-a0a1-1b9c2159e174",
+        key: "data_science",
         name: {
           en: "Data Science / Analysis",
           fr: "Science des données / Analyse",
@@ -2416,6 +2542,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
     acceptedOperationalRequirements: [
       {
         id: "f97303f4-f77c-471a-900c-5a14f4c178fa",
+        key: "travel",
         name: {
           en: "Travel as required",
           fr: "Déplacements selon les besoins",
@@ -2423,6 +2550,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "d9b5d0ea-d711-44e7-91a6-e43b261fa359",
+        key: "overtime",
         name: {
           en: "Overtime as required",
           fr: "Heures supplémentaires selon les besoins",
@@ -2466,6 +2594,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
     cmoAssets: [
       {
         id: "b2349f51-059f-4914-8e27-d5c5f3e10e6b",
+        key: "testing",
         name: {
           en: "Application Testing / Quality Assurance",
           fr: "Test d'application / Assurance qualité",
@@ -2473,6 +2602,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "d3d2faf5-28aa-47f5-a0a1-1b9c2159e174",
+        key: "data_science",
         name: {
           en: "Data Science / Analysis",
           fr: "Science des données / Analyse",
@@ -2480,6 +2610,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "fa0262fd-cbd0-4711-a522-cb171b597668",
+        key: "ea",
         name: {
           en: "Enterprise Architecture (EA)",
           fr: "Architecture d'entreprise (EA)",
@@ -2487,6 +2618,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "b3890a40-d694-45e3-9cd0-e5edfeed6c64",
+        key: "infra",
         name: {
           en: "Infrastructure/Operations",
           fr: "Infrastructure/Opérations",
@@ -2529,6 +2661,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
     acceptedOperationalRequirements: [
       {
         id: "52191788-5649-417f-8b49-520dcf664a18",
+        key: "20kg",
         name: {
           en: "Transport equipment up to 20kg",
           fr: "Transport de matériel jusqu'à 20 kg",
@@ -2536,6 +2669,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "dba77b57-6727-4321-af8b-1d5af2ec59a8",
+        key: "24-7",
         name: {
           en: "24/7 on-call",
           fr: "Garde 24/7",
@@ -2579,6 +2713,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
     cmoAssets: [
       {
         id: "b3890a40-d694-45e3-9cd0-e5edfeed6c64",
+        key: "infra",
         name: {
           en: "Infrastructure/Operations",
           fr: "Infrastructure/Opérations",
@@ -2586,6 +2721,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "ac044805-fd37-4e9f-9616-5855f0458e49",
+        key: "im",
         name: {
           en: "Information Management (IM)",
           fr: "Gestion de l'information (IM)",
@@ -2593,6 +2729,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "dc6bd4ae-bf14-4900-b403-e6772476e8c0",
+        key: "app_dev",
         name: {
           en: "Application Development",
           fr: "Développement d'applications",
@@ -2600,6 +2737,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "cb7ee148-73ae-4d42-82d5-fa918d0e84a8",
+        key: "dba",
         name: {
           en: "Database Administration",
           fr: "Administration de bases de données",
@@ -2642,6 +2780,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
     acceptedOperationalRequirements: [
       {
         id: "6827429d-b8b8-475e-b7db-2b892437dbc4",
+        key: "shift_work",
         name: {
           en: "Shift work",
           fr: "Travail posté",
@@ -2649,6 +2788,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "52191788-5649-417f-8b49-520dcf664a18",
+        key: "20kg",
         name: {
           en: "Transport equipment up to 20kg",
           fr: "Transport de matériel jusqu'à 20 kg",
@@ -2692,6 +2832,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
     cmoAssets: [
       {
         id: "b3890a40-d694-45e3-9cd0-e5edfeed6c64",
+        key: "infra",
         name: {
           en: "Infrastructure/Operations",
           fr: "Infrastructure/Opérations",
@@ -2699,6 +2840,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "a6b269a0-01c1-4255-b429-6648a483884b",
+        key: "itba",
         name: {
           en: "IT Business Analyst / IT Project Management",
           fr: "Analyste d'affaires TI / Gestion de projets TI",
@@ -2706,6 +2848,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "d3d2faf5-28aa-47f5-a0a1-1b9c2159e174",
+        key: "data_science",
         name: {
           en: "Data Science / Analysis",
           fr: "Science des données / Analyse",
@@ -2713,6 +2856,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "fa0262fd-cbd0-4711-a522-cb171b597668",
+        key: "ea",
         name: {
           en: "Enterprise Architecture (EA)",
           fr: "Architecture d'entreprise (EA)",
@@ -2755,6 +2899,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
     acceptedOperationalRequirements: [
       {
         id: "f92cf3d9-f283-4776-bb93-27b067ad2008",
+        key: "driver",
         name: {
           en: "Driver's license",
           fr: "Permis de conduire",
@@ -2762,6 +2907,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "d9b5d0ea-d711-44e7-91a6-e43b261fa359",
+        key: "overtime",
         name: {
           en: "Overtime as required",
           fr: "Heures supplémentaires selon les besoins",
@@ -2805,6 +2951,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
     cmoAssets: [
       {
         id: "fa0262fd-cbd0-4711-a522-cb171b597668",
+        key: "ea",
         name: {
           en: "Enterprise Architecture (EA)",
           fr: "Architecture d'entreprise (EA)",
@@ -2812,6 +2959,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "ac044805-fd37-4e9f-9616-5855f0458e49",
+        key: "im",
         name: {
           en: "Information Management (IM)",
           fr: "Gestion de l'information (IM)",
@@ -2819,6 +2967,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "dc6bd4ae-bf14-4900-b403-e6772476e8c0",
+        key: "app_dev",
         name: {
           en: "Application Development",
           fr: "Développement d'applications",
@@ -2826,6 +2975,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "a6b269a0-01c1-4255-b429-6648a483884b",
+        key: "itba",
         name: {
           en: "IT Business Analyst / IT Project Management",
           fr: "Analyste d'affaires TI / Gestion de projets TI",
@@ -2868,6 +3018,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
     acceptedOperationalRequirements: [
       {
         id: "f92cf3d9-f283-4776-bb93-27b067ad2008",
+        key: "driver",
         name: {
           en: "Driver's license",
           fr: "Permis de conduire",
@@ -2875,6 +3026,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "6827429d-b8b8-475e-b7db-2b892437dbc4",
+        key: "shift_work",
         name: {
           en: "Shift work",
           fr: "Travail posté",
@@ -2918,6 +3070,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
     cmoAssets: [
       {
         id: "cb7ee148-73ae-4d42-82d5-fa918d0e84a8",
+        key: "dba",
         name: {
           en: "Database Administration",
           fr: "Administration de bases de données",
@@ -2925,6 +3078,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "a6b269a0-01c1-4255-b429-6648a483884b",
+        key: "itba",
         name: {
           en: "IT Business Analyst / IT Project Management",
           fr: "Analyste d'affaires TI / Gestion de projets TI",
@@ -2932,6 +3086,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "d3d2faf5-28aa-47f5-a0a1-1b9c2159e174",
+        key: "data_science",
         name: {
           en: "Data Science / Analysis",
           fr: "Science des données / Analyse",
@@ -2939,6 +3094,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "b3890a40-d694-45e3-9cd0-e5edfeed6c64",
+        key: "infra",
         name: {
           en: "Infrastructure/Operations",
           fr: "Infrastructure/Opérations",
@@ -2981,6 +3137,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
     acceptedOperationalRequirements: [
       {
         id: "52191788-5649-417f-8b49-520dcf664a18",
+        key: "20kg",
         name: {
           en: "Transport equipment up to 20kg",
           fr: "Transport de matériel jusqu'à 20 kg",
@@ -2988,6 +3145,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "6827429d-b8b8-475e-b7db-2b892437dbc4",
+        key: "shift_work",
         name: {
           en: "Shift work",
           fr: "Travail posté",
@@ -3031,6 +3189,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
     cmoAssets: [
       {
         id: "1d1e5258-0e8d-4d38-8691-854bc98c14f9",
+        key: "cyber",
         name: {
           en: "Cybersecurity / Information Security / IT Security",
           fr: "Cybersécurité / Sécurité de l'information / Sécurité informatique",
@@ -3038,6 +3197,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "d3d2faf5-28aa-47f5-a0a1-1b9c2159e174",
+        key: "data_science",
         name: {
           en: "Data Science / Analysis",
           fr: "Science des données / Analyse",
@@ -3045,6 +3205,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "a6b269a0-01c1-4255-b429-6648a483884b",
+        key: "itba",
         name: {
           en: "IT Business Analyst / IT Project Management",
           fr: "Analyste d'affaires TI / Gestion de projets TI",
@@ -3052,6 +3213,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "ac044805-fd37-4e9f-9616-5855f0458e49",
+        key: "im",
         name: {
           en: "Information Management (IM)",
           fr: "Gestion de l'information (IM)",
@@ -3094,6 +3256,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
     acceptedOperationalRequirements: [
       {
         id: "d9b5d0ea-d711-44e7-91a6-e43b261fa359",
+        key: "overtime",
         name: {
           en: "Overtime as required",
           fr: "Heures supplémentaires selon les besoins",
@@ -3101,6 +3264,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "6827429d-b8b8-475e-b7db-2b892437dbc4",
+        key: "shift_work",
         name: {
           en: "Shift work",
           fr: "Travail posté",
@@ -3144,6 +3308,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
     cmoAssets: [
       {
         id: "d3d2faf5-28aa-47f5-a0a1-1b9c2159e174",
+        key: "data_science",
         name: {
           en: "Data Science / Analysis",
           fr: "Science des données / Analyse",
@@ -3151,6 +3316,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "fa0262fd-cbd0-4711-a522-cb171b597668",
+        key: "ea",
         name: {
           en: "Enterprise Architecture (EA)",
           fr: "Architecture d'entreprise (EA)",
@@ -3158,6 +3324,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "1d1e5258-0e8d-4d38-8691-854bc98c14f9",
+        key: "cyber",
         name: {
           en: "Cybersecurity / Information Security / IT Security",
           fr: "Cybersécurité / Sécurité de l'information / Sécurité informatique",
@@ -3165,6 +3332,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "b3890a40-d694-45e3-9cd0-e5edfeed6c64",
+        key: "infra",
         name: {
           en: "Infrastructure/Operations",
           fr: "Infrastructure/Opérations",
@@ -3207,6 +3375,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
     acceptedOperationalRequirements: [
       {
         id: "f97303f4-f77c-471a-900c-5a14f4c178fa",
+        key: "travel",
         name: {
           en: "Travel as required",
           fr: "Déplacements selon les besoins",
@@ -3214,6 +3383,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "f92cf3d9-f283-4776-bb93-27b067ad2008",
+        key: "driver",
         name: {
           en: "Driver's license",
           fr: "Permis de conduire",
@@ -3257,6 +3427,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
     cmoAssets: [
       {
         id: "fa0262fd-cbd0-4711-a522-cb171b597668",
+        key: "ea",
         name: {
           en: "Enterprise Architecture (EA)",
           fr: "Architecture d'entreprise (EA)",
@@ -3264,6 +3435,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "b2349f51-059f-4914-8e27-d5c5f3e10e6b",
+        key: "testing",
         name: {
           en: "Application Testing / Quality Assurance",
           fr: "Test d'application / Assurance qualité",
@@ -3271,6 +3443,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "ac044805-fd37-4e9f-9616-5855f0458e49",
+        key: "im",
         name: {
           en: "Information Management (IM)",
           fr: "Gestion de l'information (IM)",
@@ -3278,6 +3451,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "a6b269a0-01c1-4255-b429-6648a483884b",
+        key: "itba",
         name: {
           en: "IT Business Analyst / IT Project Management",
           fr: "Analyste d'affaires TI / Gestion de projets TI",
@@ -3320,6 +3494,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
     acceptedOperationalRequirements: [
       {
         id: "dba77b57-6727-4321-af8b-1d5af2ec59a8",
+        key: "24-7",
         name: {
           en: "24/7 on-call",
           fr: "Garde 24/7",
@@ -3327,6 +3502,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "6827429d-b8b8-475e-b7db-2b892437dbc4",
+        key: "shift_work",
         name: {
           en: "Shift work",
           fr: "Travail posté",
@@ -3370,6 +3546,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
     cmoAssets: [
       {
         id: "b3890a40-d694-45e3-9cd0-e5edfeed6c64",
+        key: "infra",
         name: {
           en: "Infrastructure/Operations",
           fr: "Infrastructure/Opérations",
@@ -3377,6 +3554,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "d3d2faf5-28aa-47f5-a0a1-1b9c2159e174",
+        key: "data_science",
         name: {
           en: "Data Science / Analysis",
           fr: "Science des données / Analyse",
@@ -3384,6 +3562,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "cb7ee148-73ae-4d42-82d5-fa918d0e84a8",
+        key: "dba",
         name: {
           en: "Database Administration",
           fr: "Administration de bases de données",
@@ -3391,6 +3570,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "fa0262fd-cbd0-4711-a522-cb171b597668",
+        key: "ea",
         name: {
           en: "Enterprise Architecture (EA)",
           fr: "Architecture d'entreprise (EA)",
@@ -3433,6 +3613,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
     acceptedOperationalRequirements: [
       {
         id: "f97303f4-f77c-471a-900c-5a14f4c178fa",
+        key: "travel",
         name: {
           en: "Travel as required",
           fr: "Déplacements selon les besoins",
@@ -3440,6 +3621,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "52191788-5649-417f-8b49-520dcf664a18",
+        key: "20kg",
         name: {
           en: "Transport equipment up to 20kg",
           fr: "Transport de matériel jusqu'à 20 kg",
@@ -3483,6 +3665,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
     cmoAssets: [
       {
         id: "a6b269a0-01c1-4255-b429-6648a483884b",
+        key: "itba",
         name: {
           en: "IT Business Analyst / IT Project Management",
           fr: "Analyste d'affaires TI / Gestion de projets TI",
@@ -3490,6 +3673,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "ac044805-fd37-4e9f-9616-5855f0458e49",
+        key: "im",
         name: {
           en: "Information Management (IM)",
           fr: "Gestion de l'information (IM)",
@@ -3497,6 +3681,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "cb7ee148-73ae-4d42-82d5-fa918d0e84a8",
+        key: "dba",
         name: {
           en: "Database Administration",
           fr: "Administration de bases de données",
@@ -3504,6 +3689,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "b3890a40-d694-45e3-9cd0-e5edfeed6c64",
+        key: "infra",
         name: {
           en: "Infrastructure/Operations",
           fr: "Infrastructure/Opérations",
@@ -3546,6 +3732,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
     acceptedOperationalRequirements: [
       {
         id: "6827429d-b8b8-475e-b7db-2b892437dbc4",
+        key: "shift_work",
         name: {
           en: "Shift work",
           fr: "Travail posté",
@@ -3553,6 +3740,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "f97303f4-f77c-471a-900c-5a14f4c178fa",
+        key: "travel",
         name: {
           en: "Travel as required",
           fr: "Déplacements selon les besoins",
@@ -3596,6 +3784,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
     cmoAssets: [
       {
         id: "ac044805-fd37-4e9f-9616-5855f0458e49",
+        key: "im",
         name: {
           en: "Information Management (IM)",
           fr: "Gestion de l'information (IM)",
@@ -3603,6 +3792,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "cb7ee148-73ae-4d42-82d5-fa918d0e84a8",
+        key: "dba",
         name: {
           en: "Database Administration",
           fr: "Administration de bases de données",
@@ -3610,6 +3800,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "b3890a40-d694-45e3-9cd0-e5edfeed6c64",
+        key: "infra",
         name: {
           en: "Infrastructure/Operations",
           fr: "Infrastructure/Opérations",
@@ -3617,6 +3808,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "1d1e5258-0e8d-4d38-8691-854bc98c14f9",
+        key: "cyber",
         name: {
           en: "Cybersecurity / Information Security / IT Security",
           fr: "Cybersécurité / Sécurité de l'information / Sécurité informatique",
@@ -3659,6 +3851,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
     acceptedOperationalRequirements: [
       {
         id: "dba77b57-6727-4321-af8b-1d5af2ec59a8",
+        key: "24-7",
         name: {
           en: "24/7 on-call",
           fr: "Garde 24/7",
@@ -3666,6 +3859,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "f92cf3d9-f283-4776-bb93-27b067ad2008",
+        key: "driver",
         name: {
           en: "Driver's license",
           fr: "Permis de conduire",
@@ -3709,6 +3903,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
     cmoAssets: [
       {
         id: "1d1e5258-0e8d-4d38-8691-854bc98c14f9",
+        key: "cyber",
         name: {
           en: "Cybersecurity / Information Security / IT Security",
           fr: "Cybersécurité / Sécurité de l'information / Sécurité informatique",
@@ -3716,6 +3911,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "a6b269a0-01c1-4255-b429-6648a483884b",
+        key: "itba",
         name: {
           en: "IT Business Analyst / IT Project Management",
           fr: "Analyste d'affaires TI / Gestion de projets TI",
@@ -3723,6 +3919,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "b3890a40-d694-45e3-9cd0-e5edfeed6c64",
+        key: "infra",
         name: {
           en: "Infrastructure/Operations",
           fr: "Infrastructure/Opérations",
@@ -3730,6 +3927,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "d3d2faf5-28aa-47f5-a0a1-1b9c2159e174",
+        key: "data_science",
         name: {
           en: "Data Science / Analysis",
           fr: "Science des données / Analyse",
@@ -3772,6 +3970,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
     acceptedOperationalRequirements: [
       {
         id: "52191788-5649-417f-8b49-520dcf664a18",
+        key: "20kg",
         name: {
           en: "Transport equipment up to 20kg",
           fr: "Transport de matériel jusqu'à 20 kg",
@@ -3779,6 +3978,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "6827429d-b8b8-475e-b7db-2b892437dbc4",
+        key: "shift_work",
         name: {
           en: "Shift work",
           fr: "Travail posté",
@@ -3822,6 +4022,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
     cmoAssets: [
       {
         id: "d3d2faf5-28aa-47f5-a0a1-1b9c2159e174",
+        key: "data_science",
         name: {
           en: "Data Science / Analysis",
           fr: "Science des données / Analyse",
@@ -3829,6 +4030,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "dc6bd4ae-bf14-4900-b403-e6772476e8c0",
+        key: "app_dev",
         name: {
           en: "Application Development",
           fr: "Développement d'applications",
@@ -3836,6 +4038,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "1d1e5258-0e8d-4d38-8691-854bc98c14f9",
+        key: "cyber",
         name: {
           en: "Cybersecurity / Information Security / IT Security",
           fr: "Cybersécurité / Sécurité de l'information / Sécurité informatique",
@@ -3843,6 +4046,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "b2349f51-059f-4914-8e27-d5c5f3e10e6b",
+        key: "testing",
         name: {
           en: "Application Testing / Quality Assurance",
           fr: "Test d'application / Assurance qualité",
@@ -3885,6 +4089,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
     acceptedOperationalRequirements: [
       {
         id: "6827429d-b8b8-475e-b7db-2b892437dbc4",
+        key: "shift_work",
         name: {
           en: "Shift work",
           fr: "Travail posté",
@@ -3892,6 +4097,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "d9b5d0ea-d711-44e7-91a6-e43b261fa359",
+        key: "overtime",
         name: {
           en: "Overtime as required",
           fr: "Heures supplémentaires selon les besoins",
@@ -3935,6 +4141,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
     cmoAssets: [
       {
         id: "ac044805-fd37-4e9f-9616-5855f0458e49",
+        key: "im",
         name: {
           en: "Information Management (IM)",
           fr: "Gestion de l'information (IM)",
@@ -3942,6 +4149,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "fa0262fd-cbd0-4711-a522-cb171b597668",
+        key: "ea",
         name: {
           en: "Enterprise Architecture (EA)",
           fr: "Architecture d'entreprise (EA)",
@@ -3949,6 +4157,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "1d1e5258-0e8d-4d38-8691-854bc98c14f9",
+        key: "cyber",
         name: {
           en: "Cybersecurity / Information Security / IT Security",
           fr: "Cybersécurité / Sécurité de l'information / Sécurité informatique",
@@ -3956,6 +4165,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "b2349f51-059f-4914-8e27-d5c5f3e10e6b",
+        key: "testing",
         name: {
           en: "Application Testing / Quality Assurance",
           fr: "Test d'application / Assurance qualité",
@@ -3998,6 +4208,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
     acceptedOperationalRequirements: [
       {
         id: "dba77b57-6727-4321-af8b-1d5af2ec59a8",
+        key: "24-7",
         name: {
           en: "24/7 on-call",
           fr: "Garde 24/7",
@@ -4005,6 +4216,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "d9b5d0ea-d711-44e7-91a6-e43b261fa359",
+        key: "overtime",
         name: {
           en: "Overtime as required",
           fr: "Heures supplémentaires selon les besoins",
@@ -4048,6 +4260,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
     cmoAssets: [
       {
         id: "ac044805-fd37-4e9f-9616-5855f0458e49",
+        key: "im",
         name: {
           en: "Information Management (IM)",
           fr: "Gestion de l'information (IM)",
@@ -4055,6 +4268,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "b2349f51-059f-4914-8e27-d5c5f3e10e6b",
+        key: "testing",
         name: {
           en: "Application Testing / Quality Assurance",
           fr: "Test d'application / Assurance qualité",
@@ -4062,6 +4276,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "1d1e5258-0e8d-4d38-8691-854bc98c14f9",
+        key: "cyber",
         name: {
           en: "Cybersecurity / Information Security / IT Security",
           fr: "Cybersécurité / Sécurité de l'information / Sécurité informatique",
@@ -4069,6 +4284,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "a6b269a0-01c1-4255-b429-6648a483884b",
+        key: "itba",
         name: {
           en: "IT Business Analyst / IT Project Management",
           fr: "Analyste d'affaires TI / Gestion de projets TI",
@@ -4111,6 +4327,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
     acceptedOperationalRequirements: [
       {
         id: "f97303f4-f77c-471a-900c-5a14f4c178fa",
+        key: "travel",
         name: {
           en: "Travel as required",
           fr: "Déplacements selon les besoins",
@@ -4118,6 +4335,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "d9b5d0ea-d711-44e7-91a6-e43b261fa359",
+        key: "overtime",
         name: {
           en: "Overtime as required",
           fr: "Heures supplémentaires selon les besoins",
@@ -4161,6 +4379,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
     cmoAssets: [
       {
         id: "dc6bd4ae-bf14-4900-b403-e6772476e8c0",
+        key: "app_dev",
         name: {
           en: "Application Development",
           fr: "Développement d'applications",
@@ -4168,6 +4387,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "cb7ee148-73ae-4d42-82d5-fa918d0e84a8",
+        key: "dba",
         name: {
           en: "Database Administration",
           fr: "Administration de bases de données",
@@ -4175,6 +4395,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "d3d2faf5-28aa-47f5-a0a1-1b9c2159e174",
+        key: "data_science",
         name: {
           en: "Data Science / Analysis",
           fr: "Science des données / Analyse",
@@ -4182,6 +4403,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "a6b269a0-01c1-4255-b429-6648a483884b",
+        key: "itba",
         name: {
           en: "IT Business Analyst / IT Project Management",
           fr: "Analyste d'affaires TI / Gestion de projets TI",
@@ -4224,6 +4446,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
     acceptedOperationalRequirements: [
       {
         id: "6827429d-b8b8-475e-b7db-2b892437dbc4",
+        key: "shift_work",
         name: {
           en: "Shift work",
           fr: "Travail posté",
@@ -4231,6 +4454,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "f97303f4-f77c-471a-900c-5a14f4c178fa",
+        key: "travel",
         name: {
           en: "Travel as required",
           fr: "Déplacements selon les besoins",
@@ -4274,6 +4498,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
     cmoAssets: [
       {
         id: "b3890a40-d694-45e3-9cd0-e5edfeed6c64",
+        key: "infra",
         name: {
           en: "Infrastructure/Operations",
           fr: "Infrastructure/Opérations",
@@ -4281,6 +4506,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "cb7ee148-73ae-4d42-82d5-fa918d0e84a8",
+        key: "dba",
         name: {
           en: "Database Administration",
           fr: "Administration de bases de données",
@@ -4288,6 +4514,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "1d1e5258-0e8d-4d38-8691-854bc98c14f9",
+        key: "cyber",
         name: {
           en: "Cybersecurity / Information Security / IT Security",
           fr: "Cybersécurité / Sécurité de l'information / Sécurité informatique",
@@ -4295,6 +4522,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "dc6bd4ae-bf14-4900-b403-e6772476e8c0",
+        key: "app_dev",
         name: {
           en: "Application Development",
           fr: "Développement d'applications",
@@ -4337,6 +4565,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
     acceptedOperationalRequirements: [
       {
         id: "6827429d-b8b8-475e-b7db-2b892437dbc4",
+        key: "shift_work",
         name: {
           en: "Shift work",
           fr: "Travail posté",
@@ -4344,6 +4573,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "d9b5d0ea-d711-44e7-91a6-e43b261fa359",
+        key: "overtime",
         name: {
           en: "Overtime as required",
           fr: "Heures supplémentaires selon les besoins",
@@ -4387,6 +4617,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
     cmoAssets: [
       {
         id: "dc6bd4ae-bf14-4900-b403-e6772476e8c0",
+        key: "app_dev",
         name: {
           en: "Application Development",
           fr: "Développement d'applications",
@@ -4394,6 +4625,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "b2349f51-059f-4914-8e27-d5c5f3e10e6b",
+        key: "testing",
         name: {
           en: "Application Testing / Quality Assurance",
           fr: "Test d'application / Assurance qualité",
@@ -4401,6 +4633,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "d3d2faf5-28aa-47f5-a0a1-1b9c2159e174",
+        key: "data_science",
         name: {
           en: "Data Science / Analysis",
           fr: "Science des données / Analyse",
@@ -4408,6 +4641,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "b3890a40-d694-45e3-9cd0-e5edfeed6c64",
+        key: "infra",
         name: {
           en: "Infrastructure/Operations",
           fr: "Infrastructure/Opérations",
@@ -4450,6 +4684,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
     acceptedOperationalRequirements: [
       {
         id: "6827429d-b8b8-475e-b7db-2b892437dbc4",
+        key: "shift_work",
         name: {
           en: "Shift work",
           fr: "Travail posté",
@@ -4457,6 +4692,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "f92cf3d9-f283-4776-bb93-27b067ad2008",
+        key: "driver",
         name: {
           en: "Driver's license",
           fr: "Permis de conduire",
@@ -4500,6 +4736,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
     cmoAssets: [
       {
         id: "1d1e5258-0e8d-4d38-8691-854bc98c14f9",
+        key: "cyber",
         name: {
           en: "Cybersecurity / Information Security / IT Security",
           fr: "Cybersécurité / Sécurité de l'information / Sécurité informatique",
@@ -4507,6 +4744,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "b2349f51-059f-4914-8e27-d5c5f3e10e6b",
+        key: "testing",
         name: {
           en: "Application Testing / Quality Assurance",
           fr: "Test d'application / Assurance qualité",
@@ -4514,6 +4752,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "dc6bd4ae-bf14-4900-b403-e6772476e8c0",
+        key: "app_dev",
         name: {
           en: "Application Development",
           fr: "Développement d'applications",
@@ -4521,6 +4760,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "cb7ee148-73ae-4d42-82d5-fa918d0e84a8",
+        key: "dba",
         name: {
           en: "Database Administration",
           fr: "Administration de bases de données",
@@ -4563,6 +4803,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
     acceptedOperationalRequirements: [
       {
         id: "6827429d-b8b8-475e-b7db-2b892437dbc4",
+        key: "shift_work",
         name: {
           en: "Shift work",
           fr: "Travail posté",
@@ -4570,6 +4811,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "dba77b57-6727-4321-af8b-1d5af2ec59a8",
+        key: "24-7",
         name: {
           en: "24/7 on-call",
           fr: "Garde 24/7",
@@ -4613,6 +4855,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
     cmoAssets: [
       {
         id: "b2349f51-059f-4914-8e27-d5c5f3e10e6b",
+        key: "testing",
         name: {
           en: "Application Testing / Quality Assurance",
           fr: "Test d'application / Assurance qualité",
@@ -4620,6 +4863,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "1d1e5258-0e8d-4d38-8691-854bc98c14f9",
+        key: "cyber",
         name: {
           en: "Cybersecurity / Information Security / IT Security",
           fr: "Cybersécurité / Sécurité de l'information / Sécurité informatique",
@@ -4627,6 +4871,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "dc6bd4ae-bf14-4900-b403-e6772476e8c0",
+        key: "app_dev",
         name: {
           en: "Application Development",
           fr: "Développement d'applications",
@@ -4634,6 +4879,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "a6b269a0-01c1-4255-b429-6648a483884b",
+        key: "itba",
         name: {
           en: "IT Business Analyst / IT Project Management",
           fr: "Analyste d'affaires TI / Gestion de projets TI",
@@ -4676,6 +4922,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
     acceptedOperationalRequirements: [
       {
         id: "52191788-5649-417f-8b49-520dcf664a18",
+        key: "20kg",
         name: {
           en: "Transport equipment up to 20kg",
           fr: "Transport de matériel jusqu'à 20 kg",
@@ -4683,6 +4930,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "f97303f4-f77c-471a-900c-5a14f4c178fa",
+        key: "travel",
         name: {
           en: "Travel as required",
           fr: "Déplacements selon les besoins",
@@ -4726,6 +4974,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
     cmoAssets: [
       {
         id: "1d1e5258-0e8d-4d38-8691-854bc98c14f9",
+        key: "cyber",
         name: {
           en: "Cybersecurity / Information Security / IT Security",
           fr: "Cybersécurité / Sécurité de l'information / Sécurité informatique",
@@ -4733,6 +4982,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "d3d2faf5-28aa-47f5-a0a1-1b9c2159e174",
+        key: "data_science",
         name: {
           en: "Data Science / Analysis",
           fr: "Science des données / Analyse",
@@ -4740,6 +4990,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "a6b269a0-01c1-4255-b429-6648a483884b",
+        key: "itba",
         name: {
           en: "IT Business Analyst / IT Project Management",
           fr: "Analyste d'affaires TI / Gestion de projets TI",
@@ -4747,6 +4998,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "cb7ee148-73ae-4d42-82d5-fa918d0e84a8",
+        key: "dba",
         name: {
           en: "Database Administration",
           fr: "Administration de bases de données",
@@ -4789,6 +5041,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
     acceptedOperationalRequirements: [
       {
         id: "f92cf3d9-f283-4776-bb93-27b067ad2008",
+        key: "driver",
         name: {
           en: "Driver's license",
           fr: "Permis de conduire",
@@ -4796,6 +5049,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "f97303f4-f77c-471a-900c-5a14f4c178fa",
+        key: "travel",
         name: {
           en: "Travel as required",
           fr: "Déplacements selon les besoins",
@@ -4839,6 +5093,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
     cmoAssets: [
       {
         id: "b2349f51-059f-4914-8e27-d5c5f3e10e6b",
+        key: "testing",
         name: {
           en: "Application Testing / Quality Assurance",
           fr: "Test d'application / Assurance qualité",
@@ -4846,6 +5101,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "ac044805-fd37-4e9f-9616-5855f0458e49",
+        key: "im",
         name: {
           en: "Information Management (IM)",
           fr: "Gestion de l'information (IM)",
@@ -4853,6 +5109,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "b3890a40-d694-45e3-9cd0-e5edfeed6c64",
+        key: "infra",
         name: {
           en: "Infrastructure/Operations",
           fr: "Infrastructure/Opérations",
@@ -4860,6 +5117,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "fa0262fd-cbd0-4711-a522-cb171b597668",
+        key: "ea",
         name: {
           en: "Enterprise Architecture (EA)",
           fr: "Architecture d'entreprise (EA)",
@@ -4902,6 +5160,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
     acceptedOperationalRequirements: [
       {
         id: "f97303f4-f77c-471a-900c-5a14f4c178fa",
+        key: "travel",
         name: {
           en: "Travel as required",
           fr: "Déplacements selon les besoins",
@@ -4909,6 +5168,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "d9b5d0ea-d711-44e7-91a6-e43b261fa359",
+        key: "overtime",
         name: {
           en: "Overtime as required",
           fr: "Heures supplémentaires selon les besoins",
@@ -4952,6 +5212,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
     cmoAssets: [
       {
         id: "fa0262fd-cbd0-4711-a522-cb171b597668",
+        key: "ea",
         name: {
           en: "Enterprise Architecture (EA)",
           fr: "Architecture d'entreprise (EA)",
@@ -4959,6 +5220,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "a6b269a0-01c1-4255-b429-6648a483884b",
+        key: "itba",
         name: {
           en: "IT Business Analyst / IT Project Management",
           fr: "Analyste d'affaires TI / Gestion de projets TI",
@@ -4966,6 +5228,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "d3d2faf5-28aa-47f5-a0a1-1b9c2159e174",
+        key: "data_science",
         name: {
           en: "Data Science / Analysis",
           fr: "Science des données / Analyse",
@@ -4973,6 +5236,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "b3890a40-d694-45e3-9cd0-e5edfeed6c64",
+        key: "infra",
         name: {
           en: "Infrastructure/Operations",
           fr: "Infrastructure/Opérations",
@@ -5015,6 +5279,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
     acceptedOperationalRequirements: [
       {
         id: "6827429d-b8b8-475e-b7db-2b892437dbc4",
+        key: "shift_work",
         name: {
           en: "Shift work",
           fr: "Travail posté",
@@ -5022,6 +5287,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "f97303f4-f77c-471a-900c-5a14f4c178fa",
+        key: "travel",
         name: {
           en: "Travel as required",
           fr: "Déplacements selon les besoins",
@@ -5065,6 +5331,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
     cmoAssets: [
       {
         id: "1d1e5258-0e8d-4d38-8691-854bc98c14f9",
+        key: "cyber",
         name: {
           en: "Cybersecurity / Information Security / IT Security",
           fr: "Cybersécurité / Sécurité de l'information / Sécurité informatique",
@@ -5072,6 +5339,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "d3d2faf5-28aa-47f5-a0a1-1b9c2159e174",
+        key: "data_science",
         name: {
           en: "Data Science / Analysis",
           fr: "Science des données / Analyse",
@@ -5079,6 +5347,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "cb7ee148-73ae-4d42-82d5-fa918d0e84a8",
+        key: "dba",
         name: {
           en: "Database Administration",
           fr: "Administration de bases de données",
@@ -5086,6 +5355,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "a6b269a0-01c1-4255-b429-6648a483884b",
+        key: "itba",
         name: {
           en: "IT Business Analyst / IT Project Management",
           fr: "Analyste d'affaires TI / Gestion de projets TI",
@@ -5128,6 +5398,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
     acceptedOperationalRequirements: [
       {
         id: "f92cf3d9-f283-4776-bb93-27b067ad2008",
+        key: "driver",
         name: {
           en: "Driver's license",
           fr: "Permis de conduire",
@@ -5135,6 +5406,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "52191788-5649-417f-8b49-520dcf664a18",
+        key: "20kg",
         name: {
           en: "Transport equipment up to 20kg",
           fr: "Transport de matériel jusqu'à 20 kg",
@@ -5178,6 +5450,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
     cmoAssets: [
       {
         id: "1d1e5258-0e8d-4d38-8691-854bc98c14f9",
+        key: "cyber",
         name: {
           en: "Cybersecurity / Information Security / IT Security",
           fr: "Cybersécurité / Sécurité de l'information / Sécurité informatique",
@@ -5185,6 +5458,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "cb7ee148-73ae-4d42-82d5-fa918d0e84a8",
+        key: "dba",
         name: {
           en: "Database Administration",
           fr: "Administration de bases de données",
@@ -5192,6 +5466,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "d3d2faf5-28aa-47f5-a0a1-1b9c2159e174",
+        key: "data_science",
         name: {
           en: "Data Science / Analysis",
           fr: "Science des données / Analyse",
@@ -5199,6 +5474,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "a6b269a0-01c1-4255-b429-6648a483884b",
+        key: "itba",
         name: {
           en: "IT Business Analyst / IT Project Management",
           fr: "Analyste d'affaires TI / Gestion de projets TI",
@@ -5241,6 +5517,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
     acceptedOperationalRequirements: [
       {
         id: "6827429d-b8b8-475e-b7db-2b892437dbc4",
+        key: "shift_work",
         name: {
           en: "Shift work",
           fr: "Travail posté",
@@ -5248,6 +5525,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "dba77b57-6727-4321-af8b-1d5af2ec59a8",
+        key: "24-7",
         name: {
           en: "24/7 on-call",
           fr: "Garde 24/7",
@@ -5291,6 +5569,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
     cmoAssets: [
       {
         id: "cb7ee148-73ae-4d42-82d5-fa918d0e84a8",
+        key: "dba",
         name: {
           en: "Database Administration",
           fr: "Administration de bases de données",
@@ -5298,6 +5577,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "d3d2faf5-28aa-47f5-a0a1-1b9c2159e174",
+        key: "data_science",
         name: {
           en: "Data Science / Analysis",
           fr: "Science des données / Analyse",
@@ -5305,6 +5585,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "fa0262fd-cbd0-4711-a522-cb171b597668",
+        key: "ea",
         name: {
           en: "Enterprise Architecture (EA)",
           fr: "Architecture d'entreprise (EA)",
@@ -5312,6 +5593,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "a6b269a0-01c1-4255-b429-6648a483884b",
+        key: "itba",
         name: {
           en: "IT Business Analyst / IT Project Management",
           fr: "Analyste d'affaires TI / Gestion de projets TI",
@@ -5354,6 +5636,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
     acceptedOperationalRequirements: [
       {
         id: "d9b5d0ea-d711-44e7-91a6-e43b261fa359",
+        key: "overtime",
         name: {
           en: "Overtime as required",
           fr: "Heures supplémentaires selon les besoins",
@@ -5361,6 +5644,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "52191788-5649-417f-8b49-520dcf664a18",
+        key: "20kg",
         name: {
           en: "Transport equipment up to 20kg",
           fr: "Transport de matériel jusqu'à 20 kg",
@@ -5404,6 +5688,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
     cmoAssets: [
       {
         id: "a6b269a0-01c1-4255-b429-6648a483884b",
+        key: "itba",
         name: {
           en: "IT Business Analyst / IT Project Management",
           fr: "Analyste d'affaires TI / Gestion de projets TI",
@@ -5411,6 +5696,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "b3890a40-d694-45e3-9cd0-e5edfeed6c64",
+        key: "infra",
         name: {
           en: "Infrastructure/Operations",
           fr: "Infrastructure/Opérations",
@@ -5418,6 +5704,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "fa0262fd-cbd0-4711-a522-cb171b597668",
+        key: "ea",
         name: {
           en: "Enterprise Architecture (EA)",
           fr: "Architecture d'entreprise (EA)",
@@ -5425,6 +5712,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "b2349f51-059f-4914-8e27-d5c5f3e10e6b",
+        key: "testing",
         name: {
           en: "Application Testing / Quality Assurance",
           fr: "Test d'application / Assurance qualité",
@@ -5467,6 +5755,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
     acceptedOperationalRequirements: [
       {
         id: "dba77b57-6727-4321-af8b-1d5af2ec59a8",
+        key: "24-7",
         name: {
           en: "24/7 on-call",
           fr: "Garde 24/7",
@@ -5474,6 +5763,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "f97303f4-f77c-471a-900c-5a14f4c178fa",
+        key: "travel",
         name: {
           en: "Travel as required",
           fr: "Déplacements selon les besoins",
@@ -5517,6 +5807,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
     cmoAssets: [
       {
         id: "b2349f51-059f-4914-8e27-d5c5f3e10e6b",
+        key: "testing",
         name: {
           en: "Application Testing / Quality Assurance",
           fr: "Test d'application / Assurance qualité",
@@ -5524,6 +5815,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "fa0262fd-cbd0-4711-a522-cb171b597668",
+        key: "ea",
         name: {
           en: "Enterprise Architecture (EA)",
           fr: "Architecture d'entreprise (EA)",
@@ -5531,6 +5823,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "ac044805-fd37-4e9f-9616-5855f0458e49",
+        key: "im",
         name: {
           en: "Information Management (IM)",
           fr: "Gestion de l'information (IM)",
@@ -5538,6 +5831,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "1d1e5258-0e8d-4d38-8691-854bc98c14f9",
+        key: "cyber",
         name: {
           en: "Cybersecurity / Information Security / IT Security",
           fr: "Cybersécurité / Sécurité de l'information / Sécurité informatique",
@@ -5580,6 +5874,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
     acceptedOperationalRequirements: [
       {
         id: "f92cf3d9-f283-4776-bb93-27b067ad2008",
+        key: "driver",
         name: {
           en: "Driver's license",
           fr: "Permis de conduire",
@@ -5587,6 +5882,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "dba77b57-6727-4321-af8b-1d5af2ec59a8",
+        key: "24-7",
         name: {
           en: "24/7 on-call",
           fr: "Garde 24/7",
@@ -5630,6 +5926,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
     cmoAssets: [
       {
         id: "d3d2faf5-28aa-47f5-a0a1-1b9c2159e174",
+        key: "data_science",
         name: {
           en: "Data Science / Analysis",
           fr: "Science des données / Analyse",
@@ -5637,6 +5934,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "b2349f51-059f-4914-8e27-d5c5f3e10e6b",
+        key: "testing",
         name: {
           en: "Application Testing / Quality Assurance",
           fr: "Test d'application / Assurance qualité",
@@ -5644,6 +5942,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "b3890a40-d694-45e3-9cd0-e5edfeed6c64",
+        key: "infra",
         name: {
           en: "Infrastructure/Operations",
           fr: "Infrastructure/Opérations",
@@ -5651,6 +5950,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "1d1e5258-0e8d-4d38-8691-854bc98c14f9",
+        key: "cyber",
         name: {
           en: "Cybersecurity / Information Security / IT Security",
           fr: "Cybersécurité / Sécurité de l'information / Sécurité informatique",
@@ -5693,6 +5993,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
     acceptedOperationalRequirements: [
       {
         id: "52191788-5649-417f-8b49-520dcf664a18",
+        key: "20kg",
         name: {
           en: "Transport equipment up to 20kg",
           fr: "Transport de matériel jusqu'à 20 kg",
@@ -5700,6 +6001,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "f97303f4-f77c-471a-900c-5a14f4c178fa",
+        key: "travel",
         name: {
           en: "Travel as required",
           fr: "Déplacements selon les besoins",
@@ -5743,6 +6045,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
     cmoAssets: [
       {
         id: "a6b269a0-01c1-4255-b429-6648a483884b",
+        key: "itba",
         name: {
           en: "IT Business Analyst / IT Project Management",
           fr: "Analyste d'affaires TI / Gestion de projets TI",
@@ -5750,6 +6053,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "dc6bd4ae-bf14-4900-b403-e6772476e8c0",
+        key: "app_dev",
         name: {
           en: "Application Development",
           fr: "Développement d'applications",
@@ -5757,6 +6061,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "ac044805-fd37-4e9f-9616-5855f0458e49",
+        key: "im",
         name: {
           en: "Information Management (IM)",
           fr: "Gestion de l'information (IM)",
@@ -5764,6 +6069,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "b2349f51-059f-4914-8e27-d5c5f3e10e6b",
+        key: "testing",
         name: {
           en: "Application Testing / Quality Assurance",
           fr: "Test d'application / Assurance qualité",
@@ -5806,6 +6112,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
     acceptedOperationalRequirements: [
       {
         id: "f97303f4-f77c-471a-900c-5a14f4c178fa",
+        key: "travel",
         name: {
           en: "Travel as required",
           fr: "Déplacements selon les besoins",
@@ -5813,6 +6120,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "d9b5d0ea-d711-44e7-91a6-e43b261fa359",
+        key: "overtime",
         name: {
           en: "Overtime as required",
           fr: "Heures supplémentaires selon les besoins",
@@ -5856,6 +6164,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
     cmoAssets: [
       {
         id: "d3d2faf5-28aa-47f5-a0a1-1b9c2159e174",
+        key: "data_science",
         name: {
           en: "Data Science / Analysis",
           fr: "Science des données / Analyse",
@@ -5863,6 +6172,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "a6b269a0-01c1-4255-b429-6648a483884b",
+        key: "itba",
         name: {
           en: "IT Business Analyst / IT Project Management",
           fr: "Analyste d'affaires TI / Gestion de projets TI",
@@ -5870,6 +6180,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "b3890a40-d694-45e3-9cd0-e5edfeed6c64",
+        key: "infra",
         name: {
           en: "Infrastructure/Operations",
           fr: "Infrastructure/Opérations",
@@ -5877,6 +6188,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "cb7ee148-73ae-4d42-82d5-fa918d0e84a8",
+        key: "dba",
         name: {
           en: "Database Administration",
           fr: "Administration de bases de données",
@@ -5919,6 +6231,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
     acceptedOperationalRequirements: [
       {
         id: "d9b5d0ea-d711-44e7-91a6-e43b261fa359",
+        key: "overtime",
         name: {
           en: "Overtime as required",
           fr: "Heures supplémentaires selon les besoins",
@@ -5926,6 +6239,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "52191788-5649-417f-8b49-520dcf664a18",
+        key: "20kg",
         name: {
           en: "Transport equipment up to 20kg",
           fr: "Transport de matériel jusqu'à 20 kg",
@@ -5969,6 +6283,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
     cmoAssets: [
       {
         id: "b3890a40-d694-45e3-9cd0-e5edfeed6c64",
+        key: "infra",
         name: {
           en: "Infrastructure/Operations",
           fr: "Infrastructure/Opérations",
@@ -5976,6 +6291,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "cb7ee148-73ae-4d42-82d5-fa918d0e84a8",
+        key: "dba",
         name: {
           en: "Database Administration",
           fr: "Administration de bases de données",
@@ -5983,6 +6299,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "dc6bd4ae-bf14-4900-b403-e6772476e8c0",
+        key: "app_dev",
         name: {
           en: "Application Development",
           fr: "Développement d'applications",
@@ -5990,6 +6307,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "b2349f51-059f-4914-8e27-d5c5f3e10e6b",
+        key: "testing",
         name: {
           en: "Application Testing / Quality Assurance",
           fr: "Test d'application / Assurance qualité",
@@ -6032,6 +6350,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
     acceptedOperationalRequirements: [
       {
         id: "f97303f4-f77c-471a-900c-5a14f4c178fa",
+        key: "travel",
         name: {
           en: "Travel as required",
           fr: "Déplacements selon les besoins",
@@ -6039,6 +6358,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "6827429d-b8b8-475e-b7db-2b892437dbc4",
+        key: "shift_work",
         name: {
           en: "Shift work",
           fr: "Travail posté",
@@ -6082,6 +6402,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
     cmoAssets: [
       {
         id: "b3890a40-d694-45e3-9cd0-e5edfeed6c64",
+        key: "infra",
         name: {
           en: "Infrastructure/Operations",
           fr: "Infrastructure/Opérations",
@@ -6089,6 +6410,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "d3d2faf5-28aa-47f5-a0a1-1b9c2159e174",
+        key: "data_science",
         name: {
           en: "Data Science / Analysis",
           fr: "Science des données / Analyse",
@@ -6096,6 +6418,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "1d1e5258-0e8d-4d38-8691-854bc98c14f9",
+        key: "cyber",
         name: {
           en: "Cybersecurity / Information Security / IT Security",
           fr: "Cybersécurité / Sécurité de l'information / Sécurité informatique",
@@ -6103,6 +6426,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "ac044805-fd37-4e9f-9616-5855f0458e49",
+        key: "im",
         name: {
           en: "Information Management (IM)",
           fr: "Gestion de l'information (IM)",
@@ -6145,6 +6469,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
     acceptedOperationalRequirements: [
       {
         id: "52191788-5649-417f-8b49-520dcf664a18",
+        key: "20kg",
         name: {
           en: "Transport equipment up to 20kg",
           fr: "Transport de matériel jusqu'à 20 kg",
@@ -6152,6 +6477,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "6827429d-b8b8-475e-b7db-2b892437dbc4",
+        key: "shift_work",
         name: {
           en: "Shift work",
           fr: "Travail posté",
@@ -6195,6 +6521,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
     cmoAssets: [
       {
         id: "cb7ee148-73ae-4d42-82d5-fa918d0e84a8",
+        key: "dba",
         name: {
           en: "Database Administration",
           fr: "Administration de bases de données",
@@ -6202,6 +6529,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "ac044805-fd37-4e9f-9616-5855f0458e49",
+        key: "im",
         name: {
           en: "Information Management (IM)",
           fr: "Gestion de l'information (IM)",
@@ -6209,6 +6537,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "d3d2faf5-28aa-47f5-a0a1-1b9c2159e174",
+        key: "data_science",
         name: {
           en: "Data Science / Analysis",
           fr: "Science des données / Analyse",
@@ -6216,6 +6545,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "b3890a40-d694-45e3-9cd0-e5edfeed6c64",
+        key: "infra",
         name: {
           en: "Infrastructure/Operations",
           fr: "Infrastructure/Opérations",
@@ -6258,6 +6588,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
     acceptedOperationalRequirements: [
       {
         id: "6827429d-b8b8-475e-b7db-2b892437dbc4",
+        key: "shift_work",
         name: {
           en: "Shift work",
           fr: "Travail posté",
@@ -6265,6 +6596,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "dba77b57-6727-4321-af8b-1d5af2ec59a8",
+        key: "24-7",
         name: {
           en: "24/7 on-call",
           fr: "Garde 24/7",
@@ -6308,6 +6640,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
     cmoAssets: [
       {
         id: "cb7ee148-73ae-4d42-82d5-fa918d0e84a8",
+        key: "dba",
         name: {
           en: "Database Administration",
           fr: "Administration de bases de données",
@@ -6315,6 +6648,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "b2349f51-059f-4914-8e27-d5c5f3e10e6b",
+        key: "testing",
         name: {
           en: "Application Testing / Quality Assurance",
           fr: "Test d'application / Assurance qualité",
@@ -6322,6 +6656,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "d3d2faf5-28aa-47f5-a0a1-1b9c2159e174",
+        key: "data_science",
         name: {
           en: "Data Science / Analysis",
           fr: "Science des données / Analyse",
@@ -6329,6 +6664,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "b3890a40-d694-45e3-9cd0-e5edfeed6c64",
+        key: "infra",
         name: {
           en: "Infrastructure/Operations",
           fr: "Infrastructure/Opérations",
@@ -6371,6 +6707,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
     acceptedOperationalRequirements: [
       {
         id: "52191788-5649-417f-8b49-520dcf664a18",
+        key: "20kg",
         name: {
           en: "Transport equipment up to 20kg",
           fr: "Transport de matériel jusqu'à 20 kg",
@@ -6378,6 +6715,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "f97303f4-f77c-471a-900c-5a14f4c178fa",
+        key: "travel",
         name: {
           en: "Travel as required",
           fr: "Déplacements selon les besoins",
@@ -6421,6 +6759,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
     cmoAssets: [
       {
         id: "b2349f51-059f-4914-8e27-d5c5f3e10e6b",
+        key: "testing",
         name: {
           en: "Application Testing / Quality Assurance",
           fr: "Test d'application / Assurance qualité",
@@ -6428,6 +6767,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "1d1e5258-0e8d-4d38-8691-854bc98c14f9",
+        key: "cyber",
         name: {
           en: "Cybersecurity / Information Security / IT Security",
           fr: "Cybersécurité / Sécurité de l'information / Sécurité informatique",
@@ -6435,6 +6775,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "b3890a40-d694-45e3-9cd0-e5edfeed6c64",
+        key: "infra",
         name: {
           en: "Infrastructure/Operations",
           fr: "Infrastructure/Opérations",
@@ -6442,6 +6783,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "cb7ee148-73ae-4d42-82d5-fa918d0e84a8",
+        key: "dba",
         name: {
           en: "Database Administration",
           fr: "Administration de bases de données",
@@ -6484,6 +6826,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
     acceptedOperationalRequirements: [
       {
         id: "f97303f4-f77c-471a-900c-5a14f4c178fa",
+        key: "travel",
         name: {
           en: "Travel as required",
           fr: "Déplacements selon les besoins",
@@ -6491,6 +6834,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "52191788-5649-417f-8b49-520dcf664a18",
+        key: "20kg",
         name: {
           en: "Transport equipment up to 20kg",
           fr: "Transport de matériel jusqu'à 20 kg",
@@ -6534,6 +6878,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
     cmoAssets: [
       {
         id: "a6b269a0-01c1-4255-b429-6648a483884b",
+        key: "itba",
         name: {
           en: "IT Business Analyst / IT Project Management",
           fr: "Analyste d'affaires TI / Gestion de projets TI",
@@ -6541,6 +6886,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "b3890a40-d694-45e3-9cd0-e5edfeed6c64",
+        key: "infra",
         name: {
           en: "Infrastructure/Operations",
           fr: "Infrastructure/Opérations",
@@ -6548,6 +6894,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "b2349f51-059f-4914-8e27-d5c5f3e10e6b",
+        key: "testing",
         name: {
           en: "Application Testing / Quality Assurance",
           fr: "Test d'application / Assurance qualité",
@@ -6555,6 +6902,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "cb7ee148-73ae-4d42-82d5-fa918d0e84a8",
+        key: "dba",
         name: {
           en: "Database Administration",
           fr: "Administration de bases de données",
@@ -6597,6 +6945,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
     acceptedOperationalRequirements: [
       {
         id: "d9b5d0ea-d711-44e7-91a6-e43b261fa359",
+        key: "overtime",
         name: {
           en: "Overtime as required",
           fr: "Heures supplémentaires selon les besoins",
@@ -6604,6 +6953,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "6827429d-b8b8-475e-b7db-2b892437dbc4",
+        key: "shift_work",
         name: {
           en: "Shift work",
           fr: "Travail posté",
@@ -6647,6 +6997,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
     cmoAssets: [
       {
         id: "1d1e5258-0e8d-4d38-8691-854bc98c14f9",
+        key: "cyber",
         name: {
           en: "Cybersecurity / Information Security / IT Security",
           fr: "Cybersécurité / Sécurité de l'information / Sécurité informatique",
@@ -6654,6 +7005,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "fa0262fd-cbd0-4711-a522-cb171b597668",
+        key: "ea",
         name: {
           en: "Enterprise Architecture (EA)",
           fr: "Architecture d'entreprise (EA)",
@@ -6661,6 +7013,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "b3890a40-d694-45e3-9cd0-e5edfeed6c64",
+        key: "infra",
         name: {
           en: "Infrastructure/Operations",
           fr: "Infrastructure/Opérations",
@@ -6668,6 +7021,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "ac044805-fd37-4e9f-9616-5855f0458e49",
+        key: "im",
         name: {
           en: "Information Management (IM)",
           fr: "Gestion de l'information (IM)",
@@ -6710,6 +7064,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
     acceptedOperationalRequirements: [
       {
         id: "6827429d-b8b8-475e-b7db-2b892437dbc4",
+        key: "shift_work",
         name: {
           en: "Shift work",
           fr: "Travail posté",
@@ -6717,6 +7072,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "dba77b57-6727-4321-af8b-1d5af2ec59a8",
+        key: "24-7",
         name: {
           en: "24/7 on-call",
           fr: "Garde 24/7",
@@ -6760,6 +7116,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
     cmoAssets: [
       {
         id: "1d1e5258-0e8d-4d38-8691-854bc98c14f9",
+        key: "cyber",
         name: {
           en: "Cybersecurity / Information Security / IT Security",
           fr: "Cybersécurité / Sécurité de l'information / Sécurité informatique",
@@ -6767,6 +7124,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "cb7ee148-73ae-4d42-82d5-fa918d0e84a8",
+        key: "dba",
         name: {
           en: "Database Administration",
           fr: "Administration de bases de données",
@@ -6774,6 +7132,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "a6b269a0-01c1-4255-b429-6648a483884b",
+        key: "itba",
         name: {
           en: "IT Business Analyst / IT Project Management",
           fr: "Analyste d'affaires TI / Gestion de projets TI",
@@ -6781,6 +7140,7 @@ export default (): GetPoolCandidatesQuery["poolCandidates"] => [
       },
       {
         id: "ac044805-fd37-4e9f-9616-5855f0458e49",
+        key: "im",
         name: {
           en: "Information Management (IM)",
           fr: "Gestion de l'information (IM)",
