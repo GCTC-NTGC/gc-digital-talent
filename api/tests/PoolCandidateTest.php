@@ -28,9 +28,9 @@ class PoolCandidateTest extends TestCase
     Classification::factory()->count(3)->create();
     PoolCandidate::factory()->count(5)->create();
 
-    // Create new classification and attach to 2 new pool candidates.
+    // Create new classification and attach to two new pool candidates.
     $classification = Classification::factory()->create([
-      'group' => 'CS',
+      'group' => 'ZZ',
       'level' => 1,
     ]);
     PoolCandidate::factory()->count(2)->create()->each(function($candidate) use ($classification) {
@@ -57,7 +57,7 @@ class PoolCandidateTest extends TestCase
       }
     ', [
       'where' => [
-        'classifications' => [['group' => 'CS', 'level' => 1 ]],
+        'classifications' => [['group' => 'ZZ', 'level' => 1 ]],
       ]
     ])->seeJson([
       'data' => [
