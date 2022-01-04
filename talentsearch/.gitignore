@@ -24,3 +24,5 @@ Homestead.yaml
 # Hydrogen
 resources/css/hydrogen
 
+# Code Coverage
+resources/js/tests/coverage
