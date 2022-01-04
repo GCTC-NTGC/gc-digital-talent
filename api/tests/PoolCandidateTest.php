@@ -131,7 +131,7 @@ class PoolCandidateTest extends TestCase
       }
     ', [
       'where' => [
-        'cmoAssets' => [[ 'id' => 'unknown_id' ]],
+        'cmoAssets' => [[ 'key' => 'unknown_id' ]],
       ]
     ])->seeJson([
       'data' => [
@@ -233,7 +233,7 @@ class PoolCandidateTest extends TestCase
       }
     ', [
       'where' => [
-        'pools' => [[ 'id' => $id ]],
+        'pools' => [[ 'id' => $pool['id'] ]],
       ]
     ])->seeJson([
       'data' => [
@@ -555,7 +555,7 @@ class PoolCandidateTest extends TestCase
       ]
     ]);
 
-    // Assert query with operationalRequirement filter will return correct candidate count
+    // Assert query with WorkRegion filter will return correct candidate count
     $this->graphQL(/** @lang Graphql */ '
       query countPoolCandidates($where: PoolCandidateFilterInput) {
         countPoolCandidates(where: $where)
