@@ -585,5 +585,89 @@ class PoolCandidateTest extends TestCase
       ]
     ]);
   }
+
+  public function testFilterByClassificationToSalary(): void
+  {
+    // Create new classification.
+    $classificationLvl1 = Classification::factory()->create([
+      'group' => 'ZZ',
+      'level' => 1,
+      'min_salary' => 50000,
+      'max_salary' => 69000,
+    ]);
+    $classificationLvl2 = Classification::factory()->create([
+      'group' => 'ZZ',
+      'level' => 2,
+      'min_salary' => 70000,
+      'max_salary' => 89000,
+    ]);
+    $classificationLvl3 = Classification::factory()->create([
+      'group' => 'ZZ',
+      'level' => 3,
+      'min_salary' => 90000,
+      'max_salary' => 100000,
+    ]);
+    // Attach two new candidates that are in the expected salary range.
+    PoolCandidate::factory()->count(2)->create([
+      'expected_salary' => ['_50_59K', '_70_79K']
+    ])->each(function($candidate) use ($classificationLvl1) {
+      $candidate->expectedClassifications()->save($classificationLvl1);
+    });
+    // Attach two new candidates that overlap the expected salary range.
+    PoolCandidate::factory()->count(2)->create([
+      'expected_salary' => ['_60_69K', '_80_89K']
+    ])->each(function($candidate) use ($classificationLvl2) {
+      $candidate->expectedClassifications()->save($classificationLvl2);
+    });
+    // Attach two new candidates that are over the expected salary range.
+    PoolCandidate::factory()->count(2)->create([
+      'expected_salary' => ['_90_99K', '_100K_PLUS']
+    ])->each(function($candidate) use ($classificationLvl3) {
+      $candidate->expectedClassifications()->save($classificationLvl3);
+    });
+
+    // Assert query with no classifications filter will return all candidates
+    $this->graphQL(/** @lang Graphql */ '
+      query countPoolCandidates($where: PoolCandidateFilterInput) {
+        countPoolCandidates(where: $where)
+      }
+    ', [
+      'where' => []
+    ])->seeJson([
+      'data' => [
+        'countPoolCandidates' => 6
+      ]
+    ]);
+
+    // Assert query with classification filter will return candidates in range and overlapping.
+    $this->graphQL(/** @lang Graphql */ '
+      query countPoolCandidates($where: PoolCandidateFilterInput) {
+        countPoolCandidates(where: $where)
+      }
+    ', [
+      'where' => [
+        'classifications' => [['group' => 'ZZ', 'level' => 1 ]],
+      ]
+    ])->seeJson([
+      'data' => [
+        'countPoolCandidates' => 4
+      ]
+    ]);
+
+    // Assert query with unknown classification filter will return zero
+    $this->graphQL(/** @lang Graphql */ '
+      query countPoolCandidates($where: PoolCandidateFilterInput) {
+        countPoolCandidates(where: $where)
+      }
+    ', [
+      'where' => [
+        'classifications' => [['group' => 'UNKNOWN', 'level' => 1324234 ]],
+      ]
+    ])->seeJson([
+      'data' => [
+        'countPoolCandidates' => 0
+      ]
+    ]);
+  }
 }
 
