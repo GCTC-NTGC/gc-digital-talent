@@ -588,6 +588,10 @@ class PoolCandidateTest extends TestCase
 
   public function testFilterByClassificationToSalary(): void
   {
+    // Create initial data.
+    Classification::factory()->count(3)->create();
+    PoolCandidate::factory()->count(5)->create();
+
     // Create new classification.
     $classificationLvl1 = Classification::factory()->create([
       'group' => 'ZZ',
@@ -607,24 +611,28 @@ class PoolCandidateTest extends TestCase
       'min_salary' => 90000,
       'max_salary' => 100000,
     ]);
-    // Attach two new candidates that are in the expected salary range.
-    PoolCandidate::factory()->count(2)->create([
+
+    // Attach new candidates that are in the expected salary range.
+    $poolCandidate1 = PoolCandidate::factory()->create([
       'expected_salary' => ['_50_59K', '_70_79K']
-    ])->each(function($candidate) use ($classificationLvl1) {
-      $candidate->expectedClassifications()->save($classificationLvl1);
-    });
-    // Attach two new candidates that overlap the expected salary range.
-    PoolCandidate::factory()->count(2)->create([
+    ]);
+    $poolCandidate1->expectedClassifications()->delete();
+    $poolCandidate1->expectedClassifications()->save($classificationLvl1);
+
+    // Attach new candidates that overlap the expected salary range.
+    $poolCandidate2 = PoolCandidate::factory()->create([
       'expected_salary' => ['_60_69K', '_80_89K']
-    ])->each(function($candidate) use ($classificationLvl2) {
-      $candidate->expectedClassifications()->save($classificationLvl2);
-    });
-    // Attach two new candidates that are over the expected salary range.
-    PoolCandidate::factory()->count(2)->create([
+    ]);
+    $poolCandidate2->expectedClassifications()->delete();
+    $poolCandidate2->expectedClassifications()->save($classificationLvl2);
+
+    // Attach new candidates that are over the expected salary range.
+    $poolCandidate3 = PoolCandidate::factory()->create([
       'expected_salary' => ['_90_99K', '_100K_PLUS']
-    ])->each(function($candidate) use ($classificationLvl3) {
-      $candidate->expectedClassifications()->save($classificationLvl3);
-    });
+    ]);
+    $poolCandidate3->expectedClassifications()->delete();
+    $poolCandidate3->expectedClassifications()->save($classificationLvl3);
+
 
     // Assert query with no classifications filter will return all candidates
     $this->graphQL(/** @lang Graphql */ '
@@ -635,7 +643,7 @@ class PoolCandidateTest extends TestCase
       'where' => []
     ])->seeJson([
       'data' => [
-        'countPoolCandidates' => 6
+        'countPoolCandidates' => 8
       ]
     ]);
 
@@ -650,7 +658,7 @@ class PoolCandidateTest extends TestCase
       ]
     ])->seeJson([
       'data' => [
-        'countPoolCandidates' => 4
+        'countPoolCandidates' => 2
       ]
     ]);
 
