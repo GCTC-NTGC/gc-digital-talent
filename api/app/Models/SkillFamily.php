@@ -2,22 +2,26 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
- * Class SkillCategoryGroup
+ * Class SkillFamily
  *
  * @property int $id
- * @property array $name
  * @property string $key
+ * @property array $name
+ * @property array $description
+ * @property string $category
  * @property Illuminate\Support\Carbon $created_at
  * @property Illuminate\Support\Carbon $updated_at
  */
 
-class SkillCategoryGroup extends Model
+class SkillFamily extends Model
 {
+    use HasFactory;
     use SoftDeletes;
 
     protected $keyType = 'string';
@@ -29,10 +33,11 @@ class SkillCategoryGroup extends Model
      */
     protected $casts = [
         'name' => 'array',
+        'description' => 'array',
     ];
 
-    public function skillCategories(): HasMany
+    public function skills(): BelongsToMany
     {
-        return $this->hasMany(SkillCategory::class);
+        return $this->belongsToMany(Skill::class);
     }
 }

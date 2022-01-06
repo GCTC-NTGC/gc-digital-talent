@@ -2,18 +2,18 @@
 
 namespace Database\Factories;
 
-use App\Models\Skill;
+use App\Models\SkillFamily;
 use Database\Helpers\KeyStringHelpers;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class SkillFactory extends Factory
+class SkillFamilyFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = Skill::class;
+    protected $model = SkillFamily::class;
 
     /**
      * Define the model's default state.
@@ -22,12 +22,12 @@ class SkillFactory extends Factory
      */
     public function definition()
     {
-        $name = $this->faker->unique()->jobTitle();
+        $name = $this->faker->unique()->catchPhrase();
         return [
-            'name' => ['en' => $name.' EN', 'fr' => $name.' FR'],
             'key' => KeyStringHelpers::toKeyString($name),
-            'description' => ['en' => $this->faker->paragraph().' EN', 'fr' => $this->faker->paragraph().' FR'],
-            'keywords' => $this->faker->words($nb = 3, $asText = false)
+            'name' => ['en' => $name.' EN', 'fr' => $name.' FR'],
+            'description' => $this->faker->words($nb = 3, $asText = false),
+            'category' => $this->faker->randomElement(['TECHNICAL', 'BEHAVIOURAL'])
         ];
     }
 

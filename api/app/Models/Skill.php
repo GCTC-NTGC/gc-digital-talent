@@ -5,15 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
  * Class Skill
  *
  * @property int $id
- * @property array $name
  * @property string $key
+ * @property array $name
  * @property array $description
+ * @property array $keywords
  * @property Illuminate\Support\Carbon $created_at
  * @property Illuminate\Support\Carbon $updated_at
  */
@@ -33,10 +34,11 @@ class Skill extends Model
     protected $casts = [
         'name' => 'array',
         'description' => 'array',
+        'keywords' => 'array',
     ];
 
-    public function skillCategory(): BelongsTo
+    public function families() : BelongsToMany
     {
-        return $this->belongsTo(SkillCategory::class);
+        return $this->belongsToMany(SkillFamily::class);
     }
 }

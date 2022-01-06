@@ -189,27 +189,27 @@ type PoolCandidateSearchRequest {
     adminNotes: String @rename(attribute: "admin_notes")
 }
 
-type SkillCategoryGroup {
-    id: ID!
-    name: LocalizedString!
-    key: KeyString!
-    skillCategories: [SkillCategory] @hasMany
+enum SkillCategory {
+    TECHNICAL,
+    BEHAVIOURAL
 }
 
-type SkillCategory {
+type SkillFamily {
     id: ID!
-    name: LocalizedString!
     key: KeyString!
-    skillCategoryGroup: SkillCategoryGroup @belongsTo
+    name: LocalizedString!
+    description: LocalizedString!
     skills: [Skill] @hasMany
+    category: SkillCategory!
 }
 
 type Skill {
     id: ID!
-    name: LocalizedString!
     key: KeyString!
+    name: LocalizedString!
     description: LocalizedString
-    skillCategory: SkillCategory @belongsTo
+    keywords: [String]
+    families: [SkillFamily] @hasMany
 }
 
 input ClassificationFilterInput {
@@ -264,8 +264,7 @@ type Query {
     poolCandidateFilters: [PoolCandidateFilter]! @all @guard @can(ability: "viewAny")
     poolCandidateSearchRequest(id: ID! @eq): PoolCandidateSearchRequest @find @guard @can(ability: "view", query: true)
     poolCandidateSearchRequests: [PoolCandidateSearchRequest]! @all @guard @can(ability: "viewAny")
-    skillCategoryGroups: [SkillCategoryGroup]! @all
-    skillCategories: [SkillCategory]! @all
+    skillFamilies: [SkillFamily]! @all
     skills: [Skill]! @all
 }
 """

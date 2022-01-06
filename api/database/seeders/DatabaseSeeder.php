@@ -6,9 +6,11 @@ use App\Models\Pool;
 use App\Models\PoolCandidate;
 use App\Models\PoolCandidateSearchRequest;
 use App\Models\Skill;
-use App\Models\SkillCategory;
+use App\Models\SkillFamily;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Sequence;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class DatabaseSeeder extends Seeder
 {
@@ -38,19 +40,24 @@ class DatabaseSeeder extends Seeder
 
         PoolCandidateSearchRequest::factory()->count(10)->create();
 
-        $this->call(SkillCategoryGroupSeeder::class);
-        $this->call(SkillCategorySeeder::class);
+        SkillFamily::factory()
+            ->count(10)
+            ->create();
         Skill::factory()
-            ->count(20)
-            ->state(new Sequence(
-                fn () => ['skill_category_id' => SkillCategory::inRandomOrder()->first()->id],
-            ))
+            ->count(40)
+            ->afterCreating(function ($model) {
+                $families = SkillFamily::inRandomOrder()->limit(3)->pluck('id')->toArray();
+                $model->families()->sync($families);
+            })
             ->create();
     }
 
     // drop all rows from some tables so that the seeder can fill them fresh
     private function truncateTables()
     {
+        SkillFamily::truncate();
         Skill::truncate();
+        DB::table('skill_skill_family')->truncate();
+        User::truncate();
     }
 }

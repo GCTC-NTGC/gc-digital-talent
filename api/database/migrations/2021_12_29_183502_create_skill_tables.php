@@ -14,37 +14,36 @@ class CreateSkillTables extends Migration
      */
     public function up()
     {
-        Schema::create('skill_category_groups', function (Blueprint $table) {
+        Schema::create('skill_families', function (Blueprint $table) {
             $table->uuid('id')->primary('id');
-            $table->jsonb('name')->nullable(false)->default(json_encode(['en' => '', 'fr' => '']));
             $table->string('key')->nullable(false)->unique();
+            $table->jsonb('name')->nullable(false)->default(json_encode(['en' => '', 'fr' => '']));
+            $table->jsonb('description')->nullable(false)->default(json_encode(['en' => '', 'fr' => '']));
+            $table->string('category')->nullable(false);
             $table->timestamps();
             $table->softDeletes();
         });
-        DB::statement('ALTER TABLE skill_category_groups ALTER COLUMN id SET DEFAULT gen_random_uuid();');
-
-        Schema::create('skill_categories', function (Blueprint $table) {
-            $table->uuid('id')->primary('id');
-            $table->jsonb('name')->nullable(false)->default(json_encode(['en' => '', 'fr' => '']));
-            $table->string('key')->nullable(false)->unique();
-            $table->uuid('skill_category_group_id')->nullable(false);
-            $table->foreign('skill_category_group_id')->references('id')->on('skill_category_groups');
-            $table->timestamps();
-            $table->softDeletes();
-        });
-        DB::statement('ALTER TABLE skill_categories ALTER COLUMN id SET DEFAULT gen_random_uuid();');
+        DB::statement('ALTER TABLE skill_families ALTER COLUMN id SET DEFAULT gen_random_uuid();');
 
         Schema::create('skills', function (Blueprint $table) {
             $table->uuid('id')->primary('id');
-            $table->jsonb('name')->nullable(false)->default(json_encode(['en' => '', 'fr' => '']));
             $table->string('key')->nullable(false)->unique();
+            $table->jsonb('name')->nullable(false)->default(json_encode(['en' => '', 'fr' => '']));
             $table->jsonb('description')->nullable(false)->default(json_encode(['en' => '', 'fr' => '']));
-            $table->uuid('skill_category_id')->nullable(false);
-            $table->foreign('skill_category_id')->references('id')->on('skill_categories');
+            $table->jsonb('keywords')->nullable(true);
             $table->timestamps();
             $table->softDeletes();
         });
         DB::statement('ALTER TABLE skills ALTER COLUMN id SET DEFAULT gen_random_uuid();');
+
+        Schema::create('skill_skill_family', function (Blueprint $table) {
+            $table->uuid('id')->primary('id');
+            $table->uuid('skill_id');
+            $table->foreign('skill_id')->references('id')->on('skills');
+            $table->uuid('skill_family_id');
+            $table->foreign('skill_family_id')->references('id')->on('skill_families');
+        });
+        DB::statement('ALTER TABLE skill_skill_family ALTER COLUMN id SET DEFAULT gen_random_uuid();');
     }
 
     /**
@@ -54,8 +53,8 @@ class CreateSkillTables extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('skill_skill_family');
         Schema::dropIfExists('skills');
-        Schema::dropIfExists('skill_categories');
-        Schema::dropIfExists('skill_category_groups');
+        Schema::dropIfExists('skill_families');
     }
 }
