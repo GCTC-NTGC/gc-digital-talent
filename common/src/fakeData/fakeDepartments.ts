@@ -8,7 +8,7 @@ export default (): Department[] => {
   return [
     {
       id: faker.datatype.uuid(),
-      departmentNumber: faker.datatype.number(100),
+      departmentNumber: faker.unique(faker.datatype.number),
       name: {
         en: "Public Service Commission",
         fr: "Commission de la fonction publique",
@@ -16,7 +16,7 @@ export default (): Department[] => {
     },
     {
       id: faker.datatype.uuid(),
-      departmentNumber: faker.datatype.number(100),
+      departmentNumber: faker.unique(faker.datatype.number),
       name: {
         en: "Finance (Department of)",
         fr: "Finances (Ministère des)",
@@ -24,7 +24,7 @@ export default (): Department[] => {
     },
     {
       id: faker.datatype.uuid(),
-      departmentNumber: faker.datatype.number(100),
+      departmentNumber: faker.unique(faker.datatype.number),
       name: {
         en: "Health (Department of)",
         fr: "Santé (Ministère de la)",
@@ -32,7 +32,7 @@ export default (): Department[] => {
     },
     {
       id: faker.datatype.uuid(),
-      departmentNumber: faker.datatype.number(100),
+      departmentNumber: faker.unique(faker.datatype.number),
       name: {
         en: "Transport (Department of)",
         fr: "Transports (Ministère des)",
@@ -40,7 +40,7 @@ export default (): Department[] => {
     },
     {
       id: faker.datatype.uuid(),
-      departmentNumber: faker.datatype.number(100),
+      departmentNumber: faker.unique(faker.datatype.number),
       name: {
         en: "Treasury Board Secretariat",
         fr: "Secrétariat du Conseil du Trésor",
