@@ -7,7 +7,6 @@ use App\Models\PoolCandidate;
 use App\Models\PoolCandidateSearchRequest;
 use App\Models\Skill;
 use App\Models\SkillFamily;
-use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Sequence;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -58,6 +57,5 @@ class DatabaseSeeder extends Seeder
         SkillFamily::truncate();
         Skill::truncate();
         DB::table('skill_skill_family')->truncate();
-        User::truncate();
     }
 }
