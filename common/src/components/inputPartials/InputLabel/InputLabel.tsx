@@ -44,7 +44,7 @@ export const InputLabel: React.FC<InputLabelProps> = ({
               data-h2-font-size="b(caption)"
               {...(required
                 ? { "data-h2-font-color": "b(red)" }
-                : { "data-h2-font-color": "b(darkgray" })}
+                : { "data-h2-font-color": "b(darkgray)" })}
             >
               {required ? "Required" : "Optional"}
             </span>
@@ -58,19 +58,17 @@ export const InputLabel: React.FC<InputLabelProps> = ({
             title="Toggle Context"
             onClick={clickHandler}
           >
-            <>
-              {contextIsActive ? (
-                <XCircleIcon
-                  style={{ width: "calc(1rem/1.25)" }}
-                  data-h2-font-color="b(lightpurple)"
-                />
-              ) : (
-                <QuestionMarkCircleIcon
-                  style={{ width: "calc(1rem/1.25)" }}
-                  data-h2-font-color="b(lightpurple)"
-                />
-              )}
-            </>
+            {contextIsActive ? (
+              <XCircleIcon
+                style={{ width: "calc(1rem/1.25)" }}
+                data-h2-font-color="b(lightpurple)"
+              />
+            ) : (
+              <QuestionMarkCircleIcon
+                style={{ width: "calc(1rem/1.25)" }}
+                data-h2-font-color="b(lightpurple)"
+              />
+            )}
           </button>
         )}
       </div>

@@ -19,9 +19,10 @@ export interface InputProps
   /** Set of validation rules and error messages to impose on input. */
   rules?: RegisterOptions;
   /** Set the type of the input. */
-  type: "text" | "number" | "email" | "tel" | "password" | "date";
+  type: "text" | "number" | "email" | "tel" | "password" | "date" | "search";
   /** If input is not required, hide the 'Optional' label */
   hideOptional?: boolean;
+  errorPosition?: "top" | "bottom";
 }
 
 export const Input: React.FunctionComponent<InputProps> = ({
@@ -31,6 +32,7 @@ export const Input: React.FunctionComponent<InputProps> = ({
   name,
   rules = {},
   type,
+  errorPosition = "bottom",
   hideOptional,
   ...rest
 }) => {
@@ -50,6 +52,7 @@ export const Input: React.FunctionComponent<InputProps> = ({
         context={context}
         error={error}
         hideOptional={hideOptional}
+        errorPosition={errorPosition}
       >
         <input
           data-h2-padding="b(all, xxs)"
