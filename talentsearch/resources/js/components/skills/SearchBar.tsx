@@ -1,5 +1,6 @@
 import { Input } from "@common/components/form";
-import * as React from "react";
+import { debounce } from "debounce";
+import React, { useCallback, useEffect } from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 
@@ -24,6 +25,16 @@ const SearchBar: React.FunctionComponent<SearchBarProps> = ({
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
     return handleSearch(data.query);
   };
+
+  const submitDebounced = useCallback(
+    debounce((query: string) => {
+      if (query.length >= 2) handleSubmit(onSubmit)();
+    }, 500),
+    [handleSubmit, onSubmit],
+  );
+
+  const setQuery = async (query: string) => setValue("query", query);
+
   return (
     <section>
       <FormProvider {...methods}>
@@ -41,9 +52,11 @@ const SearchBar: React.FunctionComponent<SearchBarProps> = ({
                 defaultMessage: "e.g. Python, JavaScript, etc.",
                 description: "Placeholder for the skills search bar.",
               })}
-              onChange={(e) => {
-                setValue("query", e.target.value);
-                if (e.target.value.length >= 2) handleSubmit(onSubmit)();
+              onChange={async (e) => {
+                const query = e.target.value;
+                await setQuery(query).then(() => {
+                  if (query.length >= 2) submitDebounced(watchSearch);
+                });
               }}
               onKeyPress={(e) => {
                 // If user tries to enter invalid string then setError on keypress
