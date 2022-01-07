@@ -7,7 +7,8 @@ export interface PillProps extends React.HTMLProps<HTMLSpanElement> {
   mode: "solid" | "outline";
   /** Determines whether the element should be block level and 100% width. */
   block?: boolean;
-  role?: "cell" | undefined;
+  /** Overrides the role property of the nested span.  If this is not set then it will default to "cell". */
+  role?: string | undefined;
 }
 
 const colorMap: Record<
