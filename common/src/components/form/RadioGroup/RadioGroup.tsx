@@ -80,7 +80,7 @@ export const RadioGroup: React.FunctionComponent<RadioGroupProps> = ({
               {...register(name, rules)}
               value={value}
               type="radio"
-              checked={defaultSelected === value}
+              defaultChecked={defaultSelected === value}
             />
           </InputWrapper>
         );
