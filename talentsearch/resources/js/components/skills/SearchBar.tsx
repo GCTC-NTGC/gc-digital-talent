@@ -28,9 +28,10 @@ const SearchBar: React.FunctionComponent<SearchBarProps> = ({
 
   const submitDebounced = useCallback(
     debounce((query: string) => {
+      console.log(`<-${query}`);
       if (query.length >= 2) handleSubmit(onSubmit)();
-    }, 500),
-    [handleSubmit, onSubmit],
+    }, 2000),
+    [],
   );
 
   const setQuery = async (query: string) => setValue("query", query);
@@ -52,10 +53,12 @@ const SearchBar: React.FunctionComponent<SearchBarProps> = ({
                 defaultMessage: "e.g. Python, JavaScript, etc.",
                 description: "Placeholder for the skills search bar.",
               })}
-              onChange={async (e) => {
+              onChange={(e) => {
                 const query = e.target.value;
-                await setQuery(query).then(() => {
-                  if (query.length >= 2) submitDebounced(watchSearch);
+                setQuery(query).then(() => {
+                  console.log(`->${query}`);
+                  submitDebounced.clear();
+                  submitDebounced(query);
                 });
               }}
               onKeyPress={(e) => {
