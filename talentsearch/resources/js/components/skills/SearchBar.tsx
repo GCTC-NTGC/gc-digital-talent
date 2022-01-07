@@ -31,15 +31,19 @@ const SearchBar: React.FunctionComponent<SearchBarProps> = ({
           <div role="search">
             <Input
               id="search-skills"
+              type="search"
+              name="query"
               label={intl.formatMessage({
                 defaultMessage: "Search for specific skill...",
-                description: "Label for the search skills input.",
+                description: "Label for the skills search bar.",
               })}
-              type="search"
-              name="search"
+              placeholder={intl.formatMessage({
+                defaultMessage: "e.g. Python, JavaScript, etc.",
+                description: "Placeholder for the skills search bar.",
+              })}
               onChange={(e) => {
                 setValue("query", e.target.value);
-                handleSubmit(onSubmit)();
+                if (e.target.value.length >= 2) handleSubmit(onSubmit)();
               }}
               onKeyPress={(e) => {
                 // If user tries to enter invalid string then setError on keypress

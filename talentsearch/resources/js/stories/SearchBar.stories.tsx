@@ -7,7 +7,7 @@ export default {
   component: SearchBar,
   title: "SearchBar",
   args: {
-    maxWidth: "20rem",
+    maxWidth: "30rem",
     handleSearch: action("handleSearch"),
   },
   argTypes: {
