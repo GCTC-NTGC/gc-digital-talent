@@ -21,7 +21,7 @@ export default {
   },
 } as Meta;
 
-const TemplateSeachBar: Story<SearchBarProps & { maxWidth: string }> = (
+const TemplateSearchBar: Story<SearchBarProps & { maxWidth: string }> = (
   args,
 ) => {
   const { maxWidth } = args;
@@ -32,4 +32,4 @@ const TemplateSeachBar: Story<SearchBarProps & { maxWidth: string }> = (
   );
 };
 
-export const SearchBarStory = TemplateSeachBar.bind({});
+export const SearchBarStory = TemplateSearchBar.bind({});
