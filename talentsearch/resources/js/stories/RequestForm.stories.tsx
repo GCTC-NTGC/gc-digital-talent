@@ -103,7 +103,7 @@ export default {
   args: {
     departments: fakeDepartments(),
     poolCandidateFilter,
-    candidateCount: { control: 10 },
+    candidateCount: 10,
     handleCreatePoolCandidateSearchRequest: async (
       data: CreatePoolCandidateSearchRequestInput,
     ) => {

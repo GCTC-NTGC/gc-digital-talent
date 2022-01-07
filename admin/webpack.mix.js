@@ -67,3 +67,4 @@ mix.webpackConfig({
 });
 
 mix.version();
+mix.sourceMaps();
