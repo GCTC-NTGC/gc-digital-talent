@@ -1,64 +1,57 @@
 import faker from "faker";
 import {
-  LanguageAbility,
-  WorkRegion,
-  SalaryRange,
-  PoolCandidateStatus,
-  PoolCandidate,
   Classification,
+  CmoAsset,
+  PoolCandidateFilter,
   OperationalRequirement,
   Pool,
-  User,
+  WorkRegion,
+  LanguageAbility,
 } from "../api/generated";
 import fakeClassifications from "./fakeClassifications";
+import fakeCmoAssets from "./fakeCmoAssets";
 import fakeOperationalRequirements from "./fakeOperationalRequirements";
 import fakePools from "./fakePools";
-import fakeUsers from "./fakeUsers";
 
-const generatePoolCandidate = (
-  pools: Pool[],
-  users: User[],
+const generatePoolCandidateFilters = (
   classifications: Classification[],
+  cmoAssets: CmoAsset[],
   operationalRequirements: OperationalRequirement[],
-): PoolCandidate => {
+  pools: Pool[],
+): PoolCandidateFilter => {
   faker.setLocale("en");
+
   return {
     id: faker.datatype.uuid(),
-    pool: faker.random.arrayElement(pools),
-    expectedClassifications: faker.random.arrayElements(classifications),
-    user: faker.random.arrayElement(users),
-    cmoIdentifier: faker.helpers.slugify(
-      faker.lorem.words(faker.datatype.number({ min: 1, max: 3 })),
-    ),
-    expiryDate: faker.date.future().toISOString().substring(0, 10),
+    pools: faker.random.arrayElements(pools),
+    classifications: faker.random.arrayElements(classifications),
     isWoman: faker.datatype.boolean(),
     hasDisability: faker.datatype.boolean(),
     isIndigenous: faker.datatype.boolean(),
     isVisibleMinority: faker.datatype.boolean(),
     hasDiploma: faker.datatype.boolean(),
     languageAbility: faker.random.arrayElement(Object.values(LanguageAbility)),
-    locationPreferences: faker.random.arrayElements(Object.values(WorkRegion)),
-    acceptedOperationalRequirements: faker.random.arrayElements(
+    workRegions: faker.random.arrayElements(Object.values(WorkRegion)),
+    operationalRequirements: faker.random.arrayElements(
       operationalRequirements,
     ),
-    expectedSalary: faker.random.arrayElements(Object.values(SalaryRange)),
-    status: faker.random.arrayElement(Object.values(PoolCandidateStatus)),
+    cmoAssets: faker.random.arrayElements(cmoAssets),
   };
 };
 
-export default (): PoolCandidate[] => {
-  const pools = fakePools();
-  const users = fakeUsers();
+export default (): PoolCandidateFilter[] => {
   const classifications = fakeClassifications();
+  const cmoAssets = fakeCmoAssets();
   const operationalRequirements = fakeOperationalRequirements();
+  const pools = fakePools();
 
   faker.seed(0); // repeatable results
   return [...Array(20)].map(() =>
-    generatePoolCandidate(
-      pools,
-      users,
+    generatePoolCandidateFilters(
       classifications,
+      cmoAssets,
       operationalRequirements,
+      pools,
     ),
   );
 };
