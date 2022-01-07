@@ -1,4 +1,20 @@
 module.exports = {
+  globals: {
+    "ts-jest": {
+      astTransformers: {
+        before: [
+          {
+            path: "@formatjs/ts-transformer/ts-jest-integration",
+            options: {
+              // options
+              overrideIdFn: "[sha512:contenthash:base64:6]",
+              ast: true,
+            },
+          },
+        ],
+      },
+    },
+  },
   roots: ["resources/js", "tests"],
 
   // Jest transformations -- this adds support for TypeScript
