@@ -1,4 +1,4 @@
-FROM node:14.18.2-bullseye
+FROM node:16-bullseye
 
 # installing tzdata has an interactive prompt by default
 RUN apt-get update \
