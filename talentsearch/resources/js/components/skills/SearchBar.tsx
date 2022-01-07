@@ -1,6 +1,6 @@
 import { Input } from "@common/components/form";
 import { debounce } from "debounce";
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback } from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 
@@ -28,9 +28,8 @@ const SearchBar: React.FunctionComponent<SearchBarProps> = ({
 
   const submitDebounced = useCallback(
     debounce((query: string) => {
-      console.log(`<-${query}`);
       if (query.length >= 2) handleSubmit(onSubmit)();
-    }, 2000),
+    }, 1000),
     [],
   );
 
@@ -56,8 +55,6 @@ const SearchBar: React.FunctionComponent<SearchBarProps> = ({
               onChange={(e) => {
                 const query = e.target.value;
                 setQuery(query).then(() => {
-                  console.log(`->${query}`);
-                  submitDebounced.clear();
                   submitDebounced(query);
                 });
               }}
