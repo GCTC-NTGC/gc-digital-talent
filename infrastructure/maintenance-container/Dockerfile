@@ -1,4 +1,4 @@
-FROM node:16-bullseye
+FROM debian:bullseye
 
 # installing tzdata has an interactive prompt by default
 RUN apt-get update \
