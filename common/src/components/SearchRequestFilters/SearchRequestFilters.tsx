@@ -1,4 +1,5 @@
-import { uniqueId, isEmpty } from "lodash";
+import uniqueId from "lodash/uniqueId";
+import isEmpty from "lodash/isEmpty";
 import * as React from "react";
 import { useIntl } from "react-intl";
 import { Maybe, PoolCandidateFilter } from "../../api/generated";
