@@ -199,7 +199,7 @@ type SkillFamily {
     key: KeyString!
     name: LocalizedString!
     description: LocalizedString!
-    skills: [Skill] @hasMany
+    skills: [Skill] @belongsToMany
     category: SkillCategory!
 }
 
@@ -209,7 +209,7 @@ type Skill {
     name: LocalizedString!
     description: LocalizedString
     keywords: [String]
-    families: [SkillFamily] @hasMany
+    families: [SkillFamily] @belongsToMany
 }
 
 input ClassificationFilterInput {
