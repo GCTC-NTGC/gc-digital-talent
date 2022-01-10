@@ -1,76 +1,82 @@
+import faker from "faker";
 import { OperationalRequirement } from "../api/generated";
 
-export default (): OperationalRequirement[] => [
-  {
-    id: "d9b5d0ea-d711-44e7-91a6-e43b261fa359",
-    key: "overtime",
-    name: {
-      en: "Overtime as required",
-      fr: "Heures supplémentaires selon les besoins",
+export default (): OperationalRequirement[] => {
+  faker.seed(0); // repeatable results
+  faker.setLocale("en");
+
+  return [
+    {
+      id: faker.datatype.uuid(),
+      key: "overtime",
+      name: {
+        en: "Overtime as required",
+        fr: "Heures supplémentaires selon les besoins",
+      },
+      description: {
+        en: `EN ${faker.lorem.sentence()}`,
+        fr: `FR ${faker.lorem.sentence()}`,
+      },
     },
-    description: {
-      en: "",
-      fr: "",
+    {
+      id: faker.datatype.uuid(),
+      key: "shift_work",
+      name: {
+        en: "Shift work",
+        fr: "Travail posté",
+      },
+      description: {
+        en: `EN ${faker.lorem.sentence()}`,
+        fr: `FR ${faker.lorem.sentence()}`,
+      },
     },
-  },
-  {
-    id: "6827429d-b8b8-475e-b7db-2b892437dbc4",
-    key: "shift_work",
-    name: {
-      en: "Shift work",
-      fr: "Travail posté",
+    {
+      id: faker.datatype.uuid(),
+      key: "on_call",
+      name: {
+        en: "24/7 on-call",
+        fr: "Garde 24/7",
+      },
+      description: {
+        en: `EN ${faker.lorem.sentence()}`,
+        fr: `FR ${faker.lorem.sentence()}`,
+      },
     },
-    description: {
-      en: "",
-      fr: "",
+    {
+      id: faker.datatype.uuid(),
+      key: "travel",
+      name: {
+        en: "Travel as required",
+        fr: "Déplacements selon les besoins",
+      },
+      description: {
+        en: `EN ${faker.lorem.sentence()}`,
+        fr: `FR ${faker.lorem.sentence()}`,
+      },
     },
-  },
-  {
-    id: "dba77b57-6727-4321-af8b-1d5af2ec59a8",
-    key: "on_call",
-    name: {
-      en: "24/7 on-call",
-      fr: "Garde 24/7",
+    {
+      id: faker.datatype.uuid(),
+      key: "transport_equipment",
+      name: {
+        en: "Transport equipment up to 20kg",
+        fr: "Transport de matériel jusqu'à 20 kg",
+      },
+      description: {
+        en: `EN ${faker.lorem.sentence()}`,
+        fr: `FR ${faker.lorem.sentence()}`,
+      },
     },
-    description: {
-      en: "",
-      fr: "",
+    {
+      id: faker.datatype.uuid(),
+      key: "drivers_license",
+      name: {
+        en: "Driver's license",
+        fr: "Permis de conduire",
+      },
+      description: {
+        en: `EN ${faker.lorem.sentence()}`,
+        fr: `FR ${faker.lorem.sentence()}`,
+      },
     },
-  },
-  {
-    id: "f97303f4-f77c-471a-900c-5a14f4c178fa",
-    key: "travel",
-    name: {
-      en: "Travel as required",
-      fr: "Déplacements selon les besoins",
-    },
-    description: {
-      en: "",
-      fr: "",
-    },
-  },
-  {
-    id: "52191788-5649-417f-8b49-520dcf664a18",
-    key: "transport_equipment",
-    name: {
-      en: "Transport equipment up to 20kg",
-      fr: "Transport de matériel jusqu'à 20 kg",
-    },
-    description: {
-      en: "",
-      fr: "",
-    },
-  },
-  {
-    id: "f92cf3d9-f283-4776-bb93-27b067ad2008",
-    key: "drivers_license",
-    name: {
-      en: "Driver's license",
-      fr: "Permis de conduire",
-    },
-    description: {
-      en: "",
-      fr: "",
-    },
-  },
-];
+  ];
+};

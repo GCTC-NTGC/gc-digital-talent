@@ -5,19 +5,21 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
- * Class OperationalRequirement
+ * Class Skill
  *
  * @property int $id
  * @property string $key
  * @property array $name
  * @property array $description
+ * @property array $keywords
  * @property Illuminate\Support\Carbon $created_at
  * @property Illuminate\Support\Carbon $updated_at
  */
 
-class OperationalRequirement extends Model
+class Skill extends Model
 {
     use HasFactory;
     use SoftDeletes;
@@ -32,5 +34,11 @@ class OperationalRequirement extends Model
     protected $casts = [
         'name' => 'array',
         'description' => 'array',
+        'keywords' => 'array',
     ];
+
+    public function families() : BelongsToMany
+    {
+        return $this->belongsToMany(SkillFamily::class);
+    }
 }

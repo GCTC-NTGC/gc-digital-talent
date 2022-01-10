@@ -5,6 +5,7 @@ export const HomePage: React.FC = () => {
   const intl = useIntl();
   return (
     <div
+      data-testid="homePage"
       data-h2-position="b(relative)"
       data-h2-padding="b(bottom, l) l(bottom, none)"
     >

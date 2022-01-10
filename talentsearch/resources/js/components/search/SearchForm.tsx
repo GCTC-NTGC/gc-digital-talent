@@ -248,6 +248,7 @@ export const SearchForm: React.FunctionComponent<SearchFormProps> = ({
             idPrefix="education_requirement"
             legend="Education Requirement filter"
             name="educationRequirement"
+            defaultSelected="no_diploma"
             items={[
               {
                 value: "no_diploma",

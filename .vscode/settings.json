@@ -60,5 +60,6 @@
     "tsconfig.json",
     ".eslintrc",
     "hydrogen.config.json"
-  ]
+  ],
+  "jest.jestCommandLine": "test"
 }
