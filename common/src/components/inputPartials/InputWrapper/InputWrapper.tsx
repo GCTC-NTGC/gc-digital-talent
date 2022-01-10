@@ -8,6 +8,7 @@ export interface InputWrapperProps {
   label: string;
   required: boolean;
   error?: string;
+  errorPosition?: "top" | "bottom";
   context?: string;
   hideOptional?: boolean;
 }
@@ -17,6 +18,7 @@ export const InputWrapper: React.FC<InputWrapperProps> = ({
   label,
   required,
   error,
+  errorPosition = "bottom",
   context,
   hideOptional,
   children,
@@ -39,9 +41,14 @@ export const InputWrapper: React.FC<InputWrapperProps> = ({
             hideOptional={hideOptional}
           />
         </div>
+        {error && errorPosition === "top" && (
+          <div data-h2-display="block" data-h2-margin="b(bottom, xxs)">
+            <InputError isVisible={!!error} error={error} />
+          </div>
+        )}
         {children}
       </div>
-      {error && (
+      {error && errorPosition === "bottom" && (
         <div data-h2-display="block" data-h2-margin="b(top, xxs)">
           <InputError isVisible={!!error} error={error} />
         </div>
