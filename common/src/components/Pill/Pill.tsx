@@ -7,8 +7,6 @@ export interface PillProps extends React.HTMLProps<HTMLSpanElement> {
   mode: "solid" | "outline";
   /** Determines whether the element should be block level and 100% width. */
   block?: boolean;
-  /** Overrides the role property of the nested span.  If this is not set then it will default to "cell". */
-  role?: string | undefined;
 }
 
 const colorMap: Record<
@@ -45,7 +43,6 @@ export const Pill: React.FC<PillProps> = ({
   children,
   color,
   mode,
-  role,
   block = false,
   ...rest
 }): React.ReactElement => {
@@ -60,7 +57,6 @@ export const Pill: React.FC<PillProps> = ({
       data-h2-font-family="b(sans)"
       {...colorMap[color][mode]}
       data-h2-margin="b(all, xxs)"
-      role={role || "cell"}
       data-h2-text-align="b(center)"
       {...rest}
     >

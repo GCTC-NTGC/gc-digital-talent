@@ -47,7 +47,6 @@ export const PillPrimaryBlock = TemplatePill.bind({});
 export const PillPrimaryOutline = TemplatePill.bind({});
 export const PillSecondary = TemplatePill.bind({});
 export const PillSecondaryOutline = TemplatePill.bind({});
-export const PillRoleTest = TemplatePill.bind({});
 export const PillMulti = TemplateMultiPill.bind({});
 
 PillPrimary.args = {
@@ -74,12 +73,6 @@ PillSecondary.args = {
 PillSecondaryOutline.args = {
   color: "secondary",
   mode: "outline",
-};
-
-PillRoleTest.args = {
-  color: "primary",
-  mode: "solid",
-  role: "cell",
 };
 
 PillMulti.args = {
