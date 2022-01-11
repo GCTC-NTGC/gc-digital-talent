@@ -23,7 +23,7 @@ class AuthController extends Controller
             'client_id' => config('oauth.client_id'),
             'redirect_uri' => config('oauth.redirect_uri'),
             'response_type' => 'code',
-            'scope' => 'openid',
+            'scope' => 'openid offline_access',
             'state' => $state,
             'acr_values' => 'mfa',
         ]);
@@ -58,5 +58,21 @@ class AuthController extends Controller
 
         $navigateToUri = strlen($from) > 0 ? $from : config('app.url');
         return redirect($navigateToUri . '?' . $query);
+    }
+
+    public function refresh(Request $request)
+    {
+        $accessToken = $request->bearerToken();
+        $refreshToken = $request->query('refresh_token');
+
+        $response = Http::withToken($accessToken)
+            ->asForm()
+            ->post(config('oauth.token_uri'), [
+                    'grant_type' => 'refresh_token',
+                    'client_id' => config('oauth.client_id'),
+                    'client_secret' => config('oauth.client_secret'),
+                    'refresh_token' => $refreshToken,
+                ]);
+        return response($response);
     }
 }

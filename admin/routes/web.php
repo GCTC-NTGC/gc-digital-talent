@@ -18,6 +18,7 @@ use App\Http\Controllers\AuthController;
 Route::prefix(config('app.app_dir'))->group(function () {
     Route::get('/login', [AuthController::class, 'login']);
     Route::get('/auth-callback', [AuthController::class, 'authCallback']);
+    Route::get('/refresh', [AuthController::class, 'refresh']);
 
     Route::get('/', [DashboardController::class, 'index']);
     Route::get('/{any}', [DashboardController::class, 'index'])->where('any', '.*');
