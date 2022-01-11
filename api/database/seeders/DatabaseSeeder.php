@@ -7,8 +7,11 @@ use App\Models\Pool;
 use App\Models\PoolCandidate;
 use App\Models\PoolCandidateFilter;
 use App\Models\PoolCandidateSearchRequest;
+use App\Models\Skill;
+use App\Models\SkillFamily;
 use Illuminate\Database\Eloquent\Factories\Sequence;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class DatabaseSeeder extends Seeder
 {
@@ -42,6 +45,10 @@ class DatabaseSeeder extends Seeder
     // drop all rows from some tables so that the seeder can fill them fresh
     private function truncateTables()
     {
+        SkillFamily::truncate();
+        Skill::truncate();
+        DB::table('skill_skill_family')->truncate();
+
         PoolCandidateFilter::truncate();
         PoolCandidateSearchRequest::truncate();
         User::truncate();
