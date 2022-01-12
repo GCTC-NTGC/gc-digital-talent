@@ -68,8 +68,11 @@ export const PoolTable: React.FC<GetPoolsQuery & { editUrlRoot: string }> = ({
             return (
               <Pill
                 key={`${classification?.group}-${classification?.level}`}
-                content={`${classification?.group}-${classification?.level}`}
-              />
+                color="primary"
+                mode="outline"
+              >
+                {`${classification?.group}-${classification?.level}`}
+              </Pill>
             );
           }),
       },
