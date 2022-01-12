@@ -1,8 +1,6 @@
 name: Chromatic Storybook
 
-on:
-  pull_request:
-    types: ["opened", "reopened", "synchronize"]
+on: push
 
 jobs:
   deployment:
@@ -39,6 +37,7 @@ jobs:
         with:
           workingDir: common
           projectToken: 544cb0da12a4
+          skip: true
 
       - name: Set commit status messages and success states
         if: github.event.pull_request.head.repo.full_name == github.repository
