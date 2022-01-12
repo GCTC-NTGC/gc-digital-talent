@@ -6,6 +6,16 @@ jobs:
   deployment:
     runs-on: ubuntu-latest
     steps:
+      # See: https://github.com/taskworld/commit-status
+      - name: Install commit-status CLI tool
+        run: npm install -g commit-status
+
+      - name: Initiate commit status placeholders
+        if: github.event.pull_request.head.repo.full_name == github.repository
+        run: |
+          # commit-status <state> <context> <description> <link>
+          commit-status pending "Storybook / common" "Publishing storybook..."
+
       - uses: actions/checkout@v2.4.0
         with:
           # Chromatic requires full git history.
@@ -19,7 +29,17 @@ jobs:
           npm run codegen
 
       - name: Public Storybook to Chromatic
+        id: chromatic
         uses: chromaui/action@v1
         with:
           workingDir: common
           projectToken: 544cb0da12a4
+
+      - name: Set commit status messages and success states
+        if: github.event.pull_request.head.repo.full_name == github.repository
+        run: |
+          if [ "${{ steps.chromatic.outputs.code }}" != "0" ]; then
+            commit-status success "Storybook / common" "Publishing successful." "${{ steps.chromatic.outputs.storybookUrl }}"
+          else
+            commit-status failure "Storybook / common" "Publishing failed!"
+          fi
