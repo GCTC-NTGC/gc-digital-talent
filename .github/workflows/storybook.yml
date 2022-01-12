@@ -25,28 +25,28 @@ jobs:
           # Chromatic requires full git history.
           fetch-depth: 0
 
-      - name: "Install dependencies: common"
+      - name: "Install & Compile: common"
         working-directory: common
         run: |
           npm install
           npm run h2-build
           npm run codegen
 
-      - name: "Publish Storybook: common"
-        uses: chromaui/action@v1
-        with:
-          workingDir: common
-          projectToken: 544cb0da12a4
-          autoAcceptChanges: true
-
-      - name: "Install dependencies: admin"
+      - name: "Install & Compile: admin"
         working-directory: admin
         run: |
           npm install
           npm run h2-build
           npm run codegen
 
-      - name: "Publish Storybook: admin"
+      - name: "Install & Compile: talentsearch"
+        working-directory: talentsearch
+        run: |
+          npm install
+          npm run h2-build
+          npm run codegen
+
+      - name: "Publish Storybook: all"
         uses: chromaui/action@v1
         with:
           workingDir: admin
