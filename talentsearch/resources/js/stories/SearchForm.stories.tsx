@@ -8,7 +8,7 @@ import {
   fakePools,
   fakeUsers,
 } from "@common/fakeData";
-import { pick } from "lodash";
+import pick from "lodash/pick";
 import { SearchForm, SearchFormProps } from "../components/search/SearchForm";
 import {
   Classification,

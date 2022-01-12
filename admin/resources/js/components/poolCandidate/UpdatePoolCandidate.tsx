@@ -1,6 +1,6 @@
 import * as React from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
-import { pick } from "lodash";
+import pick from "lodash/pick";
 import { toast } from "react-toastify";
 import { useIntl } from "react-intl";
 import {
