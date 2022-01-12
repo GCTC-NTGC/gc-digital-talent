@@ -4,10 +4,9 @@ import fakeDepartments from "./fakeDepartments";
 import fakeOperationalRequirements from "./fakeOperationalRequirements";
 import fakePools from "./fakePools";
 import fakePoolCandidates from "./fakePoolCandidates";
-import fakePoolCandidateFilters from "./fakePoolCandidateFilters";
 import fakeUsers from "./fakeUsers";
 import fakeSearchRequests from "./fakeSearchRequests";
-import fakeSearchPoolCandidates from "./fakeSearchPoolCandidates";
+import fakePoolCandidateFilters from "./fakePoolCandidateFilters";
 
 export {
   fakeClassifications,
@@ -16,8 +15,7 @@ export {
   fakeOperationalRequirements,
   fakePools,
   fakePoolCandidates,
-  fakePoolCandidateFilters,
   fakeUsers,
   fakeSearchRequests,
-  fakeSearchPoolCandidates,
+  fakePoolCandidateFilters,
 };

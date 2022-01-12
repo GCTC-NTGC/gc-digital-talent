@@ -1,10 +1,12 @@
 import React, { useMemo } from "react";
-import { useIntl } from "react-intl";
+import { IntlShape, useIntl } from "react-intl";
 import { notEmpty } from "@common/helpers/util";
 import { useLocation } from "@common/helpers/router";
 import { commonMessages } from "@common/messages";
 import { FromArray } from "@common/types/utilityTypes";
 import { getLocale } from "@common/helpers/localize";
+import { getPoolCandidateSearchStatus } from "@common/constants/localizedConstants";
+import { PoolCandidateSearchStatus } from "@common/api/generated";
 import {
   GetPoolCandidateSearchRequestsQuery,
   useGetPoolCandidateSearchRequestsQuery,
@@ -17,6 +19,18 @@ import { tableEditButtonAccessor } from "../TableEditButton";
 type Data = NonNullable<
   FromArray<GetPoolCandidateSearchRequestsQuery["poolCandidateSearchRequests"]>
 >;
+
+// callbacks extracted to separate function to stabilize memoized component
+const statusAccessor = (
+  status: PoolCandidateSearchStatus | null | undefined,
+  intl: IntlShape,
+) => (
+  <span>
+    {status
+      ? intl.formatMessage(getPoolCandidateSearchStatus(status as string))
+      : ""}
+  </span>
+);
 
 export const SearchRequestTable: React.FunctionComponent<
   GetPoolCandidateSearchRequestsQuery & { editUrlRoot: string }
@@ -47,7 +61,7 @@ export const SearchRequestTable: React.FunctionComponent<
           description:
             "Title displayed on the search request table status column.",
         }),
-        accessor: "status",
+        accessor: ({ status }) => statusAccessor(status, intl),
       },
       {
         Header: intl.formatMessage({

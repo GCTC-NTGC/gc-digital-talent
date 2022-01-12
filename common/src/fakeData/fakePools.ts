@@ -1,32 +1,57 @@
-import { GetPoolsQuery } from "../api/generated";
+import faker from "faker";
+import pick from "lodash/pick";
+import {
+  Classification,
+  Pool,
+  User,
+  UserPublicProfile,
+} from "../api/generated";
 import fakeUsers from "./fakeUsers";
 import fakeClassifications from "./fakeClassifications";
 
-export default (): GetPoolsQuery["pools"] => [
-  {
-    id: "6fd959be-5265-4286-ab65-fbfd526e5e37",
-    owner: fakeUsers()[0],
+const generatePool = (
+  englishName: string,
+  frenchName: string,
+  users: User[],
+  classifications: Classification[],
+): Pool => {
+  faker.setLocale("en");
+
+  const owner: User = faker.random.arrayElement(users);
+  return {
+    id: faker.datatype.uuid(),
+    owner,
+    ownerPublicProfile: pick(owner, [
+      "id",
+      "email",
+      "firstName",
+      "lastName",
+    ]) as UserPublicProfile,
     name: {
-      en: "CMO",
-      fr: "CMO",
+      en: englishName,
+      fr: frenchName,
     },
     description: {
-      en: "",
-      fr: "",
+      en: `EN ${faker.lorem.sentence()}`,
+      fr: `FR ${faker.lorem.sentence()}`,
     },
-    classifications: [fakeClassifications()[2], fakeClassifications()[3]],
-  },
-  {
-    id: "c0c8a577-7488-42ea-85e4-d0c99d98d60f",
-    owner: fakeUsers()[1],
-    name: {
-      en: "Indigenous Apprenticeship Program",
-      fr: "Indigenous Apprenticeship Program FR",
-    },
-    description: {
-      en: "",
-      fr: "",
-    },
-    classifications: [fakeClassifications()[0], fakeClassifications()[1]],
-  },
-];
+    classifications: faker.random.arrayElements(classifications),
+  };
+};
+
+export default (): Pool[] => {
+  const users = fakeUsers();
+  const classifications = fakeClassifications();
+  faker.seed(0); // repeatable results
+  faker.setLocale("en");
+
+  return [
+    generatePool("CMO", "CMO", users, classifications),
+    generatePool(
+      "Indigenous Apprenticeship Program",
+      "Indigenous Apprenticeship Program FR",
+      users,
+      classifications,
+    ),
+  ];
+};

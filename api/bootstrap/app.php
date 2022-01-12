@@ -60,10 +60,12 @@ $app->singleton(
 */
 
 $app->configure('app');
-$app->configure('appCustom');
+$app->configure('cache');
 $app->configure('trustedproxy');
 $app->configure('lighthouse');
 $app->configure('oauth');
+$app->configure('filesystems');
+$app->configure('view');
 
 
 /*
@@ -118,7 +120,7 @@ $app->register(\Fideloper\Proxy\TrustedProxyServiceProvider::class);
 $app->register(\Laravel\Tinker\TinkerServiceProvider::class);
 
 $app->register(App\Providers\GraphQLServiceProvider::class);
-$app->register(App\Providers\AuthClientServiceProvider::class);
+$app->register(App\Providers\BearerTokenServiceProvider::class);
 
 /*
 |--------------------------------------------------------------------------

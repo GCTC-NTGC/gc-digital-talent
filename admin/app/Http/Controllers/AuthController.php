@@ -13,12 +13,19 @@ class AuthController extends Controller
         $state = Str::random(40);
         $request->session()->put('state', $state = Str::random(40));
 
+        $request->session()->put('from',
+            isset($_GET['from'])
+            ? $_GET['from']
+            : null
+        );
+
         $query = http_build_query([
             'client_id' => config('oauth.client_id'),
             'redirect_uri' => config('oauth.redirect_uri'),
             'response_type' => 'code',
             'scope' => 'openid',
             'state' => $state,
+            'acr_values' => 'mfa',
         ]);
 
         return redirect(config('oauth.authorize_uri') . '?' . $query);
@@ -41,6 +48,15 @@ class AuthController extends Controller
             'code' => $request->code,
         ]);
         $query = http_build_query($response->json());
-        return redirect(config('app.url') . '?' . $query);
+
+        $from = $request->session()->pull('from');
+
+        if($from != filter_var($from, FILTER_SANITIZE_URL))
+            $from = null; // Contains unsanitary characters. Throw it away.
+        if(substr($from, 0, 1) != '/')
+            $from = null; // Does not start with / so it's not a relative url. Don't want an open redirect vulnerability. Throw it away.
+
+        $navigateToUri = strlen($from) > 0 ? $from : config('app.url');
+        return redirect($navigateToUri . '?' . $query);
     }
 }

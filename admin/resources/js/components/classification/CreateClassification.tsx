@@ -1,4 +1,4 @@
-import { upperCase } from "lodash";
+import upperCase from "lodash/upperCase";
 import * as React from "react";
 import { toast } from "react-toastify";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";

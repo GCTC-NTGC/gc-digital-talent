@@ -48,6 +48,7 @@ export const SingleSearchRequestTable: React.FunctionComponent<
 > = ({ searchPoolCandidates }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
+
   const columns = useMemo<ColumnsOf<Data>>(
     () => [
       {
@@ -77,8 +78,11 @@ export const SingleSearchRequestTable: React.FunctionComponent<
             return (
               <Pill
                 key={`${classification?.group}-${classification?.level}`}
-                content={`${classification?.group}-${classification?.level}`}
-              />
+                color="secondary"
+                mode="outline"
+              >
+                {`${classification?.group}-${classification?.level}`}
+              </Pill>
             );
           }),
       },
@@ -93,15 +97,16 @@ export const SingleSearchRequestTable: React.FunctionComponent<
             return (
               <Pill
                 key={operationalRequirement?.key}
-                content={
-                  operationalRequirement?.name?.[locale] ||
+                color="primary"
+                mode="outline"
+              >
+                {operationalRequirement?.name?.[locale] ||
                   intl.formatMessage({
                     defaultMessage: "Error: Name not found.",
                     description:
                       "Error message displayed on the single search request table operational requirements column.",
-                  })
-                }
-              />
+                  })}
+              </Pill>
             );
           }),
       },
@@ -157,17 +162,14 @@ export const SingleSearchRequestTable: React.FunctionComponent<
           ];
           return employmentEquity?.map((option) => {
             return (
-              <Pill
-                key={option}
-                content={
-                  option ||
+              <Pill key={option} color="secondary" mode="outline">
+                {option ||
                   intl.formatMessage({
                     defaultMessage: "Error: Name not found.",
                     description:
                       "Error message displayed on the single search request table employment equity column.",
-                  })
-                }
-              />
+                  })}
+              </Pill>
             );
           });
         },
@@ -181,17 +183,14 @@ export const SingleSearchRequestTable: React.FunctionComponent<
         accessor: ({ cmoAssets }) =>
           cmoAssets?.map((cmoAsset) => {
             return (
-              <Pill
-                key={cmoAsset?.key}
-                content={
-                  cmoAsset?.name?.[locale] ||
+              <Pill key={cmoAsset?.key} color="primary" mode="outline">
+                {cmoAsset?.name?.[locale] ||
                   intl.formatMessage({
                     defaultMessage: "Error: Name not found.",
                     description:
                       "Error message displayed on the single search request table operational requirements column.",
-                  })
-                }
-              />
+                  })}
+              </Pill>
             );
           }),
       },

@@ -1,6 +1,6 @@
 import * as React from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
-import { pick } from "lodash";
+import pick from "lodash/pick";
 import { toast } from "react-toastify";
 import { useIntl } from "react-intl";
 import {
@@ -22,6 +22,9 @@ import { getLocale } from "@common/helpers/localize";
 import {
   getSalaryRange,
   getLanguage,
+  getLanguageAbility,
+  getWorkRegion,
+  getPoolCandidateStatus,
 } from "@common/constants/localizedConstants";
 import { errorMessages, commonMessages } from "@common/messages";
 import { User } from "@common/api/generated";
@@ -368,7 +371,10 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<
                   "Label displayed on the pool candidate form language ability field.",
               })}
               name="languageAbility"
-              options={enumToOptions(LanguageAbility)}
+              options={enumToOptions(LanguageAbility).map(({ value }) => ({
+                value,
+                label: intl.formatMessage(getLanguageAbility(value)),
+              }))}
               rules={{
                 required: intl.formatMessage(errorMessages.required),
               }}
@@ -386,7 +392,10 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<
                 description:
                   "Placeholder displayed on the pool candidate form location preferences field.",
               })}
-              options={enumToOptions(WorkRegion)}
+              options={enumToOptions(WorkRegion).map(({ value }) => ({
+                value,
+                label: intl.formatMessage(getWorkRegion(value)),
+              }))}
               rules={{
                 required: intl.formatMessage(errorMessages.required),
               }}
@@ -483,7 +492,10 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<
               rules={{
                 required: intl.formatMessage(errorMessages.required),
               }}
-              options={enumToOptions(PoolCandidateStatus)}
+              options={enumToOptions(PoolCandidateStatus).map(({ value }) => ({
+                value,
+                label: intl.formatMessage(getPoolCandidateStatus(value)),
+              }))}
             />
             <Submit />
           </form>

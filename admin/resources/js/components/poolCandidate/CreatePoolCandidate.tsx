@@ -23,6 +23,9 @@ import { getLocale } from "@common/helpers/localize";
 import {
   getSalaryRange,
   getLanguage,
+  getLanguageAbility,
+  getWorkRegion,
+  getPoolCandidateStatus,
 } from "@common/constants/localizedConstants";
 import { errorMessages, commonMessages } from "@common/messages";
 import { poolCandidateTablePath } from "../../adminRoutes";
@@ -498,7 +501,10 @@ export const CreatePoolCandidateForm: React.FunctionComponent<
                 description:
                   "Placeholder displayed on the pool candidate form language ability field.",
               })}
-              options={enumToOptions(LanguageAbility)}
+              options={enumToOptions(LanguageAbility).map(({ value }) => ({
+                value,
+                label: intl.formatMessage(getLanguageAbility(value)),
+              }))}
               rules={{
                 required: intl.formatMessage(errorMessages.required),
               }}
@@ -516,7 +522,10 @@ export const CreatePoolCandidateForm: React.FunctionComponent<
                 description:
                   "Placeholder displayed on the pool candidate form location preferences field.",
               })}
-              options={enumToOptions(WorkRegion)}
+              options={enumToOptions(WorkRegion).map(({ value }) => ({
+                value,
+                label: intl.formatMessage(getWorkRegion(value)),
+              }))}
               rules={{
                 required: intl.formatMessage(errorMessages.required),
               }}
@@ -613,7 +622,10 @@ export const CreatePoolCandidateForm: React.FunctionComponent<
               rules={{
                 required: intl.formatMessage(errorMessages.required),
               }}
-              options={enumToOptions(PoolCandidateStatus)}
+              options={enumToOptions(PoolCandidateStatus).map(({ value }) => ({
+                value,
+                label: intl.formatMessage(getPoolCandidateStatus(value)),
+              }))}
             />
             <Submit />
           </form>

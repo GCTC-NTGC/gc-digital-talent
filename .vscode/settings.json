@@ -35,4 +35,31 @@
     "editor.tabSize": 2
   },
   "vscode-graphql.useSchemaFileDefinitions": true,
+  "cSpell.customDictionaries": {
+
+    "project-words": {
+      "name": "project-words",
+      "path": "${workspaceRoot}/.vscode/project-words.txt",
+      "description": "Words used in this project",
+      "addWords": true
+    },
+    "custom": true, // Enable the `custom` dictionary
+    "internal-terms": false // Disable the `internal-terms` dictionary
+  },
+  "cSpell.ignorePaths": [
+    "package-lock.json",
+    "node_modules",
+    "vscode-extension",
+    ".git/objects",
+    ".vscode",
+    ".vscode-insiders",
+    "package.json",
+    "composer.json",
+    "composer.lock",
+    "generated.ts",
+    "tsconfig.json",
+    ".eslintrc",
+    "hydrogen.config.json"
+  ],
+  "jest.jestCommandLine": "test"
 }

@@ -1,0 +1,96 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Admin Localhost Chrome",
+      "request": "launch",
+      "type": "pwa-chrome",
+      "url": "http://localhost:8000/admin",
+      "webRoot": "${workspaceFolder}/admin",
+      "pathMappings": [
+        {
+          "url": "webpack://admin/resources",
+          "path": "${workspaceFolder}/admin/resources"
+        },
+        {
+          "url": "webpack://admin/common",
+          "path": "${workspaceFolder}/common"
+        }
+      ],
+      "userDataDir": false,
+      "runtimeArgs": [
+        "--profile-directory=debug-profile"
+      ]
+    },
+    {
+      "name": "Talent Search Localhost Chrome",
+      "request": "launch",
+      "type": "pwa-chrome",
+      "url": "http://localhost:8000",
+      "webRoot": "${workspaceFolder}/talentsearch",
+      "pathMappings": [
+        {
+          "url": "webpack://talentsearch/resources",
+          "path": "${workspaceFolder}/talentsearch/resources"
+        },
+        {
+          "url": "webpack://talentsearch/common",
+          "path": "${workspaceFolder}/common"
+        }
+      ],
+      "userDataDir": false,
+      "runtimeArgs": [
+        "--profile-directory=debug-profile"
+      ]
+    },
+    {
+      "name": "Admin Localhost Firefox",
+      "type": "firefox",
+      "request": "launch",
+      "reAttach": true,
+      "url": "http://localhost:8000/admin",
+      "keepProfileChanges": true,
+      "profile": "debug-profile",
+      "pathMappings": [
+        {
+          "url": "webpack://admin/resources",
+          "path": "${workspaceFolder}/admin/resources"
+        },
+        {
+          "url": "webpack://admin/common",
+          "path": "${workspaceFolder}/common"
+        }
+      ],
+      "reloadOnChange": {
+        "watch": [
+          "${workspaceFolder}/admin/public/js/**"
+        ]
+      }
+    },
+    {
+      "name": "Talent Search Localhost Firefox",
+      "type": "firefox",
+      "request": "launch",
+      "reAttach": true,
+      "url": "http://localhost:8000",
+      "webRoot": "${workspaceFolder}",
+      "keepProfileChanges": true,
+      "profile": "debug-profile",
+      "pathMappings": [
+        {
+          "url": "webpack://talentsearch/resources",
+          "path": "${workspaceFolder}/talentsearch/resources"
+        },
+        {
+          "url": "webpack://talentsearch/common",
+          "path": "${workspaceFolder}/common"
+        }
+      ],
+      "reloadOnChange": {
+        "watch": [
+          "${workspaceFolder}/talentsearch/public/js/**"
+        ]
+      }
+    }
+  ]
+}

@@ -3,13 +3,23 @@ import { useIntl } from "react-intl";
 import { useLocation } from "@common/helpers/router";
 import { PoolCandidateFilter } from "../../api/generated";
 import { CreateRequest } from "./CreateRequest";
+import { FormValues as SearchFormValues } from "../search/SearchForm";
+
+type LocationState = {
+  some: {
+    candidateFilter: PoolCandidateFilter;
+    initialValues: SearchFormValues;
+    candidateCount: number;
+  };
+};
 
 const RequestPage: React.FC<{ lang: string }> = ({ lang }) => {
   const intl = useIntl();
   const location = useLocation();
-  const poolCandidateFilter: PoolCandidateFilter = location.state
-    ? location.state.some.poolCandidateFilter
-    : null;
+  const state = location.state as LocationState;
+  const poolCandidateFilter = state ? state.some.candidateFilter : null;
+  const initialValues = state ? state.some.initialValues : null;
+  const candidateCount = state ? state.some.candidateCount : null;
 
   return (
     <section
@@ -42,7 +52,11 @@ const RequestPage: React.FC<{ lang: string }> = ({ lang }) => {
         data-h2-align-items="b(center)"
         style={{ minHeight: "70rem" }}
       >
-        <CreateRequest poolCandidateFilter={poolCandidateFilter} />
+        <CreateRequest
+          poolCandidateFilter={poolCandidateFilter}
+          searchFormInitialValues={initialValues}
+          candidateCount={candidateCount}
+        />
       </div>
     </section>
   );

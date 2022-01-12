@@ -1,4 +1,5 @@
-import { pick, upperCase } from "lodash";
+import pick from "lodash/pick";
+import upperCase from "lodash/upperCase";
 import * as React from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
