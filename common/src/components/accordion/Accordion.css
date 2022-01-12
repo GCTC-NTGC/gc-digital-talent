@@ -1,0 +1,35 @@
+.accordion-section {
+    border: 1px solid #ddd;
+  }
+
+  .accordion-section + .accordion-section {
+    border-top: 0;
+  }
+
+  .accordion-section button {
+    display: block;
+    appearance: none;
+    width: 100%;
+    border: 0;
+    background-color: #f4f5f8;
+    padding: 10px;
+    cursor: pointer;
+  }
+  .accordion-section button:hover {
+    background-color: #eff0f3;
+  }
+
+  .accordion-section__content--active {
+    padding: 20px;
+  }
+  
+  .accessibility {
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+}
