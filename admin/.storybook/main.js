@@ -23,7 +23,11 @@ module.exports = {
   "staticDirs": ['../public'],
   "stories": [
     "../resources/js/stories/**/*.stories.mdx",
-    "../resources/js/stories/**/*.stories.@(js|jsx|ts|tsx)"
+    "../resources/js/stories/**/*.stories.@(js|jsx|ts|tsx)",
+    "../../talentsearch/resources/js/stories/**/*.stories.mdx",
+    "../../talentsearch/resources/js/stories/**/*.stories.@(js|jsx|ts|tsx)",
+    "../../common/src/**/*.stories.mdx",
+    "../../common/src/**/*.stories.@(js|jsx|ts|tsx)",
   ],
   "addons": [
     "@storybook/addon-links",
