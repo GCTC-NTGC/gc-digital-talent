@@ -38,7 +38,7 @@ jobs:
         with:
           workingDir: common
           projectToken: 544cb0da12a4
-          skip: true
+          exitOnceUploaded: true
 
       - name: Set commit status messages and success states
         #if: github.event.pull_request.head.repo.full_name == github.repository
