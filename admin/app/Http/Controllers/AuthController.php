@@ -25,6 +25,7 @@ class AuthController extends Controller
             'response_type' => 'code',
             'scope' => 'openid',
             'state' => $state,
+            'acr_values' => 'mfa',
         ]);
 
         return redirect(config('oauth.authorize_uri') . '?' . $query);
