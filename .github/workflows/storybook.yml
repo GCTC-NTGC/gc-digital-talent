@@ -1,0 +1,25 @@
+name: Chromatic Storybook
+
+on: push
+
+jobs:
+  deployment:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2.4.0
+        with:
+          # Chromatic requires full git history.
+          fetch-depth: 0
+
+      - name: Install dependencies
+        working-directory: common
+        run: |
+          npm install
+          npm run h2-build
+          npm run codegen
+
+      - name: Public Storybook to Chromatic
+        uses: chromaui/action@v1
+        with:
+          workingDir: common
+          projectToken: 544cb0da12a4
