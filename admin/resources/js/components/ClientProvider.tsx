@@ -1,5 +1,5 @@
 import { authExchange } from "@urql/exchange-auth";
-import React, { useCallback, useContext, useMemo, useState } from "react";
+import React, { useCallback, useContext, useMemo } from "react";
 import { toast } from "react-toastify";
 import {
   Client,
@@ -58,18 +58,6 @@ const didAuthError = ({ error }: { error: CombinedError }): boolean => {
       (e) => e.extensions?.category === "authentication",
     );
   console.debug("<-didAuthError", result);
-  return result;
-};
-
-const willAuthError = ({ authState }: { authState: AuthState | null }) => {
-  console.debug("->willAuthError");
-
-  const r = Math.floor(Math.random() * 3);
-  const willError = r === 0;
-  console.debug("force error? ", willError);
-
-  const result = !authState || willError;
-  console.debug("<-willAuthError", result);
   return result;
 };
 
@@ -156,7 +144,6 @@ export const ClientProvider: React.FC<{ client?: Client }> = ({
             getAuth,
             addAuthToOperation,
             didAuthError,
-            willAuthError,
           }),
           fetchExchange,
         ],
