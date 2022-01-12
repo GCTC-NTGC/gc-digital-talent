@@ -1,5 +1,5 @@
 import { authExchange } from "@urql/exchange-auth";
-import React, { useCallback, useContext, useMemo } from "react";
+import React, { useCallback, useContext, useMemo, useState } from "react";
 import { toast } from "react-toastify";
 import {
   Client,
@@ -51,28 +51,88 @@ const addAuthToOperation = ({
 };
 
 const didAuthError = ({ error }: { error: CombinedError }): boolean => {
-  return (
+  console.debug("->didAuthError");
+  const result =
     error.response.status === 401 ||
-    error.graphQLErrors.some((e) => e.extensions?.code === "FORBIDDEN")
-  );
+    error.graphQLErrors.some(
+      (e) => e.extensions?.category === "authentication",
+    );
+  console.debug("<-didAuthError", result);
+  return result;
+};
+
+const willAuthError = ({ authState }: { authState: AuthState | null }) => {
+  console.debug("->willAuthError");
+
+  const r = Math.floor(Math.random() * 3);
+  const willError = r === 0;
+  console.debug("force error? ", willError);
+
+  const result = !authState || willError;
+  console.debug("<-willAuthError", result);
+  return result;
 };
 
 export const ClientProvider: React.FC<{ client?: Client }> = ({
   client,
   children,
 }) => {
-  const { accessToken, refreshToken, logout } = useContext(AuthContext);
+  const { accessToken, refreshToken, logout, setTokens } =
+    useContext(AuthContext);
 
   const getAuth = useCallback(
     async ({ authState }): Promise<AuthState | null> => {
+      console.debug("->getAuth");
+      // getAuth could be called for the first request or as a result of an error
+
       if (!authState) {
+        console.debug(
+          "No existing auth state.  Will try to get it out of storage.",
+        );
+        // no existing auth state so this is probably the first request
         if (accessToken) {
+          console.debug("<-getAuth", "Found an access token", {
+            accessToken,
+            refreshToken,
+          });
           return { accessToken, refreshToken };
         }
+        console.debug("<-getAuth", "No token found");
         return null;
       }
-      // If authState is not null, and getAuth is called again, then it means authentication failed for some reason.
-      // TODO: This is where we could try using the refresh token, instead of logging out.
+
+      // there is an auth state so there was probably an error on the last request
+      if (refreshToken) {
+        console.debug(
+          "There is an existing auth state so there was probably an error and we will try get a new one.",
+        );
+        const response = await fetch(
+          `http://localhost:8000/admin/refresh?refresh_token=${refreshToken}`,
+          {
+            headers: {
+              Authorization: `Bearer ${authState.accessToken}`,
+            },
+          },
+        );
+        if (response.ok) {
+          const parsedResponse: {
+            access_token: string;
+            refresh_token: string;
+          } = await response.json();
+          const newAuthState: AuthState = {
+            accessToken: parsedResponse.access_token,
+            refreshToken: parsedResponse.refresh_token,
+          };
+
+          if (newAuthState.accessToken) {
+            setTokens(newAuthState);
+            console.debug("<-getAuth", "Got new refresh tokens", newAuthState);
+            return newAuthState;
+          }
+        }
+      }
+
+      console.debug("Giving up.  Logging out.");
       logout();
       return null;
     },
@@ -96,6 +156,7 @@ export const ClientProvider: React.FC<{ client?: Client }> = ({
             getAuth,
             addAuthToOperation,
             didAuthError,
+            willAuthError,
           }),
           fetchExchange,
         ],

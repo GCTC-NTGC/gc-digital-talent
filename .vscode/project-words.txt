@@ -1,4 +1,6 @@
 Authenticatable
+BEHAVIOURAL
+dedup
 gctalent
 heroicons
 jwks
@@ -23,4 +25,3 @@ darkgold
 lightgold
 darkgray
 lightgray
-BEHAVIOURAL

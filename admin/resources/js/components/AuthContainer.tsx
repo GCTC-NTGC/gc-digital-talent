@@ -14,6 +14,10 @@ interface AuthState {
   accessToken: string | null;
   refreshToken: string | null;
   logout: () => void;
+  setTokens: (tokens: {
+    accessToken: string | null;
+    refreshToken: string | null;
+  }) => void;
 }
 
 export const AuthContext = React.createContext<AuthState>({
@@ -22,6 +26,9 @@ export const AuthContext = React.createContext<AuthState>({
   refreshToken: null,
   logout: () => {
     /** do nothing */
+  },
+  setTokens: () => {
+    /* do nothing */
   },
 });
 
@@ -84,6 +91,7 @@ export const AuthContainer: React.FC = ({ children }) => {
         : () => {
             /* If not logged in, logout does nothing. */
           },
+      setTokens,
     };
   }, [tokens.accessToken, tokens.refreshToken]);
 
