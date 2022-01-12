@@ -34,6 +34,8 @@ jobs:
 
       - name: "Publish Storybook: all"
         uses: chromaui/action@v1
+        env:
+          MERGE_STORYBOOKS: true
         with:
           workingDir: admin
           projectToken: 544cb0da12a4
