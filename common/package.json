@@ -10,7 +10,6 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
-    "chromatic": "npx chromatic --project-token=544cb0da12a4",
     "codegen": "graphql-codegen",
     "h2-compile": "npx h2-compile",
     "h2-watch": "npx h2-watch",
