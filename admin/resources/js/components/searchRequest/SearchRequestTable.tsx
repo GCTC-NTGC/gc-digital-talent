@@ -13,7 +13,7 @@ import {
 } from "../../api/generated";
 import Table, { ColumnsOf } from "../Table";
 import DashboardContentContainer from "../DashboardContentContainer";
-import { poolCandidateTablePath } from "../../adminRoutes";
+import { useAdminRoutes } from "../../adminRoutes";
 import { tableEditButtonAccessor } from "../TableEditButton";
 
 type Data = NonNullable<
@@ -37,6 +37,7 @@ export const SearchRequestTable: React.FunctionComponent<
 > = ({ poolCandidateSearchRequests, editUrlRoot }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
+  const paths = useAdminRoutes();
 
   const columns = useMemo<ColumnsOf<Data>>(
     () => [
@@ -105,7 +106,7 @@ export const SearchRequestTable: React.FunctionComponent<
           poolCandidateFilter.pools?.map(
             (pool) =>
               pool && (
-                <a key={pool.id} href={poolCandidateTablePath(pool.id)}>
+                <a key={pool.id} href={paths.poolCandidateTable(pool.id)}>
                   {pool.name?.[locale]}
                 </a>
               ),

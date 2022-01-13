@@ -1,11 +1,12 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { Link, Button } from "@common/components";
-import { poolCreatePath } from "../../adminRoutes";
+import { useAdminRoutes } from "../../adminRoutes";
 import { PoolTableApi } from "./PoolTable";
 
 export const PoolPage: React.FC = () => {
   const intl = useIntl();
+  const paths = useAdminRoutes();
   return (
     <div>
       <header
@@ -32,7 +33,7 @@ export const PoolPage: React.FC = () => {
             data-h2-text-align="m(right)"
           >
             <Button color="white" mode="outline">
-              <Link href={poolCreatePath()} title="">
+              <Link href={paths.poolCreate()} title="">
                 {intl.formatMessage({
                   defaultMessage: "Create Pool",
                   description: "Heading displayed above the Create Pool form.",
