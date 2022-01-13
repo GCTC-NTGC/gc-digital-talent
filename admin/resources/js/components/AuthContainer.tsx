@@ -4,26 +4,28 @@ import {
   parseUrlQueryParameters,
   useLocation,
 } from "@common/helpers/router";
-import { homePath } from "../adminRoutes";
+import { homePath, refreshTokenPath } from "../adminRoutes";
 
 const ACCESS_TOKEN = "access_token";
 const REFRESH_TOKEN = "refresh_token";
 const TOKEN_EXPIRY = "token_expiry";
 
-interface AuthState {
+interface AuthContextState {
   loggedIn: boolean;
   accessToken: string | null;
   refreshToken: string | null;
   expiry: number | null;
   logout: () => void;
-  setAuthState: (tokens: {
-    accessToken: string | null;
-    refreshToken: string | null;
-    expiry: number | null;
-  }) => void;
+  refresh: () => Promise<AuthState | null>;
 }
 
-export const AuthContext = React.createContext<AuthState>({
+interface AuthState {
+  accessToken: string | null;
+  refreshToken: string | null;
+  expiry: number | null;
+}
+
+export const AuthContext = React.createContext<AuthContextState>({
   loggedIn: false,
   accessToken: null,
   refreshToken: null,
@@ -31,9 +33,7 @@ export const AuthContext = React.createContext<AuthState>({
   logout: () => {
     /** do nothing */
   },
-  setAuthState: () => {
-    /* do nothing */
-  },
+  refresh: () => Promise.resolve(null),
 });
 
 const logoutAndRefresh = (): void => {
@@ -45,11 +45,39 @@ const logoutAndRefresh = (): void => {
   window.location.href = homePath();
 };
 
-function getAuthFromLocation(location: ReturnType<typeof useLocation>): {
-  accessToken: string;
-  refreshToken: string | null;
-  expiry: number | null;
-} | null {
+const refreshAuth = async (
+  refreshToken: string,
+  setAuthState: (state: AuthState) => void,
+): Promise<AuthState | null> => {
+  const response = await fetch(
+    `${refreshTokenPath()}?refresh_token=${refreshToken}`,
+  );
+  if (response.ok) {
+    const responseBody: {
+      access_token: string;
+      refresh_token: string;
+      expires_in: string | null;
+    } = await response.json();
+
+    const newAuthState: AuthState = {
+      accessToken: responseBody.access_token,
+      refreshToken: responseBody.refresh_token,
+      expiry: responseBody.expires_in
+        ? Date.now() + Number.parseInt(responseBody.expires_in, 10) * 1000
+        : null,
+    };
+
+    if (newAuthState.accessToken) {
+      setAuthState(newAuthState);
+      return newAuthState;
+    }
+  }
+  return null;
+};
+
+function getAuthFromLocation(
+  location: ReturnType<typeof useLocation>,
+): AuthState | null {
   const queryParams = parseUrlQueryParameters(location);
   const accessToken: string | null = queryParams.access_token ?? null;
   const refreshToken: string | null = queryParams.refresh_token ?? null;
@@ -67,11 +95,7 @@ function getAuthFromLocation(location: ReturnType<typeof useLocation>): {
 }
 
 export const AuthContainer: React.FC = ({ children }) => {
-  const [existingAuthState, setAuthState] = useState<{
-    accessToken: string | null;
-    refreshToken: string | null;
-    expiry: number | null;
-  }>({
+  const [existingAuthState, setAuthState] = useState<AuthState>({
     accessToken: localStorage.getItem(ACCESS_TOKEN),
     refreshToken: localStorage.getItem(REFRESH_TOKEN),
     expiry: Number.parseInt(localStorage.getItem(TOKEN_EXPIRY) ?? "", 10),
@@ -105,7 +129,7 @@ export const AuthContainer: React.FC = ({ children }) => {
 
   // If tokens were just found in the url, then get them from newTokens instead of state hook, which will update asynchronously.
   const authState = newAuthState ?? existingAuthState;
-  const state = useMemo<AuthState>(() => {
+  const state = useMemo<AuthContextState>(() => {
     return {
       accessToken: authState.accessToken,
       refreshToken: authState.refreshToken,
@@ -116,7 +140,11 @@ export const AuthContainer: React.FC = ({ children }) => {
         : () => {
             /* If not logged in, logout does nothing. */
           },
-      setAuthState,
+      refresh: () => {
+        return authState.refreshToken
+          ? refreshAuth(authState.refreshToken, setAuthState)
+          : Promise.resolve(null);
+      },
     };
   }, [authState.accessToken, authState.refreshToken, authState.expiry]);
 

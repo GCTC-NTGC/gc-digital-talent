@@ -14,12 +14,11 @@ import {
   makeOperation,
 } from "urql";
 import { AuthContext } from "./AuthContainer";
-import { refreshTokenPath } from "../adminRoutes";
 
 const apiUri = process.env.API_URI ?? "http://localhost:8000/graphql";
 
 interface AuthState {
-  accessToken: string;
+  accessToken: string | null;
   refreshToken: string | null;
   expiry: number | null;
 }
@@ -73,7 +72,7 @@ export const ClientProvider: React.FC<{ client?: Client }> = ({
   client,
   children,
 }) => {
-  const { accessToken, refreshToken, expiry, logout, setAuthState } =
+  const { accessToken, refreshToken, expiry, logout, refresh } =
     useContext(AuthContext);
 
   const getAuth = useCallback(
@@ -89,35 +88,12 @@ export const ClientProvider: React.FC<{ client?: Client }> = ({
       }
 
       // there is an existing auth state so there was probably an error on the last request
-      if (refreshToken) {
-        const response = await fetch(
-          `${refreshTokenPath()}?refresh_token=${refreshToken}`,
-        );
-        if (response.ok) {
-          const responseBody: {
-            access_token: string;
-            refresh_token: string;
-            expires_in: string | null;
-          } = await response.json();
-          const newAuthState: AuthState = {
-            accessToken: responseBody.access_token,
-            refreshToken: responseBody.refresh_token,
-            expiry: responseBody.expires_in
-              ? Date.now() + Number.parseInt(responseBody.expires_in, 10) * 1000
-              : null,
-          };
-
-          if (newAuthState.accessToken) {
-            setAuthState(newAuthState);
-            return newAuthState;
-          }
-        }
-      }
+      if (refreshToken) return refresh();
 
       logout();
       return null;
     },
-    [accessToken, refreshToken, expiry, logout, setAuthState],
+    [accessToken, refreshToken, expiry, logout, refresh],
   );
 
   const internalClient = useMemo(() => {
