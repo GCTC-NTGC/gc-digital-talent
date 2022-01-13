@@ -3,6 +3,8 @@ import ADMIN_APP_DIR from "./adminConstants";
 
 export const homePath = (): string => path.join("/", ADMIN_APP_DIR); // leading slash in case empty base url
 
+export const refreshTokenPath = (): string => path.join(homePath(), "refresh");
+
 export const classificationTablePath = (): string =>
   path.join(homePath(), "classifications");
 export const classificationCreatePath = (): string =>

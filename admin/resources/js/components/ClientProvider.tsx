@@ -14,12 +14,14 @@ import {
   makeOperation,
 } from "urql";
 import { AuthContext } from "./AuthContainer";
+import { refreshTokenPath } from "../adminRoutes";
 
 const apiUri = process.env.API_URI ?? "http://localhost:8000/graphql";
 
 interface AuthState {
   accessToken: string;
   refreshToken: string | null;
+  expiry: number | null;
 }
 
 const addAuthToOperation = ({
@@ -61,19 +63,33 @@ const didAuthError = ({ error }: { error: CombinedError }): boolean => {
   return result;
 };
 
+const willAuthError = ({ authState }: { authState: AuthState | null }) => {
+  console.debug("->willAuthError", authState);
+  let tokenIsKnownToBeExpired = false;
+  if (authState?.expiry) {
+    tokenIsKnownToBeExpired = Date.now() > authState.expiry;
+  }
+  console.debug("tokenIsKnownToBeExpired", tokenIsKnownToBeExpired);
+
+  const result = !authState || tokenIsKnownToBeExpired;
+  console.debug("<-willAuthError", result);
+  if (result) return true;
+  return false;
+};
+
 export const ClientProvider: React.FC<{ client?: Client }> = ({
   client,
   children,
 }) => {
-  const { accessToken, refreshToken, logout, setTokens } =
+  const { accessToken, refreshToken, expiry, logout, setAuthState } =
     useContext(AuthContext);
 
   const getAuth = useCallback(
-    async ({ authState }): Promise<AuthState | null> => {
+    async ({ authState: existingAuthState }): Promise<AuthState | null> => {
       console.debug("->getAuth");
       // getAuth could be called for the first request or as a result of an error
 
-      if (!authState) {
+      if (!existingAuthState) {
         console.debug(
           "No existing auth state.  Will try to get it out of storage.",
         );
@@ -82,8 +98,9 @@ export const ClientProvider: React.FC<{ client?: Client }> = ({
           console.debug("<-getAuth", "Found an access token", {
             accessToken,
             refreshToken,
+            expiry,
           });
-          return { accessToken, refreshToken };
+          return { accessToken, refreshToken, expiry };
         }
         console.debug("<-getAuth", "No token found");
         return null;
@@ -95,10 +112,10 @@ export const ClientProvider: React.FC<{ client?: Client }> = ({
           "There is an existing auth state so there was probably an error and we will try get a new one.",
         );
         const response = await fetch(
-          `http://localhost:8000/admin/refresh?refresh_token=${refreshToken}`,
+          `${refreshTokenPath()}?refresh_token=${refreshToken}`,
           {
             headers: {
-              Authorization: `Bearer ${authState.accessToken}`,
+              Authorization: `Bearer ${existingAuthState.accessToken}`,
             },
           },
         );
@@ -106,14 +123,19 @@ export const ClientProvider: React.FC<{ client?: Client }> = ({
           const parsedResponse: {
             access_token: string;
             refresh_token: string;
+            expires_in: string | null;
           } = await response.json();
           const newAuthState: AuthState = {
             accessToken: parsedResponse.access_token,
             refreshToken: parsedResponse.refresh_token,
+            expiry: parsedResponse.expires_in
+              ? Date.now() +
+                Number.parseInt(parsedResponse.expires_in, 10) * 1000
+              : null,
           };
 
           if (newAuthState.accessToken) {
-            setTokens(newAuthState);
+            setAuthState(newAuthState);
             console.debug("<-getAuth", "Got new refresh tokens", newAuthState);
             return newAuthState;
           }
@@ -124,7 +146,7 @@ export const ClientProvider: React.FC<{ client?: Client }> = ({
       logout();
       return null;
     },
-    [accessToken, refreshToken, logout, setTokens],
+    [accessToken, refreshToken, expiry, logout, setAuthState],
   );
 
   const internalClient = useMemo(() => {
@@ -144,6 +166,7 @@ export const ClientProvider: React.FC<{ client?: Client }> = ({
             getAuth,
             addAuthToOperation,
             didAuthError,
+            willAuthError,
           }),
           fetchExchange,
         ],
