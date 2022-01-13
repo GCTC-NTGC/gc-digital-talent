@@ -34,6 +34,19 @@ jobs:
     steps:
     - uses: actions/checkout@v2.4.0
 
+    - uses: actions/setup-node@v2.5.1
+      with:
+        node-version: 14.18.1
+        cache: npm
+        cache-dependency-path: |
+          auth/package-lock.json
+          common/package-lock.json
+          admin/package-lock.json
+          talentsearch/package-lock.json
+
+    - name: Upgrade to latest npm
+      run: npm install --global npm@latest
+
     - name: "Install & Build: auth"
       working-directory: auth
       run: |
