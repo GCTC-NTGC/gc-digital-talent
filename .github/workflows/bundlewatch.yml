@@ -34,10 +34,28 @@ jobs:
     steps:
     - uses: actions/checkout@v2.4.0
 
-    - name: "Build Docker images"
-      working-directory: infrastructure
+    - name: "Install & Build: common"
+      working-directory: common
       run: |
-        docker-compose up --detach
+        npm install
+        npm run h2-build
+        npm run codegen
+
+    - name: "Install & Build: admin"
+      working-directory: admin
+      run: |
+        npm install
+        npm run h2-build
+        npm run codegen
+        npm run production
+
+    - name: "Install & Build: talentsearch"
+      working-directory: talentsearch
+      run: |
+        npm install
+        npm run h2-build
+        npm run codegen
+        npm run production
 
     # Allows SSH access into CI environment for up to 1h.
     # Use `touch ~/continue` with session to end each one.
@@ -51,11 +69,6 @@ jobs:
       uses: lhotari/action-upterm@v1
       if: ${{ false }}
       # if: ${{ always() }}
-
-    - name: "Build production apps"
-      working-directory: infrastructure
-      run: |
-        docker-compose run --rm -e BUILD_SCRIPT=production maintenance bash -i setup.sh
 
     - name: Install Bundlewatch
       run: npm install -g bundlewatch@0.2.6
