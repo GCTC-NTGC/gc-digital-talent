@@ -45,6 +45,14 @@ const logoutAndRefresh = (): void => {
   window.location.href = homePath();
 };
 
+function calculateExpiryTimestamp(expiresIn: string | null): number | null {
+  const parsedExpiresIn = Number(expiresIn);
+  if (Number.isInteger(parsedExpiresIn)) {
+    return Date.now() + parsedExpiresIn * 1000; // expires_in is in seconds, not milliseconds
+  }
+  return null;
+}
+
 const refreshAuth = async (
   refreshToken: string,
   setAuthState: (state: AuthState) => void,
@@ -62,9 +70,7 @@ const refreshAuth = async (
     const newAuthState: AuthState = {
       accessToken: responseBody.access_token,
       refreshToken: responseBody.refresh_token,
-      expiry: responseBody.expires_in
-        ? Date.now() + Number.parseInt(responseBody.expires_in, 10) * 1000
-        : null,
+      expiry: calculateExpiryTimestamp(responseBody.expires_in),
     };
 
     if (newAuthState.accessToken) {
@@ -81,9 +87,7 @@ function getAuthFromLocation(
   const queryParams = parseUrlQueryParameters(location);
   const accessToken: string | null = queryParams.access_token ?? null;
   const refreshToken: string | null = queryParams.refresh_token ?? null;
-  const expiry: number | null = queryParams.expires_in
-    ? Date.now() + Number.parseInt(queryParams.expires_in, 10) * 1000
-    : null;
+  const expiry = calculateExpiryTimestamp(queryParams.expires_in);
   if (accessToken && queryParams.token_type?.toUpperCase() === "BEARER") {
     return {
       accessToken,
