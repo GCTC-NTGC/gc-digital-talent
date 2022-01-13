@@ -124,7 +124,7 @@ export const ClientProvider: React.FC<{ client?: Client }> = ({
       logout();
       return null;
     },
-    [accessToken, refreshToken, logout],
+    [accessToken, refreshToken, logout, setTokens],
   );
 
   const internalClient = useMemo(() => {

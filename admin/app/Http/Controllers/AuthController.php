@@ -63,7 +63,6 @@ class AuthController extends Controller
     public function refresh(Request $request)
     {
         $refreshToken = $request->query('refresh_token');
-
         $response = Http::asForm()
             ->post(config('oauth.token_uri'), [
                     'grant_type' => 'refresh_token',
