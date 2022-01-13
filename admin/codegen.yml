@@ -1,4 +1,4 @@
-schema: ../generated/lighthouse-schema.graphql
+schema: ../api/storage/app/lighthouse-schema.graphql
 documents: ./resources/js/**/*.graphql
 generates:
   ./resources/js/api/generated.ts:
