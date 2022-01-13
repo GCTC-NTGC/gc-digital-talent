@@ -53,27 +53,19 @@ const addAuthToOperation = ({
 };
 
 const didAuthError = ({ error }: { error: CombinedError }): boolean => {
-  console.debug("->didAuthError");
-  const result =
+  return (
     error.response.status === 401 ||
-    error.graphQLErrors.some(
-      (e) => e.extensions?.category === "authentication",
-    );
-  console.debug("<-didAuthError", result);
-  return result;
+    error.graphQLErrors.some((e) => e.extensions?.category === "authentication")
+  );
 };
 
 const willAuthError = ({ authState }: { authState: AuthState | null }) => {
-  console.debug("->willAuthError", authState);
   let tokenIsKnownToBeExpired = false;
   if (authState?.expiry) {
     tokenIsKnownToBeExpired = Date.now() > authState.expiry;
   }
-  console.debug("tokenIsKnownToBeExpired", tokenIsKnownToBeExpired);
 
-  const result = !authState || tokenIsKnownToBeExpired;
-  console.debug("<-willAuthError", result);
-  if (result) return true;
+  if (!authState || tokenIsKnownToBeExpired) return true;
   return false;
 };
 
@@ -86,63 +78,42 @@ export const ClientProvider: React.FC<{ client?: Client }> = ({
 
   const getAuth = useCallback(
     async ({ authState: existingAuthState }): Promise<AuthState | null> => {
-      console.debug("->getAuth");
-      // getAuth could be called for the first request or as a result of an error
+      // getAuth could be called for the first request or as the result of an error
 
       if (!existingAuthState) {
-        console.debug(
-          "No existing auth state.  Will try to get it out of storage.",
-        );
-        // no existing auth state so this is probably the first request
+        // no existing auth state so this is probably just the first request
         if (accessToken) {
-          console.debug("<-getAuth", "Found an access token", {
-            accessToken,
-            refreshToken,
-            expiry,
-          });
           return { accessToken, refreshToken, expiry };
         }
-        console.debug("<-getAuth", "No token found");
         return null;
       }
 
-      // there is an auth state so there was probably an error on the last request
+      // there is an existing auth state so there was probably an error on the last request
       if (refreshToken) {
-        console.debug(
-          "There is an existing auth state so there was probably an error and we will try get a new one.",
-        );
         const response = await fetch(
           `${refreshTokenPath()}?refresh_token=${refreshToken}`,
-          {
-            headers: {
-              Authorization: `Bearer ${existingAuthState.accessToken}`,
-            },
-          },
         );
         if (response.ok) {
-          const parsedResponse: {
+          const responseBody: {
             access_token: string;
             refresh_token: string;
             expires_in: string | null;
           } = await response.json();
           const newAuthState: AuthState = {
-            accessToken: parsedResponse.access_token,
-            refreshToken: parsedResponse.refresh_token,
-            expiry: parsedResponse.expires_in
-              ? Date.now() +
-                Number.parseInt(parsedResponse.expires_in, 10) * 1000
+            accessToken: responseBody.access_token,
+            refreshToken: responseBody.refresh_token,
+            expiry: responseBody.expires_in
+              ? Date.now() + Number.parseInt(responseBody.expires_in, 10) * 1000
               : null,
           };
 
           if (newAuthState.accessToken) {
             setAuthState(newAuthState);
-            console.debug("<-getAuth", "Got new refresh tokens", newAuthState);
             return newAuthState;
           }
         }
       }
 
-      console.debug("Giving up.  Logging out.");
       logout();
       return null;
     },
