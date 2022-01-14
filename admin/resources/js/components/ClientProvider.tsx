@@ -88,7 +88,10 @@ export const ClientProvider: React.FC<{ client?: Client }> = ({
       }
 
       // there is an existing auth state so there was probably an error on the last request
-      if (refreshToken) return refresh();
+      if (refreshToken) {
+        const refreshedAuthState = refresh();
+        return refreshedAuthState;
+      }
 
       logout();
       return null;
