@@ -72,7 +72,7 @@ export const ClientProvider: React.FC<{ client?: Client }> = ({
   client,
   children,
 }) => {
-  const { accessToken, refreshToken, expiry, logout, refresh } =
+  const { accessToken, refreshToken, expiry, logout, refreshAuth } =
     useContext(AuthContext);
 
   const getAuth = useCallback(
@@ -89,14 +89,14 @@ export const ClientProvider: React.FC<{ client?: Client }> = ({
 
       // there is an existing auth state so there was probably an error on the last request
       if (refreshToken) {
-        const refreshedAuthState = refresh();
+        const refreshedAuthState = refreshAuth();
         return refreshedAuthState;
       }
 
       logout();
       return null;
     },
-    [accessToken, refreshToken, expiry, logout, refresh],
+    [accessToken, refreshToken, expiry, logout, refreshAuth],
   );
 
   const internalClient = useMemo(() => {

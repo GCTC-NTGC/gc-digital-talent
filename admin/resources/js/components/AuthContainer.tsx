@@ -16,7 +16,7 @@ interface AuthContextState {
   refreshToken: string | null;
   expiry: number | null;
   logout: () => void;
-  refresh: () => Promise<AuthState | null>;
+  refreshAuth: () => Promise<AuthState | null>;
 }
 
 interface AuthState {
@@ -33,10 +33,10 @@ export const AuthContext = React.createContext<AuthContextState>({
   logout: () => {
     /** do nothing */
   },
-  refresh: () => Promise.resolve(null),
+  refreshAuth: () => Promise.resolve(null),
 });
 
-const logoutAndRefresh = (): void => {
+const logoutAndRefreshPage = (): void => {
   // To log out, remove tokens from local storage and do a hard refresh to clear anything cached by react.
   // TODO: Is there anything else we should do, in terms of notifying user?
   localStorage.removeItem(ACCESS_TOKEN);
@@ -131,7 +131,7 @@ export const AuthContainer: React.FC = ({ children }) => {
     newAuthState?.expiry,
   ]); // Check for tokens individually so a new tokens object with identical contents doesn't trigger a re-render.
 
-  // If tokens were just found in the url, then get them from newTokens instead of state hook, which will update asynchronously.
+  // If tokens were just found in the url, then get them from newAuthState instead of state hook, which will update asynchronously.
   const authState = newAuthState ?? existingAuthState;
   const state = useMemo<AuthContextState>(() => {
     return {
@@ -140,11 +140,11 @@ export const AuthContainer: React.FC = ({ children }) => {
       loggedIn: !!authState.accessToken,
       expiry: authState.expiry,
       logout: authState.accessToken
-        ? logoutAndRefresh
+        ? logoutAndRefreshPage
         : () => {
             /* If not logged in, logout does nothing. */
           },
-      refresh: () => {
+      refreshAuth: () => {
         return authState.refreshToken
           ? refreshAuth(authState.refreshToken, setAuthState)
           : Promise.resolve(null);
