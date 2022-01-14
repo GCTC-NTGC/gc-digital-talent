@@ -133,7 +133,7 @@ export const AuthContainer: React.FC = ({ children }) => {
 
   // If tokens were just found in the url, then get them from newAuthState instead of state hook, which will update asynchronously.
   const authState = newAuthState ?? existingAuthState;
-  const state = useMemo<AuthContextState>(() => {
+  const authContextState = useMemo<AuthContextState>(() => {
     return {
       accessToken: authState.accessToken,
       refreshToken: authState.refreshToken,
@@ -152,7 +152,11 @@ export const AuthContainer: React.FC = ({ children }) => {
     };
   }, [authState.accessToken, authState.refreshToken, authState.expiry]);
 
-  return <AuthContext.Provider value={state}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={authContextState}>
+      {children}
+    </AuthContext.Provider>
+  );
 };
 
 export default AuthContainer;

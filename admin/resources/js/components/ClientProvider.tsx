@@ -87,7 +87,8 @@ export const ClientProvider: React.FC<{ client?: Client }> = ({
         return null;
       }
 
-      // there is an existing auth state so there was probably an error on the last request
+      // If authState is not null, and getAuth is called again, then it means authentication failed for some reason.
+      // let's try to use a refresh token to get new tokens
       if (refreshToken) {
         const refreshedAuthState = refreshAuth();
         return refreshedAuthState;
