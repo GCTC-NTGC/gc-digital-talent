@@ -23,7 +23,7 @@ describe("localize helper tests", () => {
       expect(oppositeLocale("fr")).toBe("en");
       expect(oppositeLocale("en")).toBe("fr");
     });
-    test("returns 'fr' if passed any unexpected value", () => {
+    test("returns 'fr' if passed any unexpected value (opposite to getLocale)", () => {
       expect(oppositeLocale("unknown" as Locales)).toBe("fr");
       expect(oppositeLocale(undefined as unknown as Locales)).toBe("fr");
       expect(oppositeLocale({ hello: "world" } as unknown as Locales)).toBe(

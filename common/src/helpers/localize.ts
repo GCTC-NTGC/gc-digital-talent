@@ -16,7 +16,7 @@ export function getLocale(intl: IntlShape): Locales {
 }
 
 export function oppositeLocale(locale: Locales): Locales {
-  return locale === "en" ? "fr" : "en";
+  return locale === "fr" ? "en" : "fr";
 }
 
 export function localizePath(path: string, locale: string): string {
