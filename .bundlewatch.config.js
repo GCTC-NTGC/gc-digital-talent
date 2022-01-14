@@ -11,11 +11,11 @@ module.exports = {
   files: [
     {
       path: "talentsearch/public/js/pageContainer.js",
-      maxSize: "240 kB",
+      maxSize: "185 kB",
     },
     {
       path: "admin/public/js/dashboard.js",
-      maxSize: "260 kB",
+      maxSize: "210 kB",
     },
     {
       path: "auth/public/js/app.js",
