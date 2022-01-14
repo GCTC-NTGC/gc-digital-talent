@@ -1,4 +1,6 @@
+import React from "react";
 import { defineMessages, MessageDescriptor } from "react-intl";
+import { LightningBoltIcon, UserGroupIcon } from "@heroicons/react/outline";
 import {
   Language,
   LanguageAbility,
@@ -6,6 +8,7 @@ import {
   SalaryRange,
   WorkRegion,
   PoolCandidateSearchStatus,
+  SkillCategory,
 } from "../api/generated";
 import { getOrThrowError } from "../helpers/util";
 
@@ -170,3 +173,34 @@ export const getPoolCandidateSearchStatus = (
     poolCandidateSearchStatusId,
     `Invalid Pool Candidate Search Status '${poolCandidateSearchStatusId}'`,
   );
+
+export const SkillCategories = defineMessages({
+  [SkillCategory.Behavioural]: {
+    defaultMessage: "Transferable Skills",
+    description: "The skill is considered behavioral.",
+  },
+  [SkillCategory.Technical]: {
+    defaultMessage: "Technical Skills",
+    description: "The skill is considered technical.",
+  },
+});
+
+export const getSkillCategoryText = (
+  skillCategoryId: string | number,
+): MessageDescriptor =>
+  getOrThrowError(
+    SkillCategories,
+    skillCategoryId,
+    `Invalid Skill Category '${skillCategoryId}'`,
+  );
+
+export const getSkillCategoryImage = (skillCategoryId: string | number) => {
+  switch (skillCategoryId) {
+    case SkillCategory.Behavioural:
+      return <UserGroupIcon style={{ width: "calc(1rem*1.25)" }} />;
+    case SkillCategory.Technical:
+      return <LightningBoltIcon style={{ width: "calc(1rem*1.25)" }} />;
+    default:
+      return null;
+  }
+};
