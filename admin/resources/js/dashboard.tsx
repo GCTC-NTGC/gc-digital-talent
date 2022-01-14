@@ -1,11 +1,11 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import IntlContainer from "./components/IntlContainer";
+import { LanguageRedirectContainer } from "./components/IntlContainer";
 import { PoolDashboard } from "./components/PoolDashboard";
 
 ReactDOM.render(
-  <IntlContainer locale="en">
+  <LanguageRedirectContainer>
     <PoolDashboard />
-  </IntlContainer>,
+  </LanguageRedirectContainer>,
   document.getElementById("app"),
 );
