@@ -9,7 +9,7 @@ export default {
   title: "Checklist",
   args: {
     skillFamilies: fakeSkillFamily(),
-    handleCheckedCallback: action("handleChecked"),
+    callback: action("handleChecked"),
   },
 } as Meta;
 

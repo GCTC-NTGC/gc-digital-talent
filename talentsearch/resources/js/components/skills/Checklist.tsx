@@ -1,10 +1,12 @@
 import React, { ChangeEvent } from "react";
-import { QuestionMarkCircleIcon, XCircleIcon } from "@heroicons/react/solid";
 import groupBy from "lodash/groupBy";
 import { useIntl } from "react-intl";
 import { getLocale } from "@common/helpers/localize";
 import { SkillFamily } from "@common/api/generated";
-import { getSkillCategory } from "@common/constants/localizedConstants";
+import {
+  getSkillCategoryText,
+  getSkillCategoryImage,
+} from "@common/constants/localizedConstants";
 
 interface FamilyProps {
   family: SkillFamily;
@@ -33,12 +35,13 @@ const Family: React.FunctionComponent<FamilyProps> = ({
     >
       <input
         type="checkbox"
-        id={family.key + index}
+        name={index}
+        id={family.key}
         onChange={(e) => {
           callback(e);
         }}
       />
-      <label htmlFor={family.key + index}>
+      <label htmlFor={family.key}>
         &nbsp;{family.name?.[locale]} (
         {family.skills ? family.skills.length : 0})
       </label>
@@ -49,7 +52,7 @@ const Family: React.FunctionComponent<FamilyProps> = ({
 interface CategoryProps {
   category: string;
   skillFamilies: SkillFamily[];
-  callback: (selected: SkillFamily[]) => void;
+  callback: (selected: SkillFamily, added: boolean) => void;
 }
 
 const Category: React.FunctionComponent<CategoryProps> = ({
@@ -61,7 +64,9 @@ const Category: React.FunctionComponent<CategoryProps> = ({
 
   // The app currently crashes if no description is specified for the category.
   // Do we want to avoid this?
-  let title = intl.formatMessage(getSkillCategory(category));
+  let title = intl.formatMessage(getSkillCategoryText(category));
+
+  const image = getSkillCategoryImage(category);
 
   // Calculate the total number of skills in the SkillCategory
   let total = 0;
@@ -70,34 +75,34 @@ const Category: React.FunctionComponent<CategoryProps> = ({
   });
   title += ` (${total})`;
 
-  const [checkedArr, setCheckedArr] = React.useState<SkillFamily[]>([]);
+  const [checkedArr, setCheckedArr] = React.useState<string[]>([]);
 
   const HandleChecked = (event: ChangeEvent<HTMLInputElement>) => {
+    const pos = Number(event.target.name);
     if (event.target.checked) {
-      setCheckedArr([...checkedArr, skillFamilies[Number(event.target.id)]]);
+      setCheckedArr([...checkedArr, skillFamilies[pos].key]);
     } else {
-      const temp: SkillFamily[] = [];
+      const temp: string[] = [];
       checkedArr.forEach((elem) => {
-        if (elem !== skillFamilies[Number(event.target.id)]) {
+        if (elem !== skillFamilies[pos].key) {
           temp.push(elem);
         }
       });
       setCheckedArr(temp);
     }
-
-    callback(checkedArr);
+    callback(skillFamilies[pos], event.target.checked);
   };
 
   return (
     <div data-h2-flex-item="s(1of2)">
       <p data-h2-font-weight="b(800)">
         &nbsp;
-        <XCircleIcon style={{ width: "calc(1rem*1.25)" }} />
+        {image}
         &nbsp;&nbsp;{title}
       </p>
       {skillFamilies.map((family, i) => {
         const index = i.toString();
-        const checked = checkedArr.includes(family);
+        const checked = checkedArr.includes(family.key);
         return (
           <Family
             key={family.key}
@@ -114,15 +119,27 @@ const Category: React.FunctionComponent<CategoryProps> = ({
 
 export interface ChecklistProps {
   skillFamilies: SkillFamily;
-  handleCheckedCallback: (selected: SkillFamily[]) => void;
+  callback: (selected: SkillFamily[]) => void;
 }
 
 const Checklist: React.FunctionComponent<ChecklistProps> = ({
   skillFamilies,
-  handleCheckedCallback,
+  callback,
 }) => {
   // Divide the list of SkillFamilies by associated SkillCategory
   const skillCategories = groupBy(skillFamilies, "category");
+
+  let selected: SkillFamily[] = [];
+
+  const HandleSelection = (newSelection: SkillFamily, added: boolean) => {
+    if (added) {
+      selected.push(newSelection);
+    } else {
+      selected = selected.filter((elem) => elem !== newSelection);
+    }
+
+    callback(selected);
+  };
 
   return (
     <div data-h2-flex-grid="b(normal, expanded, flush, m)">
@@ -132,7 +149,7 @@ const Checklist: React.FunctionComponent<ChecklistProps> = ({
             key={category}
             category={category}
             skillFamilies={skillCategories[category]}
-            callback={handleCheckedCallback}
+            callback={HandleSelection}
           />
         );
       })}
