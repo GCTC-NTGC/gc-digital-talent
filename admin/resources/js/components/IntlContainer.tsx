@@ -35,10 +35,13 @@ function getPathLocale(pathname: string): string | null {
 }
 
 function guessLocale(): string {
-  // Check for stored locale in localStorage.
-  let locale = localStorage.getItem(STORED_LOCALE);
+  let locale =
+    // Check for stored locale in localStorage.
+    localStorage.getItem(STORED_LOCALE) ??
+    // If nothing is stored, check for the browser's locale.
+    navigator.language.split("-")[0];
   if (locale !== "en" && locale !== "fr") {
-    // If stored locale is unavailable or invalid, default to english
+    // If stored locale or browser locale is unavailable or invalid, default to english
     locale = "en";
   }
   return locale;
@@ -50,7 +53,7 @@ export const LanguageRedirectContainer: React.FC = ({ children }) => {
   const pathLocale = getPathLocale(location.pathname);
   const guessedLocale = pathLocale || guessLocale();
 
-  // If the url already begins with locale, save locale in locale storage. Otherwise, redirect to the correct url.
+  // If the url already begins with locale, update locale in locale storage. Otherwise, redirect to the correct url.
   useEffect(() => {
     if (pathLocale) {
       localStorage.setItem(STORED_LOCALE, pathLocale);
