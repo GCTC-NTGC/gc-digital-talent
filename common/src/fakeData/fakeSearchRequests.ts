@@ -22,7 +22,7 @@ const generateSearchRequest = (
     jobTitle: faker.name.jobTitle(),
     additionalComments: faker.lorem.sentences(5),
     poolCandidateFilter: faker.random.arrayElement(poolCandidateFilters),
-    requestedDate: faker.date.past().toISOString(),
+    requestedDate: faker.date.between("2000-01-01", "2020-12-31").toISOString(),
     status: faker.random.arrayElement(Object.values(PoolCandidateSearchStatus)),
     adminNotes: faker.lorem.sentences(5),
   };
