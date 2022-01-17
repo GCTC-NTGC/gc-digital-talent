@@ -26,7 +26,7 @@ export interface SearchContainerProps {
   cmoAssets: CmoAsset[];
   operationalRequirements: OperationalRequirement[];
   pool?: Pick<Pool, "name" | "description">;
-  poolOwner?: Pick<UserPublicProfile, "firstName" | "lastName">;
+  poolOwner?: Pick<UserPublicProfile, "firstName" | "lastName" | "email">;
   candidateCount: number;
   updatePending?: boolean;
   candidateFilter: PoolCandidateFilterInput | undefined;
@@ -66,7 +66,7 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
 
   function a(msg: string) {
     return (
-      <a href="/search" data-h2-font-weight="b(700)">
+      <a href={`mailto:${poolOwner?.email}`} data-h2-font-weight="b(700)">
         {msg}
       </a>
     );
@@ -150,7 +150,7 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
           />
         </div>
         <div data-h2-flex-item="b(1of1)" style={{ paddingTop: "0" }}>
-          {candidateCount === 0 && (
+          {!updatePending && candidateCount === 0 && (
             <div
               data-h2-shadow="b(m)"
               data-h2-padding="b(top-bottom, xs) b(left, s)"
