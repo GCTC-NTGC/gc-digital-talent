@@ -41,9 +41,9 @@ const Family: React.FunctionComponent<FamilyProps> = ({
           callback(e);
         }}
       />
+      &nbsp;
       <label htmlFor={family.key}>
-        &nbsp;{family.name?.[locale]} (
-        {family.skills ? family.skills.length : 0})
+        {family.name?.[locale]} ({family.skills ? family.skills.length : 0})
       </label>
     </div>
   );
@@ -117,12 +117,12 @@ const Category: React.FunctionComponent<CategoryProps> = ({
   );
 };
 
-export interface ChecklistProps {
-  skillFamilies: SkillFamily;
+export interface SkillChecklistProps {
+  skillFamilies: SkillFamily[];
   callback: (selected: SkillFamily[]) => void;
 }
 
-const Checklist: React.FunctionComponent<ChecklistProps> = ({
+const SkillChecklist: React.FunctionComponent<SkillChecklistProps> = ({
   skillFamilies,
   callback,
 }) => {
@@ -142,7 +142,10 @@ const Checklist: React.FunctionComponent<ChecklistProps> = ({
   };
 
   return (
-    <div data-h2-flex-grid="b(normal, expanded, flush, m)">
+    <div
+      data-h2-flex-grid="b(normal, expanded, flush, m)"
+      data-testid="skillChecklist"
+    >
       {Object.keys(skillCategories).map((category) => {
         return (
           <Category
@@ -157,4 +160,4 @@ const Checklist: React.FunctionComponent<ChecklistProps> = ({
   );
 };
 
-export default Checklist;
+export default SkillChecklist;
