@@ -1,11 +1,11 @@
 import React from "react";
 import { Meta, Story } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
-import SearchBar, { SearchBarProps } from "../components/skills/SearchBar";
+import SearchBar, { SearchBarProps } from "../../components/skills/SearchBar";
 
 export default {
   component: SearchBar,
-  title: "SearchBar",
+  title: "Search Bar",
   args: {
     maxWidth: "30rem",
     handleSearch: action("handleSearch"),
