@@ -55,7 +55,7 @@
     "@storybook/addon-links": "^6.4.9",
     "@storybook/builder-webpack5": "^6.4.9",
     "@storybook/manager-webpack5": "^6.4.9",
-    "@storybook/react": "^6.4.9",
+    "@storybook/react": "^6.4.13",
     "@types/lodash": "^4.14.178",
     "@types/path-browserify": "^1.0.0",
     "@types/react-table": "^7.7.9",
