@@ -5,7 +5,7 @@ import fromPairs from "lodash/fromPairs";
 import toPairs from "lodash/toPairs";
 import path from "path-browserify";
 
-const HISTORY = createBrowserHistory();
+export const HISTORY = createBrowserHistory();
 
 // Current implementation adapted from https://codesandbox.io/s/vyx8q7jvk7
 

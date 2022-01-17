@@ -11,11 +11,11 @@ function getPathLocale(pathname: string): Locales | null {
 }
 
 function guessLocale(): Locales {
-  const locale =
+  const locale: string | undefined =
     // Check for stored locale in localStorage.
     localStorage.getItem(STORED_LOCALE) ??
     // If nothing is stored, check for the browser's locale.
-    navigator.language.split("-")[0];
+    navigator?.language?.split("-")[0];
 
   // If stored locale or browser locale is unavailable or invalid, default to english
   if (isLocale(locale)) {
