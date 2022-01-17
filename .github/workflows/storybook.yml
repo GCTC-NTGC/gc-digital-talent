@@ -17,6 +17,7 @@ jobs:
           npm install
           npm run h2-build
           npm run codegen
+          npm run intl-compile
 
       - name: "Install & Compile: admin"
         working-directory: admin
@@ -24,6 +25,7 @@ jobs:
           npm install
           npm run h2-build
           npm run codegen
+          npm run intl-compile
 
       - name: "Install & Compile: talentsearch"
         working-directory: talentsearch
@@ -31,6 +33,7 @@ jobs:
           npm install
           npm run h2-build
           npm run codegen
+          npm run intl-compile
 
       - name: "Publish Storybook: all"
         uses: chromaui/action@v1
