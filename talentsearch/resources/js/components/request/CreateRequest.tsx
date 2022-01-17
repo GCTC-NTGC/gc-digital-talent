@@ -54,7 +54,7 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
   const intl = useIntl();
   const locale = getLocale(intl);
   const paths = useTalentSearchRoutes();
-  const methods = useForm();
+  const methods = useForm<FormValues>();
   const { handleSubmit } = methods;
 
   const formValuesToSubmitData = (
