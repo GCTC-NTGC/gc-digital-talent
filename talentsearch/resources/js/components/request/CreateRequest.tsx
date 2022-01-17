@@ -9,7 +9,7 @@ import { notEmpty } from "@common/helpers/util";
 import { toast } from "react-toastify";
 import { navigate, pushToStateThenNavigate } from "@common/helpers/router";
 import { SearchRequestFilters } from "@common/components/SearchRequestFilters";
-import { searchPath } from "../../talentSearchRoutes";
+import { useTalentSearchRoutes } from "../../talentSearchRoutes";
 import {
   Department,
   PoolCandidateFilter,
@@ -53,6 +53,7 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
+  const paths = useTalentSearchRoutes();
   const methods = useForm();
   const { handleSubmit } = methods;
 
@@ -117,7 +118,7 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     return handleCreatePoolCandidateSearchRequest(formValuesToSubmitData(data))
       .then(() => {
-        navigate(searchPath());
+        navigate(paths.search());
         toast.success(
           intl.formatMessage({
             defaultMessage: "Request created successfully!",
@@ -316,7 +317,7 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
               data-h2-margin="b(right, s)"
               onClick={() => {
                 // Save the initial search form values to the state so they are available to user when click back.
-                pushToStateThenNavigate(searchPath(), {
+                pushToStateThenNavigate(paths.search(), {
                   searchFormInitialValues,
                 });
               }}
