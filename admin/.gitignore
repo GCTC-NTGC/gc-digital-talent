@@ -20,4 +20,4 @@ Homestead.yaml
 .DS_Store
 
 /storybook-static/*
-
+build-storybook.log

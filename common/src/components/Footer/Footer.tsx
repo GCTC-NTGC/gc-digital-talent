@@ -1,7 +1,6 @@
 import * as React from "react";
 import { useIntl } from "react-intl";
 import { Link } from "../Link";
-import { currentDate } from "../../helpers/formUtils";
 import { imageUrl } from "../../helpers/router";
 
 export const Footer: React.FunctionComponent<{
@@ -96,11 +95,15 @@ export const Footer: React.FunctionComponent<{
           >
             {intl.formatMessage(
               {
-                defaultMessage: "Date Modified: {currentDate}",
+                defaultMessage: "Date Modified: {modifiedDate}",
                 description:
                   "Header for the sites last date modification found in the footer.",
               },
-              { currentDate: currentDate() },
+              {
+                modifiedDate: new Date(process.env.BUILD_DATE ?? "1970-01-01")
+                  .toISOString()
+                  .slice(0, 10),
+              },
             )}
           </p>
         </div>
