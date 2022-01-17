@@ -83,7 +83,7 @@
     "eslint-plugin-react": "^7.27.1",
     "eslint-plugin-react-hooks": "^4.3.0",
     "eslint-plugin-testcafe": "^0.2.1",
-    "jest": "^27.4.5",
+    "jest": "^27.4.7",
     "laravel-mix": "^6.0.39",
     "laravel-mix-polyfill": "^3.0.1",
     "postcss": "^8.4.5",
