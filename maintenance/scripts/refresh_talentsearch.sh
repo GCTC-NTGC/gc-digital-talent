@@ -11,4 +11,5 @@ npm install
 npm rebuild node-sass
 npm run h2-build
 npm run codegen
+npm run intl-compile
 npm run dev

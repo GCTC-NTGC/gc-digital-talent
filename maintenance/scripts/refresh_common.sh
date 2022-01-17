@@ -9,3 +9,4 @@ nvm install --latest-npm
 npm install
 npm run h2-build
 npm run codegen
+npm run intl-compile
