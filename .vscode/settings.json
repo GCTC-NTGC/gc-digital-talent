@@ -58,7 +58,8 @@
     "composer.lock",
     "generated.ts",
     "tsconfig.json",
-    ".eslintrc"
+    ".eslintrc",
+    "hydrogen.config.json"
   ],
   "jest.jestCommandLine": "test"
 }

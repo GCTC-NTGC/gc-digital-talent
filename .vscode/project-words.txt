@@ -15,4 +15,12 @@ TELEWORK
 toastify
 Unencrypted
 urql
+darkpurple
+lightpurple
+darknavy
+lightnavy
+darkgold
+lightgold
+darkgray
+lightgray
 BEHAVIOURAL

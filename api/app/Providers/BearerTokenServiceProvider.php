@@ -16,19 +16,19 @@ class BearerTokenServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        if(env('AUTH_SERVER_ROOT'))
+        if(config('oauth.server_root'))
             $this->app->singleton(BearerTokenServiceInterface::class, function () {
                 return new OpenIdBearerTokenService(
-                    env('APP_TIMEZONE'),
-                    env('AUTH_SERVER_ROOT').'/.well-known/openid-configuration'
+                    config('app.timezone'),
+                    config('oauth.server_root').'/.well-known/openid-configuration'
                 );
             });
         else
             $this->app->singleton(BearerTokenServiceInterface::class, function () {
                 return new LocalAuthBearerTokenService(
-                    env('AUTH_SERVER_ISS'),
-                    env('AUTH_SERVER_PUBLIC_KEY'),
-                    env('APP_TIMEZONE')
+                    config('oauth.server_iss'),
+                    config('oauth.server_public_key'),
+                    config('app.timezone')
                 );
             });
     }

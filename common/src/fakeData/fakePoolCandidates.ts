@@ -30,7 +30,10 @@ const generatePoolCandidate = (
     cmoIdentifier: faker.helpers.slugify(
       faker.lorem.words(faker.datatype.number({ min: 1, max: 3 })),
     ),
-    expiryDate: faker.date.future().toISOString().substring(0, 10),
+    expiryDate: faker.date
+      .between("2100-01-01", "2100-12-31")
+      .toISOString()
+      .substring(0, 10),
     isWoman: faker.datatype.boolean(),
     hasDisability: faker.datatype.boolean(),
     isIndigenous: faker.datatype.boolean(),

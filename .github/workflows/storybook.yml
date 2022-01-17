@@ -1,0 +1,46 @@
+name: Chromatic Storybook
+
+on: push
+
+jobs:
+  deployment:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2.4.0
+        with:
+          # Chromatic requires full git history.
+          fetch-depth: 0
+
+      - name: "Install & Compile: common"
+        working-directory: common
+        run: |
+          npm install
+          npm run h2-build
+          npm run codegen
+
+      - name: "Install & Compile: admin"
+        working-directory: admin
+        run: |
+          npm install
+          npm run h2-build
+          npm run codegen
+
+      - name: "Install & Compile: talentsearch"
+        working-directory: talentsearch
+        run: |
+          npm install
+          npm run h2-build
+          npm run codegen
+
+      - name: "Publish Storybook: all"
+        uses: chromaui/action@v1
+        env:
+          MERGE_STORYBOOKS: true
+        with:
+          workingDir: admin
+          projectToken: 87148152bdff
+          # Auto-accept UI Tests on Chromatic platform.
+          # We use this setting because we're not relying on UI Tests at the
+          # moment, and want the GitHub status check in PRs (for "UI Tests") to
+          # display immediately as "passing".
+          autoAcceptChanges: true
