@@ -32,7 +32,7 @@ export const Accordion: React.FC<AccordionProps> = ({
           setActiveIndex={handleChange}
           title={JSXProps.title}
           subtitle={JSXProps.subtitle}
-          icon={JSXProps.icon}
+          Icon={JSXProps.Icon}
         >
           {React.cloneElement(child)}
         </InternalSection>
