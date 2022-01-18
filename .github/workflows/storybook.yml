@@ -18,6 +18,8 @@ on:
 jobs:
   deployment:
     runs-on: ubuntu-latest
+    env:
+      NPM_VERSION: '8.3.0'
     steps:
       - uses: actions/checkout@v2.4.0
         with:
@@ -37,7 +39,7 @@ jobs:
             talentsearch/package-lock.json
 
       - name: Upgrade to latest npm
-        run: npm install --global npm@latest
+        run: npm install --global npm@${{ env.NPM_VERSION }}
 
       - name: "Install & Compile: common"
         working-directory: common
