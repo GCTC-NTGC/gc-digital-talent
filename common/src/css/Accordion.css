@@ -1,3 +1,4 @@
+
 .accordion-section {
     border: 1px solid #ddd;
   }
@@ -22,7 +23,8 @@
   .accordion-section__content--active {
     padding: 20px;
   }
-  
+
+
   .accessibility {
     border: 0;
     clip: rect(0 0 0 0);
