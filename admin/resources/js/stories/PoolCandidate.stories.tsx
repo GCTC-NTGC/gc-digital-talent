@@ -68,7 +68,7 @@ stories.add("Update Pool Candidate Form", () => {
       fakeClassifications()[1],
     ],
     expectedSalary: [SalaryRange["100KPlus"], SalaryRange["80_89K"]],
-    expiryDate: currentDate(),
+    expiryDate: "2999-12-31",
     hasDiploma: true,
     hasDisability: false,
     isIndigenous: true,
