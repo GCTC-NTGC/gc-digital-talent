@@ -5,7 +5,7 @@ FROM ubuntu:latest
 RUN apt-get update \
   && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends tzdata \
   && apt-get install -y perl unzip wget curl \
-  && apt-get install -y php7.4 php-mbstring php-xml php-pgsql php-zip
+  && apt-get install -y php7.4 php-mbstring php-xml php-pgsql php-zip php-curl
 
 # install nvm, not available from apt
 # https://github.com/nvm-sh/nvm
