@@ -74,7 +74,11 @@ export const Pill: React.FC<PillProps> = ({
       {...rest}
     >
       {/* parent span already has a display style */}
-      <span data-h2-display="b(flex)" data-h2-align-items="b(center)">
+      <span
+        data-h2-display="b(flex)"
+        data-h2-align-items="b(center)"
+        data-h2-justify-content="b(center)"
+      >
         {children}
       </span>
     </span>
