@@ -1,5 +1,6 @@
-import React, { ChangeEvent } from "react";
+import React from "react";
 import groupBy from "lodash/groupBy";
+import sum from "lodash/sum";
 import { useIntl } from "react-intl";
 import { getLocale } from "@common/helpers/localize";
 import { SkillFamily } from "@common/api/generated";
@@ -10,39 +11,36 @@ import {
 
 interface FamilyProps {
   family: SkillFamily;
-  index: string;
   checked: boolean;
-  callback: (event: ChangeEvent<HTMLInputElement>) => void;
+  callback: (family: SkillFamily, checked: boolean) => void;
 }
 
 const Family: React.FunctionComponent<FamilyProps> = ({
   family,
-  index,
   checked,
   callback,
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
 
-  const uncheckedStyle = "data-h2-font-weight='b(400)'";
-  const checkedStyle = "data-h2-font-weight='b(700)'";
+  const uncheckedStyle = { "data-h2-font-weight": "b(400)" };
+  const checkedStyle = { "data-h2-font-weight": "b(700)" };
 
   return (
     <div
-      data-h2-font-weight={checked ? checkedStyle : uncheckedStyle}
+      {...(checked ? checkedStyle : uncheckedStyle)}
       data-h2-padding="b(all, xxs)"
       key={family.key}
     >
       <input
         type="checkbox"
-        name={index}
-        id={family.key}
+        id={family.id}
         onChange={(e) => {
-          callback(e);
+          callback(family, e.target.checked);
         }}
       />
       &nbsp;
-      <label htmlFor={family.key}>
+      <label htmlFor={family.id}>
         {family.name?.[locale]} ({family.skills ? family.skills.length : 0})
       </label>
     </div>
@@ -64,33 +62,24 @@ const Category: React.FunctionComponent<CategoryProps> = ({
 
   // The app currently crashes if no description is specified for the category.
   // Do we want to avoid this?
-  let title = intl.formatMessage(getSkillCategoryText(category));
-
+  const categoryName = intl.formatMessage(getSkillCategoryText(category));
+  const skillCount = sum(
+    skillFamilies.map((family) => (family.skills ? family.skills.length : 0)),
+  );
+  const title = `${categoryName} (${skillCount})`;
   const image = getSkillCategoryImage(category);
 
-  // Calculate the total number of skills in the SkillCategory
-  let total = 0;
-  skillFamilies.forEach((family) => {
-    total += family.skills ? family.skills.length : 0;
-  });
-  title += ` (${total})`;
+  const [selectedFamilies, setSelectedFamilies] = React.useState<SkillFamily[]>(
+    [],
+  );
 
-  const [checkedArr, setCheckedArr] = React.useState<string[]>([]);
-
-  const HandleChecked = (event: ChangeEvent<HTMLInputElement>) => {
-    const pos = Number(event.target.name);
-    if (event.target.checked) {
-      setCheckedArr([...checkedArr, skillFamilies[pos].key]);
+  const handleChecked = (family: SkillFamily, checked: boolean) => {
+    if (checked) {
+      setSelectedFamilies([...selectedFamilies, family]);
     } else {
-      const temp: string[] = [];
-      checkedArr.forEach((elem) => {
-        if (elem !== skillFamilies[pos].key) {
-          temp.push(elem);
-        }
-      });
-      setCheckedArr(temp);
+      setSelectedFamilies(selectedFamilies.filter((elem) => elem !== family));
     }
-    callback(skillFamilies[pos], event.target.checked);
+    callback(family, checked);
   };
 
   return (
@@ -100,16 +89,14 @@ const Category: React.FunctionComponent<CategoryProps> = ({
         {image}
         &nbsp;&nbsp;{title}
       </p>
-      {skillFamilies.map((family, i) => {
-        const index = i.toString();
-        const checked = checkedArr.includes(family.key);
+      {skillFamilies.map((family) => {
+        const checked = selectedFamilies.includes(family);
         return (
           <Family
             key={family.key}
             family={family}
-            index={index}
             checked={checked}
-            callback={HandleChecked}
+            callback={handleChecked}
           />
         );
       })}
@@ -129,16 +116,18 @@ const SkillChecklist: React.FunctionComponent<SkillChecklistProps> = ({
   // Divide the list of SkillFamilies by associated SkillCategory
   const skillCategories = groupBy(skillFamilies, "category");
 
-  let selected: SkillFamily[] = [];
+  const [selected, setSelected] = React.useState<SkillFamily[]>([]);
 
-  const HandleSelection = (newSelection: SkillFamily, added: boolean) => {
-    if (added) {
-      selected.push(newSelection);
-    } else {
-      selected = selected.filter((elem) => elem !== newSelection);
-    }
-
+  React.useEffect(() => {
     callback(selected);
+  });
+
+  const handleSelection = (newSelection: SkillFamily, added: boolean) => {
+    if (added) {
+      setSelected([...selected, newSelection]);
+    } else {
+      setSelected(selected.filter((elem) => elem !== newSelection));
+    }
   };
 
   return (
@@ -152,7 +141,7 @@ const SkillChecklist: React.FunctionComponent<SkillChecklistProps> = ({
             key={category}
             category={category}
             skillFamilies={skillCategories[category]}
-            callback={HandleSelection}
+            callback={handleSelection}
           />
         );
       })}
