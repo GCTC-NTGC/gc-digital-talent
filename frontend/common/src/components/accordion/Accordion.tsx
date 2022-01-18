@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import { Section as InternalSection, ExternalSectionProps } from "./Section";
-import "./Accordion.css";
+import "../../css/Accordion.css";
 
 interface AccordionProps {
-  defaultOpenIndex?: number;
+  defaultOpenIndex?: any;
 }
 export const Accordion: React.FC<AccordionProps> = ({
   children,
-  defaultOpenIndex = 0,
+  defaultOpenIndex,
 }) => {
-  const [activeIndex, setActiveIndex] = useState<number>(defaultOpenIndex);
+  const [activeIndex, setActiveIndex] = useState<unknown>(defaultOpenIndex);
   const sectionsWithInjectedProps = React.Children.map(
     children,
     (child, index) => {
@@ -27,7 +27,9 @@ export const Accordion: React.FC<AccordionProps> = ({
           index={index}
           isActive={isActive}
           setActiveIndex={setActiveIndex}
-          heading={JSXProps.heading}
+          title={JSXProps.title}
+          subtitle={JSXProps.subtitle}
+          icon={JSXProps.icon}
         >
           {React.cloneElement(child)}
         </InternalSection>

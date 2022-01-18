@@ -1,8 +1,11 @@
 import React from "react";
 import clsx from "clsx";
+import { ChevronDownIcon, ChevronRightIcon } from "@heroicons/react/solid";
 
 export interface ExternalSectionProps {
-  heading: string;
+  title: string;
+  subtitle: string;
+  icon: unknown;
 }
 
 interface InternalSectionProps extends ExternalSectionProps {
@@ -15,7 +18,8 @@ export const Section: React.FC<InternalSectionProps> = ({
   index,
   isActive,
   setActiveIndex,
-  heading,
+  title,
+  subtitle,
   children,
 }) => {
   const sectionClass = clsx(
@@ -29,8 +33,28 @@ export const Section: React.FC<InternalSectionProps> = ({
   );
   return (
     <div className={sectionClass}>
-      <button type="button" onClick={() => setActiveIndex(index)}>
-        {heading}
+      <button
+        type="button"
+        data-h2-text-align="b(left)"
+        onClick={() => setActiveIndex(index)}
+      >
+        <div>
+          <span>
+            {isActive ? (
+              <ChevronDownIcon height="20" />
+            ) : (
+              <ChevronRightIcon height="20" />
+            )}
+          </span>
+          <span data-h2-font-family="b(sans)" data-h2-font-size="b(h5)">
+            {title}
+          </span>
+        </div>
+        <div>
+          <span data-h2-font-family="b(sans)" data-h2-font-size="b(normal)">
+            {subtitle}
+          </span>
+        </div>
       </button>
       <div className={contentClass} ref={contentRef}>
         {isActive && children}
