@@ -4,8 +4,8 @@ import { ChevronDownIcon, ChevronRightIcon } from "@heroicons/react/solid";
 
 export interface ExternalSectionProps {
   title: string;
-  subtitle: string;
-  icon: unknown;
+  subtitle?: string;
+  Icon?: React.ComponentType<React.SVGProps<SVGSVGElement>>;
 }
 
 interface InternalSectionProps extends ExternalSectionProps {
@@ -20,6 +20,7 @@ export const Section: React.FC<InternalSectionProps> = ({
   setActiveIndex,
   title,
   subtitle,
+  Icon,
   children,
 }) => {
   const sectionClass = clsx(
@@ -38,7 +39,7 @@ export const Section: React.FC<InternalSectionProps> = ({
         data-h2-text-align="b(left)"
         onClick={() => setActiveIndex(index)}
       >
-        <div>
+        <div className="header">
           <span>
             {isActive ? (
               <ChevronDownIcon height="20" />
@@ -46,8 +47,15 @@ export const Section: React.FC<InternalSectionProps> = ({
               <ChevronRightIcon height="20" />
             )}
           </span>
-          <span data-h2-font-family="b(sans)" data-h2-font-size="b(h5)">
+          <span
+            className="title"
+            data-h2-font-family="b(sans)"
+            data-h2-font-size="b(h5)"
+          >
             {title}
+          </span>
+          <span className="icon" data-h2-text-align="b(left)">
+            {Icon && <Icon height="20px" width="20px" />}
           </span>
         </div>
         <div>

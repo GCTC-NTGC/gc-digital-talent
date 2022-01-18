@@ -1,6 +1,11 @@
 import React from "react";
 import { Story, Meta } from "@storybook/react";
 import {
+  ChevronDownIcon,
+  ChevronRightIcon,
+  AcademicCapIcon,
+} from "@heroicons/react/solid";
+import {
   Accordion as AccordionComponent,
   Section,
   AccordionProps,
@@ -9,18 +14,6 @@ import {
 export default {
   component: AccordionComponent,
   title: "Components/Accordion",
-  args: {
-    title: "Accordion Title",
-  },
-  argTypes: {
-    title: {
-      name: "title",
-      type: { name: "string", required: true },
-      control: {
-        type: "text",
-      },
-    },
-  },
 } as Meta;
 
 const TemplateAccordion: Story<AccordionProps & { title: string }> = (args) => {
@@ -28,14 +21,13 @@ const TemplateAccordion: Story<AccordionProps & { title: string }> = (args) => {
 
   return (
     <AccordionComponent defaultOpenIndex="undefined" {...rest}>
-      <Section title={SectionTitle1} subtitle="subtitle" icon="">
-        {" "}
+      <Section title={SectionTitle1} subtitle="subtitle" Icon={AcademicCapIcon}>
         first section
       </Section>
-      <Section title={SectionTitle2} subtitle="" icon={undefined}>
+      <Section title={SectionTitle2} subtitle="" Icon={AcademicCapIcon}>
         Lorem ipsum dolor sit amet.
       </Section>
-      <Section title={SectionTitle3} subtitle="" icon={undefined}>
+      <Section title={SectionTitle3} subtitle="" Icon={AcademicCapIcon}>
         Lorem ipsum dolor sit amet.
       </Section>
     </AccordionComponent>
@@ -44,7 +36,7 @@ const TemplateAccordion: Story<AccordionProps & { title: string }> = (args) => {
 
 export const Accordion = TemplateAccordion.bind({});
 Accordion.args = {
-  SectionTitle1: "^ Section 1 title",
+  SectionTitle1: "Section 1 title",
   SectionTitle2: "Section 2 title",
   SectionTitle3: "Section 3 title",
 };

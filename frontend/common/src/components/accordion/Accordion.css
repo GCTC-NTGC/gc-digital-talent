@@ -24,6 +24,9 @@
     padding: 20px;
   }
 
+  .accordion-section .header .icon {
+    float:right;
+  }
 
   .accessibility {
     border: 0;
