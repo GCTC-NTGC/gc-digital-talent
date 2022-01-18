@@ -1,7 +1,5 @@
 
-.accordion-section {
-    border: 1px solid #ddd;
-  }
+
 
   .accordion-section + .accordion-section {
     border-top: 0;
