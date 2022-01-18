@@ -33,7 +33,10 @@ export const Section: React.FC<InternalSectionProps> = ({
     isActive && "accordion-section__content--active",
   );
   return (
-    <div className={sectionClass}>
+    <div
+      className={sectionClass}
+      data-h2-border="b(darkpurple, left, solid, m)"
+    >
       <button
         type="button"
         data-h2-text-align="b(left)"
@@ -57,11 +60,11 @@ export const Section: React.FC<InternalSectionProps> = ({
           <span className="icon" data-h2-text-align="b(left)">
             {Icon && <Icon height="20px" width="20px" />}
           </span>
-        </div>
-        <div>
-          <span data-h2-font-family="b(sans)" data-h2-font-size="b(normal)">
-            {subtitle}
-          </span>
+          <div>
+            <span data-h2-font-family="b(sans)" data-h2-font-size="b(normal)">
+              {subtitle}
+            </span>
+          </div>
         </div>
       </button>
       <div className={contentClass} ref={contentRef}>
