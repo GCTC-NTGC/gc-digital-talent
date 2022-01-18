@@ -75,7 +75,7 @@
     "skipLibCheck": true,                           /* Skip type checking of declaration files. */
     "forceConsistentCasingInFileNames": true        /* Disallow inconsistently-cased references to the same file. */
   },
-  "include": ["resources/js/**/*", "**/*.config.js", "../common/src/helpers/localize.test.ts"],
+  "include": ["resources/js/**/*", "**/*.config.js"],
   "exclude": [
     "node_modules",
     "!node_modules/@types",

@@ -24,7 +24,7 @@
   },
   "include": [
     "src"
-, "../talentsearch/resources/js/tests/localize.test.tsx"  ],
+  ],
   "exclude": [
     "node_modules",
     "lib"
