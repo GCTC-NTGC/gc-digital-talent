@@ -3,9 +3,9 @@
  */
 
 import React from "react";
-import { render, screen, fireEvent } from "./testUtils";
-import SkillChecklist from "../components/skills/SkillChecklist";
-import { SkillCategory } from "../api/generated";
+import { render, screen, fireEvent } from "../../tests/testUtils";
+import SkillChecklist from "./SkillChecklist";
+import { SkillCategory } from "../../api/generated";
 
 const testData = [
   {

@@ -1,5 +1,6 @@
 import faker from "faker";
-import { SkillCategory, SkillFamily, Skill } from "../api/generated";
+import fakeSkills from "./fakeSkills";
+import { SkillCategory, SkillFamily } from "../api/generated";
 
 const generateSkillFamily = (name: string) => {
   return {
@@ -8,16 +9,16 @@ const generateSkillFamily = (name: string) => {
       SkillCategory.Technical,
     ]),
     description: {
-      en: faker.lorem.sentences(),
-      fr: faker.lorem.sentences(),
+      en: `EN ${faker.lorem.sentences()}`,
+      fr: `FR ${faker.lorem.sentences()}`,
     },
     id: faker.datatype.uuid(),
     key: name,
     name: {
-      en: name,
-      fr: name,
+      en: `EN ${name}`,
+      fr: `FR ${name}`,
     },
-    skills: new Array<Skill>(faker.datatype.number(20)),
+    skills: fakeSkills(faker.datatype.number(20)),
   };
 };
 
