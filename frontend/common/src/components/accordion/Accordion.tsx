@@ -3,13 +3,16 @@ import { Section as InternalSection, ExternalSectionProps } from "./Section";
 import "../../css/Accordion.css";
 
 interface AccordionProps {
-  defaultOpenIndex?: any;
+  defaultOpenIndex?: number;
 }
 export const Accordion: React.FC<AccordionProps> = ({
   children,
   defaultOpenIndex,
 }) => {
   const [activeIndex, setActiveIndex] = useState<unknown>(defaultOpenIndex);
+  const handleChange = (index: unknown) => {
+    setActiveIndex(activeIndex === index ? undefined : index);
+  };
   const sectionsWithInjectedProps = React.Children.map(
     children,
     (child, index) => {
@@ -26,7 +29,7 @@ export const Accordion: React.FC<AccordionProps> = ({
         <InternalSection
           index={index}
           isActive={isActive}
-          setActiveIndex={setActiveIndex}
+          setActiveIndex={handleChange}
           title={JSXProps.title}
           subtitle={JSXProps.subtitle}
           icon={JSXProps.icon}
