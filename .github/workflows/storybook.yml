@@ -1,6 +1,19 @@
 name: Chromatic Storybook
 
-on: push
+on:
+  push:
+    branches: ["main"]
+    paths:
+      - .github/workflows/storybook.yml
+      - 'common/**'
+      - 'admin/**'
+      - 'talentsearch/**'
+  pull_request:
+    paths:
+      - .github/workflows/storybook.yml
+      - 'common/**'
+      - 'admin/**'
+      - 'talentsearch/**'
 
 jobs:
   deployment:
