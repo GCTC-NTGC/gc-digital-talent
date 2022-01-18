@@ -24,6 +24,21 @@ jobs:
           # Chromatic requires full git history.
           fetch-depth: 0
 
+      - uses: actions/setup-node@v2.5.1
+        with:
+          node-version-file: 'admin/.nvmrc'
+          cache: npm
+          # We include `auth/` even though we don't use it.
+          # This allows cache key to match across all workflows.
+          cache-dependency-path: |
+            auth/package-lock.json
+            common/package-lock.json
+            admin/package-lock.json
+            talentsearch/package-lock.json
+
+      - name: Upgrade to latest npm
+        run: npm install --global npm@latest
+
       - name: "Install & Compile: common"
         working-directory: common
         run: |
