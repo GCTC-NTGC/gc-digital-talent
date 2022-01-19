@@ -16,7 +16,7 @@ const TemplateAccordion: Story<AccordionProps & { title: string }> = (args) => {
   const { SectionTitle1, SectionTitle2, SectionTitle3, ...rest } = args;
 
   return (
-    <AccordionComponent defaultOpenIndex="undefined" {...rest}>
+    <AccordionComponent defaultOpenIndex={undefined} {...rest}>
       <Section title={SectionTitle1} subtitle="subtitle" Icon={AcademicCapIcon}>
         first section
       </Section>
