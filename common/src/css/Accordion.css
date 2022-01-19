@@ -1,4 +1,4 @@
-
+/*
 
 
   .accordion-section + .accordion-section {
@@ -9,7 +9,6 @@
     display: block;
     appearance: none;
     width: 100%;
-    border: 0;
     background-color: #f4f5f8;
     padding: 10px;
     cursor: pointer;
@@ -35,4 +34,4 @@
     padding: 0;
     position: absolute;
     width: 1px;
-}
+} */
