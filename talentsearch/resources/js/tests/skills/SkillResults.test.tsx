@@ -5,6 +5,7 @@
 import React from "react";
 import { screen, fireEvent } from "@testing-library/react";
 import { fakeSkills } from "@common/fakeData";
+import { Skill } from "../../api/generated";
 import { render } from "../testUtils";
 import SkillResults, { SkillBlock } from "../../components/skills/SkillResults";
 
@@ -22,13 +23,18 @@ function renderSkillResults(title: string) {
   );
 }
 
-function renderSkillBlock(isAdded: boolean) {
+function renderSkillBlock(
+  isAdded: boolean,
+  skill: Skill,
+  handleAddSkill?: () => Promise<void>,
+  handleRemoveSkill?: () => Promise<void>,
+) {
   return render(
     <SkillBlock
       isAdded={isAdded}
-      skill={skills[0]}
-      handleAddSkill={async () => {}}
-      handleRemoveSkill={async () => {}}
+      skill={skill}
+      handleAddSkill={handleAddSkill || (async () => {})}
+      handleRemoveSkill={handleRemoveSkill || (async () => {})}
     />,
   );
 }
@@ -37,29 +43,45 @@ describe("Skill Results Tests", () => {
   test("should display the correct title", async () => {
     const title = "Results";
     renderSkillResults(title);
-    const element = screen.findByText(`${title} ${title.length}`);
+
+    const element = screen.getByText(`${title} (${skills.length})`);
     expect(element).toBeTruthy();
   });
+
   test("should open and close the skill block correctly", async () => {
-    renderSkillBlock(false);
+    const isAdded = false;
+    const skill = skills[0];
+    const skillDescription = skill.description?.en;
+    renderSkillBlock(isAdded, skill);
+
     const button = screen.getByText("See definition");
-    fireEvent.click(button);
-    expect(await screen.findByText("Hide definition")).toBeTruthy();
-    fireEvent.click(button);
-    expect(await screen.findByText("See definition")).toBeTruthy();
+    fireEvent.click(button); // Open skill block to view skill description
+    expect(screen.getByText("Hide definition")).toBeTruthy();
+    expect(screen.queryByText(`${skillDescription}`)).toBeTruthy();
+    fireEvent.click(button); // Close skill block to hide skill description
+    expect(screen.getByText("See definition")).toBeTruthy();
+    expect(screen.queryByText(`${skillDescription}`)).toBeNull();
   });
-  test("should close the skill block correctly", async () => {
-    const isOpen = true;
-    renderSkillBlock(isOpen);
-    const hideDefinition = screen.findByText("Hide definition");
-    expect(hideDefinition).toBeTruthy();
-  });
-  test("should display correct text when adding and removing skill", async () => {
-    renderSkillBlock(false);
+
+  test("should handle adding skill correctly", async () => {
+    const isAdded = false;
+    const skill = skills[0];
+    const handleAddSkill = jest.fn();
+    renderSkillBlock(isAdded, skill, handleAddSkill);
+
     const button = screen.getByText("Add skill");
-    fireEvent.click(button);
-    expect(screen.findByText("Remove skill")).toBeTruthy();
-    fireEvent.click(button);
-    expect(screen.findByText("Add skill")).toBeTruthy();
+    fireEvent.click(button); // Click add skill button
+    expect(handleAddSkill).toHaveBeenCalledTimes(1);
+  });
+
+  test("should handle removing skill correctly", async () => {
+    const isAdded = true;
+    const skill = skills[0];
+    const handleRemoveSkill = jest.fn();
+    renderSkillBlock(isAdded, skill, async () => {}, handleRemoveSkill);
+
+    const button = screen.getByText("Remove skill");
+    fireEvent.click(button); // Click remove skill button
+    expect(handleRemoveSkill).toHaveBeenCalledTimes(1);
   });
 });
