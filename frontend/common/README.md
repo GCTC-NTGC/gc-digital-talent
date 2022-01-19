@@ -14,9 +14,6 @@ To import code from this folder in another Javascript package in a sibling folde
     resolve: {
         alias: {
           "@common": path.resolve('../common/src'),
-          "react": path.resolve('./node_modules/react'),
-          "react-dom": path.resolve('./node_modules/react-dom'),
-          "react-hook-form": path.resolve('./node_modules/react-hook-form'),
         }
       }
     ```
