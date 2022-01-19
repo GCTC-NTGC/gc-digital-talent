@@ -23,10 +23,6 @@ export const Section: React.FC<InternalSectionProps> = ({
   Icon,
   children,
 }) => {
-  const sectionClass = clsx(
-    "accordion-section",
-    isActive && "accordion-section--active",
-  );
   const contentRef = React.useRef(null);
   const contentClass = clsx(
     "accordion-section__content",
