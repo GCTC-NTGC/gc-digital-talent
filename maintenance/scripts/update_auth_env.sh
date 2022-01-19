@@ -1,5 +1,8 @@
 #! /bin/bash
 
+parent_path=$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P )
+source ${parent_path}/lib/common.sh
+
 exp='\:\ ([a-zA-Z0-9\-]+)$'
 
 text=`grep 'Client ID:' /var/www/html/auth/personal_access_client.txt`
