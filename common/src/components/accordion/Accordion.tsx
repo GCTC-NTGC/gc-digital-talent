@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Section as InternalSection, ExternalSectionProps } from "./Section";
 import "../../css/Accordion.css";
 
-interface AccordionProps {
+export interface AccordionProps {
   defaultOpenIndex?: number;
 }
 export const Accordion: React.FC<AccordionProps> = ({
