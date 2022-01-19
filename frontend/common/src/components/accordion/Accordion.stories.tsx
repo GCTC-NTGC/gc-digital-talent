@@ -1,10 +1,6 @@
 import React from "react";
 import { Story, Meta } from "@storybook/react";
-import {
-  ChevronDownIcon,
-  ChevronRightIcon,
-  AcademicCapIcon,
-} from "@heroicons/react/solid";
+import { AcademicCapIcon } from "@heroicons/react/solid";
 import {
   Accordion as AccordionComponent,
   Section,
