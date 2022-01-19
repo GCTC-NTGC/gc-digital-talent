@@ -24,6 +24,9 @@ export const departmentCreatePath = (): string =>
 export const departmentUpdatePath = (id: string): string =>
   path.join(homePath(), "departments", id, "edit");
 
+export const skillFamilyTablePath = (): string =>
+  path.join(homePath(), "skill-families");
+
 export const operationalRequirementTablePath = (): string =>
   path.join(homePath(), "operational-requirements");
 export const operationalRequirementCreatePath = (): string =>
