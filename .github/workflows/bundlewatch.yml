@@ -11,7 +11,6 @@ on:
       - admin/**
       - auth/**
   pull_request:
-    types: ["opened", "reopened", "synchronize"]
     paths:
       - .github/workflows/bundlewatch.yml
       - common/**
@@ -23,6 +22,7 @@ jobs:
   runner:
     runs-on: ubuntu-latest
     env:
+      NPM_VERSION: '8.3.0'
       # Used to write status check on PRs within upstream repo.
       # Note: Will not work for PRs from forks.
       BUNDLEWATCH_GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -36,7 +36,7 @@ jobs:
 
     - uses: actions/setup-node@v2.5.1
       with:
-        node-version: 14.18.1
+        node-version-file: 'admin/.nvmrc'
         cache: npm
         cache-dependency-path: |
           auth/package-lock.json
@@ -45,7 +45,7 @@ jobs:
           talentsearch/package-lock.json
 
     - name: Upgrade to latest npm
-      run: npm install --global npm@latest
+      run: npm install --global npm@${{ env.NPM_VERSION }}
 
     - name: "Install & Build: auth"
       working-directory: auth
