@@ -75,10 +75,24 @@ class DatabaseSeeder extends Seeder
             'roles' => ['ADMIN']
         ]);
 
-        // SiC - PG
         User::factory()->create([
-            'sub' => '4810df0d-fcb6-4353-af93-b25c0a5a9c3e',
+            'sub' => '4810df0d-fcb6-4353-af93-b25c0a5a9c3e', // SiC - PG
             'roles' => ['ADMIN']
         ]);
+        User::factory()->create([
+            'sub' => 'cd537460-1fee-40bd-ada6-8ee40b6f63c9', // SiC - GB
+            'roles' => ['ADMIN']
+        ]);
+        User::factory()->create([
+            'sub' => 'c65dd054-db44-4bf6-af39-37eedb39305d', // SiC - YK
+            'roles' => ['ADMIN']
+        ]);
+        User::factory()->create([
+            'sub' => 'e64b8057-0eaf-4a19-a14a-4a93fa2e8a04', // SiC - JH
+            'roles' => ['ADMIN']
+        ]);
+
+
+
     }
 }
