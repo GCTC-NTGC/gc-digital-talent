@@ -298,7 +298,7 @@ export const PoolDashboard: React.FC = () => {
       })}
     />,
     <MenuLink
-      key="skill-family"
+      key="skill-families"
       href={skillFamilyTablePath()}
       text={intl.formatMessage({
         defaultMessage: "Skill Families",
