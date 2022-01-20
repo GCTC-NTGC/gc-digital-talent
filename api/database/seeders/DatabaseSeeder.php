@@ -29,7 +29,7 @@ class DatabaseSeeder extends Seeder
         $this->call(OperationalRequirementSeeder::class);
         $this->call(DepartmentSeeder::class);
 
-        $this->call(UserSeeder::class);
+        $this->loadUsers();
         $this->call(PoolSeeder::class);
 
         PoolCandidate::factory()
@@ -63,5 +63,22 @@ class DatabaseSeeder extends Seeder
         PoolCandidateFilter::truncate();
         PoolCandidateSearchRequest::truncate();
         User::truncate();
+    }
+
+    // set up some users to allow authentication
+    private function loadUsers()
+    {
+        // shared Laravel auth user
+        User::factory()->create([
+            'email' => 'admin@test.com',
+            'sub' => 'admin@test.com',
+            'roles' => ['ADMIN']
+        ]);
+
+        // SiC - PG
+        User::factory()->create([
+            'sub' => '4810df0d-fcb6-4353-af93-b25c0a5a9c3e',
+            'roles' => ['ADMIN']
+        ]);
     }
 }
