@@ -7,6 +7,7 @@ import {
   getLanguageAbility,
   getWorkRegion,
 } from "../../constants/localizedConstants";
+import { getLocale } from "../../helpers/localize";
 
 export const FilterBlock: React.FunctionComponent<{
   title: string;
@@ -75,6 +76,7 @@ export const SearchRequestFilters: React.FunctionComponent<
   SearchRequestFiltersProps
 > = ({ poolCandidateFilter }) => {
   const intl = useIntl();
+  const locale = getLocale(intl);
 
   const classifications: string[] | undefined =
     poolCandidateFilter?.classifications?.map(
@@ -136,7 +138,7 @@ export const SearchRequestFilters: React.FunctionComponent<
   const operationalRequirements: string[] | undefined =
     poolCandidateFilter?.operationalRequirements?.map(
       (operationalRequirement) =>
-        operationalRequirement?.name.en ||
+        operationalRequirement?.name[locale] ||
         intl.formatMessage({
           defaultMessage: "Error: operational requirement name not found",
           description:
@@ -157,7 +159,7 @@ export const SearchRequestFilters: React.FunctionComponent<
       });
   const skills: string[] | undefined = poolCandidateFilter?.cmoAssets?.map(
     (cmoAsset) =>
-      cmoAsset?.name.en ||
+      cmoAsset?.name[locale] ||
       intl.formatMessage({
         defaultMessage: "Error: skill name not found",
         description:

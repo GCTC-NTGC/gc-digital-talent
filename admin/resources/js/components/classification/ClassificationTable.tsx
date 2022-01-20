@@ -4,6 +4,7 @@ import { useLocation } from "@common/helpers/router";
 import { notEmpty } from "@common/helpers/util";
 import { commonMessages } from "@common/messages";
 import { FromArray } from "@common/types/utilityTypes";
+import { getLocale } from "@common/helpers/localize";
 import {
   GetClassificationsQuery,
   useGetClassificationsQuery,
@@ -18,6 +19,7 @@ export const ClassificationTable: React.FC<
   GetClassificationsQuery & { editUrlRoot: string }
 > = ({ classifications, editUrlRoot }) => {
   const intl = useIntl();
+  const locale = getLocale(intl);
   const columns = useMemo<ColumnsOf<Data>>(
     () => [
       {
@@ -33,7 +35,7 @@ export const ClassificationTable: React.FC<
           description:
             "Title displayed for the Classification table Name column.",
         }),
-        accessor: (d) => d.name?.en,
+        accessor: (d) => d.name?.[locale],
       },
       {
         Header: intl.formatMessage({
@@ -76,7 +78,7 @@ export const ClassificationTable: React.FC<
         accessor: (d) => tableEditButtonAccessor(d.id, editUrlRoot), // callback extracted to separate function to stabilize memoized component
       },
     ],
-    [editUrlRoot, intl],
+    [editUrlRoot, intl, locale],
   );
 
   const memoizedData = useMemo(
