@@ -18,8 +18,8 @@ DirectorySlash off
     RewriteRule ^graphql-playground$ api/public/graphql-playground [L]
     RewriteRule ^graphql$ api/public/graphql [L]
 
-    # Send admin requests to admin public folder; don't rewrite twice.
-    RewriteCond %{REQUEST_URI} !^frontend/admin/public/
+    # Send admin requests to admin public folder (with or without public/ path prefix).
+    RewriteRule ^admin/public(/(.*))?$ frontend/admin/public/$2 [L]
     RewriteRule ^admin(/(.*))?$ frontend/admin/public/$2 [L]
 
     # Send auth-callback request to admin
