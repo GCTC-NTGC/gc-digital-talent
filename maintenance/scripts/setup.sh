@@ -45,13 +45,16 @@ nvm install --latest-npm
 npm install
 npm rebuild node-sass
 
-# work-around until hydrogen is updated: we trick hydrogen into thinking its installed in the package path.
-# see: https://github.com/hydrogen-design-system/hydrogen.css/issues/72
+# Work-around until hydrogen is updated: We trick hydrogen into thinking its installed in the package path.
+# See: https://github.com/hydrogen-design-system/hydrogen.css/issues/72
 mkdir -p admin/node_modules common/node_modules talentsearch/node_modules
 rm -rf */node_modules/@hydrogen-design-system
 (cd admin/node_modules && ln -s ../../node_modules/@hydrogen-design-system .)
 (cd common/node_modules && ln -s ../../node_modules/@hydrogen-design-system .)
 (cd talentsearch/node_modules && ln -s ../../node_modules/@hydrogen-design-system .)
+# Another fix for executable bit not being enabled, leading to issues.
+# See: https://github.com/hydrogen-design-system/hydrogen.css/issues/73
+chmod +x node_modules/@hydrogen-design-system/hydrogen.css/bin/*
 
 # setup common project
 cd /var/www/html/frontend/common
