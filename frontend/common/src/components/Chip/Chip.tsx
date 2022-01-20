@@ -50,7 +50,11 @@ export const Chip: React.FC<ChipProps> = ({
   label,
 }): React.ReactElement => {
   return (
-    <Pill color={color} mode={mode}>
+    <Pill
+      color={color}
+      mode={mode}
+      data-h2-padding="b(top-bottom, xxs) b(right-left, xs)"
+    >
       {label}
       {onDismiss && (
         <XCircleIcon

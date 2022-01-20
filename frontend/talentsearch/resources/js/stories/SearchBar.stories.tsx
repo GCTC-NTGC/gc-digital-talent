@@ -5,7 +5,7 @@ import SearchBar, { SearchBarProps } from "../components/skills/SearchBar";
 
 export default {
   component: SearchBar,
-  title: "SearchBar",
+  title: "Skills/SearchBar",
   args: {
     maxWidth: "30rem",
     handleSearch: action("handleSearch"),
