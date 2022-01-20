@@ -11,7 +11,6 @@ export function getLocale(intl: IntlShape): Locales {
   if (isLocale(locale)) {
     return locale;
   }
-  console.warn("Unknown locale. Defaulting to en.");
   return "en";
 }
 
