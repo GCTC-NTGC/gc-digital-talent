@@ -1,9 +1,7 @@
 import React from "react";
 import { Meta, Story } from "@storybook/react";
 import fakeSkills from "@common/fakeData/fakeSkills";
-import AddedSkills, {
-  AddedSkillsProps,
-} from "../components/skills/AddedSkills";
+import AddedSkills, { AddedSkillsProps } from ".";
 
 export default {
   component: AddedSkills,

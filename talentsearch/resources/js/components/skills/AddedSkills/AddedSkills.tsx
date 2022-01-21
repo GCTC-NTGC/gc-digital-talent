@@ -88,12 +88,3 @@ const AddedSkills: React.FunctionComponent<AddedSkillsProps> = ({
 };
 
 export default AddedSkills;
-
-/*
-      skills.map(
-  (skill) => {
-    const handler = () => {doSomethingWithId(skill)}; // id is now part of the function closure
-    return <Chip label={skill} color="neutral" mode="outline" onDismiss={handler    } />;
-  });
-);
-*/
