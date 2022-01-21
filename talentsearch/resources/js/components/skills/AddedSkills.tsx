@@ -3,6 +3,7 @@ import { useIntl } from "react-intl";
 import { Chip } from "@common/components/Chip";
 import { Scalars, Skill } from "@common/api/generated";
 import { getLocale } from "@common/helpers/localize";
+import Alert from "@common/components/Alert";
 
 export interface AddedSkillsProps {
   skills: Skill[];
@@ -39,39 +40,48 @@ const AddedSkills: React.FunctionComponent<AddedSkillsProps> = ({
         );
       })}
       {skills.length === 0 && (
-        <div>
+        <i>
           {intl.formatMessage({
-            defaultMessage: "Use the lists below to start adding skills.",
+            defaultMessage:
+              "There are no skills attached to this experience yet. You can add some using the links below.",
             description:
               "Invitation to add skills when there aren't any added yet.",
           })}
-        </div>
+        </i>
       )}
 
       {skills.length >= 6 && (
-        <>
-          <div>
-            <strong>
-              {intl.formatMessage({
-                defaultMessage: "That's a lot of skills!",
-                description: "Title of alert when there are many skills added.",
-              })}
-            </strong>
-          </div>
-          <div>
-            {intl.formatMessage(
-              {
-                defaultMessage:
-                  "On the next step you will explain how you used each skill. Try to focus on a few of your top skills, we recommend <strong>less than six (6)</strong> skills per experience.",
-                description:
-                  "Message of alert when there are many skills added recommending that fewer skills be selected.",
-              },
-              {
-                strong,
-              },
-            )}
-          </div>
-        </>
+        <Alert
+          color="gold"
+          position="static"
+          title=""
+          data-h2-font-color="b([dark]darkgold)"
+        >
+          <i>
+            <div>
+              <strong>
+                {intl.formatMessage({
+                  defaultMessage: "That's a lot of skills!",
+                  description:
+                    "Title of alert when there are many skills added.",
+                })}
+              </strong>
+            </div>
+            <div>
+              {intl.formatMessage(
+                {
+                  defaultMessage:
+                    "On the next step you will explain how you used each skill. Try to focus on a few of your top skills, we recommend <strong>less than six (6)</strong> skills per experience.",
+                  description:
+                    "Message of alert when there are many skills added recommending that fewer skills be selected.",
+                },
+                {
+                  strong,
+                },
+              )}
+            </div>
+          </i>
+        </Alert>
       )}
     </>
   );
