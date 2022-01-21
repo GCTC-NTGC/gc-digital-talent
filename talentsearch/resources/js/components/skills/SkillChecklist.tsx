@@ -3,7 +3,7 @@ import groupBy from "lodash/groupBy";
 import sum from "lodash/sum";
 import { useIntl } from "react-intl";
 import { getLocale } from "@common/helpers/localize";
-import { SkillFamily } from "@common/api/generated";
+import { SkillCategory, SkillFamily } from "@common/api/generated";
 import {
   getSkillCategoryText,
   getSkillCategoryImage,
@@ -48,7 +48,7 @@ const Family: React.FunctionComponent<FamilyProps> = ({
 };
 
 interface CategoryProps {
-  category: string;
+  category: SkillCategory;
   skillFamilies: SkillFamily[];
   callback: (selected: SkillFamily, added: boolean) => void;
 }
@@ -77,7 +77,9 @@ const Category: React.FunctionComponent<CategoryProps> = ({
     if (checked) {
       setSelectedFamilies([...selectedFamilies, family]);
     } else {
-      setSelectedFamilies(selectedFamilies.filter((elem) => elem !== family));
+      setSelectedFamilies(
+        selectedFamilies.filter((elem) => elem.id !== family.id),
+      );
     }
     callback(family, checked);
   };
@@ -90,7 +92,9 @@ const Category: React.FunctionComponent<CategoryProps> = ({
         &nbsp;&nbsp;{title}
       </p>
       {skillFamilies.map((family) => {
-        const checked = selectedFamilies.includes(family);
+        const checked = selectedFamilies.some(
+          (selectedFamily) => selectedFamily.id === family.id,
+        );
         return (
           <Family
             key={family.key}
@@ -126,7 +130,7 @@ const SkillChecklist: React.FunctionComponent<SkillChecklistProps> = ({
     if (added) {
       setSelected([...selected, newSelection]);
     } else {
-      setSelected(selected.filter((elem) => elem !== newSelection));
+      setSelected(selected.filter((elem) => elem.id !== newSelection.id));
     }
   };
 
@@ -139,7 +143,7 @@ const SkillChecklist: React.FunctionComponent<SkillChecklistProps> = ({
         return (
           <Category
             key={category}
-            category={category}
+            category={category as SkillCategory}
             skillFamilies={skillCategories[category]}
             callback={handleSelection}
           />
