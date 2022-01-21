@@ -28,9 +28,8 @@ services:
     volumes:
       - ./php-container/src:/var/www/html/
       - ../api:/var/www/html/api
-      - ../admin:/var/www/html/admin
       - ../auth:/var/www/html/auth
-      - ../talentsearch:/var/www/html/talentsearch
+      - ../frontend:/var/www/html/frontend
     ports:
       - 8000:80
       - 8001:443
@@ -45,10 +44,8 @@ services:
       - maintenancedata:/root
       - ../maintenance/scripts:/root/scripts
       - ../api:/var/www/html/api
-      - ../admin:/var/www/html/admin
       - ../auth:/var/www/html/auth
-      - ../talentsearch:/var/www/html/talentsearch
-      - ../common:/var/www/html/common
+      - ../frontend:/var/www/html/frontend
 
 volumes:
   pgdata:
