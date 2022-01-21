@@ -1,6 +1,7 @@
-schema: ../api/storage/app/lighthouse-schema.graphql
+schema: ../../api/storage/app/lighthouse-schema.graphql
+documents: ./resources/js/**/*.graphql
 generates:
-  ./src/api/generated.ts:
+  ./resources/js/api/generated.ts:
     plugins:
       - add
       - typescript
