@@ -19,14 +19,10 @@ const reactIntlTransformRule = {
   exclude: /node_modules/,
 };
 
-const isMerged = (process.env.MERGE_STORYBOOKS === 'true');
-
 module.exports = {
-  "staticDirs": ['../public'],
   "stories": [
-    `${ isMerged ? '../../admin/'        : '../' }**/*.stories.@(js|jsx|ts|tsx|mdx)`,
-    `${ isMerged ? '../../talentsearch/' : '../' }**/*.stories.@(js|jsx|ts|tsx|mdx)`,
-    `${ isMerged ? '../../common/'       : '../' }**/*.stories.@(js|jsx|ts|tsx|mdx)`,
+    "../src/**/*.stories.mdx",
+    "../src/**/*.stories.@(js|jsx|ts|tsx)"
   ],
   "addons": [
     "@storybook/addon-links",
@@ -43,11 +39,6 @@ module.exports = {
 
     config.resolve.alias = {
         ...config.resolve.alias,
-        "react": path.resolve('./node_modules/react'),
-        "react-dom": path.resolve('./node_modules/react-dom'),
-        "react-hook-form": path.resolve('./node_modules/react-hook-form'),
-        "react-intl": path.resolve("./node_modules/react-intl"),
-        "@common": path.resolve('../common/src'),
     }
 
     config.module.rules = [

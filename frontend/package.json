@@ -1,0 +1,9 @@
+{
+  "name": "@gc-digital-talent",
+  "private": true,
+  "workspaces": [
+    "admin",
+    "common",
+    "talentsearch"
+  ]
+}
