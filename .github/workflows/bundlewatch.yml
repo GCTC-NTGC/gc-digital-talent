@@ -6,16 +6,12 @@ on:
     branches: ["main"]
     paths:
       - .github/workflows/bundlewatch.yml
-      - common/**
-      - talentsearch/**
-      - admin/**
+      - frontend/**
       - auth/**
   pull_request:
     paths:
       - .github/workflows/bundlewatch.yml
-      - common/**
-      - talentsearch/**
-      - admin/**
+      - frontend/**
       - auth/**
 
 jobs:
