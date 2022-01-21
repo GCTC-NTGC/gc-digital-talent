@@ -20,9 +20,10 @@ const reactIntlTransformRule = {
 };
 
 module.exports = {
+  "staticDirs": ['../public'],
   "stories": [
-    "../src/**/*.stories.mdx",
-    "../src/**/*.stories.@(js|jsx|ts|tsx)"
+    "../resources/js/stories/**/*.stories.mdx",
+    "../resources/js/stories/**/*.stories.@(js|jsx|ts|tsx)"
   ],
   "addons": [
     "@storybook/addon-links",
@@ -39,10 +40,7 @@ module.exports = {
 
     config.resolve.alias = {
         ...config.resolve.alias,
-        "react": path.resolve('./node_modules/react'),
-        "react-dom": path.resolve('./node_modules/react-dom'),
-        "react-hook-form": path.resolve('./node_modules/react-hook-form'),
-        "react-intl": path.resolve("./node_modules/react-intl"),
+        "@common": path.resolve('../common/src'),
     }
 
     config.module.rules = [

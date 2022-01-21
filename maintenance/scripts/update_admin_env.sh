@@ -15,5 +15,5 @@ if [[ $text =~ $exp ]] ; then
     clientsecret=${BASH_REMATCH[1]}
 fi
 
-sed -i "s/OAUTH_ADMIN_CLIENT_ID=.*/OAUTH_ADMIN_CLIENT_ID=$clientid/" /var/www/html/admin/.env
-sed -i "s/OAUTH_ADMIN_CLIENT_SECRET=.*/OAUTH_ADMIN_CLIENT_SECRET=$clientsecret/" /var/www/html/admin/.env
+sed -i "s/OAUTH_ADMIN_CLIENT_ID=.*/OAUTH_ADMIN_CLIENT_ID=$clientid/" /var/www/html/frontend/admin/.env
+sed -i "s/OAUTH_ADMIN_CLIENT_SECRET=.*/OAUTH_ADMIN_CLIENT_SECRET=$clientsecret/" /var/www/html/frontend/admin/.env
