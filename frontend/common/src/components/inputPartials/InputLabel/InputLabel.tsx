@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { QuestionMarkCircleIcon, XCircleIcon } from "@heroicons/react/solid";
+import QuestionMarkCircleIcon from "@heroicons/react/solid/esm/QuestionMarkCircleIcon";
+import XCircleIcon from "@heroicons/react/solid/esm/XCircleIcon";
 
 export interface InputLabelProps {
   inputId: string;

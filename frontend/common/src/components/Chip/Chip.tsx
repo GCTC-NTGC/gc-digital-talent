@@ -1,5 +1,5 @@
 import React from "react";
-import { XCircleIcon } from "@heroicons/react/outline";
+import XCircleIcon from "@heroicons/react/outline/esm/XCircleIcon";
 import Pill from "../Pill";
 
 export interface ChipProps extends React.HTMLProps<HTMLElement> {

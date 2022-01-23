@@ -1,7 +1,7 @@
 import * as React from "react";
 import { ToastContainer, Slide } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { XCircleIcon } from "@heroicons/react/solid";
+import XCircleIcon from "@heroicons/react/outline/esm/XCircleIcon";
 
 const contextClass = {
   success: "toast-success",

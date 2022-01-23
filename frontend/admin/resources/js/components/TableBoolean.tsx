@@ -1,4 +1,5 @@
-import { CheckIcon, XIcon } from "@heroicons/react/solid";
+import XIcon from "@heroicons/react/solid/esm/XIcon";
+import CheckIcon from "@heroicons/react/solid/esm/CheckIcon";
 import React, { ReactElement } from "react";
 
 export interface TableBooleanProps {
