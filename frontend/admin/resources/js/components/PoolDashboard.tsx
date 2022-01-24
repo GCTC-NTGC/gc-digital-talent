@@ -30,6 +30,7 @@ import { CreateDepartment } from "./department/CreateDepartment";
 import { UpdateDepartment } from "./department/UpdateDepartment";
 import SearchRequestPage from "./searchRequest/SearchRequestPage";
 import SingleSearchRequestPage from "./searchRequest/SingleSearchRequestPage";
+import SkillFamilyPage from "./skillFamily/SkillFamilyPage";
 
 const routes = (paths: AdminRoutes): Routes<RouterResult> => [
   {
@@ -174,6 +175,12 @@ const routes = (paths: AdminRoutes): Routes<RouterResult> => [
     }),
   },
   {
+    path: paths.skillFamilyTable(),
+    action: () => ({
+      component: <SkillFamilyPage />,
+    }),
+  },
+  {
     path: paths.searchRequestTable(),
     action: () => ({
       component: <SearchRequestPage />,
@@ -263,6 +270,14 @@ export const PoolDashboard: React.FC = () => {
       text={intl.formatMessage({
         defaultMessage: "Departments",
         description: "Label displayed on the Departments menu item.",
+      })}
+    />,
+    <MenuLink
+      key="skill-families"
+      href={paths.skillFamilyTable()}
+      text={intl.formatMessage({
+        defaultMessage: "Skill Families",
+        description: "Label displayed on the Skill Families menu item.",
       })}
     />,
   ];
