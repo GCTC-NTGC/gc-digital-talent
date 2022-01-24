@@ -1,20 +1,27 @@
-FROM php:7.4.27-apache-bullseye
-COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
+FROM php:7.4.27-apache-bullseye as base
 
-# Install pdo_pgsql extension
+# Install pdo_pgsql extension.
 RUN apt-get update \
-    && apt-get install -y \
-        libpq-dev \
-        # Required for composer install from dist.
-        libzip-dev \
-    && docker-php-ext-install pdo_pgsql zip
+    && apt-get install -y libpq-dev \
+    && docker-php-ext-install pdo_pgsql
 
 WORKDIR /var/www/html/api
 
 COPY .env.example .env
 COPY composer.json composer.lock ./
 COPY tests/ tests/
+
+FROM base as builder
+# Install zip ext required for composer install from dist.
+RUN apt-get update \
+    && apt-get install -y libzip-dev \
+    && docker-php-ext-install zip
+# Copy composer binary from official image.
+COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 RUN composer install --prefer-dist
 
+# Re-use base layer without composer.
+FROM base
+COPY --from=builder /var/www/html/api/vendor vendor
 COPY . .
 RUN chmod -R 777 ./storage
