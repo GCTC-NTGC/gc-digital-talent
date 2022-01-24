@@ -1,6 +1,4 @@
-import React from "react";
 import { defineMessages, MessageDescriptor } from "react-intl";
-import { LightningBoltIcon, UserGroupIcon } from "@heroicons/react/outline";
 import {
   Language,
   LanguageAbility,
@@ -185,7 +183,7 @@ export const SkillCategories = defineMessages({
   },
 });
 
-export const getSkillCategoryText = (
+export const getSkillCategory = (
   skillCategoryId: string | number,
 ): MessageDescriptor =>
   getOrThrowError(
@@ -193,14 +191,3 @@ export const getSkillCategoryText = (
     skillCategoryId,
     `Invalid Skill Category '${skillCategoryId}'`,
   );
-
-export const getSkillCategoryImage = (skillCategoryId: string | number) => {
-  switch (skillCategoryId) {
-    case SkillCategory.Behavioural:
-      return <UserGroupIcon style={{ width: "calc(1rem*1.25)" }} />;
-    case SkillCategory.Technical:
-      return <LightningBoltIcon style={{ width: "calc(1rem*1.25)" }} />;
-    default:
-      return null;
-  }
-};

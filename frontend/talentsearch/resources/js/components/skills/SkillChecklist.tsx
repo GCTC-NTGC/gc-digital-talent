@@ -4,10 +4,8 @@ import sum from "lodash/sum";
 import { useIntl } from "react-intl";
 import { getLocale } from "@common/helpers/localize";
 import { SkillCategory, SkillFamily } from "@common/api/generated";
-import {
-  getSkillCategoryText,
-  getSkillCategoryImage,
-} from "@common/constants/localizedConstants";
+import { getSkillCategory } from "@common/constants/localizedConstants";
+import { LightningBoltIcon, UserGroupIcon } from "@heroicons/react/outline";
 
 interface FamilyProps {
   family: SkillFamily;
@@ -62,12 +60,22 @@ const Category: React.FunctionComponent<CategoryProps> = ({
 
   // The app currently crashes if no description is specified for the category.
   // Do we want to avoid this?
-  const categoryName = intl.formatMessage(getSkillCategoryText(category));
+  const categoryName = intl.formatMessage(getSkillCategory(category));
   const skillCount = sum(
     skillFamilies.map((family) => (family.skills ? family.skills.length : 0)),
   );
   const title = `${categoryName} (${skillCount})`;
-  const image = getSkillCategoryImage(category);
+
+
+  let image = null;
+  switch (category) {
+    case SkillCategory.Behavioural:
+      image = <UserGroupIcon style={{ width: "calc(1rem*1.25)" }}/>;
+      break;
+    case SkillCategory.Technical:
+      image = <LightningBoltIcon style={{ width: "calc(1rem*1.25)" }}/>;
+      break;
+  }
 
   const [selectedFamilies, setSelectedFamilies] = React.useState<SkillFamily[]>(
     [],
@@ -86,7 +94,7 @@ const Category: React.FunctionComponent<CategoryProps> = ({
 
   return (
     <div data-h2-flex-item="s(1of2)">
-      <p data-h2-font-weight="b(800)">
+      <p data-h2-font-weight="b(800)" data-h2-display="b(flex)">
         &nbsp;
         {image}
         &nbsp;&nbsp;{title}
