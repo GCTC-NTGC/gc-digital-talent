@@ -5,15 +5,11 @@ on:
     branches: ["main"]
     paths:
       - .github/workflows/storybook.yml
-      - 'common/**'
-      - 'admin/**'
-      - 'talentsearch/**'
+      - frontend/**
   pull_request:
     paths:
       - .github/workflows/storybook.yml
-      - 'common/**'
-      - 'admin/**'
-      - 'talentsearch/**'
+      - frontend/**
 
 jobs:
   deployment:
