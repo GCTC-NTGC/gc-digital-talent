@@ -1,5 +1,4 @@
-import React from "react";
-import clsx from "clsx";
+import React, { useState } from "react";
 import { ChevronDownIcon, ChevronRightIcon } from "@heroicons/react/solid";
 
 export interface ExternalSectionProps {
@@ -9,25 +8,23 @@ export interface ExternalSectionProps {
 }
 
 interface InternalSectionProps extends ExternalSectionProps {
-  index: number;
-  isActive: boolean;
-  setActiveIndex(index: number): void;
+  open?: boolean;
 }
 
 export const Section: React.FC<InternalSectionProps> = ({
-  index,
-  isActive,
-  setActiveIndex,
+  open,
   title,
   subtitle,
   Icon,
   children,
 }) => {
   const contentRef = React.useRef(null);
-  const contentClass = clsx(
-    "accordion-section__content",
-    isActive && "accordion-section__content--active",
-  );
+  const [isOpen, setIsOpen] = useState(open);
+
+  const handleOpen = () => {
+    setIsOpen((prev: boolean | undefined) => !prev);
+  };
+
   return (
     <div
       data-h2-margin="b(top, xxs)"
@@ -42,15 +39,15 @@ export const Section: React.FC<InternalSectionProps> = ({
         data-h2-bg-color="b(white)"
         data-h2-padding="b(top-bottom, s) b(right, m) b(left, s)"
         data-h2-width="b(100)"
-        onClick={() => setActiveIndex(index)}
-        {...(isActive && children
+        onClick={() => handleOpen()}
+        {...(isOpen && children
           ? { "data-h2-border": "b(lightpurple, left, solid, m)" }
           : { "data-h2-border": "b(darkpurple, left, solid, m)" })}
         style={{ borderTop: "none", borderRight: "none", borderBottom: "none" }}
       >
         <div data-h2-flex-grid="b(middle, expanded, flush, s)">
           <span>
-            {isActive ? (
+            {isOpen ? (
               <ChevronDownIcon height="20" />
             ) : (
               <ChevronRightIcon height="20" />
@@ -70,15 +67,14 @@ export const Section: React.FC<InternalSectionProps> = ({
         </div>
       </button>
       <div
-        className={contentClass}
         ref={contentRef}
         data-h2-border="b(lightpurple, left, solid, m)"
         id="content"
       >
-        {isActive && (
+        {isOpen && (
           <div data-h2-padding="b(top, none) b(right, l) b(bottom, m) b(left, xl)">
             <hr data-h2-margin="b(top, none) b(bottom, s)" />
-            <p data-h2-margin="b(all, none)">{isActive && children} </p>{" "}
+            <p data-h2-margin="b(all, none)">{isOpen && children} </p>{" "}
           </div>
         )}
       </div>
