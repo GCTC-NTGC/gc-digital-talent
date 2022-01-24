@@ -40,7 +40,7 @@
     "intl-compile": "formatjs compile ./resources/js/lang/fr.json --out-file ./resources/js/lang/frCompiled.json"
   },
   "devDependencies": {
-    "@babel/core": "^7.16.7",
+    "@babel/core": "^7.16.12",
     "@babel/preset-react": "^7.16.7",
     "@formatjs/cli": "^4.8.0",
     "@formatjs/ts-transformer": "^3.9.0",
