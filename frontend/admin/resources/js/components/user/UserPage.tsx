@@ -1,11 +1,12 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { Link, Button } from "@common/components";
-import { userCreatePath } from "../../adminRoutes";
+import { useAdminRoutes } from "../../adminRoutes";
 import { UserTableApi } from "./UserTable";
 
 export const UserPage: React.FC = () => {
   const intl = useIntl();
+  const paths = useAdminRoutes();
   return (
     <div>
       <header
@@ -32,7 +33,7 @@ export const UserPage: React.FC = () => {
             data-h2-text-align="m(right)"
           >
             <Button color="white" mode="outline">
-              <Link href={userCreatePath()} title="">
+              <Link href={paths.userCreate()} title="">
                 {intl.formatMessage({
                   defaultMessage: "Create User",
                   description: "Heading displayed above the Create User form.",

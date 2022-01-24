@@ -1,69 +1,76 @@
+import { getLocale } from "@common/helpers/localize";
 import path from "path-browserify";
+import { useIntl } from "react-intl";
 import ADMIN_APP_DIR from "./adminConstants";
 
-export const homePath = (): string => path.join("/", ADMIN_APP_DIR); // leading slash in case empty base url
+export type AdminRoutes = ReturnType<typeof adminRoutes>;
 
-export const classificationTablePath = (): string =>
-  path.join(homePath(), "classifications");
-export const classificationCreatePath = (): string =>
-  path.join(homePath(), "classifications", "create");
-export const classificationUpdatePath = (id: string): string =>
-  path.join(homePath(), "classifications", id, "edit");
+const adminRoutes = (lang: string) => {
+  const home = (): string => path.join("/", lang, ADMIN_APP_DIR); // leading slash in case empty base url
+  return {
+    home,
+    classificationTable: (): string => path.join(home(), "classifications"),
+    classificationCreate: (): string =>
+      path.join(home(), "classifications", "create"),
+    classificationUpdate: (id: string): string =>
+      path.join(home(), "classifications", id, "edit"),
 
-export const cmoAssetTablePath = (): string =>
-  path.join(homePath(), "cmo-assets");
-export const cmoAssetCreatePath = (): string =>
-  path.join(homePath(), "cmo-assets", "create");
-export const cmoAssetUpdatePath = (id: string): string =>
-  path.join(homePath(), "cmo-assets", id, "edit");
+    cmoAssetTable: (): string => path.join(home(), "cmo-assets"),
+    cmoAssetCreate: (): string => path.join(home(), "cmo-assets", "create"),
+    cmoAssetUpdate: (id: string): string =>
+      path.join(home(), "cmo-assets", id, "edit"),
 
-export const departmentTablePath = (): string =>
-  path.join(homePath(), "departments");
-export const departmentCreatePath = (): string =>
-  path.join(homePath(), "departments", "create");
-export const departmentUpdatePath = (id: string): string =>
-  path.join(homePath(), "departments", id, "edit");
+    departmentTable: (): string => path.join(home(), "departments"),
+    departmentCreate: (): string => path.join(home(), "departments", "create"),
+    departmentUpdate: (id: string): string =>
+      path.join(home(), "departments", id, "edit"),
 
-export const skillFamilyTablePath = (): string =>
-  path.join(homePath(), "skill-families");
+    skillFamilyTable: (): string =>
+      path.join(home(), "skill-families"),
 
-export const operationalRequirementTablePath = (): string =>
-  path.join(homePath(), "operational-requirements");
-export const operationalRequirementCreatePath = (): string =>
-  path.join(homePath(), "operational-requirements", "create");
-export const operationalRequirementUpdatePath = (id: string): string =>
-  path.join(homePath(), "operational-requirements", id, "edit");
+    operationalRequirementTable: (): string =>
+      path.join(home(), "operational-requirements"),
+    operationalRequirementCreate: (): string =>
+      path.join(home(), "operational-requirements", "create"),
+    operationalRequirementUpdate: (id: string): string =>
+      path.join(home(), "operational-requirements", id, "edit"),
 
-export const poolTablePath = (): string => path.join(homePath(), "pools");
-export const poolCreatePath = (): string =>
-  path.join(homePath(), "pools", "create");
-export const poolUpdatePath = (id: string): string =>
-  path.join(homePath(), "pools", id, "edit");
+    poolTable: (): string => path.join(home(), "pools"),
+    poolCreate: (): string => path.join(home(), "pools", "create"),
+    poolUpdate: (id: string): string => path.join(home(), "pools", id, "edit"),
 
-export const poolCandidateTablePath = (poolId: string): string =>
-  path.join(homePath(), "pools", poolId, "pool-candidates");
-export const poolCandidateCreatePath = (poolId: string): string =>
-  path.join(homePath(), "pools", poolId, "pool-candidates", "create");
-export const poolCandidateUpdatePath = (
-  poolId: string,
-  poolCandidateId: string,
-): string =>
-  path.join(
-    homePath(),
-    "pools",
-    poolId,
-    "pool-candidates",
-    poolCandidateId,
-    "edit",
-  );
+    poolCandidateTable: (poolId: string): string =>
+      path.join(home(), "pools", poolId, "pool-candidates"),
+    poolCandidateCreate: (poolId: string): string =>
+      path.join(home(), "pools", poolId, "pool-candidates", "create"),
+    poolCandidateUpdate: (poolId: string, poolCandidateId: string): string =>
+      path.join(
+        home(),
+        "pools",
+        poolId,
+        "pool-candidates",
+        poolCandidateId,
+        "edit",
+      ),
 
-export const userTablePath = (): string => path.join(homePath(), "users");
-export const userCreatePath = (): string =>
-  path.join(homePath(), "users", "create");
-export const userUpdatePath = (id: string): string =>
-  path.join(homePath(), "users", id, "edit");
+    userTable: (): string => path.join(home(), "users"),
+    userCreate: (): string => path.join(home(), "users", "create"),
+    userUpdate: (id: string): string => path.join(home(), "users", id, "edit"),
 
-export const searchRequestTablePath = (): string =>
-  path.join(homePath(), "search-requests");
-export const searchRequestUpdatePath = (id: string): string =>
-  path.join(homePath(), "search-requests", id, "edit");
+    searchRequestTable: (): string => path.join(home(), "search-requests"),
+    searchRequestUpdate: (id: string): string =>
+      path.join(home(), "search-requests", id, "edit"),
+  };
+};
+
+export default adminRoutes;
+
+/**
+ * A hook version of adminRoutes which gets the locale from the intl context.
+ * @returns AdminRoutes
+ */
+export const useAdminRoutes = (): AdminRoutes => {
+  const intl = useIntl();
+  const locale = getLocale(intl);
+  return adminRoutes(locale);
+};

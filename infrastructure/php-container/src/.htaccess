@@ -22,6 +22,9 @@ DirectorySlash off
     RewriteRule ^admin/public(/(.*))?$ frontend/admin/public/$2 [L]
     RewriteRule ^admin(/(.*))?$ frontend/admin/public/$2 [L]
 
+    # Send localized admin requests also to admin public folder;
+    RewriteRule ^(en|fr)/admin(/(.*))?$ admin/public/$3 [L]
+
     # Send auth-callback request to admin
     RewriteRule ^auth-callback$ frontend/admin/public/auth-callback [L]
 

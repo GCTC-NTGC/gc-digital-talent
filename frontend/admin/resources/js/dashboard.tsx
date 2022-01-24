@@ -1,11 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import IntlContainer from "./components/IntlContainer";
+import LanguageRedirectContainer from "@common/components/LanguageRedirectContainer";
 import { PoolDashboard } from "./components/PoolDashboard";
+import { loadLocaleData } from "./components/IntlContainer";
 
 ReactDOM.render(
-  <IntlContainer locale="en">
+  <LanguageRedirectContainer getMessages={loadLocaleData}>
     <PoolDashboard />
-  </IntlContainer>,
+  </LanguageRedirectContainer>,
   document.getElementById("app"),
 );

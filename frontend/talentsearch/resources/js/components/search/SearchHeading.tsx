@@ -1,10 +1,11 @@
 import * as React from "react";
 import { imageUrl } from "@common/helpers/router";
 import { useIntl } from "react-intl";
-import { homePath } from "../../talentSearchRoutes";
+import { useTalentSearchRoutes } from "../../talentSearchRoutes";
 
 const SearchHeading: React.FunctionComponent = (props) => {
   const intl = useIntl();
+  const paths = useTalentSearchRoutes();
   return (
     <header>
       <div
@@ -13,7 +14,7 @@ const SearchHeading: React.FunctionComponent = (props) => {
         data-h2-margin="b(bottom, xxl)"
         style={{
           background: `linear-gradient(70deg, rgba(103, 76, 144, 0.9), rgba(29, 44, 76, 1)), url(${imageUrl(
-            homePath(),
+            paths.home(),
             "hero-background-search.png",
           )})`,
           backgroundSize: "cover",

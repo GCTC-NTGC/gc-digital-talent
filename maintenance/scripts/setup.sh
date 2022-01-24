@@ -61,6 +61,7 @@ chmod +x node_modules/@hydrogen-design-system/hydrogen.css/bin/*
 cd /var/www/html/frontend/common
 npm run h2-build
 npm run codegen
+npm run intl-compile
 
 # setup talentsearch project
 cd /var/www/html/frontend/talentsearch
@@ -69,6 +70,7 @@ ${parent_path}/update_env_appkey.sh .env
 composer install
 npm run h2-build
 npm run codegen
+npm run intl-compile
 npm run dev
 chown -R www-data ./storage ./vendor
 chmod -R 775 ./storage
@@ -86,6 +88,7 @@ cd /var/www/html/frontend/admin
 php artisan config:clear
 npm run h2-build
 npm run codegen
+npm run intl-compile
 npm run dev
 chown -R www-data ./storage ./vendor
 chmod -R 775 ./storage

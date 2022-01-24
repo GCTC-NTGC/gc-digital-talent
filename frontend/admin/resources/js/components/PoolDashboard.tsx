@@ -3,33 +3,7 @@ import { useIntl } from "react-intl";
 import { Routes } from "universal-router";
 import { RouterResult } from "@common/helpers/router";
 import Toast from "@common/components/Toast";
-import {
-  classificationCreatePath,
-  classificationTablePath,
-  classificationUpdatePath,
-  cmoAssetCreatePath,
-  cmoAssetTablePath,
-  cmoAssetUpdatePath,
-  departmentTablePath,
-  departmentCreatePath,
-  departmentUpdatePath,
-  operationalRequirementCreatePath,
-  operationalRequirementTablePath,
-  operationalRequirementUpdatePath,
-  poolCandidateCreatePath,
-  poolCandidateTablePath,
-  poolCandidateUpdatePath,
-  poolCreatePath,
-  poolTablePath,
-  poolUpdatePath,
-  userCreatePath,
-  userTablePath,
-  userUpdatePath,
-  homePath,
-  searchRequestTablePath,
-  searchRequestUpdatePath,
-  skillFamilyTablePath,
-} from "../adminRoutes";
+import { AdminRoutes, useAdminRoutes } from "../adminRoutes";
 import { CreateClassification } from "./classification/CreateClassification";
 import { UpdateClassification } from "./classification/UpdateClassification";
 import ClientProvider from "./ClientProvider";
@@ -58,46 +32,46 @@ import SearchRequestPage from "./searchRequest/SearchRequestPage";
 import SingleSearchRequestPage from "./searchRequest/SingleSearchRequestPage";
 import SkillFamilyPage from "./skillFamily/SkillFamilyPage";
 
-const routes: Routes<RouterResult> = [
+const routes = (paths: AdminRoutes): Routes<RouterResult> => [
   {
-    path: [homePath()],
+    path: [paths.home()],
     action: () => ({
       component: <div />,
-      redirect: poolTablePath(), // TODO: Which page should be treated as the dashboard Landing page?
+      redirect: paths.poolTable(), // TODO: Which page should be treated as the dashboard Landing page?
     }),
   },
   {
-    path: userTablePath(),
+    path: paths.userTable(),
     action: () => ({
       component: <UserPage />,
     }),
   },
   {
-    path: userCreatePath(),
+    path: paths.userCreate(),
     action: () => ({
       component: <CreateUser />,
     }),
   },
   {
-    path: userUpdatePath(":id"),
+    path: paths.userUpdate(":id"),
     action: ({ params }) => ({
       component: <UpdateUser userId={params.id as string} />,
     }),
   },
   {
-    path: classificationTablePath(),
+    path: paths.classificationTable(),
     action: () => ({
       component: <ClassificationPage />,
     }),
   },
   {
-    path: classificationCreatePath(),
+    path: paths.classificationCreate(),
     action: () => ({
       component: <CreateClassification />,
     }),
   },
   {
-    path: classificationUpdatePath(":id"),
+    path: paths.classificationUpdate(":id"),
     action: ({ params }) => ({
       component: (
         <UpdateClassification classificationId={params.id as string} />
@@ -105,37 +79,37 @@ const routes: Routes<RouterResult> = [
     }),
   },
   {
-    path: cmoAssetTablePath(),
+    path: paths.cmoAssetTable(),
     action: () => ({
       component: <CmoAssetPage />,
     }),
   },
   {
-    path: cmoAssetCreatePath(),
+    path: paths.cmoAssetCreate(),
     action: () => ({
       component: <CreateCmoAsset />,
     }),
   },
   {
-    path: cmoAssetUpdatePath(":id"),
+    path: paths.cmoAssetUpdate(":id"),
     action: ({ params }) => ({
       component: <UpdateCmoAsset cmoAssetId={params.id as string} />,
     }),
   },
   {
-    path: operationalRequirementTablePath(),
+    path: paths.operationalRequirementTable(),
     action: () => ({
       component: <OperationalRequirementPage />,
     }),
   },
   {
-    path: operationalRequirementCreatePath(),
+    path: paths.operationalRequirementCreate(),
     action: () => ({
       component: <CreateOperationalRequirement />,
     }),
   },
   {
-    path: operationalRequirementUpdatePath(":id"),
+    path: paths.operationalRequirementUpdate(":id"),
     action: ({ params }) => ({
       component: (
         <UpdateOperationalRequirement
@@ -145,19 +119,19 @@ const routes: Routes<RouterResult> = [
     }),
   },
   {
-    path: poolCandidateTablePath(":id"),
+    path: paths.poolCandidateTable(":id"),
     action: ({ params }) => ({
       component: <PoolCandidatePage poolId={params.id as string} />,
     }),
   },
   {
-    path: poolCandidateCreatePath(":id"),
+    path: paths.poolCandidateCreate(":id"),
     action: ({ params }) => ({
       component: <CreatePoolCandidate poolId={params.id as string} />,
     }),
   },
   {
-    path: poolCandidateUpdatePath(":poolId", ":candidateId"),
+    path: paths.poolCandidateUpdate(":poolId", ":candidateId"),
     action: ({ params }) => ({
       component: (
         <UpdatePoolCandidate poolCandidateId={params.candidateId as string} />
@@ -165,55 +139,55 @@ const routes: Routes<RouterResult> = [
     }),
   },
   {
-    path: poolTablePath(),
+    path: paths.poolTable(),
     action: () => ({
       component: <PoolPage />,
     }),
   },
   {
-    path: poolCreatePath(),
+    path: paths.poolCreate(),
     action: () => ({
       component: <CreatePool />,
     }),
   },
   {
-    path: poolUpdatePath(":id"),
+    path: paths.poolUpdate(":id"),
     action: ({ params }) => ({
       component: <UpdatePool poolId={params.id as string} />,
     }),
   },
   {
-    path: departmentTablePath(),
+    path: paths.departmentTable(),
     action: () => ({
       component: <DepartmentPage />,
     }),
   },
   {
-    path: departmentCreatePath(),
+    path: paths.departmentCreate(),
     action: () => ({
       component: <CreateDepartment />,
     }),
   },
   {
-    path: departmentUpdatePath(":id"),
+    path: paths.departmentUpdate(":id"),
     action: ({ params }) => ({
       component: <UpdateDepartment departmentId={params.id as string} />,
     }),
   },
   {
-    path: skillFamilyTablePath(),
+    path: paths.skillFamilyTable(),
     action: () => ({
       component: <SkillFamilyPage />,
     }),
   },
   {
-    path: searchRequestTablePath(),
+    path: paths.searchRequestTable(),
     action: () => ({
       component: <SearchRequestPage />,
     }),
   },
   {
-    path: searchRequestUpdatePath(":id"),
+    path: paths.searchRequestUpdate(":id"),
     action: ({ params }) => ({
       component: (
         <SingleSearchRequestPage searchRequestId={params.id as string} />
@@ -224,6 +198,7 @@ const routes: Routes<RouterResult> = [
 
 export const PoolDashboard: React.FC = () => {
   const intl = useIntl();
+  const paths = useAdminRoutes();
 
   const menuItems = [
     <MenuHeading
@@ -235,7 +210,7 @@ export const PoolDashboard: React.FC = () => {
     />,
     <MenuLink
       key="all-requests"
-      href={searchRequestTablePath()}
+      href={paths.searchRequestTable()}
       text={intl.formatMessage({
         defaultMessage: "All Requests",
         description: "Label displayed on the all requests menu item.",
@@ -250,7 +225,7 @@ export const PoolDashboard: React.FC = () => {
     />,
     <MenuLink
       key="users"
-      href={userTablePath()}
+      href={paths.userTable()}
       text={intl.formatMessage({
         defaultMessage: "Users",
         description: "Label displayed on the Users menu item.",
@@ -258,7 +233,7 @@ export const PoolDashboard: React.FC = () => {
     />,
     <MenuLink
       key="classifications"
-      href={classificationTablePath()}
+      href={paths.classificationTable()}
       text={intl.formatMessage({
         defaultMessage: "Classifications",
         description: "Label displayed on the Classifications menu item.",
@@ -266,7 +241,7 @@ export const PoolDashboard: React.FC = () => {
     />,
     <MenuLink
       key="cmo-assets"
-      href={cmoAssetTablePath()}
+      href={paths.cmoAssetTable()}
       text={intl.formatMessage({
         defaultMessage: "CMO Assets",
         description: "Label displayed on the CMO Assets menu item.",
@@ -274,7 +249,7 @@ export const PoolDashboard: React.FC = () => {
     />,
     <MenuLink
       key="operational-requirements"
-      href={operationalRequirementTablePath()}
+      href={paths.operationalRequirementTable()}
       text={intl.formatMessage({
         defaultMessage: "Operational Requirements",
         description:
@@ -283,7 +258,7 @@ export const PoolDashboard: React.FC = () => {
     />,
     <MenuLink
       key="pools"
-      href={poolTablePath()}
+      href={paths.poolTable()}
       text={intl.formatMessage({
         defaultMessage: "Pools",
         description: "Label displayed on the Pools menu item.",
@@ -291,7 +266,7 @@ export const PoolDashboard: React.FC = () => {
     />,
     <MenuLink
       key="departments"
-      href={departmentTablePath()}
+      href={paths.departmentTable()}
       text={intl.formatMessage({
         defaultMessage: "Departments",
         description: "Label displayed on the Departments menu item.",
@@ -299,7 +274,7 @@ export const PoolDashboard: React.FC = () => {
     />,
     <MenuLink
       key="skill-families"
-      href={skillFamilyTablePath()}
+      href={paths.skillFamilyTable()}
       text={intl.formatMessage({
         defaultMessage: "Skill Families",
         description: "Label displayed on the Skill Families menu item.",
@@ -310,7 +285,7 @@ export const PoolDashboard: React.FC = () => {
   return (
     <AuthContainer>
       <ClientProvider>
-        <Dashboard menuItems={menuItems} contentRoutes={routes} />
+        <Dashboard menuItems={menuItems} contentRoutes={routes(paths)} />
         <Toast />
       </ClientProvider>
     </AuthContainer>
