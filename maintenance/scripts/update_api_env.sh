@@ -1,5 +1,8 @@
 #! /bin/bash
 
+parent_path=$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P )
+source ${parent_path}/lib/common.sh
+
 serveriss="\"http://localhost:8000\""
 sed -i "s#AUTH_SERVER_ISS=.*#AUTH_SERVER_ISS=$serveriss#" /var/www/html/api/.env
 

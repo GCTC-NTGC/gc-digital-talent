@@ -1,7 +1,10 @@
 #! /bin/bash
 
-/root/scripts/refresh_auth.sh
-/root/scripts/refresh_api.sh
-/root/scripts/refresh_common.sh
-/root/scripts/refresh_talentsearch.sh
-/root/scripts/refresh_admin.sh
+parent_path=$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P )
+source ${parent_path}/lib/common.sh
+
+${parent_path}/refresh_auth.sh
+${parent_path}/refresh_api.sh
+${parent_path}/refresh_common.sh
+${parent_path}/refresh_talentsearch.sh
+${parent_path}/refresh_admin.sh
