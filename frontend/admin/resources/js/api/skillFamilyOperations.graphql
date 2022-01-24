@@ -1,0 +1,34 @@
+mutation updateSkillFamily($id: ID!, $user: UpdateSkillFamilyInput!) {
+  updateSkillFamily(id: $id, skillFamily: $skillFamily) {
+    name {
+      en
+      fr
+    }
+    description {
+      en
+      fr
+    }
+    skills {
+      id
+    }
+    category
+  }
+}
+
+mutation createSkillFamily($skillFamily: CreateSkillFamilyInput!) {
+  createSkillFamily(skillFamily: $skillFamily) {
+    key
+    name {
+      en
+      fr
+    }
+    description {
+      en
+      fr
+    }
+    skills {
+      id
+    }
+    category
+  }
+}
