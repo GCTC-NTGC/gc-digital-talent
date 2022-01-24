@@ -7,7 +7,6 @@ RUN apt-get update \
 
 WORKDIR /var/www/html/api
 
-COPY .env.example .env
 COPY composer.json composer.lock ./
 COPY tests/ tests/
 
@@ -23,5 +22,8 @@ RUN composer install --prefer-dist
 # Re-use base layer without composer.
 FROM base
 COPY --from=builder /var/www/html/api/vendor vendor
+# Default configuration in case needed.
+COPY .env.example .env
+# Overrides default with custom .env if file exists.
 COPY . .
 RUN chmod -R 777 ./storage
