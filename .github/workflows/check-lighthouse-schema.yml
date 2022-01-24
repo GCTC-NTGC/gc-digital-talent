@@ -24,7 +24,7 @@ jobs:
       - name: "Re-generate lighthouse schema"
         working-directory: infrastructure
         run: |
-          docker compose exec api php artisan lighthouse:print-schema --write
+          docker compose exec --no-TTY api php artisan lighthouse:print-schema --write
           docker compose cp api:/var/www/html/api/storage/app/lighthouse-schema.graphql ../api/storage/app/
 
       - name: Check for uncommitted changes
