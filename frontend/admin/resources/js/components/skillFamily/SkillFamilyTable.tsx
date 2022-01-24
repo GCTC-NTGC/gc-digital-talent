@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import { useIntl } from "react-intl";
+import { IntlShape, useIntl } from "react-intl";
 import { getLocale } from "@common/helpers/localize";
 import commonMessages from "@common/messages/commonMessages";
 import { useLocation } from "@common/helpers/router";
@@ -9,11 +9,27 @@ import {
   AllSkillFamiliesQuery,
   useAllSkillFamiliesQuery,
 } from "../../api/generated";
+import {
+  getSkillCategory,
+} from "@common/constants/localizedConstants";
 import Table, { ColumnsOf } from "../Table";
 import DashboardContentContainer from "../DashboardContentContainer";
 import { tableEditButtonAccessor } from "../TableEditButton";
+import { SkillCategory } from "@common/api/generated";
 
 type Data = NonNullable<FromArray<AllSkillFamiliesQuery["skillFamilies"]>>;
+
+// callbacks extracted to separate function to stabilize memoized component
+const categoryAccessor = (
+  category: SkillCategory | null | undefined,
+  intl: IntlShape,
+) => (
+  <span>
+    {category
+      ? intl.formatMessage(getSkillCategory(category as string))
+      : ""}
+  </span>
+);
 
 export const SkillFamilyTable: React.FC<
   AllSkillFamiliesQuery & { editUrlRoot: string }
@@ -51,7 +67,7 @@ export const SkillFamilyTable: React.FC<
           description:
             "Title displayed for the Skill Family table Category column.",
         }),
-        accessor: "category",
+        accessor: ({ category }) => categoryAccessor(category, intl),
       },
       {
         Header: intl.formatMessage({
@@ -59,7 +75,7 @@ export const SkillFamilyTable: React.FC<
           description:
             "Title displayed for the Skill Family table Edit column.",
         }),
-        accessor: (d) => tableEditButtonAccessor(d.id, editUrlRoot), // callback extracted to separate function to stabilize memoized component
+        accessor: (sf) => tableEditButtonAccessor(sf.id, editUrlRoot), // callback extracted to separate function to stabilize memoized component
       },
     ],
     [editUrlRoot, intl, locale],

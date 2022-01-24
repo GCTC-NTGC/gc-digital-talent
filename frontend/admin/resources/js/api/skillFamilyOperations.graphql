@@ -1,6 +1,7 @@
 query AllSkillFamilies {
   skillFamilies {
     id
+    key
     name {
       en
       fr
