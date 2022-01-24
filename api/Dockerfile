@@ -16,7 +16,7 @@ RUN apt-get update \
     && apt-get install -y libzip-dev \
     && docker-php-ext-install zip
 # Copy composer binary from official image.
-COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
+COPY --from=composer:2 /usr/bin/composer /usr/local/bin/composer
 RUN composer install --prefer-dist
 
 # Re-use base layer without composer.
