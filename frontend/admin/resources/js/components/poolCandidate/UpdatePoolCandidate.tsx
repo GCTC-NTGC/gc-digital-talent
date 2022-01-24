@@ -28,7 +28,7 @@ import {
 } from "@common/constants/localizedConstants";
 import { errorMessages, commonMessages } from "@common/messages";
 import { User } from "@common/api/generated";
-import { poolCandidateTablePath } from "../../adminRoutes";
+import { useAdminRoutes } from "../../adminRoutes";
 import {
   UpdatePoolCandidateInput,
   LanguageAbility,
@@ -94,6 +94,7 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<
   handleUpdatePoolCandidate,
 }) => {
   const intl = useIntl();
+  const paths = useAdminRoutes();
   const locale = getLocale(intl);
   const dataToFormValues = (data: PoolCandidate): FormValues => ({
     ...data,
@@ -147,7 +148,7 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<
       formValuesToSubmitData(data),
     )
       .then(() => {
-        navigate(poolCandidateTablePath(initialPoolCandidate.pool?.id || ""));
+        navigate(paths.poolCandidateTable(initialPoolCandidate.pool?.id || ""));
         toast.success(
           intl.formatMessage({
             defaultMessage: "Pool Candidate updated successfully!",

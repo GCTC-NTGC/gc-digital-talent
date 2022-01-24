@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 import { Input, Submit, TextArea } from "@common/components/form";
 import { navigate } from "@common/helpers/router";
 import { errorMessages, commonMessages } from "@common/messages";
-import { cmoAssetTablePath } from "../../adminRoutes";
+import { useAdminRoutes } from "../../adminRoutes";
 import {
   CmoAsset,
   UpdateCmoAssetInput,
@@ -25,13 +25,14 @@ export const UpdateCmoAssetForm: React.FunctionComponent<
   UpdateCmoAssetFormProps
 > = ({ initialCmoAsset, handleUpdateCmoAsset }) => {
   const intl = useIntl();
+  const paths = useAdminRoutes();
   const methods = useForm<FormValues>({ defaultValues: initialCmoAsset });
   const { handleSubmit } = methods;
 
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
     return handleUpdateCmoAsset(initialCmoAsset.id, data)
       .then(() => {
-        navigate(cmoAssetTablePath());
+        navigate(paths.cmoAssetTable());
         toast.success(
           intl.formatMessage({
             defaultMessage: "CMO Asset updated successfully!",

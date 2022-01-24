@@ -5,7 +5,7 @@ import fromPairs from "lodash/fromPairs";
 import toPairs from "lodash/toPairs";
 import path from "path-browserify";
 
-const HISTORY = createBrowserHistory();
+export const HISTORY = createBrowserHistory();
 
 // Current implementation adapted from https://codesandbox.io/s/vyx8q7jvk7
 
@@ -52,10 +52,19 @@ export const useUrlHash = (): string => {
   return location.hash;
 };
 
+/**
+ * Change the browser url, without a full page refresh. Client-side routing will process the new url.
+ * The current url is added to the history stack, and can be returned to by navigating Back.
+ * @param url
+ */
 export const navigate = (url: string | Partial<Path>): void => {
   HISTORY.push(url);
 };
 
+/**
+ * Like the navigate function, except the current url is not added to the history stack.
+ * @param url
+ */
 export const redirect = (url: string | Partial<Path>): void => {
   HISTORY.replace(url);
 };

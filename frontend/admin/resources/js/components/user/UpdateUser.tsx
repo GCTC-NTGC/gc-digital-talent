@@ -8,7 +8,7 @@ import { navigate } from "@common/helpers/router";
 import { enumToOptions } from "@common/helpers/formUtils";
 import { errorMessages, commonMessages } from "@common/messages";
 import { getLanguage } from "@common/constants/localizedConstants";
-import { userTablePath } from "../../adminRoutes";
+import { useAdminRoutes } from "../../adminRoutes";
 import {
   Language,
   UpdateUserInput,
@@ -29,13 +29,14 @@ export const UpdateUserForm: React.FunctionComponent<UpdateUserFormProps> = ({
   handleUpdateUser,
 }) => {
   const intl = useIntl();
+  const paths = useAdminRoutes();
   const methods = useForm<FormValues>({ defaultValues: initialUser });
   const { handleSubmit } = methods;
 
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
     return handleUpdateUser(initialUser.id, data)
       .then(() => {
-        navigate(userTablePath());
+        navigate(paths.userTable());
         toast.success(
           intl.formatMessage({
             defaultMessage: "User updated successfully!",
