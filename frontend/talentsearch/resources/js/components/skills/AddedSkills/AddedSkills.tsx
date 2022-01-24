@@ -3,7 +3,6 @@ import { useIntl } from "react-intl";
 import { Chip } from "@common/components/Chip";
 import { Scalars, Skill } from "@common/api/generated";
 import { getLocale } from "@common/helpers/localize";
-import Alert from "@common/components/Alert";
 
 export interface AddedSkillsProps {
   skills: Skill[];
@@ -51,13 +50,15 @@ const AddedSkills: React.FunctionComponent<AddedSkillsProps> = ({
       )}
 
       {skills.length >= 6 && (
-        <Alert
-          color="gold"
-          position="static"
-          title=""
+        <div
+          data-h2-border= "b(gold, all, solid, s)"
+          data-h2-bg-color= "b(gold[.1])"
+          data-h2-padding="b(all, s)"
+          data-h2-radius="b(s)"
           data-h2-font-color="b([dark]darkgold)"
+          role="alert"
         >
-          <i>
+         <i>
             <div>
               <strong>
                 {intl.formatMessage({
@@ -81,7 +82,7 @@ const AddedSkills: React.FunctionComponent<AddedSkillsProps> = ({
               )}
             </div>
           </i>
-        </Alert>
+       </div>
       )}
     </>
   );
