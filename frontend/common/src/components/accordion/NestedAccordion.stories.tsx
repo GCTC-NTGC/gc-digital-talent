@@ -18,7 +18,16 @@ const TemplateAccordion: Story<AccordionProps & { title: string }> = (args) => {
   return (
     <AccordionComponent {...rest}>
       <Section title={SectionTitle1} subtitle="subtitle" Icon={AcademicCapIcon}>
-        Lorem ipsum dolor sit amet.
+        <AccordionComponent {...rest}>
+          <Section
+            title={SectionTitle1}
+            subtitle="subtitle"
+            Icon={AcademicCapIcon}
+          />
+          <Section title={SectionTitle2} subtitle="" Icon={AcademicCapIcon}>
+            Lorem ipsum dolor sit amet.
+          </Section>
+        </AccordionComponent>
       </Section>
       <Section title={SectionTitle2} subtitle="" Icon={AcademicCapIcon}>
         Lorem ipsum dolor sit amet.
@@ -30,8 +39,8 @@ const TemplateAccordion: Story<AccordionProps & { title: string }> = (args) => {
   );
 };
 
-export const Accordion = TemplateAccordion.bind({});
-Accordion.args = {
+export const NestedAccordion = TemplateAccordion.bind({});
+NestedAccordion.args = {
   SectionTitle1: "Section 1 title",
   SectionTitle2: "Section 2 title",
   SectionTitle3: "Section 3 title",
