@@ -1,4 +1,12 @@
 {
+    "overrides": [
+        {
+          "files": "['*.ts', '*.tsx','*.test.tsx']", // Your TypeScript files extension
+          "parserOptions": {
+            "project": "['./tsconfig.json']" // Specify it only for TypeScript files
+          }
+        }
+    ],
     "parser": "@typescript-eslint/parser",
     "env": {
         "browser": true,
@@ -37,6 +45,12 @@
         "@typescript-eslint"
     ],
     "rules": {
+        "formatjs/enforce-id": [
+            "error",
+            {
+              "idInterpolationPattern": "no-id"
+            }
+          ],
         "camelcase": "warn",
         "consistent-return": "warn",
         "import/no-extraneous-dependencies": [

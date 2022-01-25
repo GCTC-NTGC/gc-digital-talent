@@ -17,4 +17,5 @@ composer install
 php artisan config:clear
 npm run h2-build
 npm run codegen
+npm run intl-compile
 npm run dev

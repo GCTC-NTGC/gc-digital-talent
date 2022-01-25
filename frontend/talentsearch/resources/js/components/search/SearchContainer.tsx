@@ -19,7 +19,7 @@ import EstimatedCandidates from "./EstimatedCandidates";
 import { FormValues, SearchForm } from "./SearchForm";
 import SearchFilterAdvice from "./SearchFilterAdvice";
 import SearchPools from "./SearchPools";
-import { requestPath } from "../../talentSearchRoutes";
+import { useTalentSearchRoutes } from "../../talentSearchRoutes";
 
 export interface SearchContainerProps {
   classifications: Classification[];
@@ -246,8 +246,9 @@ export const SearchContainerApi: React.FC = () => {
 
   const [initialValues, setInitialValues] = useState<FormValues | null>(null);
 
+  const paths = useTalentSearchRoutes();
   const onSubmit = async () => {
-    return pushToStateThenNavigate(requestPath(), {
+    return pushToStateThenNavigate(paths.request(), {
       candidateFilter,
       candidateCount,
       initialValues,

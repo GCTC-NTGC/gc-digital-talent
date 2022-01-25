@@ -71,12 +71,14 @@ jobs:
         run: |
           npm run h2-build
           npm run codegen
+          npm run intl-compile
 
       - name: "Build: admin"
         working-directory: frontend/admin
         run: |
           npm run h2-build
           npm run codegen
+          npm run intl-compile
           npm run production
 
       - name: "Build: talentsearch"
@@ -84,6 +86,7 @@ jobs:
         run: |
           npm run h2-build
           npm run codegen
+          npm run intl-compile
           npm run production
 
       # Allows SSH access into CI environment for up to 1h.

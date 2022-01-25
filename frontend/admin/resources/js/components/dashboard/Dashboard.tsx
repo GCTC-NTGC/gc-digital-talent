@@ -8,7 +8,7 @@ import NotFound from "@common/components/NotFound";
 import Header from "@common/components/Header";
 import Footer from "@common/components/Footer";
 import ADMIN_APP_DIR from "../../adminConstants";
-import { poolCandidateTablePath } from "../../adminRoutes";
+import { useAdminRoutes } from "../../adminRoutes";
 import { useGetPoolsQuery } from "../../api/generated";
 import SideMenu from "../menu/SideMenu";
 
@@ -73,6 +73,7 @@ export const MenuLink: React.FC<MenuLinkProps> = ({
 
 const PoolListApi = () => {
   const intl = useIntl();
+  const paths = useAdminRoutes();
   const [result] = useGetPoolsQuery();
   const { data, fetching, error } = result;
   const items = [];
@@ -91,7 +92,7 @@ const PoolListApi = () => {
       items.push(
         <MenuLink
           key={`pools/${pool?.id}/pool-candidates`}
-          href={poolCandidateTablePath(pool?.id ?? "")}
+          href={paths.poolCandidateTable(pool?.id ?? "")}
           text={(pool?.name && pool?.name[getLocale(intl)]) ?? ""}
         />,
       ),

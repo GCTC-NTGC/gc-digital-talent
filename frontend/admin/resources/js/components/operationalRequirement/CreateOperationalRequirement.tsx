@@ -5,7 +5,7 @@ import { useIntl } from "react-intl";
 import { Input, Submit, TextArea } from "@common/components/form";
 import { navigate } from "@common/helpers/router";
 import { errorMessages } from "@common/messages";
-import { operationalRequirementTablePath } from "../../adminRoutes";
+import { useAdminRoutes } from "../../adminRoutes";
 import {
   CreateOperationalRequirementInput,
   useCreateOperationalRequirementMutation,
@@ -21,13 +21,14 @@ export const CreateOperationalRequirementForm: React.FunctionComponent<
   CreateOperationalRequirementFormProps
 > = ({ handleCreateOperationalRequirement }) => {
   const intl = useIntl();
+  const paths = useAdminRoutes();
   const methods = useForm<FormValues>();
   const { handleSubmit } = methods;
 
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
     return handleCreateOperationalRequirement(data)
       .then(() => {
-        navigate(operationalRequirementTablePath());
+        navigate(paths.operationalRequirementTable());
         toast.success(
           intl.formatMessage({
             defaultMessage: "Operational Requirement created successfully!",

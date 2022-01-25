@@ -1,11 +1,12 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { Link, Button } from "@common/components";
-import { departmentCreatePath } from "../../adminRoutes";
+import { useAdminRoutes } from "../../adminRoutes";
 import { DepartmentTableApi } from "./DepartmentTable";
 
 export const DepartmentPage: React.FC = () => {
   const intl = useIntl();
+  const paths = useAdminRoutes();
   return (
     <div>
       <header
@@ -32,7 +33,7 @@ export const DepartmentPage: React.FC = () => {
             data-h2-text-align="m(right)"
           >
             <Button color="white" mode="outline">
-              <Link href={departmentCreatePath()} title="">
+              <Link href={paths.departmentCreate()} title="">
                 {intl.formatMessage({
                   defaultMessage: "Create Department",
                   description:

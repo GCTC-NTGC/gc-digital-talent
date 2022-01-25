@@ -1,11 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import IntlContainer from "./components/IntlContainer";
+import LanguageRedirectContainer from "@common/components/LanguageRedirectContainer";
+import { getMessages } from "./components/IntlContainer";
 import { Router } from "./components/Router";
 
 ReactDOM.render(
-  <IntlContainer locale="en">
+  <LanguageRedirectContainer getMessages={getMessages}>
     <Router />
-  </IntlContainer>,
+  </LanguageRedirectContainer>,
   document.getElementById("app"),
 );

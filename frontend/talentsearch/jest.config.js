@@ -34,6 +34,10 @@ module.exports = {
   ],
   coverageDirectory: "resources/js/tests/coverage",
 
+  moduleNameMapper: {
+    "^@common/(.*)$": "<rootDir>/../common/src/$1",
+  },
+
   // Module file extensions for importing
   moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json", "node"],
 };
