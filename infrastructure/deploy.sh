@@ -9,30 +9,38 @@ php -version
 
 ### Write-out .htaccess
 
+
+Tristan  3:32 PM
 cat << '__EOF__' > $(System.DefaultWorkingDirectory)/$(Release.PrimaryArtifactSourceAlias)/.htaccess
+
+# Don't automatically add slash (with 301 redirect) if path matches a directory
+DirectorySlash off
 
 <IfModule mod_rewrite.c>
     RewriteEngine on
 
-#   remove trailing slash
-    RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteCond %{REQUEST_URI} (.+)/$
-    RewriteRule ^ %1 [L,R=301]
+    # Strip trailing slash from all urls redirect back to public url, unless already pointing to a public folder
+    RewriteCond %{REQUEST_URI} ^/(.+)/$
+    RewriteCond %{REQUEST_URI} !/public/$
+    RewriteRule ^ %{ENV:APP_URL}/%1 [L,R=301]
 
-    RewriteCond %{REQUEST_URI} ^(.*)
-    RewriteRule ^phpinfo.php$ phpinfo.php [L]
-    RewriteRule ^graphql-playground api/public/graphql-playground [L]
-    RewriteRule ^graphql api/public/graphql [L]
-    RewriteRule ^auth/(.*)$ auth/public/$1 [L]
-    RewriteRule ^oauth/(.*)$ auth/public/$1 [L]
-    RewriteRule ^admin/(.*)$ admin/public/$1 [L]
-    RewriteRule ^public/(.*)$ talentsearch/public/$1 [L]
-    RewriteRule ^(.*)$ talentsearch/public/$1 [L]
-</IfModule>
+    # Rewrite api requests
+    RewriteRule ^graphql-playground$ api/public/graphql-playground [L]
+    RewriteRule ^graphql$ api/public/graphql [L]
 
-<IfModule mod_headers.c>
-    RequestHeader set X-Forwarded-Host "dev-talentcloud.tbs-sct.gc.ca"
-    RequestHeader set Forwarded "host=dev-talentcloud.tbs-sct.gc.ca;proto=https"
+    # Send admin requests to admin public folder (with or without public/ path prefix).
+    RewriteRule ^admin/public(/(.*))?$ frontend/admin/public/$2 [L]
+    RewriteRule ^admin(/(.*))?$ frontend/admin/public/$2 [L]
+
+    # Send auth-callback request to admin
+    RewriteRule ^auth-callback$ frontend/admin/public/auth-callback [L]
+
+    # Send /public requests to talentsearch public folder
+    RewriteRule ^public/(.*)$ frontend/talentsearch/public/$1 [L]
+
+    # Send al other requests to talentsearch
+    RewriteCond %{REQUEST_URI} !^frontend/talentsearch/public/
+    RewriteRule ^(.*)$ frontend/talentsearch/public/$1 [L]
 </IfModule>
 
 # Security headers
@@ -46,6 +54,7 @@ Header add Pragma no-cache
 Header add Referrer-Policy "no-referrer-when-downgrade"
 #Header add Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.google-analytics.com https://www.googletagmanager.com https://tagmanager.google.com https://code.jquery.com https://cdn.datatables.net https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://html2canvas.hertzen.com https://stackpath.bootstrapcdn.com; img-src 'self' data: https://www.google-analytics.com https://ssl.gstatic.com https://www.gstatic.com https://www.gravatar.com https://images.unsplash.com; style-src 'self' 'unsafe-inline' https://tagmanager.google.com https://fonts.googleapis.com https://code.ionicframework.com https://cdn.datatables.net https://stackpath.bootstrapcdn.com https://cdnjs.cloudflare.com; font-src 'self' data: https://fonts.gstatic.com https://tagmanager.google.com https://code.ionicframework.com https://stackpath.bootstrapcdn.com; frame-src 'self'; object-src 'self'; connect-src 'self' https://api.github.com https://www.google-analytics.com;"
 Header add Feature-Policy "geolocation 'none'; midi 'none'; sync-xhr 'none'; microphone 'none'; camera 'none'; magnetometer 'none'; gyroscope 'none'; fullscreen 'self'; payment 'none';"
+
 __EOF__
 
 ### Dependencies
