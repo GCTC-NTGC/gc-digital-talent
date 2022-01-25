@@ -3,7 +3,7 @@ import { Section as InternalSection, ExternalSectionProps } from "./Section";
 import "../../css/Accordion.css";
 
 export interface AccordionProps {
-  defaultOpenIndex?: number;
+  defaultOpen?: boolean;
 }
 export const Accordion: React.FC<AccordionProps> = ({ children }) => {
   const sectionsWithInjectedProps = React.Children.map(children, (child) => {
@@ -20,6 +20,7 @@ export const Accordion: React.FC<AccordionProps> = ({ children }) => {
         title={JSXProps.title}
         subtitle={JSXProps.subtitle}
         Icon={JSXProps.Icon}
+        simple={JSXProps.simple}
       >
         {React.cloneElement(child)}
       </InternalSection>
