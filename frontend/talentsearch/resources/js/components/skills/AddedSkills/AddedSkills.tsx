@@ -51,8 +51,8 @@ const AddedSkills: React.FunctionComponent<AddedSkillsProps> = ({
 
       {skills.length >= 6 && (
         <div
-          data-h2-border= "b(gold, all, solid, s)"
-          data-h2-bg-color= "b(gold[.1])"
+          data-h2-border="b(gold, all, solid, s)"
+          data-h2-bg-color="b(gold[.1])"
           data-h2-padding="b(all, s)"
           data-h2-radius="b(s)"
           data-h2-font-color="b([dark]darkgold)"
