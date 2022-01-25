@@ -3,7 +3,7 @@
   "mediaWarnings": false,
   "folders": {
     "markup": "resources/views",
-    "scripts": ["resources/js", "../common/src"],
+    "scripts": ["resources/js", "../common/src", "../talentsearch/resources/js"],
     "styles": "resources/css"
   },
   "colors": [
