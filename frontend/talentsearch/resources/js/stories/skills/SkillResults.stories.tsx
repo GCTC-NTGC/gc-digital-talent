@@ -10,7 +10,7 @@ const skills = fakeSkills();
 
 export default {
   component: SkillResults,
-  title: "Search Results",
+  title: "Skills/Skill Results",
   args: {
     title: "Results",
     skills,
