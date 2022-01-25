@@ -5,6 +5,7 @@ export interface ExternalSectionProps {
   title: string;
   subtitle?: string;
   Icon?: React.ComponentType<React.SVGProps<SVGSVGElement>>;
+  simple?: boolean;
 }
 
 interface InternalSectionProps extends ExternalSectionProps {
@@ -15,15 +16,27 @@ export const Section: React.FC<InternalSectionProps> = ({
   open,
   title,
   subtitle,
+  simple,
   Icon,
   children,
 }) => {
   const contentRef = React.useRef(null);
   const [isOpen, setIsOpen] = useState(open);
 
+  const enum border {
+    expand = "b(lightpurple, left, solid, m)",
+    collapse = "b(darkpurple, left, solid, m)",
+    none = "",
+  }
+
   const handleOpen = () => {
     setIsOpen((prev: boolean | undefined) => !prev);
   };
+  function getStyle(): border {
+    if (simple) return border.none;
+    if (isOpen) return border.expand;
+    return border.collapse;
+  }
 
   return (
     <div
@@ -43,7 +56,12 @@ export const Section: React.FC<InternalSectionProps> = ({
         {...(isOpen && children
           ? { "data-h2-border": "b(lightpurple, left, solid, m)" }
           : { "data-h2-border": "b(darkpurple, left, solid, m)" })}
-        style={{ borderTop: "none", borderRight: "none", borderBottom: "none" }}
+        style={{
+          borderTop: "none",
+          borderRight: "none",
+          borderBottom: "none",
+          borderLeft: simple ? "none" : "",
+        }}
       >
         <div data-h2-flex-grid="b(middle, expanded, flush, s)">
           <span>
@@ -60,17 +78,15 @@ export const Section: React.FC<InternalSectionProps> = ({
             <p data-h2-margin="b(top, xxs) b(bottom, none)">{subtitle}</p>
           </div>
           <div data-h2-flex-item="b(content)">
-            <span className="icon" data-h2-text-align="b(left)">
-              {Icon && <Icon height="20px" width="20px" />}
-            </span>
+            {!simple && (
+              <span className="icon" data-h2-text-align="b(left)">
+                {Icon && <Icon height="20px" width="20px" />}
+              </span>
+            )}
           </div>
         </div>
       </button>
-      <div
-        ref={contentRef}
-        data-h2-border="b(lightpurple, left, solid, m)"
-        id="content"
-      >
+      <div ref={contentRef} data-h2-border={`${getStyle()}`} id="content">
         {isOpen && (
           <div data-h2-padding="b(top, none) b(right, l) b(bottom, m) b(left, xl)">
             <hr data-h2-margin="b(top, none) b(bottom, s)" />
