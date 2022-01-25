@@ -43,7 +43,8 @@
         "prettier",
         "react",
         "react-hooks",
-        "@typescript-eslint"
+        "@typescript-eslint",
+        "formatjs"
     ],
     "rules": {
         "formatjs/enforce-id": [
