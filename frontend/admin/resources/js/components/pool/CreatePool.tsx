@@ -13,7 +13,7 @@ import { getLocale } from "@common/helpers/localize";
 import { notEmpty } from "@common/helpers/util";
 import { navigate } from "@common/helpers/router";
 import { errorMessages, commonMessages } from "@common/messages";
-import { poolTablePath } from "../../adminRoutes";
+import { useAdminRoutes } from "../../adminRoutes";
 import {
   Classification,
   CmoAsset,
@@ -61,6 +61,7 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
+  const paths = useAdminRoutes();
   const methods = useForm<FormValues>();
   const { handleSubmit } = methods;
 
@@ -84,7 +85,7 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
     await handleCreatePool(formValuesToSubmitData(data))
       .then(() => {
-        navigate(poolTablePath());
+        navigate(paths.poolTable());
         toast.success(
           intl.formatMessage({
             defaultMessage: "Pool created successfully!",

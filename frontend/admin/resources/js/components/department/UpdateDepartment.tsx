@@ -6,7 +6,7 @@ import pick from "lodash/pick";
 import { navigate } from "@common/helpers/router";
 import { Input, Submit } from "@common/components/form";
 import { errorMessages, commonMessages } from "@common/messages";
-import { departmentTablePath } from "../../adminRoutes";
+import { useAdminRoutes } from "../../adminRoutes";
 import {
   Department,
   UpdateDepartmentInput,
@@ -30,6 +30,7 @@ export const UpdateDepartmentForm: React.FunctionComponent<
   UpdateDepartmentProps
 > = ({ initialDepartment, handleUpdateDepartment }) => {
   const intl = useIntl();
+  const paths = useAdminRoutes();
   const methods = useForm<FormValues>({
     defaultValues: {
       departmentNumber: initialDepartment.departmentNumber,
@@ -44,7 +45,7 @@ export const UpdateDepartmentForm: React.FunctionComponent<
       name: data.name,
     })
       .then(() => {
-        navigate(departmentTablePath());
+        navigate(paths.departmentTable());
         toast.success(
           intl.formatMessage({
             defaultMessage: "Department updated successfully!",

@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import { navigate } from "@common/helpers/router";
 import { Input, Submit } from "@common/components/form";
 import { errorMessages } from "@common/messages";
-import { departmentTablePath } from "../../adminRoutes";
+import { useAdminRoutes } from "../../adminRoutes";
 import {
   CreateDepartmentInput,
   CreateDepartmentMutation,
@@ -25,6 +25,7 @@ export const CreateDepartmentForm: React.FunctionComponent<
   CreateDepartmentProps
 > = ({ handleCreateDepartment }) => {
   const intl = useIntl();
+  const paths = useAdminRoutes();
   const methods = useForm<FormValues>();
   const { handleSubmit } = methods;
 
@@ -34,7 +35,7 @@ export const CreateDepartmentForm: React.FunctionComponent<
       name: data.name,
     })
       .then(() => {
-        navigate(departmentTablePath());
+        navigate(paths.departmentTable());
         toast.success(
           intl.formatMessage({
             defaultMessage: "Department created successfully!",

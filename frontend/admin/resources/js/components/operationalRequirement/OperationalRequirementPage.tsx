@@ -1,11 +1,12 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { Link, Button } from "@common/components";
-import { operationalRequirementCreatePath } from "../../adminRoutes";
+import { useAdminRoutes } from "../../adminRoutes";
 import { OperationalRequirementTableApi } from "./OperationalRequirementTable";
 
 export const OperationalRequirementPage: React.FC = () => {
   const intl = useIntl();
+  const paths = useAdminRoutes();
   return (
     <div>
       <header
@@ -32,7 +33,7 @@ export const OperationalRequirementPage: React.FC = () => {
             data-h2-text-align="m(right)"
           >
             <Button color="white" mode="outline">
-              <Link href={operationalRequirementCreatePath()} title="">
+              <Link href={paths.operationalRequirementCreate()} title="">
                 {intl.formatMessage({
                   defaultMessage: "Create Operational Requirement",
                   description:
