@@ -28,7 +28,7 @@ import {
   getPoolCandidateStatus,
 } from "@common/constants/localizedConstants";
 import { errorMessages, commonMessages } from "@common/messages";
-import { poolCandidateTablePath } from "../../adminRoutes";
+import { useAdminRoutes } from "../../adminRoutes";
 import {
   CreatePoolCandidateInput,
   Pool,
@@ -239,6 +239,7 @@ export const CreatePoolCandidateForm: React.FunctionComponent<
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
+  const paths = useAdminRoutes();
   const methods = useForm<FormValues>({ defaultValues: { pool: poolId } });
   const { control, handleSubmit } = methods;
 
@@ -294,7 +295,7 @@ export const CreatePoolCandidateForm: React.FunctionComponent<
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
     await handleCreatePoolCandidate(formValuesToSubmitData(data))
       .then(() => {
-        navigate(poolCandidateTablePath(poolId || data.pool));
+        navigate(paths.poolCandidateTable(poolId || data.pool));
         toast.success(
           intl.formatMessage({
             defaultMessage: "Pool Candidate created successfully!",

@@ -6,7 +6,7 @@ import * as React from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { toast } from "react-toastify";
-import { searchRequestTablePath } from "../../adminRoutes";
+import { useAdminRoutes } from "../../adminRoutes";
 import {
   PoolCandidateSearchStatus,
   UpdatePoolCandidateSearchRequestInput,
@@ -27,6 +27,7 @@ export const UpdateSearchRequestForm: React.FunctionComponent<
   UpdateSearchRequestFormProps
 > = ({ initialSearchRequest, handleUpdateSearchRequest }) => {
   const intl = useIntl();
+  const paths = useAdminRoutes();
   const methods = useForm<FormValues>({
     defaultValues: initialSearchRequest,
   });
@@ -134,7 +135,7 @@ export const UpdateSearchRequestForm: React.FunctionComponent<
                 color="primary"
                 mode="outline"
                 onClick={() => {
-                  navigate(searchRequestTablePath());
+                  navigate(paths.searchRequestTable());
                 }}
                 data-h2-margin="b(top, m) b(right, m)"
               >

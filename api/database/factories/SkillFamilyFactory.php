@@ -26,7 +26,7 @@ class SkillFamilyFactory extends Factory
         return [
             'key' => KeyStringHelpers::toKeyString($name),
             'name' => ['en' => $name.' EN', 'fr' => $name.' FR'],
-            'description' => $this->faker->words($nb = 3, $asText = false),
+            'description' => ['en' => $this->faker->paragraph().' EN', 'fr' => $this->faker->paragraph().' FR'],
             'category' => $this->faker->randomElement(['TECHNICAL', 'BEHAVIOURAL'])
         ];
     }

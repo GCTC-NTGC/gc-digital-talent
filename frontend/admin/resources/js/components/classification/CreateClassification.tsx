@@ -11,7 +11,7 @@ import {
   useCreateClassificationMutation,
 } from "../../api/generated";
 import DashboardContentContainer from "../DashboardContentContainer";
-import { classificationTablePath } from "../../adminRoutes";
+import { useAdminRoutes } from "../../adminRoutes";
 
 type FormValues = CreateClassificationInput;
 interface CreateClassificationFormProps {
@@ -22,6 +22,7 @@ export const CreateClassificationForm: React.FunctionComponent<
   CreateClassificationFormProps
 > = ({ handleCreateClassification }) => {
   const intl = useIntl();
+  const paths = useAdminRoutes();
   const methods = useForm<FormValues>();
   const { handleSubmit, watch } = methods;
   const watchMinSalary = watch("minSalary");
@@ -36,7 +37,7 @@ export const CreateClassificationForm: React.FunctionComponent<
     };
     return handleCreateClassification(classification)
       .then(() => {
-        navigate(classificationTablePath());
+        navigate(paths.classificationTable());
         toast.success(
           intl.formatMessage({
             defaultMessage: "Classification created successfully!",

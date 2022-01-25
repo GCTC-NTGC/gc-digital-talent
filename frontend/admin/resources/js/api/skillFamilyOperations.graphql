@@ -1,3 +1,35 @@
+query AllSkillFamilies {
+  skillFamilies {
+    id
+    key
+    name {
+      en
+      fr
+    }
+    description {
+      en
+      fr
+    }
+    skills {
+      id
+      key
+      name {
+        en
+        fr
+      }
+      description {
+        en
+        fr
+      }
+      keywords,
+      families {
+        id
+      }
+    },
+    category
+  }
+}
+
 mutation updateSkillFamily($id: ID!, $user: UpdateSkillFamilyInput!) {
   updateSkillFamily(id: $id, skillFamily: $skillFamily) {
     name {

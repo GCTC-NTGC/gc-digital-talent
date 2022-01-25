@@ -6,6 +6,7 @@ import {
   SalaryRange,
   WorkRegion,
   PoolCandidateSearchStatus,
+  SkillCategory,
 } from "../api/generated";
 import { getOrThrowError } from "../helpers/util";
 
@@ -169,4 +170,24 @@ export const getPoolCandidateSearchStatus = (
     poolCandidateSearchStatuses,
     poolCandidateSearchStatusId,
     `Invalid Pool Candidate Search Status '${poolCandidateSearchStatusId}'`,
+  );
+
+export const SkillCategories = defineMessages({
+  [SkillCategory.Behavioural]: {
+    defaultMessage: "Transferable Skills",
+    description: "The skill is considered behavioral.",
+  },
+  [SkillCategory.Technical]: {
+    defaultMessage: "Technical Skills",
+    description: "The skill is considered technical.",
+  },
+});
+
+export const getSkillCategory = (
+  skillCategoryId: string | number,
+): MessageDescriptor =>
+  getOrThrowError(
+    SkillCategories,
+    skillCategoryId,
+    `Invalid Skill Category '${skillCategoryId}'`,
   );

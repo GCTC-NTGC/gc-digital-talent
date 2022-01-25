@@ -7,7 +7,7 @@ import { navigate } from "@common/helpers/router";
 import { enumToOptions } from "@common/helpers/formUtils";
 import { getLanguage } from "@common/constants/localizedConstants";
 import { errorMessages } from "@common/messages";
-import { userTablePath } from "../../adminRoutes";
+import { useAdminRoutes } from "../../adminRoutes";
 import {
   Language,
   CreateUserInput,
@@ -27,13 +27,14 @@ export const CreateUserForm: React.FunctionComponent<CreateUserFormProps> = ({
   handleCreateUser,
 }) => {
   const intl = useIntl();
+  const paths = useAdminRoutes();
   const methods = useForm<FormValues>();
   const { handleSubmit } = methods;
 
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
     return handleCreateUser(data)
       .then(() => {
-        navigate(userTablePath());
+        navigate(paths.userTable());
         toast.success(
           intl.formatMessage({
             defaultMessage: "User created successfully!",

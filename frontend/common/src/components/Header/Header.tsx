@@ -1,11 +1,23 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { imageUrl } from "../../helpers/router";
+import {
+  getLocale,
+  localizePath,
+  oppositeLocale,
+} from "../../helpers/localize";
+import { imageUrl, Link, useLocation } from "../../helpers/router";
 
 export const Header: React.FunctionComponent<{
   baseUrl: string;
 }> = ({ baseUrl }) => {
   const intl = useIntl();
+  const locale = getLocale(intl);
+
+  const location = useLocation();
+  const languageTogglePath = localizePath(
+    location.pathname,
+    oppositeLocale(locale),
+  );
   return (
     <header data-h2-border="b(gray, bottom, solid, s)">
       <div data-h2-flex-grid="b(middle, contained, flush, xl)">
@@ -14,7 +26,7 @@ export const Header: React.FunctionComponent<{
           data-h2-text-align="b(center) m(left)"
         >
           <a
-            href={`https://www.canada.ca/${intl.locale}.html`}
+            href={`https://www.canada.ca/${locale}.html`}
             title={intl.formatMessage({
               defaultMessage: "Visit Canada.ca",
               description: "Title for the Canada logo in the Header.",
@@ -31,6 +43,20 @@ export const Header: React.FunctionComponent<{
               })}
             />
           </a>
+        </div>
+        <div
+          data-h2-flex-item="b(1of1) m(1of2)"
+          data-h2-text-align="b(center) m(right)"
+        >
+          <Link
+            href={languageTogglePath}
+            title={intl.formatMessage({
+              defaultMessage: "Change language",
+              description: "Title for the language toggle link.",
+            })}
+          >
+            {oppositeLocale(locale) === "en" ? "English" : "Français"}
+          </Link>
         </div>
       </div>
     </header>

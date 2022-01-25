@@ -21,12 +21,11 @@ class UserFactory extends Factory
      */
     public function definition()
     {
-        $email = $this->faker->unique()->safeEmail;
         return [
             'first_name' => $this->faker->firstName(),
             'last_name' => $this->faker->lastName(),
-            'email' => $email,
-            'sub' => $email,
+            'email' => $this->faker->unique()->safeEmail,
+            //'sub' => filled in User::creating event
             'telephone' => $this->faker->e164PhoneNumber(),
             'preferred_lang' => $this->faker->randomElement(['en', 'fr']),
             'roles' => [],

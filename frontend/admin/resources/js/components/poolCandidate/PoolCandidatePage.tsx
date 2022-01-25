@@ -1,11 +1,12 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { Link, Button } from "@common/components";
-import { poolCandidateCreatePath } from "../../adminRoutes";
+import { useAdminRoutes } from "../../adminRoutes";
 import { PoolCandidatesTableApi } from "./PoolCandidatesTable";
 
 export const PoolCandidatePage: React.FC<{ poolId: string }> = ({ poolId }) => {
   const intl = useIntl();
+  const paths = useAdminRoutes();
   return (
     <div>
       <header
@@ -32,7 +33,7 @@ export const PoolCandidatePage: React.FC<{ poolId: string }> = ({ poolId }) => {
             data-h2-text-align="m(right)"
           >
             <Button color="white" mode="outline">
-              <Link href={poolCandidateCreatePath(poolId)} title="">
+              <Link href={paths.poolCandidateCreate(poolId)} title="">
                 {intl.formatMessage({
                   defaultMessage: "Create Pool Candidate",
                   description:

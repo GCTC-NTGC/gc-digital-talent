@@ -5,15 +5,11 @@ on:
     branches: ["main"]
     paths:
       - .github/workflows/storybook.yml
-      - 'common/**'
-      - 'admin/**'
-      - 'talentsearch/**'
+      - frontend/**
   pull_request:
     paths:
       - .github/workflows/storybook.yml
-      - 'common/**'
-      - 'admin/**'
-      - 'talentsearch/**'
+      - frontend/**
 
 jobs:
   deployment:
@@ -62,6 +58,7 @@ jobs:
         run: |
           npm run h2-build
           npm run codegen
+          npm run intl-compile
 
       - name: "Build: talentsearch"
         working-directory: frontend/talentsearch
@@ -69,6 +66,7 @@ jobs:
           # No need to build since we only use admin's hydrogen.css.
           #npm run h2-build
           npm run codegen
+          npm run intl-compile
 
       - name: "Publish Storybook: all"
         uses: chromaui/action@v1

@@ -203,7 +203,7 @@ type Mutation {
   deleteOperationalRequirement(id: ID!): OperationalRequirement
   createDepartment(department: CreateDepartmentInput!): Department
   updateDepartment(id: ID!, department: UpdateDepartmentInput!): Department
-  deleteDepartment(id: ID!): User
+  deleteDepartment(id: ID!): Department
   createPoolCandidateSearchRequest(poolCandidateSearchRequest: CreatePoolCandidateSearchRequestInput!): PoolCandidateSearchRequest
   updatePoolCandidateSearchRequest(id: ID!, poolCandidateSearchRequest: UpdatePoolCandidateSearchRequestInput!): PoolCandidateSearchRequest
   createSkillFamily(skillFamily: CreateSkillFamilyInput!): SkillFamily

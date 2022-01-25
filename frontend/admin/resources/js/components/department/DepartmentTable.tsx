@@ -4,6 +4,7 @@ import commonMessages from "@common/messages/commonMessages";
 import { useLocation } from "@common/helpers/router";
 import { notEmpty } from "@common/helpers/util";
 import { FromArray } from "@common/types/utilityTypes";
+import { getLocale } from "@common/helpers/localize";
 import { DepartmentsQuery, useDepartmentsQuery } from "../../api/generated";
 import Table, { ColumnsOf } from "../Table";
 import DashboardContentContainer from "../DashboardContentContainer";
@@ -15,6 +16,7 @@ export const DepartmentTable: React.FC<
   DepartmentsQuery & { editUrlRoot: string }
 > = ({ departments, editUrlRoot }) => {
   const intl = useIntl();
+  const locale = getLocale(intl);
   const columns = useMemo<ColumnsOf<Data>>(
     () => [
       {
@@ -30,7 +32,7 @@ export const DepartmentTable: React.FC<
           defaultMessage: "Name",
           description: "Title displayed for the Department table Name column.",
         }),
-        accessor: (d) => d.name?.en,
+        accessor: (d) => d.name?.[locale],
       },
       {
         Header: intl.formatMessage({
@@ -40,7 +42,7 @@ export const DepartmentTable: React.FC<
         accessor: (d) => tableEditButtonAccessor(d.id, editUrlRoot), // callback extracted to separate function to stabilize memoized component
       },
     ],
-    [editUrlRoot, intl],
+    [editUrlRoot, intl, locale],
   );
 
   const data = useMemo(() => departments.filter(notEmpty), [departments]);

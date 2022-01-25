@@ -29,7 +29,7 @@ class DatabaseSeeder extends Seeder
         $this->call(OperationalRequirementSeeder::class);
         $this->call(DepartmentSeeder::class);
 
-        $this->call(UserSeeder::class);
+        $this->call(UserSeederLocal::class);
         $this->call(PoolSeeder::class);
 
         PoolCandidate::factory()

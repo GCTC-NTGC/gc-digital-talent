@@ -6,25 +6,28 @@ import Toast from "@common/components/Toast";
 import ClientProvider from "./ClientProvider";
 import PageContainer, { MenuLink } from "./PageContainer";
 import SearchPage from "./search/SearchPage";
-import { homePath, requestPath, searchPath } from "../talentSearchRoutes";
+import {
+  useTalentSearchRoutes,
+  TalentSearchRoutes,
+} from "../talentSearchRoutes";
 import HomePage from "./HomePage";
 import RequestPage from "./request/RequestPage";
 
-const routes: Routes<RouterResult> = [
+const routes = (paths: TalentSearchRoutes): Routes<RouterResult> => [
   {
-    path: homePath(),
+    path: paths.home(),
     action: () => ({
       component: <HomePage />,
     }),
   },
   {
-    path: searchPath(),
+    path: paths.search(),
     action: () => ({
       component: <SearchPage />,
     }),
   },
   {
-    path: requestPath(),
+    path: paths.request(),
     action: () => ({
       component: <RequestPage />,
     }),
@@ -33,11 +36,12 @@ const routes: Routes<RouterResult> = [
 
 export const Router: React.FC = () => {
   const intl = useIntl();
+  const paths = useTalentSearchRoutes();
 
   const menuItems = [
     <MenuLink
       key="home"
-      href={homePath()}
+      href={paths.home()}
       text={intl.formatMessage({
         defaultMessage: "Home",
         description: "Label displayed on the Home menu item.",
@@ -45,7 +49,7 @@ export const Router: React.FC = () => {
     />,
     <MenuLink
       key="search"
-      href={searchPath()}
+      href={paths.search()}
       text={intl.formatMessage({
         defaultMessage: "Search",
         description: "Label displayed on the Search menu item.",
@@ -53,7 +57,7 @@ export const Router: React.FC = () => {
     />,
     <MenuLink
       key="request"
-      href={requestPath()}
+      href={paths.request()}
       text={intl.formatMessage({
         defaultMessage: "Request",
         description: "Label displayed on the Request menu item.",
@@ -63,7 +67,7 @@ export const Router: React.FC = () => {
 
   return (
     <ClientProvider>
-      <PageContainer menuItems={menuItems} contentRoutes={routes} />
+      <PageContainer menuItems={menuItems} contentRoutes={routes(paths)} />
       <Toast />
     </ClientProvider>
   );

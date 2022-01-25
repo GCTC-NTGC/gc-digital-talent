@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 import { Input, Submit, TextArea } from "@common/components/form";
 import { navigate } from "@common/helpers/router";
 import { errorMessages, commonMessages } from "@common/messages";
-import { operationalRequirementTablePath } from "../../adminRoutes";
+import { useAdminRoutes } from "../../adminRoutes";
 import {
   OperationalRequirement,
   UpdateOperationalRequirementInput,
@@ -28,6 +28,7 @@ export const UpdateOperationalRequirementForm: React.FunctionComponent<
   UpdateOperationalRequirementFormProps
 > = ({ initialOperationalRequirement, handleUpdateOperationalRequirement }) => {
   const intl = useIntl();
+  const paths = useAdminRoutes();
   const methods = useForm<FormValues>({
     defaultValues: initialOperationalRequirement,
   });
@@ -39,7 +40,7 @@ export const UpdateOperationalRequirementForm: React.FunctionComponent<
       data,
     )
       .then(() => {
-        navigate(operationalRequirementTablePath());
+        navigate(paths.operationalRequirementTable());
         toast.success(
           intl.formatMessage({
             defaultMessage: "Operational Requirement updated successfully!",
