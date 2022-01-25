@@ -288,7 +288,7 @@
     "description": "Error message on operational requirements filter on search form."
   },
   "/quEXs": {
-    "defaultMessage": "Propriétaire du bassin : {Prénom} {Nom de famille}",
+    "defaultMessage": "Propriétaire du bassin : {firstName} {lastName}",
     "description": "Text showing the owner of the HR pool."
   },
   "m+d9ls": {

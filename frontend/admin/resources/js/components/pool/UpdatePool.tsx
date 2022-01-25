@@ -15,7 +15,7 @@ import { unpackIds } from "@common/helpers/formUtils";
 import { getLocale } from "@common/helpers/localize";
 import { navigate } from "@common/helpers/router";
 import { errorMessages, commonMessages } from "@common/messages";
-import { poolTablePath } from "../../adminRoutes";
+import { useAdminRoutes } from "../../adminRoutes";
 import {
   Classification,
   CmoAsset,
@@ -61,6 +61,7 @@ export const UpdatePoolForm: React.FunctionComponent<UpdatePoolFormProps> = ({
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
+  const paths = useAdminRoutes();
   const dataToFormValues = (
     data: Pool | UpdatePoolMutation["updatePool"],
   ): FormValues => ({
@@ -105,7 +106,7 @@ export const UpdatePoolForm: React.FunctionComponent<UpdatePoolFormProps> = ({
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
     await handleUpdatePool(initialPool.id, formValuesToSubmitData(data))
       .then(() => {
-        navigate(poolTablePath());
+        navigate(paths.poolTable());
         toast.success(
           intl.formatMessage({
             defaultMessage: "Pool updated successfully!",

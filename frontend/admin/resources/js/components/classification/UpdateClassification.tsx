@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 import { Input, Select, Submit } from "@common/components/form";
 import { navigate } from "@common/helpers/router";
 import { errorMessages, commonMessages } from "@common/messages";
-import { classificationTablePath } from "../../adminRoutes";
+import { useAdminRoutes } from "../../adminRoutes";
 import {
   Classification,
   UpdateClassificationInput,
@@ -29,6 +29,7 @@ export const UpdateClassificationForm: React.FunctionComponent<
   UpdateClassificationFormProps
 > = ({ initialClassification, handleUpdateClassification }) => {
   const intl = useIntl();
+  const paths = useAdminRoutes();
   const methods = useForm<FormValues>({
     defaultValues: initialClassification,
   });
@@ -47,7 +48,7 @@ export const UpdateClassificationForm: React.FunctionComponent<
     };
     return handleUpdateClassification(initialClassification.id, classification)
       .then(() => {
-        navigate(classificationTablePath());
+        navigate(paths.classificationTable());
         toast.success(
           intl.formatMessage({
             defaultMessage: "Classification updated successfully!",

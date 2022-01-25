@@ -496,7 +496,7 @@ type Mutation {
     deleteOperationalRequirement(id: ID!): OperationalRequirement @delete(globalId: false) @guard @can(ability: "delete", find: "id")
     createDepartment(department: CreateDepartmentInput! @spread): Department @create @guard @can(ability: "create")
     updateDepartment(id: ID!, department: UpdateDepartmentInput! @spread): Department @update @can(ability: "update", find: "id")
-    deleteDepartment(id: ID!): User @delete(globalId: false) @guard @can(ability: "delete", find: "id")
+    deleteDepartment(id: ID!): Department @delete(globalId: false) @guard @can(ability: "delete", find: "id")
     createPoolCandidateSearchRequest(poolCandidateSearchRequest: CreatePoolCandidateSearchRequestInput! @spread): PoolCandidateSearchRequest @create @can(ability: "create")
     updatePoolCandidateSearchRequest(id: ID!, poolCandidateSearchRequest: UpdatePoolCandidateSearchRequestInput! @spread): PoolCandidateSearchRequest @update @guard @can(ability: "update", find: "id")
 }

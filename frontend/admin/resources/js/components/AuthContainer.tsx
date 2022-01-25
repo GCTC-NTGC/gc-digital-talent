@@ -4,7 +4,7 @@ import {
   parseUrlQueryParameters,
   useLocation,
 } from "@common/helpers/router";
-import { homePath, refreshTokenPath } from "../adminRoutes";
+import { useAdminRoutes } from "../adminRoutes";
 
 const ACCESS_TOKEN = "access_token";
 const REFRESH_TOKEN = "refresh_token";
@@ -36,13 +36,13 @@ export const AuthContext = React.createContext<AuthContextState>({
   refreshAuth: () => Promise.resolve(null),
 });
 
-const logoutAndRefreshPage = (): void => {
+const logoutAndRefreshPage = (homePath: string): void => {
   // To log out, remove tokens from local storage and do a hard refresh to clear anything cached by react.
   // TODO: Is there anything else we should do, in terms of notifying user?
   localStorage.removeItem(ACCESS_TOKEN);
   localStorage.removeItem(REFRESH_TOKEN);
   localStorage.removeItem(TOKEN_EXPIRY);
-  window.location.href = homePath();
+  window.location.href = homePath;
 };
 
 function calculateExpiryTimestamp(expiresIn: string | null): number | null {
@@ -54,11 +54,12 @@ function calculateExpiryTimestamp(expiresIn: string | null): number | null {
 }
 
 const refreshAuth = async (
+  refreshPath: string,
   refreshToken: string,
   setAuthState: (state: AuthState) => void,
 ): Promise<AuthState | null> => {
   const response = await fetch(
-    `${refreshTokenPath()}?refresh_token=${refreshToken}`,
+    `${refreshPath}?refresh_token=${refreshToken}`,
   );
   if (response.ok) {
     const responseBody: {
@@ -107,6 +108,9 @@ export const AuthContainer: React.FC = ({ children }) => {
 
   const location = useLocation();
   const newAuthState = getAuthFromLocation(location);
+  const paths = useAdminRoutes();
+  const homePath = paths.home();
+  const refreshPath = paths.refreshToken();
 
   // If newAuthState is not null, then we have a new access token in the url. Save it in local storage and in state hook, then clear query parameters.
   useEffect(() => {
@@ -140,17 +144,19 @@ export const AuthContainer: React.FC = ({ children }) => {
       loggedIn: !!authState.accessToken,
       expiry: authState.expiry,
       logout: authState.accessToken
-        ? logoutAndRefreshPage
+        ? () => {
+          logoutAndRefreshPage(homePath);
+        }
         : () => {
             /* If not logged in, logout does nothing. */
           },
       refreshAuth: () => {
         return authState.refreshToken
-          ? refreshAuth(authState.refreshToken, setAuthState)
+          ? refreshAuth(refreshPath, authState.refreshToken, setAuthState)
           : Promise.resolve(null);
       },
     };
-  }, [authState.accessToken, authState.refreshToken, authState.expiry]);
+  }, [authState.accessToken, authState.refreshToken, authState.expiry, homePath, refreshPath]);
 
   return (
     <AuthContext.Provider value={authContextState}>

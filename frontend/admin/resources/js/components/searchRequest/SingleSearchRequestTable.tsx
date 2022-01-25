@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import { IntlShape, useIntl } from "react-intl";
+import { useIntl } from "react-intl";
 import { Button, Pill } from "@common/components";
 import { notEmpty } from "@common/helpers/util";
 import { navigate } from "@common/helpers/router";
@@ -13,24 +13,25 @@ import {
 } from "../../api/generated";
 import Table, { ColumnsOf } from "../Table";
 import DashboardContentContainer from "../DashboardContentContainer";
-import { poolCandidateUpdatePath } from "../../adminRoutes";
+import { useAdminRoutes } from "../../adminRoutes";
 
 type Data = NonNullable<
   FromArray<SearchPoolCandidatesQuery["searchPoolCandidates"]>
 >;
 
-function tableEditButtonAccessor(
-  intl: IntlShape,
-  userId?: string,
-  poolId?: string,
-) {
+const TableEditButton: React.FC<{ userId?: string; poolId?: string }> = ({
+  userId,
+  poolId,
+}) => {
+  const intl = useIntl();
+  const paths = useAdminRoutes();
   return (
     <Button
       color="primary"
       mode="inline"
       onClick={(event) => {
         event.preventDefault();
-        navigate(poolCandidateUpdatePath(userId || "", poolId || "")); // TODO: Where should the user be taken if this value is empty?
+        navigate(paths.poolCandidateUpdate(userId || "", poolId || "")); // TODO: Where should the user be taken if this value is empty?
       }}
     >
       {intl.formatMessage({
@@ -39,6 +40,10 @@ function tableEditButtonAccessor(
       })}
     </Button>
   );
+};
+
+function tableEditButtonAccessor(userId?: string, poolId?: string) {
+  return <TableEditButton userId={userId} poolId={poolId} />;
 }
 
 export const SingleSearchRequestTable: React.FunctionComponent<
@@ -199,7 +204,7 @@ export const SingleSearchRequestTable: React.FunctionComponent<
             "Title displayed for the single search request table edit column.",
         }),
         accessor: ({ user, pool }) =>
-          tableEditButtonAccessor(intl, user?.id, pool?.id),
+          tableEditButtonAccessor(user?.id, pool?.id),
       },
     ],
     [intl, locale],
