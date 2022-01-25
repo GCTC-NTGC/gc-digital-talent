@@ -1,3 +1,4 @@
+import { createPath } from "history";
 import React, { useEffect } from "react";
 import { IntlProvider } from "react-intl";
 import { isLocale, Locales, localizePath } from "../../helpers/localize";
@@ -40,9 +41,9 @@ export const LanguageRedirectContainer: React.FC<{
       localStorage.setItem(STORED_LOCALE, pathLocale);
     } else {
       // The redirect call must be in a useEffect hook to ensure the component process the change in location correctly.
-      redirect(localizePath(location.pathname, guessedLocale));
+      redirect(localizePath(createPath(location), guessedLocale));
     }
-  }, [location.pathname, pathLocale, guessedLocale]);
+  }, [location, pathLocale, guessedLocale]);
 
   // If the url already begins with locale, pass it to IntlContainer. Otherwise, return null while we redirect.
   return pathLocale ? (
