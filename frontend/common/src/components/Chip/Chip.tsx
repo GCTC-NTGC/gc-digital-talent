@@ -50,13 +50,19 @@ export const Chip: React.FC<ChipProps> = ({
   label,
 }): React.ReactElement => {
   return (
-    <Pill color={color} mode={mode}>
+    <Pill
+      color={color}
+      mode={mode}
+      data-h2-padding="b(top-bottom, xxs) b(right-left, xs)"
+      role="listitem"
+    >
       {label}
       {onDismiss && (
         <XCircleIcon
           style={{ width: "1.25rem", cursor: "pointer" }}
           data-h2-margin="b(left, xxs)"
           {...colorMap[color][mode]}
+          role="button"
           onClick={onDismiss}
         />
       )}

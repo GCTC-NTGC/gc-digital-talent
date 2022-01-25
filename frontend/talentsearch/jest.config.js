@@ -37,4 +37,9 @@ module.exports = {
 
   // Module file extensions for importing
   moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json", "node"],
+
+  // https://alexjover.com/blog/enhance-jest-configuration-with-module-aliases/
+  moduleNameMapper: {
+    "@common/(.*)$": "<rootDir>/../common/src/$1",
+  },
 };

@@ -30,6 +30,7 @@
       "key": "lightgray",
       "color": "#F0F0F0",
       "opacities": [
+        ".1",
         ".6"
       ]
     },
