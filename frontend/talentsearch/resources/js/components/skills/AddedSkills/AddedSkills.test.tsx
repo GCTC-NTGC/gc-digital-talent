@@ -29,7 +29,7 @@ describe("AddedSkills tests", () => {
     );
     expect(message).toBeTruthy();
   });
-  test("If the skills collection is not empty then the matching number or chips should be rendered", async () => {
+  test("If the skills collection is not empty then the matching number of chips should be rendered", async () => {
     const skills = fakeSkills();
     renderContainer(skills, jest.fn());
     const chips = await screen.findAllByRole("listitem");
