@@ -9,8 +9,6 @@ php -version
 
 ### Write-out .htaccess
 
-
-Tristan  3:32 PM
 cat << '__EOF__' > $(System.DefaultWorkingDirectory)/$(Release.PrimaryArtifactSourceAlias)/.htaccess
 
 # Don't automatically add slash (with 301 redirect) if path matches a directory
@@ -82,6 +80,13 @@ php artisan lighthouse:print-schema --write
 cd $(System.DefaultWorkingDirectory)/$(Release.PrimaryArtifactSourceAlias)/frontend
 npm install
 npm rebuild node-sass
+
+# Work-around until Hydrogen is updated: we trick hydrogen into thinking its installed in the package path.
+# See: https://github.com/hydrogen-design-system/hydrogen.css/issues/72
+mkdir -p admin/node_modules common/node_modules talentsearch/node_modules
+(cd admin/node_modules && ln -s ../../node_modules/@hydrogen-design-system .)
+(cd common/node_modules && ln -s ../../node_modules/@hydrogen-design-system .)
+(cd talentsearch/node_modules && ln -s ../../node_modules/@hydrogen-design-system .)
 
 ### Common
 
