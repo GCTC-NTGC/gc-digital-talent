@@ -2,6 +2,7 @@
  * @jest-environment jsdom
  */
 
+import { createPath, parsePath } from "history";
 import { IntlShape } from "react-intl";
 import { getLocale, Locales, localizePath, oppositeLocale } from "./localize";
 
@@ -33,16 +34,27 @@ describe("localize helper tests", () => {
   });
   describe("localizePath", () => {
     test("sets non-localized paths to correct locale", () => {
-      expect(localizePath("/admin/users", "en")).toBe("/en/admin/users");
-      expect(localizePath("/admin/users", "fr")).toBe("/fr/admin/users");
+      expect(createPath(localizePath(parsePath("/admin/users"), "en"))).toBe("/en/admin/users");
+      expect(createPath(localizePath(parsePath("/admin/users"), "fr"))).toBe("/fr/admin/users");
     });
     test("sets already localized paths to correct locale", () => {
-      expect(localizePath("/en/admin/users", "en")).toBe("/en/admin/users");
-      expect(localizePath("/en/admin/users", "fr")).toBe("/fr/admin/users");
+      expect(createPath(localizePath(parsePath("/en/admin/users"), "en"))).toBe("/en/admin/users");
+      expect(createPath(localizePath(parsePath("/en/admin/users"), "fr"))).toBe("/fr/admin/users");
     });
     test("leaves relative paths relative", () => {
-      expect(localizePath("admin/users", "en")).toBe("en/admin/users");
-      expect(localizePath("fr/admin/users", "en")).toBe("en/admin/users");
+      expect(createPath(localizePath(parsePath("admin/users"), "en"))).toBe("en/admin/users");
+      expect(createPath(localizePath(parsePath("fr/admin/users"), "en"))).toBe("en/admin/users");
+    });
+    test("works on single slash", () => {
+      expect(createPath(localizePath(parsePath("/"), "en"))).toBe("/en/");
+    });
+    // test("works on empty string", () => {
+    //   expect(createPath(localizePath(parsePath(""), "en"))).toBe("en/");
+    // });
+    test("leaves hash and query parameters alone", () => {
+      expect(createPath(localizePath(parsePath("/admin/users?foo=bar#baz"), "en"))).toBe(
+        "/en/admin/users?foo=bar#baz",
+      );
     });
   });
 });

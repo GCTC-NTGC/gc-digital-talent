@@ -41,7 +41,7 @@ export const LanguageRedirectContainer: React.FC<{
       localStorage.setItem(STORED_LOCALE, pathLocale);
     } else {
       // The redirect call must be in a useEffect hook to ensure the component process the change in location correctly.
-      redirect(localizePath(createPath(location), guessedLocale));
+      redirect(localizePath(location, guessedLocale));
     }
   }, [location, pathLocale, guessedLocale]);
 
