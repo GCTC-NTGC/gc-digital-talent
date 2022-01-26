@@ -61,22 +61,12 @@ __EOF__
 
 sudo composer selfupdate
 
-export TALENTSEARCH_APP_DIR=""
-
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+
 source ~/.bash_profile
 nvm install v14.18.1
 nvm install-latest-npm
-
-### Common
-
-cd $(System.DefaultWorkingDirectory)/$(Release.PrimaryArtifactSourceAlias)/common
-
-nvm use
-npm install
-npm run codegen
-#npm install --production
 
 ### API
 
@@ -91,7 +81,6 @@ php artisan lighthouse:print-schema --write
 
 cd $(System.DefaultWorkingDirectory)/$(Release.PrimaryArtifactSourceAlias)/auth
 
-nvm use
 composer install --no-dev
 npm install
 npm run production
@@ -100,42 +89,44 @@ sudo chown -R www-data ./storage ./vendor
 sudo chmod -R 775 ./ ./storage
 php artisan config:cache
 
+### Install all npm dependencies
+
+cd $(System.DefaultWorkingDirectory)/$(Release.PrimaryArtifactSourceAlias)/frontend
+npm install
+npm rebuild node-sass
+
+### Common
+
+cd $(System.DefaultWorkingDirectory)/$(Release.PrimaryArtifactSourceAlias)/frontend/common
+npm run h2-build
+npm run codegen
+#npm install --production
+
 ### Talentsearch
 
-cd $(System.DefaultWorkingDirectory)/$(Release.PrimaryArtifactSourceAlias)/talentsearch
-
-nvm use
+cd $(System.DefaultWorkingDirectory)/$(Release.PrimaryArtifactSourceAlias)/frontend/talentsearch
 composer install --no-dev
-npm install
-npm i @graphql-codegen/typescript --save-dev
-npm rebuild node-sass
 npm run h2-build
 npm run codegen
 npm run production
-npm install --production
 sudo chown -R www-data ./storage ./vendor
 sudo chmod -R 775 ./ ./storage
 
 ### Admin
 
-cd $(System.DefaultWorkingDirectory)/$(Release.PrimaryArtifactSourceAlias)/admin
-
-nvm use
+cd $(System.DefaultWorkingDirectory)/$(Release.PrimaryArtifactSourceAlias)/frontend/admin
 composer install --no-dev
-npm install
-npm rebuild node-sass
 npm run h2-build
 npm run codegen
 npm run production
-npm install --production
 sudo chown -R www-data ./storage ./vendor
 sudo chmod -R 775 ./ ./storage
-php artisan config:cache
+
+### Cleanucd $(System.DefaultWorkingDirectory)/$(Release.PrimaryArtifactSourceAlias)/frontendp npm dependencies
+
+cd $(System.DefaultWorkingDirectory)/$(Release.PrimaryArtifactSourceAlias)/frontend
+npm install --production
 
 ### Startup command
 
-#### Development
-cd api/ && php artisan migrate -n --force && cd /home/site/wwwroot/auth/ && php artisan migrate -n --force
-
-#### Production
-#cd api/ && php artisan migrate -n --force && php artisan db:seed --class=ProdSeeder && cd /home/site/wwwroot/auth/ && php artisan migrate -n --force
+cp -Rf admin/bootstrap /tmp/ && chown -R www-data:www-data /tmp/bootstrap && cd api && php aritsan migrate -n --force 2>&1 | tee /tmp/migrate.log
