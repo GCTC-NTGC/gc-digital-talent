@@ -77,18 +77,6 @@ sudo chown -R www-data ./storage ./vendor
 sudo chmod -R 775 ./ ./storage
 php artisan lighthouse:print-schema --write
 
-### Auth
-
-cd $(System.DefaultWorkingDirectory)/$(Release.PrimaryArtifactSourceAlias)/auth
-
-composer install --no-dev
-npm install
-npm run production
-npm install --production
-sudo chown -R www-data ./storage ./vendor
-sudo chmod -R 775 ./ ./storage
-php artisan config:cache
-
 ### Install all npm dependencies
 
 cd $(System.DefaultWorkingDirectory)/$(Release.PrimaryArtifactSourceAlias)/frontend
