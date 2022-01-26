@@ -46,12 +46,7 @@
         "formatjs"
     ],
     "rules": {
-        "formatjs/enforce-id": [
-            "error",
-            {
-              "idInterpolationPattern": "no-id"
-            }
-          ],
+        "formatjs/no-id": "error",
         "camelcase": "warn",
         "consistent-return": "warn",
         "import/no-extraneous-dependencies": [
