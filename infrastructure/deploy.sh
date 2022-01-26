@@ -93,6 +93,7 @@ mkdir -p admin/node_modules common/node_modules talentsearch/node_modules
 cd $(System.DefaultWorkingDirectory)/$(Release.PrimaryArtifactSourceAlias)/frontend/common
 npm run h2-build
 npm run codegen
+npm run intl-compile
 #npm install --production
 
 ### Talentsearch
@@ -101,6 +102,7 @@ cd $(System.DefaultWorkingDirectory)/$(Release.PrimaryArtifactSourceAlias)/front
 composer install --no-dev
 npm run h2-build
 npm run codegen
+npm run intl-compile
 npm run production
 sudo chown -R www-data ./storage ./vendor
 sudo chmod -R 775 ./ ./storage
@@ -111,11 +113,12 @@ cd $(System.DefaultWorkingDirectory)/$(Release.PrimaryArtifactSourceAlias)/front
 composer install --no-dev
 npm run h2-build
 npm run codegen
+npm run intl-compile
 npm run production
 sudo chown -R www-data ./storage ./vendor
 sudo chmod -R 775 ./ ./storage
 
-### Cleanucd $(System.DefaultWorkingDirectory)/$(Release.PrimaryArtifactSourceAlias)/frontendp npm dependencies
+### Cleanup $(System.DefaultWorkingDirectory)/$(Release.PrimaryArtifactSourceAlias)/frontend npm dependencies
 
 cd $(System.DefaultWorkingDirectory)/$(Release.PrimaryArtifactSourceAlias)/frontend
 npm install --production
