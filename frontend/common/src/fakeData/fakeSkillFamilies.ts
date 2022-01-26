@@ -1,8 +1,8 @@
 import faker from "faker";
-import fakeSkills from "./fakeSkills";
 import { SkillCategory, SkillFamily } from "../api/generated";
 
-const generateSkillFamily = (name: string) => {
+const generateSkillFamily = () => {
+  const name = faker.unique(faker.random.word);
   return {
     category: faker.random.arrayElement([
       SkillCategory.Behavioural,
@@ -13,12 +13,12 @@ const generateSkillFamily = (name: string) => {
       fr: `FR ${faker.lorem.sentences()}`,
     },
     id: faker.datatype.uuid(),
-    key: name,
+    key: faker.helpers.slugify(name),
     name: {
       en: `EN ${name}`,
       fr: `FR ${name}`,
     },
-    skills: fakeSkills(faker.datatype.number(20)),
+    skills: [], // generating skills here causes recursion
   };
 };
 
@@ -26,7 +26,5 @@ export default (): SkillFamily[] => {
   faker.seed(0); // repeatable results
   faker.setLocale("en");
 
-  return [...Array(15)].map(() =>
-    generateSkillFamily(faker.unique(faker.random.word)),
-  );
+  return [...Array(15)].map(generateSkillFamily);
 };
