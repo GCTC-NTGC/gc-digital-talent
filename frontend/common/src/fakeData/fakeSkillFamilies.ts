@@ -22,9 +22,9 @@ const generateSkillFamily = () => {
   };
 };
 
-export default (): SkillFamily[] => {
+export default (numToGenerate = 15): SkillFamily[] => {
   faker.seed(0); // repeatable results
   faker.setLocale("en");
 
-  return [...Array(15)].map(generateSkillFamily);
+  return [...Array(numToGenerate)].map(generateSkillFamily);
 };

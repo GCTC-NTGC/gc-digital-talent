@@ -6,8 +6,8 @@ import { Skill, SkillFamily } from "../api/generated";
 // This avoids the issue of each fake dataset simultaneously needing the other to fully generate.
 
 export default (): { skillFamilies: SkillFamily[]; skills: Skill[] } => {
-  const skillFamilies = fakeSkillFamilies();
-  const skills = fakeSkills();
+  const skillFamilies = fakeSkillFamilies(4);
+  const skills = fakeSkills(20);
 
   skillFamilies.forEach((skillFamily) => {
     const skillsToAttach = faker.random.arrayElements(skills);

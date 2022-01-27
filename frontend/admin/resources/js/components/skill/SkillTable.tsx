@@ -5,6 +5,7 @@ import commonMessages from "@common/messages/commonMessages";
 import { useLocation } from "@common/helpers/router";
 import { notEmpty } from "@common/helpers/util";
 import { FromArray } from "@common/types/utilityTypes";
+import { Pill } from "@common/components";
 import { AllSkillsQuery, useAllSkillsQuery } from "../../api/generated";
 import Table, { ColumnsOf } from "../Table";
 import DashboardContentContainer from "../DashboardContentContainer";
@@ -52,6 +53,19 @@ export const SkillTable: React.FC<AllSkillsQuery & { editUrlRoot: string }> = ({
             return skill.keywords.join(", ");
           return "";
         },
+      },
+      {
+        Header: intl.formatMessage({
+          defaultMessage: "Skill Families",
+          description:
+            "Title displayed for the skill table Skill Families column.",
+        }),
+        accessor: (skill) =>
+          skill.families?.map((family) => (
+            <Pill color="primary" mode="outline" key={family?.key}>
+              {family?.name?.[locale]}
+            </Pill>
+          )),
       },
       {
         Header: intl.formatMessage({
