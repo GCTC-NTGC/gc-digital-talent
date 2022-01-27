@@ -90,8 +90,8 @@ export const Accordion: React.FC<AccordionProps> = ({
       </button>
       <div ref={contentRef} data-h2-border={`${getStyle()}`} id="content">
         {isOpen && (
-          <div data-h2-padding="b(top, none) b(right, l) b(bottom, m) b(left, xl)">
-            <hr data-h2-margin="b(top, none) b(bottom, s)" />
+          <div data-h2-padding="b(top, none) b(right, l) b(bottom, m) b(left, l)">
+            <hr data-h2-margin="b(top, none) b(bottom, s, b(left, l)" />
             <p data-h2-margin="b(all, none)">{children} </p>{" "}
           </div>
         )}
@@ -99,3 +99,5 @@ export const Accordion: React.FC<AccordionProps> = ({
     </div>
   );
 };
+
+export default Accordion;
