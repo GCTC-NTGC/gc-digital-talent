@@ -13,6 +13,34 @@
                 "--runInBand",
                 "--watchAll=false"
             ]
+        },
+        {
+            "type": "node",
+            "name": "jest-admin",
+            "request": "launch",
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen",
+            "disableOptimisticBPs": true,
+            "program":"${workspaceRoot}/frontend/node_modules/jest/bin/jest.js",
+            "cwd": "${workspaceFolder}/frontend/admin",
+            "args": [
+                "--runInBand",
+                "--watchAll=false"
+            ]
+        },
+        {
+            "type": "node",
+            "name": "jest-talentsearch",
+            "request": "launch",
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen",
+            "disableOptimisticBPs": true,
+            "program":"${workspaceRoot}/frontend/node_modules/jest/bin/jest.js",
+            "cwd": "${workspaceFolder}/frontend/talentsearch",
+            "args": [
+                "--runInBand",
+                "--watchAll=false"
+            ]
         }
     ]
 }
