@@ -3,14 +3,15 @@ import { useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import pick from "lodash/pick";
 import { toast } from "react-toastify";
-import { Select, Submit, Input } from "@common/components/form";
+import { Select, Submit, Input, MultiSelect } from "@common/components/form";
 import { navigate } from "@common/helpers/router";
 import { enumToOptions } from "@common/helpers/formUtils";
 import { errorMessages, commonMessages } from "@common/messages";
-import { getLanguage } from "@common/constants/localizedConstants";
+import { getLanguage, getRole } from "@common/constants/localizedConstants";
 import { useAdminRoutes } from "../../adminRoutes";
 import {
   Language,
+  Role,
   UpdateUserInput,
   User,
   useUpdateUserMutation,
@@ -142,6 +143,50 @@ export const UpdateUserForm: React.FunctionComponent<UpdateUserFormProps> = ({
                 value,
                 label: intl.formatMessage(getLanguage(value)),
               }))}
+            />
+            <Input
+              id="subject"
+              label={intl.formatMessage({
+                defaultMessage: "Subject",
+                description: "Label displayed on the user form subject field.",
+              })}
+              type="text"
+              name="subject"
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
+              context={intl.formatMessage({
+                defaultMessage:
+                  "The 'subject' is a string that uniquely identifies a user's login identity.",
+                description:
+                  "Additional context describing the purpose of the users's 'subject' field.",
+              })}
+            />
+            <MultiSelect
+              id="roles"
+              name="roles"
+              label={intl.formatMessage({
+                defaultMessage: "Roles",
+                description: "Label displayed on the user form roles field.",
+              })}
+              placeholder={intl.formatMessage({
+                defaultMessage: "Select zero or more roles...",
+                description:
+                  "Placeholder displayed on the user form roles field.",
+              })}
+              options={enumToOptions(Role).map(({ value }) => ({
+                value,
+                label: intl.formatMessage(getRole(value)),
+              }))}
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
+              context={intl.formatMessage({
+                defaultMessage:
+                  "The roles grant additional functionality to a user's login.",
+                description:
+                  "Additional context describing the purpose of the users's 'role' field.",
+              })}
             />
             <Submit />
           </form>
