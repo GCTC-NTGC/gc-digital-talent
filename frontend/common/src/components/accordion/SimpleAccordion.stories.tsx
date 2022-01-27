@@ -1,10 +1,6 @@
 import React from "react";
 import { Story, Meta } from "@storybook/react";
-import {
-  Accordion as AccordionComponent,
-  Section,
-  AccordionProps,
-} from "./Accordion";
+import { Accordion as AccordionComponent, AccordionProps } from "./Accordion";
 
 export default {
   component: AccordionComponent,
@@ -17,10 +13,8 @@ const TemplateAccordion: Story<
   const { title, subtitle, ...rest } = args;
 
   return (
-    <AccordionComponent {...rest}>
-      <Section title={title} subtitle={subtitle} simple>
-        Lorem ipsum dolor sit amet.
-      </Section>
+    <AccordionComponent title={title} subtitle={subtitle} defaultOpen simple>
+      Lorem ipsum dolor sit amet.
     </AccordionComponent>
   );
 };

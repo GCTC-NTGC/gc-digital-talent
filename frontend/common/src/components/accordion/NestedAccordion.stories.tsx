@@ -1,53 +1,31 @@
 import React from "react";
 import { Story, Meta } from "@storybook/react";
-import { AcademicCapIcon } from "@heroicons/react/solid";
-import { Accordion as AccordionComponent, Section } from "./Accordion";
-import { ExternalSectionProps } from "./Section";
+import { BriefcaseIcon } from "@heroicons/react/solid";
+import { Accordion as AccordionComponent, AccordionProps } from "./Accordion";
 
 export default {
   component: AccordionComponent,
   title: "Components/Accordion",
 } as Meta;
 
-const TemplateAccordion: Story<ExternalSectionProps> = (args) => {
+const TemplateAccordion: Story<AccordionProps> = (args) => {
   const { title, subtitle, ...rest } = args;
 
   return (
-    <AccordionComponent {...rest}>
-      <Section
+    <AccordionComponent
+      title={title}
+      subtitle={subtitle}
+      defaultOpen
+      simple={false}
+      Icon={BriefcaseIcon}
+    >
+      <AccordionComponent
         title={title}
         subtitle={subtitle}
-        Icon={AcademicCapIcon}
+        defaultOpen
         simple={false}
-      >
-        <AccordionComponent {...rest}>
-          <Section title={title} subtitle={subtitle} Icon={AcademicCapIcon} />
-          <Section
-            title={title}
-            subtitle={subtitle}
-            Icon={AcademicCapIcon}
-            simple={false}
-          >
-            Lorem ipsum dolor sit amet.
-          </Section>
-        </AccordionComponent>
-      </Section>
-      <Section
-        title={title}
-        subtitle={subtitle}
-        Icon={AcademicCapIcon}
-        simple={false}
-      >
-        Lorem ipsum dolor sit amet.
-      </Section>
-      <Section
-        title={title}
-        subtitle={subtitle}
-        Icon={AcademicCapIcon}
-        simple={false}
-      >
-        Lorem ipsum dolor sit amet.
-      </Section>
+        Icon={BriefcaseIcon}
+      />
     </AccordionComponent>
   );
 };
