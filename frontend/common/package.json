@@ -81,7 +81,7 @@
     "@types/path-browserify": "^1.0.0",
     "@types/react": "^17.0.19",
     "@types/react-select": "^5.0.1",
-    "@typescript-eslint/eslint-plugin": "^5.0.0",
+    "@typescript-eslint/eslint-plugin": "^5.10.1",
     "@typescript-eslint/parser": "^5.10.1",
     "eslint": "^8.7.0",
     "eslint-config-airbnb": "^19.0.0",
