@@ -16,6 +16,7 @@ module.exports = {
     },
   },
   roots: ["resources/js", "tests"],
+  // https://alexjover.com/blog/enhance-jest-configuration-with-module-aliases/
   moduleNameMapper: {
     "@common(.*)$": "<rootDir>/../common/src/$1",
     "^.+\\.(css|less)$": "<rootDir>/resources/js/tests/config/CSSStub.js",
@@ -34,15 +35,6 @@ module.exports = {
   ],
   coverageDirectory: "resources/js/tests/coverage",
 
-  moduleNameMapper: {
-    "^@common/(.*)$": "<rootDir>/../common/src/$1",
-  },
-
   // Module file extensions for importing
   moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json", "node"],
-
-  // https://alexjover.com/blog/enhance-jest-configuration-with-module-aliases/
-  moduleNameMapper: {
-    "@common/(.*)$": "<rootDir>/../common/src/$1",
-  },
 };
