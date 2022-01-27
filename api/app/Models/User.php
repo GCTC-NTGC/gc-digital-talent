@@ -72,7 +72,10 @@ class User extends Model implements Authenticatable
     protected function generateSubject()
     {
         // TODO when moving to Sign In Canada we won't be using email any more
-        $this->attributes['sub'] = $this->attributes['email'];
+
+        // fill sub with email if not already filled
+        if( !array_key_exists('sub', $this->attributes) )
+            $this->attributes['sub'] = $this->attributes['email'];
 
         if( is_null($this->attributes['sub']) )
             return false; // failed to create subject

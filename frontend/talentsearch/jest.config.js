@@ -16,7 +16,11 @@ module.exports = {
     },
   },
   roots: ["resources/js", "tests"],
-
+  // https://alexjover.com/blog/enhance-jest-configuration-with-module-aliases/
+  moduleNameMapper: {
+    "@common(.*)$": "<rootDir>/../common/src/$1",
+    "^.+\\.(css|less)$": "<rootDir>/resources/js/tests/config/CSSStub.js",
+  },
   // Jest transformations -- this adds support for TypeScript
   // using ts-jest
   transform: {

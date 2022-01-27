@@ -35,9 +35,11 @@
         "prettier",
         "react",
         "react-hooks",
-        "@typescript-eslint"
+        "@typescript-eslint",
+        "formatjs"
     ],
     "rules": {
+        "formatjs/no-id": "error",
         "camelcase": "warn",
         "consistent-return": "warn",
         "import/no-extraneous-dependencies": "off",
