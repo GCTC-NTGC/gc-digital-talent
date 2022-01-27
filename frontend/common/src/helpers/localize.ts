@@ -20,11 +20,13 @@ export function oppositeLocale(locale: Locales): Locales {
 }
 
 export function localizePath(
-  path: Partial<Path>,
+  path: string | Partial<Path>,
   locale: string,
-): Partial<Path> {
-  const pathIsAbsolute = path.pathname?.startsWith("/");
-  const pathSegments = path.pathname?.split("/") ?? [];
+): string {
+  const inputPath = typeof path === "string" ? parsePath(path) : path;
+
+  const pathIsAbsolute = inputPath.pathname?.startsWith("/");
+  const pathSegments = inputPath.pathname?.split("/") ?? [];
 
   // Check if path is already localized, ie starts with a valid locale.
   const currentLocale = pathSegments[pathIsAbsolute ? 1 : 0];
@@ -38,13 +40,9 @@ export function localizePath(
     // Otherwise, add the locale segment to the beginning of the path.
     outputSegments.splice(pathIsAbsolute ? 1 : 0, 0, locale);
   }
-  return {
+  return createPath({
     pathname: outputSegments.join("/"),
-    search: path.search,
-    hash: path.hash,
-  };
-}
-
-export function localizePathString(path: string, locale: string): string {
-  return createPath(localizePath(parsePath(path), locale));
+    search: inputPath.search,
+    hash: inputPath.hash,
+  });
 }

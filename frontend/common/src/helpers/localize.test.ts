@@ -3,12 +3,7 @@
  */
 
 import { IntlShape } from "react-intl";
-import {
-  getLocale,
-  Locales,
-  localizePathString as localizePath,
-  oppositeLocale,
-} from "./localize";
+import { getLocale, Locales, localizePath, oppositeLocale } from "./localize";
 
 describe("localize helper tests", () => {
   describe("getLocale", () => {
@@ -52,9 +47,9 @@ describe("localize helper tests", () => {
     test("works on single slash", () => {
       expect(localizePath("/", "en")).toBe("/en/");
     });
-    // test("works on empty string", () => {
-    //   expect(localizePath("", "en"))).toBe("en/");
-    // });
+    test("works on empty string", () => {
+      expect(localizePath("", "en")).toBe("en");
+    });
     test("leaves hash and query parameters alone", () => {
       expect(localizePath("/admin/users?foo=bar#baz", "en")).toBe(
         "/en/admin/users?foo=bar#baz",
