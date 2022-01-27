@@ -1,4 +1,3 @@
-import { createPath } from "history";
 import React, { useEffect } from "react";
 import { IntlProvider } from "react-intl";
 import { isLocale, Locales, localizePath } from "../../helpers/localize";

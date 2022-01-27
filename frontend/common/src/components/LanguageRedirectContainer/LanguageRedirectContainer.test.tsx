@@ -5,9 +5,9 @@
 import React from "react";
 import { screen, render } from "@testing-library/react";
 import { FormattedMessage } from "react-intl";
+import { createPath } from "history";
 import { HISTORY } from "../../helpers/router";
 import LanguageRedirectContainer from ".";
-import { createPath } from "history";
 
 function getMessages(locale: string) {
   return locale === "fr" ? { hello: "Bonjour" } : undefined;
@@ -17,6 +17,7 @@ function renderContainer() {
   return render(
     <LanguageRedirectContainer getMessages={getMessages}>
       <div>
+        {/* eslint-disable-next-line formatjs/no-id */}
         <FormattedMessage id="hello" defaultMessage="Hello" />
       </div>
     </LanguageRedirectContainer>,

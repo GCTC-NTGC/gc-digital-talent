@@ -1,4 +1,4 @@
-import { createPath, parsePath } from "history";
+import { createPath } from "history";
 import React from "react";
 import { useIntl } from "react-intl";
 import {
@@ -15,10 +15,9 @@ export const Header: React.FunctionComponent<{
   const locale = getLocale(intl);
 
   const location = useLocation();
-  const languageTogglePath = createPath(localizePath(
-    parsePath(location.pathname),
-    oppositeLocale(locale),
-  ));
+  const languageTogglePath = createPath(
+    localizePath(location, oppositeLocale(locale)),
+  );
   return (
     <header data-h2-border="b(gray, bottom, solid, s)">
       <div data-h2-flex-grid="b(middle, contained, flush, xl)">

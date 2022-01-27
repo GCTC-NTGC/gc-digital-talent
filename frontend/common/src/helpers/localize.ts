@@ -19,7 +19,10 @@ export function oppositeLocale(locale: Locales): Locales {
   return locale === "fr" ? "en" : "fr";
 }
 
-export function localizePath(path: Partial<Path>, locale: string): Partial<Path> {
+export function localizePath(
+  path: Partial<Path>,
+  locale: string,
+): Partial<Path> {
   const pathIsAbsolute = path.pathname?.startsWith("/");
   const pathSegments = path.pathname?.split("/") ?? [];
 
@@ -40,4 +43,8 @@ export function localizePath(path: Partial<Path>, locale: string): Partial<Path>
     search: path.search,
     hash: path.hash,
   };
+}
+
+export function localizePathString(path: string, locale: string): string {
+  return createPath(localizePath(parsePath(path), locale));
 }
