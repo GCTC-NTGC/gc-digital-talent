@@ -14,7 +14,7 @@ interface InternalAccordionProps extends AccordionProps {
   open?: boolean;
 }
 
-export const Accordion: React.FC<InternalAccordionProps> = ({
+export const Accordion: React.FC<AccordionProps> = ({
   title,
   subtitle,
   simple,
