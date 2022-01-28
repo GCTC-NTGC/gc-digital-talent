@@ -3,7 +3,7 @@
   "mediaWarnings": false,
   "folders": {
     "markup": "resources/views",
-    "scripts": ["resources/js", "../common/src"],
+    "scripts": ["resources/js", "../common/src", "../talentsearch/resources/js"],
     "styles": "resources/css"
   },
   "colors": [
@@ -31,6 +31,7 @@
       "key": "lightgray",
       "color": "#F0F0F0",
       "opacities": [
+        ".1",
         ".6"
       ]
     },

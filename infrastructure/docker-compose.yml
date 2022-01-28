@@ -47,6 +47,18 @@ services:
       - ../auth:/var/www/html/auth
       - ../frontend:/var/www/html/frontend
 
+  # This container is an alternative approach to builds, more closely following
+  # docker conventions. For now, it will only be used for performing CI tasks.
+  #
+  # With a profile designated, it will not build/run unless explicitly executed.
+  # See: https://docs.docker.com/compose/profiles/
+  api:
+    build: ../api
+    depends_on:
+      - postgres
+    profiles:
+      - new
+
 volumes:
   pgdata:
   maintenancedata:

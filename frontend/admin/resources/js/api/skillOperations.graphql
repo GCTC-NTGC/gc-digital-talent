@@ -10,7 +10,7 @@ query AllSkills {
       en
       fr
     }
-    keywords,
+    keywords
     families {
       id
       key
