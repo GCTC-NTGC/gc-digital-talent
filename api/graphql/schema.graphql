@@ -264,6 +264,7 @@ type Query {
     poolCandidateFilters: [PoolCandidateFilter]! @all @guard @can(ability: "viewAny")
     poolCandidateSearchRequest(id: ID! @eq): PoolCandidateSearchRequest @find @guard @can(ability: "view", query: true)
     poolCandidateSearchRequests: [PoolCandidateSearchRequest]! @all @guard @can(ability: "viewAny")
+    skillFamily(id: ID! @eq): SkillFamily @find
     skillFamilies: [SkillFamily]! @all
     skills: [Skill]! @all
 }
