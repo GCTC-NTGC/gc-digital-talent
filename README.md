@@ -3,12 +3,15 @@
 The GC Digital Talent app is divided into multiple services, each treated as its own sub-project:
 - `/api`, the API service
 - `/frontend`, an npm project for frontend client code containing multiple [workspaces](https://docs.npmjs.com/cli/v7/using-npm/workspaces):
-  - `/frontend/admin`, a CRUD-style admin dashboard
-  - `/frontend/talentsearch`, pages related to searching and requesting talent from pools
-  - `/frontend/common`, code shared by multiple other workspaces
+  - `/admin`, a CRUD-style admin dashboard
+  - `/talentsearch`, pages related to searching and requesting talent from pools
+  - `/common`, code shared by multiple other workspaces
 - `/auth`, an OpenID Connect (OIDC) authentication service (only used for local development envs)
+- `/tc-report`, static content copied from [another repo](https://github.com/JoshBeveridge/tc-report) using [git-subtree](https://www.atlassian.com/git/tutorials/git-subtree) (technically only the _site folder, following [this guide](https://jrsmith3.github.io/merging-a-subdirectory-from-another-repo-via-git-subtree.html))
+- `/infrastructure`, the basis of the docker infrastructure to run the project
+- `/maintenance`, additional scripts which run inside the docker containers for setup and updates
 
-Each service is designed to run in a separate container. However, since they all use the [Laravel](https://github.com/laravel/laravel) or [Lumen](https://github.com/laravel/lumen) framework, they can also be run on a single PHP server, with requests routed carefully between them. This is currently how our recommended setup works.
+The api, frontend, and auth projects are designed to each run in a separate container. However, since they all use the [Laravel](https://github.com/laravel/laravel) or [Lumen](https://github.com/laravel/lumen) framework, they can also be run on a single PHP server, with requests routed carefully between them. This is currently how docker infrastructure works.
 
 Each sub-project has its own `README.md`, with advice on how to contribute to that sub-project. The README files also contain notes on how to configure the sub-projects, but if you simply want to get the project running on a new machine, you may disregard these notes and move straight to the steps below.
 
