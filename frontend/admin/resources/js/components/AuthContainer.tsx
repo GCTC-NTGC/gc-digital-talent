@@ -60,6 +60,10 @@ const refreshTokenSet = async (
 
     if (newTokens.accessToken) {
       setTokens(newTokens);
+      localStorage.setItem(ACCESS_TOKEN, newTokens.accessToken);
+      if (newTokens?.refreshToken) {
+        localStorage.setItem(REFRESH_TOKEN, newTokens.refreshToken);
+      }
       return newTokens;
     }
   }
