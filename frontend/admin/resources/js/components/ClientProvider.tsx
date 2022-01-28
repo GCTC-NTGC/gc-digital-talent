@@ -1,4 +1,5 @@
 import { authExchange } from "@urql/exchange-auth";
+import jwtDecode, { JwtPayload } from "jwt-decode";
 import React, { useCallback, useContext, useMemo } from "react";
 import { toast } from "react-toastify";
 import {
@@ -59,12 +60,19 @@ const didAuthError = ({ error }: { error: CombinedError }): boolean => {
 };
 
 const willAuthError = ({ authState }: { authState: AuthState | null }) => {
+  console.log("->willAuthError");
   let tokenIsKnownToBeExpired = false;
-  if (authState?.expiry) {
-    tokenIsKnownToBeExpired = Date.now() > authState.expiry;
+  if (authState?.accessToken) {
+    const decoded = jwtDecode<JwtPayload>(authState.accessToken);
+    if (decoded.exp) tokenIsKnownToBeExpired = Date.now() > (decoded.exp * 1000); // JWT expiry date in seconds, not milliseconds
   }
 
-  if (!authState || tokenIsKnownToBeExpired) return true;
+  if (tokenIsKnownToBeExpired) {
+    console.log("<-willAuthError", authState, tokenIsKnownToBeExpired, true);
+    return true;
+  }
+
+  console.log("<-willAuthError", false);
   return false;
 };
 
@@ -129,3 +137,8 @@ export const ClientProvider: React.FC<{ client?: Client }> = ({
 };
 
 export default ClientProvider;
+
+// https://stackoverflow.com/questions/54116070/how-can-i-unit-test-non-exported-functions
+export const exportedForTesting = {
+  willAuthError
+}
