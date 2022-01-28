@@ -7,10 +7,6 @@ export default {
   component: Pagination,
   title: "Components/Pagination",
   args: {
-    totalCount: 100,
-    siblingCount: 2,
-    currentPage: 1,
-    pageSize: 10,
     handlePageChange: action("Change page"),
   },
 } as Meta;
@@ -19,4 +15,35 @@ const TemplatePagination: Story<PaginationProps> = (args) => {
   return <Pagination {...args} />;
 };
 
-export const PaginationDefault = TemplatePagination.bind({});
+export const NoDots = TemplatePagination.bind({});
+export const RightDots = TemplatePagination.bind({});
+export const LeftDots = TemplatePagination.bind({});
+export const BothDots = TemplatePagination.bind({});
+
+NoDots.args = {
+  totalCount: 50,
+  siblingCount: 1,
+  currentPage: 1,
+  pageSize: 10,
+};
+
+RightDots.args = {
+  totalCount: 100,
+  siblingCount: 1,
+  currentPage: 1,
+  pageSize: 10,
+};
+
+LeftDots.args = {
+  totalCount: 100,
+  siblingCount: 1,
+  currentPage: 9,
+  pageSize: 10,
+};
+
+BothDots.args = {
+  totalCount: 100,
+  siblingCount: 1,
+  currentPage: 5,
+  pageSize: 10,
+};
