@@ -86,7 +86,7 @@ function getTokensFromLocation(
 }
 
 export const AuthContainer: React.FC = ({ children }) => {
-  const [existingTokens, setTokens] = useState<TokenSet>({
+  const [existingTokens, setTokens] = useState({
     accessToken: localStorage.getItem(ACCESS_TOKEN),
     refreshToken: localStorage.getItem(REFRESH_TOKEN),
   });
