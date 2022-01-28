@@ -194,9 +194,6 @@ export const UpdateSkillFamilyForm: React.FunctionComponent<UpdateSkillFamilyFor
                   "Placeholder displayed on the skill family form skills field.",
               })}
               options={skillOptions}
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
             />
             <Submit />
           </form>

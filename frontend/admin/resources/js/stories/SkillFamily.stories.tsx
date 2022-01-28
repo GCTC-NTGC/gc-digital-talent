@@ -1,7 +1,17 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
-import { fakeSkillFamiliesWithSkills } from "@common/fakeData";
+import { action } from "@storybook/addon-actions";
+import { fakeSkillFamiliesWithSkills, fakeSkills } from "@common/fakeData";
+import {
+  Skill,
+  SkillFamily,
+  SkillCategory,
+  CreateSkillFamilyInput,
+  UpdateSkillFamilyInput,
+} from "../api/generated";
 import { SkillFamilyTable } from "../components/skillFamily/SkillFamilyTable";
+import { CreateSkillFamilyForm } from "../components/skillFamily/CreateSkillFamily";
+import { UpdateSkillFamilyForm } from "../components/skillFamily/UpdateSkillFamily";
 
 const { skillFamilies } = fakeSkillFamiliesWithSkills();
 
@@ -10,3 +20,46 @@ const stories = storiesOf("Skill Families", module);
 stories.add("Skill Families Table", () => (
   <SkillFamilyTable skillFamilies={skillFamilies} editUrlRoot="#" />
 ));
+
+stories.add("Create Skill Family Form", () => (
+  <CreateSkillFamilyForm
+    skills={fakeSkills() as Skill[]}
+    handleCreateSkillFamily={async (data: CreateSkillFamilyInput) => {
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+      action("Create Skill Family")(data);
+      return null;
+    }}
+  />
+));
+
+stories.add("Update Skill Family Form", () => {
+  const skillFamily: SkillFamily = {
+    id: "1",
+    key: "skill_family_key",
+    name: {
+      en: "Skill Family Name",
+      fr: "Skill Family Name FR",
+    },
+    description: {
+      en: "Skill Family Description",
+      fr: "Skill Family Description FR",
+    },
+    category: SkillCategory.Technical,
+    skills: [fakeSkills()[0], fakeSkills()[1]],
+  };
+
+  return (
+    <UpdateSkillFamilyForm
+      initialSkillFamily={skillFamily}
+      skills={fakeSkills() as Skill[]}
+      handleUpdateSkillFamily={async (
+        id: string,
+        data: UpdateSkillFamilyInput,
+      ) => {
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+        action("Update Skill Family")(data);
+        return null;
+      }}
+    />
+  );
+});

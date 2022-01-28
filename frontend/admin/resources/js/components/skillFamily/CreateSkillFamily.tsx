@@ -11,6 +11,7 @@ import { errorMessages, commonMessages } from "@common/messages";
 import { useAdminRoutes } from "../../adminRoutes";
 import {
   Skill,
+  SkillFamily,
   SkillCategory,
   CreateSkillFamilyInput,
   CreateSkillFamilyMutation,
@@ -22,11 +23,23 @@ import { getSkillCategory } from "@common/constants/localizedConstants";
 
 type Option<V> = { value: V; label: string };
 
-type FormValues = CreateSkillFamilyInput;
+type FormValues = Pick<SkillFamily, "description"> & {
+  key: string;
+  name: {
+    en: string;
+    fr: string;
+  };
+  description: {
+    en: string;
+    fr: string;
+  };
+  category: SkillCategory;
+  skills: string[] | undefined;
+};
 interface CreateSkillFamilyFormProps {
   skills: Skill[];
   handleCreateSkillFamily: (
-    data: FormValues,
+    data: CreateSkillFamilyInput,
   ) => Promise<CreateSkillFamilyMutation["createSkillFamily"]>;
 }
 
@@ -40,8 +53,15 @@ export const CreateSkillFamilyForm: React.FunctionComponent<CreateSkillFamilyFor
   const methods = useForm<FormValues>();
   const { handleSubmit } = methods;
 
+  const formValuesToSubmitData = (values: FormValues): CreateSkillFamilyInput => ({
+    ...values,
+    skills: {
+      sync: values.skills,
+    },
+  });
+
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
-    return handleCreateSkillFamily(data)
+    return handleCreateSkillFamily(formValuesToSubmitData(data))
       .then(() => {
         navigate(paths.skillFamilyTable());
         toast.success(
@@ -190,9 +210,6 @@ export const CreateSkillFamilyForm: React.FunctionComponent<CreateSkillFamilyFor
                   "Placeholder displayed on the skill family form skills field.",
               })}
               options={skillOptions}
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
             />
             <Submit />
           </form>
