@@ -1,0 +1,93 @@
+{
+  "folders": {
+    "markup": [
+      "_layouts",
+      "_includes"
+    ],
+    "styles": "assets/css"
+  },
+  "colors": [
+    {
+      "key": "white",
+      "color": "rgb(255 255 255)",
+      "opacities": [
+        ".1",
+        ".2"
+      ]
+    },
+    {
+      "key": "black",
+      "color": "rgb(20, 20, 35)",
+      "opacities": []
+    },
+    {
+      "key": "gray",
+      "color": "rgb(150, 150, 150)",
+      "opacities": []
+    },
+    {
+      "key": "purple",
+      "color": "#5b1647",
+      "opacities": [
+        ".1",
+        ".2"
+      ]
+    },
+    {
+      "key": "wine",
+      "color": "#96043e",
+      "opacities": []
+    },
+    {
+      "key": "red",
+      "color": "#c90035",
+      "opacities": []
+    },
+    {
+      "key": "go",
+      "color": "green",
+      "opacities": []
+    },
+    {
+      "key": "slow",
+      "color": "orange",
+      "opacities": []
+    },
+    {
+      "key": "stop",
+      "color": "red",
+      "opacities": []
+    }
+  ],
+  "flexgrid": {
+    "enabled": true,
+    "columns": 5
+  },
+  "fonts": [
+    {
+      "key": "sans",
+      "loadType": "webfont",
+      "value": "Open Sans, sans-serif",
+      "url": null
+    }
+  ],
+  "fontScale": "1.250",
+  "gradients": [
+    {
+      "type": "linear",
+      "angle": "85deg",
+      "colorStops": [
+        {
+          "key": "purple",
+          "color": "#5b1647"
+        },
+        {
+          "key": "red",
+          "color": "#c90035"
+        }
+      ]
+    }
+  ],
+  "mediaWarnings": true,
+  "whitespaceScale": "1.5"
+}
