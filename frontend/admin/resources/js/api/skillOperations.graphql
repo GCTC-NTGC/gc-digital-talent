@@ -1,0 +1,23 @@
+query AllSkills {
+  skills {
+    id
+    key
+    name {
+      en
+      fr
+    }
+    description {
+      en
+      fr
+    }
+    keywords
+    families {
+      id
+      key
+      name {
+        en
+        fr
+      }
+    }
+  }
+}
