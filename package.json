@@ -1,0 +1,23 @@
+{
+  "name": "talent-cloud-results-report",
+  "version": "1.0.0",
+  "description": "A static site that offers a web version of the Talent Cloud results report.",
+  "main": "index.js",
+  "scripts": {
+    "h2-compile": "npx h2-compile",
+    "h2-build": "npx h2-build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GCTC-NTGC/tc-report.git"
+  },
+  "author": "Josh Beveridge",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/GCTC-NTGC/tc-report/issues"
+  },
+  "homepage": "https://github.com/GCTC-NTGC/tc-report#readme",
+  "dependencies": {
+    "@hydrogen-design-system/hydrogen.css": "^1.1.12"
+  }
+}
