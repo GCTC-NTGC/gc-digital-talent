@@ -65,9 +65,7 @@ const willAuthError = ({ authState }: { authState: AuthState | null }) => {
     if (decoded.exp) tokenIsKnownToBeExpired = Date.now() > decoded.exp * 1000; // JWT expiry date in seconds, not milliseconds
   }
 
-  if (tokenIsKnownToBeExpired) {
-    return true;
-  }
+  if (tokenIsKnownToBeExpired) return true;
 
   return false;
 };
@@ -76,12 +74,8 @@ export const ClientProvider: React.FC<{ client?: Client }> = ({
   client,
   children,
 }) => {
-  const {
-    accessToken,
-    refreshToken,
-    logout,
-    refreshTokenSet: refreshAuth,
-  } = useContext(AuthContext);
+  const { accessToken, refreshToken, logout, refreshTokenSet } =
+    useContext(AuthContext);
 
   const getAuth = useCallback(
     async ({ authState: existingAuthState }): Promise<AuthState | null> => {
@@ -98,14 +92,14 @@ export const ClientProvider: React.FC<{ client?: Client }> = ({
       // If authState is not null, and getAuth is called again, then it means authentication failed for some reason.
       // let's try to use a refresh token to get new tokens
       if (refreshToken) {
-        const refreshedAuthState = refreshAuth();
+        const refreshedAuthState = refreshTokenSet();
         return refreshedAuthState;
       }
 
       logout();
       return null;
     },
-    [accessToken, refreshToken, logout, refreshAuth],
+    [accessToken, refreshToken, logout, refreshTokenSet],
   );
 
   const internalClient = useMemo(() => {
