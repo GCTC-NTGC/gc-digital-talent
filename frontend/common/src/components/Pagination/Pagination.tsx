@@ -86,17 +86,20 @@ const Pagination: React.FunctionComponent<PaginationProps> = ({
           // If the pageItem is a DOT, render the DOTS unicode character
           if (pageNumber === DOTS) {
             return (
-              <li data-h2-margin="b(right-left, xs)">
+              <li
+                data-h2-margin="b(right-left, xs)"
+                data-h2-font-color="b(lightpurple)"
+              >
                 <DotsHorizontalIcon style={{ width: "1.125rem" }} />
               </li>
             );
           }
-
+          const current = pageNumber === currentPage;
           return (
             <li key={`${pageNumber}-pagination`}>
               <Button
                 color="primary"
-                mode="outline"
+                mode={`${current ? "solid" : "outline"}`}
                 type="button"
                 aria-label={intl.formatMessage(
                   {
@@ -105,7 +108,7 @@ const Pagination: React.FunctionComponent<PaginationProps> = ({
                   },
                   { pageNumber },
                 )}
-                aria-current={pageNumber === currentPage}
+                aria-current={current}
                 onClick={() => handlePageChange(Number(pageNumber))}
                 data-h2-margin="b(right-left, xs)"
               >
