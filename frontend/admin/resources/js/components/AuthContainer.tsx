@@ -8,32 +8,28 @@ import { useAdminRoutes } from "../adminRoutes";
 
 const ACCESS_TOKEN = "access_token";
 const REFRESH_TOKEN = "refresh_token";
-const TOKEN_EXPIRY = "token_expiry";
 
-interface AuthContextState {
+interface AuthState {
   loggedIn: boolean;
   accessToken: string | null;
   refreshToken: string | null;
-  expiry: number | null;
   logout: () => void;
-  refreshAuth: () => Promise<AuthState | null>;
+  refreshTokenSet: () => Promise<TokenSet | null>;
 }
 
-interface AuthState {
+interface TokenSet {
   accessToken: string | null;
   refreshToken: string | null;
-  expiry: number | null;
 }
 
-export const AuthContext = React.createContext<AuthContextState>({
+export const AuthContext = React.createContext<AuthState>({
   loggedIn: false,
   accessToken: null,
   refreshToken: null,
-  expiry: null,
   logout: () => {
     /** do nothing */
   },
-  refreshAuth: () => Promise.resolve(null),
+  refreshTokenSet: () => Promise.resolve(null),
 });
 
 const logoutAndRefreshPage = (homePath: string): void => {
@@ -41,26 +37,15 @@ const logoutAndRefreshPage = (homePath: string): void => {
   // TODO: Is there anything else we should do, in terms of notifying user?
   localStorage.removeItem(ACCESS_TOKEN);
   localStorage.removeItem(REFRESH_TOKEN);
-  localStorage.removeItem(TOKEN_EXPIRY);
   window.location.href = homePath;
 };
 
-function calculateExpiryTimestamp(expiresIn: string | null): number | null {
-  const parsedExpiresIn = Number(expiresIn);
-  if (Number.isInteger(parsedExpiresIn)) {
-    return Date.now() + parsedExpiresIn * 1000; // expires_in is in seconds, not milliseconds
-  }
-  return null;
-}
-
-const refreshAuth = async (
+const refreshTokenSet = async (
   refreshPath: string,
   refreshToken: string,
-  setAuthState: (state: AuthState) => void,
-): Promise<AuthState | null> => {
-  const response = await fetch(
-    `${refreshPath}?refresh_token=${refreshToken}`,
-  );
+  setTokens: (tokens: TokenSet) => void,
+): Promise<TokenSet | null> => {
+  const response = await fetch(`${refreshPath}?refresh_token=${refreshToken}`);
   if (response.ok) {
     const responseBody: {
       access_token: string;
@@ -68,101 +53,81 @@ const refreshAuth = async (
       expires_in: string | null;
     } = await response.json();
 
-    const newAuthState: AuthState = {
+    const newTokens: TokenSet = {
       accessToken: responseBody.access_token,
       refreshToken: responseBody.refresh_token,
-      expiry: calculateExpiryTimestamp(responseBody.expires_in),
     };
 
-    if (newAuthState.accessToken) {
-      setAuthState(newAuthState);
-      return newAuthState;
+    if (newTokens.accessToken) {
+      setTokens(newTokens);
+      return newTokens;
     }
   }
   return null;
 };
 
-function getAuthFromLocation(
+function getTokensFromLocation(
   location: ReturnType<typeof useLocation>,
-): AuthState | null {
+): TokenSet | null {
   const queryParams = parseUrlQueryParameters(location);
   const accessToken: string | null = queryParams.access_token ?? null;
   const refreshToken: string | null = queryParams.refresh_token ?? null;
-  const expiry = calculateExpiryTimestamp(queryParams.expires_in);
   if (accessToken && queryParams.token_type?.toUpperCase() === "BEARER") {
     return {
       accessToken,
       refreshToken,
-      expiry,
     };
   }
   return null;
 }
 
 export const AuthContainer: React.FC = ({ children }) => {
-  const [existingAuthState, setAuthState] = useState<AuthState>({
+  const [existingTokens, setTokens] = useState<TokenSet>({
     accessToken: localStorage.getItem(ACCESS_TOKEN),
     refreshToken: localStorage.getItem(REFRESH_TOKEN),
-    expiry: Number.parseInt(localStorage.getItem(TOKEN_EXPIRY) ?? "", 10),
   });
 
   const location = useLocation();
-  const newAuthState = getAuthFromLocation(location);
+  const newTokens = getTokensFromLocation(location);
   const paths = useAdminRoutes();
   const homePath = paths.home();
-  const refreshPath = paths.refreshToken();
+  const refreshTokenSetPath = paths.refreshAccessToken();
 
-  // If newAuthState is not null, then we have a new access token in the url. Save it in local storage and in state hook, then clear query parameters.
+  // If newTokens is not null, then we have a new access token in the url. Save it in local storage and in state hook, then clear query parameters.
   useEffect(() => {
-    if (newAuthState?.accessToken) {
-      setAuthState({
-        accessToken: newAuthState.accessToken,
-        refreshToken: newAuthState.refreshToken,
-        expiry: newAuthState.expiry,
+    if (newTokens?.accessToken) {
+      setTokens({
+        accessToken: newTokens.accessToken,
+        refreshToken: newTokens.refreshToken,
       });
-      localStorage.setItem(ACCESS_TOKEN, newAuthState.accessToken);
-      if (newAuthState?.refreshToken) {
-        localStorage.setItem(REFRESH_TOKEN, newAuthState.refreshToken);
-      }
-      if (newAuthState?.expiry) {
-        localStorage.setItem(TOKEN_EXPIRY, newAuthState.expiry.toString());
+      localStorage.setItem(ACCESS_TOKEN, newTokens.accessToken);
+      if (newTokens?.refreshToken) {
+        localStorage.setItem(REFRESH_TOKEN, newTokens.refreshToken);
       }
       clearQueryParams();
     }
-  }, [
-    newAuthState?.accessToken,
-    newAuthState?.refreshToken,
-    newAuthState?.expiry,
-  ]); // Check for tokens individually so a new tokens object with identical contents doesn't trigger a re-render.
+  }, [newTokens?.accessToken, newTokens?.refreshToken]); // Check for tokens individually so a new tokens object with identical contents doesn't trigger a re-render.
 
-  // If tokens were just found in the url, then get them from newAuthState instead of state hook, which will update asynchronously.
-  const authState = newAuthState ?? existingAuthState;
-  const authContextState = useMemo<AuthContextState>(() => {
+  // If tokens were just found in the url, then get them from newTokens instead of state hook, which will update asynchronously.
+  const tokens = newTokens ?? existingTokens;
+  const state = useMemo<AuthState>(() => {
     return {
-      accessToken: authState.accessToken,
-      refreshToken: authState.refreshToken,
-      loggedIn: !!authState.accessToken,
-      expiry: authState.expiry,
-      logout: authState.accessToken
-        ? () => {
-          logoutAndRefreshPage(homePath);
-        }
+      accessToken: tokens.accessToken,
+      refreshToken: tokens.refreshToken,
+      loggedIn: !!tokens.accessToken,
+      logout: tokens.accessToken
+        ? () => logoutAndRefreshPage(homePath)
         : () => {
             /* If not logged in, logout does nothing. */
           },
-      refreshAuth: () => {
-        return authState.refreshToken
-          ? refreshAuth(refreshPath, authState.refreshToken, setAuthState)
-          : Promise.resolve(null);
-      },
+      refreshTokenSet: () =>
+        tokens.refreshToken
+          ? refreshTokenSet(refreshTokenSetPath, tokens.refreshToken, setTokens)
+          : Promise.resolve(null),
     };
-  }, [authState.accessToken, authState.refreshToken, authState.expiry, homePath, refreshPath]);
+  }, [tokens.accessToken, tokens.refreshToken, homePath, refreshTokenSetPath]);
 
-  return (
-    <AuthContext.Provider value={authContextState}>
-      {children}
-    </AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={state}>{children}</AuthContext.Provider>;
 };
 
 export default AuthContainer;

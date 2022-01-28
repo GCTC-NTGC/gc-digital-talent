@@ -21,7 +21,6 @@ const apiUri = process.env.API_URI ?? "http://localhost:8000/graphql";
 interface AuthState {
   accessToken: string | null;
   refreshToken: string | null;
-  expiry: number | null;
 }
 
 const addAuthToOperation = ({
@@ -60,19 +59,16 @@ const didAuthError = ({ error }: { error: CombinedError }): boolean => {
 };
 
 const willAuthError = ({ authState }: { authState: AuthState | null }) => {
-  console.log("->willAuthError");
   let tokenIsKnownToBeExpired = false;
   if (authState?.accessToken) {
     const decoded = jwtDecode<JwtPayload>(authState.accessToken);
-    if (decoded.exp) tokenIsKnownToBeExpired = Date.now() > (decoded.exp * 1000); // JWT expiry date in seconds, not milliseconds
+    if (decoded.exp) tokenIsKnownToBeExpired = Date.now() > decoded.exp * 1000; // JWT expiry date in seconds, not milliseconds
   }
 
   if (tokenIsKnownToBeExpired) {
-    console.log("<-willAuthError", authState, tokenIsKnownToBeExpired, true);
     return true;
   }
 
-  console.log("<-willAuthError", false);
   return false;
 };
 
@@ -80,8 +76,12 @@ export const ClientProvider: React.FC<{ client?: Client }> = ({
   client,
   children,
 }) => {
-  const { accessToken, refreshToken, expiry, logout, refreshAuth } =
-    useContext(AuthContext);
+  const {
+    accessToken,
+    refreshToken,
+    logout,
+    refreshTokenSet: refreshAuth,
+  } = useContext(AuthContext);
 
   const getAuth = useCallback(
     async ({ authState: existingAuthState }): Promise<AuthState | null> => {
@@ -90,7 +90,7 @@ export const ClientProvider: React.FC<{ client?: Client }> = ({
       if (!existingAuthState) {
         // no existing auth state so this is probably just the first request
         if (accessToken) {
-          return { accessToken, refreshToken, expiry };
+          return { accessToken, refreshToken };
         }
         return null;
       }
@@ -105,7 +105,7 @@ export const ClientProvider: React.FC<{ client?: Client }> = ({
       logout();
       return null;
     },
-    [accessToken, refreshToken, expiry, logout, refreshAuth],
+    [accessToken, refreshToken, logout, refreshAuth],
   );
 
   const internalClient = useMemo(() => {
@@ -140,5 +140,5 @@ export default ClientProvider;
 
 // https://stackoverflow.com/questions/54116070/how-can-i-unit-test-non-exported-functions
 export const exportedForTesting = {
-  willAuthError
-}
+  willAuthError,
+};

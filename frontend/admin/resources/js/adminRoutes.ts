@@ -10,7 +10,7 @@ const adminRoutes = (lang: string) => {
   const home = (): string => path.join("/", lang, ADMIN_APP_DIR); // leading slash in case empty base url
   return {
     home,
-    refreshToken: (): string => path.join(unlocalizedRoot(), "refresh"),
+    refreshAccessToken: (): string => path.join(unlocalizedRoot(), "refresh"),
 
     classificationTable: (): string => path.join(home(), "classifications"),
     classificationCreate: (): string =>
