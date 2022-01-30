@@ -1,3 +1,4 @@
+import { createPath, parsePath, Path } from "history";
 import { IntlShape } from "react-intl";
 
 export type Locales = "en" | "fr";
@@ -18,9 +19,14 @@ export function oppositeLocale(locale: Locales): Locales {
   return locale === "fr" ? "en" : "fr";
 }
 
-export function localizePath(path: string, locale: string): string {
-  const pathIsAbsolute = path.startsWith("/");
-  const pathSegments = path.split("/");
+export function localizePath(
+  path: string | Partial<Path>,
+  locale: string,
+): string {
+  const inputPath = typeof path === "string" ? parsePath(path) : path;
+
+  const pathIsAbsolute = inputPath.pathname?.startsWith("/");
+  const pathSegments = inputPath.pathname?.split("/") ?? [];
 
   // Check if path is already localized, ie starts with a valid locale.
   const currentLocale = pathSegments[pathIsAbsolute ? 1 : 0];
@@ -34,5 +40,9 @@ export function localizePath(path: string, locale: string): string {
     // Otherwise, add the locale segment to the beginning of the path.
     outputSegments.splice(pathIsAbsolute ? 1 : 0, 0, locale);
   }
-  return outputSegments.join("/");
+  return createPath({
+    pathname: outputSegments.join("/"),
+    search: inputPath.search,
+    hash: inputPath.hash,
+  });
 }

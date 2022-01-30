@@ -14,10 +14,7 @@ export const Header: React.FunctionComponent<{
   const locale = getLocale(intl);
 
   const location = useLocation();
-  const languageTogglePath = localizePath(
-    location.pathname,
-    oppositeLocale(locale),
-  );
+  const languageTogglePath = localizePath(location, oppositeLocale(locale));
   return (
     <header data-h2-border="b(gray, bottom, solid, s)">
       <div data-h2-flex-grid="b(middle, contained, flush, xl)">
