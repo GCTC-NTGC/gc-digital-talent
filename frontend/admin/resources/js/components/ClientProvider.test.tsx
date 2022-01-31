@@ -25,7 +25,7 @@ describe("LanguageRedirectContainer tests", () => {
     const result = willAuthError({
       authState: {
         accessToken:
-          "eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjIxNDc0ODM2NDcsImlhdCI6MH0.v5o7sfcTiqB21JrCZ1ytP0gJp4JeTuiEdO8yVBVro7Y",
+          "eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjIxNDc0ODM2NDcsImlhdCI6MH0.v5o7sfcTiqB21JrCZ1ytP0gJp4JeTuiEdO8yVBVro7Y", // expires Jan 18 2038
         refreshToken: null,
       },
     });
@@ -36,7 +36,7 @@ describe("LanguageRedirectContainer tests", () => {
     const result = willAuthError({
       authState: {
         accessToken:
-          "eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjEsImlhdCI6MH0.d5nyMUDCvbvfTmg3ow_cN4YZX4jmfoXAGq3DbCw5LAc",
+          "eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjEsImlhdCI6MH0.d5nyMUDCvbvfTmg3ow_cN4YZX4jmfoXAGq3DbCw5LAc", // expires Dec 31 1969
         refreshToken: null,
       },
     });
