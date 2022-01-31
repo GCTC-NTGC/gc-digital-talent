@@ -130,6 +130,9 @@ export const UpdateClassificationForm: React.FunctionComponent<
                 description:
                   "Placeholder displayed on the classification form level field.",
               })}
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
               options={[
                 { value: 1, label: "1" },
                 { value: 2, label: "2" },
