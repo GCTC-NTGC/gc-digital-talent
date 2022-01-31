@@ -6,9 +6,12 @@ import ADMIN_APP_DIR from "./adminConstants";
 export type AdminRoutes = ReturnType<typeof adminRoutes>;
 
 const adminRoutes = (lang: string) => {
+  const unlocalizedRoot = (): string => path.join("/", ADMIN_APP_DIR); // leading slash in case empty base url
   const home = (): string => path.join("/", lang, ADMIN_APP_DIR); // leading slash in case empty base url
   return {
     home,
+    refreshAccessToken: (): string => path.join(unlocalizedRoot(), "refresh"),
+
     classificationTable: (): string => path.join(home(), "classifications"),
     classificationCreate: (): string =>
       path.join(home(), "classifications", "create"),
@@ -26,6 +29,10 @@ const adminRoutes = (lang: string) => {
       path.join(home(), "departments", id, "edit"),
 
     skillFamilyTable: (): string => path.join(home(), "skill-families"),
+    skillFamilyCreate: (): string =>
+      path.join(home(), "skill-families", "create"),
+    skillFamilyUpdate: (id: string): string =>
+      path.join(home(), "skill-families", id, "edit"),
     skillTable: (): string => path.join(home(), "skills"),
 
     operationalRequirementTable: (): string =>

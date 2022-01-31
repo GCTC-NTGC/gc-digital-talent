@@ -2,10 +2,10 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
-import { Input, Select, Submit } from "@common/components/form";
+import { Input, MultiSelect, Select, Submit } from "@common/components/form";
 import { navigate } from "@common/helpers/router";
 import { enumToOptions } from "@common/helpers/formUtils";
-import { getLanguage } from "@common/constants/localizedConstants";
+import { getLanguage, getRole } from "@common/constants/localizedConstants";
 import { errorMessages } from "@common/messages";
 import { phoneNumber as phoneNumberRegex } from "@common/constants/regularExpressions";
 import { useAdminRoutes } from "../../adminRoutes";
@@ -14,6 +14,7 @@ import {
   CreateUserInput,
   CreateUserMutation,
   useCreateUserMutation,
+  Role,
 } from "../../api/generated";
 import DashboardContentContainer from "../DashboardContentContainer";
 
@@ -142,6 +143,44 @@ export const CreateUserForm: React.FunctionComponent<CreateUserFormProps> = ({
                 label: intl.formatMessage(getLanguage(value)),
               }))}
             />
+            <Input
+              id="sub"
+              label={intl.formatMessage({
+                defaultMessage: "Subject",
+                description: "Label displayed on the user form subject field.",
+              })}
+              type="text"
+              name="sub"
+              context={intl.formatMessage({
+                defaultMessage:
+                  "The 'subject' is a string that uniquely identifies a user's login identity.",
+                description:
+                  "Additional context describing the purpose of the users's 'subject' field.",
+              })}
+            />
+            <MultiSelect
+              id="roles"
+              name="roles"
+              label={intl.formatMessage({
+                defaultMessage: "Roles",
+                description: "Label displayed on the user form roles field.",
+              })}
+              placeholder={intl.formatMessage({
+                defaultMessage: "Select zero or more roles...",
+                description:
+                  "Placeholder displayed on the user form roles field.",
+              })}
+              options={enumToOptions(Role).map(({ value }) => ({
+                value,
+                label: intl.formatMessage(getRole(value)),
+              }))}
+              context={intl.formatMessage({
+                defaultMessage:
+                  "The roles grant additional functionality to a user's login.",
+                description:
+                  "Additional context describing the purpose of the users's 'role' field.",
+              })}
+            />
             <Submit />
           </form>
         </FormProvider>
@@ -151,7 +190,7 @@ export const CreateUserForm: React.FunctionComponent<CreateUserFormProps> = ({
 };
 
 export const CreateUser: React.FunctionComponent = () => {
-  const [_result, executeMutation] = useCreateUserMutation();
+  const [, executeMutation] = useCreateUserMutation();
   const handleCreateUser = (data: CreateUserInput) =>
     executeMutation({ user: data }).then((result) => {
       if (result.data?.createUser) {

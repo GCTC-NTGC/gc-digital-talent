@@ -21,3 +21,6 @@ Homestead.yaml
 
 /storybook-static/*
 build-storybook.log
+
+# Code Coverage
+resources/js/tests/coverage
