@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 
 export const DOTS = "...";
 
@@ -11,6 +11,14 @@ const range = (start: number, end: number) => {
   return Array.from({ length }, (_, idx) => idx + start);
 };
 
+/**
+ * A pagination hook that returns the range of numbers to be displayed in out Pagination component as an array.
+ * @param totalCount
+ * @param pageSize
+ * @param siblingCount
+ * @param currentPage
+ * @returns (number | string)[]
+ */
 export const usePagination = ({
   totalCount,
   pageSize,
@@ -88,3 +96,22 @@ export const usePagination = ({
 
   return paginationRange || range(1, Math.ceil(totalCount / pageSize));
 };
+
+/**
+ * A pagination hook that returns a list of variables needed for the pagination component.
+ * @param page current page
+ * @param pageSize total number of items per page
+ * @param data array of data
+ * @returns { currentPage, currentTableData, setCurrentPage }
+ */
+export function usePaginationVars<T>(page: number, pageSize: number, data: T[]) {
+  const [currentPage, setCurrentPage] = useState(page);
+
+  const currentTableData = useMemo(() => {
+    const firstPageIndex = (currentPage - 1) * pageSize;
+    const lastPageIndex = firstPageIndex + pageSize;
+    return data.slice(firstPageIndex, lastPageIndex);
+  }, [currentPage, data]);
+
+  return {currentPage, currentTableData, setCurrentPage};
+}
