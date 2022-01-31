@@ -145,13 +145,13 @@ export const UpdateUserForm: React.FunctionComponent<UpdateUserFormProps> = ({
               }))}
             />
             <Input
-              id="subject"
+              id="sub"
               label={intl.formatMessage({
                 defaultMessage: "Subject",
                 description: "Label displayed on the user form subject field.",
               })}
               type="text"
-              name="subject"
+              name="sub"
               rules={{
                 required: intl.formatMessage(errorMessages.required),
               }}
@@ -178,9 +178,6 @@ export const UpdateUserForm: React.FunctionComponent<UpdateUserFormProps> = ({
                 value,
                 label: intl.formatMessage(getRole(value)),
               }))}
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
               context={intl.formatMessage({
                 defaultMessage:
                   "The roles grant additional functionality to a user's login.",
