@@ -21,6 +21,6 @@ DESCRIPTION;
 
     public static function regex(): string
     {
-        return '/^[a-z]+(_[a-z]+)*$/';
+        return '/^[a-z]+[_a-z0-9]*$/';
     }
 }

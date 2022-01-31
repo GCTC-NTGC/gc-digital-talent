@@ -28,6 +28,7 @@ import {
   getPoolCandidateStatus,
 } from "@common/constants/localizedConstants";
 import { errorMessages, commonMessages } from "@common/messages";
+import { phoneNumber as phoneNumberRegex } from "@common/constants/regularExpressions";
 import { useAdminRoutes } from "../../adminRoutes";
 import {
   CreatePoolCandidateInput,
@@ -180,7 +181,7 @@ const UserFormSection: React.FunctionComponent<{
                 ? intl.formatMessage(errorMessages.required)
                 : undefined,
             pattern: {
-              value: /^\+[1-9]\d{1,14}$/,
+              value: phoneNumberRegex,
               message: intl.formatMessage(errorMessages.telephone),
             },
           }}

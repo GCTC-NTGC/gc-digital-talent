@@ -11,6 +11,6 @@ class KeyStringHelpers
      */
     public static function toKeyString(string $s) : string
     {
-        return preg_replace('/[^a-z_]/', '_', strtolower($s));
+        return preg_replace('/[^a-z_0-9]/', '_', strtolower($s));
     }
 }

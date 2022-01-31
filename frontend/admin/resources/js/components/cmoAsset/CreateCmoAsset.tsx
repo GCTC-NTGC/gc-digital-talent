@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 import { Input, Submit, TextArea } from "@common/components/form";
 import { navigate } from "@common/helpers/router";
 import { errorMessages } from "@common/messages";
+import { keyString as keyRegex } from "@common/constants/regularExpressions";
 import { useAdminRoutes } from "../../adminRoutes";
 import {
   CreateCmoAssetInput,
@@ -76,7 +77,7 @@ export const CreateCmoAssetForm: React.FunctionComponent<
               rules={{
                 required: intl.formatMessage(errorMessages.required),
                 pattern: {
-                  value: /^[a-z]+(_[a-z]+)*$/,
+                  value: keyRegex,
                   message: intl.formatMessage({
                     defaultMessage:
                       "Please use only lowercase letters and underscores.",
