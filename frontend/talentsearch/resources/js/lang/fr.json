@@ -41,10 +41,6 @@
     "defaultMessage": "Quel est le titre du poste?",
     "description": "Label for job title input in the request form"
   },
-  "8tIJXO": {
-    "defaultMessage": "Tous les candidats de ce bassin ont aussi été évalués en fonction de quatre compétences générales essentielles. Il s’agit de certaines des compétences que les candidats ont déclaré posséder. Ces compétences n’ont pas été évaluées au préalable. Si vous avez des exigences plus détaillées concernant les compétences, veuillez nous en faire part dans la section des commentaires du formulaire de soumission. ",
-    "description": "Message describing the skill filter in the search form."
-  },
   "9nIALc": {
     "defaultMessage": "Erreur : Échec de la création de la demande",
     "description": "Message displayed to user after a pool candidate request fails to get created."
@@ -125,10 +121,6 @@
     "defaultMessage": "Après avoir cliqué sur soumettre, vous recevrez un courriel de confirmation de votre demande.",
     "description": "Message before submit button on the request form."
   },
-  "PEDPib": {
-    "defaultMessage": "Les candidats bilingues ont été évalués et satisfont à un niveau minimal de compétence en bilinguisme (BBB).",
-    "description": "Message describing the work language ability filter in the search form."
-  },
   "S7e4QT": {
     "defaultMessage": "Remarque : Si vous sélectionnez plus d’un groupe visé par l’équité en matière d’emploi, TOUS les candidats qui se sont déclarés membres de N’IMPORTE LEQUEL des groupes visés par l’équité en matière d’emploi sélectionnés seront recommandés. Si vous avez des exigences plus détaillées concernant l’équité en matière d’emploi, veuillez nous en faire part dans la section des commentaires du formulaire de soumission.",
     "description": "Context for employment equity filter in search form."
@@ -200,10 +192,6 @@
   "gUb3PY": {
     "defaultMessage": "Demande créée avec succès!",
     "description": "Message displayed to user after a pool candidate request is created successfully."
-  },
-  "gm0eWj": {
-    "defaultMessage": "À propos du CS – Bassin de talents numériques",
-    "description": "Heading displayed in the About area of the hero section of the Search page."
   },
   "i7hOcw": {
     "defaultMessage": "Demande",
@@ -294,5 +282,17 @@
   "m+d9ls": {
     "defaultMessage": "Erreur : nom pas chargé",
     "description": "Error message for cmo asset filer on search form."
+  },
+  "1EyeE7": {
+    "defaultMessage": "Tous les candidats de ce bassin ont aussi été évalués en fonction de plusieurs compétences générales essentielles.",
+    "description": "Message describing the skill filter in the search form."
+  },
+  "RGzfes": {
+    "defaultMessage": "Sélectionnez la capacité linguistique de travail dont le candidat a besoin pour ce poste.",
+    "description": "Message describing the work language ability filter in the search form."
+  },
+  "9hdbFi": {
+    "defaultMessage": "À propos du Bassin de talents numériques",
+    "description": "Heading displayed in the About area of the hero section of the Search page."
   }
 }
