@@ -8,13 +8,14 @@ export default {
   title: "Components/Accordion",
 } as Meta;
 
-const TemplateAccordion: Story<AccordionProps & { title: string }> = (args) => {
-  const { title, subtitle, ...rest } = args;
+const TemplateAccordion: Story<AccordionProps> = (args) => {
+  const { title, subtitle, context } = args;
 
   return (
     <AccordionComponent
       title={title}
       subtitle={subtitle}
+      context={context}
       Icon={AcademicCapIcon}
       defaultOpen
       simple={false}
@@ -28,4 +29,5 @@ export const Accordion = TemplateAccordion.bind({});
 Accordion.args = {
   title: "title",
   subtitle: "subtitle",
+  context: "context",
 };

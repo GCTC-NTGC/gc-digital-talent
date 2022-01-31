@@ -10,13 +10,10 @@ export interface AccordionProps {
   defaultOpen?: boolean;
 }
 
-interface InternalAccordionProps extends AccordionProps {
-  open?: boolean;
-}
-
 export const Accordion: React.FC<AccordionProps> = ({
   title,
   subtitle,
+  context,
   simple,
   Icon,
   children,
@@ -77,7 +74,17 @@ export const Accordion: React.FC<AccordionProps> = ({
             <p data-h2-margin="b(all, none)" data-h2-font-size="b(h5)">
               {title}
             </p>
+
             <p data-h2-margin="b(top, xxs) b(bottom, none)">{subtitle}</p>
+          </div>
+          <div data-h2-flex-item="b(content)" data-h2-text-align="b(right)">
+            <p
+              data-h2-text-align="b(right)"
+              data-h2-font-size="b(caption)"
+              data-h2-font-color="b(lightpurple)"
+            >
+              {context}
+            </p>
           </div>
           <div data-h2-flex-item="b(content)">
             {!simple && (
