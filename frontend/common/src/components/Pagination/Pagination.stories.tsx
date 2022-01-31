@@ -1,6 +1,9 @@
 import { action } from "@storybook/addon-actions";
 import { Meta, Story } from "@storybook/react";
 import React from "react";
+import { usePaginationVars } from ".";
+import { Skill } from "../../api/generated";
+import { fakeSkills } from "../../fakeData";
 import Pagination, { PaginationProps } from "./Pagination";
 
 export default {
@@ -47,3 +50,24 @@ BothDots.args = {
   currentPage: 5,
   pageSize: 10,
 };
+
+const TemplatePaginationWithData: Story<PaginationProps> = () => {
+  const skills = fakeSkills(50);
+  const pageSize = 10;
+  const pagination = usePaginationVars<Skill>(1, pageSize, skills);
+  const { currentPage, currentTableData, setCurrentPage } = pagination;
+  return (
+    <div>
+      {currentTableData.map(skill => (<p>{skill.name.en}</p>))}
+      <Pagination
+        currentPage={currentPage}
+        pageSize={pageSize}
+        siblingCount={1}
+        totalCount={skills.length}
+        handlePageChange={(page) => setCurrentPage(page)}
+      />
+    </div>
+  )
+};
+
+export const WithData = TemplatePaginationWithData.bind({});
