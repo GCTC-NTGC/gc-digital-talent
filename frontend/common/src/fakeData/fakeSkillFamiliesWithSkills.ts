@@ -8,6 +8,7 @@ import { Skill, SkillFamily } from "../api/generated";
 export default (): { skillFamilies: SkillFamily[]; skills: Skill[] } => {
   const skillFamilies = fakeSkillFamilies(4);
   const skills = fakeSkills(20);
+  faker.seed(0); // repeatable results
 
   skillFamilies.forEach((skillFamily) => {
     const skillsToAttach = faker.random.arrayElements(skills);

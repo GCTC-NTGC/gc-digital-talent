@@ -2,7 +2,7 @@ import faker from "faker";
 import { Skill } from "../api/generated";
 
 const generateSkill = () => {
-  const name = faker.unique(faker.random.word);
+  const name = faker.random.word();
   return {
     id: faker.datatype.uuid(),
     key: faker.helpers.slugify(name),
