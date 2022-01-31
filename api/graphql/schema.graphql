@@ -272,6 +272,7 @@ type Query {
 When creating a User, name and email are required.
 """
 input CreateUserInput {
+    sub: String
     firstName: String! @rename(attribute: "first_name")
     lastName: String! @rename(attribute: "last_name")
     email: Email! @rules(apply: ["unique:users,email"])
@@ -284,6 +285,7 @@ When updating a User, all fields are optional, and email cannot be changed.
 """
 input UpdateUserInput {
     id: ID
+    sub: String
     firstName: String @rename(attribute: "first_name")
     lastName: String @rename(attribute: "last_name")
     telephone: PhoneNumber

@@ -13,30 +13,36 @@ query User($id: ID!) {
   user(id: $id) {
     id
     email
+    sub
     firstName
     lastName
     telephone
     preferredLang
+    roles
   }
 }
 
 mutation UpdateUser($id: ID!, $user: UpdateUserInput!) {
   updateUser(id: $id, user: $user) {
     id
+    sub
     firstName
     lastName
     email
     telephone
     preferredLang
+    roles
   }
 }
 
 mutation CreateUser($user: CreateUserInput!) {
   createUser(user: $user) {
+    sub
     firstName
     lastName
     email
     telephone
     preferredLang
+    roles
   }
 }

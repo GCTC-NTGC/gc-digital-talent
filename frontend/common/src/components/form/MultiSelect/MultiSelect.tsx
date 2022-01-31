@@ -55,7 +55,6 @@ export const MultiSelect: React.FunctionComponent<MultiSelectProps> = ({
         required={!!rules?.required}
         context={context}
         error={error}
-        hideOptional
       >
         <div data-h2-margin="b(bottom, xxs)" style={{ flexBasis: "100%" }}>
           <Controller
