@@ -82,13 +82,15 @@ const Pagination: React.FunctionComponent<PaginationProps> = ({
             <ArrowLeftIcon style={{ width: "1.125rem" }} />
           </Button>
         </li>
-        {paginationRange.map((pageNumber) => {
+        {paginationRange.map((pageNumber, index) => {
           // If the pageItem is a DOT, render the DOTS unicode character
           if (pageNumber === DOTS) {
             return (
               <li
+                key={`${index + 1}-dots`}
                 data-h2-margin="b(right-left, xs)"
                 data-h2-font-color="b(lightpurple)"
+                data-testid="dots"
               >
                 <DotsHorizontalIcon style={{ width: "1.125rem" }} />
               </li>
@@ -96,8 +98,9 @@ const Pagination: React.FunctionComponent<PaginationProps> = ({
           }
           const current = pageNumber === currentPage;
           return (
-            <li key={`${pageNumber}-pagination`}>
+            <li key={`${pageNumber}-pageNumber`}>
               <Button
+                data-testid="pagination"
                 color="primary"
                 mode={`${current ? "solid" : "outline"}`}
                 type="button"
