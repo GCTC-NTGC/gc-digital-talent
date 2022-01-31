@@ -1,9 +1,9 @@
+/* eslint-disable no-promise-executor-return */
 import React from "react";
-import { storiesOf } from "@storybook/react";
+import { storiesOf } from "@storybook/react/";
 import { action } from "@storybook/addon-actions";
-import { fakeSkillFamiliesWithSkills, fakeSkills } from "@common/fakeData";
+import { fakeSkillFamiliesWithSkills } from "@common/fakeData";
 import {
-  Skill,
   SkillFamily,
   SkillCategory,
   CreateSkillFamilyInput,
@@ -13,7 +13,7 @@ import { SkillFamilyTable } from "../components/skillFamily/SkillFamilyTable";
 import { CreateSkillFamilyForm } from "../components/skillFamily/CreateSkillFamily";
 import { UpdateSkillFamilyForm } from "../components/skillFamily/UpdateSkillFamily";
 
-const { skillFamilies } = fakeSkillFamiliesWithSkills();
+const { skillFamilies, skills } = fakeSkillFamiliesWithSkills();
 
 const stories = storiesOf("Skill Families", module);
 
@@ -23,7 +23,7 @@ stories.add("Skill Families Table", () => (
 
 stories.add("Create Skill Family Form", () => (
   <CreateSkillFamilyForm
-    skills={fakeSkills() as Skill[]}
+    skills={skills}
     handleCreateSkillFamily={async (data: CreateSkillFamilyInput) => {
       await new Promise((resolve) => setTimeout(resolve, 1000));
       action("Create Skill Family")(data);
@@ -45,13 +45,13 @@ stories.add("Update Skill Family Form", () => {
       fr: "Skill Family Description FR",
     },
     category: SkillCategory.Technical,
-    skills: [fakeSkills()[0], fakeSkills()[1]],
+    skills: [skills[0], skills[1]],
   };
 
   return (
     <UpdateSkillFamilyForm
       initialSkillFamily={skillFamily}
-      skills={fakeSkills() as Skill[]}
+      skills={skills}
       handleUpdateSkillFamily={async (
         id: string,
         data: UpdateSkillFamilyInput,

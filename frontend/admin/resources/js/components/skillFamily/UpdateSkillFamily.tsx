@@ -2,13 +2,20 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import pick from "lodash/pick";
+import sortBy from "lodash/sortBy";
 import { toast } from "react-toastify";
-import { Select, Submit, Input, MultiSelect, TextArea } from "@common/components/form";
+import {
+  Select,
+  Submit,
+  Input,
+  MultiSelect,
+  TextArea,
+} from "@common/components/form";
 import { notEmpty } from "@common/helpers/util";
 import { navigate } from "@common/helpers/router";
 import { getLocale } from "@common/helpers/localize";
-import { unpackIds } from "@common/helpers/formUtils";
-import { enumToOptions } from "@common/helpers/formUtils";
+import { unpackIds, enumToOptions } from "@common/helpers/formUtils";
+
 import { errorMessages, commonMessages } from "@common/messages";
 import { getSkillCategory } from "@common/constants/localizedConstants";
 import { useAdminRoutes } from "../../adminRoutes";
@@ -26,33 +33,36 @@ import DashboardContentContainer from "../DashboardContentContainer";
 type Option<V> = { value: V; label: string };
 
 type FormValues = Pick<SkillFamily, "name" | "description"> & {
-  skills: string[]
+  skills: string[];
 };
 
 interface UpdateSkillFamilyFormProps {
   initialSkillFamily: SkillFamily;
-  skills: Skill[]
-  handleUpdateSkillFamily: (id: string, data: UpdateSkillFamilyInput)
-    => Promise<UpdateSkillFamilyMutation["updateSkillFamily"]>;
+  skills: Skill[];
+  handleUpdateSkillFamily: (
+    id: string,
+    data: UpdateSkillFamilyInput,
+  ) => Promise<UpdateSkillFamilyMutation["updateSkillFamily"]>;
 }
 
-export const UpdateSkillFamilyForm: React.FunctionComponent<UpdateSkillFamilyFormProps> = ({
-  initialSkillFamily,
-  skills,
-  handleUpdateSkillFamily,
-}) => {
+export const UpdateSkillFamilyForm: React.FunctionComponent<
+  UpdateSkillFamilyFormProps
+> = ({ initialSkillFamily, skills, handleUpdateSkillFamily }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const paths = useAdminRoutes();
+  const sortedSkills = sortBy(skills, (skill) => {
+    return skill.name?.[locale]?.toLocaleUpperCase();
+  });
 
-  const dataToFormValues = (
-    data: SkillFamily,
-  ): FormValues => ({
+  const dataToFormValues = (data: SkillFamily): FormValues => ({
     ...data,
     skills: unpackIds(data?.skills),
   });
 
-  const formValuesToSubmitData = (values: FormValues): UpdateSkillFamilyInput => ({
+  const formValuesToSubmitData = (
+    values: FormValues,
+  ): UpdateSkillFamilyInput => ({
     ...values,
     skills: {
       sync: values.skills,
@@ -67,11 +77,16 @@ export const UpdateSkillFamilyForm: React.FunctionComponent<UpdateSkillFamilyFor
     },
   });
 
-  const methods = useForm<FormValues>({ defaultValues: dataToFormValues(initialSkillFamily) });
+  const methods = useForm<FormValues>({
+    defaultValues: dataToFormValues(initialSkillFamily),
+  });
   const { handleSubmit } = methods;
 
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
-    return handleUpdateSkillFamily(initialSkillFamily.id, formValuesToSubmitData(data))
+    return handleUpdateSkillFamily(
+      initialSkillFamily.id,
+      formValuesToSubmitData(data),
+    )
       .then(() => {
         navigate(paths.skillFamilyTable());
         toast.success(
@@ -93,7 +108,7 @@ export const UpdateSkillFamilyForm: React.FunctionComponent<UpdateSkillFamilyFor
       });
   };
 
-  const skillOptions: Option<string>[] = skills.map(({ id, name }) => ({
+  const skillOptions: Option<string>[] = sortedSkills.map(({ id, name }) => ({
     value: id,
     label: name?.[locale] || "",
   }));
@@ -109,7 +124,7 @@ export const UpdateSkillFamilyForm: React.FunctionComponent<UpdateSkillFamilyFor
       <div data-h2-container="b(center, s)">
         <FormProvider {...methods}>
           <form onSubmit={handleSubmit(onSubmit)}>
-          <Input
+            <Input
               id="name_en"
               name="name.en"
               label={intl.formatMessage({
@@ -203,24 +218,32 @@ export const UpdateSkillFamilyForm: React.FunctionComponent<UpdateSkillFamilyFor
   );
 };
 
-export const UpdateSkillFamily: React.FunctionComponent<{ skillFamilyId: string }> = ({
-  skillFamilyId,
-}) => {
+export const UpdateSkillFamily: React.FunctionComponent<{
+  skillFamilyId: string;
+}> = ({ skillFamilyId }) => {
   const intl = useIntl();
-  const [{ data: lookupData, fetching, error }] = useGetUpdateSkillFamilyDataQuery({
-    variables: { id: skillFamilyId },
-  });
-  const skills: Skill[] | [] =
-    lookupData?.skills.filter(notEmpty) ?? [];
+  const [{ data: lookupData, fetching, error }] =
+    useGetUpdateSkillFamilyDataQuery({
+      variables: { id: skillFamilyId },
+    });
+  const skills: Skill[] | [] = lookupData?.skills.filter(notEmpty) ?? [];
 
   const [, executeMutation] = useUpdateSkillFamilyMutation();
-  const handleUpdateSkillFamily = (id: string, formData: UpdateSkillFamilyInput) =>
+  const handleUpdateSkillFamily = (
+    id: string,
+    formData: UpdateSkillFamilyInput,
+  ) =>
     /* We must pick only the fields belonging to UpdateSkillFamilyInput, because its possible
        the data object contains other props at runtime, and this will cause the
        graphql operation to fail. */
     executeMutation({
       id,
-      skillFamily: pick(formData, ["category", "description", "name", "skills"]),
+      skillFamily: pick(formData, [
+        "category",
+        "description",
+        "name",
+        "skills",
+      ]),
     }).then((result) => {
       if (result.data?.updateSkillFamily) {
         return result.data?.updateSkillFamily;

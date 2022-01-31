@@ -1,13 +1,21 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import sortBy from "lodash/sortBy";
 import { toast } from "react-toastify";
-import { Input, Select, TextArea, Submit, MultiSelect } from "@common/components/form";
+import {
+  Input,
+  Select,
+  TextArea,
+  Submit,
+  MultiSelect,
+} from "@common/components/form";
 import { getLocale } from "@common/helpers/localize";
 import { notEmpty } from "@common/helpers/util";
 import { navigate } from "@common/helpers/router";
 import { enumToOptions } from "@common/helpers/formUtils";
 import { errorMessages, commonMessages } from "@common/messages";
+import { getSkillCategory } from "@common/constants/localizedConstants";
 import { useAdminRoutes } from "../../adminRoutes";
 import {
   Skill,
@@ -19,7 +27,6 @@ import {
   useGetCreateSkillFamilyDataQuery,
 } from "../../api/generated";
 import DashboardContentContainer from "../DashboardContentContainer";
-import { getSkillCategory } from "@common/constants/localizedConstants";
 
 type Option<V> = { value: V; label: string };
 
@@ -43,17 +50,21 @@ interface CreateSkillFamilyFormProps {
   ) => Promise<CreateSkillFamilyMutation["createSkillFamily"]>;
 }
 
-export const CreateSkillFamilyForm: React.FunctionComponent<CreateSkillFamilyFormProps> = ({
-  skills,
-  handleCreateSkillFamily,
-}) => {
+export const CreateSkillFamilyForm: React.FunctionComponent<
+  CreateSkillFamilyFormProps
+> = ({ skills, handleCreateSkillFamily }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const paths = useAdminRoutes();
   const methods = useForm<FormValues>();
   const { handleSubmit } = methods;
+  const sortedSkills = sortBy(skills, (skill) => {
+    return skill.name?.[locale]?.toLocaleUpperCase();
+  });
 
-  const formValuesToSubmitData = (values: FormValues): CreateSkillFamilyInput => ({
+  const formValuesToSubmitData = (
+    values: FormValues,
+  ): CreateSkillFamilyInput => ({
     ...values,
     skills: {
       sync: values.skills,
@@ -83,7 +94,7 @@ export const CreateSkillFamilyForm: React.FunctionComponent<CreateSkillFamilyFor
       });
   };
 
-  const skillOptions: Option<string>[] = skills.map(({ id, name }) => ({
+  const skillOptions: Option<string>[] = sortedSkills.map(({ id, name }) => ({
     value: id,
     label: name?.[locale] || "",
   }));
@@ -99,7 +110,7 @@ export const CreateSkillFamilyForm: React.FunctionComponent<CreateSkillFamilyFor
       <div data-h2-container="b(center, s)">
         <FormProvider {...methods}>
           <form onSubmit={handleSubmit(onSubmit)}>
-          <Input
+            <Input
               id="key"
               name="key"
               label={intl.formatMessage({
@@ -225,7 +236,7 @@ export const CreateSkillFamily: React.FunctionComponent = () => {
   const { data: lookupData, fetching, error } = lookupResult;
   const skills = lookupData?.skills.filter(notEmpty) ?? [];
 
-  const [_result, executeMutation] = useCreateSkillFamilyMutation();
+  const [, executeMutation] = useCreateSkillFamilyMutation();
   const handleCreateSkillFamily = (data: CreateSkillFamilyInput) =>
     executeMutation({ skillFamily: data }).then((result) => {
       if (result.data?.createSkillFamily) {
@@ -252,7 +263,10 @@ export const CreateSkillFamily: React.FunctionComponent = () => {
 
   return (
     <DashboardContentContainer>
-      <CreateSkillFamilyForm handleCreateSkillFamily={handleCreateSkillFamily} skills={skills}/>
+      <CreateSkillFamilyForm
+        handleCreateSkillFamily={handleCreateSkillFamily}
+        skills={skills}
+      />
     </DashboardContentContainer>
   );
 };
