@@ -150,9 +150,6 @@ export const CreateUserForm: React.FunctionComponent<CreateUserFormProps> = ({
               })}
               type="text"
               name="sub"
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
               context={intl.formatMessage({
                 defaultMessage:
                   "The 'subject' is a string that uniquely identifies a user's login identity.",

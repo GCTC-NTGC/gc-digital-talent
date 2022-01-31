@@ -152,9 +152,6 @@ export const UpdateUserForm: React.FunctionComponent<UpdateUserFormProps> = ({
               })}
               type="text"
               name="sub"
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
               context={intl.formatMessage({
                 defaultMessage:
                   "The 'subject' is a string that uniquely identifies a user's login identity.",
@@ -208,7 +205,14 @@ export const UpdateUser: React.FunctionComponent<{ userId: string }> = ({
        graphql operation to fail. */
     executeMutation({
       id,
-      user: pick(data, ["firstName", "lastName", "telephone", "preferredLang"]),
+      user: pick(data, [
+        "firstName",
+        "lastName",
+        "telephone",
+        "preferredLang",
+        "sub",
+        "roles",
+      ]),
     }).then((result) => {
       if (result.data?.updateUser) {
         return result.data?.updateUser;
