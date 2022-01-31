@@ -18,6 +18,7 @@ use App\Policies\PoolCandidatePolicy;
 use App\Policies\PoolPolicy;
 use App\Policies\UserPolicy;
 use App\Services\Contracts\BearerTokenServiceInterface;
+use Exception;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Log;
@@ -70,6 +71,9 @@ class AuthServiceProvider extends ServiceProvider
                     }
                     Log::notice('Authorization token not valid: ', $violations);
                     return abort(401, 'Authorization token not valid.');
+                } catch (Exception $e) {
+                    Log::notice('Error while validating authorization token: ' . $e->getMessage());
+                    return abort(401, 'Error while validating authorization token.');
                 }
 
                 $userMatch = User::where('sub', $sub)->first(); // 3. match "sub" claim to user 'sub' field.
