@@ -116,6 +116,14 @@ input CreateSkillFamilyInput {
   category: SkillCategory!
 }
 
+input CreateSkillInput {
+  key: KeyString!
+  name: LocalizedStringInput!
+  description: LocalizedStringInput
+  families: SkillFamilyBelongsToMany
+  keywords: [String]
+}
+
 """When creating a User, name and email are required."""
 input CreateUserInput {
   firstName: String!
@@ -208,6 +216,8 @@ type Mutation {
   updatePoolCandidateSearchRequest(id: ID!, poolCandidateSearchRequest: UpdatePoolCandidateSearchRequestInput!): PoolCandidateSearchRequest
   createSkillFamily(skillFamily: CreateSkillFamilyInput!): SkillFamily
   updateSkillFamily(id: ID!, skillFamily: UpdateSkillFamilyInput!): SkillFamily
+  createSkill(skill: CreateSkillInput!): Skill
+  updateSkill(id: ID!, skill: UpdateSkillInput!): Skill
 }
 
 """e.g. Overtime as Required, Shift Work, Travel as Required, etc."""
@@ -451,6 +461,7 @@ type Query {
   poolCandidateSearchRequests: [PoolCandidateSearchRequest]!
   skillFamily(id: ID!): SkillFamily
   skillFamilies: [SkillFamily]!
+  skill(id: ID!): Skill
   skills: [Skill]!
 }
 
@@ -560,6 +571,10 @@ type SkillFamily {
   category: SkillCategory!
 }
 
+input SkillFamilyBelongsToMany {
+  sync: [ID!]
+}
+
 """Directions for ordering a list of records."""
 enum SortOrder {
   """Sort records in ascending order."""
@@ -650,6 +665,13 @@ input UpdateSkillFamilyInput {
   description: LocalizedStringInput
   skills: SkillBelongsToMany
   category: SkillCategory
+}
+
+input UpdateSkillInput {
+  name: LocalizedStringInput!
+  description: LocalizedStringInput
+  families: SkillFamilyBelongsToMany
+  keywords: [String]
 }
 
 """

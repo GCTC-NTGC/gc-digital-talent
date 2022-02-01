@@ -266,6 +266,7 @@ type Query {
     poolCandidateSearchRequests: [PoolCandidateSearchRequest]! @all @guard @can(ability: "viewAny")
     skillFamily(id: ID! @eq): SkillFamily @find
     skillFamilies: [SkillFamily]! @all
+    skill(id: ID! @eq): Skill @find
     skills: [Skill]! @all
 }
 """
@@ -494,6 +495,24 @@ input UpdateSkillFamilyInput {
     category: SkillCategory
 }
 
+input SkillFamilyBelongsToMany {
+    sync: [ID!]
+}
+input CreateSkillInput {
+    key: KeyString!
+    name: LocalizedStringInput!
+    description: LocalizedStringInput
+    families: SkillFamilyBelongsToMany
+    keywords: [String]
+}
+
+input UpdateSkillInput {
+    name: LocalizedStringInput!
+    description: LocalizedStringInput
+    families: SkillFamilyBelongsToMany
+    keywords: [String]
+}
+
 type Mutation {
     createUser(user: CreateUserInput! @spread): User @create @guard @can(ability: "create")
     updateUser(id: ID!, user: UpdateUserInput! @spread): User @update @guard @can(ability: "update", find: "id")
@@ -520,4 +539,6 @@ type Mutation {
     updatePoolCandidateSearchRequest(id: ID!, poolCandidateSearchRequest: UpdatePoolCandidateSearchRequestInput! @spread): PoolCandidateSearchRequest @update @guard @can(ability: "update", find: "id")
     createSkillFamily(skillFamily: CreateSkillFamilyInput! @spread): SkillFamily @create @guard @can(ability: "create")
     updateSkillFamily(id: ID!, skillFamily: UpdateSkillFamilyInput! @spread): SkillFamily @update @guard @can(ability: "update", find: "id")
+    createSkill(skill: CreateSkillInput! @spread): Skill @create @guard @can(ability: "create")
+    updateSkill(id: ID!, skill: UpdateSkillInput! @spread): Skill @update @guard @can(ability: "update", find: "id")
 }
