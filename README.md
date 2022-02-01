@@ -7,7 +7,7 @@ The GC Digital Talent app is divided into multiple services, each treated as its
   - `/talentsearch`, pages related to searching and requesting talent from pools
   - `/common`, code shared by multiple other workspaces
 - `/auth`, an OpenID Connect (OIDC) authentication service (only used for local development envs)
-- `/tc-report`, static content copied from [another repo](https://github.com/JoshBeveridge/tc-report) using [git-subtree](https://www.atlassian.com/git/tutorials/git-subtree) (technically only the _site folder, following [this guide](https://jrsmith3.github.io/merging-a-subdirectory-from-another-repo-via-git-subtree.html))
+- `/tc-report`, static content copied from [another repo](https://github.com/GCTC-NTGC/tc-report) using [git-subtree](https://www.atlassian.com/git/tutorials/git-subtree). Merge updates from that repo with `git subtree pull -P tc-report https://github.com/GCTC-NTGC/tc-report _site --squash`
 - `/infrastructure`, the basis of the docker infrastructure to run the project
 - `/maintenance`, additional scripts which run inside the docker containers for setup and updates
 
