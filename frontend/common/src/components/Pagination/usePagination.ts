@@ -13,6 +13,7 @@ const range = (start: number, end: number) => {
 
 /**
  * A pagination hook that returns the range of numbers to be displayed in out Pagination component as an array.
+ * @see https://www.freecodecamp.org/news/build-a-custom-pagination-component-in-react/
  * @param totalCount
  * @param pageSize
  * @param siblingCount

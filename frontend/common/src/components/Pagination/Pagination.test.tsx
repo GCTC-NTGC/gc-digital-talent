@@ -67,7 +67,7 @@ describe("Pagination tests", () => {
     const { currentPage, pageSize, siblingCount, totalCount } = props;
     renderPagination(currentPage, pageSize, siblingCount, totalCount, jest.fn());
     const { result } = renderHook(() => usePagination(props)); // should return an ordered array of the pagination pages (including the DOTS).
-    const paginationRange = [1, "...", 3, 4, 5, 6, 7];// test if page range matches result from hook.
+    const paginationRange = [1, DOTS, 3, 4, 5, 6, 7];// test if page range matches result from hook.
     expect(result.current).toStrictEqual(paginationRange);
     const pages = screen.getAllByTestId("pagination");
     const dots = screen.getAllByTestId("dots");
@@ -80,7 +80,7 @@ describe("Pagination tests", () => {
     const { currentPage, pageSize, siblingCount, totalCount } = props;
     renderPagination(currentPage, pageSize, siblingCount, totalCount, jest.fn());
     const { result } = renderHook(() => usePagination(props)); // should return an ordered array of the pagination pages (including the DOTS).
-    const paginationRange = [1, "...", 4, 5, 6, "...", 10]; // test if page range matches result from hook.
+    const paginationRange = [1, DOTS, 4, 5, 6, DOTS, 10]; // test if page range matches result from hook.
     expect(result.current).toStrictEqual(paginationRange);
     const pages = screen.getAllByTestId("pagination");
     const dots = screen.getAllByTestId("dots");
