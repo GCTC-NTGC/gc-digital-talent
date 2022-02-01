@@ -28,7 +28,7 @@ import {
   getPoolCandidateStatus,
 } from "@common/constants/localizedConstants";
 import { errorMessages, commonMessages } from "@common/messages";
-import { phoneNumber as phoneNumberRegex } from "@common/constants/regularExpressions";
+import { phoneNumberRegex } from "@common/constants/regularExpressions";
 import { useAdminRoutes } from "../../adminRoutes";
 import {
   CreatePoolCandidateInput,

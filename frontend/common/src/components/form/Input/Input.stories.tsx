@@ -4,7 +4,7 @@ import { action } from "@storybook/addon-actions";
 import Input, { InputProps } from ".";
 import Form from "../BasicForm";
 import Submit from "../Submit";
-import { phoneNumber as phoneNumberRegex } from "../../../constants/regularExpressions";
+import { phoneNumberRegex } from "../../../constants/regularExpressions";
 
 export default {
   component: Input,
