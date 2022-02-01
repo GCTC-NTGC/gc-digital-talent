@@ -81,9 +81,10 @@ export const Footer: React.FunctionComponent<{
                   data-h2-display="b(inline-block)"
                   data-h2-margin="b(top-bottom, none)"
                 >
-                  <Link href={route} title={title}>
+                  {/* These links must use real anchor links, not the history api, as they may direct to outside of this app. */}
+                  <a href={route} title={title}>
                     {label}
-                  </Link>
+                  </a>
                 </li>
               ))}
             </ul>
