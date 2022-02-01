@@ -61,6 +61,7 @@ export const Accordion: React.FC<AccordionProps> = ({
           borderRight: "none",
           borderBottom: "none",
           borderLeft: simple ? "none" : "",
+          cursor: "pointer",
         }}
       >
         <div data-h2-flex-grid="b(middle, expanded, flush, s)">
@@ -81,7 +82,7 @@ export const Accordion: React.FC<AccordionProps> = ({
           <div data-h2-flex-item="b(content)" data-h2-text-align="b(right)">
             <p
               data-h2-text-align="b(right)"
-              data-h2-font-size="b(caption)"
+              data-h2-font-size="b(normal)"
               data-h2-font-color="b(lightpurple)"
             >
               {context}
@@ -90,7 +91,7 @@ export const Accordion: React.FC<AccordionProps> = ({
           <div data-h2-flex-item="b(content)">
             {!simple && (
               <span className="icon" data-h2-text-align="b(left)">
-                {Icon && <Icon height="20px" width="20px" />}
+                {Icon && <Icon height="1.5rem" width="1.5rem" />}
               </span>
             )}
           </div>
@@ -99,7 +100,7 @@ export const Accordion: React.FC<AccordionProps> = ({
       <div ref={contentRef} data-h2-border={`${getStyle()}`} id="content">
         {isOpen && (
           <div data-h2-padding="b(top, none) b(right, l) b(bottom, m) b(left, l)">
-            <hr data-h2-margin="b(top, none) b(bottom, s, b(left, l)" />
+            <hr data-h2-margin="b(top, none) b(bottom, m, b(left, l))" />
             {children}
           </div>
         )}
