@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Http;
+use InvalidArgumentException;
 
 class AuthController extends Controller
 {
@@ -19,11 +20,16 @@ class AuthController extends Controller
             : null
         );
 
+        $scope = 'openid';
+        // Laravel auth server will error out if you request offline_access scope
+        if(config('oauth.authorize_uri') != 'http://localhost:8000/oauth/authorize')
+            $scope = $scope . ' offline_access';
+
         $query = http_build_query([
             'client_id' => config('oauth.client_id'),
             'redirect_uri' => config('oauth.redirect_uri'),
             'response_type' => 'code',
-            'scope' => 'openid',
+            'scope' => $scope,
             'state' => $state,
             'acr_values' => 'mfa',
         ]);
@@ -37,7 +43,7 @@ class AuthController extends Controller
 
         throw_unless(
             strlen($state) > 0 && $state === $request->state,
-            InvalidArgumentException::class
+            new InvalidArgumentException("Invalid session state")
         );
 
         $response = Http::asForm()->post(config('oauth.token_uri'), [
@@ -58,5 +64,18 @@ class AuthController extends Controller
 
         $navigateToUri = strlen($from) > 0 ? $from : config('app.url');
         return redirect($navigateToUri . '?' . $query);
+    }
+
+    public function refresh(Request $request)
+    {
+        $refreshToken = $request->query('refresh_token');
+        $response = Http::asForm()
+            ->post(config('oauth.token_uri'), [
+                    'grant_type' => 'refresh_token',
+                    'client_id' => config('oauth.client_id'),
+                    'client_secret' => config('oauth.client_secret'),
+                    'refresh_token' => $refreshToken,
+                ]);
+        return response($response);
     }
 }

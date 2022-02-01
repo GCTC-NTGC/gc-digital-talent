@@ -1,11 +1,12 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { Link, Button } from "@common/components";
-// import { skillFamilyCreatePath } from "../../adminRoutes";
+import { useAdminRoutes } from "../../adminRoutes";
 import { SkillFamilyTableApi } from "./SkillFamilyTable";
 
 export const SkillFamilyPage: React.FC = () => {
   const intl = useIntl();
+  const paths = useAdminRoutes();
   return (
     <div>
       <header
@@ -32,7 +33,7 @@ export const SkillFamilyPage: React.FC = () => {
             data-h2-text-align="m(right)"
           >
             <Button color="white" mode="outline">
-              <Link href="" title="">
+              <Link href={paths.skillFamilyCreate()} title="">
                 {intl.formatMessage({
                   defaultMessage: "Create Skill Family",
                   description:

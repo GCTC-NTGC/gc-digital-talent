@@ -2,7 +2,7 @@ import faker from "faker";
 import { SkillCategory, SkillFamily } from "../api/generated";
 
 const generateSkillFamily = () => {
-  const name = faker.unique(faker.random.word);
+  const name = faker.random.word();
   return {
     category: faker.random.arrayElement([
       SkillCategory.Behavioural,
