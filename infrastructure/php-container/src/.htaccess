@@ -38,14 +38,8 @@ DirectorySlash off
     # PHP Info page for debugging
     RewriteRule ^phpinfo.php$ phpinfo.php [L]
 
-    # Send all other requests to tc-report
-    #RewriteCond %{REQUEST_URI} !^tc-report/
-    #RewriteRule ^(.*)$ tc-report/$1 [L]
-
-    # Send directory requests to index.html
-    #RewriteCond %{REQUEST_FILENAME} -d
-    #RewriteCond %{REQUEST_FILENAME} !-f
-    #RewriteRule ^(.+)/?$ $1/index.html [L]
+    # Send landing page requests to tc-report/index.html
+    RewriteRule ^/?$ tc-report/index.html [L]
 </IfModule>
 
 #<IfModule mod_headers.c>
