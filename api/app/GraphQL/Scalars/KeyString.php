@@ -21,6 +21,7 @@ DESCRIPTION;
 
     public static function regex(): string
     {
+        // See: https://regex101.com/r/TEDtDo/1
         return '/^[a-z]+[_a-z0-9]*$/';
     }
 }
