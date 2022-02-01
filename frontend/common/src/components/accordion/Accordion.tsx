@@ -57,9 +57,9 @@ export const Accordion: React.FC<AccordionProps> = ({
         <div data-h2-flex-grid="b(middle, expanded, flush, s)">
           <span>
             {isOpen ? (
-              <ChevronDownIcon height="20" />
+              <ChevronDownIcon height="1.5rem" />
             ) : (
-              <ChevronRightIcon height="20" />
+              <ChevronRightIcon height="1.5rem" />
             )}
           </span>
           <div data-h2-flex-item="b(auto)" data-h2-text-align="b(left)">
