@@ -8,6 +8,7 @@ export interface AccordionProps {
   context?: string;
   simple?: boolean;
   defaultOpen?: boolean;
+  children?: React.ReactNode;
 }
 
 export const Accordion: React.FC<AccordionProps> = ({
@@ -99,7 +100,7 @@ export const Accordion: React.FC<AccordionProps> = ({
         {isOpen && (
           <div data-h2-padding="b(top, none) b(right, l) b(bottom, m) b(left, l)">
             <hr data-h2-margin="b(top, none) b(bottom, s, b(left, l)" />
-            <p data-h2-margin="b(all, none)">{children} </p>{" "}
+            {children}
           </div>
         )}
       </div>
