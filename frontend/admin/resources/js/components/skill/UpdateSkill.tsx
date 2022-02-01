@@ -9,7 +9,6 @@ import { notEmpty } from "@common/helpers/util";
 import { navigate } from "@common/helpers/router";
 import { getLocale } from "@common/helpers/localize";
 import { unpackIds } from "@common/helpers/formUtils";
-
 import { errorMessages, commonMessages } from "@common/messages";
 import { useAdminRoutes } from "../../adminRoutes";
 import {
@@ -58,7 +57,10 @@ export const UpdateSkillForm: React.FunctionComponent<UpdateSkillFormProps> = ({
 
   const formValuesToSubmitData = (values: FormValues): UpdateSkillInput => ({
     ...values,
-    keywords: values.keywords.split(",").map((key) => key.trim()),
+    keywords: values.keywords
+      .split(",")
+      .map((key) => key.trim())
+      .filter((key) => key !== ""),
     families: {
       sync: values.families,
     },
@@ -175,6 +177,12 @@ export const UpdateSkillForm: React.FunctionComponent<UpdateSkillFormProps> = ({
                 defaultMessage: "Keywords",
                 description:
                   "Label displayed on the skill form keywords field.",
+              })}
+              context={intl.formatMessage({
+                defaultMessage:
+                  "This field accepts a list of comma separated keywords associated with the skill.",
+                description:
+                  "Additional context describing the purpose of the skills 'keyword' field.",
               })}
               type="text"
               rules={{

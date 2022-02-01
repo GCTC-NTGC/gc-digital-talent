@@ -7,6 +7,7 @@ import { Input, TextArea, Submit, MultiSelect } from "@common/components/form";
 import { getLocale } from "@common/helpers/localize";
 import { notEmpty } from "@common/helpers/util";
 import { navigate } from "@common/helpers/router";
+import { keyStringRegex } from "@common/constants/regularExpressions";
 import { errorMessages, commonMessages } from "@common/messages";
 import { useAdminRoutes } from "../../adminRoutes";
 import {
@@ -56,7 +57,10 @@ export const CreateSkillForm: React.FunctionComponent<CreateSkillFormProps> = ({
 
   const formValuesToSubmitData = (values: FormValues): CreateSkillInput => ({
     ...values,
-    keywords: values.keywords.split(",").map((key) => key.trim()),
+    keywords: values.keywords
+      .split(",")
+      .map((key) => key.trim())
+      .filter((key) => key !== ""),
     families: {
       sync: values.families,
     },
@@ -121,7 +125,7 @@ export const CreateSkillForm: React.FunctionComponent<CreateSkillFormProps> = ({
               rules={{
                 required: intl.formatMessage(errorMessages.required),
                 pattern: {
-                  value: /^[a-z]+(_[a-z]+)*$/,
+                  value: keyStringRegex,
                   message: intl.formatMessage({
                     defaultMessage:
                       "Please use only lowercase letters and underscores.",
@@ -186,6 +190,12 @@ export const CreateSkillForm: React.FunctionComponent<CreateSkillFormProps> = ({
                 defaultMessage: "Keywords",
                 description:
                   "Label displayed on the skill form keywords field.",
+              })}
+              context={intl.formatMessage({
+                defaultMessage:
+                  "This field accepts a list of comma separated keywords associated with the skill.",
+                description:
+                  "Additional context describing the purpose of the skills 'keyword' field.",
               })}
               type="text"
               rules={{
