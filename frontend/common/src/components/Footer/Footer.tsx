@@ -20,7 +20,7 @@ export const Footer: React.FunctionComponent<{
       }),
     },
     {
-      route: `/${intl.locale}/tos`,
+      route: `/${intl.locale}/terms-and-conditions`,
       title: intl.formatMessage({
         defaultMessage: "View our terms and conditions.",
         description: "Title for the terms and conditions link in the Footer.",
@@ -31,7 +31,7 @@ export const Footer: React.FunctionComponent<{
       }),
     },
     {
-      route: `/${intl.locale}/privacy`,
+      route: `/${intl.locale}/privacy-notice`,
       title: intl.formatMessage({
         defaultMessage: "View our privacy policy.",
         description: "Title for the privacy link in the Footer.",
