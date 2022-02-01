@@ -126,6 +126,7 @@ input CreateSkillInput {
 
 """When creating a User, name and email are required."""
 input CreateUserInput {
+  sub: String
   firstName: String!
   lastName: String!
   email: Email!
@@ -679,6 +680,7 @@ When updating a User, all fields are optional, and email cannot be changed.
 """
 input UpdateUserInput {
   id: ID
+  sub: String
   firstName: String
   lastName: String
   telephone: PhoneNumber
