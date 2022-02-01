@@ -1,0 +1,108 @@
+{
+  "+EQZK5": {
+    "defaultMessage": "Quebec",
+    "description": "The work region of Canada described as Quebec."
+  },
+  "/Wpu2N": {
+    "defaultMessage": "Bilingual, English, and French",
+    "description": "The language ability is bilingual - both English and French."
+  },
+  "/a8X4d": {
+    "defaultMessage": "Ontario",
+    "description": "The work region of Canada described as Ontario."
+  },
+  "6TqakV": {
+    "defaultMessage": "Placed Term",
+    "description": "The pool candidate's status is Placed Term."
+  },
+  "8stxoN": {
+    "defaultMessage": "Telework",
+    "description": "The work region of Canada described as Telework."
+  },
+  "9ayzJI": {
+    "defaultMessage": "Atlantic",
+    "description": "The work region of Canada described as Atlantic."
+  },
+  "9iOaI4": {
+    "defaultMessage": "No Longer Interested",
+    "description": "The pool candidate's status is No Longer Interested."
+  },
+  "AvBSV+": {
+    "defaultMessage": "Oh no...",
+    "description": "Title displayed for a table error loading state."
+  },
+  "B7fcr5": {
+    "defaultMessage": "Loading...",
+    "description": "Title displayed for a table initial loading state."
+  },
+  "IANM2P": {
+    "defaultMessage": "Placed Indeterminate",
+    "description": "The pool candidate's status is Placed Indeterminate."
+  },
+  "IQviGG": {
+    "defaultMessage": "Pending",
+    "description": "The search status is Pending."
+  },
+  "KC/sxi": {
+    "defaultMessage": "This field is required.",
+    "description": "Error message that this field must filled for the form to be valid."
+  },
+  "KoUKWc": {
+    "defaultMessage": "National Capital",
+    "description": "The work region of Canada described as National Capital."
+  },
+  "NNMJXo": {
+    "defaultMessage": "North",
+    "description": "The work region of Canada described as North."
+  },
+  "RaypPP": {
+    "defaultMessage": "English",
+    "description": "The language English."
+  },
+  "WcXADs": {
+    "defaultMessage": "English only",
+    "description": "The language ability is English only."
+  },
+  "ZhQEUx": {
+    "defaultMessage": "This field must use future dates only.",
+    "description": "Error message that the provided date must be in the future."
+  },
+  "adbcoS": {
+    "defaultMessage": "This field must follow the pattern +123243234.",
+    "description": "Error message that the field must contain a phone number validated by the specified pattern."
+  },
+  "doesNotHaveDiploma": {
+    "defaultMessage": "Can accept a combination of work experience and education"
+  },
+  "h3lIyO": {
+    "defaultMessage": "French",
+    "description": "The language French."
+  },
+  "hasDiploma": {
+    "defaultMessage": "Required diploma from post-secondary institution"
+  },
+  "jNo5Zk": {
+    "defaultMessage": "Prairie",
+    "description": "The work region of Canada described as Prairie."
+  },
+  "prkkM+": {
+    "defaultMessage": "Done",
+    "description": "The search status is Done."
+  },
+  "trzCtG": {
+    "defaultMessage": "Value must be greater than {value}",
+    "description": "Error message that the provided value must be greater than some referenced minimum value."
+  },
+  "wCft6M": {
+    "defaultMessage": "British Columbia",
+    "description": "The work region of Canada described as British Columbia."
+  },
+  "wT3L9C": {
+    "defaultMessage": "French only",
+    "description": "The language ability is French only."
+  },
+  "z9Gr7V": {
+    "defaultMessage": "Available",
+    "description": "The pool candidate's status is Available."
+  }
+}

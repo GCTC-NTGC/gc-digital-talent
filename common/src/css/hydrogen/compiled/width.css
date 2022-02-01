@@ -1,0 +1,149 @@
+[data-h2-width*="MEDIAKEY(auto)"] {
+  width: auto;
+  transition: all 0.2s ease;
+}
+
+[data-h2-width*="MEDIAKEY(100)"] {
+  width: 100%;
+  transition: all 0.2s ease;
+}
+
+[data-h2-width*="MEDIAKEY(75)"] {
+  width: 75%;
+  transition: all 0.2s ease;
+}
+
+[data-h2-width*="MEDIAKEY(50)"] {
+  width: 50%;
+  transition: all 0.2s ease;
+}
+
+[data-h2-width*="MEDIAKEY(25)"] {
+  width: 25%;
+  transition: all 0.2s ease;
+}
+
+[data-h2-width*="MEDIAKEY(0)"] {
+  width: 0;
+  transition: all 0.2s ease;
+}
+
+[data-h2-width*="MEDIAKEY:a(auto)"]:active {
+  width: auto;
+  transition: all 0.2s ease;
+}
+
+[data-h2-width*="MEDIAKEY:a(100)"]:active {
+  width: 100%;
+  transition: all 0.2s ease;
+}
+
+[data-h2-width*="MEDIAKEY:a(75)"]:active {
+  width: 75%;
+  transition: all 0.2s ease;
+}
+
+[data-h2-width*="MEDIAKEY:a(50)"]:active {
+  width: 50%;
+  transition: all 0.2s ease;
+}
+
+[data-h2-width*="MEDIAKEY:a(25)"]:active {
+  width: 25%;
+  transition: all 0.2s ease;
+}
+
+[data-h2-width*="MEDIAKEY:a(0)"]:active {
+  width: 0;
+  transition: all 0.2s ease;
+}
+
+[data-h2-width*="MEDIAKEY:h(auto)"]:hover {
+  width: auto;
+  transition: all 0.2s ease;
+}
+
+[data-h2-width*="MEDIAKEY:h(100)"]:hover {
+  width: 100%;
+  transition: all 0.2s ease;
+}
+
+[data-h2-width*="MEDIAKEY:h(75)"]:hover {
+  width: 75%;
+  transition: all 0.2s ease;
+}
+
+[data-h2-width*="MEDIAKEY:h(50)"]:hover {
+  width: 50%;
+  transition: all 0.2s ease;
+}
+
+[data-h2-width*="MEDIAKEY:h(25)"]:hover {
+  width: 25%;
+  transition: all 0.2s ease;
+}
+
+[data-h2-width*="MEDIAKEY:h(0)"]:hover {
+  width: 0;
+  transition: all 0.2s ease;
+}
+
+[data-h2-width*="MEDIAKEY:f(auto)"]:focus {
+  width: auto;
+  transition: all 0.2s ease;
+}
+
+[data-h2-width*="MEDIAKEY:f(100)"]:focus {
+  width: 100%;
+  transition: all 0.2s ease;
+}
+
+[data-h2-width*="MEDIAKEY:f(75)"]:focus {
+  width: 75%;
+  transition: all 0.2s ease;
+}
+
+[data-h2-width*="MEDIAKEY:f(50)"]:focus {
+  width: 50%;
+  transition: all 0.2s ease;
+}
+
+[data-h2-width*="MEDIAKEY:f(25)"]:focus {
+  width: 25%;
+  transition: all 0.2s ease;
+}
+
+[data-h2-width*="MEDIAKEY:f(0)"]:focus {
+  width: 0;
+  transition: all 0.2s ease;
+}
+
+[data-h2-width*="MEDIAKEY:d(auto)"]:disabled {
+  width: auto;
+  transition: all 0.2s ease;
+}
+
+[data-h2-width*="MEDIAKEY:d(100)"]:disabled {
+  width: 100%;
+  transition: all 0.2s ease;
+}
+
+[data-h2-width*="MEDIAKEY:d(75)"]:disabled {
+  width: 75%;
+  transition: all 0.2s ease;
+}
+
+[data-h2-width*="MEDIAKEY:d(50)"]:disabled {
+  width: 50%;
+  transition: all 0.2s ease;
+}
+
+[data-h2-width*="MEDIAKEY:d(25)"]:disabled {
+  width: 25%;
+  transition: all 0.2s ease;
+}
+
+[data-h2-width*="MEDIAKEY:d(0)"]:disabled {
+  width: 0;
+  transition: all 0.2s ease;
+}

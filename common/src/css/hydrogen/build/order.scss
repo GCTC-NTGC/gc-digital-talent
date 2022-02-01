@@ -1,0 +1,5 @@
+@use 'sass:color';
+
+@use '../utilities/utility-order' as orderStyles;
+
+@include orderStyles.h2-utility-order($mediaKey: 'MEDIAKEY');

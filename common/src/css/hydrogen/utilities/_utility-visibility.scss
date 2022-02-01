@@ -1,0 +1,29 @@
+// Visibility
+// VALUE
+// e.g. data-h2-visibility="b(visible)"
+@mixin h2-utility-visibility($mediaKey, $stateMap) {
+  @each $stateKey, $stateValue in $stateMap {
+    [data-h2-visibility*='#{$mediaKey}#{$stateKey}(invisible)']#{$stateValue} {
+      height: 1px;
+      overflow: hidden;
+      position: absolute;
+      top: 0;
+      left: -100vw;
+      width: 1px;
+    }
+    [data-h2-visibility*='#{$mediaKey}#{$stateKey}(hidden)']#{$stateValue} {
+      display: none;
+      visibility: hidden;
+    }
+    [data-h2-visibility*='#{$mediaKey}#{$stateKey}(visible)']#{$stateValue} {
+      display: block;
+      height: auto;
+      overflow: auto;
+      position: static;
+      top: auto;
+      left: auto;
+      width: auto;
+      visibility: visible;
+    }
+  }
+}

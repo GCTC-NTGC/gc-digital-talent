@@ -1,0 +1,15 @@
+[data-h2-flex-direction*="MEDIAKEY(column)"] {
+  flex-direction: column;
+}
+
+[data-h2-flex-direction*="MEDIAKEY(column-reverse)"] {
+  flex-direction: column-reverse;
+}
+
+[data-h2-flex-direction*="MEDIAKEY(row)"] {
+  flex-direction: row;
+}
+
+[data-h2-flex-direction*="MEDIAKEY(row-reverse)"] {
+  flex-direction: row-reverse;
+}

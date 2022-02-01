@@ -1,0 +1,13 @@
+// Opacity
+// OPACITY
+// e.g. data-h2-radius="base(20%)"
+@mixin h2-utility-opacity($mediaKey, $stateMap, $opacityMap) {
+  @each $stateKey, $stateValue in $stateMap {
+    @each $opacityKey, $opacityValue in $opacityMap {
+      [data-h2-opacity*='#{$mediaKey}#{$stateKey}(#{$opacityKey})']#{$stateValue} {
+        opacity: #{$opacityValue};
+        transition: all 0.2s ease;
+      }
+    }
+  }
+}

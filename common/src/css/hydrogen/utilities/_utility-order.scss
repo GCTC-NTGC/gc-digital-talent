@@ -1,0 +1,13 @@
+// Order
+// ORDER
+// e.g. data-h2-order="b(4)"
+
+$h2GridColumns: 12;
+
+@mixin h2-utility-order($mediaKey) {
+  @for $c from 1 through $h2GridColumns {
+    [data-h2-order*='#{$mediaKey}(#{$c})'] {
+      order: #{$c};
+    }
+  }
+}

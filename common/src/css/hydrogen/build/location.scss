@@ -1,0 +1,12 @@
+@use 'sass:color';
+
+@use '../maps/map-sides' as sideMap;
+@use '../maps/map-whitespace' as whitespaceMap;
+
+@use '../utilities/utility-location' as locationStyles;
+
+@include locationStyles.h2-utility-location(
+  $mediaKey: 'MEDIAKEY',
+  $sideMap: sideMap.$h2-map-sides,
+  $whitespaceMap: whitespaceMap.$h2-map-whitespace
+);

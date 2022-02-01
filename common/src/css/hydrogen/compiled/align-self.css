@@ -1,0 +1,31 @@
+[data-h2-align-self*="MEDIAKEY(auto)"] {
+  align-self: auto;
+}
+
+[data-h2-align-self*="MEDIAKEY(baseline)"] {
+  align-self: baseline;
+}
+
+[data-h2-align-self*="MEDIAKEY(center)"] {
+  align-self: center;
+}
+
+[data-h2-align-self*="MEDIAKEY(inherit)"] {
+  align-self: inherit;
+}
+
+[data-h2-align-self*="MEDIAKEY(initial)"] {
+  align-self: initial;
+}
+
+[data-h2-align-self*="MEDIAKEY(flex-end)"] {
+  align-self: flex-end;
+}
+
+[data-h2-align-self*="MEDIAKEY(flex-start)"] {
+  align-self: flex-start;
+}
+
+[data-h2-align-self*="MEDIAKEY(stretch)"] {
+  align-self: stretch;
+}

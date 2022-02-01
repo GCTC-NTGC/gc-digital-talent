@@ -1,0 +1,10 @@
+@use 'sass:color';
+
+@use '../maps/map-font-families' as fontFamilyMap;
+
+@use '../utilities/utility-font-family' as fontFamilyStyles;
+
+@include fontFamilyStyles.h2-utility-font-family(
+  $mediaKey: 'MEDIAKEY',
+  $fontFamilyMap: fontFamilyMap.$h2-map-font-families
+);

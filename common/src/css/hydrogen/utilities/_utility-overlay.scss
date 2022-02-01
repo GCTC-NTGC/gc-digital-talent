@@ -1,0 +1,47 @@
+// Overlay
+// COLOR
+// e.g. data-h2-overlay="b(purple[.8])"
+@mixin h2-utility-overlay($mediaKey, $stateMap, $colorMap, $gradientMap) {
+  @each $stateKey, $stateValue in $stateMap {
+    @each $colorKey, $colorValue in $colorMap {
+      [data-h2-overlay*='#{$mediaKey}#{$stateKey}(#{$colorKey})']#{$stateValue} {
+        position: relative;
+        &::before {
+          background-color: $colorValue;
+          content: ' ';
+          display: block;
+          height: 100%;
+          position: absolute;
+          top: 0;
+          left: 0;
+          transition: all 0.2s ease;
+          width: 100%;
+        }
+        & > * {
+          position: relative;
+        }
+      }
+    }
+  }
+  @each $stateKey, $stateValue in $stateMap {
+    @each $gradientKey, $gradientValue in $gradientMap {
+      [data-h2-overlay*='#{$mediaKey}#{$stateKey}(#{$gradientKey})']#{$stateValue} {
+        position: relative;
+        &::before {
+          background-image: #{$gradientValue};
+          content: ' ';
+          display: block;
+          height: 100%;
+          position: absolute;
+          top: 0;
+          left: 0;
+          transition: all 0.2s ease;
+          width: 100%;
+        }
+        & > * {
+          position: relative;
+        }
+      }
+    }
+  }
+}

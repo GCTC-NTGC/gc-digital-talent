@@ -1,0 +1,5 @@
+@use 'sass:color';
+
+@use '../utilities/utility-flex-wrap' as flexWrapStyles;
+
+@include flexWrapStyles.h2-utility-flex-wrap($mediaKey: 'MEDIAKEY');

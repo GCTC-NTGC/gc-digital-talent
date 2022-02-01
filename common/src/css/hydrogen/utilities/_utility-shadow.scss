@@ -1,0 +1,13 @@
+// Shadows
+// SIZE
+// e.g. data-h2-shadow="b(s)"
+@mixin h2-utility-shadow($mediaKey, $stateMap, $shadowMap) {
+  @each $stateKey, $stateValue in $stateMap {
+    @each $shadowKey, $shadowValue in $shadowMap {
+      [data-h2-shadow*='#{$mediaKey}#{$stateKey}(#{$shadowKey})']#{$stateValue} {
+        box-shadow: #{$shadowValue};
+        transition: all 0.2s ease;
+      }
+    }
+  }
+}

@@ -1,43 +1,79 @@
 name: Chromatic Storybook
 
-on: push
+on:
+  push:
+    branches: ["main"]
+    paths:
+      - .github/workflows/storybook.yml
+      - frontend/**
+  pull_request:
+    paths:
+      - .github/workflows/storybook.yml
+      - frontend/**
 
 jobs:
   deployment:
     runs-on: ubuntu-latest
+    env:
+      NPM_VERSION: '8.3.0'
     steps:
       - uses: actions/checkout@v2.4.0
         with:
           # Chromatic requires full git history.
           fetch-depth: 0
 
-      - name: "Install & Compile: common"
-        working-directory: common
+      - uses: actions/setup-node@v2.5.1
+        with:
+          node-version-file: 'frontend/.nvmrc'
+          cache: npm
+          # We include `auth/` even though we don't use it.
+          # This allows cache key to match across all workflows.
+          cache-dependency-path: |
+            auth/package-lock.json
+            frontend/package-lock.json
+
+      - name: Upgrade to latest npm
+        run: npm install --global npm@${{ env.NPM_VERSION }}
+
+      - name: "Install dependencies: workspace"
+        working-directory: frontend
         run: |
           npm install
-          npm run h2-build
+          # Work-around until Hydrogen is updated: we trick hydrogen into thinking its installed in the package path.
+          # See: https://github.com/hydrogen-design-system/hydrogen.css/issues/72
+          mkdir -p admin/node_modules common/node_modules talentsearch/node_modules
+          (cd admin/node_modules && ln -s ../../node_modules/@hydrogen-design-system .)
+          (cd common/node_modules && ln -s ../../node_modules/@hydrogen-design-system .)
+          (cd talentsearch/node_modules && ln -s ../../node_modules/@hydrogen-design-system .)
+
+      - name: "Build: common"
+        working-directory: frontend/common
+        run: |
+          # No need to build since we only use admin's hydrogen.css.
+          #npm run h2-build
           npm run codegen
 
-      - name: "Install & Compile: admin"
-        working-directory: admin
+      - name: "Build: admin"
+        working-directory: frontend/admin
         run: |
-          npm install
           npm run h2-build
           npm run codegen
+          npm run intl-compile
 
-      - name: "Install & Compile: talentsearch"
-        working-directory: talentsearch
+      - name: "Build: talentsearch"
+        working-directory: frontend/talentsearch
         run: |
-          npm install
-          npm run h2-build
+          # No need to build since we only use admin's hydrogen.css.
+          #npm run h2-build
           npm run codegen
+          npm run intl-compile
 
       - name: "Publish Storybook: all"
         uses: chromaui/action@v1
         env:
           MERGE_STORYBOOKS: true
         with:
-          workingDir: admin
+          workingDir: frontend/admin
           projectToken: 87148152bdff
           # Auto-accept UI Tests on Chromatic platform.
           # We use this setting because we're not relying on UI Tests at the

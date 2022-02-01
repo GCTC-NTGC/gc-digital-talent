@@ -108,8 +108,17 @@ input CreatePoolInput {
   operationalRequirements: OperationalRequirementBelongsToMany
 }
 
+input CreateSkillFamilyInput {
+  key: KeyString!
+  name: LocalizedStringInput!
+  description: LocalizedStringInput
+  skills: SkillBelongsToMany
+  category: SkillCategory!
+}
+
 """When creating a User, name and email are required."""
 input CreateUserInput {
+  sub: String
   firstName: String!
   lastName: String!
   email: Email!
@@ -195,9 +204,11 @@ type Mutation {
   deleteOperationalRequirement(id: ID!): OperationalRequirement
   createDepartment(department: CreateDepartmentInput!): Department
   updateDepartment(id: ID!, department: UpdateDepartmentInput!): Department
-  deleteDepartment(id: ID!): User
+  deleteDepartment(id: ID!): Department
   createPoolCandidateSearchRequest(poolCandidateSearchRequest: CreatePoolCandidateSearchRequestInput!): PoolCandidateSearchRequest
   updatePoolCandidateSearchRequest(id: ID!, poolCandidateSearchRequest: UpdatePoolCandidateSearchRequestInput!): PoolCandidateSearchRequest
+  createSkillFamily(skillFamily: CreateSkillFamilyInput!): SkillFamily
+  updateSkillFamily(id: ID!, skillFamily: UpdateSkillFamilyInput!): SkillFamily
 }
 
 """e.g. Overtime as Required, Shift Work, Travel as Required, etc."""
@@ -439,6 +450,7 @@ type Query {
   poolCandidateFilters: [PoolCandidateFilter]!
   poolCandidateSearchRequest(id: ID!): PoolCandidateSearchRequest
   poolCandidateSearchRequests: [PoolCandidateSearchRequest]!
+  skillFamily(id: ID!): SkillFamily
   skillFamilies: [SkillFamily]!
   skills: [Skill]!
 }
@@ -529,6 +541,10 @@ type Skill {
   description: LocalizedString
   keywords: [String]
   families: [SkillFamily]
+}
+
+input SkillBelongsToMany {
+  sync: [ID!]
 }
 
 enum SkillCategory {
@@ -630,11 +646,19 @@ input UpdatePoolInput {
   operationalRequirements: OperationalRequirementBelongsToMany
 }
 
+input UpdateSkillFamilyInput {
+  name: LocalizedStringInput
+  description: LocalizedStringInput
+  skills: SkillBelongsToMany
+  category: SkillCategory
+}
+
 """
 When updating a User, all fields are optional, and email cannot be changed.
 """
 input UpdateUserInput {
   id: ID
+  sub: String
   firstName: String
   lastName: String
   telephone: PhoneNumber

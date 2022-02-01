@@ -1,0 +1,5 @@
+@use 'sass:color';
+
+@use '../utilities/utility-align-self' as alignSelfStyles;
+
+@include alignSelfStyles.h2-utility-align-self($mediaKey: 'MEDIAKEY');

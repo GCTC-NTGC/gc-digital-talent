@@ -1,0 +1,15 @@
+// Text Transform
+// TRANSFORM
+// e.g. data-h2-text-transform="b(uppercase)"
+$h2-map-text-transform: (
+  'capitalize': 'capitalize',
+  'lowercase': 'lowercase',
+  'uppercase': 'uppercase',
+);
+@mixin h2-utility-text-transform($mediaKey) {
+  @each $transformKey, $transformValue in $h2-map-text-transform {
+    [data-h2-text-transform*='#{$mediaKey}(#{$transformKey})'] {
+      text-transform: #{$transformValue};
+    }
+  }
+}

@@ -1,0 +1,5 @@
+@use 'sass:color';
+
+@use '../utilities/utility-text-transform' as textTransformStyles;
+
+@include textTransformStyles.h2-utility-text-transform($mediaKey: 'MEDIAKEY');

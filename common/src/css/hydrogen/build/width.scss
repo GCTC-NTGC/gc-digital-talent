@@ -1,0 +1,12 @@
+@use 'sass:color';
+
+@use '../maps/map-states' as stateMap;
+@use '../maps/map-width' as widthMap;
+
+@use '../utilities/utility-width' as widthStyles;
+
+@include widthStyles.h2-utility-width(
+  $mediaKey: 'MEDIAKEY',
+  $stateMap: stateMap.$h2-map-states,
+  $widthMap: widthMap.$h2-map-width
+);

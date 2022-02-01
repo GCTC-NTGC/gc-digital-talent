@@ -1,0 +1,59 @@
+[data-h2-container*="MEDIAKEY(left, full)"] {
+  margin: auto auto auto 0;
+  max-width: none;
+}
+
+[data-h2-container*="MEDIAKEY(center, full)"] {
+  margin: 0 auto;
+  max-width: none;
+}
+
+[data-h2-container*="MEDIAKEY(right, full)"] {
+  margin: auto 0 auto auto;
+  max-width: none;
+}
+
+[data-h2-container*="MEDIAKEY(left, s)"] {
+  margin: auto auto auto 0;
+  max-width: 39rem;
+}
+
+[data-h2-container*="MEDIAKEY(center, s)"] {
+  margin: 0 auto;
+  max-width: 39rem;
+}
+
+[data-h2-container*="MEDIAKEY(right, s)"] {
+  margin: auto 0 auto auto;
+  max-width: 39rem;
+}
+
+[data-h2-container*="MEDIAKEY(left, m)"] {
+  margin: auto auto auto 0;
+  max-width: 60rem;
+}
+
+[data-h2-container*="MEDIAKEY(center, m)"] {
+  margin: 0 auto;
+  max-width: 60rem;
+}
+
+[data-h2-container*="MEDIAKEY(right, m)"] {
+  margin: auto 0 auto auto;
+  max-width: 60rem;
+}
+
+[data-h2-container*="MEDIAKEY(left, l)"] {
+  margin: auto auto auto 0;
+  max-width: 80rem;
+}
+
+[data-h2-container*="MEDIAKEY(center, l)"] {
+  margin: 0 auto;
+  max-width: 80rem;
+}
+
+[data-h2-container*="MEDIAKEY(right, l)"] {
+  margin: auto 0 auto auto;
+  max-width: 80rem;
+}

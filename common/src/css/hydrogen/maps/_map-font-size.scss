@@ -1,0 +1,23 @@
+// Font Variables
+$h2-font-scale: 1.25;
+$h2-font-size-default: 1rem;
+$h2-font-size-caption: calc(#{$h2-font-size-default}/#{$h2-font-scale});
+$h2-font-size-h6: $h2-font-size-default;
+$h2-font-size-h5: calc(#{$h2-font-size-default}*#{$h2-font-scale});
+$h2-font-size-h4: calc(#{$h2-font-size-h5}*#{$h2-font-scale});
+$h2-font-size-h3: calc(#{$h2-font-size-h4}*#{$h2-font-scale});
+$h2-font-size-h2: calc(#{$h2-font-size-h3}*#{$h2-font-scale});
+$h2-font-size-h1: calc(#{$h2-font-size-h2}*#{$h2-font-scale});
+
+$h2-map-font-size: (
+  "h1": $h2-font-size-h1,
+  "h2": $h2-font-size-h2,
+  "h3": $h2-font-size-h3,
+  "h4": $h2-font-size-h4,
+  "h5": $h2-font-size-h5,
+  "h6": $h2-font-size-h6,
+  "normal": $h2-font-size-default,
+  "default": $h2-font-size-default,
+  "copy": $h2-font-size-default,
+  "caption": $h2-font-size-caption,
+);

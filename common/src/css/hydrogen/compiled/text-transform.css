@@ -1,0 +1,11 @@
+[data-h2-text-transform*="MEDIAKEY(capitalize)"] {
+  text-transform: capitalize;
+}
+
+[data-h2-text-transform*="MEDIAKEY(lowercase)"] {
+  text-transform: lowercase;
+}
+
+[data-h2-text-transform*="MEDIAKEY(uppercase)"] {
+  text-transform: uppercase;
+}

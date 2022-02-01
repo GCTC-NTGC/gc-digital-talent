@@ -5,58 +5,72 @@
 
 version: 2
 updates:
+  # JAVASCRIPT package.json updates
+
+  - package-ecosystem: "npm"
+    directory: "/frontend"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 15
+
+  - package-ecosystem: "npm"
+    directory: "/auth"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 15
+
+  # PHP composer.json package updates
+
   - package-ecosystem: "composer"
-    # Files stored in `api` directory
     directory: "/api"
     schedule:
       interval: "weekly"
     open-pull-requests-limit: 15
 
-  - package-ecosystem: "npm"
-    # Files stored in `admin` directory
-    directory: "/admin"
+  - package-ecosystem: "composer"
+    directory: "/frontend/admin"
     schedule:
       interval: "weekly"
     open-pull-requests-limit: 15
 
   - package-ecosystem: "composer"
-    # Files stored in `admin` directory
-    directory: "/admin"
-    schedule:
-      interval: "weekly"
-    open-pull-requests-limit: 15
-
-  - package-ecosystem: "npm"
-    # Files stored in `auth` directory
     directory: "/auth"
     schedule:
       interval: "weekly"
     open-pull-requests-limit: 15
 
   - package-ecosystem: "composer"
-    # Files stored in `auth` directory
-    directory: "/auth"
+    directory: "/frontend/talentsearch"
     schedule:
       interval: "weekly"
     open-pull-requests-limit: 15
 
-  - package-ecosystem: "npm"
-    # Files stored in `talentsearch` directory
-    directory: "/talentsearch"
-    schedule:
-      interval: "weekly"
-    open-pull-requests-limit: 15
+  # DOCKER image updates
 
-  - package-ecosystem: "composer"
-    # Files stored in `talentsearch` directory
-    directory: "/talentsearch"
+  - directory: "/api"
+    package-ecosystem: "docker"
     schedule:
       interval: "weekly"
-    open-pull-requests-limit: 15
+    open-pull-requests-limit: 0
 
-  - package-ecosystem: "npm"
-    # Files stored in `common` directory
-    directory: "/common"
+  - directory: "/infrastructure/php-container"
+    package-ecosystem: "docker"
     schedule:
       interval: "weekly"
-    open-pull-requests-limit: 15
+    open-pull-requests-limit: 0
+
+  - directory: "/infrastructure/maintenance-container"
+    package-ecosystem: "docker"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 0
+
+  # GITHUB ACTIONS external action updates
+
+    # Workflow files stored in the
+    # default location of `.github/workflows`
+  - directory: "/"
+    package-ecosystem: "github-actions"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 0

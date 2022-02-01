@@ -1,0 +1,10 @@
+import { Story, Meta } from "@storybook/react";
+import { SelectProps } from ".";
+declare const _default: Meta<import("@storybook/react").Args>;
+export default _default;
+export declare const SelectDefault: Story<SelectProps>;
+export declare const SelectWithEmptyOption: Story<SelectProps>;
+export declare const SelectRequired: Story<SelectProps>;
+export declare const SelectRequiredWithInfo: Story<SelectProps>;
+export declare const SelectRequiredWithError: Story<SelectProps>;
+export declare const SelectRequiredWithErrorAndContext: Story<SelectProps>;

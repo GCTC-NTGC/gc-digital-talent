@@ -28,9 +28,8 @@ services:
     volumes:
       - ./php-container/src:/var/www/html/
       - ../api:/var/www/html/api
-      - ../admin:/var/www/html/admin
       - ../auth:/var/www/html/auth
-      - ../talentsearch:/var/www/html/talentsearch
+      - ../frontend:/var/www/html/frontend
     ports:
       - 8000:80
       - 8001:443
@@ -45,10 +44,20 @@ services:
       - maintenancedata:/root
       - ../maintenance/scripts:/root/scripts
       - ../api:/var/www/html/api
-      - ../admin:/var/www/html/admin
       - ../auth:/var/www/html/auth
-      - ../talentsearch:/var/www/html/talentsearch
-      - ../common:/var/www/html/common
+      - ../frontend:/var/www/html/frontend
+
+  # This container is an alternative approach to builds, more closely following
+  # docker conventions. For now, it will only be used for performing CI tasks.
+  #
+  # With a profile designated, it will not build/run unless explicitly executed.
+  # See: https://docs.docker.com/compose/profiles/
+  api:
+    build: ../api
+    depends_on:
+      - postgres
+    profiles:
+      - new
 
 volumes:
   pgdata:

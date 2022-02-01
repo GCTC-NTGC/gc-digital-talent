@@ -1,0 +1,19 @@
+// Font Style
+// STYLE
+// e.g. data-h2-font-style="b(italic)"
+@mixin h2-utility-font-style($mediaKey, $stateMap) {
+  @each $stateKey, $stateValue in $stateMap {
+    [data-h2-font-style*='#{$mediaKey}#{$stateKey}(reset)']#{$stateValue} {
+      font-style: normal;
+      text-decoration: none currentcolor solid;
+    }
+    [data-h2-font-style*='#{$mediaKey}#{$stateKey}(italic)']#{$stateValue} {
+      font-style: italic;
+      text-decoration: none currentcolor solid;
+    }
+    [data-h2-font-style*='#{$mediaKey}#{$stateKey}(underline)']#{$stateValue} {
+      font-style: normal;
+      text-decoration: underline;
+    }
+  }
+}
