@@ -20,23 +20,13 @@ export const Accordion: React.FC<AccordionProps> = ({
   children,
   defaultOpen,
 }) => {
-  const contentRef = React.useRef(null);
   const [isOpen, setIsOpen] = useState(defaultOpen);
 
-  const enum border {
-    expand = "b(lightpurple, left, solid, m)",
-    collapse = "b(darkpurple, left, solid, m)",
-    none = "",
-  }
 
   const handleOpen = () => {
     setIsOpen((prev: boolean | undefined) => !prev);
   };
-  function getStyle(): border {
-    if (simple) return border.none;
-    if (isOpen) return border.expand;
-    return border.collapse;
-  }
+
 
   return (
     <div
@@ -97,7 +87,8 @@ export const Accordion: React.FC<AccordionProps> = ({
           </div>
         </div>
       </button>
-      <div ref={contentRef} data-h2-border={`${getStyle()}`} id="content">
+      <div  {...((!simple) && (isOpen? {"data-h2-border": "b(lightpurple, left, solid, m)"}
+      : { "data-h2-border": "b(darkpurple, left, solid, m)"} )) } id="content">
         {isOpen && (
           <div data-h2-padding="b(top, none) b(right, l) b(bottom, m) b(left, l)">
             <hr data-h2-margin="b(top, none) b(bottom, m, b(left, l))" />
