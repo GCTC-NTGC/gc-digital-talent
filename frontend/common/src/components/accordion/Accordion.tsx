@@ -53,6 +53,7 @@ export const Accordion: React.FC<AccordionProps> = ({
           borderLeft: simple ? "none" : "",
           cursor: "pointer",
         }}
+        aria-expanded={isOpen}
       >
         <div data-h2-flex-grid="b(middle, expanded, flush, s)">
           <span>
