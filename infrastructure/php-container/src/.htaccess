@@ -38,12 +38,8 @@ DirectorySlash off
     # PHP Info page for debugging
     RewriteRule ^phpinfo.php$ phpinfo.php [L]
 
-    # Redirect ToC and Privacy pages to tc-report
-    RewriteRule ^(en|fr)/terms-and-conditions tc-report/$1/terms-and-conditions [L]
-    RewriteRule ^(en|fr)/privacy-notice tc-report/$1/privacy-notice [L]
-
-    # Send landing page requests to tc-report/index.html
-    RewriteRule ^/?$ tc-report/index.html [L]
+    # Send all other requests to /tc-report
+    RewriteRule ^(.*)/?$ tc-report/$1 [L]
 </IfModule>
 
 #<IfModule mod_headers.c>
