@@ -28,6 +28,7 @@ import {
 } from "@common/constants/localizedConstants";
 import { errorMessages, commonMessages } from "@common/messages";
 import { User } from "@common/api/generated";
+import { phoneNumberRegex } from "@common/constants/regularExpressions";
 import { useAdminRoutes } from "../../adminRoutes";
 import {
   UpdatePoolCandidateInput,
@@ -252,7 +253,7 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<
               rules={{
                 required: intl.formatMessage(errorMessages.required),
                 pattern: {
-                  value: /^\+[1-9]\d{1,14}$/,
+                  value: phoneNumberRegex,
                   message: intl.formatMessage(errorMessages.telephone),
                 },
               }}

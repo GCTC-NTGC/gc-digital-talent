@@ -5,6 +5,7 @@ import { useIntl } from "react-intl";
 import { Input, Submit, TextArea } from "@common/components/form";
 import { navigate } from "@common/helpers/router";
 import { errorMessages } from "@common/messages";
+import { keyStringRegex } from "@common/constants/regularExpressions";
 import { useAdminRoutes } from "../../adminRoutes";
 import {
   CreateOperationalRequirementInput,
@@ -77,7 +78,7 @@ export const CreateOperationalRequirementForm: React.FunctionComponent<
               rules={{
                 required: intl.formatMessage(errorMessages.required),
                 pattern: {
-                  value: /^[a-z]+(_[a-z]+)*$/,
+                  value: keyStringRegex,
                   message: intl.formatMessage({
                     defaultMessage:
                       "Please use only lowercase letters and underscores.",
