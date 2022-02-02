@@ -18,47 +18,48 @@ const TemplatePagination: Story<PaginationProps> = (args) => {
   return <Pagination {...args} />;
 };
 
+const Default = TemplatePagination.bind({});
 export const NoDots = TemplatePagination.bind({});
 export const RightDots = TemplatePagination.bind({});
 export const LeftDots = TemplatePagination.bind({});
 export const BothDots = TemplatePagination.bind({});
 
-NoDots.args = {
-  totalCount: 50,
+Default.args = {
+  totalCount: 100,
   siblingCount: 1,
   currentPage: 1,
   pageSize: 10,
+};
+
+NoDots.args = {
+  ...Default.args,
+  totalCount: 50,
 };
 
 RightDots.args = {
-  totalCount: 100,
-  siblingCount: 1,
-  currentPage: 1,
-  pageSize: 10,
+  ...Default.args,
 };
 
 LeftDots.args = {
-  totalCount: 100,
-  siblingCount: 1,
+  ...Default.args,
   currentPage: 9,
-  pageSize: 10,
 };
 
 BothDots.args = {
-  totalCount: 100,
-  siblingCount: 1,
+  ...Default.args,
   currentPage: 5,
-  pageSize: 10,
 };
 
 const TemplatePaginationWithData: Story<PaginationProps> = () => {
   const skills = fakeSkills(50);
-  const pageSize = 10;
+  const pageSize = 5;
   const pagination = usePaginationVars<Skill>(1, pageSize, skills);
   const { currentPage, currentTableData, setCurrentPage } = pagination;
   return (
     <div>
-      {currentTableData.map(skill => (<p>{skill.name.en}</p>))}
+      {currentTableData.map((skill) => (
+        <p key={skill.key}>{skill.name.en}</p>
+      ))}
       <Pagination
         currentPage={currentPage}
         pageSize={pageSize}
@@ -67,7 +68,7 @@ const TemplatePaginationWithData: Story<PaginationProps> = () => {
         handlePageChange={(page) => setCurrentPage(page)}
       />
     </div>
-  )
+  );
 };
 
 export const WithData = TemplatePaginationWithData.bind({});
