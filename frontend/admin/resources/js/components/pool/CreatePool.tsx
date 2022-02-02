@@ -13,6 +13,7 @@ import { getLocale } from "@common/helpers/localize";
 import { notEmpty } from "@common/helpers/util";
 import { navigate } from "@common/helpers/router";
 import { errorMessages, commonMessages } from "@common/messages";
+import { keyStringRegex } from "@common/constants/regularExpressions";
 import { useAdminRoutes } from "../../adminRoutes";
 import {
   Classification,
@@ -201,7 +202,7 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
               rules={{
                 required: intl.formatMessage(errorMessages.required),
                 pattern: {
-                  value: /^[a-z]+(_[a-z]+)*$/,
+                  value: keyStringRegex,
                   message: intl.formatMessage({
                     defaultMessage:
                       "Please use only lowercase letters and underscores.",

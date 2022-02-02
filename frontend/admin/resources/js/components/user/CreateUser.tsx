@@ -7,6 +7,7 @@ import { navigate } from "@common/helpers/router";
 import { enumToOptions } from "@common/helpers/formUtils";
 import { getLanguage, getRole } from "@common/constants/localizedConstants";
 import { errorMessages } from "@common/messages";
+import { phoneNumberRegex } from "@common/constants/regularExpressions";
 import { useAdminRoutes } from "../../adminRoutes";
 import {
   Language,
@@ -116,7 +117,7 @@ export const CreateUserForm: React.FunctionComponent<CreateUserFormProps> = ({
               rules={{
                 required: intl.formatMessage(errorMessages.required),
                 pattern: {
-                  value: /^\+[1-9]\d{1,14}$/,
+                  value: phoneNumberRegex,
                   message: intl.formatMessage(errorMessages.telephone),
                 },
               }}

@@ -1,10 +1,12 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { Link, Button } from "@common/components";
+import { useAdminRoutes } from "../../adminRoutes";
 import { SkillTableApi } from "./SkillTable";
 
 export const SkillPage: React.FC = () => {
   const intl = useIntl();
+  const paths = useAdminRoutes();
   return (
     <div>
       <header
@@ -31,7 +33,7 @@ export const SkillPage: React.FC = () => {
             data-h2-text-align="m(right)"
           >
             <Button color="white" mode="outline">
-              <Link href="" title="">
+              <Link href={paths.skillCreate()} title="">
                 {intl.formatMessage({
                   defaultMessage: "Create Skill",
                   description: "Heading displayed above the Create Skill form.",

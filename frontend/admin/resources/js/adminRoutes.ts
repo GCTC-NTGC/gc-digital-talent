@@ -34,6 +34,9 @@ const adminRoutes = (lang: string) => {
     skillFamilyUpdate: (id: string): string =>
       path.join(home(), "skill-families", id, "edit"),
     skillTable: (): string => path.join(home(), "skills"),
+    skillCreate: (): string => path.join(home(), "skills", "create"),
+    skillUpdate: (id: string): string =>
+      path.join(home(), "skills", id, "edit"),
 
     operationalRequirementTable: (): string =>
       path.join(home(), "operational-requirements"),
