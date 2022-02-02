@@ -3,7 +3,7 @@
  */
 
 import { render, screen } from "@testing-library/react";
-import { renderHook, act } from "@testing-library/react-hooks";
+import { renderHook } from "@testing-library/react-hooks";
 import React from "react";
 import Pagination from "./Pagination";
 import { DOTS, usePagination } from "./usePagination";
@@ -31,9 +31,20 @@ function renderPagination(
 
 describe("Pagination tests", () => {
   test("If the total page count is less then page pills show range from 1 to totalPageCount", () => {
-    const props = { currentPage: 1, pageSize: 2, siblingCount: 1, totalCount: 10 };
+    const props = {
+      currentPage: 1,
+      pageSize: 2,
+      siblingCount: 1,
+      totalCount: 10,
+    };
     const { currentPage, pageSize, siblingCount, totalCount } = props;
-    renderPagination(currentPage, pageSize, siblingCount, totalCount, jest.fn());
+    renderPagination(
+      currentPage,
+      pageSize,
+      siblingCount,
+      totalCount,
+      jest.fn(),
+    );
     const { result } = renderHook(() => usePagination(props)); // should return an ordered array of the pagination pages (including the DOTS).
     const paginationRange = [1, 2, 3, 4, 5];
     expect(result.current).toStrictEqual(paginationRange); // test if page range matches result from hook.
@@ -49,9 +60,20 @@ describe("Pagination tests", () => {
   });
 
   test("Should show DOTS on right side when total page count is greater then page pills", () => {
-    const props = { currentPage: 1, pageSize: 3, siblingCount: 1, totalCount: 20 };
+    const props = {
+      currentPage: 1,
+      pageSize: 3,
+      siblingCount: 1,
+      totalCount: 20,
+    };
     const { currentPage, pageSize, siblingCount, totalCount } = props;
-    renderPagination(currentPage, pageSize, siblingCount, totalCount, jest.fn());
+    renderPagination(
+      currentPage,
+      pageSize,
+      siblingCount,
+      totalCount,
+      jest.fn(),
+    );
     const { result } = renderHook(() => usePagination(props)); // should return an ordered array of the pagination pages (including the DOTS).
     const paginationRange = [1, 2, 3, 4, 5, DOTS, 7];
     expect(result.current).toStrictEqual(paginationRange); // test if page range matches result from hook.
@@ -63,11 +85,22 @@ describe("Pagination tests", () => {
   });
 
   test("Should show DOTS on left side when total page count is greater then page pills", () => {
-    const props = { currentPage: 6, pageSize: 3, siblingCount: 1, totalCount: 20 };
+    const props = {
+      currentPage: 6,
+      pageSize: 3,
+      siblingCount: 1,
+      totalCount: 20,
+    };
     const { currentPage, pageSize, siblingCount, totalCount } = props;
-    renderPagination(currentPage, pageSize, siblingCount, totalCount, jest.fn());
+    renderPagination(
+      currentPage,
+      pageSize,
+      siblingCount,
+      totalCount,
+      jest.fn(),
+    );
     const { result } = renderHook(() => usePagination(props)); // should return an ordered array of the pagination pages (including the DOTS).
-    const paginationRange = [1, DOTS, 3, 4, 5, 6, 7];// test if page range matches result from hook.
+    const paginationRange = [1, DOTS, 3, 4, 5, 6, 7]; // test if page range matches result from hook.
     expect(result.current).toStrictEqual(paginationRange);
     const pages = screen.getAllByTestId("pagination");
     const dots = screen.getAllByTestId("dots");
@@ -76,9 +109,20 @@ describe("Pagination tests", () => {
   });
 
   test("Should show DOTS on left and right side when total page count is greater then page pills", () => {
-    const props = { currentPage: 5, pageSize: 3, siblingCount: 1, totalCount: 30 };
+    const props = {
+      currentPage: 5,
+      pageSize: 3,
+      siblingCount: 1,
+      totalCount: 30,
+    };
     const { currentPage, pageSize, siblingCount, totalCount } = props;
-    renderPagination(currentPage, pageSize, siblingCount, totalCount, jest.fn());
+    renderPagination(
+      currentPage,
+      pageSize,
+      siblingCount,
+      totalCount,
+      jest.fn(),
+    );
     const { result } = renderHook(() => usePagination(props)); // should return an ordered array of the pagination pages (including the DOTS).
     const paginationRange = [1, DOTS, 4, 5, 6, DOTS, 10]; // test if page range matches result from hook.
     expect(result.current).toStrictEqual(paginationRange);
