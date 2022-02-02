@@ -53,7 +53,7 @@ describe("Pagination tests", () => {
     const { currentPage, pageSize, siblingCount, totalCount } = props;
     renderPagination(currentPage, pageSize, siblingCount, totalCount, jest.fn());
     const { result } = renderHook(() => usePagination(props)); // should return an ordered array of the pagination pages (including the DOTS).
-    const paginationRange = [1, 2, 3, 4, 5,"...", 7];
+    const paginationRange = [1, 2, 3, 4, 5, DOTS, 7];
     expect(result.current).toStrictEqual(paginationRange); // test if page range matches result from hook.
 
     const pages = screen.getAllByTestId("pagination");
