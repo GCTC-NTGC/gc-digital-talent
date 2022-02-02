@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { ChevronDownIcon, ChevronRightIcon } from "@heroicons/react/solid";
 
 export interface AccordionProps {
@@ -22,11 +22,9 @@ export const Accordion: React.FC<AccordionProps> = ({
 }) => {
   const [isOpen, setIsOpen] = useState(defaultOpen);
 
-
   const handleOpen = () => {
     setIsOpen((prev: boolean | undefined) => !prev);
   };
-
 
   return (
     <div
@@ -96,12 +94,13 @@ export const Accordion: React.FC<AccordionProps> = ({
         id="content"
         data-h2-bg-color="b(white)"
       >
-        {isOpen && (
-          <div data-h2-padding="b(top, none) b(right, l) b(bottom, m) b(left, l)">
-            <hr data-h2-margin="b(top, none) b(bottom, m, b(left, l))" />
-            {children}
-          </div>
-        )}
+        <div
+          data-h2-padding="b(top, none) b(right, l) b(bottom, m) b(left, l)"
+          style={{ display: isOpen ? "block" : "none" }}
+        >
+          <hr data-h2-margin="b(top, none) b(bottom, m, b(left, l))" />
+          {children}
+        </div>
       </div>
     </div>
   );
