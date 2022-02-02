@@ -8,6 +8,7 @@ export interface ButtonProps extends React.HTMLProps<HTMLButtonElement> {
   /** Determines whether the element should be block level and 100% width. */
   block?: boolean;
   type?: "button" | "submit" | "reset" | undefined;
+  classNames?: string;
 }
 
 const colorMap: Record<
@@ -90,10 +91,12 @@ export const Button: React.FC<ButtonProps> = ({
   color,
   mode,
   block = false,
+  classNames,
   ...rest
 }): React.ReactElement => {
   return (
     <button
+      className={`button ${classNames}`}
       // eslint-disable-next-line react/button-has-type
       type={type || "button"}
       data-h2-radius="b(s)"
@@ -104,8 +107,6 @@ export const Button: React.FC<ButtonProps> = ({
         : { "data-h2-display": "b(inline-block)" })}
       {...colorMap[color][mode]}
       style={{
-        cursor: "pointer",
-        overflowWrap: "break-word",
         width: block ? "100%" : "auto",
       }}
       {...rest}

@@ -50,6 +50,9 @@ const Pagination: React.FunctionComponent<PaginationProps> = ({
   };
 
   const lastPage = paginationRange[paginationRange.length - 1];
+  const isLeftArrowDisabled = currentPage === 1;
+  const isRightArrowDisbaled = currentPage === lastPage;
+  console.log(currentPage === lastPage);
   return (
     <nav
       role="navigation"
@@ -67,10 +70,12 @@ const Pagination: React.FunctionComponent<PaginationProps> = ({
         {/* left navigation arrow */}
         <li>
           <Button
+            classNames={isLeftArrowDisabled ? "disabled" : ""}
             color="primary"
             mode="outline"
             type="button"
-            disabled={currentPage === 1}
+            disabled={isLeftArrowDisabled}
+            aria-disabled={isLeftArrowDisabled}
             aria-label={intl.formatMessage({
               defaultMessage: "Goto previous page",
               description:
@@ -123,10 +128,12 @@ const Pagination: React.FunctionComponent<PaginationProps> = ({
         {/* right navigation arrow */}
         <li>
           <Button
+            classNames={isRightArrowDisbaled ? "disabled" : ""}
             color="primary"
             mode="outline"
             type="button"
-            disabled={currentPage === lastPage}
+            disabled={isRightArrowDisbaled}
+            aria-disabled={isRightArrowDisbaled}
             aria-label={intl.formatMessage({
               defaultMessage: "Goto next page",
               description: "Aria label for next page button in pagination nav",
