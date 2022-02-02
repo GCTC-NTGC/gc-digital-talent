@@ -88,8 +88,14 @@ export const Accordion: React.FC<AccordionProps> = ({
           </div>
         </div>
       </button>
-      <div  {...((!simple) && (isOpen? {"data-h2-border": "b(lightpurple, left, solid, m)"}
-      : { "data-h2-border": "b(darkpurple, left, solid, m)"} )) } id="content">
+      <div
+        {...(!simple &&
+          (isOpen
+            ? { "data-h2-border": "b(lightpurple, left, solid, m)" }
+            : { "data-h2-border": "b(darkpurple, left, solid, m)" }))}
+        id="content"
+        data-h2-bg-color="b(white)"
+      >
         {isOpen && (
           <div data-h2-padding="b(top, none) b(right, l) b(bottom, m) b(left, l)">
             <hr data-h2-margin="b(top, none) b(bottom, m, b(left, l))" />
