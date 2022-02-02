@@ -31,7 +31,11 @@ import { UpdateDepartment } from "./department/UpdateDepartment";
 import SearchRequestPage from "./searchRequest/SearchRequestPage";
 import SingleSearchRequestPage from "./searchRequest/SingleSearchRequestPage";
 import SkillFamilyPage from "./skillFamily/SkillFamilyPage";
+import { CreateSkillFamily } from "./skillFamily/CreateSkillFamily";
+import { UpdateSkillFamily } from "./skillFamily/UpdateSkillFamily";
 import SkillPage from "./skill/SkillPage";
+import { CreateSkill } from "./skill/CreateSkill";
+import { UpdateSkill } from "./skill/UpdateSkill";
 
 const routes = (paths: AdminRoutes): Routes<RouterResult> => [
   {
@@ -182,9 +186,33 @@ const routes = (paths: AdminRoutes): Routes<RouterResult> => [
     }),
   },
   {
+    path: paths.skillFamilyCreate(),
+    action: () => ({
+      component: <CreateSkillFamily />,
+    }),
+  },
+  {
+    path: paths.skillFamilyUpdate(":id"),
+    action: ({ params }) => ({
+      component: <UpdateSkillFamily skillFamilyId={params.id as string} />,
+    }),
+  },
+  {
     path: paths.skillTable(),
     action: () => ({
       component: <SkillPage />,
+    }),
+  },
+  {
+    path: paths.skillCreate(),
+    action: () => ({
+      component: <CreateSkill />,
+    }),
+  },
+  {
+    path: paths.skillUpdate(":id"),
+    action: ({ params }) => ({
+      component: <UpdateSkill skillId={params.id as string} />,
     }),
   },
   {

@@ -264,13 +264,16 @@ type Query {
     poolCandidateFilters: [PoolCandidateFilter]! @all @guard @can(ability: "viewAny")
     poolCandidateSearchRequest(id: ID! @eq): PoolCandidateSearchRequest @find @guard @can(ability: "view", query: true)
     poolCandidateSearchRequests: [PoolCandidateSearchRequest]! @all @guard @can(ability: "viewAny")
+    skillFamily(id: ID! @eq): SkillFamily @find
     skillFamilies: [SkillFamily]! @all
+    skill(id: ID! @eq): Skill @find
     skills: [Skill]! @all
 }
 """
 When creating a User, name and email are required.
 """
 input CreateUserInput {
+    sub: String
     firstName: String! @rename(attribute: "first_name")
     lastName: String! @rename(attribute: "last_name")
     email: Email! @rules(apply: ["unique:users,email"])
@@ -283,6 +286,7 @@ When updating a User, all fields are optional, and email cannot be changed.
 """
 input UpdateUserInput {
     id: ID
+    sub: String
     firstName: String @rename(attribute: "first_name")
     lastName: String @rename(attribute: "last_name")
     telephone: PhoneNumber
@@ -475,6 +479,42 @@ input UpdatePoolCandidateSearchRequestInput {
     status: PoolCandidateSearchStatus
 }
 
+input SkillBelongsToMany {
+    sync: [ID!]
+}
+input CreateSkillFamilyInput {
+    key: KeyString! @rules(apply: ["unique:skill_families,key"])
+    name: LocalizedStringInput!
+    description: LocalizedStringInput
+    skills: SkillBelongsToMany
+    category: SkillCategory!
+}
+
+input UpdateSkillFamilyInput {
+    name: LocalizedStringInput
+    description: LocalizedStringInput
+    skills: SkillBelongsToMany
+    category: SkillCategory
+}
+
+input SkillFamilyBelongsToMany {
+    sync: [ID!]
+}
+input CreateSkillInput {
+    key: KeyString!
+    name: LocalizedStringInput!
+    description: LocalizedStringInput
+    families: SkillFamilyBelongsToMany
+    keywords: [String]
+}
+
+input UpdateSkillInput {
+    name: LocalizedStringInput!
+    description: LocalizedStringInput
+    families: SkillFamilyBelongsToMany
+    keywords: [String]
+}
+
 type Mutation {
     createUser(user: CreateUserInput! @spread): User @create @guard @can(ability: "create")
     updateUser(id: ID!, user: UpdateUserInput! @spread): User @update @guard @can(ability: "update", find: "id")
@@ -499,4 +539,8 @@ type Mutation {
     deleteDepartment(id: ID!): Department @delete(globalId: false) @guard @can(ability: "delete", find: "id")
     createPoolCandidateSearchRequest(poolCandidateSearchRequest: CreatePoolCandidateSearchRequestInput! @spread): PoolCandidateSearchRequest @create @can(ability: "create")
     updatePoolCandidateSearchRequest(id: ID!, poolCandidateSearchRequest: UpdatePoolCandidateSearchRequestInput! @spread): PoolCandidateSearchRequest @update @guard @can(ability: "update", find: "id")
+    createSkillFamily(skillFamily: CreateSkillFamilyInput! @spread): SkillFamily @create @guard @can(ability: "create")
+    updateSkillFamily(id: ID!, skillFamily: UpdateSkillFamilyInput! @spread): SkillFamily @update @guard @can(ability: "update", find: "id")
+    createSkill(skill: CreateSkillInput! @spread): Skill @create @guard @can(ability: "create")
+    updateSkill(id: ID!, skill: UpdateSkillInput! @spread): Skill @update @guard @can(ability: "update", find: "id")
 }

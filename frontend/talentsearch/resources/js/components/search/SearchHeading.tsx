@@ -50,7 +50,7 @@ const SearchHeading: React.FunctionComponent = (props) => {
             data-h2-margin="b(all, none)"
           >
             {intl.formatMessage({
-              defaultMessage: "About the CS - Digital Talent Pool",
+              defaultMessage: "About the Digital Talent Pool",
               description:
                 "Heading displayed in the About area of the hero section of the Search page.",
             })}

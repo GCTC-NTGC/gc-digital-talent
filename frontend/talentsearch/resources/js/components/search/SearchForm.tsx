@@ -334,7 +334,7 @@ export const SearchForm: React.FunctionComponent<SearchFormProps> = ({
           })}
           text={intl.formatMessage({
             defaultMessage:
-              "Bilingual applicants have been assessed and meet a minimum level (BBB) of Bilingual proficiency.",
+              "Select the working language ability the candidate needs for this position.",
             description:
               "Message describing the work language ability filter in the search form.",
           })}
@@ -426,7 +426,7 @@ export const SearchForm: React.FunctionComponent<SearchFormProps> = ({
           })}
           text={intl.formatMessage({
             defaultMessage:
-              "All applicants in this pool have been assessed on four essential soft skills, in addition. These are some of the skills applicants have claimed to have. These skills have not been pre-assessed. If you have more detailed skill requirements, let us know in the comment section of the submission form.",
+              "All applicants in this pool have been assessed for several soft skills.",
             description:
               "Message describing the skill filter in the search form.",
           })}

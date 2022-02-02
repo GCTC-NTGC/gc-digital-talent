@@ -1,4 +1,5 @@
 import { authExchange } from "@urql/exchange-auth";
+import jwtDecode, { JwtPayload } from "jwt-decode";
 import React, { useCallback, useContext, useMemo } from "react";
 import { toast } from "react-toastify";
 import {
@@ -18,7 +19,7 @@ import { AuthContext } from "./AuthContainer";
 const apiUri = process.env.API_URI ?? "http://localhost:8000/graphql";
 
 interface AuthState {
-  accessToken: string;
+  accessToken: string | null;
   refreshToken: string | null;
 }
 
@@ -53,30 +54,52 @@ const addAuthToOperation = ({
 const didAuthError = ({ error }: { error: CombinedError }): boolean => {
   return (
     error.response.status === 401 ||
-    error.graphQLErrors.some((e) => e.extensions?.code === "FORBIDDEN")
+    error.graphQLErrors.some((e) => e.extensions?.category === "authentication")
   );
+};
+
+const willAuthError = ({ authState }: { authState: AuthState | null }) => {
+  let tokenIsKnownToBeExpired = false;
+  if (authState?.accessToken) {
+    const decoded = jwtDecode<JwtPayload>(authState.accessToken);
+    if (decoded.exp) tokenIsKnownToBeExpired = Date.now() > decoded.exp * 1000; // JWT expiry date in seconds, not milliseconds
+  }
+
+  if (tokenIsKnownToBeExpired) return true;
+
+  return false;
 };
 
 export const ClientProvider: React.FC<{ client?: Client }> = ({
   client,
   children,
 }) => {
-  const { accessToken, refreshToken, logout } = useContext(AuthContext);
+  const { accessToken, refreshToken, logout, refreshTokenSet } =
+    useContext(AuthContext);
 
   const getAuth = useCallback(
-    async ({ authState }): Promise<AuthState | null> => {
-      if (!authState) {
+    async ({ authState: existingAuthState }): Promise<AuthState | null> => {
+      // getAuth could be called for the first request or as the result of an error
+
+      if (!existingAuthState) {
+        // no existing auth state so this is probably just the first request
         if (accessToken) {
           return { accessToken, refreshToken };
         }
         return null;
       }
+
       // If authState is not null, and getAuth is called again, then it means authentication failed for some reason.
-      // TODO: This is where we could try using the refresh token, instead of logging out.
+      // let's try to use a refresh token to get new tokens
+      if (refreshToken) {
+        const refreshedAuthState = refreshTokenSet();
+        return refreshedAuthState;
+      }
+
       logout();
       return null;
     },
-    [accessToken, refreshToken, logout],
+    [accessToken, refreshToken, logout, refreshTokenSet],
   );
 
   const internalClient = useMemo(() => {
@@ -96,6 +119,7 @@ export const ClientProvider: React.FC<{ client?: Client }> = ({
             getAuth,
             addAuthToOperation,
             didAuthError,
+            willAuthError,
           }),
           fetchExchange,
         ],
@@ -107,3 +131,8 @@ export const ClientProvider: React.FC<{ client?: Client }> = ({
 };
 
 export default ClientProvider;
+
+// https://stackoverflow.com/questions/54116070/how-can-i-unit-test-non-exported-functions
+export const exportedForTesting = {
+  willAuthError,
+};

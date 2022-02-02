@@ -45,7 +45,6 @@ export const Select: React.FunctionComponent<SelectProps> = ({
         required={!!rules?.required}
         context={context}
         error={error}
-        hideOptional
       >
         <select
           data-h2-radius="b(s)"

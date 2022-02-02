@@ -11,28 +11,34 @@ php -version
 
 cat << '__EOF__' > $(System.DefaultWorkingDirectory)/$(Release.PrimaryArtifactSourceAlias)/.htaccess
 
+# Don't automatically add slash (with 301 redirect) if path matches a directory
+DirectorySlash off
+
 <IfModule mod_rewrite.c>
     RewriteEngine on
 
-#   remove trailing slash
-    RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteCond %{REQUEST_URI} (.+)/$
-    RewriteRule ^ %1 [L,R=301]
+    # Strip trailing slash from all urls redirect back to public url, unless already pointing to a public folder
+    RewriteCond %{REQUEST_URI} ^/(.+)/$
+    RewriteCond %{REQUEST_URI} !/public/$
+    RewriteRule ^ %{ENV:APP_URL}/%1 [L,R=301]
 
-    RewriteCond %{REQUEST_URI} ^(.*)
-    RewriteRule ^phpinfo.php$ phpinfo.php [L]
-    RewriteRule ^graphql-playground api/public/graphql-playground [L]
-    RewriteRule ^graphql api/public/graphql [L]
-    RewriteRule ^auth/(.*)$ auth/public/$1 [L]
-    RewriteRule ^oauth/(.*)$ auth/public/$1 [L]
-    RewriteRule ^admin/(.*)$ admin/public/$1 [L]
-    RewriteRule ^public/(.*)$ talentsearch/public/$1 [L]
-    RewriteRule ^(.*)$ talentsearch/public/$1 [L]
-</IfModule>
+    # Rewrite api requests
+    RewriteRule ^graphql-playground$ api/public/graphql-playground [L]
+    RewriteRule ^graphql$ api/public/graphql [L]
 
-<IfModule mod_headers.c>
-    RequestHeader set X-Forwarded-Host "dev-talentcloud.tbs-sct.gc.ca"
-    RequestHeader set Forwarded "host=dev-talentcloud.tbs-sct.gc.ca;proto=https"
+    # Send admin requests to admin public folder (with or without public/ path prefix).
+    RewriteRule ^admin/public(/(.*))?$ frontend/admin/public/$2 [L]
+    RewriteRule ^admin(/(.*))?$ frontend/admin/public/$2 [L]
+
+    # Send auth-callback request to admin
+    RewriteRule ^auth-callback$ frontend/admin/public/auth-callback [L]
+
+    # Send /public requests to talentsearch public folder
+    RewriteRule ^public/(.*)$ frontend/talentsearch/public/$1 [L]
+
+    # Send al other requests to talentsearch
+    RewriteCond %{REQUEST_URI} !^frontend/talentsearch/public/
+    RewriteRule ^(.*)$ frontend/talentsearch/public/$1 [L]
 </IfModule>
 
 # Security headers
@@ -46,28 +52,19 @@ Header add Pragma no-cache
 Header add Referrer-Policy "no-referrer-when-downgrade"
 #Header add Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.google-analytics.com https://www.googletagmanager.com https://tagmanager.google.com https://code.jquery.com https://cdn.datatables.net https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://html2canvas.hertzen.com https://stackpath.bootstrapcdn.com; img-src 'self' data: https://www.google-analytics.com https://ssl.gstatic.com https://www.gstatic.com https://www.gravatar.com https://images.unsplash.com; style-src 'self' 'unsafe-inline' https://tagmanager.google.com https://fonts.googleapis.com https://code.ionicframework.com https://cdn.datatables.net https://stackpath.bootstrapcdn.com https://cdnjs.cloudflare.com; font-src 'self' data: https://fonts.gstatic.com https://tagmanager.google.com https://code.ionicframework.com https://stackpath.bootstrapcdn.com; frame-src 'self'; object-src 'self'; connect-src 'self' https://api.github.com https://www.google-analytics.com;"
 Header add Feature-Policy "geolocation 'none'; midi 'none'; sync-xhr 'none'; microphone 'none'; camera 'none'; magnetometer 'none'; gyroscope 'none'; fullscreen 'self'; payment 'none';"
+
 __EOF__
 
 ### Dependencies
 
 sudo composer selfupdate
 
-export TALENTSEARCH_APP_DIR=""
-
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+
 source ~/.bash_profile
 nvm install v14.18.1
 nvm install-latest-npm
-
-### Common
-
-cd $(System.DefaultWorkingDirectory)/$(Release.PrimaryArtifactSourceAlias)/common
-
-nvm use
-npm install
-npm run codegen
-#npm install --production
 
 ### API
 
@@ -78,55 +75,54 @@ sudo chown -R www-data ./storage ./vendor
 sudo chmod -R 775 ./ ./storage
 php artisan lighthouse:print-schema --write
 
-### Auth
+### Install all npm dependencies
 
-cd $(System.DefaultWorkingDirectory)/$(Release.PrimaryArtifactSourceAlias)/auth
-
-nvm use
-composer install --no-dev
+cd $(System.DefaultWorkingDirectory)/$(Release.PrimaryArtifactSourceAlias)/frontend
 npm install
-npm run production
-npm install --production
-sudo chown -R www-data ./storage ./vendor
-sudo chmod -R 775 ./ ./storage
-php artisan config:cache
+npm rebuild node-sass
+
+# Work-around until Hydrogen is updated: we trick hydrogen into thinking its installed in the package path.
+# See: https://github.com/hydrogen-design-system/hydrogen.css/issues/72
+mkdir -p admin/node_modules common/node_modules talentsearch/node_modules
+(cd admin/node_modules && ln -s ../../node_modules/@hydrogen-design-system .)
+(cd common/node_modules && ln -s ../../node_modules/@hydrogen-design-system .)
+(cd talentsearch/node_modules && ln -s ../../node_modules/@hydrogen-design-system .)
+
+### Common
+
+cd $(System.DefaultWorkingDirectory)/$(Release.PrimaryArtifactSourceAlias)/frontend/common
+npm run h2-build
+npm run codegen
+npm run intl-compile
+#npm install --production
 
 ### Talentsearch
 
-cd $(System.DefaultWorkingDirectory)/$(Release.PrimaryArtifactSourceAlias)/talentsearch
-
-nvm use
+cd $(System.DefaultWorkingDirectory)/$(Release.PrimaryArtifactSourceAlias)/frontend/talentsearch
 composer install --no-dev
-npm install
-npm i @graphql-codegen/typescript --save-dev
-npm rebuild node-sass
 npm run h2-build
 npm run codegen
+npm run intl-compile
 npm run production
-npm install --production
 sudo chown -R www-data ./storage ./vendor
 sudo chmod -R 775 ./ ./storage
 
 ### Admin
 
-cd $(System.DefaultWorkingDirectory)/$(Release.PrimaryArtifactSourceAlias)/admin
-
-nvm use
+cd $(System.DefaultWorkingDirectory)/$(Release.PrimaryArtifactSourceAlias)/frontend/admin
 composer install --no-dev
-npm install
-npm rebuild node-sass
 npm run h2-build
 npm run codegen
+npm run intl-compile
 npm run production
-npm install --production
 sudo chown -R www-data ./storage ./vendor
 sudo chmod -R 775 ./ ./storage
-php artisan config:cache
+
+### Cleanup $(System.DefaultWorkingDirectory)/$(Release.PrimaryArtifactSourceAlias)/frontend npm dependencies
+
+cd $(System.DefaultWorkingDirectory)/$(Release.PrimaryArtifactSourceAlias)/frontend
+npm install --production
 
 ### Startup command
 
-#### Development
-cd api/ && php artisan migrate -n --force && cd /home/site/wwwroot/auth/ && php artisan migrate -n --force
-
-#### Production
-#cd api/ && php artisan migrate -n --force && php artisan db:seed --class=ProdSeeder && cd /home/site/wwwroot/auth/ && php artisan migrate -n --force
+cp -Rf admin/bootstrap /tmp/ && chown -R www-data:www-data /tmp/bootstrap && cd api && php aritsan migrate -n --force 2>&1 | tee /tmp/migrate.log

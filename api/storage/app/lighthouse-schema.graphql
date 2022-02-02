@@ -108,8 +108,25 @@ input CreatePoolInput {
   operationalRequirements: OperationalRequirementBelongsToMany
 }
 
+input CreateSkillFamilyInput {
+  key: KeyString!
+  name: LocalizedStringInput!
+  description: LocalizedStringInput
+  skills: SkillBelongsToMany
+  category: SkillCategory!
+}
+
+input CreateSkillInput {
+  key: KeyString!
+  name: LocalizedStringInput!
+  description: LocalizedStringInput
+  families: SkillFamilyBelongsToMany
+  keywords: [String]
+}
+
 """When creating a User, name and email are required."""
 input CreateUserInput {
+  sub: String
   firstName: String!
   lastName: String!
   email: Email!
@@ -198,6 +215,10 @@ type Mutation {
   deleteDepartment(id: ID!): Department
   createPoolCandidateSearchRequest(poolCandidateSearchRequest: CreatePoolCandidateSearchRequestInput!): PoolCandidateSearchRequest
   updatePoolCandidateSearchRequest(id: ID!, poolCandidateSearchRequest: UpdatePoolCandidateSearchRequestInput!): PoolCandidateSearchRequest
+  createSkillFamily(skillFamily: CreateSkillFamilyInput!): SkillFamily
+  updateSkillFamily(id: ID!, skillFamily: UpdateSkillFamilyInput!): SkillFamily
+  createSkill(skill: CreateSkillInput!): Skill
+  updateSkill(id: ID!, skill: UpdateSkillInput!): Skill
 }
 
 """e.g. Overtime as Required, Shift Work, Travel as Required, etc."""
@@ -439,7 +460,9 @@ type Query {
   poolCandidateFilters: [PoolCandidateFilter]!
   poolCandidateSearchRequest(id: ID!): PoolCandidateSearchRequest
   poolCandidateSearchRequests: [PoolCandidateSearchRequest]!
+  skillFamily(id: ID!): SkillFamily
   skillFamilies: [SkillFamily]!
+  skill(id: ID!): Skill
   skills: [Skill]!
 }
 
@@ -531,6 +554,10 @@ type Skill {
   families: [SkillFamily]
 }
 
+input SkillBelongsToMany {
+  sync: [ID!]
+}
+
 enum SkillCategory {
   TECHNICAL
   BEHAVIOURAL
@@ -543,6 +570,10 @@ type SkillFamily {
   description: LocalizedString!
   skills: [Skill]
   category: SkillCategory!
+}
+
+input SkillFamilyBelongsToMany {
+  sync: [ID!]
 }
 
 """Directions for ordering a list of records."""
@@ -630,11 +661,26 @@ input UpdatePoolInput {
   operationalRequirements: OperationalRequirementBelongsToMany
 }
 
+input UpdateSkillFamilyInput {
+  name: LocalizedStringInput
+  description: LocalizedStringInput
+  skills: SkillBelongsToMany
+  category: SkillCategory
+}
+
+input UpdateSkillInput {
+  name: LocalizedStringInput!
+  description: LocalizedStringInput
+  families: SkillFamilyBelongsToMany
+  keywords: [String]
+}
+
 """
 When updating a User, all fields are optional, and email cannot be changed.
 """
 input UpdateUserInput {
   id: ID
+  sub: String
   firstName: String
   lastName: String
   telephone: PhoneNumber

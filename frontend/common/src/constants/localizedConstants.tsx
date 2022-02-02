@@ -7,6 +7,7 @@ import {
   WorkRegion,
   PoolCandidateSearchStatus,
   SkillCategory,
+  Role,
 } from "../api/generated";
 import { getOrThrowError } from "../helpers/util";
 
@@ -191,3 +192,13 @@ export const getSkillCategory = (
     skillCategoryId,
     `Invalid Skill Category '${skillCategoryId}'`,
   );
+
+export const Roles = defineMessages({
+  [Role.Admin]: {
+    defaultMessage: "Administrator",
+    description: "The name of the Administrator user role.",
+  },
+});
+
+export const getRole = (roleId: string | number): MessageDescriptor =>
+  getOrThrowError(Roles, roleId, `Invalid role '${roleId}'`);
