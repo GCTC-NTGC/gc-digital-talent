@@ -52,7 +52,6 @@ const Pagination: React.FunctionComponent<PaginationProps> = ({
   const lastPage = paginationRange[paginationRange.length - 1];
   const isLeftArrowDisabled = currentPage === 1;
   const isRightArrowDisbaled = currentPage === lastPage;
-  console.log(currentPage === lastPage);
   return (
     <nav
       role="navigation"
