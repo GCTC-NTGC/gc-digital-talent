@@ -11,3 +11,13 @@
     background: transparent;
     cursor: pointer;
 }
+
+.button {
+    cursor: pointer;
+    overflow-wrap: break-word;
+}
+
+.disabled {
+    cursor: not-allowed;
+    opacity: 50%;
+}

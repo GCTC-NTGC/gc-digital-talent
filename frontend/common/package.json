@@ -44,6 +44,7 @@
   },
   "dependencies": {
     "@heroicons/react": "^1.0.4",
+    "@testing-library/react-hooks": "^7.0.2",
     "graphql": "^16.3.0",
     "history": "^5.0.1",
     "lodash": "^4.17.21",
@@ -68,6 +69,8 @@
     "@graphql-codegen/typescript-urql": "^3.1.2",
     "@hydrogen-design-system/hydrogen.css": "^1.1.17",
     "@testing-library/react": "^12.1.2",
+    "@testing-library/react-hooks": "^7.0.2",
+    "@testing-library/jest-dom": "^5.16.2",
     "@types/faker": "^5.5.9",
     "@types/jest": "^27.4.0",
     "@types/lodash": "^4.14.172",
