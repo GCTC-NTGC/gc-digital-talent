@@ -28,7 +28,7 @@ DirectorySlash off
     # Send auth-callback request to admin
     RewriteRule ^auth-callback$ frontend/admin/public/auth-callback [L]
 
-    # Send talent requests to talentsearcg public folder (with or without public/ path prefix).
+    # Send talent requests to talentsearch public folder (with or without public/ path prefix).
     RewriteRule ^talent/public(/(.*))?$ frontend/talentsearch/public/$2 [L]
     RewriteRule ^talent(/(.*))?$ frontend/talentsearch/public/$2 [L]
 
