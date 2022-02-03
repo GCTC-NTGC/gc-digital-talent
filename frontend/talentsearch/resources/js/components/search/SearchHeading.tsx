@@ -1,10 +1,12 @@
 import * as React from "react";
 import { imageUrl } from "@common/helpers/router";
 import { useIntl } from "react-intl";
+import { getLocale } from "@common/helpers/localize";
 import { useTalentSearchRoutes } from "../../talentSearchRoutes";
 
 const SearchHeading: React.FunctionComponent = (props) => {
   const intl = useIntl();
+  const locale = getLocale(intl);
   const paths = useTalentSearchRoutes();
   return (
     <header>
@@ -19,7 +21,7 @@ const SearchHeading: React.FunctionComponent = (props) => {
           )})`,
           backgroundSize: "cover",
           backgroundBlendMode: "multiply",
-          minHeight: "15rem",
+          minHeight: locale === "en" ? "15rem" : "20rem",
         }}
       >
         <h1
