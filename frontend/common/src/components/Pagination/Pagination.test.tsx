@@ -1,8 +1,8 @@
 /**
  * @jest-environment jsdom
  */
-
-import { render, screen } from "@testing-library/react";
+import "@testing-library/jest-dom";
+import { fireEvent, render, screen } from "@testing-library/react";
 import { renderHook } from "@testing-library/react-hooks";
 import React from "react";
 import { IntlProvider, MessageFormatElement } from "react-intl";
@@ -75,5 +75,53 @@ describe("Pagination tests", () => {
     const dots = screen.getAllByTestId("dots");
     expect(pages).toHaveLength(5);
     expect(dots).toHaveLength(2);
+  });
+
+  test("Should handle clicks on right (next) arrow buttons correctly", () => {
+    const props = NoDots.args as PaginationProps;
+    const handlePageChange = jest.fn();
+    renderWithReactIntl(
+      <NoDots {...props} handlePageChange={handlePageChange} />,
+    );
+    const leftArrowButton = screen.getByTestId("leftArrowButton");
+    const rightArrowButton = screen.getByTestId("rightArrowButton");
+    expect(leftArrowButton).toBeDisabled(); // The button should be disabled since current page is the first page
+    fireEvent.click(rightArrowButton);
+    expect(handlePageChange).toHaveBeenCalledWith(props.currentPage + 1);
+  });
+
+  test("Should handle clicks on left (previous) arrow buttons correctly", () => {
+    const props = NoDots.args as PaginationProps;
+    const handlePageChange = jest.fn();
+    const lastPage = 5;
+    renderWithReactIntl(
+      <NoDots
+        {...props}
+        currentPage={lastPage}
+        handlePageChange={handlePageChange}
+      />,
+    );
+    const leftArrowButton = screen.getByTestId("leftArrowButton");
+    const rightArrowButton = screen.getByTestId("rightArrowButton");
+    expect(rightArrowButton).toBeDisabled(); // The button should be disabled since last page is the current page
+    fireEvent.click(leftArrowButton);
+    expect(handlePageChange).toHaveBeenCalledWith(lastPage - 1);
+  });
+
+  test("Should handle clicks on page buttons correctly", () => {
+    const props = NoDots.args as PaginationProps;
+    const handlePageChange = jest.fn();
+    renderWithReactIntl(
+      <NoDots {...props} handlePageChange={handlePageChange} />,
+    );
+    const pageThreeButton = screen.getByText("3");
+    fireEvent.click(pageThreeButton);
+    expect(handlePageChange).toHaveBeenCalledWith(3);
+    const pageFiveButton = screen.getByText("5");
+    fireEvent.click(pageFiveButton);
+    expect(handlePageChange).toHaveBeenCalledWith(5);
+    const pageTwoButton = screen.getByText("2");
+    fireEvent.click(pageTwoButton);
+    expect(handlePageChange).toHaveBeenCalledWith(2);
   });
 });

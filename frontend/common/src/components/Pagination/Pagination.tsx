@@ -82,6 +82,7 @@ const Pagination: React.FunctionComponent<PaginationProps> = ({
             })}
             onClick={previousPage}
             data-h2-margin="b(right, xs)"
+            data-testid="leftArrowButton"
           >
             <ArrowLeftIcon style={{ width: "1.125rem" }} />
           </Button>
@@ -139,6 +140,7 @@ const Pagination: React.FunctionComponent<PaginationProps> = ({
             })}
             onClick={nextPage}
             data-h2-margin="b(left, xs)"
+            data-testid="rightArrowButton"
           >
             <ArrowRightIcon style={{ width: "1.125rem" }} />
           </Button>
