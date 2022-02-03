@@ -5,5 +5,13 @@
     "admin",
     "common",
     "talentsearch"
-  ]
+  ],
+  "devDependencies": {
+    "@storybook/addon-essentials": "^6.4.17",
+    "@storybook/addon-links": "^6.4.17",
+    "@storybook/builder-webpack5": "^6.4.17",
+    "@storybook/manager-webpack5": "^6.4.17",
+    "@storybook/react": "^6.4.17",
+    "storybook-addon-intl": "^2.4.1"
+  }
 }
