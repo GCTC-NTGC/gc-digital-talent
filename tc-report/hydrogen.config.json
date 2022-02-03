@@ -1,0 +1,210 @@
+{
+  "debug": false,
+  "folders": {
+    "markup": [
+      "_layouts",
+      "_includes",
+      "_data"
+    ],
+    "styles": "assets/css"
+  },
+  "colors": [
+    {
+      "key": "white",
+      "color": "rgb(255 255 255)",
+      "opacities": [
+        ".1",
+        ".2"
+      ]
+    },
+    {
+      "key": "black",
+      "color": "rgb(20, 20, 35)",
+      "opacities": [
+        ".8"
+      ]
+    },
+    {
+      "key": "itpBlack",
+      "color": "#221f1f",
+      "opacities": []
+    },
+    {
+      "key": "itpSecondary",
+      "color": "#daba27",
+      "opacities": []
+    },
+    {
+      "key": "gray",
+      "color": "rgb(150, 150, 150)",
+      "opacities": []
+    },
+    {
+      "key": "hover",
+      "color": "#1c4aa5",
+      "opacities": [],
+      "variants": {
+        "light": "rgba(211,223,247,1)"
+      }
+    },
+    {
+      "key": "primary",
+      "color": "#674C90",
+      "opacities": [
+        ".1",
+        ".2"
+      ]
+    },
+    {
+      "key": "secondary",
+      "color": "#1D2C4C",
+      "opacities": [
+        ".1",
+        ".2"
+      ]
+    },
+    {
+      "key": "tc",
+      "color": "#96043e",
+      "opacities": []
+    },
+    {
+      "key": "go",
+      "color": "green",
+      "opacities": []
+    },
+    {
+      "key": "slow",
+      "color": "orange",
+      "opacities": []
+    },
+    {
+      "key": "stop",
+      "color": "red",
+      "opacities": []
+    },
+    {
+      "key": "purple",
+      "color": "#5b1647",
+      "opacities": [
+        ".1",
+        ".2"
+      ]
+    },
+    {
+      "key": "wine",
+      "color": "#96043e",
+      "opacities": []
+    },
+    {
+      "key": "red",
+      "color": "#c90035",
+      "opacities": []
+    }
+  ],
+  "flexgrid": {
+    "enabled": true,
+    "columns": 5
+  },
+  "fonts": [
+    {
+      "key": "sans",
+      "loadType": "webfont",
+      "value": "Open Sans, sans-serif",
+      "url": null
+    }
+  ],
+  "fontScale": "1.250",
+  "gradients": [
+    {
+      "type": "linear",
+      "angle": "45deg",
+      "colorStops": [
+        {
+          "key": "primary",
+          "color": "#674C90"
+        },
+        {
+          "key": "secondary",
+          "color": "#1D2C4C"
+        }
+      ]
+    },
+    {
+      "type": "linear",
+      "angle": "45deg",
+      "colorStops": [
+        {
+          "key": "accprimary",
+          "color": "#9eaa55"
+        },
+        {
+          "key": "accsecondary",
+          "color": "#3ea1b5"
+        }
+      ]
+    },
+    {
+      "type": "linear",
+      "angle": "45deg",
+      "colorStops": [
+        {
+          "key": "itpprimary",
+          "color": "#BF362D"
+        },
+        {
+          "key": "itpsecondary",
+          "color": "#6a221d"
+        }
+      ]
+    },
+    {
+      "type": "linear",
+      "angle": "85deg",
+      "colorStops": [
+        {
+          "key": "purple",
+          "color": "#5b1647"
+        },
+        {
+          "key": "red",
+          "color": "#c90035"
+        }
+      ]
+    }
+  ],
+  "mediaWarnings": true,
+  "whitespaceScale": "1.5",
+  "radius": [
+    {
+      "key": "s",
+      "value": "5px"
+    },
+    {
+      "key": "m",
+      "value": "20rem"
+    }
+  ],
+  "shadows": [
+    {
+      "key": "xs",
+      "value": "0 0.1rem 0.2rem 0 rgba(0, 0, 0, .3)"
+    },
+    {
+      "key": "s",
+      "value": "0 0.25rem 0.5rem -0.04rem rgba(0, 0, 0, .3)"
+    },
+    {
+      "key": "m",
+      "value": "0 0.4rem 0.7rem -0.1rem rgba(0, 0, 0, .3)"
+    },
+    {
+      "key": "l",
+      "value": "0 0.55rem 1rem -0.2rem rgba(0, 0, 0, .3)"
+    },
+    {
+      "key": "xl",
+      "value": "0 0.7rem 1.5rem -0.3rem rgba(0, 0, 0, .3)"
+    }
+  ]
+}
