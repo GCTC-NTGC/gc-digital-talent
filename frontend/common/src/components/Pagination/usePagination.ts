@@ -2,7 +2,7 @@ import { useMemo, useState } from "react";
 
 export const DOTS = "...";
 
-const range = (start: number, end: number) => {
+const range = (start: number, end: number): number[] => {
   const length = end - start + 1;
   /*
   	Create an array of certain length and set the elements within it from
@@ -31,7 +31,13 @@ export const usePagination = ({
   siblingCount: number;
   currentPage: number;
 }): (number | string)[] => {
-  const paginationRange = useMemo(() => {
+  const paginationRange: (number | string)[] | undefined = useMemo(() => {
+    if (totalCount < 0 || pageSize < 0 || siblingCount < 0 || currentPage < 0) {
+      throw new Error(
+        "Ensure all usePagination parameters are non-negative numbers",
+      );
+    }
+
     const totalPageCount = Math.ceil(totalCount / pageSize);
 
     // Pages count is determined as siblingCount + firstPage + lastPage + currentPage + 2*DOTS
@@ -93,6 +99,9 @@ export const usePagination = ({
       const middleRange = range(leftSiblingIndex, rightSiblingIndex);
       return [firstPageIndex, DOTS, ...middleRange, DOTS, lastPageIndex];
     }
+
+    // If none of the above cases are hit then throw an Error
+    throw new Error("usePagination hook failed.");
   }, [totalCount, pageSize, siblingCount, currentPage]);
 
   return paginationRange || range(1, Math.ceil(totalCount / pageSize));
