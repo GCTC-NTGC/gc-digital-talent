@@ -1,7 +1,7 @@
 # This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
 
-name: Node.js CI
+name: Unit Tests
 
 on:
   push:
@@ -26,10 +26,51 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-        cache-dependency-path: 'frontend/package-lock.json'
+        cache-dependency-path:  |
+         frontend/package-lock.json
+         auth/package-lock.json
 
-    - run: npm ci
-    - run: npm run build --if-present
-    - run: npm run prettier
-    - run: npm run linter
-    - run: npm test
+    - name: Upgrade to latest npm
+        run: npm install --global npm@${{ env.NPM_VERSION }}
+
+    - name: "Install dependencies: workspace"
+        working-directory: frontend
+        run: |
+          npm install
+          # Work-around until Hydrogen is updated: we trick hydrogen into thinking its installed in the package path.
+          # See: https://github.com/hydrogen-design-system/hydrogen.css/issues/72
+          mkdir -p admin/node_modules common/node_modules talentsearch/node_modules
+          (cd admin/node_modules && ln -s ../../node_modules/@hydrogen-design-system .)
+          (cd common/node_modules && ln -s ../../node_modules/@hydrogen-design-system .)
+          (cd talentsearch/node_modules && ln -s ../../node_modules/@hydrogen-design-system .)
+
+    - name: "Build: common"
+        working-directory: frontend/common
+        run: |
+          # No need to build since we only use admin's hydrogen.css.
+          #npm run h2-build
+          npm run codegen
+
+    - name: "Build: admin"
+        working-directory: frontend/admin
+        run: |
+          npm run h2-build
+          npm run codegen
+          npm run intl-compile
+
+    - name: "Build: talentsearch"
+        working-directory: frontend/talentsearch
+        run: |
+          npm run codegen
+          npm run intl-compile
+
+    - name: "Run unit tests: talentsearch"
+        working-directory: frontend/talentsearch
+        run: npm run test
+
+    - name: "Run unit tests: common"
+        working-directory: frontend/common
+        run: npm run test
+
+
+
