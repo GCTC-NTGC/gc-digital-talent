@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react";
+import React, { ReactElement, useContext } from "react";
 import { useIntl } from "react-intl";
 import { useLocation, useRouter, RouterResult } from "@common/helpers/router";
 import { getLocale } from "@common/helpers/localize";
@@ -11,6 +11,7 @@ import ADMIN_APP_DIR from "../../adminConstants";
 import { useAdminRoutes } from "../../adminRoutes";
 import { useGetPoolsQuery } from "../../api/generated";
 import SideMenu from "../menu/SideMenu";
+import { AuthContext } from "../AuthContainer";
 
 export const exactMatch = (ref: string, test: string): boolean => ref === test;
 export const startsWith = (ref: string, test: string): boolean =>
@@ -102,6 +103,48 @@ const PoolListApi = () => {
   return items;
 };
 
+const LoginOrLogout = () => {
+  const intl = useIntl();
+  const location = useLocation();
+  const { loggedIn, logout } = useContext(AuthContext);
+
+  if (loggedIn) {
+    return (
+      <Button
+        color="white"
+        mode="inline"
+        block
+        tabIndex={-1}
+        onClick={() => {
+          logout();
+        }}
+      >
+        {intl.formatMessage({
+          defaultMessage: "Logout",
+          description: "Label displayed on the Logout menu item.",
+        })}
+      </Button>
+    );
+  }
+
+  return (
+    <Button
+      color="white"
+      mode="inline"
+      block
+      tabIndex={-1}
+      onClick={() => {
+        window.location.href = `/admin/login?from=${location.pathname}`;
+      }}
+    >
+      {intl.formatMessage({
+        defaultMessage: "Login",
+        description: "Label displayed on the Login menu item.",
+      })}
+    </Button>
+  );
+};
+
 const AdminNotFound: React.FC = () => {
   const intl = useIntl();
   return (
@@ -142,7 +185,9 @@ export const Dashboard: React.FC<{
             data-h2-position="b(static) m(sticky)"
             style={{ top: "0", maxHeight: "100vh", overflow: "auto" }}
           >
-            <SideMenu items={[...menuItems, ...PoolListApi()]} />
+            <SideMenu
+              items={[...menuItems, ...PoolListApi(), LoginOrLogout()]}
+            />
           </div>
         </div>
         <div
