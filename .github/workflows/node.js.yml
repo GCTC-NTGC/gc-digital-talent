@@ -19,58 +19,15 @@ jobs:
         node-version: [14.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
-    steps:
+   steps:
     - uses: actions/checkout@v2
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v2
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-        cache-dependency-path:  |
-         frontend/package-lock.json
-         auth/package-lock.json
-
-    - name: Upgrade to latest npm
-        run: npm install --global npm@${{ env.NPM_VERSION }}
-
-    - name: "Install dependencies: workspace"
-        working-directory: frontend
-        run: |
-          npm install
-          # Work-around until Hydrogen is updated: we trick hydrogen into thinking its installed in the package path.
-          # See: https://github.com/hydrogen-design-system/hydrogen.css/issues/72
-          mkdir -p admin/node_modules common/node_modules talentsearch/node_modules
-          (cd admin/node_modules && ln -s ../../node_modules/@hydrogen-design-system .)
-          (cd common/node_modules && ln -s ../../node_modules/@hydrogen-design-system .)
-          (cd talentsearch/node_modules && ln -s ../../node_modules/@hydrogen-design-system .)
-
-    - name: "Build: common"
-        working-directory: frontend/common
-        run: |
-          # No need to build since we only use admin's hydrogen.css.
-          #npm run h2-build
-          npm run codegen
-
-    - name: "Build: admin"
-        working-directory: frontend/admin
-        run: |
-          npm run h2-build
-          npm run codegen
-          npm run intl-compile
-
-    - name: "Build: talentsearch"
-        working-directory: frontend/talentsearch
-        run: |
-          npm run codegen
-          npm run intl-compile
-
-    - name: "Run unit tests: talentsearch"
-        working-directory: frontend/talentsearch
-        run: npm run test
-
-    - name: "Run unit tests: common"
-        working-directory: frontend/common
-        run: npm run test
-
-
+        cache-dependency-path: 'frontend/package-lock.json'
+      working-directory: frontend/talentsearch
+    - run: npm install
+    - run: npm test
 
