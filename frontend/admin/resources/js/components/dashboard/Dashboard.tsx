@@ -116,7 +116,17 @@ const LoginOrLogout = () => {
         block
         tabIndex={-1}
         onClick={() => {
-          logout();
+          // Display a confirmation dialog before logging the user out
+          // At some point we may change this to use a modal
+          const message = intl.formatMessage({
+            defaultMessage: "Are you sure you want to logout?",
+            description: "Label displayed on the Logout confirmation dialog.",
+          });
+
+          // eslint-disable-next-line no-restricted-globals, no-alert
+          if (confirm(message)) {
+            logout();
+          }
         }}
       >
         {intl.formatMessage({
