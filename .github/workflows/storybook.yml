@@ -49,7 +49,8 @@ jobs:
       - name: "Build: common"
         working-directory: frontend/common
         run: |
-          # No need to build since we only use admin's hydrogen.css.
+          # No need to run h2-build since `common` JS files are already
+          # processed via admin/talentsearch's `hydrogen.config.js`.
           #npm run h2-build
           npm run codegen
 
@@ -63,8 +64,7 @@ jobs:
       - name: "Build: talentsearch"
         working-directory: frontend/talentsearch
         run: |
-          # No need to build since we only use admin's hydrogen.css.
-          #npm run h2-build
+          npm run h2-build
           npm run codegen
           npm run intl-compile
 
