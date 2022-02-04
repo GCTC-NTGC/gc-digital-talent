@@ -36,4 +36,17 @@ return [
     |
     */
     'server_public_key' => env('AUTH_SERVER_PUBLIC_KEY'),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Allowable Clock Skew
+    |--------------------------------------------------------------------------
+    |
+    | According to CATSv3, section 4.1, Deployments MUST allow between three (3)
+    | and five (5) minutes of clock skew — in either direction — when interpreting
+    | the exp and nbf claims in ID tokens and when enforcing security policies
+    | based thereupon.
+    |
+    */
+    'allowable_clock_skew' =>  DateInterval::createFromDateString('4 minutes'),
 ];
