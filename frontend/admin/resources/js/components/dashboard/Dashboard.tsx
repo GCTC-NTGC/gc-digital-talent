@@ -144,7 +144,10 @@ const LoginOrLogout = () => {
       block
       tabIndex={-1}
       onClick={() => {
-        window.location.href = `/admin/login?from=${location.pathname}`;
+        window.location.href =
+          "/admin/login" +
+          `?from=${location.pathname}` +
+          `&locale=${getLocale(intl)}`;
       }}
     >
       {intl.formatMessage({
