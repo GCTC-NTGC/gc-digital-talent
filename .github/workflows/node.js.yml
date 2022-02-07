@@ -33,11 +33,30 @@ jobs:
           (cd common/node_modules && ln -s ../../node_modules/@hydrogen-design-system .)
           (cd talentsearch/node_modules && ln -s ../../node_modules/@hydrogen-design-system .)
 
-      - name: "Build: common"
+      - name: "Run Unit Tests: common"
         working-directory: frontend/common
         run: |
           # No need to build since we only use admin's hydrogen.css.
           #npm run h2-build
           npm install --force
           npm run codegen
+          npm run intl-compile
+          npm run test
+
+      - name: "Run Unit Tests: admin"
+        working-directory: frontend/admin
+        run: |
+          npm run h2-build
+          npm run codegen
+          npm run intl-compile
+          npm run test
+
+      - name: "Run Unit Tests: talentSearch"
+        working-directory: frontend/talentSearch
+        run: |
+          # No need to build since we only use admin's hydrogen.css.
+          #npm run h2-build
+          npm install --force
+          npm run codegen
+          npm run intl-compile
           npm run test
