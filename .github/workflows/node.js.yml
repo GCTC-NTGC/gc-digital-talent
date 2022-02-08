@@ -46,7 +46,6 @@ jobs:
       - name: "Run Unit Tests: admin"
         working-directory: frontend/admin
         run: |
-          npm install --force
           npm run h2-build
           npm run codegen
           npm run intl-compile
