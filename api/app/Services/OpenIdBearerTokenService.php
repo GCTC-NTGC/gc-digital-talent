@@ -1,11 +1,11 @@
 <?php
 namespace App\Services;
 
-use DateTimeZone;
 use Exception;
 use App\Services\Contracts\BearerTokenServiceInterface;
+use DateInterval;
 use Illuminate\Support\Facades\Cache;
-use Lcobucci\Clock\SystemClock;
+use Lcobucci\Clock\Clock;
 use Lcobucci\JWT\Configuration;
 use Lcobucci\JWT\Signer;
 use Lcobucci\JWT\UnencryptedToken;
@@ -19,14 +19,16 @@ use Lcobucci\JWT\Validation\Constraint\SignedWith;
 class OpenIdBearerTokenService implements BearerTokenServiceInterface
 {
     private Configuration $unsecuredConfig;
-    private SystemClock $clock;
+    private Clock $clock;
     private string $configUri;
+    private DateInterval $allowableClockSkew;
 
-    public function __construct(string $timeZone, string $configUri)
+    public function __construct(string $configUri, Clock $clock, DateInterval $allowableClockSkew)
     {
         $this->unsecuredConfig = Configuration::forUnsecuredSigner(); // need a config to parse the token and get the key id
-        $this->clock = new SystemClock(new DateTimeZone($timeZone));
+        $this->clock = $clock;
         $this->configUri = $configUri;
+        $this->allowableClockSkew = $allowableClockSkew;
     }
 
     // parse the jwks json document and build a dictionary of key id to configuration object
@@ -123,7 +125,7 @@ class OpenIdBearerTokenService implements BearerTokenServiceInterface
         $config->setValidationConstraints(
             new IssuedBy($this->getConfigProperty('issuer')),
             new RelatedTo($token->claims()->get('sub')),
-            new LooseValidAt($this->clock),
+            new LooseValidAt($this->clock, $this->allowableClockSkew),
             new SignedWith($config->signer(), $config->verificationKey()),
         );
         $constraints = $config->validationConstraints();
