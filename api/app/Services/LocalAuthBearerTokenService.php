@@ -1,8 +1,8 @@
 <?php
 namespace App\Services;
 
-use DateTimeZone;
-use Lcobucci\Clock\SystemClock;
+use DateInterval;
+use Lcobucci\Clock\Clock;
 use Lcobucci\JWT\Configuration;
 use Lcobucci\JWT\Signer;
 use Lcobucci\JWT\Signer\Key\InMemory;
@@ -18,9 +18,10 @@ class LocalAuthBearerTokenService implements BearerTokenServiceInterface
 {
     private string $issuer;
     private Configuration $config;
-    private SystemClock $clock;
+    private Clock $clock;
+    private DateInterval $allowableClockSkew;
 
-    function __construct(string $issuer, string $publicKey, string $timeZone)
+    function __construct(string $issuer, string $publicKey, Clock $clock, DateInterval $allowableClockSkew)
     {
         $this->issuer = $issuer;
         $this->config = Configuration::forAsymmetricSigner(
@@ -28,7 +29,8 @@ class LocalAuthBearerTokenService implements BearerTokenServiceInterface
             InMemory::empty(), // Private key is only used for generating tokens, which is not being done here, therefore empty is used.
             InMemory::plainText($publicKey),
         );
-        $this->clock = new SystemClock(new DateTimeZone($timeZone));
+        $this->clock = $clock;
+        $this->allowableClockSkew = $allowableClockSkew;
     }
 
     public function validateAndGetClaims(string $bearerToken) : DataSet
@@ -39,7 +41,7 @@ class LocalAuthBearerTokenService implements BearerTokenServiceInterface
         $this->config->setValidationConstraints(
             new IssuedBy($this->issuer),
             new RelatedTo($token->claims()->get('sub')),
-            new LooseValidAt($this->clock),
+            new LooseValidAt($this->clock, $this->allowableClockSkew),
             new SignedWith($this->config->signer(), $this->config->verificationKey()),
         );
         $constraints = $this->config->validationConstraints();
