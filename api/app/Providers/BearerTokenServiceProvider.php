@@ -23,8 +23,8 @@ class BearerTokenServiceProvider extends ServiceProvider
         if(config('oauth.server_root'))
             $this->app->singleton(BearerTokenServiceInterface::class, function () use ($systemClock) {
                 return new OpenIdBearerTokenService(
-                    $systemClock,
                     config('oauth.server_root').'/.well-known/openid-configuration',
+                    $systemClock,
                     config('oauth.allowable_clock_skew')
                 );
             });

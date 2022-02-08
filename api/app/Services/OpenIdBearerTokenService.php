@@ -23,7 +23,7 @@ class OpenIdBearerTokenService implements BearerTokenServiceInterface
     private string $configUri;
     private DateInterval $allowableClockSkew;
 
-    public function __construct(Clock $clock, string $configUri, DateInterval $allowableClockSkew)
+    public function __construct(string $configUri, Clock $clock, DateInterval $allowableClockSkew)
     {
         $this->unsecuredConfig = Configuration::forUnsecuredSigner(); // need a config to parse the token and get the key id
         $this->clock = $clock;

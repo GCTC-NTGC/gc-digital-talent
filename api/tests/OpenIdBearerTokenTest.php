@@ -61,9 +61,9 @@ RAWJSON);
         $this->now = new DateTimeImmutable('2020-01-01 00:02:00', new DateTimeZone('UTC'));
         $this->allowableClockSkew = DateInterval::createFromDateString('4 minutes');
         $this->service_provider = new OpenIdBearerTokenService(
+            stream_get_meta_data($this->tempConfigFile)['uri'],
             new FrozenClock($this->now),
-             stream_get_meta_data($this->tempConfigFile)['uri'],
-             $this->allowableClockSkew
+            $this->allowableClockSkew
         );
 
         parent::setUp();
