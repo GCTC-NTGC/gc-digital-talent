@@ -15,6 +15,7 @@ class AuthController extends Controller
         $request->session()->put('state', $state = Str::random(40));
 
         $request->session()->put(
+            'from',
             $request->input('from')
         );
 
