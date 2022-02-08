@@ -14,10 +14,8 @@ class AuthController extends Controller
         $state = Str::random(40);
         $request->session()->put('state', $state = Str::random(40));
 
-        $request->session()->put('from',
-            isset($_GET['from'])
-            ? $_GET['from']
-            : null
+        $request->session()->put(
+            $request->input('from')
         );
 
         $requestedLocale = $request->input('locale');
