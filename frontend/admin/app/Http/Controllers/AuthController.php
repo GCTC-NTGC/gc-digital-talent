@@ -14,11 +14,18 @@ class AuthController extends Controller
         $state = Str::random(40);
         $request->session()->put('state', $state = Str::random(40));
 
-        $request->session()->put('from',
-            isset($_GET['from'])
-            ? $_GET['from']
-            : null
+        $request->session()->put(
+            'from',
+            $request->input('from')
         );
+
+        $requestedLocale = $request->input('locale');
+        if(strcasecmp($requestedLocale, 'en') == 0)
+            $ui_locales = 'en-CA en';
+        else if(strcasecmp($requestedLocale, 'fr') == 0)
+            $ui_locales = 'fr-CA fr';
+        else
+            $ui_locales = $requestedLocale;
 
         $scope = 'openid';
         // Laravel auth server will error out if you request offline_access scope
@@ -32,6 +39,7 @@ class AuthController extends Controller
             'scope' => $scope,
             'state' => $state,
             'acr_values' => 'mfa',
+            'ui_locales' => $ui_locales,
         ]);
 
         return redirect(config('oauth.authorize_uri') . '?' . $query);
