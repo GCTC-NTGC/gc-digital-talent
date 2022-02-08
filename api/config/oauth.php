@@ -36,4 +36,15 @@ return [
     |
     */
     'server_public_key' => env('AUTH_SERVER_PUBLIC_KEY'),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Default User
+    |--------------------------------------------------------------------------
+    |
+    | If this is set to a valid user email, then any authenticated request will be treated as this user.
+    | THIS SHOULD BE NULL IN PRODUCTION!
+    |
+    */
+    'default_user' => env('AUTH_DEFAULT_USER', null),
 ];
