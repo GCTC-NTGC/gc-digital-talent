@@ -1,4 +1,4 @@
-name: Unit Tests
+name: Lint
 
 on:
   push:
@@ -6,8 +6,8 @@ on:
   pull_request:
 
 jobs:
-  build:
-
+  run-linters:
+    name: Run linters
     runs-on: ubuntu-latest
     env:
       NPM_VERSION: "8.3.0"
@@ -34,27 +34,10 @@ jobs:
           (cd common/node_modules && ln -s ../../node_modules/@hydrogen-design-system .)
           (cd talentsearch/node_modules && ln -s ../../node_modules/@hydrogen-design-system .)
 
-      - name: "Run Unit Tests: common"
+      - name: "Run linters: common"
         working-directory: frontend/common
-        run: |
-          # No need to build since we only use admin's hydrogen.css.
-          #npm run h2-build
-          npm run codegen
-          npm run test
+        uses: wearerequired/lint-action@v1
+        with:
+          eslint: true
+          prettier: true
 
-      - name: "Run Unit Tests: admin"
-        working-directory: frontend/admin
-        run: |
-          npm run h2-build
-          npm run codegen
-          npm run intl-compile
-          npm run test
-
-      - name: "Run Unit Tests: talentsearch"
-        working-directory: frontend/talentsearch
-        run: |
-          # No need to build since we only use admin's hydrogen.css.
-          #npm run h2-build
-          npm run codegen
-          npm run intl-compile
-          npm run test
