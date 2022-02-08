@@ -53,7 +53,6 @@ jobs:
       - name: "Run Unit Tests: talentSearch"
         working-directory: frontend/talentSearch
         run: |
-          npm install --force
           npm run codegen
           npm run intl-compile
           npm run test
