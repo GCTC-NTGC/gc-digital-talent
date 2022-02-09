@@ -2,7 +2,7 @@ import React from "react";
 
 export interface ButtonProps extends React.HTMLProps<HTMLButtonElement> {
   /** The style type of the element. */
-  color: "primary" | "secondary" | "cta" | "white";
+  color: "primary" | "secondary" | "cta" | "white" | "black";
   /** The style mode of the element. */
   mode: "solid" | "outline" | "inline";
   /** Determines whether the element should be block level and 100% width. */
@@ -12,7 +12,7 @@ export interface ButtonProps extends React.HTMLProps<HTMLButtonElement> {
 }
 
 const colorMap: Record<
-  "primary" | "secondary" | "cta" | "white",
+  "primary" | "secondary" | "cta" | "white" | "black",
   Record<"solid" | "outline" | "inline", Record<string, string>>
 > = {
   primary: {
@@ -81,6 +81,23 @@ const colorMap: Record<
       "data-h2-border": "b([light]white[0], all, solid, s)",
       "data-h2-bg-color": "b([light]white[0])",
       "data-h2-font-color": "b(white)",
+    },
+  },
+  black: {
+    solid: {
+      "data-h2-border": "b(black, all, solid, s)",
+      "data-h2-bg-color": "b(black)",
+      "data-h2-font-color": "b(white)",
+    },
+    outline: {
+      "data-h2-border": "b(black, all, solid, s)",
+      "data-h2-bg-color": "b([light]black[0])",
+      "data-h2-font-color": "b(black)",
+    },
+    inline: {
+      "data-h2-border": "b([light]white[0], all, solid, s)",
+      "data-h2-bg-color": "b([light]white[0])",
+      "data-h2-font-color": "b(black)",
     },
   },
 };
