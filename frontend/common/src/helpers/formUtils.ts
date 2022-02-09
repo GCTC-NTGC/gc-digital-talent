@@ -57,3 +57,37 @@ export function enumToOptions<T>(
 export function getValues<T>(list: { value: T; label: string }[]): T[] {
   return list.map((x) => x.value);
 }
+
+/**
+ * Returns a boolean indicating if the compare string matches the word being searched for (needle).
+ * @param needle String that you want to search for.
+ * @param compareString A single string to check.
+ * @returns { boolean } True if the needle matches the compare string
+ */
+export function matchStringCaseDiacriticInsensitive(
+  needle: string,
+  compareString: string,
+) {
+  return (
+    compareString
+      .normalize("NFD") // Normalizing to NFD Unicode normal form decomposes combined graphemes into the combination of simple ones.
+      .replace(/[\u0300-\u036f]/g, "") // Using a regex character class to match the U+0300 → U+036F range, it is now trivial to globally get rid of the diacritics, which the Unicode standard conveniently groups as the Combining Diacritical Marks Unicode block.
+      .search(new RegExp(needle, "i")) !== -1 ||
+    compareString.search(new RegExp(needle, "i")) !== -1
+  );
+}
+
+/**
+ * Returns a list of strings (haystack) that match the word being searched for (needle).
+ * @param needle String that you want to search for.
+ * @param haystack List of strings to check against.
+ * @returns { string[] } List of string from the haystack matching the needle
+ */
+export function matchStringsCaseDiacriticInsensitive(
+  needle: string,
+  haystack: string[],
+): string[] {
+  return haystack.filter((name) =>
+    matchStringCaseDiacriticInsensitive(needle, name),
+  );
+}
