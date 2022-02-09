@@ -3,10 +3,7 @@ import { action } from "@storybook/addon-actions";
 import { Meta, Story } from "@storybook/react";
 import Form from "@common/components/form/BasicForm";
 import Submit from "@common/components/form/Submit";
-// import { Checkbox } from "../form/Checkbox";
-// /import { Input } from "../form/Input";
 import WorkExperience from "./WorkExperience";
-// import Form from "../form/BasicForm";
 
 export default {
   component: WorkExperience,
