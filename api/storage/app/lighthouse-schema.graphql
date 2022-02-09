@@ -121,7 +121,7 @@ input CreateSkillInput {
   name: LocalizedStringInput!
   description: LocalizedStringInput
   families: SkillFamilyBelongsToMany
-  keywords: [String]
+  keywords: [String!]
 }
 
 """When creating a User, name and email are required."""
@@ -553,8 +553,8 @@ type Skill {
   key: KeyString!
   name: LocalizedString!
   description: LocalizedString
-  keywords: [String]
-  families: [SkillFamily]
+  keywords: [String!]
+  families: [SkillFamily!]
 }
 
 input SkillBelongsToMany {
@@ -571,7 +571,7 @@ type SkillFamily {
   key: KeyString!
   name: LocalizedString!
   description: LocalizedString!
-  skills: [Skill]
+  skills: [Skill!]
   category: SkillCategory!
 }
 
@@ -675,7 +675,7 @@ input UpdateSkillInput {
   name: LocalizedStringInput!
   description: LocalizedStringInput
   families: SkillFamilyBelongsToMany
-  keywords: [String]
+  keywords: [String!]
 }
 
 """
