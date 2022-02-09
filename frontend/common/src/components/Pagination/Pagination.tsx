@@ -14,7 +14,7 @@ export interface PaginationProps {
   /** Total count of items from array. */
   totalCount: number;
   /** The minimum number of page buttons to be shown on each side of the current page button. */
-  siblingCount: number;
+  siblingCount?: number;
   /** The maximum number of visible items on a single page. */
   pageSize: number;
   /** Callback that changes to the page number value. */
@@ -23,7 +23,7 @@ export interface PaginationProps {
 
 const Pagination: React.FunctionComponent<PaginationProps> = ({
   totalCount,
-  siblingCount,
+  siblingCount = 1,
   currentPage,
   pageSize,
   handlePageChange,
