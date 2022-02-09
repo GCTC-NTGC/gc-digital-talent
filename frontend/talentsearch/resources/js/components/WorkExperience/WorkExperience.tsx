@@ -1,8 +1,8 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { useWatch } from "react-hook-form";
-import { Checkbox } from "../form/Checkbox";
-import { Input } from "../form/Input";
+import { Input } from "@common/components/form/Input";
+import { Checkbox } from "@common/components/form/Checkbox";
 
 export const WorkExperience = () => {
   const rules = { required: true };
