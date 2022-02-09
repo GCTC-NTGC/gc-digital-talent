@@ -26,10 +26,12 @@ const SearchBar: React.FunctionComponent<SearchBarProps> = ({
     return handleSearch(data.query);
   };
 
+  // no dependencies for usCallback since we need the same instance every time
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const submitDebounced = useCallback(
     debounce((query: string) => {
       if (query.length >= 2) handleSubmit(onSubmit)();
-    }, 1000),
+    }, 250),
     [],
   );
 
