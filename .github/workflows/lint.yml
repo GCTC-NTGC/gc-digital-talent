@@ -35,12 +35,18 @@ jobs:
           (cd common/node_modules && ln -s ../../node_modules/@hydrogen-design-system .)
           (cd talentsearch/node_modules && ln -s ../../node_modules/@hydrogen-design-system .)
 
-      - name: "Run linters: common"
-        uses: wearerequired/lint-action@v1
-        with:
-          workingDir: frontend/common
-          github_token: 87148152bdff
-          continue_on_error: true
-          eslint: true
-          prettier: true
 
+      - name: "Run ESlint: common"
+        working-directory: frontend/common
+        continue-on-error: true
+        run: npm run lint
+
+      - name: "Run ESlint: admin"
+        working-directory: frontend/admin
+        continue-on-error: true
+        run: npm run lint
+
+      - name: "Run ESlint: talentSearch"
+        working-directory: frontend/talentsearch
+        continue-on-error: true
+        run: npm run lint
