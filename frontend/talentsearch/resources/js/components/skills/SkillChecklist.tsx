@@ -1,11 +1,12 @@
-import React from "react";
+import React, { useMemo } from "react";
 import groupBy from "lodash/groupBy";
 import sum from "lodash/sum";
 import { useIntl } from "react-intl";
 import { getLocale } from "@common/helpers/localize";
-import { SkillCategory, SkillFamily } from "@common/api/generated";
+import { Skill, SkillCategory, SkillFamily } from "@common/api/generated";
 import { getSkillCategory } from "@common/constants/localizedConstants";
 import { LightningBoltIcon, UserGroupIcon } from "@heroicons/react/outline";
+import { invertSkillTree } from "@common/helpers/skillUtils";
 
 interface FamilyProps {
   family: SkillFamily;
@@ -117,14 +118,17 @@ const Category: React.FunctionComponent<CategoryProps> = ({
 };
 
 export interface SkillChecklistProps {
-  skillFamilies: SkillFamily[];
+  skills: Skill[];
   callback: (selected: SkillFamily[]) => void;
 }
 
 const SkillChecklist: React.FunctionComponent<SkillChecklistProps> = ({
-  skillFamilies,
+  skills,
   callback,
 }) => {
+  // this function can be a bit heavy
+  const skillFamilies = useMemo(() => invertSkillTree(skills), [skills]);
+
   // Divide the list of SkillFamilies by associated SkillCategory
   const skillCategories = groupBy(skillFamilies, "category");
 

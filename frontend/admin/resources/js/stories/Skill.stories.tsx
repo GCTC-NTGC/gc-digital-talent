@@ -2,13 +2,14 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
-import { fakeSkillFamiliesWithSkills } from "@common/fakeData";
+import { fakeSkills, fakeSkillFamilies } from "@common/fakeData";
 import { Skill, CreateSkillInput, UpdateSkillInput } from "../api/generated";
 import { SkillTable } from "../components/skill/SkillTable";
 import { CreateSkillForm } from "../components/skill/CreateSkill";
 import { UpdateSkillForm } from "../components/skill/UpdateSkill";
 
-const { skillFamilies, skills } = fakeSkillFamiliesWithSkills();
+const skillFamilies = fakeSkillFamilies();
+const skills = fakeSkills(10, skillFamilies);
 
 const stories = storiesOf("Skills", module);
 

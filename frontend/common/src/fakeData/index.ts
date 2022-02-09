@@ -9,7 +9,6 @@ import fakeSearchRequests from "./fakeSearchRequests";
 import fakePoolCandidateFilters from "./fakePoolCandidateFilters";
 import fakeSkillFamilies from "./fakeSkillFamilies";
 import fakeSkills from "./fakeSkills";
-import fakeSkillFamiliesWithSkills from "./fakeSkillFamiliesWithSkills";
 
 export {
   fakeClassifications,
@@ -23,5 +22,4 @@ export {
   fakePoolCandidateFilters,
   fakeSkillFamilies,
   fakeSkills,
-  fakeSkillFamiliesWithSkills,
 };
