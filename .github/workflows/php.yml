@@ -14,8 +14,6 @@ jobs:
         run: |
           cp .env.example .env
           composer install --prefer-dist
-          php artisan migrate
-          php artisan lighthouse:print-schema --write
 
       - name: PHPUnit tests
         uses: php-actions/phpunit@v3
