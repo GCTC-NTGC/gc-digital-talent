@@ -1,0 +1,22 @@
+name: CI
+
+on: [push]
+
+jobs:
+  phpunit:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: Install composer dependencies
+        working-directory: api
+        run: |
+          cp .env.example .env
+          composer install --prefer-dist
+
+      - name: PHPUnit tests
+        uses: php-actions/phpunit@v3
+        with:
+          configuration: api/phpunit.xml
+          memory_limit: 256M
