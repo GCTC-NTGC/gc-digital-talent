@@ -39,6 +39,7 @@ type User {
     roles: [Role]
     pools: [Pool] @hasMany # Pools that a user owns
     poolCandidates: [PoolCandidate] @hasMany # Pools candidates that a user owns
+    experiences: [Experience!] @hasMany # Experience that a user owns
 }
 
 type UserPublicProfile {
@@ -212,6 +213,96 @@ type Skill {
     families: [SkillFamily] @belongsToMany
 }
 
+type WorkExperience {
+  id: ID!
+  user: User @belongsTo
+  role: String
+  organization: String
+  division: String
+  startDate: Date
+  endDate: Date
+  currentlyActive: Boolean
+  details: String
+}
+type PersonalExperience {
+  id: ID!
+  user: User @belongsTo
+  title: String
+  description: String
+  startDate: Date
+  endDate: Date
+  currentlyActive: Boolean
+  details: String
+}
+type CommunityExperience {
+  id: ID!
+  user: User @belongsTo
+  title: String
+  organization: String
+  project: String
+  startDate: Date
+  endDate: Date
+  currentlyActive: Boolean
+  details: String
+}
+
+enum EducationStatus {
+  COMPLETE_CREDITED
+  COMPLETE_UNCREDITED
+  IN_PROGRESS
+  AUDITED
+  INCOMPLETE
+}
+enum EducationType {
+  DIPLOMA
+  BACHELORS
+  MASTERS
+  PHD
+  POST_DOCTORAL
+  ONLINE_COURSE
+  CERTIFICATION
+  OTHER
+}
+type EducationExperience {
+  id: ID!
+  user: User @belongsTo
+  institution: String
+  areaOfStudy: String
+  thesisTItle: String
+  startDate: Date
+  endDate: Date
+  currentlyActive: Boolean
+  type: EducationType
+  status: EducationStatus
+}
+
+enum RecipientType {
+  SELF
+  TEAM
+  PROJECT
+  ORGANIZATION
+}
+enum RecognitionType {
+  INTERNATIONAL
+  NATIONAL
+  PROVINCIAL
+  LOCAL
+  COMMUNITY
+  ORGANIZATIONAL
+  DIVISIONAL
+}
+type AwardExperience {
+  id: ID!
+  user: User @belongsTo
+  title: String
+  issuedBy: String
+  awardedDate: Date
+  recipientType: RecipientType
+  recognitionType: RecognitionType
+}
+
+union Experience = WorkExperience | PersonalExperience | CommunityExperience | EducationExperience | AwardExperience
+
 input ClassificationFilterInput {
     group: String!
     level: Int!
@@ -268,6 +359,11 @@ type Query {
     skillFamilies: [SkillFamily]! @all
     skill(id: ID! @eq): Skill @find
     skills: [Skill]! @all
+    workExperience: [WorkExperience]! @all
+    personalExperience: [PersonalExperience]! @all
+    communityExperience: [CommunityExperience]! @all
+    educationExperience: [EducationExperience]! @all
+    awardExperience: [AwardExperience]! @all
 }
 """
 When creating a User, name and email are required.

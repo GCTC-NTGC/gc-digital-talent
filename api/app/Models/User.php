@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphedByMany;
+use Illuminate\Database\Eloquent\Relations\morphedBy;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Auth\Authenticatable as AuthenticatableTrait;
 
@@ -20,6 +22,7 @@ use Illuminate\Auth\Authenticatable as AuthenticatableTrait;
  * @property string $telephone
  * @property string $preferred_lang
  * @property array $roles
+ * @property array $communityExperiences
  * @property Illuminate\Support\Carbon $created_at
  * @property Illuminate\Support\Carbon $updated_at
  */
@@ -34,6 +37,7 @@ class User extends Model implements Authenticatable
 
     protected $casts = [
         'roles' => 'array',
+        'communityExperiences' => 'array',
     ];
 
     public function pools(): HasMany
@@ -43,6 +47,18 @@ class User extends Model implements Authenticatable
     public function poolCandidates(): HasMany
     {
         return $this->hasMany(PoolCandidate::class);
+    }
+    /*public function experiences(): HasMany
+    {
+        return $this->hasMany(Experience::class);
+    }*/
+    public function experiences()
+    {
+        return $this->morphedByMany(CommunityExperience::class, 'experience');
+    }
+    public function awardExperience()
+    {
+        return $this->morphedBy(AwardExperience::class, 'experience');
     }
     public function isAdmin(): bool
     {
