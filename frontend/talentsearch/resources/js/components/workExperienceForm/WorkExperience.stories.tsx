@@ -3,20 +3,20 @@ import { action } from "@storybook/addon-actions";
 import { Meta, Story } from "@storybook/react";
 import Form from "@common/components/form/BasicForm";
 import Submit from "@common/components/form/Submit";
-import WorkExperience from "./WorkExperience";
+import WorkExperienceForm from "./WorkExperienceForm";
 
 export default {
-  component: WorkExperience,
-  title: "WorkExperience",
+  component: WorkExperienceForm,
+  title: "WorkExperienceForm",
 } as Meta;
 
-const TemplateWorkExperience: Story = () => {
+const TemplateWorkExperienceForm: Story = () => {
   return (
     <Form onSubmit={action("submit")}>
-      <WorkExperience />
+      <WorkExperienceForm />
       <Submit />
     </Form>
   );
 };
 
-export const IndividualWorkExperience = TemplateWorkExperience.bind({});
+export const IndividualWorkExperience = TemplateWorkExperienceForm.bind({});

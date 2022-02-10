@@ -5,7 +5,7 @@ import { Input } from "@common/components/form/Input";
 import { Checkbox } from "@common/components/form/Checkbox";
 import { errorMessages } from "@common/messages";
 
-export const WorkExperience: React.FunctionComponent = () => {
+export const WorkExperienceForm: React.FunctionComponent = () => {
   const intl = useIntl();
 
   // to toggle whether End Date is required, the state of the Current Role checkbox must be monitored and have to adjust the form accordingly
@@ -13,7 +13,7 @@ export const WorkExperience: React.FunctionComponent = () => {
 
   return (
     <div>
-      <h2>1. Work Experience Details</h2>
+      <h2 data-h2-font-size="b(h3)">1. Work Experience Details</h2>
       <p>
         Share your experiences gained from full-time, part-time,
         self-employment, fellowships or internships.
@@ -106,4 +106,4 @@ export const WorkExperience: React.FunctionComponent = () => {
   );
 };
 
-export default WorkExperience;
+export default WorkExperienceForm;
