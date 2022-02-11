@@ -17,6 +17,7 @@ jobs:
         php-version: '8.0'
     - uses: actions/checkout@v2
     - name: Copy .env
+      working-directory: api
       run:  cp .env.example .env
 
     - name: Install Dependencies
@@ -36,4 +37,5 @@ jobs:
         DB_USERNAME: postgres
         DB_PASSWORD: password1234
 
+      working-directory: api
       run: vendor/bin/phpunit
