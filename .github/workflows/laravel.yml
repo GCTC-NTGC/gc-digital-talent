@@ -21,7 +21,8 @@ jobs:
       run: |
           cp .env.example .env
           composer install --prefer-dist
-          php artisan key:generate
+          php artisan migrate:fresh --seed
+          php artisan lighthouse:print-schema --write
 
     - name: Directory Permissions
       run: chmod -R 777 storage bootstrap/cache

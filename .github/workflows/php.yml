@@ -16,7 +16,5 @@ jobs:
           composer install --prefer-dist
 
       - name: PHPUnit tests
-        uses: php-actions/phpunit@v3
-        with:
-          configuration: api/phpunit.xml
-          memory_limit: 256M
+        working-directory: api
+        run: vendor/bin/phpunit
