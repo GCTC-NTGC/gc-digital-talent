@@ -17,7 +17,7 @@ interface TabSetState {
 const firstSelectableTab = (tabs: React.ReactElement<TabProps>[]): number => {
   const firstIndex = tabs.findIndex(
     (tab: React.ReactElement<TabProps>) =>
-      tab.props.behavior == null || tab.props.behavior === "default",
+      tab.props.variant == null || tab.props.variant === "default",
   );
   return firstIndex >= 0 ? firstIndex : 0;
 };
