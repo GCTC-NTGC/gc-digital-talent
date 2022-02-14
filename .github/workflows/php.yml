@@ -5,14 +5,40 @@ on: [push]
 jobs:
   phpunit:
     runs-on: ubuntu-latest
+    env:
+      BROADCAST_DRIVER: log
+      CACHE_DRIVER: file
+      QUEUE_CONNECTION: sync
+      SESSION_DRIVER: file
+      DB_CONNECTION: pgsql
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_DATABASE: gctalent
+      DB_USERNAME: postgres
+      DB_PASSWORD: password1234
+    services:
+      postgres:
+        image: postgres:latest
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: postgres
+        ports:
+          - 5432/tcp
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 3
 
     steps:
       - uses: actions/checkout@v1
 
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '7.4'
+          extensions: mbstring, dom, fileinfo, pgsql
+
       - name: Install composer dependencies
         working-directory: api
         run: |
-
           cp .env.example .env
           composer install --prefer-dist
           composer install
