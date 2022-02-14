@@ -8,6 +8,7 @@ import {
   PoolCandidateSearchStatus,
   SkillCategory,
   Role,
+  AwardedTo,
 } from "../api/generated";
 import { getOrThrowError } from "../helpers/util";
 
@@ -39,11 +40,9 @@ export const getLanguage = (languageId: string | number): MessageDescriptor =>
 
 export const educationRequirements = defineMessages({
   hasDiploma: {
-    id: "hasDiploma",
     defaultMessage: "Required diploma from post-secondary institution",
   },
   doesNotHaveDiploma: {
-    id: "doesNotHaveDiploma",
     defaultMessage: "Can accept a combination of work experience and education",
   },
 });
@@ -202,3 +201,31 @@ export const Roles = defineMessages({
 
 export const getRole = (roleId: string | number): MessageDescriptor =>
   getOrThrowError(Roles, roleId, `Invalid role '${roleId}'`);
+
+export const awardedToMessages = defineMessages({
+  [AwardedTo.Me]: {
+    defaultMessage: "Me",
+    description: "Me selection for select input in the awarded to form.",
+  },
+  [AwardedTo.MyTeam]: {
+    defaultMessage: "My Team",
+    description: "My team selection for select input in the awarded to form.",
+  },
+  [AwardedTo.MyProject]: {
+    defaultMessage: "My Project",
+    description:
+      "My project selection for select input in the awarded to form.",
+  },
+  [AwardedTo.MyOrganization]: {
+    defaultMessage: "My Organization",
+    description:
+      "My organization selection for select input in the awarded to form.",
+  },
+});
+
+export const getAwardedTo = (awardedToId: string | number): MessageDescriptor =>
+  getOrThrowError(
+    awardedToMessages,
+    awardedToId,
+    `Invalid awardedTo ${awardedToId}`,
+  );

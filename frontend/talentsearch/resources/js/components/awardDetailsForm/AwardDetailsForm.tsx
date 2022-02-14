@@ -3,6 +3,9 @@ import { useIntl } from "react-intl";
 import { Input } from "@common/components/form/Input";
 import { Select } from "@common/components/form/Select";
 import { errorMessages } from "@common/messages";
+import { enumToOptions } from "@common/helpers/formUtils";
+import { getAwardedTo } from "@common/constants/localizedConstants";
+import { AwardedTo } from "../../api/generated";
 
 export const AwardDetailsForm: React.FunctionComponent = () => {
   const intl = useIntl();
@@ -56,40 +59,10 @@ export const AwardDetailsForm: React.FunctionComponent = () => {
             rules={{
               required: intl.formatMessage(errorMessages.required),
             }}
-            options={[
-              {
-                value: 1,
-                label: intl.formatMessage({
-                  defaultMessage: "Me",
-                  description:
-                    "Me selection for select input in the awarded to form.",
-                }),
-              },
-              {
-                value: 2,
-                label: intl.formatMessage({
-                  defaultMessage: "My Team",
-                  description:
-                    "My team selection for select input in the awarded to form.",
-                }),
-              },
-              {
-                value: 3,
-                label: intl.formatMessage({
-                  defaultMessage: "My Project",
-                  description:
-                    "My project selection for select input in the awarded to form.",
-                }),
-              },
-              {
-                value: 4,
-                label: intl.formatMessage({
-                  defaultMessage: "My Organization",
-                  description:
-                    "My organization selection for select input in the awarded to form.",
-                }),
-              },
-            ]}
+            options={enumToOptions(AwardedTo).map(({ value }) => ({
+              value,
+              label: intl.formatMessage(getAwardedTo(value)),
+            }))}
           />
 
           <Input
