@@ -206,21 +206,21 @@ export const getRole = (roleId: string | number): MessageDescriptor =>
 export const awardedToMessages = defineMessages({
   [AwardedTo.Me]: {
     defaultMessage: "Me",
-    description: "Me selection for select input in the awarded to form.",
+    description: "The award was given to me.",
   },
   [AwardedTo.MyTeam]: {
     defaultMessage: "My Team",
-    description: "My team selection for select input in the awarded to form.",
+    description: "The award was given to my team.",
   },
   [AwardedTo.MyProject]: {
     defaultMessage: "My Project",
     description:
-      "My project selection for select input in the awarded to form.",
+      "The award was given to my project.",
   },
   [AwardedTo.MyOrganization]: {
     defaultMessage: "My Organization",
     description:
-      "My organization selection for select input in the awarded to form.",
+      "The award was given to my organization.",
   },
 });
 
