@@ -14,7 +14,7 @@ jobs:
         env:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: password1234
-          POSTGRES_DB: postgres
+          POSTGRES_DB: gctalent
         ports:
           - 5432:5432
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 3
@@ -36,7 +36,6 @@ jobs:
       - name: Install front-end dependencies
         run: |
           npm install
-          npm run dev
 
       - name: PHPUnit tests
         working-directory: api
