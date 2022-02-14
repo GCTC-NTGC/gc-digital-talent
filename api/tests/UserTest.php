@@ -11,7 +11,7 @@ class UserTest extends TestCase
 
     public function testCreateUserDefaultRoles()
     {
-        $this->markTestSkipped('must be revisited.');
+        $this->markTestSkipped();
         $this->graphQL(/** @lang GraphQL */ '
             mutation CreateUser($user: CreateUserInput!) {
                 createUser(user: $user) {
@@ -48,7 +48,7 @@ class UserTest extends TestCase
 
     public function testCreateUserAdminRole()
     {
-        $this->markTestSkipped('must be revisited.');
+        $this->markTestSkipped();
         $this->graphQL(/** @lang GraphQL */ '
             mutation CreateUser($user: CreateUserInput!) {
                 createUser(user: $user) {
@@ -85,7 +85,7 @@ class UserTest extends TestCase
 
     public function testUpdateUserRole()
     {
-        $this->markTestSkipped('must be revisited.');
+        $this->markTestSkipped();
         $user = User::factory()->create(['roles' => []]);
         $this->graphQL(/** @lang GraphQL */ '
             mutation UpdateUser($id: ID!, $user: UpdateUserInput!) {
