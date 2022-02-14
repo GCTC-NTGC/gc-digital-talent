@@ -5,17 +5,8 @@ on: [push]
 jobs:
   phpunit:
     runs-on: ubuntu-latest
-    env:
-      BROADCAST_DRIVER: log
-      CACHE_DRIVER: file
-      QUEUE_CONNECTION: sync
-      SESSION_DRIVER: file
-      DB_CONNECTION: pgsql
-      DB_HOST: postgres
-      DB_PORT: 5432
-      DB_DATABASE: gctalent
-      DB_USERNAME: postgres
-      DB_PASSWORD: password1234
+    container:
+      image: kirschbaumdevelopment/laravel-test-runner:7.3
 
     services:
       postgres:
@@ -25,7 +16,7 @@ jobs:
           POSTGRES_PASSWORD: password1234
           POSTGRES_DB: postgres
         ports:
-          - 5432/tcp
+          - 5432:5432
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 3
 
     steps:
@@ -35,7 +26,6 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: '7.4'
-          extensions: mbstring, dom, fileinfo, pgsql
 
       - name: Install composer dependencies
         working-directory: api
