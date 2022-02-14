@@ -1,3 +1,10 @@
+enum AwardedTo {
+  ME
+  MY_TEAM
+  MY_PROJECT
+  MY_ORGANIZATION
+}
+
 type Classification {
   id: ID!
   name: LocalizedString

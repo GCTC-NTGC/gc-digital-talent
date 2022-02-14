@@ -239,6 +239,13 @@ input PoolCandidateFilterInput {
     pools: [PoolFilterInput] @builder(method: "App\\Models\\PoolCandidate@filterByPools")
 }
 
+enum AwardedTo {
+    ME
+    MY_TEAM
+    MY_PROJECT
+    MY_ORGANIZATION
+}
+
 type Query {
     me: User @auth
     user(id: ID! @eq): User @find @guard @can(ability: "view", query: true)
