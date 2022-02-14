@@ -40,8 +40,7 @@ jobs:
         working-directory: api
         run: |
           cp .env.example .env
-          composer install --prefer-dist
-          composer install
+          composer install --prefer-dist --no-scripts
           php artisan migrate:fresh --seed
           php artisan lighthouse:print-schema --write
 
