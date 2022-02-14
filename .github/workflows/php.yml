@@ -21,7 +21,7 @@ jobs:
         image: postgres:latest
         env:
           POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
+          POSTGRES_PASSWORD: password1234
           POSTGRES_DB: postgres
         ports:
           - 5432/tcp
@@ -44,6 +44,11 @@ jobs:
           composer install
           php artisan migrate:fresh --seed
           php artisan lighthouse:print-schema --write
+
+      - name: Install front-end dependencies
+        run: |
+          npm install
+          npm run dev
 
       - name: PHPUnit tests
         working-directory: api
