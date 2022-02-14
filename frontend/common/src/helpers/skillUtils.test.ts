@@ -44,7 +44,7 @@ describe("skill util tests", () => {
     const actual = invertSkillTree(skills);
     expect(actual).toEqual(expected);
   });
-  test("inverts a skill tree with a three skills in a single family", () => {
+  test("inverts a skill tree with three skills in a single family", () => {
     const skills: Skill[] = [
       {
         id: "1",

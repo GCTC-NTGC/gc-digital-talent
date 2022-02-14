@@ -28,7 +28,7 @@ export const usePagination = ({
 }: {
   totalCount: number;
   pageSize: number;
-  siblingCount: number;
+  siblingCount?: number;
   currentPage: number;
 }): (number | string)[] => {
   const paginationRange: (number | string)[] | undefined = useMemo(() => {
