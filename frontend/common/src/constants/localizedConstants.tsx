@@ -235,35 +235,35 @@ export const awardedScopeMessages = defineMessages({
   [AwardedScope.International]: {
     defaultMessage: "International",
     description:
-      "International selection for select input in the awarded scope form.",
+      "The scope of the award was international.",
   },
   [AwardedScope.National]: {
     defaultMessage: "National",
     description:
-      "National selection for select input in the awarded scope form.",
+      "The scope of the award was national.",
   },
   [AwardedScope.Provincial]: {
     defaultMessage: "Provincial",
     description:
-      "Provincial selection for select input in the awarded scope form.",
+      "The scope of the award was provincial.",
   },
   [AwardedScope.Local]: {
     defaultMessage: "Local",
-    description: "Local selection for select input in the awarded scope form.",
+    description: "The scope of the award was local.",
   },
   [AwardedScope.Community]: {
     defaultMessage: "Community",
     description:
-      "Community selection for select input in the awarded scope form.",
+      "The scope of the award was within the community.",
   },
   [AwardedScope.Organizational]: {
     defaultMessage: "Organizational",
     description:
-      "Organization selection for select input in the awarded scope form.",
+      "The scope of the award was organizational.",
   },
   [AwardedScope.SubOrganizational]: {
     defaultMessage: "Sub-Organizational (Branch)",
-    description: "Branch selection for select input in the awarded scope form.",
+    description: "The scope of the award was sub-organizational (branch).",
   },
 });
 
