@@ -4,8 +4,11 @@ import { Input } from "@common/components/form/Input";
 import { Select } from "@common/components/form/Select";
 import { errorMessages } from "@common/messages";
 import { enumToOptions } from "@common/helpers/formUtils";
-import { getAwardedTo } from "@common/constants/localizedConstants";
-import { AwardedTo } from "../../api/generated";
+import {
+  getAwardedTo,
+  getAwardedScope,
+} from "@common/constants/localizedConstants";
+import { AwardedTo, AwardedScope } from "../../api/generated";
 
 export const AwardDetailsForm: React.FunctionComponent = () => {
   const intl = useIntl();
@@ -36,7 +39,7 @@ export const AwardDetailsForm: React.FunctionComponent = () => {
                 "Label displayed on award form for award title input",
             })}
             placeholder={intl.formatMessage({
-              defaultMessage: "Write award title here",
+              defaultMessage: "Write award title here...",
               description: "Placeholder for award title input",
             })}
             name="award-title"
@@ -52,7 +55,7 @@ export const AwardDetailsForm: React.FunctionComponent = () => {
             })}
             name="awarded-to"
             nullSelection={intl.formatMessage({
-              defaultMessage: "Choose one",
+              defaultMessage: "Choose one...",
               description:
                 "Null selection for select input in the awarded to form.",
             })}
@@ -73,7 +76,7 @@ export const AwardDetailsForm: React.FunctionComponent = () => {
                 "Label displayed on award form for issuing organization input",
             })}
             placeholder={intl.formatMessage({
-              defaultMessage: "Write issuing name here",
+              defaultMessage: "Write name here...",
               description: "Placeholder for issuing organization input",
             })}
             name="issuing"
@@ -90,71 +93,17 @@ export const AwardDetailsForm: React.FunctionComponent = () => {
             })}
             name="awarded-scope"
             nullSelection={intl.formatMessage({
-              defaultMessage: "Choose one",
+              defaultMessage: "Choose one...",
               description:
                 "Null selection for select input in the award scope form.",
             })}
             rules={{
               required: intl.formatMessage(errorMessages.required),
             }}
-            options={[
-              {
-                value: 1,
-                label: intl.formatMessage({
-                  defaultMessage: "International",
-                  description:
-                    "International selection for select input in the awarded scope form.",
-                }),
-              },
-              {
-                value: 2,
-                label: intl.formatMessage({
-                  defaultMessage: "National",
-                  description:
-                    "National selection for select input in the awarded scope form.",
-                }),
-              },
-              {
-                value: 3,
-                label: intl.formatMessage({
-                  defaultMessage: "Provincial",
-                  description:
-                    "Provincial selection for select input in the awarded scope form.",
-                }),
-              },
-              {
-                value: 4,
-                label: intl.formatMessage({
-                  defaultMessage: "Local",
-                  description:
-                    "Local selection for select input in the awarded scope form.",
-                }),
-              },
-              {
-                value: 5,
-                label: intl.formatMessage({
-                  defaultMessage: "Community",
-                  description:
-                    "Community selection for select input in the awarded scope form.",
-                }),
-              },
-              {
-                value: 6,
-                label: intl.formatMessage({
-                  defaultMessage: "Organization",
-                  description:
-                    "Organization selection for select input in the awarded scope form.",
-                }),
-              },
-              {
-                value: 7,
-                label: intl.formatMessage({
-                  defaultMessage: "Sub-Organization (Branch)",
-                  description:
-                    "Branch selection for select input in the awarded scope form.",
-                }),
-              },
-            ]}
+            options={enumToOptions(AwardedScope).map(({ value }) => ({
+              value,
+              label: intl.formatMessage(getAwardedScope(value)),
+            }))}
           />
         </div>
 

@@ -9,6 +9,7 @@ import {
   SkillCategory,
   Role,
   AwardedTo,
+  AwardedScope,
 } from "../api/generated";
 import { getOrThrowError } from "../helpers/util";
 
@@ -228,4 +229,49 @@ export const getAwardedTo = (awardedToId: string | number): MessageDescriptor =>
     awardedToMessages,
     awardedToId,
     `Invalid awardedTo ${awardedToId}`,
+  );
+
+export const awardedScopeMessages = defineMessages({
+  [AwardedScope.International]: {
+    defaultMessage: "International",
+    description:
+      "International selection for select input in the awarded scope form.",
+  },
+  [AwardedScope.National]: {
+    defaultMessage: "National",
+    description:
+      "National selection for select input in the awarded scope form.",
+  },
+  [AwardedScope.Provincial]: {
+    defaultMessage: "Provincial",
+    description:
+      "Provincial selection for select input in the awarded scope form.",
+  },
+  [AwardedScope.Local]: {
+    defaultMessage: "Local",
+    description: "Local selection for select input in the awarded scope form.",
+  },
+  [AwardedScope.Community]: {
+    defaultMessage: "Community",
+    description:
+      "Community selection for select input in the awarded scope form.",
+  },
+  [AwardedScope.Organizational]: {
+    defaultMessage: "Organizational",
+    description:
+      "Organization selection for select input in the awarded scope form.",
+  },
+  [AwardedScope.SubOrganizational]: {
+    defaultMessage: "Sub-Organizational (Branch)",
+    description: "Branch selection for select input in the awarded scope form.",
+  },
+});
+
+export const getAwardedScope = (
+  awardedScopeId: string | number,
+): MessageDescriptor =>
+  getOrThrowError(
+    awardedScopeMessages,
+    awardedScopeId,
+    `Invalid awardedTo ${awardedScopeId}`,
   );
