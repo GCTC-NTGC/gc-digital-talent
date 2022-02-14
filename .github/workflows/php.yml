@@ -12,9 +12,17 @@ jobs:
       - name: Install composer dependencies
         working-directory: api
         run: |
+          parent_path=$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P )
+          source ${parent_path}/lib/common.sh
           cp .env.example .env
           composer install --prefer-dist
-
+          ${parent_path}/update_env_appkey.sh .env
+          composer install
+          php artisan migrate:fresh --seed
+          php artisan lighthouse:print-schema --write
+          ${parent_path}/update_api_env.sh
+          chown -R www-data ./storage ./vendor
+          chmod -R 775 ./storage
       - name: PHPUnit tests
         working-directory: api
         run: vendor/bin/phpunit
