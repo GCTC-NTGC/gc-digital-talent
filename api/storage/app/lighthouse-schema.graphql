@@ -1,3 +1,13 @@
+type AwardExperience {
+  id: ID!
+  user: User
+  title: String
+  issuedBy: String
+  awardedDate: Date
+  recipientType: RecipientType
+  recognitionType: RecognitionType
+}
+
 type Classification {
   id: ID!
   name: LocalizedString
@@ -28,6 +38,17 @@ type CmoAsset {
 
 input CmoAssetBelongsToMany {
   sync: [ID!]
+}
+
+type CommunityExperience {
+  id: ID!
+  user: User
+  title: String
+  organization: String
+  project: String
+  startDate: Date
+  endDate: Date
+  details: String
 }
 
 input CreateClassificationInput {
@@ -153,8 +174,41 @@ input DepartmentBelongsTo {
   connect: ID!
 }
 
+type EducationExperience {
+  id: ID!
+  user: User
+  institution: String
+  areaOfStudy: String
+  thesisTitle: String
+  startDate: Date
+  endDate: Date
+  type: EducationType
+  status: EducationStatus
+}
+
+enum EducationStatus {
+  COMPLETE_CREDITED
+  COMPLETE_UNCREDITED
+  IN_PROGRESS
+  AUDITED
+  INCOMPLETE
+}
+
+enum EducationType {
+  DIPLOMA
+  BACHELORS
+  MASTERS
+  PHD
+  POST_DOCTORAL
+  ONLINE_COURSE
+  CERTIFICATION
+  OTHER
+}
+
 """A RFC 5321 compliant email."""
 scalar Email
+
+union Experience = WorkExperience | PersonalExperience | CommunityExperience | EducationExperience | AwardExperience
 
 input KeyFilterInput {
   key: KeyString!
@@ -324,6 +378,16 @@ type PaginatorInfo {
   total: Int!
 }
 
+type PersonalExperience {
+  id: ID!
+  user: User
+  title: String
+  description: String
+  startDate: Date
+  endDate: Date
+  details: String
+}
+
 """
 A phone number string which must comply with E.164 international notation, including country code and preceding '+'.
 """
@@ -464,6 +528,28 @@ type Query {
   skillFamilies: [SkillFamily]!
   skill(id: ID!): Skill
   skills: [Skill]!
+  workExperience: [WorkExperience]!
+  personalExperience: [PersonalExperience]!
+  communityExperience: [CommunityExperience]!
+  educationExperience: [EducationExperience]!
+  awardExperience: [AwardExperience]!
+}
+
+enum RecipientType {
+  SELF
+  TEAM
+  PROJECT
+  ORGANIZATION
+}
+
+enum RecognitionType {
+  INTERNATIONAL
+  NATIONAL
+  PROVINCIAL
+  LOCAL
+  COMMUNITY
+  ORGANIZATIONAL
+  DIVISIONAL
 }
 
 enum Role {
@@ -702,6 +788,7 @@ type User {
   roles: [Role]
   pools: [Pool]
   poolCandidates: [PoolCandidate]
+  experiences: [Experience!]
 }
 
 input UserBelongsTo {
@@ -753,6 +840,17 @@ input WhereConditionsRelation {
 
   """Additional condition logic."""
   condition: WhereConditions
+}
+
+type WorkExperience {
+  id: ID!
+  user: User
+  role: String
+  organization: String
+  division: String
+  startDate: Date
+  endDate: Date
+  details: String
 }
 
 enum WorkRegion {

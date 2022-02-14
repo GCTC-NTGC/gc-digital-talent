@@ -15,6 +15,8 @@ class CreateExperienceTables extends Migration
     {
         Schema::create('work_experiences', function (Blueprint $table) {
             $table->uuid('id')->primary('id');
+            $table->uuid('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->string('role')->nullable(false);
             $table->string('organization')->nullable();
             $table->string('division')->nullable();
@@ -27,6 +29,8 @@ class CreateExperienceTables extends Migration
 
         Schema::create('personal_experiences', function (Blueprint $table) {
             $table->uuid('id')->primary('id');
+            $table->uuid('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->string('title')->nullable(false);
             $table->text('description')->nullable();
             $table->date('start_date')->nullable(false);
@@ -38,6 +42,8 @@ class CreateExperienceTables extends Migration
 
         Schema::create('community_experiences', function (Blueprint $table) {
             $table->uuid('id')->primary('id');
+            $table->uuid('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->string('title')->nullable(false);
             $table->string('organization')->nullable();
             $table->string('project')->nullable();
@@ -50,6 +56,8 @@ class CreateExperienceTables extends Migration
 
         Schema::create('education_experiences', function (Blueprint $table) {
             $table->uuid('id')->primary('id');
+            $table->uuid('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->string('institution')->nullable(false);
             $table->string('area_of_study')->nullable(false);
             $table->string('thesis_title')->nullable();
@@ -63,6 +71,8 @@ class CreateExperienceTables extends Migration
 
         Schema::create('award_experiences', function (Blueprint $table) {
             $table->uuid('id')->primary('id');
+            $table->uuid('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->string('title')->nullable(false);
             $table->string('issued_by')->nullable(false);
             $table->date('awarded_date')->nullable(false);
@@ -71,13 +81,6 @@ class CreateExperienceTables extends Migration
             $table->timestamps();
         });
         DB::statement('ALTER TABLE award_experiences ALTER COLUMN id SET DEFAULT gen_random_uuid();');
-
-        Schema::create('experiences', function (Blueprint $table) {
-            $table->uuid('user_id');
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->uuid('experience_id');
-            $table->string('experience_type');
-        });
     }
 
     /**
@@ -92,6 +95,5 @@ class CreateExperienceTables extends Migration
         Schema::dropIfExists('community_experiences');
         Schema::dropIfExists('education_experiences');
         Schema::dropIfExists('award_experiences');
-        Schema::dropIfExists('experiences');
     }
 }

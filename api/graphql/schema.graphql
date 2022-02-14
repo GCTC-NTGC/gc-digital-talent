@@ -39,7 +39,7 @@ type User {
     roles: [Role]
     pools: [Pool] @hasMany # Pools that a user owns
     poolCandidates: [PoolCandidate] @hasMany # Pools candidates that a user owns
-    experiences: [Experience!] @hasMany # Experience that a user owns
+    experiences: [Experience!] # Experience that a user owns
 }
 
 type UserPublicProfile {
@@ -219,9 +219,8 @@ type WorkExperience {
   role: String
   organization: String
   division: String
-  startDate: Date
-  endDate: Date
-  currentlyActive: Boolean
+  startDate: Date @rename(attribute: "start_date")
+  endDate: Date @rename(attribute: "end_date")
   details: String
 }
 type PersonalExperience {
@@ -229,9 +228,8 @@ type PersonalExperience {
   user: User @belongsTo
   title: String
   description: String
-  startDate: Date
-  endDate: Date
-  currentlyActive: Boolean
+  startDate: Date @rename(attribute: "start_date")
+  endDate: Date @rename(attribute: "end_date")
   details: String
 }
 type CommunityExperience {
@@ -240,9 +238,8 @@ type CommunityExperience {
   title: String
   organization: String
   project: String
-  startDate: Date
-  endDate: Date
-  currentlyActive: Boolean
+  startDate: Date @rename(attribute: "start_date")
+  endDate: Date @rename(attribute: "end_date")
   details: String
 }
 
@@ -267,11 +264,10 @@ type EducationExperience {
   id: ID!
   user: User @belongsTo
   institution: String
-  areaOfStudy: String
-  thesisTItle: String
-  startDate: Date
-  endDate: Date
-  currentlyActive: Boolean
+  areaOfStudy: String @rename(attribute: "area_of_study")
+  thesisTitle: String @rename(attribute: "thesis_title")
+  startDate: Date @rename(attribute: "start_date")
+  endDate: Date @rename(attribute: "end_date")
   type: EducationType
   status: EducationStatus
 }
@@ -295,10 +291,10 @@ type AwardExperience {
   id: ID!
   user: User @belongsTo
   title: String
-  issuedBy: String
-  awardedDate: Date
-  recipientType: RecipientType
-  recognitionType: RecognitionType
+  issuedBy: String @rename(attribute: "issued_by")
+  awardedDate: Date @rename(attribute: "awarded_date")
+  recipientType: RecipientType @rename(attribute: "recipient_type")
+  recognitionType: RecognitionType @rename(attribute: "recognition_type")
 }
 
 union Experience = WorkExperience | PersonalExperience | CommunityExperience | EducationExperience | AwardExperience

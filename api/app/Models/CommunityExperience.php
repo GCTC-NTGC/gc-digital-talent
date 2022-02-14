@@ -6,7 +6,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\MorphTo;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Auth\Authenticatable as AuthenticatableTrait;
 
@@ -41,16 +42,8 @@ class CommunityExperience extends Model
         'end_date' => 'date',
     ];
 
-    public function user(): MorphTo
+    public function user(): BelongsTo
     {
-        return $this->morphTo(User::class, 'experience');
+        return $this->belongsTo(User::class);
     }
-    /*public function user(): MorphTo
-    {
-        return $this->morphTo(User::class, 'experience');
-    }
-    public function user()
-    {
-        return $this->morphMany(User::class, 'experience');
-    }*/
 }
