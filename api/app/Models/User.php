@@ -6,11 +6,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\MorphedByMany;
-use Illuminate\Database\Eloquent\Relations\morphedBy;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Auth\Authenticatable as AuthenticatableTrait;
-use Illuminate\Database\Eloquent\Casts\Attribute;
 
 /**
  * Class User
@@ -37,7 +34,6 @@ class User extends Model implements Authenticatable
 
     protected $casts = [
         'roles' => 'array',
-        //'experiences' => 'array',
     ];
 
     protected $with = [
@@ -47,8 +43,6 @@ class User extends Model implements Authenticatable
         'personalExperiences',
         'workExperiences',
     ];
-
-    //protected $appends = ['experiences'];
 
     public function pools(): HasMany
     {
