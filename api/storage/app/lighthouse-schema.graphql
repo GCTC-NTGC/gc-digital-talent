@@ -788,7 +788,12 @@ type User {
   roles: [Role]
   pools: [Pool]
   poolCandidates: [PoolCandidate]
-  experiences: [Experience!]
+  experiences: [Experience]
+  awardExperiences: [AwardExperience]
+  communityExperiences: [CommunityExperience]
+  educationExperiences: [EducationExperience]
+  personalExperiences: [PersonalExperience]
+  workExperiences: [WorkExperience]
 }
 
 input UserBelongsTo {

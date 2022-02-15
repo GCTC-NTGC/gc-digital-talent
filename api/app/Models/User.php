@@ -36,14 +36,6 @@ class User extends Model implements Authenticatable
         'roles' => 'array',
     ];
 
-    protected $with = [
-        'awardExperiences',
-        'communityExperiences',
-        'educationExperiences',
-        'personalExperiences',
-        'workExperiences',
-    ];
-
     public function pools(): HasMany
     {
         return $this->hasMany(Pool::class);
@@ -87,7 +79,7 @@ class User extends Model implements Authenticatable
         $collection = $collection->merge($this->educationExperiences);
         $collection = $collection->merge($this->personalExperiences);
         $collection = $collection->merge($this->workExperiences);
-        return $collection;
+        return $this->workExperiences;
     }
 
      /**
