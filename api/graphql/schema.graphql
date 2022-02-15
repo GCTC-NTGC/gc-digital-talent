@@ -256,6 +256,18 @@ enum AwardedScope {
     SUB_ORGANIZATIONAL
 }
 
+enum EducationType {
+    Hi1
+    Hi2
+    Hi3
+}
+
+enum EducationStatus {
+    Hi1
+    Hi2
+    Hi3
+}
+
 type Query {
     me: User @auth
     user(id: ID! @eq): User @find @guard @can(ability: "view", query: true)

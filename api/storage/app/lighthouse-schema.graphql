@@ -170,6 +170,18 @@ input DepartmentBelongsTo {
   connect: ID!
 }
 
+enum EducationStatus {
+  Hi1
+  Hi2
+  Hi3
+}
+
+enum EducationType {
+  Hi1
+  Hi2
+  Hi3
+}
+
 """A RFC 5321 compliant email."""
 scalar Email
 

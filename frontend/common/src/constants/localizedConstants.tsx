@@ -10,6 +10,8 @@ import {
   Role,
   AwardedTo,
   AwardedScope,
+  EducationType,
+  EducationStatus,
 } from "../api/generated";
 import { getOrThrowError } from "../helpers/util";
 
@@ -267,4 +269,52 @@ export const getAwardedScope = (
     awardedScopeMessages,
     awardedScopeId,
     `Invalid awardedTo ${awardedScopeId}`,
+  );
+
+export const educationStatusMessages = defineMessages({
+  [EducationStatus.Hi1]: {
+    defaultMessage: "Hi1",
+    description: "Hi1 description",
+  },
+  [EducationStatus.Hi2]: {
+    defaultMessage: "Hi2",
+    description: "Hi2 description",
+  },
+  [EducationStatus.Hi3]: {
+    defaultMessage: "Hi3",
+    description: "Hi3 description",
+  },
+});
+
+export const getEducationStatus = (
+  educationStatusId: string | number,
+): MessageDescriptor =>
+  getOrThrowError(
+    educationStatusMessages,
+    educationStatusId,
+    `Invalid awardedTo ${educationStatusId}`,
+  );
+
+export const educationTypeMessages = defineMessages({
+  [EducationType.Hi1]: {
+    defaultMessage: "Hi1",
+    description: "Hi1 description",
+  },
+  [EducationType.Hi2]: {
+    defaultMessage: "Hi2",
+    description: "Hi2 description",
+  },
+  [EducationType.Hi3]: {
+    defaultMessage: "Hi3",
+    description: "Hi3 description",
+  },
+});
+
+export const getEducationType = (
+  educationTypeId: string | number,
+): MessageDescriptor =>
+  getOrThrowError(
+    educationTypeMessages,
+    educationTypeId,
+    `Invalid awardedTo ${educationTypeId}`,
   );
