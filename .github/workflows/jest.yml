@@ -13,9 +13,9 @@ jobs:
       NPM_VERSION: "8.3.0"
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@2.4.0
       - name: Use Node.js
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v2.5.1
         with:
           node-version-file: 'frontend/.nvmrc'
           cache: 'npm'
