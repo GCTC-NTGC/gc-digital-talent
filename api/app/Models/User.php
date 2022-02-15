@@ -79,7 +79,7 @@ class User extends Model implements Authenticatable
         $collection = $collection->merge($this->educationExperiences);
         $collection = $collection->merge($this->personalExperiences);
         $collection = $collection->merge($this->workExperiences);
-        return $this->workExperiences;
+        return $collection;
     }
 
      /**
