@@ -1,5 +1,31 @@
 import React from "react";
 
+export type TabColor = "primary" | "secondary";
+type TabAppearance = "active" | "inactive";
+
+const styleMap: Record<
+  TabColor,
+  Record<TabAppearance, Record<string, string>>
+> = {
+  primary: {
+    active: {
+      "data-h2-font-color": "b(lightpurple)",
+      "data-h2-font-weight": "b(bold)",
+    },
+    inactive: {
+      "data-h2-font-color": "b(black)",
+    },
+  },
+  secondary: {
+    active: {
+      "data-h2-font-color": "b(lightnavy)",
+      "data-h2-font-weight": "b(bold)",
+    },
+    inactive: {
+      "data-h2-font-color": "b(black)",
+    },
+  },
+};
 export interface TabProps extends React.HTMLProps<HTMLElement> {
   icon?: JSX.Element;
   iconOpen?: JSX.Element;
@@ -8,11 +34,12 @@ export interface TabProps extends React.HTMLProps<HTMLElement> {
   text?: string;
   variant?: "default" | "close" | "label";
   placement?: "default" | "end";
-  /* below props are injected by consuming TabSet  */
+  /* below props are injected by parent TabSet  */
   isTabSetOpen?: boolean;
   isTabSelected?: boolean;
   onSelect?: VoidFunction;
   onToggleOpen?: VoidFunction;
+  color?: TabColor;
 }
 
 export const Tab: React.FC<TabProps> = ({
@@ -27,6 +54,7 @@ export const Tab: React.FC<TabProps> = ({
   isTabSelected,
   onSelect,
   onToggleOpen,
+  color = "primary",
 }): React.ReactElement => {
   // start by calculating the icon to show
   let effectiveIcon;
@@ -60,40 +88,29 @@ export const Tab: React.FC<TabProps> = ({
     );
   }
 
-  // properties every tab will have
-  let tabStyles: Record<string, unknown> = {
+  // active tabs will be bold and colored, otherwise they have plain text
+  const tabAppearance =
+    variant === "default" && isTabSelected && isTabSetOpen
+      ? "active"
+      : "inactive";
+
+  // build the data attribute collection for this tab
+  const tabAttributes: Record<string, unknown> = {
+    // margin & padding same for each tab
     "data-h2-padding": "b(top-bottom, xs) b(right-left, s)",
+    // the *end* layout needs this margin to push it to the right
+    ...(placement === "end" && { "data-h2-margin": "b(left, auto)" }),
+    // styles based on color prop and active/inactive
+    ...styleMap[color][tabAppearance],
   };
-
-  // open and selected tabs will be bold and colored, otherwise they have black text
-  if (variant === "default" && isTabSelected && isTabSetOpen) {
-    tabStyles = {
-      ...tabStyles,
-      "data-h2-font-color": "b(lightpurple)",
-      "data-h2-font-weight": "b(bold)",
-    };
-  } else {
-    tabStyles = {
-      ...tabStyles,
-      "data-h2-font-color": "b(black)",
-    };
-  }
-
-  // the end layout needs this margin hack to push it to the right
-  if (placement === "end") {
-    tabStyles = {
-      ...tabStyles,
-      "data-h2-margin": "b(left, auto)",
-    };
-  }
 
   let assembledTab: React.ReactElement;
   switch (variant) {
     case "default":
       // open selected tab is not clickable
       if (isTabSetOpen && isTabSelected)
-        assembledTab = <div {...tabStyles}>{label}</div>;
-      // otherwise, default tabs are clickable
+        assembledTab = <div {...tabAttributes}>{label}</div>;
+      // otherwise, *default* tabs are clickable
       else
         assembledTab = (
           <a
@@ -102,7 +119,7 @@ export const Tab: React.FC<TabProps> = ({
             onClick={onSelect}
             onKeyPress={onSelect}
             style={{ cursor: "pointer" }}
-            {...tabStyles}
+            {...tabAttributes}
           >
             {label}
           </a>
@@ -117,7 +134,7 @@ export const Tab: React.FC<TabProps> = ({
           onClick={onToggleOpen}
           onKeyPress={onToggleOpen}
           style={{ cursor: "pointer" }}
-          {...tabStyles}
+          {...tabAttributes}
         >
           {label}
         </a>
@@ -126,7 +143,7 @@ export const Tab: React.FC<TabProps> = ({
 
     default:
       // just a text label
-      assembledTab = <div {...tabStyles}>{label}</div>;
+      assembledTab = <div {...tabAttributes}>{label}</div>;
   }
 
   return assembledTab;

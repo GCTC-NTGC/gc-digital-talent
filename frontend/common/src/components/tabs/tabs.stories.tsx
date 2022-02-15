@@ -9,13 +9,23 @@ import {
 import { TabSet, Tab, TabSetProps } from ".";
 
 export default {
+  component: TabSet,
   title: "Components/Tabs",
+  args: {
+    color: "primary",
+  },
+  argTypes: {
+    color: {
+      name: "Color",
+      options: ["primary", "secondary"],
+      control: { type: "radio" },
+    },
+  },
 } as Meta;
 
 const TemplateSimple: Story<TabSetProps> = (args) => {
-  const { ...rest } = args;
   return (
-    <TabSet color="primary" mode="inline">
+    <TabSet {...args}>
       <Tab text="Tab 1">Contents of Tab 1</Tab>
       <Tab text="Tab 2">Contents of Tab 2</Tab>
       <Tab text="Tab 3">Contents of Tab 3</Tab>
@@ -24,9 +34,8 @@ const TemplateSimple: Story<TabSetProps> = (args) => {
 };
 
 const TemplateSkillsToExperience: Story<TabSetProps> = (args) => {
-  const { ...rest } = args;
   return (
-    <TabSet color="primary" mode="inline">
+    <TabSet {...args}>
       <Tab
         icon={<SearchCircleIcon style={{ width: "1rem" }} />}
         text="My frequent skills"
@@ -58,9 +67,8 @@ const TemplateSkillsToExperience: Story<TabSetProps> = (args) => {
 };
 
 const TemplateSortExperience: Story<TabSetProps> = (args) => {
-  const { ...rest } = args;
   return (
-    <TabSet color="primary" mode="inline">
+    <TabSet {...args}>
       <Tab variant="label" text="See Experience:" />
       <Tab text="By Date">
         I&apos;m the <i>By Date</i> page!
