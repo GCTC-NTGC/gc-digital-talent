@@ -39,4 +39,4 @@ jobs:
 
       - name: PHPUnit tests
         working-directory: api
-        run: vendor/bin/phpunit
+        run: vendor/bin/phpunit --verbose
