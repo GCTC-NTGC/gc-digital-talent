@@ -32,7 +32,7 @@ export interface TabProps extends React.HTMLProps<HTMLElement> {
   iconClosed?: JSX.Element;
   iconPosition?: "left" | "right";
   text?: string;
-  variant?: "default" | "close" | "label";
+  variant?: "normal" | "close" | "label";
   placement?: "default" | "end";
   /* below props are injected by parent TabSet  */
   isTabSetOpen?: boolean;
@@ -48,7 +48,7 @@ export const Tab: React.FC<TabProps> = ({
   iconClosed,
   iconPosition = "left",
   text,
-  variant = "default",
+  variant = "normal",
   placement = "default",
   isTabSetOpen,
   isTabSelected,
@@ -90,7 +90,7 @@ export const Tab: React.FC<TabProps> = ({
 
   // active tabs will be bold and colored, otherwise they have plain text
   const tabAppearance =
-    variant === "default" && isTabSelected && isTabSetOpen
+    variant === "normal" && isTabSelected && isTabSetOpen
       ? "active"
       : "inactive";
 
@@ -106,11 +106,11 @@ export const Tab: React.FC<TabProps> = ({
 
   let assembledTab: React.ReactElement;
   switch (variant) {
-    case "default":
+    case "normal":
       // open selected tab is not clickable
       if (isTabSetOpen && isTabSelected)
         assembledTab = <div {...tabAttributes}>{label}</div>;
-      // otherwise, *default* tabs are clickable
+      // otherwise, *normal* tabs are clickable
       else
         assembledTab = (
           <a

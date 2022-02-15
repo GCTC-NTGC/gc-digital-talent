@@ -70,15 +70,9 @@ const TemplateSortExperience: Story<TabSetProps> = (args) => {
   return (
     <TabSet {...args}>
       <Tab variant="label" text="See Experience:" />
-      <Tab text="By Date">
-        I&apos;m the <i>By Date</i> page!
-      </Tab>
-      <Tab text="By Type">
-        I&apos;m the <i>By Type</i> page!
-      </Tab>
-      <Tab text="By Skills">
-        I&apos;m the <i>By Skills</i> page!
-      </Tab>
+      <Tab text="By Date">I&apos;m the By Date page!</Tab>
+      <Tab text="By Type">I&apos;m the By Type page!</Tab>
+      <Tab text="By Skills">I&apos;m the By Skills page!</Tab>
     </TabSet>
   );
 };

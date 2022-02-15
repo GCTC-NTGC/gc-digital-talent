@@ -16,7 +16,7 @@ interface TabSetState {
 const firstSelectableTab = (tabs: React.ReactElement<TabProps>[]): number => {
   const firstIndex = tabs.findIndex(
     (tab: React.ReactElement<TabProps>) =>
-      tab.props.variant == null || tab.props.variant === "default",
+      tab.props.variant == null || tab.props.variant === "normal",
   );
   return firstIndex >= 0 ? firstIndex : 0;
 };
@@ -69,13 +69,9 @@ export const TabSet: React.FC<TabSetProps> = ({
       >
         {childrenWithProps}
       </div>
-      <div
-        {...(tabSetState.isOpen
-          ? { "data-h2-visibility": "b(visible)" }
-          : { "data-h2-visibility": "b(invisible)" })}
-      >
-        {children[tabSetState.selectedTab].props.children}
-      </div>
+      {tabSetState.isOpen && (
+        <> {children[tabSetState.selectedTab].props.children} </>
+      )}
     </>
   );
 };

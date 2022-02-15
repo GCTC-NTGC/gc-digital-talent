@@ -3,32 +3,39 @@
  */
 import "@testing-library/jest-dom";
 import { fireEvent, render, screen } from "@testing-library/react";
-import { renderHook } from "@testing-library/react-hooks";
 import React from "react";
-import { TabSet, Tab, TabSetProps } from ".";
-import { Simple, SkillsToExperience } from "./tabs.stories";
+import { TabSetProps } from ".";
+import { Simple, SkillsToExperience, SortExperience } from "./tabs.stories";
 
 describe("Tab tests", () => {
   test("Test if the component starts with the first tab and can click over to the second tab", () => {
-    const firstTabExpectedContents = "Contents of Tab 1";
+    const firstTabContents = "Contents of Tab 1";
     const secondTabLabel = "Tab 2";
-    const secondTabExpectedContents = "Contents of Tab 2";
+    const secondTabContents = "Contents of Tab 2";
     const props = Simple.args as TabSetProps;
     render(<Simple {...props} />);
-    expect(screen.getByText(firstTabExpectedContents)).toBeTruthy();
-    const secondTab = screen.getByText(secondTabLabel);
-    fireEvent.click(secondTab);
-    expect(screen.getByText(secondTabExpectedContents)).toBeTruthy();
+    expect(screen.queryByText(firstTabContents)).toBeInTheDocument();
+    expect(screen.queryByText(secondTabContents)).not.toBeInTheDocument();
+    fireEvent.click(screen.getByText(secondTabLabel));
+    expect(screen.queryByText(firstTabContents)).not.toBeInTheDocument();
+    expect(screen.queryByText(secondTabContents)).toBeInTheDocument();
   });
   test("Test if the component starts open and can be closed", () => {
-    const firstTabExpectedContents = "I'm the frequent skills page!";
+    const firstTabContents = "I'm the frequent skills page!";
     const closeTabLabel = "Close";
     const props = SkillsToExperience.args as TabSetProps;
     render(<SkillsToExperience {...props} />);
-    expect(screen.getByText(firstTabExpectedContents)).toBeTruthy();
-    const closeTab = screen.getByText(closeTabLabel);
-    fireEvent.click(closeTab); // Open skill block to view skill description
-    screen.debug();
-    expect(screen.getByText(firstTabExpectedContents)).not.toBeVisible();
+    expect(screen.queryByText(firstTabContents)).toBeInTheDocument();
+    fireEvent.click(screen.getByText(closeTabLabel));
+    expect(screen.queryByText(firstTabContents)).not.toBeInTheDocument();
+  });
+  test("Test if the component starts on the second tab when the first is just a label", () => {
+    const firstTabLabel = "See Experience:";
+    const secondTabContents = "I'm the By Date page!";
+    const props = SortExperience.args as TabSetProps;
+    render(<SortExperience {...props} />);
+    expect(screen.queryByText(secondTabContents)).toBeInTheDocument();
+    fireEvent.click(screen.getByText(firstTabLabel));
+    expect(screen.queryByText(secondTabContents)).toBeInTheDocument(); // nothing should have changed
   });
 });
