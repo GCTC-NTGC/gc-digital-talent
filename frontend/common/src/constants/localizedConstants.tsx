@@ -302,7 +302,7 @@ export const getEducationStatus = (
   getOrThrowError(
     educationStatusMessages,
     educationStatusId,
-    `Invalid awardedTo ${educationStatusId}`,
+    `Invalid educationStatus ${educationStatusId}`,
   );
 
 export const educationTypeMessages = defineMessages({
@@ -346,5 +346,5 @@ export const getEducationType = (
   getOrThrowError(
     educationTypeMessages,
     educationTypeId,
-    `Invalid awardedTo ${educationTypeId}`,
+    `Invalid educationType ${educationTypeId}`,
   );
