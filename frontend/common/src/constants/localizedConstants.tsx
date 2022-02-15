@@ -272,17 +272,27 @@ export const getAwardedScope = (
   );
 
 export const educationStatusMessages = defineMessages({
-  [EducationStatus.Hi1]: {
-    defaultMessage: "Hi1",
-    description: "Hi1 description",
+  [EducationStatus.SuccessCredential]: {
+    defaultMessage: "Successful Completion (Credential Awarded)",
+    description:
+      "Successful Completion with credential selection for education status input",
   },
-  [EducationStatus.Hi2]: {
-    defaultMessage: "Hi2",
-    description: "Hi2 description",
+  [EducationStatus.SuccessNoCredential]: {
+    defaultMessage: "Successful Completion (No Credential Awarded)",
+    description:
+      "Successful Completion with no credentials for education status input",
   },
-  [EducationStatus.Hi3]: {
-    defaultMessage: "Hi3",
-    description: "Hi3 description",
+  [EducationStatus.InProgress]: {
+    defaultMessage: "In Progress",
+    description: "In Progress selection for education status input",
+  },
+  [EducationStatus.Audited]: {
+    defaultMessage: "Audited",
+    description: "Audited selection for education status input",
+  },
+  [EducationStatus.DidNotComplete]: {
+    defaultMessage: "Did not complete",
+    description: "Did not complete selection for education status input",
   },
 });
 
@@ -296,17 +306,37 @@ export const getEducationStatus = (
   );
 
 export const educationTypeMessages = defineMessages({
-  [EducationType.Hi1]: {
-    defaultMessage: "Hi1",
-    description: "Hi1 description",
+  [EducationType.Diploma]: {
+    defaultMessage: "Diploma",
+    description: "Diploma selection for education type input",
   },
-  [EducationType.Hi2]: {
-    defaultMessage: "Hi2",
-    description: "Hi2 description",
+  [EducationType.BachelorsDegree]: {
+    defaultMessage: "Bachelors Degree",
+    description: "Bachelors Degree selection for education type input",
   },
-  [EducationType.Hi3]: {
-    defaultMessage: "Hi3",
-    description: "Hi3 description",
+  [EducationType.MastersDegree]: {
+    defaultMessage: "Masters Degree",
+    description: "Masters Degree selection for education type input",
+  },
+  [EducationType.Phd]: {
+    defaultMessage: "Phd",
+    description: "Phd selection for education type input",
+  },
+  [EducationType.PostDoctoralFellowship]: {
+    defaultMessage: "Post Doctoral Fellowship",
+    description: "Post Doctoral Fellowship selection for education type input",
+  },
+  [EducationType.OnlineCourse]: {
+    defaultMessage: "Online Course",
+    description: "Online Course selection for education type input",
+  },
+  [EducationType.Certification]: {
+    defaultMessage: "Certification",
+    description: "Certification selection for education type input",
+  },
+  [EducationType.Other]: {
+    defaultMessage: "Other",
+    description: "Other selection for education type input",
   },
 });
 

@@ -19,4 +19,5 @@ const TemplateEducationExperienceForm: Story = () => {
   );
 };
 
-export const IndividualAwardDetails = TemplateEducationExperienceForm.bind({});
+export const IndividualEducationExperience =
+  TemplateEducationExperienceForm.bind({});

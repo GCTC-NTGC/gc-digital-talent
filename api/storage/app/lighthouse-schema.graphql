@@ -171,15 +171,22 @@ input DepartmentBelongsTo {
 }
 
 enum EducationStatus {
-  Hi1
-  Hi2
-  Hi3
+  SUCCESS_CREDENTIAL
+  SUCCESS_NO_CREDENTIAL
+  IN_PROGRESS
+  AUDITED
+  DID_NOT_COMPLETE
 }
 
 enum EducationType {
-  Hi1
-  Hi2
-  Hi3
+  DIPLOMA
+  BACHELORS_DEGREE
+  MASTERS_DEGREE
+  PHD
+  POST_DOCTORAL_FELLOWSHIP
+  ONLINE_COURSE
+  CERTIFICATION
+  OTHER
 }
 
 """A RFC 5321 compliant email."""

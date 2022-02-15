@@ -257,15 +257,22 @@ enum AwardedScope {
 }
 
 enum EducationType {
-    Hi1
-    Hi2
-    Hi3
+    DIPLOMA
+    BACHELORS_DEGREE
+    MASTERS_DEGREE
+    PHD
+    POST_DOCTORAL_FELLOWSHIP
+    ONLINE_COURSE
+    CERTIFICATION
+    OTHER
 }
 
 enum EducationStatus {
-    Hi1
-    Hi2
-    Hi3
+    SUCCESS_CREDENTIAL
+    SUCCESS_NO_CREDENTIAL
+    IN_PROGRESS
+    AUDITED
+    DID_NOT_COMPLETE
 }
 
 type Query {
