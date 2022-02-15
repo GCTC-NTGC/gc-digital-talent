@@ -25,9 +25,9 @@ describe("Tab tests", () => {
     const closeTabLabel = "Close";
     const props = SkillsToExperience.args as TabSetProps;
     render(<SkillsToExperience {...props} />);
-    expect(screen.queryByText(firstTabContents)).toBeInTheDocument();
+    expect(screen.queryByText(firstTabContents)).toBeVisible();
     fireEvent.click(screen.getByText(closeTabLabel));
-    expect(screen.queryByText(firstTabContents)).not.toBeInTheDocument();
+    expect(screen.queryByText(firstTabContents)).not.toBeVisible();
   });
   test("Test if the component starts on the second tab when the first is just a label", () => {
     const firstTabLabel = "See Experience:";

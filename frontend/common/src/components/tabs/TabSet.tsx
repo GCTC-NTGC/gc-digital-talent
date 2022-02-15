@@ -64,9 +64,9 @@ export const TabSet: React.FC<TabSetProps> = ({
       >
         {childrenWithProps}
       </div>
-      {tabSetState.isOpen && (
-        <> {children[tabSetState.selectedTab].props.children} </>
-      )}
+      <div style={{ display: tabSetState.isOpen ? "block" : "none" }}>
+        {children[tabSetState.selectedTab].props.children}
+      </div>
     </>
   );
 };
