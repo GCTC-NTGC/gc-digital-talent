@@ -29,23 +29,13 @@ jobs:
         run: npm install
 
 
-      - name: "Run ESlint: common"
-        working-directory: frontend/common
-        continue-on-error: true
-        run: |
-          npm run codegen
-          npm run lint
+      - name: "Setup: all workspaces"
+        working-directory: frontend
+        run: npm run codegen --workspaces --if-present
 
-      - name: "Run ESlint: admin"
-        working-directory: frontend/admin
+      - name: "Run ESlint: all workspaces"
+        working-directory: frontend
+        # Temporarily ignore until we fix existing issues.
+        # See: https://github.com/GCTC-NTGC/gc-digital-talent/issues/2043
         continue-on-error: true
-        run: |
-          npm run codegen
-          npm run lint
-
-      - name: "Run ESlint: talentSearch"
-        working-directory: frontend/talentsearch
-        continue-on-error: true
-        run: |
-          npm run codegen
-          npm run lint
+        run: npm run lint --workspaces --if-present

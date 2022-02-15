@@ -29,22 +29,12 @@ jobs:
         run: npm install
 
 
-      - name: "Run Unit Tests: common"
-        working-directory: frontend/common
+      - name: "Setup: all workspaces"
+        working-directory: frontend
         run: |
-          npm run codegen
-          npm run test
+          npm run codegen --workspaces --if-present
+          npm run intl-compile --workspaces --if-present
 
-      - name: "Run Unit Tests: admin"
-        working-directory: frontend/admin
-        run: |
-          npm run codegen
-          npm run intl-compile
-          npm run test
-
-      - name: "Run Unit Tests: talentsearch"
-        working-directory: frontend/talentsearch
-        run: |
-          npm run codegen
-          npm run intl-compile
-          npm run test
+      - name: "Run Unit Tests: all workspaces"
+        working-directory: frontend
+        run: npm run test --workspaces --if-present
