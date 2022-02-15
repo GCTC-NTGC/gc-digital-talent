@@ -11,16 +11,6 @@ import { TabSet, Tab, TabSetProps } from ".";
 export default {
   component: TabSet,
   title: "Components/Tabs",
-  args: {
-    color: "primary",
-  },
-  argTypes: {
-    color: {
-      name: "Color",
-      options: ["primary", "secondary"],
-      control: { type: "radio" },
-    },
-  },
 } as Meta;
 
 const TemplateSimple: Story<TabSetProps> = (args) => {

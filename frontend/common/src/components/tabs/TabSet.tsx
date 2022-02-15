@@ -1,10 +1,7 @@
 import React, { useState } from "react";
 import { TabProps } from "./Tab";
-import { TabColor } from ".";
 
 export interface TabSetProps extends React.HTMLProps<HTMLElement> {
-  /** The style type of the element. */
-  color?: TabColor;
   children: React.ReactElement<TabProps>[];
 }
 
@@ -22,7 +19,6 @@ const firstSelectableTab = (tabs: React.ReactElement<TabProps>[]): number => {
 };
 
 export const TabSet: React.FC<TabSetProps> = ({
-  color = "primary",
   children,
 }): React.ReactElement => {
   const [tabSetState, setTabSetState] = useState<TabSetState>({
@@ -54,7 +50,6 @@ export const TabSet: React.FC<TabSetProps> = ({
         isTabSelected: tabSetState.selectedTab === index,
         onSelect: () => handleTabSelect(index),
         onToggleOpen: () => handleToggleOpen(),
-        color,
       });
     }
     return child;

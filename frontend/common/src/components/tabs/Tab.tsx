@@ -1,31 +1,15 @@
 import React from "react";
 
-export type TabColor = "primary" | "secondary";
-type TabAppearance = "active" | "inactive";
-
-const styleMap: Record<
-  TabColor,
-  Record<TabAppearance, Record<string, string>>
-> = {
-  primary: {
-    active: {
-      "data-h2-font-color": "b(lightpurple)",
-      "data-h2-font-weight": "b(bold)",
-    },
-    inactive: {
-      "data-h2-font-color": "b(black)",
-    },
+const styleMap: Record<"active" | "inactive", Record<string, string>> = {
+  active: {
+    "data-h2-font-color": "b(lightpurple)",
+    "data-h2-font-weight": "b(bold)",
   },
-  secondary: {
-    active: {
-      "data-h2-font-color": "b(lightnavy)",
-      "data-h2-font-weight": "b(bold)",
-    },
-    inactive: {
-      "data-h2-font-color": "b(black)",
-    },
+  inactive: {
+    "data-h2-font-color": "b(black)",
   },
 };
+
 export interface TabProps extends React.HTMLProps<HTMLElement> {
   icon?: JSX.Element;
   iconOpen?: JSX.Element;
@@ -39,7 +23,6 @@ export interface TabProps extends React.HTMLProps<HTMLElement> {
   isTabSelected?: boolean;
   onSelect?: VoidFunction;
   onToggleOpen?: VoidFunction;
-  color?: TabColor;
 }
 
 export const Tab: React.FC<TabProps> = ({
@@ -54,7 +37,6 @@ export const Tab: React.FC<TabProps> = ({
   isTabSelected,
   onSelect,
   onToggleOpen,
-  color = "primary",
 }): React.ReactElement => {
   // start by calculating the icon to show
   let effectiveIcon;
@@ -100,8 +82,8 @@ export const Tab: React.FC<TabProps> = ({
     "data-h2-padding": "b(top-bottom, xs) b(right-left, s)",
     // the *end* layout needs this margin to push it to the right
     ...(placement === "end" && { "data-h2-margin": "b(left, auto)" }),
-    // styles based on color prop and active/inactive
-    ...styleMap[color][tabAppearance],
+    // styles based on active/inactive
+    ...styleMap[tabAppearance],
   };
 
   let assembledTab: React.ReactElement;
