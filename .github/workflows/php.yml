@@ -34,8 +34,8 @@ jobs:
           composer install --prefer-dist --no-scripts
 
       - name: Install front-end dependencies
-        run: |
-          npm install
+        run: npm install
+
 
       - name: PHPUnit tests
         working-directory: api

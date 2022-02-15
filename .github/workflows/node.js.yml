@@ -3,11 +3,10 @@ name: Unit Tests
 on:
   push:
     branches: [ main ]
-  pull_request:
 
 jobs:
   build:
-
+    name: Unit tests
     runs-on: ubuntu-latest
     env:
       NPM_VERSION: "8.3.0"
@@ -17,22 +16,17 @@ jobs:
       - name: Use Node.js
         uses: actions/setup-node@v1
         with:
-          node-version: '12.x'
+          node-version-file: 'frontend/.nvmrc'
           cache: 'npm'
           cache-dependency-path: 'frontend/package-lock.json'
+
       - name: Install dependencies
         run: npm install --global npm@${{ env.NPM_VERSION }}
 
       - name: "Install dependencies: workspace"
         working-directory: frontend
-        run: |
-          npm install
-          # Work-around until Hydrogen is updated: we trick hydrogen into thinking its installed in the package path.
-          # See: https://github.com/hydrogen-design-system/hydrogen.css/issues/72
-          mkdir -p admin/node_modules common/node_modules talentsearch/node_modules
-          (cd admin/node_modules && ln -s ../../node_modules/@hydrogen-design-system .)
-          (cd common/node_modules && ln -s ../../node_modules/@hydrogen-design-system .)
-          (cd talentsearch/node_modules && ln -s ../../node_modules/@hydrogen-design-system .)
+        run: npm install
+
 
       - name: "Run Unit Tests: common"
         working-directory: frontend/common
