@@ -33,9 +33,6 @@ jobs:
           cp .env.example .env
           composer install --prefer-dist --no-scripts
 
-      - name: Install front-end dependencies
-        run: npm install
-
 
       - name: PHPUnit tests
         working-directory: api

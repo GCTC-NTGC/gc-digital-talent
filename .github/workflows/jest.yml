@@ -1,0 +1,54 @@
+name: Unit Tests
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    name: Unit tests
+    runs-on: ubuntu-latest
+    env:
+      NPM_VERSION: "8.3.0"
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version-file: 'frontend/.nvmrc'
+          cache: 'npm'
+          cache-dependency-path: 'frontend/package-lock.json'
+
+      - name: Install dependencies
+        run: npm install --global npm@${{ env.NPM_VERSION }}
+
+      - name: "Install dependencies: workspace"
+        working-directory: frontend
+        run: npm install
+
+
+      - name: "Run Unit Tests: common"
+        working-directory: frontend/common
+        run: |
+          # No need to build since we only use admin's hydrogen.css.
+          #npm run h2-build
+          npm run codegen
+          npm run test
+
+      - name: "Run Unit Tests: admin"
+        working-directory: frontend/admin
+        run: |
+          npm run h2-build
+          npm run codegen
+          npm run intl-compile
+          npm run test
+
+      - name: "Run Unit Tests: talentsearch"
+        working-directory: frontend/talentsearch
+        run: |
+          # No need to build since we only use admin's hydrogen.css.
+          #npm run h2-build
+          npm run codegen
+          npm run intl-compile
+          npm run test
