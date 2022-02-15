@@ -1,3 +1,20 @@
+enum AwardedScope {
+  INTERNATIONAL
+  NATIONAL
+  PROVINCIAL
+  LOCAL
+  COMMUNITY
+  ORGANIZATIONAL
+  SUB_ORGANIZATIONAL
+}
+
+enum AwardedTo {
+  ME
+  MY_TEAM
+  MY_PROJECT
+  MY_ORGANIZATION
+}
+
 type Classification {
   id: ID!
   name: LocalizedString

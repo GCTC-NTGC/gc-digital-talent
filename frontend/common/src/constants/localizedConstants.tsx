@@ -8,6 +8,8 @@ import {
   PoolCandidateSearchStatus,
   SkillCategory,
   Role,
+  AwardedTo,
+  AwardedScope,
 } from "../api/generated";
 import { getOrThrowError } from "../helpers/util";
 
@@ -39,11 +41,9 @@ export const getLanguage = (languageId: string | number): MessageDescriptor =>
 
 export const educationRequirements = defineMessages({
   hasDiploma: {
-    id: "hasDiploma",
     defaultMessage: "Required diploma from post-secondary institution",
   },
   doesNotHaveDiploma: {
-    id: "doesNotHaveDiploma",
     defaultMessage: "Can accept a combination of work experience and education",
   },
 });
@@ -202,3 +202,69 @@ export const Roles = defineMessages({
 
 export const getRole = (roleId: string | number): MessageDescriptor =>
   getOrThrowError(Roles, roleId, `Invalid role '${roleId}'`);
+
+export const awardedToMessages = defineMessages({
+  [AwardedTo.Me]: {
+    defaultMessage: "Me",
+    description: "The award was given to me.",
+  },
+  [AwardedTo.MyTeam]: {
+    defaultMessage: "My Team",
+    description: "The award was given to my team.",
+  },
+  [AwardedTo.MyProject]: {
+    defaultMessage: "My Project",
+    description: "The award was given to my project.",
+  },
+  [AwardedTo.MyOrganization]: {
+    defaultMessage: "My Organization",
+    description: "The award was given to my organization.",
+  },
+});
+
+export const getAwardedTo = (awardedToId: string | number): MessageDescriptor =>
+  getOrThrowError(
+    awardedToMessages,
+    awardedToId,
+    `Invalid awardedTo ${awardedToId}`,
+  );
+
+export const awardedScopeMessages = defineMessages({
+  [AwardedScope.International]: {
+    defaultMessage: "International",
+    description: "The scope of the award was international.",
+  },
+  [AwardedScope.National]: {
+    defaultMessage: "National",
+    description: "The scope of the award was national.",
+  },
+  [AwardedScope.Provincial]: {
+    defaultMessage: "Provincial",
+    description: "The scope of the award was provincial.",
+  },
+  [AwardedScope.Local]: {
+    defaultMessage: "Local",
+    description: "The scope of the award was local.",
+  },
+  [AwardedScope.Community]: {
+    defaultMessage: "Community",
+    description: "The scope of the award was within the community.",
+  },
+  [AwardedScope.Organizational]: {
+    defaultMessage: "Organizational",
+    description: "The scope of the award was organizational.",
+  },
+  [AwardedScope.SubOrganizational]: {
+    defaultMessage: "Sub-Organizational (Branch)",
+    description: "The scope of the award was sub-organizational (branch).",
+  },
+});
+
+export const getAwardedScope = (
+  awardedScopeId: string | number,
+): MessageDescriptor =>
+  getOrThrowError(
+    awardedScopeMessages,
+    awardedScopeId,
+    `Invalid awardedTo ${awardedScopeId}`,
+  );
