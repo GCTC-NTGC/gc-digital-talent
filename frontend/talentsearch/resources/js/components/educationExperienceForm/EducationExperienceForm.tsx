@@ -154,7 +154,7 @@ export const EducationExperienceForm: React.FunctionComponent = () => {
                   label={intl.formatMessage({
                     defaultMessage: "End Date",
                     description:
-                      "Label displayed on Work Experience form for end date input",
+                      "Label displayed on Education Experience form for end date input",
                   })}
                   name="end-date"
                   type="date"
