@@ -214,13 +214,11 @@ export const awardedToMessages = defineMessages({
   },
   [AwardedTo.MyProject]: {
     defaultMessage: "My Project",
-    description:
-      "The award was given to my project.",
+    description: "The award was given to my project.",
   },
   [AwardedTo.MyOrganization]: {
     defaultMessage: "My Organization",
-    description:
-      "The award was given to my organization.",
+    description: "The award was given to my organization.",
   },
 });
 
@@ -234,18 +232,15 @@ export const getAwardedTo = (awardedToId: string | number): MessageDescriptor =>
 export const awardedScopeMessages = defineMessages({
   [AwardedScope.International]: {
     defaultMessage: "International",
-    description:
-      "The scope of the award was international.",
+    description: "The scope of the award was international.",
   },
   [AwardedScope.National]: {
     defaultMessage: "National",
-    description:
-      "The scope of the award was national.",
+    description: "The scope of the award was national.",
   },
   [AwardedScope.Provincial]: {
     defaultMessage: "Provincial",
-    description:
-      "The scope of the award was provincial.",
+    description: "The scope of the award was provincial.",
   },
   [AwardedScope.Local]: {
     defaultMessage: "Local",
@@ -253,13 +248,11 @@ export const awardedScopeMessages = defineMessages({
   },
   [AwardedScope.Community]: {
     defaultMessage: "Community",
-    description:
-      "The scope of the award was within the community.",
+    description: "The scope of the award was within the community.",
   },
   [AwardedScope.Organizational]: {
     defaultMessage: "Organizational",
-    description:
-      "The scope of the award was organizational.",
+    description: "The scope of the award was organizational.",
   },
   [AwardedScope.SubOrganizational]: {
     defaultMessage: "Sub-Organizational (Branch)",
