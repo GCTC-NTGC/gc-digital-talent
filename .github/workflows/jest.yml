@@ -3,7 +3,13 @@ name: Jest Tests
 on:
   push:
     branches: [ main ]
+    paths:
+      - .github/workflows/*jest*.yml
+      - frontend/**
   pull_request:
+    paths:
+      - .github/workflows/*jest*.yml
+      - frontend/**
 
 jobs:
   build:

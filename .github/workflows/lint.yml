@@ -3,7 +3,13 @@ name: Lint
 on:
   push:
     branches: [ main ]
+    paths:
+      - .github/workflows/*lint*.yml
+      - frontend/**
   pull_request:
+    paths:
+      - .github/workflows/*lint*.yml
+      - frontend/**
 
 jobs:
   run-linters:
