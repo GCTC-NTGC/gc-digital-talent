@@ -14,6 +14,7 @@ use Illuminate\Auth\Authenticatable as AuthenticatableTrait;
  * Class PersonalExperience
  *
  * @property int $id
+ * @property int $user_id
  * @property string $title
  * @property string $description
  * @property Illuminate\Support\Carbon $start_date
@@ -26,6 +27,7 @@ use Illuminate\Auth\Authenticatable as AuthenticatableTrait;
 class PersonalExperience extends Model
 {
     use HasFactory;
+    use SoftDeletes;
 
     protected $keyType = 'string';
 

@@ -29,6 +29,7 @@ use Illuminate\Auth\Authenticatable as AuthenticatableTrait;
 class CommunityExperience extends Model
 {
     use HasFactory;
+    use SoftDeletes;
 
     protected $keyType = 'string';
 

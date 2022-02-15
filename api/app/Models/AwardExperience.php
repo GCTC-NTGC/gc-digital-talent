@@ -15,7 +15,7 @@ use Illuminate\Auth\Authenticatable as AuthenticatableTrait;
  * Class AwardExperience
  *
  * @property int $id
- * @property int $user
+ * @property int $user_id
  * @property string $title
  * @property string $issued_by
  * @property Illuminate\Support\Carbon $awarded_date
@@ -28,6 +28,7 @@ use Illuminate\Auth\Authenticatable as AuthenticatableTrait;
 class AwardExperience extends Model
 {
     use HasFactory;
+    use SoftDeletes;
 
     protected $keyType = 'string';
 

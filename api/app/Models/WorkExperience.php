@@ -14,6 +14,7 @@ use Illuminate\Auth\Authenticatable as AuthenticatableTrait;
  * Class WorkExperience
  *
  * @property int $id
+ * @property int $user_id
  * @property string $role
  * @property string $organization
  * @property string $division
@@ -27,6 +28,7 @@ use Illuminate\Auth\Authenticatable as AuthenticatableTrait;
 class WorkExperience extends Model
 {
     use HasFactory;
+    use SoftDeletes;
 
     protected $keyType = 'string';
 

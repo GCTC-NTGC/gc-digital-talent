@@ -215,7 +215,7 @@ type Skill {
 
 type WorkExperience {
   id: ID!
-  user: User @belongsTo
+  user: User! @belongsTo
   role: String
   organization: String
   division: String
@@ -225,7 +225,7 @@ type WorkExperience {
 }
 type PersonalExperience {
   id: ID!
-  user: User @belongsTo
+  user: User! @belongsTo
   title: String
   description: String
   startDate: Date @rename(attribute: "start_date")
@@ -234,7 +234,7 @@ type PersonalExperience {
 }
 type CommunityExperience {
   id: ID!
-  user: User @belongsTo
+  user: User! @belongsTo
   title: String
   organization: String
   project: String
@@ -262,7 +262,7 @@ enum EducationType {
 }
 type EducationExperience {
   id: ID!
-  user: User @belongsTo
+  user: User! @belongsTo
   institution: String
   areaOfStudy: String @rename(attribute: "area_of_study")
   thesisTitle: String @rename(attribute: "thesis_title")
@@ -289,7 +289,7 @@ enum RecognitionType {
 }
 type AwardExperience {
   id: ID!
-  user: User @belongsTo
+  user: User! @belongsTo
   title: String
   issuedBy: String @rename(attribute: "issued_by")
   awardedDate: Date @rename(attribute: "awarded_date")

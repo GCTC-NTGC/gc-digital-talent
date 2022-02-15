@@ -15,70 +15,75 @@ class CreateExperienceTables extends Migration
     {
         Schema::create('work_experiences', function (Blueprint $table) {
             $table->uuid('id')->primary('id');
-            $table->uuid('user_id');
+            $table->uuid('user_id')->nullable(false);
             $table->foreign('user_id')->references('id')->on('users');
-            $table->string('role')->nullable(false);
+            $table->string('role')->nullable();
             $table->string('organization')->nullable();
             $table->string('division')->nullable();
-            $table->date('start_date')->nullable(false);
+            $table->date('start_date')->nullable();
             $table->date('end_date')->nullable();
             $table->text('details')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
         DB::statement('ALTER TABLE work_experiences ALTER COLUMN id SET DEFAULT gen_random_uuid();');
 
         Schema::create('personal_experiences', function (Blueprint $table) {
             $table->uuid('id')->primary('id');
-            $table->uuid('user_id');
+            $table->uuid('user_id')->nullable(false);
             $table->foreign('user_id')->references('id')->on('users');
-            $table->string('title')->nullable(false);
+            $table->string('title')->nullable();
             $table->text('description')->nullable();
-            $table->date('start_date')->nullable(false);
+            $table->date('start_date')->nullable();
             $table->date('end_date')->nullable();
             $table->text('details')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
         DB::statement('ALTER TABLE personal_experiences ALTER COLUMN id SET DEFAULT gen_random_uuid();');
 
         Schema::create('community_experiences', function (Blueprint $table) {
             $table->uuid('id')->primary('id');
-            $table->uuid('user_id');
+            $table->uuid('user_id')->nullable(false);
             $table->foreign('user_id')->references('id')->on('users');
-            $table->string('title')->nullable(false);
+            $table->string('title')->nullable();
             $table->string('organization')->nullable();
             $table->string('project')->nullable();
-            $table->date('start_date')->nullable(false);
+            $table->date('start_date')->nullable();
             $table->date('end_date')->nullable();
             $table->text('details')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
         DB::statement('ALTER TABLE community_experiences ALTER COLUMN id SET DEFAULT gen_random_uuid();');
 
         Schema::create('education_experiences', function (Blueprint $table) {
             $table->uuid('id')->primary('id');
-            $table->uuid('user_id');
+            $table->uuid('user_id')->nullable(false);
             $table->foreign('user_id')->references('id')->on('users');
-            $table->string('institution')->nullable(false);
-            $table->string('area_of_study')->nullable(false);
+            $table->string('institution')->nullable();
+            $table->string('area_of_study')->nullable();
             $table->string('thesis_title')->nullable();
-            $table->date('start_date')->nullable(false);
+            $table->date('start_date')->nullable();
             $table->date('end_date')->nullable();
-            $table->string('type')->nullable(false);
-            $table->string('status')->nullable(false);
+            $table->string('type')->nullable();
+            $table->string('status')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
         DB::statement('ALTER TABLE education_experiences ALTER COLUMN id SET DEFAULT gen_random_uuid();');
 
         Schema::create('award_experiences', function (Blueprint $table) {
             $table->uuid('id')->primary('id');
-            $table->uuid('user_id');
+            $table->uuid('user_id')->nullable(false);
             $table->foreign('user_id')->references('id')->on('users');
-            $table->string('title')->nullable(false);
-            $table->string('issued_by')->nullable(false);
-            $table->date('awarded_date')->nullable(false);
-            $table->string('recipient_type')->nullable(false);
-            $table->string('recognition_type')->nullable(false);
+            $table->string('title')->nullable();
+            $table->string('issued_by')->nullable();
+            $table->date('awarded_date')->nullable();
+            $table->string('recipient_type')->nullable();
+            $table->string('recognition_type')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
         DB::statement('ALTER TABLE award_experiences ALTER COLUMN id SET DEFAULT gen_random_uuid();');
     }

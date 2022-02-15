@@ -14,6 +14,7 @@ use Illuminate\Auth\Authenticatable as AuthenticatableTrait;
  * Class EducationExperience
  *
  * @property int $id
+ * @property int $user_id
  * @property string $institution
  * @property string $area_of_study
  * @property string $thesis_title
@@ -28,6 +29,7 @@ use Illuminate\Auth\Authenticatable as AuthenticatableTrait;
 class EducationExperience extends Model
 {
     use HasFactory;
+    use SoftDeletes;
 
     protected $keyType = 'string';
 

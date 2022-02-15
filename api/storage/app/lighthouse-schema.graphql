@@ -1,6 +1,6 @@
 type AwardExperience {
   id: ID!
-  user: User
+  user: User!
   title: String
   issuedBy: String
   awardedDate: Date
@@ -42,7 +42,7 @@ input CmoAssetBelongsToMany {
 
 type CommunityExperience {
   id: ID!
-  user: User
+  user: User!
   title: String
   organization: String
   project: String
@@ -176,7 +176,7 @@ input DepartmentBelongsTo {
 
 type EducationExperience {
   id: ID!
-  user: User
+  user: User!
   institution: String
   areaOfStudy: String
   thesisTitle: String
@@ -380,7 +380,7 @@ type PaginatorInfo {
 
 type PersonalExperience {
   id: ID!
-  user: User
+  user: User!
   title: String
   description: String
   startDate: Date
@@ -844,7 +844,7 @@ input WhereConditionsRelation {
 
 type WorkExperience {
   id: ID!
-  user: User
+  user: User!
   role: String
   organization: String
   division: String
