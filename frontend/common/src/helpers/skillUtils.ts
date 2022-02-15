@@ -1,5 +1,6 @@
 import { flatMap, uniqBy } from "lodash";
 import { Skill, SkillFamily } from "../api/generated";
+import { notEmpty } from "./util";
 
 /**
  * Transforms an array of skills with child skill families into a tree of skill families with child skills.
@@ -7,7 +8,9 @@ import { Skill, SkillFamily } from "../api/generated";
  * @returns { SkillFamily[] } - The new collection of skill families with child skills
  */
 export function invertSkillTree(skills: Skill[]): SkillFamily[] {
-  const allChildSkillFamilies = flatMap(skills, "families");
+  const allChildSkillFamilies = flatMap(skills, (s) => s.families).filter(
+    notEmpty,
+  );
   const uniqueSkillFamilies = uniqBy(allChildSkillFamilies, "id");
   const skillFamiliesWithSkills = uniqueSkillFamilies.map(
     (family: SkillFamily) => {
