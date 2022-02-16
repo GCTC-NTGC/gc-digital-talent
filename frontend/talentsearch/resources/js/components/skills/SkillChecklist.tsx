@@ -74,6 +74,8 @@ const Category: React.FunctionComponent<CategoryProps> = ({
     case SkillCategory.Technical:
       image = <LightningBoltIcon style={{ width: "calc(1rem*1.25)" }} />;
       break;
+    default:
+      image = null;
   }
 
   const [selectedFamilies, setSelectedFamilies] = React.useState<SkillFamily[]>(
