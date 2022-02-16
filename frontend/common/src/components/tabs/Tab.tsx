@@ -16,7 +16,12 @@ export interface TabProps extends React.HTMLProps<HTMLElement> {
   iconClosed?: JSX.Element;
   iconPosition?: "left" | "right";
   text?: string;
-  variant?: "normal" | "close" | "label";
+  /** The type of tab to add to the set:
+   * *normal* - a tab that can be clicked to show content
+   * *closer* - a tab that opens and closes the entire tab set but doesn't have its own content
+   * *label* - a tab that acts as a description for the tab set but doesn't have its own content
+   */
+  tabType?: "normal" | "closer" | "label";
   placement?: "default" | "end";
   /* below props are injected by parent TabSet  */
   isTabSetOpen?: boolean;
@@ -31,7 +36,7 @@ export const Tab: React.FC<TabProps> = ({
   iconClosed,
   iconPosition = "left",
   text,
-  variant = "normal",
+  tabType = "normal",
   placement = "default",
   isTabSetOpen,
   isTabSelected,
@@ -72,7 +77,7 @@ export const Tab: React.FC<TabProps> = ({
 
   // active tabs will be bold and colored, otherwise they have plain text
   const tabAppearance =
-    variant === "normal" && isTabSelected && isTabSetOpen
+    tabType === "normal" && isTabSelected && isTabSetOpen
       ? "active"
       : "inactive";
 
@@ -87,7 +92,7 @@ export const Tab: React.FC<TabProps> = ({
   };
 
   let assembledTab: React.ReactElement;
-  switch (variant) {
+  switch (tabType) {
     case "normal":
       // open selected tab is not clickable
       if (isTabSetOpen && isTabSelected)
@@ -108,7 +113,7 @@ export const Tab: React.FC<TabProps> = ({
         );
       break;
 
-    case "close": // close tabs are always clickable
+    case "closer": // closer tabs are always clickable
       assembledTab = (
         <a
           role="tab"

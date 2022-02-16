@@ -13,7 +13,7 @@ interface TabSetState {
 const firstSelectableTab = (tabs: React.ReactElement<TabProps>[]): number => {
   const firstIndex = tabs.findIndex(
     (tab: React.ReactElement<TabProps>) =>
-      tab.props.variant == null || tab.props.variant === "normal",
+      tab.props.tabType === undefined || tab.props.tabType === "normal",
   );
   return firstIndex >= 0 ? firstIndex : 0;
 };

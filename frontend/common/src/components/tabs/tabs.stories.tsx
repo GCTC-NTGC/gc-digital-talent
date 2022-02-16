@@ -45,7 +45,7 @@ const TemplateSkillsToExperience: Story<TabSetProps> = (args) => {
         I&apos;m the search by keyword page!
       </Tab>
       <Tab
-        variant="close"
+        tabType="closer"
         iconOpen={<ChevronUpIcon style={{ width: "1.25rem" }} />}
         iconClosed={<ChevronDownIcon style={{ width: "1.25rem" }} />}
         iconPosition="right"
@@ -59,7 +59,7 @@ const TemplateSkillsToExperience: Story<TabSetProps> = (args) => {
 const TemplateSortExperience: Story<TabSetProps> = (args) => {
   return (
     <TabSet {...args}>
-      <Tab variant="label" text="See Experience:" />
+      <Tab tabType="label" text="See Experience:" />
       <Tab text="By Date">I&apos;m the By Date page!</Tab>
       <Tab text="By Type">I&apos;m the By Type page!</Tab>
       <Tab text="By Skills">I&apos;m the By Skills page!</Tab>
