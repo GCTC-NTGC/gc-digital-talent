@@ -2,9 +2,9 @@
  * @jest-environment jsdom
  */
 
+import { fakeSkillFamilies } from "@common/fakeData";
 import { render, screen, fireEvent } from "../../tests/testUtils";
 import SkillChecklist from "./SkillChecklist";
-import { fakeSkillFamilies } from "@common/fakeData";
 
 const testData = fakeSkillFamilies();
 const callback = jest.fn();

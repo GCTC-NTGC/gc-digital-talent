@@ -5,17 +5,15 @@ import commonMessages from "@common/messages/commonMessages";
 import { useLocation } from "@common/helpers/router";
 import { notEmpty } from "@common/helpers/util";
 import { FromArray } from "@common/types/utilityTypes";
+import { getSkillCategory } from "@common/constants/localizedConstants";
+import { SkillCategory } from "@common/api/generated";
 import {
   AllSkillFamiliesQuery,
   useAllSkillFamiliesQuery,
 } from "../../api/generated";
-import {
-  getSkillCategory,
-} from "@common/constants/localizedConstants";
 import Table, { ColumnsOf } from "../Table";
 import DashboardContentContainer from "../DashboardContentContainer";
 import { tableEditButtonAccessor } from "../TableEditButton";
-import { SkillCategory } from "@common/api/generated";
 
 type Data = NonNullable<FromArray<AllSkillFamiliesQuery["skillFamilies"]>>;
 
@@ -25,9 +23,7 @@ const categoryAccessor = (
   intl: IntlShape,
 ) => (
   <span>
-    {category
-      ? intl.formatMessage(getSkillCategory(category as string))
-      : ""}
+    {category ? intl.formatMessage(getSkillCategory(category as string)) : ""}
   </span>
 );
 

@@ -39,11 +39,9 @@ export const getLanguage = (languageId: string | number): MessageDescriptor =>
 
 export const educationRequirements = defineMessages({
   hasDiploma: {
-    id: "hasDiploma",
     defaultMessage: "Required diploma from post-secondary institution",
   },
   doesNotHaveDiploma: {
-    id: "doesNotHaveDiploma",
     defaultMessage: "Can accept a combination of work experience and education",
   },
 });

@@ -73,19 +73,17 @@ export const Fieldset: React.FC<FieldsetProps> = ({
                 setContextIsActive((currentState) => !currentState)
               }
             >
-              <>
-                {contextIsActive ? (
-                  <XCircleIcon
-                    style={{ width: "calc(1rem/1.25)" }}
-                    data-h2-font-color="b(lightpurple)"
-                  />
-                ) : (
-                  <QuestionMarkCircleIcon
-                    style={{ width: "calc(1rem/1.25)" }}
-                    data-h2-font-color="b(lightpurple)"
-                  />
-                )}
-              </>
+              {contextIsActive ? (
+                <XCircleIcon
+                  style={{ width: "calc(1rem/1.25)" }}
+                  data-h2-font-color="b(lightpurple)"
+                />
+              ) : (
+                <QuestionMarkCircleIcon
+                  style={{ width: "calc(1rem/1.25)" }}
+                  data-h2-font-color="b(lightpurple)"
+                />
+              )}
             </button>
           )}
         </div>

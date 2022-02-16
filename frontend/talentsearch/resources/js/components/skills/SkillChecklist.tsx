@@ -66,14 +66,13 @@ const Category: React.FunctionComponent<CategoryProps> = ({
   );
   const title = `${categoryName} (${skillCount})`;
 
-
   let image = null;
   switch (category) {
     case SkillCategory.Behavioural:
-      image = <UserGroupIcon style={{ width: "calc(1rem*1.25)" }}/>;
+      image = <UserGroupIcon style={{ width: "calc(1rem*1.25)" }} />;
       break;
     case SkillCategory.Technical:
-      image = <LightningBoltIcon style={{ width: "calc(1rem*1.25)" }}/>;
+      image = <LightningBoltIcon style={{ width: "calc(1rem*1.25)" }} />;
       break;
   }
 

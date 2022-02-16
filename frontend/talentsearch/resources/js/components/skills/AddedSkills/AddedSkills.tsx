@@ -58,7 +58,7 @@ const AddedSkills: React.FunctionComponent<AddedSkillsProps> = ({
           data-h2-font-color="b([dark]darkgold)"
           role="alert"
         >
-         <i>
+          <i>
             <div>
               <strong>
                 {intl.formatMessage({
@@ -82,7 +82,7 @@ const AddedSkills: React.FunctionComponent<AddedSkillsProps> = ({
               )}
             </div>
           </i>
-       </div>
+        </div>
       )}
     </>
   );
