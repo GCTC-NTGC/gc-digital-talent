@@ -16,6 +16,21 @@ export const EducationExperienceForm: React.FunctionComponent = () => {
   const intl = useIntl();
   const isCurrent = useWatch({ name: "current-role", defaultValue: false });
 
+  // validation to test that end date is after start date, to be place into {rules} for end date input?
+  // validate: {endDateCheck: end => dateValidation(end)}
+
+  // just using this to visualize form value structure
+  // const logging = (e: any) => {
+  //   const formValue = document.getElementById("start-date");
+  //   console.log(formValue.value);
+  // };
+
+  // function to try
+  // const dateValidation = (end: string) => {
+  //   const startValue = document.getElementById("start-date");
+  //   return end > startValue.value;
+  // };
+
   return (
     <div>
       <h2 data-h2-font-size="b(h3)">
@@ -31,7 +46,11 @@ export const EducationExperienceForm: React.FunctionComponent = () => {
           description: "Description blurb for Education Details Form",
         })}
       </p>
-      <div data-h2-display="b(flex)" data-h2-padding="b(top, m)">
+      <div
+        data-h2-display="b(flex)"
+        data-h2-padding="b(top, m)"
+        data-h2-flex-direction="s(row) b(column)"
+      >
         <div data-h2-padding="b(right, l)">
           <Select
             id="education-type"
@@ -133,7 +152,10 @@ export const EducationExperienceForm: React.FunctionComponent = () => {
             })}
             name="current-role"
           />
-          <div data-h2-display="b(flex)">
+          <div
+            data-h2-display="b(flex)"
+            data-h2-flex-direction="s(row) b(column)"
+          >
             <div data-h2-padding="b(right, l)">
               <Input
                 id="start-date"
@@ -147,7 +169,7 @@ export const EducationExperienceForm: React.FunctionComponent = () => {
                 rules={{ required: intl.formatMessage(errorMessages.required) }}
               />
             </div>
-            <div>
+            <div /* onChange={logging} */>
               {!isCurrent && (
                 <Input
                   id="end-date"
