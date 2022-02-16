@@ -4,7 +4,11 @@ namespace App\Services;
 use Exception;
 use App\Services\Contracts\BearerTokenServiceInterface;
 use DateInterval;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Validation\UnauthorizedException;
 use Lcobucci\Clock\Clock;
 use Lcobucci\JWT\Configuration;
 use Lcobucci\JWT\Signer;
@@ -111,6 +115,32 @@ class OpenIdBearerTokenService implements BearerTokenServiceInterface
         return $keyDictionary[$keyId];
     }
 
+    public function verifyJwtWithIntrospection(string $accessToken)
+    {
+        try {
+            // make api call to introspect endpoint
+            $introspectionUri = $this->getConfigProperty('introspection_endpoint');
+            $introspectionResponse = Http::asForm()
+            ->post($introspectionUri, [
+                'token' => $accessToken,
+                'client_id' => config('oauth.client_id'),
+                'client_secret' => config('oauth.client_secret'),
+            ]);
+
+            $isTokenActive = $introspectionResponse->json('active');
+
+            if (!$isTokenActive) {
+                throw new UnauthorizedException('access token is invalid');
+            } else {
+                Cache::put('introspection_token_' + $accessToken, true);
+            }
+
+        } catch (\Exception $exception) {
+             Log::error($exception);
+             return new Response('Unauthorized - Access Token failed Introspection', 401);
+        }
+    }
+
 
     public function validateAndGetClaims(string $bearerToken) : DataSet
     {
@@ -120,6 +150,8 @@ class OpenIdBearerTokenService implements BearerTokenServiceInterface
         $config = $this->getConfiguration($keyId);
 
         $token = $config->parser()->parse($bearerToken);
+
+        $this->verifyJwtWithIntrospection($bearerToken);
 
         assert($token instanceof UnencryptedToken);
         $config->setValidationConstraints(
