@@ -16,20 +16,20 @@ export const EducationExperienceForm: React.FunctionComponent = () => {
   const intl = useIntl();
   const isCurrent = useWatch({ name: "current-role", defaultValue: false });
 
-  // validation to test that end date is after start date, to be place into {rules} for end date input?
-  // validate: {endDateCheck: end => dateValidation(end)}
+  // function to validate that end dates are after start dates
+  // extract value in start field and then return it, the function is called by the minimum value required field in {rules} for end date
+  // on load the element is initially null, therefore a conditional has been added to branch between on-load nulls and form filled states
+  const endDateValidation = () => {
+    let formValue;
+    if (document.getElementById("start-date") !== null) {
+      formValue = document.getElementById("start-date") as HTMLFormElement;
+      formValue = formValue.value;
+      return formValue;
+    }
 
-  // just using this to visualize form value structure
-  // const logging = (e: any) => {
-  //   const formValue = document.getElementById("start-date");
-  //   console.log(formValue.value);
-  // };
-
-  // function to try
-  // const dateValidation = (end: string) => {
-  //   const startValue = document.getElementById("start-date");
-  //   return end > startValue.value;
-  // };
+    formValue = "";
+    return formValue;
+  };
 
   return (
     <div>
@@ -156,7 +156,7 @@ export const EducationExperienceForm: React.FunctionComponent = () => {
             data-h2-display="b(flex)"
             data-h2-flex-direction="s(row) b(column)"
           >
-            <div data-h2-padding="b(right, l)">
+            <div data-h2-padding="l(right, l) m(right, l)">
               <Input
                 id="start-date"
                 label={intl.formatMessage({
@@ -169,7 +169,7 @@ export const EducationExperienceForm: React.FunctionComponent = () => {
                 rules={{ required: intl.formatMessage(errorMessages.required) }}
               />
             </div>
-            <div /* onChange={logging} */>
+            <div>
               {!isCurrent && (
                 <Input
                   id="end-date"
@@ -183,7 +183,15 @@ export const EducationExperienceForm: React.FunctionComponent = () => {
                   rules={
                     isCurrent
                       ? {}
-                      : { required: intl.formatMessage(errorMessages.required) }
+                      : {
+                          required: intl.formatMessage(errorMessages.required),
+                          min: {
+                            value: endDateValidation(),
+                            message: intl.formatMessage(
+                              errorMessages.futureDate,
+                            ),
+                          },
+                        }
                   }
                 />
               )}
