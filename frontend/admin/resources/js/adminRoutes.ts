@@ -11,6 +11,7 @@ const adminRoutes = (lang: string) => {
   return {
     home,
     refreshAccessToken: (): string => path.join(unlocalizedRoot(), "refresh"),
+    logout: (): string => path.join(unlocalizedRoot(), "logout"),
 
     classificationTable: (): string => path.join(home(), "classifications"),
     classificationCreate: (): string =>

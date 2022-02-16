@@ -32,12 +32,12 @@ export const AuthContext = React.createContext<AuthState>({
   refreshTokenSet: () => Promise.resolve(null),
 });
 
-const logoutAndRefreshPage = (homePath: string): void => {
+const logoutAndRefreshPage = (logoutPath: string): void => {
   // To log out, remove tokens from local storage and do a hard refresh to clear anything cached by react.
   // TODO: Is there anything else we should do, in terms of notifying user?
   localStorage.removeItem(ACCESS_TOKEN);
   localStorage.removeItem(REFRESH_TOKEN);
-  window.location.href = homePath;
+  window.location.href = logoutPath;
 };
 
 const refreshTokenSet = async (
@@ -96,6 +96,7 @@ export const AuthContainer: React.FC = ({ children }) => {
   const paths = useAdminRoutes();
   const homePath = paths.home();
   const refreshTokenSetPath = paths.refreshAccessToken();
+  const logoutPath = paths.logout();
 
   // If newTokens is not null, then we have a new access token in the url. Save it in local storage and in state hook, then clear query parameters.
   useEffect(() => {
@@ -120,7 +121,7 @@ export const AuthContainer: React.FC = ({ children }) => {
       refreshToken: tokens.refreshToken,
       loggedIn: !!tokens.accessToken,
       logout: tokens.accessToken
-        ? () => logoutAndRefreshPage(homePath)
+        ? () => logoutAndRefreshPage(logoutPath)
         : () => {
             /* If not logged in, logout does nothing. */
           },
