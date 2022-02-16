@@ -10,7 +10,7 @@ export default {
   component: SkillChecklist,
   title: "Skill Checklist",
   args: {
-    skills: fakeSkills(10, fakeSkillFamilies(3)),
+    skillFamilies: fakeSkillFamilies(3, fakeSkills(10)),
     callback: action("handleChecked"),
   },
 } as Meta;

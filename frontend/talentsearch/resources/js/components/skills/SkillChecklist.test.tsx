@@ -3,16 +3,16 @@
  */
 import React from "react";
 import { fakeSkillFamilies, fakeSkills } from "@common/fakeData";
-import { invertSkillTree } from "@common/helpers/skillUtils";
 import { render, screen, fireEvent } from "../../tests/testUtils";
 import SkillChecklist from "./SkillChecklist";
 
-const skills = fakeSkills(10, fakeSkillFamilies(5));
-const testData = invertSkillTree(skills); // the component performs this inversion internally as well
+const testData = fakeSkillFamilies(5, fakeSkills(10));
 const callback = jest.fn();
 
 const renderSkillChecklist = () => {
-  return render(<SkillChecklist skills={skills} callback={callback} />);
+  return render(
+    <SkillChecklist skillFamilies={testData} callback={callback} />,
+  );
 };
 
 describe("Skill Checklist Tests", () => {
