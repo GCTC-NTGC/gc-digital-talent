@@ -14,11 +14,11 @@ describe("Tab tests", () => {
     const secondTabContents = "Contents of Tab 2";
     const props = Simple.args as TabSetProps;
     render(<Simple {...props} />);
-    expect(screen.queryByText(firstTabContents)).toBeInTheDocument();
-    expect(screen.queryByText(secondTabContents)).not.toBeInTheDocument();
+    expect(screen.queryByText(firstTabContents)).toBeVisible();
+    expect(screen.queryByText(secondTabContents)).not.toBeVisible();
     fireEvent.click(screen.getByText(secondTabLabel));
-    expect(screen.queryByText(firstTabContents)).not.toBeInTheDocument();
-    expect(screen.queryByText(secondTabContents)).toBeInTheDocument();
+    expect(screen.queryByText(firstTabContents)).not.toBeVisible();
+    expect(screen.queryByText(secondTabContents)).toBeVisible();
   });
   test("Test if the component starts open and can be closed", () => {
     const firstTabContents = "I'm the frequent skills page!";
@@ -34,8 +34,8 @@ describe("Tab tests", () => {
     const secondTabContents = "I'm the By Date page!";
     const props = SortExperience.args as TabSetProps;
     render(<SortExperience {...props} />);
-    expect(screen.queryByText(secondTabContents)).toBeInTheDocument();
+    expect(screen.queryByText(secondTabContents)).toBeVisible();
     fireEvent.click(screen.getByText(firstTabLabel));
-    expect(screen.queryByText(secondTabContents)).toBeInTheDocument(); // nothing should have changed
+    expect(screen.queryByText(secondTabContents)).toBeVisible(); // nothing should have changed
   });
 });

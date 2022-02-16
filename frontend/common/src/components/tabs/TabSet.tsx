@@ -64,9 +64,22 @@ export const TabSet: React.FC<TabSetProps> = ({
       >
         {childrenWithProps}
       </div>
-      <div style={{ display: tabSetState.isOpen ? "block" : "none" }}>
-        {children[tabSetState.selectedTab].props.children}
-      </div>
+      {children.map((child, index) => (
+        <div
+          // TabSet tracks children by index as well
+          // eslint-disable-next-line react/no-array-index-key
+          key={index}
+          style={{
+            /* h2 attributes don't work in Jest currently */
+            display:
+              tabSetState.isOpen && tabSetState.selectedTab === index
+                ? "block"
+                : "none",
+          }}
+        >
+          {child.props.children}
+        </div>
+      ))}
     </>
   );
 };
