@@ -26,19 +26,35 @@ export const unpackIds = (
 export const currentDate = (): string => new Date().toISOString().slice(0, 10);
 
 /**
- * Converts enum to a list of options for select input.
- * @param list
+ * Converts a string enum to a list of options for select input.
+ * @param list - Then string enum to convert to options
+ * @param sortOrder - An optional array to indicate desired sort order
  * @returns Option
  */
-export function enumToOptions<T>(
-  list: T,
-): { value: string | number; label: string }[] {
+export function enumToOptions(
+  list: Record<string, string>,
+  sortOrder?: string[],
+): { value: string; label: string }[] {
   const entries = Object.entries(list);
-  const options: { value: string | number; label: string }[] = entries.reduce(
-    (
-      accumulator: { value: string | number; label: string }[],
-      currentValue,
-    ) => {
+  if (sortOrder) {
+    entries.sort((a, b) => {
+      const aPosition = sortOrder.indexOf(a[1]);
+      const bPosition = sortOrder.indexOf(b[1]);
+      if (aPosition >= 0 && bPosition >= 0)
+        // both are in sort list => sort by by that order
+        return sortOrder.indexOf(a[1]) - sortOrder.indexOf(b[1]);
+      if (aPosition >= 0 && bPosition < 0)
+        // only a is in sort list => sort a before b
+        return -1;
+      if (aPosition < 0 && bPosition >= 0)
+        // only b is in sort list => sort b before a
+        return 1;
+      // neither is in sort list => keep original order
+      return 0;
+    });
+  }
+  const options: { value: string; label: string }[] = entries.reduce(
+    (accumulator: { value: string; label: string }[], currentValue) => {
       return [
         ...accumulator,
         { value: currentValue[1], label: currentValue[0] },
