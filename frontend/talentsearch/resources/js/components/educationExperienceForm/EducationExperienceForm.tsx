@@ -1,5 +1,5 @@
 import React from "react";
-import { useWatch } from "react-hook-form";
+import { useWatch, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { Input } from "@common/components/form/Input";
 import { Select } from "@common/components/form/Select";
@@ -18,6 +18,21 @@ export const EducationExperienceForm: React.FunctionComponent = () => {
   const isCurrent = useWatch({ name: "current-role", defaultValue: false });
   // ensuring end date isn't before the start date, using this as a minimum value
   const startDate = useWatch({ name: "start-date" });
+  // resetting end date when isCurrent is changed to true, using the resetField method from the react-hook library
+  const { watch, resetField, setValue } = useForm();
+  if (isCurrent === true) {
+    console.log("if statement");
+    // resetField("end-date");
+    // setValue("end-date", null);
+  }
+
+  React.useEffect(() => {
+    const subscription = watch((value, { name, type }) => {
+      console.log(value, name, type, "useEffect");
+      setValue("end-date", null);
+    });
+    return () => subscription.unsubscribe();
+  }, [watch]);
 
   return (
     <div>
@@ -39,7 +54,7 @@ export const EducationExperienceForm: React.FunctionComponent = () => {
         data-h2-padding="b(top, m)"
         data-h2-flex-direction="s(row) b(column)"
       >
-        <div data-h2-padding="b(right, l)">
+        <div data-h2-padding="l(right, l) m(right, l)">
           <Select
             id="education-type"
             label={intl.formatMessage({
