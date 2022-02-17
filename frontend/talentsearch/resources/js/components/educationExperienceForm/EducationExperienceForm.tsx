@@ -134,9 +134,9 @@ export const EducationExperienceForm: React.FunctionComponent = () => {
           <Checkbox
             id="current-role"
             label={intl.formatMessage({
-              defaultMessage: "I am currently active in this role",
+              defaultMessage: "I am currently active in this education",
               description:
-                "Label displayed on Education Experience form for current role input",
+                "Label displayed on Education Experience form for current education input",
             })}
             name="current-role"
           />
