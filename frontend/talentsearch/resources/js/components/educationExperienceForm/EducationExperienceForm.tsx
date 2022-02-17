@@ -14,22 +14,10 @@ import { EducationType, EducationStatus } from "../../api/generated";
 
 export const EducationExperienceForm: React.FunctionComponent = () => {
   const intl = useIntl();
+  // to toggle whether End Date is required, the state of the Current Role checkbox must be monitored and have to adjust the form accordingly
   const isCurrent = useWatch({ name: "current-role", defaultValue: false });
-
-  // function to validate that end dates are after start dates
-  // extract value in start field and then return it, the function is called by the minimum value required field in {rules} for end date
-  // on load the element is initially null, therefore a conditional has been added to branch between on-load nulls and form filled states
-  const endDateValidation = () => {
-    let formValue;
-    if (document.getElementById("start-date") !== null) {
-      formValue = document.getElementById("start-date") as HTMLFormElement;
-      formValue = formValue.value;
-      return formValue;
-    }
-
-    formValue = "";
-    return formValue;
-  };
+  // ensuring end date isn't before the start date, using this as a minimum value
+  const startDate = useWatch({ name: "start-date" });
 
   return (
     <div>
@@ -186,7 +174,7 @@ export const EducationExperienceForm: React.FunctionComponent = () => {
                       : {
                           required: intl.formatMessage(errorMessages.required),
                           min: {
-                            value: endDateValidation(),
+                            value: startDate,
                             message: intl.formatMessage(
                               errorMessages.futureDate,
                             ),
