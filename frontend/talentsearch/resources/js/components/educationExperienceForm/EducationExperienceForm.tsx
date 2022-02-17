@@ -56,7 +56,16 @@ export const EducationExperienceForm: React.FunctionComponent = () => {
             rules={{
               required: intl.formatMessage(errorMessages.required),
             }}
-            options={enumToOptions(EducationType).map(({ value }) => ({
+            options={enumToOptions(EducationType, [
+              EducationType.Diploma,
+              EducationType.BachelorsDegree,
+              EducationType.MastersDegree,
+              EducationType.Phd,
+              EducationType.PostDoctoralFellowship,
+              EducationType.OnlineCourse,
+              EducationType.Certification,
+              EducationType.Other,
+            ]).map(({ value }) => ({
               value,
               label: intl.formatMessage(getEducationType(value)),
             }))}
@@ -109,7 +118,13 @@ export const EducationExperienceForm: React.FunctionComponent = () => {
             rules={{
               required: intl.formatMessage(errorMessages.required),
             }}
-            options={enumToOptions(EducationStatus).map(({ value }) => ({
+            options={enumToOptions(EducationStatus, [
+              EducationStatus.SuccessCredential,
+              EducationStatus.SuccessNoCredential,
+              EducationStatus.InProgress,
+              EducationStatus.Audited,
+              EducationStatus.DidNotComplete,
+            ]).map(({ value }) => ({
               value,
               label: intl.formatMessage(getEducationStatus(value)),
             }))}
