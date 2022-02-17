@@ -20,6 +20,11 @@ const messages = defineMessages({
     description:
       "Error message that the provided value must be greater than some referenced minimum value.",
   },
+  dateMustFollow: {
+    defaultMessage: "Date must not be before {value}",
+    description:
+      "Error message that the date provided must follow and not precede some referenced date",
+  },
 });
 
 export default messages;

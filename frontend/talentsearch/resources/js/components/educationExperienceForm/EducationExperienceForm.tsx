@@ -1,5 +1,5 @@
 import React from "react";
-import { useWatch, useForm } from "react-hook-form";
+import { useWatch } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { Input } from "@common/components/form/Input";
 import { Select } from "@common/components/form/Select";
@@ -17,22 +17,7 @@ export const EducationExperienceForm: React.FunctionComponent = () => {
   // to toggle whether End Date is required, the state of the Current Role checkbox must be monitored and have to adjust the form accordingly
   const isCurrent = useWatch({ name: "current-role", defaultValue: false });
   // ensuring end date isn't before the start date, using this as a minimum value
-  const startDate = useWatch({ name: "start-date" });
-  // resetting end date when isCurrent is changed to true, using the resetField method from the react-hook library
-  const { watch, resetField, setValue } = useForm();
-  if (isCurrent === true) {
-    console.log("if statement");
-    // resetField("end-date");
-    // setValue("end-date", null);
-  }
-
-  React.useEffect(() => {
-    const subscription = watch((value, { name, type }) => {
-      console.log(value, name, type, "useEffect");
-      setValue("end-date", null);
-    });
-    return () => subscription.unsubscribe();
-  }, [watch]);
+  const watchStartDate = useWatch({ name: "start-date" });
 
   return (
     <div>
@@ -189,9 +174,10 @@ export const EducationExperienceForm: React.FunctionComponent = () => {
                       : {
                           required: intl.formatMessage(errorMessages.required),
                           min: {
-                            value: startDate,
+                            value: watchStartDate,
                             message: intl.formatMessage(
-                              errorMessages.futureDate,
+                              errorMessages.dateMustFollow,
+                              { value: watchStartDate },
                             ),
                           },
                         }
