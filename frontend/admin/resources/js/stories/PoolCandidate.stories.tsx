@@ -47,7 +47,9 @@ stories.add("Create Pool Candidate Form", () => (
     pools={fakePools() as Pool[]}
     cmoAssets={fakeCmoAssets() as CmoAsset[]}
     handleCreatePoolCandidate={async (data: CreatePoolCandidateInput) => {
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      await new Promise((resolve) => {
+        setTimeout(resolve, 1000);
+      });
       action("Create Pool Candidate")(data);
       return null;
     }}
@@ -93,7 +95,9 @@ stories.add("Update Pool Candidate Form", () => {
         id: string,
         data: UpdatePoolCandidateInput,
       ): Promise<UpdatePoolCandidateMutation["updatePoolCandidate"]> => {
-        await new Promise((resolve) => setTimeout(resolve, 1000));
+        await new Promise((resolve) => {
+          setTimeout(resolve, 1000);
+        });
         action("Update Pool Candidate")(id, data);
         return Promise.resolve(
           data as UpdatePoolCandidateMutation["updatePoolCandidate"],

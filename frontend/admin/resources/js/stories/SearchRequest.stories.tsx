@@ -25,7 +25,9 @@ stories.add("Update Single Search Request", () => (
   <UpdateSearchRequestForm
     initialSearchRequest={fakeSearchRequests()[0] as PoolCandidateSearchRequest}
     handleUpdateSearchRequest={async (id, data) => {
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      await new Promise((resolve) => {
+        setTimeout(resolve, 1000);
+      });
       action("Update Search Result")(data);
       return data;
     }}

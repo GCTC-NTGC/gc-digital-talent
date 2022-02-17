@@ -27,7 +27,9 @@ stories.add("Create Operational Requirement Form", () => {
       handleCreateOperationalRequirement={async (
         data: CreateOperationalRequirementInput,
       ) => {
-        await new Promise((resolve) => setTimeout(resolve, 1000));
+        await new Promise((resolve) => {
+          setTimeout(resolve, 1000);
+        });
         action("Create Operational Requirement")(data);
         return data;
       }}
@@ -52,7 +54,9 @@ stories.add("Update Operational Requirement Form", () => {
     <UpdateOperationalRequirementForm
       initialOperationalRequirement={operationalRequirement}
       handleUpdateOperationalRequirement={async (id, data) => {
-        await new Promise((resolve) => setTimeout(resolve, 1000));
+        await new Promise((resolve) => {
+          setTimeout(resolve, 1000);
+        });
         action("Update Operational Requirement")(data);
         return data;
       }}
