@@ -256,6 +256,25 @@ enum AwardedScope {
     SUB_ORGANIZATIONAL
 }
 
+enum EducationType {
+    DIPLOMA
+    BACHELORS_DEGREE
+    MASTERS_DEGREE
+    PHD
+    POST_DOCTORAL_FELLOWSHIP
+    ONLINE_COURSE
+    CERTIFICATION
+    OTHER
+}
+
+enum EducationStatus {
+    SUCCESS_CREDENTIAL
+    SUCCESS_NO_CREDENTIAL
+    IN_PROGRESS
+    AUDITED
+    DID_NOT_COMPLETE
+}
+
 type Query {
     me: User @auth
     user(id: ID! @eq): User @find @guard @can(ability: "view", query: true)
