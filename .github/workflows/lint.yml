@@ -1,0 +1,47 @@
+name: Lint
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - .github/workflows/*lint*.yml
+      - frontend/**
+  pull_request:
+    paths:
+      - .github/workflows/*lint*.yml
+      - frontend/**
+
+jobs:
+  run-linters:
+    name: Run linters
+    runs-on: ubuntu-latest
+    env:
+      NPM_VERSION: "8.3.0"
+
+    steps:
+      - uses: actions/checkout@v2.4.0
+      - name: Use Node.js
+        uses: actions/setup-node@v2.5.1
+        with:
+          node-version-file: 'frontend/.nvmrc'
+          cache: 'npm'
+          cache-dependency-path: 'frontend/package-lock.json'
+
+      - name: Upgrade npm
+        run: npm install --global npm@${{ env.NPM_VERSION }}
+
+      - name: "Install dependencies: workspace"
+        working-directory: frontend
+        run: npm install
+
+
+      - name: "Setup: all workspaces"
+        working-directory: frontend
+        run: npm run codegen --workspaces --if-present
+
+      - name: "Run ESlint: all workspaces"
+        working-directory: frontend
+        # Temporarily ignore until we fix existing issues.
+        # See: https://github.com/GCTC-NTGC/gc-digital-talent/issues/2043
+        continue-on-error: true
+        run: npm run lint --workspaces --if-present
