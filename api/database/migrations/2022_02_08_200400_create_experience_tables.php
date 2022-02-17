@@ -68,6 +68,7 @@ class CreateExperienceTables extends Migration
             $table->date('end_date')->nullable();
             $table->string('type')->nullable();
             $table->string('status')->nullable();
+            $table->text('details')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
@@ -82,6 +83,7 @@ class CreateExperienceTables extends Migration
             $table->date('awarded_date')->nullable();
             $table->string('recipient_type')->nullable();
             $table->string('recognition_type')->nullable();
+            $table->text('details')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

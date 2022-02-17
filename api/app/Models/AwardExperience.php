@@ -17,6 +17,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property Illuminate\Support\Carbon $awarded_date
  * @property string $recipient_type
  * @property string $recognition_type
+ * @property string $details
  * @property Illuminate\Support\Carbon $created_at
  * @property Illuminate\Support\Carbon $updated_at
  */

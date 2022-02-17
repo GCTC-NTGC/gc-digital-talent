@@ -218,7 +218,13 @@ type Skill {
     families: [SkillFamily] @belongsToMany
 }
 
-type WorkExperience {
+interface Experience {
+  id: ID!
+  user: User! @belongsTo
+  details: String
+}
+
+type WorkExperience implements Experience {
   id: ID!
   user: User! @belongsTo
   role: String
@@ -228,7 +234,7 @@ type WorkExperience {
   endDate: Date @rename(attribute: "end_date")
   details: String
 }
-type PersonalExperience {
+type PersonalExperience implements Experience {
   id: ID!
   user: User! @belongsTo
   title: String
@@ -237,7 +243,7 @@ type PersonalExperience {
   endDate: Date @rename(attribute: "end_date")
   details: String
 }
-type CommunityExperience {
+type CommunityExperience implements Experience {
   id: ID!
   user: User! @belongsTo
   title: String
@@ -265,7 +271,7 @@ enum EducationType {
   CERTIFICATION
   OTHER
 }
-type EducationExperience {
+type EducationExperience implements Experience {
   id: ID!
   user: User! @belongsTo
   institution: String
@@ -275,6 +281,7 @@ type EducationExperience {
   endDate: Date @rename(attribute: "end_date")
   type: EducationType
   status: EducationStatus
+  details: String
 }
 
 enum RecipientType {
@@ -292,7 +299,7 @@ enum RecognitionType {
   ORGANIZATIONAL
   DIVISIONAL
 }
-type AwardExperience {
+type AwardExperience implements Experience {
   id: ID!
   user: User! @belongsTo
   title: String
@@ -300,9 +307,8 @@ type AwardExperience {
   awardedDate: Date @rename(attribute: "awarded_date")
   recipientType: RecipientType @rename(attribute: "recipient_type")
   recognitionType: RecognitionType @rename(attribute: "recognition_type")
+  details: String
 }
-
-union Experience = WorkExperience | PersonalExperience | CommunityExperience | EducationExperience | AwardExperience
 
 input ClassificationFilterInput {
     group: String!

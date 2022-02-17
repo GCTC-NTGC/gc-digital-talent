@@ -1,4 +1,4 @@
-type AwardExperience {
+type AwardExperience implements Experience {
   id: ID!
   user: User!
   title: String
@@ -6,6 +6,7 @@ type AwardExperience {
   awardedDate: Date
   recipientType: RecipientType
   recognitionType: RecognitionType
+  details: String
 }
 
 type Classification {
@@ -40,7 +41,7 @@ input CmoAssetBelongsToMany {
   sync: [ID!]
 }
 
-type CommunityExperience {
+type CommunityExperience implements Experience {
   id: ID!
   user: User!
   title: String
@@ -174,7 +175,7 @@ input DepartmentBelongsTo {
   connect: ID!
 }
 
-type EducationExperience {
+type EducationExperience implements Experience {
   id: ID!
   user: User!
   institution: String
@@ -184,6 +185,7 @@ type EducationExperience {
   endDate: Date
   type: EducationType
   status: EducationStatus
+  details: String
 }
 
 enum EducationStatus {
@@ -208,7 +210,11 @@ enum EducationType {
 """A RFC 5321 compliant email."""
 scalar Email
 
-union Experience = WorkExperience | PersonalExperience | CommunityExperience | EducationExperience | AwardExperience
+interface Experience {
+  id: ID!
+  user: User!
+  details: String
+}
 
 input KeyFilterInput {
   key: KeyString!
@@ -378,7 +384,7 @@ type PaginatorInfo {
   total: Int!
 }
 
-type PersonalExperience {
+type PersonalExperience implements Experience {
   id: ID!
   user: User!
   title: String
@@ -847,7 +853,7 @@ input WhereConditionsRelation {
   condition: WhereConditions
 }
 
-type WorkExperience {
+type WorkExperience implements Experience {
   id: ID!
   user: User!
   role: String
