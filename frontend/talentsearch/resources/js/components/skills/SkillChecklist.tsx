@@ -66,15 +66,16 @@ const Category: React.FunctionComponent<CategoryProps> = ({
   );
   const title = `${categoryName} (${skillCount})`;
 
-
-  let image = null;
+  let image;
   switch (category) {
     case SkillCategory.Behavioural:
-      image = <UserGroupIcon style={{ width: "calc(1rem*1.25)" }}/>;
+      image = <UserGroupIcon style={{ width: "calc(1rem*1.25)" }} />;
       break;
     case SkillCategory.Technical:
-      image = <LightningBoltIcon style={{ width: "calc(1rem*1.25)" }}/>;
+      image = <LightningBoltIcon style={{ width: "calc(1rem*1.25)" }} />;
       break;
+    default:
+      image = null;
   }
 
   const [selectedFamilies, setSelectedFamilies] = React.useState<SkillFamily[]>(
@@ -130,16 +131,15 @@ const SkillChecklist: React.FunctionComponent<SkillChecklistProps> = ({
 
   const [selected, setSelected] = React.useState<SkillFamily[]>([]);
 
-  React.useEffect(() => {
-    callback(selected);
-  });
-
   const handleSelection = (newSelection: SkillFamily, added: boolean) => {
+    let newCollection;
     if (added) {
-      setSelected([...selected, newSelection]);
+      newCollection = [...selected, newSelection];
     } else {
-      setSelected(selected.filter((elem) => elem.id !== newSelection.id));
+      newCollection = selected.filter((elem) => elem.id !== newSelection.id);
     }
+    setSelected(newCollection);
+    callback(newCollection);
   };
 
   return (
