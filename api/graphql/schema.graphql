@@ -253,24 +253,6 @@ type CommunityExperience implements Experience {
   endDate: Date @rename(attribute: "end_date")
   details: String
 }
-
-enum EducationStatus {
-  COMPLETE_CREDITED
-  COMPLETE_UNCREDITED
-  IN_PROGRESS
-  AUDITED
-  INCOMPLETE
-}
-enum EducationType {
-  DIPLOMA
-  BACHELORS
-  MASTERS
-  PHD
-  POST_DOCTORAL
-  ONLINE_COURSE
-  CERTIFICATION
-  OTHER
-}
 type EducationExperience implements Experience {
   id: ID!
   user: User! @belongsTo
@@ -283,30 +265,14 @@ type EducationExperience implements Experience {
   status: EducationStatus
   details: String
 }
-
-enum RecipientType {
-  SELF
-  TEAM
-  PROJECT
-  ORGANIZATION
-}
-enum RecognitionType {
-  INTERNATIONAL
-  NATIONAL
-  PROVINCIAL
-  LOCAL
-  COMMUNITY
-  ORGANIZATIONAL
-  DIVISIONAL
-}
 type AwardExperience implements Experience {
   id: ID!
   user: User! @belongsTo
   title: String
   issuedBy: String @rename(attribute: "issued_by")
   awardedDate: Date @rename(attribute: "awarded_date")
-  recipientType: RecipientType @rename(attribute: "recipient_type")
-  recognitionType: RecognitionType @rename(attribute: "recognition_type")
+  awardedTo: AwardedTo @rename(attribute: "awarded_to")
+  awardedScope: AwardedScope @rename(attribute: "awarded_scope")
   details: String
 }
 

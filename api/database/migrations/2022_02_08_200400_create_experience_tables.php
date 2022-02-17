@@ -81,8 +81,8 @@ class CreateExperienceTables extends Migration
             $table->string('title')->nullable();
             $table->string('issued_by')->nullable();
             $table->date('awarded_date')->nullable();
-            $table->string('recipient_type')->nullable();
-            $table->string('recognition_type')->nullable();
+            $table->string('awarded_to')->nullable();
+            $table->string('awarded_scope')->nullable();
             $table->text('details')->nullable();
             $table->timestamps();
             $table->softDeletes();

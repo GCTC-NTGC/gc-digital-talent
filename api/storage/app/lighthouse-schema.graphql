@@ -4,9 +4,26 @@ type AwardExperience implements Experience {
   title: String
   issuedBy: String
   awardedDate: Date
-  recipientType: RecipientType
-  recognitionType: RecognitionType
+  awardedTo: AwardedTo
+  awardedScope: AwardedScope
   details: String
+}
+
+enum AwardedScope {
+  INTERNATIONAL
+  NATIONAL
+  PROVINCIAL
+  LOCAL
+  COMMUNITY
+  ORGANIZATIONAL
+  SUB_ORGANIZATIONAL
+}
+
+enum AwardedTo {
+  ME
+  MY_TEAM
+  MY_PROJECT
+  MY_ORGANIZATION
 }
 
 type Classification {
@@ -189,19 +206,19 @@ type EducationExperience implements Experience {
 }
 
 enum EducationStatus {
-  COMPLETE_CREDITED
-  COMPLETE_UNCREDITED
+  SUCCESS_CREDENTIAL
+  SUCCESS_NO_CREDENTIAL
   IN_PROGRESS
   AUDITED
-  INCOMPLETE
+  DID_NOT_COMPLETE
 }
 
 enum EducationType {
   DIPLOMA
-  BACHELORS
-  MASTERS
+  BACHELORS_DEGREE
+  MASTERS_DEGREE
   PHD
-  POST_DOCTORAL
+  POST_DOCTORAL_FELLOWSHIP
   ONLINE_COURSE
   CERTIFICATION
   OTHER
@@ -539,23 +556,6 @@ type Query {
   communityExperience: [CommunityExperience]!
   educationExperience: [EducationExperience]!
   awardExperience: [AwardExperience]!
-}
-
-enum RecipientType {
-  SELF
-  TEAM
-  PROJECT
-  ORGANIZATION
-}
-
-enum RecognitionType {
-  INTERNATIONAL
-  NATIONAL
-  PROVINCIAL
-  LOCAL
-  COMMUNITY
-  ORGANIZATIONAL
-  DIVISIONAL
 }
 
 enum Role {
