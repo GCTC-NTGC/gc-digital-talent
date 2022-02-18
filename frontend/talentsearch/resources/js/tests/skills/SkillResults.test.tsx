@@ -44,7 +44,7 @@ describe("Skill Results Tests", () => {
     const title = "Results";
     renderSkillResults(title);
 
-    const element = screen.getByText(`${title} (${skills.length})`);
+    const element = screen.getByText(`${title}`);
     expect(element).toBeTruthy();
   });
 

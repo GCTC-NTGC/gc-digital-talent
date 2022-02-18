@@ -1,3 +1,20 @@
+enum AwardedScope {
+  INTERNATIONAL
+  NATIONAL
+  PROVINCIAL
+  LOCAL
+  COMMUNITY
+  ORGANIZATIONAL
+  SUB_ORGANIZATIONAL
+}
+
+enum AwardedTo {
+  ME
+  MY_TEAM
+  MY_PROJECT
+  MY_ORGANIZATION
+}
+
 type Classification {
   id: ID!
   name: LocalizedString
@@ -121,7 +138,7 @@ input CreateSkillInput {
   name: LocalizedStringInput!
   description: LocalizedStringInput
   families: SkillFamilyBelongsToMany
-  keywords: [String]
+  keywords: [String!]
 }
 
 """When creating a User, name and email are required."""
@@ -151,6 +168,25 @@ type Department {
 
 input DepartmentBelongsTo {
   connect: ID!
+}
+
+enum EducationStatus {
+  SUCCESS_CREDENTIAL
+  SUCCESS_NO_CREDENTIAL
+  IN_PROGRESS
+  AUDITED
+  DID_NOT_COMPLETE
+}
+
+enum EducationType {
+  DIPLOMA
+  BACHELORS_DEGREE
+  MASTERS_DEGREE
+  PHD
+  POST_DOCTORAL_FELLOWSHIP
+  ONLINE_COURSE
+  CERTIFICATION
+  OTHER
 }
 
 """A RFC 5321 compliant email."""
@@ -553,8 +589,8 @@ type Skill {
   key: KeyString!
   name: LocalizedString!
   description: LocalizedString
-  keywords: [String]
-  families: [SkillFamily]
+  keywords: [String!]
+  families: [SkillFamily!]
 }
 
 input SkillBelongsToMany {
@@ -571,7 +607,7 @@ type SkillFamily {
   key: KeyString!
   name: LocalizedString!
   description: LocalizedString!
-  skills: [Skill]
+  skills: [Skill!]
   category: SkillCategory!
 }
 
@@ -675,7 +711,7 @@ input UpdateSkillInput {
   name: LocalizedStringInput!
   description: LocalizedStringInput
   families: SkillFamilyBelongsToMany
-  keywords: [String]
+  keywords: [String!]
 }
 
 """

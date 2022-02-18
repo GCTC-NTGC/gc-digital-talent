@@ -2,7 +2,7 @@
 import React from "react";
 import { storiesOf } from "@storybook/react/";
 import { action } from "@storybook/addon-actions";
-import { fakeSkillFamiliesWithSkills } from "@common/fakeData";
+import { fakeSkills, fakeSkillFamilies } from "@common/fakeData";
 import {
   SkillFamily,
   SkillCategory,
@@ -13,7 +13,8 @@ import { SkillFamilyTable } from "../components/skillFamily/SkillFamilyTable";
 import { CreateSkillFamilyForm } from "../components/skillFamily/CreateSkillFamily";
 import { UpdateSkillFamilyForm } from "../components/skillFamily/UpdateSkillFamily";
 
-const { skillFamilies, skills } = fakeSkillFamiliesWithSkills();
+const skills = fakeSkills();
+const skillFamilies = fakeSkillFamilies(15, skills);
 
 const stories = storiesOf("Skill Families", module);
 

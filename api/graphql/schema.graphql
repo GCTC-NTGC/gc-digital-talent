@@ -199,7 +199,7 @@ type SkillFamily {
     key: KeyString!
     name: LocalizedString!
     description: LocalizedString!
-    skills: [Skill] @belongsToMany
+    skills: [Skill!] @belongsToMany
     category: SkillCategory!
 }
 
@@ -208,8 +208,8 @@ type Skill {
     key: KeyString!
     name: LocalizedString!
     description: LocalizedString
-    keywords: [String]
-    families: [SkillFamily] @belongsToMany
+    keywords: [String!]
+    families: [SkillFamily!] @belongsToMany
 }
 
 input ClassificationFilterInput {
@@ -237,6 +237,42 @@ input PoolCandidateFilterInput {
     operationalRequirements: [KeyFilterInput] @builder(method: "App\\Models\\PoolCandidate@filterByOperationalRequirements")
     workRegions: [WorkRegion] @builder(method: "App\\Models\\PoolCandidate@filterByWorkRegions")
     pools: [PoolFilterInput] @builder(method: "App\\Models\\PoolCandidate@filterByPools")
+}
+
+enum AwardedTo {
+    ME
+    MY_TEAM
+    MY_PROJECT
+    MY_ORGANIZATION
+}
+
+enum AwardedScope {
+    INTERNATIONAL
+    NATIONAL
+    PROVINCIAL
+    LOCAL
+    COMMUNITY
+    ORGANIZATIONAL
+    SUB_ORGANIZATIONAL
+}
+
+enum EducationType {
+    DIPLOMA
+    BACHELORS_DEGREE
+    MASTERS_DEGREE
+    PHD
+    POST_DOCTORAL_FELLOWSHIP
+    ONLINE_COURSE
+    CERTIFICATION
+    OTHER
+}
+
+enum EducationStatus {
+    SUCCESS_CREDENTIAL
+    SUCCESS_NO_CREDENTIAL
+    IN_PROGRESS
+    AUDITED
+    DID_NOT_COMPLETE
 }
 
 type Query {
@@ -505,14 +541,14 @@ input CreateSkillInput {
     name: LocalizedStringInput!
     description: LocalizedStringInput
     families: SkillFamilyBelongsToMany
-    keywords: [String]
+    keywords: [String!]
 }
 
 input UpdateSkillInput {
     name: LocalizedStringInput!
     description: LocalizedStringInput
     families: SkillFamilyBelongsToMany
-    keywords: [String]
+    keywords: [String!]
 }
 
 type Mutation {

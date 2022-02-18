@@ -1,13 +1,12 @@
 /**
  * @jest-environment jsdom
  */
-
-import { fakeSkillFamilies } from "@common/fakeData";
+import { fakeSkillFamilies, fakeSkills } from "@common/fakeData";
 import React from "react";
 import { render, screen, fireEvent } from "../../tests/testUtils";
 import SkillChecklist from "./SkillChecklist";
 
-const testData = fakeSkillFamilies();
+const testData = fakeSkillFamilies(5, fakeSkills(10));
 const callback = jest.fn();
 
 const renderSkillChecklist = () => {
