@@ -4,10 +4,8 @@ namespace App\Services;
 use Exception;
 use App\Services\Contracts\BearerTokenServiceInterface;
 use DateInterval;
-use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\UnauthorizedException;
 use Lcobucci\Clock\Clock;
 use Lcobucci\JWT\Configuration;
@@ -88,7 +86,7 @@ class OpenIdBearerTokenService implements BearerTokenServiceInterface
     private function getConfigProperty(string $propertyName): string
     {
         $jsonString = Cache::remember('openid_config_json_string', 60, function() { // only get content every minute
-            return file_get_contents($this->configUri);
+            return Http::get($this->configUri)->body();
         });
 
         $obj = json_decode($jsonString);;
@@ -107,7 +105,7 @@ class OpenIdBearerTokenService implements BearerTokenServiceInterface
         $jwks_uri = $this->getConfigProperty('jwks_uri');
         $jsonString = Cache::remember('jwks_json_string', 60, function() use($jwks_uri) // only get jwks content every minute
         {
-            return file_get_contents($jwks_uri);
+            return Http::get($jwks_uri)->body();
         });
 
         $keyDictionary = $this->parseJwksJsonString($jsonString);
@@ -115,32 +113,30 @@ class OpenIdBearerTokenService implements BearerTokenServiceInterface
         return $keyDictionary[$keyId];
     }
 
+    // call the introspection endpoint to check if the OP considers the access token still valid
     public function verifyJwtWithIntrospection(string $accessToken)
     {
-        try {
+        $cacheKey = 'introspection_token_' . $accessToken;
+
+        if (Cache::has($cacheKey)) {
+            // use cached access token status if available
+            $isTokenActive = Cache::get($cacheKey);
+        } else {
             // make api call to introspect endpoint
             $introspectionUri = $this->getConfigProperty('introspection_endpoint');
-            $introspectionResponse = Http::asForm()
-            ->post($introspectionUri, [
+            $introspectionResponse = Http::post($introspectionUri, [
                 'token' => $accessToken,
-                'client_id' => config('oauth.client_id'),
-                'client_secret' => config('oauth.client_secret'),
             ]);
-
             $isTokenActive = $introspectionResponse->json('active');
-
-            if (!$isTokenActive) {
-                throw new UnauthorizedException('access token is invalid');
-            } else {
-                Cache::put('introspection_token_' + $accessToken, true);
+            if($isTokenActive) {
+                Cache::put($cacheKey, $isTokenActive, 3); // cache for a few seconds in case of multiple API calls for a page load
             }
+        }
 
-        } catch (\Exception $exception) {
-             Log::error($exception);
-             return new Response('Unauthorized - Access Token failed Introspection', 401);
+        if (!$isTokenActive) {
+            throw new UnauthorizedException('Access token is not active', 401);
         }
     }
-
 
     public function validateAndGetClaims(string $bearerToken) : DataSet
     {
@@ -150,8 +146,6 @@ class OpenIdBearerTokenService implements BearerTokenServiceInterface
         $config = $this->getConfiguration($keyId);
 
         $token = $config->parser()->parse($bearerToken);
-
-        $this->verifyJwtWithIntrospection($bearerToken);
 
         assert($token instanceof UnencryptedToken);
         $config->setValidationConstraints(
@@ -163,6 +157,8 @@ class OpenIdBearerTokenService implements BearerTokenServiceInterface
         $constraints = $config->validationConstraints();
 
         $config->validator()->assert($token, ...$constraints);
+
+        $this->verifyJwtWithIntrospection($bearerToken);
 
         return $token->claims();
     }
