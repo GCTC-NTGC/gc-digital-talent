@@ -66,7 +66,7 @@ const AddSkillsToExperience: React.FunctionComponent<
       ),
     );
     setFamilyFilteredSkills(matchingSkills);
-    mainstreamSkillsPagination.setCurrentPage(1);
+    mainstreamSkillsPagination.setCurrentPage(1); // just in case the new list of matched skills requires fewer pages
   };
 
   /**
@@ -107,7 +107,10 @@ const AddSkillsToExperience: React.FunctionComponent<
       <TabSet>
         <Tab
           icon={<SearchCircleIcon style={{ width: "1rem" }} />}
-          text="My frequent skills"
+          text={intl.formatMessage({
+            defaultMessage: "My frequent skills",
+            description: "Tab name for a list of frequently used skills",
+          })}
         >
           <SkillResults
             title={intl.formatMessage(
@@ -136,7 +139,10 @@ const AddSkillsToExperience: React.FunctionComponent<
         </Tab>
         <Tab
           icon={<FilterIcon style={{ width: "1rem" }} />}
-          text="Mainstream skills"
+          text={intl.formatMessage({
+            defaultMessage: "Mainstream skills",
+            description: "Tab name for a list of mainstream skills",
+          })}
         >
           <SkillChecklist
             skillFamilies={allSkillFamilies}
@@ -168,7 +174,10 @@ const AddSkillsToExperience: React.FunctionComponent<
         </Tab>
         <Tab
           icon={<SearchCircleIcon style={{ width: "1rem" }} />}
-          text="Search by keyword"
+          text={intl.formatMessage({
+            defaultMessage: "Search by keyword",
+            description: "Tab name for a box to search for skills",
+          })}
         >
           <SearchBar handleSearch={handleSearch} />
           <SkillResults
