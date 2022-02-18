@@ -83,45 +83,52 @@ export const PersonalExperienceForm: React.FunctionComponent = () => {
           name="current-role"
         />
 
-        <div data-h2-display="b(flex)">
-          <Input
-            id="start-date"
-            label={intl.formatMessage({
-              defaultMessage: "Start Date",
-              description:
-                "Label displayed on Personal Experience form for start date input",
-            })}
-            name="start-date"
-            type="date"
-            rules={{ required: intl.formatMessage(errorMessages.required) }}
-          />
-
-          {!isCurrent && (
+        <div
+          data-h2-display="b(flex)"
+          data-h2-flex-direction="b(column) s(row)"
+        >
+          <div data-h2-padding="b(right, none) s(right, l)">
             <Input
-              id="end-date"
+              id="start-date"
               label={intl.formatMessage({
-                defaultMessage: "End Date",
+                defaultMessage: "Start Date",
                 description:
-                  "Label displayed on Personal Experience form for end date input",
+                  "Label displayed on Personal Experience form for start date input",
               })}
-              name="end-date"
+              name="start-date"
               type="date"
-              rules={
-                isCurrent
-                  ? {}
-                  : {
-                      required: intl.formatMessage(errorMessages.required),
-                      min: {
-                        value: watchStartDate,
-                        message: intl.formatMessage(
-                          errorMessages.dateMustFollow,
-                          { value: watchStartDate },
-                        ),
-                      },
-                    }
-              }
+              rules={{ required: intl.formatMessage(errorMessages.required) }}
             />
-          )}
+          </div>
+
+          <div>
+            {!isCurrent && (
+              <Input
+                id="end-date"
+                label={intl.formatMessage({
+                  defaultMessage: "End Date",
+                  description:
+                    "Label displayed on Personal Experience form for end date input",
+                })}
+                name="end-date"
+                type="date"
+                rules={
+                  isCurrent
+                    ? {}
+                    : {
+                        required: intl.formatMessage(errorMessages.required),
+                        min: {
+                          value: watchStartDate,
+                          message: intl.formatMessage(
+                            errorMessages.dateMustFollow,
+                            { value: watchStartDate },
+                          ),
+                        },
+                      }
+                }
+              />
+            )}
+          </div>
         </div>
       </div>
     </div>
