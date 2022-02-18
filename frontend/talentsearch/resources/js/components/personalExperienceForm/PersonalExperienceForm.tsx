@@ -5,6 +5,7 @@ import { Input } from "@common/components/form/Input";
 import { Checkbox } from "@common/components/form/Checkbox";
 import { TextArea } from "@common/components/form/TextArea";
 import { errorMessages } from "@common/messages";
+import { Fieldset } from "@common/components/inputPartials/Fieldset";
 
 export const PersonalExperienceForm: React.FunctionComponent = () => {
   const intl = useIntl();
@@ -60,28 +61,28 @@ export const PersonalExperienceForm: React.FunctionComponent = () => {
           name="experience-description"
           rules={{ required: intl.formatMessage(errorMessages.required) }}
         />
-
-        <Checkbox
-          id="disclaimer"
-          label={intl.formatMessage({
-            defaultMessage:
-              "I agree to share this information with verified Government of Canada hiring managers and HR advisors who have access to this platform.",
-            description:
-              "Label displayed on Personal Experience form for disclaimer checkbox",
-          })}
-          name="disclaimer"
-          rules={{ required: intl.formatMessage(errorMessages.required) }}
-        />
-
-        <Checkbox
-          id="current-role"
-          label={intl.formatMessage({
-            defaultMessage: "I am currently active in this experience",
-            description:
-              "Label displayed on Personal Experience form for current experience input",
-          })}
-          name="current-role"
-        />
+        <Fieldset legend="" hideOptional>
+          <Checkbox
+            id="disclaimer"
+            label={intl.formatMessage({
+              defaultMessage:
+                "I agree to share this information with verified Government of Canada hiring managers and HR advisors who have access to this platform.",
+              description:
+                "Label displayed on Personal Experience form for disclaimer checkbox",
+            })}
+            name="disclaimer"
+            rules={{ required: intl.formatMessage(errorMessages.required) }}
+          />
+          <Checkbox
+            id="current-role"
+            label={intl.formatMessage({
+              defaultMessage: "I am currently active in this experience",
+              description:
+                "Label displayed on Personal Experience form for current experience input",
+            })}
+            name="current-role"
+          />
+        </Fieldset>
 
         <div
           data-h2-display="b(flex)"
