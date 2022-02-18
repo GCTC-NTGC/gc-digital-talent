@@ -99,6 +99,14 @@ rules:
   no-shadow: 'off'
   '@typescript-eslint/no-shadow': error
   react/function-component-definition: 'off'
+  # The addition of this rule is a temporary work-around.
+  # TODO: Remove after the relevant fix is merged.
+  # See: https://github.com/eslint/eslint/issues/15617
+  no-restricted-exports:
+    - error
+    - restrictedNamedExports:
+      #- default
+      - then
 settings:
   react:
     version: detect
