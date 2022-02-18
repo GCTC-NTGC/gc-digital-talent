@@ -37,7 +37,9 @@ jobs:
 
       - name: "Setup: all workspaces"
         working-directory: frontend
-        run: npm run codegen --workspaces --if-present
+        run: |
+          npm run codegen --workspaces --if-present
+          npm run intl-compile --workspaces --if-present
 
       - name: "Run ESlint: all workspaces"
         working-directory: frontend
