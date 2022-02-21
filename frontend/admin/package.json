@@ -21,8 +21,8 @@
     "npm": ">=8.0.0"
   },
   "scripts": {
-    "lint": "eslint ./resources/js --ext .js,.ts,.jsx,.tsx",
-    "lint:fix": "eslint ./resources/js --fix --ext .js,.ts,.jsx,.tsx",
+    "lint": "eslint ./resources/js --ext .js,.ts,.jsx,.tsx --config ../.eslintrc.yml",
+    "lint:fix": "eslint ./resources/js --fix --ext .js,.ts,.jsx,.tsx --config ../.eslintrc.yml",
     "prettier": "prettier --write ./resources/js",
     "dev": "mix",
     "watch": "mix watch",

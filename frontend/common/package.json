@@ -4,8 +4,8 @@
   "license": "MIT",
   "description": "Shared components and utilities for GC Digital Talent apps",
   "scripts": {
-    "lint": "eslint ./src --ext .js,.ts,.jsx,.tsx",
-    "lint:fix": "eslint ./src --fix --ext .js,.ts,.jsx,.tsx",
+    "lint": "eslint ./src --ext .js,.ts,.jsx,.tsx --config ../.eslintrc.yml",
+    "lint:fix": "eslint ./src --fix --ext .js,.ts,.jsx,.tsx --config ../.eslintrc.yml",
     "prettier": "prettier --write ./src",
     "test": "jest",
     "test:watch": "jest --watch",
