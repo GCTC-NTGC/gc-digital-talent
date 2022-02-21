@@ -220,7 +220,7 @@ type SkillFamily {
     key: KeyString!
     name: LocalizedString!
     description: LocalizedString!
-    skills: [Skill] @belongsToMany
+    skills: [Skill!] @belongsToMany
     category: SkillCategory!
 }
 
@@ -229,12 +229,53 @@ type Skill {
     key: KeyString!
     name: LocalizedString!
     description: LocalizedString
-    keywords: [String]
-    families: [SkillFamily] @belongsToMany
+    keywords: [String!]
+    families: [SkillFamily!] @belongsToMany
     experienceSkills: [ExperienceSkill] @hasMany
 }
 
-type WorkExperience {
+enum AwardedTo {
+    ME
+    MY_TEAM
+    MY_PROJECT
+    MY_ORGANIZATION
+}
+enum AwardedScope {
+    INTERNATIONAL
+    NATIONAL
+    PROVINCIAL
+    LOCAL
+    COMMUNITY
+    ORGANIZATIONAL
+    SUB_ORGANIZATIONAL
+}
+
+enum EducationType {
+    DIPLOMA
+    BACHELORS_DEGREE
+    MASTERS_DEGREE
+    PHD
+    POST_DOCTORAL_FELLOWSHIP
+    ONLINE_COURSE
+    CERTIFICATION
+    OTHER
+}
+enum EducationStatus {
+    SUCCESS_CREDENTIAL
+    SUCCESS_NO_CREDENTIAL
+    IN_PROGRESS
+    AUDITED
+    DID_NOT_COMPLETE
+}
+
+interface Experience {
+  id: ID!
+  user: User! @belongsTo
+  details: String
+  experienceSkills: [ExperienceSkill] @morphMany
+}
+
+type WorkExperience implements Experience {
   id: ID!
   user: User! @belongsTo
   role: String
@@ -245,7 +286,7 @@ type WorkExperience {
   details: String
   experienceSkills: [ExperienceSkill] @morphMany
 }
-type PersonalExperience {
+type PersonalExperience implements Experience {
   id: ID!
   user: User! @belongsTo
   title: String
@@ -255,7 +296,7 @@ type PersonalExperience {
   details: String
   experienceSkills: [ExperienceSkill] @morphMany
 }
-type CommunityExperience {
+type CommunityExperience implements Experience {
   id: ID!
   user: User! @belongsTo
   title: String
@@ -266,25 +307,7 @@ type CommunityExperience {
   details: String
   experienceSkills: [ExperienceSkill] @morphMany
 }
-
-enum EducationStatus {
-  COMPLETE_CREDITED
-  COMPLETE_UNCREDITED
-  IN_PROGRESS
-  AUDITED
-  INCOMPLETE
-}
-enum EducationType {
-  DIPLOMA
-  BACHELORS
-  MASTERS
-  PHD
-  POST_DOCTORAL
-  ONLINE_COURSE
-  CERTIFICATION
-  OTHER
-}
-type EducationExperience {
+type EducationExperience implements Experience {
   id: ID!
   user: User! @belongsTo
   institution: String
@@ -294,32 +317,18 @@ type EducationExperience {
   endDate: Date @rename(attribute: "end_date")
   type: EducationType
   status: EducationStatus
+  details: String
   experienceSkills: [ExperienceSkill] @morphMany
 }
-
-enum RecipientType {
-  SELF
-  TEAM
-  PROJECT
-  ORGANIZATION
-}
-enum RecognitionType {
-  INTERNATIONAL
-  NATIONAL
-  PROVINCIAL
-  LOCAL
-  COMMUNITY
-  ORGANIZATIONAL
-  DIVISIONAL
-}
-type AwardExperience {
+type AwardExperience implements Experience {
   id: ID!
   user: User! @belongsTo
   title: String
   issuedBy: String @rename(attribute: "issued_by")
   awardedDate: Date @rename(attribute: "awarded_date")
-  recipientType: RecipientType @rename(attribute: "recipient_type")
-  recognitionType: RecognitionType @rename(attribute: "recognition_type")
+  awardedTo: AwardedTo @rename(attribute: "awarded_to")
+  awardedScope: AwardedScope @rename(attribute: "awarded_scope")
+  details: String
   experienceSkills: [ExperienceSkill] @morphMany
 }
 
@@ -329,8 +338,6 @@ type ExperienceSkill {
   skill: Skill! @belongsTo
   experience: Experience! @morphTo
 }
-
-union Experience = WorkExperience | PersonalExperience | CommunityExperience | EducationExperience | AwardExperience
 
 input ClassificationFilterInput {
     group: String!
@@ -363,8 +370,6 @@ type Query {
     me: User @auth
     user(id: ID! @eq): User @find @guard @can(ability: "view", query: true)
     users: [User]! @all @guard @can(ability: "viewAny")
-    # applicant(id: ID! @eq): Applicant @find @guard @can(ability: "view", query: true)
-    # applicants: [Applicant]! @all @guard @can(ability: "viewAny")
     pool(id: ID! @eq): Pool @find
     poolByKey(key: String! @eq): Pool @find
     pools: [Pool]! @all
@@ -628,14 +633,14 @@ input CreateSkillInput {
     name: LocalizedStringInput!
     description: LocalizedStringInput
     families: SkillFamilyBelongsToMany
-    keywords: [String]
+    keywords: [String!]
 }
 
 input UpdateSkillInput {
     name: LocalizedStringInput!
     description: LocalizedStringInput
     families: SkillFamilyBelongsToMany
-    keywords: [String]
+    keywords: [String!]
 }
 
 type Mutation {

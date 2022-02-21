@@ -52,7 +52,7 @@ return [
     |
     */
 
-    'url' => env('ADMIN_APP_URL', 'http://localhost'),
+    'url' => env('APP_URL', 'http://localhost'),
     'app_dir' => env('ADMIN_APP_DIR', 'admin'),
     'asset_url' => env('ADMIN_ASSET_URL', null),
     'mix_url' => env('ADMIN_MIX_ASSET_URL', null),

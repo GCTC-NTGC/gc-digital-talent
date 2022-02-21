@@ -13,15 +13,33 @@ type Applicant {
   workExperiences: [WorkExperience]
 }
 
-type AwardExperience {
+type AwardExperience implements Experience {
   id: ID!
   user: User!
   title: String
   issuedBy: String
   awardedDate: Date
-  recipientType: RecipientType
-  recognitionType: RecognitionType
+  awardedTo: AwardedTo
+  awardedScope: AwardedScope
+  details: String
   experienceSkills: [ExperienceSkill]
+}
+
+enum AwardedScope {
+  INTERNATIONAL
+  NATIONAL
+  PROVINCIAL
+  LOCAL
+  COMMUNITY
+  ORGANIZATIONAL
+  SUB_ORGANIZATIONAL
+}
+
+enum AwardedTo {
+  ME
+  MY_TEAM
+  MY_PROJECT
+  MY_ORGANIZATION
 }
 
 type Classification {
@@ -56,7 +74,7 @@ input CmoAssetBelongsToMany {
   sync: [ID!]
 }
 
-type CommunityExperience {
+type CommunityExperience implements Experience {
   id: ID!
   user: User!
   title: String
@@ -159,7 +177,7 @@ input CreateSkillInput {
   name: LocalizedStringInput!
   description: LocalizedStringInput
   families: SkillFamilyBelongsToMany
-  keywords: [String]
+  keywords: [String!]
 }
 
 """When creating a User, name and email are required."""
@@ -191,7 +209,7 @@ input DepartmentBelongsTo {
   connect: ID!
 }
 
-type EducationExperience {
+type EducationExperience implements Experience {
   id: ID!
   user: User!
   institution: String
@@ -201,23 +219,24 @@ type EducationExperience {
   endDate: Date
   type: EducationType
   status: EducationStatus
+  details: String
   experienceSkills: [ExperienceSkill]
 }
 
 enum EducationStatus {
-  COMPLETE_CREDITED
-  COMPLETE_UNCREDITED
+  SUCCESS_CREDENTIAL
+  SUCCESS_NO_CREDENTIAL
   IN_PROGRESS
   AUDITED
-  INCOMPLETE
+  DID_NOT_COMPLETE
 }
 
 enum EducationType {
   DIPLOMA
-  BACHELORS
-  MASTERS
+  BACHELORS_DEGREE
+  MASTERS_DEGREE
   PHD
-  POST_DOCTORAL
+  POST_DOCTORAL_FELLOWSHIP
   ONLINE_COURSE
   CERTIFICATION
   OTHER
@@ -226,7 +245,12 @@ enum EducationType {
 """A RFC 5321 compliant email."""
 scalar Email
 
-union Experience = WorkExperience | PersonalExperience | CommunityExperience | EducationExperience | AwardExperience
+interface Experience {
+  id: ID!
+  user: User!
+  details: String
+  experienceSkills: [ExperienceSkill]
+}
 
 type ExperienceSkill {
   id: ID!
@@ -403,7 +427,7 @@ type PaginatorInfo {
   total: Int!
 }
 
-type PersonalExperience {
+type PersonalExperience implements Experience {
   id: ID!
   user: User!
   title: String
@@ -557,23 +581,6 @@ type Query {
   experienceSkills: [ExperienceSkill]!
 }
 
-enum RecipientType {
-  SELF
-  TEAM
-  PROJECT
-  ORGANIZATION
-}
-
-enum RecognitionType {
-  INTERNATIONAL
-  NATIONAL
-  PROVINCIAL
-  LOCAL
-  COMMUNITY
-  ORGANIZATIONAL
-  DIVISIONAL
-}
-
 enum Role {
   ADMIN
 }
@@ -661,8 +668,8 @@ type Skill {
   key: KeyString!
   name: LocalizedString!
   description: LocalizedString
-  keywords: [String]
-  families: [SkillFamily]
+  keywords: [String!]
+  families: [SkillFamily!]
   experienceSkills: [ExperienceSkill]
 }
 
@@ -680,7 +687,7 @@ type SkillFamily {
   key: KeyString!
   name: LocalizedString!
   description: LocalizedString!
-  skills: [Skill]
+  skills: [Skill!]
   category: SkillCategory!
 }
 
@@ -784,7 +791,7 @@ input UpdateSkillInput {
   name: LocalizedStringInput!
   description: LocalizedStringInput
   families: SkillFamilyBelongsToMany
-  keywords: [String]
+  keywords: [String!]
 }
 
 """
@@ -870,7 +877,7 @@ input WhereConditionsRelation {
   condition: WhereConditions
 }
 
-type WorkExperience {
+type WorkExperience implements Experience {
   id: ID!
   user: User!
   role: String

@@ -31,10 +31,10 @@ class EducationExperienceFactory extends Factory
             'type' => $this->faker->randomElement(
                 [
                     'DIPLOMA',
-                    'BACHELORS',
-                    'MASTERS',
+                    'BACHELORS_DEGREE',
+                    'MASTERS_DEGREE',
                     'PHD',
-                    'POST_DOCTORAL',
+                    'POST_DOCTORAL_FELLOWSHIP',
                     'ONLINE_COURSE',
                     'CERTIFICATION',
                     'OTHER',
@@ -42,11 +42,11 @@ class EducationExperienceFactory extends Factory
             ),
             'status' => $this->faker->randomElement(
                 [
-                    'COMPLETE_CREDITED',
-                    'COMPLETE_UNCREDITED',
+                    'SUCCESS_CREDENTIAL',
+                    'SUCCESS_NO_CREDENTIAL',
                     'IN_PROGRESS',
                     'AUDITED',
-                    'INCOMPLETE',
+                    'DID_NOT_COMPLETE',
                 ]
             ),
         ];

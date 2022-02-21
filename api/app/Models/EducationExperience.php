@@ -20,6 +20,7 @@ use Illuminate\Database\Eloquent\Relations\MorphMany;
  * @property Illuminate\Support\Carbon $end_date
  * @property string $type
  * @property string $status
+ * @property string $details
  * @property Illuminate\Support\Carbon $created_at
  * @property Illuminate\Support\Carbon $updated_at
  */
