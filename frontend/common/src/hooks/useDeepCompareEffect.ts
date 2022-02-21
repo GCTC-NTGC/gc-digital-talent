@@ -18,6 +18,8 @@ export function useDeepCompareEffect(
   callback: EffectCallback,
   dependencies: DependencyList,
 ): void {
+  // Warning insists that "callback" be in the 2nd arg, which seems odd.
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(callback, dependencies.map(useDeepCompareMemoize));
 }
 
