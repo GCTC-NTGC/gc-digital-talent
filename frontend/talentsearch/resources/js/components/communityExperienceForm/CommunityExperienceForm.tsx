@@ -8,10 +8,10 @@ import { errorMessages } from "@common/messages";
 export const CommunityExperienceForm: React.FunctionComponent = () => {
   const intl = useIntl();
 
-  // to toggle whether End Date is required, the state of the Current Role checkbox must be monitored and have to adjust the form accordingly
+  // to toggle whether endDate is required, the state of the current-role checkbox must be monitored and have to adjust the form accordingly
   const isCurrent = useWatch({ name: "current-role", defaultValue: false });
-  // ensuring end date isn't before the start date, using this as a minimum value
-  const startDate = useWatch({ name: "start-date" });
+  // ensuring endDate isn't before startDate, using this as a minimum value
+  const startDate = useWatch({ name: "startDate" });
 
   return (
     <div>
@@ -37,6 +37,11 @@ export const CommunityExperienceForm: React.FunctionComponent = () => {
               description:
                 "Label displayed on Community Experience form for role input",
             })}
+            placeholder={intl.formatMessage({
+              defaultMessage: "Write title here...",
+              description:
+                "Placeholder displayed on the Community Experience form for role input",
+            })}
             name="role"
             type="text"
             rules={{ required: intl.formatMessage(errorMessages.required) }}
@@ -49,6 +54,11 @@ export const CommunityExperienceForm: React.FunctionComponent = () => {
               description:
                 "Label displayed on Community Experience form for organization input",
             })}
+            placeholder={intl.formatMessage({
+              defaultMessage: "Write group name here...",
+              description:
+                "Placeholder displayed on the Community Experience form for organization input",
+            })}
             name="organization"
             type="text"
             rules={{ required: intl.formatMessage(errorMessages.required) }}
@@ -60,6 +70,11 @@ export const CommunityExperienceForm: React.FunctionComponent = () => {
               defaultMessage: "Project / Product",
               description:
                 "Label displayed on Community Experience form for project input",
+            })}
+            placeholder={intl.formatMessage({
+              defaultMessage: "Write project name here...",
+              description:
+                "Placeholder displayed on the Community Experience form for project input",
             })}
             name="project"
             type="text"
@@ -79,28 +94,28 @@ export const CommunityExperienceForm: React.FunctionComponent = () => {
           <div data-h2-display="b(flex)">
             <div data-h2-padding="b(right, l)">
               <Input
-                id="start-date"
+                id="startDate"
                 label={intl.formatMessage({
                   defaultMessage: "Start Date",
                   description:
                     "Label displayed on Community Experience form for start date input",
                 })}
-                name="start-date"
+                name="startDate"
                 type="date"
                 rules={{ required: intl.formatMessage(errorMessages.required) }}
               />
             </div>
-            <div>
-              {/* conditionally render the end-date based off the state attached to the checkbox input */}
+            <div data-h2-flex-direction="b(column) s(row)">
+              {/* conditionally render the endDate based off the state attached to the checkbox input */}
               {!isCurrent && (
                 <Input
-                  id="end-date"
+                  id="endDate"
                   label={intl.formatMessage({
                     defaultMessage: "End Date",
                     description:
                       "Label displayed on Community Experience form for end date input",
                   })}
-                  name="end-date"
+                  name="endDate"
                   type="date"
                   rules={
                     isCurrent
@@ -110,7 +125,10 @@ export const CommunityExperienceForm: React.FunctionComponent = () => {
                           min: {
                             value: startDate,
                             message: intl.formatMessage(
-                              errorMessages.futureDate,
+                              errorMessages.mustBeGreater,
+                              {
+                                value: startDate,
+                              },
                             ),
                           },
                         }
