@@ -61,7 +61,8 @@ export const PersonalExperienceForm: React.FunctionComponent = () => {
           name="experience-description"
           rules={{ required: intl.formatMessage(errorMessages.required) }}
         />
-        <Fieldset legend="" hideOptional>
+
+        <Fieldset legend="Disclaimer" required>
           <Checkbox
             id="disclaimer"
             label={intl.formatMessage({
@@ -73,6 +74,9 @@ export const PersonalExperienceForm: React.FunctionComponent = () => {
             name="disclaimer"
             rules={{ required: intl.formatMessage(errorMessages.required) }}
           />
+        </Fieldset>
+
+        <Fieldset legend="Current Experience">
           <Checkbox
             id="current-role"
             label={intl.formatMessage({
