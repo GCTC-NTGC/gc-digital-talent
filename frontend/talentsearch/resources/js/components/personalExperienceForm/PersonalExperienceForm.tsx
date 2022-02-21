@@ -62,7 +62,13 @@ export const PersonalExperienceForm: React.FunctionComponent = () => {
           rules={{ required: intl.formatMessage(errorMessages.required) }}
         />
 
-        <Fieldset legend="Disclaimer" required>
+        <Fieldset
+          legend={intl.formatMessage({
+            defaultMessage: "Disclaimer",
+            description: "Title displayed above disclaimer checkbox",
+          })}
+          required
+        >
           <Checkbox
             id="disclaimer"
             label={intl.formatMessage({
@@ -76,7 +82,12 @@ export const PersonalExperienceForm: React.FunctionComponent = () => {
           />
         </Fieldset>
 
-        <Fieldset legend="Current Experience">
+        <Fieldset
+          legend={intl.formatMessage({
+            defaultMessage: "Current Experience",
+            description: "Title displayed above current experience checkbox",
+          })}
+        >
           <Checkbox
             id="current-role"
             label={intl.formatMessage({
