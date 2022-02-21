@@ -12,8 +12,7 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $state = Str::random(40);
-        $nonce = Str::random(40);
-        $request->session()->put('state', $state = Str::random(40), 'nonce', $nonce = Str::random(40););
+        $request->session()->put('state', $state = Str::random(40));
 
         $request->session()->put(
             'from',
@@ -39,7 +38,6 @@ class AuthController extends Controller
             'response_type' => 'code',
             'scope' => $scope,
             'state' => $state,
-            'nonce' => $nonce,
             'acr_values' => 'mfa',
             'ui_locales' => $ui_locales,
         ]);
@@ -63,13 +61,6 @@ class AuthController extends Controller
             'redirect_uri' => config('oauth.redirect_uri'),
             'code' => $request->code,
         ]);
-
-        $nonce = $nonce->session()->pull('nonce');
-
-        throw_unless(
-            strlen($nonce) > 0 && $nonce === $response->nonce,
-            new InvalidArgumentException("Invalid session nonce")
-        );
 
         $query = http_build_query($response->json());
 

@@ -16,11 +16,15 @@ import {
 } from "urql";
 import { AuthContext } from "./AuthContainer";
 
+// generate nonce somewhere here?
+// const nonce = ...
+
 const apiUri = process.env.API_URI ?? "http://localhost:8000/graphql";
 
 interface AuthState {
   accessToken: string | null;
   refreshToken: string | null;
+  idToken: string | null;
 }
 
 const addAuthToOperation = ({
@@ -74,7 +78,7 @@ export const ClientProvider: React.FC<{ client?: Client }> = ({
   client,
   children,
 }) => {
-  const { accessToken, refreshToken, logout, refreshTokenSet } =
+  const { accessToken, refreshToken, idToken, logout, refreshTokenSet } =
     useContext(AuthContext);
 
   const getAuth = useCallback(
@@ -84,7 +88,7 @@ export const ClientProvider: React.FC<{ client?: Client }> = ({
       if (!existingAuthState) {
         // no existing auth state so this is probably just the first request
         if (accessToken) {
-          return { accessToken, refreshToken };
+          return { accessToken, refreshToken, idToken };
         }
         return null;
       }
@@ -99,7 +103,7 @@ export const ClientProvider: React.FC<{ client?: Client }> = ({
       logout();
       return null;
     },
-    [accessToken, refreshToken, logout, refreshTokenSet],
+    [accessToken, refreshToken, idToken, logout, refreshTokenSet],
   );
 
   const internalClient = useMemo(() => {
