@@ -19,6 +19,25 @@ updates:
       interval: "weekly"
     open-pull-requests-limit: 15
 
+  # This ignores all updates to tc-report, since it's now served as a static website.
+  #
+  #   * We will occassionally still get security vulnerability warnings, for
+  #     which merging the dependabot PR will NOT update the static website.
+  #     Update would require a manually rebuild.
+  #
+  #   * Rebuild is likely not necessary because the website is only a simple
+  #     front-end.
+  #
+  #   * Example: https://github.com/GCTC-NTGC/gc-digital-talent/pull/2073
+  #
+  - package-ecosystem: "npm"
+    directory: "/tc-report"
+    schedule:
+      interval: "weekly"
+    ignore:
+      # Ignores all dependencies.
+      - dependency-name: "*"
+
   # PHP composer.json package updates
 
   - package-ecosystem: "composer"
