@@ -1,3 +1,18 @@
+type Applicant {
+  id: ID!
+  email: Email!
+  firstName: String
+  lastName: String
+  telephone: PhoneNumber
+  preferredLang: Language
+  experiences: [Experience]
+  awardExperiences: [AwardExperience]
+  communityExperiences: [CommunityExperience]
+  educationExperiences: [EducationExperience]
+  personalExperiences: [PersonalExperience]
+  workExperiences: [WorkExperience]
+}
+
 type AwardExperience implements Experience {
   id: ID!
   user: User!

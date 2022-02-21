@@ -26,7 +26,7 @@ class AwardExperienceFactory extends Factory
             'title' => $this->faker->jobTitle(),
             'issued_by' => $this->faker->company(),
             'awarded_date' => $this->faker->date(),
-            'recipient_type' => $this->faker->randomElement(
+            'awarded_to' => $this->faker->randomElement(
                 [
                     'ME',
                     'MY_TEAM',
@@ -34,7 +34,7 @@ class AwardExperienceFactory extends Factory
                     'MY_ORGANIZATION',
                 ]
             ),
-            'recognition_type' => $this->faker->randomElement(
+            'awarded_scope' => $this->faker->randomElement(
                 [
                     'INTERNATIONAL',
                     'NATIONAL',

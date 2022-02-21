@@ -356,8 +356,6 @@ type Query {
     me: User @auth
     user(id: ID! @eq): User @find @guard @can(ability: "view", query: true)
     users: [User]! @all @guard @can(ability: "viewAny")
-    # applicant(id: ID! @eq): Applicant @find @guard @can(ability: "view", query: true)
-    # applicants: [Applicant]! @all @guard @can(ability: "viewAny")
     pool(id: ID! @eq): Pool @find
     poolByKey(key: String! @eq): Pool @find
     pools: [Pool]! @all
