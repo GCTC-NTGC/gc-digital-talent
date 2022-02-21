@@ -218,6 +218,40 @@ type Skill {
     families: [SkillFamily] @belongsToMany
 }
 
+enum AwardedTo {
+    ME
+    MY_TEAM
+    MY_PROJECT
+    MY_ORGANIZATION
+}
+enum AwardedScope {
+    INTERNATIONAL
+    NATIONAL
+    PROVINCIAL
+    LOCAL
+    COMMUNITY
+    ORGANIZATIONAL
+    SUB_ORGANIZATIONAL
+}
+
+enum EducationType {
+    DIPLOMA
+    BACHELORS_DEGREE
+    MASTERS_DEGREE
+    PHD
+    POST_DOCTORAL_FELLOWSHIP
+    ONLINE_COURSE
+    CERTIFICATION
+    OTHER
+}
+enum EducationStatus {
+    SUCCESS_CREDENTIAL
+    SUCCESS_NO_CREDENTIAL
+    IN_PROGRESS
+    AUDITED
+    DID_NOT_COMPLETE
+}
+
 interface Experience {
   id: ID!
   user: User! @belongsTo
@@ -301,42 +335,6 @@ input PoolCandidateFilterInput {
     operationalRequirements: [KeyFilterInput] @builder(method: "App\\Models\\PoolCandidate@filterByOperationalRequirements")
     workRegions: [WorkRegion] @builder(method: "App\\Models\\PoolCandidate@filterByWorkRegions")
     pools: [PoolFilterInput] @builder(method: "App\\Models\\PoolCandidate@filterByPools")
-}
-
-enum AwardedTo {
-    ME
-    MY_TEAM
-    MY_PROJECT
-    MY_ORGANIZATION
-}
-
-enum AwardedScope {
-    INTERNATIONAL
-    NATIONAL
-    PROVINCIAL
-    LOCAL
-    COMMUNITY
-    ORGANIZATIONAL
-    SUB_ORGANIZATIONAL
-}
-
-enum EducationType {
-    DIPLOMA
-    BACHELORS_DEGREE
-    MASTERS_DEGREE
-    PHD
-    POST_DOCTORAL_FELLOWSHIP
-    ONLINE_COURSE
-    CERTIFICATION
-    OTHER
-}
-
-enum EducationStatus {
-    SUCCESS_CREDENTIAL
-    SUCCESS_NO_CREDENTIAL
-    IN_PROGRESS
-    AUDITED
-    DID_NOT_COMPLETE
 }
 
 type Query {
