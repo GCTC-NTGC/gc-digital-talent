@@ -28,6 +28,8 @@ updates:
   #   * Rebuild is likely not necessary because the website is only a simple
   #     front-end.
   #
+  #  * We can't disable security vulnerability PRs without disabling for the whole repo.
+  #
   #   * Example: https://github.com/GCTC-NTGC/gc-digital-talent/pull/2073
   #
   - package-ecosystem: "npm"
