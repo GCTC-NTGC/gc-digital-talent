@@ -100,6 +100,10 @@ rules:
   '@typescript-eslint/no-use-before-define': warn
   no-shadow: 'off'
   '@typescript-eslint/no-shadow': error
+  '@typescript-eslint/no-explicit-any':
+    - warn
+    # See: https://dmitripavlutin.com/typescript-unknown-vs-any/
+    - fixToUnknown: true
   react/function-component-definition: 'off'
   # The addition of this rule is a temporary work-around.
   # TODO: Remove after the relevant fix is merged.

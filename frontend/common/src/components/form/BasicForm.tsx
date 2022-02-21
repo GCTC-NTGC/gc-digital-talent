@@ -18,7 +18,7 @@ export function BasicForm<
   options,
 }: PropsWithChildren<{
   onSubmit: SubmitHandler<TFieldValues>;
-  options?: UseFormProps<TFieldValues, any>;
+  options?: UseFormProps<TFieldValues, unknown>;
 }>): ReactElement {
   const methods = useForm(options);
   const { handleSubmit } = methods;

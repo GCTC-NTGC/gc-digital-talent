@@ -43,7 +43,7 @@ export const MultiSelect: React.FunctionComponent<MultiSelectProps> = ({
     });
     return map;
   }, [options]);
-  const valueToOption = (v: any) => ({
+  const valueToOption = (v: unknown) => ({
     value: v,
     label: optionMap.get(v) ?? String(v),
   });
