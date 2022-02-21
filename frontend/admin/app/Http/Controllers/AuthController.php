@@ -64,10 +64,10 @@ class AuthController extends Controller
             'code' => $request->code,
         ]);
 
-        $nonce =$nonce->session()->pull('nonce');
+        $nonce = $nonce->session()->pull('nonce');
 
         throw_unless(
-            strlen($nonce) > 0 && $state === $response->nonce,
+            strlen($nonce) > 0 && $nonce === $response->nonce,
             new InvalidArgumentException("Invalid session nonce")
         );
 
