@@ -28,8 +28,12 @@ export const CommunityExperienceForm: React.FunctionComponent = () => {
           description: "Description blurb for Community Experience form",
         })}
       </p>
-      <div data-h2-display="b(flex)" data-h2-padding="b(top, m)">
-        <div data-h2-padding="b(right, l)">
+      <div
+        data-h2-display="b(flex)"
+        data-h2-padding="b(top, m)"
+        data-h2-flex-direction="b(column) s(row)"
+      >
+        <div data-h2-padding="b(right, none) s(right, l)">
           <Input
             id="role"
             label={intl.formatMessage({
@@ -91,8 +95,11 @@ export const CommunityExperienceForm: React.FunctionComponent = () => {
             })}
             name="current-role"
           />
-          <div data-h2-display="b(flex)">
-            <div data-h2-padding="b(right, l)">
+          <div
+            data-h2-display="b(flex)"
+            data-h2-flex-direction="b(column) s(row)"
+          >
+            <div data-h2-padding="b(right, none) s(right, l)">
               <Input
                 id="startDate"
                 label={intl.formatMessage({
@@ -105,7 +112,7 @@ export const CommunityExperienceForm: React.FunctionComponent = () => {
                 rules={{ required: intl.formatMessage(errorMessages.required) }}
               />
             </div>
-            <div data-h2-flex-direction="b(column) s(row)">
+            <div>
               {/* conditionally render the endDate based off the state attached to the checkbox input */}
               {!isCurrent && (
                 <Input
