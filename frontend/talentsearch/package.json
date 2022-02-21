@@ -51,6 +51,8 @@
     "@graphql-codegen/typescript-operations": "^2.3.0",
     "@graphql-codegen/typescript-urql": "^3.5.1",
     "@hydrogen-design-system/hydrogen.css": "^1.1.17",
+    "@storybook/addon-actions": "*",
+    "@storybook/react": "*",
     "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/react": "^12.1.2",
     "@types/debounce": "^1.2.1",
@@ -59,7 +61,6 @@
     "@types/node": "^17.0.17",
     "@types/path-browserify": "^1.0.0",
     "@types/react": "^17.0.39",
-    "@types/react-table": "^7.7.9",
     "@typescript-eslint/eslint-plugin": "^5.11.0",
     "@typescript-eslint/parser": "^5.11.0",
     "babel-loader": "^8.2.3",
@@ -89,6 +90,7 @@
     "typescript": "^4.5.5"
   },
   "dependencies": {
+    "@gc-digital-talent/common": "*",
     "@heroicons/react": "^1.0.5",
     "@types/react-dom": "^17.0.11",
     "@types/react-select": "^5.0.1",
