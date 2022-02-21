@@ -231,6 +231,7 @@ type Skill {
     description: LocalizedString
     keywords: [String]
     families: [SkillFamily] @belongsToMany
+    experienceSkills: [ExperienceSkill] @hasMany
 }
 
 type WorkExperience {
@@ -242,6 +243,7 @@ type WorkExperience {
   startDate: Date @rename(attribute: "start_date")
   endDate: Date @rename(attribute: "end_date")
   details: String
+  experienceSkills: [ExperienceSkill] @morphMany
 }
 type PersonalExperience {
   id: ID!
@@ -251,6 +253,7 @@ type PersonalExperience {
   startDate: Date @rename(attribute: "start_date")
   endDate: Date @rename(attribute: "end_date")
   details: String
+  experienceSkills: [ExperienceSkill] @morphMany
 }
 type CommunityExperience {
   id: ID!
@@ -261,6 +264,7 @@ type CommunityExperience {
   startDate: Date @rename(attribute: "start_date")
   endDate: Date @rename(attribute: "end_date")
   details: String
+  experienceSkills: [ExperienceSkill] @morphMany
 }
 
 enum EducationStatus {
@@ -290,6 +294,7 @@ type EducationExperience {
   endDate: Date @rename(attribute: "end_date")
   type: EducationType
   status: EducationStatus
+  experienceSkills: [ExperienceSkill] @morphMany
 }
 
 enum RecipientType {
@@ -315,6 +320,14 @@ type AwardExperience {
   awardedDate: Date @rename(attribute: "awarded_date")
   recipientType: RecipientType @rename(attribute: "recipient_type")
   recognitionType: RecognitionType @rename(attribute: "recognition_type")
+  experienceSkills: [ExperienceSkill] @morphMany
+}
+
+type ExperienceSkill {
+  id: ID!
+  details: String
+  skill: Skill! @belongsTo
+  experience: Experience! @morphTo
 }
 
 union Experience = WorkExperience | PersonalExperience | CommunityExperience | EducationExperience | AwardExperience
@@ -377,6 +390,7 @@ type Query {
     skillFamilies: [SkillFamily]! @all
     skill(id: ID! @eq): Skill @find
     skills: [Skill]! @all
+    experienceSkills: [ExperienceSkill]! @all
 }
 """
 When creating a User, name and email are required.

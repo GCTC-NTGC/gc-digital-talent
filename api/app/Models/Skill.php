@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * Class Skill
@@ -40,5 +41,10 @@ class Skill extends Model
     public function families() : BelongsToMany
     {
         return $this->belongsToMany(SkillFamily::class);
+    }
+
+    public function experience_skills() : HasMany
+    {
+        return $this->hasMany(ExperienceSkill::class);
     }
 }

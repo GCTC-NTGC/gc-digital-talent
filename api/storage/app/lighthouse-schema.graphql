@@ -21,6 +21,7 @@ type AwardExperience {
   awardedDate: Date
   recipientType: RecipientType
   recognitionType: RecognitionType
+  experienceSkills: [ExperienceSkill]
 }
 
 type Classification {
@@ -64,6 +65,7 @@ type CommunityExperience {
   startDate: Date
   endDate: Date
   details: String
+  experienceSkills: [ExperienceSkill]
 }
 
 input CreateClassificationInput {
@@ -199,6 +201,7 @@ type EducationExperience {
   endDate: Date
   type: EducationType
   status: EducationStatus
+  experienceSkills: [ExperienceSkill]
 }
 
 enum EducationStatus {
@@ -224,6 +227,13 @@ enum EducationType {
 scalar Email
 
 union Experience = WorkExperience | PersonalExperience | CommunityExperience | EducationExperience | AwardExperience
+
+type ExperienceSkill {
+  id: ID!
+  details: String
+  skill: Skill!
+  experience: Experience!
+}
 
 input KeyFilterInput {
   key: KeyString!
@@ -401,6 +411,7 @@ type PersonalExperience {
   startDate: Date
   endDate: Date
   details: String
+  experienceSkills: [ExperienceSkill]
 }
 
 """
@@ -543,6 +554,7 @@ type Query {
   skillFamilies: [SkillFamily]!
   skill(id: ID!): Skill
   skills: [Skill]!
+  experienceSkills: [ExperienceSkill]!
 }
 
 enum RecipientType {
@@ -651,6 +663,7 @@ type Skill {
   description: LocalizedString
   keywords: [String]
   families: [SkillFamily]
+  experienceSkills: [ExperienceSkill]
 }
 
 input SkillBelongsToMany {
@@ -866,6 +879,7 @@ type WorkExperience {
   startDate: Date
   endDate: Date
   details: String
+  experienceSkills: [ExperienceSkill]
 }
 
 enum WorkRegion {
