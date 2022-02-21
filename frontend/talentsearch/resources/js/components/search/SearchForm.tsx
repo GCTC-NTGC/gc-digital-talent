@@ -141,14 +141,13 @@ export const SearchForm: React.FunctionComponent<SearchFormProps> = ({
 
   // Whenever form values change (with some debounce allowance), call updateCandidateFilter
   const formValues = watch();
-  const submitDebounced = useCallback(
+  const submitDebounced = useCallback(() => {
     debounce((values: FormValues) => {
       if (updateCandidateFilter) {
         updateCandidateFilter(formValuesToData(values));
       }
-    }, 200),
-    [formValuesToData, updateCandidateFilter],
-  );
+    }, 200);
+  }, [formValuesToData, updateCandidateFilter]);
 
   // Use deep comparison to prevent infinite re-rendering
   useDeepCompareEffect(() => {
