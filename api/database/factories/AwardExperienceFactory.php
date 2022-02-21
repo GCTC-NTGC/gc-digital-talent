@@ -28,10 +28,10 @@ class AwardExperienceFactory extends Factory
             'awarded_date' => $this->faker->date(),
             'recipient_type' => $this->faker->randomElement(
                 [
-                    'SELF',
-                    'TEAM',
-                    'PROJECT',
-                    'ORGANIZATION',
+                    'ME',
+                    'MY_TEAM',
+                    'MY_PROJECT',
+                    'MY_ORGANIZATION',
                 ]
             ),
             'recognition_type' => $this->faker->randomElement(
@@ -42,7 +42,7 @@ class AwardExperienceFactory extends Factory
                     'LOCAL',
                     'COMMUNITY',
                     'ORGANIZATIONAL',
-                    'DIVISIONAL',
+                    'SUB_ORGANIZATIONAL',
                 ]
             ),
         ];

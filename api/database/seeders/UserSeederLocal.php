@@ -51,7 +51,7 @@ class UserSeederLocal extends Seeder
         ]);
         User::factory()->create([
             'email' => 'tristan-orourke'.$fakeEmailDomain,
-            'sub' => 'b4c734a1-dcf3-4fb8-a860-c642700cb0b8',
+            'sub' => 'd9f27aca-b2ea-4c4a-9459-25bb7a7b77f6',
             'roles' => ['ADMIN']
         ]);
     }

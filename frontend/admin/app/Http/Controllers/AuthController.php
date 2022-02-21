@@ -70,7 +70,7 @@ class AuthController extends Controller
         if(substr($from, 0, 1) != '/')
             $from = null; // Does not start with / so it's not a relative url. Don't want an open redirect vulnerability. Throw it away.
 
-        $navigateToUri = strlen($from) > 0 ? $from : config('app.url');
+        $navigateToUri = strlen($from) > 0 ? config('app.url').$from : config('app.url').config('app.app_dir');
         return redirect($navigateToUri . '?' . $query);
     }
 
