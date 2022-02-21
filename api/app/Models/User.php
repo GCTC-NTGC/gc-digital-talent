@@ -44,9 +44,42 @@ class User extends Model implements Authenticatable
     {
         return $this->hasMany(PoolCandidate::class);
     }
+
     public function isAdmin(): bool
     {
         return in_array('ADMIN', $this->roles);
+    }
+
+    // All the relationships for experiences
+    public function awardExperiences()
+    {
+        return $this->hasMany(AwardExperience::class);
+    }
+    public function communityExperiences()
+    {
+        return $this->hasMany(CommunityExperience::class);
+    }
+    public function educationExperiences()
+    {
+        return $this->hasMany(EducationExperience::class);
+    }
+    public function personalExperiences()
+    {
+        return $this->hasMany(PersonalExperience::class);
+    }
+    public function workExperiences()
+    {
+        return $this->hasMany(WorkExperience::class);
+    }
+    public function getExperiencesAttribute()
+    {
+        $collection = collect();
+        $collection = $collection->merge($this->awardExperiences);
+        $collection = $collection->merge($this->communityExperiences);
+        $collection = $collection->merge($this->educationExperiences);
+        $collection = $collection->merge($this->personalExperiences);
+        $collection = $collection->merge($this->workExperiences);
+        return $collection;
     }
 
      /**
