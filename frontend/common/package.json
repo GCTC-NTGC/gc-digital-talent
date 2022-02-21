@@ -1,5 +1,5 @@
 {
-  "name": "gc-digital-talent-common",
+  "name": "@gc-digital-talent/common",
   "version": "1.0.11",
   "license": "MIT",
   "description": "Shared components and utilities for GC Digital Talent apps",

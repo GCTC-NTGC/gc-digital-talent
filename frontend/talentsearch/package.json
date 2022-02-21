@@ -1,5 +1,5 @@
 {
-  "name": "talentsearch",
+  "name": "@gc-digital-talent/talentsearch",
   "version": "1.0.0",
   "description": "Client side service using Lumen and ReactJS.",
   "main": "index.js",
