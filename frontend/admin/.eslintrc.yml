@@ -121,3 +121,11 @@ settings:
         - .tsx
         - .test.ts
         - .test.tsx
+    alias:
+      map:
+      - ['@common', '../common/src']
+      extensions:
+      - .js
+      - .jsx
+      - .ts
+      - .tsx
