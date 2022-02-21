@@ -1,6 +1,5 @@
 import * as React from "react";
 import { useIntl } from "react-intl";
-import { Link } from "../Link";
 import { imageUrl } from "../../helpers/router";
 
 export const Footer: React.FunctionComponent<{

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import { ChevronDownIcon, ChevronRightIcon } from "@heroicons/react/solid";
 
 export interface AccordionProps {
