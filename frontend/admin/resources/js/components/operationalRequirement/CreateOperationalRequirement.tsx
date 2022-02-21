@@ -145,7 +145,7 @@ export const CreateOperationalRequirementForm: React.FunctionComponent<
 };
 
 export const CreateOperationalRequirement: React.FunctionComponent = () => {
-  const [_result, executeMutation] = useCreateOperationalRequirementMutation();
+  const [, executeMutation] = useCreateOperationalRequirementMutation();
   const handleCreateOperationalRequirement = (
     data: CreateOperationalRequirementInput,
   ) =>

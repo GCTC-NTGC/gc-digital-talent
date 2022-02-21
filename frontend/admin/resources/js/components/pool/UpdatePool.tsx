@@ -325,7 +325,7 @@ export const UpdatePool: React.FunctionComponent<{
     lookupData?.operationalRequirements.filter(notEmpty) ?? [];
   const users: User[] = lookupData?.users.filter(notEmpty) ?? [];
 
-  const [_result, executeMutation] = useUpdatePoolMutation();
+  const [, executeMutation] = useUpdatePoolMutation();
   const handleUpdatePool = (id: string, formData: UpdatePoolInput) =>
     /* We must pick only the fields belonging to UpdatePoolInput, because it's possible
       the data object contains other props at runtime, and this will cause the

@@ -121,7 +121,7 @@ export const SearchRequestTable: React.FunctionComponent<
         accessor: ({ id }) => tableEditButtonAccessor(id, editUrlRoot),
       },
     ],
-    [intl, locale, editUrlRoot],
+    [intl, locale, editUrlRoot, paths],
   );
 
   const memoizedData = useMemo(

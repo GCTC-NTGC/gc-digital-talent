@@ -326,7 +326,7 @@ export const CreatePool: React.FunctionComponent = () => {
     lookupData?.operationalRequirements.filter(notEmpty) ?? [];
   const users: User[] = lookupData?.users.filter(notEmpty) ?? [];
 
-  const [_result, executeMutation] = useCreatePoolMutation();
+  const [, executeMutation] = useCreatePoolMutation();
   const handleCreatePool = (data: CreatePoolInput) =>
     executeMutation({ pool: data }).then((result) => {
       if (result.data?.createPool) {
