@@ -124,10 +124,13 @@ class OpenIdBearerTokenService implements BearerTokenServiceInterface
         } else {
             // make api call to introspect endpoint
             $introspectionUri = $this->getConfigProperty('introspection_endpoint');
-            $introspectionResponse = Http::post($introspectionUri, [
-                'token' => $accessToken,
-            ]);
-            $isTokenActive = $introspectionResponse->json('active');
+            $introspectionResponse = Http::asForm()
+                ->withToken($accessToken)
+                ->post($introspectionUri, [
+                    'token' => $accessToken,
+                ]);
+
+            $isTokenActive = boolval($introspectionResponse->json('active'));
             if($isTokenActive) {
                 Cache::put($cacheKey, $isTokenActive, 3); // cache for a few seconds in case of multiple API calls for a page load
             }
