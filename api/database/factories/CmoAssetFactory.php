@@ -23,7 +23,7 @@ class CmoAssetFactory extends Factory
     {
         $faker = $this->faker;
         return [
-            'key' => $faker->word,
+            'key' => $faker->unique()->word,
             'name' => ['en' => $faker->name, 'fr' => $faker->name],
         ];
     }
