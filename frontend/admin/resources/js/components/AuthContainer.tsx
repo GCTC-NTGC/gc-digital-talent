@@ -122,6 +122,9 @@ export const AuthContainer: React.FC = ({ children }) => {
       if (newTokens?.refreshToken) {
         localStorage.setItem(REFRESH_TOKEN, newTokens.refreshToken);
       }
+      if (newTokens?.idToken) {
+        localStorage.setItem(ID_TOKEN, newTokens.idToken);
+      }
       clearQueryParams();
     }
   }, [newTokens?.accessToken, newTokens?.refreshToken, newTokens?.idToken]); // Check for tokens individually so a new tokens object with identical contents doesn't trigger a re-render.

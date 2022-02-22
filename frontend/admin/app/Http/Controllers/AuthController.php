@@ -61,7 +61,6 @@ class AuthController extends Controller
             'redirect_uri' => config('oauth.redirect_uri'),
             'code' => $request->code,
         ]);
-
         $query = http_build_query($response->json());
 
         $from = $request->session()->pull('from');
