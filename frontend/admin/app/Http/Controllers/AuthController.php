@@ -6,14 +6,18 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Http;
 use InvalidArgumentException;
+//following the online Lcobucci documentation an attempt at parsing has been made
+use Lcobucci\JWT\Configuration;
+use Lcobucci\JWT\UnencryptedToken;
 
 class AuthController extends Controller
 {
     public function login(Request $request)
     {
+        //add the creation of a nonce alongside state
         $state = Str::random(40);
         $nonce = Str::random(40);
-        $request->session()->put('state', $state = Str::random(40), 'nonce', $nonce = Str::random(40););
+        $request->session()->put('state', $state = Str::random(40), 'nonce', $nonce = Str::random(40));
 
         $request->session()->put(
             'from',
@@ -33,6 +37,7 @@ class AuthController extends Controller
         if(config('oauth.authorize_uri') != 'http://localhost:8000/oauth/authorize')
             $scope = $scope . ' offline_access';
 
+        //add nonce in this query
         $query = http_build_query([
             'client_id' => config('oauth.client_id'),
             'redirect_uri' => config('oauth.redirect_uri'),
@@ -49,7 +54,9 @@ class AuthController extends Controller
 
     public function authCallback(Request $request)
     {
+        //pull the original nonce alongside state
         $state = $request->session()->pull('state');
+        $nonce = $request->session()->pull('nonce');
 
         throw_unless(
             strlen($state) > 0 && $state === $request->state,
@@ -62,16 +69,25 @@ class AuthController extends Controller
             'client_secret' => config('oauth.client_secret'),
             'redirect_uri' => config('oauth.redirect_uri'),
             'code' => $request->code,
-            /* 'id_token' => $response->id_token */
         ]);
 
         // decode id_token here
+        // pull token out of the response, it is in 3 parts, middle part is the desired payload, split it and grab the the desire idPayload
+        $idToken = $response->query('id_token');
+        $idTokenSplit = explode(".", $idToken);
+        $idPayload = $idTokenSplit[1];
 
+        // following the online Lcobucci documentation, attempt to parse the token
+        $config = $container->get(Configuration::class);
+        assert($config instanceof Configuration);
+        $token = $config->parser()->parse($idPayload);
+        assert($token instanceof UnencryptedToken);
 
-        $nonce =$nonce->session()->pull('nonce');
+        //now, grab the tokenNonce out of the unencrypted thing, and compare to the nonce grabbed at line 59 and throw_unless
 
+        $tokenNonce = $token->nonce;
         throw_unless(
-            strlen($nonce) > 0 && $state === $response->nonce,
+            strlen($tokenNonce) > 0 && $tokenNonce === $nonce,
             new InvalidArgumentException("Invalid session nonce")
         );
 
