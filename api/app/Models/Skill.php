@@ -43,7 +43,7 @@ class Skill extends Model
         return $this->belongsToMany(SkillFamily::class);
     }
 
-    public function experience_skills() : HasMany
+    public function experienceSkills() : HasMany
     {
         return $this->hasMany(ExperienceSkill::class);
     }

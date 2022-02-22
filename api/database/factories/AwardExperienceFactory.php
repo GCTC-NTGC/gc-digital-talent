@@ -3,6 +3,8 @@
 namespace Database\Factories;
 
 use App\Models\AwardExperience;
+use App\Models\ExperienceSkill;
+use App\Models\Skill;
 use Database\Helpers\KeyStringHelpers;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -45,6 +47,22 @@ class AwardExperienceFactory extends Factory
                     'SUB_ORGANIZATIONAL',
                 ]
             ),
+            'details' => $this->faker->text(),
         ];
+    }
+
+    public function configure()
+    {
+        return $this->afterCreating(function (AwardExperience $exp) {
+            $count = $this->faker->biasedNumberBetween($min = 0, $max = 6, $function = 'Faker\Provider\Biased::linearLow');
+            $skills = Skill::inRandomOrder()->get();
+            ExperienceSkill::factory()
+                ->count($count)
+                ->sequence(
+                    fn ($sequence) => ['skill_id' => $skills[$sequence->index]->id],
+                )
+                ->for($exp, 'experience')
+                ->create();
+        });
     }
 }

@@ -29,6 +29,17 @@ class DatabaseSeeder extends Seeder
         $this->call(OperationalRequirementSeeder::class);
         $this->call(DepartmentSeeder::class);
 
+        SkillFamily::factory()
+            ->count(10)
+            ->create();
+        Skill::factory()
+            ->count(40)
+            ->afterCreating(function ($model) {
+                $families = SkillFamily::inRandomOrder()->limit(3)->pluck('id')->toArray();
+                $model->families()->sync($families);
+            })
+            ->create();
+
         $this->call(UserSeederLocal::class);
         $this->call(PoolSeeder::class);
 
@@ -40,17 +51,6 @@ class DatabaseSeeder extends Seeder
             ->create();
 
         PoolCandidateSearchRequest::factory()->count(10)->create();
-
-        SkillFamily::factory()
-            ->count(10)
-            ->create();
-        Skill::factory()
-            ->count(40)
-            ->afterCreating(function ($model) {
-                $families = SkillFamily::inRandomOrder()->limit(3)->pluck('id')->toArray();
-                $model->families()->sync($families);
-            })
-            ->create();
     }
 
     // drop all rows from some tables so that the seeder can fill them fresh
