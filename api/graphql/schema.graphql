@@ -39,6 +39,12 @@ type User {
     roles: [Role]
     pools: [Pool] @hasMany # Pools that a user owns
     poolCandidates: [PoolCandidate] @hasMany # Pools candidates that a user owns
+    experiences: [Experience] # All experiences that a user owns
+    awardExperiences: [AwardExperience] # Award experiences that a user owns
+    communityExperiences: [CommunityExperience] # Community experiences that a user owns
+    educationExperiences: [EducationExperience] # Education experiences that a user owns
+    personalExperiences: [PersonalExperience] # Personal experiences that a user owns
+    workExperiences: [WorkExperience] # Work experiences that a user owns
 }
 
 type UserPublicProfile {
@@ -212,6 +218,98 @@ type Skill {
     families: [SkillFamily!] @belongsToMany
 }
 
+enum AwardedTo {
+    ME
+    MY_TEAM
+    MY_PROJECT
+    MY_ORGANIZATION
+}
+enum AwardedScope {
+    INTERNATIONAL
+    NATIONAL
+    PROVINCIAL
+    LOCAL
+    COMMUNITY
+    ORGANIZATIONAL
+    SUB_ORGANIZATIONAL
+}
+
+enum EducationType {
+    DIPLOMA
+    BACHELORS_DEGREE
+    MASTERS_DEGREE
+    PHD
+    POST_DOCTORAL_FELLOWSHIP
+    ONLINE_COURSE
+    CERTIFICATION
+    OTHER
+}
+enum EducationStatus {
+    SUCCESS_CREDENTIAL
+    SUCCESS_NO_CREDENTIAL
+    IN_PROGRESS
+    AUDITED
+    DID_NOT_COMPLETE
+}
+
+interface Experience {
+  id: ID!
+  user: User! @belongsTo
+  details: String
+}
+
+type WorkExperience implements Experience {
+  id: ID!
+  user: User! @belongsTo
+  role: String
+  organization: String
+  division: String
+  startDate: Date @rename(attribute: "start_date")
+  endDate: Date @rename(attribute: "end_date")
+  details: String
+}
+type PersonalExperience implements Experience {
+  id: ID!
+  user: User! @belongsTo
+  title: String
+  description: String
+  startDate: Date @rename(attribute: "start_date")
+  endDate: Date @rename(attribute: "end_date")
+  details: String
+}
+type CommunityExperience implements Experience {
+  id: ID!
+  user: User! @belongsTo
+  title: String
+  organization: String
+  project: String
+  startDate: Date @rename(attribute: "start_date")
+  endDate: Date @rename(attribute: "end_date")
+  details: String
+}
+type EducationExperience implements Experience {
+  id: ID!
+  user: User! @belongsTo
+  institution: String
+  areaOfStudy: String @rename(attribute: "area_of_study")
+  thesisTitle: String @rename(attribute: "thesis_title")
+  startDate: Date @rename(attribute: "start_date")
+  endDate: Date @rename(attribute: "end_date")
+  type: EducationType
+  status: EducationStatus
+  details: String
+}
+type AwardExperience implements Experience {
+  id: ID!
+  user: User! @belongsTo
+  title: String
+  issuedBy: String @rename(attribute: "issued_by")
+  awardedDate: Date @rename(attribute: "awarded_date")
+  awardedTo: AwardedTo @rename(attribute: "awarded_to")
+  awardedScope: AwardedScope @rename(attribute: "awarded_scope")
+  details: String
+}
+
 input ClassificationFilterInput {
     group: String!
     level: Int!
@@ -237,42 +335,6 @@ input PoolCandidateFilterInput {
     operationalRequirements: [KeyFilterInput] @builder(method: "App\\Models\\PoolCandidate@filterByOperationalRequirements")
     workRegions: [WorkRegion] @builder(method: "App\\Models\\PoolCandidate@filterByWorkRegions")
     pools: [PoolFilterInput] @builder(method: "App\\Models\\PoolCandidate@filterByPools")
-}
-
-enum AwardedTo {
-    ME
-    MY_TEAM
-    MY_PROJECT
-    MY_ORGANIZATION
-}
-
-enum AwardedScope {
-    INTERNATIONAL
-    NATIONAL
-    PROVINCIAL
-    LOCAL
-    COMMUNITY
-    ORGANIZATIONAL
-    SUB_ORGANIZATIONAL
-}
-
-enum EducationType {
-    DIPLOMA
-    BACHELORS_DEGREE
-    MASTERS_DEGREE
-    PHD
-    POST_DOCTORAL_FELLOWSHIP
-    ONLINE_COURSE
-    CERTIFICATION
-    OTHER
-}
-
-enum EducationStatus {
-    SUCCESS_CREDENTIAL
-    SUCCESS_NO_CREDENTIAL
-    IN_PROGRESS
-    AUDITED
-    DID_NOT_COMPLETE
 }
 
 type Query {
@@ -304,6 +366,11 @@ type Query {
     skillFamilies: [SkillFamily]! @all
     skill(id: ID! @eq): Skill @find
     skills: [Skill]! @all
+    workExperience: [WorkExperience]! @all
+    personalExperience: [PersonalExperience]! @all
+    communityExperience: [CommunityExperience]! @all
+    educationExperience: [EducationExperience]! @all
+    awardExperience: [AwardExperience]! @all
 }
 """
 When creating a User, name and email are required.

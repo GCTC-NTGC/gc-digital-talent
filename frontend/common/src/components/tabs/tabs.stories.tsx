@@ -46,10 +46,11 @@ const TemplateSkillsToExperience: Story<TabSetProps> = (args) => {
       </Tab>
       <Tab
         tabType="closer"
-        iconOpen={<ChevronUpIcon style={{ width: "1.25rem" }} />}
-        iconClosed={<ChevronDownIcon style={{ width: "1.25rem" }} />}
         iconPosition="right"
-        text="Close"
+        iconOpen={<ChevronUpIcon style={{ width: "1.25rem" }} />}
+        textOpen="Close"
+        iconClosed={<ChevronDownIcon style={{ width: "1.25rem" }} />}
+        textClosed="Open"
         placement="end"
       />
     </TabSet>
