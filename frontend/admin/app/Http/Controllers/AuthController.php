@@ -17,7 +17,7 @@ class AuthController extends Controller
         //add the creation of a nonce alongside state
         $state = Str::random(40);
         $nonce = Str::random(40);
-        $request->session()->put('state', $state = Str::random(40), 'nonce', $nonce = Str::random(40));
+        $request->session()->put('state', $state, 'nonce', $nonce);
 
         $request->session()->put(
             'from',
@@ -72,15 +72,16 @@ class AuthController extends Controller
         ]);
 
         // decode id_token here
-        // pull token out of the response, it is in 3 parts, middle part is the desired payload, split it and grab the the desire idPayload
+        // pull token out of the response, it is in 3 parts, middle part is the desired payload with the nonce
         $idToken = $response->query('id_token');
-        $idTokenSplit = explode(".", $idToken);
-        $idPayload = $idTokenSplit[1];
 
         // following the online Lcobucci documentation, attempt to parse the token
-        $config = $container->get(Configuration::class);
+        // no key verification is being done here, ideally things are done more thoroughly here, something to think about
+        $config = Configuration::forUnsecuredSigner(
+            //
+        );
         assert($config instanceof Configuration);
-        $token = $config->parser()->parse($idPayload);
+        $token = $config->parser()->parse($idToken);
         assert($token instanceof UnencryptedToken);
 
         //now, grab the tokenNonce out of the unencrypted thing, and compare to the nonce grabbed at line 59 and throw_unless
