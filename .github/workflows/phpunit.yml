@@ -1,0 +1,42 @@
+name: Php Unit Tests
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+
+jobs:
+  phpunit:
+    runs-on: ubuntu-latest
+    container:
+      image: kirschbaumdevelopment/laravel-test-runner:7.3
+
+    services:
+      postgres:
+        image: postgres:latest
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: password1234
+          POSTGRES_DB: gctalent
+        ports:
+          - 5432:5432
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 3
+
+    steps:
+      - uses: actions/checkout@v2.4.0
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@2.17.0
+        with:
+          php-version: '7.4'
+
+      - name: Install composer dependencies
+        working-directory: api
+        run: |
+          cp .env.example .env
+          composer install --prefer-dist --no-scripts
+
+
+      - name: PHPUnit tests
+        working-directory: api
+        run: vendor/bin/phpunit --verbose

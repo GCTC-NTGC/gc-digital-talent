@@ -8,6 +8,7 @@ use App\Models\OperationalRequirement;
 use App\Models\Pool;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Database\Helpers\KeyStringHelpers;
 
 class PoolFactory extends Factory
 {
@@ -25,10 +26,10 @@ class PoolFactory extends Factory
      */
     public function definition()
     {
-        $name = $this->faker->company();
+        $name = $this->faker->unique()->company();
         return [
             'name' => ['en' => $name, 'fr' => $name],
-            'key' => strtolower(preg_replace('/\s+/', '_', $name)),
+            'key' => KeyStringHelpers::toKeyString($name),
             'description' => ['en' => $this->faker->paragraph(), 'fr' => $this->faker->paragraph()],
             'user_id' => User::factory(),
         ];

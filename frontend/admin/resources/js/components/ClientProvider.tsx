@@ -16,6 +16,9 @@ import {
 } from "urql";
 import { AuthContext } from "./AuthContainer";
 
+// generate nonce somewhere here?
+// const nonce = ...
+
 const apiUri = process.env.API_URI ?? "http://localhost:8000/graphql";
 
 interface AuthState {

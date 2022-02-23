@@ -62,7 +62,12 @@ export const AwardDetailsForm: React.FunctionComponent = () => {
             rules={{
               required: intl.formatMessage(errorMessages.required),
             }}
-            options={enumToOptions(AwardedTo).map(({ value }) => ({
+            options={enumToOptions(AwardedTo, [
+              AwardedTo.Me,
+              AwardedTo.MyTeam,
+              AwardedTo.MyProject,
+              AwardedTo.MyOrganization,
+            ]).map(({ value }) => ({
               value,
               label: intl.formatMessage(getAwardedTo(value)),
             }))}
@@ -100,7 +105,15 @@ export const AwardDetailsForm: React.FunctionComponent = () => {
             rules={{
               required: intl.formatMessage(errorMessages.required),
             }}
-            options={enumToOptions(AwardedScope).map(({ value }) => ({
+            options={enumToOptions(AwardedScope, [
+              AwardedScope.International,
+              AwardedScope.National,
+              AwardedScope.Provincial,
+              AwardedScope.Local,
+              AwardedScope.Community,
+              AwardedScope.Organizational,
+              AwardedScope.SubOrganizational,
+            ]).map(({ value }) => ({
               value,
               label: intl.formatMessage(getAwardedScope(value)),
             }))}

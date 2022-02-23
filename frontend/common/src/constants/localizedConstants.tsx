@@ -10,6 +10,8 @@ import {
   Role,
   AwardedTo,
   AwardedScope,
+  EducationType,
+  EducationStatus,
 } from "../api/generated";
 import { getOrThrowError } from "../helpers/util";
 
@@ -267,4 +269,82 @@ export const getAwardedScope = (
     awardedScopeMessages,
     awardedScopeId,
     `Invalid awardedTo ${awardedScopeId}`,
+  );
+
+export const educationStatusMessages = defineMessages({
+  [EducationStatus.SuccessCredential]: {
+    defaultMessage: "Successful Completion (Credential Awarded)",
+    description:
+      "Successful Completion with credential selection for education status input",
+  },
+  [EducationStatus.SuccessNoCredential]: {
+    defaultMessage: "Successful Completion (No Credential Awarded)",
+    description:
+      "Successful Completion with no credentials for education status input",
+  },
+  [EducationStatus.InProgress]: {
+    defaultMessage: "In Progress",
+    description: "In Progress selection for education status input",
+  },
+  [EducationStatus.Audited]: {
+    defaultMessage: "Audited",
+    description: "Audited selection for education status input",
+  },
+  [EducationStatus.DidNotComplete]: {
+    defaultMessage: "Did not complete",
+    description: "Did not complete selection for education status input",
+  },
+});
+
+export const getEducationStatus = (
+  educationStatusId: string | number,
+): MessageDescriptor =>
+  getOrThrowError(
+    educationStatusMessages,
+    educationStatusId,
+    `Invalid educationStatus ${educationStatusId}`,
+  );
+
+export const educationTypeMessages = defineMessages({
+  [EducationType.Diploma]: {
+    defaultMessage: "Diploma",
+    description: "Diploma selection for education type input",
+  },
+  [EducationType.BachelorsDegree]: {
+    defaultMessage: "Bachelors Degree",
+    description: "Bachelors Degree selection for education type input",
+  },
+  [EducationType.MastersDegree]: {
+    defaultMessage: "Masters Degree",
+    description: "Masters Degree selection for education type input",
+  },
+  [EducationType.Phd]: {
+    defaultMessage: "Phd",
+    description: "Phd selection for education type input",
+  },
+  [EducationType.PostDoctoralFellowship]: {
+    defaultMessage: "Post Doctoral Fellowship",
+    description: "Post Doctoral Fellowship selection for education type input",
+  },
+  [EducationType.OnlineCourse]: {
+    defaultMessage: "Online Course",
+    description: "Online Course selection for education type input",
+  },
+  [EducationType.Certification]: {
+    defaultMessage: "Certification",
+    description: "Certification selection for education type input",
+  },
+  [EducationType.Other]: {
+    defaultMessage: "Other",
+    description: "Other selection for education type input",
+  },
+});
+
+export const getEducationType = (
+  educationTypeId: string | number,
+): MessageDescriptor =>
+  getOrThrowError(
+    educationTypeMessages,
+    educationTypeId,
+    `Invalid educationType ${educationTypeId}`,
   );
