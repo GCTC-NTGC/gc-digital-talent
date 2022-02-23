@@ -121,6 +121,8 @@ declare module "react-table" {
 
   export interface Cell<
     D extends Record<string, unknown> = Record<string, unknown>,
+    // TODO: Investigate why this is needed (seems to be from react-table docs).
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     V = unknown,
   > extends UseGroupByCellProps<D>,
       UseRowStateCellProps<D> {}
