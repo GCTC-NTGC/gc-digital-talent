@@ -28,10 +28,10 @@ export const InputWrapper: React.FC<InputWrapperProps> = ({
     <>
       <div
         data-h2-display="b(flex)"
-        data-h2-flex-wrap="b(wrap)"
-        data-h2-align-items="b(center)"
+        data-h2-flex-direction="b(column)"
+        data-h2-align-items="b(flex-start)"
       >
-        <div style={{ flexGrow: 1 }}>
+        <div style={{ width: "100%" }}>
           <InputLabel
             inputId={inputId}
             label={label}
