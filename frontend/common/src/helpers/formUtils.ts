@@ -107,3 +107,15 @@ export function matchStringsCaseDiacriticInsensitive(
     matchStringCaseDiacriticInsensitive(needle, name),
   );
 }
+
+/**
+ * Returns the total number of words in a string.
+ * @param text String that you want to count the number of words.
+ * @returns number
+ */
+export const countNumberOfWords = (text: string): number => {
+  if (text && text.trim()) {
+    return text.replace(/\s+/g, " ").trim().split(" ").length;
+  }
+  return 0;
+};
