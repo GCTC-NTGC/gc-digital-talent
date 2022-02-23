@@ -86,10 +86,4 @@ class AuthController extends Controller
                 ]);
         return response($response);
     }
-
-    public function logout()
-    {
-        // After logging out redirect user back to home page.
-        return redirect(config('oauth.logout_uri') . '?post_logout_redirect_uri=' . config('app.url'));
-    }
 }
