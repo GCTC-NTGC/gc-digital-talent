@@ -1,7 +1,7 @@
 import { getLocale } from "@common/helpers/localize";
 import path from "path-browserify";
 import { useIntl } from "react-intl";
-import ADMIN_APP_DIR from "./adminConstants";
+import { ADMIN_APP_DIR } from "./adminConstants";
 
 export type AdminRoutes = ReturnType<typeof adminRoutes>;
 
@@ -11,7 +11,6 @@ const adminRoutes = (lang: string) => {
   return {
     home,
     refreshAccessToken: (): string => path.join(unlocalizedRoot(), "refresh"),
-    logout: (): string => path.join(unlocalizedRoot(), "logout"),
 
     classificationTable: (): string => path.join(home(), "classifications"),
     classificationCreate: (): string =>
