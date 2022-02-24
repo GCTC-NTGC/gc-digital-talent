@@ -13,7 +13,6 @@ class AuthController extends Controller
 {
     public function login(Request $request)
     {
-        //add the creation of a nonce alongside state
         $state = Str::random(40);
         $nonce = Str::random(40);
         $request->session()->put('state', $state);
@@ -37,7 +36,6 @@ class AuthController extends Controller
         if(config('oauth.authorize_uri') != 'http://localhost:8000/oauth/authorize')
             $scope = $scope . ' offline_access';
 
-        //add nonce in this query
         $query = http_build_query([
             'client_id' => config('oauth.client_id'),
             'redirect_uri' => config('oauth.redirect_uri'),
@@ -54,10 +52,9 @@ class AuthController extends Controller
 
     public function authCallback(Request $request)
     {
-        //pull the original nonce alongside state
+        //pull the original nonce and state from  beginning to compare with returned values
         $state = $request->session()->pull('state');
         $nonce = $request->session()->pull('nonce');
-        var_dump($nonce);
 
         throw_unless(
             strlen($state) > 0 && $state === $request->state,
@@ -73,27 +70,16 @@ class AuthController extends Controller
         ]);
 
         // decode id_token stage
-        // pull token out of the response
-
+        // pull token out of the response as json -> lcobucci parser, no key verification is being done here however
         $idToken = $response->json("id_token");
 
-        // following the online Lcobucci documentation, attempt to parse the token
-        // no key verification is being done here, ideally things are done more thoroughly here, something to think about
-        $config = Configuration::forUnsecuredSigner(
-            //
-        );
+        $config = Configuration::forUnsecuredSigner();
         assert($config instanceof Configuration);
         $token = $config->parser()->parse($idToken);
         assert($token instanceof UnencryptedToken);
 
-        //now, grab the tokenNonce out of the unencrypted thing, use claims()->get() to grab the nonce
-        //and compare to the nonce grabbed at line 59 and throw_unless
-
-        $claimed = $token->claims()->get('nonce');
-        var_dump($claimed);
-        //var_dump($nonce);
-
-        $tokenNonce = $claimed;
+        //grab the tokenNonce out of the unencrypted thing and compare to original nonce, and throw_unless if mismatch
+        $tokenNonce = $token->claims()->get('nonce');
         throw_unless(
             strlen($tokenNonce) > 0 && $tokenNonce === $nonce,
             new InvalidArgumentException("Invalid session nonce")
