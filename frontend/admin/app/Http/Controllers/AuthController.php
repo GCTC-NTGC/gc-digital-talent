@@ -70,7 +70,7 @@ class AuthController extends Controller
         ]);
 
         // to ensure this doesn't break with local test, nonce verification only runs in SiC .env settings
-        if(config('oauth.authorize_uri') !== 'http://localhost:80/oauth/token'){
+        if(config('oauth.token_uri') !== 'http://localhost:80/oauth/token'){
             // decode id_token stage
             // pull token out of the response as json -> lcobucci parser, no key verification is being done here however
             $idToken = $response->json("id_token");
