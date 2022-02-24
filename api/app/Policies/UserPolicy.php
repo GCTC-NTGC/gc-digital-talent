@@ -114,4 +114,28 @@ class UserPolicy
     {
         return false;
     }
+
+    /*******************  APPLICANT QUERIES  *******************/
+    /**
+     * Determine whether the user can view any models.
+     *
+     * @param  \App\Models\User|null  $user
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function viewAnyApplicants(User $user = null)
+    {
+        return true;
+    }
+
+    /**
+     * Determine whether the user can view the model.
+     *
+     * @param  \App\Models\User|null  $user
+     * @param  \App\Models\User  $model
+     * @return \Illuminate\Auth\Access\Response|bool
+     */
+    public function viewApplicant(User $user = null, User $model)
+    {
+        return true;
+    }
 }

@@ -15,7 +15,7 @@ type Applicant {
 
 type AwardExperience implements Experience {
   id: ID!
-  user: User!
+  applicant: Applicant!
   title: String
   issuedBy: String
   awardedDate: Date
@@ -75,7 +75,7 @@ input CmoAssetBelongsToMany {
 
 type CommunityExperience implements Experience {
   id: ID!
-  user: User!
+  applicant: Applicant!
   title: String
   organization: String
   project: String
@@ -209,7 +209,7 @@ input DepartmentBelongsTo {
 
 type EducationExperience implements Experience {
   id: ID!
-  user: User!
+  applicant: Applicant!
   institution: String
   areaOfStudy: String
   thesisTitle: String
@@ -244,7 +244,7 @@ scalar Email
 
 interface Experience {
   id: ID!
-  user: User!
+  applicant: Applicant!
   details: String
 }
 
@@ -418,7 +418,7 @@ type PaginatorInfo {
 
 type PersonalExperience implements Experience {
   id: ID!
-  user: User!
+  applicant: Applicant!
   title: String
   description: String
   startDate: Date
@@ -543,6 +543,8 @@ type Query {
   me: User
   user(id: ID!): User
   users: [User]!
+  applicant(id: ID!): Applicant
+  applicants: [Applicant]!
   pool(id: ID!): Pool
   poolByKey(key: String!): Pool
   pools: [Pool]!
@@ -865,7 +867,7 @@ input WhereConditionsRelation {
 
 type WorkExperience implements Experience {
   id: ID!
-  user: User!
+  applicant: Applicant!
   role: String
   organization: String
   division: String
