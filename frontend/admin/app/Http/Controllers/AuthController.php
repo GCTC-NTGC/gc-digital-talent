@@ -16,7 +16,8 @@ class AuthController extends Controller
         //add the creation of a nonce alongside state
         $state = Str::random(40);
         $nonce = Str::random(40);
-        $request->session()->put('state', $state, 'nonce', $nonce);
+        $request->session()->put('state', $state);
+        $request->session()->put('nonce', $nonce);
 
         $request->session()->put(
             'from',
@@ -56,6 +57,7 @@ class AuthController extends Controller
         //pull the original nonce alongside state
         $state = $request->session()->pull('state');
         $nonce = $request->session()->pull('nonce');
+        var_dump($nonce);
 
         throw_unless(
             strlen($state) > 0 && $state === $request->state,
@@ -70,13 +72,10 @@ class AuthController extends Controller
             'code' => $request->code,
         ]);
 
-        // decode id_token here
+        // decode id_token stage
         // pull token out of the response
-        // problem, idToken is null
-        // problem input() and query() are undefined methods for $response
-        $idToken = $response->input('id_token');
 
-        var_dump($idToken);
+        $idToken = $response->json("id_token");
 
         // following the online Lcobucci documentation, attempt to parse the token
         // no key verification is being done here, ideally things are done more thoroughly here, something to think about
@@ -87,9 +86,14 @@ class AuthController extends Controller
         $token = $config->parser()->parse($idToken);
         assert($token instanceof UnencryptedToken);
 
-        //now, grab the tokenNonce out of the unencrypted thing, and compare to the nonce grabbed at line 59 and throw_unless
+        //now, grab the tokenNonce out of the unencrypted thing, use claims()->get() to grab the nonce
+        //and compare to the nonce grabbed at line 59 and throw_unless
 
-        $tokenNonce = $token->nonce;
+        $claimed = $token->claims()->get('nonce');
+        var_dump($claimed);
+        //var_dump($nonce);
+
+        $tokenNonce = $claimed;
         throw_unless(
             strlen($tokenNonce) > 0 && $tokenNonce === $nonce,
             new InvalidArgumentException("Invalid session nonce")
