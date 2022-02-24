@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Http;
 use InvalidArgumentException;
-//following the online Lcobucci documentation an attempt at parsing has been made
 use Lcobucci\JWT\Configuration;
 use Lcobucci\JWT\UnencryptedToken;
 
@@ -72,8 +71,12 @@ class AuthController extends Controller
         ]);
 
         // decode id_token here
-        // pull token out of the response, it is in 3 parts, middle part is the desired payload with the nonce
-        $idToken = $response->query('id_token');
+        // pull token out of the response
+        // problem, idToken is null
+        // problem input() and query() are undefined methods for $response
+        $idToken = $response->input('id_token');
+
+        var_dump($idToken);
 
         // following the online Lcobucci documentation, attempt to parse the token
         // no key verification is being done here, ideally things are done more thoroughly here, something to think about
