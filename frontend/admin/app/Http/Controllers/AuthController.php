@@ -69,22 +69,24 @@ class AuthController extends Controller
             'code' => $request->code,
         ]);
 
-        // decode id_token stage
-        // pull token out of the response as json -> lcobucci parser, no key verification is being done here however
-        $idToken = $response->json("id_token");
+        // to ensure this doesn't break with local test, nonce verification only runs in SiC .env settings
+        if(config('oauth.authorize_uri') !== 'http://localhost:80/oauth/token'){
+            // decode id_token stage
+            // pull token out of the response as json -> lcobucci parser, no key verification is being done here however
+            $idToken = $response->json("id_token");
 
-        $config = Configuration::forUnsecuredSigner();
-        assert($config instanceof Configuration);
-        $token = $config->parser()->parse($idToken);
-        assert($token instanceof UnencryptedToken);
+            $config = Configuration::forUnsecuredSigner();
+            assert($config instanceof Configuration);
+            $token = $config->parser()->parse($idToken);
+            assert($token instanceof UnencryptedToken);
 
-        //grab the tokenNonce out of the unencrypted thing and compare to original nonce, and throw_unless if mismatch
-        $tokenNonce = $token->claims()->get('nonce');
-        throw_unless(
-            strlen($tokenNonce) > 0 && $tokenNonce === $nonce,
-            new InvalidArgumentException("Invalid session nonce")
-        );
-
+            //grab the tokenNonce out of the unencrypted thing and compare to original nonce, and throw_unless if mismatch
+            $tokenNonce = $token->claims()->get('nonce');
+            throw_unless(
+                strlen($tokenNonce) > 0 && $tokenNonce === $nonce,
+                new InvalidArgumentException("Invalid session nonce")
+            );
+        }
         $query = http_build_query($response->json());
 
         $from = $request->session()->pull('from');
