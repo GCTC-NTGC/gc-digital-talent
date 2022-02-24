@@ -124,7 +124,7 @@ class UserPolicy
      */
     public function viewAnyApplicants(User $user = null)
     {
-        return true;
+        return $user->isAdmin();
     }
 
     /**
@@ -136,6 +136,6 @@ class UserPolicy
      */
     public function viewApplicant(User $user = null, User $model)
     {
-        return true;
+        return $user->isAdmin() || $user->id === $model->id;
     }
 }

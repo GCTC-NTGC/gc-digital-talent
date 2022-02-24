@@ -45,6 +45,7 @@ class AwardExperienceFactory extends Factory
                     'SUB_ORGANIZATIONAL',
                 ]
             ),
+            'details' => $this->faker->text(),
         ];
     }
 }
