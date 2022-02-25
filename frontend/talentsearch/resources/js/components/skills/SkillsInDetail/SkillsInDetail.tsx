@@ -146,7 +146,7 @@ const SkillsInDetail: React.FunctionComponent<SkillsInDetailProps> = ({
                 >
                   <div data-h2-align-self="b(flex-end)">
                     <WordCounter
-                      value={watchSkills ? watchSkills[id].details : ""}
+                      text={watchSkills ? watchSkills[id].details : ""}
                       wordLimit={MAX_WORDS}
                     />
                   </div>

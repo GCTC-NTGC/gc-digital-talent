@@ -3,19 +3,21 @@ import { useIntl } from "react-intl";
 import { countNumberOfWords } from "../../helpers/formUtils";
 
 export interface WordCounterProps {
+  /** The string of text that words will be counted from. */
+  text: string;
   /** Maximum amount of words before passing the optimal range. The Progress Ring color correlates with this number. */
   wordLimit: number;
-  /** The text who's words are being counted. */
-  value: string;
 }
 
-const WordCounter: React.FunctionComponent<WordCounterProps> = ({
+export const WordCounter: React.FunctionComponent<WordCounterProps> = ({
+  text,
   wordLimit,
-  value,
+  ...rest
 }): React.ReactElement => {
   const intl = useIntl();
   const minWords = 0;
-  const numOfWords = countNumberOfWords(value);
+  const numOfWords = countNumberOfWords(text);
+  const wordsLeft = wordLimit - numOfWords;
   return (
     <span
       role="progressbar"
@@ -23,10 +25,11 @@ const WordCounter: React.FunctionComponent<WordCounterProps> = ({
       aria-valuemin={minWords}
       aria-valuemax={wordLimit}
       data-h2-font-size="b(caption)"
+      {...rest}
     >
-      {wordLimit - numOfWords < 0 ? (
+      {wordsLeft < 0 ? (
         <span data-h2-font-color="b(red)">
-          {Math.abs(wordLimit - numOfWords)}{" "}
+          {Math.abs(wordsLeft)}{" "}
           {intl.formatMessage({
             defaultMessage: "words over limit.",
             description: "Message for when user goes over word limit.",
@@ -34,7 +37,7 @@ const WordCounter: React.FunctionComponent<WordCounterProps> = ({
         </span>
       ) : (
         <span data-h2-font-color="b(darkgray)">
-          {wordLimit - numOfWords}{" "}
+          {wordsLeft}{" "}
           {intl.formatMessage({
             defaultMessage: "words left.",
             description: "Message for when user goes over word limit.",
