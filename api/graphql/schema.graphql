@@ -270,14 +270,14 @@ enum EducationStatus {
 
 interface Experience {
   id: ID!
-  user: User! @belongsTo
+  applicant: Applicant! @belongsTo(relation: "user")
   details: String
   experienceSkills: [ExperienceSkill] @morphMany
 }
 
 type WorkExperience implements Experience {
   id: ID!
-  user: User! @belongsTo
+  applicant: Applicant! @belongsTo(relation: "user")
   role: String
   organization: String
   division: String
@@ -288,7 +288,7 @@ type WorkExperience implements Experience {
 }
 type PersonalExperience implements Experience {
   id: ID!
-  user: User! @belongsTo
+  applicant: Applicant! @belongsTo(relation: "user")
   title: String
   description: String
   startDate: Date @rename(attribute: "start_date")
@@ -298,7 +298,7 @@ type PersonalExperience implements Experience {
 }
 type CommunityExperience implements Experience {
   id: ID!
-  user: User! @belongsTo
+  applicant: Applicant! @belongsTo(relation: "user")
   title: String
   organization: String
   project: String
@@ -309,7 +309,7 @@ type CommunityExperience implements Experience {
 }
 type EducationExperience implements Experience {
   id: ID!
-  user: User! @belongsTo
+  applicant: Applicant! @belongsTo(relation: "user")
   institution: String
   areaOfStudy: String @rename(attribute: "area_of_study")
   thesisTitle: String @rename(attribute: "thesis_title")
@@ -322,7 +322,7 @@ type EducationExperience implements Experience {
 }
 type AwardExperience implements Experience {
   id: ID!
-  user: User! @belongsTo
+  applicant: Applicant! @belongsTo(relation: "user")
   title: String
   issuedBy: String @rename(attribute: "issued_by")
   awardedDate: Date @rename(attribute: "awarded_date")
@@ -370,6 +370,8 @@ type Query {
     me: User @auth
     user(id: ID! @eq): User @find @guard @can(ability: "view", query: true)
     users: [User]! @all @guard @can(ability: "viewAny")
+    applicant(id: ID! @eq): Applicant @find(model: "User") @guard @can(ability: "viewApplicant", query: true, model: "User")
+    applicants: [Applicant]! @all(model: "User") @guard @can(ability: "viewAnyApplicants", model: "User")
     pool(id: ID! @eq): Pool @find
     poolByKey(key: String! @eq): Pool @find
     pools: [Pool]! @all
