@@ -103,7 +103,10 @@ export const ClientProvider: React.FC<{ client?: Client }> = ({
       logout();
       return null;
     },
-    [accessToken, refreshToken, idToken, logout, refreshTokenSet],
+    // We need a single instance of this function so the urql client can maintain its state.
+    // Otherwise, it loses count of the errors and enters a refresh loop.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [],
   );
 
   const internalClient = useMemo(() => {
