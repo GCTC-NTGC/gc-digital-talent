@@ -21,7 +21,10 @@ class AppServiceProvider extends ServiceProvider
     {
         Relation::enforceMorphMap([
             'awardExperience' => \App\Models\AwardExperience::class,
-            'communityExperience' => '\App\Models\CommunityExperience',
+            'communityExperience' => \App\Models\CommunityExperience::class,
+            'educationExperience' => \App\Models\EducationExperience::class,
+            'personalExperience' => \App\Models\PersonalExperience::class,
+            'workExperience' => \App\Models\WorkExperience::class,
         ]);
     }
 }
