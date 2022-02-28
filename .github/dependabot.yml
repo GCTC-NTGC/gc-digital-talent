@@ -7,11 +7,28 @@ version: 2
 updates:
   # JAVASCRIPT package.json updates
 
+  # Flag the direct dependencies with additional label.
   - package-ecosystem: "npm"
     directory: "/frontend"
     schedule:
       interval: "weekly"
     open-pull-requests-limit: 15
+    allow:
+      - dependency-type: direct
+    labels:
+      - dependencies-priority
+      # Default labels
+      - dependencies
+      - javascript
+
+  # The rest of dependencies.
+  - package-ecosystem: "npm"
+    directory: "/frontend"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 15
+    ignore:
+      - dependency-type: direct
 
   - package-ecosystem: "npm"
     directory: "/auth"
