@@ -54,7 +54,7 @@
     "@hydrogen-design-system/hydrogen.css": "^1.1.19",
     "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/react": "^12.1.3",
-    "@types/jest": "^27.0.3",
+    "@types/jest": "^27.4.1",
     "@types/lodash": "^4.14.179",
     "@types/path-browserify": "^1.0.0",
     "@types/react-table": "^7.7.9",
