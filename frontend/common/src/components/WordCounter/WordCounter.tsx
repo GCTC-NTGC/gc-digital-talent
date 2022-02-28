@@ -30,18 +30,26 @@ export const WordCounter: React.FunctionComponent<WordCounterProps> = ({
       {wordsLeft < 0 ? (
         <span data-h2-font-color="b(red)">
           {Math.abs(wordsLeft)}{" "}
-          {intl.formatMessage({
-            defaultMessage: "words over limit.",
-            description: "Message for when user goes over word limit.",
-          })}
+          {intl.formatMessage(
+            {
+              defaultMessage:
+                "{wordsLeft, plural, one {word over limit} other {words over limit}}.",
+              description: "Message for when user goes over word limit.",
+            },
+            { wordsLeft },
+          )}
         </span>
       ) : (
         <span data-h2-font-color="b(darkgray)">
           {wordsLeft}{" "}
-          {intl.formatMessage({
-            defaultMessage: "words left.",
-            description: "Message for when user goes over word limit.",
-          })}
+          {intl.formatMessage(
+            {
+              defaultMessage:
+                "{wordsLeft, plural, one {word left} other {words left}}.",
+              description: "Message for when user goes over word limit.",
+            },
+            { wordsLeft },
+          )}
         </span>
       )}
     </span>
