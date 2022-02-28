@@ -22,6 +22,7 @@ export const InputWrapper: React.FC<InputWrapperProps> = ({
   context,
   hideOptional,
   children,
+  ...rest
 }) => {
   const [contextVisible, setContextVisible] = useState(false);
   return (
@@ -30,6 +31,7 @@ export const InputWrapper: React.FC<InputWrapperProps> = ({
         data-h2-display="b(flex)"
         data-h2-flex-direction="b(column)"
         data-h2-align-items="b(flex-start)"
+        {...rest}
       >
         <div style={{ width: "100%" }}>
           <InputLabel
