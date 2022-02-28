@@ -4,7 +4,9 @@ import {
   parseUrlQueryParameters,
   useLocation,
 } from "@common/helpers/router";
+import jwtDecode, { JwtPayload } from "jwt-decode";
 import { useAdminRoutes } from "../adminRoutes";
+import { LOGOUT_URI, POST_LOGOUT_REDIRECT } from "../adminConstants";
 
 const ACCESS_TOKEN = "access_token";
 const REFRESH_TOKEN = "refresh_token";
@@ -37,12 +39,31 @@ export const AuthContext = React.createContext<AuthState>({
 });
 
 const logoutAndRefreshPage = (homePath: string): void => {
-  // To log out, remove tokens from local storage and do a hard refresh to clear anything cached by react.
-  // TODO: Is there anything else we should do, in terms of notifying user?
+  // capture tokens before they are removed
+  const accessToken = localStorage.getItem(ACCESS_TOKEN);
+  const idToken = localStorage.getItem(ID_TOKEN);
+
+  // remove tokens from local storage
   localStorage.removeItem(ACCESS_TOKEN);
   localStorage.removeItem(REFRESH_TOKEN);
   localStorage.removeItem(ID_TOKEN);
-  window.location.href = homePath;
+
+  // check if we have everything we need to do an auth session end
+  let authLogOutUri = null;
+  if (accessToken && LOGOUT_URI && POST_LOGOUT_REDIRECT) {
+    let tokenIsKnownToBeActive = false;
+    const decodedAccessToken = jwtDecode<JwtPayload>(accessToken);
+    if (decodedAccessToken.exp)
+      tokenIsKnownToBeActive = Date.now() < decodedAccessToken.exp * 1000; // JWT expiry date in seconds, not milliseconds
+    if (tokenIsKnownToBeActive) {
+      // we probably have an active session with the auth provider so we need to sign out of it
+      authLogOutUri = `${LOGOUT_URI}?post_logout_redirect_uri=${POST_LOGOUT_REDIRECT}`;
+      if (idToken) authLogOutUri += `&id_token_hint=${idToken}`;
+    }
+  }
+
+  // Navigate to auth log out to end the session or at least a hard refresh to home (to restart react app)
+  window.location.href = authLogOutUri ?? homePath;
 };
 
 const refreshTokenSet = async (

@@ -49,6 +49,7 @@ class EducationExperienceFactory extends Factory
                     'DID_NOT_COMPLETE',
                 ]
             ),
+            'details' => $this->faker->text(),
         ];
     }
 }

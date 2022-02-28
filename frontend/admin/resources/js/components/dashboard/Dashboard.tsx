@@ -7,7 +7,7 @@ import { Button, Link } from "@common/components";
 import NotFound from "@common/components/NotFound";
 import Header from "@common/components/Header";
 import Footer from "@common/components/Footer";
-import ADMIN_APP_DIR from "../../adminConstants";
+import { ADMIN_APP_DIR } from "../../adminConstants";
 import { useAdminRoutes } from "../../adminRoutes";
 import { useGetPoolsQuery } from "../../api/generated";
 import SideMenu from "../menu/SideMenu";
