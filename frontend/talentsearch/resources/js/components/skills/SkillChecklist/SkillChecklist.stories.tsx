@@ -2,9 +2,7 @@ import React from "react";
 import { Meta, Story } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 import { fakeSkills, fakeSkillFamilies } from "@common/fakeData";
-import SkillChecklist, {
-  SkillChecklistProps,
-} from "../components/skills/SkillChecklist";
+import SkillChecklist, { SkillChecklistProps } from "./SkillChecklist";
 
 export default {
   component: SkillChecklist,
