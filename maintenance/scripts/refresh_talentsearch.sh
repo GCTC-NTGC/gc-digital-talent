@@ -14,7 +14,6 @@ npm rebuild node-sass
 
 cd /var/www/html/frontend/talentsearch
 composer install
-npm run h2-build
 npm run codegen
 npm run intl-compile
 npm run dev

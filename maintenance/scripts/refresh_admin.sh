@@ -15,7 +15,6 @@ npm rebuild node-sass
 cd /var/www/html/frontend/admin
 composer install
 php artisan config:clear
-npm run h2-build
 npm run codegen
 npm run intl-compile
 npm run dev
