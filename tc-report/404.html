@@ -22,7 +22,9 @@
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
-        gtag('config', 'UA-115747902-1');
+        gtag('config', 'UA-115747902-1', {
+          cookie_flags: 'samesite=none;secure'
+        });
     </script>
   <!-- Favicons -->
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
