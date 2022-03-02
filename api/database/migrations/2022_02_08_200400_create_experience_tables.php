@@ -88,18 +88,6 @@ class CreateExperienceTables extends Migration
             $table->softDeletes();
         });
         DB::statement('ALTER TABLE award_experiences ALTER COLUMN id SET DEFAULT gen_random_uuid();');
-
-        Schema::create('experience_skills', function (Blueprint $table) {
-            $table->uuid('id')->primary('id');
-            $table->text('details')->nullable();
-            $table->uuid('skill_id')->nullable(false);
-            $table->foreign('skill_id')->references('id')->on('skills');
-            $table->uuid('experience_id')->nullable(false);
-            $table->string('experience_type')->nullable(false);
-            $table->unique(['skill_id', 'experience_id']);
-            $table->timestamps();
-        });
-        DB::statement('ALTER TABLE experience_skills ALTER COLUMN id SET DEFAULT gen_random_uuid();');
     }
 
     /**
@@ -109,7 +97,6 @@ class CreateExperienceTables extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('experience_skills');
         Schema::dropIfExists('work_experiences');
         Schema::dropIfExists('personal_experiences');
         Schema::dropIfExists('community_experiences');
