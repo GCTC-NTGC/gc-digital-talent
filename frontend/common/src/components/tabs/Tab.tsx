@@ -16,6 +16,8 @@ export interface TabProps extends React.HTMLProps<HTMLElement> {
   iconClosed?: JSX.Element;
   iconPosition?: "left" | "right";
   text?: string;
+  textOpen?: string;
+  textClosed?: string;
   /** The type of tab to add to the set:
    * *normal* - a tab that can be clicked to show content
    * *closer* - a tab that opens and closes the entire tab set but doesn't have its own content
@@ -36,6 +38,8 @@ export const Tab: React.FC<TabProps> = ({
   iconClosed,
   iconPosition = "left",
   text,
+  textOpen,
+  textClosed,
   tabType = "normal",
   placement = "default",
   isTabSetOpen,
@@ -53,22 +57,32 @@ export const Tab: React.FC<TabProps> = ({
     effectiveIcon = icon;
   }
 
+  // calculate the text to show
+  let effectiveText;
+  if (isTabSetOpen && textOpen) {
+    effectiveText = textOpen;
+  } else if (!isTabSetOpen && textClosed) {
+    effectiveText = textClosed;
+  } else {
+    effectiveText = text;
+  }
+
   // arrange the contents of the label
   let label;
   if (!effectiveIcon) {
-    label = text;
+    label = effectiveText;
   } else if (iconPosition === "left") {
     label = (
       <div data-h2-display="b(flex)">
         {effectiveIcon}
         &nbsp;
-        {text}
+        {effectiveText}
       </div>
     );
   } else if (iconPosition === "right") {
     label = (
       <div data-h2-display="b(flex)">
-        {text}
+        {effectiveText}
         &nbsp;
         {effectiveIcon}
       </div>

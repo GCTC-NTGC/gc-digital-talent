@@ -72,6 +72,8 @@ export const RadioGroup: React.FunctionComponent<RadioGroupProps> = ({
             // Don't show Required tag, error or context on individual input, as its handled by Fieldset.
             required={false}
             hideOptional
+            data-h2-flex-direction="b(row)"
+            data-h2-align-items="b(center)"
           >
             <input
               style={{ order: -1 }}

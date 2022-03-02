@@ -66,6 +66,7 @@ $app->configure('lighthouse');
 $app->configure('oauth');
 $app->configure('filesystems');
 $app->configure('view');
+$app->configure('logging');
 
 
 /*

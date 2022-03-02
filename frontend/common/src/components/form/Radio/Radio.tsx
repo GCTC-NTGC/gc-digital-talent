@@ -43,6 +43,8 @@ export const Radio: React.FunctionComponent<RadioProps> = ({
       context={context}
       error={error}
       hideOptional
+      data-h2-flex-direction="b(row)"
+      data-h2-align-items="b(center)"
     >
       <input
         style={{ order: -1 }}
