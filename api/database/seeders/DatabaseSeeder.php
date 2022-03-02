@@ -12,6 +12,12 @@ use App\Models\SkillFamily;
 use Illuminate\Database\Eloquent\Factories\Sequence;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use App\Models\AwardExperience;
+use App\Models\CommunityExperience;
+use App\Models\EducationExperience;
+use App\Models\PersonalExperience;
+use App\Models\WorkExperience;
+use Faker;
 
 class DatabaseSeeder extends Seeder
 {
@@ -22,6 +28,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        $faker = Faker\Factory::create();
+
+
         $this->truncateTables();
 
         $this->call(ClassificationSeeder::class);
@@ -51,11 +60,29 @@ class DatabaseSeeder extends Seeder
             ->create();
 
         PoolCandidateSearchRequest::factory()->count(10)->create();
+
+        User::all()->each(function($user) use ($faker) {
+            AwardExperience::factory()->count($faker->biasedNumberBetween($min = 0, $max = 3,
+                $function = 'Faker\Provider\Biased::linearLow'))->for($user)->create();
+            CommunityExperience::factory()->count($faker->biasedNumberBetween($min = 0, $max = 3,
+                $function = 'Faker\Provider\Biased::linearLow'))->for($user)->create();
+            EducationExperience::factory()->count($faker->biasedNumberBetween($min = 0, $max = 3,
+                $function = 'Faker\Provider\Biased::linearLow'))->for($user)->create();
+            PersonalExperience::factory()->count($faker->biasedNumberBetween($min = 0, $max = 3,
+                $function = 'Faker\Provider\Biased::linearLow'))->for($user)->create();
+            WorkExperience::factory()->count($faker->biasedNumberBetween($min = 0, $max = 3,
+                $function = 'Faker\Provider\Biased::linearLow'))->for($user)->create();
+        });
     }
 
     // drop all rows from some tables so that the seeder can fill them fresh
     private function truncateTables()
     {
+        AwardExperience::truncate();
+        CommunityExperience::truncate();
+        EducationExperience::truncate();
+        PersonalExperience::truncate();
+        WorkExperience::truncate();
         SkillFamily::truncate();
         Skill::truncate();
         DB::table('skill_skill_family')->truncate();

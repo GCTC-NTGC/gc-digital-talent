@@ -109,6 +109,7 @@ class CreateExperienceTables extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('experience_skills');
         Schema::dropIfExists('work_experiences');
         Schema::dropIfExists('personal_experiences');
         Schema::dropIfExists('community_experiences');
