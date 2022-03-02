@@ -20,7 +20,7 @@ class CreateExperienceSkillTable extends Migration
             $table->foreign('skill_id')->references('id')->on('skills');
             $table->uuid('experience_id')->nullable(false);
             $table->string('experience_type')->nullable(false);
-            $table->unique(['skill_id', 'experience_id']);
+            $table->unique(['skill_id', 'experience_id', 'experience_type']);
             $table->timestamps();
         });
         DB::statement('ALTER TABLE experience_skills ALTER COLUMN id SET DEFAULT gen_random_uuid();');
