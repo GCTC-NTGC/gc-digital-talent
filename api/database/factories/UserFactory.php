@@ -3,11 +3,6 @@
 namespace Database\Factories;
 
 use App\Models\User;
-use App\Models\AwardExperience;
-use App\Models\CommunityExperience;
-use App\Models\EducationExperience;
-use App\Models\PersonalExperience;
-use App\Models\WorkExperience;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class UserFactory extends Factory
@@ -35,21 +30,5 @@ class UserFactory extends Factory
             'preferred_lang' => $this->faker->randomElement(['en', 'fr']),
             'roles' => [],
         ];
-    }
-
-    public function configure()
-    {
-        return $this->afterCreating(function (User $user) {
-            AwardExperience::factory()->count($this->faker->biasedNumberBetween($min = 0, $max = 3,
-                $function = 'Faker\Provider\Biased::linearLow'))->for($user)->create();
-            CommunityExperience::factory()->count($this->faker->biasedNumberBetween($min = 0, $max = 3,
-                $function = 'Faker\Provider\Biased::linearLow'))->for($user)->create();
-            EducationExperience::factory()->count($this->faker->biasedNumberBetween($min = 0, $max = 3,
-                $function = 'Faker\Provider\Biased::linearLow'))->for($user)->create();
-            PersonalExperience::factory()->count($this->faker->biasedNumberBetween($min = 0, $max = 3,
-                $function = 'Faker\Provider\Biased::linearLow'))->for($user)->create();
-            WorkExperience::factory()->count($this->faker->biasedNumberBetween($min = 0, $max = 3,
-                $function = 'Faker\Provider\Biased::linearLow'))->for($user)->create();
-        });
     }
 }

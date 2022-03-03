@@ -22,6 +22,7 @@ type AwardExperience implements Experience {
   awardedTo: AwardedTo
   awardedScope: AwardedScope
   details: String
+  experienceSkills: [ExperienceSkill]
 }
 
 enum AwardedScope {
@@ -82,6 +83,7 @@ type CommunityExperience implements Experience {
   startDate: Date
   endDate: Date
   details: String
+  experienceSkills: [ExperienceSkill]
 }
 
 input CreateClassificationInput {
@@ -218,6 +220,7 @@ type EducationExperience implements Experience {
   type: EducationType
   status: EducationStatus
   details: String
+  experienceSkills: [ExperienceSkill]
 }
 
 enum EducationStatus {
@@ -246,6 +249,14 @@ interface Experience {
   id: ID!
   applicant: Applicant!
   details: String
+  experienceSkills: [ExperienceSkill]
+}
+
+type ExperienceSkill {
+  id: ID!
+  details: String
+  skill: Skill!
+  experience: Experience!
 }
 
 input KeyFilterInput {
@@ -424,6 +435,7 @@ type PersonalExperience implements Experience {
   startDate: Date
   endDate: Date
   details: String
+  experienceSkills: [ExperienceSkill]
 }
 
 """
@@ -568,6 +580,7 @@ type Query {
   skillFamilies: [SkillFamily]!
   skill(id: ID!): Skill
   skills: [Skill]!
+  experienceSkills: [ExperienceSkill]!
 }
 
 enum Role {
@@ -659,6 +672,7 @@ type Skill {
   description: LocalizedString
   keywords: [String!]
   families: [SkillFamily!]
+  experienceSkills: [ExperienceSkill]
 }
 
 input SkillBelongsToMany {
@@ -874,6 +888,7 @@ type WorkExperience implements Experience {
   startDate: Date
   endDate: Date
   details: String
+  experienceSkills: [ExperienceSkill]
 }
 
 enum WorkRegion {
