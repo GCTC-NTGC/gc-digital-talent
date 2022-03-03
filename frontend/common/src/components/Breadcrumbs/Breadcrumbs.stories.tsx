@@ -19,7 +19,8 @@ export const IndividualBreadcrumbs = TemplateBreadcrumbs.bind({});
 
 IndividualBreadcrumbs.args = {
   links: [
-    { name: "name", link: "localhost" },
-    { name: "name2", link: "notlocalhost" },
+    { title: "name", href: "localnothost" },
+    { title: "name2", href: "nothost" },
+    { title: "no link" },
   ],
 };
