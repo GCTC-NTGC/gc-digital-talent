@@ -78,15 +78,9 @@
     "defaultMessage": "Conditions d’emploi/Exigences opérationnelles",
     "description": "Title for operational requirements section on summary of filters section"
   },
-  "doesNotHaveDiploma": {
-    "defaultMessage": "Peut accepter une combinaison d’expérience de travail et d’études"
-  },
   "gD3yqV": {
     "defaultMessage": "Compétences",
     "description": "Title for skills section on summary of filters section"
-  },
-  "hasDiploma": {
-    "defaultMessage": "Diplôme d’études postsecondaires exigé"
   },
   "i9AjuX": {
     "defaultMessage": "S.O.",
@@ -103,10 +97,6 @@
   "+6BCqp": {
     "defaultMessage": "Consultez nos modalités.",
     "description": "Title for the terms and conditions link in the Footer."
-  },
-  "/rTUU/": {
-    "defaultMessage": "Date de modification : {currentDate}",
-    "description": "Header for the sites last date modification found in the footer."
   },
   "1J4e+j": {
     "defaultMessage": "Commentaires",
@@ -227,5 +217,150 @@
   "z9Gr7V": {
     "defaultMessage": "Accessibles",
     "description": "The pool candidate's status is Available."
+  },
+  "2eBm5y": {
+    "defaultMessage": "Terminé avec succès (titre de compétence accordé)",
+    "description": "Successful Completion with credential selection for education status input"
+  },
+  "4dx4ju": {
+    "defaultMessage": "Peut accepter une combinaison d’expériences de travail et d’études."
+  },
+  "4i9X6i": {
+    "defaultMessage": "En cours",
+    "description": "In Progress selection for education status input"
+  },
+  "4uiPHx": {
+    "defaultMessage": "Passer à la page suivante",
+    "description": "Aria label for next page button in pagination nav"
+  },
+  "4vQtRT": {
+    "defaultMessage": "International",
+    "description": "The scope of the award was international."
+  },
+  "6F1rsN": {
+    "defaultMessage": "Baccalauréat ",
+    "description": "Bachelors Degree selection for education type input"
+  },
+  "DuKMNJ": {
+    "defaultMessage": "La date ne doit pas être antérieure {value}",
+    "description": "Error message that the date provided must follow and not precede some referenced date"
+  },
+  "Fc/i3e": {
+    "defaultMessage": "Modification de la date : {modifiedDate}",
+    "description": "Header for the sites last date modification found in the footer."
+  },
+  "GowrkB": {
+    "defaultMessage": "Changer la langue",
+    "description": "Title for the language toggle link."
+  },
+  "Gyey3L": {
+    "defaultMessage": "Cours en ligne",
+    "description": "Online Course selection for education type input"
+  },
+  "LBNX0O": {
+    "defaultMessage": "Administrateur",
+    "description": "The name of the Administrator user role."
+  },
+  "LJpdaI": {
+    "defaultMessage": "Provincial",
+    "description": "The scope of the award was provincial."
+  },
+  "NWQ4Rj": {
+    "defaultMessage": "Non réussi",
+    "description": "Did not complete selection for education status input"
+  },
+  "OujTbA": {
+    "defaultMessage": "Diplôme postsecondaire requis"
+  },
+  "QNsonS": {
+    "defaultMessage": "Compétences transférables",
+    "description": "The skill is considered behavioral."
+  },
+  "Rv5vo7": {
+    "defaultMessage": "Passer à la page {pageNumber}",
+    "description": "Aria label for each button in pagination nav"
+  },
+  "TNmGTd": {
+    "defaultMessage": "Local",
+    "description": "The scope of the award was local."
+  },
+  "Uk0WG0": {
+    "defaultMessage": "Organisationnel",
+    "description": "The scope of the award was organizational."
+  },
+  "WC5em7": {
+    "defaultMessage": "Mon organisation",
+    "description": "The award was given to my organization."
+  },
+  "Z+6NCp": {
+    "defaultMessage": "Sous-organisationnel (direction)",
+    "description": "The scope of the award was sub-organizational (branch)."
+  },
+  "Zhm9yQ": {
+    "defaultMessage": "Audité",
+    "description": "Audited selection for education status input"
+  },
+  "baPSLH": {
+    "defaultMessage": "Terminé avec succès (aucun titre de compétence)",
+    "description": "Successful Completion with no credentials for education status input"
+  },
+  "drr0f7": {
+    "defaultMessage": "Passer à la page précédente",
+    "description": "Aria label for previous page button in pagination nav"
+  },
+  "eGg734": {
+    "defaultMessage": "Autre",
+    "description": "Other selection for education type input"
+  },
+  "hello": {
+    "defaultMessage": "Bonjour"
+  },
+  "jS69se": {
+    "defaultMessage": "Certification",
+    "description": "Certification selection for education type input"
+  },
+  "jfwk14": {
+    "defaultMessage": "Diplôme",
+    "description": "Diploma selection for education type input"
+  },
+  "jm4url": {
+    "defaultMessage": "Navigation par pagination",
+    "description": "Aria label for pagination nav"
+  },
+  "nv2kXl": {
+    "defaultMessage": "Maîtrise",
+    "description": "Masters Degree selection for education type input"
+  },
+  "oANrhM": {
+    "defaultMessage": "Collectivité",
+    "description": "The scope of the award was within the community."
+  },
+  "pPPm5b": {
+    "defaultMessage": "Moi",
+    "description": "The award was given to me."
+  },
+  "qfQx7T": {
+    "defaultMessage": "Ph. D.",
+    "description": "Phd selection for education type input"
+  },
+  "rlq4uZ": {
+    "defaultMessage": "Compétences techniques",
+    "description": "The skill is considered technical."
+  },
+  "sNUWqY": {
+    "defaultMessage": "Bourses postdoctorales",
+    "description": "Post Doctoral Fellowship selection for education type input"
+  },
+  "wD5ZuD": {
+    "defaultMessage": "National",
+    "description": "The scope of the award was national."
+  },
+  "xqacUI": {
+    "defaultMessage": "Mon équipe",
+    "description": "The award was given to my team."
+  },
+  "zXHYAs": {
+    "defaultMessage": "Mon projet",
+    "description": "The award was given to my project."
   }
 }

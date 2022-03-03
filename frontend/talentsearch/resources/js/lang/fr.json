@@ -17,10 +17,6 @@
     "defaultMessage": "Nombre approximative de candidats",
     "description": "Heading for total estimated candidates box next to search form."
   },
-  "3vIS20": {
-    "defaultMessage": "Bienvenue à la page d’accueil du Nuage de talents du GC",
-    "description": "Title displayed in the hero section of the Home page."
-  },
   "5U+V2Y": {
     "defaultMessage": "Nous pouvons encore vous aider!",
     "description": "Heading for helping user if no candidates matched the filters chosen."
@@ -96,10 +92,6 @@
   "LOYv+/": {
     "defaultMessage": "Formulaire de demande",
     "description": "Heading for request form."
-  },
-  "M3nkdY": {
-    "defaultMessage": "Accueil",
-    "description": "Label displayed on the Home menu item."
   },
   "N6+rnM": {
     "defaultMessage": "example@canada.ca...",
@@ -294,5 +286,305 @@
   "9hdbFi": {
     "defaultMessage": "À propos du Bassin de talents numériques",
     "description": "Heading displayed in the About area of the hero section of the Search page."
+  },
+  "/sQHOb": {
+    "defaultMessage": "Date de début",
+    "description": "Label displayed on Education Experience form for start date input"
+  },
+  "09G0vg": {
+    "defaultMessage": "Date de fin",
+    "description": "Label displayed on Work Experience form for end date input"
+  },
+  "0H0CLx": {
+    "defaultMessage": "Accordé à",
+    "description": "Label displayed on Award form for awarded to input"
+  },
+  "0RlNw7": {
+    "defaultMessage": "Projet/produit",
+    "description": "Label displayed on Community Experience form for project input"
+  },
+  "2SNKYg": {
+    "defaultMessage": "Ajouter des compétences",
+    "description": "Section header for adding skills to this experience"
+  },
+  "3YyYDt": {
+    "defaultMessage": "Choisir un...",
+    "description": "Null selection for select education type in the education form."
+  },
+  "491LrZ": {
+    "defaultMessage": "Je suis actuellement actif dans ces études",
+    "description": "Label displayed on Education Experience form for current education input"
+  },
+  "5CONbw": {
+    "defaultMessage": "Date d’attribution",
+    "description": "Label displayed on award form for date awarded input"
+  },
+  "5ikciS": {
+    "defaultMessage": "Écrire le titre ici...",
+    "description": "Placeholder displayed on the Community Experience form for role input"
+  },
+  "7inIW/": {
+    "defaultMessage": "Vous avez des titres de compétences? Partagez votre grade, vos certificats, vos cours en ligne, votre programme d’apprentissage du métier, vos licences ou d’autres titres de compétences. Si vous avez eu un apprentissage dans un établissement scolaire reconnu, faites part de votre expérience ici.",
+    "description": "Description blurb for Education Details Form"
+  },
+  "81ITk+": {
+    "defaultMessage": "Écrire le nom du projet ici...",
+    "description": "Placeholder displayed on the Community Experience form for project input"
+  },
+  "8THvSC": {
+    "defaultMessage": "Écrire le titre ici...",
+    "description": "Placeholder for thesis title input"
+  },
+  "8VDBW/": {
+    "defaultMessage": "Date de début",
+    "description": "Label displayed on Work Experience form for start date input"
+  },
+  "8i+lzm": {
+    "defaultMessage": "Je suis actuellement actif(-ve) dans ce rôle.",
+    "description": "Label displayed on Work Experience form for current role input"
+  },
+  "97UAb8": {
+    "defaultMessage": "Titre abrégé de cette expérience",
+    "description": "Label displayed on Personal Experience form for experience title input"
+  },
+  "9UZ/eS": {
+    "defaultMessage": "Organisation",
+    "description": "Label displayed on Work Experience form for organization input"
+  },
+  "9ttiBB": {
+    "defaultMessage": "Écrire le titre accordé ici...",
+    "description": "Placeholder for award title input"
+  },
+  "Badvbb": {
+    "defaultMessage": "Groupe/Organisation/Collectivité",
+    "description": "Label displayed on Community Experience form for organization input"
+  },
+  "BjRuMw": {
+    "defaultMessage": "Voir la définition",
+    "description": "Text displayed when skill block is open."
+  },
+  "CG/fQJ": {
+    "defaultMessage": "Avis de non-responsabilité ",
+    "description": "Title displayed above disclaimer checkbox"
+  },
+  "DyaaHi": {
+    "defaultMessage": "Portée du prix",
+    "description": "Label displayed on Award form for award scope input"
+  },
+  "EHOcOR": {
+    "defaultMessage": "Écrire le nom ici...",
+    "description": "Placeholder for institution input"
+  },
+  "EYCY8j": {
+    "defaultMessage": "Compétences utilisées fréquemment ({skillCount})",
+    "description": "Section header for a list of frequently used skills"
+  },
+  "EfR7Rv": {
+    "defaultMessage": "Écrire le nom du groupe ici...",
+    "description": "Placeholder displayed on the Community Experience form for organization input"
+  },
+  "FRyIG2": {
+    "defaultMessage": "Vous devez saisir un terme de recherche avant d’appuyer sur la touche « Entrée »",
+    "description": "Error message displayed when the search term length is less then 2 characters."
+  },
+  "ItRgwA": {
+    "defaultMessage": "Retirer une compétence",
+    "description": "Button label to remove skill on skill result block."
+  },
+  "JY6WhU": {
+    "defaultMessage": "Rechercher une compétence précise...",
+    "description": "Label for the skills search bar."
+  },
+  "N87bC7": {
+    "defaultMessage": "Titre de la thèse",
+    "description": "Label displayed on education form for thesis title input"
+  },
+  "NDunA+": {
+    "defaultMessage": "Date de début",
+    "description": "Label displayed on Personal Experience form for start date input"
+  },
+  "Nqwbu3": {
+    "defaultMessage": "Date de fin",
+    "description": "Label displayed on Education Experience form for end date input"
+  },
+  "OQhL7A": {
+    "defaultMessage": "Statut",
+    "description": "Label displayed on Education form for status input"
+  },
+  "OUKOBH": {
+    "defaultMessage": "1. Détails de l’expérience communautaire",
+    "description": "Title for Community Experience form"
+  },
+  "Os+BwT": {
+    "defaultMessage": "Décrire les détails de l’expérience ici...",
+    "description": "Placeholder for experience description input"
+  },
+  "PF4ya+": {
+    "defaultMessage": "p. ex. Python, JavaScript, etc.",
+    "description": "Placeholder for the skills search bar."
+  },
+  "Q18B0y": {
+    "defaultMessage": "Écrire le titre ici...",
+    "description": "Placeholder for experience title input"
+  },
+  "QRGHI2": {
+    "defaultMessage": "À la prochaine étape, vous expliquerez la façon dont vous avez utilisé chaque compétence. Tentez de vous concentrer sur quelques-unes de vos principales compétences; nous recommandons <strong>moins de six (6)</strong> compétences par expérience.",
+    "description": "Message of alert when there are many skills added recommending that fewer skills be selected."
+  },
+  "QYqjUQ": {
+    "defaultMessage": "Compétences se rapportant à cette expérience",
+    "description": "Section header for a list of skills attached to this experience"
+  },
+  "RKdRiG": {
+    "defaultMessage": "Compétences générales",
+    "description": "Tab name for a list of mainstream skills"
+  },
+  "TSqr8X": {
+    "defaultMessage": "Écrire le nom ici...",
+    "description": "Placeholder for issuing organization input"
+  },
+  "UDpZ1q": {
+    "defaultMessage": "1. Détails de l’expérience personnelle",
+    "description": "Title for Personal Experience Details form"
+  },
+  "URHhMF": {
+    "defaultMessage": "Mon rôle",
+    "description": "Label displayed on Work Experience form for role input"
+  },
+  "Uv9q53": {
+    "defaultMessage": "Écrire le domaine d’étude ici...",
+    "description": "Placeholder for area of study input"
+  },
+  "VDZ6zw": {
+    "defaultMessage": "Masquer la définition",
+    "description": "Text displayed when skill block is open."
+  },
+  "W7LpsW": {
+    "defaultMessage": "1. Détails des études",
+    "description": "Title for Education Details Form"
+  },
+  "WjREkG": {
+    "defaultMessage": "Rechercher par mot clé",
+    "description": "Tab name for a box to search for skills"
+  },
+  "WjssQc": {
+    "defaultMessage": "Choisir un...",
+    "description": "Null selection for select input in the awarded to form."
+  },
+  "YJdsMY": {
+    "defaultMessage": "Organisation ou institution émettrice",
+    "description": "Label displayed on award form for issuing organization input"
+  },
+  "ZOQ9ih": {
+    "defaultMessage": "Ajouter une compétence",
+    "description": "Button label to add skill on skill result block."
+  },
+  "a6c/ce": {
+    "defaultMessage": "Avez-vous été reconnu pour vous être surpassé? Il existe de nombreuses façons d’être reconnu, les prix en sont une parmi d’autres.",
+    "description": "Description blurb for Award Details Form"
+  },
+  "aemElP": {
+    "defaultMessage": "Je suis actuellement actif dans cette expérience.",
+    "description": "Label displayed on Personal Experience form for current experience input"
+  },
+  "ciWrxr": {
+    "defaultMessage": "1. Détails de l’expérience de travail",
+    "description": "Title for Work Experience form"
+  },
+  "elFbzT": {
+    "defaultMessage": "Type d’études",
+    "description": "Label displayed on Education form for education type input"
+  },
+  "fUQPUr": {
+    "defaultMessage": "Mes compétences fréquentes",
+    "description": "Tab name for a list of frequently used skills"
+  },
+  "gDQZIQ": {
+    "defaultMessage": "Expérience acquise en faisant partie d’une collectivité ou en lui rendant la pareille? Les personnes apprennent des compétences à partir d’un vaste éventail d’expériences comme le bénévolat et celles acquises dans des organismes sans but lucratif, des communautés autochtones ou des collaborations virtuelles.",
+    "description": "Description blurb for Community Experience form"
+  },
+  "gy2UWG": {
+    "defaultMessage": "Il n’y a encore aucune compétence se rapportant à cette expérience. Vous pouvez en ajouter à l’aide des liens ci-dessous.",
+    "description": "Invitation to add skills when there aren't any added yet."
+  },
+  "i17oNt": {
+    "defaultMessage": "Faites part de vos expériences acquises dans le cadre d’un emploi à temps plein, d’un emploi à temps partiel, d’un travail indépendant, de bourses de recherche ou de stages.",
+    "description": "Description blurb for Work Experience form"
+  },
+  "i55f5L": {
+    "defaultMessage": "1. Détails du prix",
+    "description": "Title for Award Details Form"
+  },
+  "knmaAL": {
+    "defaultMessage": "Les personnes ne se résument pas à leur formation et à leur expérience professionnelle. Nous voulons vous permettre de faire part de ce que vous avez appris à partir d’autres expériences. Pour protéger votre vie privée, veuillez ne pas indiquer de renseignements sensibles sur vous-même ou sur d’autres personnes.",
+    "description": "Description blurb for Personal Experience Details form"
+  },
+  "l0IDWf": {
+    "defaultMessage": "Résultats ({skillCount})",
+    "description": "A title for a skill list of results"
+  },
+  "lRuuJ3": {
+    "defaultMessage": " Date de début",
+    "description": "Label displayed on Community Experience form for start date input"
+  },
+  "nr62lc": {
+    "defaultMessage": " Résultats ({skillCount})",
+    "description": "A title for a list of results"
+  },
+  "nzw1ry": {
+    "defaultMessage": "Domaine d’études",
+    "description": "Label displayed on education form for area of study input"
+  },
+  "o0Yt8Q": {
+    "defaultMessage": "Établissement",
+    "description": "Label displayed on education form for institution input"
+  },
+  "oURESC": {
+    "defaultMessage": " J’accepte de faire part de ces renseignements avec les gestionnaires d’embauche et les conseillers en RH vérifiés du gouvernement du Canada qui ont accès à cette plateforme.",
+    "description": "Label displayed on Personal Experience form for disclaimer checkbox"
+  },
+  "p39ofW": {
+    "defaultMessage": " Date de fin",
+    "description": "Label displayed on Community Experience form for end date input"
+  },
+  "q5rd9x": {
+    "defaultMessage": " Description de l’expérience",
+    "description": "Label displayed on Personal Experience form for experience description input"
+  },
+  "qeD2p/": {
+    "defaultMessage": "Titre du prix",
+    "description": "Label displayed on award form for award title input"
+  },
+  "qhmriI": {
+    "defaultMessage": "Date de fin",
+    "description": "Label displayed on Personal Experience form for end date input"
+  },
+  "rXuCtB": {
+    "defaultMessage": "Expérience actuelle",
+    "description": "Title displayed above current experience checkbox"
+  },
+  "sIM1t+": {
+    "defaultMessage": "Choisir un...",
+    "description": "Null selection for select input in the award scope form."
+  },
+  "tyPFpt": {
+    "defaultMessage": "Mon rôle/Titre de l’emploi",
+    "description": "Label displayed on Community Experience form for role input"
+  },
+  "wASF5V": {
+    "defaultMessage": "Je suis actuellement actif dans ce rôle.",
+    "description": "Label displayed on Community Experience form for current role input"
+  },
+  "wwiDm1": {
+    "defaultMessage": "Choisir un...",
+    "description": "Null selection for select status in the education form."
+  },
+  "xJulQ4": {
+    "defaultMessage": "Équipe, groupe ou division",
+    "description": "Label displayed on Work Experience form for team/group/division input"
+  },
+  "yx7EDY": {
+    "defaultMessage": "C’est beaucoup de compétences!",
+    "description": "Title of alert when there are many skills added."
   }
 }
