@@ -993,5 +993,265 @@
   "zgaPwN": {
     "defaultMessage": "Description (anglais)",
     "description": "Label displayed on the create a cmo asset form description (English) field."
+  },
+  "0oqRIl": {
+    "defaultMessage": "Nom (français)",
+    "description": "Label displayed on the create a skill family form name (French) field."
+  },
+  "2ekC5r": {
+    "defaultMessage": "Famille de compétences mise à jour avec succès!",
+    "description": "Message displayed to user after skillFamily is updated successfully."
+  },
+  "2wo24b": {
+    "defaultMessage": "Nom (anglais)",
+    "description": "Label displayed on the create a skill family form name (English) field."
+  },
+  "3exDkT": {
+    "defaultMessage": "Clé",
+    "description": "Label displayed on the create a skill form key field."
+  },
+  "4EkI/1": {
+    "defaultMessage": "Description (français)",
+    "description": "Label displayed on the update a skill form description (French) field."
+  },
+  "5Al53V": {
+    "defaultMessage": "Créer une famille de compétences",
+    "description": "Title displayed on the create a skill family form."
+  },
+  "5F/aKm": {
+    "defaultMessage": "Nom (anglais)",
+    "description": "Label displayed on the update a skill form name (English) field."
+  },
+  "71ID2W": {
+    "defaultMessage": "Connexion",
+    "description": "Label displayed on the Login menu item."
+  },
+  "7Cx7lp": {
+    "defaultMessage": "Sélectionner une compétence ou plus...",
+    "description": "Placeholder displayed on the skill family form skills field."
+  },
+  "953EAy": {
+    "defaultMessage": "Compétence {skillId} non trouvée.",
+    "description": "Message displayed for skill not found."
+  },
+  "9bz9jA": {
+    "defaultMessage": " Sélectionner une famille ou plus...",
+    "description": "Placeholder displayed on the skill form families field."
+  },
+  "9yGJ6k": {
+    "defaultMessage": "Description",
+    "description": "Title displayed for the skill table Description column."
+  },
+  "BOeBpE": {
+    "defaultMessage": "Nom",
+    "description": "Title displayed for the skill table Name column."
+  },
+  "Cw8pyL": {
+    "defaultMessage": " Sélectionner zéro rôle ou plus...",
+    "description": "Placeholder displayed on the user form roles field."
+  },
+  "Dbqtm6": {
+    "defaultMessage": "Compétences",
+    "description": "Heading displayed above the Skill Table component."
+  },
+  "F2Rs/C": {
+    "defaultMessage": " Compétences",
+    "description": "Label displayed on the skill family form skills field."
+  },
+  "GHHNGa": {
+    "defaultMessage": "Êtes-vous certain(e) de vouloir vous déconnecter?",
+    "description": "Label displayed on the Logout confirmation dialog."
+  },
+  "GQskY1": {
+    "defaultMessage": "Mettre à jour une famille de compétences",
+    "description": "Title displayed on the update a skillFamily form."
+  },
+  "HMUKcP": {
+    "defaultMessage": "Familles de compétences",
+    "description": "Label displayed on the Skill Families menu item."
+  },
+  "I7rxxQ": {
+    "defaultMessage": "Mots-clés",
+    "description": "Title displayed for the skill table Keywords column."
+  },
+  "I8v/Uy": {
+    "defaultMessage": "Le sujet est une chaîne qui identifie uniquement l’identité de connexion d’un utilisateur.",
+    "description": "Additional context describing the purpose of the users's 'subject' field."
+  },
+  "JxVREd": {
+    "defaultMessage": "Familles",
+    "description": "Label displayed on the skill form families field."
+  },
+  "KB+xr6": {
+    "defaultMessage": " Familles de compétences",
+    "description": "Title displayed for the skill table Skill Families column."
+  },
+  "KZR3ad": {
+    "defaultMessage": "Catégorie",
+    "description": "Label displayed on the skill family form category field."
+  },
+  "NT3jrI": {
+    "defaultMessage": "Ce champ accepte une liste de virgules séparées par des mots-clés séparés associés à la compétence.",
+    "description": "Additional context describing the purpose of the skills 'keyword' field."
+  },
+  "Q0gIlv": {
+    "defaultMessage": "Description (français)",
+    "description": "Label displayed on the create a skill family form description (French) field."
+  },
+  "TGV2F7": {
+    "defaultMessage": "Déconnexion",
+    "description": "Label displayed on the Logout menu item."
+  },
+  "TRqbR/": {
+    "defaultMessage": "Créer une famille de compétences",
+    "description": "Heading displayed above the Create Skill Family form."
+  },
+  "UTFKyy": {
+    "defaultMessage": "La compétence a été mise à jour avec succès!",
+    "description": "Message displayed to user after skill is updated successfully."
+  },
+  "VphXhu": {
+    "defaultMessage": "Nom",
+    "description": "Title displayed for the Skill Family table Name column."
+  },
+  "WoAuKA": {
+    "defaultMessage": "Mettre à jour une compétence",
+    "description": "Title displayed on the update a skill form."
+  },
+  "X4nVv/": {
+    "defaultMessage": "Modifier",
+    "description": "Title displayed for the skill table Edit column."
+  },
+  "XSo129": {
+    "defaultMessage": "Description",
+    "description": "Title displayed for the Skill Family table Description column."
+  },
+  "Z6o8ym": {
+    "defaultMessage": "Identité",
+    "description": "Title displayed on the Skill table ID column."
+  },
+  "Z6sh9j": {
+    "defaultMessage": "Les rôles accordent une autre fonctionnalité à la connexion d’un utilisateur.",
+    "description": "Additional context describing the purpose of the users's 'role' field."
+  },
+  "ZU3fd5": {
+    "defaultMessage": "Nom (français)",
+    "description": "Label displayed on the create a skill form name (French) field."
+  },
+  "ZWnKEJ": {
+    "defaultMessage": "Famille de compétences {skillFamilyId} non trouvée.",
+    "description": "Message displayed for skillFamily not found."
+  },
+  "ZobKCk": {
+    "defaultMessage": "Identité",
+    "description": "Title displayed on the Skill Family table ID column."
+  },
+  "a+bWz1": {
+    "defaultMessage": "Description (français)",
+    "description": "Label displayed on the create a skill form description (French) field."
+  },
+  "bGi9fO": {
+    "defaultMessage": "Création réussie de la compétence!",
+    "description": "Message displayed to user after skill is created successfully."
+  },
+  "brucUP": {
+    "defaultMessage": "Sélectionner une famille de compétences ou plus...",
+    "description": "Placeholder displayed on the skill form skill families field."
+  },
+  "d8CQJr": {
+    "defaultMessage": " Création réussie de la famille de compétences!",
+    "description": "Message displayed to user after skill family is created successfully."
+  },
+  "eSyXWT": {
+    "defaultMessage": "Erreur : échec de la mise à jour de la compétence",
+    "description": "Message displayed to user after skill fails to get updated."
+  },
+  "fdKtYm": {
+    "defaultMessage": "Description (anglais)",
+    "description": "Label displayed on the update a skill form description (English) field."
+  },
+  "gnu0Eb": {
+    "defaultMessage": "Nom (anglais)",
+    "description": "Label displayed on the create a skill form name (English) field."
+  },
+  "j01W+1": {
+    "defaultMessage": "Nom (français)",
+    "description": "Label displayed on the update a skill form name (French) field."
+  },
+  "jthonT": {
+    "defaultMessage": "La « clé » est une chaîne qui identifie de manière unique une compétence. Elle devrait être fondée sur le nom anglais de la compétence et devrait être concise. Un bon exemple serait \"information_management\". Elle peut être utilisée dans le code pour faire référence à cette compétence particulière, et ne peut donc pas être modifiée ultérieurement.",
+    "description": "Additional context describing the purpose of the skills 'key' field."
+  },
+  "kY7te0": {
+    "defaultMessage": "Mots-clés",
+    "description": "Label displayed on the skill form keywords field."
+  },
+  "ksMybU": {
+    "defaultMessage": "Erreur : échec de la création de la compétence",
+    "description": "Message displayed to user after skill fails to get created."
+  },
+  "kwNyl6": {
+    "defaultMessage": "Rôles",
+    "description": "Label displayed on the user form roles field."
+  },
+  "lFrPv1": {
+    "defaultMessage": "Créer une compétence",
+    "description": "Heading displayed above the Create Skill form."
+  },
+  "luZnRG": {
+    "defaultMessage": "Description (anglais)",
+    "description": "Label displayed on the create a skill family form description (English) field."
+  },
+  "m4rXNt": {
+    "defaultMessage": "Objet",
+    "description": "Label displayed on the user form subject field."
+  },
+  "m5RwGF": {
+    "defaultMessage": "Catégorie",
+    "description": "Title displayed for the Skill Family table Category column."
+  },
+  "qVXkby": {
+    "defaultMessage": "Clé",
+    "description": "Label displayed on the create a skill family form key field."
+  },
+  "qZd17O": {
+    "defaultMessage": " Créer une compétence",
+    "description": "Title displayed on the create a skill form."
+  },
+  "rJ36SS": {
+    "defaultMessage": "Modifier",
+    "description": "Title displayed for the Skill Family table Edit column."
+  },
+  "rJqCuH": {
+    "defaultMessage": "Description (anglais)",
+    "description": "Label displayed on the create a skill form description (English) field."
+  },
+  "rQ3Gbb": {
+    "defaultMessage": " Erreur : échec de la création de la compétence ",
+    "description": "Message displayed to user after skill family fails to get created."
+  },
+  "rna1rM": {
+    "defaultMessage": "Sélectionner une catégorie...",
+    "description": "Placeholder displayed on the skill family form category field."
+  },
+  "t8osgc": {
+    "defaultMessage": "Compétences",
+    "description": "Label displayed on the Skills menu item."
+  },
+  "w73KdO": {
+    "defaultMessage": "Familles de compétences",
+    "description": "Heading displayed above the Skill Family Table component."
+  },
+  "xx8yaE": {
+    "defaultMessage": "Familles",
+    "description": "Label displayed on the skill form skill families field."
+  },
+  "ytTGvb": {
+    "defaultMessage": "La « clé » est une chaîne qui identifie de manière unique une famille de compétences. Elle devrait être fondée sur le nom anglais de la famille de compétences et devrait être concise. Un bon exemple serait \"information_management\". Elle peut être utilisée dans le code pour faire référence à cette compétence particulière, et ne peut donc pas être modifiée ultérieurement.",
+    "description": "Additional context describing the purpose of the skill families 'key' field."
+  },
+  "zpwZSQ": {
+    "defaultMessage": "Erreur : échec de la mise à jour de la famille de compétences",
+    "description": "Message displayed to user after skillFamily fails to get updated."
   }
 }
