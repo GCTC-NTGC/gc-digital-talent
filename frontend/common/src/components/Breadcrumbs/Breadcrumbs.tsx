@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "../Link";
+import { insertBetween } from "../../helpers/util";
 
 export interface BreadcrumbsProps {
   links: { title: string; href?: string }[];
@@ -15,26 +16,15 @@ const Breadcrumbs: React.FunctionComponent<BreadcrumbsProps> = ({ links }) => {
       </Link>
     ) : (
       // eslint-disable-next-line react/no-array-index-key
-      <span key={index}>{link.title}</span>
+      <span data-h2-font-weight="b(700)" key={index}>
+        {link.title}
+      </span>
     ),
   );
 
-  // menu requires ">" after each link except the last one
-  // provided it is an array of more than one link, build another array of Links except this time add the ">" after every single one with an exception
-  // for if you are at the last link in which case do not add anything after it
-  let menuBar = [];
-  if (arrayLinks.length > 1) {
-    for (let i = 0; i < arrayLinks.length; i += 1) {
-      if (i < arrayLinks.length - 1) {
-        menuBar.push(arrayLinks[i]);
-        menuBar.push(<span data-h2-padding="b(right-left, xs)">&gt;</span>);
-      } else {
-        menuBar.push(arrayLinks[i]);
-      }
-    }
-  } else {
-    menuBar = arrayLinks;
-  }
+  // add chevrons between links
+  const separator = <span data-h2-padding="b(right-left, xs)">&gt;</span>;
+  const menuBar = insertBetween(separator, arrayLinks);
 
   return <div data-h2-display="b(flex)">{menuBar}</div>;
 };
