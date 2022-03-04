@@ -1,12 +1,28 @@
+type Applicant {
+  id: ID!
+  email: Email!
+  firstName: String
+  lastName: String
+  telephone: PhoneNumber
+  preferredLang: Language
+  experiences: [Experience]
+  awardExperiences: [AwardExperience]
+  communityExperiences: [CommunityExperience]
+  educationExperiences: [EducationExperience]
+  personalExperiences: [PersonalExperience]
+  workExperiences: [WorkExperience]
+}
+
 type AwardExperience implements Experience {
   id: ID!
-  user: User!
+  applicant: Applicant!
   title: String
   issuedBy: String
   awardedDate: Date
   awardedTo: AwardedTo
   awardedScope: AwardedScope
   details: String
+  experienceSkills: [ExperienceSkill]
 }
 
 enum AwardedScope {
@@ -60,13 +76,14 @@ input CmoAssetBelongsToMany {
 
 type CommunityExperience implements Experience {
   id: ID!
-  user: User!
+  applicant: Applicant!
   title: String
   organization: String
   project: String
   startDate: Date
   endDate: Date
   details: String
+  experienceSkills: [ExperienceSkill]
 }
 
 input CreateClassificationInput {
@@ -194,7 +211,7 @@ input DepartmentBelongsTo {
 
 type EducationExperience implements Experience {
   id: ID!
-  user: User!
+  applicant: Applicant!
   institution: String
   areaOfStudy: String
   thesisTitle: String
@@ -203,6 +220,7 @@ type EducationExperience implements Experience {
   type: EducationType
   status: EducationStatus
   details: String
+  experienceSkills: [ExperienceSkill]
 }
 
 enum EducationStatus {
@@ -229,8 +247,16 @@ scalar Email
 
 interface Experience {
   id: ID!
-  user: User!
+  applicant: Applicant!
   details: String
+  experienceSkills: [ExperienceSkill]
+}
+
+type ExperienceSkill {
+  id: ID!
+  details: String
+  skill: Skill!
+  experience: Experience!
 }
 
 input KeyFilterInput {
@@ -403,12 +429,13 @@ type PaginatorInfo {
 
 type PersonalExperience implements Experience {
   id: ID!
-  user: User!
+  applicant: Applicant!
   title: String
   description: String
   startDate: Date
   endDate: Date
   details: String
+  experienceSkills: [ExperienceSkill]
 }
 
 """
@@ -528,6 +555,8 @@ type Query {
   me: User
   user(id: ID!): User
   users: [User]!
+  applicant(id: ID!): Applicant
+  applicants: [Applicant]!
   pool(id: ID!): Pool
   poolByKey(key: String!): Pool
   pools: [Pool]!
@@ -551,11 +580,7 @@ type Query {
   skillFamilies: [SkillFamily]!
   skill(id: ID!): Skill
   skills: [Skill]!
-  workExperience: [WorkExperience]!
-  personalExperience: [PersonalExperience]!
-  communityExperience: [CommunityExperience]!
-  educationExperience: [EducationExperience]!
-  awardExperience: [AwardExperience]!
+  experienceSkills: [ExperienceSkill]!
 }
 
 enum Role {
@@ -647,6 +672,7 @@ type Skill {
   description: LocalizedString
   keywords: [String!]
   families: [SkillFamily!]
+  experienceSkills: [ExperienceSkill]
 }
 
 input SkillBelongsToMany {
@@ -855,13 +881,14 @@ input WhereConditionsRelation {
 
 type WorkExperience implements Experience {
   id: ID!
-  user: User!
+  applicant: Applicant!
   role: String
   organization: String
   division: String
   startDate: Date
   endDate: Date
   details: String
+  experienceSkills: [ExperienceSkill]
 }
 
 enum WorkRegion {

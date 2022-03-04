@@ -5,9 +5,9 @@
 import React from "react";
 import { screen, fireEvent } from "@testing-library/react";
 import { fakeSkills } from "@common/fakeData";
-import { Skill } from "../../api/generated";
-import { render } from "../testUtils";
-import SkillResults, { SkillBlock } from "../../components/skills/SkillResults";
+import { Skill } from "../../../api/generated";
+import { render } from "../../../tests/testUtils";
+import SkillResults, { SkillBlock } from "./SkillResults";
 
 const skills = fakeSkills();
 

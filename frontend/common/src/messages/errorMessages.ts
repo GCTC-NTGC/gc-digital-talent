@@ -16,14 +16,19 @@ const messages = defineMessages({
     description: "Error message that the provided date must be in the future.",
   },
   mustBeGreater: {
-    defaultMessage: "Value must be greater than {value}",
+    defaultMessage: "Value must be greater than {value}.",
     description:
       "Error message that the provided value must be greater than some referenced minimum value.",
   },
   dateMustFollow: {
-    defaultMessage: "Date must not be before {value}",
+    defaultMessage: "Date must not be before {value}.",
     description:
       "Error message that the date provided must follow and not precede some referenced date",
+  },
+  overWordLimit: {
+    defaultMessage: "This field must have less than {value} words.",
+    description:
+      "Error Message displayed on word counter when user passes the limit.",
   },
 });
 

@@ -5,6 +5,7 @@
 import {
   matchStringCaseDiacriticInsensitive,
   enumToOptions,
+  countNumberOfWords,
 } from "./formUtils";
 
 describe("string matching tests", () => {
@@ -61,5 +62,37 @@ describe("enumToOptions tests", () => {
     ];
     const actualOptions = enumToOptions(Fruit, sortOrder);
     expect(actualOptions).toEqual(expectedOptions);
+  });
+});
+
+describe("countNumberOfWords tests", () => {
+  test("should return the zero for empty string", () => {
+    const emptyString = "";
+    const numOfWords = countNumberOfWords(emptyString);
+    expect(numOfWords).toEqual(0);
+  });
+
+  test("should return the correct number of words of string with extra white space", () => {
+    let textWithWhiteSpace = "  Hello  World!  ";
+    let numOfWords = countNumberOfWords(textWithWhiteSpace);
+    expect(numOfWords).toEqual(2);
+    textWithWhiteSpace = "     ";
+    numOfWords = countNumberOfWords(textWithWhiteSpace);
+    expect(numOfWords).toEqual(0);
+    textWithWhiteSpace = "a p p l e";
+    numOfWords = countNumberOfWords(textWithWhiteSpace);
+    expect(numOfWords).toEqual(5);
+  });
+
+  test("should return the correct number of words of string with numbers and special characters", () => {
+    const textWithNumbers = "This243 is a 100.";
+    let numOfWords = countNumberOfWords(textWithNumbers);
+    expect(numOfWords).toEqual(4);
+    const textWithSpecialCharacters = "*(Y$# hello#$# wo$#rld ....)(*";
+    numOfWords = countNumberOfWords(textWithSpecialCharacters);
+    expect(numOfWords).toEqual(4);
+    const textWithBoth = "L34#$# &(*da($# this is a 34^@# sentence.";
+    numOfWords = countNumberOfWords(textWithBoth);
+    expect(numOfWords).toEqual(7);
   });
 });

@@ -47,6 +47,21 @@ type User {
     workExperiences: [WorkExperience] # Work experiences that a user owns
 }
 
+type Applicant {
+    id: ID!
+    email: Email!
+    firstName: String @rename(attribute: "first_name")
+    lastName: String @rename(attribute: "last_name")
+    telephone: PhoneNumber
+    preferredLang: Language @rename(attribute: "preferred_lang")
+    experiences: [Experience] # All experiences that a user owns
+    awardExperiences: [AwardExperience] # Award experiences that a user owns
+    communityExperiences: [CommunityExperience] # Community experiences that a user owns
+    educationExperiences: [EducationExperience] # Education experiences that a user owns
+    personalExperiences: [PersonalExperience] # Personal experiences that a user owns
+    workExperiences: [WorkExperience] # Work experiences that a user owns
+}
+
 type UserPublicProfile {
     id: ID!
     email: Email
@@ -216,6 +231,7 @@ type Skill {
     description: LocalizedString
     keywords: [String!]
     families: [SkillFamily!] @belongsToMany
+    experienceSkills: [ExperienceSkill] @hasMany
 }
 
 enum AwardedTo {
@@ -254,42 +270,46 @@ enum EducationStatus {
 
 interface Experience {
   id: ID!
-  user: User! @belongsTo
+  applicant: Applicant! @belongsTo(relation: "user")
   details: String
+  experienceSkills: [ExperienceSkill] @morphMany
 }
 
 type WorkExperience implements Experience {
   id: ID!
-  user: User! @belongsTo
+  applicant: Applicant! @belongsTo(relation: "user")
   role: String
   organization: String
   division: String
   startDate: Date @rename(attribute: "start_date")
   endDate: Date @rename(attribute: "end_date")
   details: String
+  experienceSkills: [ExperienceSkill] @morphMany
 }
 type PersonalExperience implements Experience {
   id: ID!
-  user: User! @belongsTo
+  applicant: Applicant! @belongsTo(relation: "user")
   title: String
   description: String
   startDate: Date @rename(attribute: "start_date")
   endDate: Date @rename(attribute: "end_date")
   details: String
+  experienceSkills: [ExperienceSkill] @morphMany
 }
 type CommunityExperience implements Experience {
   id: ID!
-  user: User! @belongsTo
+  applicant: Applicant! @belongsTo(relation: "user")
   title: String
   organization: String
   project: String
   startDate: Date @rename(attribute: "start_date")
   endDate: Date @rename(attribute: "end_date")
   details: String
+  experienceSkills: [ExperienceSkill] @morphMany
 }
 type EducationExperience implements Experience {
   id: ID!
-  user: User! @belongsTo
+  applicant: Applicant! @belongsTo(relation: "user")
   institution: String
   areaOfStudy: String @rename(attribute: "area_of_study")
   thesisTitle: String @rename(attribute: "thesis_title")
@@ -298,16 +318,25 @@ type EducationExperience implements Experience {
   type: EducationType
   status: EducationStatus
   details: String
+  experienceSkills: [ExperienceSkill] @morphMany
 }
 type AwardExperience implements Experience {
   id: ID!
-  user: User! @belongsTo
+  applicant: Applicant! @belongsTo(relation: "user")
   title: String
   issuedBy: String @rename(attribute: "issued_by")
   awardedDate: Date @rename(attribute: "awarded_date")
   awardedTo: AwardedTo @rename(attribute: "awarded_to")
   awardedScope: AwardedScope @rename(attribute: "awarded_scope")
   details: String
+  experienceSkills: [ExperienceSkill] @morphMany
+}
+
+type ExperienceSkill {
+  id: ID!
+  details: String
+  skill: Skill! @belongsTo
+  experience: Experience! @morphTo
 }
 
 input ClassificationFilterInput {
@@ -341,6 +370,8 @@ type Query {
     me: User @auth
     user(id: ID! @eq): User @find @guard @can(ability: "view", query: true)
     users: [User]! @all @guard @can(ability: "viewAny")
+    applicant(id: ID! @eq): Applicant @find(model: "User") @guard @can(ability: "viewApplicant", query: true, model: "User")
+    applicants: [Applicant]! @all(model: "User") @guard @can(ability: "viewAnyApplicants", model: "User")
     pool(id: ID! @eq): Pool @find
     poolByKey(key: String! @eq): Pool @find
     pools: [Pool]! @all
@@ -366,11 +397,7 @@ type Query {
     skillFamilies: [SkillFamily]! @all
     skill(id: ID! @eq): Skill @find
     skills: [Skill]! @all
-    workExperience: [WorkExperience]! @all
-    personalExperience: [PersonalExperience]! @all
-    communityExperience: [CommunityExperience]! @all
-    educationExperience: [EducationExperience]! @all
-    awardExperience: [AwardExperience]! @all
+    experienceSkills: [ExperienceSkill]! @all
 }
 """
 When creating a User, name and email are required.

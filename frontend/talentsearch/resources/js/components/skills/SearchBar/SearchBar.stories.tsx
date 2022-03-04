@@ -1,7 +1,7 @@
 import React from "react";
 import { Meta, Story } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
-import SearchBar, { SearchBarProps } from "../../components/skills/SearchBar";
+import SearchBar, { SearchBarProps } from "./SearchBar";
 
 export default {
   component: SearchBar,

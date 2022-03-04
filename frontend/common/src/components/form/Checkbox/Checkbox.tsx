@@ -15,6 +15,10 @@ export interface CheckboxProps
   rules?: RegisterOptions;
   /** Optional context which user can view by toggling a button. */
   context?: string;
+  /** Wrap input in bounding box. */
+  boundingBox?: boolean;
+  /** Label for the bounding box. */
+  boundingBoxLabel?: string;
 }
 
 export const Checkbox: React.FunctionComponent<CheckboxProps> = ({
@@ -23,6 +27,8 @@ export const Checkbox: React.FunctionComponent<CheckboxProps> = ({
   name,
   rules = {},
   context,
+  boundingBox = false,
+  boundingBoxLabel = label,
   ...rest
 }) => {
   const {
@@ -34,24 +40,58 @@ export const Checkbox: React.FunctionComponent<CheckboxProps> = ({
 
   return (
     <div data-h2-margin="b(bottom, xxs)">
-      <InputWrapper
-        inputId={id}
-        label={label}
-        required={!!rules.required}
-        context={context}
-        error={error}
-        hideOptional
-      >
-        <input
-          style={{ order: -1 }}
-          data-h2-margin="b(bottom-right, xxs)"
-          id={id}
-          {...register(name, rules)}
-          type="checkbox"
-          aria-invalid={error ? "true" : "false"}
-          {...rest}
-        />
-      </InputWrapper>
+      {!boundingBox ? (
+        <InputWrapper
+          inputId={id}
+          label={label}
+          required={!!rules.required}
+          context={context}
+          error={error}
+          data-h2-flex-direction="b(row)"
+          data-h2-align-items="b(center)"
+        >
+          <input
+            style={{ order: -1 }}
+            data-h2-margin="b(bottom-right, xxs)"
+            id={id}
+            {...register(name, rules)}
+            type="checkbox"
+            aria-invalid={error ? "true" : "false"}
+            {...rest}
+          />
+        </InputWrapper>
+      ) : (
+        <InputWrapper
+          inputId={id}
+          label={boundingBoxLabel}
+          required={!!rules.required}
+          context={context}
+          error={error}
+        >
+          <div
+            data-h2-border="b(darkgray, all, solid, s)"
+            data-h2-radius="b(s)"
+            data-h2-padding="b(right-left, s) b(top-bottom, xxs)"
+            data-h2-display="b(flex)"
+            data-h2-align-items="b(center)"
+            style={{ width: "100%" }}
+          >
+            <input
+              id={id}
+              {...register(name, rules)}
+              type="checkbox"
+              aria-invalid={error ? "true" : "false"}
+              {...rest}
+            />
+            <p
+              data-h2-margin="b(all, none) b(left, xs)"
+              data-h2-font-size="b(caption)"
+            >
+              {label}
+            </p>
+          </div>
+        </InputWrapper>
+      )}
     </div>
   );
 };
