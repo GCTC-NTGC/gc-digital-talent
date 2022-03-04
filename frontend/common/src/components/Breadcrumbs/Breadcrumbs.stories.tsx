@@ -8,6 +8,7 @@ export default {
   title: "Breadcrumbs",
   args: {
     links: [],
+    fontColor: "",
   },
 } as Meta;
 
@@ -23,4 +24,5 @@ IndividualBreadcrumbs.args = {
     { title: "name2", href: "nothost" },
     { title: "no link" },
   ],
+  fontColor: "black",
 };

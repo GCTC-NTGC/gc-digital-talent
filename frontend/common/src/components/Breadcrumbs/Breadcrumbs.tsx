@@ -4,19 +4,40 @@ import { insertBetween } from "../../helpers/util";
 
 export interface BreadcrumbsProps {
   links: { title: string; href?: string }[];
+  fontColor: "white" | "black";
 }
 
-const Breadcrumbs: React.FunctionComponent<BreadcrumbsProps> = ({ links }) => {
+// take the argument passed in for fontColor and return a hydrogen-attribute string, options are only white or black
+const fontColorExtract = (fontColor?: string) => {
+  if (fontColor === "white") {
+    return "b(white)";
+  }
+  return "b(black)";
+};
+
+const Breadcrumbs: React.FunctionComponent<BreadcrumbsProps> = ({
+  links,
+  fontColor = "black",
+}) => {
   // taking in the array of objects as defined above, create an array of Link components or a <span> if there is no href
   const arrayLinks = links.map((link, index) =>
     link.href ? (
-      // eslint-disable-next-line react/no-array-index-key
-      <Link href={link.href} title={link.title} key={index}>
+      <Link
+        href={link.href}
+        title={link.title}
+        // eslint-disable-next-line react/no-array-index-key
+        key={index}
+        data-h2-font-color={fontColorExtract(fontColor)}
+      >
         {link.title}
       </Link>
     ) : (
-      // eslint-disable-next-line react/no-array-index-key
-      <span data-h2-font-weight="b(700)" key={index}>
+      <span
+        data-h2-font-weight="b(700)"
+        // eslint-disable-next-line react/no-array-index-key
+        key={index}
+        data-h2-font-color={fontColorExtract(fontColor)}
+      >
         {link.title}
       </span>
     ),
