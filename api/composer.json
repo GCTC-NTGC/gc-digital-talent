@@ -10,7 +10,11 @@
         "guzzlehttp/guzzle": "^7.0.1",
         "laravel/framework": "^8.75",
         "laravel/sanctum": "^2.11",
-        "laravel/tinker": "^2.5"
+        "laravel/tinker": "^2.5",
+        "lcobucci/jwt": "^4.1",
+        "mll-lab/graphql-php-scalars": "^5.4",
+        "mll-lab/laravel-graphql-playground": "^2.6",
+        "nuwave/lighthouse": "^5.42"
     },
     "require-dev": {
         "facade/ignition": "^2.5",
