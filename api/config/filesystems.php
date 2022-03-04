@@ -35,16 +35,10 @@ return [
             'root' => storage_path('app'),
         ],
 
-        // A somewhat hacky solution to enable deploying the app in a read-only directory
-        'tmp' => [
-            'driver' => 'local',
-            'root' => '/tmp/api/storage/app',
-        ],
-
         'public' => [
             'driver' => 'local',
             'root' => storage_path('app/public'),
-            'url' => env('AUTH_APP_URL') . '/storage',
+            'url' => env('APP_URL').'/storage',
             'visibility' => 'public',
         ],
 
@@ -72,8 +66,8 @@ return [
     |
     */
 
-    /* 'links' => [
+    'links' => [
         public_path('storage') => storage_path('app/public'),
-    ], */
+    ],
 
 ];
