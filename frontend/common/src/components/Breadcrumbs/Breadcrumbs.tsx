@@ -2,17 +2,22 @@ import React from "react";
 import Link from "../Link";
 
 export interface BreadcrumbsProps {
-  links: { title: string; href: string }[];
+  links: { title: string; href?: string }[];
 }
 
 const Breadcrumbs: React.FunctionComponent<BreadcrumbsProps> = ({ links }) => {
-  // taking in the array of links as defined above, create an array of Link components
-  const arrayLinks = links.map((link, index) => (
-    // eslint-disable-next-line react/no-array-index-key
-    <Link href={link.href} title={link.title} key={index}>
-      {link.title}
-    </Link>
-  ));
+  // taking in the array of objects as defined above, create an array of Link components or a <span> if there is no href
+  const arrayLinks = links.map((link, index) =>
+    link.href ? (
+      // eslint-disable-next-line react/no-array-index-key
+      <Link href={link.href} title={link.title} key={index}>
+        {link.title}
+      </Link>
+    ) : (
+      // eslint-disable-next-line react/no-array-index-key
+      <span key={index}>{link.title}</span>
+    ),
+  );
 
   // menu requires ">" after each link except the last one
   // provided it is an array of more than one link, build another array of Links except this time add the ">" after every single one with an exception

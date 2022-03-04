@@ -21,6 +21,6 @@ IndividualBreadcrumbs.args = {
   links: [
     { title: "name", href: "localnothost" },
     { title: "name2", href: "nothost" },
-    { title: "no link", href: "errors-sigh" },
+    { title: "no link" },
   ],
 };
