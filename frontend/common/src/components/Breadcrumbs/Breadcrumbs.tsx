@@ -3,7 +3,7 @@ import Link from "../Link";
 import { insertBetween } from "../../helpers/util";
 
 export interface BreadcrumbsProps {
-  links: { title: string; href?: string }[];
+  links: { title: string; href?: string; icon?: JSX.Element }[];
   fontColor: "white" | "black";
 }
 
@@ -29,7 +29,7 @@ const Breadcrumbs: React.FunctionComponent<BreadcrumbsProps> = ({
         key={index}
         data-h2-font-color={fontColorExtract(fontColor)}
       >
-        {link.title}
+        {link.icon || ""} {link.title}
       </Link>
     ) : (
       <span
@@ -38,13 +38,20 @@ const Breadcrumbs: React.FunctionComponent<BreadcrumbsProps> = ({
         key={index}
         data-h2-font-color={fontColorExtract(fontColor)}
       >
-        {link.title}
+        {link.icon || ""} {link.title}
       </span>
     ),
   );
 
   // add chevrons between links
-  const separator = <span data-h2-padding="b(right-left, xs)">&gt;</span>;
+  const separator = (
+    <span
+      data-h2-padding="b(right-left, xs)"
+      data-h2-font-color={fontColorExtract(fontColor)}
+    >
+      &gt;
+    </span>
+  );
   const menuBar = insertBetween(separator, arrayLinks);
 
   return <div data-h2-display="b(flex)">{menuBar}</div>;
