@@ -63,3 +63,18 @@ export function deleteProperty<T, K extends keyof T>(
   const { [key]: _, ...newObj } = obj;
   return newObj;
 }
+
+/**
+ * Inserts a separator between each pair of adjacent items in an array.
+ * Kind of like array.join, except it leaves you with an array rather than a string.
+ */
+export function insertBetween<T>(separator: T, arr: T[]): T[] {
+  return arr.reduce<T[]>((prev, curr, i) => {
+    // When i === 0, prev is []. We only want separator between our original items, not at the beginning.
+    if (i > 0) {
+      prev.push(separator);
+    }
+    prev.push(curr);
+    return prev;
+  }, []);
+}
