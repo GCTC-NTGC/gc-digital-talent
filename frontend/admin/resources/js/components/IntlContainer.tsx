@@ -1,14 +1,11 @@
 import React from "react";
 import { IntlProvider } from "react-intl";
+import CommonFrench from "@common/lang/frCompiled.json";
+import AdminFrench from "../lang/frCompiled.json";
 
-export function loadLocaleData(locale: string) {
-  switch (locale) {
-    case "fr":
-      // eslint-disable-next-line global-require
-      return require("../lang/frCompiled.json");
-    default:
-      return undefined;
-  }
+export function getMessages(locale: string) {
+  // eslint-disable-next-line global-require
+  return locale === "fr" ? { ...AdminFrench, ...CommonFrench } : undefined;
 }
 
 const IntlContainer: React.FunctionComponent<{ locale: string }> = ({
@@ -16,11 +13,7 @@ const IntlContainer: React.FunctionComponent<{ locale: string }> = ({
   children,
 }): React.ReactElement => {
   return (
-    <IntlProvider
-      locale={locale}
-      key={locale}
-      messages={loadLocaleData(locale)}
-    >
+    <IntlProvider locale={locale} key={locale} messages={getMessages(locale)}>
       {children}
     </IntlProvider>
   );
