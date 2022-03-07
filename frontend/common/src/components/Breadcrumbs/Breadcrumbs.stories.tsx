@@ -14,7 +14,6 @@ export default {
   title: "Breadcrumbs",
   args: {
     links: [],
-    fontColor: "",
   },
 } as Meta;
 
@@ -27,12 +26,11 @@ export const IndividualBreadcrumbs = TemplateBreadcrumbs.bind({});
 IndividualBreadcrumbs.args = {
   links: [
     {
-      title: "name",
+      title: "My Name",
       href: "localnothost",
-      icon: <FilterIcon style={{ width: "0.75rem" }} />,
+      icon: <FilterIcon style={{ width: "1rem", marginRight: "5px" }} />,
     },
-    { title: "name2", href: "nothost" },
-    { title: "no link" },
+    { title: "Not My Name", href: "nothost" },
+    { title: "No Link" },
   ],
-  fontColor: "black",
 };
