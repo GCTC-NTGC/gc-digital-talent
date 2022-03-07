@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Auth\Authenticatable as AuthenticatableTrait;
 
@@ -20,6 +22,20 @@ use Illuminate\Auth\Authenticatable as AuthenticatableTrait;
  * @property string $telephone
  * @property string $preferred_lang
  * @property array $roles
+ * @property string $job_looking_status
+ * @property string $current_province
+ * @property string $current_city
+ * @property boolean $looking_for_english
+ * @property boolean $looking_for_french
+ * @property boolean $looking_for_bilingual
+ * @property string $bilingual_evaluation
+ * @property string $comprehension_level
+ * @property string $written_level
+ * @property string $verbal_level
+ * @property string $estimated_language_ability
+ * @property string $is_gov_employee
+ * @property string $interested_in_later_or_secondment
+ * @property int $current_classification
  * @property Illuminate\Support\Carbon $created_at
  * @property Illuminate\Support\Carbon $updated_at
  */
@@ -43,6 +59,14 @@ class User extends Model implements Authenticatable
     public function poolCandidates(): HasMany
     {
         return $this->hasMany(PoolCandidate::class);
+    }
+    public function currentClassification(): BelongsTo
+    {
+        return $this->belongsTo(Classification::class, "current_classification");
+    }
+    public function interestedClassifications(): BelongsToMany
+    {
+        return $this->belongsToMany(Classification::class);
     }
 
     public function isAdmin(): bool

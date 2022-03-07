@@ -46,7 +46,8 @@ class PoolCandidate extends Model
     protected $casts = [
         'expiry_date' => 'date',
         'location_preferences' => 'array',
-        'expected_salary' => 'array'
+        'expected_salary' => 'array',
+        'location_exemptions' => 'array'
     ];
 
     public function user(): BelongsTo

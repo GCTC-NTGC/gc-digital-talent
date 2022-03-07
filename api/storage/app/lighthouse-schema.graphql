@@ -42,6 +42,12 @@ enum AwardedTo {
   MY_ORGANIZATION
 }
 
+enum BilingualEvaluation {
+  COMPLETED_ENGLISH
+  COMPLETED_FRENCH
+  NOT_COMPLETED
+}
+
 type Classification {
   id: ID!
   name: LocalizedString
@@ -257,6 +263,12 @@ type ExperienceSkill {
   details: String
   skill: Skill!
   experience: Experience!
+}
+
+enum JobLookingStatus {
+  ACTIVELY_LOOKING
+  OPEN_TO_OPPORTUNITIES
+  INACTIVE
 }
 
 input KeyFilterInput {
@@ -551,6 +563,22 @@ input PoolFilterInput {
   id: ID!
 }
 
+enum ProvinceOrTerritory {
+  BRITISH_COLUMBIA
+  ALBERTA
+  SASKATCHEWAN
+  MANITOBA
+  ONTARIO
+  QUEBEC
+  NEW_BRUNSWICK
+  NOVA_SCOTIA
+  PRINCE_EDWARD_ISLAND
+  NEWFOUNDLAND_AND_LABRADOR
+  YUKON
+  NORTHWEST_TERRITORIES
+  NUNAVUT
+}
+
 type Query {
   me: User
   user(id: ID!): User
@@ -642,6 +670,14 @@ enum SalaryRange {
   _80_89K
   _90_99K
   _100K_PLUS
+}
+
+enum SecondLanguageAbility {
+  NATURAL_AND_COMFORTABLE
+  ABLE_TO_COMMUNICATE
+  SOME_DIFFICULTY
+  VERY_BASIC
+  NONE
 }
 
 """Information about pagination using a simple paginator."""
@@ -811,13 +847,27 @@ input UpdateUserInput {
 
 type User {
   id: ID!
-  email: Email!
   sub: String
+  roles: [Role]
   firstName: String
   lastName: String
+  email: Email!
   telephone: PhoneNumber
+  currentProvince: ProvinceOrTerritory
+  currentCity: String
   preferredLang: Language
-  roles: [Role]
+  lookingForEnglish: Boolean
+  lookingForFrench: Boolean
+  lookingForBilingual: Boolean
+  bilingualEvaluation: BilingualEvaluation
+  comprehensionLevel: SecondLanguageAbility
+  writtenLevel: SecondLanguageAbility
+  verbalLevel: SecondLanguageAbility
+  isGovEmployee: Boolean
+  interestedInLaterOrSecondment: Boolean
+  currentClassification: Classification
+  interestedClassifications: [Classification]
+  jobLookingStatus: JobLookingStatus
   pools: [Pool]
   poolCandidates: [PoolCandidate]
   experiences: [Experience]
