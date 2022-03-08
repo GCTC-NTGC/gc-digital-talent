@@ -30,15 +30,6 @@ class UpdateUsersTableWithProfileData extends Migration
             $table->uuid('current_classification')->nullable();
             $table->foreign('current_classification')->references('id')->on('classifications');
         });
-
-        Schema::create('classification_user', function (Blueprint $table) {
-            $table->uuid('id')->primary('id');
-            $table->uuid('classification_id');
-            $table->foreign('classification_id')->references('id')->on('classifications');
-            $table->uuid('user_id');
-            $table->foreign('user_id')->references('id')->on('users');
-        });
-        DB::statement('ALTER TABLE classification_user ALTER COLUMN id SET DEFAULT gen_random_uuid();');
     }
 
     /**
@@ -66,7 +57,5 @@ class UpdateUsersTableWithProfileData extends Migration
                 'current_classification'
             ]);
         });
-
-        Schema::dropIfExists('classification_user');
     }
 }

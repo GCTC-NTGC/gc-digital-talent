@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\User;
 use App\Models\Pool;
+use App\Models\Classification;
 use App\Models\PoolCandidate;
 use App\Models\PoolCandidateFilter;
 use App\Models\PoolCandidateSearchRequest;
@@ -54,9 +55,14 @@ class DatabaseSeeder extends Seeder
 
         PoolCandidate::factory()
             ->count(60)
-            ->state(new Sequence(
-                fn () => ['pool_id' => Pool::inRandomOrder()->first()->id],
-            ))
+            ->sequence(
+                fn () => [
+                    'user_id' => User::factory()->sequence(fn () => [
+                        'current_classification' => Classification::inRandomOrder()->first()->id
+                    ]),
+                    'pool_id' => Pool::inRandomOrder()->first()->id,
+                ],
+            )
             ->create();
 
         PoolCandidateSearchRequest::factory()->count(10)->create();

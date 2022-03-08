@@ -64,10 +64,6 @@ class User extends Model implements Authenticatable
     {
         return $this->belongsTo(Classification::class, "current_classification");
     }
-    public function interestedClassifications(): BelongsToMany
-    {
-        return $this->belongsToMany(Classification::class);
-    }
 
     public function isAdmin(): bool
     {
@@ -75,23 +71,23 @@ class User extends Model implements Authenticatable
     }
 
     // All the relationships for experiences
-    public function awardExperiences()
+    public function awardExperiences(): HasMany
     {
         return $this->hasMany(AwardExperience::class);
     }
-    public function communityExperiences()
+    public function communityExperiences(): HasMany
     {
         return $this->hasMany(CommunityExperience::class);
     }
-    public function educationExperiences()
+    public function educationExperiences(): HasMany
     {
         return $this->hasMany(EducationExperience::class);
     }
-    public function personalExperiences()
+    public function personalExperiences(): HasMany
     {
         return $this->hasMany(PersonalExperience::class);
     }
-    public function workExperiences()
+    public function workExperiences(): HasMany
     {
         return $this->hasMany(WorkExperience::class);
     }

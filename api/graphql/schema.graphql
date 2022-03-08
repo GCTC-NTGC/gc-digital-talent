@@ -54,8 +54,7 @@ type User {
     # Gov info
     isGovEmployee: Boolean @rename(attribute: "is_gov_employee")
     interestedInLaterOrSecondment: Boolean @rename(attribute: "interested_in_later_or_secondment")
-    currentClassification: Classification # Users current classification
-    interestedClassifications: [Classification] # Classifications user would be interested in having
+    currentClassification: Classification @belongsTo # Users current classification
 
     # Pools
     jobLookingStatus: JobLookingStatus @rename(attribute: "job_looking_status")
@@ -63,12 +62,12 @@ type User {
     poolCandidates: [PoolCandidate] @hasMany # Pools candidates that a user owns
 
     # Experiences
-    experiences: [Experience] # All experiences that a user owns
-    awardExperiences: [AwardExperience] # Award experiences that a user owns
-    communityExperiences: [CommunityExperience] # Community experiences that a user owns
-    educationExperiences: [EducationExperience] # Education experiences that a user owns
-    personalExperiences: [PersonalExperience] # Personal experiences that a user owns
-    workExperiences: [WorkExperience] # Work experiences that a user owns
+    experiences: [Experience] @hasMany # All experiences that a user owns
+    awardExperiences: [AwardExperience] @hasMany # Award experiences that a user owns
+    communityExperiences: [CommunityExperience] @hasMany # Community experiences that a user owns
+    educationExperiences: [EducationExperience] @hasMany # Education experiences that a user owns
+    personalExperiences: [PersonalExperience] @hasMany # Personal experiences that a user owns
+    workExperiences: [WorkExperience] @hasMany # Work experiences that a user owns
 }
 
 enum ProvinceOrTerritory {
@@ -94,11 +93,12 @@ enum BilingualEvaluation {
 }
 
 enum EvaluatedLanguageAbility {
-    NATURAL_AND_COMFORTABLE
-    ABLE_TO_COMMUNICATE
-    SOME_DIFFICULTY
-    VERY_BASIC
-    NONE
+    X
+    A
+    B
+    C
+    E
+    P
 }
 
 enum EstimatedLanguageAbility {
@@ -115,17 +115,37 @@ enum JobLookingStatus {
 
 type Applicant {
     id: ID!
+    jobLookingStatus: JobLookingStatus @rename(attribute: "job_looking_status")
+
+    # Personal info
     email: Email!
     firstName: String @rename(attribute: "first_name")
     lastName: String @rename(attribute: "last_name")
     telephone: PhoneNumber
+
+    # Gov info
+    isGovEmployee: Boolean @rename(attribute: "is_gov_employee")
+    interestedInLaterOrSecondment: Boolean @rename(attribute: "interested_in_later_or_secondment")
+    currentClassification: Classification @belongsTo # Users current classification
+
+    # Language
     preferredLang: Language @rename(attribute: "preferred_lang")
-    experiences: [Experience] # All experiences that a user owns
-    awardExperiences: [AwardExperience] # Award experiences that a user owns
-    communityExperiences: [CommunityExperience] # Community experiences that a user owns
-    educationExperiences: [EducationExperience] # Education experiences that a user owns
-    personalExperiences: [PersonalExperience] # Personal experiences that a user owns
-    workExperiences: [WorkExperience] # Work experiences that a user owns
+    lookingForEnglish: Boolean @rename(attribute: "looking_for_english")
+    lookingForFrench: Boolean @rename(attribute: "looking_for_french")
+    lookingForBilingual: Boolean @rename(attribute: "looking_for_bilingual")
+    bilingualEvaluation: BilingualEvaluation @rename(attribute: "bilingual_evaluation")
+    comprehensionLevel: EvaluatedLanguageAbility @rename(attribute: "comprehension_level")
+    writtenLevel: EvaluatedLanguageAbility @rename(attribute: "written_level")
+    verbalLevel: EvaluatedLanguageAbility @rename(attribute: "verbal_level")
+    estimatedLanguageAbility: EstimatedLanguageAbility @rename(attribute: "estimated_language_ability")
+
+    # Experiences
+    experiences: [Experience]
+    awardExperiences: [AwardExperience]
+    communityExperiences: [CommunityExperience]
+    educationExperiences: [EducationExperience]
+    personalExperiences: [PersonalExperience]
+    workExperiences: [WorkExperience]
 }
 
 type UserPublicProfile {
@@ -178,7 +198,7 @@ type PoolCandidate {
     acceptedOperationalRequirements: [OperationalRequirement] @belongsToMany
     expectedSalary: [SalaryRange] @rename(attribute: "expected_salary")
     expectedClassifications: [Classification] @belongsToMany
-    acceptsTemporary: Boolean @rename(attribute: "accepts_temporary")
+    wouldAcceptTemporary: Boolean @rename(attribute: "would_accept_temporary")
     cmoAssets: [CmoAsset] @belongsToMany
 
     status: PoolCandidateStatus @rename(attribute: "pool_candidate_status")

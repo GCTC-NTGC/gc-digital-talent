@@ -15,7 +15,7 @@ class UpdatePoolCandidatesTableWithProfileData extends Migration
     {
         Schema::table('pool_candidates', function (Blueprint $table) {
             $table->jsonb('location_exemptions')->nullable();
-            $table->boolean('accepts_temporary')->nullable();
+            $table->boolean('would_accept_temporary')->nullable();
         });
     }
 
@@ -29,7 +29,7 @@ class UpdatePoolCandidatesTableWithProfileData extends Migration
         Schema::table('pool_candidates', function (Blueprint $table) {
             $table->dropColumn([
                 'location_exemptions',
-                'accepts_temporary'
+                'would_accept_temporary'
             ]);
         });
     }

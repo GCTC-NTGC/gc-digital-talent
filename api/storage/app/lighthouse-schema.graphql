@@ -1,10 +1,22 @@
 type Applicant {
   id: ID!
+  jobLookingStatus: JobLookingStatus
   email: Email!
   firstName: String
   lastName: String
   telephone: PhoneNumber
+  isGovEmployee: Boolean
+  interestedInLaterOrSecondment: Boolean
+  currentClassification: Classification
   preferredLang: Language
+  lookingForEnglish: Boolean
+  lookingForFrench: Boolean
+  lookingForBilingual: Boolean
+  bilingualEvaluation: BilingualEvaluation
+  comprehensionLevel: EvaluatedLanguageAbility
+  writtenLevel: EvaluatedLanguageAbility
+  verbalLevel: EvaluatedLanguageAbility
+  estimatedLanguageAbility: EstimatedLanguageAbility
   experiences: [Experience]
   awardExperiences: [AwardExperience]
   communityExperiences: [CommunityExperience]
@@ -251,6 +263,21 @@ enum EducationType {
 """A RFC 5321 compliant email."""
 scalar Email
 
+enum EstimatedLanguageAbility {
+  BEGINNER
+  INTERMEDIATE
+  ADVANCED
+}
+
+enum EvaluatedLanguageAbility {
+  X
+  A
+  B
+  C
+  E
+  P
+}
+
 interface Experience {
   id: ID!
   applicant: Applicant!
@@ -490,9 +517,11 @@ type PoolCandidate {
   hasDiploma: Boolean
   languageAbility: LanguageAbility
   locationPreferences: [WorkRegion]
+  locationExemptions: [String]
   acceptedOperationalRequirements: [OperationalRequirement]
   expectedSalary: [SalaryRange]
   expectedClassifications: [Classification]
+  wouldAcceptTemporary: Boolean
   cmoAssets: [CmoAsset]
   status: PoolCandidateStatus
 }
@@ -670,14 +699,6 @@ enum SalaryRange {
   _80_89K
   _90_99K
   _100K_PLUS
-}
-
-enum SecondLanguageAbility {
-  NATURAL_AND_COMFORTABLE
-  ABLE_TO_COMMUNICATE
-  SOME_DIFFICULTY
-  VERY_BASIC
-  NONE
 }
 
 """Information about pagination using a simple paginator."""
@@ -860,13 +881,13 @@ type User {
   lookingForFrench: Boolean
   lookingForBilingual: Boolean
   bilingualEvaluation: BilingualEvaluation
-  comprehensionLevel: SecondLanguageAbility
-  writtenLevel: SecondLanguageAbility
-  verbalLevel: SecondLanguageAbility
+  comprehensionLevel: EvaluatedLanguageAbility
+  writtenLevel: EvaluatedLanguageAbility
+  verbalLevel: EvaluatedLanguageAbility
+  estimatedLanguageAbility: EstimatedLanguageAbility
   isGovEmployee: Boolean
   interestedInLaterOrSecondment: Boolean
   currentClassification: Classification
-  interestedClassifications: [Classification]
   jobLookingStatus: JobLookingStatus
   pools: [Pool]
   poolCandidates: [PoolCandidate]
