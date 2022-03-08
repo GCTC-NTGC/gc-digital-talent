@@ -1,8 +1,20 @@
 /* eslint-disable react/jsx-key */
 import React, { ReactElement, useState } from "react";
 import { useIntl } from "react-intl";
-import { useTable, useGlobalFilter, useSortBy, Column } from "react-table";
+import {
+  useTable,
+  useGlobalFilter,
+  useSortBy,
+  Column,
+  usePagination,
+} from "react-table";
 import { Button } from "@common/components";
+import {
+  ChevronDoubleLeftIcon,
+  ChevronDoubleRightIcon,
+  ChevronLeftIcon,
+  ChevronRightIcon,
+} from "@heroicons/react/solid";
 import GlobalFilter from "./GlobalFilter";
 
 export type ColumnsOf<T extends Record<string, unknown>> = Array<Column<T>>;
@@ -46,6 +58,16 @@ function Table<T extends Record<string, unknown>>({
     state,
     allColumns,
     getToggleHideAllColumnsProps,
+    pageOptions,
+    pageCount,
+    state: { pageIndex, pageSize },
+    gotoPage,
+    previousPage,
+    nextPage,
+    setPageSize,
+    canPreviousPage,
+    canNextPage,
+    page,
   } = useTable<T>(
     {
       columns,
@@ -56,10 +78,15 @@ function Table<T extends Record<string, unknown>>({
     },
     useGlobalFilter,
     useSortBy,
+    usePagination,
   );
 
   const [showList, setShowList] = useState(false);
   const intl = useIntl();
+
+  function strong(msg: string) {
+    return <span data-h2-font-weight="b(600)">{msg}</span>;
+  }
 
   return (
     <div>
@@ -156,7 +183,7 @@ function Table<T extends Record<string, unknown>>({
             ))}
           </thead>
           <tbody {...getTableBodyProps()}>
-            {rows.map((row) => {
+            {page.map((row) => {
               prepareRow(row);
               return (
                 <tr {...row.getRowProps()}>
@@ -177,6 +204,105 @@ function Table<T extends Record<string, unknown>>({
             })}
           </tbody>
         </table>
+      </div>
+      {/*
+        Pagination can be built however you'd like.
+        This is just a very basic UI implementation:
+      */}
+      <div
+        data-h2-padding="b(all, s)"
+        data-h2-display="b(flex)"
+        data-h2-align-items="b(center)"
+        data-h2-flex-direction="b(column) s(row)"
+      >
+        <div data-h2-padding="b(bottom, s) s(right, s) s(bottom, none)">
+          <button
+            data-h2-margin="b(right, xs)"
+            type="button"
+            onClick={() => gotoPage(0)}
+            disabled={!canPreviousPage}
+          >
+            <ChevronDoubleLeftIcon
+              style={{ width: "1rem", cursor: "pointer" }}
+            />
+          </button>
+          <button
+            data-h2-margin="b(right, xs)"
+            type="button"
+            onClick={() => previousPage()}
+            disabled={!canPreviousPage}
+          >
+            <ChevronLeftIcon style={{ width: "1rem", cursor: "pointer" }} />
+          </button>
+          <button
+            data-h2-margin="b(right, xs)"
+            type="button"
+            onClick={() => nextPage()}
+            disabled={!canNextPage}
+          >
+            <ChevronRightIcon style={{ width: "1rem", cursor: "pointer" }} />
+          </button>
+          <button
+            data-h2-margin="b(right, xs)"
+            type="button"
+            onClick={() => gotoPage(pageCount - 1)}
+            disabled={!canNextPage}
+          >
+            <ChevronDoubleRightIcon
+              style={{ width: "1rem", cursor: "pointer" }}
+            />
+          </button>
+        </div>
+        <div data-h2-padding="b(bottom, s) s(right, s) s(bottom, none)">
+          <span>
+            {intl.formatMessage(
+              {
+                defaultMessage: "Page <strong>{index} of {totalPages}</strong>",
+                description:
+                  "Label showing current page of pagination on the admin table.",
+              },
+              { strong, index: pageIndex + 1, totalPages: pageOptions.length },
+            )}{" "}
+          </span>
+          <span>
+            |{" "}
+            {intl.formatMessage({
+              defaultMessage: "Go to page:",
+              description: "Label for pagination input in admin table.",
+            })}{" "}
+            <input
+              type="number"
+              defaultValue={pageIndex + 1}
+              onChange={(e) => {
+                const p = e.target.value ? Number(e.target.value) - 1 : 0;
+                gotoPage(p);
+              }}
+              min={0}
+              max={pageOptions.length}
+              style={{ width: "65px" }}
+            />
+          </span>
+        </div>
+        <select
+          style={{ cursor: "pointer" }}
+          value={pageSize}
+          onChange={(e) => {
+            setPageSize(Number(e.target.value));
+          }}
+        >
+          {[5, 10, 15, 20, 25, 30].map((numOfRows) => (
+            <option key={numOfRows} value={numOfRows}>
+              {intl.formatMessage(
+                {
+                  defaultMessage: "Show {numOfRows}",
+                  description:
+                    "Options for how many rows to show on admin table",
+                },
+                { numOfRows },
+              )}
+            </option>
+          ))}
+        </select>
       </div>
     </div>
   );
