@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GC Talent | A Tool for Assessment Planning</title>
+  <meta name="description" content="Talent Cloud is an experimental staffing solution created by the Government of Canada. Read our experiment's results report here!">
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-P27NF5V');</script>
+    <!-- End Google Tag Manager -->
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script
+        async
+        src="https://www.googletagmanager.com/gtag/js?id=UA-115747902-1">
+    </script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-115747902-1');
+    </script>
+  <!-- Favicons -->
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap" rel="stylesheet">
+  <!-- Hydrogen CSS -->
+  
+    <!-- <link rel="stylesheet" href="/assets/css/hydrogen-tc.css"> -->
+    <link rel="stylesheet" href="/assets/css/hydrogen.css">
+  
+  <!-- App CSS -->
+  <link rel="stylesheet" href="/assets/css/app.css">
+</head>
+  <body data-h2-font-family="b(sans)">
+    <a href="#mainContent" title="" class="skip-link">Skip to Main Content</a>
+    <div data-h2-border="b([light]gray, bottom, solid, s)" >
+  <div data-h2-container="b(center, full)" data-h2-padding="b(top-bottom, s)">
+    <div data-h2-flex-grid="b(middle, expanded, flush, s)">
+      <div data-h2-flex-item="m(1of2)" data-h2-text-align="b(center) m(left)">
+        <a
+          data-h2-display="b(inline-block)"
+          style="max-width: 15rem; width: 100%;"
+          href="https://canada.ca/"
+          target="_blank"
+          title="Visit canada.ca."
+          rel="noopener noreferrer"
+        >
+          <img data-h2- alt="goc logo" src="/assets/img/ui-goc.svg"
+        /></a>
+      </div>
+      <div data-h2-flex-item="m(1of2)" data-h2-text-align="b(center) m(right)">
+         
+        <a href="/fr/2000/01/01/415-assessment-planning.html" title="Voir ce contenu en français.">Français</a>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+<div data-h2-container="b(center, full)" >
+  <nav data-h2-padding="b(top-bottom, m)">
+    <ul class="reset-ul" data-h2-padding="b(all, none)" data-h2-margin="b(all, none)" data-h2-text-align="b(center) m(left)" style="margin-left: -.7rem;">
+      
+        <li data-h2-margin="b(all, none)" data-h2-padding="b(all, none)" data-h2-display="b(inline-block)">
+          <a href="/en/" title="Visit the GC Talent homepage."
+            
+            data-h2-display="b(block)"
+            data-h2-padding="b(all, xs) m(right-left, s)">Home</a>
+        </li>
+      
+        <li data-h2-margin="b(all, none)" data-h2-padding="b(all, none)" data-h2-display="b(inline-block)">
+          <a href="/en/talent-cloud/" title="Learn more about the Talent Cloud project."
+            
+            data-h2-display="b(block)"
+            data-h2-padding="b(all, xs) m(right-left, s)">Talent Cloud</a>
+        </li>
+      
+        <li data-h2-margin="b(all, none)" data-h2-padding="b(all, none)" data-h2-display="b(inline-block)">
+          <a href="/en/communities/digital-talent/" title="Learn more about the Digital Talent community."
+            
+            data-h2-display="b(block)"
+            data-h2-padding="b(all, xs) m(right-left, s)">Digital Talent</a>
+        </li>
+      
+    </ul>
+  </nav>
+</div>
+<section>
+  <div
+    data-h2-container="b(center, full)"
+    data-h2-text-align="b(center)">
+    
+    <h1
+  data-h2-font-weight="b(800)"
+  data-h2-font-size="b(h1)"
+  data-h2-padding='b(top, l) l(top, xxl) b(bottom, xxs)'
+  style="letter-spacing: -3px"
+  
+>
+  Talent Cloud Results Report
+</h1>
+
+    <div id="breadcrumbs" data-h2-margin="b(top-bottom, m)" >
+  
+  <a href="/en" title="Return to the homepage.">GC Talent</a>
+  <!-- If the page layout is post then use this breadcrumb list. -->
+  
+    / <a href="/en/talent-cloud" title="Return to the Talent Cloud page.">Talent Cloud</a>
+    / <a href="/en/talent-cloud/report" title="Return to the Talent Cloud results report.">Talent Cloud Resu...</a>
+    / <span>Section 4</span>
+    / <span data-h2-font-weight="b(800)">A Tool for Assess...</span>
+  
+</div>
+  </div>
+</section>
+<header 
+  class="post-header"
+  id="mainContent"
+  style="background-image: url('/assets/img/4.15-tx-heading.jpg');"
+  data-h2-margin="b(top, xl)">
+  <div 
+    data-h2-container="b(center, m)" 
+    data-h2-font-color="b(white)"
+    data-h2-padding="b(top, l) b(bottom, xl) l(top, xl) l(bottom, xxl)"
+    data-h2-text-align="b(center)">
+    <h2
+  
+  data-h2-font-weight="b(200)"
+  data-h2-font-size="b(h2)"
+  
+  data-h2-padding='b(top, m)'
+  
+  
+  style="letter-spacing: -2px;">
+  A Tool for Assessment Planning
+</h2>
+    
+      <div data-h2-padding="b(top, m)">
+        
+          <div 
+  data-h2-bg-color="b(white[.2])"
+  data-h2-border="b(white, all, solid, s)"
+  data-h2-display="b(inline-block)"
+  data-h2-margin="b(all, xxs) l(right-left, xxs)"
+  data-h2-padding="b(top, xxs) b(bottom, xs) b(right-left, s)"
+  data-h2-radius="b(m)"
+  style="line-height: 1;">
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <img 
+        data-h2-display="b(inline-block)"
+        data-h2-margin="b(right, xxs)"
+        style="vertical-align: middle; width: .8rem;"
+        src="/assets/img/ds-empower-staff.svg" aria-hidden="true">
+      <span data-h2-font-size="b(caption)">Empower Service Delivery</span>
+    
+  
+    
+  
+    
+  
+    
+  
+</div>
+        
+          <div 
+  data-h2-bg-color="b(white[.2])"
+  data-h2-border="b(white, all, solid, s)"
+  data-h2-display="b(inline-block)"
+  data-h2-margin="b(all, xxs) l(right-left, xxs)"
+  data-h2-padding="b(top, xxs) b(bottom, xs) b(right-left, s)"
+  data-h2-radius="b(m)"
+  style="line-height: 1;">
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <img 
+        data-h2-display="b(inline-block)"
+        data-h2-margin="b(right, xxs)"
+        style="vertical-align: middle; width: .8rem;"
+        src="/assets/img/ds-data.svg" aria-hidden="true">
+      <span data-h2-font-size="b(caption)">Data Stewardship</span>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+</div>
+        
+      </div>
+    
+  </div>
+</header>
+<main data-h2-padding="b(top-bottom, xs) l(top-bottom, xl)" style="background-color: #F8F8F8;">
+  <div data-h2-container="b(center, s)">
+    
+      
+    
+      
+        
+          <!-- Titles -->
+          <h3
+  
+  data-h2-font-weight="b(800)"
+  data-h2-font-size="b(h3)"
+  data-h2-margin='b(top, xl) b(bottom, s)'
+  
+  style="letter-spacing: -1px;">
+  Purpose of the Tool
+</h3>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>Developing assessment materials was routinely mentioned by managers as one of the most challenging steps in the staffing process during our user research. Many reported procrastinating on this step as they felt overwhelmed with scheduling challenges and unclear about how to develop materials. This significantly added to the overall time to staff.</p>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>Talent Cloud’s assessment planning tool is designed to facilitate discussion between managers and HR advisors early in the staffing process (before a job advertisement is finalized). It consists of two components:</p>
+        
+      
+    
+      
+        
+          
+            <ul>
+              
+                <li>The first component focuses on supporting managers in building an assessment plan. It pre-populates information as managers add skills (essential and asset criteria) to the job advertisement. Both managers and HR advisors can then decide how each skill will be assessed, and comment back and forth on the proposed plan. The planning tool provides drop down options and formats information in a way that managers can, with a few simple clicks, present their forward plan to their HR advisors.</li>
+              
+                <li>The second component is a ratings guide builder, which is designed to prompt managers and HR advisors to discuss and create actual questions and materials for each assessment type they have chosen and decide on the passing criteria for each skill.</li>
+              
+            </ul>
+          
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>Notably, neither component of the assessment planning tool is designed to promote a particular assessment method for a particular skill or provides tests associated with the assessment method. It’s purely for planning purposes. (The team looked at ways to connect the tool to academic references, making suggestions to managers on literature-supported assessment methods for each skill, combined with data on how previous GC managers had tested each skill on Talent Cloud, but we didn’t have the resources to complete the work.)</p>
+        
+      
+    
+      
+        
+          <!-- Titles -->
+          <h3
+  
+  data-h2-font-weight="b(800)"
+  data-h2-font-size="b(h3)"
+  data-h2-margin='b(top, xl) b(bottom, s)'
+  
+  style="letter-spacing: -1px;">
+  Current Status
+</h3>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>The assessment planning tool is currently in beta for managers and HR advisors to use.</p>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>The first component (basic plan) received positive feedback and was well-used, and is now ready to be upgraded with a planning calendar, email templates for key stages, and additional support for managers.</p>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>The second component (ratings guide builder) had mixed results in live testing. It surfaced several underlying challenges managers face when developing assessments, as well as the high degree of variance in advice provided by HR advisors in different departments. Some managers found the model very useful, others found it confusing. In many departments, this component of the tool was used almost exclusively by HR advisors (who had an easier job using it than managers). To address these variances, improve usability, and to connect the ratings guide methodology to the final assessment justifications required for each applicant (Record of Decision), our team is working on a new design for the ratings guide component. It has been through several rounds of workshop redesign, and is ready for a round of live testing using off-platform tools. (See also A Tool for Record of Decision in this section of the report.) While complicated to develop, we believe that creating a simple logic frame that all managers can use will dramatically help speed time to staff in the assessment phase of staffing and early planning stages (pre-job advertisement).</p>
+        
+      
+    
+      
+        
+          <!-- Titles -->
+          <h3
+  
+  data-h2-font-weight="b(800)"
+  data-h2-font-size="b(h3)"
+  data-h2-margin='b(top, xl) b(bottom, s)'
+  
+  style="letter-spacing: -1px;">
+  Results
+</h3>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>As an HR best practice and to avoid delays while candidates are waiting to be contacted, some departments require that all assessment materials be completed before the job advertisement can be published. This shortens how long applicants wait for testing and interview stages, but it requires more upfront work from managers. After observing manager and HR advisor interactions around the development of assessment materials, Talent Cloud has found that staffing processes run best if there is at least an assessment plan in place when the job advertisement is finalized, even if the assessment materials themselves (tests and ratings guides) are still in development at the moment a job advertisement goes live. (Although we agree with HR advisors on this one - it’s best if everything is set to go before a job advertisement is posted.)</p>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>The assessment planning tool was used by some managers and HR advisors to facilitate discussions while the job advertisement was still being finalized. As a result of these discussions, some managers added screening questions to the application process. In other cases, managers were prompted to have more in-depth discussions with their HR advisors on what skills were absolutely required and whether there were any overlaps. They then revised the skills on the job advertisement to ensure they could assess applicants in a manageable way.</p>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>As for the ratings guide builder, some used the tool to finalize their assessment materials while the job advertisement was open for application. In those cases, the managers were able to start assessing their applicants as soon as the applications became available.</p>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>Overall however, the ratings guide, in its initial implementation, has not been broadly adopted and most managers have instead opted to use the standard departmental tools for putting together ratings guides for their assessments.</p>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>On the whole, while this tool was one of our more heavily debated and revised products, we ultimately found that its inclusion was definitely helpful for managers in reducing time to staff, especially when it came to moving swiftly enough through assessment stages to keep top applicants interested and feeling engaged.</p>
+        
+      
+    
+      
+        
+          <!-- Titles -->
+          <h3
+  
+  data-h2-font-weight="b(800)"
+  data-h2-font-size="b(h3)"
+  data-h2-margin='b(top, xl) b(bottom, s)'
+  
+  style="letter-spacing: -1px;">
+  Insights
+</h3>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>The assessment plan builder was useful as a tool to facilitate discussions between managers and HR advisors. It also helped managers to take a more holistic view of the staffing process while they were still finalizing the job advertisement. This improved quality and cohesion across staffing stages, as well as overall time to staff.</p>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>One of the challenges managers faced when building the ratings guide was to articulate the passing criteria for each skill and distinguish between various levels. While Talent Cloud doesn’t provide any advice on the assessment, our team is working on a logic framework that aims to help managers consider this in a consistent way. Using this framework, our team has developed generic behavioural indicators for some of the most commonly requested skills as proof of concept. With more time and capacity, we believe behavioural indicators can be developed for a wider variety of skills and be pre-populated in the ratings guide builder, which in turn can help accelerate the discussion between managers and HR advisors. These behavioural indicators should be developed with the support and validation of the communities of practice for the various classification groups.</p>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>During assessment planning discussions, managers routinely requested sample questions and existing assessment materials, to which HR advisors responded differently across various departments. Some managers also suggested building a GC-wide inventory of assessment materials developed by managers in the Government of Canada that teams from different departments can reference. Assembling a library of assessment materials gathered from GC partners was, unfortunately, beyond the capacity of Talent Cloud at its current resource levels. But the concept of an assessment learning library for managers represents an opportunity for a broader discussion across the public service.</p>
+        
+      
+    
+      
+        
+          <!-- Titles -->
+          <h3
+  
+  data-h2-font-weight="b(800)"
+  data-h2-font-size="b(h3)"
+  data-h2-margin='b(top, xl) b(bottom, s)'
+  
+  style="letter-spacing: -1px;">
+  Key Components of the Tool
+</h3>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>Notably, both managers and HR advisors (who have claimed that specific job) can create content and edit all parts of the assessment plan from their respective portals. Activity is tracked, and managers and HR advisors can add questions and comments for each other.</p>
+        
+      
+    
+      
+        
+          <!-- Subtitles -->
+          <h4
+  
+  data-h2-font-weight="b(400)"
+  data-h2-font-size="b(h4)"
+  data-h2-margin='b(top, xl) b(bottom, s)'
+  style="letter-spacing: -1px;">
+  Assessment Plan Builder
+</h4>
+        
+      
+    
+      
+        
+          
+            <ul>
+              
+                <li>Prepopulated skills from the job poster builder, including description of the skills and the selected level</li>
+              
+                <li>The stage “Narrative review” - a review of information submitted by applicants in their application - is added by default as an assessment step for all criteria where this information was gathered in the initial application</li>
+              
+                <li>Drop-down menu of common assessment types for managers and HR advisors to choose from for each skill</li>
+              
+                <li>Ability to add multiple assessment types for each skill</li>
+              
+                <li>Error reminder when any of the skills don’t have at least one planned assessment in addition to the application review. (Managers may confirm that the only assessment planned is the application review, but this functions as a reminder to validate essential criteria through an assessment method beyond an applicant’s initial claim.)</li>
+              
+            </ul>
+          
+        
+      
+    
+      
+        
+          <figure data-h2-margin="b(top-bottom, l)">
+            <!-- Graphics -->
+            
+              <img 
+                src="/assets/img/4.15-en-assessment-builder.png"
+                alt="A screenshot of the assessment plan builder tool offered to managers. The interface showcases how skills are automatically populated for the manager based on those they selected for their job poster. Definitions for the skill and the level they selected are both presented here for quick reference, alonside the ability to select from a variety of assessments for that skill."
+                style="width: 100%;"
+                data-h2-display="b(block)"
+                data-h2-radius="b(s)"
+                data-h2-border="b(gray, all, solid, s)">
+                
+            
+          </figure>
+        
+      
+    
+      
+        
+          <!-- Subtitles -->
+          <h4
+  
+  data-h2-font-weight="b(400)"
+  data-h2-font-size="b(h4)"
+  data-h2-margin='b(top, xl) b(bottom, s)'
+  style="letter-spacing: -1px;">
+  Assessment Plan Summary
+</h4>
+        
+      
+    
+      
+        
+          
+            <ul>
+              
+                <li>Display of all assessment types selected in the assessment plan builder, along with the associated skills, in a way that meets the needs of both managers and HR advisors</li>
+              
+                <li>Can be rearranged by ordering the information by assessment steps or by selection criteria being assessed. (We found that, in general, managers prefer the former because they’re interested in what comes next in their calendars, whereas HR advisors prefer the latter because they want to confirm that each essential and asset criteria has a sufficient assessment methodology attached to it.)</li>
+              
+            </ul>
+          
+        
+      
+    
+      
+        
+          <figure data-h2-margin="b(top-bottom, l)">
+            <!-- Graphics -->
+            
+              <img 
+                src="/assets/img/4.15-en-assessment-summary.png"
+                alt="A screenshot of the assessment plan summary interface, where managers and HR advisors can review how each assessment they've selected will cover the skills in the job post."
+                style="width: 100%;"
+                data-h2-display="b(block)"
+                data-h2-radius="b(s)"
+                data-h2-border="b(gray, all, solid, s)">
+                
+            
+          </figure>
+        
+      
+    
+      
+        
+          <!-- Subtitles -->
+          <h4
+  
+  data-h2-font-weight="b(400)"
+  data-h2-font-size="b(h4)"
+  data-h2-margin='b(top, xl) b(bottom, s)'
+  style="letter-spacing: -1px;">
+  Ratings Guide Builder
+</h4>
+        
+      
+    
+      
+        
+          
+            <ul>
+              
+                <li>Display of all the assessment types selected in the assessment plan builder, along with a description of the assessment type and the associated skills</li>
+              
+                <li>Ability to add questions for each assessment type and link them to one or more skills associated with that assessment type</li>
+              
+                <li>Ability to add acceptable answers or passing criteria for each question</li>
+              
+                <li>Error reminder when any of the skills associated with the assessment type weren’t linked to at least one question</li>
+              
+            </ul>
+          
+        
+      
+    
+      
+        
+          <figure data-h2-margin="b(top-bottom, l)">
+            <!-- Graphics -->
+            
+              <img 
+                src="/assets/img/4.15-en-ratings-guide.png"
+                alt="A screenshot of the ratings guide builder tool where managers can assemble the individual assessment components and provide context for how a specific skill will be graded. Managers can add as many questions to an assessment as they need, and indicate which skills will be assessed by those questions."
+                style="width: 100%;"
+                data-h2-display="b(block)"
+                data-h2-radius="b(s)"
+                data-h2-border="b(gray, all, solid, s)">
+                
+            
+          </figure>
+        
+      
+    
+      
+        
+          <!-- Subtitles -->
+          <h4
+  
+  data-h2-font-weight="b(400)"
+  data-h2-font-size="b(h4)"
+  data-h2-margin='b(top, xl) b(bottom, s)'
+  style="letter-spacing: -1px;">
+  Copy Ratings Guide to Clipboard
+</h4>
+        
+      
+    
+      
+        
+          
+            <ul>
+              
+                <li>One-click button to copy all information from the ratings guide builder in table format to paste in other software (e.g. Word, Excel, etc.)</li>
+              
+            </ul>
+          
+        
+      
+    
+      
+        
+          <figure data-h2-margin="b(top-bottom, l)">
+            <!-- Graphics -->
+            
+              <img 
+                src="/assets/img/4.15-en-ratings-guide-copy.png"
+                alt="A screenshot of a copy interface that allows a manager or HR advisor to copy the ratings guide they've constructed to their computer's clipboard, allowing them to paste it into a document of their choice."
+                style="width: 100%;"
+                data-h2-display="b(block)"
+                data-h2-radius="b(s)"
+                data-h2-border="b(gray, all, solid, s)">
+                
+            
+          </figure>
+        
+      
+    
+  </div>
+</main>
+<section style="background-color: #F8F8F8;">
+  <div data-h2-container="b(center, s)" data-h2-padding="b(bottom, l) l(bottom, xxl)">
+    <div data-h2-flex-grid="b(top, expanded, flush, m)">
+      <div
+        data-h2-text-align="b(center) m(left)" 
+        data-h2-flex-item="b(1of2)">
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            
+              <a class="prev" href="/en/2000/01/01/414-job-ads.html" title="Go to the previous article in the series.">
+                <svg data-h2-margin="b(right, xxs)" 
+                  style="width: 1rem; vertical-align: middle;" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="#c90035">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M15 19l-7-7 7-7" />
+                </svg>Previous Article</a>
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      </div>
+      <div 
+        data-h2-text-align="b(center) m(right)"   
+        data-h2-flex-item="b(1of2)">
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            
+              <a class="next" href="/en/2000/01/01/416-tracking.html" title="Go to the next article in the series.">Next Article<svg data-h2-margin="b(left, xxs)" 
+                style="width: 1rem; vertical-align: middle;" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="#c90035">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M9 5l7 7-7 7" />
+                </svg></a>
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      </div>
+    </div>
+    <p
+      data-h2-margin="b(top, xxl)" 
+      data-h2-text-align="b(center)"
+      data-h2-font-size="b(caption)">
+      <a href="/en/talent-cloud/report/#toc" title="Return to Table of Contents">Return to Table of Contents</a>
+    </p>
+  </div>
+</section>
+<section data-h2-border="b([light]gray, top, solid, s)" data-h2-position="b(relative)" style="background: rgba(240, 240, 240, 1)" data-h2-overflow="b(x, hidden)">
+  <footer data-h2-container="b(center, full)" data-h2-padding="b(top-bottom, l)">
+    <div data-h2-flex-grid="b(middle, expanded, flush, xl)">
+      <div
+        data-h2-flex-item="b(1of1) m(1of2)"
+        data-h2-padding="b(left, xl)"
+        data-h2-text-align="b(center) m(left)">
+        
+          <nav>
+            <ul
+              style="gap: 1rem;"
+              class="reset-ul"
+              data-h2-display="b(flex)"
+              data-h2-flex-wrap="b(wrap)"
+              data-h2-justify-content="b(center) m(flex-start)"
+              data-h2-margin="b(bottom, xs)">
+              
+              <li data-h2-display="b(inline-block)" data-h2-margin="b(top-bottom, none)">
+                
+                  <a href="mailto:talent.cloud-nuage.de.talents@tbs-sct.gc.ca" title="Submit feedback to GC Talent Cloud via email.">Feedback</a>
+                
+              </li>
+              
+              <li data-h2-display="b(inline-block)" data-h2-margin="b(top-bottom, none)">
+                
+                  <a href="/en/terms-and-conditions" title="View our terms and conditions.">Terms & Conditions</a>
+                
+              </li>
+              
+              <li data-h2-display="b(inline-block)" data-h2-margin="b(top-bottom, none)">
+                
+                  <a href="/en/privacy-notice" title="View our privacy policy.">Privacy Policy</a>
+                
+              </li>
+              
+              <li data-h2-display="b(inline-block)" data-h2-margin="b(top-bottom, none)">
+                
+                  <a href="/en/https://www.canada.ca/en.html" title="Visit Canada.ca.">Canada.ca</a>
+                
+              </li>
+              
+            </ul>
+          </nav>
+          <p 
+            data-h2-font-size="b(caption)"
+            data-h2-font-color="b(black)" 
+            data-h2-margin="b(bottom, none) b(top, m)">
+            Date Modified: July 07, 2021
+          </p>
+        
+      </div>
+      <div
+        data-h2-flex-item="b(1of1) m(1of2)"
+        data-h2-padding="b(right, xl)"
+        data-h2-text-align="b(center) m(right)">
+        <a
+          href="https://www.canada.ca/en.html"
+          title="Visit Canada.ca."
+          target="_blank"
+          rel="noopener noreferrer">
+          <img
+            class="canada-logo"
+            src="/assets/img/ui-canada.png"
+            alt="Canada's Logo."/>
+        </a>
+      </div>
+    </div>
+  </footer>
+</section>
+
+    <script type="text/javascript" src="/assets/js/app.js"></script>
+  </body>
+</html>

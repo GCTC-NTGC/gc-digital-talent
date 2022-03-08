@@ -1,0 +1,46 @@
+name: Jest Tests
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - .github/workflows/*jest*.yml
+      - frontend/**
+  pull_request:
+    paths:
+      - .github/workflows/*jest*.yml
+      - frontend/**
+
+jobs:
+  build:
+    name: Unit tests
+    runs-on: ubuntu-latest
+    env:
+      NPM_VERSION: "8.3.0"
+
+    steps:
+      - uses: actions/checkout@v2.4.0
+      - name: Use Node.js
+        uses: actions/setup-node@v2.5.1
+        with:
+          node-version-file: 'frontend/.nvmrc'
+          cache: 'npm'
+          cache-dependency-path: 'frontend/package-lock.json'
+
+      - name: Upgrade npm
+        run: npm install --global npm@${{ env.NPM_VERSION }}
+
+      - name: "Install dependencies: workspace"
+        working-directory: frontend
+        run: npm install
+
+
+      - name: "Setup: all workspaces"
+        working-directory: frontend
+        run: |
+          npm run codegen --workspaces --if-present
+          npm run intl-compile --workspaces --if-present
+
+      - name: "Run Unit Tests: all workspaces"
+        working-directory: frontend
+        run: npm run test --workspaces --if-present

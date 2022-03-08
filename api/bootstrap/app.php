@@ -66,6 +66,7 @@ $app->configure('lighthouse');
 $app->configure('oauth');
 $app->configure('filesystems');
 $app->configure('view');
+$app->configure('logging');
 
 
 /*
@@ -102,7 +103,7 @@ $app->middleware([
 |
 */
 
-// $app->register(App\Providers\AppServiceProvider::class);
+$app->register(App\Providers\AppServiceProvider::class);
 $app->register(App\Providers\AuthServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
 $app->register(\Nuwave\Lighthouse\LighthouseServiceProvider::class);

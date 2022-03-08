@@ -10,14 +10,14 @@ import {
   useTalentSearchRoutes,
   TalentSearchRoutes,
 } from "../talentSearchRoutes";
-import HomePage from "./HomePage";
 import RequestPage from "./request/RequestPage";
 
 const routes = (paths: TalentSearchRoutes): Routes<RouterResult> => [
   {
     path: paths.home(),
     action: () => ({
-      component: <HomePage />,
+      component: <div />,
+      redirect: paths.search(),
     }),
   },
   {
@@ -39,14 +39,6 @@ export const Router: React.FC = () => {
   const paths = useTalentSearchRoutes();
 
   const menuItems = [
-    <MenuLink
-      key="home"
-      href={paths.home()}
-      text={intl.formatMessage({
-        defaultMessage: "Home",
-        description: "Label displayed on the Home menu item.",
-      })}
-    />,
     <MenuLink
       key="search"
       href={paths.search()}

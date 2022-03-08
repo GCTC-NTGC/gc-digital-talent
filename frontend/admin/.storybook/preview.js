@@ -10,6 +10,11 @@ import "../../talentsearch/resources/css/app.css";
 
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
+  backgrounds: {
+    // Set default to "light gray" rather that default "white", to better catch
+    // components with transparent backgrounds.
+    default: 'light',
+  },
   controls: {
     matchers: {
       color: /(background|color)$/i,

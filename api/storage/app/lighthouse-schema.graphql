@@ -1,3 +1,47 @@
+type Applicant {
+  id: ID!
+  email: Email!
+  firstName: String
+  lastName: String
+  telephone: PhoneNumber
+  preferredLang: Language
+  experiences: [Experience]
+  awardExperiences: [AwardExperience]
+  communityExperiences: [CommunityExperience]
+  educationExperiences: [EducationExperience]
+  personalExperiences: [PersonalExperience]
+  workExperiences: [WorkExperience]
+}
+
+type AwardExperience implements Experience {
+  id: ID!
+  applicant: Applicant!
+  title: String
+  issuedBy: String
+  awardedDate: Date
+  awardedTo: AwardedTo
+  awardedScope: AwardedScope
+  details: String
+  experienceSkills: [ExperienceSkill]
+}
+
+enum AwardedScope {
+  INTERNATIONAL
+  NATIONAL
+  PROVINCIAL
+  LOCAL
+  COMMUNITY
+  ORGANIZATIONAL
+  SUB_ORGANIZATIONAL
+}
+
+enum AwardedTo {
+  ME
+  MY_TEAM
+  MY_PROJECT
+  MY_ORGANIZATION
+}
+
 type Classification {
   id: ID!
   name: LocalizedString
@@ -28,6 +72,18 @@ type CmoAsset {
 
 input CmoAssetBelongsToMany {
   sync: [ID!]
+}
+
+type CommunityExperience implements Experience {
+  id: ID!
+  applicant: Applicant!
+  title: String
+  organization: String
+  project: String
+  startDate: Date
+  endDate: Date
+  details: String
+  experienceSkills: [ExperienceSkill]
 }
 
 input CreateClassificationInput {
@@ -121,7 +177,7 @@ input CreateSkillInput {
   name: LocalizedStringInput!
   description: LocalizedStringInput
   families: SkillFamilyBelongsToMany
-  keywords: [String]
+  keywords: [String!]
 }
 
 """When creating a User, name and email are required."""
@@ -153,8 +209,55 @@ input DepartmentBelongsTo {
   connect: ID!
 }
 
+type EducationExperience implements Experience {
+  id: ID!
+  applicant: Applicant!
+  institution: String
+  areaOfStudy: String
+  thesisTitle: String
+  startDate: Date
+  endDate: Date
+  type: EducationType
+  status: EducationStatus
+  details: String
+  experienceSkills: [ExperienceSkill]
+}
+
+enum EducationStatus {
+  SUCCESS_CREDENTIAL
+  SUCCESS_NO_CREDENTIAL
+  IN_PROGRESS
+  AUDITED
+  DID_NOT_COMPLETE
+}
+
+enum EducationType {
+  DIPLOMA
+  BACHELORS_DEGREE
+  MASTERS_DEGREE
+  PHD
+  POST_DOCTORAL_FELLOWSHIP
+  ONLINE_COURSE
+  CERTIFICATION
+  OTHER
+}
+
 """A RFC 5321 compliant email."""
 scalar Email
+
+interface Experience {
+  id: ID!
+  applicant: Applicant!
+  details: String
+  experienceSkills: [ExperienceSkill]
+}
+
+type ExperienceSkill {
+  id: ID!
+  details: String
+  skill: Skill!
+  experience: Experience!
+}
 
 input KeyFilterInput {
   key: KeyString!
@@ -324,6 +427,17 @@ type PaginatorInfo {
   total: Int!
 }
 
+type PersonalExperience implements Experience {
+  id: ID!
+  applicant: Applicant!
+  title: String
+  description: String
+  startDate: Date
+  endDate: Date
+  details: String
+  experienceSkills: [ExperienceSkill]
+}
+
 """
 A phone number string which must comply with E.164 international notation, including country code and preceding '+'.
 """
@@ -441,6 +555,8 @@ type Query {
   me: User
   user(id: ID!): User
   users: [User]!
+  applicant(id: ID!): Applicant
+  applicants: [Applicant]!
   pool(id: ID!): Pool
   poolByKey(key: String!): Pool
   pools: [Pool]!
@@ -464,6 +580,7 @@ type Query {
   skillFamilies: [SkillFamily]!
   skill(id: ID!): Skill
   skills: [Skill]!
+  experienceSkills: [ExperienceSkill]!
 }
 
 enum Role {
@@ -543,6 +660,9 @@ type SimplePaginatorInfo {
 
   """Number of items per page."""
   perPage: Int!
+
+  """Are there more pages after this one?"""
+  hasMorePages: Boolean!
 }
 
 type Skill {
@@ -550,8 +670,9 @@ type Skill {
   key: KeyString!
   name: LocalizedString!
   description: LocalizedString
-  keywords: [String]
-  families: [SkillFamily]
+  keywords: [String!]
+  families: [SkillFamily!]
+  experienceSkills: [ExperienceSkill]
 }
 
 input SkillBelongsToMany {
@@ -568,7 +689,7 @@ type SkillFamily {
   key: KeyString!
   name: LocalizedString!
   description: LocalizedString!
-  skills: [Skill]
+  skills: [Skill!]
   category: SkillCategory!
 }
 
@@ -672,7 +793,7 @@ input UpdateSkillInput {
   name: LocalizedStringInput!
   description: LocalizedStringInput
   families: SkillFamilyBelongsToMany
-  keywords: [String]
+  keywords: [String!]
 }
 
 """
@@ -699,6 +820,12 @@ type User {
   roles: [Role]
   pools: [Pool]
   poolCandidates: [PoolCandidate]
+  experiences: [Experience]
+  awardExperiences: [AwardExperience]
+  communityExperiences: [CommunityExperience]
+  educationExperiences: [EducationExperience]
+  personalExperiences: [PersonalExperience]
+  workExperiences: [WorkExperience]
 }
 
 input UserBelongsTo {
@@ -750,6 +877,18 @@ input WhereConditionsRelation {
 
   """Additional condition logic."""
   condition: WhereConditions
+}
+
+type WorkExperience implements Experience {
+  id: ID!
+  applicant: Applicant!
+  role: String
+  organization: String
+  division: String
+  startDate: Date
+  endDate: Date
+  details: String
+  experienceSkills: [ExperienceSkill]
 }
 
 enum WorkRegion {

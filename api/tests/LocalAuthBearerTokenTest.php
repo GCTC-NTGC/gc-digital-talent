@@ -2,6 +2,7 @@
 
 use App\Services\LocalAuthBearerTokenService;
 use App\Services\Contracts\BearerTokenServiceInterface;
+use Lcobucci\Clock\FrozenClock;
 
 class LocalAuthBearerTokenTest extends TestCase
 {
@@ -9,6 +10,10 @@ class LocalAuthBearerTokenTest extends TestCase
      * @var BearerTokenServiceInterface
      */
     protected $service_provider;
+
+    protected DateTimeImmutable $now;
+    protected DateInterval $allowableClockSkew;
+
 
     protected function setUp(): void
     {
@@ -18,9 +23,15 @@ class LocalAuthBearerTokenTest extends TestCase
         $publicKey = file_get_contents('tests/resources/key1-cert.pem');
         if(!$publicKey)
             throw new Exception('Failed to load public key from file');
-        $timeZone = 'UTC';
 
-        $this->service_provider = new LocalAuthBearerTokenService($issuer, $publicKey, $timeZone);
+        $this->now = new DateTimeImmutable('2020-01-01 00:02:00', new DateTimeZone('UTC'));
+        $this->allowableClockSkew = DateInterval::createFromDateString('4 minutes');
+        $this->service_provider = new LocalAuthBearerTokenService(
+            $issuer,
+            $publicKey,
+            new FrozenClock($this->now),
+            $this->allowableClockSkew
+        );
 
         parent::setUp();
 
@@ -135,5 +146,31 @@ class LocalAuthBearerTokenTest extends TestCase
          * }
          */
         $this->service_provider->validateAndGetClaims($token);
+    }
+        /**
+     * @test
+     * A token is provided but has expired within allowable clock skew and should be accepted.
+     */
+    public function testAcceptsExpiredTokenWithinAllowableSkew()
+    {
+        $token = 'eyJraWQiOiJrZXkxIiwidHlwIjoiSldUIiwiYWxnIjoiUlMyNTYifQ.eyJzdWIiOiIxMjM0NTY3ODkwIiwiaXNzIjoiaHR0cDovL3Rlc3QuY29tIiwiZXhwIjoxNTc3ODM2ODYwLCJpYXQiOjB9.zI4EHjfWyZP3G8DFRAMJXF9mZrA65RizQMrnQGVuKFYm0cwMusBToaH5k4feB0b2WPfBkl3-gHOJ5qKoNcR50RI_t5LEZbBVZrGhCDfpCDVlO5ZnwABhQo48NUi2ZbMb1ZoDTa_802hifvpjhOtEE0V9_zCsDZ1pcA9G4rsqEv5T3N35JV_xwgD_PqToZrxCMNuJOG5k8suoIKazzN5eJm3adKi7UsOqh-DJTni7-z88A95UycS0ONw5APFYU-IE3kL5UL1K6OwvXEgpD0md06qB3GUmkkjXeGumDefokT8RouAIbX8p37cfvxeuctJ1WtKZJ3IrJx0E4y-15JCLaPQ3tmv4XQ7lfHf9Yblith7Sw4T4upO7wtynogg2Y_Oget7zLksvaza77SRkXLf8Si3lGJ9ydqSlkLKqo8aX5nQJAkUnRY72eIz5jEEdBBrkpTQdQRG4g2-R9xXd9rGCscdAt2S3COJEFhO2FrgwUiD0piHah-PlMVN5fw3wr2ISN9OYfd5_e15UxLgo0Qw99_mKaakXBf20umTkk2TGi8YmMZLvbOS6yI7eS1wo3rFPzdTOPT7WoW6iPl_kW0FdGZYQQb1GxI2RrjFl6Ud4axKqJbtv1dV9ml1Z9PPawBcIP2B702uLwc9RZrX8b3S3Cnq72-7iCWJVvET9IQr1ess';
+        /** analyze token at https://jwt.io/
+        {
+        "kid": "key1",
+        "typ": "JWT",
+        "alg": "RS256"
+        }
+        {
+        "sub": "1234567890",
+        "iss": "http://test.com",
+        "exp": 1577836860, //2020-01-01 00:01:00
+        "iat": 0
+        }
+         */
+        $claims = $this->service_provider->validateAndGetClaims($token);  // will throw an exception for rejected tokens
+
+        // checks that the test was properly set up
+        $this->assertTrue($this->now > $claims->get('exp'), 'test value for now was not after strict expiry date');
+        $this->assertTrue($this->now < $claims->get('exp')->add($this->allowableClockSkew), 'test value for now was not within the expiry date plus allowed skew');
     }
 }

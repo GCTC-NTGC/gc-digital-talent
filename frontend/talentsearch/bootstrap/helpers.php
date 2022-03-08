@@ -79,6 +79,11 @@ if (!function_exists('asset')) {
      * @return string
      */
     function asset($path, $secured = false) {
+        $assetRoot = config('app.asset_url');
+        if ($assetRoot) {
+            return urlGenerator()->assetFrom(config('app.asset_url'), $path, $secured);
+        }
         return urlGenerator()->asset($path, $secured);
+
     }
 }

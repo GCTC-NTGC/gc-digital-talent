@@ -23,20 +23,23 @@ DirectorySlash off
     RewriteRule ^admin(/(.*))?$ frontend/admin/public/$2 [L]
 
     # Send localized admin requests also to admin public folder;
-    RewriteRule ^(en|fr)/admin(/(.*))?$ admin/public/$3 [L]
+    RewriteRule ^(en|fr)/admin(/(.*))?$ frontend/admin/public/$3 [L]
 
     # Send auth-callback request to admin
     RewriteRule ^auth-callback$ frontend/admin/public/auth-callback [L]
 
-    # Send /public requests to talentsearch public folder
-    RewriteRule ^public/(.*)$ frontend/talentsearch/public/$1 [L]
+    # Send talent requests to talentsearch public folder (with or without public/ path prefix).
+    RewriteRule ^talent/public(/(.*))?$ frontend/talentsearch/public/$2 [L]
+    RewriteRule ^talent(/(.*))?$ frontend/talentsearch/public/$2 [L]
+
+    # Send localized talent requests also to talentsearch public folder;
+    RewriteRule ^(en|fr)/talent(/(.*))?$ frontend/talentsearch/public/$3 [L]
 
     # PHP Info page for debugging
     RewriteRule ^phpinfo.php$ phpinfo.php [L]
 
-    # Send all other requests to talentsearch
-    RewriteCond %{REQUEST_URI} !^frontend/talentsearch/public/
-    RewriteRule ^(.*)$ frontend/talentsearch/public/$1 [L]
+    # Send all other requests to /tc-report
+    RewriteRule ^(.*)/?$ tc-report/$1 [L]
 </IfModule>
 
 #<IfModule mod_headers.c>

@@ -30,6 +30,7 @@ services:
       - ../api:/var/www/html/api
       - ../auth:/var/www/html/auth
       - ../frontend:/var/www/html/frontend
+      - ../tc-report:/var/www/html/tc-report
     ports:
       - 8000:80
       - 8001:443
@@ -46,6 +47,7 @@ services:
       - ../api:/var/www/html/api
       - ../auth:/var/www/html/auth
       - ../frontend:/var/www/html/frontend
+      - ../tc-report:/var/www/html/tc-report
 
   # This container is an alternative approach to builds, more closely following
   # docker conventions. For now, it will only be used for performing CI tasks.

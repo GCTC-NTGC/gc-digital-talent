@@ -1,0 +1,10 @@
+DirectorySlash off
+
+<IfModule mod_rewrite.c>
+  RewriteEngine on
+
+  # Send directory requests to index.html
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteRule ^(.+)/?$ $1/index.html [L]
+</IfModule>

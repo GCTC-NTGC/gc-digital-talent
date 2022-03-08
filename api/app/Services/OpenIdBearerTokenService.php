@@ -1,11 +1,13 @@
 <?php
 namespace App\Services;
 
-use DateTimeZone;
 use Exception;
 use App\Services\Contracts\BearerTokenServiceInterface;
+use DateInterval;
 use Illuminate\Support\Facades\Cache;
-use Lcobucci\Clock\SystemClock;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Validation\UnauthorizedException;
+use Lcobucci\Clock\Clock;
 use Lcobucci\JWT\Configuration;
 use Lcobucci\JWT\Signer;
 use Lcobucci\JWT\UnencryptedToken;
@@ -19,14 +21,16 @@ use Lcobucci\JWT\Validation\Constraint\SignedWith;
 class OpenIdBearerTokenService implements BearerTokenServiceInterface
 {
     private Configuration $unsecuredConfig;
-    private SystemClock $clock;
+    private Clock $clock;
     private string $configUri;
+    private DateInterval $allowableClockSkew;
 
-    public function __construct(string $timeZone, string $configUri)
+    public function __construct(string $configUri, Clock $clock, DateInterval $allowableClockSkew)
     {
         $this->unsecuredConfig = Configuration::forUnsecuredSigner(); // need a config to parse the token and get the key id
-        $this->clock = new SystemClock(new DateTimeZone($timeZone));
+        $this->clock = $clock;
         $this->configUri = $configUri;
+        $this->allowableClockSkew = $allowableClockSkew;
     }
 
     // parse the jwks json document and build a dictionary of key id to configuration object
@@ -82,7 +86,7 @@ class OpenIdBearerTokenService implements BearerTokenServiceInterface
     private function getConfigProperty(string $propertyName): string
     {
         $jsonString = Cache::remember('openid_config_json_string', 60, function() { // only get content every minute
-            return file_get_contents($this->configUri);
+            return Http::get($this->configUri)->body();
         });
 
         $obj = json_decode($jsonString);;
@@ -101,7 +105,7 @@ class OpenIdBearerTokenService implements BearerTokenServiceInterface
         $jwks_uri = $this->getConfigProperty('jwks_uri');
         $jsonString = Cache::remember('jwks_json_string', 60, function() use($jwks_uri) // only get jwks content every minute
         {
-            return file_get_contents($jwks_uri);
+            return Http::get($jwks_uri)->body();
         });
 
         $keyDictionary = $this->parseJwksJsonString($jsonString);
@@ -109,6 +113,33 @@ class OpenIdBearerTokenService implements BearerTokenServiceInterface
         return $keyDictionary[$keyId];
     }
 
+    // call the introspection endpoint to check if the OP considers the access token still valid
+    public function verifyJwtWithIntrospection(string $accessToken)
+    {
+        $cacheKey = 'introspection_token_' . $accessToken;
+
+        if (Cache::has($cacheKey)) {
+            // use cached access token status if available
+            $isTokenActive = Cache::get($cacheKey);
+        } else {
+            // make api call to introspect endpoint
+            $introspectionUri = $this->getConfigProperty('introspection_endpoint');
+            $introspectionResponse = Http::asForm()
+                ->withToken($accessToken)
+                ->post($introspectionUri, [
+                    'token' => $accessToken,
+                ]);
+
+            $isTokenActive = boolval($introspectionResponse->json('active'));
+            if($isTokenActive) {
+                Cache::put($cacheKey, $isTokenActive, 3); // cache for a few seconds in case of multiple API calls for a page load
+            }
+        }
+
+        if (!$isTokenActive) {
+            throw new UnauthorizedException('Access token is not active', 401);
+        }
+    }
 
     public function validateAndGetClaims(string $bearerToken) : DataSet
     {
@@ -123,12 +154,14 @@ class OpenIdBearerTokenService implements BearerTokenServiceInterface
         $config->setValidationConstraints(
             new IssuedBy($this->getConfigProperty('issuer')),
             new RelatedTo($token->claims()->get('sub')),
-            new LooseValidAt($this->clock),
+            new LooseValidAt($this->clock, $this->allowableClockSkew),
             new SignedWith($config->signer(), $config->verificationKey()),
         );
         $constraints = $config->validationConstraints();
 
         $config->validator()->assert($token, ...$constraints);
+
+        $this->verifyJwtWithIntrospection($bearerToken);
 
         return $token->claims();
     }
