@@ -52,7 +52,6 @@ function Table<T extends Record<string, unknown>>({
     getTableProps,
     getTableBodyProps,
     headerGroups,
-    rows,
     prepareRow,
     setGlobalFilter,
     state,
@@ -290,7 +289,7 @@ function Table<T extends Record<string, unknown>>({
             setPageSize(Number(e.target.value));
           }}
         >
-          {[5, 10, 15, 20, 25, 30].map((numOfRows) => (
+          {[10, 20, 30, 40, 50].map((numOfRows) => (
             <option key={numOfRows} value={numOfRows}>
               {intl.formatMessage(
                 {
