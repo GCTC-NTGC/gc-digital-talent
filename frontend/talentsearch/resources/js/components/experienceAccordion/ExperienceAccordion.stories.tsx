@@ -29,6 +29,8 @@ AccordionAwardExample.args = {
     awardedTo: "Me",
     awardedScope: "National",
     experienceSkills: [{ name: "Skill 1", description: "Text and more text" }],
+    details:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
   },
 };
 
@@ -83,6 +85,8 @@ AccordionWorkExample.args = {
     organization: "Bank",
     division: "Team Alpha",
     experienceSkills: [{ name: "Skill 1", description: "Text and more text" }],
+    details:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
   },
 };
 

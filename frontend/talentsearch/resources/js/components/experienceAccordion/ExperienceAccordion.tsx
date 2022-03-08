@@ -24,6 +24,7 @@ export interface AccordionProps {
     institution?: string;
     startDate?: string;
     endDate?: string;
+    details?: string;
     // opened accordion info
     // awards
     awardedTo?: string;
@@ -58,6 +59,7 @@ const ExperienceAccordion: React.FunctionComponent<AccordionProps> = ({
     institution,
     startDate,
     endDate,
+    details,
     awardedTo,
     awardedScope,
     project,
@@ -107,6 +109,9 @@ const ExperienceAccordion: React.FunctionComponent<AccordionProps> = ({
         </div>
         <div data-h2-padding="b(left, l)">{skillsList}</div>
         <div data-h2-padding="b(left, l)">
+          <p>{`Additional information: ${details || "None"}`}</p>
+        </div>
+        <div data-h2-padding="b(left, l)">
           <Button color="primary" mode="outline">
             Edit Experience
           </Button>
@@ -150,6 +155,9 @@ const ExperienceAccordion: React.FunctionComponent<AccordionProps> = ({
           <hr data-h2-margin="b(top, none) b(bottom, m, b(left, l))" />
         </div>
         <div data-h2-padding="b(left, l)">{skillsList}</div>
+        <div data-h2-padding="b(left, l)">
+          <p>{`Additional information: ${details || "None"}`}</p>
+        </div>
         <div data-h2-padding="b(left, l)">
           <Button color="primary" mode="outline">
             Edit Experience
@@ -197,6 +205,9 @@ const ExperienceAccordion: React.FunctionComponent<AccordionProps> = ({
         </div>
         <div data-h2-padding="b(left, l)">{skillsList}</div>
         <div data-h2-padding="b(left, l)">
+          <p>{`Additional information: ${details || "None"}`}</p>
+        </div>
+        <div data-h2-padding="b(left, l)">
           <Button color="primary" mode="outline">
             Edit Experience
           </Button>
@@ -236,6 +247,9 @@ const ExperienceAccordion: React.FunctionComponent<AccordionProps> = ({
           <hr data-h2-margin="b(top, none) b(bottom, m, b(left, l))" />
         </div>
         <div data-h2-padding="b(left, l)">{skillsList}</div>
+        <div data-h2-padding="b(left, l)">
+          <p>{`Additional information: ${details || "None"}`}</p>
+        </div>
         <div data-h2-padding="b(left, l)">
           <Button color="primary" mode="outline">
             Edit Experience
@@ -279,6 +293,9 @@ const ExperienceAccordion: React.FunctionComponent<AccordionProps> = ({
           <hr data-h2-margin="b(top, none) b(bottom, m, b(left, l))" />
         </div>
         <div data-h2-padding="b(left, l)">{skillsList}</div>
+        <div data-h2-padding="b(left, l)">
+          <p>{`Additional information: ${details || "None"}`}</p>
+        </div>
         <div data-h2-padding="b(left, l)">
           <Button color="primary" mode="outline">
             Edit Experience
