@@ -77,8 +77,11 @@ const ExperienceAccordion: React.FunctionComponent<AccordionProps> = ({
       // eslint-disable-next-line react/no-array-index-key
       <ul key={index}>
         <li>
-          <p>{skill.name}</p>
-          <p>{skill.description}</p>
+          <p>
+            {skill.name}
+            <br />
+            {skill.description}
+          </p>
         </li>
       </ul>
     ));
@@ -94,7 +97,7 @@ const ExperienceAccordion: React.FunctionComponent<AccordionProps> = ({
         }
         Icon={BriefCaseIcon}
       >
-        <div>
+        <div data-h2-padding="b(left, l)">
           <p>
             {title} issued by {issuedBy}
           </p>
@@ -102,8 +105,8 @@ const ExperienceAccordion: React.FunctionComponent<AccordionProps> = ({
           <p>Scope: {awardedScope}</p>
           <p>-------------</p>
         </div>
-        <div>{skillsList}</div>
-        <div>
+        <div data-h2-padding="b(left, l)">{skillsList}</div>
+        <div data-h2-padding="b(left, l)">
           <Button color="primary" mode="outline">
             Edit Experience
           </Button>
@@ -115,8 +118,11 @@ const ExperienceAccordion: React.FunctionComponent<AccordionProps> = ({
       // eslint-disable-next-line react/no-array-index-key
       <ul key={index}>
         <li>
-          <p>{skill.name}</p>
-          <p>{skill.description}</p>
+          <p>
+            {skill.name}
+            <br />
+            {skill.description}
+          </p>
         </li>
       </ul>
     ));
@@ -136,15 +142,15 @@ const ExperienceAccordion: React.FunctionComponent<AccordionProps> = ({
         Icon={BriefCaseIcon}
       >
         {" "}
-        <div>
+        <div data-h2-padding="b(left, l)">
           <p>
             {role} at {organization}
           </p>
           <p>{project}</p>
           <p>-------------</p>
         </div>
-        <div>{skillsList}</div>
-        <div>
+        <div data-h2-padding="b(left, l)">{skillsList}</div>
+        <div data-h2-padding="b(left, l)">
           <Button color="primary" mode="outline">
             Edit Experience
           </Button>
@@ -156,8 +162,11 @@ const ExperienceAccordion: React.FunctionComponent<AccordionProps> = ({
       // eslint-disable-next-line react/no-array-index-key
       <ul key={index}>
         <li>
-          <p>{skill.name}</p>
-          <p>{skill.description}</p>
+          <p>
+            {skill.name}
+            <br />
+            {skill.description}
+          </p>
         </li>
       </ul>
     ));
@@ -176,7 +185,7 @@ const ExperienceAccordion: React.FunctionComponent<AccordionProps> = ({
         }
         Icon={BriefCaseIcon}
       >
-        <div>
+        <div data-h2-padding="b(left, l)">
           <p>
             {type} {status}
           </p>
@@ -186,8 +195,8 @@ const ExperienceAccordion: React.FunctionComponent<AccordionProps> = ({
           <p>{thesisTitle ? `Thesis: ${thesisTitle}` : ""}</p>
           <p>-------------</p>
         </div>
-        <div>{skillsList}</div>
-        <div>
+        <div data-h2-padding="b(left, l)">{skillsList}</div>
+        <div data-h2-padding="b(left, l)">
           <Button color="primary" mode="outline">
             Edit Experience
           </Button>
@@ -199,8 +208,11 @@ const ExperienceAccordion: React.FunctionComponent<AccordionProps> = ({
       // eslint-disable-next-line react/no-array-index-key
       <ul key={index}>
         <li>
-          <p>{skill.name}</p>
-          <p>{skill.description}</p>
+          <p>
+            {skill.name}
+            <br />
+            {skill.description}
+          </p>
         </li>
       </ul>
     ));
@@ -219,12 +231,12 @@ const ExperienceAccordion: React.FunctionComponent<AccordionProps> = ({
         }
         Icon={BriefCaseIcon}
       >
-        <div>
+        <div data-h2-padding="b(left, l)">
           <p>{description}</p>
           <p>-------------</p>
         </div>
-        <div>{skillsList}</div>
-        <div>
+        <div data-h2-padding="b(left, l)">{skillsList}</div>
+        <div data-h2-padding="b(left, l)">
           <Button color="primary" mode="outline">
             Edit Experience
           </Button>
@@ -236,8 +248,11 @@ const ExperienceAccordion: React.FunctionComponent<AccordionProps> = ({
       // eslint-disable-next-line react/no-array-index-key
       <ul key={index}>
         <li>
-          <p>{skill.name}</p>
-          <p>{skill.description}</p>
+          <p>
+            {skill.name}
+            <br />
+            {skill.description}
+          </p>
         </li>
       </ul>
     ));
@@ -256,15 +271,15 @@ const ExperienceAccordion: React.FunctionComponent<AccordionProps> = ({
         }
         Icon={BriefCaseIcon}
       >
-        <div>
+        <div data-h2-padding="b(left, l)">
           <p>
             {role} at {division}
           </p>
           <p>{organization}</p>
           <p>-------------</p>
         </div>
-        <div>{skillsList}</div>
-        <div>
+        <div data-h2-padding="b(left, l)">{skillsList}</div>
+        <div data-h2-padding="b(left, l)">
           <Button color="primary" mode="outline">
             Edit Experience
           </Button>
