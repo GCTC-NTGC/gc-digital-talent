@@ -12,6 +12,6 @@ nvm install --latest-npm
 npm install
 
 cd /var/www/html/frontend/common
-npm run h2-build
+npm run h2-build --workspace common
 npm run codegen
 npm run intl-compile
