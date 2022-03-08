@@ -2,7 +2,7 @@
   "debug": false,
   "mediaWarnings": false,
   "folders": {
-    "markup": "resources/views",
+    "markup": "../*/resources/views/*.blade.php",
     "scripts": ["../talentsearch/resources/js", "../admin/resources/js", "../common/src"],
     "styles": "src/css"
   },
