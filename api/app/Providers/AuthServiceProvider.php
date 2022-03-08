@@ -57,6 +57,7 @@ class AuthServiceProvider extends ServiceProvider
         Gate::policy(User::class, UserPolicy::class);
 
         $this->app['auth']->viaRequest('api', function ($request) use ($tokenService) {
+
             $bearerToken = $request->bearerToken(); // 1. extract JWT access token from request.
             if($bearerToken)
             {
