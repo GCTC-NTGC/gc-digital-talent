@@ -22,7 +22,9 @@
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
-        gtag('config', 'UA-115747902-1');
+        gtag('config', 'UA-115747902-1', {
+          cookie_flags: 'secure'
+        });
     </script>
   <!-- Favicons -->
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
@@ -43,7 +45,8 @@
   
   <!-- App CSS -->
   <link rel="stylesheet" href="/assets/css/app.css">
-</head><body><header class="site-header" role="banner">
+</head>
+<body><header class="site-header" role="banner">
 
   <div class="wrapper"><a class="site-title" rel="author" href="/">Talent Cloud</a><nav class="site-nav">
         <input type="checkbox" id="nav-trigger" class="nav-trigger" />
