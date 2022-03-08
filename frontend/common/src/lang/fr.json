@@ -86,10 +86,6 @@
     "defaultMessage": "S.O.",
     "description": "Text shown when the filter was not selected"
   },
-  "trzCtG": {
-    "defaultMessage": "La valeur doit être supérieure à {value}",
-    "description": "Error message that the provided value must be greater than some referenced minimum value."
-  },
   "vyQv+i": {
     "defaultMessage": "Erreur : Nom de la compétence introuvable",
     "description": "Error message when cmo asset name is not found on request page."
@@ -241,10 +237,6 @@
     "defaultMessage": "Baccalauréat ",
     "description": "Bachelors Degree selection for education type input"
   },
-  "DuKMNJ": {
-    "defaultMessage": "La date ne doit pas être antérieure {value}",
-    "description": "Error message that the date provided must follow and not precede some referenced date"
-  },
   "Fc/i3e": {
     "defaultMessage": "Modification de la date : {modifiedDate}",
     "description": "Header for the sites last date modification found in the footer."
@@ -362,5 +354,33 @@
   "zXHYAs": {
     "defaultMessage": "Mon projet",
     "description": "The award was given to my project."
+  },
+  "Bvr4b6": {
+    "defaultMessage": "Champs obligatoires",
+    "description": "Displayed next to required form inputs."
+  },
+  "WUC9pX": {
+    "defaultMessage": "facultatif",
+    "description": "Displayed next to optional form inputs."
+  },
+  "5gS1sZ": {
+    "defaultMessage": "La valeur doit être supérieure à {value}",
+    "description": "Error message that the provided value must be greater than some referenced minimum value."
+  },
+  "RkxqoB": {
+    "defaultMessage": "La date ne doit pas être antérieure {value}",
+    "description": "Error message that the date provided must follow and not precede some referenced date"
+  },
+  "YHqVoj": {
+    "defaultMessage": "Soumettre",
+    "description": "Default text for submit button."
+  },
+  "mDOWWQ": {
+    "defaultMessage": "Soumission",
+    "description": "Default text for submitting button."
+  },
+  "rGTGvl": {
+    "defaultMessage": "Soumis",
+    "description": "Default text for submitted button."
   }
 }
