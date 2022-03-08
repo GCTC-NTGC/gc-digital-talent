@@ -103,7 +103,7 @@ const ExperienceAccordion: React.FunctionComponent<AccordionProps> = ({
           </p>
           <p>Awarded to: {awardedTo}</p>
           <p>Scope: {awardedScope}</p>
-          <p>-------------</p>
+          <hr data-h2-margin="b(top, none) b(bottom, m, b(left, l))" />
         </div>
         <div data-h2-padding="b(left, l)">{skillsList}</div>
         <div data-h2-padding="b(left, l)">
@@ -147,7 +147,7 @@ const ExperienceAccordion: React.FunctionComponent<AccordionProps> = ({
             {role} at {organization}
           </p>
           <p>{project}</p>
-          <p>-------------</p>
+          <hr data-h2-margin="b(top, none) b(bottom, m, b(left, l))" />
         </div>
         <div data-h2-padding="b(left, l)">{skillsList}</div>
         <div data-h2-padding="b(left, l)">
@@ -193,7 +193,7 @@ const ExperienceAccordion: React.FunctionComponent<AccordionProps> = ({
             {areaStudy} at {institution}
           </p>
           <p>{thesisTitle ? `Thesis: ${thesisTitle}` : ""}</p>
-          <p>-------------</p>
+          <hr data-h2-margin="b(top, none) b(bottom, m, b(left, l))" />
         </div>
         <div data-h2-padding="b(left, l)">{skillsList}</div>
         <div data-h2-padding="b(left, l)">
@@ -233,7 +233,7 @@ const ExperienceAccordion: React.FunctionComponent<AccordionProps> = ({
       >
         <div data-h2-padding="b(left, l)">
           <p>{description}</p>
-          <p>-------------</p>
+          <hr data-h2-margin="b(top, none) b(bottom, m, b(left, l))" />
         </div>
         <div data-h2-padding="b(left, l)">{skillsList}</div>
         <div data-h2-padding="b(left, l)">
@@ -276,7 +276,7 @@ const ExperienceAccordion: React.FunctionComponent<AccordionProps> = ({
             {role} at {division}
           </p>
           <p>{organization}</p>
-          <p>-------------</p>
+          <hr data-h2-margin="b(top, none) b(bottom, m, b(left, l))" />
         </div>
         <div data-h2-padding="b(left, l)">{skillsList}</div>
         <div data-h2-padding="b(left, l)">
