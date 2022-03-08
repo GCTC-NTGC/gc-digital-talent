@@ -2,29 +2,95 @@
 
 namespace App\Providers;
 
-use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use App\Models\Classification;
+use App\Models\CmoAsset;
+use App\Models\Department;
+use App\Models\OperationalRequirement;
+use App\Models\PoolCandidate;
+use App\Models\Pool;
+use App\Models\User;
+
+use App\Policies\ClassificationPolicy;
+use App\Policies\CmoAssetPolicy;
+use App\Policies\DepartmentPolicy;
+use App\Policies\OperationalRequirementPolicy;
+use App\Policies\PoolCandidatePolicy;
+use App\Policies\PoolPolicy;
+use App\Policies\UserPolicy;
+use App\Services\Contracts\BearerTokenServiceInterface;
+use Exception;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Log;
+use Lcobucci\JWT\Validation\RequiredConstraintsViolated;
 
 class AuthServiceProvider extends ServiceProvider
 {
     /**
-     * The policy mappings for the application.
-     *
-     * @var array<class-string, class-string>
-     */
-    protected $policies = [
-        // 'App\Models\Model' => 'App\Policies\ModelPolicy',
-    ];
-
-    /**
-     * Register any authentication / authorization services.
+     * Register any application services.
      *
      * @return void
      */
-    public function boot()
+    public function register()
     {
-        $this->registerPolicies();
-
         //
+    }
+
+    /**
+     * Boot the authentication services for the application.
+     *
+     * @return void
+     */
+    public function boot(BearerTokenServiceInterface $tokenService)
+    {
+        // Here you may define how you wish users to be authenticated for your Lumen
+        // application. The callback which receives the incoming request instance
+        // should return either a User instance or null. You're free to obtain
+        // the User instance via an API token or any other method necessary.
+
+        Gate::policy(Classification::class, ClassificationPolicy::class);
+        Gate::policy(CmoAsset::class, CmoAssetPolicy::class);
+        Gate::policy(Department::class, DepartmentPolicy::class);
+        Gate::policy(OperationalRequirement::class, OperationalRequirementPolicy::class);
+        Gate::policy(PoolCandidate::class, PoolCandidatePolicy::class);
+        Gate::policy(Pool::class, PoolPolicy::class);
+        Gate::policy(User::class, UserPolicy::class);
+
+        $this->app['auth']->viaRequest('api', function ($request) use ($tokenService) {
+            $bearerToken = $request->bearerToken(); // 1. extract JWT access token from request.
+            if($bearerToken)
+            {
+                try {
+                    $claims = $tokenService->validateAndGetClaims($bearerToken);  // 2. validate access token.
+                    $sub = $claims->get('sub');
+                } catch (RequiredConstraintsViolated $e) {
+                    $violations = [];
+                    foreach ($e->violations() as $violationError) {
+                        array_push($violations, $violationError->getMessage());
+                    }
+                    Log::notice('Authorization token not valid: ', $violations);
+                    return abort(401, 'Authorization token not valid.');
+                } catch (Exception $e) {
+                    Log::notice('Error while validating authorization token: ' . $e->getMessage());
+                    return abort(401, 'Error while validating authorization token.');
+                }
+
+                $userMatch = User::where('sub', $sub)->first(); // 3. match "sub" claim to user 'sub' field.
+                if($userMatch) {
+                    return $userMatch;
+                } else {
+                    Log::notice('No user found for given subscriber: '.$sub);
+                    return null;
+                }
+            }
+
+            // If a default user is set, and there is no bearer token, treat the request as if it were from the default user.
+            if (config('oauth.default_user')) {
+                $user = User::where('email', config('oauth.default_user'))->first();
+                if ($user) {
+                    return $user;
+                }
+            }
+        });
     }
 }

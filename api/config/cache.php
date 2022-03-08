@@ -54,6 +54,12 @@ return [
             'path' => storage_path('framework/cache/data'),
         ],
 
+        // A somewhat hacky solution to enable deploying the app in a read-only directory
+        'tmp' => [
+            'driver' => 'file',
+            'path' => '/tmp/api/storage/framework/cache/data',
+        ],
+
         'memcached' => [
             'driver' => 'memcached',
             'persistent_id' => env('MEMCACHED_PERSISTENT_ID'),
