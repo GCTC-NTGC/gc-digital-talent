@@ -1,12 +1,14 @@
 import React from "react";
 import { Accordion } from "@common/components/accordion/Accordion";
 import BriefCaseIcon from "@heroicons/react/solid/BriefcaseIcon";
+import { Button } from "@common/components";
 import {
   AwardExperience,
   CommunityExperience,
   EducationExperience,
   PersonalExperience,
   WorkExperience,
+  Skill,
 } from "../../api/generated";
 
 export interface AccordionProps {
@@ -37,7 +39,7 @@ export interface AccordionProps {
     // work
     division?: string;
     // linked skills
-    experienceSkills?: [];
+    experienceSkills: { name: string; description: string }[];
   };
 }
 
@@ -64,16 +66,32 @@ const ExperienceAccordion: React.FunctionComponent<AccordionProps> = ({
     thesisTitle,
     description,
     division,
+    experienceSkills,
   } = anExperience;
 
   // experience type is required with 5 possibilities, build different accordion around which type it is
   let experienceInstance;
   if (experienceType === "AwardExperience") {
+    // create unordered list element of skills DOM Element
+    const skillsList = experienceSkills.map((skill, index) => (
+      // eslint-disable-next-line react/no-array-index-key
+      <ul key={index}>
+        <li>
+          <p>{skill.name}</p>
+          <p>{skill.description}</p>
+        </li>
+      </ul>
+    ));
+    // create the main accordion DOM Element with appropriate formatting
     experienceInstance = (
       <Accordion
         title={`${title || ""} - ${issuedBy || ""}`}
         subtitle={`Since: ${awardedDate || ""}`}
-        context="skills count"
+        context={
+          experienceSkills?.length === 1
+            ? `1 Skill`
+            : `${experienceSkills?.length} Skills`
+        }
         Icon={BriefCaseIcon}
       >
         <div>
@@ -82,10 +100,26 @@ const ExperienceAccordion: React.FunctionComponent<AccordionProps> = ({
           </p>
           <p>Awarded to: {awardedTo}</p>
           <p>Scope: {awardedScope}</p>
+          <p>-------------</p>
+        </div>
+        <div>{skillsList}</div>
+        <div>
+          <Button color="primary" mode="outline">
+            Edit Experience
+          </Button>
         </div>
       </Accordion>
     );
   } else if (experienceType === "CommunityExperience") {
+    const skillsList = experienceSkills.map((skill, index) => (
+      // eslint-disable-next-line react/no-array-index-key
+      <ul key={index}>
+        <li>
+          <p>{skill.name}</p>
+          <p>{skill.description}</p>
+        </li>
+      </ul>
+    ));
     experienceInstance = (
       <Accordion
         title={`${role || ""} at ${organization || ""}`}
@@ -94,7 +128,11 @@ const ExperienceAccordion: React.FunctionComponent<AccordionProps> = ({
             ? `${startDate || ""} - ${endDate || ""}`
             : `Since: ${startDate || ""}`
         }
-        context="skills count"
+        context={
+          experienceSkills?.length === 1
+            ? `1 Skill`
+            : `${experienceSkills?.length} Skills`
+        }
         Icon={BriefCaseIcon}
       >
         {" "}
@@ -103,10 +141,26 @@ const ExperienceAccordion: React.FunctionComponent<AccordionProps> = ({
             {role} at {organization}
           </p>
           <p>{project}</p>
+          <p>-------------</p>
+        </div>
+        <div>{skillsList}</div>
+        <div>
+          <Button color="primary" mode="outline">
+            Edit Experience
+          </Button>
         </div>
       </Accordion>
     );
   } else if (experienceType === "EducationExperience") {
+    const skillsList = experienceSkills.map((skill, index) => (
+      // eslint-disable-next-line react/no-array-index-key
+      <ul key={index}>
+        <li>
+          <p>{skill.name}</p>
+          <p>{skill.description}</p>
+        </li>
+      </ul>
+    ));
     experienceInstance = (
       <Accordion
         title={`${areaStudy || ""} at ${institution || ""}`}
@@ -115,7 +169,11 @@ const ExperienceAccordion: React.FunctionComponent<AccordionProps> = ({
             ? `${startDate || ""} - ${endDate || ""}`
             : `Since: ${startDate || ""}`
         }
-        context="skills count"
+        context={
+          experienceSkills?.length === 1
+            ? `1 Skill`
+            : `${experienceSkills?.length} Skills`
+        }
         Icon={BriefCaseIcon}
       >
         <div>
@@ -126,10 +184,26 @@ const ExperienceAccordion: React.FunctionComponent<AccordionProps> = ({
             {areaStudy} at {institution}
           </p>
           <p>{thesisTitle ? `Thesis: ${thesisTitle}` : ""}</p>
+          <p>-------------</p>
+        </div>
+        <div>{skillsList}</div>
+        <div>
+          <Button color="primary" mode="outline">
+            Edit Experience
+          </Button>
         </div>
       </Accordion>
     );
   } else if (experienceType === "PersonalExperience") {
+    const skillsList = experienceSkills.map((skill, index) => (
+      // eslint-disable-next-line react/no-array-index-key
+      <ul key={index}>
+        <li>
+          <p>{skill.name}</p>
+          <p>{skill.description}</p>
+        </li>
+      </ul>
+    ));
     experienceInstance = (
       <Accordion
         title={title || ""}
@@ -138,16 +212,35 @@ const ExperienceAccordion: React.FunctionComponent<AccordionProps> = ({
             ? `${startDate || ""} - ${endDate || ""}`
             : `Since: ${startDate || ""}`
         }
-        context="skills count"
+        context={
+          experienceSkills?.length === 1
+            ? `1 Skill`
+            : `${experienceSkills?.length} Skills`
+        }
         Icon={BriefCaseIcon}
       >
         <div>
           <p>{description}</p>
+          <p>-------------</p>
+        </div>
+        <div>{skillsList}</div>
+        <div>
+          <Button color="primary" mode="outline">
+            Edit Experience
+          </Button>
         </div>
       </Accordion>
     );
-  } else {
-    // work experience only one left
+  } else if (experienceType === "WorkExperience") {
+    const skillsList = experienceSkills.map((skill, index) => (
+      // eslint-disable-next-line react/no-array-index-key
+      <ul key={index}>
+        <li>
+          <p>{skill.name}</p>
+          <p>{skill.description}</p>
+        </li>
+      </ul>
+    ));
     experienceInstance = (
       <Accordion
         title={`${role || ""} at ${organization || ""}`}
@@ -156,7 +249,11 @@ const ExperienceAccordion: React.FunctionComponent<AccordionProps> = ({
             ? `${startDate || ""} - ${endDate || ""}`
             : `Since: ${startDate || ""}`
         }
-        context="skills count"
+        context={
+          experienceSkills?.length === 1
+            ? `1 Skill`
+            : `${experienceSkills?.length} Skills`
+        }
         Icon={BriefCaseIcon}
       >
         <div>
@@ -164,8 +261,20 @@ const ExperienceAccordion: React.FunctionComponent<AccordionProps> = ({
             {role} at {division}
           </p>
           <p>{organization}</p>
+          <p>-------------</p>
+        </div>
+        <div>{skillsList}</div>
+        <div>
+          <Button color="primary" mode="outline">
+            Edit Experience
+          </Button>
         </div>
       </Accordion>
+    );
+  } else {
+    // not one of the 5 experience types
+    experienceInstance = (
+      <Accordion title={`Unknown experience: ${experienceType}`} />
     );
   }
 

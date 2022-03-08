@@ -18,6 +18,7 @@ export const AccordionCommunityExample = AccordionTemplate.bind({});
 export const AccordionEducationExample = AccordionTemplate.bind({});
 export const AccordionPersonalExample = AccordionTemplate.bind({});
 export const AccordionWorkExample = AccordionTemplate.bind({});
+export const AccordionUnknownExample = AccordionTemplate.bind({});
 
 AccordionAwardExample.args = {
   anExperience: {
@@ -27,6 +28,7 @@ AccordionAwardExample.args = {
     issuedBy: "The Government",
     awardedTo: "Me",
     awardedScope: "National",
+    experienceSkills: [{ name: "Skill 1", description: "Text and more text" }],
   },
 };
 
@@ -38,6 +40,10 @@ AccordionCommunityExample.args = {
     organization: "The Organization",
     title: "title",
     project: "The Project",
+    experienceSkills: [
+      { name: "Skill 1 ", description: "Text and more text" },
+      { name: "Skill 2", description: "Text and more text" },
+    ],
   },
 };
 
@@ -49,6 +55,7 @@ AccordionEducationExample.args = {
     institution: "Greatest University",
     type: "Bachelor's",
     status: "In Progress",
+    experienceSkills: [{ name: "Skill 1", description: "Text and more text" }],
   },
 };
 
@@ -59,6 +66,11 @@ AccordionPersonalExample.args = {
     endDate: "October 2010",
     title: "Confidant",
     description: "blah blah blah",
+    experienceSkills: [
+      { name: "Skill 1", description: "Text and more text" },
+      { name: "Skill 2", description: "Text and more text" },
+      { name: "Skill 3", description: "Text and more text" },
+    ],
   },
 };
 
@@ -70,5 +82,13 @@ AccordionWorkExample.args = {
     role: "Manager",
     organization: "Bank",
     division: "Team Alpha",
+    experienceSkills: [{ name: "Skill 1", description: "Text and more text" }],
+  },
+};
+
+AccordionUnknownExample.args = {
+  anExperience: {
+    experienceType: "MusicalExperience",
+    experienceSkills: [{ name: "Skill 1", description: "Text and more text" }],
   },
 };
