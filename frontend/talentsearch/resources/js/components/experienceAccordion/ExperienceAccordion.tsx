@@ -20,7 +20,7 @@ export interface AccordionProps {
     issuedBy?: string;
     role?: string;
     organization?: string;
-    areaStudy?: string;
+    areaOfStudy?: string;
     institution?: string;
     startDate?: string;
     endDate?: string;
@@ -55,7 +55,7 @@ const ExperienceAccordion: React.FunctionComponent<AccordionProps> = ({
     issuedBy,
     role,
     organization,
-    areaStudy,
+    areaOfStudy,
     institution,
     startDate,
     endDate,
@@ -105,8 +105,8 @@ const ExperienceAccordion: React.FunctionComponent<AccordionProps> = ({
           </p>
           <p>Awarded to: {awardedTo}</p>
           <p>Scope: {awardedScope}</p>
-          <hr data-h2-margin="b(top, none) b(bottom, m, b(left, l))" />
         </div>
+        <hr />
         <div data-h2-padding="b(left, l)">{skillsList}</div>
         <div data-h2-padding="b(left, l)">
           <p>{`Additional information: ${details || "None"}`}</p>
@@ -152,8 +152,8 @@ const ExperienceAccordion: React.FunctionComponent<AccordionProps> = ({
             {role} at {organization}
           </p>
           <p>{project}</p>
-          <hr data-h2-margin="b(top, none) b(bottom, m, b(left, l))" />
         </div>
+        <hr />
         <div data-h2-padding="b(left, l)">{skillsList}</div>
         <div data-h2-padding="b(left, l)">
           <p>{`Additional information: ${details || "None"}`}</p>
@@ -180,7 +180,7 @@ const ExperienceAccordion: React.FunctionComponent<AccordionProps> = ({
     ));
     experienceInstance = (
       <Accordion
-        title={`${areaStudy || ""} at ${institution || ""}`}
+        title={`${areaOfStudy || ""} at ${institution || ""}`}
         subtitle={
           endDate
             ? `${startDate || ""} - ${endDate || ""}`
@@ -198,11 +198,11 @@ const ExperienceAccordion: React.FunctionComponent<AccordionProps> = ({
             {type} {status}
           </p>
           <p>
-            {areaStudy} at {institution}
+            {areaOfStudy} at {institution}
           </p>
           <p>{thesisTitle ? `Thesis: ${thesisTitle}` : ""}</p>
-          <hr data-h2-margin="b(top, none) b(bottom, m, b(left, l))" />
         </div>
+        <hr />
         <div data-h2-padding="b(left, l)">{skillsList}</div>
         <div data-h2-padding="b(left, l)">
           <p>{`Additional information: ${details || "None"}`}</p>
@@ -244,8 +244,8 @@ const ExperienceAccordion: React.FunctionComponent<AccordionProps> = ({
       >
         <div data-h2-padding="b(left, l)">
           <p>{description}</p>
-          <hr data-h2-margin="b(top, none) b(bottom, m, b(left, l))" />
         </div>
+        <hr />
         <div data-h2-padding="b(left, l)">{skillsList}</div>
         <div data-h2-padding="b(left, l)">
           <p>{`Additional information: ${details || "None"}`}</p>
@@ -290,8 +290,8 @@ const ExperienceAccordion: React.FunctionComponent<AccordionProps> = ({
             {role} at {division}
           </p>
           <p>{organization}</p>
-          <hr data-h2-margin="b(top, none) b(bottom, m, b(left, l))" />
         </div>
+        <hr />
         <div data-h2-padding="b(left, l)">{skillsList}</div>
         <div data-h2-padding="b(left, l)">
           <p>{`Additional information: ${details || "None"}`}</p>

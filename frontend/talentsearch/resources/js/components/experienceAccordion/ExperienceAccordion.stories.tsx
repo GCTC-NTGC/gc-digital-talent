@@ -4,24 +4,31 @@ import { action } from "@storybook/addon-actions";
 import fakeExperiences from "@common/fakeData/fakeExperiences";
 import ExperienceAccordion, { AccordionProps } from "./ExperienceAccordion";
 
-// faker generates an experience section and then pulls stuff out into variables to pass into something
+// faker generates an experience section based off an argument and then pulls stuff out into variables to pass into something
 const {
   __typename,
   experienceSkills,
   institution,
-  issuedBy,
   organization,
   description,
   title,
+  startDate,
+  endDate,
+  // awarded
   awardedTo,
   awardedScope,
-  areaStudy,
+  awardedDate,
+  issuedBy,
+  organization,
+  role,
+  project,
+  areaOfStudy,
   type,
+  status,
   division,
   // for some reason the above don't exist on AnExperience apparently as they are underlined?
   details,
-} = fakeExperiences();
-console.log(details);
+} = fakeExperiences("Education");
 
 export default {
   component: ExperienceAccordion,
@@ -74,7 +81,7 @@ AccordionEducationExample.args = {
   anExperience: {
     experienceType: "EducationExperience",
     startDate: "September 2010",
-    areaStudy: "Mathematics",
+    areaOfStudy: "Mathematics",
     institution: "Greatest University",
     type: "Bachelor's",
     status: "In Progress",
@@ -124,15 +131,21 @@ AccordionFaker.args = {
     experienceType: __typename,
     experienceSkills: [],
     institution,
-    issuedBy,
     organization,
     description,
+    startDate,
+    endDate,
     // details, // says that type null can't be assigned to this
     title,
     awardedTo,
     awardedScope,
-    areaStudy,
+    awardedDate,
+    issuedBy,
+    role,
+    project,
+    areaOfStudy,
     type,
+    status,
     division,
   },
 };
