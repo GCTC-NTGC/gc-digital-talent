@@ -1,7 +1,27 @@
 import React from "react";
 import { Story, Meta } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
+import fakeExperiences from "@common/fakeData/fakeExperiences";
 import ExperienceAccordion, { AccordionProps } from "./ExperienceAccordion";
+
+// faker generates an experience section and then pulls stuff out into variables to pass into something
+const {
+  __typename,
+  experienceSkills,
+  institution,
+  issuedBy,
+  organization,
+  description,
+  title,
+  awardedTo,
+  awardedScope,
+  areaStudy,
+  type,
+  division,
+  // for some reason the above don't exist on AnExperience apparently as they are underlined?
+  details,
+} = fakeExperiences();
+console.log(details);
 
 export default {
   component: ExperienceAccordion,
@@ -19,6 +39,7 @@ export const AccordionEducationExample = AccordionTemplate.bind({});
 export const AccordionPersonalExample = AccordionTemplate.bind({});
 export const AccordionWorkExample = AccordionTemplate.bind({});
 export const AccordionUnknownExample = AccordionTemplate.bind({});
+export const AccordionFaker = AccordionTemplate.bind({});
 
 AccordionAwardExample.args = {
   anExperience: {
@@ -94,5 +115,24 @@ AccordionUnknownExample.args = {
   anExperience: {
     experienceType: "MusicalExperience",
     experienceSkills: [{ name: "Skill 1", description: "Text and more text" }],
+  },
+};
+
+// pass faker variables from near top to here
+AccordionFaker.args = {
+  anExperience: {
+    experienceType: __typename,
+    experienceSkills: [],
+    institution,
+    issuedBy,
+    organization,
+    description,
+    // details, // says that type null can't be assigned to this
+    title,
+    awardedTo,
+    awardedScope,
+    areaStudy,
+    type,
+    division,
   },
 };

@@ -13,7 +13,7 @@ import {
 
 export interface AccordionProps {
   anExperience: {
-    experienceType: string;
+    experienceType?: string;
     // closed accordion info and repeated fields
     title?: string;
     awardedDate?: string;
