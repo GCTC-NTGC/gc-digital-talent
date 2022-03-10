@@ -77,6 +77,7 @@ const ExperienceAccordion: React.FunctionComponent<AccordionProps> = ({
   let experienceInstance;
   if (determineIfAward(anExperience)) {
     const {
+      __typename,
       title,
       awardedDate,
       issuedBy,
@@ -87,18 +88,21 @@ const ExperienceAccordion: React.FunctionComponent<AccordionProps> = ({
     } = anExperience;
 
     // create unordered list element of skills DOM Element
-    const skillsList = experienceSkills.map((skill, index) => (
-      // eslint-disable-next-line react/no-array-index-key
-      <ul key={index}>
-        <li>
-          <p>
-            {skill.name}
-            <br />
-            {skill.description}
-          </p>
-        </li>
-      </ul>
-    ));
+    const skillsList = experienceSkills
+      ? experienceSkills.map((skill, index) => (
+          // eslint-disable-next-line react/no-array-index-key
+          <ul key={index}>
+            <li>
+              <p>
+                {skill?.skill.name.en}
+                <br />
+                {skill?.details}
+              </p>
+            </li>
+          </ul>
+        ))
+      : "";
+
     // create the main accordion DOM Element with appropriate formatting
     experienceInstance = (
       <Accordion
@@ -132,7 +136,8 @@ const ExperienceAccordion: React.FunctionComponent<AccordionProps> = ({
     );
   } else if (determineIfCommunity(anExperience)) {
     const {
-      role,
+      __typename,
+      title,
       organization,
       startDate,
       endDate,
@@ -141,21 +146,24 @@ const ExperienceAccordion: React.FunctionComponent<AccordionProps> = ({
       experienceSkills = [],
     } = anExperience;
 
-    const skillsList = experienceSkills.map((skill, index) => (
-      // eslint-disable-next-line react/no-array-index-key
-      <ul key={index}>
-        <li>
-          <p>
-            {skill.name}
-            <br />
-            {skill.description}
-          </p>
-        </li>
-      </ul>
-    ));
+    const skillsList = experienceSkills
+      ? experienceSkills.map((skill, index) => (
+          // eslint-disable-next-line react/no-array-index-key
+          <ul key={index}>
+            <li>
+              <p>
+                {skill?.skill.name.en}
+                <br />
+                {skill?.details}
+              </p>
+            </li>
+          </ul>
+        ))
+      : "";
+
     experienceInstance = (
       <Accordion
-        title={`${role || ""} at ${organization || ""}`}
+        title={`${title || ""} at ${organization || ""}`}
         subtitle={
           endDate
             ? `${startDate || ""} - ${endDate || ""}`
@@ -171,7 +179,7 @@ const ExperienceAccordion: React.FunctionComponent<AccordionProps> = ({
         {" "}
         <div data-h2-padding="b(left, l)">
           <p>
-            {role} at {organization}
+            {title} at {organization}
           </p>
           <p>{project}</p>
         </div>
@@ -189,6 +197,7 @@ const ExperienceAccordion: React.FunctionComponent<AccordionProps> = ({
     );
   } else if (determineIfEducation(anExperience)) {
     const {
+      __typename,
       areaOfStudy,
       institution,
       startDate,
@@ -200,18 +209,21 @@ const ExperienceAccordion: React.FunctionComponent<AccordionProps> = ({
       experienceSkills = [],
     } = anExperience;
 
-    const skillsList = experienceSkills.map((skill, index) => (
-      // eslint-disable-next-line react/no-array-index-key
-      <ul key={index}>
-        <li>
-          <p>
-            {skill.name}
-            <br />
-            {skill.description}
-          </p>
-        </li>
-      </ul>
-    ));
+    const skillsList = experienceSkills
+      ? experienceSkills.map((skill, index) => (
+          // eslint-disable-next-line react/no-array-index-key
+          <ul key={index}>
+            <li>
+              <p>
+                {skill?.skill.name.en}
+                <br />
+                {skill?.details}
+              </p>
+            </li>
+          </ul>
+        ))
+      : "";
+
     experienceInstance = (
       <Accordion
         title={`${areaOfStudy || ""} at ${institution || ""}`}
@@ -250,6 +262,7 @@ const ExperienceAccordion: React.FunctionComponent<AccordionProps> = ({
     );
   } else if (determineIfPersonal(anExperience)) {
     const {
+      __typename,
       title,
       startDate,
       endDate,
@@ -258,18 +271,21 @@ const ExperienceAccordion: React.FunctionComponent<AccordionProps> = ({
       experienceSkills = [],
     } = anExperience;
 
-    const skillsList = experienceSkills.map((skill, index) => (
-      // eslint-disable-next-line react/no-array-index-key
-      <ul key={index}>
-        <li>
-          <p>
-            {skill.name}
-            <br />
-            {skill.description}
-          </p>
-        </li>
-      </ul>
-    ));
+    const skillsList = experienceSkills
+      ? experienceSkills.map((skill, index) => (
+          // eslint-disable-next-line react/no-array-index-key
+          <ul key={index}>
+            <li>
+              <p>
+                {skill?.skill.name.en}
+                <br />
+                {skill?.details}
+              </p>
+            </li>
+          </ul>
+        ))
+      : "";
+
     experienceInstance = (
       <Accordion
         title={title || ""}
@@ -302,6 +318,7 @@ const ExperienceAccordion: React.FunctionComponent<AccordionProps> = ({
     );
   } else if (determineIfWork(anExperience)) {
     const {
+      __typename,
       role,
       organization,
       startDate,
@@ -311,18 +328,21 @@ const ExperienceAccordion: React.FunctionComponent<AccordionProps> = ({
       experienceSkills = [],
     } = anExperience;
 
-    const skillsList = experienceSkills.map((skill, index) => (
-      // eslint-disable-next-line react/no-array-index-key
-      <ul key={index}>
-        <li>
-          <p>
-            {skill.name}
-            <br />
-            {skill.description}
-          </p>
-        </li>
-      </ul>
-    ));
+    const skillsList = experienceSkills
+      ? experienceSkills.map((skill, index) => (
+          // eslint-disable-next-line react/no-array-index-key
+          <ul key={index}>
+            <li>
+              <p>
+                {skill?.skill.name.en}
+                <br />
+                {skill?.details}
+              </p>
+            </li>
+          </ul>
+        ))
+      : "";
+
     experienceInstance = (
       <Accordion
         title={`${role || ""} at ${organization || ""}`}

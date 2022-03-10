@@ -186,16 +186,21 @@ export default (numberOfExperiences: number) => {
   const runRandomGenerator = () => {
     const randomIndex = faker.random.arrayElement([0, 1, 2, 3, 4]);
     if (randomIndex === 0) {
-      generateAward(sampleApp, theId, sampleExperience);
-    } else if (randomIndex === 1) {
-      generateCommunity(sampleApp, theId, sampleExperience);
-    } else if (randomIndex === 2) {
-      generateEducation(sampleApp, theId, sampleExperience);
-    } else if (randomIndex === 3) {
-      generatePersonal(sampleApp, theId, sampleExperience);
-    } else if (randomIndex === 4) {
-      generateWork(sampleApp, theId, sampleExperience);
+      return generateAward(sampleApp, theId, sampleExperience);
     }
+    if (randomIndex === 1) {
+      return generateCommunity(sampleApp, theId, sampleExperience);
+    }
+    if (randomIndex === 2) {
+      return generateEducation(sampleApp, theId, sampleExperience);
+    }
+    if (randomIndex === 3) {
+      return generatePersonal(sampleApp, theId, sampleExperience);
+    }
+    if (randomIndex === 4) {
+      return generateWork(sampleApp, theId, sampleExperience);
+    }
+    return generateAward(sampleApp, theId, sampleExperience);
   };
 
   // fill an array with random experiences
