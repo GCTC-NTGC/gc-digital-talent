@@ -19,11 +19,6 @@ import {
   EducationStatus,
 } from "../api/generated";
 
-// for calling this faker from elsewhere, an interface to define what to pass into this
-export interface ExperienceChoice {
-  experienceChoice: "Award" | "Community" | "Education" | "Personal" | "Work";
-}
-
 type AnExperience =
   | AwardExperience
   | CommunityExperience
@@ -34,11 +29,19 @@ type AnExperience =
 // lots of X requires Y filling things out and adding connecting Types/Components to one another
 const sampleApp: Applicant = { email: "blank", id: "blank" };
 const theId = "blank";
-const theString: LocalizedString = {};
-const sampleSkill: Skill = { id: "blank", key: "blank", name: theString };
+const theString: LocalizedString = { en: "The Skill" };
+const theDescription: LocalizedString = { en: "The Description" };
+const sampleSkill: Skill = {
+  id: "blank",
+  key: "blank",
+  description: theDescription,
+  name: theString,
+};
 const sampleExperienceInstance: Experience = {
   applicant: sampleApp,
   id: theId,
+  // circular dependency here, between sampleExperienceInstance and sampleExperience
+  // experienceSkills: [sampleExperience],
 };
 const sampleExperience: ExperienceSkill = {
   id: "blank",
@@ -52,7 +55,7 @@ const generateAward = (
   theApplicant: Applicant,
   id: string,
   sampleExperienceSample: ExperienceSkill,
-): AnExperience => {
+): AwardExperience => {
   faker.setLocale("en");
   return {
     __typename: "AwardExperience",
@@ -85,7 +88,7 @@ const generateCommunity = (
   theApplicant: Applicant,
   id: string,
   sampleExperienceSample: ExperienceSkill,
-): AnExperience => {
+): CommunityExperience => {
   faker.setLocale("en");
   return {
     __typename: "CommunityExperience",
@@ -105,7 +108,7 @@ const generateEducation = (
   theApplicant: Applicant,
   id: string,
   sampleExperienceSample: ExperienceSkill,
-): AnExperience => {
+): EducationExperience => {
   faker.setLocale("en");
   return {
     __typename: "EducationExperience",
@@ -141,7 +144,7 @@ const generatePersonal = (
   theApplicant: Applicant,
   id: string,
   sampleExperienceSample: ExperienceSkill,
-): AnExperience => {
+): PersonalExperience => {
   faker.setLocale("en");
   return {
     __typename: "PersonalExperience",
@@ -160,7 +163,7 @@ const generateWork = (
   theApplicant: Applicant,
   id: string,
   sampleExperienceSample: ExperienceSkill,
-): AnExperience => {
+): WorkExperience => {
   faker.setLocale("en");
   return {
     __typename: "WorkExperience",
@@ -175,29 +178,51 @@ const generateWork = (
   };
 };
 
-export default (experienceChoice: string): AnExperience => {
+// generate an array of some size filled with random experiences
+export default (numberOfExperiences: number) => {
   faker.seed(0);
-  if (experienceChoice === "Award") {
-    //
-    return generateAward(sampleApp, theId, sampleExperience);
-  }
-  if (experienceChoice === "Community") {
-    //
-    return generateCommunity(sampleApp, theId, sampleExperience);
-  }
-  if (experienceChoice === "Education") {
-    //
-    return generateEducation(sampleApp, theId, sampleExperience);
-  }
-  if (experienceChoice === "Personal") {
-    //
-    return generatePersonal(sampleApp, theId, sampleExperience);
-  }
-  if (experienceChoice === "Work") {
-    //
-    return generateWork(sampleApp, theId, sampleExperience);
-  }
 
-  // otherwise return award if for some reason above didn't work
-  return generateAward(sampleApp, theId, sampleExperience);
+  // to randomly run one of the 5 generators
+  const runRandomGenerator = () => {
+    const randomIndex = faker.random.arrayElement([0, 1, 2, 3, 4]);
+    if (randomIndex === 0) {
+      generateAward(sampleApp, theId, sampleExperience);
+    } else if (randomIndex === 1) {
+      generateCommunity(sampleApp, theId, sampleExperience);
+    } else if (randomIndex === 2) {
+      generateEducation(sampleApp, theId, sampleExperience);
+    } else if (randomIndex === 3) {
+      generatePersonal(sampleApp, theId, sampleExperience);
+    } else if (randomIndex === 4) {
+      generateWork(sampleApp, theId, sampleExperience);
+    }
+  };
+
+  // fill an array with random experiences
+  const theArray = [...Array(numberOfExperiences)].map(() =>
+    runRandomGenerator(),
+  );
+
+  return theArray;
+};
+
+// the 5 single experiences of a specific type
+export const fakerAward = {
+  generateAward,
+};
+
+export const fakerCommunity = {
+  generateCommunity,
+};
+
+export const fakerEducation = {
+  generateEducation,
+};
+
+export const fakerPersonal = {
+  generatePersonal,
+};
+
+export const fakerWork = {
+  generateWork,
 };

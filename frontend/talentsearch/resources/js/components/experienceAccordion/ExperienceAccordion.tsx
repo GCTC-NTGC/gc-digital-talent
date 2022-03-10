@@ -11,69 +11,81 @@ import {
   Skill,
 } from "../../api/generated";
 
+type AnExperience =
+  | AwardExperience
+  | CommunityExperience
+  | EducationExperience
+  | PersonalExperience
+  | WorkExperience;
+
 export interface AccordionProps {
-  anExperience: {
-    experienceType?: string;
-    // closed accordion info and repeated fields
-    title?: string;
-    awardedDate?: string;
-    issuedBy?: string;
-    role?: string;
-    organization?: string;
-    areaOfStudy?: string;
-    institution?: string;
-    startDate?: string;
-    endDate?: string;
-    details?: string;
-    // opened accordion info
-    // awards
-    awardedTo?: string;
-    awardedScope?: string;
-    // community
-    project?: string;
-    // education
-    type?: string;
-    status?: string;
-    thesisTitle?: string;
-    // personal
-    description?: string;
-    // work
-    division?: string;
-    // linked skills
-    experienceSkills: { name: string; description: string }[];
-  };
+  anExperience: AnExperience;
 }
+const determineIfAward = (
+  anExperience: AnExperience,
+): anExperience is AwardExperience => {
+  //
+  if (anExperience as AwardExperience) {
+    return true;
+  }
+  return false;
+};
+
+const determineIfCommunity = (
+  anExperience: AnExperience,
+): anExperience is CommunityExperience => {
+  //
+  if (anExperience as CommunityExperience) {
+    return true;
+  }
+  return false;
+};
+
+const determineIfEducation = (
+  anExperience: AnExperience,
+): anExperience is EducationExperience => {
+  //
+  if (anExperience as EducationExperience) {
+    return true;
+  }
+  return false;
+};
+const determineIfPersonal = (
+  anExperience: AnExperience,
+): anExperience is PersonalExperience => {
+  //
+  if (anExperience as PersonalExperience) {
+    return true;
+  }
+  return false;
+};
+
+const determineIfWork = (
+  anExperience: AnExperience,
+): anExperience is WorkExperience => {
+  //
+  if (anExperience as WorkExperience) {
+    return true;
+  }
+  return false;
+};
 
 const ExperienceAccordion: React.FunctionComponent<AccordionProps> = ({
   anExperience,
 }) => {
-  // destructuring required due to linting?
-  const {
-    experienceType,
-    title,
-    awardedDate,
-    issuedBy,
-    role,
-    organization,
-    areaOfStudy,
-    institution,
-    startDate,
-    endDate,
-    details,
-    awardedTo,
-    awardedScope,
-    project,
-    type,
-    status,
-    thesisTitle,
-    description,
-    division,
-    experienceSkills,
-  } = anExperience;
-
   // experience type is required with 5 possibilities, build different accordion around which type it is
   let experienceInstance;
-  if (experienceType === "AwardExperience") {
+  if (determineIfAward(anExperience)) {
+    const {
+      title,
+      awardedDate,
+      issuedBy,
+      details,
+      awardedTo,
+      awardedScope,
+      experienceSkills = [],
+    } = anExperience;
+
     // create unordered list element of skills DOM Element
     const skillsList = experienceSkills.map((skill, index) => (
       // eslint-disable-next-line react/no-array-index-key
@@ -118,7 +130,17 @@ const ExperienceAccordion: React.FunctionComponent<AccordionProps> = ({
         </div>
       </Accordion>
     );
-  } else if (experienceType === "CommunityExperience") {
+  } else if (determineIfCommunity(anExperience)) {
+    const {
+      role,
+      organization,
+      startDate,
+      endDate,
+      details,
+      project,
+      experienceSkills = [],
+    } = anExperience;
+
     const skillsList = experienceSkills.map((skill, index) => (
       // eslint-disable-next-line react/no-array-index-key
       <ul key={index}>
@@ -165,7 +187,19 @@ const ExperienceAccordion: React.FunctionComponent<AccordionProps> = ({
         </div>
       </Accordion>
     );
-  } else if (experienceType === "EducationExperience") {
+  } else if (determineIfEducation(anExperience)) {
+    const {
+      areaOfStudy,
+      institution,
+      startDate,
+      endDate,
+      details,
+      type,
+      status,
+      thesisTitle,
+      experienceSkills = [],
+    } = anExperience;
+
     const skillsList = experienceSkills.map((skill, index) => (
       // eslint-disable-next-line react/no-array-index-key
       <ul key={index}>
@@ -214,7 +248,16 @@ const ExperienceAccordion: React.FunctionComponent<AccordionProps> = ({
         </div>
       </Accordion>
     );
-  } else if (experienceType === "PersonalExperience") {
+  } else if (determineIfPersonal(anExperience)) {
+    const {
+      title,
+      startDate,
+      endDate,
+      details,
+      description,
+      experienceSkills = [],
+    } = anExperience;
+
     const skillsList = experienceSkills.map((skill, index) => (
       // eslint-disable-next-line react/no-array-index-key
       <ul key={index}>
@@ -257,7 +300,17 @@ const ExperienceAccordion: React.FunctionComponent<AccordionProps> = ({
         </div>
       </Accordion>
     );
-  } else if (experienceType === "WorkExperience") {
+  } else if (determineIfWork(anExperience)) {
+    const {
+      role,
+      organization,
+      startDate,
+      endDate,
+      details,
+      division,
+      experienceSkills = [],
+    } = anExperience;
+
     const skillsList = experienceSkills.map((skill, index) => (
       // eslint-disable-next-line react/no-array-index-key
       <ul key={index}>
@@ -305,9 +358,7 @@ const ExperienceAccordion: React.FunctionComponent<AccordionProps> = ({
     );
   } else {
     // not one of the 5 experience types
-    experienceInstance = (
-      <Accordion title={`Unknown experience: ${experienceType}`} />
-    );
+    experienceInstance = <Accordion title="Unknown experience" />;
   }
 
   return <div>{experienceInstance}</div>;

@@ -1,8 +1,44 @@
 import React from "react";
 import { Story, Meta } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
-import fakeExperiences from "@common/fakeData/fakeExperiences";
+import fakeExperiences, {
+  fakerAward,
+  fakerCommunity,
+  fakerEducation,
+  fakerPersonal,
+  fakerWork,
+} from "@common/fakeData/fakeExperiences";
+import {
+  Applicant,
+  LocalizedString,
+  Skill,
+  Experience,
+  ExperienceSkill,
+} from "@common/api/generated";
 import ExperienceAccordion, { AccordionProps } from "./ExperienceAccordion";
+
+// lots of X requires Y filling things out and adding connecting Types/Components to one another
+const sampleApp: Applicant = { email: "blank", id: "blank" };
+const theId = "blank";
+const theString: LocalizedString = { en: "The Skill" };
+const theDescription: LocalizedString = { en: "The Description" };
+const sampleSkill: Skill = {
+  id: "blank",
+  key: "blank",
+  description: theDescription,
+  name: theString,
+};
+const sampleExperienceInstance: Experience = {
+  applicant: sampleApp,
+  id: theId,
+  // circular dependency here, between sampleExperienceInstance and sampleExperience
+  // experienceSkills: [sampleExperience],
+};
+const sampleExperience: ExperienceSkill = {
+  id: "blank",
+  skill: sampleSkill,
+  experience: sampleExperienceInstance,
+};
 
 // faker generates an experience section based off an argument and then pulls stuff out into variables to pass into something
 const {
@@ -28,7 +64,8 @@ const {
   division,
   // for some reason the above don't exist on AnExperience apparently as they are underlined?
   details,
-} = fakeExperiences("Education");
+} = fakerWork.generateWork(sampleApp, theId, sampleExperience);
+console.log(fakeExperiences(5));
 
 export default {
   component: ExperienceAccordion,
