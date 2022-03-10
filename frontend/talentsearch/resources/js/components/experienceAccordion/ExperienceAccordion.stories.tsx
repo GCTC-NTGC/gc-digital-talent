@@ -14,6 +14,10 @@ import {
   Skill,
   Experience,
   ExperienceSkill,
+  AwardedTo,
+  AwardedScope,
+  EducationType,
+  EducationStatus,
 } from "@common/api/generated";
 import ExperienceAccordion, { AccordionProps } from "./ExperienceAccordion";
 
@@ -44,25 +48,11 @@ const sampleExperience: ExperienceSkill = {
 const {
   __typename,
   experienceSkills,
-  institution,
   organization,
-  description,
-  title,
   startDate,
   endDate,
-  // awarded
-  awardedTo,
-  awardedScope,
-  awardedDate,
-  issuedBy,
-  organization,
   role,
-  project,
-  areaOfStudy,
-  type,
-  status,
   division,
-  // for some reason the above don't exist on AnExperience apparently as they are underlined?
   details,
 } = fakerWork.generateWork(sampleApp, theId, sampleExperience);
 console.log(fakeExperiences(5));
@@ -91,8 +81,8 @@ AccordionAwardExample.args = {
     awardedDate: "September 2012",
     title: "Best Manager",
     issuedBy: "The Government",
-    awardedTo: "Me",
-    awardedScope: "National",
+    awardedTo: AwardedTo.Me,
+    awardedScope: AwardedScope.National,
     experienceSkills: [{ name: "Skill 1", description: "Text and more text" }],
     details:
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
@@ -120,8 +110,8 @@ AccordionEducationExample.args = {
     startDate: "September 2010",
     areaOfStudy: "Mathematics",
     institution: "Greatest University",
-    type: "Bachelor's",
-    status: "In Progress",
+    type: EducationType.BachelorsDegree,
+    status: EducationStatus.InProgress,
     experienceSkills: [{ name: "Skill 1", description: "Text and more text" }],
   },
 };
@@ -163,26 +153,15 @@ AccordionUnknownExample.args = {
 };
 
 // pass faker variables from near top to here
-AccordionFaker.args = {
-  anExperience: {
-    experienceType: __typename,
-    experienceSkills: [],
-    institution,
-    organization,
-    description,
-    startDate,
-    endDate,
-    // details, // says that type null can't be assigned to this
-    title,
-    awardedTo,
-    awardedScope,
-    awardedDate,
-    issuedBy,
-    role,
-    project,
-    areaOfStudy,
-    type,
-    status,
-    division,
-  },
-};
+// AccordionFaker.args = {
+//   anExperience: {
+//     experienceType: "WorkExperience", // error thrown here
+//     experienceSkills: [],
+//     organization,
+//     startDate,
+//     endDate,
+//     details,
+//     role,
+//     division,
+//   },
+// };
