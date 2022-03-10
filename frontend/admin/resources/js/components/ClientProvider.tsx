@@ -118,8 +118,8 @@ export const ClientProvider: React.FC<{ client?: Client }> = ({
       logout();
       return null;
     },
-    // We need a single instance of this function so the urql client can maintain its state.
-    // Otherwise, it loses count of the errors and enters a refresh loop.
+    // This function is inside of `useCallback` to prevent breaking the memoization of internalClient.
+    // If internalClient is reinstantiated it will lose its error count and can cause refresh loops.
     [],
   );
 
