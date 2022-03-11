@@ -18,15 +18,17 @@ DirectorySlash off
     RewriteRule ^graphql-playground$ api/public/graphql-playground [L]
     RewriteRule ^graphql$ api/public/graphql [L]
 
+    # Send api login request to api
+    RewriteRule ^login$ api/public/login [L]
+    RewriteRule ^auth-callback$ api/public/auth-callback [L]
+    RewriteRule ^refresh$ api/public/refresh [L]
+
     # Send admin requests to admin public folder (with or without public/ path prefix).
     RewriteRule ^admin/public(/(.*))?$ frontend/admin/public/$2 [L]
     RewriteRule ^admin(/(.*))?$ frontend/admin/public/$2 [L]
 
     # Send localized admin requests also to admin public folder;
     RewriteRule ^(en|fr)/admin(/(.*))?$ frontend/admin/public/$3 [L]
-
-    # Send auth-callback request to admin
-    RewriteRule ^auth-callback$ frontend/admin/public/auth-callback [L]
 
     # Send talent requests to talentsearch public folder (with or without public/ path prefix).
     RewriteRule ^talent/public(/(.*))?$ frontend/talentsearch/public/$2 [L]

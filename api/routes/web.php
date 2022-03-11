@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\AuthController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -12,8 +14,14 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::prefix(config('app.app_dir'))->group(function () {
+    Route::get('/login', [AuthController::class, 'login']);
+    Route::get('/auth-callback', [AuthController::class, 'authCallback']);
+    Route::get('/refresh', [AuthController::class, 'refresh']);
+});
 
-
-Route::get('/phpinfo', function () {
-    return phpinfo();
+Route::prefix('')->group(function () {
+    Route::get('/login', [AuthController::class, 'login']);
+    Route::get('/auth-callback', [AuthController::class, 'authCallback']);
+    Route::get('/refresh', [AuthController::class, 'refresh']);
 });
