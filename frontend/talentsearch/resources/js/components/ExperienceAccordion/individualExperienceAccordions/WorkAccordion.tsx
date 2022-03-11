@@ -2,6 +2,8 @@ import React from "react";
 import { Accordion } from "@common/components/accordion/Accordion";
 import BriefCaseIcon from "@heroicons/react/solid/BriefcaseIcon";
 import { Button } from "@common/components";
+import { useIntl } from "react-intl";
+import { getLocale } from "@common/helpers/localize";
 import { WorkExperience } from "../../../api/generated";
 
 const WorkAccordion: React.FunctionComponent<WorkExperience> = ({
@@ -13,6 +15,9 @@ const WorkAccordion: React.FunctionComponent<WorkExperience> = ({
   division,
   experienceSkills,
 }) => {
+  const intl = useIntl();
+  const locale = getLocale(intl);
+
   // create unordered list element of skills DOM Element
   const skillsList = experienceSkills
     ? experienceSkills.map((skill, index) => (
@@ -20,9 +25,9 @@ const WorkAccordion: React.FunctionComponent<WorkExperience> = ({
         <ul key={index}>
           <li>
             <p>
-              {skill?.skill.name.en}
+              {skill?.skill.name?.[locale]}
               <br />
-              {skill?.details}
+              {skill?.skill.description?.[locale]}
             </p>
           </li>
         </ul>
@@ -57,7 +62,10 @@ const WorkAccordion: React.FunctionComponent<WorkExperience> = ({
       </div>
       <div data-h2-padding="b(left, l)">
         <Button color="primary" mode="outline">
-          Edit Experience
+          {intl.formatMessage({
+            defaultMessage: "Edit Experience",
+            description: "Edit Experience button label",
+          })}
         </Button>
       </div>
     </Accordion>

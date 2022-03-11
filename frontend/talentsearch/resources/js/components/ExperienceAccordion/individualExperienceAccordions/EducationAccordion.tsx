@@ -8,6 +8,7 @@ import {
   getEducationType,
 } from "@common/constants/localizedConstants";
 import { useIntl } from "react-intl";
+import { getLocale } from "@common/helpers/localize";
 
 const EducationAccordion: React.FunctionComponent<EducationExperience> = ({
   areaOfStudy,
@@ -21,6 +22,7 @@ const EducationAccordion: React.FunctionComponent<EducationExperience> = ({
   experienceSkills,
 }) => {
   const intl = useIntl();
+  const locale = getLocale(intl);
 
   const skillsList = experienceSkills
     ? experienceSkills.map((skill, index) => (
@@ -28,9 +30,9 @@ const EducationAccordion: React.FunctionComponent<EducationExperience> = ({
         <ul key={index}>
           <li>
             <p>
-              {skill?.skill.name.en}
+              {skill?.skill.name?.[locale]}
               <br />
-              {skill?.details}
+              {skill?.skill.description?.[locale]}
             </p>
           </li>
         </ul>
@@ -69,7 +71,10 @@ const EducationAccordion: React.FunctionComponent<EducationExperience> = ({
       </div>
       <div data-h2-padding="b(left, l)">
         <Button color="primary" mode="outline">
-          Edit Experience
+          {intl.formatMessage({
+            defaultMessage: "Edit Experience",
+            description: "Edit Experience button label",
+          })}
         </Button>
       </div>
     </Accordion>

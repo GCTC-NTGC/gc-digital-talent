@@ -23,16 +23,28 @@ import {
 // defining the skills here
 const sampleApp: Applicant = { email: "blank", id: "blank" };
 const theId = "blank";
-const theSkillString1: LocalizedString = { en: "The first Skill" };
-const theSkillDescription1: LocalizedString = { en: "The first Description" };
+const theSkillString1: LocalizedString = {
+  en: "The first Skill",
+  fr: "La première Compétence",
+};
+const theSkillDescription1: LocalizedString = {
+  en: "The first Description",
+  fr: "Le premier Descriptif",
+};
 const sampleSkill1: Skill = {
   id: "blank",
   key: "blank",
   description: theSkillDescription1,
   name: theSkillString1,
 };
-const theSkillString2: LocalizedString = { en: "The second Skill" };
-const theSkillDescription2: LocalizedString = { en: "The second Description" };
+const theSkillString2: LocalizedString = {
+  en: "The second Skill",
+  fr: "La deuxième Compétence",
+};
+const theSkillDescription2: LocalizedString = {
+  en: "The second Description",
+  fr: "La deuxième Descriptif",
+};
 const sampleSkill2: Skill = {
   id: "blank",
   key: "blank",

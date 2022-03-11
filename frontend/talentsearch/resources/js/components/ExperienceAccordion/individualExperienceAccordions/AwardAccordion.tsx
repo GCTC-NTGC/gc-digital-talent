@@ -7,6 +7,7 @@ import {
   getAwardedScope,
 } from "@common/constants/localizedConstants";
 import { useIntl } from "react-intl";
+import { getLocale } from "@common/helpers/localize";
 import { AwardExperience } from "../../../api/generated";
 
 const AwardAccordion: React.FunctionComponent<AwardExperience> = ({
@@ -19,6 +20,7 @@ const AwardAccordion: React.FunctionComponent<AwardExperience> = ({
   experienceSkills,
 }) => {
   const intl = useIntl();
+  const locale = getLocale(intl);
 
   // create unordered list element of skills DOM Element
   const skillsList = experienceSkills
@@ -27,9 +29,9 @@ const AwardAccordion: React.FunctionComponent<AwardExperience> = ({
         <ul key={index}>
           <li>
             <p>
-              {skill?.skill.name.en}
+              {skill?.skill.name?.[locale]}
               <br />
-              {skill?.details}
+              {skill?.skill.description?.[locale]}
             </p>
           </li>
         </ul>
@@ -69,7 +71,10 @@ const AwardAccordion: React.FunctionComponent<AwardExperience> = ({
       </div>
       <div data-h2-padding="b(left, l)">
         <Button color="primary" mode="outline">
-          Edit Experience
+          {intl.formatMessage({
+            defaultMessage: "Edit Experience",
+            description: "Edit Experience button label",
+          })}
         </Button>
       </div>
     </Accordion>

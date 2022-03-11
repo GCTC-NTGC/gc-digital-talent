@@ -2,6 +2,8 @@ import React from "react";
 import { Accordion } from "@common/components/accordion/Accordion";
 import BriefCaseIcon from "@heroicons/react/solid/BriefcaseIcon";
 import { Button } from "@common/components";
+import { useIntl } from "react-intl";
+import { getLocale } from "@common/helpers/localize";
 import { PersonalExperience } from "../../../api/generated";
 
 const PersonalAccordion: React.FunctionComponent<PersonalExperience> = ({
@@ -12,15 +14,18 @@ const PersonalAccordion: React.FunctionComponent<PersonalExperience> = ({
   description,
   experienceSkills,
 }) => {
+  const intl = useIntl();
+  const locale = getLocale(intl);
+
   const skillsList = experienceSkills
     ? experienceSkills.map((skill, index) => (
         // eslint-disable-next-line react/no-array-index-key
         <ul key={index}>
           <li>
             <p>
-              {skill?.skill.name.en}
+              {skill?.skill.name?.[locale]}
               <br />
-              {skill?.details}
+              {skill?.skill.description?.[locale]}
             </p>
           </li>
         </ul>
@@ -52,7 +57,10 @@ const PersonalAccordion: React.FunctionComponent<PersonalExperience> = ({
       </div>
       <div data-h2-padding="b(left, l)">
         <Button color="primary" mode="outline">
-          Edit Experience
+          {intl.formatMessage({
+            defaultMessage: "Edit Experience",
+            description: "Edit Experience button label",
+          })}
         </Button>
       </div>
     </Accordion>
