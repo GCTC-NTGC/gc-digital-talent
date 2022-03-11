@@ -191,9 +191,24 @@ export default (numberOfExperiences: number) => {
 
 // the 5 single experiences of a specific type
 export const generators = {
-  generateAward,
-  generateCommunity,
-  generateEducation,
-  generatePersonal,
-  generateWork,
+  generateAward: () => {
+    faker.seed(0);
+    return generateAward();
+  },
+  generateCommunity: () => {
+    faker.seed(0);
+    return generateCommunity();
+  },
+  generateEducation: () => {
+    faker.seed(0);
+    return generateEducation();
+  },
+  generatePersonal: () => {
+    faker.seed(0);
+    return generatePersonal();
+  },
+  generateWork: () => {
+    faker.seed(0);
+    return generateWork();
+  },
 };

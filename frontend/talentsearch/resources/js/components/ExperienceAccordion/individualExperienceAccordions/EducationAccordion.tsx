@@ -3,6 +3,10 @@ import { Accordion } from "@common/components/accordion/Accordion";
 import BriefCaseIcon from "@heroicons/react/solid/BriefcaseIcon";
 import { Button } from "@common/components";
 import { EducationExperience } from "@common/api/generated";
+import {
+  educationTypeMessages,
+  educationStatusMessages,
+} from "@common/constants/localizedConstants";
 
 const EducationAccordion: React.FunctionComponent<EducationExperience> = ({
   areaOfStudy,
@@ -30,6 +34,53 @@ const EducationAccordion: React.FunctionComponent<EducationExperience> = ({
       ))
     : "";
 
+  // turn enums into localized messages
+  let educationTypeLocalized;
+  if (type === "BACHELORS_DEGREE") {
+    educationTypeLocalized =
+      educationTypeMessages.BACHELORS_DEGREE.defaultMessage;
+  }
+  if (type === "CERTIFICATION") {
+    educationTypeLocalized = educationTypeMessages.CERTIFICATION.defaultMessage;
+  }
+  if (type === "DIPLOMA") {
+    educationTypeLocalized = educationTypeMessages.DIPLOMA.defaultMessage;
+  }
+  if (type === "MASTERS_DEGREE") {
+    educationTypeLocalized =
+      educationTypeMessages.MASTERS_DEGREE.defaultMessage;
+  }
+  if (type === "ONLINE_COURSE") {
+    educationTypeLocalized = educationTypeMessages.ONLINE_COURSE.defaultMessage;
+  }
+  if (type === "OTHER") {
+    educationTypeLocalized = educationTypeMessages.OTHER.defaultMessage;
+  }
+  if (type === "PHD") {
+    educationTypeLocalized = educationTypeMessages.PHD.defaultMessage;
+  }
+  if (type === "POST_DOCTORAL_FELLOWSHIP") {
+    educationTypeLocalized =
+      educationTypeMessages.POST_DOCTORAL_FELLOWSHIP.defaultMessage;
+  }
+
+  let educationStatusLocalized;
+  if (status === "AUDITED") {
+    educationStatusLocalized = educationStatusMessages.AUDITED.defaultMessage;
+  }
+  if (status === "DID_NOT_COMPLETE") {
+    educationStatusLocalized = educationStatusMessages.AUDITED.defaultMessage;
+  }
+  if (status === "IN_PROGRESS") {
+    educationStatusLocalized = educationStatusMessages.AUDITED.defaultMessage;
+  }
+  if (status === "SUCCESS_CREDENTIAL") {
+    educationStatusLocalized = educationStatusMessages.AUDITED.defaultMessage;
+  }
+  if (status === "SUCCESS_NO_CREDENTIAL") {
+    educationStatusLocalized = educationStatusMessages.AUDITED.defaultMessage;
+  }
+
   return (
     <Accordion
       title={`${areaOfStudy || ""} at ${institution || ""}`}
@@ -47,7 +98,7 @@ const EducationAccordion: React.FunctionComponent<EducationExperience> = ({
     >
       <div data-h2-padding="b(left, l)">
         <p>
-          {type} {status}
+          {educationTypeLocalized} {educationStatusLocalized}
         </p>
         <p>
           {areaOfStudy} at {institution}
