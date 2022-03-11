@@ -14,6 +14,7 @@ class UpdateUsersTableWithProfileData extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
+            // New fields
             $table->string('job_looking_status')->nullable();
             $table->string('current_province')->nullable();
             $table->string('current_city')->nullable();
@@ -29,7 +30,43 @@ class UpdateUsersTableWithProfileData extends Migration
             $table->boolean('interested_in_later_or_secondment')->nullable();
             $table->uuid('current_classification')->nullable();
             $table->foreign('current_classification')->references('id')->on('classifications');
+            $table->jsonb('location_exemptions')->nullable();
+            $table->boolean('would_accept_temporary')->nullable();
+
+            // Old fields from poolCandidate
+            $table->boolean('is_woman')->nullable();
+            $table->boolean('has_disability')->nullable();
+            $table->boolean('is_indigenous')->nullable();
+            $table->boolean('is_visible_minority')->nullable();
+
+            $table->boolean('has_diploma')->nullable();
+            $table->string('language_ability')->nullable();
+            $table->jsonb('location_preferences')->nullable();
+            $table->jsonb('expected_salary')->nullable();
         });
+
+        // New tables to replace connections with pool candidates
+        Schema::create('operational_requirement_user', function (Blueprint $table) {
+            $table->uuid('id')->primary('id');
+            $table->timestamps();
+            $table->uuid('user_id')->references('id')->on('users')->nullable(false);
+            $table->uuid('operational_requirement_id')->references('id')->on('operational_requirements')->nullable(false);
+        });
+        DB::statement('ALTER TABLE operational_requirement_user ALTER COLUMN id SET DEFAULT gen_random_uuid();');
+        Schema::create('classification_user', function (Blueprint $table) {
+            $table->uuid('id')->primary('id');
+            $table->timestamps();
+            $table->uuid('user_id')->references('id')->on('users')->nullable(false);
+            $table->uuid('classification_id')->references('id')->on('classifications')->nullable(false);
+        });
+        DB::statement('ALTER TABLE classification_user ALTER COLUMN id SET DEFAULT gen_random_uuid();');
+        Schema::create('cmo_asset_user', function (Blueprint $table) {
+            $table->uuid('id')->primary('id');
+            $table->timestamps();
+            $table->uuid('user_id')->references('id')->on('users')->nullable(false);
+            $table->uuid('cmo_asset_id')->references('id')->on('cmo_assets')->nullable(false);
+        });
+        DB::statement('ALTER TABLE cmo_asset_user ALTER COLUMN id SET DEFAULT gen_random_uuid();');
     }
 
     /**
@@ -54,8 +91,19 @@ class UpdateUsersTableWithProfileData extends Migration
                 'estimated_language_ability',
                 'is_gov_employee',
                 'interested_in_later_or_secondment',
-                'current_classification'
+                'current_classification',
+                'is_woman',
+                'has_disability',
+                'is_indigenous',
+                'is_visible_minority',
+                'has_diploma',
+                'language_ability',
+                'location_preferences',
+                'expected_salary',
             ]);
         });
+        Schema::dropIfExists('operational_requirement_user');
+        Schema::dropIfExists('classification_user');
+        Schema::dropIfExists('cmo_asset_user');
     }
 }

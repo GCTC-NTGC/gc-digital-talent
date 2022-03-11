@@ -48,11 +48,6 @@ class PoolCandidateFactory extends Factory
                 ],
                 3
             ),
-            'location_exemptions' => [
-                $this->faker->city(),
-                $this->faker->city(),
-                $this->faker->city(),
-            ],
             'expected_salary' => $this->faker->randomElements(
                 [
                     '_50_59K',
@@ -64,7 +59,6 @@ class PoolCandidateFactory extends Factory
                 ],
                 3
             ),
-            'would_accept_temporary' => $this->faker->boolean(),
             'pool_candidate_status' => $this->faker->randomElement([
                 'AVAILABLE',
                 'PLACED_INDETERMINATE',

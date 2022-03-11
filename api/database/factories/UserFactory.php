@@ -4,6 +4,8 @@ namespace Database\Factories;
 
 use App\Models\User;
 use App\Models\Classification;
+use App\Models\CmoAsset;
+use App\Models\OperationalRequirement;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class UserFactory extends Factory
@@ -85,6 +87,42 @@ class UserFactory extends Factory
             'is_gov_employee' => $this->faker->boolean(),
             'interested_in_later_or_secondment' => $this->faker->boolean(),
             'current_classification' => Classification::factory(),
+            'is_woman' => $this->faker->boolean(),
+            'has_disability' => $this->faker->boolean(),
+            'is_indigenous' => $this->faker->boolean(),
+            'is_visible_minority' => $this->faker->boolean(),
+            'has_diploma' => $this->faker->boolean(),
+            'language_ability' => $this->faker->randomElement(['FRENCH', 'ENGLISH', 'BILINGUAL']),
+            'location_preferences' => $this->faker->randomElements(
+                [
+                    'TELEWORK',
+                    'NATIONAL_CAPITAL',
+                    'ATLANTIC',
+                    'QUEBEC',
+                    'ONTARIO',
+                    'PRAIRIE',
+                    'BRITISH_COLUMBIA',
+                    'NORTH',
+                ],
+                3
+            ),
+            'location_exemptions' => [
+                $this->faker->city(),
+                $this->faker->city(),
+                $this->faker->city(),
+            ],
+            'expected_salary' => $this->faker->randomElements(
+                [
+                    '_50_59K',
+                    '_60_69K',
+                    '_70_79K',
+                    '_80_89K',
+                    '_90_99K',
+                    '_100K_PLUS',
+                ],
+                3
+            ),
+            'would_accept_temporary' => $this->faker->boolean(),
         ];
     }
 }

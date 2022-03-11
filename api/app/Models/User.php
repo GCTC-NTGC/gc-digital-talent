@@ -36,6 +36,16 @@ use Illuminate\Auth\Authenticatable as AuthenticatableTrait;
  * @property string $is_gov_employee
  * @property string $interested_in_later_or_secondment
  * @property int $current_classification
+ * @property boolean $is_woman
+ * @property boolean $has_disability
+ * @property boolean $is_indigenous
+ * @property boolean $is_visible_minority
+ * @property boolean $has_diploma
+ * @property string $language_ability
+ * @property array $location_preferences
+ * @property array $location_exemptions
+ * @property array $expected_salary
+ * @property boolean $would_accept_temporary
  * @property Illuminate\Support\Carbon $created_at
  * @property Illuminate\Support\Carbon $updated_at
  */
@@ -50,6 +60,9 @@ class User extends Model implements Authenticatable
 
     protected $casts = [
         'roles' => 'array',
+        'location_preferences' => 'array',
+        'location_exemptions' => 'array',
+        'expected_salary' => 'array',
     ];
 
     public function pools(): HasMany
@@ -63,6 +76,18 @@ class User extends Model implements Authenticatable
     public function currentClassification(): BelongsTo
     {
         return $this->belongsTo(Classification::class, "current_classification");
+    }
+    public function acceptedOperationalRequirements(): BelongsToMany
+    {
+        return $this->belongsToMany(OperationalRequirement::class, 'operational_requirement_user');
+    }
+    public function expectedClassifications(): BelongsToMany
+    {
+        return $this->belongsToMany(Classification::class, 'classification_user');
+    }
+    public function cmoAssets(): BelongsToMany
+    {
+        return $this->belongsToMany(CmoAsset::class);
     }
 
     public function isAdmin(): bool

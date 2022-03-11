@@ -41,6 +41,7 @@ type User {
     currentCity: String @rename(attribute: "current_city")
 
     # Language
+    languageAbility: LanguageAbility @rename(attribute: "language_ability")
     preferredLang: Language @rename(attribute: "preferred_lang")
     lookingForEnglish: Boolean @rename(attribute: "looking_for_english")
     lookingForFrench: Boolean @rename(attribute: "looking_for_french")
@@ -56,10 +57,25 @@ type User {
     interestedInLaterOrSecondment: Boolean @rename(attribute: "interested_in_later_or_secondment")
     currentClassification: Classification @belongsTo # Users current classification
 
-    # Pools
+    # Employment equity
+    isWoman: Boolean @rename(attribute: "is_woman")
+    hasDisability: Boolean @rename(attribute: "has_disability")
+    isIndigenous: Boolean @rename(attribute: "is_indigenous")
+    isVisibleMinority: Boolean @rename(attribute: "is_visible_minority")
+
+    # Applicant info
     jobLookingStatus: JobLookingStatus @rename(attribute: "job_looking_status")
     pools: [Pool] @hasMany # Pools that a user owns
     poolCandidates: [PoolCandidate] @hasMany # Pools candidates that a user owns
+
+    hasDiploma: Boolean @rename(attribute: "has_diploma")
+    locationPreferences: [WorkRegion] @rename(attribute: "location_preferences")
+    locationExemptions: [String] @rename(attribute: "location_exemptions")
+    acceptedOperationalRequirements: [OperationalRequirement] @belongsToMany
+    expectedSalary: [SalaryRange] @rename(attribute: "expected_salary")
+    expectedClassifications: [Classification] @belongsToMany
+    wouldAcceptTemporary: Boolean @rename(attribute: "would_accept_temporary")
+    cmoAssets: [CmoAsset] @belongsToMany
 
     # Experiences
     experiences: [Experience] @hasMany # All experiences that a user owns
@@ -118,10 +134,12 @@ type Applicant {
     jobLookingStatus: JobLookingStatus @rename(attribute: "job_looking_status")
 
     # Personal info
-    email: Email!
     firstName: String @rename(attribute: "first_name")
     lastName: String @rename(attribute: "last_name")
+    email: Email!
     telephone: PhoneNumber
+    currentProvince: ProvinceOrTerritory @rename(attribute: "current_province")
+    currentCity: String @rename(attribute: "current_city")
 
     # Gov info
     isGovEmployee: Boolean @rename(attribute: "is_gov_employee")
@@ -129,6 +147,7 @@ type Applicant {
     currentClassification: Classification @belongsTo # Users current classification
 
     # Language
+    languageAbility: LanguageAbility @rename(attribute: "language_ability")
     preferredLang: Language @rename(attribute: "preferred_lang")
     lookingForEnglish: Boolean @rename(attribute: "looking_for_english")
     lookingForFrench: Boolean @rename(attribute: "looking_for_french")
@@ -138,6 +157,22 @@ type Applicant {
     writtenLevel: EvaluatedLanguageAbility @rename(attribute: "written_level")
     verbalLevel: EvaluatedLanguageAbility @rename(attribute: "verbal_level")
     estimatedLanguageAbility: EstimatedLanguageAbility @rename(attribute: "estimated_language_ability")
+
+    # Employment equity
+    isWoman: Boolean @rename(attribute: "is_woman")
+    hasDisability: Boolean @rename(attribute: "has_disability")
+    isIndigenous: Boolean @rename(attribute: "is_indigenous")
+    isVisibleMinority: Boolean @rename(attribute: "is_visible_minority")
+
+    # Applicant info
+    hasDiploma: Boolean @rename(attribute: "has_diploma")
+    locationPreferences: [WorkRegion] @rename(attribute: "location_preferences")
+    locationExemptions: [String] @rename(attribute: "location_exemptions")
+    acceptedOperationalRequirements: [OperationalRequirement] @belongsToMany
+    expectedSalary: [SalaryRange] @rename(attribute: "expected_salary")
+    expectedClassifications: [Classification] @belongsToMany
+    wouldAcceptTemporary: Boolean @rename(attribute: "would_accept_temporary")
+    cmoAssets: [CmoAsset] @belongsToMany
 
     # Experiences
     experiences: [Experience]
@@ -194,11 +229,9 @@ type PoolCandidate {
     hasDiploma: Boolean @rename(attribute: "has_diploma")
     languageAbility: LanguageAbility @rename(attribute: "language_ability")
     locationPreferences: [WorkRegion] @rename(attribute: "location_preferences")
-    locationExemptions: [String] @rename(attribute: "location_exemptions")
     acceptedOperationalRequirements: [OperationalRequirement] @belongsToMany
     expectedSalary: [SalaryRange] @rename(attribute: "expected_salary")
     expectedClassifications: [Classification] @belongsToMany
-    wouldAcceptTemporary: Boolean @rename(attribute: "would_accept_temporary")
     cmoAssets: [CmoAsset] @belongsToMany
 
     status: PoolCandidateStatus @rename(attribute: "pool_candidate_status")

@@ -1,13 +1,16 @@
 type Applicant {
   id: ID!
   jobLookingStatus: JobLookingStatus
-  email: Email!
   firstName: String
   lastName: String
+  email: Email!
   telephone: PhoneNumber
+  currentProvince: ProvinceOrTerritory
+  currentCity: String
   isGovEmployee: Boolean
   interestedInLaterOrSecondment: Boolean
   currentClassification: Classification
+  languageAbility: LanguageAbility
   preferredLang: Language
   lookingForEnglish: Boolean
   lookingForFrench: Boolean
@@ -17,6 +20,18 @@ type Applicant {
   writtenLevel: EvaluatedLanguageAbility
   verbalLevel: EvaluatedLanguageAbility
   estimatedLanguageAbility: EstimatedLanguageAbility
+  isWoman: Boolean
+  hasDisability: Boolean
+  isIndigenous: Boolean
+  isVisibleMinority: Boolean
+  hasDiploma: Boolean
+  locationPreferences: [WorkRegion]
+  locationExemptions: [String]
+  acceptedOperationalRequirements: [OperationalRequirement]
+  expectedSalary: [SalaryRange]
+  expectedClassifications: [Classification]
+  wouldAcceptTemporary: Boolean
+  cmoAssets: [CmoAsset]
   experiences: [Experience]
   awardExperiences: [AwardExperience]
   communityExperiences: [CommunityExperience]
@@ -517,11 +532,9 @@ type PoolCandidate {
   hasDiploma: Boolean
   languageAbility: LanguageAbility
   locationPreferences: [WorkRegion]
-  locationExemptions: [String]
   acceptedOperationalRequirements: [OperationalRequirement]
   expectedSalary: [SalaryRange]
   expectedClassifications: [Classification]
-  wouldAcceptTemporary: Boolean
   cmoAssets: [CmoAsset]
   status: PoolCandidateStatus
 }
@@ -876,6 +889,7 @@ type User {
   telephone: PhoneNumber
   currentProvince: ProvinceOrTerritory
   currentCity: String
+  languageAbility: LanguageAbility
   preferredLang: Language
   lookingForEnglish: Boolean
   lookingForFrench: Boolean
@@ -888,9 +902,21 @@ type User {
   isGovEmployee: Boolean
   interestedInLaterOrSecondment: Boolean
   currentClassification: Classification
+  isWoman: Boolean
+  hasDisability: Boolean
+  isIndigenous: Boolean
+  isVisibleMinority: Boolean
   jobLookingStatus: JobLookingStatus
   pools: [Pool]
   poolCandidates: [PoolCandidate]
+  hasDiploma: Boolean
+  locationPreferences: [WorkRegion]
+  locationExemptions: [String]
+  acceptedOperationalRequirements: [OperationalRequirement]
+  expectedSalary: [SalaryRange]
+  expectedClassifications: [Classification]
+  wouldAcceptTemporary: Boolean
+  cmoAssets: [CmoAsset]
   experiences: [Experience]
   awardExperiences: [AwardExperience]
   communityExperiences: [CommunityExperience]
