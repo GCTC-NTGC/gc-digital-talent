@@ -16,11 +16,29 @@ const TemplateProfileFormWrapper: Story<ProfileFormWrapperProps> = (args) => {
   return <ProfileFormWrapper {...args} />;
 };
 
-export const Default = TemplateProfileFormWrapper.bind({});
+export const CancelButton = TemplateProfileFormWrapper.bind({});
+export const SaveButton = TemplateProfileFormWrapper.bind({});
+export const BothButtons = TemplateProfileFormWrapper.bind({});
 
-Default.args = {
+CancelButton.args = {
   crumbs: [{ title: "About Me" }],
   title: "About me",
   description:
     "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Odit eligendi ut minima alias voluptates? Magni, nulla qui veritatis architecto ipsam magnam tenetur in eos! Omnis optio ex itaque possimus aut.",
+};
+
+SaveButton.args = {
+  crumbs: [{ title: "About Me" }],
+  title: "About me",
+  description:
+    "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Odit eligendi ut minima alias voluptates? Magni, nulla qui veritatis architecto ipsam magnam tenetur in eos! Omnis optio ex itaque possimus aut.",
+  bottomButton: "save",
+};
+
+BothButtons.args = {
+  crumbs: [{ title: "About Me" }],
+  title: "About me",
+  description:
+    "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Odit eligendi ut minima alias voluptates? Magni, nulla qui veritatis architecto ipsam magnam tenetur in eos! Omnis optio ex itaque possimus aut.",
+  bottomButton: "both",
 };
