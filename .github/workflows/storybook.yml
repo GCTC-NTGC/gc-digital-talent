@@ -46,27 +46,12 @@ jobs:
           (cd common/node_modules && ln -s ../../node_modules/@hydrogen-design-system .)
           (cd talentsearch/node_modules && ln -s ../../node_modules/@hydrogen-design-system .)
 
-      - name: "Build: common"
-        working-directory: frontend/common
+      - name: "Build: all workspaces"
+        working-directory: frontend
         run: |
-          # No need to build since we only use admin's hydrogen.css.
-          #npm run h2-build
-          npm run codegen
-
-      - name: "Build: admin"
-        working-directory: frontend/admin
-        run: |
-          npm run h2-build
-          npm run codegen
-          npm run intl-compile
-
-      - name: "Build: talentsearch"
-        working-directory: frontend/talentsearch
-        run: |
-          # No need to build since we only use admin's hydrogen.css.
-          #npm run h2-build
-          npm run codegen
-          npm run intl-compile
+          npm run h2-build --workspace common
+          npm run codegen --workspaces
+          npm run intl-compile --workspaces
 
       - name: "Publish Storybook: all"
         uses: chromaui/action@v1

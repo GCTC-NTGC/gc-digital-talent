@@ -100,7 +100,6 @@ npm run intl-compile
 
 cd $(System.DefaultWorkingDirectory)/$(Release.PrimaryArtifactSourceAlias)/frontend/talentsearch
 composer install --no-dev
-npm run h2-build
 npm run codegen
 npm run intl-compile
 npm run production
@@ -111,7 +110,6 @@ sudo chmod -R 775 ./ ./storage
 
 cd $(System.DefaultWorkingDirectory)/$(Release.PrimaryArtifactSourceAlias)/frontend/admin
 composer install --no-dev
-npm run h2-build
 npm run codegen
 npm run intl-compile
 npm run production
