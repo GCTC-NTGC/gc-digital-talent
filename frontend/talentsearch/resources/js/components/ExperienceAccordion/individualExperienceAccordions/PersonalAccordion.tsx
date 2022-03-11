@@ -2,37 +2,14 @@ import React from "react";
 import { Accordion } from "@common/components/accordion/Accordion";
 import BriefCaseIcon from "@heroicons/react/solid/BriefcaseIcon";
 import { Button } from "@common/components";
-import { Maybe } from "@common/api/generated";
-import {
-  AwardExperience,
-  CommunityExperience,
-  EducationExperience,
-  PersonalExperience,
-  WorkExperience,
-  Skill,
-  ExperienceSkill,
-} from "../../../api/generated";
+import { PersonalExperience } from "../../../api/generated";
 
-export interface Values {
-  institution?: Maybe<string>;
-  startDate?: Maybe<string>;
-  endDate?: Maybe<string>;
-  type?: Maybe<string>;
-  details?: Maybe<string>;
-  thesisTitle?: Maybe<string>;
-  status?: Maybe<string>;
-  areaOfStudy?: Maybe<string>;
-  experienceSkills: Maybe<ExperienceSkill>[] | null;
-}
-const EducationAccordion: React.FunctionComponent<Values> = ({
-  areaOfStudy,
-  institution,
+const PersonalAccordion: React.FunctionComponent<PersonalExperience> = ({
+  title,
   startDate,
   endDate,
   details,
-  type,
-  status,
-  thesisTitle,
+  description,
   experienceSkills,
 }) => {
   const skillsList = experienceSkills
@@ -52,7 +29,7 @@ const EducationAccordion: React.FunctionComponent<Values> = ({
 
   return (
     <Accordion
-      title={`${areaOfStudy || ""} at ${institution || ""}`}
+      title={title || ""}
       subtitle={
         endDate
           ? `${startDate || ""} - ${endDate || ""}`
@@ -66,13 +43,7 @@ const EducationAccordion: React.FunctionComponent<Values> = ({
       Icon={BriefCaseIcon}
     >
       <div data-h2-padding="b(left, l)">
-        <p>
-          {type} {status}
-        </p>
-        <p>
-          {areaOfStudy} at {institution}
-        </p>
-        <p>{thesisTitle ? `Thesis: ${thesisTitle}` : ""}</p>
+        <p>{description}</p>
       </div>
       <hr />
       <div data-h2-padding="b(left, l)">{skillsList}</div>
@@ -88,4 +59,4 @@ const EducationAccordion: React.FunctionComponent<Values> = ({
   );
 };
 
-export default EducationAccordion;
+export default PersonalAccordion;

@@ -2,34 +2,15 @@ import React from "react";
 import { Accordion } from "@common/components/accordion/Accordion";
 import BriefCaseIcon from "@heroicons/react/solid/BriefcaseIcon";
 import { Button } from "@common/components";
-import { Maybe } from "@common/api/generated";
-import {
-  AwardExperience,
-  CommunityExperience,
-  EducationExperience,
-  PersonalExperience,
-  WorkExperience,
-  Skill,
-  ExperienceSkill,
-} from "../../../api/generated";
+import { AwardExperience } from "../../../api/generated";
 
-export interface Values {
-  division: Maybe<string>;
-  organization?: Maybe<string>;
-  startDate?: Maybe<string>;
-  endDate?: Maybe<string>;
-  details?: Maybe<string>;
-  role?: Maybe<string>;
-  experienceSkills: Maybe<ExperienceSkill>[] | null;
-}
-
-const WorkAccordion: React.FunctionComponent<Values> = ({
-  role,
-  organization,
-  startDate,
-  endDate,
+const AwardAccordion: React.FunctionComponent<AwardExperience> = ({
+  title,
+  awardedDate,
+  issuedBy,
   details,
-  division,
+  awardedTo,
+  awardedScope,
   experienceSkills,
 }) => {
   // create unordered list element of skills DOM Element
@@ -50,12 +31,8 @@ const WorkAccordion: React.FunctionComponent<Values> = ({
 
   return (
     <Accordion
-      title={`${role || ""} at ${organization || ""}`}
-      subtitle={
-        endDate
-          ? `${startDate || ""} - ${endDate || ""}`
-          : `Since: ${startDate || ""}`
-      }
+      title={`${title || ""} - ${issuedBy || ""}`}
+      subtitle={`Since: ${awardedDate || ""}`}
       context={
         experienceSkills?.length === 1
           ? `1 Skill`
@@ -65,9 +42,10 @@ const WorkAccordion: React.FunctionComponent<Values> = ({
     >
       <div data-h2-padding="b(left, l)">
         <p>
-          {role} at {division}
+          {title} issued by {issuedBy}
         </p>
-        <p>{organization}</p>
+        <p>Awarded to: {awardedTo}</p>
+        <p>Scope: {awardedScope}</p>
       </div>
       <hr />
       <div data-h2-padding="b(left, l)">{skillsList}</div>
@@ -83,4 +61,4 @@ const WorkAccordion: React.FunctionComponent<Values> = ({
   );
 };
 
-export default WorkAccordion;
+export default AwardAccordion;

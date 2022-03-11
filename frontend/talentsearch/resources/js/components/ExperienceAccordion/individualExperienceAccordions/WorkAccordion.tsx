@@ -2,34 +2,18 @@ import React from "react";
 import { Accordion } from "@common/components/accordion/Accordion";
 import BriefCaseIcon from "@heroicons/react/solid/BriefcaseIcon";
 import { Button } from "@common/components";
-import { Maybe } from "@common/api/generated";
-import {
-  AwardExperience,
-  CommunityExperience,
-  EducationExperience,
-  PersonalExperience,
-  WorkExperience,
-  Skill,
-  ExperienceSkill,
-} from "../../../api/generated";
+import { WorkExperience } from "../../../api/generated";
 
-export interface Values {
-  title?: Maybe<string>;
-  startDate?: Maybe<string>;
-  endDate?: Maybe<string>;
-  description?: Maybe<string>;
-  details?: Maybe<string>;
-  experienceSkills: Maybe<ExperienceSkill>[] | null;
-}
-
-const PersonalAccordion: React.FunctionComponent<Values> = ({
-  title,
+const WorkAccordion: React.FunctionComponent<WorkExperience> = ({
+  role,
+  organization,
   startDate,
   endDate,
   details,
-  description,
+  division,
   experienceSkills,
 }) => {
+  // create unordered list element of skills DOM Element
   const skillsList = experienceSkills
     ? experienceSkills.map((skill, index) => (
         // eslint-disable-next-line react/no-array-index-key
@@ -47,7 +31,7 @@ const PersonalAccordion: React.FunctionComponent<Values> = ({
 
   return (
     <Accordion
-      title={title || ""}
+      title={`${role || ""} at ${organization || ""}`}
       subtitle={
         endDate
           ? `${startDate || ""} - ${endDate || ""}`
@@ -61,7 +45,10 @@ const PersonalAccordion: React.FunctionComponent<Values> = ({
       Icon={BriefCaseIcon}
     >
       <div data-h2-padding="b(left, l)">
-        <p>{description}</p>
+        <p>
+          {role} at {division}
+        </p>
+        <p>{organization}</p>
       </div>
       <hr />
       <div data-h2-padding="b(left, l)">{skillsList}</div>
@@ -77,4 +64,4 @@ const PersonalAccordion: React.FunctionComponent<Values> = ({
   );
 };
 
-export default PersonalAccordion;
+export default WorkAccordion;

@@ -2,37 +2,19 @@ import React from "react";
 import { Accordion } from "@common/components/accordion/Accordion";
 import BriefCaseIcon from "@heroicons/react/solid/BriefcaseIcon";
 import { Button } from "@common/components";
-import { Maybe } from "@common/api/generated";
-import {
-  AwardExperience,
-  CommunityExperience,
-  EducationExperience,
-  PersonalExperience,
-  WorkExperience,
-  Skill,
-  ExperienceSkill,
-} from "../../../api/generated";
+import { EducationExperience } from "@common/api/generated";
 
-export interface Values {
-  title: Maybe<string>;
-  awardedDate?: Maybe<string>;
-  issuedBy?: Maybe<string>;
-  details?: Maybe<string>;
-  awardedTo?: Maybe<string>;
-  awardedScope?: Maybe<string>;
-  experienceSkills: Maybe<ExperienceSkill>[] | null;
-}
-
-const AwardAccordion: React.FunctionComponent<Values> = ({
-  title,
-  awardedDate,
-  issuedBy,
+const EducationAccordion: React.FunctionComponent<EducationExperience> = ({
+  areaOfStudy,
+  institution,
+  startDate,
+  endDate,
   details,
-  awardedTo,
-  awardedScope,
+  type,
+  status,
+  thesisTitle,
   experienceSkills,
 }) => {
-  // create unordered list element of skills DOM Element
   const skillsList = experienceSkills
     ? experienceSkills.map((skill, index) => (
         // eslint-disable-next-line react/no-array-index-key
@@ -50,8 +32,12 @@ const AwardAccordion: React.FunctionComponent<Values> = ({
 
   return (
     <Accordion
-      title={`${title || ""} - ${issuedBy || ""}`}
-      subtitle={`Since: ${awardedDate || ""}`}
+      title={`${areaOfStudy || ""} at ${institution || ""}`}
+      subtitle={
+        endDate
+          ? `${startDate || ""} - ${endDate || ""}`
+          : `Since: ${startDate || ""}`
+      }
       context={
         experienceSkills?.length === 1
           ? `1 Skill`
@@ -61,10 +47,12 @@ const AwardAccordion: React.FunctionComponent<Values> = ({
     >
       <div data-h2-padding="b(left, l)">
         <p>
-          {title} issued by {issuedBy}
+          {type} {status}
         </p>
-        <p>Awarded to: {awardedTo}</p>
-        <p>Scope: {awardedScope}</p>
+        <p>
+          {areaOfStudy} at {institution}
+        </p>
+        <p>{thesisTitle ? `Thesis: ${thesisTitle}` : ""}</p>
       </div>
       <hr />
       <div data-h2-padding="b(left, l)">{skillsList}</div>
@@ -80,4 +68,4 @@ const AwardAccordion: React.FunctionComponent<Values> = ({
   );
 };
 
-export default AwardAccordion;
+export default EducationAccordion;

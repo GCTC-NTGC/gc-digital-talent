@@ -19,13 +19,6 @@ import {
   EducationStatus,
 } from "../api/generated";
 
-type AnExperience =
-  | AwardExperience
-  | CommunityExperience
-  | EducationExperience
-  | PersonalExperience
-  | WorkExperience;
-
 // lots of X requires Y filling things out and adding connecting Types/Components to one another
 const sampleApp: Applicant = { email: "blank", id: "blank" };
 const theId = "blank";
@@ -182,52 +175,28 @@ const generateWork = (
 export default (numberOfExperiences: number) => {
   faker.seed(0);
 
-  // to randomly run one of the 5 generators
-  const runRandomGenerator = () => {
-    const randomIndex = faker.random.arrayElement([0, 1, 2, 3, 4]);
-    if (randomIndex === 0) {
-      return generateAward(sampleApp, theId, sampleExperience);
-    }
-    if (randomIndex === 1) {
-      return generateCommunity(sampleApp, theId, sampleExperience);
-    }
-    if (randomIndex === 2) {
-      return generateEducation(sampleApp, theId, sampleExperience);
-    }
-    if (randomIndex === 3) {
-      return generatePersonal(sampleApp, theId, sampleExperience);
-    }
-    if (randomIndex === 4) {
-      return generateWork(sampleApp, theId, sampleExperience);
-    }
-    return generateAward(sampleApp, theId, sampleExperience);
-  };
+  const generators = [
+    () => generateAward(sampleApp, theId, sampleExperience),
+    () => generateCommunity(sampleApp, theId, sampleExperience),
+    () => generateEducation(sampleApp, theId, sampleExperience),
+    () => generatePersonal(sampleApp, theId, sampleExperience),
+    () => generateWork(sampleApp, theId, sampleExperience),
+  ];
 
   // fill an array with random experiences
-  const theArray = [...Array(numberOfExperiences)].map(() =>
-    runRandomGenerator(),
-  );
+  const experiences = [...Array(numberOfExperiences)].map(() => {
+    const generator = faker.random.arrayElement(generators);
+    return generator();
+  });
 
-  return theArray;
+  return experiences;
 };
 
 // the 5 single experiences of a specific type
-export const fakerAward = {
+export const generators = {
   generateAward,
-};
-
-export const fakerCommunity = {
   generateCommunity,
-};
-
-export const fakerEducation = {
   generateEducation,
-};
-
-export const fakerPersonal = {
   generatePersonal,
-};
-
-export const fakerWork = {
   generateWork,
 };

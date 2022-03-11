@@ -1,13 +1,6 @@
 import React from "react";
 import { Story, Meta } from "@storybook/react";
-import { action } from "@storybook/addon-actions";
-import fakeExperiences, {
-  fakerAward,
-  fakerCommunity,
-  fakerEducation,
-  fakerPersonal,
-  fakerWork,
-} from "@common/fakeData/fakeExperiences";
+import fakeExperiences, { generators } from "@common/fakeData/fakeExperiences";
 import {
   Applicant,
   LocalizedString,
@@ -53,7 +46,7 @@ const {
   role,
   division,
   details,
-} = fakerWork.generateWork(sampleApp, theId, sampleExperience);
+} = generators.generateWork(sampleApp, theId, sampleExperience);
 
 // array of random experiences
 console.log(fakeExperiences(10));
@@ -77,7 +70,7 @@ export const AccordionUnknownExample = AccordionTemplate.bind({});
 export const AccordionFaker = AccordionTemplate.bind({});
 
 AccordionAwardExample.args = {
-  anExperience: {
+  experience: {
     applicant: sampleApp,
     id: theId,
     __typename: "AwardExperience",
@@ -100,7 +93,7 @@ AccordionAwardExample.args = {
 };
 
 AccordionCommunityExample.args = {
-  anExperience: {
+  experience: {
     applicant: sampleApp,
     id: theId,
     __typename: "CommunityExperience",
@@ -120,7 +113,7 @@ AccordionCommunityExample.args = {
 };
 
 AccordionEducationExample.args = {
-  anExperience: {
+  experience: {
     applicant: sampleApp,
     id: theId,
     __typename: "EducationExperience",
@@ -141,7 +134,7 @@ AccordionEducationExample.args = {
 };
 
 AccordionPersonalExample.args = {
-  anExperience: {
+  experience: {
     applicant: sampleApp,
     id: theId,
     __typename: "PersonalExperience",
@@ -161,7 +154,7 @@ AccordionPersonalExample.args = {
 };
 
 AccordionWorkExample.args = {
-  anExperience: {
+  experience: {
     applicant: sampleApp,
     id: theId,
     __typename: "WorkExperience",
@@ -184,7 +177,7 @@ AccordionWorkExample.args = {
 };
 
 AccordionUnknownExample.args = {
-  anExperience: {
+  experience: {
     applicant: sampleApp,
     id: theId,
     experienceSkills: [
@@ -200,7 +193,7 @@ AccordionUnknownExample.args = {
 
 // pass faker variables from near top to here
 AccordionFaker.args = {
-  anExperience: {
+  experience: {
     applicant: sampleApp,
     id: theId,
     __typename,

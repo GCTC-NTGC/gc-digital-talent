@@ -2,28 +2,9 @@ import React from "react";
 import { Accordion } from "@common/components/accordion/Accordion";
 import BriefCaseIcon from "@heroicons/react/solid/BriefcaseIcon";
 import { Button } from "@common/components";
-import { Maybe } from "@common/api/generated";
-import {
-  AwardExperience,
-  CommunityExperience,
-  EducationExperience,
-  PersonalExperience,
-  WorkExperience,
-  Skill,
-  ExperienceSkill,
-} from "../../../api/generated";
+import { CommunityExperience } from "@common/api/generated";
 
-export interface Values {
-  title: Maybe<string>;
-  organization?: Maybe<string>;
-  startDate?: Maybe<string>;
-  endDate?: Maybe<string>;
-  details?: Maybe<string>;
-  project?: Maybe<string>;
-  experienceSkills: Maybe<ExperienceSkill>[] | null;
-}
-
-const CommunityAccordion: React.FunctionComponent<Values> = ({
+const CommunityAccordion: React.FunctionComponent<CommunityExperience> = ({
   title,
   organization,
   startDate,
