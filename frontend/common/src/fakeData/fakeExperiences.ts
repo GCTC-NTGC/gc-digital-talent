@@ -20,15 +20,24 @@ import {
 } from "../api/generated";
 
 // lots of X requires Y filling things out and adding connecting Types/Components to one another
+// defining the skills here
 const sampleApp: Applicant = { email: "blank", id: "blank" };
 const theId = "blank";
-const theString: LocalizedString = { en: "The Skill" };
-const theDescription: LocalizedString = { en: "The Description" };
-const sampleSkill: Skill = {
+const theSkillString1: LocalizedString = { en: "The first Skill" };
+const theSkillDescription1: LocalizedString = { en: "The first Description" };
+const sampleSkill1: Skill = {
   id: "blank",
   key: "blank",
-  description: theDescription,
-  name: theString,
+  description: theSkillDescription1,
+  name: theSkillString1,
+};
+const theSkillString2: LocalizedString = { en: "The second Skill" };
+const theSkillDescription2: LocalizedString = { en: "The second Description" };
+const sampleSkill2: Skill = {
+  id: "blank",
+  key: "blank",
+  description: theSkillDescription2,
+  name: theSkillString2,
 };
 const sampleExperienceInstance: Experience = {
   applicant: sampleApp,
@@ -36,27 +45,31 @@ const sampleExperienceInstance: Experience = {
   // circular dependency here, between sampleExperienceInstance and sampleExperience
   // experienceSkills: [sampleExperience],
 };
-const sampleExperience: ExperienceSkill = {
+const sampleExperience1: ExperienceSkill = {
   id: "blank",
-  skill: sampleSkill,
+  skill: sampleSkill1,
   experience: sampleExperienceInstance,
+  details: faker.lorem.sentence(),
+};
+const sampleExperience2: ExperienceSkill = {
+  id: "blank",
+  skill: sampleSkill2,
+  experience: sampleExperienceInstance,
+  details: faker.lorem.sentence(),
 };
 
 // 5 generators to generate experiences of a certain type
 // actual generators start here
-const generateAward = (
-  theApplicant: Applicant,
-  id: string,
-  sampleExperienceSample: ExperienceSkill,
-): AwardExperience => {
+const generateAward = (): AwardExperience => {
   faker.setLocale("en");
+
   return {
     __typename: "AwardExperience",
-    applicant: theApplicant,
-    id,
-    experienceSkills: [sampleExperienceSample],
+    applicant: sampleApp,
+    id: theId,
+    experienceSkills: [],
     details: faker.random.words(),
-    title: faker.random.word(),
+    title: faker.lorem.word(),
     awardedTo: faker.random.arrayElement([
       AwardedTo.Me,
       AwardedTo.MyOrganization,
@@ -73,23 +86,19 @@ const generateAward = (
       AwardedScope.SubOrganizational,
     ]),
     awardedDate: faker.date.past().toString().slice(0, 15),
-    issuedBy: faker.name.firstName(),
+    issuedBy: faker.company.companyName(),
   };
 };
 
-const generateCommunity = (
-  theApplicant: Applicant,
-  id: string,
-  sampleExperienceSample: ExperienceSkill,
-): CommunityExperience => {
+const generateCommunity = (): CommunityExperience => {
   faker.setLocale("en");
   return {
     __typename: "CommunityExperience",
-    applicant: theApplicant,
-    id,
-    experienceSkills: [sampleExperienceSample],
+    applicant: sampleApp,
+    id: theId,
+    experienceSkills: [sampleExperience1],
     details: faker.random.words(),
-    title: faker.random.word(),
+    title: faker.lorem.word(),
     organization: faker.company.companyName(),
     project: faker.lorem.word(),
     startDate: faker.date.recent().toString().slice(0, 15),
@@ -97,17 +106,13 @@ const generateCommunity = (
   };
 };
 
-const generateEducation = (
-  theApplicant: Applicant,
-  id: string,
-  sampleExperienceSample: ExperienceSkill,
-): EducationExperience => {
+const generateEducation = (): EducationExperience => {
   faker.setLocale("en");
   return {
     __typename: "EducationExperience",
-    applicant: theApplicant,
-    id,
-    experienceSkills: [sampleExperienceSample],
+    applicant: sampleApp,
+    id: theId,
+    experienceSkills: [sampleExperience1, sampleExperience2],
     details: faker.random.words(),
     areaOfStudy: faker.music.genre(),
     type: faker.random.arrayElement([
@@ -133,37 +138,29 @@ const generateEducation = (
   };
 };
 
-const generatePersonal = (
-  theApplicant: Applicant,
-  id: string,
-  sampleExperienceSample: ExperienceSkill,
-): PersonalExperience => {
+const generatePersonal = (): PersonalExperience => {
   faker.setLocale("en");
   return {
     __typename: "PersonalExperience",
-    applicant: theApplicant,
-    id,
-    experienceSkills: [sampleExperienceSample],
-    details: faker.random.words(),
-    title: faker.random.word(),
+    applicant: sampleApp,
+    id: theId,
+    experienceSkills: [sampleExperience1],
+    details: faker.lorem.sentence(),
+    title: faker.name.jobTitle(),
     startDate: faker.date.recent().toString().slice(0, 15),
     endDate: faker.date.future().toString().slice(0, 15),
     description: faker.lorem.paragraph(),
   };
 };
 
-const generateWork = (
-  theApplicant: Applicant,
-  id: string,
-  sampleExperienceSample: ExperienceSkill,
-): WorkExperience => {
+const generateWork = (): WorkExperience => {
   faker.setLocale("en");
   return {
     __typename: "WorkExperience",
-    applicant: theApplicant,
-    id,
-    experienceSkills: [sampleExperienceSample],
-    details: faker.random.words(),
+    applicant: sampleApp,
+    id: theId,
+    experienceSkills: [sampleExperience1, sampleExperience2],
+    details: faker.lorem.sentence(),
     organization: faker.company.companyName(),
     role: faker.name.jobTitle(),
     startDate: faker.date.past().toString().slice(0, 15),
@@ -176,11 +173,11 @@ export default (numberOfExperiences: number) => {
   faker.seed(0);
 
   const generators = [
-    () => generateAward(sampleApp, theId, sampleExperience),
-    () => generateCommunity(sampleApp, theId, sampleExperience),
-    () => generateEducation(sampleApp, theId, sampleExperience),
-    () => generatePersonal(sampleApp, theId, sampleExperience),
-    () => generateWork(sampleApp, theId, sampleExperience),
+    () => generateAward(),
+    () => generateCommunity(),
+    () => generateEducation(),
+    () => generatePersonal(),
+    () => generateWork(),
   ];
 
   // fill an array with random experiences
