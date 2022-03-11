@@ -8,6 +8,7 @@ import {
 import * as React from "react";
 import { useIntl } from "react-intl";
 import { Experience } from "../../api/generated";
+import ProfileFormFooter from "./ProfileFormFooter";
 import ProfileFormWrapper from "./ProfileFormWrapper";
 
 const ExperienceAndSkillsPage: React.FunctionComponent<{
@@ -127,6 +128,7 @@ const ExperienceAndSkillsPage: React.FunctionComponent<{
           </p>
         )}
       </div>
+      <ProfileFormFooter mode="cancelButton" />
     </ProfileFormWrapper>
   );
 };
