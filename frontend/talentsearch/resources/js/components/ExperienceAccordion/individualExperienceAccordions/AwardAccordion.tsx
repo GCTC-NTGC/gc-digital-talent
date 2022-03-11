@@ -3,9 +3,10 @@ import { Accordion } from "@common/components/accordion/Accordion";
 import BriefCaseIcon from "@heroicons/react/solid/BriefcaseIcon";
 import { Button } from "@common/components";
 import {
-  awardedToMessages,
-  awardedScopeMessages,
+  getAwardedTo,
+  getAwardedScope,
 } from "@common/constants/localizedConstants";
+import { useIntl } from "react-intl";
 import { AwardExperience } from "../../../api/generated";
 
 const AwardAccordion: React.FunctionComponent<AwardExperience> = ({
@@ -17,6 +18,8 @@ const AwardAccordion: React.FunctionComponent<AwardExperience> = ({
   awardedScope,
   experienceSkills,
 }) => {
+  const intl = useIntl();
+
   // create unordered list element of skills DOM Element
   const skillsList = experienceSkills
     ? experienceSkills.map((skill, index) => (
@@ -33,44 +36,6 @@ const AwardAccordion: React.FunctionComponent<AwardExperience> = ({
       ))
     : "";
 
-  // turning enums into messages
-  let awardedToLocalized;
-  if (awardedTo === "ME") {
-    awardedToLocalized = awardedToMessages.ME.defaultMessage;
-  }
-  if (awardedTo === "MY_ORGANIZATION") {
-    awardedToLocalized = awardedToMessages.MY_ORGANIZATION.defaultMessage;
-  }
-  if (awardedTo === "MY_PROJECT") {
-    awardedToLocalized = awardedToMessages.MY_PROJECT.defaultMessage;
-  }
-  if (awardedTo === "MY_TEAM") {
-    awardedToLocalized = awardedToMessages.MY_TEAM.defaultMessage;
-  }
-
-  let awardedScopeLocalized;
-  if (awardedScope === "COMMUNITY") {
-    awardedScopeLocalized = awardedScopeMessages.INTERNATIONAL.defaultMessage;
-  }
-  if (awardedScope === "INTERNATIONAL") {
-    awardedScopeLocalized = awardedScopeMessages.INTERNATIONAL.defaultMessage;
-  }
-  if (awardedScope === "LOCAL") {
-    awardedScopeLocalized = awardedScopeMessages.INTERNATIONAL.defaultMessage;
-  }
-  if (awardedScope === "NATIONAL") {
-    awardedScopeLocalized = awardedScopeMessages.INTERNATIONAL.defaultMessage;
-  }
-  if (awardedScope === "ORGANIZATIONAL") {
-    awardedScopeLocalized = awardedScopeMessages.INTERNATIONAL.defaultMessage;
-  }
-  if (awardedScope === "PROVINCIAL") {
-    awardedScopeLocalized = awardedScopeMessages.INTERNATIONAL.defaultMessage;
-  }
-  if (awardedScope === "SUB_ORGANIZATIONAL") {
-    awardedScopeLocalized = awardedScopeMessages.INTERNATIONAL.defaultMessage;
-  }
-
   return (
     <Accordion
       title={`${title || ""} - ${issuedBy || ""}`}
@@ -86,8 +51,16 @@ const AwardAccordion: React.FunctionComponent<AwardExperience> = ({
         <p>
           {title} issued by {issuedBy}
         </p>
-        <p>Awarded to: {awardedToLocalized}</p>
-        <p>Scope: {awardedScopeLocalized}</p>
+        <p>
+          Awarded to:{" "}
+          {awardedTo ? intl.formatMessage(getAwardedTo(awardedTo)) : ""}
+        </p>
+        <p>
+          Scope:{" "}
+          {awardedScope
+            ? intl.formatMessage(getAwardedScope(awardedScope))
+            : ""}
+        </p>
       </div>
       <hr />
       <div data-h2-padding="b(left, l)">{skillsList}</div>
