@@ -5,12 +5,12 @@ export const Link: React.FC<{ href: string; title: string }> = ({
   href,
   title,
   children,
-  ...props
+  ...rest
 }): React.ReactElement => (
   <a
     href={href}
     title={title}
-    {...props}
+    {...rest}
     onClick={(event): void => {
       event.preventDefault();
       navigate(href);
