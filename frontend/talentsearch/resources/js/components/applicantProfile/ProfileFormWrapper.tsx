@@ -7,7 +7,6 @@ import { ArrowCircleLeftIcon } from "@heroicons/react/outline";
 import { Link } from "@common/components";
 import { imageUrl } from "@common/helpers/router";
 import TALENTSEARCH_APP_DIR from "../../talentSearchConstants";
-import { useTalentSearchRoutes } from "../../talentSearchRoutes";
 
 export interface ProfileFormWrapperProps {
   bottomButton?: "cancel" | "save" | "both";
@@ -26,7 +25,6 @@ const ProfileFormWrapper: React.FunctionComponent<ProfileFormWrapperProps> = ({
   children,
 }) => {
   const intl = useIntl();
-  const paths = useTalentSearchRoutes();
   const links = [
     {
       title: "My Profile",
@@ -99,7 +97,7 @@ const ProfileFormWrapper: React.FunctionComponent<ProfileFormWrapperProps> = ({
 
   const breadcrumbs = (
     <div
-      data-h2-padding="b(top-bottom, m) b(right-left, l)"
+      data-h2-padding="b(top-bottom, m) b(right-left, l) s(right-left, xxl)"
       data-h2-font-color="b(white)"
       style={{
         background: `url(${imageUrl(
@@ -116,8 +114,8 @@ const ProfileFormWrapper: React.FunctionComponent<ProfileFormWrapperProps> = ({
   return (
     <section>
       {breadcrumbs}
-      <div data-h2-margin="b(right-left, l)">
-        <div data-h2-margin="b(top-bottom, m)">{cancelButton}</div>
+      <div data-h2-margin="b(right-left, l) s(right-left, xxl)">
+        <div data-h2-margin="b(top-bottom, l)">{cancelButton}</div>
         <h1
           data-h2-margin="b(all, none)"
           data-h2-font-size="b(h2)"
@@ -127,7 +125,7 @@ const ProfileFormWrapper: React.FunctionComponent<ProfileFormWrapperProps> = ({
         </h1>
         <p>{description}</p>
         <div>{children}</div>
-        <div data-h2-margin="b(top-bottom, m)" data-h2-display="b(flex)">
+        <div data-h2-margin="b(top-bottom, l)" data-h2-display="b(flex)">
           {bottomButtons()}
         </div>
       </div>
