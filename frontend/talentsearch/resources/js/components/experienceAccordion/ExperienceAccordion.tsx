@@ -1,7 +1,5 @@
 import React from "react";
 import { Accordion } from "@common/components/accordion/Accordion";
-import BriefCaseIcon from "@heroicons/react/solid/BriefcaseIcon";
-import { Button } from "@common/components";
 import {
   AwardExperience,
   CommunityExperience,
@@ -10,6 +8,11 @@ import {
   WorkExperience,
   Skill,
 } from "../../api/generated";
+import AwardAccordion from "./individualExperienceAccordions/awardAccordion";
+import CommunityAccordion from "./individualExperienceAccordions/communityAccordion";
+import EducationAccordion from "./individualExperienceAccordions/educationAccordion";
+import PersonalAccordion from "./individualExperienceAccordions/personalAccordion";
+import WorkAccordion from "./individualExperienceAccordions/workAccordion";
 
 type AnExperience =
   | AwardExperience
@@ -25,7 +28,8 @@ const determineIfAward = (
   anExperience: AnExperience,
 ): anExperience is AwardExperience => {
   //
-  if (anExperience as AwardExperience) {
+  // eslint-disable-next-line no-underscore-dangle
+  if (anExperience.__typename === "AwardExperience") {
     return true;
   }
   return false;
@@ -35,7 +39,8 @@ const determineIfCommunity = (
   anExperience: AnExperience,
 ): anExperience is CommunityExperience => {
   //
-  if (anExperience as CommunityExperience) {
+  // eslint-disable-next-line no-underscore-dangle
+  if (anExperience.__typename === "CommunityExperience") {
     return true;
   }
   return false;
@@ -45,7 +50,8 @@ const determineIfEducation = (
   anExperience: AnExperience,
 ): anExperience is EducationExperience => {
   //
-  if (anExperience as EducationExperience) {
+  // eslint-disable-next-line no-underscore-dangle
+  if (anExperience.__typename === "EducationExperience") {
     return true;
   }
   return false;
@@ -54,7 +60,8 @@ const determineIfPersonal = (
   anExperience: AnExperience,
 ): anExperience is PersonalExperience => {
   //
-  if (anExperience as PersonalExperience) {
+  // eslint-disable-next-line no-underscore-dangle
+  if (anExperience.__typename === "PersonalExperience") {
     return true;
   }
   return false;
@@ -64,7 +71,8 @@ const determineIfWork = (
   anExperience: AnExperience,
 ): anExperience is WorkExperience => {
   //
-  if (anExperience as WorkExperience) {
+  // eslint-disable-next-line no-underscore-dangle
+  if (anExperience.__typename === "WorkExperience") {
     return true;
   }
   return false;
@@ -77,7 +85,6 @@ const ExperienceAccordion: React.FunctionComponent<AccordionProps> = ({
   let experienceInstance;
   if (determineIfAward(anExperience)) {
     const {
-      __typename,
       title,
       awardedDate,
       issuedBy,
@@ -87,56 +94,17 @@ const ExperienceAccordion: React.FunctionComponent<AccordionProps> = ({
       experienceSkills = [],
     } = anExperience;
 
-    // create unordered list element of skills DOM Element
-    const skillsList = experienceSkills
-      ? experienceSkills.map((skill, index) => (
-          // eslint-disable-next-line react/no-array-index-key
-          <ul key={index}>
-            <li>
-              <p>
-                {skill?.skill.name.en}
-                <br />
-                {skill?.details}
-              </p>
-            </li>
-          </ul>
-        ))
-      : "";
-
-    // create the main accordion DOM Element with appropriate formatting
-    experienceInstance = (
-      <Accordion
-        title={`${title || ""} - ${issuedBy || ""}`}
-        subtitle={`Since: ${awardedDate || ""}`}
-        context={
-          experienceSkills?.length === 1
-            ? `1 Skill`
-            : `${experienceSkills?.length} Skills`
-        }
-        Icon={BriefCaseIcon}
-      >
-        <div data-h2-padding="b(left, l)">
-          <p>
-            {title} issued by {issuedBy}
-          </p>
-          <p>Awarded to: {awardedTo}</p>
-          <p>Scope: {awardedScope}</p>
-        </div>
-        <hr />
-        <div data-h2-padding="b(left, l)">{skillsList}</div>
-        <div data-h2-padding="b(left, l)">
-          <p>{`Additional information: ${details || "None"}`}</p>
-        </div>
-        <div data-h2-padding="b(left, l)">
-          <Button color="primary" mode="outline">
-            Edit Experience
-          </Button>
-        </div>
-      </Accordion>
-    );
+    experienceInstance = AwardAccordion({
+      title,
+      awardedDate,
+      issuedBy,
+      details,
+      awardedTo,
+      awardedScope,
+      experienceSkills,
+    });
   } else if (determineIfCommunity(anExperience)) {
     const {
-      __typename,
       title,
       organization,
       startDate,
@@ -146,58 +114,17 @@ const ExperienceAccordion: React.FunctionComponent<AccordionProps> = ({
       experienceSkills = [],
     } = anExperience;
 
-    const skillsList = experienceSkills
-      ? experienceSkills.map((skill, index) => (
-          // eslint-disable-next-line react/no-array-index-key
-          <ul key={index}>
-            <li>
-              <p>
-                {skill?.skill.name.en}
-                <br />
-                {skill?.details}
-              </p>
-            </li>
-          </ul>
-        ))
-      : "";
-
-    experienceInstance = (
-      <Accordion
-        title={`${title || ""} at ${organization || ""}`}
-        subtitle={
-          endDate
-            ? `${startDate || ""} - ${endDate || ""}`
-            : `Since: ${startDate || ""}`
-        }
-        context={
-          experienceSkills?.length === 1
-            ? `1 Skill`
-            : `${experienceSkills?.length} Skills`
-        }
-        Icon={BriefCaseIcon}
-      >
-        {" "}
-        <div data-h2-padding="b(left, l)">
-          <p>
-            {title} at {organization}
-          </p>
-          <p>{project}</p>
-        </div>
-        <hr />
-        <div data-h2-padding="b(left, l)">{skillsList}</div>
-        <div data-h2-padding="b(left, l)">
-          <p>{`Additional information: ${details || "None"}`}</p>
-        </div>
-        <div data-h2-padding="b(left, l)">
-          <Button color="primary" mode="outline">
-            Edit Experience
-          </Button>
-        </div>
-      </Accordion>
-    );
+    experienceInstance = CommunityAccordion({
+      title,
+      organization,
+      startDate,
+      endDate,
+      details,
+      project,
+      experienceSkills,
+    });
   } else if (determineIfEducation(anExperience)) {
     const {
-      __typename,
       areaOfStudy,
       institution,
       startDate,
@@ -209,60 +136,19 @@ const ExperienceAccordion: React.FunctionComponent<AccordionProps> = ({
       experienceSkills = [],
     } = anExperience;
 
-    const skillsList = experienceSkills
-      ? experienceSkills.map((skill, index) => (
-          // eslint-disable-next-line react/no-array-index-key
-          <ul key={index}>
-            <li>
-              <p>
-                {skill?.skill.name.en}
-                <br />
-                {skill?.details}
-              </p>
-            </li>
-          </ul>
-        ))
-      : "";
-
-    experienceInstance = (
-      <Accordion
-        title={`${areaOfStudy || ""} at ${institution || ""}`}
-        subtitle={
-          endDate
-            ? `${startDate || ""} - ${endDate || ""}`
-            : `Since: ${startDate || ""}`
-        }
-        context={
-          experienceSkills?.length === 1
-            ? `1 Skill`
-            : `${experienceSkills?.length} Skills`
-        }
-        Icon={BriefCaseIcon}
-      >
-        <div data-h2-padding="b(left, l)">
-          <p>
-            {type} {status}
-          </p>
-          <p>
-            {areaOfStudy} at {institution}
-          </p>
-          <p>{thesisTitle ? `Thesis: ${thesisTitle}` : ""}</p>
-        </div>
-        <hr />
-        <div data-h2-padding="b(left, l)">{skillsList}</div>
-        <div data-h2-padding="b(left, l)">
-          <p>{`Additional information: ${details || "None"}`}</p>
-        </div>
-        <div data-h2-padding="b(left, l)">
-          <Button color="primary" mode="outline">
-            Edit Experience
-          </Button>
-        </div>
-      </Accordion>
-    );
+    experienceInstance = EducationAccordion({
+      areaOfStudy,
+      institution,
+      startDate,
+      endDate,
+      details,
+      type,
+      status,
+      thesisTitle,
+      experienceSkills,
+    });
   } else if (determineIfPersonal(anExperience)) {
     const {
-      __typename,
       title,
       startDate,
       endDate,
@@ -271,54 +157,16 @@ const ExperienceAccordion: React.FunctionComponent<AccordionProps> = ({
       experienceSkills = [],
     } = anExperience;
 
-    const skillsList = experienceSkills
-      ? experienceSkills.map((skill, index) => (
-          // eslint-disable-next-line react/no-array-index-key
-          <ul key={index}>
-            <li>
-              <p>
-                {skill?.skill.name.en}
-                <br />
-                {skill?.details}
-              </p>
-            </li>
-          </ul>
-        ))
-      : "";
-
-    experienceInstance = (
-      <Accordion
-        title={title || ""}
-        subtitle={
-          endDate
-            ? `${startDate || ""} - ${endDate || ""}`
-            : `Since: ${startDate || ""}`
-        }
-        context={
-          experienceSkills?.length === 1
-            ? `1 Skill`
-            : `${experienceSkills?.length} Skills`
-        }
-        Icon={BriefCaseIcon}
-      >
-        <div data-h2-padding="b(left, l)">
-          <p>{description}</p>
-        </div>
-        <hr />
-        <div data-h2-padding="b(left, l)">{skillsList}</div>
-        <div data-h2-padding="b(left, l)">
-          <p>{`Additional information: ${details || "None"}`}</p>
-        </div>
-        <div data-h2-padding="b(left, l)">
-          <Button color="primary" mode="outline">
-            Edit Experience
-          </Button>
-        </div>
-      </Accordion>
-    );
+    experienceInstance = PersonalAccordion({
+      title,
+      startDate,
+      endDate,
+      details,
+      description,
+      experienceSkills,
+    });
   } else if (determineIfWork(anExperience)) {
     const {
-      __typename,
       role,
       organization,
       startDate,
@@ -328,54 +176,15 @@ const ExperienceAccordion: React.FunctionComponent<AccordionProps> = ({
       experienceSkills = [],
     } = anExperience;
 
-    const skillsList = experienceSkills
-      ? experienceSkills.map((skill, index) => (
-          // eslint-disable-next-line react/no-array-index-key
-          <ul key={index}>
-            <li>
-              <p>
-                {skill?.skill.name.en}
-                <br />
-                {skill?.details}
-              </p>
-            </li>
-          </ul>
-        ))
-      : "";
-
-    experienceInstance = (
-      <Accordion
-        title={`${role || ""} at ${organization || ""}`}
-        subtitle={
-          endDate
-            ? `${startDate || ""} - ${endDate || ""}`
-            : `Since: ${startDate || ""}`
-        }
-        context={
-          experienceSkills?.length === 1
-            ? `1 Skill`
-            : `${experienceSkills?.length} Skills`
-        }
-        Icon={BriefCaseIcon}
-      >
-        <div data-h2-padding="b(left, l)">
-          <p>
-            {role} at {division}
-          </p>
-          <p>{organization}</p>
-        </div>
-        <hr />
-        <div data-h2-padding="b(left, l)">{skillsList}</div>
-        <div data-h2-padding="b(left, l)">
-          <p>{`Additional information: ${details || "None"}`}</p>
-        </div>
-        <div data-h2-padding="b(left, l)">
-          <Button color="primary" mode="outline">
-            Edit Experience
-          </Button>
-        </div>
-      </Accordion>
-    );
+    experienceInstance = WorkAccordion({
+      role,
+      organization,
+      startDate,
+      endDate,
+      details,
+      division,
+      experienceSkills,
+    });
   } else {
     // not one of the 5 experience types
     experienceInstance = <Accordion title="Unknown experience" />;
