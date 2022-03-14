@@ -14,7 +14,7 @@ use Illuminate\Auth\Authenticatable as AuthenticatableTrait;
 /**
  * Class User
  *
- * @property int $id
+ * @property string $id
  * @property string $email
  * @property string $sub
  * @property string $first_name
@@ -35,7 +35,7 @@ use Illuminate\Auth\Authenticatable as AuthenticatableTrait;
  * @property string $estimated_language_ability
  * @property string $is_gov_employee
  * @property string $interested_in_later_or_secondment
- * @property int $current_classification
+ * @property string $current_classification
  * @property boolean $is_woman
  * @property boolean $has_disability
  * @property boolean $is_indigenous
@@ -43,7 +43,7 @@ use Illuminate\Auth\Authenticatable as AuthenticatableTrait;
  * @property boolean $has_diploma
  * @property string $language_ability
  * @property array $location_preferences
- * @property array $location_exemptions
+ * @property string $location_exemptions
  * @property array $expected_salary
  * @property boolean $would_accept_temporary
  * @property Illuminate\Support\Carbon $created_at
@@ -61,7 +61,6 @@ class User extends Model implements Authenticatable
     protected $casts = [
         'roles' => 'array',
         'location_preferences' => 'array',
-        'location_exemptions' => 'array',
         'expected_salary' => 'array',
     ];
 
@@ -79,15 +78,15 @@ class User extends Model implements Authenticatable
     }
     public function acceptedOperationalRequirements(): BelongsToMany
     {
-        return $this->belongsToMany(OperationalRequirement::class, 'operational_requirement_user');
+        return $this->belongsToMany(OperationalRequirement::class, 'operational_requirement_user')->withTimestamps();
     }
     public function expectedClassifications(): BelongsToMany
     {
-        return $this->belongsToMany(Classification::class, 'classification_user');
+        return $this->belongsToMany(Classification::class, 'classification_user')->withTimestamps();
     }
     public function cmoAssets(): BelongsToMany
     {
-        return $this->belongsToMany(CmoAsset::class);
+        return $this->belongsToMany(CmoAsset::class)->withTimestamps();
     }
 
     public function isAdmin(): bool

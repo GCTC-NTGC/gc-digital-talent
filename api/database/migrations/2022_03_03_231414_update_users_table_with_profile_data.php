@@ -30,7 +30,7 @@ class UpdateUsersTableWithProfileData extends Migration
             $table->boolean('interested_in_later_or_secondment')->nullable();
             $table->uuid('current_classification')->nullable();
             $table->foreign('current_classification')->references('id')->on('classifications');
-            $table->jsonb('location_exemptions')->nullable();
+            $table->string('location_exemptions')->nullable();
             $table->boolean('would_accept_temporary')->nullable();
 
             // Old fields from poolCandidate
@@ -92,6 +92,8 @@ class UpdateUsersTableWithProfileData extends Migration
                 'is_gov_employee',
                 'interested_in_later_or_secondment',
                 'current_classification',
+                'location_exemptions',
+                'would_accept_temporary',
                 'is_woman',
                 'has_disability',
                 'is_indigenous',

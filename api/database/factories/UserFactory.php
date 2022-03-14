@@ -106,11 +106,7 @@ class UserFactory extends Factory
                 ],
                 3
             ),
-            'location_exemptions' => [
-                $this->faker->city(),
-                $this->faker->city(),
-                $this->faker->city(),
-            ],
+            'location_exemptions' => "{$this->faker->city()}, {$this->faker->city()}, {$this->faker->city()}",
             'expected_salary' => $this->faker->randomElements(
                 [
                     '_50_59K',
