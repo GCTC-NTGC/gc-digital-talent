@@ -2,6 +2,7 @@
 /* eslint-disable no-underscore-dangle */
 import React from "react";
 import { Accordion } from "@common/components/accordion/Accordion";
+import { useIntl } from "react-intl";
 import {
   AwardExperience,
   CommunityExperience,
@@ -44,6 +45,8 @@ export interface AccordionProps {
 const ExperienceAccordion: React.FunctionComponent<AccordionProps> = ({
   experience,
 }) => {
+  const intl = useIntl();
+
   // experience type is required with 5 possibilities, build different accordion around which type it is
 
   if (isAwardExperience(experience)) return AwardAccordion(experience);
@@ -53,7 +56,14 @@ const ExperienceAccordion: React.FunctionComponent<AccordionProps> = ({
   if (isWorkExperience(experience)) return WorkAccordion(experience);
 
   // not one of the 5 experience types
-  return <Accordion title="Unknown experience" />;
+  return (
+    <Accordion
+      title={intl.formatMessage({
+        defaultMessage: "Unknown Experience",
+        description: "Title for unknown experiences",
+      })}
+    />
+  );
 };
 
 export default ExperienceAccordion;

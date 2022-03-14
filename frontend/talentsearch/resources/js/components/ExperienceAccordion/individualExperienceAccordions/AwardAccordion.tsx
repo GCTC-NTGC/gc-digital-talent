@@ -40,25 +40,46 @@ const AwardAccordion: React.FunctionComponent<AwardExperience> = ({
 
   return (
     <Accordion
-      title={`${title || ""} - ${issuedBy || ""}`}
-      subtitle={`Since: ${awardedDate || ""}`}
+      title={intl.formatMessage({
+        defaultMessage: `${title || ""} - ${issuedBy || ""}`,
+        description: "Title for award accordion",
+      })}
+      subtitle={intl.formatMessage({
+        defaultMessage: `Since: ${awardedDate || ""}`,
+        description: "Subtitle for award accordion",
+      })}
       context={
         experienceSkills?.length === 1
-          ? `1 Skill`
-          : `${experienceSkills?.length} Skills`
+          ? intl.formatMessage({
+              defaultMessage: `1 Skill`,
+              description: "Pluralization for one skill",
+            })
+          : intl.formatMessage({
+              defaultMessage: `${experienceSkills?.length} Skills`,
+              description: "Pluralization for zero or multiple skill",
+            })
       }
       Icon={BriefCaseIcon}
     >
       <div data-h2-padding="b(left, l)">
         <p>
-          {title} issued by {issuedBy}
+          {intl.formatMessage({
+            defaultMessage: `${title} issued by ${issuedBy}`,
+            description: "The award title is issued by some group",
+          })}
         </p>
         <p>
-          Awarded to:{" "}
+          {intl.formatMessage({
+            defaultMessage: `Awarded to :`,
+            description: "The award was given to",
+          })}
           {awardedTo ? intl.formatMessage(getAwardedTo(awardedTo)) : ""}
         </p>
         <p>
-          Scope:{" "}
+          {intl.formatMessage({
+            defaultMessage: `Scope :`,
+            description: "The scope of the award given",
+          })}
           {awardedScope
             ? intl.formatMessage(getAwardedScope(awardedScope))
             : ""}
