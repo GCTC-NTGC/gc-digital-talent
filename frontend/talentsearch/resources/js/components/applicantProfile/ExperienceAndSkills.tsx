@@ -1,3 +1,4 @@
+import { Tab, TabSet } from "@common/components/tabs";
 import {
   BookOpenIcon,
   BriefcaseIcon,
@@ -11,9 +12,13 @@ import { Experience } from "../../api/generated";
 import ProfileFormFooter from "./ProfileFormFooter";
 import ProfileFormWrapper from "./ProfileFormWrapper";
 
-const ExperienceAndSkillsPage: React.FunctionComponent<{
+export interface ExperienceAndSkillsProps {
   experiences: Experience[];
-}> = ({ experiences }) => {
+}
+
+const ExperienceAndSkills: React.FunctionComponent<
+  ExperienceAndSkillsProps
+> = ({ experiences }) => {
   const intl = useIntl();
   const links = [
     {
@@ -94,7 +99,7 @@ const ExperienceAndSkillsPage: React.FunctionComponent<{
           })}
         </p>
         <div
-          data-h2-margin="b(all, m)"
+          data-h2-margin="b(top-bottom, m) b(left, m)"
           data-h2-padding="b(all, m)"
           data-h2-display="b(flex)"
           data-h2-justify-content="b(space-between)"
@@ -103,21 +108,77 @@ const ExperienceAndSkillsPage: React.FunctionComponent<{
           style={{ flexGrow: "2" }}
         >
           {links.map(({ title, href, icon }) => (
-            <a key={title} href={href} title={title}>
+            <a key={title} href={href} title={title} data-h2-display="b(flex)">
               {icon}
-              <span data-h2-padding="b(all, xs)">{title}</span>
+              <span data-h2-padding="b(left, xxs) b(top-bottom, xs) b(right, xs)">
+                {title}
+              </span>
             </a>
           ))}
         </div>
       </div>
-      <div
-        data-h2-radius="b(s)"
-        data-h2-bg-color="b(lightgray)"
-        data-h2-padding="b(all, m)"
-      >
-        {experiences.length > 0 ? (
-          experiences.map(() => <div>Experince Accordion</div>)
-        ) : (
+      {experiences.length > 0 ? (
+        <TabSet>
+          <Tab
+            tabType="label"
+            text={intl.formatMessage({
+              defaultMessage: "See Experience:",
+              description:
+                "Tabs title for the users experience list in applicant profile.",
+            })}
+          />
+          <Tab
+            text={intl.formatMessage({
+              defaultMessage: "By Date",
+              description:
+                "Tab title for experiences sorted by date in applicant profile.",
+            })}
+          >
+            <div
+              data-h2-radius="b(s)"
+              data-h2-bg-color="b(lightgray)"
+              data-h2-padding="b(all, m)"
+            >
+              I&apos;m the By Date page!
+            </div>
+          </Tab>
+          <Tab
+            text={intl.formatMessage({
+              defaultMessage: "By Type",
+              description:
+                "Tab title for experiences sorted by type in applicant profile.",
+            })}
+          >
+            <div
+              data-h2-radius="b(s)"
+              data-h2-bg-color="b(lightgray)"
+              data-h2-padding="b(all, m)"
+            >
+              I&apos;m the By Type page!
+            </div>
+          </Tab>
+          <Tab
+            text={intl.formatMessage({
+              defaultMessage: "By Skills",
+              description:
+                "Tab title for experiences sorted by skills in applicant profile.",
+            })}
+          >
+            <div
+              data-h2-radius="b(s)"
+              data-h2-bg-color="b(lightgray)"
+              data-h2-padding="b(all, m)"
+            >
+              I&apos;m the By Skills page!
+            </div>
+          </Tab>
+        </TabSet>
+      ) : (
+        <div
+          data-h2-radius="b(s)"
+          data-h2-bg-color="b(lightgray)"
+          data-h2-padding="b(all, m)"
+        >
           <p data-h2-font-style="b(italic)">
             {intl.formatMessage({
               defaultMessage:
@@ -126,11 +187,11 @@ const ExperienceAndSkillsPage: React.FunctionComponent<{
                 "Message to user when no experiences have been attached to profile.",
             })}
           </p>
-        )}
-      </div>
+        </div>
+      )}
       <ProfileFormFooter mode="cancelButton" />
     </ProfileFormWrapper>
   );
 };
 
-export default ExperienceAndSkillsPage;
+export default ExperienceAndSkills;
