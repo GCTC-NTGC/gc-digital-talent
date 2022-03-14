@@ -1,8 +1,9 @@
-import "../resources/css/hydrogen.css"
+import "../../common/src/css/hydrogen.css";
 import "../resources/css/app.css"
 import "../resources/js/components/IntlContainer";
 import { setIntlConfig, withIntl } from 'storybook-addon-intl';
-import frCompiled from "../resources/js/lang/frCompiled.json";
+import TalentSearchFrench from "../resources/js/lang/frCompiled.json";
+import { CommonFrench } from "../../common/src/lang";
 
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
@@ -19,7 +20,7 @@ export const parameters = {
   },
 }
 
-const messages = {en: null, fr: frCompiled };
+const messages = {en: null, fr: {...TalentSearchFrench, ...CommonFrench} };
 setIntlConfig({
     locales: ["en", "fr"],
     defaultLocale: "en",

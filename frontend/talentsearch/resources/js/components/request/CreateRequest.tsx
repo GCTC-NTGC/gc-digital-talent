@@ -9,6 +9,7 @@ import { notEmpty } from "@common/helpers/util";
 import { toast } from "react-toastify";
 import { navigate, pushToStateThenNavigate } from "@common/helpers/router";
 import { SearchRequestFilters } from "@common/components/SearchRequestFilters";
+import useLocalStorage from "@common/hooks/useLocalStorage";
 import { useTalentSearchRoutes } from "../../talentSearchRoutes";
 import {
   Department,
@@ -18,19 +19,43 @@ import {
   useCreatePoolCandidateSearchRequestMutation,
   CreatePoolCandidateSearchRequestMutation,
   Maybe,
+  DepartmentBelongsTo,
+  CmoAsset,
+  Classification,
+  OperationalRequirement,
+  Pool,
 } from "../../api/generated";
 import { FormValues as SearchFormValues } from "../search/SearchForm";
 
 type Option<V> = { value: V; label: string };
-type FormValues = Pick<
-  CreatePoolCandidateSearchRequestInput,
-  | "fullName"
-  | "email"
-  | "jobTitle"
-  | "additionalComments"
-  | "poolCandidateFilter"
-> & {
-  department: string;
+// Have to explicitly define this type since the backing object of the form has to be fully nullable.
+type FormValues = {
+  fullName?: CreatePoolCandidateSearchRequestInput["fullName"];
+  email?: CreatePoolCandidateSearchRequestInput["email"];
+  jobTitle?: CreatePoolCandidateSearchRequestInput["jobTitle"];
+  additionalComments?: CreatePoolCandidateSearchRequestInput["additionalComments"];
+  poolCandidateFilter?: {
+    classifications?: {
+      sync?: Array<Maybe<Classification["id"]>>;
+    };
+    cmoAssets?: {
+      sync?: Array<Maybe<CmoAsset["id"]>>;
+    };
+    hasDiploma?: PoolCandidateFilter["hasDiploma"];
+    hasDisability?: PoolCandidateFilter["hasDisability"];
+    isIndigenous?: PoolCandidateFilter["isIndigenous"];
+    isVisibleMinority?: PoolCandidateFilter["isVisibleMinority"];
+    isWoman?: PoolCandidateFilter["isWoman"];
+    languageAbility?: PoolCandidateFilter["languageAbility"];
+    operationalRequirements?: {
+      sync?: Array<Maybe<OperationalRequirement["id"]>>;
+    };
+    pools?: {
+      sync?: Array<Maybe<Pool["id"]>>;
+    };
+    workRegions?: PoolCandidateFilter["workRegions"];
+  };
+  department?: DepartmentBelongsTo["connect"];
 };
 export interface RequestFormProps {
   departments: Department[];
@@ -54,14 +79,28 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
   const intl = useIntl();
   const locale = getLocale(intl);
   const paths = useTalentSearchRoutes();
-  const methods = useForm<FormValues>();
-  const { handleSubmit } = methods;
+  const [locallySavedForm, setLocallySavedForm] = useLocalStorage<FormValues>(
+    "ts-createrequest", // unique storage key
+    {}, // start form off empty
+  );
+  const formMethods = useForm<FormValues>({ defaultValues: locallySavedForm });
+  const { handleSubmit, watch } = formMethods;
+
+  React.useEffect(() => {
+    const subscription = watch((data) => {
+      setLocallySavedForm(data);
+    });
+    return () => subscription.unsubscribe();
+  }, [setLocallySavedForm, watch]);
 
   const formValuesToSubmitData = (
     values: FormValues,
   ): CreatePoolCandidateSearchRequestInput => {
     return {
-      ...values,
+      fullName: values.fullName ?? "",
+      email: values.email ?? "",
+      jobTitle: values.jobTitle ?? "",
+      additionalComments: values.additionalComments,
       poolCandidateFilter: {
         create: {
           classifications: {
@@ -111,13 +150,14 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
             : [],
         },
       },
-      department: { connect: values.department },
+      department: { connect: values.department ?? "" },
     };
   };
 
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     return handleCreatePoolCandidateSearchRequest(formValuesToSubmitData(data))
       .then(() => {
+        setLocallySavedForm({}); // clear the locally saved from once it is successfully submitted
         navigate(paths.search());
         toast.success(
           intl.formatMessage({
@@ -170,7 +210,7 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
           description: "Explanation message for request form.",
         })}
       </p>
-      <FormProvider {...methods}>
+      <FormProvider {...formMethods}>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div data-h2-flex-grid="b(top, contained, padded, none)">
             <div data-h2-flex-item="b(1of1) m(1of2)">

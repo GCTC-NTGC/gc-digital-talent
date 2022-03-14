@@ -1,3 +1,7 @@
+button:not(disabled) {
+  cursor: pointer;
+}
+
 .toast {
   padding: .7rem 1rem .7rem 1rem;
   display: flex;

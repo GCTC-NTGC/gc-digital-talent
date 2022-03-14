@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { QuestionMarkCircleIcon, XCircleIcon } from "@heroicons/react/solid";
+import { useIntl } from "react-intl";
+import { commonMessages } from "../../../messages";
 
 export interface InputLabelProps {
   inputId: string;
@@ -25,6 +27,7 @@ export const InputLabel: React.FC<InputLabelProps> = ({
     contextToggleHandler(!contextIsActive);
     setContextIsActive((currentState) => !currentState);
   };
+  const intl = useIntl();
   return (
     <div
       data-h2-display="b(flex)"
@@ -46,7 +49,9 @@ export const InputLabel: React.FC<InputLabelProps> = ({
                 ? { "data-h2-font-color": "b(red)" }
                 : { "data-h2-font-color": "b(darkgray)" })}
             >
-              {required ? "Required" : "Optional"}
+              {required
+                ? intl.formatMessage(commonMessages.required)
+                : intl.formatMessage(commonMessages.optional)}
             </span>
           )
         }

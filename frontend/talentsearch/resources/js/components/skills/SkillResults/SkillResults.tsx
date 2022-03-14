@@ -3,7 +3,7 @@ import { getLocale } from "@common/helpers/localize";
 import React, { useState } from "react";
 import { CheckCircleIcon } from "@heroicons/react/solid";
 import { useIntl } from "react-intl";
-import { Skill } from "../../api/generated";
+import { Skill } from "../../../api/generated";
 
 export const SkillBlock: React.FunctionComponent<{
   skill: Skill;

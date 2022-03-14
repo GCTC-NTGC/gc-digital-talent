@@ -1,8 +1,13 @@
-import "../resources/css/hydrogen.css"
+import "../../common/src/css/common.css";
+import "../../common/src/css/hydrogen.css";
 import "../resources/css/app.css"
 import "../resources/js/components/IntlContainer";
 import { setIntlConfig, withIntl } from 'storybook-addon-intl';
-import frCompiled from "../resources/js/lang/frCompiled.json";
+import AdminFrench from "../resources/js/lang/frCompiled.json";
+import { CommonFrench } from "../../common/src/lang";
+
+// CSS files required for building with `MERGE_STORYBOOKS=true`.
+import "../../talentsearch/resources/css/app.css";
 
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
@@ -19,7 +24,7 @@ export const parameters = {
   },
 }
 
-const messages = {en: null, fr: frCompiled};
+const messages = {en: null, fr: {...AdminFrench, ...CommonFrench}};
 setIntlConfig({
     locales: ["en", "fr"],
     defaultLocale: "en",

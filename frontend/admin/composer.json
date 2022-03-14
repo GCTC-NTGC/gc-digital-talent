@@ -7,7 +7,7 @@
     "require": {
         "php": "^7.3|^8.0",
         "fideloper/proxy": "^4.4",
-        "fruitcake/laravel-cors": "^2.0",
+        "fruitcake/laravel-cors": "^3.0",
         "guzzlehttp/guzzle": "^7.3",
         "laravel/framework": "^8.54",
         "laravel/sanctum": "^2.11",

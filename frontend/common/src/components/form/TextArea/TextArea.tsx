@@ -23,6 +23,7 @@ export const TextArea: React.FunctionComponent<TextAreaProps> = ({
   label,
   name,
   rules = {},
+  children,
   ...rest
 }) => {
   const {
@@ -51,6 +52,7 @@ export const TextArea: React.FunctionComponent<TextAreaProps> = ({
           aria-invalid={error ? "true" : "false"}
           {...rest}
         />
+        {children}
       </InputWrapper>
     </div>
   );

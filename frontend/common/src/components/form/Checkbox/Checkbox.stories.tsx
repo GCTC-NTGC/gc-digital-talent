@@ -20,6 +20,7 @@ const TemplateCheckbox: Story<CheckboxProps> = (args) => {
 };
 
 export const IndividualCheckbox = TemplateCheckbox.bind({});
+export const CheckboxWithBoundingBox = TemplateCheckbox.bind({});
 
 IndividualCheckbox.args = {
   id: "hasDiploma",
@@ -27,4 +28,10 @@ IndividualCheckbox.args = {
   label: "Have a Diploma",
   context: "This will help prove you satisfy education requirements.",
   rules: { required: "This must be accepted to continue." },
+};
+
+CheckboxWithBoundingBox.args = {
+  ...IndividualCheckbox.args,
+  boundingBox: true,
+  boundingBoxLabel: "Bounding box label",
 };
