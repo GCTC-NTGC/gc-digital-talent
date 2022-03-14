@@ -1,5 +1,7 @@
 import { QuestionMarkCircleIcon, XCircleIcon } from "@heroicons/react/solid";
 import React, { useState } from "react";
+import { useIntl } from "react-intl";
+import { commonMessages } from "../../../messages";
 import InputContext from "../InputContext/InputContext";
 import InputError from "../InputError/InputError";
 
@@ -31,6 +33,7 @@ export const Fieldset: React.FC<FieldsetProps> = ({
   children,
 }) => {
   const [contextIsActive, setContextIsActive] = useState(false);
+  const intl = useIntl();
   return (
     <fieldset
       name={name}
@@ -59,7 +62,9 @@ export const Fieldset: React.FC<FieldsetProps> = ({
                   ? { "data-h2-font-color": "b(red)" }
                   : { "data-h2-font-color": "b(darkgray" })}
               >
-                {required ? "Required" : "Optional"}
+                {required
+                  ? intl.formatMessage(commonMessages.required)
+                  : intl.formatMessage(commonMessages.optional)}
               </span>
             )
           }
