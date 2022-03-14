@@ -22,7 +22,10 @@ const reactIntlTransformRule = {
 const isMerged = (process.env.MERGE_STORYBOOKS === 'true');
 
 module.exports = {
-  "staticDirs": [ { from: '../public', to: '/admin/public' } ],
+  "staticDirs": [
+    { from: '../public', to: '/admin/public' },
+    { from: '../../talentsearch/public', to: '/talent/public' }
+  ],
   "stories": [
     `${ isMerged ? '../../admin/'        : '../' }**/*.stories.@(js|jsx|ts|tsx|mdx)`,
     `${ isMerged ? '../../talentsearch/' : '../' }**/*.stories.@(js|jsx|ts|tsx|mdx)`,
