@@ -41,16 +41,37 @@ const EducationAccordion: React.FunctionComponent<EducationExperience> = ({
 
   return (
     <Accordion
-      title={`${areaOfStudy || ""} at ${institution || ""}`}
+      title={intl.formatMessage(
+        {
+          defaultMessage: "{areaOfStudy} at {institution}",
+          description: "Study at institution",
+        },
+        { areaOfStudy, institution },
+      )}
       subtitle={
         endDate
           ? `${startDate || ""} - ${endDate || ""}`
-          : `Since: ${startDate || ""}`
+          : intl.formatMessage(
+              {
+                defaultMessage: "Since: {startDate}",
+                description: "Since",
+              },
+              { startDate },
+            )
       }
       context={
         experienceSkills?.length === 1
-          ? `1 Skill`
-          : `${experienceSkills?.length} Skills`
+          ? intl.formatMessage({
+              defaultMessage: "1 Skill",
+              description: "Pluralization for one skill",
+            })
+          : intl.formatMessage(
+              {
+                defaultMessage: "{skillsLength} Skills",
+                description: "Pluralization for zero or multiple skills",
+              },
+              { skillsLength: experienceSkills?.length },
+            )
       }
       Icon={BriefCaseIcon}
     >
@@ -60,14 +81,38 @@ const EducationAccordion: React.FunctionComponent<EducationExperience> = ({
           {status ? intl.formatMessage(getEducationStatus(status)) : ""}
         </p>
         <p>
-          {areaOfStudy} at {institution}
+          {intl.formatMessage(
+            {
+              defaultMessage: "{areaOfStudy} at {institution}",
+              description: "Study at institution",
+            },
+            { areaOfStudy, institution },
+          )}
         </p>
-        <p>{thesisTitle ? `Thesis: ${thesisTitle}` : ""}</p>
+        <p>
+          {thesisTitle
+            ? intl.formatMessage(
+                {
+                  defaultMessage: "Thesis: {thesisTitle}",
+                  description: "Thesis, if applicable",
+                },
+                { thesisTitle },
+              )
+            : ""}
+        </p>
       </div>
       <hr />
       <div data-h2-padding="b(left, l)">{skillsList}</div>
       <div data-h2-padding="b(left, l)">
-        <p>{`Additional information: ${details || "None"}`}</p>
+        <p>
+          {intl.formatMessage(
+            {
+              defaultMessage: "Additional information: {details}",
+              description: "Additional information if provided",
+            },
+            { details },
+          )}
+        </p>
       </div>
       <div data-h2-padding="b(left, l)">
         <Button color="primary" mode="outline">

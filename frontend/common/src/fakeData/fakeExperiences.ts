@@ -175,6 +175,7 @@ const generateWork = (): WorkExperience => {
     details: faker.lorem.sentence(),
     organization: faker.company.companyName(),
     role: faker.name.jobTitle(),
+    division: faker.animal.bird(),
     startDate: faker.date.past().toString().slice(0, 15),
     endDate: faker.date.soon().toString().slice(0, 15),
   };
@@ -185,11 +186,11 @@ export default (numberOfExperiences: number) => {
   faker.seed(0);
 
   const generators = [
-    () => generateAward(),
-    () => generateCommunity(),
-    () => generateEducation(),
-    () => generatePersonal(),
-    () => generateWork(),
+    generateAward,
+    generateCommunity,
+    generateEducation,
+    generatePersonal,
+    generateWork,
   ];
 
   // fill an array with random experiences

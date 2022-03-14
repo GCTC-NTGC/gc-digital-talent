@@ -36,29 +36,64 @@ const WorkAccordion: React.FunctionComponent<WorkExperience> = ({
 
   return (
     <Accordion
-      title={`${role || ""} at ${organization || ""}`}
+      title={intl.formatMessage(
+        {
+          defaultMessage: "{role} at {organization}",
+          description: "Role at organization",
+        },
+        { role, organization },
+      )}
       subtitle={
         endDate
           ? `${startDate || ""} - ${endDate || ""}`
-          : `Since: ${startDate || ""}`
+          : intl.formatMessage(
+              {
+                defaultMessage: "Since: {startDate}",
+                description: "Since",
+              },
+              { startDate },
+            )
       }
       context={
         experienceSkills?.length === 1
-          ? `1 Skill`
-          : `${experienceSkills?.length} Skills`
+          ? intl.formatMessage({
+              defaultMessage: "1 Skill",
+              description: "Pluralization for one skill",
+            })
+          : intl.formatMessage(
+              {
+                defaultMessage: "{skillsLength} Skills",
+                description: "Pluralization for zero or multiple skills",
+              },
+              { skillsLength: experienceSkills?.length },
+            )
       }
       Icon={BriefCaseIcon}
     >
       <div data-h2-padding="b(left, l)">
         <p>
-          {role} at {division}
+          {intl.formatMessage(
+            {
+              defaultMessage: "{role} at {division}",
+              description: "Role at division",
+            },
+            { role, division },
+          )}
         </p>
         <p>{organization}</p>
       </div>
       <hr />
       <div data-h2-padding="b(left, l)">{skillsList}</div>
       <div data-h2-padding="b(left, l)">
-        <p>{`Additional information: ${details || "None"}`}</p>
+        <p>
+          {intl.formatMessage(
+            {
+              defaultMessage: "Additional information: {details}",
+              description: "Additional information if provided",
+            },
+            { details },
+          )}
+        </p>
       </div>
       <div data-h2-padding="b(left, l)">
         <Button color="primary" mode="outline">
