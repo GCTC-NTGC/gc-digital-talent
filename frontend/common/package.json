@@ -76,7 +76,7 @@
     "@types/lodash": "^4.14.179",
     "@types/node": "^17.0.21",
     "@types/path-browserify": "^1.0.0",
-    "@types/react": "^17.0.39",
+    "@types/react": "^17.0.40",
     "@types/react-select": "^5.0.1",
     "@typescript-eslint/eslint-plugin": "^5.13.0",
     "@typescript-eslint/parser": "^5.13.0",
