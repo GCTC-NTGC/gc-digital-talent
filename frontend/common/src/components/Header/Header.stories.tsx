@@ -15,5 +15,5 @@ const TemplateHeader: Story = (args) => {
 export const Header = TemplateHeader.bind({});
 
 Header.args = {
-  baseUrl: "http://localhost:8000",
+  baseUrl: "/talent",
 };

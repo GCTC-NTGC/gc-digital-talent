@@ -15,5 +15,5 @@ const TemplateFooter: Story = (args) => {
 export const Footer = TemplateFooter.bind({});
 
 Footer.args = {
-  baseUrl: "http://localhost:8000",
+  baseUrl: "/talent",
 };
