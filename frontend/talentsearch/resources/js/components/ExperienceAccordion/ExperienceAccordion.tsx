@@ -3,40 +3,12 @@
 import React from "react";
 import { Accordion } from "@common/components/accordion/Accordion";
 import { useIntl } from "react-intl";
-import {
-  AwardExperience,
-  CommunityExperience,
-  EducationExperience,
-  PersonalExperience,
-  WorkExperience,
-} from "../../api/generated";
 import AwardAccordion from "./individualExperienceAccordions/AwardAccordion";
 import CommunityAccordion from "./individualExperienceAccordions/CommunityAccordion";
 import EducationAccordion from "./individualExperienceAccordions/EducationAccordion";
 import PersonalAccordion from "./individualExperienceAccordions/PersonalAccordion";
 import WorkAccordion from "./individualExperienceAccordions/WorkAccordion";
-
-type AnyExperience =
-  | AwardExperience
-  | CommunityExperience
-  | EducationExperience
-  | PersonalExperience
-  | WorkExperience;
-
-const isAwardExperience = (e: AnyExperience): e is AwardExperience =>
-  e.__typename === "AwardExperience";
-
-const isCommunityExperience = (e: AnyExperience): e is CommunityExperience =>
-  e.__typename === "CommunityExperience";
-
-const isEducationExperience = (e: AnyExperience): e is EducationExperience =>
-  e.__typename === "EducationExperience";
-
-const isPersonalExperience = (e: AnyExperience): e is PersonalExperience =>
-  e.__typename === "PersonalExperience";
-
-const isWorkExperience = (e: AnyExperience): e is WorkExperience =>
-  e.__typename === "WorkExperience";
+import { AnyExperience, isAwardExperience, isCommunityExperience, isEducationExperience, isPersonalExperience, isWorkExperience } from "./AnyExperience";
 
 export interface AccordionProps {
   experience: AnyExperience;

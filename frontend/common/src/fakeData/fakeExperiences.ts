@@ -147,6 +147,7 @@ const generateEducation = (): EducationExperience => {
     ]),
     startDate: faker.date.recent().toString().slice(0, 15),
     endDate: faker.date.future().toString().slice(0, 15),
+    thesisTitle: faker.random.words(),
   };
 };
 
