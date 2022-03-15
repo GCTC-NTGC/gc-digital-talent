@@ -212,9 +212,9 @@ const candidateFilterToQueryArgs = (
 
   // Apply pick to each element of an array.
   const pickMap = (
-    list: unknown[] | null | undefined,
+    list: any[] | null | undefined,
     keys: string | string[],
-  ): unknown[] | undefined => list?.map((item) => pick(item, keys));
+  ): any[] | undefined => list?.map((item) => pick(item, keys));
 
   return {
     where: {

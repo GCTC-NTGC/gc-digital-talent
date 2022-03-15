@@ -26,7 +26,7 @@ type Join<T extends Primitive[], D extends string = "."> = T extends []
  * Turns an object type into the list of keys to primitive values,
  * with keys to nested objects represented by dot-notation.
  */
-export type NestedPaths<T extends Record<string, unknown>> = Join<
+export type NestedPaths<T extends Record<string, any>> = Join<
   PathsToPrimitiveProps<T>,
   "."
 >;

@@ -5,8 +5,8 @@ import "regenerator-runtime/runtime"; // This is required for useAsyncDebounce t
 import { InputWrapper } from "@common/components/inputPartials";
 
 interface GlobalFilterProps {
-  globalFilter: unknown;
-  setGlobalFilter: unknown;
+  globalFilter: any;
+  setGlobalFilter: any;
 }
 
 const GlobalFilter: React.FC<GlobalFilterProps> = ({
