@@ -76,7 +76,6 @@ jobs:
       - name: "Build: admin"
         working-directory: frontend/admin
         run: |
-          npm run h2-build
           npm run codegen
           npm run intl-compile
           npm run production
@@ -84,7 +83,6 @@ jobs:
       - name: "Build: talentsearch"
         working-directory: frontend/talentsearch
         run: |
-          npm run h2-build
           npm run codegen
           npm run intl-compile
           npm run production
