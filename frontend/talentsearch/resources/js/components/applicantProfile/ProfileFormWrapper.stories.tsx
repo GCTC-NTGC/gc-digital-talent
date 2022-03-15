@@ -26,7 +26,11 @@ const TemplateProfileFormWrapper: Story<
   return (
     <ProfileFormWrapper {...args}>
       <FormProvider {...methods}>
-        <form onSubmit={handleSubmit(() => {})}>
+        <form
+          onSubmit={handleSubmit(() => {
+            // do nothing.
+          })}
+        >
           <Input id="email" label="Email" type="email" name="email" />
           <Input
             id="firstName"

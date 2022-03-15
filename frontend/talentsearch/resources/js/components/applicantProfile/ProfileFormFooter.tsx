@@ -9,7 +9,9 @@ export interface ProfileFormFooterProps {
 
 const ProfileFormFooter: React.FunctionComponent<ProfileFormFooterProps> = ({
   mode,
-  handleSave = () => {},
+  handleSave = () => {
+    // do nothing.
+  },
   children,
 }) => {
   const bottomButtons = () => {
