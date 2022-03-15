@@ -1,0 +1,139 @@
+
+fragment experienceSkills on ExperienceSkill {
+  id
+  details
+  skill {
+    id
+    key
+    name {
+      en
+      fr
+    }
+  }
+    experience {
+    id
+    applicant {
+      id
+      email
+    }
+  }
+}
+query getAllApplicantExperiences($id: ID!) {
+  applicant(id: $id) {
+    id
+    experiences {
+      id
+      details
+      experienceSkills {
+        ...experienceSkills
+      }
+      ... on AwardExperience {
+        id
+        title
+        issuedBy
+        awardedDate
+				awardedTo
+        awardedScope
+        details
+      }
+    	... on CommunityExperience {
+      	title
+        organization
+        project
+        startDate
+        endDate
+        details
+
+    	}
+      ... on EducationExperience {
+        institution
+        areaOfStudy
+        thesisTitle
+        startDate
+        endDate
+        type
+        status
+        details
+      }
+      ... on PersonalExperience {
+        title
+        description
+        startDate
+        endDate
+        details
+      }
+      ... on WorkExperience {
+        role
+        organization
+        division
+        startDate
+        endDate
+        details
+      }
+    }
+  }
+}
+
+# Write your query or mutation here
+query getApplicantExperiencesByType($id: ID!) {
+  applicant(id: $id) {
+    awardExperiences {
+      id
+      title
+      issuedBy
+      awardedDate
+      awardedTo
+      awardedScope
+      details
+      experienceSkills {
+        ...experienceSkills
+      }
+    }
+    communityExperiences {
+      id
+      title
+      organization
+      project
+      startDate
+      endDate
+      details
+      experienceSkills {
+        ...experienceSkills
+      }
+    }
+    educationExperiences {
+      id
+      institution
+      areaOfStudy
+      thesisTitle
+      startDate
+      endDate
+      type
+      status
+      details
+    }
+    personalExperiences {
+      id
+      title
+      description
+      startDate
+      endDate
+      details
+      experienceSkills {
+        ...experienceSkills
+      }
+    }
+    workExperiences {
+      id
+      role
+      organization
+      division
+      startDate
+      endDate
+      details
+      experienceSkills {
+        ...experienceSkills
+      }
+    }
+  }
+}

@@ -1,4 +1,7 @@
+import { CommunityExperience } from "@common/api/generated";
 import { Tab, TabSet } from "@common/components/tabs";
+import { notEmpty } from "@common/helpers/util";
+import { commonMessages } from "@common/messages";
 import {
   BookOpenIcon,
   BriefcaseIcon,
@@ -8,17 +11,34 @@ import {
 } from "@heroicons/react/solid";
 import * as React from "react";
 import { useIntl } from "react-intl";
-import { Experience } from "../../api/generated";
+import {
+  AwardExperience,
+  EducationExperience,
+  Experience,
+  PersonalExperience,
+  useGetApplicantExperiencesByTypeQuery,
+  WorkExperience,
+} from "../../api/generated";
 import ProfileFormFooter from "./ProfileFormFooter";
 import ProfileFormWrapper from "./ProfileFormWrapper";
 
 export interface ExperienceAndSkillsProps {
-  experiences: Experience[];
+  awardExperiences: Omit<AwardExperience, "applicant">[];
+  communityExperiences: Omit<CommunityExperience, "applicant">[];
+  educationExperiences: Omit<EducationExperience, "applicant">[];
+  personalExperience: Omit<PersonalExperience, "applicant">[];
+  workExperience: Omit<WorkExperience, "applicant">[];
 }
 
 const ExperienceAndSkills: React.FunctionComponent<
   ExperienceAndSkillsProps
-> = ({ experiences }) => {
+> = ({
+  awardExperiences,
+  communityExperiences,
+  educationExperiences,
+  personalExperience,
+  workExperience,
+}) => {
   const intl = useIntl();
   const links = [
     {
@@ -62,6 +82,18 @@ const ExperienceAndSkills: React.FunctionComponent<
       icon: <StarIcon style={{ width: "1rem" }} />,
     },
   ];
+
+  const allExperiences: Omit<Experience, "applicant">[] = [
+    ...awardExperiences,
+    ...communityExperiences,
+    ...educationExperiences,
+    ...personalExperience,
+    ...workExperience,
+  ];
+
+  const sortedByType = allExperiences.sort(); // TODO: Sort by type
+  const sortedByDate = allExperiences.sort(); // TODO: Sort by date
+  const sortedBySkills = allExperiences.sort(); // TODO: Sort by Skills
 
   return (
     <ProfileFormWrapper
@@ -117,7 +149,7 @@ const ExperienceAndSkills: React.FunctionComponent<
           ))}
         </div>
       </div>
-      {experiences.length > 0 ? (
+      {allExperiences.length > 0 ? (
         <TabSet>
           <Tab
             tabType="label"
@@ -139,7 +171,9 @@ const ExperienceAndSkills: React.FunctionComponent<
               data-h2-bg-color="b(lightgray)"
               data-h2-padding="b(all, m)"
             >
-              I&apos;m the By Date page!
+              {sortedByDate.map(({ id }) => (
+                <div key={id}>Replace with Accordion</div>
+              ))}
             </div>
           </Tab>
           <Tab
@@ -154,7 +188,9 @@ const ExperienceAndSkills: React.FunctionComponent<
               data-h2-bg-color="b(lightgray)"
               data-h2-padding="b(all, m)"
             >
-              I&apos;m the By Type page!
+              {sortedByType.map(({ id }) => (
+                <div key={id}>Replace with Accordion</div>
+              ))}
             </div>
           </Tab>
           <Tab
@@ -169,7 +205,9 @@ const ExperienceAndSkills: React.FunctionComponent<
               data-h2-bg-color="b(lightgray)"
               data-h2-padding="b(all, m)"
             >
-              I&apos;m the By Skills page!
+              {sortedBySkills.map(({ id }) => (
+                <div key={id}>Replace with Accordion</div>
+              ))}
             </div>
           </Tab>
         </TabSet>
@@ -195,3 +233,49 @@ const ExperienceAndSkills: React.FunctionComponent<
 };
 
 export default ExperienceAndSkills;
+
+export const ExperienceAndSkillsApi: React.FunctionComponent<{
+  applicantId: string;
+}> = ({ applicantId }) => {
+  const intl = useIntl();
+  const [{ data: applicantData, fetching, error }] =
+    useGetApplicantExperiencesByTypeQuery({ variables: { id: applicantId } });
+  const { applicant } = applicantData ?? { applicant: null }; // TODO: This shorthand might be wrong...
+
+  const awardExperiences = applicant?.awardExperiences?.filter(notEmpty) ?? [];
+  const communityExperiences =
+    applicant?.communityExperiences?.filter(notEmpty) ?? [];
+  const educationExperiences =
+    applicant?.educationExperiences?.filter(notEmpty) ?? [];
+  const personalExperiences =
+    applicant?.personalExperiences?.filter(notEmpty) ?? [];
+  const workExperiences = applicant?.workExperiences?.filter(notEmpty) ?? [];
+
+  if (fetching) return <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>;
+  if (error)
+    return (
+      <p>
+        {intl.formatMessage(commonMessages.loadingError)}
+        {error.message}
+      </p>
+    );
+  return applicantData?.applicant ? (
+    <ExperienceAndSkills
+      awardExperiences={awardExperiences}
+      communityExperiences={communityExperiences}
+      educationExperiences={educationExperiences}
+      personalExperience={personalExperiences}
+      workExperience={workExperiences}
+    />
+  ) : (
+    <p>
+      {intl.formatMessage(
+        {
+          defaultMessage: "User {userId} not found.",
+          description: "Message displayed for user not found.",
+        },
+        { applicantId },
+      )}
+    </p>
+  );
+};
