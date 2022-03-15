@@ -84,6 +84,10 @@ type Classification {
   maxSalary: Int
 }
 
+input ClassificationBelongsTo {
+  connect: ID!
+}
+
 input ClassificationBelongsToMany {
   sync: [ID!]
 }
@@ -216,12 +220,39 @@ input CreateSkillInput {
 """When creating a User, name and email are required."""
 input CreateUserInput {
   sub: String
+  roles: [Role]
   firstName: String!
   lastName: String!
   email: Email!
   telephone: PhoneNumber
+  currentProvince: ProvinceOrTerritory
+  currentCity: String
+  languageAbility: LanguageAbility
   preferredLang: Language
-  roles: [Role] = []
+  lookingForEnglish: Boolean
+  lookingForFrench: Boolean
+  lookingForBilingual: Boolean
+  bilingualEvaluation: BilingualEvaluation
+  comprehensionLevel: EvaluatedLanguageAbility
+  writtenLevel: EvaluatedLanguageAbility
+  verbalLevel: EvaluatedLanguageAbility
+  estimatedLanguageAbility: EstimatedLanguageAbility
+  isGovEmployee: Boolean
+  interestedInLaterOrSecondment: Boolean
+  currentClassification: ClassificationBelongsTo
+  isWoman: Boolean
+  hasDisability: Boolean
+  isIndigenous: Boolean
+  isVisibleMinority: Boolean
+  jobLookingStatus: JobLookingStatus
+  hasDiploma: Boolean
+  locationPreferences: [WorkRegion]
+  locationExemptions: String
+  acceptedOperationalRequirements: OperationalRequirementBelongsToMany
+  expectedSalary: [SalaryRange]
+  expectedClassifications: ClassificationBelongsToMany
+  wouldAcceptTemporary: Boolean
+  cmoAssets: CmoAssetBelongsToMany
 }
 
 """A date string with format `Y-m-d`, e.g. `2011-05-23`."""
@@ -872,11 +903,38 @@ When updating a User, all fields are optional, and email cannot be changed.
 input UpdateUserInput {
   id: ID
   sub: String
+  roles: [Role]
   firstName: String
   lastName: String
   telephone: PhoneNumber
+  currentProvince: ProvinceOrTerritory
+  currentCity: String
+  languageAbility: LanguageAbility
   preferredLang: Language
-  roles: [Role]
+  lookingForEnglish: Boolean
+  lookingForFrench: Boolean
+  lookingForBilingual: Boolean
+  bilingualEvaluation: BilingualEvaluation
+  comprehensionLevel: EvaluatedLanguageAbility
+  writtenLevel: EvaluatedLanguageAbility
+  verbalLevel: EvaluatedLanguageAbility
+  estimatedLanguageAbility: EstimatedLanguageAbility
+  isGovEmployee: Boolean
+  interestedInLaterOrSecondment: Boolean
+  currentClassification: ClassificationBelongsTo
+  isWoman: Boolean
+  hasDisability: Boolean
+  isIndigenous: Boolean
+  isVisibleMinority: Boolean
+  jobLookingStatus: JobLookingStatus
+  hasDiploma: Boolean
+  locationPreferences: [WorkRegion]
+  locationExemptions: String
+  acceptedOperationalRequirements: OperationalRequirementBelongsToMany
+  expectedSalary: [SalaryRange]
+  expectedClassifications: ClassificationBelongsToMany
+  wouldAcceptTemporary: Boolean
+  cmoAssets: CmoAssetBelongsToMany
 }
 
 type User {
