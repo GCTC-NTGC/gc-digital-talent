@@ -141,13 +141,16 @@ export const SearchForm: React.FunctionComponent<SearchFormProps> = ({
 
   // Whenever form values change (with some debounce allowance), call updateCandidateFilter
   const formValues = watch();
-  const submitDebounced = useCallback(() => {
+  // FIXME: https://github.com/GCTC-NTGC/gc-digital-talent/issues/2256
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const submitDebounced = useCallback(
     debounce((values: FormValues) => {
       if (updateCandidateFilter) {
         updateCandidateFilter(formValuesToData(values));
       }
-    }, 200);
-  }, [formValuesToData, updateCandidateFilter]);
+    }, 200),
+    [formValuesToData, updateCandidateFilter],
+  );
 
   // Use deep comparison to prevent infinite re-rendering
   useDeepCompareEffect(() => {
