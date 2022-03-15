@@ -911,7 +911,7 @@ type User {
   poolCandidates: [PoolCandidate]
   hasDiploma: Boolean
   locationPreferences: [WorkRegion]
-  locationExemptions: [String]
+  locationExemptions: String
   acceptedOperationalRequirements: [OperationalRequirement]
   expectedSalary: [SalaryRange]
   expectedClassifications: [Classification]
