@@ -1,10 +1,37 @@
 type Applicant {
   id: ID!
-  email: Email!
+  jobLookingStatus: JobLookingStatus
   firstName: String
   lastName: String
+  email: Email!
   telephone: PhoneNumber
+  currentProvince: ProvinceOrTerritory
+  currentCity: String
+  isGovEmployee: Boolean
+  interestedInLaterOrSecondment: Boolean
+  currentClassification: Classification
+  languageAbility: LanguageAbility
   preferredLang: Language
+  lookingForEnglish: Boolean
+  lookingForFrench: Boolean
+  lookingForBilingual: Boolean
+  bilingualEvaluation: BilingualEvaluation
+  comprehensionLevel: EvaluatedLanguageAbility
+  writtenLevel: EvaluatedLanguageAbility
+  verbalLevel: EvaluatedLanguageAbility
+  estimatedLanguageAbility: EstimatedLanguageAbility
+  isWoman: Boolean
+  hasDisability: Boolean
+  isIndigenous: Boolean
+  isVisibleMinority: Boolean
+  hasDiploma: Boolean
+  locationPreferences: [WorkRegion]
+  locationExemptions: String
+  acceptedOperationalRequirements: [OperationalRequirement]
+  expectedSalary: [SalaryRange]
+  expectedClassifications: [Classification]
+  wouldAcceptTemporary: Boolean
+  cmoAssets: [CmoAsset]
   experiences: [Experience]
   awardExperiences: [AwardExperience]
   communityExperiences: [CommunityExperience]
@@ -40,6 +67,12 @@ enum AwardedTo {
   MY_TEAM
   MY_PROJECT
   MY_ORGANIZATION
+}
+
+enum BilingualEvaluation {
+  COMPLETED_ENGLISH
+  COMPLETED_FRENCH
+  NOT_COMPLETED
 }
 
 type Classification {
@@ -245,6 +278,21 @@ enum EducationType {
 """A RFC 5321 compliant email."""
 scalar Email
 
+enum EstimatedLanguageAbility {
+  BEGINNER
+  INTERMEDIATE
+  ADVANCED
+}
+
+enum EvaluatedLanguageAbility {
+  X
+  A
+  B
+  C
+  E
+  P
+}
+
 interface Experience {
   id: ID!
   applicant: Applicant!
@@ -257,6 +305,12 @@ type ExperienceSkill {
   details: String
   skill: Skill!
   experience: Experience!
+}
+
+enum JobLookingStatus {
+  ACTIVELY_LOOKING
+  OPEN_TO_OPPORTUNITIES
+  INACTIVE
 }
 
 input KeyFilterInput {
@@ -551,6 +605,22 @@ input PoolFilterInput {
   id: ID!
 }
 
+enum ProvinceOrTerritory {
+  BRITISH_COLUMBIA
+  ALBERTA
+  SASKATCHEWAN
+  MANITOBA
+  ONTARIO
+  QUEBEC
+  NEW_BRUNSWICK
+  NOVA_SCOTIA
+  PRINCE_EDWARD_ISLAND
+  NEWFOUNDLAND_AND_LABRADOR
+  YUKON
+  NORTHWEST_TERRITORIES
+  NUNAVUT
+}
+
 type Query {
   me: User
   user(id: ID!): User
@@ -811,15 +881,42 @@ input UpdateUserInput {
 
 type User {
   id: ID!
-  email: Email!
   sub: String
+  roles: [Role]
   firstName: String
   lastName: String
+  email: Email!
   telephone: PhoneNumber
+  currentProvince: ProvinceOrTerritory
+  currentCity: String
+  languageAbility: LanguageAbility
   preferredLang: Language
-  roles: [Role]
+  lookingForEnglish: Boolean
+  lookingForFrench: Boolean
+  lookingForBilingual: Boolean
+  bilingualEvaluation: BilingualEvaluation
+  comprehensionLevel: EvaluatedLanguageAbility
+  writtenLevel: EvaluatedLanguageAbility
+  verbalLevel: EvaluatedLanguageAbility
+  estimatedLanguageAbility: EstimatedLanguageAbility
+  isGovEmployee: Boolean
+  interestedInLaterOrSecondment: Boolean
+  currentClassification: Classification
+  isWoman: Boolean
+  hasDisability: Boolean
+  isIndigenous: Boolean
+  isVisibleMinority: Boolean
+  jobLookingStatus: JobLookingStatus
   pools: [Pool]
   poolCandidates: [PoolCandidate]
+  hasDiploma: Boolean
+  locationPreferences: [WorkRegion]
+  locationExemptions: String
+  acceptedOperationalRequirements: [OperationalRequirement]
+  expectedSalary: [SalaryRange]
+  expectedClassifications: [Classification]
+  wouldAcceptTemporary: Boolean
+  cmoAssets: [CmoAsset]
   experiences: [Experience]
   awardExperiences: [AwardExperience]
   communityExperiences: [CommunityExperience]
