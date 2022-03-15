@@ -5,10 +5,8 @@ import { useIntl } from "react-intl";
 import { toast } from "react-toastify";
 import { errorMessages } from "@common/messages";
 import { BasicForm, Checklist, RadioGroup } from "@common/components/form";
-import { Button } from "@common/components/Button/Button";
 import { getLocale } from "@common/helpers/localize";
 import { notEmpty } from "@common/helpers/util";
-import { SaveIcon } from "@heroicons/react/solid";
 import {
   OperationalRequirement,
   useGetOperationalRequirementsQuery,
@@ -117,13 +115,7 @@ export const WorkPreferencesForm: React.FunctionComponent<{
           </div>
           <div data-h2-flex-item="b(1of1)" data-h2-padding="b(top, m)">
             <div data-h2-padding="b(right, l)">
-              <ProfileFormFooter
-                mode="saveButton"
-                handleSave={(fieldValues) => {
-                  // TODO: massage fieldValues to match what the API mutation expects
-                  return handleSubmit(fieldValues);
-                }}
-              />
+              <ProfileFormFooter mode="saveButton" />
             </div>
           </div>
         </div>
@@ -143,15 +135,14 @@ export const WorkPreferencesFormApi: React.FunctionComponent = () => {
   };
   /* eslint-disable @typescript-eslint/ban-ts-comment */
 
-  const handleSave = (data: any) => {
-    return executeMutation()
-      .then(() => {
-        // If submission was successful; show toast, and navigate to profile page
-        toast.success("It worked!");
-      })
-      .catch(() => {
-        toast.error("It didn't work!");
-      });
+  const handleSave = async (data: any) => {
+    try {
+      await executeMutation();
+      // If submission was successful; show toast, and navigate to profile page
+      toast.success("It worked!");
+    } catch {
+      toast.error("It didn't work!");
+    }
   };
 
   return (
