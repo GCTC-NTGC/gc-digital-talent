@@ -2,6 +2,7 @@
  * @jest-environment jsdom
  */
 import { fakeSkillFamilies, fakeSkills } from "@common/fakeData";
+import React from "react";
 import { render, screen, fireEvent } from "../../../tests/testUtils";
 import SkillChecklist from "./SkillChecklist";
 

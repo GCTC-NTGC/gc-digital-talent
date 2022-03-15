@@ -101,7 +101,7 @@ rules:
   no-shadow: 'off'
   '@typescript-eslint/no-shadow': error
   '@typescript-eslint/no-explicit-any':
-    - warn
+    - off # TODO: Switch back to 'warn'
     # See: https://dmitripavlutin.com/typescript-unknown-vs-any/
     # FIXME: set to true again later
     - fixToUnknown: false
