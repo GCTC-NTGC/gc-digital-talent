@@ -70,7 +70,7 @@ type User {
 
     hasDiploma: Boolean @rename(attribute: "has_diploma")
     locationPreferences: [WorkRegion] @rename(attribute: "location_preferences")
-    locationExemptions: [String] @rename(attribute: "location_exemptions")
+    locationExemptions: String @rename(attribute: "location_exemptions")
     acceptedOperationalRequirements: [OperationalRequirement] @belongsToMany
     expectedSalary: [SalaryRange] @rename(attribute: "expected_salary")
     expectedClassifications: [Classification] @belongsToMany
