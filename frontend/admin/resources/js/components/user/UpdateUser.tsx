@@ -13,14 +13,14 @@ import { useAdminRoutes } from "../../adminRoutes";
 import {
   Language,
   Role,
-  UpdateUserInput,
+  UpdateUserAsAdminInput,
   User,
-  useUpdateUserMutation,
+  useUpdateUserAsAdminMutation,
   useUserQuery,
 } from "../../api/generated";
 import DashboardContentContainer from "../DashboardContentContainer";
 
-type FormValues = UpdateUserInput;
+type FormValues = UpdateUserAsAdminInput;
 interface UpdateUserFormProps {
   initialUser: User;
   handleUpdateUser: (id: string, data: FormValues) => Promise<FormValues>;
@@ -199,8 +199,8 @@ export const UpdateUser: React.FunctionComponent<{ userId: string }> = ({
     variables: { id: userId },
   });
 
-  const [, executeMutation] = useUpdateUserMutation();
-  const handleUpdateUser = (id: string, data: UpdateUserInput) =>
+  const [, executeMutation] = useUpdateUserAsAdminMutation();
+  const handleUpdateUser = (id: string, data: UpdateUserAsAdminInput) =>
     /* We must pick only the fields belonging to UpdateUserInput, because its possible
        the data object contains other props at runtime, and this will cause the
        graphql operation to fail. */
@@ -215,8 +215,8 @@ export const UpdateUser: React.FunctionComponent<{ userId: string }> = ({
         "roles",
       ]),
     }).then((result) => {
-      if (result.data?.updateUser) {
-        return result.data?.updateUser;
+      if (result.data?.UpdateUserAsAdmin) {
+        return result.data?.UpdateUserAsAdmin;
       }
       return Promise.reject(result.error);
     });

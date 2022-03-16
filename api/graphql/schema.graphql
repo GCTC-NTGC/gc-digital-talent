@@ -531,12 +531,12 @@ When creating a User, name and email are required.
 """
 input CreateUserInput {
     sub: String
-    roles: [Role]
+    roles: [Role] = []
 
     # Personal info
     firstName: String! @rename(attribute: "first_name")
     lastName: String! @rename(attribute: "last_name")
-    email: Email!
+    email: Email! @rules(apply: ["unique:users,email"])
     telephone: PhoneNumber
     currentProvince: ProvinceOrTerritory @rename(attribute: "current_province")
     currentCity: String @rename(attribute: "current_city")
@@ -581,8 +581,7 @@ input CreateUserInput {
 """
 When updating a User, all fields are optional, and email cannot be changed.
 """
-input UpdateUserInput {
-    id: ID
+input UpdateUserAsAdminInput {
     sub: String
     roles: [Role]
 
@@ -631,6 +630,52 @@ input UpdateUserInput {
     cmoAssets: CmoAssetBelongsToMany
 }
 
+input UpdateUserAsUserInput {
+    sub: String
+
+    # Personal info
+    firstName: String @rename(attribute: "first_name")
+    lastName: String @rename(attribute: "last_name")
+    telephone: PhoneNumber
+    currentProvince: ProvinceOrTerritory @rename(attribute: "current_province")
+    currentCity: String @rename(attribute: "current_city")
+
+    # Language
+    languageAbility: LanguageAbility @rename(attribute: "language_ability")
+    preferredLang: Language @rename(attribute: "preferred_lang")
+    lookingForEnglish: Boolean @rename(attribute: "looking_for_english")
+    lookingForFrench: Boolean @rename(attribute: "looking_for_french")
+    lookingForBilingual: Boolean @rename(attribute: "looking_for_bilingual")
+    bilingualEvaluation: BilingualEvaluation @rename(attribute: "bilingual_evaluation")
+    comprehensionLevel: EvaluatedLanguageAbility @rename(attribute: "comprehension_level")
+    writtenLevel: EvaluatedLanguageAbility @rename(attribute: "written_level")
+    verbalLevel: EvaluatedLanguageAbility @rename(attribute: "verbal_level")
+    estimatedLanguageAbility: EstimatedLanguageAbility @rename(attribute: "estimated_language_ability")
+
+    # Gov info
+    isGovEmployee: Boolean @rename(attribute: "is_gov_employee")
+    interestedInLaterOrSecondment: Boolean @rename(attribute: "interested_in_later_or_secondment")
+    currentClassification: ClassificationBelongsTo
+
+    # Employment equity
+    isWoman: Boolean @rename(attribute: "is_woman")
+    hasDisability: Boolean @rename(attribute: "has_disability")
+    isIndigenous: Boolean @rename(attribute: "is_indigenous")
+    isVisibleMinority: Boolean @rename(attribute: "is_visible_minority")
+
+    # Applicant info
+    jobLookingStatus: JobLookingStatus @rename(attribute: "job_looking_status")
+
+    hasDiploma: Boolean @rename(attribute: "has_diploma")
+    locationPreferences: [WorkRegion] @rename(attribute: "location_preferences")
+    locationExemptions: String @rename(attribute: "location_exemptions")
+    acceptedOperationalRequirements: OperationalRequirementBelongsToMany
+    expectedSalary: [SalaryRange] @rename(attribute: "expected_salary")
+    expectedClassifications: ClassificationBelongsToMany
+    wouldAcceptTemporary: Boolean @rename(attribute: "would_accept_temporary")
+    cmoAssets: CmoAssetBelongsToMany
+}
+
 input LocalizedStringInput {
     en: String
     fr: String
@@ -639,14 +684,14 @@ input LocalizedStringInput {
 input UserBelongsTo {
     create: CreateUserInput
     connect: ID
-    update: UpdateUserInput
+    update: UpdateUserAsAdminInput
 }
 
 """
 When updating a PoolCandidate it is possible to update the related user, but not change which user it is related to.
 """
 input UpdatePoolCandidateUserBelongsTo {
-    update: UpdateUserInput
+    update: UpdateUserAsAdminInput
 }
 
 input PoolBelongsTo {
@@ -854,7 +899,8 @@ input UpdateSkillInput {
 
 type Mutation {
     createUser(user: CreateUserInput! @spread): User @create @guard @can(ability: "create")
-    updateUser(id: ID!, user: UpdateUserInput! @spread): User @update @guard @can(ability: "update", find: "id")
+    updateUserAsUser(id: ID!, user: UpdateUserAsUserInput! @spread): User @update @guard @can(ability: "update", find: "id")
+    UpdateUserAsAdmin(id: ID!, user: UpdateUserAsAdminInput! @spread): User @update @guard @can(ability: "update", find: "id")
     deleteUser(id: ID!): User @delete(globalId: false) @guard @can(ability: "delete", find: "id")
     createPool(pool: CreatePoolInput! @spread): Pool @create @guard @can(ability: "create")
     updatePool(id: ID!, pool: UpdatePoolInput! @spread): Pool @update @guard @can(ability: "update", find: "id")

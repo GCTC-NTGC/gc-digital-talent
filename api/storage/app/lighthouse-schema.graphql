@@ -220,7 +220,7 @@ input CreateSkillInput {
 """When creating a User, name and email are required."""
 input CreateUserInput {
   sub: String
-  roles: [Role]
+  roles: [Role] = []
   firstName: String!
   lastName: String!
   email: Email!
@@ -383,7 +383,8 @@ scalar Mixed
 
 type Mutation {
   createUser(user: CreateUserInput!): User
-  updateUser(id: ID!, user: UpdateUserInput!): User
+  updateUserAsUser(id: ID!, user: UpdateUserAsUserInput!): User
+  UpdateUserAsAdmin(id: ID!, user: UpdateUserAsAdminInput!): User
   deleteUser(id: ID!): User
   createPool(pool: CreatePoolInput!): Pool
   updatePool(id: ID!, pool: UpdatePoolInput!): Pool
@@ -876,7 +877,7 @@ input UpdatePoolCandidateSearchRequestInput {
 When updating a PoolCandidate it is possible to update the related user, but not change which user it is related to.
 """
 input UpdatePoolCandidateUserBelongsTo {
-  update: UpdateUserInput
+  update: UpdateUserAsAdminInput
 }
 
 input UpdatePoolInput {
@@ -906,8 +907,7 @@ input UpdateSkillInput {
 """
 When updating a User, all fields are optional, and email cannot be changed.
 """
-input UpdateUserInput {
-  id: ID
+input UpdateUserAsAdminInput {
   sub: String
   roles: [Role]
   firstName: String
@@ -935,6 +935,41 @@ input UpdateUserInput {
   jobLookingStatus: JobLookingStatus
   pools: PoolsHasMany
   poolCandidates: PoolCandidateHasMany
+  hasDiploma: Boolean
+  locationPreferences: [WorkRegion]
+  locationExemptions: String
+  acceptedOperationalRequirements: OperationalRequirementBelongsToMany
+  expectedSalary: [SalaryRange]
+  expectedClassifications: ClassificationBelongsToMany
+  wouldAcceptTemporary: Boolean
+  cmoAssets: CmoAssetBelongsToMany
+}
+
+input UpdateUserAsUserInput {
+  sub: String
+  firstName: String
+  lastName: String
+  telephone: PhoneNumber
+  currentProvince: ProvinceOrTerritory
+  currentCity: String
+  languageAbility: LanguageAbility
+  preferredLang: Language
+  lookingForEnglish: Boolean
+  lookingForFrench: Boolean
+  lookingForBilingual: Boolean
+  bilingualEvaluation: BilingualEvaluation
+  comprehensionLevel: EvaluatedLanguageAbility
+  writtenLevel: EvaluatedLanguageAbility
+  verbalLevel: EvaluatedLanguageAbility
+  estimatedLanguageAbility: EstimatedLanguageAbility
+  isGovEmployee: Boolean
+  interestedInLaterOrSecondment: Boolean
+  currentClassification: ClassificationBelongsTo
+  isWoman: Boolean
+  hasDisability: Boolean
+  isIndigenous: Boolean
+  isVisibleMinority: Boolean
+  jobLookingStatus: JobLookingStatus
   hasDiploma: Boolean
   locationPreferences: [WorkRegion]
   locationExemptions: String
@@ -994,7 +1029,7 @@ type User {
 input UserBelongsTo {
   create: CreateUserInput
   connect: ID
-  update: UpdateUserInput
+  update: UpdateUserAsAdminInput
 }
 
 type UserPublicProfile {
