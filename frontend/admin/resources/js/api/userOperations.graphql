@@ -47,7 +47,17 @@ mutation UpdateUser($id: ID!, $user: UpdateUserInput!) {
 
     isGovEmployee
     interestedInLaterOrSecondment
-    # currentClassification
+    currentClassification {
+      id
+      name {
+        en
+        fr
+      }
+      group
+      level
+      minSalary
+      maxSalary
+    }
 
     isWoman
     hasDisability
@@ -55,17 +65,88 @@ mutation UpdateUser($id: ID!, $user: UpdateUserInput!) {
     isVisibleMinority
 
     jobLookingStatus
-    #pools
-    # poolCandidates
+    pools {
+      #assetCriteria
+      #classifications
+      description {
+        en
+        fr
+      }
+      #essentialCriteria
+      id
+      key
+      name {
+        en
+        fr
+      }
+      #operationalRequirements
+      #owner
+      #ownerPublicProfile
+      #poolCandidates
+    }
+    poolCandidates {
+      id
+      #pool
+      #user
+
+      cmoIdentifier
+      expiryDate
+
+      isWoman
+      hasDisability
+      isIndigenous
+      isVisibleMinority
+      hasDiploma
+      languageAbility
+      locationPreferences
+      #acceptedOperationalRequirements
+      expectedSalary
+      #expectedClassifications
+      #cmoAssets
+
+      status
+    }
 
     hasDiploma
     locationPreferences
     locationExemptions
-    # acceptedOperationalRequirements
+    acceptedOperationalRequirements {
+      id
+      description {
+        en
+        fr
+      }
+      key
+      name {
+        en
+        fr
+      }
+    }
     expectedSalary
-    # expectedClassifications
+    expectedClassifications {
+      id
+      name {
+        en
+        fr
+      }
+      group
+      level
+      minSalary
+      maxSalary
+    }
     wouldAcceptTemporary
-    # cmoAssets
+    cmoAssets {
+      id
+      description {
+        en
+        fr
+      }
+      key
+      name {
+        en
+        fr
+      }
+    }
   }
 }
 
@@ -94,7 +175,17 @@ mutation CreateUser($user: CreateUserInput!) {
 
     isGovEmployee
     interestedInLaterOrSecondment
-    # currentClassification
+    currentClassification {
+      id
+      name {
+        en
+        fr
+      }
+      group
+      level
+      minSalary
+      maxSalary
+    }
 
     isWoman
     hasDisability
@@ -102,16 +193,87 @@ mutation CreateUser($user: CreateUserInput!) {
     isVisibleMinority
 
     jobLookingStatus
-    # pools
-    # poolCandidates
+    pools {
+      #assetCriteria
+      #classifications
+      description {
+        en
+        fr
+      }
+      #essentialCriteria
+      id
+      key
+      name {
+        en
+        fr
+      }
+      #operationalRequirements
+      #owner
+      #ownerPublicProfile
+      #poolCandidates
+    }
+    poolCandidates {
+      id
+      #pool
+      #user
+
+      cmoIdentifier
+      expiryDate
+
+      isWoman
+      hasDisability
+      isIndigenous
+      isVisibleMinority
+      hasDiploma
+      languageAbility
+      locationPreferences
+      #acceptedOperationalRequirements
+      expectedSalary
+      #expectedClassifications
+      #cmoAssets
+
+      status
+    }
 
     hasDiploma
     locationPreferences
     locationExemptions
-    # acceptedOperationalRequirements
+    acceptedOperationalRequirements {
+      id
+      description {
+        en
+        fr
+      }
+      key
+      name {
+        en
+        fr
+      }
+    }
     expectedSalary
-    # expectedClassifications
+    expectedClassifications {
+      id
+      name {
+        en
+        fr
+      }
+      group
+      level
+      minSalary
+      maxSalary
+    }
     wouldAcceptTemporary
-    # cmoAssets
+    cmoAssets {
+      id
+      description {
+        en
+        fr
+      }
+      key
+      name {
+        en
+        fr
+      }
+    }
   }
 }
