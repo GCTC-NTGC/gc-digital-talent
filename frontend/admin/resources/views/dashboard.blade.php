@@ -16,6 +16,17 @@
 </head>
 <body>
   <div id="app" data-h2-font-family="b(sans)"></div>
+  <script type='text/javascript'>
+@php
+$data = [
+    "OAUTH_LOGOUT_URI" => $_ENV["OAUTH_LOGOUT_URI"],
+    "OAUTH_POST_LOGOUT_REDIRECT" => $_ENV["OAUTH_POST_LOGOUT_REDIRECT"],
+];
+$json = json_encode($data);
+echo "window.__SERVER_CONFIG__ = $json;";
+@endphp
+  </script>
+  <script>window.__TEST = "hello"</script>
   <script src="{{ asset(mix('/js/dashboard.js')) }}"></script>
 </body>
 </html>
