@@ -51,17 +51,17 @@ const communityExperienceSkill: ExperienceSkill = {
   details: faker.lorem.sentence(),
 };
 
-const awardExperienceSkill: ExperienceSkill = {
-  id: "blank",
-  skill: sampleSkill1,
-  experience: generators.generateAward(),
-  details: faker.lorem.sentence(),
-};
-
 const workExperienceSkill: ExperienceSkill = {
   id: "blank",
   skill: sampleSkill1,
   experience: generators.generateWork(),
+  details: faker.lorem.sentence(),
+};
+
+const awardExperienceSkill: ExperienceSkill = {
+  id: "blank",
+  skill: sampleSkill1,
+  experience: generators.generateAward(),
   details: faker.lorem.sentence(),
 };
 
@@ -80,7 +80,13 @@ const generateSkill = (skillFamilies: SkillFamily[]) => {
     },
     keywords: faker.lorem.words(3).split(" "),
     families: faker.random.arrayElements(skillFamilies),
-    experienceSkills: [personalExperienceSkill, educationExperienceSkill],
+    experienceSkills: [
+      personalExperienceSkill,
+      educationExperienceSkill,
+      communityExperienceSkill,
+      workExperienceSkill,
+      awardExperienceSkill,
+    ],
   };
 };
 
