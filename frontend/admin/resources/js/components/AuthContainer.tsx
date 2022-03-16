@@ -6,6 +6,7 @@ import {
 } from "@common/helpers/router";
 import jwtDecode, { JwtPayload } from "jwt-decode";
 import { useAdminRoutes } from "../adminRoutes";
+import { useApiRoutes } from "../apiRoutes";
 import { LOGOUT_URI, POST_LOGOUT_REDIRECT } from "../adminConstants";
 
 const ACCESS_TOKEN = "access_token";
@@ -127,9 +128,10 @@ export const AuthContainer: React.FC = ({ children }) => {
 
   const location = useLocation();
   const newTokens = getTokensFromLocation(location);
-  const paths = useAdminRoutes();
-  const homePath = paths.home();
-  const refreshTokenSetPath = paths.refreshAccessToken();
+  const adminPaths = useAdminRoutes();
+  const apiPaths = useApiRoutes();
+  const homePath = adminPaths.home();
+  const refreshTokenSetPath = apiPaths.refreshAccessToken();
 
   // If newTokens is not null, then we have a new access token in the url. Save it in local storage and in state hook, then clear query parameters.
   useEffect(() => {
