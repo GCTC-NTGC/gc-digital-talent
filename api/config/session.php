@@ -59,7 +59,8 @@ return [
     |
     */
 
-    'files' => storage_path('framework/sessions'),
+    // A somewhat hacky solution to enable deploying the app in a read-only directory
+    'files' => env('USE_TMP_STORAGE', false) ? '/tmp/admin/storage/framework/sessions' : storage_path('framework/sessions'),
 
     /*
     |--------------------------------------------------------------------------
