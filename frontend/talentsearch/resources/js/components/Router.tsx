@@ -11,6 +11,7 @@ import {
   TalentSearchRoutes,
 } from "../talentSearchRoutes";
 import RequestPage from "./request/RequestPage";
+import { ProfilePageApi } from "./profile/ProfilePage";
 
 const routes = (paths: TalentSearchRoutes): Routes<RouterResult> => [
   {
@@ -30,6 +31,12 @@ const routes = (paths: TalentSearchRoutes): Routes<RouterResult> => [
     path: paths.request(),
     action: () => ({
       component: <RequestPage />,
+    }),
+  },
+  {
+    path: paths.profile(),
+    action: () => ({
+      component: <ProfilePageApi />,
     }),
   },
 ];

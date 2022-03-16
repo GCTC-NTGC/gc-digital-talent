@@ -8,9 +8,17 @@ import {
   UserGroupIcon,
   UserIcon,
 } from "@heroicons/react/solid";
+import { useIntl } from "react-intl";
+import { Link } from "@common/components";
+// TODO: Replace this with an API call
+import { fakeUsers } from "@common/fakeData";
+import { useTalentSearchRoutes } from "../../talentSearchRoutes";
 import { User } from "../../api/generated";
 
-const ProfilePage: React.FC<User> = ({ firstName, lastName }) => {
+export const ProfilePage: React.FC<User> = ({ firstName, lastName }) => {
+  const intl = useIntl();
+  const paths = useTalentSearchRoutes();
+
   return (
     <>
       <div
@@ -25,94 +33,301 @@ const ProfilePage: React.FC<User> = ({ firstName, lastName }) => {
         data-h2-position="b(relative)"
         data-h2-flex-grid="b(top, contained, flush, none)"
         data-h2-container="b(center, l)"
-        data-h2-padding="b(top-bottom, s) b(right-left, l)"
+        data-h2-padding="b(right-left, s)"
       >
         <div
           data-h2-flex-item="b(1of1) s(1of4)"
           data-h2-visibility="b(hidden) s(visible)"
           data-h2-text-align="b(right)"
           data-h2-position="b(sticky)"
-          style={{
-            backgroundColor: "green",
-          }}
         >
-          <h2>On this page</h2>
+          <h2 data-h2-font-weight="b(600)">
+            {intl.formatMessage({
+              defaultMessage: "On this page",
+              description: "Title for table of contents",
+            })}
+          </h2>
+          <p>
+            <a href="#status-section">
+              {intl.formatMessage({
+                defaultMessage: "My Status",
+                description: "Title of the My Status section",
+              })}
+            </a>
+          </p>
+          <p>
+            <a href="#pools-section">
+              {intl.formatMessage({
+                defaultMessage: "My Pools",
+                description: "Title of the My Pools section",
+              })}
+            </a>
+          </p>
+          <p>
+            <a href="#about-me-section">
+              {intl.formatMessage({
+                defaultMessage: "About Me",
+                description: "Title of the About Me section",
+              })}
+            </a>
+          </p>
+          <p>
+            <a href="#language-section">
+              {intl.formatMessage({
+                defaultMessage: "Language Information",
+                description: "Title of the Language Information section",
+              })}
+            </a>
+          </p>
+          <p>
+            <a href="#gov-info-section">
+              {intl.formatMessage({
+                defaultMessage: "Government Information",
+                description: "Title of the Government Information section",
+              })}
+            </a>
+          </p>
+          <p>
+            <a href="#work-location-section">
+              {intl.formatMessage({
+                defaultMessage: "Work Location",
+                description: "Title of the Work Location section",
+              })}
+            </a>
+          </p>
+          <p>
+            <a href="#work-preferences-section">
+              {intl.formatMessage({
+                defaultMessage: "Work Preferences",
+                description: "Title of the Work Preferences section",
+              })}
+            </a>
+          </p>
+          <p>
+            <a href="#diversity-section">
+              {intl.formatMessage({
+                defaultMessage: "Diversity, Equity and Inclusion",
+                description:
+                  "Title of the Diversity, Equity and Inclusion section",
+              })}
+            </a>
+          </p>
+          <p>
+            <a href="#skills-section">
+              {intl.formatMessage({
+                defaultMessage: "My Skills and Experience",
+                description: "Title of the My Skills and Experience section",
+              })}
+            </a>
+          </p>
         </div>
-        <div
-          data-h2-flex-item="b(1of1) s(3of4)"
-          style={{
-            backgroundColor: "grey",
-          }}
-        >
+        <div data-h2-flex-item="b(1of1) s(3of4)">
           <div data-h2-padding="b(left, l)">
-            <div>
-              <h2>
+            <div id="status-section">
+              <h2 data-h2-font-weight="b(600)">
                 <LightBulbIcon style={{ width: "calc(1rem*2.25)" }} />
-                &nbsp;&nbsp;My status
+                &nbsp;&nbsp;
+                {intl.formatMessage({
+                  defaultMessage: "My status",
+                  description: "Title of the My status section",
+                })}
               </h2>
-              Status details
+              <p>Status details</p>
             </div>
-            <div>
-              <h2>
+            <div id="pools-section">
+              <h2 data-h2-font-weight="b(600)">
                 <UserGroupIcon style={{ width: "calc(1rem*2.25)" }} />
-                &nbsp;&nbsp;My pools
+                &nbsp;&nbsp;
+                {intl.formatMessage({
+                  defaultMessage: "My pools",
+                  description: "Title of the My pools section",
+                })}
               </h2>
-              Pool details
+              <p>Pool details</p>
             </div>
-            <div>
-              <h2>
-                <UserIcon style={{ width: "calc(1rem*2.25)" }} />
-                &nbsp;&nbsp;About me
-              </h2>
-              Personal details
+            <div id="about-me-section">
+              <div style={{ display: "flex", alignItems: "baseline" }}>
+                <h2 data-h2-font-weight="b(600)" style={{ flex: "1 1 0%" }}>
+                  <UserIcon style={{ width: "calc(1rem*2.25)" }} />
+                  &nbsp;&nbsp;
+                  {intl.formatMessage({
+                    defaultMessage: "About me",
+                    description: "Title of the About me section",
+                  })}
+                </h2>
+                <Link
+                  href={`${paths.home()}/update-status`}
+                  title=""
+                  {...{
+                    "data-h2-font-color": "b(lightpurple)",
+                  }}
+                >
+                  {intl.formatMessage({
+                    defaultMessage: "Edit About Me",
+                    description:
+                      "Text on link to update a users personal information",
+                  })}
+                </Link>
+              </div>
+              <p>Personal details</p>
             </div>
-            <div>
-              <h2>
-                <ChatAlt2Icon style={{ width: "calc(1rem*2.25)" }} />
-                &nbsp;&nbsp;Language information
-              </h2>
-              Language details
+            <div id="language-section">
+              <div style={{ display: "flex", alignItems: "baseline" }}>
+                <h2 data-h2-font-weight="b(600)" style={{ flex: "1 1 0%" }}>
+                  <ChatAlt2Icon style={{ width: "calc(1rem*2.25)" }} />
+                  &nbsp;&nbsp;
+                  {intl.formatMessage({
+                    defaultMessage: "Language information",
+                    description: "Title of the Language information section",
+                  })}
+                </h2>
+                <Link
+                  href={`${paths.home()}/update-lang-info`}
+                  title=""
+                  {...{
+                    "data-h2-font-color": "b(lightpurple)",
+                  }}
+                >
+                  {intl.formatMessage({
+                    defaultMessage: "Edit Language Information",
+                    description:
+                      "Text on link to update a users language information",
+                  })}
+                </Link>
+              </div>
+              <p>Language details</p>
             </div>
-            <div>
-              <h2>
-                {
-                  // TODO: Ask where to find this icon
-                }
-                <LightBulbIcon style={{ width: "calc(1rem*2.25)" }} />
-                &nbsp;&nbsp;Government information
-              </h2>
-              Government status details
+            <div id="gov-info-section">
+              <div style={{ display: "flex", alignItems: "baseline" }}>
+                <h2 data-h2-font-weight="b(600)" style={{ flex: "1 1 0%" }}>
+                  <LightBulbIcon style={{ width: "calc(1rem*2.25)" }} />
+                  &nbsp;&nbsp;
+                  {intl.formatMessage({
+                    defaultMessage: "Government information",
+                    description: "Title of the Government information section",
+                  })}
+                </h2>
+                <Link
+                  href={`${paths.home()}/update-gov-info`}
+                  title=""
+                  {...{
+                    "data-h2-font-color": "b(lightpurple)",
+                  }}
+                >
+                  {intl.formatMessage({
+                    defaultMessage: "Edit Government Information",
+                    description:
+                      "Text on link to update a users government information",
+                  })}
+                </Link>
+              </div>
+              <p>Government status details</p>
             </div>
-            <div>
-              <h2>
-                {
-                  // TODO: Ask where to find this icon
-                }
-                <LightBulbIcon style={{ width: "calc(1rem*2.25)" }} />
-                &nbsp;&nbsp;Work location
-              </h2>
-              Work location details
+            <div id="work-location-section">
+              <div style={{ display: "flex", alignItems: "baseline" }}>
+                <h2 data-h2-font-weight="b(600)" style={{ flex: "1 1 0%" }}>
+                  <LightBulbIcon style={{ width: "calc(1rem*2.25)" }} />
+                  &nbsp;&nbsp;
+                  {intl.formatMessage({
+                    defaultMessage: "Work location",
+                    description: "Title of the Work location section",
+                  })}
+                </h2>
+                <Link
+                  href={`${paths.home()}/update-work-location`}
+                  title=""
+                  {...{
+                    "data-h2-font-color": "b(lightpurple)",
+                  }}
+                >
+                  {intl.formatMessage({
+                    defaultMessage: "Edit Work Location",
+                    description:
+                      "Text on link to update a users work location info",
+                  })}
+                </Link>
+              </div>
+              <p>Work location details</p>
             </div>
-            <div>
-              <h2>
-                <ThumbUpIcon style={{ width: "calc(1rem*2.25)" }} />
-                &nbsp;&nbsp;Work preferences
-              </h2>
-              Work preference details
+            <div id="work-preferences-section">
+              <div style={{ display: "flex", alignItems: "baseline" }}>
+                <h2 data-h2-font-weight="b(600)" style={{ flex: "1 1 0%" }}>
+                  <ThumbUpIcon style={{ width: "calc(1rem*2.25)" }} />
+                  &nbsp;&nbsp;
+                  {intl.formatMessage({
+                    defaultMessage: "Work preferences",
+                    description: "Title of the Work preferences section",
+                  })}
+                </h2>
+                <Link
+                  href={`${paths.home()}/update-work-preferences`}
+                  title=""
+                  {...{
+                    "data-h2-font-color": "b(lightpurple)",
+                  }}
+                >
+                  {intl.formatMessage({
+                    defaultMessage: "Edit Work Preferences",
+                    description:
+                      "Text on link to update a users work preferences",
+                  })}
+                </Link>
+              </div>
+              <p>Work preference details</p>
             </div>
-            <div>
-              <h2>
-                <UserCircleIcon style={{ width: "calc(1rem*2.25)" }} />
-                &nbsp;&nbsp;Diversity, equity, and inclusion
-              </h2>
-              Diversity and inclusion details
+            <div id="diversity-section">
+              <div style={{ display: "flex", alignItems: "baseline" }}>
+                <h2 data-h2-font-weight="b(600)" style={{ flex: "1 1 0%" }}>
+                  <UserCircleIcon style={{ width: "calc(1rem*2.25)" }} />
+                  &nbsp;&nbsp;
+                  {intl.formatMessage({
+                    defaultMessage: "Diversity, equity and inclusion",
+                    description:
+                      "Title of the Diversity, equity and inclusion section",
+                  })}
+                </h2>
+                <Link
+                  href={`${paths.home()}/update-diversity-info`}
+                  title=""
+                  {...{
+                    "data-h2-font-color": "b(lightpurple)",
+                  }}
+                >
+                  {intl.formatMessage({
+                    defaultMessage: "Edit Diversity Equity and Inclusion",
+                    description:
+                      "Text on link to update a users diversity equity and inclusion information",
+                  })}
+                </Link>
+              </div>
+              <p>Diversity and inclusion details</p>
             </div>
-            <div>
-              <h2>
-                <LightningBoltIcon style={{ width: "calc(1rem*2.25)" }} />
-                &nbsp;&nbsp;My skills and experience
-              </h2>
-              Skill and experience details
+            <div id="skills-section">
+              <div style={{ display: "flex", alignItems: "baseline" }}>
+                <h2 data-h2-font-weight="b(600)" style={{ flex: "1 1 0%" }}>
+                  <LightningBoltIcon style={{ width: "calc(1rem*2.25)" }} />
+                  &nbsp;&nbsp;
+                  {intl.formatMessage({
+                    defaultMessage: "My skills and experience",
+                    description:
+                      "Title of the My skills and experience section",
+                  })}
+                </h2>
+                <Link
+                  href={`${paths.home()}/update-skills-and-experience`}
+                  title=""
+                  {...{
+                    "data-h2-font-color": "b(lightpurple)",
+                  }}
+                >
+                  {intl.formatMessage({
+                    defaultMessage: "Edit Skills and Experience",
+                    description:
+                      "Text on link to update a users skills and experience",
+                  })}
+                </Link>
+              </div>
+              <p>Skill and experience details</p>
             </div>
           </div>
         </div>
@@ -121,4 +336,6 @@ const ProfilePage: React.FC<User> = ({ firstName, lastName }) => {
   );
 };
 
-export default ProfilePage;
+export const ProfilePageApi: React.FunctionComponent = () => {
+  return <ProfilePage {...fakeUsers()[0]} />;
+};
