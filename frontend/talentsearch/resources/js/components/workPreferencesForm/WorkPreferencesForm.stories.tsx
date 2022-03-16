@@ -2,7 +2,7 @@ import React from "react";
 import { action } from "@storybook/addon-actions";
 import { Meta, Story } from "@storybook/react";
 import { fakeOperationalRequirements } from "@common/fakeData";
-import WorkPreferencesForm from "./WorkPreferencesForm";
+import WorkPreferencesForm, { FormValues } from "./WorkPreferencesForm";
 
 export default {
   component: WorkPreferencesForm,
@@ -13,7 +13,7 @@ const TemplatePreferencesForm: Story = () => {
   return (
     <WorkPreferencesForm
       operationalRequirements={fakeOperationalRequirements()}
-      handleSubmit={async (data: any) => {
+      handleSubmit={async (data: FormValues) => {
         action("submit")(data);
       }}
     />
