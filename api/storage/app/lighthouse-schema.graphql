@@ -245,6 +245,8 @@ input CreateUserInput {
   isIndigenous: Boolean
   isVisibleMinority: Boolean
   jobLookingStatus: JobLookingStatus
+  pools: PoolsHasMany
+  poolCandidates: PoolCandidateHasMany
   hasDiploma: Boolean
   locationPreferences: [WorkRegion]
   locationExemptions: String
@@ -636,6 +638,10 @@ input PoolFilterInput {
   id: ID!
 }
 
+input PoolsHasMany {
+  create: [CreatePoolInput]
+}
+
 enum ProvinceOrTerritory {
   BRITISH_COLUMBIA
   ALBERTA
@@ -927,6 +933,8 @@ input UpdateUserInput {
   isIndigenous: Boolean
   isVisibleMinority: Boolean
   jobLookingStatus: JobLookingStatus
+  pools: PoolsHasMany
+  poolCandidates: PoolCandidateHasMany
   hasDiploma: Boolean
   locationPreferences: [WorkRegion]
   locationExemptions: String

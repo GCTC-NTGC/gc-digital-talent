@@ -523,6 +523,9 @@ type Query {
 input ClassificationBelongsTo {
     connect: ID!
 }
+input PoolsHasMany {
+    create: [CreatePoolInput]
+}
 """
 When creating a User, name and email are required.
 """
@@ -563,8 +566,8 @@ input CreateUserInput {
 
     # Applicant info
     jobLookingStatus: JobLookingStatus @rename(attribute: "job_looking_status")
-    # pools: [Pool] @hasMany  Pools that a user owns
-    # poolCandidates: [PoolCandidate] @hasMany  Pools candidates that a user owns
+    pools: PoolsHasMany #Pools that a user owns
+    poolCandidates: PoolCandidateHasMany #Pools candidates that a user owns
 
     hasDiploma: Boolean @rename(attribute: "has_diploma")
     locationPreferences: [WorkRegion] @rename(attribute: "location_preferences")
@@ -615,8 +618,8 @@ input UpdateUserInput {
 
     # Applicant info
     jobLookingStatus: JobLookingStatus @rename(attribute: "job_looking_status")
-    # pools: [Pool] @hasMany  Pools that a user owns
-    # poolCandidates: [PoolCandidate] @hasMany  Pools candidates that a user owns
+    pools: PoolsHasMany #Pools that a user owns
+    poolCandidates: PoolCandidateHasMany #Pools candidates that a user owns
 
     hasDiploma: Boolean @rename(attribute: "has_diploma")
     locationPreferences: [WorkRegion] @rename(attribute: "location_preferences")
