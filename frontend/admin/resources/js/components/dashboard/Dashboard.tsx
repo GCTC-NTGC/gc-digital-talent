@@ -9,6 +9,7 @@ import Header from "@common/components/Header";
 import Footer from "@common/components/Footer";
 import { ADMIN_APP_DIR } from "../../adminConstants";
 import { useAdminRoutes } from "../../adminRoutes";
+import { useApiRoutes } from "../../apiRoutes";
 import { useGetPoolsQuery } from "../../api/generated";
 import SideMenu from "../menu/SideMenu";
 import { AuthContext } from "../AuthContainer";
@@ -106,6 +107,7 @@ const PoolListApi = () => {
 const LoginOrLogout = () => {
   const intl = useIntl();
   const location = useLocation();
+  const apiRoutes = useApiRoutes();
   const { loggedIn, logout } = useContext(AuthContext);
 
   if (loggedIn) {
@@ -144,10 +146,10 @@ const LoginOrLogout = () => {
       block
       tabIndex={-1}
       onClick={() => {
-        window.location.href =
-          "/admin/login" +
-          `?from=${location.pathname}` +
-          `&locale=${getLocale(intl)}`;
+        window.location.href = apiRoutes.login(
+          location.pathname,
+          getLocale(intl),
+        );
       }}
     >
       {intl.formatMessage({

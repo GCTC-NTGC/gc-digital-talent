@@ -1,12 +1,6 @@
 import React from "react";
 import { Story, Meta } from "@storybook/react";
-import { action } from "@storybook/addon-actions";
-import {
-  FilterIcon,
-  SearchCircleIcon,
-  ChevronDownIcon,
-  ChevronUpIcon,
-} from "@heroicons/react/solid";
+import { FilterIcon } from "@heroicons/react/solid";
 import Breadcrumbs, { BreadcrumbsProps } from "./Breadcrumbs";
 
 export default {

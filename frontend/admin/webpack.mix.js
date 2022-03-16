@@ -4,6 +4,15 @@ require("laravel-mix-polyfill");
 const mix = require("laravel-mix");
 const path = require("path");
 
+// Check if any of the OAUTH variables are defined for this project.  A message is displayed to notify of improper use.
+mix.before(() => {
+  const authVariables = [
+    "OAUTH_URI", "OAUTH_TOKEN_URI", "OAUTH_ADMIN_CLIENT_ID", "OAUTH_ADMIN_CLIENT_SECRET"
+  ];
+  if(authVariables.some((v) => process.env.hasOwnProperty(v)))
+    throw 'OAUTH variables should be defined in the api project, not the admin project.  Compare the .env file to the .env.example for proper use.  https://github.com/GCTC-NTGC/gc-digital-talent/pull/2220';
+});
+
 const webpack = require("webpack");
 const dotenvplugin = new webpack.DefinePlugin({
   "process.env": {
@@ -38,7 +47,7 @@ const reactIntlTransformRule = {
 
 mix
   .ts("resources/js/dashboard.tsx", "public/js")
-  .css("resources/css/hydrogen.css", "public/css")
+  .css("../common/src/css/hydrogen.css", "public/css")
   .css("../common/src/css/common.css", "public/css")
   .css("resources/css/app.css", "public/css")
   .polyfill({
