@@ -46,7 +46,7 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
     const { title, description, startDate, endDate, details } = experience;
     return (
       <div>
-        <p> {title} </p>
+        <p data-h2-font-color="b(lightpurple)"> {title} </p>
         <p>
           {endDate
             ? `${startDate || ""} - ${endDate || ""}`
@@ -78,12 +78,13 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
     return (
       <div>
         <p>
+          <span data-h2-font-color="b(lightpurple)"> {areaOfStudy} </span>
           {intl.formatMessage(
             {
-              defaultMessage: "{areaOfStudy} at {institution}",
+              defaultMessage: " at {institution}",
               description: "Study at institution",
             },
-            { areaOfStudy, institution },
+            { institution },
           )}
         </p>
         <p>
@@ -125,12 +126,13 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
     return (
       <div>
         <p>
+          <span data-h2-font-color="b(lightpurple)"> {title} </span>
           {intl.formatMessage(
             {
-              defaultMessage: "{title} issued by {issuedBy}",
+              defaultMessage: " issued by {issuedBy}",
               description: "The award title is issued by some group",
             },
-            { title, issuedBy },
+            { issuedBy },
           )}
         </p>
         <p>
@@ -169,12 +171,13 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
     return (
       <div>
         <p>
+          <span data-h2-font-color="b(lightpurple)"> {title} </span>
           {intl.formatMessage(
             {
-              defaultMessage: "{title} at {organization}",
+              defaultMessage: " at {organization}",
               description: "Title at organization",
             },
-            { title, organization },
+            { organization },
           )}
         </p>
         <p>
@@ -218,12 +221,13 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
     return (
       <div>
         <p>
+          <span data-h2-font-color="b(lightpurple)">{role} </span>
           {intl.formatMessage(
             {
-              defaultMessage: "{role} at {division}",
+              defaultMessage: " at {division}",
               description: "Role at Team, Group or Division",
             },
-            { role, division },
+            { division },
           )}
         </p>
         <p>{organization}</p>
@@ -262,7 +266,7 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
             })
           : intl.formatMessage(
               {
-                defaultMessage: "{experiencesLength} Experiences",
+                defaultMessage: "{experienceLength} Experiences",
                 description: "Pluralization for zero or multiple experiences",
               },
               { experienceLength: experiences?.length },
