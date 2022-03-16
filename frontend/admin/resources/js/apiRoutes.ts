@@ -9,10 +9,7 @@ const apiRoutes = () => {
       const searchTerms: string[] = [];
       if (from) searchTerms.push(`from=${encodeURI(from)}`);
       if (locale) searchTerms.push(`locale=${encodeURI(locale)}`);
-      const searchString = searchTerms.reduce((previousValue, currentValue) => {
-        if (previousValue) return `${previousValue}&${currentValue}`;
-        return currentValue;
-      }, "");
+      const searchString = searchTerms.join("&");
 
       const url =
         path.join(apiRoot(), "login") +
