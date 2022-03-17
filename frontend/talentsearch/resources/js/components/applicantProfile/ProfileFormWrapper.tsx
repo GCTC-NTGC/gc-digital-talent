@@ -27,7 +27,7 @@ const ProfileFormWrapper: React.FunctionComponent<ProfileFormWrapperProps> = ({
         defaultMessage: "My Profile",
         description: "Breadcrumb from applicant profile wrapper.",
       }),
-      href: profilePath.myprofile(),
+      href: profilePath.home(),
       icon: <UserIcon style={{ width: "1rem", marginRight: "5px" }} />,
     },
     ...crumbs,
@@ -57,7 +57,7 @@ const ProfileFormWrapper: React.FunctionComponent<ProfileFormWrapperProps> = ({
         data-h2-width="b(100) s(75)"
       >
         <div data-h2-margin="b(top-bottom, l)">
-          <CancelButton />
+          <CancelButton link={profilePath.home()} />
         </div>
         <h1
           data-h2-margin="b(all, none)"

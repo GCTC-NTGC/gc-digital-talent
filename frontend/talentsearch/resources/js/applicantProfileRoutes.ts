@@ -1,16 +1,15 @@
 import { getLocale } from "@common/helpers/localize";
 import path from "path-browserify";
 import { useIntl } from "react-intl";
-import TALENTSEARCH_APP_PROFILE_DIR from "./talentSearchConstants";
+import APPLICANTPROFILE_APP_DIR from "./talentSearchConstants";
 
 export type ApplicantProfileRoutes = ReturnType<typeof applicantProfileRoutes>;
 
 const applicantProfileRoutes = (lang: string) => {
-  const myprofile = (): string =>
-    path.join("/", lang, TALENTSEARCH_APP_PROFILE_DIR); // leading slash in case empty base url
+  const home = (): string => path.join("/", lang, APPLICANTPROFILE_APP_DIR); // leading slash in case empty base url
   return {
-    myprofile,
-    workpreferences: (): string => path.join(myprofile(), "workpreferences"),
+    home,
+    workPreferences: (): string => path.join(home(), "workpreferences"),
   };
 };
 

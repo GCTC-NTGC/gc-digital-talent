@@ -59,7 +59,12 @@ export const WorkPreferencesForm: React.FunctionComponent<{
             <div data-h2-padding="b(right, l)">
               <RadioGroup
                 idPrefix="required-work-preferences"
-                legend="I would consider accepting a job that lasts for..."
+                legend={intl.formatMessage({
+                  defaultMessage:
+                    "I would consider accepting a job that lasts for...",
+                  description:
+                    "Legend Text for required work preferences options in work preferences form",
+                })}
                 name="requiredWorkPreferences"
                 rules={{ required: intl.formatMessage(errorMessages.required) }}
                 items={[
@@ -89,7 +94,12 @@ export const WorkPreferencesForm: React.FunctionComponent<{
             <div data-h2-padding="b(right, l)">
               <Checklist
                 idPrefix="optional-work-preferences"
-                legend="I would consider accepting a job that requires…"
+                legend={intl.formatMessage({
+                  defaultMessage:
+                    "I would consider accepting a job that requires…",
+                  description:
+                    "Legend for optional work preferences check list in work preferences form",
+                })}
                 name="optionalWorkPreferences"
                 items={preferencesItems}
               />
