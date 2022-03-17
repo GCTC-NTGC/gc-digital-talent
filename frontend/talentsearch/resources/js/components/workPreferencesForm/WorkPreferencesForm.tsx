@@ -44,7 +44,6 @@ export const WorkPreferencesForm: React.FunctionComponent<{
             defaultMessage: "Work Preferences",
             description: "Display Text for Work Preferences Form Page Link",
           }),
-          href: crumbPaths.workPreferences(),
         },
       ]}
     >
