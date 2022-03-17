@@ -10,12 +10,19 @@ import {
 } from "@heroicons/react/solid";
 import { useIntl } from "react-intl";
 import { Link } from "@common/components";
-// TODO: Replace this with an API call
-import { fakeUsers } from "@common/fakeData";
+import commonMessages from "@common/messages/commonMessages";
 import { useTalentSearchRoutes } from "../../talentSearchRoutes";
-import { User } from "../../api/generated";
+import { useGetMeQuery } from "../../api/generated";
 
-export const ProfilePage: React.FC<User> = ({ firstName, lastName }) => {
+export interface ProfilePageProps {
+  firstName?: string | null;
+  lastName?: string | null;
+}
+
+export const ProfilePage: React.FC<ProfilePageProps> = ({
+  firstName,
+  lastName,
+}) => {
   const intl = useIntl();
   const paths = useTalentSearchRoutes();
 
@@ -337,5 +344,18 @@ export const ProfilePage: React.FC<User> = ({ firstName, lastName }) => {
 };
 
 export const ProfilePageApi: React.FunctionComponent = () => {
-  return <ProfilePage {...fakeUsers()[0]} />;
+  const intl = useIntl();
+  const [result] = useGetMeQuery();
+  const { data, fetching, error } = result;
+
+  if (fetching) return <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>;
+  if (error)
+    return (
+      <p>
+        {intl.formatMessage(commonMessages.loadingError)}
+        {error.message}
+      </p>
+    );
+
+  return <ProfilePage {...data?.me} />;
 };
