@@ -623,7 +623,7 @@ input UpdateUserAsAdminInput {
     hasDiploma: Boolean @rename(attribute: "has_diploma")
     locationPreferences: [WorkRegion] @rename(attribute: "location_preferences")
     locationExemptions: String @rename(attribute: "location_exemptions")
-    acceptedOperationalRequirements: OperationalRequirementBelongsToMany
+    acceptedOperationalRequirements: hackyOperationalRequirementBelongsToMany
     expectedSalary: [SalaryRange] @rename(attribute: "expected_salary")
     expectedClassifications: ClassificationBelongsToMany
     wouldAcceptTemporary: Boolean @rename(attribute: "would_accept_temporary")
@@ -728,6 +728,10 @@ input CreateOperationalRequirementInput {
 
 input OperationalRequirementBelongsToMany {
     sync: [ID!]
+}
+
+input hackyOperationalRequirementBelongsToMany {
+    sync: [String]
 }
 
 input CreatePoolCandidateInput {
@@ -900,7 +904,7 @@ input UpdateSkillInput {
 type Mutation {
     createUser(user: CreateUserInput! @spread): User @create @guard @can(ability: "create")
     updateUserAsUser(id: ID!, user: UpdateUserAsUserInput! @spread): User @update @guard @can(ability: "update", find: "id")
-    UpdateUserAsAdmin(id: ID!, user: UpdateUserAsAdminInput! @spread): User @update @guard @can(ability: "update", find: "id")
+    updateUserAsAdmin(id: ID!, user: UpdateUserAsAdminInput! @spread): User @update @guard @can(ability: "update", find: "id")
     deleteUser(id: ID!): User @delete(globalId: false) @guard @can(ability: "delete", find: "id")
     createPool(pool: CreatePoolInput! @spread): Pool @create @guard @can(ability: "create")
     updatePool(id: ID!, pool: UpdatePoolInput! @spread): Pool @update @guard @can(ability: "update", find: "id")

@@ -384,7 +384,7 @@ scalar Mixed
 type Mutation {
   createUser(user: CreateUserInput!): User
   updateUserAsUser(id: ID!, user: UpdateUserAsUserInput!): User
-  UpdateUserAsAdmin(id: ID!, user: UpdateUserAsAdminInput!): User
+  updateUserAsAdmin(id: ID!, user: UpdateUserAsAdminInput!): User
   deleteUser(id: ID!): User
   createPool(pool: CreatePoolInput!): Pool
   updatePool(id: ID!, pool: UpdatePoolInput!): Pool
@@ -938,7 +938,7 @@ input UpdateUserAsAdminInput {
   hasDiploma: Boolean
   locationPreferences: [WorkRegion]
   locationExemptions: String
-  acceptedOperationalRequirements: OperationalRequirementBelongsToMany
+  acceptedOperationalRequirements: hackyOperationalRequirementBelongsToMany
   expectedSalary: [SalaryRange]
   expectedClassifications: ClassificationBelongsToMany
   wouldAcceptTemporary: Boolean
@@ -1098,4 +1098,8 @@ enum WorkRegion {
   PRAIRIE
   BRITISH_COLUMBIA
   NORTH
+}
+
+input hackyOperationalRequirementBelongsToMany {
+  sync: [String]
 }

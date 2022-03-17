@@ -32,7 +32,22 @@ export const UpdateUserForm: React.FunctionComponent<UpdateUserFormProps> = ({
 }) => {
   const intl = useIntl();
   const paths = useAdminRoutes();
-  const methods = useForm<FormValues>({ defaultValues: initialUser });
+
+  const defaultStitchOnSync = (enterUser: User): FormValues => ({
+    ...enterUser,
+    acceptedOperationalRequirements: {
+      sync: enterUser.acceptedOperationalRequirements?.map(
+        (thing) => thing?.id,
+      ),
+    },
+    cmoAssets: {
+      sync: enterUser.cmoAssets?.map((thing) => thing?.id),
+    },
+  });
+
+  const methods = useForm<FormValues>({
+    defaultValues: defaultStitchOnSync(initialUser),
+  });
   const { handleSubmit } = methods;
 
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
@@ -215,8 +230,8 @@ export const UpdateUser: React.FunctionComponent<{ userId: string }> = ({
         "roles",
       ]),
     }).then((result) => {
-      if (result.data?.UpdateUserAsAdmin) {
-        return result.data?.UpdateUserAsAdmin;
+      if (result.data?.updateUserAsAdmin) {
+        return result.data?.updateUserAsAdmin;
       }
       return Promise.reject(result.error);
     });
