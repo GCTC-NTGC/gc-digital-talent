@@ -6,7 +6,6 @@ import { getLocale } from "@common/helpers/localize";
 import { OperationalRequirement } from "../../api/generated";
 import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
 import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
-import { useApplicantProfileRoutes } from "../../applicantProfileRoutes";
 
 export type FormValues = {
   requiredWorkPreferences: string;
@@ -19,7 +18,6 @@ export const WorkPreferencesForm: React.FunctionComponent<{
 }> = ({ operationalRequirements, handleSubmit }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
-  const crumbPaths = useApplicantProfileRoutes();
 
   const preferencesItems: { value: string; label: string }[] =
     operationalRequirements.map((requirement) => {
