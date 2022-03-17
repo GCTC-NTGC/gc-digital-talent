@@ -3,7 +3,7 @@
   "mediaWarnings": false,
   "folders": {
     "markup": "../*/resources/views/*.blade.php",
-    "scripts": ["../talentsearch/resources/js", "../admin/resources/js", "../common/src"],
+    "scripts": ["../talentsearch/src/js", "../admin/resources/js", "../common/src"],
     "styles": "src/css"
   },
   "colors": [

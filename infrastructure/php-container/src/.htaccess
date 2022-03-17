@@ -31,11 +31,11 @@ DirectorySlash off
     RewriteRule ^(en|fr)/admin(/(.*))?$ frontend/admin/public/$3 [L]
 
     # Send talent requests to talentsearch public folder (with or without public/ path prefix).
-    RewriteRule ^talent/public(/(.*))?$ frontend/talentsearch/public/$2 [L]
-    RewriteRule ^talent(/(.*))?$ frontend/talentsearch/public/$2 [L]
+    RewriteRule ^talent/public(/(.*))?$ frontend/talentsearch/dist/$2 [L]
+    RewriteRule ^talent(/(.*))?$ frontend/talentsearch/dist/$2 [L]
 
     # Send localized talent requests also to talentsearch public folder;
-    RewriteRule ^(en|fr)/talent(/(.*))?$ frontend/talentsearch/public/$3 [L]
+    RewriteRule ^(en|fr)/talent(/(.*))?$ frontend/talentsearch/dist/$3 [L]
 
     # PHP Info page for debugging
     RewriteRule ^phpinfo.php$ phpinfo.php [L]
