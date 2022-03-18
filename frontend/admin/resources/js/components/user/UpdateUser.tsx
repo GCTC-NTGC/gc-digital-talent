@@ -66,7 +66,7 @@ interface UpdateUserFormProps {
   handleUpdateUser: (
     id: string,
     data: UpdateUserAsAdminInput,
-  ) => Promise<UpdateUserAsAdminMutation["updateUserAsAdmin"]>;
+  ) => Promise<FormValues>;
 }
 
 export const UpdateUserForm: React.FunctionComponent<UpdateUserFormProps> = ({
@@ -121,7 +121,7 @@ export const UpdateUserForm: React.FunctionComponent<UpdateUserFormProps> = ({
   const { handleSubmit } = methods;
 
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
-    return handleUpdateUser(initialUser.id, formValuesToSubmitData(data))
+    await handleUpdateUser(initialUser.id, formValuesToSubmitData(data))
       .then(() => {
         navigate(paths.userTable());
         toast.success(
@@ -285,7 +285,10 @@ export const UpdateUser: React.FunctionComponent<{ userId: string }> = ({
   });
 
   const [, executeMutation] = useUpdateUserAsAdminMutation();
-  const handleUpdateUser = (id: string, data: UpdateUserAsAdminInput) =>
+  const handleUpdateUser = (
+    id: string,
+    data: UpdateUserAsAdminInput,
+  ): Promise<FormValues> =>
     /* We must pick only the fields belonging to UpdateUserInput, because its possible
        the data object contains other props at runtime, and this will cause the
        graphql operation to fail. */
