@@ -938,7 +938,7 @@ input UpdateUserAsAdminInput {
   hasDiploma: Boolean
   locationPreferences: [WorkRegion]
   locationExemptions: String
-  acceptedOperationalRequirements: hackyOperationalRequirementBelongsToMany
+  acceptedOperationalRequirements: OperationalRequirementBelongsToMany
   expectedSalary: [SalaryRange]
   expectedClassifications: ClassificationBelongsToMany
   wouldAcceptTemporary: Boolean
@@ -1098,8 +1098,4 @@ enum WorkRegion {
   PRAIRIE
   BRITISH_COLUMBIA
   NORTH
-}
-
-input hackyOperationalRequirementBelongsToMany {
-  sync: [String]
 }

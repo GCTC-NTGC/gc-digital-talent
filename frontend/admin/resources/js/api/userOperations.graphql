@@ -170,7 +170,7 @@ mutation UpdateUserAsAdmin($id: ID!, $user: UpdateUserAsAdminInput!) {
 
     firstName
     lastName
-    email
+
     telephone
     currentProvince
     currentCity

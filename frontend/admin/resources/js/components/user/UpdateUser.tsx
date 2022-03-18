@@ -5,7 +5,7 @@ import pick from "lodash/pick";
 import { toast } from "react-toastify";
 import { Select, Submit, Input, MultiSelect } from "@common/components/form";
 import { navigate } from "@common/helpers/router";
-import { enumToOptions } from "@common/helpers/formUtils";
+import { enumToOptions, unpackIds } from "@common/helpers/formUtils";
 import { errorMessages, commonMessages } from "@common/messages";
 import { getLanguage, getRole } from "@common/constants/localizedConstants";
 import { phoneNumberRegex } from "@common/constants/regularExpressions";
@@ -14,16 +14,59 @@ import {
   Language,
   Role,
   UpdateUserAsAdminInput,
+  UpdateUserAsAdminMutation,
   User,
   useUpdateUserAsAdminMutation,
   useUserQuery,
 } from "../../api/generated";
+
 import DashboardContentContainer from "../DashboardContentContainer";
 
-type FormValues = UpdateUserAsAdminInput;
+type FormValues = Pick<
+  UpdateUserAsAdminInput,
+  | "bilingualEvaluation"
+  | "comprehensionLevel"
+  | "currentCity"
+  | "currentProvince"
+  | "estimatedLanguageAbility"
+  | "expectedSalary"
+  | "firstName"
+  | "hasDiploma"
+  | "hasDisability"
+  | "isGovEmployee"
+  | "interestedInLaterOrSecondment"
+  | "isIndigenous"
+  | "isVisibleMinority"
+  | "isWoman"
+  | "jobLookingStatus"
+  | "languageAbility"
+  | "lastName"
+  | "locationExemptions"
+  | "locationPreferences"
+  | "lookingForBilingual"
+  | "lookingForEnglish"
+  | "lookingForFrench"
+  | "roles"
+  | "preferredLang"
+  | "telephone"
+  | "verbalLevel"
+  | "wouldAcceptTemporary"
+  | "writtenLevel"
+  | "sub"
+> & {
+  acceptedOperationalRequirements: string[] | undefined;
+  cmoAssets: string[] | undefined;
+  currentClassification: string;
+  expectedClassifications: string[] | undefined;
+  pools: string[] | undefined;
+  poolCandidates: string[] | undefined;
+};
 interface UpdateUserFormProps {
   initialUser: User;
-  handleUpdateUser: (id: string, data: FormValues) => Promise<FormValues>;
+  handleUpdateUser: (
+    id: string,
+    data: UpdateUserAsAdminInput,
+  ) => Promise<UpdateUserAsAdminMutation["updateUserAsAdmin"]>;
 }
 
 export const UpdateUserForm: React.FunctionComponent<UpdateUserFormProps> = ({
@@ -33,25 +76,52 @@ export const UpdateUserForm: React.FunctionComponent<UpdateUserFormProps> = ({
   const intl = useIntl();
   const paths = useAdminRoutes();
 
-  const defaultStitchOnSync = (enterUser: User): FormValues => ({
-    ...enterUser,
+  const dataToFormValues = (data: User): FormValues => ({
+    ...data,
+
+    acceptedOperationalRequirements: unpackIds(
+      data.acceptedOperationalRequirements,
+    ),
+    cmoAssets: unpackIds(data.cmoAssets),
+    currentClassification: data.currentClassification
+      ? data.currentClassification.id
+      : "",
+    expectedClassifications: unpackIds(data.expectedClassifications),
+    pools: unpackIds(data.pools),
+    poolCandidates: unpackIds(data.poolCandidates),
+  });
+
+  const formValuesToSubmitData = (
+    values: FormValues,
+  ): UpdateUserAsAdminInput => ({
+    ...values,
     acceptedOperationalRequirements: {
-      sync: enterUser.acceptedOperationalRequirements?.map(
-        (thing) => thing?.id,
-      ),
+      sync: values.acceptedOperationalRequirements,
     },
     cmoAssets: {
-      sync: enterUser.cmoAssets?.map((thing) => thing?.id),
+      sync: values.cmoAssets,
+    },
+    currentClassification: {
+      connect: values.currentClassification,
+    },
+    expectedClassifications: {
+      sync: values.expectedClassifications,
+    },
+    pools: {
+      create: undefined,
+    },
+    poolCandidates: {
+      create: undefined,
     },
   });
 
   const methods = useForm<FormValues>({
-    defaultValues: defaultStitchOnSync(initialUser),
+    defaultValues: dataToFormValues(initialUser),
   });
   const { handleSubmit } = methods;
 
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
-    return handleUpdateUser(initialUser.id, data)
+    return handleUpdateUser(initialUser.id, formValuesToSubmitData(data))
       .then(() => {
         navigate(paths.userTable());
         toast.success(
@@ -222,16 +292,45 @@ export const UpdateUser: React.FunctionComponent<{ userId: string }> = ({
     executeMutation({
       id,
       user: pick(data, [
+        "bilingualEvaluation",
+        "comprehensionLevel",
+        "currentCity",
+        "currentProvince",
+        "estimatedLanguageAbility",
+        "expectedSalary",
         "firstName",
+        "hasDiploma",
+        "hasDisability",
+        "isGovEmployee",
+        "interestedInLaterOrSecondment",
+        "isIndigenous",
+        "isVisibleMinority",
+        "isWoman",
+        "jobLookingStatus",
+        "languageAbility",
         "lastName",
-        "telephone",
-        "preferredLang",
-        "sub",
+        "locationExemptions",
+        "locationPreferences",
+        "lookingForBilingual",
+        "lookingForEnglish",
+        "lookingForFrench",
         "roles",
+        "preferredLang",
+        "telephone",
+        "verbalLevel",
+        "wouldAcceptTemporary",
+        "writtenLevel",
+        "sub",
+        "acceptedOperationalRequirements",
+        "cmoAssets",
+        "currentClassification",
+        "expectedClassifications",
+        "pools",
+        "poolCandidates",
       ]),
     }).then((result) => {
       if (result.data?.updateUserAsAdmin) {
-        return result.data?.updateUserAsAdmin;
+        return result.data.updateUserAsAdmin;
       }
       return Promise.reject(result.error);
     });
