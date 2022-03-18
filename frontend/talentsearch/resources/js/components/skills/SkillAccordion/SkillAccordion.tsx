@@ -258,6 +258,7 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
   return (
     <Accordion
       title={`${name[locale]}`}
+      data-testid="skillAccordion"
       context={
         experiences?.length === 1
           ? intl.formatMessage({
