@@ -34,8 +34,16 @@ export const WorkPreferencesForm: React.FunctionComponent<{
     });
   return (
     <ProfileFormWrapper
-      description="Certain jobs require you to work odd hours or perform tasks that are a little outside of the normal. Please indicate which special requirements you are comfortable with."
-      title="Work preferences"
+      description={intl.formatMessage({
+        defaultMessage:
+          "Certain jobs require you to work odd hours or perform tasks that are a little outside of the normal. Please indicate which special requirements you are comfortable with.",
+        description:
+          "Description text for Profile Form wrapper  in Work Preferences Form",
+      })}
+      title={intl.formatMessage({
+        defaultMessage: "Work preferences",
+        description: "Title for Profile Form wrapper  in Work Preferences Form",
+      })}
       crumbs={[
         {
           title: intl.formatMessage({
