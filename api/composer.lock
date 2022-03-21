@@ -1482,16 +1482,16 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v8.83.4",
+            "version": "v8.83.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "97a549f1a83cfb32dab1eecab4c4d40a984a72b5"
+                "reference": "33b1b981266e3a19fbc826b60c4a6847e311ac95"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/97a549f1a83cfb32dab1eecab4c4d40a984a72b5",
-                "reference": "97a549f1a83cfb32dab1eecab4c4d40a984a72b5",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/33b1b981266e3a19fbc826b60c4a6847e311ac95",
+                "reference": "33b1b981266e3a19fbc826b60c4a6847e311ac95",
                 "shasum": ""
             },
             "require": {
@@ -1651,7 +1651,7 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-            "time": "2022-03-08T16:12:54+00:00"
+            "time": "2022-03-15T13:37:44+00:00"
         },
         {
             "name": "laravel/sanctum",
@@ -2836,16 +2836,16 @@
         },
         {
             "name": "nuwave/lighthouse",
-            "version": "v5.42.2",
+            "version": "v5.44.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nuwave/lighthouse.git",
-                "reference": "01576857186f7444a8c898bc9a6991cb71b59736"
+                "reference": "fe3284388a8f3a210063f41cb5483388ab27483d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nuwave/lighthouse/zipball/01576857186f7444a8c898bc9a6991cb71b59736",
-                "reference": "01576857186f7444a8c898bc9a6991cb71b59736",
+                "url": "https://api.github.com/repos/nuwave/lighthouse/zipball/fe3284388a8f3a210063f41cb5483388ab27483d",
+                "reference": "fe3284388a8f3a210063f41cb5483388ab27483d",
                 "shasum": ""
             },
             "require": {
@@ -2962,7 +2962,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-03-14T10:59:30+00:00"
+            "time": "2022-03-18T12:52:39+00:00"
         },
         {
             "name": "opis/closure",
@@ -9137,5 +9137,5 @@
     "platform-overrides": {
         "php": "7.4.26"
     },
-    "plugin-api-version": "2.0.0"
+    "plugin-api-version": "2.2.0"
 }
