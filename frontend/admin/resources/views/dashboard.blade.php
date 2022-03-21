@@ -16,6 +16,7 @@
 </head>
 <body>
   <div id="app" data-h2-font-family="b(sans)"></div>
+  <script src="{{ asset('config.sjs') }}"></script>
   <script src="{{ asset(mix('/js/dashboard.js')) }}"></script>
 </body>
 </html>
