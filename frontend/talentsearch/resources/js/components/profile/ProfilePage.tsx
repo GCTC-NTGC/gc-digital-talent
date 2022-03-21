@@ -11,6 +11,8 @@ import {
 import { useIntl } from "react-intl";
 import { Link } from "@common/components";
 import commonMessages from "@common/messages/commonMessages";
+import { imageUrl } from "@common/helpers/router";
+import TALENTSEARCH_APP_DIR from "../../talentSearchConstants";
 import { useTalentSearchRoutes } from "../../talentSearchRoutes";
 import { useGetMeQuery } from "../../api/generated";
 
@@ -29,12 +31,20 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({
   return (
     <>
       <div
-        className="bg-profile-banner"
-        data-h2-padding="b(top-bottom, l) b(right-left, s) m(all, l) l(all, xl) l(right-left, l)"
-        data-h2-text-align="b(center)"
+        data-h2-padding="b(top, xxs) b(bottom, m) b(right-left, s)"
         data-h2-font-color="b(white)"
+        data-h2-text-align="b(center)"
+        style={{
+          background: `url(${imageUrl(
+            TALENTSEARCH_APP_DIR,
+            "applicant-profile-banner.jpg",
+          )})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+        }}
       >
-        <p>{`${firstName} ${lastName}`}</p>
+        <h1>{`${firstName} ${lastName}`}</h1>
       </div>
       <div
         data-h2-position="b(relative)"
@@ -207,7 +217,18 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({
             <div id="gov-info-section">
               <div style={{ display: "flex", alignItems: "baseline" }}>
                 <h2 data-h2-font-weight="b(600)" style={{ flex: "1 1 0%" }}>
-                  <LightBulbIcon style={{ width: "calc(1rem*2.25)" }} />
+                  <img
+                    style={{ width: "calc(1rem*2.25)" }}
+                    src={imageUrl(
+                      TALENTSEARCH_APP_DIR,
+                      "gov-building-icon.svg",
+                    )}
+                    alt={intl.formatMessage({
+                      defaultMessage: "Icon of government building",
+                      description:
+                        "Alt text for the government building icon in the profile.",
+                    })}
+                  />
                   &nbsp;&nbsp;
                   {intl.formatMessage({
                     defaultMessage: "Government information",
@@ -233,7 +254,19 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({
             <div id="work-location-section">
               <div style={{ display: "flex", alignItems: "baseline" }}>
                 <h2 data-h2-font-weight="b(600)" style={{ flex: "1 1 0%" }}>
-                  <LightBulbIcon style={{ width: "calc(1rem*2.25)" }} />
+                  <img
+                    style={{ width: "calc(1rem*2.25)" }}
+                    src={imageUrl(
+                      TALENTSEARCH_APP_DIR,
+                      "briefcase-with-marker-icon.svg",
+                    )}
+                    alt={intl.formatMessage({
+                      defaultMessage:
+                        "Icon of a location marker on a briefcase",
+                      description:
+                        "Alt text for the briefcase with marker icon in the profile.",
+                    })}
+                  />
                   &nbsp;&nbsp;
                   {intl.formatMessage({
                     defaultMessage: "Work location",

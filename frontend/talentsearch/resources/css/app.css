@@ -54,8 +54,3 @@ button:not(disabled) {
     transform: rotate(360deg);
   }
 }
-
-.bg-profile-banner {
-  background: url("../../public/images/bg-profile-banner.png");
-  background-size: cover;
-}
