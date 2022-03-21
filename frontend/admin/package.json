@@ -39,7 +39,7 @@
     "test:watch": "jest --watch"
   },
   "devDependencies": {
-    "@babel/core": "^7.17.5",
+    "@babel/core": "^7.17.8",
     "@babel/preset-react": "^7.16.7",
     "@formatjs/cli": "^4.8.2",
     "@formatjs/ts-transformer": "^3.9.2",
