@@ -30,7 +30,7 @@ stories.add("Create User Form", () => {
       handleCreateUser={async (data: CreateUserInput) => {
         await new Promise((resolve) => setTimeout(resolve, 1000));
         action("Create User")(data);
-        return data;
+        return null;
       }}
     />
   );
@@ -51,7 +51,7 @@ stories.add("Update User Form", () => {
       handleUpdateUser={async (id, data) => {
         await new Promise((resolve) => setTimeout(resolve, 1000));
         action("Create User")(data);
-        return data;
+        return null;
       }}
     />
   );

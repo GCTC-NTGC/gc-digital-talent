@@ -1,7 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
-import pick from "lodash/pick";
 import { toast } from "react-toastify";
 import { Select, Submit, Input, MultiSelect } from "@common/components/form";
 import { navigate } from "@common/helpers/router";
@@ -66,7 +65,7 @@ interface UpdateUserFormProps {
   handleUpdateUser: (
     id: string,
     data: UpdateUserAsAdminInput,
-  ) => Promise<FormValues>;
+  ) => Promise<UpdateUserAsAdminMutation["updateUserAsAdmin"]>;
 }
 
 export const UpdateUserForm: React.FunctionComponent<UpdateUserFormProps> = ({
@@ -285,52 +284,13 @@ export const UpdateUser: React.FunctionComponent<{ userId: string }> = ({
   });
 
   const [, executeMutation] = useUpdateUserAsAdminMutation();
-  const handleUpdateUser = (
-    id: string,
-    data: UpdateUserAsAdminInput,
-  ): Promise<FormValues> =>
+  const handleUpdateUser = (id: string, data: UpdateUserAsAdminInput) =>
     /* We must pick only the fields belonging to UpdateUserInput, because its possible
        the data object contains other props at runtime, and this will cause the
        graphql operation to fail. */
     executeMutation({
       id,
-      user: pick(data, [
-        "bilingualEvaluation",
-        "comprehensionLevel",
-        "currentCity",
-        "currentProvince",
-        "estimatedLanguageAbility",
-        "expectedSalary",
-        "firstName",
-        "hasDiploma",
-        "hasDisability",
-        "isGovEmployee",
-        "interestedInLaterOrSecondment",
-        "isIndigenous",
-        "isVisibleMinority",
-        "isWoman",
-        "jobLookingStatus",
-        "languageAbility",
-        "lastName",
-        "locationExemptions",
-        "locationPreferences",
-        "lookingForBilingual",
-        "lookingForEnglish",
-        "lookingForFrench",
-        "roles",
-        "preferredLang",
-        "telephone",
-        "verbalLevel",
-        "wouldAcceptTemporary",
-        "writtenLevel",
-        "sub",
-        "acceptedOperationalRequirements",
-        "cmoAssets",
-        "currentClassification",
-        "expectedClassifications",
-        "pools",
-        "poolCandidates",
-      ]),
+      user: data,
     }).then((result) => {
       if (result.data?.updateUserAsAdmin) {
         return result.data.updateUserAsAdmin;
