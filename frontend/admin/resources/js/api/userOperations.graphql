@@ -22,19 +22,6 @@ query User($id: ID!) {
   }
 }
 
-mutation UpdateUserAsUser($id: ID!, $user: UpdateUserAsUserInput!) {
-  updateUserAsUser(id: $id, user: $user) {
-    id
-    sub
-    firstName
-    lastName
-    email
-    telephone
-    preferredLang
-    roles
-  }
-}
-
 mutation CreateUser($user: CreateUserInput!) {
   createUser(user: $user) {
     sub
@@ -78,47 +65,6 @@ mutation CreateUser($user: CreateUserInput!) {
     isVisibleMinority
 
     jobLookingStatus
-    pools {
-      #assetCriteria
-      #classifications
-      description {
-        en
-        fr
-      }
-      #essentialCriteria
-      id
-      key
-      name {
-        en
-        fr
-      }
-      #operationalRequirements
-      #owner
-      #ownerPublicProfile
-      #poolCandidates
-    }
-    poolCandidates {
-      id
-      #pool
-      #user
-
-      #cmoIdentifier
-      expiryDate
-
-      isWoman
-      hasDisability
-      isIndigenous
-      isVisibleMinority
-      hasDiploma
-      languageAbility
-      locationPreferences
-      #acceptedOperationalRequirements
-      expectedSalary
-      #expectedClassifications
-      #cmoAssets
-
-      status
-    }
 
     hasDiploma
     locationPreferences
@@ -148,7 +94,54 @@ mutation CreateUser($user: CreateUserInput!) {
       maxSalary
     }
     wouldAcceptTemporary
-    cmoAssets {
+  }
+}
+
+mutation UpdateUserAsUser($id: ID!, $user: UpdateUserAsUserInput!) {
+  updateUserAsUser(id: $id, user: $user) {
+    sub
+    firstName
+    lastName
+    telephone
+    preferredLang
+    currentProvince
+    currentCity
+
+    languageAbility
+    preferredLang
+    lookingForEnglish
+    lookingForFrench
+    lookingForBilingual
+    bilingualEvaluation
+    comprehensionLevel
+    writtenLevel
+    verbalLevel
+    estimatedLanguageAbility
+
+    isGovEmployee
+    interestedInLaterOrSecondment
+    currentClassification {
+      id
+      name {
+        en
+        fr
+      }
+      group
+      level
+      minSalary
+      maxSalary
+    }
+
+    isWoman
+    hasDisability
+    isIndigenous
+    isVisibleMinority
+
+    jobLookingStatus
+    hasDiploma
+    locationPreferences
+    locationExemptions
+    acceptedOperationalRequirements {
       id
       description {
         en
@@ -160,6 +153,19 @@ mutation CreateUser($user: CreateUserInput!) {
         fr
       }
     }
+    expectedSalary
+    expectedClassifications {
+      id
+      name {
+        en
+        fr
+      }
+      group
+      level
+      minSalary
+      maxSalary
+    }
+    wouldAcceptTemporary
   }
 }
 
@@ -170,7 +176,6 @@ mutation UpdateUserAsAdmin($id: ID!, $user: UpdateUserAsAdminInput!) {
 
     firstName
     lastName
-
     telephone
     currentProvince
     currentCity
@@ -206,47 +211,6 @@ mutation UpdateUserAsAdmin($id: ID!, $user: UpdateUserAsAdminInput!) {
     isVisibleMinority
 
     jobLookingStatus
-    pools {
-      #assetCriteria
-      #classifications
-      description {
-        en
-        fr
-      }
-      #essentialCriteria
-      id
-      key
-      name {
-        en
-        fr
-      }
-      #operationalRequirements
-      #owner
-      #ownerPublicProfile
-      #poolCandidates
-    }
-    poolCandidates {
-      id
-      #pool
-      #user
-
-      #cmoIdentifier
-      expiryDate
-
-      isWoman
-      hasDisability
-      isIndigenous
-      isVisibleMinority
-      hasDiploma
-      languageAbility
-      locationPreferences
-      #acceptedOperationalRequirements
-      expectedSalary
-      #expectedClassifications
-      #cmoAssets
-
-      status
-    }
 
     hasDiploma
     locationPreferences
@@ -276,17 +240,5 @@ mutation UpdateUserAsAdmin($id: ID!, $user: UpdateUserAsAdminInput!) {
       maxSalary
     }
     wouldAcceptTemporary
-    cmoAssets {
-      id
-      description {
-        en
-        fr
-      }
-      key
-      name {
-        en
-        fr
-      }
-    }
   }
 }
