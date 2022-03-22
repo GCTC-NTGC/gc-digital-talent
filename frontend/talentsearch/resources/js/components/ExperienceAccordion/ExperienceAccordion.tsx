@@ -8,7 +8,14 @@ import CommunityAccordion from "./individualExperienceAccordions/CommunityAccord
 import EducationAccordion from "./individualExperienceAccordions/EducationAccordion";
 import PersonalAccordion from "./individualExperienceAccordions/PersonalAccordion";
 import WorkAccordion from "./individualExperienceAccordions/WorkAccordion";
-import { AnyExperience, isAwardExperience, isCommunityExperience, isEducationExperience, isPersonalExperience, isWorkExperience } from "./AnyExperience";
+import {
+  AnyExperience,
+  isAwardExperience,
+  isCommunityExperience,
+  isEducationExperience,
+  isPersonalExperience,
+  isWorkExperience,
+} from "./AnyExperience";
 
 export interface AccordionProps {
   experience: AnyExperience;
