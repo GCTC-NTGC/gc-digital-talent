@@ -35,7 +35,16 @@ describe("SkillAccordion tests", () => {
     const accordion = screen.getByTestId("skill");
     expect(accordion).not.toBeNull();
   });
+  test("It renders proper context and detail when no experience provided", () => {
+    renderSkillAccordion(testSkill);
+    const accordion = screen.getAllByText("0 Experiences");
+    const expectedResult =
+      "<p>You do not have any experiences attached to this skill</p>";
+    const detail = screen.getAllByTestId("detail");
 
+    expect(accordion).not.toBeNull();
+    expect(detail[0].innerHTML).toEqual(expectedResult);
+  });
   test("It renders proper context and detail when an award experience is provided", () => {
     const award = experienceGenerator.generateAward();
     const exp = generator.generateExperienceSkill(testSkill, award);
