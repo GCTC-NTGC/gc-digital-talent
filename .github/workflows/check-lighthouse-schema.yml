@@ -19,7 +19,7 @@ jobs:
 
       - name: Create admin .env file, which is referenced in docker-compose
         working-directory: frontend/admin
-        run: copy .env.example .env
+        run: cp .env.example .env
 
       - name: "Build docker image: api"
         working-directory: infrastructure
