@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import * as React from "react";
 import { getLocale } from "@common/helpers/localize";
 import Accordion from "@common/components/accordion";
@@ -256,7 +257,52 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
       </div>
     );
   };
+  const renderWithExperience = () => {
+    return experiences?.map((experience) => {
+      return (
+        <ul key={experience?.id}>
+          <li>
+            <p>
+              {isPersonalExperience(experience!)
+                ? getPersonalExperience(experience)
+                : ""}
+              {isEducationExperience(experience!)
+                ? getEducationExperience(experience)
+                : ""}
+              {isAwardExperience(experience!)
+                ? getAwardExperience(experience)
+                : ""}
+              {isCommunityExperience(experience!)
+                ? getCommunityExperience(experience)
+                : ""}
+              {isWorkExperience(experience!)
+                ? getWorkExperience(experience)
+                : ""}
+            </p>
+          </li>
+        </ul>
+      );
+    });
+  };
+  const renderNoExperience = () => {
+    return (
+      <p>
+        {intl.formatMessage({
+          defaultMessage:
+            "You do not have any experiences attached to this skill",
+          description: "The skill is not attached to any experience",
+        })}
+      </p>
+    );
+  };
 
+  function renderDetail() {
+    if (experiences != null && experiences.length > 0) {
+      return renderWithExperience();
+    }
+
+    return renderNoExperience();
+  }
   return (
     <Accordion
       title={`${name[locale]}`}
@@ -277,34 +323,7 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
       }
     >
       <div data-h2-padding="b(left, l)" data-testid="detail">
-        {experiences &&
-          experiences.map((experience) => {
-            if (experience) {
-              return (
-                <ul key={experience?.id}>
-                  <li>
-                    <p>
-                      {isPersonalExperience(experience)
-                        ? getPersonalExperience(experience)
-                        : ""}
-                      {isEducationExperience(experience)
-                        ? getEducationExperience(experience)
-                        : ""}
-                      {isAwardExperience(experience)
-                        ? getAwardExperience(experience)
-                        : ""}
-                      {isCommunityExperience(experience)
-                        ? getCommunityExperience(experience)
-                        : ""}
-                      {isWorkExperience(experience)
-                        ? getWorkExperience(experience)
-                        : ""}
-                    </p>
-                  </li>
-                </ul>
-              );
-            }
-          })}
+        {renderDetail()}
       </div>
       <div data-h2-padding="b(left, l)" />
     </Accordion>
