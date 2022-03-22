@@ -1,4 +1,4 @@
-import { BasicForm, Checklist, Input, TextArea } from "@common/components/form";
+import { BasicForm, Checklist, TextArea } from "@common/components/form";
 import { errorMessages } from "@common/messages";
 import React from "react";
 import { useIntl } from "react-intl";
