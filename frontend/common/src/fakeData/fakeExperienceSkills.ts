@@ -7,7 +7,7 @@ const generateExperienceSkill = (
 ): ExperienceSkill => {
   faker.setLocale("en");
   return {
-    id: "blank",
+    id: faker.datatype.uuid(),
     skill,
     experience,
     details: faker.lorem.sentence(),
