@@ -7,7 +7,7 @@ import AdminFrench from "../resources/js/lang/frCompiled.json";
 import { CommonFrench } from "../../common/src/lang";
 
 // CSS files required for building with `MERGE_STORYBOOKS=true`.
-import "../../talentsearch/resources/css/app.css";
+import "../../talentsearch/src/css/app.css";
 
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
