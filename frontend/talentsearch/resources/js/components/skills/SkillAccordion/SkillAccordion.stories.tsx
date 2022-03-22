@@ -24,7 +24,6 @@ export const AccordionCommunityExample = TemplateSkillAccordion.bind({});
 export const AccordionEducationExample = TemplateSkillAccordion.bind({});
 export const AccordionPersonalExample = TemplateSkillAccordion.bind({});
 export const AccordionWorkExample = TemplateSkillAccordion.bind({});
-export const AccordionNoExperienceExample = TemplateSkillAccordion.bind({});
 
 AccordionAwardExample.args = {
   skill: {
@@ -87,12 +86,5 @@ AccordionWorkExample.args = {
         experienceGenerator.generateWork(),
       ),
     ],
-  },
-};
-
-AccordionWorkExample.args = {
-  skill: {
-    ...fakeSkills()[0],
-    experienceSkills: [],
   },
 };

@@ -29,29 +29,19 @@ function renderSkillAccordion(skill: Skill) {
   return renderWithReactIntl(<SkillAccordion skill={skill} />);
 }
 
-describe.only("SkillAccordion tests", () => {
+describe("SkillAccordion tests", () => {
   test("It renders Skill Accordion without any issues", () => {
     renderSkillAccordion(testSkill);
     const accordion = screen.getAllByTestId("skill");
     expect(accordion).not.toBeNull();
   });
-  test("It renders proper context and detail when no experience provided", () => {
-    renderSkillAccordion(testSkill);
-    const accordion = screen.getAllByText("0 Experiences");
-    const expectedResult =
-      "<p>You do not have any experiences attached to this skill</p>";
-    const detail = screen.getAllByTestId("detail");
 
-    expect(accordion).not.toBeNull();
-    expect(detail[0].innerHTML).toEqual(expectedResult);
-  });
   test("It renders proper context and detail when an experience is provided", () => {
-    testSkill.experienceSkills?.push(
-      generator.generateExperienceSkill(
-        testSkill,
-        experienceGenerator.generateAward(),
-      ),
+    const exp = generator.generateExperienceSkill(
+      testSkill,
+      experienceGenerator.generateAward(),
     );
+    testSkill.experienceSkills?.push(exp);
     renderSkillAccordion(testSkill);
     const accordion = screen.getAllByText("1 Experience");
     const detail = screen.getAllByTestId("detail");

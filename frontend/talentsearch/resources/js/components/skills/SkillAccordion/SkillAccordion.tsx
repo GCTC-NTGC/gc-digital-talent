@@ -124,9 +124,9 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
     const { awardedDate, awardedScope, awardedTo, details, title, issuedBy } =
       experience;
     return (
-      <div id="award">
+      <div>
         <p>
-          <span data-h2-font-color="b(lightpurple)" className="title">
+          <span data-h2-font-color="b(lightpurple)" title="award">
             {" "}
             {title}{" "}
           </span>
@@ -258,50 +258,6 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
     );
   };
 
-  const renderExperienceDetail = () => {
-    if (!experiences || experiences.length === 0) {
-      return (
-        <p>
-          {intl.formatMessage({
-            defaultMessage:
-              "You do not have any experiences attached to this skill",
-            description: "The skill is not attached to any experience",
-          })}
-        </p>
-      );
-    }
-    experiences.map((experience) => {
-      return (
-        experience && (
-          <div data-testid="award">
-            <ul key={experience.id}>
-              <li>
-                <p>
-                  {isPersonalExperience(experience)
-                    ? getPersonalExperience(experience)
-                    : ""}
-                  {isEducationExperience(experience)
-                    ? getEducationExperience(experience)
-                    : ""}
-                  {isAwardExperience(experience)
-                    ? getAwardExperience(experience)
-                    : ""}
-                  {isCommunityExperience(experience)
-                    ? getCommunityExperience(experience)
-                    : ""}
-                  {isWorkExperience(experience)
-                    ? getWorkExperience(experience)
-                    : ""}
-                </p>
-              </li>
-            </ul>
-          </div>
-        )
-      );
-    });
-    return null;
-  };
-
   return (
     <Accordion
       title={`${name[locale]}`}
@@ -322,7 +278,34 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
       }
     >
       <div data-h2-padding="b(left, l)" data-testid="detail">
-        {renderExperienceDetail()}
+        {experiences &&
+          experiences.map((experience) => {
+            if (experience) {
+              return (
+                <ul key={experience?.id}>
+                  <li>
+                    <p>
+                      {isPersonalExperience(experience)
+                        ? getPersonalExperience(experience)
+                        : ""}
+                      {isEducationExperience(experience)
+                        ? getEducationExperience(experience)
+                        : ""}
+                      {isAwardExperience(experience)
+                        ? getAwardExperience(experience)
+                        : ""}
+                      {isCommunityExperience(experience)
+                        ? getCommunityExperience(experience)
+                        : ""}
+                      {isWorkExperience(experience)
+                        ? getWorkExperience(experience)
+                        : ""}
+                    </p>
+                  </li>
+                </ul>
+              );
+            }
+          })}
       </div>
       <div data-h2-padding="b(left, l)" />
     </Accordion>
