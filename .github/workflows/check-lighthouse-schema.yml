@@ -17,10 +17,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2.4.0
 
-      - name: Create admin .env file, which is referenced in docker-compose
-        working-directory: frontend/admin
-        run: copy .env.example .env
-
       - name: "Build docker image: api"
         working-directory: infrastructure
         run: docker compose up api --detach
