@@ -15,7 +15,7 @@ module.exports = {
       },
     },
   },
-  roots: ["src/js", "tests"],
+  roots: ["src/js"],
   // https://alexjover.com/blog/enhance-jest-configuration-with-module-aliases/
   moduleNameMapper: {
     "@common(.*)$": "<rootDir>/../common/src/$1",
