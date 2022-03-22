@@ -10,31 +10,38 @@ import {
   useTalentSearchRoutes,
   TalentSearchRoutes,
 } from "../talentSearchRoutes";
+import {
+  ApplicantProfileRoutes,
+  useApplicantProfileRoutes,
+} from "../applicantProfileRoutes";
 import RequestPage from "./request/RequestPage";
 import { ProfilePageApi } from "./profile/ProfilePage/ProfilePage";
 
-const routes = (paths: TalentSearchRoutes): Routes<RouterResult> => [
+const routes = (
+  talentPaths: TalentSearchRoutes,
+  profilePaths: ApplicantProfileRoutes,
+): Routes<RouterResult> => [
   {
-    path: paths.home(),
+    path: talentPaths.home(),
     action: () => ({
       component: <div />,
-      redirect: paths.search(),
+      redirect: talentPaths.search(),
     }),
   },
   {
-    path: paths.search(),
+    path: talentPaths.search(),
     action: () => ({
       component: <SearchPage />,
     }),
   },
   {
-    path: paths.request(),
+    path: talentPaths.request(),
     action: () => ({
       component: <RequestPage />,
     }),
   },
   {
-    path: paths.profile(),
+    path: profilePaths.home(),
     action: () => ({
       component: <ProfilePageApi />,
     }),
@@ -43,12 +50,13 @@ const routes = (paths: TalentSearchRoutes): Routes<RouterResult> => [
 
 export const Router: React.FC = () => {
   const intl = useIntl();
-  const paths = useTalentSearchRoutes();
+  const talentPaths = useTalentSearchRoutes();
+  const profilePaths = useApplicantProfileRoutes();
 
   const menuItems = [
     <MenuLink
       key="search"
-      href={paths.search()}
+      href={talentPaths.search()}
       text={intl.formatMessage({
         defaultMessage: "Search",
         description: "Label displayed on the Search menu item.",
@@ -56,7 +64,7 @@ export const Router: React.FC = () => {
     />,
     <MenuLink
       key="request"
-      href={paths.request()}
+      href={talentPaths.request()}
       text={intl.formatMessage({
         defaultMessage: "Request",
         description: "Label displayed on the Request menu item.",
@@ -66,7 +74,10 @@ export const Router: React.FC = () => {
 
   return (
     <ClientProvider>
-      <PageContainer menuItems={menuItems} contentRoutes={routes(paths)} />
+      <PageContainer
+        menuItems={menuItems}
+        contentRoutes={routes(talentPaths, profilePaths)}
+      />
       <Toast />
     </ClientProvider>
   );

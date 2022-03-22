@@ -13,7 +13,7 @@ import { Link } from "@common/components";
 import commonMessages from "@common/messages/commonMessages";
 import { imageUrl } from "@common/helpers/router";
 import TALENTSEARCH_APP_DIR from "../../../talentSearchConstants";
-import { useTalentSearchRoutes } from "../../../talentSearchRoutes";
+import { useApplicantProfileRoutes } from "../../../applicantProfileRoutes";
 import { useGetMeQuery } from "../../../api/generated";
 
 export interface ProfilePageProps {
@@ -26,7 +26,7 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({
   lastName,
 }) => {
   const intl = useIntl();
-  const paths = useTalentSearchRoutes();
+  const paths = useApplicantProfileRoutes();
 
   return (
     <>
@@ -173,7 +173,7 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({
                   })}
                 </h2>
                 <Link
-                  href={`${paths.home()}/update-status`}
+                  href={paths.aboutMe()}
                   title=""
                   {...{
                     "data-h2-font-color": "b(lightpurple)",
@@ -199,7 +199,7 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({
                   })}
                 </h2>
                 <Link
-                  href={`${paths.home()}/update-lang-info`}
+                  href={paths.languageInformation()}
                   title=""
                   {...{
                     "data-h2-font-color": "b(lightpurple)",
@@ -236,7 +236,7 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({
                   })}
                 </h2>
                 <Link
-                  href={`${paths.home()}/update-gov-info`}
+                  href={paths.governmentInformation()}
                   title=""
                   {...{
                     "data-h2-font-color": "b(lightpurple)",
@@ -274,7 +274,7 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({
                   })}
                 </h2>
                 <Link
-                  href={`${paths.home()}/update-work-location`}
+                  href={paths.workLocation()}
                   title=""
                   {...{
                     "data-h2-font-color": "b(lightpurple)",
@@ -300,7 +300,7 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({
                   })}
                 </h2>
                 <Link
-                  href={`${paths.home()}/update-work-preferences`}
+                  href={paths.workPreferences()}
                   title=""
                   {...{
                     "data-h2-font-color": "b(lightpurple)",
@@ -327,7 +327,7 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({
                   })}
                 </h2>
                 <Link
-                  href={`${paths.home()}/update-diversity-info`}
+                  href={paths.diversityAndInclusion()}
                   title=""
                   {...{
                     "data-h2-font-color": "b(lightpurple)",
@@ -354,7 +354,7 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({
                   })}
                 </h2>
                 <Link
-                  href={`${paths.home()}/update-skills-and-experience`}
+                  href={paths.skillsAndExperiences()}
                   title=""
                   {...{
                     "data-h2-font-color": "b(lightpurple)",
