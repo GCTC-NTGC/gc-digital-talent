@@ -55,6 +55,6 @@ describe("SkillAccordion tests", () => {
     const titleElement = screen.getByTitle("award");
     expect(context).not.toBeNull();
     expect(detail).not.toBeNull();
-    expect(titleElement.innerHTML).toEqual(award.title);
+    expect(titleElement.innerHTML.trim()).toEqual(award.title);
   });
 });
