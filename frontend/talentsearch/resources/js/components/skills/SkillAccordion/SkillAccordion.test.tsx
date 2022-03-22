@@ -45,16 +45,111 @@ describe("SkillAccordion tests", () => {
     expect(accordion).not.toBeNull();
     expect(detail[0].innerHTML).toEqual(expectedResult);
   });
+
   test("It renders proper context and detail when an award experience is provided", () => {
-    const award = experienceGenerator.generateAward();
-    const exp = generator.generateExperienceSkill(testSkill, award);
-    testSkill.experienceSkills?.push(exp);
+    const experience = experienceGenerator.generateAward();
+    testSkill.experienceSkills = [];
+    testSkill.experienceSkills.push(
+      generator.generateExperienceSkill(testSkill, experience),
+    );
     renderSkillAccordion(testSkill);
     const context = screen.getByText("1 Experience");
     const detail = screen.getByTestId("detail");
     const titleElement = screen.getByTitle("award");
     expect(context).not.toBeNull();
     expect(detail).not.toBeNull();
-    expect(titleElement.innerHTML.trim()).toEqual(award.title);
+    expect(titleElement.innerHTML.trim()).toEqual(experience.title);
+  });
+  test("It renders proper context and detail when a work experience is provided", () => {
+    const experience = experienceGenerator.generateWork();
+    testSkill.experienceSkills = [];
+    testSkill.experienceSkills.push(
+      generator.generateExperienceSkill(testSkill, experience),
+    );
+    renderSkillAccordion(testSkill);
+    const context = screen.getByText("1 Experience");
+    const detail = screen.getByTestId("detail");
+    expect(context).not.toBeNull();
+    expect(detail).not.toBeNull();
+    expect(detail.innerHTML).toContain(experience.details);
+    expect(detail.innerHTML).toContain(experience.division);
+    expect(detail.innerHTML).toContain(experience.endDate);
+    expect(detail.innerHTML).toContain(experience.organization);
+    expect(detail.innerHTML).toContain(experience.role);
+  });
+
+  test("It renders proper context and detail when a community experience is provided", () => {
+    const experience = experienceGenerator.generateCommunity();
+    testSkill.experienceSkills = [];
+    testSkill.experienceSkills.push(
+      generator.generateExperienceSkill(testSkill, experience),
+    );
+    renderSkillAccordion(testSkill);
+    const context = screen.getByText("1 Experience");
+    const detail = screen.getByTestId("detail");
+    expect(context).not.toBeNull();
+    expect(detail).not.toBeNull();
+    expect(detail.innerHTML).toContain(experience.details);
+    expect(detail.innerHTML).toContain(experience.organization);
+    expect(detail.innerHTML).toContain(experience.project);
+    expect(detail.innerHTML).toContain(experience.organization);
+    expect(detail.innerHTML).toContain(experience.title);
+  });
+
+  test("It renders proper context and detail when a education experience is provided", () => {
+    const experience = experienceGenerator.generateEducation();
+    testSkill.experienceSkills = [];
+    testSkill.experienceSkills.push(
+      generator.generateExperienceSkill(testSkill, experience),
+    );
+    renderSkillAccordion(testSkill);
+    const context = screen.getByText("1 Experience");
+    const detail = screen.getByTestId("detail");
+    expect(context).not.toBeNull();
+    expect(detail).not.toBeNull();
+    expect(detail.innerHTML).toContain(experience.details);
+    expect(detail.innerHTML).toContain(experience.institution);
+    expect(detail.innerHTML).toContain(experience.areaOfStudy);
+    expect(detail.innerHTML).toContain(experience.thesisTitle);
+    expect(detail.innerHTML).toContain(experience.startDate);
+  });
+
+  test("It renders proper context and detail when a personal experience is provided", () => {
+    const experience = experienceGenerator.generatePersonal();
+    testSkill.experienceSkills = [];
+    testSkill.experienceSkills.push(
+      generator.generateExperienceSkill(testSkill, experience),
+    );
+    renderSkillAccordion(testSkill);
+    const context = screen.getByText("1 Experience");
+    const detail = screen.getByTestId("detail");
+    expect(context).not.toBeNull();
+    expect(detail).not.toBeNull();
+    expect(detail.innerHTML).toContain(experience.details);
+    expect(detail.innerHTML).toContain(experience.description);
+    expect(detail.innerHTML).toContain(experience.startDate);
+    expect(detail.innerHTML).toContain(experience.title);
+    expect(detail.innerHTML).toContain(experience.endDate);
+  });
+
+  test("It renders proper context and detail when more than one experiences provided", () => {
+    const experience1 = experienceGenerator.generateWork();
+    const experience2 = experienceGenerator.generateEducation();
+
+    testSkill.experienceSkills = [];
+    testSkill.experienceSkills.push(
+      generator.generateExperienceSkill(testSkill, experience1),
+    );
+    testSkill.experienceSkills.push(
+      generator.generateExperienceSkill(testSkill, experience2),
+    );
+    renderSkillAccordion(testSkill);
+    const accordion = screen.getByText("2 Experiences");
+    const detail = screen.getByTestId("detail");
+    expect(detail).not.toBeNull();
+    expect(detail.innerHTML).toContain(experience1.details);
+    expect(detail.innerHTML).toContain(experience2.details);
+
+    expect(accordion).not.toBeNull();
   });
 });

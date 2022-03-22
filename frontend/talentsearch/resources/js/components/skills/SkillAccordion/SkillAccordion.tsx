@@ -225,7 +225,9 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
     return (
       <div>
         <p>
-          <span data-h2-font-color="b(lightpurple)">{role} </span>
+          <span data-h2-font-color="b(lightpurple)" title="work">
+            {role}{" "}
+          </span>
           {intl.formatMessage(
             {
               defaultMessage: " at {division}",
