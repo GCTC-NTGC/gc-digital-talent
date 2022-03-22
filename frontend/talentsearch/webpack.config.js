@@ -1,8 +1,9 @@
 const path = require("path");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
-const Dotenv = require("dotenv-webpack");
 const TsTransformer = require("@formatjs/ts-transformer");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const { DefinePlugin } = require("webpack");
 
 module.exports = {
   mode: "development",
@@ -15,20 +16,38 @@ module.exports = {
     ],
   },
   plugins: [
-    new MiniCssExtractPlugin(),
+    // process and copy CSS files
+    new MiniCssExtractPlugin({ filename: "[name].[contenthash].css" }),
+
+    // plain copy files to target folder
     new CopyPlugin({
       patterns: [
         { from: "src/images", to: "images" },
-        { from: "src/views/page_container.blade.php", to: "index.html" },
         { from: "src/.htaccess" },
         { from: "src/site.webmanifest" },
       ],
     }),
-    new Dotenv(),
+
+    // search and replace environment variables
+    new DefinePlugin({
+      "process.env": {
+        API_URI: JSON.stringify(process.env.API_URI),
+        TALENTSEARCH_APP_URL: JSON.stringify(process.env.TALENTSEARCH_APP_URL),
+        TALENTSEARCH_APP_DIR: JSON.stringify(process.env.TALENTSEARCH_APP_DIR),
+        BUILD_DATE: JSON.stringify(new Date()),
+      },
+    }),
+
+    // generate an index.html file based on given template
+    new HtmlWebpackPlugin({
+      title: "GC Talent",
+      template: path.resolve(__dirname, "./src/views/page_container.blade.php"),
+    }),
   ],
   module: {
     rules: [
       {
+        // transpile typescript files
         test: /\.tsx?$/,
         use: [
           {
@@ -37,6 +56,7 @@ module.exports = {
               getCustomTransformers() {
                 return {
                   before: [
+                    // formatjs transformer for intl strings
                     TsTransformer.transform({
                       overrideIdFn: "[sha512:contenthash:base64:6]",
                     }),
@@ -49,6 +69,7 @@ module.exports = {
         exclude: /node_modules/,
       },
       {
+        // load css files
         test: /\.css$/i,
         use: [MiniCssExtractPlugin.loader, "css-loader"],
       },
@@ -57,12 +78,15 @@ module.exports = {
   resolve: {
     extensions: [".tsx", ".ts", ".js"],
     alias: {
+      // resolver for shared common project
       "@common": path.resolve(__dirname, "../common/src"),
     },
   },
   output: {
-    filename: "[name].js",
-    path: path.resolve(__dirname, "dist"),
-    clean: true,
+    publicPath: "/talent", // final path for routing
+    filename: "[name].[contenthash].js", // file hashing for cache busting
+    path: path.resolve(__dirname, "dist"), // output folder
+    clean: true, // delete existing files on recompile
   },
+  devtool: "eval-source-map", // source map generation
 };
