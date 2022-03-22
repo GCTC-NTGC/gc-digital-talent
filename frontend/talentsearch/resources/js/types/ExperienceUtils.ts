@@ -5,7 +5,7 @@ import {
   EducationExperience,
   PersonalExperience,
   WorkExperience,
-} from "../../api/generated";
+} from "../api/generated";
 
 export type AnyExperience =
   | AwardExperience

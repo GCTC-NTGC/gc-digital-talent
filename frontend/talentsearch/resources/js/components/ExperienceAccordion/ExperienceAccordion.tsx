@@ -15,7 +15,7 @@ import {
   isEducationExperience,
   isPersonalExperience,
   isWorkExperience,
-} from "./AnyExperience";
+} from "../../types/ExperienceUtils";
 
 export interface AccordionProps {
   experience: AnyExperience;
