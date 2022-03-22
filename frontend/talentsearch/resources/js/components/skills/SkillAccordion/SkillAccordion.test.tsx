@@ -32,20 +32,20 @@ function renderSkillAccordion(skill: Skill) {
 describe("SkillAccordion tests", () => {
   test("It renders Skill Accordion without any issues", () => {
     renderSkillAccordion(testSkill);
-    const accordion = screen.getAllByTestId("skill");
+    const accordion = screen.getByTestId("skill");
     expect(accordion).not.toBeNull();
   });
 
-  test("It renders proper context and detail when an experience is provided", () => {
-    const exp = generator.generateExperienceSkill(
-      testSkill,
-      experienceGenerator.generateAward(),
-    );
+  test("It renders proper context and detail when an award experience is provided", () => {
+    const award = experienceGenerator.generateAward();
+    const exp = generator.generateExperienceSkill(testSkill, award);
     testSkill.experienceSkills?.push(exp);
     renderSkillAccordion(testSkill);
-    const accordion = screen.getAllByText("1 Experience");
-    const detail = screen.getAllByTestId("detail");
-    expect(accordion).not.toBeNull();
+    const context = screen.getByText("1 Experience");
+    const detail = screen.getByTestId("detail");
+    const titleElement = screen.getByTitle("award");
+    expect(context).not.toBeNull();
     expect(detail).not.toBeNull();
+    expect(titleElement.innerHTML).toEqual(award.title);
   });
 });

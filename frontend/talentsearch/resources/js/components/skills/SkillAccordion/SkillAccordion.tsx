@@ -127,8 +127,7 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
       <div>
         <p>
           <span data-h2-font-color="b(lightpurple)" title="award">
-            {" "}
-            {title}{" "}
+            {title}
           </span>
           {intl.formatMessage(
             {
