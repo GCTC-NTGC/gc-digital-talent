@@ -11,7 +11,7 @@ import {
   TalentSearchRoutes,
 } from "../talentSearchRoutes";
 import RequestPage from "./request/RequestPage";
-import { ProfilePageApi } from "./profile/ProfilePage";
+import { ProfilePageApi } from "./profile/ProfilePage/ProfilePage";
 
 const routes = (paths: TalentSearchRoutes): Routes<RouterResult> => [
   {

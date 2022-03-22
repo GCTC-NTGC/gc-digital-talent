@@ -12,9 +12,9 @@ import { useIntl } from "react-intl";
 import { Link } from "@common/components";
 import commonMessages from "@common/messages/commonMessages";
 import { imageUrl } from "@common/helpers/router";
-import TALENTSEARCH_APP_DIR from "../../talentSearchConstants";
-import { useTalentSearchRoutes } from "../../talentSearchRoutes";
-import { useGetMeQuery } from "../../api/generated";
+import TALENTSEARCH_APP_DIR from "../../../talentSearchConstants";
+import { useTalentSearchRoutes } from "../../../talentSearchRoutes";
+import { useGetMeQuery } from "../../../api/generated";
 
 export interface ProfilePageProps {
   firstName?: string | null;
@@ -75,8 +75,8 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({
           <p>
             <a href="#pools-section">
               {intl.formatMessage({
-                defaultMessage: "My Pools",
-                description: "Title of the My Pools section",
+                defaultMessage: "My Hiring Pools",
+                description: "Title of the My Hiring Pools section",
               })}
             </a>
           </p>
@@ -156,8 +156,8 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({
                 <UserGroupIcon style={{ width: "calc(1rem*2.25)" }} />
                 &nbsp;&nbsp;
                 {intl.formatMessage({
-                  defaultMessage: "My pools",
-                  description: "Title of the My pools section",
+                  defaultMessage: "My hiring pools",
+                  description: "Title of the My hiring pools section",
                 })}
               </h2>
               <p>Pool details</p>
