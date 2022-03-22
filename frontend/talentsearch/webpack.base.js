@@ -6,7 +6,6 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { DefinePlugin } = require("webpack");
 
 module.exports = {
-  mode: "development",
   entry: {
     app: [
       "./src/js/pageContainer.tsx",
@@ -88,5 +87,4 @@ module.exports = {
     path: path.resolve(__dirname, "dist"), // output folder
     clean: true, // delete existing files on recompile
   },
-  devtool: "eval-source-map", // source map generation
 };

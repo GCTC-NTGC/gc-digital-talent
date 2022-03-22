@@ -24,10 +24,11 @@
     "lint": "eslint ./src/js --ext .js,.ts,.jsx,.tsx",
     "lint:fix": "eslint ./src/js --fix --ext .js,.ts,.jsx,.tsx",
     "prettier": "prettier --write ./src/js",
-    "dev": "npx webpack",
-    "watch": "npx webpack watch",
-    "hot": "npx webpack watch --hot",
-    "production": "npx webpack --production",
+    "dev": "npx webpack --config webpack.dev.js",
+    "watch": "npx webpack watch --config webpack.dev.js",
+    "watch-poll": "npx webpack watch --config webpack.dev.js --watch-options-poll=1000",
+    "hot": "npx webpack watch --hot --config webpack.dev.js",
+    "production": "npx webpack --config webpack.prod.js",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
     "codegen": "graphql-codegen",
@@ -85,7 +86,8 @@
     "ts-loader": "^9.2.8",
     "typescript": "^4.6.2",
     "webpack": "^5.70.0",
-    "webpack-cli": "^4.9.2"
+    "webpack-cli": "^4.9.2",
+    "webpack-merge": "^5.8.0"
   },
   "dependencies": {
     "@heroicons/react": "^1.0.6",
