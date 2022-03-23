@@ -1,0 +1,1257 @@
+{
+  "+e8VZ8": {
+    "defaultMessage": "Erreur : Échec de la mise à jour de l’actif du BGC",
+    "description": "Message displayed to user after cmo asset fails to get updated."
+  },
+  "/+IJwt": {
+    "defaultMessage": "Créer un utilisateur",
+    "description": "Heading displayed above the Create User form."
+  },
+  "/Y7x+s": {
+    "defaultMessage": "Créer un bassin",
+    "description": "Heading displayed above the Create Pool form."
+  },
+  "/YiBdv": {
+    "defaultMessage": "No de ministère",
+    "description": "Label displayed on the create a department form department number field."
+  },
+  "/uqLeF": {
+    "defaultMessage": "Créer un utilisateur",
+    "description": "Title displayed on the create a user form."
+  },
+  "0+g2jN": {
+    "defaultMessage": "Courriel",
+    "description": "Title displayed for the User table Email column."
+  },
+  "0PmIE8": {
+    "defaultMessage": "Nom du candidat",
+    "description": "Title displayed on the single search request table candidate name column."
+  },
+  "0SoKjt": {
+    "defaultMessage": "Utilisateur {userId} introuvable.",
+    "description": "Message displayed for user not found."
+  },
+  "0tYHRO": {
+    "defaultMessage": "Sélectionner une ou plusieurs classifications...",
+    "description": "Placeholder displayed on the pool form classifications field."
+  },
+  "154pGu": {
+    "defaultMessage": "Utilisateurs",
+    "description": "Label displayed on the Users menu item."
+  },
+  "1THfui": {
+    "defaultMessage": "Renseignements sur le candidat",
+    "description": "Heading for the candidate information section"
+  },
+  "1b39FQ": {
+    "defaultMessage": "Bassin",
+    "description": "Label displayed on the pool candidate form pool field."
+  },
+  "1bNptz": {
+    "defaultMessage": "Identifiant du candidat",
+    "description": "Title displayed on the single search request table id column."
+  },
+  "29OmCu": {
+    "defaultMessage": "Expiration",
+    "description": "Title displayed for the Pool Candidates table Expiry column."
+  },
+  "2wmzS1": {
+    "defaultMessage": "Nom",
+    "description": "Title displayed for the Department table Name column."
+  },
+  "33VQf6": {
+    "defaultMessage": "Sélectionner un statut...",
+    "description": "Placeholder displayed on the pool candidate form status field."
+  },
+  "3CIhwK": {
+    "defaultMessage": "Ministères",
+    "description": "Label displayed on the Departments menu item."
+  },
+  "3D/wxC": {
+    "defaultMessage": "Création de la classification réussie!",
+    "description": "Message displayed to user after classification is created successfully."
+  },
+  "3F6QqF": {
+    "defaultMessage": "Commencer à écrire ici…",
+    "description": "Placeholder displayed on the Global Filter form Search field."
+  },
+  "3b6cy/": {
+    "defaultMessage": "Salaire minimal",
+    "description": "Label displayed for the classification form min salary field."
+  },
+  "3qnyLY": {
+    "defaultMessage": "Identifiant",
+    "description": "Title displayed on the Operational Requirement table ID column."
+  },
+  "457hEW": {
+    "defaultMessage": "Ministères",
+    "description": "Heading displayed above the Department Table component."
+  },
+  "4Gf0FC": {
+    "defaultMessage": "Sélectionner un bassin...",
+    "description": "Placeholder displayed on the pool candidate form Pool field."
+  },
+  "4XF9kF": {
+    "defaultMessage": "Nom",
+    "description": "Title displayed for the CMO Asset table Name column."
+  },
+  "4boO/6": {
+    "defaultMessage": "Nom (anglais)",
+    "description": "Label displayed on the create a department form name (English) field."
+  },
+  "4cKyTr": {
+    "defaultMessage": "Nom (français)",
+    "description": "Label displayed on the operational requirement form name (French) field."
+  },
+  "4r60bZ": {
+    "defaultMessage": "Salaire attendu",
+    "description": "Label displayed on the pool candidate form expected salary field."
+  },
+  "5FFRV2": {
+    "defaultMessage": "Erreur : Échec de la mise à jour de l’utilisateur",
+    "description": "Message displayed to user after user fails to get updated."
+  },
+  "5JRGJY": {
+    "defaultMessage": "Mettre à jour un actif du BGC",
+    "description": "Title displayed on the update a cmo asset form."
+  },
+  "5KbVpi": {
+    "defaultMessage": "Identifiant du BGC",
+    "description": "Label displayed on the pool candidate form cmo identifier field."
+  },
+  "5jFkhf": {
+    "defaultMessage": "Erreur : Échec de la création de la classification",
+    "description": "Message displayed to user after classification fails to get created."
+  },
+  "5kFbxW": {
+    "defaultMessage": "Classifications attendues",
+    "description": "Label displayed on the pool candidate form expected classifications field."
+  },
+  "6Lo9lm": {
+    "defaultMessage": "Bassin de candidats {poolCandidateId} introuvable.",
+    "description": "Message displayed for pool candidate not found."
+  },
+  "6jTDpQ": {
+    "defaultMessage": "Description (anglais)",
+    "description": "Label displayed on the pool form description (English) field."
+  },
+  "7FtbwK": {
+    "defaultMessage": "Gestionnaire",
+    "description": "Title displayed on the search request table manager column."
+  },
+  "7SWIeC": {
+    "defaultMessage": "Femme",
+    "description": "Title displayed for the Pool Candidates table Woman column."
+  },
+  "7d/ot8": {
+    "defaultMessage": "Basculer tout",
+    "description": "Label displayed on the Table Columns toggle fieldset."
+  },
+  "7iglPJ": {
+    "defaultMessage": "Créer un actif du BGC",
+    "description": "Heading displayed above the Create CMO Asset form."
+  },
+  "7wYPgC": {
+    "defaultMessage": "Nom (anglais)",
+    "description": "Label displayed on the classification form name (English) field."
+  },
+  "8AbNBq": {
+    "defaultMessage": "Bassin de candidats",
+    "description": "Heading displayed above the Pool Candidate Table component."
+  },
+  "8Hw3Zf": {
+    "defaultMessage": "Utilisateur",
+    "description": "Title displayed for the Pool Candidates table User column."
+  },
+  "8L5kDc": {
+    "defaultMessage": "Téléphone",
+    "description": "Label displayed on the user form telephone field."
+  },
+  "8Otaw9": {
+    "defaultMessage": "Ministère {departmentId} introuvable.",
+    "description": "Message displayed for department not found."
+  },
+  "8hee5d": {
+    "defaultMessage": "Titre de l’emploi",
+    "description": "Title displayed on the search request table job title column."
+  },
+  "97LfRf": {
+    "defaultMessage": "Handicap",
+    "description": "Message for disability option in the employment equity column on the the single search request table."
+  },
+  "9c/MAZ": {
+    "defaultMessage": "Salaire minimal",
+    "description": "Title displayed for the Classification table Minimum Salary column."
+  },
+  "AAmd5G": {
+    "defaultMessage": "Demande de renseignements",
+    "description": "Heading for the request information section of the single search request view."
+  },
+  "ABE9vg": {
+    "defaultMessage": "Détient un diplôme",
+    "description": "Label displayed on the pool candidate form has diploma field."
+  },
+  "ANLJ2T": {
+    "defaultMessage": "Mise à jour du bassin réussie!",
+    "description": "Message displayed to user after pool is updated successfully."
+  },
+  "AXASuP": {
+    "defaultMessage": "Autochtone",
+    "description": "Placeholder displayed on the pool candidate form is indigenous field."
+  },
+  "B0lDYB": {
+    "defaultMessage": "Sélectionner un ou plusieurs critères essentiels...",
+    "description": "Placeholder displayed on the pool form essential criteria field."
+  },
+  "BAzKWq": {
+    "defaultMessage": "Date de réalisation",
+    "description": "Title for the date done block in the manager info section of the single search request view."
+  },
+  "BbaMf0": {
+    "defaultMessage": "Demande de recherche {searchRequestId} introuvable.",
+    "description": "Message displayed for search request not found on single search request page."
+  },
+  "BfXsHe": {
+    "defaultMessage": "Clé",
+    "description": "Label displayed on the create a cmo asset form key field."
+  },
+  "Bu20w5": {
+    "defaultMessage": "Minorité visible",
+    "description": "Title displayed for the Pool Candidates table Visible Minority column."
+  },
+  "CcOlo0": {
+    "defaultMessage": "Clé",
+    "description": "Title displayed for the CMO Asset table Key column."
+  },
+  "CdXStL": {
+    "defaultMessage": "Téléphone",
+    "description": "Title displayed on the Pool Candidates table telephone column."
+  },
+  "D2DUgE": {
+    "defaultMessage": "Sélectionner un ou plusieurs actifs du BGC...",
+    "description": "Placeholder displayed on the pool candidate form cmo assets field."
+  },
+  "D753gS": {
+    "defaultMessage": "Modifier",
+    "description": "Title displayed for the Classification table Edit column."
+  },
+  "D8Pgbs": {
+    "defaultMessage": "Créer une classification",
+    "description": "Title displayed on the create a classification form."
+  },
+  "DRsBYY": {
+    "defaultMessage": "Enregistrer les notes",
+    "description": "Button label displayed on the search request form which saves the users personal notes."
+  },
+  "DexZJJ": {
+    "defaultMessage": "Créer une classification",
+    "description": "Heading displayed above the Create Classification form."
+  },
+  "DguVoT": {
+    "defaultMessage": "Mettre à jour l’utilisateur",
+    "description": "Title displayed on the update a user form."
+  },
+  "Duswz0": {
+    "defaultMessage": "Résultats du candidat",
+    "description": "Heading for the candidate results section of the single search request view."
+  },
+  "ECIFDU": {
+    "defaultMessage": "Mise à jour du bassin de candidats réussie!",
+    "description": "Message displayed to user after pool candidate is updated successfully."
+  },
+  "EUqcab": {
+    "defaultMessage": "Outils d’administration",
+    "description": "Label displayed on the Admin Tools menu item."
+  },
+  "EfRVfk": {
+    "defaultMessage": "Erreur : Échec de la création d’utilisateur",
+    "description": "Message displayed to user after user fails to get created."
+  },
+  "FGUGtr": {
+    "defaultMessage": "Groupe et niveau",
+    "description": "Title displayed for the Pool table Group and Level column."
+  },
+  "FvnSwn": {
+    "defaultMessage": "Identifiant",
+    "description": "Title displayed on the CMO Asset table ID column."
+  },
+  "GGjwcl": {
+    "defaultMessage": "Critères constituant un atout",
+    "description": "Label displayed on the pool form asset criteria field."
+  },
+  "GQ8kKU": {
+    "defaultMessage": "Mettre à jour une exigence opérationnelle",
+    "description": "Title displayed on the update a operational requirement form."
+  },
+  "GTR9Pt": {
+    "defaultMessage": "Ministère mis à jour avec succès!",
+    "description": "Message displayed to user after department is updated successfully."
+  },
+  "GZ7CVk": {
+    "defaultMessage": "Compétence linguistique",
+    "description": "Title displayed for the Pool Candidates table Language Ability column."
+  },
+  "H5EJq1": {
+    "defaultMessage": "Mettre à jour un bassin",
+    "description": "Title displayed on the update a pool form."
+  },
+  "HAEmDX": {
+    "defaultMessage": "Actifs du BGC",
+    "description": "Heading displayed above the CMO Asset Table component."
+  },
+  "HETTLp": {
+    "defaultMessage": "Toutes les demandes",
+    "description": "Label displayed on the all requests menu item."
+  },
+  "HH7lQo": {
+    "defaultMessage": "Erreur : Échec de la mise à jour du bassin de candidats",
+    "description": "Message displayed to pool candidate after pool candidate fails to get updated."
+  },
+  "HUCIzc": {
+    "defaultMessage": "Nom",
+    "description": "Title displayed for the Classification table Name column."
+  },
+  "HkC8XB": {
+    "defaultMessage": "Afficher la demande",
+    "description": "Heading displayed above the single search request component."
+  },
+  "HocLRh": {
+    "defaultMessage": "Nom du bassin",
+    "description": "Title displayed for the Pool table pool name column."
+  },
+  "Hq8X69": {
+    "defaultMessage": "Clé",
+    "description": "Label displayed on the operational requirement form key field."
+  },
+  "HqXcmo": {
+    "defaultMessage": "Mise à jour de l’exigence opérationnelle réussie!",
+    "description": "Message displayed to user after operational requirement is updated successfully."
+  },
+  "Htqzxb": {
+    "defaultMessage": "Bassin",
+    "description": "Title displayed on the search request table pool column."
+  },
+  "IIX75o": {
+    "defaultMessage": "Diplôme",
+    "description": "Title displayed for the Pool Candidates table Diploma column."
+  },
+  "If8CeH": {
+    "defaultMessage": "Identifiant",
+    "description": "Title displayed on the Pool Candidates table ID column."
+  },
+  "IfWj5I": {
+    "defaultMessage": "Toutes les demandes",
+    "description": "Heading displayed above the search request component."
+  },
+  "IvK9RL": {
+    "defaultMessage": "Sélectionner une ou plusieurs classifications...",
+    "description": "Placeholder displayed on the pool candidate form expected classifications field."
+  },
+  "J/HfO8": {
+    "defaultMessage": "A un handicap",
+    "description": "Label displayed on the pool candidate form has disability field."
+  },
+  "JtgX1e": {
+    "defaultMessage": "Autochtone",
+    "description": "Message for indigenous option in the employment equity column on the the single search request table."
+  },
+  "KSNNgE": {
+    "defaultMessage": "Mettre à jour un ministère",
+    "description": "Title displayed on the update a department form."
+  },
+  "Kdfiu3": {
+    "defaultMessage": "Mise à jour de l’actif du BGC réussie!",
+    "description": "Message displayed to user after cmo asset is updated successfully."
+  },
+  "Ke0TPJ": {
+    "defaultMessage": "Salaire maximal",
+    "description": "Title displayed for the Classification table Maximum Salary column."
+  },
+  "LEVK8x": {
+    "defaultMessage": "Erreur : Échec de la mise à jour de la classification",
+    "description": "Message displayed to user after classification fails to get updated."
+  },
+  "Lzd38d": {
+    "defaultMessage": "Statut",
+    "description": "Title for the status block in the manager info section of the single search request view."
+  },
+  "MMP0XC": {
+    "defaultMessage": "Actifs du BGC",
+    "description": "Label displayed on the CMO Assets menu item."
+  },
+  "MmFgbF": {
+    "defaultMessage": "Groupe et niveau",
+    "description": "Title displayed on the single search request table classifications column."
+  },
+  "MpB5zS": {
+    "defaultMessage": "Créer un actif du BGC",
+    "description": "Title displayed on the create a cmo asset form."
+  },
+  "N67tO0": {
+    "defaultMessage": "Nom de famille",
+    "description": "Title displayed for the User table Last Name column."
+  },
+  "NZyO8h": {
+    "defaultMessage": "Autochtone",
+    "description": "Title displayed for the Pool Candidates table Indigenous column."
+  },
+  "NbEyIu": {
+    "defaultMessage": "Description",
+    "description": "Title displayed for the Operational Requirement table Description column."
+  },
+  "NhQGh5": {
+    "defaultMessage": "Erreur : Échec de la création de l’actif du BGC",
+    "description": "Message displayed to user after cmo asset fails to get created."
+  },
+  "Nhto6b": {
+    "defaultMessage": "Création de l’actif du BGC réussie!",
+    "description": "Message displayed to user after cmo asset is created successfully."
+  },
+  "ONwwBk": {
+    "defaultMessage": "Description (anglais)",
+    "description": "Label displayed on the operational requirement form description (English) field."
+  },
+  "OqGhl+": {
+    "defaultMessage": "Sélectionner un niveau...",
+    "description": "Placeholder displayed on the classification form level field."
+  },
+  "P5iow/": {
+    "defaultMessage": "Clé",
+    "description": "Title displayed for the Operational Requirement table Key column."
+  },
+  "QCTZUv": {
+    "defaultMessage": "Recherche",
+    "description": "Label displayed on the Global Filter form Search field."
+  },
+  "QOvS1b": {
+    "defaultMessage": "No de ministère",
+    "description": "Title displayed for the Department table Department # column."
+  },
+  "QftM3f": {
+    "defaultMessage": "Demandes",
+    "description": "Label displayed on the requests menu item."
+  },
+  "RIYFZu": {
+    "defaultMessage": "Erreur : Échec de l’enregistrement des notes",
+    "description": "Message displayed to user after the request has failed to change the status tp done on the single search request page."
+  },
+  "Rimr49": {
+    "defaultMessage": "Exigences opérationnelles",
+    "description": "Label displayed on the pool form operational requirements field."
+  },
+  "SD2etQ": {
+    "defaultMessage": "Classifications",
+    "description": "Label displayed on the Classifications menu item."
+  },
+  "SaAylk": {
+    "defaultMessage": "Exigences opérationnelles",
+    "description": "Label displayed on the Operational Requirements menu item."
+  },
+  "Sb2fEr": {
+    "defaultMessage": "Bassin {poolId} introuvable.",
+    "description": "Message displayed for pool not found."
+  },
+  "SeyF9s": {
+    "defaultMessage": "Description du bassin",
+    "description": "Title displayed for the Pool table pool description column."
+  },
+  "SqZuQS": {
+    "defaultMessage": "Créer un bassin de candidats",
+    "description": "Title displayed on the create a user form."
+  },
+  "T+Ak4D": {
+    "defaultMessage": "Clé",
+    "description": "Label displayed on the 'key' input field."
+  },
+  "TAyq5Q": {
+    "defaultMessage": "Handicap",
+    "description": "Title displayed for the Pool Candidates table Disability column."
+  },
+  "TkvUdX": {
+    "defaultMessage": "Compétence linguistique",
+    "description": "Label displayed on the pool candidate form language ability field."
+  },
+  "U+WqrO": {
+    "defaultMessage": "Mettre à jour une classification",
+    "description": "Title displayed on the update a classification form."
+  },
+  "UEsexn": {
+    "defaultMessage": "Renseignements sur le gestionnaire",
+    "description": "Heading for the manager info section of the single search request view."
+  },
+  "UNScjB": {
+    "defaultMessage": "Marquer cette demande comme ayant été traitée",
+    "description": "Button label displayed on the search request form which changes request status to done."
+  },
+  "UdZaOq": {
+    "defaultMessage": "Minorité visible",
+    "description": "Message for visible minority option in the employment equity column on the the single search request table."
+  },
+  "Ue4SoL": {
+    "defaultMessage": "Nom (anglais)",
+    "description": "Label displayed on the pool form name (English) field."
+  },
+  "Urq3fM": {
+    "defaultMessage": "Responsable",
+    "description": "Label displayed on the pool form owner field."
+  },
+  "VK2qKI": {
+    "defaultMessage": "Utilisateurs",
+    "description": "Heading displayed above the User Table component."
+  },
+  "VaCRxh": {
+    "defaultMessage": "Femme",
+    "description": "Message for woman option in the employment equity column on the the single search request table."
+  },
+  "VaVo2t": {
+    "defaultMessage": "Erreur : Échec de la création du ministère",
+    "description": "Message displayed to user after department fails to get created."
+  },
+  "VgbJiw": {
+    "defaultMessage": "Responsable",
+    "description": "Title displayed for the Pool table owner email column."
+  },
+  "VqyL+/": {
+    "defaultMessage": "Identifiant",
+    "description": "Title displayed on the Classification table ID column."
+  },
+  "W2qRX5": {
+    "defaultMessage": "Erreur : Échec de la création du bassin",
+    "description": "Message displayed to pool after pool fails to get created."
+  },
+  "W8RhSY": {
+    "defaultMessage": "Modifier",
+    "description": "Title displayed for the search request table edit column."
+  },
+  "W9DTVh": {
+    "defaultMessage": "Nom au complet",
+    "description": "Title for the full name block in the manager info section of the single search request view."
+  },
+  "WBvwNg": {
+    "defaultMessage": "Nom (anglais)",
+    "description": "Label displayed on the operational requirement form name (English) field."
+  },
+  "WqOnFF": {
+    "defaultMessage": "Autres commentaires",
+    "description": "Title for the additional comments block in the search request filters"
+  },
+  "WuKWNr": {
+    "defaultMessage": "Créer une exigence opérationnelle",
+    "description": "Title displayed on the create a operational requirement form."
+  },
+  "XBY4Fq": {
+    "defaultMessage": "Créer un ministère",
+    "description": "Title displayed on the create a department form."
+  },
+  "XKjVO0": {
+    "defaultMessage": "Prénom",
+    "description": "Label displayed on the user form first name field."
+  },
+  "Xk7io5": {
+    "defaultMessage": "Nom (français)",
+    "description": "Label displayed on the pool form name (French) field."
+  },
+  "Y9jn9b": {
+    "defaultMessage": "Critères essentiels",
+    "description": "Label displayed on the pool form essential criteria field."
+  },
+  "YNLJcX": {
+    "defaultMessage": "Enregistrement des notes réussi!",
+    "description": "Message displayed to user after the personal notes have been saved successfully on the single search request page."
+  },
+  "YO9JAn": {
+    "defaultMessage": "Sélectionner une compétence linguistique...",
+    "description": "Placeholder displayed on the pool candidate form language ability field."
+  },
+  "YOHJFE": {
+    "defaultMessage": "Erreur : Échec de la création du bassin de candidats",
+    "description": "Message displayed to pool candidate after pool candidate fails to get created."
+  },
+  "ZH3zx+": {
+    "defaultMessage": "Créer un nouvel utilisateur",
+    "description": "Label for the new user assignment option in the create pool candidate form."
+  },
+  "ZP3GYM": {
+    "defaultMessage": "Erreur : Nom introuvable.",
+    "description": "Error message displayed on the single search request table operational requirements column."
+  },
+  "ZSXEfX": {
+    "defaultMessage": "Classifications",
+    "description": "Label displayed on the pool form classifications field."
+  },
+  "ZZaEho": {
+    "defaultMessage": "Description",
+    "description": "Title displayed for the CMO Asset table Description column."
+  },
+  "ZbW9T7": {
+    "defaultMessage": "Erreur : Échec de la mise à jour du bassin",
+    "description": "Message displayed to pool after pool fails to get updated."
+  },
+  "ZbpbD6": {
+    "defaultMessage": "Créer un ministère",
+    "description": "Heading displayed above the Create Department form."
+  },
+  "a48ztb": {
+    "defaultMessage": "Erreur : Échec de la création de l’exigence opérationnelle",
+    "description": "Message displayed to user after operational requirement fails to get created."
+  },
+  "aGEisH": {
+    "defaultMessage": "Modifier",
+    "description": "Title displayed for the Pool Candidates table Edit column."
+  },
+  "aPqZsz": {
+    "defaultMessage": "Veuillez utiliser uniquement des lettres minuscules et des traits de soulignement."
+  },
+  "aS4Lty": {
+    "defaultMessage": "Groupe",
+    "description": "Title displayed for the Classification table Group column."
+  },
+  "adfUDi": {
+    "defaultMessage": "Création de l’exigence opérationnelle réussie!",
+    "description": "Message displayed to user after operational requirement is created successfully."
+  },
+  "b3VnhM": {
+    "defaultMessage": "Classification {classificationId} introuvable.",
+    "description": "Message displayed for classification not found."
+  },
+  "bVRixs": {
+    "defaultMessage": "Niveau",
+    "description": "Label displayed on the classification form level field."
+  },
+  "bxh7Ba": {
+    "defaultMessage": "Sélectionner une ou plusieurs préférences de lieu...",
+    "description": "Placeholder displayed on the pool candidate form location preferences field."
+  },
+  "c0n+2j": {
+    "defaultMessage": "Nom (français)",
+    "description": "Label displayed on the create a department form name (French) field."
+  },
+  "c9jMPS": {
+    "defaultMessage": "Erreur : Nom introuvable.",
+    "description": "Error message displayed on the single search request table employment equity column."
+  },
+  "cH6GzM": {
+    "defaultMessage": "Exigences opérationnelles",
+    "description": "Label displayed on the pool candidate form operational requirements field."
+  },
+  "cT/8aw": {
+    "defaultMessage": "Sélectionner un ou plusieurs salaires attendus...",
+    "description": "Placeholder displayed on the pool candidate form expected salary field."
+  },
+  "cy2UdP": {
+    "defaultMessage": "Mettre à jour un bassin de candidats",
+    "description": "Title displayed on the update a user form."
+  },
+  "d3oN4p": {
+    "defaultMessage": "Courriel du gouvernement",
+    "description": "Title for the government email block in the manager info section of the single search request view."
+  },
+  "d9Wipj": {
+    "defaultMessage": "Clé",
+    "description": "Title displayed for the Pool table key column."
+  },
+  "dJ4aWF": {
+    "defaultMessage": "Modifier",
+    "description": "Title displayed for the Operational Requirement table Edit column."
+  },
+  "dTJkNA": {
+    "defaultMessage": "Langue de préférence",
+    "description": "Title displayed on the Pool Candidates table Preferred Lang column."
+  },
+  "ekKb+G": {
+    "defaultMessage": "Créer un bassin",
+    "description": "Title displayed on the create a pool form."
+  },
+  "evxvnW": {
+    "defaultMessage": "Mise à jour de l’utilisateur réussie!",
+    "description": "Message displayed to user after user is updated successfully."
+  },
+  "f24Z8p": {
+    "defaultMessage": "Identifiant",
+    "description": "Title displayed on the search request table id column."
+  },
+  "f9E/6Q": {
+    "defaultMessage": "Sélectionner une ou plusieurs exigences opérationnelles...",
+    "description": "Placeholder displayed on the pool candidate form operational requirements field."
+  },
+  "fAIozk": {
+    "defaultMessage": "Création de l’utilisateur réussie!",
+    "description": "Message displayed to user after user is created successfully."
+  },
+  "fXMsoK": {
+    "defaultMessage": "Téléphone",
+    "description": "Title displayed for the User table Telephone column."
+  },
+  "fhL8jz": {
+    "defaultMessage": "Erreur : Échec de l’enregistrement des notes",
+    "description": "Message displayed to user after the personal notes fail to save on the single search request page."
+  },
+  "gN/+W2": {
+    "defaultMessage": "Exigences opérationnelles",
+    "description": "Title displayed on the single search request table operational requirements column."
+  },
+  "gRPGQN": {
+    "defaultMessage": "Titre du poste",
+    "description": "Title for the job title block in the manager info section of the single search request view."
+  },
+  "giwWIS": {
+    "defaultMessage": "La « clé » est une chaîne qui identifie de manière unique une exigence opérationnelle. Elle doit être basée sur le nom anglais de l’exigence opérationnelle et doit être concise. Un bon exemple serait \"shift_work\". Elle peut être utilisée dans le code pour faire référence à cette exigence opérationnelle particulière, et ne peut donc pas être modifiée ultérieurement.",
+    "description": "Additional context describing the purpose of the Operational Requirement's 'key' field."
+  },
+  "gpKGjq": {
+    "defaultMessage": "Salaire maximal",
+    "description": "Label displayed for the classification form max salary field."
+  },
+  "h6kyvS": {
+    "defaultMessage": "Sélectionner un utilisateur...",
+    "description": "Placeholder displayed on the pool candidate form user field."
+  },
+  "hTfHUv": {
+    "defaultMessage": "Modifier",
+    "description": "Title displayed for the Department table Edit column."
+  },
+  "hgxH8y": {
+    "defaultMessage": "Groupe",
+    "description": "Label displayed for the classification form group field."
+  },
+  "hiZAeF": {
+    "defaultMessage": "Courriel",
+    "description": "Title displayed on the search request table email column."
+  },
+  "hnyrdl": {
+    "defaultMessage": "Classifications",
+    "description": "Heading displayed above the Classification Table component."
+  },
+  "hzL/Gd": {
+    "defaultMessage": "Date de la demande",
+    "description": "Title for the date requested block in the manager info section of the single search request view."
+  },
+  "i3C5Hn": {
+    "defaultMessage": "Ministère",
+    "description": "Title displayed on the search request table department column."
+  },
+  "i45Vxz": {
+    "defaultMessage": "Équité en matière emploi",
+    "description": "Title displayed on the single search request table employment equity column."
+  },
+  "i9/L40": {
+    "defaultMessage": "Compétences",
+    "description": "Title displayed on the single search request table skills column."
+  },
+  "i9AjuX": {
+    "defaultMessage": "S.O.",
+    "description": "Text shown when the filter was not selected"
+  },
+  "iDohso": {
+    "defaultMessage": "Femme",
+    "description": "Label displayed on the pool candidate form is woman field."
+  },
+  "inCoGo": {
+    "defaultMessage": "Bassin de candidats",
+    "description": "Label displayed on the Pool Candidates menu item."
+  },
+  "jJCDGc": {
+    "defaultMessage": "Mise à jour de la classification réussie!",
+    "description": "Message displayed to user after classification is updated successfully."
+  },
+  "kEDvJ6": {
+    "defaultMessage": "Description (français)",
+    "description": "Label displayed on the operational requirement form description (French) field."
+  },
+  "kt5dPm": {
+    "defaultMessage": "Identifiant",
+    "description": "Title displayed on the Pool table Unique Identifier column."
+  },
+  "l05aVF": {
+    "defaultMessage": "Notes personnelles",
+    "description": "Heading for the personal notes section of the single search request view."
+  },
+  "l7xk8j": {
+    "defaultMessage": "Sélectionner un ou plusieurs actifs...",
+    "description": "Placeholder displayed on the pool form asset criteria field."
+  },
+  "lfnGmL": {
+    "defaultMessage": "Description (français)",
+    "description": "Label displayed on the pool form description (French) field."
+  },
+  "lo2bSB": {
+    "defaultMessage": "Modifier",
+    "description": "Title displayed for the single search request table edit column."
+  },
+  "mbxksT": {
+    "defaultMessage": "Prénom",
+    "description": "Title displayed on the User table First Name column."
+  },
+  "mf+QEY": {
+    "defaultMessage": "Langue de préférence",
+    "description": "Title displayed for the User table Preferred Language column."
+  },
+  "mjbSrx": {
+    "defaultMessage": "Erreur : Échec de la mise à jour de l’exigence opérationnelle",
+    "description": "Message displayed to user after operational requirement fails to get updated."
+  },
+  "mqswWd": {
+    "defaultMessage": "Utilisateur",
+    "description": "Label displayed on the pool candidate form user field."
+  },
+  "mv+9jt": {
+    "defaultMessage": "Renseignements sur l’utilisateur",
+    "description": "Heading for the user information section"
+  },
+  "mykZx3": {
+    "defaultMessage": "Préférences de lieu",
+    "description": "Label displayed on the pool candidate form location preferences field."
+  },
+  "n0pfBx": {
+    "defaultMessage": "Bassin",
+    "description": "Title displayed for the Pool Candidates table Pool column."
+  },
+  "nXRLAX": {
+    "defaultMessage": "Erreur : Échec de la mise à jour du ministère",
+    "description": "Message displayed to user after department fails to get updated."
+  },
+  "o+ZObe": {
+    "defaultMessage": "Langue de préférence",
+    "description": "Label displayed on the user form preferred language field."
+  },
+  "oQnVSn": {
+    "defaultMessage": "Nom de famille",
+    "description": "Label displayed on the user form last name field."
+  },
+  "os4TSk": {
+    "defaultMessage": "Sélectionner un responsable...",
+    "description": "Placeholder displayed on the pool form owner field."
+  },
+  "p7D5i5": {
+    "defaultMessage": "Notes personnelles",
+    "description": "Label displayed on the search request form personal notes field."
+  },
+  "pBJzgi": {
+    "defaultMessage": "Désolé, nous n’avons pas trouvé la page recherchée.",
+    "description": "Heading for the message saying the page was not found."
+  },
+  "pgHTkX": {
+    "defaultMessage": "Oups, on dirait que vous êtes tombé sur une page qui n’existe pas ou qui a été déplacée.",
+    "description": "Detailed message saying the page was not found."
+  },
+  "qL43Gw": {
+    "defaultMessage": "Bassins",
+    "description": "Heading displayed above the Pool Table component."
+  },
+  "qYH0du": {
+    "defaultMessage": "Modifier",
+    "description": "Title displayed for the User table Edit column."
+  },
+  "qodftq": {
+    "defaultMessage": "<span>{jobTitle}</span> à <span>{department}</span>",
+    "description": "Subtitle displayed above the single search request component."
+  },
+  "r2gD/4": {
+    "defaultMessage": "Date de réception",
+    "description": "Title displayed on the search request table requested date column."
+  },
+  "rE/ytf": {
+    "defaultMessage": "Actif du BGC {cmoAssetId} introuvable.",
+    "description": "Message displayed for cmo asset not found."
+  },
+  "rfkkae": {
+    "defaultMessage": "Statut",
+    "description": "Label displayed on the pool candidate form status field."
+  },
+  "rz8uPO": {
+    "defaultMessage": "Bassin demandé",
+    "description": "Title for the pool block in the manager info section of the single search request view."
+  },
+  "s6HoFU": {
+    "defaultMessage": "Retour à toutes les demandes",
+    "description": "Button label displayed on the search request form which returns the user back to all requests."
+  },
+  "s9dqrf": {
+    "defaultMessage": "Affecter un utilisateur existant",
+    "description": "Label for the existing user assignment option in the create pool candidate form."
+  },
+  "sFl+Xl": {
+    "defaultMessage": "La « clé » est une chaîne qui identifie de manière unique un bassin. Elle doit être basée sur le nom anglais du bassin et doit être concise. Un bon exemple serait \"digital_careers\". Elle peut être utilisée dans le code pour faire référence à ce bassin particulier, et ne peut donc pas être modifiée ultérieurement.",
+    "description": "Additional context describing the purpose of the Pool's 'key' field."
+  },
+  "sZHcsV": {
+    "defaultMessage": "Courriel",
+    "description": "Label displayed on the user form email field."
+  },
+  "srzf65": {
+    "defaultMessage": "Modifier",
+    "description": "Title displayed for the Edit column."
+  },
+  "t3sEc+": {
+    "defaultMessage": "Statut",
+    "description": "Title displayed on the search request table status column."
+  },
+  "tcY5cG": {
+    "defaultMessage": "Nom",
+    "description": "Title displayed for the Operational Requirement table Name column."
+  },
+  "tfULo6": {
+    "defaultMessage": "Exigences opérationnelles",
+    "description": "Heading displayed above the Operational Requirement Table component."
+  },
+  "tpzt/B": {
+    "defaultMessage": "Modifier",
+    "description": "Title displayed for the Pool table Edit column."
+  },
+  "uAmdiU": {
+    "defaultMessage": "Nom (français)",
+    "description": "Label displayed on the classification form name (French) field."
+  },
+  "vg3F7X": {
+    "defaultMessage": "La « clé » est une chaîne qui identifie de manière unique un actif du BGC. Elle doit être basée sur le nom anglais de l’actif du BGC et doit être concise. Un bon exemple serait \"information_management\". Elle peut être utilisée dans le code pour faire référence à cet actif du BGC particulier, et ne peut donc pas être modifiée ultérieurement.",
+    "description": "Additional context describing the purpose of the CMO Asset's 'key' field."
+  },
+  "vkus5u": {
+    "defaultMessage": "Sélectionner une ou plusieurs exigences opérationnelles...",
+    "description": "Placeholder displayed on the pool form operational requirements field."
+  },
+  "vnhTgE": {
+    "defaultMessage": "Sélectionner une langue...",
+    "description": "Placeholder displayed on the user form preferred language field."
+  },
+  "w42ZU3": {
+    "defaultMessage": "Exigence opérationnelle {operationalRequirementId} introuvable.",
+    "description": "Message displayed for operational requirement not found."
+  },
+  "wCBE9S": {
+    "defaultMessage": "Bassins",
+    "description": "Label displayed on the Pools menu item."
+  },
+  "wZ91g+": {
+    "defaultMessage": "Création du bassin réussie!",
+    "description": "Message displayed to user after pool is created successfully."
+  },
+  "x+2gYv": {
+    "defaultMessage": "Créer une exigence opérationnelle",
+    "description": "Heading displayed above the Create Operational Requirement form."
+  },
+  "x3SuY9": {
+    "defaultMessage": "Date d’expiration",
+    "description": "Label displayed on the pool candidate form expiry date field."
+  },
+  "xAjes8": {
+    "defaultMessage": "Masquer/afficher les colonnes du tableau",
+    "description": "Label displayed on the Table Columns toggle."
+  },
+  "xIWdFW": {
+    "defaultMessage": "Minorité visible",
+    "description": "Label displayed on the pool candidate form is visible minority field."
+  },
+  "xjOcT7": {
+    "defaultMessage": "L’état de la demande a été réglé avec succès à Effectuée!",
+    "description": "Message displayed to user after the request has been successfully set to done on the single search request page."
+  },
+  "xxLs3C": {
+    "defaultMessage": "Nom",
+    "description": "Title displayed on the Pool Candidates table name column."
+  },
+  "yGlG9e": {
+    "defaultMessage": "Création du ministère réussie!",
+    "description": "Message displayed to user after department is created successfully."
+  },
+  "yZqUAU": {
+    "defaultMessage": "Niveau",
+    "description": "Title displayed for the Classification table Level column."
+  },
+  "yoshF7": {
+    "defaultMessage": "Création du bassin de candidats réussie!",
+    "description": "Message displayed to user after pool candidate is created successfully."
+  },
+  "z+TEpN": {
+    "defaultMessage": "Créer un bassin de candidats",
+    "description": "Heading displayed above the Create Pool Candidate form."
+  },
+  "z2m2Gp": {
+    "defaultMessage": "Modifier",
+    "description": "Title displayed for the CMO Asset table Edit column."
+  },
+  "zWX4ko": {
+    "defaultMessage": "Actifs du BGC",
+    "description": "Label displayed on the pool candidate form cmo assets field."
+  },
+  "zwcUgi": {
+    "defaultMessage": "Ministère",
+    "description": "Title for the department block in the manager info section of the single search request view."
+  },
+  "U6V+uR": {
+    "defaultMessage": "Nom (anglais)",
+    "description": "Label displayed on the create a cmo asset form name (English) field."
+  },
+  "oVWttp": {
+    "defaultMessage": "Description (français)",
+    "description": "Label displayed on the create a cmo asset form description (French) field."
+  },
+  "pHVKt/": {
+    "defaultMessage": "Nom (français)",
+    "description": "Label displayed on the create a cmo asset form name (French) field."
+  },
+  "zgaPwN": {
+    "defaultMessage": "Description (anglais)",
+    "description": "Label displayed on the create a cmo asset form description (English) field."
+  },
+  "0oqRIl": {
+    "defaultMessage": "Nom (français)",
+    "description": "Label displayed on the create a skill family form name (French) field."
+  },
+  "2ekC5r": {
+    "defaultMessage": "Famille de compétences mise à jour avec succès!",
+    "description": "Message displayed to user after skillFamily is updated successfully."
+  },
+  "2wo24b": {
+    "defaultMessage": "Nom (anglais)",
+    "description": "Label displayed on the create a skill family form name (English) field."
+  },
+  "3exDkT": {
+    "defaultMessage": "Clé",
+    "description": "Label displayed on the create a skill form key field."
+  },
+  "4EkI/1": {
+    "defaultMessage": "Description (français)",
+    "description": "Label displayed on the update a skill form description (French) field."
+  },
+  "5Al53V": {
+    "defaultMessage": "Créer une famille de compétences",
+    "description": "Title displayed on the create a skill family form."
+  },
+  "5F/aKm": {
+    "defaultMessage": "Nom (anglais)",
+    "description": "Label displayed on the update a skill form name (English) field."
+  },
+  "71ID2W": {
+    "defaultMessage": "Connexion",
+    "description": "Label displayed on the Login menu item."
+  },
+  "7Cx7lp": {
+    "defaultMessage": "Sélectionner une compétence ou plus...",
+    "description": "Placeholder displayed on the skill family form skills field."
+  },
+  "953EAy": {
+    "defaultMessage": "Compétence {skillId} non trouvée.",
+    "description": "Message displayed for skill not found."
+  },
+  "9bz9jA": {
+    "defaultMessage": " Sélectionner une famille ou plus...",
+    "description": "Placeholder displayed on the skill form families field."
+  },
+  "9yGJ6k": {
+    "defaultMessage": "Description",
+    "description": "Title displayed for the skill table Description column."
+  },
+  "BOeBpE": {
+    "defaultMessage": "Nom",
+    "description": "Title displayed for the skill table Name column."
+  },
+  "Cw8pyL": {
+    "defaultMessage": " Sélectionner zéro rôle ou plus...",
+    "description": "Placeholder displayed on the user form roles field."
+  },
+  "Dbqtm6": {
+    "defaultMessage": "Compétences",
+    "description": "Heading displayed above the Skill Table component."
+  },
+  "F2Rs/C": {
+    "defaultMessage": " Compétences",
+    "description": "Label displayed on the skill family form skills field."
+  },
+  "GHHNGa": {
+    "defaultMessage": "Êtes-vous certain(e) de vouloir vous déconnecter?",
+    "description": "Label displayed on the Logout confirmation dialog."
+  },
+  "GQskY1": {
+    "defaultMessage": "Mettre à jour une famille de compétences",
+    "description": "Title displayed on the update a skillFamily form."
+  },
+  "HMUKcP": {
+    "defaultMessage": "Familles de compétences",
+    "description": "Label displayed on the Skill Families menu item."
+  },
+  "I7rxxQ": {
+    "defaultMessage": "Mots-clés",
+    "description": "Title displayed for the skill table Keywords column."
+  },
+  "I8v/Uy": {
+    "defaultMessage": "Le sujet est une chaîne qui identifie uniquement l’identité de connexion d’un utilisateur.",
+    "description": "Additional context describing the purpose of the users's 'subject' field."
+  },
+  "JxVREd": {
+    "defaultMessage": "Familles",
+    "description": "Label displayed on the skill form families field."
+  },
+  "KB+xr6": {
+    "defaultMessage": " Familles de compétences",
+    "description": "Title displayed for the skill table Skill Families column."
+  },
+  "KZR3ad": {
+    "defaultMessage": "Catégorie",
+    "description": "Label displayed on the skill family form category field."
+  },
+  "NT3jrI": {
+    "defaultMessage": "Ce champ accepte une liste de virgules séparées par des mots-clés séparés associés à la compétence.",
+    "description": "Additional context describing the purpose of the skills 'keyword' field."
+  },
+  "Q0gIlv": {
+    "defaultMessage": "Description (français)",
+    "description": "Label displayed on the create a skill family form description (French) field."
+  },
+  "TGV2F7": {
+    "defaultMessage": "Déconnexion",
+    "description": "Label displayed on the Logout menu item."
+  },
+  "TRqbR/": {
+    "defaultMessage": "Créer une famille de compétences",
+    "description": "Heading displayed above the Create Skill Family form."
+  },
+  "UTFKyy": {
+    "defaultMessage": "La compétence a été mise à jour avec succès!",
+    "description": "Message displayed to user after skill is updated successfully."
+  },
+  "VphXhu": {
+    "defaultMessage": "Nom",
+    "description": "Title displayed for the Skill Family table Name column."
+  },
+  "WoAuKA": {
+    "defaultMessage": "Mettre à jour une compétence",
+    "description": "Title displayed on the update a skill form."
+  },
+  "X4nVv/": {
+    "defaultMessage": "Modifier",
+    "description": "Title displayed for the skill table Edit column."
+  },
+  "XSo129": {
+    "defaultMessage": "Description",
+    "description": "Title displayed for the Skill Family table Description column."
+  },
+  "Z6o8ym": {
+    "defaultMessage": "Identité",
+    "description": "Title displayed on the Skill table ID column."
+  },
+  "Z6sh9j": {
+    "defaultMessage": "Les rôles accordent une autre fonctionnalité à la connexion d’un utilisateur.",
+    "description": "Additional context describing the purpose of the users's 'role' field."
+  },
+  "ZU3fd5": {
+    "defaultMessage": "Nom (français)",
+    "description": "Label displayed on the create a skill form name (French) field."
+  },
+  "ZWnKEJ": {
+    "defaultMessage": "Famille de compétences {skillFamilyId} non trouvée.",
+    "description": "Message displayed for skillFamily not found."
+  },
+  "ZobKCk": {
+    "defaultMessage": "Identité",
+    "description": "Title displayed on the Skill Family table ID column."
+  },
+  "a+bWz1": {
+    "defaultMessage": "Description (français)",
+    "description": "Label displayed on the create a skill form description (French) field."
+  },
+  "bGi9fO": {
+    "defaultMessage": "Création réussie de la compétence!",
+    "description": "Message displayed to user after skill is created successfully."
+  },
+  "brucUP": {
+    "defaultMessage": "Sélectionner une famille de compétences ou plus...",
+    "description": "Placeholder displayed on the skill form skill families field."
+  },
+  "d8CQJr": {
+    "defaultMessage": " Création réussie de la famille de compétences!",
+    "description": "Message displayed to user after skill family is created successfully."
+  },
+  "eSyXWT": {
+    "defaultMessage": "Erreur : échec de la mise à jour de la compétence",
+    "description": "Message displayed to user after skill fails to get updated."
+  },
+  "fdKtYm": {
+    "defaultMessage": "Description (anglais)",
+    "description": "Label displayed on the update a skill form description (English) field."
+  },
+  "gnu0Eb": {
+    "defaultMessage": "Nom (anglais)",
+    "description": "Label displayed on the create a skill form name (English) field."
+  },
+  "j01W+1": {
+    "defaultMessage": "Nom (français)",
+    "description": "Label displayed on the update a skill form name (French) field."
+  },
+  "jthonT": {
+    "defaultMessage": "La « clé » est une chaîne qui identifie de manière unique une compétence. Elle devrait être fondée sur le nom anglais de la compétence et devrait être concise. Un bon exemple serait \"information_management\". Elle peut être utilisée dans le code pour faire référence à cette compétence particulière, et ne peut donc pas être modifiée ultérieurement.",
+    "description": "Additional context describing the purpose of the skills 'key' field."
+  },
+  "kY7te0": {
+    "defaultMessage": "Mots-clés",
+    "description": "Label displayed on the skill form keywords field."
+  },
+  "ksMybU": {
+    "defaultMessage": "Erreur : échec de la création de la compétence",
+    "description": "Message displayed to user after skill fails to get created."
+  },
+  "kwNyl6": {
+    "defaultMessage": "Rôles",
+    "description": "Label displayed on the user form roles field."
+  },
+  "lFrPv1": {
+    "defaultMessage": "Créer une compétence",
+    "description": "Heading displayed above the Create Skill form."
+  },
+  "luZnRG": {
+    "defaultMessage": "Description (anglais)",
+    "description": "Label displayed on the create a skill family form description (English) field."
+  },
+  "m4rXNt": {
+    "defaultMessage": "Objet",
+    "description": "Label displayed on the user form subject field."
+  },
+  "m5RwGF": {
+    "defaultMessage": "Catégorie",
+    "description": "Title displayed for the Skill Family table Category column."
+  },
+  "qVXkby": {
+    "defaultMessage": "Clé",
+    "description": "Label displayed on the create a skill family form key field."
+  },
+  "qZd17O": {
+    "defaultMessage": " Créer une compétence",
+    "description": "Title displayed on the create a skill form."
+  },
+  "rJ36SS": {
+    "defaultMessage": "Modifier",
+    "description": "Title displayed for the Skill Family table Edit column."
+  },
+  "rJqCuH": {
+    "defaultMessage": "Description (anglais)",
+    "description": "Label displayed on the create a skill form description (English) field."
+  },
+  "rQ3Gbb": {
+    "defaultMessage": " Erreur : échec de la création de la compétence ",
+    "description": "Message displayed to user after skill family fails to get created."
+  },
+  "rna1rM": {
+    "defaultMessage": "Sélectionner une catégorie...",
+    "description": "Placeholder displayed on the skill family form category field."
+  },
+  "t8osgc": {
+    "defaultMessage": "Compétences",
+    "description": "Label displayed on the Skills menu item."
+  },
+  "w73KdO": {
+    "defaultMessage": "Familles de compétences",
+    "description": "Heading displayed above the Skill Family Table component."
+  },
+  "xx8yaE": {
+    "defaultMessage": "Familles",
+    "description": "Label displayed on the skill form skill families field."
+  },
+  "ytTGvb": {
+    "defaultMessage": "La « clé » est une chaîne qui identifie de manière unique une famille de compétences. Elle devrait être fondée sur le nom anglais de la famille de compétences et devrait être concise. Un bon exemple serait \"information_management\". Elle peut être utilisée dans le code pour faire référence à cette compétence particulière, et ne peut donc pas être modifiée ultérieurement.",
+    "description": "Additional context describing the purpose of the skill families 'key' field."
+  },
+  "zpwZSQ": {
+    "defaultMessage": "Erreur : échec de la mise à jour de la famille de compétences",
+    "description": "Message displayed to user after skillFamily fails to get updated."
+  }
+}

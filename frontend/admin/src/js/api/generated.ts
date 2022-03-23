@@ -127,10 +127,13 @@ export type Classification = {
   name?: Maybe<LocalizedString>;
 };
 
+<<<<<<< HEAD
 export type ClassificationBelongsTo = {
   connect: Scalars["ID"];
 };
 
+=======
+>>>>>>> 6f593891 (Move admin files around)
 export type ClassificationBelongsToMany = {
   sync?: InputMaybe<Array<Scalars["ID"]>>;
 };
@@ -262,6 +265,7 @@ export type CreateSkillInput = {
 
 /** When creating a User, name and email are required. */
 export type CreateUserInput = {
+<<<<<<< HEAD
   acceptedOperationalRequirements?: InputMaybe<OperationalRequirementBelongsToMany>;
   bilingualEvaluation?: InputMaybe<BilingualEvaluation>;
   cmoAssets?: InputMaybe<CmoAssetBelongsToMany>;
@@ -289,13 +293,21 @@ export type CreateUserInput = {
   lookingForBilingual?: InputMaybe<Scalars["Boolean"]>;
   lookingForEnglish?: InputMaybe<Scalars["Boolean"]>;
   lookingForFrench?: InputMaybe<Scalars["Boolean"]>;
+=======
+  email: Scalars["Email"];
+  firstName: Scalars["String"];
+  lastName: Scalars["String"];
+>>>>>>> 6f593891 (Move admin files around)
   preferredLang?: InputMaybe<Language>;
   roles?: InputMaybe<Array<InputMaybe<Role>>>;
   sub?: InputMaybe<Scalars["String"]>;
   telephone?: InputMaybe<Scalars["PhoneNumber"]>;
+<<<<<<< HEAD
   verbalLevel?: InputMaybe<EvaluatedLanguageAbility>;
   wouldAcceptTemporary?: InputMaybe<Scalars["Boolean"]>;
   writtenLevel?: InputMaybe<EvaluatedLanguageAbility>;
+=======
+>>>>>>> 6f593891 (Move admin files around)
 };
 
 export type Department = {
@@ -433,8 +445,12 @@ export type Mutation = {
   updatePoolCandidateSearchRequest?: Maybe<PoolCandidateSearchRequest>;
   updateSkill?: Maybe<Skill>;
   updateSkillFamily?: Maybe<SkillFamily>;
+<<<<<<< HEAD
   updateUserAsAdmin?: Maybe<User>;
   updateUserAsUser?: Maybe<User>;
+=======
+  updateUser?: Maybe<User>;
+>>>>>>> 6f593891 (Move admin files around)
 };
 
 export type MutationCreateClassificationArgs = {
@@ -550,6 +566,7 @@ export type MutationUpdateSkillFamilyArgs = {
   skillFamily: UpdateSkillFamilyInput;
 };
 
+<<<<<<< HEAD
 export type MutationUpdateUserAsAdminArgs = {
   id: Scalars["ID"];
   user: UpdateUserAsAdminInput;
@@ -558,6 +575,11 @@ export type MutationUpdateUserAsAdminArgs = {
 export type MutationUpdateUserAsUserArgs = {
   id: Scalars["ID"];
   user: UpdateUserAsUserInput;
+=======
+export type MutationUpdateUserArgs = {
+  id: Scalars["ID"];
+  user: UpdateUserInput;
+>>>>>>> 6f593891 (Move admin files around)
 };
 
 /** e.g. Overtime as Required, Shift Work, Travel as Required, etc. */
@@ -767,10 +789,13 @@ export type PoolFilterInput = {
   id: Scalars["ID"];
 };
 
+<<<<<<< HEAD
 export type PoolsHasMany = {
   create?: InputMaybe<Array<InputMaybe<CreatePoolInput>>>;
 };
 
+=======
+>>>>>>> 6f593891 (Move admin files around)
 export enum ProvinceOrTerritory {
   Alberta = "ALBERTA",
   BritishColumbia = "BRITISH_COLUMBIA",
@@ -1043,7 +1068,11 @@ export type UpdatePoolCandidateSearchRequestInput = {
 
 /** When updating a PoolCandidate it is possible to update the related user, but not change which user it is related to. */
 export type UpdatePoolCandidateUserBelongsTo = {
+<<<<<<< HEAD
   update?: InputMaybe<UpdateUserAsAdminInput>;
+=======
+  update?: InputMaybe<UpdateUserInput>;
+>>>>>>> 6f593891 (Move admin files around)
 };
 
 export type UpdatePoolInput = {
@@ -1071,6 +1100,7 @@ export type UpdateSkillInput = {
 };
 
 /** When updating a User, all fields are optional, and email cannot be changed. */
+<<<<<<< HEAD
 export type UpdateUserAsAdminInput = {
   acceptedOperationalRequirements?: InputMaybe<OperationalRequirementBelongsToMany>;
   bilingualEvaluation?: InputMaybe<BilingualEvaluation>;
@@ -1098,10 +1128,17 @@ export type UpdateUserAsAdminInput = {
   lookingForBilingual?: InputMaybe<Scalars["Boolean"]>;
   lookingForEnglish?: InputMaybe<Scalars["Boolean"]>;
   lookingForFrench?: InputMaybe<Scalars["Boolean"]>;
+=======
+export type UpdateUserInput = {
+  firstName?: InputMaybe<Scalars["String"]>;
+  id?: InputMaybe<Scalars["ID"]>;
+  lastName?: InputMaybe<Scalars["String"]>;
+>>>>>>> 6f593891 (Move admin files around)
   preferredLang?: InputMaybe<Language>;
   roles?: InputMaybe<Array<InputMaybe<Role>>>;
   sub?: InputMaybe<Scalars["String"]>;
   telephone?: InputMaybe<Scalars["PhoneNumber"]>;
+<<<<<<< HEAD
   verbalLevel?: InputMaybe<EvaluatedLanguageAbility>;
   wouldAcceptTemporary?: InputMaybe<Scalars["Boolean"]>;
   writtenLevel?: InputMaybe<EvaluatedLanguageAbility>;
@@ -1139,6 +1176,8 @@ export type UpdateUserAsUserInput = {
   verbalLevel?: InputMaybe<EvaluatedLanguageAbility>;
   wouldAcceptTemporary?: InputMaybe<Scalars["Boolean"]>;
   writtenLevel?: InputMaybe<EvaluatedLanguageAbility>;
+=======
+>>>>>>> 6f593891 (Move admin files around)
 };
 
 export type User = {
@@ -1191,7 +1230,11 @@ export type User = {
 export type UserBelongsTo = {
   connect?: InputMaybe<Scalars["ID"]>;
   create?: InputMaybe<CreateUserInput>;
+<<<<<<< HEAD
   update?: InputMaybe<UpdateUserAsAdminInput>;
+=======
+  update?: InputMaybe<UpdateUserInput>;
+>>>>>>> 6f593891 (Move admin files around)
 };
 
 export type UserPublicProfile = {
@@ -4190,6 +4233,7 @@ export type UserQuery = {
     | undefined;
 };
 
+<<<<<<< HEAD
 export type CreateUserMutationVariables = Exact<{
   user: CreateUserInput;
 }>;
@@ -4201,10 +4245,25 @@ export type CreateUserMutation = {
         __typename?: "User";
         sub?: string | null | undefined;
         roles?: Array<Role | null | undefined> | null | undefined;
+=======
+export type UpdateUserMutationVariables = Exact<{
+  id: Scalars["ID"];
+  user: UpdateUserInput;
+}>;
+
+export type UpdateUserMutation = {
+  __typename?: "Mutation";
+  updateUser?:
+    | {
+        __typename?: "User";
+        id: string;
+        sub?: string | null | undefined;
+>>>>>>> 6f593891 (Move admin files around)
         firstName?: string | null | undefined;
         lastName?: string | null | undefined;
         email: string;
         telephone?: string | null | undefined;
+<<<<<<< HEAD
         currentProvince?: ProvinceOrTerritory | null | undefined;
         currentCity?: string | null | undefined;
         languageAbility?: LanguageAbility | null | undefined;
@@ -4302,11 +4361,16 @@ export type CreateUserMutation = {
             >
           | null
           | undefined;
+=======
+        preferredLang?: Language | null | undefined;
+        roles?: Array<Role | null | undefined> | null | undefined;
+>>>>>>> 6f593891 (Move admin files around)
       }
     | null
     | undefined;
 };
 
+<<<<<<< HEAD
 export type UpdateUserAsUserMutationVariables = Exact<{
   id: Scalars["ID"];
   user: UpdateUserAsUserInput;
@@ -4315,11 +4379,21 @@ export type UpdateUserAsUserMutationVariables = Exact<{
 export type UpdateUserAsUserMutation = {
   __typename?: "Mutation";
   updateUserAsUser?:
+=======
+export type CreateUserMutationVariables = Exact<{
+  user: CreateUserInput;
+}>;
+
+export type CreateUserMutation = {
+  __typename?: "Mutation";
+  createUser?:
+>>>>>>> 6f593891 (Move admin files around)
     | {
         __typename?: "User";
         sub?: string | null | undefined;
         firstName?: string | null | undefined;
         lastName?: string | null | undefined;
+<<<<<<< HEAD
         telephone?: string | null | undefined;
         preferredLang?: Language | null | undefined;
         currentProvince?: ProvinceOrTerritory | null | undefined;
@@ -4535,6 +4609,12 @@ export type UpdateUserAsAdminMutation = {
             >
           | null
           | undefined;
+=======
+        email: string;
+        telephone?: string | null | undefined;
+        preferredLang?: Language | null | undefined;
+        roles?: Array<Role | null | undefined> | null | undefined;
+>>>>>>> 6f593891 (Move admin files around)
       }
     | null
     | undefined;
@@ -6113,15 +6193,24 @@ export function useUserQuery(
 ) {
   return Urql.useQuery<UserQuery>({ query: UserDocument, ...options });
 }
+<<<<<<< HEAD
 export const CreateUserDocument = gql`
   mutation CreateUser($user: CreateUserInput!) {
     createUser(user: $user) {
       sub
       roles
+=======
+export const UpdateUserDocument = gql`
+  mutation UpdateUser($id: ID!, $user: UpdateUserInput!) {
+    updateUser(id: $id, user: $user) {
+      id
+      sub
+>>>>>>> 6f593891 (Move admin files around)
       firstName
       lastName
       email
       telephone
+<<<<<<< HEAD
       currentProvince
       currentCity
       languageAbility
@@ -6180,10 +6269,15 @@ export const CreateUserDocument = gql`
         maxSalary
       }
       wouldAcceptTemporary
+=======
+      preferredLang
+      roles
+>>>>>>> 6f593891 (Move admin files around)
     }
   }
 `;
 
+<<<<<<< HEAD
 export function useCreateUserMutation() {
   return Urql.useMutation<CreateUserMutation, CreateUserMutationVariables>(
     CreateUserDocument,
@@ -6331,13 +6425,37 @@ export const UpdateUserAsAdminDocument = gql`
         maxSalary
       }
       wouldAcceptTemporary
+=======
+export function useUpdateUserMutation() {
+  return Urql.useMutation<UpdateUserMutation, UpdateUserMutationVariables>(
+    UpdateUserDocument,
+  );
+}
+export const CreateUserDocument = gql`
+  mutation CreateUser($user: CreateUserInput!) {
+    createUser(user: $user) {
+      sub
+      firstName
+      lastName
+      email
+      telephone
+      preferredLang
+      roles
+>>>>>>> 6f593891 (Move admin files around)
     }
   }
 `;
 
+<<<<<<< HEAD
 export function useUpdateUserAsAdminMutation() {
   return Urql.useMutation<
     UpdateUserAsAdminMutation,
     UpdateUserAsAdminMutationVariables
   >(UpdateUserAsAdminDocument);
+=======
+export function useCreateUserMutation() {
+  return Urql.useMutation<CreateUserMutation, CreateUserMutationVariables>(
+    CreateUserDocument,
+  );
+>>>>>>> 6f593891 (Move admin files around)
 }
