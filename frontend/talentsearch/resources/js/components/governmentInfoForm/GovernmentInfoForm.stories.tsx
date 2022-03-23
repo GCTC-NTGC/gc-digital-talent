@@ -2,6 +2,7 @@ import React from "react";
 import { action } from "@storybook/addon-actions";
 import { Meta, Story } from "@storybook/react";
 import { fakeClassifications } from "@common/fakeData";
+import Form from "@common/components/form/BasicForm";
 import GovernmentInfoForm, { FormValues } from "./GovernmentInfoForm";
 
 export default {
@@ -11,12 +12,13 @@ export default {
 
 const TemplateGovInfoForm: Story = () => {
   return (
-    <GovernmentInfoForm
-      classifications={fakeClassifications()}
-      handleSubmit={async (data: FormValues) => {
+    <Form
+      onSubmit={async (data: FormValues) => {
         action("submit")(data);
       }}
-    />
+    >
+      <GovernmentInfoForm classifications={fakeClassifications()} />
+    </Form>
   );
 };
 

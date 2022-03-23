@@ -1,13 +1,8 @@
 import React from "react";
 import { useIntl } from "react-intl";
+import { useWatch, useForm } from "react-hook-form";
 import { errorMessages } from "@common/messages";
-import {
-  BasicForm,
-  Checkbox,
-  RadioGroup,
-  Input,
-  Select,
-} from "@common/components/form";
+import { Checkbox, RadioGroup, Select } from "@common/components/form";
 import { getLocale } from "@common/helpers/localize";
 import { fakeClassifications } from "@common/fakeData";
 import { Classification } from "../../api/generated";
@@ -24,10 +19,18 @@ export type FormValues = {
 
 export const GovernmentInfoForm: React.FunctionComponent<{
   classifications: Classification[];
-  handleSubmit: (data: FormValues) => Promise<void>;
-}> = ({ classifications, handleSubmit }) => {
+}> = ({ classifications }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
+
+  const govEmployee = useWatch({
+    name: "gov-employee-yesno",
+    defaultValue: "no",
+  });
+  const govEmployeeStatus = useWatch({
+    name: "gov-employee-status",
+    defaultValue: "student",
+  });
 
   const classGroupsWithDupes: { value: string; label: string }[] =
     classifications.map((iterator) => {
@@ -74,20 +77,16 @@ export const GovernmentInfoForm: React.FunctionComponent<{
         },
       ]}
     >
-      <BasicForm
-        onSubmit={(fieldValues: FormValues) => {
-          // TODO: EDIT FIELD VALUES ALA WORK PREFERENCES
-          return handleSubmit(fieldValues);
-        }}
-      >
+      <div>
         <RadioGroup
           idPrefix="gov-employee-yesno"
           legend={intl.formatMessage({
             defaultMessage: "GoC Employee Status",
             description: "Employee Status in Government Info Form",
           })}
-          name="govemployee"
+          name="gov-employee-yesno"
           rules={{ required: intl.formatMessage(errorMessages.required) }}
+          defaultSelected="no"
           items={[
             {
               value: "no",
@@ -107,83 +106,120 @@ export const GovernmentInfoForm: React.FunctionComponent<{
             },
           ]}
         />
-        <RadioGroup
-          idPrefix="gov-employee-status"
-          legend={intl.formatMessage({
-            defaultMessage: "GoC Employee Status",
-            description: "Employee Status in Government Info Form",
-          })}
-          name="govemployeestatus"
-          rules={{ required: intl.formatMessage(errorMessages.required) }}
-          items={[
-            {
-              value: "student",
-              label: intl.formatMessage({
-                defaultMessage: "I am a student",
-                description: "Label displayed for student option",
-              }),
-            },
-            {
-              value: "casual",
-              label: intl.formatMessage({
-                defaultMessage: "I have a  casual contract",
-                description: "Label displayed for casual option",
-              }),
-            },
-            {
-              value: "term",
-              label: intl.formatMessage({
-                defaultMessage: "I have a term position",
-                description: "Label displayed for term option",
-              }),
-            },
-            {
-              value: "indeterminate",
-              label: intl.formatMessage({
-                defaultMessage: "I have a indeterminate position",
-                description: "Label displayed for indeterminate option",
-              }),
-            },
-          ]}
-        />
-        <p>
-          Please indicate if you are interested in lateral deployment or
-          secondment. Learn more about this.
-        </p>
-        <Checkbox
-          id="lateral-second"
-          label={intl.formatMessage({
-            defaultMessage:
-              "I am interested in lateral deployment or secondment.",
-            description: "Label displayed on lateral/secondment checkbox",
-          })}
-          name="latsecond"
-        />
-        <p>
-          Please indicate your current substantive group classification and
-          level.
-        </p>
-        <Select
-          id="class-group"
-          label="Group"
-          name="classgroup"
-          options={[
-            { value: "1", label: "1" },
-            { value: "2", label: "2" },
-          ]}
-        />
-        <Select
-          id="class-level"
-          label="Level"
-          name="classlevel"
-          options={[
-            { value: "1", label: "1" },
-            { value: "2", label: "2" },
-          ]}
-        />
-        <div>Hi</div>
-        <ProfileFormFooter mode="saveButton" />
-      </BasicForm>
+      </div>
+      <div>
+        {" "}
+        {govEmployee === "yes" && (
+          <RadioGroup
+            idPrefix="gov-employee-status"
+            legend={intl.formatMessage({
+              defaultMessage: "GoC Employee Status",
+              description: "Employee Status in Government Info Form",
+            })}
+            name="gov-employee-status"
+            rules={{ required: intl.formatMessage(errorMessages.required) }}
+            defaultSelected="student"
+            items={[
+              {
+                value: "student",
+                label: intl.formatMessage({
+                  defaultMessage: "I am a student",
+                  description: "Label displayed for student option",
+                }),
+              },
+              {
+                value: "casual",
+                label: intl.formatMessage({
+                  defaultMessage: "I have a  casual contract",
+                  description: "Label displayed for casual option",
+                }),
+              },
+              {
+                value: "term",
+                label: intl.formatMessage({
+                  defaultMessage: "I have a term position",
+                  description: "Label displayed for term option",
+                }),
+              },
+              {
+                value: "indeterminate",
+                label: intl.formatMessage({
+                  defaultMessage: "I have a indeterminate position",
+                  description: "Label displayed for indeterminate option",
+                }),
+              },
+            ]}
+          />
+        )}
+      </div>
+      {govEmployee === "yes" &&
+        (govEmployeeStatus === "term" ||
+          govEmployeeStatus === "indeterminate") && (
+          <p>
+            Please indicate if you are interested in lateral deployment or
+            secondment. Learn more about this.
+          </p>
+        )}
+      <div>
+        {govEmployee === "yes" &&
+          (govEmployeeStatus === "term" ||
+            govEmployeeStatus === "indeterminate") && (
+            <Checkbox
+              id="lateral-second"
+              label={intl.formatMessage({
+                defaultMessage:
+                  "I am interested in lateral deployment or secondment.",
+                description: "Label displayed on lateral/secondment checkbox",
+              })}
+              name="lateral-second"
+            />
+          )}
+      </div>
+      {govEmployee === "yes" &&
+        (govEmployeeStatus === "term" ||
+          govEmployeeStatus === "indeterminate" ||
+          govEmployeeStatus === "casual") && (
+          <p>
+            Please indicate your current substantive group classification and
+            level.
+          </p>
+        )}
+      <div>
+        <div>
+          {govEmployee === "yes" &&
+            (govEmployeeStatus === "term" ||
+              govEmployeeStatus === "indeterminate" ||
+              govEmployeeStatus === "casual") && (
+              <Select
+                id="class-group"
+                label="Group"
+                name="class-group"
+                options={[
+                  { value: "1", label: "1" },
+                  { value: "2", label: "2" },
+                ]}
+              />
+            )}
+        </div>
+        <div>
+          {govEmployee === "yes" &&
+            (govEmployeeStatus === "term" ||
+              govEmployeeStatus === "indeterminate" ||
+              govEmployeeStatus === "casual") && (
+              <Select
+                id="class-level"
+                label="Level"
+                name="class-level"
+                options={[
+                  { value: "1", label: "1" },
+                  { value: "2", label: "2" },
+                ]}
+              />
+            )}
+        </div>
+      </div>
+
+      <ProfileFormFooter mode="saveButton" />
     </ProfileFormWrapper>
   );
 };
