@@ -129,7 +129,6 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<
     },
     user: {
       update: {
-        id: values.userId,
         firstName: values.firstName,
         lastName: values.lastName,
         telephone: values.telephone,
