@@ -106,12 +106,6 @@ export const UpdateUserForm: React.FunctionComponent<UpdateUserFormProps> = ({
     expectedClassifications: {
       sync: values.expectedClassifications,
     },
-    pools: {
-      create: undefined,
-    },
-    poolCandidates: {
-      create: undefined,
-    },
   });
 
   const methods = useForm<FormValues>({
