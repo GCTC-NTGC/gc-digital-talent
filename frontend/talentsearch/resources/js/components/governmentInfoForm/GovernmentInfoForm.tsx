@@ -1,10 +1,9 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { useWatch, useForm } from "react-hook-form";
+import { useWatch } from "react-hook-form";
 import { errorMessages } from "@common/messages";
 import { Checkbox, RadioGroup, Select } from "@common/components/form";
 import { getLocale } from "@common/helpers/localize";
-import { fakeClassifications } from "@common/fakeData";
 import { Classification } from "../../api/generated";
 import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
 import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
@@ -23,6 +22,7 @@ export const GovernmentInfoForm: React.FunctionComponent<{
   const intl = useIntl();
   const locale = getLocale(intl);
 
+  // hooks to watch, needed for conditional rendering
   const govEmployee = useWatch({
     name: "gov-employee-yesno",
     defaultValue: "no",
@@ -31,7 +31,13 @@ export const GovernmentInfoForm: React.FunctionComponent<{
     name: "gov-employee-status",
     defaultValue: "student",
   });
+  const groupSelection = useWatch({
+    name: "class-group",
+    defaultValue: "Choose Department",
+  });
 
+  // create array of objects containing the classifications, then map it into an array of strings, and then remove duplicates, and then map into Select options
+  // https://stackoverflow.com/questions/11246758/how-to-get-unique-values-in-an-array#comment87157537_42123984
   const classGroupsWithDupes: { value: string; label: string }[] =
     classifications.map((iterator) => {
       return {
@@ -45,14 +51,22 @@ export const GovernmentInfoForm: React.FunctionComponent<{
           }),
       };
     });
+  const mapped = classGroupsWithDupes.map((x) => x.label);
+  const noDupes = Array.from(new Set(mapped));
+  const groupOptions = noDupes.map((iterator) => {
+    return { value: iterator, label: iterator };
+  });
 
-  const classificationLevels = [
-    { value: "01", label: "01" },
-    { value: "02", label: "02" },
-    { value: "03", label: "03" },
-    { value: "04", label: "04" },
-    { value: "05", label: "05" },
-  ];
+  // generate classification levels from the selected group
+  const filteredArray = classifications.filter(
+    (x) => x.group === groupSelection,
+  );
+  const levelOptions = filteredArray.map((iterator) => {
+    return {
+      value: iterator.level.toString(),
+      label: iterator.level.toString(),
+    };
+  });
 
   return (
     <ProfileFormWrapper
@@ -107,7 +121,7 @@ export const GovernmentInfoForm: React.FunctionComponent<{
           ]}
         />
       </div>
-      <div>
+      <div data-h2-padding="b(top-bottom, m)">
         {" "}
         {govEmployee === "yes" && (
           <RadioGroup
@@ -156,11 +170,15 @@ export const GovernmentInfoForm: React.FunctionComponent<{
         (govEmployeeStatus === "term" ||
           govEmployeeStatus === "indeterminate") && (
           <p>
-            Please indicate if you are interested in lateral deployment or
-            secondment. Learn more about this.
+            {intl.formatMessage({
+              defaultMessage:
+                "Please indicate if you are interested in lateral deployment or secondment. Learn more about this.",
+              description:
+                "Text blurb, asking about interest in deployment/secondment in the government info form",
+            })}
           </p>
         )}
-      <div>
+      <div data-h2-padding="b(bottom, m)">
         {govEmployee === "yes" &&
           (govEmployeeStatus === "term" ||
             govEmployeeStatus === "indeterminate") && (
@@ -172,6 +190,8 @@ export const GovernmentInfoForm: React.FunctionComponent<{
                 description: "Label displayed on lateral/secondment checkbox",
               })}
               name="lateral-second"
+              boundingBox
+              boundingBoxLabel="Lateral Deployment"
             />
           )}
       </div>
@@ -180,12 +200,16 @@ export const GovernmentInfoForm: React.FunctionComponent<{
           govEmployeeStatus === "indeterminate" ||
           govEmployeeStatus === "casual") && (
           <p>
-            Please indicate your current substantive group classification and
-            level.
+            {intl.formatMessage({
+              defaultMessage:
+                "Please indicate your current substantive group classification and level.",
+              description:
+                "Text blurb, asking about classification and level in the government info form",
+            })}
           </p>
         )}
-      <div>
-        <div>
+      <div data-h2-display="b(flex)">
+        <div data-h2-padding="b(right, l)">
           {govEmployee === "yes" &&
             (govEmployeeStatus === "term" ||
               govEmployeeStatus === "indeterminate" ||
@@ -194,10 +218,12 @@ export const GovernmentInfoForm: React.FunctionComponent<{
                 id="class-group"
                 label="Group"
                 name="class-group"
-                options={[
-                  { value: "1", label: "1" },
-                  { value: "2", label: "2" },
-                ]}
+                nullSelection={intl.formatMessage({
+                  defaultMessage: "Choose Department",
+                  description: "Null selection for form.",
+                })}
+                rules={{ required: intl.formatMessage(errorMessages.required) }}
+                options={groupOptions}
               />
             )}
         </div>
@@ -205,15 +231,20 @@ export const GovernmentInfoForm: React.FunctionComponent<{
           {govEmployee === "yes" &&
             (govEmployeeStatus === "term" ||
               govEmployeeStatus === "indeterminate" ||
-              govEmployeeStatus === "casual") && (
+              govEmployeeStatus === "casual") &&
+            groupSelection !== "Choose Department" && (
               <Select
                 id="class-level"
                 label="Level"
                 name="class-level"
-                options={[
-                  { value: "1", label: "1" },
-                  { value: "2", label: "2" },
-                ]}
+                rules={{
+                  required: intl.formatMessage(errorMessages.required),
+                }}
+                nullSelection={intl.formatMessage({
+                  defaultMessage: "Choose Level",
+                  description: "Null selection for form.",
+                })}
+                options={levelOptions}
               />
             )}
         </div>
