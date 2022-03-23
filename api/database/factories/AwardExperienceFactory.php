@@ -51,7 +51,7 @@ class AwardExperienceFactory extends Factory
         ];
     }
 
-    public function configure()
+    /*public function configure()
     {
         return $this->afterCreating(function (AwardExperience $exp) {
             $count = $this->faker->biasedNumberBetween($min = 0, $max = 6, $function = 'Faker\Provider\Biased::linearLow');
@@ -64,5 +64,5 @@ class AwardExperienceFactory extends Factory
                 ->for($exp, 'experience')
                 ->create();
         });
-    }
+    }*/
 }

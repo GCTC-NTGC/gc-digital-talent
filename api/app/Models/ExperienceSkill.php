@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\MorphPivot;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 
@@ -19,11 +19,13 @@ use Illuminate\Database\Eloquent\Relations\MorphTo;
  * @property Illuminate\Support\Carbon $updated_at
  */
 
-class ExperienceSkill extends Model
+class ExperienceSkill extends MorphPivot
 {
     use HasFactory;
 
-    protected $keyType = 'string';
+    // We could put other relationships here if needed
+
+    /* protected $keyType = 'string';
 
     public function skill(): BelongsTo
     {
@@ -33,5 +35,5 @@ class ExperienceSkill extends Model
     public function experience(): MorphTo
     {
         return $this->morphTo();
-    }
+    } */
 }

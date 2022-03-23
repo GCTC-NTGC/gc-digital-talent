@@ -352,7 +352,7 @@ type Skill {
     description: LocalizedString
     keywords: [String!]
     families: [SkillFamily!] @belongsToMany
-    experienceSkills: [ExperienceSkill] @hasMany
+    pivot: ExperienceSkill
 }
 
 enum AwardedTo {
@@ -393,7 +393,7 @@ interface Experience {
   id: ID!
   applicant: Applicant! @belongsTo(relation: "user")
   details: String
-  experienceSkills: [ExperienceSkill] @morphMany
+  skills: [Skill!] @morphToMany
 }
 
 type WorkExperience implements Experience {
@@ -405,7 +405,7 @@ type WorkExperience implements Experience {
   startDate: Date @rename(attribute: "start_date")
   endDate: Date @rename(attribute: "end_date")
   details: String
-  experienceSkills: [ExperienceSkill] @morphMany
+  skills: [Skill!] @morphToMany
 }
 type PersonalExperience implements Experience {
   id: ID!
@@ -415,7 +415,7 @@ type PersonalExperience implements Experience {
   startDate: Date @rename(attribute: "start_date")
   endDate: Date @rename(attribute: "end_date")
   details: String
-  experienceSkills: [ExperienceSkill] @morphMany
+  skills: [Skill!] @morphToMany
 }
 type CommunityExperience implements Experience {
   id: ID!
@@ -426,7 +426,7 @@ type CommunityExperience implements Experience {
   startDate: Date @rename(attribute: "start_date")
   endDate: Date @rename(attribute: "end_date")
   details: String
-  experienceSkills: [ExperienceSkill] @morphMany
+  skills: [Skill!] @morphToMany
 }
 type EducationExperience implements Experience {
   id: ID!
@@ -439,7 +439,7 @@ type EducationExperience implements Experience {
   type: EducationType
   status: EducationStatus
   details: String
-  experienceSkills: [ExperienceSkill] @morphMany
+  skills: [Skill!] @morphToMany
 }
 type AwardExperience implements Experience {
   id: ID!
@@ -450,14 +450,11 @@ type AwardExperience implements Experience {
   awardedTo: AwardedTo @rename(attribute: "awarded_to")
   awardedScope: AwardedScope @rename(attribute: "awarded_scope")
   details: String
-  experienceSkills: [ExperienceSkill] @morphMany
+  skills: [Skill!] @morphToMany
 }
 
 type ExperienceSkill {
-  id: ID!
   details: String
-  skill: Skill! @belongsTo
-  experience: Experience! @morphTo
 }
 
 input ClassificationFilterInput {
@@ -518,7 +515,6 @@ type Query {
     skillFamilies: [SkillFamily]! @all
     skill(id: ID! @eq): Skill @find
     skills: [Skill]! @all
-    experienceSkills: [ExperienceSkill]! @all
 }
 """
 When creating a User, name and email are required.

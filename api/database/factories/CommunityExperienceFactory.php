@@ -34,7 +34,7 @@ class CommunityExperienceFactory extends Factory
         ];
     }
 
-    public function configure()
+    /*public function configure()
     {
         return $this->afterCreating(function (CommunityExperience $exp) {
             $count = $this->faker->biasedNumberBetween($min = 0, $max = 6, $function = 'Faker\Provider\Biased::linearLow');
@@ -47,5 +47,5 @@ class CommunityExperienceFactory extends Factory
                 ->for($exp, 'experience')
                 ->create();
         });
-    }
+    }*/
 }

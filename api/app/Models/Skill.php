@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
 
 /**
  * Class Skill
@@ -43,8 +44,13 @@ class Skill extends Model
         return $this->belongsToMany(SkillFamily::class);
     }
 
-    public function experienceSkills() : HasMany
+    /* public function experienceSkills() : HasMany
     {
         return $this->hasMany(ExperienceSkill::class);
+    } */
+
+    public function experience(): MorphToMany
+    {
+        return $this->morphToMany();
     }
 }
