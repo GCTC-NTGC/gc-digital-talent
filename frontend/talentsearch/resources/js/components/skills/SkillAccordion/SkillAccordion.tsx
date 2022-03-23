@@ -91,7 +91,13 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
         <p>
           {" "}
           {type ? intl.formatMessage(getEducationType(type)) : ""}{" "}
-          {status ? intl.formatMessage(getEducationStatus(status)) : ""}{" "}
+          <span
+            data-h2-font-color="b(lightpurple)"
+            data-h2-font-style="b(italic)"
+          >
+            {" "}
+            {status ? intl.formatMessage(getEducationStatus(status)) : ""}{" "}
+          </span>
         </p>
         <p>
           {" "}
