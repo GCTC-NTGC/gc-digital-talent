@@ -942,7 +942,6 @@ input UpdateUserAsAdminInput {
 }
 
 input UpdateUserAsUserInput {
-  sub: String
   firstName: String
   lastName: String
   telephone: PhoneNumber
