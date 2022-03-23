@@ -627,8 +627,6 @@ input UpdateUserAsAdminInput {
 }
 
 input UpdateUserAsUserInput {
-    sub: String
-
     # Personal info
     firstName: String @rename(attribute: "first_name")
     lastName: String @rename(attribute: "last_name")
