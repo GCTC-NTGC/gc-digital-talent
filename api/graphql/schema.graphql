@@ -566,8 +566,6 @@ input CreateUserInput {
 
     # Applicant info
     jobLookingStatus: JobLookingStatus @rename(attribute: "job_looking_status")
-    pools: PoolsHasMany #Pools that a user owns
-    poolCandidates: PoolCandidateHasMany #Pools candidates that a user owns
 
     hasDiploma: Boolean @rename(attribute: "has_diploma")
     locationPreferences: [WorkRegion] @rename(attribute: "location_preferences")
@@ -617,8 +615,6 @@ input UpdateUserAsAdminInput {
 
     # Applicant info
     jobLookingStatus: JobLookingStatus @rename(attribute: "job_looking_status")
-    pools: PoolsHasMany #Pools that a user owns
-    poolCandidates: PoolCandidateHasMany #Pools candidates that a user owns
 
     hasDiploma: Boolean @rename(attribute: "has_diploma")
     locationPreferences: [WorkRegion] @rename(attribute: "location_preferences")

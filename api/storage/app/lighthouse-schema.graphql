@@ -245,8 +245,6 @@ input CreateUserInput {
   isIndigenous: Boolean
   isVisibleMinority: Boolean
   jobLookingStatus: JobLookingStatus
-  pools: PoolsHasMany
-  poolCandidates: PoolCandidateHasMany
   hasDiploma: Boolean
   locationPreferences: [WorkRegion]
   locationExemptions: String
@@ -933,8 +931,6 @@ input UpdateUserAsAdminInput {
   isIndigenous: Boolean
   isVisibleMinority: Boolean
   jobLookingStatus: JobLookingStatus
-  pools: PoolsHasMany
-  poolCandidates: PoolCandidateHasMany
   hasDiploma: Boolean
   locationPreferences: [WorkRegion]
   locationExemptions: String
