@@ -8,7 +8,7 @@
       "type": "shell",
 
       "command": "docker-compose",
-      "args": ["run", "--rm", "maintenance", "bash", "refresh_auth.sh"],
+      "args": ["run", "--rm", "maintenance", "bash", "--login", "refresh_auth.sh"],
 
       "options": { "cwd": "infrastructure" },
       "presentation": {
@@ -26,7 +26,7 @@
       "type": "shell",
 
       "command": "docker-compose",
-      "args": ["run", "--rm", "maintenance", "bash", "refresh_api.sh"],
+      "args": ["run", "--rm", "maintenance", "bash", "--login", "refresh_api.sh"],
 
       "options": { "cwd": "infrastructure" },
       "presentation": {
@@ -44,7 +44,7 @@
       "type": "shell",
 
       "command": "docker-compose",
-      "args": ["run", "--rm", "maintenance", "bash", "refresh_common.sh"],
+      "args": ["run", "--rm", "maintenance", "bash", "--login", "refresh_common.sh"],
 
       "options": { "cwd": "infrastructure" },
       "presentation": {
@@ -62,7 +62,7 @@
       "type": "shell",
 
       "command": "docker-compose",
-      "args": ["run", "--rm", "maintenance", "bash", "refresh_talentsearch.sh"],
+      "args": ["run", "--rm", "maintenance", "bash", "--login", "refresh_talentsearch.sh"],
 
       "options": { "cwd": "infrastructure" },
       "presentation": {
@@ -80,7 +80,7 @@
       "type": "shell",
 
       "command": "docker-compose",
-      "args": ["run", "--rm", "maintenance", "bash", "refresh_admin.sh"],
+      "args": ["run", "--rm", "maintenance", "bash", "--login", "refresh_admin.sh"],
 
       "options": { "cwd": "infrastructure" },
       "presentation": {
@@ -98,7 +98,7 @@
       "type": "shell",
 
       "command": "docker-compose",
-      "args": ["run", "--rm", "maintenance", "bash", "refresh_all.sh"],
+      "args": ["run", "--rm", "maintenance", "bash", "--login", "refresh_all.sh"],
 
       "options": { "cwd": "infrastructure" },
       "presentation": {
