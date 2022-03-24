@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import * as React from "react";
-import { getLocale } from "@common/helpers/localize";
+import { getLocale, Locales } from "@common/helpers/localize";
 import Accordion from "@common/components/accordion";
 import { IntlShape, useIntl } from "react-intl";
 import {
@@ -10,6 +10,7 @@ import {
   getEducationType,
 } from "@common/constants/localizedConstants";
 
+import { Scalars } from "@common/api/generated";
 import {
   Skill,
   Experience,
@@ -32,17 +33,32 @@ export interface SkillAccordionProps {
   skill: Skill;
 }
 
-function getDateRange(
-  endDate: Maybe<string>,
-  startDate: Maybe<string>,
-  intl: IntlShape,
-): React.ReactNode {
-  const formatter = new Intl.DateTimeFormat("en", {
+function getDateRange({
+  endDate,
+  startDate,
+  intl,
+  locale,
+}: {
+  endDate: Maybe<Scalars["Date"]>;
+  startDate: Maybe<Scalars["Date"]>;
+  intl: IntlShape;
+  locale: Locales;
+}): React.ReactNode {
+  const formatter = new Intl.DateTimeFormat(locale, {
     year: "numeric",
     month: "short",
   });
-  const d1 = formatter.format(new Date(startDate!));
-  const d2 = formatter.format(new Date(endDate!));
+  if (!startDate) return null;
+  const d1 = formatter.format(new Date(startDate));
+  if (!endDate)
+    return intl.formatMessage(
+      {
+        defaultMessage: "Since: {d1}",
+        description: "Since",
+      },
+      { d1 },
+    );
+  const d2 = formatter.format(new Date(endDate));
   return endDate
     ? `${d1} - ${d2}`
     : intl.formatMessage(
@@ -71,7 +87,7 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
     return (
       <div>
         <p data-h2-font-color="b(lightpurple)"> {title} </p>
-        <p>{getDateRange(endDate, startDate, intl)}</p>
+        <p>{getDateRange({ endDate, startDate, intl, locale })}</p>
         <p> {description} </p>
         <p> {details} </p>
       </div>
@@ -125,7 +141,7 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
               )
             : ""}{" "}
         </p>
-        <p>{getDateRange(endDate, startDate, intl)}</p>
+        <p>{getDateRange({ endDate, startDate, intl, locale })}</p>
         <p> {details} </p>
       </div>
     );
@@ -194,7 +210,7 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
             { organization },
           )}
         </p>
-        <p>{getDateRange(endDate, startDate, intl)}</p>
+        <p>{getDateRange({ endDate, startDate, intl, locale })}</p>
         <p>
           {" "}
           {intl.formatMessage(
@@ -237,7 +253,7 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
           )}
         </p>
         <p>{organization}</p>
-        <p>{getDateRange(endDate, startDate, intl)}</p>
+        <p>{getDateRange({ endDate, startDate, intl, locale })}</p>
 
         <p>
           {intl.formatMessage(
