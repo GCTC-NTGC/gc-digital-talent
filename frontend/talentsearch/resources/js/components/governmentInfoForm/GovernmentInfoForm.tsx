@@ -4,7 +4,15 @@ import { useWatch } from "react-hook-form";
 import { errorMessages } from "@common/messages";
 import { Checkbox, RadioGroup, Select } from "@common/components/form";
 import { getLocale } from "@common/helpers/localize";
-import { Classification } from "../../api/generated";
+import Form from "@common/components/form/BasicForm";
+import { fakeClassifications } from "@common/fakeData";
+import {
+  GetAllClassificationsQuery,
+  Classification,
+  GetAllClassificationsQueryVariables,
+  GetAllClassificationsDocument,
+  useGetAllClassificationsQuery,
+} from "../../api/generated";
 import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
 import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
 
@@ -262,4 +270,34 @@ export const GovernmentInfoForm: React.FunctionComponent<{
   );
 };
 
-export default GovernmentInfoForm;
+export const GovInfoFormContainer: React.FunctionComponent = () => {
+  const fakes = fakeClassifications();
+
+  const [lookUpResult] = useGetAllClassificationsQuery();
+  const {
+    data: lookupData,
+    fetching: fetchingLookupData,
+    error: lookupDataError,
+  } = lookUpResult;
+
+  console.log(lookupData, fetchingLookupData, lookupDataError);
+
+  return (
+    <div>
+      <Form
+        onSubmit={(data: FormValues) => {
+          return null;
+        }}
+      >
+        <GovernmentInfoForm
+          classifications={fakes}
+          handleSubmit={() => {
+            return null;
+          }}
+        />
+      </Form>
+    </div>
+  );
+};
+
+export default GovInfoFormContainer;

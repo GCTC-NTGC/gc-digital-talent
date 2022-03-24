@@ -6,8 +6,7 @@ import { render, screen, fireEvent } from "@testing-library/react";
 import React from "react";
 import { IntlProvider, MessageFormatElement } from "react-intl";
 import { fakeClassifications } from "@common/fakeData";
-import Form from "@common/components/form/BasicForm";
-import GovernmentInfoForm, { FormValues } from "./GovernmentInfoForm";
+import GovInfoFormContainer from "./GovernmentInfoForm";
 import { Classification } from "../../api/generated";
 
 const classificationsArray = fakeClassifications();
@@ -24,25 +23,12 @@ const renderWithReactIntl = (
   );
 };
 
-function renderGovernmentInfoForm(classifications: Classification[]) {
-  return renderWithReactIntl(
-    <Form
-      onSubmit={(data: FormValues) => {
-        return null;
-      }}
-    >
-      <GovernmentInfoForm
-        classifications={classifications}
-        handleSubmit={() => {
-          return null;
-        }}
-      />
-    </Form>,
-  );
+function renderGovernmentInfoForm() {
+  return renderWithReactIntl(<GovInfoFormContainer />);
 }
 
 test("Test form display rendering", async () => {
-  renderGovernmentInfoForm(classificationsArray);
+  renderGovernmentInfoForm();
 
   const button = screen.getByText("Yes, I am a Government of Canada employee");
   const studentNotPresent = screen.queryByText("I am a student");
@@ -61,7 +47,7 @@ test("Test form display rendering", async () => {
 });
 
 test("Test form data", async () => {
-  renderGovernmentInfoForm(classificationsArray);
+  renderGovernmentInfoForm();
 
   const button = screen.getByText("Yes, I am a Government of Canada employee");
   fireEvent.click(button); // Open the second form
@@ -69,5 +55,5 @@ test("Test form data", async () => {
   const button2 = screen.getByText("I have a term position");
   fireEvent.click(button2); // Open the other forms
 
-  const button3 = screen.getByLabelText("Current Classification Level");
+  const button3 = screen.getByLabelText("Current Classification Group");
 });

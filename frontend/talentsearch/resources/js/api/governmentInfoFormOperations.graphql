@@ -1,0 +1,13 @@
+query getAllClassifications {
+  classifications {
+    id
+    name {
+      en
+      fr
+    }
+    group
+    level
+    minSalary
+    maxSalary
+  }
+}
