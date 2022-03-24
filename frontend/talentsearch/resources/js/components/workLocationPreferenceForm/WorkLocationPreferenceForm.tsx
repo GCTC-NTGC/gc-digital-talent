@@ -41,7 +41,7 @@ const WorkLocationPreferenceForm: React.FC<WorkLocationPreferenceFormProps> = ({
       >
         <div>
           <div data-h2-flex-item="b(1of1)" data-h2-padding="b(top, m)">
-            <div data-h2-padding="b(right, l)">
+            <div data-h2-padding="b(right, l)" data-testid="workLocation">
               <Checklist
                 idPrefix="work-location"
                 legend={intl.formatMessage({
@@ -106,7 +106,7 @@ const WorkLocationPreferenceForm: React.FC<WorkLocationPreferenceFormProps> = ({
                   {
                     value: "british-columbia-region",
                     label: intl.formatMessage({
-                      defaultMessage: "<bold>British Columbia Region</bold>",
+                      defaultMessage: "British Columbia Region",
                       description:
                         "Label for one of the check list item in Work Location Preference Form. ",
                     }),
@@ -115,7 +115,7 @@ const WorkLocationPreferenceForm: React.FC<WorkLocationPreferenceFormProps> = ({
                     value: "north-region",
                     label: intl.formatMessage({
                       defaultMessage:
-                        "<bold>North Region:</bold>Yukon, Northwest Territories and Nunavut.",
+                        "North Region: Yukon, Northwest Territories and Nunavut.",
                       description:
                         "Label for one of the check list item in Work Location Preference Form. ",
                     }),
