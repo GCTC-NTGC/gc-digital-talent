@@ -18,7 +18,8 @@ export type FormValues = {
 
 export const GovernmentInfoForm: React.FunctionComponent<{
   classifications: Classification[];
-}> = ({ classifications }) => {
+  handleSubmit: any;
+}> = ({ classifications, handleSubmit }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
 

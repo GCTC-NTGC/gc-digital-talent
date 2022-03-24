@@ -31,7 +31,12 @@ function renderGovernmentInfoForm(classifications: Classification[]) {
         return null;
       }}
     >
-      <GovernmentInfoForm classifications={classifications} />
+      <GovernmentInfoForm
+        classifications={classifications}
+        handleSubmit={() => {
+          return null;
+        }}
+      />
     </Form>,
   );
 }
@@ -40,12 +45,12 @@ test("Test form display rendering", async () => {
   renderGovernmentInfoForm(classificationsArray);
 
   const button = screen.getByText("Yes, I am a Government of Canada employee");
-  expect(screen.getByText("I am a student")).toBeFalsy();
+  const studentNotPresent = screen.queryByText("I am a student");
+  expect(studentNotPresent).toBeNull();
   fireEvent.click(button); // Open the second form
   expect(screen.getByText("I am a student")).toBeTruthy();
 
   const button2 = screen.getByText("I have a term position");
-  expect(screen.getByText("Level")).toBeFalsy();
   fireEvent.click(button2); // Open the other forms
   expect(
     screen.getByText(
@@ -53,4 +58,16 @@ test("Test form display rendering", async () => {
     ),
   ).toBeTruthy();
   expect(screen.getByText("Level")).toBeTruthy();
+});
+
+test("Test form data", async () => {
+  renderGovernmentInfoForm(classificationsArray);
+
+  const button = screen.getByText("Yes, I am a Government of Canada employee");
+  fireEvent.click(button); // Open the second form
+
+  const button2 = screen.getByText("I have a term position");
+  fireEvent.click(button2); // Open the other forms
+
+  const button3 = screen.getByLabelText("Current Classification Level");
 });

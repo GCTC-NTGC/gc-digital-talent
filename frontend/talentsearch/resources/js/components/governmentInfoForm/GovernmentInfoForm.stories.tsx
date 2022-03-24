@@ -13,11 +13,16 @@ export default {
 const TemplateGovInfoForm: Story = () => {
   return (
     <Form
-      onSubmit={async (data: FormValues) => {
-        action("submit")(data);
+      onSubmit={(data: FormValues) => {
+        return null;
       }}
     >
-      <GovernmentInfoForm classifications={fakeClassifications()} />
+      <GovernmentInfoForm
+        classifications={fakeClassifications()}
+        handleSubmit={() => {
+          return null;
+        }}
+      />
     </Form>
   );
 };
