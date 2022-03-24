@@ -10,7 +10,6 @@ const applicantProfileRoutes = (lang: string) => {
   return {
     home,
     workPreferences: (): string => path.join(home(), "workpreferences"),
-    governmentInfo: (): string => path.join(home(), "governmentinformation"),
   };
 };
 

@@ -91,7 +91,7 @@ export const GovernmentInfoForm: React.FunctionComponent<{
         },
       ]}
     >
-      <div>
+      <div data-h2-flex-item="b(1of1) s(1of2) m(1of6) l(1of12)">
         <RadioGroup
           idPrefix="gov-employee-yesno"
           legend={intl.formatMessage({
@@ -107,13 +107,13 @@ export const GovernmentInfoForm: React.FunctionComponent<{
               label: intl.formatMessage({
                 defaultMessage: "No, I am not a Government of Canada employee",
                 description:
-                  "Label displayed for not a government employee option",
+                  "Label displayed for is not a government employee option",
               }),
             },
             {
               value: "yes",
               label: intl.formatMessage({
-                defaultMessage: "Yes, I am not a Government of Canada employee",
+                defaultMessage: "Yes, I am a Government of Canada employee",
                 description:
                   "Label displayed for is a government employee option",
               }),
@@ -121,7 +121,7 @@ export const GovernmentInfoForm: React.FunctionComponent<{
           ]}
         />
       </div>
-      <div data-h2-padding="b(top-bottom, m)">
+      <div data-h2-padding="b(top-bottom, m)" data-h2-flex-item="b(1of3)">
         {" "}
         {govEmployee === "yes" && (
           <RadioGroup
@@ -216,10 +216,13 @@ export const GovernmentInfoForm: React.FunctionComponent<{
               govEmployeeStatus === "casual") && (
               <Select
                 id="class-group"
-                label="Group"
+                label={intl.formatMessage({
+                  defaultMessage: "Current Classification Group",
+                  description: "Label displayed on classification group input",
+                })}
                 name="class-group"
                 nullSelection={intl.formatMessage({
-                  defaultMessage: "Choose Department",
+                  defaultMessage: "Choose Group",
                   description: "Null selection for form.",
                 })}
                 rules={{ required: intl.formatMessage(errorMessages.required) }}
@@ -235,7 +238,10 @@ export const GovernmentInfoForm: React.FunctionComponent<{
             groupSelection !== "Choose Department" && (
               <Select
                 id="class-level"
-                label="Level"
+                label={intl.formatMessage({
+                  defaultMessage: "Current Classification Level",
+                  description: "Label displayed on classification level input",
+                })}
                 name="class-level"
                 rules={{
                   required: intl.formatMessage(errorMessages.required),
