@@ -2,8 +2,8 @@
   "debug": false,
   "mediaWarnings": false,
   "folders": {
-    "markup": "../*/resources/views/*.blade.php",
-    "scripts": ["../talentsearch/src/js", "../admin/resources/js", "../common/src"],
+    "markup": "../*/src/views/*.html",
+    "scripts": ["../talentsearch/src/js", "../admin/src/js", "../common/src"],
     "styles": "src/css"
   },
   "colors": [

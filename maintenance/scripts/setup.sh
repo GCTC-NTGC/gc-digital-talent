@@ -68,11 +68,6 @@ npm run dev
 # setup admin project
 cd /var/www/html/frontend/admin
 cp .env.example .env
-${parent_path}/update_env_appkey.sh .env
-composer install
-php artisan config:clear
 npm run codegen
 npm run intl-compile
 npm run dev
-chown -R www-data ./storage ./vendor
-chmod -R 775 ./storage

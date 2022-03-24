@@ -40,7 +40,7 @@ module.exports = {
     // generate an index.html file based on given template
     new HtmlWebpackPlugin({
       title: "GC Talent",
-      template: path.resolve(__dirname, "./src/views/page_container.blade.php"),
+      template: path.resolve(__dirname, "./src/views/page_container.html"),
     }),
   ],
   module: {
