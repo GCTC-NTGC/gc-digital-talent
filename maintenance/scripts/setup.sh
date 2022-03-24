@@ -56,7 +56,6 @@ cd /var/www/html/frontend/talentsearch
 cp .env.example .env
 ${parent_path}/update_env_appkey.sh .env
 composer install
-npm run h2-build
 npm run codegen
 npm run intl-compile
 npm run dev
@@ -74,7 +73,6 @@ ${parent_path}/update_admin_env.sh
 rm admin_secret.txt
 cd /var/www/html/frontend/admin
 php artisan config:clear
-npm run h2-build
 npm run codegen
 npm run intl-compile
 npm run dev
