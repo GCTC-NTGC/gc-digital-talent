@@ -1,11 +1,10 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
-import pick from "lodash/pick";
 import { toast } from "react-toastify";
 import { Select, Submit, Input, MultiSelect } from "@common/components/form";
 import { navigate } from "@common/helpers/router";
-import { enumToOptions } from "@common/helpers/formUtils";
+import { enumToOptions, unpackIds } from "@common/helpers/formUtils";
 import { errorMessages, commonMessages } from "@common/messages";
 import { getLanguage, getRole } from "@common/constants/localizedConstants";
 import { phoneNumberRegex } from "@common/constants/regularExpressions";
@@ -13,17 +12,60 @@ import { useAdminRoutes } from "../../adminRoutes";
 import {
   Language,
   Role,
-  UpdateUserInput,
+  UpdateUserAsAdminInput,
+  UpdateUserAsAdminMutation,
   User,
-  useUpdateUserMutation,
+  useUpdateUserAsAdminMutation,
   useUserQuery,
 } from "../../api/generated";
+
 import DashboardContentContainer from "../DashboardContentContainer";
 
-type FormValues = UpdateUserInput;
+type FormValues = Pick<
+  UpdateUserAsAdminInput,
+  | "bilingualEvaluation"
+  | "comprehensionLevel"
+  | "currentCity"
+  | "currentProvince"
+  | "estimatedLanguageAbility"
+  | "expectedSalary"
+  | "firstName"
+  | "hasDiploma"
+  | "hasDisability"
+  | "isGovEmployee"
+  | "interestedInLaterOrSecondment"
+  | "isIndigenous"
+  | "isVisibleMinority"
+  | "isWoman"
+  | "jobLookingStatus"
+  | "languageAbility"
+  | "lastName"
+  | "locationExemptions"
+  | "locationPreferences"
+  | "lookingForBilingual"
+  | "lookingForEnglish"
+  | "lookingForFrench"
+  | "roles"
+  | "preferredLang"
+  | "telephone"
+  | "verbalLevel"
+  | "wouldAcceptTemporary"
+  | "writtenLevel"
+  | "sub"
+> & {
+  acceptedOperationalRequirements: string[] | undefined;
+  cmoAssets: string[] | undefined;
+  currentClassification: string;
+  expectedClassifications: string[] | undefined;
+  pools: string[] | undefined;
+  poolCandidates: string[] | undefined;
+};
 interface UpdateUserFormProps {
   initialUser: User;
-  handleUpdateUser: (id: string, data: FormValues) => Promise<FormValues>;
+  handleUpdateUser: (
+    id: string,
+    data: UpdateUserAsAdminInput,
+  ) => Promise<UpdateUserAsAdminMutation["updateUserAsAdmin"]>;
 }
 
 export const UpdateUserForm: React.FunctionComponent<UpdateUserFormProps> = ({
@@ -32,11 +74,47 @@ export const UpdateUserForm: React.FunctionComponent<UpdateUserFormProps> = ({
 }) => {
   const intl = useIntl();
   const paths = useAdminRoutes();
-  const methods = useForm<FormValues>({ defaultValues: initialUser });
+
+  const dataToFormValues = (data: User): FormValues => ({
+    ...data,
+
+    acceptedOperationalRequirements: unpackIds(
+      data.acceptedOperationalRequirements,
+    ),
+    cmoAssets: unpackIds(data.cmoAssets),
+    currentClassification: data.currentClassification
+      ? data.currentClassification.id
+      : "",
+    expectedClassifications: unpackIds(data.expectedClassifications),
+    pools: unpackIds(data.pools),
+    poolCandidates: unpackIds(data.poolCandidates),
+  });
+
+  const formValuesToSubmitData = (
+    values: FormValues,
+  ): UpdateUserAsAdminInput => ({
+    ...values,
+    acceptedOperationalRequirements: {
+      sync: values.acceptedOperationalRequirements,
+    },
+    cmoAssets: {
+      sync: values.cmoAssets,
+    },
+    currentClassification: {
+      connect: values.currentClassification,
+    },
+    expectedClassifications: {
+      sync: values.expectedClassifications,
+    },
+  });
+
+  const methods = useForm<FormValues>({
+    defaultValues: dataToFormValues(initialUser),
+  });
   const { handleSubmit } = methods;
 
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
-    return handleUpdateUser(initialUser.id, data)
+    await handleUpdateUser(initialUser.id, formValuesToSubmitData(data))
       .then(() => {
         navigate(paths.userTable());
         toast.success(
@@ -199,24 +277,17 @@ export const UpdateUser: React.FunctionComponent<{ userId: string }> = ({
     variables: { id: userId },
   });
 
-  const [, executeMutation] = useUpdateUserMutation();
-  const handleUpdateUser = (id: string, data: UpdateUserInput) =>
+  const [, executeMutation] = useUpdateUserAsAdminMutation();
+  const handleUpdateUser = (id: string, data: UpdateUserAsAdminInput) =>
     /* We must pick only the fields belonging to UpdateUserInput, because its possible
        the data object contains other props at runtime, and this will cause the
        graphql operation to fail. */
     executeMutation({
       id,
-      user: pick(data, [
-        "firstName",
-        "lastName",
-        "telephone",
-        "preferredLang",
-        "sub",
-        "roles",
-      ]),
+      user: data,
     }).then((result) => {
-      if (result.data?.updateUser) {
-        return result.data?.updateUser;
+      if (result.data?.updateUserAsAdmin) {
+        return result.data.updateUserAsAdmin;
       }
       return Promise.reject(result.error);
     });
