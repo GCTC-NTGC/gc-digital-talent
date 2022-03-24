@@ -9,6 +9,7 @@ import {
   usePagination,
 } from "react-table";
 import { Button } from "@common/components";
+import Pagination from "@common/components/Pagination";
 import {
   ChevronDoubleLeftIcon,
   ChevronDoubleRightIcon,
@@ -57,6 +58,7 @@ function Table<T extends Record<string, unknown>>({
     state,
     allColumns,
     getToggleHideAllColumnsProps,
+    rows,
     pageOptions,
     pageCount,
     state: { pageIndex, pageSize },
@@ -86,6 +88,8 @@ function Table<T extends Record<string, unknown>>({
   function strong(msg: string) {
     return <span data-h2-font-weight="b(600)">{msg}</span>;
   }
+
+  console.log(page);
 
   return (
     <div>
@@ -204,11 +208,18 @@ function Table<T extends Record<string, unknown>>({
           </tbody>
         </table>
       </div>
+      <Pagination
+        currentPage={pageIndex + 1}
+        handlePageChange={(pageNumber) => gotoPage(pageNumber - 1)}
+        pageSize={pageSize}
+        totalCount={rows.length}
+        data-h2-padding="b(all, xs)"
+      />
       {/*
         Pagination can be built however you'd like.
         This is just a very basic UI implementation:
       */}
-      <div
+      {/* <div
         data-h2-padding="b(all, s)"
         data-h2-display="b(flex)"
         data-h2-align-items="b(center)"
@@ -302,7 +313,7 @@ function Table<T extends Record<string, unknown>>({
             </option>
           ))}
         </select>
-      </div>
+      </div> */}
     </div>
   );
 }

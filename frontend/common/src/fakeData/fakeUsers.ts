@@ -16,5 +16,5 @@ const generateUser = (): User => {
 
 export default (): User[] => {
   faker.seed(0); // repeatable results
-  return [...Array(20)].map(() => generateUser());
+  return [...Array(100)].map(() => generateUser());
 };

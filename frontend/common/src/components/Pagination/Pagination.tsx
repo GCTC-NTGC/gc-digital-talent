@@ -27,6 +27,7 @@ const Pagination: React.FunctionComponent<PaginationProps> = ({
   currentPage,
   pageSize,
   handlePageChange,
+  ...rest
 }) => {
   const intl = useIntl();
   const paginationRange = usePagination({
@@ -63,8 +64,8 @@ const Pagination: React.FunctionComponent<PaginationProps> = ({
       <ul
         className="reset-ul"
         data-h2-display="b(flex)"
-        data-h2-justify-content="b(center)"
         data-h2-align-items="b(center)"
+        {...rest}
       >
         {/* left navigation arrow */}
         <li>
