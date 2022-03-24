@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 
 /**
@@ -48,13 +47,9 @@ class EducationExperience extends Model
         return $this->belongsTo(User::class);
     }
 
-    /* public function experienceSkills(): MorphMany
-    {
-        return $this->morphMany(ExperienceSkill::class, 'experience');
-    } */
-
     public function skills(): MorphToMany
     {
-        return $this->morphToMany(Skill::class, 'experience');
+        return $this->morphToMany(Skill::class, 'experience', 'experience_skills')
+            ->withPivot('created_at', 'updated_at', 'details');
     }
 }

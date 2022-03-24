@@ -50,6 +50,7 @@ type AwardExperience implements Experience {
   awardedScope: AwardedScope
   details: String
   skills: [Skill!]
+  skillPivot: ExperienceSkillPivot
 }
 
 enum AwardedScope {
@@ -117,6 +118,7 @@ type CommunityExperience implements Experience {
   endDate: Date
   details: String
   skills: [Skill!]
+  skillPivot: ExperienceSkillPivot
 }
 
 input CreateClassificationInput {
@@ -254,6 +256,7 @@ type EducationExperience implements Experience {
   status: EducationStatus
   details: String
   skills: [Skill!]
+  skillPivot: ExperienceSkillPivot
 }
 
 enum EducationStatus {
@@ -300,7 +303,7 @@ interface Experience {
   skills: [Skill!]
 }
 
-type ExperienceSkill {
+type ExperienceSkillPivot {
   details: String
 }
 
@@ -487,6 +490,7 @@ type PersonalExperience implements Experience {
   endDate: Date
   details: String
   skills: [Skill!]
+  skillPivot: ExperienceSkillPivot
 }
 
 """
@@ -738,7 +742,13 @@ type Skill {
   description: LocalizedString
   keywords: [String!]
   families: [SkillFamily!]
-  pivot: ExperienceSkill
+  experiences: [Experience]
+  awardExperiences: [AwardExperience]
+  communityExperiences: [CommunityExperience]
+  educationExperiences: [EducationExperience]
+  personalExperiences: [PersonalExperience]
+  workExperiences: [WorkExperience]
+  experiencePivot: ExperienceSkillPivot
 }
 
 input SkillBelongsToMany {
@@ -982,6 +992,7 @@ type WorkExperience implements Experience {
   endDate: Date
   details: String
   skills: [Skill!]
+  skillPivot: ExperienceSkillPivot
 }
 
 enum WorkRegion {

@@ -78,7 +78,7 @@ type User {
     cmoAssets: [CmoAsset] @belongsToMany
 
     # Experiences
-    experiences: [Experience] @hasMany # All experiences that a user owns
+    experiences: [Experience] # All experiences that a user owns
     awardExperiences: [AwardExperience] @hasMany # Award experiences that a user owns
     communityExperiences: [CommunityExperience] @hasMany # Community experiences that a user owns
     educationExperiences: [EducationExperience] @hasMany # Education experiences that a user owns
@@ -352,7 +352,15 @@ type Skill {
     description: LocalizedString
     keywords: [String!]
     families: [SkillFamily!] @belongsToMany
-    pivot: ExperienceSkill
+
+    # Experiences
+    experiences: [Experience]
+    awardExperiences: [AwardExperience]
+    communityExperiences: [CommunityExperience]
+    educationExperiences: [EducationExperience]
+    personalExperiences: [PersonalExperience]
+    workExperiences: [WorkExperience]
+    experiencePivot: ExperienceSkillPivot @rename(attribute: "pivot")
 }
 
 enum AwardedTo {
@@ -406,6 +414,7 @@ type WorkExperience implements Experience {
   endDate: Date @rename(attribute: "end_date")
   details: String
   skills: [Skill!] @morphToMany
+  skillPivot: ExperienceSkillPivot @rename(attribute: "pivot")
 }
 type PersonalExperience implements Experience {
   id: ID!
@@ -416,6 +425,7 @@ type PersonalExperience implements Experience {
   endDate: Date @rename(attribute: "end_date")
   details: String
   skills: [Skill!] @morphToMany
+  skillPivot: ExperienceSkillPivot @rename(attribute: "pivot")
 }
 type CommunityExperience implements Experience {
   id: ID!
@@ -427,6 +437,7 @@ type CommunityExperience implements Experience {
   endDate: Date @rename(attribute: "end_date")
   details: String
   skills: [Skill!] @morphToMany
+  skillPivot: ExperienceSkillPivot @rename(attribute: "pivot")
 }
 type EducationExperience implements Experience {
   id: ID!
@@ -440,6 +451,7 @@ type EducationExperience implements Experience {
   status: EducationStatus
   details: String
   skills: [Skill!] @morphToMany
+  skillPivot: ExperienceSkillPivot @rename(attribute: "pivot")
 }
 type AwardExperience implements Experience {
   id: ID!
@@ -451,9 +463,10 @@ type AwardExperience implements Experience {
   awardedScope: AwardedScope @rename(attribute: "awarded_scope")
   details: String
   skills: [Skill!] @morphToMany
+  skillPivot: ExperienceSkillPivot @rename(attribute: "pivot")
 }
 
-type ExperienceSkill {
+type ExperienceSkillPivot {
   details: String
 }
 
