@@ -40,7 +40,7 @@ const ProfileFormWrapper: React.FunctionComponent<ProfileFormWrapperProps> = ({
       style={{
         background: `url(${imageUrl(
           TALENTSEARCH_APP_DIR,
-          "applicant-profile-banner.jpg",
+          "applicant-profile-banner.png",
         )})`,
         backgroundSize: "100vw 5rem",
       }}

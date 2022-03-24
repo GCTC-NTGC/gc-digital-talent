@@ -37,7 +37,7 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({
         style={{
           background: `url(${imageUrl(
             TALENTSEARCH_APP_DIR,
-            "applicant-profile-banner.jpg",
+            "applicant-profile-banner.png",
           )})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
