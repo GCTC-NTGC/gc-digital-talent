@@ -13,6 +13,10 @@ import { Skill } from "../../../api/generated";
 import SkillAccordion from "./SkillAccordion";
 
 const skills = fakeSkills();
+const formatter = new Intl.DateTimeFormat("en", {
+  year: "numeric",
+  month: "short",
+});
 const renderWithReactIntl = (
   component: React.ReactNode,
   locale?: "en" | "fr",
@@ -62,10 +66,14 @@ describe("SkillAccordion tests", () => {
   });
   test("It renders proper context and detail when a work experience is provided", () => {
     const experience = experienceGenerator.generateWork();
+
     testSkill.experienceSkills = [];
     testSkill.experienceSkills.push(
       generator.generateExperienceSkill(testSkill, experience),
     );
+    const d1 = formatter.format(new Date(experience.startDate!));
+    const d2 = formatter.format(new Date(experience.endDate!));
+    const dateRange = `${d2} - ${d1}`;
     renderSkillAccordion(testSkill);
     const context = screen.getByText("1 Experience");
     const detail = screen.getByTestId("detail");
@@ -73,7 +81,7 @@ describe("SkillAccordion tests", () => {
     expect(detail).not.toBeNull();
     expect(detail.innerHTML).toContain(experience.details);
     expect(detail.innerHTML).toContain(experience.division);
-    expect(detail.innerHTML).toContain(experience.endDate);
+    expect(detail.innerHTML).toContain(dateRange);
     expect(detail.innerHTML).toContain(experience.organization);
     expect(detail.innerHTML).toContain(experience.role);
   });
@@ -102,6 +110,9 @@ describe("SkillAccordion tests", () => {
     testSkill.experienceSkills.push(
       generator.generateExperienceSkill(testSkill, experience),
     );
+    const d1 = formatter.format(new Date(experience.startDate!));
+    const d2 = formatter.format(new Date(experience.endDate!));
+    const dateRange = `${d1} - ${d2}`;
     renderSkillAccordion(testSkill);
     const context = screen.getByText("1 Experience");
     const detail = screen.getByTestId("detail");
@@ -111,7 +122,7 @@ describe("SkillAccordion tests", () => {
     expect(detail.innerHTML).toContain(experience.institution);
     expect(detail.innerHTML).toContain(experience.areaOfStudy);
     expect(detail.innerHTML).toContain(experience.thesisTitle);
-    expect(detail.innerHTML).toContain(experience.startDate);
+    expect(detail.innerHTML).toContain(dateRange);
   });
 
   test("It renders proper context and detail when a personal experience is provided", () => {
@@ -120,6 +131,9 @@ describe("SkillAccordion tests", () => {
     testSkill.experienceSkills.push(
       generator.generateExperienceSkill(testSkill, experience),
     );
+    const d1 = formatter.format(new Date(experience.startDate!));
+    const d2 = formatter.format(new Date(experience.endDate!));
+    const dateRange = `${d1} - ${d2}`;
     renderSkillAccordion(testSkill);
     const context = screen.getByText("1 Experience");
     const detail = screen.getByTestId("detail");
@@ -127,9 +141,8 @@ describe("SkillAccordion tests", () => {
     expect(detail).not.toBeNull();
     expect(detail.innerHTML).toContain(experience.details);
     expect(detail.innerHTML).toContain(experience.description);
-    expect(detail.innerHTML).toContain(experience.startDate);
+    expect(detail.innerHTML).toContain(dateRange);
     expect(detail.innerHTML).toContain(experience.title);
-    expect(detail.innerHTML).toContain(experience.endDate);
   });
 
   test("It renders proper context and detail when more than one experiences provided", () => {

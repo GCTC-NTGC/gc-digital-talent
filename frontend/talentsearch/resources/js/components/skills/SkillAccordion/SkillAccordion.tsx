@@ -9,8 +9,7 @@ import {
   getEducationStatus,
   getEducationType,
 } from "@common/constants/localizedConstants";
-import moment from "moment";
-import { now } from "lodash";
+
 import {
   Skill,
   Experience,
