@@ -38,7 +38,7 @@ DirectorySlash off
     RewriteRule ^(en|fr)/talent(/(.*))?$ frontend/talentsearch/dist/$3 [L]
 
     # PHP Info page for debugging
-    RewriteRule ^phpinfo.php$ api/phpinfo.php [L]
+    RewriteRule ^phpinfo.php$ phpinfo.php [L]
 
     # Send all other requests to /tc-report
     RewriteRule ^(.*)/?$ tc-report/$1 [L]

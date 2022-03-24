@@ -43,7 +43,7 @@ module.exports = {
 
     // generate an index.html file based on given template
     new HtmlWebpackPlugin({
-      title: "GC Talent",
+      title: "Admin",
       template: path.resolve(__dirname, "./src/views/dashboard.html"),
     }),
 
