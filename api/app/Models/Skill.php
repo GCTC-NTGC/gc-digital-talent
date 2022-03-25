@@ -49,6 +49,7 @@ class Skill extends Model
             'experience',
             'experience_skills'
         )
+        ->withTimestamps()
         ->withPivot('created_at', 'updated_at', 'details');
     }
     public function communityExperiences()
@@ -58,6 +59,7 @@ class Skill extends Model
             'experience',
             'experience_skills'
         )
+        ->withTimestamps()
         ->withPivot('created_at', 'updated_at', 'details');
     }
     public function educationExperiences()
@@ -67,6 +69,7 @@ class Skill extends Model
             'experience',
             'experience_skills'
         )
+        ->withTimestamps()
         ->withPivot('created_at', 'updated_at', 'details');
     }
     public function personalExperiences()
@@ -76,6 +79,7 @@ class Skill extends Model
             'experience',
             'experience_skills'
         )
+        ->withTimestamps()
         ->withPivot('created_at', 'updated_at', 'details');
     }
     public function workExperiences()
@@ -85,6 +89,7 @@ class Skill extends Model
             'experience',
             'experience_skills'
         )
+        ->withTimestamps()
         ->withPivot('created_at', 'updated_at', 'details');
     }
     public function getExperiencesAttribute()

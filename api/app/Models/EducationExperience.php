@@ -50,6 +50,7 @@ class EducationExperience extends Model
     public function skills(): MorphToMany
     {
         return $this->morphToMany(Skill::class, 'experience', 'experience_skills')
+            ->withTimestamps()
             ->withPivot('created_at', 'updated_at', 'details');
     }
 }
