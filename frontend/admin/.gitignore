@@ -10,7 +10,6 @@
 /.idea
 Homestead.json
 Homestead.yaml
-.phpunit.result.cache
 
 # Hidden Files
 .DS_Store
