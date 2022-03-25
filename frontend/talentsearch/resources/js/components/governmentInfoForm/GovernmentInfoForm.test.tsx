@@ -43,7 +43,7 @@ test("Test form display rendering", async () => {
       "Please indicate if you are interested in lateral deployment or secondment. Learn more about this.",
     ),
   ).toBeTruthy();
-  expect(screen.getByText("Level")).toBeTruthy();
+  expect(screen.getByText("Current Classification Level")).toBeTruthy();
 });
 
 test("Test form data", async () => {

@@ -1,35 +1,78 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { useWatch } from "react-hook-form";
+import { useWatch, SubmitHandler } from "react-hook-form";
 import { errorMessages } from "@common/messages";
 import { Checkbox, RadioGroup, Select } from "@common/components/form";
 import { getLocale } from "@common/helpers/localize";
 import Form from "@common/components/form/BasicForm";
 import { fakeClassifications } from "@common/fakeData";
+import { toast } from "react-toastify";
+import { navigate } from "@common/helpers/router";
 import {
   GetAllClassificationsQuery,
   Classification,
   GetAllClassificationsQueryVariables,
   GetAllClassificationsDocument,
   useGetAllClassificationsQuery,
+  useUpdateGovAsUserMutation,
+  UpdateGovAsUserDocument,
+  UpdateUserAsUserInput,
+  UpdateGovAsUserMutation,
 } from "../../api/generated";
 import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
 import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
 
-export type FormValues = {
+type FormValues = Pick<
+  UpdateUserAsUserInput,
+  "isGovEmployee" | "interestedInLaterOrSecondment" | "currentClassification"
+>;
+type FormContentTyping = {
   govEmployeeYesNo: string;
-  govEmployeeStatus: string;
+  govEmployeeType: string;
   lateralDeployBool: boolean;
   currentClassificationGroup: string;
   currentClassificationLevel: string;
 };
 
+// inner component
 export const GovernmentInfoForm: React.FunctionComponent<{
   classifications: Classification[];
-  handleSubmit: any;
+  handleSubmit: (
+    id: string,
+    data: UpdateUserAsUserInput,
+  ) => Promise<UpdateGovAsUserMutation["updateUserAsUser"]>;
 }> = ({ classifications, handleSubmit }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
+
+  // submitting data logic within inner component
+  const formValuesToSubmitData = (
+    values: FormValues,
+  ): UpdateUserAsUserInput => ({
+    ...values,
+  });
+  const id = "id";
+  const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
+    await handleSubmit(id, formValuesToSubmitData(data))
+      .then(() => {
+        toast.success(
+          intl.formatMessage({
+            defaultMessage: "User updated successfully!",
+            description:
+              "Message displayed to user after user is updated successfully.",
+          }),
+        );
+      })
+      .catch(() => {
+        toast.error(
+          intl.formatMessage({
+            defaultMessage: "Error: updating user failed",
+            description:
+              "Message displayed to user after user fails to get updated.",
+          }),
+        );
+      });
+  };
 
   // hooks to watch, needed for conditional rendering
   const govEmployee = useWatch({
@@ -77,6 +120,7 @@ export const GovernmentInfoForm: React.FunctionComponent<{
     };
   });
 
+  // render the actual form
   return (
     <ProfileFormWrapper
       description={intl.formatMessage({
@@ -264,36 +308,47 @@ export const GovernmentInfoForm: React.FunctionComponent<{
             )}
         </div>
       </div>
-
       <ProfileFormFooter mode="saveButton" />
     </ProfileFormWrapper>
   );
 };
 
+// outer, containing component
 export const GovInfoFormContainer: React.FunctionComponent = () => {
   const fakes = fakeClassifications();
 
+  // acquire classifications from graphQL to pass into component to render
   const [lookUpResult] = useGetAllClassificationsQuery();
   const {
     data: lookupData,
     fetching: fetchingLookupData,
     error: lookupDataError,
   } = lookUpResult;
-
   console.log(lookupData, fetchingLookupData, lookupDataError);
+
+  // submitting the component values back to graphQL logic to pass into inner component
+  const [, executeMutation] = useUpdateGovAsUserMutation();
+  const handleUpdateUser = (id: string, data: UpdateUserAsUserInput) =>
+    executeMutation({
+      id,
+      user: data,
+    }).then((result) => {
+      if (result.data?.updateUserAsUser) {
+        return result.data.updateUserAsUser;
+      }
+      return Promise.reject(result.error);
+    });
 
   return (
     <div>
       <Form
-        onSubmit={(data: FormValues) => {
+        onSubmit={() => {
           return null;
         }}
       >
         <GovernmentInfoForm
           classifications={fakes}
-          handleSubmit={() => {
-            return null;
-          }}
+          handleSubmit={handleUpdateUser}
         />
       </Form>
     </div>
