@@ -1,6 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import pick from "lodash/pick";
 import { toast } from "react-toastify";
 import { Select, Submit, Input, MultiSelect } from "@common/components/form";
 import { navigate } from "@common/helpers/router";
@@ -284,7 +285,14 @@ export const UpdateUser: React.FunctionComponent<{ userId: string }> = ({
        graphql operation to fail. */
     executeMutation({
       id,
-      user: data,
+      user: pick(data, [
+        "firstName",
+        "lastName",
+        "telephone",
+        "preferredLang",
+        "sub",
+        "roles",
+      ]),
     }).then((result) => {
       if (result.data?.updateUserAsAdmin) {
         return result.data.updateUserAsAdmin;
