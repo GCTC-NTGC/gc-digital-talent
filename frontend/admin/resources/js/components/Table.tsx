@@ -211,109 +211,15 @@ function Table<T extends Record<string, unknown>>({
       <Pagination
         currentPage={pageIndex + 1}
         handlePageChange={(pageNumber) => gotoPage(pageNumber - 1)}
+        handlePageSize={setPageSize}
         pageSize={pageSize}
+        pageSizes={[10, 20, 30, 40, 50]}
         totalCount={rows.length}
-        data-h2-padding="b(all, xs)"
+        ariaLabel={intl.formatMessage({ defaultMessage: "Table results" })}
+        color="black"
+        mode="outline"
+        data-h2-margin="b(all, none)"
       />
-      {/*
-        Pagination can be built however you'd like.
-        This is just a very basic UI implementation:
-      */}
-      {/* <div
-        data-h2-padding="b(all, s)"
-        data-h2-display="b(flex)"
-        data-h2-align-items="b(center)"
-        data-h2-flex-direction="b(column) s(row)"
-      >
-        <div data-h2-padding="b(bottom, s) s(right, s) s(bottom, none)">
-          <button
-            data-h2-margin="b(right, xs)"
-            type="button"
-            onClick={() => gotoPage(0)}
-            disabled={!canPreviousPage}
-          >
-            <ChevronDoubleLeftIcon
-              style={{ width: "1rem", cursor: "pointer" }}
-            />
-          </button>
-          <button
-            data-h2-margin="b(right, xs)"
-            type="button"
-            onClick={() => previousPage()}
-            disabled={!canPreviousPage}
-          >
-            <ChevronLeftIcon style={{ width: "1rem", cursor: "pointer" }} />
-          </button>
-          <button
-            data-h2-margin="b(right, xs)"
-            type="button"
-            onClick={() => nextPage()}
-            disabled={!canNextPage}
-          >
-            <ChevronRightIcon style={{ width: "1rem", cursor: "pointer" }} />
-          </button>
-          <button
-            data-h2-margin="b(right, xs)"
-            type="button"
-            onClick={() => gotoPage(pageCount - 1)}
-            disabled={!canNextPage}
-          >
-            <ChevronDoubleRightIcon
-              style={{ width: "1rem", cursor: "pointer" }}
-            />
-          </button>
-        </div>
-        <div data-h2-padding="b(bottom, s) s(right, s) s(bottom, none)">
-          <span>
-            {intl.formatMessage(
-              {
-                defaultMessage: "Page <strong>{index} of {totalPages}</strong>",
-                description:
-                  "Label showing current page of pagination on the admin table.",
-              },
-              { strong, index: pageIndex + 1, totalPages: pageOptions.length },
-            )}{" "}
-          </span>
-          <span>
-            |{" "}
-            {intl.formatMessage({
-              defaultMessage: "Go to page:",
-              description: "Label for pagination input in admin table.",
-            })}{" "}
-            <input
-              type="number"
-              defaultValue={pageIndex + 1}
-              onChange={(e) => {
-                const p = e.target.value ? Number(e.target.value) - 1 : 0;
-                gotoPage(p);
-              }}
-              min={0}
-              max={pageOptions.length}
-              style={{ width: "65px" }}
-            />
-          </span>
-        </div>
-        <select
-          style={{ cursor: "pointer" }}
-          value={pageSize}
-          onChange={(e) => {
-            setPageSize(Number(e.target.value));
-          }}
-        >
-          {[10, 20, 30, 40, 50].map((numOfRows) => (
-            <option key={numOfRows} value={numOfRows}>
-              {intl.formatMessage(
-                {
-                  defaultMessage: "Show {numOfRows}",
-                  description:
-                    "Options for how many rows to show on admin table",
-                },
-                { numOfRows },
-              )}
-            </option>
-          ))}
-        </select>
-      </div> */}
     </div>
   );
 }

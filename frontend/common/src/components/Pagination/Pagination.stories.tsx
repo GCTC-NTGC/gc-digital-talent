@@ -10,7 +10,11 @@ export default {
   component: Pagination,
   title: "Components/Pagination",
   args: {
+    ariaLabel: "Pagination table",
     handlePageChange: action("Change page"),
+    handlePageSize: action("Change page size"),
+    color: "black",
+    mode: "outline",
   },
 } as Meta;
 
@@ -53,14 +57,19 @@ BothDots.args = {
 const TemplatePaginationWithData: Story<PaginationProps> = () => {
   const skills = fakeSkills(50);
   const pageSize = 5;
-  const pagination = usePaginationVars<Skill>(1, pageSize, skills);
-  const { currentPage, currentTableData, setCurrentPage } = pagination;
+  const pagination = usePaginationVars<Skill>(pageSize, skills);
+  const { currentPage, currentTableData, setCurrentPage, setPageSize } =
+    pagination;
   return (
     <div>
       {currentTableData.map((skill) => (
         <p key={skill.key}>{skill.name.en}</p>
       ))}
       <Pagination
+        ariaLabel="Pagination table"
+        color="black"
+        mode="outline"
+        handlePageSize={setPageSize}
         currentPage={currentPage}
         pageSize={pageSize}
         siblingCount={1}
