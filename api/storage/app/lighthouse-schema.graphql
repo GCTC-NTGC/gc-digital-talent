@@ -121,6 +121,22 @@ type CommunityExperience implements Experience {
   skillPivot: ExperienceSkillPivot
 }
 
+input ConnectExperienceSkills {
+  id: ID!
+  details: String
+}
+
+input CreateAwardExperienceInput {
+  applicant: UserBelongsTo!
+  title: String
+  issuedBy: String
+  awardedDate: Date
+  awardedTo: AwardedTo
+  awardedScope: AwardedScope
+  details: String
+  skills: UpdateExperienceSkills
+}
+
 input CreateClassificationInput {
   name: LocalizedStringInput
   group: String!
@@ -135,15 +151,49 @@ input CreateCmoAssetInput {
   description: LocalizedStringInput
 }
 
+input CreateCommunityExperienceInput {
+  applicant: UserBelongsTo!
+  title: String
+  organization: String
+  project: String
+  startDate: Date
+  endDate: Date
+  details: String
+  skills: UpdateExperienceSkills
+}
+
 input CreateDepartmentInput {
   departmentNumber: Int!
   name: LocalizedStringInput
+}
+
+input CreateEducationExperienceInput {
+  applicant: UserBelongsTo!
+  institution: String
+  areaOfStudy: String
+  thesisTitle: String
+  startDate: Date
+  endDate: Date
+  type: EducationType
+  status: EducationStatus
+  details: String
+  skills: UpdateExperienceSkills
 }
 
 input CreateOperationalRequirementInput {
   key: KeyString!
   name: LocalizedStringInput!
   description: LocalizedStringInput
+}
+
+input CreatePersonalExperienceInput {
+  applicant: UserBelongsTo!
+  title: String
+  description: String
+  startDate: Date
+  endDate: Date
+  details: String
+  skills: UpdateExperienceSkills
 }
 
 input CreatePoolCandidateFilterInput {
@@ -224,6 +274,17 @@ input CreateUserInput {
   telephone: PhoneNumber
   preferredLang: Language
   roles: [Role] = []
+}
+
+input CreateWorkExperienceInput {
+  applicant: UserBelongsTo!
+  role: String
+  organization: String
+  division: String
+  startDate: Date
+  endDate: Date
+  details: String
+  skills: UpdateExperienceSkills
 }
 
 """A date string with format `Y-m-d`, e.g. `2011-05-23`."""
@@ -376,6 +437,11 @@ type Mutation {
   updateSkillFamily(id: ID!, skillFamily: UpdateSkillFamilyInput!): SkillFamily
   createSkill(skill: CreateSkillInput!): Skill
   updateSkill(id: ID!, skill: UpdateSkillInput!): Skill
+  createWorkExperience(workExperience: CreateWorkExperienceInput!): WorkExperience
+  createPersonalExperience(personalExperience: CreatePersonalExperienceInput!): PersonalExperience
+  createCommunityExperience(communityExperience: CreateCommunityExperienceInput!): CommunityExperience
+  createEducationExperience(educationExperience: CreateEducationExperienceInput!): EducationExperience
+  createAwardExperience(awardExperience: CreateAwardExperienceInput!): AwardExperience
 }
 
 """e.g. Overtime as Required, Shift Work, Travel as Required, etc."""
@@ -811,6 +877,10 @@ input UpdateCmoAssetInput {
 input UpdateDepartmentInput {
   departmentNumber: Int
   name: LocalizedStringInput
+}
+
+input UpdateExperienceSkills {
+  connect: [ConnectExperienceSkills!]
 }
 
 input UpdateOperationalRequirementInput {
