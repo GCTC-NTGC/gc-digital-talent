@@ -2,7 +2,7 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { useWatch, SubmitHandler } from "react-hook-form";
 import { errorMessages } from "@common/messages";
-import { Checkbox, RadioGroup, Select } from "@common/components/form";
+import { Checkbox, RadioGroup, Select, Submit } from "@common/components/form";
 import { getLocale } from "@common/helpers/localize";
 import Form from "@common/components/form/BasicForm";
 import { fakeClassifications } from "@common/fakeData";
@@ -37,42 +37,9 @@ type FormContentTyping = {
 // inner component
 export const GovernmentInfoForm: React.FunctionComponent<{
   classifications: Classification[];
-  handleSubmit: (
-    id: string,
-    data: UpdateUserAsUserInput,
-  ) => Promise<UpdateGovAsUserMutation["updateUserAsUser"]>;
-}> = ({ classifications, handleSubmit }) => {
+}> = ({ classifications }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
-
-  // submitting data logic within inner component
-  const formValuesToSubmitData = (
-    values: FormValues,
-  ): UpdateUserAsUserInput => ({
-    ...values,
-  });
-  const id = "id";
-  const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
-    await handleSubmit(id, formValuesToSubmitData(data))
-      .then(() => {
-        toast.success(
-          intl.formatMessage({
-            defaultMessage: "User updated successfully!",
-            description:
-              "Message displayed to user after user is updated successfully.",
-          }),
-        );
-      })
-      .catch(() => {
-        toast.error(
-          intl.formatMessage({
-            defaultMessage: "Error: updating user failed",
-            description:
-              "Message displayed to user after user fails to get updated.",
-          }),
-        );
-      });
-  };
 
   // hooks to watch, needed for conditional rendering
   const govEmployee = useWatch({
@@ -316,6 +283,7 @@ export const GovernmentInfoForm: React.FunctionComponent<{
 // outer, containing component
 export const GovInfoFormContainer: React.FunctionComponent = () => {
   const fakes = fakeClassifications();
+  const intl = useIntl();
 
   // acquire classifications from graphQL to pass into component to render
   const [lookUpResult] = useGetAllClassificationsQuery();
@@ -338,18 +306,39 @@ export const GovInfoFormContainer: React.FunctionComponent = () => {
       }
       return Promise.reject(result.error);
     });
+  const formValuesToSubmitData = (
+    values: FormValues,
+  ): UpdateUserAsUserInput => ({
+    ...values,
+  });
+  const id = "id";
+  const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
+    await handleUpdateUser(id, formValuesToSubmitData(data))
+      .then(() => {
+        toast.success(
+          intl.formatMessage({
+            defaultMessage: "User updated successfully!",
+            description:
+              "Message displayed to user after user is updated successfully.",
+          }),
+        );
+      })
+      .catch(() => {
+        toast.error(
+          intl.formatMessage({
+            defaultMessage: "Error: updating user failed",
+            description:
+              "Message displayed to user after user fails to get updated.",
+          }),
+        );
+      });
+  };
 
   return (
     <div>
-      <Form
-        onSubmit={() => {
-          return null;
-        }}
-      >
-        <GovernmentInfoForm
-          classifications={fakes}
-          handleSubmit={handleUpdateUser}
-        />
+      <Form onSubmit={onSubmit}>
+        <GovernmentInfoForm classifications={fakes} />
+        <Submit />
       </Form>
     </div>
   );
