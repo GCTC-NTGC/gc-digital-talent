@@ -33,6 +33,14 @@ export interface SkillAccordionProps {
   skill: Skill;
 }
 
+function formatDate(date: Scalars["Date"], locale: Locales) {
+  const formatter = new Intl.DateTimeFormat(locale, {
+    year: "numeric",
+    month: "short",
+  });
+  return formatter.format(new Date(date));
+}
+
 function getDateRange({
   endDate,
   startDate,
@@ -44,12 +52,8 @@ function getDateRange({
   intl: IntlShape;
   locale: Locales;
 }): React.ReactNode {
-  const formatter = new Intl.DateTimeFormat(locale, {
-    year: "numeric",
-    month: "short",
-  });
   if (!startDate) return null;
-  const d1 = formatter.format(new Date(startDate));
+  const d1 = formatDate(startDate, locale);
   if (!endDate)
     return intl.formatMessage(
       {
@@ -58,7 +62,7 @@ function getDateRange({
       },
       { d1 },
     );
-  const d2 = formatter.format(new Date(endDate));
+  const d2 = formatDate(endDate, locale);
   return endDate
     ? `${d1} - ${d2}`
     : intl.formatMessage(
@@ -181,7 +185,7 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
             ? intl.formatMessage(getAwardedScope(awardedScope))
             : ""}
         </p>
-        <p> {awardedDate}</p>
+        <p> {awardedDate && formatDate(awardedDate, locale)}</p>
         <p>
           {intl.formatMessage(
             {
