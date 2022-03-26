@@ -1,9 +1,8 @@
 import React from "react";
-import { action } from "@storybook/addon-actions";
 import { Meta, Story } from "@storybook/react";
-import WorkLocationPreferenceForm, {
-  FormValues,
-} from "./WorkLocationPreferenceForm";
+import { CreateUserInput } from "@common/api/generated";
+import { action } from "@storybook/addon-actions";
+import WorkLocationPreferenceForm from "./WorkLocationPreferenceForm";
 
 export default {
   component: WorkLocationPreferenceForm,
@@ -13,8 +12,10 @@ export default {
 const TemplateWorkLocationPreferenceForm: Story = () => {
   return (
     <WorkLocationPreferenceForm
-      handleSubmit={async (data: FormValues) => {
-        action("submit")(data);
+      handleSubmit={async (data: CreateUserInput) => {
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+        action("Create Work Location Preference")(data);
+        return null;
       }}
     />
   );

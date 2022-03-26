@@ -1,0 +1,6 @@
+mutation createWorkLocationPreference($user: CreateUserInput!) {
+  createUser(user: $user) {
+    locationPreferences
+    locationExemptions
+  }
+}

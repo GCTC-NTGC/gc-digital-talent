@@ -4,3 +4,77 @@ query getMe {
     lastName
   }
 }
+mutation CreateUser($user: CreateUserInput!) {
+  createUser(user: $user) {
+    sub
+    roles
+
+    firstName
+    lastName
+    email
+    telephone
+    currentProvince
+    currentCity
+
+    languageAbility
+    preferredLang
+    lookingForEnglish
+    lookingForFrench
+    lookingForBilingual
+    bilingualEvaluation
+    comprehensionLevel
+    writtenLevel
+    verbalLevel
+    estimatedLanguageAbility
+
+    isGovEmployee
+    interestedInLaterOrSecondment
+    currentClassification {
+      id
+      name {
+        en
+        fr
+      }
+      group
+      level
+      minSalary
+      maxSalary
+    }
+
+    isWoman
+    hasDisability
+    isIndigenous
+    isVisibleMinority
+
+    jobLookingStatus
+
+    hasDiploma
+    locationPreferences
+    locationExemptions
+    acceptedOperationalRequirements {
+      id
+      description {
+        en
+        fr
+      }
+      key
+      name {
+        en
+        fr
+      }
+    }
+    expectedSalary
+    expectedClassifications {
+      id
+      name {
+        en
+        fr
+      }
+      group
+      level
+      minSalary
+      maxSalary
+    }
+    wouldAcceptTemporary
+  }
+}

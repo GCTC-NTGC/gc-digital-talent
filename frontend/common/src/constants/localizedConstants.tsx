@@ -118,11 +118,55 @@ export const workRegions = defineMessages({
   },
 });
 
+export const workRegionsFormatedWorkPreferenceForm = defineMessages({
+  [WorkRegion.Atlantic]: {
+    defaultMessage: "Dago Dagu",
+    description: "The work region of Canada described as Atlantic.",
+  },
+  [WorkRegion.BritishColumbia]: {
+    defaultMessage: "British Columbia",
+    description: "The work region of Canada described as British Columbia.",
+  },
+  [WorkRegion.NationalCapital]: {
+    defaultMessage: "National Capital",
+    description: "The work region of Canada described as National Capital.",
+  },
+  [WorkRegion.North]: {
+    defaultMessage: "North",
+    description: "The work region of Canada described as North.",
+  },
+  [WorkRegion.Ontario]: {
+    defaultMessage: "Ontario",
+    description: "The work region of Canada described as Ontario.",
+  },
+  [WorkRegion.Prairie]: {
+    defaultMessage: "Prairie",
+    description: "The work region of Canada described as Prairie.",
+  },
+  [WorkRegion.Quebec]: {
+    defaultMessage: "Quebec",
+    description: "The work region of Canada described as Quebec.",
+  },
+  [WorkRegion.Telework]: {
+    defaultMessage: "Telework",
+    description: "The work region of Canada described as Telework.",
+  },
+});
+
 export const getWorkRegion = (
   workRegionId: string | number,
 ): MessageDescriptor =>
   getOrThrowError(
     workRegions,
+    workRegionId,
+    `Invalid Work Region '${workRegionId}'`,
+  );
+
+export const getWorkPreferenceregion = (
+  workRegionId: string | number,
+): MessageDescriptor =>
+  getOrThrowError(
+    workRegionsFormatedWorkPreferenceForm,
     workRegionId,
     `Invalid Work Region '${workRegionId}'`,
   );
