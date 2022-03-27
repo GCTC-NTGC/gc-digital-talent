@@ -17,11 +17,10 @@ const generatePool = (
 ): Pool => {
   faker.setLocale("en");
 
-  const owner: User = faker.random.arrayElement(users);
+  const ownerUser: User = faker.random.arrayElement(users);
   return {
     id: faker.datatype.uuid(),
-    owner,
-    ownerPublicProfile: pick(owner, [
+    owner: pick(ownerUser, [
       "id",
       "email",
       "firstName",
