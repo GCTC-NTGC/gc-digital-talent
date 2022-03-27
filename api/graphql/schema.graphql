@@ -192,8 +192,7 @@ type UserPublicProfile {
 
 type Pool {
     id: ID!
-    owner: User @belongsTo(relation: "user")
-    ownerPublicProfile: UserPublicProfile @belongsTo(relation: "user")
+    owner: UserPublicProfile @belongsTo(relation: "user")
     name: LocalizedString
     key: KeyString
     description: LocalizedString
@@ -214,7 +213,7 @@ enum PoolCandidateStatus {
 type PoolCandidate {
     id: ID!
     pool: Pool @belongsTo
-    user: User @belongsTo
+    user: Applicant @belongsTo(relation: "user")
 
     # cmoIdentifier can be an arbitrary string used to relate this candidate to an external database.
     cmoIdentifier: ID @rename(attribute: "cmo_identifier")
@@ -676,16 +675,7 @@ input LocalizedStringInput {
 }
 
 input UserBelongsTo {
-    create: CreateUserInput
     connect: ID
-    update: UpdateUserAsAdminInput
-}
-
-"""
-When updating a PoolCandidate it is possible to update the related user, but not change which user it is related to.
-"""
-input UpdatePoolCandidateUserBelongsTo {
-    update: UpdateUserAsAdminInput
 }
 
 input PoolBelongsTo {
@@ -776,7 +766,6 @@ input UpdateOperationalRequirementInput {
 }
 
 input UpdatePoolCandidateInput {
-    user: UpdatePoolCandidateUserBelongsTo
     cmoIdentifier: ID @rename(attribute: "cmo_identifier")
     expiryDate: Date @rename(attribute: "expiry_date")
     isWoman: Boolean @rename(attribute: "is_woman")

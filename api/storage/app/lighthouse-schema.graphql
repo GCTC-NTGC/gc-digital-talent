@@ -531,8 +531,7 @@ scalar PhoneNumber
 
 type Pool {
   id: ID!
-  owner: User
-  ownerPublicProfile: UserPublicProfile
+  owner: UserPublicProfile
   name: LocalizedString
   key: KeyString
   description: LocalizedString
@@ -554,7 +553,7 @@ input PoolBelongsToMany {
 type PoolCandidate {
   id: ID!
   pool: Pool
-  user: User
+  user: Applicant
   cmoIdentifier: ID
   expiryDate: Date
   isWoman: Boolean
@@ -849,7 +848,6 @@ input UpdateOperationalRequirementInput {
 }
 
 input UpdatePoolCandidateInput {
-  user: UpdatePoolCandidateUserBelongsTo
   cmoIdentifier: ID
   expiryDate: Date
   isWoman: Boolean
@@ -869,13 +867,6 @@ input UpdatePoolCandidateInput {
 input UpdatePoolCandidateSearchRequestInput {
   adminNotes: String
   status: PoolCandidateSearchStatus
-}
-
-"""
-When updating a PoolCandidate it is possible to update the related user, but not change which user it is related to.
-"""
-input UpdatePoolCandidateUserBelongsTo {
-  update: UpdateUserAsAdminInput
 }
 
 input UpdatePoolInput {
@@ -1022,9 +1013,7 @@ type User {
 }
 
 input UserBelongsTo {
-  create: CreateUserInput
   connect: ID
-  update: UpdateUserAsAdminInput
 }
 
 type UserPublicProfile {
