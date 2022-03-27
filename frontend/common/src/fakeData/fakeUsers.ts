@@ -49,6 +49,7 @@ const generateUser = (
     firstName: faker.name.firstName(),
     lastName: faker.name.lastName(),
     telephone: faker.helpers.replaceSymbols("+###########"),
+    preferredLang: faker.random.arrayElement(Object.values(Language)),
     currentProvince: faker.random.arrayElement(
       Object.values(ProvinceOrTerritory),
     ),
@@ -56,7 +57,6 @@ const generateUser = (
 
     // Language
     languageAbility: faker.random.arrayElement(Object.values(LanguageAbility)),
-    preferredLang: faker.random.arrayElement(Object.values(Language)),
     lookingForEnglish: faker.datatype.boolean(),
     lookingForFrench: faker.datatype.boolean(),
     lookingForBilingual: faker.datatype.boolean(),

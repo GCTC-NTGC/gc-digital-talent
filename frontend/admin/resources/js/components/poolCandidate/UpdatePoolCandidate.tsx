@@ -31,7 +31,7 @@ import { User } from "@common/api/generated";
 import { phoneNumberRegex } from "@common/constants/regularExpressions";
 import { useAdminRoutes } from "../../adminRoutes";
 import {
-  UpdatePoolCandidateInput,
+  UpdatePoolCandidateAsAdminInput,
   LanguageAbility,
   WorkRegion,
   SalaryRange,
@@ -81,8 +81,8 @@ interface UpdatePoolCandidateProps {
   operationalRequirements: OperationalRequirement[];
   handleUpdatePoolCandidate: (
     id: string,
-    data: UpdatePoolCandidateInput,
-  ) => Promise<UpdatePoolCandidateMutation["updatePoolCandidate"]>;
+    data: UpdatePoolCandidateAsAdminInput,
+  ) => Promise<UpdatePoolCandidateMutation["updatePoolCandidateAsAdmin"]>;
 }
 
 export const UpdatePoolCandidateForm: React.FunctionComponent<
@@ -116,7 +116,7 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<
 
   const formValuesToSubmitData = (
     values: FormValues,
-  ): UpdatePoolCandidateInput => ({
+  ): UpdatePoolCandidateAsAdminInput => ({
     ...values,
     acceptedOperationalRequirements: {
       sync: values.acceptedOperationalRequirements,
@@ -522,7 +522,7 @@ export const UpdatePoolCandidate: React.FunctionComponent<{
   const [, executeMutation] = useUpdatePoolCandidateMutation();
   const handleUpdatePoolCandidate = (
     id: string,
-    data: UpdatePoolCandidateInput,
+    data: UpdatePoolCandidateAsAdminInput,
   ) =>
     /* We must pick only the fields belonging to UpdateUserInput, because its possible
       the data object contains other props at runtime, and this will cause the
@@ -551,8 +551,8 @@ export const UpdatePoolCandidate: React.FunctionComponent<{
         "user.update.preferredLang",
       ]),
     }).then((result) => {
-      if (result.data?.updatePoolCandidate) {
-        return result.data?.updatePoolCandidate;
+      if (result.data?.updatePoolCandidateAsAdmin) {
+        return result.data?.updatePoolCandidateAsAdmin;
       }
       return Promise.reject(result.error);
     });
