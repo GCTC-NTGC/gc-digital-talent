@@ -1,8 +1,8 @@
 import React from "react";
 import { Meta, Story } from "@storybook/react";
-import { CreateUserInput } from "@common/api/generated";
 import { action } from "@storybook/addon-actions";
-import WorkLocationPreferenceForm from "./WorkLocationPreferenceForm";
+import { CreateUserInput } from "../../api/generated";
+import { WorkLocationPreferenceForm } from "./WorkLocationPreferenceForm";
 
 export default {
   component: WorkLocationPreferenceForm,
