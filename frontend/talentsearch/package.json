@@ -39,6 +39,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.17.8",
+    "@babel/preset-env": "^7.16.11",
     "@babel/preset-react": "^7.16.7",
     "@formatjs/cli": "^4.8.3",
     "@formatjs/ts-transformer": "^3.9.3",
@@ -59,7 +60,7 @@
     "@types/react-table": "^7.7.10",
     "@typescript-eslint/eslint-plugin": "^5.15.0",
     "@typescript-eslint/parser": "^5.15.0",
-    "babel-loader": "^8.2.3",
+    "babel-loader": "^8.2.4",
     "babel-plugin-formatjs": "^10.3.18",
     "copy-webpack-plugin": "^10.2.4",
     "cross-env": "^7.0.3",

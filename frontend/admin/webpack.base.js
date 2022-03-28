@@ -64,8 +64,14 @@ module.exports = {
     rules: [
       {
         // transpile typescript files
-        test: /\.tsx?$/,
+        test: /\.ts(x?)$/,
         use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              "filename": ".babelrc"
+            },
+          },
           {
             loader: "ts-loader",
             options: {

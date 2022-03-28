@@ -47,8 +47,14 @@ module.exports = {
     rules: [
       {
         // transpile typescript files
-        test: /\.tsx?$/,
+        test: /\.ts(x?)$/,
         use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              "filename": ".babelrc"
+            },
+          },
           {
             loader: "ts-loader",
             options: {
@@ -72,6 +78,14 @@ module.exports = {
         test: /\.css$/i,
         use: [MiniCssExtractPlugin.loader, "css-loader"],
       },
+      /*
+      // babel polyfill loader
+      {
+        test: /\.js$/,
+        loader: 'babel-loader',
+        exclude: /node_modules/
+      }
+      */
     ],
   },
   resolve: {
