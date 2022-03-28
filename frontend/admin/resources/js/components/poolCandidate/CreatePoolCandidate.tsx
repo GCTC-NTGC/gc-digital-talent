@@ -288,6 +288,7 @@ export const CreatePoolCandidateForm: React.FunctionComponent<
       isWoman: values.isWoman,
       languageAbility: values.languageAbility,
       locationPreferences: values.locationPreferences,
+      status: values.status,
       pool: { connect: values.pool },
       user: userObject, // connect or create mutation
     };
