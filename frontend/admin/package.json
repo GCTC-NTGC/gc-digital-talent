@@ -83,7 +83,7 @@
   },
   "dependencies": {
     "@heroicons/react": "^1.0.6",
-    "@types/react": "^17.0.41",
+    "@types/react": "^17.0.43",
     "@types/react-dom": "^17.0.14",
     "@types/react-select": "^5.0.1",
     "@urql/exchange-auth": "^0.1.7",
