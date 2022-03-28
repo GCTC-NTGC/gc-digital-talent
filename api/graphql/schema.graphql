@@ -773,12 +773,7 @@ input UpdateOperationalRequirementInput {
     description: LocalizedStringInput
 }
 
-input UpdateUserBelongsTo {
-    update: UpdateUserAsAdminInput
-}
-
 input UpdatePoolCandidateAsAdminInput {
-    user: UpdateUserBelongsTo # TODO: This should be removed as soon as possible. Permission to update a PoolCandidate shouldn't imply permission to update a User. See https://github.com/GCTC-NTGC/gc-digital-talent/issues/2356
     cmoIdentifier: ID @rename(attribute: "cmo_identifier")
     expiryDate: Date @rename(attribute: "expiry_date")
     isWoman: Boolean @rename(attribute: "is_woman")

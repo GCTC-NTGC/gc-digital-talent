@@ -127,14 +127,6 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<
     cmoAssets: {
       sync: values.cmoAssets,
     },
-    user: {
-      update: {
-        firstName: values.firstName,
-        lastName: values.lastName,
-        telephone: values.telephone,
-        preferredLang: values.preferredLang,
-      },
-    },
   });
 
   const methods = useForm<FormValues>({
@@ -223,9 +215,7 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<
               })}
               type="text"
               name="firstName"
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
+              disabled
             />
             <Input
               id="lastName"
@@ -236,9 +226,7 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<
               })}
               type="text"
               name="lastName"
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
+              disabled
             />
             <Input
               id="telephone"
@@ -249,13 +237,7 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<
               })}
               type="tel"
               name="telephone"
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-                pattern: {
-                  value: phoneNumberRegex,
-                  message: intl.formatMessage(errorMessages.telephone),
-                },
-              }}
+              disabled
             />
             <Select
               id="preferredLang"
@@ -270,9 +252,7 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<
                 description:
                   "Placeholder displayed on the user form preferred language field.",
               })}
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
+              disabled
               options={enumToOptions(Language).map(({ value }) => ({
                 value,
                 label: intl.formatMessage(getLanguage(value)),
