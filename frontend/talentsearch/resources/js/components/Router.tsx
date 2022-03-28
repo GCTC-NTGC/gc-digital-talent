@@ -16,6 +16,7 @@ import {
 } from "../applicantProfileRoutes";
 import RequestPage from "./request/RequestPage";
 import { ProfilePageApi } from "./profile/ProfilePage/ProfilePage";
+import GovInfoFormContainer from "./GovernmentInfoForm/GovernmentInfoForm";
 
 const routes = (
   talentPaths: TalentSearchRoutes,
@@ -44,6 +45,12 @@ const routes = (
     path: profilePaths.home(),
     action: () => ({
       component: <ProfilePageApi />,
+    }),
+  },
+  {
+    path: profilePaths.governmentInformation(),
+    action: () => ({
+      component: <GovInfoFormContainer />,
     }),
   },
 ];

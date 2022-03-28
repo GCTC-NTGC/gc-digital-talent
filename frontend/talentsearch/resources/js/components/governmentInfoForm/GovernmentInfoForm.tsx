@@ -2,20 +2,16 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { useWatch, SubmitHandler } from "react-hook-form";
 import { errorMessages } from "@common/messages";
-import { Checkbox, RadioGroup, Select, Submit } from "@common/components/form";
+import { Checkbox, RadioGroup, Select } from "@common/components/form";
 import { getLocale } from "@common/helpers/localize";
 import Form from "@common/components/form/BasicForm";
 import { fakeClassifications } from "@common/fakeData";
 import { toast } from "react-toastify";
-import { navigate } from "@common/helpers/router";
+import { notEmpty } from "@common/helpers/util";
 import {
-  GetAllClassificationsQuery,
   Classification,
-  GetAllClassificationsQueryVariables,
-  GetAllClassificationsDocument,
   useGetAllClassificationsQuery,
   useUpdateGovAsUserMutation,
-  UpdateGovAsUserDocument,
   UpdateUserAsUserInput,
   UpdateGovAsUserMutation,
   useGetMeGovernmentInfoQuery,
@@ -46,14 +42,14 @@ export const GovernmentInfoForm: React.FunctionComponent<{
       level?: number | null | undefined;
     };
   };
-}> = ({ classifications, storedValues }) => {
+  saveThingy: any;
+}> = ({ classifications, storedValues, saveThingy }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
 
   // hooks to watch, needed for conditional rendering
   const govEmployee = useWatch({
     name: "gov-employee-yesno",
-    defaultValue: "no",
   });
   const govEmployeeStatus = useWatch({
     name: "gov-employee-status",
@@ -108,7 +104,8 @@ export const GovernmentInfoForm: React.FunctionComponent<{
           })}
           name="gov-employee-yesno"
           rules={{ required: intl.formatMessage(errorMessages.required) }}
-          defaultSelected={storedValues.isGovEmployee ? "yes" : "no"}
+          defaultSelected="no"
+          // defaultSelected={storedValues.isGovEmployee ? "yes" : "no"}
           items={[
             {
               value: "no",
@@ -200,6 +197,7 @@ export const GovernmentInfoForm: React.FunctionComponent<{
               name="lateral-second"
               boundingBox
               boundingBoxLabel="Lateral Deployment"
+              // defaultChecked={!!storedValues.interestedInLaterOrSecondment}
             />
           )}
       </div>
@@ -235,7 +233,7 @@ export const GovernmentInfoForm: React.FunctionComponent<{
                 })}
                 rules={{ required: intl.formatMessage(errorMessages.required) }}
                 options={groupOptions}
-                // value={
+                // defaultValue={
                 //   storedValues.currentClassification?.group
                 //     ? `${storedValues.currentClassification.group}`
                 //     : "Choose Group"
@@ -264,7 +262,7 @@ export const GovernmentInfoForm: React.FunctionComponent<{
                   description: "Null selection for form.",
                 })}
                 options={levelOptions}
-                // value={
+                // defaultValue={
                 //   storedValues.currentClassification?.level
                 //     ? `${storedValues.currentClassification.level}`
                 //     : "Choose Level"
@@ -273,13 +271,14 @@ export const GovernmentInfoForm: React.FunctionComponent<{
             )}
         </div>
       </div>
+      <ProfileFormFooter mode="saveButton" handleSave={() => saveThingy()} />
     </div>
   );
 };
 
 // outer, containing component
 export const GovInfoFormContainer: React.FunctionComponent = () => {
-  const fakes = fakeClassifications();
+  // const fakes = fakeClassifications();
   const intl = useIntl();
 
   // acquire classifications from graphQL to pass into component to render
@@ -289,9 +288,10 @@ export const GovInfoFormContainer: React.FunctionComponent = () => {
     fetching: fetchingLookupData,
     error: lookupDataError,
   } = lookUpResult;
-  console.log(lookupData, fetchingLookupData, lookupDataError);
+  const classifications: Classification[] | [] =
+    lookupData?.classifications.filter(notEmpty) ?? [];
 
-  // acquire prior info if applicable
+  // acquire prior info if applicable, including id of "me"
   const callGetMeQuery = useGetMeGovernmentInfoQuery();
   const holder = callGetMeQuery[0].data?.me;
   const previousData = {
@@ -303,13 +303,14 @@ export const GovInfoFormContainer: React.FunctionComponent = () => {
     },
   };
 
-  // submitting the component values back to graphQL logic to pass into inner component
+  // submitting the form component values back out to graphQL
   const [, executeMutation] = useUpdateGovAsUserMutation();
   const handleUpdateUser = (id: string, data: UpdateUserAsUserInput) =>
     executeMutation({
       id,
       user: data,
     }).then((result) => {
+      console.log("Stamp 4");
       if (result.data?.updateUserAsUser) {
         return result.data.updateUserAsUser;
       }
@@ -320,11 +321,13 @@ export const GovInfoFormContainer: React.FunctionComponent = () => {
   ): UpdateUserAsUserInput => ({
     ...values,
   });
-
-  const id = "id";
+  const id = holder ? holder.id : "";
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
+    console.log("Stamp 1");
+    console.log(data);
     await handleUpdateUser(id, formValuesToSubmitData(data))
       .then(() => {
+        console.log("Stamp 2");
         toast.success(
           intl.formatMessage({
             defaultMessage: "User updated successfully!",
@@ -334,6 +337,7 @@ export const GovInfoFormContainer: React.FunctionComponent = () => {
         );
       })
       .catch(() => {
+        console.log("Stamp 3");
         toast.error(
           intl.formatMessage({
             defaultMessage: "Error: updating user failed",
@@ -367,13 +371,17 @@ export const GovInfoFormContainer: React.FunctionComponent = () => {
         },
       ]}
     >
-      <Form onSubmit={onSubmit}>
+      <Form
+        onSubmit={() => {
+          return null;
+        }}
+      >
         <GovernmentInfoForm
-          classifications={fakes}
+          classifications={classifications}
           storedValues={previousData}
+          saveThingy={onSubmit}
         />
       </Form>
-      <ProfileFormFooter mode="saveButton" handleSave={() => onSubmit} />
     </ProfileFormWrapper>
   );
 };

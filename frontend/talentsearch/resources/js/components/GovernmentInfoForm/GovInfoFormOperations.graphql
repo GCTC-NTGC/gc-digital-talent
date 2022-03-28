@@ -32,6 +32,7 @@ mutation UpdateGovAsUser($id: ID!, $user: UpdateUserAsUserInput!) {
 
 query getMeGovernmentInfo {
   me {
+    id
     isGovEmployee
     currentClassification {
       id
