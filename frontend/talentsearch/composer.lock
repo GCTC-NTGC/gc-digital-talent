@@ -5213,16 +5213,16 @@
         },
         {
             "name": "flipbox/lumen-generator",
-            "version": "9.0.1",
+            "version": "9.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/flipboxstudio/lumen-generator.git",
-                "reference": "abfebdfe6555ef12d828ecd93fb2626b69ed651f"
+                "reference": "ee8e6a4feeb751369a3bbf998491143a68989be9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/flipboxstudio/lumen-generator/zipball/abfebdfe6555ef12d828ecd93fb2626b69ed651f",
-                "reference": "abfebdfe6555ef12d828ecd93fb2626b69ed651f",
+                "url": "https://api.github.com/repos/flipboxstudio/lumen-generator/zipball/ee8e6a4feeb751369a3bbf998491143a68989be9",
+                "reference": "ee8e6a4feeb751369a3bbf998491143a68989be9",
                 "shasum": ""
             },
             "require": {
@@ -5255,9 +5255,9 @@
             "description": "A Lumen Generator You Are Missing",
             "support": {
                 "issues": "https://github.com/flipboxstudio/lumen-generator/issues",
-                "source": "https://github.com/flipboxstudio/lumen-generator/tree/9.0.1"
+                "source": "https://github.com/flipboxstudio/lumen-generator/tree/9.1.0"
             },
-            "time": "2022-03-15T15:47:18+00:00"
+            "time": "2022-03-26T00:47:39+00:00"
         },
         {
             "name": "hamcrest/hamcrest-php",
