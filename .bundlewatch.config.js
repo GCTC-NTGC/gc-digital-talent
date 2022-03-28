@@ -15,7 +15,7 @@ module.exports = {
     },
     {
       path: "frontend/admin/public/js/dashboard.js",
-      maxSize: "215 kB",
+      maxSize: "225 kB",
     },
     {
       path: "auth/public/js/app.js",
