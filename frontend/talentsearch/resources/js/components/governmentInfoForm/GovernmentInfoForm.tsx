@@ -18,6 +18,7 @@ import {
   UpdateGovAsUserDocument,
   UpdateUserAsUserInput,
   UpdateGovAsUserMutation,
+  useGetMeGovernmentInfoQuery,
 } from "../../api/generated";
 import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
 import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
@@ -37,7 +38,15 @@ type FormContentTyping = {
 // inner component
 export const GovernmentInfoForm: React.FunctionComponent<{
   classifications: Classification[];
-}> = ({ classifications }) => {
+  storedValues: {
+    isGovEmployee?: boolean | null | undefined;
+    interestedInLaterOrSecondment?: boolean | null | undefined;
+    currentClassification?: {
+      group?: string | null | undefined;
+      level?: number | null | undefined;
+    };
+  };
+}> = ({ classifications, storedValues }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
 
@@ -89,28 +98,7 @@ export const GovernmentInfoForm: React.FunctionComponent<{
 
   // render the actual form
   return (
-    <ProfileFormWrapper
-      description={intl.formatMessage({
-        defaultMessage:
-          "Please indicate if you are currently an employee in the Government of Canada.",
-        description:
-          "Description blurb for Profile Form Wrapper in the Government Information Form",
-      })}
-      title={intl.formatMessage({
-        defaultMessage: "Government Information",
-        description:
-          "Title for Profile Form Wrapper in Government Information Form",
-      })}
-      crumbs={[
-        {
-          title: intl.formatMessage({
-            defaultMessage: "Government Information",
-            description:
-              "Display Text for Government Information Form Page Link",
-          }),
-        },
-      ]}
-    >
+    <div>
       <div data-h2-flex-item="b(1of1) s(1of2) m(1of6) l(1of12)">
         <RadioGroup
           idPrefix="gov-employee-yesno"
@@ -120,7 +108,7 @@ export const GovernmentInfoForm: React.FunctionComponent<{
           })}
           name="gov-employee-yesno"
           rules={{ required: intl.formatMessage(errorMessages.required) }}
-          defaultSelected="no"
+          defaultSelected={storedValues.isGovEmployee ? "yes" : "no"}
           items={[
             {
               value: "no",
@@ -247,6 +235,11 @@ export const GovernmentInfoForm: React.FunctionComponent<{
                 })}
                 rules={{ required: intl.formatMessage(errorMessages.required) }}
                 options={groupOptions}
+                // value={
+                //   storedValues.currentClassification?.group
+                //     ? `${storedValues.currentClassification.group}`
+                //     : "Choose Group"
+                // }
               />
             )}
         </div>
@@ -271,12 +264,16 @@ export const GovernmentInfoForm: React.FunctionComponent<{
                   description: "Null selection for form.",
                 })}
                 options={levelOptions}
+                // value={
+                //   storedValues.currentClassification?.level
+                //     ? `${storedValues.currentClassification.level}`
+                //     : "Choose Level"
+                // }
               />
             )}
         </div>
       </div>
-      <ProfileFormFooter mode="saveButton" />
-    </ProfileFormWrapper>
+    </div>
   );
 };
 
@@ -293,6 +290,18 @@ export const GovInfoFormContainer: React.FunctionComponent = () => {
     error: lookupDataError,
   } = lookUpResult;
   console.log(lookupData, fetchingLookupData, lookupDataError);
+
+  // acquire prior info if applicable
+  const callGetMeQuery = useGetMeGovernmentInfoQuery();
+  const holder = callGetMeQuery[0].data?.me;
+  const previousData = {
+    isGovEmployee: holder?.isGovEmployee,
+    interestedInLaterOrSecondment: holder?.interestedInLaterOrSecondment,
+    currentClassification: {
+      group: holder?.currentClassification?.group,
+      level: holder?.currentClassification?.level,
+    },
+  };
 
   // submitting the component values back to graphQL logic to pass into inner component
   const [, executeMutation] = useUpdateGovAsUserMutation();
@@ -311,6 +320,7 @@ export const GovInfoFormContainer: React.FunctionComponent = () => {
   ): UpdateUserAsUserInput => ({
     ...values,
   });
+
   const id = "id";
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
     await handleUpdateUser(id, formValuesToSubmitData(data))
@@ -335,12 +345,36 @@ export const GovInfoFormContainer: React.FunctionComponent = () => {
   };
 
   return (
-    <div>
+    <ProfileFormWrapper
+      description={intl.formatMessage({
+        defaultMessage:
+          "Please indicate if you are currently an employee in the Government of Canada.",
+        description:
+          "Description blurb for Profile Form Wrapper in the Government Information Form",
+      })}
+      title={intl.formatMessage({
+        defaultMessage: "Government Information",
+        description:
+          "Title for Profile Form Wrapper in Government Information Form",
+      })}
+      crumbs={[
+        {
+          title: intl.formatMessage({
+            defaultMessage: "Government Information",
+            description:
+              "Display Text for Government Information Form Page Link",
+          }),
+        },
+      ]}
+    >
       <Form onSubmit={onSubmit}>
-        <GovernmentInfoForm classifications={fakes} />
-        <Submit />
+        <GovernmentInfoForm
+          classifications={fakes}
+          storedValues={previousData}
+        />
       </Form>
-    </div>
+      <ProfileFormFooter mode="saveButton" handleSave={() => onSubmit} />
+    </ProfileFormWrapper>
   );
 };
 

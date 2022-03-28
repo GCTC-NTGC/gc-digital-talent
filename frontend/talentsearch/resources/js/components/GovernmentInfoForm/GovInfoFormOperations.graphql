@@ -29,3 +29,21 @@ mutation UpdateGovAsUser($id: ID!, $user: UpdateUserAsUserInput!) {
     }
   }
 }
+
+query getMeGovernmentInfo {
+  me {
+    isGovEmployee
+    currentClassification {
+      id
+      name {
+        en
+        fr
+      }
+      group
+      level
+      minSalary
+      maxSalary
+    }
+    interestedInLaterOrSecondment
+  }
+}
