@@ -727,7 +727,7 @@ input ConnectOrCreateBelongsTo {
 
 input CreatePoolCandidateAsAdminInput {
     pool: PoolBelongsTo!
-    user: ConnectOrCreateBelongsTo! # TODO: This should be switched to UserBelongsTo as soon as possible. Permission to create a PoolCandidate shouldn't imply permission to create a User.
+    user: ConnectOrCreateBelongsTo! # TODO: This should be switched to UserBelongsTo as soon as possible. Permission to create a PoolCandidate shouldn't imply permission to create a User. See https://github.com/GCTC-NTGC/gc-digital-talent/issues/2356
     cmoIdentifier: ID @rename(attribute: "cmo_identifier")
     expiryDate: Date @rename(attribute: "expiry_date")
     isWoman: Boolean @rename(attribute: "is_woman")
@@ -778,7 +778,7 @@ input UpdateUserBelongsTo {
 }
 
 input UpdatePoolCandidateAsAdminInput {
-    user: UpdateUserBelongsTo # TODO: This should be removed as soon as possible. Permission to update a PoolCandidate shouldn't imply permission to update a User.
+    user: UpdateUserBelongsTo # TODO: This should be removed as soon as possible. Permission to update a PoolCandidate shouldn't imply permission to update a User. See https://github.com/GCTC-NTGC/gc-digital-talent/issues/2356
     cmoIdentifier: ID @rename(attribute: "cmo_identifier")
     expiryDate: Date @rename(attribute: "expiry_date")
     isWoman: Boolean @rename(attribute: "is_woman")
