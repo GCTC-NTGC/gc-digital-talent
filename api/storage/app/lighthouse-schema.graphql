@@ -849,7 +849,6 @@ input UpdateOperationalRequirementInput {
 }
 
 input UpdatePoolCandidateAsAdminInput {
-  user: UpdateUserBelongsTo
   cmoIdentifier: ID
   expiryDate: Date
   isWoman: Boolean
@@ -966,10 +965,6 @@ input UpdateUserAsUserInput {
   expectedClassifications: ClassificationBelongsToMany
   wouldAcceptTemporary: Boolean
   cmoAssets: CmoAssetBelongsToMany
-}
-
-input UpdateUserBelongsTo {
-  update: UpdateUserAsAdminInput
 }
 
 type User {
