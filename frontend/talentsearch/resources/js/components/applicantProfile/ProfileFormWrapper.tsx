@@ -5,6 +5,7 @@ import { useIntl } from "react-intl";
 import { imageUrl } from "@common/helpers/router";
 import TALENTSEARCH_APP_DIR from "../../talentSearchConstants";
 import CancelButton from "./CancelButton";
+import { useApplicantProfileRoutes } from "../../applicantProfileRoutes";
 
 export interface ProfileFormWrapperProps {
   crumbs: BreadcrumbsProps["links"];
@@ -19,13 +20,14 @@ const ProfileFormWrapper: React.FunctionComponent<ProfileFormWrapperProps> = ({
   children,
 }) => {
   const intl = useIntl();
+  const profilePath = useApplicantProfileRoutes();
   const links = [
     {
       title: intl.formatMessage({
         defaultMessage: "My Profile",
         description: "Breadcrumb from applicant profile wrapper.",
       }),
-      href: "/profile", // TODO: Replace with profile link when created
+      href: profilePath.home(),
       icon: <UserIcon style={{ width: "1rem", marginRight: "5px" }} />,
     },
     ...crumbs,
@@ -38,7 +40,7 @@ const ProfileFormWrapper: React.FunctionComponent<ProfileFormWrapperProps> = ({
       style={{
         background: `url(${imageUrl(
           TALENTSEARCH_APP_DIR,
-          "applicant-profile-banner.jpg",
+          "applicant-profile-banner.png",
         )})`,
         backgroundSize: "100vw 5rem",
       }}
@@ -55,7 +57,7 @@ const ProfileFormWrapper: React.FunctionComponent<ProfileFormWrapperProps> = ({
         data-h2-width="b(100) s(75)"
       >
         <div data-h2-margin="b(top-bottom, l)">
-          <CancelButton />
+          <CancelButton link={profilePath.home()} />
         </div>
         <h1
           data-h2-margin="b(all, none)"

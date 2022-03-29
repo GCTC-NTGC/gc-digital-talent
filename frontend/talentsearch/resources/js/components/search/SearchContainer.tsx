@@ -263,7 +263,7 @@ export const SearchContainerApi: React.FC = () => {
         pool?.operationalRequirements?.filter(notEmpty) ?? []
       }
       pool={pool ?? undefined}
-      poolOwner={pool?.ownerPublicProfile ?? undefined}
+      poolOwner={pool?.owner ?? undefined}
       candidateFilter={candidateFilter}
       candidateCount={candidateCount}
       updatePending={countFetching}

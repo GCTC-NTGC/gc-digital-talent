@@ -16,6 +16,7 @@ const CancelButton: React.FunctionComponent<{ link?: string }> = ({
       })}
     >
       <Button
+        type="submit"
         color="secondary"
         mode="outline"
         data-h2-display="b(flex)"

@@ -13,6 +13,7 @@ const SaveButton: React.FunctionComponent<SaveButtonProps> = ({
   const intl = useIntl();
   return (
     <Button
+      type="submit"
       color="cta"
       mode="solid"
       data-h2-display="b(flex)"

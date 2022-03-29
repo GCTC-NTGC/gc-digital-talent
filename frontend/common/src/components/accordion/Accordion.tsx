@@ -19,6 +19,7 @@ export const Accordion: React.FC<AccordionProps> = ({
   Icon,
   children,
   defaultOpen,
+  ...rest
 }) => {
   const [isOpen, setIsOpen] = useState(defaultOpen);
 
@@ -33,6 +34,7 @@ export const Accordion: React.FC<AccordionProps> = ({
       data-h2-radius="b(none, s, s, none)"
       data-h2-overflow="b(all, hidden)"
       data-h2-border="b([light]primary, left, solid, m)"
+      {...rest}
     >
       <button
         type="button"

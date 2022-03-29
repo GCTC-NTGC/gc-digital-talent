@@ -1,6 +1,12 @@
 import { authExchange } from "@urql/exchange-auth";
 import jwtDecode, { JwtPayload } from "jwt-decode";
-import React, { useCallback, useContext, useMemo } from "react";
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+} from "react";
 import { toast } from "react-toastify";
 import {
   Client,
@@ -78,12 +84,21 @@ export const ClientProvider: React.FC<{ client?: Client }> = ({
   client,
   children,
 }) => {
-  const { accessToken, refreshToken, idToken, logout, refreshTokenSet } =
-    useContext(AuthContext);
+  const authContext = useContext(AuthContext);
+  // Create a mutable object to hold the auth state
+  const authRef = useRef(authContext);
+  // Keep the contents of that mutable object up to date
+  useEffect(() => {
+    authRef.current = authContext;
+  }, [authContext]);
 
   const getAuth = useCallback(
     async ({ authState: existingAuthState }): Promise<AuthState | null> => {
       // getAuth could be called for the first request or as the result of an error
+
+      // At runtime, get the current auth state
+      const { accessToken, refreshToken, idToken, logout, refreshTokenSet } =
+        authRef.current;
 
       if (!existingAuthState) {
         // no existing auth state so this is probably just the first request
@@ -103,7 +118,9 @@ export const ClientProvider: React.FC<{ client?: Client }> = ({
       logout();
       return null;
     },
-    [accessToken, refreshToken, idToken, logout, refreshTokenSet],
+    // This function is inside of `useCallback` to prevent breaking the memoization of internalClient.
+    // If internalClient is reinstantiated it will lose its error count and can cause refresh loops.
+    [],
   );
 
   const internalClient = useMemo(() => {
