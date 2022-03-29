@@ -9,8 +9,6 @@ import {
 import { errorMessages } from "@common/messages";
 import { Checkbox, RadioGroup, Select } from "@common/components/form";
 import { getLocale } from "@common/helpers/localize";
-import Form from "@common/components/form/BasicForm";
-import { fakeClassifications } from "@common/fakeData";
 import { toast } from "react-toastify";
 import { notEmpty } from "@common/helpers/util";
 import {
@@ -18,17 +16,12 @@ import {
   useGetAllClassificationsQuery,
   useUpdateGovAsUserMutation,
   UpdateUserAsUserInput,
-  UpdateGovAsUserMutation,
   useGetMeGovernmentInfoQuery,
 } from "../../api/generated";
 import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
 import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
 
-type FormValues = Pick<
-  UpdateUserAsUserInput,
-  "isGovEmployee" | "interestedInLaterOrSecondment" | "currentClassification"
->;
-type FormContentTyping = {
+type FormValues = {
   govEmployeeYesNo: string;
   govEmployeeType: string;
   lateralDeployBool: boolean;
@@ -47,22 +40,22 @@ export const GovernmentInfoForm: React.FunctionComponent<{
       level?: number | null | undefined;
     };
   };
-  // saveThingy: any;
-}> = ({ classifications, storedValues /* , saveThingy */ }) => {
+}> = ({ classifications, storedValues }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
+  // console.log(storedValues);
 
   // hooks to watch, needed for conditional rendering
   const govEmployee = useWatch({
-    name: "gov-employee-yesno",
+    name: "govEmployeeYesNo",
   });
   const govEmployeeStatus = useWatch({
-    name: "gov-employee-status",
+    name: "govEmployeeType",
     defaultValue: "student",
   });
   const groupSelection = useWatch({
-    name: "class-group",
-    defaultValue: "Choose Department",
+    name: "currentClassificationGroup",
+    // defaultValue: "Choose Department",
   });
 
   // create array of objects containing the classifications, then map it into an array of strings, and then remove duplicates, and then map into Select options
@@ -102,12 +95,12 @@ export const GovernmentInfoForm: React.FunctionComponent<{
     <div>
       <div data-h2-flex-item="b(1of1) s(1of2) m(1of6) l(1of12)">
         <RadioGroup
-          idPrefix="gov-employee-yesno"
+          idPrefix="govEmployeeYesNo"
           legend={intl.formatMessage({
             defaultMessage: "GoC Employee Status",
             description: "Employee Status in Government Info Form",
           })}
-          name="gov-employee-yesno"
+          name="govEmployeeYesNo"
           rules={{ required: intl.formatMessage(errorMessages.required) }}
           defaultSelected="no"
           // defaultSelected={storedValues.isGovEmployee ? "yes" : "no"}
@@ -135,12 +128,12 @@ export const GovernmentInfoForm: React.FunctionComponent<{
         {" "}
         {govEmployee === "yes" && (
           <RadioGroup
-            idPrefix="gov-employee-status"
+            idPrefix="govEmployeeType"
             legend={intl.formatMessage({
               defaultMessage: "GoC Employee Status",
               description: "Employee Status in Government Info Form",
             })}
-            name="gov-employee-status"
+            name="govEmployeeType"
             rules={{ required: intl.formatMessage(errorMessages.required) }}
             defaultSelected="student"
             items={[
@@ -193,13 +186,13 @@ export const GovernmentInfoForm: React.FunctionComponent<{
           (govEmployeeStatus === "term" ||
             govEmployeeStatus === "indeterminate") && (
             <Checkbox
-              id="lateral-second"
+              id="lateralDeployBool"
               label={intl.formatMessage({
                 defaultMessage:
                   "I am interested in lateral deployment or secondment.",
                 description: "Label displayed on lateral/secondment checkbox",
               })}
-              name="lateral-second"
+              name="lateralDeployBool"
               boundingBox
               boundingBoxLabel="Lateral Deployment"
               // defaultChecked={!!storedValues.interestedInLaterOrSecondment}
@@ -226,12 +219,12 @@ export const GovernmentInfoForm: React.FunctionComponent<{
               govEmployeeStatus === "indeterminate" ||
               govEmployeeStatus === "casual") && (
               <Select
-                id="class-group"
+                id="currentClassificationGroup"
                 label={intl.formatMessage({
                   defaultMessage: "Current Classification Group",
                   description: "Label displayed on classification group input",
                 })}
-                name="class-group"
+                name="currentClassificationGroup"
                 nullSelection={intl.formatMessage({
                   defaultMessage: "Choose Group",
                   description: "Null selection for form.",
@@ -253,12 +246,12 @@ export const GovernmentInfoForm: React.FunctionComponent<{
               govEmployeeStatus === "casual") &&
             groupSelection !== "Choose Department" && (
               <Select
-                id="class-level"
+                id="currentClassificationLevel"
                 label={intl.formatMessage({
                   defaultMessage: "Current Classification Level",
                   description: "Label displayed on classification level input",
                 })}
-                name="class-level"
+                name="currentClassificationLevel"
                 rules={{
                   required: intl.formatMessage(errorMessages.required),
                 }}
@@ -282,10 +275,10 @@ export const GovernmentInfoForm: React.FunctionComponent<{
 
 // outer, containing component
 export const GovInfoFormContainer: React.FunctionComponent = () => {
-  // const fakes = fakeClassifications();
   const intl = useIntl();
   const methods = useForm<FormValues>();
   const { handleSubmit, watch } = methods;
+
   // acquire classifications from graphQL to pass into component to render
   const [lookUpResult] = useGetAllClassificationsQuery();
   const {
@@ -298,6 +291,7 @@ export const GovInfoFormContainer: React.FunctionComponent = () => {
 
   // acquire prior info if applicable, including id of "me"
   const callGetMeQuery = useGetMeGovernmentInfoQuery();
+  const fetchingMe = callGetMeQuery[0].fetching;
   const holder = callGetMeQuery[0].data?.me;
   const previousData = {
     isGovEmployee: holder?.isGovEmployee,
@@ -308,6 +302,27 @@ export const GovInfoFormContainer: React.FunctionComponent = () => {
     },
   };
 
+  // take classification group + level from data, return the matching classification from API
+  // need to fit to the expected type when this function is called in formToData
+  const classificationFormToId = (group: string, level: string): string => {
+    const classGroupsWithDupes: { id: string; group: string; level: string }[] =
+      classifications.map((iterator) => {
+        return {
+          id: iterator.id,
+          group: iterator.group,
+          level: iterator.level.toString(),
+        };
+      });
+    const filterName = classGroupsWithDupes.filter(
+      (iterator) => iterator.group === group,
+    );
+    const filterLevel = filterName.filter(
+      (iterator) => iterator.level === level,
+    );
+    const idConnect = filterLevel[0].id;
+    return idConnect;
+  };
+
   // submitting the form component values back out to graphQL
   const [, executeMutation] = useUpdateGovAsUserMutation();
   const handleUpdateUser = (id: string, data: UpdateUserAsUserInput) =>
@@ -315,7 +330,6 @@ export const GovInfoFormContainer: React.FunctionComponent = () => {
       id,
       user: data,
     }).then((result) => {
-      console.log("Stamp 4");
       if (result.data?.updateUserAsUser) {
         return result.data.updateUserAsUser;
       }
@@ -324,15 +338,19 @@ export const GovInfoFormContainer: React.FunctionComponent = () => {
   const formValuesToSubmitData = (
     values: FormValues,
   ): UpdateUserAsUserInput => ({
-    ...values,
+    isGovEmployee: values.govEmployeeYesNo === "yes",
+    interestedInLaterOrSecondment: values.lateralDeployBool,
+    currentClassification: {
+      connect: classificationFormToId(
+        values.currentClassificationGroup,
+        values.currentClassificationLevel,
+      ),
+    },
   });
   const id = holder ? holder.id : "";
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
-    console.log("Stamp 1");
-    console.log(data);
     await handleUpdateUser(id, formValuesToSubmitData(data))
       .then(() => {
-        console.log("Stamp 2");
         toast.success(
           intl.formatMessage({
             defaultMessage: "User updated successfully!",
@@ -342,7 +360,6 @@ export const GovInfoFormContainer: React.FunctionComponent = () => {
         );
       })
       .catch(() => {
-        console.log("Stamp 3");
         toast.error(
           intl.formatMessage({
             defaultMessage: "Error: updating user failed",
@@ -354,42 +371,55 @@ export const GovInfoFormContainer: React.FunctionComponent = () => {
   };
 
   return (
-    <ProfileFormWrapper
-      description={intl.formatMessage({
-        defaultMessage:
-          "Please indicate if you are currently an employee in the Government of Canada.",
-        description:
-          "Description blurb for Profile Form Wrapper in the Government Information Form",
-      })}
-      title={intl.formatMessage({
-        defaultMessage: "Government Information",
-        description:
-          "Title for Profile Form Wrapper in Government Information Form",
-      })}
-      crumbs={[
-        {
-          title: intl.formatMessage({
+    <div>
+      {fetchingLookupData ||
+        (fetchingMe && (
+          <p>
+            {intl.formatMessage({
+              defaultMessage: "Loading...",
+              description: "Loading message",
+            })}
+          </p>
+        ))}
+      {!fetchingLookupData && !fetchingMe && (
+        <ProfileFormWrapper
+          description={intl.formatMessage({
+            defaultMessage:
+              "Please indicate if you are currently an employee in the Government of Canada.",
+            description:
+              "Description blurb for Profile Form Wrapper in the Government Information Form",
+          })}
+          title={intl.formatMessage({
             defaultMessage: "Government Information",
             description:
-              "Display Text for Government Information Form Page Link",
-          }),
-        },
-      ]}
-    >
-      <FormProvider {...methods}>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <GovernmentInfoForm
-            classifications={classifications}
-            storedValues={previousData}
-            // saveThingy={onSubmit}
-          />
-          <ProfileFormFooter
-            mode="saveButton"
-            handleSave={handleSubmit(onSubmit)}
-          />
-        </form>
-      </FormProvider>
-    </ProfileFormWrapper>
+              "Title for Profile Form Wrapper in Government Information Form",
+          })}
+          crumbs={[
+            {
+              title: intl.formatMessage({
+                defaultMessage: "Government Information",
+                description:
+                  "Display Text for Government Information Form Page Link",
+              }),
+            },
+          ]}
+        >
+          <FormProvider {...methods}>
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <GovernmentInfoForm
+                classifications={classifications}
+                storedValues={previousData}
+              />
+              <ProfileFormFooter
+                mode="saveButton"
+                handleSave={handleSubmit(onSubmit)}
+              />
+            </form>
+          </FormProvider>
+        </ProfileFormWrapper>
+      )}
+      ;
+    </div>
   );
 };
 
