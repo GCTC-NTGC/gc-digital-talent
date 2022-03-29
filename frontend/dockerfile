@@ -1,0 +1,84 @@
+FROM node:14.18.1-alpine3.14
+ARG NPM_VERSION=8.3.0
+#as builder
+
+WORKDIR /app
+COPY package.json package-lock.json lighthouse-schema.graphql ./
+# RUN npm ci
+# TODO: add full command
+
+WORKDIR /app/common
+
+COPY common/package.json .
+# RUN npm ci
+# TODO: add full command
+
+COPY common/tsconfig.json common/hydrogen.config.json ./
+COPY common/src/ src/
+#RUN npm run h2-build
+
+COPY common/codegen.yml ./
+#RUN npm run codegen
+
+WORKDIR /app/admin
+
+COPY admin/package.json ./
+#RUN npm ci
+
+COPY admin/tsconfig.json .
+# with webpack, will be src directory
+COPY admin/resources/ resources/
+#RUN npm run h2-build
+
+COPY admin/codegen.yml ./
+#RUN npm run codegen
+
+COPY admin/webpack.mix.js admin/artisan ./
+#RUN npm run production
+
+WORKDIR /app/talentsearch
+
+COPY talentsearch/package.json ./
+#RUN npm ci
+
+COPY talentsearch/tsconfig.json ./
+# with webpack, will be src directory
+COPY talentsearch/resources/ resources/
+#RUN npm run h2-build
+
+COPY talentsearch/codegen.yml ./
+#RUN npm run codegen
+
+# with webpack, will be webpack config
+COPY talentsearch/webpack.mix.js talentsearch/artisan ./
+COPY talentsearch/public/ public/
+#RUN npm run dev
+
+WORKDIR /app
+RUN npm install --global npm@$NPM_VERSION
+RUN npm ci
+RUN npm run h2-build --if-present --workspaces
+RUN npm run codegen --if-present --workspaces
+
+
+
+# FROM php:7.4.27-apache-bullseye
+#FROM nginx:1.20.2
+
+#WORKDIR /usr/share/nginx/html
+
+#RUN rm -rf ./*
+
+# Enable mod_rewrite
+# RUN a2enmod rewrite
+
+# Install pdo_pgsql extension
+# RUN apt-get update \
+#     && apt-get install -y libpq-dev \
+#     && docker-php-ext-install pdo_pgsql
+
+# WORKDIR /var/www/html
+
+
+# COPY --from=builder /app/talentsearch/dist .
+#COPY .htaccess /var/www/html

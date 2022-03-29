@@ -1,4 +1,5 @@
 .DS_Store
 node_modules
 frontend/*/package-lock.json
+frontend/lighthouse-schema.graphql
 package-lock.json

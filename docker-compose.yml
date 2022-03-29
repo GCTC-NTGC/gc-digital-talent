@@ -1,0 +1,72 @@
+version: '3.8'
+
+services:
+
+  postgres:
+    image: postgres:13.2
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: password1234
+    volumes:
+      - ./infrastructure/db:/docker-entrypoint-initdb.d/
+      - pgdata:/var/lib/postgresql/data
+    # ports:
+      # - "5432:5432" # for convenience/troubleshooting
+
+  adminer:
+    image: adminer
+    restart: always
+    # links:
+      # - postgres # TODO: not needed?
+    # ports:
+      # - 8080:8080 # for convenience/troubleshooting
+
+  frontend:
+    build: ./frontend
+
+
+  # php:
+  #   build: ./php-container
+  #   working_dir: /var/www/html
+  #   restart: always
+  #   volumes:
+  #     - ./php-container/src:/var/www/html/
+  #     - ../api:/var/www/html/api
+  #     - ../auth:/var/www/html/auth
+  #     - ../frontend:/var/www/html/frontend
+  #     - ../tc-report:/var/www/html/tc-report
+  #   ports:
+  #     - 8000:80
+  #     - 8001:443
+  #   env_file:
+  #     - ../frontend/admin/.env
+
+  # maintenance:
+  #   build: ./infrastructure/maintenance-container
+  #   working_dir: /root/scripts
+  #   deploy:
+  #     mode: replicated
+  #     replicas: 0
+  #   volumes:
+  #     - maintenancedata:/root
+  #     - ../maintenance/scripts:/root/scripts
+  #     - ../api:/var/www/html/api
+  #     - ../auth:/var/www/html/auth
+  #     - ../frontend:/var/www/html/frontend
+  #     - ../tc-report:/var/www/html/tc-report
+
+  # This container is an alternative approach to builds, more closely following
+  # docker conventions. For now, it will only be used for performing CI tasks.
+  #
+  # With a profile designated, it will not build/run unless explicitly executed.
+  # See: https://docs.docker.com/compose/profiles/
+  # api:
+  #   build: ../api
+  #   depends_on:
+  #     - postgres
+  #   profiles:
+  #     - new
+
+volumes:
+  pgdata:
+  maintenancedata:
