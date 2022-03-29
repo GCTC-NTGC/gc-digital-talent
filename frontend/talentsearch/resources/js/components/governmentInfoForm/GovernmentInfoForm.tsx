@@ -11,6 +11,7 @@ import { Checkbox, RadioGroup, Select } from "@common/components/form";
 import { getLocale } from "@common/helpers/localize";
 import { toast } from "react-toastify";
 import { notEmpty } from "@common/helpers/util";
+import { navigate } from "@common/helpers/router";
 import {
   Classification,
   useGetAllClassificationsQuery,
@@ -20,6 +21,7 @@ import {
 } from "../../api/generated";
 import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
 import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
+import talentSearchRoutes from "../../talentSearchRoutes";
 
 type FormValues = {
   govEmployeeYesNo: string;
@@ -275,9 +277,12 @@ export const GovernmentInfoForm: React.FunctionComponent<{
 
 // outer, containing component
 export const GovInfoFormContainer: React.FunctionComponent = () => {
+  // needed bits for react-intl, form submits functions, and routing post submission
   const intl = useIntl();
   const methods = useForm<FormValues>();
   const { handleSubmit, watch } = methods;
+  const locale = getLocale(intl);
+  const paths = talentSearchRoutes(locale);
 
   // acquire classifications from graphQL to pass into component to render
   const [lookUpResult] = useGetAllClassificationsQuery();
@@ -323,7 +328,7 @@ export const GovInfoFormContainer: React.FunctionComponent = () => {
     return idConnect;
   };
 
-  // submitting the form component values back out to graphQL
+  // submitting the form component values back out to graphQL, after smoothing form-values to appropriate type, then return to /profile
   const [, executeMutation] = useUpdateGovAsUserMutation();
   const handleUpdateUser = (id: string, data: UpdateUserAsUserInput) =>
     executeMutation({
@@ -351,6 +356,7 @@ export const GovInfoFormContainer: React.FunctionComponent = () => {
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
     await handleUpdateUser(id, formValuesToSubmitData(data))
       .then(() => {
+        navigate(paths.profile());
         toast.success(
           intl.formatMessage({
             defaultMessage: "User updated successfully!",
@@ -370,55 +376,54 @@ export const GovInfoFormContainer: React.FunctionComponent = () => {
       });
   };
 
+  if (fetchingLookupData || fetchingMe) {
+    return (
+      <p>
+        {intl.formatMessage({
+          defaultMessage: "Loading...",
+          description: "Loading message",
+        })}
+      </p>
+    );
+  }
+
   return (
     <div>
-      {fetchingLookupData ||
-        (fetchingMe && (
-          <p>
-            {intl.formatMessage({
-              defaultMessage: "Loading...",
-              description: "Loading message",
-            })}
-          </p>
-        ))}
-      {!fetchingLookupData && !fetchingMe && (
-        <ProfileFormWrapper
-          description={intl.formatMessage({
-            defaultMessage:
-              "Please indicate if you are currently an employee in the Government of Canada.",
-            description:
-              "Description blurb for Profile Form Wrapper in the Government Information Form",
-          })}
-          title={intl.formatMessage({
-            defaultMessage: "Government Information",
-            description:
-              "Title for Profile Form Wrapper in Government Information Form",
-          })}
-          crumbs={[
-            {
-              title: intl.formatMessage({
-                defaultMessage: "Government Information",
-                description:
-                  "Display Text for Government Information Form Page Link",
-              }),
-            },
-          ]}
-        >
-          <FormProvider {...methods}>
-            <form onSubmit={handleSubmit(onSubmit)}>
-              <GovernmentInfoForm
-                classifications={classifications}
-                storedValues={previousData}
-              />
-              <ProfileFormFooter
-                mode="saveButton"
-                handleSave={handleSubmit(onSubmit)}
-              />
-            </form>
-          </FormProvider>
-        </ProfileFormWrapper>
-      )}
-      ;
+      <ProfileFormWrapper
+        description={intl.formatMessage({
+          defaultMessage:
+            "Please indicate if you are currently an employee in the Government of Canada.",
+          description:
+            "Description blurb for Profile Form Wrapper in the Government Information Form",
+        })}
+        title={intl.formatMessage({
+          defaultMessage: "Government Information",
+          description:
+            "Title for Profile Form Wrapper in Government Information Form",
+        })}
+        crumbs={[
+          {
+            title: intl.formatMessage({
+              defaultMessage: "Government Information",
+              description:
+                "Display Text for Government Information Form Page Link",
+            }),
+          },
+        ]}
+      >
+        <FormProvider {...methods}>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <GovernmentInfoForm
+              classifications={classifications}
+              storedValues={previousData}
+            />
+            <ProfileFormFooter
+              mode="saveButton"
+              handleSave={handleSubmit(onSubmit)}
+            />
+          </form>
+        </FormProvider>
+      </ProfileFormWrapper>
     </div>
   );
 };

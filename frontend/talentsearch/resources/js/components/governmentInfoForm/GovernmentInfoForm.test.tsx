@@ -2,33 +2,26 @@
  * @jest-environment jsdom
  */
 import "@testing-library/jest-dom";
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen, fireEvent, act } from "@testing-library/react";
 import React from "react";
-import { IntlProvider, MessageFormatElement } from "react-intl";
-import { fakeClassifications } from "@common/fakeData";
 import GovInfoFormContainer from "./GovernmentInfoForm";
-import { Classification } from "../../api/generated";
 
-const classificationsArray = fakeClassifications();
+let container: HTMLDivElement;
+beforeEach(() => {
+  // setup a DOM element as a render target
+  container = document.createElement("div");
+  document.body.appendChild(container);
+});
 
-const renderWithReactIntl = (
-  component: React.ReactNode,
-  locale?: "en" | "fr",
-  messages?: Record<string, string> | Record<string, MessageFormatElement[]>,
-) => {
-  return render(
-    <IntlProvider locale={locale || "en"} messages={messages}>
-      {component}
-    </IntlProvider>,
-  );
-};
-
-function renderGovernmentInfoForm() {
-  return renderWithReactIntl(<GovInfoFormContainer />);
-}
+jest.setTimeout(30000);
 
 test("Test form display rendering", async () => {
-  renderGovernmentInfoForm();
+  // timeout for hopefully things to load first then test?
+  act(() => {
+    render(<GovInfoFormContainer />);
+  });
+  // eslint-disable-next-line no-promise-executor-return
+  await new Promise((r) => setTimeout(r, 10000));
 
   const button = screen.getByText("Yes, I am a Government of Canada employee");
   const studentNotPresent = screen.queryByText("I am a student");
@@ -47,7 +40,11 @@ test("Test form display rendering", async () => {
 });
 
 test("Test form data", async () => {
-  renderGovernmentInfoForm();
+  act(() => {
+    render(<GovInfoFormContainer />);
+  });
+  // eslint-disable-next-line no-promise-executor-return
+  await new Promise((r) => setTimeout(r, 10000));
 
   const button = screen.getByText("Yes, I am a Government of Canada employee");
   fireEvent.click(button); // Open the second form
