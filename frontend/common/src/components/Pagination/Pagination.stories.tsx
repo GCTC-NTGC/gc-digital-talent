@@ -33,6 +33,8 @@ Default.args = {
   siblingCount: 1,
   currentPage: 1,
   pageSize: 10,
+  color: "black",
+  mode: "outline",
 };
 
 NoDots.args = {

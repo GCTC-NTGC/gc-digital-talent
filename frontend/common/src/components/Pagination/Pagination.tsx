@@ -190,7 +190,7 @@ const Pagination: React.FunctionComponent<PaginationProps> = ({
               const p = e.target.value ? Number(e.target.value) : 0;
               handlePageChange(p);
             }}
-            min={0}
+            min={1}
             max={paginationRange.length}
             style={{ width: "65px" }}
           />
