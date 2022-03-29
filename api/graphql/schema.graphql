@@ -404,76 +404,76 @@ enum EducationStatus {
 }
 
 interface Experience {
-  id: ID!
-  applicant: Applicant! @belongsTo(relation: "user")
-  details: String
-  skills: [Skill!] @morphToMany
+    id: ID!
+    applicant: Applicant! @belongsTo(relation: "user")
+    details: String
+    skills: [Skill!] @morphToMany
 }
 
 type WorkExperience implements Experience {
-  id: ID!
-  applicant: Applicant! @belongsTo(relation: "user")
-  role: String
-  organization: String
-  division: String
-  startDate: Date @rename(attribute: "start_date")
-  endDate: Date @rename(attribute: "end_date")
-  details: String
-  skills: [Skill!] @morphToMany
-  skillPivot: ExperienceSkillPivot @rename(attribute: "pivot")
+    id: ID!
+    applicant: Applicant! @belongsTo(relation: "user")
+    role: String
+    organization: String
+    division: String
+    startDate: Date @rename(attribute: "start_date")
+    endDate: Date @rename(attribute: "end_date")
+    details: String
+    skills: [Skill!] @morphToMany
+    skillPivot: ExperienceSkillPivot @rename(attribute: "pivot")
 }
 type PersonalExperience implements Experience {
-  id: ID!
-  applicant: Applicant! @belongsTo(relation: "user")
-  title: String
-  description: String
-  startDate: Date @rename(attribute: "start_date")
-  endDate: Date @rename(attribute: "end_date")
-  details: String
-  skills: [Skill!] @morphToMany
-  skillPivot: ExperienceSkillPivot @rename(attribute: "pivot")
+    id: ID!
+    applicant: Applicant! @belongsTo(relation: "user")
+    title: String
+    description: String
+    startDate: Date @rename(attribute: "start_date")
+    endDate: Date @rename(attribute: "end_date")
+    details: String
+    skills: [Skill!] @morphToMany
+    skillPivot: ExperienceSkillPivot @rename(attribute: "pivot")
 }
 type CommunityExperience implements Experience {
-  id: ID!
-  applicant: Applicant! @belongsTo(relation: "user")
-  title: String
-  organization: String
-  project: String
-  startDate: Date @rename(attribute: "start_date")
-  endDate: Date @rename(attribute: "end_date")
-  details: String
-  skills: [Skill!] @morphToMany
-  skillPivot: ExperienceSkillPivot @rename(attribute: "pivot")
+    id: ID!
+    applicant: Applicant! @belongsTo(relation: "user")
+    title: String
+    organization: String
+    project: String
+    startDate: Date @rename(attribute: "start_date")
+    endDate: Date @rename(attribute: "end_date")
+    details: String
+    skills: [Skill!] @morphToMany
+    skillPivot: ExperienceSkillPivot @rename(attribute: "pivot")
 }
 type EducationExperience implements Experience {
-  id: ID!
-  applicant: Applicant! @belongsTo(relation: "user")
-  institution: String
-  areaOfStudy: String @rename(attribute: "area_of_study")
-  thesisTitle: String @rename(attribute: "thesis_title")
-  startDate: Date @rename(attribute: "start_date")
-  endDate: Date @rename(attribute: "end_date")
-  type: EducationType
-  status: EducationStatus
-  details: String
-  skills: [Skill!] @morphToMany
-  skillPivot: ExperienceSkillPivot @rename(attribute: "pivot")
+    id: ID!
+    applicant: Applicant! @belongsTo(relation: "user")
+    institution: String
+    areaOfStudy: String @rename(attribute: "area_of_study")
+    thesisTitle: String @rename(attribute: "thesis_title")
+    startDate: Date @rename(attribute: "start_date")
+    endDate: Date @rename(attribute: "end_date")
+    type: EducationType
+    status: EducationStatus
+    details: String
+    skills: [Skill!] @morphToMany
+    skillPivot: ExperienceSkillPivot @rename(attribute: "pivot")
 }
 type AwardExperience implements Experience {
-  id: ID!
-  applicant: Applicant! @belongsTo(relation: "user")
-  title: String
-  issuedBy: String @rename(attribute: "issued_by")
-  awardedDate: Date @rename(attribute: "awarded_date")
-  awardedTo: AwardedTo @rename(attribute: "awarded_to")
-  awardedScope: AwardedScope @rename(attribute: "awarded_scope")
-  details: String
-  skills: [Skill!] @morphToMany
-  skillPivot: ExperienceSkillPivot @rename(attribute: "pivot")
+    id: ID!
+    applicant: Applicant! @belongsTo(relation: "user")
+    title: String
+    issuedBy: String @rename(attribute: "issued_by")
+    awardedDate: Date @rename(attribute: "awarded_date")
+    awardedTo: AwardedTo @rename(attribute: "awarded_to")
+    awardedScope: AwardedScope @rename(attribute: "awarded_scope")
+    details: String
+    skills: [Skill!] @morphToMany
+    skillPivot: ExperienceSkillPivot @rename(attribute: "pivot")
 }
 
 type ExperienceSkillPivot {
-  details: String
+    details: String
 }
 
 input ClassificationFilterInput {

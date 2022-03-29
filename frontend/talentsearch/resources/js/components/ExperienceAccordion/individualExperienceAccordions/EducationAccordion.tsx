@@ -19,20 +19,20 @@ const EducationAccordion: React.FunctionComponent<EducationExperience> = ({
   type,
   status,
   thesisTitle,
-  experienceSkills,
+  skills,
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
 
-  const skillsList = experienceSkills
-    ? experienceSkills.map((skill, index) => (
+  const skillsList = skills
+    ? skills.map((skill, index) => (
         // eslint-disable-next-line react/no-array-index-key
         <ul key={index}>
           <li>
             <p>
-              {skill?.skill.name?.[locale]}
+              {skill.name?.[locale]}
               <br />
-              {skill?.skill.description?.[locale]}
+              {skill.description?.[locale]}
             </p>
           </li>
         </ul>
@@ -60,7 +60,7 @@ const EducationAccordion: React.FunctionComponent<EducationExperience> = ({
             )
       }
       context={
-        experienceSkills?.length === 1
+        skills?.length === 1
           ? intl.formatMessage({
               defaultMessage: "1 Skill",
               description: "Pluralization for one skill",
@@ -70,7 +70,7 @@ const EducationAccordion: React.FunctionComponent<EducationExperience> = ({
                 defaultMessage: "{skillsLength} Skills",
                 description: "Pluralization for zero or multiple skills",
               },
-              { skillsLength: experienceSkills?.length },
+              { skillsLength: skills?.length },
             )
       }
       Icon={BriefCaseIcon}
