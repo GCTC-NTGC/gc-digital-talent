@@ -540,6 +540,11 @@ input CreateUserInput {
     telephone: PhoneNumber
     preferredLang: Language @rename(attribute: "preferred_lang")
     roles: [Role] = []
+    workExperiences: WorkExperienceHasMany
+    personalExperiences: PersonalExperienceHasMany
+    communityExperiences: CommunityExperienceHasMany
+    educationExperiences: EducationExperienceHasMany
+    awardExperiences: AwardExperienceHasMany
 }
 """
 When updating a User, all fields are optional, and email cannot be changed.
@@ -552,6 +557,11 @@ input UpdateUserInput {
     telephone: PhoneNumber
     preferredLang: Language @rename(attribute: "preferred_lang")
     roles: [Role]
+    workExperiences: WorkExperienceHasMany
+    personalExperiences: PersonalExperienceHasMany
+    communityExperiences: CommunityExperienceHasMany
+    educationExperiences: EducationExperienceHasMany
+    awardExperiences: AwardExperienceHasMany
 }
 
 input LocalizedStringInput {
@@ -776,49 +786,143 @@ input UpdateSkillInput {
 }
 
 input CreateWorkExperienceInput {
-  applicant: UserBelongsTo! @rename(attribute: "user")
-  role: String
-  organization: String
-  division: String
-  startDate: Date @rename(attribute: "start_date")
-  endDate: Date @rename(attribute: "end_date")
-  details: String
-  skills: UpdateExperienceSkills
+    applicant: UserBelongsTo @rename(attribute: "user")
+    role: String
+    organization: String
+    division: String
+    startDate: Date @rename(attribute: "start_date")
+    endDate: Date @rename(attribute: "end_date")
+    details: String
+    skills: UpdateExperienceSkills
 }
 input CreatePersonalExperienceInput {
-  applicant: UserBelongsTo! @rename(attribute: "user")
-  title: String
-  description: String
-  startDate: Date @rename(attribute: "start_date")
-  endDate: Date @rename(attribute: "end_date")
-  details: String
-  skills: UpdateExperienceSkills
+    applicant: UserBelongsTo @rename(attribute: "user")
+    title: String
+    description: String
+    startDate: Date @rename(attribute: "start_date")
+    endDate: Date @rename(attribute: "end_date")
+    details: String
+    skills: UpdateExperienceSkills
 }
 input CreateCommunityExperienceInput {
-  applicant: UserBelongsTo! @rename(attribute: "user")
-  title: String
-  organization: String
-  project: String
-  startDate: Date @rename(attribute: "start_date")
-  endDate: Date @rename(attribute: "end_date")
-  details: String
-  skills: UpdateExperienceSkills
+    applicant: UserBelongsTo @rename(attribute: "user")
+    title: String
+    organization: String
+    project: String
+    startDate: Date @rename(attribute: "start_date")
+    endDate: Date @rename(attribute: "end_date")
+    details: String
+    skills: UpdateExperienceSkills
 }
 input CreateEducationExperienceInput {
-  applicant: UserBelongsTo! @rename(attribute: "user")
-  institution: String
-  areaOfStudy: String @rename(attribute: "area_of_study")
-  thesisTitle: String @rename(attribute: "thesis_title")
-  startDate: Date @rename(attribute: "start_date")
-  endDate: Date @rename(attribute: "end_date")
-  type: EducationType
-  status: EducationStatus
-  details: String
-  skills: UpdateExperienceSkills
+    applicant: UserBelongsTo @rename(attribute: "user")
+    institution: String
+    areaOfStudy: String @rename(attribute: "area_of_study")
+    thesisTitle: String @rename(attribute: "thesis_title")
+    startDate: Date @rename(attribute: "start_date")
+    endDate: Date @rename(attribute: "end_date")
+    type: EducationType
+    status: EducationStatus
+    details: String
+    skills: UpdateExperienceSkills
+}
+input CreateAwardExperienceInput {
+    applicant: UserBelongsTo @rename(attribute: "user")
+    title: String
+    issuedBy: String @rename(attribute: "issued_by")
+    awardedDate: Date @rename(attribute: "awarded_date")
+    awardedTo: AwardedTo @rename(attribute: "awarded_to")
+    awardedScope: AwardedScope @rename(attribute: "awarded_scope")
+    details: String
+    skills: UpdateExperienceSkills
 }
 
-input CreateAwardExperienceInput {
-    applicant: UserBelongsTo! @rename(attribute: "user")
+# If Created as a nested mutation we don't pass a user_id
+input CreateWorkExperienceInputNested {
+    role: String
+    organization: String
+    division: String
+    startDate: Date @rename(attribute: "start_date")
+    endDate: Date @rename(attribute: "end_date")
+    details: String
+    skills: UpdateExperienceSkills
+}
+input CreatePersonalExperienceInputNested {
+    title: String
+    description: String
+    startDate: Date @rename(attribute: "start_date")
+    endDate: Date @rename(attribute: "end_date")
+    details: String
+    skills: UpdateExperienceSkills
+}
+input CreateCommunityExperienceInputNested {
+    title: String
+    organization: String
+    project: String
+    startDate: Date @rename(attribute: "start_date")
+    endDate: Date @rename(attribute: "end_date")
+    details: String
+    skills: UpdateExperienceSkills
+}
+input CreateEducationExperienceInputNested {
+    institution: String
+    areaOfStudy: String @rename(attribute: "area_of_study")
+    thesisTitle: String @rename(attribute: "thesis_title")
+    startDate: Date @rename(attribute: "start_date")
+    endDate: Date @rename(attribute: "end_date")
+    type: EducationType
+    status: EducationStatus
+    details: String
+    skills: UpdateExperienceSkills
+}
+input CreateAwardExperienceInputNested {
+    title: String
+    issuedBy: String @rename(attribute: "issued_by")
+    awardedDate: Date @rename(attribute: "awarded_date")
+    awardedTo: AwardedTo @rename(attribute: "awarded_to")
+    awardedScope: AwardedScope @rename(attribute: "awarded_scope")
+    details: String
+    skills: UpdateExperienceSkills
+}
+
+input UpdateWorkExperienceInput {
+    role: String
+    organization: String
+    division: String
+    startDate: Date @rename(attribute: "start_date")
+    endDate: Date @rename(attribute: "end_date")
+    details: String
+    skills: UpdateExperienceSkills
+}
+input UpdatePersonalExperienceInput {
+    title: String
+    description: String
+    startDate: Date @rename(attribute: "start_date")
+    endDate: Date @rename(attribute: "end_date")
+    details: String
+    skills: UpdateExperienceSkills
+}
+input UpdateCommunityExperienceInput {
+    title: String
+    organization: String
+    project: String
+    startDate: Date @rename(attribute: "start_date")
+    endDate: Date @rename(attribute: "end_date")
+    details: String
+    skills: UpdateExperienceSkills
+}
+input UpdateEducationExperienceInput {
+    institution: String
+    areaOfStudy: String @rename(attribute: "area_of_study")
+    thesisTitle: String @rename(attribute: "thesis_title")
+    startDate: Date @rename(attribute: "start_date")
+    endDate: Date @rename(attribute: "end_date")
+    type: EducationType
+    status: EducationStatus
+    details: String
+    skills: UpdateExperienceSkills
+}
+input UpdateAwardExperienceInput {
     title: String
     issuedBy: String @rename(attribute: "issued_by")
     awardedDate: Date @rename(attribute: "awarded_date")
@@ -829,12 +933,29 @@ input CreateAwardExperienceInput {
 }
 
 input UpdateExperienceSkills {
-  connect: [ConnectExperienceSkills!]
+    connect: [ConnectExperienceSkills!]
+    sync: [ConnectExperienceSkills!]
 }
 
 input ConnectExperienceSkills {
-  id: ID!
-  details: String
+    id: ID!
+    details: String
+}
+
+input WorkExperienceHasMany {
+    create: [CreateWorkExperienceInputNested!]
+}
+input PersonalExperienceHasMany {
+    create: [CreatePersonalExperienceInputNested!]
+}
+input CommunityExperienceHasMany {
+    create: [CreateCommunityExperienceInputNested!]
+}
+input EducationExperienceHasMany {
+    create: [CreateEducationExperienceInputNested!]
+}
+input AwardExperienceHasMany {
+    create: [CreateAwardExperienceInputNested!]
 }
 
 type Mutation {
@@ -870,4 +991,14 @@ type Mutation {
     createCommunityExperience(communityExperience: CreateCommunityExperienceInput! @spread): CommunityExperience @create
     createEducationExperience(educationExperience: CreateEducationExperienceInput! @spread): EducationExperience @create
     createAwardExperience(awardExperience: CreateAwardExperienceInput! @spread): AwardExperience @create
+    updateWorkExperience(id: ID!, workExperience: UpdateWorkExperienceInput! @spread): WorkExperience @update
+    updatePersonalExperience(id: ID!, personalExperience: UpdatePersonalExperienceInput! @spread): PersonalExperience @update
+    updateCommunityExperience(id: ID!, communityExperience: UpdateCommunityExperienceInput! @spread): CommunityExperience @update
+    updateEducationExperience(id: ID!, educationExperience: UpdateEducationExperienceInput! @spread): EducationExperience @update
+    updateAwardExperience(id: ID!, awardExperience: UpdateAwardExperienceInput! @spread): AwardExperience @update
+    deleteWorkExperience(id: ID!): WorkExperience @delete(globalId: false)
+    deletePersonalExperience(id: ID!): PersonalExperience @delete(globalId: false)
+    deleteCommunityExperience(id: ID!): CommunityExperience @delete(globalId: false)
+    deleteEducationExperience(id: ID!): EducationExperience @delete(globalId: false)
+    deleteAwardExperience(id: ID!): AwardExperience @delete(globalId: false)
 }

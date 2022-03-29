@@ -53,6 +53,12 @@ type AwardExperience implements Experience {
   skillPivot: ExperienceSkillPivot
 }
 
+input AwardExperienceHasMany {
+  create: [CreateAwardExperienceInputNested!]
+  update: [UpdateAwardExperienceInput!]
+  sync: [ID!]
+}
+
 enum AwardedScope {
   INTERNATIONAL
   NATIONAL
@@ -121,13 +127,29 @@ type CommunityExperience implements Experience {
   skillPivot: ExperienceSkillPivot
 }
 
+input CommunityExperienceHasMany {
+  create: [CreateCommunityExperienceInputNested!]
+  update: [UpdateCommunityExperienceInput!]
+  sync: [ID!]
+}
+
 input ConnectExperienceSkills {
   id: ID!
   details: String
 }
 
 input CreateAwardExperienceInput {
-  applicant: UserBelongsTo!
+  applicant: UserBelongsTo
+  title: String
+  issuedBy: String
+  awardedDate: Date
+  awardedTo: AwardedTo
+  awardedScope: AwardedScope
+  details: String
+  skills: UpdateExperienceSkills
+}
+
+input CreateAwardExperienceInputNested {
   title: String
   issuedBy: String
   awardedDate: Date
@@ -152,7 +174,17 @@ input CreateCmoAssetInput {
 }
 
 input CreateCommunityExperienceInput {
-  applicant: UserBelongsTo!
+  applicant: UserBelongsTo
+  title: String
+  organization: String
+  project: String
+  startDate: Date
+  endDate: Date
+  details: String
+  skills: UpdateExperienceSkills
+}
+
+input CreateCommunityExperienceInputNested {
   title: String
   organization: String
   project: String
@@ -168,7 +200,19 @@ input CreateDepartmentInput {
 }
 
 input CreateEducationExperienceInput {
-  applicant: UserBelongsTo!
+  applicant: UserBelongsTo
+  institution: String
+  areaOfStudy: String
+  thesisTitle: String
+  startDate: Date
+  endDate: Date
+  type: EducationType
+  status: EducationStatus
+  details: String
+  skills: UpdateExperienceSkills
+}
+
+input CreateEducationExperienceInputNested {
   institution: String
   areaOfStudy: String
   thesisTitle: String
@@ -187,7 +231,16 @@ input CreateOperationalRequirementInput {
 }
 
 input CreatePersonalExperienceInput {
-  applicant: UserBelongsTo!
+  applicant: UserBelongsTo
+  title: String
+  description: String
+  startDate: Date
+  endDate: Date
+  details: String
+  skills: UpdateExperienceSkills
+}
+
+input CreatePersonalExperienceInputNested {
   title: String
   description: String
   startDate: Date
@@ -274,10 +327,25 @@ input CreateUserInput {
   telephone: PhoneNumber
   preferredLang: Language
   roles: [Role] = []
+  workExperiences: WorkExperienceHasMany
+  personalExperiences: PersonalExperienceHasMany
+  communityExperiences: CommunityExperienceHasMany
+  educationExperiences: EducationExperienceHasMany
+  awardExperiences: AwardExperienceHasMany
 }
 
 input CreateWorkExperienceInput {
-  applicant: UserBelongsTo!
+  applicant: UserBelongsTo
+  role: String
+  organization: String
+  division: String
+  startDate: Date
+  endDate: Date
+  details: String
+  skills: UpdateExperienceSkills
+}
+
+input CreateWorkExperienceInputNested {
   role: String
   organization: String
   division: String
@@ -318,6 +386,12 @@ type EducationExperience implements Experience {
   details: String
   skills: [Skill!]
   skillPivot: ExperienceSkillPivot
+}
+
+input EducationExperienceHasMany {
+  create: [CreateEducationExperienceInputNested!]
+  update: [UpdateEducationExperienceInput!]
+  sync: [ID!]
 }
 
 enum EducationStatus {
@@ -442,6 +516,11 @@ type Mutation {
   createCommunityExperience(communityExperience: CreateCommunityExperienceInput!): CommunityExperience
   createEducationExperience(educationExperience: CreateEducationExperienceInput!): EducationExperience
   createAwardExperience(awardExperience: CreateAwardExperienceInput!): AwardExperience
+  updateWorkExperience(id: ID!, workExperience: UpdateWorkExperienceInput!): WorkExperience
+  updatePersonalExperience(id: ID!, personalExperience: UpdatePersonalExperienceInput!): PersonalExperience
+  updateCommunityExperience(id: ID!, communityExperience: UpdateCommunityExperienceInput!): CommunityExperience
+  updateEducationExperience(id: ID!, educationExperience: UpdateEducationExperienceInput!): EducationExperience
+  updateAwardExperience(id: ID!, awardExperience: UpdateAwardExperienceInput!): AwardExperience
 }
 
 """e.g. Overtime as Required, Shift Work, Travel as Required, etc."""
@@ -557,6 +636,12 @@ type PersonalExperience implements Experience {
   details: String
   skills: [Skill!]
   skillPivot: ExperienceSkillPivot
+}
+
+input PersonalExperienceHasMany {
+  create: [CreatePersonalExperienceInputNested!]
+  update: [UpdatePersonalExperienceInput!]
+  sync: [ID!]
 }
 
 """
@@ -862,6 +947,16 @@ enum Trashed {
   WITHOUT
 }
 
+input UpdateAwardExperienceInput {
+  title: String
+  issuedBy: String
+  awardedDate: Date
+  awardedTo: AwardedTo
+  awardedScope: AwardedScope
+  details: String
+  skills: UpdateExperienceSkills
+}
+
 input UpdateClassificationInput {
   name: LocalizedStringInput
   group: String
@@ -874,18 +969,50 @@ input UpdateCmoAssetInput {
   description: LocalizedStringInput
 }
 
+input UpdateCommunityExperienceInput {
+  title: String
+  organization: String
+  project: String
+  startDate: Date
+  endDate: Date
+  details: String
+  skills: UpdateExperienceSkills
+}
+
 input UpdateDepartmentInput {
   departmentNumber: Int
   name: LocalizedStringInput
 }
 
+input UpdateEducationExperienceInput {
+  institution: String
+  areaOfStudy: String
+  thesisTitle: String
+  startDate: Date
+  endDate: Date
+  type: EducationType
+  status: EducationStatus
+  details: String
+  skills: UpdateExperienceSkills
+}
+
 input UpdateExperienceSkills {
   connect: [ConnectExperienceSkills!]
+  sync: [ConnectExperienceSkills!]
 }
 
 input UpdateOperationalRequirementInput {
   name: LocalizedStringInput
   description: LocalizedStringInput
+}
+
+input UpdatePersonalExperienceInput {
+  title: String
+  description: String
+  startDate: Date
+  endDate: Date
+  details: String
+  skills: UpdateExperienceSkills
 }
 
 input UpdatePoolCandidateInput {
@@ -953,6 +1080,21 @@ input UpdateUserInput {
   telephone: PhoneNumber
   preferredLang: Language
   roles: [Role]
+  workExperiences: WorkExperienceHasMany
+  personalExperiences: PersonalExperienceHasMany
+  communityExperiences: CommunityExperienceHasMany
+  educationExperiences: EducationExperienceHasMany
+  awardExperiences: AwardExperienceHasMany
+}
+
+input UpdateWorkExperienceInput {
+  role: String
+  organization: String
+  division: String
+  startDate: Date
+  endDate: Date
+  details: String
+  skills: UpdateExperienceSkills
 }
 
 type User {
@@ -1063,6 +1205,12 @@ type WorkExperience implements Experience {
   details: String
   skills: [Skill!]
   skillPivot: ExperienceSkillPivot
+}
+
+input WorkExperienceHasMany {
+  create: [CreateWorkExperienceInputNested!]
+  update: [UpdateWorkExperienceInput!]
+  sync: [ID!]
 }
 
 enum WorkRegion {
