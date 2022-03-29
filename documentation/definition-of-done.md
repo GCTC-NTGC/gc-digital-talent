@@ -1,4 +1,5 @@
 # Definition of Done:
+
 - At least one peer review acceptance
 - Chromatic testing by design
 - Build pipeline successful, including:
@@ -11,3 +12,4 @@
   - End-to-end testing (eventually)
   - Security scans (eventually)
   - Visual regression testing (eventually)
+- Pull request labeled for Change Management Board (trivial / minor / major / emergency)

@@ -1,17 +1,16 @@
 type Applicant {
   id: ID!
-  jobLookingStatus: JobLookingStatus
   firstName: String
   lastName: String
   email: Email!
   telephone: PhoneNumber
+  preferredLang: Language
   currentProvince: ProvinceOrTerritory
   currentCity: String
   isGovEmployee: Boolean
   interestedInLaterOrSecondment: Boolean
   currentClassification: Classification
   languageAbility: LanguageAbility
-  preferredLang: Language
   lookingForEnglish: Boolean
   lookingForFrench: Boolean
   lookingForBilingual: Boolean
@@ -24,6 +23,7 @@ type Applicant {
   hasDisability: Boolean
   isIndigenous: Boolean
   isVisibleMinority: Boolean
+  jobLookingStatus: JobLookingStatus
   hasDiploma: Boolean
   locationPreferences: [WorkRegion]
   locationExemptions: String
@@ -55,8 +55,6 @@ type AwardExperience implements Experience {
 
 input AwardExperienceHasMany {
   create: [CreateAwardExperienceInputNested!]
-  update: [UpdateAwardExperienceInput!]
-  sync: [ID!]
 }
 
 enum AwardedScope {
@@ -89,6 +87,10 @@ type Classification {
   level: Int!
   minSalary: Int
   maxSalary: Int
+}
+
+input ClassificationBelongsTo {
+  connect: ID!
 }
 
 input ClassificationBelongsToMany {
@@ -129,13 +131,16 @@ type CommunityExperience implements Experience {
 
 input CommunityExperienceHasMany {
   create: [CreateCommunityExperienceInputNested!]
-  update: [UpdateCommunityExperienceInput!]
-  sync: [ID!]
 }
 
 input ConnectExperienceSkills {
   id: ID!
   details: String
+}
+
+input ConnectOrCreateBelongsTo {
+  connect: ID
+  create: CreateUserInput
 }
 
 input CreateAwardExperienceInput {
@@ -249,23 +254,9 @@ input CreatePersonalExperienceInputNested {
   skills: UpdateExperienceSkills
 }
 
-input CreatePoolCandidateFilterInput {
-  classifications: ClassificationBelongsToMany
-  cmoAssets: CmoAssetBelongsToMany
-  hasDiploma: Boolean
-  hasDisability: Boolean
-  isIndigenous: Boolean
-  isVisibleMinority: Boolean
-  isWoman: Boolean
-  languageAbility: LanguageAbility
-  operationalRequirements: OperationalRequirementBelongsToMany
-  workRegions: [WorkRegion]
-  pools: PoolBelongsToMany
-}
-
-input CreatePoolCandidateInput {
+input CreatePoolCandidateAsAdminInput {
   pool: PoolBelongsTo!
-  user: UserBelongsTo!
+  user: ConnectOrCreateBelongsTo!
   cmoIdentifier: ID
   expiryDate: Date
   isWoman: Boolean
@@ -280,6 +271,20 @@ input CreatePoolCandidateInput {
   expectedClassifications: ClassificationBelongsToMany
   cmoAssets: CmoAssetBelongsToMany
   status: PoolCandidateStatus = AVAILABLE
+}
+
+input CreatePoolCandidateFilterInput {
+  classifications: ClassificationBelongsToMany
+  cmoAssets: CmoAssetBelongsToMany
+  hasDiploma: Boolean
+  hasDisability: Boolean
+  isIndigenous: Boolean
+  isVisibleMinority: Boolean
+  isWoman: Boolean
+  languageAbility: LanguageAbility
+  operationalRequirements: OperationalRequirementBelongsToMany
+  workRegions: [WorkRegion]
+  pools: PoolBelongsToMany
 }
 
 input CreatePoolCandidateSearchRequestInput {
@@ -321,12 +326,39 @@ input CreateSkillInput {
 """When creating a User, name and email are required."""
 input CreateUserInput {
   sub: String
+  roles: [Role] = []
   firstName: String!
   lastName: String!
   email: Email!
   telephone: PhoneNumber
   preferredLang: Language
-  roles: [Role] = []
+  currentProvince: ProvinceOrTerritory
+  currentCity: String
+  languageAbility: LanguageAbility
+  lookingForEnglish: Boolean
+  lookingForFrench: Boolean
+  lookingForBilingual: Boolean
+  bilingualEvaluation: BilingualEvaluation
+  comprehensionLevel: EvaluatedLanguageAbility
+  writtenLevel: EvaluatedLanguageAbility
+  verbalLevel: EvaluatedLanguageAbility
+  estimatedLanguageAbility: EstimatedLanguageAbility
+  isGovEmployee: Boolean
+  interestedInLaterOrSecondment: Boolean
+  currentClassification: ClassificationBelongsTo
+  isWoman: Boolean
+  hasDisability: Boolean
+  isIndigenous: Boolean
+  isVisibleMinority: Boolean
+  jobLookingStatus: JobLookingStatus
+  hasDiploma: Boolean
+  locationPreferences: [WorkRegion]
+  locationExemptions: String
+  acceptedOperationalRequirements: OperationalRequirementBelongsToMany
+  expectedSalary: [SalaryRange]
+  expectedClassifications: ClassificationBelongsToMany
+  wouldAcceptTemporary: Boolean
+  cmoAssets: CmoAssetBelongsToMany
   workExperiences: WorkExperienceHasMany
   personalExperiences: PersonalExperienceHasMany
   communityExperiences: CommunityExperienceHasMany
@@ -390,8 +422,6 @@ type EducationExperience implements Experience {
 
 input EducationExperienceHasMany {
   create: [CreateEducationExperienceInputNested!]
-  update: [UpdateEducationExperienceInput!]
-  sync: [ID!]
 }
 
 enum EducationStatus {
@@ -485,13 +515,14 @@ scalar Mixed
 
 type Mutation {
   createUser(user: CreateUserInput!): User
-  updateUser(id: ID!, user: UpdateUserInput!): User
+  updateUserAsUser(id: ID!, user: UpdateUserAsUserInput!): User
+  updateUserAsAdmin(id: ID!, user: UpdateUserAsAdminInput!): User
   deleteUser(id: ID!): User
   createPool(pool: CreatePoolInput!): Pool
   updatePool(id: ID!, pool: UpdatePoolInput!): Pool
   deletePool(id: ID!): Pool
-  createPoolCandidate(poolCandidate: CreatePoolCandidateInput!): PoolCandidate
-  updatePoolCandidate(id: ID!, poolCandidate: UpdatePoolCandidateInput!): PoolCandidate
+  createPoolCandidateAsAdmin(poolCandidate: CreatePoolCandidateAsAdminInput!): PoolCandidate
+  updatePoolCandidateAsAdmin(id: ID!, poolCandidate: UpdatePoolCandidateAsAdminInput!): PoolCandidate
   deletePoolCandidate(id: ID!): PoolCandidate
   createClassification(classification: CreateClassificationInput!): Classification
   updateClassification(id: ID!, classification: UpdateClassificationInput!): Classification
@@ -521,6 +552,11 @@ type Mutation {
   updateCommunityExperience(id: ID!, communityExperience: UpdateCommunityExperienceInput!): CommunityExperience
   updateEducationExperience(id: ID!, educationExperience: UpdateEducationExperienceInput!): EducationExperience
   updateAwardExperience(id: ID!, awardExperience: UpdateAwardExperienceInput!): AwardExperience
+  deleteWorkExperience(id: ID!): WorkExperience
+  deletePersonalExperience(id: ID!): PersonalExperience
+  deleteCommunityExperience(id: ID!): CommunityExperience
+  deleteEducationExperience(id: ID!): EducationExperience
+  deleteAwardExperience(id: ID!): AwardExperience
 }
 
 """e.g. Overtime as Required, Shift Work, Travel as Required, etc."""
@@ -640,8 +676,6 @@ type PersonalExperience implements Experience {
 
 input PersonalExperienceHasMany {
   create: [CreatePersonalExperienceInputNested!]
-  update: [UpdatePersonalExperienceInput!]
-  sync: [ID!]
 }
 
 """
@@ -651,8 +685,7 @@ scalar PhoneNumber
 
 type Pool {
   id: ID!
-  owner: User
-  ownerPublicProfile: UserPublicProfile
+  owner: UserPublicProfile
   name: LocalizedString
   key: KeyString
   description: LocalizedString
@@ -674,7 +707,7 @@ input PoolBelongsToMany {
 type PoolCandidate {
   id: ID!
   pool: Pool
-  user: User
+  user: Applicant
   cmoIdentifier: ID
   expiryDate: Date
   isWoman: Boolean
@@ -724,10 +757,6 @@ input PoolCandidateFilterInput {
   pools: [PoolFilterInput]
 }
 
-input PoolCandidateHasMany {
-  create: [CreatePoolCandidateInput!]
-}
-
 type PoolCandidateSearchRequest {
   id: ID!
   fullName: String
@@ -755,6 +784,10 @@ enum PoolCandidateStatus {
 
 input PoolFilterInput {
   id: ID!
+}
+
+input PoolsHasMany {
+  create: [CreatePoolInput]
 }
 
 enum ProvinceOrTerritory {
@@ -1015,8 +1048,7 @@ input UpdatePersonalExperienceInput {
   skills: UpdateExperienceSkills
 }
 
-input UpdatePoolCandidateInput {
-  user: UpdatePoolCandidateUserBelongsTo
+input UpdatePoolCandidateAsAdminInput {
   cmoIdentifier: ID
   expiryDate: Date
   isWoman: Boolean
@@ -1036,13 +1068,6 @@ input UpdatePoolCandidateInput {
 input UpdatePoolCandidateSearchRequestInput {
   adminNotes: String
   status: PoolCandidateSearchStatus
-}
-
-"""
-When updating a PoolCandidate it is possible to update the related user, but not change which user it is related to.
-"""
-input UpdatePoolCandidateUserBelongsTo {
-  update: UpdateUserInput
 }
 
 input UpdatePoolInput {
@@ -1072,14 +1097,79 @@ input UpdateSkillInput {
 """
 When updating a User, all fields are optional, and email cannot be changed.
 """
-input UpdateUserInput {
-  id: ID
+input UpdateUserAsAdminInput {
   sub: String
+  roles: [Role]
   firstName: String
   lastName: String
   telephone: PhoneNumber
   preferredLang: Language
-  roles: [Role]
+  currentProvince: ProvinceOrTerritory
+  currentCity: String
+  languageAbility: LanguageAbility
+  lookingForEnglish: Boolean
+  lookingForFrench: Boolean
+  lookingForBilingual: Boolean
+  bilingualEvaluation: BilingualEvaluation
+  comprehensionLevel: EvaluatedLanguageAbility
+  writtenLevel: EvaluatedLanguageAbility
+  verbalLevel: EvaluatedLanguageAbility
+  estimatedLanguageAbility: EstimatedLanguageAbility
+  isGovEmployee: Boolean
+  interestedInLaterOrSecondment: Boolean
+  currentClassification: ClassificationBelongsTo
+  isWoman: Boolean
+  hasDisability: Boolean
+  isIndigenous: Boolean
+  isVisibleMinority: Boolean
+  jobLookingStatus: JobLookingStatus
+  hasDiploma: Boolean
+  locationPreferences: [WorkRegion]
+  locationExemptions: String
+  acceptedOperationalRequirements: OperationalRequirementBelongsToMany
+  expectedSalary: [SalaryRange]
+  expectedClassifications: ClassificationBelongsToMany
+  wouldAcceptTemporary: Boolean
+  cmoAssets: CmoAssetBelongsToMany
+  workExperiences: WorkExperienceHasMany
+  personalExperiences: PersonalExperienceHasMany
+  communityExperiences: CommunityExperienceHasMany
+  educationExperiences: EducationExperienceHasMany
+  awardExperiences: AwardExperienceHasMany
+}
+
+input UpdateUserAsUserInput {
+  firstName: String
+  lastName: String
+  telephone: PhoneNumber
+  preferredLang: Language
+  currentProvince: ProvinceOrTerritory
+  currentCity: String
+  languageAbility: LanguageAbility
+  lookingForEnglish: Boolean
+  lookingForFrench: Boolean
+  lookingForBilingual: Boolean
+  bilingualEvaluation: BilingualEvaluation
+  comprehensionLevel: EvaluatedLanguageAbility
+  writtenLevel: EvaluatedLanguageAbility
+  verbalLevel: EvaluatedLanguageAbility
+  estimatedLanguageAbility: EstimatedLanguageAbility
+  isGovEmployee: Boolean
+  interestedInLaterOrSecondment: Boolean
+  currentClassification: ClassificationBelongsTo
+  isWoman: Boolean
+  hasDisability: Boolean
+  isIndigenous: Boolean
+  isVisibleMinority: Boolean
+  jobLookingStatus: JobLookingStatus
+  hasDiploma: Boolean
+  locationPreferences: [WorkRegion]
+  locationExemptions: String
+  acceptedOperationalRequirements: OperationalRequirementBelongsToMany
+  expectedSalary: [SalaryRange]
+  expectedClassifications: ClassificationBelongsToMany
+  wouldAcceptTemporary: Boolean
+  cmoAssets: CmoAssetBelongsToMany
   workExperiences: WorkExperienceHasMany
   personalExperiences: PersonalExperienceHasMany
   communityExperiences: CommunityExperienceHasMany
@@ -1105,10 +1195,10 @@ type User {
   lastName: String
   email: Email!
   telephone: PhoneNumber
+  preferredLang: Language
   currentProvince: ProvinceOrTerritory
   currentCity: String
   languageAbility: LanguageAbility
-  preferredLang: Language
   lookingForEnglish: Boolean
   lookingForFrench: Boolean
   lookingForBilingual: Boolean
@@ -1125,8 +1215,6 @@ type User {
   isIndigenous: Boolean
   isVisibleMinority: Boolean
   jobLookingStatus: JobLookingStatus
-  pools: [Pool]
-  poolCandidates: [PoolCandidate]
   hasDiploma: Boolean
   locationPreferences: [WorkRegion]
   locationExemptions: String
@@ -1135,18 +1223,18 @@ type User {
   expectedClassifications: [Classification]
   wouldAcceptTemporary: Boolean
   cmoAssets: [CmoAsset]
+  poolCandidates: [PoolCandidate]
   experiences: [Experience]
   awardExperiences: [AwardExperience]
   communityExperiences: [CommunityExperience]
   educationExperiences: [EducationExperience]
   personalExperiences: [PersonalExperience]
   workExperiences: [WorkExperience]
+  pools: [Pool]
 }
 
 input UserBelongsTo {
-  create: CreateUserInput
   connect: ID
-  update: UpdateUserInput
 }
 
 type UserPublicProfile {
@@ -1209,8 +1297,6 @@ type WorkExperience implements Experience {
 
 input WorkExperienceHasMany {
   create: [CreateWorkExperienceInputNested!]
-  update: [UpdateWorkExperienceInput!]
-  sync: [ID!]
 }
 
 enum WorkRegion {

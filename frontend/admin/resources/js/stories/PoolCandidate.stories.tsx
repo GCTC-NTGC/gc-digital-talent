@@ -12,13 +12,13 @@ import {
 } from "@common/fakeData";
 import PoolCandidatesTable from "../components/poolCandidate/PoolCandidatesTable";
 import {
-  CreatePoolCandidateInput,
+  CreatePoolCandidateAsAdminInput,
   User,
   Classification,
   OperationalRequirement,
   Pool,
   CmoAsset,
-  UpdatePoolCandidateInput,
+  UpdatePoolCandidateAsAdminInput,
   PoolCandidate,
   UpdatePoolCandidateMutation,
   PoolCandidateStatus,
@@ -46,7 +46,9 @@ stories.add("Create Pool Candidate Form", () => (
     }
     pools={fakePools() as Pool[]}
     cmoAssets={fakeCmoAssets() as CmoAsset[]}
-    handleCreatePoolCandidate={async (data: CreatePoolCandidateInput) => {
+    handleCreatePoolCandidate={async (
+      data: CreatePoolCandidateAsAdminInput,
+    ) => {
       await new Promise((resolve) => setTimeout(resolve, 1000));
       action("Create Pool Candidate")(data);
       return null;
@@ -91,12 +93,12 @@ stories.add("Update Pool Candidate Form", () => {
       }
       handleUpdatePoolCandidate={async (
         id: string,
-        data: UpdatePoolCandidateInput,
-      ): Promise<UpdatePoolCandidateMutation["updatePoolCandidate"]> => {
+        data: UpdatePoolCandidateAsAdminInput,
+      ): Promise<UpdatePoolCandidateMutation["updatePoolCandidateAsAdmin"]> => {
         await new Promise((resolve) => setTimeout(resolve, 1000));
         action("Update Pool Candidate")(id, data);
         return Promise.resolve(
-          data as UpdatePoolCandidateMutation["updatePoolCandidate"],
+          data as UpdatePoolCandidateMutation["updatePoolCandidateAsAdmin"],
         );
       }}
     />

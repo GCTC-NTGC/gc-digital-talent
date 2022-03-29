@@ -5,8 +5,6 @@ fragment pool on Pool {
     firstName
     lastName
     email
-    preferredLang
-    telephone
   }
   name {
     en
