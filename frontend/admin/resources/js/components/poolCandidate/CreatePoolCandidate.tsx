@@ -31,7 +31,7 @@ import { errorMessages, commonMessages } from "@common/messages";
 import { phoneNumberRegex } from "@common/constants/regularExpressions";
 import { useAdminRoutes } from "../../adminRoutes";
 import {
-  CreatePoolCandidateInput,
+  CreatePoolCandidateAsAdminInput,
   Pool,
   LanguageAbility,
   WorkRegion,
@@ -223,8 +223,8 @@ interface CreatePoolCandidateFormProps {
   poolId?: string;
   users: User[];
   handleCreatePoolCandidate: (
-    data: CreatePoolCandidateInput,
-  ) => Promise<CreatePoolCandidateMutation["createPoolCandidate"]>;
+    data: CreatePoolCandidateAsAdminInput,
+  ) => Promise<CreatePoolCandidateMutation["createPoolCandidateAsAdmin"]>;
 }
 
 export const CreatePoolCandidateForm: React.FunctionComponent<
@@ -246,7 +246,7 @@ export const CreatePoolCandidateForm: React.FunctionComponent<
 
   const formValuesToSubmitData = (
     values: FormValues,
-  ): CreatePoolCandidateInput => {
+  ): CreatePoolCandidateAsAdminInput => {
     // the user part of the submit data could be a mutation to connect an existing user or to create a new user
     let userObject;
     switch (values.userMode) {
@@ -288,6 +288,7 @@ export const CreatePoolCandidateForm: React.FunctionComponent<
       isWoman: values.isWoman,
       languageAbility: values.languageAbility,
       locationPreferences: values.locationPreferences,
+      status: values.status,
       pool: { connect: values.pool },
       user: userObject, // connect or create mutation
     };
@@ -652,10 +653,10 @@ export const CreatePoolCandidate: React.FunctionComponent<{
   const users: User[] = lookupData?.users.filter(notEmpty) ?? [];
 
   const [, executeMutation] = useCreatePoolCandidateMutation();
-  const handleCreatePoolCandidate = (data: CreatePoolCandidateInput) =>
+  const handleCreatePoolCandidate = (data: CreatePoolCandidateAsAdminInput) =>
     executeMutation({ poolCandidate: data }).then((result) => {
-      if (result.data?.createPoolCandidate) {
-        return result.data?.createPoolCandidate;
+      if (result.data?.createPoolCandidateAsAdmin) {
+        return result.data?.createPoolCandidateAsAdmin;
       }
       return Promise.reject(result.error);
     });

@@ -9,6 +9,7 @@ import {
   OperationalRequirement,
   Pool,
   User,
+  Applicant,
 } from "../api/generated";
 import fakeClassifications from "./fakeClassifications";
 import fakeOperationalRequirements from "./fakeOperationalRequirements";
@@ -26,7 +27,7 @@ const generatePoolCandidate = (
     id: faker.datatype.uuid(),
     pool: faker.random.arrayElement(pools),
     expectedClassifications: faker.random.arrayElements(classifications),
-    user: faker.random.arrayElement(users),
+    user: faker.random.arrayElement(users) as Applicant,
     cmoIdentifier: faker.helpers.slugify(
       faker.lorem.words(faker.datatype.number({ min: 1, max: 3 })),
     ),

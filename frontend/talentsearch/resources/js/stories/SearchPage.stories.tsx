@@ -28,7 +28,7 @@ export default {
       fakeOperationalRequirements() as OperationalRequirement[],
 
     pool: fakePools()[0] as Pool,
-    poolOwner: fakePools()[0].ownerPublicProfile as Pool["ownerPublicProfile"],
+    poolOwner: fakePools()[0].owner,
     candidateCount: 10,
     updatePending: false,
     updateCandidateFilter: action("updateCandidateFilter"),

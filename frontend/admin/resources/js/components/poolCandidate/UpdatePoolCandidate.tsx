@@ -31,7 +31,7 @@ import { User } from "@common/api/generated";
 import { phoneNumberRegex } from "@common/constants/regularExpressions";
 import { useAdminRoutes } from "../../adminRoutes";
 import {
-  UpdatePoolCandidateInput,
+  UpdatePoolCandidateAsAdminInput,
   LanguageAbility,
   WorkRegion,
   SalaryRange,
@@ -81,8 +81,8 @@ interface UpdatePoolCandidateProps {
   operationalRequirements: OperationalRequirement[];
   handleUpdatePoolCandidate: (
     id: string,
-    data: UpdatePoolCandidateInput,
-  ) => Promise<UpdatePoolCandidateMutation["updatePoolCandidate"]>;
+    data: UpdatePoolCandidateAsAdminInput,
+  ) => Promise<UpdatePoolCandidateMutation["updatePoolCandidateAsAdmin"]>;
 }
 
 export const UpdatePoolCandidateForm: React.FunctionComponent<
@@ -116,7 +116,7 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<
 
   const formValuesToSubmitData = (
     values: FormValues,
-  ): UpdatePoolCandidateInput => ({
+  ): UpdatePoolCandidateAsAdminInput => ({
     ...values,
     acceptedOperationalRequirements: {
       sync: values.acceptedOperationalRequirements,
@@ -126,14 +126,6 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<
     },
     cmoAssets: {
       sync: values.cmoAssets,
-    },
-    user: {
-      update: {
-        firstName: values.firstName,
-        lastName: values.lastName,
-        telephone: values.telephone,
-        preferredLang: values.preferredLang,
-      },
     },
   });
 
@@ -223,9 +215,7 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<
               })}
               type="text"
               name="firstName"
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
+              disabled
             />
             <Input
               id="lastName"
@@ -236,9 +226,7 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<
               })}
               type="text"
               name="lastName"
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
+              disabled
             />
             <Input
               id="telephone"
@@ -249,13 +237,7 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<
               })}
               type="tel"
               name="telephone"
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-                pattern: {
-                  value: phoneNumberRegex,
-                  message: intl.formatMessage(errorMessages.telephone),
-                },
-              }}
+              disabled
             />
             <Select
               id="preferredLang"
@@ -270,9 +252,7 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<
                 description:
                   "Placeholder displayed on the user form preferred language field.",
               })}
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
+              disabled
               options={enumToOptions(Language).map(({ value }) => ({
                 value,
                 label: intl.formatMessage(getLanguage(value)),
@@ -522,7 +502,7 @@ export const UpdatePoolCandidate: React.FunctionComponent<{
   const [, executeMutation] = useUpdatePoolCandidateMutation();
   const handleUpdatePoolCandidate = (
     id: string,
-    data: UpdatePoolCandidateInput,
+    data: UpdatePoolCandidateAsAdminInput,
   ) =>
     /* We must pick only the fields belonging to UpdateUserInput, because its possible
       the data object contains other props at runtime, and this will cause the
@@ -551,8 +531,8 @@ export const UpdatePoolCandidate: React.FunctionComponent<{
         "user.update.preferredLang",
       ]),
     }).then((result) => {
-      if (result.data?.updatePoolCandidate) {
-        return result.data?.updatePoolCandidate;
+      if (result.data?.updatePoolCandidateAsAdmin) {
+        return result.data?.updatePoolCandidateAsAdmin;
       }
       return Promise.reject(result.error);
     });

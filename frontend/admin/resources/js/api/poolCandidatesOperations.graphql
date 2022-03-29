@@ -208,8 +208,8 @@ query getUpdatePoolCandidateData($id: ID!) {
   }
 }
 
-mutation createPoolCandidate($poolCandidate: CreatePoolCandidateInput!) {
-  createPoolCandidate(poolCandidate: $poolCandidate) {
+mutation createPoolCandidate($poolCandidate: CreatePoolCandidateAsAdminInput!) {
+  createPoolCandidateAsAdmin(poolCandidate: $poolCandidate) {
     pool {
       id
     }
@@ -241,9 +241,9 @@ mutation createPoolCandidate($poolCandidate: CreatePoolCandidateInput!) {
 
 mutation updatePoolCandidate(
   $id: ID!
-  $poolCandidate: UpdatePoolCandidateInput!
+  $poolCandidate: UpdatePoolCandidateAsAdminInput!
 ) {
-  updatePoolCandidate(id: $id, poolCandidate: $poolCandidate) {
+  updatePoolCandidateAsAdmin(id: $id, poolCandidate: $poolCandidate) {
     cmoIdentifier
     expiryDate
     isWoman
