@@ -1,6 +1,11 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { useWatch, SubmitHandler } from "react-hook-form";
+import {
+  useWatch,
+  SubmitHandler,
+  FormProvider,
+  useForm,
+} from "react-hook-form";
 import { errorMessages } from "@common/messages";
 import { Checkbox, RadioGroup, Select } from "@common/components/form";
 import { getLocale } from "@common/helpers/localize";
@@ -42,8 +47,8 @@ export const GovernmentInfoForm: React.FunctionComponent<{
       level?: number | null | undefined;
     };
   };
-  saveThingy: any;
-}> = ({ classifications, storedValues, saveThingy }) => {
+  // saveThingy: any;
+}> = ({ classifications, storedValues /* , saveThingy */ }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
 
@@ -271,7 +276,6 @@ export const GovernmentInfoForm: React.FunctionComponent<{
             )}
         </div>
       </div>
-      <ProfileFormFooter mode="saveButton" handleSave={() => saveThingy()} />
     </div>
   );
 };
@@ -280,7 +284,8 @@ export const GovernmentInfoForm: React.FunctionComponent<{
 export const GovInfoFormContainer: React.FunctionComponent = () => {
   // const fakes = fakeClassifications();
   const intl = useIntl();
-
+  const methods = useForm<FormValues>();
+  const { handleSubmit, watch } = methods;
   // acquire classifications from graphQL to pass into component to render
   const [lookUpResult] = useGetAllClassificationsQuery();
   const {
@@ -371,17 +376,19 @@ export const GovInfoFormContainer: React.FunctionComponent = () => {
         },
       ]}
     >
-      <Form
-        onSubmit={() => {
-          return null;
-        }}
-      >
-        <GovernmentInfoForm
-          classifications={classifications}
-          storedValues={previousData}
-          saveThingy={onSubmit}
-        />
-      </Form>
+      <FormProvider {...methods}>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <GovernmentInfoForm
+            classifications={classifications}
+            storedValues={previousData}
+            // saveThingy={onSubmit}
+          />
+          <ProfileFormFooter
+            mode="saveButton"
+            handleSave={handleSubmit(onSubmit)}
+          />
+        </form>
+      </FormProvider>
     </ProfileFormWrapper>
   );
 };
