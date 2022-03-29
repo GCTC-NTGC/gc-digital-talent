@@ -18,4 +18,16 @@
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]
+
+
+
 </IfModule>
+
+# Set SSI to run on .shtml and .sjs files in this directory
+Options +Includes
+AddType text/html .shtml
+AddType text/javascript .sjs
+AddOutputFilter INCLUDES .shtml .sjs
+
+# Make certain environment variables available for SSI
+PassEnv OAUTH_POST_LOGOUT_REDIRECT OAUTH_LOGOUT_URI

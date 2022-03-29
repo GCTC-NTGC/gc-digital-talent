@@ -3,7 +3,6 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,9 +15,6 @@ use App\Http\Controllers\AuthController;
 |
 */
 Route::prefix(config('app.app_dir'))->group(function () {
-    Route::get('/login', [AuthController::class, 'login']);
-    Route::get('/auth-callback', [AuthController::class, 'authCallback']);
-    Route::get('/refresh', [AuthController::class, 'refresh']);
     Route::get('/', [DashboardController::class, 'index']);
     Route::get('/{any}', [DashboardController::class, 'index'])->where('any', '.*');
 });
@@ -32,10 +28,4 @@ Route::group([
         Route::get('/', [DashboardController::class, 'index']);
         Route::get('/{any}', [DashboardController::class, 'index'])->where('any', '.*');
     });
-});
-
-
-// We may be redirecting the auth-callback route from the server root back here using Apache rewrite.
-Route::prefix('')->group(function () {
-    Route::get('/auth-callback', [AuthController::class, 'authCallback']);
 });

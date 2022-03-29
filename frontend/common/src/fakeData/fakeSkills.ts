@@ -16,6 +16,7 @@ const generateSkill = (skillFamilies: SkillFamily[]) => {
     },
     keywords: faker.lorem.words(3).split(" "),
     families: faker.random.arrayElements(skillFamilies),
+    experienceSkills: [],
   };
 };
 

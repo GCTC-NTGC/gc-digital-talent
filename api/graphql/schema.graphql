@@ -28,38 +28,166 @@ enum Role {
 }
 
 type User {
-    # There are some cases where some fields, such as email and names, should be visible while others aren't. Therefore we use field-level permissions to distinguish them.
     id: ID!
-    email: Email!
     sub: String
+    roles: [Role]
+
+    # Personal info
     firstName: String @rename(attribute: "first_name")
     lastName: String @rename(attribute: "last_name")
+    email: Email!
     telephone: PhoneNumber
     preferredLang: Language @rename(attribute: "preferred_lang")
-    roles: [Role]
-    pools: [Pool] @hasMany # Pools that a user owns
-    poolCandidates: [PoolCandidate] @hasMany # Pools candidates that a user owns
-    experiences: [Experience] # All experiences that a user owns
-    awardExperiences: [AwardExperience] # Award experiences that a user owns
-    communityExperiences: [CommunityExperience] # Community experiences that a user owns
-    educationExperiences: [EducationExperience] # Education experiences that a user owns
-    personalExperiences: [PersonalExperience] # Personal experiences that a user owns
-    workExperiences: [WorkExperience] # Work experiences that a user owns
+    currentProvince: ProvinceOrTerritory @rename(attribute: "current_province")
+    currentCity: String @rename(attribute: "current_city")
+
+    # Language
+    languageAbility: LanguageAbility @rename(attribute: "language_ability")
+    lookingForEnglish: Boolean @rename(attribute: "looking_for_english")
+    lookingForFrench: Boolean @rename(attribute: "looking_for_french")
+    lookingForBilingual: Boolean @rename(attribute: "looking_for_bilingual")
+    bilingualEvaluation: BilingualEvaluation
+        @rename(attribute: "bilingual_evaluation")
+    comprehensionLevel: EvaluatedLanguageAbility
+        @rename(attribute: "comprehension_level")
+    writtenLevel: EvaluatedLanguageAbility @rename(attribute: "written_level")
+    verbalLevel: EvaluatedLanguageAbility @rename(attribute: "verbal_level")
+    estimatedLanguageAbility: EstimatedLanguageAbility
+        @rename(attribute: "estimated_language_ability")
+
+    # Gov info
+    isGovEmployee: Boolean @rename(attribute: "is_gov_employee")
+    interestedInLaterOrSecondment: Boolean
+        @rename(attribute: "interested_in_later_or_secondment")
+    currentClassification: Classification @belongsTo # Users current classification
+    # Employment equity
+    isWoman: Boolean @rename(attribute: "is_woman")
+    hasDisability: Boolean @rename(attribute: "has_disability")
+    isIndigenous: Boolean @rename(attribute: "is_indigenous")
+    isVisibleMinority: Boolean @rename(attribute: "is_visible_minority")
+
+    # Applicant info
+    jobLookingStatus: JobLookingStatus @rename(attribute: "job_looking_status")
+    hasDiploma: Boolean @rename(attribute: "has_diploma")
+    locationPreferences: [WorkRegion] @rename(attribute: "location_preferences")
+    locationExemptions: String @rename(attribute: "location_exemptions")
+    acceptedOperationalRequirements: [OperationalRequirement] @belongsToMany
+    expectedSalary: [SalaryRange] @rename(attribute: "expected_salary")
+    expectedClassifications: [Classification] @belongsToMany
+    wouldAcceptTemporary: Boolean @rename(attribute: "would_accept_temporary")
+    cmoAssets: [CmoAsset] @belongsToMany
+
+    # Pool info
+    poolCandidates: [PoolCandidate] @hasMany # PoolsCandidate objects associate the user with a pool
+
+    # Experiences
+    experiences: [Experience] @hasMany # All experiences that a user owns
+    awardExperiences: [AwardExperience] @hasMany # Award experiences that a user owns
+    communityExperiences: [CommunityExperience] @hasMany # Community experiences that a user owns
+    educationExperiences: [EducationExperience] @hasMany # Education experiences that a user owns
+    personalExperiences: [PersonalExperience] @hasMany # Personal experiences that a user owns
+    workExperiences: [WorkExperience] @hasMany # Work experiences that a user owns
+
+    # Pool Manager info
+    pools: [Pool] @hasMany # Pools a user owns
+}
+
+enum ProvinceOrTerritory {
+    BRITISH_COLUMBIA
+    ALBERTA
+    SASKATCHEWAN
+    MANITOBA
+    ONTARIO
+    QUEBEC
+    NEW_BRUNSWICK
+    NOVA_SCOTIA
+    PRINCE_EDWARD_ISLAND
+    NEWFOUNDLAND_AND_LABRADOR
+    YUKON
+    NORTHWEST_TERRITORIES
+    NUNAVUT
+}
+
+enum BilingualEvaluation {
+    COMPLETED_ENGLISH
+    COMPLETED_FRENCH
+    NOT_COMPLETED
+}
+
+enum EvaluatedLanguageAbility {
+    X
+    A
+    B
+    C
+    E
+    P
+}
+
+enum EstimatedLanguageAbility {
+    BEGINNER
+    INTERMEDIATE
+    ADVANCED
+}
+
+enum JobLookingStatus {
+    ACTIVELY_LOOKING
+    OPEN_TO_OPPORTUNITIES
+    INACTIVE
 }
 
 type Applicant {
     id: ID!
-    email: Email!
+
+    # Personal info
     firstName: String @rename(attribute: "first_name")
     lastName: String @rename(attribute: "last_name")
+    email: Email!
     telephone: PhoneNumber
     preferredLang: Language @rename(attribute: "preferred_lang")
-    experiences: [Experience] # All experiences that a user owns
-    awardExperiences: [AwardExperience] # Award experiences that a user owns
-    communityExperiences: [CommunityExperience] # Community experiences that a user owns
-    educationExperiences: [EducationExperience] # Education experiences that a user owns
-    personalExperiences: [PersonalExperience] # Personal experiences that a user owns
-    workExperiences: [WorkExperience] # Work experiences that a user owns
+    currentProvince: ProvinceOrTerritory @rename(attribute: "current_province")
+    currentCity: String @rename(attribute: "current_city")
+
+    # Gov info
+    isGovEmployee: Boolean @rename(attribute: "is_gov_employee")
+    interestedInLaterOrSecondment: Boolean @rename(attribute: "interested_in_later_or_secondment")
+    currentClassification: Classification @belongsTo # Users current classification
+
+    # Language
+    languageAbility: LanguageAbility @rename(attribute: "language_ability")
+    lookingForEnglish: Boolean @rename(attribute: "looking_for_english")
+    lookingForFrench: Boolean @rename(attribute: "looking_for_french")
+    lookingForBilingual: Boolean @rename(attribute: "looking_for_bilingual")
+    bilingualEvaluation: BilingualEvaluation @rename(attribute: "bilingual_evaluation")
+    comprehensionLevel: EvaluatedLanguageAbility @rename(attribute: "comprehension_level")
+    writtenLevel: EvaluatedLanguageAbility @rename(attribute: "written_level")
+    verbalLevel: EvaluatedLanguageAbility @rename(attribute: "verbal_level")
+    estimatedLanguageAbility: EstimatedLanguageAbility @rename(attribute: "estimated_language_ability")
+
+    # Employment equity
+    isWoman: Boolean @rename(attribute: "is_woman")
+    hasDisability: Boolean @rename(attribute: "has_disability")
+    isIndigenous: Boolean @rename(attribute: "is_indigenous")
+    isVisibleMinority: Boolean @rename(attribute: "is_visible_minority")
+
+    # Applicant info
+    jobLookingStatus: JobLookingStatus @rename(attribute: "job_looking_status")
+
+    hasDiploma: Boolean @rename(attribute: "has_diploma")
+    locationPreferences: [WorkRegion] @rename(attribute: "location_preferences")
+    locationExemptions: String @rename(attribute: "location_exemptions")
+    acceptedOperationalRequirements: [OperationalRequirement] @belongsToMany
+    expectedSalary: [SalaryRange] @rename(attribute: "expected_salary")
+    expectedClassifications: [Classification] @belongsToMany
+    wouldAcceptTemporary: Boolean @rename(attribute: "would_accept_temporary")
+    cmoAssets: [CmoAsset] @belongsToMany
+
+    # Experiences
+    experiences: [Experience]
+    awardExperiences: [AwardExperience]
+    communityExperiences: [CommunityExperience]
+    educationExperiences: [EducationExperience]
+    personalExperiences: [PersonalExperience]
+    workExperiences: [WorkExperience]
 }
 
 type UserPublicProfile {
@@ -71,8 +199,7 @@ type UserPublicProfile {
 
 type Pool {
     id: ID!
-    owner: User @belongsTo(relation: "user")
-    ownerPublicProfile: UserPublicProfile @belongsTo(relation: "user")
+    owner: UserPublicProfile @belongsTo(relation: "user")
     name: LocalizedString
     key: KeyString
     description: LocalizedString
@@ -93,7 +220,7 @@ enum PoolCandidateStatus {
 type PoolCandidate {
     id: ID!
     pool: Pool @belongsTo
-    user: User @belongsTo
+    user: Applicant @belongsTo(relation: "user")
 
     # cmoIdentifier can be an arbitrary string used to relate this candidate to an external database.
     cmoIdentifier: ID @rename(attribute: "cmo_identifier")
@@ -399,29 +526,153 @@ type Query {
     skills: [Skill]! @all
     experienceSkills: [ExperienceSkill]! @all
 }
+input ClassificationBelongsTo {
+    connect: ID!
+}
+input PoolsHasMany {
+    create: [CreatePoolInput]
+}
 """
 When creating a User, name and email are required.
 """
 input CreateUserInput {
     sub: String
+    roles: [Role] = []
+
+    # Personal info
     firstName: String! @rename(attribute: "first_name")
     lastName: String! @rename(attribute: "last_name")
     email: Email! @rules(apply: ["unique:users,email"])
     telephone: PhoneNumber
     preferredLang: Language @rename(attribute: "preferred_lang")
-    roles: [Role] = []
+    currentProvince: ProvinceOrTerritory @rename(attribute: "current_province")
+    currentCity: String @rename(attribute: "current_city")
+
+    # Language
+    languageAbility: LanguageAbility @rename(attribute: "language_ability")
+    lookingForEnglish: Boolean @rename(attribute: "looking_for_english")
+    lookingForFrench: Boolean @rename(attribute: "looking_for_french")
+    lookingForBilingual: Boolean @rename(attribute: "looking_for_bilingual")
+    bilingualEvaluation: BilingualEvaluation @rename(attribute: "bilingual_evaluation")
+    comprehensionLevel: EvaluatedLanguageAbility @rename(attribute: "comprehension_level")
+    writtenLevel: EvaluatedLanguageAbility @rename(attribute: "written_level")
+    verbalLevel: EvaluatedLanguageAbility @rename(attribute: "verbal_level")
+    estimatedLanguageAbility: EstimatedLanguageAbility @rename(attribute: "estimated_language_ability")
+
+    # Gov info
+    isGovEmployee: Boolean @rename(attribute: "is_gov_employee")
+    interestedInLaterOrSecondment: Boolean @rename(attribute: "interested_in_later_or_secondment")
+    currentClassification: ClassificationBelongsTo
+
+    # Employment equity
+    isWoman: Boolean @rename(attribute: "is_woman")
+    hasDisability: Boolean @rename(attribute: "has_disability")
+    isIndigenous: Boolean @rename(attribute: "is_indigenous")
+    isVisibleMinority: Boolean @rename(attribute: "is_visible_minority")
+
+    # Applicant info
+    jobLookingStatus: JobLookingStatus @rename(attribute: "job_looking_status")
+    hasDiploma: Boolean @rename(attribute: "has_diploma")
+    locationPreferences: [WorkRegion] @rename(attribute: "location_preferences")
+    locationExemptions: String @rename(attribute: "location_exemptions")
+    acceptedOperationalRequirements: OperationalRequirementBelongsToMany
+    expectedSalary: [SalaryRange] @rename(attribute: "expected_salary")
+    expectedClassifications: ClassificationBelongsToMany
+    wouldAcceptTemporary: Boolean @rename(attribute: "would_accept_temporary")
+    cmoAssets: CmoAssetBelongsToMany
 }
 """
 When updating a User, all fields are optional, and email cannot be changed.
 """
-input UpdateUserInput {
-    id: ID
+input UpdateUserAsAdminInput {
     sub: String
+    roles: [Role]
+
+    # Personal info
     firstName: String @rename(attribute: "first_name")
     lastName: String @rename(attribute: "last_name")
     telephone: PhoneNumber
     preferredLang: Language @rename(attribute: "preferred_lang")
-    roles: [Role]
+    currentProvince: ProvinceOrTerritory @rename(attribute: "current_province")
+    currentCity: String @rename(attribute: "current_city")
+
+    # Language
+    languageAbility: LanguageAbility @rename(attribute: "language_ability")
+    lookingForEnglish: Boolean @rename(attribute: "looking_for_english")
+    lookingForFrench: Boolean @rename(attribute: "looking_for_french")
+    lookingForBilingual: Boolean @rename(attribute: "looking_for_bilingual")
+    bilingualEvaluation: BilingualEvaluation @rename(attribute: "bilingual_evaluation")
+    comprehensionLevel: EvaluatedLanguageAbility @rename(attribute: "comprehension_level")
+    writtenLevel: EvaluatedLanguageAbility @rename(attribute: "written_level")
+    verbalLevel: EvaluatedLanguageAbility @rename(attribute: "verbal_level")
+    estimatedLanguageAbility: EstimatedLanguageAbility @rename(attribute: "estimated_language_ability")
+
+    # Gov info
+    isGovEmployee: Boolean @rename(attribute: "is_gov_employee")
+    interestedInLaterOrSecondment: Boolean @rename(attribute: "interested_in_later_or_secondment")
+    currentClassification: ClassificationBelongsTo
+
+    # Employment equity
+    isWoman: Boolean @rename(attribute: "is_woman")
+    hasDisability: Boolean @rename(attribute: "has_disability")
+    isIndigenous: Boolean @rename(attribute: "is_indigenous")
+    isVisibleMinority: Boolean @rename(attribute: "is_visible_minority")
+
+    # Applicant info
+    jobLookingStatus: JobLookingStatus @rename(attribute: "job_looking_status")
+
+    hasDiploma: Boolean @rename(attribute: "has_diploma")
+    locationPreferences: [WorkRegion] @rename(attribute: "location_preferences")
+    locationExemptions: String @rename(attribute: "location_exemptions")
+    acceptedOperationalRequirements: OperationalRequirementBelongsToMany
+    expectedSalary: [SalaryRange] @rename(attribute: "expected_salary")
+    expectedClassifications: ClassificationBelongsToMany
+    wouldAcceptTemporary: Boolean @rename(attribute: "would_accept_temporary")
+    cmoAssets: CmoAssetBelongsToMany
+}
+
+input UpdateUserAsUserInput {
+    # Personal info
+    firstName: String @rename(attribute: "first_name")
+    lastName: String @rename(attribute: "last_name")
+    telephone: PhoneNumber
+    preferredLang: Language @rename(attribute: "preferred_lang")
+    currentProvince: ProvinceOrTerritory @rename(attribute: "current_province")
+    currentCity: String @rename(attribute: "current_city")
+
+    # Language
+    languageAbility: LanguageAbility @rename(attribute: "language_ability")
+    lookingForEnglish: Boolean @rename(attribute: "looking_for_english")
+    lookingForFrench: Boolean @rename(attribute: "looking_for_french")
+    lookingForBilingual: Boolean @rename(attribute: "looking_for_bilingual")
+    bilingualEvaluation: BilingualEvaluation @rename(attribute: "bilingual_evaluation")
+    comprehensionLevel: EvaluatedLanguageAbility @rename(attribute: "comprehension_level")
+    writtenLevel: EvaluatedLanguageAbility @rename(attribute: "written_level")
+    verbalLevel: EvaluatedLanguageAbility @rename(attribute: "verbal_level")
+    estimatedLanguageAbility: EstimatedLanguageAbility @rename(attribute: "estimated_language_ability")
+
+    # Gov info
+    isGovEmployee: Boolean @rename(attribute: "is_gov_employee")
+    interestedInLaterOrSecondment: Boolean @rename(attribute: "interested_in_later_or_secondment")
+    currentClassification: ClassificationBelongsTo
+
+    # Employment equity
+    isWoman: Boolean @rename(attribute: "is_woman")
+    hasDisability: Boolean @rename(attribute: "has_disability")
+    isIndigenous: Boolean @rename(attribute: "is_indigenous")
+    isVisibleMinority: Boolean @rename(attribute: "is_visible_minority")
+
+    # Applicant info
+    jobLookingStatus: JobLookingStatus @rename(attribute: "job_looking_status")
+
+    hasDiploma: Boolean @rename(attribute: "has_diploma")
+    locationPreferences: [WorkRegion] @rename(attribute: "location_preferences")
+    locationExemptions: String @rename(attribute: "location_exemptions")
+    acceptedOperationalRequirements: OperationalRequirementBelongsToMany
+    expectedSalary: [SalaryRange] @rename(attribute: "expected_salary")
+    expectedClassifications: ClassificationBelongsToMany
+    wouldAcceptTemporary: Boolean @rename(attribute: "would_accept_temporary")
+    cmoAssets: CmoAssetBelongsToMany
 }
 
 input LocalizedStringInput {
@@ -430,16 +681,7 @@ input LocalizedStringInput {
 }
 
 input UserBelongsTo {
-    create: CreateUserInput
     connect: ID
-    update: UpdateUserInput
-}
-
-"""
-When updating a PoolCandidate it is possible to update the related user, but not change which user it is related to.
-"""
-input UpdatePoolCandidateUserBelongsTo {
-    update: UpdateUserInput
 }
 
 input PoolBelongsTo {
@@ -478,9 +720,14 @@ input OperationalRequirementBelongsToMany {
     sync: [ID!]
 }
 
-input CreatePoolCandidateInput {
+input ConnectOrCreateBelongsTo {
+    connect: ID
+    create: CreateUserInput
+}
+
+input CreatePoolCandidateAsAdminInput {
     pool: PoolBelongsTo!
-    user: UserBelongsTo!
+    user: ConnectOrCreateBelongsTo! # TODO: This should be switched to UserBelongsTo as soon as possible. Permission to create a PoolCandidate shouldn't imply permission to create a User. See https://github.com/GCTC-NTGC/gc-digital-talent/issues/2356
     cmoIdentifier: ID @rename(attribute: "cmo_identifier")
     expiryDate: Date @rename(attribute: "expiry_date")
     isWoman: Boolean @rename(attribute: "is_woman")
@@ -494,11 +741,8 @@ input CreatePoolCandidateInput {
     expectedSalary: [SalaryRange] @rename(attribute: "expected_salary")
     expectedClassifications: ClassificationBelongsToMany
     cmoAssets: CmoAssetBelongsToMany
-    status: PoolCandidateStatus = AVAILABLE @rename(attribute: "pool_candidate_status")
-}
-
-input PoolCandidateHasMany {
-    create: [CreatePoolCandidateInput!]
+    status: PoolCandidateStatus = AVAILABLE
+        @rename(attribute: "pool_candidate_status")
 }
 
 input CreatePoolInput {
@@ -529,8 +773,7 @@ input UpdateOperationalRequirementInput {
     description: LocalizedStringInput
 }
 
-input UpdatePoolCandidateInput {
-    user: UpdatePoolCandidateUserBelongsTo
+input UpdatePoolCandidateAsAdminInput {
     cmoIdentifier: ID @rename(attribute: "cmo_identifier")
     expiryDate: Date @rename(attribute: "expiry_date")
     isWoman: Boolean @rename(attribute: "is_woman")
@@ -647,13 +890,14 @@ input UpdateSkillInput {
 
 type Mutation {
     createUser(user: CreateUserInput! @spread): User @create @guard @can(ability: "create")
-    updateUser(id: ID!, user: UpdateUserInput! @spread): User @update @guard @can(ability: "update", find: "id")
+    updateUserAsUser(id: ID!, user: UpdateUserAsUserInput! @spread): User @update @guard @can(ability: "update", find: "id")
+    updateUserAsAdmin(id: ID!, user: UpdateUserAsAdminInput! @spread): User @update @guard @can(ability: "update", find: "id")
     deleteUser(id: ID!): User @delete(globalId: false) @guard @can(ability: "delete", find: "id")
     createPool(pool: CreatePoolInput! @spread): Pool @create @guard @can(ability: "create")
     updatePool(id: ID!, pool: UpdatePoolInput! @spread): Pool @update @guard @can(ability: "update", find: "id")
     deletePool(id: ID!): Pool @delete(globalId: false) @guard @can(ability: "delete", find: "id")
-    createPoolCandidate(poolCandidate: CreatePoolCandidateInput! @spread): PoolCandidate @create @guard @can(ability: "create")
-    updatePoolCandidate(id: ID!, poolCandidate: UpdatePoolCandidateInput! @spread): PoolCandidate @update @guard @can(ability: "update", find: "id")
+    createPoolCandidateAsAdmin(poolCandidate: CreatePoolCandidateAsAdminInput! @spread): PoolCandidate @create @guard @can(ability: "create")
+    updatePoolCandidateAsAdmin(id: ID!, poolCandidate: UpdatePoolCandidateAsAdminInput! @spread): PoolCandidate @update @guard @can(ability: "update", find: "id")
     deletePoolCandidate(id: ID!): PoolCandidate @delete(globalId: false) @guard @can(ability: "delete", find: "id")
     createClassification(classification: CreateClassificationInput! @spread): Classification @create @guard @can(ability: "create")
     updateClassification(id: ID!, classification: UpdateClassificationInput! @spread): Classification @update @guard @can(ability: "update", find: "id")

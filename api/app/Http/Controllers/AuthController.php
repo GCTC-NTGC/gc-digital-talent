@@ -43,7 +43,7 @@ class AuthController extends Controller
             'scope' => $scope,
             'state' => $state,
             'nonce' => $nonce,
-            'acr_values' => 'mfa',
+            'acr_values' => 'gckey',
             'ui_locales' => $ui_locales,
         ]);
 
@@ -96,7 +96,7 @@ class AuthController extends Controller
         if(substr($from, 0, 1) != '/')
             $from = null; // Does not start with / so it's not a relative url. Don't want an open redirect vulnerability. Throw it away.
 
-        $navigateToUri = strlen($from) > 0 ? config('app.url').$from : config('app.url').config('app.app_dir');
+        $navigateToUri = strlen($from) > 0 ? config('app.url').$from : config('oauth.post_login_redirect');
         return redirect($navigateToUri . '?' . $query);
     }
 

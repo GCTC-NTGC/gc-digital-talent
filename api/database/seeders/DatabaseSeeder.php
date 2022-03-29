@@ -4,6 +4,9 @@ namespace Database\Seeders;
 
 use App\Models\User;
 use App\Models\Pool;
+use App\Models\Classification;
+use App\Models\CmoAsset;
+use App\Models\OperationalRequirement;
 use App\Models\PoolCandidate;
 use App\Models\PoolCandidateFilter;
 use App\Models\PoolCandidateSearchRequest;
@@ -52,16 +55,25 @@ class DatabaseSeeder extends Seeder
         $this->call(UserSeederLocal::class);
         $this->call(PoolSeeder::class);
 
-        PoolCandidate::factory()
+        User::factory()
             ->count(60)
-            ->state(new Sequence(
-                fn () => ['pool_id' => Pool::inRandomOrder()->first()->id],
-            ))
+            ->sequence(fn () => [
+                'current_classification' => Classification::inRandomOrder()->first()->id,
+            ])
+            ->afterCreating(function (User $user) {
+                $assets = CmoAsset::inRandomOrder()->limit(4)->pluck('id')->toArray();
+                $classifications = Classification::inRandomOrder()->limit(3)->pluck('id')->toArray();
+                $requirements = OperationalRequirement::inRandomOrder()->limit(2)->pluck('id')->toArray();
+                $user->cmoAssets()->sync($assets);
+                $user->expectedClassifications()->sync($classifications);
+                $user->acceptedOperationalRequirements()->sync($requirements);
+            })
             ->create();
 
-        PoolCandidateSearchRequest::factory()->count(10)->create();
-
         User::all()->each(function($user) use ($faker) {
+            PoolCandidate::factory()->count(1)->sequence(fn () => [
+                'pool_id' => Pool::inRandomOrder()->first()->id,
+            ])->for($user)->create();
             AwardExperience::factory()->count($faker->biasedNumberBetween($min = 0, $max = 3,
                 $function = 'Faker\Provider\Biased::linearLow'))->for($user)->create();
             CommunityExperience::factory()->count($faker->biasedNumberBetween($min = 0, $max = 3,
@@ -73,6 +85,8 @@ class DatabaseSeeder extends Seeder
             WorkExperience::factory()->count($faker->biasedNumberBetween($min = 0, $max = 3,
                 $function = 'Faker\Provider\Biased::linearLow'))->for($user)->create();
         });
+
+        PoolCandidateSearchRequest::factory()->count(10)->create();
     }
 
     // drop all rows from some tables so that the seeder can fill them fresh

@@ -16,6 +16,7 @@ import {
   Pool,
   UpdatePoolInput,
   User,
+  UserPublicProfile,
 } from "../api/generated";
 import { CreatePoolForm } from "../components/pool/CreatePool";
 import { UpdatePoolForm } from "../components/pool/UpdatePool";
@@ -47,7 +48,7 @@ stories.add("Create Pool Form", () => (
 stories.add("Update Pool Form", () => {
   const pool: Pool = {
     id: "1",
-    owner: fakeUsers()[0],
+    owner: fakeUsers()[0] as UserPublicProfile,
     name: {
       en: "Pool Name",
       fr: "Pool Name FR",

@@ -1,10 +1,37 @@
 type Applicant {
   id: ID!
-  email: Email!
   firstName: String
   lastName: String
+  email: Email!
   telephone: PhoneNumber
   preferredLang: Language
+  currentProvince: ProvinceOrTerritory
+  currentCity: String
+  isGovEmployee: Boolean
+  interestedInLaterOrSecondment: Boolean
+  currentClassification: Classification
+  languageAbility: LanguageAbility
+  lookingForEnglish: Boolean
+  lookingForFrench: Boolean
+  lookingForBilingual: Boolean
+  bilingualEvaluation: BilingualEvaluation
+  comprehensionLevel: EvaluatedLanguageAbility
+  writtenLevel: EvaluatedLanguageAbility
+  verbalLevel: EvaluatedLanguageAbility
+  estimatedLanguageAbility: EstimatedLanguageAbility
+  isWoman: Boolean
+  hasDisability: Boolean
+  isIndigenous: Boolean
+  isVisibleMinority: Boolean
+  jobLookingStatus: JobLookingStatus
+  hasDiploma: Boolean
+  locationPreferences: [WorkRegion]
+  locationExemptions: String
+  acceptedOperationalRequirements: [OperationalRequirement]
+  expectedSalary: [SalaryRange]
+  expectedClassifications: [Classification]
+  wouldAcceptTemporary: Boolean
+  cmoAssets: [CmoAsset]
   experiences: [Experience]
   awardExperiences: [AwardExperience]
   communityExperiences: [CommunityExperience]
@@ -42,6 +69,12 @@ enum AwardedTo {
   MY_ORGANIZATION
 }
 
+enum BilingualEvaluation {
+  COMPLETED_ENGLISH
+  COMPLETED_FRENCH
+  NOT_COMPLETED
+}
+
 type Classification {
   id: ID!
   name: LocalizedString
@@ -49,6 +82,10 @@ type Classification {
   level: Int!
   minSalary: Int
   maxSalary: Int
+}
+
+input ClassificationBelongsTo {
+  connect: ID!
 }
 
 input ClassificationBelongsToMany {
@@ -86,6 +123,11 @@ type CommunityExperience implements Experience {
   experienceSkills: [ExperienceSkill]
 }
 
+input ConnectOrCreateBelongsTo {
+  connect: ID
+  create: CreateUserInput
+}
+
 input CreateClassificationInput {
   name: LocalizedStringInput
   group: String!
@@ -111,23 +153,9 @@ input CreateOperationalRequirementInput {
   description: LocalizedStringInput
 }
 
-input CreatePoolCandidateFilterInput {
-  classifications: ClassificationBelongsToMany
-  cmoAssets: CmoAssetBelongsToMany
-  hasDiploma: Boolean
-  hasDisability: Boolean
-  isIndigenous: Boolean
-  isVisibleMinority: Boolean
-  isWoman: Boolean
-  languageAbility: LanguageAbility
-  operationalRequirements: OperationalRequirementBelongsToMany
-  workRegions: [WorkRegion]
-  pools: PoolBelongsToMany
-}
-
-input CreatePoolCandidateInput {
+input CreatePoolCandidateAsAdminInput {
   pool: PoolBelongsTo!
-  user: UserBelongsTo!
+  user: ConnectOrCreateBelongsTo!
   cmoIdentifier: ID
   expiryDate: Date
   isWoman: Boolean
@@ -142,6 +170,20 @@ input CreatePoolCandidateInput {
   expectedClassifications: ClassificationBelongsToMany
   cmoAssets: CmoAssetBelongsToMany
   status: PoolCandidateStatus = AVAILABLE
+}
+
+input CreatePoolCandidateFilterInput {
+  classifications: ClassificationBelongsToMany
+  cmoAssets: CmoAssetBelongsToMany
+  hasDiploma: Boolean
+  hasDisability: Boolean
+  isIndigenous: Boolean
+  isVisibleMinority: Boolean
+  isWoman: Boolean
+  languageAbility: LanguageAbility
+  operationalRequirements: OperationalRequirementBelongsToMany
+  workRegions: [WorkRegion]
+  pools: PoolBelongsToMany
 }
 
 input CreatePoolCandidateSearchRequestInput {
@@ -183,12 +225,39 @@ input CreateSkillInput {
 """When creating a User, name and email are required."""
 input CreateUserInput {
   sub: String
+  roles: [Role] = []
   firstName: String!
   lastName: String!
   email: Email!
   telephone: PhoneNumber
   preferredLang: Language
-  roles: [Role] = []
+  currentProvince: ProvinceOrTerritory
+  currentCity: String
+  languageAbility: LanguageAbility
+  lookingForEnglish: Boolean
+  lookingForFrench: Boolean
+  lookingForBilingual: Boolean
+  bilingualEvaluation: BilingualEvaluation
+  comprehensionLevel: EvaluatedLanguageAbility
+  writtenLevel: EvaluatedLanguageAbility
+  verbalLevel: EvaluatedLanguageAbility
+  estimatedLanguageAbility: EstimatedLanguageAbility
+  isGovEmployee: Boolean
+  interestedInLaterOrSecondment: Boolean
+  currentClassification: ClassificationBelongsTo
+  isWoman: Boolean
+  hasDisability: Boolean
+  isIndigenous: Boolean
+  isVisibleMinority: Boolean
+  jobLookingStatus: JobLookingStatus
+  hasDiploma: Boolean
+  locationPreferences: [WorkRegion]
+  locationExemptions: String
+  acceptedOperationalRequirements: OperationalRequirementBelongsToMany
+  expectedSalary: [SalaryRange]
+  expectedClassifications: ClassificationBelongsToMany
+  wouldAcceptTemporary: Boolean
+  cmoAssets: CmoAssetBelongsToMany
 }
 
 """A date string with format `Y-m-d`, e.g. `2011-05-23`."""
@@ -245,6 +314,21 @@ enum EducationType {
 """A RFC 5321 compliant email."""
 scalar Email
 
+enum EstimatedLanguageAbility {
+  BEGINNER
+  INTERMEDIATE
+  ADVANCED
+}
+
+enum EvaluatedLanguageAbility {
+  X
+  A
+  B
+  C
+  E
+  P
+}
+
 interface Experience {
   id: ID!
   applicant: Applicant!
@@ -257,6 +341,12 @@ type ExperienceSkill {
   details: String
   skill: Skill!
   experience: Experience!
+}
+
+enum JobLookingStatus {
+  ACTIVELY_LOOKING
+  OPEN_TO_OPPORTUNITIES
+  INACTIVE
 }
 
 input KeyFilterInput {
@@ -296,13 +386,14 @@ scalar Mixed
 
 type Mutation {
   createUser(user: CreateUserInput!): User
-  updateUser(id: ID!, user: UpdateUserInput!): User
+  updateUserAsUser(id: ID!, user: UpdateUserAsUserInput!): User
+  updateUserAsAdmin(id: ID!, user: UpdateUserAsAdminInput!): User
   deleteUser(id: ID!): User
   createPool(pool: CreatePoolInput!): Pool
   updatePool(id: ID!, pool: UpdatePoolInput!): Pool
   deletePool(id: ID!): Pool
-  createPoolCandidate(poolCandidate: CreatePoolCandidateInput!): PoolCandidate
-  updatePoolCandidate(id: ID!, poolCandidate: UpdatePoolCandidateInput!): PoolCandidate
+  createPoolCandidateAsAdmin(poolCandidate: CreatePoolCandidateAsAdminInput!): PoolCandidate
+  updatePoolCandidateAsAdmin(id: ID!, poolCandidate: UpdatePoolCandidateAsAdminInput!): PoolCandidate
   deletePoolCandidate(id: ID!): PoolCandidate
   createClassification(classification: CreateClassificationInput!): Classification
   updateClassification(id: ID!, classification: UpdateClassificationInput!): Classification
@@ -445,8 +536,7 @@ scalar PhoneNumber
 
 type Pool {
   id: ID!
-  owner: User
-  ownerPublicProfile: UserPublicProfile
+  owner: UserPublicProfile
   name: LocalizedString
   key: KeyString
   description: LocalizedString
@@ -468,7 +558,7 @@ input PoolBelongsToMany {
 type PoolCandidate {
   id: ID!
   pool: Pool
-  user: User
+  user: Applicant
   cmoIdentifier: ID
   expiryDate: Date
   isWoman: Boolean
@@ -518,10 +608,6 @@ input PoolCandidateFilterInput {
   pools: [PoolFilterInput]
 }
 
-input PoolCandidateHasMany {
-  create: [CreatePoolCandidateInput!]
-}
-
 type PoolCandidateSearchRequest {
   id: ID!
   fullName: String
@@ -549,6 +635,26 @@ enum PoolCandidateStatus {
 
 input PoolFilterInput {
   id: ID!
+}
+
+input PoolsHasMany {
+  create: [CreatePoolInput]
+}
+
+enum ProvinceOrTerritory {
+  BRITISH_COLUMBIA
+  ALBERTA
+  SASKATCHEWAN
+  MANITOBA
+  ONTARIO
+  QUEBEC
+  NEW_BRUNSWICK
+  NOVA_SCOTIA
+  PRINCE_EDWARD_ISLAND
+  NEWFOUNDLAND_AND_LABRADOR
+  YUKON
+  NORTHWEST_TERRITORIES
+  NUNAVUT
 }
 
 type Query {
@@ -742,8 +848,7 @@ input UpdateOperationalRequirementInput {
   description: LocalizedStringInput
 }
 
-input UpdatePoolCandidateInput {
-  user: UpdatePoolCandidateUserBelongsTo
+input UpdatePoolCandidateAsAdminInput {
   cmoIdentifier: ID
   expiryDate: Date
   isWoman: Boolean
@@ -763,13 +868,6 @@ input UpdatePoolCandidateInput {
 input UpdatePoolCandidateSearchRequestInput {
   adminNotes: String
   status: PoolCandidateSearchStatus
-}
-
-"""
-When updating a PoolCandidate it is possible to update the related user, but not change which user it is related to.
-"""
-input UpdatePoolCandidateUserBelongsTo {
-  update: UpdateUserInput
 }
 
 input UpdatePoolInput {
@@ -799,26 +897,112 @@ input UpdateSkillInput {
 """
 When updating a User, all fields are optional, and email cannot be changed.
 """
-input UpdateUserInput {
-  id: ID
+input UpdateUserAsAdminInput {
   sub: String
+  roles: [Role]
   firstName: String
   lastName: String
   telephone: PhoneNumber
   preferredLang: Language
-  roles: [Role]
+  currentProvince: ProvinceOrTerritory
+  currentCity: String
+  languageAbility: LanguageAbility
+  lookingForEnglish: Boolean
+  lookingForFrench: Boolean
+  lookingForBilingual: Boolean
+  bilingualEvaluation: BilingualEvaluation
+  comprehensionLevel: EvaluatedLanguageAbility
+  writtenLevel: EvaluatedLanguageAbility
+  verbalLevel: EvaluatedLanguageAbility
+  estimatedLanguageAbility: EstimatedLanguageAbility
+  isGovEmployee: Boolean
+  interestedInLaterOrSecondment: Boolean
+  currentClassification: ClassificationBelongsTo
+  isWoman: Boolean
+  hasDisability: Boolean
+  isIndigenous: Boolean
+  isVisibleMinority: Boolean
+  jobLookingStatus: JobLookingStatus
+  hasDiploma: Boolean
+  locationPreferences: [WorkRegion]
+  locationExemptions: String
+  acceptedOperationalRequirements: OperationalRequirementBelongsToMany
+  expectedSalary: [SalaryRange]
+  expectedClassifications: ClassificationBelongsToMany
+  wouldAcceptTemporary: Boolean
+  cmoAssets: CmoAssetBelongsToMany
+}
+
+input UpdateUserAsUserInput {
+  firstName: String
+  lastName: String
+  telephone: PhoneNumber
+  preferredLang: Language
+  currentProvince: ProvinceOrTerritory
+  currentCity: String
+  languageAbility: LanguageAbility
+  lookingForEnglish: Boolean
+  lookingForFrench: Boolean
+  lookingForBilingual: Boolean
+  bilingualEvaluation: BilingualEvaluation
+  comprehensionLevel: EvaluatedLanguageAbility
+  writtenLevel: EvaluatedLanguageAbility
+  verbalLevel: EvaluatedLanguageAbility
+  estimatedLanguageAbility: EstimatedLanguageAbility
+  isGovEmployee: Boolean
+  interestedInLaterOrSecondment: Boolean
+  currentClassification: ClassificationBelongsTo
+  isWoman: Boolean
+  hasDisability: Boolean
+  isIndigenous: Boolean
+  isVisibleMinority: Boolean
+  jobLookingStatus: JobLookingStatus
+  hasDiploma: Boolean
+  locationPreferences: [WorkRegion]
+  locationExemptions: String
+  acceptedOperationalRequirements: OperationalRequirementBelongsToMany
+  expectedSalary: [SalaryRange]
+  expectedClassifications: ClassificationBelongsToMany
+  wouldAcceptTemporary: Boolean
+  cmoAssets: CmoAssetBelongsToMany
 }
 
 type User {
   id: ID!
-  email: Email!
   sub: String
+  roles: [Role]
   firstName: String
   lastName: String
+  email: Email!
   telephone: PhoneNumber
   preferredLang: Language
-  roles: [Role]
-  pools: [Pool]
+  currentProvince: ProvinceOrTerritory
+  currentCity: String
+  languageAbility: LanguageAbility
+  lookingForEnglish: Boolean
+  lookingForFrench: Boolean
+  lookingForBilingual: Boolean
+  bilingualEvaluation: BilingualEvaluation
+  comprehensionLevel: EvaluatedLanguageAbility
+  writtenLevel: EvaluatedLanguageAbility
+  verbalLevel: EvaluatedLanguageAbility
+  estimatedLanguageAbility: EstimatedLanguageAbility
+  isGovEmployee: Boolean
+  interestedInLaterOrSecondment: Boolean
+  currentClassification: Classification
+  isWoman: Boolean
+  hasDisability: Boolean
+  isIndigenous: Boolean
+  isVisibleMinority: Boolean
+  jobLookingStatus: JobLookingStatus
+  hasDiploma: Boolean
+  locationPreferences: [WorkRegion]
+  locationExemptions: String
+  acceptedOperationalRequirements: [OperationalRequirement]
+  expectedSalary: [SalaryRange]
+  expectedClassifications: [Classification]
+  wouldAcceptTemporary: Boolean
+  cmoAssets: [CmoAsset]
   poolCandidates: [PoolCandidate]
   experiences: [Experience]
   awardExperiences: [AwardExperience]
@@ -826,12 +1010,11 @@ type User {
   educationExperiences: [EducationExperience]
   personalExperiences: [PersonalExperience]
   workExperiences: [WorkExperience]
+  pools: [Pool]
 }
 
 input UserBelongsTo {
-  create: CreateUserInput
   connect: ID
-  update: UpdateUserInput
 }
 
 type UserPublicProfile {

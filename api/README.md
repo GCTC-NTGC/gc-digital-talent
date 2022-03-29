@@ -25,14 +25,14 @@ To improve your editing experience, run `php artisan lighthouse:ide-helper` (not
 
 ## Compiling the Schema
 
-Some Lighthouse directives can manipulate the schema, like @whereConditions which generates an Input definition. This means that the final schema of this server may not quite match the `./graphql/schema.graphql` file. 
+Some Lighthouse directives can manipulate the schema, like @whereConditions which generates an Input definition. This means that the final schema of this server may not quite match the `./graphql/schema.graphql` file.
 
 If you need static access to the compiled schema, run `php artisan lighthouse:print-schema --write`, which outputs the compiled schema to `./storage/app/lighthouse-schema.graphql`.
 
 _If any other projects need to reference this server's schema for code generation, that is the file they should use._
 ## Documentation
 
-Documentation for the Lumen framework can be found on the [Lumen website](https://lumen.laravel.com/docs).
+Documentation for the Laravel framework can be found on the [Laravel website](https://laravel.com/docs).
 
 Documentation on the Lighthouse GraphQL library can be found [here](https://lighthouse-php.com/).
 Lighthouse offers a [number of commands](https://lighthouse-php.com/5/api-reference/commands.html) which may be useful for developing your schema and data models:

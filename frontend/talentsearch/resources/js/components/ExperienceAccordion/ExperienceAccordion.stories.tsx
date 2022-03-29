@@ -1,6 +1,6 @@
 import React from "react";
 import { Story, Meta } from "@storybook/react";
-import fakeExperiences, { generators } from "@common/fakeData/fakeExperiences";
+import { generators } from "@common/fakeData/fakeExperiences";
 import { Applicant } from "@common/api/generated";
 import ExperienceAccordion, { AccordionProps } from "./ExperienceAccordion";
 
