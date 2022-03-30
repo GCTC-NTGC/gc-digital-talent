@@ -52,9 +52,9 @@ export const WorkLocationPreferenceForm: React.FC<
         );
       });
   };
-  const workRegionsForFormatedWorkPreferenceForm = defineMessages({
+  const workRegionsForWorkPreferenceForm = defineMessages({
     [WorkRegion.Telework]: {
-      defaultMessage: "Virtual Work from home, anywhere in Canada.",
+      defaultMessage: "Virtual: Work from home, anywhere in Canada.",
       description: "The work region of Canada described as Telework.",
     },
     [WorkRegion.NationalCapital]: {
@@ -92,7 +92,7 @@ export const WorkLocationPreferenceForm: React.FC<
     workRegionId: string | number,
   ): MessageDescriptor =>
     getOrThrowError(
-      workRegionsForFormatedWorkPreferenceForm,
+      workRegionsForWorkPreferenceForm,
       workRegionId,
       `Invalid Work Region '${workRegionId}'`,
     );
@@ -125,7 +125,6 @@ export const WorkLocationPreferenceForm: React.FC<
                 name="workLocations"
                 items={enumToOptions(WorkRegion).map(({ value }) => ({
                   value,
-                  // getWorkRegion(value)
                   label: intl.formatMessage(getWorkPreferenceregion(value)),
                 }))}
                 rules={{ required: intl.formatMessage(errorMessages.required) }}
@@ -160,7 +159,7 @@ export const WorkLocationPreferenceForm: React.FC<
     </ProfileFormWrapper>
   );
 };
-export const CreateWorkLocationPreference: React.FunctionComponent = () => {
+export const WorkLocationPreferenceApi: React.FunctionComponent = () => {
   const [, executeMutation] = useCreateWorkLocationPreferenceMutation();
   const handleCreateUser = (data: CreateUserInput) =>
     executeMutation({ user: data }).then((result) => {
