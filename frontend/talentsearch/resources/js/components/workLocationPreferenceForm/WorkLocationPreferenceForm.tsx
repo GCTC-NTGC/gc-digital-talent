@@ -1,14 +1,9 @@
 import { BasicForm, Checklist, TextArea } from "@common/components/form";
-// import { getWorkPreferenceregion } from "@common/constants/localizedConstants";
+import { getworkRegionsDetailed } from "@common/constants/localizedConstants";
 import { enumToOptions } from "@common/helpers/formUtils";
 import { errorMessages } from "@common/messages";
 import React from "react";
-import { SubmitHandler } from "react-hook-form";
-import { MessageDescriptor, useIntl, defineMessages } from "react-intl";
-import { navigate } from "@common/helpers/router";
-import { toast } from "react-toastify";
-import { getOrThrowError } from "@common/helpers/util";
-import { useApplicantProfileRoutes } from "../../applicantProfileRoutes";
+import { useIntl } from "react-intl";
 import {
   CreateUserInput,
   CreateWorkLocationPreferenceMutation,
@@ -18,7 +13,13 @@ import {
 import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
 import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
 
+// export type FormValues = Pick<
+//   CreateUserInput,
+//   "locationPreferences" | "locationExemptions"
+// >;
+
 export type FormValues = CreateUserInput;
+
 export interface WorkLocationPreferenceFormProps {
   handleSubmit: (
     data: FormValues,
@@ -29,78 +30,20 @@ export const WorkLocationPreferenceForm: React.FC<
   WorkLocationPreferenceFormProps
 > = ({ handleSubmit }) => {
   const intl = useIntl();
-  const paths = useApplicantProfileRoutes();
-  const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
-    return handleSubmit(data)
-      .then(() => {
-        navigate(paths.home());
-        toast.success(
-          intl.formatMessage({
-            defaultMessage: "Work location preferences  saved successfully!",
-            description:
-              "Message displayed to user after work location preferences  saved successfully!",
-          }),
-        );
-      })
-      .catch(() => {
-        toast.error(
-          intl.formatMessage({
-            defaultMessage: "Error: Something went wrong! Please try again!",
-            description:
-              "Message displayed to user after work location preferences  not saved successfully!",
-          }),
-        );
-      });
-  };
-  const workRegionsForWorkPreferenceForm = defineMessages({
-    [WorkRegion.Telework]: {
-      defaultMessage: "Virtual: Work from home, anywhere in Canada.",
-      description: "The work region of Canada described as Telework.",
-    },
-    [WorkRegion.NationalCapital]: {
-      defaultMessage: "National Capital Region: Ottawa, ON and Gatineau, QC.",
-      description: "The work region of Canada described as National Capital.",
-    },
-    [WorkRegion.Atlantic]: {
-      defaultMessage:
-        "Atlantic Region: New Brunswick, Newfoundland and Labrador, Nova Scotia and Prince Edward Island.",
-      description: "The work region of Canada described as Atlantic.",
-    },
-    [WorkRegion.Quebec]: {
-      defaultMessage: "Quebec Region: excluding Gatineau.",
-      description: "The work region of Canada described as Quebec.",
-    },
-    [WorkRegion.Ontario]: {
-      defaultMessage: "Ontario Region: excluding Ottawa.",
-      description: "The work region of Canada described as Ontario.",
-    },
-    [WorkRegion.Prairie]: {
-      defaultMessage: "Prairie Region: Manitoba, Saskatchewan, Alberta.",
-      description: "The work region of Canada described as Prairie.",
-    },
-    [WorkRegion.BritishColumbia]: {
-      defaultMessage: "British Columbia Region",
-      description: "The work region of Canada described as British Columbia.",
-    },
-    [WorkRegion.North]: {
-      defaultMessage: "North Region: Yukon, Northwest Territories and Nunavut.",
-      description: "The work region of Canada described as North.",
-    },
-  });
-
-  const getWorkPreferenceregion = (
-    workRegionId: string | number,
-  ): MessageDescriptor =>
-    getOrThrowError(
-      workRegionsForWorkPreferenceForm,
-      workRegionId,
-      `Invalid Work Region '${workRegionId}'`,
-    );
 
   return (
     <ProfileFormWrapper
-      description="Indicate all locations where you are willing to work, including your current location (if you are interested in working there)."
-      title="Work location"
+      description={intl.formatMessage({
+        defaultMessage:
+          "Indicate all locations where you are willing to work, including your current location (if you are interested in working there).",
+        description:
+          "Description text for Profile Form wrapper  in Work Location Preferences Form",
+      })}
+      title={intl.formatMessage({
+        defaultMessage: "Work location",
+        description:
+          "Title for Profile Form wrapper  in Work Location Preferences Form",
+      })}
       crumbs={[
         {
           title: intl.formatMessage({
@@ -111,7 +54,7 @@ export const WorkLocationPreferenceForm: React.FC<
         },
       ]}
     >
-      <BasicForm onSubmit={onSubmit}>
+      <BasicForm onSubmit={handleSubmit}>
         <div>
           <div data-h2-flex-item="b(1of1)" data-h2-padding="b(top, m)">
             <div data-h2-padding="b(right, l)" data-testid="workLocation">
@@ -125,7 +68,7 @@ export const WorkLocationPreferenceForm: React.FC<
                 name="workLocations"
                 items={enumToOptions(WorkRegion).map(({ value }) => ({
                   value,
-                  label: intl.formatMessage(getWorkPreferenceregion(value)),
+                  label: intl.formatMessage(getworkRegionsDetailed(value)),
                 }))}
                 rules={{ required: intl.formatMessage(errorMessages.required) }}
               />
@@ -159,6 +102,7 @@ export const WorkLocationPreferenceForm: React.FC<
     </ProfileFormWrapper>
   );
 };
+
 export const WorkLocationPreferenceApi: React.FunctionComponent = () => {
   const [, executeMutation] = useCreateWorkLocationPreferenceMutation();
   const handleCreateUser = (data: CreateUserInput) =>

@@ -1,0 +1,13 @@
+query WorkLocationPreference($id: ID!) {
+  user(id: $id) {
+    id
+    locationPreferences
+    locationExemptions
+  }
+}
+mutation createWorkLocationPreference( $user: CreateUserInput!) {
+  createUser(id: $id, user: $user) {
+    locationPreferences
+    locationExemptions
+  }
+}
