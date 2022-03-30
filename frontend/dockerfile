@@ -27,13 +27,13 @@ COPY admin/package.json ./
 
 COPY admin/tsconfig.json .
 # with webpack, will be src directory
-COPY admin/resources/ resources/
+COPY admin/src/ src/
 #RUN npm run h2-build
 
 COPY admin/codegen.yml ./
 #RUN npm run codegen
 
-COPY admin/webpack.mix.js admin/artisan ./
+COPY admin/webpack.*.js  ./
 #RUN npm run production
 
 WORKDIR /app/talentsearch
@@ -43,15 +43,15 @@ COPY talentsearch/package.json ./
 
 COPY talentsearch/tsconfig.json ./
 # with webpack, will be src directory
-COPY talentsearch/resources/ resources/
+COPY talentsearch/src/ src/
 #RUN npm run h2-build
 
 COPY talentsearch/codegen.yml ./
 #RUN npm run codegen
 
 # with webpack, will be webpack config
-COPY talentsearch/webpack.mix.js talentsearch/artisan ./
-COPY talentsearch/public/ public/
+COPY talentsearch/webpack.*.js ./
+COPY talentsearch/src/ src/
 #RUN npm run dev
 
 WORKDIR /app
