@@ -13,8 +13,6 @@ npm install
 npm rebuild node-sass
 
 cd /var/www/html/frontend/admin
-composer install
-php artisan config:clear
 (cd .. && npm run h2-build --workspace common)
 npm run codegen
 npm run intl-compile

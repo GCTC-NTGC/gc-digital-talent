@@ -15,11 +15,11 @@ module.exports = {
       },
     },
   },
-  roots: ["resources/js", "tests"],
+  roots: ["src/js"],
   // https://alexjover.com/blog/enhance-jest-configuration-with-module-aliases/
   moduleNameMapper: {
     "@common(.*)$": "<rootDir>/../common/src/$1",
-    "^.+\\.(css|less)$": "<rootDir>/resources/js/tests/config/CssStub.js",
+    "^.+\\.(css|less)$": "<rootDir>/src/js/tests/config/CssStub.js",
   },
   // Jest transformations -- this adds support for TypeScript
   // using ts-jest
@@ -29,10 +29,10 @@ module.exports = {
   collectCoverage: true,
   coverageReporters: ["json", "html"],
   collectCoverageFrom: [
-    "resources/js/**/*.{js,jsx,ts,tsx}",
+    "src/js/**/*.{js,jsx,ts,tsx}",
     "!<rootDir>/node_modules/",
   ],
-  coverageDirectory: "resources/js/tests/coverage",
+  coverageDirectory: "src/js/tests/coverage",
 
   // Module file extensions for importing
   moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json", "node"],

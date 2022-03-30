@@ -1,8 +1,8 @@
 import "../../common/src/css/hydrogen.css";
-import "../resources/css/app.css"
-import "../resources/js/components/IntlContainer";
+import "../src/css/app.css"
+import "../src/js/components/IntlContainer";
 import { setIntlConfig, withIntl } from 'storybook-addon-intl';
-import TalentSearchFrench from "../resources/js/lang/frCompiled.json";
+import TalentSearchFrench from "../src/js/lang/frCompiled.json";
 import { CommonFrench } from "../../common/src/lang";
 
 export const parameters = {
