@@ -327,7 +327,7 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
                 defaultMessage: "{experienceLength} Experiences",
                 description: "Pluralization for zero or multiple experiences",
               },
-              { experienceLength: experiences?.length },
+              { experienceLength: experiences ? experiences.length : 0 },
             )
       }
     >
