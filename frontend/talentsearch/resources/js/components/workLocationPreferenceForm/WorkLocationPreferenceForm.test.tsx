@@ -78,6 +78,8 @@ describe("Work Location Preference Form tests", () => {
     });
     expect(saveAndGoButton).toBeTruthy();
 
+    const checklist1 = screen.getByRole("group");
+
     const checkbox1 = screen.getByRole("checkbox", {
       name: /Virtual: Work from home/i,
     });
@@ -88,6 +90,7 @@ describe("Work Location Preference Form tests", () => {
     act(() => {
       fireEvent.click(saveAndGoButton);
     });
+    // expect(checklist1).toHaveFormValues({ locationPreferences: ["TELEWORK"] });
     // expect(onClick).toBeCalled(); //Not Working for some reason
     // expect(callback).toBeCalledWith(["TELEWORK"],"");
 
@@ -181,6 +184,7 @@ describe("Work Location Preference Form tests", () => {
     act(() => {
       fireEvent.click(saveAndGoButton);
     });
+
     // expect(onClick).toBeCalled(); //Not Working for some reason
     // expect(callback).toBeCalledWith(["TELEWORK","NATIONAL_CAPITAL","ATLANTIC","QUEBEC","ONTARIO","PRAIRIE","BRITISH_COLUMBIA","NORTH"],"");
 
