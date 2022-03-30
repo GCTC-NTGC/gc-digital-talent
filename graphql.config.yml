@@ -4,4 +4,4 @@ projects:
     schema: "graphql/schema.graphql"
   admin:
     schema: "graphql/schema.graphql"
-    documents: "resources/js/**/*.graphql"
+    documents: "src/js/**/*.graphql"
