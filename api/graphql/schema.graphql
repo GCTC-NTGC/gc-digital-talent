@@ -360,12 +360,12 @@ type Skill {
     families: [SkillFamily!] @belongsToMany
 
     # Experiences
-    experiences: [Experience]
-    awardExperiences: [AwardExperience]
-    communityExperiences: [CommunityExperience]
-    educationExperiences: [EducationExperience]
-    personalExperiences: [PersonalExperience]
-    workExperiences: [WorkExperience]
+    experiences: [Experience!]
+    awardExperiences: [AwardExperience!]
+    communityExperiences: [CommunityExperience!]
+    educationExperiences: [EducationExperience!]
+    personalExperiences: [PersonalExperience!]
+    workExperiences: [WorkExperience!]
     experiencePivot: ExperienceSkillPivot @rename(attribute: "pivot")
 }
 

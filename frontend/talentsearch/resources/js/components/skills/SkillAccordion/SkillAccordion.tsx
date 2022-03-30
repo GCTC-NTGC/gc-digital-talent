@@ -13,7 +13,6 @@ import {
 import { Scalars } from "@common/api/generated";
 import {
   Skill,
-  Experience,
   PersonalExperience,
   WorkExperience,
   AwardExperience,
@@ -80,11 +79,7 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
   const intl = useIntl();
   const locale = getLocale(intl);
 
-  const { name, experienceSkills } = skill;
-
-  const experiences: Maybe<Array<Maybe<Experience>>> = experienceSkills?.map(
-    (item) => item?.experience,
-  );
+  const { name, experiences } = skill;
 
   const getPersonalExperience = (experience: PersonalExperience) => {
     const { title, description, startDate, endDate, details } = experience;

@@ -8,10 +8,9 @@ import {
   WorkExperience,
   // required imports to generate AnExperience to export
   Applicant,
-  ExperienceSkill,
+  ExperienceSkillPivot,
   Skill,
   LocalizedString,
-  Experience,
   // imports required by specific experiences and are linked
   AwardedTo,
   AwardedScope,
@@ -31,11 +30,15 @@ const theSkillDescription1: LocalizedString = {
   en: "The first Description",
   fr: "Le premier Descriptif",
 };
+const theExperienceSkillPivot: ExperienceSkillPivot = {
+  details: "The ExperienceSkillPivots details",
+};
 const sampleSkill1: Skill = {
   id: "blank",
   key: "blank",
   description: theSkillDescription1,
   name: theSkillString1,
+  experiencePivot: theExperienceSkillPivot,
 };
 const theSkillString2: LocalizedString = {
   en: "The second Skill",
@@ -50,24 +53,7 @@ const sampleSkill2: Skill = {
   key: "blank",
   description: theSkillDescription2,
   name: theSkillString2,
-};
-const sampleExperienceInstance: Experience = {
-  applicant: sampleApp,
-  id: theId,
-  // circular dependency here, between sampleExperienceInstance and sampleExperience
-  // experienceSkills: [sampleExperience],
-};
-const sampleExperience1: ExperienceSkill = {
-  id: "blank",
-  skill: sampleSkill1,
-  experience: sampleExperienceInstance,
-  details: faker.lorem.sentence(),
-};
-const sampleExperience2: ExperienceSkill = {
-  id: "blank",
-  skill: sampleSkill2,
-  experience: sampleExperienceInstance,
-  details: faker.lorem.sentence(),
+  experiencePivot: theExperienceSkillPivot,
 };
 
 // 5 generators to generate experiences of a certain type
@@ -79,7 +65,7 @@ const generateAward = (): AwardExperience => {
     __typename: "AwardExperience",
     applicant: sampleApp,
     id: theId,
-    experienceSkills: [],
+    skills: [],
     details: faker.random.words(),
     title: faker.lorem.word(),
     awardedTo: faker.random.arrayElement([
@@ -108,7 +94,7 @@ const generateCommunity = (): CommunityExperience => {
     __typename: "CommunityExperience",
     applicant: sampleApp,
     id: theId,
-    experienceSkills: [sampleExperience1],
+    skills: [sampleSkill1],
     details: faker.random.words(),
     title: faker.lorem.word(),
     organization: faker.company.companyName(),
@@ -124,7 +110,7 @@ const generateEducation = (): EducationExperience => {
     __typename: "EducationExperience",
     applicant: sampleApp,
     id: theId,
-    experienceSkills: [sampleExperience1, sampleExperience2],
+    skills: [sampleSkill1, sampleSkill2],
     details: faker.random.words(),
     areaOfStudy: faker.music.genre(),
     type: faker.random.arrayElement([
@@ -157,7 +143,7 @@ const generatePersonal = (): PersonalExperience => {
     __typename: "PersonalExperience",
     applicant: sampleApp,
     id: theId,
-    experienceSkills: [sampleExperience1],
+    skills: [sampleSkill1],
     details: faker.lorem.sentence(),
     title: faker.name.jobTitle(),
     startDate: faker.date.recent().toString().slice(0, 15),
@@ -172,7 +158,7 @@ const generateWork = (): WorkExperience => {
     __typename: "WorkExperience",
     applicant: sampleApp,
     id: theId,
-    experienceSkills: [sampleExperience1, sampleExperience2],
+    skills: [sampleSkill1, sampleSkill2],
     details: faker.lorem.sentence(),
     organization: faker.company.companyName(),
     role: faker.name.jobTitle(),
