@@ -125,7 +125,7 @@ export const useRouter = (
  * @param imgFile The name of the img file, not including the /images/ path.
  */
 export function imageUrl(baseUrl: string, imgFile: string): string {
-  return path.join(baseUrl, "/public/images/", imgFile);
+  return path.join(baseUrl, "/images/", imgFile);
 }
 
 export function parseUrlQueryParameters(

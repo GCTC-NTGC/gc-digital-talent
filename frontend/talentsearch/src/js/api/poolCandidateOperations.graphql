@@ -1,0 +1,52 @@
+query countPoolCandidates($where: PoolCandidateFilterInput) {
+  countPoolCandidates(where: $where)
+}
+
+query getSearchFormData($poolKey: String!) {
+  poolByKey(key: $poolKey) {
+    id
+    key
+    owner {
+      email
+      firstName
+      lastName
+    }
+    name {
+      en
+      fr
+    }
+    description {
+      en
+      fr
+    }
+    classifications {
+      id
+      group
+      level
+    }
+    assetCriteria {
+      id
+      key
+      name {
+        en
+        fr
+      }
+    }
+    essentialCriteria {
+      id
+      key
+      name {
+        en
+        fr
+      }
+    }
+    operationalRequirements {
+      id
+      key
+      name {
+        en
+        fr
+      }
+    }
+  }
+}

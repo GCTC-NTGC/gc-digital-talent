@@ -9,8 +9,8 @@
       "webRoot": "${workspaceFolder}/admin",
       "pathMappings": [
         {
-          "url": "webpack://admin/resources",
-          "path": "${workspaceFolder}/admin/resources"
+          "url": "webpack://admin/src",
+          "path": "${workspaceFolder}/admin/src"
         },
         {
           "url": "webpack://admin/common",
@@ -30,8 +30,8 @@
       "webRoot": "${workspaceFolder}/talentsearch",
       "pathMappings": [
         {
-          "url": "webpack://talentsearch/resources",
-          "path": "${workspaceFolder}/talentsearch/resources"
+          "url": "webpack://talentsearch/src",
+          "path": "${workspaceFolder}/talentsearch/src"
         },
         {
           "url": "webpack://talentsearch/common",
@@ -53,8 +53,8 @@
       "profile": "debug-profile",
       "pathMappings": [
         {
-          "url": "webpack://admin/resources",
-          "path": "${workspaceFolder}/admin/resources"
+          "url": "webpack://admin/src",
+          "path": "${workspaceFolder}/admin/src"
         },
         {
           "url": "webpack://admin/common",
@@ -78,8 +78,8 @@
       "profile": "debug-profile",
       "pathMappings": [
         {
-          "url": "webpack://talentsearch/resources",
-          "path": "${workspaceFolder}/talentsearch/resources"
+          "url": "webpack://talentsearch/src",
+          "path": "${workspaceFolder}/talentsearch/src"
         },
         {
           "url": "webpack://talentsearch/common",
