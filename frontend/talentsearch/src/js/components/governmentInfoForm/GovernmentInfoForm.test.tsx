@@ -4,7 +4,20 @@
 import "@testing-library/jest-dom";
 import { render, screen, fireEvent, act } from "@testing-library/react";
 import React from "react";
+import { IntlProvider, MessageFormatElement, useIntl } from "react-intl";
 import GovInfoFormContainer from "./GovernmentInfoForm";
+
+const renderWithReactIntl = (
+  component: React.ReactNode,
+  locale?: "en" | "fr",
+  messages?: Record<string, string> | Record<string, MessageFormatElement[]>,
+) => {
+  return (
+    <IntlProvider locale={locale || "en"} messages={messages}>
+      {component}
+    </IntlProvider>
+  );
+};
 
 let container: HTMLDivElement;
 beforeEach(() => {
@@ -18,7 +31,7 @@ jest.setTimeout(30000);
 test("Test form display rendering", async () => {
   // timeout for hopefully things to load first then test?
   act(() => {
-    render(<GovInfoFormContainer />);
+    render(renderWithReactIntl(<GovInfoFormContainer />));
   });
   // eslint-disable-next-line no-promise-executor-return
   await new Promise((r) => setTimeout(r, 10000));
@@ -41,7 +54,7 @@ test("Test form display rendering", async () => {
 
 test("Test form data", async () => {
   act(() => {
-    render(<GovInfoFormContainer />);
+    render(renderWithReactIntl(<GovInfoFormContainer />));
   });
   // eslint-disable-next-line no-promise-executor-return
   await new Promise((r) => setTimeout(r, 10000));
