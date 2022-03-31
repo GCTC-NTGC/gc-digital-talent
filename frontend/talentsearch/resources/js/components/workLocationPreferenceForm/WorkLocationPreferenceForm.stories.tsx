@@ -1,7 +1,7 @@
 import React from "react";
 import { Meta, Story } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
-import { CreateUserInput } from "../../api/generated";
+import { CreateUserInput, User, WorkRegion } from "../../api/generated";
 import { WorkLocationPreferenceForm } from "./WorkLocationPreferenceForm";
 
 export default {
@@ -9,12 +9,20 @@ export default {
   title: "Work Location Preference Form",
 } as Meta;
 
+const user: User = {
+  id: "1",
+  locationPreferences: [],
+  locationExemptions: "",
+  email: "",
+};
+
 const TemplateWorkLocationPreferenceForm: Story = () => {
   return (
     <WorkLocationPreferenceForm
-      handleSubmit={async (data: CreateUserInput) => {
+      initialUser={user}
+      handleWorkLocationPreference={async (id, data) => {
         await new Promise((resolve) => setTimeout(resolve, 1000));
-        action("Create Work Location Preference")(data);
+        action("Create User")(data);
         return null;
       }}
     />

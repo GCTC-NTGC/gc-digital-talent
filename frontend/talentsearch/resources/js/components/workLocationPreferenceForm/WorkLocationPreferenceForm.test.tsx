@@ -4,6 +4,7 @@
 import React from "react";
 import "@testing-library/jest-dom";
 import { IntlProvider, MessageFormatElement } from "react-intl";
+import { User } from "@common/api/generated";
 import { render, screen, fireEvent, act } from "../../tests/testUtils";
 import { WorkLocationPreferenceForm } from "./WorkLocationPreferenceForm";
 
@@ -21,11 +22,22 @@ const renderWithReactIntl = (
   });
 };
 
+const user: User = {
+  id: "1",
+  firstName: "Maura",
+  lastName: "Attow",
+  email: "mattow0@ning.com",
+  telephone: "+867365373244",
+};
+
 const onClick = jest.fn();
 
 const renderWorkLocationPreference = () => {
   return renderWithReactIntl(
-    <WorkLocationPreferenceForm handleSubmit={onClick} />,
+    <WorkLocationPreferenceForm
+      initialUser={user}
+      handleWorkLocationPreference={onClick}
+    />,
   );
 };
 

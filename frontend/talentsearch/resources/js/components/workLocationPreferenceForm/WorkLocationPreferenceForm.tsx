@@ -1,35 +1,82 @@
 import { BasicForm, Checklist, TextArea } from "@common/components/form";
 import { getworkRegionsDetailed } from "@common/constants/localizedConstants";
-import { enumToOptions } from "@common/helpers/formUtils";
+import { enumToOptions, unpackIds } from "@common/helpers/formUtils";
+import { navigate } from "@common/helpers/router";
 import { errorMessages } from "@common/messages";
 import React from "react";
+import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
+import { toast } from "react-toastify";
+import { useApplicantProfileRoutes } from "../../applicantProfileRoutes";
 import {
   CreateUserInput,
   CreateWorkLocationPreferenceMutation,
   useCreateWorkLocationPreferenceMutation,
   WorkRegion,
+  User,
+  UpdateUserAsUserInput,
 } from "../../api/generated";
 import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
 import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
 
-// export type FormValues = Pick<
-//   CreateUserInput,
-//   "locationPreferences" | "locationExemptions"
-// >;
-
-export type FormValues = CreateUserInput;
-
-export interface WorkLocationPreferenceFormProps {
-  handleSubmit: (
-    data: FormValues,
-  ) => Promise<CreateWorkLocationPreferenceMutation["createUser"]>;
+export type FormValues = Pick<
+  CreateUserInput,
+  "locationPreferences" | "locationExemptions"
+>;
+interface WorkLocationPreferenceFormProps {
+  initialUser: User;
+  handleWorkLocationPreference: (
+    id: string,
+    data: UpdateUserAsUserInput,
+  ) => Promise<CreateWorkLocationPreferenceMutation["updateUserAsUser"]>;
 }
 
 export const WorkLocationPreferenceForm: React.FC<
   WorkLocationPreferenceFormProps
-> = ({ handleSubmit }) => {
+> = ({ initialUser, handleWorkLocationPreference }) => {
   const intl = useIntl();
+  const paths = useApplicantProfileRoutes();
+
+  const dataToFormValues = (data: User): FormValues => ({
+    ...data,
+    locationPreferences: data.locationPreferences,
+    locationExemptions: data.locationExemptions,
+  });
+  const formValuesToSubmitData = (
+    values: FormValues,
+  ): UpdateUserAsUserInput => ({
+    locationPreferences: values.locationPreferences,
+    locationExemptions: values.locationExemptions,
+  });
+  const methods = useForm<FormValues>({
+    defaultValues: dataToFormValues(initialUser),
+  });
+  const { handleSubmit } = methods;
+  const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
+    await handleWorkLocationPreference(
+      initialUser.id,
+      formValuesToSubmitData(data),
+    )
+      .then(() => {
+        navigate(paths.home());
+        toast.success(
+          intl.formatMessage({
+            defaultMessage: "User updated successfully!",
+            description:
+              "Message displayed to user after user is updated successfully.",
+          }),
+        );
+      })
+      .catch(() => {
+        toast.error(
+          intl.formatMessage({
+            defaultMessage: "Error: updating user failed",
+            description:
+              "Message displayed to user after user fails to get updated.",
+          }),
+        );
+      });
+  };
 
   return (
     <ProfileFormWrapper
@@ -54,64 +101,55 @@ export const WorkLocationPreferenceForm: React.FC<
         },
       ]}
     >
-      <BasicForm onSubmit={handleSubmit}>
-        <div>
-          <div data-h2-flex-item="b(1of1)" data-h2-padding="b(top, m)">
-            <div data-h2-padding="b(right, l)" data-testid="workLocation">
-              <Checklist
-                idPrefix="work-location"
-                legend={intl.formatMessage({
-                  defaultMessage: "Work location",
-                  description:
-                    "Legend for optional work preferences check list in work preferences form",
-                })}
-                name="workLocations"
-                items={enumToOptions(WorkRegion).map(({ value }) => ({
-                  value,
-                  label: intl.formatMessage(getworkRegionsDetailed(value)),
-                }))}
-                rules={{ required: intl.formatMessage(errorMessages.required) }}
-              />
+      <FormProvider {...methods}>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <div>
+            <div data-h2-flex-item="b(1of1)" data-h2-padding="b(top, m)">
+              <div data-h2-padding="b(right, l)" data-testid="workLocation">
+                <Checklist
+                  idPrefix="work-location"
+                  legend={intl.formatMessage({
+                    defaultMessage: "Work location",
+                    description:
+                      "Legend for optional work preferences check list in work preferences form",
+                  })}
+                  name="workLocations"
+                  items={enumToOptions(WorkRegion).map(({ value }) => ({
+                    value,
+                    label: intl.formatMessage(getworkRegionsDetailed(value)),
+                  }))}
+                  rules={{
+                    required: intl.formatMessage(errorMessages.required),
+                  }}
+                />
+              </div>
+            </div>
+            <div data-h2-flex-item="b(1of1)" data-h2-padding="b(top, m)">
+              <div data-h2-padding="b(right, l)">
+                <p>
+                  Indicate if there is a city that you would like to exclude
+                  from a region.
+                </p>
+                <p data-h2-font-color="b([dark]gray)">
+                  E.g.: You want to be considered for the Quebec region, but not
+                  for Montréal.
+                </p>
+              </div>
+            </div>
+            <div data-h2-flex-item="b(1of2)" data-h2-padding="b(top, m)">
+              <div data-h2-padding="b(right, l)">
+                <TextArea
+                  id="location-exemptions"
+                  label="Location exemptions"
+                  name="locationExemption"
+                  placeholder="Optionally, add a city or village here..."
+                />
+              </div>
             </div>
           </div>
-          <div data-h2-flex-item="b(1of1)" data-h2-padding="b(top, m)">
-            <div data-h2-padding="b(right, l)">
-              <p>
-                Indicate if there is a city that you would like to exclude from
-                a region.
-              </p>
-              <p data-h2-font-color="b([dark]gray)">
-                E.g.: You want to be considered for the Quebec region, but not
-                for Montréal.
-              </p>
-            </div>
-          </div>
-          <div data-h2-flex-item="b(1of2)" data-h2-padding="b(top, m)">
-            <div data-h2-padding="b(right, l)">
-              <TextArea
-                id="location-exemptions"
-                label="Location exemptions"
-                name="locationExemption"
-                placeholder="Optionally, add a city or village here..."
-              />
-            </div>
-          </div>
-        </div>
-        <ProfileFormFooter mode="saveButton" />
-      </BasicForm>
+          <ProfileFormFooter mode="saveButton" />
+        </form>
+      </FormProvider>
     </ProfileFormWrapper>
   );
-};
-
-export const WorkLocationPreferenceApi: React.FunctionComponent = () => {
-  const [, executeMutation] = useCreateWorkLocationPreferenceMutation();
-  const handleCreateUser = (data: CreateUserInput) =>
-    executeMutation({ user: data }).then((result) => {
-      if (result.data?.createUser) {
-        return result.data?.createUser;
-      }
-      return Promise.reject(result.error);
-    });
-
-  return <WorkLocationPreferenceForm handleSubmit={handleCreateUser} />;
 };
