@@ -1,6 +1,6 @@
-import { BasicForm, Checklist, TextArea } from "@common/components/form";
+import { Checklist, TextArea } from "@common/components/form";
 import { getworkRegionsDetailed } from "@common/constants/localizedConstants";
-import { enumToOptions, unpackIds } from "@common/helpers/formUtils";
+import { enumToOptions } from "@common/helpers/formUtils";
 import { navigate } from "@common/helpers/router";
 import { commonMessages, errorMessages } from "@common/messages";
 import React from "react";
@@ -16,7 +16,6 @@ import {
   User,
   UpdateUserAsUserInput,
   useWorkLocationPreferenceQuery,
-  CreateWorkLocationPreferenceMutationVariables,
 } from "../../api/generated";
 import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
 import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
@@ -37,7 +36,6 @@ export const WorkLocationPreferenceForm: React.FC<
   WorkLocationPreferenceFormProps
 > = ({ initialData, handleWorkLocationPreference }) => {
   const intl = useIntl();
-  const paths = useApplicantProfileRoutes();
 
   const dataToFormValues = (data: User): FormValues => ({
     ...data,
@@ -58,26 +56,7 @@ export const WorkLocationPreferenceForm: React.FC<
     await handleWorkLocationPreference(
       initialData.id,
       formValuesToSubmitData(data),
-    )
-      .then(() => {
-        navigate(paths.home());
-        toast.success(
-          intl.formatMessage({
-            defaultMessage: "User updated successfully!",
-            description:
-              "Message displayed to user after user is updated successfully.",
-          }),
-        );
-      })
-      .catch(() => {
-        toast.error(
-          intl.formatMessage({
-            defaultMessage: "Error: updating user failed",
-            description:
-              "Message displayed to user after user fails to get updated.",
-          }),
-        );
-      });
+    );
   };
 
   return (
@@ -160,6 +139,8 @@ export const WorkLocationPreferenceApi: React.FunctionComponent<{
   userId: string;
 }> = ({ userId }) => {
   const intl = useIntl();
+  const paths = useApplicantProfileRoutes();
+
   const [{ data: userData, fetching, error }] = useWorkLocationPreferenceQuery({
     variables: { id: userId },
   });
@@ -169,13 +150,18 @@ export const WorkLocationPreferenceApi: React.FunctionComponent<{
     id: string,
     data: UpdateUserAsUserInput,
   ) =>
-    /* We must pick only the fields belonging to UpdateUserInput, because its possible
-       the data object contains other props at runtime, and this will cause the
-       graphql operation to fail. */
     executeMutation({
       id,
       user: data,
     }).then((result) => {
+      navigate(paths.home());
+      toast.success(
+        intl.formatMessage({
+          defaultMessage: "Work Preferences updated successfully!",
+          description:
+            "Message displayed to user after user is updated successfully.",
+        }),
+      );
       if (result.data?.updateUserAsUser) {
         return result.data.updateUserAsUser;
       }
@@ -183,13 +169,21 @@ export const WorkLocationPreferenceApi: React.FunctionComponent<{
     });
 
   if (fetching) return <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>;
-  if (error)
+  if (error) {
+    toast.error(
+      intl.formatMessage({
+        defaultMessage: "Error: updating user failed",
+        description:
+          "Message displayed to user after user fails to get updated.",
+      }),
+    );
     return (
       <p>
         {intl.formatMessage(commonMessages.loadingError)}
         {error.message}
       </p>
     );
+  }
   return userData?.user ? (
     <WorkLocationPreferenceForm
       initialData={userData?.user}
