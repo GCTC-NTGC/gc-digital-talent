@@ -26,7 +26,7 @@ beforeEach(() => {
   document.body.appendChild(container);
 });
 
-jest.setTimeout(30000);
+jest.setTimeout(15000);
 
 test("Test form display rendering", async () => {
   // timeout for hopefully things to load first then test?
@@ -34,7 +34,7 @@ test("Test form display rendering", async () => {
     render(renderWithReactIntl(<GovInfoFormContainer />));
   });
   // eslint-disable-next-line no-promise-executor-return
-  await new Promise((r) => setTimeout(r, 10000));
+  await new Promise((r) => setTimeout(r, 5000));
 
   const button = screen.getByText("Yes, I am a Government of Canada employee");
   const studentNotPresent = screen.queryByText("I am a student");
@@ -57,7 +57,7 @@ test("Test form data", async () => {
     render(renderWithReactIntl(<GovInfoFormContainer />));
   });
   // eslint-disable-next-line no-promise-executor-return
-  await new Promise((r) => setTimeout(r, 10000));
+  await new Promise((r) => setTimeout(r, 5000));
 
   const button = screen.getByText("Yes, I am a Government of Canada employee");
   fireEvent.click(button); // Open the second form

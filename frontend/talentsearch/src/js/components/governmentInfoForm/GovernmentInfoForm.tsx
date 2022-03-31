@@ -24,7 +24,7 @@ import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
 import talentSearchRoutes from "../../talentSearchRoutes";
 
 type FormValues = {
-  govEmployeeYesNo: string;
+  govEmployeeYesNo: "yes" | "no";
   govEmployeeType: string;
   lateralDeployBool: boolean;
   currentClassificationGroup: string;
@@ -63,11 +63,11 @@ export const GovernmentInfoForm: React.FunctionComponent<{
   // create array of objects containing the classifications, then map it into an array of strings, and then remove duplicates, and then map into Select options
   // https://stackoverflow.com/questions/11246758/how-to-get-unique-values-in-an-array#comment87157537_42123984
   const classGroupsWithDupes: { value: string; label: string }[] =
-    classifications.map((iterator) => {
+    classifications.map((classification) => {
       return {
-        value: iterator.id,
+        value: classification.id,
         label:
-          iterator.group ||
+          classification.group ||
           intl.formatMessage({
             defaultMessage: "Error: classification group not found.",
             description:
@@ -77,20 +77,19 @@ export const GovernmentInfoForm: React.FunctionComponent<{
     });
   const mapped = classGroupsWithDupes.map((x) => x.label);
   const noDupes = Array.from(new Set(mapped));
-  const groupOptions = noDupes.map((iterator) => {
-    return { value: iterator, label: iterator };
+  const groupOptions = noDupes.map((options) => {
+    return { value: options, label: options };
   });
 
   // generate classification levels from the selected group
-  const filteredArray = classifications.filter(
-    (x) => x.group === groupSelection,
-  );
-  const levelOptions = filteredArray.map((iterator) => {
-    return {
-      value: iterator.level.toString(),
-      label: iterator.level.toString(),
-    };
-  });
+  const levelOptions = classifications
+    .filter((x) => x.group === groupSelection)
+    .map((iterator) => {
+      return {
+        value: iterator.level.toString(),
+        label: iterator.level.toString(),
+      };
+    });
 
   // render the actual form
   return (
@@ -309,23 +308,15 @@ export const GovInfoFormContainer: React.FunctionComponent = () => {
 
   // take classification group + level from data, return the matching classification from API
   // need to fit to the expected type when this function is called in formToData
-  const classificationFormToId = (group: string, level: string): string => {
-    const classGroupsWithDupes: { id: string; group: string; level: string }[] =
-      classifications.map((iterator) => {
-        return {
-          id: iterator.id,
-          group: iterator.group,
-          level: iterator.level.toString(),
-        };
-      });
-    const filterName = classGroupsWithDupes.filter(
-      (iterator) => iterator.group === group,
-    );
-    const filterLevel = filterName.filter(
-      (iterator) => iterator.level === level,
-    );
-    const idConnect = filterLevel[0].id;
-    return idConnect;
+  const classificationFormToId = (
+    group: string,
+    level: string,
+  ): string | undefined => {
+    return classifications.find(
+      (classification) =>
+        classification.group === group &&
+        classification.level === Number(level),
+    )?.id;
   };
 
   // submitting the form component values back out to graphQL, after smoothing form-values to appropriate type, then return to /profile
@@ -342,18 +333,33 @@ export const GovInfoFormContainer: React.FunctionComponent = () => {
     });
   const formValuesToSubmitData = (
     values: FormValues,
-  ): UpdateUserAsUserInput => ({
-    isGovEmployee: values.govEmployeeYesNo === "yes",
-    interestedInLaterOrSecondment: values.lateralDeployBool,
-    currentClassification: {
-      connect: classificationFormToId(
-        values.currentClassificationGroup,
-        values.currentClassificationLevel,
-      ),
-    },
-  });
+  ): UpdateUserAsUserInput => {
+    const classificationId = classificationFormToId(
+      values.currentClassificationGroup,
+      values.currentClassificationLevel,
+    );
+    return {
+      isGovEmployee: values.govEmployeeYesNo === "yes",
+      interestedInLaterOrSecondment: values.lateralDeployBool,
+      currentClassification: classificationId
+        ? {
+            connect: classificationId,
+          }
+        : null,
+    };
+  };
   const id = holder ? holder.id : "";
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
+    // tristan's suggestion to short-circuit this function if there is no id
+    if (id === "") {
+      toast.error(
+        intl.formatMessage({
+          defaultMessage: "Error: user not found",
+          description: "Message displayed to user if user is not found",
+        }),
+      );
+      return;
+    }
     await handleUpdateUser(id, formValuesToSubmitData(data))
       .then(() => {
         navigate(paths.profile());
