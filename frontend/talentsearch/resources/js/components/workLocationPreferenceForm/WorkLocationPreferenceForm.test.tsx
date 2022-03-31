@@ -35,7 +35,7 @@ const onClick = jest.fn();
 const renderWorkLocationPreference = () => {
   return renderWithReactIntl(
     <WorkLocationPreferenceForm
-      initialUser={user}
+      initialData={user}
       handleWorkLocationPreference={onClick}
     />,
   );

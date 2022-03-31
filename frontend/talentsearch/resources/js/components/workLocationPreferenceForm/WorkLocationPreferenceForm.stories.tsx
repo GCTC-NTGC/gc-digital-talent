@@ -1,33 +1,43 @@
 import React from "react";
-import { Meta, Story } from "@storybook/react";
+import { Meta, storiesOf, Story } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
-import { CreateUserInput, User, WorkRegion } from "../../api/generated";
-import { WorkLocationPreferenceForm } from "./WorkLocationPreferenceForm";
+import { fakeUsers } from "@common/fakeData";
+import {
+  CreateUserInput,
+  Language,
+  UpdateUserAsUserInput,
+  User,
+  WorkRegion,
+} from "../../api/generated";
+import {
+  FormValues,
+  WorkLocationPreferenceForm,
+} from "./WorkLocationPreferenceForm";
 
 export default {
   component: WorkLocationPreferenceForm,
-  title: "Work Location Preference Form",
+  title: "WorkLocationPreferenceForm",
 } as Meta;
 
 const user: User = {
   id: "1",
-  locationPreferences: [],
-  locationExemptions: "",
-  email: "",
+  firstName: "Maura",
+  lastName: "Attow",
+  email: "mattow0@ning.com",
+  telephone: "+867365373244",
+  preferredLang: Language.En,
 };
 
-const TemplateWorkLocationPreferenceForm: Story = () => {
+const TemplateWorkLocationPreferencesForm: Story = () => {
   return (
     <WorkLocationPreferenceForm
-      initialUser={user}
-      handleWorkLocationPreference={async (id, data) => {
-        await new Promise((resolve) => setTimeout(resolve, 1000));
-        action("Create User")(data);
-        return null;
+      initialData={user}
+      handleWorkLocationPreference={async (id: string, data: FormValues) => {
+        action("submit")(data);
       }}
     />
   );
 };
 
-export const IndividualWorkLocationPreference =
-  TemplateWorkLocationPreferenceForm.bind({});
+export const IndividualWorkLocationPreferences =
+  TemplateWorkLocationPreferencesForm.bind({});

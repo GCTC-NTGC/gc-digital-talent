@@ -24,16 +24,13 @@ export type FormValues = Pick<
   "locationPreferences" | "locationExemptions"
 >;
 interface WorkLocationPreferenceFormProps {
-  initialUser: User;
-  handleWorkLocationPreference: (
-    id: string,
-    data: UpdateUserAsUserInput,
-  ) => Promise<CreateWorkLocationPreferenceMutation["updateUserAsUser"]>;
+  initialData: User;
+  handleWorkLocationPreference: (id: string, data: FormValues) => Promise<void>;
 }
 
 export const WorkLocationPreferenceForm: React.FC<
   WorkLocationPreferenceFormProps
-> = ({ initialUser, handleWorkLocationPreference }) => {
+> = ({ initialData, handleWorkLocationPreference }) => {
   const intl = useIntl();
   const paths = useApplicantProfileRoutes();
 
@@ -42,19 +39,17 @@ export const WorkLocationPreferenceForm: React.FC<
     locationPreferences: data.locationPreferences,
     locationExemptions: data.locationExemptions,
   });
-  const formValuesToSubmitData = (
-    values: FormValues,
-  ): UpdateUserAsUserInput => ({
+  const formValuesToSubmitData = (values: FormValues): FormValues => ({
     locationPreferences: values.locationPreferences,
     locationExemptions: values.locationExemptions,
   });
   const methods = useForm<FormValues>({
-    defaultValues: dataToFormValues(initialUser),
+    defaultValues: dataToFormValues(initialData),
   });
   const { handleSubmit } = methods;
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
     await handleWorkLocationPreference(
-      initialUser.id,
+      initialData.id,
       formValuesToSubmitData(data),
     )
       .then(() => {
@@ -113,7 +108,7 @@ export const WorkLocationPreferenceForm: React.FC<
                     description:
                       "Legend for optional work preferences check list in work preferences form",
                   })}
-                  name="workLocations"
+                  name="locationPreferences"
                   items={enumToOptions(WorkRegion).map(({ value }) => ({
                     value,
                     label: intl.formatMessage(getworkRegionsDetailed(value)),
@@ -141,7 +136,7 @@ export const WorkLocationPreferenceForm: React.FC<
                 <TextArea
                   id="location-exemptions"
                   label="Location exemptions"
-                  name="locationExemption"
+                  name="locationExemptions"
                   placeholder="Optionally, add a city or village here..."
                 />
               </div>
