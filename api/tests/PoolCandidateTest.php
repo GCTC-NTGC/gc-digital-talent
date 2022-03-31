@@ -2,7 +2,6 @@
 
 use App\Models\Classification;
 use App\Models\CmoAsset;
-use App\Models\OperationalRequirement;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
 use Laravel\Lumen\Testing\DatabaseMigrations;
@@ -142,18 +141,23 @@ class PoolCandidateTest extends TestCase
 
   public function testFilterByOperationalRequirements(): void
   {
-
     // Create initial data.
-    OperationalRequirement::factory()->count(3)->create();
-    PoolCandidate::factory()->count(5)->create();
-
-    // Create new operationalRequirement and attach to two new pool candidates.
-    $operationalRequirement = OperationalRequirement::factory()->create([
-      'key' => 'new_operational_requirement'
+    PoolCandidate::factory()->count(5)->create([
+      'accepted_operational_requirements' => [],
     ]);
-    PoolCandidate::factory()->count(2)->create()->each(function($candidate) use ($operationalRequirement) {
-      $candidate->acceptedOperationalRequirements()->save($operationalRequirement);
-    });
+    $operationalRequirement1 = 'OVERTIME';
+    $operationalRequirement2 = 'SHIFT_WORK';
+    $operationalRequirement3 = 'ON_CALL';
+
+    // Create a few with a op_req 1
+    PoolCandidate::factory()->count(2)->create([
+      'accepted_operational_requirements' => [$operationalRequirement1],
+    ]);
+
+    // Create a few with op_req 1 and 2
+    PoolCandidate::factory()->count(2)->create([
+      'accepted_operational_requirements' => [$operationalRequirement1, $operationalRequirement2],
+    ]);
 
     // Assert query with no operationalRequirements filter will return all candidates
     $this->graphQL(/** @lang Graphql */ '
@@ -164,20 +168,34 @@ class PoolCandidateTest extends TestCase
       'where' => []
     ])->seeJson([
       'data' => [
-        'countPoolCandidates' => 7
+        'countPoolCandidates' => 9
       ]
     ]);
-
-    // Assert query with operationalRequirement filter will return correct candidate count
+    // Assert query with one operationalRequirement filter will return correct candidate count
     $this->graphQL(/** @lang Graphql */ '
       query countPoolCandidates($where: PoolCandidateFilterInput) {
         countPoolCandidates(where: $where)
       }
     ', [
       'where' => [
-        'operationalRequirements' => [[ 'key' => 'new_operational_requirement' ]],
+        'operationalRequirements' => [[ 'key' => $operationalRequirement ]],
       ]
     ])->seeJson([
+      'data' => [
+        'countPoolCandidates' => 4
+      ]
+    ]);
+
+    // Assert query with two operationalRequirement filters will return correct candidate count
+    $this->graphQL(/** @lang Graphql */ '
+      query countPoolCandidates($where: PoolCandidateFilterInput) {
+        countPoolCandidates(where: $where)
+      }
+    ', [
+      'where' => [
+        'operationalRequirements' => [ $operationalRequirement1, $operationalRequirement2 ],
+      ]
+    ])->assertJson([
       'data' => [
         'countPoolCandidates' => 2
       ]
@@ -190,13 +208,14 @@ class PoolCandidateTest extends TestCase
       }
     ', [
       'where' => [
-        'operationalRequirements' => [[ 'key' => 'unknown_operational_requirement' ]],
+        'operationalRequirements' => [$operationalRequirement3],
       ]
     ])->seeJson([
       'data' => [
         'countPoolCandidates' => 0
       ]
     ]);
+
   }
 
   public function testFilterByPool(): void

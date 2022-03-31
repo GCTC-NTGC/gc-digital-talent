@@ -17,6 +17,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property string $key
  * @property array $description
  * @property int $user_id
+ * @property array $operational_requirements
  * @property Illuminate\Support\Carbon $created_at
  * @property Illuminate\Support\Carbon $updated_at
  */
@@ -36,6 +37,7 @@ class Pool extends Model
     protected $casts = [
         'name' => 'array',
         'description' => 'array',
+        'operational_requirements' => 'array',
     ];
 
     public function user(): BelongsTo
@@ -45,10 +47,6 @@ class Pool extends Model
     public function classifications(): BelongsToMany
     {
         return $this->belongsToMany(Classification::class);
-    }
-    public function operationalRequirements(): BelongsToMany
-    {
-        return $this->belongsToMany(OperationalRequirement::class);
     }
     public function assetCriteria(): BelongsToMany
     {
