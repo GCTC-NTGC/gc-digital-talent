@@ -4,14 +4,15 @@ use App\Models\Classification;
 use App\Models\CmoAsset;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
-use Laravel\Lumen\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Nuwave\Lighthouse\Testing\ClearsSchemaCache;
-use Nuwave\Lighthouse\Testing\MakesGraphQLRequestsLumen;
+use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
+use Tests\TestCase;
 
 class PoolCandidateTest extends TestCase
 {
   use DatabaseMigrations;
-  use MakesGraphQLRequestsLumen;
+  use MakesGraphQLRequests;
   use ClearsSchemaCache;
 
   protected function setUp(): void
@@ -43,7 +44,7 @@ class PoolCandidateTest extends TestCase
       }
     ', [
       'where' => []
-    ])->seeJson([
+    ])->assertJson([
       'data' => [
         'countPoolCandidates' => 7
       ]
@@ -58,7 +59,7 @@ class PoolCandidateTest extends TestCase
       'where' => [
         'classifications' => [['group' => 'ZZ', 'level' => 1 ]],
       ]
-    ])->seeJson([
+    ])->assertJson([
       'data' => [
         'countPoolCandidates' => 2
       ]
@@ -73,7 +74,7 @@ class PoolCandidateTest extends TestCase
       'where' => [
         'classifications' => [['group' => 'UNKNOWN', 'level' => 1324234 ]],
       ]
-    ])->seeJson([
+    ])->assertJson([
       'data' => [
         'countPoolCandidates' => 0
       ]
@@ -102,7 +103,7 @@ class PoolCandidateTest extends TestCase
       }
     ', [
       'where' => []
-    ])->seeJson([
+    ])->assertJson([
       'data' => [
         'countPoolCandidates' => 7
       ]
@@ -117,7 +118,7 @@ class PoolCandidateTest extends TestCase
       'where' => [
         'cmoAssets' => [[ 'key' => 'new_cmo_asset' ]],
       ]
-    ])->seeJson([
+    ])->assertJson([
       'data' => [
         'countPoolCandidates' => 2
       ]
@@ -132,7 +133,7 @@ class PoolCandidateTest extends TestCase
       'where' => [
         'cmoAssets' => [[ 'key' => 'unknown_cmo_asset' ]],
       ]
-    ])->seeJson([
+    ])->assertJson([
       'data' => [
         'countPoolCandidates' => 0
       ]
@@ -166,7 +167,7 @@ class PoolCandidateTest extends TestCase
       }
     ', [
       'where' => []
-    ])->seeJson([
+    ])->assertJson([
       'data' => [
         'countPoolCandidates' => 9
       ]
@@ -178,9 +179,9 @@ class PoolCandidateTest extends TestCase
       }
     ', [
       'where' => [
-        'operationalRequirements' => [[ 'key' => $operationalRequirement ]],
+        'operationalRequirements' => [ $operationalRequirement1 ],
       ]
-    ])->seeJson([
+    ])->assertJson([
       'data' => [
         'countPoolCandidates' => 4
       ]
@@ -201,7 +202,7 @@ class PoolCandidateTest extends TestCase
       ]
     ]);
 
-    // Assert query with unknown operationalRequirement filter will return zero
+    // Assert query with an unused operationalRequirement filter will return zero
     $this->graphQL(/** @lang Graphql */ '
       query countPoolCandidates($where: PoolCandidateFilterInput) {
         countPoolCandidates(where: $where)
@@ -210,7 +211,7 @@ class PoolCandidateTest extends TestCase
       'where' => [
         'operationalRequirements' => [$operationalRequirement3],
       ]
-    ])->seeJson([
+    ])->assertJson([
       'data' => [
         'countPoolCandidates' => 0
       ]
@@ -239,7 +240,7 @@ class PoolCandidateTest extends TestCase
       }
     ', [
       'where' => []
-    ])->seeJson([
+    ])->assertJson([
       'data' => [
         'countPoolCandidates' => 7
       ]
@@ -254,7 +255,7 @@ class PoolCandidateTest extends TestCase
       'where' => [
         'pools' => [[ 'id' => $pool['id'] ]],
       ]
-    ])->seeJson([
+    ])->assertJson([
       'data' => [
         'countPoolCandidates' => 2
       ]
@@ -269,7 +270,7 @@ class PoolCandidateTest extends TestCase
       'where' => [
         'pools' => [[ 'id' => '00000000-0000-0000-0000-000000000000' ]],
       ]
-    ])->seeJson([
+    ])->assertJson([
       'data' => [
         'countPoolCandidates' => 0
       ]
@@ -296,7 +297,7 @@ class PoolCandidateTest extends TestCase
       }
     ', [
       'where' => []
-    ])->seeJson([
+    ])->assertJson([
       'data' => [
         'countPoolCandidates' => 7
       ]
@@ -311,7 +312,7 @@ class PoolCandidateTest extends TestCase
       'where' => [
         'hasDiploma' => true,
       ]
-    ])->seeJson([
+    ])->assertJson([
       'data' => [
         'countPoolCandidates' => 2
       ]
@@ -326,7 +327,7 @@ class PoolCandidateTest extends TestCase
       'where' => [
         'hasDiploma' => false,
       ]
-    ])->seeJson([
+    ])->assertJson([
       'data' => [
         'countPoolCandidates' => 7
       ]
@@ -377,7 +378,7 @@ class PoolCandidateTest extends TestCase
       }
     ', [
       'where' => []
-    ])->seeJson([
+    ])->assertJson([
       'data' => [
         'countPoolCandidates' => 9
       ]
@@ -392,7 +393,7 @@ class PoolCandidateTest extends TestCase
       'where' => [
         'isIndigenous' => true,
       ]
-    ])->seeJson([
+    ])->assertJson([
       'data' => [
         'countPoolCandidates' => 1
       ]
@@ -406,7 +407,7 @@ class PoolCandidateTest extends TestCase
       'where' => [
         'isVisibleMinority' => true,
       ]
-    ])->seeJson([
+    ])->assertJson([
       'data' => [
         'countPoolCandidates' => 1
       ]
@@ -420,7 +421,7 @@ class PoolCandidateTest extends TestCase
       'where' => [
         'hasDisability' => true,
       ]
-    ])->seeJson([
+    ])->assertJson([
       'data' => [
         'countPoolCandidates' => 1
       ]
@@ -434,7 +435,7 @@ class PoolCandidateTest extends TestCase
       'where' => [
         'isWoman' => true,
       ]
-    ])->seeJson([
+    ])->assertJson([
       'data' => [
         'countPoolCandidates' => 1
       ]
@@ -452,7 +453,7 @@ class PoolCandidateTest extends TestCase
         'isVisibleMinority' => false,
         'isWoman' => false,
       ]
-    ])->seeJson([
+    ])->assertJson([
       'data' => [
         'countPoolCandidates' => 9
       ]
@@ -485,7 +486,7 @@ class PoolCandidateTest extends TestCase
       }
     ', [
       'where' => []
-    ])->seeJson([
+    ])->assertJson([
       'data' => [
         'countPoolCandidates' => 8
       ]
@@ -500,7 +501,7 @@ class PoolCandidateTest extends TestCase
       'where' => [
         'languageAbility' => "ENGLISH",
       ]
-    ])->seeJson([
+    ])->assertJson([
       'data' => [
         'countPoolCandidates' => 1
       ]
@@ -514,7 +515,7 @@ class PoolCandidateTest extends TestCase
       'where' => [
         'languageAbility' => "FRENCH",
       ]
-    ])->seeJson([
+    ])->assertJson([
       'data' => [
         'countPoolCandidates' => 1
       ]
@@ -528,7 +529,7 @@ class PoolCandidateTest extends TestCase
       'where' => [
         'languageAbility' => "BILINGUAL",
       ]
-    ])->seeJson([
+    ])->assertJson([
       'data' => [
         'countPoolCandidates' => 1
       ]
@@ -542,7 +543,7 @@ class PoolCandidateTest extends TestCase
       'where' => [
         'languageAbility' => null,
       ]
-    ])->seeJson([
+    ])->assertJson([
       'data' => [
         'countPoolCandidates' => 0
       ]
@@ -568,7 +569,7 @@ class PoolCandidateTest extends TestCase
       }
     ', [
       'where' => []
-    ])->seeJson([
+    ])->assertJson([
       'data' => [
         'countPoolCandidates' => 7
       ]
@@ -583,7 +584,7 @@ class PoolCandidateTest extends TestCase
       'where' => [
         'workRegions' => ["TELEWORK"],
       ]
-    ])->seeJson([
+    ])->assertJson([
       'data' => [
         'countPoolCandidates' => 2
       ]
@@ -598,7 +599,7 @@ class PoolCandidateTest extends TestCase
       'where' => [
         'workRegions' => [],
       ]
-    ])->seeJson([
+    ])->assertJson([
       'data' => [
         'countPoolCandidates' => 7
       ]
@@ -660,7 +661,7 @@ class PoolCandidateTest extends TestCase
       }
     ', [
       'where' => []
-    ])->seeJson([
+    ])->assertJson([
       'data' => [
         'countPoolCandidates' => 8
       ]
@@ -675,7 +676,7 @@ class PoolCandidateTest extends TestCase
       'where' => [
         'classifications' => [['group' => 'ZZ', 'level' => 1 ]],
       ]
-    ])->seeJson([
+    ])->assertJson([
       'data' => [
         'countPoolCandidates' => 2
       ]
@@ -690,7 +691,7 @@ class PoolCandidateTest extends TestCase
       'where' => [
         'classifications' => [['group' => 'UNKNOWN', 'level' => 1324234 ]],
       ]
-    ])->seeJson([
+    ])->assertJson([
       'data' => [
         'countPoolCandidates' => 0
       ]
