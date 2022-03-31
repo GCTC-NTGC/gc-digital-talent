@@ -37,6 +37,10 @@ export const WorkLocationPreferenceForm: React.FC<
 > = ({ initialData, handleWorkLocationPreference }) => {
   const intl = useIntl();
 
+  function bold(msg: string) {
+    return <span data-h2-font-weight="b(700)">{msg}</span>;
+  }
+
   const dataToFormValues = (data: User): FormValues => ({
     ...data,
     locationPreferences: data.locationPreferences,
@@ -97,7 +101,9 @@ export const WorkLocationPreferenceForm: React.FC<
                   name="locationPreferences"
                   items={enumToOptions(WorkRegion).map(({ value }) => ({
                     value,
-                    label: intl.formatMessage(getworkRegionsDetailed(value)),
+                    label: intl.formatMessage(getworkRegionsDetailed(value), {
+                      bold,
+                    }),
                   }))}
                   rules={{
                     required: intl.formatMessage(errorMessages.required),
@@ -157,7 +163,7 @@ export const WorkLocationPreferenceApi: React.FunctionComponent<{
       navigate(paths.home());
       toast.success(
         intl.formatMessage({
-          defaultMessage: "Work Preferences updated successfully!",
+          defaultMessage: "Work location preferences updated successfully!",
           description:
             "Message displayed to user after user is updated successfully.",
         }),
