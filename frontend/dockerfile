@@ -1,6 +1,5 @@
-FROM node:14.18.1-alpine3.14
+FROM node:14.18.1-alpine3.14 as builder
 ARG NPM_VERSION=8.3.0
-#as builder
 
 WORKDIR /app
 COPY package.json package-lock.json lighthouse-schema.graphql ./
@@ -59,26 +58,15 @@ RUN npm install --global npm@$NPM_VERSION
 RUN npm ci
 RUN npm run h2-build --if-present --workspaces
 RUN npm run codegen --if-present --workspaces
+RUN npm run intl-compile --if-present --workspaces
+RUN npm run dev --if-present --workspaces
 
+FROM httpd:2.4.53-bullseye as webserver
+COPY ./my-httpd.conf /usr/local/apache2/conf/httpd.conf
 
+WORKDIR /usr/local/apache2/htdocs
+RUN rm -rf ./*
 
-# FROM php:7.4.27-apache-bullseye
-#FROM nginx:1.20.2
-
-#WORKDIR /usr/share/nginx/html
-
-#RUN rm -rf ./*
-
-# Enable mod_rewrite
-# RUN a2enmod rewrite
-
-# Install pdo_pgsql extension
-# RUN apt-get update \
-#     && apt-get install -y libpq-dev \
-#     && docker-php-ext-install pdo_pgsql
-
-# WORKDIR /var/www/html
-
-
-# COPY --from=builder /app/talentsearch/dist .
-#COPY .htaccess /var/www/html
+COPY --from=builder /app/talentsearch/dist ./app/talentsearch
+COPY --from=builder /app/admin/dist ./app/admin
+COPY .htaccess ./

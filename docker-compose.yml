@@ -23,7 +23,9 @@ services:
 
   frontend:
     build: ./frontend
-
+    ports:
+      - 8002:80
+      - 8003:443
 
   # php:
   #   build: ./php-container
