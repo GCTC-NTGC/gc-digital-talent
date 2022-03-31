@@ -5,7 +5,7 @@ import InputLabel from "../InputLabel/InputLabel";
 
 export interface InputWrapperProps {
   inputId: string;
-  label: string;
+  label: string | React.ReactNode;
   required: boolean;
   error?: string;
   errorPosition?: "top" | "bottom";
