@@ -54,7 +54,17 @@ type AwardExperience implements Experience {
 }
 
 input AwardExperienceHasMany {
-  create: [CreateAwardExperienceInputNested!]
+  create: [AwardExperienceMutationInput!]
+}
+
+input AwardExperienceMutationInput {
+  title: String
+  issuedBy: String
+  awardedDate: Date
+  awardedTo: AwardedTo
+  awardedScope: AwardedScope
+  details: String
+  skills: UpdateExperienceSkills
 }
 
 enum AwardedScope {
@@ -130,7 +140,17 @@ type CommunityExperience implements Experience {
 }
 
 input CommunityExperienceHasMany {
-  create: [CreateCommunityExperienceInputNested!]
+  create: [CommunityExperienceMutationInput!]
+}
+
+input CommunityExperienceMutationInput {
+  title: String
+  organization: String
+  project: String
+  startDate: Date
+  endDate: Date
+  details: String
+  skills: UpdateExperienceSkills
 }
 
 input ConnectExperienceSkills {
@@ -141,27 +161,6 @@ input ConnectExperienceSkills {
 input ConnectOrCreateBelongsTo {
   connect: ID
   create: CreateUserInput
-}
-
-input CreateAwardExperienceInput {
-  applicant: UserBelongsTo
-  title: String
-  issuedBy: String
-  awardedDate: Date
-  awardedTo: AwardedTo
-  awardedScope: AwardedScope
-  details: String
-  skills: UpdateExperienceSkills
-}
-
-input CreateAwardExperienceInputNested {
-  title: String
-  issuedBy: String
-  awardedDate: Date
-  awardedTo: AwardedTo
-  awardedScope: AwardedScope
-  details: String
-  skills: UpdateExperienceSkills
 }
 
 input CreateClassificationInput {
@@ -178,80 +177,15 @@ input CreateCmoAssetInput {
   description: LocalizedStringInput
 }
 
-input CreateCommunityExperienceInput {
-  applicant: UserBelongsTo
-  title: String
-  organization: String
-  project: String
-  startDate: Date
-  endDate: Date
-  details: String
-  skills: UpdateExperienceSkills
-}
-
-input CreateCommunityExperienceInputNested {
-  title: String
-  organization: String
-  project: String
-  startDate: Date
-  endDate: Date
-  details: String
-  skills: UpdateExperienceSkills
-}
-
 input CreateDepartmentInput {
   departmentNumber: Int!
   name: LocalizedStringInput
-}
-
-input CreateEducationExperienceInput {
-  applicant: UserBelongsTo
-  institution: String
-  areaOfStudy: String
-  thesisTitle: String
-  startDate: Date
-  endDate: Date
-  type: EducationType
-  status: EducationStatus
-  details: String
-  skills: UpdateExperienceSkills
-}
-
-input CreateEducationExperienceInputNested {
-  institution: String
-  areaOfStudy: String
-  thesisTitle: String
-  startDate: Date
-  endDate: Date
-  type: EducationType
-  status: EducationStatus
-  details: String
-  skills: UpdateExperienceSkills
 }
 
 input CreateOperationalRequirementInput {
   key: KeyString!
   name: LocalizedStringInput!
   description: LocalizedStringInput
-}
-
-input CreatePersonalExperienceInput {
-  applicant: UserBelongsTo
-  title: String
-  description: String
-  startDate: Date
-  endDate: Date
-  details: String
-  skills: UpdateExperienceSkills
-}
-
-input CreatePersonalExperienceInputNested {
-  title: String
-  description: String
-  startDate: Date
-  endDate: Date
-  details: String
-  skills: UpdateExperienceSkills
 }
 
 input CreatePoolCandidateAsAdminInput {
@@ -366,27 +300,6 @@ input CreateUserInput {
   awardExperiences: AwardExperienceHasMany
 }
 
-input CreateWorkExperienceInput {
-  applicant: UserBelongsTo
-  role: String
-  organization: String
-  division: String
-  startDate: Date
-  endDate: Date
-  details: String
-  skills: UpdateExperienceSkills
-}
-
-input CreateWorkExperienceInputNested {
-  role: String
-  organization: String
-  division: String
-  startDate: Date
-  endDate: Date
-  details: String
-  skills: UpdateExperienceSkills
-}
-
 """A date string with format `Y-m-d`, e.g. `2011-05-23`."""
 scalar Date
 
@@ -421,7 +334,19 @@ type EducationExperience implements Experience {
 }
 
 input EducationExperienceHasMany {
-  create: [CreateEducationExperienceInputNested!]
+  create: [EducationExperienceMutationInput!]
+}
+
+input EducationExperienceMutationInput {
+  institution: String
+  areaOfStudy: String
+  thesisTitle: String
+  startDate: Date
+  endDate: Date
+  type: EducationType
+  status: EducationStatus
+  details: String
+  skills: UpdateExperienceSkills
 }
 
 enum EducationStatus {
@@ -542,16 +467,16 @@ type Mutation {
   updateSkillFamily(id: ID!, skillFamily: UpdateSkillFamilyInput!): SkillFamily
   createSkill(skill: CreateSkillInput!): Skill
   updateSkill(id: ID!, skill: UpdateSkillInput!): Skill
-  createWorkExperience(workExperience: CreateWorkExperienceInput!): WorkExperience
-  createPersonalExperience(personalExperience: CreatePersonalExperienceInput!): PersonalExperience
-  createCommunityExperience(communityExperience: CreateCommunityExperienceInput!): CommunityExperience
-  createEducationExperience(educationExperience: CreateEducationExperienceInput!): EducationExperience
-  createAwardExperience(awardExperience: CreateAwardExperienceInput!): AwardExperience
-  updateWorkExperience(id: ID!, workExperience: UpdateWorkExperienceInput!): WorkExperience
-  updatePersonalExperience(id: ID!, personalExperience: UpdatePersonalExperienceInput!): PersonalExperience
-  updateCommunityExperience(id: ID!, communityExperience: UpdateCommunityExperienceInput!): CommunityExperience
-  updateEducationExperience(id: ID!, educationExperience: UpdateEducationExperienceInput!): EducationExperience
-  updateAwardExperience(id: ID!, awardExperience: UpdateAwardExperienceInput!): AwardExperience
+  createWorkExperience(userId: ID!, workExperience: WorkExperienceMutationInput!): WorkExperience
+  createPersonalExperience(userId: ID!, personalExperience: PersonalExperienceMutationInput!): PersonalExperience
+  createCommunityExperience(userId: ID!, communityExperience: CommunityExperienceMutationInput!): CommunityExperience
+  createEducationExperience(userId: ID!, educationExperience: EducationExperienceMutationInput!): EducationExperience
+  createAwardExperience(userId: ID!, awardExperience: AwardExperienceMutationInput!): AwardExperience
+  updateWorkExperience(id: ID!, workExperience: WorkExperienceMutationInput!): WorkExperience
+  updatePersonalExperience(id: ID!, personalExperience: PersonalExperienceMutationInput!): PersonalExperience
+  updateCommunityExperience(id: ID!, communityExperience: CommunityExperienceMutationInput!): CommunityExperience
+  updateEducationExperience(id: ID!, educationExperience: EducationExperienceMutationInput!): EducationExperience
+  updateAwardExperience(id: ID!, awardExperience: AwardExperienceMutationInput!): AwardExperience
   deleteWorkExperience(id: ID!): WorkExperience
   deletePersonalExperience(id: ID!): PersonalExperience
   deleteCommunityExperience(id: ID!): CommunityExperience
@@ -675,7 +600,16 @@ type PersonalExperience implements Experience {
 }
 
 input PersonalExperienceHasMany {
-  create: [CreatePersonalExperienceInputNested!]
+  create: [PersonalExperienceMutationInput!]
+}
+
+input PersonalExperienceMutationInput {
+  title: String
+  description: String
+  startDate: Date
+  endDate: Date
+  details: String
+  skills: UpdateExperienceSkills
 }
 
 """
@@ -980,16 +914,6 @@ enum Trashed {
   WITHOUT
 }
 
-input UpdateAwardExperienceInput {
-  title: String
-  issuedBy: String
-  awardedDate: Date
-  awardedTo: AwardedTo
-  awardedScope: AwardedScope
-  details: String
-  skills: UpdateExperienceSkills
-}
-
 input UpdateClassificationInput {
   name: LocalizedStringInput
   group: String
@@ -1002,31 +926,9 @@ input UpdateCmoAssetInput {
   description: LocalizedStringInput
 }
 
-input UpdateCommunityExperienceInput {
-  title: String
-  organization: String
-  project: String
-  startDate: Date
-  endDate: Date
-  details: String
-  skills: UpdateExperienceSkills
-}
-
 input UpdateDepartmentInput {
   departmentNumber: Int
   name: LocalizedStringInput
-}
-
-input UpdateEducationExperienceInput {
-  institution: String
-  areaOfStudy: String
-  thesisTitle: String
-  startDate: Date
-  endDate: Date
-  type: EducationType
-  status: EducationStatus
-  details: String
-  skills: UpdateExperienceSkills
 }
 
 input UpdateExperienceSkills {
@@ -1037,15 +939,6 @@ input UpdateExperienceSkills {
 input UpdateOperationalRequirementInput {
   name: LocalizedStringInput
   description: LocalizedStringInput
-}
-
-input UpdatePersonalExperienceInput {
-  title: String
-  description: String
-  startDate: Date
-  endDate: Date
-  details: String
-  skills: UpdateExperienceSkills
 }
 
 input UpdatePoolCandidateAsAdminInput {
@@ -1177,16 +1070,6 @@ input UpdateUserAsUserInput {
   awardExperiences: AwardExperienceHasMany
 }
 
-input UpdateWorkExperienceInput {
-  role: String
-  organization: String
-  division: String
-  startDate: Date
-  endDate: Date
-  details: String
-  skills: UpdateExperienceSkills
-}
-
 type User {
   id: ID!
   sub: String
@@ -1296,7 +1179,17 @@ type WorkExperience implements Experience {
 }
 
 input WorkExperienceHasMany {
-  create: [CreateWorkExperienceInputNested!]
+  create: [WorkExperienceMutationInput!]
+}
+
+input WorkExperienceMutationInput {
+  role: String
+  organization: String
+  division: String
+  startDate: Date
+  endDate: Date
+  details: String
+  skills: UpdateExperienceSkills
 }
 
 enum WorkRegion {
