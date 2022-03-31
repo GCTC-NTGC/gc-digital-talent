@@ -410,39 +410,55 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({
                 </Link>
               </div>
               <div
-                data-h2-display="b(flex)"
-                data-h2-flex-direction="b(row)"
-                data-h2-justify-content="b(space-between)"
                 data-h2-bg-color="b(gray)"
                 data-h2-padding="b(all, m)"
                 data-h2-radius="b(s)"
               >
-                <div>
-                  <p>
-                    Name:{" "}
-                    <span data-h2-font-weight="b(700)">
-                      {firstName} {lastName}
-                    </span>
-                  </p>
-                  <p>
-                    Email: <span data-h2-font-weight="b(700)">{email}</span>
-                  </p>
-                  <p>
-                    Phone: <span data-h2-font-weight="b(700)">{telephone}</span>
-                  </p>
+                <div
+                  data-h2-display="b(flex)"
+                  data-h2-flex-direction="b(row)"
+                  data-h2-justify-content="b(space-between)"
+                >
+                  <div>
+                    <p>
+                      Name:{" "}
+                      <span data-h2-font-weight="b(700)">
+                        {firstName} {lastName}
+                      </span>
+                    </p>
+                    <p>
+                      Email: <span data-h2-font-weight="b(700)">{email}</span>
+                    </p>
+                    <p>
+                      Phone:{" "}
+                      <span data-h2-font-weight="b(700)">{telephone}</span>
+                    </p>
+                  </div>
+                  <div>
+                    <p>
+                      Preferred Communication Language:{" "}
+                      <span data-h2-font-weight="b(700)">{preferredLang}</span>
+                    </p>
+                    <p>
+                      Current Location:{" "}
+                      <span data-h2-font-weight="b(700)">
+                        {currentCity}, {currentProvince}
+                      </span>
+                    </p>
+                  </div>
                 </div>
-                <div>
+                {(firstName === null ||
+                  lastName === null ||
+                  email === null ||
+                  telephone === null ||
+                  preferredLang === null ||
+                  currentCity === null ||
+                  currentProvince === null) && (
                   <p>
-                    Preferred Communication Language:{" "}
-                    <span data-h2-font-weight="b(700)">{preferredLang}</span>
+                    There are required fields missing. Click here to get
+                    started.
                   </p>
-                  <p>
-                    Current Location:{" "}
-                    <span data-h2-font-weight="b(700)">
-                      {currentCity}, {currentProvince}
-                    </span>
-                  </p>
-                </div>
+                )}
               </div>
             </div>
             <div id="language-section">
@@ -543,6 +559,14 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({
                     </span>
                   </p>
                 )}
+                {lookingForEnglish === null &&
+                  lookingForFrench === null &&
+                  lookingForBilingual === null && (
+                    <p>
+                      There are required fields missing. Click here to get
+                      started.
+                    </p>
+                  )}
               </div>
             </div>
             <div id="gov-info-section">
@@ -657,6 +681,12 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({
                   Location exemptions:{" "}
                   <span data-h2-font-weight="b(700)">{locationExemptions}</span>
                 </p>
+                {locationPreferences === null && (
+                  <p>
+                    There are required fields missing. Click here to get
+                    started.
+                  </p>
+                )}
               </div>
             </div>
             <div id="work-preferences-section">
@@ -689,13 +719,24 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({
                 data-h2-radius="b(s)"
               >
                 <p>I would consider accepting a job that lasts for: </p>
-                <p>{wouldAcceptTemporary}</p>
+                {wouldAcceptTemporary && (
+                  <p data-h2-font-weight="b(700)">
+                    Any duration (short, long term, or indeterminate duration)
+                  </p>
+                )}
+                {!wouldAcceptTemporary && (
+                  <p data-h2-font-weight="b(700)">Permanent duration</p>
+                )}
                 <p>I would consider accepting a job that:</p>
                 <p>{acceptedOperationalArray}</p>
-                <p>
-                  I would <span data-h2-font-weight="b(700)">not</span> consider
-                  accepting a job that:
-                </p>
+                {(wouldAcceptTemporary === null ||
+                  acceptedOperationalArray === null ||
+                  acceptedOperationalArray.length === 0) && (
+                  <p>
+                    There are required fields missing. Click here to get
+                    started.
+                  </p>
+                )}
               </div>
             </div>
             <div id="diversity-section">
