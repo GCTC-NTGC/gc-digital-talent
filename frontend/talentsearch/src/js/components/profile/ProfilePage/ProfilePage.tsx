@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import React from "react";
 import {
   ChatAlt2Icon,
@@ -12,21 +13,234 @@ import { useIntl } from "react-intl";
 import { Link } from "@common/components";
 import commonMessages from "@common/messages/commonMessages";
 import { imageUrl } from "@common/helpers/router";
+import { getLocale } from "@common/helpers/localize";
 import TALENTSEARCH_APP_DIR from "../../../talentSearchConstants";
 import { useApplicantProfileRoutes } from "../../../applicantProfileRoutes";
-import { useGetMeQuery } from "../../../api/generated";
+import {
+  BilingualEvaluation,
+  EstimatedLanguageAbility,
+  EvaluatedLanguageAbility,
+  JobLookingStatus,
+  Language,
+  LanguageAbility,
+  PoolCandidateStatus,
+  ProvinceOrTerritory,
+  Role,
+  SalaryRange,
+  useGetMeQuery,
+  WorkRegion,
+} from "../../../api/generated";
 
 export interface ProfilePageProps {
-  firstName?: string | null;
-  lastName?: string | null;
+  id?: string | undefined;
+  sub?: string | null | undefined;
+  roles?: Array<Role | null | undefined> | null | undefined;
+  firstName?: string | null | undefined;
+  lastName?: string | null | undefined;
+  email?: string | undefined;
+  telephone?: string | null | undefined;
+  preferredLang?: Language | null | undefined;
+  currentProvince?: ProvinceOrTerritory | null | undefined;
+  currentCity?: string | null | undefined;
+  languageAbility?: LanguageAbility | null | undefined;
+  lookingForEnglish?: boolean | null | undefined;
+  lookingForFrench?: boolean | null | undefined;
+  lookingForBilingual?: boolean | null | undefined;
+  bilingualEvaluation?: BilingualEvaluation | null | undefined;
+  comprehensionLevel?: EvaluatedLanguageAbility | null | undefined;
+  writtenLevel?: EvaluatedLanguageAbility | null | undefined;
+  verbalLevel?: EvaluatedLanguageAbility | null | undefined;
+  estimatedLanguageAbility?: EstimatedLanguageAbility | null | undefined;
+  isGovEmployee?: boolean | null | undefined;
+  interestedInLaterOrSecondment?: boolean | null | undefined;
+  isWoman?: boolean | null | undefined;
+  hasDisability?: boolean | null | undefined;
+  isIndigenous?: boolean | null | undefined;
+  isVisibleMinority?: boolean | null | undefined;
+  jobLookingStatus?: JobLookingStatus | null | undefined;
+  hasDiploma?: boolean | null | undefined;
+  locationPreferences?: Array<WorkRegion | null | undefined> | null | undefined;
+  locationExemptions?: string | null | undefined;
+  expectedSalary?: Array<SalaryRange | null | undefined> | null | undefined;
+  wouldAcceptTemporary?: boolean | null | undefined;
+  currentClassification?:
+    | {
+        __typename?: "Classification";
+        id: string;
+        group: string;
+        level: number;
+        name?:
+          | {
+              __typename?: "LocalizedString";
+              en?: string | null | undefined;
+              fr?: string | null | undefined;
+            }
+          | null
+          | undefined;
+      }
+    | null
+    | undefined;
+  acceptedOperationalRequirements?:
+    | Array<
+        | {
+            __typename?: "OperationalRequirement";
+            id: string;
+            name: {
+              __typename?: "LocalizedString";
+              en?: string | null | undefined;
+              fr?: string | null | undefined;
+            };
+          }
+        | null
+        | undefined
+      >
+    | null
+    | undefined;
+  expectedClassifications?:
+    | Array<
+        | {
+            __typename?: "Classification";
+            id: string;
+            group: string;
+            level: number;
+            name?:
+              | {
+                  __typename?: "LocalizedString";
+                  en?: string | null | undefined;
+                  fr?: string | null | undefined;
+                }
+              | null
+              | undefined;
+          }
+        | null
+        | undefined
+      >
+    | null
+    | undefined;
+  cmoAssets?:
+    | Array<
+        | {
+            __typename?: "CmoAsset";
+            id: string;
+            name: {
+              __typename?: "LocalizedString";
+              en?: string | null | undefined;
+              fr?: string | null | undefined;
+            };
+          }
+        | null
+        | undefined
+      >
+    | null
+    | undefined;
+  poolCandidates?:
+    | Array<
+        | {
+            __typename?: "PoolCandidate";
+            status?: PoolCandidateStatus | null | undefined;
+            expiryDate?: string | null | undefined;
+            pool?:
+              | {
+                  __typename?: "Pool";
+                  name?:
+                    | {
+                        __typename?: "LocalizedString";
+                        en?: string | null | undefined;
+                        fr?: string | null | undefined;
+                      }
+                    | null
+                    | undefined;
+                }
+              | null
+              | undefined;
+            id?: string | null | undefined;
+          }
+        | null
+        | undefined
+      >
+    | null
+    | undefined;
 }
 
 export const ProfilePage: React.FC<ProfilePageProps> = ({
+  id,
+  sub,
+  roles,
   firstName,
   lastName,
+  email,
+  telephone,
+  preferredLang,
+  currentProvince,
+  currentCity,
+  languageAbility,
+  lookingForEnglish,
+  lookingForFrench,
+  lookingForBilingual,
+  bilingualEvaluation,
+  comprehensionLevel,
+  writtenLevel,
+  verbalLevel,
+  estimatedLanguageAbility,
+  isGovEmployee,
+  interestedInLaterOrSecondment,
+  currentClassification,
+  isWoman,
+  hasDisability,
+  isIndigenous,
+  isVisibleMinority,
+  jobLookingStatus,
+  hasDiploma,
+  locationPreferences,
+  locationExemptions,
+  acceptedOperationalRequirements,
+  expectedSalary,
+  expectedClassifications,
+  wouldAcceptTemporary,
+  cmoAssets,
+  poolCandidates,
 }) => {
   const intl = useIntl();
   const paths = useApplicantProfileRoutes();
+  const locale = getLocale(intl);
+
+  // generate array of pool candidates
+  const candidateArray = poolCandidates
+    ? poolCandidates.map((iterator) => (
+        <div
+          key={Math.random()}
+          data-h2-display="b(flex)"
+          data-h2-flex-direction="b(row)"
+          data-h2-justify-content="b(space-between)"
+          data-h2-padding="b(top-bottom, m)"
+        >
+          <div>
+            <p>
+              {iterator
+                ? iterator.pool?.name
+                  ? iterator.pool.name[locale]
+                  : ""
+                : ""}{" "}
+            </p>
+          </div>
+          <div>
+            <p>ID: {iterator?.id}</p>
+          </div>
+          <div>
+            <p>Expiry: {iterator?.expiryDate}</p>
+          </div>
+        </div>
+      ))
+    : null;
+
+  // generate array of accepted operational requirements
+  const acceptedOperationalArray = acceptedOperationalRequirements
+    ? acceptedOperationalRequirements.map((iterator) => (
+        <li data-h2-font-weight="b(700)" key={Math.random()}>
+          {iterator ? iterator.name[locale] : ""}
+        </li>
+      ))
+    : null;
 
   return (
     <>
@@ -160,7 +374,16 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({
                   description: "Title of the My hiring pools section",
                 })}
               </h2>
-              <p>Pool details</p>
+              <div
+                data-h2-bg-color="b(gray)"
+                data-h2-padding="b(all, m)"
+                data-h2-radius="b(s)"
+              >
+                {(candidateArray === null || candidateArray.length === 0) && (
+                  <p>You have not been accepted into any hiring pools yet.</p>
+                )}
+                {candidateArray !== null && candidateArray}
+              </div>
             </div>
             <div id="about-me-section">
               <div style={{ display: "flex", alignItems: "baseline" }}>
@@ -186,7 +409,41 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({
                   })}
                 </Link>
               </div>
-              <p>Personal details</p>
+              <div
+                data-h2-display="b(flex)"
+                data-h2-flex-direction="b(row)"
+                data-h2-justify-content="b(space-between)"
+                data-h2-bg-color="b(gray)"
+                data-h2-padding="b(all, m)"
+                data-h2-radius="b(s)"
+              >
+                <div>
+                  <p>
+                    Name:{" "}
+                    <span data-h2-font-weight="b(700)">
+                      {firstName} {lastName}
+                    </span>
+                  </p>
+                  <p>
+                    Email: <span data-h2-font-weight="b(700)">{email}</span>
+                  </p>
+                  <p>
+                    Phone: <span data-h2-font-weight="b(700)">{telephone}</span>
+                  </p>
+                </div>
+                <div>
+                  <p>
+                    Preferred Communication Language:{" "}
+                    <span data-h2-font-weight="b(700)">{preferredLang}</span>
+                  </p>
+                  <p>
+                    Current Location:{" "}
+                    <span data-h2-font-weight="b(700)">
+                      {currentCity}, {currentProvince}
+                    </span>
+                  </p>
+                </div>
+              </div>
             </div>
             <div id="language-section">
               <div style={{ display: "flex", alignItems: "baseline" }}>
@@ -212,7 +469,81 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({
                   })}
                 </Link>
               </div>
-              <p>Language details</p>
+              <div
+                data-h2-bg-color="b(gray)"
+                data-h2-padding="b(all, m)"
+                data-h2-radius="b(s)"
+              >
+                {lookingForEnglish &&
+                  !lookingForFrench &&
+                  !lookingForBilingual && (
+                    <p>
+                      Interested in:{" "}
+                      <span data-h2-font-weight="b(700)">
+                        English positions
+                      </span>
+                    </p>
+                  )}
+                {!lookingForEnglish &&
+                  lookingForFrench &&
+                  !lookingForBilingual && (
+                    <p>
+                      Interested in:{" "}
+                      <span data-h2-font-weight="b(700)">French positions</span>
+                    </p>
+                  )}
+                {lookingForBilingual && (
+                  <p>
+                    Interested in:{" "}
+                    <span data-h2-font-weight="b(700)">
+                      Bilingual positions (English and French)
+                    </span>
+                  </p>
+                )}
+                {bilingualEvaluation ===
+                  BilingualEvaluation.CompletedEnglish && (
+                  <p>
+                    Completed an official GoC evaluation:{" "}
+                    <span data-h2-font-weight="b(700)">
+                      Yes, completed ENGLISH evaluation
+                    </span>
+                  </p>
+                )}
+                {bilingualEvaluation ===
+                  BilingualEvaluation.CompletedFrench && (
+                  <p>
+                    Completed an official GoC evaluation:{" "}
+                    <span data-h2-font-weight="b(700)">
+                      Yes, completed FRENCH evaluation
+                    </span>
+                  </p>
+                )}
+                {bilingualEvaluation === BilingualEvaluation.NotCompleted && (
+                  <p>
+                    Completed an official GoC evaluation:{" "}
+                    <span data-h2-font-weight="b(700)">No</span>
+                  </p>
+                )}
+                {(bilingualEvaluation ===
+                  BilingualEvaluation.CompletedEnglish ||
+                  bilingualEvaluation ===
+                    BilingualEvaluation.CompletedFrench) && (
+                  <p>
+                    Second language level (Comprehension, Written, Verbal):{" "}
+                    <span data-h2-font-weight="b(700)">
+                      {comprehensionLevel}, {writtenLevel}, {verbalLevel}
+                    </span>
+                  </p>
+                )}
+                {bilingualEvaluation === BilingualEvaluation.NotCompleted && (
+                  <p>
+                    Second language level:{" "}
+                    <span data-h2-font-weight="b(700)">
+                      {estimatedLanguageAbility}
+                    </span>
+                  </p>
+                )}
+              </div>
             </div>
             <div id="gov-info-section">
               <div style={{ display: "flex", alignItems: "baseline" }}>
@@ -249,7 +580,31 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({
                   })}
                 </Link>
               </div>
-              <p>Government status details</p>
+              <div
+                data-h2-bg-color="b(gray)"
+                data-h2-padding="b(all, m)"
+                data-h2-radius="b(s)"
+              >
+                {isGovEmployee && (
+                  <div>
+                    <p>Yes I am a current government employee</p>
+                    {interestedInLaterOrSecondment && (
+                      <p>I am interested in later or secondment</p>
+                    )}
+                    <p>
+                      {" "}
+                      Current group and classification:{" "}
+                      <span data-h2-font-weight="b(700)">
+                        {currentClassification?.group}-
+                        {currentClassification?.level}
+                      </span>
+                    </p>
+                  </div>
+                )}
+                {!isGovEmployee && (
+                  <p>You are not entered as a current government employee</p>
+                )}
+              </div>
             </div>
             <div id="work-location-section">
               <div style={{ display: "flex", alignItems: "baseline" }}>
@@ -287,7 +642,22 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({
                   })}
                 </Link>
               </div>
-              <p>Work location details</p>
+              <div
+                data-h2-bg-color="b(gray)"
+                data-h2-padding="b(all, m)"
+                data-h2-radius="b(s)"
+              >
+                <p>
+                  Work location:{" "}
+                  <span data-h2-font-weight="b(700)">
+                    {locationPreferences}
+                  </span>
+                </p>
+                <p>
+                  Location exemptions:{" "}
+                  <span data-h2-font-weight="b(700)">{locationExemptions}</span>
+                </p>
+              </div>
             </div>
             <div id="work-preferences-section">
               <div style={{ display: "flex", alignItems: "baseline" }}>
@@ -313,7 +683,20 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({
                   })}
                 </Link>
               </div>
-              <p>Work preference details</p>
+              <div
+                data-h2-bg-color="b(gray)"
+                data-h2-padding="b(all, m)"
+                data-h2-radius="b(s)"
+              >
+                <p>I would consider accepting a job that lasts for: </p>
+                <p>{wouldAcceptTemporary}</p>
+                <p>I would consider accepting a job that:</p>
+                <p>{acceptedOperationalArray}</p>
+                <p>
+                  I would <span data-h2-font-weight="b(700)">not</span> consider
+                  accepting a job that:
+                </p>
+              </div>
             </div>
             <div id="diversity-section">
               <div style={{ display: "flex", alignItems: "baseline" }}>
@@ -340,7 +723,45 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({
                   })}
                 </Link>
               </div>
-              <p>Diversity and inclusion details</p>
+              <div
+                data-h2-bg-color="b(gray)"
+                data-h2-padding="b(all, m)"
+                data-h2-radius="b(s)"
+              >
+                {(!isWoman || isWoman === null) &&
+                  (!isIndigenous || isIndigenous === null) &&
+                  (!isVisibleMinority || isVisibleMinority === null) &&
+                  (!hasDisability || hasDisability === null) && (
+                    <p>
+                      You have not identified as a member of any employment
+                      equity groups
+                    </p>
+                  )}
+                {(isWoman ||
+                  isIndigenous ||
+                  isVisibleMinority ||
+                  hasDisability) && (
+                  <div>
+                    <p>I identify as: </p>{" "}
+                    <ul data-h2-padding="b(left, l)">
+                      {isWoman && <li data-h2-font-weight="b(700)">Woman</li>}{" "}
+                      {isIndigenous && (
+                        <li data-h2-font-weight="b(700)">Indigenous</li>
+                      )}{" "}
+                      {isVisibleMinority && (
+                        <li data-h2-font-weight="b(700)">
+                          Member of a visible minority group
+                        </li>
+                      )}{" "}
+                      {hasDisability && (
+                        <li data-h2-font-weight="b(700)">
+                          Person with a disability
+                        </li>
+                      )}
+                    </ul>
+                  </div>
+                )}
+              </div>
             </div>
             <div id="skills-section">
               <div style={{ display: "flex", alignItems: "baseline" }}>
