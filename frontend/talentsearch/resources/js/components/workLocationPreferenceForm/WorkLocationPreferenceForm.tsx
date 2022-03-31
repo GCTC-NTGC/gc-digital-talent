@@ -2,7 +2,7 @@ import { BasicForm, Checklist, TextArea } from "@common/components/form";
 import { getworkRegionsDetailed } from "@common/constants/localizedConstants";
 import { enumToOptions, unpackIds } from "@common/helpers/formUtils";
 import { navigate } from "@common/helpers/router";
-import { errorMessages } from "@common/messages";
+import { commonMessages, errorMessages } from "@common/messages";
 import React from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
@@ -15,6 +15,8 @@ import {
   WorkRegion,
   User,
   UpdateUserAsUserInput,
+  useWorkLocationPreferenceQuery,
+  CreateWorkLocationPreferenceMutationVariables,
 } from "../../api/generated";
 import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
 import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
@@ -25,7 +27,10 @@ export type FormValues = Pick<
 >;
 interface WorkLocationPreferenceFormProps {
   initialData: User;
-  handleWorkLocationPreference: (id: string, data: FormValues) => Promise<void>;
+  handleWorkLocationPreference: (
+    id: string,
+    data: UpdateUserAsUserInput,
+  ) => Promise<CreateWorkLocationPreferenceMutation["updateUserAsUser"]>;
 }
 
 export const WorkLocationPreferenceForm: React.FC<
@@ -39,7 +44,9 @@ export const WorkLocationPreferenceForm: React.FC<
     locationPreferences: data.locationPreferences,
     locationExemptions: data.locationExemptions,
   });
-  const formValuesToSubmitData = (values: FormValues): FormValues => ({
+  const formValuesToSubmitData = (
+    values: FormValues,
+  ): UpdateUserAsUserInput => ({
     locationPreferences: values.locationPreferences,
     locationExemptions: values.locationExemptions,
   });
@@ -148,3 +155,57 @@ export const WorkLocationPreferenceForm: React.FC<
     </ProfileFormWrapper>
   );
 };
+
+export const WorkLocationPreferenceApi: React.FunctionComponent<{
+  userId: string;
+}> = ({ userId }) => {
+  const intl = useIntl();
+  const [{ data: userData, fetching, error }] = useWorkLocationPreferenceQuery({
+    variables: { id: userId },
+  });
+
+  const [, executeMutation] = useCreateWorkLocationPreferenceMutation();
+  const handleWorkLocationPreference = (
+    id: string,
+    data: UpdateUserAsUserInput,
+  ) =>
+    /* We must pick only the fields belonging to UpdateUserInput, because its possible
+       the data object contains other props at runtime, and this will cause the
+       graphql operation to fail. */
+    executeMutation({
+      id,
+      user: data,
+    }).then((result) => {
+      if (result.data?.updateUserAsUser) {
+        return result.data.updateUserAsUser;
+      }
+      return Promise.reject(result.error);
+    });
+
+  if (fetching) return <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>;
+  if (error)
+    return (
+      <p>
+        {intl.formatMessage(commonMessages.loadingError)}
+        {error.message}
+      </p>
+    );
+  return userData?.user ? (
+    <WorkLocationPreferenceForm
+      initialData={userData?.user}
+      handleWorkLocationPreference={handleWorkLocationPreference}
+    />
+  ) : (
+    <p>
+      {intl.formatMessage(
+        {
+          defaultMessage: "User {userId} not found.",
+          description: "Message displayed for user not found.",
+        },
+        { userId },
+      )}
+    </p>
+  );
+};
+
+export default WorkLocationPreferenceApi;

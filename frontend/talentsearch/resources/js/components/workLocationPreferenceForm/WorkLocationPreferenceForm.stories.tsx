@@ -32,8 +32,10 @@ const TemplateWorkLocationPreferencesForm: Story = () => {
   return (
     <WorkLocationPreferenceForm
       initialData={user}
-      handleWorkLocationPreference={async (id: string, data: FormValues) => {
-        action("submit")(data);
+      handleWorkLocationPreference={async (id, data) => {
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+        action("Update Work Location Preference")(data);
+        return null;
       }}
     />
   );
