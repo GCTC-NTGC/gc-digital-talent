@@ -55,9 +55,7 @@ const Pagination: React.FunctionComponent<PaginationProps> = ({
   const totalPageCount = Math.ceil(totalCount / pageSize);
 
   // If there are less than 2 times in pagination range we shall not render the component
-  if (currentPage === 0 || paginationRange.length < 2) {
-    return null;
-  }
+  const lessThanTwoItems = currentPage === 0 || paginationRange.length < 2;
 
   const nextPage = () => {
     handlePageChange(currentPage + 1);
@@ -92,12 +90,14 @@ const Pagination: React.FunctionComponent<PaginationProps> = ({
           {/* left navigation arrow */}
           <li data-h2-margin="b(all, none)">
             <Button
-              classNames={isLeftArrowDisabled ? "disabled" : ""}
+              classNames={
+                isLeftArrowDisabled || lessThanTwoItems ? "disabled" : ""
+              }
               color={color}
               mode={mode}
               type="button"
-              disabled={isLeftArrowDisabled}
-              aria-disabled={isLeftArrowDisabled}
+              disabled={isLeftArrowDisabled || lessThanTwoItems}
+              aria-disabled={isLeftArrowDisabled || lessThanTwoItems}
               aria-label={intl.formatMessage({
                 defaultMessage: "Goto previous page",
                 description:
@@ -132,10 +132,12 @@ const Pagination: React.FunctionComponent<PaginationProps> = ({
                 data-h2-margin="b(all, none)"
               >
                 <Button
+                  classNames={lessThanTwoItems ? "disabled" : ""}
                   data-testid="pagination"
                   color={color}
                   mode={`${current ? "solid" : mode}`}
                   type="button"
+                  disabled={lessThanTwoItems}
                   aria-label={intl.formatMessage(
                     {
                       defaultMessage: "Goto Page {pageNumber}",
@@ -157,12 +159,14 @@ const Pagination: React.FunctionComponent<PaginationProps> = ({
           {/* right navigation arrow */}
           <li data-h2-margin="b(all, none)">
             <Button
-              classNames={isRightArrowDisabled ? "disabled" : ""}
+              classNames={
+                isRightArrowDisabled || lessThanTwoItems ? "disabled" : ""
+              }
               color={color}
               mode={mode}
               type="button"
-              disabled={isRightArrowDisabled}
-              aria-disabled={isRightArrowDisabled}
+              disabled={isRightArrowDisabled || lessThanTwoItems}
+              aria-disabled={isRightArrowDisabled || lessThanTwoItems}
               aria-label={intl.formatMessage({
                 defaultMessage: "Goto next page",
                 description:
@@ -187,10 +191,12 @@ const Pagination: React.FunctionComponent<PaginationProps> = ({
           <input
             type="number"
             defaultValue={currentPage}
+            value={currentPage}
             onChange={(e) => {
               const p = e.target.value ? Number(e.target.value) : 0;
               handlePageChange(p);
             }}
+            disabled={lessThanTwoItems}
             min={1}
             max={totalPageCount}
             style={{ width: "65px" }}
