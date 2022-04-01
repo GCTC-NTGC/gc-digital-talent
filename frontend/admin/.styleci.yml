@@ -1,6 +1,2 @@
-php:
-  preset: laravel
-  disabled:
-    - unused_use
 js: true
 css: true
