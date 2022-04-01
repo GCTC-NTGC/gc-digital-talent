@@ -89,12 +89,12 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
   const getPersonalExperience = (experience: PersonalExperience) => {
     const { title, description, startDate, endDate, details } = experience;
     return (
-      <div>
+      <>
         <p data-h2-font-color="b(lightpurple)"> {title} </p>
         <p>{getDateRange({ endDate, startDate, intl, locale })}</p>
         <p> {description} </p>
         <p> {details} </p>
-      </div>
+      </>
     );
   };
 
@@ -155,7 +155,7 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
     const { awardedDate, awardedScope, awardedTo, details, title, issuedBy } =
       experience;
     return (
-      <div>
+      <>
         <p>
           <span data-h2-font-color="b(lightpurple)" title="award">
             {" "}
@@ -195,7 +195,7 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
             { details },
           )}
         </p>
-      </div>
+      </>
     );
   };
 
@@ -203,7 +203,7 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
     const { startDate, endDate, project, organization, details, title } =
       experience;
     return (
-      <div>
+      <>
         <p>
           <span data-h2-font-color="b(lightpurple)"> {title} </span>
           {intl.formatMessage(
@@ -235,7 +235,7 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
             { details },
           )}{" "}
         </p>
-      </div>
+      </>
     );
   };
 
@@ -243,7 +243,7 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
     const { startDate, endDate, role, division, organization, details } =
       experience;
     return (
-      <div>
+      <>
         <p>
           <span data-h2-font-color="b(lightpurple)" title="work">
             {role}{" "}
@@ -258,7 +258,6 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
         </p>
         <p>{organization}</p>
         <p>{getDateRange({ endDate, startDate, intl, locale })}</p>
-
         <p>
           {intl.formatMessage(
             {
@@ -268,7 +267,7 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
             { details },
           )}
         </p>
-      </div>
+      </>
     );
   };
   const renderWithExperience = () => {
@@ -276,23 +275,19 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
       return (
         <ul key={experience?.id}>
           <li>
-            <p>
-              {isPersonalExperience(experience!)
-                ? getPersonalExperience(experience)
-                : ""}
-              {isEducationExperience(experience!)
-                ? getEducationExperience(experience)
-                : ""}
-              {isAwardExperience(experience!)
-                ? getAwardExperience(experience)
-                : ""}
-              {isCommunityExperience(experience!)
-                ? getCommunityExperience(experience)
-                : ""}
-              {isWorkExperience(experience!)
-                ? getWorkExperience(experience)
-                : ""}
-            </p>
+            {isPersonalExperience(experience!)
+              ? getPersonalExperience(experience)
+              : ""}
+            {isEducationExperience(experience!)
+              ? getEducationExperience(experience)
+              : ""}
+            {isAwardExperience(experience!)
+              ? getAwardExperience(experience)
+              : ""}
+            {isCommunityExperience(experience!)
+              ? getCommunityExperience(experience)
+              : ""}
+            {isWorkExperience(experience!) ? getWorkExperience(experience) : ""}
           </li>
         </ul>
       );
