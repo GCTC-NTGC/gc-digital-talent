@@ -8,6 +8,7 @@ import {
 } from "../components/request/CreateRequest";
 import {
   CreatePoolCandidateSearchRequestInput,
+  OperationalRequirement,
   PoolCandidateFilter,
   WorkRegion,
 } from "../api/generated";
@@ -72,22 +73,8 @@ const poolCandidateFilter: PoolCandidateFilter = {
   isWoman: false,
   languageAbility: null,
   operationalRequirements: [
-    {
-      id: "f92cf3d9-f283-4776-bb93-27b067ad2008",
-      key: "drivers_license",
-      name: {
-        en: "Driver's license",
-        fr: "Permis de conduire",
-      },
-    },
-    {
-      id: "dba77b57-6727-4321-af8b-1d5af2ec59a8",
-      key: "on_call",
-      name: {
-        en: "24/7 on-call",
-        fr: "Garde 24/7",
-      },
-    },
+    OperationalRequirement.DriversLicense,
+    OperationalRequirement.OnCall,
   ],
   workRegions: [WorkRegion.Ontario, WorkRegion.Quebec],
   pools: [
