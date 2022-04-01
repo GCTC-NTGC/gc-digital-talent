@@ -22,7 +22,7 @@ import {
 // lots of X requires Y filling things out and adding connecting Types/Components to one another
 // defining the skills here
 const sampleApp: Applicant = { email: "blank", id: "blank" };
-const theId = "blank";
+const theId = faker.datatype.uuid();
 const theSkillString1: LocalizedString = {
   en: "The first Skill",
   fr: "La première Compétence",
@@ -32,7 +32,7 @@ const theSkillDescription1: LocalizedString = {
   fr: "Le premier Descriptif",
 };
 const sampleSkill1: Skill = {
-  id: "blank",
+  id: faker.datatype.uuid(),
   key: "blank",
   description: theSkillDescription1,
   name: theSkillString1,
@@ -209,20 +209,62 @@ export const generators = {
     faker.seed(0);
     return generateAward();
   },
+  awardExperiences: (numOfExp = 1) => {
+    faker.seed(0);
+    return [...Array(numOfExp)].map(() => {
+      return generateAward();
+    });
+  },
   generateCommunity: () => {
     faker.seed(0);
     return generateCommunity();
+  },
+  communityExperiences: (numOfExp = 1) => {
+    faker.seed(0);
+    if (numOfExp === 1) {
+      return generateCommunity();
+    }
+    return [...Array(numOfExp)].map(() => {
+      return generateCommunity();
+    });
   },
   generateEducation: () => {
     faker.seed(0);
     return generateEducation();
   },
+  educationExperiences: (numOfExp = 1) => {
+    faker.seed(0);
+    if (numOfExp === 1) {
+      return generateEducation();
+    }
+    return [...Array(numOfExp)].map(() => {
+      return generateEducation();
+    });
+  },
   generatePersonal: () => {
     faker.seed(0);
     return generatePersonal();
   },
+  personalExperiences: (numOfExp = 1) => {
+    faker.seed(0);
+    if (numOfExp === 1) {
+      return generatePersonal();
+    }
+    return [...Array(numOfExp)].map(() => {
+      return generatePersonal();
+    });
+  },
   generateWork: () => {
     faker.seed(0);
     return generateWork();
+  },
+  workExperiences: (numOfExp = 1) => {
+    faker.seed(0);
+    if (numOfExp === 1) {
+      return generateWork();
+    }
+    return [...Array(numOfExp)].map(() => {
+      return generateWork();
+    });
   },
 };

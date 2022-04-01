@@ -1,5 +1,6 @@
 import React from "react";
 import { Story, Meta } from "@storybook/react";
+import fakeExperiences, { generators } from "@common/fakeData/fakeExperiences";
 import ExperienceAndSkills, {
   ExperienceAndSkillsProps,
 } from "./ExperienceAndSkills";
@@ -23,10 +24,5 @@ NoExperiences.args = {
 };
 
 WithExperiences.args = {
-  experiences: [
-    {
-      id: "id",
-      applicant: { id: "applicant", email: "email" },
-    },
-  ],
+  experiences: fakeExperiences(10),
 };

@@ -18,8 +18,7 @@ export const Breadcrumbs: React.FunctionComponent<BreadcrumbsProps> = ({
         data-h2-align-items="b(center)"
         href={link.href}
         title={link.title}
-        // eslint-disable-next-line react/no-array-index-key
-        key={index}
+        key={link.title}
       >
         {link.icon || ""} {link.title}
       </Link>
@@ -28,8 +27,7 @@ export const Breadcrumbs: React.FunctionComponent<BreadcrumbsProps> = ({
         data-h2-display="b(flex)"
         data-h2-align-items="b(center)"
         data-h2-font-weight="b(700)"
-        // eslint-disable-next-line react/no-array-index-key
-        key={index}
+        key={link.title}
       >
         {link.icon || ""} {link.title}
       </span>

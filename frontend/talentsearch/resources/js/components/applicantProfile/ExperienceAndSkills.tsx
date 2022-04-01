@@ -1,7 +1,4 @@
-import { CommunityExperience } from "@common/api/generated";
 import { Tab, TabSet } from "@common/components/tabs";
-import { notEmpty } from "@common/helpers/util";
-import { commonMessages } from "@common/messages";
 import {
   BookOpenIcon,
   BriefcaseIcon,
@@ -11,35 +8,95 @@ import {
 } from "@heroicons/react/solid";
 import * as React from "react";
 import { useIntl } from "react-intl";
+import { notEmpty } from "@common/helpers/util";
+import { commonMessages } from "@common/messages";
+import {
+  isAwardExperience,
+  isCommunityExperience,
+  isEducationExperience,
+  isPersonalExperience,
+  isWorkExperience,
+} from "../../types/ExperienceUtils";
 import {
   AwardExperience,
-  EducationExperience,
   Experience,
-  PersonalExperience,
-  useGetApplicantExperiencesByTypeQuery,
-  WorkExperience,
+  Skill,
+  useGetAllApplicantExperiencesQuery,
 } from "../../api/generated";
+import ExperienceAccordion from "../ExperienceAccordion/ExperienceAccordion";
 import ProfileFormFooter from "./ProfileFormFooter";
 import ProfileFormWrapper from "./ProfileFormWrapper";
+import SkillAccordion from "../skills/SkillAccordion/SkillAccordion";
 
+const ExperienceByType: React.FunctionComponent<{
+  title: string;
+  icon: React.ReactNode;
+  experiences: Experience[];
+}> = ({ title, icon, experiences }) => {
+  return (
+    <div>
+      <div data-h2-display="b(flex)" data-h2-margin="b(top-bottom, m)">
+        {icon}
+        <p
+          data-h2-font-size="b(h4)"
+          data-h2-margin="b(all, none)"
+          data-h2-padding="b(left, s)"
+        >
+          {title}
+        </p>
+      </div>
+      <div
+        data-h2-radius="b(s)"
+        data-h2-bg-color="b(lightgray)"
+        data-h2-padding="b(top-bottom, xxs) b(right-left, xs)"
+      >
+        {experiences.map((experience) => (
+          <ExperienceAccordion key={experience.id} experience={experience} />
+        ))}
+      </div>
+    </div>
+  );
+};
 export interface ExperienceAndSkillsProps {
-  awardExperiences: Omit<AwardExperience, "applicant">[];
-  communityExperiences: Omit<CommunityExperience, "applicant">[];
-  educationExperiences: Omit<EducationExperience, "applicant">[];
-  personalExperience: Omit<PersonalExperience, "applicant">[];
-  workExperience: Omit<WorkExperience, "applicant">[];
+  experiences?: Experience[];
 }
 
 const ExperienceAndSkills: React.FunctionComponent<
   ExperienceAndSkillsProps
-> = ({
-  awardExperiences,
-  communityExperiences,
-  educationExperiences,
-  personalExperience,
-  workExperience,
-}) => {
+> = ({ experiences }) => {
   const intl = useIntl();
+  const compareByDate = (e1: any, e2: any) =>
+    e1.endDate && e2.endDate
+      ? new Date(e2.endDate).getTime() - new Date(e1.endDate).getTime()
+      : 0;
+  const awardExperiences =
+    experiences
+      ?.filter((experience) => isAwardExperience(experience))
+      .map(
+        (award: AwardExperience) =>
+          ({
+            ...award,
+            endDate: award.awardedDate,
+          } as AwardExperience),
+      )
+      .sort(compareByDate) || [];
+  const communityExperiences =
+    experiences
+      ?.filter((experience) => isCommunityExperience(experience))
+      .sort(compareByDate) || [];
+  const educationExperiences =
+    experiences
+      ?.filter((experience) => isEducationExperience(experience))
+      .sort(compareByDate) || [];
+  const personalExperiences =
+    experiences
+      ?.filter((experience) => isPersonalExperience(experience))
+      .sort(compareByDate) || [];
+  const workExperiences =
+    experiences
+      ?.filter((experience) => isWorkExperience(experience))
+      .sort(compareByDate) || [];
+
   const links = [
     {
       href: "/",
@@ -47,7 +104,7 @@ const ExperienceAndSkills: React.FunctionComponent<
         defaultMessage: "Personal",
         description: "Title for personal experience form button.",
       }),
-      icon: <LightBulbIcon style={{ width: "1rem" }} />,
+      icon: <LightBulbIcon style={{ width: "1.5rem" }} />,
     },
     {
       href: "/",
@@ -55,7 +112,7 @@ const ExperienceAndSkills: React.FunctionComponent<
         defaultMessage: "Community",
         description: "Title for community experience form button.",
       }),
-      icon: <UserGroupIcon style={{ width: "1rem" }} />,
+      icon: <UserGroupIcon style={{ width: "1.5rem" }} />,
     },
     {
       href: "/",
@@ -63,7 +120,7 @@ const ExperienceAndSkills: React.FunctionComponent<
         defaultMessage: "Work",
         description: "Title for work experience form button.",
       }),
-      icon: <BriefcaseIcon style={{ width: "1rem" }} />,
+      icon: <BriefcaseIcon style={{ width: "1.5rem" }} />,
     },
     {
       href: "/",
@@ -71,7 +128,7 @@ const ExperienceAndSkills: React.FunctionComponent<
         defaultMessage: "Education",
         description: "Title for education experience form button.",
       }),
-      icon: <BookOpenIcon style={{ width: "1rem" }} />,
+      icon: <BookOpenIcon style={{ width: "1.5rem" }} />,
     },
     {
       href: "/",
@@ -79,21 +136,33 @@ const ExperienceAndSkills: React.FunctionComponent<
         defaultMessage: "Award",
         description: "Title for award experience form button.",
       }),
-      icon: <StarIcon style={{ width: "1rem" }} />,
+      icon: <StarIcon style={{ width: "1.5rem" }} />,
     },
   ];
 
-  const allExperiences: Omit<Experience, "applicant">[] = [
+  const allExperiences = [
     ...awardExperiences,
     ...communityExperiences,
     ...educationExperiences,
-    ...personalExperience,
-    ...workExperience,
+    ...personalExperiences,
+    ...workExperiences,
   ];
 
-  const sortedByType = allExperiences.sort(); // TODO: Sort by type
-  const sortedByDate = allExperiences.sort(); // TODO: Sort by date
-  const sortedBySkills = allExperiences.sort(); // TODO: Sort by Skills
+  const sortedByDate = allExperiences.sort(compareByDate);
+
+  const allSkills: Skill[] =
+    experiences?.reduce((accumulator: Skill[], currentValue: Experience) => {
+      const skills =
+        currentValue.experienceSkills
+          ?.filter(notEmpty)
+          .map((experienceSkill) => experienceSkill.skill) || [];
+
+      return [...accumulator, ...skills];
+    }, []) || [];
+  const skillIds = allSkills.map(({ id }) => id);
+  const sortedBySkills = allSkills.filter(
+    ({ id }, index) => !skillIds.includes(id, index + 1),
+  );
 
   return (
     <ProfileFormWrapper
@@ -113,12 +182,16 @@ const ExperienceAndSkills: React.FunctionComponent<
           "Description for the experience and skills page in applicant profile.",
       })}
       title={intl.formatMessage({
-        defaultMessage: "Experience and Skills",
+        defaultMessage: "My experience and skills",
         description:
           "Heading for experience and skills page in applicant profile.",
       })}
     >
-      <div data-h2-display="b(flex)" data-h2-align-items="b(center)">
+      <div
+        data-h2-display="b(flex)"
+        data-h2-align-items="b(center)"
+        data-h2-flex-direction="b(column) m(row)"
+      >
         <p
           data-h2-font-style="b(reset)"
           data-h2-font-weight="b(700)"
@@ -131,20 +204,26 @@ const ExperienceAndSkills: React.FunctionComponent<
           })}
         </p>
         <div
-          data-h2-margin="b(top-bottom, m) b(left, m)"
+          data-h2-margin="b(bottom, m) s(top, m) s(left, m)"
           data-h2-padding="b(all, m)"
           data-h2-display="b(flex)"
-          data-h2-justify-content="b(space-between)"
+          data-h2-flex-direction="b(column) s(row)"
+          data-h2-justify-content="b(center) m(space-between)"
           data-h2-radius="b(s)"
           data-h2-bg-color="b(lightgray)"
           style={{ flexGrow: "2" }}
         >
           {links.map(({ title, href, icon }) => (
-            <a key={title} href={href} title={title} data-h2-display="b(flex)">
+            <a
+              key={title}
+              href={href}
+              title={title}
+              data-h2-display="b(flex)"
+              data-h2-align-items="b(center)"
+              data-h2-margin="b(top-bottom, xs) m(top-bottom, none)"
+            >
               {icon}
-              <span data-h2-padding="b(left, xxs) b(top-bottom, xs) b(right, xs)">
-                {title}
-              </span>
+              <span data-h2-padding="b(left, xxs) b(right, xs)">{title}</span>
             </a>
           ))}
         </div>
@@ -169,10 +248,13 @@ const ExperienceAndSkills: React.FunctionComponent<
             <div
               data-h2-radius="b(s)"
               data-h2-bg-color="b(lightgray)"
-              data-h2-padding="b(all, m)"
+              data-h2-padding="b(top-bottom, xxs) b(right-left, xs)"
             >
-              {sortedByDate.map(({ id }) => (
-                <div key={id}>Replace with Accordion</div>
+              {sortedByDate.map((experience) => (
+                <ExperienceAccordion
+                  key={experience.id}
+                  experience={experience}
+                />
               ))}
             </div>
           </Tab>
@@ -183,15 +265,31 @@ const ExperienceAndSkills: React.FunctionComponent<
                 "Tab title for experiences sorted by type in applicant profile.",
             })}
           >
-            <div
-              data-h2-radius="b(s)"
-              data-h2-bg-color="b(lightgray)"
-              data-h2-padding="b(all, m)"
-            >
-              {sortedByType.map(({ id }) => (
-                <div key={id}>Replace with Accordion</div>
-              ))}
-            </div>
+            <ExperienceByType
+              title={intl.formatMessage({ defaultMessage: "Personal" })}
+              icon={<LightBulbIcon style={{ width: "1.5rem" }} />}
+              experiences={personalExperiences}
+            />
+            <ExperienceByType
+              title={intl.formatMessage({ defaultMessage: "Community" })}
+              icon={<UserGroupIcon style={{ width: "1.5rem" }} />}
+              experiences={communityExperiences}
+            />
+            <ExperienceByType
+              title={intl.formatMessage({ defaultMessage: "Work" })}
+              icon={<BriefcaseIcon style={{ width: "1.5rem" }} />}
+              experiences={workExperiences}
+            />
+            <ExperienceByType
+              title={intl.formatMessage({ defaultMessage: "Education" })}
+              icon={<BookOpenIcon style={{ width: "1.5rem" }} />}
+              experiences={educationExperiences}
+            />
+            <ExperienceByType
+              title={intl.formatMessage({ defaultMessage: "Award" })}
+              icon={<StarIcon style={{ width: "1.5rem" }} />}
+              experiences={awardExperiences}
+            />
           </Tab>
           <Tab
             text={intl.formatMessage({
@@ -203,10 +301,10 @@ const ExperienceAndSkills: React.FunctionComponent<
             <div
               data-h2-radius="b(s)"
               data-h2-bg-color="b(lightgray)"
-              data-h2-padding="b(all, m)"
+              data-h2-padding="b(top-bottom, xxs) b(right-left, xs)"
             >
-              {sortedBySkills.map(({ id }) => (
-                <div key={id}>Replace with Accordion</div>
+              {sortedBySkills.map((skill) => (
+                <SkillAccordion key={skill.id} skill={skill} />
               ))}
             </div>
           </Tab>
@@ -239,17 +337,7 @@ export const ExperienceAndSkillsApi: React.FunctionComponent<{
 }> = ({ applicantId }) => {
   const intl = useIntl();
   const [{ data: applicantData, fetching, error }] =
-    useGetApplicantExperiencesByTypeQuery({ variables: { id: applicantId } });
-  const { applicant } = applicantData ?? { applicant: null }; // TODO: This shorthand might be wrong...
-
-  const awardExperiences = applicant?.awardExperiences?.filter(notEmpty) ?? [];
-  const communityExperiences =
-    applicant?.communityExperiences?.filter(notEmpty) ?? [];
-  const educationExperiences =
-    applicant?.educationExperiences?.filter(notEmpty) ?? [];
-  const personalExperiences =
-    applicant?.personalExperiences?.filter(notEmpty) ?? [];
-  const workExperiences = applicant?.workExperiences?.filter(notEmpty) ?? [];
+    useGetAllApplicantExperiencesQuery({ variables: { id: applicantId } });
 
   if (fetching) return <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>;
   if (error)
@@ -261,11 +349,7 @@ export const ExperienceAndSkillsApi: React.FunctionComponent<{
     );
   return applicantData?.applicant ? (
     <ExperienceAndSkills
-      awardExperiences={awardExperiences}
-      communityExperiences={communityExperiences}
-      educationExperiences={educationExperiences}
-      personalExperience={personalExperiences}
-      workExperience={workExperiences}
+      experiences={applicantData.applicant.experiences?.filter(notEmpty)}
     />
   ) : (
     <p>

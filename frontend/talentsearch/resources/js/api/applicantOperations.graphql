@@ -18,12 +18,21 @@ fragment experienceSkills on ExperienceSkill {
     }
   }
 }
+
+fragment applicant on Applicant {
+  id
+  email
+}
+
 query getAllApplicantExperiences($id: ID!) {
   applicant(id: $id) {
     id
     experiences {
       id
       details
+      applicant {
+        ...applicant
+      }
       experienceSkills {
         ...experienceSkills
       }
@@ -35,6 +44,9 @@ query getAllApplicantExperiences($id: ID!) {
 				awardedTo
         awardedScope
         details
+        applicant {
+          ...applicant
+        }
       }
     	... on CommunityExperience {
       	title
@@ -43,7 +55,9 @@ query getAllApplicantExperiences($id: ID!) {
         startDate
         endDate
         details
-
+        applicant {
+          ...applicant
+        }
     	}
       ... on EducationExperience {
         institution
@@ -54,6 +68,9 @@ query getAllApplicantExperiences($id: ID!) {
         type
         status
         details
+        applicant {
+          ...applicant
+        }
       }
       ... on PersonalExperience {
         title
@@ -61,6 +78,9 @@ query getAllApplicantExperiences($id: ID!) {
         startDate
         endDate
         details
+        applicant {
+          ...applicant
+        }
       }
       ... on WorkExperience {
         role
@@ -69,12 +89,14 @@ query getAllApplicantExperiences($id: ID!) {
         startDate
         endDate
         details
+        applicant {
+          ...applicant
+        }
       }
     }
   }
 }
 
-# Write your query or mutation here
 query getApplicantExperiencesByType($id: ID!) {
   applicant(id: $id) {
     awardExperiences {
