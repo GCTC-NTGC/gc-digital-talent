@@ -16,6 +16,7 @@ import {
 } from "../applicantProfileRoutes";
 import RequestPage from "./request/RequestPage";
 import { ProfilePageApi } from "./profile/ProfilePage/ProfilePage";
+import WorkLocationPreferenceApi from "./workLocationPreferenceForm/WorkLocationPreferenceForm";
 
 const routes = (
   talentPaths: TalentSearchRoutes,
@@ -46,6 +47,12 @@ const routes = (
       component: <ProfilePageApi />,
     }),
   },
+  {
+    path: profilePaths.workLocation(":id"),
+    action: ({ params }) => ({
+      component: <WorkLocationPreferenceApi userId={params.id as string} />,
+    }),
+  },
 ];
 
 export const Router: React.FC = () => {
@@ -67,6 +74,14 @@ export const Router: React.FC = () => {
       href={talentPaths.request()}
       text={intl.formatMessage({
         defaultMessage: "Request",
+        description: "Label displayed on the Request menu item.",
+      })}
+    />,
+    <MenuLink
+      key="request"
+      href={profilePaths.home()}
+      text={intl.formatMessage({
+        defaultMessage: "Profile",
         description: "Label displayed on the Request menu item.",
       })}
     />,

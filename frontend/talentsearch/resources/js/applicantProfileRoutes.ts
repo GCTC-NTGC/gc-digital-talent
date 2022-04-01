@@ -14,7 +14,8 @@ const applicantProfileRoutes = (lang: string) => {
       path.join(home(), "language-information"),
     governmentInformation: (): string =>
       path.join(home(), "government-information"),
-    workLocation: (): string => path.join(home(), "work-location"),
+    workLocation: (id: string): string =>
+      path.join(home(), "work-location", id, "edit"),
     workPreferences: (): string => path.join(home(), "work-preferences"),
     diversityAndInclusion: (): string =>
       path.join(home(), "diversity-and-inclusion"),
@@ -23,10 +24,6 @@ const applicantProfileRoutes = (lang: string) => {
   };
 };
 
-/**
- * A hook version of talentSearchRoutes which gets the locale from the intl context.
- * @returns TalentSearchRoutes
- */
 export const useApplicantProfileRoutes = (): ApplicantProfileRoutes => {
   const intl = useIntl();
   const locale = getLocale(intl);

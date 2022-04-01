@@ -105,7 +105,7 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({
             </a>
           </p>
           <p>
-            <a href="#work-location-section">
+            <a href={paths.workLocation()}>
               {intl.formatMessage({
                 defaultMessage: "Work Location",
                 description: "Title of the Work Location section",
