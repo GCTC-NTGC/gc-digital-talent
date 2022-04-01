@@ -206,7 +206,7 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({
 
   // generate array of pool candidates
   const candidateArray = poolCandidates
-    ? poolCandidates.map((iterator) => (
+    ? poolCandidates.map((poolCandidate) => (
         <div
           key={Math.random()}
           data-h2-display="b(flex)"
@@ -216,18 +216,18 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({
         >
           <div>
             <p>
-              {iterator
-                ? iterator.pool?.name
-                  ? iterator.pool.name[locale]
+              {poolCandidate
+                ? poolCandidate.pool?.name
+                  ? poolCandidate.pool.name[locale]
                   : ""
                 : ""}{" "}
             </p>
           </div>
           <div>
-            <p>ID: {iterator?.id}</p>
+            <p>ID: {poolCandidate?.id}</p>
           </div>
           <div>
-            <p>Expiry: {iterator?.expiryDate}</p>
+            <p>Expiry: {poolCandidate?.expiryDate}</p>
           </div>
         </div>
       ))
@@ -235,9 +235,9 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({
 
   // generate array of accepted operational requirements
   const acceptedOperationalArray = acceptedOperationalRequirements
-    ? acceptedOperationalRequirements.map((iterator) => (
+    ? acceptedOperationalRequirements.map((opRequirement) => (
         <li data-h2-font-weight="b(700)" key={Math.random()}>
-          {iterator ? iterator.name[locale] : ""}
+          {opRequirement ? opRequirement.name[locale] : ""}
         </li>
       ))
     : null;
@@ -382,7 +382,9 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({
                 {(candidateArray === null || candidateArray.length === 0) && (
                   <p>You have not been accepted into any hiring pools yet.</p>
                 )}
-                {candidateArray !== null && candidateArray}
+                {candidateArray !== null &&
+                  candidateArray.length !== 0 &&
+                  candidateArray}
               </div>
             </div>
             <div id="about-me-section">
@@ -455,8 +457,9 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({
                   currentCity === null ||
                   currentProvince === null) && (
                   <p>
-                    There are required fields missing. Click here to get
-                    started.
+                    There are <span data-h2-font-color="b(red)">required</span>{" "}
+                    fields missing.{" "}
+                    <a href={paths.aboutMe()}>Click here to get started</a>.
                   </p>
                 )}
               </div>
@@ -563,8 +566,13 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({
                   lookingForFrench === null &&
                   lookingForBilingual === null && (
                     <p>
-                      There are required fields missing. Click here to get
-                      started.
+                      There are{" "}
+                      <span data-h2-font-color="b(red)">required</span> fields
+                      missing.{" "}
+                      <a href={paths.languageInformation()}>
+                        Click here to get started
+                      </a>
+                      .
                     </p>
                   )}
               </div>
@@ -683,8 +691,10 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({
                 </p>
                 {locationPreferences === null && (
                   <p>
-                    There are required fields missing. Click here to get
-                    started.
+                    There are <span data-h2-font-color="b(red)">required</span>{" "}
+                    fields missing.{" "}
+                    <a href={paths.workLocation()}>Click here to get started</a>
+                    .
                   </p>
                 )}
               </div>
@@ -724,17 +734,21 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({
                     Any duration (short, long term, or indeterminate duration)
                   </p>
                 )}
-                {!wouldAcceptTemporary && (
+                {!wouldAcceptTemporary && wouldAcceptTemporary !== null && (
                   <p data-h2-font-weight="b(700)">Permanent duration</p>
                 )}
                 <p>I would consider accepting a job that:</p>
-                <p>{acceptedOperationalArray}</p>
+                <ul data-h2-padding="b(left, l)">{acceptedOperationalArray}</ul>
                 {(wouldAcceptTemporary === null ||
                   acceptedOperationalArray === null ||
                   acceptedOperationalArray.length === 0) && (
                   <p>
-                    There are required fields missing. Click here to get
-                    started.
+                    There are <span data-h2-font-color="b(red)">required</span>{" "}
+                    fields missing.{" "}
+                    <a href={paths.workPreferences()}>
+                      Click here to get started
+                    </a>
+                    .
                   </p>
                 )}
               </div>
