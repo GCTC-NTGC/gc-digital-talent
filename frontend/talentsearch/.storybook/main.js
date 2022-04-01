@@ -20,10 +20,10 @@ const reactIntlTransformRule = {
 };
 
 module.exports = {
-  "staticDirs": [ { from: '../public', to: '/talent/public' } ],
+  "staticDirs": [ { from: '../src', to: '/talent' } ],
   "stories": [
-    "../resources/js/**/*.stories.mdx",
-    "../resources/js/**/*.stories.@(js|jsx|ts|tsx)"
+    "../src/js/**/*.stories.mdx",
+    "../src/js/**/*.stories.@(js|jsx|ts|tsx)"
   ],
   "addons": [
     "@storybook/addon-links",
