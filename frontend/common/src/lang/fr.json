@@ -18,10 +18,6 @@
     "defaultMessage": "Minorité visible",
     "description": "Message for visible minority option in the employment equity section of the request page."
   },
-  "6J4dZz": {
-    "defaultMessage": "Erreur : Nom de l’exigence opérationnelle introuvable",
-    "description": "Error message when operational requirement name is not found on request page."
-  },
   "7GRDML": {
     "defaultMessage": "Autochtone",
     "description": "Message for indigenous option in the employment equity section of the request page."
@@ -382,5 +378,29 @@
   "rGTGvl": {
     "defaultMessage": "Soumis",
     "description": "Default text for submitted button."
+  },
+  "3HAFul": {
+    "defaultMessage": "Déplacements selon les besoins",
+    "description": "The operational requirement described as travel as required."
+  },
+  "8QkGEF": {
+    "defaultMessage": "Transport de matériel jusqu'à 20 kg",
+    "description": "The operational requirement described as transport equipment up to 20kg."
+  },
+  "Dk5E2+": {
+    "defaultMessage": "Garde 24/7",
+    "description": "The operational requirement described as 24/7 on-call."
+  },
+  "hCy99h": {
+    "defaultMessage": "Travail posté",
+    "description": "The operational requirement described as shift work."
+  },
+  "uD2AqA": {
+    "defaultMessage": "Heures supplémentaires selon les besoins",
+    "description": "The operational requirement described as overtime."
+  },
+  "vhFe42": {
+    "defaultMessage": "Permis de conduire",
+    "description": "The operational requirement described as driver's license."
   }
 }
