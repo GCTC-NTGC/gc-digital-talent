@@ -52,9 +52,10 @@ const Pagination: React.FunctionComponent<PaginationProps> = ({
     siblingCount,
     pageSize,
   });
+  const totalPageCount = Math.ceil(totalCount / pageSize);
 
   // If there are less than 2 times in pagination range we shall not render the component
-  if (currentPage === 0 || totalCount < 2) {
+  if (currentPage === 0 || paginationRange.length < 2) {
     return null;
   }
 
@@ -177,7 +178,7 @@ const Pagination: React.FunctionComponent<PaginationProps> = ({
           </li>
         </ul>
       </nav>
-      <div data-h2-margin="b(bottom, s) s(bottom, none)">
+      <div data-h2-margin="b(bottom, s) s(right, s) s(bottom, none)">
         <span>
           {intl.formatMessage({
             defaultMessage: "Go to page:",
@@ -191,7 +192,7 @@ const Pagination: React.FunctionComponent<PaginationProps> = ({
               handlePageChange(p);
             }}
             min={1}
-            max={paginationRange.length}
+            max={totalPageCount}
             style={{ width: "65px" }}
           />
         </span>
