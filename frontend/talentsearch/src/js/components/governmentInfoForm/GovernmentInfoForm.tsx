@@ -6,18 +6,18 @@ import {
   FormProvider,
   useForm,
 } from "react-hook-form";
-import { errorMessages } from "@common/messages";
+import { errorMessages, commonMessages } from "@common/messages";
 import { Checkbox, RadioGroup, Select } from "@common/components/form";
 import { getLocale } from "@common/helpers/localize";
 import { toast } from "react-toastify";
 import { notEmpty } from "@common/helpers/util";
 import { navigate } from "@common/helpers/router";
+
 import {
   Classification,
-  useGetAllClassificationsQuery,
+  useGetAllClassificationsAndMeQuery,
   useUpdateGovAsUserMutation,
   UpdateUserAsUserInput,
-  useGetMeGovernmentInfoQuery,
 } from "../../api/generated";
 import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
 import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
@@ -283,8 +283,8 @@ export const GovInfoFormContainer: React.FunctionComponent = () => {
   const locale = getLocale(intl);
   const paths = talentSearchRoutes(locale);
 
-  // acquire classifications from graphQL to pass into component to render
-  const [lookUpResult] = useGetAllClassificationsQuery();
+  // acquire classifications from graphQL to pass into component to render and pull "Me" at the same time
+  const [lookUpResult] = useGetAllClassificationsAndMeQuery();
   const {
     data: lookupData,
     fetching: fetchingLookupData,
@@ -292,17 +292,14 @@ export const GovInfoFormContainer: React.FunctionComponent = () => {
   } = lookUpResult;
   const classifications: Classification[] | [] =
     lookupData?.classifications.filter(notEmpty) ?? [];
-
-  // acquire prior info if applicable, including id of "me"
-  const callGetMeQuery = useGetMeGovernmentInfoQuery();
-  const fetchingMe = callGetMeQuery[0].fetching;
-  const holder = callGetMeQuery[0].data?.me;
+  const meInfo = lookupData?.me;
+  const meId = meInfo?.id;
   const previousData = {
-    isGovEmployee: holder?.isGovEmployee,
-    interestedInLaterOrSecondment: holder?.interestedInLaterOrSecondment,
+    isGovEmployee: meInfo?.isGovEmployee,
+    interestedInLaterOrSecondment: meInfo?.interestedInLaterOrSecondment,
     currentClassification: {
-      group: holder?.currentClassification?.group,
-      level: holder?.currentClassification?.level,
+      group: meInfo?.currentClassification?.group,
+      level: meInfo?.currentClassification?.level,
     },
   };
 
@@ -331,6 +328,8 @@ export const GovInfoFormContainer: React.FunctionComponent = () => {
       }
       return Promise.reject(result.error);
     });
+  // various IF statements are to clean up cases where user toggles the conditionally rendered stuff before submitting
+  // IE, picks term position and CS-01, then picks not a government employee before submitting, the conditionally rendered stuff still exists and can get submitted
   const formValuesToSubmitData = (
     values: FormValues,
   ): UpdateUserAsUserInput => {
@@ -338,6 +337,31 @@ export const GovInfoFormContainer: React.FunctionComponent = () => {
       values.currentClassificationGroup,
       values.currentClassificationLevel,
     );
+    if (values.govEmployeeYesNo === "no") {
+      return {
+        isGovEmployee: false,
+        interestedInLaterOrSecondment: null,
+        currentClassification: null,
+      };
+    }
+    if (values.govEmployeeType === "student") {
+      return {
+        isGovEmployee: values.govEmployeeYesNo === "yes",
+        interestedInLaterOrSecondment: null,
+        currentClassification: null,
+      };
+    }
+    if (values.govEmployeeType === "casual") {
+      return {
+        isGovEmployee: values.govEmployeeYesNo === "yes",
+        interestedInLaterOrSecondment: null,
+        currentClassification: classificationId
+          ? {
+              connect: classificationId,
+            }
+          : null,
+      };
+    }
     return {
       isGovEmployee: values.govEmployeeYesNo === "yes",
       interestedInLaterOrSecondment: values.lateralDeployBool,
@@ -348,7 +372,7 @@ export const GovInfoFormContainer: React.FunctionComponent = () => {
         : null,
     };
   };
-  const id = holder ? holder.id : "";
+  const id = meId || "";
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
     // tristan's suggestion to short-circuit this function if there is no id
     if (id === "") {
@@ -382,15 +406,8 @@ export const GovInfoFormContainer: React.FunctionComponent = () => {
       });
   };
 
-  if (fetchingLookupData || fetchingMe) {
-    return (
-      <p>
-        {intl.formatMessage({
-          defaultMessage: "Loading...",
-          description: "Loading message",
-        })}
-      </p>
-    );
+  if (fetchingLookupData) {
+    return <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>;
   }
 
   return (
