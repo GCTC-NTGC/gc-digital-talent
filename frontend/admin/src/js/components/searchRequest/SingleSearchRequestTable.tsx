@@ -6,6 +6,7 @@ import { navigate } from "@common/helpers/router";
 import { commonMessages } from "@common/messages";
 import { FromArray } from "@common/types/utilityTypes";
 import { getLocale } from "@common/helpers/localize";
+import { getOperationalRequirement } from "@common/constants/localizedConstants";
 import {
   SearchPoolCandidatesQuery,
   useSearchPoolCandidatesQuery,
@@ -98,17 +99,16 @@ export const SingleSearchRequestTable: React.FunctionComponent<
         accessor: ({ acceptedOperationalRequirements }) =>
           acceptedOperationalRequirements?.map((operationalRequirement) => {
             return (
-              <Pill
-                key={operationalRequirement?.key}
-                color="primary"
-                mode="outline"
-              >
-                {operationalRequirement?.name?.[locale] ||
-                  intl.formatMessage({
-                    defaultMessage: "Error: Name not found.",
-                    description:
-                      "Error message displayed on the single search request table operational requirements column.",
-                  })}
+              <Pill key={operationalRequirement} color="primary" mode="outline">
+                {intl.formatMessage(
+                  operationalRequirement
+                    ? getOperationalRequirement(operationalRequirement)
+                    : {
+                        defaultMessage: "Error: Name not found.",
+                        description:
+                          "Error message displayed on the single search request table operational requirements column.",
+                      },
+                )}
               </Pill>
             );
           }),

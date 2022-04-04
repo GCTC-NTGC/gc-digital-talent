@@ -194,17 +194,7 @@ export const SingleSearchRequest: React.FunctionComponent<
           })
         : []),
     ],
-    operationalRequirements: [
-      ...(poolCandidateFilter.operationalRequirements
-        ? poolCandidateFilter.operationalRequirements
-            .filter(notEmpty)
-            .map(({ key }) => {
-              return {
-                key,
-              };
-            })
-        : []),
-    ],
+    operationalRequirements: poolCandidateFilter.operationalRequirements,
     pools: [
       ...(poolCandidateFilter.pools
         ? poolCandidateFilter.pools.filter(notEmpty).map(({ id }) => {

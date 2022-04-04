@@ -33,13 +33,7 @@ fragment poolCandidateTable on PoolCandidate {
   hasDiploma,
   languageAbility,
   locationPreferences,
-  acceptedOperationalRequirements {
-    id,
-    name {
-      en,
-      fr
-    }
-  },
+  acceptedOperationalRequirements
   expectedSalary,
   expectedClassifications {
     id,
@@ -82,14 +76,7 @@ fragment poolCandidateForm on PoolCandidate {
   hasDiploma
   languageAbility
   locationPreferences
-  acceptedOperationalRequirements {
-    id
-    key
-    name {
-      en
-      fr
-    }
-  }
+  acceptedOperationalRequirements
   expectedSalary
   expectedClassifications {
     id
@@ -140,14 +127,6 @@ query getCreatePoolCandidateData {
       fr
     }
   }
-  operationalRequirements {
-    id
-    key
-    name {
-      en
-      fr
-    }
-  }
   pools {
     id
     name {
@@ -172,14 +151,6 @@ query getUpdatePoolCandidateData($id: ID!) {
     level
   }
   cmoAssets {
-    id
-    key
-    name {
-      en
-      fr
-    }
-  }
-  operationalRequirements {
     id
     key
     name {
@@ -225,9 +196,7 @@ mutation createPoolCandidate($poolCandidate: CreatePoolCandidateAsAdminInput!) {
     hasDiploma
     languageAbility
     locationPreferences
-    acceptedOperationalRequirements {
-      id
-    }
+    acceptedOperationalRequirements
     expectedSalary
     expectedClassifications {
       id
@@ -253,9 +222,7 @@ mutation updatePoolCandidate(
     hasDiploma
     languageAbility
     locationPreferences
-    acceptedOperationalRequirements {
-      id
-    }
+    acceptedOperationalRequirements
     expectedSalary
     expectedClassifications {
       id

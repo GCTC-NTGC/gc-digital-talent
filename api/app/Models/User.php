@@ -46,6 +46,7 @@ use Illuminate\Auth\Authenticatable as AuthenticatableTrait;
  * @property string $location_exemptions
  * @property array $expected_salary
  * @property boolean $would_accept_temporary
+ * @property array $accepted_operational_requirements
  * @property Illuminate\Support\Carbon $created_at
  * @property Illuminate\Support\Carbon $updated_at
  */
@@ -62,6 +63,7 @@ class User extends Model implements Authenticatable
         'roles' => 'array',
         'location_preferences' => 'array',
         'expected_salary' => 'array',
+        'accepted_operational_requirements' => 'array',
     ];
 
     public function pools(): HasMany
@@ -75,10 +77,6 @@ class User extends Model implements Authenticatable
     public function currentClassification(): BelongsTo
     {
         return $this->belongsTo(Classification::class, "current_classification");
-    }
-    public function acceptedOperationalRequirements(): BelongsToMany
-    {
-        return $this->belongsToMany(OperationalRequirement::class, 'operational_requirement_user')->withTimestamps();
     }
     public function expectedClassifications(): BelongsToMany
     {

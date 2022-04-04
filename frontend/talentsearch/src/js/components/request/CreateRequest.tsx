@@ -47,9 +47,7 @@ type FormValues = {
     isVisibleMinority?: PoolCandidateFilter["isVisibleMinority"];
     isWoman?: PoolCandidateFilter["isWoman"];
     languageAbility?: PoolCandidateFilter["languageAbility"];
-    operationalRequirements?: {
-      sync?: Array<Maybe<OperationalRequirement["id"]>>;
-    };
+    operationalRequirements?: Array<Maybe<OperationalRequirement>>;
     pools?: {
       sync?: Array<Maybe<Pool["id"]>>;
     };
@@ -133,13 +131,7 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
             ? poolCandidateFilter?.isWoman
             : false,
           languageAbility: poolCandidateFilter?.languageAbility,
-          operationalRequirements: {
-            sync: poolCandidateFilter?.operationalRequirements
-              ? poolCandidateFilter?.operationalRequirements
-                  ?.filter(notEmpty)
-                  .map(({ id }) => id)
-              : [],
-          },
+          operationalRequirements: poolCandidateFilter?.operationalRequirements,
           pools: {
             sync: poolCandidateFilter?.pools
               ? poolCandidateFilter?.pools?.filter(notEmpty).map(({ id }) => id)

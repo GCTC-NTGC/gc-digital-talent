@@ -42,6 +42,7 @@ type FormValues = Pick<
   | "languageAbility"
   | "lastName"
   | "locationExemptions"
+  | "acceptedOperationalRequirements"
   | "locationPreferences"
   | "lookingForBilingual"
   | "lookingForEnglish"
@@ -54,7 +55,6 @@ type FormValues = Pick<
   | "writtenLevel"
   | "sub"
 > & {
-  acceptedOperationalRequirements: string[] | undefined;
   cmoAssets: string[] | undefined;
   currentClassification: string;
   expectedClassifications: string[] | undefined;
@@ -78,10 +78,6 @@ export const UpdateUserForm: React.FunctionComponent<UpdateUserFormProps> = ({
 
   const dataToFormValues = (data: User): FormValues => ({
     ...data,
-
-    acceptedOperationalRequirements: unpackIds(
-      data.acceptedOperationalRequirements,
-    ),
     cmoAssets: unpackIds(data.cmoAssets),
     currentClassification: data.currentClassification
       ? data.currentClassification.id
@@ -95,9 +91,6 @@ export const UpdateUserForm: React.FunctionComponent<UpdateUserFormProps> = ({
     values: FormValues,
   ): UpdateUserAsAdminInput => ({
     ...values,
-    acceptedOperationalRequirements: {
-      sync: values.acceptedOperationalRequirements,
-    },
     cmoAssets: {
       sync: values.cmoAssets,
     },

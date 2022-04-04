@@ -5,8 +5,8 @@ namespace Database\Factories;
 use App\Models\User;
 use App\Models\Classification;
 use App\Models\CmoAsset;
-use App\Models\OperationalRequirement;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Database\Helpers\EnumsForFactories;
 
 class UserFactory extends Factory
 {
@@ -119,6 +119,7 @@ class UserFactory extends Factory
                 3
             ),
             'would_accept_temporary' => $this->faker->boolean(),
+            'accepted_operational_requirements' => $this->faker->optional->randomElements(EnumsForFactories::operationalRequirements(), 2),
         ];
     }
 }

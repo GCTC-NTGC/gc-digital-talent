@@ -40,13 +40,6 @@ query getSearchFormData($poolKey: String!) {
         fr
       }
     }
-    operationalRequirements {
-      id
-      key
-      name {
-        en
-        fr
-      }
-    }
+    operationalRequirements
   }
 }

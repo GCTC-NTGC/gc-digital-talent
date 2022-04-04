@@ -14,7 +14,6 @@ class ProdSeeder extends Seeder
     public function run()
     {
         $this->call(CmoAssetSeeder::class);
-        $this->call(OperationalRequirementSeeder::class);
         $this->call(DepartmentSeeder::class);
     }
 }

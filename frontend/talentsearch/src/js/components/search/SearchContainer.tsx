@@ -6,7 +6,6 @@ import { pushToStateThenNavigate } from "@common/helpers/router";
 import {
   Classification,
   CmoAsset,
-  OperationalRequirement,
   useGetSearchFormDataQuery,
   useCountPoolCandidatesQuery,
   CountPoolCandidatesQueryVariables,
@@ -24,7 +23,6 @@ import { useTalentSearchRoutes } from "../../talentSearchRoutes";
 export interface SearchContainerProps {
   classifications: Classification[];
   cmoAssets: CmoAsset[];
-  operationalRequirements: OperationalRequirement[];
   pool?: Pick<Pool, "name" | "description">;
   poolOwner?: Pick<UserPublicProfile, "firstName" | "lastName" | "email">;
   candidateCount: number;
@@ -38,7 +36,6 @@ export interface SearchContainerProps {
 export const SearchContainer: React.FC<SearchContainerProps> = ({
   classifications,
   cmoAssets,
-  operationalRequirements,
   pool,
   poolOwner,
   candidateCount,
@@ -104,7 +101,6 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
           <SearchForm
             classifications={classifications}
             cmoAssets={cmoAssets}
-            operationalRequirements={operationalRequirements}
             updateCandidateFilter={updateCandidateFilter}
             updateInitialValues={updateInitialValues}
           />
@@ -221,7 +217,6 @@ const candidateFilterToQueryArgs = (
       ...filter,
       classifications: pickMap(filter.classifications, ["group", "level"]),
       cmoAssets: pickMap(filter.cmoAssets, "key"),
-      operationalRequirements: pickMap(filter.operationalRequirements, "key"),
       pools: poolId ? [{ id: poolId }] : pickMap(filter.pools, "id"),
     },
   };
@@ -259,9 +254,6 @@ export const SearchContainerApi: React.FC = () => {
     <SearchContainer
       classifications={pool?.classifications?.filter(notEmpty) ?? []}
       cmoAssets={pool?.assetCriteria?.filter(notEmpty) ?? []}
-      operationalRequirements={
-        pool?.operationalRequirements?.filter(notEmpty) ?? []
-      }
       pool={pool ?? undefined}
       poolOwner={pool?.owner ?? undefined}
       candidateFilter={candidateFilter}
