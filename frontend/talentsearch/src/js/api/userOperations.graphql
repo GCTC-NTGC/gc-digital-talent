@@ -38,13 +38,7 @@ query getMe {
 	hasDiploma
 	locationPreferences
 	locationExemptions
-	acceptedOperationalRequirements {
-    id
-    name {
-      en
-      fr
-    }
-  }
+	acceptedOperationalRequirements
 	expectedSalary
 	expectedClassifications {
     id

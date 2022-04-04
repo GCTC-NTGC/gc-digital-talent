@@ -14,6 +14,14 @@ import { Link } from "@common/components";
 import commonMessages from "@common/messages/commonMessages";
 import { imageUrl } from "@common/helpers/router";
 import { getLocale } from "@common/helpers/localize";
+import {
+  getLanguage,
+  getOperationalRequirement,
+  getWorkRegion,
+  getProvinceOrTerritory,
+  getLanguageProficiency,
+} from "@common/constants/localizedConstants";
+import { insertBetween } from "@common/helpers/util";
 import TALENTSEARCH_APP_DIR from "../../../talentSearchConstants";
 import { useApplicantProfileRoutes } from "../../../applicantProfileRoutes";
 import {
@@ -23,12 +31,14 @@ import {
   JobLookingStatus,
   Language,
   LanguageAbility,
+  OperationalRequirement,
   PoolCandidateStatus,
   ProvinceOrTerritory,
   Role,
   SalaryRange,
   useGetMeQuery,
   WorkRegion,
+  User,
 } from "../../../api/generated";
 
 export interface ProfilePageProps {
@@ -81,19 +91,7 @@ export interface ProfilePageProps {
     | null
     | undefined;
   acceptedOperationalRequirements?:
-    | Array<
-        | {
-            __typename?: "OperationalRequirement";
-            id: string;
-            name: {
-              __typename?: "LocalizedString";
-              en?: string | null | undefined;
-              fr?: string | null | undefined;
-            };
-          }
-        | null
-        | undefined
-      >
+    | Array<OperationalRequirement | null | undefined>
     | null
     | undefined;
   expectedClassifications?:
@@ -162,7 +160,7 @@ export interface ProfilePageProps {
     | undefined;
 }
 
-export const ProfilePage: React.FC<ProfilePageProps> = ({
+export const ProfileForm: React.FC<ProfilePageProps> = ({
   id,
   sub,
   roles,
@@ -227,7 +225,7 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({
             <p>ID: {poolCandidate?.id}</p>
           </div>
           <div>
-            <p>Expiry: {poolCandidate?.expiryDate}</p>
+            <p>Expiry Date: {poolCandidate?.expiryDate}</p>
           </div>
         </div>
       ))
@@ -237,10 +235,21 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({
   const acceptedOperationalArray = acceptedOperationalRequirements
     ? acceptedOperationalRequirements.map((opRequirement) => (
         <li data-h2-font-weight="b(700)" key={Math.random()}>
-          {opRequirement ? opRequirement.name[locale] : ""}
+          {/* {opRequirement || ""} */}
+          {opRequirement
+            ? getOperationalRequirement(opRequirement).defaultMessage
+            : ""}
         </li>
       ))
     : null;
+
+  // generate array of location preferences localized
+  const regionPreferencesSquished = locationPreferences?.map((region) =>
+    region ? getWorkRegion(region).defaultMessage : "",
+  );
+  const regionPreferences = regionPreferencesSquished
+    ? insertBetween(", ", regionPreferencesSquished)
+    : "";
 
   return (
     <>
@@ -422,31 +431,49 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({
                   data-h2-justify-content="b(space-between)"
                 >
                   <div>
-                    <p>
-                      Name:{" "}
-                      <span data-h2-font-weight="b(700)">
-                        {firstName} {lastName}
-                      </span>
-                    </p>
-                    <p>
-                      Email: <span data-h2-font-weight="b(700)">{email}</span>
-                    </p>
-                    <p>
-                      Phone:{" "}
-                      <span data-h2-font-weight="b(700)">{telephone}</span>
-                    </p>
+                    {firstName !== null && lastName !== null && (
+                      <p>
+                        Name:{" "}
+                        <span data-h2-font-weight="b(700)">
+                          {firstName} {lastName}
+                        </span>
+                      </p>
+                    )}
+                    {email !== null && email !== undefined && (
+                      <p>
+                        Email: <span data-h2-font-weight="b(700)">{email}</span>
+                      </p>
+                    )}
+                    {telephone !== null && (
+                      <p>
+                        Phone:{" "}
+                        <span data-h2-font-weight="b(700)">{telephone}</span>
+                      </p>
+                    )}
                   </div>
                   <div>
-                    <p>
-                      Preferred Communication Language:{" "}
-                      <span data-h2-font-weight="b(700)">{preferredLang}</span>
-                    </p>
-                    <p>
-                      Current Location:{" "}
-                      <span data-h2-font-weight="b(700)">
-                        {currentCity}, {currentProvince}
-                      </span>
-                    </p>
+                    {preferredLang !== null && (
+                      <p>
+                        Preferred Communication Language:{" "}
+                        <span data-h2-font-weight="b(700)">
+                          {preferredLang
+                            ? getLanguage(preferredLang).defaultMessage
+                            : ""}
+                        </span>
+                      </p>
+                    )}
+                    {currentCity !== null && currentProvince !== null && (
+                      <p>
+                        Current Location:{" "}
+                        <span data-h2-font-weight="b(700)">
+                          {currentCity},{" "}
+                          {currentProvince
+                            ? getProvinceOrTerritory(currentProvince)
+                                .defaultMessage
+                            : ""}
+                        </span>
+                      </p>
+                    )}
                   </div>
                 </div>
                 {(firstName === null ||
@@ -558,7 +585,10 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({
                   <p>
                     Second language level:{" "}
                     <span data-h2-font-weight="b(700)">
-                      {estimatedLanguageAbility}
+                      {estimatedLanguageAbility
+                        ? getLanguageProficiency(estimatedLanguageAbility)
+                            .defaultMessage
+                        : ""}
                     </span>
                   </p>
                 )}
@@ -679,17 +709,26 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({
                 data-h2-padding="b(all, m)"
                 data-h2-radius="b(s)"
               >
-                <p>
-                  Work location:{" "}
-                  <span data-h2-font-weight="b(700)">
-                    {locationPreferences}
-                  </span>
-                </p>
-                <p>
-                  Location exemptions:{" "}
-                  <span data-h2-font-weight="b(700)">{locationExemptions}</span>
-                </p>
-                {locationPreferences === null && (
+                {(locationPreferences !== null && locationPreferences
+                  ? locationPreferences.length !== 0
+                  : locationPreferences !== null) && (
+                  <p>
+                    Work location:{" "}
+                    <span data-h2-font-weight="b(700)">
+                      {regionPreferences}
+                    </span>
+                  </p>
+                )}
+                {locationExemptions !== null && (
+                  <p>
+                    Location exemptions:{" "}
+                    <span data-h2-font-weight="b(700)">
+                      {locationExemptions}
+                    </span>
+                  </p>
+                )}
+                {(locationPreferences === null ||
+                  locationPreferences?.length === 0) && (
                   <p>
                     There are <span data-h2-font-color="b(red)">required</span>{" "}
                     fields missing.{" "}
@@ -728,7 +767,9 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({
                 data-h2-padding="b(all, m)"
                 data-h2-radius="b(s)"
               >
-                <p>I would consider accepting a job that lasts for: </p>
+                {wouldAcceptTemporary !== null && (
+                  <p>I would consider accepting a job that lasts for: </p>
+                )}
                 {wouldAcceptTemporary && (
                   <p data-h2-font-weight="b(700)">
                     Any duration (short, long term, or indeterminate duration)
@@ -737,7 +778,9 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({
                 {!wouldAcceptTemporary && wouldAcceptTemporary !== null && (
                   <p data-h2-font-weight="b(700)">Permanent duration</p>
                 )}
-                <p>I would consider accepting a job that:</p>
+                {acceptedOperationalArray !== null && (
+                  <p>I would consider accepting a job that:</p>
+                )}
                 <ul data-h2-padding="b(left, l)">{acceptedOperationalArray}</ul>
                 {(wouldAcceptTemporary === null ||
                   acceptedOperationalArray === null ||
@@ -852,7 +895,7 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({
   );
 };
 
-export const ProfilePageApi: React.FunctionComponent = () => {
+export const ProfilePage: React.FunctionComponent = () => {
   const intl = useIntl();
   const [result] = useGetMeQuery();
   const { data, fetching, error } = result;
@@ -866,5 +909,5 @@ export const ProfilePageApi: React.FunctionComponent = () => {
       </p>
     );
 
-  return <ProfilePage {...data?.me} />;
+  return <ProfileForm {...data?.me} />;
 };

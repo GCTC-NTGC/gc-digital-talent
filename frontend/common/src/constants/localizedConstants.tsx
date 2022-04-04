@@ -13,8 +13,98 @@ import {
   EducationType,
   EducationStatus,
   OperationalRequirement,
+  ProvinceOrTerritory,
+  EstimatedLanguageAbility,
 } from "../api/generated";
 import { getOrThrowError } from "../helpers/util";
+
+export const languageProficiency = {
+  [EstimatedLanguageAbility.Beginner]: {
+    defaultMessage: "Beginner",
+    description: "Beginner, skill level",
+  },
+  [EstimatedLanguageAbility.Intermediate]: {
+    defaultMessage: "Intermediate",
+    description: "Intermediate, skill level",
+  },
+  [EstimatedLanguageAbility.Advanced]: {
+    defaultMessage: "Advanced",
+    description: "Advanced, skill level",
+  },
+};
+
+export const getLanguageProficiency = (
+  languageProf: string | number,
+): MessageDescriptor =>
+  getOrThrowError(
+    languageProficiency,
+    languageProf,
+    `Invalid skill level '${languageProf}'`,
+  );
+
+export const provinceOrTerritory = {
+  [ProvinceOrTerritory.Alberta]: {
+    defaultMessage: "Alberta",
+    description: "Alberta",
+  },
+  [ProvinceOrTerritory.BritishColumbia]: {
+    defaultMessage: "British Columbia",
+    description: "British Columbia",
+  },
+  [ProvinceOrTerritory.Manitoba]: {
+    defaultMessage: "Manitoba",
+    description: "Manitoba",
+  },
+  [ProvinceOrTerritory.NewfoundlandAndLabrador]: {
+    defaultMessage: "Newfoundland and Labrador",
+    description: "Newfoundland and Labrador",
+  },
+  [ProvinceOrTerritory.NewBrunswick]: {
+    defaultMessage: "New Brunswick",
+    description: "New Brunswick",
+  },
+  [ProvinceOrTerritory.NorthwestTerritories]: {
+    defaultMessage: "Northwest Territories",
+    description: "Northwest Territories",
+  },
+  [ProvinceOrTerritory.NovaScotia]: {
+    defaultMessage: "Nova Scotia",
+    description: "Nova Scotia",
+  },
+  [ProvinceOrTerritory.Nunavut]: {
+    defaultMessage: "Nunavut",
+    description: "Nunavut",
+  },
+  [ProvinceOrTerritory.Ontario]: {
+    defaultMessage: "Ontario",
+    description: "Ontario",
+  },
+  [ProvinceOrTerritory.PrinceEdwardIsland]: {
+    defaultMessage: "Prince Edward Island",
+    description: "Prince Edward Island",
+  },
+  [ProvinceOrTerritory.Quebec]: {
+    defaultMessage: "Quebec",
+    description: "Quebec",
+  },
+  [ProvinceOrTerritory.Saskatchewan]: {
+    defaultMessage: "Saskatchewan",
+    description: "Saskatchewan",
+  },
+  [ProvinceOrTerritory.Yukon]: {
+    defaultMessage: "Yukon",
+    description: "Yukon",
+  },
+};
+
+export const getProvinceOrTerritory = (
+  provOrTerr: string | number,
+): MessageDescriptor =>
+  getOrThrowError(
+    provinceOrTerritory,
+    provOrTerr,
+    `Invalid Province/Territory '${provOrTerr}'`,
+  );
 
 export const salaryRanges = {
   [SalaryRange["50_59K"]]: "$50,000 - $59,000",
