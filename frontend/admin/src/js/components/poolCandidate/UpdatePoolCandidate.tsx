@@ -25,10 +25,10 @@ import {
   getLanguageAbility,
   getWorkRegion,
   getPoolCandidateStatus,
+  getOperationalRequirement,
 } from "@common/constants/localizedConstants";
 import { errorMessages, commonMessages } from "@common/messages";
 import { User } from "@common/api/generated";
-import { phoneNumberRegex } from "@common/constants/regularExpressions";
 import { useAdminRoutes } from "../../adminRoutes";
 import {
   UpdatePoolCandidateAsAdminInput,
@@ -62,6 +62,7 @@ type FormValues = Pick<
   | "languageAbility"
   | "expectedSalary"
   | "locationPreferences"
+  | "acceptedOperationalRequirements"
   | "status"
 > &
   Pick<
@@ -69,7 +70,6 @@ type FormValues = Pick<
     "email" | "firstName" | "lastName" | "telephone" | "preferredLang"
   > & {
     userId: User["id"]; // can't use pick since we need a new name
-    acceptedOperationalRequirements: string[] | undefined;
     cmoAssets: string[] | undefined;
     expectedClassifications: string[] | undefined;
   };
@@ -78,7 +78,6 @@ interface UpdatePoolCandidateProps {
   classifications: Classification[];
   cmoAssets: CmoAsset[];
   initialPoolCandidate: PoolCandidate;
-  operationalRequirements: OperationalRequirement[];
   handleUpdatePoolCandidate: (
     id: string,
     data: UpdatePoolCandidateAsAdminInput,
@@ -91,7 +90,6 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<
   classifications,
   cmoAssets,
   initialPoolCandidate,
-  operationalRequirements,
   handleUpdatePoolCandidate,
 }) => {
   const intl = useIntl();
@@ -99,7 +97,7 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<
   const locale = getLocale(intl);
   const dataToFormValues = (data: PoolCandidate): FormValues => ({
     ...data,
-    acceptedOperationalRequirements: unpackIds(
+    acceptedOperationalRequirements: unpackMaybes(
       data?.acceptedOperationalRequirements,
     ),
     cmoAssets: unpackIds(data?.cmoAssets),
@@ -118,9 +116,6 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<
     values: FormValues,
   ): UpdatePoolCandidateAsAdminInput => ({
     ...values,
-    acceptedOperationalRequirements: {
-      sync: values.acceptedOperationalRequirements,
-    },
     expectedClassifications: {
       sync: values.expectedClassifications,
     },
@@ -171,12 +166,6 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<
       label: `${group}-0${level}`,
     }),
   );
-
-  const operationalRequirementOptions: Option<string>[] =
-    operationalRequirements.map(({ id, name }) => ({
-      value: id,
-      label: name[locale] || "Error: operational requirement name not found.",
-    }));
 
   return (
     <section>
@@ -377,7 +366,7 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<
               }}
             />
             <MultiSelect
-              id="acceptedOperationalRequirements.sync"
+              id="acceptedOperationalRequirements"
               name="acceptedOperationalRequirements"
               label={intl.formatMessage({
                 defaultMessage: "Operational Requirements",
@@ -390,10 +379,12 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<
                 description:
                   "Placeholder displayed on the pool candidate form operational requirements field.",
               })}
-              options={operationalRequirementOptions}
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
+              options={enumToOptions(OperationalRequirement).map(
+                ({ value }) => ({
+                  value,
+                  label: intl.formatMessage(getOperationalRequirement(value)),
+                }),
+              )}
             />
             <MultiSelect
               id="expectedSalary"
@@ -496,8 +487,6 @@ export const UpdatePoolCandidate: React.FunctionComponent<{
   const classifications: Classification[] | [] =
     lookupData?.classifications.filter(notEmpty) ?? [];
   const cmoAssets: CmoAsset[] = lookupData?.cmoAssets.filter(notEmpty) ?? [];
-  const operationalRequirements: OperationalRequirement[] =
-    lookupData?.operationalRequirements.filter(notEmpty) ?? [];
 
   const [, executeMutation] = useUpdatePoolCandidateMutation();
   const handleUpdatePoolCandidate = (
@@ -559,7 +548,6 @@ export const UpdatePoolCandidate: React.FunctionComponent<{
         classifications={classifications}
         cmoAssets={cmoAssets}
         initialPoolCandidate={lookupData.poolCandidate}
-        operationalRequirements={operationalRequirements}
         handleUpdatePoolCandidate={handleUpdatePoolCandidate}
       />
     </DashboardContentContainer>

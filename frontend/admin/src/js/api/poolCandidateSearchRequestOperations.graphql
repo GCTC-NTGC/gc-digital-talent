@@ -37,14 +37,7 @@ fragment poolCandidateSearchRequest on PoolCandidateSearchRequest {
     isVisibleMinority
     isWoman
     languageAbility
-    operationalRequirements {
-      id
-      key
-      name {
-        en
-        fr
-      }
-    }
+    operationalRequirements
     workRegions
     pools {
       id
@@ -89,14 +82,7 @@ query searchPoolCandidates($poolCandidateFilter: PoolCandidateFilterInput) {
       group
       level
     }
-    acceptedOperationalRequirements {
-      id
-      key
-      name {
-        en
-        fr
-      }
-    }
+    acceptedOperationalRequirements
     isWoman
     hasDisability
     isIndigenous

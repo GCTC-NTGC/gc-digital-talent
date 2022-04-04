@@ -12,9 +12,6 @@ import { CreateCmoAsset } from "./cmoAsset/CreateCmoAsset";
 import { UpdateCmoAsset } from "./cmoAsset/UpdateCmoAsset";
 import { CreateUser } from "./user/CreateUser";
 import { Dashboard, MenuHeading, MenuLink } from "./dashboard/Dashboard";
-import OperationalRequirementPage from "./operationalRequirement/OperationalRequirementPage";
-import { CreateOperationalRequirement } from "./operationalRequirement/CreateOperationalRequirement";
-import { UpdateOperationalRequirement } from "./operationalRequirement/UpdateOperationalRequirement";
 import { CreatePoolCandidate } from "./poolCandidate/CreatePoolCandidate";
 import { UpdatePoolCandidate } from "./poolCandidate/UpdatePoolCandidate";
 import PoolCandidatePage from "./poolCandidate/PoolCandidatePage";
@@ -99,28 +96,6 @@ const routes = (paths: AdminRoutes): Routes<RouterResult> => [
     path: paths.cmoAssetUpdate(":id"),
     action: ({ params }) => ({
       component: <UpdateCmoAsset cmoAssetId={params.id as string} />,
-    }),
-  },
-  {
-    path: paths.operationalRequirementTable(),
-    action: () => ({
-      component: <OperationalRequirementPage />,
-    }),
-  },
-  {
-    path: paths.operationalRequirementCreate(),
-    action: () => ({
-      component: <CreateOperationalRequirement />,
-    }),
-  },
-  {
-    path: paths.operationalRequirementUpdate(":id"),
-    action: ({ params }) => ({
-      component: (
-        <UpdateOperationalRequirement
-          operationalRequirementId={params.id as string}
-        />
-      ),
     }),
   },
   {

@@ -5,6 +5,7 @@ import { useIntl } from "react-intl";
 import { Maybe, PoolCandidateFilter } from "../../api/generated";
 import {
   getLanguageAbility,
+  getOperationalRequirement,
   getWorkRegion,
 } from "../../constants/localizedConstants";
 import { getLocale } from "../../helpers/localize";
@@ -135,15 +136,11 @@ export const SearchRequestFilters: React.FunctionComponent<
         ]
       : []),
   ];
+  const operationalRequirementIds: string[] =
+    (poolCandidateFilter?.operationalRequirements as string[]) ?? [];
   const operationalRequirements: string[] | undefined =
-    poolCandidateFilter?.operationalRequirements?.map(
-      (operationalRequirement) =>
-        operationalRequirement?.name[locale] ||
-        intl.formatMessage({
-          defaultMessage: "Error: operational requirement name not found",
-          description:
-            "Error message when operational requirement name is not found on request page.",
-        }),
+    operationalRequirementIds.map((id) =>
+      intl.formatMessage(getOperationalRequirement(id)),
     );
   const workLocationIds: string[] =
     (poolCandidateFilter?.workRegions as string[]) ?? [];
