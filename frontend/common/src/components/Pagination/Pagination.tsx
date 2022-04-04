@@ -190,7 +190,6 @@ const Pagination: React.FunctionComponent<PaginationProps> = ({
           })}{" "}
           <input
             type="number"
-            defaultValue={currentPage}
             value={currentPage}
             onChange={(e) => {
               const p = e.target.value ? Number(e.target.value) : 0;
