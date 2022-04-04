@@ -10,7 +10,7 @@ import { errorMessages, commonMessages } from "@common/messages";
 import { Checkbox, RadioGroup, Select } from "@common/components/form";
 import { getLocale } from "@common/helpers/localize";
 import { toast } from "react-toastify";
-import { notEmpty } from "@common/helpers/util";
+import { empty, notEmpty } from "@common/helpers/util";
 import { navigate } from "@common/helpers/router";
 
 import {
@@ -18,17 +18,18 @@ import {
   useGetAllClassificationsAndMeQuery,
   useUpdateGovAsUserMutation,
   UpdateUserAsUserInput,
+  GetAllClassificationsAndMeQuery,
 } from "../../api/generated";
 import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
 import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
 import talentSearchRoutes from "../../talentSearchRoutes";
 
 type FormValues = {
-  govEmployeeYesNo: "yes" | "no";
-  govEmployeeType: string;
-  lateralDeployBool: boolean;
-  currentClassificationGroup: string;
-  currentClassificationLevel: string;
+  govEmployeeYesNo?: "yes" | "no";
+  govEmployeeType?: "student" | "casual" | "term" | "indeterminate";
+  lateralDeployBool?: boolean;
+  currentClassificationGroup?: string;
+  currentClassificationLevel?: string;
 };
 
 // inner component
@@ -139,7 +140,7 @@ export const GovernmentInfoForm: React.FunctionComponent<{
             defaultSelected="student"
             items={[
               {
-                value: "student",
+                value: "student", // TODO: use enum values instead of strings, when those enums are available.
                 label: intl.formatMessage({
                   defaultMessage: "I am a student",
                   description: "Label displayed for student option",
@@ -274,12 +275,93 @@ export const GovernmentInfoForm: React.FunctionComponent<{
   );
 };
 
+// take classification group + level from data, return the matching classification from API
+// need to fit to the expected type when this function is called in formToData
+const classificationFormToId = (
+  group: string | undefined,
+  level: string | undefined,
+  classifications: Classification[],
+): string | undefined => {
+  return classifications.find(
+    (classification) =>
+      classification.group === group && classification.level === Number(level),
+  )?.id;
+};
+
+const formValuesToSubmitData = (
+  values: FormValues,
+  classifications: Classification[],
+): UpdateUserAsUserInput => {
+  const classificationId = classificationFormToId(
+    values.currentClassificationGroup,
+    values.currentClassificationLevel,
+    classifications,
+  );
+  if (values.govEmployeeYesNo === "no") {
+    return {
+      isGovEmployee: false,
+      interestedInLaterOrSecondment: null,
+      currentClassification: null,
+    };
+  }
+  if (values.govEmployeeType === "student") {
+    return {
+      isGovEmployee: values.govEmployeeYesNo === "yes",
+      interestedInLaterOrSecondment: null,
+      currentClassification: null,
+    };
+  }
+  if (values.govEmployeeType === "casual") {
+    return {
+      isGovEmployee: values.govEmployeeYesNo === "yes",
+      interestedInLaterOrSecondment: null,
+      currentClassification: classificationId
+        ? {
+            connect: classificationId,
+          }
+        : null,
+    };
+  }
+  return {
+    isGovEmployee: values.govEmployeeYesNo === "yes",
+    interestedInLaterOrSecondment: values.lateralDeployBool,
+    currentClassification: classificationId
+      ? {
+          connect: classificationId,
+        }
+      : null,
+  };
+};
+
+const dataToFormValues = (
+  data: GetAllClassificationsAndMeQuery["me"],
+): FormValues => {
+  const boolToYesNo = (
+    bool: boolean | null | undefined,
+  ): "yes" | "no" | undefined => {
+    if (empty(bool)) {
+      return undefined;
+    }
+    return bool ? "yes" : "no";
+  };
+  return {
+    govEmployeeYesNo: boolToYesNo(data?.isGovEmployee),
+    govEmployeeType: undefined, // TODO: get from data as soon as its available
+    lateralDeployBool: empty(data?.interestedInLaterOrSecondment)
+      ? undefined
+      : data?.interestedInLaterOrSecondment,
+    currentClassificationGroup: data?.currentClassification?.group,
+    currentClassificationLevel: data?.currentClassification?.level
+      ? String(data.currentClassification.level)
+      : undefined,
+  };
+};
+
 // outer, containing component
 export const GovInfoFormContainer: React.FunctionComponent = () => {
   // needed bits for react-intl, form submits functions, and routing post submission
   const intl = useIntl();
-  const methods = useForm<FormValues>();
-  const { handleSubmit, watch } = methods;
+
   const locale = getLocale(intl);
   const paths = talentSearchRoutes(locale);
 
@@ -303,18 +385,10 @@ export const GovInfoFormContainer: React.FunctionComponent = () => {
     },
   };
 
-  // take classification group + level from data, return the matching classification from API
-  // need to fit to the expected type when this function is called in formToData
-  const classificationFormToId = (
-    group: string,
-    level: string,
-  ): string | undefined => {
-    return classifications.find(
-      (classification) =>
-        classification.group === group &&
-        classification.level === Number(level),
-    )?.id;
-  };
+  const methods = useForm<FormValues>({
+    defaultValues: dataToFormValues(meInfo),
+  });
+  const { handleSubmit, watch } = methods;
 
   // submitting the form component values back out to graphQL, after smoothing form-values to appropriate type, then return to /profile
   const [, executeMutation] = useUpdateGovAsUserMutation();
@@ -330,48 +404,7 @@ export const GovInfoFormContainer: React.FunctionComponent = () => {
     });
   // various IF statements are to clean up cases where user toggles the conditionally rendered stuff before submitting
   // IE, picks term position and CS-01, then picks not a government employee before submitting, the conditionally rendered stuff still exists and can get submitted
-  const formValuesToSubmitData = (
-    values: FormValues,
-  ): UpdateUserAsUserInput => {
-    const classificationId = classificationFormToId(
-      values.currentClassificationGroup,
-      values.currentClassificationLevel,
-    );
-    if (values.govEmployeeYesNo === "no") {
-      return {
-        isGovEmployee: false,
-        interestedInLaterOrSecondment: null,
-        currentClassification: null,
-      };
-    }
-    if (values.govEmployeeType === "student") {
-      return {
-        isGovEmployee: values.govEmployeeYesNo === "yes",
-        interestedInLaterOrSecondment: null,
-        currentClassification: null,
-      };
-    }
-    if (values.govEmployeeType === "casual") {
-      return {
-        isGovEmployee: values.govEmployeeYesNo === "yes",
-        interestedInLaterOrSecondment: null,
-        currentClassification: classificationId
-          ? {
-              connect: classificationId,
-            }
-          : null,
-      };
-    }
-    return {
-      isGovEmployee: values.govEmployeeYesNo === "yes",
-      interestedInLaterOrSecondment: values.lateralDeployBool,
-      currentClassification: classificationId
-        ? {
-            connect: classificationId,
-          }
-        : null,
-    };
-  };
+
   const id = meId || "";
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
     // tristan's suggestion to short-circuit this function if there is no id
@@ -384,7 +417,7 @@ export const GovInfoFormContainer: React.FunctionComponent = () => {
       );
       return;
     }
-    await handleUpdateUser(id, formValuesToSubmitData(data))
+    await handleUpdateUser(id, formValuesToSubmitData(data, classifications))
       .then(() => {
         navigate(paths.profile());
         toast.success(
