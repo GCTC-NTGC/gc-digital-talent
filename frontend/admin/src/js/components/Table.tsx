@@ -10,12 +10,6 @@ import {
 } from "react-table";
 import { Button } from "@common/components";
 import Pagination from "@common/components/Pagination";
-import {
-  ChevronDoubleLeftIcon,
-  ChevronDoubleRightIcon,
-  ChevronLeftIcon,
-  ChevronRightIcon,
-} from "@heroicons/react/solid";
 import GlobalFilter from "./GlobalFilter";
 
 export type ColumnsOf<T extends Record<string, unknown>> = Array<Column<T>>;
@@ -59,15 +53,9 @@ function Table<T extends Record<string, unknown>>({
     allColumns,
     getToggleHideAllColumnsProps,
     rows,
-    pageOptions,
-    pageCount,
     state: { pageIndex, pageSize },
     gotoPage,
-    previousPage,
-    nextPage,
     setPageSize,
-    canPreviousPage,
-    canNextPage,
     page,
   } = useTable<T>(
     {
@@ -84,12 +72,6 @@ function Table<T extends Record<string, unknown>>({
 
   const [showList, setShowList] = useState(false);
   const intl = useIntl();
-
-  function strong(msg: string) {
-    return <span data-h2-font-weight="b(600)">{msg}</span>;
-  }
-
-  console.log(page);
 
   return (
     <div>
