@@ -258,15 +258,6 @@ export const PoolDashboard: React.FC = () => {
       })}
     />,
     <MenuLink
-      key="operational-requirements"
-      href={paths.operationalRequirementTable()}
-      text={intl.formatMessage({
-        defaultMessage: "Operational Requirements",
-        description:
-          "Label displayed on the Operational Requirements menu item.",
-      })}
-    />,
-    <MenuLink
       key="pools"
       href={paths.poolTable()}
       text={intl.formatMessage({
