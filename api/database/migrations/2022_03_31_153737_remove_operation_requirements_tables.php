@@ -68,8 +68,6 @@ class RemoveOperationRequirementsTables extends Migration
         Schema::create('operational_requirement_pool', function (Blueprint $table) {
             $table->uuid('id')->primary('id');
             $table->timestamps();
-            // $table->foreignId('operational_requirement_id');
-            // $table->foreignId('pool_id');
             $table->uuid('operational_requirement_id')->references('id')->on('operational_requirements');
             $table->uuid('pool_id')->references('id')->on('pools');
         });
