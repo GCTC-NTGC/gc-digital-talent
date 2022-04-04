@@ -4,7 +4,6 @@ namespace App\Policies;
 
 use App\Models\Experience;
 use App\Models\User;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class ExperiencePolicy
@@ -15,11 +14,13 @@ class ExperiencePolicy
      * Determine whether the user can create models.
      *
      * @param  \App\Models\User  $user
+     * @param  $request: The arguments included in the request, acquired with the injectArgs lighthouse directive
+     *      We need to use this because the model hasn't been created yet so we can't read from it
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function create(User $user, $second)
+    public function create(User $user, $request)
     {
-        return $user->isAdmin() || $user->id === $second['user_id'];
+        return $user->isAdmin() || $user->id === $request['user_id'];
     }
 
     /**
