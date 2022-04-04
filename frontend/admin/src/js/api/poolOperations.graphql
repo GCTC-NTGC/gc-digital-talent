@@ -40,14 +40,7 @@ fragment pool on Pool {
       fr
     }
   }
-  operationalRequirements {
-    id
-    key
-    name {
-      en
-      fr
-    }
-  }
+  operationalRequirements
 }
 
 query getPool($id: ID!) {
@@ -75,14 +68,6 @@ query getCreatePoolData {
       fr
     }
   }
-  operationalRequirements {
-    id
-    key
-    name {
-      en
-      fr
-    }
-  }
 }
 query getUpdatePoolData($id: ID!) {
   users {
@@ -101,14 +86,6 @@ query getUpdatePoolData($id: ID!) {
     key
     name {
       en,
-      fr
-    }
-  }
-  operationalRequirements {
-    id
-    key
-    name {
-      en
       fr
     }
   }
@@ -167,10 +144,7 @@ mutation createPool($pool: CreatePoolInput!) {
       id
       key
     }
-    operationalRequirements {
-      id
-      key
-    }
+    operationalRequirements
   }
 }
 
@@ -201,9 +175,6 @@ mutation updatePool($id: ID!, $pool: UpdatePoolInput!) {
       id
       key
     }
-    operationalRequirements {
-      id
-      key
-    }
+    operationalRequirements
   }
 }

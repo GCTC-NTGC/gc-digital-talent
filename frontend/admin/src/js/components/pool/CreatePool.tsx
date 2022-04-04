@@ -14,6 +14,8 @@ import { notEmpty } from "@common/helpers/util";
 import { navigate } from "@common/helpers/router";
 import { errorMessages, commonMessages } from "@common/messages";
 import { keyStringRegex } from "@common/constants/regularExpressions";
+import { enumToOptions } from "@common/helpers/formUtils";
+import { getOperationalRequirement } from "@common/constants/localizedConstants";
 import { useAdminRoutes } from "../../adminRoutes";
 import {
   Classification,
@@ -30,7 +32,7 @@ import DashboardContentContainer from "../DashboardContentContainer";
 
 type Option<V> = { value: V; label: string };
 
-type FormValues = Pick<Pool, "description"> & {
+type FormValues = Pick<Pool, "description" | "operationalRequirements"> & {
   key: string;
   name: {
     en: string;
@@ -39,14 +41,12 @@ type FormValues = Pick<Pool, "description"> & {
   assetCriteria: string[] | undefined;
   classifications: string[] | undefined;
   essentialCriteria: string[] | undefined;
-  operationalRequirements: string[] | undefined;
   owner: string;
 };
 
 interface CreatePoolFormProps {
   classifications: Classification[];
   cmoAssets: CmoAsset[];
-  operationalRequirements: OperationalRequirement[];
   users: User[];
   handleCreatePool: (
     data: CreatePoolInput,
@@ -56,7 +56,6 @@ interface CreatePoolFormProps {
 export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
   classifications,
   cmoAssets,
-  operationalRequirements,
   users,
   handleCreatePool,
 }) => {
@@ -76,9 +75,6 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
     },
     essentialCriteria: {
       sync: values.essentialCriteria,
-    },
-    operationalRequirements: {
-      sync: values.operationalRequirements,
     },
     owner: { connect: values.owner },
   });
@@ -117,12 +113,6 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
       label: `${group}-0${level}`,
     }),
   );
-
-  const operationalRequirementOptions: Option<string>[] =
-    operationalRequirements.map(({ id, name }) => ({
-      value: id,
-      label: name[locale] || "Error: operational requirement name not found.",
-    }));
 
   const userOptions: Option<string>[] = users.map(
     ({ id, firstName, lastName }) => ({
@@ -302,7 +292,12 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
                 description:
                   "Placeholder displayed on the pool form operational requirements field.",
               })}
-              options={operationalRequirementOptions}
+              options={enumToOptions(OperationalRequirement).map(
+                ({ value }) => ({
+                  value,
+                  label: intl.formatMessage(getOperationalRequirement(value)),
+                }),
+              )}
               rules={{
                 required: intl.formatMessage(errorMessages.required),
               }}
@@ -322,11 +317,9 @@ export const CreatePool: React.FunctionComponent = () => {
   const classifications: Classification[] | [] =
     lookupData?.classifications.filter(notEmpty) ?? [];
   const cmoAssets: CmoAsset[] = lookupData?.cmoAssets.filter(notEmpty) ?? [];
-  const operationalRequirements: OperationalRequirement[] =
-    lookupData?.operationalRequirements.filter(notEmpty) ?? [];
   const users: User[] = lookupData?.users.filter(notEmpty) ?? [];
 
-  const [_result, executeMutation] = useCreatePoolMutation();
+  const [, executeMutation] = useCreatePoolMutation();
   const handleCreatePool = (data: CreatePoolInput) =>
     executeMutation({ pool: data }).then((result) => {
       if (result.data?.createPool) {
@@ -356,7 +349,6 @@ export const CreatePool: React.FunctionComponent = () => {
       <CreatePoolForm
         classifications={classifications}
         cmoAssets={cmoAssets}
-        operationalRequirements={operationalRequirements}
         users={users}
         handleCreatePool={handleCreatePool}
       />

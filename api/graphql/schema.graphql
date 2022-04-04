@@ -71,7 +71,7 @@ type User {
     hasDiploma: Boolean @rename(attribute: "has_diploma")
     locationPreferences: [WorkRegion] @rename(attribute: "location_preferences")
     locationExemptions: String @rename(attribute: "location_exemptions")
-    acceptedOperationalRequirements: [OperationalRequirement] @belongsToMany
+    acceptedOperationalRequirements: [OperationalRequirement] @rename(attribute: "accepted_operational_requirements")
     expectedSalary: [SalaryRange] @rename(attribute: "expected_salary")
     expectedClassifications: [Classification] @belongsToMany
     wouldAcceptTemporary: Boolean @rename(attribute: "would_accept_temporary")
@@ -175,7 +175,7 @@ type Applicant {
     hasDiploma: Boolean @rename(attribute: "has_diploma")
     locationPreferences: [WorkRegion] @rename(attribute: "location_preferences")
     locationExemptions: String @rename(attribute: "location_exemptions")
-    acceptedOperationalRequirements: [OperationalRequirement] @belongsToMany
+    acceptedOperationalRequirements: [OperationalRequirement] @rename(attribute: "accepted_operational_requirements")
     expectedSalary: [SalaryRange] @rename(attribute: "expected_salary")
     expectedClassifications: [Classification] @belongsToMany
     wouldAcceptTemporary: Boolean @rename(attribute: "would_accept_temporary")
@@ -206,7 +206,7 @@ type Pool {
     classifications: [Classification] @belongsToMany
     assetCriteria: [CmoAsset] @belongsToMany
     essentialCriteria: [CmoAsset] @belongsToMany
-    operationalRequirements: [OperationalRequirement] @belongsToMany
+    operationalRequirements: [OperationalRequirement] @rename(attribute: "operational_requirements")
     poolCandidates: [PoolCandidate] @hasMany @can(ability: "viewAny")
 }
 
@@ -235,7 +235,7 @@ type PoolCandidate {
     hasDiploma: Boolean @rename(attribute: "has_diploma")
     languageAbility: LanguageAbility @rename(attribute: "language_ability")
     locationPreferences: [WorkRegion] @rename(attribute: "location_preferences")
-    acceptedOperationalRequirements: [OperationalRequirement] @belongsToMany
+    acceptedOperationalRequirements: [OperationalRequirement] @rename(attribute: "accepted_operational_requirements")
     expectedSalary: [SalaryRange] @rename(attribute: "expected_salary")
     expectedClassifications: [Classification] @belongsToMany
     cmoAssets: [CmoAsset] @belongsToMany
@@ -263,11 +263,13 @@ enum WorkRegion {
 """
 e.g. Overtime as Required, Shift Work, Travel as Required, etc.
 """
-type OperationalRequirement {
-    id: ID!
-    key: KeyString!
-    name: LocalizedString!
-    description: LocalizedString
+enum OperationalRequirement {
+    OVERTIME
+    SHIFT_WORK
+    ON_CALL
+    TRAVEL
+    TRANSPORT_EQUIPMENT
+    DRIVERS_LICENSE
 }
 
 enum SalaryRange {
@@ -319,7 +321,7 @@ type PoolCandidateFilter {
     isVisibleMinority: Boolean @rename(attribute: "is_visible_minority")
     isWoman: Boolean @rename(attribute: "is_woman")
     languageAbility: LanguageAbility @rename(attribute: "language_ability")
-    operationalRequirements: [OperationalRequirement] @belongsToMany
+    operationalRequirements: [OperationalRequirement] @rename(attribute: "operational_requirements")
     workRegions: [WorkRegion] @rename(attribute: "work_regions")
     pools: [Pool] @belongsToMany
 }
@@ -498,7 +500,7 @@ input PoolCandidateFilterInput {
     isVisibleMinority: Boolean @scope
     isWoman: Boolean @scope
     languageAbility: LanguageAbility @where(key: "language_ability")
-    operationalRequirements: [KeyFilterInput] @builder(method: "App\\Models\\PoolCandidate@filterByOperationalRequirements")
+    operationalRequirements: [OperationalRequirement] @builder(method: "App\\Models\\PoolCandidate@filterByOperationalRequirements")
     workRegions: [WorkRegion] @builder(method: "App\\Models\\PoolCandidate@filterByWorkRegions")
     pools: [PoolFilterInput] @builder(method: "App\\Models\\PoolCandidate@filterByPools")
 }
@@ -520,8 +522,6 @@ type Query {
     searchPoolCandidates(where: PoolCandidateFilterInput): [PoolCandidate]! @all @guard @can(ability: "viewAny")
     classification(id: ID! @eq): Classification @find
     classifications: [Classification]! @all
-    operationalRequirement(id: ID! @eq): OperationalRequirement @find
-    operationalRequirements: [OperationalRequirement]! @all
     cmoAsset(id: ID! @eq): CmoAsset @find
     cmoAssets: [CmoAsset]! @all
     department(id: ID! @eq): Department @find
@@ -584,7 +584,7 @@ input CreateUserInput {
     hasDiploma: Boolean @rename(attribute: "has_diploma")
     locationPreferences: [WorkRegion] @rename(attribute: "location_preferences")
     locationExemptions: String @rename(attribute: "location_exemptions")
-    acceptedOperationalRequirements: OperationalRequirementBelongsToMany
+    acceptedOperationalRequirements: [OperationalRequirement] @rename(attribute: "accepted_operational_requirements")
     expectedSalary: [SalaryRange] @rename(attribute: "expected_salary")
     expectedClassifications: ClassificationBelongsToMany
     wouldAcceptTemporary: Boolean @rename(attribute: "would_accept_temporary")
@@ -640,7 +640,7 @@ input UpdateUserAsAdminInput {
     hasDiploma: Boolean @rename(attribute: "has_diploma")
     locationPreferences: [WorkRegion] @rename(attribute: "location_preferences")
     locationExemptions: String @rename(attribute: "location_exemptions")
-    acceptedOperationalRequirements: OperationalRequirementBelongsToMany
+    acceptedOperationalRequirements: [OperationalRequirement] @rename(attribute: "accepted_operational_requirements")
     expectedSalary: [SalaryRange] @rename(attribute: "expected_salary")
     expectedClassifications: ClassificationBelongsToMany
     wouldAcceptTemporary: Boolean @rename(attribute: "would_accept_temporary")
@@ -691,7 +691,7 @@ input UpdateUserAsUserInput {
     hasDiploma: Boolean @rename(attribute: "has_diploma")
     locationPreferences: [WorkRegion] @rename(attribute: "location_preferences")
     locationExemptions: String @rename(attribute: "location_exemptions")
-    acceptedOperationalRequirements: OperationalRequirementBelongsToMany
+    acceptedOperationalRequirements: [OperationalRequirement] @rename(attribute: accepted_operational_requirements)
     expectedSalary: [SalaryRange] @rename(attribute: "expected_salary")
     expectedClassifications: ClassificationBelongsToMany
     wouldAcceptTemporary: Boolean @rename(attribute: "would_accept_temporary")
@@ -740,16 +740,6 @@ input CmoAssetBelongsToMany {
     sync: [ID!]
 }
 
-input CreateOperationalRequirementInput {
-    key: KeyString!
-    name: LocalizedStringInput!
-    description: LocalizedStringInput
-}
-
-input OperationalRequirementBelongsToMany {
-    sync: [ID!]
-}
-
 input ConnectOrCreateBelongsTo {
     connect: ID
     create: CreateUserInput
@@ -767,7 +757,7 @@ input CreatePoolCandidateAsAdminInput {
     hasDiploma: Boolean @rename(attribute: "has_diploma")
     languageAbility: LanguageAbility @rename(attribute: "language_ability")
     locationPreferences: [WorkRegion] @rename(attribute: "location_preferences")
-    acceptedOperationalRequirements: OperationalRequirementBelongsToMany
+    acceptedOperationalRequirements: [OperationalRequirement] @rename(attribute: "accepted_operational_requirements")
     expectedSalary: [SalaryRange] @rename(attribute: "expected_salary")
     expectedClassifications: ClassificationBelongsToMany
     cmoAssets: CmoAssetBelongsToMany
@@ -783,7 +773,7 @@ input CreatePoolInput {
     classifications: ClassificationBelongsToMany
     assetCriteria: CmoAssetBelongsToMany
     essentialCriteria: CmoAssetBelongsToMany
-    operationalRequirements: OperationalRequirementBelongsToMany
+    operationalRequirements: [OperationalRequirement] @rename(attribute: "operational_requirements")
 }
 
 input UpdateClassificationInput {
@@ -798,11 +788,6 @@ input UpdateCmoAssetInput {
     description: LocalizedStringInput
 }
 
-input UpdateOperationalRequirementInput {
-    name: LocalizedStringInput
-    description: LocalizedStringInput
-}
-
 input UpdatePoolCandidateAsAdminInput {
     cmoIdentifier: ID @rename(attribute: "cmo_identifier")
     expiryDate: Date @rename(attribute: "expiry_date")
@@ -813,7 +798,7 @@ input UpdatePoolCandidateAsAdminInput {
     hasDiploma: Boolean @rename(attribute: "has_diploma")
     languageAbility: LanguageAbility @rename(attribute: "language_ability")
     locationPreferences: [WorkRegion] @rename(attribute: "location_preferences")
-    acceptedOperationalRequirements: OperationalRequirementBelongsToMany
+    acceptedOperationalRequirements: [OperationalRequirement] @rename(attribute: "accepted_operational_requirements")
     expectedSalary: [SalaryRange] @rename(attribute: "expected_salary")
     expectedClassifications: ClassificationBelongsToMany
     cmoAssets: CmoAssetBelongsToMany
@@ -827,7 +812,7 @@ input UpdatePoolInput {
     classifications: ClassificationBelongsToMany
     assetCriteria: CmoAssetBelongsToMany
     essentialCriteria: CmoAssetBelongsToMany
-    operationalRequirements: OperationalRequirementBelongsToMany
+    operationalRequirements: [OperationalRequirement] @rename(attribute: "operational_requirements")
 }
 
 input CreateDepartmentInput {
@@ -857,7 +842,7 @@ input CreatePoolCandidateFilterInput {
     isVisibleMinority: Boolean @rename(attribute: "is_visible_minority")
     isWoman: Boolean @rename(attribute: "is_woman")
     languageAbility:LanguageAbility @rename(attribute: "language_ability")
-    operationalRequirements: OperationalRequirementBelongsToMany
+    operationalRequirements: [OperationalRequirement] @rename(attribute: "operational_requirements")
     workRegions: [WorkRegion] @rename(attribute: "work_regions")
     pools: PoolBelongsToMany
 }
@@ -1008,9 +993,6 @@ type Mutation {
     createCmoAsset(cmoAsset: CreateCmoAssetInput! @spread): CmoAsset @create @guard @can(ability: "create")
     updateCmoAsset(id: ID!, cmoAsset: UpdateCmoAssetInput! @spread): CmoAsset @update @guard @can(ability: "update", find: "id")
     deleteCmoAsset(id: ID!): CmoAsset @delete(globalId: false) @guard @can(ability: "delete", find: "id")
-    createOperationalRequirement(operationalRequirement: CreateOperationalRequirementInput! @spread): OperationalRequirement @create @guard @can(ability: "create")
-    updateOperationalRequirement(id: ID!, operationalRequirement: UpdateOperationalRequirementInput! @spread): OperationalRequirement @update @guard @can(ability: "update", find: "id")
-    deleteOperationalRequirement(id: ID!): OperationalRequirement @delete(globalId: false) @guard @can(ability: "delete", find: "id")
     createDepartment(department: CreateDepartmentInput! @spread): Department @create @guard @can(ability: "create")
     updateDepartment(id: ID!, department: UpdateDepartmentInput! @spread): Department @update @can(ability: "update", find: "id")
     deleteDepartment(id: ID!): Department @delete(globalId: false) @guard @can(ability: "delete", find: "id")

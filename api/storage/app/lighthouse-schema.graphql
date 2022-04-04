@@ -50,7 +50,7 @@ type AwardExperience implements Experience {
   awardedScope: AwardedScope
   details: String
   skills: [Skill!]
-  skillPivot: ExperienceSkillPivot
+  skillPivot: ExperienceSkillRecord
 }
 
 input AwardExperienceHasMany {
@@ -136,7 +136,7 @@ type CommunityExperience implements Experience {
   endDate: Date
   details: String
   skills: [Skill!]
-  skillPivot: ExperienceSkillPivot
+  skillPivot: ExperienceSkillRecord
 }
 
 input CommunityExperienceHasMany {
@@ -182,12 +182,6 @@ input CreateDepartmentInput {
   name: LocalizedStringInput
 }
 
-input CreateOperationalRequirementInput {
-  key: KeyString!
-  name: LocalizedStringInput!
-  description: LocalizedStringInput
-}
-
 input CreatePoolCandidateAsAdminInput {
   pool: PoolBelongsTo!
   user: ConnectOrCreateBelongsTo!
@@ -200,7 +194,7 @@ input CreatePoolCandidateAsAdminInput {
   hasDiploma: Boolean
   languageAbility: LanguageAbility
   locationPreferences: [WorkRegion]
-  acceptedOperationalRequirements: OperationalRequirementBelongsToMany
+  acceptedOperationalRequirements: [OperationalRequirement]
   expectedSalary: [SalaryRange]
   expectedClassifications: ClassificationBelongsToMany
   cmoAssets: CmoAssetBelongsToMany
@@ -216,7 +210,7 @@ input CreatePoolCandidateFilterInput {
   isVisibleMinority: Boolean
   isWoman: Boolean
   languageAbility: LanguageAbility
-  operationalRequirements: OperationalRequirementBelongsToMany
+  operationalRequirements: [OperationalRequirement]
   workRegions: [WorkRegion]
   pools: PoolBelongsToMany
 }
@@ -238,7 +232,7 @@ input CreatePoolInput {
   classifications: ClassificationBelongsToMany
   assetCriteria: CmoAssetBelongsToMany
   essentialCriteria: CmoAssetBelongsToMany
-  operationalRequirements: OperationalRequirementBelongsToMany
+  operationalRequirements: [OperationalRequirement]
 }
 
 input CreateSkillFamilyInput {
@@ -288,7 +282,7 @@ input CreateUserInput {
   hasDiploma: Boolean
   locationPreferences: [WorkRegion]
   locationExemptions: String
-  acceptedOperationalRequirements: OperationalRequirementBelongsToMany
+  acceptedOperationalRequirements: [OperationalRequirement]
   expectedSalary: [SalaryRange]
   expectedClassifications: ClassificationBelongsToMany
   wouldAcceptTemporary: Boolean
@@ -330,7 +324,7 @@ type EducationExperience implements Experience {
   status: EducationStatus
   details: String
   skills: [Skill!]
-  skillPivot: ExperienceSkillPivot
+  skillPivot: ExperienceSkillRecord
 }
 
 input EducationExperienceHasMany {
@@ -393,7 +387,7 @@ interface Experience {
   skills: [Skill!]
 }
 
-type ExperienceSkillPivot {
+type ExperienceSkillRecord {
   details: String
 }
 
@@ -455,9 +449,6 @@ type Mutation {
   createCmoAsset(cmoAsset: CreateCmoAssetInput!): CmoAsset
   updateCmoAsset(id: ID!, cmoAsset: UpdateCmoAssetInput!): CmoAsset
   deleteCmoAsset(id: ID!): CmoAsset
-  createOperationalRequirement(operationalRequirement: CreateOperationalRequirementInput!): OperationalRequirement
-  updateOperationalRequirement(id: ID!, operationalRequirement: UpdateOperationalRequirementInput!): OperationalRequirement
-  deleteOperationalRequirement(id: ID!): OperationalRequirement
   createDepartment(department: CreateDepartmentInput!): Department
   updateDepartment(id: ID!, department: UpdateDepartmentInput!): Department
   deleteDepartment(id: ID!): Department
@@ -485,15 +476,13 @@ type Mutation {
 }
 
 """e.g. Overtime as Required, Shift Work, Travel as Required, etc."""
-type OperationalRequirement {
-  id: ID!
-  key: KeyString!
-  name: LocalizedString!
-  description: LocalizedString
-}
-
-input OperationalRequirementBelongsToMany {
-  sync: [ID!]
+enum OperationalRequirement {
+  OVERTIME
+  SHIFT_WORK
+  ON_CALL
+  TRAVEL
+  TRANSPORT_EQUIPMENT
+  DRIVERS_LICENSE
 }
 
 """Allows ordering a list of records."""
@@ -596,7 +585,7 @@ type PersonalExperience implements Experience {
   endDate: Date
   details: String
   skills: [Skill!]
-  skillPivot: ExperienceSkillPivot
+  skillPivot: ExperienceSkillRecord
 }
 
 input PersonalExperienceHasMany {
@@ -686,7 +675,7 @@ input PoolCandidateFilterInput {
   isVisibleMinority: Boolean
   isWoman: Boolean
   languageAbility: LanguageAbility
-  operationalRequirements: [KeyFilterInput]
+  operationalRequirements: [OperationalRequirement]
   workRegions: [WorkRegion]
   pools: [PoolFilterInput]
 }
@@ -755,8 +744,6 @@ type Query {
   searchPoolCandidates(where: PoolCandidateFilterInput): [PoolCandidate]!
   classification(id: ID!): Classification
   classifications: [Classification]!
-  operationalRequirement(id: ID!): OperationalRequirement
-  operationalRequirements: [OperationalRequirement]!
   cmoAsset(id: ID!): CmoAsset
   cmoAssets: [CmoAsset]!
   department(id: ID!): Department
@@ -866,7 +853,7 @@ type Skill {
   educationExperiences: [EducationExperience!]
   personalExperiences: [PersonalExperience!]
   workExperiences: [WorkExperience!]
-  experiencePivot: ExperienceSkillPivot
+  experiencePivot: ExperienceSkillRecord
 }
 
 input SkillBelongsToMany {
@@ -936,11 +923,6 @@ input UpdateExperienceSkills {
   sync: [ConnectExperienceSkills!]
 }
 
-input UpdateOperationalRequirementInput {
-  name: LocalizedStringInput
-  description: LocalizedStringInput
-}
-
 input UpdatePoolCandidateAsAdminInput {
   cmoIdentifier: ID
   expiryDate: Date
@@ -951,7 +933,7 @@ input UpdatePoolCandidateAsAdminInput {
   hasDiploma: Boolean
   languageAbility: LanguageAbility
   locationPreferences: [WorkRegion]
-  acceptedOperationalRequirements: OperationalRequirementBelongsToMany
+  acceptedOperationalRequirements: [OperationalRequirement]
   expectedSalary: [SalaryRange]
   expectedClassifications: ClassificationBelongsToMany
   cmoAssets: CmoAssetBelongsToMany
@@ -970,7 +952,7 @@ input UpdatePoolInput {
   classifications: ClassificationBelongsToMany
   assetCriteria: CmoAssetBelongsToMany
   essentialCriteria: CmoAssetBelongsToMany
-  operationalRequirements: OperationalRequirementBelongsToMany
+  operationalRequirements: [OperationalRequirement]
 }
 
 input UpdateSkillFamilyInput {
@@ -1019,7 +1001,7 @@ input UpdateUserAsAdminInput {
   hasDiploma: Boolean
   locationPreferences: [WorkRegion]
   locationExemptions: String
-  acceptedOperationalRequirements: OperationalRequirementBelongsToMany
+  acceptedOperationalRequirements: [OperationalRequirement]
   expectedSalary: [SalaryRange]
   expectedClassifications: ClassificationBelongsToMany
   wouldAcceptTemporary: Boolean
@@ -1058,7 +1040,7 @@ input UpdateUserAsUserInput {
   hasDiploma: Boolean
   locationPreferences: [WorkRegion]
   locationExemptions: String
-  acceptedOperationalRequirements: OperationalRequirementBelongsToMany
+  acceptedOperationalRequirements: [OperationalRequirement]
   expectedSalary: [SalaryRange]
   expectedClassifications: ClassificationBelongsToMany
   wouldAcceptTemporary: Boolean
@@ -1175,7 +1157,7 @@ type WorkExperience implements Experience {
   endDate: Date
   details: String
   skills: [Skill!]
-  skillPivot: ExperienceSkillPivot
+  skillPivot: ExperienceSkillRecord
 }
 
 input WorkExperienceHasMany {
