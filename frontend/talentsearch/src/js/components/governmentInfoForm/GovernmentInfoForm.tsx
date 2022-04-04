@@ -417,38 +417,36 @@ export const GovInfoFormContainer: React.FunctionComponent = () => {
   }
 
   return (
-    <div>
-      <ProfileFormWrapper
-        description={intl.formatMessage({
-          defaultMessage:
-            "Please indicate if you are currently an employee in the Government of Canada.",
-          description:
-            "Description blurb for Profile Form Wrapper in the Government Information Form",
-        })}
-        title={intl.formatMessage({
-          defaultMessage: "Government Information",
-          description:
-            "Title for Profile Form Wrapper in Government Information Form",
-        })}
-        crumbs={[
-          {
-            title: intl.formatMessage({
-              defaultMessage: "Government Information",
-              description:
-                "Display Text for Government Information Form Page Link",
-            }),
-          },
-        ]}
+    <ProfileFormWrapper
+      description={intl.formatMessage({
+        defaultMessage:
+          "Please indicate if you are currently an employee in the Government of Canada.",
+        description:
+          "Description blurb for Profile Form Wrapper in the Government Information Form",
+      })}
+      title={intl.formatMessage({
+        defaultMessage: "Government Information",
+        description:
+          "Title for Profile Form Wrapper in Government Information Form",
+      })}
+      crumbs={[
+        {
+          title: intl.formatMessage({
+            defaultMessage: "Government Information",
+            description:
+              "Display Text for Government Information Form Page Link",
+          }),
+        },
+      ]}
+    >
+      <BasicForm
+        onSubmit={onSubmit}
+        options={{ defaultValues: dataToFormValues(meInfo) }}
       >
-        <BasicForm
-          onSubmit={onSubmit}
-          options={{ defaultValues: dataToFormValues(meInfo) }}
-        >
-          <GovernmentInfoForm classifications={classifications} />
-          <ProfileFormFooter mode="saveButton" />
-        </BasicForm>
-      </ProfileFormWrapper>
-    </div>
+        <GovernmentInfoForm classifications={classifications} />
+        <ProfileFormFooter mode="saveButton" />
+      </BasicForm>
+    </ProfileFormWrapper>
   );
 };
 
