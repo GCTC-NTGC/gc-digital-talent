@@ -356,11 +356,7 @@ export const GovInfoFormContainer: React.FunctionComponent = () => {
 
   // acquire classifications from graphQL to pass into component to render and pull "Me" at the same time
   const [lookUpResult] = useGetAllClassificationsAndMeQuery();
-  const {
-    data: lookupData,
-    fetching: fetchingLookupData,
-    error: lookupDataError,
-  } = lookUpResult;
+  const { data: lookupData, fetching: fetchingLookupData } = lookUpResult;
   const classifications: Classification[] | [] =
     lookupData?.classifications.filter(notEmpty) ?? [];
   const meInfo = lookupData?.me;
