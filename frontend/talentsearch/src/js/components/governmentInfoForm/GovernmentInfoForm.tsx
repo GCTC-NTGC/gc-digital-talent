@@ -1,13 +1,13 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import {
-  useWatch,
-  SubmitHandler,
-  FormProvider,
-  useForm,
-} from "react-hook-form";
+import { useWatch, SubmitHandler } from "react-hook-form";
 import { errorMessages, commonMessages } from "@common/messages";
-import { Checkbox, RadioGroup, Select } from "@common/components/form";
+import {
+  BasicForm,
+  Checkbox,
+  RadioGroup,
+  Select,
+} from "@common/components/form";
 import { getLocale } from "@common/helpers/localize";
 import { toast } from "react-toastify";
 import { empty, notEmpty } from "@common/helpers/util";
@@ -35,18 +35,8 @@ type FormValues = {
 // inner component
 export const GovernmentInfoForm: React.FunctionComponent<{
   classifications: Classification[];
-  storedValues: {
-    isGovEmployee?: boolean | null | undefined;
-    interestedInLaterOrSecondment?: boolean | null | undefined;
-    currentClassification?: {
-      group?: string | null | undefined;
-      level?: number | null | undefined;
-    };
-  };
-}> = ({ classifications, storedValues }) => {
+}> = ({ classifications }) => {
   const intl = useIntl();
-  const locale = getLocale(intl);
-  // console.log(storedValues);
 
   // hooks to watch, needed for conditional rendering
   const govEmployee = useWatch({
@@ -104,8 +94,6 @@ export const GovernmentInfoForm: React.FunctionComponent<{
           })}
           name="govEmployeeYesNo"
           rules={{ required: intl.formatMessage(errorMessages.required) }}
-          defaultSelected="no"
-          // defaultSelected={storedValues.isGovEmployee ? "yes" : "no"}
           items={[
             {
               value: "no",
@@ -137,7 +125,6 @@ export const GovernmentInfoForm: React.FunctionComponent<{
             })}
             name="govEmployeeType"
             rules={{ required: intl.formatMessage(errorMessages.required) }}
-            defaultSelected="student"
             items={[
               {
                 value: "student", // TODO: use enum values instead of strings, when those enums are available.
@@ -297,6 +284,8 @@ const formValuesToSubmitData = (
     values.currentClassificationLevel,
     classifications,
   );
+  // various IF statements are to clean up cases where user toggles the conditionally rendered stuff before submitting
+  // IE, picks term position and CS-01, then picks not a government employee before submitting, the conditionally rendered stuff still exists and can get submitted
   if (values.govEmployeeYesNo === "no") {
     return {
       isGovEmployee: false,
@@ -376,19 +365,6 @@ export const GovInfoFormContainer: React.FunctionComponent = () => {
     lookupData?.classifications.filter(notEmpty) ?? [];
   const meInfo = lookupData?.me;
   const meId = meInfo?.id;
-  const previousData = {
-    isGovEmployee: meInfo?.isGovEmployee,
-    interestedInLaterOrSecondment: meInfo?.interestedInLaterOrSecondment,
-    currentClassification: {
-      group: meInfo?.currentClassification?.group,
-      level: meInfo?.currentClassification?.level,
-    },
-  };
-
-  const methods = useForm<FormValues>({
-    defaultValues: dataToFormValues(meInfo),
-  });
-  const { handleSubmit, watch } = methods;
 
   // submitting the form component values back out to graphQL, after smoothing form-values to appropriate type, then return to /profile
   const [, executeMutation] = useUpdateGovAsUserMutation();
@@ -402,13 +378,10 @@ export const GovInfoFormContainer: React.FunctionComponent = () => {
       }
       return Promise.reject(result.error);
     });
-  // various IF statements are to clean up cases where user toggles the conditionally rendered stuff before submitting
-  // IE, picks term position and CS-01, then picks not a government employee before submitting, the conditionally rendered stuff still exists and can get submitted
 
-  const id = meId || "";
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
     // tristan's suggestion to short-circuit this function if there is no id
-    if (id === "") {
+    if (meId === undefined || meId === "") {
       toast.error(
         intl.formatMessage({
           defaultMessage: "Error: user not found",
@@ -417,7 +390,7 @@ export const GovInfoFormContainer: React.FunctionComponent = () => {
       );
       return;
     }
-    await handleUpdateUser(id, formValuesToSubmitData(data, classifications))
+    await handleUpdateUser(meId, formValuesToSubmitData(data, classifications))
       .then(() => {
         navigate(paths.profile());
         toast.success(
@@ -467,15 +440,13 @@ export const GovInfoFormContainer: React.FunctionComponent = () => {
           },
         ]}
       >
-        <FormProvider {...methods}>
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <GovernmentInfoForm
-              classifications={classifications}
-              storedValues={previousData}
-            />
-            <ProfileFormFooter mode="saveButton" />
-          </form>
-        </FormProvider>
+        <BasicForm
+          onSubmit={onSubmit}
+          options={{ defaultValues: dataToFormValues(meInfo) }}
+        >
+          <GovernmentInfoForm classifications={classifications} />
+          <ProfileFormFooter mode="saveButton" />
+        </BasicForm>
       </ProfileFormWrapper>
     </div>
   );
