@@ -1,16 +1,12 @@
 import { Button } from "@common/components";
 import { SaveIcon } from "@heroicons/react/solid";
 import * as React from "react";
+import { useFormState } from "react-hook-form";
 import { useIntl } from "react-intl";
 
-interface SaveButtonProps {
-  handleSave: () => void;
-}
-
-const SaveButton: React.FunctionComponent<SaveButtonProps> = ({
-  handleSave,
-}) => {
+const SaveButton: React.FunctionComponent = () => {
   const intl = useIntl();
+  const { isSubmitting } = useFormState();
   return (
     <Button
       type="submit"
@@ -18,7 +14,7 @@ const SaveButton: React.FunctionComponent<SaveButtonProps> = ({
       mode="solid"
       data-h2-display="b(flex)"
       data-h2-align-items="b(center)"
-      onClick={handleSave}
+      disabled={isSubmitting}
     >
       <SaveIcon style={{ width: "1rem" }} />
       <span data-h2-margin="b(left, xxs)">

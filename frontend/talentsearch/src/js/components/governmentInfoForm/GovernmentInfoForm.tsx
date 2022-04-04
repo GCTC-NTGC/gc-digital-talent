@@ -473,10 +473,7 @@ export const GovInfoFormContainer: React.FunctionComponent = () => {
               classifications={classifications}
               storedValues={previousData}
             />
-            <ProfileFormFooter
-              mode="saveButton"
-              handleSave={handleSubmit(onSubmit)}
-            />
+            <ProfileFormFooter mode="saveButton" />
           </form>
         </FormProvider>
       </ProfileFormWrapper>
