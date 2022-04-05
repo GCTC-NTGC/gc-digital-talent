@@ -67,6 +67,7 @@ COPY ./my-httpd.conf /usr/local/apache2/conf/httpd.conf
 WORKDIR /usr/local/apache2/htdocs
 RUN rm -rf ./*
 
+#TODO: can we copy these directly to the root hosting directory and not have issues  with loading /admin?
 COPY --from=builder /app/talentsearch/dist ./app/talentsearch
 COPY --from=builder /app/admin/dist ./app/admin
 COPY .htaccess ./

@@ -20,10 +20,14 @@ COPY --from=composer:2 /usr/bin/composer /usr/local/bin/composer
 RUN composer install --prefer-dist
 
 # Re-use base layer without composer.
-FROM base
+FROM base as webserver
+RUN a2enmod rewrite
+RUN a2enmod include
+COPY ./my-apache2.conf /etc/apache2/apache2.conf
 COPY --from=builder /var/www/html/api/vendor vendor
 # Default configuration in case needed.
 COPY .env.example .env
 # Overrides default with custom .env if file exists.
 COPY . .
-RUN chmod -R 777 ./storage
+#TODO: chown to www-user instead of 777?
+RUN chmod -R 777 ./storage ./bootstrap/cache
