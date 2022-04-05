@@ -1,0 +1,180 @@
+fragment pool on Pool {
+  id
+  owner {
+    id
+    firstName
+    lastName
+    email
+  }
+  name {
+    en
+    fr
+  }
+  key
+  description {
+    en
+    fr
+  }
+  classifications {
+    id
+    name {
+      en
+      fr
+    },
+    group
+    level
+  }
+  assetCriteria {
+    id
+    key
+    name {
+      en
+      fr
+    }
+  }
+  essentialCriteria {
+    id
+    key
+    name {
+      en
+      fr
+    }
+  }
+  operationalRequirements
+}
+
+query getPool($id: ID!) {
+  pool(id: $id) {
+    ...pool
+  }
+}
+query getCreatePoolData {
+  users {
+    id
+    email
+    firstName
+    lastName
+  }
+  classifications {
+    id
+    group
+    level
+  }
+  cmoAssets {
+    id
+    key
+    name {
+      en,
+      fr
+    }
+  }
+}
+query getUpdatePoolData($id: ID!) {
+  users {
+    id
+    email
+    firstName
+    lastName
+  }
+  classifications {
+    id
+    group
+    level
+  }
+  cmoAssets {
+    id
+    key
+    name {
+      en,
+      fr
+    }
+  }
+  pool(id: $id) {
+    ...pool
+  }
+}
+
+query getPools {
+  pools {
+    id
+    owner {
+      id
+      email
+    }
+    name {
+      en
+      fr
+    }
+    key
+    description {
+      en
+      fr
+    }
+    classifications {
+      group
+      level
+    }
+  }
+}
+
+mutation createPool($pool: CreatePoolInput!) {
+  createPool(pool: $pool) {
+    owner {
+      id
+    }
+    name {
+      en
+      fr
+    }
+    key
+    description {
+      en
+      fr
+    }
+    classifications {
+      id
+      group
+      level
+    }
+    assetCriteria {
+      id
+      key
+    }
+    essentialCriteria {
+      id
+      key
+    }
+    operationalRequirements
+  }
+}
+
+mutation updatePool($id: ID!, $pool: UpdatePoolInput!) {
+  updatePool(id: $id, pool: $pool) {
+    owner {
+      id
+    }
+    name {
+      en
+      fr
+    }
+    key
+    description {
+      en
+      fr
+    }
+    classifications {
+      id
+      group
+      level
+    }
+    assetCriteria {
+      id
+      key
+    }
+    essentialCriteria {
+      id
+      key
+    }
+    operationalRequirements
+  }
+}

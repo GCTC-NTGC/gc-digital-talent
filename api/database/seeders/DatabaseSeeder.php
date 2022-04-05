@@ -6,7 +6,6 @@ use App\Models\User;
 use App\Models\Pool;
 use App\Models\Classification;
 use App\Models\CmoAsset;
-use App\Models\OperationalRequirement;
 use App\Models\PoolCandidate;
 use App\Models\PoolCandidateFilter;
 use App\Models\PoolCandidateSearchRequest;
@@ -38,7 +37,6 @@ class DatabaseSeeder extends Seeder
 
         $this->call(ClassificationSeeder::class);
         $this->call(CmoAssetSeeder::class);
-        $this->call(OperationalRequirementSeeder::class);
         $this->call(DepartmentSeeder::class);
 
         SkillFamily::factory()
@@ -63,10 +61,8 @@ class DatabaseSeeder extends Seeder
             ->afterCreating(function (User $user) {
                 $assets = CmoAsset::inRandomOrder()->limit(4)->pluck('id')->toArray();
                 $classifications = Classification::inRandomOrder()->limit(3)->pluck('id')->toArray();
-                $requirements = OperationalRequirement::inRandomOrder()->limit(2)->pluck('id')->toArray();
                 $user->cmoAssets()->sync($assets);
                 $user->expectedClassifications()->sync($classifications);
-                $user->acceptedOperationalRequirements()->sync($requirements);
             })
             ->create();
 

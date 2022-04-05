@@ -24,18 +24,18 @@ DirectorySlash off
     RewriteRule ^refresh$ api/public/refresh [L]
 
     # Send admin requests to admin public folder (with or without public/ path prefix).
-    RewriteRule ^admin/public(/(.*))?$ frontend/admin/public/$2 [L]
-    RewriteRule ^admin(/(.*))?$ frontend/admin/public/$2 [L]
+    RewriteRule ^admin/public(/(.*))?$ frontend/admin/dist/$2 [L]
+    RewriteRule ^admin(/(.*))?$ frontend/admin/dist/$2 [L]
 
     # Send localized admin requests also to admin public folder;
-    RewriteRule ^(en|fr)/admin(/(.*))?$ frontend/admin/public/$3 [L]
+    RewriteRule ^(en|fr)/admin(/(.*))?$ frontend/admin/dist/$3 [L]
 
     # Send talent requests to talentsearch public folder (with or without public/ path prefix).
-    RewriteRule ^talent/public(/(.*))?$ frontend/talentsearch/public/$2 [L]
-    RewriteRule ^talent(/(.*))?$ frontend/talentsearch/public/$2 [L]
+    RewriteRule ^talent/public(/(.*))?$ frontend/talentsearch/dist/$2 [L]
+    RewriteRule ^talent(/(.*))?$ frontend/talentsearch/dist/$2 [L]
 
     # Send localized talent requests also to talentsearch public folder;
-    RewriteRule ^(en|fr)/talent(/(.*))?$ frontend/talentsearch/public/$3 [L]
+    RewriteRule ^(en|fr)/talent(/(.*))?$ frontend/talentsearch/dist/$3 [L]
 
     # PHP Info page for debugging
     RewriteRule ^phpinfo.php$ phpinfo.php [L]
