@@ -586,31 +586,31 @@ export const ProfileForm: React.FC<ProfilePageProps> = ({
                       </span>
                     </p>
                   )}
-                {(!lookingForEnglish &&
+                {((!lookingForEnglish &&
                   !lookingForFrench &&
                   !lookingForBilingual) ||
-                  (bilingualEvaluation === null && (
-                    <p>
-                      {intl.formatMessage(
-                        {
-                          defaultMessage:
-                            "There are <redText>required</redText> fields missing.",
-                          description:
-                            "Message that there are required fields missing. Please ignore things in <> tags.",
-                        },
-                        {
-                          redText,
-                        },
-                      )}{" "}
-                      <a href={paths.languageInformation()}>
-                        {intl.formatMessage({
-                          defaultMessage: "Click here to get started.",
-                          description:
-                            "Message to click on the words to begin something",
-                        })}
-                      </a>
-                    </p>
-                  ))}
+                  bilingualEvaluation === undefined) && (
+                  <p>
+                    {intl.formatMessage(
+                      {
+                        defaultMessage:
+                          "There are <redText>required</redText> fields missing.",
+                        description:
+                          "Message that there are required fields missing. Please ignore things in <> tags.",
+                      },
+                      {
+                        redText,
+                      },
+                    )}{" "}
+                    <a href={paths.languageInformation()}>
+                      {intl.formatMessage({
+                        defaultMessage: "Click here to get started.",
+                        description:
+                          "Message to click on the words to begin something",
+                      })}
+                    </a>
+                  </p>
+                )}
               </div>
             </div>
             <div id="gov-info-section">
@@ -663,7 +663,7 @@ export const ProfileForm: React.FC<ProfilePageProps> = ({
                     <p>
                       {intl.formatMessage({
                         defaultMessage:
-                          "Yes I am a current government employee.",
+                          "Yes, I am a Government of Canada employee.",
                         description:
                           "Message to state user is employed by government",
                       })}
@@ -838,22 +838,26 @@ export const ProfileForm: React.FC<ProfilePageProps> = ({
                   </p>
                 )}
                 {wouldAcceptTemporary && (
-                  <p data-h2-font-weight="b(700)">
-                    {intl.formatMessage({
-                      defaultMessage:
-                        "Any duration (short, long term, or indeterminate duration)",
-                      description:
-                        "Duration of any length is good, specified three example lengths",
-                    })}
-                  </p>
+                  <ul data-h2-padding="b(left, l)">
+                    <li data-h2-font-weight="b(700)">
+                      {intl.formatMessage({
+                        defaultMessage:
+                          "Any duration (short, long term, or indeterminate duration)",
+                        description:
+                          "Duration of any length is good, specified three example lengths",
+                      })}
+                    </li>
+                  </ul>
                 )}
                 {wouldAcceptTemporary === false && (
-                  <p data-h2-font-weight="b(700)">
-                    {intl.formatMessage({
-                      defaultMessage: "Permanent duration",
-                      description: "Permanent duration only",
-                    })}{" "}
-                  </p>
+                  <ul data-h2-padding="b(left, l)">
+                    <li data-h2-font-weight="b(700)">
+                      {intl.formatMessage({
+                        defaultMessage: "Permanent duration",
+                        description: "Permanent duration only",
+                      })}{" "}
+                    </li>
+                  </ul>
                 )}
                 {acceptedOperationalArray !== null && (
                   <p>
