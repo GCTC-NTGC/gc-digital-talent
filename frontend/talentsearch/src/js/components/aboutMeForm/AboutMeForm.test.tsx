@@ -5,8 +5,11 @@ import "@testing-library/jest-dom";
 import { render, screen, fireEvent } from "@testing-library/react";
 import React from "react";
 import { IntlProvider, MessageFormatElement } from "react-intl";
+import { fakeUsers } from "@common/fakeData";
 import AboutMeForm from "./AboutMeForm";
 import type { FormValues } from "./AboutMeForm";
+
+const me = fakeUsers()[0];
 
 const renderWithReactIntl = (
   component: React.ReactNode,
@@ -21,7 +24,9 @@ const renderWithReactIntl = (
 };
 
 const renderAboutMeForm = () => (
-  <>{renderWithReactIntl(<AboutMeForm onSubmit={async () => null} />)}</>
+  <>
+    {renderWithReactIntl(<AboutMeForm me={me} onSubmit={async () => null} />)}
+  </>
 );
 
 describe("AboutMeForm", () => {

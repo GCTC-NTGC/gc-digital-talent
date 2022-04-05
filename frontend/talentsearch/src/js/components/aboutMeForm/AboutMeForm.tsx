@@ -1,12 +1,18 @@
 import React from "react";
 import { useIntl } from "react-intl";
+import { pick } from "lodash";
 import { BasicForm, Input, RadioGroup, Select } from "@common/components/form";
 import { errorMessages } from "@common/messages";
-import { ProvinceOrTerritory } from "@common/api/generated";
+import { ProvinceOrTerritory, Language } from "@common/api/generated";
 import { enumToOptions } from "@common/helpers/formUtils";
-import { getProvinceOrTerritory } from "@common/constants/localizedConstants";
+import {
+  getProvinceOrTerritory,
+  getLanguage,
+} from "@common/constants/localizedConstants";
 import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
 import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
+
+import type { User } from "../../api/generated";
 
 export type FormValues = {
   preferredLang: string;
@@ -18,10 +24,26 @@ export type FormValues = {
   email: string;
 };
 
-export const AboutMeForm: React.FunctionComponent<{
+interface AboutMeFormProps {
+  me: User;
   onSubmit: (data: FormValues) => Promise<void | null>;
-}> = ({ onSubmit }) => {
+}
+
+export const AboutMeForm: React.FunctionComponent<AboutMeFormProps> = ({
+  me,
+  onSubmit,
+}) => {
   const intl = useIntl();
+  const defaultValues = pick(me, [
+    "id",
+    "preferredLang",
+    "currentProvince",
+    "currentCity",
+    "telephone",
+    "firstName",
+    "lastName",
+    "email",
+  ]);
 
   return (
     <ProfileFormWrapper
@@ -47,6 +69,9 @@ export const AboutMeForm: React.FunctionComponent<{
       <BasicForm
         onSubmit={(fieldValues: FormValues) => {
           return onSubmit(fieldValues);
+        }}
+        options={{
+          defaultValues,
         }}
       >
         <h2 data-h2-font-size="b(h3)" data-h2-font-weight="b(700)">
@@ -75,24 +100,10 @@ export const AboutMeForm: React.FunctionComponent<{
               })}
               name="preferredLang"
               rules={{ required: intl.formatMessage(errorMessages.required) }}
-              items={[
-                {
-                  value: "en",
-                  label: intl.formatMessage({
-                    defaultMessage: "English",
-                    description:
-                      "Label for English option in Personal Information section on About Me form",
-                  }),
-                },
-                {
-                  value: "fr",
-                  label: intl.formatMessage({
-                    defaultMessage: "French",
-                    description:
-                      "Label for French option in Personal Information section on About Me form",
-                  }),
-                },
-              ]}
+              items={enumToOptions(Language).map(({ value }) => ({
+                value,
+                label: intl.formatMessage(getLanguage(value)),
+              }))}
             />
             <Select
               id="currentProvince"
