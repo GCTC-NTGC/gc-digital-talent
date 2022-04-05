@@ -13,6 +13,7 @@ import {
   getLanguage,
 } from "@common/constants/localizedConstants";
 import { SubmitHandler } from "react-hook-form";
+import { pick } from "lodash";
 import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
 import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
 import {
@@ -40,7 +41,7 @@ export type AboutMeUpdateHandler = (
 ) => Promise<UpdateUserAsUserMutation["updateUserAsUser"]>;
 
 export interface AboutMeFormProps {
-  initialUser: User;
+  initialUser?: User | null;
   onUpdateAboutMe: AboutMeUpdateHandler;
 }
 
@@ -52,18 +53,49 @@ export const AboutMeForm: React.FunctionComponent<AboutMeFormProps> = ({
   const locale = getLocale(intl);
   const paths = applicantProfileRoutes(locale);
 
+  if (!initialUser) {
+    return (
+      <p>
+        {intl.formatMessage({
+          defaultMessage: "Could not load user.",
+          description:
+            "Error message that appears when current user could not be retrieved.",
+        })}
+      </p>
+    );
+  }
+
+  const initialDataToFormValues = (data?: User | null): FormValues => {
+    if (!data) {
+      return {
+        email: "",
+      };
+    }
+
+    return pick(data, [
+      "preferredLang",
+      "currentProvince",
+      "currentCity",
+      "telephone",
+      "firstName",
+      "lastName",
+      "email",
+    ]);
+  };
+
   const formValuesToSubmitData = (data: FormValues): UpdateUserAsUserInput => ({
     ...data,
   });
 
   const handleSubmit: SubmitHandler<FormValues> = async (formValues) => {
-    if (!initialUser.id) {
+    if (!initialUser?.id) {
       toast.error(
         intl.formatMessage({
           defaultMessage: "Error: user not found",
           description: "Message displayed to user if user is not found",
         }),
       );
+      return;
     }
 
     await onUpdateAboutMe(initialUser.id, formValuesToSubmitData(formValues))
@@ -92,7 +124,7 @@ export const AboutMeForm: React.FunctionComponent<AboutMeFormProps> = ({
     <BasicForm
       onSubmit={handleSubmit}
       options={{
-        defaultValues: initialUser,
+        defaultValues: initialDataToFormValues(initialUser),
       }}
     >
       <h2 data-h2-font-size="b(h3)" data-h2-font-weight="b(700)">
@@ -269,7 +301,7 @@ const AboutMeFormContainer: React.FunctionComponent = () => {
     return <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>;
   }
 
-  if (error || !data?.me) {
+  if (error || !data) {
     return (
       <p>
         {intl.formatMessage(commonMessages.loadingError)}
