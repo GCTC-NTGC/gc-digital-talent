@@ -19,8 +19,8 @@ export type FormValues = {
 };
 
 export const AboutMeForm: React.FunctionComponent<{
-  handleSubmit: (data: FormValues) => Promise<void>;
-}> = ({ handleSubmit }) => {
+  onSubmit: (data: FormValues) => Promise<void | null>;
+}> = ({ onSubmit }) => {
   const intl = useIntl();
 
   return (
@@ -46,7 +46,7 @@ export const AboutMeForm: React.FunctionComponent<{
     >
       <BasicForm
         onSubmit={(fieldValues: FormValues) => {
-          return handleSubmit(fieldValues);
+          return onSubmit(fieldValues);
         }}
       >
         <h2 data-h2-font-size="b(h3)" data-h2-font-weight="b(700)">

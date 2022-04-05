@@ -13,7 +13,7 @@ export default {
 
 const TemplateAboutMeForm: Story = () => (
   <AboutMeForm
-    handleSubmit={async (data: FormValues) => {
+    onSubmit={async (data: FormValues) => {
       action("submit")(data);
     }}
   />
