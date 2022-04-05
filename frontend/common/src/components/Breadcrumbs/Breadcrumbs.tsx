@@ -11,7 +11,7 @@ export const Breadcrumbs: React.FunctionComponent<BreadcrumbsProps> = ({
   links,
 }) => {
   // taking in the array of objects as defined above, create an array of Link components or a <span> if there is no href
-  const arrayLinks = links.map((link, index) =>
+  const arrayLinks = links.map((link) =>
     link.href ? (
       <Link
         data-h2-display="b(flex)"
