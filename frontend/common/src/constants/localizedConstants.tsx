@@ -18,6 +18,26 @@ import {
 } from "../api/generated";
 import { getOrThrowError } from "../helpers/util";
 
+export const womanLocalized = {
+  defaultMessage: "Woman",
+  description: "Woman",
+};
+
+export const indigenousLocalized = {
+  defaultMessage: "Indigenous",
+  description: "Indigenous",
+};
+
+export const minorityLocalized = {
+  defaultMessage: "Member of a visible minority group",
+  description: "Member of a visible minority group",
+};
+
+export const disabilityLocalized = {
+  defaultMessage: "Person with a disability",
+  description: "Person with a disability",
+};
+
 export const languageProficiency = {
   [EstimatedLanguageAbility.Beginner]: {
     defaultMessage: "Beginner",
