@@ -368,7 +368,7 @@ type Skill {
     educationExperiences: [EducationExperience!]
     personalExperiences: [PersonalExperience!]
     workExperiences: [WorkExperience!]
-    experiencePivot: ExperienceSkillRecord @rename(attribute: "pivot")
+    experienceRecord: ExperienceSkillRecord @rename(attribute: "pivot")
 }
 
 enum AwardedTo {
@@ -422,7 +422,7 @@ type WorkExperience implements Experience {
     endDate: Date @rename(attribute: "end_date")
     details: String
     skills: [Skill!] @morphToMany
-    skillPivot: ExperienceSkillRecord @rename(attribute: "pivot")
+    skillRecord: ExperienceSkillRecord @rename(attribute: "pivot")
 }
 type PersonalExperience implements Experience {
     id: ID!
@@ -433,7 +433,7 @@ type PersonalExperience implements Experience {
     endDate: Date @rename(attribute: "end_date")
     details: String
     skills: [Skill!] @morphToMany
-    skillPivot: ExperienceSkillRecord @rename(attribute: "pivot")
+    skillRecord: ExperienceSkillRecord @rename(attribute: "pivot")
 }
 type CommunityExperience implements Experience {
     id: ID!
@@ -445,7 +445,7 @@ type CommunityExperience implements Experience {
     endDate: Date @rename(attribute: "end_date")
     details: String
     skills: [Skill!] @morphToMany
-    skillPivot: ExperienceSkillRecord @rename(attribute: "pivot")
+    skillRecord: ExperienceSkillRecord @rename(attribute: "pivot")
 }
 type EducationExperience implements Experience {
     id: ID!
@@ -459,7 +459,7 @@ type EducationExperience implements Experience {
     status: EducationStatus
     details: String
     skills: [Skill!] @morphToMany
-    skillPivot: ExperienceSkillRecord @rename(attribute: "pivot")
+    skillRecord: ExperienceSkillRecord @rename(attribute: "pivot")
 }
 type AwardExperience implements Experience {
     id: ID!
@@ -471,7 +471,7 @@ type AwardExperience implements Experience {
     awardedScope: AwardedScope @rename(attribute: "awarded_scope")
     details: String
     skills: [Skill!] @morphToMany
-    skillPivot: ExperienceSkillRecord @rename(attribute: "pivot")
+    skillRecord: ExperienceSkillRecord @rename(attribute: "pivot")
 }
 
 type ExperienceSkillRecord {

@@ -50,7 +50,7 @@ type AwardExperience implements Experience {
   awardedScope: AwardedScope
   details: String
   skills: [Skill!]
-  skillPivot: ExperienceSkillRecord
+  skillRecord: ExperienceSkillRecord
 }
 
 input AwardExperienceHasMany {
@@ -136,7 +136,7 @@ type CommunityExperience implements Experience {
   endDate: Date
   details: String
   skills: [Skill!]
-  skillPivot: ExperienceSkillRecord
+  skillRecord: ExperienceSkillRecord
 }
 
 input CommunityExperienceHasMany {
@@ -324,7 +324,7 @@ type EducationExperience implements Experience {
   status: EducationStatus
   details: String
   skills: [Skill!]
-  skillPivot: ExperienceSkillRecord
+  skillRecord: ExperienceSkillRecord
 }
 
 input EducationExperienceHasMany {
@@ -585,7 +585,7 @@ type PersonalExperience implements Experience {
   endDate: Date
   details: String
   skills: [Skill!]
-  skillPivot: ExperienceSkillRecord
+  skillRecord: ExperienceSkillRecord
 }
 
 input PersonalExperienceHasMany {
@@ -853,7 +853,7 @@ type Skill {
   educationExperiences: [EducationExperience!]
   personalExperiences: [PersonalExperience!]
   workExperiences: [WorkExperience!]
-  experiencePivot: ExperienceSkillRecord
+  experienceRecord: ExperienceSkillRecord
 }
 
 input SkillBelongsToMany {
@@ -1157,7 +1157,7 @@ type WorkExperience implements Experience {
   endDate: Date
   details: String
   skills: [Skill!]
-  skillPivot: ExperienceSkillRecord
+  skillRecord: ExperienceSkillRecord
 }
 
 input WorkExperienceHasMany {

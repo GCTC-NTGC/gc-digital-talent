@@ -33,15 +33,15 @@ const theSkillDescription1: LocalizedString = {
   en: "The first Description",
   fr: "Le premier Descriptif",
 };
-const theExperienceSkillPivot: ExperienceSkillRecord = {
-  details: "The ExperienceSkillPivots details",
+const theExperienceSkillRecord: ExperienceSkillRecord = {
+  details: "The ExperienceSkillRecords details",
 };
 const sampleSkill1: Skill = {
   id: faker.datatype.uuid(),
   key: faker.random.word(),
   description: theSkillDescription1,
   name: theSkillString1,
-  experiencePivot: theExperienceSkillPivot,
+  experienceRecord: theExperienceSkillRecord,
 };
 const theSkillString2: LocalizedString = {
   en: "The second Skill",
@@ -56,7 +56,7 @@ const sampleSkill2: Skill = {
   key: faker.random.word(),
   description: theSkillDescription2,
   name: theSkillString2,
-  experiencePivot: theExperienceSkillPivot,
+  experienceRecord: theExperienceSkillRecord,
 };
 
 // 5 generators to generate experiences of a certain type
