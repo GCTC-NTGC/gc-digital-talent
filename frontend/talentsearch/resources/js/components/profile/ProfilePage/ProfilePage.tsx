@@ -19,11 +19,13 @@ import { useGetMeQuery } from "../../../api/generated";
 export interface ProfilePageProps {
   firstName?: string | null;
   lastName?: string | null;
+  id?: string | null;
 }
 
 export const ProfilePage: React.FC<ProfilePageProps> = ({
   firstName,
   lastName,
+  id,
 }) => {
   const intl = useIntl();
   const paths = useApplicantProfileRoutes();
@@ -105,7 +107,7 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({
             </a>
           </p>
           <p>
-            <a href={paths.workLocation()}>
+            <a href={paths.workLocation(`${id}`)}>
               {intl.formatMessage({
                 defaultMessage: "Work Location",
                 description: "Title of the Work Location section",
@@ -274,7 +276,7 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({
                   })}
                 </h2>
                 <Link
-                  href={paths.workLocation()}
+                  href={paths.workLocation(`${id}`)}
                   title=""
                   {...{
                     "data-h2-font-color": "b(lightpurple)",

@@ -77,16 +77,7 @@ export const Router: React.FC = () => {
         description: "Label displayed on the Request menu item.",
       })}
     />,
-    <MenuLink
-      key="request"
-      href={profilePaths.home()}
-      text={intl.formatMessage({
-        defaultMessage: "Profile",
-        description: "Label displayed on the Request menu item.",
-      })}
-    />,
   ];
-
   return (
     <ClientProvider>
       <PageContainer
