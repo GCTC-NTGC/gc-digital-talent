@@ -13,6 +13,7 @@ import {
   EducationType,
   EducationStatus,
   OperationalRequirement,
+  ProvinceOrTerritory,
 } from "../api/generated";
 import { getOrThrowError } from "../helpers/util";
 
@@ -385,4 +386,71 @@ export const getOperationalRequirement = (
     operationalRequirements,
     operationalRequirementId,
     `Invalid Operational Requirement '${operationalRequirementId}'`,
+  );
+
+export const provinceOrTerritory = defineMessages({
+  [ProvinceOrTerritory.Alberta]: {
+    defaultMessage: "Alberta",
+    description: "Alberta selection for province or territory input",
+  },
+  [ProvinceOrTerritory.BritishColumbia]: {
+    defaultMessage: "British Columbia",
+    description: "British Columbia selection for province or territory input",
+  },
+  [ProvinceOrTerritory.Manitoba]: {
+    defaultMessage: "Manitoba",
+    description: "Manitoba selection for province or territory input",
+  },
+  [ProvinceOrTerritory.NewfoundlandAndLabrador]: {
+    defaultMessage: "Newfoundland and Labrador",
+    description:
+      "Newfoundland and Labrador selection for province or territory input",
+  },
+  [ProvinceOrTerritory.NewBrunswick]: {
+    defaultMessage: "New Brunswick",
+    description: "New Brunswick selection for province or territory input",
+  },
+  [ProvinceOrTerritory.NorthwestTerritories]: {
+    defaultMessage: "Northwest Territories",
+    description:
+      "Northwest Territories selection for province or territory input",
+  },
+  [ProvinceOrTerritory.NovaScotia]: {
+    defaultMessage: "Nova Scotia",
+    description: "Nova Scotia selection for province or territory input",
+  },
+  [ProvinceOrTerritory.Nunavut]: {
+    defaultMessage: "Nunavut",
+    description: "Nunavut selection for province or territory input",
+  },
+  [ProvinceOrTerritory.Ontario]: {
+    defaultMessage: "Ontario",
+    description: "Ontario selection for province or territory input",
+  },
+  [ProvinceOrTerritory.PrinceEdwardIsland]: {
+    defaultMessage: "Prince Edward Island",
+    description:
+      "Prince Edward Island selection for province or territory input",
+  },
+  [ProvinceOrTerritory.Quebec]: {
+    defaultMessage: "Quebec",
+    description: "Quebec selection for province or territory input",
+  },
+  [ProvinceOrTerritory.Saskatchewan]: {
+    defaultMessage: "Saskatchewan",
+    description: "Saskatchewan selection for province or territory input",
+  },
+  [ProvinceOrTerritory.Yukon]: {
+    defaultMessage: "Yukon",
+    description: "Yukon selection for province or territory input",
+  },
+});
+
+export const getProvinceOrTerritory = (
+  provinceOrTerritoryId: string | number,
+): MessageDescriptor =>
+  getOrThrowError(
+    provinceOrTerritory,
+    provinceOrTerritoryId,
+    `Invalid Operational Requirement '${provinceOrTerritoryId}'`,
   );
