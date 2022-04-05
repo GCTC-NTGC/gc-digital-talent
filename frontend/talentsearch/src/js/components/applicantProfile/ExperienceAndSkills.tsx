@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import { Tab, TabSet } from "@common/components/tabs";
 import {
   BookOpenIcon,
@@ -9,7 +10,8 @@ import {
 import * as React from "react";
 import { useIntl } from "react-intl";
 import { notEmpty } from "@common/helpers/util";
-import { commonMessages } from "@common/messages";
+import { EducationExperience } from "@common/api/generated";
+import { getLocale } from "@common/helpers/localize";
 import {
   isAwardExperience,
   isCommunityExperience,
@@ -19,15 +21,46 @@ import {
 } from "../../types/ExperienceUtils";
 import {
   AwardExperience,
+  CommunityExperience,
   Experience,
+  PersonalExperience,
   Skill,
-  useGetAllApplicantExperiencesQuery,
+  WorkExperience,
 } from "../../api/generated";
 import ExperienceAccordion from "../ExperienceAccordion/ExperienceAccordion";
 import ProfileFormFooter from "./ProfileFormFooter";
 import ProfileFormWrapper from "./ProfileFormWrapper";
 import SkillAccordion from "../skills/SkillAccordion/SkillAccordion";
 
+export type ExperienceForDate =
+  | (AwardExperience & { startDate: string; endDate: string })
+  | CommunityExperience
+  | EducationExperience
+  | PersonalExperience
+  | WorkExperience;
+
+export const compareByDate = (e1: ExperienceForDate, e2: ExperienceForDate) => {
+  const e1EndDate = e1.endDate ? new Date(e1.endDate).getTime() : null;
+  const e2EndDate = e2.endDate ? new Date(e2.endDate).getTime() : null;
+  const e1StartDate = e1.startDate ? new Date(e1.startDate).getTime() : -1;
+  const e2StartDate = e2.startDate ? new Date(e2.startDate).getTime() : -1;
+
+  // All items with no end date should be at the top and sorted by most recent start date.
+  if (!e1EndDate && !e2EndDate) {
+    return e2StartDate - e1StartDate;
+  }
+
+  if (!e1EndDate) {
+    return -1;
+  }
+
+  if (!e2EndDate) {
+    return 1;
+  }
+
+  // Items with end date should be sorted by most recent end date at top.
+  return e2EndDate - e1EndDate;
+};
 const ExperienceByType: React.FunctionComponent<{
   title: string;
   icon: React.ReactNode;
@@ -65,10 +98,8 @@ const ExperienceAndSkills: React.FunctionComponent<
   ExperienceAndSkillsProps
 > = ({ experiences }) => {
   const intl = useIntl();
-  const compareByDate = (e1: any, e2: any) =>
-    e1.endDate && e2.endDate
-      ? new Date(e2.endDate).getTime() - new Date(e1.endDate).getTime()
-      : 0;
+  const locale = getLocale(intl);
+
   const awardExperiences =
     experiences
       ?.filter((experience) => isAwardExperience(experience))
@@ -76,8 +107,9 @@ const ExperienceAndSkills: React.FunctionComponent<
         (award: AwardExperience) =>
           ({
             ...award,
+            startDate: award.awardedDate,
             endDate: award.awardedDate,
-          } as AwardExperience),
+          } as AwardExperience & { startDate: string; endDate: string }),
       )
       .sort(compareByDate) || [];
   const communityExperiences =
@@ -156,13 +188,16 @@ const ExperienceAndSkills: React.FunctionComponent<
         currentValue.experienceSkills
           ?.filter(notEmpty)
           .map((experienceSkill) => experienceSkill.skill) || [];
-
       return [...accumulator, ...skills];
     }, []) || [];
   const skillIds = allSkills.map(({ id }) => id);
-  const sortedBySkills = allSkills.filter(
-    ({ id }, index) => !skillIds.includes(id, index + 1),
-  );
+  const sortedBySkills = allSkills
+    .filter(({ id }, index) => !skillIds.includes(id, index + 1)) // Remove duplicate skills
+    .sort((skill1, skill2) => {
+      const skill1Name: string = skill1.name[locale] || "";
+      const skill2Name: string = skill2.name[locale] || "";
+      return skill1Name.localeCompare(skill2Name);
+    }); // Sort skills alphabetically
 
   return (
     <ProfileFormWrapper
@@ -331,35 +366,3 @@ const ExperienceAndSkills: React.FunctionComponent<
 };
 
 export default ExperienceAndSkills;
-
-export const ExperienceAndSkillsApi: React.FunctionComponent<{
-  applicantId: string;
-}> = ({ applicantId }) => {
-  const intl = useIntl();
-  const [{ data: applicantData, fetching, error }] =
-    useGetAllApplicantExperiencesQuery({ variables: { id: applicantId } });
-
-  if (fetching) return <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>;
-  if (error)
-    return (
-      <p>
-        {intl.formatMessage(commonMessages.loadingError)}
-        {error.message}
-      </p>
-    );
-  return applicantData?.applicant ? (
-    <ExperienceAndSkills
-      experiences={applicantData.applicant.experiences?.filter(notEmpty)}
-    />
-  ) : (
-    <p>
-      {intl.formatMessage(
-        {
-          defaultMessage: "User {userId} not found.",
-          description: "Message displayed for user not found.",
-        },
-        { applicantId },
-      )}
-    </p>
-  );
-};
