@@ -59,6 +59,10 @@ __EOF__
 
 sudo composer selfupdate
 
+# TODO: Load this in lib file. Or alt: Create wrapping command to run `bash` in very specific way, e.g., as login shell.
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+
 source ~/.bash_profile
 nvm install v14.18.1
 nvm install-latest-npm
