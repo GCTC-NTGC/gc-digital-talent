@@ -13,7 +13,7 @@ import {
   getLanguage,
 } from "@common/constants/localizedConstants";
 import { SubmitHandler } from "react-hook-form";
-import { pick } from "lodash";
+import { omit, pick } from "lodash";
 import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
 import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
 import {
@@ -83,9 +83,11 @@ export const AboutMeForm: React.FunctionComponent<AboutMeFormProps> = ({
     ]);
   };
 
-  const formValuesToSubmitData = (data: FormValues): UpdateUserAsUserInput => ({
-    ...data,
-  });
+  const formValuesToSubmitData = (data: FormValues): UpdateUserAsUserInput => {
+    // NOTE: Prototype included email field but API does not allow users to update email
+    const newData = omit(data, ["email"]);
+    return newData;
+  };
 
   const handleSubmit: SubmitHandler<FormValues> = async (formValues) => {
     if (!initialUser?.id) {
