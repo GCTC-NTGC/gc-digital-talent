@@ -14,17 +14,19 @@ import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
 
 import type { User } from "../../api/generated";
 
-export type FormValues = {
-  preferredLang: string;
-  currentProvince: string;
-  currentCity: string;
-  telephone: string;
-  firstName: string;
-  lastName: string;
-  email: string;
-};
+export type FormValues = Pick<
+  User,
+  | "id"
+  | "preferredLang"
+  | "currentProvince"
+  | "currentCity"
+  | "telephone"
+  | "firstName"
+  | "lastName"
+  | "email"
+>;
 
-interface AboutMeFormProps {
+export interface AboutMeFormProps {
   me: User;
   onSubmit: (data: FormValues) => Promise<void | null>;
 }
