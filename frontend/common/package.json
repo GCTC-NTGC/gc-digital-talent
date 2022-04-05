@@ -22,7 +22,8 @@
     "check-intl-admin": "node ./src/tooling/checkIntl.js --en ../admin/src/js/lang/en.json --fr ../admin/src/js/lang/fr.json --rm-orphaned --output-untranslated ../admin/src/js/lang/untranslated.json --whitelist ../admin/src/js/lang/whitelist.json",
     "check-intl-admin-merge": "node ./src/tooling/checkIntl.js --en ../admin/src/js/lang/en.json --fr ../admin/src/js/lang/fr.json --rm-orphaned --output-untranslated ../admin/src/js/lang/untranslated.json --whitelist ../admin/src/js/lang/whitelist.json --merge-fr ../admin/src/js/lang/newTranslations.json",
     "check-intl-talentsearch": "node ./src/tooling/checkIntl.js --en ../talentsearch/src/js/lang/en.json --fr ../talentsearch/src/js/lang/fr.json --rm-orphaned --output-untranslated ../talentsearch/src/js/lang/untranslated.json --whitelist ../talentsearch/src/js/lang/whitelist.json",
-    "check-intl-talentsearch-merge": "node ./src/tooling/checkIntl.js --en ../talentsearch/src/js/lang/en.json --fr ../talentsearch/src/js/lang/fr.json --rm-orphaned --output-untranslated ../talentsearch/src/js/lang/untranslated.json --whitelist ../talentsearch/src/js/lang/whitelist.json --merge-fr ../talentsearch/src/js/lang/newTranslations.json"
+    "check-intl-talentsearch-merge": "node ./src/tooling/checkIntl.js --en ../talentsearch/src/js/lang/en.json --fr ../talentsearch/src/js/lang/fr.json --rm-orphaned --output-untranslated ../talentsearch/src/js/lang/untranslated.json --whitelist ../talentsearch/src/js/lang/whitelist.json --merge-fr ../talentsearch/src/js/lang/newTranslations.json",
+    "check-integrity": "node ./src/tooling/checkIntegrity.js --lock-file ../package-lock.json --allow admin gc-digital-talent-common talentsearch"
   },
   "repository": {
     "type": "git",
