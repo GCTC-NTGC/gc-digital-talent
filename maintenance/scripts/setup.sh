@@ -2,6 +2,7 @@
 
 parent_path=$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P )
 source ${parent_path}/lib/common.sh
+source ${parent_path}/lib/load_nvm.sh
 
 cd /var/www/html/api
 cp .env.example .env
