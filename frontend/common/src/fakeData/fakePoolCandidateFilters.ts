@@ -10,7 +10,6 @@ import {
 } from "../api/generated";
 import fakeClassifications from "./fakeClassifications";
 import fakeCmoAssets from "./fakeCmoAssets";
-import fakeOperationalRequirements from "./fakeOperationalRequirements";
 import fakePools from "./fakePools";
 
 const generatePoolCandidateFilters = (
@@ -42,7 +41,9 @@ const generatePoolCandidateFilters = (
 export default (): PoolCandidateFilter[] => {
   const classifications = fakeClassifications();
   const cmoAssets = fakeCmoAssets();
-  const operationalRequirements = fakeOperationalRequirements();
+  const operationalRequirements = faker.random.arrayElements(
+    Object.values(OperationalRequirement),
+  );
   const pools = fakePools();
 
   faker.seed(0); // repeatable results

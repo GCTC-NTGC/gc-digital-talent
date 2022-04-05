@@ -73,7 +73,7 @@ describe("SkillAccordion tests", () => {
     );
     const d1 = formatter.format(new Date(experience.startDate!));
     const d2 = formatter.format(new Date(experience.endDate!));
-    const dateRange = `${d2} - ${d1}`;
+    const dateRange = `${d1} - ${d2}`;
     renderSkillAccordion(testSkill);
     const context = screen.getByText("1 Experience");
     const detail = screen.getByTestId("detail");

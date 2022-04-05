@@ -4,11 +4,11 @@ namespace Database\Factories;
 
 use App\Models\Classification;
 use App\Models\CmoAsset;
-use App\Models\OperationalRequirement;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Database\Helpers\EnumsForFactories;
 
 class PoolCandidateFactory extends Factory
 {
@@ -67,6 +67,7 @@ class PoolCandidateFactory extends Factory
             ]),
             'user_id' => User::factory(),
             'pool_id' => Pool::factory(),
+            'accepted_operational_requirements' => $this->faker->optional->randomElements(EnumsForFactories::operationalRequirements(), 2),
         ];
     }
 
@@ -75,10 +76,8 @@ class PoolCandidateFactory extends Factory
         return $this->afterCreating(function (PoolCandidate $candidate) {
             $assets = CmoAsset::inRandomOrder()->limit(4)->get();
             $classifications = Classification::inRandomOrder()->limit(3)->get();
-            $requirements = OperationalRequirement::inRandomOrder()->limit(2)->get();
             $candidate->cmoAssets()->saveMany($assets);
             $candidate->expectedClassifications()->saveMany($classifications);
-            $candidate->acceptedOperationalRequirements()->saveMany($requirements);
         });
     }
 }
