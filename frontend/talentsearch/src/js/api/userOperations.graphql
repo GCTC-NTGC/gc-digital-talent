@@ -1,6 +1,5 @@
 query getMe {
   me {
-    id
     firstName
     lastName
   }

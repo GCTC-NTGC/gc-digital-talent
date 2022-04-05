@@ -25,7 +25,6 @@ export interface ProfilePageProps {
 export const ProfilePage: React.FC<ProfilePageProps> = ({
   firstName,
   lastName,
-  id,
 }) => {
   const intl = useIntl();
   const paths = useApplicantProfileRoutes();
@@ -107,7 +106,7 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({
             </a>
           </p>
           <p>
-            <a href={paths.workLocation(`${id}`)}>
+            <a href={paths.workLocation()}>
               {intl.formatMessage({
                 defaultMessage: "Work Location",
                 description: "Title of the Work Location section",
@@ -276,7 +275,7 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({
                   })}
                 </h2>
                 <Link
-                  href={paths.workLocation(`${id}`)}
+                  href={paths.workLocation()}
                   title=""
                   {...{
                     "data-h2-font-color": "b(lightpurple)",

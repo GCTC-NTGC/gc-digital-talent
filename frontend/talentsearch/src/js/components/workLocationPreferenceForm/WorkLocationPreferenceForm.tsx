@@ -141,15 +141,12 @@ export const WorkLocationPreferenceForm: React.FC<
   );
 };
 
-export const WorkLocationPreferenceApi: React.FunctionComponent<{
-  userId: string;
-}> = ({ userId }) => {
+export const WorkLocationPreferenceApi: React.FunctionComponent = () => {
   const intl = useIntl();
   const paths = useApplicantProfileRoutes();
 
-  const [{ data: userData, fetching, error }] = useWorkLocationPreferenceQuery({
-    variables: { id: userId },
-  });
+  const [{ data: userData, fetching, error }] =
+    useWorkLocationPreferenceQuery();
 
   const [, executeMutation] = useCreateWorkLocationPreferenceMutation();
   const handleWorkLocationPreference = (
@@ -190,20 +187,17 @@ export const WorkLocationPreferenceApi: React.FunctionComponent<{
       </p>
     );
   }
-  return userData?.user ? (
+  return userData?.me ? (
     <WorkLocationPreferenceForm
-      initialData={userData?.user}
+      initialData={userData?.me}
       handleWorkLocationPreference={handleWorkLocationPreference}
     />
   ) : (
     <p>
-      {intl.formatMessage(
-        {
-          defaultMessage: "User {userId} not found.",
-          description: "Message displayed for user not found.",
-        },
-        { userId },
-      )}
+      {intl.formatMessage({
+        defaultMessage: "User not found.",
+        description: "Message displayed for user not found.",
+      })}
     </p>
   );
 };

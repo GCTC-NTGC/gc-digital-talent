@@ -14,8 +14,7 @@ const applicantProfileRoutes = (lang: string) => {
       path.join(home(), "language-information"),
     governmentInformation: (): string =>
       path.join(home(), "government-information"),
-    workLocation: (id: string): string =>
-      path.join(home(), "work-location", id, "edit"),
+    workLocation: (): string => path.join(home(), "work-location"),
     workPreferences: (): string => path.join(home(), "work-preferences"),
     diversityAndInclusion: (): string =>
       path.join(home(), "diversity-and-inclusion"),

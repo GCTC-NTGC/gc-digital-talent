@@ -48,9 +48,9 @@ const routes = (
     }),
   },
   {
-    path: profilePaths.workLocation(":id"),
-    action: ({ params }) => ({
-      component: <WorkLocationPreferenceApi userId={params.id as string} />,
+    path: profilePaths.workLocation(),
+    action: () => ({
+      component: <WorkLocationPreferenceApi />,
     }),
   },
 ];

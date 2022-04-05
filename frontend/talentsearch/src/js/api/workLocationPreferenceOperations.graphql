@@ -1,5 +1,5 @@
-query WorkLocationPreference($id: ID!) {
-  user(id: $id) {
+query WorkLocationPreference{
+  me{
     id
     email
     locationPreferences
