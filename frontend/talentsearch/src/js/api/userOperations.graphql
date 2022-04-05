@@ -56,6 +56,11 @@ query getMe {
       en
       fr
     }
+    description {
+      en
+      fr
+    }
+    key
   }
 	# experiences {
 	# id
@@ -79,8 +84,10 @@ query getMe {
     status
     expiryDate
     pool {
+      id
       name {
         en
+        fr
       }
     }
     id

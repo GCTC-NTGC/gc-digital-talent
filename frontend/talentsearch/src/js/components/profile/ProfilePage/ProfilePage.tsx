@@ -26,178 +26,57 @@ import TALENTSEARCH_APP_DIR from "../../../talentSearchConstants";
 import { useApplicantProfileRoutes } from "../../../applicantProfileRoutes";
 import {
   BilingualEvaluation,
-  EstimatedLanguageAbility,
-  EvaluatedLanguageAbility,
-  JobLookingStatus,
-  Language,
-  LanguageAbility,
-  OperationalRequirement,
-  PoolCandidateStatus,
-  ProvinceOrTerritory,
-  Role,
-  SalaryRange,
   useGetMeQuery,
-  WorkRegion,
   User,
+  GetMeQuery,
 } from "../../../api/generated";
 
 export interface ProfilePageProps {
-  id?: string | undefined;
-  sub?: string | null | undefined;
-  roles?: Array<Role | null | undefined> | null | undefined;
-  firstName?: string | null | undefined;
-  lastName?: string | null | undefined;
-  email?: string | undefined;
-  telephone?: string | null | undefined;
-  preferredLang?: Language | null | undefined;
-  currentProvince?: ProvinceOrTerritory | null | undefined;
-  currentCity?: string | null | undefined;
-  languageAbility?: LanguageAbility | null | undefined;
-  lookingForEnglish?: boolean | null | undefined;
-  lookingForFrench?: boolean | null | undefined;
-  lookingForBilingual?: boolean | null | undefined;
-  bilingualEvaluation?: BilingualEvaluation | null | undefined;
-  comprehensionLevel?: EvaluatedLanguageAbility | null | undefined;
-  writtenLevel?: EvaluatedLanguageAbility | null | undefined;
-  verbalLevel?: EvaluatedLanguageAbility | null | undefined;
-  estimatedLanguageAbility?: EstimatedLanguageAbility | null | undefined;
-  isGovEmployee?: boolean | null | undefined;
-  interestedInLaterOrSecondment?: boolean | null | undefined;
-  isWoman?: boolean | null | undefined;
-  hasDisability?: boolean | null | undefined;
-  isIndigenous?: boolean | null | undefined;
-  isVisibleMinority?: boolean | null | undefined;
-  jobLookingStatus?: JobLookingStatus | null | undefined;
-  hasDiploma?: boolean | null | undefined;
-  locationPreferences?: Array<WorkRegion | null | undefined> | null | undefined;
-  locationExemptions?: string | null | undefined;
-  expectedSalary?: Array<SalaryRange | null | undefined> | null | undefined;
-  wouldAcceptTemporary?: boolean | null | undefined;
-  currentClassification?:
-    | {
-        __typename?: "Classification";
-        id: string;
-        group: string;
-        level: number;
-        name?:
-          | {
-              __typename?: "LocalizedString";
-              en?: string | null | undefined;
-              fr?: string | null | undefined;
-            }
-          | null
-          | undefined;
-      }
-    | null
-    | undefined;
-  acceptedOperationalRequirements?:
-    | Array<OperationalRequirement | null | undefined>
-    | null
-    | undefined;
-  expectedClassifications?:
-    | Array<
-        | {
-            __typename?: "Classification";
-            id: string;
-            group: string;
-            level: number;
-            name?:
-              | {
-                  __typename?: "LocalizedString";
-                  en?: string | null | undefined;
-                  fr?: string | null | undefined;
-                }
-              | null
-              | undefined;
-          }
-        | null
-        | undefined
-      >
-    | null
-    | undefined;
-  cmoAssets?:
-    | Array<
-        | {
-            __typename?: "CmoAsset";
-            id: string;
-            name: {
-              __typename?: "LocalizedString";
-              en?: string | null | undefined;
-              fr?: string | null | undefined;
-            };
-          }
-        | null
-        | undefined
-      >
-    | null
-    | undefined;
-  poolCandidates?:
-    | Array<
-        | {
-            __typename?: "PoolCandidate";
-            status?: PoolCandidateStatus | null | undefined;
-            expiryDate?: string | null | undefined;
-            pool?:
-              | {
-                  __typename?: "Pool";
-                  name?:
-                    | {
-                        __typename?: "LocalizedString";
-                        en?: string | null | undefined;
-                        fr?: string | null | undefined;
-                      }
-                    | null
-                    | undefined;
-                }
-              | null
-              | undefined;
-            id?: string | null | undefined;
-          }
-        | null
-        | undefined
-      >
-    | null
-    | undefined;
+  profileDataInput: User;
 }
 
 export const ProfileForm: React.FC<ProfilePageProps> = ({
-  id,
-  sub,
-  roles,
-  firstName,
-  lastName,
-  email,
-  telephone,
-  preferredLang,
-  currentProvince,
-  currentCity,
-  languageAbility,
-  lookingForEnglish,
-  lookingForFrench,
-  lookingForBilingual,
-  bilingualEvaluation,
-  comprehensionLevel,
-  writtenLevel,
-  verbalLevel,
-  estimatedLanguageAbility,
-  isGovEmployee,
-  interestedInLaterOrSecondment,
-  currentClassification,
-  isWoman,
-  hasDisability,
-  isIndigenous,
-  isVisibleMinority,
-  jobLookingStatus,
-  hasDiploma,
-  locationPreferences,
-  locationExemptions,
-  acceptedOperationalRequirements,
-  expectedSalary,
-  expectedClassifications,
-  wouldAcceptTemporary,
-  cmoAssets,
-  poolCandidates,
+  profileDataInput,
 }) => {
+  const {
+    id,
+    sub,
+    roles,
+    firstName,
+    lastName,
+    email,
+    telephone,
+    preferredLang,
+    currentProvince,
+    currentCity,
+    languageAbility,
+    lookingForEnglish,
+    lookingForFrench,
+    lookingForBilingual,
+    bilingualEvaluation,
+    comprehensionLevel,
+    writtenLevel,
+    verbalLevel,
+    estimatedLanguageAbility,
+    isGovEmployee,
+    interestedInLaterOrSecondment,
+    currentClassification,
+    isWoman,
+    hasDisability,
+    isIndigenous,
+    isVisibleMinority,
+    jobLookingStatus,
+    hasDiploma,
+    locationPreferences,
+    locationExemptions,
+    acceptedOperationalRequirements,
+    expectedSalary,
+    expectedClassifications,
+    wouldAcceptTemporary,
+    cmoAssets,
+    poolCandidates,
+  } = profileDataInput;
+
   const intl = useIntl();
   const paths = useApplicantProfileRoutes();
   const locale = getLocale(intl);
@@ -538,6 +417,14 @@ export const ProfileForm: React.FC<ProfilePageProps> = ({
                       <span data-h2-font-weight="b(700)">French positions</span>
                     </p>
                   )}
+                {lookingForEnglish && lookingForFrench && !lookingForBilingual && (
+                  <p>
+                    Interested in:{" "}
+                    <span data-h2-font-weight="b(700)">
+                      English or French positions
+                    </span>
+                  </p>
+                )}
                 {lookingForBilingual && (
                   <p>
                     Interested in:{" "}
@@ -592,9 +479,9 @@ export const ProfileForm: React.FC<ProfilePageProps> = ({
                     </span>
                   </p>
                 )}
-                {lookingForEnglish === null &&
-                  lookingForFrench === null &&
-                  lookingForBilingual === null && (
+                {!lookingForEnglish &&
+                  !lookingForFrench &&
+                  !lookingForBilingual && (
                     <p>
                       There are{" "}
                       <span data-h2-font-color="b(red)">required</span> fields
@@ -900,6 +787,17 @@ export const ProfilePage: React.FunctionComponent = () => {
   const [result] = useGetMeQuery();
   const { data, fetching, error } = result;
 
+  // type magic on data variable to make it end up as a valid User type
+  const dataToUser = (input: GetMeQuery): User | undefined => {
+    if (input !== undefined && input !== null) {
+      if (input.me !== undefined && input.me !== null) {
+        return input.me;
+      }
+    }
+    return undefined;
+  };
+  const userData = data ? dataToUser(data) : undefined;
+
   if (fetching) return <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>;
   if (error)
     return (
@@ -909,5 +807,14 @@ export const ProfilePage: React.FunctionComponent = () => {
       </p>
     );
 
-  return <ProfileForm {...data?.me} />;
+  if (userData !== undefined)
+    return <ProfileForm profileDataInput={userData} />;
+  return (
+    <p>
+      {intl.formatMessage({
+        defaultMessage: "No user data",
+        description: "no user data was found",
+      })}
+    </p>
+  );
 };

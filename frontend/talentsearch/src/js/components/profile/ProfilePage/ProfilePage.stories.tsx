@@ -13,7 +13,7 @@ export default {
 } as Meta;
 
 const TemplateProfilePage: Story<User> = (args) => {
-  return <ProfileForm {...args} />;
+  return <ProfileForm profileDataInput={args} />;
 };
 
 export const ProfilePageStory1 = TemplateProfilePage.bind({});
