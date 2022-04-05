@@ -41,7 +41,7 @@ const sampleSkill1: Skill = {
   key: faker.random.word(),
   description: theSkillDescription1,
   name: theSkillString1,
-  experienceRecord: theExperienceSkillRecord,
+  experienceSkillRecord: theExperienceSkillRecord,
 };
 const theSkillString2: LocalizedString = {
   en: "The second Skill",
@@ -56,7 +56,7 @@ const sampleSkill2: Skill = {
   key: faker.random.word(),
   description: theSkillDescription2,
   name: theSkillString2,
-  experienceRecord: theExperienceSkillRecord,
+  experienceSkillRecord: theExperienceSkillRecord,
 };
 
 // 5 generators to generate experiences of a certain type
