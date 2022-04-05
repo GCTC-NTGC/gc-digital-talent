@@ -2,8 +2,9 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { toast } from "react-toastify";
 import { BasicForm, Input, RadioGroup, Select } from "@common/components/form";
-import { commonMessages, errorMessages } from "@common/messages";
 import { ProvinceOrTerritory, Language } from "@common/api/generated";
+import { commonMessages, errorMessages } from "@common/messages";
+import { phoneNumberRegex } from "@common/constants/regularExpressions";
 import { enumToOptions } from "@common/helpers/formUtils";
 import { getLocale } from "@common/helpers/localize";
 import { navigate } from "@common/helpers/router";
@@ -166,18 +167,22 @@ export const AboutMeForm: React.FunctionComponent<AboutMeFormProps> = ({
           <Input
             id="telephone"
             name="telephone"
-            type="text"
+            type="tel"
             label={intl.formatMessage({
               defaultMessage: "Telephone",
               description: "Label for telephone field in About Me form",
             })}
             placeholder={intl.formatMessage({
-              defaultMessage: "000-000-0000",
+              defaultMessage: "+123243234",
               description:
                 "Placeholder displayed on the About Me form telephone field.",
             })}
             rules={{
               required: intl.formatMessage(errorMessages.required),
+              pattern: {
+                value: phoneNumberRegex,
+                message: intl.formatMessage(errorMessages.telephone),
+              },
             }}
           />
         </div>
