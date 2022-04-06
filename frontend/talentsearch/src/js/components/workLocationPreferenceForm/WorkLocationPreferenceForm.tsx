@@ -1,5 +1,5 @@
 import { Checklist, TextArea } from "@common/components/form";
-import { getworkRegionsDetailed } from "@common/constants/localizedConstants";
+import { getWorkRegionsDetailed } from "@common/constants/localizedConstants";
 import { enumToOptions } from "@common/helpers/formUtils";
 import { navigate } from "@common/helpers/router";
 import { commonMessages, errorMessages } from "@common/messages";
@@ -101,7 +101,7 @@ export const WorkLocationPreferenceForm: React.FC<
                   name="locationPreferences"
                   items={enumToOptions(WorkRegion).map(({ value }) => ({
                     value,
-                    label: intl.formatMessage(getworkRegionsDetailed(value), {
+                    label: intl.formatMessage(getWorkRegionsDetailed(value), {
                       bold,
                     }),
                   }))}
@@ -114,12 +114,20 @@ export const WorkLocationPreferenceForm: React.FC<
             <div data-h2-flex-item="b(1of1)" data-h2-padding="b(top, m)">
               <div data-h2-padding="b(right, l)">
                 <p>
-                  Indicate if there is a city that you would like to exclude
-                  from a region.
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "Indicate if there is a city that you would like to exclude from a region.",
+                    description:
+                      "Explanation text for Location exemptions field in work location preference form",
+                  })}
                 </p>
                 <p data-h2-font-color="b([dark]gray)">
-                  E.g.: You want to be considered for the Quebec region, but not
-                  for Montréal.
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "E.g.: You want to be considered for the Quebec region, but not for Montréal.",
+                    description:
+                      "Example for Location exemptions field in work location preference form",
+                  })}
                 </p>
               </div>
             </div>

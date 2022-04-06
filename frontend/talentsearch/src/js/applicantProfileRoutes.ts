@@ -6,6 +6,7 @@ import TALENTSEARCH_APP_DIR from "./talentSearchConstants";
 export type ApplicantProfileRoutes = ReturnType<typeof applicantProfileRoutes>;
 
 const applicantProfileRoutes = (lang: string) => {
+  // This is a workaround for #2375?
   // const home = (): string => path.join("/", lang, APPLICANTPROFILE_APP_DIR); // leading slash in case empty base url
   const home2 = (): string => path.join("/", lang, TALENTSEARCH_APP_DIR);
   return {

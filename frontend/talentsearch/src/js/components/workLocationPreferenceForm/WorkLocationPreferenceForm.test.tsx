@@ -4,7 +4,7 @@
 import React from "react";
 import "@testing-library/jest-dom";
 import { IntlProvider, MessageFormatElement } from "react-intl";
-import { User } from "@common/api/generated";
+import { Language, User, WorkRegion } from "../../api/generated";
 import { render, screen, fireEvent, act } from "../../tests/testUtils";
 import { WorkLocationPreferenceForm } from "./WorkLocationPreferenceForm";
 
@@ -23,11 +23,14 @@ const renderWithReactIntl = (
 };
 
 const user: User = {
-  id: "1",
-  firstName: "Maura",
-  lastName: "Attow",
-  email: "mattow0@ning.com",
+  id: "",
+  firstName: "",
+  lastName: "",
+  email: "",
   telephone: "+867365373244",
+  preferredLang: Language.En,
+  locationPreferences: [WorkRegion.Atlantic],
+  locationExemptions: "",
 };
 
 const onClick = jest.fn();
@@ -77,9 +80,6 @@ describe("Work Location Preference Form tests", () => {
     act(() => {
       fireEvent.click(saveAndGoButton);
     });
-    // expect(onClick).toBeCalled(); //Not Working for some reason
-    // expect(onClick).toHaveBeenCalledTimes(1); //Not Working for some reason
-    // expect(onClick).toBeCalledWith("TELEWORK"); //Not Working for some reason
   });
 
   test("Form submits data in correct shape to submit handler when Save Changes is clicked.", () => {
@@ -89,8 +89,6 @@ describe("Work Location Preference Form tests", () => {
       name: /Save and go back/i,
     });
     expect(saveAndGoButton).toBeTruthy();
-
-    const checklist1 = screen.getByRole("group");
 
     const checkbox1 = screen.getByRole("checkbox", {
       name: /Virtual: Work from home/i,
@@ -102,10 +100,6 @@ describe("Work Location Preference Form tests", () => {
     act(() => {
       fireEvent.click(saveAndGoButton);
     });
-    // expect(checklist1).toHaveFormValues({ locationPreferences: ["TELEWORK"] });
-    // expect(onClick).toBeCalled(); //Not Working for some reason
-    // expect(callback).toBeCalledWith(["TELEWORK"],"");
-
     const checkbox2 = screen.getByRole("checkbox", {
       name: /National Capital Region: Ottawa/i,
     });
@@ -116,9 +110,6 @@ describe("Work Location Preference Form tests", () => {
     act(() => {
       fireEvent.click(saveAndGoButton);
     });
-    // expect(onClick).toBeCalled(); //Not Working for some reason
-    // expect(callback).toBeCalledWith(["TELEWORK","NATIONAL_CAPITAL"],"");
-
     const checkbox3 = screen.getByRole("checkbox", {
       name: /Atlantic Region: New Brunswick/i,
     });
@@ -129,9 +120,6 @@ describe("Work Location Preference Form tests", () => {
     act(() => {
       fireEvent.click(saveAndGoButton);
     });
-    // expect(onClick).toBeCalled(); //Not Working for some reason
-    // expect(callback).toBeCalledWith(["TELEWORK","NATIONAL_CAPITAL","ATLANTIC",],"");
-
     const checkbox4 = screen.getByRole("checkbox", {
       name: /Quebec Region: excluding Gatineau/i,
     });
@@ -143,9 +131,6 @@ describe("Work Location Preference Form tests", () => {
     act(() => {
       fireEvent.click(saveAndGoButton);
     });
-    // expect(onClick).toBeCalled(); //Not Working for some reason
-    // expect(callback).toBeCalledWith(["TELEWORK","NATIONAL_CAPITAL","ATLANTIC","QUEBEC"],"");
-
     const checkbox5 = screen.getByRole("checkbox", {
       name: /Ontario Region: excluding Ottawa/i,
     });
@@ -157,9 +142,6 @@ describe("Work Location Preference Form tests", () => {
     act(() => {
       fireEvent.click(saveAndGoButton);
     });
-    // expect(onClick).toBeCalled(); //Not Working for some reason
-    // expect(callback).toBeCalledWith(["TELEWORK","NATIONAL_CAPITAL","ATLANTIC","QUEBEC","ONTARIO"],"");
-
     const checkbox6 = screen.getByRole("checkbox", {
       name: /Prairie Region: Manitoba, Saskatchewan/i,
     });
@@ -170,9 +152,6 @@ describe("Work Location Preference Form tests", () => {
     act(() => {
       fireEvent.click(saveAndGoButton);
     });
-    // expect(onClick).toBeCalled(); //Not Working for some reason
-    // expect(callback).toBeCalledWith(["TELEWORK","NATIONAL_CAPITAL","ATLANTIC","QUEBEC","ONTARIO","PRAIRIE"],"");
-
     const checkbox7 = screen.getByRole("checkbox", {
       name: /British Columbia Region/i,
     });
@@ -183,9 +162,6 @@ describe("Work Location Preference Form tests", () => {
     act(() => {
       fireEvent.click(saveAndGoButton);
     });
-    // expect(onClick).toBeCalled(); //Not Working for some reason
-    // expect(callback).toBeCalledWith(["TELEWORK","NATIONAL_CAPITAL","ATLANTIC","QUEBEC","ONTARIO","PRAIRIE","BRITISH_COLUMBIA"],"");
-
     const checkbox8 = screen.getByRole("checkbox", {
       name: /North Region: Yukon/i,
     });
@@ -196,16 +172,10 @@ describe("Work Location Preference Form tests", () => {
     act(() => {
       fireEvent.click(saveAndGoButton);
     });
-
-    // expect(onClick).toBeCalled(); //Not Working for some reason
-    // expect(callback).toBeCalledWith(["TELEWORK","NATIONAL_CAPITAL","ATLANTIC","QUEBEC","ONTARIO","PRAIRIE","BRITISH_COLUMBIA","NORTH"],"");
-
     const textarea1 = screen.getByLabelText(/Location exemptions/i);
     act(() => {
       fireEvent.change(textarea1, { target: { value: "Woodstock" } });
     });
     expect(textarea1).toHaveValue("Woodstock");
-    // expect(onClick).toBeCalled(); //Not Working for some reason
-    // expect(callback).toBeCalledWith(["TELEWORK","NATIONAL_CAPITAL","ATLANTIC","QUEBEC","ONTARIO","PRAIRIE","BRITISH_COLUMBIA","NORTH"],"Woodstock");
   });
 });

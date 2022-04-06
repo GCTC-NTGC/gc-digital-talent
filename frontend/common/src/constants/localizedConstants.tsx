@@ -159,7 +159,7 @@ export const workRegionsDetailed = defineMessages({
   },
 });
 
-export const getworkRegionsDetailed = (
+export const getWorkRegionsDetailed = (
   workRegionId: string | number,
 ): MessageDescriptor =>
   getOrThrowError(
