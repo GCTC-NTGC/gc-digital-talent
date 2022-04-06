@@ -1,3 +1,8 @@
+.reset-ul {
+  list-style: none;
+  padding: 0;
+}
+
 button:not(disabled) {
   cursor: pointer;
 }

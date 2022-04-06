@@ -1,8 +1,15 @@
 /* eslint-disable react/jsx-key */
 import React, { ReactElement, useState } from "react";
 import { useIntl } from "react-intl";
-import { useTable, useGlobalFilter, useSortBy, Column } from "react-table";
+import {
+  useTable,
+  useGlobalFilter,
+  useSortBy,
+  Column,
+  usePagination,
+} from "react-table";
 import { Button } from "@common/components";
+import Pagination from "@common/components/Pagination";
 import GlobalFilter from "./GlobalFilter";
 
 export type ColumnsOf<T extends Record<string, unknown>> = Array<Column<T>>;
@@ -40,12 +47,16 @@ function Table<T extends Record<string, unknown>>({
     getTableProps,
     getTableBodyProps,
     headerGroups,
-    rows,
     prepareRow,
     setGlobalFilter,
     state,
     allColumns,
     getToggleHideAllColumnsProps,
+    rows,
+    state: { pageIndex, pageSize },
+    gotoPage,
+    setPageSize,
+    page,
   } = useTable<T>(
     {
       columns,
@@ -56,6 +67,7 @@ function Table<T extends Record<string, unknown>>({
     },
     useGlobalFilter,
     useSortBy,
+    usePagination,
   );
 
   const [showList, setShowList] = useState(false);
@@ -156,7 +168,7 @@ function Table<T extends Record<string, unknown>>({
             ))}
           </thead>
           <tbody {...getTableBodyProps()}>
-            {rows.map((row) => {
+            {page.map((row) => {
               prepareRow(row);
               return (
                 <tr {...row.getRowProps()}>
@@ -178,6 +190,18 @@ function Table<T extends Record<string, unknown>>({
           </tbody>
         </table>
       </div>
+      <Pagination
+        currentPage={pageIndex + 1}
+        handlePageChange={(pageNumber) => gotoPage(pageNumber - 1)}
+        handlePageSize={setPageSize}
+        pageSize={pageSize}
+        pageSizes={[10, 20, 30, 40, 50]}
+        totalCount={rows.length}
+        ariaLabel={intl.formatMessage({ defaultMessage: "Table results" })}
+        color="black"
+        mode="outline"
+        data-h2-margin="b(all, none)"
+      />
     </div>
   );
 }
