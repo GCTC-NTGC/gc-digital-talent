@@ -1,4 +1,3 @@
-/* eslint-disable no-underscore-dangle */
 import { Tab, TabSet } from "@common/components/tabs";
 import {
   BookOpenIcon,
