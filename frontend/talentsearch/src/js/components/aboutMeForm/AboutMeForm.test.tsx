@@ -2,7 +2,7 @@
  * @jest-environment jsdom
  */
 import "@testing-library/jest-dom";
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen, fireEvent, waitFor } from "@testing-library/react";
 import React from "react";
 import { IntlProvider, MessageFormatElement } from "react-intl";
 import { fakeUsers } from "@common/fakeData";
@@ -102,5 +102,18 @@ describe("AboutMeForm", () => {
     fireEvent.submit(screen.getByRole("button", { name: /save/i }));
     expect(await screen.findAllByRole("alert")).toHaveLength(1);
     expect(mockSave).not.toHaveBeenCalled();
+  });
+
+  it("Should submit successfully with required fields", async () => {
+    const mockSave = jest.fn(() => Promise.resolve(mockUser));
+    renderAboutMeForm({
+      initialUser: mockUser,
+      onUpdateAboutMe: mockSave,
+    });
+
+    fireEvent.submit(screen.getByRole("button", { name: /save/i }));
+    await waitFor(() => {
+      expect(mockSave).toHaveBeenCalled();
+    });
   });
 });
