@@ -12,6 +12,7 @@ import { useIntl } from "react-intl";
 import { notEmpty } from "@common/helpers/util";
 import { EducationExperience } from "@common/api/generated";
 import { getLocale } from "@common/helpers/localize";
+import { commonMessages } from "@common/messages";
 import {
   isAwardExperience,
   isCommunityExperience,
@@ -26,6 +27,7 @@ import {
   PersonalExperience,
   Skill,
   WorkExperience,
+  useGetAllApplicantExperiencesQuery,
 } from "../../api/generated";
 import ExperienceAccordion from "../ExperienceAccordion/ExperienceAccordion";
 import ProfileFormFooter from "./ProfileFormFooter";
@@ -366,3 +368,35 @@ const ExperienceAndSkills: React.FunctionComponent<
 };
 
 export default ExperienceAndSkills;
+
+export const ExperienceAndSkillsApi: React.FunctionComponent<{
+  applicantId: string;
+}> = ({ applicantId }) => {
+  const intl = useIntl();
+  const [{ data: applicantData, fetching, error }] =
+    useGetAllApplicantExperiencesQuery({ variables: { id: applicantId } });
+
+  if (fetching) return <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>;
+  if (error)
+    return (
+      <p>
+        {intl.formatMessage(commonMessages.loadingError)}
+        {error.message}
+      </p>
+    );
+  return applicantData?.applicant ? (
+    <ExperienceAndSkills
+      experiences={applicantData.applicant.experiences?.filter(notEmpty)}
+    />
+  ) : (
+    <p>
+      {intl.formatMessage(
+        {
+          defaultMessage: "User {applicantId} not found.",
+          description: "Message displayed for user not found.",
+        },
+        { applicantId },
+      )}
+    </p>
+  );
+};
