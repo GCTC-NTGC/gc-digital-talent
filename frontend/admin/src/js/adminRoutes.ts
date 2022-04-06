@@ -36,13 +36,6 @@ const adminRoutes = (lang: string) => {
     skillUpdate: (id: string): string =>
       path.join(home(), "skills", id, "edit"),
 
-    operationalRequirementTable: (): string =>
-      path.join(home(), "operational-requirements"),
-    operationalRequirementCreate: (): string =>
-      path.join(home(), "operational-requirements", "create"),
-    operationalRequirementUpdate: (id: string): string =>
-      path.join(home(), "operational-requirements", id, "edit"),
-
     poolTable: (): string => path.join(home(), "pools"),
     poolCreate: (): string => path.join(home(), "pools", "create"),
     poolUpdate: (id: string): string => path.join(home(), "pools", id, "edit"),

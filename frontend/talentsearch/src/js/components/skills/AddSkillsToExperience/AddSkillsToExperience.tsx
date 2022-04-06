@@ -36,17 +36,14 @@ const AddSkillsToExperience: React.FunctionComponent<
 
   const resultsPaginationPageSize = 5;
   const frequentSkillsPagination = usePaginationVars<Skill>(
-    1,
     resultsPaginationPageSize,
     frequentSkills,
   );
   const mainstreamSkillsPagination = usePaginationVars<Skill>(
-    1,
     resultsPaginationPageSize,
     familyFilteredSkills,
   );
   const keywordSearchPagination = usePaginationVars<Skill>(
-    1,
     resultsPaginationPageSize,
     searchFilteredSkills,
   );
@@ -129,12 +126,18 @@ const AddSkillsToExperience: React.FunctionComponent<
             handleRemoveSkill={onRemoveSkill}
           />
           <Pagination
+            ariaLabel={intl.formatMessage({
+              defaultMessage: "Frequent skills results",
+            })}
+            color="primary"
+            mode="outline"
             currentPage={frequentSkillsPagination.currentPage}
             pageSize={resultsPaginationPageSize}
             totalCount={frequentSkills.length}
             handlePageChange={(page) =>
               frequentSkillsPagination.setCurrentPage(page)
             }
+            handlePageSize={frequentSkillsPagination.setPageSize}
           />
         </Tab>
         <Tab
@@ -164,12 +167,18 @@ const AddSkillsToExperience: React.FunctionComponent<
             handleRemoveSkill={onRemoveSkill}
           />
           <Pagination
+            ariaLabel={intl.formatMessage({
+              defaultMessage: "Mainstream skills results",
+            })}
+            color="primary"
+            mode="outline"
             currentPage={mainstreamSkillsPagination.currentPage}
             pageSize={resultsPaginationPageSize}
             totalCount={familyFilteredSkills.length}
             handlePageChange={(page) =>
               mainstreamSkillsPagination.setCurrentPage(page)
             }
+            handlePageSize={mainstreamSkillsPagination.setPageSize}
           />
         </Tab>
         <Tab
@@ -196,12 +205,18 @@ const AddSkillsToExperience: React.FunctionComponent<
             handleRemoveSkill={onRemoveSkill}
           />
           <Pagination
+            ariaLabel={intl.formatMessage({
+              defaultMessage: "keyword search skills results",
+            })}
+            color="primary"
+            mode="outline"
             currentPage={keywordSearchPagination.currentPage}
             pageSize={resultsPaginationPageSize}
             totalCount={searchFilteredSkills.length}
             handlePageChange={(page) =>
               keywordSearchPagination.setCurrentPage(page)
             }
+            handlePageSize={keywordSearchPagination.setPageSize}
           />
         </Tab>
         <Tab

@@ -1,13 +1,11 @@
 import React from "react";
 import { storiesOf } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
-import { currentDate } from "@common/helpers/formUtils";
 import {
   fakeClassifications,
   fakeCmoAssets,
   fakeUsers,
   fakePools,
-  fakeOperationalRequirements,
   fakePoolCandidates,
 } from "@common/fakeData";
 import PoolCandidatesTable from "../components/poolCandidate/PoolCandidatesTable";
@@ -41,9 +39,6 @@ stories.add("Create Pool Candidate Form", () => (
   <CreatePoolCandidateForm
     users={fakeUsers() as User[]}
     classifications={fakeClassifications() as Classification[]}
-    operationalRequirements={
-      fakeOperationalRequirements() as OperationalRequirement[]
-    }
     pools={fakePools() as Pool[]}
     cmoAssets={fakeCmoAssets() as CmoAsset[]}
     handleCreatePoolCandidate={async (
@@ -60,8 +55,8 @@ stories.add("Update Pool Candidate Form", () => {
   const poolCandidate: PoolCandidate = {
     id: "1",
     acceptedOperationalRequirements: [
-      fakeOperationalRequirements()[0],
-      fakeOperationalRequirements()[1],
+      OperationalRequirement.Overtime,
+      OperationalRequirement.ShiftWork,
     ],
     cmoAssets: [fakeCmoAssets()[0], fakeCmoAssets()[1]],
     cmoIdentifier: "cmo1",
@@ -88,9 +83,6 @@ stories.add("Update Pool Candidate Form", () => {
       classifications={fakeClassifications() as Classification[]}
       cmoAssets={fakeCmoAssets() as CmoAsset[]}
       initialPoolCandidate={poolCandidate}
-      operationalRequirements={
-        fakeOperationalRequirements() as OperationalRequirement[]
-      }
       handleUpdatePoolCandidate={async (
         id: string,
         data: UpdatePoolCandidateAsAdminInput,

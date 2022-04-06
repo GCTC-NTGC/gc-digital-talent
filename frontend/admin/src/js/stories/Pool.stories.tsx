@@ -6,7 +6,6 @@ import {
   fakeCmoAssets,
   fakeUsers,
   fakePools,
-  fakeOperationalRequirements,
 } from "@common/fakeData";
 import {
   Classification,
@@ -33,9 +32,6 @@ stories.add("Create Pool Form", () => (
   <CreatePoolForm
     classifications={fakeClassifications() as Classification[]}
     cmoAssets={fakeCmoAssets() as CmoAsset[]}
-    operationalRequirements={
-      fakeOperationalRequirements() as OperationalRequirement[]
-    }
     users={fakeUsers() as User[]}
     handleCreatePool={async (data: CreatePoolInput) => {
       await new Promise((resolve) => setTimeout(resolve, 1000));
@@ -61,8 +57,8 @@ stories.add("Update Pool Form", () => {
     assetCriteria: [fakeCmoAssets()[0], fakeCmoAssets()[1]],
     essentialCriteria: [fakeCmoAssets()[0], fakeCmoAssets()[1]],
     operationalRequirements: [
-      fakeOperationalRequirements()[0],
-      fakeOperationalRequirements()[1],
+      OperationalRequirement.DriversLicense,
+      OperationalRequirement.OnCall,
     ],
   };
 
@@ -71,9 +67,6 @@ stories.add("Update Pool Form", () => {
       classifications={fakeClassifications() as Classification[]}
       cmoAssets={fakeCmoAssets() as CmoAsset[]}
       initialPool={pool}
-      operationalRequirements={
-        fakeOperationalRequirements() as OperationalRequirement[]
-      }
       users={fakeUsers() as User[]}
       handleUpdatePool={async (id: string, data: UpdatePoolInput) => {
         await new Promise((resolve) => setTimeout(resolve, 1000));

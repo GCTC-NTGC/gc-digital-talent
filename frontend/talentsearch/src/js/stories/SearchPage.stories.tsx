@@ -4,19 +4,13 @@ import { action } from "@storybook/addon-actions";
 import {
   fakeClassifications,
   fakeCmoAssets,
-  fakeOperationalRequirements,
   fakePools,
 } from "@common/fakeData";
 import {
   SearchContainer as SearchPageComponent,
   SearchContainerProps as SearchPageProps,
 } from "../components/search/SearchContainer";
-import {
-  Classification,
-  CmoAsset,
-  OperationalRequirement,
-  Pool,
-} from "../api/generated";
+import { Classification, CmoAsset, Pool } from "../api/generated";
 
 export default {
   component: SearchPageComponent,
@@ -24,9 +18,6 @@ export default {
   args: {
     classifications: fakeClassifications() as Classification[],
     cmoAssets: fakeCmoAssets() as CmoAsset[],
-    operationalRequirements:
-      fakeOperationalRequirements() as OperationalRequirement[],
-
     pool: fakePools()[0] as Pool,
     poolOwner: fakePools()[0].owner,
     candidateCount: 10,

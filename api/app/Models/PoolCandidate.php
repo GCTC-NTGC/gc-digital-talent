@@ -26,6 +26,7 @@ use Illuminate\Database\Eloquent\Builder;
  * @property string $pool_candidate_status
  * @property int $pool_id
  * @property int $user_id
+ * @property array $accepted_operational_requirements
  * @property Illuminate\Support\Carbon $created_at
  * @property Illuminate\Support\Carbon $updated_at
  */
@@ -46,7 +47,8 @@ class PoolCandidate extends Model
     protected $casts = [
         'expiry_date' => 'date',
         'location_preferences' => 'array',
-        'expected_salary' => 'array'
+        'expected_salary' => 'array',
+        'accepted_operational_requirements' => 'array',
     ];
 
     public function user(): BelongsTo
@@ -56,10 +58,6 @@ class PoolCandidate extends Model
     public function pool(): BelongsTo
     {
         return $this->belongsTo(Pool::class);
-    }
-    public function acceptedOperationalRequirements(): BelongsToMany
-    {
-        return $this->belongsToMany(OperationalRequirement::class, 'operational_requirement_pool_candidate');
     }
     public function expectedClassifications(): BelongsToMany
     {
@@ -179,14 +177,10 @@ RAWSQL2;
         }
         return $query;
     }
-    public function filterByOperationalRequirements(Builder $query, array $operationalRequirements): Builder
+    public function filterByOperationalRequirements(Builder $query, ?array $operationalRequirements): Builder
     {
         // OperationalRequirements act as an AND filter. The query should only return candidates willing to accept ALL of the requirements.
-        foreach ($operationalRequirements as $requirement) {
-            $query->whereHas('acceptedOperationalRequirements', function ($query) use ($requirement) {
-                $query->where('key', $requirement['key']);
-            });
-        }
+            $query->whereJsonContains('accepted_operational_requirements', $operationalRequirements);
         return $query;
     }
     public function filterByWorkRegions(Builder $query, array $workRegions): Builder

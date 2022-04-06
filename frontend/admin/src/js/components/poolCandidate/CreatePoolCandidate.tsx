@@ -26,6 +26,7 @@ import {
   getLanguageAbility,
   getWorkRegion,
   getPoolCandidateStatus,
+  getOperationalRequirement,
 } from "@common/constants/localizedConstants";
 import { errorMessages, commonMessages } from "@common/messages";
 import { phoneNumberRegex } from "@common/constants/regularExpressions";
@@ -63,13 +64,13 @@ type FormValues = Pick<
   | "languageAbility"
   | "expectedSalary"
   | "locationPreferences"
+  | "acceptedOperationalRequirements"
   | "status"
 > &
   Pick<
     User,
     "email" | "firstName" | "lastName" | "preferredLang" | "telephone"
   > & {
-    acceptedOperationalRequirements: string[] | undefined;
     cmoAssets: string[] | undefined;
     expectedClassifications: string[] | undefined;
     pool: string;
@@ -218,7 +219,6 @@ const UserFormSection: React.FunctionComponent<{
 interface CreatePoolCandidateFormProps {
   classifications: Classification[];
   cmoAssets: CmoAsset[];
-  operationalRequirements: OperationalRequirement[];
   pools: Pool[];
   poolId?: string;
   users: User[];
@@ -232,7 +232,6 @@ export const CreatePoolCandidateForm: React.FunctionComponent<
 > = ({
   classifications,
   cmoAssets,
-  operationalRequirements,
   pools,
   poolId,
   users,
@@ -269,9 +268,7 @@ export const CreatePoolCandidateForm: React.FunctionComponent<
     }
 
     return {
-      acceptedOperationalRequirements: {
-        sync: values.acceptedOperationalRequirements,
-      },
+      acceptedOperationalRequirements: values.acceptedOperationalRequirements,
       cmoAssets: {
         sync: values.cmoAssets,
       },
@@ -328,12 +325,6 @@ export const CreatePoolCandidateForm: React.FunctionComponent<
       label: `${group}-0${level}`,
     }),
   );
-
-  const operationalRequirementOptions: Option<string>[] =
-    operationalRequirements.map(({ id, name }) => ({
-      value: id,
-      label: name[locale] || "Error: operational requirement name not found.",
-    }));
 
   const poolOptions: Option<string>[] = pools?.map(({ id, name }) => ({
     value: id,
@@ -547,7 +538,12 @@ export const CreatePoolCandidateForm: React.FunctionComponent<
                 description:
                   "Placeholder displayed on the pool candidate form operational requirements field.",
               })}
-              options={operationalRequirementOptions}
+              options={enumToOptions(OperationalRequirement).map(
+                ({ value }) => ({
+                  value,
+                  label: intl.formatMessage(getOperationalRequirement(value)),
+                }),
+              )}
               rules={{
                 required: intl.formatMessage(errorMessages.required),
               }}
@@ -647,8 +643,6 @@ export const CreatePoolCandidate: React.FunctionComponent<{
   const classifications: Classification[] | [] =
     lookupData?.classifications.filter(notEmpty) ?? [];
   const cmoAssets: CmoAsset[] = lookupData?.cmoAssets.filter(notEmpty) ?? [];
-  const operationalRequirements: OperationalRequirement[] =
-    lookupData?.operationalRequirements.filter(notEmpty) ?? [];
   const pools: Pool[] = lookupData?.pools.filter(notEmpty) ?? [];
   const users: User[] = lookupData?.users.filter(notEmpty) ?? [];
 
@@ -682,7 +676,6 @@ export const CreatePoolCandidate: React.FunctionComponent<{
       <CreatePoolCandidateForm
         classifications={classifications}
         cmoAssets={cmoAssets}
-        operationalRequirements={operationalRequirements}
         pools={pools}
         poolId={poolId}
         users={users}

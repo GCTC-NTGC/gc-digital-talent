@@ -3,12 +3,15 @@ import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { Checklist, MultiSelect, RadioGroup } from "@common/components/form";
 import { getLocale } from "@common/helpers/localize";
-import { enumToOptions } from "@common/helpers/formUtils";
+import { enumToOptions, unpackMaybes } from "@common/helpers/formUtils";
 import { getLanguageAbility } from "@common/constants";
 import useDeepCompareEffect from "@common/hooks/useDeepCompareEffect";
 import { debounce } from "debounce";
 import { useLocation } from "@common/helpers/router";
-import { getWorkRegion } from "@common/constants/localizedConstants";
+import {
+  getOperationalRequirement,
+  getWorkRegion,
+} from "@common/constants/localizedConstants";
 import {
   Classification,
   CmoAsset,
@@ -56,11 +59,10 @@ function mapIdToValue<T extends { id: string }>(objs: T[]): Map<string, T> {
 type Option<V> = { value: V; label: string };
 export type FormValues = Pick<
   PoolCandidateFilter,
-  "languageAbility" | "workRegions"
+  "languageAbility" | "workRegions" | "operationalRequirements"
 > & {
   classifications: string[] | undefined;
   cmoAssets: string[] | undefined;
-  operationalRequirements: string[] | undefined;
   employmentEquity: string[] | undefined;
   educationRequirement: "has_diploma" | "no_diploma";
   poolId: string;
@@ -74,7 +76,6 @@ type LocationState = {
 export interface SearchFormProps {
   classifications: Classification[];
   cmoAssets: CmoAsset[];
-  operationalRequirements: OperationalRequirement[];
   updateCandidateFilter: (filter: PoolCandidateFilterInput) => void;
   updateInitialValues: (initialValues: FormValues) => void;
 }
@@ -82,7 +83,6 @@ export interface SearchFormProps {
 export const SearchForm: React.FunctionComponent<SearchFormProps> = ({
   classifications,
   cmoAssets,
-  operationalRequirements,
   updateCandidateFilter,
   updateInitialValues,
 }) => {
@@ -95,42 +95,41 @@ export const SearchForm: React.FunctionComponent<SearchFormProps> = ({
     [classifications],
   );
   const assetMap = useMemo(() => mapIdToValue(cmoAssets), [cmoAssets]);
-  const requirementMap = useMemo(
-    () => mapIdToValue(operationalRequirements),
-    [operationalRequirements],
-  );
 
   const formValuesToData = useCallback(
-    (values: FormValues): PoolCandidateFilterInput => ({
-      classifications: values.classifications
-        ? values.classifications?.map((id) => classificationMap.get(id))
-        : [],
-      cmoAssets: values.cmoAssets
-        ? values.cmoAssets?.map((id) => assetMap.get(id))
-        : [],
-      operationalRequirements: values.operationalRequirements
-        ? values.operationalRequirements?.map((id) => requirementMap.get(id))
-        : [],
-      hasDiploma: values.educationRequirement === "has_diploma",
-      hasDisability:
-        values.employmentEquity &&
-        values.employmentEquity?.includes("hasDisability"),
-      isIndigenous:
-        values.employmentEquity &&
-        values.employmentEquity?.includes("isIndigenous"),
-      isVisibleMinority:
-        values.employmentEquity &&
-        values.employmentEquity?.includes("isVisibleMinority"),
-      isWoman:
-        values.employmentEquity && values.employmentEquity?.includes("isWoman"),
-      ...(values.languageAbility === "ENGLISH" ||
-      values.languageAbility === "FRENCH" ||
-      values.languageAbility === "BILINGUAL"
-        ? { languageAbility: values.languageAbility }
-        : {}), // Ensure null in FormValues is converted to undefined
-      workRegions: values.workRegions || [],
-    }),
-    [classificationMap, assetMap, requirementMap],
+    (values: FormValues): PoolCandidateFilterInput => {
+      return {
+        classifications: values.classifications
+          ? values.classifications?.map((id) => classificationMap.get(id))
+          : [],
+        cmoAssets: values.cmoAssets
+          ? values.cmoAssets?.map((id) => assetMap.get(id))
+          : [],
+        operationalRequirements: values.operationalRequirements
+          ? unpackMaybes(values.operationalRequirements)
+          : [],
+        hasDiploma: values.educationRequirement === "has_diploma",
+        hasDisability:
+          values.employmentEquity &&
+          values.employmentEquity?.includes("hasDisability"),
+        isIndigenous:
+          values.employmentEquity &&
+          values.employmentEquity?.includes("isIndigenous"),
+        isVisibleMinority:
+          values.employmentEquity &&
+          values.employmentEquity?.includes("isVisibleMinority"),
+        isWoman:
+          values.employmentEquity &&
+          values.employmentEquity?.includes("isWoman"),
+        ...(values.languageAbility === "ENGLISH" ||
+        values.languageAbility === "FRENCH" ||
+        values.languageAbility === "BILINGUAL"
+          ? { languageAbility: values.languageAbility }
+          : {}), // Ensure null in FormValues is converted to undefined
+        workRegions: values.workRegions || [],
+      };
+    },
+    [classificationMap, assetMap],
   );
 
   // The location state holds the initial values plugged in from user. This is required if the user decides to click back and change any values.
@@ -181,21 +180,6 @@ export const SearchForm: React.FunctionComponent<SearchFormProps> = ({
           }),
       })),
     [cmoAssets, locale, intl],
-  );
-
-  const operationalRequirementOptions: Option<string>[] = useMemo(
-    () =>
-      operationalRequirements.map(({ id, name }) => ({
-        value: id,
-        label:
-          name[locale] ||
-          intl.formatMessage({
-            defaultMessage: "Error: operational requirement name not found.",
-            description:
-              "Error message on operational requirements filter on search form.",
-          }),
-      })),
-    [operationalRequirements, locale, intl],
   );
 
   return (
@@ -290,7 +274,10 @@ export const SearchForm: React.FunctionComponent<SearchFormProps> = ({
             idPrefix="operationalRequirements"
             legend="Conditions of employment"
             name="operationalRequirements"
-            items={operationalRequirementOptions}
+            items={enumToOptions(OperationalRequirement).map(({ value }) => ({
+              value,
+              label: intl.formatMessage(getOperationalRequirement(value)),
+            }))}
           />
         </FilterBlock>
         <FilterBlock

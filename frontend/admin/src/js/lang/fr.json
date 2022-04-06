@@ -79,10 +79,6 @@
     "defaultMessage": "Salaire minimal",
     "description": "Label displayed for the classification form min salary field."
   },
-  "3qnyLY": {
-    "defaultMessage": "Identifiant",
-    "description": "Title displayed on the Operational Requirement table ID column."
-  },
   "457hEW": {
     "defaultMessage": "Ministères",
     "description": "Heading displayed above the Department Table component."
@@ -98,10 +94,6 @@
   "4boO/6": {
     "defaultMessage": "Nom (anglais)",
     "description": "Label displayed on the create a department form name (English) field."
-  },
-  "4cKyTr": {
-    "defaultMessage": "Nom (français)",
-    "description": "Label displayed on the operational requirement form name (French) field."
   },
   "4r60bZ": {
     "defaultMessage": "Salaire attendu",
@@ -279,10 +271,6 @@
     "defaultMessage": "Critères constituant un atout",
     "description": "Label displayed on the pool form asset criteria field."
   },
-  "GQ8kKU": {
-    "defaultMessage": "Mettre à jour une exigence opérationnelle",
-    "description": "Title displayed on the update a operational requirement form."
-  },
   "GTR9Pt": {
     "defaultMessage": "Ministère mis à jour avec succès!",
     "description": "Message displayed to user after department is updated successfully."
@@ -318,14 +306,6 @@
   "HocLRh": {
     "defaultMessage": "Nom du bassin",
     "description": "Title displayed for the Pool table pool name column."
-  },
-  "Hq8X69": {
-    "defaultMessage": "Clé",
-    "description": "Label displayed on the operational requirement form key field."
-  },
-  "HqXcmo": {
-    "defaultMessage": "Mise à jour de l’exigence opérationnelle réussie!",
-    "description": "Message displayed to user after operational requirement is updated successfully."
   },
   "Htqzxb": {
     "defaultMessage": "Bassin",
@@ -395,10 +375,6 @@
     "defaultMessage": "Autochtone",
     "description": "Title displayed for the Pool Candidates table Indigenous column."
   },
-  "NbEyIu": {
-    "defaultMessage": "Description",
-    "description": "Title displayed for the Operational Requirement table Description column."
-  },
   "NhQGh5": {
     "defaultMessage": "Erreur : Échec de la création de l’actif du BGC",
     "description": "Message displayed to user after cmo asset fails to get created."
@@ -407,17 +383,9 @@
     "defaultMessage": "Création de l’actif du BGC réussie!",
     "description": "Message displayed to user after cmo asset is created successfully."
   },
-  "ONwwBk": {
-    "defaultMessage": "Description (anglais)",
-    "description": "Label displayed on the operational requirement form description (English) field."
-  },
   "OqGhl+": {
     "defaultMessage": "Sélectionner un niveau...",
     "description": "Placeholder displayed on the classification form level field."
-  },
-  "P5iow/": {
-    "defaultMessage": "Clé",
-    "description": "Title displayed for the Operational Requirement table Key column."
   },
   "QCTZUv": {
     "defaultMessage": "Recherche",
@@ -527,17 +495,9 @@
     "defaultMessage": "Nom au complet",
     "description": "Title for the full name block in the manager info section of the single search request view."
   },
-  "WBvwNg": {
-    "defaultMessage": "Nom (anglais)",
-    "description": "Label displayed on the operational requirement form name (English) field."
-  },
   "WqOnFF": {
     "defaultMessage": "Autres commentaires",
     "description": "Title for the additional comments block in the search request filters"
-  },
-  "WuKWNr": {
-    "defaultMessage": "Créer une exigence opérationnelle",
-    "description": "Title displayed on the create a operational requirement form."
   },
   "XBY4Fq": {
     "defaultMessage": "Créer un ministère",
@@ -591,10 +551,6 @@
     "defaultMessage": "Créer un ministère",
     "description": "Heading displayed above the Create Department form."
   },
-  "a48ztb": {
-    "defaultMessage": "Erreur : Échec de la création de l’exigence opérationnelle",
-    "description": "Message displayed to user after operational requirement fails to get created."
-  },
   "aGEisH": {
     "defaultMessage": "Modifier",
     "description": "Title displayed for the Pool Candidates table Edit column."
@@ -605,10 +561,6 @@
   "aS4Lty": {
     "defaultMessage": "Groupe",
     "description": "Title displayed for the Classification table Group column."
-  },
-  "adfUDi": {
-    "defaultMessage": "Création de l’exigence opérationnelle réussie!",
-    "description": "Message displayed to user after operational requirement is created successfully."
   },
   "b3VnhM": {
     "defaultMessage": "Classification {classificationId} introuvable.",
@@ -650,10 +602,6 @@
     "defaultMessage": "Clé",
     "description": "Title displayed for the Pool table key column."
   },
-  "dJ4aWF": {
-    "defaultMessage": "Modifier",
-    "description": "Title displayed for the Operational Requirement table Edit column."
-  },
   "dTJkNA": {
     "defaultMessage": "Langue de préférence",
     "description": "Title displayed on the Pool Candidates table Preferred Lang column."
@@ -693,10 +641,6 @@
   "gRPGQN": {
     "defaultMessage": "Titre du poste",
     "description": "Title for the job title block in the manager info section of the single search request view."
-  },
-  "giwWIS": {
-    "defaultMessage": "La « clé » est une chaîne qui identifie de manière unique une exigence opérationnelle. Elle doit être basée sur le nom anglais de l’exigence opérationnelle et doit être concise. Un bon exemple serait \"shift_work\". Elle peut être utilisée dans le code pour faire référence à cette exigence opérationnelle particulière, et ne peut donc pas être modifiée ultérieurement.",
-    "description": "Additional context describing the purpose of the Operational Requirement's 'key' field."
   },
   "gpKGjq": {
     "defaultMessage": "Salaire maximal",
@@ -754,10 +698,6 @@
     "defaultMessage": "Mise à jour de la classification réussie!",
     "description": "Message displayed to user after classification is updated successfully."
   },
-  "kEDvJ6": {
-    "defaultMessage": "Description (français)",
-    "description": "Label displayed on the operational requirement form description (French) field."
-  },
   "kt5dPm": {
     "defaultMessage": "Identifiant",
     "description": "Title displayed on the Pool table Unique Identifier column."
@@ -785,10 +725,6 @@
   "mf+QEY": {
     "defaultMessage": "Langue de préférence",
     "description": "Title displayed for the User table Preferred Language column."
-  },
-  "mjbSrx": {
-    "defaultMessage": "Erreur : Échec de la mise à jour de l’exigence opérationnelle",
-    "description": "Message displayed to user after operational requirement fails to get updated."
   },
   "mqswWd": {
     "defaultMessage": "Utilisateur",
@@ -886,14 +822,6 @@
     "defaultMessage": "Statut",
     "description": "Title displayed on the search request table status column."
   },
-  "tcY5cG": {
-    "defaultMessage": "Nom",
-    "description": "Title displayed for the Operational Requirement table Name column."
-  },
-  "tfULo6": {
-    "defaultMessage": "Exigences opérationnelles",
-    "description": "Heading displayed above the Operational Requirement Table component."
-  },
   "tpzt/B": {
     "defaultMessage": "Modifier",
     "description": "Title displayed for the Pool table Edit column."
@@ -914,10 +842,6 @@
     "defaultMessage": "Sélectionner une langue...",
     "description": "Placeholder displayed on the user form preferred language field."
   },
-  "w42ZU3": {
-    "defaultMessage": "Exigence opérationnelle {operationalRequirementId} introuvable.",
-    "description": "Message displayed for operational requirement not found."
-  },
   "wCBE9S": {
     "defaultMessage": "Bassins",
     "description": "Label displayed on the Pools menu item."
@@ -925,10 +849,6 @@
   "wZ91g+": {
     "defaultMessage": "Création du bassin réussie!",
     "description": "Message displayed to user after pool is created successfully."
-  },
-  "x+2gYv": {
-    "defaultMessage": "Créer une exigence opérationnelle",
-    "description": "Heading displayed above the Create Operational Requirement form."
   },
   "x3SuY9": {
     "defaultMessage": "Date d’expiration",
