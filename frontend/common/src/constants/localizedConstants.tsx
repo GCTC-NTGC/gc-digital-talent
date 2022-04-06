@@ -452,5 +452,5 @@ export const getProvinceOrTerritory = (
   getOrThrowError(
     provinceOrTerritory,
     provinceOrTerritoryId,
-    `Invalid Operational Requirement '${provinceOrTerritoryId}'`,
+    `Invalidate province or territory '${provinceOrTerritoryId}'`,
   );
