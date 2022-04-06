@@ -20,9 +20,11 @@ import {
   useUpdateUserAsUserMutation,
   useGetAboutMeQuery,
   UpdateUserAsUserMutation,
+  Exact,
 } from "../../api/generated";
 import type { User, UpdateUserAsUserInput } from "../../api/generated";
 import applicantProfileRoutes from "../../applicantProfileRoutes";
+import { OperationResult } from "urql";
 
 export type FormValues = Pick<
   User,
@@ -309,10 +311,10 @@ const AboutMeFormContainer: React.FunctionComponent = () => {
   const [result] = useGetAboutMeQuery();
   const { data, fetching, error } = result;
 
-  const [_, executeMutation] = useUpdateUserAsUserMutation();
+  const [, executeMutation] = useUpdateUserAsUserMutation();
 
   const handleUpdateUser = (id: string, values: UpdateUserAsUserInput) => {
-    return executeMutation({ id, user: values }).then((res) => {
+    return executeMutation({ id, user: values }).then((res: OperationResult<UpdateUserAsUserMutation, Exact<{ id: string; user: UpdateUserAsUserInput; }>>) => {
       if (res.data?.updateUserAsUser) {
         return res.data.updateUserAsUser;
       }
