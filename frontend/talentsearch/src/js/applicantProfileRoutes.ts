@@ -1,25 +1,26 @@
 import { getLocale } from "@common/helpers/localize";
 import path from "path-browserify";
 import { useIntl } from "react-intl";
-import { APPLICANTPROFILE_APP_DIR } from "./talentSearchConstants";
+import TALENTSEARCH_APP_DIR from "./talentSearchConstants";
 
 export type ApplicantProfileRoutes = ReturnType<typeof applicantProfileRoutes>;
 
 const applicantProfileRoutes = (lang: string) => {
-  const home = (): string => path.join("/", lang, APPLICANTPROFILE_APP_DIR); // leading slash in case empty base url
+  // const home = (): string => path.join("/", lang, APPLICANTPROFILE_APP_DIR); // leading slash in case empty base url
+  const home2 = (): string => path.join("/", lang, TALENTSEARCH_APP_DIR);
   return {
-    home,
-    aboutMe: (): string => path.join(home(), "about-me"),
+    home: (): string => path.join(home2(), "profile"),
+    aboutMe: (): string => path.join(home2(), "about-me"),
     languageInformation: (): string =>
-      path.join(home(), "language-information"),
+      path.join(home2(), "language-information"),
     governmentInformation: (): string =>
-      path.join(home(), "government-information"),
-    workLocation: (): string => path.join(home(), "work-location"),
-    workPreferences: (): string => path.join(home(), "work-preferences"),
+      path.join(home2(), "government-information"),
+    workLocation: (): string => path.join(home2(), "work"),
+    workPreferences: (): string => path.join(home2(), "work-preferences"),
     diversityAndInclusion: (): string =>
-      path.join(home(), "diversity-and-inclusion"),
+      path.join(home2(), "diversity-and-inclusion"),
     skillsAndExperiences: (): string =>
-      path.join(home(), "skills-and-experiences"),
+      path.join(home2(), "skills-and-experiences"),
   };
 };
 

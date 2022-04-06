@@ -1,18 +1,8 @@
 import React from "react";
-import { Meta, storiesOf, Story } from "@storybook/react";
+import { Meta, Story } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
-import { fakeUsers } from "@common/fakeData";
-import {
-  CreateUserInput,
-  Language,
-  UpdateUserAsUserInput,
-  User,
-  WorkRegion,
-} from "../../api/generated";
-import {
-  FormValues,
-  WorkLocationPreferenceForm,
-} from "./WorkLocationPreferenceForm";
+import { Language, User, WorkRegion } from "../../api/generated";
+import { WorkLocationPreferenceForm } from "./WorkLocationPreferenceForm";
 
 export default {
   component: WorkLocationPreferenceForm,
@@ -20,12 +10,14 @@ export default {
 } as Meta;
 
 const user: User = {
-  id: "1",
-  firstName: "Maura",
-  lastName: "Attow",
-  email: "mattow0@ning.com",
+  id: "",
+  firstName: "",
+  lastName: "",
+  email: "",
   telephone: "+867365373244",
   preferredLang: Language.En,
+  locationPreferences: [WorkRegion.Atlantic],
+  locationExemptions: "",
 };
 
 const TemplateWorkLocationPreferencesForm: Story = () => {
