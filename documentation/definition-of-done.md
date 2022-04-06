@@ -13,3 +13,8 @@
   - Security scans (eventually)
   - Visual regression testing (eventually)
 - Pull request labeled for Change Management Board (trivial / minor / major / emergency)
+
+_(For a shared list of all candidate/discarded/deferred suggestions, see [here][long-list].)_
+
+<!-- Links -->
+   [long-list]: https://github.com/GCTC-NTGC/gc-digital-talent/issues/2209#issuecomment-1083046965
