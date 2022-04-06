@@ -41,4 +41,12 @@ const lockObj = JSON.parse(fs.readFileSync(argv["lock-file"]));
 
 const missingIntegrityCount = countMissingIntegrityValues(lockObj.dependencies);
 
-console.log(`${missingIntegrityCount} dependencies are missing the integrity`);
+if (missingIntegrityCount > 0) {
+  console.log(
+    `${missingIntegrityCount} dependencies are missing the integrity`,
+  );
+  process.exit(1); // error exit code
+}
+
+console.log("Check complete");
+process.exit();
