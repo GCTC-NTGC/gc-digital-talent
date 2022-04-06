@@ -1,5 +1,5 @@
 {
-  "name": "gc-digital-talent",
+  "name": "@gc-digital-talent",
   "private": true,
   "workspaces": [
     "admin",
