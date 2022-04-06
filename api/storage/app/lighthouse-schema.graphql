@@ -54,10 +54,10 @@ type AwardExperience implements Experience {
 }
 
 input AwardExperienceHasMany {
-  create: [AwardExperienceMutationInput!]
+  create: [AwardExperienceInput!]
 }
 
-input AwardExperienceMutationInput {
+input AwardExperienceInput {
   title: String
   issuedBy: String
   awardedDate: Date
@@ -140,10 +140,10 @@ type CommunityExperience implements Experience {
 }
 
 input CommunityExperienceHasMany {
-  create: [CommunityExperienceMutationInput!]
+  create: [CommunityExperienceInput!]
 }
 
-input CommunityExperienceMutationInput {
+input CommunityExperienceInput {
   title: String
   organization: String
   project: String
@@ -328,10 +328,10 @@ type EducationExperience implements Experience {
 }
 
 input EducationExperienceHasMany {
-  create: [EducationExperienceMutationInput!]
+  create: [EducationExperienceInput!]
 }
 
-input EducationExperienceMutationInput {
+input EducationExperienceInput {
   institution: String
   areaOfStudy: String
   thesisTitle: String
@@ -459,16 +459,16 @@ type Mutation {
   updateSkillFamily(id: ID!, skillFamily: UpdateSkillFamilyInput!): SkillFamily
   createSkill(skill: CreateSkillInput!): Skill
   updateSkill(id: ID!, skill: UpdateSkillInput!): Skill
-  createWorkExperience(userId: ID!, workExperience: WorkExperienceMutationInput!): WorkExperience
-  createPersonalExperience(userId: ID!, personalExperience: PersonalExperienceMutationInput!): PersonalExperience
-  createCommunityExperience(userId: ID!, communityExperience: CommunityExperienceMutationInput!): CommunityExperience
-  createEducationExperience(userId: ID!, educationExperience: EducationExperienceMutationInput!): EducationExperience
-  createAwardExperience(userId: ID!, awardExperience: AwardExperienceMutationInput!): AwardExperience
-  updateWorkExperience(id: ID!, workExperience: WorkExperienceMutationInput!): WorkExperience
-  updatePersonalExperience(id: ID!, personalExperience: PersonalExperienceMutationInput!): PersonalExperience
-  updateCommunityExperience(id: ID!, communityExperience: CommunityExperienceMutationInput!): CommunityExperience
-  updateEducationExperience(id: ID!, educationExperience: EducationExperienceMutationInput!): EducationExperience
-  updateAwardExperience(id: ID!, awardExperience: AwardExperienceMutationInput!): AwardExperience
+  createWorkExperience(userId: ID!, workExperience: WorkExperienceInput!): WorkExperience
+  createPersonalExperience(userId: ID!, personalExperience: PersonalExperienceInput!): PersonalExperience
+  createCommunityExperience(userId: ID!, communityExperience: CommunityExperienceInput!): CommunityExperience
+  createEducationExperience(userId: ID!, educationExperience: EducationExperienceInput!): EducationExperience
+  createAwardExperience(userId: ID!, awardExperience: AwardExperienceInput!): AwardExperience
+  updateWorkExperience(id: ID!, workExperience: WorkExperienceInput!): WorkExperience
+  updatePersonalExperience(id: ID!, personalExperience: PersonalExperienceInput!): PersonalExperience
+  updateCommunityExperience(id: ID!, communityExperience: CommunityExperienceInput!): CommunityExperience
+  updateEducationExperience(id: ID!, educationExperience: EducationExperienceInput!): EducationExperience
+  updateAwardExperience(id: ID!, awardExperience: AwardExperienceInput!): AwardExperience
   deleteWorkExperience(id: ID!): WorkExperience
   deletePersonalExperience(id: ID!): PersonalExperience
   deleteCommunityExperience(id: ID!): CommunityExperience
@@ -590,10 +590,10 @@ type PersonalExperience implements Experience {
 }
 
 input PersonalExperienceHasMany {
-  create: [PersonalExperienceMutationInput!]
+  create: [PersonalExperienceInput!]
 }
 
-input PersonalExperienceMutationInput {
+input PersonalExperienceInput {
   title: String
   description: String
   startDate: Date
@@ -1162,10 +1162,10 @@ type WorkExperience implements Experience {
 }
 
 input WorkExperienceHasMany {
-  create: [WorkExperienceMutationInput!]
+  create: [WorkExperienceInput!]
 }
 
-input WorkExperienceMutationInput {
+input WorkExperienceInput {
   role: String
   organization: String
   division: String
