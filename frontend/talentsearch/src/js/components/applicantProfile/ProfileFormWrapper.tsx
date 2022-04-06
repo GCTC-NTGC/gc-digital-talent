@@ -35,7 +35,7 @@ const ProfileFormWrapper: React.FunctionComponent<ProfileFormWrapperProps> = ({
 
   const breadcrumbs = (
     <div
-      data-h2-padding="b(top-bottom, m) b(right-left, none) s(right-left, xxl)"
+      data-h2-padding="b(top-bottom, m) b(right-left, s) s(right-left, xxl)"
       data-h2-font-color="b(white)"
       style={{
         background: `url(${imageUrl(
