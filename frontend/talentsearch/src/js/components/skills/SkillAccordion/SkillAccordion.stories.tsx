@@ -32,7 +32,7 @@ AccordionAwardExample.args = {
     experienceSkills: [
       generator.generateExperienceSkill(
         skill,
-        experienceGenerator.awardExperiences()[1],
+        experienceGenerator.awardExperiences()[0],
       ),
     ],
   },
@@ -44,11 +44,11 @@ AccordionCommunityExample.args = {
     experienceSkills: [
       generator.generateExperienceSkill(
         skill,
-        experienceGenerator.communityExperiences()[1],
+        experienceGenerator.communityExperiences()[0],
       ),
       generator.generateExperienceSkill(
         skill,
-        experienceGenerator.communityExperiences()[1],
+        experienceGenerator.communityExperiences()[0],
       ),
     ],
   },
@@ -60,7 +60,7 @@ AccordionEducationExample.args = {
     experienceSkills: [
       generator.generateExperienceSkill(
         skill,
-        experienceGenerator.educationExperiences()[1],
+        experienceGenerator.educationExperiences()[0],
       ),
     ],
   },
@@ -72,7 +72,7 @@ AccordionPersonalExample.args = {
     experienceSkills: [
       generator.generateExperienceSkill(
         skill,
-        experienceGenerator.personalExperiences()[1],
+        experienceGenerator.personalExperiences()[0],
       ),
     ],
   },
@@ -84,7 +84,7 @@ AccordionWorkExample.args = {
     experienceSkills: [
       generator.generateExperienceSkill(
         skill,
-        experienceGenerator.workExperiences()[1],
+        experienceGenerator.workExperiences()[0],
       ),
     ],
   },
