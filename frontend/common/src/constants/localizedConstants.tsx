@@ -452,5 +452,5 @@ export const getProvinceOrTerritory = (
   getOrThrowError(
     provinceOrTerritory,
     provinceOrTerritoryId,
-    `Invalidate province or territory '${provinceOrTerritoryId}'`,
+    `Invalid province or territory '${provinceOrTerritoryId}'`,
   );
