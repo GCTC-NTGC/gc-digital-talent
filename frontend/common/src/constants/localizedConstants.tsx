@@ -132,7 +132,7 @@ export const workRegionsDetailed = defineMessages({
   },
   [WorkRegion.Atlantic]: {
     defaultMessage:
-      "<bold>Atlantic Region: </bold> New Brunswick, Newfoundland and Labrador, Nova Scotia and Prince Edward Island.",
+      "<bold>Atlantic Region:</bold> New Brunswick, Newfoundland and Labrador, Nova Scotia and Prince Edward Island.",
     description: "The work region of Canada described as Atlantic.",
   },
   [WorkRegion.Quebec]: {
