@@ -14,7 +14,8 @@ import {
   getLanguage,
 } from "@common/constants/localizedConstants";
 import { SubmitHandler } from "react-hook-form";
-import { omit, pick } from "lodash";
+import omit from "lodash/omit";
+import pick from "lodash/pick";
 import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
 import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
 import {
