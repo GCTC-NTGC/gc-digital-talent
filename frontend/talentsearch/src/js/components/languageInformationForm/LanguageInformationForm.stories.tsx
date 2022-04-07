@@ -3,38 +3,40 @@ import { action } from "@storybook/addon-actions";
 import { Meta, Story } from "@storybook/react";
 import { BasicForm } from "@common/components/form";
 import { fakeUsers } from "@common/fakeData";
-import { LanguageInformationForm, FormValues } from "./LanguageInformationForm";
-import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
-import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
+import {
+  LanguageInformationForm,
+  FormValues,
+  dataToFormValues,
+} from "./LanguageInformationForm";
 
 export default {
   component: LanguageInformationForm,
   title: "Language Information Form",
 } as Meta;
 
-const TemplateLangInfoForm: Story = () => {
-  const self = fakeUsers()[0];
+const TemplateLangInfoForm: Story = (args) => {
+  const argumentData = {
+    ...args,
+    email: "test@123.ca",
+    id: "lsdkgjo3844o8tuorjf",
+  };
 
   return (
-    <ProfileFormWrapper
-      description="Use the form below to help us better understand your language preferences and capabilities"
-      title="Language Information"
-      crumbs={[
-        {
-          title: "Language Information",
-        },
-      ]}
+    <BasicForm
+      onSubmit={async (data: FormValues) => {
+        action("submit")(data);
+      }}
+      options={{
+        defaultValues: dataToFormValues(argumentData),
+      }}
     >
-      <BasicForm
-        onSubmit={async (data: FormValues) => {
-          action("submit")(data);
-        }}
-      >
-        <LanguageInformationForm self={self} />
-        <ProfileFormFooter mode="saveButton" />
-      </BasicForm>
-    </ProfileFormWrapper>
+      <LanguageInformationForm />
+    </BasicForm>
   );
 };
 
-export const IndividualLanguageInfo = TemplateLangInfoForm.bind({});
+export const LanguageInfoForm = TemplateLangInfoForm.bind({});
+
+LanguageInfoForm.args = {
+  ...fakeUsers()[1],
+};

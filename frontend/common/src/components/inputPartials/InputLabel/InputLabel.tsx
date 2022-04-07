@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { ReactNode, useState } from "react";
 import { QuestionMarkCircleIcon, XCircleIcon } from "@heroicons/react/solid";
 import { useIntl } from "react-intl";
 import { commonMessages } from "../../../messages";
 
 export interface InputLabelProps {
   inputId: string;
-  label: string;
+  label: string | ReactNode;
   required: boolean;
   contextIsVisible?: boolean;
   contextToggleHandler?: (contextIsActive: boolean) => void;
