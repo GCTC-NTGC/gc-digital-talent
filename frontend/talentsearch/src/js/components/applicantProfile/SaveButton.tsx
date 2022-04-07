@@ -3,13 +3,7 @@ import { SaveIcon } from "@heroicons/react/solid";
 import * as React from "react";
 import { useIntl } from "react-intl";
 
-interface SaveButtonProps {
-  handleSave: () => void;
-}
-
-const SaveButton: React.FunctionComponent<SaveButtonProps> = ({
-  handleSave,
-}) => {
+const SaveButton: React.FunctionComponent = () => {
   const intl = useIntl();
   return (
     <Button
@@ -18,7 +12,6 @@ const SaveButton: React.FunctionComponent<SaveButtonProps> = ({
       mode="solid"
       data-h2-display="b(flex)"
       data-h2-align-items="b(center)"
-      onClick={handleSave}
     >
       <SaveIcon style={{ width: "1rem" }} />
       <span data-h2-margin="b(left, xxs)">

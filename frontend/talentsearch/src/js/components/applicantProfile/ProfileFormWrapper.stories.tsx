@@ -11,7 +11,6 @@ export default {
   component: ProfileFormWrapper,
   title: "ApplicantProfile/ProfileFormWrapper",
   args: {
-    handleSave: action("Save form"),
     mode: "cancelButton",
   },
 } as Meta;
@@ -19,10 +18,10 @@ export default {
 const TemplateProfileFormWrapper: Story<
   ProfileFormWrapperProps & ProfileFormFooterProps
 > = (args) => {
-  const { mode, handleSave } = args;
+  const { mode } = args;
   return (
     <ProfileFormWrapper {...args}>
-      <BasicForm onSubmit={() => handleSave}>
+      <BasicForm onSubmit={() => action("Save Form")()}>
         <Input id="email" label="Email" type="email" name="email" />
         <Input id="firstName" label="First Name" type="text" name="firstName" />
         <Input id="lastName" label="Last Name" type="text" name="lastName" />
