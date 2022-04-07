@@ -21,7 +21,13 @@ const TemplateProfileFormWrapper: Story<
   const { mode } = args;
   return (
     <ProfileFormWrapper {...args}>
-      <BasicForm onSubmit={() => action("Save Form")()}>
+      <BasicForm
+        onSubmit={async () => {
+          await new Promise((resolve) => setTimeout(resolve, 1000));
+          action("Save Form")();
+          return null;
+        }}
+      >
         <Input id="email" label="Email" type="email" name="email" />
         <Input id="firstName" label="First Name" type="text" name="firstName" />
         <Input id="lastName" label="Last Name" type="text" name="lastName" />
