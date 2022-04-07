@@ -208,24 +208,34 @@ export default (numberOfExperiences: number) => {
 
 // the 5 single experiences of a specific type
 export const generators = {
-  generateAward: () => {
+  awardExperiences: (numOfExp = 1) => {
     faker.seed(0);
-    return generateAward();
+    return [...Array(numOfExp)].map(() => {
+      return generateAward();
+    });
   },
-  generateCommunity: () => {
+  communityExperiences: (numOfExp = 1) => {
     faker.seed(0);
-    return generateCommunity();
+    return [...Array(numOfExp)].map(() => {
+      return generateCommunity();
+    });
   },
-  generateEducation: () => {
+  educationExperiences: (numOfExp = 1) => {
     faker.seed(0);
-    return generateEducation();
+    return [...Array(numOfExp)].map(() => {
+      return generateEducation();
+    });
   },
-  generatePersonal: () => {
+  personalExperiences: (numOfExp = 1) => {
     faker.seed(0);
-    return generatePersonal();
+    return [...Array(numOfExp)].map(() => {
+      return generatePersonal();
+    });
   },
-  generateWork: () => {
+  workExperiences: (numOfExp = 1) => {
     faker.seed(0);
-    return generateWork();
+    return [...Array(numOfExp)].map(() => {
+      return generateWork();
+    });
   },
 };
