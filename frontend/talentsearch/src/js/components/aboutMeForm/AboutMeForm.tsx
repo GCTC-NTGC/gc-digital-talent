@@ -1,6 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { toast } from "react-toastify";
+import { OperationResult } from "urql";
 import { BasicForm, Input, RadioGroup, Select } from "@common/components/form";
 import { ProvinceOrTerritory, Language } from "@common/api/generated";
 import { commonMessages, errorMessages } from "@common/messages";
@@ -24,7 +25,6 @@ import {
 } from "../../api/generated";
 import type { User, UpdateUserAsUserInput } from "../../api/generated";
 import applicantProfileRoutes from "../../applicantProfileRoutes";
-import { OperationResult } from "urql";
 
 export type FormValues = Pick<
   User,
@@ -289,6 +289,7 @@ export const AboutMeForm: React.FunctionComponent<AboutMeFormProps> = ({
               id="email"
               name="email"
               type="email"
+              disabled
               label={intl.formatMessage({
                 defaultMessage: "Email",
                 description: "Label for email field in About Me form",
@@ -314,13 +315,20 @@ const AboutMeFormContainer: React.FunctionComponent = () => {
   const [, executeMutation] = useUpdateUserAsUserMutation();
 
   const handleUpdateUser = (id: string, values: UpdateUserAsUserInput) => {
-    return executeMutation({ id, user: values }).then((res: OperationResult<UpdateUserAsUserMutation, Exact<{ id: string; user: UpdateUserAsUserInput; }>>) => {
-      if (res.data?.updateUserAsUser) {
-        return res.data.updateUserAsUser;
-      }
+    return executeMutation({ id, user: values }).then(
+      (
+        res: OperationResult<
+          UpdateUserAsUserMutation,
+          Exact<{ id: string; user: UpdateUserAsUserInput }>
+        >,
+      ) => {
+        if (res.data?.updateUserAsUser) {
+          return res.data.updateUserAsUser;
+        }
 
-      return Promise.reject(res.error);
-    });
+        return Promise.reject(res.error);
+      },
+    );
   };
 
   if (fetching) {
