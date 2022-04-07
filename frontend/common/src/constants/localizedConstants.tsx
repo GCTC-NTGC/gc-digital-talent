@@ -122,7 +122,7 @@ export const workRegions = defineMessages({
 export const workRegionsDetailed = defineMessages({
   [WorkRegion.Telework]: {
     defaultMessage:
-      "<bold>Virtual: </bold> Work from home, anywhere in Canada.",
+      "<bold>Virtual:</bold> Work from home, anywhere in Canada.",
     description: "The work region of Canada described as Telework.",
   },
   [WorkRegion.NationalCapital]: {
