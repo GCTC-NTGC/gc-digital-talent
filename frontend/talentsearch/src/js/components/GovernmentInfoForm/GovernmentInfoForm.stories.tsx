@@ -13,23 +13,73 @@ export default {
   title: "Government Info Form",
 } as Meta;
 
-const TemplateGovInfoForm: Story = () => {
-  return (
-    <ProfileFormWrapper
-      description="Please indicate if you are currently an employee in the Government of Canada."
-      title="Government Information"
-      crumbs={[
-        {
-          title: "Government Information",
-        },
-      ]}
-    >
-      <BasicForm onSubmit={() => null}>
-        <GovernmentInfoForm classifications={fakeClass} />
-        <ProfileFormFooter mode="saveButton" />
-      </BasicForm>
-    </ProfileFormWrapper>
-  );
+const TemplateGovInfoForm: Story = args => (
+  <ProfileFormWrapper
+    description="Please indicate if you are currently an employee in the Government of Canada."
+    title="Government Information"
+    crumbs={[
+      {
+        title: "Government Information",
+      },
+    ]}
+  >
+    <BasicForm onSubmit={() => null} options={{defaultValues: args.options}}>
+      <GovernmentInfoForm classifications={fakeClass} />
+      <ProfileFormFooter mode="saveButton" />
+    </BasicForm>
+  </ProfileFormWrapper>
+);
+
+export const ANoArgs = TemplateGovInfoForm.bind({});
+ANoArgs.args = {
+  options: {
+    govEmployeeYesNo: undefined,
+    govEmployeeType: undefined,
+    lateralDeployBool: undefined,
+    currentClassificationGroup: undefined,
+    currentClassificationLevel: undefined,
+  }
 };
 
-export const IndividualGovernmentInfo = TemplateGovInfoForm.bind({});
+export const BStatusNo = TemplateGovInfoForm.bind({});
+BStatusNo.args = {
+  options: {
+    ...ANoArgs.args.options,
+    govEmployeeYesNo: "no",
+  }
+};
+
+export const CStatusYes = TemplateGovInfoForm.bind({});
+CStatusYes.args = {
+  options: {
+    ...ANoArgs.args.options,
+    govEmployeeYesNo: "yes",
+  }
+};
+
+// TODO: Figure out why Classification fields don't show.
+export const DCasualNoClass =  TemplateGovInfoForm.bind({});
+DCasualNoClass.args = {
+  options: {
+    ...CStatusYes.args.options,
+    govEmployeeType: "casual",
+  }
+};
+
+// TODO: Figure out why Classification fields don't show.
+export const ECasualClassGroup =  TemplateGovInfoForm.bind({});
+ECasualClassGroup.args = {
+  options: {
+    ...DCasualNoClass.args.options,
+    currentClassificationGroup: "CS",
+  }
+};
+
+// TODO: Figure out why Classification fields don't show.
+export const FCasualClassGroupLevel =  TemplateGovInfoForm.bind({});
+FCasualClassGroupLevel.args = {
+  options: {
+    ...ECasualClassGroup.args.options,
+    currentClassificationLevel: "3",
+  }
+};
