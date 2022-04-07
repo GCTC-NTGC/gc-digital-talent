@@ -1,8 +1,7 @@
 import React from "react";
 import { action } from "@storybook/addon-actions";
 import { Story, Meta } from "@storybook/react";
-import { FormProvider, useForm } from "react-hook-form";
-import { Input } from "@common/components/form";
+import { BasicForm, Input } from "@common/components/form";
 import ProfileFormWrapper, {
   ProfileFormWrapperProps,
 } from "./ProfileFormWrapper";
@@ -21,23 +20,14 @@ const TemplateProfileFormWrapper: Story<
   ProfileFormWrapperProps & ProfileFormFooterProps
 > = (args) => {
   const { mode, handleSave } = args;
-  const methods = useForm();
-  const { handleSubmit } = methods;
   return (
     <ProfileFormWrapper {...args}>
-      <FormProvider {...methods}>
-        <form onSubmit={handleSubmit(() => {})}>
-          <Input id="email" label="Email" type="email" name="email" />
-          <Input
-            id="firstName"
-            label="First Name"
-            type="text"
-            name="firstName"
-          />
-          <Input id="lastName" label="Last Name" type="text" name="lastName" />
-          <ProfileFormFooter mode={mode} handleSave={handleSave} />
-        </form>
-      </FormProvider>
+      <BasicForm onSubmit={() => handleSave}>
+        <Input id="email" label="Email" type="email" name="email" />
+        <Input id="firstName" label="First Name" type="text" name="firstName" />
+        <Input id="lastName" label="Last Name" type="text" name="lastName" />
+        <ProfileFormFooter mode={mode} />
+      </BasicForm>
     </ProfileFormWrapper>
   );
 };
