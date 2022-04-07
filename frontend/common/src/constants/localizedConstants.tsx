@@ -136,7 +136,7 @@ export const workRegionsDetailed = defineMessages({
     description: "The work region of Canada described as Atlantic.",
   },
   [WorkRegion.Quebec]: {
-    defaultMessage: "<bold>Quebec Region: </bold>excluding Gatineau.",
+    defaultMessage: "<bold>Quebec Region:</bold> excluding Gatineau.",
     description: "The work region of Canada described as Quebec.",
   },
   [WorkRegion.Ontario]: {
