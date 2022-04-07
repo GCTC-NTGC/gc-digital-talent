@@ -145,7 +145,7 @@ export const workRegionsDetailed = defineMessages({
   },
   [WorkRegion.Prairie]: {
     defaultMessage:
-      "<bold> Prairie Region: </bold> Manitoba, Saskatchewan, Alberta.",
+      "<bold>Prairie Region:</bold> Manitoba, Saskatchewan, Alberta.",
     description: "The work region of Canada described as Prairie.",
   },
   [WorkRegion.BritishColumbia]: {
