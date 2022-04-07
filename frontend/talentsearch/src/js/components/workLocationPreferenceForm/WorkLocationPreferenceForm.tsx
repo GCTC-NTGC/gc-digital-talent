@@ -13,9 +13,9 @@ import {
   CreateWorkLocationPreferenceMutation,
   useCreateWorkLocationPreferenceMutation,
   WorkRegion,
-  User,
   UpdateUserAsUserInput,
   useWorkLocationPreferenceQuery,
+  WorkLocationPreferenceQuery,
 } from "../../api/generated";
 import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
 import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
@@ -24,8 +24,8 @@ export type FormValues = Pick<
   CreateUserInput,
   "locationPreferences" | "locationExemptions"
 >;
-interface WorkLocationPreferenceFormProps {
-  initialData: User;
+export interface WorkLocationPreferenceFormProps {
+  initialData: WorkLocationPreferenceQuery | undefined;
   handleWorkLocationPreference: (
     id: string,
     data: UpdateUserAsUserInput,
@@ -41,10 +41,12 @@ export const WorkLocationPreferenceForm: React.FC<
     return <span data-h2-font-weight="b(700)">{msg}</span>;
   }
 
-  const dataToFormValues = (data: User): FormValues => ({
+  const dataToFormValues = (
+    data: WorkLocationPreferenceQuery | undefined,
+  ): FormValues => ({
     ...data,
-    locationPreferences: data.locationPreferences,
-    locationExemptions: data.locationExemptions,
+    locationPreferences: data?.me?.locationPreferences,
+    locationExemptions: data?.me?.locationExemptions,
   });
   const formValuesToSubmitData = (
     values: FormValues,
@@ -56,11 +58,14 @@ export const WorkLocationPreferenceForm: React.FC<
     defaultValues: dataToFormValues(initialData),
   });
   const { handleSubmit } = methods;
+
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
-    await handleWorkLocationPreference(
-      initialData.id,
-      formValuesToSubmitData(data),
-    );
+    if (initialData?.me) {
+      await handleWorkLocationPreference(
+        initialData.me?.id,
+        formValuesToSubmitData(data),
+      );
+    }
   };
 
   return (
@@ -197,7 +202,7 @@ export const WorkLocationPreferenceApi: React.FunctionComponent = () => {
   }
   return userData?.me ? (
     <WorkLocationPreferenceForm
-      initialData={userData?.me}
+      initialData={userData}
       handleWorkLocationPreference={handleWorkLocationPreference}
     />
   ) : (

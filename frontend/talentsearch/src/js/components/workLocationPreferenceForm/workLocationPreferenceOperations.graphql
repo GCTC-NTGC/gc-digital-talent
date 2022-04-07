@@ -1,10 +1,9 @@
 query WorkLocationPreference{
   me{
     id
-    email
     locationPreferences
     locationExemptions
-  }
+    }
 }
 
 mutation createWorkLocationPreference($id: ID!, $user: UpdateUserAsUserInput!) {

@@ -4,7 +4,7 @@
 import React from "react";
 import "@testing-library/jest-dom";
 import { IntlProvider, MessageFormatElement } from "react-intl";
-import { Language, User, WorkRegion } from "../../api/generated";
+import { WorkLocationPreferenceQuery, WorkRegion } from "../../api/generated";
 import { render, screen, fireEvent, act } from "../../tests/testUtils";
 import { WorkLocationPreferenceForm } from "./WorkLocationPreferenceForm";
 
@@ -22,23 +22,22 @@ const renderWithReactIntl = (
   });
 };
 
-const user: User = {
-  id: "",
-  firstName: "",
-  lastName: "",
-  email: "",
-  telephone: "+867365373244",
-  preferredLang: Language.En,
-  locationPreferences: [WorkRegion.Atlantic],
-  locationExemptions: "",
-};
-
 const onClick = jest.fn();
+
+const mockUser: WorkLocationPreferenceQuery | undefined = {
+  __typename: "Query",
+  me: {
+    __typename: "User",
+    id: "thanka11",
+    locationPreferences: [WorkRegion.Atlantic],
+    locationExemptions: "dagu",
+  },
+};
 
 const renderWorkLocationPreference = () => {
   return renderWithReactIntl(
     <WorkLocationPreferenceForm
-      initialData={user}
+      initialData={mockUser}
       handleWorkLocationPreference={onClick}
     />,
   );
