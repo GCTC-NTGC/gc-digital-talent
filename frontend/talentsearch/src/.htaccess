@@ -1,8 +1,8 @@
 # Map all SPA-looking routes to our single page app index file
-FallbackResource index.html
+FallbackResource /frontend/talentsearch/dist/index.html
 
 # Requests for files should return a real 404 and not fallback to the index.html page, though
-<Files ~ "\.(js|css|gif|jpe?g|png)$">
+<Files ~ "\.(js|css|gif|jpe?g|png|svg)$">
   FallbackResource disabled
   ErrorDocument 404 "File not found"
 </Files>
@@ -26,5 +26,4 @@ FallbackResource index.html
     # Handle Front Controller...
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-f
-    # RewriteRule ^ index.php [L]
 </IfModule>
