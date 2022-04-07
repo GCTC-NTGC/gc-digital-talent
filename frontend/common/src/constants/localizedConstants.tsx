@@ -149,7 +149,7 @@ export const workRegionsDetailed = defineMessages({
     description: "The work region of Canada described as Prairie.",
   },
   [WorkRegion.BritishColumbia]: {
-    defaultMessage: "<bold>British Columbia Region </bold>",
+    defaultMessage: "<bold>British Columbia Region</bold>",
     description: "The work region of Canada described as British Columbia.",
   },
   [WorkRegion.North]: {
