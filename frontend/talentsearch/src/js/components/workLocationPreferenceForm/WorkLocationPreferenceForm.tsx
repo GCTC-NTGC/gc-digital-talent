@@ -74,7 +74,7 @@ export const WorkLocationPreferenceForm: React.FC<
         defaultMessage:
           "Indicate all locations where you are willing to work, including your current location (if you are interested in working there).",
         description:
-          "Description text for Profile Form wrapper  in Work Location Preferences Form",
+          "Description text for Profile Form wrapper in Work Location Preferences Form",
       })}
       title={intl.formatMessage({
         defaultMessage: "Work location",
