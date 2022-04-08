@@ -35,7 +35,7 @@ services:
       - 8000:80
       - 8001:443
     env_file:
-      - ../frontend/admin/.env
+      - ../frontend/admin/.apache_env
 
   maintenance:
     build: ./maintenance-container
