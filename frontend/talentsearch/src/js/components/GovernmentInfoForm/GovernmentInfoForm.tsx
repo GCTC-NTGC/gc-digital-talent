@@ -184,7 +184,6 @@ export const GovernmentInfoForm: React.FunctionComponent<{
               name="lateralDeployBool"
               boundingBox
               boundingBoxLabel="Lateral Deployment"
-              // defaultChecked={!!storedValues.interestedInLaterOrSecondment}
             />
           )}
       </div>
@@ -220,11 +219,6 @@ export const GovernmentInfoForm: React.FunctionComponent<{
                 })}
                 rules={{ required: intl.formatMessage(errorMessages.required) }}
                 options={groupOptions}
-                // defaultValue={
-                //   storedValues.currentClassification?.group
-                //     ? `${storedValues.currentClassification.group}`
-                //     : "Choose Group"
-                // }
               />
             )}
         </div>
@@ -249,11 +243,6 @@ export const GovernmentInfoForm: React.FunctionComponent<{
                   description: "Null selection for form.",
                 })}
                 options={levelOptions}
-                // defaultValue={
-                //   storedValues.currentClassification?.level
-                //     ? `${storedValues.currentClassification.level}`
-                //     : "Choose Level"
-                // }
               />
             )}
         </div>

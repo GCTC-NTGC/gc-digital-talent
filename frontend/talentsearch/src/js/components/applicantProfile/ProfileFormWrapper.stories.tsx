@@ -19,23 +19,20 @@ const TemplateProfileFormWrapper: Story<
   ProfileFormWrapperProps & ProfileFormFooterProps
 > = (args) => {
   const { mode } = args;
-  const methods = useForm();
-  const { handleSubmit } = methods;
   return (
     <ProfileFormWrapper {...args}>
-      <FormProvider {...methods}>
-        <form onSubmit={handleSubmit(action("Submit form"))}>
-          <Input id="email" label="Email" type="email" name="email" />
-          <Input
-            id="firstName"
-            label="First Name"
-            type="text"
-            name="firstName"
-          />
-          <Input id="lastName" label="Last Name" type="text" name="lastName" />
-          <ProfileFormFooter mode={mode} />
-        </form>
-      </FormProvider>
+      <BasicForm
+        onSubmit={async () => {
+          await new Promise((resolve) => setTimeout(resolve, 1000));
+          action("Save Form")();
+          return null;
+        }}
+      >
+        <Input id="email" label="Email" type="email" name="email" />
+        <Input id="firstName" label="First Name" type="text" name="firstName" />
+        <Input id="lastName" label="Last Name" type="text" name="lastName" />
+        <ProfileFormFooter mode={mode} />
+      </BasicForm>
     </ProfileFormWrapper>
   );
 };
