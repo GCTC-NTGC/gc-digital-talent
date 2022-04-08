@@ -32,14 +32,17 @@ export const SkillPage: React.FC = () => {
             data-h2-flex-item="b(1of1) m(2of5)"
             data-h2-text-align="m(right)"
           >
-            <Button color="white" mode="outline">
-              <Link href={paths.skillCreate()} title="">
-                {intl.formatMessage({
-                  defaultMessage: "Create Skill",
-                  description: "Heading displayed above the Create Skill form.",
-                })}
-              </Link>
-            </Button>
+            <Link
+              href={paths.skillCreate()}
+              color="white"
+              mode="outline"
+              type="button"
+            >
+              {intl.formatMessage({
+                defaultMessage: "Create Skill",
+                description: "Heading displayed above the Create Skill form.",
+              })}
+            </Link>
           </div>
         </div>
       </header>

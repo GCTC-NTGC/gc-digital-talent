@@ -32,15 +32,18 @@ export const SkillFamilyPage: React.FC = () => {
             data-h2-flex-item="b(1of1) m(2of5)"
             data-h2-text-align="m(right)"
           >
-            <Button color="white" mode="outline">
-              <Link href={paths.skillFamilyCreate()} title="">
-                {intl.formatMessage({
-                  defaultMessage: "Create Skill Family",
-                  description:
-                    "Heading displayed above the Create Skill Family form.",
-                })}
-              </Link>
-            </Button>
+            <Link
+              href={paths.skillFamilyCreate()}
+              color="white"
+              mode="outline"
+              type="button"
+            >
+              {intl.formatMessage({
+                defaultMessage: "Create Skill Family",
+                description:
+                  "Heading displayed above the Create Skill Family form.",
+              })}
+            </Link>
           </div>
         </div>
       </header>
