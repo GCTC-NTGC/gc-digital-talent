@@ -27,12 +27,6 @@ const EstimatedCandidates: React.FunctionComponent<
     }
   }, [updatePending, candidateCount]);
 
-  // React.useEffect(() => {
-  //   if (candidateCount === 1) {
-  //     setPluralizedWord("candidate");
-  //   }
-  // }, [candidateCount]);
-
   return (
     <div
       data-h2-bg-color="b(white)"
