@@ -1,14 +1,10 @@
 import React from "react";
 import { action } from "@storybook/addon-actions";
 import { Meta, Story } from "@storybook/react";
-import { BasicForm } from "@common/components/form";
 import { fakeUsers } from "@common/fakeData";
 import { pick } from "lodash";
-import {
-  LanguageInformationForm,
-  FormValues,
-  dataToFormValues,
-} from "./LanguageInformationForm";
+import { UpdateUserAsUserInput } from "@common/api/generated";
+import { LanguageInformationForm } from "./LanguageInformationForm";
 
 export default {
   component: LanguageInformationForm,
@@ -16,17 +12,29 @@ export default {
 } as Meta;
 
 const TemplateLangInfoForm: Story = (args) => {
+  const initialData = {
+    me: {
+      id: "fakeId",
+      ...args,
+    },
+  };
+
   return (
-    <BasicForm
-      onSubmit={async (data: FormValues) => {
-        action("submit")(data);
+    <LanguageInformationForm
+      initialData={initialData}
+      onUpdateLanguageInformation={async (
+        _: string,
+        data: UpdateUserAsUserInput,
+      ) => {
+        await new Promise((resolve) => {
+          setTimeout(() => {
+            resolve(data);
+          }, 1000);
+        });
+        action("Update Language Information")(data);
+        return null;
       }}
-      options={{
-        defaultValues: dataToFormValues(args),
-      }}
-    >
-      <LanguageInformationForm />
-    </BasicForm>
+    />
   );
 };
 

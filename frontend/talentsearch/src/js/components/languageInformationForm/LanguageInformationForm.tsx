@@ -11,15 +11,24 @@ import { SubmitHandler, useWatch } from "react-hook-form";
 import { enumToOptions } from "@common/helpers/formUtils";
 import { compact, omit } from "lodash";
 import { getLocale } from "@common/helpers/localize";
+import { navigate } from "@common/helpers/router";
+import { toast } from "react-toastify";
+import { OperationResult } from "urql";
 import {
   BilingualEvaluation,
   EstimatedLanguageAbility,
   EvaluatedLanguageAbility,
+  Exact,
+  GetLanguageInformationQuery,
+  UpdateLanguageInformationMutation,
+  UpdateUserAsUserInput,
   useGetLanguageInformationQuery,
   User,
+  useUpdateLanguageInformationMutation,
 } from "../../api/generated";
 import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
 import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
+import applicantProfileRoutes from "../../applicantProfileRoutes";
 
 export type FormValues = Pick<
   User,
@@ -32,23 +41,9 @@ export type FormValues = Pick<
   consideredPositionLanguages: string[];
 };
 
-export type LanguageInformationQueryData =
-  | Pick<
-      User,
-      | "lookingForEnglish"
-      | "lookingForFrench"
-      | "lookingForBilingual"
-      | "bilingualEvaluation"
-      | "comprehensionLevel"
-      | "writtenLevel"
-      | "verbalLevel"
-      | "estimatedLanguageAbility"
-    >
-  | undefined
-  | null;
-
-export const LanguageInformationForm: React.FunctionComponent = () => {
+const FormStructure = () => {
   const intl = useIntl();
+  const locale = getLocale(intl);
 
   const bold = (msg: string) => {
     return <span data-h2-font-weight="b(700)">{msg}</span>;
@@ -62,7 +57,7 @@ export const LanguageInformationForm: React.FunctionComponent = () => {
         target="_blank"
         rel="noopener noreferrer"
         href={
-          getLocale(intl) === "en"
+          locale === "en"
             ? "https://www.canada.ca/en/public-service-commission/services/second-language-testing-public-service.html"
             : "https://www.canada.ca/fr/commission-fonction-publique/services/evaluation-langue-seconde.html"
         }
@@ -77,7 +72,7 @@ export const LanguageInformationForm: React.FunctionComponent = () => {
         target="_blank"
         rel="noopener noreferrer"
         href={
-          getLocale(intl) === "en"
+          locale === "en"
             ? "https://www.canada.ca/en/public-service-commission/services/second-language-testing-public-service/self-assessment-tests.html"
             : "https://www.canada.ca/fr/commission-fonction-publique/services/evaluation-langue-seconde/tests-autoevaluation.html"
         }
@@ -117,7 +112,6 @@ export const LanguageInformationForm: React.FunctionComponent = () => {
       }),
     },
   ];
-  // TODO: Add in the underline/link to these once I figure out which it should be
   const BilingualEvaluationItems: {
     value: string;
     label: string | ReactNode;
@@ -227,206 +221,309 @@ export const LanguageInformationForm: React.FunctionComponent = () => {
     ];
 
   return (
-    <ProfileFormWrapper
-      description={intl.formatMessage({
-        defaultMessage:
-          "Use the form below to help us better understand your language preferences and capabilities",
-        description:
-          "Description text for Profile Form wrapper in Language Information Form",
-      })}
-      title={intl.formatMessage({
-        defaultMessage: "Language Information",
-        description:
-          "Title for Profile Form wrapper in Language Information Form",
-      })}
-      crumbs={[
-        {
-          title: intl.formatMessage({
-            defaultMessage: "Language Information",
-            description: "Display Text for Language Information Form Page Link",
-          }),
-        },
-      ]}
-    >
-      <div data-h2-padding="b(bottom, l)">
-        <div
-          data-h2-width="b(100) xs(75) m(50)"
-          data-h2-padding="b(top-bottom, s)"
-        >
-          <Checklist
-            idPrefix="considered-position-languages"
-            legend={intl.formatMessage({
-              defaultMessage:
-                "Select the positions you would like to be considered for",
-              description:
-                "Legend for considered position languages check list in language information form",
-            })}
-            name="consideredPositionLanguages"
-            rules={{
-              required: intl.formatMessage(errorMessages.required),
-            }}
-            items={ConsideredLangItems}
-          />
-        </div>
-        {consideredLanguages.includes("lookingForBilingual") && (
-          <>
+    <div data-h2-padding="b(bottom, l)">
+      <div
+        data-h2-width="b(100) xs(75) m(50)"
+        data-h2-padding="b(top-bottom, s)"
+      >
+        <Checklist
+          idPrefix="considered-position-languages"
+          legend={intl.formatMessage({
+            defaultMessage:
+              "Select the positions you would like to be considered for",
+            description:
+              "Legend for considered position languages check list in language information form",
+          })}
+          name="consideredPositionLanguages"
+          rules={{
+            required: intl.formatMessage(errorMessages.required),
+          }}
+          items={ConsideredLangItems}
+        />
+      </div>
+      {consideredLanguages.includes("lookingForBilingual") && (
+        <>
+          <div data-h2-padding="b(top, s)">
+            <RadioGroup
+              idPrefix="bilingualEvaluation"
+              legend={intl.formatMessage({
+                defaultMessage: "Bilingual evaluation",
+                description:
+                  "Legend bilingual evaluation status in language information form",
+              })}
+              name="bilingualEvaluation"
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
+              items={BilingualEvaluationItems}
+            />
+          </div>
+          {bilingualEvaluation !== BilingualEvaluation.NotCompleted ? (
             <div data-h2-padding="b(top, s)">
-              <RadioGroup
-                idPrefix="bilingualEvaluation"
-                legend={intl.formatMessage({
-                  defaultMessage: "Bilingual evaluation",
+              <p>
+                {intl.formatMessage({
+                  defaultMessage:
+                    "Please indicate the language levels you acquired from your Government of Canada language evaluation.",
                   description:
-                    "Legend bilingual evaluation status in language information form",
+                    "Text requesting language levels given from bilingual evaluation in language information form",
                 })}
-                name="bilingualEvaluation"
-                rules={{
-                  required: intl.formatMessage(errorMessages.required),
-                }}
-                items={BilingualEvaluationItems}
-              />
-            </div>
-            {bilingualEvaluation !== BilingualEvaluation.NotCompleted ? (
-              <div data-h2-padding="b(top, s)">
-                <p>
-                  {intl.formatMessage({
-                    defaultMessage:
-                      "Please indicate the language levels you acquired from your Government of Canada language evaluation.",
-                    description:
-                      "Text requesting language levels given from bilingual evaluation in language information form",
-                  })}
-                </p>
-                <div data-h2-flex-grid="b(normal, contained, flush, m)">
-                  <div data-h2-flex-item="b(1of1) s(1of3) l(1of4)">
-                    <Select
-                      id="comprehensionLevel"
-                      name="comprehensionLevel"
-                      label={intl.formatMessage({
-                        defaultMessage: "Comprehension",
-                        description:
-                          "Label displayed on the language information form comprehension field.",
-                      })}
-                      nullSelection={intl.formatMessage({
-                        defaultMessage: "Select a level...",
-                        description:
-                          "Placeholder displayed on the language information form comprehension field.",
-                      })}
-                      rules={{
-                        required: intl.formatMessage(errorMessages.required),
-                      }}
-                      options={EvaluatedAbilityItems}
-                    />
-                  </div>
-                  <div data-h2-flex-item="b(1of1) s(1of3) l(1of4)">
-                    <Select
-                      id="writtenLevel"
-                      name="writtenLevel"
-                      label={intl.formatMessage({
-                        defaultMessage: "Written",
-                        description:
-                          "Label displayed on the language information form written field.",
-                      })}
-                      nullSelection={intl.formatMessage({
-                        defaultMessage: "Select a level...",
-                        description:
-                          "Placeholder displayed on the language information form written field.",
-                      })}
-                      rules={{
-                        required: intl.formatMessage(errorMessages.required),
-                      }}
-                      options={EvaluatedAbilityItems}
-                    />
-                  </div>
-                  <div data-h2-flex-item="b(1of1) s(1of3) l(1of4)">
-                    <Select
-                      id="verbalLevel"
-                      name="verbalLevel"
-                      label={intl.formatMessage({
-                        defaultMessage: "Verbal",
-                        description:
-                          "Label displayed on the language information form verbal field.",
-                      })}
-                      nullSelection={intl.formatMessage({
-                        defaultMessage: "Select a level...",
-                        description:
-                          "Placeholder displayed on the language information form verbal field.",
-                      })}
-                      rules={{
-                        required: intl.formatMessage(errorMessages.required),
-                      }}
-                      options={EvaluatedAbilityItems}
-                    />
-                  </div>
+              </p>
+              <div data-h2-flex-grid="b(normal, contained, flush, m)">
+                <div data-h2-flex-item="b(1of1) s(1of3) l(1of4)">
+                  <Select
+                    id="comprehensionLevel"
+                    name="comprehensionLevel"
+                    label={intl.formatMessage({
+                      defaultMessage: "Comprehension",
+                      description:
+                        "Label displayed on the language information form comprehension field.",
+                    })}
+                    nullSelection={intl.formatMessage({
+                      defaultMessage: "Select a level...",
+                      description:
+                        "Placeholder displayed on the language information form comprehension field.",
+                    })}
+                    rules={{
+                      required: intl.formatMessage(errorMessages.required),
+                    }}
+                    options={EvaluatedAbilityItems}
+                  />
+                </div>
+                <div data-h2-flex-item="b(1of1) s(1of3) l(1of4)">
+                  <Select
+                    id="writtenLevel"
+                    name="writtenLevel"
+                    label={intl.formatMessage({
+                      defaultMessage: "Written",
+                      description:
+                        "Label displayed on the language information form written field.",
+                    })}
+                    nullSelection={intl.formatMessage({
+                      defaultMessage: "Select a level...",
+                      description:
+                        "Placeholder displayed on the language information form written field.",
+                    })}
+                    rules={{
+                      required: intl.formatMessage(errorMessages.required),
+                    }}
+                    options={EvaluatedAbilityItems}
+                  />
+                </div>
+                <div data-h2-flex-item="b(1of1) s(1of3) l(1of4)">
+                  <Select
+                    id="verbalLevel"
+                    name="verbalLevel"
+                    label={intl.formatMessage({
+                      defaultMessage: "Verbal",
+                      description:
+                        "Label displayed on the language information form verbal field.",
+                    })}
+                    nullSelection={intl.formatMessage({
+                      defaultMessage: "Select a level...",
+                      description:
+                        "Placeholder displayed on the language information form verbal field.",
+                    })}
+                    rules={{
+                      required: intl.formatMessage(errorMessages.required),
+                    }}
+                    options={EvaluatedAbilityItems}
+                  />
                 </div>
               </div>
-            ) : (
-              <div data-h2-padding="b(top, s)">
-                <p data-h2-padding="b(bottom, s)">
-                  {intl.formatMessage(
-                    {
-                      defaultMessage:
-                        "If you want to find out your language proficiency levels, <selfAssessmentLink>click here to find out.</selfAssessmentLink>",
-                      description:
-                        "Text including link to language proficiency evaluation in language information form",
-                    },
-                    {
-                      selfAssessmentLink,
-                    },
-                  )}
-                </p>
-                <RadioGroup
-                  idPrefix="estimatedLanguageAbility"
-                  legend={intl.formatMessage({
-                    defaultMessage: "Second language proficiency level",
+            </div>
+          ) : (
+            <div data-h2-padding="b(top, s)">
+              <p data-h2-padding="b(bottom, s)">
+                {intl.formatMessage(
+                  {
+                    defaultMessage:
+                      "If you want to find out your language proficiency levels, <selfAssessmentLink>click here to find out.</selfAssessmentLink>",
                     description:
-                      "Legend for second language proficiency level in language information form",
-                  })}
-                  name="estimatedLanguageAbility"
-                  items={EstimatedAbilityItems}
-                />
-              </div>
-            )}
-          </>
-        )}
-      </div>
-      <ProfileFormFooter mode="saveButton" />
-    </ProfileFormWrapper>
+                      "Text including link to language proficiency evaluation in language information form",
+                  },
+                  {
+                    selfAssessmentLink,
+                  },
+                )}
+              </p>
+              <RadioGroup
+                idPrefix="estimatedLanguageAbility"
+                legend={intl.formatMessage({
+                  defaultMessage: "Second language proficiency level",
+                  description:
+                    "Legend for second language proficiency level in language information form",
+                })}
+                name="estimatedLanguageAbility"
+                items={EstimatedAbilityItems}
+              />
+            </div>
+          )}
+        </>
+      )}
+    </div>
   );
 };
 
-export const dataToFormValues = (
-  data: LanguageInformationQueryData,
-): FormValues => ({
-  ...omit(data, [
-    "lookingForEnglish",
-    "lookingForFrench",
-    "lookingForBilingual",
-  ]),
-  consideredPositionLanguages: compact([
-    data?.lookingForEnglish ? "lookingForEnglish" : "",
-    data?.lookingForFrench ? "lookingForFrench" : "",
-    data?.lookingForBilingual ? "lookingForBilingual" : "",
-  ]),
-  bilingualEvaluation: data?.bilingualEvaluation
-    ? data.bilingualEvaluation
-    : BilingualEvaluation.CompletedEnglish,
-});
+export interface LanguageInformationFormProps {
+  initialData: GetLanguageInformationQuery | undefined;
+  onUpdateLanguageInformation: (
+    id: string,
+    data: UpdateUserAsUserInput,
+  ) => Promise<UpdateLanguageInformationMutation["updateUserAsUser"]>;
+}
+
+export const LanguageInformationForm: React.FunctionComponent<
+  LanguageInformationFormProps
+> = ({ initialData, onUpdateLanguageInformation }) => {
+  const intl = useIntl();
+  const locale = getLocale(intl);
+  const paths = applicantProfileRoutes(locale);
+
+  const dataToFormValues = (data: GetLanguageInformationQuery): FormValues => {
+    const self = data.me;
+    return {
+      ...omit(self, [
+        "id",
+        "__typename",
+        "lookingForEnglish",
+        "lookingForFrench",
+        "lookingForBilingual",
+      ]),
+      consideredPositionLanguages: compact([
+        self?.lookingForEnglish ? "lookingForEnglish" : "",
+        self?.lookingForFrench ? "lookingForFrench" : "",
+        self?.lookingForBilingual ? "lookingForBilingual" : "",
+      ]),
+      bilingualEvaluation: self?.bilingualEvaluation
+        ? self.bilingualEvaluation
+        : BilingualEvaluation.CompletedEnglish,
+    };
+  };
+
+  const formValuesToSubmitData = (formValues: FormValues) => {
+    return {
+      ...omit(formValues, ["consideredPositionLanguages"]),
+      lookingForEnglish:
+        formValues.consideredPositionLanguages.includes("lookingForEnglish"),
+      lookingForFrench:
+        formValues.consideredPositionLanguages.includes("lookingForFrench"),
+      lookingForBilingual: formValues.consideredPositionLanguages.includes(
+        "lookingForBilingual",
+      ),
+    };
+  };
+
+  const handleSubmit: SubmitHandler<FormValues> = async (formValues) => {
+    if (!initialData?.me?.id) {
+      toast.error(
+        intl.formatMessage({
+          defaultMessage: "Error: user not found",
+          description: "Message displayed to user if user is not found",
+        }),
+      );
+      return;
+    }
+
+    await onUpdateLanguageInformation(
+      initialData?.me?.id,
+      formValuesToSubmitData(formValues),
+    )
+      .then(() => {
+        navigate(paths.home());
+        toast.success(
+          intl.formatMessage({
+            defaultMessage: "User updated successfully!",
+            description:
+              "Message displayed to user after user is updated successfully.",
+          }),
+        );
+      })
+      .catch(() => {
+        toast.error(
+          intl.formatMessage({
+            defaultMessage: "Error: updating user failed",
+            description:
+              "Message displayed to user after user fails to get updated.",
+          }),
+        );
+      });
+  };
+
+  return initialData?.me ? (
+    <BasicForm
+      onSubmit={handleSubmit}
+      options={{ defaultValues: dataToFormValues(initialData) }}
+    >
+      <ProfileFormWrapper
+        description={intl.formatMessage({
+          defaultMessage:
+            "Use the form below to help us better understand your language preferences and capabilities",
+          description:
+            "Description text for Profile Form wrapper in Language Information Form",
+        })}
+        title={intl.formatMessage({
+          defaultMessage: "Language Information",
+          description:
+            "Title for Profile Form wrapper in Language Information Form",
+        })}
+        crumbs={[
+          {
+            title: intl.formatMessage({
+              defaultMessage: "Language Information",
+              description:
+                "Display Text for Language Information Form Page Link",
+            }),
+          },
+        ]}
+      >
+        <FormStructure />
+        <ProfileFormFooter mode="saveButton" />
+      </ProfileFormWrapper>
+    </BasicForm>
+  ) : (
+    <p>
+      {intl.formatMessage({
+        defaultMessage: "Could not load user.",
+        description:
+          "Error message that appears when current user could not be retrieved.",
+      })}
+    </p>
+  );
+};
 
 export const LanguageInformationFormContainer: React.FunctionComponent = () => {
   const intl = useIntl();
 
   const [result] = useGetLanguageInformationQuery();
-  const { data, fetching, error } = result;
+  const { data: userData, fetching, error } = result;
 
-  // TODO: Replace this with an api call
-  const onSubmit: SubmitHandler<FormValues> = async (
-    formValues: FormValues,
-  ) => {};
+  const [, executeMutation] = useUpdateLanguageInformationMutation();
+
+  const handleUpdateUser = async (
+    id: string,
+    values: UpdateUserAsUserInput,
+  ) => {
+    return executeMutation({ id, user: values }).then(
+      (
+        res: OperationResult<
+          UpdateLanguageInformationMutation,
+          Exact<{ id: string; user: UpdateUserAsUserInput }>
+        >,
+      ) => {
+        if (res.data?.updateUserAsUser) {
+          return res.data.updateUserAsUser;
+        }
+
+        return Promise.reject(res.error);
+      },
+    );
+  };
 
   if (fetching) {
     return <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>;
   }
 
-  if (error || !data) {
+  if (error || !userData) {
     return (
       <p>
         {intl.formatMessage(commonMessages.loadingError)}
@@ -436,12 +533,10 @@ export const LanguageInformationFormContainer: React.FunctionComponent = () => {
   }
 
   return (
-    <BasicForm
-      onSubmit={onSubmit}
-      options={{ defaultValues: dataToFormValues(data.me) }}
-    >
-      <LanguageInformationForm />
-    </BasicForm>
+    <LanguageInformationForm
+      initialData={userData}
+      onUpdateLanguageInformation={handleUpdateUser}
+    />
   );
 };
 
