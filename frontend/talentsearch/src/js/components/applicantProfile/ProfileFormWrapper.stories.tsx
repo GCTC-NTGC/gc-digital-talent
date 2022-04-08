@@ -1,8 +1,7 @@
 import React from "react";
 import { action } from "@storybook/addon-actions";
 import { Story, Meta } from "@storybook/react";
-import { FormProvider, useForm } from "react-hook-form";
-import { Input } from "@common/components/form";
+import { BasicForm, Input } from "@common/components/form";
 import ProfileFormWrapper, {
   ProfileFormWrapperProps,
 } from "./ProfileFormWrapper";

@@ -1,4 +1,5 @@
 import { Button } from "@common/components";
+import { Submit } from "@common/components/form";
 import { SaveIcon } from "@heroicons/react/solid";
 import * as React from "react";
 import { useFormState } from "react-hook-form";
@@ -8,8 +9,7 @@ const SaveButton: React.FunctionComponent = () => {
   const intl = useIntl();
   const { isSubmitting } = useFormState();
   return (
-    <Button
-      type="submit"
+    <Submit
       color="cta"
       mode="solid"
       data-h2-display="b(flex)"
