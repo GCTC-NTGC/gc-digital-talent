@@ -10,6 +10,7 @@ import {
 import { SubmitHandler, useWatch } from "react-hook-form";
 import { enumToOptions } from "@common/helpers/formUtils";
 import { compact, omit } from "lodash";
+import { getLocale } from "@common/helpers/localize";
 import {
   BilingualEvaluation,
   EstimatedLanguageAbility,
@@ -55,6 +56,36 @@ export const LanguageInformationForm: React.FunctionComponent = () => {
   const greyText = (msg: string) => {
     return <span data-h2-font-color="b([dark]gray)">{msg}</span>;
   };
+  const languageEvaluationPageLink = () => {
+    return (
+      <a
+        target="_blank"
+        rel="noopener noreferrer"
+        href={
+          getLocale(intl) === "en"
+            ? "https://www.canada.ca/en/public-service-commission/services/second-language-testing-public-service.html"
+            : "https://www.canada.ca/fr/commission-fonction-publique/services/evaluation-langue-seconde.html"
+        }
+      >
+        Government of Canada language evaluation.
+      </a>
+    );
+  };
+  const selfAssessmentLink = (msg: string) => {
+    return (
+      <a
+        target="_blank"
+        rel="noopener noreferrer"
+        href={
+          getLocale(intl) === "en"
+            ? "https://www.canada.ca/en/public-service-commission/services/second-language-testing-public-service/self-assessment-tests.html"
+            : "https://www.canada.ca/fr/commission-fonction-publique/services/evaluation-langue-seconde/tests-autoevaluation.html"
+        }
+      >
+        {msg}
+      </a>
+    );
+  };
 
   const consideredLanguages = useWatch({
     name: "consideredPositionLanguages",
@@ -96,12 +127,13 @@ export const LanguageInformationForm: React.FunctionComponent = () => {
       label: intl.formatMessage(
         {
           defaultMessage:
-            "I am bilingual (En/Fr) and <bold>have</bold> completed an official <bold>ENGLISH</bold> Government of Canada language evaluation.",
+            "I am bilingual (En/Fr) and <bold>have</bold> completed an official <bold>ENGLISH</bold> <languageEvaluationPageLink></languageEvaluationPageLink>",
           description:
             "Message for the completed english bilingual evaluation option",
         },
         {
           bold,
+          languageEvaluationPageLink,
         },
       ),
     },
@@ -110,12 +142,13 @@ export const LanguageInformationForm: React.FunctionComponent = () => {
       label: intl.formatMessage(
         {
           defaultMessage:
-            "I am bilingual (En/Fr) and <bold>have</bold> completed an official <bold>FRENCH</bold> Government of Canada language evaluation.",
+            "I am bilingual (En/Fr) and <bold>have</bold> completed an official <bold>FRENCH</bold> <languageEvaluationPageLink></languageEvaluationPageLink>",
           description:
             "Message for the completed french bilingual evaluation option",
         },
         {
           bold,
+          languageEvaluationPageLink,
         },
       ),
     },
@@ -124,12 +157,13 @@ export const LanguageInformationForm: React.FunctionComponent = () => {
       label: intl.formatMessage(
         {
           defaultMessage:
-            "I am bilingual (En/Fr) and <bold>have NOT</bold> completed an official Government of Canada language evaluation.",
+            "I am bilingual (En/Fr) and <bold>have NOT</bold> completed an official <languageEvaluationPageLink></languageEvaluationPageLink>",
           description:
             "Message for the haven't completed bilingual evaluation option",
         },
         {
           bold,
+          languageEvaluationPageLink,
         },
       ),
     },
@@ -327,12 +361,17 @@ export const LanguageInformationForm: React.FunctionComponent = () => {
             ) : (
               <div data-h2-padding="b(top, s)">
                 <p data-h2-padding="b(bottom, s)">
-                  {intl.formatMessage({
-                    defaultMessage:
-                      "If you want to find out your language proficiency levels, click here to find out.",
-                    description:
-                      "Text including link to language proficiency evaluation in language information form",
-                  })}
+                  {intl.formatMessage(
+                    {
+                      defaultMessage:
+                        "If you want to find out your language proficiency levels, <selfAssessmentLink>click here to find out.</selfAssessmentLink>",
+                      description:
+                        "Text including link to language proficiency evaluation in language information form",
+                    },
+                    {
+                      selfAssessmentLink,
+                    },
+                  )}
                 </p>
                 <RadioGroup
                   idPrefix="estimatedLanguageAbility"
