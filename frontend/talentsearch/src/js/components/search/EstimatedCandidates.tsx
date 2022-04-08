@@ -10,7 +10,6 @@ const EstimatedCandidates: React.FunctionComponent<
   EstimatedCandidatesProps
 > = ({ candidateCount, updatePending }) => {
   const intl = useIntl();
-  const [pluralizedWord, setPluralizedWord] = React.useState("candidates");
 
   function weight(msg: string) {
     return updatePending ? (
@@ -19,13 +18,6 @@ const EstimatedCandidates: React.FunctionComponent<
       <span data-h2-font-weight="b(800)">{msg}</span>
     );
   }
-  React.useEffect(() => {
-    if (candidateCount < 2) {
-      setPluralizedWord("candidate");
-    } else {
-      setPluralizedWord("candidates");
-    }
-  }, [updatePending, candidateCount]);
 
   return (
     <div
