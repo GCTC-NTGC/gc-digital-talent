@@ -16,6 +16,7 @@ import { fakeClassifications, fakeUsers } from "@common/fakeData";
 import { Classification } from "@common/api/generated";
 
 import GovInfoFormContainer, { GovernmentInfoForm } from "./GovernmentInfoForm";
+import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
 
 const renderWithReactIntl = (
   component: React.ReactNode,
@@ -83,6 +84,7 @@ const renderGovInfoForm = ({
         options={{ defaultValues: { govEmployeeYesNo: "no" } }}
       >
         <GovernmentInfoForm classifications={classificationsArray} />
+        <ProfileFormFooter mode="saveButton" />
       </BasicForm>,
     )}
   </>
