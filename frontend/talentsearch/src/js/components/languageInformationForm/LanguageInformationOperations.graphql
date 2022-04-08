@@ -1,0 +1,12 @@
+query GetLanguageInformation{
+  me {
+    lookingForEnglish
+    lookingForFrench
+    lookingForBilingual
+    bilingualEvaluation
+    comprehensionLevel
+    writtenLevel
+    verbalLevel
+    estimatedLanguageAbility
+  }
+}

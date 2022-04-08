@@ -1,6 +1,6 @@
 import React, { ReactNode } from "react";
 import { useIntl } from "react-intl";
-import { errorMessages } from "@common/messages";
+import { commonMessages, errorMessages } from "@common/messages";
 import {
   BasicForm,
   Checklist,
@@ -8,13 +8,13 @@ import {
   Select,
 } from "@common/components/form";
 import { SubmitHandler, useWatch } from "react-hook-form";
-import { fakeUsers } from "@common/fakeData";
 import { enumToOptions } from "@common/helpers/formUtils";
-import { compact } from "lodash";
+import { compact, omit } from "lodash";
 import {
   BilingualEvaluation,
   EstimatedLanguageAbility,
   EvaluatedLanguageAbility,
+  useGetLanguageInformationQuery,
   User,
 } from "../../api/generated";
 import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
@@ -30,6 +30,21 @@ export type FormValues = Pick<
 > & {
   consideredPositionLanguages: string[];
 };
+
+export type LanguageInformationQueryData =
+  | Pick<
+      User,
+      | "lookingForEnglish"
+      | "lookingForFrench"
+      | "lookingForBilingual"
+      | "bilingualEvaluation"
+      | "comprehensionLevel"
+      | "writtenLevel"
+      | "verbalLevel"
+      | "estimatedLanguageAbility"
+    >
+  | undefined
+  | null;
 
 export const LanguageInformationForm: React.FunctionComponent = () => {
   const intl = useIntl();
@@ -339,28 +354,53 @@ export const LanguageInformationForm: React.FunctionComponent = () => {
   );
 };
 
-// TODO: Update type with proper query data
-export const dataToFormValues = (data: User): FormValues => ({
-  ...data,
-  consideredPositionLanguages: compact([
-    data.lookingForEnglish ? "lookingForEnglish" : "",
-    data.lookingForFrench ? "lookingForFrench" : "",
-    data.lookingForBilingual ? "lookingForBilingual" : "",
+export const dataToFormValues = (
+  data: LanguageInformationQueryData,
+): FormValues => ({
+  ...omit(data, [
+    "lookingForEnglish",
+    "lookingForFrench",
+    "lookingForBilingual",
   ]),
-  bilingualEvaluation: data.bilingualEvaluation
+  consideredPositionLanguages: compact([
+    data?.lookingForEnglish ? "lookingForEnglish" : "",
+    data?.lookingForFrench ? "lookingForFrench" : "",
+    data?.lookingForBilingual ? "lookingForBilingual" : "",
+  ]),
+  bilingualEvaluation: data?.bilingualEvaluation
     ? data.bilingualEvaluation
     : BilingualEvaluation.CompletedEnglish,
 });
 
 export const LanguageInformationFormContainer: React.FunctionComponent = () => {
-  // TODO: Update this with an api call
-  const self = fakeUsers()[0];
+  const intl = useIntl();
+
+  const [result] = useGetLanguageInformationQuery();
+  const { data, fetching, error } = result;
 
   // TODO: Replace this with an api call
-  const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {};
+  const onSubmit: SubmitHandler<FormValues> = async (
+    formValues: FormValues,
+  ) => {};
+
+  if (fetching) {
+    return <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>;
+  }
+
+  if (error || !data) {
+    return (
+      <p>
+        {intl.formatMessage(commonMessages.loadingError)}
+        {error?.message || ""}
+      </p>
+    );
+  }
 
   return (
-    <BasicForm onSubmit={onSubmit} options={{ defaultValues: {} }}>
+    <BasicForm
+      onSubmit={onSubmit}
+      options={{ defaultValues: dataToFormValues(data.me) }}
+    >
       <LanguageInformationForm />
     </BasicForm>
   );

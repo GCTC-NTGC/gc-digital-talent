@@ -3,6 +3,7 @@ import { action } from "@storybook/addon-actions";
 import { Meta, Story } from "@storybook/react";
 import { BasicForm } from "@common/components/form";
 import { fakeUsers } from "@common/fakeData";
+import { pick } from "lodash";
 import {
   LanguageInformationForm,
   FormValues,
@@ -15,19 +16,13 @@ export default {
 } as Meta;
 
 const TemplateLangInfoForm: Story = (args) => {
-  const argumentData = {
-    ...args,
-    email: "test@123.ca",
-    id: "lsdkgjo3844o8tuorjf",
-  };
-
   return (
     <BasicForm
       onSubmit={async (data: FormValues) => {
         action("submit")(data);
       }}
       options={{
-        defaultValues: dataToFormValues(argumentData),
+        defaultValues: dataToFormValues(args),
       }}
     >
       <LanguageInformationForm />
@@ -38,5 +33,14 @@ const TemplateLangInfoForm: Story = (args) => {
 export const LanguageInfoForm = TemplateLangInfoForm.bind({});
 
 LanguageInfoForm.args = {
-  ...fakeUsers()[1],
+  ...pick(fakeUsers()[1], [
+    "lookingForEnglish",
+    "lookingForFrench",
+    "lookingForBilingual",
+    "bilingualEvaluation",
+    "comprehensionLevel",
+    "writtenLevel",
+    "verbalLevel",
+    "estimatedLanguageAbility",
+  ]),
 };
