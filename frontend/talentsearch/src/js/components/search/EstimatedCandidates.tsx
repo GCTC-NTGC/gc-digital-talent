@@ -10,6 +10,7 @@ const EstimatedCandidates: React.FunctionComponent<
   EstimatedCandidatesProps
 > = ({ candidateCount, updatePending }) => {
   const intl = useIntl();
+  const [pluralizedWord, setPluralizedWord] = React.useState("candidates");
 
   function weight(msg: string) {
     return updatePending ? (
@@ -18,6 +19,19 @@ const EstimatedCandidates: React.FunctionComponent<
       <span data-h2-font-weight="b(800)">{msg}</span>
     );
   }
+  React.useEffect(() => {
+    if (candidateCount < 2) {
+      setPluralizedWord("candidate");
+    } else {
+      setPluralizedWord("candidates");
+    }
+  }, [updatePending, candidateCount]);
+
+  // React.useEffect(() => {
+  //   if (candidateCount === 1) {
+  //     setPluralizedWord("candidate");
+  //   }
+  // }, [candidateCount]);
 
   return (
     <div
@@ -47,13 +61,14 @@ const EstimatedCandidates: React.FunctionComponent<
           {intl.formatMessage(
             {
               defaultMessage:
-                "There are approximately <weight>{candidateCount}</weight> candidates right now who meet your criteria.",
+                "There are approximately <weight>{candidateCount}</weight> {pluralizedWord} right now who meet your criteria.",
               description:
                 "Message for total estimated candidates box next to search form.",
             },
             {
               weight,
               candidateCount,
+              pluralizedWord,
             },
           )}
         </p>
