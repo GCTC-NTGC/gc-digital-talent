@@ -13,6 +13,7 @@ import {
 import React from "react";
 import { IntlProvider, MessageFormatElement } from "react-intl";
 import { fakeClassifications, fakeUsers } from "@common/fakeData";
+import { Classification } from "@common/api/generated";
 
 import GovInfoFormContainer, { GovernmentInfoForm } from "./GovernmentInfoForm";
 
@@ -66,18 +67,22 @@ const mockUser = fakeUsers()[0];
 
 const mockSave = jest.fn(() => Promise.resolve(mockUser));
 
+type renderGovInfoProps = {
+  classificationsArray: Classification[];
+  updateFunction: () => void;
+};
+
 const renderGovInfoForm = ({
-  mockClassificationArray,
-  onUpdate = mockSave,
-}: // eslint-disable-next-line @typescript-eslint/no-explicit-any
-any) => (
+  classificationsArray,
+  updateFunction,
+}: renderGovInfoProps) => (
   <>
     {renderWithReactIntl(
       <BasicForm
-        onSubmit={onUpdate}
+        onSubmit={updateFunction}
         options={{ defaultValues: { govEmployeeYesNo: "no" } }}
       >
-        <GovernmentInfoForm classifications={mockClassificationArray} />
+        <GovernmentInfoForm classifications={classificationsArray} />
       </BasicForm>,
     )}
   </>
@@ -85,7 +90,12 @@ any) => (
 
 it("Should submit successfully with required fields", async () => {
   act(() => {
-    render(renderGovInfoForm(mockClassifications));
+    render(
+      renderGovInfoForm({
+        classificationsArray: mockClassifications,
+        updateFunction: mockSave,
+      }),
+    );
   });
 
   fireEvent.submit(screen.getByRole("button", { name: /save/i }));
