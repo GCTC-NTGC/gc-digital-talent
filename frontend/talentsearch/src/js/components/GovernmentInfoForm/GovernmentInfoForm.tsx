@@ -207,6 +207,7 @@ export const GovernmentInfoForm: React.FunctionComponent<{
               govEmployeeStatus === "indeterminate" ||
               govEmployeeStatus === "casual") && (
               <Select
+                data-h2-padding="b(right, l)"
                 id="currentClassificationGroup"
                 label={intl.formatMessage({
                   defaultMessage: "Current Classification Group",
@@ -229,6 +230,7 @@ export const GovernmentInfoForm: React.FunctionComponent<{
               govEmployeeStatus === "casual") &&
             groupSelection !== "Choose Department" && (
               <Select
+                data-h2-padding="b(right, l)"
                 id="currentClassificationLevel"
                 label={intl.formatMessage({
                   defaultMessage: "Current Classification Level",

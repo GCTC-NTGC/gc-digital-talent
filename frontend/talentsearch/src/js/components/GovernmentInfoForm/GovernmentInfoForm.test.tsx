@@ -1,11 +1,20 @@
 /**
  * @jest-environment jsdom
  */
+import { BasicForm } from "@common/components/form";
 import "@testing-library/jest-dom";
-import { render, screen, fireEvent, act } from "@testing-library/react";
+import {
+  render,
+  screen,
+  fireEvent,
+  act,
+  waitFor,
+} from "@testing-library/react";
 import React from "react";
 import { IntlProvider, MessageFormatElement } from "react-intl";
-import GovInfoFormContainer from "./GovernmentInfoForm";
+import { fakeClassifications, fakeUsers } from "@common/fakeData";
+
+import GovInfoFormContainer, { GovernmentInfoForm } from "./GovernmentInfoForm";
 
 const renderWithReactIntl = (
   component: React.ReactNode,
@@ -48,4 +57,39 @@ test("Test form display rendering", async () => {
     ),
   ).toBeTruthy();
   expect(screen.getByText("Current Classification Group")).toBeTruthy();
+});
+
+// used Eric's AboutMe component to add further stuff below this point
+// aboutMeForm/AboutMeForm.test.tsx
+const mockClassifications = fakeClassifications();
+const mockUser = fakeUsers()[0];
+
+const mockSave = jest.fn(() => Promise.resolve(mockUser));
+
+const renderGovInfoForm = ({
+  mockClassificationArray,
+  onUpdate = mockSave,
+}: // eslint-disable-next-line @typescript-eslint/no-explicit-any
+any) => (
+  <>
+    {renderWithReactIntl(
+      <BasicForm
+        onSubmit={onUpdate}
+        options={{ defaultValues: { govEmployeeYesNo: "no" } }}
+      >
+        <GovernmentInfoForm classifications={mockClassificationArray} />
+      </BasicForm>,
+    )}
+  </>
+);
+
+it("Should submit successfully with required fields", async () => {
+  act(() => {
+    render(renderGovInfoForm(mockClassifications));
+  });
+
+  fireEvent.submit(screen.getByRole("button", { name: /save/i }));
+  await waitFor(() => {
+    expect(mockSave).toHaveBeenCalled();
+  });
 });

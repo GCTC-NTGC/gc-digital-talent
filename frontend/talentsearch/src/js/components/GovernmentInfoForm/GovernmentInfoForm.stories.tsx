@@ -23,7 +23,7 @@ const TemplateGovInfoForm: Story = (args) => (
       },
     ]}
   >
-    <BasicForm onSubmit={() => null} options={{ defaultValues: args.options }}>
+    <BasicForm onSubmit={() => null} options={{ defaultValues: { ...args } }}>
       <GovernmentInfoForm classifications={fakeClass} />
       <ProfileFormFooter mode="saveButton" />
     </BasicForm>
