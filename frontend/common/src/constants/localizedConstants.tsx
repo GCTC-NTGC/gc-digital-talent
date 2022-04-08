@@ -62,70 +62,6 @@ export const getLanguageProficiency = (
     `Invalid skill level '${languageProf}'`,
   );
 
-export const provinceOrTerritory = {
-  [ProvinceOrTerritory.Alberta]: {
-    defaultMessage: "Alberta",
-    description: "Alberta",
-  },
-  [ProvinceOrTerritory.BritishColumbia]: {
-    defaultMessage: "British Columbia",
-    description: "British Columbia",
-  },
-  [ProvinceOrTerritory.Manitoba]: {
-    defaultMessage: "Manitoba",
-    description: "Manitoba",
-  },
-  [ProvinceOrTerritory.NewfoundlandAndLabrador]: {
-    defaultMessage: "Newfoundland and Labrador",
-    description: "Newfoundland and Labrador",
-  },
-  [ProvinceOrTerritory.NewBrunswick]: {
-    defaultMessage: "New Brunswick",
-    description: "New Brunswick",
-  },
-  [ProvinceOrTerritory.NorthwestTerritories]: {
-    defaultMessage: "Northwest Territories",
-    description: "Northwest Territories",
-  },
-  [ProvinceOrTerritory.NovaScotia]: {
-    defaultMessage: "Nova Scotia",
-    description: "Nova Scotia",
-  },
-  [ProvinceOrTerritory.Nunavut]: {
-    defaultMessage: "Nunavut",
-    description: "Nunavut",
-  },
-  [ProvinceOrTerritory.Ontario]: {
-    defaultMessage: "Ontario",
-    description: "Ontario",
-  },
-  [ProvinceOrTerritory.PrinceEdwardIsland]: {
-    defaultMessage: "Prince Edward Island",
-    description: "Prince Edward Island",
-  },
-  [ProvinceOrTerritory.Quebec]: {
-    defaultMessage: "Quebec",
-    description: "Quebec",
-  },
-  [ProvinceOrTerritory.Saskatchewan]: {
-    defaultMessage: "Saskatchewan",
-    description: "Saskatchewan",
-  },
-  [ProvinceOrTerritory.Yukon]: {
-    defaultMessage: "Yukon",
-    description: "Yukon",
-  },
-};
-
-export const getProvinceOrTerritory = (
-  provOrTerr: string | number,
-): MessageDescriptor =>
-  getOrThrowError(
-    provinceOrTerritory,
-    provOrTerr,
-    `Invalid Province/Territory '${provOrTerr}'`,
-  );
-
 export const salaryRanges = {
   [SalaryRange["50_59K"]]: "$50,000 - $59,000",
   [SalaryRange["60_69K"]]: "$60,000 - $69,000",
@@ -495,4 +431,71 @@ export const getOperationalRequirement = (
     operationalRequirements,
     operationalRequirementId,
     `Invalid Operational Requirement '${operationalRequirementId}'`,
+  );
+
+export const provinceOrTerritory = defineMessages({
+  [ProvinceOrTerritory.Alberta]: {
+    defaultMessage: "Alberta",
+    description: "Alberta selection for province or territory input",
+  },
+  [ProvinceOrTerritory.BritishColumbia]: {
+    defaultMessage: "British Columbia",
+    description: "British Columbia selection for province or territory input",
+  },
+  [ProvinceOrTerritory.Manitoba]: {
+    defaultMessage: "Manitoba",
+    description: "Manitoba selection for province or territory input",
+  },
+  [ProvinceOrTerritory.NewfoundlandAndLabrador]: {
+    defaultMessage: "Newfoundland and Labrador",
+    description:
+      "Newfoundland and Labrador selection for province or territory input",
+  },
+  [ProvinceOrTerritory.NewBrunswick]: {
+    defaultMessage: "New Brunswick",
+    description: "New Brunswick selection for province or territory input",
+  },
+  [ProvinceOrTerritory.NorthwestTerritories]: {
+    defaultMessage: "Northwest Territories",
+    description:
+      "Northwest Territories selection for province or territory input",
+  },
+  [ProvinceOrTerritory.NovaScotia]: {
+    defaultMessage: "Nova Scotia",
+    description: "Nova Scotia selection for province or territory input",
+  },
+  [ProvinceOrTerritory.Nunavut]: {
+    defaultMessage: "Nunavut",
+    description: "Nunavut selection for province or territory input",
+  },
+  [ProvinceOrTerritory.Ontario]: {
+    defaultMessage: "Ontario",
+    description: "Ontario selection for province or territory input",
+  },
+  [ProvinceOrTerritory.PrinceEdwardIsland]: {
+    defaultMessage: "Prince Edward Island",
+    description:
+      "Prince Edward Island selection for province or territory input",
+  },
+  [ProvinceOrTerritory.Quebec]: {
+    defaultMessage: "Quebec",
+    description: "Quebec selection for province or territory input",
+  },
+  [ProvinceOrTerritory.Saskatchewan]: {
+    defaultMessage: "Saskatchewan",
+    description: "Saskatchewan selection for province or territory input",
+  },
+  [ProvinceOrTerritory.Yukon]: {
+    defaultMessage: "Yukon",
+    description: "Yukon selection for province or territory input",
+  },
+});
+
+export const getProvinceOrTerritory = (
+  provinceOrTerritoryId: string | number,
+): MessageDescriptor =>
+  getOrThrowError(
+    provinceOrTerritory,
+    provinceOrTerritoryId,
+    `Invalid province or territory '${provinceOrTerritoryId}'`,
   );
