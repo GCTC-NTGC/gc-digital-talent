@@ -200,14 +200,13 @@ export const GovernmentInfoForm: React.FunctionComponent<{
             })}
           </p>
         )}
-      <div data-h2-display="b(flex)">
+      <div data-h2-display="b(flex)" data-h2-flex-direction="b(column) s(row)">
         <div data-h2-padding="b(right, l)">
           {govEmployee === "yes" &&
             (govEmployeeStatus === "term" ||
               govEmployeeStatus === "indeterminate" ||
               govEmployeeStatus === "casual") && (
               <Select
-                data-h2-padding="b(right, l)"
                 id="currentClassificationGroup"
                 label={intl.formatMessage({
                   defaultMessage: "Current Classification Group",
@@ -223,14 +222,13 @@ export const GovernmentInfoForm: React.FunctionComponent<{
               />
             )}
         </div>
-        <div>
+        <div data-h2-padding="b(right, l)">
           {govEmployee === "yes" &&
             (govEmployeeStatus === "term" ||
               govEmployeeStatus === "indeterminate" ||
               govEmployeeStatus === "casual") &&
             groupSelection !== "Choose Department" && (
               <Select
-                data-h2-padding="b(right, l)"
                 id="currentClassificationLevel"
                 label={intl.formatMessage({
                   defaultMessage: "Current Classification Level",

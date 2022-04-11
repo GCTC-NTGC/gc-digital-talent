@@ -1,3 +1,5 @@
+/* eslint-disable react/destructuring-assignment */
+// needed for line 28 to operate as intended for Storybook
 import React from "react";
 import { Meta, Story } from "@storybook/react";
 import { fakeClassifications } from "@common/fakeData";
@@ -23,7 +25,7 @@ const TemplateGovInfoForm: Story = (args) => (
       },
     ]}
   >
-    <BasicForm onSubmit={() => null} options={{ defaultValues: { ...args } }}>
+    <BasicForm onSubmit={() => null} options={{ defaultValues: args.options }}>
       <GovernmentInfoForm classifications={fakeClass} />
       <ProfileFormFooter mode="saveButton" />
     </BasicForm>
@@ -57,7 +59,6 @@ CStatusYes.args = {
   },
 };
 
-// TODO: Figure out why Classification fields don't show.
 export const DCasualNoClass = TemplateGovInfoForm.bind({});
 DCasualNoClass.args = {
   options: {
@@ -66,7 +67,6 @@ DCasualNoClass.args = {
   },
 };
 
-// TODO: Figure out why Classification fields don't show.
 export const ECasualClassGroup = TemplateGovInfoForm.bind({});
 ECasualClassGroup.args = {
   options: {
@@ -75,7 +75,6 @@ ECasualClassGroup.args = {
   },
 };
 
-// TODO: Figure out why Classification fields don't show.
 export const FCasualClassGroupLevel = TemplateGovInfoForm.bind({});
 FCasualClassGroupLevel.args = {
   options: {
