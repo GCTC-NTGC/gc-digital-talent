@@ -4,7 +4,7 @@ import  HelloWorld  from "./HelloWorld";
 
 export default {
   component: HelloWorld,
-  title: "Hello World",
+  title: "Indigenous Apprenticeship/Hello World",
 } as Meta;
 
 const TemplateHelloWorld: Story = () => (
