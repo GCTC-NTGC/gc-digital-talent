@@ -56,7 +56,7 @@ export const MultiSelect: React.FunctionComponent<MultiSelectProps> = ({
         context={context}
         error={error}
       >
-        <div data-h2-margin="b(bottom, xxs)" style={{ flexBasis: "100%" }}>
+        <div data-h2-margin="b(bottom, xxs)" style={{ width: "100%" }}>
           <Controller
             name={name}
             render={({ field }) => (
