@@ -4,7 +4,7 @@ import ReactSelect from "react-select";
 import { InputWrapper } from "../../inputPartials";
 
 export type Option = { value: string | number; label: string };
-interface MultiSelectProps
+export interface MultiSelectProps
   extends React.SelectHTMLAttributes<HTMLSelectElement> {
   /** HTML id used to identify the element. */
   id: string;
@@ -43,7 +43,7 @@ export const MultiSelect: React.FunctionComponent<MultiSelectProps> = ({
     });
     return map;
   }, [options]);
-  const valueToOption = (v: any) => ({
+  const valueToOption = (v: string | number) => ({
     value: v,
     label: optionMap.get(v) ?? String(v),
   });
@@ -56,7 +56,7 @@ export const MultiSelect: React.FunctionComponent<MultiSelectProps> = ({
         context={context}
         error={error}
       >
-        <div data-h2-margin="b(bottom, xxs)" style={{ flexBasis: "100%" }}>
+        <div style={{ width: "100%" }}>
           <Controller
             name={name}
             render={({ field }) => (
