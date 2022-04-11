@@ -50,6 +50,6 @@ class WorkExperience extends Model
         return $this->morphToMany(Skill::class, 'experience', 'experience_skills')
             ->withTimestamps()
             ->withPivot('details')
-            ->as('experienceSkillRecord');
+            ->as('experience_skill_pivot');
     }
 }

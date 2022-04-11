@@ -369,7 +369,7 @@ type Skill {
     personalExperiences: [PersonalExperience!] @hasMany
     workExperiences: [WorkExperience!] @hasMany
     # ExperienceSkillRecord is the pivot data and must be queried through a nested mutation (eg. experience->skill->experienceSkillRecord) querying for it directly will just return null
-    experienceSkillRecord: ExperienceSkillRecord
+    experienceSkillRecord: ExperienceSkillRecord @rename(attribute: "experience_skill_pivot")
 }
 
 enum AwardedTo {
@@ -412,7 +412,7 @@ interface Experience {
     details: String
     skills: [Skill!] @morphToMany
     # ExperienceSkillRecord is the pivot data and must be queried through a nested mutation (eg. experience->skill->experienceSkillRecord) querying for it directly will just return null
-    experienceSkillRecord: ExperienceSkillRecord
+    experienceSkillRecord: ExperienceSkillRecord @rename(attribute: "experience_skill_pivot")
 }
 
 type WorkExperience implements Experience {
@@ -426,7 +426,7 @@ type WorkExperience implements Experience {
     details: String
     skills: [Skill!] @morphToMany
     # ExperienceSkillRecord is the pivot data and must be queried through a nested mutation (eg. experience->skill->experienceSkillRecord) querying for it directly will just return null
-    experienceSkillRecord: ExperienceSkillRecord
+    experienceSkillRecord: ExperienceSkillRecord @rename(attribute: "experience_skill_pivot")
 }
 type PersonalExperience implements Experience {
     id: ID!
@@ -438,7 +438,7 @@ type PersonalExperience implements Experience {
     details: String
     skills: [Skill!] @morphToMany
     # ExperienceSkillRecord is the pivot data and must be queried through a nested mutation (eg. experience->skill->experienceSkillRecord) querying for it directly will just return null
-    experienceSkillRecord: ExperienceSkillRecord
+    experienceSkillRecord: ExperienceSkillRecord @rename(attribute: "experience_skill_pivot")
 }
 type CommunityExperience implements Experience {
     id: ID!
@@ -451,7 +451,7 @@ type CommunityExperience implements Experience {
     details: String
     skills: [Skill!] @morphToMany
     # ExperienceSkillRecord is the pivot data and must be queried through a nested mutation (eg. experience->skill->experienceSkillRecord) querying for it directly will just return null
-    experienceSkillRecord: ExperienceSkillRecord
+    experienceSkillRecord: ExperienceSkillRecord @rename(attribute: "experience_skill_pivot")
 }
 type EducationExperience implements Experience {
     id: ID!
@@ -466,7 +466,7 @@ type EducationExperience implements Experience {
     details: String
     skills: [Skill!] @morphToMany
     # ExperienceSkillRecord is the pivot data and must be queried through a nested mutation (eg. experience->skill->experienceSkillRecord) querying for it directly will just return null
-    experienceSkillRecord: ExperienceSkillRecord
+    experienceSkillRecord: ExperienceSkillRecord @rename(attribute: "experience_skill_pivot")
 }
 type AwardExperience implements Experience {
     id: ID!
@@ -479,7 +479,7 @@ type AwardExperience implements Experience {
     details: String
     skills: [Skill!] @morphToMany
     # ExperienceSkillRecord is the pivot data and must be queried through a nested mutation (eg. experience->skill->experienceSkillRecord) querying for it directly will just return null
-    experienceSkillRecord: ExperienceSkillRecord
+    experienceSkillRecord: ExperienceSkillRecord @rename(attribute: "experience_skill_pivot")
 }
 
 type ExperienceSkillRecord {

@@ -95,7 +95,7 @@ class Skill extends Model
         )
         ->withTimestamps()
         ->withPivot('details')
-        ->as('experienceSkillRecord');
+        ->as('experience_skill_pivot');
     }
     public function getExperiencesAttribute()
     {
