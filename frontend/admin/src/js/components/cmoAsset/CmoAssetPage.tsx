@@ -1,6 +1,5 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import Button from "@common/components/Button";
 import Link from "@common/components/Link";
 import { useAdminRoutes } from "../../adminRoutes";
 import { CmoAssetTableApi } from "./CmoAssetTable";
