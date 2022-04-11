@@ -3,6 +3,7 @@ BEHAVIOURAL
 darkgold
 darkgray
 darknavy
+darkpink
 darkpurple
 datetime
 dedup
