@@ -1,6 +1,5 @@
 import React from "react";
 import { ChevronRightIcon } from "@heroicons/react/solid";
-import { uniqueId } from "lodash";
 import Link from "../Link";
 import { insertBetween } from "../../helpers/util";
 
