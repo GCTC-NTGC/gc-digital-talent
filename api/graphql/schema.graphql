@@ -368,7 +368,7 @@ type Skill {
     educationExperiences: [EducationExperience!] @hasMany
     personalExperiences: [PersonalExperience!] @hasMany
     workExperiences: [WorkExperience!] @hasMany
-    # ExperienceSkillRecord is the pivot data and must be queried through a nested mutation (eg. experience->skill->experienceSkillRecord) querying for it directly will just return null
+    # ExperienceSkillRecord is the pivot data and may only be queried when Skill is nested in an Experience (eg. experience->skill->experienceSkillRecord). Querying for it otherwise will just return null.
     experienceSkillRecord: ExperienceSkillRecord
 }
 
