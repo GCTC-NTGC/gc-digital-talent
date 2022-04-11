@@ -1,6 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { Link, Button } from "@common/components";
+import { Link } from "@common/components";
 import { useAdminRoutes } from "../../adminRoutes";
 import { SkillTableApi } from "./SkillTable";
 
