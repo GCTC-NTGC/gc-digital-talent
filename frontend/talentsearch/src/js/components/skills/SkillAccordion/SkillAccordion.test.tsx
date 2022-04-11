@@ -50,7 +50,7 @@ describe("SkillAccordion tests", () => {
   });
 
   test("It renders proper context and detail when an award experience is provided", () => {
-    const experience = experienceGenerator.generateAward();
+    const experience = experienceGenerator.awardExperiences()[0];
     testSkill.experiences = [experience];
     renderSkillAccordion(testSkill);
     const context = screen.getByText("1 Experience");
@@ -61,7 +61,7 @@ describe("SkillAccordion tests", () => {
     expect(titleElement.innerHTML.trim()).toEqual(experience.title);
   });
   test("It renders proper context and detail when a work experience is provided", () => {
-    const experience = experienceGenerator.generateWork();
+    const experience = experienceGenerator.workExperiences()[0];
 
     testSkill.experiences = [experience];
     const d1 = formatter.format(new Date(experience.startDate!));
@@ -80,7 +80,7 @@ describe("SkillAccordion tests", () => {
   });
 
   test("It renders proper context and detail when a community experience is provided", () => {
-    const experience = experienceGenerator.generateCommunity();
+    const experience = experienceGenerator.communityExperiences()[0];
     testSkill.experiences = [experience];
     renderSkillAccordion(testSkill);
     const context = screen.getByText("1 Experience");
@@ -95,7 +95,7 @@ describe("SkillAccordion tests", () => {
   });
 
   test("It renders proper context and detail when a education experience is provided", () => {
-    const experience = experienceGenerator.generateEducation();
+    const experience = experienceGenerator.educationExperiences()[0];
     testSkill.experiences = [experience];
     const d1 = formatter.format(new Date(experience.startDate!));
     const d2 = formatter.format(new Date(experience.endDate!));
@@ -113,7 +113,7 @@ describe("SkillAccordion tests", () => {
   });
 
   test("It renders proper context and detail when a personal experience is provided", () => {
-    const experience = experienceGenerator.generatePersonal();
+    const experience = experienceGenerator.personalExperiences()[0];
     testSkill.experiences = [experience];
     const d1 = formatter.format(new Date(experience.startDate!));
     const d2 = formatter.format(new Date(experience.endDate!));
@@ -130,8 +130,8 @@ describe("SkillAccordion tests", () => {
   });
 
   test("It renders proper context and detail when more than one experiences provided", () => {
-    const experience1 = experienceGenerator.generateWork();
-    const experience2 = experienceGenerator.generateEducation();
+    const experience1 = experienceGenerator.workExperiences()[0];
+    const experience2 = experienceGenerator.educationExperiences()[0];
 
     testSkill.experiences = [experience1, experience2];
     renderSkillAccordion(testSkill);

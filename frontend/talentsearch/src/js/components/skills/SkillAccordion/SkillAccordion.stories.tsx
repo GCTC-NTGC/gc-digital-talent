@@ -2,7 +2,6 @@ import React from "react";
 import { Meta, Story } from "@storybook/react";
 import { fakeSkills } from "@common/fakeData";
 import { generators as experienceGenerator } from "@common/fakeData/fakeExperiences";
-
 import SkillAccordion, { SkillAccordionProps } from "./SkillAccordion";
 
 const skill = fakeSkills()[0];
@@ -28,38 +27,35 @@ export const AccordionNoExperienceExample = TemplateSkillAccordion.bind({});
 AccordionAwardExample.args = {
   skill: {
     ...fakeSkills()[0],
-    experiences: [experienceGenerator.generateAward()],
+    experiences: experienceGenerator.awardExperiences(),
   },
 };
 
 AccordionCommunityExample.args = {
   skill: {
     ...fakeSkills()[0],
-    experiences: [
-      experienceGenerator.generateCommunity(),
-      experienceGenerator.generateCommunity(),
-    ],
+    experiences: experienceGenerator.communityExperiences(2),
   },
 };
 
 AccordionEducationExample.args = {
   skill: {
     ...fakeSkills()[0],
-    experiences: [experienceGenerator.generateEducation()],
+    experiences: experienceGenerator.educationExperiences(),
   },
 };
 
 AccordionPersonalExample.args = {
   skill: {
     ...fakeSkills()[0],
-    experiences: [experienceGenerator.generatePersonal()],
+    experiences: experienceGenerator.personalExperiences(),
   },
 };
 
 AccordionWorkExample.args = {
   skill: {
     ...fakeSkills()[0],
-    experiences: [experienceGenerator.generateWork()],
+    experiences: experienceGenerator.workExperiences(),
   },
 };
 AccordionNoExperienceExample.args = {

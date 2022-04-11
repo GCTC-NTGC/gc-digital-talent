@@ -4,12 +4,10 @@ import SaveButton from "./SaveButton";
 
 export interface ProfileFormFooterProps {
   mode: "cancelButton" | "saveButton" | "bothButtons";
-  handleSave?: () => void;
 }
 
 const ProfileFormFooter: React.FunctionComponent<ProfileFormFooterProps> = ({
   mode,
-  handleSave = () => {},
   children,
 }) => {
   const bottomButtons = () => {
@@ -21,14 +19,14 @@ const ProfileFormFooter: React.FunctionComponent<ProfileFormFooterProps> = ({
               <CancelButton />
             </span>
             <span>
-              <SaveButton handleSave={handleSave} />
+              <SaveButton />
             </span>
           </>
         );
       case "cancelButton":
         return <CancelButton />;
       case "saveButton":
-        return <SaveButton handleSave={handleSave} />;
+        return <SaveButton />;
       default:
         return null;
     }
