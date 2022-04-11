@@ -4,6 +4,7 @@ use App\Services\OpenIdBearerTokenService;
 use App\Services\Contracts\BearerTokenServiceInterface;
 use Lcobucci\Clock\FrozenClock;
 use Illuminate\Support\Facades\Http;
+use Tests\TestCase;
 class OpenIdBearerTokenTest extends TestCase
 {
     /**
@@ -28,7 +29,7 @@ class OpenIdBearerTokenTest extends TestCase
                 '"jwks_uri" : "'.self::fakeJwksUrl.'",'.
                 '"introspection_endpoint" : "'.self::fakeIntrospectionUrl.'"'.
                 '}'),
-            self::fakeJwksUrl => Http::response(file_get_contents('tests/resources/jwks.json')),
+            self::fakeJwksUrl => Http::response(file_get_contents('tests/Unit/resources/jwks.json')),
         ]);
 
         // generate keys and tokens for testing at https://jwt.io/#debugger-io

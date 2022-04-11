@@ -3,6 +3,7 @@
 use App\Services\LocalAuthBearerTokenService;
 use App\Services\Contracts\BearerTokenServiceInterface;
 use Lcobucci\Clock\FrozenClock;
+use Tests\TestCase;
 
 class LocalAuthBearerTokenTest extends TestCase
 {
@@ -20,7 +21,7 @@ class LocalAuthBearerTokenTest extends TestCase
         // generate keys and tokens for testing at https://jwt.io/#debugger-io
         // make sure you set algorithm to RS256
         $issuer = 'http://test.com';
-        $publicKey = file_get_contents('tests/resources/key1-cert.pem');
+        $publicKey = file_get_contents('tests/Unit/resources/key1-cert.pem');
         if(!$publicKey)
             throw new Exception('Failed to load public key from file');
 
