@@ -78,3 +78,13 @@ SelectRequiredWithErrorAndContext.args = {
   context: "We collect the above data for account purposes.",
   rules: { required: "This must be accepted to continue." },
 };
+
+export const SelectLabelElement = TemplateSelect.bind({});
+SelectLabelElement.args = {
+  label: <span data-h2-font-weight="b(700)">Bold Label</span>,
+  name: "LabelElement",
+  options: [
+    { value: 1, label: "CRA" },
+    { value: 2, label: "CBSA" },
+  ],
+};

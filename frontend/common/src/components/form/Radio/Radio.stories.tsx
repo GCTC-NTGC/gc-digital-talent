@@ -28,3 +28,11 @@ IndividualRadio.args = {
   context: "This will help prove you satisfy education requirements.",
   rules: { required: "This must be accepted to continue." },
 };
+
+export const RadioElement = TemplateRadio.bind({});
+
+RadioElement.args = {
+  id: "element",
+  name: "element",
+  label: <span data-h2-bg-color="b(red)">Red Selection</span>,
+};
