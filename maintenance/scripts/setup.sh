@@ -62,7 +62,7 @@ npm run codegen
 npm run intl-compile
 npm run dev
 
-# setup talentsearch project
+# setup indigenous apprenticeship project
 cd /var/www/html/frontend/indigenousapprenticeship
 cp .env.example .env
 npm run codegen
