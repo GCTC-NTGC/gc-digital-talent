@@ -201,7 +201,7 @@ export const GovernmentInfoForm: React.FunctionComponent<{
           </p>
         )}
       <div data-h2-display="b(flex)" data-h2-flex-direction="b(column) s(row)">
-        <div data-h2-padding="b(right, l)">
+        <div data-h2-padding="s(right, l)" style={{ width: "100%" }}>
           {govEmployee === "yes" &&
             (govEmployeeStatus === "term" ||
               govEmployeeStatus === "indeterminate" ||
@@ -222,7 +222,7 @@ export const GovernmentInfoForm: React.FunctionComponent<{
               />
             )}
         </div>
-        <div data-h2-padding="b(right, l)">
+        <div style={{ width: "100%" }}>
           {govEmployee === "yes" &&
             (govEmployeeStatus === "term" ||
               govEmployeeStatus === "indeterminate" ||
