@@ -1,5 +1,6 @@
 import React from "react";
 import { ChevronRightIcon } from "@heroicons/react/solid";
+import { uniqueId } from "lodash";
 import Link from "../Link";
 import { insertBetween } from "../../helpers/util";
 
@@ -46,7 +47,22 @@ export const Breadcrumbs: React.FunctionComponent<BreadcrumbsProps> = ({
   );
   const menuBar = insertBetween(separator, arrayLinks);
 
-  return <div data-h2-display="b(flex)">{menuBar}</div>;
+  /**
+   * HACK:  This is not ideal, however since we are injecting separators
+   *        We need to use array index if a key does not exist on item.
+   *
+   *        Since this list does not re-render and should always be
+   *        replaced on page navigation it shouldn't be too large an issue.
+   *
+   *        Suggestions very welcome.
+   */
+  return (
+    <div data-h2-display="b(flex)">
+      {menuBar.map((el, index) =>
+        React.cloneElement(el, { key: el.key || `sep-${index}` }),
+      )}
+    </div>
+  );
 };
 
 export default Breadcrumbs;
