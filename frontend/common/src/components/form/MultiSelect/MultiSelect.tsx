@@ -69,7 +69,13 @@ export const MultiSelect: React.FunctionComponent<MultiSelectProps> = ({
                 }
                 placeholder={placeholder}
                 options={options}
-                styles={{}}
+                aria-label={label}
+                styles={{
+                  placeholder: (provided) => ({
+                    ...provided,
+                    color: `#646464`,
+                  }),
+                }}
               />
             )}
             control={control}
