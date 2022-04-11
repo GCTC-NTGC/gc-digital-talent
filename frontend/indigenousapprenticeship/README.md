@@ -1,15 +1,10 @@
 # Getting Started
 
-1. Ensure PHP (PHP >= 7.3) and Composer are installed
-2. Ensure the following extensions are enabled:
-    * OpenSSL PHP Extension
-    * PDO PHP Extension
-    * Mbstring PHP Extension
-3. Run `npm install` to install dependencies. After the node packages are installed, run `npm rebuild node-sass` incase vendor folder isn't created. (Error: https://github.com/sass/node-sass/issues/1579).
-4. Copy .env.example to .env and configure your local environment. Make sure to add a random string as your APP_KEY and set the API_URL to the GraphQL server's URL.
-5. In `frontend/common`: If you are developing run `npm run h2-compile`. This will provide all the H2 style attributes. If you need a production ready css file then run `npm run h2-build`.
-6. Run `npm run dev` which will bundle up our assets.
-7. Visit https://localhost:8080/indigenous-it-apprentice to view page.
+1. Run `npm install` to install dependencies. After the node packages are installed, run `npm rebuild node-sass` incase vendor folder isn't created. (Error: https://github.com/sass/node-sass/issues/1579).
+2. Copy .env.example to .env and configure your local environment. Make sure to set the API_URL to the GraphQL server's URL.
+3. In `frontend/common` run `npm run h2-build`.
+4. Run `npm run dev` which will bundle up our assets.
+5. Visit https://localhost:8080/indigenous-it-apprentice to view page.
 
 # Local Development
 
