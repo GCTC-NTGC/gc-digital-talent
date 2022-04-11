@@ -11,10 +11,11 @@ import {
   TextArea,
 } from "@common/components/form";
 import { notEmpty } from "@common/helpers/util";
-import { unpackIds } from "@common/helpers/formUtils";
+import { enumToOptions, unpackIds } from "@common/helpers/formUtils";
 import { getLocale } from "@common/helpers/localize";
 import { navigate } from "@common/helpers/router";
 import { errorMessages, commonMessages } from "@common/messages";
+import { getOperationalRequirement } from "@common/constants/localizedConstants";
 import { useAdminRoutes } from "../../adminRoutes";
 import {
   Classification,
@@ -31,11 +32,13 @@ import DashboardContentContainer from "../DashboardContentContainer";
 
 type Option<V> = { value: V; label: string };
 
-type FormValues = Pick<Pool, "name" | "description"> & {
+type FormValues = Pick<
+  Pool,
+  "name" | "description" | "operationalRequirements"
+> & {
   assetCriteria: string[] | undefined;
   classifications: string[] | undefined;
   essentialCriteria: string[] | undefined;
-  operationalRequirements: string[] | undefined;
   owner: string;
 };
 
@@ -43,7 +46,6 @@ interface UpdatePoolFormProps {
   classifications: Classification[];
   cmoAssets: CmoAsset[];
   initialPool: Pool;
-  operationalRequirements: OperationalRequirement[];
   users: User[];
   handleUpdatePool: (
     id: string,
@@ -55,7 +57,6 @@ export const UpdatePoolForm: React.FunctionComponent<UpdatePoolFormProps> = ({
   classifications,
   cmoAssets,
   initialPool,
-  operationalRequirements,
   users,
   handleUpdatePool,
 }) => {
@@ -69,7 +70,6 @@ export const UpdatePoolForm: React.FunctionComponent<UpdatePoolFormProps> = ({
     assetCriteria: unpackIds(data?.assetCriteria),
     classifications: unpackIds(data?.classifications),
     essentialCriteria: unpackIds(data?.essentialCriteria),
-    operationalRequirements: unpackIds(data?.operationalRequirements),
     owner: data?.owner?.id || "",
   });
 
@@ -83,9 +83,6 @@ export const UpdatePoolForm: React.FunctionComponent<UpdatePoolFormProps> = ({
     },
     essentialCriteria: {
       sync: values.essentialCriteria,
-    },
-    operationalRequirements: {
-      sync: values.operationalRequirements,
     },
     owner: { connect: values.owner },
     name: {
@@ -137,12 +134,6 @@ export const UpdatePoolForm: React.FunctionComponent<UpdatePoolFormProps> = ({
       label: `${group}-0${level}`,
     }),
   );
-
-  const operationalRequirementOptions: Option<string>[] =
-    operationalRequirements.map(({ id, name }) => ({
-      value: id,
-      label: name[locale] || "Error: operational requirement name not found.",
-    }));
 
   const userOptions: Option<string>[] = users.map(
     ({ id, firstName, lastName }) => ({
@@ -297,7 +288,12 @@ export const UpdatePoolForm: React.FunctionComponent<UpdatePoolFormProps> = ({
                 description:
                   "Placeholder displayed on the pool form operational requirements field.",
               })}
-              options={operationalRequirementOptions}
+              options={enumToOptions(OperationalRequirement).map(
+                ({ value }) => ({
+                  value,
+                  label: intl.formatMessage(getOperationalRequirement(value)),
+                }),
+              )}
               rules={{
                 required: intl.formatMessage(errorMessages.required),
               }}
@@ -321,11 +317,9 @@ export const UpdatePool: React.FunctionComponent<{
   const classifications: Classification[] | [] =
     lookupData?.classifications.filter(notEmpty) ?? [];
   const cmoAssets: CmoAsset[] = lookupData?.cmoAssets.filter(notEmpty) ?? [];
-  const operationalRequirements: OperationalRequirement[] =
-    lookupData?.operationalRequirements.filter(notEmpty) ?? [];
   const users: User[] = lookupData?.users.filter(notEmpty) ?? [];
 
-  const [_result, executeMutation] = useUpdatePoolMutation();
+  const [, executeMutation] = useUpdatePoolMutation();
   const handleUpdatePool = (id: string, formData: UpdatePoolInput) =>
     /* We must pick only the fields belonging to UpdatePoolInput, because it's possible
       the data object contains other props at runtime, and this will cause the
@@ -370,7 +364,6 @@ export const UpdatePool: React.FunctionComponent<{
         classifications={classifications}
         cmoAssets={cmoAssets}
         initialPool={lookupData.pool}
-        operationalRequirements={operationalRequirements}
         users={users}
         handleUpdatePool={handleUpdatePool}
       />

@@ -2,7 +2,8 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { errorMessages } from "@common/messages";
 import { BasicForm, Checklist, RadioGroup } from "@common/components/form";
-import { getLocale } from "@common/helpers/localize";
+import { getOperationalRequirement } from "@common/constants/localizedConstants";
+import { enumToOptions } from "@common/helpers/formUtils";
 import { OperationalRequirement } from "../../api/generated";
 import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
 import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
@@ -13,25 +14,10 @@ export type FormValues = {
 };
 
 export const WorkPreferencesForm: React.FunctionComponent<{
-  operationalRequirements: OperationalRequirement[];
   handleSubmit: (data: FormValues) => Promise<void>;
-}> = ({ operationalRequirements, handleSubmit }) => {
+}> = ({ handleSubmit }) => {
   const intl = useIntl();
-  const locale = getLocale(intl);
 
-  const preferencesItems: { value: string; label: string }[] =
-    operationalRequirements.map((requirement) => {
-      return {
-        value: requirement.id,
-        label:
-          requirement.name[locale] ||
-          intl.formatMessage({
-            defaultMessage: "Error: operational requirement name not found.",
-            description:
-              "Error message if OperationalRequirement name is not defined.",
-          }),
-      };
-    });
   return (
     <ProfileFormWrapper
       description={intl.formatMessage({
@@ -106,7 +92,12 @@ export const WorkPreferencesForm: React.FunctionComponent<{
                     "Legend for optional work preferences check list in work preferences form",
                 })}
                 name="optionalWorkPreferences"
-                items={preferencesItems}
+                items={enumToOptions(OperationalRequirement).map(
+                  ({ value }) => ({
+                    value,
+                    label: intl.formatMessage(getOperationalRequirement(value)),
+                  }),
+                )}
               />
             </div>
           </div>

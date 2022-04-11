@@ -4,9 +4,9 @@ import { useIntl } from "react-intl";
 import { Button } from "../..";
 
 export const Submit: React.FunctionComponent<{
-  text?: string;
-  submittedText?: string;
-  isSubmittingText?: string;
+  text?: string | React.ReactNode;
+  submittedText?: string | React.ReactNode;
+  isSubmittingText?: string | React.ReactNode;
   color?: "primary" | "secondary" | "cta" | "white";
   mode?: "solid" | "outline" | "inline";
 }> = ({ text, submittedText, isSubmittingText, color, mode, ...rest }) => {

@@ -4,17 +4,11 @@ import { action } from "@storybook/addon-actions";
 import {
   fakeClassifications,
   fakeCmoAssets,
-  fakeOperationalRequirements,
   fakePools,
   fakeUsers,
 } from "@common/fakeData";
 import pick from "lodash/pick";
-import { SearchForm, SearchFormProps } from "../components/search/SearchForm";
-import {
-  Classification,
-  CmoAsset,
-  OperationalRequirement,
-} from "../api/generated";
+import { Classification, CmoAsset } from "../api/generated";
 import {
   SearchContainer,
   SearchContainerProps,
@@ -26,8 +20,6 @@ export default {
   args: {
     classifications: fakeClassifications() as Classification[],
     cmoAssets: fakeCmoAssets() as CmoAsset[],
-    operationalRequirements:
-      fakeOperationalRequirements() as OperationalRequirement[],
     pool: pick(fakePools()[0], ["name", "description"]),
     poolOwner: pick(fakeUsers()[0], ["firstName", "lastName"]),
     candidateCount: 10,

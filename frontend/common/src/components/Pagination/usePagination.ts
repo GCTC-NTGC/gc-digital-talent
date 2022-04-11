@@ -112,20 +112,17 @@ export const usePagination = ({
  * @param page current page
  * @param pageSize total number of items per page
  * @param data array of data
- * @returns { currentPage, currentTableData, setCurrentPage }
+ * @returns { currentPage, currentTableData, setCurrentPage, setPageSize }
  */
-export function usePaginationVars<T>(
-  page: number,
-  pageSize: number,
-  data: T[],
-) {
-  const [currentPage, setCurrentPage] = useState(page);
+export function usePaginationVars<T>(pageSize: number, data: T[]) {
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageSizeState, setPageSize] = useState(pageSize);
 
   const currentTableData = useMemo(() => {
-    const firstPageIndex = (currentPage - 1) * pageSize;
-    const lastPageIndex = firstPageIndex + pageSize;
+    const firstPageIndex = (currentPage - 1) * pageSizeState;
+    const lastPageIndex = firstPageIndex + pageSizeState;
     return data.slice(firstPageIndex, lastPageIndex);
-  }, [currentPage, data, pageSize]);
+  }, [currentPage, data, pageSizeState]);
 
-  return { currentPage, currentTableData, setCurrentPage };
+  return { currentPage, currentTableData, setCurrentPage, setPageSize };
 }

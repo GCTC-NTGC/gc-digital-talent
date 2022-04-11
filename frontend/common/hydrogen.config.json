@@ -37,7 +37,7 @@
     },
     {
       "key": "red",
-      "color": "#FF0000",
+      "color": "#e90101",
       "opacities": [
         ".1"
       ]

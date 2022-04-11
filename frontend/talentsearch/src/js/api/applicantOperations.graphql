@@ -1,0 +1,161 @@
+
+fragment experienceSkills on ExperienceSkill {
+  id
+  details
+  skill {
+    id
+    key
+    name {
+      en
+      fr
+    }
+  }
+    experience {
+    id
+    applicant {
+      id
+      email
+    }
+  }
+}
+
+fragment applicant on Applicant {
+  id
+  email
+}
+
+query getAllApplicantExperiences($id: ID!) {
+  applicant(id: $id) {
+    id
+    experiences {
+      id
+      details
+      applicant {
+        ...applicant
+      }
+      experienceSkills {
+        ...experienceSkills
+      }
+      ... on AwardExperience {
+        id
+        title
+        issuedBy
+        awardedDate
+				awardedTo
+        awardedScope
+        details
+        applicant {
+          ...applicant
+        }
+      }
+    	... on CommunityExperience {
+      	title
+        organization
+        project
+        startDate
+        endDate
+        details
+        applicant {
+          ...applicant
+        }
+    	}
+      ... on EducationExperience {
+        institution
+        areaOfStudy
+        thesisTitle
+        startDate
+        endDate
+        type
+        status
+        details
+        applicant {
+          ...applicant
+        }
+      }
+      ... on PersonalExperience {
+        title
+        description
+        startDate
+        endDate
+        details
+        applicant {
+          ...applicant
+        }
+      }
+      ... on WorkExperience {
+        role
+        organization
+        division
+        startDate
+        endDate
+        details
+        applicant {
+          ...applicant
+        }
+      }
+    }
+  }
+}
+
+query getApplicantExperiencesByType($id: ID!) {
+  applicant(id: $id) {
+    awardExperiences {
+      id
+      title
+      issuedBy
+      awardedDate
+      awardedTo
+      awardedScope
+      details
+      experienceSkills {
+        ...experienceSkills
+      }
+    }
+    communityExperiences {
+      id
+      title
+      organization
+      project
+      startDate
+      endDate
+      details
+      experienceSkills {
+        ...experienceSkills
+      }
+    }
+    educationExperiences {
+      id
+      institution
+      areaOfStudy
+      thesisTitle
+      startDate
+      endDate
+      type
+      status
+      details
+    }
+    personalExperiences {
+      id
+      title
+      description
+      startDate
+      endDate
+      details
+      experienceSkills {
+        ...experienceSkills
+      }
+    }
+    workExperiences {
+      id
+      role
+      organization
+      division
+      startDate
+      endDate
+      details
+      experienceSkills {
+        ...experienceSkills
+      }
+    }
+  }
+}

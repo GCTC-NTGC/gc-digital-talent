@@ -12,8 +12,55 @@ import {
   AwardedScope,
   EducationType,
   EducationStatus,
+  OperationalRequirement,
+  ProvinceOrTerritory,
+  EstimatedLanguageAbility,
 } from "../api/generated";
 import { getOrThrowError } from "../helpers/util";
+
+export const womanLocalized = {
+  defaultMessage: "Woman",
+  description: "Woman",
+};
+
+export const indigenousLocalized = {
+  defaultMessage: "Indigenous",
+  description: "Indigenous",
+};
+
+export const minorityLocalized = {
+  defaultMessage: "Member of a visible minority group",
+  description: "Member of a visible minority group",
+};
+
+export const disabilityLocalized = {
+  defaultMessage: "Person with a disability",
+  description: "Person with a disability",
+};
+
+export const languageProficiency = {
+  [EstimatedLanguageAbility.Beginner]: {
+    defaultMessage: "Beginner",
+    description: "Beginner, skill level",
+  },
+  [EstimatedLanguageAbility.Intermediate]: {
+    defaultMessage: "Intermediate",
+    description: "Intermediate, skill level",
+  },
+  [EstimatedLanguageAbility.Advanced]: {
+    defaultMessage: "Advanced",
+    description: "Advanced, skill level",
+  },
+};
+
+export const getLanguageProficiency = (
+  languageProf: string | number,
+): MessageDescriptor =>
+  getOrThrowError(
+    languageProficiency,
+    languageProf,
+    `Invalid skill level '${languageProf}'`,
+  );
 
 export const salaryRanges = {
   [SalaryRange["50_59K"]]: "$50,000 - $59,000",
@@ -347,4 +394,108 @@ export const getEducationType = (
     educationTypeMessages,
     educationTypeId,
     `Invalid educationType ${educationTypeId}`,
+  );
+
+export const operationalRequirements = defineMessages({
+  [OperationalRequirement.Overtime]: {
+    defaultMessage: "Overtime as required",
+    description: "The operational requirement described as overtime.",
+  },
+  [OperationalRequirement.ShiftWork]: {
+    defaultMessage: "Shift work",
+    description: "The operational requirement described as shift work.",
+  },
+  [OperationalRequirement.OnCall]: {
+    defaultMessage: "24/7 on-call",
+    description: "The operational requirement described as 24/7 on-call.",
+  },
+  [OperationalRequirement.Travel]: {
+    defaultMessage: "Travel as required",
+    description: "The operational requirement described as travel as required.",
+  },
+  [OperationalRequirement.TransportEquipment]: {
+    defaultMessage: "Transport equipment up to 20kg",
+    description:
+      "The operational requirement described as transport equipment up to 20kg.",
+  },
+  [OperationalRequirement.DriversLicense]: {
+    defaultMessage: "Driver's license",
+    description: "The operational requirement described as driver's license.",
+  },
+});
+
+export const getOperationalRequirement = (
+  operationalRequirementId: string | number,
+): MessageDescriptor =>
+  getOrThrowError(
+    operationalRequirements,
+    operationalRequirementId,
+    `Invalid Operational Requirement '${operationalRequirementId}'`,
+  );
+
+export const provinceOrTerritory = defineMessages({
+  [ProvinceOrTerritory.Alberta]: {
+    defaultMessage: "Alberta",
+    description: "Alberta selection for province or territory input",
+  },
+  [ProvinceOrTerritory.BritishColumbia]: {
+    defaultMessage: "British Columbia",
+    description: "British Columbia selection for province or territory input",
+  },
+  [ProvinceOrTerritory.Manitoba]: {
+    defaultMessage: "Manitoba",
+    description: "Manitoba selection for province or territory input",
+  },
+  [ProvinceOrTerritory.NewfoundlandAndLabrador]: {
+    defaultMessage: "Newfoundland and Labrador",
+    description:
+      "Newfoundland and Labrador selection for province or territory input",
+  },
+  [ProvinceOrTerritory.NewBrunswick]: {
+    defaultMessage: "New Brunswick",
+    description: "New Brunswick selection for province or territory input",
+  },
+  [ProvinceOrTerritory.NorthwestTerritories]: {
+    defaultMessage: "Northwest Territories",
+    description:
+      "Northwest Territories selection for province or territory input",
+  },
+  [ProvinceOrTerritory.NovaScotia]: {
+    defaultMessage: "Nova Scotia",
+    description: "Nova Scotia selection for province or territory input",
+  },
+  [ProvinceOrTerritory.Nunavut]: {
+    defaultMessage: "Nunavut",
+    description: "Nunavut selection for province or territory input",
+  },
+  [ProvinceOrTerritory.Ontario]: {
+    defaultMessage: "Ontario",
+    description: "Ontario selection for province or territory input",
+  },
+  [ProvinceOrTerritory.PrinceEdwardIsland]: {
+    defaultMessage: "Prince Edward Island",
+    description:
+      "Prince Edward Island selection for province or territory input",
+  },
+  [ProvinceOrTerritory.Quebec]: {
+    defaultMessage: "Quebec",
+    description: "Quebec selection for province or territory input",
+  },
+  [ProvinceOrTerritory.Saskatchewan]: {
+    defaultMessage: "Saskatchewan",
+    description: "Saskatchewan selection for province or territory input",
+  },
+  [ProvinceOrTerritory.Yukon]: {
+    defaultMessage: "Yukon",
+    description: "Yukon selection for province or territory input",
+  },
+});
+
+export const getProvinceOrTerritory = (
+  provinceOrTerritoryId: string | number,
+): MessageDescriptor =>
+  getOrThrowError(
+    provinceOrTerritory,
+    provinceOrTerritoryId,
+    `Invalid province or territory '${provinceOrTerritoryId}'`,
   );
