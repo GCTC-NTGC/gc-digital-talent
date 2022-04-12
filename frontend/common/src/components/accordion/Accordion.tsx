@@ -64,7 +64,11 @@ export const Accordion: React.FC<AccordionProps> = ({
             )}
           </span>
           <div data-h2-flex-item="b(auto)" data-h2-text-align="b(left)">
-            <p data-h2-margin="b(all, none)" data-h2-font-size="b(h5)">
+            <p
+              data-h2-margin="b(all, none)"
+              data-h2-font-size="b(h5)"
+              data-h2-font-color="b(black)"
+            >
               {title}
             </p>
 
