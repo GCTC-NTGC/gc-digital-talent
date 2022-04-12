@@ -2,13 +2,15 @@
 // needed for line 28 to operate as intended for Storybook
 import React from "react";
 import { Meta, Story } from "@storybook/react";
-import { fakeClassifications } from "@common/fakeData";
+import { action } from "@storybook/addon-actions";
+import { fakeClassifications, fakeUsers } from "@common/fakeData";
 import { BasicForm } from "@common/components/form";
 import GovInfoFormContainer, { GovernmentInfoForm } from "./GovernmentInfoForm";
 import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
 import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
 
 const fakeClass = fakeClassifications();
+const fakeUser = fakeUsers(1)[0];
 
 export default {
   component: GovInfoFormContainer,
@@ -16,69 +18,57 @@ export default {
 } as Meta;
 
 const TemplateGovInfoForm: Story = (args) => (
-  <ProfileFormWrapper
-    description="Please indicate if you are currently an employee in the Government of Canada."
-    title="Government Information"
-    crumbs={[
-      {
-        title: "Government Information",
-      },
-    ]}
-  >
-    <BasicForm onSubmit={() => null} options={{ defaultValues: args.options }}>
-      <GovernmentInfoForm classifications={fakeClass} />
-      <ProfileFormFooter mode="saveButton" />
-    </BasicForm>
-  </ProfileFormWrapper>
+  <GovernmentInfoForm
+    initialData={args.initialData}
+    classifications={fakeClass}
+    submitHandler={async (...data) => {
+      action("Submit")(data);
+    }}
+  />
 );
 
-export const ANoArgs = TemplateGovInfoForm.bind({});
-ANoArgs.args = {
-  options: {
-    govEmployeeYesNo: undefined,
-    govEmployeeType: undefined,
-    lateralDeployBool: undefined,
-    currentClassificationGroup: undefined,
-    currentClassificationLevel: undefined,
-  },
+export const ADefaultArgs = TemplateGovInfoForm.bind({});
+ADefaultArgs.args = {
+  initialData: fakeUser,
 };
 
 export const BStatusNo = TemplateGovInfoForm.bind({});
 BStatusNo.args = {
-  options: {
-    ...ANoArgs.args.options,
-    govEmployeeYesNo: "no",
+  initialData: {
+    ...ADefaultArgs.args.initialData,
+    isGovEmployee: false,
   },
 };
 
 export const CStatusYes = TemplateGovInfoForm.bind({});
 CStatusYes.args = {
-  options: {
-    ...ANoArgs.args.options,
-    govEmployeeYesNo: "yes",
+  initialData: {
+    ...ADefaultArgs.args.initialData,
+    isGovEmployee: true,
   },
 };
 
-export const DCasualNoClass = TemplateGovInfoForm.bind({});
-DCasualNoClass.args = {
-  options: {
-    ...CStatusYes.args.options,
-    govEmployeeType: "casual",
-  },
-};
+// TODO: implement when govEmployeeType added to api
+// export const DCasualNoClass = TemplateGovInfoForm.bind({});
+// DCasualNoClass.args = {
+//   initialData: {
+//     ...CStatusYes.args.initialData,
+//     govEmployeeType: "casual",
+//   },
+// };
 
 export const ECasualClassGroup = TemplateGovInfoForm.bind({});
 ECasualClassGroup.args = {
-  options: {
-    ...DCasualNoClass.args.options,
-    currentClassificationGroup: "CS",
+  initialData: {
+    ...CStatusYes.args.initialData,
+    currentClassification: { group: "CS" },
   },
 };
 
 export const FCasualClassGroupLevel = TemplateGovInfoForm.bind({});
 FCasualClassGroupLevel.args = {
-  options: {
-    ...ECasualClassGroup.args.options,
-    currentClassificationLevel: "3",
+  initialData: {
+    ...ECasualClassGroup.args.initialData,
+    currentClassification: { group: "CS", level: 3 },
   },
 };
