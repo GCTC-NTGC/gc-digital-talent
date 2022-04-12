@@ -2,7 +2,7 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { errorMessages } from "@common/messages";
 import { BasicForm, Checklist, RadioGroup } from "@common/components/form";
-import { getOperationalRequirement } from "@common/constants/localizedConstants";
+import { getOperationalRequirementWireframe } from "@common/constants/localizedConstants";
 import { enumToOptions } from "@common/helpers/formUtils";
 import { OperationalRequirement } from "../../api/generated";
 import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
@@ -102,7 +102,9 @@ export const WorkPreferencesForm: React.FunctionComponent<{
                 items={enumToOptions(OperationalRequirement).map(
                   ({ value }) => ({
                     value,
-                    label: intl.formatMessage(getOperationalRequirement(value)),
+                    label: intl.formatMessage(
+                      getOperationalRequirementWireframe(value),
+                    ),
                   }),
                 )}
               />
