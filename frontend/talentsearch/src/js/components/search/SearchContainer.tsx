@@ -6,7 +6,6 @@ import { pushToStateThenNavigate } from "@common/helpers/router";
 import {
   Classification,
   CmoAsset,
-  OperationalRequirement,
   useGetSearchFormDataQuery,
   useCountPoolCandidatesQuery,
   CountPoolCandidatesQueryVariables,
@@ -24,7 +23,6 @@ import { useTalentSearchRoutes } from "../../talentSearchRoutes";
 export interface SearchContainerProps {
   classifications: Classification[];
   cmoAssets: CmoAsset[];
-  operationalRequirements: OperationalRequirement[];
   pool?: Pick<Pool, "name" | "description">;
   poolOwner?: Pick<UserPublicProfile, "firstName" | "lastName" | "email">;
   candidateCount: number;
@@ -38,7 +36,6 @@ export interface SearchContainerProps {
 export const SearchContainer: React.FC<SearchContainerProps> = ({
   classifications,
   cmoAssets,
-  operationalRequirements,
   pool,
   poolOwner,
   candidateCount,
@@ -104,7 +101,6 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
           <SearchForm
             classifications={classifications}
             cmoAssets={cmoAssets}
-            operationalRequirements={operationalRequirements}
             updateCandidateFilter={updateCandidateFilter}
             updateInitialValues={updateInitialValues}
           />
@@ -150,48 +146,50 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
           />
         </div>
         <div data-h2-flex-item="b(1of1)" style={{ paddingTop: "0" }}>
-          {!updatePending && candidateCount === 0 && (
-            <div
-              data-h2-shadow="b(m)"
-              data-h2-padding="b(top-bottom, xs) b(left, s)"
-              data-h2-border="b(darkgray, left, solid, l)"
-            >
-              <p data-h2-margin="b(bottom, none)">
-                {intl.formatMessage({
-                  defaultMessage: "We can still help!",
-                  description:
-                    "Heading for helping user if no candidates matched the filters chosen.",
-                })}
-              </p>
-
-              <p data-h2-margin="b(top, xxs)" data-h2-font-size="b(caption)">
-                {intl.formatMessage(
-                  {
-                    defaultMessage:
-                      "If there are no matching candidates <a>Get in touch!</a>",
+          {!updatePending &&
+            (candidateCount > 0 ? (
+              <div
+                data-h2-shadow="b(m)"
+                data-h2-border="b(lightnavy, left, solid, l)"
+                data-h2-margin="b(top, s) b(bottom, m)"
+                data-h2-flex-grid="b(middle, contained, flush, xl)"
+              >
+                <SearchPools
+                  candidateCount={candidateCount}
+                  pool={pool}
+                  poolOwner={poolOwner}
+                  handleSubmit={handleSubmit}
+                />
+              </div>
+            ) : (
+              <div
+                data-h2-shadow="b(m)"
+                data-h2-margin="b(top, s) b(bottom, m)"
+                data-h2-padding="b(top-bottom, xs) b(left, s)"
+                data-h2-border="b(darkgray, left, solid, l)"
+              >
+                <p data-h2-margin="b(bottom, none)">
+                  {intl.formatMessage({
+                    defaultMessage: "We can still help!",
                     description:
-                      "Message for helping user if no candidates matched the filters chosen.",
-                  },
-                  {
-                    a,
-                  },
-                )}
-              </p>
-            </div>
-          )}
-          <div
-            data-h2-shadow="b(m)"
-            data-h2-border="b(lightnavy, left, solid, l)"
-            data-h2-margin="b(top, s) b(bottom, m)"
-            data-h2-flex-grid="b(middle, contained, flush, xl)"
-          >
-            <SearchPools
-              candidateCount={candidateCount}
-              pool={pool}
-              poolOwner={poolOwner}
-              handleSubmit={handleSubmit}
-            />
-          </div>
+                      "Heading for helping user if no candidates matched the filters chosen.",
+                  })}
+                </p>
+                <p data-h2-margin="b(top, xxs)" data-h2-font-size="b(caption)">
+                  {intl.formatMessage(
+                    {
+                      defaultMessage:
+                        "If there are no matching candidates <a>Get in touch!</a>",
+                      description:
+                        "Message for helping user if no candidates matched the filters chosen.",
+                    },
+                    {
+                      a,
+                    },
+                  )}
+                </p>
+              </div>
+            ))}
         </div>
       </div>
     </div>
@@ -221,7 +219,6 @@ const candidateFilterToQueryArgs = (
       ...filter,
       classifications: pickMap(filter.classifications, ["group", "level"]),
       cmoAssets: pickMap(filter.cmoAssets, "key"),
-      operationalRequirements: pickMap(filter.operationalRequirements, "key"),
       pools: poolId ? [{ id: poolId }] : pickMap(filter.pools, "id"),
     },
   };
@@ -259,9 +256,6 @@ export const SearchContainerApi: React.FC = () => {
     <SearchContainer
       classifications={pool?.classifications?.filter(notEmpty) ?? []}
       cmoAssets={pool?.assetCriteria?.filter(notEmpty) ?? []}
-      operationalRequirements={
-        pool?.operationalRequirements?.filter(notEmpty) ?? []
-      }
       pool={pool ?? undefined}
       poolOwner={pool?.owner ?? undefined}
       candidateFilter={candidateFilter}

@@ -12,21 +12,133 @@ import { useIntl } from "react-intl";
 import { Link } from "@common/components";
 import commonMessages from "@common/messages/commonMessages";
 import { imageUrl } from "@common/helpers/router";
+import { getLocale } from "@common/helpers/localize";
+import {
+  getLanguage,
+  getOperationalRequirement,
+  getWorkRegion,
+  getProvinceOrTerritory,
+  getLanguageProficiency,
+  womanLocalized,
+  indigenousLocalized,
+  minorityLocalized,
+  disabilityLocalized,
+} from "@common/constants/localizedConstants";
+
+import { insertBetween } from "@common/helpers/util";
 import TALENTSEARCH_APP_DIR from "../../../talentSearchConstants";
 import { useApplicantProfileRoutes } from "../../../applicantProfileRoutes";
-import { useGetMeQuery } from "../../../api/generated";
+import {
+  BilingualEvaluation,
+  useGetMeQuery,
+  User,
+  GetMeQuery,
+} from "../../../api/generated";
 
 export interface ProfilePageProps {
-  firstName?: string | null;
-  lastName?: string | null;
+  profileDataInput: User;
 }
 
-export const ProfilePage: React.FC<ProfilePageProps> = ({
-  firstName,
-  lastName,
+export const ProfileForm: React.FC<ProfilePageProps> = ({
+  profileDataInput,
 }) => {
+  const {
+    firstName,
+    lastName,
+    email,
+    telephone,
+    preferredLang,
+    currentProvince,
+    currentCity,
+    lookingForEnglish,
+    lookingForFrench,
+    lookingForBilingual,
+    bilingualEvaluation,
+    comprehensionLevel,
+    writtenLevel,
+    verbalLevel,
+    estimatedLanguageAbility,
+    isGovEmployee,
+    interestedInLaterOrSecondment,
+    currentClassification,
+    isWoman,
+    hasDisability,
+    isIndigenous,
+    isVisibleMinority,
+    locationPreferences,
+    locationExemptions,
+    acceptedOperationalRequirements,
+    wouldAcceptTemporary,
+    poolCandidates,
+  } = profileDataInput;
+
   const intl = useIntl();
   const paths = useApplicantProfileRoutes();
+  const locale = getLocale(intl);
+
+  // styling a text bit with red colour within intls
+  function redText(msg: string) {
+    return <span data-h2-font-color="b(red)">{msg}</span>;
+  }
+
+  // add link to Equity groups <a> tags around a message
+  function equityLinkText(msg: string) {
+    return <a href="/equity-groups">{msg}</a>;
+  }
+
+  // generate array of pool candidates entries
+  const candidateArray = poolCandidates
+    ? poolCandidates.map((poolCandidate) => (
+        <div
+          key={poolCandidate?.id}
+          data-h2-display="b(flex)"
+          data-h2-flex-direction="b(row)"
+          data-h2-justify-content="b(space-between)"
+          data-h2-padding="b(top-bottom, m)"
+        >
+          <div>
+            <p>{poolCandidate?.pool?.name?.[locale]}</p>
+          </div>
+          <div>
+            <p>
+              {intl.formatMessage({
+                defaultMessage: "ID:",
+                description: "The ID and colon",
+              })}{" "}
+              {poolCandidate?.id}
+            </p>
+          </div>
+          <div>
+            <p>
+              {intl.formatMessage({
+                defaultMessage: "Expiry Date:",
+                description: "The expiry date label and colon",
+              })}{" "}
+              {poolCandidate?.expiryDate}
+            </p>
+          </div>
+        </div>
+      ))
+    : null;
+
+  // generate array of accepted operational requirements
+  const acceptedOperationalArray = acceptedOperationalRequirements
+    ? acceptedOperationalRequirements.map((opRequirement) => (
+        <li data-h2-font-weight="b(700)" key={opRequirement}>
+          {opRequirement
+            ? getOperationalRequirement(opRequirement).defaultMessage
+            : ""}
+        </li>
+      ))
+    : null;
+
+  // generate array of location preferences localized and formatted with spaces/commas
+  const regionPreferencesSquished = locationPreferences?.map((region) =>
+    region ? getWorkRegion(region).defaultMessage : "",
+  );
+  const regionPreferences = regionPreferencesSquished
+    ? insertBetween(", ", regionPreferencesSquished)
+    : "";
 
   return (
     <>
@@ -160,7 +272,23 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({
                   description: "Title of the My hiring pools section",
                 })}
               </h2>
-              <p>Pool details</p>
+              <div
+                data-h2-bg-color="b(gray)"
+                data-h2-padding="b(all, m)"
+                data-h2-radius="b(s)"
+              >
+                {(!candidateArray || !candidateArray.length) && (
+                  <p>
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "You have not been accepted into any hiring pools yet.",
+                      description:
+                        "Message for if user not part of any hiring pools",
+                    })}
+                  </p>
+                )}
+                {!!candidateArray && candidateArray}
+              </div>
             </div>
             <div id="about-me-section">
               <div style={{ display: "flex", alignItems: "baseline" }}>
@@ -186,7 +314,124 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({
                   })}
                 </Link>
               </div>
-              <p>Personal details</p>
+              <div
+                data-h2-bg-color="b(gray)"
+                data-h2-padding="b(all, m)"
+                data-h2-radius="b(s)"
+              >
+                <div
+                  data-h2-display="b(flex)"
+                  data-h2-flex-direction="s(row) b(column)"
+                  data-h2-justify-content="b(space-between)"
+                >
+                  <div>
+                    {!!firstName && !!lastName && (
+                      <p>
+                        {intl.formatMessage({
+                          defaultMessage: "Name:",
+                          description: "Name label and colon",
+                        })}{" "}
+                        <span data-h2-font-weight="b(700)">
+                          {firstName} {lastName}
+                        </span>
+                      </p>
+                    )}
+                    {!!email && (
+                      <p>
+                        {intl.formatMessage({
+                          defaultMessage: "Email:",
+                          description: "Email label and colon",
+                        })}{" "}
+                        <span data-h2-font-weight="b(700)">{email}</span>
+                      </p>
+                    )}
+                    {!!telephone && (
+                      <p>
+                        {intl.formatMessage({
+                          defaultMessage: "Phone:",
+                          description: "Phone label and colon",
+                        })}{" "}
+                        <span data-h2-font-weight="b(700)">{telephone}</span>
+                      </p>
+                    )}
+                  </div>
+                  <div>
+                    {!!preferredLang && (
+                      <p>
+                        {intl.formatMessage({
+                          defaultMessage: "Preferred Communication Language:",
+                          description:
+                            "Preferred Language for communication purposes label and colon",
+                        })}{" "}
+                        <span data-h2-font-weight="b(700)">
+                          {preferredLang
+                            ? getLanguage(preferredLang).defaultMessage
+                            : ""}
+                        </span>
+                      </p>
+                    )}
+                    {!!currentCity && !!currentProvince && (
+                      <p>
+                        {intl.formatMessage({
+                          defaultMessage: "Current Location:",
+                          description: "Current Location label and colon",
+                        })}{" "}
+                        <span data-h2-font-weight="b(700)">
+                          {currentCity},{" "}
+                          {currentProvince
+                            ? getProvinceOrTerritory(currentProvince)
+                                .defaultMessage
+                            : ""}
+                        </span>
+                      </p>
+                    )}
+                  </div>
+                </div>
+                {!firstName &&
+                  !lastName &&
+                  !email &&
+                  !telephone &&
+                  !preferredLang &&
+                  !currentCity &&
+                  !currentProvince && (
+                    <p>
+                      {intl.formatMessage({
+                        defaultMessage:
+                          "You haven't added any information here yet.",
+                        description:
+                          "Message for when no data exists for the section",
+                      })}
+                    </p>
+                  )}
+                {(!firstName ||
+                  !lastName ||
+                  !email ||
+                  !telephone ||
+                  !preferredLang ||
+                  !currentCity ||
+                  !currentProvince) && (
+                  <p>
+                    {intl.formatMessage(
+                      {
+                        defaultMessage:
+                          "There are <redText>required</redText> fields missing.",
+                        description:
+                          "Message that there are required fields missing. Please ignore things in <> tags.",
+                      },
+                      {
+                        redText,
+                      },
+                    )}{" "}
+                    <a href={paths.aboutMe()}>
+                      {intl.formatMessage({
+                        defaultMessage: "Click here to get started.",
+                        description:
+                          "Message to click on the words to begin something",
+                      })}
+                    </a>
+                  </p>
+                )}
+              </div>
             </div>
             <div id="language-section">
               <div style={{ display: "flex", alignItems: "baseline" }}>
@@ -212,7 +457,191 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({
                   })}
                 </Link>
               </div>
-              <p>Language details</p>
+              <div
+                data-h2-bg-color="b(gray)"
+                data-h2-padding="b(all, m)"
+                data-h2-radius="b(s)"
+              >
+                {lookingForEnglish &&
+                  !lookingForFrench &&
+                  !lookingForBilingual && (
+                    <p>
+                      {intl.formatMessage({
+                        defaultMessage: "Interested in:",
+                        description: "Interested in label and colon",
+                      })}{" "}
+                      <span data-h2-font-weight="b(700)">
+                        {intl.formatMessage({
+                          defaultMessage: "English positions",
+                          description: "English Positions message",
+                        })}
+                      </span>
+                    </p>
+                  )}
+                {!lookingForEnglish &&
+                  lookingForFrench &&
+                  !lookingForBilingual && (
+                    <p>
+                      {intl.formatMessage({
+                        defaultMessage: "Interested in:",
+                        description: "Interested in label and colon",
+                      })}{" "}
+                      <span data-h2-font-weight="b(700)">
+                        {intl.formatMessage({
+                          defaultMessage: "French positions",
+                          description: "French Positions message",
+                        })}
+                      </span>
+                    </p>
+                  )}
+                {lookingForEnglish && lookingForFrench && !lookingForBilingual && (
+                  <p>
+                    {intl.formatMessage({
+                      defaultMessage: "Interested in:",
+                      description: "Interested in label and colon",
+                    })}{" "}
+                    <span data-h2-font-weight="b(700)">
+                      {intl.formatMessage({
+                        defaultMessage: "English or French positions",
+                        description: "English or French Positions message",
+                      })}
+                    </span>
+                  </p>
+                )}
+                {lookingForBilingual && (
+                  <p>
+                    {intl.formatMessage({
+                      defaultMessage: "Interested in:",
+                      description: "Interested in label and colon",
+                    })}{" "}
+                    <span data-h2-font-weight="b(700)">
+                      {intl.formatMessage({
+                        defaultMessage:
+                          "Bilingual positions (English and French)",
+                        description: "Bilingual Positions message",
+                      })}
+                    </span>
+                  </p>
+                )}
+                {bilingualEvaluation ===
+                  BilingualEvaluation.CompletedEnglish && (
+                  <p>
+                    {intl.formatMessage({
+                      defaultMessage: "Completed an official GoC evaluation:",
+                      description:
+                        "Completed a government of canada abbreviation evaluation label and colon",
+                    })}{" "}
+                    <span data-h2-font-weight="b(700)">
+                      {intl.formatMessage({
+                        defaultMessage: "Yes, completed ENGLISH evaluation",
+                        description: "Completed an English language evaluation",
+                      })}
+                    </span>
+                  </p>
+                )}
+                {bilingualEvaluation ===
+                  BilingualEvaluation.CompletedFrench && (
+                  <p>
+                    {intl.formatMessage({
+                      defaultMessage: "Completed an official GoC evaluation:",
+                      description:
+                        "Completed a government of canada abbreviation evaluation label and colon",
+                    })}{" "}
+                    <span data-h2-font-weight="b(700)">
+                      {intl.formatMessage({
+                        defaultMessage: "Yes, completed FRENCH evaluation",
+                        description: "Completed a French language evaluation",
+                      })}
+                    </span>
+                  </p>
+                )}
+                {bilingualEvaluation === BilingualEvaluation.NotCompleted && (
+                  <p>
+                    {intl.formatMessage({
+                      defaultMessage: "Completed an official GoC evaluation:",
+                      description:
+                        "Completed a government of canada abbreviation evaluation label and colon",
+                    })}{" "}
+                    <span data-h2-font-weight="b(700)">
+                      {intl.formatMessage({
+                        defaultMessage: "No",
+                        description:
+                          "No, did not completed a language evaluation",
+                      })}
+                    </span>
+                  </p>
+                )}
+                {(bilingualEvaluation ===
+                  BilingualEvaluation.CompletedEnglish ||
+                  bilingualEvaluation ===
+                    BilingualEvaluation.CompletedFrench) && (
+                  <p>
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "Second language level (Comprehension, Written, Verbal):",
+                      description:
+                        "Evaluation results for second language, results in that order followed by a colon",
+                    })}{" "}
+                    <span data-h2-font-weight="b(700)">
+                      {comprehensionLevel}, {writtenLevel}, {verbalLevel}
+                    </span>
+                  </p>
+                )}
+                {bilingualEvaluation === BilingualEvaluation.NotCompleted &&
+                  !!estimatedLanguageAbility && (
+                    <p>
+                      {intl.formatMessage({
+                        defaultMessage: "Second language level:",
+                        description:
+                          "Estimated skill in second language, followed by a colon",
+                      })}{" "}
+                      <span data-h2-font-weight="b(700)">
+                        {estimatedLanguageAbility
+                          ? getLanguageProficiency(estimatedLanguageAbility)
+                              .defaultMessage
+                          : ""}
+                      </span>
+                    </p>
+                  )}
+                {!lookingForEnglish &&
+                  !lookingForFrench &&
+                  !lookingForBilingual &&
+                  !bilingualEvaluation && (
+                    <p>
+                      {intl.formatMessage({
+                        defaultMessage:
+                          "You haven't added any information here yet.",
+                        description:
+                          "Message for when no data exists for the section",
+                      })}
+                    </p>
+                  )}
+                {((!lookingForEnglish &&
+                  !lookingForFrench &&
+                  !lookingForBilingual) ||
+                  !bilingualEvaluation) && (
+                  <p>
+                    {intl.formatMessage(
+                      {
+                        defaultMessage:
+                          "There are <redText>required</redText> fields missing.",
+                        description:
+                          "Message that there are required fields missing. Please ignore things in <> tags.",
+                      },
+                      {
+                        redText,
+                      },
+                    )}{" "}
+                    <a href={paths.languageInformation()}>
+                      {intl.formatMessage({
+                        defaultMessage: "Click here to get started.",
+                        description:
+                          "Message to click on the words to begin something",
+                      })}
+                    </a>
+                  </p>
+                )}
+              </div>
             </div>
             <div id="gov-info-section">
               <div style={{ display: "flex", alignItems: "baseline" }}>
@@ -249,7 +678,74 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({
                   })}
                 </Link>
               </div>
-              <p>Government status details</p>
+              <div
+                data-h2-bg-color="b(gray)"
+                data-h2-padding="b(all, m)"
+                data-h2-radius="b(s)"
+              >
+                {/* !!!!!!!!!!!!
+                TODO
+                ADD GOVERNMENT EMPLOYEE TYPE TO THIS FORM FUNCTION, THEN ADD EMPLOYEE TYPE LOGIC HERE
+                AND WHATEVER ELSE IS NEEDED TO SMOOTH OUT THIS SECTION WHENEVER TYPE USER IS UPDATED
+                !!!!!!!!!!!!!!! */}
+                {isGovEmployee && (
+                  <div>
+                    <li>
+                      {intl.formatMessage({
+                        defaultMessage:
+                          "Yes, I am a Government of Canada employee.",
+                        description:
+                          "Message to state user is employed by government",
+                      })}
+                    </li>
+                    {interestedInLaterOrSecondment && (
+                      <li>
+                        {intl.formatMessage({
+                          defaultMessage:
+                            "I am interested in lateral deployment or secondment.",
+                          description:
+                            "Message to state user is interested in lateral deployment or secondment",
+                        })}
+                      </li>
+                    )}
+                    {!!currentClassification?.group &&
+                      !!currentClassification?.level && (
+                        <li>
+                          {" "}
+                          {intl.formatMessage({
+                            defaultMessage: "Current group and classification:",
+                            description:
+                              "Field label before government employment group and level, followed by colon",
+                          })}{" "}
+                          <span data-h2-font-weight="b(700)">
+                            {currentClassification?.group}-
+                            {currentClassification?.level}
+                          </span>
+                        </li>
+                      )}
+                  </div>
+                )}
+                {isGovEmployee === null && (
+                  <p>
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "You haven't added any information here yet.",
+                      description:
+                        "Message for when no data exists for the section",
+                    })}
+                  </p>
+                )}
+                {isGovEmployee === false && (
+                  <li>
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "You are not entered as a current government employee",
+                      description:
+                        "Message indicating the user is not marked in the system as being federally employed currently",
+                    })}
+                  </li>
+                )}
+              </div>
             </div>
             <div id="work-location-section">
               <div style={{ display: "flex", alignItems: "baseline" }}>
@@ -287,7 +783,67 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({
                   })}
                 </Link>
               </div>
-              <p>Work location details</p>
+              <div
+                data-h2-bg-color="b(gray)"
+                data-h2-padding="b(all, m)"
+                data-h2-radius="b(s)"
+              >
+                {!!locationPreferences && !!locationPreferences.length && (
+                  <p>
+                    {intl.formatMessage({
+                      defaultMessage: "Work location:",
+                      description: "Work Location label, followed by colon",
+                    })}{" "}
+                    <span data-h2-font-weight="b(700)">
+                      {regionPreferences}
+                    </span>
+                  </p>
+                )}
+                {!!locationExemptions && (
+                  <p>
+                    {intl.formatMessage({
+                      defaultMessage: "Location exemptions:",
+                      description:
+                        "Location Exemptions label, followed by colon",
+                    })}{" "}
+                    <span data-h2-font-weight="b(700)">
+                      {locationExemptions}
+                    </span>
+                  </p>
+                )}
+                {!locationPreferences && !locationExemptions && (
+                  <p>
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "You haven't added any information here yet.",
+                      description:
+                        "Message for when no data exists for the section",
+                    })}
+                  </p>
+                )}
+                {(!locationPreferences || !locationPreferences.length) && (
+                  <p>
+                    {intl.formatMessage(
+                      {
+                        defaultMessage:
+                          "There are <redText>required</redText> fields missing.",
+                        description:
+                          "Message that there are required fields missing. Please ignore things in <> tags.",
+                      },
+                      {
+                        redText,
+                      },
+                    )}{" "}
+                    <a href={paths.workLocation()}>
+                      {intl.formatMessage({
+                        defaultMessage: "Click here to get started.",
+                        description:
+                          "Message to click on the words to begin something",
+                      })}
+                    </a>
+                  </p>
+                )}
+              </div>
             </div>
             <div id="work-preferences-section">
               <div style={{ display: "flex", alignItems: "baseline" }}>
@@ -313,7 +869,89 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({
                   })}
                 </Link>
               </div>
-              <p>Work preference details</p>
+              <div
+                data-h2-bg-color="b(gray)"
+                data-h2-padding="b(all, m)"
+                data-h2-radius="b(s)"
+              >
+                {wouldAcceptTemporary !== null && (
+                  <p>
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "I would consider accepting a job that lasts for:",
+                      description:
+                        "Label for what length of position user prefers, followed by colon",
+                    })}{" "}
+                  </p>
+                )}
+                {wouldAcceptTemporary && (
+                  <ul data-h2-padding="b(left, l)">
+                    <li data-h2-font-weight="b(700)">
+                      {intl.formatMessage({
+                        defaultMessage:
+                          "Any duration (short, long term, or indeterminate duration)",
+                        description:
+                          "Duration of any length is good, specified three example lengths",
+                      })}
+                    </li>
+                  </ul>
+                )}
+                {wouldAcceptTemporary === false && (
+                  <ul data-h2-padding="b(left, l)">
+                    <li data-h2-font-weight="b(700)">
+                      {intl.formatMessage({
+                        defaultMessage: "Permanent duration",
+                        description: "Permanent duration only",
+                      })}{" "}
+                    </li>
+                  </ul>
+                )}
+                {acceptedOperationalArray !== null && (
+                  <p>
+                    {intl.formatMessage({
+                      defaultMessage: "I would consider accepting a job that:",
+                      description:
+                        "Label for what conditions a user will accept, followed by a colon",
+                    })}
+                  </p>
+                )}
+                <ul data-h2-padding="b(left, l)">{acceptedOperationalArray}</ul>
+                {wouldAcceptTemporary === null &&
+                  acceptedOperationalArray === null && (
+                    <p>
+                      {intl.formatMessage({
+                        defaultMessage:
+                          "You haven't added any information here yet.",
+                        description:
+                          "Message for when no data exists for the section",
+                      })}
+                    </p>
+                  )}
+                {(wouldAcceptTemporary === null ||
+                  !acceptedOperationalArray ||
+                  !acceptedOperationalArray.length) && (
+                  <p>
+                    {intl.formatMessage(
+                      {
+                        defaultMessage:
+                          "There are <redText>required</redText> fields missing.",
+                        description:
+                          "Message that there are required fields missing. Please ignore things in <> tags.",
+                      },
+                      {
+                        redText,
+                      },
+                    )}{" "}
+                    <a href={paths.workPreferences()}>
+                      {intl.formatMessage({
+                        defaultMessage: "Click here to get started.",
+                        description:
+                          "Message to click on the words to begin something",
+                      })}
+                    </a>
+                  </p>
+                )}
+              </div>
             </div>
             <div id="diversity-section">
               <div style={{ display: "flex", alignItems: "baseline" }}>
@@ -340,7 +978,64 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({
                   })}
                 </Link>
               </div>
-              <p>Diversity and inclusion details</p>
+              <div
+                data-h2-bg-color="b(gray)"
+                data-h2-padding="b(all, m)"
+                data-h2-radius="b(s)"
+              >
+                {!isWoman &&
+                  !isIndigenous &&
+                  !isVisibleMinority &&
+                  !hasDisability && (
+                    <p>
+                      {intl.formatMessage(
+                        {
+                          defaultMessage:
+                            "You have not identified as a member of any <equityLinkText>employment equity groups.</equityLinkText>",
+                          description:
+                            "Message indicating the user has not been marked as part of an equity group, Ignore things in <> please.",
+                        },
+                        { equityLinkText },
+                      )}
+                    </p>
+                  )}
+                {(isWoman ||
+                  isIndigenous ||
+                  isVisibleMinority ||
+                  hasDisability) && (
+                  <div>
+                    <p>
+                      {intl.formatMessage({
+                        defaultMessage: "I identify as:",
+                        description:
+                          "Label preceding what groups the user identifies as part of, followed by a colon",
+                      })}{" "}
+                    </p>{" "}
+                    <ul data-h2-padding="b(left, l)">
+                      {isWoman && (
+                        <li data-h2-font-weight="b(700)">
+                          {womanLocalized.defaultMessage}
+                        </li>
+                      )}{" "}
+                      {isIndigenous && (
+                        <li data-h2-font-weight="b(700)">
+                          {indigenousLocalized.defaultMessage}
+                        </li>
+                      )}{" "}
+                      {isVisibleMinority && (
+                        <li data-h2-font-weight="b(700)">
+                          {minorityLocalized.defaultMessage}
+                        </li>
+                      )}{" "}
+                      {hasDisability && (
+                        <li data-h2-font-weight="b(700)">
+                          {disabilityLocalized.defaultMessage}
+                        </li>
+                      )}
+                    </ul>
+                  </div>
+                )}
+              </div>
             </div>
             <div id="skills-section">
               <div style={{ display: "flex", alignItems: "baseline" }}>
@@ -376,10 +1071,21 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({
   );
 };
 
-export const ProfilePageApi: React.FunctionComponent = () => {
+export const ProfilePage: React.FunctionComponent = () => {
   const intl = useIntl();
   const [result] = useGetMeQuery();
   const { data, fetching, error } = result;
+
+  // type magic on data variable to make it end up as a valid User type
+  const dataToUser = (input: GetMeQuery): User | undefined => {
+    if (input) {
+      if (input.me) {
+        return input.me;
+      }
+    }
+    return undefined;
+  };
+  const userData = data ? dataToUser(data) : undefined;
 
   if (fetching) return <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>;
   if (error)
@@ -390,5 +1096,13 @@ export const ProfilePageApi: React.FunctionComponent = () => {
       </p>
     );
 
-  return <ProfilePage {...data?.me} />;
+  if (userData) return <ProfileForm profileDataInput={userData} />;
+  return (
+    <p>
+      {intl.formatMessage({
+        defaultMessage: "No user data",
+        description: "No user data was found",
+      })}
+    </p>
+  );
 };

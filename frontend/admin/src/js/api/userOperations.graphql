@@ -69,18 +69,7 @@ mutation CreateUser($user: CreateUserInput!) {
     hasDiploma
     locationPreferences
     locationExemptions
-    acceptedOperationalRequirements {
-      id
-      description {
-        en
-        fr
-      }
-      key
-      name {
-        en
-        fr
-      }
-    }
+    acceptedOperationalRequirements
     expectedSalary
     expectedClassifications {
       id
@@ -141,18 +130,7 @@ mutation UpdateUserAsUser($id: ID!, $user: UpdateUserAsUserInput!) {
     hasDiploma
     locationPreferences
     locationExemptions
-    acceptedOperationalRequirements {
-      id
-      description {
-        en
-        fr
-      }
-      key
-      name {
-        en
-        fr
-      }
-    }
+    acceptedOperationalRequirements
     expectedSalary
     expectedClassifications {
       id
@@ -215,18 +193,7 @@ mutation UpdateUserAsAdmin($id: ID!, $user: UpdateUserAsAdminInput!) {
     hasDiploma
     locationPreferences
     locationExemptions
-    acceptedOperationalRequirements {
-      id
-      description {
-        en
-        fr
-      }
-      key
-      name {
-        en
-        fr
-      }
-    }
+    acceptedOperationalRequirements
     expectedSalary
     expectedClassifications {
       id

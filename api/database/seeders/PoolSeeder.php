@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use App\Models\Classification;
 use App\Models\CmoAsset;
-use App\Models\OperationalRequirement;
 use App\Models\Pool;
 use App\Models\User;
 use Illuminate\Database\Seeder;

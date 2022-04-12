@@ -6,7 +6,6 @@ use App\Models\User;
 use App\Models\Pool;
 use App\Models\Classification;
 use App\Models\CmoAsset;
-use App\Models\OperationalRequirement;
 use App\Models\PoolCandidate;
 use App\Models\PoolCandidateFilter;
 use App\Models\PoolCandidateSearchRequest;
@@ -38,7 +37,6 @@ class DatabaseSeeder extends Seeder
 
         $this->call(ClassificationSeeder::class);
         $this->call(CmoAssetSeeder::class);
-        $this->call(OperationalRequirementSeeder::class);
         $this->call(DepartmentSeeder::class);
 
         SkillFamily::factory()
@@ -63,10 +61,8 @@ class DatabaseSeeder extends Seeder
             ->afterCreating(function (User $user) {
                 $assets = CmoAsset::inRandomOrder()->limit(4)->pluck('id')->toArray();
                 $classifications = Classification::inRandomOrder()->limit(3)->pluck('id')->toArray();
-                $requirements = OperationalRequirement::inRandomOrder()->limit(2)->pluck('id')->toArray();
                 $user->cmoAssets()->sync($assets);
                 $user->expectedClassifications()->sync($classifications);
-                $user->acceptedOperationalRequirements()->sync($requirements);
             })
             ->create();
 
@@ -74,16 +70,66 @@ class DatabaseSeeder extends Seeder
             PoolCandidate::factory()->count(1)->sequence(fn () => [
                 'pool_id' => Pool::inRandomOrder()->first()->id,
             ])->for($user)->create();
-            AwardExperience::factory()->count($faker->biasedNumberBetween($min = 0, $max = 3,
-                $function = 'Faker\Provider\Biased::linearLow'))->for($user)->create();
-            CommunityExperience::factory()->count($faker->biasedNumberBetween($min = 0, $max = 3,
-                $function = 'Faker\Provider\Biased::linearLow'))->for($user)->create();
-            EducationExperience::factory()->count($faker->biasedNumberBetween($min = 0, $max = 3,
-                $function = 'Faker\Provider\Biased::linearLow'))->for($user)->create();
-            PersonalExperience::factory()->count($faker->biasedNumberBetween($min = 0, $max = 3,
-                $function = 'Faker\Provider\Biased::linearLow'))->for($user)->create();
-            WorkExperience::factory()->count($faker->biasedNumberBetween($min = 0, $max = 3,
-                $function = 'Faker\Provider\Biased::linearLow'))->for($user)->create();
+            AwardExperience::factory()
+                ->count($faker->biasedNumberBetween($min = 0, $max = 3, $function = 'Faker\Provider\Biased::linearLow'))
+                ->for($user)
+                ->afterCreating(function ($model) use ($faker) {
+                    $skills = Skill::inRandomOrder()->limit(3)->pluck('id')->toArray();
+                    $data = [
+                        $skills[0] => ['details' => $faker->text()],
+                        $skills[1] => ['details' => $faker->text()],
+                        $skills[2] => ['details' => $faker->text()],
+                    ];
+                    $model->skills()->sync($data);
+                })->create();
+            CommunityExperience::factory()
+                ->count($faker->biasedNumberBetween($min = 0, $max = 3, $function = 'Faker\Provider\Biased::linearLow'))
+                ->for($user)
+                ->afterCreating(function ($model) use ($faker) {
+                    $skills = Skill::inRandomOrder()->limit(3)->pluck('id')->toArray();
+                    $data = [
+                        $skills[0] => ['details' => $faker->text()],
+                        $skills[1] => ['details' => $faker->text()],
+                        $skills[2] => ['details' => $faker->text()],
+                    ];
+                    $model->skills()->sync($data);
+                })->create();
+            EducationExperience::factory()
+                ->count($faker->biasedNumberBetween($min = 0, $max = 3, $function = 'Faker\Provider\Biased::linearLow'))
+                ->for($user)
+                ->afterCreating(function ($model) use ($faker) {
+                    $skills = Skill::inRandomOrder()->limit(3)->pluck('id')->toArray();
+                    $data = [
+                        $skills[0] => ['details' => $faker->text()],
+                        $skills[1] => ['details' => $faker->text()],
+                        $skills[2] => ['details' => $faker->text()],
+                    ];
+                    $model->skills()->sync($data);
+                })->create();
+            PersonalExperience::factory()
+                ->count($faker->biasedNumberBetween($min = 0, $max = 3, $function = 'Faker\Provider\Biased::linearLow'))
+                ->for($user)
+                ->afterCreating(function ($model) use ($faker) {
+                    $skills = Skill::inRandomOrder()->limit(3)->pluck('id')->toArray();
+                    $data = [
+                        $skills[0] => ['details' => $faker->text()],
+                        $skills[1] => ['details' => $faker->text()],
+                        $skills[2] => ['details' => $faker->text()],
+                    ];
+                    $model->skills()->sync($data);
+                })->create();
+            WorkExperience::factory()
+                ->count($faker->biasedNumberBetween($min = 0, $max = 3, $function = 'Faker\Provider\Biased::linearLow'))
+                ->for($user)
+                ->afterCreating(function ($model) use ($faker) {
+                    $skills = Skill::inRandomOrder()->limit(3)->pluck('id')->toArray();
+                    $data = [
+                        $skills[0] => ['details' => $faker->text()],
+                        $skills[1] => ['details' => $faker->text()],
+                        $skills[2] => ['details' => $faker->text()],
+                    ];
+                    $model->skills()->sync($data);
+                })->create();
         });
 
         PoolCandidateSearchRequest::factory()->count(10)->create();

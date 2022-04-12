@@ -1,6 +1,5 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import Button from "@common/components/Button";
 import Link from "@common/components/Link";
 import { useAdminRoutes } from "../../adminRoutes";
 import { CmoAssetTableApi } from "./CmoAssetTable";
@@ -33,15 +32,18 @@ export const CmoAssetPage: React.FC = () => {
             data-h2-flex-item="b(1of1) m(2of5)"
             data-h2-text-align="m(right)"
           >
-            <Button color="white" mode="outline">
-              <Link href={paths.cmoAssetCreate()} title="">
-                {intl.formatMessage({
-                  defaultMessage: "Create CMO Asset",
-                  description:
-                    "Heading displayed above the Create CMO Asset form.",
-                })}
-              </Link>
-            </Button>
+            <Link
+              href={paths.cmoAssetCreate()}
+              color="white"
+              mode="outline"
+              type="button"
+            >
+              {intl.formatMessage({
+                defaultMessage: "Create CMO Asset",
+                description:
+                  "Heading displayed above the Create CMO Asset form.",
+              })}
+            </Link>
           </div>
         </div>
       </header>

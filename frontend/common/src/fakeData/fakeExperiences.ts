@@ -8,10 +8,9 @@ import {
   WorkExperience,
   // required imports to generate AnExperience to export
   Applicant,
-  ExperienceSkill,
+  ExperienceSkillRecord,
   Skill,
   LocalizedString,
-  Experience,
   // imports required by specific experiences and are linked
   AwardedTo,
   AwardedScope,
@@ -21,8 +20,11 @@ import {
 
 // lots of X requires Y filling things out and adding connecting Types/Components to one another
 // defining the skills here
-const sampleApp: Applicant = { email: "blank", id: "blank" };
-const theId = "blank";
+const sampleApp: Applicant = {
+  email: faker.internet.email(),
+  id: faker.datatype.uuid(),
+};
+
 const theSkillString1: LocalizedString = {
   en: "The first Skill",
   fr: "La première Compétence",
@@ -31,11 +33,15 @@ const theSkillDescription1: LocalizedString = {
   en: "The first Description",
   fr: "Le premier Descriptif",
 };
+const theExperienceSkillRecord: ExperienceSkillRecord = {
+  details: "The ExperienceSkillRecords details",
+};
 const sampleSkill1: Skill = {
-  id: "blank",
-  key: "blank",
+  id: faker.datatype.uuid(),
+  key: faker.random.word(),
   description: theSkillDescription1,
   name: theSkillString1,
+  experienceSkillRecord: theExperienceSkillRecord,
 };
 const theSkillString2: LocalizedString = {
   en: "The second Skill",
@@ -46,28 +52,11 @@ const theSkillDescription2: LocalizedString = {
   fr: "La deuxième Descriptif",
 };
 const sampleSkill2: Skill = {
-  id: "blank",
-  key: "blank",
+  id: faker.datatype.uuid(),
+  key: faker.random.word(),
   description: theSkillDescription2,
   name: theSkillString2,
-};
-const sampleExperienceInstance: Experience = {
-  applicant: sampleApp,
-  id: theId,
-  // circular dependency here, between sampleExperienceInstance and sampleExperience
-  // experienceSkills: [sampleExperience],
-};
-const sampleExperience1: ExperienceSkill = {
-  id: "blank",
-  skill: sampleSkill1,
-  experience: sampleExperienceInstance,
-  details: faker.lorem.sentence(),
-};
-const sampleExperience2: ExperienceSkill = {
-  id: "blank",
-  skill: sampleSkill2,
-  experience: sampleExperienceInstance,
-  details: faker.lorem.sentence(),
+  experienceSkillRecord: theExperienceSkillRecord,
 };
 
 // 5 generators to generate experiences of a certain type
@@ -78,8 +67,8 @@ const generateAward = (): AwardExperience => {
   return {
     __typename: "AwardExperience",
     applicant: sampleApp,
-    id: theId,
-    experienceSkills: [],
+    id: faker.datatype.uuid(),
+    skills: [],
     details: faker.random.words(),
     title: faker.lorem.word(),
     awardedTo: faker.random.arrayElement([
@@ -99,6 +88,9 @@ const generateAward = (): AwardExperience => {
     ]),
     awardedDate: faker.date.past().toString().slice(0, 15),
     issuedBy: faker.company.companyName(),
+    experienceSkillRecord: {
+      details: faker.random.words(),
+    },
   };
 };
 
@@ -107,14 +99,17 @@ const generateCommunity = (): CommunityExperience => {
   return {
     __typename: "CommunityExperience",
     applicant: sampleApp,
-    id: theId,
-    experienceSkills: [sampleExperience1],
+    id: faker.datatype.uuid(),
+    skills: [sampleSkill1],
     details: faker.random.words(),
     title: faker.lorem.word(),
     organization: faker.company.companyName(),
     project: faker.lorem.word(),
     startDate: faker.date.recent().toString().slice(0, 15),
     endDate: faker.date.future().toString().slice(0, 15),
+    experienceSkillRecord: {
+      details: faker.random.words(),
+    },
   };
 };
 
@@ -123,8 +118,8 @@ const generateEducation = (): EducationExperience => {
   return {
     __typename: "EducationExperience",
     applicant: sampleApp,
-    id: theId,
-    experienceSkills: [sampleExperience1, sampleExperience2],
+    id: faker.datatype.uuid(),
+    skills: [sampleSkill1, sampleSkill2],
     details: faker.random.words(),
     areaOfStudy: faker.music.genre(),
     type: faker.random.arrayElement([
@@ -148,6 +143,9 @@ const generateEducation = (): EducationExperience => {
     startDate: faker.date.recent().toString().slice(0, 15),
     endDate: faker.date.future().toString().slice(0, 15),
     thesisTitle: faker.random.words(),
+    experienceSkillRecord: {
+      details: faker.random.words(),
+    },
   };
 };
 
@@ -156,13 +154,16 @@ const generatePersonal = (): PersonalExperience => {
   return {
     __typename: "PersonalExperience",
     applicant: sampleApp,
-    id: theId,
-    experienceSkills: [sampleExperience1],
+    id: faker.datatype.uuid(),
+    skills: [sampleSkill1],
     details: faker.lorem.sentence(),
     title: faker.name.jobTitle(),
     startDate: faker.date.recent().toString().slice(0, 15),
     endDate: faker.date.future().toString().slice(0, 15),
     description: faker.lorem.paragraph(),
+    experienceSkillRecord: {
+      details: faker.random.words(),
+    },
   };
 };
 
@@ -171,14 +172,17 @@ const generateWork = (): WorkExperience => {
   return {
     __typename: "WorkExperience",
     applicant: sampleApp,
-    id: theId,
-    experienceSkills: [sampleExperience1, sampleExperience2],
+    id: faker.datatype.uuid(),
+    skills: [sampleSkill1, sampleSkill2],
     details: faker.lorem.sentence(),
     organization: faker.company.companyName(),
     role: faker.name.jobTitle(),
     division: faker.animal.bird(),
     startDate: faker.date.past().toString().slice(0, 15),
     endDate: faker.date.soon().toString().slice(0, 15),
+    experienceSkillRecord: {
+      details: faker.random.words(),
+    },
   };
 };
 
@@ -205,24 +209,34 @@ export default (numberOfExperiences: number) => {
 
 // the 5 single experiences of a specific type
 export const generators = {
-  generateAward: () => {
+  awardExperiences: (numOfExp = 1) => {
     faker.seed(0);
-    return generateAward();
+    return [...Array(numOfExp)].map(() => {
+      return generateAward();
+    });
   },
-  generateCommunity: () => {
+  communityExperiences: (numOfExp = 1) => {
     faker.seed(0);
-    return generateCommunity();
+    return [...Array(numOfExp)].map(() => {
+      return generateCommunity();
+    });
   },
-  generateEducation: () => {
+  educationExperiences: (numOfExp = 1) => {
     faker.seed(0);
-    return generateEducation();
+    return [...Array(numOfExp)].map(() => {
+      return generateEducation();
+    });
   },
-  generatePersonal: () => {
+  personalExperiences: (numOfExp = 1) => {
     faker.seed(0);
-    return generatePersonal();
+    return [...Array(numOfExp)].map(() => {
+      return generatePersonal();
+    });
   },
-  generateWork: () => {
+  workExperiences: (numOfExp = 1) => {
     faker.seed(0);
-    return generateWork();
+    return [...Array(numOfExp)].map(() => {
+      return generateWork();
+    });
   },
 };

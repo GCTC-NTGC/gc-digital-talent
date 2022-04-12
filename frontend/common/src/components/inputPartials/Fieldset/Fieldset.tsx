@@ -44,13 +44,20 @@ export const Fieldset: React.FC<FieldsetProps> = ({
       }}
       data-h2-margin="b(bottom, xxs)"
     >
+      <legend data-h2-visibility="b(invisible)">{legend}</legend>
       <div
         data-h2-display="b(flex)"
         data-h2-flex-wrap="b(wrap)"
         data-h2-margin="b(bottom, xxs)"
       >
         <div style={{ flex: "1" }}>
-          <legend data-h2-font-size="b(caption)">{legend}</legend>
+          <span
+            aria-hidden="true"
+            role="presentation"
+            data-h2-font-size="b(caption)"
+          >
+            {legend}
+          </span>
         </div>
         <div>
           {

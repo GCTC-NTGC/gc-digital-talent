@@ -49,7 +49,22 @@ type AwardExperience implements Experience {
   awardedTo: AwardedTo
   awardedScope: AwardedScope
   details: String
-  experienceSkills: [ExperienceSkill]
+  skills: [Skill!]
+  experienceSkillRecord: ExperienceSkillRecord
+}
+
+input AwardExperienceHasMany {
+  create: [AwardExperienceInput!]
+}
+
+input AwardExperienceInput {
+  title: String
+  issuedBy: String
+  awardedDate: Date
+  awardedTo: AwardedTo
+  awardedScope: AwardedScope
+  details: String
+  skills: UpdateExperienceSkills
 }
 
 enum AwardedScope {
@@ -120,7 +135,27 @@ type CommunityExperience implements Experience {
   startDate: Date
   endDate: Date
   details: String
-  experienceSkills: [ExperienceSkill]
+  skills: [Skill!]
+  experienceSkillRecord: ExperienceSkillRecord
+}
+
+input CommunityExperienceHasMany {
+  create: [CommunityExperienceInput!]
+}
+
+input CommunityExperienceInput {
+  title: String
+  organization: String
+  project: String
+  startDate: Date
+  endDate: Date
+  details: String
+  skills: UpdateExperienceSkills
+}
+
+input ConnectExperienceSkills {
+  id: ID!
+  details: String
 }
 
 input ConnectOrCreateBelongsTo {
@@ -147,12 +182,6 @@ input CreateDepartmentInput {
   name: LocalizedStringInput
 }
 
-input CreateOperationalRequirementInput {
-  key: KeyString!
-  name: LocalizedStringInput!
-  description: LocalizedStringInput
-}
-
 input CreatePoolCandidateAsAdminInput {
   pool: PoolBelongsTo!
   user: ConnectOrCreateBelongsTo!
@@ -165,7 +194,7 @@ input CreatePoolCandidateAsAdminInput {
   hasDiploma: Boolean
   languageAbility: LanguageAbility
   locationPreferences: [WorkRegion]
-  acceptedOperationalRequirements: OperationalRequirementBelongsToMany
+  acceptedOperationalRequirements: [OperationalRequirement]
   expectedSalary: [SalaryRange]
   expectedClassifications: ClassificationBelongsToMany
   cmoAssets: CmoAssetBelongsToMany
@@ -181,7 +210,7 @@ input CreatePoolCandidateFilterInput {
   isVisibleMinority: Boolean
   isWoman: Boolean
   languageAbility: LanguageAbility
-  operationalRequirements: OperationalRequirementBelongsToMany
+  operationalRequirements: [OperationalRequirement]
   workRegions: [WorkRegion]
   pools: PoolBelongsToMany
 }
@@ -203,7 +232,7 @@ input CreatePoolInput {
   classifications: ClassificationBelongsToMany
   assetCriteria: CmoAssetBelongsToMany
   essentialCriteria: CmoAssetBelongsToMany
-  operationalRequirements: OperationalRequirementBelongsToMany
+  operationalRequirements: [OperationalRequirement]
 }
 
 input CreateSkillFamilyInput {
@@ -253,11 +282,16 @@ input CreateUserInput {
   hasDiploma: Boolean
   locationPreferences: [WorkRegion]
   locationExemptions: String
-  acceptedOperationalRequirements: OperationalRequirementBelongsToMany
+  acceptedOperationalRequirements: [OperationalRequirement]
   expectedSalary: [SalaryRange]
   expectedClassifications: ClassificationBelongsToMany
   wouldAcceptTemporary: Boolean
   cmoAssets: CmoAssetBelongsToMany
+  workExperiences: WorkExperienceHasMany
+  personalExperiences: PersonalExperienceHasMany
+  communityExperiences: CommunityExperienceHasMany
+  educationExperiences: EducationExperienceHasMany
+  awardExperiences: AwardExperienceHasMany
 }
 
 """A date string with format `Y-m-d`, e.g. `2011-05-23`."""
@@ -289,7 +323,24 @@ type EducationExperience implements Experience {
   type: EducationType
   status: EducationStatus
   details: String
-  experienceSkills: [ExperienceSkill]
+  skills: [Skill!]
+  experienceSkillRecord: ExperienceSkillRecord
+}
+
+input EducationExperienceHasMany {
+  create: [EducationExperienceInput!]
+}
+
+input EducationExperienceInput {
+  institution: String
+  areaOfStudy: String
+  thesisTitle: String
+  startDate: Date
+  endDate: Date
+  type: EducationType
+  status: EducationStatus
+  details: String
+  skills: UpdateExperienceSkills
 }
 
 enum EducationStatus {
@@ -333,14 +384,12 @@ interface Experience {
   id: ID!
   applicant: Applicant!
   details: String
-  experienceSkills: [ExperienceSkill]
+  skills: [Skill!]
+  experienceSkillRecord: ExperienceSkillRecord
 }
 
-type ExperienceSkill {
-  id: ID!
+type ExperienceSkillRecord {
   details: String
-  skill: Skill!
-  experience: Experience!
 }
 
 enum JobLookingStatus {
@@ -401,9 +450,6 @@ type Mutation {
   createCmoAsset(cmoAsset: CreateCmoAssetInput!): CmoAsset
   updateCmoAsset(id: ID!, cmoAsset: UpdateCmoAssetInput!): CmoAsset
   deleteCmoAsset(id: ID!): CmoAsset
-  createOperationalRequirement(operationalRequirement: CreateOperationalRequirementInput!): OperationalRequirement
-  updateOperationalRequirement(id: ID!, operationalRequirement: UpdateOperationalRequirementInput!): OperationalRequirement
-  deleteOperationalRequirement(id: ID!): OperationalRequirement
   createDepartment(department: CreateDepartmentInput!): Department
   updateDepartment(id: ID!, department: UpdateDepartmentInput!): Department
   deleteDepartment(id: ID!): Department
@@ -413,18 +459,31 @@ type Mutation {
   updateSkillFamily(id: ID!, skillFamily: UpdateSkillFamilyInput!): SkillFamily
   createSkill(skill: CreateSkillInput!): Skill
   updateSkill(id: ID!, skill: UpdateSkillInput!): Skill
+  createWorkExperience(userId: ID!, workExperience: WorkExperienceInput!): WorkExperience
+  createPersonalExperience(userId: ID!, personalExperience: PersonalExperienceInput!): PersonalExperience
+  createCommunityExperience(userId: ID!, communityExperience: CommunityExperienceInput!): CommunityExperience
+  createEducationExperience(userId: ID!, educationExperience: EducationExperienceInput!): EducationExperience
+  createAwardExperience(userId: ID!, awardExperience: AwardExperienceInput!): AwardExperience
+  updateWorkExperience(id: ID!, workExperience: WorkExperienceInput!): WorkExperience
+  updatePersonalExperience(id: ID!, personalExperience: PersonalExperienceInput!): PersonalExperience
+  updateCommunityExperience(id: ID!, communityExperience: CommunityExperienceInput!): CommunityExperience
+  updateEducationExperience(id: ID!, educationExperience: EducationExperienceInput!): EducationExperience
+  updateAwardExperience(id: ID!, awardExperience: AwardExperienceInput!): AwardExperience
+  deleteWorkExperience(id: ID!): WorkExperience
+  deletePersonalExperience(id: ID!): PersonalExperience
+  deleteCommunityExperience(id: ID!): CommunityExperience
+  deleteEducationExperience(id: ID!): EducationExperience
+  deleteAwardExperience(id: ID!): AwardExperience
 }
 
 """e.g. Overtime as Required, Shift Work, Travel as Required, etc."""
-type OperationalRequirement {
-  id: ID!
-  key: KeyString!
-  name: LocalizedString!
-  description: LocalizedString
-}
-
-input OperationalRequirementBelongsToMany {
-  sync: [ID!]
+enum OperationalRequirement {
+  OVERTIME
+  SHIFT_WORK
+  ON_CALL
+  TRAVEL
+  TRANSPORT_EQUIPMENT
+  DRIVERS_LICENSE
 }
 
 """Allows ordering a list of records."""
@@ -526,7 +585,21 @@ type PersonalExperience implements Experience {
   startDate: Date
   endDate: Date
   details: String
-  experienceSkills: [ExperienceSkill]
+  skills: [Skill!]
+  experienceSkillRecord: ExperienceSkillRecord
+}
+
+input PersonalExperienceHasMany {
+  create: [PersonalExperienceInput!]
+}
+
+input PersonalExperienceInput {
+  title: String
+  description: String
+  startDate: Date
+  endDate: Date
+  details: String
+  skills: UpdateExperienceSkills
 }
 
 """
@@ -603,7 +676,7 @@ input PoolCandidateFilterInput {
   isVisibleMinority: Boolean
   isWoman: Boolean
   languageAbility: LanguageAbility
-  operationalRequirements: [KeyFilterInput]
+  operationalRequirements: [OperationalRequirement]
   workRegions: [WorkRegion]
   pools: [PoolFilterInput]
 }
@@ -672,8 +745,6 @@ type Query {
   searchPoolCandidates(where: PoolCandidateFilterInput): [PoolCandidate]!
   classification(id: ID!): Classification
   classifications: [Classification]!
-  operationalRequirement(id: ID!): OperationalRequirement
-  operationalRequirements: [OperationalRequirement]!
   cmoAsset(id: ID!): CmoAsset
   cmoAssets: [CmoAsset]!
   department(id: ID!): Department
@@ -686,7 +757,6 @@ type Query {
   skillFamilies: [SkillFamily]!
   skill(id: ID!): Skill
   skills: [Skill]!
-  experienceSkills: [ExperienceSkill]!
 }
 
 enum Role {
@@ -778,7 +848,13 @@ type Skill {
   description: LocalizedString
   keywords: [String!]
   families: [SkillFamily!]
-  experienceSkills: [ExperienceSkill]
+  experiences: [Experience!]
+  awardExperiences: [AwardExperience!]
+  communityExperiences: [CommunityExperience!]
+  educationExperiences: [EducationExperience!]
+  personalExperiences: [PersonalExperience!]
+  workExperiences: [WorkExperience!]
+  experienceSkillRecord: ExperienceSkillRecord
 }
 
 input SkillBelongsToMany {
@@ -843,9 +919,9 @@ input UpdateDepartmentInput {
   name: LocalizedStringInput
 }
 
-input UpdateOperationalRequirementInput {
-  name: LocalizedStringInput
-  description: LocalizedStringInput
+input UpdateExperienceSkills {
+  connect: [ConnectExperienceSkills!]
+  sync: [ConnectExperienceSkills!]
 }
 
 input UpdatePoolCandidateAsAdminInput {
@@ -858,7 +934,7 @@ input UpdatePoolCandidateAsAdminInput {
   hasDiploma: Boolean
   languageAbility: LanguageAbility
   locationPreferences: [WorkRegion]
-  acceptedOperationalRequirements: OperationalRequirementBelongsToMany
+  acceptedOperationalRequirements: [OperationalRequirement]
   expectedSalary: [SalaryRange]
   expectedClassifications: ClassificationBelongsToMany
   cmoAssets: CmoAssetBelongsToMany
@@ -877,7 +953,7 @@ input UpdatePoolInput {
   classifications: ClassificationBelongsToMany
   assetCriteria: CmoAssetBelongsToMany
   essentialCriteria: CmoAssetBelongsToMany
-  operationalRequirements: OperationalRequirementBelongsToMany
+  operationalRequirements: [OperationalRequirement]
 }
 
 input UpdateSkillFamilyInput {
@@ -926,11 +1002,16 @@ input UpdateUserAsAdminInput {
   hasDiploma: Boolean
   locationPreferences: [WorkRegion]
   locationExemptions: String
-  acceptedOperationalRequirements: OperationalRequirementBelongsToMany
+  acceptedOperationalRequirements: [OperationalRequirement]
   expectedSalary: [SalaryRange]
   expectedClassifications: ClassificationBelongsToMany
   wouldAcceptTemporary: Boolean
   cmoAssets: CmoAssetBelongsToMany
+  workExperiences: WorkExperienceHasMany
+  personalExperiences: PersonalExperienceHasMany
+  communityExperiences: CommunityExperienceHasMany
+  educationExperiences: EducationExperienceHasMany
+  awardExperiences: AwardExperienceHasMany
 }
 
 input UpdateUserAsUserInput {
@@ -960,11 +1041,16 @@ input UpdateUserAsUserInput {
   hasDiploma: Boolean
   locationPreferences: [WorkRegion]
   locationExemptions: String
-  acceptedOperationalRequirements: OperationalRequirementBelongsToMany
+  acceptedOperationalRequirements: [OperationalRequirement]
   expectedSalary: [SalaryRange]
   expectedClassifications: ClassificationBelongsToMany
   wouldAcceptTemporary: Boolean
   cmoAssets: CmoAssetBelongsToMany
+  workExperiences: WorkExperienceHasMany
+  personalExperiences: PersonalExperienceHasMany
+  communityExperiences: CommunityExperienceHasMany
+  educationExperiences: EducationExperienceHasMany
+  awardExperiences: AwardExperienceHasMany
 }
 
 type User {
@@ -1071,7 +1157,22 @@ type WorkExperience implements Experience {
   startDate: Date
   endDate: Date
   details: String
-  experienceSkills: [ExperienceSkill]
+  skills: [Skill!]
+  experienceSkillRecord: ExperienceSkillRecord
+}
+
+input WorkExperienceHasMany {
+  create: [WorkExperienceInput!]
+}
+
+input WorkExperienceInput {
+  role: String
+  organization: String
+  division: String
+  startDate: Date
+  endDate: Date
+  details: String
+  skills: UpdateExperienceSkills
 }
 
 enum WorkRegion {

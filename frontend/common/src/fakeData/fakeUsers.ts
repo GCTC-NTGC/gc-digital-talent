@@ -23,11 +23,9 @@ import {
 } from "../api/generated";
 import fakeClassifications from "./fakeClassifications";
 import fakeCmoAssets from "./fakeCmoAssets";
-import fakeOperationalRequirements from "./fakeOperationalRequirements";
 
 const generateUser = (
   classifications: Classification[], // all classifications
-  operationalRequirements: OperationalRequirement[], // all operational requirements
   cmoAssets: CmoAsset[], // all CmoAssets
 
   awardExperiences: AwardExperience[], // Experiences belonging to this user
@@ -95,7 +93,7 @@ const generateUser = (
     locationPreferences: faker.random.arrayElements(Object.values(WorkRegion)),
     locationExemptions: faker.address.city(),
     acceptedOperationalRequirements: faker.random.arrayElements(
-      operationalRequirements,
+      Object.values(OperationalRequirement),
     ),
     expectedSalary: faker.random.arrayElements(Object.values(SalaryRange)),
     expectedClassifications: faker.random.arrayElements(classifications),
@@ -124,7 +122,6 @@ const generateUser = (
 // Default generator will not include any experiences, poolCandidates or pools
 export const defaultGenerator = (numToGenerate = 20): User[] => {
   const classifications = fakeClassifications();
-  const operationalRequirements = fakeOperationalRequirements();
   const cmoAssets = fakeCmoAssets();
 
   const awardExperiences: AwardExperience[] = [];
@@ -137,7 +134,6 @@ export const defaultGenerator = (numToGenerate = 20): User[] => {
   return [...Array(numToGenerate)].map(() =>
     generateUser(
       classifications,
-      operationalRequirements,
       cmoAssets,
       awardExperiences,
       communityExperiences,
