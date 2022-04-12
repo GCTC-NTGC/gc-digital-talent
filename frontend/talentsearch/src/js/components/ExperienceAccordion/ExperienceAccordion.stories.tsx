@@ -49,6 +49,5 @@ AccordionUnknownExample.args = {
   experience: {
     applicant: sampleApp,
     id: theId,
-    experienceSkills: [],
   },
 };

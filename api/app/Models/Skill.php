@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * Class Skill
@@ -43,8 +42,69 @@ class Skill extends Model
         return $this->belongsToMany(SkillFamily::class);
     }
 
-    public function experienceSkills() : HasMany
+    public function awardExperiences()
     {
-        return $this->hasMany(ExperienceSkill::class);
+        return $this->morphedByMany(
+            AwardExperience::class,
+            'experience',
+            'experience_skills'
+        )
+        ->withTimestamps()
+        ->withPivot('details')
+        ->as('experienceSkillRecord');
+    }
+    public function communityExperiences()
+    {
+        return $this->morphedByMany(
+            CommunityExperience::class,
+            'experience',
+            'experience_skills'
+        )
+        ->withTimestamps()
+        ->withPivot('details')
+        ->as('experienceSkillRecord');
+    }
+    public function educationExperiences()
+    {
+        return $this->morphedByMany(
+            EducationExperience::class,
+            'experience',
+            'experience_skills'
+        )
+        ->withTimestamps()
+        ->withPivot('details')
+        ->as('experience_skill');
+    }
+    public function personalExperiences()
+    {
+        return $this->morphedByMany(
+            PersonalExperience::class,
+            'experience',
+            'experience_skills'
+        )
+        ->withTimestamps()
+        ->withPivot('details')
+        ->as('experienceSkillRecord');
+    }
+    public function workExperiences()
+    {
+        return $this->morphedByMany(
+            WorkExperience::class,
+            'experience',
+            'experience_skills'
+        )
+        ->withTimestamps()
+        ->withPivot('details')
+        ->as('experience_skill_pivot');
+    }
+    public function getExperiencesAttribute()
+    {
+        $collection = collect();
+        $collection = $collection->merge($this->awardExperiences);
+        $collection = $collection->merge($this->communityExperiences);
+        $collection = $collection->merge($this->educationExperiences);
+        $collection = $collection->merge($this->personalExperiences);
+        $collection = $collection->merge($this->workExperiences);
+        return $collection;
     }
 }
