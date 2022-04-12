@@ -23,8 +23,4 @@ FallbackResource /frontend/talentsearch/dist/index.html
     # RewriteCond %{REQUEST_FILENAME} !-d
     # RewriteCond %{REQUEST_URI} (.+)/$
     # RewriteRule ^ %1 [L,R=301]
-
-    # Handle Front Controller...
-    RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteCond %{REQUEST_FILENAME} !-f
 </IfModule>

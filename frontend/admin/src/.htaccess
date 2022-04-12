@@ -22,10 +22,6 @@ FallbackResource /frontend/admin/dist/index.html
     # RewriteCond %{REQUEST_FILENAME} !-d
     # RewriteCond %{REQUEST_URI} (.+)/$
     # RewriteRule ^ %1 [L,R=301]
-
-    # Send Requests To Front Controller...
-    RewriteCond %{REQUEST_FILENAME} !-d
-    RewriteCond %{REQUEST_FILENAME} !-f
 </IfModule>
 
 # Set SSI to run on .shtml and .sjs files in this directory
