@@ -1,24 +1,3 @@
-
-fragment experienceSkills on ExperienceSkill {
-  id
-  details
-  skill {
-    id
-    key
-    name {
-      en
-      fr
-    }
-  }
-    experience {
-    id
-    applicant {
-      id
-      email
-    }
-  }
-}
-
 fragment applicant on Applicant {
   id
   email
@@ -33,20 +12,23 @@ query getAllApplicantExperiences($id: ID!) {
       applicant {
         ...applicant
       }
-      experienceSkills {
-        ...experienceSkills
+      skills {
+        id
+        key
+        name {
+          en
+          fr
+        }
+        experienceSkillRecord {
+          details
+        }
       }
       ... on AwardExperience {
-        id
         title
         issuedBy
         awardedDate
 				awardedTo
         awardedScope
-        details
-        applicant {
-          ...applicant
-        }
       }
     	... on CommunityExperience {
       	title
@@ -54,10 +36,6 @@ query getAllApplicantExperiences($id: ID!) {
         project
         startDate
         endDate
-        details
-        applicant {
-          ...applicant
-        }
     	}
       ... on EducationExperience {
         institution
@@ -67,20 +45,12 @@ query getAllApplicantExperiences($id: ID!) {
         endDate
         type
         status
-        details
-        applicant {
-          ...applicant
-        }
       }
       ... on PersonalExperience {
         title
         description
         startDate
         endDate
-        details
-        applicant {
-          ...applicant
-        }
       }
       ... on WorkExperience {
         role
@@ -88,10 +58,6 @@ query getAllApplicantExperiences($id: ID!) {
         division
         startDate
         endDate
-        details
-        applicant {
-          ...applicant
-        }
       }
     }
   }
@@ -107,8 +73,16 @@ query getApplicantExperiencesByType($id: ID!) {
       awardedTo
       awardedScope
       details
-      experienceSkills {
-        ...experienceSkills
+      skills {
+        id
+        key
+        name {
+          en
+          fr
+        }
+        experienceSkillRecord {
+          details
+        }
       }
     }
     communityExperiences {
@@ -119,8 +93,16 @@ query getApplicantExperiencesByType($id: ID!) {
       startDate
       endDate
       details
-      experienceSkills {
-        ...experienceSkills
+      skills {
+        id
+        key
+        name {
+          en
+          fr
+        }
+        experienceSkillRecord {
+          details
+        }
       }
     }
     educationExperiences {
@@ -133,6 +115,17 @@ query getApplicantExperiencesByType($id: ID!) {
       type
       status
       details
+      skills {
+        id
+        key
+        name {
+          en
+          fr
+        }
+        experienceSkillRecord {
+          details
+        }
+      }
     }
     personalExperiences {
       id
@@ -141,8 +134,16 @@ query getApplicantExperiencesByType($id: ID!) {
       startDate
       endDate
       details
-      experienceSkills {
-        ...experienceSkills
+      skills {
+        id
+        key
+        name {
+          en
+          fr
+        }
+        experienceSkillRecord {
+          details
+        }
       }
     }
     workExperiences {
@@ -153,8 +154,16 @@ query getApplicantExperiencesByType($id: ID!) {
       startDate
       endDate
       details
-      experienceSkills {
-        ...experienceSkills
+      skills {
+        id
+        key
+        name {
+          en
+          fr
+        }
+        experienceSkillRecord {
+          details
+        }
       }
     }
   }

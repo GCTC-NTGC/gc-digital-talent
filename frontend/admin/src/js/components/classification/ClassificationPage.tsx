@@ -1,6 +1,5 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import Button from "@common/components/Button";
 import Link from "@common/components/Link";
 import { useAdminRoutes } from "../../adminRoutes";
 import { ClassificationTableApi } from "./ClassificationTable";
@@ -33,15 +32,19 @@ export const ClassificationPage: React.FC = () => {
             data-h2-flex-item="b(1of1) m(2of5)"
             data-h2-text-align="m(right)"
           >
-            <Button color="white" mode="outline">
-              <Link href={paths.classificationCreate()} title="">
-                {intl.formatMessage({
-                  defaultMessage: "Create Classification",
-                  description:
-                    "Heading displayed above the Create Classification form.",
-                })}
-              </Link>
-            </Button>
+            <Link
+              href={paths.classificationCreate()}
+              title=""
+              color="white"
+              mode="outline"
+              type="button"
+            >
+              {intl.formatMessage({
+                defaultMessage: "Create Classification",
+                description:
+                  "Heading displayed above the Create Classification form.",
+              })}
+            </Link>
           </div>
         </div>
       </header>

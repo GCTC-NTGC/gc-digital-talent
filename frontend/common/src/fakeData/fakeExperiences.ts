@@ -8,10 +8,9 @@ import {
   WorkExperience,
   // required imports to generate AnExperience to export
   Applicant,
-  ExperienceSkill,
+  ExperienceSkillRecord,
   Skill,
   LocalizedString,
-  Experience,
   // imports required by specific experiences and are linked
   AwardedTo,
   AwardedScope,
@@ -34,11 +33,15 @@ const theSkillDescription1: LocalizedString = {
   en: "The first Description",
   fr: "Le premier Descriptif",
 };
+const theExperienceSkillRecord: ExperienceSkillRecord = {
+  details: "The ExperienceSkillRecords details",
+};
 const sampleSkill1: Skill = {
   id: faker.datatype.uuid(),
   key: faker.random.word(),
   description: theSkillDescription1,
   name: theSkillString1,
+  experienceSkillRecord: theExperienceSkillRecord,
 };
 const theSkillString2: LocalizedString = {
   en: "The second Skill",
@@ -53,24 +56,7 @@ const sampleSkill2: Skill = {
   key: faker.random.word(),
   description: theSkillDescription2,
   name: theSkillString2,
-};
-const sampleExperienceInstance: Experience = {
-  applicant: sampleApp,
-  id: faker.datatype.uuid(),
-  // circular dependency here, between sampleExperienceInstance and sampleExperience
-  // experienceSkills: [sampleExperience],
-};
-const sampleExperience1: ExperienceSkill = {
-  id: faker.datatype.uuid(),
-  skill: sampleSkill1,
-  experience: sampleExperienceInstance,
-  details: faker.lorem.sentence(),
-};
-const sampleExperience2: ExperienceSkill = {
-  id: faker.datatype.uuid(),
-  skill: sampleSkill2,
-  experience: sampleExperienceInstance,
-  details: faker.lorem.sentence(),
+  experienceSkillRecord: theExperienceSkillRecord,
 };
 
 // 5 generators to generate experiences of a certain type
@@ -82,7 +68,7 @@ const generateAward = (): AwardExperience => {
     __typename: "AwardExperience",
     applicant: sampleApp,
     id: faker.datatype.uuid(),
-    experienceSkills: [],
+    skills: [],
     details: faker.random.words(),
     title: faker.lorem.word(),
     awardedTo: faker.random.arrayElement<AwardedTo>([
@@ -102,6 +88,9 @@ const generateAward = (): AwardExperience => {
     ]),
     awardedDate: faker.date.past().toString().slice(0, 15),
     issuedBy: faker.company.companyName(),
+    experienceSkillRecord: {
+      details: faker.random.words(),
+    },
   };
 };
 
@@ -111,13 +100,16 @@ const generateCommunity = (): CommunityExperience => {
     __typename: "CommunityExperience",
     applicant: sampleApp,
     id: faker.datatype.uuid(),
-    experienceSkills: [sampleExperience1],
+    skills: [sampleSkill1],
     details: faker.random.words(),
     title: faker.lorem.word(),
     organization: faker.company.companyName(),
     project: faker.lorem.word(),
     startDate: faker.date.recent().toString().slice(0, 15),
     endDate: faker.date.future().toString().slice(0, 15),
+    experienceSkillRecord: {
+      details: faker.random.words(),
+    },
   };
 };
 
@@ -127,7 +119,7 @@ const generateEducation = (): EducationExperience => {
     __typename: "EducationExperience",
     applicant: sampleApp,
     id: faker.datatype.uuid(),
-    experienceSkills: [sampleExperience1, sampleExperience2],
+    skills: [sampleSkill1, sampleSkill2],
     details: faker.random.words(),
     areaOfStudy: faker.music.genre(),
     type: faker.random.arrayElement<EducationType>([
@@ -151,6 +143,9 @@ const generateEducation = (): EducationExperience => {
     startDate: faker.date.recent().toString().slice(0, 15),
     endDate: faker.date.future().toString().slice(0, 15),
     thesisTitle: faker.random.words(),
+    experienceSkillRecord: {
+      details: faker.random.words(),
+    },
   };
 };
 
@@ -160,12 +155,15 @@ const generatePersonal = (): PersonalExperience => {
     __typename: "PersonalExperience",
     applicant: sampleApp,
     id: faker.datatype.uuid(),
-    experienceSkills: [sampleExperience1],
+    skills: [sampleSkill1],
     details: faker.lorem.sentence(),
     title: faker.name.jobTitle(),
     startDate: faker.date.recent().toString().slice(0, 15),
     endDate: faker.date.future().toString().slice(0, 15),
     description: faker.lorem.paragraph(),
+    experienceSkillRecord: {
+      details: faker.random.words(),
+    },
   };
 };
 
@@ -175,13 +173,16 @@ const generateWork = (): WorkExperience => {
     __typename: "WorkExperience",
     applicant: sampleApp,
     id: faker.datatype.uuid(),
-    experienceSkills: [sampleExperience1, sampleExperience2],
+    skills: [sampleSkill1, sampleSkill2],
     details: faker.lorem.sentence(),
     organization: faker.company.companyName(),
     role: faker.name.jobTitle(),
     division: faker.animal.bird(),
     startDate: faker.date.past().toString().slice(0, 15),
     endDate: faker.date.soon().toString().slice(0, 15),
+    experienceSkillRecord: {
+      details: faker.random.words(),
+    },
   };
 };
 

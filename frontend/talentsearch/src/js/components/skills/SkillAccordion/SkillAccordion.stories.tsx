@@ -1,9 +1,7 @@
 import React from "react";
 import { Meta, Story } from "@storybook/react";
 import { fakeSkills } from "@common/fakeData";
-import generator from "@common/fakeData/fakeExperienceSkills";
 import { generators as experienceGenerator } from "@common/fakeData/fakeExperiences";
-
 import SkillAccordion, { SkillAccordionProps } from "./SkillAccordion";
 
 const skill = fakeSkills()[0];
@@ -29,69 +27,40 @@ export const AccordionNoExperienceExample = TemplateSkillAccordion.bind({});
 AccordionAwardExample.args = {
   skill: {
     ...fakeSkills()[0],
-    experienceSkills: [
-      generator.generateExperienceSkill(
-        skill,
-        experienceGenerator.awardExperiences()[0],
-      ),
-    ],
+    experiences: experienceGenerator.awardExperiences(),
   },
 };
 
 AccordionCommunityExample.args = {
   skill: {
     ...fakeSkills()[0],
-    experienceSkills: [
-      generator.generateExperienceSkill(
-        skill,
-        experienceGenerator.communityExperiences()[0],
-      ),
-      generator.generateExperienceSkill(
-        skill,
-        experienceGenerator.communityExperiences()[0],
-      ),
-    ],
+    experiences: experienceGenerator.communityExperiences(2),
   },
 };
 
 AccordionEducationExample.args = {
   skill: {
     ...fakeSkills()[0],
-    experienceSkills: [
-      generator.generateExperienceSkill(
-        skill,
-        experienceGenerator.educationExperiences()[0],
-      ),
-    ],
+    experiences: experienceGenerator.educationExperiences(),
   },
 };
 
 AccordionPersonalExample.args = {
   skill: {
     ...fakeSkills()[0],
-    experienceSkills: [
-      generator.generateExperienceSkill(
-        skill,
-        experienceGenerator.personalExperiences()[0],
-      ),
-    ],
+    experiences: experienceGenerator.personalExperiences(),
   },
 };
 
 AccordionWorkExample.args = {
   skill: {
     ...fakeSkills()[0],
-    experienceSkills: [
-      generator.generateExperienceSkill(
-        skill,
-        experienceGenerator.workExperiences()[0],
-      ),
-    ],
+    experiences: experienceGenerator.workExperiences(),
   },
 };
 AccordionNoExperienceExample.args = {
   skill: {
     ...fakeSkills()[0],
-    experienceSkills: [],
+    experiences: [],
   },
 };

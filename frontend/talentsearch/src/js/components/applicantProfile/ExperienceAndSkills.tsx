@@ -185,10 +185,7 @@ const ExperienceAndSkills: React.FunctionComponent<
 
   const allSkills: Skill[] =
     experiences?.reduce((accumulator: Skill[], currentValue: Experience) => {
-      const skills =
-        currentValue.experienceSkills
-          ?.filter(notEmpty)
-          .map((experienceSkill) => experienceSkill.skill) || [];
+      const skills = currentValue.skills || [];
       return [...accumulator, ...skills];
     }, []) || [];
   const skillIds = allSkills.map(({ id }) => id);
