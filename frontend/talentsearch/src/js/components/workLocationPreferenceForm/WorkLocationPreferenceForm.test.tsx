@@ -3,7 +3,6 @@
  */
 import React from "react";
 import "@testing-library/jest-dom";
-import { IntlProvider, MessageFormatElement } from "react-intl";
 import { fakeUsers } from "@common/fakeData";
 import { WorkLocationPreferenceQuery, WorkRegion } from "../../api/generated";
 import { render, screen, fireEvent, act, waitFor } from "../../tests/testUtils";
@@ -12,20 +11,17 @@ import {
   WorkLocationPreferenceFormProps,
 } from "./WorkLocationPreferenceForm";
 
-const renderWithReactIntl = (
-  component: React.ReactNode,
-  locale?: "en" | "fr",
-  messages?: Record<string, string> | Record<string, MessageFormatElement[]>,
-) => {
-  return act(() => {
-    render(
-      <IntlProvider locale={locale || "en"} messages={messages}>
-        {component}
-      </IntlProvider>,
-    );
-  });
+const renderWorkLocationPreferenceForm = ({
+  initialData,
+  handleWorkLocationPreference,
+}: WorkLocationPreferenceFormProps) => {
+  return render(
+    <WorkLocationPreferenceForm
+      initialData={initialData}
+      handleWorkLocationPreference={handleWorkLocationPreference}
+    />,
+  );
 };
-
 const mockUser = fakeUsers()[0];
 
 const mockInitialData: WorkLocationPreferenceQuery | undefined = {
@@ -46,20 +42,6 @@ const mockInitialEmptyData: WorkLocationPreferenceQuery | undefined = {
     locationExemptions: "",
   },
 };
-
-const renderWorkLocationPreferenceForm = ({
-  initialData,
-  handleWorkLocationPreference,
-}: WorkLocationPreferenceFormProps) => (
-  <>
-    {renderWithReactIntl(
-      <WorkLocationPreferenceForm
-        initialData={initialData}
-        handleWorkLocationPreference={handleWorkLocationPreference}
-      />,
-    )}
-  </>
-);
 
 describe("Work Location Preference Form tests", () => {
   test("should render fields", () => {
