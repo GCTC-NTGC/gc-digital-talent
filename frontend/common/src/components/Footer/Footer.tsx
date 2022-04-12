@@ -91,7 +91,7 @@ export const Footer: React.FunctionComponent<{
           </nav>
           <p
             data-h2-font-size="b(caption)"
-            data-h2-font-color="b([dark]gray)"
+            data-h2-font-color="b(darkgray)"
             data-h2-margin="b(bottom, none) b(top, m)"
           >
             {intl.formatMessage(

@@ -13,7 +13,7 @@ export interface ButtonProps extends React.HTMLProps<HTMLButtonElement> {
   classNames?: string;
 }
 
-const colorMap: Record<
+export const colorMap: Record<
   Color,
   Record<"solid" | "outline" | "inline", Record<string, string>>
 > = {

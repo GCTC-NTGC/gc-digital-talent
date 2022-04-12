@@ -5,7 +5,7 @@ import { commonMessages } from "../../../messages";
 
 export interface InputLabelProps {
   inputId: string;
-  label: string;
+  label: string | React.ReactNode;
   required: boolean;
   contextIsVisible?: boolean;
   contextToggleHandler?: (contextIsActive: boolean) => void;

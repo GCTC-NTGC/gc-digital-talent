@@ -76,19 +76,21 @@ export const Checkbox: React.FunctionComponent<CheckboxProps> = ({
             data-h2-align-items="b(center)"
             style={{ width: "100%" }}
           >
-            <input
-              id={id}
-              {...register(name, rules)}
-              type="checkbox"
-              aria-invalid={error ? "true" : "false"}
-              {...rest}
-            />
-            <p
-              data-h2-margin="b(all, none) b(left, xs)"
-              data-h2-font-size="b(caption)"
-            >
-              {label}
-            </p>
+            <label>
+              <input
+                id={id}
+                {...register(name, rules)}
+                type="checkbox"
+                aria-invalid={error ? "true" : "false"}
+                {...rest}
+              />
+              <span
+                data-h2-margin="b(all, none) b(left, xs)"
+                data-h2-font-size="b(caption)"
+              >
+                {label}
+              </span>
+            </label>
           </div>
         </InputWrapper>
       )}

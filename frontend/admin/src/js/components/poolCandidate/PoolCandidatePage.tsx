@@ -1,6 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { Link, Button } from "@common/components";
+import { Link } from "@common/components";
 import { useAdminRoutes } from "../../adminRoutes";
 import { PoolCandidatesTableApi } from "./PoolCandidatesTable";
 
@@ -32,15 +32,18 @@ export const PoolCandidatePage: React.FC<{ poolId: string }> = ({ poolId }) => {
             data-h2-flex-item="b(1of1) m(2of5)"
             data-h2-text-align="m(right)"
           >
-            <Button color="white" mode="outline">
-              <Link href={paths.poolCandidateCreate(poolId)} title="">
-                {intl.formatMessage({
-                  defaultMessage: "Create Pool Candidate",
-                  description:
-                    "Heading displayed above the Create Pool Candidate form.",
-                })}
-              </Link>
-            </Button>
+            <Link
+              href={paths.poolCandidateCreate(poolId)}
+              color="white"
+              mode="outline"
+              type="button"
+            >
+              {intl.formatMessage({
+                defaultMessage: "Create Pool Candidate",
+                description:
+                  "Heading displayed above the Create Pool Candidate form.",
+              })}
+            </Link>
           </div>
         </div>
       </header>
