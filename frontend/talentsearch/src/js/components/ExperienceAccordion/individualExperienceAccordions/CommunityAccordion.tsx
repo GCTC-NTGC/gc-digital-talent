@@ -24,11 +24,8 @@ const CommunityAccordion: React.FunctionComponent<CommunityExperience> = ({
         // eslint-disable-next-line react/no-array-index-key
         <ul key={index}>
           <li>
-            <p>
-              {skill.name?.[locale]}
-              <br />
-              {skill.description?.[locale]}
-            </p>
+            <p data-h2-font-color="b(lightpurple)">{skill.name?.[locale]}</p>
+            <p>{skill.description?.[locale]}</p>
           </li>
         </ul>
       ))

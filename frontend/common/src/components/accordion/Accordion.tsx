@@ -75,11 +75,7 @@ export const Accordion: React.FC<AccordionProps> = ({
             <p data-h2-margin="b(top, xxs) b(bottom, none)">{subtitle}</p>
           </div>
           <div data-h2-flex-item="b(content)" data-h2-text-align="b(right)">
-            <p
-              data-h2-text-align="b(right)"
-              data-h2-font-size="b(normal)"
-              data-h2-font-color="b(lightpurple)"
-            >
+            <p data-h2-text-align="b(right)" data-h2-font-size="b(normal)">
               {context}
             </p>
           </div>

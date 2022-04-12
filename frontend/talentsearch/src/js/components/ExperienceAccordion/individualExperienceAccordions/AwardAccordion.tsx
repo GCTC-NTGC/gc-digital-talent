@@ -65,7 +65,7 @@ const AwardAccordion: React.FunctionComponent<AwardExperience> = ({
       Icon={BriefCaseIcon}
     >
       <div data-h2-padding="b(left, l)">
-        <p>
+        <p data-h2-font-color="b(lightpurple)">
           {intl.formatMessage(
             {
               defaultMessage: "{title} issued by {issuedBy}",
