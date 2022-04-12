@@ -4,10 +4,8 @@ import React from "react";
 import { Meta, Story } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 import { fakeClassifications, fakeUsers } from "@common/fakeData";
-import { BasicForm } from "@common/components/form";
+import pick from "lodash/pick";
 import GovInfoFormContainer, { GovernmentInfoForm } from "./GovernmentInfoForm";
-import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
-import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
 
 const fakeClass = fakeClassifications();
 const fakeUser = fakeUsers(1)[0];
@@ -29,7 +27,12 @@ const TemplateGovInfoForm: Story = (args) => (
 
 export const ADefaultArgs = TemplateGovInfoForm.bind({});
 ADefaultArgs.args = {
-  initialData: fakeUser,
+  initialData: pick(fakeUser, [
+    "id",
+    "isGovEmployee",
+    "interestedInLaterOrSecondment",
+    "currentClassification",
+  ]),
 };
 
 export const BStatusNo = TemplateGovInfoForm.bind({});
