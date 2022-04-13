@@ -8,11 +8,10 @@ import { IntlProvider, MessageFormatElement } from "react-intl";
 import {
   BilingualEvaluation,
   EvaluatedLanguageAbility,
+  GetLanguageInformationQuery,
+  UpdateUserAsUserInput,
 } from "../../api/generated";
-import {
-  LanguageInformationForm,
-  LanguageInformationFormProps,
-} from "./LanguageInformationForm";
+import { LanguageInformationForm } from "./LanguageInformationForm";
 
 const renderWithReactIntl = (
   component: React.ReactNode,
@@ -26,17 +25,20 @@ const renderWithReactIntl = (
   );
 };
 
-const mockUser = { me: { id: "testUserId" } };
+const mockUser = { id: "testUserId" };
 
 const renderLanguageInfoForm = ({
   initialData,
-  onUpdateLanguageInformation,
-}: LanguageInformationFormProps) => (
+  submitHandler,
+}: {
+  initialData: GetLanguageInformationQuery["me"];
+  submitHandler: (data: UpdateUserAsUserInput) => Promise<void>;
+}) => (
   <>
     {renderWithReactIntl(
       <LanguageInformationForm
         initialData={initialData}
-        onUpdateLanguageInformation={onUpdateLanguageInformation}
+        submitHandler={submitHandler}
       />,
     )}
   </>
@@ -47,7 +49,7 @@ describe("LanguageInformationForm tests", () => {
     const mockSave = jest.fn();
     renderLanguageInfoForm({
       initialData: mockUser,
-      onUpdateLanguageInformation: mockSave,
+      submitHandler: mockSave,
     });
 
     fireEvent.submit(screen.getByText(/save/i));
@@ -58,7 +60,7 @@ describe("LanguageInformationForm tests", () => {
     const mockSave = jest.fn();
     renderLanguageInfoForm({
       initialData: mockUser,
-      onUpdateLanguageInformation: mockSave,
+      submitHandler: mockSave,
     });
 
     const bilingualCheckbox = screen.getByLabelText(
@@ -73,7 +75,7 @@ describe("LanguageInformationForm tests", () => {
     const mockSave = jest.fn();
     renderLanguageInfoForm({
       initialData: mockUser,
-      onUpdateLanguageInformation: mockSave,
+      submitHandler: mockSave,
     });
 
     const bilingualEvaluationSection = screen.queryByText(
@@ -98,7 +100,7 @@ describe("LanguageInformationForm tests", () => {
     const mockSave = jest.fn();
     renderLanguageInfoForm({
       initialData: mockUser,
-      onUpdateLanguageInformation: mockSave,
+      submitHandler: mockSave,
     });
 
     const englishCheckbox = screen.getByLabelText("English positions");
@@ -110,33 +112,31 @@ describe("LanguageInformationForm tests", () => {
   test("Form submits data in correct shape", async () => {
     const mockSave = jest.fn();
     const user = {
-      me: {
-        id: "testUserId",
-        bilingualEvaluation: BilingualEvaluation.NotCompleted,
-        comprehensionLevel: EvaluatedLanguageAbility.A,
-        writtenLevel: EvaluatedLanguageAbility.P,
-        verbalLevel: EvaluatedLanguageAbility.E,
-        lookingForEnglish: false,
-        lookingForFrench: true,
-        lookingForBilingual: true,
-      },
+      id: "testUserId",
+      bilingualEvaluation: BilingualEvaluation.CompletedFrench,
+      comprehensionLevel: EvaluatedLanguageAbility.A,
+      writtenLevel: EvaluatedLanguageAbility.P,
+      verbalLevel: EvaluatedLanguageAbility.E,
+      lookingForEnglish: true,
+      lookingForFrench: false,
+      lookingForBilingual: true,
     };
 
     renderLanguageInfoForm({
       initialData: user,
-      onUpdateLanguageInformation: mockSave,
+      submitHandler: mockSave,
     });
 
     fireEvent.submit(screen.getByText(/save/i));
 
     await waitFor(() =>
-      expect(mockSave).toHaveBeenCalledWith("testUserId", {
-        bilingualEvaluation: BilingualEvaluation.NotCompleted,
+      expect(mockSave).toHaveBeenCalledWith({
+        bilingualEvaluation: BilingualEvaluation.CompletedFrench,
         comprehensionLevel: EvaluatedLanguageAbility.A,
         writtenLevel: EvaluatedLanguageAbility.P,
         verbalLevel: EvaluatedLanguageAbility.E,
-        lookingForEnglish: false,
-        lookingForFrench: true,
+        lookingForEnglish: true,
+        lookingForFrench: false,
         lookingForBilingual: true,
         estimatedLanguageAbility: null,
       }),
