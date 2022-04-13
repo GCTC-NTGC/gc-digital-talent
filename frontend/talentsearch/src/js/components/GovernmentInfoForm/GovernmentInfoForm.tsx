@@ -121,12 +121,16 @@ const dataToFormValues = (
   };
 };
 
-// inner component
-export const GovernmentInfoForm: React.FunctionComponent<{
+export interface GovernmentInfoFormProps {
+  initialData: GetAllClassificationsAndMeQuery["me"] | undefined;
   classifications: Classification[];
-  initialData: GetAllClassificationsAndMeQuery["me"];
   submitHandler: (data: UpdateUserAsUserInput) => Promise<void>;
-}> = ({ classifications, initialData, submitHandler }) => {
+}
+
+// inner component
+export const GovernmentInfoForm: React.FunctionComponent<
+  GovernmentInfoFormProps
+> = ({ classifications, initialData, submitHandler }) => {
   const intl = useIntl();
 
   const defaultValues = dataToFormValues(initialData);
