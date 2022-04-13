@@ -1,4 +1,3 @@
-LogMessage "blah"
 DirectorySlash off
 
 <IfModule mod_rewrite.c>

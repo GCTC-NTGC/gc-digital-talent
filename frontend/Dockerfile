@@ -25,7 +25,6 @@ COPY admin/package.json ./
 #RUN npm ci
 
 COPY admin/tsconfig.json .
-# with webpack, will be src directory
 COPY admin/src/ src/
 #RUN npm run h2-build
 
@@ -41,15 +40,15 @@ COPY talentsearch/package.json ./
 #RUN npm ci
 
 COPY talentsearch/tsconfig.json ./
-# with webpack, will be src directory
+# TODO: be more specific about when `npm run h2-build` needs.
 COPY talentsearch/src/ src/
 #RUN npm run h2-build
 
 COPY talentsearch/codegen.yml ./
 #RUN npm run codegen
 
-# with webpack, will be webpack config
 COPY talentsearch/webpack.*.js ./
+# TODO: be more specific about when `npm run dev` needs.
 COPY talentsearch/src/ src/
 #RUN npm run dev
 
@@ -70,4 +69,6 @@ RUN rm -rf ./*
 #TODO: can we copy these directly to the root hosting directory and not have issues  with loading /admin?
 COPY --from=builder /app/talentsearch/dist ./app/talentsearch
 COPY --from=builder /app/admin/dist ./app/admin
-COPY .htaccess ./
+COPY conf/root.htaccess ./
+COPY conf/talentsearch.htaccess /app/talentsearch/.htaccess
+COPY conf/admin.htaccess /app/admin/.htaccess
