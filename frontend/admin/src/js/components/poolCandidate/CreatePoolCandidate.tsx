@@ -236,7 +236,12 @@ export const CreatePoolCandidateForm: React.FunctionComponent<
   const intl = useIntl();
   const locale = getLocale(intl);
   const paths = useAdminRoutes();
-  const methods = useForm<FormValues>({ defaultValues: { pool: poolId } });
+  const methods = useForm<FormValues>({
+    defaultValues: {
+      pool: poolId,
+      status: PoolCandidateStatus.Available, // Status for new candidates should always default to Available.
+    },
+  });
   const { control, handleSubmit } = methods;
 
   const formValuesToSubmitData = (
