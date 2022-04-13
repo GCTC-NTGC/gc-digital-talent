@@ -17,7 +17,7 @@ export const EducationExperienceForm: React.FunctionComponent = () => {
   // to toggle whether End Date is required, the state of the Current Role checkbox must be monitored and have to adjust the form accordingly
   const isCurrent = useWatch({ name: "current-role", defaultValue: false });
   // ensuring end date isn't before the start date, using this as a minimum value
-  const watchStartDate = useWatch({ name: "start-date" });
+  const watchStartDate = useWatch({ name: "startDate" });
 
   return (
     <div>
@@ -41,13 +41,13 @@ export const EducationExperienceForm: React.FunctionComponent = () => {
       >
         <div data-h2-padding="l(right, l) m(right, l)">
           <Select
-            id="education-type"
+            id="educationType"
             label={intl.formatMessage({
               defaultMessage: "Type of Education",
               description:
                 "Label displayed on Education form for education type input",
             })}
-            name="education-type"
+            name="educationType"
             nullSelection={intl.formatMessage({
               defaultMessage: "Choose one...",
               description:
@@ -72,7 +72,7 @@ export const EducationExperienceForm: React.FunctionComponent = () => {
           />
 
           <Input
-            id="area-study"
+            id="areaOfStudy"
             label={intl.formatMessage({
               defaultMessage: "Area of study",
               description:
@@ -82,7 +82,7 @@ export const EducationExperienceForm: React.FunctionComponent = () => {
               defaultMessage: "Write area of study here...",
               description: "Placeholder for area of study input",
             })}
-            name="area-study"
+            name="areaOfStudy"
             type="text"
             rules={{ required: intl.formatMessage(errorMessages.required) }}
           />
@@ -104,12 +104,12 @@ export const EducationExperienceForm: React.FunctionComponent = () => {
           />
 
           <Select
-            id="education-status"
+            id="educationStatus"
             label={intl.formatMessage({
               defaultMessage: "Status",
               description: "Label displayed on Education form for status input",
             })}
-            name="education-status"
+            name="educationStatus"
             nullSelection={intl.formatMessage({
               defaultMessage: "Choose one...",
               description:
@@ -131,7 +131,7 @@ export const EducationExperienceForm: React.FunctionComponent = () => {
           />
 
           <Input
-            id="thesis"
+            id="thesisTitle"
             label={intl.formatMessage({
               defaultMessage: "Thesis Title",
               description:
@@ -141,7 +141,7 @@ export const EducationExperienceForm: React.FunctionComponent = () => {
               defaultMessage: "Write title here...",
               description: "Placeholder for thesis title input",
             })}
-            name="thesis"
+            name="thesisTitle"
             type="text"
           />
         </div>
@@ -161,13 +161,13 @@ export const EducationExperienceForm: React.FunctionComponent = () => {
           >
             <div data-h2-padding="l(right, l) m(right, l)">
               <Input
-                id="start-date"
+                id="startDate"
                 label={intl.formatMessage({
                   defaultMessage: "Start Date",
                   description:
                     "Label displayed on Education Experience form for start date input",
                 })}
-                name="start-date"
+                name="startDate"
                 type="date"
                 rules={{ required: intl.formatMessage(errorMessages.required) }}
               />
@@ -175,13 +175,13 @@ export const EducationExperienceForm: React.FunctionComponent = () => {
             <div>
               {!isCurrent && (
                 <Input
-                  id="end-date"
+                  id="endDate"
                   label={intl.formatMessage({
                     defaultMessage: "End Date",
                     description:
                       "Label displayed on Education Experience form for end date input",
                   })}
-                  name="end-date"
+                  name="endDate"
                   type="date"
                   rules={
                     isCurrent

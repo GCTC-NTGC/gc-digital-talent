@@ -1,0 +1,115 @@
+query getSkills {
+  skills {
+    id
+    key
+    name {
+      en
+      fr
+    }
+  }
+}
+
+query getMyExperiences {
+  me {
+    id
+    experiences {
+      id
+      details
+      skills {
+        id
+        key
+        name {
+          en
+          fr
+        }
+      }
+      ... on AwardExperience {
+        title
+        issuedBy
+        awardedDate
+        awardedTo
+        awardedScope
+      }
+      ... on CommunityExperience {
+        title
+        organization
+        project
+        startDate
+        endDate
+      }
+      ... on EducationExperience {
+        institution
+        areaOfStudy
+        thesisTitle
+        startDate
+        endDate
+        type
+        status
+      }
+      ... on PersonalExperience {
+        title
+        description
+        startDate
+        endDate
+      }
+      ... on WorkExperience {
+        role
+        organization
+        division
+        startDate
+        endDate
+      }
+    }
+  }
+}
+
+mutation CreateAwardExperience(
+  $id: ID!
+  $awardExperience: AwardExperienceInput!
+) {
+  createAwardExperience(userId: $id, awardExperience: $awardExperience) {
+    id
+  }
+}
+
+mutation CreateCommunityExperience(
+  $id: ID!
+  $communityExperience: CommunityExperienceInput!
+) {
+  createCommunityExperience(
+    userId: $id
+    communityExperience: $communityExperience
+  ) {
+    id
+  }
+}
+
+mutation CreateEducationExperience(
+  $id: ID!
+  $educationExperience: EducationExperienceInput!
+) {
+  createEducationExperience(
+    userId: $id
+    educationExperience: $educationExperience
+  ) {
+    id
+  }
+}
+
+mutation CreatePersonalExperience(
+  $id: ID!
+  $personalExperience: PersonalExperienceInput!
+) {
+  createPersonalExperience(
+    userId: $id
+    personalExperience: $personalExperience
+  ) {
+    id
+  }
+}
+
+mutation CreateWorkExperience($id: ID!, $workExperience: WorkExperienceInput!) {
+  createWorkExperience(userId: $id, workExperience: $workExperience) {
+    id
+  }
+}

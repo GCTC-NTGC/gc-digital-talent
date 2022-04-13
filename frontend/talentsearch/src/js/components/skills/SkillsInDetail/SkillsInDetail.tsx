@@ -16,17 +16,18 @@ type FormValues = {
 
 export interface SkillsInDetailProps {
   skills: Skill[];
-  handleDelete: () => void;
+  onDelete: (id: string) => void;
 }
 
 const SkillsInDetail: React.FunctionComponent<SkillsInDetailProps> = ({
   skills,
-  handleDelete,
+  onDelete,
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const watchSkills: FormValues["skills"] = useWatch({ name: "skills" });
   const MAX_WORDS = 5;
+
   return (
     <section data-h2-margin="b(bottom, l)">
       <h2 data-h2-font-size="b(h3)">
@@ -104,7 +105,9 @@ const SkillsInDetail: React.FunctionComponent<SkillsInDetailProps> = ({
                   data-h2-font-style="b(underline)"
                   data-h2-display="b(flex)"
                   data-h2-align-items="b(center)"
-                  onClick={handleDelete}
+                  onClick={() => {
+                    onDelete(id);
+                  }}
                 >
                   <TrashIcon style={{ width: "1rem" }} />
                   <span
@@ -146,7 +149,7 @@ const SkillsInDetail: React.FunctionComponent<SkillsInDetailProps> = ({
                 >
                   <div data-h2-align-self="b(flex-end)">
                     <WordCounter
-                      text={watchSkills ? watchSkills[id].details : ""}
+                      text={watchSkills[id] ? watchSkills[id].details : ""}
                       wordLimit={MAX_WORDS}
                     />
                   </div>
