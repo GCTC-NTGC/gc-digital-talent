@@ -49,7 +49,7 @@
     "@graphql-codegen/typescript-operations": "^2.3.5",
     "@graphql-codegen/typescript-urql": "^3.5.7",
     "@hydrogen-design-system/hydrogen.css": "^1.1.19",
-    "@testing-library/jest-dom": "^5.16.3",
+    "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^12.1.4",
     "@types/debounce": "^1.2.1",
     "@types/jest": "^27.4.1",
