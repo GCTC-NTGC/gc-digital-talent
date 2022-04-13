@@ -1,12 +1,22 @@
+import { OperationResult } from "urql";
+
 import {
   AwardedScope,
   AwardedTo,
   EducationStatus,
   EducationType,
+  Exact,
   Maybe,
   Scalars,
-  Skill,
 } from "@common/api/generated";
+
+import type {
+  CreateAwardExperienceMutation,
+  CreateCommunityExperienceMutation,
+  CreateEducationExperienceMutation,
+  CreatePersonalExperienceMutation,
+  CreateWorkExperienceMutation,
+} from "../../api/generated";
 
 export type ExperienceType =
   | "award"
@@ -93,3 +103,17 @@ export type FormValues<T> = T & {
   details: string;
   skills: Maybe<{ [id: string]: { details: string } }>;
 };
+
+export type ExperienceMutations = CreateAwardExperienceMutation &
+  CreateCommunityExperienceMutation &
+  CreateEducationExperienceMutation &
+  CreatePersonalExperienceMutation &
+  CreateWorkExperienceMutation;
+
+export type GenericExperienceMutationResponse<T> = OperationResult<
+  T,
+  Record<string, string | ExperienceDetailsSubmissionData>
+>;
+
+export type ExperienceMutationResponse =
+  GenericExperienceMutationResponse<ExperienceMutations>;

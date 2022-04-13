@@ -1,16 +1,12 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { toast } from "react-toastify";
-import { useForm } from "react-hook-form";
 import type { SubmitHandler } from "react-hook-form";
-import { AwardedScope, AwardedTo, Exact, Scalars } from "@common/api/generated";
 import { BasicForm, TextArea } from "@common/components/form";
-import { commonMessages, errorMessages } from "@common/messages";
+import { commonMessages } from "@common/messages";
 import { getLocale } from "@common/helpers/localize";
 import { navigate } from "@common/helpers/router";
 
-import { stringify } from "querystring";
-import { OperationResult } from "urql";
 import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
 import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
 
@@ -22,18 +18,24 @@ import WorkExperienceForm from "../workExperienceForm/WorkExperienceForm";
 
 import ExperienceSkills from "./ExperienceSkills";
 
+import type { Skill } from "../../api/generated";
 import {
-  CreateAwardExperienceMutation,
-  Skill,
   useCreateAwardExperienceMutation,
+  useCreateCommunityExperienceMutation,
+  useCreateEducationExperienceMutation,
+  useCreatePersonalExperienceMutation,
+  useCreateWorkExperienceMutation,
   useGetMeQuery,
   useGetSkillsQuery,
 } from "../../api/generated";
-import {
+import applicantProfileRoutes from "../../applicantProfileRoutes";
+
+import type {
   ExperienceType,
   AllFormValues,
   FormValues,
   ExperienceDetailsSubmissionData,
+  ExperienceMutationResponse,
 } from "./types";
 
 export interface ExperienceFormProps {
@@ -221,14 +223,52 @@ export const ExperienceForm: React.FunctionComponent<ExperienceFormProps> = ({
   );
 };
 
-const ExperienceFormContainer: React.FunctionComponent = () => {
+export interface ExperienceFormContainerProps {
+  experienceType: ExperienceType; // TO DO: To be passed from router context
+}
+
+const ExperienceFormContainer: React.FunctionComponent<
+  ExperienceFormContainerProps
+> = ({ experienceType }) => {
   const intl = useIntl();
-  const experienceType = "award"; // TO DO: Determine from route?
+  const locale = getLocale(intl);
+  const paths = applicantProfileRoutes(locale);
 
   const [meResults] = useGetMeQuery();
   const { data: meData, fetching: fetchingMe, error: meError } = meResults;
 
   const [, executeAwardMutation] = useCreateAwardExperienceMutation();
+  const [, executeCommunityMutation] = useCreateCommunityExperienceMutation();
+  const [, executeEducationMutation] = useCreateEducationExperienceMutation();
+  const [, executePersonalMutation] = useCreatePersonalExperienceMutation();
+  const [, executeWorkMutation] = useCreateWorkExperienceMutation();
+
+  const handleSuccess = () => {
+    navigate(paths.home());
+    toast.success(
+      intl.formatMessage({
+        defaultMessage: "Successfully added experience!",
+        description:
+          "Success message displayed after adding experience to profile",
+      }),
+    );
+  };
+
+  const handleError = () => {
+    toast.error(
+      intl.formatMessage({
+        defaultMessage: "Error: adding experience failed",
+        description:
+          "Message displayed to user after experience fails to be created.",
+      }),
+    );
+  };
+
+  const handleMutationResponse = (res: ExperienceMutationResponse) => {
+    if (res.data) {
+      handleSuccess();
+    }
+  };
 
   const handleUpdateExperience = (values: ExperienceDetailsSubmissionData) => {
     if (meData?.me) {
@@ -236,21 +276,41 @@ const ExperienceFormContainer: React.FunctionComponent = () => {
         executeAwardMutation({
           id: meData.me.id,
           awardExperience: values,
-        }).then(
-          (
-            res: OperationResult<
-              CreateAwardExperienceMutation,
-              Exact<{
-                id: string;
-                awardExperience: ExperienceDetailsSubmissionData;
-              }>
-            >,
-          ) => {
-            if (res.data?.createAwardExperience) {
-              console.log(res.data.createAwardExperience);
-            }
-          },
-        );
+        })
+          .then(handleMutationResponse)
+          .catch(handleError);
+      }
+      if (experienceType === "community") {
+        executeCommunityMutation({
+          id: meData.me.id,
+          communityExperience: values,
+        })
+          .then(handleMutationResponse)
+          .catch(handleError);
+      }
+      if (experienceType === "education") {
+        executeEducationMutation({
+          id: meData.me.id,
+          educationExperience: values,
+        })
+          .then(handleMutationResponse)
+          .catch(handleError);
+      }
+      if (experienceType === "personal") {
+        executePersonalMutation({
+          id: meData.me.id,
+          personalExperience: values,
+        })
+          .then(handleMutationResponse)
+          .catch(handleError);
+      }
+      if (experienceType === "work") {
+        executeWorkMutation({
+          id: meData.me.id,
+          workExperience: values,
+        })
+          .then(handleMutationResponse)
+          .catch(handleError);
       }
     }
   };
