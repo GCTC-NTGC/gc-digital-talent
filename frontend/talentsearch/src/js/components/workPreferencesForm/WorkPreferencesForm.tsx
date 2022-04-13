@@ -4,14 +4,20 @@ import { errorMessages } from "@common/messages";
 import { BasicForm, Checklist, RadioGroup } from "@common/components/form";
 import { getOperationalRequirement } from "@common/constants/localizedConstants";
 import { enumToOptions } from "@common/helpers/formUtils";
-import { OperationalRequirement } from "../../api/generated";
+import { UpdateUserAsUserInput, User } from "../../api/generated";
 import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
 import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
 
-export type FormValues = {
-  requiredWorkPreferences: string;
-  optionalWorkPreferences: string[];
-};
+export type FormValues = Pick<
+  UpdateUserAsUserInput,
+  "wouldAcceptTemporary" | "acceptedOperationalRequirements"
+>;
+
+export type WorkPreferencesFormHandler = (
+  id: string,
+  data: UpdateUserAsUserInput,
+) => Promise<updateWorkPreferencesMutation["updateUserAsUser"]>;
+
 
 export const WorkPreferencesForm: React.FunctionComponent<{
   handleSubmit: (data: FormValues) => Promise<void>;
