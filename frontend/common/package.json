@@ -26,9 +26,6 @@
     "check-intl-indigenousapprenticeship": "node ./src/tooling/checkIntl.js --en ../indigenousapprenticeship/src/js/lang/en.json --fr ../indigenousapprenticeship/src/js/lang/fr.json --rm-orphaned --output-untranslated ../indigenousapprenticeship/src/js/lang/untranslated.json --whitelist ../indigenousapprenticeship/src/js/lang/whitelist.json",
     "check-intl-indigenousapprenticeship-merge": "node ./src/tooling/checkIntl.js --en ../indigenousapprenticeship/src/js/lang/en.json --fr ../indigenousapprenticeship/src/js/lang/fr.json --rm-orphaned --output-untranslated ../indigenousapprenticeship/src/js/lang/untranslated.json --whitelist ../indigenousapprenticeship/src/js/lang/whitelist.json --merge-fr ../indigenousapprenticeship/src/js/lang/newTranslations.json",
     "check-integrity": "node ./src/tooling/checkIntegrity.js --lock-file ../package-lock.json --allow common admin talentsearch indigenousapprenticeship"
-
-
-
   },
   "repository": {
     "type": "git",
