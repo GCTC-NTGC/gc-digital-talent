@@ -4,7 +4,6 @@
 import "@testing-library/jest-dom";
 import { fireEvent, screen, waitFor } from "@testing-library/react";
 import React from "react";
-import { IntlProvider, MessageFormatElement } from "react-intl";
 import {
   BilingualEvaluation,
   EvaluatedLanguageAbility,
@@ -13,18 +12,6 @@ import {
 } from "../../api/generated";
 import { LanguageInformationForm } from "./LanguageInformationForm";
 import { render } from "../../tests/testUtils";
-
-const renderWithReactIntl = (
-  component: React.ReactNode,
-  locale?: "en" | "fr",
-  messages?: Record<string, string> | Record<string, MessageFormatElement[]>,
-) => {
-  return render(
-    <IntlProvider locale={locale || "en"} messages={messages}>
-      {component}
-    </IntlProvider>,
-  );
-};
 
 const mockUser = { id: "testUserId" };
 
