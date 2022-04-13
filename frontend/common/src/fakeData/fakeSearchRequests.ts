@@ -1,4 +1,4 @@
-import faker from "faker";
+import { faker } from "@faker-js/faker";
 import {
   Department,
   PoolCandidateFilter,
@@ -18,12 +18,15 @@ const generateSearchRequest = (
     id: faker.datatype.uuid(),
     fullName: `${faker.name.firstName()} ${faker.name.lastName()}`,
     email: faker.internet.email(),
-    department: faker.random.arrayElement(departments),
+    department: faker.random.arrayElement<Department>(departments),
     jobTitle: faker.name.jobTitle(),
     additionalComments: faker.lorem.sentences(5),
-    poolCandidateFilter: faker.random.arrayElement(poolCandidateFilters),
+    poolCandidateFilter:
+      faker.random.arrayElement<PoolCandidateFilter>(poolCandidateFilters),
     requestedDate: faker.date.between("2000-01-01", "2020-12-31").toISOString(),
-    status: faker.random.arrayElement(Object.values(PoolCandidateSearchStatus)),
+    status: faker.random.arrayElement<PoolCandidateSearchStatus>(
+      Object.values(PoolCandidateSearchStatus),
+    ),
     adminNotes: faker.lorem.sentences(5),
   };
 };
