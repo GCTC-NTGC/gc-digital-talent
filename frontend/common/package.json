@@ -71,7 +71,7 @@
     "@graphql-codegen/typescript-urql": "^3.5.7",
     "@hydrogen-design-system/hydrogen.css": "^1.1.19",
     "@testing-library/jest-dom": "^5.16.3",
-    "@testing-library/react": "^12.1.4",
+    "@testing-library/react": "^12.1.5",
     "@testing-library/react-hooks": "^7.0.2",
     "@types/faker": "^5.5.9",
     "@types/jest": "^27.4.1",
