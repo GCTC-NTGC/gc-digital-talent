@@ -1,13 +1,14 @@
 <?php
 
 use App\Models\User;
-use Laravel\Lumen\Testing\DatabaseMigrations;
-use Nuwave\Lighthouse\Testing\MakesGraphQLRequestsLumen;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
+use Tests\TestCase;
 
 class UserTest extends TestCase
 {
     use DatabaseMigrations;
-    use MakesGraphQLRequestsLumen;
+    use MakesGraphQLRequests;
 
     public function testCreateUserDefaultRoles()
     {

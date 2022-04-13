@@ -87,6 +87,13 @@ jobs:
           npm run intl-compile
           npm run production
 
+      - name: "Build: indigenousapprenticeship"
+        working-directory: frontend/indigenousapprenticeship
+        run: |
+          npm run codegen
+          npm run intl-compile
+          npm run production
+
       # Allows SSH access into CI environment for up to 1h.
       # Use `touch ~/continue` with session to end each one.
       # Only enable when trying to troubleshoot.

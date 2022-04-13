@@ -19,19 +19,11 @@ const reactIntlTransformRule = {
   exclude: /node_modules/,
 };
 
-const isMerged = (process.env.MERGE_STORYBOOKS === 'true');
-
 module.exports = {
-  "staticDirs": [
-    { from: '../src', to: '/admin' },
-    { from: '../../talentsearch/src', to: '/talent' },
-    { from: '../../indigenousapprenticeship/src', to: '/indigenous-it-apprentice' }
-  ],
+  "staticDirs": [ { from: '../src', to: '/indigenous-it-apprentice' } ],
   "stories": [
-    `${ isMerged ? '../../admin/'        : '../' }**/*.stories.@(js|jsx|ts|tsx|mdx)`,
-    `${ isMerged ? '../../talentsearch/' : '../' }**/*.stories.@(js|jsx|ts|tsx|mdx)`,
-    `${ isMerged ? '../../common/'       : '../' }**/*.stories.@(js|jsx|ts|tsx|mdx)`,
-    `${ isMerged ? '../../indigenousapprenticeship/' : '../' }**/*.stories.@(js|jsx|ts|tsx|mdx)`,
+    "../src/js/**/*.stories.mdx",
+    "../src/js/**/*.stories.@(js|jsx|ts|tsx)"
   ],
   "addons": [
     "@storybook/addon-links",
