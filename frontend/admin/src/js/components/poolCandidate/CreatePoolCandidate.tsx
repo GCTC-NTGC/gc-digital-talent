@@ -177,10 +177,6 @@ const UserFormSection: React.FunctionComponent<{
           type="tel"
           name="telephone"
           rules={{
-            required:
-              userMode === "new"
-                ? intl.formatMessage(errorMessages.required)
-                : undefined,
             pattern: {
               value: phoneNumberRegex,
               message: intl.formatMessage(errorMessages.telephone),
@@ -416,9 +412,6 @@ export const CreatePoolCandidateForm: React.FunctionComponent<
               })}
               type="text"
               name="cmoIdentifier"
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
             />
             <Input
               id="expiryDate"
@@ -520,9 +513,6 @@ export const CreatePoolCandidateForm: React.FunctionComponent<
                 value,
                 label: intl.formatMessage(getWorkRegion(value)),
               }))}
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
             />
             <MultiSelect
               id="acceptedOperationalRequirements"
@@ -544,9 +534,6 @@ export const CreatePoolCandidateForm: React.FunctionComponent<
                   label: intl.formatMessage(getOperationalRequirement(value)),
                 }),
               )}
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
             />
             <MultiSelect
               id="expectedSalary"
@@ -565,9 +552,6 @@ export const CreatePoolCandidateForm: React.FunctionComponent<
                 value,
                 label: getSalaryRange(value),
               }))}
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
             />
             <MultiSelect
               id="expectedClassifications"
@@ -583,9 +567,6 @@ export const CreatePoolCandidateForm: React.FunctionComponent<
               })}
               name="expectedClassifications"
               options={classificationOptions}
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
             />
             <MultiSelect
               id="cmoAssets"
@@ -601,9 +582,6 @@ export const CreatePoolCandidateForm: React.FunctionComponent<
               })}
               name="cmoAssets"
               options={cmoAssetOptions}
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
             />
             <Select
               id="status"

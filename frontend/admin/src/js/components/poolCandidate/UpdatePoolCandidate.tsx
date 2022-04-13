@@ -262,9 +262,6 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<
               })}
               type="text"
               name="cmoIdentifier"
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
             />
             <Input
               id="expiryDate"
@@ -361,9 +358,6 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<
                 value,
                 label: intl.formatMessage(getWorkRegion(value)),
               }))}
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
             />
             <MultiSelect
               id="acceptedOperationalRequirements"
@@ -403,9 +397,6 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<
                 value,
                 label: getSalaryRange(value),
               }))}
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
             />
             <MultiSelect
               id="expectedClassifications"
@@ -421,9 +412,6 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<
               })}
               name="expectedClassifications"
               options={classificationOptions}
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
             />
             <MultiSelect
               id="cmoAssets"
@@ -439,9 +427,6 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<
               })}
               name="cmoAssets"
               options={cmoAssetOptions}
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
             />
             <Select
               id="status"
