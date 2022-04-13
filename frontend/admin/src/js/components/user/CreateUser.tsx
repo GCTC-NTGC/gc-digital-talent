@@ -115,7 +115,6 @@ export const CreateUserForm: React.FunctionComponent<CreateUserFormProps> = ({
               type="tel"
               name="telephone"
               rules={{
-                required: intl.formatMessage(errorMessages.required),
                 pattern: {
                   value: phoneNumberRegex,
                   message: intl.formatMessage(errorMessages.telephone),
