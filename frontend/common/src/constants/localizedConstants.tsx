@@ -398,30 +398,30 @@ export const getEducationType = (
 
 export const OperationalRequirementCandidateDescription = defineMessages({
   [OperationalRequirement.Overtime]: {
-    defaultMessage: "...requires me to <bold>work overtime.</bold>",
+    defaultMessage: "...requires me to <boldText>work overtime.</boldText>",
     description: "The operational requirement described as overtime.",
   },
   [OperationalRequirement.ShiftWork]: {
-    defaultMessage: "...has <bold>shift-work</bold>",
+    defaultMessage: "...has <boldText>shift-work</boldText>",
     description: "The operational requirement described as shift work.",
   },
   [OperationalRequirement.OnCall]: {
-    defaultMessage: "...has <bold>24/7 on call-shifts</bold>",
+    defaultMessage: "...has <boldText>24/7 on call-shifts</boldText>",
     description: "The operational requirement described as 24/7 on-call.",
   },
   [OperationalRequirement.Travel]: {
-    defaultMessage: "...requires me to <bold>travel</bold>",
+    defaultMessage: "...requires me to <boldText>travel</boldText>",
     description: "The operational requirement described as travel as required.",
   },
   [OperationalRequirement.TransportEquipment]: {
     defaultMessage:
-      "...requires me to <bold>transport, lift and set down equipment weighing up to 20kg</bold>",
+      "...requires me to <boldText>transport, lift and set down equipment weighing up to 20kg</boldText>",
     description:
       "The operational requirement described as transport equipment up to 20kg.",
   },
   [OperationalRequirement.DriversLicense]: {
     defaultMessage:
-      "...requires me to <bold>have a valid driver's license</bold> or personal mobility to the degree normally associated with the possession of a valid driver's license",
+      "...requires me to <boldText>have a valid driver's license</boldText> or personal mobility to the degree normally associated with the possession of a valid driver's license",
     description: "The operational requirement described as driver's license.",
   },
 });
