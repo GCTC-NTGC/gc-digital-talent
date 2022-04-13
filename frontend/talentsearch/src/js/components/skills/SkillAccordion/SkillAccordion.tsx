@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import * as React from "react";
-import { getLocale, Locales } from "@common/helpers/localize";
+import { getLocale } from "@common/helpers/localize";
 import Accordion from "@common/components/accordion";
-import { IntlShape, useIntl } from "react-intl";
+import { useIntl } from "react-intl";
 import {
   getAwardedScope,
   getAwardedTo,
@@ -10,7 +10,7 @@ import {
   getEducationType,
 } from "@common/constants/localizedConstants";
 
-import { Scalars } from "@common/api/generated";
+import { getDateRange, formattedDate } from "@common/helpers/dateUtils";
 import {
   Skill,
   PersonalExperience,
@@ -18,7 +18,6 @@ import {
   AwardExperience,
   CommunityExperience,
   EducationExperience,
-  Maybe,
 } from "../../../api/generated";
 import {
   isAwardExperience,
@@ -30,47 +29,6 @@ import {
 
 export interface SkillAccordionProps {
   skill: Skill;
-}
-
-function formatDate(date: Scalars["Date"], locale: Locales) {
-  const formatter = new Intl.DateTimeFormat(locale, {
-    year: "numeric",
-    month: "short",
-  });
-  return formatter.format(new Date(date));
-}
-
-function getDateRange({
-  endDate,
-  startDate,
-  intl,
-  locale,
-}: {
-  endDate: Maybe<Scalars["Date"]>;
-  startDate: Maybe<Scalars["Date"]>;
-  intl: IntlShape;
-  locale: Locales;
-}): React.ReactNode {
-  if (!startDate) return null;
-  const d1 = formatDate(startDate, locale);
-  if (!endDate)
-    return intl.formatMessage(
-      {
-        defaultMessage: "Since: {d1}",
-        description: "Since",
-      },
-      { d1 },
-    );
-  const d2 = formatDate(endDate, locale);
-  return endDate
-    ? `${d1} - ${d2}`
-    : intl.formatMessage(
-        {
-          defaultMessage: "Since: {d1}",
-          description: "Since",
-        },
-        { d1 },
-      );
 }
 
 const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
@@ -180,7 +138,7 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
             ? intl.formatMessage(getAwardedScope(awardedScope))
             : ""}
         </p>
-        <p> {awardedDate && formatDate(awardedDate, locale)}</p>
+        <p> {awardedDate && formattedDate(awardedDate, locale)}</p>
         <p>
           {intl.formatMessage(
             {

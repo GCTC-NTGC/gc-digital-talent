@@ -91,7 +91,7 @@ const generateAward = (): AwardExperience => {
       AwardedScope.Provincial,
       AwardedScope.SubOrganizational,
     ]),
-    awardedDate: formattedDate(faker.date.past().toString().slice(0, 15)),
+    awardedDate: faker.date.past().toString().slice(0, 15),
     issuedBy: faker.company.companyName(),
     experienceSkillRecord: {
       details: faker.random.words(),

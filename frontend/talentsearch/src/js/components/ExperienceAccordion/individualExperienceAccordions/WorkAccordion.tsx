@@ -3,9 +3,19 @@ import { Accordion } from "@common/components/accordion/Accordion";
 import BriefCaseIcon from "@heroicons/react/solid/BriefcaseIcon";
 import { Button } from "@common/components";
 import { useIntl } from "react-intl";
-import { getLocale } from "@common/helpers/localize";
-import { WorkExperience } from "../../../api/generated";
+import { getLocale, Locales } from "@common/helpers/localize";
+import { Scalars, WorkExperience } from "../../../api/generated";
 
+function formatDate(date: Scalars["Date"], locale: Locales) {
+  const formatter = new Intl.DateTimeFormat(locale, {
+    year: "numeric",
+    month: "short",
+  });
+  const formattedDate = formatter.format(new Date(date));
+  const formattedMonth = formattedDate.substring(0, 4).toUpperCase();
+  const formattedYear = formattedDate.substring(4, 10);
+  return `${formattedMonth}  ${formattedYear}`;
+}
 const WorkAccordion: React.FunctionComponent<WorkExperience> = ({
   role,
   organization,
