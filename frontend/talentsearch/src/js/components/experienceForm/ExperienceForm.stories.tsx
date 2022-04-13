@@ -4,7 +4,7 @@ import { action } from "@storybook/addon-actions";
 import type { Skill } from "@common/api/generated";
 import { fakeSkills, fakeSkillFamilies } from "@common/fakeData";
 import { ExperienceForm } from "./ExperienceForm";
-import type { ExperienceType } from "./ExperienceForm";
+import type { ExperienceType } from "./types";
 
 const skillData = fakeSkills(15, fakeSkillFamilies(4));
 

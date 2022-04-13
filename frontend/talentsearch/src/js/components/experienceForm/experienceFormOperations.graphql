@@ -1,3 +1,9 @@
+query getUserId {
+  me {
+    id
+  }
+}
+
 query getSkills {
   skills {
     id

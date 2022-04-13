@@ -26,6 +26,7 @@ import {
   CreateAwardExperienceMutation,
   Skill,
   useCreateAwardExperienceMutation,
+  useGetMeQuery,
   useGetSkillsQuery,
 } from "../../api/generated";
 import {
@@ -224,40 +225,48 @@ const ExperienceFormContainer: React.FunctionComponent = () => {
   const intl = useIntl();
   const experienceType = "award"; // TO DO: Determine from route?
 
+  const [meResults] = useGetMeQuery();
+  const { data: meData, fetching: fetchingMe, error: meError } = meResults;
+
   const [, executeAwardMutation] = useCreateAwardExperienceMutation();
 
   const handleUpdateExperience = (values: ExperienceDetailsSubmissionData) => {
-    if (experienceType === "award") {
-      executeAwardMutation({ id: "not-real", awardExperience: values }).then(
-        (
-          res: OperationResult<
-            CreateAwardExperienceMutation,
-            Exact<{
-              id: string;
-              awardExperience: ExperienceDetailsSubmissionData;
-            }>
-          >,
-        ) => {
-          if (res.data?.createAwardExperience) {
-            console.log(res.data.createAwardExperience);
-          }
-        },
-      );
+    if (meData?.me) {
+      if (experienceType === "award") {
+        executeAwardMutation({
+          id: meData.me.id,
+          awardExperience: values,
+        }).then(
+          (
+            res: OperationResult<
+              CreateAwardExperienceMutation,
+              Exact<{
+                id: string;
+                awardExperience: ExperienceDetailsSubmissionData;
+              }>
+            >,
+          ) => {
+            if (res.data?.createAwardExperience) {
+              console.log(res.data.createAwardExperience);
+            }
+          },
+        );
+      }
     }
   };
 
   const [skillResults] = useGetSkillsQuery();
   const {
     data: skillsData,
-    fetching: skillFetching,
+    fetching: fetchingSkills,
     error: skillError,
   } = skillResults;
 
-  if (skillFetching) {
+  if (fetchingSkills || fetchingMe) {
     return <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>;
   }
 
-  if (skillError || !skillsData) {
+  if (skillError || !skillsData || meError || !meData) {
     return (
       <p>
         {intl.formatMessage(commonMessages.loadingError)}
