@@ -1,5 +1,5 @@
 /* eslint-disable react/destructuring-assignment */
-// needed for line 28 to operate as intended for Storybook
+// needed for line 20 to operate as intended for Storybook
 import React from "react";
 import { Meta, Story } from "@storybook/react";
 import { action } from "@storybook/addon-actions";

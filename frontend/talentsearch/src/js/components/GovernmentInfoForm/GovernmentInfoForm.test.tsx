@@ -1,23 +1,17 @@
 /**
  * @jest-environment jsdom
  */
-import { BasicForm } from "@common/components/form";
 import "@testing-library/jest-dom";
 import React from "react";
 import { fakeClassifications, fakeUsers } from "@common/fakeData";
-import { Classification } from "@common/api/generated";
-import { UpdateUserAsUserInput, User } from "../../api/generated";
 import { render, screen, fireEvent } from "../../tests/testUtils";
-import GovInfoFormContainer, {
+import {
   GovernmentInfoForm,
   GovernmentInfoFormProps,
 } from "./GovernmentInfoForm";
-import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
 
 const mockClassifications = fakeClassifications();
 const mockUser = fakeUsers()[0];
-const mockSave = jest.fn(() => Promise.resolve(mockUser));
-const mockFunction = jest.fn();
 
 const renderGovInfoForm = ({
   initialData,
@@ -34,7 +28,7 @@ const renderGovInfoForm = ({
 };
 
 describe("Government Info Form tests", () => {
-  test("Can't submit if no fields entered.", async () => {
+  test("Form function", async () => {
     renderGovInfoForm({
       initialData: mockUser,
       classifications: mockClassifications,
@@ -59,21 +53,3 @@ describe("Government Info Form tests", () => {
     expect(screen.getByText("Current Classification Group")).toBeTruthy();
   });
 });
-
-// used Eric's AboutMe component to add further stuff below this point
-// aboutMeForm/AboutMeForm.test.tsx
-
-// it("Should submit successfully with required fields", async () => {
-
-//   render(
-//     <GovernmentInfoForm
-//       initialData={mockUser}
-//       classifications={mockClassifications}
-//       submitHandler={() => updateFunction}
-//     />,
-
-//   fireEvent.submit(screen.getByRole("button", { name: /save/i }));
-//   await waitFor(() => {
-//     expect(mockSave).toHaveBeenCalled();
-//   });
-// });
