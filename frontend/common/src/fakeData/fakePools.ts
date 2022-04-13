@@ -1,4 +1,4 @@
-import faker from "faker";
+import { faker } from "@faker-js/faker";
 import pick from "lodash/pick";
 import {
   Classification,
@@ -17,7 +17,7 @@ const generatePool = (
 ): Pool => {
   faker.setLocale("en");
 
-  const ownerUser: User = faker.random.arrayElement(users);
+  const ownerUser: User = faker.random.arrayElement<User>(users);
   return {
     id: faker.datatype.uuid(),
     owner: pick(ownerUser, [
@@ -34,7 +34,8 @@ const generatePool = (
       en: `EN ${faker.lorem.sentence()}`,
       fr: `FR ${faker.lorem.sentence()}`,
     },
-    classifications: faker.random.arrayElements(classifications),
+    classifications:
+      faker.random.arrayElements<Classification>(classifications),
   };
 };
 

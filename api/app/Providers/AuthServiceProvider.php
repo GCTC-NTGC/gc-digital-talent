@@ -8,6 +8,11 @@ use App\Models\Department;
 use App\Models\PoolCandidate;
 use App\Models\Pool;
 use App\Models\User;
+use App\Models\WorkExperience;
+use App\Models\PersonalExperience;
+use App\Models\CommunityExperience;
+use App\Models\EducationExperience;
+use App\Models\AwardExperience;
 
 use App\Policies\ClassificationPolicy;
 use App\Policies\CmoAssetPolicy;
@@ -15,6 +20,7 @@ use App\Policies\DepartmentPolicy;
 use App\Policies\PoolCandidatePolicy;
 use App\Policies\PoolPolicy;
 use App\Policies\UserPolicy;
+use App\Policies\ExperiencePolicy;
 use App\Services\Contracts\BearerTokenServiceInterface;
 use Exception;
 use Illuminate\Support\Facades\Gate;
@@ -52,6 +58,11 @@ class AuthServiceProvider extends ServiceProvider
         Gate::policy(PoolCandidate::class, PoolCandidatePolicy::class);
         Gate::policy(Pool::class, PoolPolicy::class);
         Gate::policy(User::class, UserPolicy::class);
+        Gate::policy(WorkExperience::class, ExperiencePolicy::class);
+        Gate::policy(CommunityExperience::class, ExperiencePolicy::class);
+        Gate::policy(PersonalExperience::class, ExperiencePolicy::class);
+        Gate::policy(EducationExperience::class, ExperiencePolicy::class);
+        Gate::policy(AwardExperience::class, ExperiencePolicy::class);
 
         $this->app['auth']->viaRequest('api', function ($request) use ($tokenService) {
 

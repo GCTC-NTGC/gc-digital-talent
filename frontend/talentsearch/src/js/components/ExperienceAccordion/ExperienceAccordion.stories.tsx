@@ -26,29 +26,28 @@ export const AccordionWorkExample = AccordionTemplate.bind({});
 export const AccordionUnknownExample = AccordionTemplate.bind({});
 
 AccordionAwardExample.args = {
-  experience: generators.generateAward(),
+  experience: generators.awardExperiences()[0],
 };
 
 AccordionCommunityExample.args = {
-  experience: generators.generateCommunity(),
+  experience: generators.communityExperiences()[0],
 };
 
 AccordionEducationExample.args = {
-  experience: generators.generateEducation(),
+  experience: generators.educationExperiences()[0],
 };
 
 AccordionPersonalExample.args = {
-  experience: generators.generatePersonal(),
+  experience: generators.personalExperiences()[0],
 };
 
 AccordionWorkExample.args = {
-  experience: generators.generateWork(),
+  experience: generators.workExperiences()[0],
 };
 
 AccordionUnknownExample.args = {
   experience: {
     applicant: sampleApp,
     id: theId,
-    experienceSkills: [],
   },
 };

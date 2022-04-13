@@ -1,6 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { Link, Button } from "@common/components";
+import { Link } from "@common/components";
 import { useAdminRoutes } from "../../adminRoutes";
 import { UserTableApi } from "./UserTable";
 
@@ -32,14 +32,17 @@ export const UserPage: React.FC = () => {
             data-h2-flex-item="b(1of1) m(2of5)"
             data-h2-text-align="m(right)"
           >
-            <Button color="white" mode="outline">
-              <Link href={paths.userCreate()} title="">
-                {intl.formatMessage({
-                  defaultMessage: "Create User",
-                  description: "Heading displayed above the Create User form.",
-                })}
-              </Link>
-            </Button>
+            <Link
+              href={paths.userCreate()}
+              color="white"
+              mode="outline"
+              type="button"
+            >
+              {intl.formatMessage({
+                defaultMessage: "Create User",
+                description: "Heading displayed above the Create User form.",
+              })}
+            </Link>
           </div>
         </div>
       </header>

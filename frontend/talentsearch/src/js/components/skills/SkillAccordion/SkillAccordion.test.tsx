@@ -6,7 +6,6 @@ import { render, screen } from "@testing-library/react";
 import React from "react";
 import { IntlProvider, MessageFormatElement } from "react-intl";
 import { fakeSkills } from "@common/fakeData";
-import generator from "@common/fakeData/fakeExperienceSkills";
 import { generators as experienceGenerator } from "@common/fakeData/fakeExperiences";
 
 import { Skill } from "../../../api/generated";
@@ -51,11 +50,8 @@ describe("SkillAccordion tests", () => {
   });
 
   test("It renders proper context and detail when an award experience is provided", () => {
-    const experience = experienceGenerator.generateAward();
-    testSkill.experienceSkills = [];
-    testSkill.experienceSkills.push(
-      generator.generateExperienceSkill(testSkill, experience),
-    );
+    const experience = experienceGenerator.awardExperiences()[0];
+    testSkill.experiences = [experience];
     renderSkillAccordion(testSkill);
     const context = screen.getByText("1 Experience");
     const detail = screen.getByTestId("detail");
@@ -65,12 +61,9 @@ describe("SkillAccordion tests", () => {
     expect(titleElement.innerHTML.trim()).toEqual(experience.title);
   });
   test("It renders proper context and detail when a work experience is provided", () => {
-    const experience = experienceGenerator.generateWork();
+    const experience = experienceGenerator.workExperiences()[0];
 
-    testSkill.experienceSkills = [];
-    testSkill.experienceSkills.push(
-      generator.generateExperienceSkill(testSkill, experience),
-    );
+    testSkill.experiences = [experience];
     const d1 = formatter.format(new Date(experience.startDate!));
     const d2 = formatter.format(new Date(experience.endDate!));
     const dateRange = `${d1} - ${d2}`;
@@ -87,11 +80,8 @@ describe("SkillAccordion tests", () => {
   });
 
   test("It renders proper context and detail when a community experience is provided", () => {
-    const experience = experienceGenerator.generateCommunity();
-    testSkill.experienceSkills = [];
-    testSkill.experienceSkills.push(
-      generator.generateExperienceSkill(testSkill, experience),
-    );
+    const experience = experienceGenerator.communityExperiences()[0];
+    testSkill.experiences = [experience];
     renderSkillAccordion(testSkill);
     const context = screen.getByText("1 Experience");
     const detail = screen.getByTestId("detail");
@@ -105,11 +95,8 @@ describe("SkillAccordion tests", () => {
   });
 
   test("It renders proper context and detail when a education experience is provided", () => {
-    const experience = experienceGenerator.generateEducation();
-    testSkill.experienceSkills = [];
-    testSkill.experienceSkills.push(
-      generator.generateExperienceSkill(testSkill, experience),
-    );
+    const experience = experienceGenerator.educationExperiences()[0];
+    testSkill.experiences = [experience];
     const d1 = formatter.format(new Date(experience.startDate!));
     const d2 = formatter.format(new Date(experience.endDate!));
     const dateRange = `${d1} - ${d2}`;
@@ -126,11 +113,8 @@ describe("SkillAccordion tests", () => {
   });
 
   test("It renders proper context and detail when a personal experience is provided", () => {
-    const experience = experienceGenerator.generatePersonal();
-    testSkill.experienceSkills = [];
-    testSkill.experienceSkills.push(
-      generator.generateExperienceSkill(testSkill, experience),
-    );
+    const experience = experienceGenerator.personalExperiences()[0];
+    testSkill.experiences = [experience];
     const d1 = formatter.format(new Date(experience.startDate!));
     const d2 = formatter.format(new Date(experience.endDate!));
     const dateRange = `${d1} - ${d2}`;
@@ -146,16 +130,10 @@ describe("SkillAccordion tests", () => {
   });
 
   test("It renders proper context and detail when more than one experiences provided", () => {
-    const experience1 = experienceGenerator.generateWork();
-    const experience2 = experienceGenerator.generateEducation();
+    const experience1 = experienceGenerator.workExperiences()[0];
+    const experience2 = experienceGenerator.educationExperiences()[0];
 
-    testSkill.experienceSkills = [];
-    testSkill.experienceSkills.push(
-      generator.generateExperienceSkill(testSkill, experience1),
-    );
-    testSkill.experienceSkills.push(
-      generator.generateExperienceSkill(testSkill, experience2),
-    );
+    testSkill.experiences = [experience1, experience2];
     renderSkillAccordion(testSkill);
     const accordion = screen.getByText("2 Experiences");
     const detail = screen.getByTestId("detail");

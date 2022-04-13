@@ -1,0 +1,10 @@
+{
+  "pBJzgi": {
+    "defaultMessage": "Désolé, nous n’avons pas trouvé la page que vous cherchiez.",
+    "description": "Heading for the message saying the page was not found."
+  },
+  "pgHTkX": {
+    "defaultMessage": "Oups, il semble que la page de destination n’existe pas ou a été déplacée.",
+    "description": "Detailed message saying the page was not found."
+  }
+}

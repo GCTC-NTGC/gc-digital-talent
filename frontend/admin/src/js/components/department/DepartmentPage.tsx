@@ -1,6 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { Link, Button } from "@common/components";
+import { Link } from "@common/components";
 import { useAdminRoutes } from "../../adminRoutes";
 import { DepartmentTableApi } from "./DepartmentTable";
 
@@ -32,15 +32,18 @@ export const DepartmentPage: React.FC = () => {
             data-h2-flex-item="b(1of1) m(2of5)"
             data-h2-text-align="m(right)"
           >
-            <Button color="white" mode="outline">
-              <Link href={paths.departmentCreate()} title="">
-                {intl.formatMessage({
-                  defaultMessage: "Create Department",
-                  description:
-                    "Heading displayed above the Create Department form.",
-                })}
-              </Link>
-            </Button>
+            <Link
+              href={paths.departmentCreate()}
+              color="white"
+              mode="outline"
+              type="button"
+            >
+              {intl.formatMessage({
+                defaultMessage: "Create Department",
+                description:
+                  "Heading displayed above the Create Department form.",
+              })}
+            </Link>
           </div>
         </div>
       </header>

@@ -15,6 +15,7 @@ import {
   useApplicantProfileRoutes,
 } from "../applicantProfileRoutes";
 import RequestPage from "./request/RequestPage";
+import WorkLocationPreferenceApi from "./workLocationPreferenceForm/WorkLocationPreferenceForm";
 import { ProfilePage } from "./profile/ProfilePage/ProfilePage";
 
 const routes = (
@@ -46,6 +47,12 @@ const routes = (
       component: <ProfilePage />,
     }),
   },
+  {
+    path: profilePaths.workLocation(),
+    action: () => ({
+      component: <WorkLocationPreferenceApi />,
+    }),
+  },
 ];
 
 export const Router: React.FC = () => {
@@ -71,7 +78,6 @@ export const Router: React.FC = () => {
       })}
     />,
   ];
-
   return (
     <ClientProvider>
       <PageContainer

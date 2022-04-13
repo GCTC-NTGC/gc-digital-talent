@@ -81,7 +81,7 @@ type User {
     poolCandidates: [PoolCandidate] @hasMany # PoolsCandidate objects associate the user with a pool
 
     # Experiences
-    experiences: [Experience] @hasMany # All experiences that a user owns
+    experiences: [Experience] # All experiences that a user owns
     awardExperiences: [AwardExperience] @hasMany # Award experiences that a user owns
     communityExperiences: [CommunityExperience] @hasMany # Community experiences that a user owns
     educationExperiences: [EducationExperience] @hasMany # Education experiences that a user owns
@@ -360,7 +360,16 @@ type Skill {
     description: LocalizedString
     keywords: [String!]
     families: [SkillFamily!] @belongsToMany
-    experienceSkills: [ExperienceSkill] @hasMany
+
+    # Experiences
+    experiences: [Experience!]
+    awardExperiences: [AwardExperience!] @hasMany
+    communityExperiences: [CommunityExperience!] @hasMany
+    educationExperiences: [EducationExperience!] @hasMany
+    personalExperiences: [PersonalExperience!] @hasMany
+    workExperiences: [WorkExperience!] @hasMany
+    # ExperienceSkillRecord is the pivot data and may only be queried when Skill is nested in an Experience (eg. experience->skill->experienceSkillRecord). Querying for it otherwise will just return null.
+    experienceSkillRecord: ExperienceSkillRecord @rename(attribute: "experience_skill_pivot")
 }
 
 enum AwardedTo {
@@ -398,74 +407,83 @@ enum EducationStatus {
 }
 
 interface Experience {
-  id: ID!
-  applicant: Applicant! @belongsTo(relation: "user")
-  details: String
-  experienceSkills: [ExperienceSkill] @morphMany
+    id: ID!
+    applicant: Applicant! @belongsTo(relation: "user")
+    details: String
+    skills: [Skill!] @morphToMany
+    # ExperienceSkillRecord is the pivot data and may only be queried when Experience is nested in a Skill (eg. skill->experiences->experienceSkillRecord). Querying for it otherwise will just return null.
+    experienceSkillRecord: ExperienceSkillRecord @rename(attribute: "experience_skill_pivot")
 }
 
 type WorkExperience implements Experience {
-  id: ID!
-  applicant: Applicant! @belongsTo(relation: "user")
-  role: String
-  organization: String
-  division: String
-  startDate: Date @rename(attribute: "start_date")
-  endDate: Date @rename(attribute: "end_date")
-  details: String
-  experienceSkills: [ExperienceSkill] @morphMany
+    id: ID!
+    applicant: Applicant! @belongsTo(relation: "user")
+    role: String
+    organization: String
+    division: String
+    startDate: Date @rename(attribute: "start_date")
+    endDate: Date @rename(attribute: "end_date")
+    details: String
+    skills: [Skill!] @morphToMany
+    # ExperienceSkillRecord is the pivot data and may only be queried when Experience is nested in a Skill (eg. skill->experiences->experienceSkillRecord). Querying for it otherwise will just return null.
+    experienceSkillRecord: ExperienceSkillRecord @rename(attribute: "experience_skill_pivot")
 }
 type PersonalExperience implements Experience {
-  id: ID!
-  applicant: Applicant! @belongsTo(relation: "user")
-  title: String
-  description: String
-  startDate: Date @rename(attribute: "start_date")
-  endDate: Date @rename(attribute: "end_date")
-  details: String
-  experienceSkills: [ExperienceSkill] @morphMany
+    id: ID!
+    applicant: Applicant! @belongsTo(relation: "user")
+    title: String
+    description: String
+    startDate: Date @rename(attribute: "start_date")
+    endDate: Date @rename(attribute: "end_date")
+    details: String
+    skills: [Skill!] @morphToMany
+    # ExperienceSkillRecord is the pivot data and may only be queried when Experience is nested in a Skill (eg. skill->experiences->experienceSkillRecord). Querying for it otherwise will just return null.
+    experienceSkillRecord: ExperienceSkillRecord @rename(attribute: "experience_skill_pivot")
 }
 type CommunityExperience implements Experience {
-  id: ID!
-  applicant: Applicant! @belongsTo(relation: "user")
-  title: String
-  organization: String
-  project: String
-  startDate: Date @rename(attribute: "start_date")
-  endDate: Date @rename(attribute: "end_date")
-  details: String
-  experienceSkills: [ExperienceSkill] @morphMany
+    id: ID!
+    applicant: Applicant! @belongsTo(relation: "user")
+    title: String
+    organization: String
+    project: String
+    startDate: Date @rename(attribute: "start_date")
+    endDate: Date @rename(attribute: "end_date")
+    details: String
+    skills: [Skill!] @morphToMany
+    # ExperienceSkillRecord is the pivot data and must be queried through a nested mutation (eg. experience->skill->experienceSkillRecord) querying for it directly will just return null
+    experienceSkillRecord: ExperienceSkillRecord @rename(attribute: "experience_skill_pivot")
 }
 type EducationExperience implements Experience {
-  id: ID!
-  applicant: Applicant! @belongsTo(relation: "user")
-  institution: String
-  areaOfStudy: String @rename(attribute: "area_of_study")
-  thesisTitle: String @rename(attribute: "thesis_title")
-  startDate: Date @rename(attribute: "start_date")
-  endDate: Date @rename(attribute: "end_date")
-  type: EducationType
-  status: EducationStatus
-  details: String
-  experienceSkills: [ExperienceSkill] @morphMany
+    id: ID!
+    applicant: Applicant! @belongsTo(relation: "user")
+    institution: String
+    areaOfStudy: String @rename(attribute: "area_of_study")
+    thesisTitle: String @rename(attribute: "thesis_title")
+    startDate: Date @rename(attribute: "start_date")
+    endDate: Date @rename(attribute: "end_date")
+    type: EducationType
+    status: EducationStatus
+    details: String
+    skills: [Skill!] @morphToMany
+    # ExperienceSkillRecord is the pivot data and may only be queried when Experience is nested in a Skill (eg. skill->experiences->experienceSkillRecord). Querying for it otherwise will just return null.
+    experienceSkillRecord: ExperienceSkillRecord @rename(attribute: "experience_skill_pivot")
 }
 type AwardExperience implements Experience {
-  id: ID!
-  applicant: Applicant! @belongsTo(relation: "user")
-  title: String
-  issuedBy: String @rename(attribute: "issued_by")
-  awardedDate: Date @rename(attribute: "awarded_date")
-  awardedTo: AwardedTo @rename(attribute: "awarded_to")
-  awardedScope: AwardedScope @rename(attribute: "awarded_scope")
-  details: String
-  experienceSkills: [ExperienceSkill] @morphMany
+    id: ID!
+    applicant: Applicant! @belongsTo(relation: "user")
+    title: String
+    issuedBy: String @rename(attribute: "issued_by")
+    awardedDate: Date @rename(attribute: "awarded_date")
+    awardedTo: AwardedTo @rename(attribute: "awarded_to")
+    awardedScope: AwardedScope @rename(attribute: "awarded_scope")
+    details: String
+    skills: [Skill!] @morphToMany
+    # ExperienceSkillRecord is the pivot data and may only be queried when Experience is nested in a Skill (eg. skill->experiences->experienceSkillRecord). Querying for it otherwise will just return null.
+    experienceSkillRecord: ExperienceSkillRecord @rename(attribute: "experience_skill_pivot")
 }
 
-type ExperienceSkill {
-  id: ID!
-  details: String
-  skill: Skill! @belongsTo
-  experience: Experience! @morphTo
+type ExperienceSkillRecord {
+    details: String
 }
 
 input ClassificationFilterInput {
@@ -524,7 +542,6 @@ type Query {
     skillFamilies: [SkillFamily]! @all
     skill(id: ID! @eq): Skill @find
     skills: [Skill]! @all
-    experienceSkills: [ExperienceSkill]! @all
 }
 input ClassificationBelongsTo {
     connect: ID!
@@ -580,6 +597,13 @@ input CreateUserInput {
     expectedClassifications: ClassificationBelongsToMany
     wouldAcceptTemporary: Boolean @rename(attribute: "would_accept_temporary")
     cmoAssets: CmoAssetBelongsToMany
+
+    # Experiences
+    workExperiences: WorkExperienceHasMany
+    personalExperiences: PersonalExperienceHasMany
+    communityExperiences: CommunityExperienceHasMany
+    educationExperiences: EducationExperienceHasMany
+    awardExperiences: AwardExperienceHasMany
 }
 """
 When updating a User, all fields are optional, and email cannot be changed.
@@ -629,6 +653,13 @@ input UpdateUserAsAdminInput {
     expectedClassifications: ClassificationBelongsToMany
     wouldAcceptTemporary: Boolean @rename(attribute: "would_accept_temporary")
     cmoAssets: CmoAssetBelongsToMany
+
+    # Experiences
+    workExperiences: WorkExperienceHasMany
+    personalExperiences: PersonalExperienceHasMany
+    communityExperiences: CommunityExperienceHasMany
+    educationExperiences: EducationExperienceHasMany
+    awardExperiences: AwardExperienceHasMany
 }
 
 input UpdateUserAsUserInput {
@@ -673,6 +704,13 @@ input UpdateUserAsUserInput {
     expectedClassifications: ClassificationBelongsToMany
     wouldAcceptTemporary: Boolean @rename(attribute: "would_accept_temporary")
     cmoAssets: CmoAssetBelongsToMany
+
+    # Experiences
+    workExperiences: WorkExperienceHasMany
+    personalExperiences: PersonalExperienceHasMany
+    communityExperiences: CommunityExperienceHasMany
+    educationExperiences: EducationExperienceHasMany
+    awardExperiences: AwardExperienceHasMany
 }
 
 input LocalizedStringInput {
@@ -873,6 +911,79 @@ input UpdateSkillInput {
     keywords: [String!]
 }
 
+input WorkExperienceInput {
+    role: String
+    organization: String
+    division: String
+    startDate: Date @rename(attribute: "start_date")
+    endDate: Date @rename(attribute: "end_date")
+    details: String
+    skills: UpdateExperienceSkills
+}
+input PersonalExperienceInput {
+    title: String
+    description: String
+    startDate: Date @rename(attribute: "start_date")
+    endDate: Date @rename(attribute: "end_date")
+    details: String
+    skills: UpdateExperienceSkills
+}
+input CommunityExperienceInput {
+    title: String
+    organization: String
+    project: String
+    startDate: Date @rename(attribute: "start_date")
+    endDate: Date @rename(attribute: "end_date")
+    details: String
+    skills: UpdateExperienceSkills
+}
+input EducationExperienceInput {
+    institution: String
+    areaOfStudy: String @rename(attribute: "area_of_study")
+    thesisTitle: String @rename(attribute: "thesis_title")
+    startDate: Date @rename(attribute: "start_date")
+    endDate: Date @rename(attribute: "end_date")
+    type: EducationType
+    status: EducationStatus
+    details: String
+    skills: UpdateExperienceSkills
+}
+input AwardExperienceInput {
+    title: String
+    issuedBy: String @rename(attribute: "issued_by")
+    awardedDate: Date @rename(attribute: "awarded_date")
+    awardedTo: AwardedTo @rename(attribute: "awarded_to")
+    awardedScope: AwardedScope @rename(attribute: "awarded_scope")
+    details: String
+    skills: UpdateExperienceSkills
+}
+
+input UpdateExperienceSkills {
+    connect: [ConnectExperienceSkills!]
+    sync: [ConnectExperienceSkills!]
+}
+
+input ConnectExperienceSkills {
+    id: ID!
+    details: String
+}
+
+input WorkExperienceHasMany {
+    create: [WorkExperienceInput!]
+}
+input PersonalExperienceHasMany {
+    create: [PersonalExperienceInput!]
+}
+input CommunityExperienceHasMany {
+    create: [CommunityExperienceInput!]
+}
+input EducationExperienceHasMany {
+    create: [EducationExperienceInput!]
+}
+input AwardExperienceHasMany {
+    create: [AwardExperienceInput!]
+}
+
 type Mutation {
     createUser(user: CreateUserInput! @spread): User @create @guard @can(ability: "create")
     updateUserAsUser(id: ID!, user: UpdateUserAsUserInput! @spread): User @update @guard @can(ability: "update", find: "id")
@@ -899,4 +1010,19 @@ type Mutation {
     updateSkillFamily(id: ID!, skillFamily: UpdateSkillFamilyInput! @spread): SkillFamily @update @guard @can(ability: "update", find: "id")
     createSkill(skill: CreateSkillInput! @spread): Skill @create @guard @can(ability: "create")
     updateSkill(id: ID!, skill: UpdateSkillInput! @spread): Skill @update @guard @can(ability: "update", find: "id")
+    createWorkExperience(userId: ID! @rename(attribute: "user_id"), workExperience: WorkExperienceInput! @spread): WorkExperience @create @can(ability: "create", injectArgs: true)
+    createPersonalExperience(userId: ID! @rename(attribute: "user_id"), personalExperience: PersonalExperienceInput! @spread): PersonalExperience @create @can(ability: "create", injectArgs: true)
+    createCommunityExperience(userId: ID! @rename(attribute: "user_id"), communityExperience: CommunityExperienceInput! @spread): CommunityExperience @create @can(ability: "create", injectArgs: true)
+    createEducationExperience(userId: ID! @rename(attribute: "user_id"), educationExperience: EducationExperienceInput! @spread): EducationExperience @create @can(ability: "create", injectArgs: true)
+    createAwardExperience(userId: ID! @rename(attribute: "user_id"), awardExperience: AwardExperienceInput! @spread): AwardExperience @create @can(ability: "create", injectArgs: true)
+    updateWorkExperience(id: ID!, workExperience: WorkExperienceInput! @spread): WorkExperience @update @guard @can(ability: "update", find: "id")
+    updatePersonalExperience(id: ID!, personalExperience: PersonalExperienceInput! @spread): PersonalExperience @update @guard @can(ability: "update", find: "id")
+    updateCommunityExperience(id: ID!, communityExperience: CommunityExperienceInput! @spread): CommunityExperience @update @guard @can(ability: "update", find: "id")
+    updateEducationExperience(id: ID!, educationExperience: EducationExperienceInput! @spread): EducationExperience @update @guard @can(ability: "update", find: "id")
+    updateAwardExperience(id: ID!, awardExperience: AwardExperienceInput! @spread): AwardExperience @update @guard @can(ability: "update", find: "id")
+    deleteWorkExperience(id: ID!): WorkExperience @delete(globalId: false) @guard @can(ability: "delete", find: "id")
+    deletePersonalExperience(id: ID!): PersonalExperience @delete(globalId: false) @guard @can(ability: "delete", find: "id")
+    deleteCommunityExperience(id: ID!): CommunityExperience @delete(globalId: false) @guard @can(ability: "delete", find: "id")
+    deleteEducationExperience(id: ID!): EducationExperience @delete(globalId: false) @guard @can(ability: "delete", find: "id")
+    deleteAwardExperience(id: ID!): AwardExperience @delete(globalId: false) @guard @can(ability: "delete", find: "id")
 }
