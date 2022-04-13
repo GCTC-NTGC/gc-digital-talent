@@ -61,7 +61,7 @@
     "urql": "^2.2.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.17.8",
+    "@babel/core": "^7.17.9",
     "@formatjs/cli": "^4.8.3",
     "@formatjs/ts-transformer": "^3.9.3",
     "@graphql-codegen/add": "^3.1.0",
