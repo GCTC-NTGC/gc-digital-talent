@@ -124,7 +124,10 @@ export const LanguageInformationForm: React.FunctionComponent<{
             : "https://www.canada.ca/fr/commission-fonction-publique/services/evaluation-langue-seconde.html"
         }
       >
-        Government of Canada language evaluation.
+        {intl.formatMessage({
+          defaultMessage: "Government of Canada language evaluation.",
+          description: "Message on links to the language evaluation tests",
+        })}
       </a>
     );
   };

@@ -2,7 +2,7 @@
  * @jest-environment jsdom
  */
 import "@testing-library/jest-dom";
-import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { fireEvent, screen, waitFor } from "@testing-library/react";
 import React from "react";
 import { IntlProvider, MessageFormatElement } from "react-intl";
 import {
@@ -12,6 +12,7 @@ import {
   UpdateUserAsUserInput,
 } from "../../api/generated";
 import { LanguageInformationForm } from "./LanguageInformationForm";
+import { render } from "../../tests/testUtils";
 
 const renderWithReactIntl = (
   component: React.ReactNode,
@@ -35,7 +36,7 @@ const renderLanguageInfoForm = ({
   submitHandler: (data: UpdateUserAsUserInput) => Promise<void>;
 }) => (
   <>
-    {renderWithReactIntl(
+    {render(
       <LanguageInformationForm
         initialData={initialData}
         submitHandler={submitHandler}
