@@ -1,9 +1,9 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import { ChevronDownIcon, ChevronRightIcon } from "@heroicons/react/solid";
 
 export interface AccordionProps {
   title: string;
-  subtitle?: string;
+  subtitle?: string | React.ReactNode;
   Icon?: React.ComponentType<React.SVGProps<SVGSVGElement>>;
   context?: string;
   simple?: boolean;

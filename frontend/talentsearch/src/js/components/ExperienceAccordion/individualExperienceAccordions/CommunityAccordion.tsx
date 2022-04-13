@@ -5,6 +5,7 @@ import { Button } from "@common/components";
 import { CommunityExperience } from "@common/api/generated";
 import { useIntl } from "react-intl";
 import { getLocale } from "@common/helpers/localize";
+import { getDateRange } from "@common/helpers/dateUtils";
 
 const CommunityAccordion: React.FunctionComponent<CommunityExperience> = ({
   title,
@@ -35,22 +36,12 @@ const CommunityAccordion: React.FunctionComponent<CommunityExperience> = ({
     <Accordion
       title={intl.formatMessage(
         {
-          defaultMessage: "{title} at {organization}",
+          defaultMessage: "{title} of {organization}",
           description: "Title at organization",
         },
         { title, organization },
       )}
-      subtitle={
-        endDate
-          ? `${startDate || ""} - ${endDate || ""}`
-          : intl.formatMessage(
-              {
-                defaultMessage: "Since: {startDate}",
-                description: "Since",
-              },
-              { startDate },
-            )
-      }
+      subtitle={getDateRange({ endDate, startDate, intl, locale })}
       context={
         skills?.length === 1
           ? intl.formatMessage({

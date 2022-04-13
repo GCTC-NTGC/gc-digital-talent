@@ -8,6 +8,7 @@ import {
 } from "@common/constants/localizedConstants";
 import { useIntl } from "react-intl";
 import { getLocale } from "@common/helpers/localize";
+import { getDateRange } from "@common/helpers/dateUtils";
 import { AwardExperience } from "../../../api/generated";
 
 const AwardAccordion: React.FunctionComponent<AwardExperience> = ({
@@ -41,13 +42,12 @@ const AwardAccordion: React.FunctionComponent<AwardExperience> = ({
   return (
     <Accordion
       title={`${title || ""} - ${issuedBy || ""}`}
-      subtitle={intl.formatMessage(
-        {
-          defaultMessage: "Since: {awardedDate}",
-          description: "Subtitle for award accordion",
-        },
-        { awardedDate },
-      )}
+      subtitle={getDateRange({
+        endDate: undefined,
+        startDate: awardedDate,
+        intl,
+        locale,
+      })}
       context={
         skills?.length === 1
           ? intl.formatMessage({
@@ -65,7 +65,7 @@ const AwardAccordion: React.FunctionComponent<AwardExperience> = ({
       Icon={BriefCaseIcon}
     >
       <div data-h2-padding="b(left, l)">
-        <p data-h2-font-color="b(lightpurple)">
+        <p>
           {intl.formatMessage(
             {
               defaultMessage: "{title} issued by {issuedBy}",
