@@ -1,7 +1,6 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { ChevronRightIcon } from "@heroicons/react/solid";
 import Link from "../Link";
-import { insertBetween } from "../../helpers/util";
 
 export interface BreadcrumbsProps {
   links: { title: string; href?: string; icon?: JSX.Element }[];
@@ -9,44 +8,42 @@ export interface BreadcrumbsProps {
 
 export const Breadcrumbs: React.FunctionComponent<BreadcrumbsProps> = ({
   links,
-}) => {
-  // taking in the array of objects as defined above, create an array of Link components or a <span> if there is no href
-  const arrayLinks = links.map((link) =>
-    link.href ? (
-      <Link
-        data-h2-display="b(flex)"
-        data-h2-align-items="b(center)"
-        href={link.href}
-        title={link.title}
-        key={link.title}
-      >
-        {link.icon || ""} {link.title}
-      </Link>
-    ) : (
-      <span
-        data-h2-display="b(flex)"
-        data-h2-align-items="b(center)"
-        data-h2-font-weight="b(700)"
-        key={link.title}
-      >
-        {link.icon || ""} {link.title}
-      </span>
-    ),
-  );
-
-  // add chevrons between links
-  const separator = (
-    <span
-      data-h2-padding="b(right-left, xs)"
-      data-h2-display="b(flex)"
-      data-h2-align-items="b(center)"
-    >
-      <ChevronRightIcon style={{ width: "1.4rem" }} />
-    </span>
-  );
-  const menuBar = insertBetween(separator, arrayLinks);
-
-  return <div data-h2-display="b(flex)">{menuBar}</div>;
-};
+}) => (
+  <div data-h2-display="b(flex)">
+    {links.map((link, index) => (
+      <Fragment key={link.title}>
+        {index > 0 && (
+          <span
+            data-h2-padding="b(right-left, xs)"
+            data-h2-display="b(flex)"
+            data-h2-align-items="b(center)"
+          >
+            <ChevronRightIcon style={{ width: "1.4rem" }} />
+          </span>
+        )}
+        {link.href ? (
+          <Link
+            data-h2-display="b(flex)"
+            data-h2-align-items="b(center)"
+            href={link.href}
+            title={link.title}
+            key={link.title}
+          >
+            {link.icon || ""} {link.title}
+          </Link>
+        ) : (
+          <span
+            data-h2-display="b(flex)"
+            data-h2-align-items="b(center)"
+            data-h2-font-weight="b(700)"
+            key={link.title}
+          >
+            {link.icon || ""} {link.title}
+          </span>
+        )}
+      </Fragment>
+    ))}
+  </div>
+);
 
 export default Breadcrumbs;

@@ -62,6 +62,13 @@ npm run codegen
 npm run intl-compile
 npm run dev
 
+# setup indigenous apprenticeship project
+cd /var/www/html/frontend/indigenousapprenticeship
+cp .env.example .env
+npm run codegen
+npm run intl-compile
+npm run dev
+
 # setup admin project
 cd /var/www/html/frontend/admin
 cp .env.example .env
