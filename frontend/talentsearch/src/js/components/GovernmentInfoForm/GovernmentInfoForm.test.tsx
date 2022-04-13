@@ -4,7 +4,7 @@
 import "@testing-library/jest-dom";
 import React from "react";
 import { fakeClassifications, fakeUsers } from "@common/fakeData";
-import { render, screen, fireEvent } from "../../tests/testUtils";
+import { render, screen, fireEvent, waitFor } from "../../tests/testUtils";
 import {
   GovernmentInfoForm,
   GovernmentInfoFormProps,
@@ -12,6 +12,7 @@ import {
 
 const mockClassifications = fakeClassifications();
 const mockUser = fakeUsers()[0];
+const mockSave = jest.fn();
 
 const renderGovInfoForm = ({
   initialData,
@@ -28,11 +29,11 @@ const renderGovInfoForm = ({
 };
 
 describe("Government Info Form tests", () => {
-  test("Form function", async () => {
+  test("Form conditional rendering", async () => {
     renderGovInfoForm({
       initialData: mockUser,
       classifications: mockClassifications,
-      submitHandler: jest.fn(),
+      submitHandler: mockSave,
     });
 
     const button = screen.getByText(
@@ -51,5 +52,25 @@ describe("Government Info Form tests", () => {
       ),
     ).toBeTruthy();
     expect(screen.getByText("Current Classification Group")).toBeTruthy();
+  });
+
+  test("Submit functionality", async () => {
+    renderGovInfoForm({
+      initialData: mockUser,
+      classifications: mockClassifications,
+      submitHandler: mockSave,
+    });
+    const button = screen.getByText(
+      "Yes, I am a Government of Canada employee",
+    );
+    fireEvent.click(button);
+
+    const button2 = screen.getByText("I am a student");
+    fireEvent.click(button2);
+
+    fireEvent.submit(screen.getByRole("button", { name: /save/i }));
+    await waitFor(() => {
+      expect(mockSave).toHaveBeenCalled();
+    });
   });
 });
