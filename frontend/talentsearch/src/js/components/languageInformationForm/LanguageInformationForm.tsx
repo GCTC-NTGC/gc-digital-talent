@@ -376,8 +376,6 @@ export const LanguageInformationForm: React.FunctionComponent<
   LanguageInformationFormProps
 > = ({ initialData, onUpdateLanguageInformation }) => {
   const intl = useIntl();
-  const locale = getLocale(intl);
-  const paths = applicantProfileRoutes(locale);
 
   const dataToFormValues = (data: GetLanguageInformationQuery): FormValues => {
     const self = data.me;
@@ -427,26 +425,7 @@ export const LanguageInformationForm: React.FunctionComponent<
     await onUpdateLanguageInformation(
       initialData?.me?.id,
       formValuesToSubmitData(formValues),
-    )
-      .then(() => {
-        navigate(paths.home());
-        toast.success(
-          intl.formatMessage({
-            defaultMessage: "User updated successfully!",
-            description:
-              "Message displayed to user after user is updated successfully.",
-          }),
-        );
-      })
-      .catch(() => {
-        toast.error(
-          intl.formatMessage({
-            defaultMessage: "Error: updating user failed",
-            description:
-              "Message displayed to user after user fails to get updated.",
-          }),
-        );
-      });
+    );
   };
 
   return initialData?.me ? (
@@ -493,6 +472,8 @@ export const LanguageInformationForm: React.FunctionComponent<
 
 export const LanguageInformationFormContainer: React.FunctionComponent = () => {
   const intl = useIntl();
+  const locale = getLocale(intl);
+  const paths = applicantProfileRoutes(locale);
 
   const [result] = useGetLanguageInformationQuery();
   const { data: userData, fetching, error } = result;
@@ -510,6 +491,14 @@ export const LanguageInformationFormContainer: React.FunctionComponent = () => {
           Exact<{ id: string; user: UpdateUserAsUserInput }>
         >,
       ) => {
+        navigate(paths.home());
+        toast.success(
+          intl.formatMessage({
+            defaultMessage: "User updated successfully!",
+            description:
+              "Message displayed to user after user is updated successfully.",
+          }),
+        );
         if (res.data?.updateUserAsUser) {
           return res.data.updateUserAsUser;
         }
