@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import React from "react";
 import get from "lodash/get";
 import { RegisterOptions, useFormContext } from "react-hook-form";
 import { InputWrapper } from "../../inputPartials";
@@ -11,7 +11,7 @@ export interface RadioProps
   /** HTML id used to identify the element. */
   id: string;
   /** Holds text for the label associated with the input element */
-  label: string | ReactNode;
+  label: string | React.ReactNode;
   /** A string specifying a name for the input control. */
   name: string;
   /** Set of validation rules and error messages to impose on input. */

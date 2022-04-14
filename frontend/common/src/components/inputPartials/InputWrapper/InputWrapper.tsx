@@ -1,11 +1,11 @@
-import React, { ReactNode, useState } from "react";
+import React, { useState } from "react";
 import InputContext from "../InputContext/InputContext";
 import InputError from "../InputError/InputError";
 import InputLabel from "../InputLabel/InputLabel";
 
 export interface InputWrapperProps {
   inputId: string;
-  label: string | ReactNode;
+  label: string | React.ReactNode;
   required: boolean;
   error?: string;
   errorPosition?: "top" | "bottom";

@@ -46,8 +46,7 @@ const EstimatedCandidates: React.FunctionComponent<
         <p data-h2-text-align="b(center)">
           {intl.formatMessage(
             {
-              defaultMessage:
-                "There are approximately <weight>{candidateCount}</weight> candidates right now who meet your criteria.",
+              defaultMessage: `{candidateCount, plural, =1 {There is approximately <weight>{candidateCount}</weight> candidate right now who meets your criteria.} other {There are approximately <weight>{candidateCount}</weight> candidates right now who meet your criteria.}}`,
               description:
                 "Message for total estimated candidates box next to search form.",
             },

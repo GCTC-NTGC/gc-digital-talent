@@ -4,7 +4,10 @@ import { RegisterOptions, useFormContext } from "react-hook-form";
 import Checkbox from "../Checkbox";
 import { InputWrapper, Fieldset } from "../../inputPartials";
 
-export type Checkbox = { value: string | number; label: string };
+export type Checkbox = {
+  value: string | number;
+  label: string | React.ReactNode;
+};
 
 export interface ChecklistProps {
   /** Each input element will be given an id to match to its label, of the form `${idPrefix}-${value}` */
