@@ -22,9 +22,7 @@ const ExperienceSkills: React.FC<ExperienceSkillsProps> = ({
   const intl = useIntl();
   const { setValue, watch } = useForm();
   const watchedSkills = watch("skills");
-  const [addedSkills, setAddedSkills] = React.useState<Skill[]>(
-    initialSkills || [],
-  );
+  const [addedSkills, setAddedSkills] = React.useState<Skill[]>([]);
 
   const updateAddedSkills = () => {
     if (watchedSkills) {
@@ -57,6 +55,21 @@ const ExperienceSkills: React.FC<ExperienceSkillsProps> = ({
     );
     setValue("skills", newSkills);
   };
+
+  useEffect(() => {
+    let newSkills = {};
+    if (initialSkills) {
+      initialSkills?.forEach((s) => {
+        newSkills = {
+          ...newSkills,
+          [s.id]: {
+            details: s.experienceSkillRecord?.details || "",
+          },
+        };
+      });
+      setValue("skills", newSkills);
+    }
+  }, []);
 
   return (
     <>
