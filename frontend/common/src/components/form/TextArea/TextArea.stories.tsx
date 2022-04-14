@@ -37,6 +37,7 @@ const TemplateTextArea: Story<TextAreaProps & { maxWidth: string }> = (
 };
 
 export const BasicTextArea = TemplateTextArea.bind({});
+export const BasicTextElementLabel = TemplateTextArea.bind({});
 
 BasicTextArea.args = {
   id: "description",
@@ -47,4 +48,11 @@ BasicTextArea.args = {
     required: "This field is required",
     maxLength: { value: 500, message: "Too long!" },
   },
+};
+
+BasicTextElementLabel.args = {
+  id: "element",
+  context: "Additional context about this field.",
+  label: <span data-h2-font-weight="b(700)">Bolded question</span>,
+  name: "element",
 };

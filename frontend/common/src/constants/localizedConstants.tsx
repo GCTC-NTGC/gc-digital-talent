@@ -444,6 +444,45 @@ export const getEducationType = (
     `Invalid educationType ${educationTypeId}`,
   );
 
+export const OperationalRequirementCandidateDescription = defineMessages({
+  [OperationalRequirement.Overtime]: {
+    defaultMessage: "...requires me to <boldText>work overtime.</boldText>",
+    description: "The operational requirement described as overtime.",
+  },
+  [OperationalRequirement.ShiftWork]: {
+    defaultMessage: "...has <boldText>shift-work</boldText>",
+    description: "The operational requirement described as shift work.",
+  },
+  [OperationalRequirement.OnCall]: {
+    defaultMessage: "...has <boldText>24/7 on call-shifts</boldText>",
+    description: "The operational requirement described as 24/7 on-call.",
+  },
+  [OperationalRequirement.Travel]: {
+    defaultMessage: "...requires me to <boldText>travel</boldText>",
+    description: "The operational requirement described as travel as required.",
+  },
+  [OperationalRequirement.TransportEquipment]: {
+    defaultMessage:
+      "...requires me to <boldText>transport, lift and set down equipment weighing up to 20kg</boldText>",
+    description:
+      "The operational requirement described as transport equipment up to 20kg.",
+  },
+  [OperationalRequirement.DriversLicense]: {
+    defaultMessage:
+      "...requires me to <boldText>have a valid driver's license</boldText> or personal mobility to the degree normally associated with the possession of a valid driver's license",
+    description: "The operational requirement described as driver's license.",
+  },
+});
+
+export const getOperationalRequirementCandidateDescription = (
+  operationalRequirementId: string | number,
+): MessageDescriptor =>
+  getOrThrowError(
+    OperationalRequirementCandidateDescription,
+    operationalRequirementId,
+    `Invalid Operational Requirement '${operationalRequirementId}'`,
+  );
+
 export const operationalRequirements = defineMessages({
   [OperationalRequirement.ShiftWork]: {
     defaultMessage: "Shift work",
