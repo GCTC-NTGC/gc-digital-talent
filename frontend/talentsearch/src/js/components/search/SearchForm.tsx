@@ -330,9 +330,10 @@ export const SearchForm: React.FunctionComponent<SearchFormProps> = ({
             idPrefix="languageAbility"
             legend="Language"
             name="languageAbility"
+            defaultSelected="any_language"
             items={[
               {
-                value: "null",
+                value: "any_language",
                 label: intl.formatMessage({
                   defaultMessage: "Any language",
                 }),
