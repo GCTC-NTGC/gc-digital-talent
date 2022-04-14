@@ -198,6 +198,20 @@ RAWSQL2;
         });
         return $query;
     }
+    public function filterByLanguageAbility(Builder $query, string $languageAbility): Builder
+    {
+        // If filtering for a specific language the query should return candidates of that language OR bilingual.
+        // TODO: is there any way of querying the graphql enum
+        $query->where(function($query) use ($languageAbility) {
+            $bilingualEnumOption = "BILINGUAL";
+
+            $query->where('language_ability', $languageAbility);
+            if ($languageAbility != $bilingualEnumOption) {
+                $query->orWhere('language_ability', $bilingualEnumOption);
+            }
+        });
+        return $query;
+    }
     public function filterByPools(Builder $query, array $pools): Builder
     {
         if (empty($pools)) {
