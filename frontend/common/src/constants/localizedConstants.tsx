@@ -167,8 +167,7 @@ export const workRegions = defineMessages({
 
 export const workRegionsDetailed = defineMessages({
   [WorkRegion.Telework]: {
-    defaultMessage:
-      "<bold>Virtual:</bold> Work from home, anywhere in Canada.",
+    defaultMessage: "<bold>Virtual:</bold> Work from home, anywhere in Canada.",
     description: "The work region of Canada described as Telework.",
   },
   [WorkRegion.NationalCapital]: {
@@ -446,10 +445,6 @@ export const getEducationType = (
   );
 
 export const operationalRequirements = defineMessages({
-  [OperationalRequirement.Overtime]: {
-    defaultMessage: "Overtime as required",
-    description: "The operational requirement described as overtime.",
-  },
   [OperationalRequirement.ShiftWork]: {
     defaultMessage: "Shift work",
     description: "The operational requirement described as shift work.",
@@ -470,6 +465,19 @@ export const operationalRequirements = defineMessages({
   [OperationalRequirement.DriversLicense]: {
     defaultMessage: "Driver's license",
     description: "The operational requirement described as driver's license.",
+  },
+  [OperationalRequirement.WorkWeekends]: {
+    defaultMessage: "Work weekends",
+    description: "The operational requirement described as work weekends.",
+  },
+  [OperationalRequirement.OvertimeScheduled]: {
+    defaultMessage: "Work scheduled overtime",
+    description: "The operational requirement described as scheduled overtime.",
+  },
+  [OperationalRequirement.OvertimeShortNotice]: {
+    defaultMessage: "Work overtime on short notice",
+    description:
+      "The operational requirement described as short notice overtime.",
   },
 });
 

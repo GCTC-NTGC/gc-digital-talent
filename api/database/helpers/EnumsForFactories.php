@@ -13,12 +13,14 @@ class EnumsForFactories
     public static function operationalRequirements() : array
     {
         return [
-            'OVERTIME',
             'SHIFT_WORK',
             'ON_CALL',
             'TRAVEL',
             'TRANSPORT_EQUIPMENT',
             'DRIVERS_LICENSE',
+            'WORK_WEEKENDS',
+            'OVERTIME_SCHEDULED',
+            'OVERTIME_SHORT_NOTICE'
         ];
     }
 }
