@@ -1,5 +1,5 @@
 # TODO: some sort of logout landing page
-OAUTH_POST_LOGOUT_REDIRECT="http://localhost:8000/admin"
+OAUTH_POST_LOGOUT_REDIRECT=""
 
 # Don't use with local Laravel auth
 # OAUTH_LOGOUT_URI="https://te-auth.id.tbs-sct.gc.ca/oxauth/restv1/end_session"
