@@ -12,6 +12,19 @@ query getSkills {
       en
       fr
     }
+    families {
+      id
+      key
+      category
+      name {
+        en
+        fr
+      }
+      description {
+        en
+        fr
+      }
+    }
   }
 }
 
@@ -27,6 +40,9 @@ query getMyExperiences {
         name {
           en
           fr
+        }
+        experienceSkillRecord {
+          details
         }
       }
       ... on AwardExperience {
@@ -78,12 +94,33 @@ mutation CreateAwardExperience(
   }
 }
 
+mutation UpdateAwardExperience(
+  $id: ID!
+  $awardExperience: AwardExperienceInput!
+) {
+  updateAwardExperience(id: $id, awardExperience: $awardExperience) {
+    id
+  }
+}
+
 mutation CreateCommunityExperience(
   $id: ID!
   $communityExperience: CommunityExperienceInput!
 ) {
   createCommunityExperience(
     userId: $id
+    communityExperience: $communityExperience
+  ) {
+    id
+  }
+}
+
+mutation UpdateCommunityExperience(
+  $id: ID!
+  $communityExperience: CommunityExperienceInput!
+) {
+  updateCommunityExperience(
+    id: $id
     communityExperience: $communityExperience
   ) {
     id
@@ -102,6 +139,18 @@ mutation CreateEducationExperience(
   }
 }
 
+mutation UpdateEducationExperience(
+  $id: ID!
+  $educationExperience: EducationExperienceInput!
+) {
+  updateEducationExperience(
+    id: $id
+    educationExperience: $educationExperience
+  ) {
+    id
+  }
+}
+
 mutation CreatePersonalExperience(
   $id: ID!
   $personalExperience: PersonalExperienceInput!
@@ -110,6 +159,15 @@ mutation CreatePersonalExperience(
     userId: $id
     personalExperience: $personalExperience
   ) {
+    id
+  }
+}
+
+mutation UpdatePersonalExperience(
+  $id: ID!
+  $personalExperience: PersonalExperienceInput!
+) {
+  updatePersonalExperience(id: $id, personalExperience: $personalExperience) {
     id
   }
 }

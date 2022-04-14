@@ -6,6 +6,7 @@ import {
   EducationStatus,
   EducationType,
   Exact,
+  LocalizedString,
   Maybe,
   Scalars,
 } from "@common/api/generated";
@@ -29,6 +30,10 @@ export type ExperienceType =
   | "education"
   | "personal"
   | "work";
+
+export type Experience = {
+  __typename: string;
+};
 
 export type FormValueDateRange = {
   startDate: Scalars["Date"];
@@ -71,27 +76,78 @@ export type WorkFormValues = FormValueDateRange & {
 };
 
 export type ExperienceDetailsSubmissionData = {
-  areaOfStudy?: Maybe<string>;
-  awardedDate?: Maybe<string>;
-  awardedTo?: Maybe<AwardedTo>;
-  awardedScope?: Maybe<AwardedScope>;
-  description?: Maybe<string>;
-  details?: Maybe<string>;
-  division?: Maybe<string>;
-  endDate?: Maybe<Scalars["Date"]>;
-  institution?: Maybe<string>;
-  issuedBy?: Maybe<string>;
-  organization?: Maybe<string>;
-  project?: Maybe<string>;
-  role?: Maybe<string>;
-  startDate?: Maybe<Scalars["Date"]>;
-  status?: Maybe<EducationStatus>;
-  thesisTitle?: Maybe<string>;
-  title?: Maybe<string>;
-  type?: Maybe<EducationType>;
-  skills?: Maybe<{
+  areaOfStudy?: string;
+  awardedDate?: string;
+  awardedTo?: AwardedTo;
+  awardedScope?: AwardedScope;
+  description?: string;
+  details?: string;
+  division?: string;
+  endDate?: Scalars["Date"];
+  institution?: string;
+  issuedBy?: string;
+  organization?: string;
+  project?: string;
+  role?: string;
+  startDate?: Scalars["Date"];
+  status?: EducationStatus;
+  thesisTitle?: string;
+  title?: string;
+  type?: EducationType;
+  skills?: {
     sync: ({ id: string; details: string } | undefined)[] | undefined;
-  }>;
+  };
+};
+
+export type ExperienceDetailsDefaultValues = {
+  areaOfStudy?: string;
+  awardedDate?: string;
+  awardedTo?: AwardedTo;
+  awardedScope?: AwardedScope;
+  description?: string;
+  details?: string;
+  team?: string;
+  endDate?: Scalars["Date"];
+  institution?: string;
+  issuedBy?: string;
+  organization?: string;
+  project?: string;
+  role?: string;
+  startDate?: Scalars["Date"];
+  educationStatus?: EducationStatus;
+  thesisTitle?: string;
+  title?: string;
+  educationType?: EducationType;
+  skills?: { [id: string]: { details: string } };
+};
+
+export type ExperienceQueryData = {
+  details?: string;
+  issuedBy?: string;
+  awardedDate?: Scalars["Date"];
+  awardedTo?: AwardedTo;
+  awardedScope?: AwardedScope;
+  role?: string;
+  organization?: string;
+  project?: string;
+  division?: string;
+  startDate?: Scalars["Date"];
+  endDate?: Scalars["Date"];
+  status?: EducationStatus;
+  type?: EducationType;
+  areaOfStudy?: string;
+  institution?: string;
+  thesisTitle?: string;
+  title?: string;
+  description?: string;
+  skills?: {
+    id: string;
+    name: LocalizedString;
+    key: string;
+    experienceSkillRecord?: {
+      details: string;
+    };
+  }[];
 };
 
 export type OptionalFormValues =

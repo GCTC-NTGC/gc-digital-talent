@@ -83,7 +83,7 @@ const formValuesToSubmitData = (
 
   return {
     details: data.details,
-    skills: data.skills ? { sync: skillSync } : null,
+    skills: data.skills ? { sync: skillSync } : undefined,
     ...dataMap[type],
   };
 };

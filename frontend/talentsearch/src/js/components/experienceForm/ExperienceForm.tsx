@@ -7,7 +7,6 @@ import { commonMessages } from "@common/messages";
 import { getLocale } from "@common/helpers/localize";
 import { navigate } from "@common/helpers/router";
 
-import { OperationResult } from "urql";
 import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
 import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
 
@@ -19,8 +18,12 @@ import WorkExperienceForm from "../workExperienceForm/WorkExperienceForm";
 
 import ExperienceSkills from "./ExperienceSkills";
 
-import type { Skill } from "../../api/generated";
-import { useGetMeQuery, useGetSkillsQuery } from "../../api/generated";
+import {
+  Skill,
+  useGetMyExperiencesQuery,
+  useGetMeQuery,
+  useGetSkillsQuery,
+} from "../../api/generated";
 import applicantProfileRoutes from "../../applicantProfileRoutes";
 
 import type {
@@ -29,23 +32,30 @@ import type {
   FormValues,
   ExperienceDetailsSubmissionData,
   ExperienceMutationResponse,
+  ExperienceQueryData,
 } from "./types";
 
+import queryResultToDefaultValues from "./defaultValues";
 import formValuesToSubmitData from "./submissionData";
 import useExperienceMutations from "./mutations";
 
 export interface ExperienceFormProps {
   experienceType: ExperienceType;
+  experience?: ExperienceQueryData;
   skills: Skill[];
   onUpdateExperience: (values: ExperienceDetailsSubmissionData) => void;
 }
 
 export const ExperienceForm: React.FunctionComponent<ExperienceFormProps> = ({
+  experience,
   experienceType,
   onUpdateExperience,
   skills,
 }) => {
   const intl = useIntl();
+  const defaultValues = experience
+    ? queryResultToDefaultValues(experienceType, experience)
+    : { skills: undefined };
 
   const handleSubmit: SubmitHandler<FormValues<AllFormValues>> = async (
     formValues,
@@ -78,9 +88,7 @@ export const ExperienceForm: React.FunctionComponent<ExperienceFormProps> = ({
       <BasicForm
         onSubmit={handleSubmit}
         options={{
-          defaultValues: {
-            skills: {},
-          },
+          defaultValues,
         }}
       >
         {experienceType === "award" && <AwardDetailsForm />}
@@ -88,7 +96,12 @@ export const ExperienceForm: React.FunctionComponent<ExperienceFormProps> = ({
         {experienceType === "education" && <EducationExperienceForm />}
         {experienceType === "personal" && <PersonalExperienceForm />}
         {experienceType === "work" && <WorkExperienceForm />}
-        <ExperienceSkills skills={skills} />
+        <ExperienceSkills
+          skills={skills}
+          initialSkills={
+            experience?.skills ? (experience.skills as Skill[]) : undefined
+          }
+        />
         <h2 data-h2-font-size="b(h3)">
           {intl.formatMessage({
             defaultMessage: "4. Additional information for this experience",
@@ -120,18 +133,17 @@ export const ExperienceForm: React.FunctionComponent<ExperienceFormProps> = ({
 
 export interface ExperienceFormContainerProps {
   experienceType: ExperienceType; // TO DO: To be passed from router context
+  experienceId?: string;
 }
 
 const ExperienceFormContainer: React.FunctionComponent<ExperienceFormContainerProps> =
-  ({ experienceType }) => {
+  ({ experienceType, experienceId }) => {
     const intl = useIntl();
     const locale = getLocale(intl);
     const paths = applicantProfileRoutes(locale);
 
     const [meResults] = useGetMeQuery();
     const { data: meData, fetching: fetchingMe, error: meError } = meResults;
-    const { executeMutation, getMutationArgs } =
-      useExperienceMutations(experienceType);
 
     const handleSuccess = () => {
       navigate(paths.home());
@@ -160,17 +172,9 @@ const ExperienceFormContainer: React.FunctionComponent<ExperienceFormContainerPr
       }
     };
 
-    const handleUpdateExperience = (
-      values: ExperienceDetailsSubmissionData,
-    ) => {
-      if (meData?.me) {
-        const args = getMutationArgs(meData.me.id, values);
-        const res = executeMutation(
-          args,
-        ) as Promise<ExperienceMutationResponse>;
-        res.then(handleMutationResponse).catch(handleError);
-      }
-    };
+    const [experiencesResult] = useGetMyExperiencesQuery();
+    const { data: experienceData, fetching: fetchingExperience } =
+      experiencesResult;
 
     const [skillResults] = useGetSkillsQuery();
     const {
@@ -179,7 +183,31 @@ const ExperienceFormContainer: React.FunctionComponent<ExperienceFormContainerPr
       error: skillError,
     } = skillResults;
 
-    if (fetchingSkills || fetchingMe) {
+    let experience: ExperienceQueryData | null = null;
+    if (experienceId && experienceData?.me?.experiences) {
+      experience = experienceData.me.experiences.find(
+        (e) => e?.id === experienceId,
+      ) as ExperienceQueryData;
+    }
+
+    const { executeMutation, getMutationArgs } = useExperienceMutations(
+      experienceType,
+      experience ? "update" : "create",
+    );
+
+    const handleUpdateExperience = (
+      values: ExperienceDetailsSubmissionData,
+    ) => {
+      if (meData?.me) {
+        const args = getMutationArgs(experienceId || meData.me.id, values);
+        const res = executeMutation(
+          args,
+        ) as Promise<ExperienceMutationResponse>;
+        res.then(handleMutationResponse).catch(handleError);
+      }
+    };
+
+    if (fetchingSkills || fetchingMe || fetchingExperience) {
       return <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>;
     }
 
@@ -194,6 +222,7 @@ const ExperienceFormContainer: React.FunctionComponent<ExperienceFormContainerPr
 
     return (
       <ExperienceForm
+        experience={experience as ExperienceQueryData}
         experienceType={experienceType}
         skills={skillsData.skills as Skill[]}
         onUpdateExperience={handleUpdateExperience}

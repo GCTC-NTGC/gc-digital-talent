@@ -4,15 +4,23 @@ import {
   useCreateEducationExperienceMutation,
   useCreatePersonalExperienceMutation,
   useCreateWorkExperienceMutation,
+  useUpdateAwardExperienceMutation,
+  useUpdateCommunityExperienceMutation,
+  useUpdateEducationExperienceMutation,
+  useUpdatePersonalExperienceMutation,
 } from "../../api/generated";
 import type {
   ExperienceDetailsSubmissionData,
   ExperienceMutationArgs,
-  ExperienceMutationResponse,
   ExperienceType,
 } from "./types";
 
-const useExperienceMutations = (type: ExperienceType) => {
+type ExperienceMutationType = "create" | "update";
+
+const useExperienceMutations = (
+  experienceType: ExperienceType,
+  mutationType: ExperienceMutationType,
+) => {
   const args: Record<ExperienceType, string> = {
     award: "awardExperience",
     community: "communityExperience",
@@ -25,25 +33,46 @@ const useExperienceMutations = (type: ExperienceType) => {
     id: string,
     values: ExperienceDetailsSubmissionData,
   ): ExperienceMutationArgs => {
-    return { id, [args[type]]: values } as ExperienceMutationArgs;
+    return { id, [args[experienceType]]: values } as ExperienceMutationArgs;
   };
 
-  const [, executeAwardMutation] = useCreateAwardExperienceMutation();
-  const [, executeCommunityMutation] = useCreateCommunityExperienceMutation();
-  const [, executeEducationMutation] = useCreateEducationExperienceMutation();
-  const [, executePersonalMutation] = useCreatePersonalExperienceMutation();
-  const [, executeWorkMutation] = useCreateWorkExperienceMutation();
+  const [, executeCreateAwardMutation] = useCreateAwardExperienceMutation();
+  const [, executeCreateCommunityMutation] =
+    useCreateCommunityExperienceMutation();
+  const [, executeCreateEducationMutation] =
+    useCreateEducationExperienceMutation();
+  const [, executeCreatePersonalMutation] =
+    useCreatePersonalExperienceMutation();
+  const [, executeCreateWorkMutation] = useCreateWorkExperienceMutation();
+
+  const [, executeUpdateAwardMutation] = useUpdateAwardExperienceMutation();
+  const [, executeUpdateCommunityMutation] =
+    useUpdateCommunityExperienceMutation();
+  const [, executeUpdateEducationMutation] =
+    useUpdateEducationExperienceMutation();
+  const [, executeUpdatePersonalMutation] =
+    useUpdatePersonalExperienceMutation();
+  const [, executeUpdateWorkMutation] = useUpdateAwardExperienceMutation();
 
   const mutations = {
-    award: executeAwardMutation,
-    community: executeCommunityMutation,
-    education: executeEducationMutation,
-    personal: executePersonalMutation,
-    work: executeWorkMutation,
+    create: {
+      award: executeCreateAwardMutation,
+      community: executeCreateCommunityMutation,
+      education: executeCreateEducationMutation,
+      personal: executeCreatePersonalMutation,
+      work: executeCreateWorkMutation,
+    },
+    update: {
+      award: executeUpdateAwardMutation,
+      community: executeUpdateCommunityMutation,
+      education: executeUpdateEducationMutation,
+      personal: executeUpdatePersonalMutation,
+      work: executeUpdateWorkMutation,
+    },
   };
 
   return {
-    executeMutation: mutations[type],
+    executeMutation: mutations[mutationType][experienceType],
     getMutationArgs: getArgs,
   };
 };

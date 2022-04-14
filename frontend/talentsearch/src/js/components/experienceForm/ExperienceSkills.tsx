@@ -12,25 +12,33 @@ type FormValues = {
 
 export interface ExperienceSkillsProps {
   skills: Skill[];
+  initialSkills?: Skill[];
 }
 
-const ExperienceSkills: React.FC<ExperienceSkillsProps> = ({ skills }) => {
+const ExperienceSkills: React.FC<ExperienceSkillsProps> = ({
+  skills,
+  initialSkills,
+}) => {
   const intl = useIntl();
   const { setValue, watch } = useForm();
   const watchedSkills = watch("skills");
-  const [addedSkills, setAddedSkills] = React.useState<Skill[]>([]);
+  const [addedSkills, setAddedSkills] = React.useState<Skill[]>(
+    initialSkills || [],
+  );
 
-  /**
-   * Updates an array of skills currently added to experience
-   */
-  useEffect(() => {
+  const updateAddedSkills = () => {
     if (watchedSkills) {
       const newAddedSkills = skills.filter((skill) =>
         Object.keys(watchedSkills).includes(skill.id),
       );
       setAddedSkills(newAddedSkills);
     }
-  }, [watchedSkills, skills]);
+  };
+
+  /**
+   * Updates an array of skills currently added to experience
+   */
+  useEffect(updateAddedSkills, [watchedSkills, skills]);
 
   const handleAddSkill = (id: string) => {
     const newSkills = { ...watchedSkills, [id]: { details: "" } };
