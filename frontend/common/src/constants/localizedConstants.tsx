@@ -445,32 +445,41 @@ export const getEducationType = (
   );
 
 export const OperationalRequirementCandidateDescription = defineMessages({
-  [OperationalRequirement.Overtime]: {
-    defaultMessage: "...requires me to <boldText>work overtime.</boldText>",
-    description: "The operational requirement described as overtime.",
-  },
   [OperationalRequirement.ShiftWork]: {
-    defaultMessage: "...has <boldText>shift-work</boldText>",
+    defaultMessage: "...has <bold>shift-work</bold>.",
     description: "The operational requirement described as shift work.",
   },
   [OperationalRequirement.OnCall]: {
-    defaultMessage: "...has <boldText>24/7 on call-shifts</boldText>",
+    defaultMessage: "...has <bold>24/7 on call-shifts</bold>.",
     description: "The operational requirement described as 24/7 on-call.",
   },
   [OperationalRequirement.Travel]: {
-    defaultMessage: "...requires me to <boldText>travel</boldText>",
+    defaultMessage: "...requires me to <bold>travel</bold>.",
     description: "The operational requirement described as travel as required.",
   },
   [OperationalRequirement.TransportEquipment]: {
     defaultMessage:
-      "...requires me to <boldText>transport, lift and set down equipment weighing up to 20kg</boldText>",
+      "...requires me to <bold>transport, lift and set down equipment weighing up to 20kg</bold>.",
     description:
       "The operational requirement described as transport equipment up to 20kg.",
   },
   [OperationalRequirement.DriversLicense]: {
     defaultMessage:
-      "...requires me to <boldText>have a valid driver's license</boldText> or personal mobility to the degree normally associated with the possession of a valid driver's license",
+      "...requires me to <bold>have a valid driver's license</bold> or personal mobility to the degree normally associated with the possession of a valid driver's license.",
     description: "The operational requirement described as driver's license.",
+  },
+  [OperationalRequirement.WorkWeekends]: {
+    defaultMessage: "...requires me to <bold>work weekends</bold>.",
+    description: "The operational requirement described as work weekends.",
+  },
+  [OperationalRequirement.OvertimeScheduled]: {
+    defaultMessage: "...requires me to <bold>work scheduled overtime</bold>.",
+    description: "The operational requirement described as scheduled overtime.",
+  },
+  [OperationalRequirement.OvertimeShortNotice]: {
+    defaultMessage:
+      "...requires me to <bold>work overtime on short notice</bold>.",
+    description: "The operational requirement described as overtime.",
   },
 });
 
