@@ -207,8 +207,8 @@ RAWSQL2;
             $frenchEnumOption = "FRENCH";
             $bilingualEnumOption = "BILINGUAL";
 
+            $query->where('language_ability', $languageAbility);
             if ($languageAbility == $englishEnumOption || $languageAbility == $frenchEnumOption) {
-                $query->where('language_ability', $languageAbility);
                 $query->orWhere('language_ability', $bilingualEnumOption);
             }
         });
