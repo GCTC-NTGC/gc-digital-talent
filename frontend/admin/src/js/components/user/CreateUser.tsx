@@ -8,6 +8,7 @@ import { enumToOptions } from "@common/helpers/formUtils";
 import { getLanguage, getRole } from "@common/constants/localizedConstants";
 import { errorMessages } from "@common/messages";
 import { phoneNumberRegex } from "@common/constants/regularExpressions";
+import { empty } from "@common/helpers/util";
 import { useAdminRoutes } from "../../adminRoutes";
 import {
   Language,
@@ -25,6 +26,15 @@ interface CreateUserFormProps {
   ) => Promise<CreateUserMutation["createUser"]>;
 }
 
+const formValuesToData = (values: FormValues): CreateUserInput => ({
+  ...values,
+  telephone:
+    // empty string isn't valid according to API validation regex pattern, but null is valid.
+    empty(values.telephone) || values.telephone === ""
+      ? null
+      : values.telephone,
+});
+
 export const CreateUserForm: React.FunctionComponent<CreateUserFormProps> = ({
   handleCreateUser,
 }) => {
@@ -34,7 +44,7 @@ export const CreateUserForm: React.FunctionComponent<CreateUserFormProps> = ({
   const { handleSubmit } = methods;
 
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
-    return handleCreateUser(data)
+    return handleCreateUser(formValuesToData(data))
       .then(() => {
         navigate(paths.userTable());
         toast.success(
