@@ -11,11 +11,16 @@ import {
 } from "@common/api/generated";
 
 import type {
+  AwardExperienceInput,
+  CommunityExperienceInput,
   CreateAwardExperienceMutation,
   CreateCommunityExperienceMutation,
   CreateEducationExperienceMutation,
   CreatePersonalExperienceMutation,
   CreateWorkExperienceMutation,
+  EducationExperienceInput,
+  PersonalExperienceInput,
+  WorkExperienceInput,
 } from "../../api/generated";
 
 export type ExperienceType =
@@ -84,6 +89,9 @@ export type ExperienceDetailsSubmissionData = {
   thesisTitle?: Maybe<string>;
   title?: Maybe<string>;
   type?: Maybe<EducationType>;
+  skills?: Maybe<{
+    sync: ({ id: string; details: string } | undefined)[] | undefined;
+  }>;
 };
 
 export type OptionalFormValues =
@@ -117,3 +125,24 @@ export type GenericExperienceMutationResponse<T> = OperationResult<
 
 export type ExperienceMutationResponse =
   GenericExperienceMutationResponse<ExperienceMutations>;
+
+export type ExperienceMutationArgs = Exact<{
+  id: string;
+  awardExperience: AwardExperienceInput;
+}> &
+  Exact<{
+    id: string;
+    communityExperience: CommunityExperienceInput;
+  }> &
+  Exact<{
+    id: string;
+    educationExperience: EducationExperienceInput;
+  }> &
+  Exact<{
+    id: string;
+    personalExperience: PersonalExperienceInput;
+  }> &
+  Exact<{
+    id: string;
+    workExperience: WorkExperienceInput;
+  }>;

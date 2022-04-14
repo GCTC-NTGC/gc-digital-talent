@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useIntl } from "react-intl";
-import { LocalizedString, Skill } from "@common/api/generated";
+import type { Skill } from "@common/api/generated";
 import { useForm } from "react-hook-form";
 
-import { identity } from "lodash";
 import AddSkillsToExperience from "../skills/AddSkillsToExperience/AddSkillsToExperience";
 import SkillsInDetail from "../skills/SkillsInDetail/SkillsInDetail";
 

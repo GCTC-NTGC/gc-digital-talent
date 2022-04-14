@@ -7,6 +7,7 @@ import { commonMessages } from "@common/messages";
 import { getLocale } from "@common/helpers/localize";
 import { navigate } from "@common/helpers/router";
 
+import { OperationResult } from "urql";
 import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
 import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
 
@@ -19,15 +20,7 @@ import WorkExperienceForm from "../workExperienceForm/WorkExperienceForm";
 import ExperienceSkills from "./ExperienceSkills";
 
 import type { Skill } from "../../api/generated";
-import {
-  useCreateAwardExperienceMutation,
-  useCreateCommunityExperienceMutation,
-  useCreateEducationExperienceMutation,
-  useCreatePersonalExperienceMutation,
-  useCreateWorkExperienceMutation,
-  useGetMeQuery,
-  useGetSkillsQuery,
-} from "../../api/generated";
+import { useGetMeQuery, useGetSkillsQuery } from "../../api/generated";
 import applicantProfileRoutes from "../../applicantProfileRoutes";
 
 import type {
@@ -37,6 +30,9 @@ import type {
   ExperienceDetailsSubmissionData,
   ExperienceMutationResponse,
 } from "./types";
+
+import formValuesToSubmitData from "./submissionData";
+import useExperienceMutations from "./mutations";
 
 export interface ExperienceFormProps {
   experienceType: ExperienceType;
@@ -51,111 +47,10 @@ export const ExperienceForm: React.FunctionComponent<ExperienceFormProps> = ({
 }) => {
   const intl = useIntl();
 
-  const formValuesToSubmitData = (
-    data: FormValues<AllFormValues>,
-  ): ExperienceDetailsSubmissionData => {
-    let submissionData = {};
-
-    let skillSync;
-    if (data.skills) {
-      skillSync = Object.keys(data.skills).map((key: string) => {
-        if (!data.skills) {
-          return undefined;
-        }
-        const skill = data.skills[key];
-        return {
-          id: key,
-          details: skill.details,
-        };
-      });
-    }
-
-    const commonValues = {
-      details: data.details,
-      skills: data.skills
-        ? {
-            sync: skillSync,
-          }
-        : null,
-    };
-
-    if (experienceType === "award") {
-      const { issuedBy, awardedDate, awardedTo, awardedScope } = data;
-      submissionData = {
-        ...commonValues,
-        title: data.awardTitle,
-        issuedBy,
-        awardedDate,
-        awardedTo,
-        awardedScope,
-      };
-    }
-
-    if (experienceType === "community") {
-      const { role, organization, project, startDate, endDate } = data;
-      submissionData = {
-        ...commonValues,
-        title: role,
-        organization,
-        project,
-        startDate,
-        endDate,
-      };
-    }
-
-    if (experienceType === "education") {
-      const {
-        educationStatus,
-        educationType,
-        areaOfStudy,
-        institution,
-        thesisTitle,
-        startDate,
-        endDate,
-      } = data;
-      submissionData = {
-        ...commonValues,
-        type: educationType,
-        status: educationStatus,
-        areaOfStudy,
-        institution,
-        thesisTitle,
-        startDate,
-        endDate,
-      };
-    }
-
-    if (experienceType === "personal") {
-      const { experienceTitle, experienceDescription, startDate, endDate } =
-        data;
-      submissionData = {
-        ...commonValues,
-        title: experienceTitle,
-        description: experienceDescription,
-        startDate,
-        endDate,
-      };
-    }
-
-    if (experienceType === "work") {
-      const { role, organization, team, startDate, endDate } = data;
-      submissionData = {
-        ...commonValues,
-        role,
-        organization,
-        division: team,
-        startDate,
-        endDate,
-      };
-    }
-
-    return submissionData;
-  };
-
   const handleSubmit: SubmitHandler<FormValues<AllFormValues>> = async (
     formValues,
   ) => {
-    const data = formValuesToSubmitData(formValues);
+    const data = formValuesToSubmitData(experienceType, formValues);
     await onUpdateExperience(data);
   };
 
@@ -227,121 +122,83 @@ export interface ExperienceFormContainerProps {
   experienceType: ExperienceType; // TO DO: To be passed from router context
 }
 
-const ExperienceFormContainer: React.FunctionComponent<
-  ExperienceFormContainerProps
-> = ({ experienceType }) => {
-  const intl = useIntl();
-  const locale = getLocale(intl);
-  const paths = applicantProfileRoutes(locale);
+const ExperienceFormContainer: React.FunctionComponent<ExperienceFormContainerProps> =
+  ({ experienceType }) => {
+    const intl = useIntl();
+    const locale = getLocale(intl);
+    const paths = applicantProfileRoutes(locale);
 
-  const [meResults] = useGetMeQuery();
-  const { data: meData, fetching: fetchingMe, error: meError } = meResults;
+    const [meResults] = useGetMeQuery();
+    const { data: meData, fetching: fetchingMe, error: meError } = meResults;
+    const { executeMutation, getMutationArgs } =
+      useExperienceMutations(experienceType);
 
-  const [, executeAwardMutation] = useCreateAwardExperienceMutation();
-  const [, executeCommunityMutation] = useCreateCommunityExperienceMutation();
-  const [, executeEducationMutation] = useCreateEducationExperienceMutation();
-  const [, executePersonalMutation] = useCreatePersonalExperienceMutation();
-  const [, executeWorkMutation] = useCreateWorkExperienceMutation();
+    const handleSuccess = () => {
+      navigate(paths.home());
+      toast.success(
+        intl.formatMessage({
+          defaultMessage: "Successfully added experience!",
+          description:
+            "Success message displayed after adding experience to profile",
+        }),
+      );
+    };
 
-  const handleSuccess = () => {
-    navigate(paths.home());
-    toast.success(
-      intl.formatMessage({
-        defaultMessage: "Successfully added experience!",
-        description:
-          "Success message displayed after adding experience to profile",
-      }),
-    );
-  };
+    const handleError = () => {
+      toast.error(
+        intl.formatMessage({
+          defaultMessage: "Error: adding experience failed",
+          description:
+            "Message displayed to user after experience fails to be created.",
+        }),
+      );
+    };
 
-  const handleError = () => {
-    toast.error(
-      intl.formatMessage({
-        defaultMessage: "Error: adding experience failed",
-        description:
-          "Message displayed to user after experience fails to be created.",
-      }),
-    );
-  };
+    const handleMutationResponse = (res: ExperienceMutationResponse) => {
+      if (res.data) {
+        handleSuccess();
+      }
+    };
 
-  const handleMutationResponse = (res: ExperienceMutationResponse) => {
-    if (res.data) {
-      handleSuccess();
+    const handleUpdateExperience = (
+      values: ExperienceDetailsSubmissionData,
+    ) => {
+      if (meData?.me) {
+        const args = getMutationArgs(meData.me.id, values);
+        const res = executeMutation(
+          args,
+        ) as Promise<ExperienceMutationResponse>;
+        res.then(handleMutationResponse).catch(handleError);
+      }
+    };
+
+    const [skillResults] = useGetSkillsQuery();
+    const {
+      data: skillsData,
+      fetching: fetchingSkills,
+      error: skillError,
+    } = skillResults;
+
+    if (fetchingSkills || fetchingMe) {
+      return <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>;
     }
-  };
 
-  const handleUpdateExperience = (values: ExperienceDetailsSubmissionData) => {
-    if (meData?.me) {
-      if (experienceType === "award") {
-        executeAwardMutation({
-          id: meData.me.id,
-          awardExperience: values,
-        })
-          .then(handleMutationResponse)
-          .catch(handleError);
-      }
-      if (experienceType === "community") {
-        executeCommunityMutation({
-          id: meData.me.id,
-          communityExperience: values,
-        })
-          .then(handleMutationResponse)
-          .catch(handleError);
-      }
-      if (experienceType === "education") {
-        executeEducationMutation({
-          id: meData.me.id,
-          educationExperience: values,
-        })
-          .then(handleMutationResponse)
-          .catch(handleError);
-      }
-      if (experienceType === "personal") {
-        executePersonalMutation({
-          id: meData.me.id,
-          personalExperience: values,
-        })
-          .then(handleMutationResponse)
-          .catch(handleError);
-      }
-      if (experienceType === "work") {
-        executeWorkMutation({
-          id: meData.me.id,
-          workExperience: values,
-        })
-          .then(handleMutationResponse)
-          .catch(handleError);
-      }
+    if (skillError || !skillsData || meError || !meData) {
+      return (
+        <p>
+          {intl.formatMessage(commonMessages.loadingError)}
+          {skillError?.message || ""}
+        </p>
+      );
     }
-  };
 
-  const [skillResults] = useGetSkillsQuery();
-  const {
-    data: skillsData,
-    fetching: fetchingSkills,
-    error: skillError,
-  } = skillResults;
-
-  if (fetchingSkills || fetchingMe) {
-    return <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>;
-  }
-
-  if (skillError || !skillsData || meError || !meData) {
     return (
-      <p>
-        {intl.formatMessage(commonMessages.loadingError)}
-        {skillError?.message || ""}
-      </p>
+      <ExperienceForm
+        experienceType={experienceType}
+        skills={skillsData.skills as Skill[]}
+        onUpdateExperience={handleUpdateExperience}
+      />
     );
-  }
-
-  return (
-    <ExperienceForm
-      experienceType={experienceType}
-      skills={skillsData.skills as Skill[]}
-      onUpdateExperience={handleUpdateExperience}
-    />
-  );
-};
+  };
 
 export default ExperienceFormContainer;
