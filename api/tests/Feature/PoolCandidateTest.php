@@ -503,7 +503,7 @@ class PoolCandidateTest extends TestCase
       ]
     ])->assertJson([
       'data' => [
-        'countPoolCandidates' => 1
+        'countPoolCandidates' => 2
       ]
     ]);
     // Assert query with LanguageAbility filter will return correct candidate count
@@ -517,7 +517,7 @@ class PoolCandidateTest extends TestCase
       ]
     ])->assertJson([
       'data' => [
-        'countPoolCandidates' => 1
+        'countPoolCandidates' => 2
       ]
     ]);
     // Assert query with LanguageAbility filter will return correct candidate count
