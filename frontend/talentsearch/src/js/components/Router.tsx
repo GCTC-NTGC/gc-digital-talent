@@ -17,6 +17,7 @@ import {
 import RequestPage from "./request/RequestPage";
 import WorkLocationPreferenceApi from "./workLocationPreferenceForm/WorkLocationPreferenceForm";
 import { ProfilePage } from "./profile/ProfilePage/ProfilePage";
+import WorkPreferencesApi from "./workPreferencesForm/WorkPreferencesForm";
 
 const routes = (
   talentPaths: TalentSearchRoutes,
@@ -51,6 +52,12 @@ const routes = (
     path: profilePaths.workLocation(),
     action: () => ({
       component: <WorkLocationPreferenceApi />,
+    }),
+  },
+  {
+    path: profilePaths.workPreferences(),
+    action: () => ({
+      component: <WorkPreferencesApi />,
     }),
   },
 ];
