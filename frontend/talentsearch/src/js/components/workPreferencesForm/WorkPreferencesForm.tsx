@@ -18,7 +18,7 @@ export const WorkPreferencesForm: React.FunctionComponent<{
 }> = ({ handleSubmit }) => {
   const intl = useIntl();
 
-  function boldText(msg: string) {
+  function bold(msg: string) {
     return <span data-h2-font-weight="b(700)">{msg}</span>;
   }
 
@@ -77,11 +77,11 @@ export const WorkPreferencesForm: React.FunctionComponent<{
                     label: intl.formatMessage(
                       {
                         defaultMessage:
-                          "...only those of an <boldText>indeterminate</boldText> duration. (permanent)",
+                          "...only those of an <bold>indeterminate</bold> duration. (permanent)",
                         description:
                           "Label displayed on Work Preferences form for indeterminate duration option.",
                       },
-                      { boldText },
+                      { bold },
                     ),
                   },
                 ]}
@@ -105,7 +105,7 @@ export const WorkPreferencesForm: React.FunctionComponent<{
                     label: intl.formatMessage(
                       getOperationalRequirementCandidateDescription(value),
                       {
-                        boldText,
+                        bold,
                       },
                     ),
                   }),
