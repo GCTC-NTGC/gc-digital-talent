@@ -3,8 +3,8 @@ import { action } from "@storybook/addon-actions";
 import { Meta, Story } from "@storybook/react";
 import {
   GetWorkPreferencesQuery,
-  UpdateUserAsUserInput,
   OperationalRequirement,
+  UpdateUserAsUserInput,
 } from "../../api/generated";
 
 import { WorkPreferencesForm } from "./WorkPreferencesForm";
@@ -14,7 +14,7 @@ const mockUser: GetWorkPreferencesQuery | undefined = {
   me: {
     __typename: "User",
     id: "11",
-    wouldAcceptTemporary: false,
+    wouldAcceptTemporary: true,
     acceptedOperationalRequirements: [OperationalRequirement.DriversLicense],
   },
 };
@@ -28,9 +28,13 @@ const TemplatePreferencesForm: Story = () => {
   return (
     <WorkPreferencesForm
       initialData={mockUser}
-      handleWorkPreferences={async (id, data) => {
-        await new Promise((resolve) => setTimeout(resolve, 1000));
-        action("Work Location Preference")(data);
+      handleWorkPreferences={async (_: string, data: UpdateUserAsUserInput) => {
+        await new Promise((resolve) => {
+          setTimeout(() => {
+            resolve(data);
+          }, 1000);
+        });
+        action("Update Work Preferences")(data);
         return null;
       }}
     />

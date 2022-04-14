@@ -36,7 +36,7 @@ const TemplateWorkLocationPreferencesForm: Story = () => {
             resolve(data);
           }, 1000);
         });
-        action("Update About Me")(data);
+        action("Update Work Location Preferences")(data);
         return null;
       }}
     />
