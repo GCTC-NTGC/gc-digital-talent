@@ -17,6 +17,7 @@ import {
 import RequestPage from "./request/RequestPage";
 import WorkLocationPreferenceApi from "./workLocationPreferenceForm/WorkLocationPreferenceForm";
 import { ProfilePage } from "./profile/ProfilePage/ProfilePage";
+import LanguageInformationFormContainer from "./languageInformationForm/LanguageInformationForm";
 
 const routes = (
   talentPaths: TalentSearchRoutes,
@@ -45,6 +46,12 @@ const routes = (
     path: profilePaths.home(),
     action: () => ({
       component: <ProfilePage />,
+    }),
+  },
+  {
+    path: profilePaths.languageInformation(),
+    action: () => ({
+      component: <LanguageInformationFormContainer />,
     }),
   },
   {
