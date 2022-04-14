@@ -4,7 +4,6 @@
  * https://httpd.apache.org/docs/current/howto/ssi.html
  *
  * The sjs filetype lets apache know that this file should be parsed for SSI directives.
- */
 
 const data = {
     "OAUTH_LOGOUT_URI": "<!--#echo var="OAUTH_LOGOUT_URI" -->",
@@ -12,3 +11,4 @@ const data = {
 }
 
 window.__SERVER_CONFIG__ = data;
+*/
