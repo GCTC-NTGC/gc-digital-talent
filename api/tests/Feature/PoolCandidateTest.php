@@ -146,7 +146,7 @@ class PoolCandidateTest extends TestCase
     PoolCandidate::factory()->count(5)->create([
       'accepted_operational_requirements' => [],
     ]);
-    $operationalRequirement1 = 'OVERTIME';
+    $operationalRequirement1 = 'OVERTIME_SCHEDULED';
     $operationalRequirement2 = 'SHIFT_WORK';
     $operationalRequirement3 = 'ON_CALL';
 

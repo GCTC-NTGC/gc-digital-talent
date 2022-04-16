@@ -4,11 +4,14 @@ import { RegisterOptions, useFormContext } from "react-hook-form";
 import { InputWrapper } from "../../inputPartials";
 
 export interface CheckboxProps
-  extends Omit<React.HTMLProps<HTMLInputElement>, "capture" | "type"> {
+  extends Omit<
+    React.InputHTMLAttributes<HTMLInputElement>,
+    "capture" | "type"
+  > {
   /** HTML id used to identify the element. */
   id: string;
   /** Holds text for the label associated with the input element */
-  label: string;
+  label: string | React.ReactNode;
   /** A string specifying a name for the input control. */
   name: string;
   /** Set of validation rules and error messages to impose on input. */

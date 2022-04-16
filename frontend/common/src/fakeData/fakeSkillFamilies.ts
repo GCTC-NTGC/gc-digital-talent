@@ -1,10 +1,10 @@
-import faker from "faker";
+import { faker } from "@faker-js/faker";
 import { SkillCategory, SkillFamily, Skill } from "../api/generated";
 
 const generateSkillFamily = (skills: Skill[]) => {
   const name = faker.random.word();
   return {
-    category: faker.random.arrayElement([
+    category: faker.random.arrayElement<SkillCategory>([
       SkillCategory.Behavioural,
       SkillCategory.Technical,
     ]),
@@ -18,7 +18,9 @@ const generateSkillFamily = (skills: Skill[]) => {
       en: `EN ${name}`,
       fr: `FR ${name}`,
     },
-    skills: faker.random.arrayElements(skills),
+    skills: skills.length
+      ? faker.random.arrayElements<Skill>(skills)
+      : ([] as Skill[]),
   };
 };
 

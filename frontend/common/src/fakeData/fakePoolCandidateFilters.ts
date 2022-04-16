@@ -1,4 +1,4 @@
-import faker from "faker";
+import { faker } from "@faker-js/faker";
 import {
   Classification,
   CmoAsset,
@@ -29,9 +29,13 @@ const generatePoolCandidateFilters = (
     isIndigenous: faker.datatype.boolean(),
     isVisibleMinority: faker.datatype.boolean(),
     hasDiploma: faker.datatype.boolean(),
-    languageAbility: faker.random.arrayElement(Object.values(LanguageAbility)),
-    workRegions: faker.random.arrayElements(Object.values(WorkRegion)),
-    operationalRequirements: faker.random.arrayElements(
+    languageAbility: faker.random.arrayElement<LanguageAbility>(
+      Object.values(LanguageAbility),
+    ),
+    workRegions: faker.random.arrayElements<WorkRegion>(
+      Object.values(WorkRegion),
+    ),
+    operationalRequirements: faker.random.arrayElements<OperationalRequirement>(
       operationalRequirements,
     ),
     cmoAssets: faker.random.arrayElements(cmoAssets),
@@ -41,9 +45,10 @@ const generatePoolCandidateFilters = (
 export default (): PoolCandidateFilter[] => {
   const classifications = fakeClassifications();
   const cmoAssets = fakeCmoAssets();
-  const operationalRequirements = faker.random.arrayElements(
-    Object.values(OperationalRequirement),
-  );
+  const operationalRequirements =
+    faker.random.arrayElements<OperationalRequirement>(
+      Object.values(OperationalRequirement),
+    );
   const pools = fakePools();
 
   faker.seed(0); // repeatable results
