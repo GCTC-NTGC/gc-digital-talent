@@ -2,7 +2,10 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { commonMessages, errorMessages } from "@common/messages";
 import { Checklist, RadioGroup } from "@common/components/form";
-import { getOperationalRequirement } from "@common/constants/localizedConstants";
+import {
+  getOperationalRequirement,
+  getOperationalRequirementCandidateDescription,
+} from "@common/constants/localizedConstants";
 import { enumToOptions } from "@common/helpers/formUtils";
 import { navigate } from "@common/helpers/router";
 import { toast } from "react-toastify";
@@ -36,6 +39,9 @@ export const WorkPreferencesForm: React.FC<WorkPreferencesFormProps> = ({
   handleWorkPreferences,
 }) => {
   const intl = useIntl();
+  function bold(msg: string) {
+    return <span data-h2-font-weight="b(700)">{msg}</span>;
+  }
 
   const dataToFormValues = (
     data?: GetWorkPreferencesQuery | undefined,
@@ -152,7 +158,8 @@ export const WorkPreferencesForm: React.FC<WorkPreferencesFormProps> = ({
                     ({ value }) => ({
                       value,
                       label: intl.formatMessage(
-                        getOperationalRequirement(value),
+                        getOperationalRequirementCandidateDescription(value),
+                        { bold },
                       ),
                     }),
                   )}
