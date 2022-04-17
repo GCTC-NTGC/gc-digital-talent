@@ -2,10 +2,7 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { commonMessages, errorMessages } from "@common/messages";
 import { Checklist, RadioGroup } from "@common/components/form";
-import {
-  getOperationalRequirement,
-  getOperationalRequirementCandidateDescription,
-} from "@common/constants/localizedConstants";
+import { getOperationalRequirementCandidateDescription } from "@common/constants/localizedConstants";
 import { enumToOptions } from "@common/helpers/formUtils";
 import { navigate } from "@common/helpers/router";
 import { toast } from "react-toastify";
@@ -24,8 +21,10 @@ import {
 
 export type FormValues = Pick<
   UpdateUserAsUserInput,
-  "wouldAcceptTemporary" | "acceptedOperationalRequirements"
->;
+  "acceptedOperationalRequirements"
+> & {
+  wouldAcceptTemporary: string | boolean;
+};
 export interface WorkPreferencesFormProps {
   initialData: GetWorkPreferencesQuery | undefined;
   handleWorkPreferences: (
@@ -54,54 +53,34 @@ export const WorkPreferencesForm: React.FC<WorkPreferencesFormProps> = ({
   const dataToFormValues = (
     data?: GetWorkPreferencesQuery | undefined,
   ): FormValues => {
-    if (data?.me?.wouldAcceptTemporary === !false) {
-      // eslint-disable-next-line no-param-reassign
-      data.me.wouldAcceptTemporary = false;
-    }
-    // eslint-disable-next-line no-param-reassign
-    // data?.me?.wouldAcceptTemporary = false;
+    const boolToString = (
+      bool: boolean | null | undefined,
+    ): string | boolean => {
+      return bool ? "true" : "false";
+    };
 
     return {
-      wouldAcceptTemporary: data?.me?.wouldAcceptTemporary,
+      wouldAcceptTemporary: boolToString(data?.me?.wouldAcceptTemporary),
       acceptedOperationalRequirements:
         data?.me?.acceptedOperationalRequirements,
     };
   };
-
-  // const dataToFormValues = (
-  //   data?: GetWorkPreferencesQuery | undefined,
-  // ): FormValues => ({
-  //   ...data,
-  //   wouldAcceptTemporary: data?.me?.wouldAcceptTemporary,
-  //   acceptedOperationalRequirements: data?.me?.acceptedOperationalRequirements,
-  // });
-  // const formValuesToSubmitData = (
-  //   values: FormValues,
-  // ): UpdateUserAsUserInput=({values}) => ({
-  //   values.wouldAcceptTemporary==="true"?(wouldAcceptTemporary: true) :(wouldAcceptTemporary: false);
-  //   acceptedOperationalRequirements: values.acceptedOperationalRequirements,
-  // });
   const formValuesToSubmitData = (
     values: FormValues,
   ): UpdateUserAsUserInput => {
-    if (values.wouldAcceptTemporary === !"true") {
-      // eslint-disable-next-line no-param-reassign
-      values.wouldAcceptTemporary = false;
-    } else {
-      // eslint-disable-next-line no-param-reassign
-      values.wouldAcceptTemporary = true;
-    }
+    const StringtoBool = (
+      bool: string | boolean,
+    ): boolean | null | undefined => {
+      if (bool === "true") {
+        return true;
+      }
+      return false;
+    };
     return {
-      wouldAcceptTemporary: values.wouldAcceptTemporary,
+      wouldAcceptTemporary: StringtoBool(values.wouldAcceptTemporary),
       acceptedOperationalRequirements: values.acceptedOperationalRequirements,
     };
   };
-  // const formValuesToSubmitData = (
-  //   values: FormValues,
-  // ): UpdateUserAsUserInput => ({
-  //   wouldAcceptTemporary: values.wouldAcceptTemporary,
-  //   acceptedOperationalRequirements: values.acceptedOperationalRequirements,
-  // });
 
   const methods = useForm<FormValues>({
     defaultValues: dataToFormValues(initialData),
