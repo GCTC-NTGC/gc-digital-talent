@@ -42,20 +42,66 @@ export const WorkPreferencesForm: React.FC<WorkPreferencesFormProps> = ({
   function bold(msg: string) {
     return <span data-h2-font-weight="b(700)">{msg}</span>;
   }
-
+  const OperationalRequirementsSortOrder = [
+    OperationalRequirement.OvertimeShortNotice,
+    OperationalRequirement.OvertimeScheduled,
+    OperationalRequirement.ShiftWork,
+    OperationalRequirement.OnCall,
+    OperationalRequirement.Travel,
+    OperationalRequirement.TransportEquipment,
+    OperationalRequirement.DriversLicense,
+  ];
   const dataToFormValues = (
     data?: GetWorkPreferencesQuery | undefined,
-  ): FormValues => ({
-    ...data,
-    wouldAcceptTemporary: data?.me?.wouldAcceptTemporary,
-    acceptedOperationalRequirements: data?.me?.acceptedOperationalRequirements,
-  });
+  ): FormValues => {
+    if (data?.me?.wouldAcceptTemporary === !false) {
+      // eslint-disable-next-line no-param-reassign
+      data.me.wouldAcceptTemporary = false;
+    }
+    // eslint-disable-next-line no-param-reassign
+    // data?.me?.wouldAcceptTemporary = false;
+
+    return {
+      wouldAcceptTemporary: data?.me?.wouldAcceptTemporary,
+      acceptedOperationalRequirements:
+        data?.me?.acceptedOperationalRequirements,
+    };
+  };
+
+  // const dataToFormValues = (
+  //   data?: GetWorkPreferencesQuery | undefined,
+  // ): FormValues => ({
+  //   ...data,
+  //   wouldAcceptTemporary: data?.me?.wouldAcceptTemporary,
+  //   acceptedOperationalRequirements: data?.me?.acceptedOperationalRequirements,
+  // });
+  // const formValuesToSubmitData = (
+  //   values: FormValues,
+  // ): UpdateUserAsUserInput=({values}) => ({
+  //   values.wouldAcceptTemporary==="true"?(wouldAcceptTemporary: true) :(wouldAcceptTemporary: false);
+  //   acceptedOperationalRequirements: values.acceptedOperationalRequirements,
+  // });
   const formValuesToSubmitData = (
     values: FormValues,
-  ): UpdateUserAsUserInput => ({
-    wouldAcceptTemporary: values.wouldAcceptTemporary,
-    acceptedOperationalRequirements: values.acceptedOperationalRequirements,
-  });
+  ): UpdateUserAsUserInput => {
+    if (values.wouldAcceptTemporary === !"true") {
+      // eslint-disable-next-line no-param-reassign
+      values.wouldAcceptTemporary = false;
+    } else {
+      // eslint-disable-next-line no-param-reassign
+      values.wouldAcceptTemporary = true;
+    }
+    return {
+      wouldAcceptTemporary: values.wouldAcceptTemporary,
+      acceptedOperationalRequirements: values.acceptedOperationalRequirements,
+    };
+  };
+  // const formValuesToSubmitData = (
+  //   values: FormValues,
+  // ): UpdateUserAsUserInput => ({
+  //   wouldAcceptTemporary: values.wouldAcceptTemporary,
+  //   acceptedOperationalRequirements: values.acceptedOperationalRequirements,
+  // });
 
   const methods = useForm<FormValues>({
     defaultValues: dataToFormValues(initialData),
@@ -70,17 +116,6 @@ export const WorkPreferencesForm: React.FC<WorkPreferencesFormProps> = ({
       );
     }
   };
-  if (!initialData) {
-    return (
-      <p>
-        {intl.formatMessage({
-          defaultMessage: "Could not load user.",
-          description:
-            "Error message that appears when current user could not be retrieved.",
-        })}
-      </p>
-    );
-  }
 
   return (
     <ProfileFormWrapper
@@ -122,7 +157,7 @@ export const WorkPreferencesForm: React.FC<WorkPreferencesFormProps> = ({
                   }}
                   items={[
                     {
-                      value: 1,
+                      value: "true",
                       label: intl.formatMessage({
                         defaultMessage:
                           "...any duration (short term, long term, or indeterminate duration)",
@@ -131,7 +166,7 @@ export const WorkPreferencesForm: React.FC<WorkPreferencesFormProps> = ({
                       }),
                     },
                     {
-                      value: 0,
+                      value: "false",
                       label: intl.formatMessage({
                         defaultMessage:
                           "...only those of an indeterminate duration. (permanent)",
@@ -154,15 +189,16 @@ export const WorkPreferencesForm: React.FC<WorkPreferencesFormProps> = ({
                       "Legend for optional work preferences check list in work preferences form",
                   })}
                   name="acceptedOperationalRequirements"
-                  items={enumToOptions(OperationalRequirement).map(
-                    ({ value }) => ({
-                      value,
-                      label: intl.formatMessage(
-                        getOperationalRequirementCandidateDescription(value),
-                        { bold },
-                      ),
-                    }),
-                  )}
+                  items={enumToOptions(
+                    OperationalRequirement,
+                    OperationalRequirementsSortOrder,
+                  ).map(({ value }) => ({
+                    value,
+                    label: intl.formatMessage(
+                      getOperationalRequirementCandidateDescription(value),
+                      { bold },
+                    ),
+                  }))}
                 />
               </div>
             </div>
