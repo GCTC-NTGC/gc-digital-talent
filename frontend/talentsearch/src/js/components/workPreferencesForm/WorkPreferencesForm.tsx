@@ -71,10 +71,10 @@ export const WorkPreferencesForm: React.FC<WorkPreferencesFormProps> = ({
     const StringtoBool = (
       bool: string | boolean,
     ): boolean | null | undefined => {
-      if (bool === "true") {
-        return true;
+      if (bool === !"true") {
+        return false;
       }
-      return false;
+      return true;
     };
     return {
       wouldAcceptTemporary: StringtoBool(values.wouldAcceptTemporary),
