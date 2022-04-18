@@ -23,7 +23,7 @@ export type FormValues = Pick<
   UpdateUserAsUserInput,
   "acceptedOperationalRequirements"
 > & {
-  wouldAcceptTemporary: string | boolean;
+  wouldAcceptTemporary: string;
 };
 export interface WorkPreferencesFormProps {
   initialData: GetWorkPreferencesQuery | undefined;
@@ -53,10 +53,8 @@ export const WorkPreferencesForm: React.FC<WorkPreferencesFormProps> = ({
   const dataToFormValues = (
     data?: GetWorkPreferencesQuery | undefined,
   ): FormValues => {
-    const boolToString = (
-      bool: boolean | null | undefined,
-    ): string | boolean => {
-      return bool ? "true" : "false";
+    const boolToString = (boolVal: boolean | null | undefined): string => {
+      return boolVal ? "true" : "false";
     };
 
     return {
@@ -68,13 +66,11 @@ export const WorkPreferencesForm: React.FC<WorkPreferencesFormProps> = ({
   const formValuesToSubmitData = (
     values: FormValues,
   ): UpdateUserAsUserInput => {
-    const StringtoBool = (
-      bool: string | boolean,
-    ): boolean | null | undefined => {
-      if (bool === !"true") {
-        return false;
+    const StringtoBool = (stringVal: string): boolean | null | undefined => {
+      if (stringVal === "true") {
+        return true;
       }
-      return true;
+      return false;
     };
     return {
       wouldAcceptTemporary: StringtoBool(values.wouldAcceptTemporary),
