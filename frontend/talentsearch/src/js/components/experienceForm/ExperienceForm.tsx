@@ -17,9 +17,8 @@ import PersonalExperienceForm from "../personalExperienceForm/PersonalExperience
 import WorkExperienceForm from "../workExperienceForm/WorkExperienceForm";
 
 import ExperienceSkills from "./ExperienceSkills";
-
+import type { Skill } from "../../api/generated";
 import {
-  Skill,
   useGetMyExperiencesQuery,
   useGetMeQuery,
   useGetSkillsQuery,

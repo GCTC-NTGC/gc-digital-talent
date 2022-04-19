@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
 import { useIntl } from "react-intl";
-import type { Skill } from "@common/api/generated";
 import { useForm } from "react-hook-form";
+
+import type { Skill } from "../../api/generated";
 
 import AddSkillsToExperience from "../skills/AddSkillsToExperience/AddSkillsToExperience";
 import SkillsInDetail from "../skills/SkillsInDetail/SkillsInDetail";
