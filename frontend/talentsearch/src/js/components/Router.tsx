@@ -17,6 +17,8 @@ import {
 import RequestPage from "./request/RequestPage";
 import WorkLocationPreferenceApi from "./workLocationPreferenceForm/WorkLocationPreferenceForm";
 import { ProfilePage } from "./profile/ProfilePage/ProfilePage";
+import ExperienceFormContainer from "./experienceForm/ExperienceForm";
+import { ExperienceType } from "./experienceForm/types";
 
 const routes = (
   talentPaths: TalentSearchRoutes,
@@ -52,6 +54,15 @@ const routes = (
     action: () => ({
       component: <WorkLocationPreferenceApi />,
     }),
+  },
+  {
+    path: `${profilePaths.skillsAndExperiences()}/:type`,
+    action: (context) => {
+      const experienceType = context.params.type as ExperienceType;
+      return {
+        component: <ExperienceFormContainer experienceType={experienceType} />,
+      };
+    },
   },
 ];
 
