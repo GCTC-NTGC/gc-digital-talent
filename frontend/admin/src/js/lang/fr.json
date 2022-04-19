@@ -108,8 +108,8 @@
     "description": "Title displayed on the update a cmo asset form."
   },
   "5KbVpi": {
-    "defaultMessage": "Identifiant du BGC",
-    "description": "Label displayed on the pool candidate form cmo identifier field."
+    "defaultMessage": "Numéro de processus",
+    "description": "Label displayed on the pool candidate form process number field."
   },
   "5jFkhf": {
     "defaultMessage": "Erreur : Échec de la création de la classification",
