@@ -2,17 +2,16 @@
  * @jest-environment jsdom
  */
 import "@testing-library/jest-dom";
-import { screen, fireEvent, waitFor } from "@testing-library/react";
+import { screen, fireEvent, waitFor, within } from "@testing-library/react";
 import React from "react";
 import { fakeSkills } from "@common/fakeData";
 import { act } from "react-dom/test-utils";
 import fakeExperiences from "@common/fakeData/fakeExperiences";
-import { AwardedScope, AwardedTo } from "@common/api/generated";
 import { render } from "../../tests/testUtils";
 import { ExperienceForm, ExperienceFormProps } from "./ExperienceForm";
 import type { ExperienceQueryData, ExperienceType } from "./types";
 
-const mockSkills = fakeSkills(3);
+const mockSkills = fakeSkills(50);
 const mockExperiences = fakeExperiences(5);
 
 const renderExperienceForm = (props: ExperienceFormProps) =>
@@ -220,5 +219,41 @@ describe("ExperienceForm", () => {
     await waitFor(() => {
       expect(mockSave).toHaveBeenCalled();
     });
+  });
+
+  it("should add skill", async () => {
+    const mockSave = jest.fn();
+    renderExperienceForm({
+      experienceType: "award",
+      onUpdateExperience: mockSave,
+      skills: mockSkills,
+    });
+
+    const mainstreamSkills = screen.getByRole("tab", {
+      name: /mainstream skills/i,
+    });
+    expect(mainstreamSkills).toBeInTheDocument();
+
+    fireEvent.click(mainstreamSkills);
+    const skillChecklist = await screen.getAllByTestId("skillChecklist");
+    const checklistParent = skillChecklist[0].parentElement;
+    expect(checklistParent).toHaveStyle("display:block;");
+
+    if (checklistParent) {
+      const checkboxes = await within(checklistParent).queryAllByRole(
+        "checkbox",
+      );
+      if (checkboxes.length) {
+        const checkbox = checkboxes[0] as HTMLInputElement;
+        fireEvent.click(checkboxes[0]);
+        await expect(checkbox.checked).toEqual(true);
+
+        const skillResults = screen.getAllByRole("button", { name: /save/i });
+        fireEvent.click(skillResults[0]);
+        expect(
+          await screen.findByRole("textbox", { name: /skill in details/i }),
+        ).toBeInTheDocument();
+      }
+    }
   });
 });
