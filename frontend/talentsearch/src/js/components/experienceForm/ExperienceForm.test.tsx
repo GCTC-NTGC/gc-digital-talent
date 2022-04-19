@@ -196,28 +196,21 @@ describe("ExperienceForm", () => {
 
   it("should submit with required fields", async () => {
     const mockSave = jest.fn();
-    // const experience = mockExperiences[0];
-    // let experienceType: ExperienceType = "award";
-    // // eslint-disable-next-line no-underscore-dangle
-    // if (experience.__typename) {
-    //   // eslint-disable-next-line no-underscore-dangle
-    //   experienceType = experience.__typename
-    //     ?.replace("Experience", "")
-    //     .toLowerCase() as ExperienceType;
-    // }
+    const experience = mockExperiences[0];
+    let experienceType: ExperienceType = "award";
+    // eslint-disable-next-line no-underscore-dangle
+    if (experience.__typename) {
+      // eslint-disable-next-line no-underscore-dangle
+      experienceType = experience.__typename
+        ?.replace("Experience", "")
+        .toLowerCase() as ExperienceType;
+    }
 
     renderExperienceForm({
-      experienceType: "award",
+      experienceType,
       onUpdateExperience: mockSave,
       skills: mockSkills,
-      experience: {
-        title: "Fake Award",
-        details: "fake experience",
-        issuedBy: "John Doe",
-        awardedDate: "2021-05-23",
-        awardedTo: AwardedTo.Me,
-        awardedScope: AwardedScope.Community,
-      } as ExperienceQueryData,
+      experience: experience as ExperienceQueryData,
     });
 
     act(() => {
