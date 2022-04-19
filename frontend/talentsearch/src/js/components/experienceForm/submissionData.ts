@@ -11,6 +11,7 @@ const formValuesToSubmitData = (
 ): ExperienceDetailsSubmissionData => {
   const {
     issuedBy,
+    awardTitle,
     awardedDate,
     awardedTo,
     awardedScope,
@@ -31,6 +32,7 @@ const formValuesToSubmitData = (
 
   const dataMap: Record<ExperienceType, ExperienceDetailsSubmissionData> = {
     award: {
+      title: awardTitle,
       issuedBy,
       awardedDate,
       awardedTo,
