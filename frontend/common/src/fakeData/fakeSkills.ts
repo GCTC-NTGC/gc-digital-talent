@@ -1,4 +1,4 @@
-import faker from "faker";
+import { faker } from "@faker-js/faker";
 import { Skill, SkillFamily } from "../api/generated";
 
 const generateSkill = (skillFamilies: SkillFamily[]) => {
@@ -15,7 +15,9 @@ const generateSkill = (skillFamilies: SkillFamily[]) => {
       fr: `FR ${faker.lorem.sentences()}`,
     },
     keywords: faker.lorem.words(3).split(" "),
-    families: faker.random.arrayElements(skillFamilies),
+    families: skillFamilies.length
+      ? faker.random.arrayElements<SkillFamily>(skillFamilies)
+      : ([] as SkillFamily[]),
     experienceSkills: [],
   };
 };

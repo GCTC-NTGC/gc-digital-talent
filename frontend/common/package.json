@@ -22,7 +22,9 @@
     "check-intl-admin": "node ./src/tooling/checkIntl.js --en ../admin/src/js/lang/en.json --fr ../admin/src/js/lang/fr.json --rm-orphaned --output-untranslated ../admin/src/js/lang/untranslated.json --whitelist ../admin/src/js/lang/whitelist.json",
     "check-intl-admin-merge": "node ./src/tooling/checkIntl.js --en ../admin/src/js/lang/en.json --fr ../admin/src/js/lang/fr.json --rm-orphaned --output-untranslated ../admin/src/js/lang/untranslated.json --whitelist ../admin/src/js/lang/whitelist.json --merge-fr ../admin/src/js/lang/newTranslations.json",
     "check-intl-talentsearch": "node ./src/tooling/checkIntl.js --en ../talentsearch/src/js/lang/en.json --fr ../talentsearch/src/js/lang/fr.json --rm-orphaned --output-untranslated ../talentsearch/src/js/lang/untranslated.json --whitelist ../talentsearch/src/js/lang/whitelist.json",
-    "check-intl-talentsearch-merge": "node ./src/tooling/checkIntl.js --en ../talentsearch/src/js/lang/en.json --fr ../talentsearch/src/js/lang/fr.json --rm-orphaned --output-untranslated ../talentsearch/src/js/lang/untranslated.json --whitelist ../talentsearch/src/js/lang/whitelist.json --merge-fr ../talentsearch/src/js/lang/newTranslations.json"
+    "check-intl-talentsearch-merge": "node ./src/tooling/checkIntl.js --en ../talentsearch/src/js/lang/en.json --fr ../talentsearch/src/js/lang/fr.json --rm-orphaned --output-untranslated ../talentsearch/src/js/lang/untranslated.json --whitelist ../talentsearch/src/js/lang/whitelist.json --merge-fr ../talentsearch/src/js/lang/newTranslations.json",
+    "check-intl-indigenousapprenticeship": "node ./src/tooling/checkIntl.js --en ../indigenousapprenticeship/src/js/lang/en.json --fr ../indigenousapprenticeship/src/js/lang/fr.json --rm-orphaned --output-untranslated ../indigenousapprenticeship/src/js/lang/untranslated.json --whitelist ../indigenousapprenticeship/src/js/lang/whitelist.json",
+    "check-intl-indigenousapprenticeship-merge": "node ./src/tooling/checkIntl.js --en ../indigenousapprenticeship/src/js/lang/en.json --fr ../indigenousapprenticeship/src/js/lang/fr.json --rm-orphaned --output-untranslated ../indigenousapprenticeship/src/js/lang/untranslated.json --whitelist ../indigenousapprenticeship/src/js/lang/whitelist.json --merge-fr ../indigenousapprenticeship/src/js/lang/newTranslations.json"
   },
   "repository": {
     "type": "git",
@@ -40,19 +42,19 @@
   "peerDependencies": {
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-hook-form": "^7.29.0"
+    "react-hook-form": "^7.30.0"
   },
   "dependencies": {
     "@heroicons/react": "^1.0.6",
-    "@testing-library/react-hooks": "^7.0.2",
+    "@testing-library/react-hooks": "^8.0.0",
     "graphql": "^16.3.0",
     "history": "^5.3.0",
     "lodash": "^4.17.21",
     "path-browserify": "^1.0.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-hook-form": "^7.29.0",
-    "react-intl": "^5.24.8",
+    "react-hook-form": "^7.30.0",
+    "react-intl": "^5.25.0",
     "react-select": "^5.0.0",
     "react-toastify": "^8.2.0",
     "universal-router": "^9.1.0",
@@ -60,6 +62,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.17.8",
+    "@faker-js/faker": "^6.1.2",
     "@formatjs/cli": "^4.8.3",
     "@formatjs/ts-transformer": "^3.9.3",
     "@graphql-codegen/add": "^3.1.0",
@@ -70,11 +73,10 @@
     "@hydrogen-design-system/hydrogen.css": "^1.1.19",
     "@testing-library/jest-dom": "^5.16.3",
     "@testing-library/react": "^12.1.4",
-    "@testing-library/react-hooks": "^7.0.2",
-    "@types/faker": "^5.5.9",
+    "@testing-library/react-hooks": "^8.0.0",
     "@types/jest": "^27.4.1",
     "@types/lodash": "^4.14.181",
-    "@types/node": "^17.0.23",
+    "@types/node": "^17.0.24",
     "@types/path-browserify": "^1.0.0",
     "@types/react": "^17.0.43",
     "@types/react-select": "^5.0.1",
@@ -91,7 +93,6 @@
     "eslint-plugin-promise": "^6.0.0",
     "eslint-plugin-react": "^7.29.4",
     "eslint-plugin-react-hooks": "^4.4.0",
-    "faker": "^5.5.3",
     "jest": "^27.5.1",
     "prettier": "^2.6.2",
     "ts-jest": "^27.1.4",

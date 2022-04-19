@@ -1,4 +1,4 @@
-import faker from "faker";
+import { faker } from "@faker-js/faker";
 import {
   // experiences
   AwardExperience,
@@ -71,13 +71,13 @@ const generateAward = (): AwardExperience => {
     skills: [],
     details: faker.random.words(),
     title: faker.lorem.word(),
-    awardedTo: faker.random.arrayElement([
+    awardedTo: faker.random.arrayElement<AwardedTo>([
       AwardedTo.Me,
       AwardedTo.MyOrganization,
       AwardedTo.MyProject,
       AwardedTo.MyTeam,
     ]),
-    awardedScope: faker.random.arrayElement([
+    awardedScope: faker.random.arrayElement<AwardedScope>([
       AwardedScope.Community,
       AwardedScope.International,
       AwardedScope.Local,
@@ -122,7 +122,7 @@ const generateEducation = (): EducationExperience => {
     skills: [sampleSkill1, sampleSkill2],
     details: faker.random.words(),
     areaOfStudy: faker.music.genre(),
-    type: faker.random.arrayElement([
+    type: faker.random.arrayElement<EducationType>([
       EducationType.BachelorsDegree,
       EducationType.Certification,
       EducationType.Diploma,
@@ -133,7 +133,7 @@ const generateEducation = (): EducationExperience => {
       EducationType.PostDoctoralFellowship,
     ]),
     institution: faker.name.lastName(),
-    status: faker.random.arrayElement([
+    status: faker.random.arrayElement<EducationStatus>([
       EducationStatus.Audited,
       EducationStatus.DidNotComplete,
       EducationStatus.InProgress,
