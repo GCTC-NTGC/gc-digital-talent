@@ -257,9 +257,9 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<UpdatePoolCandidat
               <Input
                 id="cmoIdentifier"
                 label={intl.formatMessage({
-                  defaultMessage: "CMO Identifier",
+                  defaultMessage: "Process Number",
                   description:
-                    "Label displayed on the pool candidate form cmo identifier field.",
+                    "Label displayed on the pool candidate form process number field.",
                 })}
                 type="text"
                 name="cmoIdentifier"
