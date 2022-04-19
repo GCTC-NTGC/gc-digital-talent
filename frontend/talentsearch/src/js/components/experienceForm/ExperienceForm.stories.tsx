@@ -4,7 +4,7 @@ import { action } from "@storybook/addon-actions";
 import type { Skill } from "@common/api/generated";
 import { fakeSkills, fakeSkillFamilies } from "@common/fakeData";
 import { ExperienceForm } from "./ExperienceForm";
-import type { ExperienceType } from "./types";
+import type { ExperienceDetailsSubmissionData, ExperienceType } from "./types";
 
 const skillData = fakeSkills(15, fakeSkillFamilies(4));
 
@@ -29,7 +29,7 @@ const TemplateExperienceFormForm: Story<ExperienceFormStoryArgs> = ({
   <ExperienceForm
     experienceType={experienceType}
     skills={skills}
-    onUpdateExperience={async (data: any) => {
+    onUpdateExperience={async (data: ExperienceDetailsSubmissionData) => {
       await new Promise((resolve) => {
         setTimeout(() => {
           resolve(data);
