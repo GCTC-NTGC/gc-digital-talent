@@ -32,6 +32,7 @@ const queryResultToDefaultValues = (
 
   const dataMap = {
     award: {
+      awardTitle: title,
       issuedBy,
       awardedDate,
       awardedTo,
