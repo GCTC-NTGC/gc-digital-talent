@@ -1,11 +1,12 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { toast } from "react-toastify";
-import type { SubmitHandler } from "react-hook-form";
+import { SubmitHandler } from "react-hook-form";
 import { BasicForm, TextArea } from "@common/components/form";
 import { commonMessages } from "@common/messages";
 import { getLocale } from "@common/helpers/localize";
 import { navigate } from "@common/helpers/router";
+import useLocalStorage from "@common/hooks/useLocalStorage";
 
 import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
 import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
@@ -17,6 +18,7 @@ import PersonalExperienceForm from "../personalExperienceForm/PersonalExperience
 import WorkExperienceForm from "../workExperienceForm/WorkExperienceForm";
 
 import ExperienceSkills from "./ExperienceSkills";
+import WatchFormValues from "./WatchFormValues";
 import type { Skill } from "../../api/generated";
 import {
   useGetMyExperiencesQuery,
@@ -32,6 +34,7 @@ import type {
   ExperienceDetailsSubmissionData,
   ExperienceMutationResponse,
   ExperienceQueryData,
+  ExperienceDetailsDefaultValues,
 } from "./types";
 
 import queryResultToDefaultValues from "./defaultValues";
@@ -55,12 +58,18 @@ export const ExperienceForm: React.FunctionComponent<ExperienceFormProps> = ({
   const defaultValues = experience
     ? queryResultToDefaultValues(experienceType, experience)
     : { skills: undefined };
+  const [locallySavedForm, setLocallySavedForm] =
+    useLocalStorage<ExperienceDetailsDefaultValues>(
+      "ts-createExperience", // unique storage key
+      defaultValues, // start form off empty
+    );
 
   const handleSubmit: SubmitHandler<FormValues<AllFormValues>> = async (
     formValues,
   ) => {
     const data = formValuesToSubmitData(experienceType, formValues);
     await onUpdateExperience(data);
+    setLocallySavedForm({});
   };
 
   return (
@@ -87,9 +96,14 @@ export const ExperienceForm: React.FunctionComponent<ExperienceFormProps> = ({
       <BasicForm
         onSubmit={handleSubmit}
         options={{
-          defaultValues,
+          defaultValues: locallySavedForm,
         }}
       >
+        <WatchFormValues
+          onUpdateValues={(values) => {
+            setLocallySavedForm(values);
+          }}
+        />
         {experienceType === "award" && <AwardDetailsForm />}
         {experienceType === "community" && <CommunityExperienceForm />}
         {experienceType === "education" && <EducationExperienceForm />}
