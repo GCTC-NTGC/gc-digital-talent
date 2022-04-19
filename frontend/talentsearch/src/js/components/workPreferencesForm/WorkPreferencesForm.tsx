@@ -66,14 +66,14 @@ export const WorkPreferencesForm: React.FC<WorkPreferencesFormProps> = ({
   const formValuesToSubmitData = (
     values: FormValues,
   ): UpdateUserAsUserInput => {
-    const StringtoBool = (stringVal: string): boolean | null | undefined => {
+    const stringToBool = (stringVal: string): boolean | null | undefined => {
       if (stringVal === "true") {
         return true;
       }
       return false;
     };
     return {
-      wouldAcceptTemporary: StringtoBool(values.wouldAcceptTemporary),
+      wouldAcceptTemporary: stringToBool(values.wouldAcceptTemporary),
       acceptedOperationalRequirements: values.acceptedOperationalRequirements,
     };
   };
