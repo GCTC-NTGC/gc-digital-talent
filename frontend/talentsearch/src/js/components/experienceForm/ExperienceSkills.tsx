@@ -48,6 +48,7 @@ const ExperienceSkills: React.FC<ExperienceSkillsProps> = ({
     const newSkills = Object.keys(watchedSkills).reduce(
       (object: FormValues["skills"], key) => {
         if (key !== id) {
+          // eslint-disable-next-line no-param-reassign
           object[key] = watchedSkills[key];
         }
         return object;
@@ -70,6 +71,7 @@ const ExperienceSkills: React.FC<ExperienceSkillsProps> = ({
       });
       setValue("skills", newSkills);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
