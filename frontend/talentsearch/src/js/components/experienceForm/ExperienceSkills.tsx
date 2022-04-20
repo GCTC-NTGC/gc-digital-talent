@@ -13,7 +13,7 @@ type FormValues = {
 
 export interface ExperienceSkillsProps {
   skills: Skill[];
-  initialSkills?: Skill[];
+  initialSkills?: { [id: string]: { details: string } };
 }
 
 const ExperienceSkills: React.FC<ExperienceSkillsProps> = ({
@@ -22,7 +22,7 @@ const ExperienceSkills: React.FC<ExperienceSkillsProps> = ({
 }) => {
   const intl = useIntl();
   const { setValue, watch } = useForm();
-  const watchedSkills = watch("skills");
+  const watchedSkills = watch("skills", initialSkills);
   const [addedSkills, setAddedSkills] = React.useState<Skill[]>([]);
 
   const updateAddedSkills = () => {
@@ -57,22 +57,6 @@ const ExperienceSkills: React.FC<ExperienceSkillsProps> = ({
     );
     setValue("skills", newSkills);
   };
-
-  useEffect(() => {
-    let newSkills = {};
-    if (initialSkills) {
-      initialSkills?.forEach((s) => {
-        newSkills = {
-          ...newSkills,
-          [s.id]: {
-            details: s.experienceSkillRecord?.details || "",
-          },
-        };
-      });
-      setValue("skills", newSkills);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   return (
     <>

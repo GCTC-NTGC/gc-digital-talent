@@ -59,18 +59,18 @@ export const ExperienceForm: React.FunctionComponent<ExperienceFormProps> = ({
   const defaultValues = experience
     ? queryResultToDefaultValues(experienceType, experience)
     : { skills: undefined };
-  const [locallySavedForm, setLocallySavedForm] =
-    useLocalStorage<ExperienceDetailsDefaultValues>(
-      "ts-createExperience", // unique storage key
-      defaultValues, // start form off empty
-    );
+  const [locallySavedForm, setLocallySavedForm] = useLocalStorage<
+    ExperienceDetailsDefaultValues | undefined
+  >(
+    "ts-createExperience", // unique storage key
+    defaultValues, // start form off empty
+  );
 
   const handleSubmit: SubmitHandler<FormValues<AllFormValues>> = async (
     formValues,
   ) => {
     const data = formValuesToSubmitData(experienceType, formValues);
     await onUpdateExperience(data);
-    setLocallySavedForm({});
   };
 
   return (
@@ -115,7 +115,7 @@ export const ExperienceForm: React.FunctionComponent<ExperienceFormProps> = ({
         <ExperienceSkills
           skills={skills}
           initialSkills={
-            experience?.skills ? (experience.skills as Skill[]) : undefined
+            locallySavedForm?.skills ? locallySavedForm.skills : undefined
           }
         />
         <h2 data-h2-font-size="b(h3)">
@@ -157,18 +157,19 @@ const ExperienceFormContainer: React.FunctionComponent<ExperienceFormContainerPr
     const intl = useIntl();
     const locale = getLocale(intl);
     const paths = applicantProfileRoutes(locale);
-    const [, setLocallySavedForm] =
-      useLocalStorage<ExperienceDetailsDefaultValues>(
-        "ts-createExperience", // unique storage key
-        {}, // start form off empty
-      );
+    const [, setLocallySavedForm] = useLocalStorage<
+      ExperienceDetailsDefaultValues | undefined
+    >(
+      "ts-createExperience", // unique storage key
+      undefined, // start form off empty
+    );
 
     const [meResults] = useGetMeQuery();
     const { data: meData, fetching: fetchingMe, error: meError } = meResults;
 
     const handleSuccess = () => {
       navigate(paths.home());
-      setLocallySavedForm({});
+      setLocallySavedForm(undefined);
       toast.success(
         intl.formatMessage({
           defaultMessage: "Successfully added experience!",
