@@ -4,7 +4,8 @@
   "workspaces": [
     "admin",
     "common",
-    "talentsearch"
+    "talentsearch",
+    "indigenousapprenticeship"
   ],
   "devDependencies": {
     "@storybook/addon-essentials": "*",

@@ -2,7 +2,7 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { errorMessages } from "@common/messages";
 import { BasicForm, Checklist, RadioGroup } from "@common/components/form";
-import { getOperationalRequirement } from "@common/constants/localizedConstants";
+import { getOperationalRequirementCandidateDescription } from "@common/constants/localizedConstants";
 import { enumToOptions } from "@common/helpers/formUtils";
 import { OperationalRequirement } from "../../api/generated";
 import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
@@ -17,6 +17,10 @@ export const WorkPreferencesForm: React.FunctionComponent<{
   handleSubmit: (data: FormValues) => Promise<void>;
 }> = ({ handleSubmit }) => {
   const intl = useIntl();
+
+  function bold(msg: string) {
+    return <span data-h2-font-weight="b(700)">{msg}</span>;
+  }
 
   return (
     <ProfileFormWrapper
@@ -70,12 +74,15 @@ export const WorkPreferencesForm: React.FunctionComponent<{
                   },
                   {
                     value: "only-indeterminate",
-                    label: intl.formatMessage({
-                      defaultMessage:
-                        "...only those of an indeterminate duration. (permanent)",
-                      description:
-                        "Label displayed on Work Preferences form for indeterminate duration option.",
-                    }),
+                    label: intl.formatMessage(
+                      {
+                        defaultMessage:
+                          "...only those of an <bold>indeterminate</bold> duration. (permanent)",
+                        description:
+                          "Label displayed on Work Preferences form for indeterminate duration option.",
+                      },
+                      { bold },
+                    ),
                   },
                 ]}
               />
@@ -95,7 +102,12 @@ export const WorkPreferencesForm: React.FunctionComponent<{
                 items={enumToOptions(OperationalRequirement).map(
                   ({ value }) => ({
                     value,
-                    label: intl.formatMessage(getOperationalRequirement(value)),
+                    label: intl.formatMessage(
+                      getOperationalRequirementCandidateDescription(value),
+                      {
+                        bold,
+                      },
+                    ),
                   }),
                 )}
               />

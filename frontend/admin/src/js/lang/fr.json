@@ -107,10 +107,6 @@
     "defaultMessage": "Mettre à jour un actif du BGC",
     "description": "Title displayed on the update a cmo asset form."
   },
-  "5KbVpi": {
-    "defaultMessage": "Identifiant du BGC",
-    "description": "Label displayed on the pool candidate form cmo identifier field."
-  },
   "5jFkhf": {
     "defaultMessage": "Erreur : Échec de la création de la classification",
     "description": "Message displayed to user after classification fails to get created."
@@ -410,10 +406,6 @@
   "SD2etQ": {
     "defaultMessage": "Classifications",
     "description": "Label displayed on the Classifications menu item."
-  },
-  "SaAylk": {
-    "defaultMessage": "Exigences opérationnelles",
-    "description": "Label displayed on the Operational Requirements menu item."
   },
   "Sb2fEr": {
     "defaultMessage": "Bassin {poolId} introuvable.",
@@ -1173,5 +1165,9 @@
   "zpwZSQ": {
     "defaultMessage": "Erreur : échec de la mise à jour de la famille de compétences",
     "description": "Message displayed to user after skillFamily fails to get updated."
+  },
+  "0MYQ73": {
+    "defaultMessage": "Numéro de processus",
+    "description": "Label displayed on the pool candidate form process number field."
   }
 }

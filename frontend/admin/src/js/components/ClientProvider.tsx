@@ -129,9 +129,17 @@ export const ClientProvider: React.FC<{ client?: Client }> = ({
       createClient({
         url: apiUri,
         exchanges: [
+          /**
+           * Commented out to stop urlq errors being displayed in toasts
+           *
+           * TODO: Confirm errors are being logged on the server
+           * before removing console.error
+           */
           errorExchange({
             onError: (error: CombinedError) => {
-              toast.error(error.message);
+              // toast.error(error.message);
+              // eslint-disable-next-line no-console
+              console.error(error);
             },
           }),
           dedupExchange,
