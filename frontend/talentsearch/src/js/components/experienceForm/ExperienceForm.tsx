@@ -2,6 +2,7 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { toast } from "react-toastify";
 import { SubmitHandler } from "react-hook-form";
+import isEqual from "lodash/isEqual";
 import { BasicForm, TextArea } from "@common/components/form";
 import { commonMessages } from "@common/messages";
 import { getLocale } from "@common/helpers/localize";
@@ -101,7 +102,9 @@ export const ExperienceForm: React.FunctionComponent<ExperienceFormProps> = ({
       >
         <WatchFormValues
           onUpdateValues={(values) => {
-            setLocallySavedForm(values);
+            if (!isEqual(values, locallySavedForm)) {
+              setLocallySavedForm(values);
+            }
           }}
         />
         {experienceType === "award" && <AwardDetailsForm />}
@@ -154,12 +157,18 @@ const ExperienceFormContainer: React.FunctionComponent<ExperienceFormContainerPr
     const intl = useIntl();
     const locale = getLocale(intl);
     const paths = applicantProfileRoutes(locale);
+    const [, setLocallySavedForm] =
+      useLocalStorage<ExperienceDetailsDefaultValues>(
+        "ts-createExperience", // unique storage key
+        {}, // start form off empty
+      );
 
     const [meResults] = useGetMeQuery();
     const { data: meData, fetching: fetchingMe, error: meError } = meResults;
 
     const handleSuccess = () => {
       navigate(paths.home());
+      setLocallySavedForm({});
       toast.success(
         intl.formatMessage({
           defaultMessage: "Successfully added experience!",
