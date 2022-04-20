@@ -26,7 +26,7 @@ const SkillsInDetail: React.FunctionComponent<SkillsInDetailProps> = ({
   const intl = useIntl();
   const locale = getLocale(intl);
   const watchSkills: FormValues["skills"] = useWatch({ name: "skills" });
-  const MAX_WORDS = 5;
+  const MAX_WORDS = 160;
 
   return (
     <section data-h2-margin="b(bottom, l)">
