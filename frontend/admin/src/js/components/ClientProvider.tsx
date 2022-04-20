@@ -131,12 +131,17 @@ export const ClientProvider: React.FC<{ client?: Client }> = ({
         exchanges: [
           /**
            * Commented out to stop urlq errors being displayed in toasts
+           *
+           * TODO: Confirm errors are being logged on the server
+           * before removing console.error
            */
-          //   errorExchange({
-          //     onError: (error: CombinedError) => {
-          //       toast.error(error.message);
-          //     },
-          //   }),
+          errorExchange({
+            onError: (error: CombinedError) => {
+              // toast.error(error.message);
+              // eslint-disable-next-line no-console
+              console.error(error);
+            },
+          }),
           dedupExchange,
           cacheExchange,
           authExchange({
