@@ -43,7 +43,7 @@ const formValuesToSubmitData = (
       organization,
       project,
       startDate,
-      endDate,
+      endDate: endDate || undefined,
     },
     education: {
       type: educationType,
@@ -52,7 +52,7 @@ const formValuesToSubmitData = (
       institution,
       thesisTitle,
       startDate,
-      endDate,
+      endDate: endDate || undefined,
     },
     personal: {
       title: experienceTitle,
@@ -65,7 +65,7 @@ const formValuesToSubmitData = (
       organization,
       division: team,
       startDate,
-      endDate,
+      endDate: endDate || undefined,
     },
   };
 
