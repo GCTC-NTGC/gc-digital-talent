@@ -23,6 +23,12 @@ export function getFromLocalStorage<T>(key: string, defaultValue: T): T {
   }
 }
 
+export function setValueInStorage<T>(key: string, value: T): void {
+  if (typeof window !== "undefined") {
+    window.localStorage.setItem(key, JSON.stringify(value));
+  }
+}
+
 //
 /** Sync state to local storage so that it persists through a page refresh. Usage is similar to useState except we pass in a local storage key so that we can default to that value on page load instead of the specified initial value.
  * https://usehooks.com/useLocalStorage/
@@ -46,9 +52,7 @@ export default function useLocalStorage<T>(key: string, initialValue: T) {
       // Save state
       setStoredValue(valueToStore);
       // Save to local storage
-      if (typeof window !== "undefined") {
-        window.localStorage.setItem(key, JSON.stringify(valueToStore));
-      }
+      setValueInStorage(key, valueToStore);
     } catch (error) {
       // A more advanced implementation would handle the error case
       // console.log(error);

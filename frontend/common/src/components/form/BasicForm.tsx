@@ -6,21 +6,36 @@ import {
   useForm,
   UseFormProps,
 } from "react-hook-form";
+import useLocalStorage, {
+  getFromLocalStorage,
+  setValueInStorage,
+} from "../../hooks/useLocalStorage";
 
-export function BasicForm<
-  TFieldValues extends FieldValues,
-  // eslint-disable-next-line @typescript-eslint/ban-types
-  TContext extends object = object,
->({
+type BasicFormProps<TFieldValues extends FieldValues> = PropsWithChildren<{
+  onSubmit: SubmitHandler<TFieldValues>;
+  options?: UseFormProps<TFieldValues, any>;
+  cacheKey?: string; // If included, will cache form values in local storage and retrieve from there if possible.
+}>;
+
+export function BasicForm<TFieldValues extends FieldValues>({
   onSubmit,
   children,
   options,
-}: PropsWithChildren<{
-  onSubmit: SubmitHandler<TFieldValues>;
-  options?: UseFormProps<TFieldValues, any>;
-}>): ReactElement {
-  const methods = useForm(options);
-  const { handleSubmit } = methods;
+  cacheKey,
+}: BasicFormProps<TFieldValues>): ReactElement {
+  const cacheValues = cacheKey
+    ? getFromLocalStorage(cacheKey, options.defaultValues)
+    : options.defaultValues;
+
+  const methods = useForm({
+    ...options,
+    defaultValues: cacheValues,
+  });
+  const { handleSubmit, watch } = methods;
+  if (cacheKey) {
+    // Whenever form values change, update cache.
+    watch((values: unknown) => setValueInStorage(cacheKey, values));
+  }
   return (
     <FormProvider {...methods}>
       <form onSubmit={handleSubmit(onSubmit)}>{children}</form>
