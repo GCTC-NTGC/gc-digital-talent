@@ -478,12 +478,14 @@ type Mutation {
 
 """e.g. Overtime as Required, Shift Work, Travel as Required, etc."""
 enum OperationalRequirement {
-  OVERTIME
   SHIFT_WORK
   ON_CALL
   TRAVEL
   TRANSPORT_EQUIPMENT
   DRIVERS_LICENSE
+  WORK_WEEKENDS
+  OVERTIME_SCHEDULED
+  OVERTIME_SHORT_NOTICE
 }
 
 """Allows ordering a list of records."""
