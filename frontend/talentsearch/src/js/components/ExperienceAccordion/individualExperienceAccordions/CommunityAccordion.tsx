@@ -36,7 +36,7 @@ const CommunityAccordion: React.FunctionComponent<CommunityExperience> = ({
     <Accordion
       title={intl.formatMessage(
         {
-          defaultMessage: "{title} of {organization}",
+          defaultMessage: "{title} at {organization}",
           description: "Title at organization",
         },
         { title, organization },
