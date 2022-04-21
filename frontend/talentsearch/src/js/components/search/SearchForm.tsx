@@ -183,6 +183,13 @@ export const SearchForm: React.FunctionComponent<SearchFormProps> = ({
     [cmoAssets, locale, intl],
   );
 
+  const operationalRequirementsSubset = [
+    OperationalRequirement.ShiftWork,
+    OperationalRequirement.WorkWeekends,
+    OperationalRequirement.OvertimeScheduled,
+    OperationalRequirement.OvertimeShortNotice,
+  ];
+
   return (
     <FormProvider {...methods}>
       <form>
@@ -275,7 +282,7 @@ export const SearchForm: React.FunctionComponent<SearchFormProps> = ({
             idPrefix="operationalRequirements"
             legend="Conditions of employment"
             name="operationalRequirements"
-            items={enumToOptions(OperationalRequirement).map(({ value }) => ({
+            items={operationalRequirementsSubset.map((value) => ({
               value,
               label: intl.formatMessage(getOperationalRequirement(value)),
             }))}
