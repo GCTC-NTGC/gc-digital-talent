@@ -3,7 +3,7 @@ import { ChevronDownIcon, ChevronRightIcon } from "@heroicons/react/solid";
 
 export interface AccordionProps {
   title: string;
-  subtitle?: string;
+  subtitle?: string | React.ReactNode;
   Icon?: React.ComponentType<React.SVGProps<SVGSVGElement>>;
   context?: string;
   simple?: boolean;
@@ -64,18 +64,18 @@ export const Accordion: React.FC<AccordionProps> = ({
             )}
           </span>
           <div data-h2-flex-item="b(auto)" data-h2-text-align="b(left)">
-            <p data-h2-margin="b(all, none)" data-h2-font-size="b(h5)">
+            <p
+              data-h2-margin="b(all, none)"
+              data-h2-font-size="b(h5)"
+              data-h2-font-color="b(black)"
+            >
               {title}
             </p>
 
             <p data-h2-margin="b(top, xxs) b(bottom, none)">{subtitle}</p>
           </div>
           <div data-h2-flex-item="b(content)" data-h2-text-align="b(right)">
-            <p
-              data-h2-text-align="b(right)"
-              data-h2-font-size="b(normal)"
-              data-h2-font-color="b(lightpurple)"
-            >
+            <p data-h2-text-align="b(right)" data-h2-font-size="b(normal)">
               {context}
             </p>
           </div>
