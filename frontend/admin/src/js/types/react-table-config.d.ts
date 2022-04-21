@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /*
 This file is seemingly required since (TypeScript) Type definitions are incomplete for sortable tables. #2970
 https://github.com/tannerlinsley/react-table/issues/2970

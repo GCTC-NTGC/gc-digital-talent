@@ -112,9 +112,11 @@ export const useRouter = (
           setComponent(result.component);
         }
       })
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       .catch(async (r) => {
         setComponent(missingRouteComponent);
       });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathName, router]);
 
   return component;
