@@ -22,6 +22,8 @@ import {
   PoolCandidateFilterInput,
 } from "../../api/generated";
 
+const NullSelection = "NULL_SELECTION";
+
 const FilterBlock: React.FunctionComponent<{
   id: string;
   title: string | React.ReactNode;
@@ -59,8 +61,9 @@ function mapIdToValue<T extends { id: string }>(objs: T[]): Map<string, T> {
 type Option<V> = { value: V; label: string };
 export type FormValues = Pick<
   PoolCandidateFilter,
-  "languageAbility" | "workRegions" | "operationalRequirements"
+  "workRegions" | "operationalRequirements"
 > & {
+  languageAbility: LanguageAbility | typeof NullSelection;
   classifications: string[] | undefined;
   cmoAssets: string[] | undefined;
   employmentEquity: string[] | undefined;
@@ -121,10 +124,8 @@ export const SearchForm: React.FunctionComponent<SearchFormProps> = ({
         isWoman:
           values.employmentEquity &&
           values.employmentEquity?.includes("isWoman"),
-        ...(values.languageAbility === "ENGLISH" ||
-        values.languageAbility === "FRENCH" ||
-        values.languageAbility === "BILINGUAL"
-          ? { languageAbility: values.languageAbility }
+        ...(values.languageAbility !== NullSelection
+          ? { languageAbility: values.languageAbility as LanguageAbility }
           : {}), // Ensure null in FormValues is converted to undefined
         workRegions: values.workRegions || [],
       };
@@ -330,12 +331,14 @@ export const SearchForm: React.FunctionComponent<SearchFormProps> = ({
             idPrefix="languageAbility"
             legend="Language"
             name="languageAbility"
-            defaultSelected="any_language"
+            defaultSelected={NullSelection}
             items={[
               {
-                value: "any_language",
+                value: NullSelection,
                 label: intl.formatMessage({
-                  defaultMessage: "Any language",
+                  defaultMessage: "Any language (English or French)",
+                  description:
+                    "No preference for language ability - will accept English or French",
                 }),
               },
               ...enumToOptions(LanguageAbility).map(({ value }) => ({

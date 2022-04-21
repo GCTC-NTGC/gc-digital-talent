@@ -116,7 +116,7 @@ export const languageAbilities = defineMessages({
     description: "The language ability is French only.",
   },
   [LanguageAbility.Bilingual]: {
-    defaultMessage: "Bilingual, English, and French",
+    defaultMessage: "Bilingual (English and French)",
     description: "The language ability is bilingual - both English and French.",
   },
 });
@@ -167,8 +167,7 @@ export const workRegions = defineMessages({
 
 export const workRegionsDetailed = defineMessages({
   [WorkRegion.Telework]: {
-    defaultMessage:
-      "<bold>Virtual:</bold> Work from home, anywhere in Canada.",
+    defaultMessage: "<bold>Virtual:</bold> Work from home, anywhere in Canada.",
     description: "The work region of Canada described as Telework.",
   },
   [WorkRegion.NationalCapital]: {

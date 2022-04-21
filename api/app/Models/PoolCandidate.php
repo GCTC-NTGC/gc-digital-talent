@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Database\Helpers\ApiEnums;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -202,14 +203,9 @@ RAWSQL2;
     {
         // If filtering for a specific language the query should return candidates of that language OR bilingual.
         $query->where(function($query) use ($languageAbility) {
-            // Is there any way of getting these from the graphql enum?
-            $englishEnumOption = "ENGLISH";
-            $frenchEnumOption = "FRENCH";
-            $bilingualEnumOption = "BILINGUAL";
-
             $query->where('language_ability', $languageAbility);
-            if ($languageAbility == $englishEnumOption || $languageAbility == $frenchEnumOption) {
-                $query->orWhere('language_ability', $bilingualEnumOption);
+            if ($languageAbility == ApiEnums::LANGUAGE_ABILITY_ENGLISH || $languageAbility == ApiEnums::LANGUAGE_ABILITY_FRENCH) {
+                $query->orWhere('language_ability', ApiEnums::LANGUAGE_ABILITY_BILINGUAL);
             }
         });
         return $query;
