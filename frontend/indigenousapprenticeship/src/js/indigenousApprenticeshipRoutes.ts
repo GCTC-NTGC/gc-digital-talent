@@ -6,9 +6,9 @@ import INDIGENOUSAPPRENTICESHIP_APP_DIR from "./indigenousApprenticeshipConstant
 export type IndigenousApprenticeshipRoutes = ReturnType<typeof indigenousApprenticeshipRoutes>;
 
 const indigenousApprenticeshipRoutes = (lang: string) => {
-  const helloWorld = (): string => path.join("/", lang, INDIGENOUSAPPRENTICESHIP_APP_DIR); // leading slash in case empty base url
+  const home = (): string => path.join("/", lang, INDIGENOUSAPPRENTICESHIP_APP_DIR); // leading slash in case empty base url
   return {
-    helloWorld,
+    home,
   };
 };
 

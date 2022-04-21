@@ -1,1 +1,87 @@
 /* nothing here yet */
+
+.hero > div {
+  position: relative;
+  z-index: 1;
+}
+
+.hero__image {
+  bottom: 0;
+  left: 0;
+  right: 0;
+  top: 0;
+  object-fit: cover;
+  object-position: center;
+  z-index: 0;
+}
+
+.about-program {
+  box-shadow: 0px -26px 44px rgba(0, 0, 0, 0.05);
+}
+
+.about-program__image {
+  z-index: 2;
+}
+
+.about-program__feathers {
+  bottom: -8rem;
+  height: auto;
+  max-width: none;
+  right: -3rem;
+  width: 110%;
+  z-index: 3;
+}
+
+.circle {
+  border-radius: 100%;
+  height: 10rem;
+  opacity: 0.1;
+  width: 10rem;
+  z-index: 1;
+}
+
+.circle--lg {
+  height: 20rem;
+  width: 20rem;
+}
+
+.circle--top-right {
+  top: -1.5rem;
+  right: 1rem;
+}
+
+.circle--bottom-left {
+  bottom: -3rem;
+  left: -6rem;
+}
+
+@media (max-width: 100em) {
+  .hero {
+    z-index: 1;
+  }
+  .hero__logo {
+    margin-bottom: 24rem;
+  }
+
+  .hero__apply {
+    margin-bottom: 10rem;
+  }
+
+  .about-program {
+    margin-top: -8rem;
+    z-index: 2;
+  }
+
+  .about-program__title {
+    margin-top: 0;
+  }
+
+  .about-program__image-wrapper {
+    flex-shrink: 0;
+    max-width: 45%;
+  }
+
+  .about-program__feathers {
+    width: 44rem;
+  }
+}

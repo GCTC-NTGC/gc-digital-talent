@@ -1,6 +1,13 @@
 import React from "react";
 
-export type Color = "primary" | "secondary" | "cta" | "white" | "black";
+export type Color =
+  | "primary"
+  | "secondary"
+  | "cta"
+  | "white"
+  | "black"
+  | "ia-primary"
+  | "ia-secondary";
 
 export interface ButtonProps extends React.HTMLProps<HTMLButtonElement> {
   /** The style type of the element. */
@@ -100,6 +107,40 @@ export const colorMap: Record<
       "data-h2-border": "b([light]white[0], all, solid, s)",
       "data-h2-bg-color": "b([light]white[0])",
       "data-h2-font-color": "b(black)",
+    },
+  },
+  "ia-primary": {
+    solid: {
+      "data-h2-border": "b(ia-pink, all, solid, s)",
+      "data-h2-bg-color": "b(ia-pink)",
+      "data-h2-font-color": "b(white)",
+    },
+    outline: {
+      "data-h2-border": "b(ia-pink, all, solid, s)",
+      "data-h2-bg-color": "b([light]ia-pink[.1])",
+      "data-h2-font-color": "b(ia-pink)",
+    },
+    inline: {
+      "data-h2-border": "b([light]white[0], all, solid, s)",
+      "data-h2-bg-color": "b([light]white[0])",
+      "data-h2-font-color": "b(ia-pink)",
+    },
+  },
+  "ia-secondary": {
+    solid: {
+      "data-h2-border": "b(ia-purple, all, solid, s)",
+      "data-h2-bg-color": "b(ia-purple)",
+      "data-h2-font-color": "b(white)",
+    },
+    outline: {
+      "data-h2-border": "b(ia-purple, all, solid, s)",
+      "data-h2-bg-color": "b([light]ia-purple[.1])",
+      "data-h2-font-color": "b(ia-purple)",
+    },
+    inline: {
+      "data-h2-border": "b([light]white[0], all, solid, s)",
+      "data-h2-bg-color": "b([light]white[0])",
+      "data-h2-font-color": "b(ia-purple)",
     },
   },
 };
