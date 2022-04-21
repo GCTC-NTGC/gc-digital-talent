@@ -168,8 +168,8 @@ const ExperienceFormContainer: React.FunctionComponent<ExperienceFormContainerPr
     const { data: meData, fetching: fetchingMe, error: meError } = meResults;
 
     const handleSuccess = () => {
-      navigate(paths.home());
       setLocallySavedForm(undefined);
+      navigate(paths.home());
       toast.success(
         intl.formatMessage({
           defaultMessage: "Successfully added experience!",
