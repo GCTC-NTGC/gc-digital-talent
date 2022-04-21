@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 export type Primitive = string | number | boolean;
 
 /**
@@ -59,3 +60,20 @@ export type FlattenNested<T> = {
 export type FromArray<T> = T extends Array<infer F> ? F : never;
 
 // The following examples help demonstrate exactly what these utility types to.
+type test = {
+  name: string;
+  parents: {
+    mom: string;
+    dad: string;
+    marriage: {
+      years: number;
+      happiness: string;
+      children: string[];
+    };
+  };
+};
+
+type paths = NestedPaths<test>;
+type years = NestedPropType<test, "parents.marriage.years">;
+type fromArray = FromArray<string>;
+type flattened = FlattenNested<test>;
