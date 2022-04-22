@@ -3,6 +3,8 @@ import { useIntl } from "react-intl";
 import { Button } from "@common/components";
 import { imageUrl } from "@common/helpers/router";
 
+import Heading from "../Heading/Heading";
+
 import INDIGENOUSAPPRENTICESHIP_APP_DIR from "../../indigenousApprenticeshipConstants";
 
 const HelloWorld: React.FunctionComponent = (props) => {
@@ -72,7 +74,7 @@ const HelloWorld: React.FunctionComponent = (props) => {
       >
         <div data-h2-display="m(flex)">
           <div
-            className="about-program__image-wrapper"
+            className="program__image-wrapper"
             data-h2-position="b(relative)"
             data-h2-padding="b(right-left, m) m(left, l) m(right, xxl)"
           >
@@ -81,8 +83,9 @@ const HelloWorld: React.FunctionComponent = (props) => {
                 INDIGENOUSAPPRENTICESHIP_APP_DIR,
                 "indigenous-woman-smiling.jpg",
               )}
-              className="about-program__image"
+              className="program__image"
               alt=""
+              data-h2-margin="b(top, xxs)"
               data-h2-position="b(relative)"
               data-h2-radius="b(s)"
               data-h2-shadow="b(xs)"
@@ -105,16 +108,12 @@ const HelloWorld: React.FunctionComponent = (props) => {
             />
           </div>
           <div>
-            <h2
-              className="about-program__title"
-              data-h2-font-color="b(ia-darkpink)"
-              data-h2-font-weight="b(700)"
-            >
+            <Heading className="about-program__title">
               {intl.formatMessage({
                 defaultMessage: "About the Program",
                 description: "Program information section title",
               })}
-            </h2>
+            </Heading>
             <p>
               {intl.formatMessage({
                 defaultMessage:
@@ -137,7 +136,10 @@ const HelloWorld: React.FunctionComponent = (props) => {
               })}
             </p>
             <div data-h2-display="m(flex)">
-              <div data-h2-width="m(50)" data-h2-margin="b(bottom, m) m(right, s)">
+              <div
+                data-h2-width="m(50)"
+                data-h2-margin="b(bottom, m) m(right, s)"
+              >
                 <Button color="ia-primary" mode="solid" block>
                   {intl.formatMessage({
                     defaultMessage: "Apply Now",
@@ -145,7 +147,10 @@ const HelloWorld: React.FunctionComponent = (props) => {
                   })}
                 </Button>
               </div>
-              <div data-h2-width="m(50)" data-h2-margin="b(bottom, m) m(left, s)">
+              <div
+                data-h2-width="m(50)"
+                data-h2-margin="b(bottom, m) m(left, s)"
+              >
                 <Button color="ia-secondary" mode="outline" block>
                   {intl.formatMessage({
                     defaultMessage: "Learn More",
@@ -154,6 +159,68 @@ const HelloWorld: React.FunctionComponent = (props) => {
                 </Button>
               </div>
             </div>
+          </div>
+        </div>
+      </div>
+      <div
+        className="learn-program"
+        data-h2-container="m(center, m)"
+        data-h2-margin="m(top-bottom, xxl)"
+        data-h2-padding="b(all, l)"
+        data-h2-position="b(relative)"
+        data-h2-bg-color="b(white)"
+        data-h2-radius="b(s)"
+      >
+        <div data-h2-display="m(flex)">
+          <div>
+            <Heading
+              data-h2-margin="b(top, xxs)"
+              className="learn-program__title"
+            >
+              {intl.formatMessage({
+                defaultMessage: "What will I learn in this apprenticeship?",
+                description: "What applicants will learn sections heading",
+              })}
+            </Heading>
+            <p>
+              {intl.formatMessage({
+                defaultMessage:
+                  "Apprentices follow a 24-month structured program consisting of a mix of on-the-job learning and formal training.",
+                description:
+                  "First paragraph what will you learn at the program",
+              })}
+            </p>
+            <p>
+              {intl.formatMessage({
+                defaultMessage:
+                  "They are partnered with a peer to facilitate job shadowing and supervised work, and they are assigned a mentor who provides experienced counsel and guidance over the course of the program.",
+                description:
+                  "First paragraph what will you learn at the program",
+              })}
+            </p>
+            <p>
+              {intl.formatMessage({
+                defaultMessage:
+                  "At the end of their 24-month term, apprentices will have marketable and in-demand certifications and skills, as well as the confidence necessary to contribute as part of Canada’s digital workforce, both within and outside the federal public service.",
+                description:
+                  "First paragraph what will you learn at the program",
+              })}
+            </p>
+          </div>
+          <div
+            className="program__image-wrapper"
+            data-h2-position="b(relative)"
+            data-h2-padding="b(right-left, m)"
+          >
+            <img
+              src={imageUrl(
+                INDIGENOUSAPPRENTICESHIP_APP_DIR,
+                "man-on-computer.jpg",
+              )}
+              className="program__image"
+              alt=""
+              data-h2-position="b(relative)"
+            />
           </div>
         </div>
       </div>
