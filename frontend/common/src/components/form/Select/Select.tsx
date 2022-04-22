@@ -8,7 +8,7 @@ export interface SelectProps
   /** HTML id used to identify the element. */
   id: string;
   /** The text for the label associated with the select input. */
-  label: string;
+  label: string | React.ReactNode;
   /** A string specifying a name for the input control. */
   name: string;
   /** List of options for the select element. */
