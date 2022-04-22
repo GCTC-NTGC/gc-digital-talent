@@ -55,6 +55,104 @@
   left: -6rem;
 }
 
+.learn-program {
+  margin-bottom: 8rem;
+}
+
+.learn-program__gloves {
+  bottom: -10rem;
+  left: 50%;
+  z-index: 2;
+}
+
+.learn-program__circles {
+  top: -6rem;
+  left: 40%;
+}
+
+.who-program__ulu {
+  height: auto;
+  top: -1rem;
+  left: -1rem;
+  width: 175%;
+  max-width: none;
+}
+
+.who-program__triangle {
+  left: 0;
+  max-width: none;
+  top: -2rem;
+  z-index: 1;
+}
+
+.quote-wrapper {
+  background-position: center;
+  background-size: cover;
+}
+
+.quote--open,
+.quote--close {
+  height: 3rem;
+  width: auto;
+}
+
+.quote--open {
+  left: -0.5rem;
+  top: -0.5rem;
+  transform: translate(-100%);
+}
+
+.quote--close {
+  right: -0.5rem;
+  bottom: -0.5rem;
+  transform: translate(100%);
+}
+
+.apply-program__box__image {
+  background-position: center;
+  background-size: cover;
+}
+
+.portal-panel__inner {
+  z-index: 2;
+}
+
+.portal-panel__bg-item {
+  z-index: 1;
+}
+
+.portal-panel__circles {
+  left: -10%;
+  top: 10%;
+}
+
+.portal-panel__thick-circle {
+  right: -10%;
+  top: 40%;
+  width: 35%;
+}
+
+.talent-portal-card {
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center right;
+  z-index: 2;
+}
+
+.talent-portal__triangle {
+  left: -2rem;
+  max-width: none;
+  bottom: -2rem;
+  transform: scaleY(-1);
+  z-index: 1;
+}
+
+@media (max-width: 64em) {
+  /* .portal-panel__strategy__item {
+    width: 50%;
+  } */
+}
+
 @media (max-width: 100em) {
   .hero {
     z-index: 1;
@@ -83,5 +181,42 @@
 
   .about-program__feathers {
     width: 44rem;
+  }
+
+  .apply-program__box {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* .apply-program__box__text {
+    column-span: 2;
+  } */
+
+  .portal-panel__banner-wrapper {
+    transform: translateY(-60%);
+  }
+
+  .portal-panel__steps,
+  .portal-panel__strategy {
+    margin: 0 -1rem;
+  }
+
+  .portal-panel__step {
+    width: calc(100% / 3);
+  }
+
+  .portal-panel__strategy__item,
+  .portal-panel__step {
+    padding: 0 1rem;
+  }
+
+  .talent-portal-card__image {
+    bottom: 0;
+    right: 0;
+    margin-top: -4rem;
+    position: relative;
+    width: auto;
+    flex-shrink: 0;
+    vertical-align: top;
   }
 }
