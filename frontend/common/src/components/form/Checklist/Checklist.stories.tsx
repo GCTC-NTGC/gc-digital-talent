@@ -55,3 +55,24 @@ ChecklistHiddenOptional.args = {
   ...BasicChecklist.args,
   hideOptional: true,
 };
+
+export const ChecklistOfLabelElements = TemplateChecklist.bind({});
+ChecklistOfLabelElements.args = {
+  idPrefix: "elements",
+  legend: "Look at these elements",
+  name: "elements",
+  items: [
+    {
+      value: "one",
+      label: <span data-h2-bg-color="b(red)">Red Selection</span>,
+    },
+    {
+      value: "two",
+      label: <span data-h2-bg-color="b(white)">White Selection</span>,
+    },
+    {
+      value: "three",
+      label: <span data-h2-font-weight="b(700)">Bold Selection</span>,
+    },
+  ],
+};

@@ -1,0 +1,14 @@
+query getWorkPreferences {
+  me {
+    id
+    wouldAcceptTemporary
+    acceptedOperationalRequirements
+  }
+}
+
+mutation UpdateWorkPreferences($id: ID!, $user: UpdateUserAsUserInput!) {
+  updateUserAsUser(id: $id, user: $user) {
+    wouldAcceptTemporary
+    acceptedOperationalRequirements
+  }
+}

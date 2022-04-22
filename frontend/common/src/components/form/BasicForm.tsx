@@ -8,8 +8,6 @@ import {
 } from "react-hook-form";
 import {
   getFromSessionStorage,
-  removeFromLocalStorage,
-  removeFromSessionStorage,
   setInSessionStorage,
 } from "../../helpers/storageUtils";
 

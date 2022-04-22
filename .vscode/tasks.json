@@ -76,6 +76,24 @@
       "group": "build"
     },
     {
+      "label": "Refresh Indigenous Apprenticeship",
+      "type": "shell",
+
+      "command": "docker-compose",
+      "args": ["run", "--rm", "maintenance", "bash", "refresh_indigenousapprenticeship.sh"],
+
+      "options": { "cwd": "infrastructure" },
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "shared",
+        "showReuseMessage": false,
+        "clear": true
+      },
+      "group": "build"
+    },
+    {
       "label": "Refresh Admin",
       "type": "shell",
 

@@ -311,10 +311,6 @@
     "defaultMessage": "Diplôme",
     "description": "Diploma selection for education type input"
   },
-  "jm4url": {
-    "defaultMessage": "Navigation par pagination",
-    "description": "Aria label for pagination nav"
-  },
   "nv2kXl": {
     "defaultMessage": "Maîtrise",
     "description": "Masters Degree selection for education type input"
@@ -392,15 +388,23 @@
     "description": "The operational requirement described as 24/7 on-call."
   },
   "hCy99h": {
-    "defaultMessage": "Travail posté",
+    "defaultMessage": "Travailler des quarts de travail",
     "description": "The operational requirement described as shift work."
-  },
-  "uD2AqA": {
-    "defaultMessage": "Heures supplémentaires selon les besoins",
-    "description": "The operational requirement described as overtime."
   },
   "vhFe42": {
     "defaultMessage": "Permis de conduire",
     "description": "The operational requirement described as driver's license."
+  },
+  "6I3OCB": {
+    "defaultMessage": "Travailler les fins de semaine",
+    "description": "The operational requirement described as work weekends."
+  },
+  "Bw9k0J": {
+    "defaultMessage": "Travailler des heures supplémentaires prévues",
+    "description": "The operational requirement described as scheduled overtime."
+  },
+  "eJCfxF": {
+    "defaultMessage": "Travailler des heures supplémentaires à court préavis",
+    "description": "The operational requirement described as short notice overtime."
   }
 }

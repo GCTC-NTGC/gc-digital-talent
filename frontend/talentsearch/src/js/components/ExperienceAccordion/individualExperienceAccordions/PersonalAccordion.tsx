@@ -4,6 +4,7 @@ import BriefCaseIcon from "@heroicons/react/solid/BriefcaseIcon";
 import { Button } from "@common/components";
 import { useIntl } from "react-intl";
 import { getLocale } from "@common/helpers/localize";
+import { getDateRange } from "@common/helpers/dateUtils";
 import { PersonalExperience } from "../../../api/generated";
 
 const PersonalAccordion: React.FunctionComponent<PersonalExperience> = ({
@@ -22,11 +23,8 @@ const PersonalAccordion: React.FunctionComponent<PersonalExperience> = ({
         // eslint-disable-next-line react/no-array-index-key
         <ul key={index}>
           <li>
-            <p>
-              {skill.name?.[locale]}
-              <br />
-              {skill.description?.[locale]}
-            </p>
+            <p data-h2-font-color="b(lightpurple)">{skill.name?.[locale]}</p>
+            <p>{skill.description?.[locale]}</p>
           </li>
         </ul>
       ))
@@ -35,17 +33,7 @@ const PersonalAccordion: React.FunctionComponent<PersonalExperience> = ({
   return (
     <Accordion
       title={title || ""}
-      subtitle={
-        endDate
-          ? `${startDate || ""} - ${endDate || ""}`
-          : intl.formatMessage(
-              {
-                defaultMessage: "Since: {startDate}",
-                description: "Since",
-              },
-              { startDate },
-            )
-      }
+      subtitle={getDateRange({ endDate, startDate, intl, locale })}
       context={
         skills?.length === 1
           ? intl.formatMessage({

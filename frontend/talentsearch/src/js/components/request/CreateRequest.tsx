@@ -334,13 +334,7 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
               },
             )}
           </p>
-          <p>
-            {intl.formatMessage({
-              defaultMessage:
-                "After you click submit, you will receive a confirmation email of your request.",
-              description: "Message before submit button on the request form.",
-            })}
-          </p>
+
           <div data-h2-flex-item="b(1of1)">
             <Button
               color="primary"

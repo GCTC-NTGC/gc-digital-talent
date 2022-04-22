@@ -19,6 +19,9 @@ import WorkLocationPreferenceApi from "./workLocationPreferenceForm/WorkLocation
 import { ProfilePage } from "./profile/ProfilePage/ProfilePage";
 import ExperienceFormContainer from "./experienceForm/ExperienceForm";
 import { ExperienceType } from "./experienceForm/types";
+import WorkPreferencesApi from "./workPreferencesForm/WorkPreferencesForm";
+import { GovInfoFormContainer } from "./GovernmentInfoForm/GovernmentInfoForm";
+import LanguageInformationFormContainer from "./languageInformationForm/LanguageInformationForm";
 
 const routes = (
   talentPaths: TalentSearchRoutes,
@@ -50,6 +53,18 @@ const routes = (
     }),
   },
   {
+    path: profilePaths.governmentInformation(),
+    action: () => ({
+      component: <GovInfoFormContainer />,
+    }),
+  },
+  {
+    path: profilePaths.languageInformation(),
+    action: () => ({
+      component: <LanguageInformationFormContainer />,
+    }),
+  },
+  {
     path: profilePaths.workLocation(),
     action: () => ({
       component: <WorkLocationPreferenceApi />,
@@ -63,6 +78,12 @@ const routes = (
         component: <ExperienceFormContainer experienceType={experienceType} />,
       };
     },
+  },
+  {
+    path: profilePaths.workPreferences(),
+    action: () => ({
+      component: <WorkPreferencesApi />,
+    }),
   },
 ];
 
