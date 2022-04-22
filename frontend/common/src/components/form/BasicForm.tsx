@@ -6,10 +6,12 @@ import {
   useForm,
   UseFormProps,
 } from "react-hook-form";
-import useLocalStorage, {
-  getFromLocalStorage,
-  setValueInStorage,
-} from "../../hooks/useLocalStorage";
+import {
+  getFromSessionStorage,
+  removeFromLocalStorage,
+  removeFromSessionStorage,
+  setInSessionStorage,
+} from "../../helpers/storageUtils";
 
 type BasicFormProps<TFieldValues extends FieldValues> = PropsWithChildren<{
   onSubmit: SubmitHandler<TFieldValues>;
@@ -24,8 +26,8 @@ export function BasicForm<TFieldValues extends FieldValues>({
   cacheKey,
 }: BasicFormProps<TFieldValues>): ReactElement {
   const cacheValues = cacheKey
-    ? getFromLocalStorage(cacheKey, options.defaultValues)
-    : options.defaultValues;
+    ? getFromSessionStorage(cacheKey, options?.defaultValues)
+    : options?.defaultValues;
 
   const methods = useForm({
     ...options,
@@ -34,7 +36,7 @@ export function BasicForm<TFieldValues extends FieldValues>({
   const { handleSubmit, watch } = methods;
   if (cacheKey) {
     // Whenever form values change, update cache.
-    watch((values: unknown) => setValueInStorage(cacheKey, values));
+    watch((values: unknown) => setInSessionStorage(cacheKey, values));
   }
   return (
     <FormProvider {...methods}>
