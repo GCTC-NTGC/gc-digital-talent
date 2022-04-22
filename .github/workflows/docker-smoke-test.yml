@@ -23,6 +23,20 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2.3.4
 
+      # This uses GitHub Action cache for docker container layers
+      # See: https://github.com/marketplace/actions/docker-layer-caching
+      - uses: satackey/action-docker-layer-caching@v0.0.11
+        # Ignore a failure of this step and avoid terminating the job.
+        continue-on-error: true
+        # By default, this cache is keyed to the workflow name. Consider
+        # setting a shared key if you'd like the docker cache to be shared
+        # across multiple workflows. (uncomment below)
+        #
+        #with:
+        #  key: some-shared-key-{hash}
+        #  restore-keys: |
+        #  some-shared-key-
+
       - name: Serve app via docker-compose
         working-directory: infrastructure/
         run: docker-compose up --detach
