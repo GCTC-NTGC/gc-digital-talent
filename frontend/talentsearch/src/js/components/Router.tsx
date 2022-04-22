@@ -78,6 +78,8 @@ const routes = (
         component: <ExperienceFormContainer experienceType={experienceType} />,
       };
     },
+  },
+  {
     path: profilePaths.workPreferences(),
     action: () => ({
       component: <WorkPreferencesApi />,
