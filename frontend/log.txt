@@ -6,9 +6,6 @@
 C:\Users\rrvan\Documents\WebDevelopments\gc-digital-talent\frontend\admin\src\js\adminConstants.ts
   4:33  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
 
-C:\Users\rrvan\Documents\WebDevelopments\gc-digital-talent\frontend\admin\src\js\components\ClientProvider.tsx
-  10:10  warning  'toast' is defined but never used  @typescript-eslint/no-unused-vars
-
 C:\Users\rrvan\Documents\WebDevelopments\gc-digital-talent\frontend\admin\src\js\components\GlobalFilter.tsx
   4:8   warning  Unexpected use of file extension "js" for "regenerator-runtime/runtime.js"  import/extensions
   8:17  warning  Unexpected any. Specify a different type                                    @typescript-eslint/no-explicit-any
@@ -19,165 +16,164 @@ C:\Users\rrvan\Documents\WebDevelopments\gc-digital-talent\frontend\admin\src\js
   132:25  error  Form label must have ALL of the following types of associated control: nesting, id  jsx-a11y/label-has-for
 
 C:\Users\rrvan\Documents\WebDevelopments\gc-digital-talent\frontend\admin\src\js\components\classification\CreateClassification.tsx
-   21:64  error    Replace `␍⏎··CreateClassificationFormProps␍⏎>·=` with `CreateClassificationFormProps>·=␍⏎·`  prettier/prettier
-   24:1   error    Insert `··`                                                                                  prettier/prettier
-   25:3   error    Insert `··`                                                                                  prettier/prettier
-   26:1   error    Insert `··`                                                                                  prettier/prettier
-   27:1   error    Replace `··` with `····`                                                                     prettier/prettier
-   28:1   error    Insert `··`                                                                                  prettier/prettier
-   30:1   error    Insert `··`                                                                                  prettier/prettier
-   31:5   error    Insert `··`                                                                                  prettier/prettier
-   32:7   error    Insert `··`                                                                                  prettier/prettier
-   33:1   error    Replace `······` with `········`                                                             prettier/prettier
-   34:7   error    Insert `··`                                                                                  prettier/prettier
-   35:1   error    Insert `··`                                                                                  prettier/prettier
-   36:7   error    Insert `··`                                                                                  prettier/prettier
-   37:5   error    Insert `··`                                                                                  prettier/prettier
-   38:1   error    Replace `····` with `······`                                                                 prettier/prettier
-   39:7   error    Insert `··`                                                                                  prettier/prettier
-   40:1   error    Insert `··`                                                                                  prettier/prettier
-   41:9   error    Insert `··`                                                                                  prettier/prettier
-   42:1   error    Insert `··`                                                                                  prettier/prettier
-   43:1   error    Insert `··`                                                                                  prettier/prettier
-   44:13  error    Insert `··`                                                                                  prettier/prettier
-   45:1   error    Insert `··`                                                                                  prettier/prettier
-   46:11  error    Insert `··`                                                                                  prettier/prettier
-   47:9   error    Insert `··`                                                                                  prettier/prettier
-   48:1   error    Replace `······` with `········`                                                             prettier/prettier
-   49:1   error    Insert `··`                                                                                  prettier/prettier
-   50:1   error    Insert `··`                                                                                  prettier/prettier
-   51:11  error    Insert `··`                                                                                  prettier/prettier
-   52:1   error    Insert `··`                                                                                  prettier/prettier
-   53:1   error    Replace `············` with `··············`                                                 prettier/prettier
-   54:1   error    Insert `··`                                                                                  prettier/prettier
-   55:1   error    Insert `··`                                                                                  prettier/prettier
-   56:9   error    Insert `··`                                                                                  prettier/prettier
-   57:1   error    Insert `··`                                                                                  prettier/prettier
-   58:1   error    Replace `··` with `····`                                                                     prettier/prettier
-   59:1   error    Insert `··`                                                                                  prettier/prettier
-   60:1   error    Insert `··`                                                                                  prettier/prettier
-   61:7   error    Insert `··`                                                                                  prettier/prettier
-   62:9   error    Insert `··`                                                                                  prettier/prettier
-   63:1   error    Insert `··`                                                                                  prettier/prettier
-   64:11  error    Insert `··`                                                                                  prettier/prettier
-   65:9   error    Insert `··`                                                                                  prettier/prettier
-   66:1   error    Replace `······` with `········`                                                             prettier/prettier
-   67:1   error    Insert `··`                                                                                  prettier/prettier
-   68:1   error    Insert `··`                                                                                  prettier/prettier
-   69:11  error    Insert `··`                                                                                  prettier/prettier
-   70:13  error    Insert `··`                                                                                  prettier/prettier
-   71:1   error    Replace `··············` with `················`                                             prettier/prettier
-   72:1   error    Insert `··`                                                                                  prettier/prettier
-   73:1   error    Insert `··`                                                                                  prettier/prettier
-   74:17  error    Insert `··`                                                                                  prettier/prettier
-   75:17  error    Insert `··`                                                                                  prettier/prettier
-   76:1   error    Replace `··················` with `····················`                                     prettier/prettier
-   77:15  error    Insert `··`                                                                                  prettier/prettier
-   78:1   error    Insert `··`                                                                                  prettier/prettier
-   79:15  error    Insert `··`                                                                                  prettier/prettier
-   80:1   error    Insert `··`                                                                                  prettier/prettier
-   81:1   error    Replace `··············` with `················`                                             prettier/prettier
-   82:1   error    Insert `··`                                                                                  prettier/prettier
-   83:1   error    Insert `··`                                                                                  prettier/prettier
-   84:15  error    Insert `··`                                                                                  prettier/prettier
-   85:1   error    Insert `··`                                                                                  prettier/prettier
-   86:1   error    Replace `··············` with `················`                                             prettier/prettier
-   87:1   error    Insert `··`                                                                                  prettier/prettier
-   88:1   error    Insert `··`                                                                                  prettier/prettier
-   89:19  error    Insert `··`                                                                                  prettier/prettier
-   90:15  error    Insert `··`                                                                                  prettier/prettier
-   91:1   error    Replace `··············` with `················`                                             prettier/prettier
-   92:15  error    Insert `··`                                                                                  prettier/prettier
-   93:1   error    Insert `··`                                                                                  prettier/prettier
-   94:15  error    Insert `··`                                                                                  prettier/prettier
-   95:1   error    Insert `··`                                                                                  prettier/prettier
-   96:1   error    Replace `············` with `··············`                                                 prettier/prettier
-   97:1   error    Insert `··`                                                                                  prettier/prettier
-   98:1   error    Insert `··`                                                                                  prettier/prettier
-   99:15  error    Insert `··`                                                                                  prettier/prettier
-  100:17  error    Insert `··`                                                                                  prettier/prettier
-  101:1   error    Replace `················` with `··················`                                         prettier/prettier
-  102:1   error    Insert `··`                                                                                  prettier/prettier
-  103:15  error    Insert `··`                                                                                  prettier/prettier
-  104:1   error    Insert `··`                                                                                  prettier/prettier
-  105:15  error    Insert `··`                                                                                  prettier/prettier
-  106:1   error    Insert `··`                                                                                  prettier/prettier
-  107:15  error    Insert `··`                                                                                  prettier/prettier
-  108:1   error    Insert `··`                                                                                  prettier/prettier
-  109:1   error    Replace `············` with `··············`                                                 prettier/prettier
-  110:1   error    Insert `··`                                                                                  prettier/prettier
-  111:1   error    Insert `··`                                                                                  prettier/prettier
-  112:15  error    Insert `··`                                                                                  prettier/prettier
-  113:17  error    Insert `··`                                                                                  prettier/prettier
-  114:1   error    Replace `················` with `··················`                                         prettier/prettier
-  115:1   error    Insert `··`                                                                                  prettier/prettier
-  116:1   error    Insert `··`                                                                                  prettier/prettier
-  117:15  error    Insert `··`                                                                                  prettier/prettier
-  118:1   error    Insert `··`                                                                                  prettier/prettier
-  119:1   error    Replace `················` with `··················`                                         prettier/prettier
-  120:1   error    Insert `··`                                                                                  prettier/prettier
-  121:1   error    Insert `··`                                                                                  prettier/prettier
-  122:15  error    Insert `··`                                                                                  prettier/prettier
-  123:1   error    Insert `··`                                                                                  prettier/prettier
-  124:15  error    Insert `··`                                                                                  prettier/prettier
-  125:1   error    Insert `··`                                                                                  prettier/prettier
-  126:1   error    Insert `··`                                                                                  prettier/prettier
-  127:17  error    Insert `··`                                                                                  prettier/prettier
-  128:1   error    Insert `··`                                                                                  prettier/prettier
-  129:1   error    Replace `················` with `··················`                                         prettier/prettier
-  130:1   error    Insert `··`                                                                                  prettier/prettier
-  131:1   error    Insert `··`                                                                                  prettier/prettier
-  132:17  error    Insert `··`                                                                                  prettier/prettier
-  133:1   error    Insert `··`                                                                                  prettier/prettier
-  134:1   error    Replace `················` with `··················`                                         prettier/prettier
-  135:15  error    Insert `··`                                                                                  prettier/prettier
-  136:1   error    Insert `··`                                                                                  prettier/prettier
-  137:13  error    Insert `··`                                                                                  prettier/prettier
-  138:1   error    Insert `··`                                                                                  prettier/prettier
-  139:1   error    Replace `··············` with `················`                                             prettier/prettier
-  140:1   error    Insert `··`                                                                                  prettier/prettier
-  141:1   error    Insert `··`                                                                                  prettier/prettier
-  142:17  error    Insert `··`                                                                                  prettier/prettier
-  143:1   error    Insert `··`                                                                                  prettier/prettier
-  144:15  error    Insert `··`                                                                                  prettier/prettier
-  145:1   error    Insert `··`                                                                                  prettier/prettier
-  146:1   error    Insert `··`                                                                                  prettier/prettier
-  147:17  error    Insert `··`                                                                                  prettier/prettier
-  148:17  error    Insert `··`                                                                                  prettier/prettier
-  149:1   error    Replace `··················` with `····················`                                     prettier/prettier
-  150:1   error    Insert `··`                                                                                  prettier/prettier
-  151:1   error    Insert `··`                                                                                  prettier/prettier
-  152:19  error    Insert `··`                                                                                  prettier/prettier
-  153:17  error    Insert `··`                                                                                  prettier/prettier
-  154:1   error    Replace `··············` with `················`                                             prettier/prettier
-  155:1   error    Insert `··`                                                                                  prettier/prettier
-  156:1   error    Insert `··`                                                                                  prettier/prettier
-  157:15  error    Insert `··`                                                                                  prettier/prettier
-  158:1   error    Insert `··`                                                                                  prettier/prettier
-  159:1   error    Replace `··············` with `················`                                             prettier/prettier
-  160:1   error    Insert `··`                                                                                  prettier/prettier
-  161:1   error    Insert `··`                                                                                  prettier/prettier
-  162:19  error    Insert `··`                                                                                  prettier/prettier
-  163:15  error    Insert `··`                                                                                  prettier/prettier
-  164:1   error    Insert `··`                                                                                  prettier/prettier
-  165:15  error    Insert `··`                                                                                  prettier/prettier
-  166:1   error    Insert `··`                                                                                  prettier/prettier
-  167:17  error    Insert `··`                                                                                  prettier/prettier
-  168:1   error    Insert `··`                                                                                  prettier/prettier
-  169:1   error    Insert `··`                                                                                  prettier/prettier
-  170:21  error    Insert `··`                                                                                  prettier/prettier
-  171:1   error    Insert `··`                                                                                  prettier/prettier
-  172:17  error    Insert `··`                                                                                  prettier/prettier
-  173:1   error    Insert `··`                                                                                  prettier/prettier
-  174:1   error    Replace `············` with `··············`                                                 prettier/prettier
-  175:1   error    Insert `··`                                                                                  prettier/prettier
-  176:1   error    Insert `··`                                                                                  prettier/prettier
-  177:9   error    Insert `··`                                                                                  prettier/prettier
-  178:7   error    Insert `··`                                                                                  prettier/prettier
-  179:1   error    Replace `····` with `······`                                                                 prettier/prettier
-  180:3   error    Insert `··`                                                                                  prettier/prettier
-  181:1   error    Insert `··`                                                                                  prettier/prettier
-  184:10  warning  '_result' is assigned a value but never used                                                 @typescript-eslint/no-unused-vars
+   21:64  error  Replace `␍⏎··CreateClassificationFormProps␍⏎>·=` with `CreateClassificationFormProps>·=␍⏎·`  prettier/prettier
+   24:1   error  Insert `··`                                                                                  prettier/prettier
+   25:3   error  Insert `··`                                                                                  prettier/prettier
+   26:1   error  Insert `··`                                                                                  prettier/prettier
+   27:1   error  Replace `··` with `····`                                                                     prettier/prettier
+   28:1   error  Insert `··`                                                                                  prettier/prettier
+   30:1   error  Insert `··`                                                                                  prettier/prettier
+   31:5   error  Insert `··`                                                                                  prettier/prettier
+   32:7   error  Insert `··`                                                                                  prettier/prettier
+   33:1   error  Replace `······` with `········`                                                             prettier/prettier
+   34:7   error  Insert `··`                                                                                  prettier/prettier
+   35:1   error  Insert `··`                                                                                  prettier/prettier
+   36:7   error  Insert `··`                                                                                  prettier/prettier
+   37:5   error  Insert `··`                                                                                  prettier/prettier
+   38:1   error  Replace `····` with `······`                                                                 prettier/prettier
+   39:7   error  Insert `··`                                                                                  prettier/prettier
+   40:1   error  Insert `··`                                                                                  prettier/prettier
+   41:9   error  Insert `··`                                                                                  prettier/prettier
+   42:1   error  Insert `··`                                                                                  prettier/prettier
+   43:1   error  Insert `··`                                                                                  prettier/prettier
+   44:13  error  Insert `··`                                                                                  prettier/prettier
+   45:1   error  Insert `··`                                                                                  prettier/prettier
+   46:11  error  Insert `··`                                                                                  prettier/prettier
+   47:9   error  Insert `··`                                                                                  prettier/prettier
+   48:1   error  Replace `······` with `········`                                                             prettier/prettier
+   49:1   error  Insert `··`                                                                                  prettier/prettier
+   50:1   error  Insert `··`                                                                                  prettier/prettier
+   51:11  error  Insert `··`                                                                                  prettier/prettier
+   52:1   error  Insert `··`                                                                                  prettier/prettier
+   53:1   error  Replace `············` with `··············`                                                 prettier/prettier
+   54:1   error  Insert `··`                                                                                  prettier/prettier
+   55:1   error  Insert `··`                                                                                  prettier/prettier
+   56:9   error  Insert `··`                                                                                  prettier/prettier
+   57:1   error  Insert `··`                                                                                  prettier/prettier
+   58:1   error  Replace `··` with `····`                                                                     prettier/prettier
+   59:1   error  Insert `··`                                                                                  prettier/prettier
+   60:1   error  Insert `··`                                                                                  prettier/prettier
+   61:7   error  Insert `··`                                                                                  prettier/prettier
+   62:9   error  Insert `··`                                                                                  prettier/prettier
+   63:1   error  Insert `··`                                                                                  prettier/prettier
+   64:11  error  Insert `··`                                                                                  prettier/prettier
+   65:9   error  Insert `··`                                                                                  prettier/prettier
+   66:1   error  Replace `······` with `········`                                                             prettier/prettier
+   67:1   error  Insert `··`                                                                                  prettier/prettier
+   68:1   error  Insert `··`                                                                                  prettier/prettier
+   69:11  error  Insert `··`                                                                                  prettier/prettier
+   70:13  error  Insert `··`                                                                                  prettier/prettier
+   71:1   error  Replace `··············` with `················`                                             prettier/prettier
+   72:1   error  Insert `··`                                                                                  prettier/prettier
+   73:1   error  Insert `··`                                                                                  prettier/prettier
+   74:17  error  Insert `··`                                                                                  prettier/prettier
+   75:17  error  Insert `··`                                                                                  prettier/prettier
+   76:1   error  Replace `··················` with `····················`                                     prettier/prettier
+   77:15  error  Insert `··`                                                                                  prettier/prettier
+   78:1   error  Insert `··`                                                                                  prettier/prettier
+   79:15  error  Insert `··`                                                                                  prettier/prettier
+   80:1   error  Insert `··`                                                                                  prettier/prettier
+   81:1   error  Replace `··············` with `················`                                             prettier/prettier
+   82:1   error  Insert `··`                                                                                  prettier/prettier
+   83:1   error  Insert `··`                                                                                  prettier/prettier
+   84:15  error  Insert `··`                                                                                  prettier/prettier
+   85:1   error  Insert `··`                                                                                  prettier/prettier
+   86:1   error  Replace `··············` with `················`                                             prettier/prettier
+   87:1   error  Insert `··`                                                                                  prettier/prettier
+   88:1   error  Insert `··`                                                                                  prettier/prettier
+   89:19  error  Insert `··`                                                                                  prettier/prettier
+   90:15  error  Insert `··`                                                                                  prettier/prettier
+   91:1   error  Replace `··············` with `················`                                             prettier/prettier
+   92:15  error  Insert `··`                                                                                  prettier/prettier
+   93:1   error  Insert `··`                                                                                  prettier/prettier
+   94:15  error  Insert `··`                                                                                  prettier/prettier
+   95:1   error  Insert `··`                                                                                  prettier/prettier
+   96:1   error  Replace `············` with `··············`                                                 prettier/prettier
+   97:1   error  Insert `··`                                                                                  prettier/prettier
+   98:1   error  Insert `··`                                                                                  prettier/prettier
+   99:15  error  Insert `··`                                                                                  prettier/prettier
+  100:17  error  Insert `··`                                                                                  prettier/prettier
+  101:1   error  Replace `················` with `··················`                                         prettier/prettier
+  102:1   error  Insert `··`                                                                                  prettier/prettier
+  103:15  error  Insert `··`                                                                                  prettier/prettier
+  104:1   error  Insert `··`                                                                                  prettier/prettier
+  105:15  error  Insert `··`                                                                                  prettier/prettier
+  106:1   error  Insert `··`                                                                                  prettier/prettier
+  107:15  error  Insert `··`                                                                                  prettier/prettier
+  108:1   error  Insert `··`                                                                                  prettier/prettier
+  109:1   error  Replace `············` with `··············`                                                 prettier/prettier
+  110:1   error  Insert `··`                                                                                  prettier/prettier
+  111:1   error  Insert `··`                                                                                  prettier/prettier
+  112:15  error  Insert `··`                                                                                  prettier/prettier
+  113:17  error  Insert `··`                                                                                  prettier/prettier
+  114:1   error  Replace `················` with `··················`                                         prettier/prettier
+  115:1   error  Insert `··`                                                                                  prettier/prettier
+  116:1   error  Insert `··`                                                                                  prettier/prettier
+  117:15  error  Insert `··`                                                                                  prettier/prettier
+  118:1   error  Insert `··`                                                                                  prettier/prettier
+  119:1   error  Replace `················` with `··················`                                         prettier/prettier
+  120:1   error  Insert `··`                                                                                  prettier/prettier
+  121:1   error  Insert `··`                                                                                  prettier/prettier
+  122:15  error  Insert `··`                                                                                  prettier/prettier
+  123:1   error  Insert `··`                                                                                  prettier/prettier
+  124:15  error  Insert `··`                                                                                  prettier/prettier
+  125:1   error  Insert `··`                                                                                  prettier/prettier
+  126:1   error  Insert `··`                                                                                  prettier/prettier
+  127:17  error  Insert `··`                                                                                  prettier/prettier
+  128:1   error  Insert `··`                                                                                  prettier/prettier
+  129:1   error  Replace `················` with `··················`                                         prettier/prettier
+  130:1   error  Insert `··`                                                                                  prettier/prettier
+  131:1   error  Insert `··`                                                                                  prettier/prettier
+  132:17  error  Insert `··`                                                                                  prettier/prettier
+  133:1   error  Insert `··`                                                                                  prettier/prettier
+  134:1   error  Replace `················` with `··················`                                         prettier/prettier
+  135:15  error  Insert `··`                                                                                  prettier/prettier
+  136:1   error  Insert `··`                                                                                  prettier/prettier
+  137:13  error  Insert `··`                                                                                  prettier/prettier
+  138:1   error  Insert `··`                                                                                  prettier/prettier
+  139:1   error  Replace `··············` with `················`                                             prettier/prettier
+  140:1   error  Insert `··`                                                                                  prettier/prettier
+  141:1   error  Insert `··`                                                                                  prettier/prettier
+  142:17  error  Insert `··`                                                                                  prettier/prettier
+  143:1   error  Insert `··`                                                                                  prettier/prettier
+  144:15  error  Insert `··`                                                                                  prettier/prettier
+  145:1   error  Insert `··`                                                                                  prettier/prettier
+  146:1   error  Insert `··`                                                                                  prettier/prettier
+  147:17  error  Insert `··`                                                                                  prettier/prettier
+  148:17  error  Insert `··`                                                                                  prettier/prettier
+  149:1   error  Replace `··················` with `····················`                                     prettier/prettier
+  150:1   error  Insert `··`                                                                                  prettier/prettier
+  151:1   error  Insert `··`                                                                                  prettier/prettier
+  152:19  error  Insert `··`                                                                                  prettier/prettier
+  153:17  error  Insert `··`                                                                                  prettier/prettier
+  154:1   error  Replace `··············` with `················`                                             prettier/prettier
+  155:1   error  Insert `··`                                                                                  prettier/prettier
+  156:1   error  Insert `··`                                                                                  prettier/prettier
+  157:15  error  Insert `··`                                                                                  prettier/prettier
+  158:1   error  Insert `··`                                                                                  prettier/prettier
+  159:1   error  Replace `··············` with `················`                                             prettier/prettier
+  160:1   error  Insert `··`                                                                                  prettier/prettier
+  161:1   error  Insert `··`                                                                                  prettier/prettier
+  162:19  error  Insert `··`                                                                                  prettier/prettier
+  163:15  error  Insert `··`                                                                                  prettier/prettier
+  164:1   error  Insert `··`                                                                                  prettier/prettier
+  165:15  error  Insert `··`                                                                                  prettier/prettier
+  166:1   error  Insert `··`                                                                                  prettier/prettier
+  167:17  error  Insert `··`                                                                                  prettier/prettier
+  168:1   error  Insert `··`                                                                                  prettier/prettier
+  169:1   error  Insert `··`                                                                                  prettier/prettier
+  170:21  error  Insert `··`                                                                                  prettier/prettier
+  171:1   error  Insert `··`                                                                                  prettier/prettier
+  172:17  error  Insert `··`                                                                                  prettier/prettier
+  173:1   error  Insert `··`                                                                                  prettier/prettier
+  174:1   error  Replace `············` with `··············`                                                 prettier/prettier
+  175:1   error  Insert `··`                                                                                  prettier/prettier
+  176:1   error  Insert `··`                                                                                  prettier/prettier
+  177:9   error  Insert `··`                                                                                  prettier/prettier
+  178:7   error  Insert `··`                                                                                  prettier/prettier
+  179:1   error  Replace `····` with `······`                                                                 prettier/prettier
+  180:3   error  Insert `··`                                                                                  prettier/prettier
+  181:1   error  Insert `··`                                                                                  prettier/prettier
 
 C:\Users\rrvan\Documents\WebDevelopments\gc-digital-talent\frontend\admin\src\js\components\classification\UpdateClassification.tsx
    28:64  error    Replace `␍⏎··UpdateClassificationFormProps␍⏎>·=` with `UpdateClassificationFormProps>·=␍⏎·`                                                                                                                   prettier/prettier
@@ -346,128 +342,127 @@ C:\Users\rrvan\Documents\WebDevelopments\gc-digital-talent\frontend\admin\src\js
   204:10  warning  '_result' is assigned a value but never used                                                                                                                                                                  @typescript-eslint/no-unused-vars
 
 C:\Users\rrvan\Documents\WebDevelopments\gc-digital-talent\frontend\admin\src\js\components\cmoAsset\CreateCmoAsset.tsx
-   21:58  error    Replace `␍⏎··CreateCmoAssetFormProps␍⏎>·=` with `CreateCmoAssetFormProps>·=␍⏎·`  prettier/prettier
-   24:3   error    Insert `··`                                                                      prettier/prettier
-   25:1   error    Replace `··` with `····`                                                         prettier/prettier
-   26:1   error    Insert `··`                                                                      prettier/prettier
-   27:1   error    Replace `··` with `····`                                                         prettier/prettier
-   29:1   error    Insert `··`                                                                      prettier/prettier
-   30:1   error    Replace `····` with `······`                                                     prettier/prettier
-   31:7   error    Insert `··`                                                                      prettier/prettier
-   32:1   error    Replace `········` with `··········`                                             prettier/prettier
-   33:9   error    Insert `··`                                                                      prettier/prettier
-   34:1   error    Replace `··········` with `············`                                         prettier/prettier
-   35:1   error    Insert `··`                                                                      prettier/prettier
-   36:1   error    Replace `············` with `··············`                                     prettier/prettier
-   37:1   error    Insert `··`                                                                      prettier/prettier
-   38:11  error    Insert `··`                                                                      prettier/prettier
-   39:9   error    Insert `··`                                                                      prettier/prettier
-   40:1   error    Replace `······` with `········`                                                 prettier/prettier
-   41:1   error    Insert `··`                                                                      prettier/prettier
-   42:1   error    Replace `········` with `··········`                                             prettier/prettier
-   43:1   error    Insert `··`                                                                      prettier/prettier
-   44:1   error    Replace `············` with `··············`                                     prettier/prettier
-   45:13  error    Insert `··`                                                                      prettier/prettier
-   46:1   error    Insert `··`                                                                      prettier/prettier
-   47:11  error    Insert `··`                                                                      prettier/prettier
-   48:1   error    Replace `········` with `··········`                                             prettier/prettier
-   49:1   error    Insert `··`                                                                      prettier/prettier
-   50:1   error    Replace `··` with `····`                                                         prettier/prettier
-   51:1   error    Insert `··`                                                                      prettier/prettier
-   52:5   error    Insert `··`                                                                      prettier/prettier
-   53:1   error    Insert `··`                                                                      prettier/prettier
-   54:9   error    Insert `··`                                                                      prettier/prettier
-   55:1   error    Insert `··`                                                                      prettier/prettier
-   56:11  error    Insert `··`                                                                      prettier/prettier
-   57:9   error    Insert `··`                                                                      prettier/prettier
-   58:1   error    Insert `··`                                                                      prettier/prettier
-   59:1   error    Insert `··`                                                                      prettier/prettier
-   60:9   error    Insert `··`                                                                      prettier/prettier
-   61:1   error    Insert `··`                                                                      prettier/prettier
-   62:13  error    Insert `··`                                                                      prettier/prettier
-   63:1   error    Insert `··`                                                                      prettier/prettier
-   64:15  error    Insert `··`                                                                      prettier/prettier
-   65:1   error    Insert `··`                                                                      prettier/prettier
-   66:17  error    Insert `··`                                                                      prettier/prettier
-   67:1   error    Replace `················` with `··················`                             prettier/prettier
-   68:1   error    Insert `··`                                                                      prettier/prettier
-   69:15  error    Insert `··`                                                                      prettier/prettier
-   70:1   error    Replace `··············` with `················`                                 prettier/prettier
-   71:17  error    Insert `··`                                                                      prettier/prettier
-   72:1   error    Insert `··`                                                                      prettier/prettier
-   73:17  error    Insert `··`                                                                      prettier/prettier
-   74:1   error    Insert `··`                                                                      prettier/prettier
-   75:1   error    Replace `··············` with `················`                                 prettier/prettier
-   76:1   error    Insert `··`                                                                      prettier/prettier
-   77:15  error    Insert `··`                                                                      prettier/prettier
-   78:1   error    Insert `··`                                                                      prettier/prettier
-   79:1   error    Replace `················` with `··················`                             prettier/prettier
-   80:1   error    Insert `··`                                                                      prettier/prettier
-   81:19  error    Insert `··`                                                                      prettier/prettier
-   82:1   error    Insert `··`                                                                      prettier/prettier
-   83:23  error    Insert `··`                                                                      prettier/prettier
-   84:19  error    Insert `··`                                                                      prettier/prettier
-   85:17  error    Insert `··`                                                                      prettier/prettier
-   86:1   error    Insert `··`                                                                      prettier/prettier
-   87:13  error    Insert `··`                                                                      prettier/prettier
-   88:1   error    Insert `··`                                                                      prettier/prettier
-   89:15  error    Insert `··`                                                                      prettier/prettier
-   90:1   error    Insert `··`                                                                      prettier/prettier
-   91:15  error    Insert `··`                                                                      prettier/prettier
-   92:1   error    Insert `··`                                                                      prettier/prettier
-   93:17  error    Insert `··`                                                                      prettier/prettier
-   94:1   error    Insert `··`                                                                      prettier/prettier
-   95:15  error    Insert `··`                                                                      prettier/prettier
-   96:1   error    Insert `··`                                                                      prettier/prettier
-   97:15  error    Insert `··`                                                                      prettier/prettier
-   98:1   error    Replace `················` with `··················`                             prettier/prettier
-   99:15  error    Insert `··`                                                                      prettier/prettier
-  100:1   error    Insert `··`                                                                      prettier/prettier
-  101:13  error    Insert `··`                                                                      prettier/prettier
-  102:1   error    Replace `··············` with `················`                                 prettier/prettier
-  103:1   error    Insert `··`                                                                      prettier/prettier
-  104:1   error    Replace `··············` with `················`                                 prettier/prettier
-  105:1   error    Insert `··`                                                                      prettier/prettier
-  106:1   error    Replace `················` with `··················`                             prettier/prettier
-  107:1   error    Insert `··`                                                                      prettier/prettier
-  108:15  error    Insert `··`                                                                      prettier/prettier
-  109:1   error    Insert `··`                                                                      prettier/prettier
-  110:1   error    Replace `··············` with `················`                                 prettier/prettier
-  111:1   error    Insert `··`                                                                      prettier/prettier
-  112:15  error    Insert `··`                                                                      prettier/prettier
-  113:1   error    Insert `··`                                                                      prettier/prettier
-  114:13  error    Insert `··`                                                                      prettier/prettier
-  115:1   error    Insert `··`                                                                      prettier/prettier
-  116:15  error    Insert `··`                                                                      prettier/prettier
-  117:1   error    Insert `··`                                                                      prettier/prettier
-  118:17  error    Insert `··`                                                                      prettier/prettier
-  119:17  error    Insert `··`                                                                      prettier/prettier
-  120:1   error    Insert `··`                                                                      prettier/prettier
-  121:1   error    Insert `··`                                                                      prettier/prettier
-  122:15  error    Insert `··`                                                                      prettier/prettier
-  123:1   error    Insert `··`                                                                      prettier/prettier
-  124:15  error    Insert `··`                                                                      prettier/prettier
-  125:1   error    Insert `··`                                                                      prettier/prettier
-  126:13  error    Insert `··`                                                                      prettier/prettier
-  127:1   error    Insert `··`                                                                      prettier/prettier
-  128:15  error    Insert `··`                                                                      prettier/prettier
-  129:1   error    Replace `··············` with `················`                                 prettier/prettier
-  130:1   error    Insert `··`                                                                      prettier/prettier
-  131:1   error    Replace `················` with `··················`                             prettier/prettier
-  132:1   error    Insert `··`                                                                      prettier/prettier
-  133:1   error    Replace `··············` with `················`                                 prettier/prettier
-  134:1   error    Insert `··`                                                                      prettier/prettier
-  135:1   error    Insert `··`                                                                      prettier/prettier
-  136:15  error    Insert `··`                                                                      prettier/prettier
-  137:1   error    Replace `············` with `··············`                                     prettier/prettier
-  138:1   error    Insert `··`                                                                      prettier/prettier
-  139:1   error    Replace `··········` with `············`                                         prettier/prettier
-  140:1   error    Insert `··`                                                                      prettier/prettier
-  141:1   error    Replace `······` with `········`                                                 prettier/prettier
-  142:1   error    Insert `··`                                                                      prettier/prettier
-  143:1   error    Replace `··` with `····`                                                         prettier/prettier
-  144:1   error    Insert `··`                                                                      prettier/prettier
-  147:10  warning  '_result' is assigned a value but never used                                     @typescript-eslint/no-unused-vars
+   21:58  error  Replace `␍⏎··CreateCmoAssetFormProps␍⏎>·=` with `CreateCmoAssetFormProps>·=␍⏎·`  prettier/prettier
+   24:3   error  Insert `··`                                                                      prettier/prettier
+   25:1   error  Replace `··` with `····`                                                         prettier/prettier
+   26:1   error  Insert `··`                                                                      prettier/prettier
+   27:1   error  Replace `··` with `····`                                                         prettier/prettier
+   29:1   error  Insert `··`                                                                      prettier/prettier
+   30:1   error  Replace `····` with `······`                                                     prettier/prettier
+   31:7   error  Insert `··`                                                                      prettier/prettier
+   32:1   error  Replace `········` with `··········`                                             prettier/prettier
+   33:9   error  Insert `··`                                                                      prettier/prettier
+   34:1   error  Replace `··········` with `············`                                         prettier/prettier
+   35:1   error  Insert `··`                                                                      prettier/prettier
+   36:1   error  Replace `············` with `··············`                                     prettier/prettier
+   37:1   error  Insert `··`                                                                      prettier/prettier
+   38:11  error  Insert `··`                                                                      prettier/prettier
+   39:9   error  Insert `··`                                                                      prettier/prettier
+   40:1   error  Replace `······` with `········`                                                 prettier/prettier
+   41:1   error  Insert `··`                                                                      prettier/prettier
+   42:1   error  Replace `········` with `··········`                                             prettier/prettier
+   43:1   error  Insert `··`                                                                      prettier/prettier
+   44:1   error  Replace `············` with `··············`                                     prettier/prettier
+   45:13  error  Insert `··`                                                                      prettier/prettier
+   46:1   error  Insert `··`                                                                      prettier/prettier
+   47:11  error  Insert `··`                                                                      prettier/prettier
+   48:1   error  Replace `········` with `··········`                                             prettier/prettier
+   49:1   error  Insert `··`                                                                      prettier/prettier
+   50:1   error  Replace `··` with `····`                                                         prettier/prettier
+   51:1   error  Insert `··`                                                                      prettier/prettier
+   52:5   error  Insert `··`                                                                      prettier/prettier
+   53:1   error  Insert `··`                                                                      prettier/prettier
+   54:9   error  Insert `··`                                                                      prettier/prettier
+   55:1   error  Insert `··`                                                                      prettier/prettier
+   56:11  error  Insert `··`                                                                      prettier/prettier
+   57:9   error  Insert `··`                                                                      prettier/prettier
+   58:1   error  Insert `··`                                                                      prettier/prettier
+   59:1   error  Insert `··`                                                                      prettier/prettier
+   60:9   error  Insert `··`                                                                      prettier/prettier
+   61:1   error  Insert `··`                                                                      prettier/prettier
+   62:13  error  Insert `··`                                                                      prettier/prettier
+   63:1   error  Insert `··`                                                                      prettier/prettier
+   64:15  error  Insert `··`                                                                      prettier/prettier
+   65:1   error  Insert `··`                                                                      prettier/prettier
+   66:17  error  Insert `··`                                                                      prettier/prettier
+   67:1   error  Replace `················` with `··················`                             prettier/prettier
+   68:1   error  Insert `··`                                                                      prettier/prettier
+   69:15  error  Insert `··`                                                                      prettier/prettier
+   70:1   error  Replace `··············` with `················`                                 prettier/prettier
+   71:17  error  Insert `··`                                                                      prettier/prettier
+   72:1   error  Insert `··`                                                                      prettier/prettier
+   73:17  error  Insert `··`                                                                      prettier/prettier
+   74:1   error  Insert `··`                                                                      prettier/prettier
+   75:1   error  Replace `··············` with `················`                                 prettier/prettier
+   76:1   error  Insert `··`                                                                      prettier/prettier
+   77:15  error  Insert `··`                                                                      prettier/prettier
+   78:1   error  Insert `··`                                                                      prettier/prettier
+   79:1   error  Replace `················` with `··················`                             prettier/prettier
+   80:1   error  Insert `··`                                                                      prettier/prettier
+   81:19  error  Insert `··`                                                                      prettier/prettier
+   82:1   error  Insert `··`                                                                      prettier/prettier
+   83:23  error  Insert `··`                                                                      prettier/prettier
+   84:19  error  Insert `··`                                                                      prettier/prettier
+   85:17  error  Insert `··`                                                                      prettier/prettier
+   86:1   error  Insert `··`                                                                      prettier/prettier
+   87:13  error  Insert `··`                                                                      prettier/prettier
+   88:1   error  Insert `··`                                                                      prettier/prettier
+   89:15  error  Insert `··`                                                                      prettier/prettier
+   90:1   error  Insert `··`                                                                      prettier/prettier
+   91:15  error  Insert `··`                                                                      prettier/prettier
+   92:1   error  Insert `··`                                                                      prettier/prettier
+   93:17  error  Insert `··`                                                                      prettier/prettier
+   94:1   error  Insert `··`                                                                      prettier/prettier
+   95:15  error  Insert `··`                                                                      prettier/prettier
+   96:1   error  Insert `··`                                                                      prettier/prettier
+   97:15  error  Insert `··`                                                                      prettier/prettier
+   98:1   error  Replace `················` with `··················`                             prettier/prettier
+   99:15  error  Insert `··`                                                                      prettier/prettier
+  100:1   error  Insert `··`                                                                      prettier/prettier
+  101:13  error  Insert `··`                                                                      prettier/prettier
+  102:1   error  Replace `··············` with `················`                                 prettier/prettier
+  103:1   error  Insert `··`                                                                      prettier/prettier
+  104:1   error  Replace `··············` with `················`                                 prettier/prettier
+  105:1   error  Insert `··`                                                                      prettier/prettier
+  106:1   error  Replace `················` with `··················`                             prettier/prettier
+  107:1   error  Insert `··`                                                                      prettier/prettier
+  108:15  error  Insert `··`                                                                      prettier/prettier
+  109:1   error  Insert `··`                                                                      prettier/prettier
+  110:1   error  Replace `··············` with `················`                                 prettier/prettier
+  111:1   error  Insert `··`                                                                      prettier/prettier
+  112:15  error  Insert `··`                                                                      prettier/prettier
+  113:1   error  Insert `··`                                                                      prettier/prettier
+  114:13  error  Insert `··`                                                                      prettier/prettier
+  115:1   error  Insert `··`                                                                      prettier/prettier
+  116:15  error  Insert `··`                                                                      prettier/prettier
+  117:1   error  Insert `··`                                                                      prettier/prettier
+  118:17  error  Insert `··`                                                                      prettier/prettier
+  119:17  error  Insert `··`                                                                      prettier/prettier
+  120:1   error  Insert `··`                                                                      prettier/prettier
+  121:1   error  Insert `··`                                                                      prettier/prettier
+  122:15  error  Insert `··`                                                                      prettier/prettier
+  123:1   error  Insert `··`                                                                      prettier/prettier
+  124:15  error  Insert `··`                                                                      prettier/prettier
+  125:1   error  Insert `··`                                                                      prettier/prettier
+  126:13  error  Insert `··`                                                                      prettier/prettier
+  127:1   error  Insert `··`                                                                      prettier/prettier
+  128:15  error  Insert `··`                                                                      prettier/prettier
+  129:1   error  Replace `··············` with `················`                                 prettier/prettier
+  130:1   error  Insert `··`                                                                      prettier/prettier
+  131:1   error  Replace `················` with `··················`                             prettier/prettier
+  132:1   error  Insert `··`                                                                      prettier/prettier
+  133:1   error  Replace `··············` with `················`                                 prettier/prettier
+  134:1   error  Insert `··`                                                                      prettier/prettier
+  135:1   error  Insert `··`                                                                      prettier/prettier
+  136:15  error  Insert `··`                                                                      prettier/prettier
+  137:1   error  Replace `············` with `··············`                                     prettier/prettier
+  138:1   error  Insert `··`                                                                      prettier/prettier
+  139:1   error  Replace `··········` with `············`                                         prettier/prettier
+  140:1   error  Insert `··`                                                                      prettier/prettier
+  141:1   error  Replace `······` with `········`                                                 prettier/prettier
+  142:1   error  Insert `··`                                                                      prettier/prettier
+  143:1   error  Replace `··` with `····`                                                         prettier/prettier
+  144:1   error  Insert `··`                                                                      prettier/prettier
 
 C:\Users\rrvan\Documents\WebDevelopments\gc-digital-talent\frontend\admin\src\js\components\cmoAsset\UpdateCmoAsset.tsx
    24:58  error  Replace `␍⏎··UpdateCmoAssetFormProps` with `UpdateCmoAssetFormProps>·=`  prettier/prettier
@@ -752,9 +747,6 @@ C:\Users\rrvan\Documents\WebDevelopments\gc-digital-talent\frontend\admin\src\js
 
 C:\Users\rrvan\Documents\WebDevelopments\gc-digital-talent\frontend\admin\src\js\components\menu\SideMenu.tsx
   7:9  error  Replace `␍⏎······data-h2-padding="m(top-bottom,·m)"␍⏎······style={{·top:·"0"·}}␍⏎····` with `·data-h2-padding="m(top-bottom,·m)"·style={{·top:·"0"·}}`  prettier/prettier
-
-C:\Users\rrvan\Documents\WebDevelopments\gc-digital-talent\frontend\admin\src\js\components\poolCandidate\UpdatePoolCandidate.tsx
-  13:10  warning  'empty' is defined but never used  @typescript-eslint/no-unused-vars
 
 C:\Users\rrvan\Documents\WebDevelopments\gc-digital-talent\frontend\admin\src\js\components\searchRequest\SearchRequestTable.tsx
   124:5  warning  React Hook useMemo has a missing dependency: 'paths'. Either include it or remove the dependency array  react-hooks/exhaustive-deps
@@ -1542,7 +1534,7 @@ C:\Users\rrvan\Documents\WebDevelopments\gc-digital-talent\frontend\admin\src\js
   52:40  error  Return values from promise executor functions cannot be read  no-promise-executor-return
   72:40  error  Return values from promise executor functions cannot be read  no-promise-executor-return
 
-✖ 1487 problems (1477 errors, 10 warnings)
+✖ 1483 problems (1477 errors, 6 warnings)
   1461 errors and 0 warnings potentially fixable with the `--fix` option.
 
 
