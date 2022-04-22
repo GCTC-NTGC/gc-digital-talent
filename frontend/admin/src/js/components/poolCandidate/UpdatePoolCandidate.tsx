@@ -10,7 +10,7 @@ import {
   MultiSelect,
   Checkbox,
 } from "@common/components/form";
-import { empty, notEmpty } from "@common/helpers/util";
+import { notEmpty } from "@common/helpers/util";
 import {
   currentDate,
   unpackIds,
