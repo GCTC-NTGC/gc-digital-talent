@@ -68,7 +68,7 @@ export const MenuLink: React.FC<MenuLinkProps> = ({
       <span
         {...(isActive(href, location.pathname)
           ? { "data-h2-font-weight": "b(700)" }
-          : { "data-h2-font-weight": "b(100)" })}
+          : { "data-h2-font-weight": "b(200)" })}
       >
         {text}
       </span>
@@ -187,37 +187,47 @@ export const Dashboard: React.FC<{
   menuItems: ReactElement[];
   contentRoutes: Routes<RouterResult>;
 }> = ({ menuItems, contentRoutes }) => {
+  const intl = useIntl();
   const content = useRouter(contentRoutes, <AdminNotFound />);
   return (
-    <div className="container">
-      <section
-        className="dashboard"
-        data-h2-flex-grid="b(stretch, contained, flush, none)"
-      >
-        <div
-          data-h2-bg-color="b(lightnavy)"
-          data-h2-flex-item="b(1of1) m(1of4) l(1of6)"
+    <>
+      <a href="#main" data-h2-visibility="b(hidden)">
+        {intl.formatMessage({
+          defaultMessage: "Skip to main content",
+          description: "Assistive technology skip link",
+        })}
+      </a>
+
+      <div className="container">
+        <section
+          className="dashboard"
+          data-h2-flex-grid="b(stretch, contained, flush, none)"
         >
           <div
-            data-h2-padding="b(right-left, m)"
-            data-h2-position="b(static) m(sticky)"
-            style={{ top: "0", maxHeight: "100vh", overflow: "auto" }}
+            data-h2-bg-color="b(lightnavy)"
+            data-h2-flex-item="b(1of1) m(1of4) l(1of6)"
           >
-            <SideMenu
-              items={[...menuItems, ...PoolListApi(), LoginOrLogout()]}
-            />
+            <div
+              data-h2-padding="b(right-left, m)"
+              data-h2-position="b(static) m(sticky)"
+              style={{ top: "0", maxHeight: "100vh", overflow: "auto" }}
+            >
+              <SideMenu
+                items={[...menuItems, ...PoolListApi(), LoginOrLogout()]}
+              />
+            </div>
           </div>
-        </div>
-        <div
-          data-h2-flex-item="b(1of1) m(9of12) l(10of12)"
-          data-h2-display="b(flex)"
-          style={{ flexDirection: "column" }}
-        >
-          <Header baseUrl={ADMIN_APP_DIR} />
-          {content}
-          <Footer baseUrl={ADMIN_APP_DIR} />
-        </div>
-      </section>
-    </div>
+          <div
+            data-h2-flex-item="b(1of1) m(9of12) l(10of12)"
+            data-h2-display="b(flex)"
+            style={{ flexDirection: "column" }}
+          >
+            <Header baseUrl={ADMIN_APP_DIR} />
+            <main id="main">{content}</main>
+            <Footer baseUrl={ADMIN_APP_DIR} />
+          </div>
+        </section>
+      </div>
+    </>
   );
 };

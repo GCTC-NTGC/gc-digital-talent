@@ -4,6 +4,7 @@ import BriefCaseIcon from "@heroicons/react/solid/BriefcaseIcon";
 import { Button } from "@common/components";
 import { useIntl } from "react-intl";
 import { getLocale } from "@common/helpers/localize";
+import { getDateRange } from "@common/helpers/dateUtils";
 import { WorkExperience } from "../../../api/generated";
 
 const WorkAccordion: React.FunctionComponent<WorkExperience> = ({
@@ -24,11 +25,8 @@ const WorkAccordion: React.FunctionComponent<WorkExperience> = ({
         // eslint-disable-next-line react/no-array-index-key
         <ul key={index}>
           <li>
-            <p>
-              {skill.name?.[locale]}
-              <br />
-              {skill.description?.[locale]}
-            </p>
+            <p data-h2-font-color="b(lightpurple)">{skill.name?.[locale]}</p>
+            <p>{skill.description?.[locale]}</p>
           </li>
         </ul>
       ))
@@ -43,17 +41,7 @@ const WorkAccordion: React.FunctionComponent<WorkExperience> = ({
         },
         { role, organization },
       )}
-      subtitle={
-        endDate
-          ? `${startDate || ""} - ${endDate || ""}`
-          : intl.formatMessage(
-              {
-                defaultMessage: "Since: {startDate}",
-                description: "Since",
-              },
-              { startDate },
-            )
-      }
+      subtitle={getDateRange({ endDate, startDate, intl, locale })}
       context={
         skills?.length === 1
           ? intl.formatMessage({

@@ -4,10 +4,7 @@ export const SideMenu: React.FunctionComponent<{
   items: ReactElement[];
 }> = ({ items }) => {
   return (
-    <nav
-      data-h2-padding="m(top-bottom, m)"
-      style={{ top: "0" }}
-    >
+    <nav data-h2-padding="m(top-bottom, m)" style={{ top: "0" }}>
       <ul
         style={{
           listStyle: "none",

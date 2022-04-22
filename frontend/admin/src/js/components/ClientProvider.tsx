@@ -7,7 +7,6 @@ import React, {
   useMemo,
   useRef,
 } from "react";
-import { toast } from "react-toastify";
 import {
   Client,
   CombinedError,

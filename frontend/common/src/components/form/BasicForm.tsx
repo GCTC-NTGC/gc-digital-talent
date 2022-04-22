@@ -10,6 +10,7 @@ import {
 export function BasicForm<
   TFieldValues extends FieldValues,
   // eslint-disable-next-line @typescript-eslint/ban-types
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   TContext extends object = object,
 >({
   onSubmit,
