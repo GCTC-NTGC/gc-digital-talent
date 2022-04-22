@@ -8,8 +8,8 @@ import { Skill } from "../../../api/generated";
 export const SkillBlock: React.FunctionComponent<{
   skill: Skill;
   isAdded: boolean;
-  handleAddSkill: (id: string) => Promise<void>;
-  handleRemoveSkill: (id: string) => Promise<void>;
+  handleAddSkill: (id: string) => void;
+  handleRemoveSkill: (id: string) => void;
 }> = ({ skill, isAdded, handleAddSkill, handleRemoveSkill }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
@@ -92,8 +92,8 @@ export interface SkillResultsProps {
   title: string;
   skills: Skill[];
   addedSkills: Skill[];
-  handleAddSkill: (id: string) => Promise<void>;
-  handleRemoveSkill: (id: string) => Promise<void>;
+  handleAddSkill: (id: string) => void;
+  handleRemoveSkill: (id: string) => void;
 }
 
 const SkillResults: React.FunctionComponent<SkillResultsProps> = ({
