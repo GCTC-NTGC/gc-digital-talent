@@ -29,8 +29,8 @@ jobs:
       - name: Serve app via docker-compose
         run: docker-compose up --detach
 
-      - name: "Confirm fail response: 404 Not Found"
-        run: curl http://localhost:8000/talent --output /dev/null --silent --write-out "%{http_code}"  | grep 404 --quiet
+      - name: "Confirm non-200 response"
+        run: curl http://localhost:8000/talent --output /dev/null --silent --write-out "%{http_code}"  | grep --invert-match 200
 
       - name: "Run: setup.sh"
         run: docker-compose run --rm maintenance bash setup.sh
