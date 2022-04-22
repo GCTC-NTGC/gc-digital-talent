@@ -33,4 +33,5 @@ AddOutputFilter INCLUDES .shtml .sjs
 # Make certain environment variables available for SSI
 PassEnv OAUTH_POST_LOGOUT_REDIRECT OAUTH_LOGOUT_URI
 
+# Constrain undefined output to a known value
 SSIUndefinedEcho "(none)"
