@@ -48,6 +48,7 @@ jobs:
           (cd admin/node_modules && ln -s ../../node_modules/@hydrogen-design-system .)
           (cd common/node_modules && ln -s ../../node_modules/@hydrogen-design-system .)
           (cd talentsearch/node_modules && ln -s ../../node_modules/@hydrogen-design-system .)
+          (cd indigenousapprenticeship/node_modules && ln -s ../../node_modules/@hydrogen-design-system .)
 
       - name: "Build: all workspaces"
         working-directory: frontend
