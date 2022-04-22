@@ -73,24 +73,36 @@ export const PageContainer: React.FC<{
   menuItems: ReactElement[];
   contentRoutes: Routes<RouterResult>;
 }> = ({ menuItems, contentRoutes }) => {
-  const content = useRouter(contentRoutes, <IndigenousApprenticeshipNotFound />);
+  const intl = useIntl();
+  const content = useRouter(
+    contentRoutes,
+    <IndigenousApprenticeshipNotFound />,
+  );
   return (
     <ScrollToTop>
-      <div
-        className="container"
-        data-h2-display="b(flex)"
-        data-h2-flex-direction="b(column)"
-        style={{ height: "100vh", margin: "0" }}
-      >
-        <div>
-          <Header baseUrl={INDIGENOUSAPPRENTICESHIP_APP_DIR} />
-          <NavMenu items={menuItems} />
+      <>
+        <a href="#main" data-h2-visibility="b(hidden)">
+          {intl.formatMessage({
+            defaultMessage: "Skip to main content",
+            description: "Assistive technology skip link",
+          })}
+        </a>
+        <div
+          className="container"
+          data-h2-display="b(flex)"
+          data-h2-flex-direction="b(column)"
+          style={{ height: "100vh", margin: "0" }}
+        >
+          <div>
+            <Header baseUrl={INDIGENOUSAPPRENTICESHIP_APP_DIR} />
+            <NavMenu items={menuItems} />
+          </div>
+          <main id="main">{content}</main>
+          <div style={{ marginTop: "auto" }}>
+            <Footer baseUrl={INDIGENOUSAPPRENTICESHIP_APP_DIR} />
+          </div>
         </div>
-        <div>{content}</div>
-        <div style={{ marginTop: "auto" }}>
-          <Footer baseUrl={INDIGENOUSAPPRENTICESHIP_APP_DIR} />
-        </div>
-      </div>
+      </>
     </ScrollToTop>
   );
 };
