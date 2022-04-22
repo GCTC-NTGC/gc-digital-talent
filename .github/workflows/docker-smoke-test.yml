@@ -1,11 +1,16 @@
-# Changes to workflow name require changes to badge URL in README.md
-name: Docker Smoke Test
+name: Docker Smoke Tests
 
 on:
   push:
+    branches: ["main"]
+    paths-ignore:
+      - '**.md'
+  pull_request:
+    paths-ignore:
+      - '**.md'
 
 jobs:
-  cypress-run:
+  run:
     # Platform recommended in cypress-io/github-action docs.
     runs-on: ubuntu-20.04
     env:
