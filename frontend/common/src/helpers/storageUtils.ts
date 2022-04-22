@@ -29,6 +29,15 @@ export function setInStorage<T>(
   }
 }
 
+export function removeFromStorage(
+  store: Storage | undefined,
+  key: string,
+): void {
+  if (store) {
+    store.removeItem(key);
+  }
+}
+
 /**
  * Retrieves data from local storage. Local storage persists indefinitely.
  * Assumes the data was originally json stringified.
@@ -41,9 +50,12 @@ export function getFromLocalStorage<T>(key: string, defaultValue: T): T {
 }
 
 export function setInLocalStorage<T>(key: string, value: T): void {
-  setInStorage(window?.localStorage, key, value);
+  return setInStorage(window?.localStorage, key, value);
 }
 
+export function removeFromLocalStorage(key: string): void {
+  return removeFromStorage(window?.localStorage, key);
+}
 /**
  * Retrieves data from session storage. Session storage persists across page navigations and reloads but not when a tab is closed.
  * Assumes the data was originally json stringified.
@@ -56,5 +68,9 @@ export function getFromSessionStorage<T>(key: string, defaultValue: T): T {
 }
 
 export function setInSessionStorage<T>(key: string, value: T): void {
-  setInStorage(window?.sessionStorage, key, value);
+  return setInStorage(window?.sessionStorage, key, value);
+}
+
+export function removeFromSessionStorage(key: string): void {
+  return removeFromStorage(window?.sessionStorage, key);
 }
