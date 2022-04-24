@@ -34,7 +34,7 @@ import {
   User,
   GetMeQuery,
 } from "../../../api/generated";
-import WorkPreferencesApi from "../../workPreferencesForm/WorkPreferencesForm";
+import MyStatusForm from "../../myStatusForm/MyStatusForm";
 
 export interface ProfilePageProps {
   profileDataInput: User;
@@ -262,8 +262,7 @@ export const ProfileForm: React.FC<ProfilePageProps> = ({
                   description: "Title of the My status section",
                 })}
               </h2>
-              <p>Status details</p>
-              <WorkPreferencesApi />,
+              <MyStatusForm />
             </div>
             <div id="pools-section">
               <h2 data-h2-font-weight="b(600)">

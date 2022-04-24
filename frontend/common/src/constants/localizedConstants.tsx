@@ -15,6 +15,7 @@ import {
   OperationalRequirement,
   ProvinceOrTerritory,
   EstimatedLanguageAbility,
+  JobLookingStatus,
 } from "../api/generated";
 import { getOrThrowError } from "../helpers/util";
 
@@ -603,4 +604,30 @@ export const getProvinceOrTerritory = (
     provinceOrTerritory,
     provinceOrTerritoryId,
     `Invalid province or territory '${provinceOrTerritoryId}'`,
+  );
+export const JobLookingStatusDescription = defineMessages({
+  [JobLookingStatus.ActivelyLooking]: {
+    defaultMessage:
+      "<bold>Actively looking</bold> - My profile is up to date, I want to be contacted for job opportunities",
+    description: "Job Looking Status described as Actively looking.",
+  },
+  [JobLookingStatus.OpenToOpportunities]: {
+    defaultMessage:
+      "<bold>Open to opportunities </bold> - Not actively looking but I still want to be contacted for job opportunities",
+    description: "Job Looking Status described as Actively looking.",
+  },
+  [JobLookingStatus.Inactive]: {
+    defaultMessage:
+      "<bold>Inactive</bold> - I do not currently want to be contacted for job opportunities",
+    description: "Job Looking Status described as Actively looking.",
+  },
+});
+
+export const getJobLookingStatusDescription = (
+  jobLookingStatusDescriptionId: string | number,
+): MessageDescriptor =>
+  getOrThrowError(
+    JobLookingStatusDescription,
+    jobLookingStatusDescriptionId,
+    `Invalid Job Looking  Status '${jobLookingStatusDescriptionId}'`,
   );

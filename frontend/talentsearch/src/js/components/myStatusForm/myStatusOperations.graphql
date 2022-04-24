@@ -1,0 +1,12 @@
+query getMystatus {
+  me {
+    id
+    jobLookingStatus
+  }
+}
+
+mutation UpdateMystatus($id: ID!, $user: UpdateUserAsUserInput!) {
+  updateUserAsUser(id: $id, user: $user) {
+    jobLookingStatus
+  }
+}
