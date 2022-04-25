@@ -25,6 +25,14 @@
   width: 60%;
 }
 
+.hero__logo > h1 {
+  margin-top: 0;
+}
+
+.hero__apply {
+  margin-bottom: 3rem;
+}
+
 .program__image {
   z-index: 2;
 }
@@ -113,7 +121,12 @@
   bottom: 0;
 }
 
+.apply-program {
+  padding-bottom: 7rem;
+}
+
 .apply-program__box__image {
+  min-height: 18rem;
   background-position: center;
   background-size: cover;
 }
@@ -228,6 +241,10 @@
 
   .quote--close {
     transform: translate(100%);
+  }
+
+  .apply-program {
+    padding-bottom: 10rem;
   }
 
   .apply-program__box {

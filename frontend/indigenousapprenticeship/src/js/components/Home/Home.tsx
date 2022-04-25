@@ -38,14 +38,14 @@ const Home: React.FunctionComponent = () => {
         >
           <div data-h2-container="b(center, full)">
             <div
-              data-h2-padding="b(all, s) s(all, l)"
+              data-h2-padding="b(left-right, s) s(left-right, l)"
               data-h2-display="b(flex)"
               data-h2-flex-direction="b(column)"
               data-h2-align-items="b(center)"
               data-h2-justify-content="b(space-between)"
             >
               <div className="hero__logo" data-h2-width="m(50)">
-                <h1 data-h2-margin="b(top, xs)">
+                <h1>
                   <img
                     data-h2-width="b(100)"
                     src={imageUrl(
@@ -88,7 +88,7 @@ const Home: React.FunctionComponent = () => {
         className="about-program"
         data-h2-container="m(center, m)"
         data-h2-margin="m(bottom, xxl)"
-        data-h2-padding="b(all, l)"
+        data-h2-padding="m(all, l)"
         data-h2-position="b(relative)"
         data-h2-bg-color="b(white)"
         data-h2-radius="b(s)"
@@ -166,7 +166,6 @@ const Home: React.FunctionComponent = () => {
         className="learn-program"
         data-h2-container="m(center, m)"
         data-h2-margin="m(top-bottom, xxl)"
-        data-h2-padding="b(all, l)"
         data-h2-position="b(relative)"
         data-h2-bg-color="b(white)"
         data-h2-radius="b(s)"
@@ -178,7 +177,7 @@ const Home: React.FunctionComponent = () => {
             data-h2-margin="b(bottom, l) m(bottom, xxs)"
           >
             <Heading
-              data-h2-margin="b(top, xxs)"
+              data-h2-margin="b(top, l) m(top, xxs)"
               className="learn-program__title"
             >
               {intl.formatMessage({
@@ -248,7 +247,6 @@ const Home: React.FunctionComponent = () => {
         className="who-program"
         data-h2-container="m(center, m)"
         data-h2-margin="m(top-bottom, xxl)"
-        data-h2-padding="b(all, l)"
         data-h2-position="b(relative)"
         data-h2-bg-color="b(white)"
         data-h2-radius="b(s)"
@@ -260,7 +258,7 @@ const Home: React.FunctionComponent = () => {
           >
             <Heading
               className="about-program__title"
-              data-h2-margin="b(top, xxs)"
+              data-h2-margin="b(top, xl) m(top, xxs)"
             >
               {intl.formatMessage({
                 defaultMessage: "Who is the program for?",
@@ -347,7 +345,7 @@ const Home: React.FunctionComponent = () => {
       </div>
       <div
         className="apply-program"
-        data-h2-padding="b(top-bottom, xxl)"
+        data-h2-padding="b(top, xl) m(top, xxl)"
         style={{
           backgroundImage: `url(${imageUrl(
             INDIGENOUSAPPRENTICESHIP_APP_DIR,
@@ -565,7 +563,7 @@ const Home: React.FunctionComponent = () => {
             </div>
             <div
               data-h2-display="m(flex)"
-              data-h2-margin="b(top-bottom, xl)"
+              data-h2-margin="b(top-bottom, m) m(top-bottom, xl)"
               className="portal-panel__strategy"
             >
               <div
@@ -653,12 +651,12 @@ const Home: React.FunctionComponent = () => {
           <div
             className="talent-portal-wrapper"
             data-h2-position="b(relative)"
-            data-h2-margin="b(top, xxl)"
+            data-h2-margin="m(top, xxl)"
           >
             <div
               className="talent-portal-card"
               data-h2-position="b(relative)"
-              data-h2-margin="b(top-bottom, l)"
+              data-h2-margin="m(top-bottom, l)"
               data-h2-bg-color="b(ia-lightpurple)"
               data-h2-font-color="b(ia-white)"
               style={{
