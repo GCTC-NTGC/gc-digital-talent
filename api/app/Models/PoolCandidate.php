@@ -179,6 +179,11 @@ RAWSQL2;
     }
     public function filterByOperationalRequirements(Builder $query, ?array $operationalRequirements): Builder
     {
+        // if no filters provided then return query unchanged
+        if (empty($operationalRequirements)) {
+            return $query;
+        }
+
         // OperationalRequirements act as an AND filter. The query should only return candidates willing to accept ALL of the requirements.
             $query->whereJsonContains('accepted_operational_requirements', $operationalRequirements);
         return $query;
