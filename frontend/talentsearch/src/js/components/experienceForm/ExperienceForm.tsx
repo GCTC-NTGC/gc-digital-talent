@@ -152,102 +152,105 @@ export interface ExperienceFormContainerProps {
   experienceId?: string;
 }
 
-const ExperienceFormContainer: React.FunctionComponent<
-  ExperienceFormContainerProps
-> = ({ experienceType, experienceId }) => {
-  const intl = useIntl();
-  const locale = getLocale(intl);
-  const paths = applicantProfileRoutes(locale);
-  const [, setLocallySavedForm] = useLocalStorage<
-    ExperienceDetailsDefaultValues | undefined
-  >(
-    "ts-createExperience", // unique storage key
-    undefined, // start form off empty
-  );
-
-  const [meResults] = useGetMeQuery();
-  const { data: meData, fetching: fetchingMe, error: meError } = meResults;
-
-  const handleSuccess = () => {
-    setLocallySavedForm(undefined);
-    navigate(paths.home());
-    toast.success(
-      intl.formatMessage({
-        defaultMessage: "Successfully added experience!",
-        description:
-          "Success message displayed after adding experience to profile",
-      }),
+const ExperienceFormContainer: React.FunctionComponent<ExperienceFormContainerProps> =
+  ({ experienceType, experienceId }) => {
+    const intl = useIntl();
+    const locale = getLocale(intl);
+    const paths = applicantProfileRoutes(locale);
+    const [, setLocallySavedForm] = useLocalStorage<
+      ExperienceDetailsDefaultValues | undefined
+    >(
+      "ts-createExperience", // unique storage key
+      undefined, // start form off empty
     );
-  };
 
-  const handleError = () => {
-    toast.error(
-      intl.formatMessage({
-        defaultMessage: "Error: adding experience failed",
-        description:
-          "Message displayed to user after experience fails to be created.",
-      }),
+    const [meResults] = useGetMeQuery();
+    const { data: meData, fetching: fetchingMe, error: meError } = meResults;
+
+    const handleSuccess = () => {
+      setLocallySavedForm(undefined);
+      navigate(paths.home());
+      toast.success(
+        intl.formatMessage({
+          defaultMessage: "Successfully added experience!",
+          description:
+            "Success message displayed after adding experience to profile",
+        }),
+      );
+    };
+
+    const handleError = () => {
+      toast.error(
+        intl.formatMessage({
+          defaultMessage: "Error: adding experience failed",
+          description:
+            "Message displayed to user after experience fails to be created.",
+        }),
+      );
+    };
+
+    const handleMutationResponse = (res: ExperienceMutationResponse) => {
+      if (res.data) {
+        handleSuccess();
+      }
+    };
+
+    const [experiencesResult] = useGetMyExperiencesQuery();
+    const { data: experienceData, fetching: fetchingExperience } =
+      experiencesResult;
+
+    const [skillResults] = useGetSkillsQuery();
+    const {
+      data: skillsData,
+      fetching: fetchingSkills,
+      error: skillError,
+    } = skillResults;
+
+    let experience: ExperienceQueryData | null = null;
+    if (experienceId && experienceData?.me?.experiences) {
+      experience = experienceData.me.experiences.find(
+        (e) => e?.id === experienceId,
+      ) as ExperienceQueryData;
+    }
+
+    const { executeMutation, getMutationArgs } = useExperienceMutations(
+      experienceType,
+      experience ? "update" : "create",
     );
-  };
 
-  const handleMutationResponse = (res: ExperienceMutationResponse) => {
-    if (res.data) {
-      handleSuccess();
+    const handleUpdateExperience = (
+      values: ExperienceDetailsSubmissionData,
+    ) => {
+      if (meData?.me) {
+        const args = getMutationArgs(experienceId || meData.me.id, values);
+        const res = executeMutation(
+          args,
+        ) as Promise<ExperienceMutationResponse>;
+        res.then(handleMutationResponse).catch(handleError);
+      }
+    };
+
+    if (fetchingSkills || fetchingMe || fetchingExperience) {
+      return <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>;
     }
-  };
 
-  const [experiencesResult] = useGetMyExperiencesQuery();
-  const { data: experienceData, fetching: fetchingExperience } =
-    experiencesResult;
-
-  const [skillResults] = useGetSkillsQuery();
-  const {
-    data: skillsData,
-    fetching: fetchingSkills,
-    error: skillError,
-  } = skillResults;
-
-  let experience: ExperienceQueryData | null = null;
-  if (experienceId && experienceData?.me?.experiences) {
-    experience = experienceData.me.experiences.find(
-      (e) => e?.id === experienceId,
-    ) as ExperienceQueryData;
-  }
-
-  const { executeMutation, getMutationArgs } = useExperienceMutations(
-    experienceType,
-    experience ? "update" : "create",
-  );
-
-  const handleUpdateExperience = (values: ExperienceDetailsSubmissionData) => {
-    if (meData?.me) {
-      const args = getMutationArgs(experienceId || meData.me.id, values);
-      const res = executeMutation(args) as Promise<ExperienceMutationResponse>;
-      res.then(handleMutationResponse).catch(handleError);
+    if (skillError || !skillsData || meError || !meData) {
+      return (
+        <p>
+          {intl.formatMessage(commonMessages.loadingError)}
+          {skillError?.message || ""}
+        </p>
+      );
     }
-  };
 
-  if (fetchingSkills || fetchingMe || fetchingExperience) {
-    return <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>;
-  }
-
-  if (skillError || !skillsData || meError || !meData) {
     return (
-      <p>
-        {intl.formatMessage(commonMessages.loadingError)}
-        {skillError?.message || ""}
-      </p>
+      <ExperienceForm
+        experience={experience as ExperienceQueryData}
+        experienceType={experienceType}
+        skills={skillsData.skills as Skill[]}
+        onUpdateExperience={handleUpdateExperience}
+      />
     );
-  }
-
-  return (
-    <ExperienceForm
-      experience={experience as ExperienceQueryData}
-      experienceType={experienceType}
-      skills={skillsData.skills as Skill[]}
-      onUpdateExperience={handleUpdateExperience}
-    />
-  );
-};
+  };
 
 export default ExperienceFormContainer;
