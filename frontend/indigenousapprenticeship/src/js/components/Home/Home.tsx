@@ -175,6 +175,7 @@ const Home: React.FunctionComponent = () => {
           <div
             className="learn-program__content"
             data-h2-position="b(relative)"
+            data-h2-margin="b(bottom, l) m(bottom, xxs)"
           >
             <Heading
               data-h2-margin="b(top, xxs)"
@@ -254,25 +255,13 @@ const Home: React.FunctionComponent = () => {
       >
         <div data-h2-display="m(flex)">
           <div
-            className="program__image-wrapper"
-            data-h2-position="b(relative)"
-            data-h2-padding="b(right-left, m)"
+            className="who-program__content"
+            data-h2-margin="b(bottom, xl) m(bottom, xxs"
           >
-            <img
-              src={imageUrl(INDIGENOUSAPPRENTICESHIP_APP_DIR, "applicant.jpg")}
-              className="program__image"
-              data-h2-position="b(relative)"
-              alt=""
-            />
-            <Triangle
-              className="who-program__triangle"
-              data-h2-position="b(absolute)"
-              data-h2-width="b(100)"
-              data-h2-font-color="b(ia-purple)"
-            />
-          </div>
-          <div>
-            <Heading className="about-program__title">
+            <Heading
+              className="about-program__title"
+              data-h2-margin="b(top, xxs)"
+            >
               {intl.formatMessage({
                 defaultMessage: "Who is the program for?",
                 description: "Heading for section about who the program is for",
@@ -304,19 +293,31 @@ const Home: React.FunctionComponent = () => {
                   })}
                 </Button>
               </div>
-              <div
-                data-h2-position="b(relative)"
-                data-h2-width="m(50)"
-                data-h2-margin="b(bottom, m) m(right, s)"
-              >
-                <img
-                  src={imageUrl(INDIGENOUSAPPRENTICESHIP_APP_DIR, "ulu.png")}
-                  className="who-program__ulu"
-                  alt=""
-                  data-h2-position="b(absolute)"
-                />
-              </div>
             </div>
+            <img
+              src={imageUrl(INDIGENOUSAPPRENTICESHIP_APP_DIR, "ulu.png")}
+              className="who-program__ulu"
+              alt=""
+              data-h2-position="b(absolute)"
+            />
+          </div>
+          <div
+            className="program__image-wrapper who-program__image-wrapper"
+            data-h2-position="b(relative)"
+            data-h2-padding="b(right-left, m)"
+          >
+            <img
+              src={imageUrl(INDIGENOUSAPPRENTICESHIP_APP_DIR, "applicant.jpg")}
+              className="program__image"
+              data-h2-position="b(relative)"
+              alt=""
+            />
+            <Triangle
+              className="who-program__triangle"
+              data-h2-position="b(absolute)"
+              data-h2-width="b(100)"
+              data-h2-font-color="b(ia-purple)"
+            />
           </div>
         </div>
       </div>

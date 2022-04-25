@@ -61,10 +61,6 @@
   left: -6rem;
 }
 
-.learn-program {
-  margin-bottom: 8rem;
-}
-
 .learn-program__content {
   z-index: 1;
 }
@@ -82,10 +78,11 @@
 
 .who-program__ulu {
   height: auto;
-  top: -1rem;
-  left: -1rem;
-  width: 175%;
+  bottom: -1rem;
+  right: -1rem;
+  width: 65%;
   max-width: none;
+  z-index: 3;
 }
 
 .who-program__triangle {
@@ -172,6 +169,12 @@
   .learn-program__gloves {
     bottom: -6rem;
   }
+  .who-program__image-wrapper {
+    order: 1;
+  }
+  .who-program__content {
+    order: 2;
+  }
 }
 
 @media (min-width: 64em) {
@@ -204,9 +207,17 @@
     width: 44rem;
   }
 
+  .learn-program {
+    margin-bottom: 8rem;
+  }
+
   .learn-program__gloves {
     bottom: -10rem;
     left: 50%;
+  }
+
+  .who-program__ulu {
+    width: 30%;
   }
 
   .apply-program__box {
