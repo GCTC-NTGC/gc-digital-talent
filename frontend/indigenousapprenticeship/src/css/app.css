@@ -65,9 +65,13 @@
   margin-bottom: 8rem;
 }
 
+.learn-program__content {
+  z-index: 1;
+}
+
 .learn-program__gloves {
-  bottom: -10rem;
-  left: 50%;
+  bottom: -6rem;
+  left: 35%;
   z-index: 2;
 }
 
@@ -158,13 +162,15 @@
     width: 50%;
   } */
   .program__image-wrapper {
-    margin-left: 3rem;
     max-width: 40%;
   }
   .about-program__feathers {
     bottom: -2rem;
     right: -6rem;
     width: 32rem;
+  }
+  .learn-program__gloves {
+    bottom: -6rem;
   }
 }
 
@@ -196,6 +202,11 @@
     bottom: -10rem;
     right: 0;
     width: 44rem;
+  }
+
+  .learn-program__gloves {
+    bottom: -10rem;
+    left: 50%;
   }
 
   .apply-program__box {

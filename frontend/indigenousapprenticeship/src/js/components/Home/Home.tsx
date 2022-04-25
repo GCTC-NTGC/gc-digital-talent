@@ -19,6 +19,7 @@ import Triangle from "../Svg/Triangle";
 
 import useQuote from "../../hooks/useQuote";
 import INDIGENOUSAPPRENTICESHIP_APP_DIR from "../../indigenousApprenticeshipConstants";
+import CTAButtons from "../CallToAction/CTAButtons";
 
 const Home: React.FunctionComponent = () => {
   const intl = useIntl();
@@ -155,29 +156,8 @@ const Home: React.FunctionComponent = () => {
                 description: "Third paragraph about the program",
               })}
             </p>
-            <div data-h2-display="s(flex)">
-              <div
-                data-h2-width="s(50)"
-                data-h2-margin="b(bottom, m) s(right, s)"
-              >
-                <Button color="ia-primary" mode="solid" block>
-                  {intl.formatMessage({
-                    defaultMessage: "Apply Now",
-                    description: "Button text to apply for program",
-                  })}
-                </Button>
-              </div>
-              <div
-                data-h2-width="s(50)"
-                data-h2-margin="b(bottom, m) s(left, s)"
-              >
-                <Button color="ia-secondary" mode="outline" block>
-                  {intl.formatMessage({
-                    defaultMessage: "Learn More",
-                    description: "Button text to learn more about the program",
-                  })}
-                </Button>
-              </div>
+            <div data-h2-visibility="b(invisible) m(visible)">
+              <CTAButtons />
             </div>
           </div>
         </div>
@@ -192,7 +172,10 @@ const Home: React.FunctionComponent = () => {
         data-h2-radius="b(s)"
       >
         <div data-h2-display="m(flex)">
-          <div>
+          <div
+            className="learn-program__content"
+            data-h2-position="b(relative)"
+          >
             <Heading
               data-h2-margin="b(top, xxs)"
               className="learn-program__title"
@@ -226,11 +209,14 @@ const Home: React.FunctionComponent = () => {
                   "First paragraph what will you learn at the program",
               })}
             </p>
+            <div data-h2-visibility="b(visible) m(invisible)">
+              <CTAButtons />
+            </div>
           </div>
           <div
             className="program__image-wrapper"
             data-h2-position="b(relative)"
-            data-h2-padding="b(right-left, m)"
+            data-h2-padding="m(right-left, m)"
           >
             <img
               src={imageUrl(
