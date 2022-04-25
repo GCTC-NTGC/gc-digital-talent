@@ -1,8 +1,14 @@
 /* nothing here yet */
 
-.hero > div {
-  position: relative;
+.hero__content {
+  height: 100%;
   z-index: 1;
+}
+
+.hero__content,
+.hero__content > div,
+.hero__content > div > div {
+  height: 100%;
 }
 
 .hero__image {
@@ -13,6 +19,10 @@
   object-fit: cover;
   object-position: center;
   z-index: 0;
+}
+
+.hero__logo {
+  width: 60%;
 }
 
 .about-program {
@@ -157,16 +167,13 @@
   .hero {
     z-index: 1;
   }
-  .hero__logo {
-    margin-bottom: 24rem;
-  }
 
   .hero__apply {
-    margin-bottom: 10rem;
+    margin-bottom: 6rem;
   }
 
   .about-program {
-    margin-top: -8rem;
+    margin-top: -4rem;
     z-index: 2;
   }
 

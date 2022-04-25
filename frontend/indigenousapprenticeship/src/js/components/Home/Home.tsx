@@ -13,12 +13,12 @@ import BarChart from "../Svg/BarChart";
 import Calendar from "../Svg/Calendar";
 import People from "../Svg/People";
 import RadiatingCircles from "../Svg/RadiatingCircles";
+import ThickCircle from "../Svg/ThickCircle";
 import TrendingUp from "../Svg/TrendingUp";
 import Triangle from "../Svg/Triangle";
 
 import useQuote from "../../hooks/useQuote";
 import INDIGENOUSAPPRENTICESHIP_APP_DIR from "../../indigenousApprenticeshipConstants";
-import ThickCircle from "../Svg/ThickCircle";
 
 const Home: React.FunctionComponent = () => {
   const intl = useIntl();
@@ -30,43 +30,49 @@ const Home: React.FunctionComponent = () => {
         data-h2-position="b(relative)"
         data-h2-overflow="b(all, hidden)"
       >
-        <div data-h2-container="b(center, full)">
-          <div
-            data-h2-padding="b(all, l)"
-            data-h2-display="b(flex)"
-            data-h2-flex-direction="b(column)"
-            data-h2-align-items="b(center)"
-            data-h2-justify-content="b(space-between)"
-          >
-            <div className="hero__logo" data-h2-width="s(100) m(50)">
-              <h1 data-h2-margin="b(top, xs)">
-                <img
-                  data-h2-width="b(100)"
-                  src={imageUrl(
-                    INDIGENOUSAPPRENTICESHIP_APP_DIR,
-                    "logo-en-lg.png",
-                  )}
-                  alt={intl.formatMessage({
-                    defaultMessage:
-                      "IT Apprenticeship Program for Indigenous Peoples",
-                    description:
-                      "Homepage title for Indigenous Apprenticeship Program",
-                  })}
-                />
-              </h1>
-            </div>
+        <div
+          className="hero__content"
+          data-h2-position="b(absolute)"
+          data-h2-width="b(100)"
+        >
+          <div data-h2-container="b(center, full)">
             <div
-              className="hero__apply"
+              data-h2-padding="b(all, s) l(all, l)"
               data-h2-display="b(flex)"
-              data-h2-justify-content="b(center)"
-              data-h2-width="m(25)"
+              data-h2-flex-direction="b(column)"
+              data-h2-align-items="b(center)"
+              data-h2-justify-content="b(space-between)"
             >
-              <Button color="ia-primary" mode="solid" block>
-                {intl.formatMessage({
-                  defaultMessage: "Apply Now",
-                  description: "Button text to apply for program",
-                })}
-              </Button>
+              <div className="hero__logo" data-h2-width="m(50)">
+                <h1 data-h2-margin="b(top, xs)">
+                  <img
+                    data-h2-width="b(100)"
+                    src={imageUrl(
+                      INDIGENOUSAPPRENTICESHIP_APP_DIR,
+                      "logo-en-lg.png",
+                    )}
+                    alt={intl.formatMessage({
+                      defaultMessage:
+                        "IT Apprenticeship Program for Indigenous Peoples",
+                      description:
+                        "Homepage title for Indigenous Apprenticeship Program",
+                    })}
+                  />
+                </h1>
+              </div>
+              <div
+                className="hero__apply"
+                data-h2-display="b(flex)"
+                data-h2-justify-content="b(center)"
+                data-h2-width="m(25)"
+              >
+                <Button color="ia-primary" mode="solid" block>
+                  {intl.formatMessage({
+                    defaultMessage: "Apply Now",
+                    description: "Button text to apply for program",
+                  })}
+                </Button>
+              </div>
             </div>
           </div>
         </div>
@@ -74,7 +80,7 @@ const Home: React.FunctionComponent = () => {
           className="hero__image"
           src={imageUrl(INDIGENOUSAPPRENTICESHIP_APP_DIR, "hero.jpg")}
           alt=""
-          data-h2-position="b(absolute)"
+          data-h2-position="b(relative)"
         />
       </div>
       <div
