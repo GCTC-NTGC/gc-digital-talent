@@ -144,7 +144,7 @@ class PoolCandidateTest extends TestCase
   {
     // Create initial data.
     PoolCandidate::factory()->count(5)->create([
-      'accepted_operational_requirements' => [],
+      'accepted_operational_requirements' => null,
     ]);
     $operationalRequirement1 = 'OVERTIME_SCHEDULED';
     $operationalRequirement2 = 'SHIFT_WORK';
@@ -172,6 +172,22 @@ class PoolCandidateTest extends TestCase
         'countPoolCandidates' => 9
       ]
     ]);
+
+     // Assert query with empty operationalRequirements filter will return all candidates
+     $this->graphQL(/** @lang Graphql */ '
+      query countPoolCandidates($where: PoolCandidateFilterInput) {
+        countPoolCandidates(where: $where)
+      }
+    ', [
+      'where' => [
+        'operationalRequirements' => []
+      ]
+    ])->assertJson([
+      'data' => [
+        'countPoolCandidates' => 9
+      ]
+    ]);
+
     // Assert query with one operationalRequirement filter will return correct candidate count
     $this->graphQL(/** @lang Graphql */ '
       query countPoolCandidates($where: PoolCandidateFilterInput) {
