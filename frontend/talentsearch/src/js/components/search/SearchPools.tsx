@@ -38,7 +38,7 @@ const SearchPools: React.FunctionComponent<SearchPoolsProps> = ({
         </p>
         <p
           data-h2-margin="b(top, xxs) b(bottom, m)"
-          data-h2-font-weight="b(100)"
+          data-h2-font-weight="b(200)"
         >
           {intl.formatMessage(
             {

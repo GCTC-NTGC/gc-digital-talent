@@ -62,7 +62,7 @@ const ProfileFormWrapper: React.FunctionComponent<ProfileFormWrapperProps> = ({
         <h1
           data-h2-margin="b(all, none)"
           data-h2-font-size="b(h2)"
-          data-h2-font-weight="b(100)"
+          data-h2-font-weight="b(200)"
         >
           {title}
         </h1>

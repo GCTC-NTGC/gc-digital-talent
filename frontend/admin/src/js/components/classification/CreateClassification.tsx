@@ -181,7 +181,7 @@ export const CreateClassificationForm: React.FunctionComponent<
 };
 
 export const CreateClassification: React.FunctionComponent = () => {
-  const [_result, executeMutation] = useCreateClassificationMutation();
+  const [, executeMutation] = useCreateClassificationMutation();
   const handleCreateClassification = (data: CreateClassificationInput) =>
     executeMutation({ classification: data }).then((result) => {
       if (result.data?.createClassification) {

@@ -4,18 +4,20 @@
 import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
 import React from "react";
-import { IntlProvider, MessageFormatElement } from "react-intl";
+import {
+  createIntl,
+  createIntlCache,
+  IntlProvider,
+  MessageFormatElement,
+} from "react-intl";
 import { fakeSkills } from "@common/fakeData";
 import { generators as experienceGenerator } from "@common/fakeData/fakeExperiences";
 
+import { getDateRange } from "@common/helpers/dateUtils";
 import { Skill } from "../../../api/generated";
 import SkillAccordion from "./SkillAccordion";
 
 const skills = fakeSkills();
-const formatter = new Intl.DateTimeFormat("en", {
-  year: "numeric",
-  month: "short",
-});
 const renderWithReactIntl = (
   component: React.ReactNode,
   locale?: "en" | "fr",
@@ -33,6 +35,16 @@ function renderSkillAccordion(skill: Skill) {
 }
 
 describe("SkillAccordion tests", () => {
+  // https://formatjs.io/docs/react-intl/api/#createintl
+  const cache = createIntlCache();
+  const intl = createIntl(
+    {
+      locale: "en-CA",
+      messages: {},
+    },
+    cache,
+  );
+
   test("It renders Skill Accordion without any issues", () => {
     renderSkillAccordion(testSkill);
     const accordion = screen.getByTestId("skill");
@@ -64,9 +76,12 @@ describe("SkillAccordion tests", () => {
     const experience = experienceGenerator.workExperiences()[0];
 
     testSkill.experiences = [experience];
-    const d1 = formatter.format(new Date(experience.startDate!));
-    const d2 = formatter.format(new Date(experience.endDate!));
-    const dateRange = `${d1} - ${d2}`;
+    const dateRange = getDateRange({
+      endDate: experience.endDate,
+      startDate: experience.startDate,
+      intl,
+      locale: "en",
+    });
     renderSkillAccordion(testSkill);
     const context = screen.getByText("1 Experience");
     const detail = screen.getByTestId("detail");
@@ -97,9 +112,12 @@ describe("SkillAccordion tests", () => {
   test("It renders proper context and detail when a education experience is provided", () => {
     const experience = experienceGenerator.educationExperiences()[0];
     testSkill.experiences = [experience];
-    const d1 = formatter.format(new Date(experience.startDate!));
-    const d2 = formatter.format(new Date(experience.endDate!));
-    const dateRange = `${d1} - ${d2}`;
+    const dateRange = getDateRange({
+      endDate: experience.endDate,
+      startDate: experience.startDate,
+      intl,
+      locale: "en",
+    });
     renderSkillAccordion(testSkill);
     const context = screen.getByText("1 Experience");
     const detail = screen.getByTestId("detail");
@@ -115,9 +133,12 @@ describe("SkillAccordion tests", () => {
   test("It renders proper context and detail when a personal experience is provided", () => {
     const experience = experienceGenerator.personalExperiences()[0];
     testSkill.experiences = [experience];
-    const d1 = formatter.format(new Date(experience.startDate!));
-    const d2 = formatter.format(new Date(experience.endDate!));
-    const dateRange = `${d1} - ${d2}`;
+    const dateRange = getDateRange({
+      endDate: experience.endDate,
+      startDate: experience.startDate,
+      intl,
+      locale: "en",
+    });
     renderSkillAccordion(testSkill);
     const context = screen.getByText("1 Experience");
     const detail = screen.getByTestId("detail");
