@@ -8,6 +8,7 @@ import { CommonFrench } from "../../common/src/lang";
 
 // CSS files required for building with `MERGE_STORYBOOKS=true`.
 import "../../talentsearch/src/css/app.css";
+import "../../indigenousapprenticeship/src/css/app.css";
 
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
