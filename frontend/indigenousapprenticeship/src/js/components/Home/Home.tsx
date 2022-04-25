@@ -244,7 +244,7 @@ const Home: React.FunctionComponent = () => {
             />
             <RadiatingCircles
               className="learn-program__circles"
-              data-h2-font-color="b(ia-white)"
+              data-h2-font-color="b(ia-lightgray)"
               data-h2-position="b(absolute)"
               data-h2-width="b(100)"
             />

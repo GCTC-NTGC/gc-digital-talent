@@ -97,14 +97,14 @@
 }
 
 .quote--open {
-  left: -0.5rem;
-  top: -0.5rem;
+  left: 0;
+  top: 0;
   transform: translate(-100%);
 }
 
 .quote--close {
-  right: -0.5rem;
-  bottom: -0.5rem;
+  right: 0;
+  bottom: 0;
   transform: translate(100%);
 }
 
