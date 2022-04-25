@@ -5,6 +5,11 @@ import Home from "./Home";
 export default {
   component: Home,
   title: "Indigenous Apprenticeship/Home Page",
+  parameters: {
+    backgrounds: {
+      default: "white",
+    },
+  },
 } as Meta;
 
 const TemplateHome: Story = () => <Home />;
