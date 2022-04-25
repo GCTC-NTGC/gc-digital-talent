@@ -27,6 +27,8 @@ export interface RadioGroupProps {
   hideOptional?: boolean;
   /** If set to the value of an input element that element will start selected */
   defaultSelected?: string;
+  /** If set to the value of an input element that element will start selected */
+  onChange?: () => void;
 }
 
 /**
@@ -43,6 +45,7 @@ export const RadioGroup: React.FunctionComponent<RadioGroupProps> = ({
   disabled,
   hideOptional,
   defaultSelected,
+  onChange,
 }) => {
   const {
     register,
@@ -83,6 +86,7 @@ export const RadioGroup: React.FunctionComponent<RadioGroupProps> = ({
               value={value}
               type="radio"
               defaultChecked={defaultSelected === value}
+              onChange={onChange}
             />
           </InputWrapper>
         );

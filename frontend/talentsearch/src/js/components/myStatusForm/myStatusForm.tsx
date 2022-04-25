@@ -65,11 +65,12 @@ export const MyStatusForm: React.FC<MyStatusFormProps> = ({
       await handleMyStatus(initialData.me?.id, formValuesToSubmitData(data));
     }
   };
+  const isFormActive = true;
 
   return (
     <div>
       <FormProvider {...methods}>
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form>
           <div>
             <p>
               {intl.formatMessage({
@@ -85,24 +86,29 @@ export const MyStatusForm: React.FC<MyStatusFormProps> = ({
             data-h2-padding="b(all, m)"
             data-h2-radius="b(s)"
           >
-            <p>
-              {intl.formatMessage(
-                {
-                  defaultMessage: "<bold>Why can’t I change my status?</bold>",
-                  description: "Message in My Status Form.",
-                },
-                {
-                  bold,
-                },
-              )}
-            </p>
-            <p>
-              {intl.formatMessage({
-                defaultMessage:
-                  "Please complete all required fields on your profile before setting your status as active.",
-                description: "Message in My Status Form.",
-              })}
-            </p>
+            {isFormActive && (
+              <>
+                <p>
+                  {intl.formatMessage(
+                    {
+                      defaultMessage:
+                        "<bold>Why can’t I change my status?</bold>",
+                      description: "Message in My Status Form.",
+                    },
+                    {
+                      bold,
+                    },
+                  )}
+                </p>
+                <p>
+                  {intl.formatMessage({
+                    defaultMessage:
+                      "Please complete all required fields on your profile before setting your status as active.",
+                    description: "Message in My Status Form.",
+                  })}
+                </p>
+              </>
+            )}
           </div>
           <div data-h2-padding="b(top, s)">
             <RadioGroup
@@ -112,9 +118,11 @@ export const MyStatusForm: React.FC<MyStatusFormProps> = ({
                 description: "Legend for my status option in my status form",
               })}
               name="jobLookingStatus"
+              disabled={isFormActive}
               rules={{
                 required: intl.formatMessage(errorMessages.required),
               }}
+              onChange={handleSubmit(onSubmit)}
               items={enumToOptions(
                 JobLookingStatus,
                 JobLookingStatusSortOrder,
@@ -126,9 +134,6 @@ export const MyStatusForm: React.FC<MyStatusFormProps> = ({
                 ),
               }))}
             />
-          </div>
-          <div data-h2-padding="b(top, s)">
-            <button type="submit">Submit</button>
           </div>
         </form>
       </FormProvider>
