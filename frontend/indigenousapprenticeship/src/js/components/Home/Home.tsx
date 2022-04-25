@@ -37,7 +37,7 @@ const Home: React.FunctionComponent = () => {
         >
           <div data-h2-container="b(center, full)">
             <div
-              data-h2-padding="b(all, s) l(all, l)"
+              data-h2-padding="b(all, s) s(all, l)"
               data-h2-display="b(flex)"
               data-h2-flex-direction="b(column)"
               data-h2-align-items="b(center)"
@@ -92,11 +92,11 @@ const Home: React.FunctionComponent = () => {
         data-h2-bg-color="b(white)"
         data-h2-radius="b(s)"
       >
-        <div data-h2-display="m(flex)">
+        <div data-h2-display="m(flex)" data-h2-align-items="m(flex-start))">
           <div
             className="program__image-wrapper"
             data-h2-position="b(relative)"
-            data-h2-padding="b(right-left, m) m(left, l) m(right, xxl)"
+            data-h2-padding="m(left, l) m(right, xxl)"
           >
             <img
               src={imageUrl(
@@ -155,10 +155,10 @@ const Home: React.FunctionComponent = () => {
                 description: "Third paragraph about the program",
               })}
             </p>
-            <div data-h2-display="m(flex)">
+            <div data-h2-display="s(flex)">
               <div
-                data-h2-width="m(50)"
-                data-h2-margin="b(bottom, m) m(right, s)"
+                data-h2-width="s(50)"
+                data-h2-margin="b(bottom, m) s(right, s)"
               >
                 <Button color="ia-primary" mode="solid" block>
                   {intl.formatMessage({
@@ -168,8 +168,8 @@ const Home: React.FunctionComponent = () => {
                 </Button>
               </div>
               <div
-                data-h2-width="m(50)"
-                data-h2-margin="b(bottom, m) m(left, s)"
+                data-h2-width="s(50)"
+                data-h2-margin="b(bottom, m) s(left, s)"
               >
                 <Button color="ia-secondary" mode="outline" block>
                   {intl.formatMessage({
