@@ -69,6 +69,9 @@ jobs:
           curl --silent http://localhost:8000/admin | grep /admin/app.js
           curl --silent http://localhost:8000/indigenous-it-apprentice | grep /indigenous-it-apprentice/app.js
           curl --silent http://localhost:8000/en/talent-cloud | grep "GC Talent | Talent Cloud"
+          # Test that GraphQL API returns some data, and that the HTTP code is 200.
+          # See: https://www.apollographql.com/docs/apollo-server/monitoring/health-checks/#graphql-level-health-checks
+          curl "http://localhost:8000/graphql?query=\{__typename\}" --write-out "%{http_code}" --silent | grep '"data"' | grep 200
 
       - name: Break web apps
         run: rm frontend/*/dist/index.html
@@ -88,3 +91,6 @@ jobs:
           curl --silent http://localhost:8000/admin | grep /admin/app.js
           curl --silent http://localhost:8000/indigenous-it-apprentice | grep /indigenous-it-apprentice/app.js
           curl --silent http://localhost:8000/en/talent-cloud | grep "GC Talent | Talent Cloud"
+          # Test that GraphQL API returns some data, and that the HTTP code is 200.
+          # See: https://www.apollographql.com/docs/apollo-server/monitoring/health-checks/#graphql-level-health-checks
+          curl "http://localhost:8000/graphql?query=\{__typename\}" --write-out "%{http_code}" --silent | grep '"data"' | grep 200
