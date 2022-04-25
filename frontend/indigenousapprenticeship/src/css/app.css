@@ -106,13 +106,11 @@
 .quote--open {
   left: 0;
   top: 0;
-  transform: translate(-100%);
 }
 
 .quote--close {
   right: 0;
   bottom: 0;
-  transform: translate(100%);
 }
 
 .apply-program__box__image {
@@ -122,6 +120,10 @@
 
 .portal-panel__inner {
   z-index: 2;
+}
+
+.portal-panel__banner-wrapper {
+  transform: translateY(-60%);
 }
 
 .portal-panel__bg-item {
@@ -220,6 +222,14 @@
     width: 30%;
   }
 
+  .quote--open {
+    transform: translate(-100%);
+  }
+
+  .quote--close {
+    transform: translate(100%);
+  }
+
   .apply-program__box {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -228,10 +238,6 @@
   /* .apply-program__box__text {
     column-span: 2;
   } */
-
-  .portal-panel__banner-wrapper {
-    transform: translateY(-60%);
-  }
 
   .portal-panel__steps,
   .portal-panel__strategy {
