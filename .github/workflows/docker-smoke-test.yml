@@ -41,14 +41,13 @@ jobs:
       - uses: satackey/action-docker-layer-caching@v0.0.11
         # Ignore a failure of this step and avoid terminating the job.
         continue-on-error: true
-        # By default, this cache is keyed to the workflow name. Consider
-        # setting a shared key if you'd like the docker cache to be shared
-        # across multiple workflows. (uncomment below)
-        #
-        #with:
-        #  key: some-shared-key-{hash}
-        #  restore-keys: |
-        #  some-shared-key-
+        # By default, this cache is keyed to the workflow name. We ar
+        # setting a shared key for the docker cache to be shared
+        # across multiple workflows.
+        with:
+          key: docker-{hash}
+          restore-keys: |
+          docker-
 
       - name: Serve app via docker-compose
         working-directory: infrastructure/
