@@ -1,3 +1,6 @@
+# Changes to workflow name require changes to badge URL in README.md
+name: e2e-test
+
 on:
   push:
     branches:
