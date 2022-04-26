@@ -1,0 +1,5 @@
+{
+  "videoCompression": 15,
+  "ignoreTestFiles": "**/examples/*.spec.js",
+  "baseUrl": "http://localhost:8000"
+}
