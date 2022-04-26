@@ -13,7 +13,8 @@ import {
 
 type BasicFormProps<TFieldValues extends FieldValues> = PropsWithChildren<{
   onSubmit: SubmitHandler<TFieldValues>;
-  options?: UseFormProps<TFieldValues, any>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  options?: UseFormProps<TFieldValues, any>; // FieldValues deals in "any"
   cacheKey?: string; // If included, will cache form values in local storage and retrieve from there if possible.
 }>;
 
