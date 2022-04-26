@@ -5,7 +5,12 @@ RUN apt-get update \
     && apt-get install -y libpq-dev \
     && docker-php-ext-install pdo_pgsql
 
-WORKDIR /var/www/html/api
+# Use public folder as document root, as Laravel expects.
+ENV APACHE_DOCUMENT_ROOT /var/www/html/public
+RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
+RUN sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
+
+WORKDIR /var/www/html
 
 COPY composer.json composer.lock ./
 COPY tests/ tests/
@@ -24,7 +29,7 @@ FROM base as webserver
 RUN a2enmod rewrite
 RUN a2enmod include
 COPY ./my-apache2.conf /etc/apache2/apache2.conf
-COPY --from=builder /var/www/html/api/vendor vendor
+COPY --from=builder /var/www/html/vendor vendor
 # Default configuration in case needed.
 COPY .env.example .env
 # Overrides default with custom .env if file exists.
