@@ -46,7 +46,7 @@ jobs:
         with:
           key: docker-{hash}
           restore-keys: |
-          docker-
+            docker-
 
       - name: Serve app via docker-compose
         working-directory: infrastructure/
