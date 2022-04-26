@@ -1,18 +1,31 @@
-.dt-dialog-overlay {
-  background-color: rgba(0, 0, 0, 0.85);
-  overflow: auto;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  top: 0;
-  z-index: 9999;
+[data-reach-dialog-content] {
+  background: none;
+  padding: 0;
+  width: 95vw;
 }
 
-.dt-dialog-content {
-  margin-left: auto;
-  margin-right: auto;
-  outline: none;
-  width: 95vw;
+.dialog-title {
+  padding-right: 2rem;
+  z-index: 1;
+}
+
+.dialog-close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  opacity: 0.8;
+  transition: opacity 100ms ease-in;
+  z-index: 2;
+}
+
+.dialog-close:hover {
+  opacity: 1;
+}
+
+.dialog-close__icon {
+  color: #fff;
+  height: 1rem;
+  width: 1rem;
 }
 
 /* Small */
@@ -21,7 +34,7 @@
 
 /* Medium */
 @media (min-width: 64rem) {
-  .dt-dialog-content {
+  [data-reach-dialog-content] {
     width: 60vw;
   }
 }
