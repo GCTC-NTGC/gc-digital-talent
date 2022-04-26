@@ -4,6 +4,11 @@ const CopyPlugin = require("copy-webpack-plugin");
 const TsTransformer = require("@formatjs/ts-transformer");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { DefinePlugin } = require("webpack");
+require('dotenv').config({ path: './.env' });
+
+const featureKeys = Object.keys(process.env).filter((key) => key.startsWith("FEATURE_"));
+var featureFlags = {};
+featureKeys.forEach((key) => featureFlags[key] = ( process.env[key] === 'true' ));
 
 module.exports = {
   entry: {
@@ -30,6 +35,7 @@ module.exports = {
     // search and replace environment variables
     new DefinePlugin({
       "process.env": {
+        ...featureFlags,
         API_URI: JSON.stringify(process.env.API_URI),
         TALENTSEARCH_APP_URL: JSON.stringify(process.env.TALENTSEARCH_APP_URL),
         TALENTSEARCH_APP_DIR: JSON.stringify(process.env.TALENTSEARCH_APP_DIR),
