@@ -2,13 +2,12 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { toast } from "react-toastify";
 import { SubmitHandler } from "react-hook-form";
-import isEqual from "lodash/isEqual";
 import { BasicForm, TextArea } from "@common/components/form";
 import { commonMessages } from "@common/messages";
 import { getLocale } from "@common/helpers/localize";
 import { navigate } from "@common/helpers/router";
-import useLocalStorage from "@common/hooks/useLocalStorage";
 
+import { removeFromSessionStorage } from "@common/helpers/storageUtils";
 import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
 import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
 
@@ -19,7 +18,6 @@ import PersonalExperienceForm from "../personalExperienceForm/PersonalExperience
 import WorkExperienceForm from "../workExperienceForm/WorkExperienceForm";
 
 import ExperienceSkills from "./ExperienceSkills";
-import WatchFormValues from "./WatchFormValues";
 import type { Skill } from "../../api/generated";
 import {
   useGetMyExperiencesQuery,
@@ -47,6 +45,7 @@ export interface ExperienceFormProps {
   experience?: ExperienceQueryData;
   skills: Skill[];
   onUpdateExperience: (values: ExperienceDetailsSubmissionData) => void;
+  cacheKey?: string;
 }
 
 export const ExperienceForm: React.FunctionComponent<ExperienceFormProps> = ({
@@ -54,17 +53,12 @@ export const ExperienceForm: React.FunctionComponent<ExperienceFormProps> = ({
   experienceType,
   onUpdateExperience,
   skills,
+  cacheKey,
 }) => {
   const intl = useIntl();
   const defaultValues = experience
     ? queryResultToDefaultValues(experienceType, experience)
     : { skills: undefined };
-  const [locallySavedForm, setLocallySavedForm] = useLocalStorage<
-    ExperienceDetailsDefaultValues | undefined
-  >(
-    "ts-createExperience", // unique storage key
-    defaultValues, // start form off empty
-  );
 
   const handleSubmit: SubmitHandler<FormValues<AllFormValues>> = async (
     formValues,
@@ -97,16 +91,10 @@ export const ExperienceForm: React.FunctionComponent<ExperienceFormProps> = ({
       <BasicForm
         onSubmit={handleSubmit}
         options={{
-          defaultValues: locallySavedForm,
+          defaultValues,
         }}
+        cacheKey={cacheKey}
       >
-        <WatchFormValues
-          onUpdateValues={(values) => {
-            if (!isEqual(values, locallySavedForm)) {
-              setLocallySavedForm(values);
-            }
-          }}
-        />
         {experienceType === "award" && <AwardDetailsForm />}
         {experienceType === "community" && <CommunityExperienceForm />}
         {experienceType === "education" && <EducationExperienceForm />}
@@ -115,7 +103,7 @@ export const ExperienceForm: React.FunctionComponent<ExperienceFormProps> = ({
         <ExperienceSkills
           skills={skills}
           initialSkills={
-            locallySavedForm?.skills ? locallySavedForm.skills : undefined
+            defaultValues?.skills ? defaultValues.skills : undefined
           }
         />
         <h2 data-h2-font-size="b(h3)">
@@ -158,18 +146,13 @@ const ExperienceFormContainer: React.FunctionComponent<
   const intl = useIntl();
   const locale = getLocale(intl);
   const paths = applicantProfileRoutes(locale);
-  const [, setLocallySavedForm] = useLocalStorage<
-    ExperienceDetailsDefaultValues | undefined
-  >(
-    "ts-createExperience", // unique storage key
-    undefined, // start form off empty
-  );
+  const cacheKey = `ts-createExperience-${experienceId || experienceType}`;
 
   const [meResults] = useGetMeQuery();
   const { data: meData, fetching: fetchingMe, error: meError } = meResults;
 
   const handleSuccess = () => {
-    setLocallySavedForm(undefined);
+    removeFromSessionStorage(cacheKey); // clear the cache
     navigate(paths.home());
     toast.success(
       intl.formatMessage({
@@ -246,6 +229,7 @@ const ExperienceFormContainer: React.FunctionComponent<
       experienceType={experienceType}
       skills={skillsData.skills as Skill[]}
       onUpdateExperience={handleUpdateExperience}
+      cacheKey={cacheKey}
     />
   );
 };
