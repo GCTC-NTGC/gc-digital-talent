@@ -33,7 +33,6 @@ import type {
   ExperienceDetailsSubmissionData,
   ExperienceMutationResponse,
   ExperienceQueryData,
-  ExperienceDetailsDefaultValues,
 } from "./types";
 
 import queryResultToDefaultValues from "./defaultValues";

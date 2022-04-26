@@ -17,8 +17,12 @@ function renderSkillResults(title: string) {
       addedSkills={[skills[0], skills[1]]}
       skills={skills}
       title={title}
-      handleAddSkill={async () => {}}
-      handleRemoveSkill={async () => {}}
+      handleAddSkill={async () => {
+        /* do nothing */
+      }}
+      handleRemoveSkill={async () => {
+        /* do nothing */
+      }}
     />,
   );
 }
@@ -33,8 +37,18 @@ function renderSkillBlock(
     <SkillBlock
       isAdded={isAdded}
       skill={skill}
-      handleAddSkill={handleAddSkill || (async () => {})}
-      handleRemoveSkill={handleRemoveSkill || (async () => {})}
+      handleAddSkill={
+        handleAddSkill ||
+        (async () => {
+          /* do nothing */
+        })
+      }
+      handleRemoveSkill={
+        handleRemoveSkill ||
+        (async () => {
+          /* do nothing */
+        })
+      }
     />,
   );
 }
@@ -78,7 +92,14 @@ describe("Skill Results Tests", () => {
     const isAdded = true;
     const skill = skills[0];
     const handleRemoveSkill = jest.fn();
-    renderSkillBlock(isAdded, skill, async () => {}, handleRemoveSkill);
+    renderSkillBlock(
+      isAdded,
+      skill,
+      async () => {
+        /* do nothing */
+      },
+      handleRemoveSkill,
+    );
 
     const button = screen.getByText("Remove skill");
     fireEvent.click(button); // Click remove skill button
