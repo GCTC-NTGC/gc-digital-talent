@@ -23,7 +23,9 @@ stories.add("Classifications Table", () => (
 stories.add("Create Classification Form", () => (
   <CreateClassificationForm
     handleCreateClassification={async (data: CreateClassificationInput) => {
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      await new Promise((resolve) => {
+        setTimeout(resolve, 1000);
+      });
       action("Create Classification")(data);
       return data;
     }}
@@ -50,7 +52,9 @@ stories.add("Update Classification Form", () => {
         id: string,
         data: UpdateClassificationInput,
       ) => {
-        await new Promise((resolve) => setTimeout(resolve, 1000));
+        await new Promise((resolve) => {
+          setTimeout(resolve, 1000);
+        });
         action("Create Classification")(data);
         return data;
       }}
