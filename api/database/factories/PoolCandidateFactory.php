@@ -8,7 +8,7 @@ use App\Models\Pool;
 use App\Models\PoolCandidate;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Database\Helpers\EnumsForFactories;
+use Database\Helpers\ApiEnums;
 
 class PoolCandidateFactory extends Factory
 {
@@ -67,7 +67,7 @@ class PoolCandidateFactory extends Factory
             ]),
             'user_id' => User::factory(),
             'pool_id' => Pool::factory(),
-            'accepted_operational_requirements' => $this->faker->optional->randomElements(EnumsForFactories::operationalRequirements(), 2),
+            'accepted_operational_requirements' => $this->faker->optional->randomElements(ApiEnums::operationalRequirements(), 2),
         ];
     }
 
