@@ -55,6 +55,10 @@ jobs:
         working-directory: infrastructure/
         run: docker-compose up --detach
 
+      - name: "Run: setup.sh"
+        working-directory: infrastructure/
+        run: docker-compose run --rm maintenance bash setup.sh
+
       - name: "Run Cypress tests: all"
         uses: cypress-io/github-action@v2.11.8
         with:
