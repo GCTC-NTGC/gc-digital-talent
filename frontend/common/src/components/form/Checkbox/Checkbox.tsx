@@ -79,7 +79,7 @@ export const Checkbox: React.FunctionComponent<CheckboxProps> = ({
             data-h2-align-items="b(center)"
             style={{ width: "100%" }}
           >
-            <label htmlFor={id}>
+            <label htmlFor={name}>
               <input
                 id={id}
                 {...register(name, rules)}
