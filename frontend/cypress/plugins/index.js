@@ -19,4 +19,12 @@
 module.exports = (on, config) => {
   // `on` is used to hook into various events Cypress emits
   // `config` is the resolved Cypress config
+
+  // Register the log collector for logging activity to terminal.
+  const reporterOptions = {
+    // When to print terminal logs for tests.
+    // Options: onFail, always, never
+    printLogsToConsole: 'onFail',
+  }
+  require('cypress-terminal-report/src/installLogsPrinter')(on, reporterOptions)
 }

@@ -21,6 +21,7 @@
     "@storybook/manager-webpack5": "*",
     "@storybook/react": "^6.4.20",
     "cypress": "^9.6.0",
+    "cypress-terminal-report": "^3.5.2",
     "storybook-addon-intl": "^2.4.1"
   }
 }
