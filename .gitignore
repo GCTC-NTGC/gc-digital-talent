@@ -2,3 +2,7 @@
 node_modules
 frontend/*/package-lock.json
 package-lock.json
+
+# Cypress artifacts
+frontend/cypress/screenshots
+frontend/cypress/videos
