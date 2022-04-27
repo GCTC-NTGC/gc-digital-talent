@@ -9,7 +9,7 @@ import "./dialog.css";
 
 export type Color = "primary" | "secondary" | "tertiary";
 
-interface DialogProps {
+export interface DialogProps {
   isOpen: boolean;
   color?: Color;
   onDismiss: (e: React.MouseEvent | React.KeyboardEvent) => void;
