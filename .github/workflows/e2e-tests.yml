@@ -71,9 +71,17 @@ jobs:
         working-directory: frontend
         run: npm run reports:merge
 
+      - name: Publish test report
+        uses: dorny/test-reporter@v1.5.0
+        if: always()
+        with:
+          name: Cypress Tests
+          path: frontend/cypress/results/output-*.xml
+          reporter: java-junit
+
       - name: Publish E2E Test Results
         uses: EnricoMi/publish-unit-test-result-action@v1.33
-        if: always()
+        if: false
         with:
           files: "frontend/cypress/results/combined.xml"
 
