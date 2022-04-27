@@ -21,6 +21,15 @@ const Family: React.FunctionComponent<FamilyProps> = ({
   const intl = useIntl();
   const locale = getLocale(intl);
 
+  // generate the linguistically appropriate htmlFor, type checking requires a bit of a roundabout approach as [locale] evaluates to a type maybe
+  let htmlForAssigner = "";
+  if (locale === "en"){
+    htmlForAssigner = family.name.en ? family.name.en : "";
+  }
+  else {
+    htmlForAssigner = family.name.fr ? family.name.fr : "";
+  }
+
   const uncheckedStyle = { "data-h2-font-weight": "b(400)" };
   const checkedStyle = { "data-h2-font-weight": "b(700)" };
 
@@ -30,7 +39,7 @@ const Family: React.FunctionComponent<FamilyProps> = ({
       data-h2-padding="b(all, xxs)"
       key={family.key}
     >
-      <label htmlFor={family.id}>
+      <label htmlFor={htmlForAssigner}>
         <input
           type="checkbox"
           id={family.id}
