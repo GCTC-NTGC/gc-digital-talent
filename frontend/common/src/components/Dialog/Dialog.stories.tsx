@@ -46,7 +46,7 @@ const TemplateDialog: Story = (args) => {
     setOpen(false);
   };
 
-  const { title, subtitle, content, confirmation } = args;
+  const { title, subtitle, content, confirmation, footer } = args;
 
   return (
     <>
@@ -59,6 +59,7 @@ const TemplateDialog: Story = (args) => {
         title={title}
         subtitle={subtitle}
         confirmation={confirmation}
+        footer={footer}
       >
         <p>{content}</p>
       </DialogComponent>
@@ -71,6 +72,7 @@ export const DialogWithSubtitle = TemplateDialog.bind({});
 export const DialogLongContent = TemplateDialog.bind({});
 export const ConfirmationDialog = TemplateDialog.bind({});
 export const ConfirmationDialogWithSubtitle = TemplateDialog.bind({});
+export const DialogWithFooter = TemplateDialog.bind({});
 
 BasicDialog.args = {
   title: "Basic Dialog",
@@ -107,4 +109,16 @@ ConfirmationDialogWithSubtitle.args = {
   confirmation: true,
   content:
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam efficitur leo a tellus imperdiet, quis imperdiet nulla viverra. Aliquam porttitor pellentesque rhoncus. ",
+};
+
+DialogWithFooter.args = {
+  title: "Confirmation Dialog",
+  subtitle: "Dialog Subtitle",
+  content:
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam efficitur leo a tellus imperdiet, quis imperdiet nulla viverra. Aliquam porttitor pellentesque rhoncus. ",
+  footer: (
+    <Button color="primary" mode="outline">
+      Footer Button
+    </Button>
+  ),
 };

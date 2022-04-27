@@ -34,11 +34,13 @@
   margin-bottom: 0;
 }
 
-.dialog__content > :first-child {
+.dialog__content > :first-child,
+.dialog__footer > :first-child {
   margin-top: 0;
 }
 
-.dialog__content > :last-child {
+.dialog__content > :last-child,
+.dialog__footer > :last-child {
   margin-bottom: 0;
 }
 
