@@ -1,939 +1,896 @@
 <!DOCTYPE html>
 <html lang="fr">
-  <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>GC Talent | Notre moteur de recherche</title>
-  <meta name="description" content="Talent Cloud is an experimental staffing solution created by the Government of Canada. Read our experiment's results report here!">
-  <!-- Google Tag Manager -->
-  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-P27NF5V');</script>
-    <!-- End Google Tag Manager -->
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>GC Talent | Notre moteur de recherche</title>
+        <meta
+            name="description"
+            content="Talent Cloud is an experimental staffing solution created by the Government of Canada. Read our experiment's results report here!"
+        />
+        <!-- Google Tag Manager -->
+        <script>
+            (function (w, d, s, l, i) {
+                w[l] = w[l] || [];
+                w[l].push({
+                    "gtm.start": new Date().getTime(),
+                    event: "gtm.js",
+                });
+                var f = d.getElementsByTagName(s)[0],
+                    j = d.createElement(s),
+                    dl = l != "dataLayer" ? "&l=" + l : "";
+                j.async = true;
+                j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+                f.parentNode.insertBefore(j, f);
+            })(window, document, "script", "dataLayer", "GTM-P27NF5V");
+        </script>
+        <!-- End Google Tag Manager -->
 
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script
-        async
-        src="https://www.googletagmanager.com/gtag/js?id=UA-115747902-1">
-    </script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'UA-115747902-1', {
-          cookie_flags: 'secure'
-        });
-    </script>
-  <!-- Favicons -->
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-  <link rel="manifest" href="/site.webmanifest">
-  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
-  <meta name="msapplication-TileColor" content="#da532c">
-  <meta name="theme-color" content="#ffffff">
-  <!-- Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap" rel="stylesheet">
-  <!-- Hydrogen CSS -->
-  
-    <!-- <link rel="stylesheet" href="/assets/css/hydrogen-tc.css"> -->
-    <link rel="stylesheet" href="/assets/css/hydrogen.css">
-  
-  <!-- App CSS -->
-  <link rel="stylesheet" href="/assets/css/app.css">
-</head>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script
+            async
+            src="https://www.googletagmanager.com/gtag/js?id=UA-115747902-1"
+        ></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag() {
+                dataLayer.push(arguments);
+            }
+            gtag("js", new Date());
+            gtag("config", "UA-115747902-1", {
+                cookie_flags: "secure",
+            });
+        </script>
+        <!-- Favicons -->
+        <link
+            rel="apple-touch-icon"
+            sizes="180x180"
+            href="/apple-touch-icon.png"
+        />
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="32x32"
+            href="/favicon-32x32.png"
+        />
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="16x16"
+            href="/favicon-16x16.png"
+        />
+        <link rel="manifest" href="/site.webmanifest" />
+        <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
+        <meta name="msapplication-TileColor" content="#da532c" />
+        <meta name="theme-color" content="#ffffff" />
+        <!-- Google Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap"
+            rel="stylesheet"
+        />
+        <!-- Hydrogen CSS -->
 
-  <body data-h2-font-family="b(sans)">
-    <a href="#mainContent" title="" class="skip-link">Skip to Main Content</a>
-    <div data-h2-border="b([light]gray, bottom, solid, s)" >
-  <div data-h2-container="b(center, full)" data-h2-padding="b(top-bottom, s)">
-    <div data-h2-flex-grid="b(middle, expanded, flush, s)">
-      <div data-h2-flex-item="m(1of2)" data-h2-text-align="b(center) m(left)">
-        <a
-          data-h2-display="b(inline-block)"
-          style="max-width: 15rem; width: 100%;"
-          href="https://canada.ca/"
-          target="_blank"
-          title="Visit canada.ca."
-          rel="noopener noreferrer"
+        <!-- <link rel="stylesheet" href="/assets/css/hydrogen-tc.css"> -->
+        <link rel="stylesheet" href="/assets/css/hydrogen.css" />
+
+        <!-- App CSS -->
+        <link rel="stylesheet" href="/assets/css/app.css" />
+    </head>
+
+    <body data-h2-font-family="b(sans)">
+        <a href="#mainContent" title="" class="skip-link"
+            >Skip to Main Content</a
         >
-          <img data-h2- alt="goc logo" src="/assets/img/ui-goc.svg"
-        /></a>
-      </div>
-      <div data-h2-flex-item="m(1of2)" data-h2-text-align="b(center) m(right)">
-         
-        <a href="/en/projects/2000/01/01/109-research-engine.html" title="View this content in English.">English</a>
-        
-      </div>
-    </div>
-  </div>
-</div>
+        <div data-h2-border="b([light]gray, bottom, solid, s)">
+            <div
+                data-h2-container="b(center, full)"
+                data-h2-padding="b(top-bottom, s)"
+            >
+                <div data-h2-flex-grid="b(middle, expanded, flush, s)">
+                    <div
+                        data-h2-flex-item="m(1of2)"
+                        data-h2-text-align="b(center) m(left)"
+                    >
+                        <a
+                            data-h2-display="b(inline-block)"
+                            style="max-width: 15rem; width: 100%"
+                            href="https://canada.ca/"
+                            target="_blank"
+                            title="Visit canada.ca."
+                            rel="noopener noreferrer"
+                        >
+                            <img
+                                data-h2-
+                                alt="goc logo"
+                                src="/assets/img/ui-goc.svg"
+                        /></a>
+                    </div>
+                    <div
+                        data-h2-flex-item="m(1of2)"
+                        data-h2-text-align="b(center) m(right)"
+                    >
+                        <a
+                            href="/en/projects/2000/01/01/109-research-engine.html"
+                            title="View this content in English."
+                            >English</a
+                        >
+                    </div>
+                </div>
+            </div>
+        </div>
 
-<div data-h2-container="b(center, full)" >
-  <nav data-h2-padding="b(top-bottom, m)">
-    <ul class="reset-ul" data-h2-padding="b(all, none)" data-h2-margin="b(all, none)" data-h2-text-align="b(center) m(left)" style="margin-left: -.7rem;">
-      
-        <li data-h2-margin="b(all, none)" data-h2-padding="b(all, none)" data-h2-display="b(inline-block)">
-          <a href="/fr/" title="Visitez la page d'accueil de GC Talent."
-            
-            data-h2-display="b(block)"
-            data-h2-padding="b(all, xs) m(right-left, s)">Accueil</a>
-        </li>
-      
-        <li data-h2-margin="b(all, none)" data-h2-padding="b(all, none)" data-h2-display="b(inline-block)">
-          <a href="/fr/talent-cloud/" title="En savoir plus sur le projet Nuage de talents."
-            
-            data-h2-display="b(block)"
-            data-h2-padding="b(all, xs) m(right-left, s)">Nuage de talents</a>
-        </li>
-      
-        <li data-h2-margin="b(all, none)" data-h2-padding="b(all, none)" data-h2-display="b(inline-block)">
-          <a href="/fr/communities/digital-talent/" title="En savoir plus sur la communauté des talents numériques."
-            
-            data-h2-display="b(block)"
-            data-h2-padding="b(all, xs) m(right-left, s)">Talent numérique</a>
-        </li>
-      
-    </ul>
-  </nav>
-</div>
-<section>
-  <div
-    data-h2-container="b(center, full)"
-    data-h2-text-align="b(center)">
-    
-    <h1
-  data-h2-font-weight="b(800)"
-  data-h2-font-size="b(h1)"
-  data-h2-padding='b(top, l) l(top, xxl) b(bottom, xxs)'
-  style="letter-spacing: -3px"
-  
->
-  Rapport sur les résultats de Nuage de talents
-</h1>
+        <div data-h2-container="b(center, full)">
+            <nav data-h2-padding="b(top-bottom, m)">
+                <ul
+                    class="reset-ul"
+                    data-h2-padding="b(all, none)"
+                    data-h2-margin="b(all, none)"
+                    data-h2-text-align="b(center) m(left)"
+                    style="margin-left: -0.7rem"
+                >
+                    <li
+                        data-h2-margin="b(all, none)"
+                        data-h2-padding="b(all, none)"
+                        data-h2-display="b(inline-block)"
+                    >
+                        <a
+                            href="/fr/"
+                            title="Visitez la page d'accueil de GC Talent."
+                            data-h2-display="b(block)"
+                            data-h2-padding="b(all, xs) m(right-left, s)"
+                            >Accueil</a
+                        >
+                    </li>
 
-    <div id="breadcrumbs" data-h2-margin="b(top-bottom, m)" >
-  
-  <a href="/fr" title="Retour à la page d'accueil.">GC Talent</a>
-  <!-- If the page layout is post then use this breadcrumb list. -->
-  
-    / <a href="/fr/talent-cloud" title="Retournez à la page de Nuage de talents.">Nuage de talents</a>
-    / <a href="/fr/talent-cloud/report" title="Retournez au rapport des résultats de Nuage de talents.">Rapport sur les r...</a>
-    / <span>Section 1</span>
-    / <span data-h2-font-weight="b(800)">Notre moteur de r...</span>
-  
-</div>
-  </div>
-</section>
-<header 
-  class="post-header"
-  id="mainContent"
-  style="background-image: url('/assets/img/1.9-tx-heading.jpg');"
-  data-h2-margin="b(top, xl)">
-  <div 
-    data-h2-container="b(center, m)" 
-    data-h2-font-color="b(white)"
-    data-h2-padding="b(top, l) b(bottom, xl) l(top, xl) l(bottom, xxl)"
-    data-h2-text-align="b(center)">
-    <h2
-  
-  data-h2-font-weight="b(200)"
-  data-h2-font-size="b(h2)"
-  
-  data-h2-padding='b(top, m)'
-  
-  
-  style="letter-spacing: -2px;">
-  Notre moteur de recherche
-</h2>
-    
-      <div data-h2-padding="b(top, m)">
-        
-          <div 
-  data-h2-bg-color="b(white[.2])"
-  data-h2-border="b(white, all, solid, s)"
-  data-h2-display="b(inline-block)"
-  data-h2-margin="b(all, xxs) l(right-left, xxs)"
-  data-h2-padding="b(top, xxs) b(bottom, xs) b(right-left, s)"
-  data-h2-radius="b(m)"
-  style="line-height: 1;">
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-      <img 
-        data-h2-display="b(inline-block)"
-        data-h2-margin="b(right, xxs)"
-        style="vertical-align: middle; width: .8rem;"
-        src="/assets/img/ds-empower-staff.svg" aria-hidden="true">
-      <span data-h2-font-size="b(caption)">Renforcer la prestation de services</span>
-    
-  
-    
-  
-    
-  
-    
-  
-</div>
-        
-          <div 
-  data-h2-bg-color="b(white[.2])"
-  data-h2-border="b(white, all, solid, s)"
-  data-h2-display="b(inline-block)"
-  data-h2-margin="b(all, xxs) l(right-left, xxs)"
-  data-h2-padding="b(top, xxs) b(bottom, xs) b(right-left, s)"
-  data-h2-radius="b(m)"
-  style="line-height: 1;">
-  
-    
-      <img 
-        data-h2-display="b(inline-block)"
-        data-h2-margin="b(right, xxs)"
-        style="vertical-align: middle; width: .8rem;"
-        src="/assets/img/ds-iterate.svg" aria-hidden="true">
-      <span data-h2-font-size="b(caption)">Répéter et améliorer</span>
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-</div>
-        
-          <div 
-  data-h2-bg-color="b(white[.2])"
-  data-h2-border="b(white, all, solid, s)"
-  data-h2-display="b(inline-block)"
-  data-h2-margin="b(all, xxs) l(right-left, xxs)"
-  data-h2-padding="b(top, xxs) b(bottom, xs) b(right-left, s)"
-  data-h2-radius="b(m)"
-  style="line-height: 1;">
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-      <img 
-        data-h2-display="b(inline-block)"
-        data-h2-margin="b(right, xxs)"
-        style="vertical-align: middle; width: .8rem;"
-        src="/assets/img/ds-data.svg" aria-hidden="true">
-      <span data-h2-font-size="b(caption)">Gérance des données</span>
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-</div>
-        
-      </div>
-    
-  </div>
-</header>
-<main data-h2-padding="b(top-bottom, xs) l(top-bottom, xl)" style="background-color: #F8F8F8;">
-  <div data-h2-container="b(center, s)">
-    
-      
-        
-          <!-- Basic Content -->
-          <p>Cette section décrit nos méthodes de collecte de données les plus couramment utilisées, les types de données que nous avons recueillies, la façon dont nous les avons utilisées et certaines contraintes importantes dont il faut tenir compte, en particulier dans l’interprétation de nos questions de recherche. Elle porte également sur la façon dont nous formulons nos questions de recherche pour commencer nos travaux et sur l’utilisation des résultats de nos recherches.</p>
-        
-      
-    
-      
-        
-          <!-- Basic Content -->
-          <p>Il est souvent question d’éliminer le cloisonnement dans le secteur public. Souvent, au gouvernement, la recherche est effectuée par une équipe distincte de celles qui dirigent l’expérimentation, qui sont toutes deux distinctes du cycle de développement de la prestation réelle du produit.</p>
-        
-      
-    
-      
-        
-          <!-- Basic Content -->
-          <p>Tout en éliminant le cloisonnement entre ces secteurs si le travail est important, au Nuage de talents, nous avons pris une orientation différente, en regroupant chacune des composantes de notre cycle de développement en un seul endroit (voir la section sur les activités de l’équipe). Cela nous aide à travailler efficacement, nous maintient sur la même voie et favorise la responsabilisation dans l’ensemble de l’équipe de produit.</p>
-        
-      
-    
-      
-        
-          <!-- Basic Content -->
-          <p>Comment le cycle de recherche s’inscrit-il dans le cycle de développement de l’équipe? Voici comment fonctionne notre cycle de recherche, en commençant par examiner ce qui existe au-delà du gouvernement et en terminant par la transmission des conclusions à la collectivité plus vaste.</p>
-        
-      
-    
-      
-        
-          <figure data-h2-margin="b(top-bottom, l)">
-            <!-- Graphics -->
-            
-              <img 
-                src="/assets/img/1.9-fr-research-engine.jpg"
-                alt="Un graphique qui représente le moteur de recherche du Nuage de talents. Il met en évidence les étapes que le Nuage de Talent prend pour produire de la recherche en 10 étapes qui touchent deux domaines clés : la recherche externe provenant du milieu universitaire, du secteur privé et d’experts, et la recherche que l’équipe du Nuage de talents produit elle‑même. La première étape du processus consiste à recueillir des recherches provenant d’études universitaires, privées et du secteur public. La deuxième étape exige que le Nuage de talents fasse une hypothèse fondée sur cette recherche. La troisième étape comprend une vérification de la politique et de la conformité du gouvernement du Canada. La quatrième étape confirme l’hypothèse du Nuage de talents et la théorie générale auprès d’experts internationaux. La cinquième étape consiste à prendre cette recherche validée et effectuer des travaux de conception et des prototypes de produits. La sixième étape consiste à tester ces conceptions auprès des utilisateurs afin que leurs comportements puissent être enregistrés en direct. La septième étape consiste à recueillir et à analyser les résultats des essais effectués par les utilisateurs. La huitième étape consiste à comparer ces résultats aux constatations de la recherche externe. La neuvième étape comprend l’utilisation de ces résultats de recherche finaux pour améliorer les fonctionnalités de la plateforme Nuage de talents par l’équipe d’EU, ce qui donne lieu à un service en direct pour les utilisateurs. La dixième et dernière étape consiste à partager ces constatations de recherche avec la collectivité en général."
-                style="width: 100%;"
-                data-h2-display="b(block)"
-                data-h2-radius="b(s)"
-                data-h2-border="b(gray, all, solid, s)">
-                
-            
-          </figure>
-        
-      
-    
-      
-        
-          <!-- Titles -->
-          <h3
-  
-  data-h2-font-weight="b(800)"
-  data-h2-font-size="b(h3)"
-  data-h2-margin='b(top, xl) b(bottom, s)'
-  
-  style="letter-spacing: -1px;">
-  Méthodologies de recherche
-</h3>
-        
-      
-    
-      
-        
-          <!-- Basic Content -->
-          <p>La plateforme et les fonctions qui composent le Nuage de talents peuvent être divisées en une série d’expériences. Chacune de ces expériences a commencé par des recherches externes. Il existait parfois des pratiques ou des normes largement adoptées que nous pouvions utiliser, mais parfois les réponses n’étaient pas aussi faciles à trouver.</p>
-        
-      
-    
-      
-        
-          <!-- Basic Content -->
-          <p>Avec nos premières recherches documentaires en main, nous sommes passés à des projets pilotes avec de vraies personnes et de véritables processus d’emploi pour tester nos hypothèses, tout en effectuant des vérifications de conformité par rapport aux politiques gouvernementales. Bien que nous n’ayons pas une taille d’échantillon nécessaire pour mener des essais contrôlés randomisés, il existe de nombreuses autres méthodes de recherche, quoique moins puissantes, pour ce type de travail. Nous ne nous sommes pas appuyés non plus sur une seule approche, mais nous nous sommes plutôt adaptés afin de trouver le meilleur outil pour le travail que nous devions réaliser. Nos méthodologies s’inspirent de la psychologie comportementale, de la refonte de processus allégée, de la conception centrée sur la personne et des méthodes de recherche qualitative et quantitative traditionnelles.</p>
-        
-      
-    
-      
-        
-          <!-- Basic Content -->
-          <p>Une fois les résultats du projet pilote connus, nous les avons comparés à des données externes pour valider nos conclusions. Il est toujours important de comparer les résultats à d’autres ou à des données de référence, mais c’est particulièrement essentiel lorsqu’il s’agit de très petits échantillons, comme c’était le cas pour les emplois affichés sur le site. Cela nous a également aidés à mieux comprendre les processus et les comportements qui façonnent la dotation et le recrutement de talents.</p>
-        
-      
-    
-      
-        
-          <!-- Titles -->
-          <h3
-  
-  data-h2-font-weight="b(800)"
-  data-h2-font-size="b(h3)"
-  data-h2-margin='b(top, xl) b(bottom, s)'
-  
-  style="letter-spacing: -1px;">
-  Données qualitatives
-</h3>
-        
-      
-    
-      
-        
-          <!-- Basic Content -->
-          <p>Au cours du projet, nous avons recueilli une importante quantité de données qualitatives. Nous avons organisé des ateliers avec chaque groupe d’utilisateurs avant de commencer l’étape de la conception. Une fois que la conception a débuté, nous avons testé des prototypes de maquette conceptuelle, rapidement et souvent, en observant si les personnes utilisaient les fonctions comme nous le pensions, puis en leur demandant ce qu’elles aimaient ou non. Elles nous ont également accompagnés à des présentations, destinées à nos ministères partenaires ou au grand public, et nous leur avons demandé ce qu’elles en pensaient.</p>
-        
-      
-    
-      
-        
-          <!-- Basic Content -->
-          <p>Nous avons continué de recueillir des données qualitatives sur les fonctions après leur lancement. Notre coordonnateur de projet a observé la façon dont la plateforme était utilisée et a signalé de nombreux problèmes que nous avons pu régler rapidement, grâce à notre surveillance. L’équipe compilait aussi régulièrement des courriels d’utilisateurs dans lesquels des tendances étaient ciblées et les envoyait à nos concepteurs d’expérience utilisateur.</p>
-        
-      
-    
-      
-        
-          <!-- Basic Content -->
-          <p>Nous avons également déployé des efforts considérables pour communiquer avec tous ceux qui ont utilisé la plateforme, en vue de connaître leur opinion. Il s’agissait en grande majorité d’entrevues semi-structurées. Assez rapidement, nous avons élaboré un guide d’entrevue pour orienter la conversation sur certaines de nos questions clés, mais nous avons fait preuve d’une grande souplesse pour permettre les digressions et suivre le fil de la pensée de nos participants.</p>
-        
-      
-    
-      
-        
-          <!-- Basic Content -->
-          <p>Nous avons également envoyé des sondages aux gestionnaires qui affichaient des emplois sur le site et aux candidats à ces emplois. Bien que plusieurs questions du formulaire étaient de nature quantitative, nous avons obtenu certains des renseignements les plus riches des boîtes de texte ouvertes.</p>
-        
-      
-    
-      
-        
-          <!-- Titles -->
-          <h3
-  
-  data-h2-font-weight="b(800)"
-  data-h2-font-size="b(h3)"
-  data-h2-margin='b(top, xl) b(bottom, s)'
-  
-  style="letter-spacing: -1px;">
-  Données quantitatives
-</h3>
-        
-      
-    
-      
-        
-          <!-- Basic Content -->
-          <p>Les autorités des RH du GC recueillent une quantité importante de données sur le processus d’embauche, ce qui contribue aux connaissances du GC en matière de tendances et de priorités. Cela étant, lorsque nous avons examiné nos deux principaux objectifs de recherche (le temps nécessaire pour doter le poste et l’adéquation en matière de diversité/culture), bon nombre de nos questions portait sur des problèmes au sujet desquels les données n’étaient pas recueillies ou pour lesquels nous n’étions pas en mesure d’accéder facilement aux constatations (p. ex., au moyen du Portail du gouvernement ouvert).</p>
-        
-      
-    
-      
-        
-          <!-- Basic Content -->
-          <p>Les données sur les processus de dotation réels exécutés dans le Nuage de talents constituaient une source de données importante que nous avons utilisée pour mettre à l’essai nos questions de recherche. Pour ce faire, nous avons recueilli des données sur la dotation qui n’étaient pas facilement accessibles à ce niveau de détail ailleurs au GC. Nous avons consigné la durée de chaque étape du processus d’embauche, ainsi que du nombre de candidats qui ont réussi chaque phase du processus d’évaluation. Par exemple, nous avons examiné minutieusement des éléments comme le nombre de fois qu’une ébauche d’offre d’emploi va et vient entre les conseillers en RH et les gestionnaires, le nombre de candidats qui ont présenté une candidature le dernier jour d’une offre d’emploi, et la façon dont les étapes du processus, comme la traduction et la saisie des données, influent sur l’ordre et le calendrier des approbations.</p>
-        
-      
-    
-      
-        
-          <!-- Subtitles -->
-          <h4
-  
-  data-h2-font-weight="b(400)"
-  data-h2-font-size="b(h4)"
-  data-h2-margin='b(top, xl) b(bottom, s)'
-  style="letter-spacing: -1px;">
-  Détails à l’entrée, détails à la sortie
-</h4>
-        
-      
-    
-      
-        
-          <!-- Basic Content -->
-          <p>Toutes ces données ont été saisies manuellement dans une base de données distincte par l’administrateur système. (Nous avions prévu qu’une fois que la plateforme couvrirait le processus de dotation du début à la fin, ce processus serait automatisé au moyen de fichiers journaux.) Le fait d’avoir accès à cette information détaillée nous a aidés à déterminer les moments les processus s’enlisent et les points qui nécessitent des améliorations aux processus ou plutôt des interventions comportementales.</p>
-        
-      
-    
-      
-        
-          <figure data-h2-margin="b(top-bottom, l)">
-            <!-- Graphics -->
-            
-              <img 
-                src="/assets/img/1.9-fr-pilot-data.jpg"
-                alt="Une capture d’écran d’une application de feuille de calcul qui montre comment l’équipe a suivi l’information sur le processus de travail. Elle contient des données sur chaque étape du cycle de vie d’un processus d’emploi pour aider l’équipe à mieux comprendre comment nous améliorions les secteurs ciblés."
-                style="width: 100%;"
-                data-h2-display="b(block)"
-                data-h2-radius="b(s)"
-                data-h2-border="b(gray, all, solid, s)">
-                
-            
-          </figure>
-        
-      
-    
-      
-        
-          <!-- Subtitles -->
-          <h4
-  
-  data-h2-font-weight="b(400)"
-  data-h2-font-size="b(h4)"
-  data-h2-margin='b(top, xl) b(bottom, s)'
-  style="letter-spacing: -1px;">
-  Faible puissance
-</h4>
-        
-      
-    
-      
-        
-          <!-- Basic Content -->
-          <p>En raison des contraintes liées à la taille de l’échantillon (53 emplois ont été affichés depuis la mise en service de la plateforme, dans de nombreux ministères, classifications et niveaux), il n’est pas encore possible d’effectuer une analyse statistique des données. Par conséquent, lorsque nous parlons de nos résultats sur les processus de travail, il ne faut pas oublier que leur puissance est faible. Nous essayons d’atténuer ce point en examinant de multiples sources de données et en comparant nos données lorsque cela est possible.</p>
-        
-      
-    
-      
-        
-          <!-- Basic Content -->
-          <p>Cependant, du côté des candidats, nous avons dépassé le seuil de 1 000, ce qui commence à constituer le volume dont nous avons besoin pour obtenir des résultats statistiquement significatifs. Sur ce point également, notre capacité de mettre à l’essai certaines de nos questions de recherche a été limitée par les renseignements que nous pouvons recueillir. Sans serveur « Protégé B », certaines actions nous sont impossibles, comme recueillir des données sur l’équité en matière d’emploi sur le site ou pousser notre recherche sur la diversité dans le domaine des données qualitatives.</p>
-        
-      
-    
-      
-        
-          <!-- Callout -->
-          <blockquote
-            data-h2-bg-color="b(purple[.1])"
-            data-h2-border="b(purple, all, solid, s)"
-            data-h2-margin="b(top-bottom, xl)"
-            data-h2-padding="b(right-left, m)"
-            data-h2-radius="b(s)">
-            
-            
-              <p data-h2-font-color="b(purple)">Nous ne souhaitons pas surestimer la fiabilité de nos conclusions. Nous avons réalisé une expérience à petite échelle et nous n’avons pas un échantillon de taille statistiquement suffisante pour mener des essais contrôlés randomisés. Bien que nous comparions les résultats des recherches externes avec nos conclusions quantitatives et qualitatives, nos résultats de recherche devraient être considérés comme ayant une faible puissance, et non comme des solutions définitives.</p>
-            
-          </blockquote>
-        
-      
-    
-      
-        
-          <!-- Titles -->
-          <h3
-  
-  data-h2-font-weight="b(800)"
-  data-h2-font-size="b(h3)"
-  data-h2-margin='b(top, xl) b(bottom, s)'
-  
-  style="letter-spacing: -1px;">
-  La valeur des intuitions
-</h3>
-        
-      
-    
-      
-        
-          <!-- Basic Content -->
-          <p>On ne peut pas créer une politique fondée sur des données probantes sans données probantes. C’était l’objectif du Nuage de talents.</p>
-        
-      
-    
-      
-        
-          <!-- Basic Content -->
-          <p>Lorsque nous présentons nos résultats, notre public approuve souvent. Qu’il s’agisse de gestionnaires ou de conseillers en RH, nous constatons que nous confirmons beaucoup de choses qu’ils savent depuis des années, mais pour lesquelles ils n’ont pas nécessairement de chiffres ou d’histoires à l’appui. Voici un commentaire que nous entendons souvent : « Nous le savions déjà. Quelle est donc la prochaine étape? »</p>
-        
-      
-    
-      
-        
-          <!-- Basic Content -->
-          <p>Étant donné que le hochement de tête d’une foule ne constitue pas un point de données quantitatif valide pour confirmer les résultats, nous effectuons un suivi au moyen d’entrevues, de groupes de discussion et de tests en direct de nouvelles fonctions, ce qui nous aide à valider les intuitions difficiles à valider – reconnues depuis longtemps, mais non statistiquement prouvées – en jeu dans l’espace de dotation du GC.</p>
-        
-      
-    
-      
-        
-          <!-- Basic Content -->
-          <p>Après tout, les « intuitions » ne sont souvent que la reconnaissance d’une tendance pluriannuelle par des experts sur le terrain, comme les conseillers en RH et les gestionnaires chevronnés. Et nous prenons le temps d’écouter ces intuitions et d’explorer la psychologie comportementale et la conception des systèmes sous-jacents au problème, ce qui, nous l’espérons, mène à des solutions potentielles.</p>
-        
-      
-    
-      
-        
-          <!-- Callout -->
-          <blockquote
-            data-h2-bg-color="b(purple[.1])"
-            data-h2-border="b(purple, all, solid, s)"
-            data-h2-margin="b(top-bottom, xl)"
-            data-h2-padding="b(right-left, m)"
-            data-h2-radius="b(s)">
-            
-              <p
-                data-h2-font-color="b(purple)" 
-                data-h2-font-weight="b(bold)">L’effet paralysant de la COVID-19 sur la recherche</p>
-            
-            
-              <p data-h2-font-color="b(purple)">Comme pour le reste du monde, la COVID-19 a eu une incidence importante sur les activités du Nuage de talents. Lorsque les employés ont été renvoyés chez eux pour une période indéterminée à la mi-mars, la dotation en personnel s’est pratiquement arrêtée. Dix offres d’emploi ont été affichées d’avril à juin 2019, mais aucun emploi n’a été affiché pendant la même période en 2020. Nous avons également observé que les processus d’évaluation des emplois ont considérablement ralenti, et une plus grande proportion d’emplois ont été annulés en raison de contraintes financières par le ministère. (Remarque : Les quelques nouveaux emplois qui ont été lancés au cours de l’été 2020 ont été en mesure de profiter des mises à niveau de la plateforme et, par conséquent, nous avons vu le temps de dotation diminuer considérablement avec ces processus.)</p>
-            
-              <p data-h2-font-color="b(purple)">L’année 2020 était l’année où nous avions prévu d’augmenter considérablement l’envergure de notre projet et d’obtenir les tailles d’échantillon dont nous avions besoin pour que nos résultats soient appuyés par une certaine puissance statistique. Au lieu de cela, nous avons rapidement pivoté pour essayer de faciliter la mobilité des talents internes à l’échelle du GC, le gouvernement s’étant organisé pour appuyer les personnes, les entreprises et les besoins internes changeants (pour en savoir plus sur la réserve de talents du GC, voir la section 5 du présent rapport).</p>
-            
-          </blockquote>
-        
-      
-    
-  </div>
-</main>
-<section style="background-color: #F8F8F8;">
-  <div data-h2-container="b(center, s)" data-h2-padding="b(bottom, l) l(bottom, xxl)">
-    <div data-h2-flex-grid="b(top, expanded, flush, m)">
-      <div
-        data-h2-text-align="b(center) m(left)" 
-        data-h2-flex-item="b(1of2)">
-        
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-            
-              <a class="prev" href="/fr/projects/2000/01/01/108-team.html" title="Allez à l'article précédent de la série.">
-                <svg data-h2-margin="b(right, xxs)" 
-                  style="width: 1rem; vertical-align: middle;" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="#c90035">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M15 19l-7-7 7-7" />
-                </svg>Article précédent</a>
-            
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-      </div>
-      <div 
-        data-h2-text-align="b(center) m(right)"   
-        data-h2-flex-item="b(1of2)">
-        
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-            
-              <a class="next" href="/fr/projects/2000/01/01/110-portals.html" title="Passez à l'article suivant de la série.">Article suivant<svg data-h2-margin="b(left, xxs)" 
-                style="width: 1rem; vertical-align: middle;" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="#c90035">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M9 5l7 7-7 7" />
-                </svg></a>
-            
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-      </div>
-    </div>
-    <p
-      data-h2-margin="b(top, xxl)" 
-      data-h2-text-align="b(center)"
-      data-h2-font-size="b(caption)">
-      <a href="/fr/talent-cloud/report/#toc" title="Retour à la table des matières">Retour à la table des matières</a>
-    </p>
-  </div>
-</section>
-<section data-h2-border="b([light]gray, top, solid, s)" data-h2-position="b(relative)" style="background: rgba(240, 240, 240, 1)" data-h2-overflow="b(x, hidden)">
-  <footer data-h2-container="b(center, full)" data-h2-padding="b(top-bottom, l)">
-    <div data-h2-flex-grid="b(middle, expanded, flush, xl)">
-      <div
-        data-h2-flex-item="b(1of1) m(1of2)"
-        data-h2-padding="b(left, xl)"
-        data-h2-text-align="b(center) m(left)">
-        
-          <nav>
-            <ul
-              style="gap: 1rem;"
-              class="reset-ul"
-              data-h2-display="b(flex)"
-              data-h2-flex-wrap="b(wrap)"
-              data-h2-justify-content="b(center) m(flex-start)"
-              data-h2-margin="b(bottom, xs)">
-              
-              <li data-h2-display="b(inline-block)" data-h2-margin="b(top-bottom, none)">
-                
-                  <a href="mailto:talent.cloud-nuage.de.talents@tbs-sct.gc.ca" title="Soumettre des commentaires au Nuage de talents du GC par courriel.">Retour d'information</a>
-                
-              </li>
-              
-              <li data-h2-display="b(inline-block)" data-h2-margin="b(top-bottom, none)">
-                
-                  <a href="/fr/terms-and-conditions" title="Voir nos avis.">Avis</a>
-                
-              </li>
-              
-              <li data-h2-display="b(inline-block)" data-h2-margin="b(top-bottom, none)">
-                
-                  <a href="/fr/privacy-notice" title="Voir notre politique de confidentialité.">Confidentialité</a>
-                
-              </li>
-              
-              <li data-h2-display="b(inline-block)" data-h2-margin="b(top-bottom, none)">
-                
-                  <a href="/fr/https://www.canada.ca/fr.html" title="Visiter Canada.ca.">Canada.ca</a>
-                
-              </li>
-              
-            </ul>
-          </nav>
-          <p 
-            data-h2-font-size="b(caption)"
-            data-h2-font-color="b(black)" 
-            data-h2-margin="b(bottom, none) b(top, m)">
-            Date de modification: July 07, 2021
-          </p>
-        
-      </div>
-      <div
-        data-h2-flex-item="b(1of1) m(1of2)"
-        data-h2-padding="b(right, xl)"
-        data-h2-text-align="b(center) m(right)">
-        <a
-          href="https://www.canada.ca/fr.html"
-          title="Visiter Canada.ca."
-          target="_blank"
-          rel="noopener noreferrer">
-          <img
-            class="canada-logo"
-            src="/assets/img/ui-canada.png"
-            alt="Symbole du gouvernement du Canada."/>
-        </a>
-      </div>
-    </div>
-  </footer>
-</section>
+                    <li
+                        data-h2-margin="b(all, none)"
+                        data-h2-padding="b(all, none)"
+                        data-h2-display="b(inline-block)"
+                    >
+                        <a
+                            href="/fr/talent-cloud/"
+                            title="En savoir plus sur le projet Nuage de talents."
+                            data-h2-display="b(block)"
+                            data-h2-padding="b(all, xs) m(right-left, s)"
+                            >Nuage de talents</a
+                        >
+                    </li>
 
-    <script type="text/javascript" src="/assets/js/app.js"></script>
-  </body>
+                    <li
+                        data-h2-margin="b(all, none)"
+                        data-h2-padding="b(all, none)"
+                        data-h2-display="b(inline-block)"
+                    >
+                        <a
+                            href="/fr/communities/digital-talent/"
+                            title="En savoir plus sur la communauté des talents numériques."
+                            data-h2-display="b(block)"
+                            data-h2-padding="b(all, xs) m(right-left, s)"
+                            >Talent numérique</a
+                        >
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <section>
+            <div
+                data-h2-container="b(center, full)"
+                data-h2-text-align="b(center)"
+            >
+                <h1
+                    data-h2-font-weight="b(800)"
+                    data-h2-font-size="b(h1)"
+                    data-h2-padding="b(top, l) l(top, xxl) b(bottom, xxs)"
+                    style="letter-spacing: -3px"
+                >
+                    Rapport sur les résultats de Nuage de talents
+                </h1>
+
+                <div id="breadcrumbs" data-h2-margin="b(top-bottom, m)">
+                    <a href="/fr" title="Retour à la page d'accueil."
+                        >GC Talent</a
+                    >
+                    <!-- If the page layout is post then use this breadcrumb list. -->
+
+                    /
+                    <a
+                        href="/fr/talent-cloud"
+                        title="Retournez à la page de Nuage de talents."
+                        >Nuage de talents</a
+                    >
+                    /
+                    <a
+                        href="/fr/talent-cloud/report"
+                        title="Retournez au rapport des résultats de Nuage de talents."
+                        >Rapport sur les r...</a
+                    >
+                    / <span>Section 1</span> /
+                    <span data-h2-font-weight="b(800)"
+                        >Notre moteur de r...</span
+                    >
+                </div>
+            </div>
+        </section>
+        <header
+            class="post-header"
+            id="mainContent"
+            style="background-image: url('/assets/img/1.9-tx-heading.jpg')"
+            data-h2-margin="b(top, xl)"
+        >
+            <div
+                data-h2-container="b(center, m)"
+                data-h2-font-color="b(white)"
+                data-h2-padding="b(top, l) b(bottom, xl) l(top, xl) l(bottom, xxl)"
+                data-h2-text-align="b(center)"
+            >
+                <h2
+                    data-h2-font-weight="b(200)"
+                    data-h2-font-size="b(h2)"
+                    data-h2-padding="b(top, m)"
+                    style="letter-spacing: -2px"
+                >
+                    Notre moteur de recherche
+                </h2>
+
+                <div data-h2-padding="b(top, m)">
+                    <div
+                        data-h2-bg-color="b(white[.2])"
+                        data-h2-border="b(white, all, solid, s)"
+                        data-h2-display="b(inline-block)"
+                        data-h2-margin="b(all, xxs) l(right-left, xxs)"
+                        data-h2-padding="b(top, xxs) b(bottom, xs) b(right-left, s)"
+                        data-h2-radius="b(m)"
+                        style="line-height: 1"
+                    >
+                        <img
+                            data-h2-display="b(inline-block)"
+                            data-h2-margin="b(right, xxs)"
+                            style="vertical-align: middle; width: 0.8rem"
+                            src="/assets/img/ds-empower-staff.svg"
+                            aria-hidden="true"
+                        />
+                        <span data-h2-font-size="b(caption)"
+                            >Renforcer la prestation de services</span
+                        >
+                    </div>
+
+                    <div
+                        data-h2-bg-color="b(white[.2])"
+                        data-h2-border="b(white, all, solid, s)"
+                        data-h2-display="b(inline-block)"
+                        data-h2-margin="b(all, xxs) l(right-left, xxs)"
+                        data-h2-padding="b(top, xxs) b(bottom, xs) b(right-left, s)"
+                        data-h2-radius="b(m)"
+                        style="line-height: 1"
+                    >
+                        <img
+                            data-h2-display="b(inline-block)"
+                            data-h2-margin="b(right, xxs)"
+                            style="vertical-align: middle; width: 0.8rem"
+                            src="/assets/img/ds-iterate.svg"
+                            aria-hidden="true"
+                        />
+                        <span data-h2-font-size="b(caption)"
+                            >Répéter et améliorer</span
+                        >
+                    </div>
+
+                    <div
+                        data-h2-bg-color="b(white[.2])"
+                        data-h2-border="b(white, all, solid, s)"
+                        data-h2-display="b(inline-block)"
+                        data-h2-margin="b(all, xxs) l(right-left, xxs)"
+                        data-h2-padding="b(top, xxs) b(bottom, xs) b(right-left, s)"
+                        data-h2-radius="b(m)"
+                        style="line-height: 1"
+                    >
+                        <img
+                            data-h2-display="b(inline-block)"
+                            data-h2-margin="b(right, xxs)"
+                            style="vertical-align: middle; width: 0.8rem"
+                            src="/assets/img/ds-data.svg"
+                            aria-hidden="true"
+                        />
+                        <span data-h2-font-size="b(caption)"
+                            >Gérance des données</span
+                        >
+                    </div>
+                </div>
+            </div>
+        </header>
+        <main
+            data-h2-padding="b(top-bottom, xs) l(top-bottom, xl)"
+            style="background-color: #f8f8f8"
+        >
+            <div data-h2-container="b(center, s)">
+                <!-- Basic Content -->
+                <p>
+                    Cette section décrit nos méthodes de collecte de données les
+                    plus couramment utilisées, les types de données que nous
+                    avons recueillies, la façon dont nous les avons utilisées et
+                    certaines contraintes importantes dont il faut tenir compte,
+                    en particulier dans l’interprétation de nos questions de
+                    recherche. Elle porte également sur la façon dont nous
+                    formulons nos questions de recherche pour commencer nos
+                    travaux et sur l’utilisation des résultats de nos
+                    recherches.
+                </p>
+
+                <!-- Basic Content -->
+                <p>
+                    Il est souvent question d’éliminer le cloisonnement dans le
+                    secteur public. Souvent, au gouvernement, la recherche est
+                    effectuée par une équipe distincte de celles qui dirigent
+                    l’expérimentation, qui sont toutes deux distinctes du cycle
+                    de développement de la prestation réelle du produit.
+                </p>
+
+                <!-- Basic Content -->
+                <p>
+                    Tout en éliminant le cloisonnement entre ces secteurs si le
+                    travail est important, au Nuage de talents, nous avons pris
+                    une orientation différente, en regroupant chacune des
+                    composantes de notre cycle de développement en un seul
+                    endroit (voir la section sur les activités de l’équipe).
+                    Cela nous aide à travailler efficacement, nous maintient sur
+                    la même voie et favorise la responsabilisation dans
+                    l’ensemble de l’équipe de produit.
+                </p>
+
+                <!-- Basic Content -->
+                <p>
+                    Comment le cycle de recherche s’inscrit-il dans le cycle de
+                    développement de l’équipe? Voici comment fonctionne notre
+                    cycle de recherche, en commençant par examiner ce qui existe
+                    au-delà du gouvernement et en terminant par la transmission
+                    des conclusions à la collectivité plus vaste.
+                </p>
+
+                <figure data-h2-margin="b(top-bottom, l)">
+                    <!-- Graphics -->
+
+                    <img
+                        src="/assets/img/1.9-fr-research-engine.jpg"
+                        alt="Un graphique qui représente le moteur de recherche du Nuage de talents. Il met en évidence les étapes que le Nuage de Talent prend pour produire de la recherche en 10 étapes qui touchent deux domaines clés : la recherche externe provenant du milieu universitaire, du secteur privé et d’experts, et la recherche que l’équipe du Nuage de talents produit elle‑même. La première étape du processus consiste à recueillir des recherches provenant d’études universitaires, privées et du secteur public. La deuxième étape exige que le Nuage de talents fasse une hypothèse fondée sur cette recherche. La troisième étape comprend une vérification de la politique et de la conformité du gouvernement du Canada. La quatrième étape confirme l’hypothèse du Nuage de talents et la théorie générale auprès d’experts internationaux. La cinquième étape consiste à prendre cette recherche validée et effectuer des travaux de conception et des prototypes de produits. La sixième étape consiste à tester ces conceptions auprès des utilisateurs afin que leurs comportements puissent être enregistrés en direct. La septième étape consiste à recueillir et à analyser les résultats des essais effectués par les utilisateurs. La huitième étape consiste à comparer ces résultats aux constatations de la recherche externe. La neuvième étape comprend l’utilisation de ces résultats de recherche finaux pour améliorer les fonctionnalités de la plateforme Nuage de talents par l’équipe d’EU, ce qui donne lieu à un service en direct pour les utilisateurs. La dixième et dernière étape consiste à partager ces constatations de recherche avec la collectivité en général."
+                        style="width: 100%"
+                        data-h2-display="b(block)"
+                        data-h2-radius="b(s)"
+                        data-h2-border="b(gray, all, solid, s)"
+                    />
+                </figure>
+
+                <!-- Titles -->
+                <h3
+                    data-h2-font-weight="b(800)"
+                    data-h2-font-size="b(h3)"
+                    data-h2-margin="b(top, xl) b(bottom, s)"
+                    style="letter-spacing: -1px"
+                >
+                    Méthodologies de recherche
+                </h3>
+
+                <!-- Basic Content -->
+                <p>
+                    La plateforme et les fonctions qui composent le Nuage de
+                    talents peuvent être divisées en une série d’expériences.
+                    Chacune de ces expériences a commencé par des recherches
+                    externes. Il existait parfois des pratiques ou des normes
+                    largement adoptées que nous pouvions utiliser, mais parfois
+                    les réponses n’étaient pas aussi faciles à trouver.
+                </p>
+
+                <!-- Basic Content -->
+                <p>
+                    Avec nos premières recherches documentaires en main, nous
+                    sommes passés à des projets pilotes avec de vraies personnes
+                    et de véritables processus d’emploi pour tester nos
+                    hypothèses, tout en effectuant des vérifications de
+                    conformité par rapport aux politiques gouvernementales. Bien
+                    que nous n’ayons pas une taille d’échantillon nécessaire
+                    pour mener des essais contrôlés randomisés, il existe de
+                    nombreuses autres méthodes de recherche, quoique moins
+                    puissantes, pour ce type de travail. Nous ne nous sommes pas
+                    appuyés non plus sur une seule approche, mais nous nous
+                    sommes plutôt adaptés afin de trouver le meilleur outil pour
+                    le travail que nous devions réaliser. Nos méthodologies
+                    s’inspirent de la psychologie comportementale, de la refonte
+                    de processus allégée, de la conception centrée sur la
+                    personne et des méthodes de recherche qualitative et
+                    quantitative traditionnelles.
+                </p>
+
+                <!-- Basic Content -->
+                <p>
+                    Une fois les résultats du projet pilote connus, nous les
+                    avons comparés à des données externes pour valider nos
+                    conclusions. Il est toujours important de comparer les
+                    résultats à d’autres ou à des données de référence, mais
+                    c’est particulièrement essentiel lorsqu’il s’agit de très
+                    petits échantillons, comme c’était le cas pour les emplois
+                    affichés sur le site. Cela nous a également aidés à mieux
+                    comprendre les processus et les comportements qui façonnent
+                    la dotation et le recrutement de talents.
+                </p>
+
+                <!-- Titles -->
+                <h3
+                    data-h2-font-weight="b(800)"
+                    data-h2-font-size="b(h3)"
+                    data-h2-margin="b(top, xl) b(bottom, s)"
+                    style="letter-spacing: -1px"
+                >
+                    Données qualitatives
+                </h3>
+
+                <!-- Basic Content -->
+                <p>
+                    Au cours du projet, nous avons recueilli une importante
+                    quantité de données qualitatives. Nous avons organisé des
+                    ateliers avec chaque groupe d’utilisateurs avant de
+                    commencer l’étape de la conception. Une fois que la
+                    conception a débuté, nous avons testé des prototypes de
+                    maquette conceptuelle, rapidement et souvent, en observant
+                    si les personnes utilisaient les fonctions comme nous le
+                    pensions, puis en leur demandant ce qu’elles aimaient ou
+                    non. Elles nous ont également accompagnés à des
+                    présentations, destinées à nos ministères partenaires ou au
+                    grand public, et nous leur avons demandé ce qu’elles en
+                    pensaient.
+                </p>
+
+                <!-- Basic Content -->
+                <p>
+                    Nous avons continué de recueillir des données qualitatives
+                    sur les fonctions après leur lancement. Notre coordonnateur
+                    de projet a observé la façon dont la plateforme était
+                    utilisée et a signalé de nombreux problèmes que nous avons
+                    pu régler rapidement, grâce à notre surveillance. L’équipe
+                    compilait aussi régulièrement des courriels d’utilisateurs
+                    dans lesquels des tendances étaient ciblées et les envoyait
+                    à nos concepteurs d’expérience utilisateur.
+                </p>
+
+                <!-- Basic Content -->
+                <p>
+                    Nous avons également déployé des efforts considérables pour
+                    communiquer avec tous ceux qui ont utilisé la plateforme, en
+                    vue de connaître leur opinion. Il s’agissait en grande
+                    majorité d’entrevues semi-structurées. Assez rapidement,
+                    nous avons élaboré un guide d’entrevue pour orienter la
+                    conversation sur certaines de nos questions clés, mais nous
+                    avons fait preuve d’une grande souplesse pour permettre les
+                    digressions et suivre le fil de la pensée de nos
+                    participants.
+                </p>
+
+                <!-- Basic Content -->
+                <p>
+                    Nous avons également envoyé des sondages aux gestionnaires
+                    qui affichaient des emplois sur le site et aux candidats à
+                    ces emplois. Bien que plusieurs questions du formulaire
+                    étaient de nature quantitative, nous avons obtenu certains
+                    des renseignements les plus riches des boîtes de texte
+                    ouvertes.
+                </p>
+
+                <!-- Titles -->
+                <h3
+                    data-h2-font-weight="b(800)"
+                    data-h2-font-size="b(h3)"
+                    data-h2-margin="b(top, xl) b(bottom, s)"
+                    style="letter-spacing: -1px"
+                >
+                    Données quantitatives
+                </h3>
+
+                <!-- Basic Content -->
+                <p>
+                    Les autorités des RH du GC recueillent une quantité
+                    importante de données sur le processus d’embauche, ce qui
+                    contribue aux connaissances du GC en matière de tendances et
+                    de priorités. Cela étant, lorsque nous avons examiné nos
+                    deux principaux objectifs de recherche (le temps nécessaire
+                    pour doter le poste et l’adéquation en matière de
+                    diversité/culture), bon nombre de nos questions portait sur
+                    des problèmes au sujet desquels les données n’étaient pas
+                    recueillies ou pour lesquels nous n’étions pas en mesure
+                    d’accéder facilement aux constatations (p. ex., au moyen du
+                    Portail du gouvernement ouvert).
+                </p>
+
+                <!-- Basic Content -->
+                <p>
+                    Les données sur les processus de dotation réels exécutés
+                    dans le Nuage de talents constituaient une source de données
+                    importante que nous avons utilisée pour mettre à l’essai nos
+                    questions de recherche. Pour ce faire, nous avons recueilli
+                    des données sur la dotation qui n’étaient pas facilement
+                    accessibles à ce niveau de détail ailleurs au GC. Nous avons
+                    consigné la durée de chaque étape du processus d’embauche,
+                    ainsi que du nombre de candidats qui ont réussi chaque phase
+                    du processus d’évaluation. Par exemple, nous avons examiné
+                    minutieusement des éléments comme le nombre de fois qu’une
+                    ébauche d’offre d’emploi va et vient entre les conseillers
+                    en RH et les gestionnaires, le nombre de candidats qui ont
+                    présenté une candidature le dernier jour d’une offre
+                    d’emploi, et la façon dont les étapes du processus, comme la
+                    traduction et la saisie des données, influent sur l’ordre et
+                    le calendrier des approbations.
+                </p>
+
+                <!-- Subtitles -->
+                <h4
+                    data-h2-font-weight="b(400)"
+                    data-h2-font-size="b(h4)"
+                    data-h2-margin="b(top, xl) b(bottom, s)"
+                    style="letter-spacing: -1px"
+                >
+                    Détails à l’entrée, détails à la sortie
+                </h4>
+
+                <!-- Basic Content -->
+                <p>
+                    Toutes ces données ont été saisies manuellement dans une
+                    base de données distincte par l’administrateur système.
+                    (Nous avions prévu qu’une fois que la plateforme couvrirait
+                    le processus de dotation du début à la fin, ce processus
+                    serait automatisé au moyen de fichiers journaux.) Le fait
+                    d’avoir accès à cette information détaillée nous a aidés à
+                    déterminer les moments les processus s’enlisent et les
+                    points qui nécessitent des améliorations aux processus ou
+                    plutôt des interventions comportementales.
+                </p>
+
+                <figure data-h2-margin="b(top-bottom, l)">
+                    <!-- Graphics -->
+
+                    <img
+                        src="/assets/img/1.9-fr-pilot-data.jpg"
+                        alt="Une capture d’écran d’une application de feuille de calcul qui montre comment l’équipe a suivi l’information sur le processus de travail. Elle contient des données sur chaque étape du cycle de vie d’un processus d’emploi pour aider l’équipe à mieux comprendre comment nous améliorions les secteurs ciblés."
+                        style="width: 100%"
+                        data-h2-display="b(block)"
+                        data-h2-radius="b(s)"
+                        data-h2-border="b(gray, all, solid, s)"
+                    />
+                </figure>
+
+                <!-- Subtitles -->
+                <h4
+                    data-h2-font-weight="b(400)"
+                    data-h2-font-size="b(h4)"
+                    data-h2-margin="b(top, xl) b(bottom, s)"
+                    style="letter-spacing: -1px"
+                >
+                    Faible puissance
+                </h4>
+
+                <!-- Basic Content -->
+                <p>
+                    En raison des contraintes liées à la taille de l’échantillon
+                    (53 emplois ont été affichés depuis la mise en service de la
+                    plateforme, dans de nombreux ministères, classifications et
+                    niveaux), il n’est pas encore possible d’effectuer une
+                    analyse statistique des données. Par conséquent, lorsque
+                    nous parlons de nos résultats sur les processus de travail,
+                    il ne faut pas oublier que leur puissance est faible. Nous
+                    essayons d’atténuer ce point en examinant de multiples
+                    sources de données et en comparant nos données lorsque cela
+                    est possible.
+                </p>
+
+                <!-- Basic Content -->
+                <p>
+                    Cependant, du côté des candidats, nous avons dépassé le
+                    seuil de 1 000, ce qui commence à constituer le volume dont
+                    nous avons besoin pour obtenir des résultats statistiquement
+                    significatifs. Sur ce point également, notre capacité de
+                    mettre à l’essai certaines de nos questions de recherche a
+                    été limitée par les renseignements que nous pouvons
+                    recueillir. Sans serveur « Protégé B », certaines actions
+                    nous sont impossibles, comme recueillir des données sur
+                    l’équité en matière d’emploi sur le site ou pousser notre
+                    recherche sur la diversité dans le domaine des données
+                    qualitatives.
+                </p>
+
+                <!-- Callout -->
+                <blockquote
+                    data-h2-bg-color="b(purple[.1])"
+                    data-h2-border="b(purple, all, solid, s)"
+                    data-h2-margin="b(top-bottom, xl)"
+                    data-h2-padding="b(right-left, m)"
+                    data-h2-radius="b(s)"
+                >
+                    <p data-h2-font-color="b(purple)">
+                        Nous ne souhaitons pas surestimer la fiabilité de nos
+                        conclusions. Nous avons réalisé une expérience à petite
+                        échelle et nous n’avons pas un échantillon de taille
+                        statistiquement suffisante pour mener des essais
+                        contrôlés randomisés. Bien que nous comparions les
+                        résultats des recherches externes avec nos conclusions
+                        quantitatives et qualitatives, nos résultats de
+                        recherche devraient être considérés comme ayant une
+                        faible puissance, et non comme des solutions
+                        définitives.
+                    </p>
+                </blockquote>
+
+                <!-- Titles -->
+                <h3
+                    data-h2-font-weight="b(800)"
+                    data-h2-font-size="b(h3)"
+                    data-h2-margin="b(top, xl) b(bottom, s)"
+                    style="letter-spacing: -1px"
+                >
+                    La valeur des intuitions
+                </h3>
+
+                <!-- Basic Content -->
+                <p>
+                    On ne peut pas créer une politique fondée sur des données
+                    probantes sans données probantes. C’était l’objectif du
+                    Nuage de talents.
+                </p>
+
+                <!-- Basic Content -->
+                <p>
+                    Lorsque nous présentons nos résultats, notre public approuve
+                    souvent. Qu’il s’agisse de gestionnaires ou de conseillers
+                    en RH, nous constatons que nous confirmons beaucoup de
+                    choses qu’ils savent depuis des années, mais pour lesquelles
+                    ils n’ont pas nécessairement de chiffres ou d’histoires à
+                    l’appui. Voici un commentaire que nous entendons souvent : «
+                    Nous le savions déjà. Quelle est donc la prochaine étape? »
+                </p>
+
+                <!-- Basic Content -->
+                <p>
+                    Étant donné que le hochement de tête d’une foule ne
+                    constitue pas un point de données quantitatif valide pour
+                    confirmer les résultats, nous effectuons un suivi au moyen
+                    d’entrevues, de groupes de discussion et de tests en direct
+                    de nouvelles fonctions, ce qui nous aide à valider les
+                    intuitions difficiles à valider – reconnues depuis
+                    longtemps, mais non statistiquement prouvées – en jeu dans
+                    l’espace de dotation du GC.
+                </p>
+
+                <!-- Basic Content -->
+                <p>
+                    Après tout, les « intuitions » ne sont souvent que la
+                    reconnaissance d’une tendance pluriannuelle par des experts
+                    sur le terrain, comme les conseillers en RH et les
+                    gestionnaires chevronnés. Et nous prenons le temps d’écouter
+                    ces intuitions et d’explorer la psychologie comportementale
+                    et la conception des systèmes sous-jacents au problème, ce
+                    qui, nous l’espérons, mène à des solutions potentielles.
+                </p>
+
+                <!-- Callout -->
+                <blockquote
+                    data-h2-bg-color="b(purple[.1])"
+                    data-h2-border="b(purple, all, solid, s)"
+                    data-h2-margin="b(top-bottom, xl)"
+                    data-h2-padding="b(right-left, m)"
+                    data-h2-radius="b(s)"
+                >
+                    <p
+                        data-h2-font-color="b(purple)"
+                        data-h2-font-weight="b(bold)"
+                    >
+                        L’effet paralysant de la COVID-19 sur la recherche
+                    </p>
+
+                    <p data-h2-font-color="b(purple)">
+                        Comme pour le reste du monde, la COVID-19 a eu une
+                        incidence importante sur les activités du Nuage de
+                        talents. Lorsque les employés ont été renvoyés chez eux
+                        pour une période indéterminée à la mi-mars, la dotation
+                        en personnel s’est pratiquement arrêtée. Dix offres
+                        d’emploi ont été affichées d’avril à juin 2019, mais
+                        aucun emploi n’a été affiché pendant la même période en
+                        2020. Nous avons également observé que les processus
+                        d’évaluation des emplois ont considérablement ralenti,
+                        et une plus grande proportion d’emplois ont été annulés
+                        en raison de contraintes financières par le ministère.
+                        (Remarque : Les quelques nouveaux emplois qui ont été
+                        lancés au cours de l’été 2020 ont été en mesure de
+                        profiter des mises à niveau de la plateforme et, par
+                        conséquent, nous avons vu le temps de dotation diminuer
+                        considérablement avec ces processus.)
+                    </p>
+
+                    <p data-h2-font-color="b(purple)">
+                        L’année 2020 était l’année où nous avions prévu
+                        d’augmenter considérablement l’envergure de notre projet
+                        et d’obtenir les tailles d’échantillon dont nous avions
+                        besoin pour que nos résultats soient appuyés par une
+                        certaine puissance statistique. Au lieu de cela, nous
+                        avons rapidement pivoté pour essayer de faciliter la
+                        mobilité des talents internes à l’échelle du GC, le
+                        gouvernement s’étant organisé pour appuyer les
+                        personnes, les entreprises et les besoins internes
+                        changeants (pour en savoir plus sur la réserve de
+                        talents du GC, voir la section 5 du présent rapport).
+                    </p>
+                </blockquote>
+            </div>
+        </main>
+        <section style="background-color: #f8f8f8">
+            <div
+                data-h2-container="b(center, s)"
+                data-h2-padding="b(bottom, l) l(bottom, xxl)"
+            >
+                <div data-h2-flex-grid="b(top, expanded, flush, m)">
+                    <div
+                        data-h2-text-align="b(center) m(left)"
+                        data-h2-flex-item="b(1of2)"
+                    >
+                        <a
+                            class="prev"
+                            href="/fr/projects/2000/01/01/108-team.html"
+                            title="Allez à l'article précédent de la série."
+                        >
+                            <svg
+                                data-h2-margin="b(right, xxs)"
+                                style="width: 1rem; vertical-align: middle"
+                                xmlns="http://www.w3.org/2000/svg"
+                                class="h-6 w-6"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="#c90035"
+                            >
+                                <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    stroke-width="4"
+                                    d="M15 19l-7-7 7-7"
+                                /></svg
+                            >Article précédent</a
+                        >
+                    </div>
+                    <div
+                        data-h2-text-align="b(center) m(right)"
+                        data-h2-flex-item="b(1of2)"
+                    >
+                        <a
+                            class="next"
+                            href="/fr/projects/2000/01/01/110-portals.html"
+                            title="Passez à l'article suivant de la série."
+                            >Article suivant<svg
+                                data-h2-margin="b(left, xxs)"
+                                style="width: 1rem; vertical-align: middle"
+                                xmlns="http://www.w3.org/2000/svg"
+                                class="h-6 w-6"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="#c90035"
+                            >
+                                <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    stroke-width="4"
+                                    d="M9 5l7 7-7 7"
+                                /></svg
+                        ></a>
+                    </div>
+                </div>
+                <p
+                    data-h2-margin="b(top, xxl)"
+                    data-h2-text-align="b(center)"
+                    data-h2-font-size="b(caption)"
+                >
+                    <a
+                        href="/fr/talent-cloud/report/#toc"
+                        title="Retour à la table des matières"
+                        >Retour à la table des matières</a
+                    >
+                </p>
+            </div>
+        </section>
+        <section
+            data-h2-border="b([light]gray, top, solid, s)"
+            data-h2-position="b(relative)"
+            style="background: rgba(240, 240, 240, 1)"
+            data-h2-overflow="b(x, hidden)"
+        >
+            <footer
+                data-h2-container="b(center, full)"
+                data-h2-padding="b(top-bottom, l)"
+            >
+                <div data-h2-flex-grid="b(middle, expanded, flush, xl)">
+                    <div
+                        data-h2-flex-item="b(1of1) m(1of2)"
+                        data-h2-padding="b(left, xl)"
+                        data-h2-text-align="b(center) m(left)"
+                    >
+                        <nav>
+                            <ul
+                                style="gap: 1rem"
+                                class="reset-ul"
+                                data-h2-display="b(flex)"
+                                data-h2-flex-wrap="b(wrap)"
+                                data-h2-justify-content="b(center) m(flex-start)"
+                                data-h2-margin="b(bottom, xs)"
+                            >
+                                <li
+                                    data-h2-display="b(inline-block)"
+                                    data-h2-margin="b(top-bottom, none)"
+                                >
+                                    <a
+                                        href="mailto:talent.cloud-nuage.de.talents@tbs-sct.gc.ca"
+                                        title="Soumettre des commentaires au Nuage de talents du GC par courriel."
+                                        >Retour d'information</a
+                                    >
+                                </li>
+
+                                <li
+                                    data-h2-display="b(inline-block)"
+                                    data-h2-margin="b(top-bottom, none)"
+                                >
+                                    <a
+                                        href="/fr/terms-and-conditions"
+                                        title="Voir nos avis."
+                                        >Avis</a
+                                    >
+                                </li>
+
+                                <li
+                                    data-h2-display="b(inline-block)"
+                                    data-h2-margin="b(top-bottom, none)"
+                                >
+                                    <a
+                                        href="/fr/privacy-notice"
+                                        title="Voir notre politique de confidentialité."
+                                        >Confidentialité</a
+                                    >
+                                </li>
+
+                                <li
+                                    data-h2-display="b(inline-block)"
+                                    data-h2-margin="b(top-bottom, none)"
+                                >
+                                    <a
+                                        href="/fr/https://www.canada.ca/fr.html"
+                                        title="Visiter Canada.ca."
+                                        >Canada.ca</a
+                                    >
+                                </li>
+                            </ul>
+                        </nav>
+                        <p
+                            data-h2-font-size="b(caption)"
+                            data-h2-font-color="b(black)"
+                            data-h2-margin="b(bottom, none) b(top, m)"
+                        >
+                            Date de modification: July 07, 2021
+                        </p>
+                    </div>
+                    <div
+                        data-h2-flex-item="b(1of1) m(1of2)"
+                        data-h2-padding="b(right, xl)"
+                        data-h2-text-align="b(center) m(right)"
+                    >
+                        <a
+                            href="https://www.canada.ca/fr.html"
+                            title="Visiter Canada.ca."
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            <img
+                                class="canada-logo"
+                                src="/assets/img/ui-canada.png"
+                                alt="Symbole du gouvernement du Canada."
+                            />
+                        </a>
+                    </div>
+                </div>
+            </footer>
+        </section>
+
+        <script type="text/javascript" src="/assets/js/app.js"></script>
+    </body>
 </html>
