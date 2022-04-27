@@ -11,17 +11,17 @@ const TemplateFieldset: Story<FieldsetProps> = (args) => {
   const { name } = args;
   return (
     <Fieldset {...args}>
-      <label data-h2-display="b(block)">
+      <label data-h2-display="b(block)" htmlFor={name}>
         One
-        <input type="checkbox" name={name} value="One" />
+        <input type="checkbox" name={name} value="One" id={name} />
       </label>
-      <label data-h2-display="b(block)">
+      <label data-h2-display="b(block)" htmlFor={name}>
         Two
-        <input type="checkbox" name={name} value="Two" />
+        <input type="checkbox" name={name} value="Two" id={name} />
       </label>
-      <label data-h2-display="b(block)">
+      <label data-h2-display="b(block)" htmlFor={name}>
         Three
-        <input type="checkbox" name={name} value="Three" />
+        <input type="checkbox" name={name} value="Three" id={name} />
       </label>
     </Fieldset>
   );

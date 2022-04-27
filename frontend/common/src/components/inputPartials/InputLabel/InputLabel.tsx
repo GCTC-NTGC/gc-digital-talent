@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/label-has-for */
+// can't nest label around the input directly since separate files
 import React, { useState } from "react";
 import { QuestionMarkCircleIcon, XCircleIcon } from "@heroicons/react/solid";
 import { useIntl } from "react-intl";

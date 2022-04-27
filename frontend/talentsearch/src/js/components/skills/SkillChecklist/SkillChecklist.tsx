@@ -30,15 +30,15 @@ const Family: React.FunctionComponent<FamilyProps> = ({
       data-h2-padding="b(all, xxs)"
       key={family.key}
     >
-      <input
-        type="checkbox"
-        id={family.id}
-        onChange={(e) => {
-          callback(family, e.target.checked);
-        }}
-      />
-      &nbsp;
       <label htmlFor={family.id}>
+        <input
+          type="checkbox"
+          id={family.id}
+          onChange={(e) => {
+            callback(family, e.target.checked);
+          }}
+        />
+        &nbsp;
         {family.name?.[locale]} ({family.skills ? family.skills.length : 0})
       </label>
     </div>

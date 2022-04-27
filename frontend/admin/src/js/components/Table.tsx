@@ -26,6 +26,7 @@ interface TableProps<
 const IndeterminateCheckbox: React.FC<
   React.HTMLProps<HTMLInputElement> & { indeterminate: boolean }
 > = ({ indeterminate, ...rest }) => {
+  const intl = useIntl();
   const ref = React.useRef<HTMLInputElement>(null);
 
   React.useEffect(() => {
@@ -34,7 +35,21 @@ const IndeterminateCheckbox: React.FC<
     }
   }, [ref, indeterminate]);
 
-  return <input type="checkbox" ref={ref} {...rest} />;
+  return (
+    <label htmlFor="column-fieldset-toggle-all">
+      <input
+        id="column-fieldset-toggle-all"
+        type="checkbox"
+        ref={ref}
+        {...rest}
+      />
+      {" "}
+      {intl.formatMessage({
+        defaultMessage: "Toggle All",
+        description: "Label displayed on the Table Columns toggle fieldset.",
+      })}
+    </label>
+  );
 };
 
 function Table<T extends Record<string, unknown>>({
@@ -114,23 +129,17 @@ function Table<T extends Record<string, unknown>>({
                     }}
                   >
                     <div>
-                      <label>
-                        <IndeterminateCheckbox
-                          {...(getToggleHideAllColumnsProps() as React.ComponentProps<
-                            typeof IndeterminateCheckbox
-                          >)}
-                        />{" "}
-                        {intl.formatMessage({
-                          defaultMessage: "Toggle All",
-                          description:
-                            "Label displayed on the Table Columns toggle fieldset.",
-                        })}
-                      </label>
+                      <IndeterminateCheckbox
+                        {...(getToggleHideAllColumnsProps() as React.ComponentProps<
+                          typeof IndeterminateCheckbox
+                        >)}
+                      />
                     </div>
                     {allColumns.map((column) => (
                       <div key={column.id}>
-                        <label>
+                        <label htmlFor={column.Header?.toString()}>
                           <input
+                            id={column.Header?.toString()}
                             type="checkbox"
                             {...column.getToggleHiddenProps()}
                           />{" "}
