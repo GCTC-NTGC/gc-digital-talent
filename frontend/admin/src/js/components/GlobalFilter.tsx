@@ -5,8 +5,8 @@ import "regenerator-runtime/runtime.js"; // This is required for useAsyncDebounc
 import { InputWrapper } from "@common/components/inputPartials";
 
 interface GlobalFilterProps {
-  globalFilter: any;
-  setGlobalFilter: any;
+  globalFilter: string | undefined;
+  setGlobalFilter: (val: string | undefined) => void;
 }
 
 const GlobalFilter: React.FC<GlobalFilterProps> = ({

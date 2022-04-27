@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+// not our file
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /*
 This file is seemingly required since (TypeScript) Type definitions are incomplete for sortable tables. #2970

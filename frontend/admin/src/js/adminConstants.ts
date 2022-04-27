@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+// I believe this is essential as is
 export const ADMIN_APP_DIR = process.env.ADMIN_APP_DIR ?? "/admin";
 
 // eslint-disable-next-line no-underscore-dangle
