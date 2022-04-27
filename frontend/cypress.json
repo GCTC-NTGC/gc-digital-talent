@@ -1,4 +1,8 @@
 {
+  "reporter": "cypress-multi-reporters",
+  "reporterOptions": {
+    "configFile": "cypress/reporters-config.json"
+  },
   "videoCompression": 15,
   "ignoreTestFiles": "**/examples/*.spec.js",
   "baseUrl": "http://localhost:8000"
