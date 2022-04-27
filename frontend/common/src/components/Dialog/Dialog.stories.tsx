@@ -36,6 +36,9 @@ export default {
       name: "confirmation",
       type: { name: "boolean", required: false },
     },
+    color: {
+      options: ["primary", "secondary", "tertiary"],
+    },
   },
 } as Meta;
 
@@ -46,7 +49,7 @@ const TemplateDialog: Story = (args) => {
     setOpen(false);
   };
 
-  const { title, subtitle, content, confirmation, footer } = args;
+  const { title, subtitle, content, confirmation, footer, color } = args;
 
   return (
     <>
@@ -60,6 +63,7 @@ const TemplateDialog: Story = (args) => {
         subtitle={subtitle}
         confirmation={confirmation}
         footer={footer}
+        color={color}
       >
         <p>{content}</p>
       </DialogComponent>
@@ -73,6 +77,8 @@ export const DialogLongContent = TemplateDialog.bind({});
 export const ConfirmationDialog = TemplateDialog.bind({});
 export const ConfirmationDialogWithSubtitle = TemplateDialog.bind({});
 export const DialogWithFooter = TemplateDialog.bind({});
+export const SecondaryDialog = TemplateDialog.bind({});
+export const TertiaryDialog = TemplateDialog.bind({});
 
 BasicDialog.args = {
   title: "Basic Dialog",
@@ -107,6 +113,22 @@ ConfirmationDialogWithSubtitle.args = {
   title: "Confirmation Dialog",
   subtitle: "Dialog Subtitle",
   confirmation: true,
+  content:
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam efficitur leo a tellus imperdiet, quis imperdiet nulla viverra. Aliquam porttitor pellentesque rhoncus. ",
+};
+
+SecondaryDialog.args = {
+  title: "Secondary Dialog",
+  subtitle: "Dialog Subtitle",
+  color: "secondary",
+  content:
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam efficitur leo a tellus imperdiet, quis imperdiet nulla viverra. Aliquam porttitor pellentesque rhoncus. ",
+};
+
+TertiaryDialog.args = {
+  title: "Tertiary Dialog",
+  subtitle: "Dialog Subtitle",
+  color: "tertiary",
   content:
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam efficitur leo a tellus imperdiet, quis imperdiet nulla viverra. Aliquam porttitor pellentesque rhoncus. ",
 };
