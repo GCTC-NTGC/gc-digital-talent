@@ -4,26 +4,42 @@ import { XIcon } from "@heroicons/react/outline";
 import Overlay from "./Overlay";
 import Content from "./Content";
 
-import type { DialogProps } from "./types";
-
 import "@reach/dialog/styles.css";
 import "./dialog.css";
+
+interface DialogProps {
+  isOpen: boolean;
+  onDismiss: (e: React.MouseEvent | React.KeyboardEvent) => void;
+  title: string;
+  subtitle?: string;
+  confirmation?: boolean;
+}
 
 const Dialog: React.FC<DialogProps> = ({
   title,
   subtitle,
   onDismiss,
   isOpen,
+  confirmation = false,
   children,
 }) => (
   <Overlay isOpen={isOpen} onDismiss={onDismiss}>
     <Content aria-labelledby="dialog-title">
       <div
+        className={`dialog__header ${
+          confirmation ? `dialog__header--confirmation` : null
+        }`}
         data-h2-radius="b(s, s, none, none)"
         data-h2-padding="b(all, m)"
-        data-h2-bg-color="b(linear-70[lightpurple][lightnavy])"
-        data-h2-font-color="b(white)"
         data-h2-position="b(relative)"
+        {...(!confirmation
+          ? {
+              "data-h2-bg-color": "b(linear-70[lightpurple][lightnavy])",
+              "data-h2-font-color": "b(white)",
+            }
+          : {
+              "data-h2-bg-color": "b(white)",
+            })}
       >
         <button
           type="button"
@@ -32,6 +48,13 @@ const Dialog: React.FC<DialogProps> = ({
           data-h2-padding="b(all, xs)"
           data-h2-position="b(absolute)"
           data-h2-location="b(top-right, s)"
+          {...(confirmation
+            ? {
+                "data-h2-font-color": "b(black)",
+              }
+            : {
+                "data-h2-font-color": "b(white)",
+              })}
         >
           <span data-h2-visibility="b(invisible)">Close dialog</span>
           <XIcon className="dialog-close__icon" />
@@ -49,17 +72,20 @@ const Dialog: React.FC<DialogProps> = ({
             {title}
           </h1>
           {subtitle && (
-            <p data-h2-margin="b(top, xs) b(bottom, none)">{subtitle}</p>
+            <p
+              data-h2-margin="b(top, xs) b(bottom, none)"
+              {...(confirmation
+                ? {
+                    "data-h2-font-color": "b(lightpurple)",
+                  }
+                : null)}
+            >
+              {subtitle}
+            </p>
           )}
         </div>
       </div>
-      <div
-        data-h2-bg-color="b(white)"
-        data-h2-padding="b(all, m)"
-        data-h2-radius="b(none, none, s, s)"
-      >
-        {children}
-      </div>
+      <div className="dialog__content">{children}</div>
     </Content>
   </Overlay>
 );
