@@ -1,5 +1,9 @@
 {
   "videoCompression": 15,
   "ignoreTestFiles": "**/examples/*.spec.js",
-  "baseUrl": "http://localhost:8000"
+  "baseUrl": "http://localhost:8000",
+  "reporter": "junit",
+  "reporterOptions": {
+    "mochaFile": "cypress/results/output-[hash].xml"
+  }
 }
