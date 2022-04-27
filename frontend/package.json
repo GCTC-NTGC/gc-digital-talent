@@ -8,6 +8,8 @@
     "indigenousapprenticeship"
   ],
   "scripts": {
+    "reports:clean": "rm -f cypress/results/output-*.xml",
+    "reports:merge": "jrm cypress/results/combined.xml cypress/results/output-*.xml",
     "e2e": "npm run e2e:open",
     "e2e:open": "cypress open",
     "e2e:run": "npm run e2e:run:all",
@@ -22,6 +24,7 @@
     "@storybook/react": "^6.4.20",
     "cypress": "^9.6.0",
     "cypress-terminal-report": "^3.5.2",
+    "junit-report-merger": "^3.0.5",
     "storybook-addon-intl": "^2.4.1"
   }
 }
