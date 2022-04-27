@@ -6,4 +6,3 @@ package-lock.json
 # Cypress artifacts
 frontend/cypress/screenshots
 frontend/cypress/videos
-frontend/cypress/results
