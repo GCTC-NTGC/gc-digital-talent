@@ -1,3 +1,7 @@
+[data-reach-dialog-overlay] {
+  z-index: 9999;
+}
+
 [data-reach-dialog-content] {
   padding: 1.5rem;
   width: 95vw;
