@@ -47,10 +47,11 @@ const Home: React.FunctionComponent = () => {
               <div className="hero__logo" data-h2-width="m(50)">
                 <h1>
                   <img
+                    data-h2-margin="b(top, m)"
                     data-h2-width="b(100)"
                     src={imageUrl(
                       INDIGENOUSAPPRENTICESHIP_APP_DIR,
-                      "logo-en-lg.png",
+                      `logo-${intl.locale}.svg`,
                     )}
                     alt={intl.formatMessage({
                       defaultMessage:
@@ -127,7 +128,7 @@ const Home: React.FunctionComponent = () => {
               data-h2-position="b(absolute)"
             />
           </div>
-          <div>
+          <div className="program__content">
             <Heading className="about-program__title" data-h2-font-size="b(h3)">
               {intl.formatMessage({
                 defaultMessage: "About the Program",
@@ -236,7 +237,7 @@ const Home: React.FunctionComponent = () => {
             />
             <RadiatingCircles
               className="learn-program__circles"
-              data-h2-font-color="b(ia-lightgray)"
+              data-h2-font-color="b(ia-gray)"
               data-h2-position="b(absolute)"
               data-h2-width="b(100)"
             />
@@ -258,6 +259,7 @@ const Home: React.FunctionComponent = () => {
           >
             <Heading
               className="about-program__title"
+              data-h2-font-size="b(h3)"
               data-h2-margin="b(top, xl) m(top, xxs)"
             >
               {intl.formatMessage({
@@ -662,7 +664,7 @@ const Home: React.FunctionComponent = () => {
               style={{
                 backgroundImage: `url(${imageUrl(
                   INDIGENOUSAPPRENTICESHIP_APP_DIR,
-                  "iap-logo-watermark.png",
+                  "icon-watermark.svg",
                 )})`,
               }}
             >

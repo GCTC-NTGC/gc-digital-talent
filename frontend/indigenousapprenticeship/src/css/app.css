@@ -1,5 +1,3 @@
-/* nothing here yet */
-
 .hero__content {
   height: 100%;
   z-index: 1;
@@ -34,6 +32,16 @@
 }
 
 .program__image {
+  z-index: 2;
+}
+
+.program__image-wrapper {
+  position: relative;
+  z-index: 1;
+}
+
+.program__content {
+  position: relative;
   z-index: 2;
 }
 
@@ -74,13 +82,13 @@
 }
 
 .learn-program__gloves {
-  bottom: -6rem;
+  bottom: -7rem;
   left: 35%;
   z-index: 2;
 }
 
 .learn-program__circles {
-  top: -6rem;
+  top: -4rem;
   left: 40%;
 }
 
@@ -156,8 +164,8 @@
 
 .talent-portal-card {
   background-repeat: no-repeat;
-  background-size: contain;
-  background-position: center right;
+  background-size: 120% auto;
+  background-position: 50% 110%;
   z-index: 2;
 }
 
@@ -167,6 +175,10 @@
   bottom: -2rem;
   transform: scaleY(-1);
   z-index: 1;
+}
+
+.portal-panel__strategy__item {
+  margin: 0 auto;
 }
 
 @media (min-width: 48em) {
@@ -187,15 +199,14 @@
     object-position: center;
   }
 
-  .program__image-wrapper > img.about-program__feathers {
+  .about-program__feathers {
     bottom: -2rem;
-    left: 0;
-    width: 32rem;
+    left: -4rem;
+    width: 120%;
   }
 
   .learn-program__gloves {
     left: auto;
-    bottom: -6rem;
     right: -6rem;
     width: 32rem;
   }
@@ -206,6 +217,10 @@
 
   .who-program__content {
     order: 2;
+  }
+  .talent-portal-card {
+    background-position: 100% 10%;
+    background-size: auto 120%;
   }
 }
 
@@ -239,9 +254,9 @@
   }
 
   .about-program__feathers {
-    bottom: -10rem;
-    left: -1rem;
-    width: 40rem;
+    bottom: -8rem;
+    left: -6rem;
+    width: 36rem;
   }
 
   .learn-program {
