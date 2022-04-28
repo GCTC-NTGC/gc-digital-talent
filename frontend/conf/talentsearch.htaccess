@@ -1,5 +1,5 @@
 # Map all SPA-looking routes to our single page app index file
-FallbackResource /frontend/talentsearch/dist/index.html
+FallbackResource /app/talentsearch/dist/index.html
 
 # Requests for files should return a real 404 and not fallback to the index.html page, though
 <Files ~ "\.(js|css|gif|jpe?g|png|svg)$">
