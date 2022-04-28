@@ -152,13 +152,14 @@ export const SearchForm: React.FunctionComponent<SearchFormProps> = ({
 
   // Use deep comparison to prevent infinite re-rendering
   useDeepCompareEffect(() => {
-    submitDebounced.current(formValues);
+    const debouncingFunc = submitDebounced.current;
+    debouncingFunc(formValues);
     updateInitialValues(formValues);
     return () => {
       // Clear debounce timer when component unmounts
-      submitDebounced.current.clear();
+      debouncingFunc.clear();
     };
-  }, [formValues]);
+  }, [formValues, updateInitialValues]);
 
   const classificationOptions: Option<string>[] = useMemo(
     () =>
