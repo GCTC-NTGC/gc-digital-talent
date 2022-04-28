@@ -42,8 +42,7 @@ const IndeterminateCheckbox: React.FC<
         type="checkbox"
         ref={ref}
         {...rest}
-      />
-      {" "}
+      />{" "}
       {intl.formatMessage({
         defaultMessage: "Toggle All",
         description: "Label displayed on the Table Columns toggle fieldset.",
