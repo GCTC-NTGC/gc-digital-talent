@@ -10,18 +10,17 @@ import { RadioGroup } from "@common/components/form";
 import { useApplicantProfileRoutes } from "../../applicantProfileRoutes";
 import {
   UpdateUserAsUserInput,
+  useGetMystatusQuery,
   useUpdateMystatusMutation,
+  GetMystatusQuery,
   UpdateMystatusMutation,
   JobLookingStatus,
-  User,
-  useGetMeQuery,
-  GetMeQuery,
 } from "../../api/generated";
 
 export type FormValues = Pick<UpdateUserAsUserInput, "jobLookingStatus">;
 
 export interface MyStatusFormProps {
-  initialData: User;
+  initialData: GetMystatusQuery | undefined;
   handleMyStatus: (
     id: string,
     data: UpdateUserAsUserInput,
@@ -33,34 +32,36 @@ export const MyStatusForm: React.FC<MyStatusFormProps> = ({
   handleMyStatus,
 }) => {
   const intl = useIntl();
+
   function bold(msg: string) {
     return <span data-h2-font-weight="b(700)">{msg}</span>;
   }
-  const {
-    firstName,
-    lastName,
-    email,
-    telephone,
-    preferredLang,
-    currentProvince,
-    currentCity,
-    lookingForEnglish,
-    lookingForFrench,
-    lookingForBilingual,
-    isGovEmployee,
-    locationPreferences,
-    wouldAcceptTemporary,
-    expectedSalary,
-  } = initialData;
+
+  const firstName = initialData?.me?.firstName;
+  const lastName = initialData?.me?.lastName;
+  const email = initialData?.me?.email;
+  const telephone = initialData?.me?.telephone;
+  const preferredLang = initialData?.me?.preferredLang;
+  const currentProvince = initialData?.me?.currentProvince;
+  const currentCity = initialData?.me?.currentCity;
+  const lookingForEnglish = initialData?.me?.lookingForEnglish;
+  const lookingForFrench = initialData?.me?.lookingForEnglish;
+  const lookingForBilingual = initialData?.me?.lookingForBilingual;
+  const isGovEmployee = initialData?.me?.isGovEmployee;
+  const locationPreferences = initialData?.me?.locationPreferences;
+  const wouldAcceptTemporary = initialData?.me?.wouldAcceptTemporary;
+  const expectedSalary = initialData?.me?.expectedSalary;
 
   const JobLookingStatusSortOrder = [
     JobLookingStatus.ActivelyLooking,
     JobLookingStatus.OpenToOpportunities,
     JobLookingStatus.Inactive,
   ];
-  const dataToFormValues = (data?: User): FormValues => {
+  const dataToFormValues = (
+    data?: GetMystatusQuery | undefined,
+  ): FormValues => {
     return {
-      jobLookingStatus: data?.jobLookingStatus,
+      jobLookingStatus: data?.me?.jobLookingStatus,
     };
   };
   const formValuesToSubmitData = (
@@ -77,12 +78,13 @@ export const MyStatusForm: React.FC<MyStatusFormProps> = ({
   const { handleSubmit } = methods;
 
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
-    if (initialData) {
-      await handleMyStatus(initialData.id, formValuesToSubmitData(data));
+    if (initialData?.me) {
+      await handleMyStatus(initialData.me?.id, formValuesToSubmitData(data));
     }
   };
 
   let isFormActive = true;
+
   // Checking About Me Form
   if (
     preferredLang?.length === 0 ||
@@ -120,6 +122,13 @@ export const MyStatusForm: React.FC<MyStatusFormProps> = ({
     isFormActive = false;
   }
 
+  isFormActive = true;
+
+  let disabledColor = "";
+  if (!isFormActive) {
+    disabledColor = "b([dark]gray)";
+  }
+
   return (
     <div>
       <FormProvider {...methods}>
@@ -135,10 +144,10 @@ export const MyStatusForm: React.FC<MyStatusFormProps> = ({
           </div>
           {!isFormActive && (
             <div
-              data-bg-color="b([light]lightpurple[.1])"
               data-h2-font-color="b(lightpurple)"
               data-h2-padding="b(all, m)"
               data-h2-radius="b(s)"
+              data-h2-bg-color="b([light]lightpurple[.1])"
             >
               <p>
                 {intl.formatMessage(
@@ -161,8 +170,8 @@ export const MyStatusForm: React.FC<MyStatusFormProps> = ({
               </p>
             </div>
           )}
-          <div data-h2-padding="b(top, s)">
-            {!isFormActive && '<p data-h2-font-color="b([dark]gray)">'}
+
+          <div data-h2-padding="b(top, s)" data-h2-font-color={disabledColor}>
             <RadioGroup
               idPrefix="myStatus"
               legend={intl.formatMessage({
@@ -186,7 +195,6 @@ export const MyStatusForm: React.FC<MyStatusFormProps> = ({
                 ),
               }))}
             />
-            {!isFormActive && "</p>"}
           </div>
         </form>
       </FormProvider>
@@ -198,24 +206,13 @@ export const MyStatusApi: React.FunctionComponent = () => {
   const intl = useIntl();
   const paths = useApplicantProfileRoutes();
 
-  const [{ data, fetching, error }] = useGetMeQuery();
-
-  // type magic on data variable to make it end up as a valid User type
-  const dataToUser = (input: GetMeQuery): User | undefined => {
-    if (input) {
-      if (input.me) {
-        return input.me;
-      }
-    }
-    return undefined;
-  };
-  const userData = data ? dataToUser(data) : undefined;
+  const [{ data: initialData, fetching, error }] = useGetMystatusQuery();
 
   const [, executeMutation] = useUpdateMystatusMutation();
-  const handleMyStatus = (id: string, handledata: UpdateUserAsUserInput) =>
+  const handleMyStatus = (id: string, data: UpdateUserAsUserInput) =>
     executeMutation({
       id,
-      user: handledata,
+      user: data,
     }).then((result) => {
       navigate(paths.home());
       toast.success(
@@ -247,15 +244,13 @@ export const MyStatusApi: React.FunctionComponent = () => {
       </p>
     );
   }
-  if (userData)
-    return (
-      <MyStatusForm initialData={userData} handleMyStatus={handleMyStatus} />
-    );
-  return (
+  return initialData?.me ? (
+    <MyStatusForm initialData={initialData} handleMyStatus={handleMyStatus} />
+  ) : (
     <p>
       {intl.formatMessage({
-        defaultMessage: "No user data",
-        description: "Message when user data was not found",
+        defaultMessage: "User not found.",
+        description: "Message displayed for user not found.",
       })}
     </p>
   );

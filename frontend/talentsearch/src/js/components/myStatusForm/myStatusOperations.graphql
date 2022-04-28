@@ -2,6 +2,20 @@ query getMystatus {
   me {
     id
     jobLookingStatus
+    firstName
+    lastName
+    email
+    telephone
+    preferredLang
+    currentProvince
+    currentCity
+    lookingForEnglish
+    lookingForFrench
+    lookingForBilingual
+    isGovEmployee
+    locationPreferences
+    wouldAcceptTemporary
+    expectedSalary
   }
 }
 
