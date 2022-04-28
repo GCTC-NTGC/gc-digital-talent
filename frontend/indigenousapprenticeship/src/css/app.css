@@ -177,7 +177,7 @@
     width: 100%;
     max-width: 100%;
   }
-  .program__image-wrapper > img {
+  .program__image-wrapper > img.program__image {
     object-fit: cover;
     height: 36rem;
     width: 100%;
@@ -187,17 +187,23 @@
     object-position: center;
   }
 
-  .about-program__feathers {
+  .program__image-wrapper > img.about-program__feathers {
     bottom: -2rem;
+    left: 0;
+    width: 32rem;
+  }
+
+  .learn-program__gloves {
+    left: auto;
+    bottom: -6rem;
     right: -6rem;
     width: 32rem;
   }
-  .learn-program__gloves {
-    bottom: -6rem;
-  }
+
   .who-program__image-wrapper {
     order: 1;
   }
+
   .who-program__content {
     order: 2;
   }
@@ -227,15 +233,15 @@
     max-width: 45%;
   }
 
-  .program__image-wrapper > img {
+  .program__image-wrapper > img.program__image {
     object-fit: contain;
     height: auto;
   }
 
   .about-program__feathers {
     bottom: -10rem;
-    right: 0;
-    width: 44rem;
+    left: -1rem;
+    width: 40rem;
   }
 
   .learn-program {
