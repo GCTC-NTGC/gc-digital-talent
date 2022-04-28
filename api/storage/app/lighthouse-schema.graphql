@@ -8,6 +8,7 @@ type Applicant {
   currentProvince: ProvinceOrTerritory
   currentCity: String
   isGovEmployee: Boolean
+  govEmployeeType: GovEmployeeType
   interestedInLaterOrSecondment: Boolean
   currentClassification: Classification
   languageAbility: LanguageAbility
@@ -272,6 +273,7 @@ input CreateUserInput {
   verbalLevel: EvaluatedLanguageAbility
   estimatedLanguageAbility: EstimatedLanguageAbility
   isGovEmployee: Boolean
+  govEmployeeType: GovEmployeeType
   interestedInLaterOrSecondment: Boolean
   currentClassification: ClassificationBelongsTo
   isWoman: Boolean
@@ -390,6 +392,13 @@ interface Experience {
 
 type ExperienceSkillRecord {
   details: String
+}
+
+enum GovEmployeeType {
+  STUDENT
+  CASUAL
+  TERM
+  INDETERMINATE
 }
 
 enum JobLookingStatus {
@@ -994,6 +1003,7 @@ input UpdateUserAsAdminInput {
   verbalLevel: EvaluatedLanguageAbility
   estimatedLanguageAbility: EstimatedLanguageAbility
   isGovEmployee: Boolean
+  govEmployeeType: GovEmployeeType
   interestedInLaterOrSecondment: Boolean
   currentClassification: ClassificationBelongsTo
   isWoman: Boolean
@@ -1033,6 +1043,7 @@ input UpdateUserAsUserInput {
   verbalLevel: EvaluatedLanguageAbility
   estimatedLanguageAbility: EstimatedLanguageAbility
   isGovEmployee: Boolean
+  govEmployeeType: GovEmployeeType
   interestedInLaterOrSecondment: Boolean
   currentClassification: ClassificationBelongsTo
   isWoman: Boolean
@@ -1076,6 +1087,7 @@ type User {
   verbalLevel: EvaluatedLanguageAbility
   estimatedLanguageAbility: EstimatedLanguageAbility
   isGovEmployee: Boolean
+  govEmployeeType: GovEmployeeType
   interestedInLaterOrSecondment: Boolean
   currentClassification: Classification
   isWoman: Boolean
