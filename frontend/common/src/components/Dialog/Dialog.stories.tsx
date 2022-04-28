@@ -37,7 +37,7 @@ export default {
       type: { name: "boolean", required: false },
     },
     color: {
-      options: ["primary", "secondary", "tertiary"],
+      options: ["ts-primary", "ia-primary", "ia-secondary"],
     },
   },
 } as Meta;
@@ -77,8 +77,8 @@ export const DialogLongContent = TemplateDialog.bind({});
 export const ConfirmationDialog = TemplateDialog.bind({});
 export const ConfirmationDialogWithSubtitle = TemplateDialog.bind({});
 export const DialogWithFooter = TemplateDialog.bind({});
-export const SecondaryDialog = TemplateDialog.bind({});
-export const TertiaryDialog = TemplateDialog.bind({});
+export const IAPrimaryDialog = TemplateDialog.bind({});
+export const IASecondaryDialog = TemplateDialog.bind({});
 
 BasicDialog.args = {
   title: "Basic Dialog",
@@ -117,18 +117,18 @@ ConfirmationDialogWithSubtitle.args = {
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam efficitur leo a tellus imperdiet, quis imperdiet nulla viverra. Aliquam porttitor pellentesque rhoncus. ",
 };
 
-SecondaryDialog.args = {
-  title: "Secondary Dialog",
+IAPrimaryDialog.args = {
+  title: "IA Primary Dialog",
   subtitle: "Dialog Subtitle",
-  color: "secondary",
+  color: "ia-primary",
   content:
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam efficitur leo a tellus imperdiet, quis imperdiet nulla viverra. Aliquam porttitor pellentesque rhoncus. ",
 };
 
-TertiaryDialog.args = {
-  title: "Tertiary Dialog",
+IASecondaryDialog.args = {
+  title: "IA Secondary Dialog",
   subtitle: "Dialog Subtitle",
-  color: "tertiary",
+  color: "ia-secondary",
   content:
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam efficitur leo a tellus imperdiet, quis imperdiet nulla viverra. Aliquam porttitor pellentesque rhoncus. ",
 };

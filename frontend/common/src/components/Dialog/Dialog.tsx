@@ -7,7 +7,7 @@ import Content from "./Content";
 import "@reach/dialog/styles.css";
 import "./dialog.css";
 
-export type Color = "primary" | "secondary" | "tertiary";
+export type Color = "ts-primary" | "ia-primary" | "ia-secondary";
 
 export interface DialogProps {
   isOpen: boolean;
@@ -20,15 +20,15 @@ export interface DialogProps {
 }
 
 export const colorMap: Record<Color, Record<string, string>> = {
-  primary: {
+  "ts-primary": {
     "data-h2-bg-color": "b(linear-70[lightpurple][lightnavy])",
     "data-h2-font-color": "b(white)",
   },
-  secondary: {
+  "ia-primary": {
     "data-h2-bg-color": "b(linear-90[ia-lightpurple][ia-darkpurple])",
     "data-h2-font-color": "b(white)",
   },
-  tertiary: {
+  "ia-secondary": {
     "data-h2-bg-color": "b(linear-90[ia-pink][ia-darkpink])",
     "data-h2-font-color": "b(white)",
   },
@@ -39,7 +39,7 @@ const Dialog: React.FC<DialogProps> = ({
   subtitle,
   onDismiss,
   isOpen,
-  color = "primary",
+  color = "ia-primary",
   confirmation = false,
   footer,
   children,
