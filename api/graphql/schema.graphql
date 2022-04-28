@@ -264,12 +264,14 @@ enum WorkRegion {
 e.g. Overtime as Required, Shift Work, Travel as Required, etc.
 """
 enum OperationalRequirement {
-    OVERTIME
     SHIFT_WORK
     ON_CALL
     TRAVEL
     TRANSPORT_EQUIPMENT
     DRIVERS_LICENSE
+    WORK_WEEKENDS
+    OVERTIME_SCHEDULED
+    OVERTIME_SHORT_NOTICE
 }
 
 enum SalaryRange {
@@ -507,7 +509,7 @@ input PoolCandidateFilterInput {
     isIndigenous: Boolean @scope
     isVisibleMinority: Boolean @scope
     isWoman: Boolean @scope
-    languageAbility: LanguageAbility @where(key: "language_ability")
+    languageAbility: LanguageAbility @builder(method: "App\\Models\\PoolCandidate@filterByLanguageAbility")
     operationalRequirements: [OperationalRequirement] @builder(method: "App\\Models\\PoolCandidate@filterByOperationalRequirements")
     workRegions: [WorkRegion] @builder(method: "App\\Models\\PoolCandidate@filterByWorkRegions")
     pools: [PoolFilterInput] @builder(method: "App\\Models\\PoolCandidate@filterByPools")

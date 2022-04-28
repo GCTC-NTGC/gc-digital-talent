@@ -12,7 +12,7 @@ export const PersonalExperienceForm: React.FunctionComponent = () => {
   // to toggle whether End Date is required, the state of the Current Role checkbox must be monitored and have to adjust the form accordingly
   const isCurrent = useWatch({ name: "current-role", defaultValue: false });
   // ensuring end date isn't before the start date, using this as a minimum value
-  const watchStartDate = useWatch({ name: "start-date" });
+  const watchStartDate = useWatch({ name: "startDate" });
 
   return (
     <div>
@@ -32,7 +32,7 @@ export const PersonalExperienceForm: React.FunctionComponent = () => {
 
       <div>
         <Input
-          id="experience-title"
+          id="experienceTitle"
           label={intl.formatMessage({
             defaultMessage: "Short title for this experience",
             description:
@@ -42,13 +42,13 @@ export const PersonalExperienceForm: React.FunctionComponent = () => {
             defaultMessage: "Write title here...",
             description: "Placeholder for experience title input",
           })}
-          name="experience-title"
+          name="experienceTitle"
           type="text"
           rules={{ required: intl.formatMessage(errorMessages.required) }}
         />
 
         <TextArea
-          id="experience-description"
+          id="experienceDescription"
           label={intl.formatMessage({
             defaultMessage: "Experience Description",
             description:
@@ -58,7 +58,7 @@ export const PersonalExperienceForm: React.FunctionComponent = () => {
             defaultMessage: "Describe experience details here...",
             description: "Placeholder for experience description input",
           })}
-          name="experience-description"
+          name="experienceDescription"
           rules={{ required: intl.formatMessage(errorMessages.required) }}
         />
 
@@ -105,13 +105,13 @@ export const PersonalExperienceForm: React.FunctionComponent = () => {
         >
           <div data-h2-padding="b(right, none) s(right, l)">
             <Input
-              id="start-date"
+              id="startDate"
               label={intl.formatMessage({
                 defaultMessage: "Start Date",
                 description:
                   "Label displayed on Personal Experience form for start date input",
               })}
-              name="start-date"
+              name="startDate"
               type="date"
               rules={{ required: intl.formatMessage(errorMessages.required) }}
             />
@@ -120,13 +120,13 @@ export const PersonalExperienceForm: React.FunctionComponent = () => {
           <div>
             {!isCurrent && (
               <Input
-                id="end-date"
+                id="endDate"
                 label={intl.formatMessage({
                   defaultMessage: "End Date",
                   description:
                     "Label displayed on Personal Experience form for end date input",
                 })}
-                name="end-date"
+                name="endDate"
                 type="date"
                 rules={
                   isCurrent

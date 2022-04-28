@@ -18,6 +18,7 @@
         "plugin:react/recommended",
         "plugin:@typescript-eslint/recommended",
         "plugin:prettier/recommended",
+        "plugin:jsx-a11y/recommended",
         "prettier"
     ],
     "globals": {
@@ -44,7 +45,8 @@
         "react",
         "react-hooks",
         "@typescript-eslint",
-        "formatjs"
+        "formatjs",
+        "jsx-a11y"
     ],
     "rules": {
         "formatjs/no-id": "error",
@@ -68,9 +70,9 @@
         ],
         "react/jsx-props-no-spreading": "off",
         "react/require-default-props": "off",
-        "jsx-a11y/label-has-for": "off",
         "react-hooks/rules-of-hooks": "error",
         "react-hooks/exhaustive-deps": "warn",
+        "jsx-a11y/label-has-for":"error",
         "jsx-a11y/label-has-associated-control": [
             2,
             {

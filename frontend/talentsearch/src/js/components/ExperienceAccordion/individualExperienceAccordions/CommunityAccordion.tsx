@@ -5,6 +5,7 @@ import { Button } from "@common/components";
 import { CommunityExperience } from "@common/api/generated";
 import { useIntl } from "react-intl";
 import { getLocale } from "@common/helpers/localize";
+import { getDateRange } from "@common/helpers/dateUtils";
 
 const CommunityAccordion: React.FunctionComponent<CommunityExperience> = ({
   title,
@@ -24,11 +25,8 @@ const CommunityAccordion: React.FunctionComponent<CommunityExperience> = ({
         // eslint-disable-next-line react/no-array-index-key
         <ul key={index}>
           <li>
-            <p>
-              {skill.name?.[locale]}
-              <br />
-              {skill.description?.[locale]}
-            </p>
+            <p data-h2-font-color="b(lightpurple)">{skill.name?.[locale]}</p>
+            <p>{skill.description?.[locale]}</p>
           </li>
         </ul>
       ))
@@ -43,17 +41,7 @@ const CommunityAccordion: React.FunctionComponent<CommunityExperience> = ({
         },
         { title, organization },
       )}
-      subtitle={
-        endDate
-          ? `${startDate || ""} - ${endDate || ""}`
-          : intl.formatMessage(
-              {
-                defaultMessage: "Since: {startDate}",
-                description: "Since",
-              },
-              { startDate },
-            )
-      }
+      subtitle={getDateRange({ endDate, startDate, intl, locale })}
       context={
         skills?.length === 1
           ? intl.formatMessage({

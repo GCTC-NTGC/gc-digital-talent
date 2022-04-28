@@ -4,7 +4,7 @@ import { RegisterOptions, useFormContext } from "react-hook-form";
 import Radio from "../Radio";
 import { InputWrapper, Fieldset } from "../../inputPartials";
 
-export type Radio = { value: string | number; label: string };
+export type Radio = { value: string | number; label: string | React.ReactNode };
 
 export interface RadioGroupProps {
   /** Each input element will be given an id to match to its label, of the form `${idPrefix}-${value}` */

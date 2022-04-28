@@ -22,6 +22,8 @@ import {
   PoolCandidateFilterInput,
 } from "../../api/generated";
 
+const NullSelection = "NULL_SELECTION";
+
 const FilterBlock: React.FunctionComponent<{
   id: string;
   title: string | React.ReactNode;
@@ -59,8 +61,9 @@ function mapIdToValue<T extends { id: string }>(objs: T[]): Map<string, T> {
 type Option<V> = { value: V; label: string };
 export type FormValues = Pick<
   PoolCandidateFilter,
-  "languageAbility" | "workRegions" | "operationalRequirements"
+  "workRegions" | "operationalRequirements"
 > & {
+  languageAbility: LanguageAbility | typeof NullSelection;
   classifications: string[] | undefined;
   cmoAssets: string[] | undefined;
   employmentEquity: string[] | undefined;
@@ -121,10 +124,8 @@ export const SearchForm: React.FunctionComponent<SearchFormProps> = ({
         isWoman:
           values.employmentEquity &&
           values.employmentEquity?.includes("isWoman"),
-        ...(values.languageAbility === "ENGLISH" ||
-        values.languageAbility === "FRENCH" ||
-        values.languageAbility === "BILINGUAL"
-          ? { languageAbility: values.languageAbility }
+        ...(values.languageAbility !== NullSelection
+          ? { languageAbility: values.languageAbility as LanguageAbility }
           : {}), // Ensure null in FormValues is converted to undefined
         workRegions: values.workRegions || [],
       };
@@ -181,6 +182,13 @@ export const SearchForm: React.FunctionComponent<SearchFormProps> = ({
       })),
     [cmoAssets, locale, intl],
   );
+
+  const operationalRequirementsSubset = [
+    OperationalRequirement.ShiftWork,
+    OperationalRequirement.WorkWeekends,
+    OperationalRequirement.OvertimeScheduled,
+    OperationalRequirement.OvertimeShortNotice,
+  ];
 
   return (
     <FormProvider {...methods}>
@@ -274,7 +282,7 @@ export const SearchForm: React.FunctionComponent<SearchFormProps> = ({
             idPrefix="operationalRequirements"
             legend="Conditions of employment"
             name="operationalRequirements"
-            items={enumToOptions(OperationalRequirement).map(({ value }) => ({
+            items={operationalRequirementsSubset.map((value) => ({
               value,
               label: intl.formatMessage(getOperationalRequirement(value)),
             }))}
@@ -330,11 +338,14 @@ export const SearchForm: React.FunctionComponent<SearchFormProps> = ({
             idPrefix="languageAbility"
             legend="Language"
             name="languageAbility"
+            defaultSelected={NullSelection}
             items={[
               {
-                value: "null",
+                value: NullSelection,
                 label: intl.formatMessage({
-                  defaultMessage: "Any language",
+                  defaultMessage: "Any language (English or French)",
+                  description:
+                    "No preference for language ability - will accept English or French",
                 }),
               },
               ...enumToOptions(LanguageAbility).map(({ value }) => ({

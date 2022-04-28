@@ -23,7 +23,7 @@ jobs:
 
       - name: "Build docker image: api"
         working-directory: infrastructure
-        run: docker compose up api --detach
+        run: docker compose -f docker-compose.yml -f docker-compose.ci.yml up api --detach
 
       - name: "Re-generate lighthouse schema"
         working-directory: infrastructure

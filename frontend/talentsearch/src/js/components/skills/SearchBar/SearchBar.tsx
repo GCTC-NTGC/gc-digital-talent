@@ -28,47 +28,47 @@ const SearchBar: React.FunctionComponent<SearchBarProps> = ({
   return (
     <section>
       <FormProvider {...methods}>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <div role="search">
-            <Input
-              id="search-skills"
-              type="search"
-              name="query"
-              label={intl.formatMessage({
-                defaultMessage: "Search for specific skill...",
-                description: "Label for the skills search bar.",
-              })}
-              placeholder={intl.formatMessage({
-                defaultMessage: "e.g. Python, JavaScript, etc.",
-                description: "Placeholder for the skills search bar.",
-              })}
-              onChange={(e) => {
-                setValue("query", e.target.value);
-                if (e.target.value.length >= 2) handleSubmit(onSubmit)();
-              }}
-              onKeyPress={(e) => {
-                // If user tries to enter invalid string then setError on keypress
-                if (e.key === "Enter" && watchSearch.length < 2) {
-                  e.preventDefault();
-                  setError(
-                    "query",
-                    {
-                      type: "minLength",
-                      message: intl.formatMessage({
-                        defaultMessage:
-                          "You must enter a search term before pressing enter",
-                        description:
-                          "Error message displayed when the search term length is less then 2 characters.",
-                      }),
-                    },
-                    { shouldFocus: true },
-                  );
-                }
-              }}
-              errorPosition="top"
-            />
-          </div>
-        </form>
+        <div role="search">
+          <Input
+            id="search-skills"
+            type="search"
+            name="query"
+            label={intl.formatMessage({
+              defaultMessage: "Search for specific skill...",
+              description: "Label for the skills search bar.",
+            })}
+            placeholder={intl.formatMessage({
+              defaultMessage: "e.g. Python, JavaScript, etc.",
+              description: "Placeholder for the skills search bar.",
+            })}
+            onChange={(e) => {
+              setValue("query", e.target.value);
+              if (e.target.value.length >= 2) handleSubmit(onSubmit)();
+            }}
+            onKeyPress={(e) => {
+              // If user tries to enter invalid string then setError on keypress
+              if (e.key === "Enter" && watchSearch.length < 2) {
+                e.preventDefault();
+                setError(
+                  "query",
+                  {
+                    type: "minLength",
+                    message: intl.formatMessage({
+                      defaultMessage:
+                        "You must enter a search term before pressing enter",
+                      description:
+                        "Error message displayed when the search term length is less then 2 characters.",
+                    }),
+                  },
+                  { shouldFocus: true },
+                );
+              } else {
+                onSubmit({ query: watchSearch });
+              }
+            }}
+            errorPosition="top"
+          />
+        </div>
       </FormProvider>
     </section>
   );

@@ -84,3 +84,17 @@ TelephoneInput.args = {
     },
   },
 };
+
+export const ElementLabelText = TemplateInput.bind({});
+
+ElementLabelText.args = {
+  type: "text",
+  id: "firstName",
+  label: <span data-h2-font-weight="b(700)">First name</span>,
+  name: "firstNameElement",
+  rules: {
+    required: "This field is required",
+    maxLength: { value: 50, message: "Too long!" },
+  },
+  context: "Additional context about this field.",
+};

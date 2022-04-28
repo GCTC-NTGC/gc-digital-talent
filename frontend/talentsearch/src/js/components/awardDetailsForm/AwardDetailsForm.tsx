@@ -32,7 +32,7 @@ export const AwardDetailsForm: React.FunctionComponent = () => {
       <div data-h2-display="b(flex)" data-h2-padding="b(top, m)">
         <div data-h2-padding="b(right, l)">
           <Input
-            id="award-title"
+            id="awardTitle"
             label={intl.formatMessage({
               defaultMessage: "Award Title",
               description:
@@ -42,18 +42,18 @@ export const AwardDetailsForm: React.FunctionComponent = () => {
               defaultMessage: "Write award title here...",
               description: "Placeholder for award title input",
             })}
-            name="award-title"
+            name="awardTitle"
             type="text"
             rules={{ required: intl.formatMessage(errorMessages.required) }}
           />
 
           <Select
-            id="awarded-to"
+            id="awardedTo"
             label={intl.formatMessage({
               defaultMessage: "Awarded to",
               description: "Label displayed on Award form for awarded to input",
             })}
-            name="awarded-to"
+            name="awardedTo"
             nullSelection={intl.formatMessage({
               defaultMessage: "Choose one...",
               description:
@@ -74,7 +74,7 @@ export const AwardDetailsForm: React.FunctionComponent = () => {
           />
 
           <Input
-            id="issuing"
+            id="issuedBy"
             label={intl.formatMessage({
               defaultMessage: "Issuing Organization or Institution",
               description:
@@ -84,19 +84,19 @@ export const AwardDetailsForm: React.FunctionComponent = () => {
               defaultMessage: "Write name here...",
               description: "Placeholder for issuing organization input",
             })}
-            name="issuing"
+            name="issuedBy"
             type="text"
             rules={{ required: intl.formatMessage(errorMessages.required) }}
           />
 
           <Select
-            id="awarded-scope"
+            id="awardedScope"
             label={intl.formatMessage({
               defaultMessage: "Award Scope",
               description:
                 "Label displayed on Award form for award scope input",
             })}
-            name="awarded-scope"
+            name="awardedScope"
             nullSelection={intl.formatMessage({
               defaultMessage: "Choose one...",
               description:
@@ -122,13 +122,13 @@ export const AwardDetailsForm: React.FunctionComponent = () => {
 
         <div>
           <Input
-            id="date-awarded"
+            id="awardedDate"
             label={intl.formatMessage({
               defaultMessage: "Date Awarded",
               description:
                 "Label displayed on award form for date awarded input",
             })}
-            name="date-awarded"
+            name="awardedDate"
             type="date"
             rules={{ required: intl.formatMessage(errorMessages.required) }}
           />

@@ -21,8 +21,8 @@ export interface AddSkillsToExperienceProps {
   allSkills: Skill[];
   frequentSkills: Skill[];
   addedSkills: Skill[];
-  onRemoveSkill: (id: Scalars["ID"]) => Promise<void>;
-  onAddSkill: (id: Scalars["ID"]) => Promise<void>;
+  onRemoveSkill: (id: Scalars["ID"]) => void;
+  onAddSkill: (id: Scalars["ID"]) => void;
 }
 
 const AddSkillsToExperience: React.FunctionComponent<

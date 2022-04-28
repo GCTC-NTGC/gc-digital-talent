@@ -2,7 +2,6 @@
 
 parent_path=$( cd "$(dirname "${BASH_SOURCE[0]}")" ; pwd -P )
 source ${parent_path}/lib/common.sh
-source ${parent_path}/lib/load_nvm.sh
 
 cd /var/www/html/api
 cp .env.example .env
@@ -19,7 +18,6 @@ php artisan passport:client --personal --name="Laravel Personal Access Client" >
 ${parent_path}/update_auth_env.sh
 rm personal_access_client.txt
 php artisan config:clear
-nvm install --latest-npm
 npm install
 npm run dev
 chown -R www-data ./storage ./vendor
@@ -45,7 +43,6 @@ chmod -R 775 ./storage
 
 # setup frontend workspace
 cd /var/www/html/frontend
-nvm install --latest-npm
 npm install
 npm rebuild node-sass
 
@@ -57,6 +54,13 @@ npm run intl-compile
 
 # setup talentsearch project
 cd /var/www/html/frontend/talentsearch
+cp .env.example .env
+npm run codegen
+npm run intl-compile
+npm run dev
+
+# setup indigenous apprenticeship project
+cd /var/www/html/frontend/indigenousapprenticeship
 cp .env.example .env
 npm run codegen
 npm run intl-compile

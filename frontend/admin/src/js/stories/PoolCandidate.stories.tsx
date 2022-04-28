@@ -44,7 +44,9 @@ stories.add("Create Pool Candidate Form", () => (
     handleCreatePoolCandidate={async (
       data: CreatePoolCandidateAsAdminInput,
     ) => {
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      await new Promise((resolve) => {
+        setTimeout(resolve, 1000);
+      });
       action("Create Pool Candidate")(data);
       return null;
     }}
@@ -55,7 +57,7 @@ stories.add("Update Pool Candidate Form", () => {
   const poolCandidate: PoolCandidate = {
     id: "1",
     acceptedOperationalRequirements: [
-      OperationalRequirement.Overtime,
+      OperationalRequirement.OvertimeScheduled,
       OperationalRequirement.ShiftWork,
     ],
     cmoAssets: [fakeCmoAssets()[0], fakeCmoAssets()[1]],
@@ -87,7 +89,9 @@ stories.add("Update Pool Candidate Form", () => {
         id: string,
         data: UpdatePoolCandidateAsAdminInput,
       ): Promise<UpdatePoolCandidateMutation["updatePoolCandidateAsAdmin"]> => {
-        await new Promise((resolve) => setTimeout(resolve, 1000));
+        await new Promise((resolve) => {
+          setTimeout(resolve, 1000);
+        });
         action("Update Pool Candidate")(id, data);
         return Promise.resolve(
           data as UpdatePoolCandidateMutation["updatePoolCandidateAsAdmin"],
