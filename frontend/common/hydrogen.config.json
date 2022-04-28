@@ -139,7 +139,7 @@
     {
       "key": "sans",
       "loadType": "webfont",
-      "value": "Open Sans, sans-serif",
+      "value": "'Open Sans', sans-serif",
       "url": "https://fonts.googleapis.com/css2?family=Open+Sans&display=swap"
     }
   ],

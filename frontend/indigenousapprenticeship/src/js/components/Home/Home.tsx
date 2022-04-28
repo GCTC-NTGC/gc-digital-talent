@@ -97,18 +97,17 @@ const Home: React.FunctionComponent = () => {
           <div
             className="program__image-wrapper"
             data-h2-position="b(relative)"
-            data-h2-padding="m(left, l) m(right, xxl)"
+            data-h2-padding="m(left, m) m(right, l)"
           >
             <img
               src={imageUrl(
                 INDIGENOUSAPPRENTICESHIP_APP_DIR,
                 "indigenous-woman-smiling.jpg",
               )}
-              className="program__image"
+              className="program__image program__image--woman-smiling"
               alt=""
               data-h2-margin="b(top, xxs)"
               data-h2-position="b(relative)"
-              data-h2-radius="b(s)"
               data-h2-shadow="b(xs)"
             />
             <div
@@ -129,7 +128,7 @@ const Home: React.FunctionComponent = () => {
             />
           </div>
           <div>
-            <Heading className="about-program__title">
+            <Heading className="about-program__title" data-h2-font-size="b(h3)">
               {intl.formatMessage({
                 defaultMessage: "About the Program",
                 description: "Program information section title",
@@ -177,6 +176,7 @@ const Home: React.FunctionComponent = () => {
             data-h2-margin="b(bottom, l) m(bottom, xxs)"
           >
             <Heading
+              data-h2-font-size="b(h3)"
               data-h2-margin="b(top, l) m(top, xxs)"
               className="learn-program__title"
             >
