@@ -148,6 +148,12 @@ export const EducationExperienceForm: React.FunctionComponent = () => {
         <div>
           <Checkbox
             id="current-role"
+            boundingBox={true}
+            boundingBoxLabel={intl.formatMessage({
+              defaultMessage: "Current Education",
+              description:
+                "Label displayed on Education Experience form for current education bounded box",
+            })}
             label={intl.formatMessage({
               defaultMessage: "I am currently active in this education",
               description:
