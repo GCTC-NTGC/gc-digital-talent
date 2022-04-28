@@ -23,10 +23,9 @@ const Family: React.FunctionComponent<FamilyProps> = ({
 
   // generate the linguistically appropriate htmlFor, type checking requires a bit of a roundabout approach as [locale] evaluates to a type maybe
   let htmlForAssigner = "";
-  if (locale === "en"){
+  if (locale === "en") {
     htmlForAssigner = family.name.en ? family.name.en : "";
-  }
-  else {
+  } else {
     htmlForAssigner = family.name.fr ? family.name.fr : "";
   }
 
@@ -42,7 +41,7 @@ const Family: React.FunctionComponent<FamilyProps> = ({
       <label htmlFor={htmlForAssigner}>
         <input
           type="checkbox"
-          id={family.id}
+          id={htmlForAssigner}
           onChange={(e) => {
             callback(family, e.target.checked);
           }}
