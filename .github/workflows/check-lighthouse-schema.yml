@@ -29,7 +29,7 @@ jobs:
         working-directory: infrastructure
         run: |
           docker compose exec --no-TTY api php artisan lighthouse:print-schema --write
-          docker compose cp api:/var/www/html/api/storage/app/lighthouse-schema.graphql ../api/storage/app/
+          docker compose cp api:/var/www/html/api/storage/app/lighthouse-schema.graphql ../frontend/
 
       - name: Check for uncommitted changes
         id: changes
@@ -42,7 +42,7 @@ jobs:
         uses: actions/github-script@v5.1.0
         with:
           script: |
-            core.setFailed('Please update api/storage/app/lighthouse-schema.graphql')
+            core.setFailed('Please update frontend/lighthouse-schema.graphql')
 
       # Allows SSH access into CI environment for up to 1h.
       # Use `touch ~/continue` with session to end each one.

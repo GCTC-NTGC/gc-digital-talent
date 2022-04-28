@@ -1,3 +1,4 @@
 *
 !public/
 !.gitignore
+lighthouse-schema.graphql
