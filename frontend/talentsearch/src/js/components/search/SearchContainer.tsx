@@ -12,6 +12,10 @@ import {
   PoolCandidateFilterInput,
   Pool,
   UserPublicProfile,
+  KeyFilterInput,
+  PoolFilterInput,
+  ClassificationFilterInput,
+  Maybe,
 } from "../../api/generated";
 import { DIGITAL_CAREERS_POOL_KEY } from "../../talentSearchConstants";
 import EstimatedCandidates from "./EstimatedCandidates";
@@ -210,8 +214,14 @@ const candidateFilterToQueryArgs = (
 
   // Apply pick to each element of an array.
   const pickMap = (
-    list: any[] | null | undefined,
+    list:
+      | Maybe<Maybe<PoolFilterInput>[]>
+      | Maybe<Maybe<KeyFilterInput>[]>
+      | Maybe<Maybe<ClassificationFilterInput>[]>
+      | null
+      | undefined,
     keys: string | string[],
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ): any[] | undefined => list?.map((item) => pick(item, keys));
 
   return {

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Database\Helpers\ApiEnums;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -179,6 +180,11 @@ RAWSQL2;
     }
     public function filterByOperationalRequirements(Builder $query, ?array $operationalRequirements): Builder
     {
+        // if no filters provided then return query unchanged
+        if (empty($operationalRequirements)) {
+            return $query;
+        }
+
         // OperationalRequirements act as an AND filter. The query should only return candidates willing to accept ALL of the requirements.
             $query->whereJsonContains('accepted_operational_requirements', $operationalRequirements);
         return $query;
@@ -194,6 +200,17 @@ RAWSQL2;
                 } else {
                     $query->orWhereJsonContains('location_preferences', $region);
                 }
+            }
+        });
+        return $query;
+    }
+    public function filterByLanguageAbility(Builder $query, ?string $languageAbility): Builder
+    {
+        // If filtering for a specific language the query should return candidates of that language OR bilingual.
+        $query->where(function($query) use ($languageAbility) {
+            $query->where('language_ability', $languageAbility);
+            if ($languageAbility == ApiEnums::LANGUAGE_ABILITY_ENGLISH || $languageAbility == ApiEnums::LANGUAGE_ABILITY_FRENCH) {
+                $query->orWhere('language_ability', ApiEnums::LANGUAGE_ABILITY_BILINGUAL);
             }
         });
         return $query;

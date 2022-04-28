@@ -7,7 +7,7 @@ use App\Models\CmoAsset;
 use App\Models\Pool;
 use App\Models\PoolCandidateFilter;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Database\Helpers\EnumsForFactories;
+use Database\Helpers\ApiEnums;
 
 class PoolCandidateFilterFactory extends Factory
 {
@@ -45,7 +45,7 @@ class PoolCandidateFilterFactory extends Factory
                 ],
                 3
             ),
-            'operational_requirements' => $this->faker->optional->randomElements(EnumsForFactories::operationalRequirements(), 2),
+            'operational_requirements' => $this->faker->optional->randomElements(ApiEnums::operationalRequirements(), 2),
         ];
     }
 

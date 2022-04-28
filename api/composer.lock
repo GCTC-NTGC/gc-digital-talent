@@ -2839,16 +2839,16 @@
         },
         {
             "name": "nuwave/lighthouse",
-            "version": "v5.46.2",
+            "version": "v5.48.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nuwave/lighthouse.git",
-                "reference": "e663dba21eb8a7a25703c83a3aa3be9b33f5e327"
+                "reference": "9ca44e4f91fd8ee0efc5532ec0cef62edd7c0d34"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nuwave/lighthouse/zipball/e663dba21eb8a7a25703c83a3aa3be9b33f5e327",
-                "reference": "e663dba21eb8a7a25703c83a3aa3be9b33f5e327",
+                "url": "https://api.github.com/repos/nuwave/lighthouse/zipball/9ca44e4f91fd8ee0efc5532ec0cef62edd7c0d34",
+                "reference": "9ca44e4f91fd8ee0efc5532ec0cef62edd7c0d34",
                 "shasum": ""
             },
             "require": {
@@ -2965,7 +2965,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-04-14T15:35:01+00:00"
+            "time": "2022-04-22T10:01:25+00:00"
         },
         {
             "name": "opis/closure",
@@ -7078,16 +7078,16 @@
         },
         {
             "name": "laravel/sail",
-            "version": "v1.13.9",
+            "version": "v1.13.10",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/sail.git",
-                "reference": "7bb294fe99fc42c3b1bee83fb667cd7698b3c385"
+                "reference": "cbf55e1a392724313f7726c38578b5e008df6a0f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/sail/zipball/7bb294fe99fc42c3b1bee83fb667cd7698b3c385",
-                "reference": "7bb294fe99fc42c3b1bee83fb667cd7698b3c385",
+                "url": "https://api.github.com/repos/laravel/sail/zipball/cbf55e1a392724313f7726c38578b5e008df6a0f",
+                "reference": "cbf55e1a392724313f7726c38578b5e008df6a0f",
                 "shasum": ""
             },
             "require": {
@@ -7134,7 +7134,7 @@
                 "issues": "https://github.com/laravel/sail/issues",
                 "source": "https://github.com/laravel/sail"
             },
-            "time": "2022-04-04T15:21:51+00:00"
+            "time": "2022-04-14T18:29:22+00:00"
         },
         {
             "name": "mockery/mockery",

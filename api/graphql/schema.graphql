@@ -57,6 +57,7 @@ type User {
 
     # Gov info
     isGovEmployee: Boolean @rename(attribute: "is_gov_employee")
+    govEmployeeType: GovEmployeeType @rename(attribute: "gov_employee_type")
     interestedInLaterOrSecondment: Boolean
         @rename(attribute: "interested_in_later_or_secondment")
     currentClassification: Classification @belongsTo # Users current classification
@@ -135,6 +136,13 @@ enum JobLookingStatus {
     INACTIVE
 }
 
+enum GovEmployeeType {
+    STUDENT
+    CASUAL
+    TERM
+    INDETERMINATE
+}
+
 type Applicant {
     id: ID!
 
@@ -149,6 +157,7 @@ type Applicant {
 
     # Gov info
     isGovEmployee: Boolean @rename(attribute: "is_gov_employee")
+    govEmployeeType: GovEmployeeType @rename(attribute: "gov_employee_type")
     interestedInLaterOrSecondment: Boolean @rename(attribute: "interested_in_later_or_secondment")
     currentClassification: Classification @belongsTo # Users current classification
 
@@ -509,7 +518,7 @@ input PoolCandidateFilterInput {
     isIndigenous: Boolean @scope
     isVisibleMinority: Boolean @scope
     isWoman: Boolean @scope
-    languageAbility: LanguageAbility @where(key: "language_ability")
+    languageAbility: LanguageAbility @builder(method: "App\\Models\\PoolCandidate@filterByLanguageAbility")
     operationalRequirements: [OperationalRequirement] @builder(method: "App\\Models\\PoolCandidate@filterByOperationalRequirements")
     workRegions: [WorkRegion] @builder(method: "App\\Models\\PoolCandidate@filterByWorkRegions")
     pools: [PoolFilterInput] @builder(method: "App\\Models\\PoolCandidate@filterByPools")
@@ -580,6 +589,7 @@ input CreateUserInput {
 
     # Gov info
     isGovEmployee: Boolean @rename(attribute: "is_gov_employee")
+    govEmployeeType: GovEmployeeType @rename(attribute: "gov_employee_type")
     interestedInLaterOrSecondment: Boolean @rename(attribute: "interested_in_later_or_secondment")
     currentClassification: ClassificationBelongsTo
 
@@ -635,6 +645,7 @@ input UpdateUserAsAdminInput {
 
     # Gov info
     isGovEmployee: Boolean @rename(attribute: "is_gov_employee")
+    govEmployeeType: GovEmployeeType @rename(attribute: "gov_employee_type")
     interestedInLaterOrSecondment: Boolean @rename(attribute: "interested_in_later_or_secondment")
     currentClassification: ClassificationBelongsTo
 
@@ -686,6 +697,7 @@ input UpdateUserAsUserInput {
 
     # Gov info
     isGovEmployee: Boolean @rename(attribute: "is_gov_employee")
+    govEmployeeType: GovEmployeeType @rename(attribute: "gov_employee_type")
     interestedInLaterOrSecondment: Boolean @rename(attribute: "interested_in_later_or_secondment")
     currentClassification: ClassificationBelongsTo
 

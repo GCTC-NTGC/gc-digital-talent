@@ -17,7 +17,9 @@ stories.add("Create Department Form", () => {
   return (
     <CreateDepartmentForm
       handleCreateDepartment={async (data: CreateDepartmentInput) => {
-        await new Promise((resolve) => setTimeout(resolve, 1000));
+        await new Promise((resolve) => {
+          setTimeout(resolve, 1000);
+        });
         action("Create Department")(data);
         return null;
       }}
@@ -39,7 +41,9 @@ stories.add("Update Department Form", () => {
     <UpdateDepartmentForm
       initialDepartment={department}
       handleUpdateDepartment={async (id, data) => {
-        await new Promise((resolve) => setTimeout(resolve, 1000));
+        await new Promise((resolve) => {
+          setTimeout(resolve, 1000);
+        });
         action("Update Department")(data);
         return {
           id,
