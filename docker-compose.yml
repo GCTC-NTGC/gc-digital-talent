@@ -22,10 +22,13 @@ services:
       # - 8080:8080 # for convenience/troubleshooting
 
   frontend:
-    build: ./frontend
+    # build: ./frontend
+    image: gc_digital_talent_frontend:latest
     ports:
       - 8002:80
       - 8003:443
+    env_file:
+      - frontend/admin/.apache_env
 
   # php:
   #   build: ./php-container
@@ -63,7 +66,8 @@ services:
   #     - ../tc-report:/var/www/html/tc-report
 
   api:
-    build: ./api
+    # build: ./api
+    image: gc_digital_talent_api:latest
     depends_on:
       - postgres
     ports:

@@ -1,15 +1,22 @@
 API_IMAGE = gc_digital_talent_api
-API_IMAGE_TAG = latest
+FRONTEND_IMAGE = gc_digital_talent_frontend
+TAG = latest
 
 .PHONY: help
 
 build-api: ## Build the api docker image.
-	docker build -t ${API_IMAGE}:${API_IMAGE_TAG} ./api
+	docker build -t ${API_IMAGE}:${TAG} ./api
 
 write-schema: build-api ## Compile the api graphql schema and output it to the frontend folder on the host machine.
-	docker run --name ${API_IMAGE}_${API_IMAGE_TAG} ${API_IMAGE}:${API_IMAGE_TAG} /bin/bash -c "cd /var/www/html && php artisan lighthouse:print-schema --write"
-	docker cp ${API_IMAGE}_${API_IMAGE_TAG}:/var/www/html/storage/app/lighthouse-schema.graphql ./frontend/lighthouse-schema.graphql
-	docker rm -f ${API_IMAGE}_${API_IMAGE_TAG}
+	docker run --name ${API_IMAGE}_${TAG} ${API_IMAGE}:${TAG} /bin/bash -c "cd /var/www/html && php artisan lighthouse:print-schema --write"
+	docker cp ${API_IMAGE}_${TAG}:/var/www/html/storage/app/lighthouse-schema.graphql ./frontend/lighthouse-schema.graphql
+	docker rm -f ${API_IMAGE}_${TAG}
+
+build-frontend: write-schema ## Build the frontend docker image.
+	docker build -t ${FRONTEND_IMAGE}:${TAG} ./frontend
+
+run: build-api build-frontend ## Run docker-compose
+	docker-compose up -d
 
 help:
 	@echo 'Usage: make <command>'
