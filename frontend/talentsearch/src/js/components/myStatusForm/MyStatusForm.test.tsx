@@ -8,6 +8,7 @@ import {
   GetMystatusQuery,
   WorkRegion,
   JobLookingStatus,
+  User,
 } from "../../api/generated";
 import { render, screen, fireEvent, act, waitFor } from "../../tests/testUtils";
 import { MyStatusForm, MyStatusFormProps } from "./MyStatusForm";
@@ -22,19 +23,50 @@ const renderMyStatusForm = ({
 };
 const mockUser = fakeUsers()[0];
 
-const mockInitialData: GetMystatusQuery | undefined = {
-  __typename: "Query",
-  me: {
-    __typename: "User",
-    id: "thanka11",
-    jobLookingStatus: JobLookingStatus.ActivelyLooking,
-  },
+const mockInitialData: User = {
+  id: "thanka11",
+  jobLookingStatus: JobLookingStatus.ActivelyLooking,
+  email: "",
 };
-const mockInitialEmptyData: GetMystatusQuery | undefined = {
-  __typename: "Query",
-  me: {
-    __typename: "User",
-    id: "thanka11",
-    jobLookingStatus: undefined,
-  },
+
+const mockInitialEmptyData: User = {
+  id: "thanka11",
+  email: "",
+  jobLookingStatus: undefined,
 };
+
+describe("LanguageInformationForm tests", () => {
+  test("should render fields", () => {
+    const onClick = jest.fn();
+    renderMyStatusForm({
+      initialData: mockInitialEmptyData,
+      handleMyStatus: onClick,
+    });
+    expect(
+      screen.getByRole("radio", {
+        name: /Actively looking -/i,
+      }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("radio", {
+        name: /Open to opportunities - /i,
+      }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("radio", {
+        name: /Inactive - I /i,
+      }),
+    ).toBeInTheDocument();
+  });
+  // test("Can't submit if no fields entered.", async () => {
+  //   const mockSave = jest.fn();
+  //   renderMyStatusForm({
+  //     initialData: mockInitialEmptyData,
+  //     handleMyStatus: mockSave,
+  //   });
+
+  //   fireEvent.submit(screen.getByText(/save/i));
+
+  //   await waitFor(() => expect(mockSave).not.toHaveBeenCalled());
+  // });
+});
