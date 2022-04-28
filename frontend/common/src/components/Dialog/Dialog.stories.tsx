@@ -43,7 +43,7 @@ export default {
 } as Meta;
 
 const TemplateDialog: Story = (args) => {
-  const [isOpen, setOpen] = React.useState<boolean>(false);
+  const [isOpen, setOpen] = React.useState<boolean>(true);
 
   const handleDismiss = () => {
     setOpen(false);
