@@ -38,7 +38,7 @@ const Family: React.FunctionComponent<FamilyProps> = ({
       data-h2-padding="b(all, xxs)"
       key={family.key}
     >
-      <label htmlFor={htmlForAssigner}>
+      <label>
         <input
           type="checkbox"
           id={htmlForAssigner}
