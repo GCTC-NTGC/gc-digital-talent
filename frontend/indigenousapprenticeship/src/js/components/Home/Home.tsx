@@ -197,6 +197,34 @@ const Home: React.FunctionComponent = () => {
         >
           <div data-h2-display="m(flex)">
             <div
+              className="program__image-wrapper learn-program__image-wrapper"
+              data-h2-position="b(relative)"
+              data-h2-padding="m(right-left, m)"
+            >
+              <img
+                src={imageUrl(
+                  INDIGENOUSAPPRENTICESHIP_APP_DIR,
+                  "man-on-computer.jpg",
+                )}
+                className="program__image"
+                alt=""
+                data-h2-position="b(relative)"
+              />
+              <img
+                src={imageUrl(INDIGENOUSAPPRENTICESHIP_APP_DIR, "gloves.png")}
+                className="learn-program__gloves"
+                alt=""
+                data-h2-position="b(absolute)"
+                data-h2-width="b(100)"
+              />
+              <RadiatingCircles
+                className="learn-program__circles"
+                data-h2-font-color="b(ia-gray)"
+                data-h2-position="b(absolute)"
+                data-h2-width="b(100)"
+              />
+            </div>
+            <div
               className="learn-program__content"
               data-h2-position="b(relative)"
               data-h2-margin="b(bottom, l) m(bottom, xxs)"
@@ -241,34 +269,6 @@ const Home: React.FunctionComponent = () => {
                   onClickLearn={() => setLearnDialogOpen(true)}
                 />
               </div>
-            </div>
-            <div
-              className="program__image-wrapper"
-              data-h2-position="b(relative)"
-              data-h2-padding="m(right-left, m)"
-            >
-              <img
-                src={imageUrl(
-                  INDIGENOUSAPPRENTICESHIP_APP_DIR,
-                  "man-on-computer.jpg",
-                )}
-                className="program__image"
-                alt=""
-                data-h2-position="b(relative)"
-              />
-              <img
-                src={imageUrl(INDIGENOUSAPPRENTICESHIP_APP_DIR, "gloves.png")}
-                className="learn-program__gloves"
-                alt=""
-                data-h2-position="b(absolute)"
-                data-h2-width="b(100)"
-              />
-              <RadiatingCircles
-                className="learn-program__circles"
-                data-h2-font-color="b(ia-gray)"
-                data-h2-position="b(absolute)"
-                data-h2-width="b(100)"
-              />
             </div>
           </div>
         </div>

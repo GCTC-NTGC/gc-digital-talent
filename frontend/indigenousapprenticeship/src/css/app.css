@@ -272,6 +272,14 @@
     margin-bottom: 8rem;
   }
 
+  .learn-program__content {
+    order: 1;
+  }
+
+  .learn-program__image-wrapper {
+    order: 2;
+  }
+
   .learn-program__gloves {
     bottom: -10rem;
     left: 50%;
