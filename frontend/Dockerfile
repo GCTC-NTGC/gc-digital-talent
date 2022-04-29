@@ -27,9 +27,14 @@ COPY ./my-httpd.conf /usr/local/apache2/conf/httpd.conf
 WORKDIR /usr/local/apache2/htdocs
 RUN rm -rf ./*
 
+# Set htdocs to be the apache document root
+ENV APACHE_DOCUMENT_ROOT /usr/local/apache2/htdocs
+RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
+RUN sed -ri -e 's!/var/www/!${APACHE_DOCUMENT_ROOT}!g' /etc/apache2/apache2.conf /etc/apache2/conf-available/*.conf
+
 # #TODO: can we copy these directly to the root hosting directory and not have issues  with loading /admin?
 COPY conf/root.htaccess ./
-COPY conf/talentsearch.htaccess /app/talentsearch/.htaccess
-COPY conf/admin.htaccess /app/admin/.htaccess
-COPY --from=builder /app/talentsearch/dist ./app/talentsearch/
-COPY --from=builder /app/admin/dist ./app/admin/
+COPY conf/talentsearch.htaccess ./talentsearch/.htaccess
+COPY conf/admin.htaccess ./admin/.htaccess
+COPY --from=builder /app/talentsearch/dist ./talentsearch/
+COPY --from=builder /app/admin/dist ./admin/

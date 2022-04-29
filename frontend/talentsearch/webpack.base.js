@@ -22,7 +22,7 @@ module.exports = {
     new CopyPlugin({
       patterns: [
         { from: "src/images", to: "images" },
-        { from: "src/.htaccess" },
+        // { from: "src/.htaccess" },
         { from: "src/site.webmanifest" },
       ],
     }),
