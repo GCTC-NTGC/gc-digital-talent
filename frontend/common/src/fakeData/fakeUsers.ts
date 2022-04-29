@@ -20,6 +20,7 @@ import {
   EducationExperience,
   PersonalExperience,
   WorkExperience,
+  GovEmployeeType,
 } from "../api/generated";
 import fakeClassifications from "./fakeClassifications";
 import fakeCmoAssets from "./fakeCmoAssets";
@@ -79,6 +80,12 @@ const generateUser = (
 
     // Gov info
     isGovEmployee: faker.datatype.boolean(),
+    govEmployeeType: faker.random.arrayElement<GovEmployeeType>([
+      GovEmployeeType.Student,
+      GovEmployeeType.Casual,
+      GovEmployeeType.Term,
+      GovEmployeeType.Indeterminate,
+    ]),
     interestedInLaterOrSecondment: faker.datatype.boolean(),
     currentClassification:
       faker.random.arrayElement<Classification>(classifications),

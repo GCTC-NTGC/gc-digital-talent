@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react";
+import React, { ReactElement, useRef } from "react";
 import { Routes } from "universal-router";
 import { useIntl } from "react-intl";
 import NavMenu from "@common/components/NavMenu";
@@ -74,7 +74,9 @@ export const PageContainer: React.FC<{
   contentRoutes: Routes<RouterResult>;
 }> = ({ menuItems, contentRoutes }) => {
   const intl = useIntl();
-  const content = useRouter(contentRoutes, <TalentSearchNotFound />);
+  // stabilize component that will not change during life of app, avoid render loops in router
+  const notFoundComponent = useRef(<TalentSearchNotFound />);
+  const content = useRouter(contentRoutes, notFoundComponent.current);
   return (
     <ScrollToTop>
       <>

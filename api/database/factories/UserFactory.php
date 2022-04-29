@@ -120,6 +120,7 @@ class UserFactory extends Factory
             ),
             'would_accept_temporary' => $this->faker->boolean(),
             'accepted_operational_requirements' => $this->faker->optional->randomElements(ApiEnums::operationalRequirements(), 2),
+            'gov_employee_type' => $this->faker->randomElement(ApiEnums::govEmployeeTypes()),
         ];
     }
 }

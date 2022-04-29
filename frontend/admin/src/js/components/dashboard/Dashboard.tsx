@@ -1,4 +1,4 @@
-import React, { ReactElement, useContext } from "react";
+import React, { ReactElement, useContext, useRef } from "react";
 import { useIntl } from "react-intl";
 import { useLocation, useRouter, RouterResult } from "@common/helpers/router";
 import { getLocale } from "@common/helpers/localize";
@@ -188,7 +188,9 @@ export const Dashboard: React.FC<{
   contentRoutes: Routes<RouterResult>;
 }> = ({ menuItems, contentRoutes }) => {
   const intl = useIntl();
-  const content = useRouter(contentRoutes, <AdminNotFound />);
+  // stabilize component that will not change during life of app, avoid render loops in router
+  const notFoundComponent = useRef(<AdminNotFound />);
+  const content = useRouter(contentRoutes, notFoundComponent.current);
   return (
     <>
       <a href="#main" data-h2-visibility="b(hidden)">
