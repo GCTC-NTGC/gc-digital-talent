@@ -1,4 +1,4 @@
-import React, { useMemo, useCallback } from "react";
+import React, { useMemo, useCallback, useRef } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { Checklist, MultiSelect, RadioGroup } from "@common/components/form";
@@ -141,24 +141,25 @@ export const SearchForm: React.FunctionComponent<SearchFormProps> = ({
 
   // Whenever form values change (with some debounce allowance), call updateCandidateFilter
   const formValues = watch();
-  const submitDebounced = useCallback(
+  // Need just a single instance of the debounce function without dependencies.  It has internal state that shouldn't be lost between renders.
+  const submitDebounced = useRef(
     debounce((values: FormValues) => {
       if (updateCandidateFilter) {
         updateCandidateFilter(formValuesToData(values));
       }
     }, 200),
-    [formValuesToData, updateCandidateFilter],
   );
 
   // Use deep comparison to prevent infinite re-rendering
   useDeepCompareEffect(() => {
-    submitDebounced(formValues);
+    const debouncingFunc = submitDebounced.current;
+    debouncingFunc(formValues);
     updateInitialValues(formValues);
     return () => {
       // Clear debounce timer when component unmounts
-      submitDebounced.clear();
+      debouncingFunc.clear();
     };
-  }, [formValues]);
+  }, [formValues, updateInitialValues]);
 
   const classificationOptions: Option<string>[] = useMemo(
     () =>

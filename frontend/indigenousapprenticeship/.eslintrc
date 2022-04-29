@@ -72,7 +72,13 @@
         "react/require-default-props": "off",
         "jsx-a11y/label-has-for": "error",
         "react-hooks/rules-of-hooks": "error",
-        "react-hooks/exhaustive-deps": "warn",
+        "react-hooks/exhaustive-deps": [
+            "warn",
+            {
+                "additionalHooks":
+                    "(useDeepCompareEffect)"
+            }
+        ],
         "jsx-a11y/label-has-associated-control": [
             2,
             {
