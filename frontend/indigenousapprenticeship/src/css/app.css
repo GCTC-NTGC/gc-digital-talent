@@ -200,13 +200,13 @@
   }
 
   .program__image--woman-smiling {
-    object-position: center;
+    object-position: bottom;
   }
 
   .about-program__feathers {
-    bottom: -2rem;
-    left: -4rem;
-    width: 120%;
+    bottom: -4rem;
+    right: -1rem;
+    width: 95%;
   }
 
   .learn-program__gloves {
