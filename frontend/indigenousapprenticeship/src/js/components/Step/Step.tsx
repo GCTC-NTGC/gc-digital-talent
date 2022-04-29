@@ -12,6 +12,7 @@ const Step: React.FC<StepProps> = ({ position, title, children }) => (
     data-h2-display="b(flex)"
     data-h2-flex-direction="b(column)"
     data-h2-align-items="b(center)"
+    data-h2-padding="b(right-left, l) m(right-left, none)"
   >
     <Heading
       as="h5"
