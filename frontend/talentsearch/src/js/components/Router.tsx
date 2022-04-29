@@ -3,6 +3,7 @@ import { useIntl } from "react-intl";
 import { Routes } from "universal-router";
 import { RouterResult } from "@common/helpers/router";
 import Toast from "@common/components/Toast";
+import { useFeatureFlags } from "@common/hooks/useFeatureFlags";
 import ClientProvider from "./ClientProvider";
 import PageContainer, { MenuLink } from "./PageContainer";
 import SearchPage from "./search/SearchPage";
@@ -23,9 +24,8 @@ import WorkPreferencesApi from "./workPreferencesForm/WorkPreferencesForm";
 import { GovInfoFormContainer } from "./GovernmentInfoForm/GovernmentInfoForm";
 import LanguageInformationFormContainer from "./languageInformationForm/LanguageInformationForm";
 
-const routes = (
+const talentRoutes = (
   talentPaths: TalentSearchRoutes,
-  profilePaths: ApplicantProfileRoutes,
 ): Routes<RouterResult> => [
   {
     path: talentPaths.home(),
@@ -46,6 +46,11 @@ const routes = (
       component: <RequestPage />,
     }),
   },
+];
+
+const profileRoutes = (
+  profilePaths: ApplicantProfileRoutes,
+): Routes<RouterResult> => [
   {
     path: profilePaths.home(),
     action: () => ({
@@ -91,6 +96,7 @@ export const Router: React.FC = () => {
   const intl = useIntl();
   const talentPaths = useTalentSearchRoutes();
   const profilePaths = useApplicantProfileRoutes();
+  const flags = useFeatureFlags();
 
   const menuItems = [
     <MenuLink
@@ -114,7 +120,10 @@ export const Router: React.FC = () => {
     <ClientProvider>
       <PageContainer
         menuItems={menuItems}
-        contentRoutes={routes(talentPaths, profilePaths)}
+        contentRoutes={[
+          ...talentRoutes(talentPaths),
+          ...(flags.applicantProfile() ? profileRoutes(profilePaths) : []),
+        ]}
       />
       <Toast />
     </ClientProvider>

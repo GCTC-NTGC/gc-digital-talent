@@ -23,6 +23,7 @@ module.exports = {
       patterns: [
         { from: "src/images", to: "images" },
         { from: "src/.htaccess" },
+        { from: "src/config.sjs" },
         { from: "src/site.webmanifest" },
       ],
     }),
