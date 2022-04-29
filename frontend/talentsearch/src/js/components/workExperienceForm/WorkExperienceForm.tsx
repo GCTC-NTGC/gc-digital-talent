@@ -67,7 +67,7 @@ export const WorkExperienceForm: React.FunctionComponent = () => {
         </div>
         <div>
           <Checkbox
-            boundingBox={true}
+            boundingBox
             boundingBoxLabel={intl.formatMessage({
               defaultMessage: "Current Role",
               description:

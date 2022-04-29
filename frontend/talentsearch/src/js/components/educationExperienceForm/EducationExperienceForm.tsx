@@ -148,7 +148,7 @@ export const EducationExperienceForm: React.FunctionComponent = () => {
         <div>
           <Checkbox
             id="current-role"
-            boundingBox={true}
+            boundingBox
             boundingBoxLabel={intl.formatMessage({
               defaultMessage: "Current Education",
               description:

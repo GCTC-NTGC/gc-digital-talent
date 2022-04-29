@@ -5,7 +5,6 @@ import { Input } from "@common/components/form/Input";
 import { Checkbox } from "@common/components/form/Checkbox";
 import { TextArea } from "@common/components/form/TextArea";
 import { errorMessages } from "@common/messages";
-import { Fieldset } from "@common/components/inputPartials/Fieldset";
 
 export const PersonalExperienceForm: React.FunctionComponent = () => {
   const intl = useIntl();
@@ -63,7 +62,7 @@ export const PersonalExperienceForm: React.FunctionComponent = () => {
         />
 
         <Checkbox
-          boundingBox={true}
+          boundingBox
           boundingBoxLabel={intl.formatMessage({
             defaultMessage: "Disclaimer",
             description:
@@ -81,7 +80,7 @@ export const PersonalExperienceForm: React.FunctionComponent = () => {
         />
 
         <Checkbox
-          boundingBox={true}
+          boundingBox
           boundingBoxLabel={intl.formatMessage({
             defaultMessage: "Current Experience",
             description:

@@ -87,7 +87,7 @@ export const CommunityExperienceForm: React.FunctionComponent = () => {
         </div>
         <div>
           <Checkbox
-            boundingBox={true}
+            boundingBox
             boundingBoxLabel={intl.formatMessage({
               defaultMessage: "Current Role",
               description:
