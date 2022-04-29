@@ -54,7 +54,11 @@ const Home: React.FunctionComponent = () => {
                 data-h2-align-items="b(center)"
                 data-h2-justify-content="b(space-between)"
               >
-                <div className="hero__logo" data-h2-width="m(50)">
+                <div
+                  className="hero__logo"
+                  data-h2-margin="l(top, m)"
+                  data-h2-width="m(50)"
+                >
                   <h1>
                     <img
                       data-h2-margin="b(top, m)"
@@ -104,7 +108,7 @@ const Home: React.FunctionComponent = () => {
           className="about-program"
           data-h2-container="m(center, m)"
           data-h2-margin="m(bottom, xxl)"
-          data-h2-padding="m(all, l)"
+          data-h2-padding="m(all, xl)"
           data-h2-position="b(relative)"
           data-h2-bg-color="b(white)"
           data-h2-radius="b(s)"
@@ -113,7 +117,7 @@ const Home: React.FunctionComponent = () => {
             <div
               className="program__image-wrapper"
               data-h2-position="b(relative)"
-              data-h2-padding="m(left, m) m(right, l)"
+              data-h2-padding="m(right, l)"
             >
               <img
                 src={imageUrl(

@@ -185,6 +185,10 @@
   /* .portal-panel__strategy__item {
     width: 50%;
   } */
+
+  .hero__apply {
+    margin-bottom: 10rem;
+  }
   .program__image-wrapper {
     width: 100%;
     max-width: 100%;
@@ -230,13 +234,18 @@
   }
 
   .hero__apply {
-    margin-bottom: 6rem;
+    margin-bottom: 24%;
   }
 
   .about-program {
     box-shadow: 0px -26px 44px rgba(0, 0, 0, 0.05);
     margin-top: -4rem;
     z-index: 2;
+  }
+
+  .about-program > div {
+    margin: 0 -8rem;
+    padding: 0 7rem;
   }
 
   .about-program__title {
