@@ -555,7 +555,8 @@ type Query {
     skills: [Skill]! @all
 }
 input ClassificationBelongsTo {
-    connect: ID!
+    connect: ID
+    disconnect: Boolean
 }
 input PoolsHasMany {
     create: [CreatePoolInput]

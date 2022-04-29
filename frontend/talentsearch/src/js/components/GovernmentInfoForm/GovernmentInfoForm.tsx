@@ -57,7 +57,9 @@ const formValuesToSubmitData = (
       isGovEmployee: false,
       govEmployeeType: null,
       interestedInLaterOrSecondment: null,
-      currentClassification: null,
+      currentClassification: {
+        connect: null,
+      },
     };
   }
   if (values.govEmployeeType === GovEmployeeType.Student) {
@@ -65,7 +67,9 @@ const formValuesToSubmitData = (
       isGovEmployee: values.govEmployeeYesNo === "yes",
       govEmployeeType: values.govEmployeeType,
       interestedInLaterOrSecondment: null,
-      currentClassification: null,
+      currentClassification: {
+        disconnect: true,
+      },
     };
   }
   if (values.govEmployeeType === GovEmployeeType.Casual) {
