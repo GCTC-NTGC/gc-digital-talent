@@ -232,7 +232,7 @@ const ExperienceAndSkills: React.FunctionComponent<ExperienceAndSkillsProps> =
             {intl.formatMessage({
               defaultMessage: "Add new experience:",
               description:
-                "Label before new experience buttons on experience and skills page.",
+                "Message to user when no experiences have been attached to profile",
             })}
           </p>
           <div
