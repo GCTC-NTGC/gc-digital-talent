@@ -87,38 +87,34 @@ export const MyStatusForm: React.FC<MyStatusFormProps> = ({
 
   // Checking About Me Form
   if (
-    preferredLang?.length === 0 ||
-    currentProvince?.length === 0 ||
-    currentCity?.length === 0 ||
-    telephone?.length === 0 ||
-    firstName?.length === 0 ||
-    lastName?.length === 0 ||
-    email?.length === 0
+    preferredLang ||
+    currentProvince ||
+    currentCity ||
+    telephone ||
+    firstName ||
+    lastName ||
+    email
   ) {
     isFormActive = false;
   }
   // Checking Language Information Form
-  if (
-    lookingForBilingual !== true &&
-    lookingForFrench !== true &&
-    lookingForEnglish !== true
-  ) {
+  if (!lookingForBilingual && !lookingForFrench && !lookingForEnglish) {
     isFormActive = false;
   }
   // Checking government Information Form
-  if (isGovEmployee == null) {
+  if (isGovEmployee) {
     isFormActive = false;
   }
   // Checking Work Location Form
-  if (locationPreferences?.length === 0) {
+  if (locationPreferences) {
     isFormActive = false;
   }
   // Checking Work Preferences Form
-  if (wouldAcceptTemporary === null) {
+  if (wouldAcceptTemporary) {
     isFormActive = false;
   }
   // Checking Remaining Required Fields
-  if (expectedSalary?.length === 0) {
+  if (expectedSalary) {
     isFormActive = false;
   }
 
@@ -202,7 +198,7 @@ export const MyStatusForm: React.FC<MyStatusFormProps> = ({
   );
 };
 
-export const MyStatusApi: React.FunctionComponent = () => {
+const MyStatusApi: React.FunctionComponent = () => {
   const intl = useIntl();
   const paths = useApplicantProfileRoutes();
 

@@ -15,6 +15,7 @@ const mockUser: GetMystatusQuery | undefined = {
     __typename: "User",
     id: "11",
     jobLookingStatus: JobLookingStatus.ActivelyLooking,
+    email: "eee@lkj.com",
   },
 };
 
