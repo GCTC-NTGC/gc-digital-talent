@@ -328,6 +328,8 @@
 
   .talent-portal-card__image {
     bottom: 0;
+    object-fit: cover;
+    object-position: bottom;
     right: 0;
     margin-top: -4rem;
     position: relative;
