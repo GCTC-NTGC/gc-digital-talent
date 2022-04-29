@@ -109,7 +109,7 @@
 }
 
 .quote-wrapper {
-  background-position: center;
+  background-position: right;
   background-size: cover;
 }
 
@@ -131,6 +131,22 @@
 
 .apply-program {
   padding-bottom: 7rem;
+  overflow: hidden;
+}
+
+.apply-program__bg {
+  background-position: top left;
+  background-size: cover;
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 1;
+}
+
+.apply-program__box-wrapper {
+  z-index: 2;
 }
 
 .apply-program__box__image {
@@ -289,6 +305,10 @@
     bottom: -10rem;
     right: -17rem;
     width: calc(30% + 16rem);
+  }
+
+  .quote-wrapper {
+    background-position: left;
   }
 
   .quote--open {

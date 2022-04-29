@@ -6,7 +6,7 @@ import OpenQuote from "../Svg/OpenQuote";
 import type { Quote as QuoteProps } from "../../hooks/useQuote";
 
 const Quote: React.FC<QuoteProps> = ({ content, author }) => (
-  <figure data-h2-margin="b(top-bottom, m)">
+  <figure data-h2-padding="b(top-bottom, xxl)">
     <blockquote
       data-h2-display="b(flex)"
       data-h2-flex-direction="b(column)"
@@ -15,7 +15,7 @@ const Quote: React.FC<QuoteProps> = ({ content, author }) => (
       data-h2-font-color="b(white)"
     >
       <p
-        data-h2-font-size="b(h4) m(h2) l(h1)"
+        data-h2-font-size="b(h2) l(h1)"
         data-h2-font-weight="b(900)"
         data-h2-padding="b(all, xl)"
         data-h2-position="b(relative)"

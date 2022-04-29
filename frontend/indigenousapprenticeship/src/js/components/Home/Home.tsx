@@ -361,7 +361,7 @@ const Home: React.FunctionComponent = () => {
         </div>
         <div
           className="quote-wrapper"
-          data-h2-padding="b(top-bottom, xl)"
+          data-h2-padding="b(top-bottom, xxl)"
           style={{
             backgroundImage: `url(${imageUrl(
               INDIGENOUSAPPRENTICESHIP_APP_DIR,
@@ -386,14 +386,13 @@ const Home: React.FunctionComponent = () => {
         <div
           className="apply-program"
           data-h2-padding="b(top, xl) m(top, xxl)"
-          style={{
-            backgroundImage: `url(${imageUrl(
-              INDIGENOUSAPPRENTICESHIP_APP_DIR,
-              "apply-bg.jpg",
-            )})`,
-          }}
+          data-h2-position="b(relative)"
         >
-          <div data-h2-container="b(center, m)">
+          <div
+            className="apply-program__box-wrapper"
+            data-h2-container="b(center, m)"
+            data-h2-position="b(relative)"
+          >
             <div
               className="apply-program__box"
               data-h2-bg-color="b(ia-lightpurple)"
@@ -455,6 +454,26 @@ const Home: React.FunctionComponent = () => {
               </div>
             </div>
           </div>
+          <div
+            data-h2-visibility="b(visible) m(hidden)"
+            className="apply-program__bg"
+            style={{
+              backgroundImage: `url(${imageUrl(
+                INDIGENOUSAPPRENTICESHIP_APP_DIR,
+                "sash-vert.jpg",
+              )})`,
+            }}
+          />
+          <div
+            data-h2-visibility="b(hidden) m(visible)"
+            className="apply-program__bg"
+            style={{
+              backgroundImage: `url(${imageUrl(
+                INDIGENOUSAPPRENTICESHIP_APP_DIR,
+                "sash.jpg",
+              )})`,
+            }}
+          />
         </div>
         <div
           className="portal-panel"
