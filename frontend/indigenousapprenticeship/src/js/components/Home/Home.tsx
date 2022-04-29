@@ -20,11 +20,15 @@ import Triangle from "../Svg/Triangle";
 import useQuote from "../../hooks/useQuote";
 import INDIGENOUSAPPRENTICESHIP_APP_DIR from "../../indigenousApprenticeshipConstants";
 
-import { ApplyDialog } from "../Dialog";
+import { ApplyDialog, LearnDialog, RequirementDialog } from "../Dialog";
 import CTAButtons from "../CallToAction/CTAButtons";
 
 const Home: React.FunctionComponent = () => {
   const [isApplyDialogOpen, setApplyDialogOpen] =
+    React.useState<boolean>(false);
+  const [isLearnDialogOpen, setLearnDialogOpen] =
+    React.useState<boolean>(false);
+  const [isRequirementDialogOpen, setRequirementDialogOpen] =
     React.useState<boolean>(false);
   const intl = useIntl();
   const quote = useQuote();
@@ -171,7 +175,10 @@ const Home: React.FunctionComponent = () => {
                 })}
               </p>
               <div data-h2-visibility="b(invisible) m(visible)">
-                <CTAButtons onClickApply={() => setApplyDialogOpen(true)} />
+                <CTAButtons
+                  onClickApply={() => setApplyDialogOpen(true)}
+                  onClickLearn={() => setLearnDialogOpen(true)}
+                />
               </div>
             </div>
           </div>
@@ -225,7 +232,10 @@ const Home: React.FunctionComponent = () => {
                 })}
               </p>
               <div data-h2-visibility="b(visible) m(invisible)">
-                <CTAButtons onClickApply={() => setApplyDialogOpen(true)} />
+                <CTAButtons
+                  onClickApply={() => setApplyDialogOpen(true)}
+                  onClickLearn={() => setLearnDialogOpen(true)}
+                />
               </div>
             </div>
             <div
@@ -301,7 +311,12 @@ const Home: React.FunctionComponent = () => {
                   data-h2-width="m(50)"
                   data-h2-margin="b(bottom, m) m(right, s)"
                 >
-                  <Button color="ia-primary" mode="solid" block>
+                  <Button
+                    color="ia-primary"
+                    mode="solid"
+                    onClick={() => setRequirementDialogOpen(true)}
+                    block
+                  >
                     {intl.formatMessage({
                       defaultMessage: "See Eligibility Criteria",
                       description:
@@ -750,6 +765,14 @@ const Home: React.FunctionComponent = () => {
       <ApplyDialog
         isOpen={isApplyDialogOpen}
         onDismiss={() => setApplyDialogOpen(false)}
+      />
+      <LearnDialog
+        isOpen={isLearnDialogOpen}
+        onDismiss={() => setLearnDialogOpen(false)}
+      />
+      <RequirementDialog
+        isOpen={isRequirementDialogOpen}
+        onDismiss={() => setRequirementDialogOpen(false)}
       />
     </>
   );

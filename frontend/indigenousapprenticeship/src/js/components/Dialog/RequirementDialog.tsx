@@ -21,13 +21,48 @@ const RequirementDialog: React.FC<BasicDialogProps> = ({
         description: "Heading for the applicant requirements dialog",
       })}
     >
-      <p>
-        {intl.formatMessage({
-          defaultMessage:
-            'Please send your resume and cover letter explaining your passion for IT and why you\'re interested in joining the program to: <a href="mailto:edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca">edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca</a>. A team member will contact you in 3-5 business days',
-          description: "First paragraph for the applicant requirements dialog",
-        })}
-      </p>
+      <ul>
+        <li>
+          {intl.formatMessage({
+            defaultMessage:
+              "Self-identify as First Nations (status or non-status), Inuit, or Métis",
+            description: "IAP Requirement list item one",
+          })}
+        </li>
+        <li>
+          {intl.formatMessage({
+            defaultMessage: "Have a high school diploma or equivalent (a GED)",
+            description: "IAP Requirement list item two",
+          })}
+        </li>
+        <li>
+          {intl.formatMessage({
+            defaultMessage: "Be a minimum of 16 years old",
+            description: "IAP Requirement list item three",
+          })}
+        </li>
+        <li>
+          {intl.formatMessage({
+            defaultMessage:
+              "Have a passion for and an interest in information technology (IT), with that passion and interest demonstrated through personal, volunteer, community, or professional life experience",
+            description: "IAP Requirement list item four",
+          })}
+        </li>
+        <li>
+          {intl.formatMessage({
+            defaultMessage:
+              "Have a commitment to learn throughout the duration of the program, both on-the-job and by following an online training program",
+            description: "IAP Requirement list item five",
+          })}
+        </li>
+        <li>
+          {intl.formatMessage({
+            defaultMessage:
+              "Individuals who are offered positions with the flexibility of working from home must have adequate internet access to support remote work.",
+            description: "IAP Requirement list item six",
+          })}
+        </li>
+      </ul>
     </Dialog>
   );
 };
