@@ -1,7 +1,12 @@
 import { navigate } from "@common/helpers/router";
 import { commonMessages, errorMessages } from "@common/messages";
-import React from "react";
-import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import React, { useEffect } from "react";
+import {
+  FormProvider,
+  SubmitHandler,
+  useForm,
+  useWatch,
+} from "react-hook-form";
 import { useIntl } from "react-intl";
 import { toast } from "react-toastify";
 import { enumToOptions } from "@common/helpers/formUtils";
@@ -82,6 +87,13 @@ export const MyStatusForm: React.FC<MyStatusFormProps> = ({
       await handleMyStatus(initialData.me?.id, formValuesToSubmitData(data));
     }
   };
+  const { control } = useForm();
+
+  const jobLookingStatus = useWatch({ control, name: "jobLookingStatus" });
+
+  useEffect(() => {
+    handleSubmit(onSubmit);
+  }, [jobLookingStatus, handleSubmit, onSubmit]);
 
   let isFormActive = true;
 
@@ -179,7 +191,7 @@ export const MyStatusForm: React.FC<MyStatusFormProps> = ({
               rules={{
                 required: intl.formatMessage(errorMessages.required),
               }}
-              onChange={handleSubmit(onSubmit)}
+              // onChange={handleSubmit(onSubmit)}
               items={enumToOptions(
                 JobLookingStatus,
                 JobLookingStatusSortOrder,
