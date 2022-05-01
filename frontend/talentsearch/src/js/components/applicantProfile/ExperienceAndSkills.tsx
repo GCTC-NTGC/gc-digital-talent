@@ -27,6 +27,7 @@ import {
   Skill,
   WorkExperience,
   useGetAllApplicantExperiencesQuery,
+  useGetMeQuery,
 } from "../../api/generated";
 import ExperienceAccordion from "../ExperienceAccordion/ExperienceAccordion";
 import ProfileFormFooter from "./ProfileFormFooter";
@@ -392,6 +393,29 @@ export const ExperienceAndSkillsApi: React.FunctionComponent<{
         },
         { applicantId },
       )}
+    </p>
+  );
+};
+export const ExperienceAndSkillsRouterApi: React.FunctionComponent = () => {
+  const intl = useIntl();
+  const [result] = useGetMeQuery();
+  const { data, fetching, error } = result;
+  if (fetching) return <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>;
+  if (error)
+    return (
+      <p>
+        {intl.formatMessage(commonMessages.loadingError)}
+        {error.message}
+      </p>
+    );
+  return data?.me ? (
+    <ExperienceAndSkillsApi applicantId={data.me.id} />
+  ) : (
+    <p>
+      {intl.formatMessage({
+        defaultMessage: "User not found.",
+        description: "Message displayed for user not found.",
+      })}
     </p>
   );
 };

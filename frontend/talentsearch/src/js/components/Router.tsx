@@ -24,7 +24,7 @@ import { GovInfoFormContainer } from "./GovernmentInfoForm/GovernmentInfoForm";
 import LanguageInformationFormContainer from "./languageInformationForm/LanguageInformationForm";
 import AboutMeFormContainer from "./aboutMeForm/AboutMeForm";
 import DiversityEquityInclusionFormApi from "./diversityEquityInclusion/DiversityEquityInclusionForm";
-import { ExperienceAndSkillsApi } from "./applicantProfile/ExperienceAndSkills";
+import { ExperienceAndSkillsRouterApi } from "./applicantProfile/ExperienceAndSkills";
 
 const routes = (
   talentPaths: TalentSearchRoutes,
@@ -103,9 +103,7 @@ const routes = (
   {
     path: profilePaths.skillsAndExperiences(),
     action: () => ({
-      component: (
-        <ExperienceAndSkillsApi applicantId="d72622db-32b0-4253-a93b-748c74fb17f3" />
-      ),
+      component: <ExperienceAndSkillsRouterApi />,
     }),
   },
 ];
