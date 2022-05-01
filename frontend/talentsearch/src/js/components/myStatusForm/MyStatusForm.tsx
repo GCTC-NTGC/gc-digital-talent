@@ -1,6 +1,6 @@
 import { navigate } from "@common/helpers/router";
 import { commonMessages, errorMessages } from "@common/messages";
-import React, { useEffect } from "react";
+import React, { useCallback } from "react";
 import {
   FormProvider,
   SubmitHandler,
@@ -12,6 +12,8 @@ import { toast } from "react-toastify";
 import { enumToOptions } from "@common/helpers/formUtils";
 import { getJobLookingStatusDescription } from "@common/constants/localizedConstants";
 import { RadioGroup } from "@common/components/form";
+import useDeepCompareEffect from "@common/hooks/useDeepCompareEffect";
+import { debounce } from "debounce";
 import { useApplicantProfileRoutes } from "../../applicantProfileRoutes";
 import {
   UpdateUserAsUserInput,
@@ -80,23 +82,34 @@ export const MyStatusForm: React.FC<MyStatusFormProps> = ({
   const methods = useForm<FormValues>({
     defaultValues: dataToFormValues(initialData),
   });
-  const { handleSubmit } = methods;
+  const { control } = methods;
+  const formValues = useWatch({ control, name: "jobLookingStatus" });
 
   const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
     if (initialData?.me) {
       await handleMyStatus(initialData.me?.id, formValuesToSubmitData(data));
     }
   };
-  const { control } = useForm();
 
-  const jobLookingStatus = useWatch({ control, name: "jobLookingStatus" });
+  // Whenever form values change (with some debounce allowance), call updateCandidateFilter
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const submitDebounced = useCallback(
+    debounce(() => {
+      onSubmit({ jobLookingStatus: formValues });
+    }, 200),
+    [formValues],
+  );
 
-  useEffect(() => {
-    handleSubmit(onSubmit);
-  }, [jobLookingStatus, handleSubmit, onSubmit]);
+  // Use deep comparison to prevent infinite re-rendering
+  useDeepCompareEffect(() => {
+    submitDebounced();
+    return () => {
+      // Clear debounce timer when component unmounts
+      submitDebounced.clear();
+    };
+  }, [formValues, submitDebounced]);
 
   let isFormActive = true;
-
   // Checking About Me Form
   if (
     preferredLang ||
@@ -130,7 +143,7 @@ export const MyStatusForm: React.FC<MyStatusFormProps> = ({
     isFormActive = false;
   }
 
-  isFormActive = true;
+  isFormActive = false;
 
   let disabledColor = "";
   if (!isFormActive) {
@@ -183,7 +196,7 @@ export const MyStatusForm: React.FC<MyStatusFormProps> = ({
             <RadioGroup
               idPrefix="myStatus"
               legend={intl.formatMessage({
-                defaultMessage: "My status",
+                defaultMessage: "My status Testing",
                 description: "Legend for my status option in my status form",
               })}
               name="jobLookingStatus"
@@ -191,7 +204,6 @@ export const MyStatusForm: React.FC<MyStatusFormProps> = ({
               rules={{
                 required: intl.formatMessage(errorMessages.required),
               }}
-              // onChange={handleSubmit(onSubmit)}
               items={enumToOptions(
                 JobLookingStatus,
                 JobLookingStatusSortOrder,
