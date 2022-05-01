@@ -3,17 +3,22 @@
  */
 import React from "react";
 import "@testing-library/jest-dom";
-import { fakeUsers } from "@common/fakeData";
 import {
   GetMystatusQuery,
   WorkRegion,
   JobLookingStatus,
-  User,
   Language,
   ProvinceOrTerritory,
   SalaryRange,
 } from "../../api/generated";
-import { render, screen, fireEvent, act, waitFor } from "../../tests/testUtils";
+import {
+  render,
+  screen,
+  fireEvent,
+  act,
+  waitFor,
+  queryByText,
+} from "../../tests/testUtils";
 import { MyStatusForm, MyStatusFormProps } from "./MyStatusForm";
 
 const renderMyStatusForm = ({
@@ -24,9 +29,30 @@ const renderMyStatusForm = ({
     <MyStatusForm initialData={initialData} handleMyStatus={handleMyStatus} />,
   );
 };
-const mockUser = fakeUsers()[0];
 
-const mockData: GetMystatusQuery | undefined = {
+const mockDataForIncompletForm: GetMystatusQuery | undefined = {
+  __typename: "Query",
+  me: {
+    __typename: "User",
+    id: "11",
+    jobLookingStatus: JobLookingStatus.ActivelyLooking,
+    firstName: "Shubi",
+    lastName: "Suresh",
+    email: "fff@gmaik.com",
+    telephone: "12345679000",
+    preferredLang: Language.En,
+    currentProvince: ProvinceOrTerritory.Alberta,
+    currentCity: "fgrtyuii",
+    lookingForEnglish: true,
+    lookingForFrench: true,
+    lookingForBilingual: true,
+    isGovEmployee: undefined,
+    locationPreferences: [WorkRegion.Atlantic],
+    wouldAcceptTemporary: false,
+    expectedSalary: [SalaryRange["50_59K"]],
+  },
+};
+const mockDataForCompletForm: GetMystatusQuery | undefined = {
   __typename: "Query",
   me: {
     __typename: "User",
@@ -93,10 +119,10 @@ describe("LanguageInformationForm tests", () => {
       }),
     ).toBeInTheDocument();
   });
-  test("inputs disabled if application not complete, enabled otherwise", () => {
+  test("If application not complete, inputs disabled and Why can I change my status appears", () => {
     const onClick = jest.fn();
     renderMyStatusForm({
-      initialData: mockEmptyData,
+      initialData: mockDataForIncompletForm,
       handleMyStatus: onClick,
     });
     expect(
@@ -104,6 +130,44 @@ describe("LanguageInformationForm tests", () => {
         name: /Actively looking -/i,
       }),
     ).toBeDisabled();
+    expect(
+      screen.getByRole("radio", {
+        name: /Open to opportunities - /i,
+      }),
+    ).toBeDisabled();
+    expect(
+      screen.getByRole("radio", {
+        name: /Inactive - I /i,
+      }),
+    ).toBeDisabled();
+    expect(
+      screen.getByText(`Why can’t I change my status?`),
+    ).toBeInTheDocument();
+  });
+  test("If application complete, inputs enabled and Why can I change my status hidden", () => {
+    const onClick = jest.fn();
+    renderMyStatusForm({
+      initialData: mockDataForCompletForm,
+      handleMyStatus: onClick,
+    });
+    expect(
+      screen.getByRole("radio", {
+        name: /Actively looking -/i,
+      }),
+    ).toBeEnabled();
+    expect(
+      screen.getByRole("radio", {
+        name: /Open to opportunities - /i,
+      }),
+    ).toBeEnabled();
+    expect(
+      screen.getByRole("radio", {
+        name: /Inactive - I /i,
+      }),
+    ).toBeEnabled();
+    expect(
+      screen.queryByText(`Why can’t I change my status?`),
+    ).not.toBeInTheDocument();
   });
   test("Why can I change my status appears if application not complete, hidden otherwise", () => {
     const onClick = jest.fn();
