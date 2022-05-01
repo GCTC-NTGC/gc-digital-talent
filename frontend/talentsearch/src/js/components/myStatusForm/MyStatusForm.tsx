@@ -111,14 +111,16 @@ export const MyStatusForm: React.FC<MyStatusFormProps> = ({
 
   let isFormActive = true;
   // Checking About Me Form
+  // alert(preferredLang);
+
   if (
-    preferredLang ||
-    currentProvince ||
-    currentCity ||
-    telephone ||
-    firstName ||
-    lastName ||
-    email
+    !preferredLang ||
+    !currentProvince ||
+    !currentCity ||
+    !telephone ||
+    !firstName ||
+    !lastName ||
+    !email
   ) {
     isFormActive = false;
   }
@@ -127,23 +129,23 @@ export const MyStatusForm: React.FC<MyStatusFormProps> = ({
     isFormActive = false;
   }
   // Checking government Information Form
-  if (isGovEmployee) {
+  if (isGovEmployee === (null || undefined)) {
     isFormActive = false;
   }
   // Checking Work Location Form
-  if (locationPreferences) {
+  if (locationPreferences === (null || undefined)) {
     isFormActive = false;
   }
   // Checking Work Preferences Form
-  if (wouldAcceptTemporary) {
+  if (wouldAcceptTemporary === (null || undefined)) {
     isFormActive = false;
   }
   // Checking Remaining Required Fields
-  if (expectedSalary) {
+  if (expectedSalary === (null || undefined)) {
     isFormActive = false;
   }
 
-  isFormActive = false;
+  // isFormActive = true;
 
   let disabledColor = "";
   if (!isFormActive) {
@@ -196,7 +198,7 @@ export const MyStatusForm: React.FC<MyStatusFormProps> = ({
             <RadioGroup
               idPrefix="myStatus"
               legend={intl.formatMessage({
-                defaultMessage: "My status Testing",
+                defaultMessage: "My status",
                 description: "Legend for my status option in my status form",
               })}
               name="jobLookingStatus"

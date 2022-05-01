@@ -1,0 +1,144 @@
+/**
+ * @jest-environment jsdom
+ */
+import React from "react";
+import "@testing-library/jest-dom";
+import { fakeUsers } from "@common/fakeData";
+import {
+  GetMystatusQuery,
+  WorkRegion,
+  JobLookingStatus,
+  User,
+  Language,
+  ProvinceOrTerritory,
+  SalaryRange,
+} from "../../api/generated";
+import { render, screen, fireEvent, act, waitFor } from "../../tests/testUtils";
+import { MyStatusForm, MyStatusFormProps } from "./MyStatusForm";
+
+const renderMyStatusForm = ({
+  initialData,
+  handleMyStatus,
+}: MyStatusFormProps) => {
+  return render(
+    <MyStatusForm initialData={initialData} handleMyStatus={handleMyStatus} />,
+  );
+};
+const mockUser = fakeUsers()[0];
+
+const mockData: GetMystatusQuery | undefined = {
+  __typename: "Query",
+  me: {
+    __typename: "User",
+    id: "11",
+    jobLookingStatus: JobLookingStatus.ActivelyLooking,
+    firstName: "Shubi",
+    lastName: "Suresh",
+    email: "fff@gmaik.com",
+    telephone: "12345679000",
+    preferredLang: Language.En,
+    currentProvince: ProvinceOrTerritory.Alberta,
+    currentCity: "fgrtyuii",
+    lookingForEnglish: true,
+    lookingForFrench: true,
+    lookingForBilingual: true,
+    isGovEmployee: true,
+    locationPreferences: [WorkRegion.Atlantic],
+    wouldAcceptTemporary: false,
+    expectedSalary: [SalaryRange["50_59K"]],
+  },
+};
+const mockEmptyData: GetMystatusQuery | undefined = {
+  __typename: "Query",
+  me: {
+    __typename: "User",
+    id: "11",
+    jobLookingStatus: undefined,
+    firstName: undefined,
+    lastName: undefined,
+    email: "",
+    telephone: undefined,
+    preferredLang: undefined,
+    currentProvince: undefined,
+    currentCity: undefined,
+    lookingForEnglish: undefined,
+    lookingForFrench: undefined,
+    lookingForBilingual: undefined,
+    isGovEmployee: undefined,
+    locationPreferences: undefined,
+    wouldAcceptTemporary: undefined,
+    expectedSalary: undefined,
+  },
+};
+describe("LanguageInformationForm tests", () => {
+  test("should render fields", () => {
+    const onClick = jest.fn();
+    renderMyStatusForm({
+      initialData: mockEmptyData,
+      handleMyStatus: onClick,
+    });
+    expect(
+      screen.getByRole("radio", {
+        name: /Actively looking -/i,
+      }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("radio", {
+        name: /Open to opportunities - /i,
+      }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("radio", {
+        name: /Inactive - I /i,
+      }),
+    ).toBeInTheDocument();
+  });
+  test("inputs disabled if application not complete, enabled otherwise", () => {
+    const onClick = jest.fn();
+    renderMyStatusForm({
+      initialData: mockEmptyData,
+      handleMyStatus: onClick,
+    });
+    expect(
+      screen.getByRole("radio", {
+        name: /Actively looking -/i,
+      }),
+    ).toBeDisabled();
+  });
+  test("Why can I change my status appears if application not complete, hidden otherwise", () => {
+    const onClick = jest.fn();
+    renderMyStatusForm({
+      initialData: mockEmptyData,
+      handleMyStatus: onClick,
+    });
+    expect(
+      screen.getByRole("radio", {
+        name: /Actively looking -/i,
+      }),
+    ).toBeDisabled();
+  });
+  test("submit handler called whenever radio selection changes", () => {
+    const onClick = jest.fn();
+    renderMyStatusForm({
+      initialData: mockEmptyData,
+      handleMyStatus: onClick,
+    });
+    expect(
+      screen.getByRole("radio", {
+        name: /Actively looking -/i,
+      }),
+    ).toBeDisabled();
+  });
+
+  // test("Can't submit if no fields entered.", async () => {
+  //   const mockSave = jest.fn();
+  //   renderMyStatusForm({
+  //     initialData: mockInitialEmptyData,
+  //     handleMyStatus: mockSave,
+  //   });
+
+  //   fireEvent.submit(screen.getByText(/save/i));
+
+  //   await waitFor(() => expect(mockSave).not.toHaveBeenCalled());
+  // });
+});

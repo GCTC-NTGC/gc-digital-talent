@@ -2,32 +2,26 @@ import React from "react";
 import { action } from "@storybook/addon-actions";
 import { Meta, Story } from "@storybook/react";
 import {
-  GetMystatusQuery,
   JobLookingStatus,
+  Language,
+  ProvinceOrTerritory,
+  SalaryRange,
   UpdateUserAsUserInput,
+  WorkRegion,
 } from "../../api/generated";
 
 import { MyStatusForm } from "./MyStatusForm";
 
-const mockUser: GetMystatusQuery | undefined = {
-  __typename: "Query",
-  me: {
-    __typename: "User",
-    id: "11",
-    jobLookingStatus: JobLookingStatus.ActivelyLooking,
-    email: "eee@lkj.com",
-  },
-};
-
 export default {
   component: MyStatusForm,
   title: "MyStatusForm",
+  args: {},
 } as Meta;
 
-const TemplateMyStatusForm: Story = () => {
+const TemplateMyStatusForm: Story = (args) => {
   return (
     <MyStatusForm
-      initialData={mockUser}
+      initialData={args}
       handleMyStatus={async (_: string, data: UpdateUserAsUserInput) => {
         await new Promise((resolve) => {
           setTimeout(() => {
@@ -41,4 +35,73 @@ const TemplateMyStatusForm: Story = () => {
   );
 };
 
-export const IndividualMystatus = TemplateMyStatusForm.bind({});
+export const MyStatusFormNull = TemplateMyStatusForm.bind({});
+export const MyStatusFormNull2 = TemplateMyStatusForm.bind({});
+export const MyStatusFormActive = TemplateMyStatusForm.bind({});
+
+MyStatusFormNull.args = {
+  __typename: "Query",
+  me: {
+    __typename: "User",
+    id: "11",
+    jobLookingStatus: JobLookingStatus.ActivelyLooking,
+    firstName: "Shubi",
+    lastName: "Suresh",
+    email: "fff@gmaik.com",
+    telephone: "12345679000",
+    preferredLang: Language.En,
+    currentProvince: ProvinceOrTerritory.Alberta,
+    currentCity: "fgrtyuii",
+    lookingForEnglish: true,
+    lookingForFrench: true,
+    lookingForBilingual: true,
+    isGovEmployee: undefined,
+    locationPreferences: [WorkRegion.Atlantic],
+    wouldAcceptTemporary: false,
+    expectedSalary: [SalaryRange["50_59K"]],
+  },
+};
+MyStatusFormNull2.args = {
+  __typename: "Query",
+  me: {
+    __typename: "User",
+    id: "11",
+    jobLookingStatus: JobLookingStatus.ActivelyLooking,
+    firstName: "Shubi",
+    lastName: "Suresh",
+    email: "fff@gmaik.com",
+    telephone: "12345679000",
+    preferredLang: undefined,
+    currentProvince: ProvinceOrTerritory.Alberta,
+    currentCity: "fgrtyuii",
+    lookingForEnglish: true,
+    lookingForFrench: true,
+    lookingForBilingual: true,
+    isGovEmployee: true,
+    locationPreferences: [WorkRegion.Atlantic],
+    wouldAcceptTemporary: false,
+    expectedSalary: [SalaryRange["50_59K"]],
+  },
+};
+MyStatusFormActive.args = {
+  __typename: "Query",
+  me: {
+    __typename: "User",
+    id: "11",
+    jobLookingStatus: JobLookingStatus.ActivelyLooking,
+    firstName: "Shubi",
+    lastName: "Suresh",
+    email: "fff@gmaik.com",
+    telephone: "12345679000",
+    preferredLang: Language.En,
+    currentProvince: ProvinceOrTerritory.Alberta,
+    currentCity: "fgrtyuii",
+    lookingForEnglish: true,
+    lookingForFrench: true,
+    lookingForBilingual: true,
+    isGovEmployee: true,
+    locationPreferences: [WorkRegion.Atlantic],
+    wouldAcceptTemporary: false,
+    expectedSalary: [SalaryRange["50_59K"]],
+  },
+};
