@@ -1424,16 +1424,16 @@
         },
         {
             "name": "laragraph/utils",
-            "version": "v1.3.0",
+            "version": "v1.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laragraph/utils.git",
-                "reference": "a50eb1782a4b832236485328d132055bc8d5387a"
+                "reference": "43b522c37706fa4867dff9c404cac5af4d825c7d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laragraph/utils/zipball/a50eb1782a4b832236485328d132055bc8d5387a",
-                "reference": "a50eb1782a4b832236485328d132055bc8d5387a",
+                "url": "https://api.github.com/repos/laragraph/utils/zipball/43b522c37706fa4867dff9c404cac5af4d825c7d",
+                "reference": "43b522c37706fa4867dff9c404cac5af4d825c7d",
                 "shasum": ""
             },
             "require": {
@@ -1478,7 +1478,7 @@
                 "issues": "https://github.com/laragraph/utils/issues",
                 "source": "https://github.com/laragraph/utils"
             },
-            "time": "2022-01-14T10:37:06+00:00"
+            "time": "2022-04-26T15:09:27+00:00"
         },
         {
             "name": "laravel/framework",
@@ -2839,16 +2839,16 @@
         },
         {
             "name": "nuwave/lighthouse",
-            "version": "v5.48.0",
+            "version": "v5.48.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nuwave/lighthouse.git",
-                "reference": "9ca44e4f91fd8ee0efc5532ec0cef62edd7c0d34"
+                "reference": "35d1d26ec56d8f14bbee92e00264a342f3079132"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nuwave/lighthouse/zipball/9ca44e4f91fd8ee0efc5532ec0cef62edd7c0d34",
-                "reference": "9ca44e4f91fd8ee0efc5532ec0cef62edd7c0d34",
+                "url": "https://api.github.com/repos/nuwave/lighthouse/zipball/35d1d26ec56d8f14bbee92e00264a342f3079132",
+                "reference": "35d1d26ec56d8f14bbee92e00264a342f3079132",
                 "shasum": ""
             },
             "require": {
@@ -2965,7 +2965,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-04-22T10:01:25+00:00"
+            "time": "2022-04-28T13:15:23+00:00"
         },
         {
             "name": "opis/closure",
