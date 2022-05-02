@@ -100,7 +100,7 @@ export const MyStatusForm: React.FC<MyStatusFormProps> = ({
     debounce(() => {
       if (!(formValues === prevFormValues.jobLookingStatus))
         onSubmit({ jobLookingStatus: formValues });
-      setPrevFormValues({jobLookingStatus: formValues});
+      setPrevFormValues({ jobLookingStatus: formValues });
     }, 200),
     [formValues],
   );
