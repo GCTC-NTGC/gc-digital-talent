@@ -23,6 +23,8 @@ import INDIGENOUSAPPRENTICESHIP_APP_DIR from "../../indigenousApprenticeshipCons
 import { ApplyDialog, LearnDialog, RequirementDialog } from "../Dialog";
 import CTAButtons from "../CallToAction/CTAButtons";
 
+import "./home.css";
+
 const Home: React.FunctionComponent = () => {
   const [isApplyDialogOpen, setApplyDialogOpen] =
     React.useState<boolean>(false);
