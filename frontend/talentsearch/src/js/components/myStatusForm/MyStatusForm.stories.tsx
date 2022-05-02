@@ -1,0 +1,107 @@
+import React from "react";
+import { action } from "@storybook/addon-actions";
+import { Meta, Story } from "@storybook/react";
+import {
+  JobLookingStatus,
+  Language,
+  ProvinceOrTerritory,
+  SalaryRange,
+  UpdateUserAsUserInput,
+  WorkRegion,
+} from "../../api/generated";
+
+import { MyStatusForm } from "./MyStatusForm";
+
+export default {
+  component: MyStatusForm,
+  title: "MyStatusForm",
+  args: {},
+} as Meta;
+
+const TemplateMyStatusForm: Story = (args) => {
+  return (
+    <MyStatusForm
+      initialData={args}
+      handleMyStatus={async (_: string, data: UpdateUserAsUserInput) => {
+        await new Promise((resolve) => {
+          setTimeout(() => {
+            resolve(data);
+          }, 1000);
+        });
+        action("Update My Status")(data);
+        return null;
+      }}
+    />
+  );
+};
+
+export const MyStatusFormNull = TemplateMyStatusForm.bind({});
+export const MyStatusFormNull2 = TemplateMyStatusForm.bind({});
+export const MyStatusFormActive = TemplateMyStatusForm.bind({});
+
+MyStatusFormNull.args = {
+  __typename: "Query",
+  me: {
+    __typename: "User",
+    id: "11",
+    jobLookingStatus: JobLookingStatus.ActivelyLooking,
+    firstName: "Shubi",
+    lastName: "Suresh",
+    email: "fff@gmaik.com",
+    telephone: "12345679000",
+    preferredLang: Language.En,
+    currentProvince: ProvinceOrTerritory.Alberta,
+    currentCity: "fgrtyuii",
+    lookingForEnglish: true,
+    lookingForFrench: true,
+    lookingForBilingual: true,
+    isGovEmployee: undefined,
+    locationPreferences: [WorkRegion.Atlantic],
+    wouldAcceptTemporary: false,
+    expectedSalary: [SalaryRange["50_59K"]],
+  },
+};
+MyStatusFormNull2.args = {
+  __typename: "Query",
+  me: {
+    __typename: "User",
+    id: "11",
+    jobLookingStatus: JobLookingStatus.ActivelyLooking,
+    firstName: "Shubi",
+    lastName: "Suresh",
+    email: "fff@gmaik.com",
+    telephone: "12345679000",
+    preferredLang: undefined,
+    currentProvince: ProvinceOrTerritory.Alberta,
+    currentCity: "fgrtyuii",
+    lookingForEnglish: true,
+    lookingForFrench: true,
+    lookingForBilingual: true,
+    isGovEmployee: true,
+    locationPreferences: [WorkRegion.Atlantic],
+    wouldAcceptTemporary: false,
+    expectedSalary: [SalaryRange["50_59K"]],
+  },
+};
+MyStatusFormActive.args = {
+  __typename: "Query",
+  me: {
+    __typename: "User",
+    id: "11",
+    jobLookingStatus: JobLookingStatus.ActivelyLooking,
+    firstName: "Shubi",
+    lastName: "Suresh",
+    email: "fff@gmaik.com",
+    telephone: "12345679000",
+    preferredLang: Language.En,
+    currentProvince: ProvinceOrTerritory.Alberta,
+    currentCity: "fgrtyuii",
+    lookingForEnglish: true,
+    lookingForFrench: true,
+    lookingForBilingual: true,
+    isGovEmployee: true,
+    locationPreferences: [WorkRegion.Atlantic],
+    wouldAcceptTemporary: false,
+    expectedSalary: [SalaryRange["50_59K"]],
+  },
+};
