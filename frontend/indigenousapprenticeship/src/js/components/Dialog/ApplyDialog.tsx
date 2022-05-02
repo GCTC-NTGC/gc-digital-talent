@@ -5,6 +5,16 @@ import Dialog from "@common/components/Dialog";
 
 import type { BasicDialogProps } from "./types";
 
+const mailAccessor = (...chunks: string[]) => (
+  <a
+    href="mailto:edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca"
+    data-h2-font-color="b(ia-pink) b:h(ia-darkpink)"
+    data-h2-un
+  >
+    {chunks}
+  </a>
+);
+
 const ApplyDialog: React.FC<BasicDialogProps> = ({ isOpen, onDismiss }) => {
   const intl = useIntl();
   return (
@@ -26,17 +36,7 @@ const ApplyDialog: React.FC<BasicDialogProps> = ({ isOpen, onDismiss }) => {
             description: "First paragraph for apply now dialog",
           },
           {
-            // TO DO: We should fix this, im just unsure how to atm
-            // eslint-disable-next-line react/no-unstable-nested-components
-            mailLink: (...chunks) => (
-              <a
-                href="mailto:edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca"
-                data-h2-font-color="b(ia-pink) b:h(ia-darkpink)"
-                data-h2-un
-              >
-                {chunks}
-              </a>
-            ),
+            mailLink: mailAccessor,
           },
         )}
       </p>
