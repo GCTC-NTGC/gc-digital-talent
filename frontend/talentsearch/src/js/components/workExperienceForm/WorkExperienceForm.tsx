@@ -9,7 +9,7 @@ export const WorkExperienceForm: React.FunctionComponent = () => {
   const intl = useIntl();
 
   // to toggle whether End Date is required, the state of the Current Role checkbox must be monitored and have to adjust the form accordingly
-  const isCurrent = useWatch({ name: "current-role", defaultValue: false });
+  const isCurrent = useWatch({ name: "currentRole" });
   // ensuring end date isn't before the start date, using this as a minimum value
   const startDate = useWatch({ name: "startDate" });
 
@@ -67,13 +67,13 @@ export const WorkExperienceForm: React.FunctionComponent = () => {
         </div>
         <div>
           <Checkbox
-            id="current-role"
+            id="currentRole"
             label={intl.formatMessage({
               defaultMessage: "I am currently active in this role",
               description:
                 "Label displayed on Work Experience form for current role input",
             })}
-            name="current-role"
+            name="currentRole"
           />
           <div data-h2-display="b(flex)">
             <div data-h2-padding="b(right, l)">

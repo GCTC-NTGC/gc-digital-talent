@@ -5,9 +5,12 @@ import { Button } from "@common/components";
 import { useIntl } from "react-intl";
 import { getLocale } from "@common/helpers/localize";
 import { getDateRange } from "@common/helpers/dateUtils";
+import { navigate } from "@common/helpers/router";
 import { PersonalExperience } from "../../../api/generated";
+import { useApplicantProfileRoutes } from "../../../applicantProfileRoutes";
 
 const PersonalAccordion: React.FunctionComponent<PersonalExperience> = ({
+  id,
   title,
   startDate,
   endDate,
@@ -17,6 +20,8 @@ const PersonalAccordion: React.FunctionComponent<PersonalExperience> = ({
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
+  const profilePaths = useApplicantProfileRoutes();
+  const editUrl = `${profilePaths.skillsAndExperiences()}/personal/${id}/edit`;
 
   const skillsList = skills
     ? skills.map((skill, index) => (
@@ -67,7 +72,14 @@ const PersonalAccordion: React.FunctionComponent<PersonalExperience> = ({
         </p>
       </div>
       <div data-h2-padding="b(left, l)">
-        <Button color="primary" mode="outline">
+        <Button
+          color="primary"
+          mode="outline"
+          onClick={(event) => {
+            event.preventDefault();
+            navigate(editUrl);
+          }}
+        >
           {intl.formatMessage({
             defaultMessage: "Edit Experience",
             description: "Edit Experience button label",

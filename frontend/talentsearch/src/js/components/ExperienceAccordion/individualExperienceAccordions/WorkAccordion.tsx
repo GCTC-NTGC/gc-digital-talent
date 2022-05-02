@@ -5,9 +5,12 @@ import { Button } from "@common/components";
 import { useIntl } from "react-intl";
 import { getLocale } from "@common/helpers/localize";
 import { getDateRange } from "@common/helpers/dateUtils";
+import { navigate } from "@common/helpers/router";
 import { WorkExperience } from "../../../api/generated";
+import { useApplicantProfileRoutes } from "../../../applicantProfileRoutes";
 
 const WorkAccordion: React.FunctionComponent<WorkExperience> = ({
+  id,
   role,
   organization,
   startDate,
@@ -18,6 +21,8 @@ const WorkAccordion: React.FunctionComponent<WorkExperience> = ({
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
+  const profilePaths = useApplicantProfileRoutes();
+  const editUrl = `${profilePaths.skillsAndExperiences()}/work/${id}/edit`;
 
   // create unordered list element of skills DOM Element
   const skillsList = skills
@@ -84,7 +89,14 @@ const WorkAccordion: React.FunctionComponent<WorkExperience> = ({
         </p>
       </div>
       <div data-h2-padding="b(left, l)">
-        <Button color="primary" mode="outline">
+        <Button
+          color="primary"
+          mode="outline"
+          onClick={(event) => {
+            event.preventDefault();
+            navigate(editUrl);
+          }}
+        >
           {intl.formatMessage({
             defaultMessage: "Edit Experience",
             description: "Edit Experience button label",

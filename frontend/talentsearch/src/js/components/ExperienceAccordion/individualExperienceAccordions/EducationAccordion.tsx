@@ -10,8 +10,11 @@ import {
 import { useIntl } from "react-intl";
 import { getLocale } from "@common/helpers/localize";
 import { getDateRange } from "@common/helpers/dateUtils";
+import { navigate } from "@common/helpers/router";
+import { useApplicantProfileRoutes } from "../../../applicantProfileRoutes";
 
 const EducationAccordion: React.FunctionComponent<EducationExperience> = ({
+  id,
   areaOfStudy,
   institution,
   startDate,
@@ -24,6 +27,8 @@ const EducationAccordion: React.FunctionComponent<EducationExperience> = ({
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
+  const profilePaths = useApplicantProfileRoutes();
+  const editUrl = `${profilePaths.skillsAndExperiences()}/education/${id}/edit`;
 
   const skillsList = skills
     ? skills.map((skill, index) => (
@@ -103,7 +108,14 @@ const EducationAccordion: React.FunctionComponent<EducationExperience> = ({
         </p>
       </div>
       <div data-h2-padding="b(left, l)">
-        <Button color="primary" mode="outline">
+        <Button
+          color="primary"
+          mode="outline"
+          onClick={(event) => {
+            event.preventDefault();
+            navigate(editUrl);
+          }}
+        >
           {intl.formatMessage({
             defaultMessage: "Edit Experience",
             description: "Edit Experience button label",

@@ -1089,7 +1089,6 @@ export const ProfileForm: React.FC<ProfilePageProps> = ({
                   })}
                 </Link>
               </div>
-              {console.log(experiences)}
               {!experiences || experiences?.length === 0 ? (
                 <div
                   data-h2-bg-color="b(lightgray)"

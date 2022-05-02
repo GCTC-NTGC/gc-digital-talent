@@ -9,9 +9,12 @@ import {
 import { useIntl } from "react-intl";
 import { getLocale } from "@common/helpers/localize";
 import { getDateRange } from "@common/helpers/dateUtils";
+import { navigate } from "@common/helpers/router";
+import { useApplicantProfileRoutes } from "../../../applicantProfileRoutes";
 import { AwardExperience } from "../../../api/generated";
 
 const AwardAccordion: React.FunctionComponent<AwardExperience> = ({
+  id,
   title,
   awardedDate,
   issuedBy,
@@ -22,6 +25,8 @@ const AwardAccordion: React.FunctionComponent<AwardExperience> = ({
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
+  const profilePaths = useApplicantProfileRoutes();
+  const editUrl = `${profilePaths.skillsAndExperiences()}/award/${id}/edit`;
 
   // create unordered list element of skills DOM Element
   const skillsList = skills
@@ -105,7 +110,14 @@ const AwardAccordion: React.FunctionComponent<AwardExperience> = ({
         </p>
       </div>
       <div data-h2-padding="b(left, l)">
-        <Button color="primary" mode="outline">
+        <Button
+          color="primary"
+          mode="outline"
+          onClick={(event) => {
+            event.preventDefault();
+            navigate(editUrl);
+          }}
+        >
           {intl.formatMessage({
             defaultMessage: "Edit Experience",
             description: "Edit Experience button label",

@@ -15,7 +15,7 @@ import { EducationType, EducationStatus } from "../../api/generated";
 export const EducationExperienceForm: React.FunctionComponent = () => {
   const intl = useIntl();
   // to toggle whether End Date is required, the state of the Current Role checkbox must be monitored and have to adjust the form accordingly
-  const isCurrent = useWatch({ name: "current-role", defaultValue: false });
+  const isCurrent = useWatch({ name: "currentRole" });
   // ensuring end date isn't before the start date, using this as a minimum value
   const watchStartDate = useWatch({ name: "startDate" });
 
@@ -147,13 +147,13 @@ export const EducationExperienceForm: React.FunctionComponent = () => {
         </div>
         <div>
           <Checkbox
-            id="current-role"
+            id="currentRole"
             label={intl.formatMessage({
               defaultMessage: "I am currently active in this education",
               description:
                 "Label displayed on Education Experience form for current education input",
             })}
-            name="current-role"
+            name="currentRole"
           />
           <div
             data-h2-display="b(flex)"
