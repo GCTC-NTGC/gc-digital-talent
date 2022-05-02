@@ -45,7 +45,11 @@ const Dialog: React.FC<DialogProps> = ({
   children,
 }) => {
   return (
-    <Overlay isOpen={isOpen} onDismiss={onDismiss}>
+    <Overlay
+      isOpen={isOpen}
+      onDismiss={onDismiss}
+      data-h2-font-family="b(sans)"
+    >
       <Content aria-labelledby="dialog-title">
         <div
           className={`dialog__header ${
