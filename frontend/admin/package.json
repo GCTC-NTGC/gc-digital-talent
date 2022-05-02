@@ -43,7 +43,7 @@
     "@babel/preset-env": "^7.16.11",
     "@babel/preset-react": "^7.16.7",
     "@formatjs/cli": "^4.8.3",
-    "@formatjs/ts-transformer": "^3.9.3",
+    "@formatjs/ts-transformer": "^3.9.4",
     "@graphql-codegen/add": "^3.1.1",
     "@graphql-codegen/cli": "^2.6.2",
     "@graphql-codegen/typescript": "^2.4.7",
