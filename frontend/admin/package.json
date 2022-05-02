@@ -94,7 +94,7 @@
     "@urql/exchange-auth": "^0.1.7",
     "core-js": "^3.22.2",
     "dotenv": "^16.0.0",
-    "graphql": "^16.3.0",
+    "graphql": "^16.4.0",
     "history": "^5.3.0",
     "jwt-decode": "^3.1.2",
     "lodash": "^4.17.21",
