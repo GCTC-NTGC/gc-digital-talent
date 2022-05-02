@@ -15,9 +15,7 @@ import {
   render,
   screen,
   fireEvent,
-  act,
   waitFor,
-  queryByText,
 } from "../../tests/testUtils";
 import { MyStatusForm, MyStatusFormProps } from "./MyStatusForm";
 
@@ -97,7 +95,7 @@ const mockEmptyData: GetMystatusQuery | undefined = {
   },
 };
 describe("LanguageInformationForm tests", () => {
-  test("should render fields", () => {
+  test("Should render fields", () => {
     const onClick = jest.fn();
     renderMyStatusForm({
       initialData: mockEmptyData,
@@ -169,40 +167,31 @@ describe("LanguageInformationForm tests", () => {
       screen.queryByText(`Why can’t I change my status?`),
     ).not.toBeInTheDocument();
   });
-  test("Why can I change my status appears if application not complete, hidden otherwise", () => {
-    const onClick = jest.fn();
+  test("Submit handler called whenever radio selection changes", async () => {
+    const OnClick = jest.fn();
     renderMyStatusForm({
       initialData: mockEmptyData,
-      handleMyStatus: onClick,
+      handleMyStatus: OnClick,
     });
-    expect(
+
+    fireEvent.click(
       screen.getByRole("radio", {
         name: /Actively looking -/i,
       }),
-    ).toBeDisabled();
-  });
-  test("submit handler called whenever radio selection changes", () => {
-    const onClick = jest.fn();
-    renderMyStatusForm({
-      initialData: mockEmptyData,
-      handleMyStatus: onClick,
-    });
-    expect(
+    );
+    await waitFor(() => expect(OnClick).toHaveBeenCalled());
+    fireEvent.click(
       screen.getByRole("radio", {
-        name: /Actively looking -/i,
+        name: /Open to opportunities - /i,
       }),
-    ).toBeDisabled();
+    );
+    await waitFor(() => expect(OnClick).toHaveBeenCalled());
+    fireEvent.click(
+      screen.getByRole("radio", {
+        name: /Inactive - I /i,
+      }),
+    );
+    await waitFor(() => expect(OnClick).toHaveBeenCalled());
+  });
   });
 
-  // test("Can't submit if no fields entered.", async () => {
-  //   const mockSave = jest.fn();
-  //   renderMyStatusForm({
-  //     initialData: mockInitialEmptyData,
-  //     handleMyStatus: mockSave,
-  //   });
-
-  //   fireEvent.submit(screen.getByText(/save/i));
-
-  //   await waitFor(() => expect(mockSave).not.toHaveBeenCalled());
-  // });
-});
