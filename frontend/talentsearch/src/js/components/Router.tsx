@@ -22,6 +22,9 @@ import { ExperienceType } from "./experienceForm/types";
 import WorkPreferencesApi from "./workPreferencesForm/WorkPreferencesForm";
 import { GovInfoFormContainer } from "./GovernmentInfoForm/GovernmentInfoForm";
 import LanguageInformationFormContainer from "./languageInformationForm/LanguageInformationForm";
+import AboutMeFormContainer from "./aboutMeForm/AboutMeForm";
+import DiversityEquityInclusionFormApi from "./diversityEquityInclusion/DiversityEquityInclusionForm";
+import { ExperienceAndSkillsRouterApi } from "./applicantProfile/ExperienceAndSkills";
 
 const routes = (
   talentPaths: TalentSearchRoutes,
@@ -98,6 +101,24 @@ const routes = (
     path: profilePaths.workPreferences(),
     action: () => ({
       component: <WorkPreferencesApi />,
+    }),
+  },
+  {
+    path: profilePaths.aboutMe(),
+    action: () => ({
+      component: <AboutMeFormContainer />,
+    }),
+  },
+  {
+    path: profilePaths.diversityEquityInclusion(),
+    action: () => ({
+      component: <DiversityEquityInclusionFormApi />,
+    }),
+  },
+  {
+    path: profilePaths.skillsAndExperiences(),
+    action: () => ({
+      component: <ExperienceAndSkillsRouterApi />,
     }),
   },
 ];

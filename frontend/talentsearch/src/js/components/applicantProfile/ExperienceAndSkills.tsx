@@ -17,6 +17,7 @@ import {
   PersonalExperience,
   WorkExperience,
   useGetAllApplicantExperiencesQuery,
+  useGetMeQuery,
 } from "../../api/generated";
 import ProfileFormFooter from "./ProfileFormFooter";
 import ProfileFormWrapper from "./ProfileFormWrapper";
@@ -138,7 +139,7 @@ const ExperienceAndSkills: React.FunctionComponent<ExperienceAndSkillsProps> =
             {intl.formatMessage({
               defaultMessage: "Add new experience:",
               description:
-                "Label before new experience buttons on experience and skills page.",
+                "Message to user when no experiences have been attached to profile",
             })}
           </p>
           <div
@@ -220,6 +221,29 @@ export const ExperienceAndSkillsApi: React.FunctionComponent<{
         },
         { applicantId },
       )}
+    </p>
+  );
+};
+export const ExperienceAndSkillsRouterApi: React.FunctionComponent = () => {
+  const intl = useIntl();
+  const [result] = useGetMeQuery();
+  const { data, fetching, error } = result;
+  if (fetching) return <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>;
+  if (error)
+    return (
+      <p>
+        {intl.formatMessage(commonMessages.loadingError)}
+        {error.message}
+      </p>
+    );
+  return data?.me ? (
+    <ExperienceAndSkillsApi applicantId={data.me.id} />
+  ) : (
+    <p>
+      {intl.formatMessage({
+        defaultMessage: "User not found.",
+        description: "Message displayed for user not found.",
+      })}
     </p>
   );
 };

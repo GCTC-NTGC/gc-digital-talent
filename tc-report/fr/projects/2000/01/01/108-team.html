@@ -1,934 +1,915 @@
 <!DOCTYPE html>
 <html lang="fr">
-  <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>GC Talent | Fonctionnement des équipes</title>
-  <meta name="description" content="Talent Cloud is an experimental staffing solution created by the Government of Canada. Read our experiment's results report here!">
-  <!-- Google Tag Manager -->
-  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-P27NF5V');</script>
-    <!-- End Google Tag Manager -->
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>GC Talent | Fonctionnement des équipes</title>
+        <meta
+            name="description"
+            content="Talent Cloud is an experimental staffing solution created by the Government of Canada. Read our experiment's results report here!"
+        />
+        <!-- Google Tag Manager -->
+        <script>
+            (function (w, d, s, l, i) {
+                w[l] = w[l] || [];
+                w[l].push({
+                    "gtm.start": new Date().getTime(),
+                    event: "gtm.js",
+                });
+                var f = d.getElementsByTagName(s)[0],
+                    j = d.createElement(s),
+                    dl = l != "dataLayer" ? "&l=" + l : "";
+                j.async = true;
+                j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+                f.parentNode.insertBefore(j, f);
+            })(window, document, "script", "dataLayer", "GTM-P27NF5V");
+        </script>
+        <!-- End Google Tag Manager -->
 
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script
-        async
-        src="https://www.googletagmanager.com/gtag/js?id=UA-115747902-1">
-    </script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'UA-115747902-1', {
-          cookie_flags: 'secure'
-        });
-    </script>
-  <!-- Favicons -->
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-  <link rel="manifest" href="/site.webmanifest">
-  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
-  <meta name="msapplication-TileColor" content="#da532c">
-  <meta name="theme-color" content="#ffffff">
-  <!-- Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap" rel="stylesheet">
-  <!-- Hydrogen CSS -->
-  
-    <!-- <link rel="stylesheet" href="/assets/css/hydrogen-tc.css"> -->
-    <link rel="stylesheet" href="/assets/css/hydrogen.css">
-  
-  <!-- App CSS -->
-  <link rel="stylesheet" href="/assets/css/app.css">
-</head>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script
+            async
+            src="https://www.googletagmanager.com/gtag/js?id=UA-115747902-1"
+        ></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag() {
+                dataLayer.push(arguments);
+            }
+            gtag("js", new Date());
+            gtag("config", "UA-115747902-1", {
+                cookie_flags: "secure",
+            });
+        </script>
+        <!-- Favicons -->
+        <link
+            rel="apple-touch-icon"
+            sizes="180x180"
+            href="/apple-touch-icon.png"
+        />
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="32x32"
+            href="/favicon-32x32.png"
+        />
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="16x16"
+            href="/favicon-16x16.png"
+        />
+        <link rel="manifest" href="/site.webmanifest" />
+        <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
+        <meta name="msapplication-TileColor" content="#da532c" />
+        <meta name="theme-color" content="#ffffff" />
+        <!-- Google Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap"
+            rel="stylesheet"
+        />
+        <!-- Hydrogen CSS -->
 
-  <body data-h2-font-family="b(sans)">
-    <a href="#mainContent" title="" class="skip-link">Skip to Main Content</a>
-    <div data-h2-border="b([light]gray, bottom, solid, s)" >
-  <div data-h2-container="b(center, full)" data-h2-padding="b(top-bottom, s)">
-    <div data-h2-flex-grid="b(middle, expanded, flush, s)">
-      <div data-h2-flex-item="m(1of2)" data-h2-text-align="b(center) m(left)">
-        <a
-          data-h2-display="b(inline-block)"
-          style="max-width: 15rem; width: 100%;"
-          href="https://canada.ca/"
-          target="_blank"
-          title="Visit canada.ca."
-          rel="noopener noreferrer"
+        <!-- <link rel="stylesheet" href="/assets/css/hydrogen-tc.css"> -->
+        <link rel="stylesheet" href="/assets/css/hydrogen.css" />
+
+        <!-- App CSS -->
+        <link rel="stylesheet" href="/assets/css/app.css" />
+    </head>
+
+    <body data-h2-font-family="b(sans)">
+        <a href="#mainContent" title="" class="skip-link"
+            >Skip to Main Content</a
         >
-          <img data-h2- alt="goc logo" src="/assets/img/ui-goc.svg"
-        /></a>
-      </div>
-      <div data-h2-flex-item="m(1of2)" data-h2-text-align="b(center) m(right)">
-         
-        <a href="/en/projects/2000/01/01/108-team.html" title="View this content in English.">English</a>
-        
-      </div>
-    </div>
-  </div>
-</div>
+        <div data-h2-border="b([light]gray, bottom, solid, s)">
+            <div
+                data-h2-container="b(center, full)"
+                data-h2-padding="b(top-bottom, s)"
+            >
+                <div data-h2-flex-grid="b(middle, expanded, flush, s)">
+                    <div
+                        data-h2-flex-item="m(1of2)"
+                        data-h2-text-align="b(center) m(left)"
+                    >
+                        <a
+                            data-h2-display="b(inline-block)"
+                            style="max-width: 15rem; width: 100%"
+                            href="https://canada.ca/"
+                            target="_blank"
+                            title="Visit canada.ca."
+                            rel="noopener noreferrer"
+                        >
+                            <img
+                                data-h2-
+                                alt="goc logo"
+                                src="/assets/img/ui-goc.svg"
+                        /></a>
+                    </div>
+                    <div
+                        data-h2-flex-item="m(1of2)"
+                        data-h2-text-align="b(center) m(right)"
+                    >
+                        <a
+                            href="/en/projects/2000/01/01/108-team.html"
+                            title="View this content in English."
+                            >English</a
+                        >
+                    </div>
+                </div>
+            </div>
+        </div>
 
-<div data-h2-container="b(center, full)" >
-  <nav data-h2-padding="b(top-bottom, m)">
-    <ul class="reset-ul" data-h2-padding="b(all, none)" data-h2-margin="b(all, none)" data-h2-text-align="b(center) m(left)" style="margin-left: -.7rem;">
-      
-        <li data-h2-margin="b(all, none)" data-h2-padding="b(all, none)" data-h2-display="b(inline-block)">
-          <a href="/fr/" title="Visitez la page d'accueil de GC Talent."
-            
-            data-h2-display="b(block)"
-            data-h2-padding="b(all, xs) m(right-left, s)">Accueil</a>
-        </li>
-      
-        <li data-h2-margin="b(all, none)" data-h2-padding="b(all, none)" data-h2-display="b(inline-block)">
-          <a href="/fr/talent-cloud/" title="En savoir plus sur le projet Nuage de talents."
-            
-            data-h2-display="b(block)"
-            data-h2-padding="b(all, xs) m(right-left, s)">Nuage de talents</a>
-        </li>
-      
-        <li data-h2-margin="b(all, none)" data-h2-padding="b(all, none)" data-h2-display="b(inline-block)">
-          <a href="/fr/communities/digital-talent/" title="En savoir plus sur la communauté des talents numériques."
-            
-            data-h2-display="b(block)"
-            data-h2-padding="b(all, xs) m(right-left, s)">Talent numérique</a>
-        </li>
-      
-    </ul>
-  </nav>
-</div>
-<section>
-  <div
-    data-h2-container="b(center, full)"
-    data-h2-text-align="b(center)">
-    
-    <h1
-  data-h2-font-weight="b(800)"
-  data-h2-font-size="b(h1)"
-  data-h2-padding='b(top, l) l(top, xxl) b(bottom, xxs)'
-  style="letter-spacing: -3px"
-  
->
-  Rapport sur les résultats de Nuage de talents
-</h1>
+        <div data-h2-container="b(center, full)">
+            <nav data-h2-padding="b(top-bottom, m)">
+                <ul
+                    class="reset-ul"
+                    data-h2-padding="b(all, none)"
+                    data-h2-margin="b(all, none)"
+                    data-h2-text-align="b(center) m(left)"
+                    style="margin-left: -0.7rem"
+                >
+                    <li
+                        data-h2-margin="b(all, none)"
+                        data-h2-padding="b(all, none)"
+                        data-h2-display="b(inline-block)"
+                    >
+                        <a
+                            href="/fr/"
+                            title="Visitez la page d'accueil de GC Talent."
+                            data-h2-display="b(block)"
+                            data-h2-padding="b(all, xs) m(right-left, s)"
+                            >Accueil</a
+                        >
+                    </li>
 
-    <div id="breadcrumbs" data-h2-margin="b(top-bottom, m)" >
-  
-  <a href="/fr" title="Retour à la page d'accueil.">GC Talent</a>
-  <!-- If the page layout is post then use this breadcrumb list. -->
-  
-    / <a href="/fr/talent-cloud" title="Retournez à la page de Nuage de talents.">Nuage de talents</a>
-    / <a href="/fr/talent-cloud/report" title="Retournez au rapport des résultats de Nuage de talents.">Rapport sur les r...</a>
-    / <span>Section 1</span>
-    / <span data-h2-font-weight="b(800)">Fonctionnement de...</span>
-  
-</div>
-  </div>
-</section>
-<header 
-  class="post-header"
-  id="mainContent"
-  style="background-image: url('/assets/img/1.8-tx-heading.jpg');"
-  data-h2-margin="b(top, xl)">
-  <div 
-    data-h2-container="b(center, m)" 
-    data-h2-font-color="b(white)"
-    data-h2-padding="b(top, l) b(bottom, xl) l(top, xl) l(bottom, xxl)"
-    data-h2-text-align="b(center)">
-    <h2
-  
-  data-h2-font-weight="b(200)"
-  data-h2-font-size="b(h2)"
-  
-  data-h2-padding='b(top, m)'
-  
-  
-  style="letter-spacing: -2px;">
-  Fonctionnement des équipes
-</h2>
-    
-      <div data-h2-padding="b(top, m)">
-        
-          <div 
-  data-h2-bg-color="b(white[.2])"
-  data-h2-border="b(white, all, solid, s)"
-  data-h2-display="b(inline-block)"
-  data-h2-margin="b(all, xxs) l(right-left, xxs)"
-  data-h2-padding="b(top, xxs) b(bottom, xs) b(right-left, s)"
-  data-h2-radius="b(m)"
-  style="line-height: 1;">
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-      <img 
-        data-h2-display="b(inline-block)"
-        data-h2-margin="b(right, xxs)"
-        style="vertical-align: middle; width: .8rem;"
-        src="/assets/img/ds-empower-staff.svg" aria-hidden="true">
-      <span data-h2-font-size="b(caption)">Renforcer la prestation de services</span>
-    
-  
-    
-  
-    
-  
-    
-  
-</div>
-        
-          <div 
-  data-h2-bg-color="b(white[.2])"
-  data-h2-border="b(white, all, solid, s)"
-  data-h2-display="b(inline-block)"
-  data-h2-margin="b(all, xxs) l(right-left, xxs)"
-  data-h2-padding="b(top, xxs) b(bottom, xs) b(right-left, s)"
-  data-h2-radius="b(m)"
-  style="line-height: 1;">
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-      <img 
-        data-h2-display="b(inline-block)"
-        data-h2-margin="b(right, xxs)"
-        style="vertical-align: middle; width: .8rem;"
-        src="/assets/img/ds-collaboration.svg" aria-hidden="true">
-      <span data-h2-font-size="b(caption)">Collaboration</span>
-    
-  
-</div>
-        
-          <div 
-  data-h2-bg-color="b(white[.2])"
-  data-h2-border="b(white, all, solid, s)"
-  data-h2-display="b(inline-block)"
-  data-h2-margin="b(all, xxs) l(right-left, xxs)"
-  data-h2-padding="b(top, xxs) b(bottom, xs) b(right-left, s)"
-  data-h2-radius="b(m)"
-  style="line-height: 1;">
-  
-    
-  
-    
-      <img 
-        data-h2-display="b(inline-block)"
-        data-h2-margin="b(right, xxs)"
-        style="vertical-align: middle; width: .8rem;"
-        src="/assets/img/ds-open-work.svg" aria-hidden="true">
-      <span data-h2-font-size="b(caption)">Travailler ouvertement</span>
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-</div>
-        
-      </div>
-    
-  </div>
-</header>
-<main data-h2-padding="b(top-bottom, xs) l(top-bottom, xl)" style="background-color: #F8F8F8;">
-  <div data-h2-container="b(center, s)">
-    
-      
-        
-          <!-- Basic Content -->
-          <p>La pipeline des caractéristiques du Nuage de talents : En équipe, nous avons utilisé une boucle de rétroaction de renforcement en cinq étapes afin de développer et d’adapter les différentes caractéristiques de la plateforme.</p>
-        
-      
-    
-      
-        
-          <figure data-h2-margin="b(top-bottom, l)">
-            <!-- Graphics -->
-            
-              <img 
-                src="/assets/img/1.8-fr-operations.png"
-                alt="Un graphique qui représente l’approche des opérations de l’équipe du Nuage de talents. La première section est l’atelier sur les politiques, qui a pour rôle de faire des recherches sur des problèmes complexes et prometteurs, d’élaborer des théories, de formuler des hypothèses pour les expériences, d’assurer la conformité aux politiques, d’analyser les constatations, de fournir des présentations, de donner des conseils sur les constatations et de voir l’ensemble du système afin de trouver le meilleur chemin. Les classifications de cette équipe sont EC. Les compétences utilisées par cette équipe sont la recherche, l’analyse, la pensée systémique, la pensée stratégique, la rédaction et la présentation. La deuxième section est l’équipe de conception de l’EU, qui a pour rôle de traduire les exigences opérationnelles en solutions numériques potentielles pour les essais, la réalisation de recherches, la collecte de données, l’utilisation d’aperçus pour concevoir efficacement la disposition, le contenu et les fonctionnalités de la plateforme d’une manière qui répond aux besoins des utilisateurs gouvernementaux et candidats, en faisant la promotion de nos utilisateurs, en améliorant les normes d’accessibilité et en réduisant les préjugés lors de l’embauche. Les classifications de cette équipe sont CS (EU). Les compétences utilisées par cette équipe sont les méthodes de recherche, l’analyse des données, le prototypage, les essais de convivialité, les outils de conception et la communication. La troisième section est l’équipe de développement d’interface utilisateur, qui a pour rôle de faire le pont entre la conception et le développement en mettant en évidence les améliorations et/ou les pièges possibles de l’interface, en veillant à ce que les conceptions soient codées en interfaces responsables, accessibles et cohérentes, en vérifiant que les interfaces fonctionnent sur les navigateurs et les appareils acceptés et en développant et en maintenant la bibliothèque de composants du produit pour un développement d’interface rapide et facile. Les classifications de cette équipe sont CS (Programmation). Les compétences utilisées par cette équipe sont les langages du Web (HTML, CSS, JavaScript), la pensée critique, la conception réactive, la programmation Web accessible, la communication. La quatrième section est l’équipe de développement d’arrière-plan, qui a pour rôle de travailler avec les concepteurs et les développeurs d’interface pour transformer les prototypes et les composantes d’interface en solutions de travail, d’appuyer la planification à long terme en fournissant des conseils techniques et des estimations de temps pour le développement de nouvelles fonctionnalités, et de veiller à ce que le site talent.canada.ca fonctionne comme prévu. Les classifications de cette équipe sont CS (Programmation). Les compétences utilisées par cette équipe sont PHP, la cybersécurité, Azure, Git, la pensée critique, les tests automatisés. La cinquième et dernière section est l’équipe de la conciergerie des RH et de la coordination de projet, qui a le rôle de travailler avec les ministères partenaires pour faire avancer les processus d’embauche par la plateforme expérimentale, de mobiliser les utilisateurs (conseillers en RH, gestionnaires et candidats), d’observer et d’analyser les interactions, de reconnaître des tendances dans les constatations et de recommander des options et des domaines nécessitant une enquête plus approfondie aux équipes de politiques et de conception. Les classifications de cette équipe sont AS et EC. Les compétences utilisées par cette équipe sont la coordination de projets, les services à la clientèle, l’observation, l’analyse, la psychologie industrielle, la psychologie comportementale, et le développement de cadres et d’outils. Le graphique indique que les équipes agissent en boucle, en commençant par l’atelier sur les politiques par l’intermédiaire du concierge des RH et de l’équipe de coordination de projet, qui transmet ensuite ses résultats de recherche et ses idées à l’atelier sur les politiques pour recommencer le processus."
-                style="width: 100%;"
-                data-h2-display="b(block)"
-                data-h2-radius="b(s)"
-                data-h2-border="b(gray, all, solid, s)">
-                
-            
-          </figure>
-        
-      
-    
-      
-        
-          <!-- Titles -->
-          <h3
-  
-  data-h2-font-weight="b(800)"
-  data-h2-font-size="b(h3)"
-  data-h2-margin='b(top, xl) b(bottom, s)'
-  
-  style="letter-spacing: -1px;">
-  Pourquoi une équipe multidisciplinaire est-elle essentielle à la mission?
-</h3>
-        
-      
-    
-      
-        
-          <!-- Basic Content -->
-          <p>Pour construire un produit numérique moderne, vous avez besoin de l’appui de personnes avec de nombreux et différents ensembles de compétences, qui, au gouvernement, sont classés comme appartenant à différents groupes professionnels. En même temps, vous n’avez pas le temps de trouver des personnes à l’externe et de les encadrer dans le contexte spécifique de votre produit. Trop de choses dépendent des détails de ce que vous construisez pour que des experts externes qui ne disposent pas d’une connaissance intime du produit puissent y contribuer de manière significative. (À ne pas confondre avec la mobilisation des utilisateurs, qui est un effort constant de sensibilisation et de mobilisation.) Cela signifie que pour construire un produit de haute qualité et dans les délais impartis, votre équipe doit être dotée de cette expertise.</p>
-        
-      
-    
-      
-        
-          <!-- Basic Content -->
-          <p>Dans la pratique, notre équipe jongle constamment avec les idées et le travail entre politique, fonctionnement du projet, conception, développement et services à la clientèle. Les concepteurs se concertent périodiquement avec l’équipe stratégique afin de veiller à ce que ce qu’ils proposent fonctionne du point de vue des politiques. Les opérations liées aux projets doivent se concerter périodiquement avec les développeurs pour obtenir des détails sur les nouvelles fonctionnalités qui seront disponibles. Notre cycle de développement du produit est une boucle constante qui passe entre les mains de plusieurs groupes professionnels. Il s’agit d’une collaboration quotidienne, qui nécessite les ressources spécialisées de différents groupes professionnels travaillant ensemble dans un cycle continu de rétroaction de création et d’itération.</p>
-        
-      
-    
-      
-        
-          <!-- Basic Content -->
-          <p>Cette collaboration multidisciplinaire entre les membres de l’équipe est au cœur de ce que nous faisons et nous en bénéficions constamment. Pour que les choses continuent à évoluer à un rythme suffisamment rapide pour qu’un produit conserve sa pertinence dans un monde en constante évolution, nous pensons que c’est la seule façon de fonctionner (du moins pour ces types de produits basés sur les services où conception, développement et tests utilisateur entrent en jeu). Essentiellement, la structure de l’équipe permet à la fois au responsable du produit (qui décide de ce qui doit être construit) et à l’équipe du produit (qui réalise le construit à proprement dit) de fonctionner dans le cadre de la même équipe, améliorant ainsi le flux pour une itération rapide et novatrice du produit.</p>
-        
-      
-    
-      
-        
-          <!-- Basic Content -->
-          <p>Bien que le gouvernement du Canada ait publié un bulletin à l’intention des responsables des ressources humaines confirmant que les politiques ne constituent pas un empêchement à des équipes multidisciplinaires, dans la pratique, il demeure difficile de regrouper ce genre d’équipes, surtout dans le cas d’unités plus petites. Cela est particulièrement vrai dans les cas où un modèle d’équipe hautement efficace exigerait une supervision à classification croisée. Dans une structure hiérarchisée comme celle d’un gouvernemental traditionnel, cela serait rarement nécessaire. Mais cette structure n’a rien d’exceptionnel dans les équipes agiles multifonctionnelles du secteur privé en raison de la nature du travail, ce qui exige que les concepteurs, les développeurs, les anthropologues et les services clients travaillent ensemble pour livrer un produit. Quand les gouvernements veulent construire ainsi, en appliquant des méthodes agiles, cela signifie que des équipes comme celle-ci seront de plus en plus nécessaires. Grâce à un travail minutieux de classification et au recours souple à des conventions à caractère provisoire « à durée déterminée », Nuage de talents a permis de mettre cela en place, mais il n’est pas garanti que d’autres équipes pourront faire de même.</p>
-        
-      
-    
-      
-        
-          <!-- Titles -->
-          <h3
-  
-  data-h2-font-weight="b(800)"
-  data-h2-font-size="b(h3)"
-  data-h2-margin='b(top, xl) b(bottom, s)'
-  
-  style="letter-spacing: -1px;">
-  Ce que nous voulons dire par « agile »
-</h3>
-        
-      
-    
-      
-        
-          <!-- Basic Content -->
-          <p>Affirmer qu’une équipe utilise « agile » dans le gouvernement ajoute à la controverse en raison de la multitude des interprétations que donnent les équipes et les dirigeants à ce mot. Alors que sa soudaine popularité est évidente (à la limite de l’omniprésence), peu s’entendent sur une définition concrète, ou minimalement commune, qui légitimerait son usage dans la pratique. Néanmoins, nous partageons certains des concepts d’« agile » que nous employons au cours de notre cycle de sprints de deux semaines.</p>
-        
-      
-    
-      
-        
-          <!-- Basic Content -->
-          <p>(Pour une vue réelle de cela, veuillez consulter notre code et contenu sur GitHub.)</p>
-        
-      
-    
-      
-        
-          <!-- Subtitles -->
-          <h4
-  
-  data-h2-font-weight="b(400)"
-  data-h2-font-size="b(h4)"
-  data-h2-margin='b(top, xl) b(bottom, s)'
-  style="letter-spacing: -1px;">
-  Points de récit
-</h4>
-        
-      
-    
-      
-        
-          <!-- Basic Content -->
-          <p>Comme c’est souvent le cas dans les construits agiles, nous utilisons des points de récit pour parler de la difficulté ou de la complexité de quelque chose pour l’équipe de développement. Avant de décider de travailler sur une tâche précise, les développeurs estiment le nombre des points de récits qu’il faudra pour terminer; peu importe qu’un point de récit prenne habituellement une heure du temps d’un développeur ou toute une journée. Ce qui est important, c’est que le point de récit devienne un moyen utile de communiquer au reste de l’équipe à quel point quelque chose sera complexe (et peut-être long) à implémenter.</p>
-        
-      
-    
-      
-        
-          <!-- Basic Content -->
-          <p>Par exemple, nous avons examiné une fonctionnalité qui interrompt une personne qui remplit une demande d’emploi lorsque la date limite pour la soumettre est échue. Sans cette interruption, vous risquez de perdre du temps à remplir une demande, mais lorsque vous cliquez sur le bouton Envoyer, un message d’erreur indiquant que la date limite de soumission est échue s’affiche. Il s’agit d’une caractéristique souhaitable, même si ce n’est qu’une infime fraction des utilisateurs qui en bénéficierait. Les développeurs ont estimé cela à 8 points de récit. Dans un sprint intense, nous ne pouvons accomplir que trois tâches de cette complexité. Et étant donné que si peu d’utilisateurs bénéficiaient de cette fonctionnalité, l’équipe a pu argumenter que ce n’était pas la peine de la construire. Le temps des développeurs a plutôt été consacré à l’implémentation de fonctionnalités de plus grande valeur qui bénéficieraient à un plus grand nombre d’utilisateurs. Mais si le « coût » de cela avait été d’un ou de deux points de récit, nous aurions pu faire un autre choix.</p>
-        
-      
-    
-      
-        
-          <!-- Subtitles -->
-          <h4
-  
-  data-h2-font-weight="b(400)"
-  data-h2-font-size="b(h4)"
-  data-h2-margin='b(top, xl) b(bottom, s)'
-  style="letter-spacing: -1px;">
-  Réunion informelle quotidienne
-</h4>
-        
-      
-    
-      
-        
-          <!-- Basic Content -->
-          <p>Pour notre équipe virtuelle, la réunion informelle quotidienne est devenue centrale dans notre façon de travailler. Chaque jour à 11 h, l’équipe de développement et les concepteurs se joignent dans le cadre d’un appel sur Zoom et décrivent succinctement :</p>
-        
-      
-    
-      
-        
-          
-            <ul>
-              
-                <li>Ce sur quoi ils ont travaillé depuis la veille (nommant le problème ou le prototype sur lequel ils travaillent est généralement suffisant).</li>
-              
-                <li>Ce sur quoi ils travailleront ce jour-là.</li>
-              
-                <li>Les blocages qui pourraient survenir.</li>
-              
-            </ul>
-          
-        
-      
-    
-      
-        
-          <!-- Basic Content -->
-          <p>Nous avons réussi à tenir ces réunions informelles en moins de 15 minutes, même avec plus de neuf personnes. Lorsqu’une réunion informelle donne lieu à des discussions, nous pouvons généralement demander aux gens de rester en ligne après la réunion, de sorte de conclure leurs échanges et de passer à autre chose. L’idée de tenir des réunions informelles est géniale, car elles permettent de veiller à ce que tout le monde travaille sur les bonnes choses. La présence des concepteurs permet aussi d’augmenter l’interaction entre eux et les développeurs; voilà un aspect que nous avons tenté d’améliorer.</p>
-        
-      
-    
-      
-        
-          <!-- Basic Content -->
-          <p>Alors que de nombreuses personnes travaillent de la maison, une réunion informelle est parfois la seule interaction directe que vous aurez avec d’autres êtres humains au cours de la journée de travail. Le format de la réunion informelle est simple : chacun raconte brièvement ce sur quoi il a travaillé depuis la réunion précédente, ce sur quoi il compte travailler jusqu’à la réunion suivante et sur les blocages (s’il y en a) qui l’empêcherait de progresser. Cela contribue également à augmenter les interactions humaines en permettant à l’équipe de signaler quand deux personnes devraient discuter de leur travail. Il faut toujours trouver le juste milieu entre la participation de tous à ce qui se fait et le temps nécessaire pour que chacun se concentre sur son propre travail.</p>
-        
-      
-    
-      
-        
-          <!-- Subtitles -->
-          <h4
-  
-  data-h2-font-weight="b(400)"
-  data-h2-font-size="b(h4)"
-  data-h2-margin='b(top, xl) b(bottom, s)'
-  style="letter-spacing: -1px;">
-  Revue de sprint
-</h4>
-        
-      
-    
-      
-        
-          <!-- Basic Content -->
-          <p>À la fin de chaque sprint de 2 semaines, l’équipe de développement dirige une séance de démonstration où elle montre ce qu’elle a accompli. Cependant, comme nous ne construisons pas vraiment pour un client en particulier, au début d’un sprint, nous n’insistons pas trop sur ce que nous engageons à faire. Au lieu de cela, les développeurs travaillent d’arrache-pied à faire avancer les choses autant qu’ils le peuvent. Si quelque chose n’est pas terminé, il est possible de la tenir en réserve pour la prochaine revue de sprint. Sauf circonstances particulières, les développeurs n’ont pas à faire des heures supplémentaires pour terminer des tâches.</p>
-        
-      
-    
-      
-        
-          <!-- Basic Content -->
-          <p>Pour que tous soient sur un pied d’égalité, ce n’était donc pas toujours aux développeurs de présenter leur travail et ils pouvaient ainsi se mettre au parfum de ce que le reste de l’équipe faisait; nous avons commencé en faisant une revue de sprint de l’« équipe stratégique » toutes les deux semaines en alternance avec la revue de sprint des développeurs. (À des fins d’information, l’« équipe stratégique » est le volet recherche, politique et interaction avec la clientèle de Nuage de talents, qui utilise un tableau Trello pour suivre le travail, et a tendance à avoir des échéanciers et des pressions différents de ceux de l’équipe du développement.) Nous sommes encore en train d’itérer le format exact de la revue de sprint de l’équipe stratégique, mais l’objectif est de donner à chacun une idée des questions épineuses auxquelles l’équipe stratégique a dû faire face récemment et de rappeler à tout le monde que nous nous dirigeons vers une vision à plus long terme. Habituellement, nous tentons de choisir un ou deux artéfacts que l’équipe a achevés ou sur lesquels elle a accompli d’importants progrès et de faire en sorte que la personne qui a travaillé dessus les présente à tout le monde. Par exemple, des prototypes de conception, des présentations (dossiers), des recherches, des rapports ou d’autres travaux théoriques compliqués comme notre dixième version du cadre des compétences au cœur du modèle de recrutement.</p>
-        
-      
-    
-      
-        
-          <!-- Titles -->
-          <h3
-  
-  data-h2-font-weight="b(800)"
-  data-h2-font-size="b(h3)"
-  data-h2-margin='b(top, xl) b(bottom, s)'
-  
-  style="letter-spacing: -1px;">
-  Direction d’une équipe virtuelle
-</h3>
-        
-      
-    
-      
-        
-          <!-- Basic Content -->
-          <p>L’équipe Nuage de talents est une équipe virtuelle depuis 2017, dont les membres sont répartis dans différentes villes canadiennes, dont Halifax, Toronto, Montréal et Edmonton. Cela signifie également que les membres de l’équipe du bureau principal à Ottawa ont toujours pu travailler à domicile à leur discrétion, y compris notre Liaison avec les communautés autochtones, qui travaille à mi-temps depuis sa communauté plus au nord.</p>
-        
-      
-    
-      
-        
-          <!-- Basic Content -->
-          <p>En mars 2020, alors que les bureaux ont été fermés et que les gouvernements du monde entier se dépêchaient de s’adapter à la nouvelle réalité avec la COVID-19, les membres de notre équipe ont emporté leur ordinateur chez eux un vendredi et travaillent depuis ce temps à domicile. Chacun a pu continuer son travail sans interruption (à l’exception peut-être de ceux avec des enfants qui ne pouvaient pas aller à l’école, faisant du grabuge en arrière-plan).</p>
-        
-      
-    
-      
-        
-          <!-- Basic Content -->
-          <p>C’est intéressant, car dans les faits, le travail des équipes virtuelles est devenu plus facile, puisque l’on n’avait plus à rassembler autant de gens dans un même endroit. Avec seulement une ou deux personnes en dehors du bureau, il est facile de maintenir le cap sur les pratiques centrées sur le bureau comme option par défaut, tandis que les gens dans les régions travaillent aux marges et s’ajustent comme ils le peuvent (une habitude que notre équipe a passé beaucoup de temps à tenter consciencieusement de casser). Mais quand plus de la moitié des membres de l’équipe travaillent à distance, on n’a tout simplement pas le choix.</p>
-        
-      
-    
-      
-        
-          <!-- Basic Content -->
-          <p>Les outils numériques deviennent hyperimportants quand on travaille au sein d’une équipe dispersée géographiquement. Dans le cas de nos développeurs, c’est GitHub qui leur a permis de collaborer sur des sprints de développement de codes et de plans. Quant à nos concepteurs, ils ont utilisé Adobe Creative Cloud pour construire et partager des conceptions, tandis que tout le monde a collaboré sur des documents à l’aide de Google Drive.</p>
-        
-      
-    
-      
-        
-          <!-- Basic Content -->
-          <p>Mais le plus important, c’est une application de messagerie fiable, parce qu’elle devient le principal mode de communication et pôle d’échanges culturels pour l’ensemble de l’équipe. Le partage de photos, d’hyperliens et des pensées au petit bonheur la chance remplace les conversations devant la machine à café. Un émoji remplace l’esquisse d’un sourire aux lèvres de vos collègues.</p>
-        
-      
-    
-      
-        
-          <figure data-h2-margin="b(top-bottom, l)">
-            <!-- Graphics -->
-            
-              <img 
-                src="/assets/img/1.8-en-slack-1.jpg"
-                alt="Une capture d’écran montrant un exemple de membres de l’équipe qui discutent informellement à l’aide de l’application de messagerie Slack. Gray a écrit : « 98 % du temps, les graphiques en toile d’araignée ne sont que des graphiques à barres qui sont plus difficiles à lire. » De nombreux membres de l’équipe ont réagi à son message à l’aide d’émoticônes."
-                style="width: 80%;"
-                data-h2-display="b(block)"
-                data-h2-margin="b(right-left, auto)"
-                data-h2-radius="b(s)"
-                data-h2-border="b(gray, all, solid, s)">
-                
-            
-          </figure>
-        
-      
-    
-      
-        
-          <!-- Basic Content -->
-          <p>Les plateformes de messagerie permettent également d’améliorer la productivité, car les membres de l’équipe peuvent « s’absenter » pour effectuer un travail exigeant de la concentration, puis revenir à la conversation dont l’historique a été conservé dans son intégralité, permettant ainsi de s’y replonger rapidement sans avoir perdu le fil. Elles permettent également de faire un suivi des décisions prises et des motifs invoqués, en particulier dans le cas d’éléments clés de la conception où plusieurs options ont été prises en compte, notamment lorsque les applications de messagerie sont jumelées à des outils comme Trello pour suivre les tâches et les progrès.</p>
-        
-      
-    
-      
-        
-          <figure data-h2-margin="b(top-bottom, l)">
-            <!-- Graphics -->
-            
-              <img 
-                src="/assets/img/1.8-en-slack-2.jpg"
-                alt="Une capture d’écran montrant un exemple d’un membre de l’équipe qui organise une fête de vacances en utilisant l’application de messagerie Slack. Rosita a écrit : « salut, nous organisons une fête en équipe le mercredi 19 décembre qui comprendra un déjeuner, des combinaisons pyjamas et un film. Plus de détails suivront, mais je vous enverrai tous une invitation au calendrier. » De nombreux membres de l’équipe ont réagi à son message à l’aide d’émoticônes."
-                style="width: 60%;"
-                data-h2-display="b(block)"
-                data-h2-margin="b(right-left, auto)"
-                data-h2-radius="b(s)"
-                data-h2-border="b(gray, all, solid, s)">
-                
-            
-          </figure>
-        
-      
-    
-  </div>
-</main>
-<section style="background-color: #F8F8F8;">
-  <div data-h2-container="b(center, s)" data-h2-padding="b(bottom, l) l(bottom, xxl)">
-    <div data-h2-flex-grid="b(top, expanded, flush, m)">
-      <div
-        data-h2-text-align="b(center) m(left)" 
-        data-h2-flex-item="b(1of2)">
-        
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-            
-              <a class="prev" href="/fr/projects/2000/01/01/107-approach.html" title="Allez à l'article précédent de la série.">
-                <svg data-h2-margin="b(right, xxs)" 
-                  style="width: 1rem; vertical-align: middle;" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="#c90035">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M15 19l-7-7 7-7" />
-                </svg>Article précédent</a>
-            
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-      </div>
-      <div 
-        data-h2-text-align="b(center) m(right)"   
-        data-h2-flex-item="b(1of2)">
-        
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-            
-              <a class="next" href="/fr/projects/2000/01/01/109-research-engine.html" title="Passez à l'article suivant de la série.">Article suivant<svg data-h2-margin="b(left, xxs)" 
-                style="width: 1rem; vertical-align: middle;" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="#c90035">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M9 5l7 7-7 7" />
-                </svg></a>
-            
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-      </div>
-    </div>
-    <p
-      data-h2-margin="b(top, xxl)" 
-      data-h2-text-align="b(center)"
-      data-h2-font-size="b(caption)">
-      <a href="/fr/talent-cloud/report/#toc" title="Retour à la table des matières">Retour à la table des matières</a>
-    </p>
-  </div>
-</section>
-<section data-h2-border="b([light]gray, top, solid, s)" data-h2-position="b(relative)" style="background: rgba(240, 240, 240, 1)" data-h2-overflow="b(x, hidden)">
-  <footer data-h2-container="b(center, full)" data-h2-padding="b(top-bottom, l)">
-    <div data-h2-flex-grid="b(middle, expanded, flush, xl)">
-      <div
-        data-h2-flex-item="b(1of1) m(1of2)"
-        data-h2-padding="b(left, xl)"
-        data-h2-text-align="b(center) m(left)">
-        
-          <nav>
-            <ul
-              style="gap: 1rem;"
-              class="reset-ul"
-              data-h2-display="b(flex)"
-              data-h2-flex-wrap="b(wrap)"
-              data-h2-justify-content="b(center) m(flex-start)"
-              data-h2-margin="b(bottom, xs)">
-              
-              <li data-h2-display="b(inline-block)" data-h2-margin="b(top-bottom, none)">
-                
-                  <a href="mailto:talent.cloud-nuage.de.talents@tbs-sct.gc.ca" title="Soumettre des commentaires au Nuage de talents du GC par courriel.">Retour d'information</a>
-                
-              </li>
-              
-              <li data-h2-display="b(inline-block)" data-h2-margin="b(top-bottom, none)">
-                
-                  <a href="/fr/terms-and-conditions" title="Voir nos avis.">Avis</a>
-                
-              </li>
-              
-              <li data-h2-display="b(inline-block)" data-h2-margin="b(top-bottom, none)">
-                
-                  <a href="/fr/privacy-notice" title="Voir notre politique de confidentialité.">Confidentialité</a>
-                
-              </li>
-              
-              <li data-h2-display="b(inline-block)" data-h2-margin="b(top-bottom, none)">
-                
-                  <a href="/fr/https://www.canada.ca/fr.html" title="Visiter Canada.ca.">Canada.ca</a>
-                
-              </li>
-              
-            </ul>
-          </nav>
-          <p 
-            data-h2-font-size="b(caption)"
-            data-h2-font-color="b(black)" 
-            data-h2-margin="b(bottom, none) b(top, m)">
-            Date de modification: July 07, 2021
-          </p>
-        
-      </div>
-      <div
-        data-h2-flex-item="b(1of1) m(1of2)"
-        data-h2-padding="b(right, xl)"
-        data-h2-text-align="b(center) m(right)">
-        <a
-          href="https://www.canada.ca/fr.html"
-          title="Visiter Canada.ca."
-          target="_blank"
-          rel="noopener noreferrer">
-          <img
-            class="canada-logo"
-            src="/assets/img/ui-canada.png"
-            alt="Symbole du gouvernement du Canada."/>
-        </a>
-      </div>
-    </div>
-  </footer>
-</section>
+                    <li
+                        data-h2-margin="b(all, none)"
+                        data-h2-padding="b(all, none)"
+                        data-h2-display="b(inline-block)"
+                    >
+                        <a
+                            href="/fr/talent-cloud/"
+                            title="En savoir plus sur le projet Nuage de talents."
+                            data-h2-display="b(block)"
+                            data-h2-padding="b(all, xs) m(right-left, s)"
+                            >Nuage de talents</a
+                        >
+                    </li>
 
-    <script type="text/javascript" src="/assets/js/app.js"></script>
-  </body>
+                    <li
+                        data-h2-margin="b(all, none)"
+                        data-h2-padding="b(all, none)"
+                        data-h2-display="b(inline-block)"
+                    >
+                        <a
+                            href="/fr/communities/digital-talent/"
+                            title="En savoir plus sur la communauté des talents numériques."
+                            data-h2-display="b(block)"
+                            data-h2-padding="b(all, xs) m(right-left, s)"
+                            >Talent numérique</a
+                        >
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <section>
+            <div
+                data-h2-container="b(center, full)"
+                data-h2-text-align="b(center)"
+            >
+                <h1
+                    data-h2-font-weight="b(800)"
+                    data-h2-font-size="b(h1)"
+                    data-h2-padding="b(top, l) l(top, xxl) b(bottom, xxs)"
+                    style="letter-spacing: -3px"
+                >
+                    Rapport sur les résultats de Nuage de talents
+                </h1>
+
+                <div id="breadcrumbs" data-h2-margin="b(top-bottom, m)">
+                    <a href="/fr" title="Retour à la page d'accueil."
+                        >GC Talent</a
+                    >
+                    <!-- If the page layout is post then use this breadcrumb list. -->
+
+                    /
+                    <a
+                        href="/fr/talent-cloud"
+                        title="Retournez à la page de Nuage de talents."
+                        >Nuage de talents</a
+                    >
+                    /
+                    <a
+                        href="/fr/talent-cloud/report"
+                        title="Retournez au rapport des résultats de Nuage de talents."
+                        >Rapport sur les r...</a
+                    >
+                    / <span>Section 1</span> /
+                    <span data-h2-font-weight="b(800)"
+                        >Fonctionnement de...</span
+                    >
+                </div>
+            </div>
+        </section>
+        <header
+            class="post-header"
+            id="mainContent"
+            style="background-image: url('/assets/img/1.8-tx-heading.jpg')"
+            data-h2-margin="b(top, xl)"
+        >
+            <div
+                data-h2-container="b(center, m)"
+                data-h2-font-color="b(white)"
+                data-h2-padding="b(top, l) b(bottom, xl) l(top, xl) l(bottom, xxl)"
+                data-h2-text-align="b(center)"
+            >
+                <h2
+                    data-h2-font-weight="b(200)"
+                    data-h2-font-size="b(h2)"
+                    data-h2-padding="b(top, m)"
+                    style="letter-spacing: -2px"
+                >
+                    Fonctionnement des équipes
+                </h2>
+
+                <div data-h2-padding="b(top, m)">
+                    <div
+                        data-h2-bg-color="b(white[.2])"
+                        data-h2-border="b(white, all, solid, s)"
+                        data-h2-display="b(inline-block)"
+                        data-h2-margin="b(all, xxs) l(right-left, xxs)"
+                        data-h2-padding="b(top, xxs) b(bottom, xs) b(right-left, s)"
+                        data-h2-radius="b(m)"
+                        style="line-height: 1"
+                    >
+                        <img
+                            data-h2-display="b(inline-block)"
+                            data-h2-margin="b(right, xxs)"
+                            style="vertical-align: middle; width: 0.8rem"
+                            src="/assets/img/ds-empower-staff.svg"
+                            aria-hidden="true"
+                        />
+                        <span data-h2-font-size="b(caption)"
+                            >Renforcer la prestation de services</span
+                        >
+                    </div>
+
+                    <div
+                        data-h2-bg-color="b(white[.2])"
+                        data-h2-border="b(white, all, solid, s)"
+                        data-h2-display="b(inline-block)"
+                        data-h2-margin="b(all, xxs) l(right-left, xxs)"
+                        data-h2-padding="b(top, xxs) b(bottom, xs) b(right-left, s)"
+                        data-h2-radius="b(m)"
+                        style="line-height: 1"
+                    >
+                        <img
+                            data-h2-display="b(inline-block)"
+                            data-h2-margin="b(right, xxs)"
+                            style="vertical-align: middle; width: 0.8rem"
+                            src="/assets/img/ds-collaboration.svg"
+                            aria-hidden="true"
+                        />
+                        <span data-h2-font-size="b(caption)"
+                            >Collaboration</span
+                        >
+                    </div>
+
+                    <div
+                        data-h2-bg-color="b(white[.2])"
+                        data-h2-border="b(white, all, solid, s)"
+                        data-h2-display="b(inline-block)"
+                        data-h2-margin="b(all, xxs) l(right-left, xxs)"
+                        data-h2-padding="b(top, xxs) b(bottom, xs) b(right-left, s)"
+                        data-h2-radius="b(m)"
+                        style="line-height: 1"
+                    >
+                        <img
+                            data-h2-display="b(inline-block)"
+                            data-h2-margin="b(right, xxs)"
+                            style="vertical-align: middle; width: 0.8rem"
+                            src="/assets/img/ds-open-work.svg"
+                            aria-hidden="true"
+                        />
+                        <span data-h2-font-size="b(caption)"
+                            >Travailler ouvertement</span
+                        >
+                    </div>
+                </div>
+            </div>
+        </header>
+        <main
+            data-h2-padding="b(top-bottom, xs) l(top-bottom, xl)"
+            style="background-color: #f8f8f8"
+        >
+            <div data-h2-container="b(center, s)">
+                <!-- Basic Content -->
+                <p>
+                    La pipeline des caractéristiques du Nuage de talents : En
+                    équipe, nous avons utilisé une boucle de rétroaction de
+                    renforcement en cinq étapes afin de développer et d’adapter
+                    les différentes caractéristiques de la plateforme.
+                </p>
+
+                <figure data-h2-margin="b(top-bottom, l)">
+                    <!-- Graphics -->
+
+                    <img
+                        src="/assets/img/1.8-fr-operations.png"
+                        alt="Un graphique qui représente l’approche des opérations de l’équipe du Nuage de talents. La première section est l’atelier sur les politiques, qui a pour rôle de faire des recherches sur des problèmes complexes et prometteurs, d’élaborer des théories, de formuler des hypothèses pour les expériences, d’assurer la conformité aux politiques, d’analyser les constatations, de fournir des présentations, de donner des conseils sur les constatations et de voir l’ensemble du système afin de trouver le meilleur chemin. Les classifications de cette équipe sont EC. Les compétences utilisées par cette équipe sont la recherche, l’analyse, la pensée systémique, la pensée stratégique, la rédaction et la présentation. La deuxième section est l’équipe de conception de l’EU, qui a pour rôle de traduire les exigences opérationnelles en solutions numériques potentielles pour les essais, la réalisation de recherches, la collecte de données, l’utilisation d’aperçus pour concevoir efficacement la disposition, le contenu et les fonctionnalités de la plateforme d’une manière qui répond aux besoins des utilisateurs gouvernementaux et candidats, en faisant la promotion de nos utilisateurs, en améliorant les normes d’accessibilité et en réduisant les préjugés lors de l’embauche. Les classifications de cette équipe sont CS (EU). Les compétences utilisées par cette équipe sont les méthodes de recherche, l’analyse des données, le prototypage, les essais de convivialité, les outils de conception et la communication. La troisième section est l’équipe de développement d’interface utilisateur, qui a pour rôle de faire le pont entre la conception et le développement en mettant en évidence les améliorations et/ou les pièges possibles de l’interface, en veillant à ce que les conceptions soient codées en interfaces responsables, accessibles et cohérentes, en vérifiant que les interfaces fonctionnent sur les navigateurs et les appareils acceptés et en développant et en maintenant la bibliothèque de composants du produit pour un développement d’interface rapide et facile. Les classifications de cette équipe sont CS (Programmation). Les compétences utilisées par cette équipe sont les langages du Web (HTML, CSS, JavaScript), la pensée critique, la conception réactive, la programmation Web accessible, la communication. La quatrième section est l’équipe de développement d’arrière-plan, qui a pour rôle de travailler avec les concepteurs et les développeurs d’interface pour transformer les prototypes et les composantes d’interface en solutions de travail, d’appuyer la planification à long terme en fournissant des conseils techniques et des estimations de temps pour le développement de nouvelles fonctionnalités, et de veiller à ce que le site talent.canada.ca fonctionne comme prévu. Les classifications de cette équipe sont CS (Programmation). Les compétences utilisées par cette équipe sont PHP, la cybersécurité, Azure, Git, la pensée critique, les tests automatisés. La cinquième et dernière section est l’équipe de la conciergerie des RH et de la coordination de projet, qui a le rôle de travailler avec les ministères partenaires pour faire avancer les processus d’embauche par la plateforme expérimentale, de mobiliser les utilisateurs (conseillers en RH, gestionnaires et candidats), d’observer et d’analyser les interactions, de reconnaître des tendances dans les constatations et de recommander des options et des domaines nécessitant une enquête plus approfondie aux équipes de politiques et de conception. Les classifications de cette équipe sont AS et EC. Les compétences utilisées par cette équipe sont la coordination de projets, les services à la clientèle, l’observation, l’analyse, la psychologie industrielle, la psychologie comportementale, et le développement de cadres et d’outils. Le graphique indique que les équipes agissent en boucle, en commençant par l’atelier sur les politiques par l’intermédiaire du concierge des RH et de l’équipe de coordination de projet, qui transmet ensuite ses résultats de recherche et ses idées à l’atelier sur les politiques pour recommencer le processus."
+                        style="width: 100%"
+                        data-h2-display="b(block)"
+                        data-h2-radius="b(s)"
+                        data-h2-border="b(gray, all, solid, s)"
+                    />
+                </figure>
+
+                <!-- Titles -->
+                <h3
+                    data-h2-font-weight="b(800)"
+                    data-h2-font-size="b(h3)"
+                    data-h2-margin="b(top, xl) b(bottom, s)"
+                    style="letter-spacing: -1px"
+                >
+                    Pourquoi une équipe multidisciplinaire est-elle essentielle
+                    à la mission?
+                </h3>
+
+                <!-- Basic Content -->
+                <p>
+                    Pour construire un produit numérique moderne, vous avez
+                    besoin de l’appui de personnes avec de nombreux et
+                    différents ensembles de compétences, qui, au gouvernement,
+                    sont classés comme appartenant à différents groupes
+                    professionnels. En même temps, vous n’avez pas le temps de
+                    trouver des personnes à l’externe et de les encadrer dans le
+                    contexte spécifique de votre produit. Trop de choses
+                    dépendent des détails de ce que vous construisez pour que
+                    des experts externes qui ne disposent pas d’une connaissance
+                    intime du produit puissent y contribuer de manière
+                    significative. (À ne pas confondre avec la mobilisation des
+                    utilisateurs, qui est un effort constant de sensibilisation
+                    et de mobilisation.) Cela signifie que pour construire un
+                    produit de haute qualité et dans les délais impartis, votre
+                    équipe doit être dotée de cette expertise.
+                </p>
+
+                <!-- Basic Content -->
+                <p>
+                    Dans la pratique, notre équipe jongle constamment avec les
+                    idées et le travail entre politique, fonctionnement du
+                    projet, conception, développement et services à la
+                    clientèle. Les concepteurs se concertent périodiquement avec
+                    l’équipe stratégique afin de veiller à ce que ce qu’ils
+                    proposent fonctionne du point de vue des politiques. Les
+                    opérations liées aux projets doivent se concerter
+                    périodiquement avec les développeurs pour obtenir des
+                    détails sur les nouvelles fonctionnalités qui seront
+                    disponibles. Notre cycle de développement du produit est une
+                    boucle constante qui passe entre les mains de plusieurs
+                    groupes professionnels. Il s’agit d’une collaboration
+                    quotidienne, qui nécessite les ressources spécialisées de
+                    différents groupes professionnels travaillant ensemble dans
+                    un cycle continu de rétroaction de création et d’itération.
+                </p>
+
+                <!-- Basic Content -->
+                <p>
+                    Cette collaboration multidisciplinaire entre les membres de
+                    l’équipe est au cœur de ce que nous faisons et nous en
+                    bénéficions constamment. Pour que les choses continuent à
+                    évoluer à un rythme suffisamment rapide pour qu’un produit
+                    conserve sa pertinence dans un monde en constante évolution,
+                    nous pensons que c’est la seule façon de fonctionner (du
+                    moins pour ces types de produits basés sur les services où
+                    conception, développement et tests utilisateur entrent en
+                    jeu). Essentiellement, la structure de l’équipe permet à la
+                    fois au responsable du produit (qui décide de ce qui doit
+                    être construit) et à l’équipe du produit (qui réalise le
+                    construit à proprement dit) de fonctionner dans le cadre de
+                    la même équipe, améliorant ainsi le flux pour une itération
+                    rapide et novatrice du produit.
+                </p>
+
+                <!-- Basic Content -->
+                <p>
+                    Bien que le gouvernement du Canada ait publié un bulletin à
+                    l’intention des responsables des ressources humaines
+                    confirmant que les politiques ne constituent pas un
+                    empêchement à des équipes multidisciplinaires, dans la
+                    pratique, il demeure difficile de regrouper ce genre
+                    d’équipes, surtout dans le cas d’unités plus petites. Cela
+                    est particulièrement vrai dans les cas où un modèle d’équipe
+                    hautement efficace exigerait une supervision à
+                    classification croisée. Dans une structure hiérarchisée
+                    comme celle d’un gouvernemental traditionnel, cela serait
+                    rarement nécessaire. Mais cette structure n’a rien
+                    d’exceptionnel dans les équipes agiles multifonctionnelles
+                    du secteur privé en raison de la nature du travail, ce qui
+                    exige que les concepteurs, les développeurs, les
+                    anthropologues et les services clients travaillent ensemble
+                    pour livrer un produit. Quand les gouvernements veulent
+                    construire ainsi, en appliquant des méthodes agiles, cela
+                    signifie que des équipes comme celle-ci seront de plus en
+                    plus nécessaires. Grâce à un travail minutieux de
+                    classification et au recours souple à des conventions à
+                    caractère provisoire « à durée déterminée », Nuage de
+                    talents a permis de mettre cela en place, mais il n’est pas
+                    garanti que d’autres équipes pourront faire de même.
+                </p>
+
+                <!-- Titles -->
+                <h3
+                    data-h2-font-weight="b(800)"
+                    data-h2-font-size="b(h3)"
+                    data-h2-margin="b(top, xl) b(bottom, s)"
+                    style="letter-spacing: -1px"
+                >
+                    Ce que nous voulons dire par « agile »
+                </h3>
+
+                <!-- Basic Content -->
+                <p>
+                    Affirmer qu’une équipe utilise « agile » dans le
+                    gouvernement ajoute à la controverse en raison de la
+                    multitude des interprétations que donnent les équipes et les
+                    dirigeants à ce mot. Alors que sa soudaine popularité est
+                    évidente (à la limite de l’omniprésence), peu s’entendent
+                    sur une définition concrète, ou minimalement commune, qui
+                    légitimerait son usage dans la pratique. Néanmoins, nous
+                    partageons certains des concepts d’« agile » que nous
+                    employons au cours de notre cycle de sprints de deux
+                    semaines.
+                </p>
+
+                <!-- Basic Content -->
+                <p>
+                    (Pour une vue réelle de cela, veuillez consulter notre code
+                    et contenu sur GitHub.)
+                </p>
+
+                <!-- Subtitles -->
+                <h4
+                    data-h2-font-weight="b(400)"
+                    data-h2-font-size="b(h4)"
+                    data-h2-margin="b(top, xl) b(bottom, s)"
+                    style="letter-spacing: -1px"
+                >
+                    Points de récit
+                </h4>
+
+                <!-- Basic Content -->
+                <p>
+                    Comme c’est souvent le cas dans les construits agiles, nous
+                    utilisons des points de récit pour parler de la difficulté
+                    ou de la complexité de quelque chose pour l’équipe de
+                    développement. Avant de décider de travailler sur une tâche
+                    précise, les développeurs estiment le nombre des points de
+                    récits qu’il faudra pour terminer; peu importe qu’un point
+                    de récit prenne habituellement une heure du temps d’un
+                    développeur ou toute une journée. Ce qui est important,
+                    c’est que le point de récit devienne un moyen utile de
+                    communiquer au reste de l’équipe à quel point quelque chose
+                    sera complexe (et peut-être long) à implémenter.
+                </p>
+
+                <!-- Basic Content -->
+                <p>
+                    Par exemple, nous avons examiné une fonctionnalité qui
+                    interrompt une personne qui remplit une demande d’emploi
+                    lorsque la date limite pour la soumettre est échue. Sans
+                    cette interruption, vous risquez de perdre du temps à
+                    remplir une demande, mais lorsque vous cliquez sur le bouton
+                    Envoyer, un message d’erreur indiquant que la date limite de
+                    soumission est échue s’affiche. Il s’agit d’une
+                    caractéristique souhaitable, même si ce n’est qu’une infime
+                    fraction des utilisateurs qui en bénéficierait. Les
+                    développeurs ont estimé cela à 8 points de récit. Dans un
+                    sprint intense, nous ne pouvons accomplir que trois tâches
+                    de cette complexité. Et étant donné que si peu
+                    d’utilisateurs bénéficiaient de cette fonctionnalité,
+                    l’équipe a pu argumenter que ce n’était pas la peine de la
+                    construire. Le temps des développeurs a plutôt été consacré
+                    à l’implémentation de fonctionnalités de plus grande valeur
+                    qui bénéficieraient à un plus grand nombre d’utilisateurs.
+                    Mais si le « coût » de cela avait été d’un ou de deux points
+                    de récit, nous aurions pu faire un autre choix.
+                </p>
+
+                <!-- Subtitles -->
+                <h4
+                    data-h2-font-weight="b(400)"
+                    data-h2-font-size="b(h4)"
+                    data-h2-margin="b(top, xl) b(bottom, s)"
+                    style="letter-spacing: -1px"
+                >
+                    Réunion informelle quotidienne
+                </h4>
+
+                <!-- Basic Content -->
+                <p>
+                    Pour notre équipe virtuelle, la réunion informelle
+                    quotidienne est devenue centrale dans notre façon de
+                    travailler. Chaque jour à 11 h, l’équipe de développement et
+                    les concepteurs se joignent dans le cadre d’un appel sur
+                    Zoom et décrivent succinctement :
+                </p>
+
+                <ul>
+                    <li>
+                        Ce sur quoi ils ont travaillé depuis la veille (nommant
+                        le problème ou le prototype sur lequel ils travaillent
+                        est généralement suffisant).
+                    </li>
+
+                    <li>Ce sur quoi ils travailleront ce jour-là.</li>
+
+                    <li>Les blocages qui pourraient survenir.</li>
+                </ul>
+
+                <!-- Basic Content -->
+                <p>
+                    Nous avons réussi à tenir ces réunions informelles en moins
+                    de 15 minutes, même avec plus de neuf personnes. Lorsqu’une
+                    réunion informelle donne lieu à des discussions, nous
+                    pouvons généralement demander aux gens de rester en ligne
+                    après la réunion, de sorte de conclure leurs échanges et de
+                    passer à autre chose. L’idée de tenir des réunions
+                    informelles est géniale, car elles permettent de veiller à
+                    ce que tout le monde travaille sur les bonnes choses. La
+                    présence des concepteurs permet aussi d’augmenter
+                    l’interaction entre eux et les développeurs; voilà un aspect
+                    que nous avons tenté d’améliorer.
+                </p>
+
+                <!-- Basic Content -->
+                <p>
+                    Alors que de nombreuses personnes travaillent de la maison,
+                    une réunion informelle est parfois la seule interaction
+                    directe que vous aurez avec d’autres êtres humains au cours
+                    de la journée de travail. Le format de la réunion informelle
+                    est simple : chacun raconte brièvement ce sur quoi il a
+                    travaillé depuis la réunion précédente, ce sur quoi il
+                    compte travailler jusqu’à la réunion suivante et sur les
+                    blocages (s’il y en a) qui l’empêcherait de progresser. Cela
+                    contribue également à augmenter les interactions humaines en
+                    permettant à l’équipe de signaler quand deux personnes
+                    devraient discuter de leur travail. Il faut toujours trouver
+                    le juste milieu entre la participation de tous à ce qui se
+                    fait et le temps nécessaire pour que chacun se concentre sur
+                    son propre travail.
+                </p>
+
+                <!-- Subtitles -->
+                <h4
+                    data-h2-font-weight="b(400)"
+                    data-h2-font-size="b(h4)"
+                    data-h2-margin="b(top, xl) b(bottom, s)"
+                    style="letter-spacing: -1px"
+                >
+                    Revue de sprint
+                </h4>
+
+                <!-- Basic Content -->
+                <p>
+                    À la fin de chaque sprint de 2 semaines, l’équipe de
+                    développement dirige une séance de démonstration où elle
+                    montre ce qu’elle a accompli. Cependant, comme nous ne
+                    construisons pas vraiment pour un client en particulier, au
+                    début d’un sprint, nous n’insistons pas trop sur ce que nous
+                    engageons à faire. Au lieu de cela, les développeurs
+                    travaillent d’arrache-pied à faire avancer les choses autant
+                    qu’ils le peuvent. Si quelque chose n’est pas terminé, il
+                    est possible de la tenir en réserve pour la prochaine revue
+                    de sprint. Sauf circonstances particulières, les
+                    développeurs n’ont pas à faire des heures supplémentaires
+                    pour terminer des tâches.
+                </p>
+
+                <!-- Basic Content -->
+                <p>
+                    Pour que tous soient sur un pied d’égalité, ce n’était donc
+                    pas toujours aux développeurs de présenter leur travail et
+                    ils pouvaient ainsi se mettre au parfum de ce que le reste
+                    de l’équipe faisait; nous avons commencé en faisant une
+                    revue de sprint de l’« équipe stratégique » toutes les deux
+                    semaines en alternance avec la revue de sprint des
+                    développeurs. (À des fins d’information, l’« équipe
+                    stratégique » est le volet recherche, politique et
+                    interaction avec la clientèle de Nuage de talents, qui
+                    utilise un tableau Trello pour suivre le travail, et a
+                    tendance à avoir des échéanciers et des pressions différents
+                    de ceux de l’équipe du développement.) Nous sommes encore en
+                    train d’itérer le format exact de la revue de sprint de
+                    l’équipe stratégique, mais l’objectif est de donner à chacun
+                    une idée des questions épineuses auxquelles l’équipe
+                    stratégique a dû faire face récemment et de rappeler à tout
+                    le monde que nous nous dirigeons vers une vision à plus long
+                    terme. Habituellement, nous tentons de choisir un ou deux
+                    artéfacts que l’équipe a achevés ou sur lesquels elle a
+                    accompli d’importants progrès et de faire en sorte que la
+                    personne qui a travaillé dessus les présente à tout le
+                    monde. Par exemple, des prototypes de conception, des
+                    présentations (dossiers), des recherches, des rapports ou
+                    d’autres travaux théoriques compliqués comme notre dixième
+                    version du cadre des compétences au cœur du modèle de
+                    recrutement.
+                </p>
+
+                <!-- Titles -->
+                <h3
+                    data-h2-font-weight="b(800)"
+                    data-h2-font-size="b(h3)"
+                    data-h2-margin="b(top, xl) b(bottom, s)"
+                    style="letter-spacing: -1px"
+                >
+                    Direction d’une équipe virtuelle
+                </h3>
+
+                <!-- Basic Content -->
+                <p>
+                    L’équipe Nuage de talents est une équipe virtuelle depuis
+                    2017, dont les membres sont répartis dans différentes villes
+                    canadiennes, dont Halifax, Toronto, Montréal et Edmonton.
+                    Cela signifie également que les membres de l’équipe du
+                    bureau principal à Ottawa ont toujours pu travailler à
+                    domicile à leur discrétion, y compris notre Liaison avec les
+                    communautés autochtones, qui travaille à mi-temps depuis sa
+                    communauté plus au nord.
+                </p>
+
+                <!-- Basic Content -->
+                <p>
+                    En mars 2020, alors que les bureaux ont été fermés et que
+                    les gouvernements du monde entier se dépêchaient de
+                    s’adapter à la nouvelle réalité avec la COVID-19, les
+                    membres de notre équipe ont emporté leur ordinateur chez eux
+                    un vendredi et travaillent depuis ce temps à domicile.
+                    Chacun a pu continuer son travail sans interruption (à
+                    l’exception peut-être de ceux avec des enfants qui ne
+                    pouvaient pas aller à l’école, faisant du grabuge en
+                    arrière-plan).
+                </p>
+
+                <!-- Basic Content -->
+                <p>
+                    C’est intéressant, car dans les faits, le travail des
+                    équipes virtuelles est devenu plus facile, puisque l’on
+                    n’avait plus à rassembler autant de gens dans un même
+                    endroit. Avec seulement une ou deux personnes en dehors du
+                    bureau, il est facile de maintenir le cap sur les pratiques
+                    centrées sur le bureau comme option par défaut, tandis que
+                    les gens dans les régions travaillent aux marges et
+                    s’ajustent comme ils le peuvent (une habitude que notre
+                    équipe a passé beaucoup de temps à tenter consciencieusement
+                    de casser). Mais quand plus de la moitié des membres de
+                    l’équipe travaillent à distance, on n’a tout simplement pas
+                    le choix.
+                </p>
+
+                <!-- Basic Content -->
+                <p>
+                    Les outils numériques deviennent hyperimportants quand on
+                    travaille au sein d’une équipe dispersée géographiquement.
+                    Dans le cas de nos développeurs, c’est GitHub qui leur a
+                    permis de collaborer sur des sprints de développement de
+                    codes et de plans. Quant à nos concepteurs, ils ont utilisé
+                    Adobe Creative Cloud pour construire et partager des
+                    conceptions, tandis que tout le monde a collaboré sur des
+                    documents à l’aide de Google Drive.
+                </p>
+
+                <!-- Basic Content -->
+                <p>
+                    Mais le plus important, c’est une application de messagerie
+                    fiable, parce qu’elle devient le principal mode de
+                    communication et pôle d’échanges culturels pour l’ensemble
+                    de l’équipe. Le partage de photos, d’hyperliens et des
+                    pensées au petit bonheur la chance remplace les
+                    conversations devant la machine à café. Un émoji remplace
+                    l’esquisse d’un sourire aux lèvres de vos collègues.
+                </p>
+
+                <figure data-h2-margin="b(top-bottom, l)">
+                    <!-- Graphics -->
+
+                    <img
+                        src="/assets/img/1.8-en-slack-1.jpg"
+                        alt="Une capture d’écran montrant un exemple de membres de l’équipe qui discutent informellement à l’aide de l’application de messagerie Slack. Gray a écrit : « 98 % du temps, les graphiques en toile d’araignée ne sont que des graphiques à barres qui sont plus difficiles à lire. » De nombreux membres de l’équipe ont réagi à son message à l’aide d’émoticônes."
+                        style="width: 80%"
+                        data-h2-display="b(block)"
+                        data-h2-margin="b(right-left, auto)"
+                        data-h2-radius="b(s)"
+                        data-h2-border="b(gray, all, solid, s)"
+                    />
+                </figure>
+
+                <!-- Basic Content -->
+                <p>
+                    Les plateformes de messagerie permettent également
+                    d’améliorer la productivité, car les membres de l’équipe
+                    peuvent « s’absenter » pour effectuer un travail exigeant de
+                    la concentration, puis revenir à la conversation dont
+                    l’historique a été conservé dans son intégralité, permettant
+                    ainsi de s’y replonger rapidement sans avoir perdu le fil.
+                    Elles permettent également de faire un suivi des décisions
+                    prises et des motifs invoqués, en particulier dans le cas
+                    d’éléments clés de la conception où plusieurs options ont
+                    été prises en compte, notamment lorsque les applications de
+                    messagerie sont jumelées à des outils comme Trello pour
+                    suivre les tâches et les progrès.
+                </p>
+
+                <figure data-h2-margin="b(top-bottom, l)">
+                    <!-- Graphics -->
+
+                    <img
+                        src="/assets/img/1.8-en-slack-2.jpg"
+                        alt="Une capture d’écran montrant un exemple d’un membre de l’équipe qui organise une fête de vacances en utilisant l’application de messagerie Slack. Rosita a écrit : « salut, nous organisons une fête en équipe le mercredi 19 décembre qui comprendra un déjeuner, des combinaisons pyjamas et un film. Plus de détails suivront, mais je vous enverrai tous une invitation au calendrier. » De nombreux membres de l’équipe ont réagi à son message à l’aide d’émoticônes."
+                        style="width: 60%"
+                        data-h2-display="b(block)"
+                        data-h2-margin="b(right-left, auto)"
+                        data-h2-radius="b(s)"
+                        data-h2-border="b(gray, all, solid, s)"
+                    />
+                </figure>
+            </div>
+        </main>
+        <section style="background-color: #f8f8f8">
+            <div
+                data-h2-container="b(center, s)"
+                data-h2-padding="b(bottom, l) l(bottom, xxl)"
+            >
+                <div data-h2-flex-grid="b(top, expanded, flush, m)">
+                    <div
+                        data-h2-text-align="b(center) m(left)"
+                        data-h2-flex-item="b(1of2)"
+                    >
+                        <a
+                            class="prev"
+                            href="/fr/projects/2000/01/01/107-approach.html"
+                            title="Allez à l'article précédent de la série."
+                        >
+                            <svg
+                                data-h2-margin="b(right, xxs)"
+                                style="width: 1rem; vertical-align: middle"
+                                xmlns="http://www.w3.org/2000/svg"
+                                class="h-6 w-6"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="#c90035"
+                            >
+                                <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    stroke-width="4"
+                                    d="M15 19l-7-7 7-7"
+                                /></svg
+                            >Article précédent</a
+                        >
+                    </div>
+                    <div
+                        data-h2-text-align="b(center) m(right)"
+                        data-h2-flex-item="b(1of2)"
+                    >
+                        <a
+                            class="next"
+                            href="/fr/projects/2000/01/01/109-research-engine.html"
+                            title="Passez à l'article suivant de la série."
+                            >Article suivant<svg
+                                data-h2-margin="b(left, xxs)"
+                                style="width: 1rem; vertical-align: middle"
+                                xmlns="http://www.w3.org/2000/svg"
+                                class="h-6 w-6"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="#c90035"
+                            >
+                                <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    stroke-width="4"
+                                    d="M9 5l7 7-7 7"
+                                /></svg
+                        ></a>
+                    </div>
+                </div>
+                <p
+                    data-h2-margin="b(top, xxl)"
+                    data-h2-text-align="b(center)"
+                    data-h2-font-size="b(caption)"
+                >
+                    <a
+                        href="/fr/talent-cloud/report/#toc"
+                        title="Retour à la table des matières"
+                        >Retour à la table des matières</a
+                    >
+                </p>
+            </div>
+        </section>
+        <section
+            data-h2-border="b([light]gray, top, solid, s)"
+            data-h2-position="b(relative)"
+            style="background: rgba(240, 240, 240, 1)"
+            data-h2-overflow="b(x, hidden)"
+        >
+            <footer
+                data-h2-container="b(center, full)"
+                data-h2-padding="b(top-bottom, l)"
+            >
+                <div data-h2-flex-grid="b(middle, expanded, flush, xl)">
+                    <div
+                        data-h2-flex-item="b(1of1) m(1of2)"
+                        data-h2-padding="b(left, xl)"
+                        data-h2-text-align="b(center) m(left)"
+                    >
+                        <nav>
+                            <ul
+                                style="gap: 1rem"
+                                class="reset-ul"
+                                data-h2-display="b(flex)"
+                                data-h2-flex-wrap="b(wrap)"
+                                data-h2-justify-content="b(center) m(flex-start)"
+                                data-h2-margin="b(bottom, xs)"
+                            >
+                                <li
+                                    data-h2-display="b(inline-block)"
+                                    data-h2-margin="b(top-bottom, none)"
+                                >
+                                    <a
+                                        href="mailto:talent.cloud-nuage.de.talents@tbs-sct.gc.ca"
+                                        title="Soumettre des commentaires au Nuage de talents du GC par courriel."
+                                        >Retour d'information</a
+                                    >
+                                </li>
+
+                                <li
+                                    data-h2-display="b(inline-block)"
+                                    data-h2-margin="b(top-bottom, none)"
+                                >
+                                    <a
+                                        href="/fr/terms-and-conditions"
+                                        title="Voir nos avis."
+                                        >Avis</a
+                                    >
+                                </li>
+
+                                <li
+                                    data-h2-display="b(inline-block)"
+                                    data-h2-margin="b(top-bottom, none)"
+                                >
+                                    <a
+                                        href="/fr/privacy-notice"
+                                        title="Voir notre politique de confidentialité."
+                                        >Confidentialité</a
+                                    >
+                                </li>
+
+                                <li
+                                    data-h2-display="b(inline-block)"
+                                    data-h2-margin="b(top-bottom, none)"
+                                >
+                                    <a
+                                        href="https://www.canada.ca/fr.html"
+                                        title="Visiter Canada.ca."
+                                        >Canada.ca</a
+                                    >
+                                </li>
+                            </ul>
+                        </nav>
+                        <p
+                            data-h2-font-size="b(caption)"
+                            data-h2-font-color="b(black)"
+                            data-h2-margin="b(bottom, none) b(top, m)"
+                        >
+                            Date de modification: July 07, 2021
+                        </p>
+                    </div>
+                    <div
+                        data-h2-flex-item="b(1of1) m(1of2)"
+                        data-h2-padding="b(right, xl)"
+                        data-h2-text-align="b(center) m(right)"
+                    >
+                        <a
+                            href="https://www.canada.ca/fr.html"
+                            title="Visiter Canada.ca."
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            <img
+                                class="canada-logo"
+                                src="/assets/img/ui-canada.png"
+                                alt="Symbole du gouvernement du Canada."
+                            />
+                        </a>
+                    </div>
+                </div>
+            </footer>
+        </section>
+
+        <script type="text/javascript" src="/assets/js/app.js"></script>
+    </body>
 </html>

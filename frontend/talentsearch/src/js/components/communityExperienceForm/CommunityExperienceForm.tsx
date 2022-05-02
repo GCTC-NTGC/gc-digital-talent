@@ -87,6 +87,12 @@ export const CommunityExperienceForm: React.FunctionComponent = () => {
         </div>
         <div>
           <Checkbox
+            boundingBox
+            boundingBoxLabel={intl.formatMessage({
+              defaultMessage: "Current Role",
+              description:
+                "Label displayed on Community Experience form for current role bounded box",
+            })}
             id="currentRole"
             label={intl.formatMessage({
               defaultMessage: "I am currently active in this role",
@@ -99,7 +105,7 @@ export const CommunityExperienceForm: React.FunctionComponent = () => {
             data-h2-display="b(flex)"
             data-h2-flex-direction="b(column) s(row)"
           >
-            <div data-h2-padding="b(right, none) s(right, l)">
+            <div data-h2-padding="b(right, none) s(right, s)">
               <Input
                 id="startDate"
                 label={intl.formatMessage({

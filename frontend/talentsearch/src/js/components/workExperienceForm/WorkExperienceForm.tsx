@@ -67,6 +67,12 @@ export const WorkExperienceForm: React.FunctionComponent = () => {
         </div>
         <div>
           <Checkbox
+            boundingBox
+            boundingBoxLabel={intl.formatMessage({
+              defaultMessage: "Current Role",
+              description:
+                "Label displayed on Work Experience form for current role bounded box",
+            })}
             id="currentRole"
             label={intl.formatMessage({
               defaultMessage: "I am currently active in this role",
@@ -76,7 +82,7 @@ export const WorkExperienceForm: React.FunctionComponent = () => {
             name="currentRole"
           />
           <div data-h2-display="b(flex)">
-            <div data-h2-padding="b(right, l)">
+            <div data-h2-padding="b(right, s)">
               <Input
                 id="startDate"
                 label={intl.formatMessage({

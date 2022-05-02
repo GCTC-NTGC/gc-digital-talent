@@ -992,7 +992,7 @@ export const ProfileForm: React.FC<ProfilePageProps> = ({
                   })}
                 </h2>
                 <Link
-                  href={paths.diversityAndInclusion()}
+                  href={paths.diversityEquityInclusion()}
                   title=""
                   {...{
                     "data-h2-font-color": "b(lightpurple)",

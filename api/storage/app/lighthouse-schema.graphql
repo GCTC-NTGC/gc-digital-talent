@@ -101,7 +101,8 @@ type Classification {
 }
 
 input ClassificationBelongsTo {
-  connect: ID!
+  connect: ID
+  disconnect: Boolean
 }
 
 input ClassificationBelongsToMany {
