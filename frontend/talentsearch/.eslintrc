@@ -78,14 +78,12 @@
                     "(useDeepCompareEffect)"
             }
         ],
-        "jsx-a11y/label-has-for":"error",
-        "jsx-a11y/label-has-associated-control": [
-            2,
-            {
-                "assert": "either",
-                "depth": 3
-            }
-        ],
+        "jsx-a11y/label-has-associated-control": [ 2, {
+            "labelComponents": ["CustomInputLabel"],
+            "labelAttributes": ["label"],
+            "controlComponents": ["CustomInput"],
+            "depth": 3
+          }],
         "no-param-reassign": "warn",
         "jsx-a11y/no-noninteractive-element-to-interactive-role": [
             "error",
