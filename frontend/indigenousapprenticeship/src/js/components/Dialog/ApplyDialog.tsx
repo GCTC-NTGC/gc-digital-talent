@@ -9,6 +9,7 @@ const ApplyDialog: React.FC<BasicDialogProps> = ({ isOpen, onDismiss }) => {
   const intl = useIntl();
   return (
     <Dialog
+      centered
       isOpen={isOpen}
       onDismiss={onDismiss}
       color="ia-secondary"

@@ -17,6 +17,7 @@ export interface DialogProps {
   subtitle?: string;
   confirmation?: boolean;
   footer?: React.ReactNode;
+  centered?: boolean;
 }
 
 export const colorMap: Record<Color, Record<string, string>> = {
@@ -41,6 +42,7 @@ const Dialog: React.FC<DialogProps> = ({
   isOpen,
   color = "ia-primary",
   confirmation = false,
+  centered = false,
   footer,
   children,
 }) => {
@@ -50,7 +52,10 @@ const Dialog: React.FC<DialogProps> = ({
       onDismiss={onDismiss}
       data-h2-font-family="b(sans)"
     >
-      <Content aria-labelledby="dialog-title">
+      <Content
+        aria-labelledby="dialog-title"
+        className={centered ? `dialog--centered` : undefined}
+      >
         <div
           className={`dialog__header ${
             confirmation ? `dialog__header--confirmation` : null

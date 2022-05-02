@@ -4,11 +4,14 @@
 }
 
 [data-reach-dialog-content] {
-  margin: 0 auto;
-  top: 50%;
-  transform: translateY(-50%);
   padding: 1.5rem;
   width: 95vw;
+}
+
+[data-reach-dialog-content].dialog--centered {
+  margin: 0 auto !important;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .dialog-title {
