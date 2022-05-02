@@ -150,8 +150,6 @@ export const MyStatusForm: React.FC<MyStatusFormProps> = ({
     isFormActive = false;
   }
 
-  // isFormActive = true;
-
   let disabledColor = "";
   if (!isFormActive) {
     disabledColor = "b([dark]gray)";
