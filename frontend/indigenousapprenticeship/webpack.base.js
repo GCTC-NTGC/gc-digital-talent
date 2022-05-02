@@ -4,6 +4,7 @@ const CopyPlugin = require("copy-webpack-plugin");
 const TsTransformer = require("@formatjs/ts-transformer");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { DefinePlugin } = require("webpack");
+require('dotenv').config({ path: './.env' });
 
 module.exports = {
   entry: {
