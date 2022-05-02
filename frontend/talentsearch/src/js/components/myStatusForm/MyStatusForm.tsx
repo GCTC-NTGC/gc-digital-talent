@@ -82,6 +82,9 @@ export const MyStatusForm: React.FC<MyStatusFormProps> = ({
   const methods = useForm<FormValues>({
     defaultValues: dataToFormValues(initialData),
   });
+  const [prevFormValues, setPrevFormValues] = React.useState(
+    dataToFormValues(initialData),
+  );
   const { control } = methods;
   const formValues = useWatch({ control, name: "jobLookingStatus" });
 
@@ -95,7 +98,9 @@ export const MyStatusForm: React.FC<MyStatusFormProps> = ({
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const submitDebounced = useCallback(
     debounce(() => {
-      onSubmit({ jobLookingStatus: formValues });
+      if (!(formValues === prevFormValues.jobLookingStatus))
+        onSubmit({ jobLookingStatus: formValues });
+      setPrevFormValues({jobLookingStatus: formValues});
     }, 200),
     [formValues],
   );
