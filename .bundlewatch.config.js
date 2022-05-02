@@ -19,7 +19,7 @@ module.exports = {
     },
     {
       path: "auth/public/js/app.js",
-      maxSize: "50 kB",
+      maxSize: "60 kB",
     },
   ]
 };
