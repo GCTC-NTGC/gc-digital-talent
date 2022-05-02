@@ -144,7 +144,7 @@ export const CreateCmoAssetForm: React.FunctionComponent<
 };
 
 export const CreateCmoAsset: React.FunctionComponent = () => {
-  const [_result, executeMutation] = useCreateCmoAssetMutation();
+  const [, executeMutation] = useCreateCmoAssetMutation();
   const handleCreateCmoAsset = (data: CreateCmoAssetInput) =>
     executeMutation({ cmoAsset: data }).then((result) => {
       if (result.data?.createCmoAsset) {

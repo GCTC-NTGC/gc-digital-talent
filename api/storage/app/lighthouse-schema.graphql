@@ -1,0 +1,1202 @@
+type Applicant {
+  id: ID!
+  firstName: String
+  lastName: String
+  email: Email!
+  telephone: PhoneNumber
+  preferredLang: Language
+  currentProvince: ProvinceOrTerritory
+  currentCity: String
+  isGovEmployee: Boolean
+  govEmployeeType: GovEmployeeType
+  interestedInLaterOrSecondment: Boolean
+  currentClassification: Classification
+  languageAbility: LanguageAbility
+  lookingForEnglish: Boolean
+  lookingForFrench: Boolean
+  lookingForBilingual: Boolean
+  bilingualEvaluation: BilingualEvaluation
+  comprehensionLevel: EvaluatedLanguageAbility
+  writtenLevel: EvaluatedLanguageAbility
+  verbalLevel: EvaluatedLanguageAbility
+  estimatedLanguageAbility: EstimatedLanguageAbility
+  isWoman: Boolean
+  hasDisability: Boolean
+  isIndigenous: Boolean
+  isVisibleMinority: Boolean
+  jobLookingStatus: JobLookingStatus
+  hasDiploma: Boolean
+  locationPreferences: [WorkRegion]
+  locationExemptions: String
+  acceptedOperationalRequirements: [OperationalRequirement]
+  expectedSalary: [SalaryRange]
+  expectedClassifications: [Classification]
+  wouldAcceptTemporary: Boolean
+  cmoAssets: [CmoAsset]
+  experiences: [Experience]
+  awardExperiences: [AwardExperience]
+  communityExperiences: [CommunityExperience]
+  educationExperiences: [EducationExperience]
+  personalExperiences: [PersonalExperience]
+  workExperiences: [WorkExperience]
+}
+
+type AwardExperience implements Experience {
+  id: ID!
+  applicant: Applicant!
+  title: String
+  issuedBy: String
+  awardedDate: Date
+  awardedTo: AwardedTo
+  awardedScope: AwardedScope
+  details: String
+  skills: [Skill!]
+  experienceSkillRecord: ExperienceSkillRecord
+}
+
+input AwardExperienceHasMany {
+  create: [AwardExperienceInput!]
+}
+
+input AwardExperienceInput {
+  title: String
+  issuedBy: String
+  awardedDate: Date
+  awardedTo: AwardedTo
+  awardedScope: AwardedScope
+  details: String
+  skills: UpdateExperienceSkills
+}
+
+enum AwardedScope {
+  INTERNATIONAL
+  NATIONAL
+  PROVINCIAL
+  LOCAL
+  COMMUNITY
+  ORGANIZATIONAL
+  SUB_ORGANIZATIONAL
+}
+
+enum AwardedTo {
+  ME
+  MY_TEAM
+  MY_PROJECT
+  MY_ORGANIZATION
+}
+
+enum BilingualEvaluation {
+  COMPLETED_ENGLISH
+  COMPLETED_FRENCH
+  NOT_COMPLETED
+}
+
+type Classification {
+  id: ID!
+  name: LocalizedString
+  group: String!
+  level: Int!
+  minSalary: Int
+  maxSalary: Int
+}
+
+input ClassificationBelongsTo {
+  connect: ID
+  disconnect: Boolean
+}
+
+input ClassificationBelongsToMany {
+  sync: [ID!]
+}
+
+input ClassificationFilterInput {
+  group: String!
+  level: Int!
+}
+
+"""
+e.g. Application Development, Quality Assurance, Enterprise Architecture, IT Project Management, etc.
+"""
+type CmoAsset {
+  id: ID!
+  key: KeyString!
+  name: LocalizedString!
+  description: LocalizedString
+}
+
+input CmoAssetBelongsToMany {
+  sync: [ID!]
+}
+
+type CommunityExperience implements Experience {
+  id: ID!
+  applicant: Applicant!
+  title: String
+  organization: String
+  project: String
+  startDate: Date
+  endDate: Date
+  details: String
+  skills: [Skill!]
+  experienceSkillRecord: ExperienceSkillRecord
+}
+
+input CommunityExperienceHasMany {
+  create: [CommunityExperienceInput!]
+}
+
+input CommunityExperienceInput {
+  title: String
+  organization: String
+  project: String
+  startDate: Date
+  endDate: Date
+  details: String
+  skills: UpdateExperienceSkills
+}
+
+input ConnectExperienceSkills {
+  id: ID!
+  details: String
+}
+
+input ConnectOrCreateBelongsTo {
+  connect: ID
+  create: CreateUserInput
+}
+
+input CreateClassificationInput {
+  name: LocalizedStringInput
+  group: String!
+  level: Int!
+  minSalary: Int
+  maxSalary: Int
+}
+
+input CreateCmoAssetInput {
+  key: KeyString!
+  name: LocalizedStringInput!
+  description: LocalizedStringInput
+}
+
+input CreateDepartmentInput {
+  departmentNumber: Int!
+  name: LocalizedStringInput
+}
+
+input CreatePoolCandidateAsAdminInput {
+  pool: PoolBelongsTo!
+  user: ConnectOrCreateBelongsTo!
+  cmoIdentifier: ID
+  expiryDate: Date
+  isWoman: Boolean
+  hasDisability: Boolean
+  isIndigenous: Boolean
+  isVisibleMinority: Boolean
+  hasDiploma: Boolean
+  languageAbility: LanguageAbility
+  locationPreferences: [WorkRegion]
+  acceptedOperationalRequirements: [OperationalRequirement]
+  expectedSalary: [SalaryRange]
+  expectedClassifications: ClassificationBelongsToMany
+  cmoAssets: CmoAssetBelongsToMany
+  status: PoolCandidateStatus = AVAILABLE
+}
+
+input CreatePoolCandidateFilterInput {
+  classifications: ClassificationBelongsToMany
+  cmoAssets: CmoAssetBelongsToMany
+  hasDiploma: Boolean
+  hasDisability: Boolean
+  isIndigenous: Boolean
+  isVisibleMinority: Boolean
+  isWoman: Boolean
+  languageAbility: LanguageAbility
+  operationalRequirements: [OperationalRequirement]
+  workRegions: [WorkRegion]
+  pools: PoolBelongsToMany
+}
+
+input CreatePoolCandidateSearchRequestInput {
+  fullName: String!
+  email: Email!
+  department: DepartmentBelongsTo!
+  jobTitle: String!
+  additionalComments: String
+  poolCandidateFilter: PoolCandidateFilterBelongsTo!
+}
+
+input CreatePoolInput {
+  owner: UserBelongsTo!
+  name: LocalizedStringInput!
+  key: KeyString!
+  description: LocalizedStringInput
+  classifications: ClassificationBelongsToMany
+  assetCriteria: CmoAssetBelongsToMany
+  essentialCriteria: CmoAssetBelongsToMany
+  operationalRequirements: [OperationalRequirement]
+}
+
+input CreateSkillFamilyInput {
+  key: KeyString!
+  name: LocalizedStringInput!
+  description: LocalizedStringInput
+  skills: SkillBelongsToMany
+  category: SkillCategory!
+}
+
+input CreateSkillInput {
+  key: KeyString!
+  name: LocalizedStringInput!
+  description: LocalizedStringInput
+  families: SkillFamilyBelongsToMany
+  keywords: [String!]
+}
+
+"""When creating a User, name and email are required."""
+input CreateUserInput {
+  sub: String
+  roles: [Role] = []
+  firstName: String!
+  lastName: String!
+  email: Email!
+  telephone: PhoneNumber
+  preferredLang: Language
+  currentProvince: ProvinceOrTerritory
+  currentCity: String
+  languageAbility: LanguageAbility
+  lookingForEnglish: Boolean
+  lookingForFrench: Boolean
+  lookingForBilingual: Boolean
+  bilingualEvaluation: BilingualEvaluation
+  comprehensionLevel: EvaluatedLanguageAbility
+  writtenLevel: EvaluatedLanguageAbility
+  verbalLevel: EvaluatedLanguageAbility
+  estimatedLanguageAbility: EstimatedLanguageAbility
+  isGovEmployee: Boolean
+  govEmployeeType: GovEmployeeType
+  interestedInLaterOrSecondment: Boolean
+  currentClassification: ClassificationBelongsTo
+  isWoman: Boolean
+  hasDisability: Boolean
+  isIndigenous: Boolean
+  isVisibleMinority: Boolean
+  jobLookingStatus: JobLookingStatus
+  hasDiploma: Boolean
+  locationPreferences: [WorkRegion]
+  locationExemptions: String
+  acceptedOperationalRequirements: [OperationalRequirement]
+  expectedSalary: [SalaryRange]
+  expectedClassifications: ClassificationBelongsToMany
+  wouldAcceptTemporary: Boolean
+  cmoAssets: CmoAssetBelongsToMany
+  workExperiences: WorkExperienceHasMany
+  personalExperiences: PersonalExperienceHasMany
+  communityExperiences: CommunityExperienceHasMany
+  educationExperiences: EducationExperienceHasMany
+  awardExperiences: AwardExperienceHasMany
+}
+
+"""A date string with format `Y-m-d`, e.g. `2011-05-23`."""
+scalar Date
+
+"""
+A datetime string with format `Y-m-d H:i:s`, e.g. `2018-05-23 13:43:32`.
+"""
+scalar DateTime
+
+type Department {
+  id: ID!
+  departmentNumber: Int!
+  name: LocalizedString!
+}
+
+input DepartmentBelongsTo {
+  connect: ID!
+}
+
+type EducationExperience implements Experience {
+  id: ID!
+  applicant: Applicant!
+  institution: String
+  areaOfStudy: String
+  thesisTitle: String
+  startDate: Date
+  endDate: Date
+  type: EducationType
+  status: EducationStatus
+  details: String
+  skills: [Skill!]
+  experienceSkillRecord: ExperienceSkillRecord
+}
+
+input EducationExperienceHasMany {
+  create: [EducationExperienceInput!]
+}
+
+input EducationExperienceInput {
+  institution: String
+  areaOfStudy: String
+  thesisTitle: String
+  startDate: Date
+  endDate: Date
+  type: EducationType
+  status: EducationStatus
+  details: String
+  skills: UpdateExperienceSkills
+}
+
+enum EducationStatus {
+  SUCCESS_CREDENTIAL
+  SUCCESS_NO_CREDENTIAL
+  IN_PROGRESS
+  AUDITED
+  DID_NOT_COMPLETE
+}
+
+enum EducationType {
+  DIPLOMA
+  BACHELORS_DEGREE
+  MASTERS_DEGREE
+  PHD
+  POST_DOCTORAL_FELLOWSHIP
+  ONLINE_COURSE
+  CERTIFICATION
+  OTHER
+}
+
+"""A RFC 5321 compliant email."""
+scalar Email
+
+enum EstimatedLanguageAbility {
+  BEGINNER
+  INTERMEDIATE
+  ADVANCED
+}
+
+enum EvaluatedLanguageAbility {
+  X
+  A
+  B
+  C
+  E
+  P
+}
+
+interface Experience {
+  id: ID!
+  applicant: Applicant!
+  details: String
+  skills: [Skill!]
+  experienceSkillRecord: ExperienceSkillRecord
+}
+
+type ExperienceSkillRecord {
+  details: String
+}
+
+enum GovEmployeeType {
+  STUDENT
+  CASUAL
+  TERM
+  INDETERMINATE
+}
+
+enum JobLookingStatus {
+  ACTIVELY_LOOKING
+  OPEN_TO_OPPORTUNITIES
+  INACTIVE
+}
+
+input KeyFilterInput {
+  key: KeyString!
+}
+
+"""A human readable ID"""
+scalar KeyString
+
+enum Language {
+  EN
+  FR
+}
+
+enum LanguageAbility {
+  ENGLISH
+  FRENCH
+  BILINGUAL
+}
+
+type LocalizedString {
+  en: String
+  fr: String
+}
+
+input LocalizedStringInput {
+  en: String
+  fr: String
+}
+
+"""
+Loose type that allows any value. Be careful when passing in large `Int` or `Float` literals,
+as they may not be parsed correctly on the server side. Use `String` literals if you are
+dealing with really large numbers to be on the safe side.
+"""
+scalar Mixed
+
+type Mutation {
+  createUser(user: CreateUserInput!): User
+  updateUserAsUser(id: ID!, user: UpdateUserAsUserInput!): User
+  updateUserAsAdmin(id: ID!, user: UpdateUserAsAdminInput!): User
+  deleteUser(id: ID!): User
+  createPool(pool: CreatePoolInput!): Pool
+  updatePool(id: ID!, pool: UpdatePoolInput!): Pool
+  deletePool(id: ID!): Pool
+  createPoolCandidateAsAdmin(poolCandidate: CreatePoolCandidateAsAdminInput!): PoolCandidate
+  updatePoolCandidateAsAdmin(id: ID!, poolCandidate: UpdatePoolCandidateAsAdminInput!): PoolCandidate
+  deletePoolCandidate(id: ID!): PoolCandidate
+  createClassification(classification: CreateClassificationInput!): Classification
+  updateClassification(id: ID!, classification: UpdateClassificationInput!): Classification
+  deleteClassification(id: ID!): Classification
+  createCmoAsset(cmoAsset: CreateCmoAssetInput!): CmoAsset
+  updateCmoAsset(id: ID!, cmoAsset: UpdateCmoAssetInput!): CmoAsset
+  deleteCmoAsset(id: ID!): CmoAsset
+  createDepartment(department: CreateDepartmentInput!): Department
+  updateDepartment(id: ID!, department: UpdateDepartmentInput!): Department
+  deleteDepartment(id: ID!): Department
+  createPoolCandidateSearchRequest(poolCandidateSearchRequest: CreatePoolCandidateSearchRequestInput!): PoolCandidateSearchRequest
+  updatePoolCandidateSearchRequest(id: ID!, poolCandidateSearchRequest: UpdatePoolCandidateSearchRequestInput!): PoolCandidateSearchRequest
+  createSkillFamily(skillFamily: CreateSkillFamilyInput!): SkillFamily
+  updateSkillFamily(id: ID!, skillFamily: UpdateSkillFamilyInput!): SkillFamily
+  createSkill(skill: CreateSkillInput!): Skill
+  updateSkill(id: ID!, skill: UpdateSkillInput!): Skill
+  createWorkExperience(userId: ID!, workExperience: WorkExperienceInput!): WorkExperience
+  createPersonalExperience(userId: ID!, personalExperience: PersonalExperienceInput!): PersonalExperience
+  createCommunityExperience(userId: ID!, communityExperience: CommunityExperienceInput!): CommunityExperience
+  createEducationExperience(userId: ID!, educationExperience: EducationExperienceInput!): EducationExperience
+  createAwardExperience(userId: ID!, awardExperience: AwardExperienceInput!): AwardExperience
+  updateWorkExperience(id: ID!, workExperience: WorkExperienceInput!): WorkExperience
+  updatePersonalExperience(id: ID!, personalExperience: PersonalExperienceInput!): PersonalExperience
+  updateCommunityExperience(id: ID!, communityExperience: CommunityExperienceInput!): CommunityExperience
+  updateEducationExperience(id: ID!, educationExperience: EducationExperienceInput!): EducationExperience
+  updateAwardExperience(id: ID!, awardExperience: AwardExperienceInput!): AwardExperience
+  deleteWorkExperience(id: ID!): WorkExperience
+  deletePersonalExperience(id: ID!): PersonalExperience
+  deleteCommunityExperience(id: ID!): CommunityExperience
+  deleteEducationExperience(id: ID!): EducationExperience
+  deleteAwardExperience(id: ID!): AwardExperience
+}
+
+"""e.g. Overtime as Required, Shift Work, Travel as Required, etc."""
+enum OperationalRequirement {
+  SHIFT_WORK
+  ON_CALL
+  TRAVEL
+  TRANSPORT_EQUIPMENT
+  DRIVERS_LICENSE
+  WORK_WEEKENDS
+  OVERTIME_SCHEDULED
+  OVERTIME_SHORT_NOTICE
+}
+
+"""Allows ordering a list of records."""
+input OrderByClause {
+  """The column that is used for ordering."""
+  column: String!
+
+  """The direction that is used for ordering."""
+  order: SortOrder!
+}
+
+"""
+Aggregate functions when ordering by a relation without specifying a column.
+"""
+enum OrderByRelationAggregateFunction {
+  """Amount of items."""
+  COUNT
+}
+
+"""
+Aggregate functions when ordering by a relation that may specify a column.
+"""
+enum OrderByRelationWithColumnAggregateFunction {
+  """Average."""
+  AVG
+
+  """Minimum."""
+  MIN
+
+  """Maximum."""
+  MAX
+
+  """Sum."""
+  SUM
+
+  """Amount of items."""
+  COUNT
+}
+
+"""Information about pagination using a Relay style cursor connection."""
+type PageInfo {
+  """When paginating forwards, are there more items?"""
+  hasNextPage: Boolean!
+
+  """When paginating backwards, are there more items?"""
+  hasPreviousPage: Boolean!
+
+  """The cursor to continue paginating backwards."""
+  startCursor: String
+
+  """The cursor to continue paginating forwards."""
+  endCursor: String
+
+  """Total number of nodes in the paginated connection."""
+  total: Int!
+
+  """Number of nodes in the current page."""
+  count: Int!
+
+  """Index of the current page."""
+  currentPage: Int!
+
+  """Index of the last available page."""
+  lastPage: Int!
+}
+
+"""Information about pagination using a fully featured paginator."""
+type PaginatorInfo {
+  """Number of items in the current page."""
+  count: Int!
+
+  """Index of the current page."""
+  currentPage: Int!
+
+  """Index of the first item in the current page."""
+  firstItem: Int
+
+  """Are there more pages after this one?"""
+  hasMorePages: Boolean!
+
+  """Index of the last item in the current page."""
+  lastItem: Int
+
+  """Index of the last available page."""
+  lastPage: Int!
+
+  """Number of items per page."""
+  perPage: Int!
+
+  """Number of total available items."""
+  total: Int!
+}
+
+type PersonalExperience implements Experience {
+  id: ID!
+  applicant: Applicant!
+  title: String
+  description: String
+  startDate: Date
+  endDate: Date
+  details: String
+  skills: [Skill!]
+  experienceSkillRecord: ExperienceSkillRecord
+}
+
+input PersonalExperienceHasMany {
+  create: [PersonalExperienceInput!]
+}
+
+input PersonalExperienceInput {
+  title: String
+  description: String
+  startDate: Date
+  endDate: Date
+  details: String
+  skills: UpdateExperienceSkills
+}
+
+"""
+A phone number string which must comply with E.164 international notation, including country code and preceding '+'.
+"""
+scalar PhoneNumber
+
+type Pool {
+  id: ID!
+  owner: UserPublicProfile
+  name: LocalizedString
+  key: KeyString
+  description: LocalizedString
+  classifications: [Classification]
+  assetCriteria: [CmoAsset]
+  essentialCriteria: [CmoAsset]
+  operationalRequirements: [OperationalRequirement]
+  poolCandidates: [PoolCandidate]
+}
+
+input PoolBelongsTo {
+  connect: ID!
+}
+
+input PoolBelongsToMany {
+  sync: [ID!]
+}
+
+type PoolCandidate {
+  id: ID!
+  pool: Pool
+  user: Applicant
+  cmoIdentifier: ID
+  expiryDate: Date
+  isWoman: Boolean
+  hasDisability: Boolean
+  isIndigenous: Boolean
+  isVisibleMinority: Boolean
+  hasDiploma: Boolean
+  languageAbility: LanguageAbility
+  locationPreferences: [WorkRegion]
+  acceptedOperationalRequirements: [OperationalRequirement]
+  expectedSalary: [SalaryRange]
+  expectedClassifications: [Classification]
+  cmoAssets: [CmoAsset]
+  status: PoolCandidateStatus
+}
+
+type PoolCandidateFilter {
+  id: ID!
+  classifications: [Classification]
+  cmoAssets: [CmoAsset]
+  hasDiploma: Boolean
+  hasDisability: Boolean
+  isIndigenous: Boolean
+  isVisibleMinority: Boolean
+  isWoman: Boolean
+  languageAbility: LanguageAbility
+  operationalRequirements: [OperationalRequirement]
+  workRegions: [WorkRegion]
+  pools: [Pool]
+}
+
+input PoolCandidateFilterBelongsTo {
+  create: CreatePoolCandidateFilterInput!
+}
+
+input PoolCandidateFilterInput {
+  classifications: [ClassificationFilterInput]
+  cmoAssets: [KeyFilterInput]
+  hasDiploma: Boolean
+  hasDisability: Boolean
+  isIndigenous: Boolean
+  isVisibleMinority: Boolean
+  isWoman: Boolean
+  languageAbility: LanguageAbility
+  operationalRequirements: [OperationalRequirement]
+  workRegions: [WorkRegion]
+  pools: [PoolFilterInput]
+}
+
+type PoolCandidateSearchRequest {
+  id: ID!
+  fullName: String
+  email: Email
+  department: Department
+  jobTitle: String
+  additionalComments: String
+  poolCandidateFilter: PoolCandidateFilter!
+  requestedDate: DateTime
+  status: PoolCandidateSearchStatus
+  adminNotes: String
+}
+
+enum PoolCandidateSearchStatus {
+  PENDING
+  DONE
+}
+
+enum PoolCandidateStatus {
+  AVAILABLE
+  PLACED_INDETERMINATE
+  PLACED_TERM
+  NO_LONGER_INTERESTED
+}
+
+input PoolFilterInput {
+  id: ID!
+}
+
+input PoolsHasMany {
+  create: [CreatePoolInput]
+}
+
+enum ProvinceOrTerritory {
+  BRITISH_COLUMBIA
+  ALBERTA
+  SASKATCHEWAN
+  MANITOBA
+  ONTARIO
+  QUEBEC
+  NEW_BRUNSWICK
+  NOVA_SCOTIA
+  PRINCE_EDWARD_ISLAND
+  NEWFOUNDLAND_AND_LABRADOR
+  YUKON
+  NORTHWEST_TERRITORIES
+  NUNAVUT
+}
+
+type Query {
+  me: User
+  user(id: ID!): User
+  users: [User]!
+  applicant(id: ID!): Applicant
+  applicants: [Applicant]!
+  pool(id: ID!): Pool
+  poolByKey(key: String!): Pool
+  pools: [Pool]!
+  poolCandidate(id: ID!): PoolCandidate
+  poolCandidates: [PoolCandidate]!
+  countPoolCandidates(where: PoolCandidateFilterInput): Int!
+  searchPoolCandidates(where: PoolCandidateFilterInput): [PoolCandidate]!
+  classification(id: ID!): Classification
+  classifications: [Classification]!
+  cmoAsset(id: ID!): CmoAsset
+  cmoAssets: [CmoAsset]!
+  department(id: ID!): Department
+  departments: [Department]!
+  poolCandidateFilter(id: ID!): PoolCandidateFilter
+  poolCandidateFilters: [PoolCandidateFilter]!
+  poolCandidateSearchRequest(id: ID!): PoolCandidateSearchRequest
+  poolCandidateSearchRequests: [PoolCandidateSearchRequest]!
+  skillFamily(id: ID!): SkillFamily
+  skillFamilies: [SkillFamily]!
+  skill(id: ID!): Skill
+  skills: [Skill]!
+}
+
+enum Role {
+  ADMIN
+}
+
+"""The available SQL operators that are used to filter query results."""
+enum SQLOperator {
+  """Equal operator (`=`)"""
+  EQ
+
+  """Not equal operator (`!=`)"""
+  NEQ
+
+  """Greater than operator (`>`)"""
+  GT
+
+  """Greater than or equal operator (`>=`)"""
+  GTE
+
+  """Less than operator (`<`)"""
+  LT
+
+  """Less than or equal operator (`<=`)"""
+  LTE
+
+  """Simple pattern matching (`LIKE`)"""
+  LIKE
+
+  """Negation of simple pattern matching (`NOT LIKE`)"""
+  NOT_LIKE
+
+  """Whether a value is within a set of values (`IN`)"""
+  IN
+
+  """Whether a value is not within a set of values (`NOT IN`)"""
+  NOT_IN
+
+  """Whether a value is within a range of values (`BETWEEN`)"""
+  BETWEEN
+
+  """Whether a value is not within a range of values (`NOT BETWEEN`)"""
+  NOT_BETWEEN
+
+  """Whether a value is null (`IS NULL`)"""
+  IS_NULL
+
+  """Whether a value is not null (`IS NOT NULL`)"""
+  IS_NOT_NULL
+
+  """Whether a set of values contains a value (`@>`)"""
+  CONTAINS
+}
+
+enum SalaryRange {
+  _50_59K
+  _60_69K
+  _70_79K
+  _80_89K
+  _90_99K
+  _100K_PLUS
+}
+
+"""Information about pagination using a simple paginator."""
+type SimplePaginatorInfo {
+  """Number of items in the current page."""
+  count: Int!
+
+  """Index of the current page."""
+  currentPage: Int!
+
+  """Index of the first item in the current page."""
+  firstItem: Int
+
+  """Index of the last item in the current page."""
+  lastItem: Int
+
+  """Number of items per page."""
+  perPage: Int!
+
+  """Are there more pages after this one?"""
+  hasMorePages: Boolean!
+}
+
+type Skill {
+  id: ID!
+  key: KeyString!
+  name: LocalizedString!
+  description: LocalizedString
+  keywords: [String!]
+  families: [SkillFamily!]
+  experiences: [Experience!]
+  awardExperiences: [AwardExperience!]
+  communityExperiences: [CommunityExperience!]
+  educationExperiences: [EducationExperience!]
+  personalExperiences: [PersonalExperience!]
+  workExperiences: [WorkExperience!]
+  experienceSkillRecord: ExperienceSkillRecord
+}
+
+input SkillBelongsToMany {
+  sync: [ID!]
+}
+
+enum SkillCategory {
+  TECHNICAL
+  BEHAVIOURAL
+}
+
+type SkillFamily {
+  id: ID!
+  key: KeyString!
+  name: LocalizedString!
+  description: LocalizedString!
+  skills: [Skill!]
+  category: SkillCategory!
+}
+
+input SkillFamilyBelongsToMany {
+  sync: [ID!]
+}
+
+"""Directions for ordering a list of records."""
+enum SortOrder {
+  """Sort records in ascending order."""
+  ASC
+
+  """Sort records in descending order."""
+  DESC
+}
+
+"""
+Specify if you want to include or exclude trashed results from a query.
+"""
+enum Trashed {
+  """Only return trashed results."""
+  ONLY
+
+  """Return both trashed and non-trashed results."""
+  WITH
+
+  """Only return non-trashed results."""
+  WITHOUT
+}
+
+input UpdateClassificationInput {
+  name: LocalizedStringInput
+  group: String
+  minSalary: Int
+  maxSalary: Int
+}
+
+input UpdateCmoAssetInput {
+  name: LocalizedStringInput
+  description: LocalizedStringInput
+}
+
+input UpdateDepartmentInput {
+  departmentNumber: Int
+  name: LocalizedStringInput
+}
+
+input UpdateExperienceSkills {
+  connect: [ConnectExperienceSkills!]
+  sync: [ConnectExperienceSkills!]
+}
+
+input UpdatePoolCandidateAsAdminInput {
+  cmoIdentifier: ID
+  expiryDate: Date
+  isWoman: Boolean
+  hasDisability: Boolean
+  isIndigenous: Boolean
+  isVisibleMinority: Boolean
+  hasDiploma: Boolean
+  languageAbility: LanguageAbility
+  locationPreferences: [WorkRegion]
+  acceptedOperationalRequirements: [OperationalRequirement]
+  expectedSalary: [SalaryRange]
+  expectedClassifications: ClassificationBelongsToMany
+  cmoAssets: CmoAssetBelongsToMany
+  status: PoolCandidateStatus
+}
+
+input UpdatePoolCandidateSearchRequestInput {
+  adminNotes: String
+  status: PoolCandidateSearchStatus
+}
+
+input UpdatePoolInput {
+  owner: UserBelongsTo
+  name: LocalizedStringInput
+  description: LocalizedStringInput
+  classifications: ClassificationBelongsToMany
+  assetCriteria: CmoAssetBelongsToMany
+  essentialCriteria: CmoAssetBelongsToMany
+  operationalRequirements: [OperationalRequirement]
+}
+
+input UpdateSkillFamilyInput {
+  name: LocalizedStringInput
+  description: LocalizedStringInput
+  skills: SkillBelongsToMany
+  category: SkillCategory
+}
+
+input UpdateSkillInput {
+  name: LocalizedStringInput!
+  description: LocalizedStringInput
+  families: SkillFamilyBelongsToMany
+  keywords: [String!]
+}
+
+"""
+When updating a User, all fields are optional, and email cannot be changed.
+"""
+input UpdateUserAsAdminInput {
+  sub: String
+  roles: [Role]
+  firstName: String
+  lastName: String
+  telephone: PhoneNumber
+  preferredLang: Language
+  currentProvince: ProvinceOrTerritory
+  currentCity: String
+  languageAbility: LanguageAbility
+  lookingForEnglish: Boolean
+  lookingForFrench: Boolean
+  lookingForBilingual: Boolean
+  bilingualEvaluation: BilingualEvaluation
+  comprehensionLevel: EvaluatedLanguageAbility
+  writtenLevel: EvaluatedLanguageAbility
+  verbalLevel: EvaluatedLanguageAbility
+  estimatedLanguageAbility: EstimatedLanguageAbility
+  isGovEmployee: Boolean
+  govEmployeeType: GovEmployeeType
+  interestedInLaterOrSecondment: Boolean
+  currentClassification: ClassificationBelongsTo
+  isWoman: Boolean
+  hasDisability: Boolean
+  isIndigenous: Boolean
+  isVisibleMinority: Boolean
+  jobLookingStatus: JobLookingStatus
+  hasDiploma: Boolean
+  locationPreferences: [WorkRegion]
+  locationExemptions: String
+  acceptedOperationalRequirements: [OperationalRequirement]
+  expectedSalary: [SalaryRange]
+  expectedClassifications: ClassificationBelongsToMany
+  wouldAcceptTemporary: Boolean
+  cmoAssets: CmoAssetBelongsToMany
+  workExperiences: WorkExperienceHasMany
+  personalExperiences: PersonalExperienceHasMany
+  communityExperiences: CommunityExperienceHasMany
+  educationExperiences: EducationExperienceHasMany
+  awardExperiences: AwardExperienceHasMany
+}
+
+input UpdateUserAsUserInput {
+  firstName: String
+  lastName: String
+  telephone: PhoneNumber
+  preferredLang: Language
+  currentProvince: ProvinceOrTerritory
+  currentCity: String
+  languageAbility: LanguageAbility
+  lookingForEnglish: Boolean
+  lookingForFrench: Boolean
+  lookingForBilingual: Boolean
+  bilingualEvaluation: BilingualEvaluation
+  comprehensionLevel: EvaluatedLanguageAbility
+  writtenLevel: EvaluatedLanguageAbility
+  verbalLevel: EvaluatedLanguageAbility
+  estimatedLanguageAbility: EstimatedLanguageAbility
+  isGovEmployee: Boolean
+  govEmployeeType: GovEmployeeType
+  interestedInLaterOrSecondment: Boolean
+  currentClassification: ClassificationBelongsTo
+  isWoman: Boolean
+  hasDisability: Boolean
+  isIndigenous: Boolean
+  isVisibleMinority: Boolean
+  jobLookingStatus: JobLookingStatus
+  hasDiploma: Boolean
+  locationPreferences: [WorkRegion]
+  locationExemptions: String
+  acceptedOperationalRequirements: [OperationalRequirement]
+  expectedSalary: [SalaryRange]
+  expectedClassifications: ClassificationBelongsToMany
+  wouldAcceptTemporary: Boolean
+  cmoAssets: CmoAssetBelongsToMany
+  workExperiences: WorkExperienceHasMany
+  personalExperiences: PersonalExperienceHasMany
+  communityExperiences: CommunityExperienceHasMany
+  educationExperiences: EducationExperienceHasMany
+  awardExperiences: AwardExperienceHasMany
+}
+
+type User {
+  id: ID!
+  sub: String
+  roles: [Role]
+  firstName: String
+  lastName: String
+  email: Email!
+  telephone: PhoneNumber
+  preferredLang: Language
+  currentProvince: ProvinceOrTerritory
+  currentCity: String
+  languageAbility: LanguageAbility
+  lookingForEnglish: Boolean
+  lookingForFrench: Boolean
+  lookingForBilingual: Boolean
+  bilingualEvaluation: BilingualEvaluation
+  comprehensionLevel: EvaluatedLanguageAbility
+  writtenLevel: EvaluatedLanguageAbility
+  verbalLevel: EvaluatedLanguageAbility
+  estimatedLanguageAbility: EstimatedLanguageAbility
+  isGovEmployee: Boolean
+  govEmployeeType: GovEmployeeType
+  interestedInLaterOrSecondment: Boolean
+  currentClassification: Classification
+  isWoman: Boolean
+  hasDisability: Boolean
+  isIndigenous: Boolean
+  isVisibleMinority: Boolean
+  jobLookingStatus: JobLookingStatus
+  hasDiploma: Boolean
+  locationPreferences: [WorkRegion]
+  locationExemptions: String
+  acceptedOperationalRequirements: [OperationalRequirement]
+  expectedSalary: [SalaryRange]
+  expectedClassifications: [Classification]
+  wouldAcceptTemporary: Boolean
+  cmoAssets: [CmoAsset]
+  poolCandidates: [PoolCandidate]
+  experiences: [Experience]
+  awardExperiences: [AwardExperience]
+  communityExperiences: [CommunityExperience]
+  educationExperiences: [EducationExperience]
+  personalExperiences: [PersonalExperience]
+  workExperiences: [WorkExperience]
+  pools: [Pool]
+}
+
+input UserBelongsTo {
+  connect: ID
+}
+
+type UserPublicProfile {
+  id: ID!
+  email: Email
+  firstName: String
+  lastName: String
+}
+
+"""Dynamic WHERE conditions for queries."""
+input WhereConditions {
+  """The column that is used for the condition."""
+  column: String
+
+  """The operator that is used for the condition."""
+  operator: SQLOperator = EQ
+
+  """The value that is used for the condition."""
+  value: Mixed
+
+  """A set of conditions that requires all conditions to match."""
+  AND: [WhereConditions!]
+
+  """A set of conditions that requires at least one condition to match."""
+  OR: [WhereConditions!]
+
+  """
+  Check whether a relation exists. Extra conditions or a minimum amount can be applied.
+  """
+  HAS: WhereConditionsRelation
+}
+
+"""Dynamic HAS conditions for WHERE condition queries."""
+input WhereConditionsRelation {
+  """The relation that is checked."""
+  relation: String!
+
+  """The comparison operator to test against the amount."""
+  operator: SQLOperator = GTE
+
+  """The amount to test."""
+  amount: Int = 1
+
+  """Additional condition logic."""
+  condition: WhereConditions
+}
+
+type WorkExperience implements Experience {
+  id: ID!
+  applicant: Applicant!
+  role: String
+  organization: String
+  division: String
+  startDate: Date
+  endDate: Date
+  details: String
+  skills: [Skill!]
+  experienceSkillRecord: ExperienceSkillRecord
+}
+
+input WorkExperienceHasMany {
+  create: [WorkExperienceInput!]
+}
+
+input WorkExperienceInput {
+  role: String
+  organization: String
+  division: String
+  startDate: Date
+  endDate: Date
+  details: String
+  skills: UpdateExperienceSkills
+}
+
+enum WorkRegion {
+  TELEWORK
+  NATIONAL_CAPITAL
+  ATLANTIC
+  QUEBEC
+  ONTARIO
+  PRAIRIE
+  BRITISH_COLUMBIA
+  NORTH
+}

@@ -1,5 +1,12 @@
 import { faker } from "@faker-js/faker";
-import { Skill, ExperienceSkill, Experience } from "../api/generated";
+import { Skill, Experience } from "../api/generated";
+
+interface ExperienceSkill {
+  id: string;
+  skill: Skill;
+  experience: Experience;
+  details: string;
+}
 
 const generateExperienceSkill = (
   skill: Skill,

@@ -112,10 +112,10 @@ export const useRouter = (
           setComponent(result.component);
         }
       })
-      .catch(async (r) => {
+      .catch(async () => {
         setComponent(missingRouteComponent);
       });
-  }, [pathName, router]);
+  }, [missingRouteComponent, pathName, router]);
 
   return component;
 };

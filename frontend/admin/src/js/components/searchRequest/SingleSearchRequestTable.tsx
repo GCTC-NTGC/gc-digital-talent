@@ -20,10 +20,10 @@ type Data = NonNullable<
   FromArray<SearchPoolCandidatesQuery["searchPoolCandidates"]>
 >;
 
-const TableEditButton: React.FC<{ userId?: string; poolId?: string }> = ({
-  userId,
-  poolId,
-}) => {
+const TableEditButton: React.FC<{
+  poolCandidateId?: string;
+  poolId?: string;
+}> = ({ poolCandidateId, poolId }) => {
   const intl = useIntl();
   const paths = useAdminRoutes();
   return (
@@ -32,7 +32,9 @@ const TableEditButton: React.FC<{ userId?: string; poolId?: string }> = ({
       mode="inline"
       onClick={(event) => {
         event.preventDefault();
-        navigate(paths.poolCandidateUpdate(userId || "", poolId || "")); // TODO: Where should the user be taken if this value is empty?
+        navigate(
+          paths.poolCandidateUpdate(poolId || "", poolCandidateId || ""),
+        ); // TODO: Where should the user be taken if this value is empty?
       }}
     >
       {intl.formatMessage({
@@ -43,8 +45,8 @@ const TableEditButton: React.FC<{ userId?: string; poolId?: string }> = ({
   );
 };
 
-function tableEditButtonAccessor(userId?: string, poolId?: string) {
-  return <TableEditButton userId={userId} poolId={poolId} />;
+function tableEditButtonAccessor(poolCandidateId?: string, poolId?: string) {
+  return <TableEditButton poolCandidateId={poolCandidateId} poolId={poolId} />;
 }
 
 export const SingleSearchRequestTable: React.FunctionComponent<
@@ -203,8 +205,7 @@ export const SingleSearchRequestTable: React.FunctionComponent<
           description:
             "Title displayed for the single search request table edit column.",
         }),
-        accessor: ({ user, pool }) =>
-          tableEditButtonAccessor(user?.id, pool?.id),
+        accessor: ({ id, pool }) => tableEditButtonAccessor(id, pool?.id),
       },
     ],
     [intl, locale],

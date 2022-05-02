@@ -1,0 +1,39 @@
+name: Package Integrity Check
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - .github/workflows/package-integrity-check.yml
+      - frontend/**
+  pull_request:
+    paths:
+      - .github/workflows/package-integrity-check.yml
+      - frontend/**
+
+jobs:
+  build:
+    name: Check
+    runs-on: ubuntu-latest
+    env:
+      NPM_VERSION: "8.3.0"
+
+    steps:
+      - uses: actions/checkout@v2.4.0
+      - name: Use Node.js
+        uses: actions/setup-node@v2.5.1
+        with:
+          node-version-file: 'frontend/.nvmrc'
+          cache: 'npm'
+          cache-dependency-path: 'frontend/package-lock.json'
+
+      - name: Upgrade npm
+        run: npm install --global npm@${{ env.NPM_VERSION }}
+
+      - name: "Install dependencies: common"
+        working-directory: frontend
+        run: npm install --workspace=common
+
+      - name: "Run Check Script"
+        working-directory: frontend/common
+        run: npm run check-integrity

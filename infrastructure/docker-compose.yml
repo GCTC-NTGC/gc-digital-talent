@@ -1,5 +1,3 @@
-version: '3.1'
-
 services:
 
   postgres:
@@ -43,6 +41,11 @@ services:
     deploy:
       mode: replicated
       replicas: 0
+    environment:
+      # Prevent `npm install` from trying to install Cypress in the container,
+      # which is not required and just creates permission issues.
+      # See: https://docs.cypress.io/guides/getting-started/installing-cypress#Skipping-installation
+      - CYPRESS_INSTALL_BINARY=0
     volumes:
       - maintenancedata:/root
       - ../maintenance/scripts:/root/scripts
@@ -50,18 +53,6 @@ services:
       - ../auth:/var/www/html/auth
       - ../frontend:/var/www/html/frontend
       - ../tc-report:/var/www/html/tc-report
-
-  # This container is an alternative approach to builds, more closely following
-  # docker conventions. For now, it will only be used for performing CI tasks.
-  #
-  # With a profile designated, it will not build/run unless explicitly executed.
-  # See: https://docs.docker.com/compose/profiles/
-  api:
-    build: ../api
-    depends_on:
-      - postgres
-    profiles:
-      - new
 
 volumes:
   pgdata:

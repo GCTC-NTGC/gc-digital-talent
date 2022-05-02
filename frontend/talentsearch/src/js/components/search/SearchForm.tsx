@@ -1,4 +1,4 @@
-import React, { useMemo, useCallback } from "react";
+import React, { useMemo, useCallback, useRef } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { Checklist, MultiSelect, RadioGroup } from "@common/components/form";
@@ -21,6 +21,8 @@ import {
   PoolCandidateFilter,
   PoolCandidateFilterInput,
 } from "../../api/generated";
+
+const NullSelection = "NULL_SELECTION";
 
 const FilterBlock: React.FunctionComponent<{
   id: string;
@@ -59,8 +61,9 @@ function mapIdToValue<T extends { id: string }>(objs: T[]): Map<string, T> {
 type Option<V> = { value: V; label: string };
 export type FormValues = Pick<
   PoolCandidateFilter,
-  "languageAbility" | "workRegions" | "operationalRequirements"
+  "workRegions" | "operationalRequirements"
 > & {
+  languageAbility: LanguageAbility | typeof NullSelection;
   classifications: string[] | undefined;
   cmoAssets: string[] | undefined;
   employmentEquity: string[] | undefined;
@@ -121,10 +124,8 @@ export const SearchForm: React.FunctionComponent<SearchFormProps> = ({
         isWoman:
           values.employmentEquity &&
           values.employmentEquity?.includes("isWoman"),
-        ...(values.languageAbility === "ENGLISH" ||
-        values.languageAbility === "FRENCH" ||
-        values.languageAbility === "BILINGUAL"
-          ? { languageAbility: values.languageAbility }
+        ...(values.languageAbility !== NullSelection
+          ? { languageAbility: values.languageAbility as LanguageAbility }
           : {}), // Ensure null in FormValues is converted to undefined
         workRegions: values.workRegions || [],
       };
@@ -140,24 +141,25 @@ export const SearchForm: React.FunctionComponent<SearchFormProps> = ({
 
   // Whenever form values change (with some debounce allowance), call updateCandidateFilter
   const formValues = watch();
-  const submitDebounced = useCallback(
+  // Need just a single instance of the debounce function without dependencies.  It has internal state that shouldn't be lost between renders.
+  const submitDebounced = useRef(
     debounce((values: FormValues) => {
       if (updateCandidateFilter) {
         updateCandidateFilter(formValuesToData(values));
       }
     }, 200),
-    [formValuesToData, updateCandidateFilter],
   );
 
   // Use deep comparison to prevent infinite re-rendering
   useDeepCompareEffect(() => {
-    submitDebounced(formValues);
+    const debouncingFunc = submitDebounced.current;
+    debouncingFunc(formValues);
     updateInitialValues(formValues);
     return () => {
       // Clear debounce timer when component unmounts
-      submitDebounced.clear();
+      debouncingFunc.clear();
     };
-  }, [formValues]);
+  }, [formValues, updateInitialValues]);
 
   const classificationOptions: Option<string>[] = useMemo(
     () =>
@@ -337,11 +339,14 @@ export const SearchForm: React.FunctionComponent<SearchFormProps> = ({
             idPrefix="languageAbility"
             legend="Language"
             name="languageAbility"
+            defaultSelected={NullSelection}
             items={[
               {
-                value: "null",
+                value: NullSelection,
                 label: intl.formatMessage({
-                  defaultMessage: "Any language",
+                  defaultMessage: "Any language (English or French)",
+                  description:
+                    "No preference for language ability - will accept English or French",
                 }),
               },
               ...enumToOptions(LanguageAbility).map(({ value }) => ({

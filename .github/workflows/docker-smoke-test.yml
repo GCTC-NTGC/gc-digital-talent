@@ -1,0 +1,95 @@
+name: Docker Smoke Tests
+
+on:
+  push:
+    branches: ["main"]
+    paths-ignore:
+      - '**.md'
+  pull_request:
+    paths-ignore:
+      - '**.md'
+
+
+# Concurrency is used to cancel other currently-running jobs, to preserve
+# compute resources and cumulative build hours. (ie. If you push twice in a
+# row, this will cancel the previous run.)
+# See: https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#example-only-cancel-in-progress-jobs-or-runs-for-the-current-workflow
+concurrency:
+  # This scopes the group to:
+  # - the same workflow,
+  # - the same event type, and
+  # - the same branch name
+  # e.g., my-workflow-pull_request-feature/123-my-thing
+  group: ${{ github.workflow }}-${{ github.event_name }}-${{ github.ref_name }}
+  cancel-in-progress: true
+
+jobs:
+  run:
+    # Platform recommended in cypress-io/github-action docs.
+    runs-on: ubuntu-20.04
+    env:
+      # Use native docker command within docker-compose
+      COMPOSE_DOCKER_CLI_BUILD: 1
+      # Use buildkit to speed up docker command
+      DOCKER_BUILDKIT: 1
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2.3.4
+
+      # This uses GitHub Action cache for docker container layers
+      # See: https://github.com/marketplace/actions/docker-layer-caching
+      - uses: satackey/action-docker-layer-caching@v0.0.11
+        # Ignore a failure of this step and avoid terminating the job.
+        continue-on-error: true
+        # By default, this cache is keyed to the workflow name. We ar
+        # setting a shared key for the docker cache to be shared
+        # across multiple workflows.
+        with:
+          key: docker-{hash}
+          restore-keys: |
+            docker-
+
+      - name: Serve app via docker-compose
+        working-directory: infrastructure/
+        run: docker-compose up --detach
+
+      - name: "Confirm failure response"
+        # Match any non-200 HTTP response code (301 or 404)
+        run: |
+          curl http://localhost:8000/talent --output /dev/null --silent --write-out "%{http_code}"  | grep --invert-match 200
+
+      - name: "Run: setup.sh"
+        working-directory: infrastructure/
+        run: docker-compose run --rm maintenance bash setup.sh
+
+      - name: "Confirm success response: setup.sh"
+        run: |
+          curl --silent http://localhost:8000/talent | grep /talent/app.js
+          curl --silent http://localhost:8000/admin | grep /admin/app.js
+          curl --silent http://localhost:8000/indigenous-it-apprentice | grep /indigenous-it-apprentice/app.js
+          curl --silent http://localhost:8000/en/talent-cloud | grep "GC Talent | Talent Cloud"
+          # Test that GraphQL API returns some data, and that the HTTP code is 200.
+          # See: https://www.apollographql.com/docs/apollo-server/monitoring/health-checks/#graphql-level-health-checks
+          curl "http://localhost:8000/graphql?query=\{__typename\}" --write-out "%{http_code}" --silent | grep '"data"' | grep 200
+
+      - name: Break web apps
+        run: rm frontend/*/dist/index.html
+
+      - name: "Confirm failure response"
+        # Match any non-200 HTTP response code (301 or 404)
+        run: |
+          curl http://localhost:8000/talent --output /dev/null --silent --write-out "%{http_code}"  | grep --invert-match 200
+
+      - name: "Run: refresh_all.sh"
+        working-directory: infrastructure/
+        run: docker-compose run --rm maintenance bash refresh_all.sh
+
+      - name: "Confirm success response: refresh_all.sh"
+        run: |
+          curl --silent http://localhost:8000/talent | grep /talent/app.js
+          curl --silent http://localhost:8000/admin | grep /admin/app.js
+          curl --silent http://localhost:8000/indigenous-it-apprentice | grep /indigenous-it-apprentice/app.js
+          curl --silent http://localhost:8000/en/talent-cloud | grep "GC Talent | Talent Cloud"
+          # Test that GraphQL API returns some data, and that the HTTP code is 200.
+          # See: https://www.apollographql.com/docs/apollo-server/monitoring/health-checks/#graphql-level-health-checks
+          curl "http://localhost:8000/graphql?query=\{__typename\}" --write-out "%{http_code}" --silent | grep '"data"' | grep 200

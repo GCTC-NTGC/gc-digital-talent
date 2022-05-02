@@ -5,6 +5,7 @@ import { Meta, Story } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 import { fakeClassifications, fakeUsers } from "@common/fakeData";
 import pick from "lodash/pick";
+import { GovEmployeeType } from "../../api/generated";
 import GovInfoFormContainer, { GovernmentInfoForm } from "./GovernmentInfoForm";
 
 const fakeClass = fakeClassifications();
@@ -30,6 +31,7 @@ ADefaultArgs.args = {
   initialData: pick(fakeUser, [
     "id",
     "isGovEmployee",
+    "govEmployeeType",
     "interestedInLaterOrSecondment",
     "currentClassification",
   ]),
@@ -51,19 +53,19 @@ CStatusYes.args = {
   },
 };
 
-// TODO: implement when govEmployeeType added to api
-// export const DCasualNoClass = TemplateGovInfoForm.bind({});
-// DCasualNoClass.args = {
-//   initialData: {
-//     ...CStatusYes.args.initialData,
-//     govEmployeeType: "casual",
-//   },
-// };
+export const DCasualNoClass = TemplateGovInfoForm.bind({});
+DCasualNoClass.args = {
+  initialData: {
+    ...CStatusYes.args.initialData,
+    govEmployeeType: GovEmployeeType.Casual,
+    currentClassification: {},
+  },
+};
 
 export const ECasualClassGroup = TemplateGovInfoForm.bind({});
 ECasualClassGroup.args = {
   initialData: {
-    ...CStatusYes.args.initialData,
+    ...DCasualNoClass.args.initialData,
     currentClassification: { group: "CS" },
   },
 };

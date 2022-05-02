@@ -9,7 +9,11 @@ import { notEmpty } from "@common/helpers/util";
 import { toast } from "react-toastify";
 import { navigate, pushToStateThenNavigate } from "@common/helpers/router";
 import { SearchRequestFilters } from "@common/components/SearchRequestFilters";
-import useLocalStorage from "@common/hooks/useLocalStorage";
+import {
+  getFromSessionStorage,
+  removeFromSessionStorage,
+  setInSessionStorage,
+} from "@common/helpers/storageUtils";
 import { useTalentSearchRoutes } from "../../talentSearchRoutes";
 import {
   Department,
@@ -77,19 +81,14 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
   const intl = useIntl();
   const locale = getLocale(intl);
   const paths = useTalentSearchRoutes();
-  const [locallySavedForm, setLocallySavedForm] = useLocalStorage<FormValues>(
-    "ts-createrequest", // unique storage key
-    {}, // start form off empty
-  );
-  const formMethods = useForm<FormValues>({ defaultValues: locallySavedForm });
+  const cacheKey = "ts-createRequest";
+
+  const formMethods = useForm<FormValues>({
+    defaultValues: getFromSessionStorage(cacheKey, {}),
+  });
   const { handleSubmit, watch } = formMethods;
 
-  React.useEffect(() => {
-    const subscription = watch((data) => {
-      setLocallySavedForm(data);
-    });
-    return () => subscription.unsubscribe();
-  }, [setLocallySavedForm, watch]);
+  watch((data) => setInSessionStorage(cacheKey, data));
 
   const formValuesToSubmitData = (
     values: FormValues,
@@ -149,7 +148,7 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
   const onSubmit: SubmitHandler<FormValues> = async (data) => {
     return handleCreatePoolCandidateSearchRequest(formValuesToSubmitData(data))
       .then(() => {
-        setLocallySavedForm({}); // clear the locally saved from once it is successfully submitted
+        removeFromSessionStorage(cacheKey); // clear the locally saved from once it is successfully submitted
         navigate(paths.search());
         toast.success(
           intl.formatMessage({

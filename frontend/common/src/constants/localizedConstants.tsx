@@ -117,7 +117,7 @@ export const languageAbilities = defineMessages({
     description: "The language ability is French only.",
   },
   [LanguageAbility.Bilingual]: {
-    defaultMessage: "Bilingual, English, and French",
+    defaultMessage: "Bilingual (English and French)",
     description: "The language ability is bilingual - both English and French.",
   },
 });
