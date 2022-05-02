@@ -3,7 +3,8 @@ import { useIntl } from "react-intl";
 import { Routes } from "universal-router";
 import { RouterResult } from "@common/helpers/router";
 import Toast from "@common/components/Toast";
-import { useFeatureFlags } from "@common/hooks/useFeatureFlags";
+import useRuntimeVariable from "@common/hooks/useRuntimeVariable";
+import { isStringTrue } from "@common/helpers/util";
 import ClientProvider from "./ClientProvider";
 import PageContainer, { MenuLink } from "./PageContainer";
 import SearchPage from "./search/SearchPage";
@@ -96,7 +97,6 @@ export const Router: React.FC = () => {
   const intl = useIntl();
   const talentPaths = useTalentSearchRoutes();
   const profilePaths = useApplicantProfileRoutes();
-  const flags = useFeatureFlags();
 
   const menuItems = [
     <MenuLink
@@ -122,7 +122,9 @@ export const Router: React.FC = () => {
         menuItems={menuItems}
         contentRoutes={[
           ...talentRoutes(talentPaths),
-          ...(flags.applicantProfile() ? profileRoutes(profilePaths) : []),
+          ...(isStringTrue(useRuntimeVariable("FEATURE_APPLICANTPROFILE"))
+            ? profileRoutes(profilePaths)
+            : []),
         ]}
       />
       <Toast />
