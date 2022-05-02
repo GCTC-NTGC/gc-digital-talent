@@ -28,10 +28,11 @@ function h2AccordionToggleHandler(accordion) {
     if (content.querySelector(".focus-target") != null) {
       focusTarget = content.querySelector(".focus-target");
       focusTarget.setAttribute("tabindex", "0");
-    }
-    else {
+    } else {
       // Find the focusable items in the content and focus the first item.
-      var focusList = content.querySelectorAll("button, [href], input, select, textarea, [tabindex]:not([tabindex='-1'])");
+      var focusList = content.querySelectorAll(
+        "button, [href], input, select, textarea, [tabindex]:not([tabindex='-1'])"
+      );
       // Ensure that there are in fact items to be focused in the content.
       if (focusList.length != 0) {
         focusTarget = focusList[0];
@@ -39,8 +40,7 @@ function h2AccordionToggleHandler(accordion) {
     }
     focusTarget.focus();
     return true;
-  }
-  else {
+  } else {
     // Check for a manual focus target and ensure it's removed from the tab order.
     if (content.querySelector(".focus-target") != null) {
       content.querySelector(".focus-target").setAttribute("tabindex", "-1");
@@ -74,12 +74,12 @@ function h2AccordionToggle(targetAccordions) {
   var accordions = targetAccordions;
   // Loop through the triggers, and add the event trigger script.
   if (accordions != false) {
-    accordions.forEach(function(accordion) {
+    accordions.forEach(function (accordion) {
       accordion.removeEventListener("click", h2AccordionToggleEvent);
       accordion.addEventListener("click", h2AccordionToggleEvent);
     });
   }
 }
 
-var accordions = document.querySelectorAll('.accordion-trigger');
+var accordions = document.querySelectorAll(".accordion-trigger");
 h2AccordionToggle(accordions);
