@@ -28,7 +28,7 @@ export const DiversityEquityInclusionForm: React.FC = () => {
       ]}
     >
       <div data-h2-flex-item="b(1of1)" data-h2-padding="b(top, m)">
-        <p>Comming Soon!</p>
+        <p>Coming Soon!</p>
       </div>
     </ProfileFormWrapper>
   );
