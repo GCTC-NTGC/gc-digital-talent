@@ -10,9 +10,9 @@ const EstimatedCandidates: React.FunctionComponent<EstimatedCandidatesProps> =
   ({ candidateCount, updatePending }) => {
     const intl = useIntl();
 
-    function weight(msg: string) {
-      return <span data-h2-font-weight="b(800)">{msg}</span>;
-    }
+    function weight(msg: string) (
+      <span data-h2-font-weight="b(800)">{msg}</span>;
+    )
 
     return (
       <div
