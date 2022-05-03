@@ -116,7 +116,6 @@ export const MyStatusForm: React.FC<MyStatusFormProps> = ({
 
   let isFormActive = true;
   // Checking About Me Form
-  // alert(preferredLang);
 
   if (
     !preferredLang ||

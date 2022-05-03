@@ -23,7 +23,7 @@ const renderMyStatusForm = ({
   );
 };
 
-const mockDataForIncompletForm: GetMystatusQuery | undefined = {
+const mockDataForIncompleteForm: GetMystatusQuery | undefined = {
   __typename: "Query",
   me: {
     __typename: "User",
@@ -45,7 +45,7 @@ const mockDataForIncompletForm: GetMystatusQuery | undefined = {
     expectedSalary: [SalaryRange["50_59K"]],
   },
 };
-const mockDataForCompletForm: GetMystatusQuery | undefined = {
+const mockDataForCompleteForm: GetMystatusQuery | undefined = {
   __typename: "Query",
   me: {
     __typename: "User",
@@ -115,7 +115,7 @@ describe("LanguageInformationForm tests", () => {
   test("If application not complete, inputs disabled and Why can I change my status appears", () => {
     const onClick = jest.fn();
     renderMyStatusForm({
-      initialData: mockDataForIncompletForm,
+      initialData: mockDataForIncompleteForm,
       handleMyStatus: onClick,
     });
     expect(
@@ -140,7 +140,7 @@ describe("LanguageInformationForm tests", () => {
   test("If application complete, inputs enabled and Why can I change my status hidden", () => {
     const onClick = jest.fn();
     renderMyStatusForm({
-      initialData: mockDataForCompletForm,
+      initialData: mockDataForCompleteForm,
       handleMyStatus: onClick,
     });
     expect(

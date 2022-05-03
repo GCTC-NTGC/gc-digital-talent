@@ -1,4 +1,4 @@
-query getMystatus {
+query getMyStatus {
   me {
     id
     jobLookingStatus
@@ -19,7 +19,7 @@ query getMystatus {
   }
 }
 
-mutation UpdateMystatus($id: ID!, $user: UpdateUserAsUserInput!) {
+mutation UpdateMyStatus($id: ID!, $user: UpdateUserAsUserInput!) {
   updateUserAsUser(id: $id, user: $user) {
     jobLookingStatus
   }
