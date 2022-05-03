@@ -28,11 +28,12 @@ export const Router: React.FC = () => {
 
   const menuItems = [
     <MenuLink
-      key="search"
+      key="home"
       href={indigenousApprenticeshipPaths.home()}
       text={intl.formatMessage({
         defaultMessage: "Home",
-        description: "Label displayed on the IAP menu item.",
+        description:
+          "Link to the homepage for indigenous apprenticeship program.",
       })}
     />,
   ];
