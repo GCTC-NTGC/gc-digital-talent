@@ -22,7 +22,7 @@ import EstimatedCandidates from "./EstimatedCandidates";
 import { FormValues, SearchForm } from "./SearchForm";
 import SearchFilterAdvice from "./SearchFilterAdvice";
 import SearchPools from "./SearchPools";
-import Spinner from "./Spinner";
+import Spinner from "../Spinner";
 import { useTalentSearchRoutes } from "../../talentSearchRoutes";
 
 export interface SearchContainerProps {

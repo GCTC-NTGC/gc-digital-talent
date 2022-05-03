@@ -1,18 +1,17 @@
 import * as React from "react";
 import { useIntl } from "react-intl";
+import Spinner from "../Spinner";
 
 interface EstimatedCandidatesProps {
   candidateCount: number;
   updatePending?: boolean;
 }
 
+const weight = (msg: string) => <span data-h2-font-weight="b(800)">{msg}</span>;
+
 const EstimatedCandidates: React.FunctionComponent<EstimatedCandidatesProps> =
   ({ candidateCount, updatePending }) => {
     const intl = useIntl();
-
-    function weight(msg: string) (
-      <span data-h2-font-weight="b(800)">{msg}</span>;
-    )
 
     return (
       <div
@@ -43,7 +42,7 @@ const EstimatedCandidates: React.FunctionComponent<EstimatedCandidatesProps> =
         >
           <p data-h2-text-align="b(center)">
             {updatePending ? (
-                <Spinner />
+              <Spinner />
             ) : (
               <>
                 {intl.formatMessage(
