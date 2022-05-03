@@ -6,7 +6,7 @@ import Spinner from "./Spinner";
 export default {
   component: Spinner,
   title: "Spinner",
-};
+} as Meta;
 
 const Template: Story = () => <Spinner />;
 
