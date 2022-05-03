@@ -108,7 +108,6 @@ const Home: React.FunctionComponent = () => {
         </div>
         <div
           className="about-program"
-          data-h2-container="m(center, m)"
           data-h2-margin="m(bottom, xxl)"
           data-h2-padding="m(all, xl)"
           data-h2-position="b(relative)"
@@ -117,9 +116,9 @@ const Home: React.FunctionComponent = () => {
         >
           <div data-h2-display="m(flex)" data-h2-align-items="m(flex-start))">
             <div
-              className="program__image-wrapper"
+              className="program__image-wrapper about-program__image-wrapper"
               data-h2-position="b(relative)"
-              data-h2-padding="m(right, l)"
+              data-h2-padding="m(right-left, m) l(right-left, xxl)"
             >
               <img
                 src={imageUrl(
@@ -149,7 +148,10 @@ const Home: React.FunctionComponent = () => {
                 data-h2-position="b(absolute)"
               />
             </div>
-            <div className="program__content">
+            <div
+              className="program__content"
+              data-h2-padding="m(right-left, m) l(right-left, xl)"
+            >
               <Heading
                 className="about-program__title"
                 data-h2-font-size="b(h3)"
@@ -283,6 +285,34 @@ const Home: React.FunctionComponent = () => {
         >
           <div data-h2-display="m(flex)">
             <div
+              className="program__image-wrapper who-program__image-wrapper"
+              data-h2-position="b(relative)"
+              data-h2-padding="b(right-left, m)"
+            >
+              <img
+                src={imageUrl(
+                  INDIGENOUSAPPRENTICESHIP_APP_DIR,
+                  "applicant.jpg",
+                )}
+                className="program__image"
+                data-h2-position="b(relative)"
+                alt=""
+              />
+              <Triangle
+                className="who-program__triangle"
+                data-h2-position="b(absolute)"
+                data-h2-width="b(100)"
+                data-h2-font-color="b(ia-purple)"
+              />
+              <img
+                src={imageUrl(INDIGENOUSAPPRENTICESHIP_APP_DIR, "ulu.png")}
+                className="who-program__ulu who-program__ulu--mobile"
+                alt=""
+                data-h2-position="b(absolute)"
+                data-h2-visibility="m(hidden)"
+              />
+            </div>
+            <div
               className="who-program__content"
               data-h2-margin="b(bottom, xl) m(bottom, xxs"
             >
@@ -332,30 +362,10 @@ const Home: React.FunctionComponent = () => {
               </div>
               <img
                 src={imageUrl(INDIGENOUSAPPRENTICESHIP_APP_DIR, "ulu.png")}
-                className="who-program__ulu"
+                className="who-program__ulu who-program__ulu--desktop"
                 alt=""
                 data-h2-position="b(absolute)"
-              />
-            </div>
-            <div
-              className="program__image-wrapper who-program__image-wrapper"
-              data-h2-position="b(relative)"
-              data-h2-padding="b(right-left, m)"
-            >
-              <img
-                src={imageUrl(
-                  INDIGENOUSAPPRENTICESHIP_APP_DIR,
-                  "applicant.jpg",
-                )}
-                className="program__image"
-                data-h2-position="b(relative)"
-                alt=""
-              />
-              <Triangle
-                className="who-program__triangle"
-                data-h2-position="b(absolute)"
-                data-h2-width="b(100)"
-                data-h2-font-color="b(ia-purple)"
+                data-h2-visibility="b(hidden) m(visible)"
               />
             </div>
           </div>

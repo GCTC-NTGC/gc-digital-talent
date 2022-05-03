@@ -46,6 +46,10 @@
   z-index: 2;
 }
 
+.about-program {
+  margin: 0 auto;
+}
+
 .about-program__feathers {
   bottom: -3rem;
   height: auto;
@@ -98,10 +102,14 @@
   height: auto;
   bottom: -1rem;
   right: -1rem;
-  width: 65%;
+  width: 65% !important;
   max-width: none;
   z-index: 3;
 }
+
+/* .who-program__ulu {
+    bottom: -1rem;
+} */
 
 .who-program__triangle {
   left: 0;
@@ -207,6 +215,10 @@
   .hero__apply {
     margin-bottom: 10rem;
   }
+
+  .about-program {
+    max-width: 90vw;
+  }
   .program__image-wrapper {
     width: 100%;
     max-width: 100%;
@@ -222,7 +234,7 @@
   }
 
   .about-program__feathers {
-    bottom: -4rem;
+    bottom: -8rem;
     right: -1rem;
     width: 95%;
   }
@@ -233,13 +245,6 @@
     width: 50%;
   }
 
-  .who-program__image-wrapper {
-    order: 1;
-  }
-
-  .who-program__content {
-    order: 2;
-  }
   .talent-portal-card {
     background-position: 100% 10%;
     background-size: auto 120%;
@@ -258,12 +263,8 @@
   .about-program {
     box-shadow: 0px -26px 44px rgba(0, 0, 0, 0.05);
     margin-top: -4rem !important;
+    max-width: 80vw;
     z-index: 2;
-  }
-
-  .about-program > div {
-    margin: 0 -8rem;
-    padding: 0 7rem;
   }
 
   .about-program__title {
@@ -283,7 +284,7 @@
   .about-program__feathers {
     bottom: -8rem;
     left: -6rem;
-    width: 36rem;
+    width: calc(120% + 6rem);
   }
 
   .learn-program {
@@ -307,7 +308,7 @@
   .who-program__ulu {
     bottom: -10rem;
     right: -17rem;
-    width: calc(30% + 16rem);
+    width: calc(30% + 16rem) !important;
   }
 
   .quote-wrapper {
@@ -359,5 +360,16 @@
     width: auto;
     flex-shrink: 0;
     vertical-align: top;
+  }
+}
+
+/**
+ * Hydrogen Large
+ */
+@media (min-width: 100em) {
+  .about-program__feathers {
+    bottom: -6rem;
+    left: -6rem;
+    width: 40rem;
   }
 }
