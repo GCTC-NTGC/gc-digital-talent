@@ -1,4 +1,4 @@
-import React, { ReactElement, useImperativeHandle, useRef } from "react";
+import React, { ReactElement, useRef } from "react";
 import { Routes } from "universal-router";
 import { useIntl } from "react-intl";
 import NavMenu from "@common/components/NavMenu";
@@ -34,17 +34,12 @@ export const MenuLink: React.FC<MenuLinkProps> = ({
     <Link
       href={href}
       title={title ?? ""}
-      {...{
-        "data-h2-font-color": "b(lightpurple)",
-      }}
+      data-h2-font-color="b(ia-pink)"
+      data-h2-font-weight={
+        isActive(href, location.pathname) ? "b(700)" : "b(100)"
+      }
     >
-      <div
-        data-h2-font-weight={
-          isActive(href, location.pathname) ? "b(700)" : "b(100)"
-        }
-      >
-        {text}
-      </div>
+      {text}
     </Link>
   );
 };

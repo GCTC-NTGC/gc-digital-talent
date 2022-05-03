@@ -14,7 +14,7 @@
   transform: translateY(-50%);
 }
 
-.dialog-title {
+.dialog__title {
   padding-right: 2rem;
   z-index: 1;
 }

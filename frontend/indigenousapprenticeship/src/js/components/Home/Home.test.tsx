@@ -19,17 +19,10 @@ const renderWithReactIntl = (
   );
 };
 
-const renderHome = () => (
-  <>
-    {renderWithReactIntl(
-      <Home />,
-    )}
-  </>
-);
+const renderHome = () => <>{renderWithReactIntl(<Home />)}</>;
 
 describe("Basic test for Home", () => {
   it("should render", () => {
     renderHome();
   });
-
 });
