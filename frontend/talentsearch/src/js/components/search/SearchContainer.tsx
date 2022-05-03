@@ -22,6 +22,7 @@ import EstimatedCandidates from "./EstimatedCandidates";
 import { FormValues, SearchForm } from "./SearchForm";
 import SearchFilterAdvice from "./SearchFilterAdvice";
 import SearchPools from "./SearchPools";
+import Spinner from "./Spinner";
 import { useTalentSearchRoutes } from "../../talentSearchRoutes";
 
 export interface SearchContainerProps {
@@ -192,19 +193,7 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
           />
         </div>
         <div data-h2-flex-item="b(1of1)" style={{ paddingTop: "0" }}>
-          {!updatePending ? (
-            candidateResults
-          ) : (
-            <span className="lds-dual-ring">
-              <span data-h2-visibility="b(invisible)">
-                {intl.formatMessage({
-                  defaultMessage: "Searching...",
-                  description:
-                    "Message to display when a search is in progress.",
-                })}
-              </span>
-            </span>
-          )}
+          {!updatePending ? candidateResults : <Spinner />}
         </div>
       </div>
     </div>

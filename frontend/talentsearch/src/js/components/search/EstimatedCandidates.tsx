@@ -43,15 +43,7 @@ const EstimatedCandidates: React.FunctionComponent<EstimatedCandidatesProps> =
         >
           <p data-h2-text-align="b(center)">
             {updatePending ? (
-              <span className="lds-dual-ring">
-                <span data-h2-visibility="b(invisible)">
-                  {intl.formatMessage({
-                    defaultMessage: "Searching...",
-                    description:
-                      "Message to display when a search is in progress.",
-                  })}
-                </span>
-              </span>
+                <Spinner />
             ) : (
               <>
                 {intl.formatMessage(
