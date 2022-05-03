@@ -1,0 +1,20 @@
+---
+name: New Feature (with prototype)
+about: Use this template new features with links to prototypes.
+# These aren't used at the moment.
+# See: https://docs.github.com/en/communities/using-templates-to-encourage-useful-issues-and-pull-requests/manually-creating-a-single-issue-template-for-your-repository
+title: null
+labels: null
+assignees: null
+---
+## Screenshot: Prototype
+[![screenshot][screenshot]][figma]
+<sup>[Click screenshot to visit Figma.][figma]</sup>
+
+## Acceptance Criteria
+- [ ] ...
+
+<!-- Links -->
+   [screenshot]: https://user-images.githubusercontent.com/305339/166570935-6425a615-82c7-4b2f-9840-5c7d698fa2ab.png
+   [figma]: https://example.com
+<!-- Find your prototype via https://go.talent.c4nada.ca/figma and click "play button" ▷ in top-right. -->
