@@ -217,7 +217,6 @@ const Home: React.FunctionComponent = () => {
                 className="learn-program__gloves"
                 alt=""
                 data-h2-position="b(absolute)"
-                data-h2-width="b(100)"
               />
               <RadiatingCircles
                 className="learn-program__circles"

@@ -82,8 +82,9 @@
 }
 
 .learn-program__gloves {
-  bottom: -7rem;
+  bottom: -6rem;
   left: 35%;
+  width: 80%;
   z-index: 2;
 }
 
@@ -228,7 +229,7 @@
   .learn-program__gloves {
     left: auto;
     right: -6rem;
-    width: 32rem;
+    width: 50%;
   }
 
   .who-program__image-wrapper {
@@ -299,6 +300,7 @@
   .learn-program__gloves {
     bottom: -10rem;
     left: 50%;
+    width: 100%;
   }
 
   .who-program__ulu {
