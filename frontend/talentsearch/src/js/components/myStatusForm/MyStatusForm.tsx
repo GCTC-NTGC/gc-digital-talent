@@ -17,21 +17,21 @@ import { debounce } from "debounce";
 import { useApplicantProfileRoutes } from "../../applicantProfileRoutes";
 import {
   UpdateUserAsUserInput,
-  useGetMystatusQuery,
-  useUpdateMystatusMutation,
-  GetMystatusQuery,
-  UpdateMystatusMutation,
+  useGetMyStatusQuery,
+  useUpdateMyStatusMutation,
+  GetMyStatusQuery,
+  UpdateMyStatusMutation,
   JobLookingStatus,
 } from "../../api/generated";
 
 export type FormValues = Pick<UpdateUserAsUserInput, "jobLookingStatus">;
 
 export interface MyStatusFormProps {
-  initialData: GetMystatusQuery | undefined;
+  initialData: GetMyStatusQuery | undefined;
   handleMyStatus: (
     id: string,
     data: UpdateUserAsUserInput,
-  ) => Promise<UpdateMystatusMutation["updateUserAsUser"]>;
+  ) => Promise<UpdateMyStatusMutation["updateUserAsUser"]>;
 }
 
 export const MyStatusForm: React.FC<MyStatusFormProps> = ({
@@ -65,7 +65,7 @@ export const MyStatusForm: React.FC<MyStatusFormProps> = ({
     JobLookingStatus.Inactive,
   ];
   const dataToFormValues = (
-    data?: GetMystatusQuery | undefined,
+    data?: GetMyStatusQuery | undefined,
   ): FormValues => {
     return {
       jobLookingStatus: data?.me?.jobLookingStatus,
@@ -230,9 +230,9 @@ const MyStatusApi: React.FunctionComponent = () => {
   const intl = useIntl();
   const paths = useApplicantProfileRoutes();
 
-  const [{ data: initialData, fetching, error }] = useGetMystatusQuery();
+  const [{ data: initialData, fetching, error }] = useGetMyStatusQuery();
 
-  const [, executeMutation] = useUpdateMystatusMutation();
+  const [, executeMutation] = useUpdateMyStatusMutation();
   const handleMyStatus = (id: string, data: UpdateUserAsUserInput) =>
     executeMutation({
       id,
