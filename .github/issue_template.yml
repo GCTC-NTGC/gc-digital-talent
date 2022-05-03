@@ -7,14 +7,19 @@ title: null
 labels: null
 assignees: null
 ---
+<sup>ℹ️ [Figma (root)][figma] | [Sitemap][sitemap]</sup>
+<sup>_This initial comment is collaborative and open to modification by all._</sup>
+
 ## Screenshot: Prototype
-[![screenshot][screenshot]][figma]
-<sup>[Click screenshot to visit Figma.][figma]</sup>
+[![a screenshot of ...][image]][image-link]
+<sup>[Click screenshot to visit Figma.][image-link]</sup>
 
 ## Acceptance Criteria
 - [ ] ...
 
 <!-- Links -->
-   [screenshot]: https://user-images.githubusercontent.com/305339/166570935-6425a615-82c7-4b2f-9840-5c7d698fa2ab.png
-   [figma]: https://example.com
+   [image]: https://user-images.githubusercontent.com/305339/166570935-6425a615-82c7-4b2f-9840-5c7d698fa2ab.png
+   [image-link]: https://example.com
+   [figma]: https://go.talent.c4nada.ca/figma
+   [sitemap]: https://go.talent.c4nada.ca/sitemap
 <!-- Find your prototype via https://go.talent.c4nada.ca/figma and click "play button" ▷ in top-right. -->
