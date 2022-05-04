@@ -33,6 +33,7 @@ import {
   useGetMeQuery,
   User,
   GetMeQuery,
+  GovEmployeeType,
 } from "../../../api/generated";
 
 export interface ProfilePageProps {
@@ -59,6 +60,7 @@ export const ProfileForm: React.FC<ProfilePageProps> = ({
     verbalLevel,
     estimatedLanguageAbility,
     isGovEmployee,
+    govEmployeeType,
     interestedInLaterOrSecondment,
     currentClassification,
     isWoman,
@@ -683,11 +685,6 @@ export const ProfileForm: React.FC<ProfilePageProps> = ({
                 data-h2-padding="b(all, m)"
                 data-h2-radius="b(s)"
               >
-                {/* !!!!!!!!!!!!
-                TODO
-                ADD GOVERNMENT EMPLOYEE TYPE TO THIS FORM FUNCTION, THEN ADD EMPLOYEE TYPE LOGIC HERE
-                AND WHATEVER ELSE IS NEEDED TO SMOOTH OUT THIS SECTION WHENEVER TYPE USER IS UPDATED
-                !!!!!!!!!!!!!!! */}
                 {isGovEmployee && (
                   <div>
                     <li>
@@ -698,6 +695,34 @@ export const ProfileForm: React.FC<ProfilePageProps> = ({
                           "Message to state user is employed by government",
                       })}
                     </li>
+                    {govEmployeeType && (
+                      <li>
+                        {govEmployeeType === GovEmployeeType.Student &&
+                          intl.formatMessage({
+                            defaultMessage: "I have a student position",
+                            description:
+                              "Message to state user is employed federally in a student position",
+                          })}
+                        {govEmployeeType === GovEmployeeType.Casual &&
+                          intl.formatMessage({
+                            defaultMessage: "I have a casual position",
+                            description:
+                              "Message to state user is employed federally in a casual position",
+                          })}
+                        {govEmployeeType === GovEmployeeType.Term &&
+                          intl.formatMessage({
+                            defaultMessage: "I have a term position",
+                            description:
+                              "Message to state user is employed federally in a term position",
+                          })}
+                        {govEmployeeType === GovEmployeeType.Indeterminate &&
+                          intl.formatMessage({
+                            defaultMessage: "I have an indeterminate position",
+                            description:
+                              "Message to state user is employed federally in an indeterminate position",
+                          })}
+                      </li>
+                    )}
                     {interestedInLaterOrSecondment && (
                       <li>
                         {intl.formatMessage({
@@ -965,7 +990,7 @@ export const ProfileForm: React.FC<ProfilePageProps> = ({
                   })}
                 </h2>
                 <Link
-                  href={paths.diversityAndInclusion()}
+                  href={paths.diversityEquityInclusion()}
                   title=""
                   {...{
                     "data-h2-font-color": "b(lightpurple)",

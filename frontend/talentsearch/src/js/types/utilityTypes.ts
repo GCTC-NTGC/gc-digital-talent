@@ -27,6 +27,7 @@ type Join<T extends Primitive[], D extends string = "."> = T extends []
  * Turns an object type into the list of keys to primitive values,
  * with keys to nested objects represented by dot-notation.
  */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type NestedPaths<T extends Record<string, any>> = Join<
   PathsToPrimitiveProps<T>,
   "."

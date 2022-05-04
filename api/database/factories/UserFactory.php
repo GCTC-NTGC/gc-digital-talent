@@ -6,7 +6,7 @@ use App\Models\User;
 use App\Models\Classification;
 use App\Models\CmoAsset;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Database\Helpers\EnumsForFactories;
+use Database\Helpers\ApiEnums;
 
 class UserFactory extends Factory
 {
@@ -119,7 +119,8 @@ class UserFactory extends Factory
                 3
             ),
             'would_accept_temporary' => $this->faker->boolean(),
-            'accepted_operational_requirements' => $this->faker->optional->randomElements(EnumsForFactories::operationalRequirements(), 2),
+            'accepted_operational_requirements' => $this->faker->optional->randomElements(ApiEnums::operationalRequirements(), 2),
+            'gov_employee_type' => $this->faker->randomElement(ApiEnums::govEmployeeTypes()),
         ];
     }
 }

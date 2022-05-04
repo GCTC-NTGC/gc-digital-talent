@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { useIntl } from "react-intl";
 import { useAsyncDebounce } from "react-table";
-import "regenerator-runtime/runtime.js"; // This is required for useAsyncDebounce to work; it makes up for something wrong with our webpack configuration.
+import "regenerator-runtime/runtime"; // This is required for useAsyncDebounce to work; it makes up for something wrong with our webpack configuration.
 import { InputWrapper } from "@common/components/inputPartials";
 
 interface GlobalFilterProps {
-  globalFilter: any;
-  setGlobalFilter: any;
+  globalFilter: string | undefined;
+  setGlobalFilter: (val: string | undefined) => void;
 }
 
 const GlobalFilter: React.FC<GlobalFilterProps> = ({

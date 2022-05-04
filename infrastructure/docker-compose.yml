@@ -41,6 +41,11 @@ services:
     deploy:
       mode: replicated
       replicas: 0
+    environment:
+      # Prevent `npm install` from trying to install Cypress in the container,
+      # which is not required and just creates permission issues.
+      # See: https://docs.cypress.io/guides/getting-started/installing-cypress#Skipping-installation
+      - CYPRESS_INSTALL_BINARY=0
     volumes:
       - maintenancedata:/root
       - ../maintenance/scripts:/root/scripts
