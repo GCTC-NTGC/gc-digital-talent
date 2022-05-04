@@ -3,6 +3,7 @@ import { useIntl } from "react-intl";
 import { Routes } from "universal-router";
 import { RouterResult } from "@common/helpers/router";
 import Toast from "@common/components/Toast";
+import { checkFeatureFlag } from "@common/helpers/runtimeVariable";
 import ClientProvider from "./ClientProvider";
 import PageContainer, { MenuLink } from "./PageContainer";
 import SearchPage from "./search/SearchPage";
@@ -26,9 +27,8 @@ import AboutMeFormContainer from "./aboutMeForm/AboutMeForm";
 import DiversityEquityInclusionFormApi from "./diversityEquityInclusion/DiversityEquityInclusionForm";
 import { ExperienceAndSkillsRouterApi } from "./applicantProfile/ExperienceAndSkills";
 
-const routes = (
+const talentRoutes = (
   talentPaths: TalentSearchRoutes,
-  profilePaths: ApplicantProfileRoutes,
 ): Routes<RouterResult> => [
   {
     path: talentPaths.home(),
@@ -49,6 +49,11 @@ const routes = (
       component: <RequestPage />,
     }),
   },
+];
+
+const profileRoutes = (
+  profilePaths: ApplicantProfileRoutes,
+): Routes<RouterResult> => [
   {
     path: profilePaths.home(),
     action: () => ({
@@ -135,7 +140,12 @@ export const Router: React.FC = () => {
     <ClientProvider>
       <PageContainer
         menuItems={menuItems}
-        contentRoutes={routes(talentPaths, profilePaths)}
+        contentRoutes={[
+          ...talentRoutes(talentPaths),
+          ...(checkFeatureFlag("FEATURE_APPLICANTPROFILE")
+            ? profileRoutes(profilePaths)
+            : []),
+        ]}
       />
       <Toast />
     </ClientProvider>

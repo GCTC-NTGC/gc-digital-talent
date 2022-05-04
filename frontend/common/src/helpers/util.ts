@@ -78,3 +78,12 @@ export function insertBetween<T>(separator: T, arr: T[]): T[] {
     return prev;
   }, []);
 }
+
+/**
+ * Tests if a string is boolean true
+ * https://stackoverflow.com/a/264037
+ * https://stackoverflow.com/a/2140644
+ */
+export function isStringTrue(str: string | undefined): boolean {
+  return str?.toLocaleUpperCase() === "TRUE";
+}
