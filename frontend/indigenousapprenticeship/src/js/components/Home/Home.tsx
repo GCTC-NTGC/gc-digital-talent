@@ -109,7 +109,7 @@ const Home: React.FunctionComponent = () => {
         <div
           className="about-program"
           data-h2-margin="m(bottom, xxl)"
-          data-h2-padding="m(all, xl)"
+          data-h2-padding="b(right-left, m) m(all, xl)"
           data-h2-position="b(relative)"
           data-h2-bg-color="b(white)"
           data-h2-radius="b(s)"

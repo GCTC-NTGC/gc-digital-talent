@@ -135,7 +135,7 @@
 }
 
 .quote--close {
-  right: 0;
+  right: 0.75rem; /* Prevent going off screen */
   bottom: 0;
 }
 
