@@ -3,16 +3,14 @@
  */
 import React from "react";
 import "@testing-library/jest-dom";
-import {
-  GetMyStatusQuery,
-  WorkRegion,
-  JobLookingStatus,
-  Language,
-  ProvinceOrTerritory,
-  SalaryRange,
-} from "../../api/generated";
+import { GetMyStatusQuery } from "../../api/generated";
 import { render, screen, fireEvent, waitFor } from "../../tests/testUtils";
 import { MyStatusForm, MyStatusFormProps } from "./MyStatusForm";
+import {
+  MyStatusFormActive,
+  MyStatusFormNull,
+  MyStatusFormNull2,
+} from "./MyStatusForm.stories";
 
 const renderMyStatusForm = ({
   initialData,
@@ -23,73 +21,13 @@ const renderMyStatusForm = ({
   );
 };
 
-const mockDataForIncompleteForm: GetMyStatusQuery | undefined = {
-  __typename: "Query",
-  me: {
-    __typename: "User",
-    id: "11",
-    jobLookingStatus: JobLookingStatus.ActivelyLooking,
-    firstName: "Shubi",
-    lastName: "Suresh",
-    email: "fff@gmaik.com",
-    telephone: "12345679000",
-    preferredLang: Language.En,
-    currentProvince: ProvinceOrTerritory.Alberta,
-    currentCity: "fgrtyuii",
-    lookingForEnglish: true,
-    lookingForFrench: true,
-    lookingForBilingual: true,
-    isGovEmployee: undefined,
-    locationPreferences: [WorkRegion.Atlantic],
-    wouldAcceptTemporary: false,
-    expectedSalary: [SalaryRange["50_59K"]],
-  },
-};
-const mockDataForCompleteForm: GetMyStatusQuery | undefined = {
-  __typename: "Query",
-  me: {
-    __typename: "User",
-    id: "11",
-    jobLookingStatus: JobLookingStatus.ActivelyLooking,
-    firstName: "Shubi",
-    lastName: "Suresh",
-    email: "fff@gmaik.com",
-    telephone: "12345679000",
-    preferredLang: Language.En,
-    currentProvince: ProvinceOrTerritory.Alberta,
-    currentCity: "fgrtyuii",
-    lookingForEnglish: true,
-    lookingForFrench: true,
-    lookingForBilingual: true,
-    isGovEmployee: true,
-    locationPreferences: [WorkRegion.Atlantic],
-    wouldAcceptTemporary: false,
-    expectedSalary: [SalaryRange["50_59K"]],
-  },
-};
-const mockEmptyData: GetMyStatusQuery | undefined = {
-  __typename: "Query",
-  me: {
-    __typename: "User",
-    id: "11",
-    jobLookingStatus: undefined,
-    firstName: undefined,
-    lastName: undefined,
-    email: "",
-    telephone: undefined,
-    preferredLang: undefined,
-    currentProvince: undefined,
-    currentCity: undefined,
-    lookingForEnglish: undefined,
-    lookingForFrench: undefined,
-    lookingForBilingual: undefined,
-    isGovEmployee: undefined,
-    locationPreferences: undefined,
-    wouldAcceptTemporary: undefined,
-    expectedSalary: undefined,
-  },
-};
-describe("LanguageInformationForm tests", () => {
+const mockDataForIncompleteForm: GetMyStatusQuery | undefined =
+  MyStatusFormNull2.args;
+const mockDataForCompleteForm: GetMyStatusQuery | undefined =
+  MyStatusFormActive.args;
+const mockEmptyData: GetMyStatusQuery | undefined = MyStatusFormNull.args;
+
+describe("MyStatusForm tests", () => {
   test("Should render fields", () => {
     const onClick = jest.fn();
     renderMyStatusForm({
