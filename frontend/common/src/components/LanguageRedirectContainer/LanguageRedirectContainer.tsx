@@ -24,11 +24,15 @@ function guessLocale(): Locales {
   return "en";
 }
 
-type Messages = React.ComponentProps<typeof IntlProvider>["messages"];
+export type Messages = React.ComponentProps<typeof IntlProvider>["messages"];
 
-export const LanguageRedirectContainer: React.FC<{
+export interface LanguageRedirectContainerProps {
   getMessages: (locale: string) => Messages;
-}> = ({ getMessages, children }) => {
+}
+
+export const LanguageRedirectContainer: React.FC<
+  LanguageRedirectContainerProps
+> = ({ getMessages, children }) => {
   const location = useLocation();
 
   const pathLocale = getPathLocale(location.pathname);

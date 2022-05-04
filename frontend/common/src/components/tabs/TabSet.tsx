@@ -18,7 +18,7 @@ const firstSelectableTab = (tabs: React.ReactElement<TabProps>[]): number => {
   return firstIndex >= 0 ? firstIndex : 0;
 };
 
-export const TabSet: React.FC<TabSetProps> = ({
+const TabSet: React.FC<TabSetProps> = ({
   children,
 }): React.ReactElement => {
   const [tabSetState, setTabSetState] = useState<TabSetState>({

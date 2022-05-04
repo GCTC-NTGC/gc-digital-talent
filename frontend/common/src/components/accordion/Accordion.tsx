@@ -11,7 +11,7 @@ export interface AccordionProps {
   children?: React.ReactNode;
 }
 
-export const Accordion: React.FC<AccordionProps> = ({
+const Accordion: React.FC<AccordionProps> = ({
   title,
   subtitle,
   context,

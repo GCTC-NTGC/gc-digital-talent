@@ -1,5 +1,5 @@
 import React from "react";
-import { Accordion } from "@common/components/accordion/Accordion";
+import Accordion from "@common/components/accordion/Accordion";
 import BriefCaseIcon from "@heroicons/react/solid/BriefcaseIcon";
 import { Button } from "@common/components";
 import { EducationExperience } from "@common/api/generated";

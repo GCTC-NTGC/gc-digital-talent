@@ -1,1 +1,3 @@
-export { default } from "./frCompiled.json";
+import frCompiled from "./frCompiled.json";
+
+export default frCompiled;
