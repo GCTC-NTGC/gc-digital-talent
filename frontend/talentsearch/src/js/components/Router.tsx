@@ -92,6 +92,7 @@ const routes = (
           <ExperienceFormContainer
             experienceType={experienceType}
             experienceId={experienceId}
+            edit
           />
         ),
       };
