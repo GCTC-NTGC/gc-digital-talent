@@ -4,7 +4,8 @@ import React from "react";
 import { usePaginationVars } from ".";
 import { Skill } from "../../api/generated";
 import { fakeSkills } from "../../fakeData";
-import Pagination, { PaginationProps } from "./Pagination";
+import Pagination from "./Pagination";
+import type { PaginationProps } from "./Pagination";
 
 export default {
   component: Pagination,

@@ -6,7 +6,8 @@ import {
   ChevronDownIcon,
   ChevronUpIcon,
 } from "@heroicons/react/solid";
-import { TabSet, Tab, TabSetProps } from ".";
+import { TabSet, Tab } from ".";
+import type { TabSetProps } from ".";
 
 export default {
   component: TabSet,

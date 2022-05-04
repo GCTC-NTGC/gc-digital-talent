@@ -2,7 +2,7 @@ import React from "react";
 import { Story, Meta } from "@storybook/react";
 import { AcademicCapIcon } from "@heroicons/react/solid";
 import { Accordion as AccordionComponent, AccordionProps } from "./Accordion";
-import { Button } from "../Button";
+import Button from "../Button";
 
 export default {
   component: AccordionComponent,
