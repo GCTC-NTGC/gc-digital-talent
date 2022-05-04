@@ -2,6 +2,7 @@ import React from "react";
 import { useIntl } from "react-intl";
 
 import Dialog from "@common/components/Dialog";
+import CloseButton from "./CloseButton";
 
 import type { BasicDialogProps } from "./types";
 
@@ -17,6 +18,10 @@ const mailAccessor = (...chunks: string[]) => (
 
 const ApplyDialog: React.FC<BasicDialogProps> = ({ isOpen, onDismiss }) => {
   const intl = useIntl();
+  const Close = React.useMemo(
+    () => <CloseButton onClick={onDismiss} />,
+    [onDismiss],
+  );
   return (
     <Dialog
       centered
@@ -27,6 +32,7 @@ const ApplyDialog: React.FC<BasicDialogProps> = ({ isOpen, onDismiss }) => {
         defaultMessage: "Apply Now",
         description: "Heading for the apply now dialog",
       })}
+      footer={Close}
     >
       <p>
         {intl.formatMessage(

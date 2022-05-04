@@ -3,11 +3,16 @@ import { useIntl } from "react-intl";
 
 import Dialog from "@common/components/Dialog";
 import Heading from "../Heading/Heading";
+import CloseButton from "./CloseButton";
 
 import type { BasicDialogProps } from "./types";
 
 const LearnDialog: React.FC<BasicDialogProps> = ({ isOpen, onDismiss }) => {
   const intl = useIntl();
+  const Close = React.useMemo(
+    () => <CloseButton onClick={onDismiss} />,
+    [onDismiss],
+  );
   return (
     <Dialog
       isOpen={isOpen}
@@ -18,6 +23,7 @@ const LearnDialog: React.FC<BasicDialogProps> = ({ isOpen, onDismiss }) => {
           "Learn More About the Government of Canada IT Apprenticeship Program for Indigenous Peoples",
         description: "Heading for the Learn more dialog",
       })}
+      footer={Close}
     >
       <Heading
         as="h3"

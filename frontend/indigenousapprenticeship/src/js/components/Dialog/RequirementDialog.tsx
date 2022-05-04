@@ -2,6 +2,7 @@ import React from "react";
 import { useIntl } from "react-intl";
 
 import Dialog from "@common/components/Dialog";
+import CloseButton from "./CloseButton";
 
 import type { BasicDialogProps } from "./types";
 
@@ -10,6 +11,10 @@ const RequirementDialog: React.FC<BasicDialogProps> = ({
   onDismiss,
 }) => {
   const intl = useIntl();
+  const Close = React.useMemo(
+    () => <CloseButton onClick={onDismiss} />,
+    [onDismiss],
+  );
 
   return (
     <Dialog
@@ -20,6 +25,7 @@ const RequirementDialog: React.FC<BasicDialogProps> = ({
         defaultMessage: "Applicants must meet the following requirements:",
         description: "Heading for the applicant requirements dialog",
       })}
+      footer={Close}
     >
       <ul>
         <li>
