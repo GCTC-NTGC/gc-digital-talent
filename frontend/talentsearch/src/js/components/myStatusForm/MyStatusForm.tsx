@@ -13,7 +13,6 @@ import { enumToOptions } from "@common/helpers/formUtils";
 import { getJobLookingStatusDescription } from "@common/constants/localizedConstants";
 import { RadioGroup } from "@common/components/form";
 import useDeepCompareEffect from "@common/hooks/useDeepCompareEffect";
-import { debounce } from "debounce";
 import { useApplicantProfileRoutes } from "../../applicantProfileRoutes";
 import {
   UpdateUserAsUserInput,
