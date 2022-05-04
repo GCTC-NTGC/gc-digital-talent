@@ -1,1 +1,1 @@
-export { default as CommonFrench } from "./frCompiled.json";
+export { default } from "./frCompiled.json";
