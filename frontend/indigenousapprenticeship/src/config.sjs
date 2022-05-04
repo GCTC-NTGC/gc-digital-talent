@@ -6,6 +6,8 @@
  * The sjs filetype lets apache know that this file should be parsed for SSI directives.
  */
 
-const data = {};
+const data = new Map([
+
+]);
 
 window.__SERVER_CONFIG__ = data;

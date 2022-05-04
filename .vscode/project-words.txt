@@ -1,3 +1,4 @@
+APPLICANTPROFILE
 Authenticatable
 BEHAVIOURAL
 darkgold
