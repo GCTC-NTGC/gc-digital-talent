@@ -5,7 +5,7 @@ import "@testing-library/jest-dom";
 import { render } from "@testing-library/react";
 import React from "react";
 import { IntlProvider, MessageFormatElement } from "react-intl";
-import HelloWorld from "./HelloWorld";
+import Home from "./Home";
 
 const renderWithReactIntl = (
   component: React.ReactNode,
@@ -19,17 +19,10 @@ const renderWithReactIntl = (
   );
 };
 
-const renderHelloWorld = () => (
-  <>
-    {renderWithReactIntl(
-      <HelloWorld />,
-    )}
-  </>
-);
+const renderHome = () => <>{renderWithReactIntl(<Home />)}</>;
 
-describe("Basic test for HelloWorld", () => {
+describe("Basic test for Home", () => {
   it("should render", () => {
-    renderHelloWorld();
+    renderHome();
   });
-
 });

@@ -11,6 +11,7 @@ dedup
 gctalent
 heroicons
 INDIGENOUSAPPRENTICESHIP
+Inuk
 jwks
 Laravel
 Laravelista
@@ -19,10 +20,12 @@ lightgold
 lightgray
 lightnavy
 lightpurple
+Métis
 nuage
 Nuwave
 pgsql
 Queueable
+resumé
 subquery
 TALENTSEARCH
 TELEWORK

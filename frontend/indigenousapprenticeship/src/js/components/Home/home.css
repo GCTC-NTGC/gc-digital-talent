@@ -1,0 +1,375 @@
+.hero__content {
+  height: 100%;
+  z-index: 1;
+}
+
+.hero__content,
+.hero__content > div,
+.hero__content > div > div {
+  height: 100%;
+}
+
+.hero__image {
+  bottom: 0;
+  left: 0;
+  right: 0;
+  top: 0;
+  object-fit: cover;
+  object-position: center;
+  width: 100%;
+  z-index: 0;
+}
+
+.hero__logo {
+  width: 60%;
+}
+
+.hero__logo > h1 {
+  margin-top: 0;
+}
+
+.hero__apply {
+  margin-bottom: 3rem;
+}
+
+.program__image {
+  z-index: 2;
+}
+
+.program__image-wrapper {
+  position: relative;
+  z-index: 1;
+}
+
+.program__content {
+  position: relative;
+  z-index: 2;
+}
+
+.about-program {
+  margin: 0 auto;
+}
+
+.about-program__feathers {
+  bottom: -3rem;
+  height: auto;
+  max-width: none;
+  right: -4rem;
+  width: 130%;
+  z-index: 3;
+}
+
+.circle {
+  border-radius: 100%;
+  height: 10rem;
+  opacity: 0.1;
+  width: 10rem;
+  z-index: 1;
+}
+
+.circle--lg {
+  height: 20rem;
+  width: 20rem;
+}
+
+.circle--top-right {
+  top: -1.5rem;
+  right: 1rem;
+}
+
+.circle--bottom-left {
+  bottom: -3rem;
+  left: -6rem;
+}
+
+.learn-program__content {
+  z-index: 1;
+}
+
+.learn-program__gloves {
+  bottom: -6rem;
+  left: 35%;
+  width: 80%;
+  z-index: 2;
+}
+
+.learn-program__circles {
+  top: -4rem;
+  left: 40%;
+}
+
+.who-program__ulu {
+  height: auto;
+  bottom: -1rem;
+  right: -1rem;
+  width: 65% !important;
+  max-width: none;
+  z-index: 3;
+}
+
+/* .who-program__ulu {
+    bottom: -1rem;
+} */
+
+.who-program__triangle {
+  left: 0;
+  max-width: none;
+  top: -2rem;
+  z-index: 1;
+}
+
+.quote-wrapper {
+  background-position: right;
+  background-size: cover;
+}
+
+.quote--open,
+.quote--close {
+  height: 3rem;
+  width: auto;
+}
+
+.quote--open {
+  left: 0;
+  top: 0;
+}
+
+.quote--close {
+  right: 0.75rem; /* Prevent going off screen */
+  bottom: 0;
+}
+
+.apply-program {
+  padding-bottom: 7rem;
+  overflow: hidden;
+}
+
+.apply-program__bg {
+  background-position: top left;
+  background-size: cover;
+  bottom: 0 !important;
+  left: 0 !important;
+  position: absolute !important;
+  right: 0 !important;
+  top: 0 !important;
+  z-index: 1;
+}
+
+.apply-program__box-wrapper {
+  z-index: 2;
+}
+
+.apply-program__box__image {
+  min-height: 18rem;
+  background-position: center;
+  background-size: cover;
+}
+
+.portal-panel__inner {
+  z-index: 2;
+}
+
+.portal-panel__banner-wrapper {
+  transform: translateY(-60%);
+}
+
+.portal-panel__bg-item {
+  z-index: 1;
+}
+
+.portal-panel__circles {
+  left: -10%;
+  top: 10%;
+}
+
+.portal-panel__thick-circle {
+  right: -10%;
+  top: 40%;
+  width: 35%;
+}
+
+.talent-portal-card {
+  background-repeat: no-repeat;
+  background-size: 120% auto;
+  background-position: 50% 110%;
+  z-index: 2;
+}
+
+.talent-portal__triangle {
+  left: -2rem;
+  max-width: none;
+  bottom: -2rem;
+  transform: scaleY(-1);
+  z-index: 1;
+}
+
+.portal-panel__strategy__item {
+  margin: 0 auto;
+}
+
+@media (min-width: 48em) {
+  /* .portal-panel__strategy__item {
+      width: 50%;
+    } */
+
+  .hero__apply {
+    margin-bottom: 10rem;
+  }
+
+  .about-program {
+    max-width: 90vw;
+  }
+  .program__image-wrapper {
+    width: 100%;
+    max-width: 100%;
+  }
+  .program__image-wrapper > img.program__image {
+    object-fit: cover;
+    height: 36rem;
+    width: 100%;
+  }
+
+  .program__image--woman-smiling {
+    object-position: bottom;
+  }
+
+  .about-program__feathers {
+    bottom: -8rem;
+    right: -1rem;
+    width: 95%;
+  }
+
+  .learn-program__gloves {
+    left: auto;
+    right: -6rem;
+    width: 50%;
+  }
+
+  .talent-portal-card {
+    background-position: 100% 10%;
+    background-size: auto 120%;
+  }
+}
+
+@media (min-width: 64em) {
+  .hero {
+    z-index: 1;
+  }
+
+  .hero__apply {
+    margin-bottom: 24%;
+  }
+
+  .about-program {
+    box-shadow: 0px -26px 44px rgba(0, 0, 0, 0.05);
+    margin-top: -4rem !important;
+    max-width: 80vw;
+    z-index: 2;
+  }
+
+  .about-program__title {
+    margin-top: 0;
+  }
+
+  .program__image-wrapper {
+    flex-shrink: 0;
+    max-width: 45%;
+  }
+
+  .program__image-wrapper > img.program__image {
+    object-fit: contain;
+    height: auto;
+  }
+
+  .about-program__feathers {
+    bottom: -8rem;
+    left: -6rem;
+    width: calc(120% + 6rem);
+  }
+
+  .learn-program {
+    margin-bottom: 8rem;
+  }
+
+  .learn-program__content {
+    order: 1;
+  }
+
+  .learn-program__image-wrapper {
+    order: 2;
+  }
+
+  .learn-program__gloves {
+    bottom: -10rem;
+    left: 50%;
+    width: 100%;
+  }
+
+  .who-program__ulu {
+    bottom: -10rem;
+    right: -17rem;
+    width: calc(30% + 16rem) !important;
+  }
+
+  .quote-wrapper {
+    background-position: left;
+  }
+
+  .quote--open {
+    transform: translate(-100%);
+  }
+
+  .quote--close {
+    transform: translate(100%);
+  }
+
+  .apply-program {
+    padding-bottom: 10rem;
+  }
+
+  .apply-program__box {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* .apply-program__box__text {
+      column-span: 2;
+    } */
+
+  .portal-panel__steps,
+  .portal-panel__strategy {
+    margin: 0 -1rem;
+  }
+
+  .portal-panel__step {
+    width: calc(100% / 3);
+  }
+
+  .portal-panel__strategy__item,
+  .portal-panel__step {
+    padding: 0 1rem;
+  }
+
+  .talent-portal-card__image {
+    bottom: 0;
+    object-fit: cover;
+    object-position: bottom;
+    right: 0;
+    margin-top: -4rem;
+    position: relative;
+    width: auto;
+    flex-shrink: 0;
+    vertical-align: top;
+  }
+}
+
+/**
+ * Hydrogen Large
+ */
+@media (min-width: 100em) {
+  .about-program__feathers {
+    bottom: -6rem;
+    left: -6rem;
+    width: 40rem;
+  }
+}

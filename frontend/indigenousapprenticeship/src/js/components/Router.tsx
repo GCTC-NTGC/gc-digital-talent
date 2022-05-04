@@ -9,15 +9,15 @@ import {
   useIndigenousApprenticeshipRoutes,
   IndigenousApprenticeshipRoutes,
 } from "../indigenousApprenticeshipRoutes";
-import HelloWorld from "./HelloWorld/HelloWorld";
+import Home from "./Home/Home";
 
 const routes = (
   indigenousApprenticeshipPaths: IndigenousApprenticeshipRoutes,
 ): Routes<RouterResult> => [
   {
-    path: indigenousApprenticeshipPaths.helloWorld(),
+    path: indigenousApprenticeshipPaths.home(),
     action: () => ({
-      component: <HelloWorld />,
+      component: <Home />,
     }),
   },
 ];
@@ -28,11 +28,12 @@ export const Router: React.FC = () => {
 
   const menuItems = [
     <MenuLink
-      key="search"
-      href={indigenousApprenticeshipPaths.helloWorld()}
+      key="home"
+      href={indigenousApprenticeshipPaths.home()}
       text={intl.formatMessage({
-        defaultMessage: "Hello World",
-        description: "Label displayed on the Hello World menu item.",
+        defaultMessage: "Home",
+        description:
+          "Link to the homepage for indigenous apprenticeship program.",
       })}
     />,
   ];
