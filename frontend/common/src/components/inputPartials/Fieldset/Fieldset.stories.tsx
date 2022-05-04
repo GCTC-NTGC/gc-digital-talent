@@ -1,6 +1,6 @@
 import React from "react";
 import { Story, Meta } from "@storybook/react";
-import { Fieldset } from "./Fieldset";
+import Fieldset from "./Fieldset";
 import type { FieldsetProps } from "./Fieldset";
 
 export default {

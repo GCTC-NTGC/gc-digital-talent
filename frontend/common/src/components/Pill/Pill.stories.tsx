@@ -1,6 +1,6 @@
 import React from "react";
 import { Story, Meta } from "@storybook/react";
-import { Pill } from "./Pill";
+import Pill from "./Pill";
 import type { PillProps } from "./Pill";
 
 export default {
