@@ -1,4 +1,4 @@
-import getRuntimeVariable from "@common/helpers/runtimeVariable";
+import { getRuntimeVariable } from "@common/helpers/runtimeVariable";
 
 export const ADMIN_APP_DIR = process.env.ADMIN_APP_DIR ?? "/admin";
 
