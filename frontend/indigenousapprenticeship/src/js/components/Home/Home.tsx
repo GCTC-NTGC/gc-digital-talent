@@ -127,7 +127,6 @@ const Home: React.FunctionComponent = () => {
                 )}
                 className="program__image program__image--woman-smiling"
                 alt=""
-                data-h2-margin="b(top, xxs)"
                 data-h2-position="b(relative)"
                 data-h2-shadow="b(xs)"
               />
@@ -182,7 +181,10 @@ const Home: React.FunctionComponent = () => {
                   description: "Third paragraph about the program",
                 })}
               </p>
-              <div data-h2-visibility="b(invisible) m(visible)">
+              <div
+                data-h2-visibility="b(invisible) m(visible)"
+                data-h2-margin="b(top, l)"
+              >
                 <CTAButtons
                   onClickApply={() => setApplyDialogOpen(true)}
                   onClickLearn={() => setLearnDialogOpen(true)}
