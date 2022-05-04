@@ -4,7 +4,7 @@
 import React from "react";
 import "@testing-library/jest-dom";
 import {
-  GetMystatusQuery,
+  GetMyStatusQuery,
   WorkRegion,
   JobLookingStatus,
   Language,
@@ -23,7 +23,7 @@ const renderMyStatusForm = ({
   );
 };
 
-const mockDataForIncompleteForm: GetMystatusQuery | undefined = {
+const mockDataForIncompleteForm: GetMyStatusQuery | undefined = {
   __typename: "Query",
   me: {
     __typename: "User",
@@ -45,7 +45,7 @@ const mockDataForIncompleteForm: GetMystatusQuery | undefined = {
     expectedSalary: [SalaryRange["50_59K"]],
   },
 };
-const mockDataForCompleteForm: GetMystatusQuery | undefined = {
+const mockDataForCompleteForm: GetMyStatusQuery | undefined = {
   __typename: "Query",
   me: {
     __typename: "User",
@@ -67,7 +67,7 @@ const mockDataForCompleteForm: GetMystatusQuery | undefined = {
     expectedSalary: [SalaryRange["50_59K"]],
   },
 };
-const mockEmptyData: GetMystatusQuery | undefined = {
+const mockEmptyData: GetMyStatusQuery | undefined = {
   __typename: "Query",
   me: {
     __typename: "User",

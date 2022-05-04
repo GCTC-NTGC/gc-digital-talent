@@ -95,24 +95,16 @@ export const MyStatusForm: React.FC<MyStatusFormProps> = ({
   };
 
   // Whenever form values change (with some debounce allowance), call updateCandidateFilter
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const submitDebounced = useCallback(
-    debounce(() => {
-      if (!(formValues === prevFormValues.jobLookingStatus))
-        onSubmit({ jobLookingStatus: formValues });
-      setPrevFormValues({ jobLookingStatus: formValues });
-    }, 200),
-    [formValues],
-  );
+  const callOnSubmit = useCallback(() => {
+    if (!(formValues === prevFormValues.jobLookingStatus))
+      onSubmit({ jobLookingStatus: formValues });
+    setPrevFormValues({ jobLookingStatus: formValues });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [formValues]);
 
-  // Use deep comparison to prevent infinite re-rendering
   useDeepCompareEffect(() => {
-    submitDebounced();
-    return () => {
-      // Clear debounce timer when component unmounts
-      submitDebounced.clear();
-    };
-  }, [formValues, submitDebounced]);
+    callOnSubmit();
+  }, [callOnSubmit, formValues]);
 
   let isFormActive = true;
   // Checking About Me Form
