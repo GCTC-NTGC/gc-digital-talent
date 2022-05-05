@@ -1,18 +1,12 @@
 import { navigate } from "@common/helpers/router";
 import { commonMessages, errorMessages } from "@common/messages";
-import React, { useCallback } from "react";
-import {
-  FormProvider,
-  SubmitHandler,
-  useForm,
-  useWatch,
-} from "react-hook-form";
+import React from "react";
+import { SubmitHandler } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { toast } from "react-toastify";
 import { enumToOptions } from "@common/helpers/formUtils";
 import { getJobLookingStatusDescription } from "@common/constants/localizedConstants";
-import { RadioGroup } from "@common/components/form";
-import useDeepCompareEffect from "@common/hooks/useDeepCompareEffect";
+import { BasicForm, RadioGroup } from "@common/components/form";
 import { useApplicantProfileRoutes } from "../../applicantProfileRoutes";
 import {
   UpdateUserAsUserInput,
@@ -78,32 +72,11 @@ export const MyStatusForm: React.FC<MyStatusFormProps> = ({
     };
   };
 
-  const methods = useForm<FormValues>({
-    defaultValues: dataToFormValues(initialData),
-  });
-  const [prevFormValues, setPrevFormValues] = React.useState(
-    dataToFormValues(initialData),
-  );
-  const { control } = methods;
-  const formValues = useWatch({ control, name: "jobLookingStatus" });
-
-  const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
+  const handleSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
     if (initialData?.me) {
       await handleMyStatus(initialData.me?.id, formValuesToSubmitData(data));
     }
   };
-
-  // Whenever form values change (with some debounce allowance), call updateCandidateFilter
-  const callOnSubmit = useCallback(() => {
-    if (!(formValues === prevFormValues.jobLookingStatus))
-      onSubmit({ jobLookingStatus: formValues });
-    setPrevFormValues({ jobLookingStatus: formValues });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [formValues]);
-
-  useDeepCompareEffect(() => {
-    callOnSubmit();
-  }, [callOnSubmit, formValues]);
 
   let isFormActive = true;
   // Checking About Me Form
@@ -147,7 +120,12 @@ export const MyStatusForm: React.FC<MyStatusFormProps> = ({
 
   return (
     <div>
-      <FormProvider {...methods}>
+      <BasicForm
+        onSubmit={handleSubmit}
+        options={{
+          defaultValues: dataToFormValues(initialData),
+        }}
+      >
         <form>
           <div>
             <p>
@@ -198,6 +176,7 @@ export const MyStatusForm: React.FC<MyStatusFormProps> = ({
               disabled={!isFormActive}
               rules={{
                 required: intl.formatMessage(errorMessages.required),
+                onChange: handleSubmit,
               }}
               items={enumToOptions(
                 JobLookingStatus,
@@ -212,7 +191,7 @@ export const MyStatusForm: React.FC<MyStatusFormProps> = ({
             />
           </div>
         </form>
-      </FormProvider>
+      </BasicForm>
     </div>
   );
 };
