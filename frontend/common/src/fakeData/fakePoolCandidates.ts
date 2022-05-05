@@ -23,10 +23,10 @@ const generatePoolCandidate = (
   faker.setLocale("en");
   return {
     id: faker.datatype.uuid(),
-    pool: faker.random.arrayElement(pools),
+    pool: faker.helpers.arrayElement(pools),
     expectedClassifications:
-      faker.random.arrayElements<Classification>(classifications),
-    user: faker.random.arrayElement<User>(users) as Applicant,
+      faker.helpers.arrayElements<Classification>(classifications),
+    user: faker.helpers.arrayElement<User>(users) as Applicant,
     cmoIdentifier: faker.helpers.slugify(
       faker.lorem.words(faker.datatype.number({ min: 1, max: 3 })),
     ),
@@ -39,20 +39,20 @@ const generatePoolCandidate = (
     isIndigenous: faker.datatype.boolean(),
     isVisibleMinority: faker.datatype.boolean(),
     hasDiploma: faker.datatype.boolean(),
-    languageAbility: faker.random.arrayElement<LanguageAbility>(
+    languageAbility: faker.helpers.arrayElement<LanguageAbility>(
       Object.values(LanguageAbility),
     ),
-    locationPreferences: faker.random.arrayElements<WorkRegion>(
+    locationPreferences: faker.helpers.arrayElements<WorkRegion>(
       Object.values(WorkRegion),
     ),
     acceptedOperationalRequirements:
-      faker.random.arrayElements<OperationalRequirement>(
+      faker.helpers.arrayElements<OperationalRequirement>(
         Object.values(OperationalRequirement),
       ),
-    expectedSalary: faker.random.arrayElements<SalaryRange>(
+    expectedSalary: faker.helpers.arrayElements<SalaryRange>(
       Object.values(SalaryRange),
     ),
-    status: faker.random.arrayElement<PoolCandidateStatus>(
+    status: faker.helpers.arrayElement<PoolCandidateStatus>(
       Object.values(PoolCandidateStatus),
     ),
   };
