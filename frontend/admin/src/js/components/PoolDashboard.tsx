@@ -33,13 +33,13 @@ import { UpdateSkillFamily } from "./skillFamily/UpdateSkillFamily";
 import SkillPage from "./skill/SkillPage";
 import { CreateSkill } from "./skill/CreateSkill";
 import { UpdateSkill } from "./skill/UpdateSkill";
+import HomePage from "./home/HomePage";
 
 const routes = (paths: AdminRoutes): Routes<RouterResult> => [
   {
-    path: [paths.home()],
+    path: paths.home(),
     action: () => ({
-      component: <div />,
-      redirect: paths.poolTable(), // TODO: Which page should be treated as the dashboard Landing page?
+      component: <HomePage />,
     }),
   },
   {
