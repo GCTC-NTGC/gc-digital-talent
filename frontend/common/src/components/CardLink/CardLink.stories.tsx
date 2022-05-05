@@ -22,7 +22,7 @@ const ExternalLink: React.FC = (props) => (
 
 export default {
   component: CardLink,
-  title: "Component/Card Link",
+  title: "Components/Card Link",
   args: {
     label: "Card Link",
   },
