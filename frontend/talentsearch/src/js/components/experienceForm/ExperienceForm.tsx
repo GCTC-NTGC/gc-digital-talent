@@ -55,6 +55,8 @@ export const ExperienceForm: React.FunctionComponent<ExperienceFormProps> = ({
   cacheKey,
 }) => {
   const intl = useIntl();
+  const locale = getLocale(intl);
+  const paths = applicantProfileRoutes(locale);
   const defaultValues = experience
     ? queryResultToDefaultValues(experienceType, experience)
     : { skills: undefined };
@@ -86,6 +88,7 @@ export const ExperienceForm: React.FunctionComponent<ExperienceFormProps> = ({
           }),
         },
       ]}
+      cancelLink={paths.skillsAndExperiences()}
     >
       <BasicForm
         onSubmit={handleSubmit}
@@ -128,7 +131,10 @@ export const ExperienceForm: React.FunctionComponent<ExperienceFormProps> = ({
           })}
           name="details"
         />
-        <ProfileFormFooter mode="bothButtons" />
+        <ProfileFormFooter
+          mode="bothButtons"
+          link={paths.skillsAndExperiences()}
+        />
       </BasicForm>
     </ProfileFormWrapper>
   );
@@ -152,7 +158,7 @@ const ExperienceFormContainer: React.FunctionComponent<ExperienceFormContainerPr
 
     const handleSuccess = () => {
       removeFromSessionStorage(cacheKey); // clear the cache
-      navigate(paths.home());
+      navigate(paths.skillsAndExperiences());
       toast.success(
         edit
           ? intl.formatMessage({
