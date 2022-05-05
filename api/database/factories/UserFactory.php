@@ -86,7 +86,7 @@ class UserFactory extends Factory
             ]),
             'is_gov_employee' => $this->faker->boolean(),
             'interested_in_later_or_secondment' => $this->faker->boolean(),
-            'current_classification' => Classification::factory(),
+            'current_classification' => Classification::inRandomOrder()->first()->id,
             'is_woman' => $this->faker->boolean(),
             'has_disability' => $this->faker->boolean(),
             'is_indigenous' => $this->faker->boolean(),
