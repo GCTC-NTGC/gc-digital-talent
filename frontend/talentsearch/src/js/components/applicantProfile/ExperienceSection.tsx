@@ -98,7 +98,7 @@ const ExperienceSection: React.FunctionComponent<ExperienceSectionProps> = ({
 
   const awardExperiences =
     experiences
-      ?.filter((experience) => isAwardExperience(experience))
+      ?.filter(isAwardExperience)
       .map(
         (award: AwardExperience) =>
           ({
