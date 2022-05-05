@@ -1,5 +1,6 @@
 import { getLocale } from "@common/helpers/localize";
-import SearchRequestFilters, {
+import {
+  SearchRequestFilters,
   FilterBlock,
 } from "@common/components/SearchRequestFilters";
 import * as React from "react";

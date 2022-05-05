@@ -20,7 +20,7 @@ export interface RadioProps
   context?: string;
 }
 
-export const Radio: React.FunctionComponent<RadioProps> = ({
+const Radio: React.FunctionComponent<RadioProps> = ({
   id,
   label,
   name,

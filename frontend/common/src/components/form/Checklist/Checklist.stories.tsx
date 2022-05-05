@@ -1,7 +1,8 @@
 import React from "react";
 import { Story, Meta } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
-import Checklist, { ChecklistProps } from ".";
+import Checklist from ".";
+import type { ChecklistProps } from ".";
 import Form from "../BasicForm";
 import Submit from "../Submit";
 

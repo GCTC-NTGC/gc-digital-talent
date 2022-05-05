@@ -1,8 +1,8 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { useWatch } from "react-hook-form";
-import { Input } from "@common/components/form/Input";
-import { Checkbox } from "@common/components/form/Checkbox";
+import Input from "@common/components/form/Input";
+import Checkbox from "@common/components/form/Checkbox";
 import { errorMessages } from "@common/messages";
 
 export const CommunityExperienceForm: React.FunctionComponent = () => {

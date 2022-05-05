@@ -1,7 +1,7 @@
 // Using graphql __TypeName property for type guard discriminator
 /* eslint-disable no-underscore-dangle */
 import React from "react";
-import { Accordion } from "@common/components/accordion/Accordion";
+import Accordion from "@common/components/accordion/Accordion";
 import { useIntl } from "react-intl";
 import AwardAccordion from "./individualExperienceAccordions/AwardAccordion";
 import CommunityAccordion from "./individualExperienceAccordions/CommunityAccordion";

@@ -3,7 +3,8 @@ import { action } from "@storybook/addon-actions";
 import { Meta, Story } from "@storybook/react";
 import Form from "../BasicForm";
 import Submit from "../Submit";
-import TextArea, { TextAreaProps } from ".";
+import TextArea from ".";
+import type { TextAreaProps } from ".";
 
 export default {
   component: TextArea,

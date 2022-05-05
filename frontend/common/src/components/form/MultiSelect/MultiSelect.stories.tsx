@@ -4,7 +4,8 @@ import { uniqueId } from "lodash";
 import React from "react";
 import Form from "../BasicForm";
 import Submit from "../Submit";
-import MultiSelect, { MultiSelectProps } from "./MultiSelect";
+import MultiSelect from "./MultiSelect";
+import type { MultiSelectProps } from ".";
 
 export default {
   component: MultiSelect,

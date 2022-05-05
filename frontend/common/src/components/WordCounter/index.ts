@@ -1,2 +1,5 @@
-export { default, WordCounter } from "./WordCounter";
-export type { WordCounterProps } from "./WordCounter";
+import WordCounter from "./WordCounter";
+import type { WordCounterProps } from "./WordCounter";
+
+export default WordCounter;
+export type { WordCounterProps };
