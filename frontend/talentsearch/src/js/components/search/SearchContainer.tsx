@@ -193,7 +193,7 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
           />
         </div>
         <div data-h2-flex-item="b(1of1)" style={{ paddingTop: "0" }}>
-          {!updatePending ? candidateResults : <Spinner />}
+          {!updatePending ? candidateResults() : <Spinner />}
         </div>
       </div>
     </div>
