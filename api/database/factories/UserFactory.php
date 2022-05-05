@@ -33,6 +33,8 @@ class UserFactory extends Factory
             'P',
         ];
 
+        $randomClassification = Classification::inRandomOrder()->first();
+
         return [
             'first_name' => $this->faker->firstName(),
             'last_name' => $this->faker->lastName(),
@@ -86,7 +88,7 @@ class UserFactory extends Factory
             ]),
             'is_gov_employee' => $this->faker->boolean(),
             'interested_in_later_or_secondment' => $this->faker->boolean(),
-            'current_classification' => Classification::inRandomOrder()->first()->id,
+            'current_classification' => $randomClassification ? $randomClassification->id : null,
             'is_woman' => $this->faker->boolean(),
             'has_disability' => $this->faker->boolean(),
             'is_indigenous' => $this->faker->boolean(),
