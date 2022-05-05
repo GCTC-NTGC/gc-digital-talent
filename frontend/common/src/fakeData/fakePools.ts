@@ -17,7 +17,7 @@ const generatePool = (
 ): Pool => {
   faker.setLocale("en");
 
-  const ownerUser: User = faker.random.arrayElement<User>(users);
+  const ownerUser: User = faker.helpers.arrayElement<User>(users);
   return {
     id: faker.datatype.uuid(),
     owner: pick(ownerUser, [
@@ -35,7 +35,7 @@ const generatePool = (
       fr: `FR ${faker.lorem.sentence()}`,
     },
     classifications:
-      faker.random.arrayElements<Classification>(classifications),
+      faker.helpers.arrayElements<Classification>(classifications),
   };
 };
 

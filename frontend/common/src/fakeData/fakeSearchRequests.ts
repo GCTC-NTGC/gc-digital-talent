@@ -18,13 +18,13 @@ const generateSearchRequest = (
     id: faker.datatype.uuid(),
     fullName: `${faker.name.firstName()} ${faker.name.lastName()}`,
     email: faker.internet.email(),
-    department: faker.random.arrayElement<Department>(departments),
+    department: faker.helpers.arrayElement<Department>(departments),
     jobTitle: faker.name.jobTitle(),
     additionalComments: faker.lorem.sentences(5),
     poolCandidateFilter:
-      faker.random.arrayElement<PoolCandidateFilter>(poolCandidateFilters),
+      faker.helpers.arrayElement<PoolCandidateFilter>(poolCandidateFilters),
     requestedDate: faker.date.between("2000-01-01", "2020-12-31").toISOString(),
-    status: faker.random.arrayElement<PoolCandidateSearchStatus>(
+    status: faker.helpers.arrayElement<PoolCandidateSearchStatus>(
       Object.values(PoolCandidateSearchStatus),
     ),
     adminNotes: faker.lorem.sentences(5),

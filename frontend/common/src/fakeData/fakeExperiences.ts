@@ -71,13 +71,13 @@ const generateAward = (): AwardExperience => {
     skills: [],
     details: faker.random.words(),
     title: faker.lorem.word(),
-    awardedTo: faker.random.arrayElement<AwardedTo>([
+    awardedTo: faker.helpers.arrayElement<AwardedTo>([
       AwardedTo.Me,
       AwardedTo.MyOrganization,
       AwardedTo.MyProject,
       AwardedTo.MyTeam,
     ]),
-    awardedScope: faker.random.arrayElement<AwardedScope>([
+    awardedScope: faker.helpers.arrayElement<AwardedScope>([
       AwardedScope.Community,
       AwardedScope.International,
       AwardedScope.Local,
@@ -122,7 +122,7 @@ const generateEducation = (): EducationExperience => {
     skills: [sampleSkill1, sampleSkill2],
     details: faker.random.words(),
     areaOfStudy: faker.music.genre(),
-    type: faker.random.arrayElement<EducationType>([
+    type: faker.helpers.arrayElement<EducationType>([
       EducationType.BachelorsDegree,
       EducationType.Certification,
       EducationType.Diploma,
@@ -133,7 +133,7 @@ const generateEducation = (): EducationExperience => {
       EducationType.PostDoctoralFellowship,
     ]),
     institution: faker.name.lastName(),
-    status: faker.random.arrayElement<EducationStatus>([
+    status: faker.helpers.arrayElement<EducationStatus>([
       EducationStatus.Audited,
       EducationStatus.DidNotComplete,
       EducationStatus.InProgress,
@@ -200,7 +200,7 @@ export default (numberOfExperiences: number) => {
 
   // fill an array with random experiences
   const experiences = [...Array(numberOfExperiences)].map(() => {
-    const generator = faker.random.arrayElement(generators);
+    const generator = faker.helpers.arrayElement(generators);
     return generator();
   });
 
