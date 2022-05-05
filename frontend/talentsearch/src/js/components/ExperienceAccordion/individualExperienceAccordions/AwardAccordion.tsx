@@ -1,7 +1,7 @@
 import React from "react";
 import { Accordion } from "@common/components/accordion/Accordion";
 import BriefCaseIcon from "@heroicons/react/solid/BriefcaseIcon";
-import { Button } from "@common/components";
+import { Link } from "@common/components";
 import {
   getAwardedTo,
   getAwardedScope,
@@ -9,7 +9,6 @@ import {
 import { useIntl } from "react-intl";
 import { getLocale } from "@common/helpers/localize";
 import { getDateRange } from "@common/helpers/dateUtils";
-import { navigate } from "@common/helpers/router";
 import { useApplicantProfileRoutes } from "../../../applicantProfileRoutes";
 import { AwardExperience } from "../../../api/generated";
 
@@ -110,19 +109,21 @@ const AwardAccordion: React.FunctionComponent<AwardExperience> = ({
         </p>
       </div>
       <div data-h2-padding="b(left, l)">
-        <Button
+        <Link
+          href={editUrl}
           color="primary"
           mode="outline"
-          onClick={(event) => {
-            event.preventDefault();
-            navigate(editUrl);
-          }}
+          type="button"
+          title={intl.formatMessage({
+            defaultMessage: "Edit Experience",
+            description: "Edit Experience button label",
+          })}
         >
           {intl.formatMessage({
             defaultMessage: "Edit Experience",
             description: "Edit Experience button label",
           })}
-        </Button>
+        </Link>
       </div>
     </Accordion>
   );
