@@ -1,7 +1,7 @@
 import React from "react";
 import { Story, Meta } from "@storybook/react";
 import { FilterIcon } from "@heroicons/react/solid";
-import Breadcrumbs, { BreadcrumbsProps } from "./Breadcrumbs";
+import Breadcrumbs from "./Breadcrumbs";
 
 export default {
   component: Breadcrumbs,

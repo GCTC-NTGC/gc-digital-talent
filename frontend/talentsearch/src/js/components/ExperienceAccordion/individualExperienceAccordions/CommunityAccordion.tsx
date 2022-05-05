@@ -1,5 +1,5 @@
 import React from "react";
-import { Accordion } from "@common/components/accordion/Accordion";
+import Accordion from "@common/components/accordion/Accordion";
 import BriefCaseIcon from "@heroicons/react/solid/BriefcaseIcon";
 import { Link } from "@common/components";
 import { CommunityExperience } from "@common/api/generated";

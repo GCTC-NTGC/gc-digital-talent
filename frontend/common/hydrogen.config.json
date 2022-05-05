@@ -92,19 +92,19 @@
     },
     {
       "key": "ia-lightpink",
-      "color": "#F5CEDC"
+      "color": "#E9568A"
     },
     {
       "key": "ia-darkpurple",
-      "color": "#0F1037"
-    },
-    {
-      "key": "ia-purple",
       "color": "#211C53"
     },
     {
-      "key": "ia-lightpurple",
+      "key": "ia-purple",
       "color": "#272F6B"
+    },
+    {
+      "key": "ia-lightpurple",
+      "color": "#4D5194"
     },
     {
       "key": "ia-black",
@@ -112,7 +112,7 @@
     },
     {
       "key": "ia-error",
-      "color": "#FF0000"
+      "color": "#AE0000"
     },
     {
       "key": "ia-white",
@@ -139,7 +139,7 @@
     {
       "key": "sans",
       "loadType": "webfont",
-      "value": "Open Sans, sans-serif",
+      "value": "'Open Sans', sans-serif",
       "url": "https://fonts.googleapis.com/css2?family=Open+Sans&display=swap"
     }
   ],

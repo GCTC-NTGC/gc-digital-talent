@@ -1,9 +1,9 @@
 import React from "react";
 import { useWatch } from "react-hook-form";
 import { useIntl } from "react-intl";
-import { Input } from "@common/components/form/Input";
-import { Select } from "@common/components/form/Select";
-import { Checkbox } from "@common/components/form/Checkbox";
+import Input from "@common/components/form/Input";
+import Select from "@common/components/form/Select";
+import Checkbox from "@common/components/form/Checkbox";
 import { errorMessages } from "@common/messages";
 import { enumToOptions } from "@common/helpers/formUtils";
 import {

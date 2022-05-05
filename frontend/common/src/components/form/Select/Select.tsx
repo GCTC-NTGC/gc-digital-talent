@@ -21,7 +21,7 @@ export interface SelectProps
   nullSelection?: string;
 }
 
-export const Select: React.FunctionComponent<SelectProps> = ({
+const Select: React.FunctionComponent<SelectProps> = ({
   id,
   label,
   name,

@@ -1,2 +1,5 @@
-export { default, Accordion } from "./Accordion";
-export type { AccordionProps } from "./Accordion";
+import Accordion from "./Accordion";
+import type { AccordionProps } from "./Accordion";
+
+export default Accordion;
+export type { AccordionProps };

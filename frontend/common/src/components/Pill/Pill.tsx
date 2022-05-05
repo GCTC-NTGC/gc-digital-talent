@@ -52,7 +52,7 @@ const colorMap: Record<
   },
 };
 
-export const Pill: React.FC<PillProps> = ({
+const Pill: React.FC<PillProps> = ({
   children,
   color,
   mode,

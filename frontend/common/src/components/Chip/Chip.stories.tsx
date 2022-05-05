@@ -1,6 +1,7 @@
 import React from "react";
 import { Story, Meta } from "@storybook/react";
-import { Chip, ChipProps } from "./Chip";
+import Chip from "./Chip";
+import type { ChipProps } from "./Chip";
 
 export default {
   component: Chip,

@@ -2,7 +2,7 @@ import * as React from "react";
 import { useIntl } from "react-intl";
 import { imageUrl } from "../../helpers/router";
 
-export const Footer: React.FunctionComponent<{
+const Footer: React.FunctionComponent<{
   baseUrl: string;
 }> = ({ baseUrl }) => {
   const intl = useIntl();

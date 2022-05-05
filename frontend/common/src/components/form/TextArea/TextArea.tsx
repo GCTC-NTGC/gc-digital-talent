@@ -17,7 +17,7 @@ export interface TextAreaProps
   rules?: RegisterOptions;
 }
 
-export const TextArea: React.FunctionComponent<TextAreaProps> = ({
+const TextArea: React.FunctionComponent<TextAreaProps> = ({
   id,
   context,
   label,

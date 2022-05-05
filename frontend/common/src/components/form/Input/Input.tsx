@@ -25,7 +25,7 @@ export interface InputProps
   errorPosition?: "top" | "bottom";
 }
 
-export const Input: React.FunctionComponent<InputProps> = ({
+const Input: React.FunctionComponent<InputProps> = ({
   id,
   context,
   label,
