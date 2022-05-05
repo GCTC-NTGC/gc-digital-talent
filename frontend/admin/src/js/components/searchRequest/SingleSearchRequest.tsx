@@ -166,115 +166,114 @@ interface SingleSearchRequestProps {
   searchRequest: PoolCandidateSearchRequest;
 }
 
-export const SingleSearchRequest: React.FunctionComponent<
-  SingleSearchRequestProps
-> = ({ searchRequest }) => {
-  const intl = useIntl();
-  const locale = getLocale(intl);
-  const { additionalComments, poolCandidateFilter } = searchRequest;
+export const SingleSearchRequest: React.FunctionComponent<SingleSearchRequestProps> =
+  ({ searchRequest }) => {
+    const intl = useIntl();
+    const locale = getLocale(intl);
+    const { additionalComments, poolCandidateFilter } = searchRequest;
 
-  const poolCandidateFilterInput: PoolCandidateFilterInput = {
-    classifications: [
-      ...(poolCandidateFilter.classifications
-        ? poolCandidateFilter.classifications
-            .filter(notEmpty)
-            .map(({ group, level }) => {
+    const poolCandidateFilterInput: PoolCandidateFilterInput = {
+      classifications: [
+        ...(poolCandidateFilter.classifications
+          ? poolCandidateFilter.classifications
+              .filter(notEmpty)
+              .map(({ group, level }) => {
+                return {
+                  group,
+                  level,
+                };
+              })
+          : []),
+      ],
+      cmoAssets: [
+        ...(poolCandidateFilter.cmoAssets
+          ? poolCandidateFilter.cmoAssets.filter(notEmpty).map(({ key }) => {
               return {
-                group,
-                level,
+                key,
               };
             })
-        : []),
-    ],
-    cmoAssets: [
-      ...(poolCandidateFilter.cmoAssets
-        ? poolCandidateFilter.cmoAssets.filter(notEmpty).map(({ key }) => {
-            return {
-              key,
-            };
-          })
-        : []),
-    ],
-    operationalRequirements: poolCandidateFilter.operationalRequirements,
-    pools: [
-      ...(poolCandidateFilter.pools
-        ? poolCandidateFilter.pools.filter(notEmpty).map(({ id }) => {
-            return {
-              id,
-            };
-          })
-        : []),
-    ],
-    hasDiploma: poolCandidateFilter.hasDiploma,
-    hasDisability: poolCandidateFilter.hasDisability,
-    isIndigenous: poolCandidateFilter.isIndigenous,
-    isVisibleMinority: poolCandidateFilter.isVisibleMinority,
-    isWoman: poolCandidateFilter.isWoman,
-    languageAbility: poolCandidateFilter.languageAbility || undefined,
-    workRegions: poolCandidateFilter.workRegions,
-  };
+          : []),
+      ],
+      operationalRequirements: poolCandidateFilter.operationalRequirements,
+      pools: [
+        ...(poolCandidateFilter.pools
+          ? poolCandidateFilter.pools.filter(notEmpty).map(({ id }) => {
+              return {
+                id,
+              };
+            })
+          : []),
+      ],
+      hasDiploma: poolCandidateFilter.hasDiploma,
+      hasDisability: poolCandidateFilter.hasDisability,
+      isIndigenous: poolCandidateFilter.isIndigenous,
+      isVisibleMinority: poolCandidateFilter.isVisibleMinority,
+      isWoman: poolCandidateFilter.isWoman,
+      languageAbility: poolCandidateFilter.languageAbility || undefined,
+      workRegions: poolCandidateFilter.workRegions,
+    };
 
-  function span(msg: string): JSX.Element {
-    return <span data-h2-font-weight="b(600)">{msg}</span>;
-  }
-  return (
-    <section>
-      <p>
-        {intl.formatMessage(
-          {
-            defaultMessage:
-              "<span>{jobTitle}</span> at <span>{department}</span>",
-            description:
-              "Subtitle displayed above the single search request component.",
-          },
-          {
-            span,
-            jobTitle: searchRequest.jobTitle,
-            department: searchRequest.department?.name[locale],
-          },
-        )}
-      </p>
-      <ManagerInfo searchRequest={searchRequest} />
-      <div>
-        <h2 data-h2-font-size="b(h4)">
-          {intl.formatMessage({
-            defaultMessage: "Request Information",
-            description:
-              "Heading for the request information section of the single search request view.",
-          })}
-        </h2>
-        <SearchRequestFilters poolCandidateFilter={poolCandidateFilter} />
-        <div
-          data-h2-padding="s(top-bottom, s)"
-          data-h2-margin="s(top-bottom, s)"
-          data-h2-border="s(lightgray, top-bottom, solid, s)"
-        >
-          <FilterBlock
-            title={intl.formatMessage({
-              defaultMessage: "Additional Comments",
+    function span(msg: string): JSX.Element {
+      return <span data-h2-font-weight="b(600)">{msg}</span>;
+    }
+    return (
+      <section>
+        <p>
+          {intl.formatMessage(
+            {
+              defaultMessage:
+                "<span>{jobTitle}</span> at <span>{department}</span>",
               description:
-                "Title for the additional comments block in the search request filters",
+                "Subtitle displayed above the single search request component.",
+            },
+            {
+              span,
+              jobTitle: searchRequest.jobTitle,
+              department: searchRequest.department?.name[locale],
+            },
+          )}
+        </p>
+        <ManagerInfo searchRequest={searchRequest} />
+        <div>
+          <h2 data-h2-font-size="b(h4)">
+            {intl.formatMessage({
+              defaultMessage: "Request Information",
+              description:
+                "Heading for the request information section of the single search request view.",
             })}
-            content={additionalComments}
+          </h2>
+          <SearchRequestFilters poolCandidateFilter={poolCandidateFilter} />
+          <div
+            data-h2-padding="s(top-bottom, s)"
+            data-h2-margin="s(top-bottom, s)"
+            data-h2-border="s(lightgray, top-bottom, solid, s)"
+          >
+            <FilterBlock
+              title={intl.formatMessage({
+                defaultMessage: "Additional Comments",
+                description:
+                  "Title for the additional comments block in the search request filters",
+              })}
+              content={additionalComments}
+            />
+          </div>
+        </div>
+        <div>
+          <h2 data-h2-font-size="b(h4)">
+            {intl.formatMessage({
+              defaultMessage: "Candidate Results",
+              description:
+                "Heading for the candidate results section of the single search request view.",
+            })}
+          </h2>
+          <SingleSearchRequestTableApi
+            poolCandidateFilter={poolCandidateFilterInput}
           />
         </div>
-      </div>
-      <div>
-        <h2 data-h2-font-size="b(h4)">
-          {intl.formatMessage({
-            defaultMessage: "Candidate Results",
-            description:
-              "Heading for the candidate results section of the single search request view.",
-          })}
-        </h2>
-        <SingleSearchRequestTableApi
-          poolCandidateFilter={poolCandidateFilterInput}
-        />
-      </div>
-      <UpdateSearchRequest initialSearchRequest={searchRequest} />
-    </section>
-  );
-};
+        <UpdateSearchRequest initialSearchRequest={searchRequest} />
+      </section>
+    );
+  };
 
 export const SingleSearchRequestApi: React.FunctionComponent<{
   searchRequestId: string;
