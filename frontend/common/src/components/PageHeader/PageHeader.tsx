@@ -16,6 +16,7 @@ const PageHeader: React.FC<PageHeaderProps> = ({ icon, children, ...rest }) => {
       data-h2-align-items="b(center)"
       data-h2-margin="b(top, none) b(bottom, m)"
       data-h2-justify-content="b(start)"
+      {...rest}
     >
       {Icon && <Icon className="page-header__icon" />}
       <span>{children}</span>
