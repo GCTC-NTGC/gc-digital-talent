@@ -16,6 +16,7 @@ on:
 
 jobs:
   deployment:
+    if: ${{ github.actor != 'dependabot[bot]' }}
     runs-on: ubuntu-latest
     env:
       NPM_VERSION: '8.3.0'
