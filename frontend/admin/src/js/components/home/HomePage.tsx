@@ -1,6 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { HomeIcon, LoginIcon } from "@heroicons/react/solid";
+import { HomeIcon, LoginIcon } from "@heroicons/react/outline";
 import CardLink from "@common/components/CardLink";
 import PageHeader from "@common/components/PageHeader";
 import { navigate } from "@common/helpers/router";
