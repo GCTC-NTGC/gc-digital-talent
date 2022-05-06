@@ -3,25 +3,9 @@ import { useIntl } from "react-intl";
 import { HomeIcon, LoginIcon } from "@heroicons/react/outline";
 import CardLink from "@common/components/CardLink";
 import PageHeader from "@common/components/PageHeader";
-// import { navigate } from "@common/helpers/router";
-
-import { AuthContext } from "../AuthContainer";
-import { useAdminRoutes } from "../../adminRoutes";
 
 const HomePage: React.FC = () => {
   const intl = useIntl();
-  const { loggedIn } = React.useContext(AuthContext);
-  const paths = useAdminRoutes();
-
-  /**
-   *   Note: I'm not sure if this is best practice
-   *        Should we be redirecting users here or else where?
-   */
-  React.useEffect(() => {
-    if (loggedIn) {
-      // navigate(paths.poolTable());
-    }
-  }, [loggedIn, paths]);
 
   return (
     <div data-h2-padding="b(all, m)">
