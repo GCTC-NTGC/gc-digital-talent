@@ -7,9 +7,6 @@ on:
       - .github/workflows/storybook.yml
       - frontend/**
   pull_request:
-    branches-ignore:
-      # Avoids consuming limited Chromatic snapshots on dependabot PRs.
-      - dependabot/**
     paths:
       - .github/workflows/storybook.yml
       - frontend/**
