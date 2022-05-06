@@ -22,7 +22,7 @@ class UserSeederLocal extends Seeder
             'roles' => ['ADMIN']
         ]);
 
-        $fakeEmailDomain = '@test.com';
+        $fakeEmailDomain = '@talent.test';
         // users with sub values from Sign In Canada, redirecting to localhost
         User::factory()->create([
             'email' => 'petertgiles'.$fakeEmailDomain,
