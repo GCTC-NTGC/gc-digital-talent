@@ -11,6 +11,7 @@ export interface CardLinkProps {
   color?: Color;
   icon?: React.FC<{ className: string }>;
   className?: string;
+  external?: boolean;
 }
 
 export const colorMap: Record<Color, Record<string, string>> = {
@@ -33,6 +34,7 @@ const CardLink: React.FC<CardLinkProps> = ({
   color = "ts-primary",
   icon,
   label,
+  external = false,
   children,
   ...rest
 }) => {
@@ -40,10 +42,14 @@ const CardLink: React.FC<CardLinkProps> = ({
   return (
     <a
       href={href}
-      onClick={(event): void => {
-        event.preventDefault();
-        if (href) navigate(href);
-      }}
+      onClick={
+        !external
+          ? (event): void => {
+              event.preventDefault();
+              if (href) navigate(href);
+            }
+          : undefined
+      }
       className="card-link"
       data-h2-display="b(inline-block)"
       data-h2-radius="b(s)"

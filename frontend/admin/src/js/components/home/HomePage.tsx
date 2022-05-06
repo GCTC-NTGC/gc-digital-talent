@@ -40,7 +40,8 @@ const HomePage: React.FC = () => {
       </p>
       <div data-h2-width="b(100) m(50) l(25)" data-h2-margin="b(top, l)">
         <CardLink
-          href="#"
+          href="/auth/login"
+          external
           label={intl.formatMessage({
             defaultMessage: "Login",
             description:

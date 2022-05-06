@@ -21,7 +21,7 @@ import UserPage from "./user/UserPage";
 import PoolPage from "./pool/PoolPage";
 import { CreatePool } from "./pool/CreatePool";
 import { UpdatePool } from "./pool/UpdatePool";
-import AuthContainer from "./AuthContainer";
+import { AuthContext } from "./AuthContainer";
 import DepartmentPage from "./department/DepartmentPage";
 import { CreateDepartment } from "./department/CreateDepartment";
 import { UpdateDepartment } from "./department/UpdateDepartment";
@@ -35,11 +35,15 @@ import { CreateSkill } from "./skill/CreateSkill";
 import { UpdateSkill } from "./skill/UpdateSkill";
 import HomePage from "./home/HomePage";
 
-const routes = (paths: AdminRoutes): Routes<RouterResult> => [
+const routes = (
+  paths: AdminRoutes,
+  loggedIn?: boolean,
+): Routes<RouterResult> => [
   {
     path: paths.home(),
     action: () => ({
       component: <HomePage />,
+      redirect: loggedIn ? paths.poolTable() : undefined,
     }),
   },
   {
@@ -207,6 +211,7 @@ const routes = (paths: AdminRoutes): Routes<RouterResult> => [
 ];
 
 export const PoolDashboard: React.FC = () => {
+  const { loggedIn } = React.useContext(AuthContext);
   const intl = useIntl();
   const paths = useAdminRoutes();
 
@@ -292,12 +297,13 @@ export const PoolDashboard: React.FC = () => {
   ];
 
   return (
-    <AuthContainer>
-      <ClientProvider>
-        <Dashboard menuItems={menuItems} contentRoutes={routes(paths)} />
-        <Toast />
-      </ClientProvider>
-    </AuthContainer>
+    <ClientProvider>
+      <Dashboard
+        menuItems={menuItems}
+        contentRoutes={routes(paths, loggedIn)}
+      />
+      <Toast />
+    </ClientProvider>
   );
 };
 
