@@ -3,7 +3,7 @@ import { useIntl } from "react-intl";
 import { HomeIcon, LoginIcon } from "@heroicons/react/outline";
 import CardLink from "@common/components/CardLink";
 import PageHeader from "@common/components/PageHeader";
-import { navigate } from "@common/helpers/router";
+// import { navigate } from "@common/helpers/router";
 
 import { AuthContext } from "../AuthContainer";
 import { useAdminRoutes } from "../../adminRoutes";
@@ -32,8 +32,11 @@ const HomePage: React.FC = () => {
         })}
       </PageHeader>
       <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean mollis
-        elit vitae lacinia sodales.
+        {intl.formatMessage({
+          defaultMessage: "Welcome to GC Talent, please log in to continue.",
+          description:
+            "Instructional text for the talent cloud pool manager portal home page.",
+        })}
       </p>
       <div data-h2-width="b(100) m(50) l(25)" data-h2-margin="b(top, l)">
         <CardLink
