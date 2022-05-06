@@ -37,20 +37,7 @@ export const MyStatusForm: React.FC<MyStatusFormProps> = ({
     return <span data-h2-font-weight="b(700)">{msg}</span>;
   }
 
-  const firstName = initialData?.me?.firstName;
-  const lastName = initialData?.me?.lastName;
-  const email = initialData?.me?.email;
-  const telephone = initialData?.me?.telephone;
-  const preferredLang = initialData?.me?.preferredLang;
-  const currentProvince = initialData?.me?.currentProvince;
-  const currentCity = initialData?.me?.currentCity;
-  const lookingForEnglish = initialData?.me?.lookingForEnglish;
-  const lookingForFrench = initialData?.me?.lookingForEnglish;
-  const lookingForBilingual = initialData?.me?.lookingForBilingual;
-  const isGovEmployee = initialData?.me?.isGovEmployee;
-  const locationPreferences = initialData?.me?.locationPreferences;
-  const wouldAcceptTemporary = initialData?.me?.wouldAcceptTemporary;
-  const expectedSalary = initialData?.me?.expectedSalary;
+  const isFormActive = initialData?.me?.isProfileActive;
 
   const JobLookingStatusSortOrder = [
     JobLookingStatus.ActivelyLooking,
@@ -77,41 +64,6 @@ export const MyStatusForm: React.FC<MyStatusFormProps> = ({
       await handleMyStatus(initialData.me?.id, formValuesToSubmitData(data));
     }
   };
-
-  let isFormActive = true;
-  // Checking About Me Form
-
-  if (
-    !preferredLang ||
-    !currentProvince ||
-    !currentCity ||
-    !telephone ||
-    !firstName ||
-    !lastName ||
-    !email
-  ) {
-    isFormActive = false;
-  }
-  // Checking Language Information Form
-  if (!lookingForBilingual && !lookingForFrench && !lookingForEnglish) {
-    isFormActive = false;
-  }
-  // Checking government Information Form
-  if (isGovEmployee === (null || undefined)) {
-    isFormActive = false;
-  }
-  // Checking Work Location Form
-  if (locationPreferences === (null || undefined)) {
-    isFormActive = false;
-  }
-  // Checking Work Preferences Form
-  if (wouldAcceptTemporary === (null || undefined)) {
-    isFormActive = false;
-  }
-  // Checking Remaining Required Fields
-  if (expectedSalary === (null || undefined)) {
-    isFormActive = false;
-  }
 
   let disabledColor = "";
   if (!isFormActive) {

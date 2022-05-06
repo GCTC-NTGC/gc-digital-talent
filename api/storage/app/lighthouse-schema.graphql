@@ -1112,6 +1112,7 @@ type User {
   personalExperiences: [PersonalExperience]
   workExperiences: [WorkExperience]
   pools: [Pool]
+  isProfileActive: Boolean
 }
 
 input UserBelongsTo {
