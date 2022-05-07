@@ -1,0 +1,159 @@
+# This does not actually work yet. Just copy-pasted from Azure UI export for now.
+
+name: $(Build.DefinitionName)_$(SourceBranchName)_$(Date:yyyyMMdd)$(Rev:.r)
+trigger: none
+pr:
+  - main
+variables:
+  major_minor: '1.2'
+  # define b as a counter with the prefix as variable a, and seed as 10.
+  build: $[counter(variables['major_minor'], 0)]
+  
+# Your build pipeline references an undefined variable named ‘phpVersion’.
+# Create or edit the build pipeline for this YAML file, define the variable on the Variables tab.
+# See https://go.microsoft.com/fwlink/?linkid=865972
+
+steps:
+- script: |
+   sudo update-alternatives --set php /usr/bin/php$(phpVersion)
+   sudo update-alternatives --set phar /usr/bin/phar$(phpVersion)
+   sudo update-alternatives --set phpdbg /usr/bin/phpdbg$(phpVersion)
+   sudo update-alternatives --set php-cgi /usr/bin/php-cgi$(phpVersion)
+   sudo update-alternatives --set phar.phar /usr/bin/phar.phar$(phpVersion)
+   php -version
+  displayName: 'PHP version'
+
+- script: |
+   cat << '__EOF__' > $(System.DefaultWorkingDirectory)/$(Release.PrimaryArtifactSourceAlias)/.htaccess
+   
+   # Don't automatically add slash (with 301 redirect) if path matches a directory
+   DirectorySlash off
+   
+   <IfModule mod_rewrite.c>
+       RewriteEngine on
+   
+       # Strip trailing slash from all urls redirect back to public url, unless already pointing to a public folder
+       RewriteCond %{REQUEST_URI} ^/(.+)/$
+       RewriteCond %{REQUEST_URI} !/public/$
+       RewriteCond %{REQUEST_URI} !/dist/$
+       RewriteRule ^ %{ENV:APP_URL}/%1 [L,R=301]
+   
+       # Rewrite api requests
+       RewriteRule ^graphql-playground$ api/public/graphql-playground [L]
+       RewriteRule ^graphql$ api/public/graphql [L]
+   
+       # Send api login request to api
+       RewriteRule ^login$ api/public/login [L]
+       RewriteRule ^auth-callback$ api/public/auth-callback [L]
+       RewriteRule ^refresh$ api/public/refresh [L]
+   
+       # Send admin requests to admin dist folder (with or without public/ path prefix).
+       RewriteRule ^admin/public(/(.*))?$ frontend/admin/dist/$2 [L]
+       RewriteRule ^admin(/(.*))?$ frontend/admin/dist/$2 [L]
+   
+       # Send localized admin requests also to admin dist folder
+       RewriteRule ^(en|fr)/admin(/(.*))?$ frontend/admin/dist/$3 [L]
+   
+       # Send talent requests to talentsearch dist folder (with or without public/ path prefix).
+       RewriteRule ^talent/public(/(.*))?$ frontend/talentsearch/dist/$2 [L]
+       RewriteRule ^talent(/(.*))?$ frontend/talentsearch/dist/$2 [L]
+   
+       # Send localized talent requests also to talentsearch dist folder;
+       RewriteRule ^(en|fr)/talent(/(.*))?$ frontend/talentsearch/dist/$3 [L]
+   
+       # PHP Info page for debugging
+       RewriteRule ^phpinfo.php$ phpinfo.php [L]
+   
+       # Send all other requests to /tc-report
+       RewriteRule ^(.*)/?$ tc-report/$1 [L]
+   </IfModule>
+   
+   # Security headers
+   Header add X-Content-Type-Options nosniff
+   Header add X-XSS-Protection "1; mode=block"
+   Header add  Strict-Transport-Security "max-age=31536000; includeSubdomains;"
+   Header add Cache-Control "max-age=31536000"
+   Header add Pragma no-cache
+   
+   # Policy headers
+   Header add Referrer-Policy "no-referrer-when-downgrade"
+   #Header add Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.google-analytics.com https://www.googletagmanager.com https://tagmanager.google.com https://code.jquery.com https://cdn.datatables.net https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://html2canvas.hertzen.com https://stackpath.bootstrapcdn.com; img-src 'self' data: https://www.google-analytics.com https://ssl.gstatic.com https://www.gstatic.com https://www.gravatar.com https://images.unsplash.com; style-src 'self' 'unsafe-inline' https://tagmanager.google.com https://fonts.googleapis.com https://code.ionicframework.com https://cdn.datatables.net https://stackpath.bootstrapcdn.com https://cdnjs.cloudflare.com; font-src 'self' data: https://fonts.gstatic.com https://tagmanager.google.com https://code.ionicframework.com https://stackpath.bootstrapcdn.com; frame-src 'self'; object-src 'self'; connect-src 'self' https://api.github.com https://www.google-analytics.com;"
+   Header add Feature-Policy "geolocation 'none'; midi 'none'; sync-xhr 'none'; microphone 'none'; camera 'none'; magnetometer 'none'; gyroscope 'none'; fullscreen 'self'; payment 'none';"
+   
+   __EOF__
+  displayName: 'Write-out htaccess'
+
+- script: |
+   # Errors will fail out
+   set -e
+   
+   sudo composer selfupdate
+   
+   export NVM_DIR="$HOME/.nvm"
+   [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+   
+   source ~/.bash_profile
+   nvm install v14.18.1
+   #nvm install-latest-npm
+   npm install -g npm@8.7.0
+   
+   ### API
+   
+   cd $(System.DefaultWorkingDirectory)/$(Release.PrimaryArtifactSourceAlias)/api
+   
+   composer install --no-dev
+   sudo chown -R www-data ./storage ./vendor
+   sudo chmod -R 775 ./ ./storage
+   php artisan lighthouse:print-schema --write
+   
+   ### Install all npm dependencies
+   cd $(System.DefaultWorkingDirectory)/$(Release.PrimaryArtifactSourceAlias)/frontend
+   npm ci --include=dev
+   npm rebuild node-sass
+   
+   # Run h2-build using workspace command from /frontend
+   npm run h2-build --workspace common
+   
+   ### Common
+   
+   cd $(System.DefaultWorkingDirectory)/$(Release.PrimaryArtifactSourceAlias)/frontend/common
+   npm run codegen
+   npm run intl-compile
+   
+   ### Talentsearch
+   
+   cd $(System.DefaultWorkingDirectory)/$(Release.PrimaryArtifactSourceAlias)/frontend/talentsearch
+   npm run codegen
+   npm run intl-compile
+   npm run production
+   
+   ### Admin
+   
+   cd $(System.DefaultWorkingDirectory)/$(Release.PrimaryArtifactSourceAlias)/frontend/admin
+   npm run codegen
+   npm run intl-compile
+   npm run production
+   
+   ### Cleanup /frontend npm dependencies
+   
+   cd $(System.DefaultWorkingDirectory)/$(Release.PrimaryArtifactSourceAlias)/frontend
+   npm prune --production
+   
+  displayName: Dependencies
+  env:
+    API_URI: /graphql
+    ADMIN_APP_DIR: /admin
+    TALENTSEARCH_APP_DIR: /talent
+    CYPRESS_INSTALL_BINARy: 0
+
+- task: ArchiveFiles@2
+  displayName: 'Archive $(System.DefaultWorkingDirectory)'
+  inputs:
+    rootFolderOrFile: '$(System.DefaultWorkingDirectory)'
+    includeRootFolder: false
+    archiveFile: '$(Build.ArtifactStagingDirectory)/Application_$(Build.BuildId).zip'
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Artifact: gcDigitalTalent'
+  inputs:
+    ArtifactName: gcDigitalTalent
