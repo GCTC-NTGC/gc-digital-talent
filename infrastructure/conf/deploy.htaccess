@@ -2,42 +2,42 @@
 DirectorySlash off
 
 <IfModule mod_rewrite.c>
-   RewriteEngine on
+    RewriteEngine on
 
-   # Strip trailing slash from all urls redirect back to public url, unless already pointing to a public folder
-   RewriteCond %{REQUEST_URI} ^/(.+)/$
-   RewriteCond %{REQUEST_URI} !/public/$
-   RewriteCond %{REQUEST_URI} !/dist/$
-   RewriteRule ^ %{ENV:APP_URL}/%1 [L,R=301]
+    # Strip trailing slash from all urls and redirect back to public url, unless already pointing to a public folder
+    RewriteCond %{REQUEST_URI} ^/(.+)/$
+    RewriteCond %{REQUEST_URI} !/public/$
+    RewriteCond %{REQUEST_URI} !/dist/$
+    RewriteRule ^ %{ENV:APP_URL}/%1 [L,R=301]
 
-   # Rewrite api requests
-   RewriteRule ^graphql-playground$ api/public/graphql-playground [L]
-   RewriteRule ^graphql$ api/public/graphql [L]
+    # Rewrite api requests
+    RewriteRule ^graphql-playground$ api/public/graphql-playground [L]
+    RewriteRule ^graphql$ api/public/graphql [L]
 
-   # Send api login request to api
-   RewriteRule ^login$ api/public/login [L]
-   RewriteRule ^auth-callback$ api/public/auth-callback [L]
-   RewriteRule ^refresh$ api/public/refresh [L]
+    # Send api login request to api
+    RewriteRule ^login$ api/public/login [L]
+    RewriteRule ^auth-callback$ api/public/auth-callback [L]
+    RewriteRule ^refresh$ api/public/refresh [L]
 
-   # Send admin requests to admin dist folder (with or without public/ path prefix).
-   RewriteRule ^admin/public(/(.*))?$ frontend/admin/dist/$2 [L]
-   RewriteRule ^admin(/(.*))?$ frontend/admin/dist/$2 [L]
+    # Send admin requests to admin dist folder (with or without public/ path prefix).
+    RewriteRule ^admin/public(/(.*))?$ frontend/admin/dist/$2 [L]
+    RewriteRule ^admin(/(.*))?$ frontend/admin/dist/$2 [L]
 
-   # Send localized admin requests also to admin dist folder
-   RewriteRule ^(en|fr)/admin(/(.*))?$ frontend/admin/dist/$3 [L]
+    # Send localized admin requests also to admin dist folder
+    RewriteRule ^(en|fr)/admin(/(.*))?$ frontend/admin/dist/$3 [L]
 
-   # Send talent requests to talentsearch dist folder (with or without public/ path prefix).
-   RewriteRule ^talent/public(/(.*))?$ frontend/talentsearch/dist/$2 [L]
-   RewriteRule ^talent(/(.*))?$ frontend/talentsearch/dist/$2 [L]
+    # Send talent requests to talentsearch dist folder (with or without public/ path prefix).
+    RewriteRule ^talent/public(/(.*))?$ frontend/talentsearch/dist/$2 [L]
+    RewriteRule ^talent(/(.*))?$ frontend/talentsearch/dist/$2 [L]
 
-   # Send localized talent requests also to talentsearch dist folder;
-   RewriteRule ^(en|fr)/talent(/(.*))?$ frontend/talentsearch/dist/$3 [L]
+    # Send localized talent requests also to talentsearch dist folder;
+    RewriteRule ^(en|fr)/talent(/(.*))?$ frontend/talentsearch/dist/$3 [L]
 
-   # PHP Info page for debugging
-   RewriteRule ^phpinfo.php$ phpinfo.php [L]
+    # PHP Info page for debugging
+    RewriteRule ^phpinfo.php$ phpinfo.php [L]
 
-   # Send all other requests to /tc-report
-   RewriteRule ^(.*)/?$ tc-report/$1 [L]
+    # Send all other requests to /tc-report
+    RewriteRule ^(.*)/?$ tc-report/$1 [L]
 </IfModule>
 
 # Security headers
