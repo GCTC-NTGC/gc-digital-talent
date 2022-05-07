@@ -23,18 +23,18 @@ DirectorySlash off
     RewriteRule ^auth-callback$ api/public/auth-callback [L]
     RewriteRule ^refresh$ api/public/refresh [L]
 
-    # Send admin requests to admin public folder (with or without public/ path prefix).
+    # Send admin requests to admin dist folder (with or without public/ path prefix).
     RewriteRule ^admin/public(/(.*))?$ frontend/admin/dist/$2 [L]
     RewriteRule ^admin(/(.*))?$ frontend/admin/dist/$2 [L]
 
-    # Send localized admin requests also to admin public folder;
+    # Send localized admin requests also to admin dist folder
     RewriteRule ^(en|fr)/admin(/(.*))?$ frontend/admin/dist/$3 [L]
 
-    # Send talent requests to talentsearch public folder (with or without public/ path prefix).
+    # Send talent requests to talentsearch dist folder (with or without public/ path prefix).
     RewriteRule ^talent/public(/(.*))?$ frontend/talentsearch/dist/$2 [L]
     RewriteRule ^talent(/(.*))?$ frontend/talentsearch/dist/$2 [L]
 
-    # Send localized talent requests also to talentsearch public folder;
+    # Send localized talent requests also to talentsearch dist folder;
     RewriteRule ^(en|fr)/talent(/(.*))?$ frontend/talentsearch/dist/$3 [L]
 
     # Indigenous Apprenticeship routes
