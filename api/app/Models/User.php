@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Database\Helpers\ApiEnums;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -10,6 +11,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Auth\Authenticatable as AuthenticatableTrait;
+use Illuminate\Database\Eloquent\Builder;
 
 /**
  * Class User
@@ -157,5 +159,134 @@ class User extends Model implements Authenticatable
             return false; // failed to create subject
         else
             return true;
+    }
+
+    // Search filters
+    public function filterByPools(Builder $query, array $pools): Builder
+    {
+        if (empty($pools)) {
+            return $query;
+        }
+
+        // Pool acts as an OR filter. The query should return candidates in ANY of the pools.
+        $poolIds = [];
+        foreach ($pools as $pool) {
+            array_push($poolIds, $pool['id']);
+        }
+
+        $query->whereExists(function ($query) use ($poolIds) {
+            $query->select('id')
+                  ->from('pool_candidates')
+                  ->whereColumn('pool_candidates.user_id', 'users.id')
+                  ->whereIn('pool_candidates.pool_id', $poolIds);
+        });
+        return $query;
+    }
+    public function filterByLanguageAbility(Builder $query, ?string $languageAbility): Builder
+    {
+        // If filtering for a specific language the query should return candidates of that language OR bilingual.
+        $query->where(function($query) use ($languageAbility) {
+            $query->where('language_ability', $languageAbility);
+            if ($languageAbility == ApiEnums::LANGUAGE_ABILITY_ENGLISH || $languageAbility == ApiEnums::LANGUAGE_ABILITY_FRENCH) {
+                $query->orWhere('language_ability', ApiEnums::LANGUAGE_ABILITY_BILINGUAL);
+            }
+        });
+        return $query;
+    }
+    public function filterByClassifications(Builder $query, array $classifications): Builder
+    {
+        // Classifications act as an OR filter. The query should return candidates with any of the classifications.
+        // A single whereHas clause for the relationship, containing multiple orWhere clauses accomplishes this.
+        $query->whereHas('expectedClassifications', function ($query) use ($classifications) {
+            foreach ($classifications as $index => $classification) {
+                if ($index === 0) {
+                    // First iteration must use where instead of orWhere
+                    $query->where(function($query) use ($classification) {
+                        $query->where('group', $classification['group'])->where('level', $classification['level']);
+                    });
+                } else {
+                    $query->orWhere(function($query) use ($classification) {
+                        $query->where('group', $classification['group'])->where('level', $classification['level']);
+                    });
+                }
+            }
+        });
+
+        $this->orFilterByClassificationToSalary($query, $classifications);
+
+        return $query;
+    }
+
+    private function orFilterByClassificationToSalary(Builder $query, array $classifications): Builder
+    {
+        // When managers search for a classification, also return any users whose expected salary
+        // ranges overlap with the min/max salaries of any of those classifications.
+        // Since salary ranges are text enums a custom SQL subquery is used to convert them to
+        // numeric values and compare them to specified classifications
+
+        // This subquery only works for a non-zero number of filter classifications.
+        // If passed zero classifications then return same query builder unchanged.
+        if(count($classifications) == 0)
+            return $query;
+
+        $parameters = [];
+        $sql = <<<RAWSQL1
+
+SELECT NULL    -- find all candidates where a salary/group combination matches a classification filter
+  FROM (
+    SELECT    -- convert salary ranges to numeric min/max values
+      t.user_id,
+      CASE t.salary_range_id
+        WHEN '_50_59K' THEN 50000
+        WHEN '_60_69K' THEN 60000
+        WHEN '_70_79K' THEN 70000
+        WHEN '_80_89K' THEN 80000
+        WHEN '_90_99K' THEN 90000
+        WHEN '_100K_PLUS' THEN 100000
+      END min_salary,
+      CASE t.salary_range_id
+        WHEN '_50_59K' THEN 59999
+        WHEN '_60_69K' THEN 69999
+        WHEN '_70_79K' THEN 79999
+        WHEN '_80_89K' THEN 89999
+        WHEN '_90_99K' THEN 99999
+        WHEN '_100K_PLUS' THEN 2147483647
+      END max_salary,
+      t.classification_group
+    FROM (
+      SELECT    -- find all combinations of salary range and classification group for each candidate
+        users.id user_id,
+        JSONB_ARRAY_ELEMENTS_TEXT(users.expected_salary) salary_range_id,
+        c.group classification_group
+      FROM users
+      JOIN classification_user cu ON users.id = cu.user_id
+      JOIN classifications c ON cu.classification_id = c.id
+    ) t
+  ) u
+  JOIN classifications c ON
+    c.max_salary >= u.min_salary
+    AND c.min_salary <= u.max_salary
+    AND c.group = u.classification_group
+  WHERE (
+
+RAWSQL1;
+
+        foreach ($classifications as $index => $classification) {
+            if ($index === 0) {
+                // First iteration must use where instead of orWhere
+                $sql .= '(c.group = ? AND c.level = ?)';
+            } else {
+                $sql .= ' OR (c.group = ? AND c.level = ?)';
+            }
+            array_push($parameters, [$classification['group'], $classification['level']]);
+        }
+
+        $sql .= <<<RAWSQL2
+  )
+  AND u.user_id = "users".id
+
+RAWSQL2;
+
+        return $query->orWhereRaw('EXISTS (' . $sql . ')', $parameters);
     }
 }

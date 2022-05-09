@@ -524,10 +524,17 @@ input PoolCandidateFilterInput {
     pools: [PoolFilterInput] @builder(method: "App\\Models\\PoolCandidate@filterByPools")
 }
 
+input UserFilterInput {
+    pools: [PoolFilterInput] @builder(method: "App\\Models\\User@filterByPools")
+    languageAbility: LanguageAbility @builder(method: "App\\Models\\User@filterByLanguageAbility")
+    expectedClassifications: [ClassificationFilterInput] @builder(method: "App\\Models\\User@filterByClassifications")
+}
+
 type Query {
     me: User @auth
     user(id: ID! @eq): User @find @guard @can(ability: "view", query: true)
     users: [User]! @all @guard @can(ability: "viewAny")
+    usersPaginated(where: UserFilterInput): [User]! @paginate @guard @can(ability: "viewAny")
     applicant(id: ID! @eq): Applicant @find(model: "User") @guard @can(ability: "viewApplicant", query: true, model: "User")
     applicants: [Applicant]! @all(model: "User") @guard @can(ability: "viewAnyApplicants", model: "User")
     pool(id: ID! @eq): Pool @find
