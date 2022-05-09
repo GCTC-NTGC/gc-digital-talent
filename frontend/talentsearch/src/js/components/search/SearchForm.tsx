@@ -5,7 +5,6 @@ import { Checklist, MultiSelect, RadioGroup } from "@common/components/form";
 import { getLocale } from "@common/helpers/localize";
 import { enumToOptions, unpackMaybes } from "@common/helpers/formUtils";
 import { getLanguageAbility } from "@common/constants";
-import useDeepCompareEffect from "@common/hooks/useDeepCompareEffect";
 import { debounce } from "debounce";
 import { useLocation } from "@common/helpers/router";
 import {
@@ -87,7 +86,6 @@ export const SearchForm: React.FunctionComponent<SearchFormProps> = ({
   classifications,
   cmoAssets,
   updateCandidateFilter,
-  updateInitialValues,
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
@@ -104,19 +102,18 @@ export const SearchForm: React.FunctionComponent<SearchFormProps> = ({
   const initialValues = state ? state.some.initialValues : {};
   const methods = useForm<FormValues>({ defaultValues: initialValues });
   const { watch } = methods;
-
-  // Whenever form values change (with some debounce allowance), call updateCandidateFilter
   const formValues = watch();
 
-  // Use deep comparison to prevent infinite re-rendering
-  useDeepCompareEffect(() => {
+  React.useEffect(() => {
     const formValuesToData = (values: FormValues): PoolCandidateFilterInput => {
       return {
         classifications: values.classifications
-          ? values.classifications?.map((id) => classificationMap.get(id))
+          ? values.classifications?.map((id) =>
+              id ? classificationMap.get(id) : null,
+            )
           : [],
         cmoAssets: values.cmoAssets
-          ? values.cmoAssets?.map((id) => assetMap.get(id))
+          ? values.cmoAssets?.map((id) => (id ? assetMap.get(id) : null))
           : [],
         operationalRequirements: values.operationalRequirements
           ? unpackMaybes(values.operationalRequirements)
@@ -140,24 +137,20 @@ export const SearchForm: React.FunctionComponent<SearchFormProps> = ({
         workRegions: values.workRegions || [],
       };
     };
-    const debouncingFunc = debounce(() => {
+
+    const debounceUpdate = debounce((values: PoolCandidateFilterInput) => {
       if (updateCandidateFilter) {
-        updateCandidateFilter(formValuesToData(formValues));
+        updateCandidateFilter(values);
       }
     }, 200);
-    debouncingFunc();
-    /**
-     * NOTE:    This function call was the culprit of multiple re-renders
-     *          because it kept update the initialValues.
-     *
-     * */
 
-    // updateInitialValues(formValues);
-    return () => {
-      // Clear debounce timer when component unmounts
-      debouncingFunc.clear();
-    };
-  }, [formValues, updateCandidateFilter, classificationMap, assetMap]);
+    const subscription = watch((newValues) => {
+      const values = formValuesToData(newValues as FormValues);
+      debounceUpdate(values);
+    });
+
+    return () => subscription.unsubscribe();
+  }, [watch, classificationMap, assetMap, updateCandidateFilter]);
 
   const classificationOptions: Option<string>[] = useMemo(
     () =>
