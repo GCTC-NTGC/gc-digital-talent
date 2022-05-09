@@ -109,21 +109,13 @@ const ExperienceSection: React.FunctionComponent<ExperienceSectionProps> = ({
       )
       .sort(compareByDate) || [];
   const communityExperiences =
-    experiences
-      ?.filter((experience) => isCommunityExperience(experience))
-      .sort(compareByDate) || [];
+    experiences?.filter(isCommunityExperience).sort(compareByDate) || [];
   const educationExperiences =
-    experiences
-      ?.filter((experience) => isEducationExperience(experience))
-      .sort(compareByDate) || [];
+    experiences?.filter(isEducationExperience).sort(compareByDate) || [];
   const personalExperiences =
-    experiences
-      ?.filter((experience) => isPersonalExperience(experience))
-      .sort(compareByDate) || [];
+    experiences?.filter(isPersonalExperience).sort(compareByDate) || [];
   const workExperiences =
-    experiences
-      ?.filter((experience) => isWorkExperience(experience))
-      .sort(compareByDate) || [];
+    experiences?.filter(isWorkExperience).sort(compareByDate) || [];
 
   const allExperiences = [
     ...awardExperiences,
