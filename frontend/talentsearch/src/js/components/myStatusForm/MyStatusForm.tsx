@@ -63,7 +63,6 @@ export const MyStatusForm: React.FC<MyStatusFormProps> = ({
     if (initialData?.me) {
       await handleMyStatus(initialData.me?.id, formValuesToSubmitData(data));
     }
-    console.log(data);
   };
 
   let disabledColor = "";
