@@ -9,6 +9,11 @@ import {
   useUpdateEducationExperienceMutation,
   useUpdatePersonalExperienceMutation,
   useUpdateWorkExperienceMutation,
+  useDeleteAwardExperienceMutation,
+  useDeleteCommunityExperienceMutation,
+  useDeleteEducationExperienceMutation,
+  useDeletePersonalExperienceMutation,
+  useDeleteWorkExperienceMutation,
 } from "../../api/generated";
 import type {
   ExperienceDetailsSubmissionData,
