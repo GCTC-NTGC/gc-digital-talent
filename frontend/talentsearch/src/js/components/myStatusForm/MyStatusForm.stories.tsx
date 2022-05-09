@@ -1,14 +1,7 @@
 import React from "react";
 import { action } from "@storybook/addon-actions";
 import { Meta, Story } from "@storybook/react";
-import {
-  JobLookingStatus,
-  Language,
-  ProvinceOrTerritory,
-  SalaryRange,
-  UpdateUserAsUserInput,
-  WorkRegion,
-} from "../../api/generated";
+import { JobLookingStatus, UpdateUserAsUserInput } from "../../api/generated";
 
 import { MyStatusForm } from "./MyStatusForm";
 
@@ -36,7 +29,6 @@ const TemplateMyStatusForm: Story = (args) => {
 };
 
 export const MyStatusFormNull = TemplateMyStatusForm.bind({});
-export const MyStatusFormNull2 = TemplateMyStatusForm.bind({});
 export const MyStatusFormActive = TemplateMyStatusForm.bind({});
 
 MyStatusFormNull.args = {
@@ -44,43 +36,8 @@ MyStatusFormNull.args = {
   me: {
     __typename: "User",
     id: "11",
-    jobLookingStatus: undefined,
-    firstName: undefined,
-    lastName: undefined,
-    email: "",
-    telephone: undefined,
-    preferredLang: undefined,
-    currentProvince: undefined,
-    currentCity: undefined,
-    lookingForEnglish: undefined,
-    lookingForFrench: undefined,
-    lookingForBilingual: undefined,
-    isGovEmployee: undefined,
-    locationPreferences: undefined,
-    wouldAcceptTemporary: undefined,
-    expectedSalary: undefined,
-  },
-};
-MyStatusFormNull2.args = {
-  __typename: "Query",
-  me: {
-    __typename: "User",
-    id: "11",
     jobLookingStatus: JobLookingStatus.ActivelyLooking,
-    firstName: "Shubi",
-    lastName: "Suresh",
-    email: "fff@gmaik.com",
-    telephone: "12345679000",
-    preferredLang: undefined,
-    currentProvince: ProvinceOrTerritory.Alberta,
-    currentCity: "fgrtyuii",
-    lookingForEnglish: true,
-    lookingForFrench: true,
-    lookingForBilingual: true,
-    isGovEmployee: true,
-    locationPreferences: [WorkRegion.Atlantic],
-    wouldAcceptTemporary: false,
-    expectedSalary: [SalaryRange["50_59K"]],
+    isProfileActive: false,
   },
 };
 MyStatusFormActive.args = {
@@ -89,19 +46,6 @@ MyStatusFormActive.args = {
     __typename: "User",
     id: "11",
     jobLookingStatus: JobLookingStatus.ActivelyLooking,
-    firstName: "Shubi",
-    lastName: "Suresh",
-    email: "fff@gmaik.com",
-    telephone: "12345679000",
-    preferredLang: Language.En,
-    currentProvince: ProvinceOrTerritory.Alberta,
-    currentCity: "fgrtyuii",
-    lookingForEnglish: true,
-    lookingForFrench: true,
-    lookingForBilingual: true,
-    isGovEmployee: true,
-    locationPreferences: [WorkRegion.Atlantic],
-    wouldAcceptTemporary: false,
-    expectedSalary: [SalaryRange["50_59K"]],
+    isProfileActive: true,
   },
 };

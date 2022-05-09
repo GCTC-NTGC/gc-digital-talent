@@ -6,11 +6,7 @@ import "@testing-library/jest-dom";
 import { GetMyStatusQuery } from "../../api/generated";
 import { render, screen, fireEvent, waitFor } from "../../tests/testUtils";
 import { MyStatusForm, MyStatusFormProps } from "./MyStatusForm";
-import {
-  MyStatusFormActive,
-  MyStatusFormNull,
-  MyStatusFormNull2,
-} from "./MyStatusForm.stories";
+import { MyStatusFormActive, MyStatusFormNull } from "./MyStatusForm.stories";
 
 const renderMyStatusForm = ({
   initialData,
@@ -22,16 +18,23 @@ const renderMyStatusForm = ({
 };
 
 const mockDataForIncompleteForm: GetMyStatusQuery | undefined =
-  MyStatusFormNull2.args;
+  MyStatusFormNull.args;
 const mockDataForCompleteForm: GetMyStatusQuery | undefined =
   MyStatusFormActive.args;
-const mockEmptyData: GetMyStatusQuery | undefined = MyStatusFormNull.args;
+const mockEmptyData: GetMyStatusQuery | undefined = {
+  __typename: "Query",
+  me: {
+    __typename: "User",
+    id: "11",
+    jobLookingStatus: undefined,
+  },
+};
 
 describe("MyStatusForm tests", () => {
   test("Should render fields", () => {
     const onClick = jest.fn();
     renderMyStatusForm({
-      initialData: mockEmptyData,
+      initialData: mockDataForCompleteForm,
       handleMyStatus: onClick,
     });
     expect(

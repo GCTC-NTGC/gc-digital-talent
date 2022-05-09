@@ -78,71 +78,67 @@ export const MyStatusForm: React.FC<MyStatusFormProps> = ({
           defaultValues: dataToFormValues(initialData),
         }}
       >
-        <form>
-          <div>
+        <div>
+          <p>
+            {intl.formatMessage({
+              defaultMessage:
+                "Let us know if you want to be contacted for new jobs. Please update this status if your situation changes.",
+              description: "Description for My Status Form",
+            })}
+          </p>
+        </div>
+        {!isFormActive && (
+          <div
+            data-h2-font-color="b(lightpurple)"
+            data-h2-padding="b(all, m)"
+            data-h2-radius="b(s)"
+            data-h2-bg-color="b([light]lightpurple[.1])"
+          >
+            <p>
+              {intl.formatMessage(
+                {
+                  defaultMessage: "<bold>Why can’t I change my status?</bold>",
+                  description: "Message in My Status Form.",
+                },
+                {
+                  bold,
+                },
+              )}
+            </p>
             <p>
               {intl.formatMessage({
                 defaultMessage:
-                  "Let us know if you want to be contacted for new jobs. Please update this status if your situation changes.",
-                description: "Description for My Status Form",
+                  "Please complete all required fields on your profile before setting your status as active.",
+                description: "Message in My Status Form.",
               })}
             </p>
           </div>
-          {!isFormActive && (
-            <div
-              data-h2-font-color="b(lightpurple)"
-              data-h2-padding="b(all, m)"
-              data-h2-radius="b(s)"
-              data-h2-bg-color="b([light]lightpurple[.1])"
-            >
-              <p>
-                {intl.formatMessage(
-                  {
-                    defaultMessage:
-                      "<bold>Why can’t I change my status?</bold>",
-                    description: "Message in My Status Form.",
-                  },
-                  {
-                    bold,
-                  },
-                )}
-              </p>
-              <p>
-                {intl.formatMessage({
-                  defaultMessage:
-                    "Please complete all required fields on your profile before setting your status as active.",
-                  description: "Message in My Status Form.",
-                })}
-              </p>
-            </div>
-          )}
+        )}
 
-          <div data-h2-padding="b(top, s)" data-h2-font-color={disabledColor}>
-            <RadioGroup
-              idPrefix="myStatus"
-              legend={intl.formatMessage({
-                defaultMessage: "My status",
-                description: "Legend for my status option in my status form",
-              })}
-              name="jobLookingStatus"
-              disabled={!isFormActive}
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-                onChange: handleSubmit,
-              }}
-              items={enumToOptions(
-                JobLookingStatus,
-                JobLookingStatusSortOrder,
-              ).map(({ value }) => ({
-                value,
-                label: intl.formatMessage(
-                  getJobLookingStatusDescription(value),
-                  { bold },
-                ),
-              }))}
-            />
-          </div>
-        </form>
+        <div data-h2-padding="b(top, s)" data-h2-font-color={disabledColor}>
+          <RadioGroup
+            idPrefix="myStatus"
+            legend={intl.formatMessage({
+              defaultMessage: "My status",
+              description: "Legend for my status option in my status form",
+            })}
+            name="jobLookingStatus"
+            disabled={!isFormActive}
+            rules={{
+              required: intl.formatMessage(errorMessages.required),
+              onChange: handleSubmit,
+            }}
+            items={enumToOptions(
+              JobLookingStatus,
+              JobLookingStatusSortOrder,
+            ).map(({ value }) => ({
+              value,
+              label: intl.formatMessage(getJobLookingStatusDescription(value), {
+                bold,
+              }),
+            }))}
+          />
+        </div>
       </BasicForm>
     </div>
   );
