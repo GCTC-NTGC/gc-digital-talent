@@ -50,7 +50,6 @@ jobs:
             docker-
 
       - name: Serve app via docker-compose
-        working-directory: infrastructure/
         run: docker-compose up --detach
 
       - name: "Confirm failure response"
@@ -59,7 +58,6 @@ jobs:
           curl http://localhost:8000/talent --output /dev/null --silent --write-out "%{http_code}"  | grep --invert-match 200
 
       - name: "Run: setup.sh"
-        working-directory: infrastructure/
         run: docker-compose run --rm maintenance bash setup.sh
 
       - name: "Confirm success response: setup.sh"
@@ -81,7 +79,6 @@ jobs:
           curl http://localhost:8000/talent --output /dev/null --silent --write-out "%{http_code}"  | grep --invert-match 200
 
       - name: "Run: refresh_all.sh"
-        working-directory: infrastructure/
         run: docker-compose run --rm maintenance bash refresh_all.sh
 
       - name: "Confirm success response: refresh_all.sh"
