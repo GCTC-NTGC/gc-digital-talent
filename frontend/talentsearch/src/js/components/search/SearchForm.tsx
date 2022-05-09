@@ -99,8 +99,18 @@ export const SearchForm: React.FunctionComponent<SearchFormProps> = ({
   );
   const assetMap = useMemo(() => mapIdToValue(cmoAssets), [cmoAssets]);
 
-  const formValuesToData = useCallback(
-    (values: FormValues): PoolCandidateFilterInput => {
+  // The location state holds the initial values plugged in from user. This is required if the user decides to click back and change any values.
+  const state = location.state as LocationState;
+  const initialValues = state ? state.some.initialValues : {};
+  const methods = useForm<FormValues>({ defaultValues: initialValues });
+  const { watch } = methods;
+
+  // Whenever form values change (with some debounce allowance), call updateCandidateFilter
+  const formValues = watch();
+
+  // Use deep comparison to prevent infinite re-rendering
+  useDeepCompareEffect(() => {
+    const formValuesToData = (values: FormValues): PoolCandidateFilterInput => {
       return {
         classifications: values.classifications
           ? values.classifications?.map((id) => classificationMap.get(id))
@@ -129,37 +139,25 @@ export const SearchForm: React.FunctionComponent<SearchFormProps> = ({
           : {}), // Ensure null in FormValues is converted to undefined
         workRegions: values.workRegions || [],
       };
-    },
-    [classificationMap, assetMap],
-  );
-
-  // The location state holds the initial values plugged in from user. This is required if the user decides to click back and change any values.
-  const state = location.state as LocationState;
-  const initialValues = state ? state.some.initialValues : {};
-  const methods = useForm<FormValues>({ defaultValues: initialValues });
-  const { watch } = methods;
-
-  // Whenever form values change (with some debounce allowance), call updateCandidateFilter
-  const formValues = watch();
-  // Need just a single instance of the debounce function without dependencies.  It has internal state that shouldn't be lost between renders.
-  const submitDebounced = useRef(
-    debounce((values: FormValues) => {
+    };
+    const debouncingFunc = debounce(() => {
       if (updateCandidateFilter) {
-        updateCandidateFilter(formValuesToData(values));
+        updateCandidateFilter(formValuesToData(formValues));
       }
-    }, 200),
-  );
+    }, 200);
+    debouncingFunc();
+    /**
+     * NOTE:    This function call was the culprit of multiple re-renders
+     *          because it kept update the initialValues.
+     *
+     * */
 
-  // Use deep comparison to prevent infinite re-rendering
-  useDeepCompareEffect(() => {
-    const debouncingFunc = submitDebounced.current;
-    debouncingFunc(formValues);
-    updateInitialValues(formValues);
+    // updateInitialValues(formValues);
     return () => {
       // Clear debounce timer when component unmounts
       debouncingFunc.clear();
     };
-  }, [formValues, updateInitialValues]);
+  }, [formValues, updateCandidateFilter, classificationMap, assetMap]);
 
   const classificationOptions: Option<string>[] = useMemo(
     () =>
