@@ -22,7 +22,7 @@ const ExperienceSkills: React.FC<ExperienceSkillsProps> = ({
 }) => {
   const intl = useIntl();
   const { setValue, watch } = useForm();
-  const watchedSkills = watch("skills", initialSkills);
+  const watchedSkills = watch("skills");
   const [addedSkills, setAddedSkills] = React.useState<Skill[]>([]);
 
   const updateAddedSkills = () => {
@@ -38,6 +38,15 @@ const ExperienceSkills: React.FC<ExperienceSkillsProps> = ({
    * Updates an array of skills currently added to experience
    */
   useEffect(updateAddedSkills, [watchedSkills, skills]);
+
+  /**
+   * Initialize watchedSkills with initialSkills after page loads
+   */
+  useEffect(() => {
+    setValue("skills", initialSkills);
+    // Don't add initialSkills as a dependency as that seems to change on submitting form
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [setValue]);
 
   const handleAddSkill = (id: string) => {
     const newSkills = { ...watchedSkills, [id]: { details: "" } };

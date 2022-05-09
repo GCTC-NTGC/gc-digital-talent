@@ -79,11 +79,27 @@ const profileRoutes = (
     }),
   },
   {
-    path: `${profilePaths.skillsAndExperiences()}/:type`,
+    path: `${profilePaths.skillsAndExperiences()}/:type/create`,
     action: (context) => {
       const experienceType = context.params.type as ExperienceType;
       return {
         component: <ExperienceFormContainer experienceType={experienceType} />,
+      };
+    },
+  },
+  {
+    path: `${profilePaths.skillsAndExperiences()}/:type/:id/edit`,
+    action: (context) => {
+      const experienceType = context.params.type as ExperienceType;
+      const experienceId = context.params.id as string;
+      return {
+        component: (
+          <ExperienceFormContainer
+            experienceType={experienceType}
+            experienceId={experienceId}
+            edit
+          />
+        ),
       };
     },
   },

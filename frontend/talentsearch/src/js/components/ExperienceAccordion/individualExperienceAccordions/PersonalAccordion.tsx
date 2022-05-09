@@ -1,13 +1,15 @@
 import React from "react";
 import Accordion from "@common/components/accordion/Accordion";
 import BriefCaseIcon from "@heroicons/react/solid/BriefcaseIcon";
-import { Button } from "@common/components";
+import { Link } from "@common/components";
 import { useIntl } from "react-intl";
 import { getLocale } from "@common/helpers/localize";
 import { getDateRange } from "@common/helpers/dateUtils";
 import { PersonalExperience } from "../../../api/generated";
+import { useApplicantProfileRoutes } from "../../../applicantProfileRoutes";
 
 const PersonalAccordion: React.FunctionComponent<PersonalExperience> = ({
+  id,
   title,
   startDate,
   endDate,
@@ -17,6 +19,8 @@ const PersonalAccordion: React.FunctionComponent<PersonalExperience> = ({
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
+  const profilePaths = useApplicantProfileRoutes();
+  const editUrl = `${profilePaths.skillsAndExperiences()}/personal/${id}/edit`;
 
   const skillsList = skills
     ? skills.map((skill, index) => (
@@ -67,12 +71,12 @@ const PersonalAccordion: React.FunctionComponent<PersonalExperience> = ({
         </p>
       </div>
       <div data-h2-padding="b(left, l)">
-        <Button color="primary" mode="outline">
+        <Link href={editUrl} color="primary" mode="outline" type="button">
           {intl.formatMessage({
             defaultMessage: "Edit Experience",
             description: "Edit Experience button label",
           })}
-        </Button>
+        </Link>
       </div>
     </Accordion>
   );
