@@ -2,7 +2,7 @@ query getMyStatus {
   me {
     id
     jobLookingStatus
-    isProfileActive
+    isProfileComplete
   }
 }
 

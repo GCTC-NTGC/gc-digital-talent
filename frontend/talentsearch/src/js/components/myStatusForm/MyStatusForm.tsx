@@ -37,7 +37,7 @@ export const MyStatusForm: React.FC<MyStatusFormProps> = ({
     return <span data-h2-font-weight="b(700)">{msg}</span>;
   }
 
-  const isFormActive = initialData?.me?.isProfileActive;
+  const isFormActive = initialData?.me?.isProfileComplete;
 
   const JobLookingStatusSortOrder = [
     JobLookingStatus.ActivelyLooking,
