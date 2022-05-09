@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 class AddExtraConstraints extends Migration
 {
@@ -65,10 +66,20 @@ class AddExtraConstraints extends Migration
             $table->unique(['skill_id', 'skill_family_id'], 'skill_skill_family_unique');
         });
 
-        /** the first batch is a bunch of pivots to make unique **/
+        /** the second batch is to tighten up business logic **/
+
+        // each user must have a unique sub
         Schema::table('users', function (Blueprint $table) {
             $table->unique('sub');
         });
+
+        // level (already non-nullable) must be greater-than-equal-to zero
+        DB::statement('ALTER TABLE classifications ADD CONSTRAINT classifications_chk_level CHECK (level >= 0);');
+
+        // min salary must be between 0 and max salary
+        // effectively constrains max salary as well
+        // coalesces can be removed if columns made non-nullable
+        DB::statement('ALTER TABLE classifications ADD CONSTRAINT classifications_chk_salary CHECK (coalesce(min_salary, 0) between 0 AND coalesce(max_salary, 2147483647));');
     }
 
     /**
@@ -121,5 +132,9 @@ class AddExtraConstraints extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->dropUnique('users_sub_unique');
         });
+
+        DB::statement('ALTER TABLE classifications DROP CONSTRAINT classifications_chk_level;');
+
+        DB::statement('ALTER TABLE classifications DROP CONSTRAINT classifications_chk_salary;');
     }
 }
