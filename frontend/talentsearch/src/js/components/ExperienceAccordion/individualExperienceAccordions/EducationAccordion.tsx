@@ -1,7 +1,7 @@
 import React from "react";
 import Accordion from "@common/components/accordion/Accordion";
 import BriefCaseIcon from "@heroicons/react/solid/BriefcaseIcon";
-import { Button } from "@common/components";
+import { Link } from "@common/components";
 import { EducationExperience } from "@common/api/generated";
 import {
   getEducationStatus,
@@ -10,8 +10,10 @@ import {
 import { useIntl } from "react-intl";
 import { getLocale } from "@common/helpers/localize";
 import { getDateRange } from "@common/helpers/dateUtils";
+import { useApplicantProfileRoutes } from "../../../applicantProfileRoutes";
 
 const EducationAccordion: React.FunctionComponent<EducationExperience> = ({
+  id,
   areaOfStudy,
   institution,
   startDate,
@@ -24,6 +26,8 @@ const EducationAccordion: React.FunctionComponent<EducationExperience> = ({
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
+  const profilePaths = useApplicantProfileRoutes();
+  const editUrl = `${profilePaths.skillsAndExperiences()}/education/${id}/edit`;
 
   const skillsList = skills
     ? skills.map((skill, index) => (
@@ -103,12 +107,12 @@ const EducationAccordion: React.FunctionComponent<EducationExperience> = ({
         </p>
       </div>
       <div data-h2-padding="b(left, l)">
-        <Button color="primary" mode="outline">
+        <Link href={editUrl} color="primary" mode="outline" type="button">
           {intl.formatMessage({
             defaultMessage: "Edit Experience",
             description: "Edit Experience button label",
           })}
-        </Button>
+        </Link>
       </div>
     </Accordion>
   );

@@ -25,7 +25,7 @@ import {
   disabilityLocalized,
 } from "@common/constants/localizedConstants";
 
-import { insertBetween } from "@common/helpers/util";
+import { insertBetween, notEmpty } from "@common/helpers/util";
 import TALENTSEARCH_APP_DIR from "../../../talentSearchConstants";
 import { useApplicantProfileRoutes } from "../../../applicantProfileRoutes";
 import {
@@ -35,7 +35,9 @@ import {
   GetMeQuery,
   GovEmployeeType,
 } from "../../../api/generated";
+
 import MyStatusApi from "../../myStatusForm/MyStatusForm";
+import ExperienceSection from "../../applicantProfile/ExperienceSection";
 
 export interface ProfilePageProps {
   profileDataInput: User;
@@ -73,6 +75,7 @@ export const ProfileForm: React.FC<ProfilePageProps> = ({
     acceptedOperationalRequirements,
     wouldAcceptTemporary,
     poolCandidates,
+    experiences,
   } = profileDataInput;
 
   const intl = useIntl();
@@ -276,7 +279,7 @@ export const ProfileForm: React.FC<ProfilePageProps> = ({
                 })}
               </h2>
               <div
-                data-h2-bg-color="b(gray)"
+                data-h2-bg-color="b(lightgray)"
                 data-h2-padding="b(all, m)"
                 data-h2-radius="b(s)"
               >
@@ -318,7 +321,7 @@ export const ProfileForm: React.FC<ProfilePageProps> = ({
                 </Link>
               </div>
               <div
-                data-h2-bg-color="b(gray)"
+                data-h2-bg-color="b(lightgray)"
                 data-h2-padding="b(all, m)"
                 data-h2-radius="b(s)"
               >
@@ -461,7 +464,7 @@ export const ProfileForm: React.FC<ProfilePageProps> = ({
                 </Link>
               </div>
               <div
-                data-h2-bg-color="b(gray)"
+                data-h2-bg-color="b(lightgray)"
                 data-h2-padding="b(all, m)"
                 data-h2-radius="b(s)"
               >
@@ -682,7 +685,7 @@ export const ProfileForm: React.FC<ProfilePageProps> = ({
                 </Link>
               </div>
               <div
-                data-h2-bg-color="b(gray)"
+                data-h2-bg-color="b(lightgray)"
                 data-h2-padding="b(all, m)"
                 data-h2-radius="b(s)"
               >
@@ -810,7 +813,7 @@ export const ProfileForm: React.FC<ProfilePageProps> = ({
                 </Link>
               </div>
               <div
-                data-h2-bg-color="b(gray)"
+                data-h2-bg-color="b(lightgray)"
                 data-h2-padding="b(all, m)"
                 data-h2-radius="b(s)"
               >
@@ -896,7 +899,7 @@ export const ProfileForm: React.FC<ProfilePageProps> = ({
                 </Link>
               </div>
               <div
-                data-h2-bg-color="b(gray)"
+                data-h2-bg-color="b(lightgray)"
                 data-h2-padding="b(all, m)"
                 data-h2-radius="b(s)"
               >
@@ -1005,7 +1008,7 @@ export const ProfileForm: React.FC<ProfilePageProps> = ({
                 </Link>
               </div>
               <div
-                data-h2-bg-color="b(gray)"
+                data-h2-bg-color="b(lightgray)"
                 data-h2-padding="b(all, m)"
                 data-h2-radius="b(s)"
               >
@@ -1063,7 +1066,7 @@ export const ProfileForm: React.FC<ProfilePageProps> = ({
                 )}
               </div>
             </div>
-            <div id="skills-section">
+            <div id="skills-section" data-h2-padding="b(bottom, xxl)">
               <div style={{ display: "flex", alignItems: "baseline" }}>
                 <h2 data-h2-font-weight="b(600)" style={{ flex: "1 1 0%" }}>
                   <LightningBoltIcon style={{ width: "calc(1rem*2.25)" }} />
@@ -1088,7 +1091,48 @@ export const ProfileForm: React.FC<ProfilePageProps> = ({
                   })}
                 </Link>
               </div>
-              <p>Skill and experience details</p>
+              {!experiences || experiences?.length === 0 ? (
+                <div
+                  data-h2-bg-color="b(lightgray)"
+                  data-h2-padding="b(all, m)"
+                  data-h2-radius="b(s)"
+                >
+                  <p>
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "You haven't added any information here yet.",
+                      description:
+                        "Message that the user hasn't filled out the section yet",
+                    })}
+                  </p>
+                  <p>
+                    {intl.formatMessage(
+                      {
+                        defaultMessage:
+                          "There are <redText>required</redText> fields missing.",
+                        description:
+                          "Message that there are required fields missing. Please ignore things in <> tags.",
+                      },
+                      {
+                        redText,
+                      },
+                    )}{" "}
+                    <a href={paths.skillsAndExperiences()}>
+                      {intl.formatMessage({
+                        defaultMessage: "Click here to get started.",
+                        description:
+                          "Message to click on the words to begin something",
+                      })}
+                    </a>
+                  </p>
+                </div>
+              ) : (
+                <div data-h2-padding="b(all, m)" data-h2-radius="b(s)">
+                  <ExperienceSection
+                    experiences={experiences?.filter(notEmpty)}
+                  />
+                </div>
+              )}
             </div>
           </div>
         </div>

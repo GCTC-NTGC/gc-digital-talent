@@ -1,13 +1,15 @@
 import React from "react";
 import Accordion from "@common/components/accordion/Accordion";
 import BriefCaseIcon from "@heroicons/react/solid/BriefcaseIcon";
-import { Button } from "@common/components";
+import { Link } from "@common/components";
 import { CommunityExperience } from "@common/api/generated";
 import { useIntl } from "react-intl";
 import { getLocale } from "@common/helpers/localize";
 import { getDateRange } from "@common/helpers/dateUtils";
+import { useApplicantProfileRoutes } from "../../../applicantProfileRoutes";
 
 const CommunityAccordion: React.FunctionComponent<CommunityExperience> = ({
+  id,
   title,
   organization,
   startDate,
@@ -18,6 +20,8 @@ const CommunityAccordion: React.FunctionComponent<CommunityExperience> = ({
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
+  const profilePaths = useApplicantProfileRoutes();
+  const editUrl = `${profilePaths.skillsAndExperiences()}/community/${id}/edit`;
 
   // create unordered list element of skills DOM Element
   const skillsList = skills
@@ -85,12 +89,12 @@ const CommunityAccordion: React.FunctionComponent<CommunityExperience> = ({
         </p>
       </div>
       <div data-h2-padding="b(left, l)">
-        <Button color="primary" mode="outline">
+        <Link href={editUrl} color="primary" mode="outline" type="button">
           {intl.formatMessage({
             defaultMessage: "Edit Experience",
             description: "Edit Experience button label",
           })}
-        </Button>
+        </Link>
       </div>
     </Accordion>
   );

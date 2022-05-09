@@ -8,6 +8,7 @@ import {
   useUpdateCommunityExperienceMutation,
   useUpdateEducationExperienceMutation,
   useUpdatePersonalExperienceMutation,
+  useUpdateWorkExperienceMutation,
 } from "../../api/generated";
 import type {
   ExperienceDetailsSubmissionData,
@@ -52,7 +53,7 @@ const useExperienceMutations = (
     useUpdateEducationExperienceMutation();
   const [, executeUpdatePersonalMutation] =
     useUpdatePersonalExperienceMutation();
-  const [, executeUpdateWorkMutation] = useUpdateAwardExperienceMutation();
+  const [, executeUpdateWorkMutation] = useUpdateWorkExperienceMutation();
 
   const mutations = {
     create: {
