@@ -36,7 +36,7 @@ MyStatusFormNull.args = {
   me: {
     __typename: "User",
     id: "11",
-    jobLookingStatus: JobLookingStatus.ActivelyLooking,
+    jobLookingStatus: undefined,
     isProfileActive: false,
   },
 };

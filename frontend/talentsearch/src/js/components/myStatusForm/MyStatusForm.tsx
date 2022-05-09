@@ -63,6 +63,7 @@ export const MyStatusForm: React.FC<MyStatusFormProps> = ({
     if (initialData?.me) {
       await handleMyStatus(initialData.me?.id, formValuesToSubmitData(data));
     }
+    console.log(data);
   };
 
   let disabledColor = "";
@@ -126,7 +127,8 @@ export const MyStatusForm: React.FC<MyStatusFormProps> = ({
             disabled={!isFormActive}
             rules={{
               required: intl.formatMessage(errorMessages.required),
-              onChange: handleSubmit,
+              onChange: (e) =>
+                handleSubmit({ jobLookingStatus: e.target.value }),
             }}
             items={enumToOptions(
               JobLookingStatus,

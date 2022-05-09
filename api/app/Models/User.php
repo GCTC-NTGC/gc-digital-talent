@@ -166,17 +166,12 @@ class User extends Model implements Authenticatable
         is_null($this->attributes['preferred_lang']) Or
         is_null($this->attributes['current_province']) Or
         is_null($this->attributes['current_city']) Or
-        is_null($this->attributes['looking_for_english']) Or
         (is_null($this->attributes['looking_for_english']) &&
         is_null($this->attributes['looking_for_french']) &&
         is_null($this->attributes['looking_for_bilingual'])) Or
         is_null($this->attributes['is_gov_employee']) Or
         is_null($this->attributes['location_preferences']) Or
         is_null($this->attributes['would_accept_temporary']) Or
-        is_null($this->attributes['is_woman']) Or
-        is_null($this->attributes['has_disability']) Or
-        is_null($this->attributes['is_indigenous']) Or
-        is_null($this->attributes['is_visible_minority']) Or
         is_null($this->attributes['has_diploma']) Or
         is_null($this->attributes['expected_salary']) Or
         is_null($this->attributes['would_accept_temporary'])
