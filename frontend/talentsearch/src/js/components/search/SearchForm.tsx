@@ -108,11 +108,11 @@ export const SearchForm: React.FunctionComponent<SearchFormProps> = ({
       return {
         classifications: values.classifications
           ? values.classifications?.map((id) =>
-              id ? classificationMap.get(id) : null,
+              id ? classificationMap.get(id) : undefined,
             )
           : [],
         cmoAssets: values.cmoAssets
-          ? values.cmoAssets?.map((id) => (id ? assetMap.get(id) : null))
+          ? values.cmoAssets?.map((id) => (id ? assetMap.get(id) : undefined))
           : [],
         operationalRequirements: values.operationalRequirements
           ? unpackMaybes(values.operationalRequirements)
