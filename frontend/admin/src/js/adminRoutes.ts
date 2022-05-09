@@ -10,6 +10,8 @@ const adminRoutes = (lang: string) => {
   return {
     home,
 
+    dashboard: (): string => path.join(home(), "dashboard"),
+
     classificationTable: (): string => path.join(home(), "classifications"),
     classificationCreate: (): string =>
       path.join(home(), "classifications", "create"),

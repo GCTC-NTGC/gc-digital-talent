@@ -34,6 +34,7 @@ import SkillPage from "./skill/SkillPage";
 import { CreateSkill } from "./skill/CreateSkill";
 import { UpdateSkill } from "./skill/UpdateSkill";
 import HomePage from "./home/HomePage";
+import DashboardPage from "./dashboard/DashboardPage";
 
 const routes = (
   paths: AdminRoutes,
@@ -43,7 +44,13 @@ const routes = (
     path: paths.home(),
     action: () => ({
       component: <HomePage />,
-      redirect: loggedIn ? paths.poolTable() : undefined,
+      redirect: loggedIn ? paths.dashboard() : undefined,
+    }),
+  },
+  {
+    path: paths.dashboard(),
+    action: () => ({
+      component: <DashboardPage />,
     }),
   },
   {
@@ -216,6 +223,14 @@ export const PoolDashboard: React.FC = () => {
   const paths = useAdminRoutes();
 
   const menuItems = [
+    <MenuLink
+      key="dashboard"
+      href={paths.dashboard()}
+      text={intl.formatMessage({
+        defaultMessage: "Dashboard",
+        description: "Label displayed on the dashboard menu item.",
+      })}
+    />,
     <MenuHeading
       key="search-requests"
       text={intl.formatMessage({
