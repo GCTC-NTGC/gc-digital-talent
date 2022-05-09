@@ -88,16 +88,7 @@ const WorkAccordion: React.FunctionComponent<WorkExperience> = ({
         </p>
       </div>
       <div data-h2-padding="b(left, l)">
-        <Link
-          href={editUrl}
-          color="primary"
-          mode="outline"
-          type="button"
-          title={intl.formatMessage({
-            defaultMessage: "Edit Experience",
-            description: "Edit Experience button label",
-          })}
-        >
+        <Link href={editUrl} color="primary" mode="outline" type="button">
           {intl.formatMessage({
             defaultMessage: "Edit Experience",
             description: "Edit Experience button label",
