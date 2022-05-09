@@ -3,7 +3,7 @@ import { useIntl } from "react-intl";
 import { HomeIcon } from "@heroicons/react/outline";
 import PageHeader from "@common/components/PageHeader";
 
-const HomePage: React.FC = () => {
+const DashboardPage: React.FC = () => {
   const intl = useIntl();
 
   return (
@@ -32,4 +32,4 @@ const HomePage: React.FC = () => {
   );
 };
 
-export default HomePage;
+export default DashboardPage;
