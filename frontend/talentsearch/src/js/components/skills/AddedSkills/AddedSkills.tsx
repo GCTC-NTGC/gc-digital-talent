@@ -1,6 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { Chip } from "@common/components/Chip";
+import Chip from "@common/components/Chip";
 import { Scalars, Skill } from "@common/api/generated";
 import { getLocale } from "@common/helpers/localize";
 

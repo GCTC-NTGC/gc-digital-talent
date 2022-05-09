@@ -32,7 +32,7 @@ export interface TabProps extends React.HTMLProps<HTMLElement> {
   onToggleOpen?: VoidFunction;
 }
 
-export const Tab: React.FC<TabProps> = ({
+const Tab: React.FC<TabProps> = ({
   icon,
   iconOpen,
   iconClosed,
@@ -149,4 +149,5 @@ export const Tab: React.FC<TabProps> = ({
 
   return assembledTab;
 };
+
 export default Tab;

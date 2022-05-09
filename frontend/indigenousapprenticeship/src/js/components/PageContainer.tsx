@@ -34,17 +34,12 @@ export const MenuLink: React.FC<MenuLinkProps> = ({
     <Link
       href={href}
       title={title ?? ""}
-      {...{
-        "data-h2-font-color": "b(lightpurple)",
-      }}
+      data-h2-font-color="b(ia-pink)"
+      data-h2-font-weight={
+        isActive(href, location.pathname) ? "b(700)" : "b(100)"
+      }
     >
-      <div
-        data-h2-font-weight={
-          isActive(href, location.pathname) ? "b(700)" : "b(100)"
-        }
-      >
-        {text}
-      </div>
+      {text}
     </Link>
   );
 };
@@ -73,26 +68,35 @@ export const PageContainer: React.FC<{
   menuItems: ReactElement[];
   contentRoutes: Routes<RouterResult>;
 }> = ({ menuItems, contentRoutes }) => {
+  const intl = useIntl();
   // stabilize component that will not change during life of app, avoid render loops in router
   const notFoundComponent = useRef(<IndigenousApprenticeshipNotFound />);
   const content = useRouter(contentRoutes, notFoundComponent.current);
   return (
     <ScrollToTop>
-      <div
-        className="container"
-        data-h2-display="b(flex)"
-        data-h2-flex-direction="b(column)"
-        style={{ height: "100vh", margin: "0" }}
-      >
-        <div>
-          <Header baseUrl={INDIGENOUSAPPRENTICESHIP_APP_DIR} />
-          <NavMenu items={menuItems} />
+      <>
+        <a href="#main" data-h2-visibility="b(hidden)">
+          {intl.formatMessage({
+            defaultMessage: "Skip to main content",
+            description: "Assistive technology skip link",
+          })}
+        </a>
+        <div
+          className="container"
+          data-h2-display="b(flex)"
+          data-h2-flex-direction="b(column)"
+          style={{ height: "100vh", margin: "0" }}
+        >
+          <div>
+            <Header baseUrl={INDIGENOUSAPPRENTICESHIP_APP_DIR} />
+            <NavMenu items={menuItems} />
+          </div>
+          <main id="main">{content}</main>
+          <div style={{ marginTop: "auto" }}>
+            <Footer baseUrl={INDIGENOUSAPPRENTICESHIP_APP_DIR} />
+          </div>
         </div>
-        <div>{content}</div>
-        <div style={{ marginTop: "auto" }}>
-          <Footer baseUrl={INDIGENOUSAPPRENTICESHIP_APP_DIR} />
-        </div>
-      </div>
+      </>
     </ScrollToTop>
   );
 };

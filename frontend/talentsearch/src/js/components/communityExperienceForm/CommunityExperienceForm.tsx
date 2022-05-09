@@ -1,8 +1,8 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { useWatch } from "react-hook-form";
-import { Input } from "@common/components/form/Input";
-import { Checkbox } from "@common/components/form/Checkbox";
+import Input from "@common/components/form/Input";
+import Checkbox from "@common/components/form/Checkbox";
 import { errorMessages } from "@common/messages";
 
 export const CommunityExperienceForm: React.FunctionComponent = () => {
@@ -87,6 +87,12 @@ export const CommunityExperienceForm: React.FunctionComponent = () => {
         </div>
         <div>
           <Checkbox
+            boundingBox
+            boundingBoxLabel={intl.formatMessage({
+              defaultMessage: "Current Role",
+              description:
+                "Label displayed on Community Experience form for current role bounded box",
+            })}
             id="current-role"
             label={intl.formatMessage({
               defaultMessage: "I am currently active in this role",
@@ -99,7 +105,7 @@ export const CommunityExperienceForm: React.FunctionComponent = () => {
             data-h2-display="b(flex)"
             data-h2-flex-direction="b(column) s(row)"
           >
-            <div data-h2-padding="b(right, none) s(right, l)">
+            <div data-h2-padding="b(right, none) s(right, s)">
               <Input
                 id="startDate"
                 label={intl.formatMessage({

@@ -1,5 +1,3 @@
-export {
-  default,
-  SearchRequestFilters,
-  FilterBlock,
-} from "./SearchRequestFilters";
+import SearchRequestFilters, { FilterBlock } from "./SearchRequestFilters";
+
+export { SearchRequestFilters, FilterBlock };

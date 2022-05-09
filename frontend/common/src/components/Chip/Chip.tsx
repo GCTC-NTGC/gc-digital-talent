@@ -43,7 +43,7 @@ const colorMap: Record<
   },
 };
 
-export const Chip: React.FC<ChipProps> = ({
+const Chip: React.FC<ChipProps> = ({
   color,
   mode,
   onDismiss,

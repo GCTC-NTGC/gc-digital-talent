@@ -1,28 +1,19 @@
 {
   "debug": false,
   "folders": {
-    "markup": [
-      "_layouts",
-      "_includes",
-      "_data"
-    ],
+    "markup": ["_layouts", "_includes", "_data"],
     "styles": "assets/css"
   },
   "colors": [
     {
       "key": "white",
       "color": "rgb(255 255 255)",
-      "opacities": [
-        ".1",
-        ".2"
-      ]
+      "opacities": [".1", ".2"]
     },
     {
       "key": "black",
       "color": "rgb(20, 20, 35)",
-      "opacities": [
-        ".8"
-      ]
+      "opacities": [".8"]
     },
     {
       "key": "itpBlack",
@@ -50,18 +41,12 @@
     {
       "key": "primary",
       "color": "#674C90",
-      "opacities": [
-        ".1",
-        ".2"
-      ]
+      "opacities": [".1", ".2"]
     },
     {
       "key": "secondary",
       "color": "#1D2C4C",
-      "opacities": [
-        ".1",
-        ".2"
-      ]
+      "opacities": [".1", ".2"]
     },
     {
       "key": "tc",
@@ -86,10 +71,7 @@
     {
       "key": "purple",
       "color": "#5b1647",
-      "opacities": [
-        ".1",
-        ".2"
-      ]
+      "opacities": [".1", ".2"]
     },
     {
       "key": "wine",

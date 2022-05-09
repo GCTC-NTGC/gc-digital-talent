@@ -4,10 +4,11 @@ import "../src/css/app.css"
 import "../src/js/components/IntlContainer";
 import { setIntlConfig, withIntl } from 'storybook-addon-intl';
 import AdminFrench from "../src/js/lang/frCompiled.json";
-import { CommonFrench } from "../../common/src/lang";
+import CommonFrench from "../../common/src/lang";
 
 // CSS files required for building with `MERGE_STORYBOOKS=true`.
 import "../../talentsearch/src/css/app.css";
+import "../../indigenousapprenticeship/src/css/app.css";
 
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },

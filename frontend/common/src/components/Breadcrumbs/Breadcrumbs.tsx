@@ -6,7 +6,7 @@ export interface BreadcrumbsProps {
   links: { title: string; href?: string; icon?: JSX.Element }[];
 }
 
-export const Breadcrumbs: React.FunctionComponent<BreadcrumbsProps> = ({
+const Breadcrumbs: React.FunctionComponent<BreadcrumbsProps> = ({
   links,
 }) => (
   <div data-h2-display="b(flex)">

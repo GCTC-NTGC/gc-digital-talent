@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Breadcrumbs, BreadcrumbsProps } from "@common/components/Breadcrumbs";
+import Breadcrumbs, { BreadcrumbsProps } from "@common/components/Breadcrumbs";
 import { UserIcon } from "@heroicons/react/solid";
 import { useIntl } from "react-intl";
 import { imageUrl } from "@common/helpers/router";

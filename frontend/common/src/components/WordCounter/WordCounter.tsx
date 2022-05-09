@@ -9,7 +9,7 @@ export interface WordCounterProps {
   wordLimit: number;
 }
 
-export const WordCounter: React.FunctionComponent<WordCounterProps> = ({
+const WordCounter: React.FunctionComponent<WordCounterProps> = ({
   text,
   wordLimit,
   ...rest

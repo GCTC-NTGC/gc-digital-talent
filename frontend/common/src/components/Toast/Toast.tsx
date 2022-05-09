@@ -18,7 +18,7 @@ const CloseButton = ({
   closeToast: React.MouseEventHandler;
 }) => <XCircleIcon style={{ width: "1rem" }} onClick={closeToast} />;
 
-export const Toast: React.FunctionComponent = () => {
+const Toast: React.FunctionComponent = () => {
   return (
     <ToastContainer
       position="top-center"

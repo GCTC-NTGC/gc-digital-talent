@@ -23,3 +23,12 @@ FallbackResource /frontend/indigenousapprenticeship/dist/index.html
     # RewriteCond %{REQUEST_URI} (.+)/$
     # RewriteRule ^ %1 [L,R=301]
 </IfModule>
+
+# Set SSI to run on .shtml and .sjs files in this directory
+Options +Includes
+AddType text/html .shtml
+AddType text/javascript .sjs
+AddOutputFilter INCLUDES .shtml .sjs
+
+# Make certain environment variables available for SSI
+#PassEnv ENV_NAME_HERE

@@ -1,9 +1,20 @@
+[data-reach-dialog-overlay] {
+  background-color: rgba(0, 0, 0, 0.85);
+  z-index: 9999;
+}
+
 [data-reach-dialog-content] {
   padding: 1.5rem;
   width: 95vw;
 }
 
-.dialog-title {
+[data-reach-dialog-content].dialog--centered {
+  margin: 0 auto !important;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.dialog__title {
   padding-right: 2rem;
   z-index: 1;
 }
