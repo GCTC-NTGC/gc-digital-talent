@@ -171,7 +171,6 @@ class User extends Model implements Authenticatable
         is_null($this->attributes['looking_for_bilingual'])) Or
         is_null($this->attributes['is_gov_employee']) Or
         is_null($this->attributes['location_preferences']) Or
-        is_null($this->attributes['would_accept_temporary']) Or
         is_null($this->attributes['expected_salary']) Or
         is_null($this->attributes['would_accept_temporary'])
         )   {
