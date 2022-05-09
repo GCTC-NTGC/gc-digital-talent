@@ -1,4 +1,4 @@
-import React, { useMemo, useCallback, useRef } from "react";
+import React, { useMemo } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { Checklist, MultiSelect, RadioGroup } from "@common/components/form";
@@ -102,7 +102,6 @@ export const SearchForm: React.FunctionComponent<SearchFormProps> = ({
   const initialValues = state ? state.some.initialValues : {};
   const methods = useForm<FormValues>({ defaultValues: initialValues });
   const { watch } = methods;
-  const formValues = watch();
 
   React.useEffect(() => {
     const formValuesToData = (values: FormValues): PoolCandidateFilterInput => {
