@@ -69,5 +69,10 @@ class UserSeederLocal extends Seeder
             'sub' => 'a46a681f-31c0-42c8-8be3-97466d77f96a',
             'roles' => ['ADMIN']
         ]);
+        User::factory()->create([
+            'email' => 'patcon'.$fakeEmailDomain,
+            'sub' => '88f7d707-01df-4f56-8eed-a823d16c232c',
+            'roles' => ['ADMIN']
+        ]);
     }
 }
