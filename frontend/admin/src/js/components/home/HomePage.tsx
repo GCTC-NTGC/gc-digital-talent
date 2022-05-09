@@ -3,9 +3,14 @@ import { useIntl } from "react-intl";
 import { HomeIcon, LoginIcon } from "@heroicons/react/outline";
 import CardLink from "@common/components/CardLink";
 import PageHeader from "@common/components/PageHeader";
+import { useLocation } from "@common/helpers/router";
+import { getLocale } from "@common/helpers/localize";
+import { useApiRoutes } from "../../apiRoutes";
 
 const HomePage: React.FC = () => {
   const intl = useIntl();
+  const apiRoutes = useApiRoutes();
+  const location = useLocation();
 
   return (
     <div data-h2-padding="b(all, m)">
@@ -24,8 +29,8 @@ const HomePage: React.FC = () => {
       </p>
       <div data-h2-width="b(100) m(50) l(25)" data-h2-margin="b(top, l)">
         <CardLink
-          href="/auth/login"
           external
+          href={apiRoutes.login(location.pathname, getLocale(intl))}
           label={intl.formatMessage({
             defaultMessage: "Login",
             description:
