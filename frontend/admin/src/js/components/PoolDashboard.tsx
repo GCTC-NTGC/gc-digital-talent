@@ -44,7 +44,7 @@ const routes = (
     path: paths.home(),
     action: () => ({
       component: <HomePage />,
-      redirect: loggedIn ? paths.poolTable() : undefined,
+      redirect: loggedIn ? paths.dashboard() : undefined,
     }),
   },
   {
