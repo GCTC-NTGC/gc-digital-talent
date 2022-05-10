@@ -116,6 +116,7 @@ const LoginOrLogout = () => {
   if (loggedIn) {
     return (
       <Button
+        key="loginlogout"
         color="white"
         mode="inline"
         block
