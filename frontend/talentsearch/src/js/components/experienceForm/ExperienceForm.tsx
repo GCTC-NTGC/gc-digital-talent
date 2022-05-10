@@ -28,7 +28,7 @@ import {
   useGetMyExperiencesQuery,
   useGetMeQuery,
   useGetSkillsQuery,
- Exact } from "../../api/generated";
+} from "../../api/generated";
 import applicantProfileRoutes from "../../applicantProfileRoutes";
 
 import type {
@@ -40,10 +40,12 @@ import type {
   ExperienceQueryData,
 } from "./types";
 
-
 import queryResultToDefaultValues from "./defaultValues";
 import formValuesToSubmitData from "./submissionData";
-import { useExperienceMutations, useDeleteExperienceMutation } from "./mutations";
+import {
+  useExperienceMutations,
+  useDeleteExperienceMutation,
+} from "./mutations";
 
 export interface ExperienceFormProps {
   experienceType: ExperienceType;
@@ -79,10 +81,28 @@ export const ExperienceForm: React.FunctionComponent<ExperienceFormProps> = ({
     await onUpdateExperience(data);
   };
   const deleteButton = (
-    <Button type="button" mode="solid" color="primary" onClick={deleteExperience}>
+    <Button
+      type="submit"
+      mode="solid"
+      color="primary"
+      onClick={deleteExperience}
+    >
       {intl.formatMessage({
         defaultMessage: "Delete",
         description: "Delete confirmation",
+      })}
+    </Button>
+  );
+  const exitDialogButton = (
+    <Button
+      type="button"
+      mode="outline"
+      color="secondary"
+      onClick={() => setDialogOpen(false)}
+    >
+      {intl.formatMessage({
+        defaultMessage: "Cancel",
+        description: "Cancel confirmation",
       })}
     </Button>
   );
@@ -156,9 +176,10 @@ export const ExperienceForm: React.FunctionComponent<ExperienceFormProps> = ({
             type="button"
             mode="outline"
             color="secondary"
+            data-h2-margin="b(top, l)"
           >
             <span>
-              <TrashIcon style={{ width: "1rem" }} />
+              <TrashIcon style={{ width: "0.9rem" }} />{" "}
               {intl.formatMessage({
                 defaultMessage: "Delete experience from My Profile",
                 description: "Label on button for delete this experience",
@@ -178,7 +199,15 @@ export const ExperienceForm: React.FunctionComponent<ExperienceFormProps> = ({
         })}
         isOpen={isDialogOpen}
         onDismiss={() => setDialogOpen(false)}
-        footer={deleteButton}
+        footer={
+          <div
+            data-h2-display="b(flex)"
+            data-h2-justify-content="b(space-between)"
+          >
+            {exitDialogButton}
+            {deleteButton}
+          </div>
+        }
       >
         {intl.formatMessage({
           defaultMessage:
@@ -278,23 +307,29 @@ const ExperienceFormContainer: React.FunctionComponent<
     }
   };
 
+  // delete functionality //
   // constrict to string only
   const experienceIdExact = experienceId || "";
-
-  const handleBlah = (res: any) => {
-    if (res.data) {
-      navigate(paths.skillsAndExperiences());
-    }
-  };
-
   const executeDeletionMutation = useDeleteExperienceMutation(experienceType);
 
   const handleDeleteExperience = () => {
     if (meData?.me) {
-      const res = executeDeletionMutation.executeDeletionMutation({
-        id: experienceIdExact,
-      });
-      handleBlah(res);
+      const res = executeDeletionMutation
+        .executeDeletionMutation({
+          id: experienceIdExact,
+        })
+        .then((result) => {
+          navigate(paths.skillsAndExperiences());
+          toast.success(
+            intl.formatMessage({
+              defaultMessage: "Experience Deleted",
+              description:
+                "Message displayed to user after experience deleted.",
+            }),
+          );
+          return result.data;
+        })
+        .catch(handleError);
     }
   };
 
@@ -319,7 +354,7 @@ const ExperienceFormContainer: React.FunctionComponent<
       onUpdateExperience={handleUpdateExperience}
       deleteExperience={handleDeleteExperience}
       cacheKey={cacheKey}
-      edit
+      edit={edit}
     />
   );
 };
