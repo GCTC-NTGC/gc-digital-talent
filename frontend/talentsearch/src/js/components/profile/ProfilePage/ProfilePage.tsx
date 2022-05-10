@@ -35,6 +35,8 @@ import {
   GetMeQuery,
   GovEmployeeType,
 } from "../../../api/generated";
+
+import MyStatusApi from "../../myStatusForm/MyStatusForm";
 import ExperienceSection from "../../applicantProfile/ExperienceSection";
 
 export interface ProfilePageProps {
@@ -265,7 +267,7 @@ export const ProfileForm: React.FC<ProfilePageProps> = ({
                   description: "Title of the My status section",
                 })}
               </h2>
-              <p>Status details</p>
+              <MyStatusApi />
             </div>
             <div id="pools-section">
               <h2 data-h2-font-weight="b(600)">
