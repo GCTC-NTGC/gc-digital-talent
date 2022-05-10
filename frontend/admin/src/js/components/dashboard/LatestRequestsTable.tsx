@@ -53,12 +53,16 @@ const statusAccessor = (
     ? intl.formatMessage(getPoolCandidateSearchStatus(status as string))
     : "";
 
-const LatestRequestsTable: React.FC = () => {
+export interface LatestRequestsTableProps {
+  data?: LatestRequestsQuery;
+}
+
+const LatestRequestsTable: React.FC<LatestRequestsTableProps> = ({ data }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const paths = useAdminRoutes();
-  const [results] = useLatestRequestsQuery();
-  const { data, fetching, error } = results;
+
+  console.log(data);
 
   const columns: ColumnsOf<Data> = [
     {
@@ -134,19 +138,6 @@ const LatestRequestsTable: React.FC = () => {
     },
   ];
 
-  if (fetching) {
-    return <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>;
-  }
-
-  if (error) {
-    return (
-      <p>
-        {intl.formatMessage(commonMessages.loadingError)}
-        {error.message}
-      </p>
-    );
-  }
-
   const tableData = data?.latestPoolCandidateSearchRequests.filter(notEmpty);
 
   return (
@@ -173,4 +164,26 @@ const LatestRequestsTable: React.FC = () => {
   );
 };
 
-export default LatestRequestsTable;
+const LatestRequestsTableApi: React.FC = () => {
+  const intl = useIntl();
+  const [results] = useLatestRequestsQuery();
+  const { data, fetching, error } = results;
+
+  if (fetching) {
+    return <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>;
+  }
+
+  if (error) {
+    return (
+      <p>
+        {intl.formatMessage(commonMessages.loadingError)}
+        {error.message}
+      </p>
+    );
+  }
+
+  return <LatestRequestsTable data={data} />;
+};
+
+export default LatestRequestsTableApi;
+export { LatestRequestsTable };
