@@ -14,7 +14,11 @@ class AddExtraConstraints extends Migration
      */
     public function up()
     {
-        /** the first batch is a bunch of pivots to make unique **/
+        /** The first batch is a bunch of pivots to make unique.
+         * The first field in the index is the one that would typically be searchable
+         * try to make partial indexing possible.
+         * **/
+
 
         // a pool may not have duplicate CMO assets assigned to it
         Schema::table('asset_cmo_asset_pool', function (Blueprint $table) {
@@ -28,22 +32,22 @@ class AddExtraConstraints extends Migration
 
         // a pool candidate may not have duplicate classifications assigned to it
         Schema::table('classification_pool_candidate', function (Blueprint $table) {
-            $table->unique(['pool_candidate_id', 'classification_id'], 'classification_pool_candidate_unique');
+            $table->unique(['classification_id', 'pool_candidate_id'], 'classification_pool_candidate_unique');
         });
 
         // a user may not have duplicate classifications assigned to it
         Schema::table('classification_user', function (Blueprint $table) {
-            $table->unique(['user_id', 'classification_id'], 'classification_user_unique');
+            $table->unique(['classification_id', 'user_id'], 'classification_user_unique');
         });
 
         // a pool candidate may not have duplicate CMO assets assigned to it
         Schema::table('cmo_asset_pool_candidate', function (Blueprint $table) {
-            $table->unique(['pool_candidate_id', 'cmo_asset_id'], 'cmo_asset_pool_candidate_unique');
+            $table->unique(['cmo_asset_id', 'pool_candidate_id'], 'cmo_asset_pool_candidate_unique');
         });
 
         // a user may not have duplicate CMO assets assigned to it
         Schema::table('cmo_asset_user', function (Blueprint $table) {
-            $table->unique(['user_id', 'cmo_asset_id'], 'cmo_asset_user_unique');
+            $table->unique(['cmo_asset_id', 'user_id'], 'cmo_asset_user_unique');
         });
 
         // a pool may not have duplicate CMO assets assigned to it
