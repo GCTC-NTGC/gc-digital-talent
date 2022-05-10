@@ -158,7 +158,10 @@ class User extends Model implements Authenticatable
         else
             return true;
     }
-   public function getProfileStatusAttribute(): bool
+
+     // getIsProfileCompleteAttribute function is correspondent to isProfileComplete attribute in graphql schema
+
+   public function getIsProfileCompleteAttribute(): bool
     {if(is_null($this->attributes['first_name']) Or
         is_null($this->attributes['last_name']) Or
         is_null($this->attributes['email']) Or

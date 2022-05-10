@@ -93,7 +93,7 @@ type User {
     pools: [Pool] @hasMany # Pools a user owns
 
     # Profile Status
-    isProfileComplete: Boolean @rename(attribute:"profileStatus")
+    isProfileComplete: Boolean 
 }
 
 enum ProvinceOrTerritory {
