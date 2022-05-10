@@ -549,6 +549,7 @@ type Query {
     poolCandidateFilters: [PoolCandidateFilter]! @all @guard @can(ability: "viewAny")
     poolCandidateSearchRequest(id: ID! @eq): PoolCandidateSearchRequest @find @guard @can(ability: "view", query: true)
     poolCandidateSearchRequests: [PoolCandidateSearchRequest]! @all @guard @can(ability: "viewAny")
+    latestPoolCandidateSearchRequests(limit: Int @limit): [PoolCandidateSearchRequest]! @all @orderBy(column: "created_at", direction: DESC) @guard @can(ability: "viewAny")
     skillFamily(id: ID! @eq): SkillFamily @find
     skillFamilies: [SkillFamily]! @all
     skill(id: ID! @eq): Skill @find
