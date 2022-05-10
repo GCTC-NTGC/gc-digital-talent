@@ -166,7 +166,6 @@ function Table<T extends Record<string, unknown>>({
       >
         <table
           aria-labelledby={labelledBy}
-          className="table"
           data-h2-width="b(100)"
           {...getTableProps()}
         >
