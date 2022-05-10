@@ -23,7 +23,7 @@ import type {
 
 type ExperienceMutationType = "create" | "update";
 
-const useExperienceMutations = (
+export const useExperienceMutations = (
   experienceType: ExperienceType,
   mutationType: ExperienceMutationType,
 ) => {
@@ -83,4 +83,25 @@ const useExperienceMutations = (
   };
 };
 
-export default useExperienceMutations;
+export const useDeleteExperienceMutation = (experienceType: ExperienceType) => {
+  const [, executeDeleteAwardMutation] = useDeleteAwardExperienceMutation();
+  const [, executeDeleteCommunityMutation] =
+    useDeleteCommunityExperienceMutation();
+  const [, executeDeleteEducationMutation] =
+    useDeleteEducationExperienceMutation();
+  const [, executeDeletePersonalMutation] =
+    useDeletePersonalExperienceMutation();
+  const [, executeDeleteWorkMutation] = useDeleteWorkExperienceMutation();
+
+  const mutations = {
+    award: executeDeleteAwardMutation,
+    community: executeDeleteCommunityMutation,
+    education: executeDeleteEducationMutation,
+    personal: executeDeletePersonalMutation,
+    work: executeDeleteWorkMutation,
+  };
+
+  return {
+    executeDeletionMutation: mutations[experienceType],
+  };
+};

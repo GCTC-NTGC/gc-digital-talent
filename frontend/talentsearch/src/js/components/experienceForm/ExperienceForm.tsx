@@ -28,7 +28,7 @@ import {
   useGetMyExperiencesQuery,
   useGetMeQuery,
   useGetSkillsQuery,
-} from "../../api/generated";
+ Exact } from "../../api/generated";
 import applicantProfileRoutes from "../../applicantProfileRoutes";
 
 import type {
@@ -40,15 +40,17 @@ import type {
   ExperienceQueryData,
 } from "./types";
 
+
 import queryResultToDefaultValues from "./defaultValues";
 import formValuesToSubmitData from "./submissionData";
-import useExperienceMutations from "./mutations";
+import { useExperienceMutations, useDeleteExperienceMutation } from "./mutations";
 
 export interface ExperienceFormProps {
   experienceType: ExperienceType;
   experience?: ExperienceQueryData;
   skills: Skill[];
   onUpdateExperience: (values: ExperienceDetailsSubmissionData) => void;
+  deleteExperience: () => void;
   cacheKey?: string;
   edit?: boolean;
 }
@@ -57,6 +59,7 @@ export const ExperienceForm: React.FunctionComponent<ExperienceFormProps> = ({
   experience,
   experienceType,
   onUpdateExperience,
+  deleteExperience,
   skills,
   cacheKey,
   edit,
@@ -76,7 +79,7 @@ export const ExperienceForm: React.FunctionComponent<ExperienceFormProps> = ({
     await onUpdateExperience(data);
   };
   const deleteButton = (
-    <Button type="button" mode="solid" color="primary" onClick={() => {}}>
+    <Button type="button" mode="solid" color="primary" onClick={deleteExperience}>
       {intl.formatMessage({
         defaultMessage: "Delete",
         description: "Delete confirmation",
@@ -275,6 +278,26 @@ const ExperienceFormContainer: React.FunctionComponent<
     }
   };
 
+  // constrict to string only
+  const experienceIdExact = experienceId || "";
+
+  const handleBlah = (res: any) => {
+    if (res.data) {
+      navigate(paths.skillsAndExperiences());
+    }
+  };
+
+  const executeDeletionMutation = useDeleteExperienceMutation(experienceType);
+
+  const handleDeleteExperience = () => {
+    if (meData?.me) {
+      const res = executeDeletionMutation.executeDeletionMutation({
+        id: experienceIdExact,
+      });
+      handleBlah(res);
+    }
+  };
+
   if (fetchingSkills || fetchingMe || fetchingExperience) {
     return <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>;
   }
@@ -294,6 +317,7 @@ const ExperienceFormContainer: React.FunctionComponent<
       experienceType={experienceType}
       skills={skillsData.skills as Skill[]}
       onUpdateExperience={handleUpdateExperience}
+      deleteExperience={handleDeleteExperience}
       cacheKey={cacheKey}
       edit
     />
