@@ -9,7 +9,7 @@ query me {
 
 query latestRequests {
   latestPoolCandidateSearchRequests(limit: 10) {
-     id
+    id
     fullName
     requestedDate
     status

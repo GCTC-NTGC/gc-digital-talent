@@ -1,6 +1,7 @@
 /* eslint-disable react/jsx-key */
 import React, { ReactElement, useState } from "react";
 import { useIntl } from "react-intl";
+
 import {
   useTable,
   useGlobalFilter,
@@ -11,6 +12,7 @@ import {
 import { Button } from "@common/components";
 import Pagination from "@common/components/Pagination";
 import GlobalFilter from "../GlobalFilter";
+import SortIcon from "./SortIcon";
 
 export type ColumnsOf<T extends Record<string, unknown>> = Array<Column<T>>;
 
@@ -20,6 +22,7 @@ export interface TableProps<
   columns: Array<Column<T>>;
   data: Array<T>;
   filter?: boolean;
+  pagination?: boolean;
   hiddenCols?: string[];
   labelledBy?: string;
 }
@@ -57,6 +60,7 @@ function Table<T extends Record<string, unknown>>({
   data,
   labelledBy,
   filter = true,
+  pagination = true,
   hiddenCols = [],
 }: TableProps<T>): ReactElement {
   const {
@@ -155,11 +159,15 @@ function Table<T extends Record<string, unknown>>({
           </div>
         </div>
       ) : null}
-      <div data-h2-overflow="b(all, auto)" style={{ maxWidth: "100%" }}>
+      <div
+        data-h2-overflow="b(all, auto)"
+        style={{ maxWidth: "100%" }}
+        data-h2-shadow="b(s)"
+      >
         <table
           aria-labelledby={labelledBy}
           className="table"
-          data-h2-shadow="b(s)"
+          data-h2-width="b(100)"
           {...getTableProps()}
         >
           <thead>
@@ -169,13 +177,21 @@ function Table<T extends Record<string, unknown>>({
                   <th
                     {...column.getHeaderProps(column.getSortByToggleProps())}
                     key={column.id}
-                    data-h2-padding="b(right-left, m)"
+                    data-h2-bg-color="b(lightnavy)"
+                    data-h2-font-color="b(white)"
+                    data-h2-font-weight="b(800)"
+                    data-h2-padding="b(right-left, m) b(top-bottom, s)"
                     data-h2-text-align="b(left)"
                     data-h2-font-size="b(caption)"
                   >
-                    {column.render("Header")}
-                    <span data-h2-font-color="b(lightpurple)">
-                      {column.isSorted && (column.isSortedDesc ? " ▼" : " ▲")}
+                    <span
+                      data-h2-display="b(flex)"
+                      data-h2-align-items="b(center)"
+                    >
+                      <span>{column.render("Header")}</span>
+                      {column.isSorted && (
+                        <SortIcon isSortedDesc={column.isSortedDesc} />
+                      )}
                     </span>
                   </th>
                 ))}
@@ -191,7 +207,7 @@ function Table<T extends Record<string, unknown>>({
                     return (
                       <td
                         {...cell.getCellProps()}
-                        data-h2-padding="b(right-left, m)"
+                        data-h2-padding="b(all, s)"
                         data-h2-text-align="b(left)"
                         data-h2-font-size="b(caption)"
                       >
@@ -205,18 +221,20 @@ function Table<T extends Record<string, unknown>>({
           </tbody>
         </table>
       </div>
-      <Pagination
-        currentPage={pageIndex + 1}
-        handlePageChange={(pageNumber) => gotoPage(pageNumber - 1)}
-        handlePageSize={setPageSize}
-        pageSize={pageSize}
-        pageSizes={[10, 20, 30, 40, 50]}
-        totalCount={rows.length}
-        ariaLabel={intl.formatMessage({ defaultMessage: "Table results" })}
-        color="black"
-        mode="outline"
-        data-h2-margin="b(all, none)"
-      />
+      {pagination && (
+        <Pagination
+          currentPage={pageIndex + 1}
+          handlePageChange={(pageNumber) => gotoPage(pageNumber - 1)}
+          handlePageSize={setPageSize}
+          pageSize={pageSize}
+          pageSizes={[10, 20, 30, 40, 50]}
+          totalCount={rows.length}
+          ariaLabel={intl.formatMessage({ defaultMessage: "Table results" })}
+          color="black"
+          mode="outline"
+          data-h2-margin="b(all, none)"
+        />
+      )}
     </div>
   );
 }
