@@ -169,9 +169,9 @@ class User extends Model implements Authenticatable
         is_null($this->attributes['preferred_lang']) Or
         is_null($this->attributes['current_province']) Or
         is_null($this->attributes['current_city']) Or
-        (is_null($this->attributes['looking_for_english']) &&
-        is_null($this->attributes['looking_for_french']) &&
-        is_null($this->attributes['looking_for_bilingual'])) Or
+            (is_null($this->attributes['looking_for_english']) &&
+            is_null($this->attributes['looking_for_french']) &&
+            is_null($this->attributes['looking_for_bilingual'])) Or
         is_null($this->attributes['is_gov_employee']) Or
         is_null($this->attributes['location_preferences']) Or
         is_null($this->attributes['expected_salary']) Or
