@@ -22,7 +22,7 @@ class UserSeederLocal extends Seeder
             'roles' => ['ADMIN']
         ]);
 
-        $fakeEmailDomain = '@test.com';
+        $fakeEmailDomain = '@talent.test';
         // users with sub values from Sign In Canada, redirecting to localhost
         User::factory()->create([
             'email' => 'petertgiles'.$fakeEmailDomain,
@@ -57,6 +57,21 @@ class UserSeederLocal extends Seeder
         User::factory()->create([
             'email' => 'vd1992'.$fakeEmailDomain,
             'sub' => '2f3ee3fb-91ab-478e-a675-c56fdc043dc6',
+            'roles' => ['ADMIN']
+        ]);
+        User::factory()->create([
+            'email' => 'mnigh'.$fakeEmailDomain,
+            'sub' => 'c736bdff-c1f2-4538-b648-43a9743481a3',
+            'roles' => ['ADMIN']
+        ]);
+        User::factory()->create([
+            'email' => 'rvany'.$fakeEmailDomain,
+            'sub' => 'a46a681f-31c0-42c8-8be3-97466d77f96a',
+            'roles' => ['ADMIN']
+        ]);
+        User::factory()->create([
+            'email' => 'patcon'.$fakeEmailDomain,
+            'sub' => '88f7d707-01df-4f56-8eed-a823d16c232c',
             'roles' => ['ADMIN']
         ]);
     }
