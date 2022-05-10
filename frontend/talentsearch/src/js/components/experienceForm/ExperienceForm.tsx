@@ -55,6 +55,8 @@ export const ExperienceForm: React.FunctionComponent<ExperienceFormProps> = ({
   cacheKey,
 }) => {
   const intl = useIntl();
+  const locale = getLocale(intl);
+  const paths = applicantProfileRoutes(locale);
   const defaultValues = experience
     ? queryResultToDefaultValues(experienceType, experience)
     : { skills: undefined };
@@ -86,6 +88,7 @@ export const ExperienceForm: React.FunctionComponent<ExperienceFormProps> = ({
           }),
         },
       ]}
+      cancelLink={paths.skillsAndExperiences()}
     >
       <BasicForm
         onSubmit={handleSubmit}
@@ -128,19 +131,23 @@ export const ExperienceForm: React.FunctionComponent<ExperienceFormProps> = ({
           })}
           name="details"
         />
-        <ProfileFormFooter mode="bothButtons" />
+        <ProfileFormFooter
+          mode="bothButtons"
+          link={paths.skillsAndExperiences()}
+        />
       </BasicForm>
     </ProfileFormWrapper>
   );
 };
 
 export interface ExperienceFormContainerProps {
-  experienceType: ExperienceType; // TO DO: To be passed from router context
+  experienceType: ExperienceType;
   experienceId?: string;
+  edit?: boolean;
 }
 
 const ExperienceFormContainer: React.FunctionComponent<ExperienceFormContainerProps> =
-  ({ experienceType, experienceId }) => {
+  ({ experienceType, experienceId, edit }) => {
     const intl = useIntl();
     const locale = getLocale(intl);
     const paths = applicantProfileRoutes(locale);
@@ -151,23 +158,35 @@ const ExperienceFormContainer: React.FunctionComponent<ExperienceFormContainerPr
 
     const handleSuccess = () => {
       removeFromSessionStorage(cacheKey); // clear the cache
-      navigate(paths.home());
+      navigate(paths.skillsAndExperiences());
       toast.success(
-        intl.formatMessage({
-          defaultMessage: "Successfully added experience!",
-          description:
-            "Success message displayed after adding experience to profile",
-        }),
+        edit
+          ? intl.formatMessage({
+              defaultMessage: "Successfully updated experience!",
+              description:
+                "Success message displayed after updating experience on profile",
+            })
+          : intl.formatMessage({
+              defaultMessage: "Successfully added experience!",
+              description:
+                "Success message displayed after adding experience to profile",
+            }),
       );
     };
 
     const handleError = () => {
       toast.error(
-        intl.formatMessage({
-          defaultMessage: "Error: adding experience failed",
-          description:
-            "Message displayed to user after experience fails to be created.",
-        }),
+        edit
+          ? intl.formatMessage({
+              defaultMessage: "Error: updating experience failed",
+              description:
+                "Message displayed to user after experience fails to be updated.",
+            })
+          : intl.formatMessage({
+              defaultMessage: "Error: adding experience failed",
+              description:
+                "Message displayed to user after experience fails to be created.",
+            }),
       );
     };
 

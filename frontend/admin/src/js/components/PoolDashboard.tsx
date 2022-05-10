@@ -37,6 +37,7 @@ import { UpdateSkill } from "./skill/UpdateSkill";
 import HomePage from "./home/HomePage";
 import { Role, useGetPoolsQuery } from "../api/generated";
 import { AuthorizationContext } from "./AuthorizationContainer";
+import DashboardPage from "./dashboard/DashboardPage";
 
 const PoolListApi = (isAdmin: boolean) => {
   const intl = useIntl();
@@ -100,7 +101,13 @@ const routes = (
     path: paths.home(),
     action: () => ({
       component: <HomePage />,
-      redirect: loggedIn && isAdmin ? paths.poolTable() : undefined,
+      redirect: loggedIn ? paths.dashboard() : undefined,
+    }),
+  },
+  {
+    path: paths.dashboard(),
+    action: () => ({
+      component: loggedIn ? <DashboardPage /> : <AdminNotAuthorized />,
     }),
   },
   {
@@ -333,6 +340,14 @@ export const PoolDashboard: React.FC = () => {
   const isAdmin = !!loggedInUserRoles?.includes(Role.Admin);
 
   const menuItemsAdmin = [
+    <MenuLink
+      key="dashboard"
+      href={paths.dashboard()}
+      text={intl.formatMessage({
+        defaultMessage: "Dashboard",
+        description: "Label displayed on the dashboard menu item.",
+      })}
+    />,
     <MenuHeading
       key="search-requests"
       text={intl.formatMessage({

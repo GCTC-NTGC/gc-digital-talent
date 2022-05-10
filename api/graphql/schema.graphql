@@ -91,6 +91,9 @@ type User {
 
     # Pool Manager info
     pools: [Pool] @hasMany # Pools a user owns
+
+    # Profile Status
+    isProfileComplete: Boolean 
 }
 
 enum ProvinceOrTerritory {
