@@ -11,10 +11,9 @@ import {
   GetPoolCandidateSearchRequestsQuery,
   useGetPoolCandidateSearchRequestsQuery,
 } from "../../api/generated";
-import Table, { ColumnsOf } from "../Table";
+import Table, { ColumnsOf, tableEditButtonAccessor } from "../Table";
 import DashboardContentContainer from "../DashboardContentContainer";
 import { useAdminRoutes } from "../../adminRoutes";
-import { tableEditButtonAccessor } from "../TableEditButton";
 
 type Data = NonNullable<
   FromArray<GetPoolCandidateSearchRequestsQuery["poolCandidateSearchRequests"]>

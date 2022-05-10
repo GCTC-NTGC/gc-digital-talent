@@ -10,17 +10,18 @@ import {
 } from "react-table";
 import { Button } from "@common/components";
 import Pagination from "@common/components/Pagination";
-import GlobalFilter from "./GlobalFilter";
+import GlobalFilter from "../GlobalFilter";
 
 export type ColumnsOf<T extends Record<string, unknown>> = Array<Column<T>>;
 
-interface TableProps<
+export interface TableProps<
   T extends Record<string, unknown> = Record<string, unknown>,
 > {
   columns: Array<Column<T>>;
   data: Array<T>;
   filter?: boolean;
   hiddenCols?: string[];
+  labelledBy?: string;
 }
 
 const IndeterminateCheckbox: React.FC<
@@ -54,6 +55,7 @@ const IndeterminateCheckbox: React.FC<
 function Table<T extends Record<string, unknown>>({
   columns,
   data,
+  labelledBy,
   filter = true,
   hiddenCols = [],
 }: TableProps<T>): ReactElement {
@@ -154,7 +156,12 @@ function Table<T extends Record<string, unknown>>({
         </div>
       ) : null}
       <div data-h2-overflow="b(all, auto)" style={{ maxWidth: "100%" }}>
-        <table {...getTableProps()}>
+        <table
+          aria-labelledby={labelledBy}
+          className="table"
+          data-h2-shadow="b(s)"
+          {...getTableProps()}
+        >
           <thead>
             {headerGroups.map((headerGroup) => (
               <tr {...headerGroup.getHeaderGroupProps()}>
