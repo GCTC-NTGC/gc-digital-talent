@@ -54,6 +54,8 @@ describe("SearchContainer", () => {
 
   it("should render number of candidates", async () => {
     renderSearchContainer({ candidateCount: 10 });
-    expect(await screen.getAllByText(/10/i).length).toBeGreaterThanOrEqual(3);
+    expect(
+      await screen.getAllByText(/10/i, { selector: "span" }).length,
+    ).toBeGreaterThanOrEqual(3);
   });
 });
