@@ -32,7 +32,7 @@ Cypress.Commands.add('expireAppSession', () => {
 
 Cypress.Commands.add('discardLaravelCookie', () => {
   cy.clearCookie('laravel_session')
-}
+})
 
 Cypress.Commands.add('discardIdentityProviderCookie', () => {
   cy.clearCookie('api_session')
@@ -67,9 +67,9 @@ Cypress.Commands.add('register', (firstName, lastName, email, password, doAuthor
 })
 
 Cypress.Commands.add('registerWithAuthorization', (firstName, lastName, email, password) => {
-  cy.register(firstName, lastName, email, password, strictFail, true)
+  cy.register(firstName, lastName, email, password, true)
 })
 
 Cypress.Commands.add('registerWithNoAuthorization', (firstName, lastName, email, password) => {
-  cy.register(firstName, lastName, email, password, strictFail, false)
+  cy.register(firstName, lastName, email, password, false)
 })
