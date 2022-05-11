@@ -15,10 +15,12 @@ import {
   LanguageAbility,
   useGetPoolCandidatesByPoolQuery,
 } from "../../api/generated";
-import Table, { ColumnsOf } from "../Table";
-import { tableBooleanAccessor } from "../TableBoolean";
+import Table, {
+  ColumnsOf,
+  tableBooleanAccessor,
+  tableEditButtonAccessor,
+} from "../Table";
 import DashboardContentContainer from "../DashboardContentContainer";
-import { tableEditButtonAccessor } from "../TableEditButton";
 
 type Data = NonNullable<FromArray<GetPoolCandidatesQuery["poolCandidates"]>>;
 
