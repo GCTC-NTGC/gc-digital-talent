@@ -90,7 +90,7 @@ class User extends Model implements Authenticatable
 
     public function isAdmin(): bool
     {
-        return in_array('ADMIN', $this->roles);
+        return is_array($this->roles) && in_array('ADMIN', $this->roles);
     }
 
     // All the relationships for experiences
