@@ -12,6 +12,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Auth\Authenticatable as AuthenticatableTrait;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Class User
@@ -169,16 +171,11 @@ class User extends Model implements Authenticatable
         }
 
         // Pool acts as an OR filter. The query should return candidates in ANY of the pools.
-        $poolIds = [];
-        foreach ($pools as $pool) {
-            array_push($poolIds, $pool['id']);
-        }
-
-        $query->whereExists(function ($query) use ($poolIds) {
+        $query->whereExists(function ($query) use ($pools) {
             $query->select('id')
                   ->from('pool_candidates')
                   ->whereColumn('pool_candidates.user_id', 'users.id')
-                  ->whereIn('pool_candidates.pool_id', $poolIds);
+                  ->whereIn('pool_candidates.pool_id', $pools);
         });
         return $query;
     }
@@ -190,6 +187,73 @@ class User extends Model implements Authenticatable
             if ($languageAbility == ApiEnums::LANGUAGE_ABILITY_ENGLISH || $languageAbility == ApiEnums::LANGUAGE_ABILITY_FRENCH) {
                 $query->orWhere('language_ability', ApiEnums::LANGUAGE_ABILITY_BILINGUAL);
             }
+        });
+        return $query;
+    }
+    public function filterByOperationalRequirements(Builder $query, ?array $operationalRequirements): Builder
+    {
+        // if no filters provided then return query unchanged
+        if (empty($operationalRequirements)) {
+            return $query;
+        }
+
+        // OperationalRequirements act as an AND filter. The query should only return candidates willing to accept ALL of the requirements.
+            $query->whereJsonContains('accepted_operational_requirements', $operationalRequirements);
+        return $query;
+    }
+    public function filterByLocationPreferences(Builder $query, array $locations): Builder
+    {
+        // LocationPreferences acts as an OR filter. The query should return candidates willing to work in ANY of the locations.
+        $query->where(function($query) use ($locations) {
+            foreach($locations as $index => $location) {
+                if ($index === 0) {
+                    // First iteration must use where instead of orWhere
+                    $query->whereJsonContains('location_preferences', $location);
+                } else {
+                    $query->orWhereJsonContains('location_preferences', $location);
+                }
+            }
+        });
+        return $query;
+    }
+    public function filterBySkills(Builder $query, array $skills): Builder
+    {
+        if (empty($skills)) {
+            return $query;
+        }
+
+        // skills act as an AND filter. The query should only return candidates with ALL of the skills.
+        $query->whereExists(function ($query) use ($skills) {
+            $query->select(DB::raw('null'))
+            ->from(function ($query) {
+                $query->selectRaw('experiences.user_id, jsonb_agg(experience_skills.skill_id) as user_skills_grouped')
+                ->from('experience_skills')
+                ->joinSub(function ($query) {
+                    $query->select('award_experiences.id as experience_id', 'award_experiences.user_id')
+                    ->from('award_experiences')
+                    ->unionAll(function ($query) {
+                        $query->select('community_experiences.id as experience_id', 'community_experiences.user_id')
+                        ->from('community_experiences');
+                    })
+                    ->unionAll(function ($query) {
+                        $query->select('education_experiences.id as experience_id', 'education_experiences.user_id')
+                        ->from('education_experiences');
+                    })
+                    ->unionAll(function ($query) {
+                        $query->select('personal_experiences.id as experience_id', 'personal_experiences.user_id')
+                        ->from('personal_experiences');
+                    })
+                    ->unionAll(function ($query) {
+                        $query->select('work_experiences.id as experience_id', 'work_experiences.user_id')
+                        ->from('work_experiences');
+                    });
+                }, 'experiences', function ($join) {
+                    $join->on('experience_skills.experience_id', '=', 'experiences.experience_id');
+                })
+                ->groupBy('experiences.user_id');
+            }, "aggregate_experiences")
+            ->whereJsonContains('aggregate_experiences.user_skills_grouped', $skills)
+            ->whereColumn('aggregate_experiences.user_id', 'users.id');
         });
         return $query;
     }
@@ -210,13 +274,12 @@ class User extends Model implements Authenticatable
                     });
                 }
             }
-        });
 
-        $this->orFilterByClassificationToSalary($query, $classifications);
+            $this->orFilterByClassificationToSalary($query, $classifications);
+        });
 
         return $query;
     }
-
     private function orFilterByClassificationToSalary(Builder $query, array $classifications): Builder
     {
         // When managers search for a classification, also return any users whose expected salary
@@ -288,5 +351,27 @@ RAWSQL1;
 RAWSQL2;
 
         return $query->orWhereRaw('EXISTS (' . $sql . ')', $parameters);
+    }
+
+    public function scopeHasDiploma(Builder $query, bool $hasDiploma): Builder
+    {
+        if ($hasDiploma) {
+            $query->where('has_diploma', true);
+        }
+        return $query;
+    }
+    public function scopeWouldAcceptTemporary(Builder $query, bool $wouldAcceptTemporary): Builder
+    {
+        if ($wouldAcceptTemporary) {
+            $query->where('would_accept_temporary', true);
+        }
+        return $query;
+    }
+    public function scopeIsGovEmployee(Builder $query, bool $isGovEmployee): Builder
+    {
+        if ($isGovEmployee) {
+            $query->where('is_gov_employee', true);
+        }
+        return $query;
     }
 }
