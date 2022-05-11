@@ -8,9 +8,7 @@ import NotFound from "@common/components/NotFound";
 import Header from "@common/components/Header";
 import Footer from "@common/components/Footer";
 import { ADMIN_APP_DIR } from "../../adminConstants";
-import { useAdminRoutes } from "../../adminRoutes";
 import { useApiRoutes } from "../../apiRoutes";
-import { useGetPoolsQuery } from "../../api/generated";
 import SideMenu from "../menu/SideMenu";
 import { AuthContext } from "../AuthContainer";
 
@@ -76,37 +74,6 @@ export const MenuLink: React.FC<MenuLinkProps> = ({
   );
 };
 
-const PoolListApi = () => {
-  const intl = useIntl();
-  const paths = useAdminRoutes();
-  const [result] = useGetPoolsQuery();
-  const { data, fetching, error } = result;
-  const items = [];
-
-  if (!fetching && !error) {
-    items.push(
-      <MenuHeading
-        key="pool-candidates"
-        text={intl.formatMessage({
-          defaultMessage: "Pool Candidates",
-          description: "Label displayed on the Pool Candidates menu item.",
-        })}
-      />,
-    );
-    data?.pools.map((pool) =>
-      items.push(
-        <MenuLink
-          key={`pools/${pool?.id}/pool-candidates`}
-          href={paths.poolCandidateTable(pool?.id ?? "")}
-          text={(pool?.name && pool?.name[getLocale(intl)]) ?? ""}
-        />,
-      ),
-    );
-  }
-
-  return items;
-};
-
 const LoginOrLogout = () => {
   const intl = useIntl();
   const location = useLocation();
@@ -116,6 +83,7 @@ const LoginOrLogout = () => {
   if (loggedIn) {
     return (
       <Button
+        key="loginlogout"
         color="white"
         mode="inline"
         block
@@ -191,6 +159,7 @@ export const Dashboard: React.FC<{
   // stabilize component that will not change during life of app, avoid render loops in router
   const notFoundComponent = useRef(<AdminNotFound />);
   const content = useRouter(contentRoutes, notFoundComponent.current);
+
   return (
     <>
       <a href="#main" data-h2-visibility="b(hidden)">
@@ -214,9 +183,7 @@ export const Dashboard: React.FC<{
               data-h2-position="b(static) m(sticky)"
               style={{ top: "0", maxHeight: "100vh", overflow: "auto" }}
             >
-              <SideMenu
-                items={[...menuItems, ...PoolListApi(), LoginOrLogout()]}
-              />
+              <SideMenu items={[...menuItems, LoginOrLogout()]} />
             </div>
           </div>
           <div

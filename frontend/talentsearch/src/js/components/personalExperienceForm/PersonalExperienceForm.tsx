@@ -9,7 +9,7 @@ import { errorMessages } from "@common/messages";
 export const PersonalExperienceForm: React.FunctionComponent = () => {
   const intl = useIntl();
   // to toggle whether End Date is required, the state of the Current Role checkbox must be monitored and have to adjust the form accordingly
-  const isCurrent = useWatch({ name: "current-role", defaultValue: false });
+  const isCurrent = useWatch({ name: "currentRole" });
   // ensuring end date isn't before the start date, using this as a minimum value
   const watchStartDate = useWatch({ name: "startDate" });
 
@@ -86,13 +86,13 @@ export const PersonalExperienceForm: React.FunctionComponent = () => {
             description:
               "Label displayed on Personal Experience form for current experience bounded box",
           })}
-          id="current-role"
+          id="currentRole"
           label={intl.formatMessage({
             defaultMessage: "I am currently active in this experience",
             description:
               "Label displayed on Personal Experience form for current experience input",
           })}
-          name="current-role"
+          name="currentRole"
         />
 
         <div

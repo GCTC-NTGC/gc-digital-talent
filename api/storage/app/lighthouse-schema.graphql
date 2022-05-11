@@ -765,6 +765,7 @@ type Query {
   poolCandidateFilters: [PoolCandidateFilter]!
   poolCandidateSearchRequest(id: ID!): PoolCandidateSearchRequest
   poolCandidateSearchRequests: [PoolCandidateSearchRequest]!
+  latestPoolCandidateSearchRequests(limit: Int): [PoolCandidateSearchRequest]!
   skillFamily(id: ID!): SkillFamily
   skillFamilies: [SkillFamily]!
   skill(id: ID!): Skill
@@ -1112,6 +1113,7 @@ type User {
   personalExperiences: [PersonalExperience]
   workExperiences: [WorkExperience]
   pools: [Pool]
+  isProfileComplete: Boolean
 }
 
 input UserBelongsTo {

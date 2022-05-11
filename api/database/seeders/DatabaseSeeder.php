@@ -11,7 +11,6 @@ use App\Models\PoolCandidateFilter;
 use App\Models\PoolCandidateSearchRequest;
 use App\Models\Skill;
 use App\Models\SkillFamily;
-use Illuminate\Database\Eloquent\Factories\Sequence;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use App\Models\AwardExperience;
@@ -55,9 +54,6 @@ class DatabaseSeeder extends Seeder
 
         User::factory()
             ->count(60)
-            ->sequence(fn () => [
-                'current_classification' => Classification::inRandomOrder()->first()->id,
-            ])
             ->afterCreating(function (User $user) {
                 $assets = CmoAsset::inRandomOrder()->limit(4)->pluck('id')->toArray();
                 $classifications = Classification::inRandomOrder()->limit(3)->pluck('id')->toArray();
@@ -131,6 +127,13 @@ class DatabaseSeeder extends Seeder
                     $model->skills()->sync($data);
                 })->create();
         });
+
+        PoolCandidate::each(function($candidate) {
+            $classifications = Classification::inRandomOrder()->limit(3)->get();
+            $candidate->expectedClassifications()->saveMany($classifications);
+            $assets = CmoAsset::inRandomOrder()->limit(4)->get();
+            $candidate->cmoAssets()->saveMany($assets);
+          });
 
         PoolCandidateSearchRequest::factory()->count(10)->create();
     }

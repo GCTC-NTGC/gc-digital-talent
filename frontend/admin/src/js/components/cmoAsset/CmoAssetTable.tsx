@@ -7,8 +7,7 @@ import { FromArray } from "@common/types/utilityTypes";
 import { getLocale } from "@common/helpers/localize";
 import { GetCmoAssetsQuery, useGetCmoAssetsQuery } from "../../api/generated";
 import DashboardContentContainer from "../DashboardContentContainer";
-import Table, { ColumnsOf } from "../Table";
-import { tableEditButtonAccessor } from "../TableEditButton";
+import Table, { ColumnsOf, tableEditButtonAccessor } from "../Table";
 
 type Data = NonNullable<FromArray<GetCmoAssetsQuery["cmoAssets"]>>;
 
