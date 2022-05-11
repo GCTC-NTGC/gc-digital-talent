@@ -12,7 +12,7 @@
 7. Run `npm run dev` which will bundle up our assets.
 8. Visit https://localhost:8080/admin to view page.
 
-9. Run `php artisan passport:client` in the sibling /auth directory (or `docker-compose exec -w /var/www/html/auth php sh -c "php artisan passport:client"` in the /infrastructure directory). Set it to redirect to `http://localhost:8000/auth-callback`. Copy the Client ID and Client secret to OAUTH_ADMIN_CLIENT_ID and OAUTH_ADMIN_CLIENT_SECRET env variables.
+9. Run `php artisan passport:client` in the sibling /auth directory (or `docker-compose exec -w /var/www/html/auth php sh -c "php artisan passport:client"` in any project folder). Set it to redirect to `http://localhost:8000/auth-callback`. Copy the Client ID and Client secret to OAUTH_ADMIN_CLIENT_ID and OAUTH_ADMIN_CLIENT_SECRET env variables.
 
 # Local Development
 
