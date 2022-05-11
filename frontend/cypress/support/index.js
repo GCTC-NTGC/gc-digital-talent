@@ -16,6 +16,20 @@
 // Import commands.js using ES2015 syntax:
 import './commands'
 
+before(() => {
+  // Ensure admin user exists for other tests.
+  cy.fixture('users.json').then(users => {
+    const user = users['admin']
+    // Don't fail out if user already exists.
+    const strictFail = false
+    cy.register(user.first, user.last, user.email, user.password, strictFail)
+  })
+
+  // Don't go into tests with any persistent state
+  cy.clearCookies()
+  cy.clearLocalStorage()
+})
+
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
 

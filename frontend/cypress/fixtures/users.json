@@ -1,0 +1,12 @@
+{
+  "seeded": {
+    "email": "admin@test.com",
+    "password": "Test123!"
+  },
+  "admin": {
+    "first": "Test Admin",
+    "last": "Test Admin",
+    "email": "test.admin@talent.test",
+    "password": "testpassword"
+  }
+}
