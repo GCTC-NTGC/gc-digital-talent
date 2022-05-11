@@ -240,6 +240,11 @@ class User extends Model implements Authenticatable
         });
         return $query;
     }
+    public function filterByJobLookingStatus(Builder $query, ?string $jobLookingStatus): Builder
+    {
+        $query->where('job_looking_status', $jobLookingStatus);
+        return $query;
+    }
     public function filterBySkills(Builder $query, array $skills): Builder
     {
         if (empty($skills)) {
@@ -388,6 +393,24 @@ RAWSQL2;
     {
         if ($wouldAcceptTemporary) {
             $query->where('would_accept_temporary', true);
+        }
+        return $query;
+    }
+    public function scopeIsProfileComplete(Builder $query, bool $isProfileComplete): Builder
+    {
+        if ($isProfileComplete) {
+            $query->whereNotNull('telephone');
+            $query->whereNotNull('current_province');
+            $query->whereNotNull('current_city');
+            $query->where(function ($query) {
+                $query->whereNotNull('looking_for_english');
+                $query->orWhereNotNull('looking_for_french');
+                $query->orWhereNotNull('looking_for_bilingual');
+            });
+            $query->whereNotNull('is_gov_employee');
+            $query->whereNotNull('location_preferences');
+            $query->whereNotNull('expected_salary');
+            $query->whereNotNull('would_accept_temporary');
         }
         return $query;
     }

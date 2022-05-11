@@ -93,7 +93,7 @@ type User {
     pools: [Pool] @hasMany # Pools a user owns
 
     # Profile Status
-    isProfileComplete: Boolean 
+    isProfileComplete: Boolean
 }
 
 enum ProvinceOrTerritory {
@@ -535,8 +535,8 @@ input UserFilterInput {
     locationPreferences: [WorkRegion] @builder(method: "App\\Models\\User@filterByLocationPreferences")
     hasDiploma: Boolean @scope
     wouldAcceptTemporary: Boolean @scope
-    # TODO: Add the completeProfile field/scope when Vani's PR is finished
-    # TODO: Await response on the behavior of the "Available status" option
+    jobLookingStatus: JobLookingStatus @builder(method: "App\\Models\\User@filterByJobLookingStatus")
+    isProfileComplete: Boolean @scope
     skills: [ID] @builder(method: "App\\Models\\User@filterBySkills")
     isGovEmployee: Boolean @scope
 }
