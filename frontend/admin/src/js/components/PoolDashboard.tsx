@@ -3,10 +3,11 @@ import { useIntl } from "react-intl";
 import { Routes } from "universal-router";
 import { RouterResult } from "@common/helpers/router";
 import Toast from "@common/components/Toast";
+import NotAuthorized from "@common/components/NotAuthorized";
+import { getLocale } from "@common/helpers/localize";
 import { AdminRoutes, useAdminRoutes } from "../adminRoutes";
 import { CreateClassification } from "./classification/CreateClassification";
 import { UpdateClassification } from "./classification/UpdateClassification";
-import ClientProvider from "./ClientProvider";
 import CmoAssetPage from "./cmoAsset/CmoAssetPage";
 import { CreateCmoAsset } from "./cmoAsset/CreateCmoAsset";
 import { UpdateCmoAsset } from "./cmoAsset/UpdateCmoAsset";
@@ -34,11 +35,67 @@ import SkillPage from "./skill/SkillPage";
 import { CreateSkill } from "./skill/CreateSkill";
 import { UpdateSkill } from "./skill/UpdateSkill";
 import HomePage from "./home/HomePage";
+import { Role, useGetPoolsQuery } from "../api/generated";
+import { AuthorizationContext } from "./AuthorizationContainer";
 import DashboardPage from "./dashboard/DashboardPage";
+
+const PoolListApi = (isAdmin: boolean) => {
+  const intl = useIntl();
+  const paths = useAdminRoutes();
+  const [result] = useGetPoolsQuery();
+  const { data, fetching, error } = result;
+  const items = [];
+
+  if (!fetching && !error && isAdmin) {
+    items.push(
+      <MenuHeading
+        key="pool-candidates"
+        text={intl.formatMessage({
+          defaultMessage: "Pool Candidates",
+          description: "Label displayed on the Pool Candidates menu item.",
+        })}
+      />,
+    );
+    data?.pools.map((pool) =>
+      items.push(
+        <MenuLink
+          key={`pools/${pool?.id}/pool-candidates`}
+          href={paths.poolCandidateTable(pool?.id ?? "")}
+          text={(pool?.name && pool?.name[getLocale(intl)]) ?? ""}
+        />,
+      ),
+    );
+  }
+
+  return items;
+};
+
+const AdminNotAuthorized: React.FC = () => {
+  const intl = useIntl();
+  return (
+    <NotAuthorized
+      headingMessage={intl.formatMessage({
+        description:
+          "Heading for the message saying the page to view is not authorized.",
+        defaultMessage: "Sorry, you are not authorized to view this page.",
+      })}
+    >
+      <p>
+        {intl.formatMessage({
+          description:
+            "Detailed message saying the page to view is not authorized.",
+          defaultMessage:
+            "Oops, it looks like you've landed on a page that you are not authorized to view.",
+        })}
+      </p>
+    </NotAuthorized>
+  );
+};
 
 const routes = (
   paths: AdminRoutes,
   loggedIn?: boolean,
+  isAdmin?: boolean,
 ): Routes<RouterResult> => [
   {
     path: paths.home(),
@@ -50,169 +107,227 @@ const routes = (
   {
     path: paths.dashboard(),
     action: () => ({
-      component: <DashboardPage />,
+      component: loggedIn ? <DashboardPage /> : <AdminNotAuthorized />,
     }),
   },
   {
     path: paths.userTable(),
     action: () => ({
-      component: <UserPage />,
+      component: loggedIn && isAdmin ? <UserPage /> : <AdminNotAuthorized />,
     }),
   },
   {
     path: paths.userCreate(),
     action: () => ({
-      component: <CreateUser />,
+      component: loggedIn && isAdmin ? <CreateUser /> : <AdminNotAuthorized />,
     }),
   },
   {
     path: paths.userUpdate(":id"),
     action: ({ params }) => ({
-      component: <UpdateUser userId={params.id as string} />,
+      component:
+        loggedIn && isAdmin ? (
+          <UpdateUser userId={params.id as string} />
+        ) : (
+          <AdminNotAuthorized />
+        ),
     }),
   },
   {
     path: paths.classificationTable(),
     action: () => ({
-      component: <ClassificationPage />,
+      component:
+        loggedIn && isAdmin ? <ClassificationPage /> : <AdminNotAuthorized />,
     }),
   },
   {
     path: paths.classificationCreate(),
     action: () => ({
-      component: <CreateClassification />,
+      component:
+        loggedIn && isAdmin ? <CreateClassification /> : <AdminNotAuthorized />,
     }),
   },
   {
     path: paths.classificationUpdate(":id"),
     action: ({ params }) => ({
-      component: (
-        <UpdateClassification classificationId={params.id as string} />
-      ),
+      component:
+        loggedIn && isAdmin ? (
+          <UpdateClassification classificationId={params.id as string} />
+        ) : (
+          <AdminNotAuthorized />
+        ),
     }),
   },
   {
     path: paths.cmoAssetTable(),
     action: () => ({
-      component: <CmoAssetPage />,
+      component:
+        loggedIn && isAdmin ? <CmoAssetPage /> : <AdminNotAuthorized />,
     }),
   },
   {
     path: paths.cmoAssetCreate(),
     action: () => ({
-      component: <CreateCmoAsset />,
+      component:
+        loggedIn && isAdmin ? <CreateCmoAsset /> : <AdminNotAuthorized />,
     }),
   },
   {
     path: paths.cmoAssetUpdate(":id"),
     action: ({ params }) => ({
-      component: <UpdateCmoAsset cmoAssetId={params.id as string} />,
+      component:
+        loggedIn && isAdmin ? (
+          <UpdateCmoAsset cmoAssetId={params.id as string} />
+        ) : (
+          <AdminNotAuthorized />
+        ),
     }),
   },
   {
     path: paths.poolCandidateTable(":id"),
     action: ({ params }) => ({
-      component: <PoolCandidatePage poolId={params.id as string} />,
+      component:
+        loggedIn && isAdmin ? (
+          <PoolCandidatePage poolId={params.id as string} />
+        ) : (
+          <AdminNotAuthorized />
+        ),
     }),
   },
   {
     path: paths.poolCandidateCreate(":id"),
     action: ({ params }) => ({
-      component: <CreatePoolCandidate poolId={params.id as string} />,
+      component:
+        loggedIn && isAdmin ? (
+          <CreatePoolCandidate poolId={params.id as string} />
+        ) : (
+          <AdminNotAuthorized />
+        ),
     }),
   },
   {
     path: paths.poolCandidateUpdate(":poolId", ":candidateId"),
     action: ({ params }) => ({
-      component: (
-        <UpdatePoolCandidate poolCandidateId={params.candidateId as string} />
-      ),
+      component:
+        loggedIn && isAdmin ? (
+          <UpdatePoolCandidate poolCandidateId={params.candidateId as string} />
+        ) : (
+          <AdminNotAuthorized />
+        ),
     }),
   },
   {
     path: paths.poolTable(),
     action: () => ({
-      component: <PoolPage />,
+      component: loggedIn && isAdmin ? <PoolPage /> : <AdminNotAuthorized />,
     }),
   },
   {
     path: paths.poolCreate(),
     action: () => ({
-      component: <CreatePool />,
+      component: loggedIn && isAdmin ? <CreatePool /> : <AdminNotAuthorized />,
     }),
   },
   {
     path: paths.poolUpdate(":id"),
     action: ({ params }) => ({
-      component: <UpdatePool poolId={params.id as string} />,
+      component:
+        loggedIn && isAdmin ? (
+          <UpdatePool poolId={params.id as string} />
+        ) : (
+          <AdminNotAuthorized />
+        ),
     }),
   },
   {
     path: paths.departmentTable(),
     action: () => ({
-      component: <DepartmentPage />,
+      component:
+        loggedIn && isAdmin ? <DepartmentPage /> : <AdminNotAuthorized />,
     }),
   },
   {
     path: paths.departmentCreate(),
     action: () => ({
-      component: <CreateDepartment />,
+      component:
+        loggedIn && isAdmin ? <CreateDepartment /> : <AdminNotAuthorized />,
     }),
   },
   {
     path: paths.departmentUpdate(":id"),
     action: ({ params }) => ({
-      component: <UpdateDepartment departmentId={params.id as string} />,
+      component:
+        loggedIn && isAdmin ? (
+          <UpdateDepartment departmentId={params.id as string} />
+        ) : (
+          <AdminNotAuthorized />
+        ),
     }),
   },
   {
     path: paths.skillFamilyTable(),
     action: () => ({
-      component: <SkillFamilyPage />,
+      component:
+        loggedIn && isAdmin ? <SkillFamilyPage /> : <AdminNotAuthorized />,
     }),
   },
   {
     path: paths.skillFamilyCreate(),
     action: () => ({
-      component: <CreateSkillFamily />,
+      component:
+        loggedIn && isAdmin ? <CreateSkillFamily /> : <AdminNotAuthorized />,
     }),
   },
   {
     path: paths.skillFamilyUpdate(":id"),
     action: ({ params }) => ({
-      component: <UpdateSkillFamily skillFamilyId={params.id as string} />,
+      component:
+        loggedIn && isAdmin ? (
+          <UpdateSkillFamily skillFamilyId={params.id as string} />
+        ) : (
+          <AdminNotAuthorized />
+        ),
     }),
   },
   {
     path: paths.skillTable(),
     action: () => ({
-      component: <SkillPage />,
+      component: loggedIn && isAdmin ? <SkillPage /> : <AdminNotAuthorized />,
     }),
   },
   {
     path: paths.skillCreate(),
     action: () => ({
-      component: <CreateSkill />,
+      component: loggedIn && isAdmin ? <CreateSkill /> : <AdminNotAuthorized />,
     }),
   },
   {
     path: paths.skillUpdate(":id"),
     action: ({ params }) => ({
-      component: <UpdateSkill skillId={params.id as string} />,
+      component:
+        loggedIn && isAdmin ? (
+          <UpdateSkill skillId={params.id as string} />
+        ) : (
+          <AdminNotAuthorized />
+        ),
     }),
   },
   {
     path: paths.searchRequestTable(),
     action: () => ({
-      component: <SearchRequestPage />,
+      component:
+        loggedIn && isAdmin ? <SearchRequestPage /> : <AdminNotAuthorized />,
     }),
   },
   {
     path: paths.searchRequestUpdate(":id"),
     action: ({ params }) => ({
-      component: (
-        <SingleSearchRequestPage searchRequestId={params.id as string} />
-      ),
+      component:
+        loggedIn && isAdmin ? (
+          <SingleSearchRequestPage searchRequestId={params.id as string} />
+        ) : (
+          <AdminNotAuthorized />
+        ),
     }),
   },
 ];
@@ -221,8 +336,10 @@ export const PoolDashboard: React.FC = () => {
   const { loggedIn } = React.useContext(AuthContext);
   const intl = useIntl();
   const paths = useAdminRoutes();
+  const { loggedInUserRoles } = React.useContext(AuthorizationContext);
+  const isAdmin = !!loggedInUserRoles?.includes(Role.Admin);
 
-  const menuItems = [
+  const menuItemsAdmin = [
     <MenuLink
       key="dashboard"
       href={paths.dashboard()}
@@ -311,14 +428,31 @@ export const PoolDashboard: React.FC = () => {
     />,
   ];
 
+  const menuItemsPool = PoolListApi(isAdmin);
+
+  const menuItems = [
+    <MenuLink
+      key="home"
+      href={paths.home()}
+      text={intl.formatMessage({
+        defaultMessage: "Home",
+        description: "Label displayed on the home menu item.",
+      })}
+    />,
+  ];
+
   return (
-    <ClientProvider>
+    <>
       <Dashboard
-        menuItems={menuItems}
-        contentRoutes={routes(paths, loggedIn)}
+        menuItems={[
+          ...menuItems,
+          ...(isAdmin ? menuItemsAdmin : []),
+          ...(isAdmin ? menuItemsPool : []),
+        ]}
+        contentRoutes={routes(paths, loggedIn, isAdmin)}
       />
       <Toast />
-    </ClientProvider>
+    </>
   );
 };
 
