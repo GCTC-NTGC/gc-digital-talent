@@ -46,3 +46,30 @@ Cypress.Commands.add('logout', () => {
   //cy.discardLaravelCookie()
   //cy.discardIdentityProviderCookie()
 })
+
+Cypress.Commands.add('register', (firstName, lastName, email, password, doAuthorization = true) => {
+  cy.intercept('POST', '/auth/register').as('registerUser')
+
+  cy.visit('/auth/register')
+  cy.get('input#first_name').type(firstName)
+  cy.get('input#last_name').type(lastName)
+  cy.get('input#email').type(email)
+  cy.get('input#password').type(password)
+  cy.get('input#password_confirmation').type(password)
+  cy.get('button').contains('Register').click()
+  cy.wait('@registerUser')
+    .its('response.statusCode').should('eq', 302)
+
+  if (doAuthorization) {
+    cy.get('button').contains('Login').click()
+    cy.get('button').contains('Authorize').click()
+  }
+})
+
+Cypress.Commands.add('registerWithAuthorization', (firstName, lastName, email, password) => {
+  cy.register(firstName, lastName, email, password, strictFail, true)
+})
+
+Cypress.Commands.add('registerWithNoAuthorization', (firstName, lastName, email, password) => {
+  cy.register(firstName, lastName, email, password, strictFail, false)
+})
