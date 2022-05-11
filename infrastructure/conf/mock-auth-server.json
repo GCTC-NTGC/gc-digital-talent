@@ -1,0 +1,25 @@
+{
+  "interactiveLogin": true,
+  "tokenCallbacks": [
+    {
+      "issuerId": "oxauth",
+      "tokenExpiry": 120,
+      "requestMappings": [
+        {
+          "requestParam": "client_id",
+          "match": "*",
+          "claims": {
+            "aud": "01234567-89ab-cdef-0123-456789abcdef",
+            "code": "01234567-89ab-cdef-0123-456789abcdef",
+            "scope": [
+              "openid",
+              "offline_access"
+            ],
+            "token_type": "bearer",
+            "client_id": "01234567-89ab-cdef-0123-456789abcdef"
+          }
+        }
+      ]
+    }
+  ]
+}
