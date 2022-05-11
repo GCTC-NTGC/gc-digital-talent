@@ -3,6 +3,7 @@ query WorkLocationPreference{
     id
     locationPreferences
     locationExemptions
+    isProfileComplete
     }
 }
 
