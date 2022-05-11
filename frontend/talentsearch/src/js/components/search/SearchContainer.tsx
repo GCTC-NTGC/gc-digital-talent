@@ -32,7 +32,7 @@ export interface SearchContainerProps {
   poolOwner?: Pick<UserPublicProfile, "firstName" | "lastName" | "email">;
   candidateCount: number;
   updatePending?: boolean;
-  candidateFilter: PoolCandidateFilterInput | undefined;
+  candidateFilter?: PoolCandidateFilterInput | undefined;
   updateCandidateFilter: (candidateFilter: PoolCandidateFilterInput) => void;
   updateInitialValues: (initialValues: FormValues) => void;
   handleSubmit: () => Promise<void>;
