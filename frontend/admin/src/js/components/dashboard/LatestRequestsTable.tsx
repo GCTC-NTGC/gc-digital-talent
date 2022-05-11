@@ -12,7 +12,10 @@ import { notEmpty } from "@common/helpers/util";
 import Table from "../Table";
 import type { ColumnsOf } from "../Table";
 
-import { useLatestRequestsQuery } from "../../api/generated";
+import {
+  PoolCandidateFilter,
+  useLatestRequestsQuery,
+} from "../../api/generated";
 import type { LatestRequestsQuery } from "../../api/generated";
 import { useAdminRoutes } from "../../adminRoutes";
 
@@ -53,6 +56,12 @@ const statusAccessor = (
     ? intl.formatMessage(getPoolCandidateSearchStatus(status as string))
     : "";
 
+interface IRow {
+  original: {
+    poolCandidateFilter: PoolCandidateFilter;
+  };
+}
+
 export interface LatestRequestsTableProps {
   data?: LatestRequestsQuery;
 }
@@ -85,7 +94,11 @@ const LatestRequestsTable: React.FC<LatestRequestsTableProps> = ({ data }) => {
           "Title displayed on the latest requests table for the pool column.",
       }),
       accessor: ({ poolCandidateFilter }) =>
-        poolCandidateFilter.pools?.map(
+        poolCandidateFilter?.pools
+          ? poolCandidateFilter.pools[0]?.name?.[locale]
+          : null,
+      Cell: ({ row: { original } }: { row: IRow }) =>
+        original.poolCandidateFilter.pools?.map(
           (pool) =>
             pool && (
               <a key={pool.id} href={paths.poolCandidateTable(pool.id)}>
