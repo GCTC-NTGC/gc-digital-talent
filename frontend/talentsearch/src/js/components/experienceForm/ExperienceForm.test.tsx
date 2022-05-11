@@ -277,3 +277,42 @@ describe("ExperienceForm", () => {
     }
   });
 });
+
+it("delete should not render when edit is false", async () => {
+  const mockSave = jest.fn();
+  const mockDelete = jest.fn(() => Promise.resolve());
+  renderExperienceForm({
+    experienceType: "award",
+    onUpdateExperience: mockSave,
+    deleteExperience: mockDelete,
+    skills: mockSkills,
+    edit: false,
+  });
+
+  expect(screen.queryByText("Delete experience from My Profile")).toBeFalsy();
+});
+
+it("delete should render when edit is true and be called properly", async () => {
+  const mockSave = jest.fn();
+  const mockDelete = jest.fn(() => Promise.resolve());
+  renderExperienceForm({
+    experienceType: "award",
+    onUpdateExperience: mockSave,
+    deleteExperience: mockDelete,
+    skills: mockSkills,
+    edit: true,
+  });
+
+  // get and open Dialog Component
+  const deleteButton = screen.getByText("Delete experience from My Profile");
+  expect(deleteButton).toBeTruthy();
+  fireEvent.click(deleteButton);
+
+  // get and click on Delete in Dialog
+  const deleteSubmit = screen.getByText("Delete");
+  expect(deleteSubmit).toBeTruthy();
+  fireEvent.click(deleteSubmit);
+  await waitFor(() => {
+    expect(mockDelete).toHaveBeenCalled();
+  });
+});
