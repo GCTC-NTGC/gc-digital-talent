@@ -56,6 +56,6 @@ describe("SearchContainer", () => {
     renderSearchContainer({ candidateCount: 10 });
     expect(
       await screen.getAllByText(/10/i, { selector: "span" }).length,
-    ).toBeGreaterThanOrEqual(3);
+    ).toEqual(3);
   });
 });
