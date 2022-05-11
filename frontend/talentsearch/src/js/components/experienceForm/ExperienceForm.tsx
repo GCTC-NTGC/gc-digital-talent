@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import React from "react";
 import { useIntl } from "react-intl";
 import { toast } from "react-toastify";
@@ -314,7 +313,7 @@ const ExperienceFormContainer: React.FunctionComponent<
 
   const handleDeleteExperience = () => {
     if (meData?.me) {
-      const res = executeDeletionMutation
+      executeDeletionMutation
         .executeDeletionMutation({
           id: experienceIdExact,
         })
