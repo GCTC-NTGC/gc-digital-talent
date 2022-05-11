@@ -62,8 +62,6 @@ const LatestRequestsTable: React.FC<LatestRequestsTableProps> = ({ data }) => {
   const locale = getLocale(intl);
   const paths = useAdminRoutes();
 
-  console.log(data);
-
   const columns: ColumnsOf<Data> = [
     {
       Header: intl.formatMessage({
