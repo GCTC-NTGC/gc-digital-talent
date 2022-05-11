@@ -1,5 +1,4 @@
 import React from "react";
-import { Style } from "util";
 import Link from "./Link";
 import type { LinkProps } from "./Link";
 
