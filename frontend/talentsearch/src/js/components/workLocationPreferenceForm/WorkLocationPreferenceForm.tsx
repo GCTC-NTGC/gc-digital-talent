@@ -186,7 +186,7 @@ export const WorkLocationPreferenceApi: React.FunctionComponent = () => {
             toast.success(
               intl.formatMessage({
                 defaultMessage:
-                  "Your Profile is complete now. You can change the job looking status!",
+                  "All required fields are complete. You can now change your status.",
                 description:
                   "Message displayed to user when user profile completed.",
               }),

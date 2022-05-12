@@ -83,9 +83,6 @@ export const ProfileForm: React.FC<ProfilePageProps> = ({
   const paths = useApplicantProfileRoutes();
   const locale = getLocale(intl);
 
-  // const profileStatus = String(isProfileComplete);
-
-  // console.log(`Profile${profileStatus}`);
   if (isProfileComplete) {
     sessionStorage.setItem("preProfileStatus", "Complete");
   } else {
