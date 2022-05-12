@@ -255,7 +255,7 @@ export const CreatePoolCandidateForm: React.FunctionComponent<CreatePoolCandidat
         case "new":
           userObject = {
             create: {
-              email: values.email,
+              email: values.email ?? "",
               firstName: values.firstName ?? "",
               lastName: values.lastName ?? "",
               preferredLang: values.preferredLang,

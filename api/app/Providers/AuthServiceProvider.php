@@ -100,7 +100,6 @@ class AuthServiceProvider extends ServiceProvider
                 // No user found for given subscriber - lets auto-register them
                 $newUser = new User;
                 $newUser->first_name = $sub;  // displayed on the landing page so should help us find the user
-                $newUser->email = $sub.'@new.user'; // junk, but email is currently non-nullable
                 $newUser->sub = $sub;
                 $newUser->roles = null;
                 $newUser->save();

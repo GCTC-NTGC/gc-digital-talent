@@ -120,7 +120,6 @@ class AuthServiceProviderTest extends TestCase
 
         // manually add the user with the sub
         $existingUser = new User;
-        $existingUser->email = $testSub.'@existing.user'; // junk, but email is currently non-nullable
         $existingUser->sub = $testSub;
         $existingUser->roles = $testRoles;
         $existingUser->save();
