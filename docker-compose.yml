@@ -6,7 +6,7 @@ services:
     environment:
       POSTGRES_PASSWORD: password1234
     volumes:
-      - ./db:/docker-entrypoint-initdb.d/
+      - ./infrastructure/db:/docker-entrypoint-initdb.d/
       - pgdata:/var/lib/postgresql/data
     ports:
       - "5432:5432"
@@ -20,23 +20,23 @@ services:
       - 8080:8080
 
   php:
-    build: ./php-container
+    build: ./infrastructure/php-container
     working_dir: /var/www/html
     restart: always
     volumes:
-      - ./php-container/src:/var/www/html/
-      - ../api:/var/www/html/api
-      - ../auth:/var/www/html/auth
-      - ../frontend:/var/www/html/frontend
-      - ../tc-report:/var/www/html/tc-report
+      - ./infrastructure/php-container/src:/var/www/html/
+      - ./api:/var/www/html/api
+      - ./auth:/var/www/html/auth
+      - ./frontend:/var/www/html/frontend
+      - ./tc-report:/var/www/html/tc-report
     ports:
       - 8000:80
       - 8001:443
     env_file:
-      - ../frontend/.apache_env
+      - ./frontend/.apache_env
 
   maintenance:
-    build: ./maintenance-container
+    build: ./infrastructure/maintenance-container
     working_dir: /root/scripts
     deploy:
       mode: replicated
@@ -48,11 +48,11 @@ services:
       - CYPRESS_INSTALL_BINARY=0
     volumes:
       - maintenancedata:/root
-      - ../maintenance/scripts:/root/scripts
-      - ../api:/var/www/html/api
-      - ../auth:/var/www/html/auth
-      - ../frontend:/var/www/html/frontend
-      - ../tc-report:/var/www/html/tc-report
+      - ./maintenance/scripts:/root/scripts
+      - ./api:/var/www/html/api
+      - ./auth:/var/www/html/auth
+      - ./frontend:/var/www/html/frontend
+      - ./tc-report:/var/www/html/tc-report
 
 volumes:
   pgdata:

@@ -52,11 +52,9 @@ jobs:
             docker-
 
       - name: Serve app via docker-compose
-        working-directory: infrastructure/
         run: docker-compose up --detach
 
       - name: "Run: setup.sh"
-        working-directory: infrastructure/
         run: docker-compose run --rm maintenance bash setup.sh
 
       - name: "Run Cypress tests: all"
@@ -85,10 +83,8 @@ jobs:
 
       - name: Check status of containers
         if: failure()
-        working-directory: infrastructure/
         run: docker-compose ps
 
       - name: 'Check logs: PHP container'
         if: failure()
-        working-directory: infrastructure/
         run: docker-compose logs php

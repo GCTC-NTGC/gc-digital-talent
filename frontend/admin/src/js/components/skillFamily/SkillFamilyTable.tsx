@@ -11,9 +11,8 @@ import {
   AllSkillFamiliesQuery,
   useAllSkillFamiliesQuery,
 } from "../../api/generated";
-import Table, { ColumnsOf } from "../Table";
+import Table, { ColumnsOf, tableEditButtonAccessor } from "../Table";
 import DashboardContentContainer from "../DashboardContentContainer";
-import { tableEditButtonAccessor } from "../TableEditButton";
 
 type Data = NonNullable<FromArray<AllSkillFamiliesQuery["skillFamilies"]>>;
 

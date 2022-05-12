@@ -1,6 +1,7 @@
 import React from "react";
 import { Story, Meta } from "@storybook/react";
-import TableBoolean, { TableBooleanProps } from "../components/TableBoolean";
+import TableBoolean from "./TableBoolean";
+import type { TableBooleanProps } from "./TableBoolean";
 
 export default {
   component: TableBoolean,

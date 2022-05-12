@@ -13,7 +13,7 @@
 
 5. Every client which will use this auth server needs its own id and secret. You can generate a new client by running `php artisan passport:client`.
 
-Note that steps 2, 4 and 5 require a database connection. If you're running this using the local /infrastructure setup, you may need to run the php commands within the container.
+Note that steps 2, 4 and 5 require a database connection. If you're running this using the local Docker setup, you may need to run the php commands within the container.
 
 For more details about using or configuring Laravel Passport, visit the [documentation](https://laravel.com/docs/8.x/passport).
 

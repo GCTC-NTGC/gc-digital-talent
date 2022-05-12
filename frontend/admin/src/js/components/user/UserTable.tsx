@@ -6,9 +6,8 @@ import { commonMessages } from "@common/messages";
 import { FromArray } from "@common/types/utilityTypes";
 import { getLanguage } from "@common/constants/localizedConstants";
 import { AllUsersQuery, Language, useAllUsersQuery } from "../../api/generated";
-import Table, { ColumnsOf } from "../Table";
+import Table, { ColumnsOf, tableEditButtonAccessor } from "../Table";
 import DashboardContentContainer from "../DashboardContentContainer";
-import { tableEditButtonAccessor } from "../TableEditButton";
 
 type Data = NonNullable<FromArray<AllUsersQuery["users"]>>;
 

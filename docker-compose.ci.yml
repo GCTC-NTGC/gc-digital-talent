@@ -5,7 +5,7 @@ services:
   # With a profile designated, it will not build/run unless explicitly executed.
   # See: https://docs.docker.com/compose/profiles/
   api:
-    build: ../api
+    build: ./api
     depends_on:
       - postgres
     profiles:
