@@ -1,20 +1,28 @@
 .side-menu {
+    bottom: 0;
     flex-shrink: 0;
     height: 100vh;
     overflow-x: hidden;
-    padding: 0.5rem;
+    position: fixed;
+    left: 0;
+    top: 0;
     transform: translateX(-100%);
     transition: transform 200ms ease-in;
     width: 95vw;
     z-index: 9999;
 }
 
-.side-menu__inner {
+.side-menu--open {
+    transform: translateX(0);
+}
+
+.side-menu__inner, .side-menu > div {
     height: 100%;
 }
 
-.side-menu--open {
-    transform: translateX(0);
+.side-menu__content {
+    flex-grow: 1;
+    overflow-y: auto;
 }
 
 .side-menu__item {
@@ -42,7 +50,11 @@
     margin-right: 0.5rem;
 }
 
-@media (min-width: 48em) {
+.side-menu__content-wrapper {
+    max-width: 100%;
+}
+
+@media (min-width: 64em) {
     .side-menu {
         transform: translateX(0);
 
@@ -51,7 +63,7 @@
          * Icon Size - 1rem
          * Button padding - 0.75rem * 2
          */
-        width: 3.5rem
+        width: 3.75rem
     }
 
     .side-menu--open {
@@ -60,5 +72,14 @@
 
     .side-menu:not(.side-menu--open) .side-menu-item__icon {
         margin-right: 0.75rem;
+    }
+
+    .side-menu__content-wrapper {
+        margin-left: auto;
+        width: calc(100%  - 3.75rem);
+    }
+
+    .side-menu--open ~ .side-menu__content-wrapper {
+        width: calc(100%  - 20rem);
     }
 }

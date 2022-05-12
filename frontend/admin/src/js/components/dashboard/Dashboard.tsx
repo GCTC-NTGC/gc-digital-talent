@@ -1,135 +1,20 @@
-import React, { ReactElement, useContext, useRef } from "react";
+import React, { useRef } from "react";
 import { useIntl } from "react-intl";
 import { useLocation, useRouter, RouterResult } from "@common/helpers/router";
-import { getLocale } from "@common/helpers/localize";
 import { Routes } from "universal-router";
 import { Button, Link } from "@common/components";
 import NotFound from "@common/components/NotFound";
 import Header from "@common/components/Header";
 import Footer from "@common/components/Footer";
-import { ADMIN_APP_DIR } from "../../adminConstants";
-import { useApiRoutes } from "../../apiRoutes";
+import useIsSmallScreen from "@common/hooks/useIsSmallScreen";
+import { SideMenuContentWrapper } from "@common/components/SideMenu";
+
+import { MenuIcon } from "@heroicons/react/outline";
 import SideMenu from "../menu/SideMenu";
-import { AuthContext } from "../AuthContainer";
+import { ADMIN_APP_DIR } from "../../adminConstants";
 
-export const exactMatch = (ref: string, test: string): boolean => ref === test;
-export const startsWith = (ref: string, test: string): boolean =>
-  test.startsWith(ref);
-
-export const MenuHeading: React.FC<{ text: string }> = ({ text }) => {
-  return (
-    <span
-      data-h2-display="b(block)"
-      data-h2-padding="b(top-bottom, xs) b(right-left, s)"
-      data-h2-bg-color="b(lightnavy)"
-      data-h2-text-align="b(center)"
-      data-h2-font-color="b(white)"
-      data-h2-font-size="b(caption) m(normal)"
-      data-h2-font-weight="b(700)"
-      style={{
-        overflowWrap: "break-word",
-        textTransform: "uppercase",
-      }}
-    >
-      {text}
-    </span>
-  );
-};
-
-interface MenuLinkProps {
-  href: string;
-  text: string;
-  title?: string;
-  isActive?: (href: string, path: string) => boolean;
-}
-
-export const MenuLink: React.FC<MenuLinkProps> = ({
-  href,
-  text,
-  title,
-  isActive = startsWith,
-}) => {
-  const location = useLocation();
-  return (
-    <Link
-      href={href}
-      title={title ?? ""}
-      color="white"
-      mode="inline"
-      block
-      tabIndex={-1}
-      type="button"
-      {...(isActive(href, location.pathname)
-        ? { "data-h2-font-style": "b(reset)" }
-        : { "data-h2-font-style": "b(underline)" })}
-    >
-      <span
-        {...(isActive(href, location.pathname)
-          ? { "data-h2-font-weight": "b(700)" }
-          : { "data-h2-font-weight": "b(200)" })}
-      >
-        {text}
-      </span>
-    </Link>
-  );
-};
-
-const LoginOrLogout = () => {
-  const intl = useIntl();
-  const location = useLocation();
-  const apiRoutes = useApiRoutes();
-  const { loggedIn, logout } = useContext(AuthContext);
-
-  if (loggedIn) {
-    return (
-      <Button
-        key="loginlogout"
-        color="white"
-        mode="inline"
-        block
-        tabIndex={-1}
-        onClick={() => {
-          // Display a confirmation dialog before logging the user out
-          // At some point we may change this to use a modal
-          const message = intl.formatMessage({
-            defaultMessage: "Are you sure you want to logout?",
-            description: "Label displayed on the Logout confirmation dialog.",
-          });
-
-          // eslint-disable-next-line no-restricted-globals, no-alert
-          if (confirm(message)) {
-            logout();
-          }
-        }}
-      >
-        {intl.formatMessage({
-          defaultMessage: "Logout",
-          description: "Label displayed on the Logout menu item.",
-        })}
-      </Button>
-    );
-  }
-
-  return (
-    <Button
-      color="white"
-      mode="inline"
-      block
-      tabIndex={-1}
-      onClick={() => {
-        window.location.href = apiRoutes.login(
-          location.pathname,
-          getLocale(intl),
-        );
-      }}
-    >
-      {intl.formatMessage({
-        defaultMessage: "Login",
-        description: "Label displayed on the Login menu item.",
-      })}
-    </Button>
-  );
-};
+const exactMatch = (ref: string, test: string): boolean => ref === test;
+const startsWith = (ref: string, test: string): boolean => test.startsWith(ref);
 
 const AdminNotFound: React.FC = () => {
   const intl = useIntl();
@@ -151,14 +36,21 @@ const AdminNotFound: React.FC = () => {
   );
 };
 
-export const Dashboard: React.FC<{
-  menuItems: ReactElement[];
+interface DashboardProps {
   contentRoutes: Routes<RouterResult>;
-}> = ({ menuItems, contentRoutes }) => {
+}
+
+const Dashboard: React.FC<DashboardProps> = ({ contentRoutes }) => {
+  const isSmallScreen = useIsSmallScreen();
+  const [isMenuOpen, setMenuOpen] = React.useState(!isSmallScreen);
   const intl = useIntl();
   // stabilize component that will not change during life of app, avoid render loops in router
   const notFoundComponent = useRef(<AdminNotFound />);
   const content = useRouter(contentRoutes, notFoundComponent.current);
+
+  const handleMenuToggle = () => {
+    setMenuOpen(!isMenuOpen);
+  };
 
   return (
     <>
@@ -169,34 +61,48 @@ export const Dashboard: React.FC<{
         })}
       </a>
 
-      <div className="container">
-        <section
-          className="dashboard"
-          data-h2-flex-grid="b(stretch, contained, flush, none)"
-        >
-          <div
-            data-h2-bg-color="b(lightnavy)"
-            data-h2-flex-item="b(1of1) m(1of4) l(1of6)"
-          >
-            <div
-              data-h2-padding="b(right-left, m)"
-              data-h2-position="b(static) m(sticky)"
-              style={{ top: "0", maxHeight: "100vh", overflow: "auto" }}
-            >
-              <SideMenu items={[...menuItems, LoginOrLogout()]} />
-            </div>
-          </div>
+      <div data-h2-display="b(flex)" data-h2-align-items="b(stretch)">
+        <SideMenu isOpen={isMenuOpen} onToggle={handleMenuToggle} />
+        <SideMenuContentWrapper>
           <div
             data-h2-flex-item="b(1of1) m(9of12) l(10of12)"
             data-h2-display="b(flex)"
-            style={{ flexDirection: "column" }}
+            data-h2-flex-direction="b(column)"
+            data-h2-align-items="b(space-between)"
           >
             <Header baseUrl={ADMIN_APP_DIR} />
             <main id="main">{content}</main>
             <Footer baseUrl={ADMIN_APP_DIR} />
           </div>
-        </section>
+        </SideMenuContentWrapper>
+      </div>
+      <div
+        data-h2-visibility="b(visible) m(hidden)"
+        data-h2-position="b(fixed)"
+        data-h2-location="b(bottom-right, xs)"
+        style={{ zIndex: 9998 }}
+      >
+        <Button
+          mode="solid"
+          color="secondary"
+          data-h2-display="b(inline-flex)"
+          data-h2-align-items="b(center)"
+          data-h2-shadow="b(s)"
+          onClick={handleMenuToggle}
+        >
+          <MenuIcon
+            style={{ width: "1rem", height: "1rem", marginRight: "0.5rem" }}
+          />
+          <span>
+            {intl.formatMessage({
+              defaultMessage: "Open Menu",
+              description: "Text label for header button that opens side menu.",
+            })}
+          </span>
+        </Button>
       </div>
     </>
   );
 };
+
+export default Dashboard;

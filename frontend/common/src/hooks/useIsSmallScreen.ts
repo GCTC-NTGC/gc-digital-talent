@@ -1,7 +1,7 @@
 import { useLayoutEffect, useState } from "react";
 import debounce from "lodash/debounce";
 
-const useIsSmallScreen = (threshold = 768, wait = 250) => {
+const useIsSmallScreen = (threshold = 1024, wait = 250) => {
   const [isSmallScreen, setSmallScreen] = useState(
     window.innerWidth < threshold,
   );

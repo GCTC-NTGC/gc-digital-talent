@@ -1,14 +1,15 @@
-import React from "react";
+import React, { MouseEventHandler } from "react";
 
 export interface SideMenuItemProps {
   as?: "a" | "button";
   icon: React.FC<{ className?: string }>;
-  onClick?: () => void;
   href?: string;
+  onClick?: MouseEventHandler<HTMLAnchorElement> &
+    MouseEventHandler<HTMLButtonElement>;
 }
 
 const SideMenuItem: React.FC<SideMenuItemProps> = ({
-  as = "button",
+  as = "a",
   icon,
   children,
   onClick,
@@ -30,7 +31,8 @@ const SideMenuItem: React.FC<SideMenuItemProps> = ({
       data-h2-font-color="b(white)"
       data-h2-font-size="b(h6)"
       className="side-menu__item"
-      {...(as === "a" ? { href } : { onClick, type: "button" })}
+      onClick={onClick}
+      {...(as === "a" ? { href } : { type: "button" })}
     >
       {Icon ? <Icon className="side-menu-item__icon" /> : null}
       <span>{children}</span>

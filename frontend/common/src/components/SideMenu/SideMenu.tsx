@@ -30,44 +30,45 @@ const SideMenu: React.FC<SideMenuProps> = ({
     }
   };
   return !isSmallScreen || isOpen ? (
-    <FocusLock autoFocus returnFocus disabled={!isSmallScreen}>
-      <RemoveScroll enabled={isSmallScreen}>
+    <FocusLock
+      autoFocus
+      returnFocus
+      disabled={!isSmallScreen}
+      className={`side-menu${isOpen ? ` side-menu--open` : ``}`}
+    >
+      <RemoveScroll
+        enabled={isSmallScreen && isOpen}
+        data-h2-padding="b(all, xs)"
+        data-h2-overflow="b(y, auto)"
+        data-h2-bg-color="b(lightnavy)"
+        data-h2-shadow="m(m)"
+        data-h2-position="b(fixed)"
+        data-h2-width="b(100)"
+      >
         <div
-          className={`side-menu${isOpen ? ` side-menu--open` : ``}`}
-          data-h2-padding="b(all, xs)"
-          data-h2-overflow="b(y, auto)"
-          data-h2-bg-color="b(lightnavy)"
-          data-h2-shadow="m(m)"
-          data-h2-position="b(fixed) m(relative)"
+          className="side-menu__inner"
+          data-h2-display="b(flex)"
+          data-h2-flex-direction="b(column)"
+          data-h2-align-items="b(stretch)"
+          data-h2-justify-content="b(space-between)"
         >
-          <div
-            className="side-menu__inner"
-            data-h2-display="b(flex)"
-            data-h2-flex-direction="b(column)"
-            data-h2-align-items="b(stretch)"
-            data-h2-justify-content="b(space-between)"
-          >
-            <div data-h2-margin="(top-bottom, s)" className="side-menu__header">
-              <SideMenuItem onClick={handleToggle} icon={MenuIcon}>
-                {isOpen ? "Close" : "Open"} Menu
-              </SideMenuItem>
-              {header}
-            </div>
-            <div
-              data-h2-margin="b(bottom, auto)"
-              className="side-menu__content"
-            >
-              {children}
-            </div>
-            {footer && (
-              <div
-                data-h2-margin="(top-bottom, s)"
-                className="side-menu__footer"
-              >
-                {footer}
-              </div>
-            )}
+          <div data-h2-margin="(top-bottom, s)" className="side-menu__header">
+            <SideMenuItem as="button" onClick={handleToggle} icon={MenuIcon}>
+              {isOpen ? "Close" : "Open"} Menu
+            </SideMenuItem>
+            {header}
           </div>
+          <div
+            data-h2-margin="b(top, m) m(top, l) l(top, xl)"
+            className="side-menu__content"
+          >
+            {children}
+          </div>
+          {footer && (
+            <div data-h2-margin="(top-bottom, s)" className="side-menu__footer">
+              {footer}
+            </div>
+          )}
         </div>
       </RemoveScroll>
     </FocusLock>

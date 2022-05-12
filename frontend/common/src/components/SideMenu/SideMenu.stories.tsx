@@ -38,9 +38,13 @@ const TemplateSideMenu: Story = (args) => {
       <SideMenuComponent
         isOpen={isOpen}
         onToggle={handleToggle}
-        footer={<SideMenuItem icon={LoginIcon}>Login</SideMenuItem>}
+        footer={
+          <SideMenuItem as="button" icon={LoginIcon}>
+            Login
+          </SideMenuItem>
+        }
       >
-        <SideMenuItem icon={HomeIcon} onClick={() => null}>
+        <SideMenuItem as="button" icon={HomeIcon} onClick={() => null}>
           Home
         </SideMenuItem>
       </SideMenuComponent>
