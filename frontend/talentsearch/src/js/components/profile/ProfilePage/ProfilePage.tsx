@@ -93,26 +93,6 @@ export const ProfileForm: React.FC<ProfilePageProps> = ({
     sessionStorage.setItem("preProfileStatus", "InComplete");
   }
 
-  // const preProfileStatus = sessionStorage.getItem("preProfileStatus");
-  // const currentProfileStatus = sessionStorage.getItem("currentProfileStatus");
-
-  const preProfileStatus = "InComplete";
-  const currentProfileStatus = "Complete";
-  console.log(`pre${preProfileStatus}`);
-  console.log(`cur${currentProfileStatus}`);
-
-  if (preProfileStatus === "InComplete") {
-    if (currentProfileStatus === "Complete") {
-      toast.success(
-        intl.formatMessage({
-          defaultMessage:
-            "Your Profile is complete. You can change the job looking status!",
-          description:
-            "Message displayed to user after user is updated successfully.",
-        }),
-      );
-    }
-  }
   // styling a text bit with red colour within intls
   function redText(msg: string) {
     return <span data-h2-font-color="b(red)">{msg}</span>;

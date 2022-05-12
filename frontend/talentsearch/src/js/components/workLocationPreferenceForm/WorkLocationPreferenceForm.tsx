@@ -170,24 +170,37 @@ export const WorkLocationPreferenceApi: React.FunctionComponent = () => {
       id,
       user: data,
     }).then((result) => {
-      navigate(paths.home());
-      // eslint-disable-next-line @typescript-eslint/no-shadow
-      const [{ data }] =
-        // eslint-disable-next-line react-hooks/rules-of-hooks
-        useWorkLocationPreferenceQuery();
-      if (data?.me?.isProfileComplete) {
-        sessionStorage.setItem("currentProfileStatus", "Complete");
-      } else {
-        sessionStorage.setItem("currentProfileStatus", "InComplete");
-      }
-      toast.success(
-        intl.formatMessage({
-          defaultMessage: "Work location preferences updated successfully!",
-          description:
-            "Message displayed to user after user is updated successfully.",
-        }),
-      );
       if (result.data?.updateUserAsUser) {
+        if (result.data?.updateUserAsUser?.isProfileComplete) {
+          sessionStorage.setItem("currentProfileStatus", "Complete");
+        } else {
+          sessionStorage.setItem("currentProfileStatus", "InComplete");
+        }
+        const preProfileStatus = sessionStorage.getItem("preProfileStatus");
+        const currentProfileStatus = sessionStorage.getItem(
+          "currentProfileStatus",
+        );
+
+        if (preProfileStatus === "InComplete") {
+          if (currentProfileStatus === "Complete") {
+            toast.success(
+              intl.formatMessage({
+                defaultMessage:
+                  "Your Profile is complete now. You can change the job looking status!",
+                description:
+                  "Message displayed to user when user profile completed.",
+              }),
+            );
+          }
+        }
+        navigate(paths.home());
+        toast.success(
+          intl.formatMessage({
+            defaultMessage: "Work location preferences updated successfully!",
+            description:
+              "Message displayed to user after user is updated successfully.",
+          }),
+        );
         return result.data.updateUserAsUser;
       }
       return Promise.reject(result.error);
@@ -202,7 +215,6 @@ export const WorkLocationPreferenceApi: React.FunctionComponent = () => {
           "Message displayed to user after user fails to get updated.",
       }),
     );
-    const isProfileCompletea = localStorage.getItem("isProfileComplete");
 
     return (
       <p>

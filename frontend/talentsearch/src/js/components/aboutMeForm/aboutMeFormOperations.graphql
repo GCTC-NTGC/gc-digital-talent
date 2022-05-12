@@ -19,5 +19,6 @@ mutation UpdateUserAsUser($id: ID!, $user: UpdateUserAsUserInput!) {
     telephone
     firstName
     lastName
+    isProfileComplete
   }
 }

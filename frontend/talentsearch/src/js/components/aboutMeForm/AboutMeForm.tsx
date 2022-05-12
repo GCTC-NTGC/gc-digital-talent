@@ -324,6 +324,28 @@ const AboutMeFormContainer: React.FunctionComponent = () => {
         >,
       ) => {
         if (res.data?.updateUserAsUser) {
+          if (res.data?.updateUserAsUser?.isProfileComplete) {
+            sessionStorage.setItem("currentProfileStatus", "Complete");
+          } else {
+            sessionStorage.setItem("currentProfileStatus", "InComplete");
+          }
+          const preProfileStatus = sessionStorage.getItem("preProfileStatus");
+          const currentProfileStatus = sessionStorage.getItem(
+            "currentProfileStatus",
+          );
+
+          if (preProfileStatus === "InComplete") {
+            if (currentProfileStatus === "Complete") {
+              toast.success(
+                intl.formatMessage({
+                  defaultMessage:
+                    "Your Profile is complete now. You can change the job looking status!",
+                  description:
+                    "Message displayed to user when user profile completed.",
+                }),
+              );
+            }
+          }
           return res.data.updateUserAsUser;
         }
 

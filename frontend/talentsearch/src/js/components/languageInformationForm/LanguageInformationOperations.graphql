@@ -22,5 +22,6 @@ mutation UpdateLanguageInformation($id: ID!, $user: UpdateUserAsUserInput!) {
     writtenLevel
     verbalLevel
     estimatedLanguageAbility
+    isProfileComplete
   }
 }

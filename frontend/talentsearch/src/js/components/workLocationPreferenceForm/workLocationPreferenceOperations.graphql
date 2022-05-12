@@ -3,7 +3,6 @@ query WorkLocationPreference{
     id
     locationPreferences
     locationExemptions
-    isProfileComplete
     }
 }
 
@@ -11,5 +10,6 @@ mutation createWorkLocationPreference($id: ID!, $user: UpdateUserAsUserInput!) {
   updateUserAsUser(id: $id, user: $user) {
     locationPreferences
     locationExemptions
+    isProfileComplete
   }
 }
