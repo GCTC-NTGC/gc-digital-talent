@@ -33,7 +33,7 @@ class LocalAuthBearerTokenService implements BearerTokenServiceInterface
     }
 
     /*
-    * @returns DataSet
+    * @returns Lcobucci\JWT\Token\DataSet
     */
     public function validateAndGetClaims(string $bearerToken)
     {
