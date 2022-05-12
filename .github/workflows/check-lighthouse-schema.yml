@@ -22,14 +22,12 @@ jobs:
         run: cp .env.example .env
 
       - name: "Build docker image: api"
-        working-directory: infrastructure
         run: docker compose -f docker-compose.yml -f docker-compose.ci.yml up api --detach
 
       - name: "Re-generate lighthouse schema"
-        working-directory: infrastructure
         run: |
           docker compose exec --no-TTY api php artisan lighthouse:print-schema --write
-          docker compose cp api:/var/www/html/api/storage/app/lighthouse-schema.graphql ../api/storage/app/
+          docker compose cp api:/var/www/html/api/storage/app/lighthouse-schema.graphql ./api/storage/app/
 
       - name: Check for uncommitted changes
         id: changes
