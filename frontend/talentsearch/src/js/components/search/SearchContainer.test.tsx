@@ -54,9 +54,23 @@ describe("SearchContainer", () => {
 
   it("should render number of candidates", async () => {
     renderSearchContainer({ candidateCount: 10 });
-    expect(
-      await screen.getAllByText(/10/i, { selector: "span", exact: true })
-        .length,
-    ).toEqual(3);
+
+    const candidateCounts = await screen.queryAllByTestId("candidateCount");
+    expect(candidateCounts.length).toEqual(3);
+  });
+
+  it("should render proper value for candidates", async () => {
+    renderSearchContainer({ candidateCount: 10 });
+
+    const candidateCounts = await screen.queryAllByTestId("candidateCount");
+    const pattern = /10/i;
+
+    candidateCounts.forEach((count) => {
+      const text = count.textContent;
+      expect(text).toBeTruthy();
+      if (text) {
+        expect(pattern.test(text)).toBeTruthy();
+      }
+    });
   });
 });
