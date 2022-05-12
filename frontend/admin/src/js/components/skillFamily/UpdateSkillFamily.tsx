@@ -45,177 +45,178 @@ interface UpdateSkillFamilyFormProps {
   ) => Promise<UpdateSkillFamilyMutation["updateSkillFamily"]>;
 }
 
-export const UpdateSkillFamilyForm: React.FunctionComponent<UpdateSkillFamilyFormProps> =
-  ({ initialSkillFamily, skills, handleUpdateSkillFamily }) => {
-    const intl = useIntl();
-    const locale = getLocale(intl);
-    const paths = useAdminRoutes();
-    const sortedSkills = sortBy(skills, (skill) => {
-      return skill.name?.[locale]?.toLocaleUpperCase();
-    });
+export const UpdateSkillFamilyForm: React.FunctionComponent<
+  UpdateSkillFamilyFormProps
+> = ({ initialSkillFamily, skills, handleUpdateSkillFamily }) => {
+  const intl = useIntl();
+  const locale = getLocale(intl);
+  const paths = useAdminRoutes();
+  const sortedSkills = sortBy(skills, (skill) => {
+    return skill.name?.[locale]?.toLocaleUpperCase();
+  });
 
-    const dataToFormValues = (data: SkillFamily): FormValues => ({
-      ...data,
-      skills: unpackIds(data?.skills),
-    });
+  const dataToFormValues = (data: SkillFamily): FormValues => ({
+    ...data,
+    skills: unpackIds(data?.skills),
+  });
 
-    const formValuesToSubmitData = (
-      values: FormValues,
-    ): UpdateSkillFamilyInput => ({
-      ...values,
-      skills: {
-        sync: values.skills,
-      },
-      name: {
-        en: values.name?.en,
-        fr: values.name?.fr,
-      },
-      description: {
-        en: values.description?.en,
-        fr: values.description?.fr,
-      },
-    });
+  const formValuesToSubmitData = (
+    values: FormValues,
+  ): UpdateSkillFamilyInput => ({
+    ...values,
+    skills: {
+      sync: values.skills,
+    },
+    name: {
+      en: values.name?.en,
+      fr: values.name?.fr,
+    },
+    description: {
+      en: values.description?.en,
+      fr: values.description?.fr,
+    },
+  });
 
-    const methods = useForm<FormValues>({
-      defaultValues: dataToFormValues(initialSkillFamily),
-    });
-    const { handleSubmit } = methods;
+  const methods = useForm<FormValues>({
+    defaultValues: dataToFormValues(initialSkillFamily),
+  });
+  const { handleSubmit } = methods;
 
-    const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
-      return handleUpdateSkillFamily(
-        initialSkillFamily.id,
-        formValuesToSubmitData(data),
-      )
-        .then(() => {
-          navigate(paths.skillFamilyTable());
-          toast.success(
-            intl.formatMessage({
-              defaultMessage: "Skill family updated successfully!",
-              description:
-                "Message displayed to user after skillFamily is updated successfully.",
-            }),
-          );
-        })
-        .catch(() => {
-          toast.error(
-            intl.formatMessage({
-              defaultMessage: "Error: updating skill family failed",
-              description:
-                "Message displayed to user after skillFamily fails to get updated.",
-            }),
-          );
-        });
-    };
-
-    const skillOptions: Option<string>[] = sortedSkills.map(({ id, name }) => ({
-      value: id,
-      label: name?.[locale] || "",
-    }));
-
-    return (
-      <section>
-        <h2 data-h2-text-align="b(center)" data-h2-margin="b(top, none)">
-          {intl.formatMessage({
-            defaultMessage: "Update Skill Family",
-            description: "Title displayed on the update a skillFamily form.",
-          })}
-        </h2>
-        <div data-h2-container="b(center, s)">
-          <FormProvider {...methods}>
-            <form onSubmit={handleSubmit(onSubmit)}>
-              <Input
-                id="name_en"
-                name="name.en"
-                label={intl.formatMessage({
-                  defaultMessage: "Name (English)",
-                  description:
-                    "Label displayed on the create a skill family form name (English) field.",
-                })}
-                type="text"
-                rules={{
-                  required: intl.formatMessage(errorMessages.required),
-                }}
-              />
-              <Input
-                id="name_fr"
-                name="name.fr"
-                label={intl.formatMessage({
-                  defaultMessage: "Name (French)",
-                  description:
-                    "Label displayed on the create a skill family form name (French) field.",
-                })}
-                type="text"
-                rules={{
-                  required: intl.formatMessage(errorMessages.required),
-                }}
-              />
-              <TextArea
-                id="description_en"
-                name="description.en"
-                label={intl.formatMessage({
-                  defaultMessage: "Description (English)",
-                  description:
-                    "Label displayed on the create a skill family form description (English) field.",
-                })}
-                rules={{
-                  required: intl.formatMessage(errorMessages.required),
-                }}
-              />
-              <TextArea
-                id="description_fr"
-                name="description.fr"
-                label={intl.formatMessage({
-                  defaultMessage: "Description (French)",
-                  description:
-                    "Label displayed on the create a skill family form description (French) field.",
-                })}
-                rules={{
-                  required: intl.formatMessage(errorMessages.required),
-                }}
-              />
-              <Select
-                id="category"
-                name="category"
-                label={intl.formatMessage({
-                  defaultMessage: "Category",
-                  description:
-                    "Label displayed on the skill family form category field.",
-                })}
-                nullSelection={intl.formatMessage({
-                  defaultMessage: "Select a category...",
-                  description:
-                    "Placeholder displayed on the skill family form category field.",
-                })}
-                rules={{
-                  required: intl.formatMessage(errorMessages.required),
-                }}
-                options={enumToOptions(SkillCategory).map(({ value }) => ({
-                  value,
-                  label: intl.formatMessage(getSkillCategory(value)),
-                }))}
-              />
-              <MultiSelect
-                id="skills"
-                name="skills"
-                label={intl.formatMessage({
-                  defaultMessage: "Skills",
-                  description:
-                    "Label displayed on the skill family form skills field.",
-                })}
-                placeholder={intl.formatMessage({
-                  defaultMessage: "Select one or more skills...",
-                  description:
-                    "Placeholder displayed on the skill family form skills field.",
-                })}
-                options={skillOptions}
-              />
-              <Submit />
-            </form>
-          </FormProvider>
-        </div>
-      </section>
-    );
+  const onSubmit: SubmitHandler<FormValues> = async (data: FormValues) => {
+    return handleUpdateSkillFamily(
+      initialSkillFamily.id,
+      formValuesToSubmitData(data),
+    )
+      .then(() => {
+        navigate(paths.skillFamilyTable());
+        toast.success(
+          intl.formatMessage({
+            defaultMessage: "Skill family updated successfully!",
+            description:
+              "Message displayed to user after skillFamily is updated successfully.",
+          }),
+        );
+      })
+      .catch(() => {
+        toast.error(
+          intl.formatMessage({
+            defaultMessage: "Error: updating skill family failed",
+            description:
+              "Message displayed to user after skillFamily fails to get updated.",
+          }),
+        );
+      });
   };
+
+  const skillOptions: Option<string>[] = sortedSkills.map(({ id, name }) => ({
+    value: id,
+    label: name?.[locale] || "",
+  }));
+
+  return (
+    <section>
+      <h2 data-h2-text-align="b(center)" data-h2-margin="b(top, none)">
+        {intl.formatMessage({
+          defaultMessage: "Update Skill Family",
+          description: "Title displayed on the update a skillFamily form.",
+        })}
+      </h2>
+      <div data-h2-container="b(center, s)">
+        <FormProvider {...methods}>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <Input
+              id="name_en"
+              name="name.en"
+              label={intl.formatMessage({
+                defaultMessage: "Name (English)",
+                description:
+                  "Label displayed on the create a skill family form name (English) field.",
+              })}
+              type="text"
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
+            />
+            <Input
+              id="name_fr"
+              name="name.fr"
+              label={intl.formatMessage({
+                defaultMessage: "Name (French)",
+                description:
+                  "Label displayed on the create a skill family form name (French) field.",
+              })}
+              type="text"
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
+            />
+            <TextArea
+              id="description_en"
+              name="description.en"
+              label={intl.formatMessage({
+                defaultMessage: "Description (English)",
+                description:
+                  "Label displayed on the create a skill family form description (English) field.",
+              })}
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
+            />
+            <TextArea
+              id="description_fr"
+              name="description.fr"
+              label={intl.formatMessage({
+                defaultMessage: "Description (French)",
+                description:
+                  "Label displayed on the create a skill family form description (French) field.",
+              })}
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
+            />
+            <Select
+              id="category"
+              name="category"
+              label={intl.formatMessage({
+                defaultMessage: "Category",
+                description:
+                  "Label displayed on the skill family form category field.",
+              })}
+              nullSelection={intl.formatMessage({
+                defaultMessage: "Select a category...",
+                description:
+                  "Placeholder displayed on the skill family form category field.",
+              })}
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
+              options={enumToOptions(SkillCategory).map(({ value }) => ({
+                value,
+                label: intl.formatMessage(getSkillCategory(value)),
+              }))}
+            />
+            <MultiSelect
+              id="skills"
+              name="skills"
+              label={intl.formatMessage({
+                defaultMessage: "Skills",
+                description:
+                  "Label displayed on the skill family form skills field.",
+              })}
+              placeholder={intl.formatMessage({
+                defaultMessage: "Select one or more skills...",
+                description:
+                  "Placeholder displayed on the skill family form skills field.",
+              })}
+              options={skillOptions}
+            />
+            <Submit />
+          </form>
+        </FormProvider>
+      </div>
+    </section>
+  );
+};
 
 export const UpdateSkillFamily: React.FunctionComponent<{
   skillFamilyId: string;

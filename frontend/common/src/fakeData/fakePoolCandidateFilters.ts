@@ -35,9 +35,10 @@ const generatePoolCandidateFilters = (
     workRegions: faker.helpers.arrayElements<WorkRegion>(
       Object.values(WorkRegion),
     ),
-    operationalRequirements: faker.helpers.arrayElements<OperationalRequirement>(
-      operationalRequirements,
-    ),
+    operationalRequirements:
+      faker.helpers.arrayElements<OperationalRequirement>(
+        operationalRequirements,
+      ),
     cmoAssets: faker.helpers.arrayElements(cmoAssets),
   };
 };
