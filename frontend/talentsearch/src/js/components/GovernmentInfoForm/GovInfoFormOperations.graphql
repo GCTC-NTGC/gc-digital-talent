@@ -34,6 +34,7 @@ mutation UpdateGovAsUser($id: ID!, $user: UpdateUserAsUserInput!) {
     isGovEmployee
     govEmployeeType
     interestedInLaterOrSecondment
+    isProfileComplete
     currentClassification {
       id
       name {

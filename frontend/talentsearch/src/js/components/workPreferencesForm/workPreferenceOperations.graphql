@@ -10,5 +10,6 @@ mutation UpdateWorkPreferences($id: ID!, $user: UpdateUserAsUserInput!) {
   updateUserAsUser(id: $id, user: $user) {
     wouldAcceptTemporary
     acceptedOperationalRequirements
+    isProfileComplete
   }
 }

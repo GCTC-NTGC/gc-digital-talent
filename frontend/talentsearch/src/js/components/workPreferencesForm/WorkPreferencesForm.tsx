@@ -201,6 +201,30 @@ export const WorkPreferencesApi: React.FunctionComponent = () => {
       id,
       user: data,
     }).then((result) => {
+      if (result.data?.updateUserAsUser) {
+        if (result.data?.updateUserAsUser?.isProfileComplete) {
+          sessionStorage.setItem("currentProfileStatus", "Complete");
+        } else {
+          sessionStorage.setItem("currentProfileStatus", "InComplete");
+        }
+        const preProfileStatus = sessionStorage.getItem("preProfileStatus");
+        const currentProfileStatus = sessionStorage.getItem(
+          "currentProfileStatus",
+        );
+
+        if (preProfileStatus === "InComplete") {
+          if (currentProfileStatus === "Complete") {
+            toast.success(
+              intl.formatMessage({
+                defaultMessage:
+                  "Your Profile is complete now. You can change the job looking status!",
+                description:
+                  "Message displayed to user when user profile completed.",
+              }),
+            );
+          }
+        }
+      }
       navigate(paths.home());
       toast.success(
         intl.formatMessage({
