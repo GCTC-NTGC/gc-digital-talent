@@ -770,6 +770,15 @@ type Query {
   skillFamilies: [SkillFamily]!
   skill(id: ID!): Skill
   skills: [Skill]!
+  usersPaginated(
+    where: UserFilterInput
+
+    """Limits number of fetched items."""
+    first: Int!
+
+    """The offset from which items are returned."""
+    page: Int
+  ): UserPaginator
 }
 
 enum Role {
@@ -1118,6 +1127,29 @@ type User {
 
 input UserBelongsTo {
   connect: ID
+}
+
+input UserFilterInput {
+  pools: [ID]
+  languageAbility: LanguageAbility
+  expectedClassifications: [ClassificationFilterInput]
+  operationalRequirements: [OperationalRequirement]
+  locationPreferences: [WorkRegion]
+  hasDiploma: Boolean
+  wouldAcceptTemporary: Boolean
+  jobLookingStatus: JobLookingStatus
+  isProfileComplete: Boolean
+  skills: [ID]
+  isGovEmployee: Boolean
+}
+
+"""A paginated list of User items."""
+type UserPaginator {
+  """Pagination information about the list of items."""
+  paginatorInfo: PaginatorInfo!
+
+  """A list of User items."""
+  data: [User!]!
 }
 
 type UserPublicProfile {
