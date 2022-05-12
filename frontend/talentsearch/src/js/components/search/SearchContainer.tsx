@@ -240,8 +240,9 @@ export const SearchContainerApi: React.FC = () => {
   });
   const pool = data?.poolByKey;
 
-  const [candidateFilter, setCandidateFilter] =
-    useState<PoolCandidateFilterInput | undefined>(undefined);
+  const [candidateFilter, setCandidateFilter] = useState<
+    PoolCandidateFilterInput | undefined
+  >(undefined);
 
   const [{ data: countData, fetching: countFetching }] =
     useCountPoolCandidatesQuery({
