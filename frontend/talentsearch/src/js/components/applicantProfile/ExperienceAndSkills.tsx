@@ -63,7 +63,7 @@ const ExperienceAndSkills: React.FunctionComponent<
 
   const links = [
     {
-      href: "/",
+      href: "skills-and-experiences/personal/create",
       title: intl.formatMessage({
         defaultMessage: "Personal",
         description: "Title for personal experience form button.",
@@ -71,7 +71,7 @@ const ExperienceAndSkills: React.FunctionComponent<
       icon: <LightBulbIcon style={{ width: "1.5rem" }} />,
     },
     {
-      href: "/",
+      href: "skills-and-experiences/community/create",
       title: intl.formatMessage({
         defaultMessage: "Community",
         description: "Title for community experience form button.",
@@ -79,7 +79,7 @@ const ExperienceAndSkills: React.FunctionComponent<
       icon: <UserGroupIcon style={{ width: "1.5rem" }} />,
     },
     {
-      href: "/",
+      href: "skills-and-experiences/work/create",
       title: intl.formatMessage({
         defaultMessage: "Work",
         description: "Title for work experience form button.",
@@ -87,7 +87,7 @@ const ExperienceAndSkills: React.FunctionComponent<
       icon: <BriefcaseIcon style={{ width: "1.5rem" }} />,
     },
     {
-      href: "/",
+      href: "skills-and-experiences/education/create",
       title: intl.formatMessage({
         defaultMessage: "Education",
         description: "Title for education experience form button.",
@@ -95,7 +95,7 @@ const ExperienceAndSkills: React.FunctionComponent<
       icon: <BookOpenIcon style={{ width: "1.5rem" }} />,
     },
     {
-      href: "/",
+      href: "skills-and-experiences/award/create",
       title: intl.formatMessage({
         defaultMessage: "Award",
         description: "Title for award experience form button.",
