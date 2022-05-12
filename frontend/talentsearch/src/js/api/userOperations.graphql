@@ -3,6 +3,7 @@ query getMe {
     id
     sub
     roles
+    firstName
     lastName
     email
     telephone
