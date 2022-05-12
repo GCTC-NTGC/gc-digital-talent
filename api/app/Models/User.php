@@ -420,4 +420,10 @@ RAWSQL2;
         }
         return $query;
     }
+    public function scopeOrder(Builder $query, ?array $args): Builder
+    {
+        $orderBy = isset($args['where']['orderBy']) ? $args['where']['orderBy'] : 'id';
+        $query->orderBy($orderBy);
+        return $query;
+    }
 }
