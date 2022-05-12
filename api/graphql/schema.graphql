@@ -21,6 +21,7 @@ type LocalizedString {
 enum Language {
     EN @enum(value: "en")
     FR @enum(value: "fr")
+    ES @enum(value: "es")
 }
 
 enum Role {
@@ -93,7 +94,7 @@ type User {
     pools: [Pool] @hasMany # Pools a user owns
 
     # Profile Status
-    isProfileComplete: Boolean 
+    isProfileComplete: Boolean
 }
 
 enum ProvinceOrTerritory {
