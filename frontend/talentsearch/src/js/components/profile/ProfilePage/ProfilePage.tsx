@@ -38,7 +38,6 @@ import {
 
 import MyStatusApi from "../../myStatusForm/MyStatusForm";
 import ExperienceSection from "../../applicantProfile/ExperienceSection";
-import { toast } from "react-toastify";
 
 export interface ProfilePageProps {
   profileDataInput: User;

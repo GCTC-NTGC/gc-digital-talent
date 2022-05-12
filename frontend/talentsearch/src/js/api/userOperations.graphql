@@ -3,7 +3,6 @@ query getMe {
     id
     sub
     roles
-    firstName
     lastName
     email
     telephone
@@ -36,7 +35,6 @@ query getMe {
     isIndigenous
     isVisibleMinority
     jobLookingStatus
-    isProfileComplete
     hasDiploma
     locationPreferences
     locationExemptions
@@ -152,5 +150,6 @@ query getMe {
       }
       id
     }
+    isProfileComplete
   }
 }
