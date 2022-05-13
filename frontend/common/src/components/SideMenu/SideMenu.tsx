@@ -11,6 +11,7 @@ import "./sideMenu.css";
 
 export interface SideMenuProps {
   isOpen: boolean;
+  label: string;
   onToggle?: () => void;
   header?: React.ReactNode;
   footer?: JSX.Element;
@@ -18,6 +19,7 @@ export interface SideMenuProps {
 
 const SideMenu: React.FC<SideMenuProps> = ({
   isOpen,
+  label,
   onToggle,
   header,
   footer,
@@ -45,7 +47,8 @@ const SideMenu: React.FC<SideMenuProps> = ({
         data-h2-position="b(fixed)"
         data-h2-width="b(100)"
       >
-        <div
+        <nav
+          aria-label={label}
           className="side-menu__inner"
           data-h2-display="b(flex)"
           data-h2-flex-direction="b(column)"
@@ -69,7 +72,7 @@ const SideMenu: React.FC<SideMenuProps> = ({
               {footer}
             </div>
           )}
-        </div>
+        </nav>
       </RemoveScroll>
     </FocusLock>
   ) : null;

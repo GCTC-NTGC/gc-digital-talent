@@ -155,6 +155,11 @@ const SideMenu: React.FC<SideMenuProps> = ({ isOpen, onToggle }) => {
 
   return (
     <SideMenuWrapper
+      label={intl.formatMessage({
+        defaultMessage: "Main Menu",
+        description:
+          "Label for the main menu on the pool manager admin portal.",
+      })}
       onToggle={onToggle}
       isOpen={isOpen}
       footer={<LoginOrLogout />}
