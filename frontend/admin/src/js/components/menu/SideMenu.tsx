@@ -14,7 +14,7 @@ import {
   UserIcon,
   ViewGridIcon,
 } from "@heroicons/react/outline";
-import { navigate } from "@common/helpers/router";
+import { navigate, useLocation } from "@common/helpers/router";
 import LoginOrLogout from "./LoginOrLogout";
 import { AuthorizationContext } from "../AuthorizationContainer";
 
@@ -51,9 +51,12 @@ const checkRole = (
   return visible;
 };
 
+const startsWith = (ref: string, test: string): boolean => test.startsWith(ref);
+
 const SideMenu: React.FC<SideMenuProps> = ({ isOpen, onToggle }) => {
   const intl = useIntl();
   const paths = useAdminRoutes();
+  const location = useLocation();
 
   const { loggedInUserRoles } = React.useContext(AuthorizationContext);
 
@@ -162,6 +165,7 @@ const SideMenu: React.FC<SideMenuProps> = ({ isOpen, onToggle }) => {
             <SideMenuItem
               href={item.href}
               icon={item.icon}
+              isActive={startsWith(item.href, location.pathname)}
               onClick={(e) => {
                 e.preventDefault();
                 if (item.href) navigate(item.href);

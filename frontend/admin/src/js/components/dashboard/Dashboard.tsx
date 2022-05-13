@@ -13,9 +13,6 @@ import { MenuIcon } from "@heroicons/react/outline";
 import SideMenu from "../menu/SideMenu";
 import { ADMIN_APP_DIR } from "../../adminConstants";
 
-const exactMatch = (ref: string, test: string): boolean => ref === test;
-const startsWith = (ref: string, test: string): boolean => test.startsWith(ref);
-
 const AdminNotFound: React.FC = () => {
   const intl = useIntl();
   return (

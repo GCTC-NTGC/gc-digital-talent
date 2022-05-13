@@ -26,12 +26,17 @@
 }
 
 .side-menu__item {
+    background: none;
     border: none;
     border-bottom: thin solid rgba(255,255,255,0.1);
     overflow: hidden;
     padding: 0.5rem 0.75rem;
     text-overflow: ellipsis;
     white-space: nowrap;
+}
+
+.side-menu__item--active {
+    background: rgba(255,255,255,0.1);
 }
 
 .side-menu__item > span {
