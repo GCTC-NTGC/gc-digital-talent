@@ -32,7 +32,7 @@ jobs:
           docker compose cp api:/var/www/html/api/storage/app/lighthouse-schema.graphql ./api/storage/app/
 
       - name: Check for uncommitted changes
-        id: changes
+        id: check-changes
         uses: mskri/check-uncommitted-changes-action@v1.0.1
 
       - name: Error if changes
