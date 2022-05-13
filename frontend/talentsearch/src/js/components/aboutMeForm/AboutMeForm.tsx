@@ -105,7 +105,7 @@ export const AboutMeForm: React.FunctionComponent<AboutMeFormProps> = ({
 
     await onUpdateAboutMe(initialUser.id, formValuesToSubmitData(formValues))
       .then(() => {
-        navigate(paths.aboutMe());
+        navigate(paths.home());
         toast.success(
           intl.formatMessage({
             defaultMessage: "User updated successfully!",
