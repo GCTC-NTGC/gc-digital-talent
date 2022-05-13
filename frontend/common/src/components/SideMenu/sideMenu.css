@@ -28,7 +28,8 @@
 .side-menu__item {
     background: none;
     border: none;
-    border-bottom: thin solid rgba(255,255,255,0.1);
+    border: thin solid transparent;
+    border-bottom-color: rgba(255,255,255,0.1);
     overflow: hidden;
     padding: 0.5rem 0.75rem;
     text-overflow: ellipsis;
@@ -46,6 +47,10 @@
 .side-menu__item:hover {
     background-color: rgba(255,255,255,0.2);
     cursor: pointer;
+}
+.side-menu__item:focus {
+    outline: none;
+    border: thin dashed rgba(255,255,255,0.6);
 }
 
 .side-menu-item__icon {
