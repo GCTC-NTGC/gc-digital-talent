@@ -16,6 +16,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2.4.0
+        with:
+          ref: ${{ github.head_ref }}
 
       - name: Create admin .env file, which is referenced in docker-compose
         working-directory: frontend/admin
@@ -31,11 +33,10 @@ jobs:
 
       - name: Check for uncommitted changes
         id: changes
-        # See: https://github.com/UnicornGlobal/has-changes-action
-        uses: UnicornGlobal/has-changes-action@v1.0.12
+        uses: mskri/check-uncommitted-changes-action@v1.0.1
 
       - name: Error if changes
-        if: steps.changes.outputs.changed == 1
+        if: steps.check-changes.outputs.outcome == failure()
         # See: https://github.com/actions/github-script
         uses: actions/github-script@v5.1.0
         with:
