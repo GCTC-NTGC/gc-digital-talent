@@ -62,13 +62,15 @@ const Dashboard: React.FC<DashboardProps> = ({ contentRoutes }) => {
         <SideMenu isOpen={isMenuOpen} onToggle={handleMenuToggle} />
         <SideMenuContentWrapper>
           <div
-            data-h2-flex-item="b(1of1) m(9of12) l(10of12)"
+            className="content-inner"
             data-h2-display="b(flex)"
             data-h2-flex-direction="b(column)"
             data-h2-align-items="b(space-between)"
           >
             <Header baseUrl={ADMIN_APP_DIR} />
-            <main id="main">{content}</main>
+            <main id="main" data-h2-margin="b(bottom, auto)">
+              {content}
+            </main>
             <Footer baseUrl={ADMIN_APP_DIR} />
           </div>
         </SideMenuContentWrapper>

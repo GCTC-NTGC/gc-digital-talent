@@ -26,6 +26,10 @@ body {
     flex-direction: column;
 }
 
+.content-inner {
+    height: 100%;
+}
+
 .dashboard {
     flex-grow: 1;
 }
