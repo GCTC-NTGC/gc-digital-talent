@@ -625,7 +625,15 @@ export const ProfileForm: React.FC<ProfilePageProps> = ({
                 {((!lookingForEnglish &&
                   !lookingForFrench &&
                   !lookingForBilingual) ||
-                  !bilingualEvaluation) && (
+                  (lookingForBilingual &&
+                    (!bilingualEvaluation ||
+                      ((bilingualEvaluation ===
+                        BilingualEvaluation.CompletedEnglish ||
+                        bilingualEvaluation ===
+                          BilingualEvaluation.CompletedFrench) &&
+                        (!comprehensionLevel ||
+                          !writtenLevel ||
+                          !verbalLevel))))) && (
                   <p>
                     {intl.formatMessage(
                       {

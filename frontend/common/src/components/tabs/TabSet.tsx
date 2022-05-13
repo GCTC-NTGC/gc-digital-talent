@@ -18,9 +18,7 @@ const firstSelectableTab = (tabs: React.ReactElement<TabProps>[]): number => {
   return firstIndex >= 0 ? firstIndex : 0;
 };
 
-const TabSet: React.FC<TabSetProps> = ({
-  children,
-}): React.ReactElement => {
+const TabSet: React.FC<TabSetProps> = ({ children }): React.ReactElement => {
   const [tabSetState, setTabSetState] = useState<TabSetState>({
     selectedTab: firstSelectableTab(children),
     isOpen: true,

@@ -1,10 +1,10 @@
 query me {
-    me {
-        id
-        email
-        firstName
-        lastName
-    }
+  me {
+    id
+    email
+    firstName
+    lastName
+  }
 }
 
 query latestRequests {
