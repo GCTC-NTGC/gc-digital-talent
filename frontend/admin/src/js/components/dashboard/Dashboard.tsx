@@ -1,8 +1,8 @@
 import React, { useRef } from "react";
 import { useIntl } from "react-intl";
-import { useLocation, useRouter, RouterResult } from "@common/helpers/router";
+import { useRouter, RouterResult } from "@common/helpers/router";
 import { Routes } from "universal-router";
-import { Button, Link } from "@common/components";
+import { Button } from "@common/components";
 import NotFound from "@common/components/NotFound";
 import Header from "@common/components/Header";
 import Footer from "@common/components/Footer";
