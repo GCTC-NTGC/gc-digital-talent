@@ -39,7 +39,7 @@ const LearnDialog: React.FC<BasicDialogProps> = ({ isOpen, onDismiss }) => {
       <p>
         {intl.formatMessage({
           defaultMessage:
-            "If you self-identify as First Nations, Inuk, or Métis, and you live in Canada, then you can apply to become an apprentice in this program.",
+            "If you are First Nations, Inuk, or Métis, and you live in Canada, then you can apply to become an apprentice in this program.",
           description: "Learn more dialog question on paragraph one",
         })}
       </p>
