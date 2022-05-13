@@ -1,9 +1,9 @@
-query WorkLocationPreference{
-  me{
+query WorkLocationPreference {
+  me {
     id
     locationPreferences
     locationExemptions
-    }
+  }
 }
 
 mutation createWorkLocationPreference($id: ID!, $user: UpdateUserAsUserInput!) {

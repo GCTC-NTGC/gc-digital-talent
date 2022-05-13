@@ -27,16 +27,16 @@ query getAllApplicantExperiences($id: ID!) {
         title
         issuedBy
         awardedDate
-				awardedTo
+        awardedTo
         awardedScope
       }
-    	... on CommunityExperience {
-      	title
+      ... on CommunityExperience {
+        title
         organization
         project
         startDate
         endDate
-    	}
+      }
       ... on EducationExperience {
         institution
         areaOfStudy

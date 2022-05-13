@@ -1,13 +1,13 @@
 .page-header__icon {
-    flex-shrink: 0;
-    height: 2rem;
-    width: 2rem;
-    margin-right: 1rem;
+  flex-shrink: 0;
+  height: 2rem;
+  width: 2rem;
+  margin-right: 1rem;
 }
 
 @media (min-width: 48em) {
-    .page-header__icon {
-        height: 3rem;
-        width: 3rem;
-    }
+  .page-header__icon {
+    height: 3rem;
+    width: 3rem;
+  }
 }

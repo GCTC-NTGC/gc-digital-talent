@@ -1,4 +1,4 @@
-query GetLanguageInformation{
+query GetLanguageInformation {
   me {
     id
     lookingForEnglish
