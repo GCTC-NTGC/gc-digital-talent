@@ -14,12 +14,12 @@ query getCmoAsset($id: ID!) {
 }
 query GetCmoAssets {
   cmoAssets {
-    id,
-    key,
+    id
+    key
     name {
       en
       fr
-    },
+    }
     description {
       en
       fr
@@ -56,5 +56,3 @@ mutation updateCmoAsset($id: ID!, $cmoAsset: UpdateCmoAssetInput!) {
     }
   }
 }
-
-
