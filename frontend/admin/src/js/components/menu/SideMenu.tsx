@@ -24,6 +24,7 @@ import { Role } from "../../api/generated";
 interface SideMenuProps {
   isOpen: boolean;
   onToggle: () => void;
+  onDismiss: () => void;
 }
 
 /**
@@ -53,7 +54,7 @@ const checkRole = (
 
 const startsWith = (ref: string, test: string): boolean => test.startsWith(ref);
 
-const SideMenu: React.FC<SideMenuProps> = ({ isOpen, onToggle }) => {
+const SideMenu: React.FC<SideMenuProps> = ({ isOpen, onToggle, onDismiss }) => {
   const intl = useIntl();
   const paths = useAdminRoutes();
   const location = useLocation();
@@ -162,6 +163,7 @@ const SideMenu: React.FC<SideMenuProps> = ({ isOpen, onToggle }) => {
       })}
       onToggle={onToggle}
       isOpen={isOpen}
+      onDismiss={onDismiss}
       footer={<LoginOrLogout />}
     >
       {menuItems.map((item) => (

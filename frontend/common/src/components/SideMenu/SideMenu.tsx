@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import React from "react";
 import FocusLock from "react-focus-lock";
 import { RemoveScroll } from "react-remove-scroll";
@@ -13,6 +14,7 @@ export interface SideMenuProps {
   isOpen: boolean;
   label: string;
   onToggle?: () => void;
+  onDismiss?: () => void;
   header?: React.ReactNode;
   footer?: JSX.Element;
 }
@@ -21,6 +23,7 @@ const SideMenu: React.FC<SideMenuProps> = ({
   isOpen,
   label,
   onToggle,
+  onDismiss,
   header,
   footer,
   children,
@@ -31,6 +34,16 @@ const SideMenu: React.FC<SideMenuProps> = ({
       onToggle();
     }
   };
+
+  const handleKeyDown = (event: React.KeyboardEvent) => {
+    if (event.key === "Escape") {
+      event.stopPropagation();
+      if (onDismiss) {
+        onDismiss();
+      }
+    }
+  };
+
   return !isSmallScreen || isOpen ? (
     <FocusLock
       autoFocus
@@ -48,6 +61,11 @@ const SideMenu: React.FC<SideMenuProps> = ({
         data-h2-width="b(100)"
       >
         <nav
+          /**
+           * Ignore `no-noninteractive-element-interactions` since
+           * this is captured to close the element
+           */
+          onKeyDown={handleKeyDown}
           aria-label={label}
           className="side-menu__inner"
           data-h2-display="b(flex)"

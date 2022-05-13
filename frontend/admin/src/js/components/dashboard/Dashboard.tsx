@@ -49,6 +49,10 @@ const Dashboard: React.FC<DashboardProps> = ({ contentRoutes }) => {
     setMenuOpen(!isMenuOpen);
   };
 
+  const handleDismiss = () => {
+    setMenuOpen(false);
+  };
+
   return (
     <>
       <a href="#main" data-h2-visibility="b(hidden)">
@@ -59,7 +63,11 @@ const Dashboard: React.FC<DashboardProps> = ({ contentRoutes }) => {
       </a>
 
       <div data-h2-display="b(flex)" data-h2-align-items="b(stretch)">
-        <SideMenu isOpen={isMenuOpen} onToggle={handleMenuToggle} />
+        <SideMenu
+          isOpen={isMenuOpen}
+          onToggle={handleMenuToggle}
+          onDismiss={handleDismiss}
+        />
         <SideMenuContentWrapper>
           <div
             className="content-inner"
