@@ -50,8 +50,8 @@
 
 .side-menu-item__icon {
     flex-shrink: 0;
-    height: 1rem;
-    width: 1rem;
+    height: 1.25rem;
+    width: 1.25rem;
     margin-right: 0.5rem;
 }
 
@@ -66,14 +66,14 @@
 
         /**
          * Container padding - 0.5rem * 2
-         * Icon Size - 1rem
+         * Icon Size - 1.25rem
          * Button padding - 0.75rem * 2
          */
-        width: 3.75rem
+        width: 4rem
     }
 
     .side-menu--open {
-        width: 20rem; /* ~320px */
+        width: 18rem;
     }
 
     .side-menu:not(.side-menu--open) .side-menu-item__icon {
@@ -82,10 +82,10 @@
 
     .side-menu__content-wrapper {
         margin-left: auto;
-        width: calc(100%  - 3.75rem);
+        width: calc(100%  - 4rem);
     }
 
     .side-menu--open ~ .side-menu__content-wrapper {
-        width: calc(100%  - 20rem);
+        width: calc(100%  - 18rem);
     }
 }

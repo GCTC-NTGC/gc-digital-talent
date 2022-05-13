@@ -31,6 +31,7 @@ const SideMenuItem: React.FC<SideMenuItemProps> = ({
       data-h2-border="b(white[.1], bottom, solid, s)"
       data-h2-font-color="b(white)"
       data-h2-font-size="b(h6)"
+      data-h2-font-weight="b(300)"
       className={`side-menu__item${isActive ? ` side-menu__item--active` : ``}`}
       onClick={onClick}
       {...(as === "a" ? { href } : { type: "button" })}
