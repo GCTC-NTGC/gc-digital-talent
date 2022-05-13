@@ -33,6 +33,7 @@ jobs:
 
       - name: Check for uncommitted changes
         id: check-changes
+        run: git config --global --add safe.directory /github/workspace
         uses: mskri/check-uncommitted-changes-action@v1.0.1
 
       - name: Error if changes
