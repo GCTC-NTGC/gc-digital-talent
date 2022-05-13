@@ -21,15 +21,15 @@ const applicantProfileRoutes = (lang: string) => {
     skillsAndExperiences: (): string =>
       path.join(home(), "skills-and-experiences"),
     createAward: (): string =>
-      path.join(home(), "skills-and-experiences/award/create"),
+      path.join(home(), "skills-and-experiences", "award", "create"),
     createCommunity: (): string =>
-      path.join(home(), "skills-and-experiences/community/create"),
+      path.join(home(), "skills-and-experiences", "community", "create"),
     createEducation: (): string =>
-      path.join(home(), "skills-and-experiences/education/create"),
+      path.join(home(), "skills-and-experiences", "education", "create"),
     createPersonal: (): string =>
-      path.join(home(), "skills-and-experiences/personal/create"),
+      path.join(home(), "skills-and-experiences", "personal", "create"),
     createWork: (): string =>
-      path.join(home(), "skills-and-experiences/work/create"),
+      path.join(home(), "skills-and-experiences", "work", "create"),
   };
 };
 
