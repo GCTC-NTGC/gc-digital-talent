@@ -773,7 +773,7 @@ type Query {
   usersPaginated(
     where: UserFilterAndOrderInput
 
-    """Limits number of fetched items."""
+    """Limits number of fetched items. Maximum allowed value: 1000."""
     first: Int = 10
 
     """The offset from which items are returned."""

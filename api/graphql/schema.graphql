@@ -546,7 +546,7 @@ type Query {
     me: User @auth
     user(id: ID! @eq): User @find @guard @can(ability: "view", query: true)
     users: [User]! @all @guard @can(ability: "viewAny")
-    usersPaginated(where: UserFilterAndOrderInput): [User]! @paginate(defaultCount: 10, scopes: ["order"]) @guard @can(ability: "viewAny")
+    usersPaginated(where: UserFilterAndOrderInput): [User]! @paginate(defaultCount: 10, maxCount: 1000 scopes: ["order"]) @guard @can(ability: "viewAny")
     applicant(id: ID! @eq): Applicant @find(model: "User") @guard @can(ability: "viewApplicant", query: true, model: "User")
     applicants: [Applicant]! @all(model: "User") @guard @can(ability: "viewAnyApplicants", model: "User")
     pool(id: ID! @eq): Pool @find
