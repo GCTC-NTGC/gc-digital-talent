@@ -33,10 +33,10 @@ jobs:
 
       - name: Check for uncommitted changes
         id: changes
-        run: echo "::set-output name=changed::$(git status --porcelain | wc -l)"
+        uses: mskri/check-uncommitted-changes-action@v1.0.1
 
       - name: Error if changes
-        if: steps.get_changes.outputs.changed != 0
+        if: steps.check-changes.outputs.outcome == failure()
         # See: https://github.com/actions/github-script
         uses: actions/github-script@v5.1.0
         with:
