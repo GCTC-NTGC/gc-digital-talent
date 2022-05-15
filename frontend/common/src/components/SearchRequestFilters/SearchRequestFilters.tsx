@@ -15,7 +15,10 @@ export interface FilterBlockProps {
   content: Maybe<string> | Maybe<string[]>;
 }
 
-const FilterBlock: React.FunctionComponent<FilterBlockProps> = ({ title, content }) => {
+const FilterBlock: React.FunctionComponent<FilterBlockProps> = ({
+  title,
+  content,
+}) => {
   const intl = useIntl();
   return (
     <div data-h2-padding="b(bottom, s)">

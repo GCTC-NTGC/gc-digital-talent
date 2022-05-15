@@ -625,7 +625,15 @@ export const ProfileForm: React.FC<ProfilePageProps> = ({
                 {((!lookingForEnglish &&
                   !lookingForFrench &&
                   !lookingForBilingual) ||
-                  !bilingualEvaluation) && (
+                  (lookingForBilingual &&
+                    (!bilingualEvaluation ||
+                      ((bilingualEvaluation ===
+                        BilingualEvaluation.CompletedEnglish ||
+                        bilingualEvaluation ===
+                          BilingualEvaluation.CompletedFrench) &&
+                        (!comprehensionLevel ||
+                          !writtenLevel ||
+                          !verbalLevel))))) && (
                   <p>
                     {intl.formatMessage(
                       {
@@ -935,30 +943,30 @@ export const ProfileForm: React.FC<ProfilePageProps> = ({
                     </li>
                   </ul>
                 )}
-                {acceptedOperationalArray !== null && (
-                  <p>
-                    {intl.formatMessage({
-                      defaultMessage: "I would consider accepting a job that:",
-                      description:
-                        "Label for what conditions a user will accept, followed by a colon",
-                    })}
-                  </p>
-                )}
-                <ul data-h2-padding="b(left, l)">{acceptedOperationalArray}</ul>
-                {wouldAcceptTemporary === null &&
-                  acceptedOperationalArray === null && (
+
+                {acceptedOperationalArray !== null &&
+                  acceptedOperationalArray.length > 0 && (
                     <p>
                       {intl.formatMessage({
                         defaultMessage:
-                          "You haven't added any information here yet.",
+                          "I would consider accepting a job that:",
                         description:
-                          "Message for when no data exists for the section",
+                          "Label for what conditions a user will accept, followed by a colon",
                       })}
                     </p>
                   )}
-                {(wouldAcceptTemporary === null ||
-                  !acceptedOperationalArray ||
-                  !acceptedOperationalArray.length) && (
+                <ul data-h2-padding="b(left, l)">{acceptedOperationalArray}</ul>
+                {wouldAcceptTemporary === null && (
+                  <p>
+                    {intl.formatMessage({
+                      defaultMessage:
+                        "You haven't added any information here yet.",
+                      description:
+                        "Message for when no data exists for the section",
+                    })}
+                  </p>
+                )}
+                {wouldAcceptTemporary === null && (
                   <p>
                     {intl.formatMessage(
                       {

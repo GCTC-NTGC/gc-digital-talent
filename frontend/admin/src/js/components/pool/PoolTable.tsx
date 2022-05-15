@@ -7,9 +7,8 @@ import { getLocale } from "@common/helpers/localize";
 import { commonMessages } from "@common/messages";
 import { FromArray } from "@common/types/utilityTypes";
 import { GetPoolsQuery, useGetPoolsQuery } from "../../api/generated";
-import Table, { ColumnsOf } from "../Table";
+import Table, { ColumnsOf, tableEditButtonAccessor } from "../Table";
 import DashboardContentContainer from "../DashboardContentContainer";
-import { tableEditButtonAccessor } from "../TableEditButton";
 
 type Data = NonNullable<FromArray<GetPoolsQuery["pools"]>>;
 

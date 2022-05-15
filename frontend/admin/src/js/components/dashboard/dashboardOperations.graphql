@@ -1,0 +1,33 @@
+query me {
+  me {
+    id
+    email
+    firstName
+    lastName
+  }
+}
+
+query latestRequests {
+  latestPoolCandidateSearchRequests(limit: 10) {
+    id
+    fullName
+    requestedDate
+    status
+    department {
+      name {
+        en
+        fr
+      }
+    }
+    email
+    poolCandidateFilter {
+      pools {
+        id
+        name {
+          en
+          fr
+        }
+      }
+    }
+  }
+}
