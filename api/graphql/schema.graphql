@@ -93,7 +93,7 @@ type User {
     pools: [Pool] @hasMany # Pools a user owns
 
     # Profile Status
-    isProfileComplete: Boolean 
+    isProfileComplete: Boolean
 }
 
 enum ProvinceOrTerritory {
@@ -729,6 +729,9 @@ input UpdateUserAsUserInput {
     communityExperiences: CommunityExperienceHasMany
     educationExperiences: EducationExperienceHasMany
     awardExperiences: AwardExperienceHasMany
+
+    # Profile Status
+    isProfileComplete: Boolean
 }
 
 input LocalizedStringInput {

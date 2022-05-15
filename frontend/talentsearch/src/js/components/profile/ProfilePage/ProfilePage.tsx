@@ -76,18 +76,11 @@ export const ProfileForm: React.FC<ProfilePageProps> = ({
     wouldAcceptTemporary,
     poolCandidates,
     experiences,
-    isProfileComplete,
   } = profileDataInput;
 
   const intl = useIntl();
   const paths = useApplicantProfileRoutes();
   const locale = getLocale(intl);
-
-  if (isProfileComplete) {
-    sessionStorage.setItem("preProfileStatus", "Complete");
-  } else {
-    sessionStorage.setItem("preProfileStatus", "InComplete");
-  }
 
   // styling a text bit with red colour within intls
   function redText(msg: string) {

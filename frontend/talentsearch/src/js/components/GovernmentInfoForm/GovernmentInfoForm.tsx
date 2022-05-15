@@ -401,6 +401,7 @@ export const GovInfoFormContainer: React.FunctionComponent = () => {
   // acquire classifications from graphQL to pass into component to render and pull "Me" at the same time
   const [lookUpResult] = useGetAllClassificationsAndMeQuery();
   const { data: lookupData, fetching: fetchingLookupData } = lookUpResult;
+  const preProfileStatus = lookupData?.me?.isProfileComplete;
   const classifications: Classification[] | [] =
     lookupData?.classifications.filter(notEmpty) ?? [];
   const meInfo = lookupData?.me;
@@ -431,30 +432,17 @@ export const GovInfoFormContainer: React.FunctionComponent = () => {
       return;
     }
     await handleUpdateUser(meId, data)
-      .then((result) => {
-        if (result.isProfileComplete) {
-          if (result.isProfileComplete) {
-            sessionStorage.setItem("currentProfileStatus", "Complete");
-          } else {
-            sessionStorage.setItem("currentProfileStatus", "InComplete");
-          }
-          const preProfileStatus = sessionStorage.getItem("preProfileStatus");
-          const currentProfileStatus = sessionStorage.getItem(
-            "currentProfileStatus",
+      .then((res) => {
+        const currentProfileStatus = res.isProfileComplete;
+        if (!preProfileStatus && currentProfileStatus) {
+          toast.success(
+            intl.formatMessage({
+              defaultMessage:
+                "All required fields are complete. You can now change your status.",
+              description:
+                "Message displayed to user when user profile completed.",
+            }),
           );
-
-          if (preProfileStatus === "InComplete") {
-            if (currentProfileStatus === "Complete") {
-              toast.success(
-                intl.formatMessage({
-                  defaultMessage:
-                    "All required fields are complete. You can now change your status.",
-                  description:
-                    "Message displayed to user when user profile completed.",
-                }),
-              );
-            }
-          }
         }
         navigate(paths.profile());
         toast.success(

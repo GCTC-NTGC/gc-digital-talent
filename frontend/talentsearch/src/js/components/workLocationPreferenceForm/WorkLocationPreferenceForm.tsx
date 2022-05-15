@@ -160,6 +160,7 @@ export const WorkLocationPreferenceApi: React.FunctionComponent = () => {
 
   const [{ data: userData, fetching, error }] =
     useWorkLocationPreferenceQuery();
+  const preProfileStatus = userData?.me?.isProfileComplete;
 
   const [, executeMutation] = useCreateWorkLocationPreferenceMutation();
   const handleWorkLocationPreference = (
@@ -171,27 +172,17 @@ export const WorkLocationPreferenceApi: React.FunctionComponent = () => {
       user: data,
     }).then((result) => {
       if (result.data?.updateUserAsUser) {
-        if (result.data?.updateUserAsUser?.isProfileComplete) {
-          sessionStorage.setItem("currentProfileStatus", "Complete");
-        } else {
-          sessionStorage.setItem("currentProfileStatus", "InComplete");
-        }
-        const preProfileStatus = sessionStorage.getItem("preProfileStatus");
-        const currentProfileStatus = sessionStorage.getItem(
-          "currentProfileStatus",
-        );
-
-        if (preProfileStatus === "InComplete") {
-          if (currentProfileStatus === "Complete") {
-            toast.success(
-              intl.formatMessage({
-                defaultMessage:
-                  "All required fields are complete. You can now change your status.",
-                description:
-                  "Message displayed to user when user profile completed.",
-              }),
-            );
-          }
+        const currentProfileStatus =
+          result.data?.updateUserAsUser?.isProfileComplete;
+        if (!preProfileStatus && currentProfileStatus) {
+          toast.success(
+            intl.formatMessage({
+              defaultMessage:
+                "All required fields are complete. You can now change your status.",
+              description:
+                "Message displayed to user when user profile completed.",
+            }),
+          );
         }
         navigate(paths.home());
         toast.success(

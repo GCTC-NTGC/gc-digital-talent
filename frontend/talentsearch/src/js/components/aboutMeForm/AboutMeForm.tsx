@@ -105,7 +105,7 @@ export const AboutMeForm: React.FunctionComponent<AboutMeFormProps> = ({
 
     await onUpdateAboutMe(initialUser.id, formValuesToSubmitData(formValues))
       .then(() => {
-        navigate(paths.aboutMe());
+        navigate(paths.home());
         toast.success(
           intl.formatMessage({
             defaultMessage: "User updated successfully!",
@@ -312,6 +312,7 @@ const AboutMeFormContainer: React.FunctionComponent = () => {
 
   const [result] = useGetAboutMeQuery();
   const { data, fetching, error } = result;
+  const preProfileStatus = data?.me?.isProfileComplete;
 
   const [, executeMutation] = useUpdateUserAsUserMutation();
 
@@ -324,27 +325,17 @@ const AboutMeFormContainer: React.FunctionComponent = () => {
         >,
       ) => {
         if (res.data?.updateUserAsUser) {
-          if (res.data?.updateUserAsUser?.isProfileComplete) {
-            sessionStorage.setItem("currentProfileStatus", "Complete");
-          } else {
-            sessionStorage.setItem("currentProfileStatus", "InComplete");
-          }
-          const preProfileStatus = sessionStorage.getItem("preProfileStatus");
-          const currentProfileStatus = sessionStorage.getItem(
-            "currentProfileStatus",
-          );
-
-          if (preProfileStatus === "InComplete") {
-            if (currentProfileStatus === "Complete") {
-              toast.success(
-                intl.formatMessage({
-                  defaultMessage:
-                    "All required fields are complete. You can now change your status.",
-                  description:
-                    "Message displayed to user when user profile completed.",
-                }),
-              );
-            }
+          const currentProfileStatus =
+            res.data?.updateUserAsUser?.isProfileComplete;
+          if (!preProfileStatus && currentProfileStatus) {
+            toast.success(
+              intl.formatMessage({
+                defaultMessage:
+                  "All required fields are complete. You can now change your status.",
+                description:
+                  "Message displayed to user when user profile completed.",
+              }),
+            );
           }
           return res.data.updateUserAsUser;
         }

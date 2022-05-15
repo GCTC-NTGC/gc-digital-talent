@@ -13,6 +13,7 @@ query getAllClassificationsAndMe {
   me {
     id
     isGovEmployee
+    isProfileComplete
     govEmployeeType
     currentClassification {
       id

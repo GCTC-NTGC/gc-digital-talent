@@ -8,6 +8,7 @@ query getAboutMe {
     firstName
     lastName
     email
+    isProfileComplete
   }
 }
 

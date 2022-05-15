@@ -464,6 +464,7 @@ export const LanguageInformationFormContainer: React.FunctionComponent = () => {
   const [lookUpResult] = useGetLanguageInformationQuery();
   const { data: userData, fetching, error } = lookUpResult;
   const userId = userData?.me?.id;
+  const preProfileStatus = userData?.me?.isProfileComplete;
 
   const [, executeMutation] = useUpdateLanguageInformationMutation();
 
@@ -486,29 +487,18 @@ export const LanguageInformationFormContainer: React.FunctionComponent = () => {
       return;
     }
     await handleUpdateUser(userId, data)
-      .then((result) => {
-        if (result.isProfileComplete) {
-          if (result.isProfileComplete) {
-            sessionStorage.setItem("currentProfileStatus", "Complete");
-          } else {
-            sessionStorage.setItem("currentProfileStatus", "InComplete");
-          }
-          const preProfileStatus = sessionStorage.getItem("preProfileStatus");
-          const currentProfileStatus = sessionStorage.getItem(
-            "currentProfileStatus",
-          );
-
-          if (preProfileStatus === "InComplete") {
-            if (currentProfileStatus === "Complete") {
-              toast.success(
-                intl.formatMessage({
-                  defaultMessage:
-                    "All required fields are complete. You can now change your status.",
-                  description:
-                    "Message displayed to user when user profile completed.",
-                }),
-              );
-            }
+      .then((res) => {
+        if (res.isProfileComplete) {
+          const currentProfileStatus = res.isProfileComplete;
+          if (!preProfileStatus && currentProfileStatus) {
+            toast.success(
+              intl.formatMessage({
+                defaultMessage:
+                  "All required fields are complete. You can now change your status.",
+                description:
+                  "Message displayed to user when user profile completed.",
+              }),
+            );
           }
         }
         navigate(paths.home());

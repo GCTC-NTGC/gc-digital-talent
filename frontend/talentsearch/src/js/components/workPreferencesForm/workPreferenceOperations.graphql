@@ -3,6 +3,7 @@ query getWorkPreferences {
     id
     wouldAcceptTemporary
     acceptedOperationalRequirements
+    isProfileComplete
   }
 }
 

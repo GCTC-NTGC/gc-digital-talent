@@ -194,6 +194,7 @@ export const WorkPreferencesApi: React.FunctionComponent = () => {
   const paths = useApplicantProfileRoutes();
 
   const [{ data: initialData, fetching, error }] = useGetWorkPreferencesQuery();
+  const preProfileStatus = initialData?.me?.isProfileComplete;
 
   const [, executeMutation] = useUpdateWorkPreferencesMutation();
   const handleWorkPreferences = (id: string, data: UpdateUserAsUserInput) =>
@@ -203,17 +204,9 @@ export const WorkPreferencesApi: React.FunctionComponent = () => {
     }).then((result) => {
       if (result.data?.updateUserAsUser) {
         if (result.data?.updateUserAsUser?.isProfileComplete) {
-          sessionStorage.setItem("currentProfileStatus", "Complete");
-        } else {
-          sessionStorage.setItem("currentProfileStatus", "InComplete");
-        }
-        const preProfileStatus = sessionStorage.getItem("preProfileStatus");
-        const currentProfileStatus = sessionStorage.getItem(
-          "currentProfileStatus",
-        );
-
-        if (preProfileStatus === "InComplete") {
-          if (currentProfileStatus === "Complete") {
+          const currentProfileStatus =
+            result.data?.updateUserAsUser?.isProfileComplete;
+          if (!preProfileStatus && currentProfileStatus) {
             toast.success(
               intl.formatMessage({
                 defaultMessage:
