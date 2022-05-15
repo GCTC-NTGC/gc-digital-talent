@@ -15,7 +15,6 @@ To set up a local development environment:
 
 To refresh each sub-project after they have been setup run one of the refresh scripts:
 
- - `docker-compose run --rm maintenance bash refresh_auth.sh`
  - `docker-compose run --rm maintenance bash refresh_api.sh`
  - `docker-compose run --rm maintenance bash refresh_common.sh`
  - `docker-compose run --rm maintenance bash refresh_talentsearch.sh`

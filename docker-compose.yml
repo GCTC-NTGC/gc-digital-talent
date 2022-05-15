@@ -26,7 +26,6 @@ services:
     volumes:
       - ./infrastructure/php-container/src:/var/www/html/
       - ./api:/var/www/html/api
-      - ./auth:/var/www/html/auth
       - ./frontend:/var/www/html/frontend
       - ./tc-report:/var/www/html/tc-report
     ports:
@@ -50,7 +49,6 @@ services:
       - maintenancedata:/root
       - ./maintenance/scripts:/root/scripts
       - ./api:/var/www/html/api
-      - ./auth:/var/www/html/auth
       - ./frontend:/var/www/html/frontend
       - ./tc-report:/var/www/html/tc-report
 
