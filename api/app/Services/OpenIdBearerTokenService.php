@@ -7,6 +7,8 @@ use DateInterval;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Validation\UnauthorizedException;
+use Jose\Component\Core\JWKSet;
+use Jose\Component\Core\Util\RSAKey;
 use Lcobucci\Clock\Clock;
 use Lcobucci\JWT\Configuration;
 use Lcobucci\JWT\Signer;
@@ -31,55 +33,6 @@ class OpenIdBearerTokenService implements BearerTokenServiceInterface
         $this->clock = $clock;
         $this->configUri = $configUri;
         $this->allowableClockSkew = $allowableClockSkew;
-    }
-
-    // parse the jwks json document and build a dictionary of key id to configuration object
-    private function parseJwksJsonString(string $jsonString) : array
-    {
-        $obj = json_decode($jsonString);
-        $keysObj = data_get($obj, 'keys');
-
-        $dictionaryKeys = array_map(fn($value) => data_get($value, 'kid'), $keysObj);
-        $dictionaryValues = array_map(fn($value) => $this->mapKeyEntryToConfig($value), $keysObj);
-        $dictionary =  array_combine($dictionaryKeys, $dictionaryValues);
-
-        array_filter($dictionary); // clean out null elements that will not be used
-
-        return $dictionary;
-    }
-
-    // take a single key entry and build a Lcobucci\JWT\Configuration object for it
-    // any objects that can't be mapped return a null and will be filtered out later
-    private function mapKeyEntryToConfig(object $value): ?Configuration
-    {
-        $publicKeyUse = data_get($value, 'use');
-        if($publicKeyUse != 'sig')
-            return null; // only take signing keys for use
-
-        $algorithm = data_get($value, 'alg');
-        switch ($algorithm) {
-            case 'RS256':
-                $signer = new Signer\Rsa\Sha256();
-                break;
-            case 'RS384':
-                $signer = new Signer\Rsa\Sha384();
-                break;
-            case 'RS512':
-                $signer = new Signer\Rsa\Sha512();
-                break;
-            default:
-                return null; // unknown algorithm type
-        }
-
-        $certificateChain = array_values(data_get($value, 'x5c'))[0];
-
-        $config = Configuration::forAsymmetricSigner(
-            $signer,
-            InMemory::empty(), // Private key is only used for generating tokens, which is not being done here, therefore empty is used.
-            InMemory::plainText('-----BEGIN CERTIFICATE-----' . "\n" . $certificateChain . "\n" . '-----END CERTIFICATE-----'),
-        );
-
-        return $config;
     }
 
     // get a configuration property from the openid configuration json document
@@ -108,9 +61,34 @@ class OpenIdBearerTokenService implements BearerTokenServiceInterface
             return Http::get($jwks_uri)->body();
         });
 
-        $keyDictionary = $this->parseJwksJsonString($jsonString);
+        // Uses web-token/jwt-core to generate public key from "e" and "n" in JWKS.
+        // Source: https://github.com/lcobucci/jwt/issues/32#issuecomment-907556410
+        $set = JWKSet::createFromKeyData(json_decode($jsonString, true));
+        $jwk = $set->get($keyId);
 
-        return $keyDictionary[$keyId];
+        switch ($jwk->get('alg')) {
+            case 'RS256':
+                $signer = new Signer\Rsa\Sha256();
+                break;
+            case 'RS384':
+                $signer = new Signer\Rsa\Sha384();
+                break;
+            case 'RS512':
+                $signer = new Signer\Rsa\Sha512();
+                break;
+            default:
+                throw new Exception('Unknown algorithm type in jwks');
+        }
+
+        $pem = RSAKey::createFromJWK($jwk)->toPEM();
+        $config = Configuration::forAsymmetricSigner(
+            $signer,
+            InMemory::empty(), // Private key is only used for generating tokens, which is not being done here, therefore empty is used.
+            InMemory::plainText($pem),
+        );
+
+        return $config;
+
     }
 
     // call the introspection endpoint to check if the OP considers the access token still valid
