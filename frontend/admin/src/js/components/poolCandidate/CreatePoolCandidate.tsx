@@ -67,10 +67,8 @@ type FormValues = Pick<
   | "acceptedOperationalRequirements"
   | "status"
 > &
-  Pick<
-    User,
-    "email" | "firstName" | "lastName" | "preferredLang" | "telephone"
-  > & {
+  Pick<User, "firstName" | "lastName" | "preferredLang" | "telephone"> & {
+    email: string; // email is Maybe<string> in User definition, but is required in the form.
     cmoAssets: string[] | undefined;
     expectedClassifications: string[] | undefined;
     pool: string;
@@ -256,7 +254,7 @@ export const CreatePoolCandidateForm: React.FunctionComponent<
       case "new":
         userObject = {
           create: {
-            email: values.email ?? "",
+            email: values.email,
             firstName: values.firstName ?? "",
             lastName: values.lastName ?? "",
             preferredLang: values.preferredLang,
