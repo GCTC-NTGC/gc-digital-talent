@@ -61,10 +61,12 @@ const addAuthToOperation = ({
 };
 
 const didAuthError = ({ error }: { error: CombinedError }): boolean => {
-  return (
-    error.response.status === 401 ||
-    error.graphQLErrors.some((e) => e.extensions?.category === "authentication")
-  );
+  return error && error.response
+    ? error.response.status === 401 ||
+        error.graphQLErrors.some(
+          (e) => e.extensions?.category === "authentication",
+        )
+    : false;
 };
 
 const willAuthError = ({ authState }: { authState: AuthState | null }) => {
