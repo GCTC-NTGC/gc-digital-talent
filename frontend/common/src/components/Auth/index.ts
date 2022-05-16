@@ -1,11 +1,13 @@
-import AuthContainer, { AuthContext } from "./AuthContainer";
+import AuthenticationContainer, {
+  AuthenticationContext,
+} from "./AuthenticationContainer";
 import AuthorizationContainer, {
   AuthorizationContext,
 } from "./AuthorizationContainer";
 
 export {
-  AuthContainer,
-  AuthContext,
+  AuthenticationContainer,
+  AuthenticationContext,
   AuthorizationContainer,
   AuthorizationContext,
 };

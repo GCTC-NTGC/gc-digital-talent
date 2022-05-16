@@ -19,7 +19,7 @@ import {
   Operation,
   makeOperation,
 } from "urql";
-import { AuthContext } from "../Auth";
+import { AuthenticationContext } from "../Auth";
 
 // generate nonce somewhere here?
 // const nonce = ...
@@ -83,7 +83,7 @@ const ClientProvider: React.FC<{ client?: Client }> = ({
   client,
   children,
 }) => {
-  const authContext = useContext(AuthContext);
+  const authContext = useContext(AuthenticationContext);
   // Create a mutable object to hold the auth state
   const authRef = useRef(authContext);
   // Keep the contents of that mutable object up to date

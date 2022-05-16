@@ -10,7 +10,7 @@ const ACCESS_TOKEN = "access_token";
 const REFRESH_TOKEN = "refresh_token";
 const ID_TOKEN = "id_token";
 
-interface AuthState {
+interface AuthenticationState {
   loggedIn: boolean;
   accessToken: string | null;
   refreshToken: string | null;
@@ -25,7 +25,7 @@ interface TokenSet {
   idToken: string | null;
 }
 
-export const AuthContext = React.createContext<AuthState>({
+export const AuthenticationContext = React.createContext<AuthenticationState>({
   loggedIn: false,
   accessToken: null,
   refreshToken: null,
@@ -120,14 +120,14 @@ function getTokensFromLocation(
   return null;
 }
 
-interface AuthContainerProps {
+interface AuthenticationContainerProps {
   homePath: string;
   tokenRefreshPath: string;
   logoutUri: string | undefined;
   logoutRedirectUri: string | undefined;
 }
 
-const AuthContainer: React.FC<AuthContainerProps> = ({
+const AuthenticationContainer: React.FC<AuthenticationContainerProps> = ({
   tokenRefreshPath,
   homePath,
   logoutUri,
@@ -164,7 +164,7 @@ const AuthContainer: React.FC<AuthContainerProps> = ({
 
   // If tokens were just found in the url, then get them from newTokens instead of state hook, which will update asynchronously.
   const tokens = newTokens ?? existingTokens;
-  const state = useMemo<AuthState>(() => {
+  const state = useMemo<AuthenticationState>(() => {
     return {
       accessToken: tokens.accessToken,
       idToken: tokens.idToken,
@@ -190,7 +190,11 @@ const AuthContainer: React.FC<AuthContainerProps> = ({
     tokenRefreshPath,
   ]);
 
-  return <AuthContext.Provider value={state}>{children}</AuthContext.Provider>;
+  return (
+    <AuthenticationContext.Provider value={state}>
+      {children}
+    </AuthenticationContext.Provider>
+  );
 };
 
-export default AuthContainer;
+export default AuthenticationContainer;

@@ -1,6 +1,6 @@
 import React from "react";
 
-import { AuthContainer } from "@common/components/Auth";
+import { AuthenticationContainer } from "@common/components/Auth";
 
 import { LOGOUT_URI, POST_LOGOUT_REDIRECT } from "../../adminConstants";
 import { useAdminRoutes } from "../../adminRoutes";
@@ -13,14 +13,14 @@ const AuthenticationProvider: React.FC = ({ children }) => {
   const refreshTokenSetPath = apiPaths.refreshAccessToken();
 
   return (
-    <AuthContainer
+    <AuthenticationContainer
       homePath={homePath}
       tokenRefreshPath={refreshTokenSetPath}
       logoutUri={LOGOUT_URI}
       logoutRedirectUri={POST_LOGOUT_REDIRECT}
     >
       {children}
-    </AuthContainer>
+    </AuthenticationContainer>
   );
 };
 

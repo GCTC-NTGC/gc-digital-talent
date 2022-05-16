@@ -5,7 +5,10 @@ import { RouterResult } from "@common/helpers/router";
 import Toast from "@common/components/Toast";
 import NotAuthorized from "@common/components/NotAuthorized";
 import { getLocale } from "@common/helpers/localize";
-import { AuthorizationContext, AuthContext } from "@common/components/Auth";
+import {
+  AuthorizationContext,
+  AuthenticationContext,
+} from "@common/components/Auth";
 import { AdminRoutes, useAdminRoutes } from "../adminRoutes";
 import { CreateClassification } from "./classification/CreateClassification";
 import { UpdateClassification } from "./classification/UpdateClassification";
@@ -332,7 +335,7 @@ const routes = (
 ];
 
 export const PoolDashboard: React.FC = () => {
-  const { loggedIn } = React.useContext(AuthContext);
+  const { loggedIn } = React.useContext(AuthenticationContext);
   const intl = useIntl();
   const paths = useAdminRoutes();
   const { loggedInUserRoles } = React.useContext(AuthorizationContext);
