@@ -5,6 +5,7 @@ import { RouterResult } from "@common/helpers/router";
 import Toast from "@common/components/Toast";
 import NotAuthorized from "@common/components/NotAuthorized";
 import { getLocale } from "@common/helpers/localize";
+import { AuthorizationContext, AuthContext } from "@common/components/Auth";
 import { AdminRoutes, useAdminRoutes } from "../adminRoutes";
 import { CreateClassification } from "./classification/CreateClassification";
 import { UpdateClassification } from "./classification/UpdateClassification";
@@ -22,7 +23,6 @@ import UserPage from "./user/UserPage";
 import PoolPage from "./pool/PoolPage";
 import { CreatePool } from "./pool/CreatePool";
 import { UpdatePool } from "./pool/UpdatePool";
-import { AuthContext } from "./AuthContainer";
 import DepartmentPage from "./department/DepartmentPage";
 import { CreateDepartment } from "./department/CreateDepartment";
 import { UpdateDepartment } from "./department/UpdateDepartment";
@@ -36,7 +36,6 @@ import { CreateSkill } from "./skill/CreateSkill";
 import { UpdateSkill } from "./skill/UpdateSkill";
 import HomePage from "./home/HomePage";
 import { Role, useGetPoolsQuery } from "../api/generated";
-import { AuthorizationContext } from "./AuthorizationContainer";
 import DashboardPage from "./dashboard/DashboardPage";
 
 const PoolListApi = (isAdmin: boolean) => {

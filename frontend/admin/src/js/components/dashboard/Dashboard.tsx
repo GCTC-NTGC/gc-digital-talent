@@ -7,10 +7,10 @@ import { Button, Link } from "@common/components";
 import NotFound from "@common/components/NotFound";
 import Header from "@common/components/Header";
 import Footer from "@common/components/Footer";
+import { AuthContext } from "@common/components/Auth";
 import { ADMIN_APP_DIR } from "../../adminConstants";
 import { useApiRoutes } from "../../apiRoutes";
 import SideMenu from "../menu/SideMenu";
-import { AuthContext } from "../AuthContainer";
 
 export const exactMatch = (ref: string, test: string): boolean => ref === test;
 export const startsWith = (ref: string, test: string): boolean =>
