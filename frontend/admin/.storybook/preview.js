@@ -1,7 +1,7 @@
 import "../../common/src/css/common.css";
 import "../../common/src/css/hydrogen.css";
 import "../src/css/app.css"
-import "../src/js/components/IntlContainer";
+import "../src/js/components/context/IntlContainer";
 import { setIntlConfig, withIntl } from 'storybook-addon-intl';
 import AdminFrench from "../src/js/lang/frCompiled.json";
 import CommonFrench from "../../common/src/lang";

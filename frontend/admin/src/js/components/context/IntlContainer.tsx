@@ -1,7 +1,7 @@
 import React from "react";
 import { IntlProvider } from "react-intl";
 import CommonFrench from "@common/lang";
-import AdminFrench from "../lang/frCompiled.json";
+import AdminFrench from "../../lang/frCompiled.json";
 
 export function getMessages(locale: string) {
   // eslint-disable-next-line global-require
