@@ -35,7 +35,7 @@ type User {
     # Personal info
     firstName: String @rename(attribute: "first_name")
     lastName: String @rename(attribute: "last_name")
-    email: Email!
+    email: Email
     telephone: PhoneNumber
     preferredLang: Language @rename(attribute: "preferred_lang")
     currentProvince: ProvinceOrTerritory @rename(attribute: "current_province")
@@ -93,7 +93,7 @@ type User {
     pools: [Pool] @hasMany # Pools a user owns
 
     # Profile Status
-    isProfileComplete: Boolean 
+    isProfileComplete: Boolean
 }
 
 enum ProvinceOrTerritory {
@@ -152,7 +152,7 @@ type Applicant {
     # Personal info
     firstName: String @rename(attribute: "first_name")
     lastName: String @rename(attribute: "last_name")
-    email: Email!
+    email: Email
     telephone: PhoneNumber
     preferredLang: Language @rename(attribute: "preferred_lang")
     currentProvince: ProvinceOrTerritory @rename(attribute: "current_province")
