@@ -105,7 +105,7 @@ export const AboutMeForm: React.FunctionComponent<AboutMeFormProps> = ({
 
     await onUpdateAboutMe(initialUser.id, formValuesToSubmitData(formValues))
       .then(() => {
-        navigate(paths.aboutMe());
+        navigate(paths.home());
         toast.success(
           intl.formatMessage({
             defaultMessage: "User updated successfully!",
@@ -168,7 +168,7 @@ export const AboutMeForm: React.FunctionComponent<AboutMeFormProps> = ({
           })}
         </p>
         <div data-h2-flex-item="b(1of1)" data-h2-padding="b(top, m)">
-          <div data-h2-padding="b(right, xxl)">
+          <div data-h2-padding="b(right, l)">
             <RadioGroup
               idPrefix="required-lang-preferences"
               legend={intl.formatMessage({

@@ -32,7 +32,7 @@ export interface SearchContainerProps {
   poolOwner?: Pick<UserPublicProfile, "firstName" | "lastName" | "email">;
   candidateCount: number;
   updatePending?: boolean;
-  candidateFilter: PoolCandidateFilterInput | undefined;
+  candidateFilter?: PoolCandidateFilterInput | undefined;
   updateCandidateFilter: (candidateFilter: PoolCandidateFilterInput) => void;
   updateInitialValues: (initialValues: FormValues) => void;
   handleSubmit: () => Promise<void>;
@@ -59,7 +59,11 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
     candidateFilter?.operationalRequirements?.length ?? 0;
 
   function span(msg: string) {
-    return <span data-h2-font-color="b(lightpurple)">{msg}</span>;
+    return (
+      <span data-h2-font-color="b(lightpurple)" data-testid="candidateCount">
+        {msg}
+      </span>
+    );
   }
 
   function a(msg: string) {
@@ -240,8 +244,9 @@ export const SearchContainerApi: React.FC = () => {
   });
   const pool = data?.poolByKey;
 
-  const [candidateFilter, setCandidateFilter] =
-    useState<PoolCandidateFilterInput | undefined>(undefined);
+  const [candidateFilter, setCandidateFilter] = useState<
+    PoolCandidateFilterInput | undefined
+  >(undefined);
 
   const [{ data: countData, fetching: countFetching }] =
     useCountPoolCandidatesQuery({

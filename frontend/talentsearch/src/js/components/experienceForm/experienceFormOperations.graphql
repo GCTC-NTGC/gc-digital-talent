@@ -178,10 +178,7 @@ mutation CreateWorkExperience($id: ID!, $workExperience: WorkExperienceInput!) {
   }
 }
 
-mutation UpdateWorkExperience(
-  $id: ID!
-  $workExperience: WorkExperienceInput!
-) {
+mutation UpdateWorkExperience($id: ID!, $workExperience: WorkExperienceInput!) {
   updateWorkExperience(id: $id, workExperience: $workExperience) {
     id
   }

@@ -25,6 +25,10 @@ import CTAButtons from "../CallToAction/CTAButtons";
 
 import "./home.css";
 
+// TEMP: Disable rule until we get the proper URL
+// eslint-disable-next-line jsx-a11y/anchor-is-valid
+const honestyPledgeLink = (...chunks: string[]) => <a href="#">{chunks}</a>;
+
 const Home: React.FunctionComponent = () => {
   const [isApplyDialogOpen, setApplyDialogOpen] =
     React.useState<boolean>(false);
@@ -555,16 +559,29 @@ const Home: React.FunctionComponent = () => {
                   <Step
                     position="1"
                     title={intl.formatMessage({
-                      defaultMessage: "Self-Identify",
+                      defaultMessage: "Complete the Community Honesty Pledge",
                       description: "How it works, step 1 heading",
                     })}
                   >
                     <p>
                       {intl.formatMessage({
                         defaultMessage:
-                          "Applicants are asked to self-Identify via the Honesty Pledge which was designed by the Indigenous community.",
-                        description: "How it works, step 1 content",
+                          "The Program was designed to respond to reconciliation and the building of a renewed relationship based on recognition of rights, respect, cooperation and partnership with Indigenous peoples.",
+                        description: "How it works, step 1 content paragraph 1",
                       })}
+                    </p>
+                    <p>
+                      {intl.formatMessage(
+                        {
+                          defaultMessage:
+                            "There are  three distinct groups of Indigenous peoples recognized in the Canadian constitution. You will be asked to confirm which Indigenous group(s) you belong to via the <a>Honesty Pledge</a>.",
+                          description:
+                            "How it works, step 1 content paragraph 2",
+                        },
+                        {
+                          a: honestyPledgeLink,
+                        },
+                      )}
                     </p>
                   </Step>
                 </div>

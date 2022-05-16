@@ -9,8 +9,12 @@ query getPoolCandidateSearchRequestData {
   }
 }
 
-mutation createPoolCandidateSearchRequest($poolCandidateSearchRequest: CreatePoolCandidateSearchRequestInput!) {
-  createPoolCandidateSearchRequest(poolCandidateSearchRequest: $poolCandidateSearchRequest) {
+mutation createPoolCandidateSearchRequest(
+  $poolCandidateSearchRequest: CreatePoolCandidateSearchRequestInput!
+) {
+  createPoolCandidateSearchRequest(
+    poolCandidateSearchRequest: $poolCandidateSearchRequest
+  ) {
     fullName
     email
     department {

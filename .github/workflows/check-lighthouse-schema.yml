@@ -22,22 +22,19 @@ jobs:
         run: cp .env.example .env
 
       - name: "Build docker image: api"
-        working-directory: infrastructure
         run: docker compose -f docker-compose.yml -f docker-compose.ci.yml up api --detach
 
       - name: "Re-generate lighthouse schema"
-        working-directory: infrastructure
         run: |
           docker compose exec --no-TTY api php artisan lighthouse:print-schema --write
-          docker compose cp api:/var/www/html/api/storage/app/lighthouse-schema.graphql ../api/storage/app/
+          docker compose cp api:/var/www/html/api/storage/app/lighthouse-schema.graphql ./api/storage/app/
 
       - name: Check for uncommitted changes
-        id: changes
-        # See: https://github.com/UnicornGlobal/has-changes-action
-        uses: UnicornGlobal/has-changes-action@v1.0.12
+        id: check_changes
+        run: echo "::set-output name=changed::$(git status --porcelain | wc -l)"
 
       - name: Error if changes
-        if: steps.changes.outputs.changed == 1
+        if: steps.check_changes.outputs.changed != 0
         # See: https://github.com/actions/github-script
         uses: actions/github-script@v5.1.0
         with:
