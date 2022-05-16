@@ -69,7 +69,7 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
   function a(msg: string) {
     return (
       <a
-        href="mailto:recruitmentimit-recrutementgiti@tbs-sct.gc.c"
+        href="mailto:recruitmentimit-recrutementgiti@tbs-sct.gc.ca"
         data-h2-font-weight="b(700)"
       >
         {msg}
