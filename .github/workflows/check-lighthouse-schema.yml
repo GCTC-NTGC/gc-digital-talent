@@ -16,8 +16,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2.4.0
-        with:
-          ref: ${{ github.head_ref }}
 
       - name: Create admin .env file, which is referenced in docker-compose
         working-directory: frontend/admin
