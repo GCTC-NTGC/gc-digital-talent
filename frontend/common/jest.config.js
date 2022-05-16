@@ -31,7 +31,6 @@ module.exports = {
   coverageReporters: ["json", "html"],
   collectCoverageFrom: [
     "src/**/*.{js,jsx,ts,tsx}",
-    "!<rootDir>/node_modules/",
   ],
   coverageDirectory: "tests/coverage",
 
