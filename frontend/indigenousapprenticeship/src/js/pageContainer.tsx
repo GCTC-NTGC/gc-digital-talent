@@ -1,11 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import LanguageRedirectContainer from "@common/components/LanguageRedirectContainer";
-import { getMessages } from "./components/IntlContainer";
 import { Router } from "./components/Router";
 
+import IndigenousApprenticeshipFrench from "./lang/frCompiled.json";
+
 ReactDOM.render(
-  <LanguageRedirectContainer getMessages={getMessages}>
+  <LanguageRedirectContainer messages={IndigenousApprenticeshipFrench}>
     <Router />
   </LanguageRedirectContainer>,
   document.getElementById("app"),
