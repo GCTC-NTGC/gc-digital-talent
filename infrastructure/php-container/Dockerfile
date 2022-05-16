@@ -13,8 +13,8 @@ RUN apt-get update \
     # See: https://web-token.spomky-labs.com/introduction/pre-requisite
     # See: https://github.com/brick/math#requirements
     #
-    # TODO: Investigate installing bcmath or gmp PHP extensions on server to
-    # improve cypher operation performance.
+    # TODO: Investigate whether bcmath or gmp PHP extensions on UAT server are
+    # best to improve cypher operation performance.
     # See: https://www.php.net/manual/en/book.bc.php
     # See: https://www.php.net/manual/en/book.gmp.php
-    && docker-php-ext-install pdo_pgsql
+    && docker-php-ext-install pdo_pgsql bcmath
