@@ -11,13 +11,13 @@ describe('Auth flows (development)', () => {
 
   const onDashboard = () => {
     cy.intercept('POST', '/graphql', (req) => {
-      // Creates alias: @gqlMeQuery
-      aliasQuery(req, 'me')
+      // Creates alias: @gqlGetMeQuery
+      aliasQuery(req, 'getMe')
     })
 
     cy.url().should('match', new RegExp(`^${ Cypress.config().baseUrl }/en/admin/dashboard$`))
     // Heading won't render until we know user details.
-    cy.wait('@gqlMeQuery')
+    cy.wait('@gqlGetMeQuery')
     cy.get('h1').contains('Welcome back,').should('exist').and('be.visible')
   }
 
@@ -45,7 +45,7 @@ describe('Auth flows (development)', () => {
       })
     })
 
-    it('successfully registers a new user', () => {
+    it.only('successfully registers a new user', () => {
       const doLogin = () => {
         cy.intercept('POST', '/auth/register').as('registerUser')
 
