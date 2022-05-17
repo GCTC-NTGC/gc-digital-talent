@@ -535,11 +535,13 @@ input UserFilterAndOrderInput {
     locationPreferences: [WorkRegion] @builder(method: "App\\Models\\User@filterByLocationPreferences")
     hasDiploma: Boolean @scope
     wouldAcceptTemporary: Boolean @scope
-    jobLookingStatus: JobLookingStatus @builder(method: "App\\Models\\User@filterByJobLookingStatus")
+    jobLookingStatus: [JobLookingStatus] @builder(method: "App\\Models\\User@filterByJobLookingStatus")
     isProfileComplete: Boolean @scope
     skills: [ID] @builder(method: "App\\Models\\User@filterBySkills")
     isGovEmployee: Boolean @scope
     orderBy: String   # This needs to be the name of the field in the database eg. first_name
+    # Test for paging
+    # Test for sorting
 }
 
 type Query {

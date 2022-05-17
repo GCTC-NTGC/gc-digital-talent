@@ -215,9 +215,19 @@ class User extends Model implements Authenticatable
         });
         return $query;
     }
-    public function filterByJobLookingStatus(Builder $query, ?string $jobLookingStatus): Builder
+    public function filterByJobLookingStatus(Builder $query, array $statuses): Builder
     {
-        $query->where('job_looking_status', $jobLookingStatus);
+        // JobLookingStatus acts as an OR filter. The query should return users with ANY of the statuses.
+        $query->where(function($query) use ($statuses) {
+            foreach($statuses as $index => $status) {
+                if ($index === 0) {
+                    // First iteration must use where instead of orWhere
+                    $query->where('job_looking_status', $status);
+                } else {
+                    $query->orWhere('job_looking_status', $status);
+                }
+            }
+        });
         return $query;
     }
     public function filterBySkills(Builder $query, array $skills): Builder

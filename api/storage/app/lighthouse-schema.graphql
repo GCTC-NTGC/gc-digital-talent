@@ -1137,7 +1137,7 @@ input UserFilterAndOrderInput {
   locationPreferences: [WorkRegion]
   hasDiploma: Boolean
   wouldAcceptTemporary: Boolean
-  jobLookingStatus: JobLookingStatus
+  jobLookingStatus: [JobLookingStatus]
   isProfileComplete: Boolean
   skills: [ID]
   isGovEmployee: Boolean
