@@ -106,8 +106,12 @@ export const SearchForm: React.FunctionComponent<SearchFormProps> = ({
   const methods = useForm<FormValues>({ defaultValues: initialValues });
   const { watch } = methods;
 
-  const formValuesToData = useCallback(
-    (values: FormValues): PoolCandidateFilterInput => {
+  React.useEffect(() => {
+    updateCandidateFilter(initialValues);
+  }, [initialValues, updateCandidateFilter]);
+
+  React.useEffect(() => {
+    const formValuesToData = (values: FormValues): PoolCandidateFilterInput => {
       return {
         classifications: values.classifications
           ? values.classifications?.map((id) =>
@@ -138,15 +142,8 @@ export const SearchForm: React.FunctionComponent<SearchFormProps> = ({
           : {}), // Ensure null in FormValues is converted to undefined
         workRegions: values.workRegions || [],
       };
-    },
-    [assetMap, classificationMap],
-  );
+    };
 
-  React.useEffect(() => {
-    updateCandidateFilter(formValuesToData(initialValues as FormValues));
-  }, [formValuesToData, initialValues, updateCandidateFilter]);
-
-  React.useEffect(() => {
     const debounceUpdate = debounce((values: PoolCandidateFilterInput) => {
       if (updateCandidateFilter) {
         updateCandidateFilter(values);
@@ -159,13 +156,7 @@ export const SearchForm: React.FunctionComponent<SearchFormProps> = ({
     });
 
     return () => subscription.unsubscribe();
-  }, [
-    watch,
-    classificationMap,
-    assetMap,
-    updateCandidateFilter,
-    formValuesToData,
-  ]);
+  }, [watch, classificationMap, assetMap, updateCandidateFilter]);
 
   const classificationOptions: Option<string>[] = useMemo(
     () =>
