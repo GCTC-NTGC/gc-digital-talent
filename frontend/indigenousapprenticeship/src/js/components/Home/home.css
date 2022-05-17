@@ -195,6 +195,10 @@
   z-index: 2;
 }
 
+.talent-portal-card__image {
+    vertical-align: top;
+}
+
 .talent-portal__triangle {
   left: -2rem;
   max-width: none;
@@ -359,7 +363,6 @@
     position: relative;
     width: auto;
     flex-shrink: 0;
-    vertical-align: top;
   }
 }
 
