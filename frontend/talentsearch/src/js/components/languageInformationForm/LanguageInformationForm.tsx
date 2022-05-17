@@ -8,6 +8,7 @@ import { compact, omit } from "lodash";
 import { getLocale } from "@common/helpers/localize";
 import { navigate } from "@common/helpers/router";
 import { toast } from "react-toastify";
+import getProfileCompleteToast from "@common/helpers/profileUtils";
 import {
   BilingualEvaluation,
   EstimatedLanguageAbility,
@@ -21,6 +22,7 @@ import {
 import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
 import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
 import applicantProfileRoutes from "../../applicantProfileRoutes";
+import profileMessages from "../profile/profileMessages";
 
 export type FormValues = Pick<
   User,
@@ -490,34 +492,18 @@ export const LanguageInformationFormContainer: React.FunctionComponent = () => {
       .then((res) => {
         if (res.isProfileComplete) {
           const currentProfileStatus = res.isProfileComplete;
-          if (!preProfileStatus && currentProfileStatus) {
-            toast.success(
-              intl.formatMessage({
-                defaultMessage:
-                  "All required fields are complete. You can now change your status.",
-                description:
-                  "Message displayed to user when user profile completed.",
-              }),
-            );
-          }
+          const message = intl.formatMessage(profileMessages.profileCompleted);
+          getProfileCompleteToast({
+            preProfileStatus,
+            currentProfileStatus,
+            message,
+          });
         }
         navigate(paths.home());
-        toast.success(
-          intl.formatMessage({
-            defaultMessage: "User updated successfully!",
-            description:
-              "Message displayed to user after user is updated successfully.",
-          }),
-        );
+        toast.success(intl.formatMessage(profileMessages.userUpdated));
       })
       .catch(() => {
-        toast.error(
-          intl.formatMessage({
-            defaultMessage: "Error: updating user failed",
-            description:
-              "Message displayed to user after user fails to get updated.",
-          }),
-        );
+        toast.error(intl.formatMessage(profileMessages.updatingFailed));
       });
   };
 
@@ -535,14 +521,7 @@ export const LanguageInformationFormContainer: React.FunctionComponent = () => {
   }
 
   if (!userId) {
-    return (
-      <p>
-        {intl.formatMessage({
-          defaultMessage: "Error: user not found",
-          description: "Message displayed to user if user is not found",
-        })}
-      </p>
-    );
+    return <p>{intl.formatMessage(profileMessages.userNotFound)}</p>;
   }
 
   return (

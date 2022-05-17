@@ -178,9 +178,6 @@ export const WorkLocationPreferenceApi: React.FunctionComponent = () => {
         const currentProfileStatus =
           result.data?.updateUserAsUser?.isProfileComplete;
         const message = intl.formatMessage(profileMessages.profileCompleted);
-        // if (!preProfileStatus && currentProfileStatus) {
-        //   toast.success(intl.formatMessage(profileMessages.profileCompleted));
-        // }
         getProfileStatus({ preProfileStatus, currentProfileStatus, message });
         navigate(paths.home());
         toast.success(intl.formatMessage(profileMessages.userUpdated));

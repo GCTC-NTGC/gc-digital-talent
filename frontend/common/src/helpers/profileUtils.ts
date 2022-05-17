@@ -1,6 +1,6 @@
 import { toast } from "react-toastify";
 
-export default function getProfileStatus({
+export default function getProfileCompleteToast({
   preProfileStatus,
   currentProfileStatus,
   message,

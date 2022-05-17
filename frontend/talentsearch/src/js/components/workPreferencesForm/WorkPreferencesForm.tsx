@@ -7,6 +7,7 @@ import { enumToOptions } from "@common/helpers/formUtils";
 import { navigate } from "@common/helpers/router";
 import { toast } from "react-toastify";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import getProfileCompleteToast from "@common/helpers/profileUtils";
 import { useApplicantProfileRoutes } from "../../applicantProfileRoutes";
 import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
 import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
@@ -18,6 +19,7 @@ import {
   useGetWorkPreferencesQuery,
   useUpdateWorkPreferencesMutation,
 } from "../../api/generated";
+import profileMessages from "../profile/profileMessages";
 
 export type FormValues = Pick<
   UpdateUserAsUserInput,
@@ -206,26 +208,16 @@ export const WorkPreferencesApi: React.FunctionComponent = () => {
         if (result.data?.updateUserAsUser?.isProfileComplete) {
           const currentProfileStatus =
             result.data?.updateUserAsUser?.isProfileComplete;
-          if (!preProfileStatus && currentProfileStatus) {
-            toast.success(
-              intl.formatMessage({
-                defaultMessage:
-                  "All required fields are complete. You can now change your status.",
-                description:
-                  "Message displayed to user when user profile completed.",
-              }),
-            );
-          }
+          const message = intl.formatMessage(profileMessages.profileCompleted);
+          getProfileCompleteToast({
+            preProfileStatus,
+            currentProfileStatus,
+            message,
+          });
         }
       }
       navigate(paths.home());
-      toast.success(
-        intl.formatMessage({
-          defaultMessage: "Work preferences updated successfully!",
-          description:
-            "Message displayed to user after user is updated successfully.",
-        }),
-      );
+      toast.success(intl.formatMessage(profileMessages.userUpdated));
       if (result.data?.updateUserAsUser) {
         return result.data.updateUserAsUser;
       }
@@ -234,13 +226,7 @@ export const WorkPreferencesApi: React.FunctionComponent = () => {
 
   if (fetching) return <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>;
   if (error) {
-    toast.error(
-      intl.formatMessage({
-        defaultMessage: "Error: updating user failed",
-        description:
-          "Message displayed to user after user fails to get updated.",
-      }),
-    );
+    toast.success(intl.formatMessage(profileMessages.updatingFailed));
     return (
       <p>
         {intl.formatMessage(commonMessages.loadingError)}
@@ -254,12 +240,7 @@ export const WorkPreferencesApi: React.FunctionComponent = () => {
       handleWorkPreferences={handleWorkPreferences}
     />
   ) : (
-    <p>
-      {intl.formatMessage({
-        defaultMessage: "User not found.",
-        description: "Message displayed for user not found.",
-      })}
-    </p>
+    <p>{intl.formatMessage(profileMessages.userNotFound)}</p>
   );
 };
 

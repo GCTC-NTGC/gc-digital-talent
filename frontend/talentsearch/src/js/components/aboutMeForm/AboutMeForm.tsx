@@ -16,6 +16,7 @@ import {
 import { SubmitHandler } from "react-hook-form";
 import omit from "lodash/omit";
 import pick from "lodash/pick";
+import getProfileCompleteToast from "@common/helpers/profileUtils";
 import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
 import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
 import {
@@ -95,34 +96,17 @@ export const AboutMeForm: React.FunctionComponent<AboutMeFormProps> = ({
 
   const handleSubmit: SubmitHandler<FormValues> = async (formValues) => {
     if (!initialUser?.id) {
-      toast.error(
-        intl.formatMessage({
-          defaultMessage: "Error: user not found",
-          description: "Message displayed to user if user is not found",
-        }),
-      );
+      toast.error(intl.formatMessage(profileMessages.userNotFound));
       return;
     }
 
     await onUpdateAboutMe(initialUser.id, formValuesToSubmitData(formValues))
       .then(() => {
         navigate(paths.home());
-        toast.success(
-          intl.formatMessage({
-            defaultMessage: "User updated successfully!",
-            description:
-              "Message displayed to user after user is updated successfully.",
-          }),
-        );
+        toast.success(intl.formatMessage(profileMessages.userUpdated));
       })
       .catch(() => {
-        toast.error(
-          intl.formatMessage({
-            defaultMessage: "Error: updating user failed",
-            description:
-              "Message displayed to user after user fails to get updated.",
-          }),
-        );
+        toast.error(intl.formatMessage(profileMessages.updatingFailed));
       });
   };
 
@@ -328,9 +312,12 @@ const AboutMeFormContainer: React.FunctionComponent = () => {
         if (res.data?.updateUserAsUser) {
           const currentProfileStatus =
             res.data?.updateUserAsUser?.isProfileComplete;
-          if (!preProfileStatus && currentProfileStatus) {
-            toast.success(intl.formatMessage(profileMessages.profileCompleted));
-          }
+          const message = intl.formatMessage(profileMessages.profileCompleted);
+          getProfileCompleteToast({
+            preProfileStatus,
+            currentProfileStatus,
+            message,
+          });
           return res.data.updateUserAsUser;
         }
 

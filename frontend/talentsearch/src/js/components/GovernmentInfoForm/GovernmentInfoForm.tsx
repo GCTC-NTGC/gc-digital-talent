@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 import { empty, notEmpty } from "@common/helpers/util";
 import { navigate } from "@common/helpers/router";
 
+import getProfilleCompleteToast from "@common/helpers/profileUtils";
 import {
   Classification,
   useGetAllClassificationsAndMeQuery,
@@ -19,6 +20,7 @@ import {
 import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
 import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
 import talentSearchRoutes from "../../talentSearchRoutes";
+import profileMessages from "../profile/profileMessages";
 
 type FormValues = {
   govEmployeeYesNo?: "yes" | "no";
@@ -433,34 +435,20 @@ export const GovInfoFormContainer: React.FunctionComponent = () => {
     }
     await handleUpdateUser(meId, data)
       .then((res) => {
-        const currentProfileStatus = res.isProfileComplete;
-        if (!preProfileStatus && currentProfileStatus) {
-          toast.success(
-            intl.formatMessage({
-              defaultMessage:
-                "All required fields are complete. You can now change your status.",
-              description:
-                "Message displayed to user when user profile completed.",
-            }),
-          );
+        if (res.isProfileComplete) {
+          const currentProfileStatus = res.isProfileComplete;
+          const message = intl.formatMessage(profileMessages.profileCompleted);
+          getProfilleCompleteToast({
+            preProfileStatus,
+            currentProfileStatus,
+            message,
+          });
+          navigate(paths.profile());
+          toast.success(intl.formatMessage(profileMessages.userUpdated));
         }
-        navigate(paths.profile());
-        toast.success(
-          intl.formatMessage({
-            defaultMessage: "User updated successfully!",
-            description:
-              "Message displayed to user after user is updated successfully.",
-          }),
-        );
       })
       .catch(() => {
-        toast.error(
-          intl.formatMessage({
-            defaultMessage: "Error: updating user failed",
-            description:
-              "Message displayed to user after user fails to get updated.",
-          }),
-        );
+        toast.error(intl.formatMessage(profileMessages.updatingFailed));
       });
   };
 
