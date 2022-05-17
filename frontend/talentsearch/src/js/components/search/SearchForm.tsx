@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useCallback, useMemo } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { Checklist, MultiSelect, RadioGroup } from "@common/components/form";
@@ -99,12 +99,15 @@ export const SearchForm: React.FunctionComponent<SearchFormProps> = ({
 
   // The location state holds the initial values plugged in from user. This is required if the user decides to click back and change any values.
   const state = location.state as LocationState;
-  const initialValues = state ? state.some.initialValues : {};
+  const initialValues = useMemo(
+    () => (state ? state.some.initialValues : {}),
+    [state],
+  );
   const methods = useForm<FormValues>({ defaultValues: initialValues });
   const { watch } = methods;
 
-  React.useEffect(() => {
-    const formValuesToData = (values: FormValues): PoolCandidateFilterInput => {
+  const formValuesToData = useCallback(
+    (values: FormValues): PoolCandidateFilterInput => {
       return {
         classifications: values.classifications
           ? values.classifications?.map((id) =>
@@ -135,8 +138,15 @@ export const SearchForm: React.FunctionComponent<SearchFormProps> = ({
           : {}), // Ensure null in FormValues is converted to undefined
         workRegions: values.workRegions || [],
       };
-    };
+    },
+    [assetMap, classificationMap],
+  );
 
+  React.useEffect(() => {
+    updateCandidateFilter(formValuesToData(initialValues as FormValues));
+  }, [formValuesToData, initialValues, updateCandidateFilter]);
+
+  React.useEffect(() => {
     const debounceUpdate = debounce((values: PoolCandidateFilterInput) => {
       if (updateCandidateFilter) {
         updateCandidateFilter(values);
@@ -149,7 +159,13 @@ export const SearchForm: React.FunctionComponent<SearchFormProps> = ({
     });
 
     return () => subscription.unsubscribe();
-  }, [watch, classificationMap, assetMap, updateCandidateFilter]);
+  }, [
+    watch,
+    classificationMap,
+    assetMap,
+    updateCandidateFilter,
+    formValuesToData,
+  ]);
 
   const classificationOptions: Option<string>[] = useMemo(
     () =>
