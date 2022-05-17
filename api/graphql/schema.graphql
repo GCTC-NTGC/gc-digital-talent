@@ -730,9 +730,6 @@ input UpdateUserAsUserInput {
     communityExperiences: CommunityExperienceHasMany
     educationExperiences: EducationExperienceHasMany
     awardExperiences: AwardExperienceHasMany
-
-    # Profile Status
-    isProfileComplete: Boolean
 }
 
 input LocalizedStringInput {

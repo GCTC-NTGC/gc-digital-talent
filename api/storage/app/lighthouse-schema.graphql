@@ -1066,7 +1066,6 @@ input UpdateUserAsUserInput {
   communityExperiences: CommunityExperienceHasMany
   educationExperiences: EducationExperienceHasMany
   awardExperiences: AwardExperienceHasMany
-  isProfileComplete: Boolean
 }
 
 type User {
