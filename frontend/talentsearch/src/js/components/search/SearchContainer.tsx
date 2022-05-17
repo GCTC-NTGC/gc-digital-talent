@@ -17,7 +17,10 @@ import {
   ClassificationFilterInput,
   Maybe,
 } from "../../api/generated";
-import { DIGITAL_CAREERS_POOL_KEY } from "../../talentSearchConstants";
+import {
+  DIGITAL_CAREERS_POOL_KEY,
+  TALENTSEARCH_RECRUITMENT_EMAIL,
+} from "../../talentSearchConstants";
 import EstimatedCandidates from "./EstimatedCandidates";
 import { FormValues, SearchForm } from "./SearchForm";
 import SearchFilterAdvice from "./SearchFilterAdvice";
@@ -69,7 +72,7 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
   function a(msg: string) {
     return (
       <a
-        href="mailto:recruitmentimit-recrutementgiti@tbs-sct.gc.ca"
+        href={`mailto:${TALENTSEARCH_RECRUITMENT_EMAIL}`}
         data-h2-font-weight="b(700)"
       >
         {msg}
