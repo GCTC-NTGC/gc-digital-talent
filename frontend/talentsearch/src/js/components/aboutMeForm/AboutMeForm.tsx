@@ -26,6 +26,7 @@ import {
 } from "../../api/generated";
 import type { User, UpdateUserAsUserInput } from "../../api/generated";
 import applicantProfileRoutes from "../../applicantProfileRoutes";
+import profileMessages from "../profile/profileMessages";
 
 export type FormValues = Pick<
   User,
@@ -328,14 +329,7 @@ const AboutMeFormContainer: React.FunctionComponent = () => {
           const currentProfileStatus =
             res.data?.updateUserAsUser?.isProfileComplete;
           if (!preProfileStatus && currentProfileStatus) {
-            toast.success(
-              intl.formatMessage({
-                defaultMessage:
-                  "All required fields are complete. You can now change your status.",
-                description:
-                  "Message displayed to user when user profile completed.",
-              }),
-            );
+            toast.success(intl.formatMessage(profileMessages.profileCompleted));
           }
           return res.data.updateUserAsUser;
         }

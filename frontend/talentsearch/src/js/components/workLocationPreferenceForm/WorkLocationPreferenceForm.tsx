@@ -2,6 +2,8 @@ import { Checklist, TextArea } from "@common/components/form";
 import { getWorkRegionsDetailed } from "@common/constants/localizedConstants";
 import { enumToOptions } from "@common/helpers/formUtils";
 import { navigate } from "@common/helpers/router";
+import getProfileStatus from "@common/helpers/profileUtils";
+
 import { commonMessages, errorMessages } from "@common/messages";
 import React from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
@@ -175,17 +177,14 @@ export const WorkLocationPreferenceApi: React.FunctionComponent = () => {
       if (result.data?.updateUserAsUser) {
         const currentProfileStatus =
           result.data?.updateUserAsUser?.isProfileComplete;
-        if (!preProfileStatus && currentProfileStatus) {
-          toast.success(intl.formatMessage(profileMessages.profileCompleted));
-        }
+        const message = intl.formatMessage(profileMessages.profileCompleted);
+        // if (!preProfileStatus && currentProfileStatus) {
+        //   toast.success(intl.formatMessage(profileMessages.profileCompleted));
+        // }
+        getProfileStatus({ preProfileStatus, currentProfileStatus, message });
         navigate(paths.home());
-        toast.success(
-          intl.formatMessage({
-            defaultMessage: "Work location preferences updated successfully!",
-            description:
-              "Message displayed to user after user is updated successfully.",
-          }),
-        );
+        toast.success(intl.formatMessage(profileMessages.userUpdated));
+
         return result.data.updateUserAsUser;
       }
       return Promise.reject(result.error);
