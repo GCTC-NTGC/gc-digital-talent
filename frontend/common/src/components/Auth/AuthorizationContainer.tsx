@@ -1,22 +1,29 @@
 import React from "react";
-import { Role, useGetMeQuery } from "../api/generated";
+import { Role } from "../../api/generated";
+
+type PossibleUserRoles = (Role | null | undefined)[] | null | undefined;
 
 interface AuthorizationState {
-  loggedInUserRoles: (Role | null | undefined)[] | null | undefined;
+  loggedInUserRoles: PossibleUserRoles;
 }
 
 export const AuthorizationContext = React.createContext<AuthorizationState>({
   loggedInUserRoles: null,
 });
 
-export const AuthorizationContainer: React.FC = ({ children }) => {
-  const [result] = useGetMeQuery();
-  const { data } = result;
+interface AuthorizationContainerProps {
+  userRoles?: PossibleUserRoles;
+}
+
+export const AuthorizationContainer: React.FC<AuthorizationContainerProps> = ({
+  userRoles,
+  children,
+}) => {
   const state = React.useMemo<AuthorizationState>(() => {
     return {
-      loggedInUserRoles: data?.me?.roles,
+      loggedInUserRoles: userRoles,
     };
-  }, [data?.me?.roles]);
+  }, [userRoles]);
 
   return (
     <AuthorizationContext.Provider value={state}>

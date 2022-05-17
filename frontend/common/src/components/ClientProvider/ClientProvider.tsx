@@ -19,7 +19,7 @@ import {
   Operation,
   makeOperation,
 } from "urql";
-import { AuthContext } from "./AuthContainer";
+import { AuthenticationContext } from "../Auth";
 
 // generate nonce somewhere here?
 // const nonce = ...
@@ -61,10 +61,12 @@ const addAuthToOperation = ({
 };
 
 const didAuthError = ({ error }: { error: CombinedError }): boolean => {
-  return (
-    error.response.status === 401 ||
-    error.graphQLErrors.some((e) => e.extensions?.category === "authentication")
-  );
+  return error && error.response
+    ? error.response.status === 401 ||
+        error.graphQLErrors.some(
+          (e) => e.extensions?.category === "authentication",
+        )
+    : false;
 };
 
 const willAuthError = ({ authState }: { authState: AuthState | null }) => {
@@ -79,11 +81,11 @@ const willAuthError = ({ authState }: { authState: AuthState | null }) => {
   return false;
 };
 
-export const ClientProvider: React.FC<{ client?: Client }> = ({
+const ClientProvider: React.FC<{ client?: Client }> = ({
   client,
   children,
 }) => {
-  const authContext = useContext(AuthContext);
+  const authContext = useContext(AuthenticationContext);
   // Create a mutable object to hold the auth state
   const authRef = useRef(authContext);
   // Keep the contents of that mutable object up to date
@@ -118,7 +120,7 @@ export const ClientProvider: React.FC<{ client?: Client }> = ({
       return null;
     },
     // This function is inside of `useCallback` to prevent breaking the memoization of internalClient.
-    // If internalClient is reinstantiated it will lose its error count and can cause refresh loops.
+    // If internalClient is re-instantiated it will lose its error count and can cause refresh loops.
     [],
   );
 
