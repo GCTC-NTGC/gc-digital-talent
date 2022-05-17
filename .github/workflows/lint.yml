@@ -39,6 +39,10 @@ jobs:
         working-directory: frontend
         run: npm run codegen --workspaces --if-present
 
+      - name: "Compile Intl: all workspaces"
+        working-directory: frontend
+        run: npm run intl-compile --workspaces
+
       - name: "Run ESlint: all workspaces"
         working-directory: frontend
         # Temporarily ignore until we fix existing issues.
