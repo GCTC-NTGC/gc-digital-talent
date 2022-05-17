@@ -8,7 +8,6 @@ import { compact, omit } from "lodash";
 import { getLocale } from "@common/helpers/localize";
 import { navigate } from "@common/helpers/router";
 import { toast } from "react-toastify";
-import getProfileCompleteToast from "@common/helpers/profileUtils";
 import {
   BilingualEvaluation,
   EstimatedLanguageAbility,
@@ -493,11 +492,9 @@ export const LanguageInformationFormContainer: React.FunctionComponent = () => {
         if (res.isProfileComplete) {
           const currentProfileStatus = res.isProfileComplete;
           const message = intl.formatMessage(profileMessages.profileCompleted);
-          getProfileCompleteToast({
-            preProfileStatus,
-            currentProfileStatus,
-            message,
-          });
+          if (!preProfileStatus && currentProfileStatus) {
+            toast.success(message);
+          }
         }
         navigate(paths.home());
         toast.success(intl.formatMessage(profileMessages.userUpdated));

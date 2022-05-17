@@ -16,7 +16,6 @@ import {
 import { SubmitHandler } from "react-hook-form";
 import omit from "lodash/omit";
 import pick from "lodash/pick";
-import getProfileCompleteToast from "@common/helpers/profileUtils";
 import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
 import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
 import {
@@ -313,11 +312,9 @@ const AboutMeFormContainer: React.FunctionComponent = () => {
           const currentProfileStatus =
             res.data?.updateUserAsUser?.isProfileComplete;
           const message = intl.formatMessage(profileMessages.profileCompleted);
-          getProfileCompleteToast({
-            preProfileStatus,
-            currentProfileStatus,
-            message,
-          });
+          if (!preProfileStatus && currentProfileStatus) {
+            toast.success(message);
+          }
           return res.data.updateUserAsUser;
         }
 

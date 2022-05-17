@@ -2,8 +2,6 @@ import { Checklist, TextArea } from "@common/components/form";
 import { getWorkRegionsDetailed } from "@common/constants/localizedConstants";
 import { enumToOptions } from "@common/helpers/formUtils";
 import { navigate } from "@common/helpers/router";
-import getProfileStatus from "@common/helpers/profileUtils";
-
 import { commonMessages, errorMessages } from "@common/messages";
 import React from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
@@ -178,7 +176,9 @@ export const WorkLocationPreferenceApi: React.FunctionComponent = () => {
         const currentProfileStatus =
           result.data?.updateUserAsUser?.isProfileComplete;
         const message = intl.formatMessage(profileMessages.profileCompleted);
-        getProfileStatus({ preProfileStatus, currentProfileStatus, message });
+        if (!preProfileStatus && currentProfileStatus) {
+          toast.success(message);
+        }
         navigate(paths.home());
         toast.success(intl.formatMessage(profileMessages.userUpdated));
 

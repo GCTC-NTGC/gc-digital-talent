@@ -8,7 +8,6 @@ import { toast } from "react-toastify";
 import { empty, notEmpty } from "@common/helpers/util";
 import { navigate } from "@common/helpers/router";
 
-import getProfilleCompleteToast from "@common/helpers/profileUtils";
 import {
   Classification,
   useGetAllClassificationsAndMeQuery,
@@ -438,11 +437,9 @@ export const GovInfoFormContainer: React.FunctionComponent = () => {
         if (res.isProfileComplete) {
           const currentProfileStatus = res.isProfileComplete;
           const message = intl.formatMessage(profileMessages.profileCompleted);
-          getProfilleCompleteToast({
-            preProfileStatus,
-            currentProfileStatus,
-            message,
-          });
+          if (!preProfileStatus && currentProfileStatus) {
+            toast.success(message);
+          }
           navigate(paths.profile());
           toast.success(intl.formatMessage(profileMessages.userUpdated));
         }

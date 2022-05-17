@@ -7,7 +7,6 @@ import { enumToOptions } from "@common/helpers/formUtils";
 import { navigate } from "@common/helpers/router";
 import { toast } from "react-toastify";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
-import getProfileCompleteToast from "@common/helpers/profileUtils";
 import { useApplicantProfileRoutes } from "../../applicantProfileRoutes";
 import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
 import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
@@ -209,11 +208,9 @@ export const WorkPreferencesApi: React.FunctionComponent = () => {
           const currentProfileStatus =
             result.data?.updateUserAsUser?.isProfileComplete;
           const message = intl.formatMessage(profileMessages.profileCompleted);
-          getProfileCompleteToast({
-            preProfileStatus,
-            currentProfileStatus,
-            message,
-          });
+          if (!preProfileStatus && currentProfileStatus) {
+            toast.success(message);
+          }
         }
       }
       navigate(paths.home());
