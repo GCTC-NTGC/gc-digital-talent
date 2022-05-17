@@ -33,6 +33,32 @@ const AdminNotFound: React.FC = () => {
   );
 };
 
+const OpenMenuButton: React.FC<React.HTMLAttributes<HTMLButtonElement>> = ({
+  onClick,
+  children,
+}) => (
+  <div
+    data-h2-visibility="b(visible) m(hidden)"
+    data-h2-position="b(fixed)"
+    data-h2-location="b(bottom-right, xs)"
+    style={{ zIndex: 9998 }}
+  >
+    <Button
+      mode="solid"
+      color="secondary"
+      data-h2-display="b(inline-flex)"
+      data-h2-align-items="b(center)"
+      data-h2-shadow="b(s)"
+      onClick={onClick}
+    >
+      <MenuIcon
+        style={{ width: "1rem", height: "1rem", marginRight: "0.5rem" }}
+      />
+      <span>{children}</span>
+    </Button>
+  </div>
+);
+
 interface DashboardProps {
   contentRoutes: Routes<RouterResult>;
 }
@@ -83,31 +109,12 @@ const Dashboard: React.FC<DashboardProps> = ({ contentRoutes }) => {
           </div>
         </SideMenuContentWrapper>
       </div>
-      <div
-        data-h2-visibility="b(visible) m(hidden)"
-        data-h2-position="b(fixed)"
-        data-h2-location="b(bottom-right, xs)"
-        style={{ zIndex: 9998 }}
-      >
-        <Button
-          mode="solid"
-          color="secondary"
-          data-h2-display="b(inline-flex)"
-          data-h2-align-items="b(center)"
-          data-h2-shadow="b(s)"
-          onClick={handleMenuToggle}
-        >
-          <MenuIcon
-            style={{ width: "1rem", height: "1rem", marginRight: "0.5rem" }}
-          />
-          <span>
-            {intl.formatMessage({
-              defaultMessage: "Open Menu",
-              description: "Text label for header button that opens side menu.",
-            })}
-          </span>
-        </Button>
-      </div>
+      <OpenMenuButton onClick={handleMenuToggle}>
+        {intl.formatMessage({
+          defaultMessage: "Open Menu",
+          description: "Text label for header button that opens side menu.",
+        })}
+      </OpenMenuButton>
     </>
   );
 };
