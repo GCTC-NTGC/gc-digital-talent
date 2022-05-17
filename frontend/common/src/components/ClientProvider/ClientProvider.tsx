@@ -109,15 +109,28 @@ const ClientProvider: React.FC<{ client?: Client }> = ({
         return null;
       }
 
+      /**
+       * Logout the user and return null AuthState
+       *
+       * @returns null
+       */
+      const logoutNullState = () => {
+        logout();
+        return null;
+      };
+
       // If authState is not null, and getAuth is called again, then it means authentication failed for some reason.
       // let's try to use a refresh token to get new tokens
       if (refreshToken) {
-        const refreshedAuthState = refreshTokenSet();
-        return refreshedAuthState;
+        const refreshedAuthState = await refreshTokenSet();
+        if (refreshedAuthState) {
+          return refreshedAuthState;
+        }
+
+        return logoutNullState();
       }
 
-      logout();
-      return null;
+      return logoutNullState();
     },
     // This function is inside of `useCallback` to prevent breaking the memoization of internalClient.
     // If internalClient is re-instantiated it will lose its error count and can cause refresh loops.
