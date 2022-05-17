@@ -1,4 +1,4 @@
-import React, { ReactHTMLElement } from "react";
+import React from "react";
 
 const ThickCircle: React.FC<React.HTMLAttributes<HTMLOrSVGElement>> = (
   props,
