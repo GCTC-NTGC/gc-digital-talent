@@ -231,8 +231,10 @@ const candidateFilterToQueryArgs = (
   return {
     where: {
       ...filter,
-      classifications: pickMap(filter.classifications, ["group", "level"]),
-      cmoAssets: pickMap(filter.cmoAssets, "key"),
+      classifications: filter.classifications
+        ? pickMap(filter.classifications, ["group", "level"])
+        : [],
+      cmoAssets: filter.cmoAssets ? pickMap(filter.cmoAssets, "key") : [],
       pools: poolId ? [{ id: poolId }] : pickMap(filter.pools, "id"),
     },
   };

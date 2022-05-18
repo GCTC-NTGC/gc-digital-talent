@@ -47,7 +47,8 @@
         "import/no-extraneous-dependencies": "off",
         "import/extensions": [
             "warn",
-            "never"
+            "never",
+            {"json": "always"}
         ],
         "react/display-name": "off",
         "react/prop-types": "off",

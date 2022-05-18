@@ -20,6 +20,24 @@ const FilterBlock: React.FunctionComponent<FilterBlockProps> = ({
   content,
 }) => {
   const intl = useIntl();
+
+  const emptyArrayOutput = (input: string | string[] | null | undefined) => {
+    return input && !isEmpty(input) ? (
+      <p data-h2-display="b(inline)" data-h2-font-color="b(black)">
+        {input}
+      </p>
+    ) : (
+      <ul data-h2-font-color="b(black)">
+        <li>
+          {intl.formatMessage({
+            defaultMessage: "(None selected)",
+            description: "Text shown when the filter was not selected",
+          })}
+        </li>
+      </ul>
+    );
+  };
+
   return (
     <div data-h2-padding="b(bottom, s)">
       <div data-h2-visibility="b(visible) s(hidden)">
@@ -60,14 +78,7 @@ const FilterBlock: React.FunctionComponent<FilterBlockProps> = ({
             ))}
           </ul>
         ) : (
-          <p data-h2-display="b(inline)" data-h2-font-color="b(black)">
-            {content && !isEmpty(content)
-              ? content
-              : intl.formatMessage({
-                  defaultMessage: "N/A",
-                  description: "Text shown when the filter was not selected",
-                })}
-          </p>
+          emptyArrayOutput(content)
         )}
       </div>
     </div>

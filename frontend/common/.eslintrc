@@ -61,7 +61,8 @@
         ],
         "import/extensions": [
             "warn",
-            "never"
+            "never",
+            {"json": "always"}
         ],
         "react/display-name": "off",
         "react/prop-types": "off",
