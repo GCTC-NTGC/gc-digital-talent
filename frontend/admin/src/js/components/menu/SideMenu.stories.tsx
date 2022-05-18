@@ -1,9 +1,9 @@
 import React from "react";
 import { Story } from "@storybook/react";
 
-import SideMenu from "./SideMenu";
+import SideMenu, { SideMenuProps } from "./SideMenu";
 import AuthorizationContainer, { AuthorizationContext } from "../AuthorizationContainer";
-import AuthContainer, { AuthContext } from "../AuthContainer";
+import AuthContainer, { AuthContext, DefaultAuthState } from "../AuthContainer";
 import { useAdminRoutes } from "../../adminRoutes";
 import { Role } from "../../api/generated";
 
@@ -12,14 +12,18 @@ export default {
   title: "Components/Admin Side Menu",
 }
 
-const Template = args => {
+interface TemplateProps extends SideMenuProps {
+  isLoggedIn: boolean;
+}
+
+const Template: Story<TemplateProps> = args => {
   const { isLoggedIn, ...rest } = args;
   const mockAuthState = {
-    ...AuthContainer.AuthContext,
+    ...DefaultAuthState,
     loggedIn: isLoggedIn,
   }
   const mockAuthorizationState = {
-    ...AuthorizationContainer.AuthorizationContext,
+    ...AuthorizationContext,
     loggedInUserRoles: isLoggedIn ? [Role.Admin] : null,
   }
 

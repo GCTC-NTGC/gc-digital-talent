@@ -28,7 +28,7 @@ interface TokenSet {
   idToken: string | null;
 }
 
-export const AuthContext = React.createContext<AuthState>({
+export const DefaultAuthState = {
   loggedIn: false,
   accessToken: null,
   refreshToken: null,
@@ -37,7 +37,9 @@ export const AuthContext = React.createContext<AuthState>({
     /** do nothing */
   },
   refreshTokenSet: () => Promise.resolve(null),
-});
+}
+
+export const AuthContext = React.createContext<AuthState>(DefaultAuthState);
 
 const logoutAndRefreshPage = (homePath: string): void => {
   // capture tokens before they are removed
