@@ -540,8 +540,6 @@ input UserFilterAndOrderInput {
     skills: [ID] @builder(method: "App\\Models\\User@filterBySkills")
     isGovEmployee: Boolean @scope
     orderBy: String   # This needs to be the name of the field in the database eg. first_name
-    # Test for paging
-    # Test for sorting
 }
 
 type Query {

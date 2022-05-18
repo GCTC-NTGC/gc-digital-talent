@@ -4,6 +4,12 @@ use App\Models\User;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
 use App\Models\Classification;
+use App\Models\Skill;
+use App\Models\AwardExperience;
+use App\Models\CommunityExperience;
+use App\Models\EducationExperience;
+use App\Models\PersonalExperience;
+use App\Models\WorkExperience;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Nuwave\Lighthouse\Testing\ClearsSchemaCache;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
@@ -1027,6 +1033,423 @@ class UserTest extends TestCase
                     'paginatorInfo' => [
                         'total' => 0
                     ]
+                ]
+            ]
+        ]);
+    }
+
+    public function testFilterByProfileComplete(): void
+    {
+        // Create initial set of 5 users with incomplete profiles.
+        User::factory()->count(5)->create([
+            'current_province' => null,
+            'location_preferences' => null,
+            'looking_for_english' => null,
+            'looking_for_french' => null,
+            'looking_for_bilingual' => null,
+        ]);
+
+        // Create some partially complete users.
+        User::factory()->count(2)->create([
+            'current_province' => 'ONTARIO',
+            'location_preferences' => null,
+            'looking_for_english' => false,
+            'looking_for_french' => true,
+            'looking_for_bilingual' => false,
+        ]);
+        User::factory()->count(2)->create([
+            'current_province' => 'ONTARIO',
+            'location_preferences' => ['PRAIRIE'],
+            'looking_for_english' => null,
+            'looking_for_french' => null,
+            'looking_for_bilingual' => null,
+        ]);
+
+        // Create some complete users.
+        User::factory()->count(3)->create([
+            'current_province' => 'ONTARIO',
+            'location_preferences' => ['PRAIRIE'],
+            'looking_for_english' => null,
+            'looking_for_french' => true,
+            'looking_for_bilingual' => null,
+            'telephone' => '+15407608748',
+            'current_city' => 'Somewhere random',
+            'is_gov_employee' => false,
+            'expected_salary' => ['_50_59K'],
+            'would_accept_temporary' => false,
+        ]);
+
+        // Assert query no isProfileComplete filter will return all users
+        $this->graphQL(/** @lang Graphql */ '
+            query getUsersPaginated($where: UserFilterAndOrderInput) {
+                usersPaginated(where: $where) {
+                    paginatorInfo {
+                        total
+                    }
+                }
+            }
+        ', [
+            'where' => []
+        ])->assertJson([
+            'data' => [
+                'usersPaginated' => [
+                    'paginatorInfo' => [
+                        'total' => 13
+                    ]
+                ]
+            ]
+        ]);
+
+        // Assert query with isProfileComplete filter set to true will return correct user count
+        $this->graphQL(/** @lang Graphql */ '
+            query getUsersPaginated($where: UserFilterAndOrderInput) {
+                usersPaginated(where: $where) {
+                    paginatorInfo {
+                        total
+                    }
+                }
+            }
+        ', [
+            'where' => [
+                'isProfileComplete' => true,
+            ]
+        ])->assertJson([
+            'data' => [
+                'usersPaginated' => [
+                    'paginatorInfo' => [
+                        'total' => 3
+                    ]
+                ]
+            ]
+        ]);
+
+        // Assert query with isProfileComplete filter set to false will return all users
+        $this->graphQL(/** @lang Graphql */ '
+            query getUsersPaginated($where: UserFilterAndOrderInput) {
+                usersPaginated(where: $where) {
+                    paginatorInfo {
+                        total
+                    }
+                }
+            }
+        ', [
+            'where' => [
+                'isProfileComplete' => false,
+            ]
+        ])->assertJson([
+            'data' => [
+                'usersPaginated' => [
+                    'paginatorInfo' => [
+                        'total' => 13
+                    ]
+                ]
+            ]
+        ]);
+    }
+
+    public function testFilterBySkills(): void
+    {
+        // Create initial data set
+        Skill::factory()->count(20)->create();
+        User::factory()->count(5)->create()->each(function($user) {
+            AwardExperience::factory()
+                ->for($user)
+                ->afterCreating(function ($model) {
+                    $skills = Skill::inRandomOrder()->limit(3)->pluck('id')->toArray();
+                    $model->skills()->sync($skills);
+                })->create();
+            CommunityExperience::factory()
+                ->for($user)
+                ->afterCreating(function ($model) {
+                    $skills = Skill::inRandomOrder()->limit(3)->pluck('id')->toArray();
+                    $model->skills()->sync($skills);
+                })->create();
+            EducationExperience::factory()
+                ->for($user)
+                ->afterCreating(function ($model) {
+                    $skills = Skill::inRandomOrder()->limit(3)->pluck('id')->toArray();
+                    $model->skills()->sync($skills);
+                })->create();
+            PersonalExperience::factory()
+                ->for($user)
+                ->afterCreating(function ($model) {
+                    $skills = Skill::inRandomOrder()->limit(3)->pluck('id')->toArray();
+                    $model->skills()->sync($skills);
+                })->create();
+            WorkExperience::factory()
+                ->for($user)
+                ->afterCreating(function ($model) {
+                    $skills = Skill::inRandomOrder()->limit(3)->pluck('id')->toArray();
+                    $model->skills()->sync($skills);
+                })->create();
+        });
+
+        // Create a skill to test for
+        $skill1 = Skill::factory()->create();
+        $skill2 = Skill::factory()->create();
+        $skill3 = Skill::factory()->create();
+        User::factory()->afterCreating(function ($user) use ($skill1) {
+            AwardExperience::factory()
+                ->for($user)
+                ->afterCreating(function ($model) use ($skill1) {
+                    $model->skills()->sync([$skill1['id']]);
+                })->create();
+            WorkExperience::factory()
+                ->for($user)
+                ->afterCreating(function ($model) use ($skill1) {
+                    $model->skills()->sync([$skill1['id']]);
+                })->create();
+        })->create();
+        User::factory()->afterCreating(function ($user) use ($skill1, $skill2) {
+            CommunityExperience::factory()
+                ->for($user)
+                ->afterCreating(function ($model) use ($skill1) {
+                    $model->skills()->sync([$skill1['id']]);
+                })->create();
+            PersonalExperience::factory()
+                ->for($user)
+                ->afterCreating(function ($model) use ($skill2) {
+                    $model->skills()->sync([$skill2['id']]);
+                })->create();
+        })->create();
+
+        // Assert query no skills filter will return all users
+        $this->graphQL(/** @lang Graphql */ '
+            query getUsersPaginated($where: UserFilterAndOrderInput) {
+                usersPaginated(where: $where) {
+                    paginatorInfo {
+                        total
+                    }
+                }
+            }
+        ', [
+            'where' => []
+        ])->assertJson([
+            'data' => [
+                'usersPaginated' => [
+                    'paginatorInfo' => [
+                        'total' => 8
+                    ]
+                ]
+            ]
+        ]);
+
+        // Assert query empty skills filter array will return all users
+        $this->graphQL(/** @lang Graphql */ '
+            query getUsersPaginated($where: UserFilterAndOrderInput) {
+                usersPaginated(where: $where) {
+                    paginatorInfo {
+                        total
+                    }
+                }
+            }
+        ', [
+            'where' => [
+                'skills' => []
+            ]
+        ])->assertJson([
+            'data' => [
+                'usersPaginated' => [
+                    'paginatorInfo' => [
+                        'total' => 8
+                    ]
+                ]
+            ]
+        ]);
+
+        // Assert query with one skills filter will return correct user count
+        $this->graphQL(/** @lang Graphql */ '
+            query getUsersPaginated($where: UserFilterAndOrderInput) {
+                usersPaginated(where: $where) {
+                    paginatorInfo {
+                        total
+                    }
+                }
+            }
+        ', [
+            'where' => [
+                'skills' => [$skill1['id']]
+            ]
+        ])->assertJson([
+            'data' => [
+                'usersPaginated' => [
+                    'paginatorInfo' => [
+                        'total' => 2
+                    ]
+                ]
+            ]
+        ]);
+
+        // Assert query with two skills will return correct user count
+        $this->graphQL(/** @lang Graphql */ '
+            query getUsersPaginated($where: UserFilterAndOrderInput) {
+                usersPaginated(where: $where) {
+                    paginatorInfo {
+                        total
+                    }
+                }
+            }
+        ', [
+            'where' => [
+                'skills' => [$skill1['id'], $skill2['id']]
+            ]
+        ])->assertJson([
+            'data' => [
+                'usersPaginated' => [
+                    'paginatorInfo' => [
+                        'total' => 1
+                    ]
+                ]
+            ]
+        ]);
+
+        // Assert query with unused skill will return correct user count
+        $this->graphQL(/** @lang Graphql */ '
+            query getUsersPaginated($where: UserFilterAndOrderInput) {
+                usersPaginated(where: $where) {
+                    paginatorInfo {
+                        total
+                    }
+                }
+            }
+        ', [
+            'where' => [
+                'skills' => [$skill3['id']]
+            ]
+        ])->assertJson([
+            'data' => [
+                'usersPaginated' => [
+                    'paginatorInfo' => [
+                        'total' => 0
+                    ]
+                ]
+            ]
+        ]);
+    }
+
+    public function testFilterByGovEmployee(): void
+    {
+        // Create initial set of 5 users not with gov.
+        User::factory()->count(5)->create([
+            'is_gov_employee' => false,
+        ]);
+
+        // Create two new users with the government.
+        User::factory()->count(2)->create([
+            'is_gov_employee' => true,
+        ]);
+
+        // Assert query no isGovEmployee filter will return all users
+        $this->graphQL(/** @lang Graphql */ '
+            query getUsersPaginated($where: UserFilterAndOrderInput) {
+                usersPaginated(where: $where) {
+                    paginatorInfo {
+                        total
+                    }
+                }
+            }
+        ', [
+            'where' => []
+        ])->assertJson([
+            'data' => [
+                'usersPaginated' => [
+                    'paginatorInfo' => [
+                        'total' => 8
+                    ]
+                ]
+            ]
+        ]);
+
+        // Assert query with isGovEmployee filter set to true will return correct user count
+        $this->graphQL(/** @lang Graphql */ '
+            query getUsersPaginated($where: UserFilterAndOrderInput) {
+                usersPaginated(where: $where) {
+                    paginatorInfo {
+                        total
+                    }
+                }
+            }
+        ', [
+            'where' => [
+                'isGovEmployee' => true,
+            ]
+        ])->assertJson([
+            'data' => [
+                'usersPaginated' => [
+                    'paginatorInfo' => [
+                        'total' => 2
+                    ]
+                ]
+            ]
+        ]);
+
+        // Assert query with isGovEmployee filter set to false will return all users
+        $this->graphQL(/** @lang Graphql */ '
+            query getUsersPaginated($where: UserFilterAndOrderInput) {
+                usersPaginated(where: $where) {
+                    paginatorInfo {
+                        total
+                    }
+                }
+            }
+        ', [
+            'where' => [
+                'isGovEmployee' => false,
+            ]
+        ])->assertJson([
+            'data' => [
+                'usersPaginated' => [
+                    'paginatorInfo' => [
+                        'total' => 8
+                    ]
+                ]
+            ]
+        ]);
+    }
+
+    public function testOrdering(): void
+    {
+        // Create users for testing
+        User::factory()->count(8)->create();
+        $usersByName = User::select('id')->orderBy('first_name')->get()->toArray();
+        $usersById = User::select('id')->orderBy('id')->get()->toArray();
+
+        // Assert query no orderBy given defaults to id
+        $this->graphQL(/** @lang Graphql */ '
+            query getUsersPaginated($where: UserFilterAndOrderInput) {
+                usersPaginated(where: $where) {
+                    data {
+                        id
+                    }
+                }
+            }
+        ', [
+            'where' => []
+        ])->assertJson([
+            'data' => [
+                'usersPaginated' => [
+                    'data' => $usersById
+                ]
+            ]
+        ]);
+
+        // Assert query orders by given attribute
+        $this->graphQL(/** @lang Graphql */ '
+            query getUsersPaginated($where: UserFilterAndOrderInput) {
+                usersPaginated(where: $where) {
+                    data {
+                        id
+                    }
+                }
+            }
+        ', [
+            'where' => [
+                'orderBy' => 'first_name',
+            ]
+        ])->assertJson([
+            'data' => [
+                'usersPaginated' => [
+                    'data' => $usersByName
                 ]
             ]
         ]);
