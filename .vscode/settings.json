@@ -34,6 +34,10 @@
   "[json]": {
     "editor.tabSize": 2
   },
+  "[markdown]": {
+    // See: https://github.com/microsoft/vscode/issues/1679
+    "files.trimTrailingWhitespace": false
+  },
   "vscode-graphql.useSchemaFileDefinitions": true,
   "cSpell.customDictionaries": {
 
