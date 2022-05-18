@@ -259,7 +259,7 @@ const Home: React.FunctionComponent = () => {
               <p>
                 {intl.formatMessage({
                   defaultMessage:
-                    "They are partnered with a peer to facilitate job shadowing and supervised work, and they are assigned a mentor who provides experienced counsel and guidance over the course of the program.",
+                    "Apprentices will be partnered with a peer to facilitate job shadowing and supervised work, and they are assigned a mentor who provides experienced counsel and guidance over the course of the program.",
                   description:
                     "First paragraph what will you learn at the program",
                 })}
