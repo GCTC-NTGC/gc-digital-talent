@@ -99,9 +99,16 @@ export const SearchForm: React.FunctionComponent<SearchFormProps> = ({
 
   // The location state holds the initial values plugged in from user. This is required if the user decides to click back and change any values.
   const state = location.state as LocationState;
-  const initialValues = state ? state.some.initialValues : {};
+  const initialValues = useMemo(
+    () => (state ? state.some.initialValues : {}),
+    [state],
+  );
   const methods = useForm<FormValues>({ defaultValues: initialValues });
   const { watch } = methods;
+
+  React.useEffect(() => {
+    updateCandidateFilter(initialValues);
+  }, [initialValues, updateCandidateFilter]);
 
   React.useEffect(() => {
     const formValuesToData = (values: FormValues): PoolCandidateFilterInput => {

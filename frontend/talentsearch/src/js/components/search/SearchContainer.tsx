@@ -247,6 +247,7 @@ const candidateFilterToQueryArgs = (
 };
 
 export const SearchContainerApi: React.FC = () => {
+  const [initialValues, setInitialValues] = useState<FormValues | null>(null);
   const [{ data }] = useGetSearchFormDataQuery({
     variables: { poolKey: DIGITAL_CAREERS_POOL_KEY },
   });
@@ -262,8 +263,6 @@ export const SearchContainerApi: React.FC = () => {
     });
 
   const candidateCount = countData?.countPoolCandidates ?? 0;
-
-  const [initialValues, setInitialValues] = useState<FormValues | null>(null);
 
   const paths = useTalentSearchRoutes();
   const onSubmit = async () => {
