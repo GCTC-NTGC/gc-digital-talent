@@ -33,7 +33,12 @@ const AdminNotFound: React.FC = () => {
   );
 };
 
-const OpenMenuButton: React.FC<React.HTMLAttributes<HTMLButtonElement>> = ({
+interface OpenMenuButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
+  show: boolean;
+}
+
+const OpenMenuButton: React.FC<OpenMenuButtonProps> = ({
+  show,
   onClick,
   children,
 }) => (
@@ -41,7 +46,7 @@ const OpenMenuButton: React.FC<React.HTMLAttributes<HTMLButtonElement>> = ({
     data-h2-visibility="b(visible) m(hidden)"
     data-h2-position="b(fixed)"
     data-h2-location="b(bottom-right, xs)"
-    style={{ zIndex: 9998 }}
+    style={{ zIndex: 9998, opacity: show ? 1 : 0 }}
   >
     <Button
       mode="solid"
@@ -109,7 +114,7 @@ const Dashboard: React.FC<DashboardProps> = ({ contentRoutes }) => {
           </div>
         </SideMenuContentWrapper>
       </div>
-      <OpenMenuButton onClick={handleMenuToggle}>
+      <OpenMenuButton onClick={handleMenuToggle} show={!isMenuOpen}>
         {intl.formatMessage({
           defaultMessage: "Open Menu",
           description: "Text label for header button that opens side menu.",
