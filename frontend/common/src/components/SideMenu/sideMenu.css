@@ -2,13 +2,14 @@
     bottom: 0;
     flex-shrink: 0;
     height: 100vh;
+    max-width: 95vw;
     overflow-x: hidden;
     position: fixed;
     left: 0;
     top: 0;
     transform: translateX(-100%);
-    transition: transform 200ms ease-in;
-    width: 95vw;
+    transition: transform 150ms ease-in;
+    width: 18rem;
     z-index: 9999;
 }
 
