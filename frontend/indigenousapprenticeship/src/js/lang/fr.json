@@ -6,5 +6,329 @@
   "pgHTkX": {
     "defaultMessage": "Oups, il semble que la page de destination n’existe pas ou a été déplacée.",
     "description": "Detailed message saying the page was not found."
+  },
+  "+JIfBy": {
+    "defaultMessage": "Dans quel ministère ou organisme les apprentis travailleront-ils?",
+    "description": "Learn more dialog question nine heading"
+  },
+  "+cn9MN": {
+    "defaultMessage": "Les personnes qui se voient offrir des postes avec la possibilité de travailler à domicile doivent avoir un accès Internet adéquat pour le travail à distance.",
+    "description": "IAP Requirement list item six"
+  },
+  "+do6jV": {
+    "defaultMessage": "Voir les critères d’admissibilité",
+    "description": "Button text for program eligibility criteria"
+  },
+  "/5tYua": {
+    "defaultMessage": "Fournissez vos renseignements",
+    "description": "How it works, step 2 heading"
+  },
+  "/7NWbF": {
+    "defaultMessage": "Je vous remercie de votre intérêt dans ce programme. Nous attendons de vos nouvelles avec impatience!",
+    "description": "Third paragraph for apply now dialog"
+  },
+  "/ar49+": {
+    "defaultMessage": "S’engager à apprendre tout au long du programme, tant au travail qu’en suivant un programme de formation en ligne",
+    "description": "IAP Requirement list item five"
+  },
+  "1M3LT6": {
+    "defaultMessage": "Un processus de demande en ligne sera bientôt disponible afin de permettre aux gens d’exprimer leur intérêt. Entre-temps, nous vous encourageons à envoyer votre curriculum vitae et votre lettre de présentation par courriel, à edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca.",
+    "description": "Learn more dialog question eleven paragraph one"
+  },
+  "27FjxB": {
+    "defaultMessage": "Avoir une passion ou un intérêt pour la technologie de l’information (TI), avec cette passion ou cet intérêt démontrés par une expérience personnelle, bénévole, communautaire ou professionnelle.",
+    "description": "IAP Requirement list item four"
+  },
+  "404R1N": {
+    "defaultMessage": "Ce programme a été pour moi une occasion de changer ma vie et je vois un <b>un meilleur avenir à l’horizon</b>.",
+    "description": "testimonial number one"
+  },
+  "436DA5": {
+    "defaultMessage": "Croissance",
+    "description": "Talent portal strategy item 2 heading"
+  },
+  "4p0QdF": {
+    "defaultMessage": "Fermer",
+    "description": "Button text used to close an open modal"
+  },
+  "5TfTRz": {
+    "defaultMessage": "L’exigence minimale en matière d’études est un diplôme d’études générales ou secondaires. Il n’est pas nécessaire d’avoir fait des études collégiales ou universitaires. (édité)",
+    "description": "Learn more dialog question twelve paragraph one"
+  },
+  "6l9YH+": {
+    "defaultMessage": "Les demandeurs doivent répondre aux exigences suivantes :",
+    "description": "Heading for the applicant requirements dialog"
+  },
+  "81iywD": {
+    "defaultMessage": "On vous demandera de confirmer les renseignements que vous avez fournis.",
+    "description": "How it works, step 3 content sentence 1"
+  },
+  "84rSVg": {
+    "defaultMessage": "Permettre une croissance dans le cadre de sa portée de recrutement, en ciblant d’autres domaines professionnels à l’avenir.",
+    "description": "Talent portal strategy item 2 content"
+  },
+  "8PhWBd": {
+    "defaultMessage": "Lancement",
+    "description": "Talent portal strategy item 4 heading"
+  },
+  "AxzHIk": {
+    "defaultMessage": "Les apprentis seront associés avec un pair pour faciliter l’observation et le travail supervisé, et on leur attribue un mentor qui fournit de l’aide et des conseils avisés tout au long du programme.",
+    "description": "First paragraph what will you learn at the program"
+  },
+  "BSSYnh": {
+    "defaultMessage": "Nous voulons vous informer qu’entre-temps, des mises à jour sont apportées à ce site qui permettront aux personnes autochtones qui souhaitent se joindre au Programme d’apprentissage en TI de présenter une demande en ligne.",
+    "description": "Second paragraph for apply now dialog"
+  },
+  "CY+493": {
+    "defaultMessage": "Pour en apprendre davantage",
+    "description": "Button text to learn more about the program"
+  },
+  "CZGta2": {
+    "defaultMessage": "Y a-t-il des frais pour participer au programme?",
+    "description": "Learn more dialog question ten heading"
+  },
+  "CqLV19": {
+    "defaultMessage": "À propos du programme",
+    "description": "Program information section title"
+  },
+  "DBczOG": {
+    "defaultMessage": "Stratégie",
+    "description": "Heading for strategy for the indigenous talent portal"
+  },
+  "DgMIfz": {
+    "defaultMessage": "Le Programme d’apprentissage en TI vous convient-il?",
+    "description": "Application box heading part one"
+  },
+  "DvmNR7": {
+    "defaultMessage": "Inscrivez-vous dès maintenant",
+    "description": "Button text to apply for program"
+  },
+  "Dzyk1q": {
+    "defaultMessage": "En collaboration avec le Programme d’apprentissage en TI pour les peuples autochtones, le Portail des talents autochtones commencera par mettre l’accent sur les talents en TI et en technologie, ce qui permettra :",
+    "description": "Description for strategy for the indigenous talent portal"
+  },
+  "EqVMCE": {
+    "defaultMessage": "Veuillez envoyer votre curriculum vitae et votre lettre de présentation expliquant votre passion pour la TI et pourquoi vous souhaitez vous joindre au programme, à  : <mailLink>edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca</mailLink>. Un membre de l’équipe communiquera avec vous dans 3 à 5 jours ouvrables.",
+    "description": "First paragraph for apply now dialog"
+  },
+  "GnmmgR": {
+    "defaultMessage": "Une fois votre demande soumise, un membre de l’équipe communiquera avec vous dans les 3 à 5 jours ouvrables qui suivent.",
+    "description": "How it works, step 3 content sentence 2"
+  },
+  "Hu04cP": {
+    "defaultMessage": "Programme d’apprentissage en TI pour les peuples autochtones",
+    "description": "Homepage title for Indigenous Apprenticeship Program"
+  },
+  "Ilot3b": {
+    "defaultMessage": "Que se passe-t-il après lorsqu’une personne achève le programme de 24 mois?",
+    "description": "Learn more dialog question three heading"
+  },
+  "KdXvmY": {
+    "defaultMessage": "Comment puis-je savoir si ce programme est fait pour moi?",
+    "description": "Learn more dialog question seven heading"
+  },
+  "L9yjr3": {
+    "defaultMessage": "Découvrez-en davantage sur le Programme d’apprentissage en TI pour les peuples autochtones du gouvernement du Canada",
+    "description": "Heading for the Learn more dialog"
+  },
+  "LGSw+f": {
+    "defaultMessage": "Tous les apprentis seront appuyés par des pairs et des mentors soigneusement sélectionnés. Les apprentis seront également invités à se joindre à un Réseau d’apprentissage pour les Autochtones, où ils auront des occasions de communiquer avec d’autres employés autochtones du gouvernement du Canada et avec d’autres apprentis autochtones qui participent à ce programme.",
+    "description": "Learn more dialog question two paragraph two"
+  },
+  "MgLLHd": {
+    "defaultMessage": "Demande élevée",
+    "description": "Talent portal strategy item 1 heading"
+  },
+  "NaF4Iu": {
+    "defaultMessage": "Inscrivez-vous dès aujourd’hui!",
+    "description": "Application box heading part two"
+  },
+  "O0z6Ym": {
+    "defaultMessage": "À qui ce programme est-il destiné?",
+    "description": "Heading for section about who the program is for"
+  },
+  "OcIvN1": {
+    "defaultMessage": "Une fois le programme terminé, on espère que les apprentis envisageront de rester au gouvernement du Canada.",
+    "description": "Learn more dialog question three paragraph one"
+  },
+  "PvH5lJ": {
+    "defaultMessage": "Ce que nous entendons",
+    "description": "Heading for the quotes sections"
+  },
+  "QkZ7Oy": {
+    "defaultMessage": "Comment une personne peut-elle présenter une demande pour devenir apprentie?",
+    "description": "Learn more dialog question eleven heading"
+  },
+  "Qt9Q8k": {
+    "defaultMessage": "Le programme dure combien de temps?",
+    "description": "Learn more dialog question two heading"
+  },
+  "S/PXt/": {
+    "defaultMessage": "Des possibilités existent au sein d’un grand nombre de ministères et d’organismes du gouvernement du Canada. Le programme tentera de jumeler les apprentis à des possibilités qui correspondent le mieux à leurs intérêts.",
+    "description": "Learn more dialog question nine paragraph one"
+  },
+  "SnnuD+": {
+    "defaultMessage": "Nous vous inviterons à créer un profil qui sera sauvegardé et soumis comme étant votre demande.",
+    "description": "How it works, step 2 content sentence 2"
+  },
+  "Srs7a4": {
+    "defaultMessage": "Passer au contenu principal",
+    "description": "Assistive technology skip link"
+  },
+  "TFeQL2": {
+    "defaultMessage": "Accueil",
+    "description": "Link to the homepage for indigenous apprenticeship program."
+  },
+  "U8bLT7": {
+    "defaultMessage": "Comment cela fonctionnera-t-il?",
+    "description": "heading for how the indigenous talent portal will work"
+  },
+  "UDHGGA": {
+    "defaultMessage": "Bientôt, les demandeurs pourront présenter leur demande à l’aide d’un outil interactif en ligne qui sera disponible à partir du présent site Web. Voici ce sur quoi nous travaillons :",
+    "description": "Description of how the indigenous talent portal will work"
+  },
+  "UQlyXu": {
+    "defaultMessage": "Les apprentis feront l’expérience d’un apprentissage au travail et pendant la formation en ligne dans un ou plusieurs domaines de la technologie de l’information. On s’attend à ce que les apprentis démontrent leur intérêt et leur passion pour la technologie en étant prêts à observer, à apprendre et à pratiquer de nouvelles compétences qui sont développées au cours du programme. En moyenne, un apprenti passera quatre jours par semaine en apprentissage pratique, tandis que le cinquième jour de la semaine sera consacré au perfectionnement personnel et professionnel par la formation en ligne et par d’autres possibilités de formation et de perfectionnement.",
+    "description": "Learn more dialog question eight paragraph one"
+  },
+  "W0IN4u": {
+    "defaultMessage": "Si vous n’êtes pas certain(e) que ce programme vous convient, veuillez communiquer avec nous et un membre de notre équipe se fera un plaisir de vous rencontrer pour répondre à vos questions”.",
+    "description": "Second paragraph about who the program is for"
+  },
+  "WDRWcu": {
+    "defaultMessage": "Dois-je déménager à Ottawa ou à un endroit précis pour participer à ce programme?",
+    "description": "Learn more dialog question six heading"
+  },
+  "XS21o1": {
+    "defaultMessage": "Bien sûr! En tant qu’employés du gouvernement du Canada, tous les apprentis auront droit à des congés annuels, à des congés de maladie et à des congés familiaux. Après six mois, les apprentis auront également accès à une assurance médicale et dentaire pour eux-mêmes et leurs personnes à charge, en plus de devenir membres du régime de pension de retraite de la fonction publique fédérale.",
+    "description": "Learn more dialog question five paragraph one"
+  },
+  "Xhfkfg": {
+    "defaultMessage": "Répondre à la forte demande de talents autochtones en TI.",
+    "description": "Talent portal strategy item 1 content"
+  },
+  "YGM/D5": {
+    "defaultMessage": "Le programme dure 24 mois et les apprentis ont accès à un soutien pendant leur période de participation au programme.",
+    "description": "Learn more dialog question two paragraph one"
+  },
+  "YVqxqN": {
+    "defaultMessage": "Vise à lancer le programme au début de 2022.",
+    "description": "Talent portal strategy item 4 content"
+  },
+  "ZHLkHX": {
+    "defaultMessage": "Le Programme s’adresse aux Premières Nations, aux Inuits et aux Métis. Si vous êtes un membre des Premières Nations, un Inuit ou un Métis et que vous avez une passion pour la technologie, ce programme est pour vous! ",
+    "description": "First paragraph about who the program is for"
+  },
+  "b09U1u": {
+    "defaultMessage": "À la fin de leurs 24 mois, les apprentis auront des attestations et des compétences commercialisables et en demande, ainsi que la confiance nécessaire pour contribuer à la main-d’œuvre numérique du Canada, tant à l’intérieur qu’à l’extérieur de la fonction publique fédérale.",
+    "description": "First paragraph what will you learn at the program"
+  },
+  "cNXORI": {
+    "defaultMessage": "Être âgé(e) d’au moins 16 ans",
+    "description": "IAP Requirement list item three"
+  },
+  "cYq1Dp": {
+    "defaultMessage": "Les apprentis qui participent au programme disent que ça « change une vie », que ça représente « une occasion d’avoir une meilleure vie grâce à la technologie » et qu’« il n’y a aucun obstacle à la réussite de ce programme ».",
+    "description": "Third paragraph about the program"
+  },
+  "ce892L": {
+    "defaultMessage": "Inscrivez-vous dès maintenant",
+    "description": "Heading for the apply now dialog"
+  },
+  "dDHy5d": {
+    "defaultMessage": "Les apprentis suivent un programme structuré de 24 mois comprenant un mélange d’apprentissages en cours d’emploi et de formation officielle.",
+    "description": "First paragraph what will you learn at the program"
+  },
+  "dgG8md": {
+    "defaultMessage": "Quelles sont les exigences en matière d’études – puis-je présenter une demande si je n’ai pas de diplôme collégial ou universitaire?",
+    "description": "Learn more dialog question twelve heading"
+  },
+  "fF4Ex+": {
+    "defaultMessage": "Le Portail des talents autochtones a été créé pour la communauté autochtone par la communauté autochtone.",
+    "description": "Talent portal information sentence 1"
+  },
+  "fvsYkj": {
+    "defaultMessage": "Qu’est-ce que j’apprendrai dans le cadre de ce programme d’apprentissage?",
+    "description": "What applicants will learn sections heading"
+  },
+  "gMJi2J": {
+    "defaultMessage": "Absolument! Votre temps est précieux. Les apprentis recevront une rémunération et des avantages sociaux à titre d’employés du gouvernement du Canada. Les apprentis gagneront 31,02 $ de l’heure au cours de la première année du programme, selon les taux de rémunération du gouvernement du Canada. Ce montant passera à 32,17 $ au cours de la deuxième année du programme. Les apprentis seront employés à temps plein, pour un total de 37,5 heures par semaine.",
+    "description": "Learn more dialog question four paragraph one"
+  },
+  "hdBTPI": {
+    "defaultMessage": "Tout l’équipement informatique requis (ordinateur portable, souris, écran, téléphone) et le matériel de formation seront fournis gratuitement. Si une personne choisit de travailler à la maison, le coût de l’accès à Internet relèvera de l’apprenti.",
+    "description": "Learn more dialog question ten paragraph one"
+  },
+  "jA4kuU": {
+    "defaultMessage": "Les apprentis seront-ils payés?",
+    "description": "Learn more dialog question four heading"
+  },
+  "lIHNov": {
+    "defaultMessage": "Évaluer",
+    "description": "Talent portal strategy item 3 heading"
+  },
+  "loDwKe": {
+    "defaultMessage": "À propos du Portail des talents autochtones",
+    "description": "Talent Portal information heading"
+  },
+  "mfBsJY": {
+    "defaultMessage": "Que devront faire les apprentis dans le cadre du programme?",
+    "description": "Learn more dialog question eight heading"
+  },
+  "osGGIt": {
+    "defaultMessage": "Programme d’apprentissage en TI pour les peuples autochtones + Portail des talents autochtones",
+    "description": "heading for indigenous talent portal section"
+  },
+  "p19YJ2": {
+    "defaultMessage": "Présentez une demande dès aujourd’hui pour entreprendre une carrière en technologie de l’information.",
+    "description": "Application box content"
+  },
+  "p2sBh3": {
+    "defaultMessage": "Qui peut présenter une demande pour devenir apprenti dans le cadre du Programme d’apprentissage en TI pour les peuples autochtones du gouvernement du Canada?",
+    "description": "Learn more dialog question one heading"
+  },
+  "pWoAv0": {
+    "defaultMessage": "Le Programme d’apprentissage en TI pour les peuples autochtones est une initiative du gouvernement du Canada visant particulièrement les Premières Nations, les Inuits et les Métis. C’est un chemin vers un emploi dans la fonction publique fédérale pour les peuples autochtones qui ont une passion pour la technologie de l’information (TI).",
+    "description": "First paragraph about the program"
+  },
+  "pkFLpT": {
+    "defaultMessage": "Si vous avez un intérêt et une passion pour la technologie et que vous vous identifiez comme Autochtone, ce programme est pour vous.",
+    "description": "Learn more dialog question seven paragraph one"
+  },
+  "q5FQbu": {
+    "defaultMessage": "À venir!",
+    "description": "Heading for a coming soon section"
+  },
+  "rQ61eh": {
+    "defaultMessage": "Permettre la collecte des données et de la rétroaction pour les mettre à profit afin d’améliorer le service.",
+    "description": "Talent portal strategy item 3 content"
+  },
+  "rz21yp": {
+    "defaultMessage": "Les apprentis auront-ils droit à des prestations?",
+    "description": "Learn more dialog question five heading"
+  },
+  "sycoGU": {
+    "defaultMessage": "Pas nécessairement. La plupart des possibilités d’apprentissage peuvent être réalisées en travaillant de la maison, pourvu qu’il y ait une connexion à Internet. Certains postes ont des exigences propres à l’emplacement. Nous accordons une importance à la famille et à la communauté, et nous encourageons les gens à se joindre à notre famille sans avoir à quitter la leur, et à faire partie de notre communauté tout en restant dans la leur. Parlez à votre gestionnaire d’embauche de votre situation ou de vos préférences, et nous ferons de notre mieux pour travailler avec vous afin de trouver une solution appropriée.",
+    "description": "Learn more dialog question six paragraph one"
+  },
+  "wHWE3M": {
+    "defaultMessage": "Il s’agit d’une plateforme conçue pour offrir des possibilités d’emploi aux Autochtones d’une manière qui reconnaît et met en valeur leurs talents, leurs idées, leurs compétences et leur passion uniques.",
+    "description": "Talent portal information sentence 2"
+  },
+  "wgIThY": {
+    "defaultMessage": "Avoir un diplôme d’études secondaires ou l’équivalent (formation générale)",
+    "description": "IAP Requirement list item two"
+  },
+  "wqwPhL": {
+    "defaultMessage": "En valorisant et en misant sur le potentiel d’une personne plutôt que sur son niveau de scolarité, le programme élimine l’un des plus grands obstacles qui existent en matière d’emploi dans l’économie numérique. Le programme a été élaboré par, avec et pour tous les peuples autochtones à travers le Canada. Il intègre les préférences et les besoins des apprenants autochtones tout en reconnaissant l’importance de la communauté.",
+    "description": "Second paragraph about the program"
+  },
+  "yZMQ6j": {
+    "defaultMessage": "Nous voulons en apprendre davantage sur vous et sur votre intérêt ou votre passion dans le domaine de la TI!",
+    "description": "How it works, step 2 content sentence 1"
+  },
+  "zlYw3Z": {
+    "defaultMessage": "Présentez votre profil en tant que demande",
+    "description": "How it works, step 3 heading"
   }
 }
