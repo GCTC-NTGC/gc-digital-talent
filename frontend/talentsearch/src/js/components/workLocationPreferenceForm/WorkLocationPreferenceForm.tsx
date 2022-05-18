@@ -19,6 +19,7 @@ import {
 } from "../../api/generated";
 import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
 import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
+import profileMessages from "../profile/profileMessages";
 
 export type FormValues = Pick<
   CreateUserInput,
@@ -160,6 +161,7 @@ export const WorkLocationPreferenceApi: React.FunctionComponent = () => {
 
   const [{ data: userData, fetching, error }] =
     useWorkLocationPreferenceQuery();
+  const preProfileStatus = userData?.me?.isProfileComplete;
 
   const [, executeMutation] = useCreateWorkLocationPreferenceMutation();
   const handleWorkLocationPreference = (
@@ -170,15 +172,16 @@ export const WorkLocationPreferenceApi: React.FunctionComponent = () => {
       id,
       user: data,
     }).then((result) => {
-      navigate(paths.home());
-      toast.success(
-        intl.formatMessage({
-          defaultMessage: "Work location preferences updated successfully!",
-          description:
-            "Message displayed to user after user is updated successfully.",
-        }),
-      );
       if (result.data?.updateUserAsUser) {
+        const currentProfileStatus =
+          result.data?.updateUserAsUser?.isProfileComplete;
+        const message = intl.formatMessage(profileMessages.profileCompleted);
+        if (!preProfileStatus && currentProfileStatus) {
+          toast.success(message);
+        }
+        navigate(paths.home());
+        toast.success(intl.formatMessage(profileMessages.userUpdated));
+
         return result.data.updateUserAsUser;
       }
       return Promise.reject(result.error);
@@ -186,13 +189,7 @@ export const WorkLocationPreferenceApi: React.FunctionComponent = () => {
 
   if (fetching) return <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>;
   if (error) {
-    toast.error(
-      intl.formatMessage({
-        defaultMessage: "Error: updating user failed",
-        description:
-          "Message displayed to user after user fails to get updated.",
-      }),
-    );
+    toast.error(intl.formatMessage(profileMessages.updatingFailed));
     return (
       <p>
         {intl.formatMessage(commonMessages.loadingError)}
@@ -206,12 +203,7 @@ export const WorkLocationPreferenceApi: React.FunctionComponent = () => {
       handleWorkLocationPreference={handleWorkLocationPreference}
     />
   ) : (
-    <p>
-      {intl.formatMessage({
-        defaultMessage: "User not found.",
-        description: "Message displayed for user not found.",
-      })}
-    </p>
+    <p>{intl.formatMessage(profileMessages.userNotFound)}</p>
   );
 };
 

@@ -19,6 +19,7 @@ import {
 import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
 import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
 import talentSearchRoutes from "../../talentSearchRoutes";
+import profileMessages from "../profile/profileMessages";
 
 type FormValues = {
   govEmployeeYesNo?: "yes" | "no";
@@ -401,6 +402,7 @@ export const GovInfoFormContainer: React.FunctionComponent = () => {
   // acquire classifications from graphQL to pass into component to render and pull "Me" at the same time
   const [lookUpResult] = useGetAllClassificationsAndMeQuery();
   const { data: lookupData, fetching: fetchingLookupData } = lookUpResult;
+  const preProfileStatus = lookupData?.me?.isProfileComplete;
   const classifications: Classification[] | [] =
     lookupData?.classifications.filter(notEmpty) ?? [];
   const meInfo = lookupData?.me;
@@ -431,24 +433,19 @@ export const GovInfoFormContainer: React.FunctionComponent = () => {
       return;
     }
     await handleUpdateUser(meId, data)
-      .then(() => {
-        navigate(paths.profile());
-        toast.success(
-          intl.formatMessage({
-            defaultMessage: "User updated successfully!",
-            description:
-              "Message displayed to user after user is updated successfully.",
-          }),
-        );
+      .then((res) => {
+        if (res.isProfileComplete) {
+          const currentProfileStatus = res.isProfileComplete;
+          const message = intl.formatMessage(profileMessages.profileCompleted);
+          if (!preProfileStatus && currentProfileStatus) {
+            toast.success(message);
+          }
+          navigate(paths.profile());
+          toast.success(intl.formatMessage(profileMessages.userUpdated));
+        }
       })
       .catch(() => {
-        toast.error(
-          intl.formatMessage({
-            defaultMessage: "Error: updating user failed",
-            description:
-              "Message displayed to user after user fails to get updated.",
-          }),
-        );
+        toast.error(intl.formatMessage(profileMessages.updatingFailed));
       });
   };
 
