@@ -71,10 +71,6 @@
     "defaultMessage": "Lancement",
     "description": "Talent portal strategy item 4 heading"
   },
-  "AxzHIk": {
-    "defaultMessage": "Les apprentis seront associés avec un pair pour faciliter l’observation et le travail supervisé, et on leur attribue un mentor qui fournit de l’aide et des conseils avisés tout au long du programme.",
-    "description": "First paragraph what will you learn at the program"
-  },
   "BSSYnh": {
     "defaultMessage": "Nous voulons vous informer qu’entre-temps, des mises à jour sont apportées à ce site qui permettront aux personnes autochtones qui souhaitent se joindre au Programme d’apprentissage en TI de présenter une demande en ligne.",
     "description": "Second paragraph for apply now dialog"
@@ -330,5 +326,29 @@
   "zlYw3Z": {
     "defaultMessage": "Présentez votre profil en tant que demande",
     "description": "How it works, step 3 heading"
+  },
+  "1B4niz": {
+    "defaultMessage": "Le Programme a été conçu pour répondre aux efforts de réconciliation et pour bâtir une relation renouvelée qui est fondée sur les droits, le respect, la collaboration et le partenariat avec les peuples autochtones.",
+    "description": "How it works, step 1 content paragraph 1"
+  },
+  "X/BwwP": {
+    "defaultMessage": "Il existe trois groupes distincts de peuples autochtones qui sont reconnus par la Constitution canadienne. On vous demandera de confirmer au(x)quel(s) de vous appartenez par l’entremise de la <a>Promesse d’honnêteté</a>.",
+    "description": "How it works, step 1 content paragraph 2"
+  },
+  "jyQi0m": {
+    "defaultMessage": "Si vous êtes membre d’une Première Nation, Inuk ou Métis, et que vous vivez au Canada, vous pouvez demander à devenir un apprentis dans le cadre de ce programme.",
+    "description": "Learn more dialog question on paragraph one"
+  },
+  "nzcwrW": {
+    "defaultMessage": "Les apprentis seront associés à un pair afin de faciliter l’observation en situation de travail et le travail supervisé, et on leur attribuera un mentor qui saura leur fournir des conseils d’une personne expérimentée et une orientation au fil de la durée du programme.",
+    "description": "First paragraph what will you learn at the program"
+  },
+  "pPOGwF": {
+    "defaultMessage": "Ils sont membres des Premières Nations (avec ou sans statut), Inuit ou Métis ",
+    "description": "IAP Requirement list item one"
+  },
+  "sqUD2Z": {
+    "defaultMessage": "Remplir la Promesse d’honnêteté de la collectivité",
+    "description": "How it works, step 1 heading"
   }
 }
