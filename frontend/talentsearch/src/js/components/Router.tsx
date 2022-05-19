@@ -26,6 +26,7 @@ import LanguageInformationFormContainer from "./languageInformationForm/Language
 import AboutMeFormContainer from "./aboutMeForm/AboutMeForm";
 import DiversityEquityInclusionFormApi from "./diversityEquityInclusion/DiversityEquityInclusionForm";
 import { ExperienceAndSkillsRouterApi } from "./applicantProfile/ExperienceAndSkills";
+import RoleSalaryFormContainer from "./roleSalaryForm/RoleSalaryForm";
 
 const talentRoutes = (
   talentPaths: TalentSearchRoutes,
@@ -76,6 +77,12 @@ const profileRoutes = (
     path: profilePaths.workLocation(),
     action: () => ({
       component: <WorkLocationPreferenceApi />,
+    }),
+  },
+  {
+    path: profilePaths.roleSalary(),
+    action: () => ({
+      component: <RoleSalaryFormContainer />,
     }),
   },
   {

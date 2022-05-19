@@ -2,10 +2,10 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React from "react";
 import { useIntl } from "react-intl";
-import { getLocale } from "@common/helpers/localize";
 import { BasicForm, Checklist } from "@common/components/form";
 import { SubmitHandler } from "react-hook-form";
 import { InformationCircleIcon } from "@heroicons/react/solid";
+import { errorMessages } from "@common/messages";
 import {
   DialogLevelOne,
   DialogLevelTwo,
@@ -17,7 +17,6 @@ import {
 import { UpdateUserAsUserInput, User } from "../../api/generated";
 import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
 import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
-import applicantProfileRoutes from "../../applicantProfileRoutes";
 
 export type FormValues = Pick<User, "firstName" | "lastName">;
 
@@ -36,8 +35,6 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
   onUpdateRoleSalary,
 }) => {
   const intl = useIntl();
-  const locale = getLocale(intl);
-  const paths = applicantProfileRoutes(locale);
 
   // modal logic section
   const [isDialogLevel1Open, setDialogLevel1Open] =
@@ -67,6 +64,7 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
     };
   };
   const handleSubmit: SubmitHandler<FormValues> = async (formValues) => {
+    await onUpdateRoleSalary;
     return formValuesToSubmitData(formValues);
   };
 
@@ -86,42 +84,78 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
   }
   function modalOne(msg: string) {
     return (
-      <span role="dialog" onClick={() => setDialogLevel1Open(true)}>
+      <span
+        role="dialog"
+        onClick={(e) => {
+          setDialogLevel1Open(true);
+          e?.preventDefault();
+        }}
+      >
         {msg}
       </span>
     );
   }
   function modalTwo(msg: string) {
     return (
-      <span role="dialog" onClick={() => setDialogLevel2Open(true)}>
+      <span
+        role="dialog"
+        onClick={(e) => {
+          setDialogLevel2Open(true);
+          e?.preventDefault();
+        }}
+      >
         {msg}
       </span>
     );
   }
   function modalThreeLead(msg: string) {
     return (
-      <span role="dialog" onClick={() => setDialogLevel3LeadOpen(true)}>
+      <span
+        role="dialog"
+        onClick={(e) => {
+          setDialogLevel3LeadOpen(true);
+          e?.preventDefault();
+        }}
+      >
         {msg}
       </span>
     );
   }
   function modalThreeAdvisor(msg: string) {
     return (
-      <span role="dialog" onClick={() => setDialogLevel3AdvisorOpen(true)}>
+      <span
+        role="dialog"
+        onClick={(e) => {
+          setDialogLevel3AdvisorOpen(true);
+          e?.preventDefault();
+        }}
+      >
         {msg}
       </span>
     );
   }
   function modalFourManager(msg: string) {
     return (
-      <span role="dialog" onClick={() => setDialogLevel4ManagerOpen(true)}>
+      <span
+        role="dialog"
+        onClick={(e) => {
+          setDialogLevel4ManagerOpen(true);
+          e?.preventDefault();
+        }}
+      >
         {msg}
       </span>
     );
   }
   function modalFourAdvisor(msg: string) {
     return (
-      <span role="dialog" onClick={() => setDialogLevel4AdvisorOpen(true)}>
+      <span
+        role="dialog"
+        onClick={(e) => {
+          setDialogLevel4AdvisorOpen(true);
+          e?.preventDefault();
+        }}
+      >
         {msg}
       </span>
     );
@@ -153,7 +187,7 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
           defaultValues: initialDataToFormValues(initialUser),
         }}
       >
-        <p>
+        <p data-h2-margin="b(bottom, l)">
           {intl.formatMessage(
             {
               defaultMessage:
@@ -164,13 +198,16 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
           )}
         </p>
         <Checklist
-          idPrefix="placeholder"
+          idPrefix="roleSalary"
           legend={intl.formatMessage({
             defaultMessage:
               "I would like to be referred for jobs at the following levels:",
             description: "Legend for role and salary checklist form",
           })}
-          name="placeholder"
+          rules={{
+            required: intl.formatMessage(errorMessages.required),
+          }}
+          name="roleSalary"
           items={[
             {
               value: 1,
@@ -246,10 +283,14 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
             },
           ]}
         />
-        <div data-h2-bg-color="b(lightgray)">
-          <p>
+        <div
+          data-h2-bg-color="b(lightgray)"
+          data-h2-margin="b(top, m)"
+          data-h2-radius="b(s)"
+        >
+          <p data-h2-padding="b(top-bottom, m) b(left, s)">
             <span>
-              <InformationCircleIcon height="0.9rem" />{" "}
+              <InformationCircleIcon style={{ width: "0.9rem" }} />{" "}
               {intl.formatMessage(
                 {
                   defaultMessage:
@@ -263,6 +304,7 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
         </div>
         <ProfileFormFooter mode="saveButton" />
       </BasicForm>
+
       <DialogLevelOne
         isOpen={isDialogLevel1Open}
         onDismiss={() => setDialogLevel1Open(false)}
@@ -295,7 +337,10 @@ const RoleSalaryFormContainer: React.FunctionComponent = () => {
   // API logic
   // see AboutForm for further scaffolding
   const handleUpdateUser = (id: string, values: UpdateUserAsUserInput) => {
-    // do nothing
+    return {
+      id,
+      values,
+    };
   };
 
   return (
