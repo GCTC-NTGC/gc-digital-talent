@@ -4,13 +4,15 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { getLocale } from "@common/helpers/localize";
 import { BasicForm, Checklist } from "@common/components/form";
-import Dialog from "@common/components/Dialog";
 import { SubmitHandler } from "react-hook-form";
+import { InformationCircleIcon } from "@heroicons/react/solid";
 import {
   DialogLevelOne,
   DialogLevelTwo,
-  DialogLevelThree,
-  DialogLevelFour,
+  DialogLevelThreeLead,
+  DialogLevelThreeAdvisor,
+  DialogLevelFourLead,
+  DialogLevelFourAdvisor,
 } from "./dialogs";
 import { UpdateUserAsUserInput, User } from "../../api/generated";
 import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
@@ -42,9 +44,13 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
     React.useState<boolean>(false);
   const [isDialogLevel2Open, setDialogLevel2Open] =
     React.useState<boolean>(false);
-  const [isDialogLevel3Open, setDialogLevel3Open] =
+  const [isDialogLevel3LeadOpen, setDialogLevel3LeadOpen] =
     React.useState<boolean>(false);
-  const [isDialogLevel4Open, setDialogLevel4Open] =
+  const [isDialogLevel3AdvisorOpen, setDialogLevel3AdvisorOpen] =
+    React.useState<boolean>(false);
+  const [isDialogLevel4ManagerOpen, setDialogLevel4ManagerOpen] =
+    React.useState<boolean>(false);
+  const [isDialogLevel4AdvisorOpen, setDialogLevel4AdvisorOpen] =
     React.useState<boolean>(false);
 
   // form submit logic, to be filled when API ready TODO
@@ -68,6 +74,9 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
   function bold(msg: string) {
     return <span data-h2-font-weight="b(700)">{msg}</span>;
   }
+  function underline(msg: string) {
+    return <span data-h2-font-style="b(underline)">{msg}</span>;
+  }
   function linkDigitalCommunity(msg: string) {
     return (
       <a href=" https://www.canada.ca/en/government/system/digital-government/gcdigital-community/careers-digital.html">
@@ -89,16 +98,30 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
       </span>
     );
   }
-  function modalThree(msg: string) {
+  function modalThreeLead(msg: string) {
     return (
-      <span role="dialog" onClick={() => setDialogLevel3Open(true)}>
+      <span role="dialog" onClick={() => setDialogLevel3LeadOpen(true)}>
         {msg}
       </span>
     );
   }
-  function modalFour(msg: string) {
+  function modalThreeAdvisor(msg: string) {
     return (
-      <span role="dialog" onClick={() => setDialogLevel4Open(true)}>
+      <span role="dialog" onClick={() => setDialogLevel3AdvisorOpen(true)}>
+        {msg}
+      </span>
+    );
+  }
+  function modalFourManager(msg: string) {
+    return (
+      <span role="dialog" onClick={() => setDialogLevel4ManagerOpen(true)}>
+        {msg}
+      </span>
+    );
+  }
+  function modalFourAdvisor(msg: string) {
+    return (
+      <span role="dialog" onClick={() => setDialogLevel4AdvisorOpen(true)}>
         {msg}
       </span>
     );
@@ -154,30 +177,35 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
               label: intl.formatMessage(
                 {
                   defaultMessage:
-                    "Level 1: Technician ($60,000 to $78,000). <modalOne>A</modalOne>",
-                  description: "one",
+                    "Level 1: Technician ($60,000 to $78,000). <modalOne><underline>Learn about IT-01</underline></modalOne>",
+                  description:
+                    "Checkbox label for Level IT-01 selection, ignore things in <> tags please",
                 },
-                { modalOne },
+                { modalOne, underline },
               ),
             },
             {
               value: 2,
               label: intl.formatMessage(
                 {
-                  defaultMessage: "Level 2: Analyst ($75,000 to $91,000).",
-                  description: "one",
+                  defaultMessage:
+                    "Level 2: Analyst ($75,000 to $91,000). <modalTwo><underline>Learn about IT-02</underline></modalTwo>",
+                  description:
+                    "Checkbox label for Level IT-02 selection, ignore things in <> tags please",
                 },
-                { modalTwo },
+                { modalTwo, underline },
               ),
             },
             {
               value: 3,
               label: intl.formatMessage(
                 {
-                  defaultMessage: "Level 3: Team Leader ($88,000 to $110,000).",
-                  description: "one",
+                  defaultMessage:
+                    "Level 3: Team Leader ($88,000 to $110,000). <modalThreeLead><underline>Learn about IT-03</underline></modalThreeLead>",
+                  description:
+                    "Checkbox label for Level IT-03 leader selection, ignore things in <> tags please",
                 },
-                { modalThree },
+                { modalThreeLead, underline },
               ),
             },
             {
@@ -185,10 +213,11 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
               label: intl.formatMessage(
                 {
                   defaultMessage:
-                    "Level 3: Technical Advisor ($88,000 to $110,000).",
-                  description: "one",
+                    "Level 3: Technical Advisor ($88,000 to $110,000). <modalThreeAdvisor><underline>Learn about IT-03</underline></modalThreeAdvisor>",
+                  description:
+                    "Checkbox label for Level IT-03 advisor selection, ignore things in <> tags please",
                 },
-                { modalThree },
+                { modalThreeAdvisor, underline },
               ),
             },
             {
@@ -196,34 +225,40 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
               label: intl.formatMessage(
                 {
                   defaultMessage:
-                    "Level 4: Senior Advisor ($101,000 to $126,000).",
-                  description: "one",
+                    "Level 4: Senior Advisor ($101,000 to $126,000). <modalFourAdvisor><underline>Learn about IT-04</underline></modalFourAdvisor>",
+                  description:
+                    "Checkbox label for Level IT-04 senior advisor selection, ignore things in <> tags please",
                 },
-                { modalFour },
+                { modalFourAdvisor, underline },
               ),
             },
             {
               value: 6,
               label: intl.formatMessage(
                 {
-                  defaultMessage: "Level 4: Manager ($101,000 to $126,000).",
-                  description: "one",
+                  defaultMessage:
+                    "Level 4: Manager ($101,000 to $126,000). <modalFourManager><underline>Learn about IT-04</underline></modalFourManager>",
+                  description:
+                    "Checkbox label for Level IT-04 manager selection, ignore things in <> tags please",
                 },
-                { modalFour },
+                { modalFourManager, underline },
               ),
             },
           ]}
         />
-        <div>
+        <div data-h2-bg-color="b(lightgray)">
           <p>
-            {intl.formatMessage(
-              {
-                defaultMessage:
-                  "<linkDigitalCommunity>Click here to learn more about classifications in the Government of Canada's Digital Community.</linkDigitalCommunity>",
-                description: "Link to learn more about classifications",
-              },
-              { linkDigitalCommunity },
-            )}
+            <span>
+              <InformationCircleIcon height="0.9rem" />{" "}
+              {intl.formatMessage(
+                {
+                  defaultMessage:
+                    "<linkDigitalCommunity>Click here to learn more about classifications in the Government of Canada's Digital Community.</linkDigitalCommunity>",
+                  description: "Link to learn more about classifications",
+                },
+                { linkDigitalCommunity },
+              )}
+            </span>
           </p>
         </div>
         <ProfileFormFooter mode="saveButton" />
@@ -236,13 +271,21 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
         isOpen={isDialogLevel2Open}
         onDismiss={() => setDialogLevel2Open(false)}
       />
-      <DialogLevelThree
-        isOpen={isDialogLevel3Open}
-        onDismiss={() => setDialogLevel3Open(false)}
+      <DialogLevelThreeLead
+        isOpen={isDialogLevel3LeadOpen}
+        onDismiss={() => setDialogLevel3LeadOpen(false)}
       />
-      <DialogLevelFour
-        isOpen={isDialogLevel4Open}
-        onDismiss={() => setDialogLevel4Open(false)}
+      <DialogLevelThreeAdvisor
+        isOpen={isDialogLevel3AdvisorOpen}
+        onDismiss={() => setDialogLevel3AdvisorOpen(false)}
+      />
+      <DialogLevelFourAdvisor
+        isOpen={isDialogLevel4AdvisorOpen}
+        onDismiss={() => setDialogLevel4AdvisorOpen(false)}
+      />
+      <DialogLevelFourLead
+        isOpen={isDialogLevel4ManagerOpen}
+        onDismiss={() => setDialogLevel4ManagerOpen(false)}
       />
     </ProfileFormWrapper>
   );
@@ -251,7 +294,6 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
 const RoleSalaryFormContainer: React.FunctionComponent = () => {
   // API logic
   // see AboutForm for further scaffolding
-
   const handleUpdateUser = (id: string, values: UpdateUserAsUserInput) => {
     // do nothing
   };
