@@ -1454,4 +1454,169 @@ class UserTest extends TestCase
             ]
         ]);
     }
+
+    public function testFilterByClassificationToSalaryWithPools(): void
+    {
+        // myPool will be people we're querying for and should be returned
+        $myPool = Pool::factory()->create(['name' => 'myPool']);
+        // otherPool will be people we're not querying for and should not be returned
+        $otherPool = Pool::factory()->create(['name' => 'otherPool']);
+
+        // myClassification is the classification we will be querying for
+        $myClassification = Classification::factory()->create([
+            'group' => 'ZZ',
+            'level' => 1,
+            'min_salary' => 55000,
+            'max_salary' => 64999,
+        ]);
+
+        // otherClassification is the higher one in the same group
+        $otherClassification = Classification::factory()->create([
+            'group' => 'ZZ',
+            'level' => 2,
+            'min_salary' => 65000,
+            'max_salary' => 74999,
+        ]);
+
+        // *** first make three users in the right pool - 1 has an exact classification match, 1 has a salary to classification match, 1 has no match
+
+        // Attach new user in the pool with the desired classification
+        PoolCandidate::factory()->create([
+            'user_id' => User::factory()->afterCreating(function($user) use ($myClassification) {
+                $user->expectedClassifications()->delete();
+                $user->expectedClassifications()->save($myClassification);
+            })->create([
+                'expected_salary' => []
+            ]),
+            'pool_id' => $myPool->id
+        ]);
+
+        // Attach new user in the pool that overlaps the expected salary range and has a matching class group (but not level).
+        PoolCandidate::factory()->create([
+            'user_id' => User::factory()->afterCreating(function($user) use ($otherClassification) {
+                $user->expectedClassifications()->delete();
+                $user->expectedClassifications()->save($otherClassification);
+            })->create([
+                'expected_salary' => ['_60_69K']
+            ]),
+            'pool_id' => $myPool->id
+        ]);
+
+        // Attach new user in the pool that is over the expected salary range and has a matching class group (but not level).
+        PoolCandidate::factory()->create([
+            'user_id' => User::factory()->afterCreating(function($user) use ($otherClassification) {
+                $user->expectedClassifications()->delete();
+                $user->expectedClassifications()->save($otherClassification);
+            })->create([
+                'expected_salary' => ['_90_99K', '_100K_PLUS']
+            ]),
+            'pool_id' => $myPool->id
+        ]);
+
+        // *** now make the same three users in the wrong pool
+
+        // Attach new user in the pool with the desired classification WRONG POOL
+        PoolCandidate::factory()->create([
+            'user_id' => User::factory()->afterCreating(function($user) use ($myClassification) {
+                $user->expectedClassifications()->delete();
+                $user->expectedClassifications()->save($myClassification);
+            })->create([
+                'expected_salary' => []
+            ]),
+            'pool_id' => $otherPool->id
+        ]);
+
+        // Attach new user in the pool that overlaps the expected salary range and has a matching class group (but not level). WRONG POOL
+        PoolCandidate::factory()->create([
+            'user_id' => User::factory()->afterCreating(function($user) use ($otherClassification) {
+                $user->expectedClassifications()->delete();
+                $user->expectedClassifications()->save($otherClassification);
+            })->create([
+                'expected_salary' => ['_60_69K']
+            ]),
+            'pool_id' => $otherPool->id
+        ]);
+
+        // Attach new user in the pool that is over the expected salary range and has a matching class group (but not level).  WRONG POOL
+        PoolCandidate::factory()->create([
+            'user_id' => User::factory()->afterCreating(function($user) use ($otherClassification) {
+                $user->expectedClassifications()->delete();
+                $user->expectedClassifications()->save($otherClassification);
+            })->create([
+                'expected_salary' => ['_90_99K', '_100K_PLUS']
+            ]),
+            'pool_id' => $otherPool->id
+        ]);
+
+        // Assert query with just pool filters will return all users in that pool
+        $this->graphQL(/** @lang Graphql */ '
+            query getUsersPaginated($where: UserFilterAndOrderInput) {
+                usersPaginated(where: $where) {
+                    paginatorInfo {
+                        total
+                    }
+                }
+            }
+        ', [
+            'where' => [
+                'pools' => [$myPool->id]
+            ]
+        ])->assertJson([
+            'data' => [
+                'usersPaginated' => [
+                    'paginatorInfo' => [
+                        'total' => 3
+                    ]
+                ]
+            ]
+        ]);
+
+        // Assert query with classification filter will return users in range and overlapping in that pool
+        $this->graphQL(/** @lang Graphql */ '
+            query getUsersPaginated($where: UserFilterAndOrderInput) {
+                usersPaginated(where: $where) {
+                    paginatorInfo {
+                        total
+                    }
+                }
+            }
+        ', [
+            'where' => [
+                'pools' => [$myPool->id],
+                'expectedClassifications' => [['group' => 'ZZ', 'level' => 1]]
+            ]
+        ])->assertJson([
+            'data' => [
+                'usersPaginated' => [
+                    'paginatorInfo' => [
+                        'total' => 2
+                    ]
+                ]
+            ]
+        ]);
+
+        // Assert query with unknown classification filter will return zero
+        $this->graphQL(/** @lang Graphql */ '
+            query getUsersPaginated($where: UserFilterAndOrderInput) {
+                usersPaginated(where: $where) {
+                    paginatorInfo {
+                        total
+                    }
+                }
+            }
+        ', [
+            'where' => [
+                'pools' => [$myPool->id],
+                'expectedClassifications' => [['group' => 'UNKNOWN', 'level' => 1324234 ]],
+            ]
+        ])->assertJson([
+            'data' => [
+                'usersPaginated' => [
+                    'paginatorInfo' => [
+                        'total' => 0
+                    ]
+                ]
+            ]
+        ]);
+    }
 }
