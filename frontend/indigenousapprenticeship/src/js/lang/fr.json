@@ -350,5 +350,9 @@
   "sqUD2Z": {
     "defaultMessage": "Remplir la Promesse d’honnêteté de la collectivité",
     "description": "How it works, step 1 heading"
+  },
+  "49UIne": {
+    "defaultMessage": "Apprenti en TI du Gouvernement du Canada",
+    "description": "author of testimonial number one"
   }
 }
