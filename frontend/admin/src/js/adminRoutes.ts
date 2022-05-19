@@ -41,6 +41,7 @@ const adminRoutes = (lang: string) => {
     poolTable: (): string => path.join(home(), "pools"),
     poolCreate: (): string => path.join(home(), "pools", "create"),
     poolUpdate: (id: string): string => path.join(home(), "pools", id, "edit"),
+    poolView: (id: string): string => path.join(home(), "pools", id),
 
     poolCandidateTable: (poolId: string): string =>
       path.join(home(), "pools", poolId, "pool-candidates"),

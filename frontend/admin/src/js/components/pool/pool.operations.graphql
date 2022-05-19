@@ -1,0 +1,9 @@
+query pool($id: ID!) {
+  pool(id: $id) {
+    id
+    name {
+      en
+      fr
+    }
+  }
+}
