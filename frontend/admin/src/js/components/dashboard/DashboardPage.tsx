@@ -11,6 +11,7 @@ import PageHeader from "@common/components/PageHeader";
 
 import { commonMessages } from "@common/messages";
 
+import { DocumentDownloadIcon } from "@heroicons/react/solid";
 import DashboardContentContainer from "../DashboardContentContainer";
 import { User, useMeQuery } from "../../api/generated";
 import { useAdminRoutes } from "../../adminRoutes";
@@ -99,6 +100,21 @@ const DashboardPage: React.FC<DashboardPageProps> = ({ currentUser }) => {
               defaultMessage: "Manage requests",
               description:
                 "Text label for link to requests page on admin dashboard",
+            })}
+          </IconLink>
+        </span>
+        <span data-h2-margin="b(bottom-right, s)">
+          <IconLink
+            mode="solid"
+            color="secondary"
+            type="button"
+            href={adminRoutes.userAggregateDocument()}
+            icon={DocumentDownloadIcon}
+          >
+            {intl.formatMessage({
+              defaultMessage: "Download Users",
+              description:
+                "Text label for link to download users page on admin dashboard",
             })}
           </IconLink>
         </span>

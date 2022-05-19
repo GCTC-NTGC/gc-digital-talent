@@ -40,6 +40,7 @@ import { UpdateSkill } from "./skill/UpdateSkill";
 import HomePage from "./home/HomePage";
 import { Role, useGetPoolsQuery } from "../api/generated";
 import DashboardPage from "./dashboard/DashboardPage";
+import UserAggregateDocumentPage from "./pdfSpike/UserAggregatePage";
 
 const PoolListApi = (isAdmin: boolean) => {
   const intl = useIntl();
@@ -327,6 +328,17 @@ const routes = (
       component:
         loggedIn && isAdmin ? (
           <SingleSearchRequestPage searchRequestId={params.id as string} />
+        ) : (
+          <AdminNotAuthorized />
+        ),
+    }),
+  },
+  {
+    path: paths.userAggregateDocument(),
+    action: () => ({
+      component:
+        loggedIn && isAdmin ? (
+          <UserAggregateDocumentPage />
         ) : (
           <AdminNotAuthorized />
         ),

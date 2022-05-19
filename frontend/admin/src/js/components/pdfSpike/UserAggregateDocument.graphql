@@ -1,0 +1,10 @@
+query getDataUserAggregateDocument {
+  users {
+    id,
+    firstName,
+    lastName,
+    experiences {
+      id
+    }
+  }
+}

@@ -63,6 +63,9 @@ const adminRoutes = (lang: string) => {
     searchRequestTable: (): string => path.join(home(), "search-requests"),
     searchRequestUpdate: (id: string): string =>
       path.join(home(), "search-requests", id, "edit"),
+
+    userAggregateDocument: (): string =>
+      path.join(home(), "user-aggregate-document"),
   };
 };
 
