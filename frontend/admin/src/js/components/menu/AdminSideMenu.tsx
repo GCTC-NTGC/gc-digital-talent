@@ -1,7 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import SideMenuWrapper, { SideMenuItem } from "@common/components/SideMenu";
+import SideMenu, { SideMenuItem } from "@common/components/SideMenu";
 
 import {
   AcademicCapIcon,
@@ -21,7 +21,7 @@ import { AuthorizationContext } from "../AuthorizationContainer";
 import { useAdminRoutes } from "../../adminRoutes";
 import { Role } from "../../api/generated";
 
-interface SideMenuProps {
+interface AdminSideMenuProps {
   isOpen: boolean;
   onToggle: () => void;
   onDismiss: () => void;
@@ -54,7 +54,11 @@ const checkRole = (
 
 const startsWith = (ref: string, test: string): boolean => test.startsWith(ref);
 
-const SideMenu: React.FC<SideMenuProps> = ({ isOpen, onToggle, onDismiss }) => {
+const AdminSideMenu: React.FC<AdminSideMenuProps> = ({
+  isOpen,
+  onToggle,
+  onDismiss,
+}) => {
   const intl = useIntl();
   const paths = useAdminRoutes();
   const location = useLocation();
@@ -155,7 +159,7 @@ const SideMenu: React.FC<SideMenuProps> = ({ isOpen, onToggle, onDismiss }) => {
   ];
 
   return (
-    <SideMenuWrapper
+    <SideMenu
       label={intl.formatMessage({
         defaultMessage: "Main Menu",
         description:
@@ -183,8 +187,8 @@ const SideMenu: React.FC<SideMenuProps> = ({ isOpen, onToggle, onDismiss }) => {
           ) : null}
         </React.Fragment>
       ))}
-    </SideMenuWrapper>
+    </SideMenu>
   );
 };
 
-export default SideMenu;
+export default AdminSideMenu;

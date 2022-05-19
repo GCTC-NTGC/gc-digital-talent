@@ -10,7 +10,7 @@ import useIsSmallScreen from "@common/hooks/useIsSmallScreen";
 import { SideMenuContentWrapper } from "@common/components/SideMenu";
 
 import { MenuIcon } from "@heroicons/react/outline";
-import SideMenu from "../menu/SideMenu";
+import AdminSideMenu from "../menu/AdminSideMenu";
 import { ADMIN_APP_DIR } from "../../adminConstants";
 
 const AdminNotFound: React.FC = () => {
@@ -94,7 +94,7 @@ const Dashboard: React.FC<DashboardProps> = ({ contentRoutes }) => {
       </a>
 
       <div data-h2-display="b(flex)" data-h2-align-items="b(stretch)">
-        <SideMenu
+        <AdminSideMenu
           isOpen={isMenuOpen}
           onToggle={handleMenuToggle}
           onDismiss={handleDismiss}
