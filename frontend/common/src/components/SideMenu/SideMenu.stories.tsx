@@ -36,6 +36,7 @@ const TemplateSideMenu: Story = (args) => {
   return (
     <div data-h2-display="b(flex)">
       <SideMenuComponent
+        label="Test Menu"
         isOpen={isOpen}
         onToggle={handleToggle}
         footer={
