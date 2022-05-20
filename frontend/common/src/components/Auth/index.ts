@@ -1,5 +1,6 @@
 import AuthenticationContainer, {
   AuthenticationContext,
+  defaultAuthState,
 } from "./AuthenticationContainer";
 import AuthorizationContainer, {
   AuthorizationContext,
@@ -10,4 +11,5 @@ export {
   AuthenticationContext,
   AuthorizationContainer,
   AuthorizationContext,
+  defaultAuthState,
 };
