@@ -5,14 +5,14 @@ import { SideMenuItem } from "@common/components/SideMenu";
 import { useLocation } from "@common/helpers/router";
 import { getLocale } from "@common/helpers/localize";
 
-import { AuthContext } from "../AuthContainer";
+import { AuthenticationContext } from "@common/components/Auth";
 import { useApiRoutes } from "../../apiRoutes";
 
 const LoginOrLogout = () => {
   const intl = useIntl();
   const location = useLocation();
   const apiRoutes = useApiRoutes();
-  const { loggedIn, logout } = useContext(AuthContext);
+  const { loggedIn, logout } = useContext(AuthenticationContext);
 
   return (
     <SideMenuItem

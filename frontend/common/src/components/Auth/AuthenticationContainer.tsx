@@ -19,14 +19,7 @@ interface AuthenticationState {
   refreshTokenSet: () => Promise<TokenSet | null>;
 }
 
-interface TokenSet {
-  accessToken: string | null;
-  refreshToken: string | null;
-  idToken: string | null;
-}
-
-
-export const AuthenticationContext = React.createContext<AuthenticationState>({
+export const defaultAuthState = {
   loggedIn: false,
   accessToken: null,
   refreshToken: null,
@@ -35,7 +28,16 @@ export const AuthenticationContext = React.createContext<AuthenticationState>({
     /** do nothing */
   },
   refreshTokenSet: () => Promise.resolve(null),
-})
+};
+
+interface TokenSet {
+  accessToken: string | null;
+  refreshToken: string | null;
+  idToken: string | null;
+}
+
+export const AuthenticationContext =
+  React.createContext<AuthenticationState>(defaultAuthState);
 
 const logoutAndRefreshPage = (
   homePath: string,
