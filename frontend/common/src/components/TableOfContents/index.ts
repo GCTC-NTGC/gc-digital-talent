@@ -1,5 +1,12 @@
-import TableOfContents from "./TableOfContents";
-import type { TableOfContentsProps } from "./TableOfContents";
+import TableOfContentsNavigation from "./TableOfContents";
+import TableOfContentsSection from "./TableOfContentsSection";
+import type { TableOfContentsSectionProps } from "./TableOfContentsSection";
 
-export default TableOfContents;
-export type { TableOfContentsProps };
+const TableOfContents = {
+  Navigation: TableOfContentsNavigation,
+  Section: TableOfContentsSection,
+};
+
+export default TableOfContentsNavigation;
+export { TableOfContentsSection, TableOfContents };
+export type { TableOfContentsSectionProps };
