@@ -49,11 +49,6 @@ DirectorySlash off
     RewriteRule ^(.*)/?$ tc-report/$1 [L]
 </IfModule>
 
-#<IfModule mod_headers.c>
-#    RequestHeader set X-Forwarded-Host "dev-talentcloud.tbs-sct.gc.ca"
-#    RequestHeader set Forwarded "host=dev-talentcloud.tbs-sct.gc.ca;proto=https"
-#</IfModule>
-
 # Security headers
 Header add X-Content-Type-Options nosniff
 Header add X-XSS-Protection "1; mode=block"
