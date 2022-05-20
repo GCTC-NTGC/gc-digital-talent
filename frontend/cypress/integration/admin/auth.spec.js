@@ -92,13 +92,18 @@ describe('Auth flows (development)', () => {
     it('allows logout', () => {
       cy.visit('/admin')
       cy.findByText('Logout').should('exist').and('be.visible')
-      cy.findByText('Logout').click()
+      cy.findByText('Logout').click().then(() => {
+        expect(localStorage.getItem('id_token')).to.be.null
+        expect(localStorage.getItem('access_token')).to.be.null
+        expect(localStorage.getItem('refresh_token')).to.be.null
 
-      cy.findByText('Logout').should('not.exist')
-      cy.findByText('Login').should('exist').and('be.visible')
+        cy.findByText('Logout').should('not.exist')
+        cy.findByText('Login').should('exist').and('be.visible')
+      })
     })
 
-    it('redirects login path to admin dashboard', () => {
+    // This only makes sense to run when interactiveLogin:true.
+    it.skip('redirects login path to admin dashboard', () => {
       cy.visit('/login')
       onDashboard()
     })

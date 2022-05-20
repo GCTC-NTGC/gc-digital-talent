@@ -26,6 +26,7 @@
 
 // See: https://testing-library.com/docs/cypress-testing-library/intro/
 import '@testing-library/cypress/add-commands'
+import url from 'url'
 
 Cypress.Commands.add('login', (...args) => {
   let userRole, email, password, rest
@@ -51,9 +52,19 @@ Cypress.Commands.add('login', (...args) => {
 // Works only when mock-oauth2-server.json has set interactiveLogin:FALSE
 // TODO: Get this working without browser using cy.request().
 const loginNonInteractive = () => {
-  cy.intercept('POST', '/graphql').as('anyGraphQL')
-  cy.visit('/login')
-  cy.wait('@anyGraphQL')
+  cy.request({ url: '/login', followRedirect: false }).then((resp) => {
+    cy.wrap(resp.redirectedToUrl).as('oauth2AuthorizeUrl')
+  })
+  cy.get('@oauth2AuthorizeUrl').then((url) => {
+    cy.request({ url: url, followRedirect: false }).then((resp) => {
+      cy.wrap(resp.redirectedToUrl).as('appCallbackUrl')
+    })
+  })
+  cy.get('@appCallbackUrl').then((url) => {
+    cy.request({ url: url, followRedirect: false })
+      .then(responseToQueryParams)
+      .then(queryParamsToLocalStorageTokens)
+  })
 }
 
 // Logs in by role, using email from `fixtures/users.json`.
@@ -95,6 +106,32 @@ const loginByRole = (userRole = 'admin') => {
     })
   })
 }
+
+/**
+ * Assuming "cy.request" was called with `{followRedirect: false}` grabs the
+ * redirected to URI, parses it and returns just the "id_token".
+ */
+const responseToQueryParams = (resp) => {
+  // we can use the redirectedToUrl property that Cypress adds
+  // whenever we turn off following redirects
+  //
+  // and use node's url.parse module (and parse the query params)
+  const uri = url.parse(resp.redirectedToUrl, true)
+
+  // we now have query params as an object and can return
+  expect(uri.query).to.have.property('id_token')
+  expect(uri.query).to.have.property('access_token')
+  expect(uri.query).to.have.property('refresh_token')
+
+  return uri.query
+}
+
+const queryParamsToLocalStorageTokens = (query) => {
+  window.localStorage.setItem('id_token', query.id_token)
+  window.localStorage.setItem('access_token', query.access_token)
+  window.localStorage.setItem('refresh_token', query.refresh_token)
+}
+
 
 // No-op placeholder function to document how our mock-oauth2-server works.
 const loginByPassword = (email, password) => {
