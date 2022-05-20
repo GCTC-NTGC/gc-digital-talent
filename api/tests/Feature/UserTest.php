@@ -336,7 +336,9 @@ class UserTest extends TestCase
     public function testFilterByClassification(): void
     {
         // Create initial data.
-        User::factory()->count(5)->create();
+        User::factory()->count(5)->create([
+            'expected_salary' => [], // remove salaries to avoid accidental classification-to-salary matching
+        ]);
 
         // Create new classification and attach to two new users.
         $classification = Classification::factory()->create([
@@ -418,7 +420,9 @@ class UserTest extends TestCase
     public function testFilterByClassificationToSalary(): void
     {
         // Create initial data.
-        User::factory()->count(5)->create();
+        User::factory()->count(5)->create([
+            'expected_salary' => []
+        ]);
 
         // Create new classification.
         $classificationLvl1 = Classification::factory()->create([

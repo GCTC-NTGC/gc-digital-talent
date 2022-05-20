@@ -273,6 +273,11 @@ class User extends Model implements Authenticatable
     }
     public function filterByClassifications(Builder $query, array $classifications): Builder
     {
+        // if no filters provided then return query unchanged
+        if (empty($classifications)) {
+            return $query;
+        }
+
         // Classifications act as an OR filter. The query should return candidates with any of the classifications.
         // A single whereHas clause for the relationship, containing multiple orWhere clauses accomplishes this.
         $query->where(function ($query) use ($classifications) {
@@ -330,22 +335,17 @@ SELECT NULL    -- find all candidates where a salary/group combination matches a
         WHEN '_80_89K' THEN 89999
         WHEN '_90_99K' THEN 99999
         WHEN '_100K_PLUS' THEN 2147483647
-      END max_salary,
-      t.classification_group
+      END max_salary
     FROM (
-      SELECT    -- find all combinations of salary range and classification group for each candidate
+      SELECT    -- find all salary ranges for each candidate
         users.id user_id,
-        JSONB_ARRAY_ELEMENTS_TEXT(users.expected_salary) salary_range_id,
-        c.group classification_group
+        JSONB_ARRAY_ELEMENTS_TEXT(users.expected_salary) salary_range_id
       FROM users
-      JOIN classification_user cu ON users.id = cu.user_id
-      JOIN classifications c ON cu.classification_id = c.id
     ) t
   ) u
   JOIN classifications c ON
     c.max_salary >= u.min_salary
     AND c.min_salary <= u.max_salary
-    AND c.group = u.classification_group
   WHERE (
 
 RAWSQL1;
