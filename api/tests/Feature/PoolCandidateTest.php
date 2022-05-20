@@ -26,7 +26,9 @@ class PoolCandidateTest extends TestCase
 
     // Create initial data.
     Classification::factory()->count(3)->create();
-    PoolCandidate::factory()->count(5)->create();
+    PoolCandidate::factory()->count(5)->create([
+      'expected_salary' => [], // remove salaries to avoid accidental classification-to-salary matching
+    ]);
 
     // Create new classification and attach to two new pool candidates.
     $classification = Classification::factory()->create([
@@ -626,7 +628,9 @@ class PoolCandidateTest extends TestCase
   {
     // Create initial data.
     Classification::factory()->count(3)->create();
-    PoolCandidate::factory()->count(5)->create();
+    PoolCandidate::factory()->count(5)->create([
+      'expected_salary' => []
+    ]);
 
     // Create new classification.
     $classificationLvl1 = Classification::factory()->create([
