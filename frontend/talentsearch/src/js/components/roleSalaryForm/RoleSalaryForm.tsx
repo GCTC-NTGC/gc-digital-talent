@@ -1,11 +1,10 @@
-/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React from "react";
 import { useIntl } from "react-intl";
 import { BasicForm, Checklist } from "@common/components/form";
 import { SubmitHandler } from "react-hook-form";
 import { InformationCircleIcon } from "@heroicons/react/solid";
 import { errorMessages } from "@common/messages";
+import Button from "@common/components/Button";
 import {
   DialogLevelOne,
   DialogLevelTwo,
@@ -29,6 +28,26 @@ export interface RoleSalaryFormProps {
   initialUser?: User | null;
   onUpdateRoleSalary?: RoleSalaryUpdateHandler;
 }
+
+// accessible button for modals - generate clickable inline elements resembling <a>
+interface ModalButtonProps {
+  click: (e: React.MouseEvent<HTMLSpanElement, MouseEvent>) => void;
+  children?: React.ReactNode;
+}
+const ModalButton: React.FC<ModalButtonProps> = ({ click, children }) => {
+  return (
+    <Button
+      color="black"
+      mode="inline"
+      data-h2-padding="b(all, none)"
+      data-h2-font-weight="b(200)"
+      data-h2-font-size="b(caption)"
+      onClick={click}
+    >
+      {children}
+    </Button>
+  );
+};
 
 export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
   initialUser,
@@ -84,80 +103,74 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
   }
   function modalOne(msg: string) {
     return (
-      <span
-        role="dialog"
-        onClick={(e) => {
+      <ModalButton
+        click={(e) => {
           setDialogLevel1Open(true);
           e?.preventDefault();
         }}
       >
         {msg}
-      </span>
+      </ModalButton>
     );
   }
   function modalTwo(msg: string) {
     return (
-      <span
-        role="dialog"
-        onClick={(e) => {
+      <ModalButton
+        click={(e) => {
           setDialogLevel2Open(true);
           e?.preventDefault();
         }}
       >
         {msg}
-      </span>
+      </ModalButton>
     );
   }
   function modalThreeLead(msg: string) {
     return (
-      <span
-        role="dialog"
-        onClick={(e) => {
+      <ModalButton
+        click={(e) => {
           setDialogLevel3LeadOpen(true);
           e?.preventDefault();
         }}
       >
         {msg}
-      </span>
+      </ModalButton>
     );
   }
   function modalThreeAdvisor(msg: string) {
     return (
-      <span
-        role="dialog"
-        onClick={(e) => {
+      <ModalButton
+        click={(e) => {
           setDialogLevel3AdvisorOpen(true);
           e?.preventDefault();
         }}
       >
         {msg}
-      </span>
+      </ModalButton>
     );
   }
   function modalFourManager(msg: string) {
     return (
-      <span
-        role="dialog"
-        onClick={(e) => {
+      <ModalButton
+        click={(e) => {
           setDialogLevel4ManagerOpen(true);
           e?.preventDefault();
         }}
       >
         {msg}
-      </span>
+      </ModalButton>
     );
   }
   function modalFourAdvisor(msg: string) {
     return (
-      <span
-        role="dialog"
-        onClick={(e) => {
+      <ModalButton
+        click={(e) => {
           setDialogLevel4AdvisorOpen(true);
           e?.preventDefault();
         }}
       >
         {msg}
-      </span>
+      </ModalButton>
     );
   }
 
