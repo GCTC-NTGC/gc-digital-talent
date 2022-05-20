@@ -1,3 +1,4 @@
+# Don't automatically add slash (with 301 redirect) if path matches a directory
 DirectorySlash off
 
 <IfModule mod_rewrite.c>
