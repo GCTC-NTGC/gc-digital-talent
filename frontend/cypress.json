@@ -6,6 +6,7 @@
   "viewportWidth": 1920,
   "viewportHeight": 1080,
   "videoCompression": 15,
+  "chromeWebSecurity": true,
   "ignoreTestFiles": "**/examples/*.spec.js",
   "authServerRoot": "http://auth.talent.canada.test:8081/oxauth",
   "baseUrl": "http://localhost:8000"

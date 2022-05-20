@@ -1,34 +1,30 @@
 import { aliasQuery } from '../../support/graphql-test-utils'
 
 describe('Auth flows (development)', () => {
-  // Prepare to intercept/detect GraphQL requests.
-
-  // Helpers.
-  const onHomeNoAuth = () => {
-    cy.url().should('match', new RegExp(`^${ Cypress.config().baseUrl }/en/admin$`))
-    cy.get('h1').contains('Home').should('exist').and('be.visible')
-  }
-
-  const onDashboard = () => {
+  // Prepare to intercept/detect relevant GraphQL requests.
+  beforeEach(() => {
     cy.intercept('POST', '/graphql', (req) => {
-      // Creates alias: @gqlgetMeQuery
+      // Creates aliases for use later.
+      // E.g., cy.wait('@gqlgetMeQuery')
       aliasQuery(req, 'getMe')
     })
+  })
 
-    cy.url().should('match', new RegExp(`^${ Cypress.config().baseUrl }/en/admin/dashboard$`))
-    // Heading won't render until we know user details.
+  // Helpers.
+  const sideMenuLoaded = () => {
     cy.wait('@gqlgetMeQuery')
-    cy.get('h1').contains('Welcome back,').should('exist').and('be.visible')
-  }
-
-  const showRestrictedPage = () => {
-    // Don't be picky about heading size.
-    cy.get('main :is(h1, h2, h3)').contains('not authorized').should('exist').and('be.visible')
   }
 
   context('Anonymous visitor', () => {
 
     it('prevents viewing content on restricted pages', () => {
+      const onRestrictedPage = () => {
+        sideMenuLoaded()
+        // Don't be picky about heading size.
+        cy.findByRole('heading', { name: /not authorized/ })
+          .should('exist').and('be.visible')
+      }
+
       [
         '/en/admin/dashboard',
         '/en/admin/skills',
@@ -42,7 +38,7 @@ describe('Auth flows (development)', () => {
         '/en/admin/skills',
       ].forEach(restrictedPath => {
         cy.visit(restrictedPath)
-        showRestrictedPage()
+        onRestrictedPage()
       })
     })
 
@@ -61,6 +57,7 @@ describe('Auth flows (development)', () => {
       expect(localStorage.getItem('id_token')).not.to.exist
       expect(localStorage.getItem('access_token')).not.to.exist
       expect(localStorage.getItem('refresh_token')).not.to.exist
+
       cy.login('admin').then(() => {
         expect(localStorage.getItem('id_token')).to.exist
         expect(localStorage.getItem('access_token')).to.exist
@@ -82,11 +79,10 @@ describe('Auth flows (development)', () => {
     it.skip('should fail if the state value is tampered with', () => {
     })
 
-    // This test will only work on Chrome-based browsers, since visiting the
-    // mock auth server requires violating same-origin policy, and this only
-    // works on Chrome (and only because we've disabled it in cypress.json).
-    // See: https://docs.cypress.io/guides/guides/web-security#Disabling-Web-Security
-    // (This also requires two envvars to be set in in frontend/.apache_env)
+    // Visiting the mock auth server requires violating same-origin security
+    // policies that Cypress isn't intended to do, and so this test will fail
+    // (except under special conditions that we don't run by default)
+    // Requires chromeWebSecurity:false (See main README)
     it.skip('succeeds for an existing admin user', () => {
       const initialPath = '/en/admin/skills'
       cy.visit(initialPath)
@@ -121,7 +117,20 @@ describe('Auth flows (development)', () => {
   context('Authenticated', () => {
     beforeEach(() => cy.login('admin'))
 
-    it('allows logout', () => {
+    it('redirects by default to dashboard', () => {
+      const onDashboard = () => {
+        cy.url().should('match', new RegExp(`^${ Cypress.config().baseUrl }/en/admin/dashboard$`))
+        // Heading won't render until we know user details.
+        sideMenuLoaded()
+        cy.findByRole('heading', { name: /^Welcome back,/ })
+          .should('exist').and('be.visible')
+      }
+
+      cy.visit('/admin')
+      onDashboard()
+    })
+
+    it('performs logout and removes token data from local storage', () => {
       cy.visit('/admin')
       cy.findByRole('button', { name: 'Logout' }).as('logout')
       cy.get('@logout')

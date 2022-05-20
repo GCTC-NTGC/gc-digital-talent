@@ -24,6 +24,18 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
+before(() => {
+  cy.log('Need to add a custom command? Add it to `cypress/support/commands.js`')
+
+  /* Tips
+   * - custom commands may use the UI in a pinch, but ideally should not.
+   *   Rather, they should use `cy.request()` as much as possible. This is
+   *   faster. A test should exist to tests the UI itself, and so commands
+   *   shouldn't need to drive the browser and make as many assertions.
+   *   - Example: https://docs.cypress.io/api/cypress-api/custom-commands#Log-in-command-using-request
+   */
+})
+
 // See: https://testing-library.com/docs/cypress-testing-library/intro/
 import '@testing-library/cypress/add-commands'
 import url from 'url'
