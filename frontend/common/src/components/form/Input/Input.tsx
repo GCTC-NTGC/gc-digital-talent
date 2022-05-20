@@ -60,6 +60,7 @@ const Input: React.FunctionComponent<InputProps> = ({
           data-h2-border="b(darkgray, all, solid, s)"
           style={{ width: "100%" }}
           data-h2-font-size="b(normal)"
+          data-h2-font-family="b(sans)"
           id={id}
           {...register(name, rules)}
           type={type}
