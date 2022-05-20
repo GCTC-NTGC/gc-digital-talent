@@ -8,6 +8,7 @@
 
 const data = new Map([
     ["FEATURE_APPLICANTPROFILE", "<!--#echo var="FEATURE_APPLICANTPROFILE" -->"],
+    ["FEATURE_DIRECTINTAKE", "<!--#echo var="FEATURE_DIRECTINTAKE" -->"],
 ]);
 
 window.__SERVER_CONFIG__ = data;
