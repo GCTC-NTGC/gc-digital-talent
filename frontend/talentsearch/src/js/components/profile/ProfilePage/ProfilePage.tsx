@@ -297,8 +297,15 @@ export const ProfileForm: React.FC<ProfilePageProps> = ({
               </div>
             </div>
             <div id="about-me-section">
-              <div style={{ display: "flex", alignItems: "baseline" }}>
-                <h2 data-h2-font-weight="b(600)" style={{ flex: "1 1 0%" }}>
+              <div
+                data-h2-margin="b(top, xl)"
+                style={{ display: "flex", alignItems: "baseline" }}
+              >
+                <h2
+                  data-h2-margin="b(top, none)"
+                  data-h2-font-weight="b(600)"
+                  style={{ flex: "1 1 0%" }}
+                >
                   <UserIcon style={{ width: "calc(1rem*2.25)" }} />
                   &nbsp;&nbsp;
                   {intl.formatMessage({
@@ -440,8 +447,15 @@ export const ProfileForm: React.FC<ProfilePageProps> = ({
               </div>
             </div>
             <div id="language-section">
-              <div style={{ display: "flex", alignItems: "baseline" }}>
-                <h2 data-h2-font-weight="b(600)" style={{ flex: "1 1 0%" }}>
+              <div
+                data-h2-margin="b(top, xl)"
+                style={{ display: "flex", alignItems: "baseline" }}
+              >
+                <h2
+                  data-h2-margin="b(top, none)"
+                  data-h2-font-weight="b(600)"
+                  style={{ flex: "1 1 0%" }}
+                >
                   <ChatAlt2Icon style={{ width: "calc(1rem*2.25)" }} />
                   &nbsp;&nbsp;
                   {intl.formatMessage({
@@ -658,8 +672,15 @@ export const ProfileForm: React.FC<ProfilePageProps> = ({
               </div>
             </div>
             <div id="gov-info-section">
-              <div style={{ display: "flex", alignItems: "baseline" }}>
-                <h2 data-h2-font-weight="b(600)" style={{ flex: "1 1 0%" }}>
+              <div
+                data-h2-margin="b(top, xl)"
+                style={{ display: "flex", alignItems: "baseline" }}
+              >
+                <h2
+                  data-h2-margin="b(top, none)"
+                  data-h2-font-weight="b(600)"
+                  style={{ flex: "1 1 0%" }}
+                >
                   <img
                     style={{ width: "calc(1rem*2.25)" }}
                     src={imageUrl(
@@ -785,8 +806,15 @@ export const ProfileForm: React.FC<ProfilePageProps> = ({
               </div>
             </div>
             <div id="work-location-section">
-              <div style={{ display: "flex", alignItems: "baseline" }}>
-                <h2 data-h2-font-weight="b(600)" style={{ flex: "1 1 0%" }}>
+              <div
+                data-h2-margin="b(top, xl)"
+                style={{ display: "flex", alignItems: "baseline" }}
+              >
+                <h2
+                  data-h2-margin="b(top, none)"
+                  data-h2-font-weight="b(600)"
+                  style={{ flex: "1 1 0%" }}
+                >
                   <img
                     style={{ width: "calc(1rem*2.25)" }}
                     src={imageUrl(
@@ -883,8 +911,15 @@ export const ProfileForm: React.FC<ProfilePageProps> = ({
               </div>
             </div>
             <div id="work-preferences-section">
-              <div style={{ display: "flex", alignItems: "baseline" }}>
-                <h2 data-h2-font-weight="b(600)" style={{ flex: "1 1 0%" }}>
+              <div
+                data-h2-margin="b(top, xl)"
+                style={{ display: "flex", alignItems: "baseline" }}
+              >
+                <h2
+                  data-h2-margin="b(top, none)"
+                  data-h2-font-weight="b(600)"
+                  style={{ flex: "1 1 0%" }}
+                >
                   <ThumbUpIcon style={{ width: "calc(1rem*2.25)" }} />
                   &nbsp;&nbsp;
                   {intl.formatMessage({
@@ -991,8 +1026,15 @@ export const ProfileForm: React.FC<ProfilePageProps> = ({
               </div>
             </div>
             <div id="diversity-section">
-              <div style={{ display: "flex", alignItems: "baseline" }}>
-                <h2 data-h2-font-weight="b(600)" style={{ flex: "1 1 0%" }}>
+              <div
+                data-h2-margin="b(top, xl)"
+                style={{ display: "flex", alignItems: "baseline" }}
+              >
+                <h2
+                  data-h2-margin="b(top, none)"
+                  data-h2-font-weight="b(600)"
+                  style={{ flex: "1 1 0%" }}
+                >
                   <UserCircleIcon style={{ width: "calc(1rem*2.25)" }} />
                   &nbsp;&nbsp;
                   {intl.formatMessage({
@@ -1075,8 +1117,15 @@ export const ProfileForm: React.FC<ProfilePageProps> = ({
               </div>
             </div>
             <div id="skills-section" data-h2-padding="b(bottom, xxl)">
-              <div style={{ display: "flex", alignItems: "baseline" }}>
-                <h2 data-h2-font-weight="b(600)" style={{ flex: "1 1 0%" }}>
+              <div
+                data-h2-margin="b(top, xl)"
+                style={{ display: "flex", alignItems: "baseline" }}
+              >
+                <h2
+                  data-h2-margin="b(top, none)"
+                  data-h2-font-weight="b(600)"
+                  style={{ flex: "1 1 0%" }}
+                >
                   <LightningBoltIcon style={{ width: "calc(1rem*2.25)" }} />
                   &nbsp;&nbsp;
                   {intl.formatMessage({
