@@ -82,6 +82,10 @@ services:
       #   login form will be used.
       # - we match specifically for client_id `fake-development-client-key`,
       #   which must be set in `.env`.
+      # - for now, we set interactiveLogin:false, as we can assume that any
+      #   login is for the ADMIN user with `sub` of `admin@test.com`. When we
+      #   need to login with multiple users, we'll need to enabled
+      #   interativeLogin and un-hardcode the "sub" in the response.
       JSON_CONFIG_PATH: /app/conf/mock-auth-server.json
       # Uncomment for direct access without proxy.
       # We override default port 8080 sincer already used by adminer container.

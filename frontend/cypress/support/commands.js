@@ -24,89 +24,86 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
-Cypress.Commands.add('expireAppSession', () => {
-  window.localStorage.removeItem('refresh_token')
-  window.localStorage.removeItem('id_token')
-  window.localStorage.removeItem('access_token')
-})
-
-Cypress.Commands.add('discardLaravelCookie', () => {
-  cy.clearCookie('laravel_session')
-})
-
-Cypress.Commands.add('discardIdentityProviderCookie', () => {
-  cy.clearCookie('api_session')
-})
-
-// TODO: Convert to using cy.request instead of UI.
-const loginByPassword = (email, password) => {
-  cy.visit('/login')
-  cy.get('input#email').type(email)
-  cy.get('input#password').type(password)
-  cy.get('button').contains('Log in').click()
-}
-
-const loginByRole = (userRole = 'admin') => {
-  cy.fixture('users.json').then(users => {
-    const user = users[userRole]
-    loginByPassword(user.email, user.password)
-  })
-}
+// See: https://testing-library.com/docs/cypress-testing-library/intro/
+import '@testing-library/cypress/add-commands'
 
 Cypress.Commands.add('login', (...args) => {
   let userRole, email, password, rest
   switch (args.length) {
-    // If no arg, use default arg.
+    // If no arg, assume we're using non-interactive login for admin user.
     case 0:
+      loginNonInteractive()
+      break
+    // If arg provided, assume it's a role.
     case 1:
       [userRole, ...rest] = args
       loginByRole(userRole)
       break
-    // 2+ args, use this strategy.
+    // No-op for password login with our mock server.
     case 2:
     default:
-      [email, password, ...rest] = args
+      [email, password] = args
       loginByPassword(email, password)
   }
 })
 
-Cypress.Commands.add('logout', () => {
-  cy.expireAppSession()
-  // These are not currently done as part of logout in UI.
-  // This purging perhaps could be added later, in order for user to be able to
-  // get to login screen again, but for now, tests should keep parity with UI.
-  //cy.discardLaravelCookie()
-  //cy.discardIdentityProviderCookie()
-})
+// Logs in with no user specified, assuming no login page.
+// Works only when mock-oauth2-server.json has set interactiveLogin:FALSE
+// TODO: Get this working without browser using cy.request().
+const loginNonInteractive = () => {
+  cy.intercept('POST', '/graphql').as('anyGraphQL')
+  cy.visit('/login')
+  cy.wait('@anyGraphQL')
+}
 
-// TODO: Convert to using cy.request instead of UI.
-Cypress.Commands.add('register', (firstName, lastName, email, password, strictFail = true) => {
-  const authorize = () => {
-    cy.get('button').contains('Login').click()
-    cy.get('button').contains('Authorize').click()
-  }
+// Logs in by role, using email from `fixtures/users.json`.
+// Works only when mock-oauth2-server.json has set interactiveLogin:TRUE
+// Current options: admin
+const loginByRole = (userRole = 'admin') => {
+  cy.fixture('users.json').then(users => {
+    const user = users[userRole]
 
-  cy.intercept('POST', '/auth/register').as('registerUser')
-
-  cy.visit('/auth/register')
-  cy.get('input#first_name').type(firstName)
-  cy.get('input#last_name').type(lastName)
-  cy.get('input#email').type(email)
-  cy.get('input#password').type(password)
-  cy.get('input#password_confirmation').type(password)
-  cy.get('button').contains('Register').click()
-  cy.wait('@registerUser')
-    .its('response.statusCode').should('eq', 302)
-
-  cy.url().then(url => {
-    // If user creattion fails, continue along.
-    // Helpful when creating a user that may already exist.
-    if (!strictFail) {
-      if (!url.includes('/auth/register')) {
-        authorize()
-      }
-    } else {
-      authorize()
-    }
+    cy.request('/login', {followRedirect: false}).then((data) => {
+      const resp = data.allRequestResponses[0]
+      const redirect = resp['Response Headers']['location']
+      const cookieHeaders = resp['Response Headers']['set-cookie']
+      cookieHeaders.forEach(cookieHeader => {
+        let [cookieName, cookieValue] = cookieHeader.split(';')[0].split('=')
+        cy.setCookie(cookieName, cookieValue)
+      })
+      cy.request({
+        method: 'POST',
+        followRedirect: false,
+        url: redirect,
+        form: true,
+        body: {
+          username: user.email,
+        },
+      }).then((data) => {
+        const resp = data.allRequestResponses[0]
+        const redirect = resp['Response Headers']['location']
+        cy.request(redirect, {followRedirect: false}).then((data) => {
+          const resp = data.allRequestResponses[0]
+          const redirect = resp['Response Headers']['location']
+          const urlObj = new URL(redirect)
+          const urlParams = new URLSearchParams(urlObj.search)
+          window.localStorage.setItem('id_token', urlParams.get('id_token'))
+          window.localStorage.setItem('access_token', urlParams.get('access_token'))
+          window.localStorage.setItem('refresh_token', urlParams.get('refresh_token'))
+        })
+      })
+    })
   })
+}
+
+// No-op placeholder function to document how our mock-oauth2-server works.
+const loginByPassword = (email, password) => {
+  throw new Error('Our mock server does not require login via email and password')
+}
+
+// Performs logout actions that the app would normally perform on its own.
+Cypress.Commands.add('logout', () => {
+  window.localStorage.removeItem('refresh_token')
+  window.localStorage.removeItem('id_token')
+  window.localStorage.removeItem('access_token')
 })
