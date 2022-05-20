@@ -86,7 +86,9 @@ services:
       #   login is for the ADMIN user with `sub` of `admin@test.com`. When we
       #   need to login with multiple users, we'll need to enabled
       #   interativeLogin and un-hardcode the "sub" in the response.
-      JSON_CONFIG_PATH: /app/conf/mock-auth-server.json
+      JSON_CONFIG_PATH: /app/conf/mock-oauth2-server.json
+    volumes:
+      - ./infrastructure/conf:/app/conf
       # Uncomment for direct access without proxy.
       # We override default port 8080 sincer already used by adminer container.
       #SERVER_PORT: 8081
