@@ -9,4 +9,4 @@ export default {
 
 const TemplateRoleSalaryForm: Story = () => <RoleSalaryForm />;
 
-export const form = TemplateRoleSalaryForm.bind({});
+export const formNoArgs = TemplateRoleSalaryForm.bind({});

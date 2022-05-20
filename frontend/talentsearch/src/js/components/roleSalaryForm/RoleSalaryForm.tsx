@@ -40,11 +40,10 @@ const ModalButton: React.FC<ModalButtonProps> = ({ click, children }) => {
       color="black"
       mode="inline"
       data-h2-padding="b(all, none)"
-      data-h2-font-weight="b(200)"
       data-h2-font-size="b(caption)"
       onClick={click}
     >
-      {children}
+      <span data-h2-font-style="b(underline)">{children}</span>;
     </Button>
   );
 };
@@ -88,84 +87,18 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
   };
 
   // intl styling functions section
+  // bolding, adding a link, and to add a button opening modals onto text
   function bold(msg: string) {
     return <span data-h2-font-weight="b(700)">{msg}</span>;
   }
-  function underline(msg: string) {
-    return <span data-h2-font-style="b(underline)">{msg}</span>;
+  function link(msg: string, url: string) {
+    return <a href={url}>{msg}</a>;
   }
-  function linkDigitalCommunity(msg: string) {
-    return (
-      <a href="https://www.canada.ca/en/government/system/digital-government/gcdigital-community/careers-digital.html">
-        {msg}
-      </a>
-    );
-  }
-  function modalOne(msg: string) {
+  function openModal(msg: string, setOpenStateFn: (state: boolean) => void) {
     return (
       <ModalButton
         click={(e) => {
-          setDialogLevel1Open(true);
-          e?.preventDefault();
-        }}
-      >
-        {msg}
-      </ModalButton>
-    );
-  }
-  function modalTwo(msg: string) {
-    return (
-      <ModalButton
-        click={(e) => {
-          setDialogLevel2Open(true);
-          e?.preventDefault();
-        }}
-      >
-        {msg}
-      </ModalButton>
-    );
-  }
-  function modalThreeLead(msg: string) {
-    return (
-      <ModalButton
-        click={(e) => {
-          setDialogLevel3LeadOpen(true);
-          e?.preventDefault();
-        }}
-      >
-        {msg}
-      </ModalButton>
-    );
-  }
-  function modalThreeAdvisor(msg: string) {
-    return (
-      <ModalButton
-        click={(e) => {
-          setDialogLevel3AdvisorOpen(true);
-          e?.preventDefault();
-        }}
-      >
-        {msg}
-      </ModalButton>
-    );
-  }
-  function modalFourManager(msg: string) {
-    return (
-      <ModalButton
-        click={(e) => {
-          setDialogLevel4ManagerOpen(true);
-          e?.preventDefault();
-        }}
-      >
-        {msg}
-      </ModalButton>
-    );
-  }
-  function modalFourAdvisor(msg: string) {
-    return (
-      <ModalButton
-        click={(e) => {
-          setDialogLevel4AdvisorOpen(true);
+          setOpenStateFn(true);
           e?.preventDefault();
         }}
       >
@@ -240,11 +173,14 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
               label: intl.formatMessage(
                 {
                   defaultMessage:
-                    "Level 1: Technician ($60,000 to $78,000). <modalOne><underline>Learn about IT-01</underline></modalOne>",
+                    "Level 1: Technician ($60,000 to $78,000). <openModal>Learn about IT-01</openModal>",
                   description:
                     "Checkbox label for Level IT-01 selection, ignore things in <> tags please",
                 },
-                { modalOne, underline },
+                {
+                  openModal: (msg: string) =>
+                    openModal(msg, setDialogLevel1Open),
+                },
               ),
             },
             {
@@ -252,11 +188,14 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
               label: intl.formatMessage(
                 {
                   defaultMessage:
-                    "Level 2: Analyst ($75,000 to $91,000). <modalTwo><underline>Learn about IT-02</underline></modalTwo>",
+                    "Level 2: Analyst ($75,000 to $91,000). <openModal>Learn about IT-02</openModal>",
                   description:
                     "Checkbox label for Level IT-02 selection, ignore things in <> tags please",
                 },
-                { modalTwo, underline },
+                {
+                  openModal: (msg: string) =>
+                    openModal(msg, setDialogLevel2Open),
+                },
               ),
             },
             {
@@ -264,11 +203,14 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
               label: intl.formatMessage(
                 {
                   defaultMessage:
-                    "Level 3: Team Leader ($88,000 to $110,000). <modalThreeLead><underline>Learn about IT-03</underline></modalThreeLead>",
+                    "Level 3: Team Leader ($88,000 to $110,000). <openModal>Learn about IT-03</openModal>",
                   description:
                     "Checkbox label for Level IT-03 leader selection, ignore things in <> tags please",
                 },
-                { modalThreeLead, underline },
+                {
+                  openModal: (msg: string) =>
+                    openModal(msg, setDialogLevel3LeadOpen),
+                },
               ),
             },
             {
@@ -276,11 +218,14 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
               label: intl.formatMessage(
                 {
                   defaultMessage:
-                    "Level 3: Technical Advisor ($88,000 to $110,000). <modalThreeAdvisor><underline>Learn about IT-03</underline></modalThreeAdvisor>",
+                    "Level 3: Technical Advisor ($88,000 to $110,000). <openModal>Learn about IT-03</openModal>",
                   description:
                     "Checkbox label for Level IT-03 advisor selection, ignore things in <> tags please",
                 },
-                { modalThreeAdvisor, underline },
+                {
+                  openModal: (msg: string) =>
+                    openModal(msg, setDialogLevel3AdvisorOpen),
+                },
               ),
             },
             {
@@ -288,11 +233,14 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
               label: intl.formatMessage(
                 {
                   defaultMessage:
-                    "Level 4: Senior Advisor ($101,000 to $126,000). <modalFourAdvisor><underline>Learn about IT-04</underline></modalFourAdvisor>",
+                    "Level 4: Senior Advisor ($101,000 to $126,000). <openModal>Learn about IT-04</openModal>",
                   description:
                     "Checkbox label for Level IT-04 senior advisor selection, ignore things in <> tags please",
                 },
-                { modalFourAdvisor, underline },
+                {
+                  openModal: (msg: string) =>
+                    openModal(msg, setDialogLevel4AdvisorOpen),
+                },
               ),
             },
             {
@@ -300,11 +248,14 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
               label: intl.formatMessage(
                 {
                   defaultMessage:
-                    "Level 4: Manager ($101,000 to $126,000). <modalFourManager><underline>Learn about IT-04</underline></modalFourManager>",
+                    "Level 4: Manager ($101,000 to $126,000). <openModal>Learn about IT-04</openModal>",
                   description:
                     "Checkbox label for Level IT-04 manager selection, ignore things in <> tags please",
                 },
-                { modalFourManager, underline },
+                {
+                  openModal: (msg: string) =>
+                    openModal(msg, setDialogLevel4ManagerOpen),
+                },
               ),
             },
           ]}
@@ -320,10 +271,16 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
               {intl.formatMessage(
                 {
                   defaultMessage:
-                    "<linkDigitalCommunity>Click here to learn more about classifications in the Government of Canada's Digital Community.</linkDigitalCommunity>",
+                    "<link>Click here to learn more about classifications in the Government of Canada's Digital Community.</link>",
                   description: "Link to learn more about classifications",
                 },
-                { linkDigitalCommunity },
+                {
+                  link: (msg: string) =>
+                    link(
+                      msg,
+                      "https://www.canada.ca/en/government/system/digital-government/gcdigital-community/careers-digital.html",
+                    ),
+                },
               )}
             </span>
           </p>
