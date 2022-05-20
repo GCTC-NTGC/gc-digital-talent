@@ -6,6 +6,7 @@ DirectorySlash off
     # Strip trailing slash from all urls and redirect back to public url, unless already pointing to a public folder
     RewriteCond %{REQUEST_URI} ^/(.+)/$
     RewriteCond %{REQUEST_URI} !/public/$
+    RewriteCond %{REQUEST_URI} !/dist/$
     RewriteRule ^ %{ENV:APP_URL}/%1 [L,R=301]
 
     # Send auth requests to auth folder (only for local environments)
