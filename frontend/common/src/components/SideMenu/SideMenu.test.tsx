@@ -15,7 +15,7 @@ const defaultProps = {
 };
 
 const icon = () => <>Icon</>;
-const openClass = "side-menu--active";
+const openClass = "side-menu--open";
 
 const renderSideMenu = (props: SideMenuProps) => {
   return render(
@@ -28,22 +28,26 @@ const renderSideMenu = (props: SideMenuProps) => {
 };
 
 describe("SideMenu", () => {
-  it("Should be closed if isOpen false", () => {
+  it("Should be closed if isOpen false", async () => {
     renderSideMenu({
       ...defaultProps,
       isOpen: false,
     });
 
-    expect(
-      screen.getByRole("navigation", { name: /main menu/i }),
-    ).not.toHaveClass(openClass);
+    const container = await screen.getByRole("navigation", {
+      name: /main menu/i,
+    }).parentElement?.parentElement;
+
+    expect(container).not.toHaveClass(openClass);
   });
 
-  it("Should be open if isOpen true", () => {
+  it("Should be open if isOpen true", async () => {
     renderSideMenu(defaultProps);
 
-    expect(screen.getByRole("navigation", { name: /main menu/i })).toHaveClass(
-      openClass,
-    );
+    const container = await screen.getByRole("navigation", {
+      name: /main menu/i,
+    }).parentElement?.parentElement;
+
+    expect(container).toHaveClass(openClass);
   });
 });
