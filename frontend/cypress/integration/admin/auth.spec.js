@@ -27,14 +27,6 @@ describe('Auth flows (development)', () => {
   }
 
   context('Anonymous visitor', () => {
-    it('sets cookies on login redirect page', () => {
-      cy.getCookie('api_session').should('not.exist')
-      cy.getCookie('XSRF-TOKEN').should('not.exist')
-      cy.request({ url: '/login', followRedirect: false }).then(() => {
-        cy.getCookie('api_session').should('exist')
-        cy.getCookie('XSRF-TOKEN').should('exist')
-      })
-    })
 
     it('prevents viewing content on restricted pages', () => {
       [
@@ -61,12 +53,41 @@ describe('Auth flows (development)', () => {
       })
     })
 
+  })
+
+  context('Login', () => {
+
+    it('sets JWT tokens in local storage', () => {
+      expect(localStorage.getItem('id_token')).not.to.exist
+      expect(localStorage.getItem('access_token')).not.to.exist
+      expect(localStorage.getItem('refresh_token')).not.to.exist
+      cy.login('admin').then(() => {
+        expect(localStorage.getItem('id_token')).to.exist
+        expect(localStorage.getItem('access_token')).to.exist
+        expect(localStorage.getItem('refresh_token')).to.exist
+      })
+    })
+
+    it('sets cookies on login redirect page', () => {
+      cy.getCookie('api_session').should('not.exist')
+      cy.getCookie('XSRF-TOKEN').should('not.exist')
+      cy.request({ url: '/login', followRedirect: false }).then(() => {
+        cy.getCookie('api_session').should('exist')
+        cy.getCookie('XSRF-TOKEN').should('exist')
+      })
+    })
+
+    // TODO: write this
+    // See: https://www.oauth.com/playground/oidc.html
+    it.skip('should fail if the state value is tampered with', () => {
+    })
+
     // This test will only work on Chrome-based browsers, since visiting the
     // mock auth server requires violating same-origin policy, and this only
     // works on Chrome (and only because we've disabled it in cypress.json).
     // See: https://docs.cypress.io/guides/guides/web-security#Disabling-Web-Security
     // (This also requires two envvars to be set in in frontend/.apache_env)
-    it.skip('successfully logs in as existing admin user', () => {
+    it.skip('succeeds for an existing admin user', () => {
       const initialPath = '/en/admin/skills'
       cy.visit(initialPath)
       // Limit to nav because two login buttons on main page.
@@ -94,16 +115,11 @@ describe('Auth flows (development)', () => {
           .should('exist').and('be.visible')
       })
     })
+
   })
 
   context('Authenticated', () => {
     beforeEach(() => cy.login('admin'))
-
-    it('sets JWT tokens in local storage', () => {
-      expect(localStorage.getItem('id_token')).to.exist
-      expect(localStorage.getItem('access_token')).to.exist
-      expect(localStorage.getItem('refresh_token')).to.exist
-    })
 
     it('allows logout', () => {
       cy.visit('/admin')
@@ -121,5 +137,6 @@ describe('Auth flows (development)', () => {
       cy.findByRole('button', { name: 'Login' })
         .should('exist').and('be.visible')
     })
+
   })
 })
