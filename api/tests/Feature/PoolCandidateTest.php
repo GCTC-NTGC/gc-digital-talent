@@ -836,5 +836,26 @@ class PoolCandidateTest extends TestCase
       ]
     ]);
   }
+
+  public function testFilterByExpiryDate(): void
+  {
+    // Create initial data.
+    PoolCandidate::factory()->create([
+      'expiry_date' => '2000-05-13',
+    ]);
+
+    // Assert query with no filters will return proper candidate count
+    $this->graphQL(/** @lang Graphql */ '
+      query countPoolCandidates($where: PoolCandidateFilterInput) {
+        countPoolCandidates(where: $where)
+      }
+    ', [
+      'where' => []
+    ])->assertJson([
+      'data' => [
+        'countPoolCandidates' => 0
+      ]
+    ]);
+  }
 }
 

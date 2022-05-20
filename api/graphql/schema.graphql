@@ -539,9 +539,9 @@ type Query {
     poolCandidate(id: ID! @eq): PoolCandidate @find @guard @can(ability: "view", query: true)
     poolCandidates: [PoolCandidate]! @all @guard @can(ability: "viewAny")
     # countPoolCandidates returns the number of candidates matching its filters, and requires no special permissions.
-    countPoolCandidates(where: PoolCandidateFilterInput): Int! @count(model: "PoolCandidate")
+    countPoolCandidates(where: PoolCandidateFilterInput): Int! @count(model: "PoolCandidate" scopes: ["excludeExpired"])
     # searchPoolCandidates returns the actual candidates matching a filter, and requires permissions.
-    searchPoolCandidates(where: PoolCandidateFilterInput): [PoolCandidate]! @all @guard @can(ability: "viewAny")
+    searchPoolCandidates(where: PoolCandidateFilterInput): [PoolCandidate]! @all(scopes: ["excludeExpired"]) @guard @can(ability: "viewAny")
     classification(id: ID! @eq): Classification @find
     classifications: [Classification]! @all
     cmoAsset(id: ID! @eq): CmoAsset @find

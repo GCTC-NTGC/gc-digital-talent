@@ -269,6 +269,8 @@ RAWSQL2;
         }
         return $query;
     }
-
-
+    public function scopeExcludeExpired(Builder $query) {
+        $query->whereDate('expiry_date', '>=', date("Y-m-d"));
+        return $query;
+    }
 }
