@@ -43,7 +43,7 @@ const ModalButton: React.FC<ModalButtonProps> = ({ click, children }) => {
       data-h2-font-size="b(caption)"
       onClick={click}
     >
-      <span data-h2-font-style="b(underline)">{children}</span>;
+      <span data-h2-font-style="b(underline)">{children}</span>
     </Button>
   );
 };
