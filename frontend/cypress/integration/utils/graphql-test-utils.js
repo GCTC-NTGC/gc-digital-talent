@@ -1,8 +1,3 @@
-const capitalize = (s) => {
-  if (typeof s !== 'string') return ''
-  return s.charAt(0).toUpperCase() + s.slice(1)
-}
-
 // Source: https://docs.cypress.io/guides/testing-strategies/working-with-graphql
 
 // Utility to match GraphQL mutation based on the operation name
@@ -19,7 +14,7 @@ export const aliasQuery = (req, operationName) => {
     // We capitalize this because we camelcase our operations,
     // but want aliases like @gqlFooBarQuery, not @gqlfooBarQuery.
     // TODO: Consider capitalizing our operation names.
-    req.alias = `gql${capitalize(operationName)}Query`
+    req.alias = `gql${operationName}Query`
   }
 }
 

@@ -11,13 +11,13 @@ describe('Auth flows (development)', () => {
 
   const onDashboard = () => {
     cy.intercept('POST', '/graphql', (req) => {
-      // Creates alias: @gqlGetMeQuery
+      // Creates alias: @gqlgetMeQuery
       aliasQuery(req, 'getMe')
     })
 
     cy.url().should('match', new RegExp(`^${ Cypress.config().baseUrl }/en/admin/dashboard$`))
     // Heading won't render until we know user details.
-    cy.wait('@gqlGetMeQuery')
+    cy.wait('@gqlgetMeQuery')
     cy.get('h1').contains('Welcome back,').should('exist').and('be.visible')
   }
 
