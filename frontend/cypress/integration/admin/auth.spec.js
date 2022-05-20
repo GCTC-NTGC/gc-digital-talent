@@ -27,6 +27,14 @@ describe('Auth flows (development)', () => {
   }
 
   context('Anonymous visitor', () => {
+    it('sets cookies on login redirect page', () => {
+      cy.getCookie('api_session').should('not.exist')
+      cy.getCookie('XSRF-TOKEN').should('not.exist')
+      cy.request({ url: '/login', followRedirect: false })
+      cy.getCookie('api_session').should('exist')
+      cy.getCookie('XSRF-TOKEN').should('exist')
+    })
+
     it('prevents viewing content on restricted pages', () => {
       [
         '/en/admin/dashboard',
