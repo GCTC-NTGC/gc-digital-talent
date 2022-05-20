@@ -718,7 +718,7 @@ enum PoolCandidateStatus {
   NO_LONGER_INTERESTED
   UNAVAILABLE
   EXPIRED
-  PLACE_CASUAL
+  PLACED_CASUAL
 }
 
 input PoolFilterInput {
