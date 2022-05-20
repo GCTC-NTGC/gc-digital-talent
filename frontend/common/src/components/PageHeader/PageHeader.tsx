@@ -12,7 +12,7 @@ const PageHeader: React.FC<PageHeaderProps> = ({ icon, children, ...rest }) => {
   return (
     <h1
       data-h2-display="b(flex)"
-      data-h2-font-weight="b(800)"
+      data-h2-font-weight="b(300)"
       data-h2-align-items="b(center)"
       data-h2-margin="b(top, none) b(bottom, m)"
       data-h2-justify-content="b(start)"
