@@ -1,5 +1,5 @@
 {
-  "interactiveLogin": false,
+  "interactiveLogin": true,
   "tokenCallbacks": [
     {
       "issuerId": "oxauth",
