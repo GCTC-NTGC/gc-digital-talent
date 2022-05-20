@@ -44,7 +44,7 @@ class ClassificationSeeder extends Seeder
             array_merge(
                 $itGroup,
                 [
-                    'level' => 3
+                    'level' => 3,
                     'min_salary' => 88683,
                     'max_salary' => 110182,
                 ]
@@ -85,7 +85,7 @@ class ClassificationSeeder extends Seeder
             array_merge(
                 $asGroup,
                 [
-                    'level' => 3
+                    'level' => 3,
                     'min_salary' => 53139,
                     'max_salary' => 56390,
                 ]
