@@ -1,22 +1,19 @@
 /**
  * @jest-environment jsdom
  */
-
 import React from "react";
-import { screen, render, fireEvent } from "@testing-library/react";
+import { screen, fireEvent } from "@testing-library/react";
 import { Scalars, Skill } from "@common/api/generated";
 import { fakeSkills } from "@common/fakeData";
+import { render } from "../../../tests/testUtils";
 import AddedSkills from ".";
-import IntlContainer from "../../IntlContainer";
 
 function renderContainer(
   skills: Skill[],
   handleRemoveSkill: (id: Scalars["ID"]) => void,
 ) {
   return render(
-    <IntlContainer locale="en">
-      <AddedSkills skills={skills} onRemoveSkill={handleRemoveSkill} />,
-    </IntlContainer>,
+    <AddedSkills skills={skills} onRemoveSkill={handleRemoveSkill} />,
   );
 }
 

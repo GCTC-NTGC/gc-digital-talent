@@ -1,12 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import LanguageRedirectContainer from "@common/components/LanguageRedirectContainer";
+
 import { PoolDashboard } from "./components/PoolDashboard";
-import { getMessages } from "./components/IntlContainer";
+import ContextContainer from "./components/context";
 
 ReactDOM.render(
-  <LanguageRedirectContainer getMessages={getMessages}>
+  <ContextContainer>
     <PoolDashboard />
-  </LanguageRedirectContainer>,
+  </ContextContainer>,
   document.getElementById("app"),
 );

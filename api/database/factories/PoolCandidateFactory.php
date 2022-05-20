@@ -70,14 +70,4 @@ class PoolCandidateFactory extends Factory
             'accepted_operational_requirements' => $this->faker->optional->randomElements(ApiEnums::operationalRequirements(), 2),
         ];
     }
-
-    public function configure()
-    {
-        return $this->afterCreating(function (PoolCandidate $candidate) {
-            $assets = CmoAsset::inRandomOrder()->limit(4)->get();
-            $classifications = Classification::inRandomOrder()->limit(3)->get();
-            $candidate->cmoAssets()->saveMany($assets);
-            $candidate->expectedClassifications()->saveMany($classifications);
-        });
-    }
 }

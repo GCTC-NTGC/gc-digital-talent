@@ -35,7 +35,7 @@ type User {
     # Personal info
     firstName: String @rename(attribute: "first_name")
     lastName: String @rename(attribute: "last_name")
-    email: Email!
+    email: Email
     telephone: PhoneNumber
     preferredLang: Language @rename(attribute: "preferred_lang")
     currentProvince: ProvinceOrTerritory @rename(attribute: "current_province")
@@ -91,6 +91,9 @@ type User {
 
     # Pool Manager info
     pools: [Pool] @hasMany # Pools a user owns
+
+    # Profile Status
+    isProfileComplete: Boolean
 }
 
 enum ProvinceOrTerritory {
@@ -149,7 +152,7 @@ type Applicant {
     # Personal info
     firstName: String @rename(attribute: "first_name")
     lastName: String @rename(attribute: "last_name")
-    email: Email!
+    email: Email
     telephone: PhoneNumber
     preferredLang: Language @rename(attribute: "preferred_lang")
     currentProvince: ProvinceOrTerritory @rename(attribute: "current_province")
@@ -549,6 +552,7 @@ type Query {
     poolCandidateFilters: [PoolCandidateFilter]! @all @guard @can(ability: "viewAny")
     poolCandidateSearchRequest(id: ID! @eq): PoolCandidateSearchRequest @find @guard @can(ability: "view", query: true)
     poolCandidateSearchRequests: [PoolCandidateSearchRequest]! @all @guard @can(ability: "viewAny")
+    latestPoolCandidateSearchRequests(limit: Int @limit): [PoolCandidateSearchRequest]! @all @orderBy(column: "created_at", direction: DESC) @guard @can(ability: "viewAny")
     skillFamily(id: ID! @eq): SkillFamily @find
     skillFamilies: [SkillFamily]! @all
     skill(id: ID! @eq): Skill @find

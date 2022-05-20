@@ -7,15 +7,13 @@ on:
       - .github/workflows/storybook.yml
       - frontend/**
   pull_request:
-    branches-ignore:
-      # Avoids consuming limited Chromatic snapshots on dependabot PRs.
-      - dependabot/**
     paths:
       - .github/workflows/storybook.yml
       - frontend/**
 
 jobs:
   deployment:
+    if: ${{ github.actor != 'dependabot[bot]' }}
     runs-on: ubuntu-latest
     env:
       NPM_VERSION: '8.3.0'

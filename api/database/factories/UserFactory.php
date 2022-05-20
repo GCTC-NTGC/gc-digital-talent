@@ -33,11 +33,13 @@ class UserFactory extends Factory
             'P',
         ];
 
+        $randomClassification = Classification::inRandomOrder()->first();
+
         return [
             'first_name' => $this->faker->firstName(),
             'last_name' => $this->faker->lastName(),
-            'email' => $this->faker->unique()->safeEmail,
-            //'sub' => filled in User::creating event
+            'email' => $this->faker->boolean(75) ? $this->faker->unique()->safeEmail : null,
+            'sub' => $this->faker->boolean(75) ? $this->faker->unique()->uuid() : null,
             'telephone' => $this->faker->e164PhoneNumber(),
             'preferred_lang' => $this->faker->randomElement(['en', 'fr']),
             'roles' => [],
@@ -86,7 +88,7 @@ class UserFactory extends Factory
             ]),
             'is_gov_employee' => $this->faker->boolean(),
             'interested_in_later_or_secondment' => $this->faker->boolean(),
-            'current_classification' => Classification::factory(),
+            'current_classification' => $randomClassification ? $randomClassification->id : null,
             'is_woman' => $this->faker->boolean(),
             'has_disability' => $this->faker->boolean(),
             'is_indigenous' => $this->faker->boolean(),

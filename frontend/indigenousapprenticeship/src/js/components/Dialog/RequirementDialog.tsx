@@ -31,7 +31,7 @@ const RequirementDialog: React.FC<BasicDialogProps> = ({
         <li>
           {intl.formatMessage({
             defaultMessage:
-              "Self-identify as First Nations (status or non-status), Inuit, or Métis",
+              "Are First Nations (status or non-status), Inuit, or Métis",
             description: "IAP Requirement list item one",
           })}
         </li>

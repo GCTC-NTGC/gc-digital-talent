@@ -43,22 +43,24 @@
   "peerDependencies": {
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-hook-form": "^7.30.0"
+    "react-hook-form": "^7.31.1"
   },
   "dependencies": {
     "@heroicons/react": "^1.0.6",
     "@reach/dialog": "^0.17.0",
     "@testing-library/react-hooks": "^8.0.0",
+    "@urql/exchange-auth": "^0.1.7",
     "graphql": "^16.4.0",
     "history": "^5.3.0",
+    "jwt-decode": "^3.1.2",
     "lodash": "^4.17.21",
     "path-browserify": "^1.0.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-hook-form": "^7.30.0",
+    "react-hook-form": "^7.31.1",
     "react-intl": "^5.25.1",
     "react-select": "^5.3.1",
-    "react-toastify": "^8.2.0",
+    "react-toastify": "^9.0.1",
     "universal-router": "^9.1.0",
     "urql": "^2.2.0"
   },
@@ -82,9 +84,9 @@
     "@testing-library/jest-dom": "^5.16.3",
     "@testing-library/react": "^12.1.4",
     "@testing-library/react-hooks": "^8.0.0",
-    "@types/jest": "^27.4.1",
+    "@types/jest": "^27.5.1",
     "@types/lodash": "^4.14.182",
-    "@types/node": "^17.0.31",
+    "@types/node": "^17.0.33",
     "@types/path-browserify": "^1.0.0",
     "@types/react": "^17.0.43",
     "@types/react-select": "^5.0.1",
@@ -101,12 +103,13 @@
     "eslint-plugin-promise": "^6.0.0",
     "eslint-plugin-react": "^7.29.4",
     "eslint-plugin-react-hooks": "^4.5.0",
-    "jest": "^27.5.1",
+    "jest": "^28.0.3",
+    "jest-environment-jsdom": "^28.0.2",
     "prettier": "^2.6.2",
     "storybook-addon-intl": "^2.4.1",
-    "ts-jest": "^27.1.4",
+    "ts-jest": "^28.0.1",
     "ts-loader": "^9.3.0",
     "typescript": "^4.6.4",
-    "yargs": "^17.4.0"
+    "yargs": "^17.5.0"
   }
 }

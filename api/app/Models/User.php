@@ -90,7 +90,7 @@ class User extends Model implements Authenticatable
 
     public function isAdmin(): bool
     {
-        return in_array('ADMIN', $this->roles);
+        return is_array($this->roles) && in_array('ADMIN', $this->roles);
     }
 
     // All the relationships for experiences
@@ -133,29 +133,30 @@ class User extends Model implements Authenticatable
     protected static function boot()
     {
         parent::boot();
-
-        static::creating(function ($model)
-        {
-            $model->generateSubject();
-        });
     }
 
-     /**
-     * Generates the value for the User::sub field. Used to
-     * support authentication.
-     * @return bool
-     */
-    protected function generateSubject()
-    {
-        // TODO when moving to Sign In Canada we won't be using email any more
+     // getIsProfileCompleteAttribute function is correspondent to isProfileComplete attribute in graphql schema
 
-        // fill sub with email if not already filled
-        if( !array_key_exists('sub', $this->attributes) )
-            $this->attributes['sub'] = $this->attributes['email'];
-
-        if( is_null($this->attributes['sub']) )
-            return false; // failed to create subject
-        else
+   public function getIsProfileCompleteAttribute(): bool
+    {if(is_null($this->attributes['first_name']) Or
+        is_null($this->attributes['last_name']) Or
+        is_null($this->attributes['email']) Or
+        is_null($this->attributes['telephone']) Or
+        is_null($this->attributes['preferred_lang']) Or
+        is_null($this->attributes['current_province']) Or
+        is_null($this->attributes['current_city']) Or
+            (is_null($this->attributes['looking_for_english']) &&
+            is_null($this->attributes['looking_for_french']) &&
+            is_null($this->attributes['looking_for_bilingual'])) Or
+        is_null($this->attributes['is_gov_employee']) Or
+        is_null($this->attributes['location_preferences']) Or
+        is_null($this->attributes['expected_salary']) Or
+        is_null($this->attributes['would_accept_temporary'])
+        )   {
+            return false;
+            }
+        else{
             return true;
+        }
     }
 }

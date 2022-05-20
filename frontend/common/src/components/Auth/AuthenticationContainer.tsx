@@ -1,19 +1,16 @@
 import React, { useEffect, useMemo, useState } from "react";
+import jwtDecode, { JwtPayload } from "jwt-decode";
 import {
   clearQueryParams,
   parseUrlQueryParameters,
   useLocation,
-} from "@common/helpers/router";
-import jwtDecode, { JwtPayload } from "jwt-decode";
-import { useAdminRoutes } from "../adminRoutes";
-import { useApiRoutes } from "../apiRoutes";
-import { LOGOUT_URI, POST_LOGOUT_REDIRECT } from "../adminConstants";
+} from "../../helpers/router";
 
 const ACCESS_TOKEN = "access_token";
 const REFRESH_TOKEN = "refresh_token";
 const ID_TOKEN = "id_token";
 
-interface AuthState {
+interface AuthenticationState {
   loggedIn: boolean;
   accessToken: string | null;
   refreshToken: string | null;
@@ -28,7 +25,7 @@ interface TokenSet {
   idToken: string | null;
 }
 
-export const AuthContext = React.createContext<AuthState>({
+export const AuthenticationContext = React.createContext<AuthenticationState>({
   loggedIn: false,
   accessToken: null,
   refreshToken: null,
@@ -39,7 +36,11 @@ export const AuthContext = React.createContext<AuthState>({
   refreshTokenSet: () => Promise.resolve(null),
 });
 
-const logoutAndRefreshPage = (homePath: string): void => {
+const logoutAndRefreshPage = (
+  homePath: string,
+  logoutUri: string | undefined,
+  logoutRedirectUri: string | undefined,
+): void => {
   // capture tokens before they are removed
   const accessToken = localStorage.getItem(ACCESS_TOKEN);
   const idToken = localStorage.getItem(ID_TOKEN);
@@ -51,14 +52,14 @@ const logoutAndRefreshPage = (homePath: string): void => {
 
   // check if we have everything we need to do an auth session end
   let authLogOutUri = null;
-  if (accessToken && LOGOUT_URI && POST_LOGOUT_REDIRECT) {
+  if (accessToken && logoutUri && logoutRedirectUri) {
     let tokenIsKnownToBeActive = false;
     const decodedAccessToken = jwtDecode<JwtPayload>(accessToken);
     if (decodedAccessToken.exp)
       tokenIsKnownToBeActive = Date.now() < decodedAccessToken.exp * 1000; // JWT expiry date in seconds, not milliseconds
     if (tokenIsKnownToBeActive) {
       // we probably have an active session with the auth provider so we need to sign out of it
-      authLogOutUri = `${LOGOUT_URI}?post_logout_redirect_uri=${POST_LOGOUT_REDIRECT}`;
+      authLogOutUri = `${logoutUri}?post_logout_redirect_uri=${logoutRedirectUri}`;
       if (idToken) authLogOutUri += `&id_token_hint=${idToken}`;
     }
   }
@@ -119,7 +120,20 @@ function getTokensFromLocation(
   return null;
 }
 
-export const AuthContainer: React.FC = ({ children }) => {
+interface AuthenticationContainerProps {
+  homePath: string;
+  tokenRefreshPath: string;
+  logoutUri: string | undefined;
+  logoutRedirectUri: string | undefined;
+}
+
+const AuthenticationContainer: React.FC<AuthenticationContainerProps> = ({
+  tokenRefreshPath,
+  homePath,
+  logoutUri,
+  logoutRedirectUri,
+  children,
+}) => {
   const [existingTokens, setTokens] = useState({
     accessToken: localStorage.getItem(ACCESS_TOKEN),
     refreshToken: localStorage.getItem(REFRESH_TOKEN),
@@ -128,10 +142,6 @@ export const AuthContainer: React.FC = ({ children }) => {
 
   const location = useLocation();
   const newTokens = getTokensFromLocation(location);
-  const adminPaths = useAdminRoutes();
-  const apiPaths = useApiRoutes();
-  const homePath = adminPaths.home();
-  const refreshTokenSetPath = apiPaths.refreshAccessToken();
 
   // If newTokens is not null, then we have a new access token in the url. Save it in local storage and in state hook, then clear query parameters.
   useEffect(() => {
@@ -154,20 +164,20 @@ export const AuthContainer: React.FC = ({ children }) => {
 
   // If tokens were just found in the url, then get them from newTokens instead of state hook, which will update asynchronously.
   const tokens = newTokens ?? existingTokens;
-  const state = useMemo<AuthState>(() => {
+  const state = useMemo<AuthenticationState>(() => {
     return {
       accessToken: tokens.accessToken,
       idToken: tokens.idToken,
       refreshToken: tokens.refreshToken,
       loggedIn: !!tokens.accessToken,
       logout: tokens.accessToken
-        ? () => logoutAndRefreshPage(homePath)
+        ? () => logoutAndRefreshPage(homePath, logoutUri, logoutRedirectUri)
         : () => {
             /* If not logged in, logout does nothing. */
           },
       refreshTokenSet: () =>
         tokens.refreshToken
-          ? refreshTokenSet(refreshTokenSetPath, tokens.refreshToken, setTokens)
+          ? refreshTokenSet(tokenRefreshPath, tokens.refreshToken, setTokens)
           : Promise.resolve(null),
     };
   }, [
@@ -175,10 +185,16 @@ export const AuthContainer: React.FC = ({ children }) => {
     tokens.idToken,
     tokens.refreshToken,
     homePath,
-    refreshTokenSetPath,
+    logoutUri,
+    logoutRedirectUri,
+    tokenRefreshPath,
   ]);
 
-  return <AuthContext.Provider value={state}>{children}</AuthContext.Provider>;
+  return (
+    <AuthenticationContext.Provider value={state}>
+      {children}
+    </AuthenticationContext.Provider>
+  );
 };
 
-export default AuthContainer;
+export default AuthenticationContainer;

@@ -1,56 +1,56 @@
 fragment poolCandidateTable on PoolCandidate {
-  id,
+  id
   pool {
-    id,
+    id
     name {
-      en,
-      fr
-    },
-    classifications {
-      id,
-      name {
-        en,
-        fr
-      },
-      group,
-      level
-    },
-  },
-  user {
-    id,
-    firstName,
-    lastName,
-    email,
-    preferredLang
-    telephone
-  },
-  cmoIdentifier,
-  expiryDate,
-  isWoman,
-  hasDisability,
-  isIndigenous,
-  isVisibleMinority,
-  hasDiploma,
-  languageAbility,
-  locationPreferences,
-  acceptedOperationalRequirements
-  expectedSalary,
-  expectedClassifications {
-    id,
-    name {
-      en,
+      en
       fr
     }
-    group,
+    classifications {
+      id
+      name {
+        en
+        fr
+      }
+      group
+      level
+    }
+  }
+  user {
+    id
+    firstName
+    lastName
+    email
+    preferredLang
+    telephone
+  }
+  cmoIdentifier
+  expiryDate
+  isWoman
+  hasDisability
+  isIndigenous
+  isVisibleMinority
+  hasDiploma
+  languageAbility
+  locationPreferences
+  acceptedOperationalRequirements
+  expectedSalary
+  expectedClassifications {
+    id
+    name {
+      en
+      fr
+    }
+    group
     level
   }
   cmoAssets {
-    id,
+    id
     name {
-      en,
+      en
       fr
     }
-  },
+  }
   status
 }
 

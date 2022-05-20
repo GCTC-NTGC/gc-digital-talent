@@ -53,6 +53,7 @@ export type CommunityFormValues = FormValueDateRange & {
   organization: string;
   project: string;
   startDate: Scalars["Date"];
+  currentRole: boolean;
   endDate?: Scalars["Date"];
 };
 
@@ -83,7 +84,8 @@ export type ExperienceDetailsSubmissionData = {
   description?: string;
   details?: string;
   division?: string;
-  endDate?: Scalars["Date"];
+  currentRole?: boolean;
+  endDate?: Scalars["Date"] | null;
   institution?: string;
   issuedBy?: string;
   organization?: string;

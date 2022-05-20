@@ -25,6 +25,8 @@ nuage
 Nuwave
 pgsql
 Queueable
+recruitmentimit
+recrutementgiti
 resumé
 subquery
 TALENTSEARCH
