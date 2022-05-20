@@ -23,7 +23,7 @@ export type FormValues = Pick<User, "firstName" | "lastName">;
 export type RoleSalaryUpdateHandler = (
   id: string,
   data: UpdateUserAsUserInput,
-) => void;
+) => void; // replace with Promise<void> when filling API in TODO
 
 export interface RoleSalaryFormProps {
   initialUser?: User | null;
@@ -77,7 +77,7 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
   }
   function linkDigitalCommunity(msg: string) {
     return (
-      <a href=" https://www.canada.ca/en/government/system/digital-government/gcdigital-community/careers-digital.html">
+      <a href="https://www.canada.ca/en/government/system/digital-government/gcdigital-community/careers-digital.html">
         {msg}
       </a>
     );
@@ -160,6 +160,19 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
       </span>
     );
   }
+
+  // TODO, uncomment after API connected
+  // if (!initialUser) {
+  //   return (
+  //     <p>
+  //       {intl.formatMessage({
+  //         defaultMessage: "Could not load user.",
+  //         description:
+  //           "Error message that appears when current user could not be retrieved.",
+  //       })}
+  //     </p>
+  //   );
+  // }
 
   return (
     <ProfileFormWrapper
