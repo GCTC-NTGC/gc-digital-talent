@@ -8,30 +8,9 @@ const UserAggregateDocumentPage: React.FunctionComponent = () => {
   const [result] = useGetDataUserAggregateDocumentQuery();
   const { data, fetching, error } = result;
 
-  const pageStyle = `
-  @page {
-    size: letter portrait;
-  }
-
-  @media all {
-    .page-break {
-      display: none;
-    }
-  }
-
-  @media print {
-    .page-break {
-      margin-top: 1rem;
-      display: block;
-      page-break-after: always;
-    }
-  }
-`;
-
   const componentRef = useRef(null);
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
-    pageStyle,
     documentTitle: "User Aggregate",
   });
 
