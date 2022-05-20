@@ -27,7 +27,7 @@ describe('Auth flows (development)', () => {
   }
 
   context('Anonymous visitor', () => {
-    it('prevents from seeing content on restricted pages', () => {
+    it('prevents viewing content on restricted pages', () => {
       [
         '/en/admin/dashboard',
         '/en/admin/skills',
@@ -45,87 +45,61 @@ describe('Auth flows (development)', () => {
       })
     })
 
-    it.only('successfully registers a new user', () => {
-      const doLogin = () => {
-        cy.intercept('POST', '/auth/register').as('registerUser')
-
-        const randomInt = Math.floor(Math.random() * 10000)
-        const name = 'Test User'
-        const password = 'testpassword'
-        const email = `test.user.${randomInt}@talent.test`
-
-        cy.visit('/auth/register')
-        cy.get('input#first_name').type(name)
-        cy.get('input#last_name').type(name)
-        cy.get('input#email').type(email)
-        cy.get('input#password').type(password)
-        cy.get('input#password_confirmation').type(password)
-        cy.get('button').contains('Register').click()
-        cy.wait('@registerUser')
-          .its('response.statusCode').should('eq', 302)
-      }
-
-      const doAuthorization = () => {
-        cy.intercept('POST', '/oauth/authorize').as('authUser')
-        cy.get('button').contains('Login').click()
-        cy.url().should('match', new RegExp(`^${ Cypress.config().baseUrl }/oauth/authorize`))
-        cy.get('button').contains('Authorize').click()
-        cy.wait('@authUser')
-      }
-
-
-      cy.logout()
-      doLogin()
-      // Complete the authorizations (only required with our local auth server)
-      doAuthorization()
-
-      onDashboard()
-    })
-
-    it('redirects app login page to auth login page', () => {
+    // TODO: Enable this once we have interactive login enabled.
+    it.skip('redirects app login page to auth login page', () => {
       cy.visit('/login')
-      cy.url().should('equal', `${ Cypress.config().baseUrl }/auth/login`)
-      cy.get('button').contains('Log in').should('exist').and('be.visible')
+      cy.url().should('contain', Cypress.config().authServerRoot + '/authorize')
     })
 
+    // This test will only work on Chrome-based browsers, since visiting the
+    // mock auth server requires violating same-origin policy, and this only
+    // works on Chrome (and only because we've disabled it in cypress.json).
+    // See: https://docs.cypress.io/guides/guides/web-security#Disabling-Web-Security
     it('successfully logs in as existing admin user', () => {
       const initialPath = '/en/admin/skills'
       cy.visit(initialPath)
-      cy.get('button').contains('Login')
-        .should('be.visible')
-      cy.get('button').contains('Login').click()
-      cy.url().should('equal', `${ Cypress.config().baseUrl }/auth/login`)
-
-
-      cy.fixture('users.json').then(users => {
-        const user = users['admin']
-        cy.get('input#email').type(user.email)
-        cy.get('input#password').type(user.password)
+      // Limit to nav because two login buttons on main page.
+      cy.get('nav').within(() => {
+        cy.findByRole('button', {name: 'Logout'})
+          .should('not.exist')
+        cy.findByRole('button', {name: 'Login'})
+          .should('exist').and('be.visible')
+          .click()
       })
-
-      cy.get('button').contains('Log in').click()
+//      cy.url().should('contain', Cypress.config().authServerRoot + '/authorize')
+//
+//
+//      cy.fixture('users.json').then(users => {
+//        const user = users['admin']
+//        cy.get('input[name=username]').type(user.email)
+//      })
+//
+//      cy.findByText('Sign-in').click()
 
       cy.url().should('equal', Cypress.config().baseUrl + initialPath)
+      cy.get('nav').within(() => {
+        cy.findByRole('button', {name: 'Login'})
+          .should('not.exist')
+        cy.findByRole('button', {name: 'Logout'})
+          .should('exist').and('be.visible')
+          .click()
+      })
     })
   })
 
   context('Authenticated', () => {
+    beforeEach(() => cy.login())
     it('allows logout', () => {
-      cy.login('admin')
-
       cy.visit('/admin')
-      cy.get('button').contains('Logout').should('exist').and('be.visible')
-      cy.get('button').contains('Logout').click()
+      cy.findByText('Logout').should('exist').and('be.visible')
+      cy.findByText('Logout').click()
 
-      cy.get('button').contains('Logout').should('not.exist')
-      cy.get('button').contains('Login').should('exist').and('be.visible')
+      cy.findByText('Logout').should('not.exist')
+      cy.findByText('Login').should('exist').and('be.visible')
     })
 
-    it('redirects login form to admin', () => {
-      cy.login('admin')
-
+    it('redirects login path to admin dashboard', () => {
       cy.visit('/login')
-      cy.url().should('not.equal', `${ Cypress.config().baseUrl }/auth/login`)
       onDashboard()
     })
   })
