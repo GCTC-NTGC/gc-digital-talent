@@ -713,5 +713,128 @@ class PoolCandidateTest extends TestCase
       ]
     ]);
   }
+
+  public function testFilterByClassificationToSalaryWithPools(): void
+  {
+    // myPool will be people we're querying for and should be returned
+    $myPool = Pool::factory()->create(['name' => 'myPool']);
+    // Pool 1 will be people we're not querying for and should not be returned
+    $otherPool = Pool::factory()->create(['name' => 'otherPool']);
+
+    // myClassification is the classification we will be querying for
+    $myClassification = Classification::factory()->create([
+      'group' => 'ZZ',
+      'level' => 1,
+      'min_salary' => 55000,
+      'max_salary' => 64999,
+    ]);
+
+    // otherClassification is the higher one in the same group
+    $otherClassification = Classification::factory()->create([
+      'group' => 'ZZ',
+      'level' => 2,
+      'min_salary' => 65000,
+      'max_salary' => 74999,
+    ]);
+
+    // *** first make three candidates in the right pool - 1 has an exact classification match, 1 has a salary to classification match, 1 has no match
+
+    // Attach new candidate in the pool with the desired classification
+    $poolCandidate1 = PoolCandidate::factory()->create([
+      'expected_salary' => [],
+      'pool_id' => $myPool->id
+    ]);
+    $poolCandidate1->expectedClassifications()->delete();
+    $poolCandidate1->expectedClassifications()->save($myClassification);
+
+    // Attach new candidate in the pool that overlaps the expected salary range and has a matching class group (but not level).
+    $poolCandidate2 = PoolCandidate::factory()->create([
+      'expected_salary' => ['_60_69K'],
+      'pool_id' => $myPool->id
+    ]);
+    $poolCandidate2->expectedClassifications()->delete();
+    $poolCandidate2->expectedClassifications()->save($otherClassification);
+
+    // Attach new candidate in the pool that is over the expected salary range and has a matching class group (but not level).
+    $poolCandidate3 = PoolCandidate::factory()->create([
+      'expected_salary' => ['_90_99K', '_100K_PLUS'],
+      'pool_id' => $myPool->id
+    ]);
+    $poolCandidate3->expectedClassifications()->delete();
+    $poolCandidate3->expectedClassifications()->save($otherClassification);
+
+    // *** now make the same three candidates in the wrong pool
+
+    // Attach new candidate in the pool with the desired classification WRONG POOL
+    $poolCandidate1WrongPool = PoolCandidate::factory()->create([
+      'expected_salary' => [],
+      'pool_id' => $otherPool->id
+    ]);
+    $poolCandidate1WrongPool->expectedClassifications()->delete();
+    $poolCandidate1WrongPool->expectedClassifications()->save($myClassification);
+
+    // Attach new candidate in the pool that overlaps the expected salary range and has a matching class group (but not level). WRONG POOL
+    $poolCandidate2WrongPool = PoolCandidate::factory()->create([
+      'expected_salary' => ['_60_69K'],
+      'pool_id' => $otherPool->id
+    ]);
+    $poolCandidate2WrongPool->expectedClassifications()->delete();
+    $poolCandidate2WrongPool->expectedClassifications()->save($otherClassification);
+
+    // Attach new candidate in the pool that is over the expected salary range and has a matching class group (but not level).  WRONG POOL
+    $poolCandidate3WrongPool = PoolCandidate::factory()->create([
+      'expected_salary' => ['_90_99K', '_100K_PLUS'],
+      'pool_id' => $otherPool->id
+    ]);
+    $poolCandidate3WrongPool->expectedClassifications()->delete();
+    $poolCandidate3WrongPool->expectedClassifications()->save($otherClassification);
+
+    // Assert query with just pool filters will return all candidates in that pool
+    $this->graphQL(/** @lang Graphql */ '
+      query countPoolCandidates($where: PoolCandidateFilterInput) {
+        countPoolCandidates(where: $where)
+      }
+    ', [
+      'where' => [
+        'pools' => [['id' => $myPool->id ]]
+      ]
+    ])->assertJson([
+      'data' => [
+        'countPoolCandidates' => 3
+      ]
+    ]);
+
+    // Assert query with classification filter will return candidates in range and overlapping in that pool
+    $this->graphQL(/** @lang Graphql */ '
+      query countPoolCandidates($where: PoolCandidateFilterInput) {
+        countPoolCandidates(where: $where)
+      }
+    ', [
+      'where' => [
+        'pools' => [['id' => $myPool->id ]],
+        'classifications' => [['group' => 'ZZ', 'level' => 1 ]],
+      ]
+    ])->assertJson([
+      'data' => [
+        'countPoolCandidates' => 2
+      ]
+    ]);
+
+    // Assert query with unknown classification filter will return zero
+    $this->graphQL(/** @lang Graphql */ '
+      query countPoolCandidates($where: PoolCandidateFilterInput) {
+        countPoolCandidates(where: $where)
+      }
+    ', [
+      'where' => [
+        'pools' => [['id' => $myPool->id ]],
+        'classifications' => [['group' => 'UNKNOWN', 'level' => 1324234 ]],
+      ]
+    ])->assertJson([
+      'data' => [
+        'countPoolCandidates' => 0
+      ]
+    ]);
+  }
 }
 

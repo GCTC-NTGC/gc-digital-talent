@@ -21,6 +21,7 @@ import {
 import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
 import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
 import applicantProfileRoutes from "../../applicantProfileRoutes";
+import profileMessages from "../profile/profileMessages";
 
 export type FormValues = Pick<
   User,
@@ -464,6 +465,7 @@ export const LanguageInformationFormContainer: React.FunctionComponent = () => {
   const [lookUpResult] = useGetLanguageInformationQuery();
   const { data: userData, fetching, error } = lookUpResult;
   const userId = userData?.me?.id;
+  const preProfileStatus = userData?.me?.isProfileComplete;
 
   const [, executeMutation] = useUpdateLanguageInformationMutation();
 
@@ -486,24 +488,19 @@ export const LanguageInformationFormContainer: React.FunctionComponent = () => {
       return;
     }
     await handleUpdateUser(userId, data)
-      .then(() => {
+      .then((res) => {
+        if (res.isProfileComplete) {
+          const currentProfileStatus = res.isProfileComplete;
+          const message = intl.formatMessage(profileMessages.profileCompleted);
+          if (!preProfileStatus && currentProfileStatus) {
+            toast.success(message);
+          }
+        }
         navigate(paths.home());
-        toast.success(
-          intl.formatMessage({
-            defaultMessage: "User updated successfully!",
-            description:
-              "Message displayed to user after user is updated successfully.",
-          }),
-        );
+        toast.success(intl.formatMessage(profileMessages.userUpdated));
       })
       .catch(() => {
-        toast.error(
-          intl.formatMessage({
-            defaultMessage: "Error: updating user failed",
-            description:
-              "Message displayed to user after user fails to get updated.",
-          }),
-        );
+        toast.error(intl.formatMessage(profileMessages.updatingFailed));
       });
   };
 
@@ -521,14 +518,7 @@ export const LanguageInformationFormContainer: React.FunctionComponent = () => {
   }
 
   if (!userId) {
-    return (
-      <p>
-        {intl.formatMessage({
-          defaultMessage: "Error: user not found",
-          description: "Message displayed to user if user is not found",
-        })}
-      </p>
-    );
+    return <p>{intl.formatMessage(profileMessages.userNotFound)}</p>;
   }
 
   return (

@@ -20,7 +20,7 @@ fragment pool on Pool {
     name {
       en
       fr
-    },
+    }
     group
     level
   }
@@ -64,7 +64,7 @@ query getCreatePoolData {
     id
     key
     name {
-      en,
+      en
       fr
     }
   }
@@ -85,7 +85,7 @@ query getUpdatePoolData($id: ID!) {
     id
     key
     name {
-      en,
+      en
       fr
     }
   }

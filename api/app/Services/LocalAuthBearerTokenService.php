@@ -12,7 +12,6 @@ use Lcobucci\JWT\Validation\Constraint\RelatedTo;
 use Lcobucci\JWT\Validation\Constraint\LooseValidAt;
 use Lcobucci\JWT\Validation\Constraint\SignedWith;
 use App\Services\Contracts\BearerTokenServiceInterface;
-use Lcobucci\JWT\Token\DataSet;
 
 class LocalAuthBearerTokenService implements BearerTokenServiceInterface
 {
@@ -33,7 +32,10 @@ class LocalAuthBearerTokenService implements BearerTokenServiceInterface
         $this->allowableClockSkew = $allowableClockSkew;
     }
 
-    public function validateAndGetClaims(string $bearerToken) : DataSet
+    /*
+    * @returns Lcobucci\JWT\Token\DataSet
+    */
+    public function validateAndGetClaims(string $bearerToken)
     {
         $token = $this->config->parser()->parse($bearerToken);
 

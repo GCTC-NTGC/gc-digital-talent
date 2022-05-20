@@ -2,7 +2,7 @@ type Applicant {
   id: ID!
   firstName: String
   lastName: String
-  email: Email!
+  email: Email
   telephone: PhoneNumber
   preferredLang: Language
   currentProvince: ProvinceOrTerritory
@@ -1074,7 +1074,7 @@ type User {
   roles: [Role]
   firstName: String
   lastName: String
-  email: Email!
+  email: Email
   telephone: PhoneNumber
   preferredLang: Language
   currentProvince: ProvinceOrTerritory

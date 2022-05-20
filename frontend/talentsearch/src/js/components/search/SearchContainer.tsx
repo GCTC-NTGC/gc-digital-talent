@@ -17,7 +17,10 @@ import {
   ClassificationFilterInput,
   Maybe,
 } from "../../api/generated";
-import { DIGITAL_CAREERS_POOL_KEY } from "../../talentSearchConstants";
+import {
+  DIGITAL_CAREERS_POOL_KEY,
+  TALENTSEARCH_RECRUITMENT_EMAIL,
+} from "../../talentSearchConstants";
 import EstimatedCandidates from "./EstimatedCandidates";
 import { FormValues, SearchForm } from "./SearchForm";
 import SearchFilterAdvice from "./SearchFilterAdvice";
@@ -32,7 +35,7 @@ export interface SearchContainerProps {
   poolOwner?: Pick<UserPublicProfile, "firstName" | "lastName" | "email">;
   candidateCount: number;
   updatePending?: boolean;
-  candidateFilter: PoolCandidateFilterInput | undefined;
+  candidateFilter?: PoolCandidateFilterInput | undefined;
   updateCandidateFilter: (candidateFilter: PoolCandidateFilterInput) => void;
   updateInitialValues: (initialValues: FormValues) => void;
   handleSubmit: () => Promise<void>;
@@ -59,12 +62,19 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
     candidateFilter?.operationalRequirements?.length ?? 0;
 
   function span(msg: string) {
-    return <span data-h2-font-color="b(lightpurple)">{msg}</span>;
+    return (
+      <span data-h2-font-color="b(lightpurple)" data-testid="candidateCount">
+        {msg}
+      </span>
+    );
   }
 
   function a(msg: string) {
     return (
-      <a href={`mailto:${poolOwner?.email}`} data-h2-font-weight="b(700)">
+      <a
+        href={`mailto:${TALENTSEARCH_RECRUITMENT_EMAIL}`}
+        data-h2-font-weight="b(700)"
+      >
         {msg}
       </a>
     );
@@ -227,21 +237,25 @@ const candidateFilterToQueryArgs = (
   return {
     where: {
       ...filter,
-      classifications: pickMap(filter.classifications, ["group", "level"]),
-      cmoAssets: pickMap(filter.cmoAssets, "key"),
+      classifications: filter.classifications
+        ? pickMap(filter.classifications, ["group", "level"])
+        : [],
+      cmoAssets: filter.cmoAssets ? pickMap(filter.cmoAssets, "key") : [],
       pools: poolId ? [{ id: poolId }] : pickMap(filter.pools, "id"),
     },
   };
 };
 
 export const SearchContainerApi: React.FC = () => {
+  const [initialValues, setInitialValues] = useState<FormValues | null>(null);
   const [{ data }] = useGetSearchFormDataQuery({
     variables: { poolKey: DIGITAL_CAREERS_POOL_KEY },
   });
   const pool = data?.poolByKey;
 
-  const [candidateFilter, setCandidateFilter] =
-    useState<PoolCandidateFilterInput | undefined>(undefined);
+  const [candidateFilter, setCandidateFilter] = useState<
+    PoolCandidateFilterInput | undefined
+  >(undefined);
 
   const [{ data: countData, fetching: countFetching }] =
     useCountPoolCandidatesQuery({
@@ -249,8 +263,6 @@ export const SearchContainerApi: React.FC = () => {
     });
 
   const candidateCount = countData?.countPoolCandidates ?? 0;
-
-  const [initialValues, setInitialValues] = useState<FormValues | null>(null);
 
   const paths = useTalentSearchRoutes();
   const onSubmit = async () => {

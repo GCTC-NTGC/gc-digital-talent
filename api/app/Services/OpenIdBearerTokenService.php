@@ -12,7 +12,6 @@ use Lcobucci\JWT\Configuration;
 use Lcobucci\JWT\Signer;
 use Lcobucci\JWT\UnencryptedToken;
 use Lcobucci\JWT\Signer\Key\InMemory;
-use Lcobucci\JWT\Token\DataSet;
 use Lcobucci\JWT\Validation\Constraint\IssuedBy;
 use Lcobucci\JWT\Validation\Constraint\RelatedTo;
 use Lcobucci\JWT\Validation\Constraint\LooseValidAt;
@@ -141,7 +140,10 @@ class OpenIdBearerTokenService implements BearerTokenServiceInterface
         }
     }
 
-    public function validateAndGetClaims(string $bearerToken) : DataSet
+    /*
+    * @returns Lcobucci\JWT\Token\DataSet
+    */
+    public function validateAndGetClaims(string $bearerToken)
     {
         $unsecuredToken = $this->unsecuredConfig->parser()->parse($bearerToken);
 
