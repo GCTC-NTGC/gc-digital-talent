@@ -227,6 +227,9 @@ enum PoolCandidateStatus {
     PLACED_INDETERMINATE
     PLACED_TERM
     NO_LONGER_INTERESTED
+    UNAVAILABLE
+    EXPIRED
+    PLACE_CASUAL
 }
 
 type PoolCandidate {
