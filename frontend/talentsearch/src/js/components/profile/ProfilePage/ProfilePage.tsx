@@ -149,7 +149,7 @@ export const ProfileForm: React.FC<ProfilePageProps> = ({
   return (
     <>
       <div
-        data-h2-padding="b(top, xxs) b(bottom, m) b(right-left, s)"
+        data-h2-padding="b(top-bottom, m) b(right-left, s)"
         data-h2-font-color="b(white)"
         data-h2-text-align="b(center)"
         style={{
@@ -162,7 +162,7 @@ export const ProfileForm: React.FC<ProfilePageProps> = ({
           backgroundRepeat: "no-repeat",
         }}
       >
-        <h1>{`${firstName} ${lastName}`}</h1>
+        <h1 data-h2-margin="b(top-bottom, l)">{`${firstName} ${lastName}`}</h1>
       </div>
       <div
         data-h2-position="b(relative)"
