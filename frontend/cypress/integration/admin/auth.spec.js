@@ -1,4 +1,4 @@
-import { aliasQuery } from '../utils/graphql-test-utils'
+import { aliasQuery } from '../../support/graphql-test-utils'
 
 describe('Auth flows (development)', () => {
   // Prepare to intercept/detect GraphQL requests.
