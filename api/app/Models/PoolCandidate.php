@@ -269,8 +269,13 @@ RAWSQL2;
         }
         return $query;
     }
-    public function scopeExcludeExpired(Builder $query) {
-        $query->whereDate('expiry_date', '>=', date("Y-m-d"));
+    public function scopeViewExpired(Builder $query, ?array $args) {
+        $viewExpired = isset($args['viewExpired']) ? $args['viewExpired'] : false;
+        if ($viewExpired) {
+            $query->whereDate('expiry_date', '<', date("Y-m-d"));
+        } else {
+            $query->whereDate('expiry_date', '>=', date("Y-m-d"));
+        }
         return $query;
     }
 }

@@ -4,6 +4,7 @@ use App\Models\Classification;
 use App\Models\CmoAsset;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
+use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Nuwave\Lighthouse\Testing\ClearsSchemaCache;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
@@ -839,21 +840,74 @@ class PoolCandidateTest extends TestCase
 
   public function testFilterByExpiryDate(): void
   {
-    // Create initial data.
-    PoolCandidate::factory()->create([
+    // Create admin user we run tests as
+    $newUser = new User;
+    $newUser->email = 'admin@test.com';
+    $newUser->sub = 'admin@test.com';
+    $newUser->roles = ['ADMIN'];
+    $newUser->save();
+
+    // Create some expired users
+    $expiredCandidates = PoolCandidate::factory()->count(2)->create([
       'expiry_date' => '2000-05-13',
     ]);
 
-    // Assert query with no filters will return proper candidate count
+    // Create some valid users
+    $futureCandidates = PoolCandidate::factory()->count(4)->create([
+      'expiry_date' => '3000-05-13',
+    ]);
+    $todayCandidate = PoolCandidate::factory()->create([
+      'expiry_date' => date("Y-m-d"),
+    ]);
+    $futureCandidates->concat($todayCandidate);
+
+    // Assert countPoolCandidates query ignores expired candidates
     $this->graphQL(/** @lang Graphql */ '
-      query countPoolCandidates($where: PoolCandidateFilterInput) {
-        countPoolCandidates(where: $where)
+      query countPoolCandidates {
+        countPoolCandidates
       }
-    ', [
-      'where' => []
-    ])->assertJson([
+    ')->assertJson([
       'data' => [
-        'countPoolCandidates' => 0
+        'countPoolCandidates' => 5
+      ]
+    ]);
+
+    // Assert searchPoolCandidates query with no parameters returns correct candidates
+    $this->graphQL(/** @lang Graphql */ '
+      query searchPoolCandidates {
+        searchPoolCandidates {
+          id
+        }
+      }
+    ')->assertJson([
+      'data' => [
+        'searchPoolCandidates' => $futureCandidates->map->only(['id'])->toArray()
+      ]
+    ]);
+
+    // Assert searchPoolCandidates query with viewExpired false returns correct candidates
+    $this->graphQL(/** @lang Graphql */ '
+      query searchPoolCandidates {
+        searchPoolCandidates(viewExpired: false) {
+          id
+        }
+      }
+    ')->assertJson([
+      'data' => [
+        'searchPoolCandidates' => $futureCandidates->map->only(['id'])->toArray()
+      ]
+    ]);
+
+    // Assert searchPoolCandidates query with viewExpired true returns correct candidates
+    $this->graphQL(/** @lang Graphql */ '
+      query searchPoolCandidates {
+        searchPoolCandidates(viewExpired: true) {
+          id
+        }
+      }
+    ')->assertJson([
+      'data' => [
+        'searchPoolCandidates' => $expiredCandidates->map->only(['id'])->toArray()
       ]
     ]);
   }
