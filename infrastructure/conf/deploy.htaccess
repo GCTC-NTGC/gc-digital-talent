@@ -33,10 +33,6 @@ DirectorySlash off
     # Send localized talent requests also to talentsearch dist folder;
     RewriteRule ^(en|fr)/talent(/(.*))?$ frontend/talentsearch/dist/$3 [L]
 
-    # Indigenous Apprenticeship routes
-    RewriteRule ^indigenous-it-apprentice(/(.*))?$ frontend/indigenousapprenticeship/dist/$2 [L]
-    RewriteRule ^(en|fr)/indigenous-it-apprentice(/(.*))?$ frontend/indigenousapprenticeship/dist/$3 [L]
-
     # PHP Info page for debugging
     RewriteRule ^phpinfo.php$ phpinfo.php [L]
 

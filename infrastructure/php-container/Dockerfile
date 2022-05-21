@@ -1,10 +1,6 @@
 FROM php:7.4-apache
 # FROM php:8.0-apache
 
-# Enable mod_rewrite
-RUN a2enmod rewrite
-RUN a2enmod include
-
 # Install pdo_pgsql extension
 RUN apt-get update \
     && apt-get install -y libpq-dev \
@@ -16,3 +12,10 @@ RUN apt-get update \
     # See: https://web-token.spomky-labs.com/introduction/pre-requisite
     # See: https://github.com/brick/math#requirements
     && docker-php-ext-install pdo_pgsql bcmath
+
+# Enable apache modules
+RUN a2enmod rewrite \
+    # For including other config files.
+    && a2enmod include \
+    # For header directive (security headers mostly).
+    && a2enmod headers

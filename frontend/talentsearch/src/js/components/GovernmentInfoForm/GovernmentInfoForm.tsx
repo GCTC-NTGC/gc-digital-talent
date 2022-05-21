@@ -278,7 +278,7 @@ export const GovernmentInfoForm: React.FunctionComponent<
                     {
                       value: GovEmployeeType.Indeterminate,
                       label: intl.formatMessage({
-                        defaultMessage: "I have a indeterminate position",
+                        defaultMessage: "I have an indeterminate position",
                         description: "Label displayed for indeterminate option",
                       }),
                     },
