@@ -4,12 +4,14 @@ This project contains a collection of scripts to use a maintenance container to 
 
 ## Environment First-Time Setup
 
-To set up a local development environment:
+To set up a local development environment, run these commands from anywhere in repo:
 
- 1. In any directory, run `docker-compose up -d` to build the container
- 2. Run `docker-compose run --rm maintenance bash setup.sh` to setup the environment
- 3. Open a browser and navigate to http://localhost:8000/login and login in with "admin@test.com" and "Test123!"
- 4. Verify functionality by navigating to http://localhost:8000/admin and http://localhost:8000/talent
+ 1. Build and run the containers: `docker-compose up --detach --build`
+ 2. To setup the apps: `docker-compose run --rm maintenance bash setup.sh`
+ 3. Open a browser and navigate to http://localhost:8000/login and login in
+    with `admin@test.com` as "user/subject": (the "claims" text box can be left
+    blank, and there is no password)
+ 4. You should be automatically redirected to http://localhost:8000/admin
 
 ## Environment Maintenance
 
