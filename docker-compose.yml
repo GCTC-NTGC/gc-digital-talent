@@ -67,9 +67,8 @@ services:
       # Things to note in config:
       # - we mock a response but leave out "sub", so that value entered in fake
       #   login form will be used.
-      # - we match on any client_id ("*") to avoid gotchas of changing `.env`
-      #   settings when working between local mock server and remote UAT servers.
-      # TODO: Consider setting specific client_id to match value in `.env.sample`.
+      # - we match specifically for client_id `fake-development-client-key`,
+      #   which must be set in `.env`.
       JSON_CONFIG_PATH: /app/conf/mock-auth-server.json
     volumes:
       - ./infrastructure/conf:/app/conf

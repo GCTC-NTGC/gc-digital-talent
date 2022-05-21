@@ -7,7 +7,7 @@
       "requestMappings": [
         {
           "requestParam": "client_id",
-          "match": "*",
+          "match": "fake-development-client-key",
           "claims": {
             "aud": "00000000-0000-0000-0123-456789abcdef",
             "code": "00000000-0000-0000-0123-456789abcdef",
