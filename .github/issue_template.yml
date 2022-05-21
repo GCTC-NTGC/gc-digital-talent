@@ -4,12 +4,13 @@ about: Use this template new features with links to prototypes.
 # These aren't used at the moment.
 # See: https://docs.github.com/en/communities/using-templates-to-encourage-useful-issues-and-pull-requests/manually-creating-a-single-issue-template-for-your-repository
 title: null
-labels: null
+labels: feature
 assignees: null
 ---
 <sup>ℹ️ [Figma (root)][figma] | [Sitemap][sitemap]</sup>
 <sup>_This initial comment is collaborative and open to modification by all._</sup>
 
+## Description
 ## Screenshot: Prototype
 [![a screenshot of ...][image]][image-link]
 <sup>[Click screenshot to visit Figma.][image-link]</sup>
