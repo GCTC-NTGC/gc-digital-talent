@@ -10,12 +10,6 @@ DirectorySlash off
     RewriteCond %{REQUEST_URI} !/dist/$
     RewriteRule ^ %{ENV:APP_URL}/%1 [L,R=301]
 
-    # Send auth requests to auth folder (only for local environments)
-    RewriteCond %{REQUEST_URI} !^auth/public/
-    RewriteRule ^auth(/(.*))?$ auth/public/$2 [L]
-
-    RewriteRule ^oauth(/(.*))?$ auth/public/$2 [L]
-
     # Rewrite api requests
     RewriteRule ^graphql-playground$ api/public/graphql-playground [L]
     RewriteRule ^graphql$ api/public/graphql [L]
@@ -38,10 +32,6 @@ DirectorySlash off
 
     # Send localized talent requests also to talentsearch dist folder;
     RewriteRule ^(en|fr)/talent(/(.*))?$ frontend/talentsearch/dist/$3 [L]
-
-    # Indigenous Apprenticeship routes
-    RewriteRule ^indigenous-it-apprentice(/(.*))?$ frontend/indigenousapprenticeship/dist/$2 [L]
-    RewriteRule ^(en|fr)/indigenous-it-apprentice(/(.*))?$ frontend/indigenousapprenticeship/dist/$3 [L]
 
     # PHP Info page for debugging
     RewriteRule ^phpinfo.php$ phpinfo.php [L]
