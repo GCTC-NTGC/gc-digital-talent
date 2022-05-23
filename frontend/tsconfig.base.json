@@ -12,7 +12,7 @@
       "esnext.intl",
       "es2017.intl",
       "es2018.intl"
-    ],                                   /* Specify library files to be included in the compilation. */
+    ],                                              /* Specify library files to be included in the compilation. */
     // "allowJs": true,                             /* Allow javascript files to be compiled. */
     // "checkJs": true,                             /* Report errors in .js files. */
     "jsx": "react-jsx",                             /* Specify JSX code generation: 'preserve', 'react-native', 'react', 'react-jsx' or 'react-jsxdev'. */
@@ -33,7 +33,7 @@
     /* Strict Type-Checking Options */
     "strict": true,                                 /* Enable all strict type-checking options. */
     // "noImplicitAny": true,                       /* Raise error on expressions and declarations with an implied 'any' type. */
-    "strictNullChecks": true,                    /* Enable strict null checks. */
+    "strictNullChecks": true,                       /* Enable strict null checks. */
     // "strictFunctionTypes": true,                 /* Enable strict checking of function types. */
     // "strictBindCallApply": true,                 /* Enable strict 'bind', 'call', and 'apply' methods on functions. */
     // "strictPropertyInitialization": true,        /* Enable strict checking of property initialization in classes. */
@@ -49,17 +49,17 @@
     // "noPropertyAccessFromIndexSignature": true,  /* Require undeclared properties from index signatures to use element accesses. */
 
     /* Module Resolution Options */
-    "moduleResolution": "node",                  /* Specify module resolution strategy: 'node' (Node.js) or 'classic' (TypeScript pre-1.6). */
+    "moduleResolution": "node",                     /* Specify module resolution strategy: 'node' (Node.js) or 'classic' (TypeScript pre-1.6). */
     "resolveJsonModule": true,
-    "baseUrl": "./",                             /* Base directory to resolve non-absolute module names. */
+    "baseUrl": "./",                                /* Base directory to resolve non-absolute module names. */
     "paths": {
-      "@common/*": ["common/src/*"],
-    },                                 /* A series of entries which re-map imports to lookup locations relative to the 'baseUrl'. */
+      "@common/*": ["common/src/*"]
+    },                                              /* A series of entries which re-map imports to lookup locations relative to the 'baseUrl'. */
     "rootDirs": [
       "admin/src/js",
       "talentsearch/src/js",
       "indigenousapprenticeship/src/js"
-    ],                              /* List of root folders whose combined content represents the structure of the project at runtime. */
+    ],                                              /* List of root folders whose combined content represents the structure of the project at runtime. */
     // "typeRoots": [],                             /* List of folders to include type definitions from. */
     // "types": [],                                 /* Type declaration files to be included in compilation. */
     // "allowSyntheticDefaultImports": true,        /* Allow default imports from modules with no default export. This does not affect code emit, just typechecking. */
@@ -74,8 +74,8 @@
     // "inlineSources": true,                       /* Emit the source alongside the sourcemaps within a single file; requires '--inlineSourceMap' or '--sourceMap' to be set. */
 
     /* Experimental Options */
-    "experimentalDecorators": true,              /* Enables experimental support for ES7 decorators. */
-    "emitDecoratorMetadata": true,               /* Enables experimental support for emitting type metadata for decorators. */
+    "experimentalDecorators": true,                 /* Enables experimental support for ES7 decorators. */
+    "emitDecoratorMetadata": true,                  /* Enables experimental support for emitting type metadata for decorators. */
 
     /* Advanced Options */
     "skipLibCheck": true,                           /* Skip type checking of declaration files. */
