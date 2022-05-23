@@ -21,7 +21,7 @@
     "npm": ">=8.0.0"
   },
   "scripts": {
-    "tsc": "tsc --project ../tsconfig.json --noEmit",
+    "tsc": "tsc --project tsconfig.json --noEmit",
     "lint": "eslint ./src/js --ext .js,.ts,.jsx,.tsx",
     "lint:fix": "eslint ./src/js --fix --ext .js,.ts,.jsx,.tsx",
     "prettier": "prettier --write ./src/js",

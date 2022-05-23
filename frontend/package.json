@@ -8,7 +8,7 @@
     "indigenousapprenticeship"
   ],
   "scripts": {
-    "tsc": "npm run tsc --workspaces",
+    "tsc": "tsc --project tsconfig.json --noEmit",
     "e2e": "npm run e2e:open",
     "e2e:open": "cypress open",
     "e2e:run": "npm run e2e:run:all",
