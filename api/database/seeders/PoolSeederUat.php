@@ -7,7 +7,6 @@ use App\Models\CmoAsset;
 use App\Models\Pool;
 use App\Models\User;
 use Illuminate\Database\Seeder;
-use Database\Helpers\ApiEnums;
 
 class PoolSeederUat extends Seeder
 {
