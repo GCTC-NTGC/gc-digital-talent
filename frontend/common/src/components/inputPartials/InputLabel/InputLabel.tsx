@@ -35,11 +35,7 @@ const InputLabel: React.FC<InputLabelProps> = ({
       data-h2-margin="b(bottom, xxs)"
     >
       <div style={{ flex: "1" }}>
-        <label
-          data-h2-font-family="b(sans)"
-          data-h2-font-size="b(normal)"
-          htmlFor={inputId}
-        >
+        <label data-h2-font-size="b(caption)" htmlFor={inputId}>
           {label}
         </label>
       </div>
