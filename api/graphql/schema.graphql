@@ -585,7 +585,7 @@ input PoolsHasMany {
     create: [CreatePoolInput]
 }
 """
-When creating a User, name and email are required.
+When creating a User, name is required.
 """
 input CreateUserInput {
     sub: String
@@ -594,7 +594,7 @@ input CreateUserInput {
     # Personal info
     firstName: String! @rename(attribute: "first_name")
     lastName: String! @rename(attribute: "last_name")
-    email: Email! @rules(apply: ["unique:users,email"])
+    email: Email
     telephone: PhoneNumber
     preferredLang: Language @rename(attribute: "preferred_lang")
     currentProvince: ProvinceOrTerritory @rename(attribute: "current_province")
@@ -642,9 +642,10 @@ input CreateUserInput {
     awardExperiences: AwardExperienceHasMany
 }
 """
-When updating a User, all fields are optional, and email cannot be changed.
+When updating a User, all fields are optional
 """
 input UpdateUserAsAdminInput {
+    email: Email
     sub: String
     roles: [Role]
 
@@ -701,6 +702,7 @@ input UpdateUserAsAdminInput {
 
 input UpdateUserAsUserInput {
     # Personal info
+    email: Email
     firstName: String @rename(attribute: "first_name")
     lastName: String @rename(attribute: "last_name")
     telephone: PhoneNumber

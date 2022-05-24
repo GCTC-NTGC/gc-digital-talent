@@ -16,6 +16,7 @@ import {
   CreateUserMutation,
   useCreateUserMutation,
   Role,
+  InputMaybe,
 } from "../../api/generated";
 import DashboardContentContainer from "../DashboardContentContainer";
 
@@ -26,13 +27,16 @@ interface CreateUserFormProps {
   ) => Promise<CreateUserMutation["createUser"]>;
 }
 
+const emptyToNull = (s: InputMaybe<string>): string | null =>
+  empty(s) || s === "" ? null : s;
+
 const formValuesToData = (values: FormValues): CreateUserInput => ({
   ...values,
-  telephone:
-    // empty string isn't valid according to API validation regex pattern, but null is valid.
-    empty(values.telephone) || values.telephone === ""
-      ? null
-      : values.telephone,
+  // empty string isn't valid according to API validation regex pattern, but null is valid.
+  telephone: emptyToNull(values.telephone),
+  // empty string will violate uniqueness constraints
+  email: emptyToNull(values.email),
+  sub: emptyToNull(values.sub),
 });
 
 export const CreateUserForm: React.FunctionComponent<CreateUserFormProps> = ({
@@ -85,9 +89,6 @@ export const CreateUserForm: React.FunctionComponent<CreateUserFormProps> = ({
               })}
               type="email"
               name="email"
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
             />
             <Input
               id="firstName"

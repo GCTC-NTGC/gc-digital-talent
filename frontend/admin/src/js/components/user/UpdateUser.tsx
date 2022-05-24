@@ -12,6 +12,7 @@ import { phoneNumberRegex } from "@common/constants/regularExpressions";
 import { empty } from "@common/helpers/util";
 import { useAdminRoutes } from "../../adminRoutes";
 import {
+  InputMaybe,
   Language,
   Role,
   UpdateUserAsAdminInput,
@@ -29,6 +30,7 @@ type FormValues = Pick<
   | "comprehensionLevel"
   | "currentCity"
   | "currentProvince"
+  | "email"
   | "estimatedLanguageAbility"
   | "expectedSalary"
   | "firstName"
@@ -88,15 +90,18 @@ export const UpdateUserForm: React.FunctionComponent<UpdateUserFormProps> = ({
     poolCandidates: unpackIds(data.poolCandidates),
   });
 
+  const emptyToNull = (s: InputMaybe<string>): string | null =>
+    empty(s) || s === "" ? null : s;
+
   const formValuesToSubmitData = (
     values: FormValues,
   ): UpdateUserAsAdminInput => ({
     ...values,
-    telephone:
-      // empty string isn't valid according to API validation regex pattern, but null is valid.
-      empty(values.telephone) || values.telephone === ""
-        ? null
-        : values.telephone,
+    // empty string isn't valid according to API validation regex pattern, but null is valid.
+    telephone: emptyToNull(values.telephone),
+    // empty string will violate uniqueness constraints
+    email: emptyToNull(values.email),
+    sub: emptyToNull(values.sub),
     cmoAssets: {
       sync: values.cmoAssets,
     },
@@ -155,9 +160,6 @@ export const UpdateUserForm: React.FunctionComponent<UpdateUserFormProps> = ({
               })}
               type="email"
               name="email"
-              value={initialUser.email ?? ""}
-              disabled
-              hideOptional
             />
             <Input
               id="firstName"
@@ -284,6 +286,7 @@ export const UpdateUser: React.FunctionComponent<{ userId: string }> = ({
     executeMutation({
       id,
       user: pick(data, [
+        "email",
         "firstName",
         "lastName",
         "telephone",
