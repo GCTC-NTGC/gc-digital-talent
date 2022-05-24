@@ -718,91 +718,95 @@ export const ProfileForm: React.FC<ProfilePageProps> = ({
                 data-h2-padding="b(all, m)"
                 data-h2-radius="b(s)"
               >
-                {isGovEmployee && (
-                  <div>
-                    <li>
-                      {intl.formatMessage({
-                        defaultMessage:
-                          "Yes, I am a Government of Canada employee.",
-                        description:
-                          "Message to state user is employed by government",
-                      })}
-                    </li>
-                    {govEmployeeType && (
-                      <li>
-                        {govEmployeeType === GovEmployeeType.Student &&
-                          intl.formatMessage({
-                            defaultMessage: "I have a student position",
-                            description:
-                              "Message to state user is employed federally in a student position",
-                          })}
-                        {govEmployeeType === GovEmployeeType.Casual &&
-                          intl.formatMessage({
-                            defaultMessage: "I have a casual position",
-                            description:
-                              "Message to state user is employed federally in a casual position",
-                          })}
-                        {govEmployeeType === GovEmployeeType.Term &&
-                          intl.formatMessage({
-                            defaultMessage: "I have a term position",
-                            description:
-                              "Message to state user is employed federally in a term position",
-                          })}
-                        {govEmployeeType === GovEmployeeType.Indeterminate &&
-                          intl.formatMessage({
-                            defaultMessage: "I have an indeterminate position",
-                            description:
-                              "Message to state user is employed federally in an indeterminate position",
-                          })}
-                      </li>
-                    )}
-                    {interestedInLaterOrSecondment && (
+                <ul data-h2-padding="b(left, s)">
+                  {isGovEmployee && (
+                    <>
                       <li>
                         {intl.formatMessage({
                           defaultMessage:
-                            "I am interested in lateral deployment or secondment.",
+                            "Yes, I am a Government of Canada employee.",
                           description:
-                            "Message to state user is interested in lateral deployment or secondment",
+                            "Message to state user is employed by government",
                         })}
                       </li>
-                    )}
-                    {!!currentClassification?.group &&
-                      !!currentClassification?.level && (
+                      {govEmployeeType && (
                         <li>
-                          {" "}
-                          {intl.formatMessage({
-                            defaultMessage: "Current group and classification:",
-                            description:
-                              "Field label before government employment group and level, followed by colon",
-                          })}{" "}
-                          <span data-h2-font-weight="b(700)">
-                            {currentClassification?.group}-
-                            {currentClassification?.level}
-                          </span>
+                          {govEmployeeType === GovEmployeeType.Student &&
+                            intl.formatMessage({
+                              defaultMessage: "I have a student position",
+                              description:
+                                "Message to state user is employed federally in a student position",
+                            })}
+                          {govEmployeeType === GovEmployeeType.Casual &&
+                            intl.formatMessage({
+                              defaultMessage: "I have a casual position",
+                              description:
+                                "Message to state user is employed federally in a casual position",
+                            })}
+                          {govEmployeeType === GovEmployeeType.Term &&
+                            intl.formatMessage({
+                              defaultMessage: "I have a term position",
+                              description:
+                                "Message to state user is employed federally in a term position",
+                            })}
+                          {govEmployeeType === GovEmployeeType.Indeterminate &&
+                            intl.formatMessage({
+                              defaultMessage:
+                                "I have an indeterminate position",
+                              description:
+                                "Message to state user is employed federally in an indeterminate position",
+                            })}
                         </li>
                       )}
-                  </div>
-                )}
-                {isGovEmployee === null && (
-                  <p>
-                    {intl.formatMessage({
-                      defaultMessage:
-                        "You haven't added any information here yet.",
-                      description:
-                        "Message for when no data exists for the section",
-                    })}
-                  </p>
-                )}
-                {isGovEmployee === false && (
-                  <li>
-                    {intl.formatMessage({
-                      defaultMessage:
-                        "You are not entered as a current government employee",
-                      description:
-                        "Message indicating the user is not marked in the system as being federally employed currently",
-                    })}
-                  </li>
-                )}
+                      {interestedInLaterOrSecondment && (
+                        <li>
+                          {intl.formatMessage({
+                            defaultMessage:
+                              "I am interested in lateral deployment or secondment.",
+                            description:
+                              "Message to state user is interested in lateral deployment or secondment",
+                          })}
+                        </li>
+                      )}
+                      {!!currentClassification?.group &&
+                        !!currentClassification?.level && (
+                          <li>
+                            {" "}
+                            {intl.formatMessage({
+                              defaultMessage:
+                                "Current group and classification:",
+                              description:
+                                "Field label before government employment group and level, followed by colon",
+                            })}{" "}
+                            <span data-h2-font-weight="b(700)">
+                              {currentClassification?.group}-
+                              {currentClassification?.level}
+                            </span>
+                          </li>
+                        )}
+                    </>
+                  )}
+                  {isGovEmployee === null && (
+                    <li>
+                      {intl.formatMessage({
+                        defaultMessage:
+                          "You haven't added any information here yet.",
+                        description:
+                          "Message for when no data exists for the section",
+                      })}
+                    </li>
+                  )}
+                  {isGovEmployee === false && (
+                    <li>
+                      {intl.formatMessage({
+                        defaultMessage:
+                          "You are not entered as a current government employee",
+                        description:
+                          "Message indicating the user is not marked in the system as being federally employed currently",
+                      })}
+                    </li>
+                  )}
+                </ul>
               </div>
             </div>
             <div id="work-location-section">
