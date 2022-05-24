@@ -26,6 +26,7 @@ import UserPage from "./user/UserPage";
 import PoolPage from "./pool/PoolPage";
 import { CreatePool } from "./pool/CreatePool";
 import { UpdatePool } from "./pool/UpdatePool";
+import ViewPool from "./pool/ViewPool";
 import DepartmentPage from "./department/DepartmentPage";
 import { CreateDepartment } from "./department/CreateDepartment";
 import { UpdateDepartment } from "./department/UpdateDepartment";
@@ -205,6 +206,17 @@ const routes = (
       component:
         loggedIn && isAdmin ? (
           <UpdatePool poolId={params.id as string} />
+        ) : (
+          <AdminNotAuthorized />
+        ),
+    }),
+  },
+  {
+    path: paths.poolView(":id"),
+    action: ({ params }) => ({
+      component:
+        loggedIn && isAdmin ? (
+          <ViewPool poolId={params.id as string} />
         ) : (
           <AdminNotAuthorized />
         ),
