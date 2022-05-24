@@ -19,7 +19,7 @@ The frontend subprojects (admin, talentsearch, etc) have `.env` files that are c
 For deployment in production there needs to be a way to change variables in the program without rebuilding. This allows us to use environement variables as "feature flags", which enable/disable specific features without re-deployment. This is done using Apache Server Side Includes and the `config.sjs` files.  In a development environment these variables are injected into the docker container from the `/frontend/.apache_env` file.  To update these variables in the container a new container must be built.  For example:
 1) `docker-compose stop php`
 2) `docker-compose rm php`
-3) `docker-compose up -d`
+3) `docker-compose up --detach`
 
 To check if a particular environment variable is set in a container, a command like this could be used:
 `docker-compose exec php printenv FEATURE_APPLICANTPROFILE`
