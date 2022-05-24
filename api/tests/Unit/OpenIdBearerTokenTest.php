@@ -1,14 +1,13 @@
 <?php
 
 use App\Services\OpenIdBearerTokenService;
-use App\Services\Contracts\BearerTokenServiceInterface;
 use Lcobucci\Clock\FrozenClock;
 use Illuminate\Support\Facades\Http;
 use Tests\TestCase;
 class OpenIdBearerTokenTest extends TestCase
 {
     /**
-     * @var BearerTokenServiceInterface
+     * @var OpenIdBearerTokenService
      */
     protected $service_provider;
     protected DateTimeImmutable $now;

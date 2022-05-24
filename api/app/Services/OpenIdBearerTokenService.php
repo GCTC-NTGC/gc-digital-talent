@@ -2,7 +2,6 @@
 namespace App\Services;
 
 use Exception;
-use App\Services\Contracts\BearerTokenServiceInterface;
 use DateInterval;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
@@ -23,7 +22,7 @@ use Lcobucci\JWT\Validation\Constraint\RelatedTo;
 use Lcobucci\JWT\Validation\Constraint\LooseValidAt;
 use Lcobucci\JWT\Validation\Constraint\SignedWith;
 
-class OpenIdBearerTokenService implements BearerTokenServiceInterface
+class OpenIdBearerTokenService
 {
     private Configuration $unsecuredConfig;
     private Clock $clock;
