@@ -2845,16 +2845,16 @@
         },
         {
             "name": "nuwave/lighthouse",
-            "version": "v5.49.0",
+            "version": "v5.51.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nuwave/lighthouse.git",
-                "reference": "d4a0ecf59d84da662cc12424620eab227b95a589"
+                "reference": "16edc7a83a181a538671bcc8c67ec608886cc8ee"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nuwave/lighthouse/zipball/d4a0ecf59d84da662cc12424620eab227b95a589",
-                "reference": "d4a0ecf59d84da662cc12424620eab227b95a589",
+                "url": "https://api.github.com/repos/nuwave/lighthouse/zipball/16edc7a83a181a538671bcc8c67ec608886cc8ee",
+                "reference": "16edc7a83a181a538671bcc8c67ec608886cc8ee",
                 "shasum": ""
             },
             "require": {
@@ -2971,7 +2971,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-05-11T09:56:54+00:00"
+            "time": "2022-05-20T07:55:23+00:00"
         },
         {
             "name": "opis/closure",
