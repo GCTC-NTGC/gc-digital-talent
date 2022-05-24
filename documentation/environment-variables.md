@@ -8,7 +8,7 @@ The Laravel projects (api and auth) read environment variables from the `.env` f
 
 ## Frontend
 
-The frontend project uses environment variables in two distinct ways: build-time variables and run-time variables.
+The frontend React projects uses environment variables in two distinct ways: **build-time** variables and **run-time** variables.
 
 ### Build-Time Variables
 
