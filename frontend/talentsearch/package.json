@@ -70,7 +70,7 @@
     "babel-plugin-formatjs": "^10.3.20",
     "copy-webpack-plugin": "^10.2.4",
     "cross-env": "^7.0.3",
-    "eslint": "^8.14.0",
+    "eslint": "^8.16.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-prettier": "^8.5.0",
     "eslint-import-resolver-alias": "^1.1.2",
