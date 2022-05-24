@@ -24,7 +24,7 @@ export const ViewUserPage: React.FC<ViewUserPageProps> = ({ user }) => {
   const adminPaths = useAdminRoutes();
 
   const pageTitle = intl.formatMessage({
-    defaultMessage: "User Details",
+    defaultMessage: "Candidate Details",
     description: "Title for the page when viewing an individual user.",
   });
 
