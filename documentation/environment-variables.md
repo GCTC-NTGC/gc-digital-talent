@@ -16,7 +16,7 @@ The frontend subprojects (admin, talentsearch, etc) have `.env` files that are c
 
 ### Run-Time Variables
 
-For deployment in production there needs to be a way to change variables in the program without rebuilding.  This is done using Apache Server Side Includes and the `config.sjs` files.  In a development environment these variables are injected into the docker container from the `/frontend/.apache_env` file.  To update these variables in the container a new container must be built.  For example:
+For deployment in production there needs to be a way to change variables in the program without rebuilding. This allows us to use environement variables as "feature flags", which enable/disable specific features without re-deployment. This is done using Apache Server Side Includes and the `config.sjs` files.  In a development environment these variables are injected into the docker container from the `/frontend/.apache_env` file.  To update these variables in the container a new container must be built.  For example:
 1) `docker-compose stop php`
 2) `docker-compose rm php`
 3) `docker-compose up -d`
