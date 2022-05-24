@@ -136,6 +136,18 @@ const profileRoutes = (
   },
 ];
 
+const directIntakeRoutes = (
+  talentPaths: TalentSearchRoutes,
+): Routes<RouterResult> => [
+  // placeholder, switch with real routes
+  {
+    path: "/en/talent/direct-intake",
+    action: () => ({
+      component: <SearchPage />,
+    }),
+  },
+];
+
 export const Router: React.FC = () => {
   const intl = useIntl();
   const talentPaths = useTalentSearchRoutes();
@@ -167,6 +179,9 @@ export const Router: React.FC = () => {
           ...talentRoutes(talentPaths),
           ...(checkFeatureFlag("FEATURE_APPLICANTPROFILE")
             ? profileRoutes(profilePaths)
+            : []),
+          ...(checkFeatureFlag("FEATURE_DIRECTINTAKE")
+            ? directIntakeRoutes(talentPaths)
             : []),
         ]}
       />
