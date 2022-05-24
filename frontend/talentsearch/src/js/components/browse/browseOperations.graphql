@@ -1,0 +1,9 @@
+query browsePools {
+  pools {
+    id
+    name {
+      en
+      fr
+    }
+  }
+}
