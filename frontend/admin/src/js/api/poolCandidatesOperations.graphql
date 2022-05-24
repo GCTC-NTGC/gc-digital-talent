@@ -233,3 +233,14 @@ mutation updatePoolCandidate(
     status
   }
 }
+query getCandidateProfile($id: ID!) {
+  poolCandidate(id: $id) {
+    user {
+      id
+      email
+      firstName
+      lastName
+      telephone
+      preferredLang
+    }
+}
