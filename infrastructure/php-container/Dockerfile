@@ -23,4 +23,4 @@ RUN a2enmod rewrite \
     # For header directive (security headers mostly).
     && a2enmod headers
 
-COPY 000-default.conf /etc/apache2/sites-enabled/000-default.conf
+COPY mock-auth-proxy.apache-site.conf /etc/apache2/sites-enabled/000-default.conf
