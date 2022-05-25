@@ -1,70 +1,51 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useIntl } from "react-intl";
-import { useForm } from "react-hook-form";
+import { useFieldArray, useFormContext } from "react-hook-form";
 
 import type { Skill } from "../../api/generated";
 
 import AddSkillsToExperience from "../skills/AddSkillsToExperience/AddSkillsToExperience";
 import SkillsInDetail from "../skills/SkillsInDetail/SkillsInDetail";
 
-type FormValues = {
-  skills: { [id: string]: { details: string } };
-};
+import type { FormSkill, FormSkills } from "./types";
 
 export interface ExperienceSkillsProps {
   skills: Skill[];
-  initialSkills?: { [id: string]: { details: string } };
 }
 
-const ExperienceSkills: React.FC<ExperienceSkillsProps> = ({
-  skills,
-  initialSkills,
-}) => {
+const ExperienceSkills: React.FC<ExperienceSkillsProps> = ({ skills }) => {
   const intl = useIntl();
-  const { setValue, watch } = useForm();
-  const watchedSkills = watch("skills");
+  const { control, watch } = useFormContext();
   const [addedSkills, setAddedSkills] = React.useState<Skill[]>([]);
+  const watchedSkills = watch("skills");
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: "skills",
+  });
 
-  const updateAddedSkills = () => {
-    if (watchedSkills) {
-      const newAddedSkills = skills.filter((skill) =>
-        Object.keys(watchedSkills).includes(skill.id),
-      );
-      setAddedSkills(newAddedSkills);
-    }
-  };
-
-  /**
-   * Updates an array of skills currently added to experience
-   */
-  useEffect(updateAddedSkills, [watchedSkills, skills]);
-
-  /**
-   * Initialize watchedSkills with initialSkills after page loads
-   */
-  useEffect(() => {
-    setValue("skills", initialSkills);
-    // Don't add initialSkills as a dependency as that seems to change on submitting form
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [setValue]);
+  React.useEffect(() => {
+    const newSkills = watchedSkills.map((watchedSkill: FormSkill) => {
+      return skills.find((s) => s.id === watchedSkill.skillId);
+    });
+    setAddedSkills(newSkills);
+  }, [watchedSkills, setAddedSkills, skills]);
 
   const handleAddSkill = (id: string) => {
-    const newSkills = { ...watchedSkills, [id]: { details: "" } };
-    setValue("skills", newSkills);
+    const foundSkill = skills.find((s) => s.id === id);
+    append({
+      skillId: id,
+      name: foundSkill?.name,
+      details: "",
+    });
   };
 
   const handleRemoveSkill = (id: string) => {
-    const newSkills = Object.keys(watchedSkills).reduce(
-      (object: FormValues["skills"], key) => {
-        if (key !== id) {
-          // eslint-disable-next-line no-param-reassign
-          object[key] = watchedSkills[key];
-        }
-        return object;
-      },
-      {},
+    const index = watchedSkills.findIndex(
+      (field: FormSkill) => field.skillId === id,
     );
-    setValue("skills", newSkills);
+    if (index >= 0) {
+      remove(index);
+    }
   };
 
   return (
@@ -84,12 +65,15 @@ const ExperienceSkills: React.FC<ExperienceSkillsProps> = ({
       </p>
       <AddSkillsToExperience
         frequentSkills={[]}
-        addedSkills={addedSkills}
+        addedSkills={addedSkills as Skill[]}
         allSkills={skills}
         onAddSkill={handleAddSkill}
         onRemoveSkill={handleRemoveSkill}
       />
-      <SkillsInDetail skills={addedSkills} onDelete={handleRemoveSkill} />
+      <SkillsInDetail
+        skills={fields as FormSkills}
+        onDelete={handleRemoveSkill}
+      />
     </>
   );
 };
