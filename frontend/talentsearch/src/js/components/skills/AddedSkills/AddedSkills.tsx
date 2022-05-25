@@ -30,8 +30,8 @@ const AddedSkills: React.FunctionComponent<AddedSkillsProps> = ({
         const handleDismiss = () => onRemoveSkill(skill.id);
         return (
           <Chip
-            key={skill.id}
-            label={skill.name?.[locale] ?? "Missing Name"}
+            key={skill?.id}
+            label={skill?.name?.[locale] ?? "Missing Name"}
             color="neutral"
             mode="outline"
             onDismiss={handleDismiss}

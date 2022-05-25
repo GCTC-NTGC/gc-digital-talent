@@ -36,7 +36,7 @@ NoSkills.args = {
 
 FewSkills.args = {
   skills: fakeSkills(2).map((skill) => ({
-    id: skill.id,
+    skillId: skill.id,
     name: skill.name,
     details: skill.experienceSkillRecord?.details || "",
   })) as FormSkills,
@@ -44,7 +44,7 @@ FewSkills.args = {
 
 ManySkills.args = {
   skills: fakeSkills(5).map((skill) => ({
-    id: skill.id,
+    skillId: skill.id,
     name: skill.name,
     details: skill.experienceSkillRecord?.details || "",
   })) as FormSkills,

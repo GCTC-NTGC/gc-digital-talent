@@ -15,8 +15,9 @@ export interface ExperienceSkillsProps {
 
 const ExperienceSkills: React.FC<ExperienceSkillsProps> = ({ skills }) => {
   const intl = useIntl();
-  const { control, watch } = useFormContext();
-  const [addedSkills, setAddedSkills] = React.useState<Skill[]>([]);
+  const { control, watch, getValues } = useFormContext();
+  const initialSkills = getValues("skills");
+  const [addedSkills, setAddedSkills] = React.useState<Skill[]>(initialSkills);
   const watchedSkills = watch("skills");
   const { fields, append, remove } = useFieldArray({
     control,
@@ -24,9 +25,11 @@ const ExperienceSkills: React.FC<ExperienceSkillsProps> = ({ skills }) => {
   });
 
   React.useEffect(() => {
-    const newSkills = watchedSkills.map((watchedSkill: FormSkill) => {
-      return skills.find((s) => s.id === watchedSkill.skillId);
-    });
+    const newSkills = watchedSkills
+      ? watchedSkills.map((watchedSkill: FormSkill) => {
+          return skills.find((s) => s.id === watchedSkill.skillId);
+        })
+      : [];
     setAddedSkills(newSkills);
   }, [watchedSkills, setAddedSkills, skills]);
 
