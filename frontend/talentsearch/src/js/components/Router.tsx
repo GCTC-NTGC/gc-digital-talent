@@ -15,6 +15,10 @@ import {
   ApplicantProfileRoutes,
   useApplicantProfileRoutes,
 } from "../applicantProfileRoutes";
+import {
+  DirectIntakeRoutes,
+  useDirectIntakeRoutes,
+} from "../directIntakeRoutes";
 import RequestPage from "./request/RequestPage";
 import WorkLocationPreferenceApi from "./workLocationPreferenceForm/WorkLocationPreferenceForm";
 import { ProfilePage } from "./profile/ProfilePage/ProfilePage";
@@ -27,6 +31,7 @@ import AboutMeFormContainer from "./aboutMeForm/AboutMeForm";
 import DiversityEquityInclusionFormApi from "./diversityEquityInclusion/DiversityEquityInclusionForm";
 import { ExperienceAndSkillsRouterApi } from "./applicantProfile/ExperienceAndSkills";
 import RoleSalaryFormContainer from "./roleSalaryForm/RoleSalaryForm";
+import BrowsePoolsPage from "./browse/BrowsePoolsPage";
 
 const talentRoutes = (
   talentPaths: TalentSearchRoutes,
@@ -137,13 +142,13 @@ const profileRoutes = (
 ];
 
 const directIntakeRoutes = (
-  talentPaths: TalentSearchRoutes,
+  directIntakePaths: DirectIntakeRoutes,
 ): Routes<RouterResult> => [
   // placeholder, switch with real routes
   {
-    path: "/en/talent/direct-intake",
+    path: directIntakePaths.home(),
     action: () => ({
-      component: <SearchPage />,
+      component: <BrowsePoolsPage />,
     }),
   },
 ];
@@ -152,6 +157,7 @@ export const Router: React.FC = () => {
   const intl = useIntl();
   const talentPaths = useTalentSearchRoutes();
   const profilePaths = useApplicantProfileRoutes();
+  const directIntakePaths = useDirectIntakeRoutes();
 
   const menuItems = [
     <MenuLink
@@ -181,7 +187,7 @@ export const Router: React.FC = () => {
             ? profileRoutes(profilePaths)
             : []),
           ...(checkFeatureFlag("FEATURE_DIRECTINTAKE")
-            ? directIntakeRoutes(talentPaths)
+            ? directIntakeRoutes(directIntakePaths)
             : []),
         ]}
       />
