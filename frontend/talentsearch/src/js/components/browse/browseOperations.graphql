@@ -7,3 +7,13 @@ query browsePools {
     }
   }
 }
+
+query browsePool($id: ID!) {
+  pool(id: $id) {
+    id
+    name {
+      en
+      fr
+    }
+  }
+}
