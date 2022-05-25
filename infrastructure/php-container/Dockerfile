@@ -17,5 +17,10 @@ RUN apt-get update \
 RUN a2enmod rewrite \
     # For including other config files.
     && a2enmod include \
+    # For proxying mock-auth for local dev.
+    && a2enmod proxy \
+    && a2enmod proxy_http \
     # For header directive (security headers mostly).
     && a2enmod headers
+
+COPY 000-default.conf /etc/apache2/sites-enabled/000-default.conf
