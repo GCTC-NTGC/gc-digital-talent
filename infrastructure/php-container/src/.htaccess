@@ -10,6 +10,9 @@ DirectorySlash off
     RewriteCond %{REQUEST_URI} !/dist/$
     RewriteRule ^ %{ENV:APP_URL}/%1 [L,R=301]
 
+    # For configuration of local development proxy at "/oxauth", see site
+    # config at "000-default.conf"
+
     # Rewrite api requests
     RewriteRule ^graphql-playground$ api/public/graphql-playground [L]
     RewriteRule ^graphql$ api/public/graphql [L]
