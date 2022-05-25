@@ -11,7 +11,10 @@ const useQuote = (): Quote => {
 
   const quotes: Quote[] = [
     {
-      author: "Government of Canada IT Apprentice",
+      author: intl.formatMessage({
+        defaultMessage: "Government of Canada IT Apprentice",
+        description: "author of testimonial number one",
+      }),
       content: intl.formatMessage(
         {
           defaultMessage:

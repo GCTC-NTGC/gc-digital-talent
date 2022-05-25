@@ -8,6 +8,7 @@ darkpink
 darkpurple
 datetime
 dedup
+DIRECTINTAKE
 gctalent
 heroicons
 INDIGENOUSAPPRENTICESHIP

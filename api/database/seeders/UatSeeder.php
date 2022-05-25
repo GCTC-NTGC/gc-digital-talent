@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 
-class ProdSeeder extends Seeder
+class UatSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -16,5 +16,7 @@ class ProdSeeder extends Seeder
         $this->call(ClassificationSeeder::class);
         $this->call(CmoAssetSeeder::class);
         $this->call(DepartmentSeeder::class);
+        $this->call(UserSeederUat::class);
+        $this->call(PoolSeederUat::class);
     }
 }
