@@ -274,7 +274,8 @@ RAWSQL2;
         if ($viewExpired) {
             $query->whereDate('expiry_date', '<', date("Y-m-d"));
         } else {
-            $query->whereDate('expiry_date', '>=', date("Y-m-d"));
+            $query->whereDate('expiry_date', '>=', date("Y-m-d"))
+            ->orWhereNull('expiry_date');;
         }
         return $query;
     }

@@ -245,6 +245,10 @@ class UserTest extends TestCase
             'expiry_date' => date("Y-m-d"),
             'pool_id' => $myPool->id,
         ]);
+        PoolCandidate::factory()->count(3)->create([
+            'expiry_date' => null,
+            'pool_id' => $myPool->id,
+        ]);
         // Create some expired users in myPool
         PoolCandidate::factory()->count(2)->create([
             'expiry_date' => '2000-05-13',
@@ -258,6 +262,10 @@ class UserTest extends TestCase
         ]);
         PoolCandidate::factory()->create([
             'expiry_date' => date("Y-m-d"),
+            'pool_id' => $otherPool->id,
+        ]);
+        PoolCandidate::factory()->create([
+            'expiry_date' => null,
             'pool_id' => $otherPool->id,
         ]);
         // Create some expired users in otherPool
@@ -279,7 +287,7 @@ class UserTest extends TestCase
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
-                        'total' => 19
+                        'total' => 23
                     ]
                 ]
             ]
@@ -304,7 +312,7 @@ class UserTest extends TestCase
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
-                        'total' => 5
+                        'total' => 8
                     ]
                 ]
             ]
@@ -330,7 +338,7 @@ class UserTest extends TestCase
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
-                        'total' => 5
+                        'total' => 8
                     ]
                 ]
             ]

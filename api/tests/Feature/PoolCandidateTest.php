@@ -860,6 +860,10 @@ class PoolCandidateTest extends TestCase
       'expiry_date' => date("Y-m-d"),
     ]);
     $futureCandidates->concat($todayCandidate);
+    $nullCandidates = PoolCandidate::factory()->count(3)->create([
+      'expiry_date' => null,
+    ]);
+    $futureCandidates->concat($nullCandidates);
 
     // Assert countPoolCandidates query ignores expired candidates
     $this->graphQL(/** @lang Graphql */ '
@@ -868,7 +872,7 @@ class PoolCandidateTest extends TestCase
       }
     ')->assertJson([
       'data' => [
-        'countPoolCandidates' => 5
+        'countPoolCandidates' => 8
       ]
     ]);
 
