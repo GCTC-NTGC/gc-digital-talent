@@ -35,21 +35,34 @@ const BrowseIndividualPool: React.FC<BrowseIndividualPoolProps> = ({
   ] as BreadcrumbsProps["links"];
 
   return (
-    <>
-      <Breadcrumbs links={links} />
-      <h1>{pool?.name?.en}</h1>
-      <Link
-        type="button"
-        mode="outline"
-        color="primary"
-        href={paths.poolApply(pool ? pool.id : "/")}
-      >
-        {intl.formatMessage({
-          defaultMessage: "Apply",
-          description: "Apply label for button to apply to pool",
-        })}
-      </Link>
-    </>
+    <div>
+      {pool ? (
+        <div>
+          <Breadcrumbs links={links} />
+          <h1>{pool.name?.[locale]}</h1>
+          <Link
+            type="button"
+            mode="outline"
+            color="primary"
+            href={paths.poolApply(pool ? pool.id : "/")}
+          >
+            {intl.formatMessage({
+              defaultMessage: "Apply",
+              description: "Apply label for button to apply to pool",
+            })}
+          </Link>
+        </div>
+      ) : (
+        <div>
+          <p>
+            {intl.formatMessage({
+              defaultMessage: "Error, pool unable to be loaded",
+              description: "Error message, placeholder",
+            })}
+          </p>
+        </div>
+      )}
+    </div>
   );
 };
 
