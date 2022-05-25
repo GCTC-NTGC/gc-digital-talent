@@ -11,7 +11,7 @@ DirectorySlash off
     RewriteRule ^ %{ENV:APP_URL}/%1 [L,R=301]
 
     # For configuration of local development proxy at "/oxauth", see site
-    # config at "000-default.conf"
+    # config at "mock-auth-proxy.apache-site.conf"
 
     # Rewrite api requests
     RewriteRule ^graphql-playground$ api/public/graphql-playground [L]
