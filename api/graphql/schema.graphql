@@ -513,6 +513,11 @@ input PoolFilterInput {
     id: ID!
 }
 
+input UserPoolFilterInput {
+    pools: [ID!]!
+    viewExpiredCandidates: Boolean
+}
+
 input PoolCandidateFilterInput {
     classifications: [ClassificationFilterInput] @builder(method: "App\\Models\\PoolCandidate@filterByClassifications")
     cmoAssets: [KeyFilterInput] @builder(method: "App\\Models\\PoolCandidate@filterByCmoAssets")
@@ -528,7 +533,9 @@ input PoolCandidateFilterInput {
 }
 
 input UserFilterAndOrderInput {
-    pools: [ID] @builder(method: "App\\Models\\User@filterByPools")
+    pools: UserPoolFilterInput @builder(method: "App\\Models\\User@filterByPools")
+    # pools: [ID] @builder(method: "App\\Models\\User@filterByPools")
+    # viewExpiredCandidates: Boolean
     languageAbility: LanguageAbility @builder(method: "App\\Models\\User@filterByLanguageAbility")
     expectedClassifications: [ClassificationFilterInput] @builder(method: "App\\Models\\User@filterByClassifications")
     operationalRequirements: [OperationalRequirement] @builder(method: "App\\Models\\User@filterByOperationalRequirements")
@@ -553,7 +560,7 @@ type Query {
     poolByKey(key: String! @eq): Pool @find
     pools: [Pool]! @all
     poolCandidate(id: ID! @eq): PoolCandidate @find @guard @can(ability: "view", query: true)
-    poolCandidates: [PoolCandidate]! @all @guard @can(ability: "viewAny")
+    poolCandidates: [PoolCandidate]! @all(scopes: ["viewExpired"]) @guard @can(ability: "viewAny")
     # countPoolCandidates returns the number of candidates matching its filters, and requires no special permissions.
     countPoolCandidates(where: PoolCandidateFilterInput): Int! @count(model: "PoolCandidate" scopes: ["viewExpired"])
     # searchPoolCandidates returns the actual candidates matching a filter, and requires permissions.

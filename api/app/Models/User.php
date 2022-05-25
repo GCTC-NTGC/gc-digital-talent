@@ -13,6 +13,7 @@ use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Auth\Authenticatable as AuthenticatableTrait;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 /**
  * Class User
@@ -169,13 +170,27 @@ class User extends Model implements Authenticatable
             return $query;
         }
 
+        $viewExpired = isset($args['viewExpiredCandidates']) ? $args['viewExpiredCandidates'] : false;
+
+        Log::debug(
+            $viewExpired,
+            $args['viewExpiredCandidates']
+        );
+
         // Pool acts as an OR filter. The query should return candidates in ANY of the pools.
-        $query->whereExists(function ($query) use ($pools) {
+        $query->whereExists(function ($query) use ($pools, $viewExpired) {
             $query->select('id')
                   ->from('pool_candidates')
                   ->whereColumn('pool_candidates.user_id', 'users.id')
                   ->whereIn('pool_candidates.pool_id', $pools);
+
+            if ($viewExpired) {
+                $query->whereDate('expiry_date', '<', date("Y-m-d"));
+            } else {
+                $query->whereDate('expiry_date', '>=', date("Y-m-d"));
+            }
         });
+
         return $query;
     }
     public function filterByLanguageAbility(Builder $query, ?string $languageAbility): Builder
