@@ -52,26 +52,44 @@ services:
       - ./frontend:/var/www/html/frontend
       - ./tc-report:/var/www/html/tc-report
 
-  # See: https://github.com/navikt/mock-oauth2-server#standalone-server
-  # We override default port 8080 sincer already used by adminer container.
+  # We proxy the auth server through apache, so it's at localhost.
+  # E.g., http://localhost:8000/oxauth/.well-known/openid-configuration
+  #
+  # We shouldn't need to expose mock-oauth2-server directly (outside the apache
+  # proxy), but if this is required:
+  #
+  #   1. uncomment the container configuration lines below.
+  #   2. add this entry to your `hosts` file:
+  #
+  #       auth.talent.canada.test 127.0.0.1
+  #
+  #   3. Rebuild docker container:
+  #
+  #       $ docker-compose up --detach --build mock-auth
+  #
+  #   4. Confirm working by visiting:
+  #
+  #       http://auth.talent.canada.test:8081/oxauth/.well-known/openid-configuration
+  #
   mock-auth:
+    # See: https://github.com/navikt/mock-oauth2-server#standalone-server
     image: ghcr.io/navikt/mock-oauth2-server:0.4.8
-    ports:
-      - 8081:8081
-    # Can't use localhost due to how mock-oauth2-server runs in Docker.
-    # Developers must add an entry to point this hostname to 127.0.0.1
-    # TODO: Consider proxying localhost:8000/xoauth via apache.
-    hostname: auth.talent.canada.test
+    volumes:
+      - ./infrastructure/conf:/app/conf
     environment:
-      SERVER_PORT: 8081
       # Things to note in config:
       # - we mock a response but leave out "sub", so that value entered in fake
       #   login form will be used.
       # - we match specifically for client_id `fake-development-client-key`,
       #   which must be set in `.env`.
       JSON_CONFIG_PATH: /app/conf/mock-auth-server.json
-    volumes:
-      - ./infrastructure/conf:/app/conf
+      # Uncomment for direct access without proxy.
+      # We override default port 8080 sincer already used by adminer container.
+      #SERVER_PORT: 8081
+    # Uncomment for direct access without proxy.
+    #ports:
+    #  - 8081:8081
+    #hostname: auth.talent.canada.test
 
 volumes:
   pgdata:
