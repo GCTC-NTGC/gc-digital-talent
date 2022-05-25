@@ -514,7 +514,7 @@ input PoolFilterInput {
 }
 
 input UserPoolFilterInput {
-    pools: [ID!]!
+    ids: [ID!]!
     viewExpiredCandidates: Boolean
 }
 
@@ -534,8 +534,6 @@ input PoolCandidateFilterInput {
 
 input UserFilterAndOrderInput {
     pools: UserPoolFilterInput @builder(method: "App\\Models\\User@filterByPools")
-    # pools: [ID] @builder(method: "App\\Models\\User@filterByPools")
-    # viewExpiredCandidates: Boolean
     languageAbility: LanguageAbility @builder(method: "App\\Models\\User@filterByLanguageAbility")
     expectedClassifications: [ClassificationFilterInput] @builder(method: "App\\Models\\User@filterByClassifications")
     operationalRequirements: [OperationalRequirement] @builder(method: "App\\Models\\User@filterByOperationalRequirements")

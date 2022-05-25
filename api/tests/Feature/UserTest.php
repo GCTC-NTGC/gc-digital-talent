@@ -189,7 +189,9 @@ class UserTest extends TestCase
             }
         ', [
             'where' => [
-                'pools' => [$pool2['id']]
+                'pools' => [
+                    'ids' => [$pool2['id']]
+                ]
             ]
         ])->assertJson([
             'data' => [
@@ -212,7 +214,9 @@ class UserTest extends TestCase
             }
         ', [
             'where' => [
-                'pools' => ['00000000-0000-0000-0000-000000000000']
+                'pools' => [
+                    'ids' => ['00000000-0000-0000-0000-000000000000']
+                ]
             ]
         ])->assertJson([
             'data' => [
@@ -263,93 +267,100 @@ class UserTest extends TestCase
         ]);
 
         // Assert query with no parameters returns all users
-        // $this->graphQL(/** @lang Graphql */ '
-        //     query getUsersPaginated($where: UserFilterAndOrderInput) {
-        //         usersPaginated(where: $where) {
-        //             paginatorInfo {
-        //                 total
-        //             }
-        //         }
-        //     }
-        // ')->assertJson([
-        //     'data' => [
-        //         'usersPaginated' => [
-        //             'paginatorInfo' => [
-        //                 'total' => 19
-        //             ]
-        //         ]
-        //     ]
-        // ]);
+        $this->graphQL(/** @lang Graphql */ '
+            query getUsersPaginated($where: UserFilterAndOrderInput) {
+                usersPaginated(where: $where) {
+                    paginatorInfo {
+                        total
+                    }
+                }
+            }
+        ')->assertJson([
+            'data' => [
+                'usersPaginated' => [
+                    'paginatorInfo' => [
+                        'total' => 19
+                    ]
+                ]
+            ]
+        ]);
 
-        // // Assert query with viewExpiredCandidates but no pool returns all users
-        // $this->graphQL(/** @lang Graphql */ '
-        //     query getUsersPaginated($where: UserFilterAndOrderInput) {
-        //         usersPaginated(where: $where) {
-        //             paginatorInfo {
-        //                 total
-        //             }
-        //         }
-        //     }
-        // ', [
-        //     'where' => [
-        //         'viewExpiredCandidates' => true
-        //     ]
-        // ])->assertJson([
-        //     'data' => [
-        //         'usersPaginated' => [
-        //             'paginatorInfo' => [
-        //                 'total' => 19
-        //             ]
-        //         ]
-        //     ]
-        // ]);
+        // Assert query for pool with default viewExpiredCandidates returns correct users
+        $this->graphQL(/** @lang Graphql */ '
+            query getUsersPaginated($where: UserFilterAndOrderInput) {
+                usersPaginated(where: $where) {
+                    paginatorInfo {
+                        total
+                    }
+                }
+            }
+        ', [
+            'where' => [
+                'pools' => [
+                    'ids' => [$myPool->id]
+                ]
+            ]
+        ])->assertJson([
+            'data' => [
+                'usersPaginated' => [
+                    'paginatorInfo' => [
+                        'total' => 5
+                    ]
+                ]
+            ]
+        ]);
 
-        // // Assert query for pool with default viewExpiredCandidates returns correct users
-        // $this->graphQL(/** @lang Graphql */ '
-        //     query getUsersPaginated($where: UserFilterAndOrderInput) {
-        //         usersPaginated(where: $where) {
-        //             paginatorInfo {
-        //                 total
-        //             }
-        //         }
-        //     }
-        // ', [
-        //     'where' => [
-        //         'pools' => [$myPool->id],
-        //     ]
-        // ])->assertJson([
-        //     'data' => [
-        //         'usersPaginated' => [
-        //             'paginatorInfo' => [
-        //                 'total' => 5
-        //             ]
-        //         ]
-        //     ]
-        // ]);
+        // Assert query with pool and viewExpiredCandidates false returns correct users
+        $this->graphQL(/** @lang Graphql */ '
+            query getUsersPaginated($where: UserFilterAndOrderInput) {
+                usersPaginated(where: $where) {
+                    paginatorInfo {
+                        total
+                    }
+                }
+            }
+        ', [
+            'where' => [
+                'pools' => [
+                    'ids' => [$myPool->id],
+                    'viewExpiredCandidates' => false
+                ]
+            ]
+        ])->assertJson([
+            'data' => [
+                'usersPaginated' => [
+                    'paginatorInfo' => [
+                        'total' => 5
+                    ]
+                ]
+            ]
+        ]);
 
-        // // Assert query with pool and viewExpiredCandidates true returns correct users
-        // $this->graphQL(/** @lang Graphql */ '
-        //     query getUsersPaginated($where: UserFilterAndOrderInput) {
-        //         usersPaginated(where: $where) {
-        //             paginatorInfo {
-        //                 total
-        //             }
-        //         }
-        //     }
-        // ', [
-        //     'where' => [
-        //         'pools' => [$myPool->id],
-        //         'viewExpiredCandidates' => true,
-        //     ]
-        // ])->assertJson([
-        //     'data' => [
-        //         'usersPaginated' => [
-        //             'paginatorInfo' => [
-        //                 'total' => 2
-        //             ]
-        //         ]
-        //     ]
-        // ]);
+        // Assert query with pool and viewExpiredCandidates true returns correct users
+        $this->graphQL(/** @lang Graphql */ '
+            query getUsersPaginated($where: UserFilterAndOrderInput) {
+                usersPaginated(where: $where) {
+                    paginatorInfo {
+                        total
+                    }
+                }
+            }
+        ', [
+            'where' => [
+                'pools' => [
+                    'ids' => [$myPool->id],
+                    'viewExpiredCandidates' => true,
+                ]
+            ]
+        ])->assertJson([
+            'data' => [
+                'usersPaginated' => [
+                    'paginatorInfo' => [
+                        'total' => 2
+                    ]
+                ]
+            ]
+        ]);
     }
 
     public function testFilterByLanguageAbility(): void
@@ -1686,7 +1697,9 @@ class UserTest extends TestCase
             }
         ', [
             'where' => [
-                'pools' => [$myPool->id]
+                'pools' => [
+                    'ids' => [$myPool->id]
+                ]
             ]
         ])->assertJson([
             'data' => [
@@ -1709,7 +1722,9 @@ class UserTest extends TestCase
             }
         ', [
             'where' => [
-                'pools' => [$myPool->id],
+                'pools' => [
+                    'ids' => [$myPool->id]
+                ],
                 'expectedClassifications' => [['group' => 'ZZ', 'level' => 1]]
             ]
         ])->assertJson([
@@ -1733,7 +1748,9 @@ class UserTest extends TestCase
             }
         ', [
             'where' => [
-                'pools' => [$myPool->id],
+                'pools' => [
+                    'ids' => [$myPool->id]
+                ],
                 'expectedClassifications' => [['group' => 'UNKNOWN', 'level' => 1324234 ]],
             ]
         ])->assertJson([

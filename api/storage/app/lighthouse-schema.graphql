@@ -1130,7 +1130,7 @@ input UserBelongsTo {
 }
 
 input UserFilterAndOrderInput {
-  pools: [ID]
+  pools: UserPoolFilterInput
   languageAbility: LanguageAbility
   expectedClassifications: [ClassificationFilterInput]
   operationalRequirements: [OperationalRequirement]
@@ -1151,6 +1151,11 @@ type UserPaginator {
 
   """A list of User items."""
   data: [User!]!
+}
+
+input UserPoolFilterInput {
+  ids: [ID!]!
+  viewExpiredCandidates: Boolean
 }
 
 type UserPublicProfile {
