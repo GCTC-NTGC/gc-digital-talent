@@ -17,16 +17,15 @@ const AnchorLink: React.FC<AnchorLinkProps> = ({ id, children }) => {
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     if (targetSection) {
       e.preventDefault();
-      const offset = targetSection.offsetTop;
-      window.scroll({
-        top: offset,
+      targetSection.scrollIntoView({
         behavior: "smooth",
+        block: "center",
       });
     }
   };
 
   return (
-    <a href={`#${id}`} data-h2-margin="b(bottom, xs)" onClick={handleClick}>
+    <a href={`#${id}`} data-h2-margin="b(bottom, s)" onClick={handleClick}>
       {children}
     </a>
   );
