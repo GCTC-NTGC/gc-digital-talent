@@ -4,6 +4,7 @@
   "license": "MIT",
   "description": "Shared components and utilities for GC Digital Talent apps",
   "scripts": {
+    "tsc": "tsc --project tsconfig.json --noEmit",
     "lint": "eslint ./src --ext .js,.ts,.jsx,.tsx",
     "lint:fix": "eslint ./src --fix --ext .js,.ts,.jsx,.tsx",
     "prettier": "prettier --write ./src",
