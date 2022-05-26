@@ -74,16 +74,14 @@ const formValuesToSubmitData = (
 
   let skillSync;
   if (data.skills) {
-    skillSync = Object.keys(data.skills).map((key: string) => {
-      if (!data.skills) {
-        return undefined;
-      }
-      const skill = data.skills[key];
-      return {
-        id: key,
-        details: skill.details,
-      };
-    });
+    skillSync = data.skills
+      ? data.skills.map((skill) => {
+          return {
+            id: skill.skillId,
+            details: skill.details,
+          };
+        })
+      : undefined;
   }
 
   return {

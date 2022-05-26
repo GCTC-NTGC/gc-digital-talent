@@ -53,8 +53,8 @@ const Chip: React.FC<ChipProps> = ({
     <Pill
       color={color}
       mode={mode}
-      data-h2-padding="b(top-bottom, xxs) b(right-left, xs)"
       role="listitem"
+      data-h2-padding="b(top-bottom, xxs) b(right-left, xs)"
     >
       {label}
       {onDismiss && (
