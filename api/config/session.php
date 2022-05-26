@@ -169,8 +169,7 @@ return [
     |
     */
 
-    // See: frontend/.apache_env
-    'secure' => env('CYPRESS_SESSION_SECURE_COOKIE'),
+    'secure' => env('SESSION_SECURE_COOKIE'),
 
     /*
     |--------------------------------------------------------------------------
@@ -198,7 +197,6 @@ return [
     |
     */
 
-    // See: frontend/.apache_env
-    'same_site' => env('CYPRESS_SAME_SITE_COOKIES', 'lax'),
+    'same_site' => 'lax',
 
 ];

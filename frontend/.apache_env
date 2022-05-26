@@ -7,16 +7,3 @@ OAUTH_POST_LOGOUT_REDIRECT="http://localhost:8000/admin"
 # Feature flags
 FEATURE_APPLICANTPROFILE=true
 FEATURE_DIRECTINTAKE=true
-
-# Uncomment the two envvars below to test the redirect flow with
-# mock-oauth2-server. Without these, the single login integration test
-# ("successfully logs in as existing admin user") won't run. This is due to how
-# Cypress works in an iframe, and so Laravel will refuse to load the session
-# during redirect back to app.
-# Source: https://stackoverflow.com/a/68700271
-#
-# TODO: Set up Apache as a reverse proxy to the auth server, to avoid
-# cross-origin complications.
-#
-#CYPRESS_SESSION_SECURE_COOKIE=true
-#CYPRESS_SAME_SITE_COOKIES=none
