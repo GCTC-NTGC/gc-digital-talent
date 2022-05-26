@@ -7,13 +7,9 @@ describe('Auth flows (development)', () => {
       // Creates aliases for use later.
       // E.g., cy.wait('@gqlgetMeQuery')
       aliasQuery(req, 'getMe')
+      aliasQuery(req, 'me')
     })
   })
-
-  // Helpers.
-  const sideMenuLoaded = () => {
-    cy.wait('@gqlgetMeQuery')
-  }
 
   context('Anonymous visitor', () => {
 
@@ -23,6 +19,10 @@ describe('Auth flows (development)', () => {
         // Don't be picky about heading size.
         cy.findByRole('heading', { name: /not authorized/ })
           .should('exist').and('be.visible')
+      }
+
+      const sideMenuLoaded = () => {
+        cy.wait('@gqlgetMeQuery')
       }
 
       [
@@ -121,9 +121,13 @@ describe('Auth flows (development)', () => {
       const onDashboard = () => {
         cy.url().should('match', new RegExp(`^${ Cypress.config().baseUrl }/en/admin/dashboard$`))
         // Heading won't render until we know user details.
-        sideMenuLoaded()
+        userDataLoaded()
         cy.findByRole('heading', { name: /^Welcome back,/ })
           .should('exist').and('be.visible')
+      }
+
+      const userDataLoaded = () => {
+        cy.wait('@gqlmeQuery')
       }
 
       cy.visit('/admin')
