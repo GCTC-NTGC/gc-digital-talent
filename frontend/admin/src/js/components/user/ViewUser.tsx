@@ -8,7 +8,7 @@ import {
 import Breadcrumbs from "@common/components/Breadcrumbs";
 import type { BreadcrumbsProps } from "@common/components/Breadcrumbs";
 import PageHeader from "@common/components/PageHeader";
-import { Button } from "@common/components";
+import { Link } from "@common/components";
 import { Tab, TabSet } from "@common/components/tabs";
 import { commonMessages } from "@common/messages";
 import { useAdminRoutes } from "../../adminRoutes";
@@ -71,13 +71,12 @@ export const ViewUserPage: React.FC<ViewUserPageProps> = ({ user }) => {
           </h2>
         )}
         <div data-h2-margin="m(left, auto)">
-          <Button
+          <Link
             mode="outline"
             color="primary"
             type="button"
-            onClick={() => {
-              return null;
-            }}
+            href="/"
+            // download={ TODO }
           >
             <span>
               <DownloadIcon style={{ width: "1rem" }} />{" "}
@@ -86,7 +85,7 @@ export const ViewUserPage: React.FC<ViewUserPageProps> = ({ user }) => {
                 description: "Text for button to download a user",
               })}
             </span>
-          </Button>
+          </Link>
         </div>
       </div>
       <TabSet>
