@@ -55,10 +55,14 @@ const adminRoutes = (lang: string) => {
         poolCandidateId,
         "edit",
       ),
+    candidateProfile: (): string => path.join(home(), "candidate-profile"),
 
     userTable: (): string => path.join(home(), "users"),
     userCreate: (): string => path.join(home(), "users", "create"),
     userUpdate: (id: string): string => path.join(home(), "users", id, "edit"),
+    userProfile: (id: string): string =>
+      path.join(home(), "users", id, "profile"),
+    userProfileTest: (): string => path.join(home(), "user-profile"),
 
     searchRequestTable: (): string => path.join(home(), "search-requests"),
     searchRequestUpdate: (id: string): string =>

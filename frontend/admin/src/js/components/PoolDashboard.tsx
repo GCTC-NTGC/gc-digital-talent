@@ -40,6 +40,8 @@ import { UpdateSkill } from "./skill/UpdateSkill";
 import HomePage from "./home/HomePage";
 import { Role, useGetPoolsQuery } from "../api/generated";
 import DashboardPage from "./dashboard/DashboardPage";
+import { CandidateProfileAPi } from "./poolCandidate/CandidateProfile";
+import { UserProfileAPi } from "./user/UserProfile";
 
 const PoolListApi = (isAdmin: boolean) => {
   const intl = useIntl();
@@ -136,6 +138,28 @@ const routes = (
     }),
   },
   {
+    path: paths.userProfile(":id"),
+    action: ({ params }) => ({
+      component:
+        loggedIn && isAdmin ? (
+          <UserProfileAPi userId={params.id as string} />
+        ) : (
+          <AdminNotAuthorized />
+        ),
+    }),
+  },
+  {
+    path: paths.userProfileTest(),
+    action: () => ({
+      component:
+        loggedIn && isAdmin ? (
+          <UserProfileAPi userId="78e49eb7-9eee-4a4b-9469-fb30a76040ac" />
+        ) : (
+          <AdminNotAuthorized />
+        ),
+    }),
+  },
+  {
     path: paths.classificationTable(),
     action: () => ({
       component:
@@ -213,6 +237,17 @@ const routes = (
       component:
         loggedIn && isAdmin ? (
           <UpdatePoolCandidate poolCandidateId={params.candidateId as string} />
+        ) : (
+          <AdminNotAuthorized />
+        ),
+    }),
+  },
+  {
+    path: paths.candidateProfile(),
+    action: () => ({
+      component:
+        loggedIn && isAdmin ? (
+          <CandidateProfileAPi userId="78e49eb7-9eee-4a4b-9469-fb30a76040ac" />
         ) : (
           <AdminNotAuthorized />
         ),
