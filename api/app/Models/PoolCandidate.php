@@ -269,13 +269,13 @@ RAWSQL2;
         }
         return $query;
     }
-    public function scopeViewExpired(Builder $query, ?array $args) {
-        $viewExpired = isset($args['viewExpired']) ? $args['viewExpired'] : false;
-        if ($viewExpired) {
-            $query->whereDate('expiry_date', '<', date("Y-m-d"));
-        } else {
+    public function scopeExpiryFilter(Builder $query, ?array $args) {
+        $expiryStatus = isset($args['expiryStatus']) ? $args['expiryStatus'] : ApiEnums::CANDIDATE_EXPIRY_FILTER_ACTIVE;
+        if ($expiryStatus == ApiEnums::CANDIDATE_EXPIRY_FILTER_ACTIVE) {
             $query->whereDate('expiry_date', '>=', date("Y-m-d"))
-            ->orWhereNull('expiry_date');;
+                  ->orWhereNull('expiry_date');
+        } else if ($expiryStatus == ApiEnums::CANDIDATE_EXPIRY_FILTER_EXPIRED) {
+            $query->whereDate('expiry_date', '<', date("Y-m-d"));
         }
         return $query;
     }

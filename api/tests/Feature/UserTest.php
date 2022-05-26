@@ -294,7 +294,7 @@ class UserTest extends TestCase
             ]
         ]);
 
-        // Assert query for pool with default expiredStatus returns correct users
+        // Assert query for pool with default expiryStatus returns correct users
         $this->graphQL(/** @lang Graphql */ '
             query getUsersPaginated($where: UserFilterAndOrderInput) {
                 usersPaginated(where: $where) {
@@ -319,7 +319,7 @@ class UserTest extends TestCase
             ]
         ]);
 
-        // Assert query with pool and expiredStatus ACTIVE returns correct users
+        // Assert query with pool and expiryStatus ACTIVE returns correct users
         $this->graphQL(/** @lang Graphql */ '
             query getUsersPaginated($where: UserFilterAndOrderInput) {
                 usersPaginated(where: $where) {
@@ -332,7 +332,7 @@ class UserTest extends TestCase
             'where' => [
                 'pools' => [
                     'pools' => [$myPool->id],
-                    'expiredStatus' => ApiEnums::CANDIDATE_EXPIRY_FILTER_ACTIVE
+                    'expiryStatus' => ApiEnums::CANDIDATE_EXPIRY_FILTER_ACTIVE
                 ]
             ]
         ])->assertJson([
@@ -345,7 +345,7 @@ class UserTest extends TestCase
             ]
         ]);
 
-        // Assert query with pool and expiredStatus EXPIRED returns correct users
+        // Assert query with pool and expiryStatus EXPIRED returns correct users
         $this->graphQL(/** @lang Graphql */ '
             query getUsersPaginated($where: UserFilterAndOrderInput) {
                 usersPaginated(where: $where) {
@@ -358,7 +358,7 @@ class UserTest extends TestCase
             'where' => [
                 'pools' => [
                     'pools' => [$myPool->id],
-                    'expiredStatus' => ApiEnums::CANDIDATE_EXPIRY_FILTER_EXPIRED,
+                    'expiryStatus' => ApiEnums::CANDIDATE_EXPIRY_FILTER_EXPIRED,
                 ]
             ]
         ])->assertJson([
@@ -371,7 +371,7 @@ class UserTest extends TestCase
             ]
         ]);
 
-        // Assert query with pool and expiredStatus ALL returns all users in pool
+        // Assert query with pool and expiryStatus ALL returns all users in pool
         $this->graphQL(/** @lang Graphql */ '
             query getUsersPaginated($where: UserFilterAndOrderInput) {
                 usersPaginated(where: $where) {
@@ -384,7 +384,7 @@ class UserTest extends TestCase
             'where' => [
                 'pools' => [
                     'pools' => [$myPool->id],
-                    'expiredStatus' => ApiEnums::CANDIDATE_EXPIRY_FILTER_ALL,
+                    'expiryStatus' => ApiEnums::CANDIDATE_EXPIRY_FILTER_ALL,
                 ]
             ]
         ])->assertJson([

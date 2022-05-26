@@ -9,6 +9,7 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Nuwave\Lighthouse\Testing\ClearsSchemaCache;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Tests\TestCase;
+use Database\Helpers\ApiEnums;
 
 class PoolCandidateTest extends TestCase
 {
@@ -865,6 +866,9 @@ class PoolCandidateTest extends TestCase
     ]);
     $futureCandidates->concat($nullCandidates);
 
+    $allCandidates = $expiredCandidates;
+    $allCandidates->concat($futureCandidates);
+
     // Assert countPoolCandidates query ignores expired candidates
     $this->graphQL(/** @lang Graphql */ '
       query countPoolCandidates {
@@ -889,27 +893,43 @@ class PoolCandidateTest extends TestCase
       ]
     ]);
 
-    // Assert searchPoolCandidates query with viewExpired false returns correct candidates
-    $this->graphQL(/** @lang Graphql */ '
+    // Assert searchPoolCandidates query with expiryStatus ACTIVE returns correct candidates
+    $activeStatus = ApiEnums::CANDIDATE_EXPIRY_FILTER_ACTIVE;
+    $this->graphQL(/** @lang Graphql */ "
       query searchPoolCandidates {
-        searchPoolCandidates(viewExpired: false) {
+        searchPoolCandidates(expiryStatus: {$activeStatus}) {
           id
         }
       }
-    ')->assertJson([
+    ")->assertJson([
       'data' => [
         'searchPoolCandidates' => $futureCandidates->map->only(['id'])->toArray()
       ]
     ]);
 
-    // Assert searchPoolCandidates query with viewExpired true returns correct candidates
-    $this->graphQL(/** @lang Graphql */ '
+    // Assert searchPoolCandidates query with expiryStatus EXPIRED returns correct candidates
+    $expiredStatus = ApiEnums::CANDIDATE_EXPIRY_FILTER_EXPIRED;
+    $this->graphQL(/** @lang Graphql */ "
       query searchPoolCandidates {
-        searchPoolCandidates(viewExpired: true) {
+        searchPoolCandidates(expiryStatus: {$expiredStatus}) {
           id
         }
       }
-    ')->assertJson([
+    ")->assertJson([
+      'data' => [
+        'searchPoolCandidates' => $expiredCandidates->map->only(['id'])->toArray()
+      ]
+    ]);
+
+    // Assert searchPoolCandidates query with expiryStatus ALL returns correct candidates
+    $allStatus = ApiEnums::CANDIDATE_EXPIRY_FILTER_ALL;
+    $this->graphQL(/** @lang Graphql */ "
+      query searchPoolCandidates {
+        searchPoolCandidates(expiryStatus: {$allStatus}) {
+          id
+        }
+      }
+    ")->assertJson([
       'data' => [
         'searchPoolCandidates' => $expiredCandidates->map->only(['id'])->toArray()
       ]

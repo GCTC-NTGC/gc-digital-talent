@@ -760,7 +760,7 @@ type Query {
   poolCandidate(id: ID!): PoolCandidate
   poolCandidates: [PoolCandidate]!
   countPoolCandidates(where: PoolCandidateFilterInput): Int!
-  searchPoolCandidates(where: PoolCandidateFilterInput, viewExpired: Boolean): [PoolCandidate]!
+  searchPoolCandidates(where: PoolCandidateFilterInput, expiryStatus: CANDIDATE_EXPIRY_FILTER): [PoolCandidate]!
   classification(id: ID!): Classification
   classifications: [Classification]!
   cmoAsset(id: ID!): CmoAsset
@@ -1161,7 +1161,7 @@ type UserPaginator {
 
 input UserPoolFilterInput {
   pools: [ID!]!
-  expiredStatus: CANDIDATE_EXPIRY_FILTER = ACTIVE
+  expiryStatus: CANDIDATE_EXPIRY_FILTER = ACTIVE
 }
 
 type UserPublicProfile {

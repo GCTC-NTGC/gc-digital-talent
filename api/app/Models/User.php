@@ -176,10 +176,10 @@ class User extends Model implements Authenticatable
                   ->whereColumn('pool_candidates.user_id', 'users.id')
                   ->whereIn('pool_candidates.pool_id', $pools['pools'])
                   ->where(function ($query) use ($pools) {
-                    if ($pools['expiredStatus'] == ApiEnums::CANDIDATE_EXPIRY_FILTER_ACTIVE) {
+                    if ($pools['expiryStatus'] == ApiEnums::CANDIDATE_EXPIRY_FILTER_ACTIVE) {
                         $query->whereDate('expiry_date', '>=', date("Y-m-d"))
                               ->orWhereNull('expiry_date');
-                    } else if ($pools['expiredStatus'] == ApiEnums::CANDIDATE_EXPIRY_FILTER_EXPIRED) {
+                    } else if ($pools['expiryStatus'] == ApiEnums::CANDIDATE_EXPIRY_FILTER_EXPIRED) {
                         $query->whereDate('expiry_date', '<', date("Y-m-d"));
                     }
                   });
