@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
-import { useIntl } from "react-intl";
-import { Pill } from "@common/components";
+import { IntlShape, useIntl } from "react-intl";
+import { Link, Pill } from "@common/components";
 import { useLocation } from "@common/helpers/router";
 import { notEmpty } from "@common/helpers/util";
 import { getLocale } from "@common/helpers/localize";
@@ -9,14 +9,31 @@ import { FromArray } from "@common/types/utilityTypes";
 import { GetPoolsQuery, useGetPoolsQuery } from "../../api/generated";
 import Table, { ColumnsOf, tableEditButtonAccessor } from "../Table";
 import DashboardContentContainer from "../DashboardContentContainer";
+import { useAdminRoutes } from "../../adminRoutes";
 
 type Data = NonNullable<FromArray<GetPoolsQuery["pools"]>>;
+
+// callbacks extracted to separate function to stabilize memoized component
+function poolCandidatesLinkAccessor(
+  poolCandidatesTableUrl: string,
+  intl: IntlShape,
+) {
+  return (
+    <Link href={poolCandidatesTableUrl}>
+      {intl.formatMessage({
+        defaultMessage: "View Candidates",
+        description: "Text for a link to the Pool Candidates table",
+      })}
+    </Link>
+  );
+}
 
 export const PoolTable: React.FC<GetPoolsQuery & { editUrlRoot: string }> = ({
   pools,
   editUrlRoot,
 }) => {
   const intl = useIntl();
+  const paths = useAdminRoutes();
   const columns = useMemo<ColumnsOf<Data>>(
     () => [
       {
@@ -33,6 +50,15 @@ export const PoolTable: React.FC<GetPoolsQuery & { editUrlRoot: string }> = ({
           description: "Title displayed for the Pool table key column.",
         }),
         accessor: "key",
+      },
+      {
+        Header: intl.formatMessage({
+          defaultMessage: "Candidates",
+          description:
+            "Header for the View Candidates column of the Pools table",
+        }),
+        accessor: (pool) =>
+          poolCandidatesLinkAccessor(paths.poolCandidateTable(pool.id), intl),
       },
       {
         Header: intl.formatMessage({
@@ -83,7 +109,7 @@ export const PoolTable: React.FC<GetPoolsQuery & { editUrlRoot: string }> = ({
         accessor: (d) => tableEditButtonAccessor(d.id, editUrlRoot), // callback extracted to separate function to stabilize memoized component
       },
     ],
-    [editUrlRoot, intl],
+    [editUrlRoot, intl, paths],
   );
 
   const data = useMemo(() => pools.filter(notEmpty), [pools]);
