@@ -66,16 +66,12 @@ const BrowseIndividualPool: React.FC<BrowseIndividualPoolProps> = ({
   );
 };
 
-export interface BrowseIndividualPoolApiProps {
-  id: string;
-}
-
-const BrowseIndividualPoolApi: React.FC<BrowseIndividualPoolApiProps> = ({
-  id,
+const BrowseIndividualPoolApi: React.FC<{ poolId: string }> = ({
+  poolId,
 }) => {
   const intl = useIntl();
   const [{ data, fetching, error }] = useBrowsePoolQuery({
-    variables: { id },
+    variables: { id: poolId },
   });
 
   if (fetching) {
