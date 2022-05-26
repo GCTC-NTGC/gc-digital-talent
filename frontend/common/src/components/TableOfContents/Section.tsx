@@ -9,7 +9,7 @@ const Section: React.FC<SectionProps & HTMLAttributes<HTMLDivElement>> = ({
   children,
   ...rest
 }) => (
-  <div id={id} {...rest}>
+  <div id={id} data-h2-margin="b(top, l)" {...rest}>
     {children}
   </div>
 );
