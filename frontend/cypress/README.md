@@ -9,6 +9,59 @@ version of the website running in the browser. (Chrome, Firefox, or Edge)
 
 ![](https://i.imgur.com/t3p6Alo.png)
 
+## Debugging Failing Tests
+
+- We run our E2E test suite on pull requests.
+- When there are test **failures in CI**, there are a few ways to debug:
+  - **Review captured videos and screenshots.** Cypress makes these for every test
+    run. They're compressed and published as artifacts of each CI run. You can
+    download them from each GitHub Action run's "Summary" page.
+  - **Advanced debug output for failed test runs** via
+    [`archfz/cypress-terminal-report`](https://github.com/archfz/cypress-terminal-report).
+    - Normally, the most detailed output is in the **Cypress Console UI**. But it's
+      hard to read in captured videos, and annoying to reproduce locally.
+    - This detailed output is printed **only for failing tests**.
+  - **Check the status and logs of containers.**
+    - On failed CI runs, we list the status of containers (e.g., one may have
+      crashed), and print out the logs of important containers (e.g., Apache
+      logs of PHP container).
+      [config](https://github.com/GCTC-NTGC/gc-digital-talent/blob/main/.github/workflows/e2e-tests.yml#L85-L91)
+- When you need to debug locally, these tips can help:
+  - Run `npm run e2e:open` to start the Cypress UI, which has an **implicit
+    watch mode**. (Saving test files will restart the active test.)
+  - **Append `.skip` or `.only`** to any `it()` test or even a whole
+    `context()`.
+    - `it.skip('foo', () => { ... })` will skip that one test in a test file.
+    - `context.only('bar', () => { ... })` will skip everything else except its
+      tests.
+  - **Pause and explore live test sessions** to investigate the test state.
+    - **Click the url bar to use the app** in a new tab, with whatever
+      browser state was active at the time.
+    - The **"stop" button** allows stopping a local test mid-run.
+    - Use the browser **after test failure** and see what went wrong.
+
+## Plugins and Helpers
+
+### [`frontend/cypress/support/graphql-test-utils.js`](/frontend/cypress/support/graphql-test-utils.js)
+
+See the official Cypress docs: [Working with GraphQL](https://docs.cypress.io/guides/testing-strategies/working-with-graphql)
+
+### [`@testing-library/cypress`](https://testing-library.com/docs/cypress-testing-library/intro/)
+
+This offers the familiar `findByRole()`, `findByLabelText()` etc queries from
+React's `@testing-library`
+
+```js
+cy.findByRole('button', {name: /Button Text/i}).should('exist')
+cy.findByRole('button', {name: /Non-existing Button Text/i}).should('not.exist')
+cy.findByLabelText(/Label text/i, {timeout: 7000}).should('exist')
+```
+
+Note: `get*()` queries are not available, as they're not compatible with how
+Cypress works by default.
+
+See official documentation linked above for examples.
+
 ## Commands
 
 These commands exist via NPM scripts:
@@ -102,10 +155,12 @@ See: https://docs.cypress.io/guides/guides/web-security
     - using `cy.request()` instead of `cy.visit()`
     - set `chromeWebSecurity:false` in `cypress.json` (still has caveats, and
       mitigation only works for Chrome browser)
-    - if disabled, our Laravel API app will now be suspicious of Cypress,
-      and its default security policies cause other issues with session
-      cookies. (See [`frontend/.apache_env`][] for two envvars that must be
-      adjusted)
+      - with the above change, our Laravel API app will unfortunately become
+        suspicious of Cypress, and its default security policies cause other
+        issues with session cookies. To resolve, you'll want to set these
+        envvars in `frontend/.apache_env`:
+        - `SESSION_SAME_SITE_COOKIE=none`
+        - `SESSION_SECURE_COOKIE=false`
 - mitigations of this issue in our setup
   - we'll keep `chromeWebSecurity:true` for our CI runs
   - when a test needs security disabled to work, we'll use `it.skip('does
