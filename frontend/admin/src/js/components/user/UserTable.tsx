@@ -1,10 +1,11 @@
 import React, { useMemo } from "react";
 import { IntlShape, useIntl } from "react-intl";
-import { useLocation } from "@common/helpers/router";
+import { Link, useLocation } from "@common/helpers/router";
 import { notEmpty } from "@common/helpers/util";
 import { commonMessages } from "@common/messages";
 import { FromArray } from "@common/types/utilityTypes";
 import { getLanguage } from "@common/constants/localizedConstants";
+import { useAdminRoutes } from "src/js/adminRoutes";
 import { AllUsersQuery, Language, useAllUsersQuery } from "../../api/generated";
 import Table, { ColumnsOf, tableEditButtonAccessor } from "../Table";
 import DashboardContentContainer from "../DashboardContentContainer";
@@ -21,11 +22,30 @@ const languageAccessor = (
   </span>
 );
 
+const profileLinkAccessor = (
+  profileLink: string,
+  email: string,
+  intl: IntlShape,
+) => {
+  return (
+    <Link
+      href={profileLink}
+      title={intl.formatMessage({
+        defaultMessage: "Link to user profile",
+        description: "Descriptive title for an anchor link",
+      })}
+    >
+      {email}
+    </Link>
+  );
+};
+
 export const UserTable: React.FC<AllUsersQuery & { editUrlRoot: string }> = ({
   users,
   editUrlRoot,
 }) => {
   const intl = useIntl();
+  const paths = useAdminRoutes();
   const columns = useMemo<ColumnsOf<Data>>(
     () => [
       {
@@ -47,7 +67,12 @@ export const UserTable: React.FC<AllUsersQuery & { editUrlRoot: string }> = ({
           defaultMessage: "Email",
           description: "Title displayed for the User table Email column.",
         }),
-        accessor: "email",
+        accessor: (user) =>
+          profileLinkAccessor(
+            paths.userProfile(user.id),
+            user.email ?? "email",
+            intl,
+          ),
       },
       {
         Header: intl.formatMessage({
@@ -72,7 +97,7 @@ export const UserTable: React.FC<AllUsersQuery & { editUrlRoot: string }> = ({
         accessor: (d) => tableEditButtonAccessor(d.id, editUrlRoot), // callback extracted to separate function to stabilize memoized component
       },
     ],
-    [editUrlRoot, intl],
+    [editUrlRoot, intl, paths],
   );
 
   const data = useMemo(() => users.filter(notEmpty), [users]);
