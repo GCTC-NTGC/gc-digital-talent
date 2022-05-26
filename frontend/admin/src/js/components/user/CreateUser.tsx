@@ -4,11 +4,10 @@ import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { Input, MultiSelect, Select, Submit } from "@common/components/form";
 import { navigate } from "@common/helpers/router";
-import { enumToOptions } from "@common/helpers/formUtils";
+import { emptyToNull, enumToOptions } from "@common/helpers/formUtils";
 import { getLanguage, getRole } from "@common/constants/localizedConstants";
 import { errorMessages } from "@common/messages";
 import { phoneNumberRegex } from "@common/constants/regularExpressions";
-import { empty } from "@common/helpers/util";
 import { useAdminRoutes } from "../../adminRoutes";
 import {
   Language,
@@ -16,7 +15,6 @@ import {
   CreateUserMutation,
   useCreateUserMutation,
   Role,
-  InputMaybe,
 } from "../../api/generated";
 import DashboardContentContainer from "../DashboardContentContainer";
 
@@ -26,9 +24,6 @@ interface CreateUserFormProps {
     data: FormValues,
   ) => Promise<CreateUserMutation["createUser"]>;
 }
-
-const emptyToNull = (s: InputMaybe<string>): string | null =>
-  empty(s) || s === "" ? null : s;
 
 const formValuesToData = (values: FormValues): CreateUserInput => ({
   ...values,

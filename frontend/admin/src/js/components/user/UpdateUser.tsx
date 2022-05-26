@@ -5,14 +5,16 @@ import pick from "lodash/pick";
 import { toast } from "react-toastify";
 import { Select, Submit, Input, MultiSelect } from "@common/components/form";
 import { navigate } from "@common/helpers/router";
-import { enumToOptions, unpackIds } from "@common/helpers/formUtils";
+import {
+  emptyToNull,
+  enumToOptions,
+  unpackIds,
+} from "@common/helpers/formUtils";
 import { errorMessages, commonMessages } from "@common/messages";
 import { getLanguage, getRole } from "@common/constants/localizedConstants";
 import { phoneNumberRegex } from "@common/constants/regularExpressions";
-import { empty } from "@common/helpers/util";
 import { useAdminRoutes } from "../../adminRoutes";
 import {
-  InputMaybe,
   Language,
   Role,
   UpdateUserAsAdminInput,
@@ -89,9 +91,6 @@ export const UpdateUserForm: React.FunctionComponent<UpdateUserFormProps> = ({
     pools: unpackIds(data.pools),
     poolCandidates: unpackIds(data.poolCandidates),
   });
-
-  const emptyToNull = (s: InputMaybe<string>): string | null =>
-    empty(s) || s === "" ? null : s;
 
   const formValuesToSubmitData = (
     values: FormValues,

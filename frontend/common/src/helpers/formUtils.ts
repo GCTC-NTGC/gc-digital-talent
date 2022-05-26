@@ -1,5 +1,5 @@
-import { Maybe } from "../api/generated";
-import { getId, notEmpty } from "./util";
+import { InputMaybe, Maybe } from "../api/generated";
+import { empty, getId, notEmpty } from "./util";
 
 /**
  * Filters out empty data from data response.
@@ -119,3 +119,11 @@ export const countNumberOfWords = (text: string): number => {
   }
   return 0;
 };
+
+/**
+ * Accepts a input value and transforms empty strings to a null
+ * @param s String value from an input
+ * @returns The possibly-transformed-to-null input string
+ */
+export const emptyToNull = (s: InputMaybe<string>): string | null =>
+  empty(s) || s === "" ? null : s;
