@@ -16,7 +16,7 @@ import CmoAssetPage from "./cmoAsset/CmoAssetPage";
 import { CreateCmoAsset } from "./cmoAsset/CreateCmoAsset";
 import { UpdateCmoAsset } from "./cmoAsset/UpdateCmoAsset";
 import { CreateUser } from "./user/CreateUser";
-import { Dashboard, MenuHeading, MenuLink } from "./dashboard/Dashboard";
+import Dashboard from "./dashboard/Dashboard";
 import { CreatePoolCandidate } from "./poolCandidate/CreatePoolCandidate";
 import { UpdatePoolCandidate } from "./poolCandidate/UpdatePoolCandidate";
 import PoolCandidatePage from "./poolCandidate/PoolCandidatePage";
@@ -26,6 +26,7 @@ import UserPage from "./user/UserPage";
 import PoolPage from "./pool/PoolPage";
 import { CreatePool } from "./pool/CreatePool";
 import { UpdatePool } from "./pool/UpdatePool";
+import ViewPool from "./pool/ViewPool";
 import DepartmentPage from "./department/DepartmentPage";
 import { CreateDepartment } from "./department/CreateDepartment";
 import { UpdateDepartment } from "./department/UpdateDepartment";
@@ -38,39 +39,8 @@ import SkillPage from "./skill/SkillPage";
 import { CreateSkill } from "./skill/CreateSkill";
 import { UpdateSkill } from "./skill/UpdateSkill";
 import HomePage from "./home/HomePage";
-import { Role, useGetPoolsQuery } from "../api/generated";
+import { Role } from "../api/generated";
 import DashboardPage from "./dashboard/DashboardPage";
-
-const PoolListApi = (isAdmin: boolean) => {
-  const intl = useIntl();
-  const paths = useAdminRoutes();
-  const [result] = useGetPoolsQuery();
-  const { data, fetching, error } = result;
-  const items = [];
-
-  if (!fetching && !error && isAdmin) {
-    items.push(
-      <MenuHeading
-        key="pool-candidates"
-        text={intl.formatMessage({
-          defaultMessage: "Pool Candidates",
-          description: "Label displayed on the Pool Candidates menu item.",
-        })}
-      />,
-    );
-    data?.pools.map((pool) =>
-      items.push(
-        <MenuLink
-          key={`pools/${pool?.id}/pool-candidates`}
-          href={paths.poolCandidateTable(pool?.id ?? "")}
-          text={(pool?.name && pool?.name[getLocale(intl)]) ?? ""}
-        />,
-      ),
-    );
-  }
-
-  return items;
-};
 
 const AdminNotAuthorized: React.FC = () => {
   const intl = useIntl();
@@ -242,6 +212,17 @@ const routes = (
     }),
   },
   {
+    path: paths.poolView(":id"),
+    action: ({ params }) => ({
+      component:
+        loggedIn && isAdmin ? (
+          <ViewPool poolId={params.id as string} />
+        ) : (
+          <AdminNotAuthorized />
+        ),
+    }),
+  },
+  {
     path: paths.departmentTable(),
     action: () => ({
       component:
@@ -336,123 +317,13 @@ const routes = (
 
 export const PoolDashboard: React.FC = () => {
   const { loggedIn } = React.useContext(AuthenticationContext);
-  const intl = useIntl();
   const paths = useAdminRoutes();
   const { loggedInUserRoles } = React.useContext(AuthorizationContext);
   const isAdmin = !!loggedInUserRoles?.includes(Role.Admin);
 
-  const menuItemsAdmin = [
-    <MenuLink
-      key="dashboard"
-      href={paths.dashboard()}
-      text={intl.formatMessage({
-        defaultMessage: "Dashboard",
-        description: "Label displayed on the dashboard menu item.",
-      })}
-    />,
-    <MenuHeading
-      key="search-requests"
-      text={intl.formatMessage({
-        defaultMessage: "Requests",
-        description: "Label displayed on the requests menu item.",
-      })}
-    />,
-    <MenuLink
-      key="all-requests"
-      href={paths.searchRequestTable()}
-      text={intl.formatMessage({
-        defaultMessage: "All Requests",
-        description: "Label displayed on the all requests menu item.",
-      })}
-    />,
-    <MenuHeading
-      key="admin-tools"
-      text={intl.formatMessage({
-        defaultMessage: "Admin Tools",
-        description: "Label displayed on the Admin Tools menu item.",
-      })}
-    />,
-    <MenuLink
-      key="users"
-      href={paths.userTable()}
-      text={intl.formatMessage({
-        defaultMessage: "Users",
-        description: "Label displayed on the Users menu item.",
-      })}
-    />,
-    <MenuLink
-      key="classifications"
-      href={paths.classificationTable()}
-      text={intl.formatMessage({
-        defaultMessage: "Classifications",
-        description: "Label displayed on the Classifications menu item.",
-      })}
-    />,
-    <MenuLink
-      key="cmo-assets"
-      href={paths.cmoAssetTable()}
-      text={intl.formatMessage({
-        defaultMessage: "CMO Assets",
-        description: "Label displayed on the CMO Assets menu item.",
-      })}
-    />,
-    <MenuLink
-      key="pools"
-      href={paths.poolTable()}
-      text={intl.formatMessage({
-        defaultMessage: "Pools",
-        description: "Label displayed on the Pools menu item.",
-      })}
-    />,
-    <MenuLink
-      key="departments"
-      href={paths.departmentTable()}
-      text={intl.formatMessage({
-        defaultMessage: "Departments",
-        description: "Label displayed on the Departments menu item.",
-      })}
-    />,
-    <MenuLink
-      key="skill-families"
-      href={paths.skillFamilyTable()}
-      text={intl.formatMessage({
-        defaultMessage: "Skill Families",
-        description: "Label displayed on the Skill Families menu item.",
-      })}
-    />,
-    <MenuLink
-      key="skills"
-      href={paths.skillTable()}
-      text={intl.formatMessage({
-        defaultMessage: "Skills",
-        description: "Label displayed on the Skills menu item.",
-      })}
-    />,
-  ];
-
-  const menuItemsPool = PoolListApi(isAdmin);
-
-  const menuItems = [
-    <MenuLink
-      key="home"
-      href={paths.home()}
-      text={intl.formatMessage({
-        defaultMessage: "Home",
-        description: "Label displayed on the home menu item.",
-      })}
-    />,
-  ];
-
   return (
     <>
-      <Dashboard
-        menuItems={[
-          ...menuItems,
-          ...(isAdmin ? menuItemsAdmin : []),
-          ...(isAdmin ? menuItemsPool : []),
-        ]}
-        contentRoutes={routes(paths, loggedIn, isAdmin)}
-      />
+      <Dashboard contentRoutes={routes(paths, loggedIn, isAdmin)} />
       <Toast />
     </>
   );

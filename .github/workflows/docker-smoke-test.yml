@@ -50,7 +50,8 @@ jobs:
             docker-
 
       - name: Serve app via docker-compose
-        run: docker-compose up --detach
+        # Need to include --build as we're caching layers.
+        run: docker-compose up --detach --build
 
       - name: "Confirm failure response"
         # Match any non-200 HTTP response code (301 or 404)

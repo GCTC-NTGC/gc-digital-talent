@@ -14,64 +14,105 @@ class ClassificationSeeder extends Seeder
      */
     public function run()
     {
-        $groups = [
-            [
-                'group' => 'CS',
-                'name' => ['en' => 'Computer Systems', 'fr' => 'Systèmes d\'ordinateurs'],
-            ],
-            [
-                'group' => 'AS',
-                'name' => ['en' => 'Administrative Services', 'fr' => 'Services des programmes et de l\'administration'],
-            ],
-            [
-                'group' => 'EC',
-                'name' => ['en' => 'Economics and Social Science Services', 'fr' => 'Économique et services de sciences sociales'],
-            ],
-            [
-                'group' => 'PM',
-                'name' => ['en' => 'Programme Administration', 'fr' => 'Administration des programmes'],
-            ],
-            [
-                'group' => 'IS',
-                'name' => ['en' => 'Information Services', 'fr' => 'Services d\'information'],
-            ]
+        $itGroup = [
+            'group' => 'IT',
+            'name' => ['en' => 'Information Technology', 'fr' => 'Technologie de l\'information']
         ];
-        $levels = [
-            [
-                'level' => 1,
-                'min_salary' => 50000,
-                'max_salary' => 80000
-            ],
-            [
-                'level' => 2,
-                'min_salary' => 65000,
-                'max_salary' => 94000
-            ],
-            [
-                'level' => 3,
-                'min_salary' => 83000,
-                'max_salary' => 113000
-            ],
-            [
-                'level' => 4,
-                'min_salary' => 94000,
-                'max_salary' => 130000
-            ],
-            [
-                'level' => 5,
-                'min_salary' => 105000,
-                'max_salary' => 157000
-            ],
+        $asGroup = [
+            'group' => 'AS',
+            'name' => ['en' => 'Administrative Services', 'fr' => 'Services administratifs']
         ];
-        foreach ($groups as $group) {
-            foreach ($levels as $level) {
-                $identifier = [
-                    'level' => $level['level'],
-                    'group' => $group['group'],
-                ];
-                $content = array_merge($group, $level);
-                Classification::updateOrCreate($identifier, $content);
-            }
+
+        $classifications = [
+            // IT classifications 01-05.
+            array_merge(
+                $itGroup,
+                [
+                    'level' => 1,
+                    'min_salary' => 60696,
+                    'max_salary' => 78216,
+                ]
+            ),
+            array_merge(
+                $itGroup,
+                [
+                    'level' => 2,
+                    'min_salary' => 75129,
+                    'max_salary' => 91953,
+                ]
+            ),
+            array_merge(
+                $itGroup,
+                [
+                    'level' => 3,
+                    'min_salary' => 88683,
+                    'max_salary' => 110182,
+                ]
+            ),
+            array_merge(
+                $itGroup,
+                [
+                    'level' => 4,
+                    'min_salary' => 101541,
+                    'max_salary' => 126390,
+                ]
+            ),
+            array_merge(
+                $itGroup,
+                [
+                    'level' => 5,
+                    'min_salary' => 115754,
+                    'max_salary' => 150842,
+                ]
+            ),
+            // AS classifications 01-05.
+            array_merge(
+                $asGroup,
+                [
+                    'level' => 1,
+                    'min_salary' => 43514,
+                    'max_salary' => 49351,
+                ]
+            ),
+            array_merge(
+                $asGroup,
+                [
+                    'level' => 2,
+                    'min_salary' => 48323,
+                    'max_salary' => 53416,
+                ]
+            ),
+            array_merge(
+                $asGroup,
+                [
+                    'level' => 3,
+                    'min_salary' => 53139,
+                    'max_salary' => 56390,
+                ]
+            ),
+            array_merge(
+                $asGroup,
+                [
+                    'level' => 4,
+                    'min_salary' => 56951,
+                    'max_salary' => 61594,
+                ]
+            ),
+            array_merge(
+                $asGroup,
+                [
+                    'level' => 5,
+                    'min_salary' => 67981,
+                    'max_salary' => 73495,
+                ]
+            ),
+        ];
+        foreach ($classifications as $classification) {
+            $identifier = [
+                'level' => $classification['level'],
+                'group' => $classification['group'],
+            ];
+            Classification::updateOrCreate($identifier, $classification);
         }
     }
 }

@@ -149,7 +149,7 @@ export const ProfileForm: React.FC<ProfilePageProps> = ({
   return (
     <>
       <div
-        data-h2-padding="b(top, xxs) b(bottom, m) b(right-left, s)"
+        data-h2-padding="b(top-bottom, m) b(right-left, s)"
         data-h2-font-color="b(white)"
         data-h2-text-align="b(center)"
         style={{
@@ -162,7 +162,7 @@ export const ProfileForm: React.FC<ProfilePageProps> = ({
           backgroundRepeat: "no-repeat",
         }}
       >
-        <h1>{`${firstName} ${lastName}`}</h1>
+        <h1 data-h2-margin="b(top-bottom, l)">{`${firstName} ${lastName}`}</h1>
       </div>
       <div
         data-h2-position="b(relative)"
@@ -297,8 +297,15 @@ export const ProfileForm: React.FC<ProfilePageProps> = ({
               </div>
             </div>
             <div id="about-me-section">
-              <div style={{ display: "flex", alignItems: "baseline" }}>
-                <h2 data-h2-font-weight="b(600)" style={{ flex: "1 1 0%" }}>
+              <div
+                data-h2-margin="b(top, xl)"
+                style={{ display: "flex", alignItems: "baseline" }}
+              >
+                <h2
+                  data-h2-margin="b(top, none)"
+                  data-h2-font-weight="b(600)"
+                  style={{ flex: "1 1 0%" }}
+                >
                   <UserIcon style={{ width: "calc(1rem*2.25)" }} />
                   &nbsp;&nbsp;
                   {intl.formatMessage({
@@ -440,8 +447,15 @@ export const ProfileForm: React.FC<ProfilePageProps> = ({
               </div>
             </div>
             <div id="language-section">
-              <div style={{ display: "flex", alignItems: "baseline" }}>
-                <h2 data-h2-font-weight="b(600)" style={{ flex: "1 1 0%" }}>
+              <div
+                data-h2-margin="b(top, xl)"
+                style={{ display: "flex", alignItems: "baseline" }}
+              >
+                <h2
+                  data-h2-margin="b(top, none)"
+                  data-h2-font-weight="b(600)"
+                  style={{ flex: "1 1 0%" }}
+                >
                   <ChatAlt2Icon style={{ width: "calc(1rem*2.25)" }} />
                   &nbsp;&nbsp;
                   {intl.formatMessage({
@@ -658,8 +672,15 @@ export const ProfileForm: React.FC<ProfilePageProps> = ({
               </div>
             </div>
             <div id="gov-info-section">
-              <div style={{ display: "flex", alignItems: "baseline" }}>
-                <h2 data-h2-font-weight="b(600)" style={{ flex: "1 1 0%" }}>
+              <div
+                data-h2-margin="b(top, xl)"
+                style={{ display: "flex", alignItems: "baseline" }}
+              >
+                <h2
+                  data-h2-margin="b(top, none)"
+                  data-h2-font-weight="b(600)"
+                  style={{ flex: "1 1 0%" }}
+                >
                   <img
                     style={{ width: "calc(1rem*2.25)" }}
                     src={imageUrl(
@@ -697,96 +718,107 @@ export const ProfileForm: React.FC<ProfilePageProps> = ({
                 data-h2-padding="b(all, m)"
                 data-h2-radius="b(s)"
               >
-                {isGovEmployee && (
-                  <div>
-                    <li>
-                      {intl.formatMessage({
-                        defaultMessage:
-                          "Yes, I am a Government of Canada employee.",
-                        description:
-                          "Message to state user is employed by government",
-                      })}
-                    </li>
-                    {govEmployeeType && (
-                      <li>
-                        {govEmployeeType === GovEmployeeType.Student &&
-                          intl.formatMessage({
-                            defaultMessage: "I have a student position",
-                            description:
-                              "Message to state user is employed federally in a student position",
-                          })}
-                        {govEmployeeType === GovEmployeeType.Casual &&
-                          intl.formatMessage({
-                            defaultMessage: "I have a casual position",
-                            description:
-                              "Message to state user is employed federally in a casual position",
-                          })}
-                        {govEmployeeType === GovEmployeeType.Term &&
-                          intl.formatMessage({
-                            defaultMessage: "I have a term position",
-                            description:
-                              "Message to state user is employed federally in a term position",
-                          })}
-                        {govEmployeeType === GovEmployeeType.Indeterminate &&
-                          intl.formatMessage({
-                            defaultMessage: "I have an indeterminate position",
-                            description:
-                              "Message to state user is employed federally in an indeterminate position",
-                          })}
-                      </li>
-                    )}
-                    {interestedInLaterOrSecondment && (
+                <ul data-h2-padding="b(left, s)">
+                  {isGovEmployee && (
+                    <>
                       <li>
                         {intl.formatMessage({
                           defaultMessage:
-                            "I am interested in lateral deployment or secondment.",
+                            "Yes, I am a Government of Canada employee.",
                           description:
-                            "Message to state user is interested in lateral deployment or secondment",
+                            "Message to state user is employed by government",
                         })}
                       </li>
-                    )}
-                    {!!currentClassification?.group &&
-                      !!currentClassification?.level && (
+                      {govEmployeeType && (
                         <li>
-                          {" "}
-                          {intl.formatMessage({
-                            defaultMessage: "Current group and classification:",
-                            description:
-                              "Field label before government employment group and level, followed by colon",
-                          })}{" "}
-                          <span data-h2-font-weight="b(700)">
-                            {currentClassification?.group}-
-                            {currentClassification?.level}
-                          </span>
+                          {govEmployeeType === GovEmployeeType.Student &&
+                            intl.formatMessage({
+                              defaultMessage: "I have a student position",
+                              description:
+                                "Message to state user is employed federally in a student position",
+                            })}
+                          {govEmployeeType === GovEmployeeType.Casual &&
+                            intl.formatMessage({
+                              defaultMessage: "I have a casual position",
+                              description:
+                                "Message to state user is employed federally in a casual position",
+                            })}
+                          {govEmployeeType === GovEmployeeType.Term &&
+                            intl.formatMessage({
+                              defaultMessage: "I have a term position",
+                              description:
+                                "Message to state user is employed federally in a term position",
+                            })}
+                          {govEmployeeType === GovEmployeeType.Indeterminate &&
+                            intl.formatMessage({
+                              defaultMessage:
+                                "I have an indeterminate position",
+                              description:
+                                "Message to state user is employed federally in an indeterminate position",
+                            })}
                         </li>
                       )}
-                  </div>
-                )}
-                {isGovEmployee === null && (
-                  <p>
-                    {intl.formatMessage({
-                      defaultMessage:
-                        "You haven't added any information here yet.",
-                      description:
-                        "Message for when no data exists for the section",
-                    })}
-                  </p>
-                )}
-                {isGovEmployee === false && (
-                  <li>
-                    {intl.formatMessage({
-                      defaultMessage:
-                        "You are not entered as a current government employee",
-                      description:
-                        "Message indicating the user is not marked in the system as being federally employed currently",
-                    })}
-                  </li>
-                )}
+                      {interestedInLaterOrSecondment && (
+                        <li>
+                          {intl.formatMessage({
+                            defaultMessage:
+                              "I am interested in lateral deployment or secondment.",
+                            description:
+                              "Message to state user is interested in lateral deployment or secondment",
+                          })}
+                        </li>
+                      )}
+                      {!!currentClassification?.group &&
+                        !!currentClassification?.level && (
+                          <li>
+                            {" "}
+                            {intl.formatMessage({
+                              defaultMessage:
+                                "Current group and classification:",
+                              description:
+                                "Field label before government employment group and level, followed by colon",
+                            })}{" "}
+                            <span data-h2-font-weight="b(700)">
+                              {currentClassification?.group}-
+                              {currentClassification?.level}
+                            </span>
+                          </li>
+                        )}
+                    </>
+                  )}
+                  {isGovEmployee === null && (
+                    <li>
+                      {intl.formatMessage({
+                        defaultMessage:
+                          "You haven't added any information here yet.",
+                        description:
+                          "Message for when no data exists for the section",
+                      })}
+                    </li>
+                  )}
+                  {isGovEmployee === false && (
+                    <li>
+                      {intl.formatMessage({
+                        defaultMessage:
+                          "You are not entered as a current government employee",
+                        description:
+                          "Message indicating the user is not marked in the system as being federally employed currently",
+                      })}
+                    </li>
+                  )}
+                </ul>
               </div>
             </div>
             <div id="work-location-section">
-              <div style={{ display: "flex", alignItems: "baseline" }}>
-                <h2 data-h2-font-weight="b(600)" style={{ flex: "1 1 0%" }}>
+              <div
+                data-h2-margin="b(top, xl)"
+                style={{ display: "flex", alignItems: "baseline" }}
+              >
+                <h2
+                  data-h2-margin="b(top, none)"
+                  data-h2-font-weight="b(600)"
+                  style={{ flex: "1 1 0%" }}
+                >
                   <img
                     style={{ width: "calc(1rem*2.25)" }}
                     src={imageUrl(
@@ -883,8 +915,15 @@ export const ProfileForm: React.FC<ProfilePageProps> = ({
               </div>
             </div>
             <div id="work-preferences-section">
-              <div style={{ display: "flex", alignItems: "baseline" }}>
-                <h2 data-h2-font-weight="b(600)" style={{ flex: "1 1 0%" }}>
+              <div
+                data-h2-margin="b(top, xl)"
+                style={{ display: "flex", alignItems: "baseline" }}
+              >
+                <h2
+                  data-h2-margin="b(top, none)"
+                  data-h2-font-weight="b(600)"
+                  style={{ flex: "1 1 0%" }}
+                >
                   <ThumbUpIcon style={{ width: "calc(1rem*2.25)" }} />
                   &nbsp;&nbsp;
                   {intl.formatMessage({
@@ -991,8 +1030,15 @@ export const ProfileForm: React.FC<ProfilePageProps> = ({
               </div>
             </div>
             <div id="diversity-section">
-              <div style={{ display: "flex", alignItems: "baseline" }}>
-                <h2 data-h2-font-weight="b(600)" style={{ flex: "1 1 0%" }}>
+              <div
+                data-h2-margin="b(top, xl)"
+                style={{ display: "flex", alignItems: "baseline" }}
+              >
+                <h2
+                  data-h2-margin="b(top, none)"
+                  data-h2-font-weight="b(600)"
+                  style={{ flex: "1 1 0%" }}
+                >
                   <UserCircleIcon style={{ width: "calc(1rem*2.25)" }} />
                   &nbsp;&nbsp;
                   {intl.formatMessage({
@@ -1075,8 +1121,15 @@ export const ProfileForm: React.FC<ProfilePageProps> = ({
               </div>
             </div>
             <div id="skills-section" data-h2-padding="b(bottom, xxl)">
-              <div style={{ display: "flex", alignItems: "baseline" }}>
-                <h2 data-h2-font-weight="b(600)" style={{ flex: "1 1 0%" }}>
+              <div
+                data-h2-margin="b(top, xl)"
+                style={{ display: "flex", alignItems: "baseline" }}
+              >
+                <h2
+                  data-h2-margin="b(top, none)"
+                  data-h2-font-weight="b(600)"
+                  style={{ flex: "1 1 0%" }}
+                >
                   <LightningBoltIcon style={{ width: "calc(1rem*2.25)" }} />
                   &nbsp;&nbsp;
                   {intl.formatMessage({
