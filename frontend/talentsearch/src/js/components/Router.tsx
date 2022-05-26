@@ -32,6 +32,7 @@ import DiversityEquityInclusionFormApi from "./diversityEquityInclusion/Diversit
 import { ExperienceAndSkillsRouterApi } from "./applicantProfile/ExperienceAndSkills";
 import RoleSalaryFormContainer from "./roleSalaryForm/RoleSalaryForm";
 import BrowsePoolsPage from "./browse/BrowsePoolsPage";
+import BrowseIndividualPoolApi from "./browse/BrowseIndividualPool";
 import PoolApplyPage from "./pool/PoolApplyPage";
 
 const talentRoutes = (
@@ -151,6 +152,15 @@ const directIntakeRoutes = (
     action: () => ({
       component: <BrowsePoolsPage />,
     }),
+  },
+  {
+    path: directIntakePaths.pool(":id"),
+    action: (context) => {
+      const poolId = context.params.id as string;
+      return {
+        component: <BrowseIndividualPoolApi poolId={poolId} />,
+      };
+    },
   },
   {
     path: directIntakePaths.poolApply(":id"),
