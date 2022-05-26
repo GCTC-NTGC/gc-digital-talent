@@ -19,13 +19,13 @@ const AddedSkills: React.FunctionComponent<AddedSkillsProps> = ({
   const locale = getLocale(intl);
   return (
     <>
-      <h5>
+      <h3 data-h2-font-size="b(h5)">
         {intl.formatMessage({
           defaultMessage: "Skills attached to this experience",
           description:
             "Section header for a list of skills attached to this experience",
         })}
-      </h5>
+      </h3>
       {skills.map((skill) => {
         const handleDismiss = () => onRemoveSkill(skill.id);
         return (
