@@ -5,7 +5,7 @@ import { notEmpty } from "@common/helpers/util";
 import { commonMessages } from "@common/messages";
 import { FromArray } from "@common/types/utilityTypes";
 import { getLanguage } from "@common/constants/localizedConstants";
-import { useAdminRoutes } from "src/js/adminRoutes";
+import { useAdminRoutes } from "../../adminRoutes";
 import { AllUsersQuery, Language, useAllUsersQuery } from "../../api/generated";
 import Table, { ColumnsOf, tableEditButtonAccessor } from "../Table";
 import DashboardContentContainer from "../DashboardContentContainer";
