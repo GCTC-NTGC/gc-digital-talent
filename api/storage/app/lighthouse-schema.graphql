@@ -91,6 +91,12 @@ enum BilingualEvaluation {
   NOT_COMPLETED
 }
 
+enum CANDIDATE_EXPIRY_FILTER {
+  ACTIVE
+  EXPIRED
+  ALL
+}
+
 type Classification {
   id: ID!
   name: LocalizedString
@@ -1154,8 +1160,8 @@ type UserPaginator {
 }
 
 input UserPoolFilterInput {
-  ids: [ID!]!
-  viewExpiredCandidates: Boolean
+  pools: [ID!]!
+  expiredStatus: CANDIDATE_EXPIRY_FILTER = ACTIVE
 }
 
 type UserPublicProfile {

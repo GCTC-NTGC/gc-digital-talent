@@ -14,6 +14,7 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Nuwave\Lighthouse\Testing\ClearsSchemaCache;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Tests\TestCase;
+use Database\Helpers\ApiEnums;
 
 class UserTest extends TestCase
 {
@@ -190,7 +191,7 @@ class UserTest extends TestCase
         ', [
             'where' => [
                 'pools' => [
-                    'ids' => [$pool2['id']]
+                    'pools' => [$pool2['id']]
                 ]
             ]
         ])->assertJson([
@@ -215,7 +216,7 @@ class UserTest extends TestCase
         ', [
             'where' => [
                 'pools' => [
-                    'ids' => ['00000000-0000-0000-0000-000000000000']
+                    'pools' => ['00000000-0000-0000-0000-000000000000']
                 ]
             ]
         ])->assertJson([
@@ -293,7 +294,7 @@ class UserTest extends TestCase
             ]
         ]);
 
-        // Assert query for pool with default viewExpiredCandidates returns correct users
+        // Assert query for pool with default expiredStatus returns correct users
         $this->graphQL(/** @lang Graphql */ '
             query getUsersPaginated($where: UserFilterAndOrderInput) {
                 usersPaginated(where: $where) {
@@ -305,7 +306,7 @@ class UserTest extends TestCase
         ', [
             'where' => [
                 'pools' => [
-                    'ids' => [$myPool->id]
+                    'pools' => [$myPool->id]
                 ]
             ]
         ])->assertJson([
@@ -318,7 +319,7 @@ class UserTest extends TestCase
             ]
         ]);
 
-        // Assert query with pool and viewExpiredCandidates false returns correct users
+        // Assert query with pool and expiredStatus ACTIVE returns correct users
         $this->graphQL(/** @lang Graphql */ '
             query getUsersPaginated($where: UserFilterAndOrderInput) {
                 usersPaginated(where: $where) {
@@ -330,8 +331,8 @@ class UserTest extends TestCase
         ', [
             'where' => [
                 'pools' => [
-                    'ids' => [$myPool->id],
-                    'viewExpiredCandidates' => false
+                    'pools' => [$myPool->id],
+                    'expiredStatus' => ApiEnums::CANDIDATE_EXPIRY_FILTER_ACTIVE
                 ]
             ]
         ])->assertJson([
@@ -344,7 +345,7 @@ class UserTest extends TestCase
             ]
         ]);
 
-        // Assert query with pool and viewExpiredCandidates true returns correct users
+        // Assert query with pool and expiredStatus EXPIRED returns correct users
         $this->graphQL(/** @lang Graphql */ '
             query getUsersPaginated($where: UserFilterAndOrderInput) {
                 usersPaginated(where: $where) {
@@ -356,8 +357,8 @@ class UserTest extends TestCase
         ', [
             'where' => [
                 'pools' => [
-                    'ids' => [$myPool->id],
-                    'viewExpiredCandidates' => true,
+                    'pools' => [$myPool->id],
+                    'expiredStatus' => ApiEnums::CANDIDATE_EXPIRY_FILTER_EXPIRED,
                 ]
             ]
         ])->assertJson([
@@ -365,6 +366,32 @@ class UserTest extends TestCase
                 'usersPaginated' => [
                     'paginatorInfo' => [
                         'total' => 2
+                    ]
+                ]
+            ]
+        ]);
+
+        // Assert query with pool and expiredStatus ALL returns all users in pool
+        $this->graphQL(/** @lang Graphql */ '
+            query getUsersPaginated($where: UserFilterAndOrderInput) {
+                usersPaginated(where: $where) {
+                    paginatorInfo {
+                        total
+                    }
+                }
+            }
+        ', [
+            'where' => [
+                'pools' => [
+                    'pools' => [$myPool->id],
+                    'expiredStatus' => ApiEnums::CANDIDATE_EXPIRY_FILTER_ALL,
+                ]
+            ]
+        ])->assertJson([
+            'data' => [
+                'usersPaginated' => [
+                    'paginatorInfo' => [
+                        'total' => 10
                     ]
                 ]
             ]
@@ -1706,7 +1733,7 @@ class UserTest extends TestCase
         ', [
             'where' => [
                 'pools' => [
-                    'ids' => [$myPool->id]
+                    'pools' => [$myPool->id]
                 ]
             ]
         ])->assertJson([
@@ -1731,7 +1758,7 @@ class UserTest extends TestCase
         ', [
             'where' => [
                 'pools' => [
-                    'ids' => [$myPool->id]
+                    'pools' => [$myPool->id]
                 ],
                 'expectedClassifications' => [['group' => 'ZZ', 'level' => 1]]
             ]
@@ -1757,7 +1784,7 @@ class UserTest extends TestCase
         ', [
             'where' => [
                 'pools' => [
-                    'ids' => [$myPool->id]
+                    'pools' => [$myPool->id]
                 ],
                 'expectedClassifications' => [['group' => 'UNKNOWN', 'level' => 1324234 ]],
             ]

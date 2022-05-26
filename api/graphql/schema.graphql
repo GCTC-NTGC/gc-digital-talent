@@ -513,9 +513,15 @@ input PoolFilterInput {
     id: ID!
 }
 
+enum CANDIDATE_EXPIRY_FILTER {
+    ACTIVE
+    EXPIRED
+    ALL
+}
+
 input UserPoolFilterInput {
-    ids: [ID!]!
-    viewExpiredCandidates: Boolean
+    pools: [ID!]!
+    expiredStatus: CANDIDATE_EXPIRY_FILTER = ACTIVE
 }
 
 input PoolCandidateFilterInput {
