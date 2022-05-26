@@ -1,14 +1,10 @@
-import React, { HTMLAttributes, MouseEventHandler } from "react";
+import React, { HTMLAttributes } from "react";
 
-export interface TableOfContentsAnchor
-  extends HTMLAttributes<HTMLAnchorElement> {
+export interface AnchorLinkProps extends HTMLAttributes<HTMLAnchorElement> {
   id: string;
 }
 
-const TableOfContentsAnchor: React.FC<TableOfContentsAnchor> = ({
-  id,
-  children,
-}) => {
+const AnchorLink: React.FC<AnchorLinkProps> = ({ id, children }) => {
   const [targetSection, setTargetSection] = React.useState<HTMLElement | null>(
     null,
   );
@@ -36,4 +32,4 @@ const TableOfContentsAnchor: React.FC<TableOfContentsAnchor> = ({
   );
 };
 
-export default TableOfContentsAnchor;
+export default AnchorLink;

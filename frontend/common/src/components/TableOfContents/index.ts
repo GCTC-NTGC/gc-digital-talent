@@ -1,12 +1,20 @@
-import TableOfContentsNavigation from "./TableOfContents";
-import TableOfContentsSection from "./TableOfContentsSection";
-import type { TableOfContentsSectionProps } from "./TableOfContentsSection";
+import AnchorLink, {
+  type AnchorLinkProps as TocAnchorLinkProps,
+} from "./AnchorLink";
+import Content from "./Content";
+import Heading, { type HeadingProps as TocHeadingProps } from "./Heading";
+import Navigation from "./Navigation";
+import Section, { type SectionProps as TocSectionProps } from "./Section";
+import Wrapper from "./Wrapper";
 
 const TableOfContents = {
-  Navigation: TableOfContentsNavigation,
-  Section: TableOfContentsSection,
+  AnchorLink,
+  Content,
+  Heading,
+  Navigation,
+  Section,
+  Wrapper,
 };
 
-export default TableOfContentsNavigation;
-export { TableOfContentsSection, TableOfContents };
-export type { TableOfContentsSectionProps };
+export default TableOfContents;
+export type { TocAnchorLinkProps, TocHeadingProps, TocSectionProps };

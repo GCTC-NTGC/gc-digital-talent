@@ -1,10 +1,10 @@
 import React from "react";
 import { Story, Meta } from "@storybook/react";
 
-import { TableOfContents } from "./index";
+import TableOfContents from ".";
 
 export default {
-  component: TableOfContents.Navigation,
+  component: TableOfContents.Wrapper,
   title: "Components/Table of Contents",
 } as Meta;
 
@@ -29,34 +29,26 @@ const items = [
 
 const TemplateTableOfContents: Story = () => {
   return (
-    <div
-      data-h2-position="b(relative)"
-      data-h2-flex-grid="b(top, contained, flush, none)"
-      data-h2-container="b(center, l)"
-      data-h2-padding="b(right-left, s)"
-    >
-      <div
-        data-h2-flex-item="b(1of1) s(1of4)"
-        data-h2-position="b(sticky)"
-        data-h2-text-align="b(right)"
-        data-h2-visibility="b(hidden) s(visible)"
-      >
-        <TableOfContents.Navigation />
-      </div>
-      <div data-h2-flex-item="b(1of1) s(3of4)">
-        <div data-h2-padding="b(left, l)">
-          {items.map((item) => (
-            <TableOfContents.Section
-              key={item.id}
-              {...item}
-              style={{ display: "block", height: "100vh" }}
-            >
-              Testing this
-            </TableOfContents.Section>
-          ))}
-        </div>
-      </div>
-    </div>
+    <TableOfContents.Wrapper>
+      <TableOfContents.Navigation>
+        {items.map((item) => (
+          <TableOfContents.AnchorLink key={item.id} id={item.id}>
+            {item.title}
+          </TableOfContents.AnchorLink>
+        ))}
+      </TableOfContents.Navigation>
+      <TableOfContents.Content>
+        {items.map((item) => (
+          <TableOfContents.Section
+            key={item.id}
+            id={item.id}
+            style={{ height: "100vh" }}
+          >
+            <TableOfContents.Heading>{item.title}</TableOfContents.Heading>
+          </TableOfContents.Section>
+        ))}
+      </TableOfContents.Content>
+    </TableOfContents.Wrapper>
   );
 };
 

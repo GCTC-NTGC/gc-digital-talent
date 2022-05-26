@@ -1,16 +1,12 @@
 import React from "react";
 
-import "./tableOfContentsHeading.css";
+import "./heading.css";
 
-export interface TableOfContentsHeadingProps {
+export interface HeadingProps {
   icon?: React.FC<{ className: string }>;
 }
 
-const TableOfContentsHeading: React.FC<TableOfContentsHeadingProps> = ({
-  icon,
-  children,
-  ...rest
-}) => {
+const Heading: React.FC<HeadingProps> = ({ icon, children, ...rest }) => {
   const Icon = icon || null;
 
   return (
@@ -28,4 +24,4 @@ const TableOfContentsHeading: React.FC<TableOfContentsHeadingProps> = ({
   );
 };
 
-export default TableOfContentsHeading;
+export default Heading;
