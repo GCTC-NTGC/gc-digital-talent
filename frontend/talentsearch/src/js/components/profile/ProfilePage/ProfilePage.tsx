@@ -1,6 +1,8 @@
 import React from "react";
 import {
+  BriefcaseIcon,
   ChatAlt2Icon,
+  LibraryIcon,
   LightBulbIcon,
   LightningBoltIcon,
   ThumbUpIcon,
@@ -27,7 +29,6 @@ import {
 } from "@common/constants/localizedConstants";
 
 import { insertBetween, notEmpty } from "@common/helpers/util";
-import { BriefcaseIcon, LibraryIcon } from "@heroicons/react/outline";
 import TALENTSEARCH_APP_DIR from "../../../talentSearchConstants";
 import { useApplicantProfileRoutes } from "../../../applicantProfileRoutes";
 import {
@@ -44,10 +45,6 @@ import ExperienceSection from "../../applicantProfile/ExperienceSection";
 export interface ProfilePageProps {
   profileDataInput: User;
 }
-
-const GovBuildingIcon = () => (
-  <img src={imageUrl(TALENTSEARCH_APP_DIR, "gov-building-icon.svg")} alt="" />
-);
 
 export const ProfileForm: React.FC<ProfilePageProps> = ({
   profileDataInput,
