@@ -158,10 +158,11 @@ const directIntakeRoutes = (
     action: (context) => {
       const poolId = context.params.id as string;
       return {
-        component: <BrowseIndividualPoolApi id={poolId} />,
+        component: <BrowseIndividualPoolApi poolId={poolId} />,
       };
     },
   },
+  {
     path: directIntakePaths.poolApply(":id"),
     action: (context) => {
       const poolId = context.params.id as string;
