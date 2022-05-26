@@ -10,8 +10,11 @@ const directIntakeRoutes = (lang: string) => {
 
   return {
     home,
+    allPools: (): string => path.join(home(), "pools"),
     pool: (id: string) => path.join(home(), "pools", id),
     poolApply: (id: string) => path.join(home(), "pools", id, "apply"),
+    poolApplyThanks: (id: string) =>
+      path.join(home(), "pools", id, "apply", "thanks"),
   };
 };
 
