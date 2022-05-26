@@ -83,14 +83,14 @@ describe('Auth flows (development)', () => {
     // policies that Cypress isn't intended to do, and so this test will fail
     // (except under special conditions that we don't run by default)
     // Requires chromeWebSecurity:false (See main README)
-    it.skip('succeeds for an existing admin user', () => {
+    it('succeeds for an existing admin user', () => {
       const initialPath = '/en/admin/skills'
       cy.visit(initialPath)
       // Limit to nav because two login buttons on main page.
       cy.get('nav').within(() => {
         cy.findByRole('button', {name: 'Logout'})
           .should('not.exist')
-        cy.findByRole('button', {name: 'Login'})
+        cy.findByRole('link', {name: 'Login'})
           .should('exist').and('be.visible')
           .click()
       })
@@ -105,7 +105,7 @@ describe('Auth flows (development)', () => {
 
       cy.url().should('equal', Cypress.config().baseUrl + initialPath)
       cy.get('nav').within(() => {
-        cy.findByRole('button', {name: 'Login'})
+        cy.findByRole('link', {name: 'Login'})
           .should('not.exist')
         cy.findByRole('button', {name: 'Logout'})
           .should('exist').and('be.visible')
@@ -143,7 +143,7 @@ describe('Auth flows (development)', () => {
 
       cy.get('@logout')
         .should('not.exist')
-      cy.findByRole('button', { name: 'Login' })
+      cy.findByRole('link', { name: 'Login' })
         .should('exist').and('be.visible')
     })
 
