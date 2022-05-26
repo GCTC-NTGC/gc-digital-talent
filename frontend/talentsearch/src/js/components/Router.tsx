@@ -33,6 +33,7 @@ import { ExperienceAndSkillsRouterApi } from "./applicantProfile/ExperienceAndSk
 import RoleSalaryFormContainer from "./roleSalaryForm/RoleSalaryForm";
 import BrowsePoolsPage from "./browse/BrowsePoolsPage";
 import BrowseIndividualPoolApi from "./browse/BrowseIndividualPool";
+import PoolApplyPage from "./pool/PoolApplyPage";
 
 const talentRoutes = (
   talentPaths: TalentSearchRoutes,
@@ -158,6 +159,14 @@ const directIntakeRoutes = (
       const poolId = context.params.id as string;
       return {
         component: <BrowseIndividualPoolApi id={poolId} />,
+      };
+    },
+  },
+    path: directIntakePaths.poolApply(":id"),
+    action: (context) => {
+      const poolId = context.params.id as string;
+      return {
+        component: <PoolApplyPage id={poolId} />,
       };
     },
   },
