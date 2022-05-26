@@ -66,9 +66,7 @@ const BrowseIndividualPool: React.FC<BrowseIndividualPoolProps> = ({
   );
 };
 
-const BrowseIndividualPoolApi: React.FC<{ poolId: string }> = ({
-  poolId,
-}) => {
+const BrowseIndividualPoolApi: React.FC<{ poolId: string }> = ({ poolId }) => {
   const intl = useIntl();
   const [{ data, fetching, error }] = useBrowsePoolQuery({
     variables: { id: poolId },
