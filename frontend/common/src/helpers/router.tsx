@@ -1,9 +1,20 @@
 import { createBrowserHistory, Location, Path, State } from "history";
 import UniversalRouter, { Routes } from "universal-router";
-import React, { useState, useEffect, useMemo, ReactElement } from "react";
+import React, {
+  useState,
+  useEffect,
+  useMemo,
+  ReactElement,
+  useRef,
+} from "react";
 import fromPairs from "lodash/fromPairs";
 import toPairs from "lodash/toPairs";
 import path from "path-browserify";
+import { useIntl } from "react-intl";
+import { Role } from "../api/generated";
+import { PossibleUserRoles } from "../components/Auth/AuthorizationContainer";
+import { useApiRoutes } from "../hooks/useApiRoutes";
+import { getLocale } from "./localize";
 
 export const HISTORY = createBrowserHistory();
 
@@ -87,35 +98,75 @@ export const pushToStateThenNavigate = (url: string, state: State): void => {
 };
 
 export interface RouterResult {
-  component: ReactElement;
+  component?: ReactElement;
   redirect?: string;
+  authorizedRoles?: Array<Role>;
 }
 
 export const useRouter = (
   routes: Routes<RouterResult>,
   missingRouteComponent: ReactElement,
+  notAuthorizedComponent: ReactElement,
+  isLoggedIn: boolean,
+  loggedInUserRoles: PossibleUserRoles,
 ): React.ReactElement | null => {
   const location = useLocation();
   const router = useMemo(() => new UniversalRouter(routes), [routes]);
   const [component, setComponent] = useState<React.ReactElement | null>(null);
   const pathName = location.pathname;
+  const apiRoutesRef = useRef(useApiRoutes()); // I'm not not sure why this function is unstable on its own!
+  const locale = getLocale(useIntl());
   // Render the result of routing
   useEffect((): void => {
     router
       .resolve(pathName)
-      .then(async (r) => {
-        // r may or may not be a promise, so attempt to resolve it. A non-promise value will simply resolve to itself.
-        const result = await Promise.resolve(r);
-        if (result?.redirect) {
-          redirect(result.redirect);
-        } else if (result) {
-          setComponent(result.component);
+      .then(async (routeMaybePromise) => {
+        // may or may not be a promise, so attempt to resolve it. A non-promise value will simply resolve to itself.
+        const route = await Promise.resolve(routeMaybePromise);
+
+        // handling a redirect
+        if (route?.redirect) {
+          redirect(route.redirect);
+        }
+
+        // handling a component
+        if (route?.component) {
+          // if there are roles required then special handling is needed
+          const authorizationRequired =
+            route?.authorizedRoles && route?.authorizedRoles.length > 0;
+
+          // if the user is not logged in then go to login page with "from" option to come back
+          if (authorizationRequired && !isLoggedIn) {
+            window.location.href = apiRoutesRef.current.login(pathName, locale);
+          }
+
+          const isAuthorized =
+            route?.authorizedRoles &&
+            route.authorizedRoles.some((authorizedRole: Role) =>
+              loggedInUserRoles?.includes(authorizedRole),
+            );
+
+          if (authorizationRequired && !isAuthorized) {
+            setComponent(notAuthorizedComponent);
+          } else {
+            setComponent(route.component);
+          }
+        } else {
+          throw new Error("Unexpected route properties");
         }
       })
       .catch(async () => {
         setComponent(missingRouteComponent);
       });
-  }, [missingRouteComponent, pathName, router]);
+  }, [
+    isLoggedIn,
+    locale,
+    loggedInUserRoles,
+    missingRouteComponent,
+    notAuthorizedComponent,
+    pathName,
+    router,
+  ]);
 
   return component;
 };
