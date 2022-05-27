@@ -33,21 +33,43 @@ const PoolApplicationThanks: React.FC<PoolApplicationThanksProps> = ({
       title: pool?.name?.[locale],
       href: pool ? paths.pool(pool.id) : undefined,
     },
+
+    {
+      title: intl.formatMessage({
+        defaultMessage: "Apply",
+        description: "Breadcrumb title for the pool application link.",
+      }),
+      href: pool ? paths.poolApply(pool.id) : undefined,
+    },
+
+    {
+      title: intl.formatMessage({
+        defaultMessage: "Thanks for Applying",
+        description:
+          "Breadcrumb title for the pools 'thanks for applying page' link.",
+      }),
+    },
   ] as BreadcrumbsProps["links"];
 
   return (
     <>
       <Breadcrumbs links={links} />
-      <h1>{pool.name?.[locale]}</h1>
+      <h1>
+        {intl.formatMessage({
+          defaultMessage: "Thanks for applying to",
+          description: "Title for page thanking user for applying to a pool",
+        })}{" "}
+        {pool.name?.[locale]}
+      </h1>
       <Link
         type="button"
         mode="outline"
         color="primary"
-        href={paths.pool(pool ? pool.id : "/")}
+        href={paths.allPools()}
       >
         {intl.formatMessage({
-          defaultMessage: "Back to pool",
-          description: "Label for button to return to view pool",
+          defaultMessage: "Back to pools list",
+          description: "Label for button to the browse pools page",
         })}
       </Link>
     </>

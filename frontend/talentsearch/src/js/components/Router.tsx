@@ -149,6 +149,13 @@ const directIntakeRoutes = (
 ): Routes<RouterResult> => [
   // placeholder, switch with real routes
   {
+    path: directIntakePaths.home(),
+    action: () => ({
+      component: <div />,
+      redirect: directIntakePaths.allPools(),
+    }),
+  },
+  {
     path: directIntakePaths.allPools(),
     action: () => ({
       component: <BrowsePoolsPage />,
