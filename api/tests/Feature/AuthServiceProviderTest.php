@@ -2,7 +2,7 @@
 
 use App\Models\User;
 use App\Providers\AuthServiceProvider;
-use App\Services\Contracts\BearerTokenServiceInterface;
+use App\Services\OpenIdBearerTokenService;
 use Lcobucci\JWT\Token\DataSet;
 use Tests\TestCase;
 use Mockery\MockInterface;
@@ -52,7 +52,7 @@ class AuthServiceProviderTest extends TestCase
     public function test401IfException()
     {
         $fakeToken = 'fake-token';
-        $mockTokenService = Mockery::mock(BearerTokenServiceInterface::class);
+        $mockTokenService = Mockery::mock(OpenIdBearerTokenService::class);
         $mockTokenService->shouldReceive('validateAndGetClaims')
                                         ->with($fakeToken)
                                         ->andThrow(new Exception);
@@ -79,7 +79,7 @@ class AuthServiceProviderTest extends TestCase
         $mockClaims = Mockery::mock(new DataSet(['sub' => $testSub], ''));
 
         $fakeToken = 'fake-token';
-        $mockTokenService = Mockery::mock(BearerTokenServiceInterface::class);
+        $mockTokenService = Mockery::mock(OpenIdBearerTokenService::class);
         $mockTokenService->shouldReceive('validateAndGetClaims')
                             ->with($fakeToken)
                             ->andReturn($mockClaims);
@@ -106,7 +106,7 @@ class AuthServiceProviderTest extends TestCase
         $mockClaims = Mockery::mock(new DataSet(['sub' => $testSub], ''));
 
         $fakeToken = 'fake-token';
-        $mockTokenService = Mockery::mock(BearerTokenServiceInterface::class);
+        $mockTokenService = Mockery::mock(OpenIdBearerTokenService::class);
         $mockTokenService->shouldReceive('validateAndGetClaims')
                             ->with($fakeToken)
                             ->andReturn($mockClaims);
