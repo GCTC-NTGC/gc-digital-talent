@@ -129,31 +129,40 @@ export const useRouter = (
           redirect(route.redirect);
         }
 
-        // handling a component
-        if (route?.component) {
-          // if there are roles required then special handling is needed
-          const authorizationRequired =
-            route?.authorizedRoles && route?.authorizedRoles.length > 0;
+        // is authorization required for this route?
+        const authorizationRequired = route?.authorizedRoles;
 
-          // if the user is not logged in then go to login page with "from" option to come back
-          if (authorizationRequired && !isLoggedIn) {
-            window.location.href = apiRoutesRef.current.login(pathName, locale);
-          }
+        // if the user is not logged in then go to login page with "from" option to come back
+        if (authorizationRequired && !isLoggedIn) {
+          window.location.href = apiRoutesRef.current.login(pathName, locale);
+          return null; // we're leaving the site - don't try to route any further
+        }
 
-          const isAuthorized =
-            route?.authorizedRoles &&
+        // is the user authorized for this route?
+        let isAuthorized: boolean;
+
+        // if there is a list of authorized roles required then let's see if the user is authorized
+        if (route?.authorizedRoles) {
+          // the user is considered authorized if there are no roles needed or they have at least one of the required roles
+          isAuthorized =
+            route.authorizedRoles.length === 0 ||
             route.authorizedRoles.some((authorizedRole: Role) =>
               loggedInUserRoles?.includes(authorizedRole),
             );
+        } else {
+          // if no authorized roles are specified then the user is authorized by default
+          isAuthorized = true;
+        }
 
+        // handling a component
+        if (route?.component) {
           if (authorizationRequired && !isAuthorized) {
             setComponent(notAuthorizedComponent);
           } else {
             setComponent(route.component);
           }
-        } else {
-          throw new Error("Unexpected route properties");
         }
+        return null;
       })
       .catch(async () => {
         setComponent(missingRouteComponent);
