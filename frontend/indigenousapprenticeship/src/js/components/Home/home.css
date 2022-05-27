@@ -87,15 +87,16 @@
 }
 
 .learn-program__gloves {
-  bottom: -6rem;
-  left: 35%;
-  width: 80%;
+  bottom: -3rem;
+  left: 25%;
+  width: 100%;
   z-index: 2;
 }
 
 .learn-program__circles {
-  top: -4rem;
-  left: 40%;
+  top: -1rem;
+  left: auto;
+  right: -50%;
 }
 
 .who-program__ulu {
@@ -243,10 +244,16 @@
     width: 110%;
   }
 
+  .learn-program__circles {
+    top: -1rem;
+    left: auto;
+    right: -50%;
+  }
+
   .learn-program__gloves {
     left: auto;
     right: -6rem;
-    width: 50%;
+    width: 65%;
   }
 
   .talent-portal-card {
