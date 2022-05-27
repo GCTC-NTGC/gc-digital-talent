@@ -1,40 +1,51 @@
 describe('Footer', () => {
+  const testPage = '/talent'
+
   context('English page', () => {
-    beforeEach(() => cy.visit('/en'))
+    beforeEach(() => {
+      cy.setLocale('en')
+      cy.visit(testPage)
+    })
+
     it('links to Privacy Policy', () => {
+      // TODO: Update to use cy.findByRole().
       cy.get('footer').within(() => {
         cy.get('a').contains('Privacy Policy').should('have.attr', 'href', '/en/privacy-notice')
       })
     })
 
     it('links to Terms & Conditions', () => {
+      // TODO: Update to use cy.findByRole().
       cy.get('footer').within(() => {
         cy.get('a').contains('Terms & Conditions').should('have.attr', 'href', '/en/terms-and-conditions')
       })
     })
 
-    // TODO: unskip when bug fixed.
-    // See: https://github.com/GCTC-NTGC/gc-digital-talent/issues/2565
-    it.skip('links to Canada.ca', () => {
+    it('links to Canada.ca', () => {
+      // TODO: Update to use cy.findByRole().
       cy.get('footer').within(() => {
-        cy.get('a').contains('Canada.ca').should('have.attr', 'href', 'https:/www.canada.ca/en.html')
+        cy.get('a').contains('Canada.ca').should('have.attr', 'href', 'https://www.canada.ca/en.html')
       })
     })
   })
 
   context('French page', () => {
-    beforeEach(() => cy.visit('/fr'))
+    beforeEach(() => {
+      cy.setLocale('fr')
+      cy.visit(testPage)
+    })
+
     it('links to Privacy Policy (french)', () => {
+      // TODO: Update to use cy.findByRole().
       cy.get('footer').within(() => {
-        cy.get('a').contains('Avis').should('have.attr', 'href', '/fr/terms-and-conditions')
+        cy.get('a').contains('Modalités').should('have.attr', 'href', '/fr/terms-and-conditions')
       })
     })
 
-    // TODO: unskip when bug fixed.
-    // See: https://github.com/GCTC-NTGC/gc-digital-talent/issues/2565
-    it.skip('links to Canada.ca (french)', () => {
+    it('links to Canada.ca (french)', () => {
+      // TODO: Update to use cy.findByRole().
       cy.get('footer').within(() => {
-        cy.get('a').contains('Canada.ca').should('have.attr', 'href', 'https:/www.canada.ca/fr.html')
+        cy.get('a').contains('canada.ca').should('have.attr', 'href', 'https://www.canada.ca/fr.html')
       })
     })
   })

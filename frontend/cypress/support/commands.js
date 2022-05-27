@@ -40,6 +40,10 @@ before(() => {
 import '@testing-library/cypress/add-commands'
 import url from 'url'
 
+Cypress.Commands.add('setLocale', (locale) => {
+  window.localStorage.setItem('stored_locale', locale)
+})
+
 Cypress.Commands.add('login', (...args) => {
   let userRole, email, password, rest
   switch (args.length) {
