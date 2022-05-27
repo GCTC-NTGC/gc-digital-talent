@@ -19,7 +19,7 @@ const AnchorLink: React.FC<AnchorLinkProps> = ({ id, children }) => {
       e.preventDefault();
       targetSection.scrollIntoView({
         behavior: "smooth",
-        block: "center",
+        block: "start",
       });
     }
   };
