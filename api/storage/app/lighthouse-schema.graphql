@@ -253,13 +253,13 @@ input CreateSkillInput {
   keywords: [String!]
 }
 
-"""When creating a User, name and email are required."""
+"""When creating a User, name is required."""
 input CreateUserInput {
   sub: String
   roles: [Role] = []
   firstName: String!
   lastName: String!
-  email: Email!
+  email: Email
   telephone: PhoneNumber
   preferredLang: Language
   currentProvince: ProvinceOrTerritory
@@ -995,10 +995,9 @@ input UpdateSkillInput {
   keywords: [String!]
 }
 
-"""
-When updating a User, all fields are optional, and email cannot be changed.
-"""
+"""When updating a User, all fields are optional"""
 input UpdateUserAsAdminInput {
+  email: Email
   sub: String
   roles: [Role]
   firstName: String
@@ -1041,6 +1040,7 @@ input UpdateUserAsAdminInput {
 }
 
 input UpdateUserAsUserInput {
+  email: Email
   firstName: String
   lastName: String
   telephone: PhoneNumber
