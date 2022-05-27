@@ -56,10 +56,11 @@ const PoolApplicationThanks: React.FC<PoolApplicationThanksProps> = ({
       <Breadcrumbs links={links} />
       <h1>
         {intl.formatMessage({
-          defaultMessage: "Thanks for applying to",
+          defaultMessage: "Thanks for applying to {poolName}",
           description: "Title for page thanking user for applying to a pool",
-        })}{" "}
-        {pool.name?.[locale]}
+        }, { 
+          poolName: pool.name?.[locale]
+        })}
       </h1>
       <Link
         type="button"
