@@ -19,7 +19,12 @@ function poolCandidatesLinkAccessor(
   intl: IntlShape,
 ) {
   return (
-    <Link href={poolCandidatesTableUrl}>
+    <Link
+      href={poolCandidatesTableUrl}
+      type="button"
+      mode="inline"
+      color="primary"
+    >
       {intl.formatMessage({
         defaultMessage: "View Candidates",
         description: "Text for a link to the Pool Candidates table",
