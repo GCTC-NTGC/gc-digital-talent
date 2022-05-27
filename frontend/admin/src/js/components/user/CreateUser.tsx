@@ -8,7 +8,7 @@ import { enumToOptions } from "@common/helpers/formUtils";
 import { getLanguage, getRole } from "@common/constants/localizedConstants";
 import { errorMessages } from "@common/messages";
 import { phoneNumberRegex } from "@common/constants/regularExpressions";
-import { empty } from "@common/helpers/util";
+import { emptyToNull } from "@common/helpers/util";
 import { useAdminRoutes } from "../../adminRoutes";
 import {
   Language,
@@ -28,11 +28,11 @@ interface CreateUserFormProps {
 
 const formValuesToData = (values: FormValues): CreateUserInput => ({
   ...values,
-  telephone:
-    // empty string isn't valid according to API validation regex pattern, but null is valid.
-    empty(values.telephone) || values.telephone === ""
-      ? null
-      : values.telephone,
+  // empty string isn't valid according to API validation regex pattern, but null is valid.
+  telephone: emptyToNull(values.telephone),
+  // empty string will violate uniqueness constraints
+  email: emptyToNull(values.email),
+  sub: emptyToNull(values.sub),
 });
 
 export const CreateUserForm: React.FunctionComponent<CreateUserFormProps> = ({
@@ -85,9 +85,6 @@ export const CreateUserForm: React.FunctionComponent<CreateUserFormProps> = ({
               })}
               type="email"
               name="email"
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
             />
             <Input
               id="firstName"

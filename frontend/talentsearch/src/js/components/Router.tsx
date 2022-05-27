@@ -34,6 +34,7 @@ import RoleSalaryFormContainer from "./roleSalaryForm/RoleSalaryForm";
 import BrowsePoolsPage from "./browse/BrowsePoolsPage";
 import BrowseIndividualPoolApi from "./browse/BrowseIndividualPool";
 import PoolApplyPage from "./pool/PoolApplyPage";
+import PoolApplicationThanksPage from "./pool/PoolApplicationThanksPage";
 
 const talentRoutes = (
   talentPaths: TalentSearchRoutes,
@@ -150,6 +151,13 @@ const directIntakeRoutes = (
   {
     path: directIntakePaths.home(),
     action: () => ({
+      component: <div />,
+      redirect: directIntakePaths.allPools(),
+    }),
+  },
+  {
+    path: directIntakePaths.allPools(),
+    action: () => ({
       component: <BrowsePoolsPage />,
     }),
   },
@@ -168,6 +176,15 @@ const directIntakeRoutes = (
       const poolId = context.params.id as string;
       return {
         component: <PoolApplyPage id={poolId} />,
+      };
+    },
+  },
+  {
+    path: directIntakePaths.poolApplyThanks(":id"),
+    action: (context) => {
+      const poolId = context.params.id as string;
+      return {
+        component: <PoolApplicationThanksPage id={poolId} />,
       };
     },
   },
