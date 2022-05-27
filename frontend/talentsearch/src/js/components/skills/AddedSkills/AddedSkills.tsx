@@ -1,6 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import Chip from "@common/components/Chip";
+import Chip, { Chips } from "@common/components/Chip";
 import { Scalars, Skill } from "@common/api/generated";
 import { getLocale } from "@common/helpers/localize";
 
@@ -19,25 +19,29 @@ const AddedSkills: React.FunctionComponent<AddedSkillsProps> = ({
   const locale = getLocale(intl);
   return (
     <>
-      <h5>
+      <h3 data-h2-font-size="b(h5)">
         {intl.formatMessage({
           defaultMessage: "Skills attached to this experience",
           description:
             "Section header for a list of skills attached to this experience",
         })}
-      </h5>
-      {skills.map((skill) => {
-        const handleDismiss = () => onRemoveSkill(skill.id);
-        return (
-          <Chip
-            key={skill.id}
-            label={skill.name?.[locale] ?? "Missing Name"}
-            color="neutral"
-            mode="outline"
-            onDismiss={handleDismiss}
-          />
-        );
-      })}
+      </h3>
+      {skills.length ? (
+        <Chips>
+          {skills.map((skill) => {
+            const handleDismiss = () => onRemoveSkill(skill.id);
+            return (
+              <Chip
+                key={skill?.id}
+                label={skill?.name?.[locale] ?? "Missing Name"}
+                color="neutral"
+                mode="outline"
+                onDismiss={handleDismiss}
+              />
+            );
+          })}
+        </Chips>
+      ) : null}
       {skills.length === 0 && (
         <i>
           {intl.formatMessage({

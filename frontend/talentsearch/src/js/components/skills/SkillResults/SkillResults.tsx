@@ -103,16 +103,16 @@ const SkillResults: React.FunctionComponent<SkillResultsProps> = ({
   handleAddSkill,
   handleRemoveSkill,
 }) => {
-  const addedIds = addedSkills.map((skill) => skill.id);
+  const addedIds = addedSkills.map((skill) => skill?.id);
   return (
     <section>
       <h4>{title}</h4>
       {skills.map((skill) => {
         // Check if the poolCandidate has added the skill already.
-        const isAdded = addedIds.includes(skill.id);
+        const isAdded = addedIds.includes(skill?.id);
         return (
           <SkillBlock
-            key={skill.id}
+            key={skill?.id}
             skill={skill}
             isAdded={isAdded}
             handleAddSkill={handleAddSkill}

@@ -4,6 +4,7 @@ frontend/*/package-lock.json
 package-lock.json
 
 # TODO: Remove once all feature branches with auth app are complete.
+# TODO: Remove once all feature branches with auth dir are complete.
 auth/
 
 # Cypress artifacts

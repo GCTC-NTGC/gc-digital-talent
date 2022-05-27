@@ -4,7 +4,6 @@ import { Routes } from "universal-router";
 import { RouterResult } from "@common/helpers/router";
 import Toast from "@common/components/Toast";
 import NotAuthorized from "@common/components/NotAuthorized";
-import { getLocale } from "@common/helpers/localize";
 import {
   AuthorizationContext,
   AuthenticationContext,
@@ -41,6 +40,7 @@ import { UpdateSkill } from "./skill/UpdateSkill";
 import HomePage from "./home/HomePage";
 import { Role } from "../api/generated";
 import DashboardPage from "./dashboard/DashboardPage";
+import ViewUser from "./user/ViewUser";
 
 const AdminNotAuthorized: React.FC = () => {
   const intl = useIntl();
@@ -100,6 +100,17 @@ const routes = (
       component:
         loggedIn && isAdmin ? (
           <UpdateUser userId={params.id as string} />
+        ) : (
+          <AdminNotAuthorized />
+        ),
+    }),
+  },
+  {
+    path: paths.userView(":id"),
+    action: ({ params }) => ({
+      component:
+        loggedIn && isAdmin ? (
+          <ViewUser userId={params.id as string} />
         ) : (
           <AdminNotAuthorized />
         ),
