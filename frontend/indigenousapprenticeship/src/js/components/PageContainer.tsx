@@ -12,6 +12,7 @@ import {
 } from "@common/helpers/router";
 import Header from "@common/components/Header";
 import Footer from "@common/components/Footer";
+import NotAuthorized from "@common/components/NotAuthorized";
 import INDIGENOUSAPPRENTICESHIP_APP_DIR from "../indigenousApprenticeshipConstants";
 
 export const exactMatch = (ref: string, test: string): boolean => ref === test;
@@ -64,14 +65,45 @@ const IndigenousApprenticeshipNotFound: React.FC = () => {
   );
 };
 
+const IndigenousApprenticeshipNotAuthorized: React.FC = () => {
+  const intl = useIntl();
+  return (
+    <NotAuthorized
+      headingMessage={intl.formatMessage({
+        description:
+          "Heading for the message saying the page to view is not authorized.",
+        defaultMessage: "Sorry, you are not authorized to view this page.",
+      })}
+    >
+      <p>
+        {intl.formatMessage({
+          description:
+            "Detailed message saying the page to view is not authorized.",
+          defaultMessage:
+            "Oops, it looks like you've landed on a page that you are not authorized to view.",
+        })}
+      </p>
+    </NotAuthorized>
+  );
+};
+
 export const PageContainer: React.FC<{
   menuItems: ReactElement[];
   contentRoutes: Routes<RouterResult>;
 }> = ({ menuItems, contentRoutes }) => {
   const intl = useIntl();
-  // stabilize component that will not change during life of app, avoid render loops in router
+  // stabilize components that will not change during life of app, avoid render loops in router
   const notFoundComponent = useRef(<IndigenousApprenticeshipNotFound />);
-  const content = useRouter(contentRoutes, notFoundComponent.current);
+  const notAuthorizedComponent = useRef(
+    <IndigenousApprenticeshipNotAuthorized />,
+  );
+  const content = useRouter(
+    contentRoutes,
+    notFoundComponent.current,
+    notAuthorizedComponent.current,
+    false,
+    null,
+  );
   return (
     <ScrollToTop>
       <>
