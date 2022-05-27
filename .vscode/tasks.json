@@ -4,23 +4,6 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "Refresh Auth",
-      "type": "shell",
-
-      "command": "docker-compose",
-      "args": ["run", "--rm", "maintenance", "bash", "refresh_auth.sh"],
-
-      "presentation": {
-        "echo": true,
-        "reveal": "always",
-        "focus": false,
-        "panel": "shared",
-        "showReuseMessage": false,
-        "clear": true
-      },
-      "group": "build"
-    },
-    {
       "label": "Refresh API",
       "type": "shell",
 
