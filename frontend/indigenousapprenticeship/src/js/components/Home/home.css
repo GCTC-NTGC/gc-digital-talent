@@ -187,7 +187,7 @@
 
 .talent-portal-card {
   background-repeat: no-repeat;
-  background-size: 120% auto;
+  background-size: auto 60%;
   background-position: 50% 110%;
   z-index: 2;
 }
@@ -253,8 +253,8 @@
   }
 
   .talent-portal-card {
-    background-position: 100% 10%;
-    background-size: auto 120%;
+    background-position: 500% 160%;
+    background-size: auto 75%;
   }
 }
 
