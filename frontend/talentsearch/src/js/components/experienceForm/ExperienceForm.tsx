@@ -71,7 +71,7 @@ export const ExperienceForm: React.FunctionComponent<ExperienceFormProps> = ({
   const paths = applicantProfileRoutes(locale);
   const defaultValues = experience
     ? queryResultToDefaultValues(experienceType, experience)
-    : { skills: undefined };
+    : undefined;
 
   const handleSubmit: SubmitHandler<FormValues<AllFormValues>> = async (
     formValues,
@@ -154,12 +154,7 @@ export const ExperienceForm: React.FunctionComponent<ExperienceFormProps> = ({
         {experienceType === "education" && <EducationExperienceForm />}
         {experienceType === "personal" && <PersonalExperienceForm />}
         {experienceType === "work" && <WorkExperienceForm />}
-        <ExperienceSkills
-          skills={skills}
-          initialSkills={
-            defaultValues?.skills ? defaultValues.skills : undefined
-          }
-        />
+        <ExperienceSkills skills={skills} />
         <h2 data-h2-font-size="b(h3)">
           {intl.formatMessage({
             defaultMessage: "4. Additional information for this experience",

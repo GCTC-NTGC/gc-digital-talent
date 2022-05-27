@@ -60,6 +60,7 @@ const adminRoutes = (lang: string) => {
     userTable: (): string => path.join(home(), "users"),
     userCreate: (): string => path.join(home(), "users", "create"),
     userUpdate: (id: string): string => path.join(home(), "users", id, "edit"),
+    userView: (id: string): string => path.join(home(), "users", id),
 
     searchRequestTable: (): string => path.join(home(), "search-requests"),
     searchRequestUpdate: (id: string): string =>
