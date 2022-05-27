@@ -1,16 +1,16 @@
 import React from "react";
-import Accordion from "@common/components/accordion/Accordion";
 import BriefCaseIcon from "@heroicons/react/solid/BriefcaseIcon";
-import { Link } from "@common/components";
+import { useIntl } from "react-intl";
+import Accordion from "../../../accordion/Accordion";
+import { Link } from "../../..";
 import {
   getAwardedTo,
   getAwardedScope,
-} from "@common/constants/localizedConstants";
-import { useIntl } from "react-intl";
-import { getLocale } from "@common/helpers/localize";
-import { getDateRange } from "@common/helpers/dateUtils";
+} from "../../../../constants/localizedConstants";
+import { getLocale } from "../../../../helpers/localize";
+import { getDateRange } from "../../../../helpers/dateUtils";
 import { useApplicantProfileRoutes } from "../../../applicantProfileRoutes";
-import { AwardExperience } from "../../../api/generated";
+import { AwardExperience } from "../../../../api/generated";
 
 const AwardAccordion: React.FunctionComponent<AwardExperience> = ({
   id,

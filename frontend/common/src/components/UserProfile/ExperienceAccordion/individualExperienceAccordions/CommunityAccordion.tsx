@@ -1,34 +1,29 @@
 import React from "react";
-import Accordion from "@common/components/accordion/Accordion";
-import BriefCaseIcon from "@heroicons/react/solid/BriefcaseIcon";
-import { Link } from "@common/components";
-import { EducationExperience } from "@common/api/generated";
-import {
-  getEducationStatus,
-  getEducationType,
-} from "@common/constants/localizedConstants";
 import { useIntl } from "react-intl";
-import { getLocale } from "@common/helpers/localize";
-import { getDateRange } from "@common/helpers/dateUtils";
+import BriefCaseIcon from "@heroicons/react/solid/BriefcaseIcon";
+import Accordion from "../../../accordion/Accordion";
+import { Link } from "../../..";
+import { CommunityExperience } from "../../../../api/generated";
+import { getLocale } from "../../../../helpers/localize";
+import { getDateRange } from "../../../../helpers/dateUtils";
 import { useApplicantProfileRoutes } from "../../../applicantProfileRoutes";
 
-const EducationAccordion: React.FunctionComponent<EducationExperience> = ({
+const CommunityAccordion: React.FunctionComponent<CommunityExperience> = ({
   id,
-  areaOfStudy,
-  institution,
+  title,
+  organization,
   startDate,
   endDate,
   details,
-  type,
-  status,
-  thesisTitle,
+  project,
   skills,
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const profilePaths = useApplicantProfileRoutes();
-  const editUrl = `${profilePaths.skillsAndExperiences()}/education/${id}/edit`;
+  const editUrl = `${profilePaths.skillsAndExperiences()}/community/${id}/edit`;
 
+  // create unordered list element of skills DOM Element
   const skillsList = skills
     ? skills.map((skill, index) => (
         // eslint-disable-next-line react/no-array-index-key
@@ -45,10 +40,10 @@ const EducationAccordion: React.FunctionComponent<EducationExperience> = ({
     <Accordion
       title={intl.formatMessage(
         {
-          defaultMessage: "{areaOfStudy} at {institution}",
-          description: "Study at institution",
+          defaultMessage: "{title} at {organization}",
+          description: "Title at organization",
         },
-        { areaOfStudy, institution },
+        { title, organization },
       )}
       subtitle={getDateRange({ endDate, startDate, intl, locale })}
       context={
@@ -67,31 +62,18 @@ const EducationAccordion: React.FunctionComponent<EducationExperience> = ({
       }
       Icon={BriefCaseIcon}
     >
+      {" "}
       <div data-h2-padding="b(left, l)">
-        <p>
-          {type ? intl.formatMessage(getEducationType(type)) : ""}{" "}
-          {status ? intl.formatMessage(getEducationStatus(status)) : ""}
-        </p>
         <p>
           {intl.formatMessage(
             {
-              defaultMessage: "{areaOfStudy} at {institution}",
-              description: "Study at institution",
+              defaultMessage: "{title} at {organization}",
+              description: "Title at organization",
             },
-            { areaOfStudy, institution },
+            { title, organization },
           )}
         </p>
-        <p>
-          {thesisTitle
-            ? intl.formatMessage(
-                {
-                  defaultMessage: "Thesis: {thesisTitle}",
-                  description: "Thesis, if applicable",
-                },
-                { thesisTitle },
-              )
-            : ""}
-        </p>
+        <p>{project}</p>
       </div>
       <hr />
       <div data-h2-padding="b(left, l)">{skillsList}</div>
@@ -118,4 +100,4 @@ const EducationAccordion: React.FunctionComponent<EducationExperience> = ({
   );
 };
 
-export default EducationAccordion;
+export default CommunityAccordion;

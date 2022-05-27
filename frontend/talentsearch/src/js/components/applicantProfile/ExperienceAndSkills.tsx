@@ -22,7 +22,7 @@ import {
 import { useApplicantProfileRoutes } from "../../applicantProfileRoutes";
 import ProfileFormFooter from "./ProfileFormFooter";
 import ProfileFormWrapper from "./ProfileFormWrapper";
-import ExperienceSection from "./ExperienceSection";
+import ExperienceSection from "../../../../../common/src/components/UserProfile/ExperienceSection";
 
 export type ExperienceForDate =
   | (AwardExperience & { startDate: string; endDate: string })

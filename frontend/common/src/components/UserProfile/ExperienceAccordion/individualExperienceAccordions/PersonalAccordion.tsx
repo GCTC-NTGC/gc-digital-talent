@@ -1,29 +1,27 @@
 import React from "react";
-import Accordion from "@common/components/accordion/Accordion";
-import BriefCaseIcon from "@heroicons/react/solid/BriefcaseIcon";
-import { Link } from "@common/components";
 import { useIntl } from "react-intl";
-import { getLocale } from "@common/helpers/localize";
-import { getDateRange } from "@common/helpers/dateUtils";
-import { WorkExperience } from "../../../api/generated";
+import BriefCaseIcon from "@heroicons/react/solid/BriefcaseIcon";
+import Accordion from "../../../accordion/Accordion";
+import { Link } from "../../..";
+import { getLocale } from "../../../../helpers/localize";
+import { getDateRange } from "../../../../helpers/dateUtils";
+import { PersonalExperience } from "../../../../api/generated";
 import { useApplicantProfileRoutes } from "../../../applicantProfileRoutes";
 
-const WorkAccordion: React.FunctionComponent<WorkExperience> = ({
+const PersonalAccordion: React.FunctionComponent<PersonalExperience> = ({
   id,
-  role,
-  organization,
+  title,
   startDate,
   endDate,
   details,
-  division,
+  description,
   skills,
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const profilePaths = useApplicantProfileRoutes();
-  const editUrl = `${profilePaths.skillsAndExperiences()}/work/${id}/edit`;
+  const editUrl = `${profilePaths.skillsAndExperiences()}/personal/${id}/edit`;
 
-  // create unordered list element of skills DOM Element
   const skillsList = skills
     ? skills.map((skill, index) => (
         // eslint-disable-next-line react/no-array-index-key
@@ -38,13 +36,7 @@ const WorkAccordion: React.FunctionComponent<WorkExperience> = ({
 
   return (
     <Accordion
-      title={intl.formatMessage(
-        {
-          defaultMessage: "{role} at {organization}",
-          description: "Role at organization",
-        },
-        { role, organization },
-      )}
+      title={title || ""}
       subtitle={getDateRange({ endDate, startDate, intl, locale })}
       context={
         skills?.length === 1
@@ -63,16 +55,7 @@ const WorkAccordion: React.FunctionComponent<WorkExperience> = ({
       Icon={BriefCaseIcon}
     >
       <div data-h2-padding="b(left, l)">
-        <p>
-          {intl.formatMessage(
-            {
-              defaultMessage: "{role} at {division}",
-              description: "Role at division",
-            },
-            { role, division },
-          )}
-        </p>
-        <p>{organization}</p>
+        <p>{description}</p>
       </div>
       <hr />
       <div data-h2-padding="b(left, l)">{skillsList}</div>
@@ -99,4 +82,4 @@ const WorkAccordion: React.FunctionComponent<WorkExperience> = ({
   );
 };
 
-export default WorkAccordion;
+export default PersonalAccordion;

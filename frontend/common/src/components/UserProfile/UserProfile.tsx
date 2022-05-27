@@ -9,10 +9,8 @@ import {
   UserIcon,
 } from "@heroicons/react/solid";
 import { useIntl } from "react-intl";
-import { Link } from "@common/components";
-import commonMessages from "@common/messages/commonMessages";
-import { imageUrl } from "@common/helpers/router";
-import { getLocale } from "@common/helpers/localize";
+import { imageUrl } from "../../helpers/router";
+import { getLocale } from "../../helpers/localize";
 import {
   getLanguage,
   getOperationalRequirement,
@@ -23,28 +21,28 @@ import {
   indigenousLocalized,
   minorityLocalized,
   disabilityLocalized,
-} from "@common/constants/localizedConstants";
+} from "../../constants/localizedConstants";
 
-import { insertBetween, notEmpty } from "@common/helpers/util";
-import ExperienceSection from "@common/components/UserProfile/ExperienceSection";
-import TALENTSEARCH_APP_DIR from "../../../talentSearchConstants";
-import { useApplicantProfileRoutes } from "../../../applicantProfileRoutes";
+import { insertBetween, notEmpty } from "../../helpers/util";
+import Link from "../Link";
 import {
   BilingualEvaluation,
-  useGetMeQuery,
   User,
-  GetMeQuery,
   GovEmployeeType,
-} from "../../../api/generated";
+} from "../../api/generated";
 
-import MyStatusApi from "../../myStatusForm/MyStatusForm";
+import ExperienceSection from "./ExperienceSection";
 
 export interface ProfilePageProps {
   profileDataInput: User;
+  appDir: string; // this will be use for image urls
+  applicantProfilePath: any;
 }
 
-export const ProfileForm: React.FC<ProfilePageProps> = ({
+export const UserProfile: React.FC<ProfilePageProps> = ({
   profileDataInput,
+  appDir,
+  applicantProfilePath,
 }) => {
   const {
     firstName,
@@ -79,7 +77,7 @@ export const ProfileForm: React.FC<ProfilePageProps> = ({
   } = profileDataInput;
 
   const intl = useIntl();
-  const paths = useApplicantProfileRoutes();
+  const paths = applicantProfilePath;
   const locale = getLocale(intl);
 
   // styling a text bit with red colour within intls
@@ -154,7 +152,7 @@ export const ProfileForm: React.FC<ProfilePageProps> = ({
         data-h2-text-align="b(center)"
         style={{
           background: `url(${imageUrl(
-            TALENTSEARCH_APP_DIR,
+            appDir,
             "applicant-profile-banner.png",
           )})`,
           backgroundSize: "cover",
@@ -662,10 +660,7 @@ export const ProfileForm: React.FC<ProfilePageProps> = ({
                 <h2 data-h2-font-weight="b(600)" style={{ flex: "1 1 0%" }}>
                   <img
                     style={{ width: "calc(1rem*2.25)" }}
-                    src={imageUrl(
-                      TALENTSEARCH_APP_DIR,
-                      "gov-building-icon.svg",
-                    )}
+                    src={imageUrl(appDir, "gov-building-icon.svg")}
                     alt={intl.formatMessage({
                       defaultMessage: "Icon of government building",
                       description:
@@ -789,10 +784,7 @@ export const ProfileForm: React.FC<ProfilePageProps> = ({
                 <h2 data-h2-font-weight="b(600)" style={{ flex: "1 1 0%" }}>
                   <img
                     style={{ width: "calc(1rem*2.25)" }}
-                    src={imageUrl(
-                      TALENTSEARCH_APP_DIR,
-                      "briefcase-with-marker-icon.svg",
-                    )}
+                    src={imageUrl(appDir, "briefcase-with-marker-icon.svg")}
                     alt={intl.formatMessage({
                       defaultMessage:
                         "Icon of a location marker on a briefcase",
@@ -1146,41 +1138,5 @@ export const ProfileForm: React.FC<ProfilePageProps> = ({
         </div>
       </div>
     </>
-  );
-};
-
-export const ProfilePage: React.FunctionComponent = () => {
-  const intl = useIntl();
-  const [result] = useGetMeQuery();
-  const { data, fetching, error } = result;
-
-  // type magic on data variable to make it end up as a valid User type
-  const dataToUser = (input: GetMeQuery): User | undefined => {
-    if (input) {
-      if (input.me) {
-        return input.me;
-      }
-    }
-    return undefined;
-  };
-  const userData = data ? dataToUser(data) : undefined;
-
-  if (fetching) return <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>;
-  if (error)
-    return (
-      <p>
-        {intl.formatMessage(commonMessages.loadingError)}
-        {error.message}
-      </p>
-    );
-
-  if (userData) return <ProfileForm profileDataInput={userData} />;
-  return (
-    <p>
-      {intl.formatMessage({
-        defaultMessage: "No user data",
-        description: "No user data was found",
-      })}
-    </p>
   );
 };

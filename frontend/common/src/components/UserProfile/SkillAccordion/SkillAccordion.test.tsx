@@ -14,7 +14,7 @@ import { fakeSkills } from "@common/fakeData";
 import { generators as experienceGenerator } from "@common/fakeData/fakeExperiences";
 
 import { getDateRange } from "@common/helpers/dateUtils";
-import { Skill } from "../../../api/generated";
+import { Skill } from "../../../../../talentsearch/src/js/api/generated";
 import SkillAccordion from "./SkillAccordion";
 
 const skills = fakeSkills();

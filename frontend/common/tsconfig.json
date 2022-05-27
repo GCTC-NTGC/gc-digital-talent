@@ -24,7 +24,7 @@
   },
   "include": [
     "src"
-  ],
+, "src/components/UserProfile/ExperienceAccordion", "src/components/UserProfile/SkillAccordion"  ],
   "exclude": [
     "node_modules",
     "lib"

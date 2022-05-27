@@ -1,16 +1,16 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 import * as React from "react";
-import { getLocale } from "@common/helpers/localize";
-import Accordion from "@common/components/accordion";
 import { useIntl } from "react-intl";
+import { getLocale } from "../../../helpers/localize";
+import Accordion from "../../accordion";
 import {
   getAwardedScope,
   getAwardedTo,
   getEducationStatus,
   getEducationType,
-} from "@common/constants/localizedConstants";
+} from "../../../constants/localizedConstants";
 
-import { getDateRange, formattedDate } from "@common/helpers/dateUtils";
+import { getDateRange, formattedDate } from "../../../helpers/dateUtils";
 import {
   Skill,
   PersonalExperience,

@@ -1,8 +1,8 @@
 // Using graphql __TypeName property for type guard discriminator
 /* eslint-disable no-underscore-dangle */
 import React from "react";
-import Accordion from "@common/components/accordion/Accordion";
 import { useIntl } from "react-intl";
+import Accordion from "../../accordion/Accordion";
 import AwardAccordion from "./individualExperienceAccordions/AwardAccordion";
 import CommunityAccordion from "./individualExperienceAccordions/CommunityAccordion";
 import EducationAccordion from "./individualExperienceAccordions/EducationAccordion";
@@ -15,7 +15,7 @@ import {
   isEducationExperience,
   isPersonalExperience,
   isWorkExperience,
-} from "../../types/ExperienceUtils";
+} from "../../../types/ExperienceUtils";
 
 export interface AccordionProps {
   experience: AnyExperience;

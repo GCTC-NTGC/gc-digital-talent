@@ -1,7 +1,7 @@
 import React from "react";
 import { Story, Meta } from "@storybook/react";
-import { generators } from "@common/fakeData/fakeExperiences";
-import { Applicant } from "@common/api/generated";
+import { generators } from "../../../fakeData/fakeExperiences";
+import { Applicant } from "../../../api/generated";
 import ExperienceAccordion, { AccordionProps } from "./ExperienceAccordion";
 
 // required to define for unknown experience instance

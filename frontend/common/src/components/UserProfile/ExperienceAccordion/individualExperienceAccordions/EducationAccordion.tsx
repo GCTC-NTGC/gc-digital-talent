@@ -1,26 +1,33 @@
 import React from "react";
-import Accordion from "@common/components/accordion/Accordion";
 import BriefCaseIcon from "@heroicons/react/solid/BriefcaseIcon";
-import { Link } from "@common/components";
 import { useIntl } from "react-intl";
-import { getLocale } from "@common/helpers/localize";
-import { getDateRange } from "@common/helpers/dateUtils";
-import { PersonalExperience } from "../../../api/generated";
+import Accordion from "../../../accordion/Accordion";
+import { Link } from "../../..";
+import { EducationExperience } from "../../../../api/generated";
+import {
+  getEducationStatus,
+  getEducationType,
+} from "../../../../constants/localizedConstants";
+import { getLocale } from "../../../../helpers/localize";
+import { getDateRange } from "../../../../helpers/dateUtils";
 import { useApplicantProfileRoutes } from "../../../applicantProfileRoutes";
 
-const PersonalAccordion: React.FunctionComponent<PersonalExperience> = ({
+const EducationAccordion: React.FunctionComponent<EducationExperience> = ({
   id,
-  title,
+  areaOfStudy,
+  institution,
   startDate,
   endDate,
   details,
-  description,
+  type,
+  status,
+  thesisTitle,
   skills,
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const profilePaths = useApplicantProfileRoutes();
-  const editUrl = `${profilePaths.skillsAndExperiences()}/personal/${id}/edit`;
+  const editUrl = `${profilePaths.skillsAndExperiences()}/education/${id}/edit`;
 
   const skillsList = skills
     ? skills.map((skill, index) => (
@@ -36,7 +43,13 @@ const PersonalAccordion: React.FunctionComponent<PersonalExperience> = ({
 
   return (
     <Accordion
-      title={title || ""}
+      title={intl.formatMessage(
+        {
+          defaultMessage: "{areaOfStudy} at {institution}",
+          description: "Study at institution",
+        },
+        { areaOfStudy, institution },
+      )}
       subtitle={getDateRange({ endDate, startDate, intl, locale })}
       context={
         skills?.length === 1
@@ -55,7 +68,30 @@ const PersonalAccordion: React.FunctionComponent<PersonalExperience> = ({
       Icon={BriefCaseIcon}
     >
       <div data-h2-padding="b(left, l)">
-        <p>{description}</p>
+        <p>
+          {type ? intl.formatMessage(getEducationType(type)) : ""}{" "}
+          {status ? intl.formatMessage(getEducationStatus(status)) : ""}
+        </p>
+        <p>
+          {intl.formatMessage(
+            {
+              defaultMessage: "{areaOfStudy} at {institution}",
+              description: "Study at institution",
+            },
+            { areaOfStudy, institution },
+          )}
+        </p>
+        <p>
+          {thesisTitle
+            ? intl.formatMessage(
+                {
+                  defaultMessage: "Thesis: {thesisTitle}",
+                  description: "Thesis, if applicable",
+                },
+                { thesisTitle },
+              )
+            : ""}
+        </p>
       </div>
       <hr />
       <div data-h2-padding="b(left, l)">{skillsList}</div>
@@ -82,4 +118,4 @@ const PersonalAccordion: React.FunctionComponent<PersonalExperience> = ({
   );
 };
 
-export default PersonalAccordion;
+export default EducationAccordion;

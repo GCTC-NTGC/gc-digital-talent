@@ -76,7 +76,7 @@
     "skipLibCheck": true,                           /* Skip type checking of declaration files. */
     "forceConsistentCasingInFileNames": true        /* Disallow inconsistently-cased references to the same file. */
   },
-  "include": ["src/js/**/*", "**/*.config.js"],
+  "include": ["src/js/**/*", "**/*.config.js", "../common/src/components/UserProfile/ExperienceSection.tsx", "../common/src/components/UserProfile/ExperienceAccordion", "../common/src/components/UserProfile/SkillAccordion"],
   "exclude": [
     "node_modules",
     "!node_modules/@types",

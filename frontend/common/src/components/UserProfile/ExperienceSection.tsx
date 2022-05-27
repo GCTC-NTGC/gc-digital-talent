@@ -1,4 +1,3 @@
-import { Tab, TabSet } from "@common/components/tabs";
 import {
   BookOpenIcon,
   BriefcaseIcon,
@@ -8,8 +7,10 @@ import {
 } from "@heroicons/react/solid";
 import * as React from "react";
 import { useIntl } from "react-intl";
-import { EducationExperience } from "@common/api/generated";
-import { getLocale } from "@common/helpers/localize";
+import ExperienceAccordion from "./ExperienceAccordion/ExperienceAccordion";
+import SkillAccordion from "./SkillAccordion/SkillAccordion";
+import { Tab, TabSet } from "../tabs";
+import { getLocale } from "../../helpers/localize";
 import {
   isAwardExperience,
   isCommunityExperience,
@@ -24,9 +25,8 @@ import {
   PersonalExperience,
   Skill,
   WorkExperience,
+  EducationExperience,
 } from "../../api/generated";
-import ExperienceAccordion from "../ExperienceAccordion/ExperienceAccordion";
-import SkillAccordion from "../skills/SkillAccordion/SkillAccordion";
 
 export type ExperienceForDate =
   | (AwardExperience & { startDate: string; endDate: string })
