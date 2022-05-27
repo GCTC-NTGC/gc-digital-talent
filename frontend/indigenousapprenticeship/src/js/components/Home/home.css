@@ -101,16 +101,12 @@
 
 .who-program__ulu {
   height: auto;
-  bottom: -1rem;
-  right: -1rem;
+  bottom: -3rem;
+  right: -3rem;
   width: 65% !important;
   max-width: none;
   z-index: 3;
 }
-
-/* .who-program__ulu {
-    bottom: -1rem;
-} */
 
 .who-program__triangle {
   left: 0;
