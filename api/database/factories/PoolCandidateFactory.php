@@ -28,7 +28,7 @@ class PoolCandidateFactory extends Factory
     {
         return [
             'cmo_identifier' => $this->faker->unique()->word(),
-            'expiry_date' => $this->faker->dateTimeBetween('now', '3 years'),
+            'expiry_date' => $this->faker->dateTimeBetween('-1 year', '3 years'),
             'is_woman' => $this->faker->boolean(),
             'has_disability' => $this->faker->boolean(),
             'is_indigenous' => $this->faker->boolean(),

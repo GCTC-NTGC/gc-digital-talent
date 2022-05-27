@@ -1136,7 +1136,7 @@ input UserBelongsTo {
 }
 
 input UserFilterAndOrderInput {
-  pools: UserPoolFilterInput
+  poolCandidates: UserPoolFilterInput
   languageAbility: LanguageAbility
   expectedClassifications: [ClassificationFilterInput]
   operationalRequirements: [OperationalRequirement]
