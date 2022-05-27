@@ -11,9 +11,6 @@ export const hasOperationName = (req, operationName) => {
 // Alias query if operationName matches
 export const aliasQuery = (req, operationName) => {
   if (hasOperationName(req, operationName)) {
-    // We capitalize this because we camelcase our operations,
-    // but want aliases like @gqlFooBarQuery, not @gqlfooBarQuery.
-    // TODO: Consider capitalizing our operation names.
     req.alias = `gql${operationName}Query`
   }
 }

@@ -69,9 +69,6 @@ jobs:
       - name: Upgrade to latest npm
         run: npm install --global npm@${{ env.NPM_VERSION }}
 
-      - name: Add host entry for auth server
-        run: echo "127.0.0.1 auth.talent.canada.test" | sudo tee -a /etc/hosts
-
       - name: "Run Cypress tests: all"
         uses: cypress-io/github-action@v2.11.8
         with:

@@ -93,34 +93,27 @@ const _login = (authorizeReqOptions = {}) => {
   })
   cy.get('@appCallbackUrl').then((url) => {
     cy.request({ url: url, followRedirect: false })
-      .then(responseToQueryParams)
-      .then(queryParamsToLocalStorageTokens)
+      .then(setLocalStorageTokensFromResponse)
   })
 }
 
 /**
  * Assuming "cy.request" was called with `{followRedirect: false}` grabs the
- * redirected to URI, parses it and returns just the "id_token".
+ * redirectedToUrl, confirms it has proper tokens and sets them in
+ * localStorage.
  */
-const responseToQueryParams = (resp) => {
-  // we can use the redirectedToUrl property that Cypress adds
-  // whenever we turn off following redirects
-  //
-  // and use node's url.parse module (and parse the query params)
+const setLocalStorageTokensFromResponse = (resp) => {
   const uri = url.parse(resp.redirectedToUrl, true)
 
-  // we now have query params as an object and can return
+  // Confirm we have token parts from query params.
   expect(uri.query).to.have.property('id_token')
   expect(uri.query).to.have.property('access_token')
   expect(uri.query).to.have.property('refresh_token')
 
-  return uri.query
-}
-
-const queryParamsToLocalStorageTokens = (query) => {
-  window.localStorage.setItem('id_token', query.id_token)
-  window.localStorage.setItem('access_token', query.access_token)
-  window.localStorage.setItem('refresh_token', query.refresh_token)
+  // Store tokens in localStorage.
+  window.localStorage.setItem('id_token', uri.query.id_token)
+  window.localStorage.setItem('access_token', uri.query.access_token)
+  window.localStorage.setItem('refresh_token', uri.query.refresh_token)
 }
 
 
