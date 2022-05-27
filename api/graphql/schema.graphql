@@ -539,7 +539,7 @@ input PoolCandidateFilterInput {
 }
 
 input UserFilterAndOrderInput {
-    pools: UserPoolFilterInput @builder(method: "App\\Models\\User@filterByPools")
+    poolCandidates: UserPoolFilterInput @builder(method: "App\\Models\\User@filterByPools")
     languageAbility: LanguageAbility @builder(method: "App\\Models\\User@filterByLanguageAbility")
     expectedClassifications: [ClassificationFilterInput] @builder(method: "App\\Models\\User@filterByClassifications")
     operationalRequirements: [OperationalRequirement] @builder(method: "App\\Models\\User@filterByOperationalRequirements")

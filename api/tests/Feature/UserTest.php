@@ -190,7 +190,7 @@ class UserTest extends TestCase
             }
         ', [
             'where' => [
-                'pools' => [
+                'poolCandidates' => [
                     'pools' => [$pool2['id']]
                 ]
             ]
@@ -215,7 +215,7 @@ class UserTest extends TestCase
             }
         ', [
             'where' => [
-                'pools' => [
+                'poolCandidates' => [
                     'pools' => ['00000000-0000-0000-0000-000000000000']
                 ]
             ]
@@ -305,7 +305,7 @@ class UserTest extends TestCase
             }
         ', [
             'where' => [
-                'pools' => [
+                'poolCandidates' => [
                     'pools' => [$myPool->id]
                 ]
             ]
@@ -330,7 +330,7 @@ class UserTest extends TestCase
             }
         ', [
             'where' => [
-                'pools' => [
+                'poolCandidates' => [
                     'pools' => [$myPool->id],
                     'expiryStatus' => ApiEnums::CANDIDATE_EXPIRY_FILTER_ACTIVE
                 ]
@@ -356,7 +356,7 @@ class UserTest extends TestCase
             }
         ', [
             'where' => [
-                'pools' => [
+                'poolCandidates' => [
                     'pools' => [$myPool->id],
                     'expiryStatus' => ApiEnums::CANDIDATE_EXPIRY_FILTER_EXPIRED,
                 ]
@@ -382,7 +382,7 @@ class UserTest extends TestCase
             }
         ', [
             'where' => [
-                'pools' => [
+                'poolCandidates' => [
                     'pools' => [$myPool->id],
                     'expiryStatus' => ApiEnums::CANDIDATE_EXPIRY_FILTER_ALL,
                 ]
@@ -1732,7 +1732,7 @@ class UserTest extends TestCase
             }
         ', [
             'where' => [
-                'pools' => [
+                'poolCandidates' => [
                     'pools' => [$myPool->id]
                 ]
             ]
@@ -1757,7 +1757,7 @@ class UserTest extends TestCase
             }
         ', [
             'where' => [
-                'pools' => [
+                'poolCandidates' => [
                     'pools' => [$myPool->id]
                 ],
                 'expectedClassifications' => [['group' => 'ZZ', 'level' => 1]]
@@ -1783,7 +1783,7 @@ class UserTest extends TestCase
             }
         ', [
             'where' => [
-                'pools' => [
+                'poolCandidates' => [
                     'pools' => [$myPool->id]
                 ],
                 'expectedClassifications' => [['group' => 'UNKNOWN', 'level' => 1324234 ]],
