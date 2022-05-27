@@ -114,7 +114,7 @@ export const useRouter = (
   const router = useMemo(() => new UniversalRouter(routes), [routes]);
   const [component, setComponent] = useState<React.ReactElement | null>(null);
   const pathName = location.pathname;
-  const apiRoutesRef = useRef(useApiRoutes()); // I'm not not sure why this function is unstable on its own!
+  const apiRoutes = useApiRoutes();
   const locale = getLocale(useIntl());
   // Render the result of routing
   useEffect((): void => {
@@ -134,7 +134,7 @@ export const useRouter = (
 
         // if the user is not logged in then go to login page with "from" option to come back
         if (authorizationRequired && !isLoggedIn) {
-          window.location.href = apiRoutesRef.current.login(pathName, locale);
+          window.location.href = apiRoutes.login(pathName, locale);
           return null; // we're leaving the site - don't try to route any further
         }
 
@@ -168,6 +168,7 @@ export const useRouter = (
         setComponent(missingRouteComponent);
       });
   }, [
+    apiRoutes,
     isLoggedIn,
     locale,
     loggedInUserRoles,

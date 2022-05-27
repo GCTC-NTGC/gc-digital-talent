@@ -1,24 +1,25 @@
 import path from "path-browserify";
 
-export type ApiRoutes = ReturnType<typeof apiRoutes>;
+export interface ApiRoutes {
+  login: (from?: string, locale?: string) => string;
+  refreshAccessToken: () => string;
+}
 
-const apiRoutes = () => {
-  const apiRoot = (): string => "/";
-  return {
-    login: (from?: string, locale?: string): string => {
-      const searchTerms: string[] = [];
-      if (from) searchTerms.push(`from=${encodeURI(from)}`);
-      if (locale) searchTerms.push(`locale=${encodeURI(locale)}`);
-      const searchString = searchTerms.join("&");
+const apiRoot = (): string => "/";
 
-      const url =
-        path.join(apiRoot(), "login") +
-        (searchString ? `?${searchString}` : "");
+const apiRoutes = {
+  login: (from?: string, locale?: string): string => {
+    const searchTerms: string[] = [];
+    if (from) searchTerms.push(`from=${encodeURI(from)}`);
+    if (locale) searchTerms.push(`locale=${encodeURI(locale)}`);
+    const searchString = searchTerms.join("&");
 
-      return url;
-    },
-    refreshAccessToken: (): string => path.join(apiRoot(), "refresh"),
-  };
+    const url =
+      path.join(apiRoot(), "login") + (searchString ? `?${searchString}` : "");
+
+    return url;
+  },
+  refreshAccessToken: (): string => path.join(apiRoot(), "refresh"),
 };
 
 export default apiRoutes;
@@ -28,5 +29,5 @@ export default apiRoutes;
  * @returns LoginRoutes
  */
 export const useApiRoutes = (): ApiRoutes => {
-  return apiRoutes();
+  return apiRoutes;
 };
