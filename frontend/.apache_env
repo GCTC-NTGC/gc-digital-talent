@@ -6,3 +6,4 @@ OAUTH_POST_LOGOUT_REDIRECT="http://localhost:8000/admin"
 
 # Feature flags
 FEATURE_APPLICANTPROFILE=true
+FEATURE_DIRECTINTAKE=true

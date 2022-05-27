@@ -33,3 +33,4 @@ AddOutputFilter INCLUDES .shtml .sjs
 
 # Make certain environment variables available for SSI
 PassEnv FEATURE_APPLICANTPROFILE
+PassEnv FEATURE_DIRECTINTAKE

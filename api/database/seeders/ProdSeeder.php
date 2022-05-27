@@ -13,6 +13,7 @@ class ProdSeeder extends Seeder
      */
     public function run()
     {
+        $this->call(ClassificationSeeder::class);
         $this->call(CmoAssetSeeder::class);
         $this->call(DepartmentSeeder::class);
     }

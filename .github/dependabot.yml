@@ -13,12 +13,6 @@ updates:
       interval: "weekly"
     open-pull-requests-limit: 15
 
-  - package-ecosystem: "npm"
-    directory: "/auth"
-    schedule:
-      interval: "weekly"
-    open-pull-requests-limit: 15
-
   # This ignores all updates to tc-report, since it's now served as a static website.
   #
   #   * We will occassionally still get security vulnerability warnings, for
@@ -50,12 +44,6 @@ updates:
 
   - package-ecosystem: "composer"
     directory: "/frontend/admin"
-    schedule:
-      interval: "weekly"
-    open-pull-requests-limit: 15
-
-  - package-ecosystem: "composer"
-    directory: "/auth"
     schedule:
       interval: "weekly"
     open-pull-requests-limit: 15

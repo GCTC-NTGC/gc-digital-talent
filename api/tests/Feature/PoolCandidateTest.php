@@ -28,7 +28,9 @@ class PoolCandidateTest extends TestCase
 
     // Create initial data.
     Classification::factory()->count(3)->create();
-    PoolCandidate::factory()->count(5)->create();
+    PoolCandidate::factory()->count(5)->create([
+      'expected_salary' => [], // remove salaries to avoid accidental classification-to-salary matching
+    ]);
 
     // Create new classification and attach to two new pool candidates.
     $classification = Classification::factory()->create([
@@ -628,7 +630,9 @@ class PoolCandidateTest extends TestCase
   {
     // Create initial data.
     Classification::factory()->count(3)->create();
-    PoolCandidate::factory()->count(5)->create();
+    PoolCandidate::factory()->count(5)->create([
+      'expected_salary' => []
+    ]);
 
     // Create new classification.
     $classificationLvl1 = Classification::factory()->create([
@@ -636,18 +640,6 @@ class PoolCandidateTest extends TestCase
       'level' => 1,
       'min_salary' => 50000,
       'max_salary' => 69000,
-    ]);
-    $classificationLvl2 = Classification::factory()->create([
-      'group' => 'ZZ',
-      'level' => 2,
-      'min_salary' => 70000,
-      'max_salary' => 89000,
-    ]);
-    $classificationLvl3 = Classification::factory()->create([
-      'group' => 'ZZ',
-      'level' => 3,
-      'min_salary' => 90000,
-      'max_salary' => 100000,
     ]);
 
     // Attach new candidates that are in the expected salary range.
@@ -662,15 +654,12 @@ class PoolCandidateTest extends TestCase
       'expected_salary' => ['_60_69K', '_80_89K']
     ]);
     $poolCandidate2->expectedClassifications()->delete();
-    $poolCandidate2->expectedClassifications()->save($classificationLvl2);
 
     // Attach new candidates that are over the expected salary range.
     $poolCandidate3 = PoolCandidate::factory()->create([
       'expected_salary' => ['_90_99K', '_100K_PLUS']
     ]);
     $poolCandidate3->expectedClassifications()->delete();
-    $poolCandidate3->expectedClassifications()->save($classificationLvl3);
-
 
     // Assert query with no classifications filter will return all candidates
     $this->graphQL(/** @lang Graphql */ '
@@ -731,14 +720,6 @@ class PoolCandidateTest extends TestCase
       'max_salary' => 64999,
     ]);
 
-    // otherClassification is the higher one in the same group
-    $otherClassification = Classification::factory()->create([
-      'group' => 'ZZ',
-      'level' => 2,
-      'min_salary' => 65000,
-      'max_salary' => 74999,
-    ]);
-
     // *** first make three candidates in the right pool - 1 has an exact classification match, 1 has a salary to classification match, 1 has no match
 
     // Attach new candidate in the pool with the desired classification
@@ -755,7 +736,6 @@ class PoolCandidateTest extends TestCase
       'pool_id' => $myPool->id
     ]);
     $poolCandidate2->expectedClassifications()->delete();
-    $poolCandidate2->expectedClassifications()->save($otherClassification);
 
     // Attach new candidate in the pool that is over the expected salary range and has a matching class group (but not level).
     $poolCandidate3 = PoolCandidate::factory()->create([
@@ -763,7 +743,6 @@ class PoolCandidateTest extends TestCase
       'pool_id' => $myPool->id
     ]);
     $poolCandidate3->expectedClassifications()->delete();
-    $poolCandidate3->expectedClassifications()->save($otherClassification);
 
     // *** now make the same three candidates in the wrong pool
 
@@ -775,21 +754,19 @@ class PoolCandidateTest extends TestCase
     $poolCandidate1WrongPool->expectedClassifications()->delete();
     $poolCandidate1WrongPool->expectedClassifications()->save($myClassification);
 
-    // Attach new candidate in the pool that overlaps the expected salary range and has a matching class group (but not level). WRONG POOL
+    // Attach new candidate in the pool that overlaps the expected salary range. WRONG POOL
     $poolCandidate2WrongPool = PoolCandidate::factory()->create([
       'expected_salary' => ['_60_69K'],
       'pool_id' => $otherPool->id
     ]);
     $poolCandidate2WrongPool->expectedClassifications()->delete();
-    $poolCandidate2WrongPool->expectedClassifications()->save($otherClassification);
 
-    // Attach new candidate in the pool that is over the expected salary range and has a matching class group (but not level).  WRONG POOL
+    // Attach new candidate in the pool that is over the expected salary range.  WRONG POOL
     $poolCandidate3WrongPool = PoolCandidate::factory()->create([
       'expected_salary' => ['_90_99K', '_100K_PLUS'],
       'pool_id' => $otherPool->id
     ]);
     $poolCandidate3WrongPool->expectedClassifications()->delete();
-    $poolCandidate3WrongPool->expectedClassifications()->save($otherClassification);
 
     // Assert query with just pool filters will return all candidates in that pool
     $this->graphQL(/** @lang Graphql */ '

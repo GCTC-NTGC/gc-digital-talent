@@ -93,7 +93,7 @@ const AddSkillsToExperience: React.FunctionComponent<
 
   return (
     <>
-      <AddedSkills skills={addedSkills} onRemoveSkill={onRemoveSkill} />
+      <AddedSkills skills={addedSkills || []} onRemoveSkill={onRemoveSkill} />
       <hr />
       <h5>
         {intl.formatMessage({
@@ -121,7 +121,7 @@ const AddSkillsToExperience: React.FunctionComponent<
               },
             )}
             skills={frequentSkillsPagination.currentTableData}
-            addedSkills={addedSkills}
+            addedSkills={addedSkills || []}
             handleAddSkill={onAddSkill}
             handleRemoveSkill={onRemoveSkill}
           />
@@ -162,7 +162,7 @@ const AddSkillsToExperience: React.FunctionComponent<
               },
             )}
             skills={mainstreamSkillsPagination.currentTableData}
-            addedSkills={addedSkills}
+            addedSkills={addedSkills || []}
             handleAddSkill={onAddSkill}
             handleRemoveSkill={onRemoveSkill}
           />
@@ -200,7 +200,7 @@ const AddSkillsToExperience: React.FunctionComponent<
               },
             )}
             skills={keywordSearchPagination.currentTableData}
-            addedSkills={addedSkills}
+            addedSkills={addedSkills || []}
             handleAddSkill={onAddSkill}
             handleRemoveSkill={onRemoveSkill}
           />

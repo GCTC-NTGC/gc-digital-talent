@@ -15,6 +15,10 @@ import {
   ApplicantProfileRoutes,
   useApplicantProfileRoutes,
 } from "../applicantProfileRoutes";
+import {
+  DirectIntakeRoutes,
+  useDirectIntakeRoutes,
+} from "../directIntakeRoutes";
 import RequestPage from "./request/RequestPage";
 import WorkLocationPreferenceApi from "./workLocationPreferenceForm/WorkLocationPreferenceForm";
 import { ProfilePage } from "./profile/ProfilePage/ProfilePage";
@@ -26,6 +30,11 @@ import LanguageInformationFormContainer from "./languageInformationForm/Language
 import AboutMeFormContainer from "./aboutMeForm/AboutMeForm";
 import DiversityEquityInclusionFormApi from "./diversityEquityInclusion/DiversityEquityInclusionForm";
 import { ExperienceAndSkillsRouterApi } from "./applicantProfile/ExperienceAndSkills";
+import RoleSalaryFormContainer from "./roleSalaryForm/RoleSalaryForm";
+import BrowsePoolsPage from "./browse/BrowsePoolsPage";
+import BrowseIndividualPoolApi from "./browse/BrowseIndividualPool";
+import PoolApplyPage from "./pool/PoolApplyPage";
+import PoolApplicationThanksPage from "./pool/PoolApplicationThanksPage";
 
 const talentRoutes = (
   talentPaths: TalentSearchRoutes,
@@ -79,6 +88,12 @@ const profileRoutes = (
     }),
   },
   {
+    path: profilePaths.roleSalary(),
+    action: () => ({
+      component: <RoleSalaryFormContainer />,
+    }),
+  },
+  {
     path: `${profilePaths.skillsAndExperiences()}/:type/create`,
     action: (context) => {
       const experienceType = context.params.type as ExperienceType;
@@ -129,10 +144,57 @@ const profileRoutes = (
   },
 ];
 
+const directIntakeRoutes = (
+  directIntakePaths: DirectIntakeRoutes,
+): Routes<RouterResult> => [
+  // placeholder, switch with real routes
+  {
+    path: directIntakePaths.home(),
+    action: () => ({
+      component: <div />,
+      redirect: directIntakePaths.allPools(),
+    }),
+  },
+  {
+    path: directIntakePaths.allPools(),
+    action: () => ({
+      component: <BrowsePoolsPage />,
+    }),
+  },
+  {
+    path: directIntakePaths.pool(":id"),
+    action: (context) => {
+      const poolId = context.params.id as string;
+      return {
+        component: <BrowseIndividualPoolApi poolId={poolId} />,
+      };
+    },
+  },
+  {
+    path: directIntakePaths.poolApply(":id"),
+    action: (context) => {
+      const poolId = context.params.id as string;
+      return {
+        component: <PoolApplyPage id={poolId} />,
+      };
+    },
+  },
+  {
+    path: directIntakePaths.poolApplyThanks(":id"),
+    action: (context) => {
+      const poolId = context.params.id as string;
+      return {
+        component: <PoolApplicationThanksPage id={poolId} />,
+      };
+    },
+  },
+];
+
 export const Router: React.FC = () => {
   const intl = useIntl();
   const talentPaths = useTalentSearchRoutes();
   const profilePaths = useApplicantProfileRoutes();
+  const directIntakePaths = useDirectIntakeRoutes();
 
   const menuItems = [
     <MenuLink
@@ -160,6 +222,9 @@ export const Router: React.FC = () => {
           ...talentRoutes(talentPaths),
           ...(checkFeatureFlag("FEATURE_APPLICANTPROFILE")
             ? profileRoutes(profilePaths)
+            : []),
+          ...(checkFeatureFlag("FEATURE_DIRECTINTAKE")
+            ? directIntakeRoutes(directIntakePaths)
             : []),
         ]}
       />

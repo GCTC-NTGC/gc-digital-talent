@@ -4,7 +4,6 @@ import { Routes } from "universal-router";
 import { RouterResult } from "@common/helpers/router";
 import Toast from "@common/components/Toast";
 import NotAuthorized from "@common/components/NotAuthorized";
-import { getLocale } from "@common/helpers/localize";
 import {
   AuthorizationContext,
   AuthenticationContext,
@@ -26,6 +25,7 @@ import UserPage from "./user/UserPage";
 import PoolPage from "./pool/PoolPage";
 import { CreatePool } from "./pool/CreatePool";
 import { UpdatePool } from "./pool/UpdatePool";
+import ViewPool from "./pool/ViewPool";
 import DepartmentPage from "./department/DepartmentPage";
 import { CreateDepartment } from "./department/CreateDepartment";
 import { UpdateDepartment } from "./department/UpdateDepartment";
@@ -40,6 +40,7 @@ import { UpdateSkill } from "./skill/UpdateSkill";
 import HomePage from "./home/HomePage";
 import { Role } from "../api/generated";
 import DashboardPage from "./dashboard/DashboardPage";
+import ViewUser from "./user/ViewUser";
 
 const AdminNotAuthorized: React.FC = () => {
   const intl = useIntl();
@@ -99,6 +100,17 @@ const routes = (
       component:
         loggedIn && isAdmin ? (
           <UpdateUser userId={params.id as string} />
+        ) : (
+          <AdminNotAuthorized />
+        ),
+    }),
+  },
+  {
+    path: paths.userView(":id"),
+    action: ({ params }) => ({
+      component:
+        loggedIn && isAdmin ? (
+          <ViewUser userId={params.id as string} />
         ) : (
           <AdminNotAuthorized />
         ),
@@ -205,6 +217,17 @@ const routes = (
       component:
         loggedIn && isAdmin ? (
           <UpdatePool poolId={params.id as string} />
+        ) : (
+          <AdminNotAuthorized />
+        ),
+    }),
+  },
+  {
+    path: paths.poolView(":id"),
+    action: ({ params }) => ({
+      component:
+        loggedIn && isAdmin ? (
+          <ViewPool poolId={params.id as string} />
         ) : (
           <AdminNotAuthorized />
         ),

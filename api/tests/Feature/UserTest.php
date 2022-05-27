@@ -509,7 +509,9 @@ class UserTest extends TestCase
     public function testFilterByClassification(): void
     {
         // Create initial data.
-        User::factory()->count(5)->create();
+        User::factory()->count(5)->create([
+            'expected_salary' => [], // remove salaries to avoid accidental classification-to-salary matching
+        ]);
 
         // Create new classification and attach to two new users.
         $classification = Classification::factory()->create([
@@ -591,7 +593,9 @@ class UserTest extends TestCase
     public function testFilterByClassificationToSalary(): void
     {
         // Create initial data.
-        User::factory()->count(5)->create();
+        User::factory()->count(5)->create([
+            'expected_salary' => []
+        ]);
 
         // Create new classification.
         $classificationLvl1 = Classification::factory()->create([
@@ -599,18 +603,6 @@ class UserTest extends TestCase
             'level' => 1,
             'min_salary' => 50000,
             'max_salary' => 69000,
-        ]);
-        $classificationLvl2 = Classification::factory()->create([
-            'group' => 'ZZ',
-            'level' => 2,
-            'min_salary' => 70000,
-            'max_salary' => 89000,
-        ]);
-        $classificationLvl3 = Classification::factory()->create([
-            'group' => 'ZZ',
-            'level' => 3,
-            'min_salary' => 90000,
-            'max_salary' => 100000,
         ]);
 
         // Attach new users that are in the expected salary range.
@@ -625,15 +617,12 @@ class UserTest extends TestCase
             'expected_salary' => ['_60_69K', '_80_89K']
         ]);
         $user2->expectedClassifications()->delete();
-        $user2->expectedClassifications()->save($classificationLvl2);
 
         // Attach new users that are over the expected salary range.
         $user3 = User::factory()->create([
             'expected_salary' => ['_90_99K', '_100K_PLUS']
         ]);
         $user3->expectedClassifications()->delete();
-        $user3->expectedClassifications()->save($classificationLvl3);
-
 
         // Assert query with no classifications filter will return all users
         $this->graphQL(/** @lang Graphql */ '
@@ -1643,14 +1632,6 @@ class UserTest extends TestCase
             'max_salary' => 64999,
         ]);
 
-        // otherClassification is the higher one in the same group
-        $otherClassification = Classification::factory()->create([
-            'group' => 'ZZ',
-            'level' => 2,
-            'min_salary' => 65000,
-            'max_salary' => 74999,
-        ]);
-
         // *** first make three users in the right pool - 1 has an exact classification match, 1 has a salary to classification match, 1 has no match
 
         // Attach new user in the pool with the desired classification
@@ -1666,9 +1647,8 @@ class UserTest extends TestCase
 
         // Attach new user in the pool that overlaps the expected salary range and has a matching class group (but not level).
         PoolCandidate::factory()->create([
-            'user_id' => User::factory()->afterCreating(function($user) use ($otherClassification) {
+            'user_id' => User::factory()->afterCreating(function($user) {
                 $user->expectedClassifications()->delete();
-                $user->expectedClassifications()->save($otherClassification);
             })->create([
                 'expected_salary' => ['_60_69K']
             ]),
@@ -1677,9 +1657,8 @@ class UserTest extends TestCase
 
         // Attach new user in the pool that is over the expected salary range and has a matching class group (but not level).
         PoolCandidate::factory()->create([
-            'user_id' => User::factory()->afterCreating(function($user) use ($otherClassification) {
+            'user_id' => User::factory()->afterCreating(function($user) {
                 $user->expectedClassifications()->delete();
-                $user->expectedClassifications()->save($otherClassification);
             })->create([
                 'expected_salary' => ['_90_99K', '_100K_PLUS']
             ]),
@@ -1701,9 +1680,8 @@ class UserTest extends TestCase
 
         // Attach new user in the pool that overlaps the expected salary range and has a matching class group (but not level). WRONG POOL
         PoolCandidate::factory()->create([
-            'user_id' => User::factory()->afterCreating(function($user) use ($otherClassification) {
+            'user_id' => User::factory()->afterCreating(function($user) {
                 $user->expectedClassifications()->delete();
-                $user->expectedClassifications()->save($otherClassification);
             })->create([
                 'expected_salary' => ['_60_69K']
             ]),
@@ -1712,9 +1690,8 @@ class UserTest extends TestCase
 
         // Attach new user in the pool that is over the expected salary range and has a matching class group (but not level).  WRONG POOL
         PoolCandidate::factory()->create([
-            'user_id' => User::factory()->afterCreating(function($user) use ($otherClassification) {
+            'user_id' => User::factory()->afterCreating(function($user) {
                 $user->expectedClassifications()->delete();
-                $user->expectedClassifications()->save($otherClassification);
             })->create([
                 'expected_salary' => ['_90_99K', '_100K_PLUS']
             ]),

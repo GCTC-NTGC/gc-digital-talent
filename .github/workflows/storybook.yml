@@ -27,10 +27,7 @@ jobs:
         with:
           node-version-file: 'frontend/.nvmrc'
           cache: npm
-          # We include `auth/` even though we don't use it.
-          # This allows cache key to match across all workflows.
           cache-dependency-path: |
-            auth/package-lock.json
             frontend/package-lock.json
 
       - name: Upgrade to latest npm
