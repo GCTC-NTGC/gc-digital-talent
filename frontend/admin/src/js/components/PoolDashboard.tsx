@@ -38,13 +38,22 @@ import { UpdateSkill } from "./skill/UpdateSkill";
 import { Role } from "../api/generated";
 import DashboardPage from "./dashboard/DashboardPage";
 import ViewUser from "./user/ViewUser";
+import HomePage from "./home/HomePage";
 
-const routes = (paths: AdminRoutes): Routes<RouterResult> => [
+const routes = (
+  paths: AdminRoutes,
+  loggedIn?: boolean,
+): Routes<RouterResult> => [
   {
     path: paths.home(),
-    action: () => ({
-      redirect: paths.dashboard(),
-    }),
+    action: () =>
+      loggedIn
+        ? {
+            redirect: paths.dashboard(),
+          }
+        : {
+            component: <HomePage />,
+          },
   },
   {
     path: paths.dashboard(),
@@ -261,12 +270,11 @@ export const PoolDashboard: React.FC = () => {
   const { loggedIn } = React.useContext(AuthenticationContext);
   const paths = useAdminRoutes();
   const { loggedInUserRoles } = React.useContext(AuthorizationContext);
-
   return (
     <>
       <Dashboard
-        contentRoutes={routes(paths)}
-        isLoggedIn={loggedIn}
+        contentRoutes={routes(paths, loggedIn)}
+        loggedIn={loggedIn}
         loggedInUserRoles={loggedInUserRoles}
       />
       <Toast />

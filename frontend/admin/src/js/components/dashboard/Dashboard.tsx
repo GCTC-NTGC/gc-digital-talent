@@ -90,13 +90,13 @@ const OpenMenuButton: React.FC<OpenMenuButtonProps> = ({
 
 interface DashboardProps {
   contentRoutes: Routes<RouterResult>;
-  isLoggedIn: boolean;
+  loggedIn: boolean;
   loggedInUserRoles: PossibleUserRoles;
 }
 
 const Dashboard: React.FC<DashboardProps> = ({
   contentRoutes,
-  isLoggedIn,
+  loggedIn,
   loggedInUserRoles,
 }) => {
   const isSmallScreen = useIsSmallScreen();
@@ -109,7 +109,7 @@ const Dashboard: React.FC<DashboardProps> = ({
     contentRoutes,
     notFoundComponent.current,
     notAuthorizedComponent.current,
-    isLoggedIn,
+    loggedIn,
     loggedInUserRoles,
   );
 
