@@ -14,6 +14,7 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Nuwave\Lighthouse\Testing\ClearsSchemaCache;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Tests\TestCase;
+use Database\Helpers\ApiEnums;
 
 class UserTest extends TestCase
 {
@@ -189,7 +190,9 @@ class UserTest extends TestCase
             }
         ', [
             'where' => [
-                'pools' => [$pool2['id']]
+                'poolCandidates' => [
+                    'pools' => [$pool2['id']]
+                ]
             ]
         ])->assertJson([
             'data' => [
@@ -212,13 +215,183 @@ class UserTest extends TestCase
             }
         ', [
             'where' => [
-                'pools' => ['00000000-0000-0000-0000-000000000000']
+                'poolCandidates' => [
+                    'pools' => ['00000000-0000-0000-0000-000000000000']
+                ]
             ]
         ])->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
                         'total' => 0
+                    ]
+                ]
+            ]
+        ]);
+    }
+
+    public function testFilterByCandidateExpiryDate(): void
+    {
+        // myPool will be people we're querying for and should be returned
+        $myPool = Pool::factory()->create(['name' => 'myPool']);
+        // otherPool will be people we're not querying for and should not be returned
+        $otherPool = Pool::factory()->create(['name' => 'otherPool']);
+
+        // Create some valid users in myPool
+        PoolCandidate::factory()->count(4)->create([
+            'expiry_date' => '3000-05-13',
+            'pool_id' => $myPool->id,
+        ]);
+        PoolCandidate::factory()->create([
+            'expiry_date' => date("Y-m-d"),
+            'pool_id' => $myPool->id,
+        ]);
+        PoolCandidate::factory()->count(3)->create([
+            'expiry_date' => null,
+            'pool_id' => $myPool->id,
+        ]);
+        // Create some expired users in myPool
+        PoolCandidate::factory()->count(2)->create([
+            'expiry_date' => '2000-05-13',
+            'pool_id' => $myPool->id,
+        ]);
+
+        // Create some valid users in otherPool
+        PoolCandidate::factory()->count(5)->create([
+            'expiry_date' => '3000-05-13',
+            'pool_id' => $otherPool->id,
+        ]);
+        PoolCandidate::factory()->create([
+            'expiry_date' => date("Y-m-d"),
+            'pool_id' => $otherPool->id,
+        ]);
+        PoolCandidate::factory()->create([
+            'expiry_date' => null,
+            'pool_id' => $otherPool->id,
+        ]);
+        // Create some expired users in otherPool
+        PoolCandidate::factory()->count(3)->create([
+            'expiry_date' => '2000-05-13',
+            'pool_id' => $otherPool->id,
+        ]);
+
+        // Assert query with no parameters returns all users
+        $this->graphQL(/** @lang Graphql */ '
+            query getUsersPaginated($where: UserFilterAndOrderInput) {
+                usersPaginated(where: $where) {
+                    paginatorInfo {
+                        total
+                    }
+                }
+            }
+        ')->assertJson([
+            'data' => [
+                'usersPaginated' => [
+                    'paginatorInfo' => [
+                        'total' => 23
+                    ]
+                ]
+            ]
+        ]);
+
+        // Assert query for pool with default expiryStatus returns correct users
+        $this->graphQL(/** @lang Graphql */ '
+            query getUsersPaginated($where: UserFilterAndOrderInput) {
+                usersPaginated(where: $where) {
+                    paginatorInfo {
+                        total
+                    }
+                }
+            }
+        ', [
+            'where' => [
+                'poolCandidates' => [
+                    'pools' => [$myPool->id]
+                ]
+            ]
+        ])->assertJson([
+            'data' => [
+                'usersPaginated' => [
+                    'paginatorInfo' => [
+                        'total' => 8
+                    ]
+                ]
+            ]
+        ]);
+
+        // Assert query with pool and expiryStatus ACTIVE returns correct users
+        $this->graphQL(/** @lang Graphql */ '
+            query getUsersPaginated($where: UserFilterAndOrderInput) {
+                usersPaginated(where: $where) {
+                    paginatorInfo {
+                        total
+                    }
+                }
+            }
+        ', [
+            'where' => [
+                'poolCandidates' => [
+                    'pools' => [$myPool->id],
+                    'expiryStatus' => ApiEnums::CANDIDATE_EXPIRY_FILTER_ACTIVE
+                ]
+            ]
+        ])->assertJson([
+            'data' => [
+                'usersPaginated' => [
+                    'paginatorInfo' => [
+                        'total' => 8
+                    ]
+                ]
+            ]
+        ]);
+
+        // Assert query with pool and expiryStatus EXPIRED returns correct users
+        $this->graphQL(/** @lang Graphql */ '
+            query getUsersPaginated($where: UserFilterAndOrderInput) {
+                usersPaginated(where: $where) {
+                    paginatorInfo {
+                        total
+                    }
+                }
+            }
+        ', [
+            'where' => [
+                'poolCandidates' => [
+                    'pools' => [$myPool->id],
+                    'expiryStatus' => ApiEnums::CANDIDATE_EXPIRY_FILTER_EXPIRED,
+                ]
+            ]
+        ])->assertJson([
+            'data' => [
+                'usersPaginated' => [
+                    'paginatorInfo' => [
+                        'total' => 2
+                    ]
+                ]
+            ]
+        ]);
+
+        // Assert query with pool and expiryStatus ALL returns all users in pool
+        $this->graphQL(/** @lang Graphql */ '
+            query getUsersPaginated($where: UserFilterAndOrderInput) {
+                usersPaginated(where: $where) {
+                    paginatorInfo {
+                        total
+                    }
+                }
+            }
+        ', [
+            'where' => [
+                'poolCandidates' => [
+                    'pools' => [$myPool->id],
+                    'expiryStatus' => ApiEnums::CANDIDATE_EXPIRY_FILTER_ALL,
+                ]
+            ]
+        ])->assertJson([
+            'data' => [
+                'usersPaginated' => [
+                    'paginatorInfo' => [
+                        'total' => 10
                     ]
                 ]
             ]
@@ -1536,7 +1709,9 @@ class UserTest extends TestCase
             }
         ', [
             'where' => [
-                'pools' => [$myPool->id]
+                'poolCandidates' => [
+                    'pools' => [$myPool->id]
+                ]
             ]
         ])->assertJson([
             'data' => [
@@ -1559,7 +1734,9 @@ class UserTest extends TestCase
             }
         ', [
             'where' => [
-                'pools' => [$myPool->id],
+                'poolCandidates' => [
+                    'pools' => [$myPool->id]
+                ],
                 'expectedClassifications' => [['group' => 'ZZ', 'level' => 1]]
             ]
         ])->assertJson([
@@ -1583,7 +1760,9 @@ class UserTest extends TestCase
             }
         ', [
             'where' => [
-                'pools' => [$myPool->id],
+                'poolCandidates' => [
+                    'pools' => [$myPool->id]
+                ],
                 'expectedClassifications' => [['group' => 'UNKNOWN', 'level' => 1324234 ]],
             ]
         ])->assertJson([

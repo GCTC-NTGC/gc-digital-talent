@@ -91,6 +91,12 @@ enum BilingualEvaluation {
   NOT_COMPLETED
 }
 
+enum CANDIDATE_EXPIRY_FILTER {
+  ACTIVE
+  EXPIRED
+  ALL
+}
+
 type Classification {
   id: ID!
   name: LocalizedString
@@ -757,7 +763,7 @@ type Query {
   poolCandidate(id: ID!): PoolCandidate
   poolCandidates: [PoolCandidate]!
   countPoolCandidates(where: PoolCandidateFilterInput): Int!
-  searchPoolCandidates(where: PoolCandidateFilterInput): [PoolCandidate]!
+  searchPoolCandidates(where: PoolCandidateFilterInput, expiryStatus: CANDIDATE_EXPIRY_FILTER): [PoolCandidate]!
   classification(id: ID!): Classification
   classifications: [Classification]!
   cmoAsset(id: ID!): CmoAsset
@@ -1133,7 +1139,7 @@ input UserBelongsTo {
 }
 
 input UserFilterAndOrderInput {
-  pools: [ID]
+  poolCandidates: UserPoolFilterInput
   languageAbility: LanguageAbility
   expectedClassifications: [ClassificationFilterInput]
   operationalRequirements: [OperationalRequirement]
@@ -1154,6 +1160,11 @@ type UserPaginator {
 
   """A list of User items."""
   data: [User!]!
+}
+
+input UserPoolFilterInput {
+  pools: [ID!]!
+  expiryStatus: CANDIDATE_EXPIRY_FILTER = ACTIVE
 }
 
 type UserPublicProfile {
