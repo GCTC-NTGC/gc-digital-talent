@@ -1,10 +1,7 @@
-import { getLanguageProficiency } from "@common/constants/localizedConstants";
 import React from "react";
 import { useIntl } from "react-intl";
-import {
-  Applicant,
-  BilingualEvaluation,
-} from "talentsearch/src/js/api/generated";
+import { Applicant, BilingualEvaluation } from "../../../api/generated";
+import { getLanguageProficiency } from "../../../constants/localizedConstants";
 
 // styling a text bit with red colour within intls
 function redText(msg: string) {
@@ -23,7 +20,7 @@ const LanguageInformationSection: React.FunctionComponent<{
     | "comprehensionLevel"
     | "verbalLevel"
   >;
-  editPath: string;
+  editPath?: string;
 }> = ({ applicant, editPath }) => {
   const intl = useIntl();
 
@@ -204,12 +201,14 @@ const LanguageInformationSection: React.FunctionComponent<{
               redText,
             },
           )}{" "}
-          <a href={editPath}>
-            {intl.formatMessage({
-              defaultMessage: "Click here to get started.",
-              description: "Message to click on the words to begin something",
-            })}
-          </a>
+          {editPath && (
+            <a href={editPath}>
+              {intl.formatMessage({
+                defaultMessage: "Click here to get started.",
+                description: "Message to click on the words to begin something",
+              })}
+            </a>
+          )}
         </p>
       )}
     </div>

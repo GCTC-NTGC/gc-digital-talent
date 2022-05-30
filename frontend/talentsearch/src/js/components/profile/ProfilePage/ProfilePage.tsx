@@ -39,7 +39,7 @@ import {
 import MyStatusApi from "../../myStatusForm/MyStatusForm";
 import CandidatePoolsSection from "./CandidatePoolsSection";
 import AboutMeSection from "./AboutMeSection";
-import LanguageInformationSection from "./LanguageInformationSection";
+import LanguageInformationSection from "../../../../../../common/src/components/UserProfile/ProfileSections/LanguageInformationSection";
 
 export interface ProfilePageProps {
   profileDataInput: User;

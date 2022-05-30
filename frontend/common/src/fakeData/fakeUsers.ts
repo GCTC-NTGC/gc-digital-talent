@@ -21,6 +21,7 @@ import {
   PersonalExperience,
   WorkExperience,
   GovEmployeeType,
+  Applicant,
 } from "../api/generated";
 import fakeClassifications from "./fakeClassifications";
 import fakeCmoAssets from "./fakeCmoAssets";
@@ -41,6 +42,7 @@ const generateUser = (
   faker.setLocale("en");
 
   return {
+    __typename: "User",
     id: faker.datatype.uuid(),
 
     // Personal Info
@@ -161,6 +163,15 @@ export const defaultGenerator = (numToGenerate = 20): User[] => {
       workExperiences,
     ),
   );
+};
+
+export const applicantGenerator = (numToGenerate = 20): Applicant[] => {
+  return defaultGenerator(numToGenerate).map((user) => {
+    return {
+      ...user,
+      __typename: "Applicant",
+    };
+  });
 };
 
 export default defaultGenerator;

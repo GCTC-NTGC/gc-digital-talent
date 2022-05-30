@@ -3,5 +3,5 @@
   "include": [
     "src/js/**/*",
     "**/*.config.js"
-  ]
+, "../common/src/components/UserProfile/LanguageInformationSection.tsx"  ]
 }
