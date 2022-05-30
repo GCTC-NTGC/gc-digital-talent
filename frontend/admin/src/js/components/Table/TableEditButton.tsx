@@ -1,5 +1,5 @@
 import React, { ReactElement } from "react";
-import { Button } from "@common/components";
+import { Button, Link } from "@common/components";
 import { useIntl } from "react-intl";
 import { navigate } from "@common/helpers/router";
 
@@ -15,20 +15,14 @@ function TableEditButton({
   editUrlRoot,
 }: TableEditButtonProps): ReactElement {
   const intl = useIntl();
+  const href = `${editUrlRoot}/${id}/edit`;
   return (
-    <Button
-      color="primary"
-      mode="inline"
-      onClick={(event) => {
-        event.preventDefault();
-        navigate(`${editUrlRoot}/${id}/edit`);
-      }}
-    >
+    <Link href={href} type="button" mode="inline" color="primary">
       {intl.formatMessage({
         defaultMessage: "Edit",
         description: "Title displayed for the Edit column.",
       })}
-    </Button>
+    </Link>
   );
 }
 
