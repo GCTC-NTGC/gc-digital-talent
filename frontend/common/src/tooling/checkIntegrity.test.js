@@ -50,6 +50,13 @@ describe("Check integrity tests", () => {
   });
 
   test("If errors on a package without an integrity", async () => {
+    /**
+     * Override `console.error` to reduce test noise.
+     * Same with line 67
+     *
+     * Ref: https://stackoverflow.com/a/49591765
+     */
+    jest.spyOn(console, "error").mockImplementation(() => null);
     const package = JSON.parse(`{
         "test-package": { }
       }`);
@@ -57,6 +64,7 @@ describe("Check integrity tests", () => {
   });
 
   test("If it errors on a package with a junk integrity", async () => {
+    jest.spyOn(console, "error").mockImplementation(() => null);
     const package = JSON.parse(`{
         "test-package": {
           "integrity": "sha512-ZZZ"
