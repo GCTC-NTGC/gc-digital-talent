@@ -8,23 +8,24 @@ describe('Footer', () => {
     })
 
     it('links to Privacy Policy', () => {
-      // TODO: Update to use cy.findByRole().
-      cy.get('footer').within(() => {
-        cy.get('a').contains('Privacy Policy').should('have.attr', 'href', '/en/privacy-notice')
+      // This is the aria role for "footer".
+      cy.findByRole('contentinfo').within(() => {
+        // TODO: Update all these tests to use cy.findByRole().
+        // See: https://github.com/GCTC-NTGC/gc-digital-talent/issues/2902
+        //cy.findByRole('link', { name: 'Privacy Policy' }).should('have.attr', 'href', '/en/privacy-notice')
+        cy.findByText('Privacy Policy').should('have.attr', 'href', '/en/privacy-notice')
       })
     })
 
     it('links to Terms & Conditions', () => {
-      // TODO: Update to use cy.findByRole().
-      cy.get('footer').within(() => {
-        cy.get('a').contains('Terms & Conditions').should('have.attr', 'href', '/en/terms-and-conditions')
+      cy.findByRole('contentinfo').within(() => {
+        cy.findByText('Terms & Conditions').should('have.attr', 'href', '/en/terms-and-conditions')
       })
     })
 
     it('links to Canada.ca', () => {
-      // TODO: Update to use cy.findByRole().
-      cy.get('footer').within(() => {
-        cy.get('a').contains('Canada.ca').should('have.attr', 'href', 'https://www.canada.ca/en.html')
+      cy.findByRole('contentinfo').within(() => {
+        cy.findByText('Canada.ca').should('have.attr', 'href', 'https://www.canada.ca/en.html')
       })
     })
   })
@@ -36,16 +37,14 @@ describe('Footer', () => {
     })
 
     it('links to Privacy Policy (french)', () => {
-      // TODO: Update to use cy.findByRole().
-      cy.get('footer').within(() => {
-        cy.get('a').contains('Modalités').should('have.attr', 'href', '/fr/terms-and-conditions')
+      cy.findByRole('contentinfo').within(() => {
+        cy.findByText('Modalités').should('have.attr', 'href', '/fr/terms-and-conditions')
       })
     })
 
     it('links to Canada.ca (french)', () => {
-      // TODO: Update to use cy.findByRole().
-      cy.get('footer').within(() => {
-        cy.get('a').contains('canada.ca').should('have.attr', 'href', 'https://www.canada.ca/fr.html')
+      cy.findByRole('contentinfo').within(() => {
+        cy.findByText('canada.ca').should('have.attr', 'href', 'https://www.canada.ca/fr.html')
       })
     })
   })
