@@ -30,6 +30,7 @@ import {
 
 import { insertBetween, notEmpty } from "@common/helpers/util";
 import ExperienceSection from "@common/components/UserProfile/ExperienceSection";
+import { unpackMaybes } from "@common/helpers/formUtils";
 import TALENTSEARCH_APP_DIR from "../../../talentSearchConstants";
 import { useApplicantProfileRoutes } from "../../../applicantProfileRoutes";
 import {
@@ -41,6 +42,7 @@ import {
 } from "../../../api/generated";
 
 import MyStatusApi from "../../myStatusForm/MyStatusForm";
+import CandidatePoolsSection from "./CandidatePoolsSection";
 
 export interface ProfilePageProps {
   profileDataInput: User;
@@ -102,41 +104,6 @@ export const ProfileForm: React.FC<ProfilePageProps> = ({
   function equityLinkText(msg: string) {
     return <a href="/equity-groups">{msg}</a>;
   }
-
-  // generate array of pool candidates entries
-  const candidateArray = poolCandidates
-    ? poolCandidates.map((poolCandidate) => (
-        <div
-          key={poolCandidate?.id}
-          data-h2-display="b(flex)"
-          data-h2-flex-direction="b(row)"
-          data-h2-justify-content="b(space-between)"
-          data-h2-padding="b(top-bottom, m)"
-        >
-          <div>
-            <p>{poolCandidate?.pool?.name?.[locale]}</p>
-          </div>
-          <div>
-            <p>
-              {intl.formatMessage({
-                defaultMessage: "ID:",
-                description: "The ID and colon",
-              })}{" "}
-              {poolCandidate?.id}
-            </p>
-          </div>
-          <div>
-            <p>
-              {intl.formatMessage({
-                defaultMessage: "Expiry Date:",
-                description: "The expiry date label and colon",
-              })}{" "}
-              {poolCandidate?.expiryDate}
-            </p>
-          </div>
-        </div>
-      ))
-    : null;
 
   // generate array of accepted operational requirements
   const acceptedOperationalArray = acceptedOperationalRequirements
@@ -250,23 +217,9 @@ export const ProfileForm: React.FC<ProfilePageProps> = ({
                 description: "Title of the My hiring pools section",
               })}
             </TableOfContents.Heading>
-            <div
-              data-h2-bg-color="b(lightgray)"
-              data-h2-padding="b(all, m)"
-              data-h2-radius="b(s)"
-            >
-              {(!candidateArray || !candidateArray.length) && (
-                <p>
-                  {intl.formatMessage({
-                    defaultMessage:
-                      "You have not been accepted into any hiring pools yet.",
-                    description:
-                      "Message for if user not part of any hiring pools",
-                  })}
-                </p>
-              )}
-              {!!candidateArray && candidateArray}
-            </div>
+            <CandidatePoolsSection
+              poolCandidates={unpackMaybes(poolCandidates)}
+            />
           </TableOfContents.Section>
           <TableOfContents.Section id="about-me-section">
             <div style={{ display: "flex", alignItems: "baseline" }}>
