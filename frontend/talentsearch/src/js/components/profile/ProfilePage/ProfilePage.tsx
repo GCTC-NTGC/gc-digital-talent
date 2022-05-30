@@ -43,9 +43,15 @@ import {
 
 import MyStatusApi from "../../myStatusForm/MyStatusForm";
 import CandidatePoolsSection from "./CandidatePoolsSection";
+import AboutMeSection from "./AboutMeSection";
 
 export interface ProfilePageProps {
   profileDataInput: User;
+}
+
+// styling a text bit with red colour within intls
+export function redText(msg: string) {
+  return <span data-h2-font-color="b(red)">{msg}</span>;
 }
 
 export const ProfileForm: React.FC<ProfilePageProps> = ({
@@ -85,7 +91,6 @@ export const ProfileForm: React.FC<ProfilePageProps> = ({
 
   const intl = useIntl();
   const paths = useApplicantProfileRoutes();
-  const locale = getLocale(intl);
 
   const experienceEditPaths = {
     awardUrl: (id: string) => paths.editExperience("award", id),
@@ -94,11 +99,6 @@ export const ProfileForm: React.FC<ProfilePageProps> = ({
     personalUrl: (id: string) => paths.editExperience("personal", id),
     workUrl: (id: string) => paths.editExperience("work", id),
   };
-
-  // styling a text bit with red colour within intls
-  function redText(msg: string) {
-    return <span data-h2-font-color="b(red)">{msg}</span>;
-  }
 
   // add link to Equity groups <a> tags around a message
   function equityLinkText(msg: string) {
@@ -246,124 +246,10 @@ export const ProfileForm: React.FC<ProfilePageProps> = ({
                 })}
               </Link>
             </div>
-            <div
-              data-h2-bg-color="b(lightgray)"
-              data-h2-padding="b(all, m)"
-              data-h2-radius="b(s)"
-            >
-              <div
-                data-h2-display="b(flex)"
-                data-h2-flex-direction="s(row) b(column)"
-                data-h2-justify-content="b(space-between)"
-              >
-                <div>
-                  {!!firstName && !!lastName && (
-                    <p>
-                      {intl.formatMessage({
-                        defaultMessage: "Name:",
-                        description: "Name label and colon",
-                      })}{" "}
-                      <span data-h2-font-weight="b(700)">
-                        {firstName} {lastName}
-                      </span>
-                    </p>
-                  )}
-                  {!!email && (
-                    <p>
-                      {intl.formatMessage({
-                        defaultMessage: "Email:",
-                        description: "Email label and colon",
-                      })}{" "}
-                      <span data-h2-font-weight="b(700)">{email}</span>
-                    </p>
-                  )}
-                  {!!telephone && (
-                    <p>
-                      {intl.formatMessage({
-                        defaultMessage: "Phone:",
-                        description: "Phone label and colon",
-                      })}{" "}
-                      <span data-h2-font-weight="b(700)">{telephone}</span>
-                    </p>
-                  )}
-                </div>
-                <div>
-                  {!!preferredLang && (
-                    <p>
-                      {intl.formatMessage({
-                        defaultMessage: "Preferred Communication Language:",
-                        description:
-                          "Preferred Language for communication purposes label and colon",
-                      })}{" "}
-                      <span data-h2-font-weight="b(700)">
-                        {preferredLang
-                          ? getLanguage(preferredLang).defaultMessage
-                          : ""}
-                      </span>
-                    </p>
-                  )}
-                  {!!currentCity && !!currentProvince && (
-                    <p>
-                      {intl.formatMessage({
-                        defaultMessage: "Current Location:",
-                        description: "Current Location label and colon",
-                      })}{" "}
-                      <span data-h2-font-weight="b(700)">
-                        {currentCity},{" "}
-                        {currentProvince
-                          ? getProvinceOrTerritory(currentProvince)
-                              .defaultMessage
-                          : ""}
-                      </span>
-                    </p>
-                  )}
-                </div>
-              </div>
-              {!firstName &&
-                !lastName &&
-                !email &&
-                !telephone &&
-                !preferredLang &&
-                !currentCity &&
-                !currentProvince && (
-                  <p>
-                    {intl.formatMessage({
-                      defaultMessage:
-                        "You haven't added any information here yet.",
-                      description:
-                        "Message for when no data exists for the section",
-                    })}
-                  </p>
-                )}
-              {(!firstName ||
-                !lastName ||
-                !email ||
-                !telephone ||
-                !preferredLang ||
-                !currentCity ||
-                !currentProvince) && (
-                <p>
-                  {intl.formatMessage(
-                    {
-                      defaultMessage:
-                        "There are <redText>required</redText> fields missing.",
-                      description:
-                        "Message that there are required fields missing. Please ignore things in <> tags.",
-                    },
-                    {
-                      redText,
-                    },
-                  )}{" "}
-                  <a href={paths.aboutMe()}>
-                    {intl.formatMessage({
-                      defaultMessage: "Click here to get started.",
-                      description:
-                        "Message to click on the words to begin something",
-                    })}
-                  </a>
-                </p>
-              )}
-            </div>
+            <AboutMeSection
+              applicant={profileDataInput}
+              editPath={paths.aboutMe()}
+            />
           </TableOfContents.Section>
           <TableOfContents.Section id="language-section">
             <div style={{ display: "flex", alignItems: "baseline" }}>
