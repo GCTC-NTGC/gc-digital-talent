@@ -85,6 +85,14 @@ export const ProfileForm: React.FC<ProfilePageProps> = ({
   const paths = useApplicantProfileRoutes();
   const locale = getLocale(intl);
 
+  const experienceEditPaths = {
+    awardUrl: (id: string) => paths.editExperience("award", id),
+    communityUrl: (id: string) => paths.editExperience("community", id),
+    educationUrl: (id: string) => paths.editExperience("education", id),
+    personalUrl: (id: string) => paths.editExperience("personal", id),
+    workUrl: (id: string) => paths.editExperience("work", id),
+  };
+
   // styling a text bit with red colour within intls
   function redText(msg: string) {
     return <span data-h2-font-color="b(red)">{msg}</span>;
@@ -1077,6 +1085,7 @@ export const ProfileForm: React.FC<ProfilePageProps> = ({
               <div data-h2-padding="b(all, m)" data-h2-radius="b(s)">
                 <ExperienceSection
                   experiences={experiences?.filter(notEmpty)}
+                  experienceEditPaths={experienceEditPaths}
                 />
               </div>
             )}

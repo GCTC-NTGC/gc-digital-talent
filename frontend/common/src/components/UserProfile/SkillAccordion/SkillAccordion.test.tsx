@@ -10,11 +10,11 @@ import {
   IntlProvider,
   MessageFormatElement,
 } from "react-intl";
-import { fakeSkills } from "@common/fakeData";
-import { generators as experienceGenerator } from "@common/fakeData/fakeExperiences";
+import { fakeSkills } from "../../../fakeData";
+import { generators as experienceGenerator } from "../../../fakeData/fakeExperiences";
 
-import { getDateRange } from "@common/helpers/dateUtils";
-import { Skill } from "../../../../../talentsearch/src/js/api/generated";
+import { getDateRange } from "../../../helpers/dateUtils";
+import { Skill } from "../../../api/generated";
 import SkillAccordion from "./SkillAccordion";
 
 const skills = fakeSkills();

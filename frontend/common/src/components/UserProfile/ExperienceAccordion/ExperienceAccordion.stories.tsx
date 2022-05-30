@@ -18,36 +18,74 @@ const AccordionTemplate: Story<AccordionProps> = (args) => {
   return <ExperienceAccordion {...args} />;
 };
 
-export const AccordionAwardExample = AccordionTemplate.bind({});
-export const AccordionCommunityExample = AccordionTemplate.bind({});
-export const AccordionEducationExample = AccordionTemplate.bind({});
-export const AccordionPersonalExample = AccordionTemplate.bind({});
-export const AccordionWorkExample = AccordionTemplate.bind({});
-export const AccordionUnknownExample = AccordionTemplate.bind({});
+const editPaths = {
+  awardUrl: (id: string) => "#",
+  communityUrl: (id: string) => "#",
+  educationUrl: (id: string) => "#",
+  personalUrl: (id: string) => "#",
+  workUrl: (id: string) => "#",
+};
 
-AccordionAwardExample.args = {
+export const AccordionAward = AccordionTemplate.bind({});
+export const AccordionAwardWithEdit = AccordionTemplate.bind({});
+export const AccordionCommunity = AccordionTemplate.bind({});
+export const AccordionCommunityWithEdit = AccordionTemplate.bind({});
+export const AccordionEducation = AccordionTemplate.bind({});
+export const AccordionEducationWithEdit = AccordionTemplate.bind({});
+export const AccordionPersonal = AccordionTemplate.bind({});
+export const AccordionPersonalWithEdit = AccordionTemplate.bind({});
+export const AccordionWork = AccordionTemplate.bind({});
+export const AccordionWorkWithEdit = AccordionTemplate.bind({});
+export const AccordionUnknown = AccordionTemplate.bind({});
+export const AccordionUnknownWithEdit = AccordionTemplate.bind({});
+
+AccordionAward.args = {
   experience: generators.awardExperiences()[0],
 };
+AccordionAwardWithEdit.args = {
+  ...AccordionAward.args,
+  editPaths,
+};
 
-AccordionCommunityExample.args = {
+AccordionCommunity.args = {
   experience: generators.communityExperiences()[0],
 };
+AccordionCommunityWithEdit.args = {
+  ...AccordionCommunity.args,
+  editPaths,
+};
 
-AccordionEducationExample.args = {
+AccordionEducation.args = {
   experience: generators.educationExperiences()[0],
 };
+AccordionEducationWithEdit.args = {
+  ...AccordionEducation.args,
+  editPaths,
+};
 
-AccordionPersonalExample.args = {
+AccordionPersonal.args = {
   experience: generators.personalExperiences()[0],
 };
-
-AccordionWorkExample.args = {
-  experience: generators.workExperiences()[0],
+AccordionPersonalWithEdit.args = {
+  ...AccordionPersonal.args,
+  editPaths,
 };
 
-AccordionUnknownExample.args = {
+AccordionWork.args = {
+  experience: generators.workExperiences()[0],
+};
+AccordionWorkWithEdit.args = {
+  ...AccordionWork.args,
+  editPaths,
+};
+
+AccordionUnknown.args = {
   experience: {
     applicant: sampleApp,
     id: theId,
   },
+};
+AccordionUnknownWithEdit.args = {
+  ...AccordionUnknown.args,
+  editPaths,
 };

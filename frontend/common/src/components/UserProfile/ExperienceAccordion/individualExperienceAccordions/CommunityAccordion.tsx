@@ -6,10 +6,12 @@ import { Link } from "../../..";
 import { CommunityExperience } from "../../../../api/generated";
 import { getLocale } from "../../../../helpers/localize";
 import { getDateRange } from "../../../../helpers/dateUtils";
-import { useApplicantProfileRoutes } from "../../../applicantProfileRoutes";
 
-const CommunityAccordion: React.FunctionComponent<CommunityExperience> = ({
-  id,
+type CommunityAccordionProps = CommunityExperience & {
+  editUrl?: string; // A link to edit the experience will only appear if editUrl is defined.
+};
+
+const CommunityAccordion: React.FunctionComponent<CommunityAccordionProps> = ({
   title,
   organization,
   startDate,
@@ -17,11 +19,10 @@ const CommunityAccordion: React.FunctionComponent<CommunityExperience> = ({
   details,
   project,
   skills,
+  editUrl,
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
-  const profilePaths = useApplicantProfileRoutes();
-  const editUrl = `${profilePaths.skillsAndExperiences()}/community/${id}/edit`;
 
   // create unordered list element of skills DOM Element
   const skillsList = skills
@@ -88,14 +89,16 @@ const CommunityAccordion: React.FunctionComponent<CommunityExperience> = ({
           )}
         </p>
       </div>
-      <div data-h2-padding="b(left, l)">
-        <Link href={editUrl} color="primary" mode="outline" type="button">
-          {intl.formatMessage({
-            defaultMessage: "Edit Experience",
-            description: "Edit Experience button label",
-          })}
-        </Link>
-      </div>
+      {editUrl && (
+        <div data-h2-padding="b(left, l)">
+          <Link href={editUrl} color="primary" mode="outline" type="button">
+            {intl.formatMessage({
+              defaultMessage: "Edit Experience",
+              description: "Edit Experience button label",
+            })}
+          </Link>
+        </div>
+      )}
     </Accordion>
   );
 };

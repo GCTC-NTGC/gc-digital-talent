@@ -6,21 +6,22 @@ import { Link } from "../../..";
 import { getLocale } from "../../../../helpers/localize";
 import { getDateRange } from "../../../../helpers/dateUtils";
 import { PersonalExperience } from "../../../../api/generated";
-import { useApplicantProfileRoutes } from "../../../applicantProfileRoutes";
 
-const PersonalAccordion: React.FunctionComponent<PersonalExperience> = ({
-  id,
+type PersonalAccordionProps = PersonalExperience & {
+  editUrl?: string; // A link to edit the experience will only appear if editUrl is defined.
+};
+
+const PersonalAccordion: React.FunctionComponent<PersonalAccordionProps> = ({
   title,
   startDate,
   endDate,
   details,
   description,
   skills,
+  editUrl,
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
-  const profilePaths = useApplicantProfileRoutes();
-  const editUrl = `${profilePaths.skillsAndExperiences()}/personal/${id}/edit`;
 
   const skillsList = skills
     ? skills.map((skill, index) => (
@@ -70,14 +71,16 @@ const PersonalAccordion: React.FunctionComponent<PersonalExperience> = ({
           )}
         </p>
       </div>
-      <div data-h2-padding="b(left, l)">
-        <Link href={editUrl} color="primary" mode="outline" type="button">
-          {intl.formatMessage({
-            defaultMessage: "Edit Experience",
-            description: "Edit Experience button label",
-          })}
-        </Link>
-      </div>
+      {editUrl && (
+        <div data-h2-padding="b(left, l)">
+          <Link href={editUrl} color="primary" mode="outline" type="button">
+            {intl.formatMessage({
+              defaultMessage: "Edit Experience",
+              description: "Edit Experience button label",
+            })}
+          </Link>
+        </div>
+      )}
     </Accordion>
   );
 };

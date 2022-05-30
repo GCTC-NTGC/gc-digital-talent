@@ -7,7 +7,9 @@ import {
 } from "@heroicons/react/solid";
 import * as React from "react";
 import { useIntl } from "react-intl";
-import ExperienceAccordion from "./ExperienceAccordion/ExperienceAccordion";
+import ExperienceAccordion, {
+  ExperiencePaths,
+} from "./ExperienceAccordion/ExperienceAccordion";
 import SkillAccordion from "./SkillAccordion/SkillAccordion";
 import { Tab, TabSet } from "../tabs";
 import { getLocale } from "../../helpers/localize";
@@ -61,7 +63,8 @@ const ExperienceByType: React.FunctionComponent<{
   title: string;
   icon: React.ReactNode;
   experiences: Experience[];
-}> = ({ title, icon, experiences }) => {
+  experienceEditPaths?: ExperiencePaths; // If experienceEditPaths is not defined, links to edit experiences will not appear.
+}> = ({ title, icon, experiences, experienceEditPaths }) => {
   return (
     <div>
       <div data-h2-display="b(flex)" data-h2-margin="b(top-bottom, m)">
@@ -80,7 +83,11 @@ const ExperienceByType: React.FunctionComponent<{
         data-h2-padding="b(top-bottom, xxs) b(right-left, xs)"
       >
         {experiences.map((experience) => (
-          <ExperienceAccordion key={experience.id} experience={experience} />
+          <ExperienceAccordion
+            key={experience.id}
+            experience={experience}
+            editPaths={experienceEditPaths}
+          />
         ))}
       </div>
     </div>
@@ -88,10 +95,12 @@ const ExperienceByType: React.FunctionComponent<{
 };
 export interface ExperienceSectionProps {
   experiences?: Experience[];
+  experienceEditPaths?: ExperiencePaths; // If experienceEditPaths is not defined, links to edit experiences will not appear.
 }
 
 const ExperienceSection: React.FunctionComponent<ExperienceSectionProps> = ({
   experiences,
+  experienceEditPaths,
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
@@ -164,7 +173,11 @@ const ExperienceSection: React.FunctionComponent<ExperienceSectionProps> = ({
           data-h2-padding="b(top-bottom, xxs) b(right-left, xs)"
         >
           {sortedByDate.map((experience) => (
-            <ExperienceAccordion key={experience.id} experience={experience} />
+            <ExperienceAccordion
+              key={experience.id}
+              experience={experience}
+              editPaths={experienceEditPaths}
+            />
           ))}
         </div>
       </Tab>

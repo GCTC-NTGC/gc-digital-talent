@@ -10,6 +10,7 @@ import { useIntl } from "react-intl";
 import { notEmpty } from "@common/helpers/util";
 import { EducationExperience } from "@common/api/generated";
 import { commonMessages } from "@common/messages";
+import ExperienceSection from "@common/components/UserProfile/ExperienceSection";
 import {
   AwardExperience,
   CommunityExperience,
@@ -22,7 +23,6 @@ import {
 import { useApplicantProfileRoutes } from "../../applicantProfileRoutes";
 import ProfileFormFooter from "./ProfileFormFooter";
 import ProfileFormWrapper from "./ProfileFormWrapper";
-import ExperienceSection from "../../../../../common/src/components/UserProfile/ExperienceSection";
 
 export type ExperienceForDate =
   | (AwardExperience & { startDate: string; endDate: string })
@@ -62,6 +62,13 @@ const ExperienceAndSkills: React.FunctionComponent<
 > = ({ experiences }) => {
   const intl = useIntl();
   const paths = useApplicantProfileRoutes();
+  const experienceEditPaths = {
+    awardUrl: (id: string) => paths.editExperience("award", id),
+    communityUrl: (id: string) => paths.editExperience("community", id),
+    educationUrl: (id: string) => paths.editExperience("education", id),
+    personalUrl: (id: string) => paths.editExperience("personal", id),
+    workUrl: (id: string) => paths.editExperience("work", id),
+  };
 
   const links = [
     {
@@ -186,7 +193,10 @@ const ExperienceAndSkills: React.FunctionComponent<
           </p>
         </div>
       ) : (
-        <ExperienceSection experiences={experiences} />
+        <ExperienceSection
+          experiences={experiences}
+          experienceEditPaths={experienceEditPaths}
+        />
       )}
 
       <ProfileFormFooter mode="cancelButton" />

@@ -1,6 +1,7 @@
 import { getLocale } from "@common/helpers/localize";
 import path from "path-browserify";
 import { useIntl } from "react-intl";
+import { ExperienceType } from "./components/experienceForm/types";
 import { APPLICANTPROFILE_APP_DIR } from "./talentSearchConstants";
 
 export type ApplicantProfileRoutes = ReturnType<typeof applicantProfileRoutes>;
@@ -31,6 +32,8 @@ const applicantProfileRoutes = (lang: string) => {
       path.join(home(), "skills-and-experiences", "personal", "create"),
     createWork: (): string =>
       path.join(home(), "skills-and-experiences", "work", "create"),
+    editExperience: (type: ExperienceType, id: string) =>
+      path.join(home(), "skills-and-experiences", type, id, "edit"),
   };
 };
 

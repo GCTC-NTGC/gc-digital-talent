@@ -265,7 +265,7 @@ export const UserProfile: React.FC<ProfilePageProps> = ({
                   description: "Title of the My status section",
                 })}
               </h2>
-              <MyStatusApi />
+              {/* <MyStatusApi /> */}
             </div>
             <div id="pools-section">
               <h2 data-h2-font-weight="b(600)">
