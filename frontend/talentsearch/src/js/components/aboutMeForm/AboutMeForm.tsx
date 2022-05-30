@@ -14,7 +14,6 @@ import {
   getLanguage,
 } from "@common/constants/localizedConstants";
 import { SubmitHandler } from "react-hook-form";
-import omit from "lodash/omit";
 import pick from "lodash/pick";
 import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
 import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
@@ -70,12 +69,6 @@ export const AboutMeForm: React.FunctionComponent<AboutMeFormProps> = ({
   }
 
   const initialDataToFormValues = (data?: User | null): FormValues => {
-    if (!data) {
-      return {
-        email: "",
-      };
-    }
-
     return pick(data, [
       "preferredLang",
       "currentProvince",
@@ -88,9 +81,7 @@ export const AboutMeForm: React.FunctionComponent<AboutMeFormProps> = ({
   };
 
   const formValuesToSubmitData = (data: FormValues): UpdateUserAsUserInput => {
-    // NOTE: Prototype included email field but API does not allow users to update email
-    const newData = omit(data, ["email"]);
-    return newData;
+    return data;
   };
 
   const handleSubmit: SubmitHandler<FormValues> = async (formValues) => {
@@ -274,7 +265,6 @@ export const AboutMeForm: React.FunctionComponent<AboutMeFormProps> = ({
               id="email"
               name="email"
               type="email"
-              disabled
               label={intl.formatMessage({
                 defaultMessage: "Email",
                 description: "Label for email field in About Me form",

@@ -52,7 +52,8 @@ jobs:
             docker-
 
       - name: Serve app via docker-compose
-        run: docker-compose up --detach
+        # Need to include --build as we're caching layers.
+        run: docker-compose up --detach --build
 
       - name: "Run: setup.sh"
         run: docker-compose run --rm maintenance bash setup.sh

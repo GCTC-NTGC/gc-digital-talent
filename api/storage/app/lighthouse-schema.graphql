@@ -253,13 +253,13 @@ input CreateSkillInput {
   keywords: [String!]
 }
 
-"""When creating a User, name and email are required."""
+"""When creating a User, name is required."""
 input CreateUserInput {
   sub: String
   roles: [Role] = []
   firstName: String!
   lastName: String!
-  email: Email!
+  email: Email
   telephone: PhoneNumber
   preferredLang: Language
   currentProvince: ProvinceOrTerritory
@@ -716,6 +716,9 @@ enum PoolCandidateStatus {
   PLACED_INDETERMINATE
   PLACED_TERM
   NO_LONGER_INTERESTED
+  UNAVAILABLE
+  EXPIRED
+  PLACED_CASUAL
 }
 
 input PoolFilterInput {
@@ -770,6 +773,15 @@ type Query {
   skillFamilies: [SkillFamily]!
   skill(id: ID!): Skill
   skills: [Skill]!
+  usersPaginated(
+    where: UserFilterAndOrderInput
+
+    """Limits number of fetched items. Maximum allowed value: 1000."""
+    first: Int = 10
+
+    """The offset from which items are returned."""
+    page: Int
+  ): UserPaginator
 }
 
 enum Role {
@@ -983,10 +995,9 @@ input UpdateSkillInput {
   keywords: [String!]
 }
 
-"""
-When updating a User, all fields are optional, and email cannot be changed.
-"""
+"""When updating a User, all fields are optional"""
 input UpdateUserAsAdminInput {
+  email: Email
   sub: String
   roles: [Role]
   firstName: String
@@ -1029,6 +1040,7 @@ input UpdateUserAsAdminInput {
 }
 
 input UpdateUserAsUserInput {
+  email: Email
   firstName: String
   lastName: String
   telephone: PhoneNumber
@@ -1118,6 +1130,30 @@ type User {
 
 input UserBelongsTo {
   connect: ID
+}
+
+input UserFilterAndOrderInput {
+  pools: [ID]
+  languageAbility: LanguageAbility
+  expectedClassifications: [ClassificationFilterInput]
+  operationalRequirements: [OperationalRequirement]
+  locationPreferences: [WorkRegion]
+  hasDiploma: Boolean
+  wouldAcceptTemporary: Boolean
+  jobLookingStatus: [JobLookingStatus]
+  isProfileComplete: Boolean
+  skills: [ID]
+  isGovEmployee: Boolean
+  orderBy: String
+}
+
+"""A paginated list of User items."""
+type UserPaginator {
+  """Pagination information about the list of items."""
+  paginatorInfo: PaginatorInfo!
+
+  """A list of User items."""
+  data: [User!]!
 }
 
 type UserPublicProfile {

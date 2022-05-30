@@ -227,6 +227,9 @@ enum PoolCandidateStatus {
     PLACED_INDETERMINATE
     PLACED_TERM
     NO_LONGER_INTERESTED
+    UNAVAILABLE
+    EXPIRED
+    PLACED_CASUAL
 }
 
 type PoolCandidate {
@@ -527,10 +530,26 @@ input PoolCandidateFilterInput {
     pools: [PoolFilterInput] @builder(method: "App\\Models\\PoolCandidate@filterByPools")
 }
 
+input UserFilterAndOrderInput {
+    pools: [ID] @builder(method: "App\\Models\\User@filterByPools")
+    languageAbility: LanguageAbility @builder(method: "App\\Models\\User@filterByLanguageAbility")
+    expectedClassifications: [ClassificationFilterInput] @builder(method: "App\\Models\\User@filterByClassifications")
+    operationalRequirements: [OperationalRequirement] @builder(method: "App\\Models\\User@filterByOperationalRequirements")
+    locationPreferences: [WorkRegion] @builder(method: "App\\Models\\User@filterByLocationPreferences")
+    hasDiploma: Boolean @scope
+    wouldAcceptTemporary: Boolean @scope
+    jobLookingStatus: [JobLookingStatus] @builder(method: "App\\Models\\User@filterByJobLookingStatus")
+    isProfileComplete: Boolean @scope
+    skills: [ID] @builder(method: "App\\Models\\User@filterBySkills")
+    isGovEmployee: Boolean @scope
+    orderBy: String   # This needs to be the name of the field in the database eg. first_name
+}
+
 type Query {
     me: User @auth
     user(id: ID! @eq): User @find @guard @can(ability: "view", query: true)
     users: [User]! @all @guard @can(ability: "viewAny")
+    usersPaginated(where: UserFilterAndOrderInput): [User]! @paginate(defaultCount: 10, maxCount: 1000 scopes: ["order"]) @guard @can(ability: "viewAny")
     applicant(id: ID! @eq): Applicant @find(model: "User") @guard @can(ability: "viewApplicant", query: true, model: "User")
     applicants: [Applicant]! @all(model: "User") @guard @can(ability: "viewAnyApplicants", model: "User")
     pool(id: ID! @eq): Pool @find
@@ -566,16 +585,16 @@ input PoolsHasMany {
     create: [CreatePoolInput]
 }
 """
-When creating a User, name and email are required.
+When creating a User, name is required.
 """
 input CreateUserInput {
-    sub: String
+    sub: String @rules(apply: ["unique:users,sub"])
     roles: [Role] = []
 
     # Personal info
     firstName: String! @rename(attribute: "first_name")
     lastName: String! @rename(attribute: "last_name")
-    email: Email! @rules(apply: ["unique:users,email"])
+    email: Email @rules(apply: ["unique:users,email"])
     telephone: PhoneNumber
     preferredLang: Language @rename(attribute: "preferred_lang")
     currentProvince: ProvinceOrTerritory @rename(attribute: "current_province")
@@ -623,9 +642,10 @@ input CreateUserInput {
     awardExperiences: AwardExperienceHasMany
 }
 """
-When updating a User, all fields are optional, and email cannot be changed.
+When updating a User, all fields are optional
 """
 input UpdateUserAsAdminInput {
+    email: Email
     sub: String
     roles: [Role]
 
@@ -682,6 +702,7 @@ input UpdateUserAsAdminInput {
 
 input UpdateUserAsUserInput {
     # Personal info
+    email: Email
     firstName: String @rename(attribute: "first_name")
     lastName: String @rename(attribute: "last_name")
     telephone: PhoneNumber

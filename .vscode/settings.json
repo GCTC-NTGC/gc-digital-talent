@@ -9,7 +9,7 @@
   "php.suggest.basic": false,
   "phpcs.standard": "./ruleset.xml",
   "workbench.settings.useSplitJSON": true,
-  "typescript.tsdk": "node_modules/typescript/lib",
+  "typescript.tsdk": "frontend/node_modules/typescript/lib",
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.formatOnSave": false,
   "editor.codeActionsOnSave": {

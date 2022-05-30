@@ -41,6 +41,7 @@ const adminRoutes = (lang: string) => {
     poolTable: (): string => path.join(home(), "pools"),
     poolCreate: (): string => path.join(home(), "pools", "create"),
     poolUpdate: (id: string): string => path.join(home(), "pools", id, "edit"),
+    poolView: (id: string): string => path.join(home(), "pools", id),
 
     poolCandidateTable: (poolId: string): string =>
       path.join(home(), "pools", poolId, "pool-candidates"),
@@ -60,9 +61,7 @@ const adminRoutes = (lang: string) => {
     userTable: (): string => path.join(home(), "users"),
     userCreate: (): string => path.join(home(), "users", "create"),
     userUpdate: (id: string): string => path.join(home(), "users", id, "edit"),
-    userProfile: (id: string): string =>
-      path.join(home(), "users", id, "profile"),
-    userProfileTest: (): string => path.join(home(), "user-profile"),
+    userView: (id: string): string => path.join(home(), "users", id),
 
     searchRequestTable: (): string => path.join(home(), "search-requests"),
     searchRequestUpdate: (id: string): string =>
