@@ -69,7 +69,7 @@ export const UserTable: React.FC<AllUsersQuery & { editUrlRoot: string }> = ({
         }),
         accessor: (user) =>
           profileLinkAccessor(
-            paths.userProfile(user.id),
+            paths.userView(user.id),
             user.email ?? "email",
             intl,
           ),
