@@ -724,7 +724,7 @@ export const UserProfile: React.FC<UserProfileProps> = ({
 
 export default UserProfile;
 
-export const UserProfileAPi: React.FunctionComponent<{
+export const UserProfileApi: React.FunctionComponent<{
   userId: string;
 }> = ({ userId }) => {
   const intl = useIntl();

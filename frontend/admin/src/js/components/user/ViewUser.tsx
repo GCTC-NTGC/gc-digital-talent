@@ -14,6 +14,7 @@ import { commonMessages } from "@common/messages";
 import { useAdminRoutes } from "../../adminRoutes";
 import { User, useUserQuery } from "../../api/generated";
 import DashboardContentContainer from "../DashboardContentContainer";
+import { UserProfileApi } from "./UserProfile";
 
 interface ViewUserPageProps {
   user: User;
@@ -100,7 +101,9 @@ export const ViewUserPage: React.FC<ViewUserPageProps> = ({ user }) => {
             defaultMessage: "Candidate Profile",
             description: "Tabs title for the individual user profile.",
           })}
-        />
+        >
+          <UserProfileApi userId={user.id} />
+        </Tab>
       </TabSet>
     </>
   );
