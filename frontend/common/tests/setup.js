@@ -1,3 +1,4 @@
+// source: https://stackoverflow.com/a/49591765
 global.console = {
   ...console,
   // uncomment to ignore a specific log level
