@@ -77,14 +77,11 @@ const queryResultToDefaultValues = (
     details,
     ...dataMap[experienceType],
     skills: skills
-      ? skills.reduce((prev, curr) => {
-          return {
-            ...prev,
-            [curr.id]: {
-              details: curr.experienceSkillRecord?.details || "",
-            },
-          };
-        }, {})
+      ? skills.map(({ id, name, experienceSkillRecord }) => ({
+          skillId: id,
+          name,
+          details: experienceSkillRecord?.details || "",
+        }))
       : undefined,
   };
 };

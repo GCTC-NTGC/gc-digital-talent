@@ -21,7 +21,7 @@ use App\Policies\PoolCandidatePolicy;
 use App\Policies\PoolPolicy;
 use App\Policies\UserPolicy;
 use App\Policies\ExperiencePolicy;
-use App\Services\Contracts\BearerTokenServiceInterface;
+use App\Services\OpenIdBearerTokenService;
 use Exception;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
@@ -45,7 +45,7 @@ class AuthServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot(BearerTokenServiceInterface $tokenService)
+    public function boot(OpenIdBearerTokenService $tokenService)
     {
         // Here you may define how you wish users to be authenticated for your Lumen
         // application. The callback which receives the incoming request instance
@@ -109,7 +109,7 @@ class AuthServiceProvider extends ServiceProvider
 
         // If a default user is set, and there is no bearer token, treat the request as if it were from the default user.
         if (config('oauth.default_user')) {
-            $user = User::where('email', config('oauth.default_user'))->first();
+            $user = User::where('sub', config('oauth.default_user'))->first();
             if ($user) {
                 return $user;
             }

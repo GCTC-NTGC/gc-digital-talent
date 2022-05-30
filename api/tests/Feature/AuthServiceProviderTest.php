@@ -2,8 +2,8 @@
 
 use App\Models\User;
 use App\Providers\AuthServiceProvider;
-use App\Services\Contracts\BearerTokenServiceInterface;
-use App\Services\Contracts\DataSetInterface;
+use App\Services\OpenIdBearerTokenService;
+use Lcobucci\JWT\Token\DataSet;
 use Tests\TestCase;
 use Mockery\MockInterface;
 use Symfony\Component\HttpKernel\Exception\HttpException;
@@ -52,7 +52,7 @@ class AuthServiceProviderTest extends TestCase
     public function test401IfException()
     {
         $fakeToken = 'fake-token';
-        $mockTokenService = Mockery::mock(BearerTokenServiceInterface::class);
+        $mockTokenService = Mockery::mock(OpenIdBearerTokenService::class);
         $mockTokenService->shouldReceive('validateAndGetClaims')
                                         ->with($fakeToken)
                                         ->andThrow(new Exception);
@@ -74,13 +74,12 @@ class AuthServiceProviderTest extends TestCase
     {
         $testSub = 'test-sub';
 
-        $mockClaims = Mockery::mock(DataSetInterface::class);
-        $mockClaims->shouldReceive('get')
-                    ->with('sub')
-                    ->andReturn($testSub);
+        // DataSet is a final class, and so we need to use it as a proxied partial mock.
+        // See: https://docs.mockery.io/en/latest/reference/final_methods_classes.html#dealing-with-final-classes-methods
+        $mockClaims = Mockery::mock(new DataSet(['sub' => $testSub], ''));
 
         $fakeToken = 'fake-token';
-        $mockTokenService = Mockery::mock(BearerTokenServiceInterface::class);
+        $mockTokenService = Mockery::mock(OpenIdBearerTokenService::class);
         $mockTokenService->shouldReceive('validateAndGetClaims')
                             ->with($fakeToken)
                             ->andReturn($mockClaims);
@@ -104,13 +103,10 @@ class AuthServiceProviderTest extends TestCase
         $testSub = 'test-sub';
         $testRoles = ["ADMIN"];
 
-        $mockClaims = Mockery::mock(DataSetInterface::class);
-        $mockClaims->shouldReceive('get')
-                    ->with('sub')
-                    ->andReturn($testSub);
+        $mockClaims = Mockery::mock(new DataSet(['sub' => $testSub], ''));
 
         $fakeToken = 'fake-token';
-        $mockTokenService = Mockery::mock(BearerTokenServiceInterface::class);
+        $mockTokenService = Mockery::mock(OpenIdBearerTokenService::class);
         $mockTokenService->shouldReceive('validateAndGetClaims')
                             ->with($fakeToken)
                             ->andReturn($mockClaims);
