@@ -3,6 +3,10 @@ import { useIntl } from "react-intl";
 import {
   ChatAlt2Icon,
   CurrencyDollarIcon,
+  InformationCircleIcon,
+  LightningBoltIcon,
+  LocationMarkerIcon,
+  ThumbUpIcon,
   UserIcon,
 } from "@heroicons/react/outline";
 
@@ -19,6 +23,7 @@ import { notEmpty } from "../../helpers/util";
 import { Applicant } from "../../api/generated";
 import AboutSection from "./ProfileSections/AboutSection";
 import AdminAboutSection from "./ProfileSections/AdminAboutSection";
+import { LibraryIcon } from "@heroicons/react/solid";
 
 interface SectionControl {
   isVisible: boolean;
@@ -192,7 +197,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
         {showSection("government") && (
           <TableOfContents.Section id="government-section">
             <TableOfContents.Heading
-              icon={ChatAlt2Icon}
+              icon={LibraryIcon}
               style={{ flex: "1 1 0%" }}
             >
               {intl.formatMessage({
@@ -207,7 +212,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
         {showSection("workLocation") && (
           <TableOfContents.Section id="work-location-section">
             <TableOfContents.Heading
-              icon={ChatAlt2Icon}
+              icon={LocationMarkerIcon}
               style={{ flex: "1 1 0%" }}
             >
               {intl.formatMessage({
@@ -221,7 +226,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
         {showSection("workPreferences") && (
           <TableOfContents.Section id="work-preferences-section">
             <TableOfContents.Heading
-              icon={ChatAlt2Icon}
+              icon={ThumbUpIcon}
               style={{ flex: "1 1 0%" }}
             >
               {intl.formatMessage({
@@ -235,7 +240,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
         {showSection("employmentEquity") && (
           <TableOfContents.Section id="ee-information-section">
             <TableOfContents.Heading
-              icon={ChatAlt2Icon}
+              icon={InformationCircleIcon}
               style={{ flex: "1 1 0%" }}
             >
               {intl.formatMessage({
@@ -265,7 +270,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
         {showSection("skillsExperience") && (
           <TableOfContents.Section id="skills-and-experience-section">
             <TableOfContents.Heading
-              icon={CurrencyDollarIcon}
+              icon={LightningBoltIcon}
               style={{ flex: "1 1 0%" }}
             >
               {intl.formatMessage({
