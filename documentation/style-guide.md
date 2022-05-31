@@ -51,7 +51,7 @@ In general we follow the style guides from Airbnb.  When in doubt, these give go
 src
  | js
     | components
-	   | profilePartials
+       | profilePartials
           | CoolComponent
              | CoolComponent.tsx
              | CoolComponent.stories.tsx
@@ -66,3 +66,30 @@ We value testing, especially automated testing that runs as often as possible.  
 - Write tests that use your components the way a user would - avoid test-specific markup like `data-testid`.
 - Components that are written to be accessible will probably be easily testable as well.
 - Semantically targeted tests are the gold standard but it may be infeasible in some cases.  Be pragmatic.
+
+# React Component Structure
+
+Certain categories and combinations of React components will be used repeatedly in the application.  Here is the suggested combination and naming convention.
+
+## Standard Components
+### Page Component
+
+This is a higher level component that will usually be beneath the router, header, footer, and navigation menus.  It is the component targeted by the router.  It is the responsibility of this component to arrange breadcrumbs, navigation, possibly a wrapper, and the container component.  It is named with the **Page** suffix, like `EditUserPage`, `ClassificationsPage`, or `UpdateCandidateProfilePage`.
+
+### Container Component
+
+This component handles in the input and output of the primary component.  Typically it will issue an API request for the data to populate the primary component, handle any error messages if that fails, and render the primary component if successful.  It will also issue an API mutation as a result of user interaction with the primary component.  It is named with the **Container** suffix, like `EditUserContainer`, `ClassificationContainer`, or `UpdateCandidateProfileContainer`.
+
+### Primary Component
+
+The primary component handles most of the interaction with the user.  It will often be a form, a table, or an informational listing.  It is isolated by the parent container so that most of the input and output go through its props.  This allows it to be easily tested and staged for storybook.  Its suffix (or no suffix) will be determined by its utility, like `EditUserForm`, `ClassificationsTable`, or `UpdateCandidateProfile`.
+
+## Other Common Components
+
+### Wrappers
+
+Wrapper components could be added at multiple levels, sometimes within a Form/Table component, sometimes in a Page component.  Wrappers components are reusable wrappers which provide consistent UI or functionality to multiple pages or components.  They are named with the **Wrapper** suffix, like `ProfileFormWrapper`.
+
+### Sections
+
+Section components are containers for breaking large pages into smaller pieces.  They are named with the **Section** suffix, like `AboutMeSection`.
