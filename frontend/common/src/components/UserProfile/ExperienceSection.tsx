@@ -30,6 +30,8 @@ import {
   EducationExperience,
 } from "../../api/generated";
 
+import type { PathFunc } from "./ProfileSections/SkillExperienceSection";
+
 export type ExperienceForDate =
   | (AwardExperience & { startDate: string; endDate: string })
   | CommunityExperience

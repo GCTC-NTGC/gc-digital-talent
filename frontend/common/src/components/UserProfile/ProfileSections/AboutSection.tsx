@@ -1,15 +1,11 @@
-import { getLanguage } from "@common/constants";
-import { getProvinceOrTerritory } from "@common/constants/localizedConstants";
 import React from "react";
 import { useIntl } from "react-intl";
-import { Applicant } from "../../../api/generated";
 
-// styling a text bit with red colour within intls
-function redText(msg: string) {
-  return <span data-h2-font-color="b(red)">{msg}</span>;
-}
+import { getProvinceOrTerritory } from "../../../constants/localizedConstants";
+import { getLanguage } from "../../../constants";
+import type { Applicant } from "../../../api/generated";
 
-const AboutMeSection: React.FunctionComponent<{
+interface AboutSectionProps {
   applicant: Pick<
     Applicant,
     | "firstName"
@@ -20,8 +16,26 @@ const AboutMeSection: React.FunctionComponent<{
     | "currentCity"
     | "currentProvince"
   >;
-  editPath: string;
-}> = ({ applicant, editPath }) => {
+  editPath?: string;
+}
+
+// styling a text bit with red colour within intl
+function redText(msg: string) {
+  return <span data-h2-font-color="b(red)">{msg}</span>;
+}
+
+const AboutSection: React.FC<AboutSectionProps> = ({
+  editPath,
+  applicant: {
+    firstName,
+    lastName,
+    telephone,
+    email,
+    preferredLang,
+    currentCity,
+    currentProvince,
+  },
+}) => {
   const intl = useIntl();
   return (
     <div
@@ -35,38 +49,38 @@ const AboutMeSection: React.FunctionComponent<{
         data-h2-justify-content="b(space-between)"
       >
         <div>
-          {!!applicant.firstName && !!applicant.lastName && (
+          {!!firstName && !!lastName && (
             <p>
               {intl.formatMessage({
                 defaultMessage: "Name:",
                 description: "Name label and colon",
               })}{" "}
               <span data-h2-font-weight="b(700)">
-                {applicant.firstName} {applicant.lastName}
+                {firstName} {lastName}
               </span>
             </p>
           )}
-          {!!applicant.email && (
+          {!!email && (
             <p>
               {intl.formatMessage({
                 defaultMessage: "Email:",
                 description: "Email label and colon",
               })}{" "}
-              <span data-h2-font-weight="b(700)">{applicant.email}</span>
+              <span data-h2-font-weight="b(700)">{email}</span>
             </p>
           )}
-          {!!applicant.telephone && (
+          {!!telephone && (
             <p>
               {intl.formatMessage({
                 defaultMessage: "Phone:",
                 description: "Phone label and colon",
               })}{" "}
-              <span data-h2-font-weight="b(700)">{applicant.telephone}</span>
+              <span data-h2-font-weight="b(700)">{telephone}</span>
             </p>
           )}
         </div>
         <div>
-          {!!applicant.preferredLang && (
+          {!!preferredLang && (
             <p>
               {intl.formatMessage({
                 defaultMessage: "Preferred Communication Language:",
@@ -74,36 +88,33 @@ const AboutMeSection: React.FunctionComponent<{
                   "Preferred Language for communication purposes label and colon",
               })}{" "}
               <span data-h2-font-weight="b(700)">
-                {applicant.preferredLang
-                  ? getLanguage(applicant.preferredLang).defaultMessage
-                  : ""}
+                {preferredLang ? getLanguage(preferredLang).defaultMessage : ""}
               </span>
             </p>
           )}
-          {!!applicant.currentCity && !!applicant.currentProvince && (
+          {!!currentCity && !!currentProvince && (
             <p>
               {intl.formatMessage({
                 defaultMessage: "Current Location:",
                 description: "Current Location label and colon",
               })}{" "}
               <span data-h2-font-weight="b(700)">
-                {applicant.currentCity},{" "}
-                {applicant.currentProvince
-                  ? getProvinceOrTerritory(applicant.currentProvince)
-                      .defaultMessage
+                {currentCity},{" "}
+                {currentProvince
+                  ? getProvinceOrTerritory(currentProvince).defaultMessage
                   : ""}
               </span>
             </p>
           )}
         </div>
       </div>
-      {!applicant.firstName &&
-        !applicant.lastName &&
-        !applicant.email &&
-        !applicant.telephone &&
-        !applicant.preferredLang &&
-        !applicant.currentCity &&
-        !applicant.currentProvince && (
+      {!firstName &&
+        !lastName &&
+        !email &&
+        !telephone &&
+        !preferredLang &&
+        !currentCity &&
+        !currentProvince && (
           <p>
             {intl.formatMessage({
               defaultMessage: "You haven't added any information here yet.",
@@ -111,13 +122,13 @@ const AboutMeSection: React.FunctionComponent<{
             })}
           </p>
         )}
-      {(!applicant.firstName ||
-        !applicant.lastName ||
-        !applicant.email ||
-        !applicant.telephone ||
-        !applicant.preferredLang ||
-        !applicant.currentCity ||
-        !applicant.currentProvince) && (
+      {(!firstName ||
+        !lastName ||
+        !email ||
+        !telephone ||
+        !preferredLang ||
+        !currentCity ||
+        !currentProvince) && (
         <p>
           {intl.formatMessage(
             {
@@ -142,4 +153,4 @@ const AboutMeSection: React.FunctionComponent<{
   );
 };
 
-export default AboutMeSection;
+export default AboutSection;

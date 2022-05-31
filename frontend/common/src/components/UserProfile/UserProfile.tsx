@@ -1,1142 +1,285 @@
 import React from "react";
+import { useIntl } from "react-intl";
 import {
   ChatAlt2Icon,
-  LightBulbIcon,
-  LightningBoltIcon,
-  ThumbUpIcon,
-  UserCircleIcon,
-  UserGroupIcon,
+  CurrencyDollarIcon,
   UserIcon,
-} from "@heroicons/react/solid";
-import { useIntl } from "react-intl";
-import { imageUrl } from "../../helpers/router";
-import { getLocale } from "../../helpers/localize";
-import {
-  getLanguage,
-  getOperationalRequirement,
-  getWorkRegion,
-  getProvinceOrTerritory,
-  getLanguageProficiency,
-  womanLocalized,
-  indigenousLocalized,
-  minorityLocalized,
-  disabilityLocalized,
-} from "../../constants/localizedConstants";
+} from "@heroicons/react/outline";
 
-import { insertBetween, notEmpty } from "../../helpers/util";
-import Link from "../Link";
-import {
-  BilingualEvaluation,
-  User,
-  GovEmployeeType,
-} from "../../api/generated";
-
+import TableOfContents from "../TableOfContents";
+import LanguageInformationSection from "./ProfileSections/LanguageInformationSection";
+import GovernmentInformationSection from "./ProfileSections/GovernmentInformationSection";
+import WorkLocationSection from "./ProfileSections/WorkLocationSection";
+import WorkPreferencesSection from "./ProfileSections/WorkPreferencesSection";
+import DiversityEquityInclusionSection from "./ProfileSections/DiversityEquityInclusionSection";
+import RoleSalarySection from "./ProfileSections/RoleSalarySection";
 import ExperienceSection from "./ExperienceSection";
 
-export interface ProfilePageProps {
-  profileDataInput: User;
-  appDir: string; // this will be use for image urls
-  applicantProfilePath: any;
+import { notEmpty } from "../../helpers/util";
+import { Applicant } from "../../api/generated";
+import AboutSection from "./ProfileSections/AboutSection";
+import AdminAboutSection from "./ProfileSections/AdminAboutSection";
+
+interface SectionControl {
+  isVisible: boolean;
+  editUrl?: string;
 }
 
-export const UserProfile: React.FC<ProfilePageProps> = ({
-  profileDataInput,
-  appDir,
-  applicantProfilePath,
-}) => {
-  const {
-    firstName,
-    lastName,
-    email,
-    telephone,
-    preferredLang,
-    currentProvince,
-    currentCity,
-    lookingForEnglish,
-    lookingForFrench,
-    lookingForBilingual,
-    bilingualEvaluation,
-    comprehensionLevel,
-    writtenLevel,
-    verbalLevel,
-    estimatedLanguageAbility,
-    isGovEmployee,
-    govEmployeeType,
-    interestedInLaterOrSecondment,
-    currentClassification,
-    isWoman,
-    hasDisability,
-    isIndigenous,
-    isVisibleMinority,
-    locationPreferences,
-    locationExemptions,
-    acceptedOperationalRequirements,
-    wouldAcceptTemporary,
-    poolCandidates,
-    experiences,
-  } = profileDataInput;
+export interface UserProfileProps {
+  applicant: Applicant;
+  sections: {
+    about?: SectionControl;
+    adminAbout?: SectionControl;
+    employmentEquity?: SectionControl;
+    government?: SectionControl;
+    hiringPools?: SectionControl;
+    language?: SectionControl;
+    myStatus?: SectionControl;
+    roleSalary?: SectionControl;
+    skillsExperience?: SectionControl & {
+      applicantPaths?: Record<string, string>;
+    };
+    workLocation?: SectionControl;
+    workPreferences?: SectionControl;
+  };
+}
 
+const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
   const intl = useIntl();
-  const paths = applicantProfilePath;
-  const locale = getLocale(intl);
+  const { experiences } = applicant;
 
-  // styling a text bit with red colour within intls
-  function redText(msg: string) {
-    return <span data-h2-font-color="b(red)">{msg}</span>;
-  }
+  type SectionKeys = keyof UserProfileProps["sections"];
 
-  // add link to Equity groups <a> tags around a message
-  function equityLinkText(msg: string) {
-    return <a href="/equity-groups">{msg}</a>;
-  }
-
-  // generate array of pool candidates entries
-  const candidateArray = poolCandidates
-    ? poolCandidates.map((poolCandidate) => (
-        <div
-          key={poolCandidate?.id}
-          data-h2-display="b(flex)"
-          data-h2-flex-direction="b(row)"
-          data-h2-justify-content="b(space-between)"
-          data-h2-padding="b(top-bottom, m)"
-        >
-          <div>
-            <p>{poolCandidate?.pool?.name?.[locale]}</p>
-          </div>
-          <div>
-            <p>
-              {intl.formatMessage({
-                defaultMessage: "ID:",
-                description: "The ID and colon",
-              })}{" "}
-              {poolCandidate?.id}
-            </p>
-          </div>
-          <div>
-            <p>
-              {intl.formatMessage({
-                defaultMessage: "Expiry Date:",
-                description: "The expiry date label and colon",
-              })}{" "}
-              {poolCandidate?.expiryDate}
-            </p>
-          </div>
-        </div>
-      ))
-    : null;
-
-  // generate array of accepted operational requirements
-  const acceptedOperationalArray = acceptedOperationalRequirements
-    ? acceptedOperationalRequirements.map((opRequirement) => (
-        <li data-h2-font-weight="b(700)" key={opRequirement}>
-          {opRequirement
-            ? getOperationalRequirement(opRequirement).defaultMessage
-            : ""}
-        </li>
-      ))
-    : null;
-
-  // generate array of location preferences localized and formatted with spaces/commas
-  const regionPreferencesSquished = locationPreferences?.map((region) =>
-    region ? getWorkRegion(region).defaultMessage : "",
-  );
-  const regionPreferences = regionPreferencesSquished
-    ? insertBetween(", ", regionPreferencesSquished)
-    : "";
+  const showSection = (key: SectionKeys): boolean | undefined => {
+    return sections[key] && sections[key]?.isVisible;
+  };
 
   return (
-    <>
-      <div
-        data-h2-padding="b(top, xxs) b(bottom, m) b(right-left, s)"
-        data-h2-font-color="b(white)"
-        data-h2-text-align="b(center)"
-        style={{
-          background: `url(${imageUrl(
-            appDir,
-            "applicant-profile-banner.png",
-          )})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-        }}
-      >
-        <h1>{`${firstName} ${lastName}`}</h1>
-      </div>
-      <div
-        data-h2-position="b(relative)"
-        data-h2-flex-grid="b(top, contained, flush, none)"
-        data-h2-container="b(center, l)"
-        data-h2-padding="b(right-left, s)"
-      >
-        <div
-          data-h2-flex-item="b(1of1) s(1of4)"
-          data-h2-visibility="b(hidden) s(visible)"
-          data-h2-text-align="b(right)"
-          data-h2-position="b(sticky)"
-        >
-          <h2 data-h2-font-weight="b(600)">
+    <TableOfContents.Wrapper>
+      <TableOfContents.Navigation>
+        {showSection("myStatus") && (
+          <TableOfContents.AnchorLink id="status-section">
             {intl.formatMessage({
-              defaultMessage: "On this page",
-              description: "Title for table of contents",
+              defaultMessage: "My Status",
+              description: "Title of the My Status section",
             })}
-          </h2>
-          <p>
-            <a href="#status-section">
+          </TableOfContents.AnchorLink>
+        )}
+        {showSection("hiringPools") && (
+          <TableOfContents.AnchorLink id="pools-section">
+            {intl.formatMessage({
+              defaultMessage: "My Hiring Pools",
+              description: "Title of the My Hiring Pools section",
+            })}
+          </TableOfContents.AnchorLink>
+        )}
+        {showSection("about") && (
+          <TableOfContents.AnchorLink id="about-section">
+            {intl.formatMessage({
+              defaultMessage: "About",
+              description: "Title of the About link section",
+            })}
+          </TableOfContents.AnchorLink>
+        )}
+        {showSection("adminAbout") && (
+          <TableOfContents.AnchorLink id="admin-about-section">
+            {intl.formatMessage({
+              defaultMessage: "About",
+              description: "Title of the About link section",
+            })}
+          </TableOfContents.AnchorLink>
+        )}
+        {showSection("language") && (
+          <TableOfContents.AnchorLink id="language-section">
+            {intl.formatMessage({
+              defaultMessage: "Language Information",
+              description: "Title of the Language Information link section",
+            })}
+          </TableOfContents.AnchorLink>
+        )}
+        {showSection("government") && (
+          <TableOfContents.AnchorLink id="government-section">
+            {intl.formatMessage({
+              defaultMessage: "Government Information",
+              description: "Title of the Government Information link section",
+            })}
+          </TableOfContents.AnchorLink>
+        )}
+        {showSection("workLocation") && (
+          <TableOfContents.AnchorLink id="work-location-section">
+            {intl.formatMessage({
+              defaultMessage: "Work Location",
+              description: "Title of the Work Location link section",
+            })}
+          </TableOfContents.AnchorLink>
+        )}
+        {showSection("workPreferences") && (
+          <TableOfContents.AnchorLink id="work-preferences-section">
+            {intl.formatMessage({
+              defaultMessage: "Work Preferences",
+              description: "Title of the Work Preferences link section",
+            })}
+          </TableOfContents.AnchorLink>
+        )}
+        {showSection("employmentEquity") && (
+          <TableOfContents.AnchorLink id="ee-information-section">
+            {intl.formatMessage({
+              defaultMessage: "Employment Equity Information",
+              description:
+                "Title of the Employment Equity Information link section",
+            })}
+          </TableOfContents.AnchorLink>
+        )}
+        {showSection("roleSalary") && (
+          <TableOfContents.AnchorLink id="role-and-salary-section">
+            {intl.formatMessage({
+              defaultMessage: "Role and salary expectations",
+              description:
+                "Title of the Role and salary expectations link section",
+            })}
+          </TableOfContents.AnchorLink>
+        )}
+        {showSection("skillsExperience") && (
+          <TableOfContents.AnchorLink id="skills-and-experience-section">
+            {intl.formatMessage({
+              defaultMessage: "My skills and experience",
+              description: "Title of the My skills and experience link section",
+            })}
+          </TableOfContents.AnchorLink>
+        )}
+      </TableOfContents.Navigation>
+      <TableOfContents.Content>
+        {showSection("about") && (
+          <TableOfContents.Section id="about-section">
+            <TableOfContents.Heading icon={UserIcon} style={{ flex: "1 1 0%" }}>
               {intl.formatMessage({
-                defaultMessage: "My Status",
-                description: "Title of the My Status section",
+                defaultMessage: "About",
+                description: "Title of the about content section",
               })}
-            </a>
-          </p>
-          <p>
-            <a href="#pools-section">
+            </TableOfContents.Heading>
+            <AboutSection
+              applicant={applicant}
+              editPath={sections.about?.editUrl}
+            />
+          </TableOfContents.Section>
+        )}
+        {showSection("adminAbout") && (
+          <TableOfContents.Section id="admin-about-section">
+            <TableOfContents.Heading icon={UserIcon} style={{ flex: "1 1 0%" }}>
               {intl.formatMessage({
-                defaultMessage: "My Hiring Pools",
-                description: "Title of the My Hiring Pools section",
+                defaultMessage: "About",
+                description: "Title of the about content section",
               })}
-            </a>
-          </p>
-          <p>
-            <a href="#about-me-section">
-              {intl.formatMessage({
-                defaultMessage: "About Me",
-                description: "Title of the About Me section",
-              })}
-            </a>
-          </p>
-          <p>
-            <a href="#language-section">
+            </TableOfContents.Heading>
+            <AdminAboutSection applicant={applicant} />
+          </TableOfContents.Section>
+        )}
+        {showSection("language") && (
+          <TableOfContents.Section id="language-section">
+            <TableOfContents.Heading
+              icon={ChatAlt2Icon}
+              style={{ flex: "1 1 0%" }}
+            >
               {intl.formatMessage({
                 defaultMessage: "Language Information",
-                description: "Title of the Language Information section",
+                description:
+                  "Title of the Language Information content section",
               })}
-            </a>
-          </p>
-          <p>
-            <a href="#gov-info-section">
+            </TableOfContents.Heading>
+            <LanguageInformationSection applicant={applicant} />
+          </TableOfContents.Section>
+        )}
+        {showSection("government") && (
+          <TableOfContents.Section id="government-section">
+            <TableOfContents.Heading
+              icon={ChatAlt2Icon}
+              style={{ flex: "1 1 0%" }}
+            >
               {intl.formatMessage({
                 defaultMessage: "Government Information",
-                description: "Title of the Government Information section",
+                description:
+                  "Title of the Government Information content section",
               })}
-            </a>
-          </p>
-          <p>
-            <a href="#work-location-section">
+            </TableOfContents.Heading>
+            <GovernmentInformationSection applicant={applicant} />
+          </TableOfContents.Section>
+        )}
+        {showSection("workLocation") && (
+          <TableOfContents.Section id="work-location-section">
+            <TableOfContents.Heading
+              icon={ChatAlt2Icon}
+              style={{ flex: "1 1 0%" }}
+            >
               {intl.formatMessage({
                 defaultMessage: "Work Location",
-                description: "Title of the Work Location section",
+                description: "Title of the Work Location content section",
               })}
-            </a>
-          </p>
-          <p>
-            <a href="#work-preferences-section">
+            </TableOfContents.Heading>
+            <WorkLocationSection applicant={applicant} />
+          </TableOfContents.Section>
+        )}
+        {showSection("workPreferences") && (
+          <TableOfContents.Section id="work-preferences-section">
+            <TableOfContents.Heading
+              icon={ChatAlt2Icon}
+              style={{ flex: "1 1 0%" }}
+            >
               {intl.formatMessage({
                 defaultMessage: "Work Preferences",
-                description: "Title of the Work Preferences section",
+                description: "Title of the Work Preferences content section",
               })}
-            </a>
-          </p>
-          <p>
-            <a href="#diversity-section">
+            </TableOfContents.Heading>
+            <WorkPreferencesSection applicant={applicant} />
+          </TableOfContents.Section>
+        )}
+        {showSection("employmentEquity") && (
+          <TableOfContents.Section id="ee-information-section">
+            <TableOfContents.Heading
+              icon={ChatAlt2Icon}
+              style={{ flex: "1 1 0%" }}
+            >
               {intl.formatMessage({
-                defaultMessage: "Diversity, Equity and Inclusion",
+                defaultMessage: "Employment Equity Information",
                 description:
-                  "Title of the Diversity, Equity and Inclusion section",
+                  "Title of the Employment Equity Information content section",
               })}
-            </a>
-          </p>
-          <p>
-            <a href="#skills-section">
+            </TableOfContents.Heading>
+            <DiversityEquityInclusionSection applicant={applicant} />
+          </TableOfContents.Section>
+        )}
+        {showSection("roleSalary") && (
+          <TableOfContents.Section id="role-and-salary-section">
+            <TableOfContents.Heading
+              icon={CurrencyDollarIcon}
+              style={{ flex: "1 1 0%" }}
+            >
               {intl.formatMessage({
-                defaultMessage: "My Skills and Experience",
-                description: "Title of the My Skills and Experience section",
+                defaultMessage: "Role and salary expectations",
+                description:
+                  "Title of the Role and salary expectations section",
               })}
-            </a>
-          </p>
-        </div>
-        <div data-h2-flex-item="b(1of1) s(3of4)">
-          <div data-h2-padding="b(left, l)">
-            <div id="status-section">
-              <h2 data-h2-font-weight="b(600)">
-                <LightBulbIcon style={{ width: "calc(1rem*2.25)" }} />
-                &nbsp;&nbsp;
-                {intl.formatMessage({
-                  defaultMessage: "My status",
-                  description: "Title of the My status section",
-                })}
-              </h2>
-              {/* <MyStatusApi /> */}
-            </div>
-            <div id="pools-section">
-              <h2 data-h2-font-weight="b(600)">
-                <UserGroupIcon style={{ width: "calc(1rem*2.25)" }} />
-                &nbsp;&nbsp;
-                {intl.formatMessage({
-                  defaultMessage: "My hiring pools",
-                  description: "Title of the My hiring pools section",
-                })}
-              </h2>
-              <div
-                data-h2-bg-color="b(lightgray)"
-                data-h2-padding="b(all, m)"
-                data-h2-radius="b(s)"
-              >
-                {(!candidateArray || !candidateArray.length) && (
-                  <p>
-                    {intl.formatMessage({
-                      defaultMessage:
-                        "You have not been accepted into any hiring pools yet.",
-                      description:
-                        "Message for if user not part of any hiring pools",
-                    })}
-                  </p>
-                )}
-                {!!candidateArray && candidateArray}
-              </div>
-            </div>
-            <div id="about-me-section">
-              <div style={{ display: "flex", alignItems: "baseline" }}>
-                <h2 data-h2-font-weight="b(600)" style={{ flex: "1 1 0%" }}>
-                  <UserIcon style={{ width: "calc(1rem*2.25)" }} />
-                  &nbsp;&nbsp;
-                  {intl.formatMessage({
-                    defaultMessage: "About me",
-                    description: "Title of the About me section",
-                  })}
-                </h2>
-                <Link
-                  href={paths.aboutMe()}
-                  title=""
-                  {...{
-                    "data-h2-font-color": "b(lightpurple)",
-                  }}
-                >
-                  {intl.formatMessage({
-                    defaultMessage: "Edit About Me",
-                    description:
-                      "Text on link to update a users personal information",
-                  })}
-                </Link>
-              </div>
-              <div
-                data-h2-bg-color="b(lightgray)"
-                data-h2-padding="b(all, m)"
-                data-h2-radius="b(s)"
-              >
-                <div
-                  data-h2-display="b(flex)"
-                  data-h2-flex-direction="s(row) b(column)"
-                  data-h2-justify-content="b(space-between)"
-                >
-                  <div>
-                    {!!firstName && !!lastName && (
-                      <p>
-                        {intl.formatMessage({
-                          defaultMessage: "Name:",
-                          description: "Name label and colon",
-                        })}{" "}
-                        <span data-h2-font-weight="b(700)">
-                          {firstName} {lastName}
-                        </span>
-                      </p>
-                    )}
-                    {!!email && (
-                      <p>
-                        {intl.formatMessage({
-                          defaultMessage: "Email:",
-                          description: "Email label and colon",
-                        })}{" "}
-                        <span data-h2-font-weight="b(700)">{email}</span>
-                      </p>
-                    )}
-                    {!!telephone && (
-                      <p>
-                        {intl.formatMessage({
-                          defaultMessage: "Phone:",
-                          description: "Phone label and colon",
-                        })}{" "}
-                        <span data-h2-font-weight="b(700)">{telephone}</span>
-                      </p>
-                    )}
-                  </div>
-                  <div>
-                    {!!preferredLang && (
-                      <p>
-                        {intl.formatMessage({
-                          defaultMessage: "Preferred Communication Language:",
-                          description:
-                            "Preferred Language for communication purposes label and colon",
-                        })}{" "}
-                        <span data-h2-font-weight="b(700)">
-                          {preferredLang
-                            ? getLanguage(preferredLang).defaultMessage
-                            : ""}
-                        </span>
-                      </p>
-                    )}
-                    {!!currentCity && !!currentProvince && (
-                      <p>
-                        {intl.formatMessage({
-                          defaultMessage: "Current Location:",
-                          description: "Current Location label and colon",
-                        })}{" "}
-                        <span data-h2-font-weight="b(700)">
-                          {currentCity},{" "}
-                          {currentProvince
-                            ? getProvinceOrTerritory(currentProvince)
-                                .defaultMessage
-                            : ""}
-                        </span>
-                      </p>
-                    )}
-                  </div>
-                </div>
-                {!firstName &&
-                  !lastName &&
-                  !email &&
-                  !telephone &&
-                  !preferredLang &&
-                  !currentCity &&
-                  !currentProvince && (
-                    <p>
-                      {intl.formatMessage({
-                        defaultMessage:
-                          "You haven't added any information here yet.",
-                        description:
-                          "Message for when no data exists for the section",
-                      })}
-                    </p>
-                  )}
-                {(!firstName ||
-                  !lastName ||
-                  !email ||
-                  !telephone ||
-                  !preferredLang ||
-                  !currentCity ||
-                  !currentProvince) && (
-                  <p>
-                    {intl.formatMessage(
-                      {
-                        defaultMessage:
-                          "There are <redText>required</redText> fields missing.",
-                        description:
-                          "Message that there are required fields missing. Please ignore things in <> tags.",
-                      },
-                      {
-                        redText,
-                      },
-                    )}{" "}
-                    <a href={paths.aboutMe()}>
-                      {intl.formatMessage({
-                        defaultMessage: "Click here to get started.",
-                        description:
-                          "Message to click on the words to begin something",
-                      })}
-                    </a>
-                  </p>
-                )}
-              </div>
-            </div>
-            <div id="language-section">
-              <div style={{ display: "flex", alignItems: "baseline" }}>
-                <h2 data-h2-font-weight="b(600)" style={{ flex: "1 1 0%" }}>
-                  <ChatAlt2Icon style={{ width: "calc(1rem*2.25)" }} />
-                  &nbsp;&nbsp;
-                  {intl.formatMessage({
-                    defaultMessage: "Language information",
-                    description: "Title of the Language information section",
-                  })}
-                </h2>
-                <Link
-                  href={paths.languageInformation()}
-                  title=""
-                  {...{
-                    "data-h2-font-color": "b(lightpurple)",
-                  }}
-                >
-                  {intl.formatMessage({
-                    defaultMessage: "Edit Language Information",
-                    description:
-                      "Text on link to update a users language information",
-                  })}
-                </Link>
-              </div>
-              <div
-                data-h2-bg-color="b(lightgray)"
-                data-h2-padding="b(all, m)"
-                data-h2-radius="b(s)"
-              >
-                {lookingForEnglish &&
-                  !lookingForFrench &&
-                  !lookingForBilingual && (
-                    <p>
-                      {intl.formatMessage({
-                        defaultMessage: "Interested in:",
-                        description: "Interested in label and colon",
-                      })}{" "}
-                      <span data-h2-font-weight="b(700)">
-                        {intl.formatMessage({
-                          defaultMessage: "English positions",
-                          description: "English Positions message",
-                        })}
-                      </span>
-                    </p>
-                  )}
-                {!lookingForEnglish &&
-                  lookingForFrench &&
-                  !lookingForBilingual && (
-                    <p>
-                      {intl.formatMessage({
-                        defaultMessage: "Interested in:",
-                        description: "Interested in label and colon",
-                      })}{" "}
-                      <span data-h2-font-weight="b(700)">
-                        {intl.formatMessage({
-                          defaultMessage: "French positions",
-                          description: "French Positions message",
-                        })}
-                      </span>
-                    </p>
-                  )}
-                {lookingForEnglish && lookingForFrench && !lookingForBilingual && (
-                  <p>
-                    {intl.formatMessage({
-                      defaultMessage: "Interested in:",
-                      description: "Interested in label and colon",
-                    })}{" "}
-                    <span data-h2-font-weight="b(700)">
-                      {intl.formatMessage({
-                        defaultMessage: "English or French positions",
-                        description: "English or French Positions message",
-                      })}
-                    </span>
-                  </p>
-                )}
-                {lookingForBilingual && (
-                  <p>
-                    {intl.formatMessage({
-                      defaultMessage: "Interested in:",
-                      description: "Interested in label and colon",
-                    })}{" "}
-                    <span data-h2-font-weight="b(700)">
-                      {intl.formatMessage({
-                        defaultMessage:
-                          "Bilingual positions (English and French)",
-                        description: "Bilingual Positions message",
-                      })}
-                    </span>
-                  </p>
-                )}
-                {bilingualEvaluation ===
-                  BilingualEvaluation.CompletedEnglish && (
-                  <p>
-                    {intl.formatMessage({
-                      defaultMessage: "Completed an official GoC evaluation:",
-                      description:
-                        "Completed a government of canada abbreviation evaluation label and colon",
-                    })}{" "}
-                    <span data-h2-font-weight="b(700)">
-                      {intl.formatMessage({
-                        defaultMessage: "Yes, completed ENGLISH evaluation",
-                        description: "Completed an English language evaluation",
-                      })}
-                    </span>
-                  </p>
-                )}
-                {bilingualEvaluation ===
-                  BilingualEvaluation.CompletedFrench && (
-                  <p>
-                    {intl.formatMessage({
-                      defaultMessage: "Completed an official GoC evaluation:",
-                      description:
-                        "Completed a government of canada abbreviation evaluation label and colon",
-                    })}{" "}
-                    <span data-h2-font-weight="b(700)">
-                      {intl.formatMessage({
-                        defaultMessage: "Yes, completed FRENCH evaluation",
-                        description: "Completed a French language evaluation",
-                      })}
-                    </span>
-                  </p>
-                )}
-                {bilingualEvaluation === BilingualEvaluation.NotCompleted && (
-                  <p>
-                    {intl.formatMessage({
-                      defaultMessage: "Completed an official GoC evaluation:",
-                      description:
-                        "Completed a government of canada abbreviation evaluation label and colon",
-                    })}{" "}
-                    <span data-h2-font-weight="b(700)">
-                      {intl.formatMessage({
-                        defaultMessage: "No",
-                        description:
-                          "No, did not completed a language evaluation",
-                      })}
-                    </span>
-                  </p>
-                )}
-                {(bilingualEvaluation ===
-                  BilingualEvaluation.CompletedEnglish ||
-                  bilingualEvaluation ===
-                    BilingualEvaluation.CompletedFrench) && (
-                  <p>
-                    {intl.formatMessage({
-                      defaultMessage:
-                        "Second language level (Comprehension, Written, Verbal):",
-                      description:
-                        "Evaluation results for second language, results in that order followed by a colon",
-                    })}{" "}
-                    <span data-h2-font-weight="b(700)">
-                      {comprehensionLevel}, {writtenLevel}, {verbalLevel}
-                    </span>
-                  </p>
-                )}
-                {bilingualEvaluation === BilingualEvaluation.NotCompleted &&
-                  !!estimatedLanguageAbility && (
-                    <p>
-                      {intl.formatMessage({
-                        defaultMessage: "Second language level:",
-                        description:
-                          "Estimated skill in second language, followed by a colon",
-                      })}{" "}
-                      <span data-h2-font-weight="b(700)">
-                        {estimatedLanguageAbility
-                          ? getLanguageProficiency(estimatedLanguageAbility)
-                              .defaultMessage
-                          : ""}
-                      </span>
-                    </p>
-                  )}
-                {!lookingForEnglish &&
-                  !lookingForFrench &&
-                  !lookingForBilingual &&
-                  !bilingualEvaluation && (
-                    <p>
-                      {intl.formatMessage({
-                        defaultMessage:
-                          "You haven't added any information here yet.",
-                        description:
-                          "Message for when no data exists for the section",
-                      })}
-                    </p>
-                  )}
-                {((!lookingForEnglish &&
-                  !lookingForFrench &&
-                  !lookingForBilingual) ||
-                  (lookingForBilingual &&
-                    (!bilingualEvaluation ||
-                      ((bilingualEvaluation ===
-                        BilingualEvaluation.CompletedEnglish ||
-                        bilingualEvaluation ===
-                          BilingualEvaluation.CompletedFrench) &&
-                        (!comprehensionLevel ||
-                          !writtenLevel ||
-                          !verbalLevel))))) && (
-                  <p>
-                    {intl.formatMessage(
-                      {
-                        defaultMessage:
-                          "There are <redText>required</redText> fields missing.",
-                        description:
-                          "Message that there are required fields missing. Please ignore things in <> tags.",
-                      },
-                      {
-                        redText,
-                      },
-                    )}{" "}
-                    <a href={paths.languageInformation()}>
-                      {intl.formatMessage({
-                        defaultMessage: "Click here to get started.",
-                        description:
-                          "Message to click on the words to begin something",
-                      })}
-                    </a>
-                  </p>
-                )}
-              </div>
-            </div>
-            <div id="gov-info-section">
-              <div style={{ display: "flex", alignItems: "baseline" }}>
-                <h2 data-h2-font-weight="b(600)" style={{ flex: "1 1 0%" }}>
-                  <img
-                    style={{ width: "calc(1rem*2.25)" }}
-                    src={imageUrl(appDir, "gov-building-icon.svg")}
-                    alt={intl.formatMessage({
-                      defaultMessage: "Icon of government building",
-                      description:
-                        "Alt text for the government building icon in the profile.",
-                    })}
-                  />
-                  &nbsp;&nbsp;
-                  {intl.formatMessage({
-                    defaultMessage: "Government information",
-                    description: "Title of the Government information section",
-                  })}
-                </h2>
-                <Link
-                  href={paths.governmentInformation()}
-                  title=""
-                  {...{
-                    "data-h2-font-color": "b(lightpurple)",
-                  }}
-                >
-                  {intl.formatMessage({
-                    defaultMessage: "Edit Government Information",
-                    description:
-                      "Text on link to update a users government information",
-                  })}
-                </Link>
-              </div>
-              <div
-                data-h2-bg-color="b(lightgray)"
-                data-h2-padding="b(all, m)"
-                data-h2-radius="b(s)"
-              >
-                {isGovEmployee && (
-                  <div>
-                    <li>
-                      {intl.formatMessage({
-                        defaultMessage:
-                          "Yes, I am a Government of Canada employee.",
-                        description:
-                          "Message to state user is employed by government",
-                      })}
-                    </li>
-                    {govEmployeeType && (
-                      <li>
-                        {govEmployeeType === GovEmployeeType.Student &&
-                          intl.formatMessage({
-                            defaultMessage: "I have a student position",
-                            description:
-                              "Message to state user is employed federally in a student position",
-                          })}
-                        {govEmployeeType === GovEmployeeType.Casual &&
-                          intl.formatMessage({
-                            defaultMessage: "I have a casual position",
-                            description:
-                              "Message to state user is employed federally in a casual position",
-                          })}
-                        {govEmployeeType === GovEmployeeType.Term &&
-                          intl.formatMessage({
-                            defaultMessage: "I have a term position",
-                            description:
-                              "Message to state user is employed federally in a term position",
-                          })}
-                        {govEmployeeType === GovEmployeeType.Indeterminate &&
-                          intl.formatMessage({
-                            defaultMessage: "I have an indeterminate position",
-                            description:
-                              "Message to state user is employed federally in an indeterminate position",
-                          })}
-                      </li>
-                    )}
-                    {interestedInLaterOrSecondment && (
-                      <li>
-                        {intl.formatMessage({
-                          defaultMessage:
-                            "I am interested in lateral deployment or secondment.",
-                          description:
-                            "Message to state user is interested in lateral deployment or secondment",
-                        })}
-                      </li>
-                    )}
-                    {!!currentClassification?.group &&
-                      !!currentClassification?.level && (
-                        <li>
-                          {" "}
-                          {intl.formatMessage({
-                            defaultMessage: "Current group and classification:",
-                            description:
-                              "Field label before government employment group and level, followed by colon",
-                          })}{" "}
-                          <span data-h2-font-weight="b(700)">
-                            {currentClassification?.group}-
-                            {currentClassification?.level}
-                          </span>
-                        </li>
-                      )}
-                  </div>
-                )}
-                {isGovEmployee === null && (
-                  <p>
-                    {intl.formatMessage({
-                      defaultMessage:
-                        "You haven't added any information here yet.",
-                      description:
-                        "Message for when no data exists for the section",
-                    })}
-                  </p>
-                )}
-                {isGovEmployee === false && (
-                  <li>
-                    {intl.formatMessage({
-                      defaultMessage:
-                        "You are not entered as a current government employee",
-                      description:
-                        "Message indicating the user is not marked in the system as being federally employed currently",
-                    })}
-                  </li>
-                )}
-              </div>
-            </div>
-            <div id="work-location-section">
-              <div style={{ display: "flex", alignItems: "baseline" }}>
-                <h2 data-h2-font-weight="b(600)" style={{ flex: "1 1 0%" }}>
-                  <img
-                    style={{ width: "calc(1rem*2.25)" }}
-                    src={imageUrl(appDir, "briefcase-with-marker-icon.svg")}
-                    alt={intl.formatMessage({
-                      defaultMessage:
-                        "Icon of a location marker on a briefcase",
-                      description:
-                        "Alt text for the briefcase with marker icon in the profile.",
-                    })}
-                  />
-                  &nbsp;&nbsp;
-                  {intl.formatMessage({
-                    defaultMessage: "Work location",
-                    description: "Title of the Work location section",
-                  })}
-                </h2>
-                <Link
-                  href={paths.workLocation()}
-                  title=""
-                  {...{
-                    "data-h2-font-color": "b(lightpurple)",
-                  }}
-                >
-                  {intl.formatMessage({
-                    defaultMessage: "Edit Work Location",
-                    description:
-                      "Text on link to update a users work location info",
-                  })}
-                </Link>
-              </div>
-              <div
-                data-h2-bg-color="b(lightgray)"
-                data-h2-padding="b(all, m)"
-                data-h2-radius="b(s)"
-              >
-                {!!locationPreferences && !!locationPreferences.length && (
-                  <p>
-                    {intl.formatMessage({
-                      defaultMessage: "Work location:",
-                      description: "Work Location label, followed by colon",
-                    })}{" "}
-                    <span data-h2-font-weight="b(700)">
-                      {regionPreferences}
-                    </span>
-                  </p>
-                )}
-                {!!locationExemptions && (
-                  <p>
-                    {intl.formatMessage({
-                      defaultMessage: "Location exemptions:",
-                      description:
-                        "Location Exemptions label, followed by colon",
-                    })}{" "}
-                    <span data-h2-font-weight="b(700)">
-                      {locationExemptions}
-                    </span>
-                  </p>
-                )}
-                {!locationPreferences && !locationExemptions && (
-                  <p>
-                    {intl.formatMessage({
-                      defaultMessage:
-                        "You haven't added any information here yet.",
-                      description:
-                        "Message for when no data exists for the section",
-                    })}
-                  </p>
-                )}
-                {(!locationPreferences || !locationPreferences.length) && (
-                  <p>
-                    {intl.formatMessage(
-                      {
-                        defaultMessage:
-                          "There are <redText>required</redText> fields missing.",
-                        description:
-                          "Message that there are required fields missing. Please ignore things in <> tags.",
-                      },
-                      {
-                        redText,
-                      },
-                    )}{" "}
-                    <a href={paths.workLocation()}>
-                      {intl.formatMessage({
-                        defaultMessage: "Click here to get started.",
-                        description:
-                          "Message to click on the words to begin something",
-                      })}
-                    </a>
-                  </p>
-                )}
-              </div>
-            </div>
-            <div id="work-preferences-section">
-              <div style={{ display: "flex", alignItems: "baseline" }}>
-                <h2 data-h2-font-weight="b(600)" style={{ flex: "1 1 0%" }}>
-                  <ThumbUpIcon style={{ width: "calc(1rem*2.25)" }} />
-                  &nbsp;&nbsp;
-                  {intl.formatMessage({
-                    defaultMessage: "Work preferences",
-                    description: "Title of the Work preferences section",
-                  })}
-                </h2>
-                <Link
-                  href={paths.workPreferences()}
-                  title=""
-                  {...{
-                    "data-h2-font-color": "b(lightpurple)",
-                  }}
-                >
-                  {intl.formatMessage({
-                    defaultMessage: "Edit Work Preferences",
-                    description:
-                      "Text on link to update a users work preferences",
-                  })}
-                </Link>
-              </div>
-              <div
-                data-h2-bg-color="b(lightgray)"
-                data-h2-padding="b(all, m)"
-                data-h2-radius="b(s)"
-              >
-                {wouldAcceptTemporary !== null && (
-                  <p>
-                    {intl.formatMessage({
-                      defaultMessage:
-                        "I would consider accepting a job that lasts for:",
-                      description:
-                        "Label for what length of position user prefers, followed by colon",
-                    })}{" "}
-                  </p>
-                )}
-                {wouldAcceptTemporary && (
-                  <ul data-h2-padding="b(left, l)">
-                    <li data-h2-font-weight="b(700)">
-                      {intl.formatMessage({
-                        defaultMessage:
-                          "Any duration (short, long term, or indeterminate duration)",
-                        description:
-                          "Duration of any length is good, specified three example lengths",
-                      })}
-                    </li>
-                  </ul>
-                )}
-                {wouldAcceptTemporary === false && (
-                  <ul data-h2-padding="b(left, l)">
-                    <li data-h2-font-weight="b(700)">
-                      {intl.formatMessage({
-                        defaultMessage: "Permanent duration",
-                        description: "Permanent duration only",
-                      })}{" "}
-                    </li>
-                  </ul>
-                )}
-
-                {acceptedOperationalArray !== null &&
-                  acceptedOperationalArray.length > 0 && (
-                    <p>
-                      {intl.formatMessage({
-                        defaultMessage:
-                          "I would consider accepting a job that:",
-                        description:
-                          "Label for what conditions a user will accept, followed by a colon",
-                      })}
-                    </p>
-                  )}
-                <ul data-h2-padding="b(left, l)">{acceptedOperationalArray}</ul>
-                {wouldAcceptTemporary === null && (
-                  <p>
-                    {intl.formatMessage({
-                      defaultMessage:
-                        "You haven't added any information here yet.",
-                      description:
-                        "Message for when no data exists for the section",
-                    })}
-                  </p>
-                )}
-                {wouldAcceptTemporary === null && (
-                  <p>
-                    {intl.formatMessage(
-                      {
-                        defaultMessage:
-                          "There are <redText>required</redText> fields missing.",
-                        description:
-                          "Message that there are required fields missing. Please ignore things in <> tags.",
-                      },
-                      {
-                        redText,
-                      },
-                    )}{" "}
-                    <a href={paths.workPreferences()}>
-                      {intl.formatMessage({
-                        defaultMessage: "Click here to get started.",
-                        description:
-                          "Message to click on the words to begin something",
-                      })}
-                    </a>
-                  </p>
-                )}
-              </div>
-            </div>
-            <div id="diversity-section">
-              <div style={{ display: "flex", alignItems: "baseline" }}>
-                <h2 data-h2-font-weight="b(600)" style={{ flex: "1 1 0%" }}>
-                  <UserCircleIcon style={{ width: "calc(1rem*2.25)" }} />
-                  &nbsp;&nbsp;
-                  {intl.formatMessage({
-                    defaultMessage: "Diversity, equity and inclusion",
-                    description:
-                      "Title of the Diversity, equity and inclusion section",
-                  })}
-                </h2>
-                <Link
-                  href={paths.diversityEquityInclusion()}
-                  title=""
-                  {...{
-                    "data-h2-font-color": "b(lightpurple)",
-                  }}
-                >
-                  {intl.formatMessage({
-                    defaultMessage: "Edit Diversity Equity and Inclusion",
-                    description:
-                      "Text on link to update a users diversity equity and inclusion information",
-                  })}
-                </Link>
-              </div>
-              <div
-                data-h2-bg-color="b(lightgray)"
-                data-h2-padding="b(all, m)"
-                data-h2-radius="b(s)"
-              >
-                {!isWoman &&
-                  !isIndigenous &&
-                  !isVisibleMinority &&
-                  !hasDisability && (
-                    <p>
-                      {intl.formatMessage(
-                        {
-                          defaultMessage:
-                            "You have not identified as a member of any <equityLinkText>employment equity groups.</equityLinkText>",
-                          description:
-                            "Message indicating the user has not been marked as part of an equity group, Ignore things in <> please.",
-                        },
-                        { equityLinkText },
-                      )}
-                    </p>
-                  )}
-                {(isWoman ||
-                  isIndigenous ||
-                  isVisibleMinority ||
-                  hasDisability) && (
-                  <div>
-                    <p>
-                      {intl.formatMessage({
-                        defaultMessage: "I identify as:",
-                        description:
-                          "Label preceding what groups the user identifies as part of, followed by a colon",
-                      })}{" "}
-                    </p>{" "}
-                    <ul data-h2-padding="b(left, l)">
-                      {isWoman && (
-                        <li data-h2-font-weight="b(700)">
-                          {womanLocalized.defaultMessage}
-                        </li>
-                      )}{" "}
-                      {isIndigenous && (
-                        <li data-h2-font-weight="b(700)">
-                          {indigenousLocalized.defaultMessage}
-                        </li>
-                      )}{" "}
-                      {isVisibleMinority && (
-                        <li data-h2-font-weight="b(700)">
-                          {minorityLocalized.defaultMessage}
-                        </li>
-                      )}{" "}
-                      {hasDisability && (
-                        <li data-h2-font-weight="b(700)">
-                          {disabilityLocalized.defaultMessage}
-                        </li>
-                      )}
-                    </ul>
-                  </div>
-                )}
-              </div>
-            </div>
-            <div id="skills-section" data-h2-padding="b(bottom, xxl)">
-              <div style={{ display: "flex", alignItems: "baseline" }}>
-                <h2 data-h2-font-weight="b(600)" style={{ flex: "1 1 0%" }}>
-                  <LightningBoltIcon style={{ width: "calc(1rem*2.25)" }} />
-                  &nbsp;&nbsp;
-                  {intl.formatMessage({
-                    defaultMessage: "My skills and experience",
-                    description:
-                      "Title of the My skills and experience section",
-                  })}
-                </h2>
-                <Link
-                  href={paths.skillsAndExperiences()}
-                  title=""
-                  {...{
-                    "data-h2-font-color": "b(lightpurple)",
-                  }}
-                >
-                  {intl.formatMessage({
-                    defaultMessage: "Edit Skills and Experience",
-                    description:
-                      "Text on link to update a users skills and experience",
-                  })}
-                </Link>
-              </div>
-              {!experiences || experiences?.length === 0 ? (
-                <div
-                  data-h2-bg-color="b(lightgray)"
-                  data-h2-padding="b(all, m)"
-                  data-h2-radius="b(s)"
-                >
-                  <p>
-                    {intl.formatMessage({
-                      defaultMessage:
-                        "You haven't added any information here yet.",
-                      description:
-                        "Message that the user hasn't filled out the section yet",
-                    })}
-                  </p>
-                  <p>
-                    {intl.formatMessage(
-                      {
-                        defaultMessage:
-                          "There are <redText>required</redText> fields missing.",
-                        description:
-                          "Message that there are required fields missing. Please ignore things in <> tags.",
-                      },
-                      {
-                        redText,
-                      },
-                    )}{" "}
-                    <a href={paths.skillsAndExperiences()}>
-                      {intl.formatMessage({
-                        defaultMessage: "Click here to get started.",
-                        description:
-                          "Message to click on the words to begin something",
-                      })}
-                    </a>
-                  </p>
-                </div>
-              ) : (
-                <div data-h2-padding="b(all, m)" data-h2-radius="b(s)">
-                  <ExperienceSection
-                    experiences={experiences?.filter(notEmpty)}
-                  />
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-      </div>
-    </>
+            </TableOfContents.Heading>
+            <RoleSalarySection applicant={applicant} />
+          </TableOfContents.Section>
+        )}
+        {showSection("skillsExperience") && (
+          <TableOfContents.Section id="skills-and-experience-section">
+            <TableOfContents.Heading
+              icon={CurrencyDollarIcon}
+              style={{ flex: "1 1 0%" }}
+            >
+              {intl.formatMessage({
+                defaultMessage: "My skills and experience",
+                description:
+                  "Title of the My skills and experience content section",
+              })}
+            </TableOfContents.Heading>
+            <ExperienceSection experiences={experiences?.filter(notEmpty)} />
+          </TableOfContents.Section>
+        )}
+      </TableOfContents.Content>
+    </TableOfContents.Wrapper>
   );
 };
+
+export default UserProfile;

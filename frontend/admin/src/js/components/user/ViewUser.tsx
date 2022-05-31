@@ -14,7 +14,7 @@ import { commonMessages } from "@common/messages";
 import { useAdminRoutes } from "../../adminRoutes";
 import { User, useUserQuery } from "../../api/generated";
 import DashboardContentContainer from "../DashboardContentContainer";
-import { UserProfileApi } from "./UserProfile";
+import UserProfileApi from "./UserProfile";
 
 interface ViewUserPageProps {
   user: User;

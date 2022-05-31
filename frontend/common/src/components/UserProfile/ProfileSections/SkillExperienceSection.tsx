@@ -4,25 +4,35 @@ import { notEmpty } from "../../../helpers/util";
 import { Applicant } from "../../../api/generated";
 import ExperienceSection from "../ExperienceSection";
 
+import type { ExperiencePaths } from "../ExperienceAccordion/ExperienceAccordion";
+
 // styling a text bit with red colour within intls
 function redText(msg: string) {
   return <span data-h2-font-color="b(red)">{msg}</span>;
 }
 
+export type PathFunc = (path: void | string, id: void | string) => string;
+
 const SkillExperienceSection: React.FunctionComponent<{
   applicant: Pick<Applicant, "experiences">;
   editPath?: string;
-}> = ({ applicant, editPath }) => {
+  applicantPaths?: Record<string, PathFunc>;
+}> = ({ applicant, editPath, applicantPaths }) => {
   const intl = useIntl();
   const { experiences } = applicant;
 
-  const experienceEditPaths = {
-    awardUrl: (id: string) => paths.editExperience("award", id),
-    communityUrl: (id: string) => paths.editExperience("community", id),
-    educationUrl: (id: string) => paths.editExperience("education", id),
-    personalUrl: (id: string) => paths.editExperience("personal", id),
-    workUrl: (id: string) => paths.editExperience("work", id),
-  };
+  const experienceEditPaths = applicantPaths
+    ? {
+        awardUrl: (id: string) => applicantPaths.editExperience("award", id),
+        communityUrl: (id: string) =>
+          applicantPaths.editExperience("community", id),
+        educationUrl: (id: string) =>
+          applicantPaths.editExperience("education", id),
+        personalUrl: (id: string) =>
+          applicantPaths.editExperience("personal", id),
+        workUrl: (id: string) => applicantPaths.editExperience("work", id),
+      }
+    : null;
 
   return (
     <div>
@@ -64,7 +74,7 @@ const SkillExperienceSection: React.FunctionComponent<{
         <div data-h2-padding="b(all, m)" data-h2-radius="b(s)">
           <ExperienceSection
             experiences={experiences?.filter(notEmpty)}
-            experienceEditPaths={experienceEditPaths}
+            experienceEditPaths={experienceEditPaths as ExperiencePaths}
           />
         </div>
       )}

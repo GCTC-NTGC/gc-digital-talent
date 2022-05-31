@@ -1,7 +1,7 @@
 import React from "react";
 import { Meta, Story } from "@storybook/react";
-import { fakeApplicants } from "@common/fakeData";
-import fakeExperiences from "@common/fakeData/fakeExperiences";
+import fakeExperiences from "../../fakeData/fakeExperiences";
+import { fakeApplicants } from "../../fakeData";
 import UserProfile from "./UserProfile";
 import { Applicant } from "../../api/generated";
 
@@ -14,7 +14,22 @@ export default {
 } as Meta;
 
 const TemplateUserProfile: Story<Applicant> = (args) => {
-  return <UserProfile applicant={args} />;
+  return (
+    <UserProfile
+      applicant={args as Applicant}
+      sections={{
+        about: { isVisible: true },
+        adminAbout: { isVisible: true },
+        language: { isVisible: true },
+        government: { isVisible: true },
+        workLocation: { isVisible: true },
+        workPreferences: { isVisible: true },
+        employmentEquity: { isVisible: true },
+        roleSalary: { isVisible: true },
+        skillsExperience: { isVisible: true },
+      }}
+    />
+  );
 };
 
 export const UserProfileStory1 = TemplateUserProfile.bind({});

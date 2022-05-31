@@ -18,6 +18,7 @@ import { imageUrl } from "@common/helpers/router";
 import { notEmpty } from "@common/helpers/util";
 import ExperienceSection from "@common/components/UserProfile/ExperienceSection";
 import { unpackMaybes } from "@common/helpers/formUtils";
+import AboutSection from "@common/components/UserProfile/ProfileSections/AboutSection";
 import LanguageInformationSection from "@common/components/UserProfile/ProfileSections/LanguageInformationSection";
 import GovernmentInformationSection from "@common/components/UserProfile/ProfileSections/GovernmentInformationSection";
 import WorkLocationSection from "@common/components/UserProfile/ProfileSections/WorkLocationSection";
@@ -29,7 +30,6 @@ import { useGetMeQuery, User, GetMeQuery } from "../../../api/generated";
 
 import MyStatusApi from "../../myStatusForm/MyStatusForm";
 import CandidatePoolsSection from "./CandidatePoolsSection";
-import AboutMeSection from "./AboutMeSection";
 
 export interface ProfilePageProps {
   profileDataInput: User;
@@ -178,7 +178,7 @@ export const ProfileForm: React.FC<ProfilePageProps> = ({
                 })}
               </Link>
             </div>
-            <AboutMeSection
+            <AboutSection
               applicant={profileDataInput}
               editPath={paths.aboutMe()}
             />
