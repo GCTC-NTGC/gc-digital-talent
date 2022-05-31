@@ -93,6 +93,14 @@ export const UpdatePoolForm: React.FunctionComponent<UpdatePoolFormProps> = ({
       en: values.name?.en,
       fr: values.name?.fr,
     },
+    description: {
+      en: values.description?.en,
+      fr: values.description?.fr,
+    },
+    keyTasks: {
+      en: values.keyTasks?.en,
+      fr: values.keyTasks?.fr,
+    },
   });
 
   const methods = useForm<FormValues>({
@@ -374,6 +382,8 @@ export const UpdatePool: React.FunctionComponent<{
         "owner",
         "name",
         "description",
+        "keyTasks",
+        "status",
         "classifications",
         "assetCriteria",
         "essentialCriteria",
