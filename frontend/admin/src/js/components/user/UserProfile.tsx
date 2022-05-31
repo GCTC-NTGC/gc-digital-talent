@@ -71,6 +71,12 @@ export const UserProfile: React.FC<UserProfileProps> = ({ applicant }) => {
               "Title of the Role and salary expectations link section",
           })}
         </TableOfContents.AnchorLink>
+        <TableOfContents.AnchorLink id="skills-and-experience-section">
+          {intl.formatMessage({
+            defaultMessage: "My skills and experience",
+            description: "Title of the My skills and experience link section",
+          })}
+        </TableOfContents.AnchorLink>
       </TableOfContents.Navigation>
       <TableOfContents.Content>
         <TableOfContents.Section id="about-section">
@@ -181,7 +187,8 @@ export const UserProfile: React.FC<UserProfileProps> = ({ applicant }) => {
           >
             {intl.formatMessage({
               defaultMessage: "My skills and experience",
-              description: "Title of the My skills and experience section",
+              description:
+                "Title of the My skills and experience content section",
             })}
           </TableOfContents.Heading>
           <ExperienceSection experiences={experiences?.filter(notEmpty)} />

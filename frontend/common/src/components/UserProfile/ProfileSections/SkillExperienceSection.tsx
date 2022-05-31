@@ -1,6 +1,6 @@
-import { notEmpty } from "@common/helpers/util";
 import React from "react";
 import { useIntl } from "react-intl";
+import { notEmpty } from "../../../helpers/util";
 import { Applicant } from "../../../api/generated";
 import ExperienceSection from "../ExperienceSection";
 
@@ -72,4 +72,4 @@ const SkillExperienceSection: React.FunctionComponent<{
   );
 };
 
-export default SkillExperienceSection
+export default SkillExperienceSection;
