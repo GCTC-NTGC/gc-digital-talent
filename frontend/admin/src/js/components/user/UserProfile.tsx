@@ -7,7 +7,15 @@ import GovernmentInformationSection from "@common/components/UserProfile/Profile
 import WorkLocationSection from "@common/components/UserProfile/ProfileSections/WorkLocationSection";
 import WorkPreferencesSection from "@common/components/UserProfile/ProfileSections/WorkPreferencesSection";
 import DiversityEquityInclusionSection from "@common/components/UserProfile/ProfileSections/DiversityEquityInclusionSection";
-import { ChatAlt2Icon } from "@heroicons/react/solid";
+import RoleSalarySection from "@common/components/UserProfile/ProfileSections/RoleSalarySection";
+import ExperienceSection from "@common/components/UserProfile/ExperienceSection";
+
+import {
+  UserIcon,
+  ChatAlt2Icon,
+  CurrencyDollarIcon,
+} from "@heroicons/react/outline";
+import { notEmpty } from "@common/helpers/util";
 import { Applicant, useGetUserProfileQuery } from "../../api/generated";
 
 export interface UserProfileProps {
@@ -15,9 +23,16 @@ export interface UserProfileProps {
 }
 export const UserProfile: React.FC<UserProfileProps> = ({ applicant }) => {
   const intl = useIntl();
+  const { firstName, lastName, experiences } = applicant;
   return (
     <TableOfContents.Wrapper>
       <TableOfContents.Navigation>
+        <TableOfContents.AnchorLink id="about-section">
+          {intl.formatMessage({
+            defaultMessage: "About",
+            description: "Title of the About link section",
+          })}
+        </TableOfContents.AnchorLink>
         <TableOfContents.AnchorLink id="language-section">
           {intl.formatMessage({
             defaultMessage: "Language Information",
@@ -49,8 +64,42 @@ export const UserProfile: React.FC<UserProfileProps> = ({ applicant }) => {
               "Title of the Employment Equity Information link section",
           })}
         </TableOfContents.AnchorLink>
+        <TableOfContents.AnchorLink id="role-and-salary-section">
+          {intl.formatMessage({
+            defaultMessage: "Role and salary expectations",
+            description:
+              "Title of the Role and salary expectations link section",
+          })}
+        </TableOfContents.AnchorLink>
       </TableOfContents.Navigation>
       <TableOfContents.Content>
+        <TableOfContents.Section id="about-section">
+          <TableOfContents.Heading icon={UserIcon} style={{ flex: "1 1 0%" }}>
+            {intl.formatMessage({
+              defaultMessage: "About",
+              description: "Title of the about content section",
+            })}
+          </TableOfContents.Heading>
+          <div data-h2-flex-item="b(1of1) s(3of4)">
+            <div
+              data-h2-bg-color="b(lightgray)"
+              data-h2-padding="b(all, m)"
+              data-h2-radius="b(s)"
+            >
+              {!!firstName && !!lastName && (
+                <p>
+                  {intl.formatMessage({
+                    defaultMessage: "Name:",
+                    description: "Name label and colon",
+                  })}{" "}
+                  <span data-h2-font-weight="b(700)">
+                    {firstName} {lastName}
+                  </span>
+                </p>
+              )}
+            </div>
+          </div>
+        </TableOfContents.Section>
         <TableOfContents.Section id="language-section">
           <TableOfContents.Heading
             icon={ChatAlt2Icon}
@@ -112,6 +161,30 @@ export const UserProfile: React.FC<UserProfileProps> = ({ applicant }) => {
             })}
           </TableOfContents.Heading>
           <DiversityEquityInclusionSection applicant={applicant} />
+        </TableOfContents.Section>
+        <TableOfContents.Section id="role-and-salary-section">
+          <TableOfContents.Heading
+            icon={CurrencyDollarIcon}
+            style={{ flex: "1 1 0%" }}
+          >
+            {intl.formatMessage({
+              defaultMessage: "Role and salary expectations",
+              description: "Title of the Role and salary expectations section",
+            })}
+          </TableOfContents.Heading>
+          <RoleSalarySection applicant={applicant} />
+        </TableOfContents.Section>
+        <TableOfContents.Section id="skills-and-experience-section">
+          <TableOfContents.Heading
+            icon={CurrencyDollarIcon}
+            style={{ flex: "1 1 0%" }}
+          >
+            {intl.formatMessage({
+              defaultMessage: "My skills and experience",
+              description: "Title of the My skills and experience section",
+            })}
+          </TableOfContents.Heading>
+          <ExperienceSection experiences={experiences?.filter(notEmpty)} />
         </TableOfContents.Section>
       </TableOfContents.Content>
     </TableOfContents.Wrapper>
