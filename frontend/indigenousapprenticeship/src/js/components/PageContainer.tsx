@@ -101,8 +101,6 @@ export const PageContainer: React.FC<{
     contentRoutes,
     notFoundComponent.current,
     notAuthorizedComponent.current,
-    false,
-    null,
   );
   return (
     <ScrollToTop>
