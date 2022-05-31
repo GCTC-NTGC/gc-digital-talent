@@ -10,6 +10,7 @@ const applicantProfileRoutes = (lang: string) => {
   const home = (): string => path.join("/", lang, APPLICANTPROFILE_APP_DIR); // leading slash in case empty base url
   return {
     home,
+    profilePage: (): string => path.join(home(), "profile"),
     aboutMe: (): string => path.join(home(), "about-me"),
     languageInformation: (): string =>
       path.join(home(), "language-information"),

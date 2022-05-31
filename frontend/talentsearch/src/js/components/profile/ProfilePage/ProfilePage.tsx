@@ -15,36 +15,21 @@ import { Link } from "@common/components";
 import TableOfContents from "@common/components/TableOfContents";
 import commonMessages from "@common/messages/commonMessages";
 import { imageUrl } from "@common/helpers/router";
-import {
-  getOperationalRequirement,
-  getWorkRegion,
-  womanLocalized,
-  indigenousLocalized,
-  minorityLocalized,
-  disabilityLocalized,
-} from "@common/constants/localizedConstants";
-
-import { insertBetween, notEmpty } from "@common/helpers/util";
+import { notEmpty } from "@common/helpers/util";
 import ExperienceSection from "@common/components/UserProfile/ExperienceSection";
 import { unpackMaybes } from "@common/helpers/formUtils";
 import LanguageInformationSection from "@common/components/UserProfile/ProfileSections/LanguageInformationSection";
+import GovernmentInformationSection from "@common/components/UserProfile/ProfileSections/GovernmentInformationSection";
+import WorkLocationSection from "@common/components/UserProfile/ProfileSections/WorkLocationSection";
+import WorkPreferencesSection from "@common/components/UserProfile/ProfileSections/WorkPreferencesSection";
+import DiversityEquityInclusionSection from "@common/components/UserProfile/ProfileSections/DiversityEquityInclusionSection";
 import TALENTSEARCH_APP_DIR from "../../../talentSearchConstants";
 import { useApplicantProfileRoutes } from "../../../applicantProfileRoutes";
-import {
-  useGetMeQuery,
-  User,
-  GetMeQuery,
-  GovEmployeeType,
-} from "../../../api/generated";
+import { useGetMeQuery, User, GetMeQuery } from "../../../api/generated";
 
 import MyStatusApi from "../../myStatusForm/MyStatusForm";
 import CandidatePoolsSection from "./CandidatePoolsSection";
 import AboutMeSection from "./AboutMeSection";
-import GovernmentInformationSection from "./GovernmentInformationSection";
-import WorkLocationSection from "./WorkLocationSection";
-import WorkPreferencesSection from "./WorkPreferencesSection";
-import { DiversityEquityInclusionForm } from "../../diversityEquityInclusion/DiversityEquityInclusionForm";
-import DiversityEquityInclusionSection from "./DiversityEquityInclusionSection";
 
 export interface ProfilePageProps {
   profileDataInput: User;
