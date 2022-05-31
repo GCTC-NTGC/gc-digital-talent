@@ -1,11 +1,11 @@
+import React from "react";
+import { useIntl } from "react-intl";
 import {
   disabilityLocalized,
   indigenousLocalized,
   minorityLocalized,
   womanLocalized,
-} from "@common/constants/localizedConstants";
-import React from "react";
-import { useIntl } from "react-intl";
+} from "../../../constants/localizedConstants";
 import { Applicant } from "../../../api/generated";
 
 // add link to Equity groups <a> tags around a message

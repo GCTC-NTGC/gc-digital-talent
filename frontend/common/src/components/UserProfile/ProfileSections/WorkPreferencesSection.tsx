@@ -1,7 +1,7 @@
-import { Applicant } from "@common/api/generated";
-import { getOperationalRequirement } from "@common/constants/localizedConstants";
 import React from "react";
 import { useIntl } from "react-intl";
+import { getOperationalRequirement } from "../../../constants/localizedConstants";
+import { Applicant } from "../../../api/generated";
 
 // styling a text bit with red colour within intls
 function redText(msg: string) {

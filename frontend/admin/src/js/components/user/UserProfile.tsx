@@ -3,6 +3,10 @@ import { useIntl } from "react-intl";
 import TableOfContents from "@common/components/TableOfContents";
 import { commonMessages } from "@common/messages";
 import LanguageInformationSection from "@common/components/UserProfile/ProfileSections/LanguageInformationSection";
+import GovernmentInformationSection from "@common/components/UserProfile/ProfileSections/GovernmentInformationSection";
+import WorkLocationSection from "@common/components/UserProfile/ProfileSections/WorkLocationSection";
+import WorkPreferencesSection from "@common/components/UserProfile/ProfileSections/WorkPreferencesSection";
+import DiversityEquityInclusionSection from "@common/components/UserProfile/ProfileSections/DiversityEquityInclusionSection";
 import { ChatAlt2Icon } from "@heroicons/react/solid";
 import { Applicant, useGetUserProfileQuery } from "../../api/generated";
 
@@ -17,22 +21,97 @@ export const UserProfile: React.FC<UserProfileProps> = ({ applicant }) => {
         <TableOfContents.AnchorLink id="language-section">
           {intl.formatMessage({
             defaultMessage: "Language Information",
-            description: "Title of the Language Information section",
+            description: "Title of the Language Information link section",
+          })}
+        </TableOfContents.AnchorLink>
+        <TableOfContents.AnchorLink id="government-section">
+          {intl.formatMessage({
+            defaultMessage: "Government Information",
+            description: "Title of the Government Information link section",
+          })}
+        </TableOfContents.AnchorLink>
+        <TableOfContents.AnchorLink id="work-location-section">
+          {intl.formatMessage({
+            defaultMessage: "Work Location",
+            description: "Title of the Work Location link section",
+          })}
+        </TableOfContents.AnchorLink>
+        <TableOfContents.AnchorLink id="work-preferences-section">
+          {intl.formatMessage({
+            defaultMessage: "Work Preferences",
+            description: "Title of the Work Preferences link section",
+          })}
+        </TableOfContents.AnchorLink>
+        <TableOfContents.AnchorLink id="ee-information-section">
+          {intl.formatMessage({
+            defaultMessage: "Employment Equity Information",
+            description:
+              "Title of the Employment Equity Information link section",
           })}
         </TableOfContents.AnchorLink>
       </TableOfContents.Navigation>
       <TableOfContents.Content>
-        <TableOfContents.Section id="status-section">
+        <TableOfContents.Section id="language-section">
           <TableOfContents.Heading
             icon={ChatAlt2Icon}
             style={{ flex: "1 1 0%" }}
           >
             {intl.formatMessage({
-              defaultMessage: "Language information",
-              description: "Title of the Language information section",
+              defaultMessage: "Language Information",
+              description: "Title of the Language Information content section",
             })}
           </TableOfContents.Heading>
           <LanguageInformationSection applicant={applicant} />
+        </TableOfContents.Section>
+        <TableOfContents.Section id="government-section">
+          <TableOfContents.Heading
+            icon={ChatAlt2Icon}
+            style={{ flex: "1 1 0%" }}
+          >
+            {intl.formatMessage({
+              defaultMessage: "Government Information",
+              description:
+                "Title of the Government Information content section",
+            })}
+          </TableOfContents.Heading>
+          <GovernmentInformationSection applicant={applicant} />
+        </TableOfContents.Section>
+        <TableOfContents.Section id="work-location-section">
+          <TableOfContents.Heading
+            icon={ChatAlt2Icon}
+            style={{ flex: "1 1 0%" }}
+          >
+            {intl.formatMessage({
+              defaultMessage: "Work Location",
+              description: "Title of the Work Location content section",
+            })}
+          </TableOfContents.Heading>
+          <WorkLocationSection applicant={applicant} />
+        </TableOfContents.Section>
+        <TableOfContents.Section id="work-preferences-section">
+          <TableOfContents.Heading
+            icon={ChatAlt2Icon}
+            style={{ flex: "1 1 0%" }}
+          >
+            {intl.formatMessage({
+              defaultMessage: "Work Preferences",
+              description: "Title of the Work Preferences content section",
+            })}
+          </TableOfContents.Heading>
+          <WorkPreferencesSection applicant={applicant} />
+        </TableOfContents.Section>
+        <TableOfContents.Section id="ee-information-section">
+          <TableOfContents.Heading
+            icon={ChatAlt2Icon}
+            style={{ flex: "1 1 0%" }}
+          >
+            {intl.formatMessage({
+              defaultMessage: "Employment Equity Information",
+              description:
+                "Title of the Employment Equity Information content section",
+            })}
+          </TableOfContents.Heading>
+          <DiversityEquityInclusionSection applicant={applicant} />
         </TableOfContents.Section>
       </TableOfContents.Content>
     </TableOfContents.Wrapper>

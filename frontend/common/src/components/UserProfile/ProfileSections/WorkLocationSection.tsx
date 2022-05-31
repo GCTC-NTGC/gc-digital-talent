@@ -1,7 +1,7 @@
-import { getWorkRegion } from "@common/constants/localizedConstants";
-import { insertBetween } from "@common/helpers/util";
 import React from "react";
 import { useIntl } from "react-intl";
+import { getWorkRegion } from "../../../constants/localizedConstants";
+import { insertBetween } from "../../../helpers/util";
 
 import { Applicant } from "../../../api/generated";
 

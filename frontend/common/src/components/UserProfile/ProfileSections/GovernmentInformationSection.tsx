@@ -10,7 +10,7 @@ const GovernmentInformationSection: React.FunctionComponent<{
     | "interestedInLaterOrSecondment"
     | "currentClassification"
   >;
-  editPath: string;
+  editPath?: string;
 }> = ({ applicant, editPath }) => {
   const intl = useIntl();
   return (
