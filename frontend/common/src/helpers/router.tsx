@@ -124,7 +124,8 @@ export const useRouter = (
         }
 
         // is authorization required for this route?
-        const authorizationRequired = route?.authorizedRoles;
+        const authorizedRoles = route?.authorizedRoles ?? [];
+        const authorizationRequired = authorizedRoles.length > 0;
 
         // if the user is not logged in then go to login page with "from" option to come back
         if (authorizationRequired && !isLoggedIn) {
@@ -136,11 +137,11 @@ export const useRouter = (
         let isAuthorized: boolean;
 
         // if there is a list of authorized roles required then let's see if the user is authorized
-        if (route?.authorizedRoles) {
+        if (authorizationRequired) {
           // the user is considered authorized if there are no roles needed or they have at least one of the required roles
           isAuthorized =
-            route.authorizedRoles.length === 0 ||
-            route.authorizedRoles.some((authorizedRole: Role) =>
+            authorizedRoles.length === 0 ||
+            authorizedRoles.some((authorizedRole: Role) =>
               loggedInUserRoles?.includes(authorizedRole),
             );
         } else {
@@ -150,10 +151,10 @@ export const useRouter = (
 
         // handling a component
         if (route?.component) {
-          if (authorizationRequired && !isAuthorized) {
-            setComponent(notAuthorizedComponent);
-          } else {
+          if (isAuthorized) {
             setComponent(route.component);
+          } else {
+            setComponent(notAuthorizedComponent);
           }
         }
         return null;
