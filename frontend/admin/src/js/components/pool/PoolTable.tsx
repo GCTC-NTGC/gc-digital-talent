@@ -77,6 +77,13 @@ export const PoolTable: React.FC<GetPoolsQuery & { editUrlRoot: string }> = ({
       },
       {
         Header: intl.formatMessage({
+          defaultMessage: "Status",
+          description: "Title displayed for the Pool table status column.",
+        }),
+        accessor: "status",
+      },
+      {
+        Header: intl.formatMessage({
           defaultMessage: "Edit",
           description: "Title displayed for the Pool table Edit column.",
         }),
