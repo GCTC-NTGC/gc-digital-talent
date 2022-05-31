@@ -5,7 +5,7 @@ import CardLink from "@common/components/CardLink";
 import PageHeader from "@common/components/PageHeader";
 import { useLocation } from "@common/helpers/router";
 import { getLocale } from "@common/helpers/localize";
-import { useApiRoutes } from "../../apiRoutes";
+import { useApiRoutes } from "@common/hooks/useApiRoutes";
 
 const HomePage: React.FC = () => {
   const intl = useIntl();

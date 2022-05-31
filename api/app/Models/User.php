@@ -163,19 +163,28 @@ class User extends Model implements Authenticatable
     }
 
     // Search filters
-    public function filterByPools(Builder $query, array $pools): Builder
+    public function filterByPools(Builder $query, array $poolCandidates): Builder
     {
-        if (empty($pools)) {
+        if (empty($poolCandidates)) {
             return $query;
         }
 
-        // Pool acts as an OR filter. The query should return candidates in ANY of the pools.
-        $query->whereExists(function ($query) use ($pools) {
+        // Pool acts as an OR filter. The query should return valid candidates in ANY of the pools.
+        $query->whereExists(function ($query) use ($poolCandidates) {
             $query->select('id')
                   ->from('pool_candidates')
                   ->whereColumn('pool_candidates.user_id', 'users.id')
-                  ->whereIn('pool_candidates.pool_id', $pools);
+                  ->whereIn('pool_candidates.pool_id', $poolCandidates['pools'])
+                  ->where(function ($query) use ($poolCandidates) {
+                    if ($poolCandidates['expiryStatus'] == ApiEnums::CANDIDATE_EXPIRY_FILTER_ACTIVE) {
+                        $query->whereDate('expiry_date', '>=', date("Y-m-d"))
+                              ->orWhereNull('expiry_date');
+                    } else if ($poolCandidates['expiryStatus'] == ApiEnums::CANDIDATE_EXPIRY_FILTER_EXPIRED) {
+                        $query->whereDate('expiry_date', '<', date("Y-m-d"));
+                    }
+                  });
         });
+
         return $query;
     }
     public function filterByLanguageAbility(Builder $query, ?string $languageAbility): Builder
