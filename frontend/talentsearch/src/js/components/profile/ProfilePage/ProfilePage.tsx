@@ -27,6 +27,7 @@ import {
 import { insertBetween, notEmpty } from "@common/helpers/util";
 import ExperienceSection from "@common/components/UserProfile/ExperienceSection";
 import { unpackMaybes } from "@common/helpers/formUtils";
+import LanguageInformationSection from "@common/components/UserProfile/ProfileSections/LanguageInformationSection";
 import TALENTSEARCH_APP_DIR from "../../../talentSearchConstants";
 import { useApplicantProfileRoutes } from "../../../applicantProfileRoutes";
 import {
@@ -39,7 +40,11 @@ import {
 import MyStatusApi from "../../myStatusForm/MyStatusForm";
 import CandidatePoolsSection from "./CandidatePoolsSection";
 import AboutMeSection from "./AboutMeSection";
-import LanguageInformationSection from "../../../../../../common/src/components/UserProfile/ProfileSections/LanguageInformationSection";
+import GovernmentInformationSection from "./GovernmentInformationSection";
+import WorkLocationSection from "./WorkLocationSection";
+import WorkPreferencesSection from "./WorkPreferencesSection";
+import { DiversityEquityInclusionForm } from "../../diversityEquityInclusion/DiversityEquityInclusionForm";
+import DiversityEquityInclusionSection from "./DiversityEquityInclusionSection";
 
 export interface ProfilePageProps {
   profileDataInput: User;
@@ -53,24 +58,7 @@ export function redText(msg: string) {
 export const ProfileForm: React.FC<ProfilePageProps> = ({
   profileDataInput,
 }) => {
-  const {
-    firstName,
-    lastName,
-    isGovEmployee,
-    govEmployeeType,
-    interestedInLaterOrSecondment,
-    currentClassification,
-    isWoman,
-    hasDisability,
-    isIndigenous,
-    isVisibleMinority,
-    locationPreferences,
-    locationExemptions,
-    acceptedOperationalRequirements,
-    wouldAcceptTemporary,
-    poolCandidates,
-    experiences,
-  } = profileDataInput;
+  const { firstName, lastName, poolCandidates, experiences } = profileDataInput;
 
   const intl = useIntl();
   const paths = useApplicantProfileRoutes();
@@ -82,30 +70,6 @@ export const ProfileForm: React.FC<ProfilePageProps> = ({
     personalUrl: (id: string) => paths.editExperience("personal", id),
     workUrl: (id: string) => paths.editExperience("work", id),
   };
-
-  // add link to Equity groups <a> tags around a message
-  function equityLinkText(msg: string) {
-    return <a href="/equity-groups">{msg}</a>;
-  }
-
-  // generate array of accepted operational requirements
-  const acceptedOperationalArray = acceptedOperationalRequirements
-    ? acceptedOperationalRequirements.map((opRequirement) => (
-        <li data-h2-font-weight="b(700)" key={opRequirement}>
-          {opRequirement
-            ? getOperationalRequirement(opRequirement).defaultMessage
-            : ""}
-        </li>
-      ))
-    : null;
-
-  // generate array of location preferences localized and formatted with spaces/commas
-  const regionPreferencesSquished = locationPreferences?.map((region) =>
-    region ? getWorkRegion(region).defaultMessage : "",
-  );
-  const regionPreferences = regionPreferencesSquished
-    ? insertBetween(", ", regionPreferencesSquished)
-    : "";
 
   return (
     <>
@@ -289,99 +253,10 @@ export const ProfileForm: React.FC<ProfilePageProps> = ({
                 })}
               </Link>
             </div>
-            <div
-              data-h2-bg-color="b(lightgray)"
-              data-h2-padding="b(all, m)"
-              data-h2-radius="b(s)"
-            >
-              <ul data-h2-padding="b(left, s)">
-                {isGovEmployee && (
-                  <>
-                    <li>
-                      {intl.formatMessage({
-                        defaultMessage:
-                          "Yes, I am a Government of Canada employee.",
-                        description:
-                          "Message to state user is employed by government",
-                      })}
-                    </li>
-                    {govEmployeeType && (
-                      <li>
-                        {govEmployeeType === GovEmployeeType.Student &&
-                          intl.formatMessage({
-                            defaultMessage: "I have a student position",
-                            description:
-                              "Message to state user is employed federally in a student position",
-                          })}
-                        {govEmployeeType === GovEmployeeType.Casual &&
-                          intl.formatMessage({
-                            defaultMessage: "I have a casual position",
-                            description:
-                              "Message to state user is employed federally in a casual position",
-                          })}
-                        {govEmployeeType === GovEmployeeType.Term &&
-                          intl.formatMessage({
-                            defaultMessage: "I have a term position",
-                            description:
-                              "Message to state user is employed federally in a term position",
-                          })}
-                        {govEmployeeType === GovEmployeeType.Indeterminate &&
-                          intl.formatMessage({
-                            defaultMessage: "I have an indeterminate position",
-                            description:
-                              "Message to state user is employed federally in an indeterminate position",
-                          })}
-                      </li>
-                    )}
-                    {interestedInLaterOrSecondment && (
-                      <li>
-                        {intl.formatMessage({
-                          defaultMessage:
-                            "I am interested in lateral deployment or secondment.",
-                          description:
-                            "Message to state user is interested in lateral deployment or secondment",
-                        })}
-                      </li>
-                    )}
-                    {!!currentClassification?.group &&
-                      !!currentClassification?.level && (
-                        <li>
-                          {" "}
-                          {intl.formatMessage({
-                            defaultMessage: "Current group and classification:",
-                            description:
-                              "Field label before government employment group and level, followed by colon",
-                          })}{" "}
-                          <span data-h2-font-weight="b(700)">
-                            {currentClassification?.group}-
-                            {currentClassification?.level}
-                          </span>
-                        </li>
-                      )}
-                  </>
-                )}
-                {isGovEmployee === null && (
-                  <li>
-                    {intl.formatMessage({
-                      defaultMessage:
-                        "You haven't added any information here yet.",
-                      description:
-                        "Message for when no data exists for the section",
-                    })}
-                  </li>
-                )}
-                {isGovEmployee === false && (
-                  <li>
-                    {intl.formatMessage({
-                      defaultMessage:
-                        "You are not entered as a current government employee",
-                      description:
-                        "Message indicating the user is not marked in the system as being federally employed currently",
-                    })}
-                  </li>
-                )}
-              </ul>
-            </div>
+            <GovernmentInformationSection
+              applicant={profileDataInput}
+              editPath={paths.languageInformation()}
+            />
           </TableOfContents.Section>
           <TableOfContents.Section id="work-location-section">
             <div style={{ display: "flex", alignItems: "baseline" }}>
@@ -408,62 +283,10 @@ export const ProfileForm: React.FC<ProfilePageProps> = ({
                 })}
               </Link>
             </div>
-            <div
-              data-h2-bg-color="b(lightgray)"
-              data-h2-padding="b(all, m)"
-              data-h2-radius="b(s)"
-            >
-              {!!locationPreferences && !!locationPreferences.length && (
-                <p>
-                  {intl.formatMessage({
-                    defaultMessage: "Work location:",
-                    description: "Work Location label, followed by colon",
-                  })}{" "}
-                  <span data-h2-font-weight="b(700)">{regionPreferences}</span>
-                </p>
-              )}
-              {!!locationExemptions && (
-                <p>
-                  {intl.formatMessage({
-                    defaultMessage: "Location exemptions:",
-                    description: "Location Exemptions label, followed by colon",
-                  })}{" "}
-                  <span data-h2-font-weight="b(700)">{locationExemptions}</span>
-                </p>
-              )}
-              {!locationPreferences && !locationExemptions && (
-                <p>
-                  {intl.formatMessage({
-                    defaultMessage:
-                      "You haven't added any information here yet.",
-                    description:
-                      "Message for when no data exists for the section",
-                  })}
-                </p>
-              )}
-              {(!locationPreferences || !locationPreferences.length) && (
-                <p>
-                  {intl.formatMessage(
-                    {
-                      defaultMessage:
-                        "There are <redText>required</redText> fields missing.",
-                      description:
-                        "Message that there are required fields missing. Please ignore things in <> tags.",
-                    },
-                    {
-                      redText,
-                    },
-                  )}{" "}
-                  <a href={paths.workLocation()}>
-                    {intl.formatMessage({
-                      defaultMessage: "Click here to get started.",
-                      description:
-                        "Message to click on the words to begin something",
-                    })}
-                  </a>
-                </p>
-              )}
-            </div>
+            <WorkLocationSection
+              applicant={profileDataInput}
+              editPath={paths.workLocation()}
+            />
           </TableOfContents.Section>
           <TableOfContents.Section id="work-preferences-section">
             <div style={{ display: "flex", alignItems: "baseline" }}>
@@ -490,88 +313,10 @@ export const ProfileForm: React.FC<ProfilePageProps> = ({
                 })}
               </Link>
             </div>
-            <div
-              data-h2-bg-color="b(lightgray)"
-              data-h2-padding="b(all, m)"
-              data-h2-radius="b(s)"
-            >
-              {wouldAcceptTemporary !== null && (
-                <p>
-                  {intl.formatMessage({
-                    defaultMessage:
-                      "I would consider accepting a job that lasts for:",
-                    description:
-                      "Label for what length of position user prefers, followed by colon",
-                  })}{" "}
-                </p>
-              )}
-              {wouldAcceptTemporary && (
-                <ul data-h2-padding="b(left, l)">
-                  <li data-h2-font-weight="b(700)">
-                    {intl.formatMessage({
-                      defaultMessage:
-                        "Any duration (short, long term, or indeterminate duration)",
-                      description:
-                        "Duration of any length is good, specified three example lengths",
-                    })}
-                  </li>
-                </ul>
-              )}
-              {wouldAcceptTemporary === false && (
-                <ul data-h2-padding="b(left, l)">
-                  <li data-h2-font-weight="b(700)">
-                    {intl.formatMessage({
-                      defaultMessage: "Permanent duration",
-                      description: "Permanent duration only",
-                    })}{" "}
-                  </li>
-                </ul>
-              )}
-
-              {acceptedOperationalArray !== null &&
-                acceptedOperationalArray.length > 0 && (
-                  <p>
-                    {intl.formatMessage({
-                      defaultMessage: "I would consider accepting a job that:",
-                      description:
-                        "Label for what conditions a user will accept, followed by a colon",
-                    })}
-                  </p>
-                )}
-              <ul data-h2-padding="b(left, l)">{acceptedOperationalArray}</ul>
-              {wouldAcceptTemporary === null && (
-                <p>
-                  {intl.formatMessage({
-                    defaultMessage:
-                      "You haven't added any information here yet.",
-                    description:
-                      "Message for when no data exists for the section",
-                  })}
-                </p>
-              )}
-              {wouldAcceptTemporary === null && (
-                <p>
-                  {intl.formatMessage(
-                    {
-                      defaultMessage:
-                        "There are <redText>required</redText> fields missing.",
-                      description:
-                        "Message that there are required fields missing. Please ignore things in <> tags.",
-                    },
-                    {
-                      redText,
-                    },
-                  )}{" "}
-                  <a href={paths.workPreferences()}>
-                    {intl.formatMessage({
-                      defaultMessage: "Click here to get started.",
-                      description:
-                        "Message to click on the words to begin something",
-                    })}
-                  </a>
-                </p>
-              )}
-            </div>
+            <WorkPreferencesSection
+              applicant={profileDataInput}
+              editPath={paths.workPreferences()}
+            />
           </TableOfContents.Section>
           <TableOfContents.Section id="diversity-section">
             <div style={{ display: "flex", alignItems: "baseline" }}>
@@ -599,64 +344,10 @@ export const ProfileForm: React.FC<ProfilePageProps> = ({
                 })}
               </Link>
             </div>
-            <div
-              data-h2-bg-color="b(lightgray)"
-              data-h2-padding="b(all, m)"
-              data-h2-radius="b(s)"
-            >
-              {!isWoman &&
-                !isIndigenous &&
-                !isVisibleMinority &&
-                !hasDisability && (
-                  <p>
-                    {intl.formatMessage(
-                      {
-                        defaultMessage:
-                          "You have not identified as a member of any <equityLinkText>employment equity groups.</equityLinkText>",
-                        description:
-                          "Message indicating the user has not been marked as part of an equity group, Ignore things in <> please.",
-                      },
-                      { equityLinkText },
-                    )}
-                  </p>
-                )}
-              {(isWoman ||
-                isIndigenous ||
-                isVisibleMinority ||
-                hasDisability) && (
-                <div>
-                  <p>
-                    {intl.formatMessage({
-                      defaultMessage: "I identify as:",
-                      description:
-                        "Label preceding what groups the user identifies as part of, followed by a colon",
-                    })}{" "}
-                  </p>{" "}
-                  <ul data-h2-padding="b(left, l)">
-                    {isWoman && (
-                      <li data-h2-font-weight="b(700)">
-                        {womanLocalized.defaultMessage}
-                      </li>
-                    )}{" "}
-                    {isIndigenous && (
-                      <li data-h2-font-weight="b(700)">
-                        {indigenousLocalized.defaultMessage}
-                      </li>
-                    )}{" "}
-                    {isVisibleMinority && (
-                      <li data-h2-font-weight="b(700)">
-                        {minorityLocalized.defaultMessage}
-                      </li>
-                    )}{" "}
-                    {hasDisability && (
-                      <li data-h2-font-weight="b(700)">
-                        {disabilityLocalized.defaultMessage}
-                      </li>
-                    )}
-                  </ul>
-                </div>
-              )}
-            </div>
+            <DiversityEquityInclusionSection
+              applicant={profileDataInput}
+              editPath={paths.diversityEquityInclusion()}
+            />
           </TableOfContents.Section>
           <TableOfContents.Section
             id="skills-section"
