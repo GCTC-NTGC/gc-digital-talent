@@ -5,8 +5,9 @@ import fromPairs from "lodash/fromPairs";
 import toPairs from "lodash/toPairs";
 import path from "path-browserify";
 import { useIntl } from "react-intl";
+import { AuthenticationContext } from "../components/Auth";
 import { Role } from "../api/generated";
-import { PossibleUserRoles } from "../components/Auth/AuthorizationContainer";
+import { AuthorizationContext } from "../components/Auth/AuthorizationContainer";
 import { useApiRoutes } from "../hooks/useApiRoutes";
 import { getLocale } from "./localize";
 
@@ -101,8 +102,6 @@ export const useRouter = (
   routes: Routes<RouterResult>,
   missingRouteComponent: ReactElement,
   notAuthorizedComponent: ReactElement,
-  isLoggedIn: boolean,
-  loggedInUserRoles: PossibleUserRoles,
 ): React.ReactElement | null => {
   const location = useLocation();
   const router = useMemo(() => new UniversalRouter(routes), [routes]);
@@ -110,6 +109,8 @@ export const useRouter = (
   const pathName = location.pathname;
   const apiRoutes = useApiRoutes();
   const locale = getLocale(useIntl());
+  const { loggedIn } = React.useContext(AuthenticationContext);
+  const { loggedInUserRoles } = React.useContext(AuthorizationContext);
   // Render the result of routing
   useEffect((): void => {
     router
@@ -128,7 +129,7 @@ export const useRouter = (
         const authorizationRequired = authorizedRoles.length > 0;
 
         // if the user is not logged in then go to login page with "from" option to come back
-        if (authorizationRequired && !isLoggedIn) {
+        if (authorizationRequired && !loggedIn) {
           window.location.href = apiRoutes.login(pathName, locale);
           return null; // we're leaving the site - don't try to route any further
         }
@@ -164,7 +165,7 @@ export const useRouter = (
       });
   }, [
     apiRoutes,
-    isLoggedIn,
+    loggedIn,
     locale,
     loggedInUserRoles,
     missingRouteComponent,

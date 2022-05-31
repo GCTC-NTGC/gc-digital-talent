@@ -10,7 +10,6 @@ import useIsSmallScreen from "@common/hooks/useIsSmallScreen";
 import { SideMenuContentWrapper } from "@common/components/SideMenu";
 
 import { MenuIcon } from "@heroicons/react/outline";
-import { PossibleUserRoles } from "@common/components/Auth/AuthorizationContainer";
 import NotAuthorized from "@common/components/NotAuthorized";
 import AdminSideMenu from "../menu/AdminSideMenu";
 import { ADMIN_APP_DIR } from "../../adminConstants";
@@ -90,15 +89,9 @@ const OpenMenuButton: React.FC<OpenMenuButtonProps> = ({
 
 interface DashboardProps {
   contentRoutes: Routes<RouterResult>;
-  loggedIn: boolean;
-  loggedInUserRoles: PossibleUserRoles;
 }
 
-const Dashboard: React.FC<DashboardProps> = ({
-  contentRoutes,
-  loggedIn,
-  loggedInUserRoles,
-}) => {
+const Dashboard: React.FC<DashboardProps> = ({ contentRoutes }) => {
   const isSmallScreen = useIsSmallScreen();
   const [isMenuOpen, setMenuOpen] = React.useState(!isSmallScreen);
   const intl = useIntl();
@@ -109,8 +102,6 @@ const Dashboard: React.FC<DashboardProps> = ({
     contentRoutes,
     notFoundComponent.current,
     notAuthorizedComponent.current,
-    loggedIn,
-    loggedInUserRoles,
   );
 
   const handleMenuToggle = () => {
