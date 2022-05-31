@@ -989,7 +989,7 @@ input UpdatePoolInput {
   essentialCriteria: CmoAssetBelongsToMany
   operationalRequirements: [OperationalRequirement]
   keyTasks: LocalizedStringInput
-  status: PoolStatus = NOT_TAKING_APPLICATIONS
+  status: PoolStatus
 }
 
 input UpdateSkillFamilyInput {

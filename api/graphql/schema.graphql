@@ -871,7 +871,7 @@ input UpdatePoolInput {
     essentialCriteria: CmoAssetBelongsToMany
     operationalRequirements: [OperationalRequirement] @rename(attribute: "operational_requirements")
     keyTasks: LocalizedStringInput @rename(attribute: "key_tasks")
-    status: PoolStatus = NOT_TAKING_APPLICATIONS @rename(attribute: "pool_status")
+    status: PoolStatus @rename(attribute: "pool_status")
 }
 
 input CreateDepartmentInput {
