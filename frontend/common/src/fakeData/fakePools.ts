@@ -5,6 +5,7 @@ import {
   Pool,
   User,
   UserPublicProfile,
+  PoolStatus,
 } from "../api/generated";
 import fakeUsers from "./fakeUsers";
 import fakeClassifications from "./fakeClassifications";
@@ -36,6 +37,11 @@ const generatePool = (
     },
     classifications:
       faker.helpers.arrayElements<Classification>(classifications),
+    keyTasks: {
+      en: `EN ${faker.lorem.paragraph()}`,
+      fr: `FR ${faker.lorem.paragraph()}`,
+    },
+    status: faker.helpers.arrayElement<PoolStatus>(Object.values(PoolStatus)),
   };
 };
 
