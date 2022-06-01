@@ -2,9 +2,9 @@ import React from "react";
 
 import { AuthenticationContainer } from "@common/components/Auth";
 
+import { useApiRoutes } from "@common/hooks/useApiRoutes";
 import { LOGOUT_URI, POST_LOGOUT_REDIRECT } from "../../adminConstants";
 import { useAdminRoutes } from "../../adminRoutes";
-import { useApiRoutes } from "../../apiRoutes";
 
 const AuthenticationProvider: React.FC = ({ children }) => {
   const adminPaths = useAdminRoutes();

@@ -4,6 +4,12 @@ import React, { useState, useEffect, useMemo, ReactElement } from "react";
 import fromPairs from "lodash/fromPairs";
 import toPairs from "lodash/toPairs";
 import path from "path-browserify";
+import { useIntl } from "react-intl";
+import { AuthenticationContext } from "../components/Auth";
+import { Role } from "../api/generated";
+import { AuthorizationContext } from "../components/Auth/AuthorizationContainer";
+import { useApiRoutes } from "../hooks/useApiRoutes";
+import { getLocale } from "./localize";
 
 export const HISTORY = createBrowserHistory();
 
@@ -87,35 +93,86 @@ export const pushToStateThenNavigate = (url: string, state: State): void => {
 };
 
 export interface RouterResult {
-  component: ReactElement;
+  component?: ReactElement;
   redirect?: string;
+  authorizedRoles?: Array<Role>;
 }
 
 export const useRouter = (
   routes: Routes<RouterResult>,
   missingRouteComponent: ReactElement,
+  notAuthorizedComponent: ReactElement,
 ): React.ReactElement | null => {
   const location = useLocation();
   const router = useMemo(() => new UniversalRouter(routes), [routes]);
   const [component, setComponent] = useState<React.ReactElement | null>(null);
   const pathName = location.pathname;
+  const apiRoutes = useApiRoutes();
+  const locale = getLocale(useIntl());
+  const { loggedIn } = React.useContext(AuthenticationContext);
+  const { loggedInUserRoles } = React.useContext(AuthorizationContext);
   // Render the result of routing
   useEffect((): void => {
     router
       .resolve(pathName)
-      .then(async (r) => {
-        // r may or may not be a promise, so attempt to resolve it. A non-promise value will simply resolve to itself.
-        const result = await Promise.resolve(r);
-        if (result?.redirect) {
-          redirect(result.redirect);
-        } else if (result) {
-          setComponent(result.component);
+      .then(async (routeMaybePromise) => {
+        // may or may not be a promise, so attempt to resolve it. A non-promise value will simply resolve to itself.
+        const route = await Promise.resolve(routeMaybePromise);
+
+        // handling a redirect
+        if (route?.redirect) {
+          redirect(route.redirect);
         }
+
+        // is authorization required for this route?
+        const authorizedRoles = route?.authorizedRoles ?? [];
+        const authorizationRequired = authorizedRoles.length > 0;
+
+        // if the user is not logged in then go to login page with "from" option to come back
+        if (authorizationRequired && !loggedIn) {
+          window.location.href = apiRoutes.login(pathName, locale);
+          return null; // we're leaving the site - don't try to route any further
+        }
+
+        // is the user authorized for this route?
+        let isAuthorized: boolean;
+
+        // if there is a list of authorized roles required then let's see if the user is authorized
+        if (authorizationRequired) {
+          // the user is considered authorized if there are no roles needed or they have at least one of the required roles
+          isAuthorized =
+            authorizedRoles.length === 0 ||
+            authorizedRoles.some((authorizedRole: Role) =>
+              loggedInUserRoles?.includes(authorizedRole),
+            );
+        } else {
+          // if no authorized roles are specified then the user is authorized by default
+          isAuthorized = true;
+        }
+
+        // handling a component
+        if (route?.component) {
+          if (isAuthorized) {
+            setComponent(route.component);
+          } else {
+            setComponent(notAuthorizedComponent);
+          }
+        }
+        return null;
       })
       .catch(async () => {
         setComponent(missingRouteComponent);
       });
-  }, [missingRouteComponent, pathName, router]);
+  }, [
+    apiRoutes,
+    loggedIn,
+    locale,
+    loggedInUserRoles,
+    missingRouteComponent,
+    notAuthorizedComponent,
+    pathName,
+    router,
+  ]);
 
   return component;
 };

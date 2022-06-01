@@ -523,6 +523,17 @@ input PoolFilterInput {
     id: ID!
 }
 
+enum CANDIDATE_EXPIRY_FILTER {
+    ACTIVE
+    EXPIRED
+    ALL
+}
+
+input UserPoolFilterInput {
+    pools: [ID!]!
+    expiryStatus: CANDIDATE_EXPIRY_FILTER = ACTIVE
+}
+
 input PoolCandidateFilterInput {
     classifications: [ClassificationFilterInput] @builder(method: "App\\Models\\PoolCandidate@filterByClassifications")
     cmoAssets: [KeyFilterInput] @builder(method: "App\\Models\\PoolCandidate@filterByCmoAssets")
@@ -538,7 +549,7 @@ input PoolCandidateFilterInput {
 }
 
 input UserFilterAndOrderInput {
-    pools: [ID] @builder(method: "App\\Models\\User@filterByPools")
+    poolCandidates: UserPoolFilterInput @builder(method: "App\\Models\\User@filterByPools")
     languageAbility: LanguageAbility @builder(method: "App\\Models\\User@filterByLanguageAbility")
     expectedClassifications: [ClassificationFilterInput] @builder(method: "App\\Models\\User@filterByClassifications")
     operationalRequirements: [OperationalRequirement] @builder(method: "App\\Models\\User@filterByOperationalRequirements")
@@ -563,11 +574,11 @@ type Query {
     poolByKey(key: String! @eq): Pool @find
     pools: [Pool]! @all
     poolCandidate(id: ID! @eq): PoolCandidate @find @guard @can(ability: "view", query: true)
-    poolCandidates: [PoolCandidate]! @all @guard @can(ability: "viewAny")
+    poolCandidates: [PoolCandidate]! @all(scopes: ["expiryFilter"]) @guard @can(ability: "viewAny")
     # countPoolCandidates returns the number of candidates matching its filters, and requires no special permissions.
-    countPoolCandidates(where: PoolCandidateFilterInput): Int! @count(model: "PoolCandidate")
+    countPoolCandidates(where: PoolCandidateFilterInput): Int! @count(model: "PoolCandidate" scopes: ["expiryFilter"])
     # searchPoolCandidates returns the actual candidates matching a filter, and requires permissions.
-    searchPoolCandidates(where: PoolCandidateFilterInput): [PoolCandidate]! @all @guard @can(ability: "viewAny")
+    searchPoolCandidates(where: PoolCandidateFilterInput, expiryStatus: CANDIDATE_EXPIRY_FILTER): [PoolCandidate]! @all(scopes: ["expiryFilter"]) @guard @can(ability: "viewAny")
     classification(id: ID! @eq): Classification @find
     classifications: [Classification]! @all
     cmoAsset(id: ID! @eq): CmoAsset @find

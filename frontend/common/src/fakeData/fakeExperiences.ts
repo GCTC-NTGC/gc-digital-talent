@@ -59,6 +59,11 @@ const sampleSkill2: Skill = {
   experienceSkillRecord: theExperienceSkillRecord,
 };
 
+const staticDates = {
+  start: new Date("October 24, 1992").toDateString(),
+  end: new Date("October 23, 1993").toDateString(),
+};
+
 // 5 generators to generate experiences of a certain type
 // actual generators start here
 const generateAward = (): AwardExperience => {
@@ -86,7 +91,7 @@ const generateAward = (): AwardExperience => {
       AwardedScope.Provincial,
       AwardedScope.SubOrganizational,
     ]),
-    awardedDate: faker.date.past().toString().slice(0, 15),
+    awardedDate: staticDates.start,
     issuedBy: faker.company.companyName(),
     experienceSkillRecord: {
       details: faker.random.words(),
@@ -105,8 +110,8 @@ const generateCommunity = (): CommunityExperience => {
     title: faker.lorem.word(),
     organization: faker.company.companyName(),
     project: faker.lorem.word(),
-    startDate: faker.date.recent().toString().slice(0, 15),
-    endDate: faker.date.future().toString().slice(0, 15),
+    startDate: staticDates.start,
+    endDate: staticDates.end,
     experienceSkillRecord: {
       details: faker.random.words(),
     },
@@ -140,8 +145,8 @@ const generateEducation = (): EducationExperience => {
       EducationStatus.SuccessCredential,
       EducationStatus.SuccessNoCredential,
     ]),
-    startDate: faker.date.recent().toString().slice(0, 15),
-    endDate: faker.date.future().toString().slice(0, 15),
+    startDate: staticDates.start,
+    endDate: staticDates.end,
     thesisTitle: faker.random.words(),
     experienceSkillRecord: {
       details: faker.random.words(),
@@ -158,8 +163,8 @@ const generatePersonal = (): PersonalExperience => {
     skills: [sampleSkill1],
     details: faker.lorem.sentence(),
     title: faker.name.jobTitle(),
-    startDate: faker.date.recent().toString().slice(0, 15),
-    endDate: faker.date.future().toString().slice(0, 15),
+    startDate: staticDates.start,
+    endDate: staticDates.end,
     description: faker.lorem.paragraph(),
     experienceSkillRecord: {
       details: faker.random.words(),
@@ -178,8 +183,8 @@ const generateWork = (): WorkExperience => {
     organization: faker.company.companyName(),
     role: faker.name.jobTitle(),
     division: faker.animal.bird(),
-    startDate: faker.date.past().toString().slice(0, 15),
-    endDate: faker.date.soon().toString().slice(0, 15),
+    startDate: staticDates.start,
+    endDate: staticDates.end,
     experienceSkillRecord: {
       details: faker.random.words(),
     },

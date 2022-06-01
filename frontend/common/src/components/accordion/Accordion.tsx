@@ -61,9 +61,9 @@ const Accordion: React.FC<AccordionProps> = ({
         >
           <span>
             {isOpen ? (
-              <ChevronDownIcon height="1.5rem" />
+              <ChevronDownIcon style={{ width: "1.5rem" }} />
             ) : (
-              <ChevronRightIcon height="1.5rem" />
+              <ChevronRightIcon style={{ width: "1.5rem" }} />
             )}
           </span>
           <div data-h2-flex-item="b(auto)" data-h2-text-align="b(left)">
@@ -87,7 +87,7 @@ const Accordion: React.FC<AccordionProps> = ({
             <p data-h2-font-size="b(normal)">{context}</p>
             {!simple && (
               <span className="icon" data-h2-margin="b(left, xs)">
-                {Icon && <Icon height="1.5rem" width="1.5rem" />}
+                {Icon && <Icon style={{ width: "1.5rem", height: "1.5rem" }} />}
               </span>
             )}
           </div>

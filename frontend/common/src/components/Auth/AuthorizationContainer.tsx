@@ -1,7 +1,7 @@
 import React from "react";
 import { Role } from "../../api/generated";
 
-type PossibleUserRoles = (Role | null | undefined)[] | null | undefined;
+export type PossibleUserRoles = (Role | null | undefined)[] | null | undefined;
 
 interface AuthorizationState {
   loggedInUserRoles: PossibleUserRoles;
