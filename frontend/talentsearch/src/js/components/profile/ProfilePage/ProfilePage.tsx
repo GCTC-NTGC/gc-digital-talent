@@ -60,14 +60,24 @@ export const ProfileForm: React.FC<ProfilePageProps> = ({
         sections={{
           myStatus: { isVisible: true, override: <MyStatusApi /> },
           hiringPools: { isVisible: true },
-          about: { isVisible: true },
-          language: { isVisible: true },
-          government: { isVisible: true },
-          workLocation: { isVisible: true },
-          workPreferences: { isVisible: true },
-          employmentEquity: { isVisible: true },
+          about: { isVisible: true, editUrl: paths.aboutMe() },
+          language: { isVisible: true, editUrl: paths.languageInformation() },
+          government: {
+            isVisible: true,
+            editUrl: paths.governmentInformation(),
+          },
+          workLocation: { isVisible: true, editUrl: paths.workLocation() },
+          workPreferences: {
+            isVisible: true,
+            editUrl: paths.workPreferences(),
+          },
+          employmentEquity: {
+            isVisible: true,
+            editUrl: paths.diversityEquityInclusion(),
+          },
           skillsExperience: {
             isVisible: true,
+            editUrl: paths.skillsAndExperiences(),
             override: (
               <ExperienceSection
                 experiences={experiences?.filter(notEmpty)}
