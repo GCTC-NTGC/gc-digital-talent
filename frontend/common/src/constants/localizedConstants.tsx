@@ -648,11 +648,11 @@ export const getProvinceOrTerritory = (
 
 export const poolStatus = defineMessages({
   [PoolStatus.NotTakingApplications]: {
-    defaultMessage: "NOT_TAKING_APPLICATIONS",
+    defaultMessage: "Not taking applications",
     description: "Pool Status described as not taking applications.",
   },
   [PoolStatus.TakingApplications]: {
-    defaultMessage: "TAKING_APPLICATIONS",
+    defaultMessage: "Taking applications",
     description: "Pool Status described as taking applications.",
   },
 });
