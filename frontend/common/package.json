@@ -16,7 +16,7 @@
     "h2-compile": "h2-compile",
     "h2-watch": "h2-watch",
     "h2-build": "h2-build",
-    "intl-extract": "formatjs extract ./src/**/*.{ts,tsx} --ignore ./**/*.d.ts --out-file src/lang/en.json --id-interpolation-pattern [sha512:contenthash:base64:6]",
+    "intl-extract": "formatjs extract './src/**/*.{ts,tsx}' --ignore './**/*.d.ts' --out-file src/lang/en.json --id-interpolation-pattern [sha512:contenthash:base64:6]",
     "intl-compile": "formatjs compile src/lang/fr.json --out-file src/lang/frCompiled.json",
     "check-intl-common": "node ./src/tooling/checkIntl.js --en src/lang/en.json --fr src/lang/fr.json --rm-orphaned --output-untranslated src/lang/untranslated.json --whitelist src/lang/whitelist.json",
     "check-intl-common-merge": "node src/tooling/checkIntl.js --en src/lang/en.json --fr src/lang/fr.json --rm-orphaned --output-untranslated src/lang/untranslated.json --whitelist src/lang/whitelist.json --merge-fr src/lang/newTranslations.json",
