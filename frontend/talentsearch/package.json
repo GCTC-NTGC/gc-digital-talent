@@ -33,7 +33,7 @@
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
     "codegen": "graphql-codegen",
-    "intl-extract": "formatjs extract ./src/js/**/*.{ts,tsx} --ignore ./**/*.d.ts --out-file src/js/lang/en.json --id-interpolation-pattern [sha512:contenthash:base64:6]",
+    "intl-extract": "formatjs extract './src/js/**/*.{ts,tsx}' --ignore './**/*.d.ts' --out-file src/js/lang/en.json --id-interpolation-pattern [sha512:contenthash:base64:6]",
     "intl-compile": "formatjs compile ./src/js/lang/fr.json --out-file ./src/js/lang/frCompiled.json",
     "test": "jest",
     "test:watch": "jest --watch"
