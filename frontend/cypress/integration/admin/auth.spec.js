@@ -1,6 +1,19 @@
 import { aliasQuery } from '../../support/graphql-test-utils'
 
 describe('Auth flows (development)', () => {
+  // Helpers
+  const onAuthLoginPage = () => {
+    cy.url().should('contain', Cypress.config().authServerRoot + '/authorize')
+  }
+
+  const loginViaUI = (role) => {
+    cy.fixture('users.json').then(users => {
+      const user = users['admin']
+      cy.get('input[name=username]').type(user.email)
+    })
+    cy.findByText('Sign-in').click()
+  }
+
   // Prepare to intercept/detect relevant GraphQL requests.
   beforeEach(() => {
     cy.intercept('POST', '/graphql', (req) => {
@@ -13,18 +26,7 @@ describe('Auth flows (development)', () => {
 
   context('Anonymous visitor', () => {
 
-    it('prevents viewing content on restricted pages', () => {
-      const onRestrictedPage = () => {
-        sideMenuLoaded()
-        // Don't be picky about heading size.
-        cy.findByRole('heading', { name: /not authorized/ })
-          .should('exist').and('be.visible')
-      }
-
-      const sideMenuLoaded = () => {
-        cy.wait('@gqlgetMeQuery')
-      }
-
+    it('redirects restricted pages to login', () => {
       [
         '/en/admin/dashboard',
         '/en/admin/skills',
@@ -38,8 +40,9 @@ describe('Auth flows (development)', () => {
         '/en/admin/skills',
       ].forEach(restrictedPath => {
         cy.visit(restrictedPath)
-        onRestrictedPage()
+        onAuthLoginPage()
       })
+
     })
 
     it('redirects app login page to auth login page', () => {
@@ -79,13 +82,9 @@ describe('Auth flows (development)', () => {
     it.skip('should fail if the state value is tampered with', () => {
     })
 
-    // Visiting the mock auth server requires violating same-origin security
-    // policies that Cypress isn't intended to do, and so this test will fail
-    // (except under special conditions that we don't run by default)
-    // Requires chromeWebSecurity:false (See main README)
     it('succeeds for an existing admin user', () => {
-      const initialPath = '/en/admin/skills'
-      cy.visit(initialPath)
+      cy.visit('/admin')
+      // Click login button.
       // Limit to nav because two login buttons on main page.
       cy.get('nav').within(() => {
         cy.findByRole('button', {name: 'Logout'})
@@ -94,22 +93,28 @@ describe('Auth flows (development)', () => {
           .should('exist').and('be.visible')
           .click()
       })
-      cy.url().should('contain', Cypress.config().authServerRoot + '/authorize')
 
-      cy.fixture('users.json').then(users => {
-        const user = users['admin']
-        cy.get('input[name=username]').type(user.email)
-      })
+      onAuthLoginPage()
+      loginViaUI()
 
-      cy.findByText('Sign-in').click()
-
-      cy.url().should('equal', Cypress.config().baseUrl + initialPath)
+      cy.url().should('equal', Cypress.config().baseUrl + '/en/admin/dashboard')
+      // Confirm login status via button state.
       cy.get('nav').within(() => {
         cy.findByRole('link', {name: 'Login'})
           .should('not.exist')
         cy.findByRole('button', {name: 'Logout'})
           .should('exist').and('be.visible')
       })
+    })
+
+    it('redirects back to referring page after login', () => {
+      const initialPath = '/en/admin/users'
+      cy.visit(initialPath)
+
+      onAuthLoginPage()
+      loginViaUI()
+
+      cy.url().should('equal', Cypress.config().baseUrl + initialPath)
     })
 
   })
