@@ -1,19 +1,21 @@
 import React from "react";
-import Accordion from "@common/components/accordion/Accordion";
 import BriefCaseIcon from "@heroicons/react/solid/BriefcaseIcon";
-import { Link } from "@common/components";
-import { EducationExperience } from "@common/api/generated";
+import { useIntl } from "react-intl";
+import Accordion from "../../../accordion/Accordion";
+import { Link } from "../../..";
+import { EducationExperience } from "../../../../api/generated";
 import {
   getEducationStatus,
   getEducationType,
-} from "@common/constants/localizedConstants";
-import { useIntl } from "react-intl";
-import { getLocale } from "@common/helpers/localize";
-import { getDateRange } from "@common/helpers/dateUtils";
-import { useApplicantProfileRoutes } from "../../../applicantProfileRoutes";
+} from "../../../../constants/localizedConstants";
+import { getLocale } from "../../../../helpers/localize";
+import { getDateRange } from "../../../../helpers/dateUtils";
 
-const EducationAccordion: React.FunctionComponent<EducationExperience> = ({
-  id,
+type EducationAccordionProps = EducationExperience & {
+  editUrl?: string; // A link to edit the experience will only appear if editUrl is defined.
+};
+
+const EducationAccordion: React.FunctionComponent<EducationAccordionProps> = ({
   areaOfStudy,
   institution,
   startDate,
@@ -23,11 +25,10 @@ const EducationAccordion: React.FunctionComponent<EducationExperience> = ({
   status,
   thesisTitle,
   skills,
+  editUrl,
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
-  const profilePaths = useApplicantProfileRoutes();
-  const editUrl = `${profilePaths.skillsAndExperiences()}/education/${id}/edit`;
 
   const skillsList = skills
     ? skills.map((skill, index) => (
@@ -106,14 +107,16 @@ const EducationAccordion: React.FunctionComponent<EducationExperience> = ({
           )}
         </p>
       </div>
-      <div data-h2-padding="b(left, l)">
-        <Link href={editUrl} color="primary" mode="outline" type="button">
-          {intl.formatMessage({
-            defaultMessage: "Edit Experience",
-            description: "Edit Experience button label",
-          })}
-        </Link>
-      </div>
+      {editUrl && (
+        <div data-h2-padding="b(left, l)">
+          <Link href={editUrl} color="primary" mode="outline" type="button">
+            {intl.formatMessage({
+              defaultMessage: "Edit Experience",
+              description: "Edit Experience button label",
+            })}
+          </Link>
+        </div>
+      )}
     </Accordion>
   );
 };

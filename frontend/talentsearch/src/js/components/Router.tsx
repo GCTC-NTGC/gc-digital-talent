@@ -142,6 +142,12 @@ const profileRoutes = (
       component: <ExperienceAndSkillsRouterApi />,
     }),
   },
+  {
+    path: profilePaths.profilePage(),
+    action: () => ({
+      component: <ProfilePage />,
+    }),
+  },
 ];
 
 const directIntakeRoutes = (

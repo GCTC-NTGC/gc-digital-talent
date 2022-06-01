@@ -1,7 +1,7 @@
 import React from "react";
 import { Meta, Story } from "@storybook/react";
-import { fakeSkills } from "@common/fakeData";
-import { generators as experienceGenerator } from "@common/fakeData/fakeExperiences";
+import { fakeSkills } from "../../../fakeData";
+import { generators as experienceGenerator } from "../../../fakeData/fakeExperiences";
 import SkillAccordion, { SkillAccordionProps } from "./SkillAccordion";
 
 const skill = fakeSkills()[0];

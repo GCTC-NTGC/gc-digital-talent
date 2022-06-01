@@ -1,27 +1,28 @@
 import React from "react";
-import Accordion from "@common/components/accordion/Accordion";
 import BriefCaseIcon from "@heroicons/react/solid/BriefcaseIcon";
-import { Link } from "@common/components";
-import { CommunityExperience } from "@common/api/generated";
 import { useIntl } from "react-intl";
-import { getLocale } from "@common/helpers/localize";
-import { getDateRange } from "@common/helpers/dateUtils";
-import { useApplicantProfileRoutes } from "../../../applicantProfileRoutes";
+import Accordion from "../../../accordion/Accordion";
+import { Link } from "../../..";
+import { getLocale } from "../../../../helpers/localize";
+import { getDateRange } from "../../../../helpers/dateUtils";
+import { WorkExperience } from "../../../../api/generated";
 
-const CommunityAccordion: React.FunctionComponent<CommunityExperience> = ({
-  id,
-  title,
+type WorkAccordionProps = WorkExperience & {
+  editUrl?: string; // A link to edit the experience will only appear if editUrl is defined.
+};
+
+const WorkAccordion: React.FunctionComponent<WorkAccordionProps> = ({
+  role,
   organization,
   startDate,
   endDate,
   details,
-  project,
+  division,
   skills,
+  editUrl,
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
-  const profilePaths = useApplicantProfileRoutes();
-  const editUrl = `${profilePaths.skillsAndExperiences()}/community/${id}/edit`;
 
   // create unordered list element of skills DOM Element
   const skillsList = skills
@@ -40,10 +41,10 @@ const CommunityAccordion: React.FunctionComponent<CommunityExperience> = ({
     <Accordion
       title={intl.formatMessage(
         {
-          defaultMessage: "{title} at {organization}",
-          description: "Title at organization",
+          defaultMessage: "{role} at {organization}",
+          description: "Role at organization",
         },
-        { title, organization },
+        { role, organization },
       )}
       subtitle={getDateRange({ endDate, startDate, intl, locale })}
       context={
@@ -62,18 +63,17 @@ const CommunityAccordion: React.FunctionComponent<CommunityExperience> = ({
       }
       Icon={BriefCaseIcon}
     >
-      {" "}
       <div data-h2-padding="b(left, l)">
         <p>
           {intl.formatMessage(
             {
-              defaultMessage: "{title} at {organization}",
-              description: "Title at organization",
+              defaultMessage: "{role} at {division}",
+              description: "Role at division",
             },
-            { title, organization },
+            { role, division },
           )}
         </p>
-        <p>{project}</p>
+        <p>{organization}</p>
       </div>
       <hr />
       <div data-h2-padding="b(left, l)">{skillsList}</div>
@@ -88,16 +88,18 @@ const CommunityAccordion: React.FunctionComponent<CommunityExperience> = ({
           )}
         </p>
       </div>
-      <div data-h2-padding="b(left, l)">
-        <Link href={editUrl} color="primary" mode="outline" type="button">
-          {intl.formatMessage({
-            defaultMessage: "Edit Experience",
-            description: "Edit Experience button label",
-          })}
-        </Link>
-      </div>
+      {editUrl && (
+        <div data-h2-padding="b(left, l)">
+          <Link href={editUrl} color="primary" mode="outline" type="button">
+            {intl.formatMessage({
+              defaultMessage: "Edit Experience",
+              description: "Edit Experience button label",
+            })}
+          </Link>
+        </div>
+      )}
     </Accordion>
   );
 };
 
-export default CommunityAccordion;
+export default WorkAccordion;
