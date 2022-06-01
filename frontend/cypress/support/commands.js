@@ -60,7 +60,10 @@ Cypress.Commands.add('login', (...args) => {
     case 2:
     default:
       [email, password] = args
-      loginByPassword(email, password)
+      // See: https://www.cypress.io/blog/2021/08/04/authenticate-faster-in-tests-cy-session-command/
+      cy.session([email, password], () => {
+        loginByPassword(email, password)
+      })
   }
 })
 
