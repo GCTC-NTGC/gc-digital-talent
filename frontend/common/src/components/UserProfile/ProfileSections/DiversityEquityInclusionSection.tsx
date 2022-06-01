@@ -18,8 +18,7 @@ const DiversityEquityInclusionSection: React.FunctionComponent<{
     Applicant,
     "isWoman" | "hasDisability" | "isIndigenous" | "isVisibleMinority"
   >;
-  editPath?: string;
-}> = ({ applicant, editPath }) => {
+}> = ({ applicant }) => {
   const intl = useIntl();
 
   const { isWoman, hasDisability, isIndigenous, isVisibleMinority } = applicant;

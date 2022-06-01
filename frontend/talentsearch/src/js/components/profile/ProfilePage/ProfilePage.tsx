@@ -1,39 +1,17 @@
 import React from "react";
-import {
-  BriefcaseIcon,
-  ChatAlt2Icon,
-  LibraryIcon,
-  LightBulbIcon,
-  LightningBoltIcon,
-  ThumbUpIcon,
-  UserCircleIcon,
-  UserGroupIcon,
-  UserIcon,
-} from "@heroicons/react/solid";
 import { useIntl } from "react-intl";
-import { Link } from "@common/components";
-import TableOfContents from "@common/components/TableOfContents";
 import commonMessages from "@common/messages/commonMessages";
 import { imageUrl } from "@common/helpers/router";
 import { notEmpty } from "@common/helpers/util";
 import ExperienceSection from "@common/components/UserProfile/ExperienceSection";
-import { unpackMaybes } from "@common/helpers/formUtils";
 
 import UserProfile from "@common/components/UserProfile";
-
-import AboutSection from "@common/components/UserProfile/ProfileSections/AboutSection";
-import LanguageInformationSection from "@common/components/UserProfile/ProfileSections/LanguageInformationSection";
-import GovernmentInformationSection from "@common/components/UserProfile/ProfileSections/GovernmentInformationSection";
-import WorkLocationSection from "@common/components/UserProfile/ProfileSections/WorkLocationSection";
-import WorkPreferencesSection from "@common/components/UserProfile/ProfileSections/WorkPreferencesSection";
-import DiversityEquityInclusionSection from "@common/components/UserProfile/ProfileSections/DiversityEquityInclusionSection";
 import type { Applicant } from "@common/api/generated";
+
+import MyStatusApi from "../../myStatusForm/MyStatusForm";
 import TALENTSEARCH_APP_DIR from "../../../talentSearchConstants";
 import { useApplicantProfileRoutes } from "../../../applicantProfileRoutes";
 import { useGetMeQuery, User, GetMeQuery } from "../../../api/generated";
-
-import MyStatusApi from "../../myStatusForm/MyStatusForm";
-import CandidatePoolsSection from "./CandidatePoolsSection";
 
 export interface ProfilePageProps {
   profileDataInput: User;
@@ -47,9 +25,7 @@ export function redText(msg: string) {
 export const ProfileForm: React.FC<ProfilePageProps> = ({
   profileDataInput,
 }) => {
-  const { firstName, lastName, poolCandidates, experiences } = profileDataInput;
-
-  const intl = useIntl();
+  const { firstName, lastName, experiences } = profileDataInput;
   const paths = useApplicantProfileRoutes();
 
   const experienceEditPaths = {

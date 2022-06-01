@@ -19,11 +19,11 @@ const AccordionTemplate: Story<AccordionProps> = (args) => {
 };
 
 const editPaths = {
-  awardUrl: (id: string) => "#",
-  communityUrl: (id: string) => "#",
-  educationUrl: (id: string) => "#",
-  personalUrl: (id: string) => "#",
-  workUrl: (id: string) => "#",
+  awardUrl: () => "#",
+  communityUrl: () => "#",
+  educationUrl: () => "#",
+  personalUrl: () => "#",
+  workUrl: () => "#",
 };
 
 export const AccordionAward = AccordionTemplate.bind({});

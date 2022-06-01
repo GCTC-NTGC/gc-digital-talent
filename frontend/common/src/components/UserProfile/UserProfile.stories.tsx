@@ -19,7 +19,6 @@ const TemplateUserProfile: Story<Applicant> = (args) => {
       applicant={args as Applicant}
       sections={{
         about: { isVisible: true },
-        adminAbout: { isVisible: true },
         language: { isVisible: true },
         government: { isVisible: true },
         workLocation: { isVisible: true },

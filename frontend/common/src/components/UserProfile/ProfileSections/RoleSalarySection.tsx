@@ -4,8 +4,7 @@ import { Applicant } from "../../../api/generated";
 
 const RoleSalarySection: React.FunctionComponent<{
   applicant: Pick<Applicant, "expectedSalary">;
-  editPath?: string;
-}> = ({ applicant, editPath }) => {
+}> = ({ applicant }) => {
   const intl = useIntl();
   const { expectedSalary } = applicant;
   // generate array of  expectedSalary
