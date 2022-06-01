@@ -153,6 +153,7 @@ const Home: React.FunctionComponent = () => {
             </div>
             <div
               className="program__content"
+              data-h2-bg-color="b(white)"
               data-h2-padding="m(right-left, m) l(right-left, xl)"
             >
               <Heading
