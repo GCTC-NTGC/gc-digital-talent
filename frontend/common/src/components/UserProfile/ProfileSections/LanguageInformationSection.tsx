@@ -175,7 +175,8 @@ const LanguageInformationSection: React.FunctionComponent<{
       {!lookingForEnglish &&
         !lookingForFrench &&
         !lookingForBilingual &&
-        !bilingualEvaluation && (
+        !bilingualEvaluation &&
+        editPath && (
           <p>
             {intl.formatMessage({
               defaultMessage: "You haven't added any information here yet.",
@@ -190,17 +191,18 @@ const LanguageInformationSection: React.FunctionComponent<{
               bilingualEvaluation === BilingualEvaluation.CompletedFrench) &&
               (!comprehensionLevel || !writtenLevel || !verbalLevel))))) && (
         <p>
-          {intl.formatMessage(
-            {
-              defaultMessage:
-                "There are <redText>required</redText> fields missing.",
-              description:
-                "Message that there are required fields missing. Please ignore things in <> tags.",
-            },
-            {
-              redText,
-            },
-          )}{" "}
+          {editPath &&
+            intl.formatMessage(
+              {
+                defaultMessage:
+                  "There are <redText>required</redText> fields missing.",
+                description:
+                  "Message that there are required fields missing. Please ignore things in <> tags.",
+              },
+              {
+                redText,
+              },
+            )}{" "}
           {editPath && (
             <a href={editPath}>
               {intl.formatMessage({

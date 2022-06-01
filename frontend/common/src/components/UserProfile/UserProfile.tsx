@@ -10,6 +10,7 @@ import {
   UserIcon,
 } from "@heroicons/react/outline";
 
+import { LibraryIcon } from "@heroicons/react/solid";
 import TableOfContents from "../TableOfContents";
 import LanguageInformationSection from "./ProfileSections/LanguageInformationSection";
 import GovernmentInformationSection from "./ProfileSections/GovernmentInformationSection";
@@ -23,7 +24,6 @@ import { notEmpty } from "../../helpers/util";
 import { Applicant } from "../../api/generated";
 import AboutSection from "./ProfileSections/AboutSection";
 import AdminAboutSection from "./ProfileSections/AdminAboutSection";
-import { LibraryIcon } from "@heroicons/react/solid";
 
 interface SectionControl {
   isVisible: boolean;
