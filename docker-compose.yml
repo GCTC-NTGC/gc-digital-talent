@@ -82,10 +82,8 @@ services:
       #   login form will be used.
       # - we match specifically for client_id `fake-development-client-key`,
       #   which must be set in `.env`.
-      # - for now, we set interactiveLogin:false, as we can assume that any
-      #   login is for the ADMIN user with `sub` of `admin@test.com`. When we
-      #   need to login with multiple users, we'll need to enabled
-      #   interativeLogin and un-hardcode the "sub" in the response.
+      # - we set interactiveLogin:true, for easy selection of any test user
+      #   (for which subject/sub will be something like `admin@test.com`).
       JSON_CONFIG_PATH: /app/conf/mock-oauth2-server.json
     volumes:
       - ./infrastructure/conf:/app/conf
