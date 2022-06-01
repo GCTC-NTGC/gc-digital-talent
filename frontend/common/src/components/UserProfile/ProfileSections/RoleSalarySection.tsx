@@ -1,7 +1,7 @@
-import { getSalaryRange } from "@common/constants";
 import React from "react";
 import { useIntl } from "react-intl";
 import { Applicant } from "../../../api/generated";
+import { getSalaryRange } from "../../../constants";
 
 const RoleSalarySection: React.FunctionComponent<{
   applicant: Pick<Applicant, "expectedSalary">;
