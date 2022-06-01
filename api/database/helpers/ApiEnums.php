@@ -60,4 +60,8 @@ class ApiEnums
             self::GOV_EMPLOYEE_TYPE_INDETERMINATE,
         ];
     }
+
+    const CANDIDATE_EXPIRY_FILTER_ACTIVE = 'ACTIVE';
+    const CANDIDATE_EXPIRY_FILTER_EXPIRED = 'EXPIRED';
+    const CANDIDATE_EXPIRY_FILTER_ALL = 'ALL';
 }

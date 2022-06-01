@@ -6,7 +6,7 @@ import { useLocation } from "@common/helpers/router";
 import { getLocale } from "@common/helpers/localize";
 
 import { AuthenticationContext } from "@common/components/Auth";
-import { useApiRoutes } from "../../apiRoutes";
+import { useApiRoutes } from "@common/hooks/useApiRoutes";
 
 const LoginOrLogout = () => {
   const intl = useIntl();

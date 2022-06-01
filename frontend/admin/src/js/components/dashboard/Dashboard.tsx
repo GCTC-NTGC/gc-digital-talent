@@ -10,6 +10,7 @@ import useIsSmallScreen from "@common/hooks/useIsSmallScreen";
 import { SideMenuContentWrapper } from "@common/components/SideMenu";
 
 import { MenuIcon } from "@heroicons/react/outline";
+import NotAuthorized from "@common/components/NotAuthorized";
 import AdminSideMenu from "../menu/AdminSideMenu";
 import { ADMIN_APP_DIR } from "../../adminConstants";
 
@@ -30,6 +31,28 @@ const AdminNotFound: React.FC = () => {
         })}
       </p>
     </NotFound>
+  );
+};
+
+const AdminNotAuthorized: React.FC = () => {
+  const intl = useIntl();
+  return (
+    <NotAuthorized
+      headingMessage={intl.formatMessage({
+        description:
+          "Heading for the message saying the page to view is not authorized.",
+        defaultMessage: "Sorry, you are not authorized to view this page.",
+      })}
+    >
+      <p>
+        {intl.formatMessage({
+          description:
+            "Detailed message saying the page to view is not authorized.",
+          defaultMessage:
+            "Oops, it looks like you've landed on a page that you are not authorized to view.",
+        })}
+      </p>
+    </NotAuthorized>
   );
 };
 
@@ -74,7 +97,12 @@ const Dashboard: React.FC<DashboardProps> = ({ contentRoutes }) => {
   const intl = useIntl();
   // stabilize component that will not change during life of app, avoid render loops in router
   const notFoundComponent = useRef(<AdminNotFound />);
-  const content = useRouter(contentRoutes, notFoundComponent.current);
+  const notAuthorizedComponent = useRef(<AdminNotAuthorized />);
+  const content = useRouter(
+    contentRoutes,
+    notFoundComponent.current,
+    notAuthorizedComponent.current,
+  );
 
   const handleMenuToggle = () => {
     setMenuOpen(!isMenuOpen);
