@@ -13,6 +13,7 @@ import {
   CreatePoolInput,
   OperationalRequirement,
   Pool,
+  PoolStatus,
   UpdatePoolInput,
   User,
   UserPublicProfile,
@@ -62,6 +63,11 @@ stories.add("Update Pool Form", () => {
       OperationalRequirement.DriversLicense,
       OperationalRequirement.OnCall,
     ],
+    keyTasks: {
+      en: "Pool Key Tasks",
+      fr: "Pool Key Tasks FR",
+    },
+    status: PoolStatus.NotTakingApplications,
   };
 
   return (

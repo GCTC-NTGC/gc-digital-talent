@@ -1,27 +1,30 @@
 import React from "react";
-import Accordion from "@common/components/accordion/Accordion";
-import BriefCaseIcon from "@heroicons/react/solid/BriefcaseIcon";
-import { Link } from "@common/components";
 import { useIntl } from "react-intl";
-import { getLocale } from "@common/helpers/localize";
-import { getDateRange } from "@common/helpers/dateUtils";
-import { PersonalExperience } from "../../../api/generated";
-import { useApplicantProfileRoutes } from "../../../applicantProfileRoutes";
+import BriefCaseIcon from "@heroicons/react/solid/BriefcaseIcon";
+import Accordion from "../../../accordion/Accordion";
+import { Link } from "../../..";
+import { CommunityExperience } from "../../../../api/generated";
+import { getLocale } from "../../../../helpers/localize";
+import { getDateRange } from "../../../../helpers/dateUtils";
 
-const PersonalAccordion: React.FunctionComponent<PersonalExperience> = ({
-  id,
+type CommunityAccordionProps = CommunityExperience & {
+  editUrl?: string; // A link to edit the experience will only appear if editUrl is defined.
+};
+
+const CommunityAccordion: React.FunctionComponent<CommunityAccordionProps> = ({
   title,
+  organization,
   startDate,
   endDate,
   details,
-  description,
+  project,
   skills,
+  editUrl,
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
-  const profilePaths = useApplicantProfileRoutes();
-  const editUrl = `${profilePaths.skillsAndExperiences()}/personal/${id}/edit`;
 
+  // create unordered list element of skills DOM Element
   const skillsList = skills
     ? skills.map((skill, index) => (
         // eslint-disable-next-line react/no-array-index-key
@@ -36,7 +39,13 @@ const PersonalAccordion: React.FunctionComponent<PersonalExperience> = ({
 
   return (
     <Accordion
-      title={title || ""}
+      title={intl.formatMessage(
+        {
+          defaultMessage: "{title} at {organization}",
+          description: "Title at organization",
+        },
+        { title, organization },
+      )}
       subtitle={getDateRange({ endDate, startDate, intl, locale })}
       context={
         skills?.length === 1
@@ -54,8 +63,18 @@ const PersonalAccordion: React.FunctionComponent<PersonalExperience> = ({
       }
       Icon={BriefCaseIcon}
     >
+      {" "}
       <div data-h2-padding="b(left, l)">
-        <p>{description}</p>
+        <p>
+          {intl.formatMessage(
+            {
+              defaultMessage: "{title} at {organization}",
+              description: "Title at organization",
+            },
+            { title, organization },
+          )}
+        </p>
+        <p>{project}</p>
       </div>
       <hr />
       <div data-h2-padding="b(left, l)">{skillsList}</div>
@@ -70,16 +89,18 @@ const PersonalAccordion: React.FunctionComponent<PersonalExperience> = ({
           )}
         </p>
       </div>
-      <div data-h2-padding="b(left, l)">
-        <Link href={editUrl} color="primary" mode="outline" type="button">
-          {intl.formatMessage({
-            defaultMessage: "Edit Experience",
-            description: "Edit Experience button label",
-          })}
-        </Link>
-      </div>
+      {editUrl && (
+        <div data-h2-padding="b(left, l)">
+          <Link href={editUrl} color="primary" mode="outline" type="button">
+            {intl.formatMessage({
+              defaultMessage: "Edit Experience",
+              description: "Edit Experience button label",
+            })}
+          </Link>
+        </div>
+      )}
     </Accordion>
   );
 };
 
-export default PersonalAccordion;
+export default CommunityAccordion;

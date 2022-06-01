@@ -15,6 +15,26 @@ The api, and frontend projects are designed to each run in a separate container.
 
 Each sub-project has its own `README.md`, with advice on how to contribute to that sub-project. The README files also contain notes on how to configure the sub-projects, but if you simply want to get the project running on a new machine, you may disregard these notes and move straight to the steps below.
 
+## Testing
+We do several types of testing: (internal documentation linked when available)
+
+- code style checks (aka _linting_)
+  - **ESLint** feat. **Prettier** (JavaScript)
+- _unit_ testing
+  - **Jest** (ReactJS)
+  - **PHPUnit** (PHP)
+- _visual regression_ Testing
+  - **Storybook** (ReactJS components)
+- _end-to-end_ testing with **Cypress** (full app in-browser)
+  - See [`frontend/cypress/README.md`](/frontend/cypress/README.md): custom commands, usage tips, plugins, etc.
+- security checks (aka _security regression_ testing)
+  - CodeQL (JavaScript, ~~TypeScript~~)
+
+As much as possible, we aspire to make these runnable on:
+- :keyboard: your local command line
+- :computer: your IDE
+- :cloud: our continuous integration (CI) environment
+
 ## Getting Started
 ### Running with Docker
 

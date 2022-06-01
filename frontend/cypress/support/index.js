@@ -15,6 +15,15 @@
 
 // Import commands.js using ES2015 syntax:
 import './commands'
+before(() => {
+  cy.log('Need to run something before each test file? Add it to `cypress/support/index.js`')
+
+  /* Tips
+   * - Using `before()` and `beforeEach()` is helpful, as they act the same as
+   *   within a spec file.  They allow Cypress commands here to run in the
+   *   context of a Cypress test.
+   */
+})
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')

@@ -12,11 +12,12 @@
     "e2e": "npm run e2e:open",
     "e2e:open": "cypress open",
     "e2e:run": "npm run e2e:run:all",
-    "e2e:run:all": "cypress run --browser=chrome --spec cypress/integration/**/*${E2E_FILTER:-}*.spec.js",
-    "e2e:run:inspect": "cypress run --browser=chrome --spec cypress/integration/**/*${E2E_FILTER:-language-selection}*.spec.js --no-exit --headed"
+    "e2e:run:all": "cypress run --browser=chrome --spec cypress/integration/**/*${TEST_FILTER:-}*.spec.js",
+    "e2e:run:inspect": "cypress run --browser=chrome --spec cypress/integration/**/*${TEST_FILTER:-language-selection}*.spec.js --no-exit --headed"
   },
   "devDependencies": {
-    "cypress": "^9.6.0",
+    "@testing-library/cypress": "^8.0.2",
+    "cypress": "^9.6.1",
     "cypress-multi-reporters": "^1.6.0",
     "cypress-terminal-report": "^3.5.2"
   }

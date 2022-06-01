@@ -38,7 +38,6 @@ class UserTest extends TestCase
 
     public function testCreateUserDefaultRoles()
     {
-        $this->markTestSkipped('Todo: Fix. https://github.com/GCTC-NTGC/gc-digital-talent/issues/1480');
         $this->graphQL(/** @lang GraphQL */ '
             mutation CreateUser($user: CreateUserInput!) {
                 createUser(user: $user) {
@@ -57,7 +56,7 @@ class UserTest extends TestCase
                 'email' => 'jane@test.com',
                 // If roles is not set, it should come back as empty array.
             ]
-        ])->seeJson([
+        ])->assertJson([
             'data' => [
                 'createUser' => [
                     'firstName' => 'Jane',
@@ -70,12 +69,11 @@ class UserTest extends TestCase
             ]
         ]);
         // Ensure user was saved
-        $this->seeInDatabase('users', ['email' => 'jane@test.com']);
+        $this->assertDatabaseHas('users', ['email' => 'jane@test.com']);
     }
 
     public function testCreateUserAdminRole()
     {
-        $this->markTestSkipped('Todo: Fix. https://github.com/GCTC-NTGC/gc-digital-talent/issues/1480');
         $this->graphQL(/** @lang GraphQL */ '
             mutation CreateUser($user: CreateUserInput!) {
                 createUser(user: $user) {
@@ -94,7 +92,7 @@ class UserTest extends TestCase
                 'email' => 'jane@test.com',
                 'roles' => ['ADMIN']
             ]
-        ])->seeJson([
+        ])->assertJson([
             'data' => [
                 'createUser' => [
                     'firstName' => 'Jane',
@@ -107,16 +105,15 @@ class UserTest extends TestCase
             ]
         ]);
         // Ensure user was saved
-        $this->seeInDatabase('users', ['email' => 'jane@test.com']);
+        $this->assertDatabaseHas('users', ['email' => 'jane@test.com']);
     }
 
     public function testUpdateUserRole()
     {
-        $this->markTestSkipped('Todo: Fix. https://github.com/GCTC-NTGC/gc-digital-talent/issues/1480');
         $user = User::factory()->create(['roles' => []]);
         $this->graphQL(/** @lang GraphQL */ '
-            mutation UpdateUser($id: ID!, $user: UpdateUserInput!) {
-                updateUser(id: $id, user: $user) {
+            mutation UpdateUser($id: ID!, $user: UpdateUserAsAdminInput!) {
+                updateUserAsAdmin(id: $id, user: $user) {
                     id
                     roles
                 }
@@ -126,9 +123,9 @@ class UserTest extends TestCase
             'user' => [
                 'roles' => ['ADMIN']
             ]
-        ])->seeJson([
+        ])->assertJson([
             'data' => [
-                'updateUser' => [
+                'updateUserAsAdmin' => [
                     'id' => strval($user->id),
                     'roles' => ['ADMIN']
                 ]

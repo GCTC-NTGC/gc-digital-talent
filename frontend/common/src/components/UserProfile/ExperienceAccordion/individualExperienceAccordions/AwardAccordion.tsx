@@ -1,19 +1,21 @@
 import React from "react";
-import Accordion from "@common/components/accordion/Accordion";
 import BriefCaseIcon from "@heroicons/react/solid/BriefcaseIcon";
-import { Link } from "@common/components";
+import { useIntl } from "react-intl";
+import Accordion from "../../../accordion/Accordion";
+import { Link } from "../../..";
 import {
   getAwardedTo,
   getAwardedScope,
-} from "@common/constants/localizedConstants";
-import { useIntl } from "react-intl";
-import { getLocale } from "@common/helpers/localize";
-import { getDateRange } from "@common/helpers/dateUtils";
-import { useApplicantProfileRoutes } from "../../../applicantProfileRoutes";
-import { AwardExperience } from "../../../api/generated";
+} from "../../../../constants/localizedConstants";
+import { getLocale } from "../../../../helpers/localize";
+import { getDateRange } from "../../../../helpers/dateUtils";
+import { AwardExperience } from "../../../../api/generated";
 
-const AwardAccordion: React.FunctionComponent<AwardExperience> = ({
-  id,
+type AwardAccordionProps = AwardExperience & {
+  editUrl?: string; // A link to edit the experience will only appear if editUrl is defined.
+};
+
+const AwardAccordion: React.FunctionComponent<AwardAccordionProps> = ({
   title,
   awardedDate,
   issuedBy,
@@ -21,11 +23,10 @@ const AwardAccordion: React.FunctionComponent<AwardExperience> = ({
   awardedTo,
   awardedScope,
   skills,
+  editUrl,
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
-  const profilePaths = useApplicantProfileRoutes();
-  const editUrl = `${profilePaths.skillsAndExperiences()}/award/${id}/edit`;
 
   // create unordered list element of skills DOM Element
   const skillsList = skills
@@ -108,14 +109,16 @@ const AwardAccordion: React.FunctionComponent<AwardExperience> = ({
           )}
         </p>
       </div>
-      <div data-h2-padding="b(left, l)">
-        <Link href={editUrl} color="primary" mode="outline" type="button">
-          {intl.formatMessage({
-            defaultMessage: "Edit Experience",
-            description: "Edit Experience button label",
-          })}
-        </Link>
-      </div>
+      {editUrl && (
+        <div data-h2-padding="b(left, l)">
+          <Link href={editUrl} color="primary" mode="outline" type="button">
+            {intl.formatMessage({
+              defaultMessage: "Edit Experience",
+              description: "Edit Experience button label",
+            })}
+          </Link>
+        </div>
+      )}
     </Accordion>
   );
 };

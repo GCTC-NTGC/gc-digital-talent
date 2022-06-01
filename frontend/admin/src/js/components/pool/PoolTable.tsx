@@ -51,13 +51,6 @@ export const PoolTable: React.FC<GetPoolsQuery & { editUrlRoot: string }> = ({
       },
       {
         Header: intl.formatMessage({
-          defaultMessage: "Key",
-          description: "Title displayed for the Pool table key column.",
-        }),
-        accessor: "key",
-      },
-      {
-        Header: intl.formatMessage({
           defaultMessage: "Candidates",
           description:
             "Header for the View Candidates column of the Pools table",
@@ -71,14 +64,6 @@ export const PoolTable: React.FC<GetPoolsQuery & { editUrlRoot: string }> = ({
           description: "Title displayed for the Pool table pool name column.",
         }),
         accessor: (d) => (d.name ? d.name[getLocale(intl)] : ""),
-      },
-      {
-        Header: intl.formatMessage({
-          defaultMessage: "Pool Description",
-          description:
-            "Title displayed for the Pool table pool description column.",
-        }),
-        accessor: (d) => (d.description ? d.description[getLocale(intl)] : ""),
       },
       {
         Header: intl.formatMessage({
@@ -105,6 +90,13 @@ export const PoolTable: React.FC<GetPoolsQuery & { editUrlRoot: string }> = ({
               </Pill>
             );
           }),
+      },
+      {
+        Header: intl.formatMessage({
+          defaultMessage: "Status",
+          description: "Title displayed for the Pool table status column.",
+        }),
+        accessor: "status",
       },
       {
         Header: intl.formatMessage({

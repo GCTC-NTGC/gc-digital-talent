@@ -1,6 +1,7 @@
 APPLICANTPROFILE
 Authenticatable
 BEHAVIOURAL
+colour
 darkgold
 darkgray
 darknavy

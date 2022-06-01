@@ -25,6 +25,7 @@ type Applicant {
   isIndigenous: Boolean
   isVisibleMinority: Boolean
   jobLookingStatus: JobLookingStatus
+  poolCandidates: [PoolCandidate]
   hasDiploma: Boolean
   locationPreferences: [WorkRegion]
   locationExemptions: String
@@ -241,6 +242,8 @@ input CreatePoolInput {
   assetCriteria: CmoAssetBelongsToMany
   essentialCriteria: CmoAssetBelongsToMany
   operationalRequirements: [OperationalRequirement]
+  keyTasks: LocalizedStringInput
+  status: PoolStatus = NOT_TAKING_APPLICATIONS
 }
 
 input CreateSkillFamilyInput {
@@ -636,6 +639,8 @@ type Pool {
   essentialCriteria: [CmoAsset]
   operationalRequirements: [OperationalRequirement]
   poolCandidates: [PoolCandidate]
+  keyTasks: LocalizedString
+  status: PoolStatus
 }
 
 input PoolBelongsTo {
@@ -729,6 +734,11 @@ enum PoolCandidateStatus {
 
 input PoolFilterInput {
   id: ID!
+}
+
+enum PoolStatus {
+  TAKING_APPLICATIONS
+  NOT_TAKING_APPLICATIONS
 }
 
 input PoolsHasMany {
@@ -985,6 +995,8 @@ input UpdatePoolInput {
   assetCriteria: CmoAssetBelongsToMany
   essentialCriteria: CmoAssetBelongsToMany
   operationalRequirements: [OperationalRequirement]
+  keyTasks: LocalizedStringInput
+  status: PoolStatus
 }
 
 input UpdateSkillFamilyInput {
