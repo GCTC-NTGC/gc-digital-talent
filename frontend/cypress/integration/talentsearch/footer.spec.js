@@ -1,40 +1,50 @@
 describe('Footer', () => {
+  const testPage = '/talent'
+
   context('English page', () => {
-    beforeEach(() => cy.visit('/en'))
+    beforeEach(() => {
+      cy.setLocale('en')
+      cy.visit(testPage)
+    })
+
     it('links to Privacy Policy', () => {
-      cy.get('footer').within(() => {
-        cy.get('a').contains('Privacy Policy').should('have.attr', 'href', '/en/privacy-notice')
+      // This is the aria role for "footer".
+      cy.findByRole('contentinfo').within(() => {
+        // TODO: Update all these tests to use cy.findByRole().
+        // See: https://github.com/GCTC-NTGC/gc-digital-talent/issues/2902
+        //cy.findByRole('link', { name: 'Privacy Policy' }).should('have.attr', 'href', '/en/privacy-notice')
+        cy.findByText('Privacy Policy').should('have.attr', 'href', '/en/privacy-notice')
       })
     })
 
     it('links to Terms & Conditions', () => {
-      cy.get('footer').within(() => {
-        cy.get('a').contains('Terms & Conditions').should('have.attr', 'href', '/en/terms-and-conditions')
+      cy.findByRole('contentinfo').within(() => {
+        cy.findByText('Terms & Conditions').should('have.attr', 'href', '/en/terms-and-conditions')
       })
     })
 
-    // TODO: unskip when bug fixed.
-    // See: https://github.com/GCTC-NTGC/gc-digital-talent/issues/2565
-    it.skip('links to Canada.ca', () => {
-      cy.get('footer').within(() => {
-        cy.get('a').contains('Canada.ca').should('have.attr', 'href', 'https:/www.canada.ca/en.html')
+    it('links to Canada.ca', () => {
+      cy.findByRole('contentinfo').within(() => {
+        cy.findByText('Canada.ca').should('have.attr', 'href', 'https://www.canada.ca/en.html')
       })
     })
   })
 
   context('French page', () => {
-    beforeEach(() => cy.visit('/fr'))
+    beforeEach(() => {
+      cy.setLocale('fr')
+      cy.visit(testPage)
+    })
+
     it('links to Privacy Policy (french)', () => {
-      cy.get('footer').within(() => {
-        cy.get('a').contains('Avis').should('have.attr', 'href', '/fr/terms-and-conditions')
+      cy.findByRole('contentinfo').within(() => {
+        cy.findByText('Modalités').should('have.attr', 'href', '/fr/terms-and-conditions')
       })
     })
 
-    // TODO: unskip when bug fixed.
-    // See: https://github.com/GCTC-NTGC/gc-digital-talent/issues/2565
-    it.skip('links to Canada.ca (french)', () => {
-      cy.get('footer').within(() => {
-        cy.get('a').contains('Canada.ca').should('have.attr', 'href', 'https:/www.canada.ca/fr.html')
+    it('links to Canada.ca (french)', () => {
+      cy.findByRole('contentinfo').within(() => {
+        cy.findByText('canada.ca').should('have.attr', 'href', 'https://www.canada.ca/fr.html')
       })
     })
   })

@@ -5,263 +5,263 @@ h4,
 h5,
 h6,
 p {
-  line-height: 1;
-  margin: 0;
+    line-height: 1;
+    margin: 0;
 }
 
 p {
-  line-height: 1.4;
-  margin: 1.2rem 0;
+    line-height: 1.4;
+    margin: 1.2rem 0;
 }
 
 .reset-ul {
-  list-style: none;
-  padding: 0;
+    list-style: none;
+    padding: 0;
 }
 
 .gct-overlay {
-  position: relative;
+    position: relative;
 }
 .gct-overlay::before {
-  background: linear-gradient(45deg, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.5));
-  display: block;
-  content: " ";
-  height: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
+    background: linear-gradient(45deg, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.5));
+    display: block;
+    content: " ";
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
 }
 .gct-overlay > * {
-  position: relative;
+    position: relative;
 }
 
 .skip-link {
-  background: lightgray;
-  display: block;
-  position: absolute;
-  top: -100vh;
-  left: -100vw;
-  opacity: 0;
-  text-align: center;
-  padding: 1rem;
-  width: 100%;
+    background: lightgray;
+    display: block;
+    position: absolute;
+    top: -100vh;
+    left: -100vw;
+    opacity: 0;
+    text-align: center;
+    padding: 1rem;
+    width: 100%;
 }
 
 .skip-link:focus {
-  position: relative;
-  top: 0;
-  left: 0;
-  opacity: 1;
+    position: relative;
+    top: 0;
+    left: 0;
+    opacity: 1;
 }
 
 .navigation ul li {
-  display: inline-block;
+    display: inline-block;
 }
 
 .post-header {
-  background-position: center;
-  background-size: cover;
-  position: relative;
+    background-position: center;
+    background-size: cover;
+    position: relative;
 }
 
 .post-header:before {
-  background: rgba(0, 0, 0, 0.7);
-  content: "";
-  display: block;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    content: "";
+    display: block;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
 }
 
 .post-header * {
-  position: relative;
+    position: relative;
 }
 
 .parallelogram {
-  display: none;
-  width: 3rem;
-  height: 0.8rem;
-  background: #c90035;
-  transform: skewX(338deg);
-  margin-right: 2rem;
+    display: none;
+    width: 3rem;
+    height: 0.8rem;
+    background: #c90035;
+    transform: skewX(338deg);
+    margin-right: 2rem;
 }
 
 .parallelogram-purple {
-  display: none;
-  width: 3rem;
-  height: 0.8rem;
-  background: #674c90;
-  transform: skewX(338deg);
-  margin-right: 2rem;
+    display: none;
+    width: 3rem;
+    height: 0.8rem;
+    background: #674c90;
+    transform: skewX(338deg);
+    margin-right: 2rem;
 }
 
 @media screen and (min-width: 64em) {
-  .parallelogram {
-    display: inline-block;
-  }
-  .parallelogram-purple {
-    display: inline-block;
-  }
+    .parallelogram {
+        display: inline-block;
+    }
+    .parallelogram-purple {
+        display: inline-block;
+    }
 }
 
 .shift-up {
-  position: relative;
-  top: -3.375rem;
+    position: relative;
+    top: -3.375rem;
 }
 
 .gradient-fill {
-  height: 90%;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
+    height: 90%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
 }
 
 .bg-image-woman-walking {
-  background: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-    url("../img/ui-girls-walking.jpg");
-  background-position: center;
-  background-size: cover;
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+        url("../img/ui-girls-walking.jpg");
+    background-position: center;
+    background-size: cover;
 }
 
 .bg-image-wolves {
-  background: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-    url("../img/ui-wolves.jpg");
-  background-position: center;
-  background-size: cover;
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+        url("../img/ui-wolves.jpg");
+    background-position: center;
+    background-size: cover;
 }
 
 .bg-image-tp {
-  background: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-    url("../img/ui-tp.jpg");
-  background-position: center;
-  background-size: cover;
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+        url("../img/ui-tp.jpg");
+    background-position: center;
+    background-size: cover;
 }
 
 .bg-image-dogwood {
-  background: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-    url("../img/ui-dogwood.png");
-  background-position: center;
-  background-size: cover;
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+        url("../img/ui-dogwood.png");
+    background-position: center;
+    background-size: cover;
 }
 
 .bg-image-test1 {
-  background: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-    url("../img/ui-tx-dt-1.jpg");
-  background-position: center;
-  background-size: cover;
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+        url("../img/ui-tx-dt-1.jpg");
+    background-position: center;
+    background-size: cover;
 }
 .bg-image-test2 {
-  background: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-    url("../img/ui-tx-dt-2.jpg");
-  background-position: center;
-  background-size: cover;
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+        url("../img/ui-tx-dt-2.jpg");
+    background-position: center;
+    background-size: cover;
 }
 
 .bg-image-maple-leaf {
-  position: relative;
-  overflow: hidden;
+    position: relative;
+    overflow: hidden;
 }
 
 .bg-image-maple-leaf > * {
-  position: relative;
+    position: relative;
 }
 
 .bg-image-maple-leaf > img {
-  opacity: 0.1;
-  pointer-events: none;
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  transform: translate(30%, 35%) rotate(320deg);
-  width: 50vw;
+    opacity: 0.1;
+    pointer-events: none;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    transform: translate(30%, 35%) rotate(320deg);
+    width: 50vw;
 }
 
 /* The container attribute isn't giving enough padding. */
 .card-padding {
-  padding: 3rem;
-  padding-top: 4.2rem;
+    padding: 3rem;
+    padding-top: 4.2rem;
 }
 
 .section-margin {
-  margin-bottom: 3rem;
+    margin-bottom: 3rem;
 }
 
 .footer-list {
-  list-style: none;
-  padding: 0;
+    list-style: none;
+    padding: 0;
 }
 
 .canada-logo {
-  width: 12rem;
+    width: 12rem;
 }
 
 .accordion-trigger {
-  background: none;
-  border: none;
-  border-radius: 0;
-  cursor: pointer;
-  padding-left: 4rem;
-  position: relative;
-  text-align: left;
-  width: 100%;
+    background: none;
+    border: none;
+    border-radius: 0;
+    cursor: pointer;
+    padding-left: 4rem;
+    position: relative;
+    text-align: left;
+    width: 100%;
 }
 
 .accordion-trigger-label {
-  height: 1px;
-  overflow: hidden;
-  position: absolute;
-  top: 0;
-  left: -100vw;
-  width: 1px;
+    height: 1px;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    left: -100vw;
+    width: 1px;
 }
 
 .accordion-trigger-content p {
-  line-height: 1;
+    line-height: 1;
 }
 
 .accordion-trigger-icon-add {
-  display: block;
-  position: absolute;
-  top: 50%;
-  left: 2rem;
-  text-align: center;
-  transform: translate(-50%, -50%);
-  width: 1.5rem;
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 2rem;
+    text-align: center;
+    transform: translate(-50%, -50%);
+    width: 1.5rem;
 }
 
 .accordion-trigger-icon-remove {
-  display: none;
-  position: absolute;
-  top: 50%;
-  left: 2rem;
-  text-align: center;
-  transform: translate(-50%, -50%);
-  width: 1.5rem;
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 2rem;
+    text-align: center;
+    transform: translate(-50%, -50%);
+    width: 1.5rem;
 }
 
 .accordion > .accordion-content {
-  display: none;
-  padding-left: 4rem;
+    display: none;
+    padding-left: 4rem;
 }
 
 .accordion.accordion-active > .accordion-trigger .accordion-trigger-icon-add {
-  display: none;
+    display: none;
 }
 
 .accordion.accordion-active
-  > .accordion-trigger
-  .accordion-trigger-icon-remove {
-  display: block;
+    > .accordion-trigger
+    .accordion-trigger-icon-remove {
+    display: block;
 }
 
 .accordion.accordion-active {
-  border-color: #c90035 !important;
+    border-color: #c90035 !important;
 }
 
 .accordion.accordion-active > .accordion-content {
-  display: block;
+    display: block;
 }

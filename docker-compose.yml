@@ -10,16 +10,16 @@ services:
     volumes:
       - ./infrastructure/db:/docker-entrypoint-initdb.d/
       - pgdata:/var/lib/postgresql/data
-    # ports:
-      # - "5432:5432" # for convenience/troubleshooting
+    ports:
+      - "5432:5432"
 
   adminer:
     image: adminer
     restart: always
-    # links:
-      # - postgres # TODO: not needed?
-    # ports:
-      # - 8080:8080 # for convenience/troubleshooting
+    links:
+      - postgres
+    ports:
+      - 8080:8080
 
   frontend:
     # build: ./frontend
@@ -31,20 +31,19 @@ services:
       - frontend/admin/.apache_env
 
   # php:
-  #   build: ./php-container
+  #   build: ./infrastructure/php-container
   #   working_dir: /var/www/html
   #   restart: always
   #   volumes:
-  #     - ./php-container/src:/var/www/html/
-  #     - ../api:/var/www/html/api
-  #     - ../auth:/var/www/html/auth
-  #     - ../frontend:/var/www/html/frontend
-  #     - ../tc-report:/var/www/html/tc-report
+  #     - ./infrastructure/php-container/src:/var/www/html/
+  #     - ./api:/var/www/html/api
+  #     - ./frontend:/var/www/html/frontend
+  #     - ./tc-report:/var/www/html/tc-report
   #   ports:
   #     - 8000:80
   #     - 8001:443
   #   env_file:
-  #     - ../frontend/admin/.env
+  #     - ./frontend/.apache_env
 
   # maintenance:
   #   build: ./infrastructure/maintenance-container
@@ -59,21 +58,53 @@ services:
   #     - CYPRESS_INSTALL_BINARY=0
   #   volumes:
   #     - maintenancedata:/root
-  #     - ../maintenance/scripts:/root/scripts
-  #     - ../api:/var/www/html/api
-  #     - ../auth:/var/www/html/auth
-  #     - ../frontend:/var/www/html/frontend
-  #     - ../tc-report:/var/www/html/tc-report
+  #     - ./maintenance/scripts:/root/scripts
+  #     - ./api:/var/www/html/api
+  #     - ./frontend:/var/www/html/frontend
+  #     - ./tc-report:/var/www/html/tc-report
 
-  api:
-    # build: ./api
-    image: gc_digital_talent_api:latest
-    depends_on:
-      - postgres
-    ports:
-      - 8004:80
-      - 8005:443
-
+  # We proxy the auth server through apache, so it's at localhost.
+  # E.g., http://localhost:8000/oxauth/.well-known/openid-configuration
+  #
+  # We shouldn't need to expose mock-oauth2-server directly (outside the apache
+  # proxy), but if this is required:
+  #
+  #   1. uncomment the container configuration lines below.
+  #   2. add this entry to your `hosts` file:
+  #
+  #       auth.talent.canada.test 127.0.0.1
+  #
+  #   3. Rebuild docker container:
+  #
+  #       $ docker-compose up --detach --build mock-auth
+  #
+  #   4. Confirm working by visiting:
+  #
+  #       http://auth.talent.canada.test:8081/oxauth/.well-known/openid-configuration
+  #
+  mock-auth:
+    # See: https://github.com/navikt/mock-oauth2-server#standalone-server
+    image: ghcr.io/navikt/mock-oauth2-server:0.4.8
+    volumes:
+      - ./infrastructure/conf:/app/conf
+    environment:
+      # Things to note in config:
+      # - we mock a response but leave out "sub", so that value entered in fake
+      #   login form will be used.
+      # - we match specifically for client_id `fake-development-client-key`,
+      #   which must be set in `.env`.
+      # - we set interactiveLogin:true, for easy selection of any test user
+      #   (for which subject/sub will be something like `admin@test.com`).
+      JSON_CONFIG_PATH: /app/conf/mock-oauth2-server.json
+    volumes:
+      - ./infrastructure/conf:/app/conf
+      # Uncomment for direct access without proxy.
+      # We override default port 8080 sincer already used by adminer container.
+      #SERVER_PORT: 8081
+    # Uncomment for direct access without proxy.
+    #ports:
+    #  - 8081:8081
+    #hostname: auth.talent.canada.test
 
 volumes:
   pgdata:

@@ -50,8 +50,8 @@ jobs:
             docker-
 
       - name: Serve app via docker-compose
-        working-directory: infrastructure/
-        run: docker-compose up --detach
+        # Need to include --build as we're caching layers.
+        run: docker-compose up --detach --build
 
       - name: "Confirm failure response"
         # Match any non-200 HTTP response code (301 or 404)
@@ -59,7 +59,6 @@ jobs:
           curl http://localhost:8000/talent --output /dev/null --silent --write-out "%{http_code}"  | grep --invert-match 200
 
       - name: "Run: setup.sh"
-        working-directory: infrastructure/
         run: docker-compose run --rm maintenance bash setup.sh
 
       - name: "Confirm success response: setup.sh"
@@ -81,7 +80,6 @@ jobs:
           curl http://localhost:8000/talent --output /dev/null --silent --write-out "%{http_code}"  | grep --invert-match 200
 
       - name: "Run: refresh_all.sh"
-        working-directory: infrastructure/
         run: docker-compose run --rm maintenance bash refresh_all.sh
 
       - name: "Confirm success response: refresh_all.sh"

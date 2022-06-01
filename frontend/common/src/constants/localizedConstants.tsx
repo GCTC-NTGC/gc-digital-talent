@@ -15,6 +15,8 @@ import {
   OperationalRequirement,
   ProvinceOrTerritory,
   EstimatedLanguageAbility,
+  JobLookingStatus,
+  PoolStatus,
 } from "../api/generated";
 import { getOrThrowError } from "../helpers/util";
 
@@ -238,6 +240,18 @@ export const poolCandidateStatuses = defineMessages({
   [PoolCandidateStatus.PlacedTerm]: {
     defaultMessage: "Placed Term",
     description: "The pool candidate's status is Placed Term.",
+  },
+  [PoolCandidateStatus.Unavailable]: {
+    defaultMessage: "Unavailable",
+    description: "The pool candidate's status is Unavailable.",
+  },
+  [PoolCandidateStatus.Expired]: {
+    defaultMessage: "Expired",
+    description: "The pool candidate's status is Expired.",
+  },
+  [PoolCandidateStatus.PlacedCasual]: {
+    defaultMessage: "Placed Casual",
+    description: "The pool candidate's status is Placed Casual.",
   },
 });
 
@@ -596,6 +610,33 @@ export const provinceOrTerritory = defineMessages({
   },
 });
 
+export const JobLookingStatusDescription = defineMessages({
+  [JobLookingStatus.ActivelyLooking]: {
+    defaultMessage:
+      "<bold>Actively looking</bold> - My profile is up to date, I want to be contacted for job opportunities",
+    description: "Job Looking Status described as Actively looking.",
+  },
+  [JobLookingStatus.OpenToOpportunities]: {
+    defaultMessage:
+      "<bold>Open to opportunities </bold> - Not actively looking but I still want to be contacted for job opportunities",
+    description: "Job Looking Status described as Actively looking.",
+  },
+  [JobLookingStatus.Inactive]: {
+    defaultMessage:
+      "<bold>Inactive</bold> - I do not currently want to be contacted for job opportunities",
+    description: "Job Looking Status described as Actively looking.",
+  },
+});
+
+export const getJobLookingStatusDescription = (
+  jobLookingStatusDescriptionId: string | number,
+): MessageDescriptor =>
+  getOrThrowError(
+    JobLookingStatusDescription,
+    jobLookingStatusDescriptionId,
+    `Invalid Job Looking  Status '${jobLookingStatusDescriptionId}'`,
+  );
+
 export const getProvinceOrTerritory = (
   provinceOrTerritoryId: string | number,
 ): MessageDescriptor =>
@@ -603,4 +644,24 @@ export const getProvinceOrTerritory = (
     provinceOrTerritory,
     provinceOrTerritoryId,
     `Invalid province or territory '${provinceOrTerritoryId}'`,
+  );
+
+export const poolStatus = defineMessages({
+  [PoolStatus.NotTakingApplications]: {
+    defaultMessage: "Not taking applications",
+    description: "Pool Status described as not taking applications.",
+  },
+  [PoolStatus.TakingApplications]: {
+    defaultMessage: "Taking applications",
+    description: "Pool Status described as taking applications.",
+  },
+});
+
+export const getPoolStatus = (
+  poolStatusId: string | number,
+): MessageDescriptor =>
+  getOrThrowError(
+    poolStatus,
+    poolStatusId,
+    `Invalid Pool Status '${poolStatusId}'`,
   );

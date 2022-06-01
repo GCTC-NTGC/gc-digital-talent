@@ -1,16 +1,15 @@
 import React from "react";
 import { useWatch } from "react-hook-form";
 import { useIntl } from "react-intl";
-import { Input } from "@common/components/form/Input";
-import { Checkbox } from "@common/components/form/Checkbox";
-import { TextArea } from "@common/components/form/TextArea";
+import Input from "@common/components/form/Input";
+import Checkbox from "@common/components/form/Checkbox";
+import TextArea from "@common/components/form/TextArea";
 import { errorMessages } from "@common/messages";
-import { Fieldset } from "@common/components/inputPartials/Fieldset";
 
 export const PersonalExperienceForm: React.FunctionComponent = () => {
   const intl = useIntl();
   // to toggle whether End Date is required, the state of the Current Role checkbox must be monitored and have to adjust the form accordingly
-  const isCurrent = useWatch({ name: "current-role", defaultValue: false });
+  const isCurrent = useWatch({ name: "currentRole" });
   // ensuring end date isn't before the start date, using this as a minimum value
   const watchStartDate = useWatch({ name: "startDate" });
 
@@ -62,42 +61,39 @@ export const PersonalExperienceForm: React.FunctionComponent = () => {
           rules={{ required: intl.formatMessage(errorMessages.required) }}
         />
 
-        <Fieldset
-          legend={intl.formatMessage({
+        <Checkbox
+          boundingBox
+          boundingBoxLabel={intl.formatMessage({
             defaultMessage: "Disclaimer",
-            description: "Title displayed above disclaimer checkbox",
+            description:
+              "Label displayed on Personal Experience form for disclaimer bounded box",
           })}
-          required
-        >
-          <Checkbox
-            id="disclaimer"
-            label={intl.formatMessage({
-              defaultMessage:
-                "I agree to share this information with verified Government of Canada hiring managers and HR advisors who have access to this platform.",
-              description:
-                "Label displayed on Personal Experience form for disclaimer checkbox",
-            })}
-            name="disclaimer"
-            rules={{ required: intl.formatMessage(errorMessages.required) }}
-          />
-        </Fieldset>
+          id="disclaimer"
+          label={intl.formatMessage({
+            defaultMessage:
+              "I agree to share this information with verified Government of Canada hiring managers and HR advisors who have access to this platform.",
+            description:
+              "Label displayed on Personal Experience form for disclaimer checkbox",
+          })}
+          name="disclaimer"
+          rules={{ required: intl.formatMessage(errorMessages.required) }}
+        />
 
-        <Fieldset
-          legend={intl.formatMessage({
+        <Checkbox
+          boundingBox
+          boundingBoxLabel={intl.formatMessage({
             defaultMessage: "Current Experience",
-            description: "Title displayed above current experience checkbox",
+            description:
+              "Label displayed on Personal Experience form for current experience bounded box",
           })}
-        >
-          <Checkbox
-            id="current-role"
-            label={intl.formatMessage({
-              defaultMessage: "I am currently active in this experience",
-              description:
-                "Label displayed on Personal Experience form for current experience input",
-            })}
-            name="current-role"
-          />
-        </Fieldset>
+          id="currentRole"
+          label={intl.formatMessage({
+            defaultMessage: "I am currently active in this experience",
+            description:
+              "Label displayed on Personal Experience form for current experience input",
+          })}
+          name="currentRole"
+        />
 
         <div
           data-h2-display="b(flex)"

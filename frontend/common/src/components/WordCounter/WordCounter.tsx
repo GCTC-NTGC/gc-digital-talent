@@ -9,7 +9,7 @@ export interface WordCounterProps {
   wordLimit: number;
 }
 
-export const WordCounter: React.FunctionComponent<WordCounterProps> = ({
+const WordCounter: React.FunctionComponent<WordCounterProps> = ({
   text,
   wordLimit,
   ...rest
@@ -20,7 +20,6 @@ export const WordCounter: React.FunctionComponent<WordCounterProps> = ({
   const wordsLeft = wordLimit - numOfWords;
   return (
     <span
-      role="progressbar"
       aria-valuenow={numOfWords}
       aria-valuemin={minWords}
       aria-valuemax={wordLimit}

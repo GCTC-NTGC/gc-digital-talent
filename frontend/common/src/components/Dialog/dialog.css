@@ -1,0 +1,71 @@
+[data-reach-dialog-overlay] {
+  background-color: rgba(0, 0, 0, 0.85);
+  z-index: 9999;
+}
+
+[data-reach-dialog-content] {
+  padding: 1.5rem;
+  width: 95vw;
+}
+
+[data-reach-dialog-content].dialog--centered {
+  margin: 0 auto !important;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.dialog__title {
+  padding-right: 2rem;
+  z-index: 1;
+}
+
+.dialog-close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  opacity: 0.8;
+  transition: opacity 100ms ease-in;
+  z-index: 2;
+}
+
+.dialog-close:hover {
+  opacity: 1;
+}
+
+.dialog-close__icon {
+  height: 1rem;
+  width: 1rem;
+}
+
+.dialog__header {
+  margin: -1.5rem -1.5rem 1.5rem;
+}
+
+.dialog__header--confirmation {
+  margin-bottom: 0;
+}
+
+.dialog__content > :first-child,
+.dialog__footer > :first-child {
+  margin-top: 0;
+}
+
+.dialog__content > :last-child,
+.dialog__footer > :last-child {
+  margin-bottom: 0;
+}
+
+/* Small */
+@media (min-width: 48rem) {
+}
+
+/* Medium */
+@media (min-width: 64rem) {
+  [data-reach-dialog-content] {
+    width: 60vw;
+  }
+}
+
+/* Large */
+@media (min-width: 100rem) {
+}

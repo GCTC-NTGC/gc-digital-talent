@@ -1,5 +1,7 @@
+APPLICANTPROFILE
 Authenticatable
 BEHAVIOURAL
+colour
 darkgold
 darkgray
 darknavy
@@ -7,9 +9,11 @@ darkpink
 darkpurple
 datetime
 dedup
+DIRECTINTAKE
 gctalent
 heroicons
 INDIGENOUSAPPRENTICESHIP
+Inuk
 jwks
 Laravel
 Laravelista
@@ -18,10 +22,14 @@ lightgold
 lightgray
 lightnavy
 lightpurple
+Métis
 nuage
 Nuwave
 pgsql
 Queueable
+recruitmentimit
+recrutementgiti
+resumé
 subquery
 TALENTSEARCH
 TELEWORK

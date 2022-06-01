@@ -1,23 +1,22 @@
 import * as React from "react";
 import { useIntl } from "react-intl";
+import Spinner from "../Spinner";
 
 interface EstimatedCandidatesProps {
   candidateCount: number;
   updatePending?: boolean;
 }
 
+const weight = (msg: string) => (
+  <span data-h2-font-weight="b(800)" data-testid="candidateCount">
+    {msg}
+  </span>
+);
+
 const EstimatedCandidates: React.FunctionComponent<
   EstimatedCandidatesProps
 > = ({ candidateCount, updatePending }) => {
   const intl = useIntl();
-
-  function weight(msg: string) {
-    return updatePending ? (
-      <span className="lds-dual-ring" />
-    ) : (
-      <span data-h2-font-weight="b(800)">{msg}</span>
-    );
-  }
 
   return (
     <div
@@ -42,18 +41,30 @@ const EstimatedCandidates: React.FunctionComponent<
           })}
         </p>
       </div>
-      <div data-h2-margin="b(top-bottom, m) b(right-left, l)">
+      <div
+        data-h2-margin="b(top-bottom, m) b(right-left, l)"
+        aria-live="polite"
+      >
         <p data-h2-text-align="b(center)">
-          {intl.formatMessage(
-            {
-              defaultMessage: `{candidateCount, plural, =1 {There is approximately <weight>{candidateCount}</weight> candidate right now who meets your criteria.} other {There are approximately <weight>{candidateCount}</weight> candidates right now who meet your criteria.}}`,
-              description:
-                "Message for total estimated candidates box next to search form.",
-            },
-            {
-              weight,
-              candidateCount,
-            },
+          {updatePending ? (
+            <Spinner />
+          ) : (
+            <>
+              {intl.formatMessage(
+                {
+                  defaultMessage: `{candidateCount, plural,
+                      one {There is approximately <weight>{candidateCount}</weight> candidate right now who meets your criteria.}
+                      other {There are approximately <weight>{candidateCount}</weight> candidates right now who meet your criteria.}
+                    }`,
+                  description:
+                    "Message for total estimated candidates box next to search form.",
+                },
+                {
+                  weight,
+                  candidateCount,
+                },
+              )}
+            </>
           )}
         </p>
       </div>

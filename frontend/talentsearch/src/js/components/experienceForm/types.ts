@@ -35,6 +35,14 @@ export type Experience = {
   __typename: string;
 };
 
+export type FormSkill = {
+  id?: Maybe<string>;
+  skillId: string;
+  details: string;
+  name: LocalizedString;
+};
+export type FormSkills = Array<FormSkill>;
+
 export type FormValueDateRange = {
   startDate: Scalars["Date"];
   endDate?: Scalars["Date"];
@@ -53,6 +61,7 @@ export type CommunityFormValues = FormValueDateRange & {
   organization: string;
   project: string;
   startDate: Scalars["Date"];
+  currentRole: boolean;
   endDate?: Scalars["Date"];
 };
 
@@ -83,7 +92,8 @@ export type ExperienceDetailsSubmissionData = {
   description?: string;
   details?: string;
   division?: string;
-  endDate?: Scalars["Date"];
+  currentRole?: boolean;
+  endDate?: Scalars["Date"] | null;
   institution?: string;
   issuedBy?: string;
   organization?: string;
@@ -95,7 +105,7 @@ export type ExperienceDetailsSubmissionData = {
   title?: string;
   type?: EducationType;
   skills?: {
-    sync: ({ id: string; details: string } | undefined)[] | undefined;
+    sync: ({ id: string; details: Maybe<string> } | undefined)[] | undefined;
   };
 };
 
@@ -118,7 +128,7 @@ export type ExperienceDetailsDefaultValues = {
   thesisTitle?: string;
   title?: string;
   educationType?: EducationType;
-  skills?: { [id: string]: { details: string } };
+  skills?: FormSkills;
 };
 
 export type ExperienceQueryData = {
@@ -165,7 +175,7 @@ export type AllFormValues = AwardFormValues &
 
 export type FormValues<T> = T & {
   details: string;
-  skills: Maybe<{ [id: string]: { details: string } }>;
+  skills: Maybe<FormSkills>;
 };
 
 export type ExperienceMutations = CreateAwardExperienceMutation &

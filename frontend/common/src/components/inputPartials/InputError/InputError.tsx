@@ -1,9 +1,11 @@
 import React from "react";
 
-export const InputError: React.FC<{ isVisible: boolean; error: string }> = ({
-  error,
-  isVisible,
-}) => {
+export interface InputErrorProps {
+  isVisible: boolean;
+  error: string;
+}
+
+const InputError: React.FC<InputErrorProps> = ({ error, isVisible }) => {
   return isVisible ? (
     <span
       data-h2-display="b(block)"

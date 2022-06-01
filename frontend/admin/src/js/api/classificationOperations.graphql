@@ -33,7 +33,10 @@ mutation createClassification($classification: CreateClassificationInput!) {
   }
 }
 
-mutation updateClassification($id: ID!, $classification: UpdateClassificationInput!) {
+mutation updateClassification(
+  $id: ID!
+  $classification: UpdateClassificationInput!
+) {
   updateClassification(id: $id, classification: $classification) {
     name {
       en

@@ -15,12 +15,17 @@ fragment pool on Pool {
     en
     fr
   }
+  keyTasks {
+    en
+    fr
+  }
+  status
   classifications {
     id
     name {
       en
       fr
-    },
+    }
     group
     level
   }
@@ -64,7 +69,7 @@ query getCreatePoolData {
     id
     key
     name {
-      en,
+      en
       fr
     }
   }
@@ -85,7 +90,7 @@ query getUpdatePoolData($id: ID!) {
     id
     key
     name {
-      en,
+      en
       fr
     }
   }
@@ -114,6 +119,7 @@ query getPools {
       group
       level
     }
+    status
   }
 }
 
@@ -131,6 +137,11 @@ mutation createPool($pool: CreatePoolInput!) {
       en
       fr
     }
+    keyTasks {
+      en
+      fr
+    }
+    status
     classifications {
       id
       group
@@ -162,6 +173,11 @@ mutation updatePool($id: ID!, $pool: UpdatePoolInput!) {
       en
       fr
     }
+    keyTasks {
+      en
+      fr
+    }
+    status
     classifications {
       id
       group

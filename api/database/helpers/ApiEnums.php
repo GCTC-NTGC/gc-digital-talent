@@ -41,4 +41,27 @@ class ApiEnums
             self::LANGUAGE_ABILITY_BILINGUAL,
         ];
     }
+
+    const GOV_EMPLOYEE_TYPE_STUDENT = 'STUDENT';
+    const GOV_EMPLOYEE_TYPE_CASUAL = 'CASUAL';
+    const GOV_EMPLOYEE_TYPE_TERM = 'TERM';
+    const GOV_EMPLOYEE_TYPE_INDETERMINATE = 'INDETERMINATE';
+    /**
+     * A collection of enums for LanguageAbility in factories and seeders
+     *
+     * @return string[]
+     */
+    public static function govEmployeeTypes() : array
+    {
+        return [
+            self::GOV_EMPLOYEE_TYPE_STUDENT,
+            self::GOV_EMPLOYEE_TYPE_CASUAL,
+            self::GOV_EMPLOYEE_TYPE_TERM,
+            self::GOV_EMPLOYEE_TYPE_INDETERMINATE,
+        ];
+    }
+
+    const CANDIDATE_EXPIRY_FILTER_ACTIVE = 'ACTIVE';
+    const CANDIDATE_EXPIRY_FILTER_EXPIRED = 'EXPIRED';
+    const CANDIDATE_EXPIRY_FILTER_ALL = 'ALL';
 }

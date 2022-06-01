@@ -34,6 +34,7 @@ jobs:
       COMPOSE_DOCKER_CLI_BUILD: 1
       # Use buildkit to speed up docker command
       DOCKER_BUILDKIT: 1
+      NPM_VERSION: '8.3.0'
     steps:
       - name: Checkout
         uses: actions/checkout@v3.0.2
@@ -52,12 +53,21 @@ jobs:
             docker-
 
       - name: Serve app via docker-compose
-        working-directory: infrastructure/
-        run: docker-compose up --detach
+        # Need to include --build as we're caching layers.
+        run: docker-compose up --detach --build
 
       - name: "Run: setup.sh"
-        working-directory: infrastructure/
         run: docker-compose run --rm maintenance bash setup.sh
+
+      - uses: actions/setup-node@v2.5.1
+        with:
+          node-version-file: 'frontend/.nvmrc'
+          cache: npm
+          cache-dependency-path: |
+            frontend/package-lock.json
+
+      - name: Upgrade to latest npm
+        run: npm install --global npm@${{ env.NPM_VERSION }}
 
       - name: "Run Cypress tests: all"
         uses: cypress-io/github-action@v2.11.8
@@ -65,6 +75,8 @@ jobs:
           working-directory: ./frontend
           spec: "**/*.spec.js"
           browser: chrome
+          # See: https://github.com/cypress-io/github-action/issues/489#issuecomment-1021379037
+          command-prefix: "--"
 
       # NOTE: screenshots will be generated only if E2E test failed
       # thus we store screenshots only on failures
@@ -85,10 +97,8 @@ jobs:
 
       - name: Check status of containers
         if: failure()
-        working-directory: infrastructure/
         run: docker-compose ps
 
       - name: 'Check logs: PHP container'
         if: failure()
-        working-directory: infrastructure/
         run: docker-compose logs php

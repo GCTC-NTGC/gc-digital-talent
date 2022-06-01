@@ -1,11 +1,10 @@
-import React, { useMemo, useCallback } from "react";
+import React, { useMemo } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { Checklist, MultiSelect, RadioGroup } from "@common/components/form";
 import { getLocale } from "@common/helpers/localize";
 import { enumToOptions, unpackMaybes } from "@common/helpers/formUtils";
 import { getLanguageAbility } from "@common/constants";
-import useDeepCompareEffect from "@common/hooks/useDeepCompareEffect";
 import { debounce } from "debounce";
 import { useLocation } from "@common/helpers/router";
 import {
@@ -87,7 +86,6 @@ export const SearchForm: React.FunctionComponent<SearchFormProps> = ({
   classifications,
   cmoAssets,
   updateCandidateFilter,
-  updateInitialValues,
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
@@ -99,14 +97,29 @@ export const SearchForm: React.FunctionComponent<SearchFormProps> = ({
   );
   const assetMap = useMemo(() => mapIdToValue(cmoAssets), [cmoAssets]);
 
-  const formValuesToData = useCallback(
-    (values: FormValues): PoolCandidateFilterInput => {
+  // The location state holds the initial values plugged in from user. This is required if the user decides to click back and change any values.
+  const state = location.state as LocationState;
+  const initialValues = useMemo(
+    () => (state ? state.some.initialValues : {}),
+    [state],
+  );
+  const methods = useForm<FormValues>({ defaultValues: initialValues });
+  const { watch } = methods;
+
+  React.useEffect(() => {
+    updateCandidateFilter(initialValues);
+  }, [initialValues, updateCandidateFilter]);
+
+  React.useEffect(() => {
+    const formValuesToData = (values: FormValues): PoolCandidateFilterInput => {
       return {
         classifications: values.classifications
-          ? values.classifications?.map((id) => classificationMap.get(id))
+          ? values.classifications?.map((id) =>
+              id ? classificationMap.get(id) : undefined,
+            )
           : [],
         cmoAssets: values.cmoAssets
-          ? values.cmoAssets?.map((id) => assetMap.get(id))
+          ? values.cmoAssets?.map((id) => (id ? assetMap.get(id) : undefined))
           : [],
         operationalRequirements: values.operationalRequirements
           ? unpackMaybes(values.operationalRequirements)
@@ -129,36 +142,21 @@ export const SearchForm: React.FunctionComponent<SearchFormProps> = ({
           : {}), // Ensure null in FormValues is converted to undefined
         workRegions: values.workRegions || [],
       };
-    },
-    [classificationMap, assetMap],
-  );
-
-  // The location state holds the initial values plugged in from user. This is required if the user decides to click back and change any values.
-  const state = location.state as LocationState;
-  const initialValues = state ? state.some.initialValues : {};
-  const methods = useForm<FormValues>({ defaultValues: initialValues });
-  const { watch } = methods;
-
-  // Whenever form values change (with some debounce allowance), call updateCandidateFilter
-  const formValues = watch();
-  const submitDebounced = useCallback(
-    debounce((values: FormValues) => {
-      if (updateCandidateFilter) {
-        updateCandidateFilter(formValuesToData(values));
-      }
-    }, 200),
-    [formValuesToData, updateCandidateFilter],
-  );
-
-  // Use deep comparison to prevent infinite re-rendering
-  useDeepCompareEffect(() => {
-    submitDebounced(formValues);
-    updateInitialValues(formValues);
-    return () => {
-      // Clear debounce timer when component unmounts
-      submitDebounced.clear();
     };
-  }, [formValues]);
+
+    const debounceUpdate = debounce((values: PoolCandidateFilterInput) => {
+      if (updateCandidateFilter) {
+        updateCandidateFilter(values);
+      }
+    }, 200);
+
+    const subscription = watch((newValues) => {
+      const values = formValuesToData(newValues as FormValues);
+      debounceUpdate(values);
+    });
+
+    return () => subscription.unsubscribe();
+  }, [watch, classificationMap, assetMap, updateCandidateFilter]);
 
   const classificationOptions: Option<string>[] = useMemo(
     () =>

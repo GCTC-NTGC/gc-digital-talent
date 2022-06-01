@@ -4,6 +4,7 @@ const CopyPlugin = require("copy-webpack-plugin");
 const TsTransformer = require("@formatjs/ts-transformer");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { DefinePlugin } = require("webpack");
+require('dotenv').config({ path: './.env' });
 
 module.exports = {
   entry: {
@@ -22,7 +23,7 @@ module.exports = {
     new CopyPlugin({
       patterns: [
         { from: "src/images", to: "images" },
-        // { from: "src/.htaccess" },
+        { from: "src/config.sjs" },
         { from: "src/site.webmanifest" },
       ],
     }),

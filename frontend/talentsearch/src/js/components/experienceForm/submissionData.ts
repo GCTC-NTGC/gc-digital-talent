@@ -28,7 +28,10 @@ const formValuesToSubmitData = (
     thesisTitle,
     experienceTitle,
     experienceDescription,
+    currentRole,
   } = data;
+
+  const newEndDate = !currentRole && endDate ? endDate : null;
 
   const dataMap: Record<ExperienceType, ExperienceDetailsSubmissionData> = {
     award: {
@@ -43,7 +46,7 @@ const formValuesToSubmitData = (
       organization,
       project,
       startDate,
-      endDate: endDate || undefined,
+      endDate: newEndDate,
     },
     education: {
       type: educationType,
@@ -52,35 +55,33 @@ const formValuesToSubmitData = (
       institution,
       thesisTitle,
       startDate,
-      endDate: endDate || undefined,
+      endDate: newEndDate,
     },
     personal: {
       title: experienceTitle,
       description: experienceDescription,
       startDate,
-      endDate,
+      endDate: newEndDate,
     },
     work: {
       role,
       organization,
       division: team,
       startDate,
-      endDate: endDate || undefined,
+      endDate: newEndDate,
     },
   };
 
   let skillSync;
   if (data.skills) {
-    skillSync = Object.keys(data.skills).map((key: string) => {
-      if (!data.skills) {
-        return undefined;
-      }
-      const skill = data.skills[key];
-      return {
-        id: key,
-        details: skill.details,
-      };
-    });
+    skillSync = data.skills
+      ? data.skills.map((skill) => {
+          return {
+            id: skill.skillId,
+            details: skill.details,
+          };
+        })
+      : undefined;
   }
 
   return {

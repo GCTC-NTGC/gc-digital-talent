@@ -1,0 +1,19 @@
+query browsePools {
+  pools {
+    id
+    name {
+      en
+      fr
+    }
+  }
+}
+
+query browsePool($id: ID!) {
+  pool(id: $id) {
+    id
+    name {
+      en
+      fr
+    }
+  }
+}

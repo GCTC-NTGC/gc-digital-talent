@@ -3,7 +3,8 @@ import { Story, Meta } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 import uniqueId from "lodash/uniqueId";
 import Form from "../BasicForm";
-import Select, { SelectProps } from ".";
+import Select from ".";
+import type { SelectProps } from ".";
 import Submit from "../Submit";
 
 export default {

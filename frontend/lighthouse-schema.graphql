@@ -2,12 +2,13 @@ type Applicant {
   id: ID!
   firstName: String
   lastName: String
-  email: Email!
+  email: Email
   telephone: PhoneNumber
   preferredLang: Language
   currentProvince: ProvinceOrTerritory
   currentCity: String
   isGovEmployee: Boolean
+  govEmployeeType: GovEmployeeType
   interestedInLaterOrSecondment: Boolean
   currentClassification: Classification
   languageAbility: LanguageAbility
@@ -24,6 +25,7 @@ type Applicant {
   isIndigenous: Boolean
   isVisibleMinority: Boolean
   jobLookingStatus: JobLookingStatus
+  poolCandidates: [PoolCandidate]
   hasDiploma: Boolean
   locationPreferences: [WorkRegion]
   locationExemptions: String
@@ -90,6 +92,12 @@ enum BilingualEvaluation {
   NOT_COMPLETED
 }
 
+enum CANDIDATE_EXPIRY_FILTER {
+  ACTIVE
+  EXPIRED
+  ALL
+}
+
 type Classification {
   id: ID!
   name: LocalizedString
@@ -100,7 +108,8 @@ type Classification {
 }
 
 input ClassificationBelongsTo {
-  connect: ID!
+  connect: ID
+  disconnect: Boolean
 }
 
 input ClassificationBelongsToMany {
@@ -233,6 +242,8 @@ input CreatePoolInput {
   assetCriteria: CmoAssetBelongsToMany
   essentialCriteria: CmoAssetBelongsToMany
   operationalRequirements: [OperationalRequirement]
+  keyTasks: LocalizedStringInput
+  status: PoolStatus = NOT_TAKING_APPLICATIONS
 }
 
 input CreateSkillFamilyInput {
@@ -251,13 +262,13 @@ input CreateSkillInput {
   keywords: [String!]
 }
 
-"""When creating a User, name and email are required."""
+"""When creating a User, name is required."""
 input CreateUserInput {
   sub: String
   roles: [Role] = []
   firstName: String!
   lastName: String!
-  email: Email!
+  email: Email
   telephone: PhoneNumber
   preferredLang: Language
   currentProvince: ProvinceOrTerritory
@@ -272,6 +283,7 @@ input CreateUserInput {
   verbalLevel: EvaluatedLanguageAbility
   estimatedLanguageAbility: EstimatedLanguageAbility
   isGovEmployee: Boolean
+  govEmployeeType: GovEmployeeType
   interestedInLaterOrSecondment: Boolean
   currentClassification: ClassificationBelongsTo
   isWoman: Boolean
@@ -390,6 +402,13 @@ interface Experience {
 
 type ExperienceSkillRecord {
   details: String
+}
+
+enum GovEmployeeType {
+  STUDENT
+  CASUAL
+  TERM
+  INDETERMINATE
 }
 
 enum JobLookingStatus {
@@ -620,6 +639,8 @@ type Pool {
   essentialCriteria: [CmoAsset]
   operationalRequirements: [OperationalRequirement]
   poolCandidates: [PoolCandidate]
+  keyTasks: LocalizedString
+  status: PoolStatus
 }
 
 input PoolBelongsTo {
@@ -706,10 +727,18 @@ enum PoolCandidateStatus {
   PLACED_INDETERMINATE
   PLACED_TERM
   NO_LONGER_INTERESTED
+  UNAVAILABLE
+  EXPIRED
+  PLACED_CASUAL
 }
 
 input PoolFilterInput {
   id: ID!
+}
+
+enum PoolStatus {
+  TAKING_APPLICATIONS
+  NOT_TAKING_APPLICATIONS
 }
 
 input PoolsHasMany {
@@ -744,7 +773,7 @@ type Query {
   poolCandidate(id: ID!): PoolCandidate
   poolCandidates: [PoolCandidate]!
   countPoolCandidates(where: PoolCandidateFilterInput): Int!
-  searchPoolCandidates(where: PoolCandidateFilterInput): [PoolCandidate]!
+  searchPoolCandidates(where: PoolCandidateFilterInput, expiryStatus: CANDIDATE_EXPIRY_FILTER): [PoolCandidate]!
   classification(id: ID!): Classification
   classifications: [Classification]!
   cmoAsset(id: ID!): CmoAsset
@@ -755,10 +784,20 @@ type Query {
   poolCandidateFilters: [PoolCandidateFilter]!
   poolCandidateSearchRequest(id: ID!): PoolCandidateSearchRequest
   poolCandidateSearchRequests: [PoolCandidateSearchRequest]!
+  latestPoolCandidateSearchRequests(limit: Int): [PoolCandidateSearchRequest]!
   skillFamily(id: ID!): SkillFamily
   skillFamilies: [SkillFamily]!
   skill(id: ID!): Skill
   skills: [Skill]!
+  usersPaginated(
+    where: UserFilterAndOrderInput
+
+    """Limits number of fetched items. Maximum allowed value: 1000."""
+    first: Int = 10
+
+    """The offset from which items are returned."""
+    page: Int
+  ): UserPaginator
 }
 
 enum Role {
@@ -956,6 +995,8 @@ input UpdatePoolInput {
   assetCriteria: CmoAssetBelongsToMany
   essentialCriteria: CmoAssetBelongsToMany
   operationalRequirements: [OperationalRequirement]
+  keyTasks: LocalizedStringInput
+  status: PoolStatus
 }
 
 input UpdateSkillFamilyInput {
@@ -972,10 +1013,9 @@ input UpdateSkillInput {
   keywords: [String!]
 }
 
-"""
-When updating a User, all fields are optional, and email cannot be changed.
-"""
+"""When updating a User, all fields are optional"""
 input UpdateUserAsAdminInput {
+  email: Email
   sub: String
   roles: [Role]
   firstName: String
@@ -994,6 +1034,7 @@ input UpdateUserAsAdminInput {
   verbalLevel: EvaluatedLanguageAbility
   estimatedLanguageAbility: EstimatedLanguageAbility
   isGovEmployee: Boolean
+  govEmployeeType: GovEmployeeType
   interestedInLaterOrSecondment: Boolean
   currentClassification: ClassificationBelongsTo
   isWoman: Boolean
@@ -1017,6 +1058,7 @@ input UpdateUserAsAdminInput {
 }
 
 input UpdateUserAsUserInput {
+  email: Email
   firstName: String
   lastName: String
   telephone: PhoneNumber
@@ -1033,6 +1075,7 @@ input UpdateUserAsUserInput {
   verbalLevel: EvaluatedLanguageAbility
   estimatedLanguageAbility: EstimatedLanguageAbility
   isGovEmployee: Boolean
+  govEmployeeType: GovEmployeeType
   interestedInLaterOrSecondment: Boolean
   currentClassification: ClassificationBelongsTo
   isWoman: Boolean
@@ -1061,7 +1104,7 @@ type User {
   roles: [Role]
   firstName: String
   lastName: String
-  email: Email!
+  email: Email
   telephone: PhoneNumber
   preferredLang: Language
   currentProvince: ProvinceOrTerritory
@@ -1076,6 +1119,7 @@ type User {
   verbalLevel: EvaluatedLanguageAbility
   estimatedLanguageAbility: EstimatedLanguageAbility
   isGovEmployee: Boolean
+  govEmployeeType: GovEmployeeType
   interestedInLaterOrSecondment: Boolean
   currentClassification: Classification
   isWoman: Boolean
@@ -1099,10 +1143,40 @@ type User {
   personalExperiences: [PersonalExperience]
   workExperiences: [WorkExperience]
   pools: [Pool]
+  isProfileComplete: Boolean
 }
 
 input UserBelongsTo {
   connect: ID
+}
+
+input UserFilterAndOrderInput {
+  poolCandidates: UserPoolFilterInput
+  languageAbility: LanguageAbility
+  expectedClassifications: [ClassificationFilterInput]
+  operationalRequirements: [OperationalRequirement]
+  locationPreferences: [WorkRegion]
+  hasDiploma: Boolean
+  wouldAcceptTemporary: Boolean
+  jobLookingStatus: [JobLookingStatus]
+  isProfileComplete: Boolean
+  skills: [ID]
+  isGovEmployee: Boolean
+  orderBy: String
+}
+
+"""A paginated list of User items."""
+type UserPaginator {
+  """Pagination information about the list of items."""
+  paginatorInfo: PaginatorInfo!
+
+  """A list of User items."""
+  data: [User!]!
+}
+
+input UserPoolFilterInput {
+  pools: [ID!]!
+  expiryStatus: CANDIDATE_EXPIRY_FILTER = ACTIVE
 }
 
 type UserPublicProfile {

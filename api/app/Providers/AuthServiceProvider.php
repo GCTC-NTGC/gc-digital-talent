@@ -21,7 +21,7 @@ use App\Policies\PoolCandidatePolicy;
 use App\Policies\PoolPolicy;
 use App\Policies\UserPolicy;
 use App\Policies\ExperiencePolicy;
-use App\Services\Contracts\BearerTokenServiceInterface;
+use App\Services\OpenIdBearerTokenService;
 use Exception;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
@@ -45,7 +45,7 @@ class AuthServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot(BearerTokenServiceInterface $tokenService)
+    public function boot(OpenIdBearerTokenService $tokenService)
     {
         // Here you may define how you wish users to be authenticated for your Lumen
         // application. The callback which receives the incoming request instance
@@ -65,41 +65,56 @@ class AuthServiceProvider extends ServiceProvider
         Gate::policy(AwardExperience::class, ExperiencePolicy::class);
 
         $this->app['auth']->viaRequest('api', function ($request) use ($tokenService) {
-
-            $bearerToken = $request->bearerToken(); // 1. extract JWT access token from request.
-            if($bearerToken)
-            {
-                try {
-                    $claims = $tokenService->validateAndGetClaims($bearerToken);  // 2. validate access token.
-                    $sub = $claims->get('sub');
-                } catch (RequiredConstraintsViolated $e) {
-                    $violations = [];
-                    foreach ($e->violations() as $violationError) {
-                        array_push($violations, $violationError->getMessage());
-                    }
-                    Log::notice('Authorization token not valid: ', $violations);
-                    return abort(401, 'Authorization token not valid.');
-                } catch (Exception $e) {
-                    Log::notice('Error while validating authorization token: ' . $e->getMessage());
-                    return abort(401, 'Error while validating authorization token.');
-                }
-
-                $userMatch = User::where('sub', $sub)->first(); // 3. match "sub" claim to user 'sub' field.
-                if($userMatch) {
-                    return $userMatch;
-                } else {
-                    Log::notice('No user found for given subscriber: '.$sub);
-                    return null;
-                }
-            }
-
-            // If a default user is set, and there is no bearer token, treat the request as if it were from the default user.
-            if (config('oauth.default_user')) {
-                $user = User::where('email', config('oauth.default_user'))->first();
-                if ($user) {
-                    return $user;
-                }
-            }
+            return $this->resolveUserOrAbort($request->bearerToken(), $tokenService);
         });
+    }
+
+    /**
+     * Get the associated user model for a request or abort if something goes wrong with the lookup
+     *
+     */
+    public function resolveUserOrAbort($bearerToken, $tokenService): ?User {
+        if($bearerToken)
+        {
+            try {
+                $claims = $tokenService->validateAndGetClaims($bearerToken);  // 2. validate access token.
+                $sub = $claims->get('sub');
+            } catch (RequiredConstraintsViolated $e) {
+                $violations = [];
+                foreach ($e->violations() as $violationError) {
+                    array_push($violations, $violationError->getMessage());
+                }
+                Log::notice('Authorization token not valid: ', $violations);
+                return abort(401, 'Authorization token not valid.');
+            } catch (Exception $e) {
+                Log::notice('Error while validating authorization token: ' . $e->getMessage());
+                return abort(401, 'Error while validating authorization token.');
+            }
+
+            // By this point we have verified that the token is legitimate
+
+            $userMatch = User::where('sub', $sub)->first(); // 3. match "sub" claim to user 'sub' field.
+            if($userMatch) {
+                return $userMatch;
+            } else {
+                // No user found for given subscriber - lets auto-register them
+                $newUser = new User;
+                $newUser->first_name = $sub;  // displayed on the landing page so should help us find the user
+                $newUser->sub = $sub;
+                $newUser->roles = null;
+                $newUser->save();
+                return $newUser;
+            }
+        }
+
+        // If a default user is set, and there is no bearer token, treat the request as if it were from the default user.
+        if (config('oauth.default_user')) {
+            $user = User::where('sub', config('oauth.default_user'))->first();
+            if ($user) {
+                return $user;
+            }
+        }
+
+        return null;
     }
 }

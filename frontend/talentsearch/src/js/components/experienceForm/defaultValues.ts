@@ -43,6 +43,7 @@ const queryResultToDefaultValues = (
       organization,
       project,
       startDate,
+      currentRole: endDate === null,
       endDate,
     },
     education: {
@@ -52,12 +53,14 @@ const queryResultToDefaultValues = (
       institution,
       thesisTitle,
       startDate,
+      currentRole: endDate === null,
       endDate,
     },
     personal: {
       experienceTitle: title,
       experienceDescription: description,
       startDate,
+      currentRole: endDate === null,
       endDate,
     },
     work: {
@@ -65,6 +68,7 @@ const queryResultToDefaultValues = (
       organization,
       team: division,
       startDate,
+      currentRole: endDate === null,
       endDate,
     },
   };
@@ -73,14 +77,11 @@ const queryResultToDefaultValues = (
     details,
     ...dataMap[experienceType],
     skills: skills
-      ? skills.reduce((prev, curr) => {
-          return {
-            ...prev,
-            [curr.id]: {
-              details: curr.experienceSkillRecord?.details || "",
-            },
-          };
-        }, {})
+      ? skills.map(({ id, name, experienceSkillRecord }) => ({
+          skillId: id,
+          name,
+          details: experienceSkillRecord?.details || "",
+        }))
       : undefined,
   };
 };

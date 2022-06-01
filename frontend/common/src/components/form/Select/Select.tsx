@@ -21,7 +21,7 @@ export interface SelectProps
   nullSelection?: string;
 }
 
-export const Select: React.FunctionComponent<SelectProps> = ({
+const Select: React.FunctionComponent<SelectProps> = ({
   id,
   label,
   name,
@@ -64,7 +64,8 @@ export const Select: React.FunctionComponent<SelectProps> = ({
           )}
           {options.map((option) => (
             <option
-              data-h2-font-size="b(caption)"
+              data-h2-font-size="b(normal)"
+              data-h2-font-family="b(sans)"
               key={option.value}
               value={option.value}
             >

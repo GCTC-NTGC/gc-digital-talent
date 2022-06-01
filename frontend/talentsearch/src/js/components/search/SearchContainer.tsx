@@ -17,11 +17,15 @@ import {
   ClassificationFilterInput,
   Maybe,
 } from "../../api/generated";
-import { DIGITAL_CAREERS_POOL_KEY } from "../../talentSearchConstants";
+import {
+  DIGITAL_CAREERS_POOL_KEY,
+  TALENTSEARCH_RECRUITMENT_EMAIL,
+} from "../../talentSearchConstants";
 import EstimatedCandidates from "./EstimatedCandidates";
 import { FormValues, SearchForm } from "./SearchForm";
 import SearchFilterAdvice from "./SearchFilterAdvice";
 import SearchPools from "./SearchPools";
+import Spinner from "../Spinner";
 import { useTalentSearchRoutes } from "../../talentSearchRoutes";
 
 export interface SearchContainerProps {
@@ -31,7 +35,7 @@ export interface SearchContainerProps {
   poolOwner?: Pick<UserPublicProfile, "firstName" | "lastName" | "email">;
   candidateCount: number;
   updatePending?: boolean;
-  candidateFilter: PoolCandidateFilterInput | undefined;
+  candidateFilter?: PoolCandidateFilterInput | undefined;
   updateCandidateFilter: (candidateFilter: PoolCandidateFilterInput) => void;
   updateInitialValues: (initialValues: FormValues) => void;
   handleSubmit: () => Promise<void>;
@@ -58,18 +62,67 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
     candidateFilter?.operationalRequirements?.length ?? 0;
 
   function span(msg: string) {
-    return updatePending ? (
-      <div className="lds-dual-ring" />
-    ) : (
-      <span data-h2-font-color="b(lightpurple)">{msg}</span>
+    return (
+      <span data-h2-font-color="b(lightpurple)" data-testid="candidateCount">
+        {msg}
+      </span>
     );
   }
 
   function a(msg: string) {
     return (
-      <a href={`mailto:${poolOwner?.email}`} data-h2-font-weight="b(700)">
+      <a
+        href={`mailto:${TALENTSEARCH_RECRUITMENT_EMAIL}`}
+        data-h2-font-weight="b(700)"
+      >
         {msg}
       </a>
+    );
+  }
+
+  function candidateResults() {
+    return candidateCount > 0 ? (
+      <div
+        data-h2-shadow="b(m)"
+        data-h2-border="b(lightnavy, left, solid, l)"
+        data-h2-margin="b(top, s) b(bottom, m)"
+        data-h2-flex-grid="b(middle, contained, flush, xl)"
+      >
+        <SearchPools
+          candidateCount={candidateCount}
+          pool={pool}
+          poolOwner={poolOwner}
+          handleSubmit={handleSubmit}
+        />
+      </div>
+    ) : (
+      <div
+        data-h2-shadow="b(m)"
+        data-h2-margin="b(top, s) b(bottom, m)"
+        data-h2-padding="b(top-bottom, xs) b(left, s)"
+        data-h2-border="b(darkgray, left, solid, l)"
+      >
+        <p data-h2-margin="b(bottom, none)">
+          {intl.formatMessage({
+            defaultMessage: "We can still help!",
+            description:
+              "Heading for helping user if no candidates matched the filters chosen.",
+          })}
+        </p>
+        <p data-h2-margin="b(top, xxs)" data-h2-font-size="b(caption)">
+          {intl.formatMessage(
+            {
+              defaultMessage:
+                "If there are no matching candidates <a>Get in touch!</a>",
+              description:
+                "Message for helping user if no candidates matched the filters chosen.",
+            },
+            {
+              a,
+            },
+          )}
+        </p>
+      </div>
     );
   }
 
@@ -150,50 +203,7 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
           />
         </div>
         <div data-h2-flex-item="b(1of1)" style={{ paddingTop: "0" }}>
-          {!updatePending &&
-            (candidateCount > 0 ? (
-              <div
-                data-h2-shadow="b(m)"
-                data-h2-border="b(lightnavy, left, solid, l)"
-                data-h2-margin="b(top, s) b(bottom, m)"
-                data-h2-flex-grid="b(middle, contained, flush, xl)"
-              >
-                <SearchPools
-                  candidateCount={candidateCount}
-                  pool={pool}
-                  poolOwner={poolOwner}
-                  handleSubmit={handleSubmit}
-                />
-              </div>
-            ) : (
-              <div
-                data-h2-shadow="b(m)"
-                data-h2-margin="b(top, s) b(bottom, m)"
-                data-h2-padding="b(top-bottom, xs) b(left, s)"
-                data-h2-border="b(darkgray, left, solid, l)"
-              >
-                <p data-h2-margin="b(bottom, none)">
-                  {intl.formatMessage({
-                    defaultMessage: "We can still help!",
-                    description:
-                      "Heading for helping user if no candidates matched the filters chosen.",
-                  })}
-                </p>
-                <p data-h2-margin="b(top, xxs)" data-h2-font-size="b(caption)">
-                  {intl.formatMessage(
-                    {
-                      defaultMessage:
-                        "If there are no matching candidates <a>Get in touch!</a>",
-                      description:
-                        "Message for helping user if no candidates matched the filters chosen.",
-                    },
-                    {
-                      a,
-                    },
-                  )}
-                </p>
-              </div>
-            ))}
+          {!updatePending ? candidateResults() : <Spinner />}
         </div>
       </div>
     </div>
@@ -227,14 +237,17 @@ const candidateFilterToQueryArgs = (
   return {
     where: {
       ...filter,
-      classifications: pickMap(filter.classifications, ["group", "level"]),
-      cmoAssets: pickMap(filter.cmoAssets, "key"),
+      classifications: filter.classifications
+        ? pickMap(filter.classifications, ["group", "level"])
+        : [],
+      cmoAssets: filter.cmoAssets ? pickMap(filter.cmoAssets, "key") : [],
       pools: poolId ? [{ id: poolId }] : pickMap(filter.pools, "id"),
     },
   };
 };
 
 export const SearchContainerApi: React.FC = () => {
+  const [initialValues, setInitialValues] = useState<FormValues | null>(null);
   const [{ data }] = useGetSearchFormDataQuery({
     variables: { poolKey: DIGITAL_CAREERS_POOL_KEY },
   });
@@ -250,8 +263,6 @@ export const SearchContainerApi: React.FC = () => {
     });
 
   const candidateCount = countData?.countPoolCandidates ?? 0;
-
-  const [initialValues, setInitialValues] = useState<FormValues | null>(null);
 
   const paths = useTalentSearchRoutes();
   const onSubmit = async () => {

@@ -13,6 +13,8 @@ query getAllClassificationsAndMe {
   me {
     id
     isGovEmployee
+    isProfileComplete
+    govEmployeeType
     currentClassification {
       id
       name {
@@ -31,7 +33,9 @@ query getAllClassificationsAndMe {
 mutation UpdateGovAsUser($id: ID!, $user: UpdateUserAsUserInput!) {
   updateUserAsUser(id: $id, user: $user) {
     isGovEmployee
+    govEmployeeType
     interestedInLaterOrSecondment
+    isProfileComplete
     currentClassification {
       id
       name {

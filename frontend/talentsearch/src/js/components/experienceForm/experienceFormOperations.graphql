@@ -177,3 +177,36 @@ mutation CreateWorkExperience($id: ID!, $workExperience: WorkExperienceInput!) {
     id
   }
 }
+
+mutation UpdateWorkExperience($id: ID!, $workExperience: WorkExperienceInput!) {
+  updateWorkExperience(id: $id, workExperience: $workExperience) {
+    id
+  }
+}
+
+mutation DeleteAwardExperience($id: ID!) {
+  deleteAwardExperience(id: $id) {
+    id
+  }
+}
+
+mutation DeleteCommunityExperience($id: ID!) {
+  deleteCommunityExperience(id: $id) {
+    id
+  }
+}
+mutation DeleteEducationExperience($id: ID!) {
+  deleteEducationExperience(id: $id) {
+    id
+  }
+}
+mutation DeletePersonalExperience($id: ID!) {
+  deletePersonalExperience(id: $id) {
+    id
+  }
+}
+mutation DeleteWorkExperience($id: ID!) {
+  deleteWorkExperience(id: $id) {
+    id
+  }
+}

@@ -17,7 +17,7 @@ export interface TextAreaProps
   rules?: RegisterOptions;
 }
 
-export const TextArea: React.FunctionComponent<TextAreaProps> = ({
+const TextArea: React.FunctionComponent<TextAreaProps> = ({
   id,
   context,
   label,
@@ -46,6 +46,8 @@ export const TextArea: React.FunctionComponent<TextAreaProps> = ({
           data-h2-padding="b(all, xxs)"
           data-h2-radius="b(s)"
           data-h2-border="b(darkgray, all, solid, s)"
+          data-h2-font-size="b(normal)"
+          data-h2-font-family="b(sans)"
           style={{ width: "100%", resize: "vertical" }}
           id={id}
           {...register(name, rules)}

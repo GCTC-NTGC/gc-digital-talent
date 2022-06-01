@@ -4,10 +4,12 @@ use App\Models\Classification;
 use App\Models\CmoAsset;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
+use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Nuwave\Lighthouse\Testing\ClearsSchemaCache;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Tests\TestCase;
+use Database\Helpers\ApiEnums;
 
 class PoolCandidateTest extends TestCase
 {
@@ -26,7 +28,9 @@ class PoolCandidateTest extends TestCase
 
     // Create initial data.
     Classification::factory()->count(3)->create();
-    PoolCandidate::factory()->count(5)->create();
+    PoolCandidate::factory()->count(5)->create([
+      'expected_salary' => [], // remove salaries to avoid accidental classification-to-salary matching
+    ]);
 
     // Create new classification and attach to two new pool candidates.
     $classification = Classification::factory()->create([
@@ -626,7 +630,9 @@ class PoolCandidateTest extends TestCase
   {
     // Create initial data.
     Classification::factory()->count(3)->create();
-    PoolCandidate::factory()->count(5)->create();
+    PoolCandidate::factory()->count(5)->create([
+      'expected_salary' => []
+    ]);
 
     // Create new classification.
     $classificationLvl1 = Classification::factory()->create([
@@ -634,18 +640,6 @@ class PoolCandidateTest extends TestCase
       'level' => 1,
       'min_salary' => 50000,
       'max_salary' => 69000,
-    ]);
-    $classificationLvl2 = Classification::factory()->create([
-      'group' => 'ZZ',
-      'level' => 2,
-      'min_salary' => 70000,
-      'max_salary' => 89000,
-    ]);
-    $classificationLvl3 = Classification::factory()->create([
-      'group' => 'ZZ',
-      'level' => 3,
-      'min_salary' => 90000,
-      'max_salary' => 100000,
     ]);
 
     // Attach new candidates that are in the expected salary range.
@@ -660,15 +654,12 @@ class PoolCandidateTest extends TestCase
       'expected_salary' => ['_60_69K', '_80_89K']
     ]);
     $poolCandidate2->expectedClassifications()->delete();
-    $poolCandidate2->expectedClassifications()->save($classificationLvl2);
 
     // Attach new candidates that are over the expected salary range.
     $poolCandidate3 = PoolCandidate::factory()->create([
       'expected_salary' => ['_90_99K', '_100K_PLUS']
     ]);
     $poolCandidate3->expectedClassifications()->delete();
-    $poolCandidate3->expectedClassifications()->save($classificationLvl3);
-
 
     // Assert query with no classifications filter will return all candidates
     $this->graphQL(/** @lang Graphql */ '
@@ -710,6 +701,214 @@ class PoolCandidateTest extends TestCase
     ])->assertJson([
       'data' => [
         'countPoolCandidates' => 0
+      ]
+    ]);
+  }
+
+  public function testFilterByClassificationToSalaryWithPools(): void
+  {
+    // myPool will be people we're querying for and should be returned
+    $myPool = Pool::factory()->create(['name' => 'myPool']);
+    // Pool 1 will be people we're not querying for and should not be returned
+    $otherPool = Pool::factory()->create(['name' => 'otherPool']);
+
+    // myClassification is the classification we will be querying for
+    $myClassification = Classification::factory()->create([
+      'group' => 'ZZ',
+      'level' => 1,
+      'min_salary' => 55000,
+      'max_salary' => 64999,
+    ]);
+
+    // *** first make three candidates in the right pool - 1 has an exact classification match, 1 has a salary to classification match, 1 has no match
+
+    // Attach new candidate in the pool with the desired classification
+    $poolCandidate1 = PoolCandidate::factory()->create([
+      'expected_salary' => [],
+      'pool_id' => $myPool->id
+    ]);
+    $poolCandidate1->expectedClassifications()->delete();
+    $poolCandidate1->expectedClassifications()->save($myClassification);
+
+    // Attach new candidate in the pool that overlaps the expected salary range and has a matching class group (but not level).
+    $poolCandidate2 = PoolCandidate::factory()->create([
+      'expected_salary' => ['_60_69K'],
+      'pool_id' => $myPool->id
+    ]);
+    $poolCandidate2->expectedClassifications()->delete();
+
+    // Attach new candidate in the pool that is over the expected salary range and has a matching class group (but not level).
+    $poolCandidate3 = PoolCandidate::factory()->create([
+      'expected_salary' => ['_90_99K', '_100K_PLUS'],
+      'pool_id' => $myPool->id
+    ]);
+    $poolCandidate3->expectedClassifications()->delete();
+
+    // *** now make the same three candidates in the wrong pool
+
+    // Attach new candidate in the pool with the desired classification WRONG POOL
+    $poolCandidate1WrongPool = PoolCandidate::factory()->create([
+      'expected_salary' => [],
+      'pool_id' => $otherPool->id
+    ]);
+    $poolCandidate1WrongPool->expectedClassifications()->delete();
+    $poolCandidate1WrongPool->expectedClassifications()->save($myClassification);
+
+    // Attach new candidate in the pool that overlaps the expected salary range. WRONG POOL
+    $poolCandidate2WrongPool = PoolCandidate::factory()->create([
+      'expected_salary' => ['_60_69K'],
+      'pool_id' => $otherPool->id
+    ]);
+    $poolCandidate2WrongPool->expectedClassifications()->delete();
+
+    // Attach new candidate in the pool that is over the expected salary range.  WRONG POOL
+    $poolCandidate3WrongPool = PoolCandidate::factory()->create([
+      'expected_salary' => ['_90_99K', '_100K_PLUS'],
+      'pool_id' => $otherPool->id
+    ]);
+    $poolCandidate3WrongPool->expectedClassifications()->delete();
+
+    // Assert query with just pool filters will return all candidates in that pool
+    $this->graphQL(/** @lang Graphql */ '
+      query countPoolCandidates($where: PoolCandidateFilterInput) {
+        countPoolCandidates(where: $where)
+      }
+    ', [
+      'where' => [
+        'pools' => [['id' => $myPool->id ]]
+      ]
+    ])->assertJson([
+      'data' => [
+        'countPoolCandidates' => 3
+      ]
+    ]);
+
+    // Assert query with classification filter will return candidates in range and overlapping in that pool
+    $this->graphQL(/** @lang Graphql */ '
+      query countPoolCandidates($where: PoolCandidateFilterInput) {
+        countPoolCandidates(where: $where)
+      }
+    ', [
+      'where' => [
+        'pools' => [['id' => $myPool->id ]],
+        'classifications' => [['group' => 'ZZ', 'level' => 1 ]],
+      ]
+    ])->assertJson([
+      'data' => [
+        'countPoolCandidates' => 2
+      ]
+    ]);
+
+    // Assert query with unknown classification filter will return zero
+    $this->graphQL(/** @lang Graphql */ '
+      query countPoolCandidates($where: PoolCandidateFilterInput) {
+        countPoolCandidates(where: $where)
+      }
+    ', [
+      'where' => [
+        'pools' => [['id' => $myPool->id ]],
+        'classifications' => [['group' => 'UNKNOWN', 'level' => 1324234 ]],
+      ]
+    ])->assertJson([
+      'data' => [
+        'countPoolCandidates' => 0
+      ]
+    ]);
+  }
+
+  public function testFilterByExpiryDate(): void
+  {
+    // Create admin user we run tests as
+    $newUser = new User;
+    $newUser->email = 'admin@test.com';
+    $newUser->sub = 'admin@test.com';
+    $newUser->roles = ['ADMIN'];
+    $newUser->save();
+
+    // Create some expired users
+    $expiredCandidates = PoolCandidate::factory()->count(2)->create([
+      'expiry_date' => '2000-05-13',
+    ]);
+
+    // Create some valid users
+    $futureCandidates = PoolCandidate::factory()->count(4)->create([
+      'expiry_date' => '3000-05-13',
+    ]);
+    $todayCandidate = PoolCandidate::factory()->create([
+      'expiry_date' => date("Y-m-d"),
+    ]);
+    $futureCandidates->concat($todayCandidate);
+    $nullCandidates = PoolCandidate::factory()->count(3)->create([
+      'expiry_date' => null,
+    ]);
+    $futureCandidates->concat($nullCandidates);
+
+    $allCandidates = $expiredCandidates;
+    $allCandidates->concat($futureCandidates);
+
+    // Assert countPoolCandidates query ignores expired candidates
+    $this->graphQL(/** @lang Graphql */ '
+      query countPoolCandidates {
+        countPoolCandidates
+      }
+    ')->assertJson([
+      'data' => [
+        'countPoolCandidates' => 8
+      ]
+    ]);
+
+    // Assert searchPoolCandidates query with no parameters returns correct candidates
+    $this->graphQL(/** @lang Graphql */ '
+      query searchPoolCandidates {
+        searchPoolCandidates {
+          id
+        }
+      }
+    ')->assertJson([
+      'data' => [
+        'searchPoolCandidates' => $futureCandidates->map->only(['id'])->toArray()
+      ]
+    ]);
+
+    // Assert searchPoolCandidates query with expiryStatus ACTIVE returns correct candidates
+    $activeStatus = ApiEnums::CANDIDATE_EXPIRY_FILTER_ACTIVE;
+    $this->graphQL(/** @lang Graphql */ "
+      query searchPoolCandidates {
+        searchPoolCandidates(expiryStatus: {$activeStatus}) {
+          id
+        }
+      }
+    ")->assertJson([
+      'data' => [
+        'searchPoolCandidates' => $futureCandidates->map->only(['id'])->toArray()
+      ]
+    ]);
+
+    // Assert searchPoolCandidates query with expiryStatus EXPIRED returns correct candidates
+    $expiredStatus = ApiEnums::CANDIDATE_EXPIRY_FILTER_EXPIRED;
+    $this->graphQL(/** @lang Graphql */ "
+      query searchPoolCandidates {
+        searchPoolCandidates(expiryStatus: {$expiredStatus}) {
+          id
+        }
+      }
+    ")->assertJson([
+      'data' => [
+        'searchPoolCandidates' => $expiredCandidates->map->only(['id'])->toArray()
+      ]
+    ]);
+
+    // Assert searchPoolCandidates query with expiryStatus ALL returns correct candidates
+    $allStatus = ApiEnums::CANDIDATE_EXPIRY_FILTER_ALL;
+    $this->graphQL(/** @lang Graphql */ "
+      query searchPoolCandidates {
+        searchPoolCandidates(expiryStatus: {$allStatus}) {
+          id
+        }
+      }
+    ")->assertJson([
+      'data' => [
+        'searchPoolCandidates' => $expiredCandidates->map->only(['id'])->toArray()
       ]
     ]);
   }

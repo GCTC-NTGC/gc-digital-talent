@@ -3,13 +3,22 @@ import { useFormState } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { Button } from "../..";
 
-export const Submit: React.FunctionComponent<{
+export interface SubmitProps {
   text?: string | React.ReactNode;
   submittedText?: string | React.ReactNode;
   isSubmittingText?: string | React.ReactNode;
   color?: "primary" | "secondary" | "cta" | "white";
   mode?: "solid" | "outline" | "inline";
-}> = ({ text, submittedText, isSubmittingText, color, mode, ...rest }) => {
+}
+
+const Submit: React.FunctionComponent<SubmitProps> = ({
+  text,
+  submittedText,
+  isSubmittingText,
+  color,
+  mode,
+  ...rest
+}) => {
   const intl = useIntl();
   const defaultText = intl.formatMessage({
     defaultMessage: "Submit",

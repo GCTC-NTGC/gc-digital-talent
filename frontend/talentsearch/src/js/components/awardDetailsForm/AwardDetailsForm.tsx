@@ -1,7 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { Input } from "@common/components/form/Input";
-import { Select } from "@common/components/form/Select";
+import Input from "@common/components/form/Input";
+import Select from "@common/components/form/Select";
 import { errorMessages } from "@common/messages";
 import { enumToOptions } from "@common/helpers/formUtils";
 import {

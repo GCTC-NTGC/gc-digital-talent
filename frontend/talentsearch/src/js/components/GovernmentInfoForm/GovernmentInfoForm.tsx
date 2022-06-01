@@ -14,14 +14,16 @@ import {
   useUpdateGovAsUserMutation,
   UpdateUserAsUserInput,
   GetAllClassificationsAndMeQuery,
+  GovEmployeeType,
 } from "../../api/generated";
 import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
 import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
 import talentSearchRoutes from "../../talentSearchRoutes";
+import profileMessages from "../profile/profileMessages";
 
 type FormValues = {
   govEmployeeYesNo?: "yes" | "no";
-  govEmployeeType?: "student" | "casual" | "term" | "indeterminate";
+  govEmployeeType?: GovEmployeeType | null;
   lateralDeployBool?: boolean;
   currentClassificationGroup?: string;
   currentClassificationLevel?: string;
@@ -54,20 +56,27 @@ const formValuesToSubmitData = (
   if (values.govEmployeeYesNo === "no") {
     return {
       isGovEmployee: false,
+      govEmployeeType: null,
       interestedInLaterOrSecondment: null,
-      currentClassification: null,
+      currentClassification: {
+        connect: null,
+      },
     };
   }
-  if (values.govEmployeeType === "student") {
+  if (values.govEmployeeType === GovEmployeeType.Student) {
     return {
       isGovEmployee: values.govEmployeeYesNo === "yes",
+      govEmployeeType: values.govEmployeeType,
       interestedInLaterOrSecondment: null,
-      currentClassification: null,
+      currentClassification: {
+        disconnect: true,
+      },
     };
   }
-  if (values.govEmployeeType === "casual") {
+  if (values.govEmployeeType === GovEmployeeType.Casual) {
     return {
       isGovEmployee: values.govEmployeeYesNo === "yes",
+      govEmployeeType: values.govEmployeeType,
       interestedInLaterOrSecondment: null,
       currentClassification: classificationId
         ? {
@@ -78,6 +87,7 @@ const formValuesToSubmitData = (
   }
   return {
     isGovEmployee: values.govEmployeeYesNo === "yes",
+    govEmployeeType: values.govEmployeeType,
     interestedInLaterOrSecondment: values.lateralDeployBool,
     currentClassification: classificationId
       ? {
@@ -100,7 +110,7 @@ const dataToFormValues = (
   };
   return {
     govEmployeeYesNo: boolToYesNo(data?.isGovEmployee),
-    govEmployeeType: undefined, // TODO: get from data as soon as its available
+    govEmployeeType: data?.govEmployeeType,
     lateralDeployBool: empty(data?.interestedInLaterOrSecondment)
       ? undefined
       : data?.interestedInLaterOrSecondment,
@@ -133,14 +143,11 @@ export const GovernmentInfoForm: React.FunctionComponent<
     submitHandler(formValuesToSubmitData(values, classifications));
 
   // hooks to watch, needed for conditional rendering
-  const [govEmployee, govEmployeeStatus, groupSelection] = methods.watch(
-    ["govEmployeeYesNo", "govEmployeeType", "currentClassificationGroup"],
-    {
-      govEmployeeYesNo: defaultValues.govEmployeeYesNo,
-      govEmployeeType: "student",
-      currentClassificationGroup: defaultValues.currentClassificationGroup,
-    },
-  );
+  const [govEmployee, govEmployeeStatus, groupSelection] = methods.watch([
+    "govEmployeeYesNo",
+    "govEmployeeType",
+    "currentClassificationGroup",
+  ]);
 
   // create array of objects containing the classifications, then map it into an array of strings, and then remove duplicates, and then map into Select options
   // https://stackoverflow.com/questions/11246758/how-to-get-unique-values-in-an-array#comment87157537_42123984
@@ -248,30 +255,30 @@ export const GovernmentInfoForm: React.FunctionComponent<
                   }}
                   items={[
                     {
-                      value: "student", // TODO: use enum values instead of strings, when those enums are available.
+                      value: GovEmployeeType.Student,
                       label: intl.formatMessage({
                         defaultMessage: "I am a student",
                         description: "Label displayed for student option",
                       }),
                     },
                     {
-                      value: "casual",
+                      value: GovEmployeeType.Casual,
                       label: intl.formatMessage({
-                        defaultMessage: "I have a  casual contract",
+                        defaultMessage: "I have a casual contract",
                         description: "Label displayed for casual option",
                       }),
                     },
                     {
-                      value: "term",
+                      value: GovEmployeeType.Term,
                       label: intl.formatMessage({
                         defaultMessage: "I have a term position",
                         description: "Label displayed for term option",
                       }),
                     },
                     {
-                      value: "indeterminate",
+                      value: GovEmployeeType.Indeterminate,
                       label: intl.formatMessage({
-                        defaultMessage: "I have a indeterminate position",
+                        defaultMessage: "I have an indeterminate position",
                         description: "Label displayed for indeterminate option",
                       }),
                     },
@@ -280,8 +287,8 @@ export const GovernmentInfoForm: React.FunctionComponent<
               )}
             </div>
             {govEmployee === "yes" &&
-              (govEmployeeStatus === "term" ||
-                govEmployeeStatus === "indeterminate") && (
+              (govEmployeeStatus === GovEmployeeType.Term ||
+                govEmployeeStatus === GovEmployeeType.Indeterminate) && (
                 <p>
                   {intl.formatMessage({
                     defaultMessage:
@@ -293,8 +300,8 @@ export const GovernmentInfoForm: React.FunctionComponent<
               )}
             <div data-h2-padding="b(bottom, m)">
               {govEmployee === "yes" &&
-                (govEmployeeStatus === "term" ||
-                  govEmployeeStatus === "indeterminate") && (
+                (govEmployeeStatus === GovEmployeeType.Term ||
+                  govEmployeeStatus === GovEmployeeType.Indeterminate) && (
                   <Checkbox
                     id="lateralDeployBool"
                     label={intl.formatMessage({
@@ -310,9 +317,9 @@ export const GovernmentInfoForm: React.FunctionComponent<
                 )}
             </div>
             {govEmployee === "yes" &&
-              (govEmployeeStatus === "term" ||
-                govEmployeeStatus === "indeterminate" ||
-                govEmployeeStatus === "casual") && (
+              (govEmployeeStatus === GovEmployeeType.Term ||
+                govEmployeeStatus === GovEmployeeType.Indeterminate ||
+                govEmployeeStatus === GovEmployeeType.Casual) && (
                 <p>
                   {intl.formatMessage({
                     defaultMessage:
@@ -328,9 +335,9 @@ export const GovernmentInfoForm: React.FunctionComponent<
             >
               <div data-h2-padding="s(right, l)" style={{ width: "100%" }}>
                 {govEmployee === "yes" &&
-                  (govEmployeeStatus === "term" ||
-                    govEmployeeStatus === "indeterminate" ||
-                    govEmployeeStatus === "casual") && (
+                  (govEmployeeStatus === GovEmployeeType.Term ||
+                    govEmployeeStatus === GovEmployeeType.Indeterminate ||
+                    govEmployeeStatus === GovEmployeeType.Casual) && (
                     <Select
                       id="currentClassificationGroup"
                       label={intl.formatMessage({
@@ -352,9 +359,9 @@ export const GovernmentInfoForm: React.FunctionComponent<
               </div>
               <div style={{ width: "100%" }}>
                 {govEmployee === "yes" &&
-                  (govEmployeeStatus === "term" ||
-                    govEmployeeStatus === "indeterminate" ||
-                    govEmployeeStatus === "casual") &&
+                  (govEmployeeStatus === GovEmployeeType.Term ||
+                    govEmployeeStatus === GovEmployeeType.Indeterminate ||
+                    govEmployeeStatus === GovEmployeeType.Casual) &&
                   groupSelection !== "Choose Department" && (
                     <Select
                       id="currentClassificationLevel"
@@ -395,6 +402,7 @@ export const GovInfoFormContainer: React.FunctionComponent = () => {
   // acquire classifications from graphQL to pass into component to render and pull "Me" at the same time
   const [lookUpResult] = useGetAllClassificationsAndMeQuery();
   const { data: lookupData, fetching: fetchingLookupData } = lookUpResult;
+  const preProfileStatus = lookupData?.me?.isProfileComplete;
   const classifications: Classification[] | [] =
     lookupData?.classifications.filter(notEmpty) ?? [];
   const meInfo = lookupData?.me;
@@ -425,24 +433,19 @@ export const GovInfoFormContainer: React.FunctionComponent = () => {
       return;
     }
     await handleUpdateUser(meId, data)
-      .then(() => {
-        navigate(paths.profile());
-        toast.success(
-          intl.formatMessage({
-            defaultMessage: "User updated successfully!",
-            description:
-              "Message displayed to user after user is updated successfully.",
-          }),
-        );
+      .then((res) => {
+        if (res.isProfileComplete) {
+          const currentProfileStatus = res.isProfileComplete;
+          const message = intl.formatMessage(profileMessages.profileCompleted);
+          if (!preProfileStatus && currentProfileStatus) {
+            toast.success(message);
+          }
+          navigate(paths.profile());
+          toast.success(intl.formatMessage(profileMessages.userUpdated));
+        }
       })
       .catch(() => {
-        toast.error(
-          intl.formatMessage({
-            defaultMessage: "Error: updating user failed",
-            description:
-              "Message displayed to user after user fails to get updated.",
-          }),
-        );
+        toast.error(intl.formatMessage(profileMessages.updatingFailed));
       });
   };
 

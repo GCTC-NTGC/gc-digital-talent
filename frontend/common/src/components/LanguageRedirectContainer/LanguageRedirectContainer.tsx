@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { IntlProvider } from "react-intl";
 import { isLocale, Locales, localizePath } from "../../helpers/localize";
 import { redirect, useLocation } from "../../helpers/router";
+import useIntlLanguages from "../../hooks/useIntlMessages";
 
 const STORED_LOCALE = "stored_locale";
 
@@ -24,15 +25,21 @@ function guessLocale(): Locales {
   return "en";
 }
 
-type Messages = React.ComponentProps<typeof IntlProvider>["messages"];
+export type Messages = React.ComponentProps<typeof IntlProvider>["messages"];
 
-export const LanguageRedirectContainer: React.FC<{
-  getMessages: (locale: string) => Messages;
-}> = ({ getMessages, children }) => {
+export interface LanguageRedirectContainerProps {
+  messages: Messages;
+}
+
+export const LanguageRedirectContainer: React.FC<
+  LanguageRedirectContainerProps
+> = ({ messages, children }) => {
   const location = useLocation();
 
   const pathLocale = getPathLocale(location.pathname);
   const guessedLocale = pathLocale || guessLocale();
+
+  const compiledMessages = useIntlLanguages(pathLocale, messages);
 
   // If the url already begins with locale, update locale in locale storage. Otherwise, redirect to the correct url.
   useEffect(() => {
@@ -49,7 +56,7 @@ export const LanguageRedirectContainer: React.FC<{
     <IntlProvider
       locale={pathLocale}
       key={pathLocale}
-      messages={getMessages(pathLocale)}
+      messages={compiledMessages}
     >
       {children}
     </IntlProvider>

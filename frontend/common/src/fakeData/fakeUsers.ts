@@ -20,6 +20,8 @@ import {
   EducationExperience,
   PersonalExperience,
   WorkExperience,
+  GovEmployeeType,
+  Applicant,
 } from "../api/generated";
 import fakeClassifications from "./fakeClassifications";
 import fakeCmoAssets from "./fakeCmoAssets";
@@ -40,6 +42,7 @@ const generateUser = (
   faker.setLocale("en");
 
   return {
+    __typename: "User",
     id: faker.datatype.uuid(),
 
     // Personal Info
@@ -47,41 +50,49 @@ const generateUser = (
     firstName: faker.name.firstName(),
     lastName: faker.name.lastName(),
     telephone: faker.helpers.replaceSymbols("+###########"),
-    preferredLang: faker.random.arrayElement<Language>(Object.values(Language)),
-    currentProvince: faker.random.arrayElement<ProvinceOrTerritory>(
+    preferredLang: faker.helpers.arrayElement<Language>(
+      Object.values(Language),
+    ),
+    currentProvince: faker.helpers.arrayElement<ProvinceOrTerritory>(
       Object.values(ProvinceOrTerritory),
     ),
     currentCity: faker.address.city(),
 
     // Language
-    languageAbility: faker.random.arrayElement<LanguageAbility>(
+    languageAbility: faker.helpers.arrayElement<LanguageAbility>(
       Object.values(LanguageAbility),
     ),
     lookingForEnglish: faker.datatype.boolean(),
     lookingForFrench: faker.datatype.boolean(),
     lookingForBilingual: faker.datatype.boolean(),
-    bilingualEvaluation: faker.random.arrayElement<BilingualEvaluation>(
+    bilingualEvaluation: faker.helpers.arrayElement<BilingualEvaluation>(
       Object.values(BilingualEvaluation),
     ),
-    comprehensionLevel: faker.random.arrayElement<EvaluatedLanguageAbility>(
+    comprehensionLevel: faker.helpers.arrayElement<EvaluatedLanguageAbility>(
       Object.values(EvaluatedLanguageAbility),
     ),
-    writtenLevel: faker.random.arrayElement<EvaluatedLanguageAbility>(
+    writtenLevel: faker.helpers.arrayElement<EvaluatedLanguageAbility>(
       Object.values(EvaluatedLanguageAbility),
     ),
-    verbalLevel: faker.random.arrayElement<EvaluatedLanguageAbility>(
+    verbalLevel: faker.helpers.arrayElement<EvaluatedLanguageAbility>(
       Object.values(EvaluatedLanguageAbility),
     ),
     estimatedLanguageAbility:
-      faker.random.arrayElement<EstimatedLanguageAbility>(
+      faker.helpers.arrayElement<EstimatedLanguageAbility>(
         Object.values(EstimatedLanguageAbility),
       ),
 
     // Gov info
     isGovEmployee: faker.datatype.boolean(),
+    govEmployeeType: faker.helpers.arrayElement<GovEmployeeType>([
+      GovEmployeeType.Student,
+      GovEmployeeType.Casual,
+      GovEmployeeType.Term,
+      GovEmployeeType.Indeterminate,
+    ]),
     interestedInLaterOrSecondment: faker.datatype.boolean(),
     currentClassification:
-      faker.random.arrayElement<Classification>(classifications),
+      faker.helpers.arrayElement<Classification>(classifications),
 
     // Employment Equity
     isWoman: faker.datatype.boolean(),
@@ -90,25 +101,25 @@ const generateUser = (
     isVisibleMinority: faker.datatype.boolean(),
 
     // Applicant info
-    jobLookingStatus: faker.random.arrayElement<JobLookingStatus>(
+    jobLookingStatus: faker.helpers.arrayElement<JobLookingStatus>(
       Object.values(JobLookingStatus),
     ),
     hasDiploma: faker.datatype.boolean(),
-    locationPreferences: faker.random.arrayElements<WorkRegion>(
+    locationPreferences: faker.helpers.arrayElements<WorkRegion>(
       Object.values(WorkRegion),
     ),
     locationExemptions: faker.address.city(),
     acceptedOperationalRequirements:
-      faker.random.arrayElements<OperationalRequirement>(
+      faker.helpers.arrayElements<OperationalRequirement>(
         Object.values(OperationalRequirement),
       ),
-    expectedSalary: faker.random.arrayElements<SalaryRange>(
+    expectedSalary: faker.helpers.arrayElements<SalaryRange>(
       Object.values(SalaryRange),
     ),
     expectedClassifications:
-      faker.random.arrayElements<Classification>(classifications),
+      faker.helpers.arrayElements<Classification>(classifications),
     wouldAcceptTemporary: faker.datatype.boolean(),
-    cmoAssets: faker.random.arrayElements<CmoAsset>(cmoAssets),
+    cmoAssets: faker.helpers.arrayElements<CmoAsset>(cmoAssets),
 
     poolCandidates,
 
@@ -152,6 +163,15 @@ export const defaultGenerator = (numToGenerate = 20): User[] => {
       workExperiences,
     ),
   );
+};
+
+export const applicantGenerator = (numToGenerate = 20): Applicant[] => {
+  return defaultGenerator(numToGenerate).map((user) => {
+    return {
+      ...user,
+      __typename: "Applicant",
+    };
+  });
 };
 
 export default defaultGenerator;

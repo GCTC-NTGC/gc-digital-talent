@@ -59,6 +59,11 @@ const sampleSkill2: Skill = {
   experienceSkillRecord: theExperienceSkillRecord,
 };
 
+const staticDates = {
+  start: new Date("October 24, 1992").toDateString(),
+  end: new Date("October 23, 1993").toDateString(),
+};
+
 // 5 generators to generate experiences of a certain type
 // actual generators start here
 const generateAward = (): AwardExperience => {
@@ -71,13 +76,13 @@ const generateAward = (): AwardExperience => {
     skills: [],
     details: faker.random.words(),
     title: faker.lorem.word(),
-    awardedTo: faker.random.arrayElement<AwardedTo>([
+    awardedTo: faker.helpers.arrayElement<AwardedTo>([
       AwardedTo.Me,
       AwardedTo.MyOrganization,
       AwardedTo.MyProject,
       AwardedTo.MyTeam,
     ]),
-    awardedScope: faker.random.arrayElement<AwardedScope>([
+    awardedScope: faker.helpers.arrayElement<AwardedScope>([
       AwardedScope.Community,
       AwardedScope.International,
       AwardedScope.Local,
@@ -86,7 +91,7 @@ const generateAward = (): AwardExperience => {
       AwardedScope.Provincial,
       AwardedScope.SubOrganizational,
     ]),
-    awardedDate: faker.date.past().toString().slice(0, 15),
+    awardedDate: staticDates.start,
     issuedBy: faker.company.companyName(),
     experienceSkillRecord: {
       details: faker.random.words(),
@@ -105,8 +110,8 @@ const generateCommunity = (): CommunityExperience => {
     title: faker.lorem.word(),
     organization: faker.company.companyName(),
     project: faker.lorem.word(),
-    startDate: faker.date.recent().toString().slice(0, 15),
-    endDate: faker.date.future().toString().slice(0, 15),
+    startDate: staticDates.start,
+    endDate: staticDates.end,
     experienceSkillRecord: {
       details: faker.random.words(),
     },
@@ -122,7 +127,7 @@ const generateEducation = (): EducationExperience => {
     skills: [sampleSkill1, sampleSkill2],
     details: faker.random.words(),
     areaOfStudy: faker.music.genre(),
-    type: faker.random.arrayElement<EducationType>([
+    type: faker.helpers.arrayElement<EducationType>([
       EducationType.BachelorsDegree,
       EducationType.Certification,
       EducationType.Diploma,
@@ -133,15 +138,15 @@ const generateEducation = (): EducationExperience => {
       EducationType.PostDoctoralFellowship,
     ]),
     institution: faker.name.lastName(),
-    status: faker.random.arrayElement<EducationStatus>([
+    status: faker.helpers.arrayElement<EducationStatus>([
       EducationStatus.Audited,
       EducationStatus.DidNotComplete,
       EducationStatus.InProgress,
       EducationStatus.SuccessCredential,
       EducationStatus.SuccessNoCredential,
     ]),
-    startDate: faker.date.recent().toString().slice(0, 15),
-    endDate: faker.date.future().toString().slice(0, 15),
+    startDate: staticDates.start,
+    endDate: staticDates.end,
     thesisTitle: faker.random.words(),
     experienceSkillRecord: {
       details: faker.random.words(),
@@ -158,8 +163,8 @@ const generatePersonal = (): PersonalExperience => {
     skills: [sampleSkill1],
     details: faker.lorem.sentence(),
     title: faker.name.jobTitle(),
-    startDate: faker.date.recent().toString().slice(0, 15),
-    endDate: faker.date.future().toString().slice(0, 15),
+    startDate: staticDates.start,
+    endDate: staticDates.end,
     description: faker.lorem.paragraph(),
     experienceSkillRecord: {
       details: faker.random.words(),
@@ -178,8 +183,8 @@ const generateWork = (): WorkExperience => {
     organization: faker.company.companyName(),
     role: faker.name.jobTitle(),
     division: faker.animal.bird(),
-    startDate: faker.date.past().toString().slice(0, 15),
-    endDate: faker.date.soon().toString().slice(0, 15),
+    startDate: staticDates.start,
+    endDate: staticDates.end,
     experienceSkillRecord: {
       details: faker.random.words(),
     },
@@ -200,7 +205,7 @@ export default (numberOfExperiences: number) => {
 
   // fill an array with random experiences
   const experiences = [...Array(numberOfExperiences)].map(() => {
-    const generator = faker.random.arrayElement(generators);
+    const generator = faker.helpers.arrayElement(generators);
     return generator();
   });
 

@@ -12,7 +12,7 @@ export interface LinkProps extends React.HTMLProps<HTMLAnchorElement> {
   type?: "button" | "link";
 }
 
-export const Link: React.FC<LinkProps> = ({
+const Link: React.FC<LinkProps> = ({
   href,
   title,
   color,

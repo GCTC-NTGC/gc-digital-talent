@@ -6,6 +6,10 @@ import { BasicForm, TextArea } from "@common/components/form";
 import { commonMessages } from "@common/messages";
 import { getLocale } from "@common/helpers/localize";
 import { navigate } from "@common/helpers/router";
+import Dialog from "@common/components/Dialog";
+import { Button } from "@common/components";
+
+import { TrashIcon } from "@heroicons/react/solid";
 
 import { removeFromSessionStorage } from "@common/helpers/storageUtils";
 import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
@@ -37,27 +41,37 @@ import type {
 
 import queryResultToDefaultValues from "./defaultValues";
 import formValuesToSubmitData from "./submissionData";
-import useExperienceMutations from "./mutations";
+import {
+  useExperienceMutations,
+  useDeleteExperienceMutation,
+} from "./mutations";
 
 export interface ExperienceFormProps {
   experienceType: ExperienceType;
   experience?: ExperienceQueryData;
   skills: Skill[];
   onUpdateExperience: (values: ExperienceDetailsSubmissionData) => void;
+  deleteExperience: () => void;
   cacheKey?: string;
+  edit?: boolean;
 }
 
 export const ExperienceForm: React.FunctionComponent<ExperienceFormProps> = ({
   experience,
   experienceType,
   onUpdateExperience,
+  deleteExperience,
   skills,
   cacheKey,
+  edit,
 }) => {
+  const [isDialogOpen, setDialogOpen] = React.useState<boolean>(false);
   const intl = useIntl();
+  const locale = getLocale(intl);
+  const paths = applicantProfileRoutes(locale);
   const defaultValues = experience
     ? queryResultToDefaultValues(experienceType, experience)
-    : { skills: undefined };
+    : undefined;
 
   const handleSubmit: SubmitHandler<FormValues<AllFormValues>> = async (
     formValues,
@@ -65,6 +79,32 @@ export const ExperienceForm: React.FunctionComponent<ExperienceFormProps> = ({
     const data = formValuesToSubmitData(experienceType, formValues);
     await onUpdateExperience(data);
   };
+  const deleteButton = (
+    <Button
+      type="submit"
+      mode="solid"
+      color="primary"
+      onClick={deleteExperience}
+    >
+      {intl.formatMessage({
+        defaultMessage: "Delete",
+        description: "Delete confirmation",
+      })}
+    </Button>
+  );
+  const exitDialogButton = (
+    <Button
+      type="button"
+      mode="outline"
+      color="secondary"
+      onClick={() => setDialogOpen(false)}
+    >
+      {intl.formatMessage({
+        defaultMessage: "Cancel",
+        description: "Cancel confirmation",
+      })}
+    </Button>
+  );
 
   return (
     <ProfileFormWrapper
@@ -80,12 +120,27 @@ export const ExperienceForm: React.FunctionComponent<ExperienceFormProps> = ({
       crumbs={[
         {
           title: intl.formatMessage({
-            defaultMessage: "My experience and skills",
+            defaultMessage: "Experience and Skills",
             description:
-              "Display text for My experience and skills F`orm Page Link",
+              "Display text for My experience and skills Form Page Link",
           }),
+          href: paths.skillsAndExperiences(),
+        },
+        {
+          title: experience
+            ? intl.formatMessage({
+                defaultMessage: "Edit Experience",
+                description:
+                  "Display text for edit experience form in breadcrumbs",
+              })
+            : intl.formatMessage({
+                defaultMessage: "Add Experience",
+                description:
+                  "Display text for add experience form in breadcrumbs",
+              }),
         },
       ]}
+      cancelLink={paths.skillsAndExperiences()}
     >
       <BasicForm
         onSubmit={handleSubmit}
@@ -99,12 +154,7 @@ export const ExperienceForm: React.FunctionComponent<ExperienceFormProps> = ({
         {experienceType === "education" && <EducationExperienceForm />}
         {experienceType === "personal" && <PersonalExperienceForm />}
         {experienceType === "work" && <WorkExperienceForm />}
-        <ExperienceSkills
-          skills={skills}
-          initialSkills={
-            defaultValues?.skills ? defaultValues.skills : undefined
-          }
-        />
+        <ExperienceSkills skills={skills} />
         <h2 data-h2-font-size="b(h3)">
           {intl.formatMessage({
             defaultMessage: "4. Additional information for this experience",
@@ -128,20 +178,64 @@ export const ExperienceForm: React.FunctionComponent<ExperienceFormProps> = ({
           })}
           name="details"
         />
-        <ProfileFormFooter mode="bothButtons" />
+        {edit && (
+          <Button
+            onClick={() => setDialogOpen(true)}
+            type="button"
+            mode="outline"
+            color="secondary"
+            data-h2-margin="b(top, l)"
+          >
+            <span>
+              <TrashIcon style={{ width: "0.9rem" }} />{" "}
+              {intl.formatMessage({
+                defaultMessage: "Delete experience from My Profile",
+                description: "Label on button for delete this experience",
+              })}
+            </span>
+          </Button>
+        )}
+        <ProfileFormFooter
+          mode="bothButtons"
+          link={paths.skillsAndExperiences()}
+        />
       </BasicForm>
+      <Dialog
+        title={intl.formatMessage({
+          defaultMessage: "Are you sure?",
+          description: "Delete confirmation",
+        })}
+        isOpen={isDialogOpen}
+        onDismiss={() => setDialogOpen(false)}
+        footer={
+          <div
+            data-h2-display="b(flex)"
+            data-h2-justify-content="b(space-between)"
+          >
+            {exitDialogButton}
+            {deleteButton}
+          </div>
+        }
+      >
+        {intl.formatMessage({
+          defaultMessage:
+            "You are about to delete an experience from your profile. You will lose all information attached to it. Are you sure you want to delete this experience?",
+          description: "Warning prior to experience deletion",
+        })}
+      </Dialog>
     </ProfileFormWrapper>
   );
 };
 
 export interface ExperienceFormContainerProps {
-  experienceType: ExperienceType; // TO DO: To be passed from router context
+  experienceType: ExperienceType;
   experienceId?: string;
+  edit?: boolean;
 }
 
 const ExperienceFormContainer: React.FunctionComponent<
   ExperienceFormContainerProps
-> = ({ experienceType, experienceId }) => {
+> = ({ experienceType, experienceId, edit }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const paths = applicantProfileRoutes(locale);
@@ -152,23 +246,35 @@ const ExperienceFormContainer: React.FunctionComponent<
 
   const handleSuccess = () => {
     removeFromSessionStorage(cacheKey); // clear the cache
-    navigate(paths.home());
+    navigate(paths.skillsAndExperiences());
     toast.success(
-      intl.formatMessage({
-        defaultMessage: "Successfully added experience!",
-        description:
-          "Success message displayed after adding experience to profile",
-      }),
+      edit
+        ? intl.formatMessage({
+            defaultMessage: "Successfully updated experience!",
+            description:
+              "Success message displayed after updating experience on profile",
+          })
+        : intl.formatMessage({
+            defaultMessage: "Successfully added experience!",
+            description:
+              "Success message displayed after adding experience to profile",
+          }),
     );
   };
 
   const handleError = () => {
     toast.error(
-      intl.formatMessage({
-        defaultMessage: "Error: adding experience failed",
-        description:
-          "Message displayed to user after experience fails to be created.",
-      }),
+      edit
+        ? intl.formatMessage({
+            defaultMessage: "Error: updating experience failed",
+            description:
+              "Message displayed to user after experience fails to be updated.",
+          })
+        : intl.formatMessage({
+            defaultMessage: "Error: adding experience failed",
+            description:
+              "Message displayed to user after experience fails to be created.",
+          }),
     );
   };
 
@@ -209,6 +315,32 @@ const ExperienceFormContainer: React.FunctionComponent<
     }
   };
 
+  // delete functionality //
+  // constrict to string only
+  const experienceIdExact = experienceId || "";
+  const executeDeletionMutation = useDeleteExperienceMutation(experienceType);
+
+  const handleDeleteExperience = () => {
+    if (meData?.me) {
+      executeDeletionMutation
+        .executeDeletionMutation({
+          id: experienceIdExact,
+        })
+        .then((result) => {
+          navigate(paths.skillsAndExperiences());
+          toast.success(
+            intl.formatMessage({
+              defaultMessage: "Experience Deleted",
+              description:
+                "Message displayed to user after experience deleted.",
+            }),
+          );
+          return result.data;
+        })
+        .catch(handleError);
+    }
+  };
+
   if (fetchingSkills || fetchingMe || fetchingExperience) {
     return <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>;
   }
@@ -228,7 +360,9 @@ const ExperienceFormContainer: React.FunctionComponent<
       experienceType={experienceType}
       skills={skillsData.skills as Skill[]}
       onUpdateExperience={handleUpdateExperience}
+      deleteExperience={handleDeleteExperience}
       cacheKey={cacheKey}
+      edit={edit}
     />
   );
 };

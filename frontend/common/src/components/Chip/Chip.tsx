@@ -43,7 +43,7 @@ const colorMap: Record<
   },
 };
 
-export const Chip: React.FC<ChipProps> = ({
+const Chip: React.FC<ChipProps> = ({
   color,
   mode,
   onDismiss,
@@ -53,8 +53,8 @@ export const Chip: React.FC<ChipProps> = ({
     <Pill
       color={color}
       mode={mode}
-      data-h2-padding="b(top-bottom, xxs) b(right-left, xs)"
       role="listitem"
+      data-h2-padding="b(top-bottom, xxs) b(right-left, xs)"
     >
       {label}
       {onDismiss && (

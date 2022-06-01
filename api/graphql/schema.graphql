@@ -35,7 +35,7 @@ type User {
     # Personal info
     firstName: String @rename(attribute: "first_name")
     lastName: String @rename(attribute: "last_name")
-    email: Email!
+    email: Email
     telephone: PhoneNumber
     preferredLang: Language @rename(attribute: "preferred_lang")
     currentProvince: ProvinceOrTerritory @rename(attribute: "current_province")
@@ -57,6 +57,7 @@ type User {
 
     # Gov info
     isGovEmployee: Boolean @rename(attribute: "is_gov_employee")
+    govEmployeeType: GovEmployeeType @rename(attribute: "gov_employee_type")
     interestedInLaterOrSecondment: Boolean
         @rename(attribute: "interested_in_later_or_secondment")
     currentClassification: Classification @belongsTo # Users current classification
@@ -90,6 +91,9 @@ type User {
 
     # Pool Manager info
     pools: [Pool] @hasMany # Pools a user owns
+
+    # Profile Status
+    isProfileComplete: Boolean
 }
 
 enum ProvinceOrTerritory {
@@ -135,13 +139,20 @@ enum JobLookingStatus {
     INACTIVE
 }
 
+enum GovEmployeeType {
+    STUDENT
+    CASUAL
+    TERM
+    INDETERMINATE
+}
+
 type Applicant {
     id: ID!
 
     # Personal info
     firstName: String @rename(attribute: "first_name")
     lastName: String @rename(attribute: "last_name")
-    email: Email!
+    email: Email
     telephone: PhoneNumber
     preferredLang: Language @rename(attribute: "preferred_lang")
     currentProvince: ProvinceOrTerritory @rename(attribute: "current_province")
@@ -149,6 +160,7 @@ type Applicant {
 
     # Gov info
     isGovEmployee: Boolean @rename(attribute: "is_gov_employee")
+    govEmployeeType: GovEmployeeType @rename(attribute: "gov_employee_type")
     interestedInLaterOrSecondment: Boolean @rename(attribute: "interested_in_later_or_secondment")
     currentClassification: Classification @belongsTo # Users current classification
 
@@ -171,6 +183,7 @@ type Applicant {
 
     # Applicant info
     jobLookingStatus: JobLookingStatus @rename(attribute: "job_looking_status")
+    poolCandidates: [PoolCandidate] @hasMany @can(ability: "viewAny")
 
     hasDiploma: Boolean @rename(attribute: "has_diploma")
     locationPreferences: [WorkRegion] @rename(attribute: "location_preferences")
@@ -208,6 +221,13 @@ type Pool {
     essentialCriteria: [CmoAsset] @belongsToMany
     operationalRequirements: [OperationalRequirement] @rename(attribute: "operational_requirements")
     poolCandidates: [PoolCandidate] @hasMany @can(ability: "viewAny")
+    keyTasks: LocalizedString @rename(attribute: "key_tasks")
+    status: PoolStatus @rename(attribute: "pool_status")
+}
+
+enum PoolStatus {
+    TAKING_APPLICATIONS
+    NOT_TAKING_APPLICATIONS
 }
 
 enum PoolCandidateStatus {
@@ -215,6 +235,9 @@ enum PoolCandidateStatus {
     PLACED_INDETERMINATE
     PLACED_TERM
     NO_LONGER_INTERESTED
+    UNAVAILABLE
+    EXPIRED
+    PLACED_CASUAL
 }
 
 type PoolCandidate {
@@ -501,6 +524,17 @@ input PoolFilterInput {
     id: ID!
 }
 
+enum CANDIDATE_EXPIRY_FILTER {
+    ACTIVE
+    EXPIRED
+    ALL
+}
+
+input UserPoolFilterInput {
+    pools: [ID!]!
+    expiryStatus: CANDIDATE_EXPIRY_FILTER = ACTIVE
+}
+
 input PoolCandidateFilterInput {
     classifications: [ClassificationFilterInput] @builder(method: "App\\Models\\PoolCandidate@filterByClassifications")
     cmoAssets: [KeyFilterInput] @builder(method: "App\\Models\\PoolCandidate@filterByCmoAssets")
@@ -515,21 +549,37 @@ input PoolCandidateFilterInput {
     pools: [PoolFilterInput] @builder(method: "App\\Models\\PoolCandidate@filterByPools")
 }
 
+input UserFilterAndOrderInput {
+    poolCandidates: UserPoolFilterInput @builder(method: "App\\Models\\User@filterByPools")
+    languageAbility: LanguageAbility @builder(method: "App\\Models\\User@filterByLanguageAbility")
+    expectedClassifications: [ClassificationFilterInput] @builder(method: "App\\Models\\User@filterByClassifications")
+    operationalRequirements: [OperationalRequirement] @builder(method: "App\\Models\\User@filterByOperationalRequirements")
+    locationPreferences: [WorkRegion] @builder(method: "App\\Models\\User@filterByLocationPreferences")
+    hasDiploma: Boolean @scope
+    wouldAcceptTemporary: Boolean @scope
+    jobLookingStatus: [JobLookingStatus] @builder(method: "App\\Models\\User@filterByJobLookingStatus")
+    isProfileComplete: Boolean @scope
+    skills: [ID] @builder(method: "App\\Models\\User@filterBySkills")
+    isGovEmployee: Boolean @scope
+    orderBy: String   # This needs to be the name of the field in the database eg. first_name
+}
+
 type Query {
     me: User @auth
     user(id: ID! @eq): User @find @guard @can(ability: "view", query: true)
     users: [User]! @all @guard @can(ability: "viewAny")
+    usersPaginated(where: UserFilterAndOrderInput): [User]! @paginate(defaultCount: 10, maxCount: 1000 scopes: ["order"]) @guard @can(ability: "viewAny")
     applicant(id: ID! @eq): Applicant @find(model: "User") @guard @can(ability: "viewApplicant", query: true, model: "User")
     applicants: [Applicant]! @all(model: "User") @guard @can(ability: "viewAnyApplicants", model: "User")
     pool(id: ID! @eq): Pool @find
     poolByKey(key: String! @eq): Pool @find
     pools: [Pool]! @all
     poolCandidate(id: ID! @eq): PoolCandidate @find @guard @can(ability: "view", query: true)
-    poolCandidates: [PoolCandidate]! @all @guard @can(ability: "viewAny")
+    poolCandidates: [PoolCandidate]! @all(scopes: ["expiryFilter"]) @guard @can(ability: "viewAny")
     # countPoolCandidates returns the number of candidates matching its filters, and requires no special permissions.
-    countPoolCandidates(where: PoolCandidateFilterInput): Int! @count(model: "PoolCandidate")
+    countPoolCandidates(where: PoolCandidateFilterInput): Int! @count(model: "PoolCandidate" scopes: ["expiryFilter"])
     # searchPoolCandidates returns the actual candidates matching a filter, and requires permissions.
-    searchPoolCandidates(where: PoolCandidateFilterInput): [PoolCandidate]! @all @guard @can(ability: "viewAny")
+    searchPoolCandidates(where: PoolCandidateFilterInput, expiryStatus: CANDIDATE_EXPIRY_FILTER): [PoolCandidate]! @all(scopes: ["expiryFilter"]) @guard @can(ability: "viewAny")
     classification(id: ID! @eq): Classification @find
     classifications: [Classification]! @all
     cmoAsset(id: ID! @eq): CmoAsset @find
@@ -540,28 +590,30 @@ type Query {
     poolCandidateFilters: [PoolCandidateFilter]! @all @guard @can(ability: "viewAny")
     poolCandidateSearchRequest(id: ID! @eq): PoolCandidateSearchRequest @find @guard @can(ability: "view", query: true)
     poolCandidateSearchRequests: [PoolCandidateSearchRequest]! @all @guard @can(ability: "viewAny")
+    latestPoolCandidateSearchRequests(limit: Int @limit): [PoolCandidateSearchRequest]! @all @orderBy(column: "created_at", direction: DESC) @guard @can(ability: "viewAny")
     skillFamily(id: ID! @eq): SkillFamily @find
     skillFamilies: [SkillFamily]! @all
     skill(id: ID! @eq): Skill @find
     skills: [Skill]! @all
 }
 input ClassificationBelongsTo {
-    connect: ID!
+    connect: ID
+    disconnect: Boolean
 }
 input PoolsHasMany {
     create: [CreatePoolInput]
 }
 """
-When creating a User, name and email are required.
+When creating a User, name is required.
 """
 input CreateUserInput {
-    sub: String
+    sub: String @rules(apply: ["unique:users,sub"])
     roles: [Role] = []
 
     # Personal info
     firstName: String! @rename(attribute: "first_name")
     lastName: String! @rename(attribute: "last_name")
-    email: Email! @rules(apply: ["unique:users,email"])
+    email: Email @rules(apply: ["unique:users,email"])
     telephone: PhoneNumber
     preferredLang: Language @rename(attribute: "preferred_lang")
     currentProvince: ProvinceOrTerritory @rename(attribute: "current_province")
@@ -580,6 +632,7 @@ input CreateUserInput {
 
     # Gov info
     isGovEmployee: Boolean @rename(attribute: "is_gov_employee")
+    govEmployeeType: GovEmployeeType @rename(attribute: "gov_employee_type")
     interestedInLaterOrSecondment: Boolean @rename(attribute: "interested_in_later_or_secondment")
     currentClassification: ClassificationBelongsTo
 
@@ -608,9 +661,10 @@ input CreateUserInput {
     awardExperiences: AwardExperienceHasMany
 }
 """
-When updating a User, all fields are optional, and email cannot be changed.
+When updating a User, all fields are optional
 """
 input UpdateUserAsAdminInput {
+    email: Email
     sub: String
     roles: [Role]
 
@@ -635,6 +689,7 @@ input UpdateUserAsAdminInput {
 
     # Gov info
     isGovEmployee: Boolean @rename(attribute: "is_gov_employee")
+    govEmployeeType: GovEmployeeType @rename(attribute: "gov_employee_type")
     interestedInLaterOrSecondment: Boolean @rename(attribute: "interested_in_later_or_secondment")
     currentClassification: ClassificationBelongsTo
 
@@ -666,6 +721,7 @@ input UpdateUserAsAdminInput {
 
 input UpdateUserAsUserInput {
     # Personal info
+    email: Email
     firstName: String @rename(attribute: "first_name")
     lastName: String @rename(attribute: "last_name")
     telephone: PhoneNumber
@@ -686,6 +742,7 @@ input UpdateUserAsUserInput {
 
     # Gov info
     isGovEmployee: Boolean @rename(attribute: "is_gov_employee")
+    govEmployeeType: GovEmployeeType @rename(attribute: "gov_employee_type")
     interestedInLaterOrSecondment: Boolean @rename(attribute: "interested_in_later_or_secondment")
     currentClassification: ClassificationBelongsTo
 
@@ -784,6 +841,8 @@ input CreatePoolInput {
     assetCriteria: CmoAssetBelongsToMany
     essentialCriteria: CmoAssetBelongsToMany
     operationalRequirements: [OperationalRequirement] @rename(attribute: "operational_requirements")
+    keyTasks: LocalizedStringInput @rename(attribute: "key_tasks")
+    status: PoolStatus = NOT_TAKING_APPLICATIONS @rename(attribute: "pool_status")
 }
 
 input UpdateClassificationInput {
@@ -823,6 +882,8 @@ input UpdatePoolInput {
     assetCriteria: CmoAssetBelongsToMany
     essentialCriteria: CmoAssetBelongsToMany
     operationalRequirements: [OperationalRequirement] @rename(attribute: "operational_requirements")
+    keyTasks: LocalizedStringInput @rename(attribute: "key_tasks")
+    status: PoolStatus @rename(attribute: "pool_status")
 }
 
 input CreateDepartmentInput {

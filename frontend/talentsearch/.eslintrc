@@ -55,7 +55,8 @@
         "import/no-extraneous-dependencies": "off",
         "import/extensions": [
             "warn",
-            "never"
+            "never",
+            {"json": "always"}
         ],
         "react/display-name": "off",
         "react/prop-types": "off",
@@ -71,15 +72,19 @@
         "react/jsx-props-no-spreading": "off",
         "react/require-default-props": "off",
         "react-hooks/rules-of-hooks": "error",
-        "react-hooks/exhaustive-deps": "warn",
-        "jsx-a11y/label-has-for":"error",
-        "jsx-a11y/label-has-associated-control": [
-            2,
+        "react-hooks/exhaustive-deps": [
+            "warn",
             {
-                "assert": "either",
-                "depth": 3
+                "additionalHooks":
+                    "(useDeepCompareEffect)"
             }
         ],
+        "jsx-a11y/label-has-associated-control": [ 2, {
+            "labelComponents": ["CustomInputLabel"],
+            "labelAttributes": ["label"],
+            "controlComponents": ["CustomInput"],
+            "depth": 3
+          }],
         "no-param-reassign": "warn",
         "jsx-a11y/no-noninteractive-element-to-interactive-role": [
             "error",
