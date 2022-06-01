@@ -7,12 +7,14 @@ COPY package.json package-lock.json ./
 COPY common/package.json /app/common/
 COPY admin/package.json /app/admin/
 COPY talentsearch/package.json /app/talentsearch/
+COPY indigenousapprenticeship/package.json /app/indigenousapprenticeship/
 # TODO: add indigenous apprenticeship portal
 RUN npm ci
 
 # Default configuration in case needed.
 COPY admin/.env.example admin/.env
 COPY talentsearch/.env.example talentsearch/.env
+COPY indigenousapprenticeship/.env.example indigenousapprenticeship/.env
 
 # Other build commands require most of the code copied in
 # TODO: Be more specific with file copies
@@ -33,5 +35,7 @@ RUN rm -rf ./*
 COPY conf/root.htaccess ./.htaccess
 COPY conf/talentsearch.htaccess ./talentsearch/.htaccess
 COPY conf/admin.htaccess ./admin/.htaccess
+COPY conf/indigenousapprenticeship.htaccess ./indigenousapprenticeship/.htaccess
 COPY --from=builder /app/talentsearch/dist ./talentsearch/
 COPY --from=builder /app/admin/dist ./admin/
+COPY --from=builder /app/indigenousapprenticeship/dist ./indigenousapprenticeship/
