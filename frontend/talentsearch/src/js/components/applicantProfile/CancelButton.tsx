@@ -2,14 +2,14 @@ import { Link } from "@common/components";
 import { ArrowCircleLeftIcon } from "@heroicons/react/outline";
 import * as React from "react";
 import { useIntl } from "react-intl";
+import { useApplicantProfileRoutes } from "../../applicantProfileRoutes";
 
-const CancelButton: React.FunctionComponent<{ link?: string }> = ({
-  link = "/profile",
-}) => {
+const CancelButton: React.FunctionComponent<{ link?: string }> = ({ link }) => {
   const intl = useIntl();
+  const profilePaths = useApplicantProfileRoutes();
   return (
     <Link
-      href={link} // TODO: Replace with profile link when ready.
+      href={link || profilePaths.home()}
       color="secondary"
       mode="outline"
       data-h2-display="s(inline-flex)"

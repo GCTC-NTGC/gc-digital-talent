@@ -34,7 +34,7 @@ export interface ChecklistProps {
  * Must be part of a form controlled by react-hook-form.
  * The form will represent the data at `name` as an array, containing the values of the checked boxes.
  */
-export const Checklist: React.FunctionComponent<ChecklistProps> = ({
+const Checklist: React.FunctionComponent<ChecklistProps> = ({
   idPrefix,
   legend,
   name,

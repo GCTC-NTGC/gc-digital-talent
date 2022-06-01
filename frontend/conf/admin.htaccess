@@ -1,5 +1,5 @@
 # Map all SPA-looking routes to our single page app index file
-FallbackResource /frontend/admin/dist/index.html
+FallbackResource /admin/index.html
 
 # Requests for files should return a real 404 and not fallback to the index.html page, though
 <Files ~ "\.(js|css|gif|jpe?g|png|svg)$">
@@ -32,3 +32,6 @@ AddOutputFilter INCLUDES .shtml .sjs
 
 # Make certain environment variables available for SSI
 PassEnv OAUTH_POST_LOGOUT_REDIRECT OAUTH_LOGOUT_URI
+
+# Constrain undefined output to a known value
+SSIUndefinedEcho "(none)"

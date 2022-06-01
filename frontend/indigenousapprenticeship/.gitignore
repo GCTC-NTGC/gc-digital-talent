@@ -1,0 +1,20 @@
+## Dependencies / Compiled Assets
+/node_modules
+/dist
+/etc/ssl/
+!/etc/ssl/.gitkeep
+/report
+.env
+
+/.idea
+
+# Hidden Files
+.DS_Store
+
+/storybook-static/*
+
+# Hydrogen
+src/css/hydrogen
+
+# Code Coverage
+src/js/tests/coverage

@@ -21,8 +21,8 @@ export interface AddSkillsToExperienceProps {
   allSkills: Skill[];
   frequentSkills: Skill[];
   addedSkills: Skill[];
-  onRemoveSkill: (id: Scalars["ID"]) => Promise<void>;
-  onAddSkill: (id: Scalars["ID"]) => Promise<void>;
+  onRemoveSkill: (id: Scalars["ID"]) => void;
+  onAddSkill: (id: Scalars["ID"]) => void;
 }
 
 const AddSkillsToExperience: React.FunctionComponent<
@@ -93,7 +93,7 @@ const AddSkillsToExperience: React.FunctionComponent<
 
   return (
     <>
-      <AddedSkills skills={addedSkills} onRemoveSkill={onRemoveSkill} />
+      <AddedSkills skills={addedSkills || []} onRemoveSkill={onRemoveSkill} />
       <hr />
       <h5>
         {intl.formatMessage({
@@ -121,7 +121,7 @@ const AddSkillsToExperience: React.FunctionComponent<
               },
             )}
             skills={frequentSkillsPagination.currentTableData}
-            addedSkills={addedSkills}
+            addedSkills={addedSkills || []}
             handleAddSkill={onAddSkill}
             handleRemoveSkill={onRemoveSkill}
           />
@@ -162,7 +162,7 @@ const AddSkillsToExperience: React.FunctionComponent<
               },
             )}
             skills={mainstreamSkillsPagination.currentTableData}
-            addedSkills={addedSkills}
+            addedSkills={addedSkills || []}
             handleAddSkill={onAddSkill}
             handleRemoveSkill={onRemoveSkill}
           />
@@ -200,7 +200,7 @@ const AddSkillsToExperience: React.FunctionComponent<
               },
             )}
             skills={keywordSearchPagination.currentTableData}
-            addedSkills={addedSkills}
+            addedSkills={addedSkills || []}
             handleAddSkill={onAddSkill}
             handleRemoveSkill={onRemoveSkill}
           />

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Database\Helpers\ApiEnums;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -71,24 +72,33 @@ class PoolCandidate extends Model
 
     public function filterByClassifications(Builder $query, array $classifications): Builder
     {
+        // if no filters provided then return query unchanged
+        if (empty($classifications)) {
+            return $query;
+        }
+
         // Classifications act as an OR filter. The query should return candidates with any of the classifications.
         // A single whereHas clause for the relationship, containing multiple orWhere clauses accomplishes this.
-        $query->whereHas('expectedClassifications', function ($query) use ($classifications) {
-            foreach ($classifications as $index => $classification) {
-                if ($index === 0) {
-                    // First iteration must use where instead of orWhere
-                    $query->where(function($query) use ($classification) {
-                        $query->where('group', $classification['group'])->where('level', $classification['level']);
-                    });
-                } else {
-                    $query->orWhere(function($query) use ($classification) {
-                        $query->where('group', $classification['group'])->where('level', $classification['level']);
-                    });
-                }
-            }
-        });
 
-        $this->orFilterByClassificationToSalary($query, $classifications);
+        // group these in a subquery to properly handle "OR" condition
+        $query->where(function($query) use ($classifications) {
+            $query->whereHas('expectedClassifications', function ($query) use ($classifications) {
+                foreach ($classifications as $index => $classification) {
+                    if ($index === 0) {
+                        // First iteration must use where instead of orWhere
+                        $query->where(function($query) use ($classification) {
+                            $query->where('group', $classification['group'])->where('level', $classification['level']);
+                        });
+                    } else {
+                        $query->orWhere(function($query) use ($classification) {
+                            $query->where('group', $classification['group'])->where('level', $classification['level']);
+                        });
+                    }
+                }
+            });
+
+            $this->orFilterByClassificationToSalary($query, $classifications);
+        });
 
         return $query;
     }
@@ -127,22 +137,17 @@ SELECT NULL    -- find all candidates where a salary/group combination matches a
         WHEN '_80_89K' THEN 89999
         WHEN '_90_99K' THEN 99999
         WHEN '_100K_PLUS' THEN 2147483647
-      END max_salary,
-      t.classification_group
+      END max_salary
     FROM (
-      SELECT    -- find all combinations of salary range and classification group for each candidate
+      SELECT    -- find all salary ranges for each candidate
         pc.id candidate_id,
-        JSONB_ARRAY_ELEMENTS_TEXT(pc.expected_salary) salary_range_id,
-        c.group classification_group
+        JSONB_ARRAY_ELEMENTS_TEXT(pc.expected_salary) salary_range_id
       FROM pool_candidates pc
-      JOIN classification_pool_candidate cpc ON pc.id = cpc.pool_candidate_id
-      JOIN classifications c ON cpc.classification_id = c.id
     ) t
   ) u
   JOIN classifications c ON
     c.max_salary >= u.min_salary
     AND c.min_salary <= u.max_salary
-    AND c.group = u.classification_group
   WHERE (
 
 RAWSQL1;
@@ -179,6 +184,11 @@ RAWSQL2;
     }
     public function filterByOperationalRequirements(Builder $query, ?array $operationalRequirements): Builder
     {
+        // if no filters provided then return query unchanged
+        if (empty($operationalRequirements)) {
+            return $query;
+        }
+
         // OperationalRequirements act as an AND filter. The query should only return candidates willing to accept ALL of the requirements.
             $query->whereJsonContains('accepted_operational_requirements', $operationalRequirements);
         return $query;
@@ -194,6 +204,17 @@ RAWSQL2;
                 } else {
                     $query->orWhereJsonContains('location_preferences', $region);
                 }
+            }
+        });
+        return $query;
+    }
+    public function filterByLanguageAbility(Builder $query, ?string $languageAbility): Builder
+    {
+        // If filtering for a specific language the query should return candidates of that language OR bilingual.
+        $query->where(function($query) use ($languageAbility) {
+            $query->where('language_ability', $languageAbility);
+            if ($languageAbility == ApiEnums::LANGUAGE_ABILITY_ENGLISH || $languageAbility == ApiEnums::LANGUAGE_ABILITY_FRENCH) {
+                $query->orWhere('language_ability', ApiEnums::LANGUAGE_ABILITY_BILINGUAL);
             }
         });
         return $query;
@@ -248,6 +269,14 @@ RAWSQL2;
         }
         return $query;
     }
-
-
+    public function scopeExpiryFilter(Builder $query, ?array $args) {
+        $expiryStatus = isset($args['expiryStatus']) ? $args['expiryStatus'] : ApiEnums::CANDIDATE_EXPIRY_FILTER_ACTIVE;
+        if ($expiryStatus == ApiEnums::CANDIDATE_EXPIRY_FILTER_ACTIVE) {
+            $query->whereDate('expiry_date', '>=', date("Y-m-d"))
+                  ->orWhereNull('expiry_date');
+        } else if ($expiryStatus == ApiEnums::CANDIDATE_EXPIRY_FILTER_EXPIRED) {
+            $query->whereDate('expiry_date', '<', date("Y-m-d"));
+        }
+        return $query;
+    }
 }

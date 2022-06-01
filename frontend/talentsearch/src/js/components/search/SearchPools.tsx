@@ -22,7 +22,11 @@ const SearchPools: React.FunctionComponent<SearchPoolsProps> = ({
 
   function bold(msg: string) {
     return (
-      <span data-h2-font-weight="b(700)" data-h2-font-color="b(lightpurple)">
+      <span
+        data-h2-font-weight="b(700)"
+        data-h2-font-color="b(lightpurple)"
+        data-testid="candidateCount"
+      >
         {msg}
       </span>
     );
@@ -38,7 +42,7 @@ const SearchPools: React.FunctionComponent<SearchPoolsProps> = ({
         </p>
         <p
           data-h2-margin="b(top, xxs) b(bottom, m)"
-          data-h2-font-weight="b(100)"
+          data-h2-font-weight="b(200)"
         >
           {intl.formatMessage(
             {

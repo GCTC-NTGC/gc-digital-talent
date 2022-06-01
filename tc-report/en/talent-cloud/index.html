@@ -1,554 +1,1013 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>GC Talent | Talent Cloud</title>
-  <meta name="description" content="Talent Cloud is an experimental staffing solution created by the Government of Canada. Read our experiment's results report here!">
-  <!-- Google Tag Manager -->
-  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-P27NF5V');</script>
-    <!-- End Google Tag Manager -->
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>GC Talent | Talent Cloud</title>
+        <meta
+            name="description"
+            content="Talent Cloud is an experimental staffing solution created by the Government of Canada. Read our experiment's results report here!"
+        />
+        <!-- Google Tag Manager -->
+        <script>
+            (function (w, d, s, l, i) {
+                w[l] = w[l] || [];
+                w[l].push({
+                    "gtm.start": new Date().getTime(),
+                    event: "gtm.js",
+                });
+                var f = d.getElementsByTagName(s)[0],
+                    j = d.createElement(s),
+                    dl = l != "dataLayer" ? "&l=" + l : "";
+                j.async = true;
+                j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+                f.parentNode.insertBefore(j, f);
+            })(window, document, "script", "dataLayer", "GTM-P27NF5V");
+        </script>
+        <!-- End Google Tag Manager -->
 
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script
-        async
-        src="https://www.googletagmanager.com/gtag/js?id=UA-115747902-1">
-    </script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'UA-115747902-1', {
-          cookie_flags: 'secure'
-        });
-    </script>
-  <!-- Favicons -->
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-  <link rel="manifest" href="/site.webmanifest">
-  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
-  <meta name="msapplication-TileColor" content="#da532c">
-  <meta name="theme-color" content="#ffffff">
-  <!-- Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap" rel="stylesheet">
-  <!-- Hydrogen CSS -->
-  
-    <!-- <link rel="stylesheet" href="/assets/css/hydrogen-tc.css"> -->
-    <link rel="stylesheet" href="/assets/css/hydrogen.css">
-  
-  <!-- App CSS -->
-  <link rel="stylesheet" href="/assets/css/app.css">
-</head>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script
+            async
+            src="https://www.googletagmanager.com/gtag/js?id=UA-115747902-1"
+        ></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag() {
+                dataLayer.push(arguments);
+            }
+            gtag("js", new Date());
+            gtag("config", "UA-115747902-1", {
+                cookie_flags: "secure",
+            });
+        </script>
+        <!-- Favicons -->
+        <link
+            rel="apple-touch-icon"
+            sizes="180x180"
+            href="/apple-touch-icon.png"
+        />
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="32x32"
+            href="/favicon-32x32.png"
+        />
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="16x16"
+            href="/favicon-16x16.png"
+        />
+        <link rel="manifest" href="/site.webmanifest" />
+        <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
+        <meta name="msapplication-TileColor" content="#da532c" />
+        <meta name="theme-color" content="#ffffff" />
+        <!-- Google Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap"
+            rel="stylesheet"
+        />
+        <!-- Hydrogen CSS -->
 
-  <body data-h2-font-family="b(sans)">
-    <a href="#mainContent" title="" class="skip-link">Skip to Main Content</a>
-    <div data-h2-border="b([light]gray, bottom, solid, s)" >
-  <div data-h2-container="b(center, full)" data-h2-padding="b(top-bottom, s)">
-    <div data-h2-flex-grid="b(middle, expanded, flush, s)">
-      <div data-h2-flex-item="m(1of2)" data-h2-text-align="b(center) m(left)">
-        <a
-          data-h2-display="b(inline-block)"
-          style="max-width: 15rem; width: 100%;"
-          href="https://canada.ca/"
-          target="_blank"
-          title="Visit canada.ca."
-          rel="noopener noreferrer"
+        <!-- <link rel="stylesheet" href="/assets/css/hydrogen-tc.css"> -->
+        <link rel="stylesheet" href="/assets/css/hydrogen.css" />
+
+        <!-- App CSS -->
+        <link rel="stylesheet" href="/assets/css/app.css" />
+    </head>
+
+    <body data-h2-font-family="b(sans)">
+        <a href="#mainContent" title="" class="skip-link"
+            >Skip to Main Content</a
         >
-          <img data-h2- alt="goc logo" src="/assets/img/ui-goc.svg"
-        /></a>
-      </div>
-      <div data-h2-flex-item="m(1of2)" data-h2-text-align="b(center) m(right)">
-         
-        <a href="/fr/talent-cloud/" title="Voir ce contenu en français.">Français</a>
-        
-      </div>
-    </div>
-  </div>
-</div>
-
-<div data-h2-container="b(center, full)" >
-  <nav data-h2-padding="b(top-bottom, m)">
-    <ul class="reset-ul" data-h2-padding="b(all, none)" data-h2-margin="b(all, none)" data-h2-text-align="b(center) m(left)" style="margin-left: -.7rem;">
-      
-        <li data-h2-margin="b(all, none)" data-h2-padding="b(all, none)" data-h2-display="b(inline-block)">
-          <a href="/en/" title="Visit the GC Talent homepage."
-            
-            data-h2-display="b(block)"
-            data-h2-padding="b(all, xs) m(right-left, s)">Home</a>
-        </li>
-      
-        <li data-h2-margin="b(all, none)" data-h2-padding="b(all, none)" data-h2-display="b(inline-block)">
-          <a href="/en/talent-cloud/" title="Learn more about the Talent Cloud project."
-            
-            data-h2-display="b(block)"
-            data-h2-padding="b(all, xs) m(right-left, s)">Talent Cloud</a>
-        </li>
-      
-        <li data-h2-margin="b(all, none)" data-h2-padding="b(all, none)" data-h2-display="b(inline-block)">
-          <a href="/en/communities/digital-talent/" title="Learn more about the Digital Talent community."
-            
-            data-h2-display="b(block)"
-            data-h2-padding="b(all, xs) m(right-left, s)">Digital Talent</a>
-        </li>
-      
-    </ul>
-  </nav>
-</div>
-<section id="mainContent">
-  <div data-h2-text-align="b(center)" data-h2-padding="b(top, xxl) b(bottom, xl)">
-     
-    <h1
-  data-h2-font-weight="b(800)"
-  data-h2-font-size="b(h1)"
-  
-  style="letter-spacing: -3px"
-  
->
-  Talent Cloud
-</h1>
-
-  </div>
-  <div data-h2-position="b(relative)">
-    <div 
-  aria-hidden="true"
-  class="gradient-fill"
-  data-h2-bg-color="b(linear-85[purple][red])"></div>
-    <div 
-      data-h2-container="b(center, full)"
-      data-h2-padding="b(bottom, xl)"
-      data-h2-position="b(relative)">
-      <div
-        data-h2-flex-grid="b(top, expanded, flush, m) m(top, expanded, flush, xl)"
-        style="align-items: normal"
-      >
-        <div data-h2-flex-item="b(1of1) l(2of3)">
-          <div
-            data-h2-bg-color="b(white)"
-            data-h2-padding="b(top-bottom, l) b(right-left, s) m(all, l) l(all, xl)"
-            data-h2-radius="b(s)"
-            data-h2-shadow="b(s)"
-          >
+        <div data-h2-border="b([light]gray, bottom, solid, s)">
             <div
-              data-h2-display="b(flex)"
-              data-h2-align-items="b(center)"
-              data-h2-text-align="b(center) m(left)"
-              data-h2-padding="b(bottom, s) m(bottom, m)"
+                data-h2-container="b(center, full)"
+                data-h2-padding="b(top-bottom, s)"
             >
-              <div 
-  
-    class="parallelogram"
-  ></div> 
-              <h2
-  
-  data-h2-font-weight="b(200)"
-  data-h2-font-size="b(h2)"
-  
-  
-  
-  
-  style="letter-spacing: -2px;">
-  Key Project Goals
-</h2>
+                <div data-h2-flex-grid="b(middle, expanded, flush, s)">
+                    <div
+                        data-h2-flex-item="m(1of2)"
+                        data-h2-text-align="b(center) m(left)"
+                    >
+                        <a
+                            data-h2-display="b(inline-block)"
+                            style="max-width: 15rem; width: 100%"
+                            href="https://canada.ca/"
+                            target="_blank"
+                            title="Visit canada.ca."
+                            rel="noopener noreferrer"
+                        >
+                            <img
+                                data-h2-
+                                alt="goc logo"
+                                src="/assets/img/ui-goc.svg"
+                        /></a>
+                    </div>
+                    <div
+                        data-h2-flex-item="m(1of2)"
+                        data-h2-text-align="b(center) m(right)"
+                    >
+                        <a
+                            href="/fr/talent-cloud/"
+                            title="Voir ce contenu en français."
+                            >Français</a
+                        >
+                    </div>
+                </div>
             </div>
-            <div data-h2-flex-grid="b(top, expanded, flush, s) m(top, expanded, flush, m)">
-              
-              <div data-h2-flex-item="b(1of1) m(1of3)">
-                <p data-h2-font-size="b(h5)" data-h2-font-color="b(purple)" data-h2-font-weight="b(400)" data-h2-margin="b(bottom, xs)">
-                  Optimizing Fit-to-Team
-                </p>
-                <p data-h2-margin="b(top-bottom, none)">People work with people. They’re more than a job description. This is why high performing teams often require a strong fit between team members. Talent Cloud developed a five-factor match, adding team culture, management style, and operating context to the basic match between job requirements and applicant skill set.</p>
-              </div>
-              
-              <div data-h2-flex-item="b(1of1) m(1of3)">
-                <p data-h2-font-size="b(h5)" data-h2-font-color="b(purple)" data-h2-font-weight="b(400)" data-h2-margin="b(bottom, xs)">
-                  Diversity and Inclusion
-                </p>
-                <p data-h2-margin="b(top-bottom, none)">When people change what is valued in a system, they change who is valued... and that leads to different outcomes. Talent Cloud has pioneered a new methodology for recognizing skills and talent, designed to improve diversity and inclusion outcomes for equity-seeking groups.</p>
-              </div>
-              
-              <div data-h2-flex-item="b(1of1) m(1of3)">
-                <p data-h2-font-size="b(h5)" data-h2-font-color="b(purple)" data-h2-font-weight="b(400)" data-h2-margin="b(bottom, xs)">
-                  Reducing Time-to-Staff
-                </p>
-                <p data-h2-margin="b(top-bottom, none)">Speed is a key factor in recruiting top talent. Talent Cloud set the ambitious performance objective of a 30 day time to staff (plus security clearance). After 2 years of testing, the project was able to deliver an average time of ~40 calendar days (plus security clearance). An improvement of ~85 days from the experiment’s early days.</p>
-              </div>
-              
-            </div>
-          </div>
         </div>
-        <div data-h2-flex-item="b(1of1) l(1of3)">
-          <div
-            class="bg-image-woman-walking"
-            data-h2-bg-color="b(white)"
-            data-h2-radius="b(s)"
-            data-h2-shadow="b(s)"
-            data-h2-padding="b(top-bottom, l) b(right-left, s) m(all, l) l(all, xl) l(right-left, l)"
-            data-h2-text-align="b(center)"
-            data-h2-font-color="b(white)"
-            data-h2-display="b(flex)"
-            data-h2-justify-content="b(center)"
-            data-h2-flex-direction="b(column)"
-            style="height: 100%"
-          >
-            <span>
-              <h2
-  
-  data-h2-font-weight="b(200)"
-  data-h2-font-size="b(h2)"
-  
-  
-  
-  
-  style="letter-spacing: -2px;">
-  The Talent Cloud Results Report
-</h2>
-            </span>
-            <span>
-              <p>We’ve assembled a comprehensive record of the Talent Cloud project, including the goals, structure, process, and outcomes.</p>
-            </span>
-            <span>
-              <a
-                href="/en/talent-cloud/report/"
-                title="Read the Talent Cloud results report or download it as a file."
-                data-h2-display="b(inline-block)"
-                data-h2-font-color="b(white) b:h(hover) b:f(hover)"
-                data-h2-border="b(red, all, solid, s) b:h(hover, all, solid, s) b:f(hover, all, solid, s)"
-                data-h2-bg-color="b(red) b:h([light]hover) b:f([light]hover)"
-                data-h2-radius="b(s)"
-                data-h2-padding="b(top-bottom, xs) b(right-left, s)"
-                style="transition: all .2s ease;"
-              >
-                Read It Here
-              </a>
-            </span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
 
-<section data-h2-margin="b(top-bottom, l) m(top-bottom, xxl)">
-  <div>
-    <div data-h2-container="b(center, full)">
-      <div data-h2-text-align="b(center)">
-        <h2
-  
+        <div data-h2-container="b(center, full)">
+            <nav data-h2-padding="b(top-bottom, m)">
+                <ul
+                    class="reset-ul"
+                    data-h2-padding="b(all, none)"
+                    data-h2-margin="b(all, none)"
+                    data-h2-text-align="b(center) m(left)"
+                    style="margin-left: -0.7rem"
+                >
+                    <li
+                        data-h2-margin="b(all, none)"
+                        data-h2-padding="b(all, none)"
+                        data-h2-display="b(inline-block)"
+                    >
+                        <a
+                            href="/en/"
+                            title="Visit the GC Talent homepage."
+                            data-h2-display="b(block)"
+                            data-h2-padding="b(all, xs) m(right-left, s)"
+                            >Home</a
+                        >
+                    </li>
+
+                    <li
+                        data-h2-margin="b(all, none)"
+                        data-h2-padding="b(all, none)"
+                        data-h2-display="b(inline-block)"
+                    >
+                        <a
+                            href="/en/talent-cloud/"
+                            title="Learn more about the Talent Cloud project."
+                            data-h2-display="b(block)"
+                            data-h2-padding="b(all, xs) m(right-left, s)"
+                            >Talent Cloud</a
+                        >
+                    </li>
+
+                    <li
+                        data-h2-margin="b(all, none)"
+                        data-h2-padding="b(all, none)"
+                        data-h2-display="b(inline-block)"
+                    >
+                        <a
+                            href="/en/communities/digital-talent/"
+                            title="Learn more about the Digital Talent community."
+                            data-h2-display="b(block)"
+                            data-h2-padding="b(all, xs) m(right-left, s)"
+                            >Digital Talent</a
+                        >
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <section id="mainContent">
+            <div
+                data-h2-text-align="b(center)"
+                data-h2-padding="b(top, xxl) b(bottom, xl)"
+            >
+                <h1
+                    data-h2-font-weight="b(800)"
+                    data-h2-font-size="b(h1)"
+                    style="letter-spacing: -3px"
+                >
+                    Talent Cloud
+                </h1>
+            </div>
+            <div data-h2-position="b(relative)">
+                <div
+                    aria-hidden="true"
+                    class="gradient-fill"
+                    data-h2-bg-color="b(linear-85[purple][red])"
+                ></div>
+                <div
+                    data-h2-container="b(center, full)"
+                    data-h2-padding="b(bottom, xl)"
+                    data-h2-position="b(relative)"
+                >
+                    <div
+                        data-h2-flex-grid="b(top, expanded, flush, m) m(top, expanded, flush, xl)"
+                        style="align-items: normal"
+                    >
+                        <div data-h2-flex-item="b(1of1) l(2of3)">
+                            <div
+                                data-h2-bg-color="b(white)"
+                                data-h2-padding="b(top-bottom, l) b(right-left, s) m(all, l) l(all, xl)"
+                                data-h2-radius="b(s)"
+                                data-h2-shadow="b(s)"
+                            >
+                                <div
+                                    data-h2-display="b(flex)"
+                                    data-h2-align-items="b(center)"
+                                    data-h2-text-align="b(center) m(left)"
+                                    data-h2-padding="b(bottom, s) m(bottom, m)"
+                                >
+                                    <div class="parallelogram"></div>
+                                    <h2
+                                        data-h2-font-weight="b(200)"
+                                        data-h2-font-size="b(h2)"
+                                        style="letter-spacing: -2px"
+                                    >
+                                        Key Project Goals
+                                    </h2>
+                                </div>
+                                <div
+                                    data-h2-flex-grid="b(top, expanded, flush, s) m(top, expanded, flush, m)"
+                                >
+                                    <div data-h2-flex-item="b(1of1) m(1of3)">
+                                        <p
+                                            data-h2-font-size="b(h5)"
+                                            data-h2-font-color="b(purple)"
+                                            data-h2-font-weight="b(400)"
+                                            data-h2-margin="b(bottom, xs)"
+                                        >
+                                            Optimizing Fit-to-Team
+                                        </p>
+                                        <p data-h2-margin="b(top-bottom, none)">
+                                            People work with people. They’re
+                                            more than a job description. This is
+                                            why high performing teams often
+                                            require a strong fit between team
+                                            members. Talent Cloud developed a
+                                            five-factor match, adding team
+                                            culture, management style, and
+                                            operating context to the basic match
+                                            between job requirements and
+                                            applicant skill set.
+                                        </p>
+                                    </div>
+
+                                    <div data-h2-flex-item="b(1of1) m(1of3)">
+                                        <p
+                                            data-h2-font-size="b(h5)"
+                                            data-h2-font-color="b(purple)"
+                                            data-h2-font-weight="b(400)"
+                                            data-h2-margin="b(bottom, xs)"
+                                        >
+                                            Diversity and Inclusion
+                                        </p>
+                                        <p data-h2-margin="b(top-bottom, none)">
+                                            When people change what is valued in
+                                            a system, they change who is
+                                            valued... and that leads to
+                                            different outcomes. Talent Cloud has
+                                            pioneered a new methodology for
+                                            recognizing skills and talent,
+                                            designed to improve diversity and
+                                            inclusion outcomes for
+                                            equity-seeking groups.
+                                        </p>
+                                    </div>
+
+                                    <div data-h2-flex-item="b(1of1) m(1of3)">
+                                        <p
+                                            data-h2-font-size="b(h5)"
+                                            data-h2-font-color="b(purple)"
+                                            data-h2-font-weight="b(400)"
+                                            data-h2-margin="b(bottom, xs)"
+                                        >
+                                            Reducing Time-to-Staff
+                                        </p>
+                                        <p data-h2-margin="b(top-bottom, none)">
+                                            Speed is a key factor in recruiting
+                                            top talent. Talent Cloud set the
+                                            ambitious performance objective of a
+                                            30 day time to staff (plus security
+                                            clearance). After 2 years of
+                                            testing, the project was able to
+                                            deliver an average time of ~40
+                                            calendar days (plus security
+                                            clearance). An improvement of ~85
+                                            days from the experiment’s early
+                                            days.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div data-h2-flex-item="b(1of1) l(1of3)">
+                            <div
+                                class="bg-image-woman-walking"
+                                data-h2-bg-color="b(white)"
+                                data-h2-radius="b(s)"
+                                data-h2-shadow="b(s)"
+                                data-h2-padding="b(top-bottom, l) b(right-left, s) m(all, l) l(all, xl) l(right-left, l)"
+                                data-h2-text-align="b(center)"
+                                data-h2-font-color="b(white)"
+                                data-h2-display="b(flex)"
+                                data-h2-justify-content="b(center)"
+                                data-h2-flex-direction="b(column)"
+                                style="height: 100%"
+                            >
+                                <span>
+                                    <h2
+                                        data-h2-font-weight="b(200)"
+                                        data-h2-font-size="b(h2)"
+                                        style="letter-spacing: -2px"
+                                    >
+                                        The Talent Cloud Results Report
+                                    </h2>
+                                </span>
+                                <span>
+                                    <p>
+                                        We’ve assembled a comprehensive record
+                                        of the Talent Cloud project, including
+                                        the goals, structure, process, and
+                                        outcomes.
+                                    </p>
+                                </span>
+                                <span>
+                                    <a
+                                        href="/en/talent-cloud/report/"
+                                        title="Read the Talent Cloud results report or download it as a file."
+                                        data-h2-display="b(inline-block)"
+                                        data-h2-font-color="b(white) b:h(hover) b:f(hover)"
+                                        data-h2-border="b(red, all, solid, s) b:h(hover, all, solid, s) b:f(hover, all, solid, s)"
+                                        data-h2-bg-color="b(red) b:h([light]hover) b:f([light]hover)"
+                                        data-h2-radius="b(s)"
+                                        data-h2-padding="b(top-bottom, xs) b(right-left, s)"
+                                        style="transition: all 0.2s ease"
+                                    >
+                                        Read It Here
+                                    </a>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section data-h2-margin="b(top-bottom, l) m(top-bottom, xxl)">
+            <div>
+                <div data-h2-container="b(center, full)">
+                    <div data-h2-text-align="b(center)">
+                        <h2
+                            data-h2-font-weight="b(200)"
+                            data-h2-font-size="b(h2)"
+                            data-h2-font-color="b(purple)"
+                            data-h2-font-color="b(purple)"
+                            style="letter-spacing: -2px"
+                        >
+                            About the Experiment
+                        </h2>
+                        <!-- <h2
+
   data-h2-font-weight="b(200)"
   data-h2-font-size="b(h2)"
-  
-    data-h2-font-color='b(purple)'
-  
-  
-  
-  data-h2-font-color='b(purple)'
-  style="letter-spacing: -2px;">
-  About the Experiment
-</h2>
-        <!-- <h2
-  
-  data-h2-font-weight="b(200)"
-  data-h2-font-size="b(h2)"
-  
-  
-  
-  
+
+
+
+
   style="letter-spacing: -2px;">
   About the Experiment
 </h2> -->
-        <div data-h2-container="b(center, s)">
-          <p data-h2-margin="b(bottom, l) m(bottom, xl)">The Talent Cloud experiment explored digital age concepts for modernizing the government’s approach to talent and recruitment. It was a partner funded initiative, built by a multidisciplinary team, and was hosted out of the Digital Change Sector in the Office of the Chief Information Officer. The initiative focused on generating project-based opportunities (term jobs only), primarily (but not exclusively) for digital areas of work.</p>
-        </div>
-      </div>
-      <div data-h2-flex-grid="b(top, contained, flush, s) m(top, contained, flush, m) l(top, contained, flush, l)">
-        
-        <div
-          data-h2-flex-item="b(1of1) m(1of3)"
-          data-h2-display="b(flex)"
-          data-h2-align-items="b(flex-start)">
-          <span data-h2-font-color="b(red)" data-h2-margin="b(right, xxs)" style="width: 1.5rem;"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M7 2a1 1 0 00-.707 1.707L7 4.414v3.758a1 1 0 01-.293.707l-4 4C.817 14.769 2.156 18 4.828 18h10.343c2.673 0 4.012-3.231 2.122-5.121l-4-4A1 1 0 0113 8.172V4.414l.707-.707A1 1 0 0013 2H7zm2 6.172V4h2v4.172a3 3 0 00.879 2.12l1.027 1.028a4 4 0 00-2.171.102l-.47.156a4 4 0 01-2.53 0l-.563-.187a1.993 1.993 0 00-.114-.035l1.063-1.063A3 3 0 009 8.172z" clip-rule="evenodd" /></svg></span>
-          <p data-h2-margin="b(all, none)" style="flex: 1;">An experimental project launched in July 2017.</p>
-        </div>
-        
-        <div
-          data-h2-flex-item="b(1of1) m(1of3)"
-          data-h2-display="b(flex)"
-          data-h2-align-items="b(flex-start)">
-          <span data-h2-font-color="b(red)" data-h2-margin="b(right, xxs)" style="width: 1.5rem;"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" /></svg></span>
-          <p data-h2-margin="b(all, none)" style="flex: 1;">Platform built in-house, launched in October 2018.</p>
-        </div>
-        
-        <div
-          data-h2-flex-item="b(1of1) m(1of3)"
-          data-h2-display="b(flex)"
-          data-h2-align-items="b(flex-start)">
-          <span data-h2-font-color="b(red)" data-h2-margin="b(right, xxs)" style="width: 1.5rem;"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5 2a1 1 0 011 1v1h1a1 1 0 010 2H6v1a1 1 0 01-2 0V6H3a1 1 0 010-2h1V3a1 1 0 011-1zm0 10a1 1 0 011 1v1h1a1 1 0 110 2H6v1a1 1 0 11-2 0v-1H3a1 1 0 110-2h1v-1a1 1 0 011-1zM12 2a1 1 0 01.967.744L14.146 7.2 17.5 9.134a1 1 0 010 1.732l-3.354 1.935-1.18 4.455a1 1 0 01-1.933 0L9.854 12.8 6.5 10.866a1 1 0 010-1.732l3.354-1.935 1.18-4.455A1 1 0 0112 2z" clip-rule="evenodd" /></svg></span>
-          <p data-h2-margin="b(all, none)" style="flex: 1;">Project concluded in spring 2021.</p>
-        </div>
-        
-        <div
-          data-h2-flex-item="b(1of1) m(1of3)"
-          data-h2-display="b(flex)"
-          data-h2-align-items="b(flex-start)">
-          <span data-h2-font-color="b(red)" data-h2-margin="b(right, xxs)" style="width: 1.5rem;"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" /></svg></span>
-          <p data-h2-margin="b(all, none)" style="flex: 1;">3 Products: real hires, data, and bold new theory.</p>
-        </div>
-        
-        <div
-          data-h2-flex-item="b(1of1) m(1of3)"
-          data-h2-display="b(flex)"
-          data-h2-align-items="b(flex-start)">
-          <span data-h2-font-color="b(red)" data-h2-margin="b(right, xxs)" style="width: 1.5rem;"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M6 6V5a3 3 0 013-3h2a3 3 0 013 3v1h2a2 2 0 012 2v3.57A22.952 22.952 0 0110 13a22.95 22.95 0 01-8-1.43V8a2 2 0 012-2h2zm2-1a1 1 0 011-1h2a1 1 0 011 1v1H8V5zm1 5a1 1 0 011-1h.01a1 1 0 110 2H10a1 1 0 01-1-1z" clip-rule="evenodd" /><path d="M2 13.692V16a2 2 0 002 2h12a2 2 0 002-2v-2.308A24.974 24.974 0 0110 15c-2.796 0-5.487-.46-8-1.308z" /></svg></span>
-          <p data-h2-margin="b(all, none)" style="flex: 1;">50+ externally advertised job processes.</p>
-        </div>
-        
-        <div
-          data-h2-flex-item="b(1of1) m(1of3)"
-          data-h2-display="b(flex)"
-          data-h2-align-items="b(flex-start)">
-          <span data-h2-font-color="b(red)" data-h2-margin="b(right, xxs)" style="width: 1.5rem;"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path d="M9 9a2 2 0 114 0 2 2 0 01-4 0z" /><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-13a4 4 0 00-3.446 6.032l-2.261 2.26a1 1 0 101.414 1.415l2.261-2.261A4 4 0 1011 5z" clip-rule="evenodd" /></svg></span>
-          <p data-h2-margin="b(all, none)" style="flex: 1;">Intensive research and testing on each process.</p>
-        </div>
-        
-        <div
-          data-h2-flex-item="b(1of1) m(1of3)"
-          data-h2-display="b(flex)"
-          data-h2-align-items="b(flex-start)">
-          <span data-h2-font-color="b(red)" data-h2-margin="b(right, xxs)" style="width: 1.5rem;"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z" /></svg></span>
-          <p data-h2-margin="b(all, none)" style="flex: 1;">A new skills-based hiring model, designed to advance equity.</p>
-        </div>
-        
-        <div
-          data-h2-flex-item="b(1of1) m(1of3)"
-          data-h2-display="b(flex)"
-          data-h2-align-items="b(flex-start)">
-          <span data-h2-font-color="b(red)" data-h2-margin="b(right, xxs)" style="width: 1.5rem;"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" /></svg></span>
-          <p data-h2-margin="b(all, none)" style="flex: 1;">Portable skills credentials experiments, including blockchain.</p>
-        </div>
-        
-        <div
-          data-h2-flex-item="b(1of1) m(1of3)"
-          data-h2-display="b(flex)"
-          data-h2-align-items="b(flex-start)">
-          <span data-h2-font-color="b(red)" data-h2-margin="b(right, xxs)" style="width: 1.5rem;"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM4.332 8.027a6.012 6.012 0 011.912-2.706C6.512 5.73 6.974 6 7.5 6A1.5 1.5 0 019 7.5V8a2 2 0 004 0 2 2 0 011.523-1.943A5.977 5.977 0 0116 10c0 .34-.028.675-.083 1H15a2 2 0 00-2 2v2.197A5.973 5.973 0 0110 16v-2a2 2 0 00-2-2 2 2 0 01-2-2 2 2 0 00-1.668-1.973z" clip-rule="evenodd" /></svg></span>
-          <p data-h2-margin="b(all, none)" style="flex: 1;">Remote work recruitment experiments (pre-COVID).</p>
-        </div>
-        
-        <div
-          data-h2-flex-item="b(1of1) m(1of3)"
-          data-h2-display="b(flex)"
-          data-h2-align-items="b(flex-start)">
-          <span data-h2-font-color="b(red)" data-h2-margin="b(right, xxs)" style="width: 1.5rem;"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg></span>
-          <p data-h2-margin="b(all, none)" style="flex: 1;">New approaches for optimizing the hiring fit-to-team.</p>
-        </div>
-        
-        <div
-          data-h2-flex-item="b(1of1) m(1of3)"
-          data-h2-display="b(flex)"
-          data-h2-align-items="b(flex-start)">
-          <span data-h2-font-color="b(red)" data-h2-margin="b(right, xxs)" style="width: 1.5rem;"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5 3a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2V5a2 2 0 00-2-2H5zm9 4a1 1 0 10-2 0v6a1 1 0 102 0V7zm-3 2a1 1 0 10-2 0v4a1 1 0 102 0V9zm-3 3a1 1 0 10-2 0v1a1 1 0 102 0v-1z" clip-rule="evenodd" /></svg></span>
-          <p data-h2-margin="b(all, none)" style="flex: 1;">Remarkably strong recruitment results vs. industry averages.</p>
-        </div>
-        
-        <div
-          data-h2-flex-item="b(1of1) m(1of3)"
-          data-h2-display="b(flex)"
-          data-h2-align-items="b(flex-start)">
-          <span data-h2-font-color="b(red)" data-h2-margin="b(right, xxs)" style="width: 1.5rem;"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" /></svg></span>
-          <p data-h2-margin="b(all, none)" style="flex: 1;">Remarkably strong retention results after 1-2 years.</p>
-        </div>
-        
-        <div
-          data-h2-flex-item="b(1of1) m(1of3)"
-          data-h2-display="b(flex)"
-          data-h2-align-items="b(flex-start)">
-          <span data-h2-font-color="b(red)" data-h2-margin="b(right, xxs)" style="width: 1.5rem;"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd" /></svg></span>
-          <p data-h2-margin="b(all, none)" style="flex: 1;">Dramatic reduction in time-to-staff.</p>
-        </div>
-        
-        <div
-          data-h2-flex-item="b(1of1) m(1of3)"
-          data-h2-display="b(flex)"
-          data-h2-align-items="b(flex-start)">
-          <span data-h2-font-color="b(red)" data-h2-margin="b(right, xxs)" style="width: 1.5rem;"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path d="M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z" /><path d="M15 7v2a4 4 0 01-4 4H9.828l-1.766 1.767c.28.149.599.233.938.233h2l3 3v-3h2a2 2 0 002-2V9a2 2 0 00-2-2h-1z" /></svg></span>
-          <p data-h2-margin="b(all, none)" style="flex: 1;">Indigenous Talent Portal developed with community.</p>
-        </div>
-        
-        <div
-          data-h2-flex-item="b(1of1) m(1of3)"
-          data-h2-display="b(flex)"
-          data-h2-align-items="b(flex-start)">
-          <span data-h2-font-color="b(red)" data-h2-margin="b(right, xxs)" style="width: 1.5rem;"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z" /></svg></span>
-          <p data-h2-margin="b(all, none)" style="flex: 1;">Build approach using best practices in accessibility.</p>
-        </div>
-        
-      </div>
-    </div>
-  </div>
-</section>
+                        <div data-h2-container="b(center, s)">
+                            <p data-h2-margin="b(bottom, l) m(bottom, xl)">
+                                The Talent Cloud experiment explored digital age
+                                concepts for modernizing the government’s
+                                approach to talent and recruitment. It was a
+                                partner funded initiative, built by a
+                                multidisciplinary team, and was hosted out of
+                                the Digital Change Sector in the Office of the
+                                Chief Information Officer. The initiative
+                                focused on generating project-based
+                                opportunities (term jobs only), primarily (but
+                                not exclusively) for digital areas of work.
+                            </p>
+                        </div>
+                    </div>
+                    <div
+                        data-h2-flex-grid="b(top, contained, flush, s) m(top, contained, flush, m) l(top, contained, flush, l)"
+                    >
+                        <div
+                            data-h2-flex-item="b(1of1) m(1of3)"
+                            data-h2-display="b(flex)"
+                            data-h2-align-items="b(flex-start)"
+                        >
+                            <span
+                                data-h2-font-color="b(red)"
+                                data-h2-margin="b(right, xxs)"
+                                style="width: 1.5rem"
+                                ><svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    class="h-5 w-5"
+                                    viewBox="0 0 20 20"
+                                    fill="currentColor"
+                                >
+                                    <path
+                                        fill-rule="evenodd"
+                                        d="M7 2a1 1 0 00-.707 1.707L7 4.414v3.758a1 1 0 01-.293.707l-4 4C.817 14.769 2.156 18 4.828 18h10.343c2.673 0 4.012-3.231 2.122-5.121l-4-4A1 1 0 0113 8.172V4.414l.707-.707A1 1 0 0013 2H7zm2 6.172V4h2v4.172a3 3 0 00.879 2.12l1.027 1.028a4 4 0 00-2.171.102l-.47.156a4 4 0 01-2.53 0l-.563-.187a1.993 1.993 0 00-.114-.035l1.063-1.063A3 3 0 009 8.172z"
+                                        clip-rule="evenodd"
+                                    /></svg
+                            ></span>
+                            <p data-h2-margin="b(all, none)" style="flex: 1">
+                                An experimental project launched in July 2017.
+                            </p>
+                        </div>
 
-<section>
-  <div data-h2-position="b(relative)"> 
-    <div 
-  aria-hidden="true"
-  class="gradient-fill"
-  data-h2-bg-color="b(linear-85[purple][red])"></div>
-    <div
-      data-h2-container="b(center, full)"
-      data-h2-padding="b(bottom, xl)"
-      data-h2-position="b(relative)">
-      <div
-        class="bg-image-maple-leaf"
-        data-h2-bg-color="b(white)"
-        data-h2-padding="b(top-bottom, l) b(right-left, s) m(all, l) l(all, xl)"
-        data-h2-radius="b(s)"
-        data-h2-shadow="b(s)"
-      >
-        <img src="/assets/img/ui-leaf.svg" alt="A textural icon of a red maple leaf.">
-        <div
-          data-h2-display="b(flex)"
-          data-h2-text-align="b(center) m(left)"
-          data-h2-align-items="b(center)"
-          data-h2-padding="b(bottom, s) m(bottom, m)"
+                        <div
+                            data-h2-flex-item="b(1of1) m(1of3)"
+                            data-h2-display="b(flex)"
+                            data-h2-align-items="b(flex-start)"
+                        >
+                            <span
+                                data-h2-font-color="b(red)"
+                                data-h2-margin="b(right, xxs)"
+                                style="width: 1.5rem"
+                                ><svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    class="h-5 w-5"
+                                    viewBox="0 0 20 20"
+                                    fill="currentColor"
+                                >
+                                    <path
+                                        d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"
+                                    /></svg
+                            ></span>
+                            <p data-h2-margin="b(all, none)" style="flex: 1">
+                                Platform built in-house, launched in October
+                                2018.
+                            </p>
+                        </div>
+
+                        <div
+                            data-h2-flex-item="b(1of1) m(1of3)"
+                            data-h2-display="b(flex)"
+                            data-h2-align-items="b(flex-start)"
+                        >
+                            <span
+                                data-h2-font-color="b(red)"
+                                data-h2-margin="b(right, xxs)"
+                                style="width: 1.5rem"
+                                ><svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    class="h-5 w-5"
+                                    viewBox="0 0 20 20"
+                                    fill="currentColor"
+                                >
+                                    <path
+                                        fill-rule="evenodd"
+                                        d="M5 2a1 1 0 011 1v1h1a1 1 0 010 2H6v1a1 1 0 01-2 0V6H3a1 1 0 010-2h1V3a1 1 0 011-1zm0 10a1 1 0 011 1v1h1a1 1 0 110 2H6v1a1 1 0 11-2 0v-1H3a1 1 0 110-2h1v-1a1 1 0 011-1zM12 2a1 1 0 01.967.744L14.146 7.2 17.5 9.134a1 1 0 010 1.732l-3.354 1.935-1.18 4.455a1 1 0 01-1.933 0L9.854 12.8 6.5 10.866a1 1 0 010-1.732l3.354-1.935 1.18-4.455A1 1 0 0112 2z"
+                                        clip-rule="evenodd"
+                                    /></svg
+                            ></span>
+                            <p data-h2-margin="b(all, none)" style="flex: 1">
+                                Project concluded in spring 2021.
+                            </p>
+                        </div>
+
+                        <div
+                            data-h2-flex-item="b(1of1) m(1of3)"
+                            data-h2-display="b(flex)"
+                            data-h2-align-items="b(flex-start)"
+                        >
+                            <span
+                                data-h2-font-color="b(red)"
+                                data-h2-margin="b(right, xxs)"
+                                style="width: 1.5rem"
+                                ><svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    class="h-5 w-5"
+                                    viewBox="0 0 20 20"
+                                    fill="currentColor"
+                                >
+                                    <path
+                                        fill-rule="evenodd"
+                                        d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                        clip-rule="evenodd"
+                                    /></svg
+                            ></span>
+                            <p data-h2-margin="b(all, none)" style="flex: 1">
+                                3 Products: real hires, data, and bold new
+                                theory.
+                            </p>
+                        </div>
+
+                        <div
+                            data-h2-flex-item="b(1of1) m(1of3)"
+                            data-h2-display="b(flex)"
+                            data-h2-align-items="b(flex-start)"
+                        >
+                            <span
+                                data-h2-font-color="b(red)"
+                                data-h2-margin="b(right, xxs)"
+                                style="width: 1.5rem"
+                                ><svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    class="h-5 w-5"
+                                    viewBox="0 0 20 20"
+                                    fill="currentColor"
+                                >
+                                    <path
+                                        fill-rule="evenodd"
+                                        d="M6 6V5a3 3 0 013-3h2a3 3 0 013 3v1h2a2 2 0 012 2v3.57A22.952 22.952 0 0110 13a22.95 22.95 0 01-8-1.43V8a2 2 0 012-2h2zm2-1a1 1 0 011-1h2a1 1 0 011 1v1H8V5zm1 5a1 1 0 011-1h.01a1 1 0 110 2H10a1 1 0 01-1-1z"
+                                        clip-rule="evenodd"
+                                    />
+                                    <path
+                                        d="M2 13.692V16a2 2 0 002 2h12a2 2 0 002-2v-2.308A24.974 24.974 0 0110 15c-2.796 0-5.487-.46-8-1.308z"
+                                    /></svg
+                            ></span>
+                            <p data-h2-margin="b(all, none)" style="flex: 1">
+                                50+ externally advertised job processes.
+                            </p>
+                        </div>
+
+                        <div
+                            data-h2-flex-item="b(1of1) m(1of3)"
+                            data-h2-display="b(flex)"
+                            data-h2-align-items="b(flex-start)"
+                        >
+                            <span
+                                data-h2-font-color="b(red)"
+                                data-h2-margin="b(right, xxs)"
+                                style="width: 1.5rem"
+                                ><svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    class="h-5 w-5"
+                                    viewBox="0 0 20 20"
+                                    fill="currentColor"
+                                >
+                                    <path d="M9 9a2 2 0 114 0 2 2 0 01-4 0z" />
+                                    <path
+                                        fill-rule="evenodd"
+                                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-13a4 4 0 00-3.446 6.032l-2.261 2.26a1 1 0 101.414 1.415l2.261-2.261A4 4 0 1011 5z"
+                                        clip-rule="evenodd"
+                                    /></svg
+                            ></span>
+                            <p data-h2-margin="b(all, none)" style="flex: 1">
+                                Intensive research and testing on each process.
+                            </p>
+                        </div>
+
+                        <div
+                            data-h2-flex-item="b(1of1) m(1of3)"
+                            data-h2-display="b(flex)"
+                            data-h2-align-items="b(flex-start)"
+                        >
+                            <span
+                                data-h2-font-color="b(red)"
+                                data-h2-margin="b(right, xxs)"
+                                style="width: 1.5rem"
+                                ><svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    class="h-5 w-5"
+                                    viewBox="0 0 20 20"
+                                    fill="currentColor"
+                                >
+                                    <path
+                                        d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z"
+                                    /></svg
+                            ></span>
+                            <p data-h2-margin="b(all, none)" style="flex: 1">
+                                A new skills-based hiring model, designed to
+                                advance equity.
+                            </p>
+                        </div>
+
+                        <div
+                            data-h2-flex-item="b(1of1) m(1of3)"
+                            data-h2-display="b(flex)"
+                            data-h2-align-items="b(flex-start)"
+                        >
+                            <span
+                                data-h2-font-color="b(red)"
+                                data-h2-margin="b(right, xxs)"
+                                style="width: 1.5rem"
+                                ><svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    class="h-5 w-5"
+                                    viewBox="0 0 20 20"
+                                    fill="currentColor"
+                                >
+                                    <path
+                                        fill-rule="evenodd"
+                                        d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                        clip-rule="evenodd"
+                                    /></svg
+                            ></span>
+                            <p data-h2-margin="b(all, none)" style="flex: 1">
+                                Portable skills credentials experiments,
+                                including blockchain.
+                            </p>
+                        </div>
+
+                        <div
+                            data-h2-flex-item="b(1of1) m(1of3)"
+                            data-h2-display="b(flex)"
+                            data-h2-align-items="b(flex-start)"
+                        >
+                            <span
+                                data-h2-font-color="b(red)"
+                                data-h2-margin="b(right, xxs)"
+                                style="width: 1.5rem"
+                                ><svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    class="h-5 w-5"
+                                    viewBox="0 0 20 20"
+                                    fill="currentColor"
+                                >
+                                    <path
+                                        fill-rule="evenodd"
+                                        d="M10 18a8 8 0 100-16 8 8 0 000 16zM4.332 8.027a6.012 6.012 0 011.912-2.706C6.512 5.73 6.974 6 7.5 6A1.5 1.5 0 019 7.5V8a2 2 0 004 0 2 2 0 011.523-1.943A5.977 5.977 0 0116 10c0 .34-.028.675-.083 1H15a2 2 0 00-2 2v2.197A5.973 5.973 0 0110 16v-2a2 2 0 00-2-2 2 2 0 01-2-2 2 2 0 00-1.668-1.973z"
+                                        clip-rule="evenodd"
+                                    /></svg
+                            ></span>
+                            <p data-h2-margin="b(all, none)" style="flex: 1">
+                                Remote work recruitment experiments (pre-COVID).
+                            </p>
+                        </div>
+
+                        <div
+                            data-h2-flex-item="b(1of1) m(1of3)"
+                            data-h2-display="b(flex)"
+                            data-h2-align-items="b(flex-start)"
+                        >
+                            <span
+                                data-h2-font-color="b(red)"
+                                data-h2-margin="b(right, xxs)"
+                                style="width: 1.5rem"
+                                ><svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    class="h-5 w-5"
+                                    viewBox="0 0 20 20"
+                                    fill="currentColor"
+                                >
+                                    <path
+                                        d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"
+                                    /></svg
+                            ></span>
+                            <p data-h2-margin="b(all, none)" style="flex: 1">
+                                New approaches for optimizing the hiring
+                                fit-to-team.
+                            </p>
+                        </div>
+
+                        <div
+                            data-h2-flex-item="b(1of1) m(1of3)"
+                            data-h2-display="b(flex)"
+                            data-h2-align-items="b(flex-start)"
+                        >
+                            <span
+                                data-h2-font-color="b(red)"
+                                data-h2-margin="b(right, xxs)"
+                                style="width: 1.5rem"
+                                ><svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    class="h-5 w-5"
+                                    viewBox="0 0 20 20"
+                                    fill="currentColor"
+                                >
+                                    <path
+                                        fill-rule="evenodd"
+                                        d="M5 3a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2V5a2 2 0 00-2-2H5zm9 4a1 1 0 10-2 0v6a1 1 0 102 0V7zm-3 2a1 1 0 10-2 0v4a1 1 0 102 0V9zm-3 3a1 1 0 10-2 0v1a1 1 0 102 0v-1z"
+                                        clip-rule="evenodd"
+                                    /></svg
+                            ></span>
+                            <p data-h2-margin="b(all, none)" style="flex: 1">
+                                Remarkably strong recruitment results vs.
+                                industry averages.
+                            </p>
+                        </div>
+
+                        <div
+                            data-h2-flex-item="b(1of1) m(1of3)"
+                            data-h2-display="b(flex)"
+                            data-h2-align-items="b(flex-start)"
+                        >
+                            <span
+                                data-h2-font-color="b(red)"
+                                data-h2-margin="b(right, xxs)"
+                                style="width: 1.5rem"
+                                ><svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    class="h-5 w-5"
+                                    viewBox="0 0 20 20"
+                                    fill="currentColor"
+                                >
+                                    <path
+                                        fill-rule="evenodd"
+                                        d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z"
+                                        clip-rule="evenodd"
+                                    /></svg
+                            ></span>
+                            <p data-h2-margin="b(all, none)" style="flex: 1">
+                                Remarkably strong retention results after 1-2
+                                years.
+                            </p>
+                        </div>
+
+                        <div
+                            data-h2-flex-item="b(1of1) m(1of3)"
+                            data-h2-display="b(flex)"
+                            data-h2-align-items="b(flex-start)"
+                        >
+                            <span
+                                data-h2-font-color="b(red)"
+                                data-h2-margin="b(right, xxs)"
+                                style="width: 1.5rem"
+                                ><svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    class="h-5 w-5"
+                                    viewBox="0 0 20 20"
+                                    fill="currentColor"
+                                >
+                                    <path
+                                        fill-rule="evenodd"
+                                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z"
+                                        clip-rule="evenodd"
+                                    /></svg
+                            ></span>
+                            <p data-h2-margin="b(all, none)" style="flex: 1">
+                                Dramatic reduction in time-to-staff.
+                            </p>
+                        </div>
+
+                        <div
+                            data-h2-flex-item="b(1of1) m(1of3)"
+                            data-h2-display="b(flex)"
+                            data-h2-align-items="b(flex-start)"
+                        >
+                            <span
+                                data-h2-font-color="b(red)"
+                                data-h2-margin="b(right, xxs)"
+                                style="width: 1.5rem"
+                                ><svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    class="h-5 w-5"
+                                    viewBox="0 0 20 20"
+                                    fill="currentColor"
+                                >
+                                    <path
+                                        d="M2 5a2 2 0 012-2h7a2 2 0 012 2v4a2 2 0 01-2 2H9l-3 3v-3H4a2 2 0 01-2-2V5z"
+                                    />
+                                    <path
+                                        d="M15 7v2a4 4 0 01-4 4H9.828l-1.766 1.767c.28.149.599.233.938.233h2l3 3v-3h2a2 2 0 002-2V9a2 2 0 00-2-2h-1z"
+                                    /></svg
+                            ></span>
+                            <p data-h2-margin="b(all, none)" style="flex: 1">
+                                Indigenous Talent Portal developed with
+                                community.
+                            </p>
+                        </div>
+
+                        <div
+                            data-h2-flex-item="b(1of1) m(1of3)"
+                            data-h2-display="b(flex)"
+                            data-h2-align-items="b(flex-start)"
+                        >
+                            <span
+                                data-h2-font-color="b(red)"
+                                data-h2-margin="b(right, xxs)"
+                                style="width: 1.5rem"
+                                ><svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    class="h-5 w-5"
+                                    viewBox="0 0 20 20"
+                                    fill="currentColor"
+                                >
+                                    <path
+                                        d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"
+                                    /></svg
+                            ></span>
+                            <p data-h2-margin="b(all, none)" style="flex: 1">
+                                Build approach using best practices in
+                                accessibility.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <div data-h2-position="b(relative)">
+                <div
+                    aria-hidden="true"
+                    class="gradient-fill"
+                    data-h2-bg-color="b(linear-85[purple][red])"
+                ></div>
+                <div
+                    data-h2-container="b(center, full)"
+                    data-h2-padding="b(bottom, xl)"
+                    data-h2-position="b(relative)"
+                >
+                    <div
+                        class="bg-image-maple-leaf"
+                        data-h2-bg-color="b(white)"
+                        data-h2-padding="b(top-bottom, l) b(right-left, s) m(all, l) l(all, xl)"
+                        data-h2-radius="b(s)"
+                        data-h2-shadow="b(s)"
+                    >
+                        <img
+                            src="/assets/img/ui-leaf.svg"
+                            alt="A textural icon of a red maple leaf."
+                        />
+                        <div
+                            data-h2-display="b(flex)"
+                            data-h2-text-align="b(center) m(left)"
+                            data-h2-align-items="b(center)"
+                            data-h2-padding="b(bottom, s) m(bottom, m)"
+                        >
+                            <div class="parallelogram"></div>
+                            <h2
+                                data-h2-font-weight="b(200)"
+                                data-h2-font-size="b(h2)"
+                                style="letter-spacing: -2px"
+                            >
+                                Where to From Here?
+                            </h2>
+                        </div>
+
+                        <p>
+                            Talent Cloud, as a project, has officially
+                            concluded. The result of these development efforts
+                            over the last three years have led to numerous
+                            insights on ways to improve recruitment, and a fully
+                            operational staffing platform that has delivered a
+                            hiring timeline dramatically faster than the
+                            Government of Canada average. The project also
+                            managed to recruit a lot of great people from
+                            diverse backgrounds… many of whom reported never
+                            having considered applying for government work
+                            before applying with Talent Cloud.
+                        </p>
+
+                        <p>
+                            In 2021-22, the project team itself will be shifting
+                            to collaborate with the GC Digital Community
+                            Management Office (also inside the Office of the
+                            Chief Information Officer) to develop a talent
+                            platform for the digital community. The new platform
+                            will deliver an interoperable talent repository,
+                            with a focus on manager-searchable talent pools. The
+                            project team will also be working with partners
+                            across the Government of Canada to advance work on
+                            an Indigenous Talent Portal. The team remains
+                            committed to advancing digital age talent solutions
+                            that advance equity and serve Canadians.
+                        </p>
+
+                        <div data-h2-text-align="b(center) m(right)">
+                            <a
+                                href="/en/talent-cloud/report/"
+                                title="Read the Report"
+                                data-h2-display="b(block) m(inline-block)"
+                                data-h2-font-color="b(white) b:h(hover) b:f(hover)"
+                                data-h2-border="b(purple, all, solid, s) b:h(hover, all, solid, s) b:f(hover, all, solid, s)"
+                                data-h2-bg-color="b(purple) b:h([light]hover) b:f([light]hover)"
+                                data-h2-margin="b(top, xxs)"
+                                data-h2-radius="b(s)"
+                                data-h2-padding="b(top-bottom, xs) b(right-left, s)"
+                                style="transition: all 0.2s ease"
+                                >Read the Report</a
+                            >
+                            <a
+                                href="/en/communities/digital-talent"
+                                title="Visit GC Digital Talent"
+                                data-h2-display="b(block) m(inline-block)"
+                                data-h2-font-color="b(white) b:h(hover) b:f(hover)"
+                                data-h2-border="b(purple, all, solid, s) b:h(hover, all, solid, s) b:f(hover, all, solid, s)"
+                                data-h2-bg-color="b(purple) b:h([light]hover) b:f([light]hover)"
+                                data-h2-margin="b(top, xxs)"
+                                data-h2-radius="b(s)"
+                                data-h2-padding="b(top-bottom, xs) b(right-left, s)"
+                                style="transition: all 0.2s ease"
+                                >Visit GC Digital Talent</a
+                            >
+                            <a
+                                href="/en/communities/indigenous-talent"
+                                title="Visit the Indigenous Talent Program"
+                                data-h2-display="b(block) m(inline-block)"
+                                data-h2-font-color="b(white) b:h(hover) b:f(hover)"
+                                data-h2-border="b(purple, all, solid, s) b:h(hover, all, solid, s) b:f(hover, all, solid, s)"
+                                data-h2-bg-color="b(purple) b:h([light]hover) b:f([light]hover)"
+                                data-h2-margin="b(top, xxs)"
+                                data-h2-radius="b(s)"
+                                data-h2-padding="b(top-bottom, xs) b(right-left, s)"
+                                style="transition: all 0.2s ease"
+                                >Visit the Indigenous Talent Program</a
+                            >
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section
+            data-h2-border="b([light]gray, top, solid, s)"
+            data-h2-position="b(relative)"
+            style="background: rgba(240, 240, 240, 1)"
+            data-h2-overflow="b(x, hidden)"
         >
-          <div 
-  
-    class="parallelogram"
-  ></div> <h2
-  
-  data-h2-font-weight="b(200)"
-  data-h2-font-size="b(h2)"
-  
-  
-  
-  
-  style="letter-spacing: -2px;">
-  Where to From Here?
-</h2>
-        </div>
-        
-          <p>Talent Cloud, as a project, has officially concluded. The result of these development efforts over the last three years have led to numerous insights on ways to improve recruitment, and a fully operational staffing platform that has delivered a hiring timeline dramatically faster than the Government of Canada average. The project also managed to recruit a lot of great people from diverse backgrounds… many of whom reported never having considered applying for government work before applying with Talent Cloud.</p>
-        
-          <p>In 2021-22, the project team itself will be shifting to collaborate with the GC Digital Community Management Office (also inside the Office of the Chief Information Officer) to develop a talent platform for the digital community. The new platform will deliver an interoperable talent repository, with a focus on manager-searchable talent pools. The project team will also be working with partners across the Government of Canada to advance work on an Indigenous Talent Portal. The team remains committed to advancing digital age talent solutions that advance equity and serve Canadians.</p>
-        
-        <div data-h2-text-align="b(center) m(right)">
-          <a 
-            href="/en/talent-cloud/report/"
-            title="Read the Report"
-            data-h2-display="b(block) m(inline-block)"
-            data-h2-font-color="b(white) b:h(hover) b:f(hover)"
-            data-h2-border="b(purple, all, solid, s) b:h(hover, all, solid, s) b:f(hover, all, solid, s)"
-            data-h2-bg-color="b(purple) b:h([light]hover) b:f([light]hover)"
-            data-h2-margin="b(top, xxs)"
-            data-h2-radius="b(s)"
-            data-h2-padding="b(top-bottom, xs) b(right-left, s)"
-            style="transition: all .2s ease;">Read the Report</a>
-          <a 
-            href="/en/communities/digital-talent"
-            title="Visit GC Digital Talent"
-            data-h2-display="b(block) m(inline-block)"
-            data-h2-font-color="b(white) b:h(hover) b:f(hover)"
-            data-h2-border="b(purple, all, solid, s) b:h(hover, all, solid, s) b:f(hover, all, solid, s)"
-            data-h2-bg-color="b(purple) b:h([light]hover) b:f([light]hover)"
-            data-h2-margin="b(top, xxs)"
-            data-h2-radius="b(s)"
-            data-h2-padding="b(top-bottom, xs) b(right-left, s)"
-            style="transition: all .2s ease;">Visit GC Digital Talent</a>
-          <a 
-            href="/en/communities/indigenous-talent"
-            title="Visit the Indigenous Talent Program"
-            data-h2-display="b(block) m(inline-block)"
-            data-h2-font-color="b(white) b:h(hover) b:f(hover)"
-            data-h2-border="b(purple, all, solid, s) b:h(hover, all, solid, s) b:f(hover, all, solid, s)"
-            data-h2-bg-color="b(purple) b:h([light]hover) b:f([light]hover)"
-            data-h2-margin="b(top, xxs)"
-            data-h2-radius="b(s)"
-            data-h2-padding="b(top-bottom, xs) b(right-left, s)"
-            style="transition: all .2s ease;">Visit the Indigenous Talent Program</a>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+            <footer
+                data-h2-container="b(center, full)"
+                data-h2-padding="b(top-bottom, l)"
+            >
+                <div data-h2-flex-grid="b(middle, expanded, flush, xl)">
+                    <div
+                        data-h2-flex-item="b(1of1) m(1of2)"
+                        data-h2-padding="b(left, xl)"
+                        data-h2-text-align="b(center) m(left)"
+                    >
+                        <nav>
+                            <ul
+                                style="gap: 1rem"
+                                class="reset-ul"
+                                data-h2-display="b(flex)"
+                                data-h2-flex-wrap="b(wrap)"
+                                data-h2-justify-content="b(center) m(flex-start)"
+                                data-h2-margin="b(bottom, xs)"
+                            >
+                                <li
+                                    data-h2-display="b(inline-block)"
+                                    data-h2-margin="b(top-bottom, none)"
+                                >
+                                    <a
+                                        href="mailto:talent.cloud-nuage.de.talents@tbs-sct.gc.ca"
+                                        title="Submit feedback to GC Talent Cloud via email."
+                                        >Feedback</a
+                                    >
+                                </li>
 
-<section data-h2-border="b([light]gray, top, solid, s)" data-h2-position="b(relative)" style="background: rgba(240, 240, 240, 1)" data-h2-overflow="b(x, hidden)">
-  <footer data-h2-container="b(center, full)" data-h2-padding="b(top-bottom, l)">
-    <div data-h2-flex-grid="b(middle, expanded, flush, xl)">
-      <div
-        data-h2-flex-item="b(1of1) m(1of2)"
-        data-h2-padding="b(left, xl)"
-        data-h2-text-align="b(center) m(left)">
-        
-          <nav>
-            <ul
-              style="gap: 1rem;"
-              class="reset-ul"
-              data-h2-display="b(flex)"
-              data-h2-flex-wrap="b(wrap)"
-              data-h2-justify-content="b(center) m(flex-start)"
-              data-h2-margin="b(bottom, xs)">
-              
-              <li data-h2-display="b(inline-block)" data-h2-margin="b(top-bottom, none)">
-                
-                  <a href="mailto:talent.cloud-nuage.de.talents@tbs-sct.gc.ca" title="Submit feedback to GC Talent Cloud via email.">Feedback</a>
-                
-              </li>
-              
-              <li data-h2-display="b(inline-block)" data-h2-margin="b(top-bottom, none)">
-                
-                  <a href="/en/terms-and-conditions" title="View our terms and conditions.">Terms & Conditions</a>
-                
-              </li>
-              
-              <li data-h2-display="b(inline-block)" data-h2-margin="b(top-bottom, none)">
-                
-                  <a href="/en/privacy-notice" title="View our privacy policy.">Privacy Policy</a>
-                
-              </li>
-              
-              <li data-h2-display="b(inline-block)" data-h2-margin="b(top-bottom, none)">
-                
-                  <a href="/en/https://www.canada.ca/en.html" title="Visit Canada.ca.">Canada.ca</a>
-                
-              </li>
-              
-            </ul>
-          </nav>
-          <p 
-            data-h2-font-size="b(caption)"
-            data-h2-font-color="b(black)" 
-            data-h2-margin="b(bottom, none) b(top, m)">
-            Date Modified: July 07, 2021
-          </p>
-        
-      </div>
-      <div
-        data-h2-flex-item="b(1of1) m(1of2)"
-        data-h2-padding="b(right, xl)"
-        data-h2-text-align="b(center) m(right)">
-        <a
-          href="https://www.canada.ca/en.html"
-          title="Visit Canada.ca."
-          target="_blank"
-          rel="noopener noreferrer">
-          <img
-            class="canada-logo"
-            src="/assets/img/ui-canada.png"
-            alt="Canada's Logo."/>
-        </a>
-      </div>
-    </div>
-  </footer>
-</section>
+                                <li
+                                    data-h2-display="b(inline-block)"
+                                    data-h2-margin="b(top-bottom, none)"
+                                >
+                                    <a
+                                        href="/en/terms-and-conditions"
+                                        title="View our terms and conditions."
+                                        >Terms & Conditions</a
+                                    >
+                                </li>
 
-    <script type="text/javascript" src="/assets/js/app.js"></script>
-  </body>
+                                <li
+                                    data-h2-display="b(inline-block)"
+                                    data-h2-margin="b(top-bottom, none)"
+                                >
+                                    <a
+                                        href="/en/privacy-notice"
+                                        title="View our privacy policy."
+                                        >Privacy Policy</a
+                                    >
+                                </li>
+
+                                <li
+                                    data-h2-display="b(inline-block)"
+                                    data-h2-margin="b(top-bottom, none)"
+                                >
+                                    <a
+                                        href="https://www.canada.ca/en.html"
+                                        title="Visit Canada.ca."
+                                        >Canada.ca</a
+                                    >
+                                </li>
+                            </ul>
+                        </nav>
+                        <p
+                            data-h2-font-size="b(caption)"
+                            data-h2-font-color="b(black)"
+                            data-h2-margin="b(bottom, none) b(top, m)"
+                        >
+                            Date Modified: July 07, 2021
+                        </p>
+                    </div>
+                    <div
+                        data-h2-flex-item="b(1of1) m(1of2)"
+                        data-h2-padding="b(right, xl)"
+                        data-h2-text-align="b(center) m(right)"
+                    >
+                        <a
+                            href="https://www.canada.ca/en.html"
+                            title="Visit Canada.ca."
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            <img
+                                class="canada-logo"
+                                src="/assets/img/ui-canada.png"
+                                alt="Canada's Logo."
+                            />
+                        </a>
+                    </div>
+                </div>
+            </footer>
+        </section>
+
+        <script type="text/javascript" src="/assets/js/app.js"></script>
+    </body>
 </html>

@@ -1,840 +1,946 @@
 <!DOCTYPE html>
 <html lang="fr">
-  <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>GC Talent | Autoriser le travail à distance</title>
-  <meta name="description" content="Talent Cloud is an experimental staffing solution created by the Government of Canada. Read our experiment's results report here!">
-  <!-- Google Tag Manager -->
-  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-P27NF5V');</script>
-    <!-- End Google Tag Manager -->
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>GC Talent | Autoriser le travail à distance</title>
+        <meta
+            name="description"
+            content="Talent Cloud is an experimental staffing solution created by the Government of Canada. Read our experiment's results report here!"
+        />
+        <!-- Google Tag Manager -->
+        <script>
+            (function (w, d, s, l, i) {
+                w[l] = w[l] || [];
+                w[l].push({
+                    "gtm.start": new Date().getTime(),
+                    event: "gtm.js",
+                });
+                var f = d.getElementsByTagName(s)[0],
+                    j = d.createElement(s),
+                    dl = l != "dataLayer" ? "&l=" + l : "";
+                j.async = true;
+                j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+                f.parentNode.insertBefore(j, f);
+            })(window, document, "script", "dataLayer", "GTM-P27NF5V");
+        </script>
+        <!-- End Google Tag Manager -->
 
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script
-        async
-        src="https://www.googletagmanager.com/gtag/js?id=UA-115747902-1">
-    </script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'UA-115747902-1', {
-          cookie_flags: 'secure'
-        });
-    </script>
-  <!-- Favicons -->
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-  <link rel="manifest" href="/site.webmanifest">
-  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
-  <meta name="msapplication-TileColor" content="#da532c">
-  <meta name="theme-color" content="#ffffff">
-  <!-- Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap" rel="stylesheet">
-  <!-- Hydrogen CSS -->
-  
-    <!-- <link rel="stylesheet" href="/assets/css/hydrogen-tc.css"> -->
-    <link rel="stylesheet" href="/assets/css/hydrogen.css">
-  
-  <!-- App CSS -->
-  <link rel="stylesheet" href="/assets/css/app.css">
-</head>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script
+            async
+            src="https://www.googletagmanager.com/gtag/js?id=UA-115747902-1"
+        ></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag() {
+                dataLayer.push(arguments);
+            }
+            gtag("js", new Date());
+            gtag("config", "UA-115747902-1", {
+                cookie_flags: "secure",
+            });
+        </script>
+        <!-- Favicons -->
+        <link
+            rel="apple-touch-icon"
+            sizes="180x180"
+            href="/apple-touch-icon.png"
+        />
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="32x32"
+            href="/favicon-32x32.png"
+        />
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="16x16"
+            href="/favicon-16x16.png"
+        />
+        <link rel="manifest" href="/site.webmanifest" />
+        <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
+        <meta name="msapplication-TileColor" content="#da532c" />
+        <meta name="theme-color" content="#ffffff" />
+        <!-- Google Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap"
+            rel="stylesheet"
+        />
+        <!-- Hydrogen CSS -->
 
-  <body data-h2-font-family="b(sans)">
-    <a href="#mainContent" title="" class="skip-link">Skip to Main Content</a>
-    <div data-h2-border="b([light]gray, bottom, solid, s)" >
-  <div data-h2-container="b(center, full)" data-h2-padding="b(top-bottom, s)">
-    <div data-h2-flex-grid="b(middle, expanded, flush, s)">
-      <div data-h2-flex-item="m(1of2)" data-h2-text-align="b(center) m(left)">
-        <a
-          data-h2-display="b(inline-block)"
-          style="max-width: 15rem; width: 100%;"
-          href="https://canada.ca/"
-          target="_blank"
-          title="Visit canada.ca."
-          rel="noopener noreferrer"
+        <!-- <link rel="stylesheet" href="/assets/css/hydrogen-tc.css"> -->
+        <link rel="stylesheet" href="/assets/css/hydrogen.css" />
+
+        <!-- App CSS -->
+        <link rel="stylesheet" href="/assets/css/app.css" />
+    </head>
+
+    <body data-h2-font-family="b(sans)">
+        <a href="#mainContent" title="" class="skip-link"
+            >Skip to Main Content</a
         >
-          <img data-h2- alt="goc logo" src="/assets/img/ui-goc.svg"
-        /></a>
-      </div>
-      <div data-h2-flex-item="m(1of2)" data-h2-text-align="b(center) m(right)">
-         
-        <a href="/en/hiring/2000/01/01/207-remote-work.html" title="View this content in English.">English</a>
-        
-      </div>
-    </div>
-  </div>
-</div>
-
-<div data-h2-container="b(center, full)" >
-  <nav data-h2-padding="b(top-bottom, m)">
-    <ul class="reset-ul" data-h2-padding="b(all, none)" data-h2-margin="b(all, none)" data-h2-text-align="b(center) m(left)" style="margin-left: -.7rem;">
-      
-        <li data-h2-margin="b(all, none)" data-h2-padding="b(all, none)" data-h2-display="b(inline-block)">
-          <a href="/fr/" title="Visitez la page d'accueil de GC Talent."
-            
-            data-h2-display="b(block)"
-            data-h2-padding="b(all, xs) m(right-left, s)">Accueil</a>
-        </li>
-      
-        <li data-h2-margin="b(all, none)" data-h2-padding="b(all, none)" data-h2-display="b(inline-block)">
-          <a href="/fr/talent-cloud/" title="En savoir plus sur le projet Nuage de talents."
-            
-            data-h2-display="b(block)"
-            data-h2-padding="b(all, xs) m(right-left, s)">Nuage de talents</a>
-        </li>
-      
-        <li data-h2-margin="b(all, none)" data-h2-padding="b(all, none)" data-h2-display="b(inline-block)">
-          <a href="/fr/communities/digital-talent/" title="En savoir plus sur la communauté des talents numériques."
-            
-            data-h2-display="b(block)"
-            data-h2-padding="b(all, xs) m(right-left, s)">Talent numérique</a>
-        </li>
-      
-    </ul>
-  </nav>
-</div>
-<section>
-  <div
-    data-h2-container="b(center, full)"
-    data-h2-text-align="b(center)">
-    
-    <h1
-  data-h2-font-weight="b(800)"
-  data-h2-font-size="b(h1)"
-  data-h2-padding='b(top, l) l(top, xxl) b(bottom, xxs)'
-  style="letter-spacing: -3px"
-  
->
-  Rapport sur les résultats de Nuage de talents
-</h1>
-
-    <div id="breadcrumbs" data-h2-margin="b(top-bottom, m)" >
-  
-  <a href="/fr" title="Retour à la page d'accueil.">GC Talent</a>
-  <!-- If the page layout is post then use this breadcrumb list. -->
-  
-    / <a href="/fr/talent-cloud" title="Retournez à la page de Nuage de talents.">Nuage de talents</a>
-    / <a href="/fr/talent-cloud/report" title="Retournez au rapport des résultats de Nuage de talents.">Rapport sur les r...</a>
-    / <span>Section 2</span>
-    / <span data-h2-font-weight="b(800)">Autoriser le trav...</span>
-  
-</div>
-  </div>
-</section>
-<header 
-  class="post-header"
-  id="mainContent"
-  style="background-image: url('/assets/img/2.7-tx-heading.jpg');"
-  data-h2-margin="b(top, xl)">
-  <div 
-    data-h2-container="b(center, m)" 
-    data-h2-font-color="b(white)"
-    data-h2-padding="b(top, l) b(bottom, xl) l(top, xl) l(bottom, xxl)"
-    data-h2-text-align="b(center)">
-    <h2
-  
-  data-h2-font-weight="b(200)"
-  data-h2-font-size="b(h2)"
-  
-  data-h2-padding='b(top, m)'
-  
-  
-  style="letter-spacing: -2px;">
-  Autoriser le travail à distance
-</h2>
-    
-  </div>
-</header>
-<main data-h2-padding="b(top-bottom, xs) l(top-bottom, xl)" style="background-color: #F8F8F8;">
-  <div data-h2-container="b(center, s)">
-    
-      
-        
-          <!-- Titles -->
-          <h3
-  
-  data-h2-font-weight="b(800)"
-  data-h2-font-size="b(h3)"
-  data-h2-margin='b(top, xl) b(bottom, s)'
-  
-  style="letter-spacing: -1px;">
-  Le problème
-</h3>
-        
-      
-    
-      
-        
-          <!-- Basic Content -->
-          <p>La région de la capitale nationale (RCN) ne représente que 4 % de la population active du Canada, mais 42 % des employés de la fonction publique fédérale y travaillent. La capacité d’embaucher des employés pour travailler à l’extérieur de l’emplacement du bureau physique est un assouplissement des politiques qui n’était pas traditionnellement utilisé. (D’après les ateliers faits avec les gestionnaires et les conseillers en RH, nous soupçonnons que cette situation est attribuable au fait qu’on n’encourageait pas les gestionnaires à offrir cette souplesse et que le système Emplois GC impose par défaut le choix d’un lieu de travail précis en fonction du bureau du gouvernement.)</p>
-        
-      
-    
-      
-        
-          <!-- Basic Content -->
-          <p>Bien que de nombreux ministères dotent également des postes dans les bureaux régionaux, « travailler de n’importe où » n’était pas une pratique d’embauche courante lorsque le Nuage de talents a lancé cette option de dotation sur la plateforme en octobre 2018. (Remarquablement, en janvier 2021, la Commission de la fonction publique a adapté la plateforme Emplois GC pour inclure cette option, en grande partie en réponse à l’incidence de la COVID-19 sur les fonctionnaires fédéraux. Il s’agit d’un changement intéressant pour les travailleurs partout au Canada.)</p>
-        
-      
-    
-      
-        
-          <!-- Titles -->
-          <h3
-  
-  data-h2-font-weight="b(800)"
-  data-h2-font-size="b(h3)"
-  data-h2-margin='b(top, xl) b(bottom, s)'
-  
-  style="letter-spacing: -1px;">
-  Les hypothèses
-</h3>
-        
-      
-    
-      
-        
-          
-            <ul>
-              
-                <li>Les talents se retrouvent partout et, par conséquent, les talents dont le gouvernement a besoin seront probablement répartis à l’échelle du Canada, plutôt que d’atteindre un taux par habitant disproportionné dans la RCN.</li>
-              
-                <li>Le fait de permettre aux employés de partout au Canada qui sont à la recherche d’un poste accessible à distance de postuler augmentera les chances de trouver des personnes ayant des compétences rares ou les compétences recherchées.</li>
-              
-                <li>Les gestionnaires qui acceptent les candidatures de travailleurs à distance verront augmenter le nombre de candidatures de grande qualité.</li>
-              
-                <li>Compte tenu du choix de talents dans les candidatures pour du travail à distance et les candidatures provenant de la RCN, les gestionnaires choisiront d’embaucher des travailleurs à distance au moins une partie du temps, ce qui se traduira par une plus grande diversité géographique dans l’embauche faite au moyen du Nuage de talents que dans les postes standard « RCN seulement » ou « bureau régional seulement ».</li>
-              
-            </ul>
-          
-        
-      
-    
-      
-        
-          <!-- Titles -->
-          <h3
-  
-  data-h2-font-weight="b(800)"
-  data-h2-font-size="b(h3)"
-  data-h2-margin='b(top, xl) b(bottom, s)'
-  
-  style="letter-spacing: -1px;">
-  L’expérience
-</h3>
-        
-      
-    
-      
-        
-          <!-- Basic Content -->
-          <p>Pour promouvoir les emplois accessibles à distance, nous avons conçu un modèle d’embauche optimisé pour permettre aux employés de travailler de n’importe où. La première étape consiste à encourager les gestionnaires à envisager d’accepter les candidatures de personnes provenant de l’extérieur de leur région géographique.</p>
-        
-      
-    
-      
-        
-          <!-- Basic Content -->
-          <p>Les offres d’emploi du Nuage de talents donnent aux candidats beaucoup plus de détails sur l’emploi que les offres d’emploi courantes. Ce sont notamment des renseignements sur « l’environnement de travail », par exemple, si le poste permet des horaires flexibles et s’il est possible de travailler à distance.</p>
-        
-      
-    
-      
-        
-          <!-- Basic Content -->
-          <p>Lorsque les gestionnaires créent une offre d’emploi, la sélection par défaut est que le travail à distance est autorisé. Il s’agit d’un petit encouragement qui oblige les gestionnaires à exclure intentionnellement les travailleurs à distance et à dire qu’ils ne veulent examiner que les candidatures des gens de leur région géographique. Dans le cadre d’un processus d’emploi traditionnel, c’est le contraire qui se produisait (c’est-à-dire que les gestionnaires choisissaient un bureau du gouvernement pour le poste, et devaient rédiger des explications et des justifications supplémentaires si le travail à distance était autorisé). Nous nous assurons de donner aux gestionnaires la définition de « travail à distance » dans l’outil du Portail des gestionnaires qui permet de créer des offres d’emploi, et nous offrons du soutien aux gestionnaires qui choisissent d’évaluer ou d’embaucher des travailleurs à distance.</p>
-        
-      
-    
-      
-        
-          <!-- Pullquotes -->
-          <blockquote
-            data-h2-border="b(red, left, solid, m)"
-            data-h2-margin="b(top-bottom, xl)"
-            data-h2-padding="b(left, m)">
-            
-            
-              <p data-h2-font-color="b(red)">« Le fait d’offrir des emplois à des télétravailleurs permet aux gestionnaires de puiser dans un tout nouveau bassin de talents. »</p>
-            
-          </blockquote>
-        
-      
-    
-      
+        <div data-h2-border="b([light]gray, bottom, solid, s)">
+            <div
+                data-h2-container="b(center, full)"
+                data-h2-padding="b(top-bottom, s)"
+            >
+                <div data-h2-flex-grid="b(middle, expanded, flush, s)">
+                    <div
+                        data-h2-flex-item="m(1of2)"
+                        data-h2-text-align="b(center) m(left)"
+                    >
+                        <a
+                            data-h2-display="b(inline-block)"
+                            style="max-width: 15rem; width: 100%"
+                            href="https://canada.ca/"
+                            target="_blank"
+                            title="Visit canada.ca."
+                            rel="noopener noreferrer"
+                        >
+                            <img
+                                data-h2-
+                                alt="goc logo"
+                                src="/assets/img/ui-goc.svg"
+                        /></a>
+                    </div>
+                    <div
+                        data-h2-flex-item="m(1of2)"
+                        data-h2-text-align="b(center) m(right)"
+                    >
+                        <a
+                            href="/en/hiring/2000/01/01/207-remote-work.html"
+                            title="View this content in English."
+                            >English</a
+                        >
+                    </div>
+                </div>
+            </div>
         </div>
-        <!-- Images -->
-        <div 
-          data-h2-margin="b(top, xxl) b(bottom, l) l(top-bottom, xxl)"
-          style="background-image: url('/assets/img/2.7-tx-laptop.jpg'); background-position: center; background-size: cover; min-height: 60vh; position: relative;"
-          title="Photo d'une personne travaillant sur un ordinateur portable dans un espace extérieur avec vue sur un paysage urbain.">
-          <a
-            href="#section1"
-            title="Cliquez ici pour faire défiler l'image et passer à la section suivante de l'article."
-            data-h2-bg-color="b(white)"
-            data-h2-display="b(inline-block)"
-            data-h2-font-size="b(caption)"
-            data-h2-text-align="b(center)"
-            data-h2-padding="b(top-bottom, xs) b(right-left, s)"
-            data-h2-radius="b(m)"
-            data-h2-shadow="b(m)"
-            style="position: absolute; top: 0; left: 50%; transform: translate(-50%, -50%); min-width: 15rem;">
-            <svg
-              data-h2-margin="b(right, xxs)" 
-              style="width: 1rem; vertical-align: middle;" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#c90035">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M19 9l-7 7-7-7" />
-            </svg>L'article se poursuit ci-dessous</a>
-        </div>
-        <span id="section1"></span>
-        <div data-h2-container="b(center, s)">
-      
-    
-      
-        
-          <!-- Titles -->
-          <h3
-  
-  data-h2-font-weight="b(800)"
-  data-h2-font-size="b(h3)"
-  data-h2-margin='b(top, xl) b(bottom, s)'
-  
-  style="letter-spacing: -1px;">
-  Interventions sur la plateforme
-</h3>
-        
-      
-    
-      
-        
-          
-            <ol>
-              
-                <li><strong style="letter-spacing: -1px;" data-h2-font-weight="b(800)" data-h2-font-color="b(purple)">Rendre l’option disponible :</strong> La première et la plus importante intervention du Nuage de talents visant à promouvoir les emplois accessibles à distance a été d’inclure cette option dans le menu de sélection avec lequel les gestionnaires et les conseillers en RH travaillent lorsqu’ils préparent une offre d’emploi dans le Générateur d’offres d’emploi de la plateforme. Jusqu’à ce moment-là, les gestionnaires déclaraient que même lorsqu’ils voulaient offrir des postes qui autorisent le travail à distance, l’opposition ministérielle et les difficultés lors de la publication d’une offre d’emploi les poussaient à renoncer à cette option. Lorsque les gestionnaires ont appris que cette option était facilement disponible, beaucoup l’ont adoptée sans avoir besoin de trop de persuasion.</li>
-              
-                <li><strong style="letter-spacing: -1px;" data-h2-font-weight="b(800)" data-h2-font-color="b(purple)">En faire la valeur par défaut :</strong> Au gouvernement, les gestionnaires sont formés pour accepter la valeur par défaut. Les gestionnaires ont déclaré que les valeurs par défaut signifiaient que l’orientation de l’organisation était établie, et que le fait d’opter pour quelque chose autre que la valeur par défaut exigeait non seulement plus de travail, mais que cela leur semblait également vaguement non conforme. Dans ce cas, nous avons renversé la tendance vers laquelle les gestionnaires avaient été poussés depuis des années (éviter le travail à distance) et en avons fait la nouvelle norme (promouvoir le travail à distance).</li>
-              
-                <li><strong style="letter-spacing: -1px;" data-h2-font-weight="b(800)" data-h2-font-color="b(purple)">Encourager à conserver la valeur par défaut :</strong> Idéalement, nous aurions les chiffres nécessaires pour mener un essai contrôlé randomisé afin de mettre à l’essai différents encouragements et de comparer différentes interventions pour déterminer ce qui produit le meilleur résultat. Dans ce cas, nous avons simplement ajouté une ligne (voir la capture d’écran ci-après) qui faisait le lien entre le fait d’autoriser le travail à distance et un bassin de talents de meilleure qualité. Bien qu’il s’agisse d’un encouragement fondé sur notre hypothèse et appuyé par des recherches externes, il a fonctionné. Les offres d’emploi qui autorisaient le travail à distance attiraient de meilleurs talents et affichaient un taux de succès plus élevé en ce qui concerne le fait de parvenir à une embauche finale de grande qualité. (Il s’agit de l’un des trois assouplissements que les gestionnaires d’embauche qui utilisent le Nuage de talents étaient incités à adopter. Consultez la section de la recherche portant sur l’importance de la souplesse pour en savoir plus sur la façon dont ces assouplissements ont influé sur la décision des candidats de présenter une demande d’emploi. Le « pourquoi » pourrait vous surprendre — ce fut le cas pour nous.)</li>
-              
-                <li><strong style="letter-spacing: -1px;" data-h2-font-weight="b(800)" data-h2-font-color="b(purple)">Présenter des offres claires aux candidats :</strong> Les offres d’emploi du Nuage de talents contenaient l’une des deux phrases suivantes : « Travail à distance autorisé » ou « Travail à distance non autorisé ». Lors des essais auprès des utilisateurs, plusieurs gestionnaires ont exprimé leur malaise face à la clarté de ce libellé. (Remarquablement, les candidats ont déclaré qu’ils aimaient vraiment la clarté.) Plusieurs gestionnaires ont demandé que nous l’annoncions simplement lorsque c’était autorisé, et que nous soyons vagues lorsque ce ne l’était pas. Le Nuage de talents a refusé d’apporter ce changement parce qu’une partie de la recherche (qualitative et quantitative) visait à déterminer si l’autorisation (ou la non-autorisation) claire du travail à distance faisait la différence dans les taux de candidatures reçues et les résultats finaux. Il s’avère que oui… En fait, il y a une grande différence.</li>
-              
-            </ol>
-          
-        
-      
-    
-      
-        
-          <figure data-h2-margin="b(top-bottom, l)">
-            <!-- Graphics -->
-            
-              <img 
-                src="/assets/img/2.7-fr-interventions.png"
-                alt="Une capture d’écran de l’interface de création d’affiches d’emploi du Nuage de talents, dans laquelle les gestionnaires peuvent indiquer si le poste peut être doté à distance, par le télétravail et par des heures flexibles."
-                style="width: 100%;"
-                data-h2-display="b(block)"
-                data-h2-radius="b(s)"
-                data-h2-border="b(gray, all, solid, s)">
-                
-            
-          </figure>
-        
-      
-    
-      
-        
-          <!-- Titles -->
-          <h3
-  
-  data-h2-font-weight="b(800)"
-  data-h2-font-size="b(h3)"
-  data-h2-margin='b(top, xl) b(bottom, s)'
-  
-  style="letter-spacing: -1px;">
-  Les résultats
-</h3>
-        
-      
-    
-      
-        
-          
-            <ul>
-              
-                <li>92 % des 53 emplois publiés dans le Nuage de talents étaient basés dans la RCN.</li>
-              
-                <li>36 % des emplois sur la plateforme annonçaient « Travail à distance autorisé »</li>
-              
-                <li>Dans les cas où les gestionnaires autorisaient le travail à distance, ils recevaient 63 % plus de candidatures que ceux qui n’autorisaient pas le travail à distance.</li>
-              
-                <li>Pour les postes CS, le fait d’autoriser le travail à distance augmentait le nombre de candidats de 83 %.</li>
-              
-                <li>Les bassins de candidats de tous les processus d’emploi autorisant le travail à distance comportaient des candidats qualifiés.</li>
-              
-                <li>Seulement 5 des 53 offres d’emploi du Nuage de talents n’ont pas réussi à attirer des candidats qualifiés, et 4 autres ont vu les candidats qualifiés refuser le poste. Aucune de ces offres d’emploi n’autorisait le travail à distance.</li>
-              
-                <li>Lorsqu’on leur a présenté un bassin de candidats comprenant des candidats pour le travail à distance, plus de la moitié des gestionnaires ont choisi un travailleur à distance comme candidat, dont certains venaient de petites collectivités. Cela indique qu’il y a un vaste bassin de talents inexploité partout au Canada.</li>
-              
-                <li>Les gestionnaires qui ont embauché des travailleurs à distance ont déclaré au cours des entrevues qu’ils examineraient les candidatures de travailleurs à distance à l’avenir.</li>
-              
-            </ul>
-          
-        
-      
-    
-      
-        
-          <figure data-h2-margin="b(top-bottom, l)">
-            <!-- Graphics -->
-            
-              <img 
-                src="/assets/img/2.7-fr-remote-work.png"
-                alt="Un graphique qui représente les différences entre les offres d’emploi étiquetées comme étant faciles à travailler à distance et celles qui sont propres à un emplacement. 36 % des emplois de Nuage des talents ont permis le travail à distance, ce qui a donné lieu à 63 % de demandes de plus. Pour la classification CS, ce pourcentage est passé à 83 % de demandes de plus. Chacune de ces offres d’emploi a permis de trouver un candidat qualifié. Comparativement, 64 % des emplois dans le Nuage des talents étaient propres à la région de la capitale nationale du Canada. Les candidats ont indiqué des niveaux d’intérêt inférieurs. 15 % de ces emplois n’ont pas attiré un candidat qualifié, et 15 % avaient un candidat de premier rang qui a refusé une offre d’emploi."
-                style="width: 100%;"
-                data-h2-display="b(block)"
-                data-h2-radius="b(s)"
-                data-h2-border="b(gray, all, solid, s)">
-                
-            
-          </figure>
-        
-      
-    
-      
-        
-          <!-- Titles -->
-          <h3
-  
-  data-h2-font-weight="b(800)"
-  data-h2-font-size="b(h3)"
-  data-h2-margin='b(top, xl) b(bottom, s)'
-  
-  style="letter-spacing: -1px;">
-  Recherches externes
-</h3>
-        
-      
-    
-      
-        
-          <!-- Basic Content -->
-          <p>En raison de la COVID-19, le travail à distance est maintenant chose courante. Il est donc facile d’oublier qu’avant la pandémie, le travail à distance était l’un des avantages les plus souhaitables qu’un employeur pouvait offrir. Une étude a <span data-h2-font-style="b(underline)" title="“Remote Work Trends & Statistics for 2021: Remote Work Status & Future After Covid.” 2021. Remoters. January 18, 2021.">révélé que 57 % des travailleurs ont dit que l’option de travailler à distance est l’avantage qu’ils privilégient</span>.</p>
-        
-      
-    
-      
-        
-          <!-- Basic Content -->
-          <p>Les travailleurs ont également été en mesure d’attribuer un montant à la possibilité de travailler à domicile. Une <a href="https://www.aeaweb.org/articles?id=10.1257/aer.20161500" target="_blank" rel="noreferrer" title="Voir la source.">étude réalisée en 2017 par Stanford a montré que le travailleur moyen serait prêt à renoncer à 8 % de son revenu pour travailler à domicile</a>. Les employés des régions éloignées sont également en mesure de travailler n’importe où, et <a href="https://hbr.org/2019/08/is-it-time-to-let-employees-work-from-anywhere.https:/remoters.net/remote-work-trends-future-insights/" target="_blank" rel="noreferrer" title="Voir la source.">il a été démontré qu’ils déménagent dans des régions où le coût de la vie est moins élevé</a>, ce qui leur permet de tirer le maximum de leur revenu.</p>
-        
-      
-    
-      
-        
-          <!-- Basic Content -->
-          <p>Soutenir le travail à distance aide aussi à conserver les meilleurs talents que vous avez déjà! <a href="https://zapier.com/blog/remote-work-report-by-zapier/" target="_blank" rel="noreferrer" title="Voir la source.">Une étude a démontré que 74 % des travailleurs de l’industrie du savoir aux États-Unis quittaient leur emploi pour un autre qui offrait des postes à distance, et que 26 % avaient déjà quitté un emploi pour cette raison.</a> Ces conclusions ont été corroborées par une autre <a href="https://www.owllabs.com/state-of-remote-work/2017" target="_blank" rel="noreferrer" title="Voir la source.">étude qui a montré que les entreprises qui appuient le travail à distance ont un taux de roulement du personnel de 25 % inférieur à celui des entreprises qui ne le font pas</a>.</p>
-        
-      
-    
-      
-        
-          <!-- Titles -->
-          <h3
-  
-  data-h2-font-weight="b(800)"
-  data-h2-font-size="b(h3)"
-  data-h2-margin='b(top, xl) b(bottom, s)'
-  
-  style="letter-spacing: -1px;">
-  Perspectives
-</h3>
-        
-      
-    
-      
-        
-          <!-- Basic Content -->
-          <p>En raison d’un petit encouragement dans l’outil de création d’offres d’emploi, de nombreux gestionnaires ont été persuadés de changer des comportements de longue date et ont choisi d’accepter des candidatures de travailleurs à distance. Cela leur a donné accès à plus de talents et les a rendus plus susceptibles d’embaucher.</p>
-        
-      
-    
-      
-        
-          <!-- Basic Content -->
-          <p>Le gouvernement est un énorme employeur. Si ce modèle était appliqué de façon permanente à l’ensemble de l’embauche au gouvernement du Canada, il pourrait avoir une incidence sociale de grande valeur à grande échelle et paver la voie à une diversité régionale représentative dans l’emploi au gouvernement. Au niveau communautaire, cela pourrait aider à accélérer la reprise économique répartie et à améliorer la qualité de la base de talents de la fonction publique.</p>
-        
-      
-    
-      
-        
-          <!-- Basic Content -->
-          <p>Bien que l’expérience du Nuage de talents ait produit des signaux prometteurs, elle est encore à très petite échelle. Nous espérons que d’autres autorités en matière de RH du gouvernement du Canada effectueront des recherches à plus grande échelle sur l’incidence du changement de 2021 à la plateforme Emplois GC autorisant le travail à distance. Il nous tarde de comparer nos notes et nos constatations.</p>
-        
-      
-    
-  </div>
-</main>
-<section style="background-color: #F8F8F8;">
-  <div data-h2-container="b(center, s)" data-h2-padding="b(bottom, l) l(bottom, xxl)">
-    <div data-h2-flex-grid="b(top, expanded, flush, m)">
-      <div
-        data-h2-text-align="b(center) m(left)" 
-        data-h2-flex-item="b(1of2)">
-        
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-            
-              <a class="prev" href="/fr/hiring/2000/01/01/206-manager-story.html" title="Allez à l'article précédent de la série.">
-                <svg data-h2-margin="b(right, xxs)" 
-                  style="width: 1rem; vertical-align: middle;" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="#c90035">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M15 19l-7-7 7-7" />
-                </svg>Article précédent</a>
-            
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-      </div>
-      <div 
-        data-h2-text-align="b(center) m(right)"   
-        data-h2-flex-item="b(1of2)">
-        
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-            
-              <a class="next" href="/fr/hiring/2000/01/01/208-flexibility.html" title="Passez à l'article suivant de la série.">Article suivant<svg data-h2-margin="b(left, xxs)" 
-                style="width: 1rem; vertical-align: middle;" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="#c90035">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M9 5l7 7-7 7" />
-                </svg></a>
-            
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-      </div>
-    </div>
-    <p
-      data-h2-margin="b(top, xxl)" 
-      data-h2-text-align="b(center)"
-      data-h2-font-size="b(caption)">
-      <a href="/fr/talent-cloud/report/#toc" title="Retour à la table des matières">Retour à la table des matières</a>
-    </p>
-  </div>
-</section>
-<section data-h2-border="b([light]gray, top, solid, s)" data-h2-position="b(relative)" style="background: rgba(240, 240, 240, 1)" data-h2-overflow="b(x, hidden)">
-  <footer data-h2-container="b(center, full)" data-h2-padding="b(top-bottom, l)">
-    <div data-h2-flex-grid="b(middle, expanded, flush, xl)">
-      <div
-        data-h2-flex-item="b(1of1) m(1of2)"
-        data-h2-padding="b(left, xl)"
-        data-h2-text-align="b(center) m(left)">
-        
-          <nav>
-            <ul
-              style="gap: 1rem;"
-              class="reset-ul"
-              data-h2-display="b(flex)"
-              data-h2-flex-wrap="b(wrap)"
-              data-h2-justify-content="b(center) m(flex-start)"
-              data-h2-margin="b(bottom, xs)">
-              
-              <li data-h2-display="b(inline-block)" data-h2-margin="b(top-bottom, none)">
-                
-                  <a href="mailto:talent.cloud-nuage.de.talents@tbs-sct.gc.ca" title="Soumettre des commentaires au Nuage de talents du GC par courriel.">Retour d'information</a>
-                
-              </li>
-              
-              <li data-h2-display="b(inline-block)" data-h2-margin="b(top-bottom, none)">
-                
-                  <a href="/fr/terms-and-conditions" title="Voir nos avis.">Avis</a>
-                
-              </li>
-              
-              <li data-h2-display="b(inline-block)" data-h2-margin="b(top-bottom, none)">
-                
-                  <a href="/fr/privacy-notice" title="Voir notre politique de confidentialité.">Confidentialité</a>
-                
-              </li>
-              
-              <li data-h2-display="b(inline-block)" data-h2-margin="b(top-bottom, none)">
-                
-                  <a href="/fr/https://www.canada.ca/fr.html" title="Visiter Canada.ca.">Canada.ca</a>
-                
-              </li>
-              
-            </ul>
-          </nav>
-          <p 
-            data-h2-font-size="b(caption)"
-            data-h2-font-color="b(black)" 
-            data-h2-margin="b(bottom, none) b(top, m)">
-            Date de modification: July 07, 2021
-          </p>
-        
-      </div>
-      <div
-        data-h2-flex-item="b(1of1) m(1of2)"
-        data-h2-padding="b(right, xl)"
-        data-h2-text-align="b(center) m(right)">
-        <a
-          href="https://www.canada.ca/fr.html"
-          title="Visiter Canada.ca."
-          target="_blank"
-          rel="noopener noreferrer">
-          <img
-            class="canada-logo"
-            src="/assets/img/ui-canada.png"
-            alt="Symbole du gouvernement du Canada."/>
-        </a>
-      </div>
-    </div>
-  </footer>
-</section>
 
-    <script type="text/javascript" src="/assets/js/app.js"></script>
-  </body>
+        <div data-h2-container="b(center, full)">
+            <nav data-h2-padding="b(top-bottom, m)">
+                <ul
+                    class="reset-ul"
+                    data-h2-padding="b(all, none)"
+                    data-h2-margin="b(all, none)"
+                    data-h2-text-align="b(center) m(left)"
+                    style="margin-left: -0.7rem"
+                >
+                    <li
+                        data-h2-margin="b(all, none)"
+                        data-h2-padding="b(all, none)"
+                        data-h2-display="b(inline-block)"
+                    >
+                        <a
+                            href="/fr/"
+                            title="Visitez la page d'accueil de GC Talent."
+                            data-h2-display="b(block)"
+                            data-h2-padding="b(all, xs) m(right-left, s)"
+                            >Accueil</a
+                        >
+                    </li>
+
+                    <li
+                        data-h2-margin="b(all, none)"
+                        data-h2-padding="b(all, none)"
+                        data-h2-display="b(inline-block)"
+                    >
+                        <a
+                            href="/fr/talent-cloud/"
+                            title="En savoir plus sur le projet Nuage de talents."
+                            data-h2-display="b(block)"
+                            data-h2-padding="b(all, xs) m(right-left, s)"
+                            >Nuage de talents</a
+                        >
+                    </li>
+
+                    <li
+                        data-h2-margin="b(all, none)"
+                        data-h2-padding="b(all, none)"
+                        data-h2-display="b(inline-block)"
+                    >
+                        <a
+                            href="/fr/communities/digital-talent/"
+                            title="En savoir plus sur la communauté des talents numériques."
+                            data-h2-display="b(block)"
+                            data-h2-padding="b(all, xs) m(right-left, s)"
+                            >Talent numérique</a
+                        >
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <section>
+            <div
+                data-h2-container="b(center, full)"
+                data-h2-text-align="b(center)"
+            >
+                <h1
+                    data-h2-font-weight="b(800)"
+                    data-h2-font-size="b(h1)"
+                    data-h2-padding="b(top, l) l(top, xxl) b(bottom, xxs)"
+                    style="letter-spacing: -3px"
+                >
+                    Rapport sur les résultats de Nuage de talents
+                </h1>
+
+                <div id="breadcrumbs" data-h2-margin="b(top-bottom, m)">
+                    <a href="/fr" title="Retour à la page d'accueil."
+                        >GC Talent</a
+                    >
+                    <!-- If the page layout is post then use this breadcrumb list. -->
+
+                    /
+                    <a
+                        href="/fr/talent-cloud"
+                        title="Retournez à la page de Nuage de talents."
+                        >Nuage de talents</a
+                    >
+                    /
+                    <a
+                        href="/fr/talent-cloud/report"
+                        title="Retournez au rapport des résultats de Nuage de talents."
+                        >Rapport sur les r...</a
+                    >
+                    / <span>Section 2</span> /
+                    <span data-h2-font-weight="b(800)"
+                        >Autoriser le trav...</span
+                    >
+                </div>
+            </div>
+        </section>
+        <header
+            class="post-header"
+            id="mainContent"
+            style="background-image: url('/assets/img/2.7-tx-heading.jpg')"
+            data-h2-margin="b(top, xl)"
+        >
+            <div
+                data-h2-container="b(center, m)"
+                data-h2-font-color="b(white)"
+                data-h2-padding="b(top, l) b(bottom, xl) l(top, xl) l(bottom, xxl)"
+                data-h2-text-align="b(center)"
+            >
+                <h2
+                    data-h2-font-weight="b(200)"
+                    data-h2-font-size="b(h2)"
+                    data-h2-padding="b(top, m)"
+                    style="letter-spacing: -2px"
+                >
+                    Autoriser le travail à distance
+                </h2>
+            </div>
+        </header>
+        <main
+            data-h2-padding="b(top-bottom, xs) l(top-bottom, xl)"
+            style="background-color: #f8f8f8"
+        >
+            <div data-h2-container="b(center, s)">
+                <!-- Titles -->
+                <h3
+                    data-h2-font-weight="b(800)"
+                    data-h2-font-size="b(h3)"
+                    data-h2-margin="b(top, xl) b(bottom, s)"
+                    style="letter-spacing: -1px"
+                >
+                    Le problème
+                </h3>
+
+                <!-- Basic Content -->
+                <p>
+                    La région de la capitale nationale (RCN) ne représente que 4
+                    % de la population active du Canada, mais 42 % des employés
+                    de la fonction publique fédérale y travaillent. La capacité
+                    d’embaucher des employés pour travailler à l’extérieur de
+                    l’emplacement du bureau physique est un assouplissement des
+                    politiques qui n’était pas traditionnellement utilisé.
+                    (D’après les ateliers faits avec les gestionnaires et les
+                    conseillers en RH, nous soupçonnons que cette situation est
+                    attribuable au fait qu’on n’encourageait pas les
+                    gestionnaires à offrir cette souplesse et que le système
+                    Emplois GC impose par défaut le choix d’un lieu de travail
+                    précis en fonction du bureau du gouvernement.)
+                </p>
+
+                <!-- Basic Content -->
+                <p>
+                    Bien que de nombreux ministères dotent également des postes
+                    dans les bureaux régionaux, « travailler de n’importe où »
+                    n’était pas une pratique d’embauche courante lorsque le
+                    Nuage de talents a lancé cette option de dotation sur la
+                    plateforme en octobre 2018. (Remarquablement, en janvier
+                    2021, la Commission de la fonction publique a adapté la
+                    plateforme Emplois GC pour inclure cette option, en grande
+                    partie en réponse à l’incidence de la COVID-19 sur les
+                    fonctionnaires fédéraux. Il s’agit d’un changement
+                    intéressant pour les travailleurs partout au Canada.)
+                </p>
+
+                <!-- Titles -->
+                <h3
+                    data-h2-font-weight="b(800)"
+                    data-h2-font-size="b(h3)"
+                    data-h2-margin="b(top, xl) b(bottom, s)"
+                    style="letter-spacing: -1px"
+                >
+                    Les hypothèses
+                </h3>
+
+                <ul>
+                    <li>
+                        Les talents se retrouvent partout et, par conséquent,
+                        les talents dont le gouvernement a besoin seront
+                        probablement répartis à l’échelle du Canada, plutôt que
+                        d’atteindre un taux par habitant disproportionné dans la
+                        RCN.
+                    </li>
+
+                    <li>
+                        Le fait de permettre aux employés de partout au Canada
+                        qui sont à la recherche d’un poste accessible à distance
+                        de postuler augmentera les chances de trouver des
+                        personnes ayant des compétences rares ou les compétences
+                        recherchées.
+                    </li>
+
+                    <li>
+                        Les gestionnaires qui acceptent les candidatures de
+                        travailleurs à distance verront augmenter le nombre de
+                        candidatures de grande qualité.
+                    </li>
+
+                    <li>
+                        Compte tenu du choix de talents dans les candidatures
+                        pour du travail à distance et les candidatures provenant
+                        de la RCN, les gestionnaires choisiront d’embaucher des
+                        travailleurs à distance au moins une partie du temps, ce
+                        qui se traduira par une plus grande diversité
+                        géographique dans l’embauche faite au moyen du Nuage de
+                        talents que dans les postes standard « RCN seulement »
+                        ou « bureau régional seulement ».
+                    </li>
+                </ul>
+
+                <!-- Titles -->
+                <h3
+                    data-h2-font-weight="b(800)"
+                    data-h2-font-size="b(h3)"
+                    data-h2-margin="b(top, xl) b(bottom, s)"
+                    style="letter-spacing: -1px"
+                >
+                    L’expérience
+                </h3>
+
+                <!-- Basic Content -->
+                <p>
+                    Pour promouvoir les emplois accessibles à distance, nous
+                    avons conçu un modèle d’embauche optimisé pour permettre aux
+                    employés de travailler de n’importe où. La première étape
+                    consiste à encourager les gestionnaires à envisager
+                    d’accepter les candidatures de personnes provenant de
+                    l’extérieur de leur région géographique.
+                </p>
+
+                <!-- Basic Content -->
+                <p>
+                    Les offres d’emploi du Nuage de talents donnent aux
+                    candidats beaucoup plus de détails sur l’emploi que les
+                    offres d’emploi courantes. Ce sont notamment des
+                    renseignements sur « l’environnement de travail », par
+                    exemple, si le poste permet des horaires flexibles et s’il
+                    est possible de travailler à distance.
+                </p>
+
+                <!-- Basic Content -->
+                <p>
+                    Lorsque les gestionnaires créent une offre d’emploi, la
+                    sélection par défaut est que le travail à distance est
+                    autorisé. Il s’agit d’un petit encouragement qui oblige les
+                    gestionnaires à exclure intentionnellement les travailleurs
+                    à distance et à dire qu’ils ne veulent examiner que les
+                    candidatures des gens de leur région géographique. Dans le
+                    cadre d’un processus d’emploi traditionnel, c’est le
+                    contraire qui se produisait (c’est-à-dire que les
+                    gestionnaires choisissaient un bureau du gouvernement pour
+                    le poste, et devaient rédiger des explications et des
+                    justifications supplémentaires si le travail à distance
+                    était autorisé). Nous nous assurons de donner aux
+                    gestionnaires la définition de « travail à distance » dans
+                    l’outil du Portail des gestionnaires qui permet de créer des
+                    offres d’emploi, et nous offrons du soutien aux
+                    gestionnaires qui choisissent d’évaluer ou d’embaucher des
+                    travailleurs à distance.
+                </p>
+
+                <!-- Pullquotes -->
+                <blockquote
+                    data-h2-border="b(red, left, solid, m)"
+                    data-h2-margin="b(top-bottom, xl)"
+                    data-h2-padding="b(left, m)"
+                >
+                    <p data-h2-font-color="b(red)">
+                        « Le fait d’offrir des emplois à des télétravailleurs
+                        permet aux gestionnaires de puiser dans un tout nouveau
+                        bassin de talents. »
+                    </p>
+                </blockquote>
+            </div>
+            <!-- Images -->
+            <div
+                data-h2-margin="b(top, xxl) b(bottom, l) l(top-bottom, xxl)"
+                style="
+                    background-image: url('/assets/img/2.7-tx-laptop.jpg');
+                    background-position: center;
+                    background-size: cover;
+                    min-height: 60vh;
+                    position: relative;
+                "
+                title="Photo d'une personne travaillant sur un ordinateur portable dans un espace extérieur avec vue sur un paysage urbain."
+            >
+                <a
+                    href="#section1"
+                    title="Cliquez ici pour faire défiler l'image et passer à la section suivante de l'article."
+                    data-h2-bg-color="b(white)"
+                    data-h2-display="b(inline-block)"
+                    data-h2-font-size="b(caption)"
+                    data-h2-text-align="b(center)"
+                    data-h2-padding="b(top-bottom, xs) b(right-left, s)"
+                    data-h2-radius="b(m)"
+                    data-h2-shadow="b(m)"
+                    style="
+                        position: absolute;
+                        top: 0;
+                        left: 50%;
+                        transform: translate(-50%, -50%);
+                        min-width: 15rem;
+                    "
+                >
+                    <svg
+                        data-h2-margin="b(right, xxs)"
+                        style="width: 1rem; vertical-align: middle"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="#c90035"
+                    >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="4"
+                            d="M19 9l-7 7-7-7"
+                        /></svg
+                    >L'article se poursuit ci-dessous</a
+                >
+            </div>
+            <span id="section1"></span>
+            <div data-h2-container="b(center, s)">
+                <!-- Titles -->
+                <h3
+                    data-h2-font-weight="b(800)"
+                    data-h2-font-size="b(h3)"
+                    data-h2-margin="b(top, xl) b(bottom, s)"
+                    style="letter-spacing: -1px"
+                >
+                    Interventions sur la plateforme
+                </h3>
+
+                <ol>
+                    <li>
+                        <strong
+                            style="letter-spacing: -1px"
+                            data-h2-font-weight="b(800)"
+                            data-h2-font-color="b(purple)"
+                            >Rendre l’option disponible :</strong
+                        >
+                        La première et la plus importante intervention du Nuage
+                        de talents visant à promouvoir les emplois accessibles à
+                        distance a été d’inclure cette option dans le menu de
+                        sélection avec lequel les gestionnaires et les
+                        conseillers en RH travaillent lorsqu’ils préparent une
+                        offre d’emploi dans le Générateur d’offres d’emploi de
+                        la plateforme. Jusqu’à ce moment-là, les gestionnaires
+                        déclaraient que même lorsqu’ils voulaient offrir des
+                        postes qui autorisent le travail à distance,
+                        l’opposition ministérielle et les difficultés lors de la
+                        publication d’une offre d’emploi les poussaient à
+                        renoncer à cette option. Lorsque les gestionnaires ont
+                        appris que cette option était facilement disponible,
+                        beaucoup l’ont adoptée sans avoir besoin de trop de
+                        persuasion.
+                    </li>
+
+                    <li>
+                        <strong
+                            style="letter-spacing: -1px"
+                            data-h2-font-weight="b(800)"
+                            data-h2-font-color="b(purple)"
+                            >En faire la valeur par défaut :</strong
+                        >
+                        Au gouvernement, les gestionnaires sont formés pour
+                        accepter la valeur par défaut. Les gestionnaires ont
+                        déclaré que les valeurs par défaut signifiaient que
+                        l’orientation de l’organisation était établie, et que le
+                        fait d’opter pour quelque chose autre que la valeur par
+                        défaut exigeait non seulement plus de travail, mais que
+                        cela leur semblait également vaguement non conforme.
+                        Dans ce cas, nous avons renversé la tendance vers
+                        laquelle les gestionnaires avaient été poussés depuis
+                        des années (éviter le travail à distance) et en avons
+                        fait la nouvelle norme (promouvoir le travail à
+                        distance).
+                    </li>
+
+                    <li>
+                        <strong
+                            style="letter-spacing: -1px"
+                            data-h2-font-weight="b(800)"
+                            data-h2-font-color="b(purple)"
+                            >Encourager à conserver la valeur par défaut
+                            :</strong
+                        >
+                        Idéalement, nous aurions les chiffres nécessaires pour
+                        mener un essai contrôlé randomisé afin de mettre à
+                        l’essai différents encouragements et de comparer
+                        différentes interventions pour déterminer ce qui produit
+                        le meilleur résultat. Dans ce cas, nous avons simplement
+                        ajouté une ligne (voir la capture d’écran ci-après) qui
+                        faisait le lien entre le fait d’autoriser le travail à
+                        distance et un bassin de talents de meilleure qualité.
+                        Bien qu’il s’agisse d’un encouragement fondé sur notre
+                        hypothèse et appuyé par des recherches externes, il a
+                        fonctionné. Les offres d’emploi qui autorisaient le
+                        travail à distance attiraient de meilleurs talents et
+                        affichaient un taux de succès plus élevé en ce qui
+                        concerne le fait de parvenir à une embauche finale de
+                        grande qualité. (Il s’agit de l’un des trois
+                        assouplissements que les gestionnaires d’embauche qui
+                        utilisent le Nuage de talents étaient incités à adopter.
+                        Consultez la section de la recherche portant sur
+                        l’importance de la souplesse pour en savoir plus sur la
+                        façon dont ces assouplissements ont influé sur la
+                        décision des candidats de présenter une demande
+                        d’emploi. Le « pourquoi » pourrait vous surprendre — ce
+                        fut le cas pour nous.)
+                    </li>
+
+                    <li>
+                        <strong
+                            style="letter-spacing: -1px"
+                            data-h2-font-weight="b(800)"
+                            data-h2-font-color="b(purple)"
+                            >Présenter des offres claires aux candidats
+                            :</strong
+                        >
+                        Les offres d’emploi du Nuage de talents contenaient
+                        l’une des deux phrases suivantes : « Travail à distance
+                        autorisé » ou « Travail à distance non autorisé ». Lors
+                        des essais auprès des utilisateurs, plusieurs
+                        gestionnaires ont exprimé leur malaise face à la clarté
+                        de ce libellé. (Remarquablement, les candidats ont
+                        déclaré qu’ils aimaient vraiment la clarté.) Plusieurs
+                        gestionnaires ont demandé que nous l’annoncions
+                        simplement lorsque c’était autorisé, et que nous soyons
+                        vagues lorsque ce ne l’était pas. Le Nuage de talents a
+                        refusé d’apporter ce changement parce qu’une partie de
+                        la recherche (qualitative et quantitative) visait à
+                        déterminer si l’autorisation (ou la non-autorisation)
+                        claire du travail à distance faisait la différence dans
+                        les taux de candidatures reçues et les résultats finaux.
+                        Il s’avère que oui… En fait, il y a une grande
+                        différence.
+                    </li>
+                </ol>
+
+                <figure data-h2-margin="b(top-bottom, l)">
+                    <!-- Graphics -->
+
+                    <img
+                        src="/assets/img/2.7-fr-interventions.png"
+                        alt="Une capture d’écran de l’interface de création d’affiches d’emploi du Nuage de talents, dans laquelle les gestionnaires peuvent indiquer si le poste peut être doté à distance, par le télétravail et par des heures flexibles."
+                        style="width: 100%"
+                        data-h2-display="b(block)"
+                        data-h2-radius="b(s)"
+                        data-h2-border="b(gray, all, solid, s)"
+                    />
+                </figure>
+
+                <!-- Titles -->
+                <h3
+                    data-h2-font-weight="b(800)"
+                    data-h2-font-size="b(h3)"
+                    data-h2-margin="b(top, xl) b(bottom, s)"
+                    style="letter-spacing: -1px"
+                >
+                    Les résultats
+                </h3>
+
+                <ul>
+                    <li>
+                        92 % des 53 emplois publiés dans le Nuage de talents
+                        étaient basés dans la RCN.
+                    </li>
+
+                    <li>
+                        36 % des emplois sur la plateforme annonçaient « Travail
+                        à distance autorisé »
+                    </li>
+
+                    <li>
+                        Dans les cas où les gestionnaires autorisaient le
+                        travail à distance, ils recevaient 63 % plus de
+                        candidatures que ceux qui n’autorisaient pas le travail
+                        à distance.
+                    </li>
+
+                    <li>
+                        Pour les postes CS, le fait d’autoriser le travail à
+                        distance augmentait le nombre de candidats de 83 %.
+                    </li>
+
+                    <li>
+                        Les bassins de candidats de tous les processus d’emploi
+                        autorisant le travail à distance comportaient des
+                        candidats qualifiés.
+                    </li>
+
+                    <li>
+                        Seulement 5 des 53 offres d’emploi du Nuage de talents
+                        n’ont pas réussi à attirer des candidats qualifiés, et 4
+                        autres ont vu les candidats qualifiés refuser le poste.
+                        Aucune de ces offres d’emploi n’autorisait le travail à
+                        distance.
+                    </li>
+
+                    <li>
+                        Lorsqu’on leur a présenté un bassin de candidats
+                        comprenant des candidats pour le travail à distance,
+                        plus de la moitié des gestionnaires ont choisi un
+                        travailleur à distance comme candidat, dont certains
+                        venaient de petites collectivités. Cela indique qu’il y
+                        a un vaste bassin de talents inexploité partout au
+                        Canada.
+                    </li>
+
+                    <li>
+                        Les gestionnaires qui ont embauché des travailleurs à
+                        distance ont déclaré au cours des entrevues qu’ils
+                        examineraient les candidatures de travailleurs à
+                        distance à l’avenir.
+                    </li>
+                </ul>
+
+                <figure data-h2-margin="b(top-bottom, l)">
+                    <!-- Graphics -->
+
+                    <img
+                        src="/assets/img/2.7-fr-remote-work.png"
+                        alt="Un graphique qui représente les différences entre les offres d’emploi étiquetées comme étant faciles à travailler à distance et celles qui sont propres à un emplacement. 36 % des emplois de Nuage des talents ont permis le travail à distance, ce qui a donné lieu à 63 % de demandes de plus. Pour la classification CS, ce pourcentage est passé à 83 % de demandes de plus. Chacune de ces offres d’emploi a permis de trouver un candidat qualifié. Comparativement, 64 % des emplois dans le Nuage des talents étaient propres à la région de la capitale nationale du Canada. Les candidats ont indiqué des niveaux d’intérêt inférieurs. 15 % de ces emplois n’ont pas attiré un candidat qualifié, et 15 % avaient un candidat de premier rang qui a refusé une offre d’emploi."
+                        style="width: 100%"
+                        data-h2-display="b(block)"
+                        data-h2-radius="b(s)"
+                        data-h2-border="b(gray, all, solid, s)"
+                    />
+                </figure>
+
+                <!-- Titles -->
+                <h3
+                    data-h2-font-weight="b(800)"
+                    data-h2-font-size="b(h3)"
+                    data-h2-margin="b(top, xl) b(bottom, s)"
+                    style="letter-spacing: -1px"
+                >
+                    Recherches externes
+                </h3>
+
+                <!-- Basic Content -->
+                <p>
+                    En raison de la COVID-19, le travail à distance est
+                    maintenant chose courante. Il est donc facile d’oublier
+                    qu’avant la pandémie, le travail à distance était l’un des
+                    avantages les plus souhaitables qu’un employeur pouvait
+                    offrir. Une étude a
+                    <span
+                        data-h2-font-style="b(underline)"
+                        title="“Remote Work Trends & Statistics for 2021: Remote Work Status & Future After Covid.” 2021. Remoters. January 18, 2021."
+                        >révélé que 57 % des travailleurs ont dit que l’option
+                        de travailler à distance est l’avantage qu’ils
+                        privilégient</span
+                    >.
+                </p>
+
+                <!-- Basic Content -->
+                <p>
+                    Les travailleurs ont également été en mesure d’attribuer un
+                    montant à la possibilité de travailler à domicile. Une
+                    <a
+                        href="https://www.aeaweb.org/articles?id=10.1257/aer.20161500"
+                        target="_blank"
+                        rel="noreferrer"
+                        title="Voir la source."
+                        >étude réalisée en 2017 par Stanford a montré que le
+                        travailleur moyen serait prêt à renoncer à 8 % de son
+                        revenu pour travailler à domicile</a
+                    >. Les employés des régions éloignées sont également en
+                    mesure de travailler n’importe où, et
+                    <a
+                        href="https://hbr.org/2019/08/is-it-time-to-let-employees-work-from-anywhere.https:/remoters.net/remote-work-trends-future-insights/"
+                        target="_blank"
+                        rel="noreferrer"
+                        title="Voir la source."
+                        >il a été démontré qu’ils déménagent dans des régions où
+                        le coût de la vie est moins élevé</a
+                    >, ce qui leur permet de tirer le maximum de leur revenu.
+                </p>
+
+                <!-- Basic Content -->
+                <p>
+                    Soutenir le travail à distance aide aussi à conserver les
+                    meilleurs talents que vous avez déjà!
+                    <a
+                        href="https://zapier.com/blog/remote-work-report-by-zapier/"
+                        target="_blank"
+                        rel="noreferrer"
+                        title="Voir la source."
+                        >Une étude a démontré que 74 % des travailleurs de
+                        l’industrie du savoir aux États-Unis quittaient leur
+                        emploi pour un autre qui offrait des postes à distance,
+                        et que 26 % avaient déjà quitté un emploi pour cette
+                        raison.</a
+                    >
+                    Ces conclusions ont été corroborées par une autre
+                    <a
+                        href="https://www.owllabs.com/state-of-remote-work/2017"
+                        target="_blank"
+                        rel="noreferrer"
+                        title="Voir la source."
+                        >étude qui a montré que les entreprises qui appuient le
+                        travail à distance ont un taux de roulement du personnel
+                        de 25 % inférieur à celui des entreprises qui ne le font
+                        pas</a
+                    >.
+                </p>
+
+                <!-- Titles -->
+                <h3
+                    data-h2-font-weight="b(800)"
+                    data-h2-font-size="b(h3)"
+                    data-h2-margin="b(top, xl) b(bottom, s)"
+                    style="letter-spacing: -1px"
+                >
+                    Perspectives
+                </h3>
+
+                <!-- Basic Content -->
+                <p>
+                    En raison d’un petit encouragement dans l’outil de création
+                    d’offres d’emploi, de nombreux gestionnaires ont été
+                    persuadés de changer des comportements de longue date et ont
+                    choisi d’accepter des candidatures de travailleurs à
+                    distance. Cela leur a donné accès à plus de talents et les a
+                    rendus plus susceptibles d’embaucher.
+                </p>
+
+                <!-- Basic Content -->
+                <p>
+                    Le gouvernement est un énorme employeur. Si ce modèle était
+                    appliqué de façon permanente à l’ensemble de l’embauche au
+                    gouvernement du Canada, il pourrait avoir une incidence
+                    sociale de grande valeur à grande échelle et paver la voie à
+                    une diversité régionale représentative dans l’emploi au
+                    gouvernement. Au niveau communautaire, cela pourrait aider à
+                    accélérer la reprise économique répartie et à améliorer la
+                    qualité de la base de talents de la fonction publique.
+                </p>
+
+                <!-- Basic Content -->
+                <p>
+                    Bien que l’expérience du Nuage de talents ait produit des
+                    signaux prometteurs, elle est encore à très petite échelle.
+                    Nous espérons que d’autres autorités en matière de RH du
+                    gouvernement du Canada effectueront des recherches à plus
+                    grande échelle sur l’incidence du changement de 2021 à la
+                    plateforme Emplois GC autorisant le travail à distance. Il
+                    nous tarde de comparer nos notes et nos constatations.
+                </p>
+            </div>
+        </main>
+        <section style="background-color: #f8f8f8">
+            <div
+                data-h2-container="b(center, s)"
+                data-h2-padding="b(bottom, l) l(bottom, xxl)"
+            >
+                <div data-h2-flex-grid="b(top, expanded, flush, m)">
+                    <div
+                        data-h2-text-align="b(center) m(left)"
+                        data-h2-flex-item="b(1of2)"
+                    >
+                        <a
+                            class="prev"
+                            href="/fr/hiring/2000/01/01/206-manager-story.html"
+                            title="Allez à l'article précédent de la série."
+                        >
+                            <svg
+                                data-h2-margin="b(right, xxs)"
+                                style="width: 1rem; vertical-align: middle"
+                                xmlns="http://www.w3.org/2000/svg"
+                                class="h-6 w-6"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="#c90035"
+                            >
+                                <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    stroke-width="4"
+                                    d="M15 19l-7-7 7-7"
+                                /></svg
+                            >Article précédent</a
+                        >
+                    </div>
+                    <div
+                        data-h2-text-align="b(center) m(right)"
+                        data-h2-flex-item="b(1of2)"
+                    >
+                        <a
+                            class="next"
+                            href="/fr/hiring/2000/01/01/208-flexibility.html"
+                            title="Passez à l'article suivant de la série."
+                            >Article suivant<svg
+                                data-h2-margin="b(left, xxs)"
+                                style="width: 1rem; vertical-align: middle"
+                                xmlns="http://www.w3.org/2000/svg"
+                                class="h-6 w-6"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="#c90035"
+                            >
+                                <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    stroke-width="4"
+                                    d="M9 5l7 7-7 7"
+                                /></svg
+                        ></a>
+                    </div>
+                </div>
+                <p
+                    data-h2-margin="b(top, xxl)"
+                    data-h2-text-align="b(center)"
+                    data-h2-font-size="b(caption)"
+                >
+                    <a
+                        href="/fr/talent-cloud/report/#toc"
+                        title="Retour à la table des matières"
+                        >Retour à la table des matières</a
+                    >
+                </p>
+            </div>
+        </section>
+        <section
+            data-h2-border="b([light]gray, top, solid, s)"
+            data-h2-position="b(relative)"
+            style="background: rgba(240, 240, 240, 1)"
+            data-h2-overflow="b(x, hidden)"
+        >
+            <footer
+                data-h2-container="b(center, full)"
+                data-h2-padding="b(top-bottom, l)"
+            >
+                <div data-h2-flex-grid="b(middle, expanded, flush, xl)">
+                    <div
+                        data-h2-flex-item="b(1of1) m(1of2)"
+                        data-h2-padding="b(left, xl)"
+                        data-h2-text-align="b(center) m(left)"
+                    >
+                        <nav>
+                            <ul
+                                style="gap: 1rem"
+                                class="reset-ul"
+                                data-h2-display="b(flex)"
+                                data-h2-flex-wrap="b(wrap)"
+                                data-h2-justify-content="b(center) m(flex-start)"
+                                data-h2-margin="b(bottom, xs)"
+                            >
+                                <li
+                                    data-h2-display="b(inline-block)"
+                                    data-h2-margin="b(top-bottom, none)"
+                                >
+                                    <a
+                                        href="mailto:talent.cloud-nuage.de.talents@tbs-sct.gc.ca"
+                                        title="Soumettre des commentaires au Nuage de talents du GC par courriel."
+                                        >Retour d'information</a
+                                    >
+                                </li>
+
+                                <li
+                                    data-h2-display="b(inline-block)"
+                                    data-h2-margin="b(top-bottom, none)"
+                                >
+                                    <a
+                                        href="/fr/terms-and-conditions"
+                                        title="Voir nos avis."
+                                        >Avis</a
+                                    >
+                                </li>
+
+                                <li
+                                    data-h2-display="b(inline-block)"
+                                    data-h2-margin="b(top-bottom, none)"
+                                >
+                                    <a
+                                        href="/fr/privacy-notice"
+                                        title="Voir notre politique de confidentialité."
+                                        >Confidentialité</a
+                                    >
+                                </li>
+
+                                <li
+                                    data-h2-display="b(inline-block)"
+                                    data-h2-margin="b(top-bottom, none)"
+                                >
+                                    <a
+                                        href="https://www.canada.ca/fr.html"
+                                        title="Visiter Canada.ca."
+                                        >Canada.ca</a
+                                    >
+                                </li>
+                            </ul>
+                        </nav>
+                        <p
+                            data-h2-font-size="b(caption)"
+                            data-h2-font-color="b(black)"
+                            data-h2-margin="b(bottom, none) b(top, m)"
+                        >
+                            Date de modification: July 07, 2021
+                        </p>
+                    </div>
+                    <div
+                        data-h2-flex-item="b(1of1) m(1of2)"
+                        data-h2-padding="b(right, xl)"
+                        data-h2-text-align="b(center) m(right)"
+                    >
+                        <a
+                            href="https://www.canada.ca/fr.html"
+                            title="Visiter Canada.ca."
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            <img
+                                class="canada-logo"
+                                src="/assets/img/ui-canada.png"
+                                alt="Symbole du gouvernement du Canada."
+                            />
+                        </a>
+                    </div>
+                </div>
+            </footer>
+        </section>
+
+        <script type="text/javascript" src="/assets/js/app.js"></script>
+    </body>
 </html>

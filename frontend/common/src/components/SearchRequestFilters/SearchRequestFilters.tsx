@@ -10,11 +10,34 @@ import {
 } from "../../constants/localizedConstants";
 import { getLocale } from "../../helpers/localize";
 
-export const FilterBlock: React.FunctionComponent<{
+export interface FilterBlockProps {
   title: string;
   content: Maybe<string> | Maybe<string[]>;
-}> = ({ title, content }) => {
+}
+
+const FilterBlock: React.FunctionComponent<FilterBlockProps> = ({
+  title,
+  content,
+}) => {
   const intl = useIntl();
+
+  const emptyArrayOutput = (input: string | string[] | null | undefined) => {
+    return input && !isEmpty(input) ? (
+      <p data-h2-display="b(inline)" data-h2-font-color="b(black)">
+        {input}
+      </p>
+    ) : (
+      <ul data-h2-font-color="b(black)">
+        <li>
+          {intl.formatMessage({
+            defaultMessage: "(None selected)",
+            description: "Text shown when the filter was not selected",
+          })}
+        </li>
+      </ul>
+    );
+  };
+
   return (
     <div data-h2-padding="b(bottom, s)">
       <div data-h2-visibility="b(visible) s(hidden)">
@@ -55,25 +78,18 @@ export const FilterBlock: React.FunctionComponent<{
             ))}
           </ul>
         ) : (
-          <p data-h2-display="b(inline)" data-h2-font-color="b(black)">
-            {content && !isEmpty(content)
-              ? content
-              : intl.formatMessage({
-                  defaultMessage: "N/A",
-                  description: "Text shown when the filter was not selected",
-                })}
-          </p>
+          emptyArrayOutput(content)
         )}
       </div>
     </div>
   );
 };
 
-interface SearchRequestFiltersProps {
+export interface SearchRequestFiltersProps {
   poolCandidateFilter: Maybe<PoolCandidateFilter>;
 }
 
-export const SearchRequestFilters: React.FunctionComponent<
+const SearchRequestFilters: React.FunctionComponent<
   SearchRequestFiltersProps
 > = ({ poolCandidateFilter }) => {
   const intl = useIntl();
@@ -253,3 +269,4 @@ export const SearchRequestFilters: React.FunctionComponent<
 };
 
 export default SearchRequestFilters;
+export { FilterBlock };

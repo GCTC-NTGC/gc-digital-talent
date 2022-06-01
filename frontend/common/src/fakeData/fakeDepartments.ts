@@ -1,4 +1,4 @@
-import faker from "faker";
+import { faker } from "@faker-js/faker";
 import { Department } from "../api/generated";
 
 export default (): Department[] => {

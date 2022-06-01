@@ -1,9 +1,8 @@
 import "../../common/src/css/hydrogen.css";
 import "../src/css/app.css"
-import "../src/js/components/IntlContainer";
 import { setIntlConfig, withIntl } from 'storybook-addon-intl';
 import TalentSearchFrench from "../src/js/lang/frCompiled.json";
-import { CommonFrench } from "../../common/src/lang";
+import CommonFrench from "../../common/src/lang";
 
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },

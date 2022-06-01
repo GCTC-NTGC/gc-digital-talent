@@ -1,2 +1,5 @@
-export { default, Radio } from "./Radio";
-export type { RadioProps } from "./Radio";
+import Radio from "./Radio";
+import type { RadioProps } from "./Radio";
+
+export default Radio;
+export type { RadioProps };

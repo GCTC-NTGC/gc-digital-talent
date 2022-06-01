@@ -21,11 +21,3 @@ To log into the app database with Adminer, use the following credentials:
 The environment variables in `../api/.env.example` are already configured to connect to connect to the database from inside a docker-compose network. Note that, if you want to run migrations or data seeders, you will need to run them inside the container, like so:
 - `docker-compose exec -w /var/www/html/api php sh -c "php artisan migrate"`
 - `docker-compose exec -w /var/www/html/api php sh -c "php artisan db:seed"`
-
-## Connecting auth service to database
-
-The environment variables in `../auth/.env.example` are already configured to connect to connect to the database from inside a docker-compose network. Note that, if you want to run migrations or data seeders, you will need to run them inside the container, like so:
-- `docker-compose exec -w /var/www/html/auth php sh -c "php artisan migrate"`
-
-
-

@@ -1,7 +1,8 @@
 import React from "react";
 import { Story, Meta } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
-import InputLabel, { InputLabelProps } from "./InputLabel";
+import InputLabel from "./InputLabel";
+import type { InputLabelProps } from "./InputLabel";
 
 export default {
   component: InputLabel,

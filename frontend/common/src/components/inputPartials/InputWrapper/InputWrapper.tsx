@@ -13,7 +13,7 @@ export interface InputWrapperProps {
   hideOptional?: boolean;
 }
 
-export const InputWrapper: React.FC<InputWrapperProps> = ({
+const InputWrapper: React.FC<InputWrapperProps> = ({
   inputId,
   label,
   required,

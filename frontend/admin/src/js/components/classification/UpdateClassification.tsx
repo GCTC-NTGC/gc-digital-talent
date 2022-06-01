@@ -201,7 +201,7 @@ export const UpdateClassification: React.FunctionComponent<{
       variables: { id: classificationId },
     });
 
-  const [_result, executeMutation] = useUpdateClassificationMutation();
+  const [, executeMutation] = useUpdateClassificationMutation();
   const handleUpdateClassification = (
     id: string,
     data: UpdateClassificationInput,

@@ -19,7 +19,9 @@ stories.add("Create CMO Asset Form", () => {
   return (
     <CreateCmoAssetForm
       handleCreateCmoAsset={async (data: CreateCmoAssetInput) => {
-        await new Promise((resolve) => setTimeout(resolve, 1000));
+        await new Promise((resolve) => {
+          setTimeout(resolve, 1000);
+        });
         action("Create CMO Asset")(data);
         return data;
       }}
@@ -44,7 +46,9 @@ stories.add("Update CMO Asset Form", () => {
     <UpdateCmoAssetForm
       initialCmoAsset={cmoAsset}
       handleUpdateCmoAsset={async (id, data) => {
-        await new Promise((resolve) => setTimeout(resolve, 1000));
+        await new Promise((resolve) => {
+          setTimeout(resolve, 1000);
+        });
         action("Update CMO Asset")(data);
         return data;
       }}

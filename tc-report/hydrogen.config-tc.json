@@ -1,19 +1,13 @@
 {
   "folders": {
-    "markup": [
-      "_layouts",
-      "_includes"
-    ],
+    "markup": ["_layouts", "_includes"],
     "styles": "assets/css"
   },
   "colors": [
     {
       "key": "white",
       "color": "rgb(255 255 255)",
-      "opacities": [
-        ".1",
-        ".2"
-      ]
+      "opacities": [".1", ".2"]
     },
     {
       "key": "black",
@@ -28,10 +22,7 @@
     {
       "key": "purple",
       "color": "#5b1647",
-      "opacities": [
-        ".1",
-        ".2"
-      ]
+      "opacities": [".1", ".2"]
     },
     {
       "key": "wine",

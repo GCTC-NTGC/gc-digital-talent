@@ -1,6 +1,7 @@
 import React from "react";
 import { Story, Meta } from "@storybook/react";
-import { Fieldset, FieldsetProps } from "./Fieldset";
+import Fieldset from "./Fieldset";
+import type { FieldsetProps } from "./Fieldset";
 
 export default {
   component: Fieldset,
@@ -11,17 +12,17 @@ const TemplateFieldset: Story<FieldsetProps> = (args) => {
   const { name } = args;
   return (
     <Fieldset {...args}>
-      <label data-h2-display="b(block)">
+      <label data-h2-display="b(block)" htmlFor="one">
         One
-        <input type="checkbox" name={name} value="One" />
+        <input type="checkbox" name={name} value="One" id="one" />
       </label>
-      <label data-h2-display="b(block)">
+      <label data-h2-display="b(block)" htmlFor="two">
         Two
-        <input type="checkbox" name={name} value="Two" />
+        <input type="checkbox" name={name} value="Two" id="two" />
       </label>
-      <label data-h2-display="b(block)">
+      <label data-h2-display="b(block)" htmlFor="three">
         Three
-        <input type="checkbox" name={name} value="Three" />
+        <input type="checkbox" name={name} value="Three" id="three" />
       </label>
     </Fieldset>
   );

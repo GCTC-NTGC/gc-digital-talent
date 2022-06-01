@@ -46,7 +46,6 @@ fragment poolCandidateSearchRequest on PoolCandidateSearchRequest {
         fr
       }
     }
-
   }
   requestedDate
   status
@@ -101,8 +100,14 @@ query searchPoolCandidates($poolCandidateFilter: PoolCandidateFilterInput) {
   }
 }
 
-mutation updatePoolCandidateSearchRequest($id: ID!, $poolCandidateSearchRequest: UpdatePoolCandidateSearchRequestInput!) {
-  updatePoolCandidateSearchRequest(id: $id, poolCandidateSearchRequest: $poolCandidateSearchRequest) {
+mutation updatePoolCandidateSearchRequest(
+  $id: ID!
+  $poolCandidateSearchRequest: UpdatePoolCandidateSearchRequestInput!
+) {
+  updatePoolCandidateSearchRequest(
+    id: $id
+    poolCandidateSearchRequest: $poolCandidateSearchRequest
+  ) {
     id
     status
     adminNotes

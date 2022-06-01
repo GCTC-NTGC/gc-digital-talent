@@ -9,13 +9,9 @@ import { createPath } from "history";
 import { HISTORY } from "../../helpers/router";
 import LanguageRedirectContainer from ".";
 
-function getMessages(locale: string) {
-  return locale === "fr" ? { hello: "Bonjour" } : undefined;
-}
-
 function renderContainer() {
   return render(
-    <LanguageRedirectContainer getMessages={getMessages}>
+    <LanguageRedirectContainer messages={{ hello: "Bonjour" }}>
       <div>
         {/* eslint-disable-next-line formatjs/no-id */}
         <FormattedMessage id="hello" defaultMessage="Hello" />

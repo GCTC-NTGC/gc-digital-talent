@@ -10,8 +10,7 @@ import {
   useGetClassificationsQuery,
 } from "../../api/generated";
 import DashboardContentContainer from "../DashboardContentContainer";
-import Table, { ColumnsOf } from "../Table";
-import { tableEditButtonAccessor } from "../TableEditButton";
+import Table, { ColumnsOf, tableEditButtonAccessor } from "../Table";
 
 type Data = NonNullable<FromArray<GetClassificationsQuery["classifications"]>>;
 

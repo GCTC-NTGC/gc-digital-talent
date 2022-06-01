@@ -1,985 +1,946 @@
 <!DOCTYPE html>
 <html lang="fr">
-  <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>GC Talent | Un outil pour la planification de l’évaluation</title>
-  <meta name="description" content="Talent Cloud is an experimental staffing solution created by the Government of Canada. Read our experiment's results report here!">
-  <!-- Google Tag Manager -->
-  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-P27NF5V');</script>
-    <!-- End Google Tag Manager -->
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>
+            GC Talent | Un outil pour la planification de l’évaluation
+        </title>
+        <meta
+            name="description"
+            content="Talent Cloud is an experimental staffing solution created by the Government of Canada. Read our experiment's results report here!"
+        />
+        <!-- Google Tag Manager -->
+        <script>
+            (function (w, d, s, l, i) {
+                w[l] = w[l] || [];
+                w[l].push({
+                    "gtm.start": new Date().getTime(),
+                    event: "gtm.js",
+                });
+                var f = d.getElementsByTagName(s)[0],
+                    j = d.createElement(s),
+                    dl = l != "dataLayer" ? "&l=" + l : "";
+                j.async = true;
+                j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
+                f.parentNode.insertBefore(j, f);
+            })(window, document, "script", "dataLayer", "GTM-P27NF5V");
+        </script>
+        <!-- End Google Tag Manager -->
 
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script
-        async
-        src="https://www.googletagmanager.com/gtag/js?id=UA-115747902-1">
-    </script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'UA-115747902-1', {
-          cookie_flags: 'secure'
-        });
-    </script>
-  <!-- Favicons -->
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-  <link rel="manifest" href="/site.webmanifest">
-  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
-  <meta name="msapplication-TileColor" content="#da532c">
-  <meta name="theme-color" content="#ffffff">
-  <!-- Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap" rel="stylesheet">
-  <!-- Hydrogen CSS -->
-  
-    <!-- <link rel="stylesheet" href="/assets/css/hydrogen-tc.css"> -->
-    <link rel="stylesheet" href="/assets/css/hydrogen.css">
-  
-  <!-- App CSS -->
-  <link rel="stylesheet" href="/assets/css/app.css">
-</head>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script
+            async
+            src="https://www.googletagmanager.com/gtag/js?id=UA-115747902-1"
+        ></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag() {
+                dataLayer.push(arguments);
+            }
+            gtag("js", new Date());
+            gtag("config", "UA-115747902-1", {
+                cookie_flags: "secure",
+            });
+        </script>
+        <!-- Favicons -->
+        <link
+            rel="apple-touch-icon"
+            sizes="180x180"
+            href="/apple-touch-icon.png"
+        />
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="32x32"
+            href="/favicon-32x32.png"
+        />
+        <link
+            rel="icon"
+            type="image/png"
+            sizes="16x16"
+            href="/favicon-16x16.png"
+        />
+        <link rel="manifest" href="/site.webmanifest" />
+        <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
+        <meta name="msapplication-TileColor" content="#da532c" />
+        <meta name="theme-color" content="#ffffff" />
+        <!-- Google Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap"
+            rel="stylesheet"
+        />
+        <!-- Hydrogen CSS -->
 
-  <body data-h2-font-family="b(sans)">
-    <a href="#mainContent" title="" class="skip-link">Skip to Main Content</a>
-    <div data-h2-border="b([light]gray, bottom, solid, s)" >
-  <div data-h2-container="b(center, full)" data-h2-padding="b(top-bottom, s)">
-    <div data-h2-flex-grid="b(middle, expanded, flush, s)">
-      <div data-h2-flex-item="m(1of2)" data-h2-text-align="b(center) m(left)">
-        <a
-          data-h2-display="b(inline-block)"
-          style="max-width: 15rem; width: 100%;"
-          href="https://canada.ca/"
-          target="_blank"
-          title="Visit canada.ca."
-          rel="noopener noreferrer"
+        <!-- <link rel="stylesheet" href="/assets/css/hydrogen-tc.css"> -->
+        <link rel="stylesheet" href="/assets/css/hydrogen.css" />
+
+        <!-- App CSS -->
+        <link rel="stylesheet" href="/assets/css/app.css" />
+    </head>
+
+    <body data-h2-font-family="b(sans)">
+        <a href="#mainContent" title="" class="skip-link"
+            >Skip to Main Content</a
         >
-          <img data-h2- alt="goc logo" src="/assets/img/ui-goc.svg"
-        /></a>
-      </div>
-      <div data-h2-flex-item="m(1of2)" data-h2-text-align="b(center) m(right)">
-         
-        <a href="/en/2000/01/01/415-assessment-planning.html" title="View this content in English.">English</a>
-        
-      </div>
-    </div>
-  </div>
-</div>
+        <div data-h2-border="b([light]gray, bottom, solid, s)">
+            <div
+                data-h2-container="b(center, full)"
+                data-h2-padding="b(top-bottom, s)"
+            >
+                <div data-h2-flex-grid="b(middle, expanded, flush, s)">
+                    <div
+                        data-h2-flex-item="m(1of2)"
+                        data-h2-text-align="b(center) m(left)"
+                    >
+                        <a
+                            data-h2-display="b(inline-block)"
+                            style="max-width: 15rem; width: 100%"
+                            href="https://canada.ca/"
+                            target="_blank"
+                            title="Visit canada.ca."
+                            rel="noopener noreferrer"
+                        >
+                            <img
+                                data-h2-
+                                alt="goc logo"
+                                src="/assets/img/ui-goc.svg"
+                        /></a>
+                    </div>
+                    <div
+                        data-h2-flex-item="m(1of2)"
+                        data-h2-text-align="b(center) m(right)"
+                    >
+                        <a
+                            href="/en/2000/01/01/415-assessment-planning.html"
+                            title="View this content in English."
+                            >English</a
+                        >
+                    </div>
+                </div>
+            </div>
+        </div>
 
-<div data-h2-container="b(center, full)" >
-  <nav data-h2-padding="b(top-bottom, m)">
-    <ul class="reset-ul" data-h2-padding="b(all, none)" data-h2-margin="b(all, none)" data-h2-text-align="b(center) m(left)" style="margin-left: -.7rem;">
-      
-        <li data-h2-margin="b(all, none)" data-h2-padding="b(all, none)" data-h2-display="b(inline-block)">
-          <a href="/fr/" title="Visitez la page d'accueil de GC Talent."
-            
-            data-h2-display="b(block)"
-            data-h2-padding="b(all, xs) m(right-left, s)">Accueil</a>
-        </li>
-      
-        <li data-h2-margin="b(all, none)" data-h2-padding="b(all, none)" data-h2-display="b(inline-block)">
-          <a href="/fr/talent-cloud/" title="En savoir plus sur le projet Nuage de talents."
-            
-            data-h2-display="b(block)"
-            data-h2-padding="b(all, xs) m(right-left, s)">Nuage de talents</a>
-        </li>
-      
-        <li data-h2-margin="b(all, none)" data-h2-padding="b(all, none)" data-h2-display="b(inline-block)">
-          <a href="/fr/communities/digital-talent/" title="En savoir plus sur la communauté des talents numériques."
-            
-            data-h2-display="b(block)"
-            data-h2-padding="b(all, xs) m(right-left, s)">Talent numérique</a>
-        </li>
-      
-    </ul>
-  </nav>
-</div>
-<section>
-  <div
-    data-h2-container="b(center, full)"
-    data-h2-text-align="b(center)">
-    
-    <h1
-  data-h2-font-weight="b(800)"
-  data-h2-font-size="b(h1)"
-  data-h2-padding='b(top, l) l(top, xxl) b(bottom, xxs)'
-  style="letter-spacing: -3px"
-  
->
-  Rapport sur les résultats de Nuage de talents
-</h1>
+        <div data-h2-container="b(center, full)">
+            <nav data-h2-padding="b(top-bottom, m)">
+                <ul
+                    class="reset-ul"
+                    data-h2-padding="b(all, none)"
+                    data-h2-margin="b(all, none)"
+                    data-h2-text-align="b(center) m(left)"
+                    style="margin-left: -0.7rem"
+                >
+                    <li
+                        data-h2-margin="b(all, none)"
+                        data-h2-padding="b(all, none)"
+                        data-h2-display="b(inline-block)"
+                    >
+                        <a
+                            href="/fr/"
+                            title="Visitez la page d'accueil de GC Talent."
+                            data-h2-display="b(block)"
+                            data-h2-padding="b(all, xs) m(right-left, s)"
+                            >Accueil</a
+                        >
+                    </li>
 
-    <div id="breadcrumbs" data-h2-margin="b(top-bottom, m)" >
-  
-  <a href="/fr" title="Retour à la page d'accueil.">GC Talent</a>
-  <!-- If the page layout is post then use this breadcrumb list. -->
-  
-    / <a href="/fr/talent-cloud" title="Retournez à la page de Nuage de talents.">Nuage de talents</a>
-    / <a href="/fr/talent-cloud/report" title="Retournez au rapport des résultats de Nuage de talents.">Rapport sur les r...</a>
-    / <span>Section 4</span>
-    / <span data-h2-font-weight="b(800)">Un outil pour la ...</span>
-  
-</div>
-  </div>
-</section>
-<header 
-  class="post-header"
-  id="mainContent"
-  style="background-image: url('/assets/img/4.15-tx-heading.jpg');"
-  data-h2-margin="b(top, xl)">
-  <div 
-    data-h2-container="b(center, m)" 
-    data-h2-font-color="b(white)"
-    data-h2-padding="b(top, l) b(bottom, xl) l(top, xl) l(bottom, xxl)"
-    data-h2-text-align="b(center)">
-    <h2
-  
-  data-h2-font-weight="b(200)"
-  data-h2-font-size="b(h2)"
-  
-  data-h2-padding='b(top, m)'
-  
-  
-  style="letter-spacing: -2px;">
-  Un outil pour la planification de l’évaluation
-</h2>
-    
-      <div data-h2-padding="b(top, m)">
-        
-          <div 
-  data-h2-bg-color="b(white[.2])"
-  data-h2-border="b(white, all, solid, s)"
-  data-h2-display="b(inline-block)"
-  data-h2-margin="b(all, xxs) l(right-left, xxs)"
-  data-h2-padding="b(top, xxs) b(bottom, xs) b(right-left, s)"
-  data-h2-radius="b(m)"
-  style="line-height: 1;">
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-      <img 
-        data-h2-display="b(inline-block)"
-        data-h2-margin="b(right, xxs)"
-        style="vertical-align: middle; width: .8rem;"
-        src="/assets/img/ds-empower-staff.svg" aria-hidden="true">
-      <span data-h2-font-size="b(caption)">Renforcer la prestation de services</span>
-    
-  
-    
-  
-    
-  
-    
-  
-</div>
-        
-          <div 
-  data-h2-bg-color="b(white[.2])"
-  data-h2-border="b(white, all, solid, s)"
-  data-h2-display="b(inline-block)"
-  data-h2-margin="b(all, xxs) l(right-left, xxs)"
-  data-h2-padding="b(top, xxs) b(bottom, xs) b(right-left, s)"
-  data-h2-radius="b(m)"
-  style="line-height: 1;">
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-      <img 
-        data-h2-display="b(inline-block)"
-        data-h2-margin="b(right, xxs)"
-        style="vertical-align: middle; width: .8rem;"
-        src="/assets/img/ds-data.svg" aria-hidden="true">
-      <span data-h2-font-size="b(caption)">Gérance des données</span>
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-    
-  
-</div>
-        
-      </div>
-    
-  </div>
-</header>
-<main data-h2-padding="b(top-bottom, xs) l(top-bottom, xl)" style="background-color: #F8F8F8;">
-  <div data-h2-container="b(center, s)">
-    
-      
-    
-      
-        
-          <!-- Titles -->
-          <h3
-  
-  data-h2-font-weight="b(800)"
-  data-h2-font-size="b(h3)"
-  data-h2-margin='b(top, xl) b(bottom, s)'
-  
-  style="letter-spacing: -1px;">
-  Objectif de l’outil
-</h3>
-        
-      
-    
-      
-        
-          <!-- Basic Content -->
-          <p>L’élaboration de documents d’évaluation a été régulièrement mentionnée par les gestionnaires comme l’une des étapes les plus difficiles du processus de dotation au cours de nos recherches auprès des utilisateurs. Bon nombre d’entre eux ont signalé avoir tardé à effectuer cette étape parce qu’ils se sentaient débordés par les problèmes d’horaire et ne savaient pas trop comment élaborer le matériel. Cela a considérablement augmenté la durée globale du processus de dotation.</p>
-        
-      
-    
-      
-        
-          <!-- Basic Content -->
-          <p>L’outil de planification de l’évaluation du Nuage de talents est conçu pour faciliter la discussion entre les gestionnaires et les conseillers en RH au début du processus de dotation (avant qu’un avis d’offre d’emploi soit finalisé). Il comprend deux composantes :</p>
-        
-      
-    
-      
-        
-          
-            <ul>
-              
-                <li>La première composante vise à aider les gestionnaires à élaborer un plan d’évaluation. Elle préremplit l’information à mesure que les gestionnaires ajoutent des compétences (essentielles et constituant un atout) à l’offre d’emploi. Les gestionnaires et les conseillers en RH peuvent ensuite décider comment chaque compétence sera évaluée et formuler des commentaires sur le plan proposé. L’outil de planification offre des options de menu déroulant et des formats d’information de façon à ce que les gestionnaires puissent, en quelques clics simples, présenter leur plan prospectif à leurs conseillers en RH.</li>
-              
-                <li>La deuxième composante est un concepteur de guides de cotation, qui est conçu pour inciter les gestionnaires et les conseillers en RH à discuter et à créer des questions et des documents réels pour chaque type d’évaluation qu’ils ont choisi et à décider des critères de réussite pour chaque compétence.</li>
-              
-            </ul>
-          
-        
-      
-    
-      
-        
-          <!-- Basic Content -->
-          <p>Il est à noter qu’aucune des composantes de l’outil de planification de l’évaluation n’est conçue pour promouvoir une méthode d’évaluation particulière pour une compétence particulière ou pour fournir des tests associés à la méthode d’évaluation. C’est uniquement à des fins de planification. (L’équipe a examiné des façons de relier l’outil à des références universitaires, en faisant des suggestions aux gestionnaires sur des méthodes d’évaluation appuyées par la littérature pour chaque compétence, combinées à des données sur la façon dont les gestionnaires précédents du GC avaient testé chaque compétence dans le Nuage de talents, mais nous n’avions pas les ressources pour effectuer le travail.)</p>
-        
-      
-    
-      
-        
-          <!-- Titles -->
-          <h3
-  
-  data-h2-font-weight="b(800)"
-  data-h2-font-size="b(h3)"
-  data-h2-margin='b(top, xl) b(bottom, s)'
-  
-  style="letter-spacing: -1px;">
-  État actuel
-</h3>
-        
-      
-    
-      
-        
-          <!-- Basic Content -->
-          <p>L’outil de planification de l’évaluation est actuellement en version bêta pour les gestionnaires et les conseillers en RH.</p>
-        
-      
-    
-      
-        
-          <!-- Basic Content -->
-          <p>La première composante (plan de base) a reçu des commentaires positifs et a été bien utilisée, et elle est maintenant prête à être mise à niveau avec un calendrier de planification, des modèles de courriel pour les étapes clés et un soutien supplémentaire pour les gestionnaires.</p>
-        
-      
-    
-      
-        
-          <!-- Basic Content -->
-          <p>La deuxième composante (concepteur de guides de cotation) a donné des résultats mitigés dans les tests en direct. Elle a fait ressortir plusieurs défis sous-jacents auxquels les gestionnaires sont confrontés lorsqu’ils élaborent des évaluations, ainsi que le degré élevé d’écart dans les conseils fournis par les conseillers en RH dans différents ministères. Certains gestionnaires ont trouvé le modèle très utile, d’autres l’ont trouvé déroutant. Dans de nombreux ministères, cette composante de l’outil était utilisée presque exclusivement par les conseillers en RH (qui l’utilisaient plus facilement que les gestionnaires). Pour remédier à ces écarts, améliorer la convivialité et relier la méthodologie des guides de cotation aux justifications finales de l’évaluation requises pour chaque demandeur (compte rendu de décisions), notre équipe travaille à un nouveau concept pour la composante des guides de cotation. Elle a fait l’objet de plusieurs cycles de remaniement d’ateliers et est prête pour une série de tests en direct à l’aide d’outils hors plateforme. (Voir aussi « Un outil pour le compte rendu de décisions » dans cette section du rapport.) Bien que l’élaboration soit compliquée, nous croyons que la création d’un cadre logique simple que tous les gestionnaires peuvent utiliser accélérera considérablement le temps de dotation à l’étape de l’évaluation de la dotation et aux premières étapes de la planification (avant l’avis d’offre d’emploi).</p>
-        
-      
-    
-      
-        
-          <!-- Titles -->
-          <h3
-  
-  data-h2-font-weight="b(800)"
-  data-h2-font-size="b(h3)"
-  data-h2-margin='b(top, xl) b(bottom, s)'
-  
-  style="letter-spacing: -1px;">
-  Résultats
-</h3>
-        
-      
-    
-      
-        
-          <!-- Basic Content -->
-          <p>À titre de pratique exemplaire des RH et pour éviter les retards pendant que les candidats attendent d’être contactés, certains ministères exigent que tous les documents d’évaluation soient remplis avant que l’avis d’offre d’emploi puisse être publié. Cela raccourcit le temps d’attente des candidats aux étapes des tests et de l’entrevue, mais exige plus de travail initial de la part des gestionnaires. Après avoir observé les interactions entre les gestionnaires et les conseillers en RH au sujet de l’élaboration des documents d’évaluation, le Nuage de talents a constaté que les processus de dotation fonctionnent mieux s’il y a au moins un plan d’évaluation en place lorsque l’avis d’offre d’emploi est finalisé, même si les documents d’évaluation eux-mêmes sont en place (tests et guides de cotation) sont toujours en cours d’élaboration au moment où l’avis d’offre d’emploi est lancé. (Bien que nous soyons d’accord avec les conseillers en RH à ce sujet, il est préférable que tout soit prêt avant l’avis d’une offre d’emploi.)</p>
-        
-      
-    
-      
-        
-          <!-- Basic Content -->
-          <p>L’outil de planification de l’évaluation a été utilisé par certains gestionnaires et conseillers en RH pour faciliter les discussions pendant que l’avis d’offre d’emploi était encore en cours de finalisation. À la suite de ces discussions, certains gestionnaires ont ajouté des questions de présélection au processus de demande d’emploi. Dans d’autres cas, les gestionnaires ont été invités à avoir des discussions plus approfondies avec leurs conseillers en RH sur les compétences absolument nécessaires et s’il y avait des chevauchements. Ils ont ensuite révisé les compétences dans l’avis d’offre d’emploi pour s’assurer qu’ils pouvaient évaluer les candidats d’une façon gérable.</p>
-        
-      
-    
-      
-        
-          <!-- Basic Content -->
-          <p>En ce qui concerne le concepteur de guides de cotation, certains ont utilisé l’outil pour finaliser leur matériel d’évaluation pendant que l’offre d’emploi était ouverte aux candidatures. Dans ces cas, les gestionnaires ont pu commencer à évaluer les demandes dès qu’elles étaient disponibles.</p>
-        
-      
-    
-      
-        
-          <!-- Basic Content -->
-          <p>Toutefois, dans l’ensemble, le guide de cotation, au moment de sa mise en œuvre initiale, n’a pas été largement adopté, et la plupart des gestionnaires ont plutôt choisi d’utiliser les outils ministériels normalisés pour élaborer des guides de cotation pour leurs évaluations.</p>
-        
-      
-    
-      
-        
-          <!-- Basic Content -->
-          <p>Dans l’ensemble, bien que cet outil ait été l’un de nos produits les plus fortement débattus et révisés, nous avons finalement constaté que son inclusion était certainement utile aux gestionnaires pour réduire la durée du processus de dotation, surtout lorsqu’il s’agit de passer assez rapidement à l’étape de l’évaluation pour garder les meilleurs candidats intéressés et engagés.</p>
-        
-      
-    
-      
-        
-          <!-- Titles -->
-          <h3
-  
-  data-h2-font-weight="b(800)"
-  data-h2-font-size="b(h3)"
-  data-h2-margin='b(top, xl) b(bottom, s)'
-  
-  style="letter-spacing: -1px;">
-  Perspectives
-</h3>
-        
-      
-    
-      
-        
-          <!-- Basic Content -->
-          <p>L’outil d’élaboration du plan d’évaluation a été utile pour faciliter les discussions entre les gestionnaires et les conseillers en RH. Il a également aidé les gestionnaires à adopter une vision plus globale du processus de dotation pendant qu’ils étaient en train de finaliser l’avis d’offre d’emploi. Cela a amélioré la qualité et la cohésion à toutes les étapes de la dotation, ainsi que la durée globale du processus de dotation.</p>
-        
-      
-    
-      
-        
-          <!-- Basic Content -->
-          <p>L’un des défis que les gestionnaires ont dû relever lors de l’élaboration du guide de cotation a été d’articuler les critères de réussite pour chaque compétence et de faire la distinction entre les divers niveaux. Bien que le Nuage de talents ne fournisse pas de conseils sur l’évaluation, notre équipe travaille à l’élaboration d’un cadre logique qui vise à aider les gestionnaires à en tenir compte de façon uniforme. À l’aide de ce cadre, notre équipe a élaboré des indicateurs de comportement génériques pour certaines des compétences les plus couramment demandées comme validation de principe. Avec plus de temps et de capacité, nous croyons que des indicateurs de comportement peuvent être élaborés pour une plus grande variété de compétences et être préremplis dans le concepteur de guides de cotation, ce qui peut aider à accélérer la discussion entre les gestionnaires et les conseillers en RH. Ces indicateurs de comportement devraient être élaborés avec l’appui et la validation des communautés de pratique pour les divers groupes de classification.</p>
-        
-      
-    
-      
-        
-          <!-- Basic Content -->
-          <p>Pendant les discussions sur la planification de l’évaluation, les gestionnaires demandaient régulièrement des exemples de questions et des documents d’évaluation existants, auxquels les conseillers en RH répondaient différemment dans les divers ministères. Certains gestionnaires ont également suggéré d’établir un inventaire pangouvernemental des documents d’évaluation élaborés par les gestionnaires du gouvernement du Canada que les équipes de différents ministères peuvent consulter. La constitution d’une bibliothèque de documents d’évaluation recueillis auprès des partenaires du GC dépassait malheureusement la capacité du Nuage de talents à ses niveaux de ressources actuels. Mais le concept d’une bibliothèque d’apprentissage en évaluation pour les gestionnaires représente une occasion de discussion plus vaste dans l’ensemble de la fonction publique.</p>
-        
-      
-    
-      
-        
-          <!-- Titles -->
-          <h3
-  
-  data-h2-font-weight="b(800)"
-  data-h2-font-size="b(h3)"
-  data-h2-margin='b(top, xl) b(bottom, s)'
-  
-  style="letter-spacing: -1px;">
-  Principales composantes de l’outil
-</h3>
-        
-      
-    
-      
-        
-          <!-- Basic Content -->
-          <p>Notamment, les gestionnaires et les conseillers en RH (qui ont réclamé ce poste en particulier) peuvent créer du contenu et modifier toutes les parties du plan d’évaluation à partir de leurs portails respectifs. L’activité est suivie, et les gestionnaires et les conseillers en RH peuvent ajouter des questions et des commentaires l’un pour l’autre.</p>
-        
-      
-    
-      
-        
-          <!-- Subtitles -->
-          <h4
-  
-  data-h2-font-weight="b(400)"
-  data-h2-font-size="b(h4)"
-  data-h2-margin='b(top, xl) b(bottom, s)'
-  style="letter-spacing: -1px;">
-  Concepteur de plans d’évaluation
-</h4>
-        
-      
-    
-      
-        
-          
-            <ul>
-              
-                <li>Compétences préremplies dans le concepteur d’offres d’emploi, y compris la description des compétences et le niveau sélectionné.</li>
-              
-                <li>L’étape « Examen narratif » – un examen des renseignements présentés par les candidats dans leur demande – est ajoutée par défaut comme étape d’évaluation pour tous les critères où ces renseignements ont été recueillis dans la demande initiale.</li>
-              
-                <li>Menu déroulant des types d’évaluation courants parmi lesquels les gestionnaires et les conseillers en RH peuvent choisir pour chaque compétence.</li>
-              
-                <li>Capacité d’ajouter plusieurs types d’évaluation pour chaque compétence.</li>
-              
-                <li>Rappel d’erreur lorsque l’une des compétences n’a pas au moins une évaluation prévue en plus de l’examen de la demande. (Les gestionnaires peuvent confirmer que la seule évaluation prévue est l’examen de la demande, mais cela sert de rappel pour valider les critères essentiels au moyen d’une méthode d’évaluation au-delà de la demande initiale d’un demandeur.)</li>
-              
-            </ul>
-          
-        
-      
-    
-      
-        
-          <figure data-h2-margin="b(top-bottom, l)">
-            <!-- Graphics -->
-            
-              <img 
-                src="/assets/img/4.15-fr-assessment-builder.png"
-                alt="Une saisie d’écran de l’outil d’élaboration du plan d’évaluation offert aux gestionnaires. L’interface montre comment les compétences sont automatiquement remplies pour le gestionnaire en fonction de celles qu’il a sélectionnées pour son annonce d’emploi. Les définitions pour la compétence et le niveau qu’ils ont choisi sont présentées ici pour référence rapide, en plus de la capacité de choisir parmi une variété d’évaluations pour cette compétence."
-                style="width: 100%;"
-                data-h2-display="b(block)"
-                data-h2-radius="b(s)"
-                data-h2-border="b(gray, all, solid, s)">
-                
-            
-          </figure>
-        
-      
-    
-      
-        
-          <!-- Subtitles -->
-          <h4
-  
-  data-h2-font-weight="b(400)"
-  data-h2-font-size="b(h4)"
-  data-h2-margin='b(top, xl) b(bottom, s)'
-  style="letter-spacing: -1px;">
-  Sommaire du plan d’évaluation
-</h4>
-        
-      
-    
-      
-        
-          
-            <ul>
-              
-                <li>Affichage de tous les types d’évaluation sélectionnés dans le concepteur de plans d’évaluation, ainsi que des compétences connexes, d’une manière qui répond aux besoins des gestionnaires et des conseillers en RH.</li>
-              
-                <li>Il est possible de réorganiser les renseignements en les classant par étapes d’évaluation ou par critères de sélection évalués. (Nous avons constaté que, en général, les gestionnaires préfèrent la première option parce qu’ils s’intéressent à ce qui vient ensuite dans leur calendrier, tandis que les conseillers en RH aiment mieux la deuxième option parce qu’ils veulent confirmer que chaque critère essentiel et constituant un atout est assorti d’une méthodologie d’évaluation suffisante.)</li>
-              
-            </ul>
-          
-        
-      
-    
-      
-        
-          <figure data-h2-margin="b(top-bottom, l)">
-            <!-- Graphics -->
-            
-              <img 
-                src="/assets/img/4.15-fr-assessment-summary.png"
-                alt="Une saisie d’écran de l’interface du résumé du plan d’évaluation, où les gestionnaires et les conseillers en RH peuvent examiner comment chaque évaluation qu’ils ont choisie couvrira les compétences dans l’annonce d’emploi."
-                style="width: 100%;"
-                data-h2-display="b(block)"
-                data-h2-radius="b(s)"
-                data-h2-border="b(gray, all, solid, s)">
-                
-            
-          </figure>
-        
-      
-    
-      
-        
-          <!-- Subtitles -->
-          <h4
-  
-  data-h2-font-weight="b(400)"
-  data-h2-font-size="b(h4)"
-  data-h2-margin='b(top, xl) b(bottom, s)'
-  style="letter-spacing: -1px;">
-  Concepteur de guides de cotation
-</h4>
-        
-      
-    
-      
-        
-          
-            <ul>
-              
-                <li>Affichage de tous les types d’évaluation sélectionnés dans le concepteur de plans d’évaluation, ainsi qu’une description du type d’évaluation et des compétences connexes.</li>
-              
-                <li>Capacité d’ajouter des questions pour chaque type d’évaluation et de les relier à une ou plusieurs compétences associées à ce type d’évaluation.</li>
-              
-                <li>Capacité d’ajouter des réponses acceptables ou des critères de réussite pour chaque question.</li>
-              
-                <li>Rappel d’erreur lorsque l’une des compétences associées au type d’évaluation n’était pas liée à au moins une question.</li>
-              
-            </ul>
-          
-        
-      
-    
-      
-        
-          <figure data-h2-margin="b(top-bottom, l)">
-            <!-- Graphics -->
-            
-              <img 
-                src="/assets/img/4.15-fr-ratings-guide.png"
-                alt="Une saisie d’écran de l’outil d’élaboration du guide de cotation où les gestionnaires peuvent assembler les composantes individuelles de l’évaluation et fournir le contexte dans lequel une compétence particulière sera évaluée. Les gestionnaires peuvent ajouter autant de questions à une évaluation qu’ils en ont besoin et indiquer quelles compétences seront évaluées par ces questions."
-                style="width: 100%;"
-                data-h2-display="b(block)"
-                data-h2-radius="b(s)"
-                data-h2-border="b(gray, all, solid, s)">
-                
-            
-          </figure>
-        
-      
-    
-      
-        
-          <!-- Subtitles -->
-          <h4
-  
-  data-h2-font-weight="b(400)"
-  data-h2-font-size="b(h4)"
-  data-h2-margin='b(top, xl) b(bottom, s)'
-  style="letter-spacing: -1px;">
-  Copier le guide de cotation dans le presse-papiers
-</h4>
-        
-      
-    
-      
-        
-          
-            <ul>
-              
-                <li>Bouton d’un clic pour copier toute l’information du concepteur de guides de cotation sous forme de tableau à coller dans d’autres logiciels (p. ex., Word, Excel, etc.).</li>
-              
-            </ul>
-          
-        
-      
-    
-      
-        
-          <figure data-h2-margin="b(top-bottom, l)">
-            <!-- Graphics -->
-            
-              <img 
-                src="/assets/img/4.15-fr-ratings-guide-copy.png"
-                alt="Saisie d’écran d’une interface de copie qui permet à un gestionnaire ou un conseiller en RH de copier le guide de notation qu’il a construit dans le presse-papiers de son ordinateur, ce qui lui permet de le coller dans un document de son choix."
-                style="width: 100%;"
-                data-h2-display="b(block)"
-                data-h2-radius="b(s)"
-                data-h2-border="b(gray, all, solid, s)">
-                
-            
-          </figure>
-        
-      
-    
-  </div>
-</main>
-<section style="background-color: #F8F8F8;">
-  <div data-h2-container="b(center, s)" data-h2-padding="b(bottom, l) l(bottom, xxl)">
-    <div data-h2-flex-grid="b(top, expanded, flush, m)">
-      <div
-        data-h2-text-align="b(center) m(left)" 
-        data-h2-flex-item="b(1of2)">
-        
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-            
-              <a class="prev" href="/fr/2000/01/01/414-job-ads.html" title="Allez à l'article précédent de la série.">
-                <svg data-h2-margin="b(right, xxs)" 
-                  style="width: 1rem; vertical-align: middle;" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="#c90035">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M15 19l-7-7 7-7" />
-                </svg>Article précédent</a>
-            
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-      </div>
-      <div 
-        data-h2-text-align="b(center) m(right)"   
-        data-h2-flex-item="b(1of2)">
-        
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-            
-              <a class="next" href="/fr/2000/01/01/416-tracking.html" title="Passez à l'article suivant de la série.">Article suivant<svg data-h2-margin="b(left, xxs)" 
-                style="width: 1rem; vertical-align: middle;" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="#c90035">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M9 5l7 7-7 7" />
-                </svg></a>
-            
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-          
-        
-      </div>
-    </div>
-    <p
-      data-h2-margin="b(top, xxl)" 
-      data-h2-text-align="b(center)"
-      data-h2-font-size="b(caption)">
-      <a href="/fr/talent-cloud/report/#toc" title="Retour à la table des matières">Retour à la table des matières</a>
-    </p>
-  </div>
-</section>
-<section data-h2-border="b([light]gray, top, solid, s)" data-h2-position="b(relative)" style="background: rgba(240, 240, 240, 1)" data-h2-overflow="b(x, hidden)">
-  <footer data-h2-container="b(center, full)" data-h2-padding="b(top-bottom, l)">
-    <div data-h2-flex-grid="b(middle, expanded, flush, xl)">
-      <div
-        data-h2-flex-item="b(1of1) m(1of2)"
-        data-h2-padding="b(left, xl)"
-        data-h2-text-align="b(center) m(left)">
-        
-          <nav>
-            <ul
-              style="gap: 1rem;"
-              class="reset-ul"
-              data-h2-display="b(flex)"
-              data-h2-flex-wrap="b(wrap)"
-              data-h2-justify-content="b(center) m(flex-start)"
-              data-h2-margin="b(bottom, xs)">
-              
-              <li data-h2-display="b(inline-block)" data-h2-margin="b(top-bottom, none)">
-                
-                  <a href="mailto:talent.cloud-nuage.de.talents@tbs-sct.gc.ca" title="Soumettre des commentaires au Nuage de talents du GC par courriel.">Retour d'information</a>
-                
-              </li>
-              
-              <li data-h2-display="b(inline-block)" data-h2-margin="b(top-bottom, none)">
-                
-                  <a href="/fr/terms-and-conditions" title="Voir nos avis.">Avis</a>
-                
-              </li>
-              
-              <li data-h2-display="b(inline-block)" data-h2-margin="b(top-bottom, none)">
-                
-                  <a href="/fr/privacy-notice" title="Voir notre politique de confidentialité.">Confidentialité</a>
-                
-              </li>
-              
-              <li data-h2-display="b(inline-block)" data-h2-margin="b(top-bottom, none)">
-                
-                  <a href="/fr/https://www.canada.ca/fr.html" title="Visiter Canada.ca.">Canada.ca</a>
-                
-              </li>
-              
-            </ul>
-          </nav>
-          <p 
-            data-h2-font-size="b(caption)"
-            data-h2-font-color="b(black)" 
-            data-h2-margin="b(bottom, none) b(top, m)">
-            Date de modification: July 07, 2021
-          </p>
-        
-      </div>
-      <div
-        data-h2-flex-item="b(1of1) m(1of2)"
-        data-h2-padding="b(right, xl)"
-        data-h2-text-align="b(center) m(right)">
-        <a
-          href="https://www.canada.ca/fr.html"
-          title="Visiter Canada.ca."
-          target="_blank"
-          rel="noopener noreferrer">
-          <img
-            class="canada-logo"
-            src="/assets/img/ui-canada.png"
-            alt="Symbole du gouvernement du Canada."/>
-        </a>
-      </div>
-    </div>
-  </footer>
-</section>
+                    <li
+                        data-h2-margin="b(all, none)"
+                        data-h2-padding="b(all, none)"
+                        data-h2-display="b(inline-block)"
+                    >
+                        <a
+                            href="/fr/talent-cloud/"
+                            title="En savoir plus sur le projet Nuage de talents."
+                            data-h2-display="b(block)"
+                            data-h2-padding="b(all, xs) m(right-left, s)"
+                            >Nuage de talents</a
+                        >
+                    </li>
 
-    <script type="text/javascript" src="/assets/js/app.js"></script>
-  </body>
+                    <li
+                        data-h2-margin="b(all, none)"
+                        data-h2-padding="b(all, none)"
+                        data-h2-display="b(inline-block)"
+                    >
+                        <a
+                            href="/fr/communities/digital-talent/"
+                            title="En savoir plus sur la communauté des talents numériques."
+                            data-h2-display="b(block)"
+                            data-h2-padding="b(all, xs) m(right-left, s)"
+                            >Talent numérique</a
+                        >
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <section>
+            <div
+                data-h2-container="b(center, full)"
+                data-h2-text-align="b(center)"
+            >
+                <h1
+                    data-h2-font-weight="b(800)"
+                    data-h2-font-size="b(h1)"
+                    data-h2-padding="b(top, l) l(top, xxl) b(bottom, xxs)"
+                    style="letter-spacing: -3px"
+                >
+                    Rapport sur les résultats de Nuage de talents
+                </h1>
+
+                <div id="breadcrumbs" data-h2-margin="b(top-bottom, m)">
+                    <a href="/fr" title="Retour à la page d'accueil."
+                        >GC Talent</a
+                    >
+                    <!-- If the page layout is post then use this breadcrumb list. -->
+
+                    /
+                    <a
+                        href="/fr/talent-cloud"
+                        title="Retournez à la page de Nuage de talents."
+                        >Nuage de talents</a
+                    >
+                    /
+                    <a
+                        href="/fr/talent-cloud/report"
+                        title="Retournez au rapport des résultats de Nuage de talents."
+                        >Rapport sur les r...</a
+                    >
+                    / <span>Section 4</span> /
+                    <span data-h2-font-weight="b(800)"
+                        >Un outil pour la ...</span
+                    >
+                </div>
+            </div>
+        </section>
+        <header
+            class="post-header"
+            id="mainContent"
+            style="background-image: url('/assets/img/4.15-tx-heading.jpg')"
+            data-h2-margin="b(top, xl)"
+        >
+            <div
+                data-h2-container="b(center, m)"
+                data-h2-font-color="b(white)"
+                data-h2-padding="b(top, l) b(bottom, xl) l(top, xl) l(bottom, xxl)"
+                data-h2-text-align="b(center)"
+            >
+                <h2
+                    data-h2-font-weight="b(200)"
+                    data-h2-font-size="b(h2)"
+                    data-h2-padding="b(top, m)"
+                    style="letter-spacing: -2px"
+                >
+                    Un outil pour la planification de l’évaluation
+                </h2>
+
+                <div data-h2-padding="b(top, m)">
+                    <div
+                        data-h2-bg-color="b(white[.2])"
+                        data-h2-border="b(white, all, solid, s)"
+                        data-h2-display="b(inline-block)"
+                        data-h2-margin="b(all, xxs) l(right-left, xxs)"
+                        data-h2-padding="b(top, xxs) b(bottom, xs) b(right-left, s)"
+                        data-h2-radius="b(m)"
+                        style="line-height: 1"
+                    >
+                        <img
+                            data-h2-display="b(inline-block)"
+                            data-h2-margin="b(right, xxs)"
+                            style="vertical-align: middle; width: 0.8rem"
+                            src="/assets/img/ds-empower-staff.svg"
+                            aria-hidden="true"
+                        />
+                        <span data-h2-font-size="b(caption)"
+                            >Renforcer la prestation de services</span
+                        >
+                    </div>
+
+                    <div
+                        data-h2-bg-color="b(white[.2])"
+                        data-h2-border="b(white, all, solid, s)"
+                        data-h2-display="b(inline-block)"
+                        data-h2-margin="b(all, xxs) l(right-left, xxs)"
+                        data-h2-padding="b(top, xxs) b(bottom, xs) b(right-left, s)"
+                        data-h2-radius="b(m)"
+                        style="line-height: 1"
+                    >
+                        <img
+                            data-h2-display="b(inline-block)"
+                            data-h2-margin="b(right, xxs)"
+                            style="vertical-align: middle; width: 0.8rem"
+                            src="/assets/img/ds-data.svg"
+                            aria-hidden="true"
+                        />
+                        <span data-h2-font-size="b(caption)"
+                            >Gérance des données</span
+                        >
+                    </div>
+                </div>
+            </div>
+        </header>
+        <main
+            data-h2-padding="b(top-bottom, xs) l(top-bottom, xl)"
+            style="background-color: #f8f8f8"
+        >
+            <div data-h2-container="b(center, s)">
+                <!-- Titles -->
+                <h3
+                    data-h2-font-weight="b(800)"
+                    data-h2-font-size="b(h3)"
+                    data-h2-margin="b(top, xl) b(bottom, s)"
+                    style="letter-spacing: -1px"
+                >
+                    Objectif de l’outil
+                </h3>
+
+                <!-- Basic Content -->
+                <p>
+                    L’élaboration de documents d’évaluation a été régulièrement
+                    mentionnée par les gestionnaires comme l’une des étapes les
+                    plus difficiles du processus de dotation au cours de nos
+                    recherches auprès des utilisateurs. Bon nombre d’entre eux
+                    ont signalé avoir tardé à effectuer cette étape parce qu’ils
+                    se sentaient débordés par les problèmes d’horaire et ne
+                    savaient pas trop comment élaborer le matériel. Cela a
+                    considérablement augmenté la durée globale du processus de
+                    dotation.
+                </p>
+
+                <!-- Basic Content -->
+                <p>
+                    L’outil de planification de l’évaluation du Nuage de talents
+                    est conçu pour faciliter la discussion entre les
+                    gestionnaires et les conseillers en RH au début du processus
+                    de dotation (avant qu’un avis d’offre d’emploi soit
+                    finalisé). Il comprend deux composantes :
+                </p>
+
+                <ul>
+                    <li>
+                        La première composante vise à aider les gestionnaires à
+                        élaborer un plan d’évaluation. Elle préremplit
+                        l’information à mesure que les gestionnaires ajoutent
+                        des compétences (essentielles et constituant un atout) à
+                        l’offre d’emploi. Les gestionnaires et les conseillers
+                        en RH peuvent ensuite décider comment chaque compétence
+                        sera évaluée et formuler des commentaires sur le plan
+                        proposé. L’outil de planification offre des options de
+                        menu déroulant et des formats d’information de façon à
+                        ce que les gestionnaires puissent, en quelques clics
+                        simples, présenter leur plan prospectif à leurs
+                        conseillers en RH.
+                    </li>
+
+                    <li>
+                        La deuxième composante est un concepteur de guides de
+                        cotation, qui est conçu pour inciter les gestionnaires
+                        et les conseillers en RH à discuter et à créer des
+                        questions et des documents réels pour chaque type
+                        d’évaluation qu’ils ont choisi et à décider des critères
+                        de réussite pour chaque compétence.
+                    </li>
+                </ul>
+
+                <!-- Basic Content -->
+                <p>
+                    Il est à noter qu’aucune des composantes de l’outil de
+                    planification de l’évaluation n’est conçue pour promouvoir
+                    une méthode d’évaluation particulière pour une compétence
+                    particulière ou pour fournir des tests associés à la méthode
+                    d’évaluation. C’est uniquement à des fins de planification.
+                    (L’équipe a examiné des façons de relier l’outil à des
+                    références universitaires, en faisant des suggestions aux
+                    gestionnaires sur des méthodes d’évaluation appuyées par la
+                    littérature pour chaque compétence, combinées à des données
+                    sur la façon dont les gestionnaires précédents du GC avaient
+                    testé chaque compétence dans le Nuage de talents, mais nous
+                    n’avions pas les ressources pour effectuer le travail.)
+                </p>
+
+                <!-- Titles -->
+                <h3
+                    data-h2-font-weight="b(800)"
+                    data-h2-font-size="b(h3)"
+                    data-h2-margin="b(top, xl) b(bottom, s)"
+                    style="letter-spacing: -1px"
+                >
+                    État actuel
+                </h3>
+
+                <!-- Basic Content -->
+                <p>
+                    L’outil de planification de l’évaluation est actuellement en
+                    version bêta pour les gestionnaires et les conseillers en
+                    RH.
+                </p>
+
+                <!-- Basic Content -->
+                <p>
+                    La première composante (plan de base) a reçu des
+                    commentaires positifs et a été bien utilisée, et elle est
+                    maintenant prête à être mise à niveau avec un calendrier de
+                    planification, des modèles de courriel pour les étapes clés
+                    et un soutien supplémentaire pour les gestionnaires.
+                </p>
+
+                <!-- Basic Content -->
+                <p>
+                    La deuxième composante (concepteur de guides de cotation) a
+                    donné des résultats mitigés dans les tests en direct. Elle a
+                    fait ressortir plusieurs défis sous-jacents auxquels les
+                    gestionnaires sont confrontés lorsqu’ils élaborent des
+                    évaluations, ainsi que le degré élevé d’écart dans les
+                    conseils fournis par les conseillers en RH dans différents
+                    ministères. Certains gestionnaires ont trouvé le modèle très
+                    utile, d’autres l’ont trouvé déroutant. Dans de nombreux
+                    ministères, cette composante de l’outil était utilisée
+                    presque exclusivement par les conseillers en RH (qui
+                    l’utilisaient plus facilement que les gestionnaires). Pour
+                    remédier à ces écarts, améliorer la convivialité et relier
+                    la méthodologie des guides de cotation aux justifications
+                    finales de l’évaluation requises pour chaque demandeur
+                    (compte rendu de décisions), notre équipe travaille à un
+                    nouveau concept pour la composante des guides de cotation.
+                    Elle a fait l’objet de plusieurs cycles de remaniement
+                    d’ateliers et est prête pour une série de tests en direct à
+                    l’aide d’outils hors plateforme. (Voir aussi « Un outil pour
+                    le compte rendu de décisions » dans cette section du
+                    rapport.) Bien que l’élaboration soit compliquée, nous
+                    croyons que la création d’un cadre logique simple que tous
+                    les gestionnaires peuvent utiliser accélérera
+                    considérablement le temps de dotation à l’étape de
+                    l’évaluation de la dotation et aux premières étapes de la
+                    planification (avant l’avis d’offre d’emploi).
+                </p>
+
+                <!-- Titles -->
+                <h3
+                    data-h2-font-weight="b(800)"
+                    data-h2-font-size="b(h3)"
+                    data-h2-margin="b(top, xl) b(bottom, s)"
+                    style="letter-spacing: -1px"
+                >
+                    Résultats
+                </h3>
+
+                <!-- Basic Content -->
+                <p>
+                    À titre de pratique exemplaire des RH et pour éviter les
+                    retards pendant que les candidats attendent d’être
+                    contactés, certains ministères exigent que tous les
+                    documents d’évaluation soient remplis avant que l’avis
+                    d’offre d’emploi puisse être publié. Cela raccourcit le
+                    temps d’attente des candidats aux étapes des tests et de
+                    l’entrevue, mais exige plus de travail initial de la part
+                    des gestionnaires. Après avoir observé les interactions
+                    entre les gestionnaires et les conseillers en RH au sujet de
+                    l’élaboration des documents d’évaluation, le Nuage de
+                    talents a constaté que les processus de dotation
+                    fonctionnent mieux s’il y a au moins un plan d’évaluation en
+                    place lorsque l’avis d’offre d’emploi est finalisé, même si
+                    les documents d’évaluation eux-mêmes sont en place (tests et
+                    guides de cotation) sont toujours en cours d’élaboration au
+                    moment où l’avis d’offre d’emploi est lancé. (Bien que nous
+                    soyons d’accord avec les conseillers en RH à ce sujet, il
+                    est préférable que tout soit prêt avant l’avis d’une offre
+                    d’emploi.)
+                </p>
+
+                <!-- Basic Content -->
+                <p>
+                    L’outil de planification de l’évaluation a été utilisé par
+                    certains gestionnaires et conseillers en RH pour faciliter
+                    les discussions pendant que l’avis d’offre d’emploi était
+                    encore en cours de finalisation. À la suite de ces
+                    discussions, certains gestionnaires ont ajouté des questions
+                    de présélection au processus de demande d’emploi. Dans
+                    d’autres cas, les gestionnaires ont été invités à avoir des
+                    discussions plus approfondies avec leurs conseillers en RH
+                    sur les compétences absolument nécessaires et s’il y avait
+                    des chevauchements. Ils ont ensuite révisé les compétences
+                    dans l’avis d’offre d’emploi pour s’assurer qu’ils pouvaient
+                    évaluer les candidats d’une façon gérable.
+                </p>
+
+                <!-- Basic Content -->
+                <p>
+                    En ce qui concerne le concepteur de guides de cotation,
+                    certains ont utilisé l’outil pour finaliser leur matériel
+                    d’évaluation pendant que l’offre d’emploi était ouverte aux
+                    candidatures. Dans ces cas, les gestionnaires ont pu
+                    commencer à évaluer les demandes dès qu’elles étaient
+                    disponibles.
+                </p>
+
+                <!-- Basic Content -->
+                <p>
+                    Toutefois, dans l’ensemble, le guide de cotation, au moment
+                    de sa mise en œuvre initiale, n’a pas été largement adopté,
+                    et la plupart des gestionnaires ont plutôt choisi d’utiliser
+                    les outils ministériels normalisés pour élaborer des guides
+                    de cotation pour leurs évaluations.
+                </p>
+
+                <!-- Basic Content -->
+                <p>
+                    Dans l’ensemble, bien que cet outil ait été l’un de nos
+                    produits les plus fortement débattus et révisés, nous avons
+                    finalement constaté que son inclusion était certainement
+                    utile aux gestionnaires pour réduire la durée du processus
+                    de dotation, surtout lorsqu’il s’agit de passer assez
+                    rapidement à l’étape de l’évaluation pour garder les
+                    meilleurs candidats intéressés et engagés.
+                </p>
+
+                <!-- Titles -->
+                <h3
+                    data-h2-font-weight="b(800)"
+                    data-h2-font-size="b(h3)"
+                    data-h2-margin="b(top, xl) b(bottom, s)"
+                    style="letter-spacing: -1px"
+                >
+                    Perspectives
+                </h3>
+
+                <!-- Basic Content -->
+                <p>
+                    L’outil d’élaboration du plan d’évaluation a été utile pour
+                    faciliter les discussions entre les gestionnaires et les
+                    conseillers en RH. Il a également aidé les gestionnaires à
+                    adopter une vision plus globale du processus de dotation
+                    pendant qu’ils étaient en train de finaliser l’avis d’offre
+                    d’emploi. Cela a amélioré la qualité et la cohésion à toutes
+                    les étapes de la dotation, ainsi que la durée globale du
+                    processus de dotation.
+                </p>
+
+                <!-- Basic Content -->
+                <p>
+                    L’un des défis que les gestionnaires ont dû relever lors de
+                    l’élaboration du guide de cotation a été d’articuler les
+                    critères de réussite pour chaque compétence et de faire la
+                    distinction entre les divers niveaux. Bien que le Nuage de
+                    talents ne fournisse pas de conseils sur l’évaluation, notre
+                    équipe travaille à l’élaboration d’un cadre logique qui vise
+                    à aider les gestionnaires à en tenir compte de façon
+                    uniforme. À l’aide de ce cadre, notre équipe a élaboré des
+                    indicateurs de comportement génériques pour certaines des
+                    compétences les plus couramment demandées comme validation
+                    de principe. Avec plus de temps et de capacité, nous croyons
+                    que des indicateurs de comportement peuvent être élaborés
+                    pour une plus grande variété de compétences et être
+                    préremplis dans le concepteur de guides de cotation, ce qui
+                    peut aider à accélérer la discussion entre les gestionnaires
+                    et les conseillers en RH. Ces indicateurs de comportement
+                    devraient être élaborés avec l’appui et la validation des
+                    communautés de pratique pour les divers groupes de
+                    classification.
+                </p>
+
+                <!-- Basic Content -->
+                <p>
+                    Pendant les discussions sur la planification de
+                    l’évaluation, les gestionnaires demandaient régulièrement
+                    des exemples de questions et des documents d’évaluation
+                    existants, auxquels les conseillers en RH répondaient
+                    différemment dans les divers ministères. Certains
+                    gestionnaires ont également suggéré d’établir un inventaire
+                    pangouvernemental des documents d’évaluation élaborés par
+                    les gestionnaires du gouvernement du Canada que les équipes
+                    de différents ministères peuvent consulter. La constitution
+                    d’une bibliothèque de documents d’évaluation recueillis
+                    auprès des partenaires du GC dépassait malheureusement la
+                    capacité du Nuage de talents à ses niveaux de ressources
+                    actuels. Mais le concept d’une bibliothèque d’apprentissage
+                    en évaluation pour les gestionnaires représente une occasion
+                    de discussion plus vaste dans l’ensemble de la fonction
+                    publique.
+                </p>
+
+                <!-- Titles -->
+                <h3
+                    data-h2-font-weight="b(800)"
+                    data-h2-font-size="b(h3)"
+                    data-h2-margin="b(top, xl) b(bottom, s)"
+                    style="letter-spacing: -1px"
+                >
+                    Principales composantes de l’outil
+                </h3>
+
+                <!-- Basic Content -->
+                <p>
+                    Notamment, les gestionnaires et les conseillers en RH (qui
+                    ont réclamé ce poste en particulier) peuvent créer du
+                    contenu et modifier toutes les parties du plan d’évaluation
+                    à partir de leurs portails respectifs. L’activité est
+                    suivie, et les gestionnaires et les conseillers en RH
+                    peuvent ajouter des questions et des commentaires l’un pour
+                    l’autre.
+                </p>
+
+                <!-- Subtitles -->
+                <h4
+                    data-h2-font-weight="b(400)"
+                    data-h2-font-size="b(h4)"
+                    data-h2-margin="b(top, xl) b(bottom, s)"
+                    style="letter-spacing: -1px"
+                >
+                    Concepteur de plans d’évaluation
+                </h4>
+
+                <ul>
+                    <li>
+                        Compétences préremplies dans le concepteur d’offres
+                        d’emploi, y compris la description des compétences et le
+                        niveau sélectionné.
+                    </li>
+
+                    <li>
+                        L’étape « Examen narratif » – un examen des
+                        renseignements présentés par les candidats dans leur
+                        demande – est ajoutée par défaut comme étape
+                        d’évaluation pour tous les critères où ces
+                        renseignements ont été recueillis dans la demande
+                        initiale.
+                    </li>
+
+                    <li>
+                        Menu déroulant des types d’évaluation courants parmi
+                        lesquels les gestionnaires et les conseillers en RH
+                        peuvent choisir pour chaque compétence.
+                    </li>
+
+                    <li>
+                        Capacité d’ajouter plusieurs types d’évaluation pour
+                        chaque compétence.
+                    </li>
+
+                    <li>
+                        Rappel d’erreur lorsque l’une des compétences n’a pas au
+                        moins une évaluation prévue en plus de l’examen de la
+                        demande. (Les gestionnaires peuvent confirmer que la
+                        seule évaluation prévue est l’examen de la demande, mais
+                        cela sert de rappel pour valider les critères essentiels
+                        au moyen d’une méthode d’évaluation au-delà de la
+                        demande initiale d’un demandeur.)
+                    </li>
+                </ul>
+
+                <figure data-h2-margin="b(top-bottom, l)">
+                    <!-- Graphics -->
+
+                    <img
+                        src="/assets/img/4.15-fr-assessment-builder.png"
+                        alt="Une saisie d’écran de l’outil d’élaboration du plan d’évaluation offert aux gestionnaires. L’interface montre comment les compétences sont automatiquement remplies pour le gestionnaire en fonction de celles qu’il a sélectionnées pour son annonce d’emploi. Les définitions pour la compétence et le niveau qu’ils ont choisi sont présentées ici pour référence rapide, en plus de la capacité de choisir parmi une variété d’évaluations pour cette compétence."
+                        style="width: 100%"
+                        data-h2-display="b(block)"
+                        data-h2-radius="b(s)"
+                        data-h2-border="b(gray, all, solid, s)"
+                    />
+                </figure>
+
+                <!-- Subtitles -->
+                <h4
+                    data-h2-font-weight="b(400)"
+                    data-h2-font-size="b(h4)"
+                    data-h2-margin="b(top, xl) b(bottom, s)"
+                    style="letter-spacing: -1px"
+                >
+                    Sommaire du plan d’évaluation
+                </h4>
+
+                <ul>
+                    <li>
+                        Affichage de tous les types d’évaluation sélectionnés
+                        dans le concepteur de plans d’évaluation, ainsi que des
+                        compétences connexes, d’une manière qui répond aux
+                        besoins des gestionnaires et des conseillers en RH.
+                    </li>
+
+                    <li>
+                        Il est possible de réorganiser les renseignements en les
+                        classant par étapes d’évaluation ou par critères de
+                        sélection évalués. (Nous avons constaté que, en général,
+                        les gestionnaires préfèrent la première option parce
+                        qu’ils s’intéressent à ce qui vient ensuite dans leur
+                        calendrier, tandis que les conseillers en RH aiment
+                        mieux la deuxième option parce qu’ils veulent confirmer
+                        que chaque critère essentiel et constituant un atout est
+                        assorti d’une méthodologie d’évaluation suffisante.)
+                    </li>
+                </ul>
+
+                <figure data-h2-margin="b(top-bottom, l)">
+                    <!-- Graphics -->
+
+                    <img
+                        src="/assets/img/4.15-fr-assessment-summary.png"
+                        alt="Une saisie d’écran de l’interface du résumé du plan d’évaluation, où les gestionnaires et les conseillers en RH peuvent examiner comment chaque évaluation qu’ils ont choisie couvrira les compétences dans l’annonce d’emploi."
+                        style="width: 100%"
+                        data-h2-display="b(block)"
+                        data-h2-radius="b(s)"
+                        data-h2-border="b(gray, all, solid, s)"
+                    />
+                </figure>
+
+                <!-- Subtitles -->
+                <h4
+                    data-h2-font-weight="b(400)"
+                    data-h2-font-size="b(h4)"
+                    data-h2-margin="b(top, xl) b(bottom, s)"
+                    style="letter-spacing: -1px"
+                >
+                    Concepteur de guides de cotation
+                </h4>
+
+                <ul>
+                    <li>
+                        Affichage de tous les types d’évaluation sélectionnés
+                        dans le concepteur de plans d’évaluation, ainsi qu’une
+                        description du type d’évaluation et des compétences
+                        connexes.
+                    </li>
+
+                    <li>
+                        Capacité d’ajouter des questions pour chaque type
+                        d’évaluation et de les relier à une ou plusieurs
+                        compétences associées à ce type d’évaluation.
+                    </li>
+
+                    <li>
+                        Capacité d’ajouter des réponses acceptables ou des
+                        critères de réussite pour chaque question.
+                    </li>
+
+                    <li>
+                        Rappel d’erreur lorsque l’une des compétences associées
+                        au type d’évaluation n’était pas liée à au moins une
+                        question.
+                    </li>
+                </ul>
+
+                <figure data-h2-margin="b(top-bottom, l)">
+                    <!-- Graphics -->
+
+                    <img
+                        src="/assets/img/4.15-fr-ratings-guide.png"
+                        alt="Une saisie d’écran de l’outil d’élaboration du guide de cotation où les gestionnaires peuvent assembler les composantes individuelles de l’évaluation et fournir le contexte dans lequel une compétence particulière sera évaluée. Les gestionnaires peuvent ajouter autant de questions à une évaluation qu’ils en ont besoin et indiquer quelles compétences seront évaluées par ces questions."
+                        style="width: 100%"
+                        data-h2-display="b(block)"
+                        data-h2-radius="b(s)"
+                        data-h2-border="b(gray, all, solid, s)"
+                    />
+                </figure>
+
+                <!-- Subtitles -->
+                <h4
+                    data-h2-font-weight="b(400)"
+                    data-h2-font-size="b(h4)"
+                    data-h2-margin="b(top, xl) b(bottom, s)"
+                    style="letter-spacing: -1px"
+                >
+                    Copier le guide de cotation dans le presse-papiers
+                </h4>
+
+                <ul>
+                    <li>
+                        Bouton d’un clic pour copier toute l’information du
+                        concepteur de guides de cotation sous forme de tableau à
+                        coller dans d’autres logiciels (p. ex., Word, Excel,
+                        etc.).
+                    </li>
+                </ul>
+
+                <figure data-h2-margin="b(top-bottom, l)">
+                    <!-- Graphics -->
+
+                    <img
+                        src="/assets/img/4.15-fr-ratings-guide-copy.png"
+                        alt="Saisie d’écran d’une interface de copie qui permet à un gestionnaire ou un conseiller en RH de copier le guide de notation qu’il a construit dans le presse-papiers de son ordinateur, ce qui lui permet de le coller dans un document de son choix."
+                        style="width: 100%"
+                        data-h2-display="b(block)"
+                        data-h2-radius="b(s)"
+                        data-h2-border="b(gray, all, solid, s)"
+                    />
+                </figure>
+            </div>
+        </main>
+        <section style="background-color: #f8f8f8">
+            <div
+                data-h2-container="b(center, s)"
+                data-h2-padding="b(bottom, l) l(bottom, xxl)"
+            >
+                <div data-h2-flex-grid="b(top, expanded, flush, m)">
+                    <div
+                        data-h2-text-align="b(center) m(left)"
+                        data-h2-flex-item="b(1of2)"
+                    >
+                        <a
+                            class="prev"
+                            href="/fr/2000/01/01/414-job-ads.html"
+                            title="Allez à l'article précédent de la série."
+                        >
+                            <svg
+                                data-h2-margin="b(right, xxs)"
+                                style="width: 1rem; vertical-align: middle"
+                                xmlns="http://www.w3.org/2000/svg"
+                                class="h-6 w-6"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="#c90035"
+                            >
+                                <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    stroke-width="4"
+                                    d="M15 19l-7-7 7-7"
+                                /></svg
+                            >Article précédent</a
+                        >
+                    </div>
+                    <div
+                        data-h2-text-align="b(center) m(right)"
+                        data-h2-flex-item="b(1of2)"
+                    >
+                        <a
+                            class="next"
+                            href="/fr/2000/01/01/416-tracking.html"
+                            title="Passez à l'article suivant de la série."
+                            >Article suivant<svg
+                                data-h2-margin="b(left, xxs)"
+                                style="width: 1rem; vertical-align: middle"
+                                xmlns="http://www.w3.org/2000/svg"
+                                class="h-6 w-6"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke="#c90035"
+                            >
+                                <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    stroke-width="4"
+                                    d="M9 5l7 7-7 7"
+                                /></svg
+                        ></a>
+                    </div>
+                </div>
+                <p
+                    data-h2-margin="b(top, xxl)"
+                    data-h2-text-align="b(center)"
+                    data-h2-font-size="b(caption)"
+                >
+                    <a
+                        href="/fr/talent-cloud/report/#toc"
+                        title="Retour à la table des matières"
+                        >Retour à la table des matières</a
+                    >
+                </p>
+            </div>
+        </section>
+        <section
+            data-h2-border="b([light]gray, top, solid, s)"
+            data-h2-position="b(relative)"
+            style="background: rgba(240, 240, 240, 1)"
+            data-h2-overflow="b(x, hidden)"
+        >
+            <footer
+                data-h2-container="b(center, full)"
+                data-h2-padding="b(top-bottom, l)"
+            >
+                <div data-h2-flex-grid="b(middle, expanded, flush, xl)">
+                    <div
+                        data-h2-flex-item="b(1of1) m(1of2)"
+                        data-h2-padding="b(left, xl)"
+                        data-h2-text-align="b(center) m(left)"
+                    >
+                        <nav>
+                            <ul
+                                style="gap: 1rem"
+                                class="reset-ul"
+                                data-h2-display="b(flex)"
+                                data-h2-flex-wrap="b(wrap)"
+                                data-h2-justify-content="b(center) m(flex-start)"
+                                data-h2-margin="b(bottom, xs)"
+                            >
+                                <li
+                                    data-h2-display="b(inline-block)"
+                                    data-h2-margin="b(top-bottom, none)"
+                                >
+                                    <a
+                                        href="mailto:talent.cloud-nuage.de.talents@tbs-sct.gc.ca"
+                                        title="Soumettre des commentaires au Nuage de talents du GC par courriel."
+                                        >Retour d'information</a
+                                    >
+                                </li>
+
+                                <li
+                                    data-h2-display="b(inline-block)"
+                                    data-h2-margin="b(top-bottom, none)"
+                                >
+                                    <a
+                                        href="/fr/terms-and-conditions"
+                                        title="Voir nos avis."
+                                        >Avis</a
+                                    >
+                                </li>
+
+                                <li
+                                    data-h2-display="b(inline-block)"
+                                    data-h2-margin="b(top-bottom, none)"
+                                >
+                                    <a
+                                        href="/fr/privacy-notice"
+                                        title="Voir notre politique de confidentialité."
+                                        >Confidentialité</a
+                                    >
+                                </li>
+
+                                <li
+                                    data-h2-display="b(inline-block)"
+                                    data-h2-margin="b(top-bottom, none)"
+                                >
+                                    <a
+                                        href="https://www.canada.ca/fr.html"
+                                        title="Visiter Canada.ca."
+                                        >Canada.ca</a
+                                    >
+                                </li>
+                            </ul>
+                        </nav>
+                        <p
+                            data-h2-font-size="b(caption)"
+                            data-h2-font-color="b(black)"
+                            data-h2-margin="b(bottom, none) b(top, m)"
+                        >
+                            Date de modification: July 07, 2021
+                        </p>
+                    </div>
+                    <div
+                        data-h2-flex-item="b(1of1) m(1of2)"
+                        data-h2-padding="b(right, xl)"
+                        data-h2-text-align="b(center) m(right)"
+                    >
+                        <a
+                            href="https://www.canada.ca/fr.html"
+                            title="Visiter Canada.ca."
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            <img
+                                class="canada-logo"
+                                src="/assets/img/ui-canada.png"
+                                alt="Symbole du gouvernement du Canada."
+                            />
+                        </a>
+                    </div>
+                </div>
+            </footer>
+        </section>
+
+        <script type="text/javascript" src="/assets/js/app.js"></script>
+    </body>
 </html>

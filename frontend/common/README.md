@@ -65,7 +65,7 @@ Step 3 will resolve the "no-unresolved" eslint error when importing using the "@
 
 Unfortunately, I do not know a good way around the "no-extraneous-dependencies" eslint error, hence turning that rule off entirely in step 4.
 
-# Translation Utility script
+## Translation Utility script
 
 This project contains a script (`src/tooling/checkIntl.js`) to help manage your react-intl translations files. It has been written to run without any dependencies or compilation. It is expected to be used along with the [formatjs cli](https://formatjs.io/docs/tooling/cli).
 

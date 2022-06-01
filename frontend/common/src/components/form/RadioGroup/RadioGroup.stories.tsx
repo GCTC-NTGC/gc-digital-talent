@@ -1,7 +1,8 @@
 import React from "react";
 import { Story, Meta } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
-import RadioGroup, { RadioGroupProps } from ".";
+import RadioGroup from ".";
+import type { RadioGroupProps } from ".";
 import Form from "../BasicForm";
 import Submit from "../Submit";
 
@@ -54,4 +55,25 @@ export const RadioGroupHiddenOptional = TemplateRadioGroup.bind({});
 RadioGroupHiddenOptional.args = {
   ...BasicRadioGroup.args,
   hideOptional: true,
+};
+
+export const RadioGroupOfElements = TemplateRadioGroup.bind({});
+RadioGroupOfElements.args = {
+  idPrefix: "elements",
+  legend: "Look at these elements",
+  name: "elements",
+  items: [
+    {
+      value: "one",
+      label: <span data-h2-bg-color="b(red)">Red Selection</span>,
+    },
+    {
+      value: "two",
+      label: <span data-h2-bg-color="b(white)">White Selection</span>,
+    },
+    {
+      value: "three",
+      label: <span data-h2-font-weight="b(700)">Bold Selection</span>,
+    },
+  ],
 };

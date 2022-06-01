@@ -1,10 +1,11 @@
-import faker from "faker";
+import { faker } from "@faker-js/faker";
 import pick from "lodash/pick";
 import {
   Classification,
   Pool,
   User,
   UserPublicProfile,
+  PoolStatus,
 } from "../api/generated";
 import fakeUsers from "./fakeUsers";
 import fakeClassifications from "./fakeClassifications";
@@ -17,7 +18,7 @@ const generatePool = (
 ): Pool => {
   faker.setLocale("en");
 
-  const ownerUser: User = faker.random.arrayElement(users);
+  const ownerUser: User = faker.helpers.arrayElement<User>(users);
   return {
     id: faker.datatype.uuid(),
     owner: pick(ownerUser, [
@@ -34,7 +35,13 @@ const generatePool = (
       en: `EN ${faker.lorem.sentence()}`,
       fr: `FR ${faker.lorem.sentence()}`,
     },
-    classifications: faker.random.arrayElements(classifications),
+    classifications:
+      faker.helpers.arrayElements<Classification>(classifications),
+    keyTasks: {
+      en: `EN ${faker.lorem.paragraph()}`,
+      fr: `FR ${faker.lorem.paragraph()}`,
+    },
+    status: faker.helpers.arrayElement<PoolStatus>(Object.values(PoolStatus)),
   };
 };
 

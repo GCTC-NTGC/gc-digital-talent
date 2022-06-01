@@ -1,4 +1,4 @@
-import faker from "faker";
+import { faker } from "@faker-js/faker";
 import {
   LanguageAbility,
   WorkRegion,
@@ -23,9 +23,10 @@ const generatePoolCandidate = (
   faker.setLocale("en");
   return {
     id: faker.datatype.uuid(),
-    pool: faker.random.arrayElement(pools),
-    expectedClassifications: faker.random.arrayElements(classifications),
-    user: faker.random.arrayElement(users) as Applicant,
+    pool: faker.helpers.arrayElement(pools),
+    expectedClassifications:
+      faker.helpers.arrayElements<Classification>(classifications),
+    user: faker.helpers.arrayElement<User>(users) as Applicant,
     cmoIdentifier: faker.helpers.slugify(
       faker.lorem.words(faker.datatype.number({ min: 1, max: 3 })),
     ),
@@ -38,13 +39,22 @@ const generatePoolCandidate = (
     isIndigenous: faker.datatype.boolean(),
     isVisibleMinority: faker.datatype.boolean(),
     hasDiploma: faker.datatype.boolean(),
-    languageAbility: faker.random.arrayElement(Object.values(LanguageAbility)),
-    locationPreferences: faker.random.arrayElements(Object.values(WorkRegion)),
-    acceptedOperationalRequirements: faker.random.arrayElements(
-      Object.values(OperationalRequirement),
+    languageAbility: faker.helpers.arrayElement<LanguageAbility>(
+      Object.values(LanguageAbility),
     ),
-    expectedSalary: faker.random.arrayElements(Object.values(SalaryRange)),
-    status: faker.random.arrayElement(Object.values(PoolCandidateStatus)),
+    locationPreferences: faker.helpers.arrayElements<WorkRegion>(
+      Object.values(WorkRegion),
+    ),
+    acceptedOperationalRequirements:
+      faker.helpers.arrayElements<OperationalRequirement>(
+        Object.values(OperationalRequirement),
+      ),
+    expectedSalary: faker.helpers.arrayElements<SalaryRange>(
+      Object.values(SalaryRange),
+    ),
+    status: faker.helpers.arrayElement<PoolCandidateStatus>(
+      Object.values(PoolCandidateStatus),
+    ),
   };
 };
 

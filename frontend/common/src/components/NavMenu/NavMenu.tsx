@@ -1,8 +1,10 @@
 import React, { ReactElement } from "react";
 
-export const NavMenu: React.FunctionComponent<{
+export interface NavMenuProps {
   items: ReactElement[];
-}> = ({ items }) => {
+}
+
+const NavMenu: React.FunctionComponent<NavMenuProps> = ({ items }) => {
   return (
     <div data-h2-flex-grid="b(middle, contained, flush, xl)">
       <div

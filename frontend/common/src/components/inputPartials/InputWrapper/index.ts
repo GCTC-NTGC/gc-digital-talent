@@ -1,2 +1,5 @@
-export { default, InputWrapper } from "./InputWrapper";
-export type { InputWrapperProps } from "./InputWrapper";
+import InputWrapper from "./InputWrapper";
+import type { InputWrapperProps } from "./InputWrapper";
+
+export default InputWrapper;
+export type { InputWrapperProps };

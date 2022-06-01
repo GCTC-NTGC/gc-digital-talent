@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react";
+import React, { ReactElement, useRef } from "react";
 import { Routes } from "universal-router";
 import { useIntl } from "react-intl";
 import NavMenu from "@common/components/NavMenu";
@@ -12,6 +12,7 @@ import {
 } from "@common/helpers/router";
 import Header from "@common/components/Header";
 import Footer from "@common/components/Footer";
+import NotAuthorized from "@common/components/NotAuthorized";
 import TALENTSEARCH_APP_DIR from "../talentSearchConstants";
 
 export const exactMatch = (ref: string, test: string): boolean => ref === test;
@@ -69,28 +70,66 @@ const TalentSearchNotFound: React.FC = () => {
   );
 };
 
+const TalentSearchNotAuthorized: React.FC = () => {
+  const intl = useIntl();
+  return (
+    <NotAuthorized
+      headingMessage={intl.formatMessage({
+        description:
+          "Heading for the message saying the page to view is not authorized.",
+        defaultMessage: "Sorry, you are not authorized to view this page.",
+      })}
+    >
+      <p>
+        {intl.formatMessage({
+          description:
+            "Detailed message saying the page to view is not authorized.",
+          defaultMessage:
+            "Oops, it looks like you've landed on a page that you are not authorized to view.",
+        })}
+      </p>
+    </NotAuthorized>
+  );
+};
+
 export const PageContainer: React.FC<{
   menuItems: ReactElement[];
   contentRoutes: Routes<RouterResult>;
 }> = ({ menuItems, contentRoutes }) => {
-  const content = useRouter(contentRoutes, <TalentSearchNotFound />);
+  const intl = useIntl();
+  // stabilize components that will not change during life of app, avoid render loops in router
+  const notFoundComponent = useRef(<TalentSearchNotFound />);
+  const notAuthorizedComponent = useRef(<TalentSearchNotAuthorized />);
+  const content = useRouter(
+    contentRoutes,
+    notFoundComponent.current,
+    notAuthorizedComponent.current,
+  );
   return (
     <ScrollToTop>
-      <div
-        className="container"
-        data-h2-display="b(flex)"
-        data-h2-flex-direction="b(column)"
-        style={{ height: "100vh", margin: "0" }}
-      >
-        <div>
-          <Header baseUrl={TALENTSEARCH_APP_DIR} />
-          <NavMenu items={menuItems} />
+      <>
+        <a href="#main" data-h2-visibility="b(hidden)">
+          {intl.formatMessage({
+            defaultMessage: "Skip to main content",
+            description: "Assistive technology skip link",
+          })}
+        </a>
+        <div
+          className="container"
+          data-h2-display="b(flex)"
+          data-h2-flex-direction="b(column)"
+          style={{ height: "100vh", margin: "0" }}
+        >
+          <div>
+            <Header baseUrl={TALENTSEARCH_APP_DIR} />
+            <NavMenu items={menuItems} />
+          </div>
+          <main id="main">{content}</main>
+          <div style={{ marginTop: "auto" }}>
+            <Footer baseUrl={TALENTSEARCH_APP_DIR} />
+          </div>
         </div>
-        <div>{content}</div>
-        <div style={{ marginTop: "auto" }}>
-          <Footer baseUrl={TALENTSEARCH_APP_DIR} />
-        </div>
-      </div>
+      </>
     </ScrollToTop>
   );
 };

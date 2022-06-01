@@ -1,3 +1,5 @@
+import { InputMaybe } from "../api/generated";
+
 export function identity<T>(value: T): T {
   return value;
 }
@@ -78,3 +80,20 @@ export function insertBetween<T>(separator: T, arr: T[]): T[] {
     return prev;
   }, []);
 }
+
+/**
+ * Tests if a string is boolean true
+ * https://stackoverflow.com/a/264037
+ * https://stackoverflow.com/a/2140644
+ */
+export function isStringTrue(str: string | undefined): boolean {
+  return str?.toLocaleUpperCase() === "TRUE";
+}
+
+/**
+ * Accepts a input value and transforms empty strings to a null
+ * @param s String value from an input
+ * @returns The possibly-transformed-to-null input string
+ */
+export const emptyToNull = (s: InputMaybe<string>): string | null =>
+  empty(s) || s === "" ? null : s;

@@ -4,6 +4,7 @@ import ReactSelect from "react-select";
 import { InputWrapper } from "../../inputPartials";
 
 export type Option = { value: string | number; label: string };
+
 export interface MultiSelectProps
   extends React.SelectHTMLAttributes<HTMLSelectElement> {
   /** HTML id used to identify the element. */
@@ -22,7 +23,7 @@ export interface MultiSelectProps
   placeholder?: string;
 }
 
-export const MultiSelect: React.FunctionComponent<MultiSelectProps> = ({
+const MultiSelect: React.FunctionComponent<MultiSelectProps> = ({
   id,
   context,
   label,

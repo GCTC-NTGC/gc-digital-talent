@@ -7,9 +7,11 @@ import {
 } from "../../helpers/localize";
 import { imageUrl, Link, useLocation } from "../../helpers/router";
 
-export const Header: React.FunctionComponent<{
+export interface HeaderProps {
   baseUrl: string;
-}> = ({ baseUrl }) => {
+}
+
+const Header: React.FunctionComponent<HeaderProps> = ({ baseUrl }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
 

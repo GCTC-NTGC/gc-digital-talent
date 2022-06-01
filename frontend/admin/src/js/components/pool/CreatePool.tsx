@@ -15,7 +15,10 @@ import { navigate } from "@common/helpers/router";
 import { errorMessages, commonMessages } from "@common/messages";
 import { keyStringRegex } from "@common/constants/regularExpressions";
 import { enumToOptions } from "@common/helpers/formUtils";
-import { getOperationalRequirement } from "@common/constants/localizedConstants";
+import {
+  getOperationalRequirement,
+  getPoolStatus,
+} from "@common/constants/localizedConstants";
 import { useAdminRoutes } from "../../adminRoutes";
 import {
   Classification,
@@ -27,12 +30,16 @@ import {
   useCreatePoolMutation,
   useGetCreatePoolDataQuery,
   User,
+  PoolStatus,
 } from "../../api/generated";
 import DashboardContentContainer from "../DashboardContentContainer";
 
 type Option<V> = { value: V; label: string };
 
-type FormValues = Pick<Pool, "description" | "operationalRequirements"> & {
+type FormValues = Pick<
+  Pool,
+  "description" | "operationalRequirements" | "keyTasks" | "status"
+> & {
   key: string;
   name: {
     en: string;
@@ -301,6 +308,44 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
               rules={{
                 required: intl.formatMessage(errorMessages.required),
               }}
+            />
+            <TextArea
+              id="keyTasks_en"
+              name="keyTasks.en"
+              label={intl.formatMessage({
+                defaultMessage: "Key Tasks (English)",
+                description:
+                  "Label displayed on the pool form key tasks (English) field.",
+              })}
+            />
+            <TextArea
+              id="keyTasks_fr"
+              name="keyTasks.fr"
+              label={intl.formatMessage({
+                defaultMessage: "Key Tasks (French)",
+                description:
+                  "Label displayed on the pool form key tasks (French) field.",
+              })}
+            />
+            <Select
+              id="status"
+              label={intl.formatMessage({
+                defaultMessage: "Status",
+                description: "Label displayed on the pool form status field.",
+              })}
+              nullSelection={intl.formatMessage({
+                defaultMessage: "Select a status...",
+                description:
+                  "Placeholder displayed on the pool form status field.",
+              })}
+              name="status"
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
+              options={enumToOptions(PoolStatus).map(({ value }) => ({
+                value,
+                label: intl.formatMessage(getPoolStatus(value)),
+              }))}
             />
             <Submit />
           </form>

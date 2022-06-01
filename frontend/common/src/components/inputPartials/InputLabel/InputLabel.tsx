@@ -12,7 +12,7 @@ export interface InputLabelProps {
   hideOptional?: boolean;
 }
 
-export const InputLabel: React.FC<InputLabelProps> = ({
+const InputLabel: React.FC<InputLabelProps> = ({
   inputId,
   label,
   required,

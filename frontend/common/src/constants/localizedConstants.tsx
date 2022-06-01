@@ -15,6 +15,8 @@ import {
   OperationalRequirement,
   ProvinceOrTerritory,
   EstimatedLanguageAbility,
+  JobLookingStatus,
+  PoolStatus,
 } from "../api/generated";
 import { getOrThrowError } from "../helpers/util";
 
@@ -116,7 +118,7 @@ export const languageAbilities = defineMessages({
     description: "The language ability is French only.",
   },
   [LanguageAbility.Bilingual]: {
-    defaultMessage: "Bilingual, English, and French",
+    defaultMessage: "Bilingual (English and French)",
     description: "The language ability is bilingual - both English and French.",
   },
 });
@@ -167,8 +169,7 @@ export const workRegions = defineMessages({
 
 export const workRegionsDetailed = defineMessages({
   [WorkRegion.Telework]: {
-    defaultMessage:
-      "<bold>Virtual:</bold> Work from home, anywhere in Canada.",
+    defaultMessage: "<bold>Virtual:</bold> Work from home, anywhere in Canada.",
     description: "The work region of Canada described as Telework.",
   },
   [WorkRegion.NationalCapital]: {
@@ -239,6 +240,18 @@ export const poolCandidateStatuses = defineMessages({
   [PoolCandidateStatus.PlacedTerm]: {
     defaultMessage: "Placed Term",
     description: "The pool candidate's status is Placed Term.",
+  },
+  [PoolCandidateStatus.Unavailable]: {
+    defaultMessage: "Unavailable",
+    description: "The pool candidate's status is Unavailable.",
+  },
+  [PoolCandidateStatus.Expired]: {
+    defaultMessage: "Expired",
+    description: "The pool candidate's status is Expired.",
+  },
+  [PoolCandidateStatus.PlacedCasual]: {
+    defaultMessage: "Placed Casual",
+    description: "The pool candidate's status is Placed Casual.",
   },
 });
 
@@ -445,11 +458,55 @@ export const getEducationType = (
     `Invalid educationType ${educationTypeId}`,
   );
 
-export const operationalRequirements = defineMessages({
-  [OperationalRequirement.Overtime]: {
-    defaultMessage: "Overtime as required",
+export const OperationalRequirementCandidateDescription = defineMessages({
+  [OperationalRequirement.ShiftWork]: {
+    defaultMessage: "...has <bold>shift-work</bold>.",
+    description: "The operational requirement described as shift work.",
+  },
+  [OperationalRequirement.OnCall]: {
+    defaultMessage: "...has <bold>24/7 on call-shifts</bold>.",
+    description: "The operational requirement described as 24/7 on-call.",
+  },
+  [OperationalRequirement.Travel]: {
+    defaultMessage: "...requires me to <bold>travel</bold>.",
+    description: "The operational requirement described as travel as required.",
+  },
+  [OperationalRequirement.TransportEquipment]: {
+    defaultMessage:
+      "...requires me to <bold>transport, lift and set down equipment weighing up to 20kg</bold>.",
+    description:
+      "The operational requirement described as transport equipment up to 20kg.",
+  },
+  [OperationalRequirement.DriversLicense]: {
+    defaultMessage:
+      "...requires me to <bold>have a valid driver's license</bold> or personal mobility to the degree normally associated with the possession of a valid driver's license.",
+    description: "The operational requirement described as driver's license.",
+  },
+  [OperationalRequirement.WorkWeekends]: {
+    defaultMessage: "...requires me to <bold>work weekends</bold>.",
+    description: "The operational requirement described as work weekends.",
+  },
+  [OperationalRequirement.OvertimeScheduled]: {
+    defaultMessage: "...requires me to <bold>work scheduled overtime</bold>.",
+    description: "The operational requirement described as scheduled overtime.",
+  },
+  [OperationalRequirement.OvertimeShortNotice]: {
+    defaultMessage:
+      "...requires me to <bold>work overtime on short notice</bold>.",
     description: "The operational requirement described as overtime.",
   },
+});
+
+export const getOperationalRequirementCandidateDescription = (
+  operationalRequirementId: string | number,
+): MessageDescriptor =>
+  getOrThrowError(
+    OperationalRequirementCandidateDescription,
+    operationalRequirementId,
+    `Invalid Operational Requirement '${operationalRequirementId}'`,
+  );
+
+export const operationalRequirements = defineMessages({
   [OperationalRequirement.ShiftWork]: {
     defaultMessage: "Shift work",
     description: "The operational requirement described as shift work.",
@@ -470,6 +527,19 @@ export const operationalRequirements = defineMessages({
   [OperationalRequirement.DriversLicense]: {
     defaultMessage: "Driver's license",
     description: "The operational requirement described as driver's license.",
+  },
+  [OperationalRequirement.WorkWeekends]: {
+    defaultMessage: "Work weekends",
+    description: "The operational requirement described as work weekends.",
+  },
+  [OperationalRequirement.OvertimeScheduled]: {
+    defaultMessage: "Work scheduled overtime",
+    description: "The operational requirement described as scheduled overtime.",
+  },
+  [OperationalRequirement.OvertimeShortNotice]: {
+    defaultMessage: "Work overtime on short notice",
+    description:
+      "The operational requirement described as short notice overtime.",
   },
 });
 
@@ -540,6 +610,33 @@ export const provinceOrTerritory = defineMessages({
   },
 });
 
+export const JobLookingStatusDescription = defineMessages({
+  [JobLookingStatus.ActivelyLooking]: {
+    defaultMessage:
+      "<bold>Actively looking</bold> - My profile is up to date, I want to be contacted for job opportunities",
+    description: "Job Looking Status described as Actively looking.",
+  },
+  [JobLookingStatus.OpenToOpportunities]: {
+    defaultMessage:
+      "<bold>Open to opportunities </bold> - Not actively looking but I still want to be contacted for job opportunities",
+    description: "Job Looking Status described as Actively looking.",
+  },
+  [JobLookingStatus.Inactive]: {
+    defaultMessage:
+      "<bold>Inactive</bold> - I do not currently want to be contacted for job opportunities",
+    description: "Job Looking Status described as Actively looking.",
+  },
+});
+
+export const getJobLookingStatusDescription = (
+  jobLookingStatusDescriptionId: string | number,
+): MessageDescriptor =>
+  getOrThrowError(
+    JobLookingStatusDescription,
+    jobLookingStatusDescriptionId,
+    `Invalid Job Looking  Status '${jobLookingStatusDescriptionId}'`,
+  );
+
 export const getProvinceOrTerritory = (
   provinceOrTerritoryId: string | number,
 ): MessageDescriptor =>
@@ -547,4 +644,24 @@ export const getProvinceOrTerritory = (
     provinceOrTerritory,
     provinceOrTerritoryId,
     `Invalid province or territory '${provinceOrTerritoryId}'`,
+  );
+
+export const poolStatus = defineMessages({
+  [PoolStatus.NotTakingApplications]: {
+    defaultMessage: "Not taking applications",
+    description: "Pool Status described as not taking applications.",
+  },
+  [PoolStatus.TakingApplications]: {
+    defaultMessage: "Taking applications",
+    description: "Pool Status described as taking applications.",
+  },
+});
+
+export const getPoolStatus = (
+  poolStatusId: string | number,
+): MessageDescriptor =>
+  getOrThrowError(
+    poolStatus,
+    poolStatusId,
+    `Invalid Pool Status '${poolStatusId}'`,
   );

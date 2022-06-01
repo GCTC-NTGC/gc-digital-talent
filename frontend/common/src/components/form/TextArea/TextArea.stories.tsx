@@ -3,7 +3,8 @@ import { action } from "@storybook/addon-actions";
 import { Meta, Story } from "@storybook/react";
 import Form from "../BasicForm";
 import Submit from "../Submit";
-import TextArea, { TextAreaProps } from ".";
+import TextArea from ".";
+import type { TextAreaProps } from ".";
 
 export default {
   component: TextArea,
@@ -37,6 +38,7 @@ const TemplateTextArea: Story<TextAreaProps & { maxWidth: string }> = (
 };
 
 export const BasicTextArea = TemplateTextArea.bind({});
+export const BasicTextElementLabel = TemplateTextArea.bind({});
 
 BasicTextArea.args = {
   id: "description",
@@ -47,4 +49,11 @@ BasicTextArea.args = {
     required: "This field is required",
     maxLength: { value: 500, message: "Too long!" },
   },
+};
+
+BasicTextElementLabel.args = {
+  id: "element",
+  context: "Additional context about this field.",
+  label: <span data-h2-font-weight="b(700)">Bolded question</span>,
+  name: "element",
 };

@@ -1,7 +1,8 @@
 import React from "react";
 import { Story, Meta } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
-import Radio, { RadioProps } from ".";
+import Radio from ".";
+import type { RadioProps } from ".";
 import Form from "../BasicForm";
 import Submit from "../Submit";
 
@@ -27,4 +28,12 @@ IndividualRadio.args = {
   label: "Have a Diploma",
   context: "This will help prove you satisfy education requirements.",
   rules: { required: "This must be accepted to continue." },
+};
+
+export const RadioElement = TemplateRadio.bind({});
+
+RadioElement.args = {
+  id: "element",
+  name: "element",
+  label: <span data-h2-bg-color="b(red)">Red Selection</span>,
 };

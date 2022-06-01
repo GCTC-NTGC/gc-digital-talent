@@ -8,7 +8,7 @@ use App\Models\Pool;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Database\Helpers\KeyStringHelpers;
-use Database\Helpers\EnumsForFactories;
+use Database\Helpers\ApiEnums;
 
 class PoolFactory extends Factory
 {
@@ -32,7 +32,12 @@ class PoolFactory extends Factory
             'key' => KeyStringHelpers::toKeyString($name),
             'description' => ['en' => $this->faker->paragraph(), 'fr' => $this->faker->paragraph()],
             'user_id' => User::factory(),
-            'operational_requirements' => $this->faker->optional->randomElements(EnumsForFactories::operationalRequirements(), 2),
+            'operational_requirements' => $this->faker->optional->randomElements(ApiEnums::operationalRequirements(), 2),
+            'key_tasks' => ['en' => $this->faker->paragraph().' EN', 'fr' => $this->faker->paragraph().' FR'],
+            'pool_status' => $this->faker->randomElement([
+                'TAKING_APPLICATIONS',
+                'NOT_TAKING_APPLICATIONS',
+            ]),
         ];
     }
 

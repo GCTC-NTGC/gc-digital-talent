@@ -16,7 +16,7 @@ import {
   Checkbox,
   RadioGroup,
 } from "@common/components/form";
-import { notEmpty } from "@common/helpers/util";
+import { empty, notEmpty } from "@common/helpers/util";
 import { currentDate, enumToOptions } from "@common/helpers/formUtils";
 import { navigate } from "@common/helpers/router";
 import { getLocale } from "@common/helpers/localize";
@@ -67,10 +67,8 @@ type FormValues = Pick<
   | "acceptedOperationalRequirements"
   | "status"
 > &
-  Pick<
-    User,
-    "email" | "firstName" | "lastName" | "preferredLang" | "telephone"
-  > & {
+  Pick<User, "firstName" | "lastName" | "preferredLang" | "telephone"> & {
+    email: string; // email is Maybe<string> in User definition, but is required in the form.
     cmoAssets: string[] | undefined;
     expectedClassifications: string[] | undefined;
     pool: string;
@@ -177,10 +175,6 @@ const UserFormSection: React.FunctionComponent<{
           type="tel"
           name="telephone"
           rules={{
-            required:
-              userMode === "new"
-                ? intl.formatMessage(errorMessages.required)
-                : undefined,
             pattern: {
               value: phoneNumberRegex,
               message: intl.formatMessage(errorMessages.telephone),
@@ -240,7 +234,12 @@ export const CreatePoolCandidateForm: React.FunctionComponent<
   const intl = useIntl();
   const locale = getLocale(intl);
   const paths = useAdminRoutes();
-  const methods = useForm<FormValues>({ defaultValues: { pool: poolId } });
+  const methods = useForm<FormValues>({
+    defaultValues: {
+      pool: poolId,
+      status: PoolCandidateStatus.Available, // Status for new candidates should always default to Available.
+    },
+  });
   const { control, handleSubmit } = methods;
 
   const formValuesToSubmitData = (
@@ -259,7 +258,11 @@ export const CreatePoolCandidateForm: React.FunctionComponent<
             firstName: values.firstName ?? "",
             lastName: values.lastName ?? "",
             preferredLang: values.preferredLang,
-            telephone: values.telephone,
+            telephone:
+              // empty string isn't valid according to API validation regex pattern, but null is valid.
+              empty(values.telephone) || values.telephone === ""
+                ? null
+                : values.telephone,
           },
         };
         break;
@@ -410,15 +413,12 @@ export const CreatePoolCandidateForm: React.FunctionComponent<
             <Input
               id="cmoIdentifier"
               label={intl.formatMessage({
-                defaultMessage: "CMO Identifier",
+                defaultMessage: "Process Number",
                 description:
-                  "Label displayed on the pool candidate form cmo identifier field.",
+                  "Label displayed on the pool candidate form process number field.",
               })}
               type="text"
               name="cmoIdentifier"
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
             />
             <Input
               id="expiryDate"
@@ -520,9 +520,6 @@ export const CreatePoolCandidateForm: React.FunctionComponent<
                 value,
                 label: intl.formatMessage(getWorkRegion(value)),
               }))}
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
             />
             <MultiSelect
               id="acceptedOperationalRequirements"
@@ -544,9 +541,6 @@ export const CreatePoolCandidateForm: React.FunctionComponent<
                   label: intl.formatMessage(getOperationalRequirement(value)),
                 }),
               )}
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
             />
             <MultiSelect
               id="expectedSalary"
@@ -565,9 +559,6 @@ export const CreatePoolCandidateForm: React.FunctionComponent<
                 value,
                 label: getSalaryRange(value),
               }))}
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
             />
             <MultiSelect
               id="expectedClassifications"
@@ -583,9 +574,6 @@ export const CreatePoolCandidateForm: React.FunctionComponent<
               })}
               name="expectedClassifications"
               options={classificationOptions}
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
             />
             <MultiSelect
               id="cmoAssets"
@@ -601,9 +589,6 @@ export const CreatePoolCandidateForm: React.FunctionComponent<
               })}
               name="cmoAssets"
               options={cmoAssetOptions}
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
             />
             <Select
               id="status"

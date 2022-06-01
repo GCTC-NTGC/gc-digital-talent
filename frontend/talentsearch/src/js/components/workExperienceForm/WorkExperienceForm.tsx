@@ -1,17 +1,17 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { useWatch } from "react-hook-form";
-import { Input } from "@common/components/form/Input";
-import { Checkbox } from "@common/components/form/Checkbox";
+import Input from "@common/components/form/Input";
+import Checkbox from "@common/components/form/Checkbox";
 import { errorMessages } from "@common/messages";
 
 export const WorkExperienceForm: React.FunctionComponent = () => {
   const intl = useIntl();
 
   // to toggle whether End Date is required, the state of the Current Role checkbox must be monitored and have to adjust the form accordingly
-  const isCurrent = useWatch({ name: "current-role", defaultValue: false });
+  const isCurrent = useWatch({ name: "currentRole" });
   // ensuring end date isn't before the start date, using this as a minimum value
-  const startDate = useWatch({ name: "start-date" });
+  const startDate = useWatch({ name: "startDate" });
 
   return (
     <div>
@@ -67,24 +67,30 @@ export const WorkExperienceForm: React.FunctionComponent = () => {
         </div>
         <div>
           <Checkbox
-            id="current-role"
+            boundingBox
+            boundingBoxLabel={intl.formatMessage({
+              defaultMessage: "Current Role",
+              description:
+                "Label displayed on Work Experience form for current role bounded box",
+            })}
+            id="currentRole"
             label={intl.formatMessage({
               defaultMessage: "I am currently active in this role",
               description:
                 "Label displayed on Work Experience form for current role input",
             })}
-            name="current-role"
+            name="currentRole"
           />
           <div data-h2-display="b(flex)">
-            <div data-h2-padding="b(right, l)">
+            <div data-h2-padding="b(right, s)">
               <Input
-                id="start-date"
+                id="startDate"
                 label={intl.formatMessage({
                   defaultMessage: "Start Date",
                   description:
                     "Label displayed on Work Experience form for start date input",
                 })}
-                name="start-date"
+                name="startDate"
                 type="date"
                 rules={{ required: intl.formatMessage(errorMessages.required) }}
               />
@@ -93,13 +99,13 @@ export const WorkExperienceForm: React.FunctionComponent = () => {
               {/* conditionally render the end-date based off the state attached to the checkbox input */}
               {!isCurrent && (
                 <Input
-                  id="end-date"
+                  id="endDate"
                   label={intl.formatMessage({
                     defaultMessage: "End Date",
                     description:
                       "Label displayed on Work Experience form for end date input",
                   })}
-                  name="end-date"
+                  name="endDate"
                   type="date"
                   rules={
                     isCurrent

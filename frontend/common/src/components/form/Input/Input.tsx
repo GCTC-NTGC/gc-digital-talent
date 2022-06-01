@@ -13,7 +13,7 @@ export interface InputProps
   /** Optional context which user can view by toggling a button. */
   context?: string;
   /** Holds text for the label associated with the input element */
-  label: string;
+  label: string | React.ReactNode;
   /** A string specifying a name for the input control. */
   name: string;
   /** Set of validation rules and error messages to impose on input. */
@@ -25,7 +25,7 @@ export interface InputProps
   errorPosition?: "top" | "bottom";
 }
 
-export const Input: React.FunctionComponent<InputProps> = ({
+const Input: React.FunctionComponent<InputProps> = ({
   id,
   context,
   label,
@@ -59,6 +59,8 @@ export const Input: React.FunctionComponent<InputProps> = ({
           data-h2-radius="b(s)"
           data-h2-border="b(darkgray, all, solid, s)"
           style={{ width: "100%" }}
+          data-h2-font-size="b(normal)"
+          data-h2-font-family="b(sans)"
           id={id}
           {...register(name, rules)}
           type={type}

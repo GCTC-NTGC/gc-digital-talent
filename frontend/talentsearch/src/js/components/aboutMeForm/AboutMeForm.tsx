@@ -14,7 +14,6 @@ import {
   getLanguage,
 } from "@common/constants/localizedConstants";
 import { SubmitHandler } from "react-hook-form";
-import omit from "lodash/omit";
 import pick from "lodash/pick";
 import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
 import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
@@ -26,6 +25,7 @@ import {
 } from "../../api/generated";
 import type { User, UpdateUserAsUserInput } from "../../api/generated";
 import applicantProfileRoutes from "../../applicantProfileRoutes";
+import profileMessages from "../profile/profileMessages";
 
 export type FormValues = Pick<
   User,
@@ -69,12 +69,6 @@ export const AboutMeForm: React.FunctionComponent<AboutMeFormProps> = ({
   }
 
   const initialDataToFormValues = (data?: User | null): FormValues => {
-    if (!data) {
-      return {
-        email: "",
-      };
-    }
-
     return pick(data, [
       "preferredLang",
       "currentProvince",
@@ -87,41 +81,22 @@ export const AboutMeForm: React.FunctionComponent<AboutMeFormProps> = ({
   };
 
   const formValuesToSubmitData = (data: FormValues): UpdateUserAsUserInput => {
-    // NOTE: Prototype included email field but API does not allow users to update email
-    const newData = omit(data, ["email"]);
-    return newData;
+    return data;
   };
 
   const handleSubmit: SubmitHandler<FormValues> = async (formValues) => {
     if (!initialUser?.id) {
-      toast.error(
-        intl.formatMessage({
-          defaultMessage: "Error: user not found",
-          description: "Message displayed to user if user is not found",
-        }),
-      );
+      toast.error(intl.formatMessage(profileMessages.userNotFound));
       return;
     }
 
     await onUpdateAboutMe(initialUser.id, formValuesToSubmitData(formValues))
       .then(() => {
-        navigate(paths.aboutMe());
-        toast.success(
-          intl.formatMessage({
-            defaultMessage: "User updated successfully!",
-            description:
-              "Message displayed to user after user is updated successfully.",
-          }),
-        );
+        navigate(paths.home());
+        toast.success(intl.formatMessage(profileMessages.userUpdated));
       })
       .catch(() => {
-        toast.error(
-          intl.formatMessage({
-            defaultMessage: "Error: updating user failed",
-            description:
-              "Message displayed to user after user fails to get updated.",
-          }),
-        );
+        toast.error(intl.formatMessage(profileMessages.updatingFailed));
       });
   };
 
@@ -168,7 +143,7 @@ export const AboutMeForm: React.FunctionComponent<AboutMeFormProps> = ({
           })}
         </p>
         <div data-h2-flex-item="b(1of1)" data-h2-padding="b(top, m)">
-          <div data-h2-padding="b(right, xxl)">
+          <div data-h2-padding="b(right, l)">
             <RadioGroup
               idPrefix="required-lang-preferences"
               legend={intl.formatMessage({
@@ -290,7 +265,6 @@ export const AboutMeForm: React.FunctionComponent<AboutMeFormProps> = ({
               id="email"
               name="email"
               type="email"
-              disabled
               label={intl.formatMessage({
                 defaultMessage: "Email",
                 description: "Label for email field in About Me form",
@@ -312,6 +286,7 @@ const AboutMeFormContainer: React.FunctionComponent = () => {
 
   const [result] = useGetAboutMeQuery();
   const { data, fetching, error } = result;
+  const preProfileStatus = data?.me?.isProfileComplete;
 
   const [, executeMutation] = useUpdateUserAsUserMutation();
 
@@ -324,6 +299,12 @@ const AboutMeFormContainer: React.FunctionComponent = () => {
         >,
       ) => {
         if (res.data?.updateUserAsUser) {
+          const currentProfileStatus =
+            res.data?.updateUserAsUser?.isProfileComplete;
+          const message = intl.formatMessage(profileMessages.profileCompleted);
+          if (!preProfileStatus && currentProfileStatus) {
+            toast.success(message);
+          }
           return res.data.updateUserAsUser;
         }
 

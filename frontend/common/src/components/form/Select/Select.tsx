@@ -8,7 +8,7 @@ export interface SelectProps
   /** HTML id used to identify the element. */
   id: string;
   /** The text for the label associated with the select input. */
-  label: string;
+  label: string | React.ReactNode;
   /** A string specifying a name for the input control. */
   name: string;
   /** List of options for the select element. */
@@ -21,7 +21,7 @@ export interface SelectProps
   nullSelection?: string;
 }
 
-export const Select: React.FunctionComponent<SelectProps> = ({
+const Select: React.FunctionComponent<SelectProps> = ({
   id,
   label,
   name,
@@ -64,7 +64,8 @@ export const Select: React.FunctionComponent<SelectProps> = ({
           )}
           {options.map((option) => (
             <option
-              data-h2-font-size="b(caption)"
+              data-h2-font-size="b(normal)"
+              data-h2-font-family="b(sans)"
               key={option.value}
               value={option.value}
             >

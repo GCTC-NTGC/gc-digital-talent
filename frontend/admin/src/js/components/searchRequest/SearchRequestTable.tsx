@@ -11,10 +11,9 @@ import {
   GetPoolCandidateSearchRequestsQuery,
   useGetPoolCandidateSearchRequestsQuery,
 } from "../../api/generated";
-import Table, { ColumnsOf } from "../Table";
+import Table, { ColumnsOf, tableEditButtonAccessor } from "../Table";
 import DashboardContentContainer from "../DashboardContentContainer";
 import { useAdminRoutes } from "../../adminRoutes";
-import { tableEditButtonAccessor } from "../TableEditButton";
 
 type Data = NonNullable<
   FromArray<GetPoolCandidateSearchRequestsQuery["poolCandidateSearchRequests"]>
@@ -121,7 +120,7 @@ export const SearchRequestTable: React.FunctionComponent<
         accessor: ({ id }) => tableEditButtonAccessor(id, editUrlRoot),
       },
     ],
-    [intl, locale, editUrlRoot],
+    [intl, locale, paths, editUrlRoot],
   );
 
   const memoizedData = useMemo(

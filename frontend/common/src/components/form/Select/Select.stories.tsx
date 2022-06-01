@@ -3,7 +3,8 @@ import { Story, Meta } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 import uniqueId from "lodash/uniqueId";
 import Form from "../BasicForm";
-import Select, { SelectProps } from ".";
+import Select from ".";
+import type { SelectProps } from ".";
 import Submit from "../Submit";
 
 export default {
@@ -77,4 +78,14 @@ SelectRequiredWithErrorAndContext.args = {
   ...SelectDefault.args,
   context: "We collect the above data for account purposes.",
   rules: { required: "This must be accepted to continue." },
+};
+
+export const SelectLabelElement = TemplateSelect.bind({});
+SelectLabelElement.args = {
+  label: <span data-h2-font-weight="b(700)">Bold Label</span>,
+  name: "LabelElement",
+  options: [
+    { value: 1, label: "CRA" },
+    { value: 2, label: "CBSA" },
+  ],
 };

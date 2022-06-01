@@ -1,6 +1,7 @@
 import React from "react";
 import { Meta, Story } from "@storybook/react";
 import { fakeUsers } from "@common/fakeData";
+import fakeExperiences from "@common/fakeData/fakeExperiences";
 import { ProfilePage, ProfileForm } from "./ProfilePage";
 import { User } from "../../../api/generated";
 
@@ -25,9 +26,18 @@ export const ProfilePageNull = TemplateProfilePage.bind({});
 
 ProfilePageStory1.args = { ...fakeUserArray[0] };
 ProfilePageStory2.args = { ...fakeUserArray[1] };
-ProfilePageStory3.args = { ...fakeUserArray[2] };
-ProfilePageStory4.args = { ...fakeUserArray[3] };
-ProfilePageStory5.args = { ...fakeUserArray[4] };
+ProfilePageStory3.args = {
+  ...fakeUserArray[2],
+  experiences: fakeExperiences(3),
+};
+ProfilePageStory4.args = {
+  ...fakeUserArray[3],
+  experiences: fakeExperiences(4),
+};
+ProfilePageStory5.args = {
+  ...fakeUserArray[4],
+  experiences: fakeExperiences(5),
+};
 ProfilePageNull.args = {
   firstName: null,
   lastName: null,

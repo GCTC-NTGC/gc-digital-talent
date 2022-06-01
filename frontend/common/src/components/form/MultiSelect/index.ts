@@ -1,2 +1,5 @@
-export { default, MultiSelect } from "./MultiSelect";
-export type { Option } from "./MultiSelect";
+import MultiSelect from "./MultiSelect";
+import type { MultiSelectProps, Option } from "./MultiSelect";
+
+export default MultiSelect;
+export type { MultiSelectProps, Option };

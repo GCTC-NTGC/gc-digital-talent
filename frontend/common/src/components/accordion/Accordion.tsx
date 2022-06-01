@@ -1,9 +1,9 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import { ChevronDownIcon, ChevronRightIcon } from "@heroicons/react/solid";
 
 export interface AccordionProps {
   title: string;
-  subtitle?: string;
+  subtitle?: string | React.ReactNode;
   Icon?: React.ComponentType<React.SVGProps<SVGSVGElement>>;
   context?: string;
   simple?: boolean;
@@ -11,7 +11,7 @@ export interface AccordionProps {
   children?: React.ReactNode;
 }
 
-export const Accordion: React.FC<AccordionProps> = ({
+const Accordion: React.FC<AccordionProps> = ({
   title,
   subtitle,
   context,
@@ -55,34 +55,39 @@ export const Accordion: React.FC<AccordionProps> = ({
         }}
         aria-expanded={isOpen}
       >
-        <div data-h2-flex-grid="b(middle, expanded, flush, s)">
+        <div
+          data-h2-flex-grid="b(middle, expanded, flush, s)"
+          data-h2-flex-wrap="b(nowrap)"
+        >
           <span>
             {isOpen ? (
-              <ChevronDownIcon height="1.5rem" />
+              <ChevronDownIcon style={{ width: "1.5rem" }} />
             ) : (
-              <ChevronRightIcon height="1.5rem" />
+              <ChevronRightIcon style={{ width: "1.5rem" }} />
             )}
           </span>
           <div data-h2-flex-item="b(auto)" data-h2-text-align="b(left)">
-            <p data-h2-margin="b(all, none)" data-h2-font-size="b(h5)">
+            <p
+              data-h2-margin="b(all, none)"
+              data-h2-font-size="b(h5)"
+              data-h2-font-color="b(black)"
+            >
               {title}
             </p>
 
             <p data-h2-margin="b(top, xxs) b(bottom, none)">{subtitle}</p>
           </div>
-          <div data-h2-flex-item="b(content)" data-h2-text-align="b(right)">
-            <p
-              data-h2-text-align="b(right)"
-              data-h2-font-size="b(normal)"
-              data-h2-font-color="b(lightpurple)"
-            >
-              {context}
-            </p>
-          </div>
-          <div data-h2-flex-item="b(content)">
+          <div
+            data-h2-flex-item="b(content)"
+            data-h2-display="b(flex)"
+            data-h2-align-items="b(center)"
+            data-h2-flex-direction="b(row)"
+            style={{ flexShrink: 0 }}
+          >
+            <p data-h2-font-size="b(normal)">{context}</p>
             {!simple && (
-              <span className="icon" data-h2-text-align="b(left)">
-                {Icon && <Icon height="1.5rem" width="1.5rem" />}
+              <span className="icon" data-h2-margin="b(left, xs)">
+                {Icon && <Icon style={{ width: "1.5rem", height: "1.5rem" }} />}
               </span>
             )}
           </div>

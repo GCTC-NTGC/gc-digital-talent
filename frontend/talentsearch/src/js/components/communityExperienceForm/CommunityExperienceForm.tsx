@@ -1,15 +1,15 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { useWatch } from "react-hook-form";
-import { Input } from "@common/components/form/Input";
-import { Checkbox } from "@common/components/form/Checkbox";
+import Input from "@common/components/form/Input";
+import Checkbox from "@common/components/form/Checkbox";
 import { errorMessages } from "@common/messages";
 
 export const CommunityExperienceForm: React.FunctionComponent = () => {
   const intl = useIntl();
 
   // to toggle whether endDate is required, the state of the current-role checkbox must be monitored and have to adjust the form accordingly
-  const isCurrent = useWatch({ name: "current-role", defaultValue: false });
+  const isCurrent = useWatch({ name: "currentRole" });
   // ensuring endDate isn't before startDate, using this as a minimum value
   const startDate = useWatch({ name: "startDate" });
 
@@ -87,19 +87,25 @@ export const CommunityExperienceForm: React.FunctionComponent = () => {
         </div>
         <div>
           <Checkbox
-            id="current-role"
+            boundingBox
+            boundingBoxLabel={intl.formatMessage({
+              defaultMessage: "Current Role",
+              description:
+                "Label displayed on Community Experience form for current role bounded box",
+            })}
+            id="currentRole"
             label={intl.formatMessage({
               defaultMessage: "I am currently active in this role",
               description:
                 "Label displayed on Community Experience form for current role input",
             })}
-            name="current-role"
+            name="currentRole"
           />
           <div
             data-h2-display="b(flex)"
             data-h2-flex-direction="b(column) s(row)"
           >
-            <div data-h2-padding="b(right, none) s(right, l)">
+            <div data-h2-padding="b(right, none) s(right, s)">
               <Input
                 id="startDate"
                 label={intl.formatMessage({

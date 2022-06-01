@@ -1,0 +1,14 @@
+{
+  "admin": {
+    "first": "Test Admin",
+    "last": "Test Admin",
+    "email": "admin@test.com",
+    "password": "Test123!"
+  },
+  "user": {
+    "first": "Test User",
+    "last": "Test User",
+    "email": "test.user@talent.test",
+    "password": "testpassword"
+  }
+}

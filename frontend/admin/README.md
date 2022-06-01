@@ -8,11 +8,9 @@
 3. Run `npm install` to install dependencies. After the node packages are installed, run `npm rebuild node-sass` incase vendor folder isn't created. (Error: https://github.com/sass/node-sass/issues/1579).
 4. Copy .env.example to .env and configure your local environment. Make sure to add a random string as your APP_KEY and set the API_URL to the GraphQL server's URL.
 5. In `frontend/common`: If you are developing run `npm run h2-compile`. This will provide all the H2 style attributes. If you need a production ready css file then run `npm run h2-build`.
-6. Run `php artisan lighthouse:print-schema --write` inside the /api sibling project, then run `npm run codegen` in this project.
+6. Run `php artisan lighthouse:print-schema --write` inside the /api sibling project, copy the generated file from `/api/storage/app/lighthouse-schema.graphql` to `/frontend/lighthouse-schema.graphql`, then run `npm run codegen` in this project.
 7. Run `npm run dev` which will bundle up our assets.
 8. Visit https://localhost:8080/admin to view page.
-
-9. Run `php artisan passport:client` in the sibling /auth directory (or `docker-compose exec -w /var/www/html/auth php sh -c "php artisan passport:client"` in the /infrastructure directory). Set it to redirect to `http://localhost:8000/auth-callback`. Copy the Client ID and Client secret to OAUTH_ADMIN_CLIENT_ID and OAUTH_ADMIN_CLIENT_SECRET env variables.
 
 # Local Development
 

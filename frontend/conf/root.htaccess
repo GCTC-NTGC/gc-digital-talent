@@ -1,22 +1,19 @@
-DirectorySlash off
+# DirectorySlash off
 
 <IfModule mod_rewrite.c>
     RewriteEngine on
-
     # Strip trailing slash from all urls and redirect back to public url, unless already pointing to a public folder
     RewriteCond %{REQUEST_URI} ^/(.+)/$
     RewriteCond %{REQUEST_URI} !/public/$
     RewriteRule ^ %{ENV:APP_URL}/%1 [L,R=301]
-
     # Send admin requests to admin folder
-    RewriteRule ^admin(/(.*))?$ app/admin/$2 [L]
+    # RewriteRule ^admin(/(.*))?$ admin/$2 [L]
     # Send localized admin requests also to admin folder;
-    RewriteRule ^(en|fr)/admin(/(.*))?$ app/admin/$3 [L]
-
+    RewriteRule ^(en|fr)/admin(/(.*))?$ admin/$3 [L]
     # Send talent requests to talentsearch folder
-    RewriteRule ^talent(/(.*))?$ app/talentsearch/$2 [L]
+    RewriteRule ^talent(/(.*))?$ talentsearch/$2 [L]
     # Send localized talent requests also to talentsearch folder;
-    RewriteRule ^(en|fr)/talent(/(.*))?$ app/talentsearch/$3 [L]
+    RewriteRule ^(en|fr)/talent(/(.*))?$ talentsearch/$3 [L]
 </IfModule>
 
 #<IfModule mod_headers.c>

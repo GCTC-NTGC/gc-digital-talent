@@ -6,27 +6,30 @@ import { getLocale } from "@common/helpers/localize";
 import { errorMessages } from "@common/messages";
 import { TrashIcon } from "@heroicons/react/solid";
 import * as React from "react";
-import { useWatch } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import { useIntl } from "react-intl";
-import { Skill } from "../../../api/generated";
+
+import type { FormSkills } from "../../experienceForm/types";
 
 type FormValues = {
   skills: { [id: string]: { details: string } };
 };
 
 export interface SkillsInDetailProps {
-  skills: Skill[];
-  handleDelete: () => void;
+  skills: FormSkills;
+  onDelete: (id: string) => void;
 }
 
 const SkillsInDetail: React.FunctionComponent<SkillsInDetailProps> = ({
   skills,
-  handleDelete,
+  onDelete,
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
+  const { register } = useForm();
   const watchSkills: FormValues["skills"] = useWatch({ name: "skills" });
-  const MAX_WORDS = 5;
+  const MAX_WORDS = 160;
+
   return (
     <section data-h2-margin="b(bottom, l)">
       <h2 data-h2-font-size="b(h3)">
@@ -88,8 +91,8 @@ const SkillsInDetail: React.FunctionComponent<SkillsInDetailProps> = ({
         data-h2-radius="b(s)"
       >
         {skills.length > 0 ? (
-          skills.map(({ id, name, key }, index) => (
-            <React.Fragment key={key}>
+          skills.map(({ id, name, skillId }, index) => (
+            <React.Fragment key={id}>
               <div
                 data-h2-display="b(flex)"
                 data-h2-justify-content="b(space-between)"
@@ -104,7 +107,9 @@ const SkillsInDetail: React.FunctionComponent<SkillsInDetailProps> = ({
                   data-h2-font-style="b(underline)"
                   data-h2-display="b(flex)"
                   data-h2-align-items="b(center)"
-                  onClick={handleDelete}
+                  onClick={() => {
+                    onDelete(skillId);
+                  }}
                 >
                   <TrashIcon style={{ width: "1rem" }} />
                   <span
@@ -120,8 +125,14 @@ const SkillsInDetail: React.FunctionComponent<SkillsInDetailProps> = ({
                 </Button>
               </div>
               <div>
+                <input
+                  type="hidden"
+                  {...register(`skills.${index}.skillId` as const, {
+                    required: true,
+                  })}
+                />
                 <TextArea
-                  id={`skill-in-detail-${key}`}
+                  id={`skill-in-detail-${id}`}
                   label={intl.formatMessage({
                     defaultMessage: "Skill in detail",
                     description:
@@ -132,7 +143,7 @@ const SkillsInDetail: React.FunctionComponent<SkillsInDetailProps> = ({
                     description:
                       "Placeholder message for textarea in the skills in detail section.",
                   })}
-                  name={`skills.${id}.details`}
+                  name={`skills.${index}.details`}
                   rules={{
                     required: intl.formatMessage(errorMessages.required),
                     validate: {
@@ -146,7 +157,11 @@ const SkillsInDetail: React.FunctionComponent<SkillsInDetailProps> = ({
                 >
                   <div data-h2-align-self="b(flex-end)">
                     <WordCounter
-                      text={watchSkills ? watchSkills[id].details : ""}
+                      text={
+                        watchSkills && watchSkills[index]
+                          ? watchSkills[index].details
+                          : ""
+                      }
                       wordLimit={MAX_WORDS}
                     />
                   </div>

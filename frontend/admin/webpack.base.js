@@ -4,6 +4,7 @@ const CopyPlugin = require("copy-webpack-plugin");
 const TsTransformer = require("@formatjs/ts-transformer");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { DefinePlugin } = require("webpack");
+require('dotenv').config({ path: './.env' });
 
 module.exports = {
   entry: {
@@ -22,7 +23,6 @@ module.exports = {
     new CopyPlugin({
       patterns: [
         { from: "src/images", to: "images" },
-        { from: "src/.htaccess" },
         { from: "src/config.sjs" },
         { from: "src/robots.txt" },
         { from: "src/site.webmanifest" },
@@ -36,8 +36,6 @@ module.exports = {
         ADMIN_APP_URL: JSON.stringify(process.env.ADMIN_APP_URL),
         ADMIN_APP_DIR: JSON.stringify(process.env.ADMIN_APP_DIR),
         BUILD_DATE: JSON.stringify(new Date()),
-        OAUTH_LOGOUT_URI: JSON.stringify(process.env.OAUTH_LOGOUT_URI),
-        OAUTH_POST_LOGOUT_REDIRECT: JSON.stringify(process.env.OAUTH_POST_LOGOUT_REDIRECT),
       },
     }),
 

@@ -9,13 +9,13 @@
   "php.suggest.basic": false,
   "phpcs.standard": "./ruleset.xml",
   "workbench.settings.useSplitJSON": true,
-  "typescript.tsdk": "node_modules/typescript/lib",
+  "typescript.tsdk": "frontend/node_modules/typescript/lib",
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.formatOnSave": false,
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": true
   },
-  "eslint.workingDirectories": ["frontend/admin", "frontend/common", "frontend/talentsearch"],
+  "eslint.workingDirectories": ["frontend/admin", "frontend/common", "frontend/indigenousapprenticeship",  "frontend/talentsearch"],
   "[typescriptreact]": {
     "editor.tabSize": 2
   },
@@ -33,6 +33,10 @@
   },
   "[json]": {
     "editor.tabSize": 2
+  },
+  "[markdown]": {
+    // See: https://github.com/microsoft/vscode/issues/1679
+    "files.trimTrailingWhitespace": false
   },
   "vscode-graphql.useSchemaFileDefinitions": true,
   "cSpell.customDictionaries": {

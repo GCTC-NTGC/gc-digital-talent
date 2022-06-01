@@ -13,6 +13,7 @@ import {
   CreatePoolInput,
   OperationalRequirement,
   Pool,
+  PoolStatus,
   UpdatePoolInput,
   User,
   UserPublicProfile,
@@ -34,7 +35,9 @@ stories.add("Create Pool Form", () => (
     cmoAssets={fakeCmoAssets() as CmoAsset[]}
     users={fakeUsers() as User[]}
     handleCreatePool={async (data: CreatePoolInput) => {
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      await new Promise((resolve) => {
+        setTimeout(resolve, 1000);
+      });
       action("Create Pool")(data);
       return null;
     }}
@@ -60,6 +63,11 @@ stories.add("Update Pool Form", () => {
       OperationalRequirement.DriversLicense,
       OperationalRequirement.OnCall,
     ],
+    keyTasks: {
+      en: "Pool Key Tasks",
+      fr: "Pool Key Tasks FR",
+    },
+    status: PoolStatus.NotTakingApplications,
   };
 
   return (
@@ -69,7 +77,9 @@ stories.add("Update Pool Form", () => {
       initialPool={pool}
       users={fakeUsers() as User[]}
       handleUpdatePool={async (id: string, data: UpdatePoolInput) => {
-        await new Promise((resolve) => setTimeout(resolve, 1000));
+        await new Promise((resolve) => {
+          setTimeout(resolve, 1000);
+        });
         action("Create Pool")(data);
         return null;
       }}

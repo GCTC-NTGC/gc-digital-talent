@@ -8,6 +8,7 @@ query getAboutMe {
     firstName
     lastName
     email
+    isProfileComplete
   }
 }
 
@@ -19,5 +20,7 @@ mutation UpdateUserAsUser($id: ID!, $user: UpdateUserAsUserInput!) {
     telephone
     firstName
     lastName
+    email
+    isProfileComplete
   }
 }

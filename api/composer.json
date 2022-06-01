@@ -16,7 +16,8 @@
         "lcobucci/jwt": "^4.1",
         "mll-lab/graphql-php-scalars": "^5.1",
         "mll-lab/laravel-graphql-playground": "^2.5",
-        "nuwave/lighthouse": "^5.8"
+        "nuwave/lighthouse": "^5.8",
+        "web-token/jwt-core": "^2.2"
     },
     "require-dev": {
         "facade/ignition": "^2.5",

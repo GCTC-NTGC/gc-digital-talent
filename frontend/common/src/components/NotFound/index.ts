@@ -1,2 +1,5 @@
-export { default } from "./NotFound";
-export type { NotFoundProps } from "./NotFound";
+import NotFound from "./NotFound";
+import type { NotFoundProps } from "./NotFound";
+
+export default NotFound;
+export type { NotFoundProps };

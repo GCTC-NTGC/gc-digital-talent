@@ -1,0 +1,14 @@
+{
+  "plugins": [
+    "@babel/plugin-proposal-class-properties",
+    "@babel/plugin-proposal-private-methods"
+  ],
+  "presets": [
+    ["@babel/preset-env", {
+      "useBuiltIns":"usage",
+      "corejs":3.21,
+      "targets":"> 0.5% in CA, last 2 versions, Firefox ESR, not dead, not IE 11"
+   }]
+  ]
+}
+

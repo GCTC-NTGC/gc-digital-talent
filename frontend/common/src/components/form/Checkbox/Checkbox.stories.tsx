@@ -1,7 +1,9 @@
 import React from "react";
 import { Story, Meta } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
-import Checkbox, { CheckboxProps } from ".";
+import Checkbox from ".";
+import type { CheckboxProps } from ".";
+
 import Form from "../BasicForm";
 import Submit from "../Submit";
 
@@ -21,6 +23,7 @@ const TemplateCheckbox: Story<CheckboxProps> = (args) => {
 
 export const IndividualCheckbox = TemplateCheckbox.bind({});
 export const CheckboxWithBoundingBox = TemplateCheckbox.bind({});
+export const CheckboxElementLabel = TemplateCheckbox.bind({});
 
 IndividualCheckbox.args = {
   id: "hasDiploma",
@@ -34,4 +37,10 @@ CheckboxWithBoundingBox.args = {
   ...IndividualCheckbox.args,
   boundingBox: true,
   boundingBoxLabel: "Bounding box label",
+};
+
+CheckboxElementLabel.args = {
+  id: "Red Selection",
+  name: "Red Selection",
+  label: <span data-h2-bg-color="b(red)">Red Selection</span>,
 };

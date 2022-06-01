@@ -5,6 +5,7 @@ import { fakeSkills } from "@common/fakeData";
 import Form from "@common/components/form/BasicForm";
 import Submit from "@common/components/form/Submit";
 import SkillsInDetail, { SkillsInDetailProps } from "./SkillsInDetail";
+import { FormSkills } from "../../experienceForm/types";
 
 export default {
   component: SkillsInDetail,
@@ -34,9 +35,17 @@ NoSkills.args = {
 };
 
 FewSkills.args = {
-  skills: fakeSkills(2),
+  skills: fakeSkills(2).map((skill) => ({
+    skillId: skill.id,
+    name: skill.name,
+    details: skill.experienceSkillRecord?.details || "",
+  })) as FormSkills,
 };
 
 ManySkills.args = {
-  skills: fakeSkills(5),
+  skills: fakeSkills(5).map((skill) => ({
+    skillId: skill.id,
+    name: skill.name,
+    details: skill.experienceSkillRecord?.details || "",
+  })) as FormSkills,
 };

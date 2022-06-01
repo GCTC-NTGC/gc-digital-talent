@@ -1,7 +1,8 @@
 import React from "react";
 import { Story, Meta } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
-import Input, { InputProps } from ".";
+import Input from ".";
+import type { InputProps } from ".";
 import Form from "../BasicForm";
 import Submit from "../Submit";
 import { phoneNumberRegex } from "../../../constants/regularExpressions";
@@ -83,4 +84,18 @@ TelephoneInput.args = {
       message: "This field must follow the pattern +123243234.",
     },
   },
+};
+
+export const ElementLabelText = TemplateInput.bind({});
+
+ElementLabelText.args = {
+  type: "text",
+  id: "firstName",
+  label: <span data-h2-font-weight="b(700)">First name</span>,
+  name: "firstNameElement",
+  rules: {
+    required: "This field is required",
+    maxLength: { value: 50, message: "Too long!" },
+  },
+  context: "Additional context about this field.",
 };

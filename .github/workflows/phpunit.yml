@@ -29,6 +29,7 @@ jobs:
         uses: shivammathur/setup-php@2.17.0
         with:
           php-version: '7.4'
+          extensions: bcmath
 
       - name: Install composer dependencies
         working-directory: api

@@ -1,2 +1,5 @@
-export { default, Fieldset } from "./Fieldset";
-export type { FieldsetProps } from "./Fieldset";
+import Fieldset from "./Fieldset";
+import type { FieldsetProps } from "./Fieldset";
+
+export default Fieldset;
+export type { FieldsetProps };

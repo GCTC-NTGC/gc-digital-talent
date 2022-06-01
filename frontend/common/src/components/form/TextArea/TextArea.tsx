@@ -10,14 +10,14 @@ export interface TextAreaProps
   /** Optional context which user can view by toggling a button. */
   context?: string;
   /** Holds text for the label associated with the input element */
-  label: string;
+  label: string | React.ReactNode;
   /** A string specifying a name for the input control. */
   name: string;
   /** Set of validation rules and error messages to impose on input. */
   rules?: RegisterOptions;
 }
 
-export const TextArea: React.FunctionComponent<TextAreaProps> = ({
+const TextArea: React.FunctionComponent<TextAreaProps> = ({
   id,
   context,
   label,
@@ -46,6 +46,8 @@ export const TextArea: React.FunctionComponent<TextAreaProps> = ({
           data-h2-padding="b(all, xxs)"
           data-h2-radius="b(s)"
           data-h2-border="b(darkgray, all, solid, s)"
+          data-h2-font-size="b(normal)"
+          data-h2-font-family="b(sans)"
           style={{ width: "100%", resize: "vertical" }}
           id={id}
           {...register(name, rules)}

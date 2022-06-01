@@ -31,10 +31,12 @@ module.exports = {
   coverageReporters: ["json", "html"],
   collectCoverageFrom: [
     "src/**/*.{js,jsx,ts,tsx}",
-    "!<rootDir>/node_modules/",
   ],
   coverageDirectory: "tests/coverage",
 
   // Module file extensions for importing
   moduleFileExtensions: ["ts", "tsx", "js", "jsx", "json", "node"],
+
+  verbose: true,
+  setupFilesAfterEnv: ["<rootDir>/tests/setup.js"],
 };

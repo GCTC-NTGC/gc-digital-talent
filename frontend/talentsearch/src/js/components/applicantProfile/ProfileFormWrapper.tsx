@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Breadcrumbs, BreadcrumbsProps } from "@common/components/Breadcrumbs";
+import Breadcrumbs, { BreadcrumbsProps } from "@common/components/Breadcrumbs";
 import { UserIcon } from "@heroicons/react/solid";
 import { useIntl } from "react-intl";
 import { imageUrl } from "@common/helpers/router";
@@ -11,6 +11,7 @@ export interface ProfileFormWrapperProps {
   crumbs: BreadcrumbsProps["links"];
   description: string;
   title: string;
+  cancelLink?: string;
 }
 
 const ProfileFormWrapper: React.FunctionComponent<ProfileFormWrapperProps> = ({
@@ -18,6 +19,7 @@ const ProfileFormWrapper: React.FunctionComponent<ProfileFormWrapperProps> = ({
   description,
   title,
   children,
+  cancelLink,
 }) => {
   const intl = useIntl();
   const profilePath = useApplicantProfileRoutes();
@@ -57,12 +59,12 @@ const ProfileFormWrapper: React.FunctionComponent<ProfileFormWrapperProps> = ({
         data-h2-width="b(100) s(75)"
       >
         <div data-h2-margin="b(top-bottom, l)">
-          <CancelButton link={profilePath.home()} />
+          <CancelButton link={cancelLink} />
         </div>
         <h1
           data-h2-margin="b(all, none)"
           data-h2-font-size="b(h2)"
-          data-h2-font-weight="b(100)"
+          data-h2-font-weight="b(200)"
         >
           {title}
         </h1>

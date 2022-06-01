@@ -256,15 +256,12 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<
             <Input
               id="cmoIdentifier"
               label={intl.formatMessage({
-                defaultMessage: "CMO Identifier",
+                defaultMessage: "Process Number",
                 description:
-                  "Label displayed on the pool candidate form cmo identifier field.",
+                  "Label displayed on the pool candidate form process number field.",
               })}
               type="text"
               name="cmoIdentifier"
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
             />
             <Input
               id="expiryDate"
@@ -361,9 +358,6 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<
                 value,
                 label: intl.formatMessage(getWorkRegion(value)),
               }))}
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
             />
             <MultiSelect
               id="acceptedOperationalRequirements"
@@ -403,9 +397,6 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<
                 value,
                 label: getSalaryRange(value),
               }))}
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
             />
             <MultiSelect
               id="expectedClassifications"
@@ -421,9 +412,6 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<
               })}
               name="expectedClassifications"
               options={classificationOptions}
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
             />
             <MultiSelect
               id="cmoAssets"
@@ -439,9 +427,6 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<
               })}
               name="cmoAssets"
               options={cmoAssetOptions}
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
             />
             <Select
               id="status"

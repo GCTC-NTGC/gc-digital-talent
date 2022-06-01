@@ -23,7 +23,9 @@ const TemplateProfileFormWrapper: Story<
     <ProfileFormWrapper {...args}>
       <BasicForm
         onSubmit={async () => {
-          await new Promise((resolve) => setTimeout(resolve, 1000));
+          await new Promise((resolve) => {
+            setTimeout(resolve, 1000);
+          });
           action("Save Form")();
           return null;
         }}
