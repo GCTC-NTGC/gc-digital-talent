@@ -4,6 +4,7 @@ import { commonMessages } from "@common/messages";
 
 import UserProfile from "@common/components/UserProfile";
 import { useGetUserProfileQuery } from "../../api/generated";
+import AdminAboutSection from "./AdminAboutSection";
 
 const UserProfileApi: React.FunctionComponent<{
   userId: string;
@@ -27,7 +28,10 @@ const UserProfileApi: React.FunctionComponent<{
     <UserProfile
       applicant={userData.applicant}
       sections={{
-        adminAbout: { isVisible: true },
+        about: {
+          isVisible: true,
+          override: <AdminAboutSection applicant={userData.applicant} />,
+        },
         language: { isVisible: true },
         government: { isVisible: true },
         workLocation: { isVisible: true },

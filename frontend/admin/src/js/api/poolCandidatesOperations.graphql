@@ -337,102 +337,113 @@ query getCandidateProfile($id: ID!) {
 }
 query getUserProfile($id: ID!) {
   applicant(id: $id) {
+    id
+    email
+    firstName
+    lastName
+    telephone
+    preferredLang
+    lookingForEnglish
+    lookingForFrench
+    lookingForBilingual
+    bilingualEvaluation
+    comprehensionLevel
+    writtenLevel
+    verbalLevel
+    estimatedLanguageAbility
+    isGovEmployee
+    govEmployeeType
+    interestedInLaterOrSecondment
+    locationPreferences
+    locationExemptions
+    wouldAcceptTemporary
+    acceptedOperationalRequirements
+    isWoman
+    isIndigenous
+    isVisibleMinority
+    hasDisability
+    expectedSalary
+    currentClassification {
       id
-      email
-      firstName
-      lastName
-      telephone
-      preferredLang
-      lookingForEnglish
-      lookingForFrench
-      lookingForBilingual
-      bilingualEvaluation
-      comprehensionLevel
-      writtenLevel
-      verbalLevel
-      estimatedLanguageAbility
-      isGovEmployee
-      govEmployeeType
-      interestedInLaterOrSecondment
-      locationPreferences
-      locationExemptions
-      wouldAcceptTemporary
-      acceptedOperationalRequirements
-      isWoman
-      isIndigenous
-      isVisibleMinority
-      hasDisability
-      expectedSalary
-      currentClassification {
+      group
+      level
+      name {
+        en
+        fr
+      }
+    }
+    experiences {
+      id
+      __typename
+      applicant {
         id
-        group
-        level
+        email
+      }
+      details
+      skills {
+        id
+        key
+        name {
+          en
+          fr
+        }
+        description {
+          en
+          fr
+        }
+        keywords
+        experienceSkillRecord {
+          details
+        }
+      }
+      ... on AwardExperience {
+        title
+        issuedBy
+        awardedDate
+        awardedTo
+        awardedScope
+      }
+      ... on CommunityExperience {
+        title
+        organization
+        project
+        startDate
+        endDate
+      }
+      ... on EducationExperience {
+        institution
+        areaOfStudy
+        thesisTitle
+        startDate
+        endDate
+        type
+        status
+      }
+      ... on PersonalExperience {
+        title
+        description
+        startDate
+        endDate
+      }
+      ... on WorkExperience {
+        role
+        organization
+        division
+        startDate
+        endDate
+      }
+    }
+    poolCandidates {
+      status
+      expiryDate
+      pool {
+        id
         name {
           en
           fr
         }
       }
-      experiences {
-        id
-        __typename
-        applicant {
-          id
-          email
-        }
-        details
-        skills {
-          id
-          key
-          name {
-            en
-            fr
-          }
-          description {
-            en
-            fr
-          }
-          keywords
-          experienceSkillRecord {
-            details
-          }
-        }
-        ... on AwardExperience {
-          title
-          issuedBy
-          awardedDate
-          awardedTo
-          awardedScope
-        }
-        ... on CommunityExperience {
-          title
-          organization
-          project
-          startDate
-          endDate
-        }
-        ... on EducationExperience {
-          institution
-          areaOfStudy
-          thesisTitle
-          startDate
-          endDate
-          type
-          status
-        }
-        ... on PersonalExperience {
-          title
-          description
-          startDate
-          endDate
-        }
-        ... on WorkExperience {
-          role
-          organization
-          division
-          startDate
-          endDate
-
-      }
+      id
     }
   }
 }

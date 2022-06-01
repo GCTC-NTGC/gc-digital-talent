@@ -183,6 +183,7 @@ type Applicant {
 
     # Applicant info
     jobLookingStatus: JobLookingStatus @rename(attribute: "job_looking_status")
+    poolCandidates: [PoolCandidate] @hasMany @can(ability: "viewAny")
 
     hasDiploma: Boolean @rename(attribute: "has_diploma")
     locationPreferences: [WorkRegion] @rename(attribute: "location_preferences")

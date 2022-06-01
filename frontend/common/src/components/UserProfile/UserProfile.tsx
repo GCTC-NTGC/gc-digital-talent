@@ -4,14 +4,17 @@ import {
   ChatAlt2Icon,
   CurrencyDollarIcon,
   InformationCircleIcon,
+  LibraryIcon,
+  LightBulbIcon,
   LightningBoltIcon,
   LocationMarkerIcon,
   ThumbUpIcon,
+  UserGroupIcon,
   UserIcon,
 } from "@heroicons/react/outline";
 
-import { LibraryIcon } from "@heroicons/react/solid";
 import TableOfContents from "../TableOfContents";
+import AboutSection from "./ProfileSections/AboutSection";
 import LanguageInformationSection from "./ProfileSections/LanguageInformationSection";
 import GovernmentInformationSection from "./ProfileSections/GovernmentInformationSection";
 import WorkLocationSection from "./ProfileSections/WorkLocationSection";
@@ -21,29 +24,26 @@ import RoleSalarySection from "./ProfileSections/RoleSalarySection";
 import ExperienceSection from "./ExperienceSection";
 
 import { notEmpty } from "../../helpers/util";
-import { Applicant } from "../../api/generated";
-import AboutSection from "./ProfileSections/AboutSection";
-import AdminAboutSection from "./ProfileSections/AdminAboutSection";
+import type { Applicant } from "../../api/generated";
+import CandidatePoolsSection from "./ProfileSections/CandidatePoolsSection";
 
 interface SectionControl {
   isVisible: boolean;
   editUrl?: string;
+  override?: React.ReactNode;
 }
 
 export interface UserProfileProps {
   applicant: Applicant;
   sections: {
     about?: SectionControl;
-    adminAbout?: SectionControl;
     employmentEquity?: SectionControl;
     government?: SectionControl;
     hiringPools?: SectionControl;
     language?: SectionControl;
     myStatus?: SectionControl;
     roleSalary?: SectionControl;
-    skillsExperience?: SectionControl & {
-      applicantPaths?: Record<string, string>;
-    };
+    skillsExperience?: SectionControl;
     workLocation?: SectionControl;
     workPreferences?: SectionControl;
   };
@@ -80,14 +80,6 @@ const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
         )}
         {showSection("about") && (
           <TableOfContents.AnchorLink id="about-section">
-            {intl.formatMessage({
-              defaultMessage: "About",
-              description: "Title of the About link section",
-            })}
-          </TableOfContents.AnchorLink>
-        )}
-        {showSection("adminAbout") && (
-          <TableOfContents.AnchorLink id="admin-about-section">
             {intl.formatMessage({
               defaultMessage: "About",
               description: "Title of the About link section",
@@ -154,6 +146,38 @@ const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
         )}
       </TableOfContents.Navigation>
       <TableOfContents.Content>
+        {showSection("myStatus") && (
+          <TableOfContents.Section id="status-section">
+            <TableOfContents.Heading
+              icon={LightBulbIcon}
+              style={{ flex: "1 1 0%" }}
+            >
+              {intl.formatMessage({
+                defaultMessage: "My Status",
+                description: "Title of the my status content section",
+              })}
+            </TableOfContents.Heading>
+            {sections.myStatus?.override ? sections.myStatus.override : null}
+          </TableOfContents.Section>
+        )}
+        {showSection("hiringPools") && (
+          <TableOfContents.Section id="pools-section">
+            <TableOfContents.Heading
+              icon={UserGroupIcon}
+              style={{ flex: "1 1 0%" }}
+            >
+              {intl.formatMessage({
+                defaultMessage: "My hiring pools",
+                description: "Title of the my hiring pools content section",
+              })}
+            </TableOfContents.Heading>
+            {sections.hiringPools?.override ? (
+              sections.hiringPools.override
+            ) : (
+              <CandidatePoolsSection applicant={applicant} />
+            )}
+          </TableOfContents.Section>
+        )}
         {showSection("about") && (
           <TableOfContents.Section id="about-section">
             <TableOfContents.Heading icon={UserIcon} style={{ flex: "1 1 0%" }}>
@@ -162,21 +186,14 @@ const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
                 description: "Title of the about content section",
               })}
             </TableOfContents.Heading>
-            <AboutSection
-              applicant={applicant}
-              editPath={sections.about?.editUrl}
-            />
-          </TableOfContents.Section>
-        )}
-        {showSection("adminAbout") && (
-          <TableOfContents.Section id="admin-about-section">
-            <TableOfContents.Heading icon={UserIcon} style={{ flex: "1 1 0%" }}>
-              {intl.formatMessage({
-                defaultMessage: "About",
-                description: "Title of the about content section",
-              })}
-            </TableOfContents.Heading>
-            <AdminAboutSection applicant={applicant} />
+            {sections.about?.override ? (
+              sections.about.override
+            ) : (
+              <AboutSection
+                applicant={applicant}
+                editPath={sections.about?.editUrl}
+              />
+            )}
           </TableOfContents.Section>
         )}
         {showSection("language") && (
@@ -191,7 +208,11 @@ const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
                   "Title of the Language Information content section",
               })}
             </TableOfContents.Heading>
-            <LanguageInformationSection applicant={applicant} />
+            {sections.language?.override ? (
+              sections.language.override
+            ) : (
+              <LanguageInformationSection applicant={applicant} />
+            )}
           </TableOfContents.Section>
         )}
         {showSection("government") && (
@@ -206,7 +227,11 @@ const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
                   "Title of the Government Information content section",
               })}
             </TableOfContents.Heading>
-            <GovernmentInformationSection applicant={applicant} />
+            {sections.government?.override ? (
+              sections.government.override
+            ) : (
+              <GovernmentInformationSection applicant={applicant} />
+            )}
           </TableOfContents.Section>
         )}
         {showSection("workLocation") && (
@@ -220,7 +245,11 @@ const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
                 description: "Title of the Work Location content section",
               })}
             </TableOfContents.Heading>
-            <WorkLocationSection applicant={applicant} />
+            {sections.workLocation?.override ? (
+              sections.workLocation.override
+            ) : (
+              <WorkLocationSection applicant={applicant} />
+            )}
           </TableOfContents.Section>
         )}
         {showSection("workPreferences") && (
@@ -234,7 +263,11 @@ const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
                 description: "Title of the Work Preferences content section",
               })}
             </TableOfContents.Heading>
-            <WorkPreferencesSection applicant={applicant} />
+            {sections.workPreferences?.override ? (
+              sections.workPreferences.override
+            ) : (
+              <WorkPreferencesSection applicant={applicant} />
+            )}
           </TableOfContents.Section>
         )}
         {showSection("employmentEquity") && (
@@ -249,7 +282,11 @@ const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
                   "Title of the Employment Equity Information content section",
               })}
             </TableOfContents.Heading>
-            <DiversityEquityInclusionSection applicant={applicant} />
+            {sections.employmentEquity?.override ? (
+              sections.employmentEquity.override
+            ) : (
+              <DiversityEquityInclusionSection applicant={applicant} />
+            )}
           </TableOfContents.Section>
         )}
         {showSection("roleSalary") && (
@@ -264,7 +301,11 @@ const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
                   "Title of the Role and salary expectations section",
               })}
             </TableOfContents.Heading>
-            <RoleSalarySection applicant={applicant} />
+            {sections.roleSalary?.override ? (
+              sections.roleSalary.override
+            ) : (
+              <RoleSalarySection applicant={applicant} />
+            )}
           </TableOfContents.Section>
         )}
         {showSection("skillsExperience") && (
@@ -279,7 +320,11 @@ const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
                   "Title of the My skills and experience content section",
               })}
             </TableOfContents.Heading>
-            <ExperienceSection experiences={experiences?.filter(notEmpty)} />
+            {sections.skillsExperience?.override ? (
+              sections.skillsExperience.override
+            ) : (
+              <ExperienceSection experiences={experiences?.filter(notEmpty)} />
+            )}
           </TableOfContents.Section>
         )}
       </TableOfContents.Content>
