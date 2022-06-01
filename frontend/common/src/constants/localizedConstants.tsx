@@ -16,6 +16,7 @@ import {
   ProvinceOrTerritory,
   EstimatedLanguageAbility,
   JobLookingStatus,
+  PoolStatus,
 } from "../api/generated";
 import { getOrThrowError } from "../helpers/util";
 
@@ -609,14 +610,6 @@ export const provinceOrTerritory = defineMessages({
   },
 });
 
-export const getProvinceOrTerritory = (
-  provinceOrTerritoryId: string | number,
-): MessageDescriptor =>
-  getOrThrowError(
-    provinceOrTerritory,
-    provinceOrTerritoryId,
-    `Invalid province or territory '${provinceOrTerritoryId}'`,
-  );
 export const JobLookingStatusDescription = defineMessages({
   [JobLookingStatus.ActivelyLooking]: {
     defaultMessage:
@@ -642,4 +635,33 @@ export const getJobLookingStatusDescription = (
     JobLookingStatusDescription,
     jobLookingStatusDescriptionId,
     `Invalid Job Looking  Status '${jobLookingStatusDescriptionId}'`,
+  );
+
+export const getProvinceOrTerritory = (
+  provinceOrTerritoryId: string | number,
+): MessageDescriptor =>
+  getOrThrowError(
+    provinceOrTerritory,
+    provinceOrTerritoryId,
+    `Invalid province or territory '${provinceOrTerritoryId}'`,
+  );
+
+export const poolStatus = defineMessages({
+  [PoolStatus.NotTakingApplications]: {
+    defaultMessage: "Not taking applications",
+    description: "Pool Status described as not taking applications.",
+  },
+  [PoolStatus.TakingApplications]: {
+    defaultMessage: "Taking applications",
+    description: "Pool Status described as taking applications.",
+  },
+});
+
+export const getPoolStatus = (
+  poolStatusId: string | number,
+): MessageDescriptor =>
+  getOrThrowError(
+    poolStatus,
+    poolStatusId,
+    `Invalid Pool Status '${poolStatusId}'`,
   );
