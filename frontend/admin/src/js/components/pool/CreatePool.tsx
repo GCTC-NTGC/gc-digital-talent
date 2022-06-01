@@ -317,9 +317,6 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
                 description:
                   "Label displayed on the pool form key tasks (English) field.",
               })}
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
             />
             <TextArea
               id="keyTasks_fr"
@@ -329,9 +326,6 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
                 description:
                   "Label displayed on the pool form key tasks (French) field.",
               })}
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
             />
             <Select
               id="status"
