@@ -15,7 +15,7 @@ class UpdatePoolsTableWithKeyTasksAndStatus extends Migration
     {
         Schema::table('pools', function (Blueprint $table) {
             $table->jsonb('key_tasks')->nullable(false)->default(json_encode(['en' => '', 'fr' => '']));
-            $table->string('pool_status')->nullable(true);
+            $table->string('pool_status')->nullable(false);
         });
     }
 
