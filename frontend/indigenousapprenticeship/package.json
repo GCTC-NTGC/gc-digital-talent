@@ -114,7 +114,7 @@
     "react-hook-form": "^7.31.3",
     "react-intl": "^6.0.3",
     "react-select": "^5.3.1",
-    "react-toastify": "^9.0.2",
+    "react-toastify": "^9.0.3",
     "regenerator-runtime": "^0.13.9",
     "universal-router": "^9.1.0",
     "urql": "^2.2.0"
