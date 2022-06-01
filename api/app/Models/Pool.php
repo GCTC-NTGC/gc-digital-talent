@@ -18,6 +18,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property array $description
  * @property int $user_id
  * @property array $operational_requirements
+ * @property array $key_tasks
+ * @property array $pool_status
  * @property Illuminate\Support\Carbon $created_at
  * @property Illuminate\Support\Carbon $updated_at
  */
@@ -38,6 +40,7 @@ class Pool extends Model
         'name' => 'array',
         'description' => 'array',
         'operational_requirements' => 'array',
+        'key_tasks' => 'array',
     ];
 
     public function user(): BelongsTo

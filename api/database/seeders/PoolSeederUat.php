@@ -33,6 +33,11 @@ class PoolSeederUat extends Seeder
                     'OVERTIME_SCHEDULED',
                     'OVERTIME_SHORT_NOTICE'
                 ],
+                // 'key_tasks' => [
+                //     'en' => '',
+                //     'fr' => ''
+                // ], // TODO: Replace with real world text.
+                'pool_status' => 'TAKING_APPLICATIONS'
             ]
         );
 
