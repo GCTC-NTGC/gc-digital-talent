@@ -1,7 +1,4 @@
 {
   "extends": "../tsconfig.base.json",
-  "include": [
-    "src/js/**/*",
-    "**/*.config.js"
-, "../common/src/components/UserProfile/LanguageInformationSection.tsx"  ]
+  "include": ["src/js/**/*", "**/*.config.js"]
 }
