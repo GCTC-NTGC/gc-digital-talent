@@ -106,7 +106,7 @@ const LanguageInformationSection: React.FunctionComponent<{
           })}{" "}
           <span data-h2-font-weight="b(700)">
             {intl.formatMessage({
-              defaultMessage: "Yes, completed ENGLISH evaluation",
+              defaultMessage: "Yes, completed English evaluation",
               description: "Completed an English language evaluation",
             })}
           </span>
@@ -121,7 +121,7 @@ const LanguageInformationSection: React.FunctionComponent<{
           })}{" "}
           <span data-h2-font-weight="b(700)">
             {intl.formatMessage({
-              defaultMessage: "Yes, completed FRENCH evaluation",
+              defaultMessage: "Yes, completed French evaluation",
               description: "Completed a French language evaluation",
             })}
           </span>

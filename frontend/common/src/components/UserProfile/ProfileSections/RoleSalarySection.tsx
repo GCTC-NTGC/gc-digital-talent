@@ -1,3 +1,4 @@
+import { getSalaryRange } from "@common/constants";
 import React from "react";
 import { useIntl } from "react-intl";
 import { Applicant } from "../../../api/generated";
@@ -11,7 +12,7 @@ const RoleSalarySection: React.FunctionComponent<{
   const expectedSalaryArray = expectedSalary
     ? expectedSalary.map((es) => (
         <li data-h2-font-weight="b(700)" key={es}>
-          {es || ""}
+          {es ? getSalaryRange(es) : ""}
         </li>
       ))
     : null;
