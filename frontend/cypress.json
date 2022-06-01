@@ -3,7 +3,11 @@
   "reporterOptions": {
     "configFile": "cypress/reporters-config.json"
   },
+  "viewportWidth": 1920,
+  "viewportHeight": 1080,
   "videoCompression": 15,
+  "chromeWebSecurity": true,
   "ignoreTestFiles": "**/examples/*.spec.js",
+  "authServerRoot": "http://localhost:8000/oxauth",
   "baseUrl": "http://localhost:8000"
 }
