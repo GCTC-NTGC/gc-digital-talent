@@ -38,6 +38,7 @@ const Fieldset: React.FC<FieldsetProps> = ({
     <fieldset
       name={name}
       disabled={disabled}
+      aria-required={required ? "true" : undefined}
       style={{
         border: "0 none",
         padding: "0",
