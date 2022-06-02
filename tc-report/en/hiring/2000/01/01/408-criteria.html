@@ -1,799 +1,793 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>GC Talent | Optimizing the Number of Selection Criteria</title>
-        <meta
-            name="description"
-            content="Talent Cloud is an experimental staffing solution created by the Government of Canada. Read our experiment's results report here!"
-        />
-        <!-- Google Tag Manager -->
-        <script>
-            (function (w, d, s, l, i) {
-                w[l] = w[l] || [];
-                w[l].push({
-                    "gtm.start": new Date().getTime(),
-                    event: "gtm.js",
-                });
-                var f = d.getElementsByTagName(s)[0],
-                    j = d.createElement(s),
-                    dl = l != "dataLayer" ? "&l=" + l : "";
-                j.async = true;
-                j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
-                f.parentNode.insertBefore(j, f);
-            })(window, document, "script", "dataLayer", "GTM-P27NF5V");
-        </script>
-        <!-- End Google Tag Manager -->
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GC Talent | Optimizing the Number of Selection Criteria</title>
+  <meta name="description" content="Talent Cloud is an experimental staffing solution created by the Government of Canada. Read our experiment's results report here!">
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-P27NF5V');</script>
+    <!-- End Google Tag Manager -->
 
-        <!-- Global site tag (gtag.js) - Google Analytics -->
-        <script
-            async
-            src="https://www.googletagmanager.com/gtag/js?id=UA-115747902-1"
-        ></script>
-        <script>
-            window.dataLayer = window.dataLayer || [];
-            function gtag() {
-                dataLayer.push(arguments);
-            }
-            gtag("js", new Date());
-            gtag("config", "UA-115747902-1", {
-                cookie_flags: "secure",
-            });
-        </script>
-        <!-- Favicons -->
-        <link
-            rel="apple-touch-icon"
-            sizes="180x180"
-            href="/apple-touch-icon.png"
-        />
-        <link
-            rel="icon"
-            type="image/png"
-            sizes="32x32"
-            href="/favicon-32x32.png"
-        />
-        <link
-            rel="icon"
-            type="image/png"
-            sizes="16x16"
-            href="/favicon-16x16.png"
-        />
-        <link rel="manifest" href="/site.webmanifest" />
-        <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
-        <meta name="msapplication-TileColor" content="#da532c" />
-        <meta name="theme-color" content="#ffffff" />
-        <!-- Google Fonts -->
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link
-            href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap"
-            rel="stylesheet"
-        />
-        <!-- Hydrogen CSS -->
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script
+        async
+        src="https://www.googletagmanager.com/gtag/js?id=UA-115747902-1">
+    </script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-115747902-1', {
+          cookie_flags: 'secure'
+        });
+    </script>
+  <!-- Favicons -->
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap" rel="stylesheet">
+  <!-- Hydrogen CSS -->
+  
+    <!-- <link rel="stylesheet" href="/assets/css/hydrogen-tc.css"> -->
+    <link rel="stylesheet" href="/assets/css/hydrogen.css">
+  
+  <!-- App CSS -->
+  <link rel="stylesheet" href="/assets/css/app.css">
+</head>
 
-        <!-- <link rel="stylesheet" href="/assets/css/hydrogen-tc.css"> -->
-        <link rel="stylesheet" href="/assets/css/hydrogen.css" />
-
-        <!-- App CSS -->
-        <link rel="stylesheet" href="/assets/css/app.css" />
-    </head>
-
-    <body data-h2-font-family="b(sans)">
-        <a href="#mainContent" title="" class="skip-link"
-            >Skip to Main Content</a
+  <body data-h2-font-family="b(sans)">
+    <a href="#mainContent" title="" class="skip-link">Skip to Main Content</a>
+    <div data-h2-border="b([light]gray, bottom, solid, s)" >
+  <div data-h2-container="b(center, full)" data-h2-padding="b(top-bottom, s)">
+    <div data-h2-flex-grid="b(middle, expanded, flush, s)">
+      <div data-h2-flex-item="m(1of2)" data-h2-text-align="b(center) m(left)">
+        <a
+          data-h2-display="b(inline-block)"
+          style="max-width: 15rem; width: 100%;"
+          href="https://canada.ca/"
+          target="_blank"
+          title="Visit canada.ca."
+          rel="noopener noreferrer"
         >
-        <div data-h2-border="b([light]gray, bottom, solid, s)">
-            <div
-                data-h2-container="b(center, full)"
-                data-h2-padding="b(top-bottom, s)"
-            >
-                <div data-h2-flex-grid="b(middle, expanded, flush, s)">
-                    <div
-                        data-h2-flex-item="m(1of2)"
-                        data-h2-text-align="b(center) m(left)"
-                    >
-                        <a
-                            data-h2-display="b(inline-block)"
-                            style="max-width: 15rem; width: 100%"
-                            href="https://canada.ca/"
-                            target="_blank"
-                            title="Visit canada.ca."
-                            rel="noopener noreferrer"
-                        >
-                            <img
-                                data-h2-
-                                alt="goc logo"
-                                src="/assets/img/ui-goc.svg"
-                        /></a>
-                    </div>
-                    <div
-                        data-h2-flex-item="m(1of2)"
-                        data-h2-text-align="b(center) m(right)"
-                    >
-                        <a
-                            href="/fr/hiring/2000/01/01/408-criteria.html"
-                            title="Voir ce contenu en français."
-                            >Français</a
-                        >
-                    </div>
-                </div>
-            </div>
-        </div>
+          <img data-h2- alt="goc logo" src="/assets/img/ui-goc.svg"
+        /></a>
+      </div>
+      <div data-h2-flex-item="m(1of2)" data-h2-text-align="b(center) m(right)">
+         
+        <a href="/fr/hiring/2000/01/01/408-criteria.html" title="Voir ce contenu en français.">Français</a>
+        
+      </div>
+    </div>
+  </div>
+</div>
 
-        <div data-h2-container="b(center, full)">
-            <nav data-h2-padding="b(top-bottom, m)">
-                <ul
-                    class="reset-ul"
-                    data-h2-padding="b(all, none)"
-                    data-h2-margin="b(all, none)"
-                    data-h2-text-align="b(center) m(left)"
-                    style="margin-left: -0.7rem"
-                >
-                    <li
-                        data-h2-margin="b(all, none)"
-                        data-h2-padding="b(all, none)"
-                        data-h2-display="b(inline-block)"
-                    >
-                        <a
-                            href="/en/"
-                            title="Visit the GC Talent homepage."
-                            data-h2-display="b(block)"
-                            data-h2-padding="b(all, xs) m(right-left, s)"
-                            >Home</a
-                        >
-                    </li>
+<div data-h2-container="b(center, full)" >
+  <nav data-h2-padding="b(top-bottom, m)">
+    <ul class="reset-ul" data-h2-padding="b(all, none)" data-h2-margin="b(all, none)" data-h2-text-align="b(center) m(left)" style="margin-left: -.7rem;">
+      
+        <li data-h2-margin="b(all, none)" data-h2-padding="b(all, none)" data-h2-display="b(inline-block)">
+          <a href="/en/" title="Visit the GC Talent homepage."
+            
+            data-h2-display="b(block)"
+            data-h2-padding="b(all, xs) m(right-left, s)">Home</a>
+        </li>
+      
+        <li data-h2-margin="b(all, none)" data-h2-padding="b(all, none)" data-h2-display="b(inline-block)">
+          <a href="/en/talent-cloud/" title="Learn more about the Talent Cloud project."
+            
+            data-h2-display="b(block)"
+            data-h2-padding="b(all, xs) m(right-left, s)">Talent Cloud</a>
+        </li>
+      
+        <li data-h2-margin="b(all, none)" data-h2-padding="b(all, none)" data-h2-display="b(inline-block)">
+          <a href="/en/communities/digital-talent/" title="Learn more about the Digital Talent community."
+            
+            data-h2-display="b(block)"
+            data-h2-padding="b(all, xs) m(right-left, s)">Digital Talent</a>
+        </li>
+      
+    </ul>
+  </nav>
+</div>
+<section>
+  <div
+    data-h2-container="b(center, full)"
+    data-h2-text-align="b(center)">
+    
+    <h1
+  data-h2-font-weight="b(800)"
+  data-h2-font-size="b(h1)"
+  data-h2-padding='b(top, l) l(top, xxl) b(bottom, xxs)'
+  style="letter-spacing: -3px"
+  
+>
+  Talent Cloud Results Report
+</h1>
 
-                    <li
-                        data-h2-margin="b(all, none)"
-                        data-h2-padding="b(all, none)"
-                        data-h2-display="b(inline-block)"
-                    >
-                        <a
-                            href="/en/talent-cloud/"
-                            title="Learn more about the Talent Cloud project."
-                            data-h2-display="b(block)"
-                            data-h2-padding="b(all, xs) m(right-left, s)"
-                            >Talent Cloud</a
-                        >
-                    </li>
+    <div id="breadcrumbs" data-h2-margin="b(top-bottom, m)" >
+  
+  <a href="/en" title="Return to the homepage.">GC Talent</a>
+  <!-- If the page layout is post then use this breadcrumb list. -->
+  
+    / <a href="/en/talent-cloud" title="Return to the Talent Cloud page.">Talent Cloud</a>
+    / <a href="/en/talent-cloud/report" title="Return to the Talent Cloud results report.">Talent Cloud Resu...</a>
+    / <span>Section 4</span>
+    / <span data-h2-font-weight="b(800)">Optimizing the Nu...</span>
+  
+</div>
+  </div>
+</section>
+<header 
+  class="post-header"
+  id="mainContent"
+  style="background-image: url('/assets/img/4.8-tx-heading.png');"
+  data-h2-margin="b(top, xl)">
+  <div 
+    data-h2-container="b(center, m)" 
+    data-h2-font-color="b(white)"
+    data-h2-padding="b(top, l) b(bottom, xl) l(top, xl) l(bottom, xxl)"
+    data-h2-text-align="b(center)">
+    <h2
+  
+  data-h2-font-weight="b(200)"
+  data-h2-font-size="b(h2)"
+  
+  data-h2-padding='b(top, m)'
+  
+  
+  style="letter-spacing: -2px;">
+  Optimizing the Number of Selection Criteria
+</h2>
+    
+  </div>
+</header>
+<main data-h2-padding="b(top-bottom, xs) l(top-bottom, xl)" style="background-color: #F8F8F8;">
+  <div data-h2-container="b(center, s)">
+    
+      
+        
+          <!-- Titles -->
+          <h3
+  
+  data-h2-font-weight="b(800)"
+  data-h2-font-size="b(h3)"
+  data-h2-margin='b(top, xl) b(bottom, s)'
+  
+  style="letter-spacing: -1px;">
+  The Problem
+</h3>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>Every externally advertised position in the Government of Canada includes a list of selection criteria (or requirements) which lay out the skills and experience an applicant needs to demonstrate in order to be considered for the position. These selection criteria fall into both essential (required) and asset (nice to have).</p>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>Getting the selection criteria right is critical to the success of the staffing process. All applicants must be assessed against each of the essential criteria, so adding too many could lead to job competitions with many steps for applicants to complete. On the other hand, the list of essential criteria is also the first filter managers have to keep unqualified people from applying. So too few essential criteria and managers may find themselves with a very large number of applicants, and an insufficient way to distinguish who will be the best choice for the position. So the stakes are pretty high for getting the selection criteria right.</p>
+        
+      
+    
+      
+        
+          <!-- Titles -->
+          <h3
+  
+  data-h2-font-weight="b(800)"
+  data-h2-font-size="b(h3)"
+  data-h2-margin='b(top, xl) b(bottom, s)'
+  
+  style="letter-spacing: -1px;">
+  The Hypotheses
+</h3>
+        
+      
+    
+      
+        
+          
+            <ol>
+              
+                <li>There will be an optimal number of selection criteria in terms of producing a hire.</li>
+              
+                <li>There will be an optimal number of selection criteria in terms of reducing time to staff.</li>
+              
+                <li>More people will apply to job advertisements when there are fewer essential criteria (or requirements).</li>
+              
+                <li>Adding more essential criteria will increase the overall time to staff.</li>
+              
+                <li>Adding more selection criteria in total will increase the overall time to staff.</li>
+              
+                <li>With the right interventions, managers can be guided to adopt a targeted number of selection criteria (essential and asset) for their job advertisements. We need to be able to guide managers to use an optimal number of essential criteria, or there will be no benefit from uncovering it.</li>
+              
+            </ol>
+          
+        
+      
+    
+      
+        
+          <!-- Titles -->
+          <h3
+  
+  data-h2-font-weight="b(800)"
+  data-h2-font-size="b(h3)"
+  data-h2-margin='b(top, xl) b(bottom, s)'
+  
+  style="letter-spacing: -1px;">
+  The Experiment
+</h3>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>For all staffing competitions advertised on Talent Cloud we kept track of key data including:</p>
+        
+      
+    
+      
+        
+          
+            <ul>
+              
+                <li>Number of essential criteria</li>
+              
+                <li>Number of asset criteria</li>
+              
+                <li>Total number of selection criteria (essential + asset)</li>
+              
+                <li>Number of applicants</li>
+              
+                <li>Number of assessments</li>
+              
+                <li>Success of hiring process</li>
+              
+                <li>Time to staff</li>
+              
+            </ul>
+          
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>The correlations between these data points is what we are interested in for testing our hypotheses. In addition, we added a few different platform interventions to see if we could influence the number of essential criteria managers used.</p>
+        
+      
+    
+      
+        
+          <!-- Pullquotes -->
+          <blockquote
+            data-h2-border="b(red, left, solid, m)"
+            data-h2-margin="b(top-bottom, xl)"
+            data-h2-padding="b(left, m)">
+            
+            
+              <p data-h2-font-color="b(red)">"When choosing selection criteria, it can be difficult to decide how many is too many... and how many is not enough."</p>
+            
+          </blockquote>
+        
+      
+    
+      
+        
+          <!-- Titles -->
+          <h3
+  
+  data-h2-font-weight="b(800)"
+  data-h2-font-size="b(h3)"
+  data-h2-margin='b(top, xl) b(bottom, s)'
+  
+  style="letter-spacing: -1px;">
+  Platform Interventions
+</h3>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>We never blocked a job advertisement from going on the site because of too many essential criteria. In fact, in the first year of the live platform, we deliberately provided no direct guidance to managers on how many selection criteria to use, while we studied behaviours, choices, and outcomes. (This caused a fair number of failed processes.)</p>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>After the first year, we added information for managers in the instructions for the job advertisement tools, drawing on the data from failed vs. successful job processes.</p>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>When we eventually launched our Job Advertisement Builder we added some of these nudges into the platform. We knew it would be tempting for managers to keep adding skills, especially when they are only a click away, so we built in real-time feedback to let managers know when they were within the targeted number of essential skills. Based on the behavioural sciences at the time, we went with numbers, emojis and colour indicators (based on the standard stoplight red-orange-green).</p>
+        
+      
+    
+      
+        
+          <figure data-h2-margin="b(top-bottom, l)">
+            <!-- Graphics -->
+            
+              <img 
+                src="/assets/img/4.8-en-smiley.png"
+                alt="A screenshot of an experimental nudge on the job post builder tool that uses smiley icons to indicate whether the number of criteria selected by the manager meets an optiminal value. The interface offers feedback for both the number of essential skills, as well as the total number of skills on the poster (including assets). The nudge is broken into 5 tiers, starting with "Too few" and finishing with "Too many." The nudge aims to steer managers into the optimal range at the center, labelled as "Awesome"."
+                style="width: 100%;"
+                data-h2-display="b(block)"
+                data-h2-radius="b(s)"
+                data-h2-border="b(gray, all, solid, s)">
+                
+            
+          </figure>
+        
+      
+    
+      
+        
+          <!-- Titles -->
+          <h3
+  
+  data-h2-font-weight="b(800)"
+  data-h2-font-size="b(h3)"
+  data-h2-margin='b(top, xl) b(bottom, s)'
+  
+  style="letter-spacing: -1px;">
+  The Results
+</h3>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>This was one of the most complex experiments to unpack what we were seeing because of the number of factors involved. Here’s what we think we’re seeing, but ultimately a much larger study with a larger sample size will be required to validate these findings:</p>
+        
+      
+    
+      
+        
+          
+            <ul>
+              
+                <li>There is an intersecting relationship between the number of selection criteria (essential and asset), the number of assessment steps, the length of each assessment step, the number of applicants the job advertisement attracts, the success rate of the hire, and the overall time to staff.</li>
+              
+                <li>Processes with fewer selection criteria attracted a higher number of applicants. This increased the time to staff at the initial screening stage of the hiring process.</li>
+              
+                <li>As the number of selection criteria increased (essential and asset), managers added additional assessment steps. This increased the time to staff at the assessment stage of the hiring process, and in the development time for assessment materials. (We found, on average, each essential criteria was assessed in at least two ways by the hiring manager, and assets were assessed in 1-2 ways.)</li>
+              
+                <li><strong style="letter-spacing: -1px;" data-h2-font-weight="b(800)" data-h2-font-color="b(purple)">We found no correlation between the number of selection criteria and the overall time to staff.</strong> We suspect that as the number of selection criteria changes, factors impacting time to staff (volume of applicants, number of assessment steps, manager energy levels and enthusiasm) may counteract each other to negate any time savings.</li>
+              
+                <li>Processes with more than 8 essential criteria failed to attract the number of applicants required to leave a sufficient number of top applicants in the process after the assessment stage. Effectively, it left a single top applicant in the process, and if that person left, the hiring process failed. (See diagrams on the hiring funnel in Optimizing the Volume of Applications in this section of the report.)</li>
+              
+                <li>Processes with fewer than 4 essential criteria weren’t tested on the platform. While it’s possible that 1-3 essential criteria may produce a strong hire, it’s difficult to take into account the skill requirements associated with a 5 factor match (hard and soft skills) with fewer than 4 essential criteria. Based on the selection criteria chosen by managers, we believe it would not be possible to run an effective 5 factor match with 3 or fewer essential criteria (although this might be desirable for large generic pools of talent).</li>
+              
+                <li><strong style="letter-spacing: -1px;" data-h2-font-weight="b(800)" data-h2-font-color="b(purple)">We did find a correlation between the number of essential criteria and the chance of a successful hiring outcome. Based on the overall balance of all these factors, our recommendation for the optimal range of essential criteria is 4-6, and no more than 8 selection criteria in total (essential + asset combined).</strong> That means, if a manager wants a lot of essential criteria, they will need to have few assets.</li>
+              
+                <li>The number of asset criteria had no bearing on the results. But the number of essential criteria mattered. There appeared to be a range where the number of essential criteria yielded more success. A manager with 5 essential criteria appeared to be as successful as a manager with 6 or 7 essential criteria, as long as they all had no more than 8 selection criteria in total. (Managers with 4 essential criteria fared the best, but the sample size was very small.)</li>
+              
+                <li>We were successfully able to design platform interventions that nudged managers to adopt these target ranges for the number of selection criteria, which had a positive impact on the overall results for hiring outcome.</li>
+              
+                <li><strong style="letter-spacing: -1px;" data-h2-font-weight="b(800)" data-h2-font-color="b(purple)">Managers don’t necessarily like the nudges that behavioural scientists think are effective.</strong> The presence of a guidance tool was applauded by managers, as was the interactivity in terms of feedback when they added or reduced the number of criteria. But ultimately, they simply didn’t like having to work with a tool that had smiley and sad faces. On the nudges themselves, we conclude that the colours and the number range are valuable, but next time we’d swap out the emojis for something a little more subtle. (Of course, then we’d have to test and see if it still worked…)</li>
+              
+            </ul>
+          
+        
+      
+    
+      
+        
+          <!-- Titles -->
+          <h3
+  
+  data-h2-font-weight="b(800)"
+  data-h2-font-size="b(h3)"
+  data-h2-margin='b(top, xl) b(bottom, s)'
+  
+  style="letter-spacing: -1px;">
+  Insights
+</h3>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>These findings represent weak signals, but they would likely be worth pursuing with a larger study. In that context, it’s important to point out that Talent Cloud uses selection criteria made up of a single skill, whereas other platforms sometimes use selection criteria made up of multi-component experience requirements. This could impact an applicant’s perception of whether or not a selection criteria was really one requirement or several described together. Any future study would need to take this into account.</p>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>Regardless of the results of the research on the optimal number of selection criteria, we found that the inclusion of nudges was surprisingly effective in changing manager behaviour patterns. Our nudges combined numbers with emotional and colour indicators, and were interactive, so as the manager changed the number of essential and asset criteria, the nudge was updated to reflect this change. The usefulness of this addition to the platform could have broader implications for changing manager behaviours in other types of platforms as well.</p>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>We also found that when it comes to designing selection criteria, HR advisors remain an invaluable resource for managers.</p>
+        
+      
+    
+  </div>
+</main>
+<section style="background-color: #F8F8F8;">
+  <div data-h2-container="b(center, s)" data-h2-padding="b(bottom, l) l(bottom, xxl)">
+    <div data-h2-flex-grid="b(top, expanded, flush, m)">
+      <div
+        data-h2-text-align="b(center) m(left)" 
+        data-h2-flex-item="b(1of2)">
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            
+              <a class="prev" href="/en/2000/01/01/407-volume.html" title="Go to the previous article in the series.">
+                <svg data-h2-margin="b(right, xxs)" 
+                  style="width: 1rem; vertical-align: middle;" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="#c90035">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M15 19l-7-7 7-7" />
+                </svg>Previous Article</a>
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      </div>
+      <div 
+        data-h2-text-align="b(center) m(right)"   
+        data-h2-flex-item="b(1of2)">
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            
+              <a class="next" href="/en/2000/01/01/409-priority.html" title="Go to the next article in the series.">Next Article<svg data-h2-margin="b(left, xxs)" 
+                style="width: 1rem; vertical-align: middle;" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="#c90035">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M9 5l7 7-7 7" />
+                </svg></a>
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      </div>
+    </div>
+    <p
+      data-h2-margin="b(top, xxl)" 
+      data-h2-text-align="b(center)"
+      data-h2-font-size="b(caption)">
+      <a href="/en/talent-cloud/report/#toc" title="Return to Table of Contents">Return to Table of Contents</a>
+    </p>
+  </div>
+</section>
+<section data-h2-border="b([light]gray, top, solid, s)" data-h2-position="b(relative)" style="background: rgba(240, 240, 240, 1)" data-h2-overflow="b(x, hidden)">
+  <footer data-h2-container="b(center, full)" data-h2-padding="b(top-bottom, l)">
+    <div data-h2-flex-grid="b(middle, expanded, flush, xl)">
+      <div
+        data-h2-flex-item="b(1of1) m(1of2)"
+        data-h2-padding="b(left, xl)"
+        data-h2-text-align="b(center) m(left)">
+        
+          <nav>
+            <ul
+              style="gap: 1rem;"
+              class="reset-ul"
+              data-h2-display="b(flex)"
+              data-h2-flex-wrap="b(wrap)"
+              data-h2-justify-content="b(center) m(flex-start)"
+              data-h2-margin="b(bottom, xs)">
+              
+              <li data-h2-display="b(inline-block)" data-h2-margin="b(top-bottom, none)">
+                
+                  <a href="mailto:talent.cloud-nuage.de.talents@tbs-sct.gc.ca" title="Submit feedback to GC Talent Cloud via email.">Feedback</a>
+                
+              </li>
+              
+              <li data-h2-display="b(inline-block)" data-h2-margin="b(top-bottom, none)">
+                
+                  <a href="/en/terms-and-conditions" title="View our terms and conditions.">Terms & Conditions</a>
+                
+              </li>
+              
+              <li data-h2-display="b(inline-block)" data-h2-margin="b(top-bottom, none)">
+                
+                  <a href="/en/privacy-notice" title="View our privacy policy.">Privacy Policy</a>
+                
+              </li>
+              
+              <li data-h2-display="b(inline-block)" data-h2-margin="b(top-bottom, none)">
+                
+                  <a href="/en/https://www.canada.ca/en.html" title="Visit Canada.ca.">Canada.ca</a>
+                
+              </li>
+              
+            </ul>
+          </nav>
+          <p 
+            data-h2-font-size="b(caption)"
+            data-h2-font-color="b(black)" 
+            data-h2-margin="b(bottom, none) b(top, m)">
+            Date Modified: July 07, 2021
+          </p>
+        
+      </div>
+      <div
+        data-h2-flex-item="b(1of1) m(1of2)"
+        data-h2-padding="b(right, xl)"
+        data-h2-text-align="b(center) m(right)">
+        <a
+          href="https://www.canada.ca/en.html"
+          title="Visit Canada.ca."
+          target="_blank"
+          rel="noopener noreferrer">
+          <img
+            class="canada-logo"
+            src="/assets/img/ui-canada.png"
+            alt="Canada's Logo."/>
+        </a>
+      </div>
+    </div>
+  </footer>
+</section>
 
-                    <li
-                        data-h2-margin="b(all, none)"
-                        data-h2-padding="b(all, none)"
-                        data-h2-display="b(inline-block)"
-                    >
-                        <a
-                            href="/en/communities/digital-talent/"
-                            title="Learn more about the Digital Talent community."
-                            data-h2-display="b(block)"
-                            data-h2-padding="b(all, xs) m(right-left, s)"
-                            >Digital Talent</a
-                        >
-                    </li>
-                </ul>
-            </nav>
-        </div>
-        <section>
-            <div
-                data-h2-container="b(center, full)"
-                data-h2-text-align="b(center)"
-            >
-                <h1
-                    data-h2-font-weight="b(800)"
-                    data-h2-font-size="b(h1)"
-                    data-h2-padding="b(top, l) l(top, xxl) b(bottom, xxs)"
-                    style="letter-spacing: -3px"
-                >
-                    Talent Cloud Results Report
-                </h1>
-
-                <div id="breadcrumbs" data-h2-margin="b(top-bottom, m)">
-                    <a href="/en" title="Return to the homepage.">GC Talent</a>
-                    <!-- If the page layout is post then use this breadcrumb list. -->
-
-                    /
-                    <a
-                        href="/en/talent-cloud"
-                        title="Return to the Talent Cloud page."
-                        >Talent Cloud</a
-                    >
-                    /
-                    <a
-                        href="/en/talent-cloud/report"
-                        title="Return to the Talent Cloud results report."
-                        >Talent Cloud Resu...</a
-                    >
-                    / <span>Section 4</span> /
-                    <span data-h2-font-weight="b(800)"
-                        >Optimizing the Nu...</span
-                    >
-                </div>
-            </div>
-        </section>
-        <header
-            class="post-header"
-            id="mainContent"
-            style="background-image: url('/assets/img/4.8-tx-heading.png')"
-            data-h2-margin="b(top, xl)"
-        >
-            <div
-                data-h2-container="b(center, m)"
-                data-h2-font-color="b(white)"
-                data-h2-padding="b(top, l) b(bottom, xl) l(top, xl) l(bottom, xxl)"
-                data-h2-text-align="b(center)"
-            >
-                <h2
-                    data-h2-font-weight="b(200)"
-                    data-h2-font-size="b(h2)"
-                    data-h2-padding="b(top, m)"
-                    style="letter-spacing: -2px"
-                >
-                    Optimizing the Number of Selection Criteria
-                </h2>
-            </div>
-        </header>
-        <main
-            data-h2-padding="b(top-bottom, xs) l(top-bottom, xl)"
-            style="background-color: #f8f8f8"
-        >
-            <div data-h2-container="b(center, s)">
-                <!-- Titles -->
-                <h3
-                    data-h2-font-weight="b(800)"
-                    data-h2-font-size="b(h3)"
-                    data-h2-margin="b(top, xl) b(bottom, s)"
-                    style="letter-spacing: -1px"
-                >
-                    The Problem
-                </h3>
-
-                <!-- Basic Content -->
-                <p>
-                    Every externally advertised position in the Government of
-                    Canada includes a list of selection criteria (or
-                    requirements) which lay out the skills and experience an
-                    applicant needs to demonstrate in order to be considered for
-                    the position. These selection criteria fall into both
-                    essential (required) and asset (nice to have).
-                </p>
-
-                <!-- Basic Content -->
-                <p>
-                    Getting the selection criteria right is critical to the
-                    success of the staffing process. All applicants must be
-                    assessed against each of the essential criteria, so adding
-                    too many could lead to job competitions with many steps for
-                    applicants to complete. On the other hand, the list of
-                    essential criteria is also the first filter managers have to
-                    keep unqualified people from applying. So too few essential
-                    criteria and managers may find themselves with a very large
-                    number of applicants, and an insufficient way to distinguish
-                    who will be the best choice for the position. So the stakes
-                    are pretty high for getting the selection criteria right.
-                </p>
-
-                <!-- Titles -->
-                <h3
-                    data-h2-font-weight="b(800)"
-                    data-h2-font-size="b(h3)"
-                    data-h2-margin="b(top, xl) b(bottom, s)"
-                    style="letter-spacing: -1px"
-                >
-                    The Hypotheses
-                </h3>
-
-                <ol>
-                    <li>
-                        There will be an optimal number of selection criteria in
-                        terms of producing a hire.
-                    </li>
-
-                    <li>
-                        There will be an optimal number of selection criteria in
-                        terms of reducing time to staff.
-                    </li>
-
-                    <li>
-                        More people will apply to job advertisements when there
-                        are fewer essential criteria (or requirements).
-                    </li>
-
-                    <li>
-                        Adding more essential criteria will increase the overall
-                        time to staff.
-                    </li>
-
-                    <li>
-                        Adding more selection criteria in total will increase
-                        the overall time to staff.
-                    </li>
-
-                    <li>
-                        With the right interventions, managers can be guided to
-                        adopt a targeted number of selection criteria (essential
-                        and asset) for their job advertisements. We need to be
-                        able to guide managers to use an optimal number of
-                        essential criteria, or there will be no benefit from
-                        uncovering it.
-                    </li>
-                </ol>
-
-                <!-- Titles -->
-                <h3
-                    data-h2-font-weight="b(800)"
-                    data-h2-font-size="b(h3)"
-                    data-h2-margin="b(top, xl) b(bottom, s)"
-                    style="letter-spacing: -1px"
-                >
-                    The Experiment
-                </h3>
-
-                <!-- Basic Content -->
-                <p>
-                    For all staffing competitions advertised on Talent Cloud we
-                    kept track of key data including:
-                </p>
-
-                <ul>
-                    <li>Number of essential criteria</li>
-
-                    <li>Number of asset criteria</li>
-
-                    <li>
-                        Total number of selection criteria (essential + asset)
-                    </li>
-
-                    <li>Number of applicants</li>
-
-                    <li>Number of assessments</li>
-
-                    <li>Success of hiring process</li>
-
-                    <li>Time to staff</li>
-                </ul>
-
-                <!-- Basic Content -->
-                <p>
-                    The correlations between these data points is what we are
-                    interested in for testing our hypotheses. In addition, we
-                    added a few different platform interventions to see if we
-                    could influence the number of essential criteria managers
-                    used.
-                </p>
-
-                <!-- Pullquotes -->
-                <blockquote
-                    data-h2-border="b(red, left, solid, m)"
-                    data-h2-margin="b(top-bottom, xl)"
-                    data-h2-padding="b(left, m)"
-                >
-                    <p data-h2-font-color="b(red)">
-                        "When choosing selection criteria, it can be difficult
-                        to decide how many is too many... and how many is not
-                        enough."
-                    </p>
-                </blockquote>
-
-                <!-- Titles -->
-                <h3
-                    data-h2-font-weight="b(800)"
-                    data-h2-font-size="b(h3)"
-                    data-h2-margin="b(top, xl) b(bottom, s)"
-                    style="letter-spacing: -1px"
-                >
-                    Platform Interventions
-                </h3>
-
-                <!-- Basic Content -->
-                <p>
-                    We never blocked a job advertisement from going on the site
-                    because of too many essential criteria. In fact, in the
-                    first year of the live platform, we deliberately provided no
-                    direct guidance to managers on how many selection criteria
-                    to use, while we studied behaviours, choices, and outcomes.
-                    (This caused a fair number of failed processes.)
-                </p>
-
-                <!-- Basic Content -->
-                <p>
-                    After the first year, we added information for managers in
-                    the instructions for the job advertisement tools, drawing on
-                    the data from failed vs. successful job processes.
-                </p>
-
-                <!-- Basic Content -->
-                <p>
-                    When we eventually launched our Job Advertisement Builder we
-                    added some of these nudges into the platform. We knew it
-                    would be tempting for managers to keep adding skills,
-                    especially when they are only a click away, so we built in
-                    real-time feedback to let managers know when they were
-                    within the targeted number of essential skills. Based on the
-                    behavioural sciences at the time, we went with numbers,
-                    emojis and colour indicators (based on the standard
-                    stoplight red-orange-green).
-                </p>
-
-                <figure data-h2-margin="b(top-bottom, l)">
-                    <!-- Graphics -->
-
-                    <img src="/assets/img/4.8-en-smiley.png" alt="A screenshot
-                    of an experimental nudge on the job post builder tool that
-                    uses smiley icons to indicate whether the number of criteria
-                    selected by the manager meets an optiminal value. The
-                    interface offers feedback for both the number of essential
-                    skills, as well as the total number of skills on the poster
-                    (including assets). The nudge is broken into 5 tiers,
-                    starting with "Too few" and finishing with "Too many." The
-                    nudge aims to steer managers into the optimal range at the
-                    center, labelled as "Awesome"." style="width: 100%;"
-                    data-h2-display="b(block)" data-h2-radius="b(s)"
-                    data-h2-border="b(gray, all, solid, s)">
-                </figure>
-
-                <!-- Titles -->
-                <h3
-                    data-h2-font-weight="b(800)"
-                    data-h2-font-size="b(h3)"
-                    data-h2-margin="b(top, xl) b(bottom, s)"
-                    style="letter-spacing: -1px"
-                >
-                    The Results
-                </h3>
-
-                <!-- Basic Content -->
-                <p>
-                    This was one of the most complex experiments to unpack what
-                    we were seeing because of the number of factors involved.
-                    Here’s what we think we’re seeing, but ultimately a much
-                    larger study with a larger sample size will be required to
-                    validate these findings:
-                </p>
-
-                <ul>
-                    <li>
-                        There is an intersecting relationship between the number
-                        of selection criteria (essential and asset), the number
-                        of assessment steps, the length of each assessment step,
-                        the number of applicants the job advertisement attracts,
-                        the success rate of the hire, and the overall time to
-                        staff.
-                    </li>
-
-                    <li>
-                        Processes with fewer selection criteria attracted a
-                        higher number of applicants. This increased the time to
-                        staff at the initial screening stage of the hiring
-                        process.
-                    </li>
-
-                    <li>
-                        As the number of selection criteria increased (essential
-                        and asset), managers added additional assessment steps.
-                        This increased the time to staff at the assessment stage
-                        of the hiring process, and in the development time for
-                        assessment materials. (We found, on average, each
-                        essential criteria was assessed in at least two ways by
-                        the hiring manager, and assets were assessed in 1-2
-                        ways.)
-                    </li>
-
-                    <li>
-                        <strong
-                            style="letter-spacing: -1px"
-                            data-h2-font-weight="b(800)"
-                            data-h2-font-color="b(purple)"
-                            >We found no correlation between the number of
-                            selection criteria and the overall time to
-                            staff.</strong
-                        >
-                        We suspect that as the number of selection criteria
-                        changes, factors impacting time to staff (volume of
-                        applicants, number of assessment steps, manager energy
-                        levels and enthusiasm) may counteract each other to
-                        negate any time savings.
-                    </li>
-
-                    <li>
-                        Processes with more than 8 essential criteria failed to
-                        attract the number of applicants required to leave a
-                        sufficient number of top applicants in the process after
-                        the assessment stage. Effectively, it left a single top
-                        applicant in the process, and if that person left, the
-                        hiring process failed. (See diagrams on the hiring
-                        funnel in Optimizing the Volume of Applications in this
-                        section of the report.)
-                    </li>
-
-                    <li>
-                        Processes with fewer than 4 essential criteria weren’t
-                        tested on the platform. While it’s possible that 1-3
-                        essential criteria may produce a strong hire, it’s
-                        difficult to take into account the skill requirements
-                        associated with a 5 factor match (hard and soft skills)
-                        with fewer than 4 essential criteria. Based on the
-                        selection criteria chosen by managers, we believe it
-                        would not be possible to run an effective 5 factor match
-                        with 3 or fewer essential criteria (although this might
-                        be desirable for large generic pools of talent).
-                    </li>
-
-                    <li>
-                        <strong
-                            style="letter-spacing: -1px"
-                            data-h2-font-weight="b(800)"
-                            data-h2-font-color="b(purple)"
-                            >We did find a correlation between the number of
-                            essential criteria and the chance of a successful
-                            hiring outcome. Based on the overall balance of all
-                            these factors, our recommendation for the optimal
-                            range of essential criteria is 4-6, and no more than
-                            8 selection criteria in total (essential + asset
-                            combined).</strong
-                        >
-                        That means, if a manager wants a lot of essential
-                        criteria, they will need to have few assets.
-                    </li>
-
-                    <li>
-                        The number of asset criteria had no bearing on the
-                        results. But the number of essential criteria mattered.
-                        There appeared to be a range where the number of
-                        essential criteria yielded more success. A manager with
-                        5 essential criteria appeared to be as successful as a
-                        manager with 6 or 7 essential criteria, as long as they
-                        all had no more than 8 selection criteria in total.
-                        (Managers with 4 essential criteria fared the best, but
-                        the sample size was very small.)
-                    </li>
-
-                    <li>
-                        We were successfully able to design platform
-                        interventions that nudged managers to adopt these target
-                        ranges for the number of selection criteria, which had a
-                        positive impact on the overall results for hiring
-                        outcome.
-                    </li>
-
-                    <li>
-                        <strong
-                            style="letter-spacing: -1px"
-                            data-h2-font-weight="b(800)"
-                            data-h2-font-color="b(purple)"
-                            >Managers don’t necessarily like the nudges that
-                            behavioural scientists think are effective.</strong
-                        >
-                        The presence of a guidance tool was applauded by
-                        managers, as was the interactivity in terms of feedback
-                        when they added or reduced the number of criteria. But
-                        ultimately, they simply didn’t like having to work with
-                        a tool that had smiley and sad faces. On the nudges
-                        themselves, we conclude that the colours and the number
-                        range are valuable, but next time we’d swap out the
-                        emojis for something a little more subtle. (Of course,
-                        then we’d have to test and see if it still worked…)
-                    </li>
-                </ul>
-
-                <!-- Titles -->
-                <h3
-                    data-h2-font-weight="b(800)"
-                    data-h2-font-size="b(h3)"
-                    data-h2-margin="b(top, xl) b(bottom, s)"
-                    style="letter-spacing: -1px"
-                >
-                    Insights
-                </h3>
-
-                <!-- Basic Content -->
-                <p>
-                    These findings represent weak signals, but they would likely
-                    be worth pursuing with a larger study. In that context, it’s
-                    important to point out that Talent Cloud uses selection
-                    criteria made up of a single skill, whereas other platforms
-                    sometimes use selection criteria made up of multi-component
-                    experience requirements. This could impact an applicant’s
-                    perception of whether or not a selection criteria was really
-                    one requirement or several described together. Any future
-                    study would need to take this into account.
-                </p>
-
-                <!-- Basic Content -->
-                <p>
-                    Regardless of the results of the research on the optimal
-                    number of selection criteria, we found that the inclusion of
-                    nudges was surprisingly effective in changing manager
-                    behaviour patterns. Our nudges combined numbers with
-                    emotional and colour indicators, and were interactive, so as
-                    the manager changed the number of essential and asset
-                    criteria, the nudge was updated to reflect this change. The
-                    usefulness of this addition to the platform could have
-                    broader implications for changing manager behaviours in
-                    other types of platforms as well.
-                </p>
-
-                <!-- Basic Content -->
-                <p>
-                    We also found that when it comes to designing selection
-                    criteria, HR advisors remain an invaluable resource for
-                    managers.
-                </p>
-            </div>
-        </main>
-        <section style="background-color: #f8f8f8">
-            <div
-                data-h2-container="b(center, s)"
-                data-h2-padding="b(bottom, l) l(bottom, xxl)"
-            >
-                <div data-h2-flex-grid="b(top, expanded, flush, m)">
-                    <div
-                        data-h2-text-align="b(center) m(left)"
-                        data-h2-flex-item="b(1of2)"
-                    >
-                        <a
-                            class="prev"
-                            href="/en/2000/01/01/407-volume.html"
-                            title="Go to the previous article in the series."
-                        >
-                            <svg
-                                data-h2-margin="b(right, xxs)"
-                                style="width: 1rem; vertical-align: middle"
-                                xmlns="http://www.w3.org/2000/svg"
-                                class="h-6 w-6"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="#c90035"
-                            >
-                                <path
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="4"
-                                    d="M15 19l-7-7 7-7"
-                                /></svg
-                            >Previous Article</a
-                        >
-                    </div>
-                    <div
-                        data-h2-text-align="b(center) m(right)"
-                        data-h2-flex-item="b(1of2)"
-                    >
-                        <a
-                            class="next"
-                            href="/en/2000/01/01/409-priority.html"
-                            title="Go to the next article in the series."
-                            >Next Article<svg
-                                data-h2-margin="b(left, xxs)"
-                                style="width: 1rem; vertical-align: middle"
-                                xmlns="http://www.w3.org/2000/svg"
-                                class="h-6 w-6"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="#c90035"
-                            >
-                                <path
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="4"
-                                    d="M9 5l7 7-7 7"
-                                /></svg
-                        ></a>
-                    </div>
-                </div>
-                <p
-                    data-h2-margin="b(top, xxl)"
-                    data-h2-text-align="b(center)"
-                    data-h2-font-size="b(caption)"
-                >
-                    <a
-                        href="/en/talent-cloud/report/#toc"
-                        title="Return to Table of Contents"
-                        >Return to Table of Contents</a
-                    >
-                </p>
-            </div>
-        </section>
-        <section
-            data-h2-border="b([light]gray, top, solid, s)"
-            data-h2-position="b(relative)"
-            style="background: rgba(240, 240, 240, 1)"
-            data-h2-overflow="b(x, hidden)"
-        >
-            <footer
-                data-h2-container="b(center, full)"
-                data-h2-padding="b(top-bottom, l)"
-            >
-                <div data-h2-flex-grid="b(middle, expanded, flush, xl)">
-                    <div
-                        data-h2-flex-item="b(1of1) m(1of2)"
-                        data-h2-padding="b(left, xl)"
-                        data-h2-text-align="b(center) m(left)"
-                    >
-                        <nav>
-                            <ul
-                                style="gap: 1rem"
-                                class="reset-ul"
-                                data-h2-display="b(flex)"
-                                data-h2-flex-wrap="b(wrap)"
-                                data-h2-justify-content="b(center) m(flex-start)"
-                                data-h2-margin="b(bottom, xs)"
-                            >
-                                <li
-                                    data-h2-display="b(inline-block)"
-                                    data-h2-margin="b(top-bottom, none)"
-                                >
-                                    <a
-                                        href="mailto:talent.cloud-nuage.de.talents@tbs-sct.gc.ca"
-                                        title="Submit feedback to GC Talent Cloud via email."
-                                        >Feedback</a
-                                    >
-                                </li>
-
-                                <li
-                                    data-h2-display="b(inline-block)"
-                                    data-h2-margin="b(top-bottom, none)"
-                                >
-                                    <a
-                                        href="/en/terms-and-conditions"
-                                        title="View our terms and conditions."
-                                        >Terms & Conditions</a
-                                    >
-                                </li>
-
-                                <li
-                                    data-h2-display="b(inline-block)"
-                                    data-h2-margin="b(top-bottom, none)"
-                                >
-                                    <a
-                                        href="/en/privacy-notice"
-                                        title="View our privacy policy."
-                                        >Privacy Policy</a
-                                    >
-                                </li>
-
-                                <li
-                                    data-h2-display="b(inline-block)"
-                                    data-h2-margin="b(top-bottom, none)"
-                                >
-                                    <a
-                                        href="https://www.canada.ca/en.html"
-                                        title="Visit Canada.ca."
-                                        >Canada.ca</a
-                                    >
-                                </li>
-                            </ul>
-                        </nav>
-                        <p
-                            data-h2-font-size="b(caption)"
-                            data-h2-font-color="b(black)"
-                            data-h2-margin="b(bottom, none) b(top, m)"
-                        >
-                            Date Modified: July 07, 2021
-                        </p>
-                    </div>
-                    <div
-                        data-h2-flex-item="b(1of1) m(1of2)"
-                        data-h2-padding="b(right, xl)"
-                        data-h2-text-align="b(center) m(right)"
-                    >
-                        <a
-                            href="https://www.canada.ca/en.html"
-                            title="Visit Canada.ca."
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            <img
-                                class="canada-logo"
-                                src="/assets/img/ui-canada.png"
-                                alt="Canada's Logo."
-                            />
-                        </a>
-                    </div>
-                </div>
-            </footer>
-        </section>
-
-        <script type="text/javascript" src="/assets/js/app.js"></script>
-    </body>
+    <script type="text/javascript" src="/assets/js/app.js"></script>
+  </body>
 </html>

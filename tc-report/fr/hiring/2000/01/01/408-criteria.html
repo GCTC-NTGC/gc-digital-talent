@@ -1,835 +1,793 @@
 <!DOCTYPE html>
 <html lang="fr">
-    <head>
-        <meta charset="utf-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>
-            GC Talent | Optimisation du nombre de critères de sélection
-        </title>
-        <meta
-            name="description"
-            content="Talent Cloud is an experimental staffing solution created by the Government of Canada. Read our experiment's results report here!"
-        />
-        <!-- Google Tag Manager -->
-        <script>
-            (function (w, d, s, l, i) {
-                w[l] = w[l] || [];
-                w[l].push({
-                    "gtm.start": new Date().getTime(),
-                    event: "gtm.js",
-                });
-                var f = d.getElementsByTagName(s)[0],
-                    j = d.createElement(s),
-                    dl = l != "dataLayer" ? "&l=" + l : "";
-                j.async = true;
-                j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
-                f.parentNode.insertBefore(j, f);
-            })(window, document, "script", "dataLayer", "GTM-P27NF5V");
-        </script>
-        <!-- End Google Tag Manager -->
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GC Talent | Optimisation du nombre de critères de sélection</title>
+  <meta name="description" content="Talent Cloud is an experimental staffing solution created by the Government of Canada. Read our experiment's results report here!">
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-P27NF5V');</script>
+    <!-- End Google Tag Manager -->
 
-        <!-- Global site tag (gtag.js) - Google Analytics -->
-        <script
-            async
-            src="https://www.googletagmanager.com/gtag/js?id=UA-115747902-1"
-        ></script>
-        <script>
-            window.dataLayer = window.dataLayer || [];
-            function gtag() {
-                dataLayer.push(arguments);
-            }
-            gtag("js", new Date());
-            gtag("config", "UA-115747902-1", {
-                cookie_flags: "secure",
-            });
-        </script>
-        <!-- Favicons -->
-        <link
-            rel="apple-touch-icon"
-            sizes="180x180"
-            href="/apple-touch-icon.png"
-        />
-        <link
-            rel="icon"
-            type="image/png"
-            sizes="32x32"
-            href="/favicon-32x32.png"
-        />
-        <link
-            rel="icon"
-            type="image/png"
-            sizes="16x16"
-            href="/favicon-16x16.png"
-        />
-        <link rel="manifest" href="/site.webmanifest" />
-        <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
-        <meta name="msapplication-TileColor" content="#da532c" />
-        <meta name="theme-color" content="#ffffff" />
-        <!-- Google Fonts -->
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link
-            href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap"
-            rel="stylesheet"
-        />
-        <!-- Hydrogen CSS -->
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script
+        async
+        src="https://www.googletagmanager.com/gtag/js?id=UA-115747902-1">
+    </script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-115747902-1', {
+          cookie_flags: 'secure'
+        });
+    </script>
+  <!-- Favicons -->
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap" rel="stylesheet">
+  <!-- Hydrogen CSS -->
+  
+    <!-- <link rel="stylesheet" href="/assets/css/hydrogen-tc.css"> -->
+    <link rel="stylesheet" href="/assets/css/hydrogen.css">
+  
+  <!-- App CSS -->
+  <link rel="stylesheet" href="/assets/css/app.css">
+</head>
 
-        <!-- <link rel="stylesheet" href="/assets/css/hydrogen-tc.css"> -->
-        <link rel="stylesheet" href="/assets/css/hydrogen.css" />
-
-        <!-- App CSS -->
-        <link rel="stylesheet" href="/assets/css/app.css" />
-    </head>
-
-    <body data-h2-font-family="b(sans)">
-        <a href="#mainContent" title="" class="skip-link"
-            >Skip to Main Content</a
+  <body data-h2-font-family="b(sans)">
+    <a href="#mainContent" title="" class="skip-link">Skip to Main Content</a>
+    <div data-h2-border="b([light]gray, bottom, solid, s)" >
+  <div data-h2-container="b(center, full)" data-h2-padding="b(top-bottom, s)">
+    <div data-h2-flex-grid="b(middle, expanded, flush, s)">
+      <div data-h2-flex-item="m(1of2)" data-h2-text-align="b(center) m(left)">
+        <a
+          data-h2-display="b(inline-block)"
+          style="max-width: 15rem; width: 100%;"
+          href="https://canada.ca/"
+          target="_blank"
+          title="Visit canada.ca."
+          rel="noopener noreferrer"
         >
-        <div data-h2-border="b([light]gray, bottom, solid, s)">
-            <div
-                data-h2-container="b(center, full)"
-                data-h2-padding="b(top-bottom, s)"
-            >
-                <div data-h2-flex-grid="b(middle, expanded, flush, s)">
-                    <div
-                        data-h2-flex-item="m(1of2)"
-                        data-h2-text-align="b(center) m(left)"
-                    >
-                        <a
-                            data-h2-display="b(inline-block)"
-                            style="max-width: 15rem; width: 100%"
-                            href="https://canada.ca/"
-                            target="_blank"
-                            title="Visit canada.ca."
-                            rel="noopener noreferrer"
-                        >
-                            <img
-                                data-h2-
-                                alt="goc logo"
-                                src="/assets/img/ui-goc.svg"
-                        /></a>
-                    </div>
-                    <div
-                        data-h2-flex-item="m(1of2)"
-                        data-h2-text-align="b(center) m(right)"
-                    >
-                        <a
-                            href="/en/hiring/2000/01/01/408-criteria.html"
-                            title="View this content in English."
-                            >English</a
-                        >
-                    </div>
-                </div>
-            </div>
-        </div>
+          <img data-h2- alt="goc logo" src="/assets/img/ui-goc.svg"
+        /></a>
+      </div>
+      <div data-h2-flex-item="m(1of2)" data-h2-text-align="b(center) m(right)">
+         
+        <a href="/en/hiring/2000/01/01/408-criteria.html" title="View this content in English.">English</a>
+        
+      </div>
+    </div>
+  </div>
+</div>
 
-        <div data-h2-container="b(center, full)">
-            <nav data-h2-padding="b(top-bottom, m)">
-                <ul
-                    class="reset-ul"
-                    data-h2-padding="b(all, none)"
-                    data-h2-margin="b(all, none)"
-                    data-h2-text-align="b(center) m(left)"
-                    style="margin-left: -0.7rem"
-                >
-                    <li
-                        data-h2-margin="b(all, none)"
-                        data-h2-padding="b(all, none)"
-                        data-h2-display="b(inline-block)"
-                    >
-                        <a
-                            href="/fr/"
-                            title="Visitez la page d'accueil de GC Talent."
-                            data-h2-display="b(block)"
-                            data-h2-padding="b(all, xs) m(right-left, s)"
-                            >Accueil</a
-                        >
-                    </li>
+<div data-h2-container="b(center, full)" >
+  <nav data-h2-padding="b(top-bottom, m)">
+    <ul class="reset-ul" data-h2-padding="b(all, none)" data-h2-margin="b(all, none)" data-h2-text-align="b(center) m(left)" style="margin-left: -.7rem;">
+      
+        <li data-h2-margin="b(all, none)" data-h2-padding="b(all, none)" data-h2-display="b(inline-block)">
+          <a href="/fr/" title="Visitez la page d'accueil de GC Talent."
+            
+            data-h2-display="b(block)"
+            data-h2-padding="b(all, xs) m(right-left, s)">Accueil</a>
+        </li>
+      
+        <li data-h2-margin="b(all, none)" data-h2-padding="b(all, none)" data-h2-display="b(inline-block)">
+          <a href="/fr/talent-cloud/" title="En savoir plus sur le projet Nuage de talents."
+            
+            data-h2-display="b(block)"
+            data-h2-padding="b(all, xs) m(right-left, s)">Nuage de talents</a>
+        </li>
+      
+        <li data-h2-margin="b(all, none)" data-h2-padding="b(all, none)" data-h2-display="b(inline-block)">
+          <a href="/fr/communities/digital-talent/" title="En savoir plus sur la communauté des talents numériques."
+            
+            data-h2-display="b(block)"
+            data-h2-padding="b(all, xs) m(right-left, s)">Talent numérique</a>
+        </li>
+      
+    </ul>
+  </nav>
+</div>
+<section>
+  <div
+    data-h2-container="b(center, full)"
+    data-h2-text-align="b(center)">
+    
+    <h1
+  data-h2-font-weight="b(800)"
+  data-h2-font-size="b(h1)"
+  data-h2-padding='b(top, l) l(top, xxl) b(bottom, xxs)'
+  style="letter-spacing: -3px"
+  
+>
+  Rapport sur les résultats de Nuage de talents
+</h1>
 
-                    <li
-                        data-h2-margin="b(all, none)"
-                        data-h2-padding="b(all, none)"
-                        data-h2-display="b(inline-block)"
-                    >
-                        <a
-                            href="/fr/talent-cloud/"
-                            title="En savoir plus sur le projet Nuage de talents."
-                            data-h2-display="b(block)"
-                            data-h2-padding="b(all, xs) m(right-left, s)"
-                            >Nuage de talents</a
-                        >
-                    </li>
+    <div id="breadcrumbs" data-h2-margin="b(top-bottom, m)" >
+  
+  <a href="/fr" title="Retour à la page d'accueil.">GC Talent</a>
+  <!-- If the page layout is post then use this breadcrumb list. -->
+  
+    / <a href="/fr/talent-cloud" title="Retournez à la page de Nuage de talents.">Nuage de talents</a>
+    / <a href="/fr/talent-cloud/report" title="Retournez au rapport des résultats de Nuage de talents.">Rapport sur les r...</a>
+    / <span>Section 4</span>
+    / <span data-h2-font-weight="b(800)">Optimisation du n...</span>
+  
+</div>
+  </div>
+</section>
+<header 
+  class="post-header"
+  id="mainContent"
+  style="background-image: url('/assets/img/4.8-tx-heading.png');"
+  data-h2-margin="b(top, xl)">
+  <div 
+    data-h2-container="b(center, m)" 
+    data-h2-font-color="b(white)"
+    data-h2-padding="b(top, l) b(bottom, xl) l(top, xl) l(bottom, xxl)"
+    data-h2-text-align="b(center)">
+    <h2
+  
+  data-h2-font-weight="b(200)"
+  data-h2-font-size="b(h2)"
+  
+  data-h2-padding='b(top, m)'
+  
+  
+  style="letter-spacing: -2px;">
+  Optimisation du nombre de critères de sélection
+</h2>
+    
+  </div>
+</header>
+<main data-h2-padding="b(top-bottom, xs) l(top-bottom, xl)" style="background-color: #F8F8F8;">
+  <div data-h2-container="b(center, s)">
+    
+      
+        
+          <!-- Titles -->
+          <h3
+  
+  data-h2-font-weight="b(800)"
+  data-h2-font-size="b(h3)"
+  data-h2-margin='b(top, xl) b(bottom, s)'
+  
+  style="letter-spacing: -1px;">
+  Le problème
+</h3>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>Tous les postes annoncés à l’externe du gouvernement du Canada comprennent une liste de critères de sélection (exigences) qui établit les compétences et l’expérience dont les candidats doivent témoigner pour que leur candidature soit examinée. Ces critères de sélection se divisent en deux catégories : les critères essentiels (requis) et les atouts (utiles).</p>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>Établir les bons critères de sélection est crucial au succès du processus de dotation. Tous les candidats doivent être évalués en fonction de chaque critère essentiel. Un trop grand nombre de critères essentiels peut mener à des concours où les candidats doivent se soumettre à plusieurs étapes. De l’autre côté, la liste des critères essentiels constitue le premier filtre utilisé par les gestionnaires pour éviter les candidatures de personnes non qualifiées. Autrement dit, les gestionnaires qui emploient un nombre insuffisant de critères essentiels sont susceptibles de se retrouver avec un très grand nombre de candidats, sans posséder de moyen efficace pour la meilleure personne pour le poste. Le choix des bons critères de sélection est donc un enjeu assez important.</p>
+        
+      
+    
+      
+        
+          <!-- Titles -->
+          <h3
+  
+  data-h2-font-weight="b(800)"
+  data-h2-font-size="b(h3)"
+  data-h2-margin='b(top, xl) b(bottom, s)'
+  
+  style="letter-spacing: -1px;">
+  Les hypothèses
+</h3>
+        
+      
+    
+      
+        
+          
+            <ol>
+              
+                <li>Il existe un nombre optimal de critères de sélection permettant d’aboutir à une embauche.</li>
+              
+                <li>Il existe un nombre optimal de critères de sélection permettant de réduire la durée du processus de dotation.</li>
+              
+                <li>Un plus grand nombre de personnes déposent leur candidature lorsqu’il y a moins de critères essentiels (exigences).</li>
+              
+                <li>L’ajout de critères essentiels entraîne une augmentation générale de la durée du processus de dotation.</li>
+              
+                <li>L’augmentation du nombre total de critères de sélection entraîne une augmentation générale de la durée du processus de dotation.</li>
+              
+                <li>Avec les bonnes interventions, il est possible d’orienter les gestionnaires afin que ceux-ci adoptent un nombre ciblé de critères de sélection (essentiels et atout) dans la production de leurs annonces d’emploi. Nous devons parvenir à orienter les gestionnaires vers l’usage du nombre optimal de critères essentiels, sans quoi il ne sert à rien de le déterminer.</li>
+              
+            </ol>
+          
+        
+      
+    
+      
+        
+          <!-- Titles -->
+          <h3
+  
+  data-h2-font-weight="b(800)"
+  data-h2-font-size="b(h3)"
+  data-h2-margin='b(top, xl) b(bottom, s)'
+  
+  style="letter-spacing: -1px;">
+  L’expérience
+</h3>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>Le suivi des données clés a été assuré pour tous les concours de dotation publiés sur le Nuage de talents, notamment :</p>
+        
+      
+    
+      
+        
+          
+            <ul>
+              
+                <li>le nombre de critères essentiels;</li>
+              
+                <li>le nombre de critères constituant un atout;</li>
+              
+                <li>le nombre total de critères de sélection (essentiel et atout);</li>
+              
+                <li>le nombre de candidats;</li>
+              
+                <li>le nombre d’évaluations;</li>
+              
+                <li>le succès du processus d’embauche;</li>
+              
+                <li>la durée du processus de dotation.</li>
+              
+            </ul>
+          
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>C’est aux corrélations entre ces points de données que l’on s’intéresse pour la mise à l’essai des hypothèses. De plus, différentes interventions ont été faites sur la plateforme afin de vérifier s’il est possible d’influencer le nombre de critères essentiels utilisés par les gestionnaires.</p>
+        
+      
+    
+      
+        
+          <!-- Pullquotes -->
+          <blockquote
+            data-h2-border="b(red, left, solid, m)"
+            data-h2-margin="b(top-bottom, xl)"
+            data-h2-padding="b(left, m)">
+            
+            
+              <p data-h2-font-color="b(red)">« Au moment de choisir les critères de sélection, il peut être difficile de déterminer combien, c’est trop… et combien, ce n’est pas assez. »</p>
+            
+          </blockquote>
+        
+      
+    
+      
+        
+          <!-- Titles -->
+          <h3
+  
+  data-h2-font-weight="b(800)"
+  data-h2-font-size="b(h3)"
+  data-h2-margin='b(top, xl) b(bottom, s)'
+  
+  style="letter-spacing: -1px;">
+  Interventions sur la plateforme
+</h3>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>Jamais la publication d’une annonce d’emploi sur le site n’a été bloquée en raison d’un nombre trop élevé de critères essentiels. Même que, pour la première année de la plateforme en direct, il a été décidé délibérément qu’aucune directive ne serait fournie directement aux gestionnaires concernant le nombre de critères de sélection à utiliser, afin d’étudier les comportements, les choix et les résultats (cela a entraîné l’échec d’un bon nombre de processus).</p>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>Après la première année, des renseignements à l’intention des gestionnaires ont été ajoutés aux instructions des outils pour la publication d’annonces d’emploi. Ces renseignements étaient fondés sur les données tirées des processus de dotation qui ont réussi, par rapport aux processus qui ont échoué.</p>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>Après la première année, des renseignements à l’intention des gestionnaires ont été ajoutés aux instructions des outils pour la publication d’annonces d’emploi. Ces renseignements étaient fondés sur les données tirées des processus de dotation qui ont réussi, par rapport aux processus qui ont échoué.</p>
+        
+      
+    
+      
+        
+          <figure data-h2-margin="b(top-bottom, l)">
+            <!-- Graphics -->
+            
+              <img 
+                src="/assets/img/4.8-fr-smiley.png"
+                alt="Une saisie d’écran d’un élément expérimental de l’outil de création d’une annonce d’emploi qui utilise des émoticônes y pour indiquer si le nombre de critères sélectionnés par le gestionnaire répond à une valeur optimale. L’interface offre des commentaires pour le nombre de compétences essentielles, ainsi que le nombre total de compétences sur l’affiche (y compris les actifs). Le nuage est divisé en 5 niveaux, commençant par « Trop peu » et se terminant par « Beaucoup trop ». L’objectif est d’orienter les gestionnaires dans la gamme optimale au centre, étiqueté « Formidable »."
+                style="width: 100%;"
+                data-h2-display="b(block)"
+                data-h2-radius="b(s)"
+                data-h2-border="b(gray, all, solid, s)">
+                
+            
+          </figure>
+        
+      
+    
+      
+        
+          <!-- Titles -->
+          <h3
+  
+  data-h2-font-weight="b(800)"
+  data-h2-font-size="b(h3)"
+  data-h2-margin='b(top, xl) b(bottom, s)'
+  
+  style="letter-spacing: -1px;">
+  Les résultats
+</h3>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>La présente étude fut l’une des expériences les plus complexes que les chercheurs ont eu à analyser, en raison du nombre de facteurs en jeu. Voici les renseignements qu’ils estiment avoir dégagés, bien qu’une étude de bien plus grande envergure comportant un échantillon beaucoup plus large sera ultimement nécessaire pour en valider les constatations :</p>
+        
+      
+    
+      
+        
+          
+            <ul>
+              
+                <li>Il y a une relation transversale entre le nombre de critères de sélection (essentiels et atouts), le nombre d’étapes d’évaluation, la longueur de chacune de ces étapes, le nombre de candidats attirés par l’annonce d’emploi, le taux de réussite de l’embauche et la durée générale du processus de dotation.</li>
+              
+                <li>Les processus comportant moins de critères de sélection attirent un nombre plus élevé de candidats. Cela entraîne une augmentation du temps consacré à la phase de sélection initiale du processus d’embauche.</li>
+              
+                <li>Plus le nombre de critères de sélection augmente (essentiels et atouts), plus les gestionnaires ajoutent d’étapes d’évaluation. Cela entraîne une augmentation du temps consacré à la phase d’évaluation du processus d’embauche, ainsi que du temps consacré à l’élaboration des documents d’évaluation (il a été déterminé qu’en moyenne, chaque critère essentiel est évalué d’au moins deux façons par le gestionnaire d’embauche; les atouts sont évalués d’une ou deux façons).</li>
+              
+                <li><strong style="letter-spacing: -1px;" data-h2-font-weight="b(800)" data-h2-font-color="b(purple)">Aucune corrélation n’a été constatée entre le nombre de critères de sélection et la durée générale du processus de dotation.</strong> Il est théorisé que les facteurs ayant une incidence sur la durée du processus de dotation (le nombre de candidats, le nombre d’étapes d’évaluation, le niveau d’énergie et d’enthousiasme du gestionnaire) pourraient s’équilibrer selon la fluctuation du nombre de critères de sélection et ainsi annuler les économies de temps.</li>
+              
+                <li>Les processus comportant plus de 8 critères essentiels n’ont pas réussi à attirer le nombre de candidats nécessaires pour obtenir un bassin suffisant de candidats qualifiés à l’issue de la phase d’évaluation. Concrètement, il ne restait alors qu’un seul candidat qualifié, dont le départ entraînerait l’échec du processus d’embauche (consulter l’entonnoir de recrutement à la section Optimiser le nombre de demandes du présent rapport).</li>
+              
+                <li>Les processus comportant moins de 4 critères essentiels n’ont pas été mis à l’essai sur la plateforme. S’il est possible de procéder à une solide embauche en n’utilisant que 1 à 3 critères essentiels, il est difficile de tenir compte des exigences en matière de compétences associées à une mise en correspondance à 5 facteurs (compétences spécialisées et générales) lorsqu’il n’y a que 4 critères essentiels ou moins. En se fondant sur les critères de sélection choisis par les gestionnaires, les chercheurs estiment qu’il serait impossible d’exécuter une mise en correspondance à 5 facteurs efficace en n’utilisant que 3 critères essentiels ou moins (bien que cela puisse s’avérer désirable lorsque le but est d’obtenir de grands bassins de talents génériques).</li>
+              
+                <li><strong style="letter-spacing: -1px;" data-h2-font-weight="b(800)" data-h2-font-color="b(purple)">Une corrélation a bel et bien été établie entre le nombre de critères essentiels et les chances d’un processus d’embauche réussi. À la lumière d’un examen général de tous ces facteurs, la fourchette optimale de critères essentiels recommandée est de 4 à 6, pour un maximum de 8 critères de sélection au total (essentiels et atouts combinés).</strong> En d’autres mots, un gestionnaire qui souhaite employer un grand nombre de critères essentiels devra se limiter à un petit nombre d’atouts.</li>
+              
+                <li>Le nombre de critères constituant un atout n’a pas d’incidence sur les résultats. Il en est autrement pour le nombre de critères essentiels. Il semble y avoir une fourchette de critères essentiels qui mène plus souvent à la réussite du processus. Un gestionnaire s’appuyant sur 5 critères essentiels semblait réussir tout autant qu’un gestionnaire s’appuyant sur 6 ou 7 critères essentiels, pourvu qu’ils se soient limités à 8 critères de sélection au total (les gestionnaires qui n’ont employé que 4 critères essentiels ont obtenu les meilleurs résultats, mais l’échantillon était très petit).</li>
+              
+                <li>Des interventions ont été conçues avec succès à même la plateforme, dans le but d’inciter les gestionnaires à adopter les fourchettes cibles de critères de sélection. Cela a eu une incidence positive sur les résultats généraux des processus d’embauche.</li>
+              
+                <li><strong style="letter-spacing: -1px;" data-h2-font-weight="b(800)" data-h2-font-color="b(purple)">Les gestionnaires n’aiment pas nécessairement les incitatifs que les scientifiques du comportement considèrent comme efficaces.</strong> La présence d’un outil d’orientation a été applaudie par les gestionnaires, tout comme l’interactivité des commentaires s’affichant lorsque le nombre de critères est réduit ou augmenté. Ultimement, toutefois, les gestionnaires n’ont pas aimé travailler avec un outil qui affichait des émoticônes tristes et souriantes. En ce qui concerne les incitatifs eux-mêmes, la conclusion est que les couleurs et la tranche de numéros sont importantes. La prochaine fois, les émoticônes seront remplacées par quelque chose de plus subtil (bien entendu, il faudra alors mettre ces incitatifs à l’essai pour vérifier s’ils sont toujours efficaces).</li>
+              
+            </ul>
+          
+        
+      
+    
+      
+        
+          <!-- Titles -->
+          <h3
+  
+  data-h2-font-weight="b(800)"
+  data-h2-font-size="b(h3)"
+  data-h2-margin='b(top, xl) b(bottom, s)'
+  
+  style="letter-spacing: -1px;">
+  Perspectives
+</h3>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>Ces constatations constituent des signaux faibles, mais il serait sans doute utile de les étudier davantage dans le cadre d’une étude de plus grande envergure. Dans ce contexte, il est important de souligner que le Nuage de talents utilise des critères de sélection visant des compétences uniques, alors que d’autres plateformes utilisent parfois des critères de sélection composés d’exigences en matière d’expérience à volet multiple. Cela pourrait avoir une incidence sur la perception des candidats à l’égard des critères de sélection, à savoir s’il s’agit véritablement d’une exigence unique ou s’il s’agit d’un ensemble d’exigences regroupées. Toute étude ultérieure devra tenir compte de cette notion.</p>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>Peu importe les résultats de la recherche sur le nombre optimal de critères de sélection, il a été constaté que l’inclusion d’incitatifs est étonnamment efficace pour provoquer des changements dans les comportements des gestionnaires. Les incitatifs utilisés combinaient des chiffres à des indicateurs de couleurs et des émoticônes. Ils étaient interactifs, afin de refléter les modifications apportées par le gestionnaire au nombre de critères essentiels et de critères constituant un atout. L’utilité de cet ajout à la plateforme pourrait avoir des incidences générales sur la façon d’influencer les comportements des gestionnaires sur d’autres types de plateformes.</p>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>Il a également été constaté que les conseillers en ressources humaines demeurent une ressource inestimable pour les gestionnaires dans l’élaboration de critères de sélection.</p>
+        
+      
+    
+  </div>
+</main>
+<section style="background-color: #F8F8F8;">
+  <div data-h2-container="b(center, s)" data-h2-padding="b(bottom, l) l(bottom, xxl)">
+    <div data-h2-flex-grid="b(top, expanded, flush, m)">
+      <div
+        data-h2-text-align="b(center) m(left)" 
+        data-h2-flex-item="b(1of2)">
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            
+              <a class="prev" href="/fr/2000/01/01/407-volume.html" title="Allez à l'article précédent de la série.">
+                <svg data-h2-margin="b(right, xxs)" 
+                  style="width: 1rem; vertical-align: middle;" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="#c90035">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M15 19l-7-7 7-7" />
+                </svg>Article précédent</a>
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      </div>
+      <div 
+        data-h2-text-align="b(center) m(right)"   
+        data-h2-flex-item="b(1of2)">
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            
+              <a class="next" href="/fr/2000/01/01/409-priority.html" title="Passez à l'article suivant de la série.">Article suivant<svg data-h2-margin="b(left, xxs)" 
+                style="width: 1rem; vertical-align: middle;" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="#c90035">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M9 5l7 7-7 7" />
+                </svg></a>
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      </div>
+    </div>
+    <p
+      data-h2-margin="b(top, xxl)" 
+      data-h2-text-align="b(center)"
+      data-h2-font-size="b(caption)">
+      <a href="/fr/talent-cloud/report/#toc" title="Retour à la table des matières">Retour à la table des matières</a>
+    </p>
+  </div>
+</section>
+<section data-h2-border="b([light]gray, top, solid, s)" data-h2-position="b(relative)" style="background: rgba(240, 240, 240, 1)" data-h2-overflow="b(x, hidden)">
+  <footer data-h2-container="b(center, full)" data-h2-padding="b(top-bottom, l)">
+    <div data-h2-flex-grid="b(middle, expanded, flush, xl)">
+      <div
+        data-h2-flex-item="b(1of1) m(1of2)"
+        data-h2-padding="b(left, xl)"
+        data-h2-text-align="b(center) m(left)">
+        
+          <nav>
+            <ul
+              style="gap: 1rem;"
+              class="reset-ul"
+              data-h2-display="b(flex)"
+              data-h2-flex-wrap="b(wrap)"
+              data-h2-justify-content="b(center) m(flex-start)"
+              data-h2-margin="b(bottom, xs)">
+              
+              <li data-h2-display="b(inline-block)" data-h2-margin="b(top-bottom, none)">
+                
+                  <a href="mailto:talent.cloud-nuage.de.talents@tbs-sct.gc.ca" title="Soumettre des commentaires au Nuage de talents du GC par courriel.">Retour d'information</a>
+                
+              </li>
+              
+              <li data-h2-display="b(inline-block)" data-h2-margin="b(top-bottom, none)">
+                
+                  <a href="/fr/terms-and-conditions" title="Voir nos avis.">Avis</a>
+                
+              </li>
+              
+              <li data-h2-display="b(inline-block)" data-h2-margin="b(top-bottom, none)">
+                
+                  <a href="/fr/privacy-notice" title="Voir notre politique de confidentialité.">Confidentialité</a>
+                
+              </li>
+              
+              <li data-h2-display="b(inline-block)" data-h2-margin="b(top-bottom, none)">
+                
+                  <a href="/fr/https://www.canada.ca/fr.html" title="Visiter Canada.ca.">Canada.ca</a>
+                
+              </li>
+              
+            </ul>
+          </nav>
+          <p 
+            data-h2-font-size="b(caption)"
+            data-h2-font-color="b(black)" 
+            data-h2-margin="b(bottom, none) b(top, m)">
+            Date de modification: July 07, 2021
+          </p>
+        
+      </div>
+      <div
+        data-h2-flex-item="b(1of1) m(1of2)"
+        data-h2-padding="b(right, xl)"
+        data-h2-text-align="b(center) m(right)">
+        <a
+          href="https://www.canada.ca/fr.html"
+          title="Visiter Canada.ca."
+          target="_blank"
+          rel="noopener noreferrer">
+          <img
+            class="canada-logo"
+            src="/assets/img/ui-canada.png"
+            alt="Symbole du gouvernement du Canada."/>
+        </a>
+      </div>
+    </div>
+  </footer>
+</section>
 
-                    <li
-                        data-h2-margin="b(all, none)"
-                        data-h2-padding="b(all, none)"
-                        data-h2-display="b(inline-block)"
-                    >
-                        <a
-                            href="/fr/communities/digital-talent/"
-                            title="En savoir plus sur la communauté des talents numériques."
-                            data-h2-display="b(block)"
-                            data-h2-padding="b(all, xs) m(right-left, s)"
-                            >Talent numérique</a
-                        >
-                    </li>
-                </ul>
-            </nav>
-        </div>
-        <section>
-            <div
-                data-h2-container="b(center, full)"
-                data-h2-text-align="b(center)"
-            >
-                <h1
-                    data-h2-font-weight="b(800)"
-                    data-h2-font-size="b(h1)"
-                    data-h2-padding="b(top, l) l(top, xxl) b(bottom, xxs)"
-                    style="letter-spacing: -3px"
-                >
-                    Rapport sur les résultats de Nuage de talents
-                </h1>
-
-                <div id="breadcrumbs" data-h2-margin="b(top-bottom, m)">
-                    <a href="/fr" title="Retour à la page d'accueil."
-                        >GC Talent</a
-                    >
-                    <!-- If the page layout is post then use this breadcrumb list. -->
-
-                    /
-                    <a
-                        href="/fr/talent-cloud"
-                        title="Retournez à la page de Nuage de talents."
-                        >Nuage de talents</a
-                    >
-                    /
-                    <a
-                        href="/fr/talent-cloud/report"
-                        title="Retournez au rapport des résultats de Nuage de talents."
-                        >Rapport sur les r...</a
-                    >
-                    / <span>Section 4</span> /
-                    <span data-h2-font-weight="b(800)"
-                        >Optimisation du n...</span
-                    >
-                </div>
-            </div>
-        </section>
-        <header
-            class="post-header"
-            id="mainContent"
-            style="background-image: url('/assets/img/4.8-tx-heading.png')"
-            data-h2-margin="b(top, xl)"
-        >
-            <div
-                data-h2-container="b(center, m)"
-                data-h2-font-color="b(white)"
-                data-h2-padding="b(top, l) b(bottom, xl) l(top, xl) l(bottom, xxl)"
-                data-h2-text-align="b(center)"
-            >
-                <h2
-                    data-h2-font-weight="b(200)"
-                    data-h2-font-size="b(h2)"
-                    data-h2-padding="b(top, m)"
-                    style="letter-spacing: -2px"
-                >
-                    Optimisation du nombre de critères de sélection
-                </h2>
-            </div>
-        </header>
-        <main
-            data-h2-padding="b(top-bottom, xs) l(top-bottom, xl)"
-            style="background-color: #f8f8f8"
-        >
-            <div data-h2-container="b(center, s)">
-                <!-- Titles -->
-                <h3
-                    data-h2-font-weight="b(800)"
-                    data-h2-font-size="b(h3)"
-                    data-h2-margin="b(top, xl) b(bottom, s)"
-                    style="letter-spacing: -1px"
-                >
-                    Le problème
-                </h3>
-
-                <!-- Basic Content -->
-                <p>
-                    Tous les postes annoncés à l’externe du gouvernement du
-                    Canada comprennent une liste de critères de sélection
-                    (exigences) qui établit les compétences et l’expérience dont
-                    les candidats doivent témoigner pour que leur candidature
-                    soit examinée. Ces critères de sélection se divisent en deux
-                    catégories : les critères essentiels (requis) et les atouts
-                    (utiles).
-                </p>
-
-                <!-- Basic Content -->
-                <p>
-                    Établir les bons critères de sélection est crucial au succès
-                    du processus de dotation. Tous les candidats doivent être
-                    évalués en fonction de chaque critère essentiel. Un trop
-                    grand nombre de critères essentiels peut mener à des
-                    concours où les candidats doivent se soumettre à plusieurs
-                    étapes. De l’autre côté, la liste des critères essentiels
-                    constitue le premier filtre utilisé par les gestionnaires
-                    pour éviter les candidatures de personnes non qualifiées.
-                    Autrement dit, les gestionnaires qui emploient un nombre
-                    insuffisant de critères essentiels sont susceptibles de se
-                    retrouver avec un très grand nombre de candidats, sans
-                    posséder de moyen efficace pour la meilleure personne pour
-                    le poste. Le choix des bons critères de sélection est donc
-                    un enjeu assez important.
-                </p>
-
-                <!-- Titles -->
-                <h3
-                    data-h2-font-weight="b(800)"
-                    data-h2-font-size="b(h3)"
-                    data-h2-margin="b(top, xl) b(bottom, s)"
-                    style="letter-spacing: -1px"
-                >
-                    Les hypothèses
-                </h3>
-
-                <ol>
-                    <li>
-                        Il existe un nombre optimal de critères de sélection
-                        permettant d’aboutir à une embauche.
-                    </li>
-
-                    <li>
-                        Il existe un nombre optimal de critères de sélection
-                        permettant de réduire la durée du processus de dotation.
-                    </li>
-
-                    <li>
-                        Un plus grand nombre de personnes déposent leur
-                        candidature lorsqu’il y a moins de critères essentiels
-                        (exigences).
-                    </li>
-
-                    <li>
-                        L’ajout de critères essentiels entraîne une augmentation
-                        générale de la durée du processus de dotation.
-                    </li>
-
-                    <li>
-                        L’augmentation du nombre total de critères de sélection
-                        entraîne une augmentation générale de la durée du
-                        processus de dotation.
-                    </li>
-
-                    <li>
-                        Avec les bonnes interventions, il est possible
-                        d’orienter les gestionnaires afin que ceux-ci adoptent
-                        un nombre ciblé de critères de sélection (essentiels et
-                        atout) dans la production de leurs annonces d’emploi.
-                        Nous devons parvenir à orienter les gestionnaires vers
-                        l’usage du nombre optimal de critères essentiels, sans
-                        quoi il ne sert à rien de le déterminer.
-                    </li>
-                </ol>
-
-                <!-- Titles -->
-                <h3
-                    data-h2-font-weight="b(800)"
-                    data-h2-font-size="b(h3)"
-                    data-h2-margin="b(top, xl) b(bottom, s)"
-                    style="letter-spacing: -1px"
-                >
-                    L’expérience
-                </h3>
-
-                <!-- Basic Content -->
-                <p>
-                    Le suivi des données clés a été assuré pour tous les
-                    concours de dotation publiés sur le Nuage de talents,
-                    notamment :
-                </p>
-
-                <ul>
-                    <li>le nombre de critères essentiels;</li>
-
-                    <li>le nombre de critères constituant un atout;</li>
-
-                    <li>
-                        le nombre total de critères de sélection (essentiel et
-                        atout);
-                    </li>
-
-                    <li>le nombre de candidats;</li>
-
-                    <li>le nombre d’évaluations;</li>
-
-                    <li>le succès du processus d’embauche;</li>
-
-                    <li>la durée du processus de dotation.</li>
-                </ul>
-
-                <!-- Basic Content -->
-                <p>
-                    C’est aux corrélations entre ces points de données que l’on
-                    s’intéresse pour la mise à l’essai des hypothèses. De plus,
-                    différentes interventions ont été faites sur la plateforme
-                    afin de vérifier s’il est possible d’influencer le nombre de
-                    critères essentiels utilisés par les gestionnaires.
-                </p>
-
-                <!-- Pullquotes -->
-                <blockquote
-                    data-h2-border="b(red, left, solid, m)"
-                    data-h2-margin="b(top-bottom, xl)"
-                    data-h2-padding="b(left, m)"
-                >
-                    <p data-h2-font-color="b(red)">
-                        « Au moment de choisir les critères de sélection, il
-                        peut être difficile de déterminer combien, c’est trop…
-                        et combien, ce n’est pas assez. »
-                    </p>
-                </blockquote>
-
-                <!-- Titles -->
-                <h3
-                    data-h2-font-weight="b(800)"
-                    data-h2-font-size="b(h3)"
-                    data-h2-margin="b(top, xl) b(bottom, s)"
-                    style="letter-spacing: -1px"
-                >
-                    Interventions sur la plateforme
-                </h3>
-
-                <!-- Basic Content -->
-                <p>
-                    Jamais la publication d’une annonce d’emploi sur le site n’a
-                    été bloquée en raison d’un nombre trop élevé de critères
-                    essentiels. Même que, pour la première année de la
-                    plateforme en direct, il a été décidé délibérément qu’aucune
-                    directive ne serait fournie directement aux gestionnaires
-                    concernant le nombre de critères de sélection à utiliser,
-                    afin d’étudier les comportements, les choix et les résultats
-                    (cela a entraîné l’échec d’un bon nombre de processus).
-                </p>
-
-                <!-- Basic Content -->
-                <p>
-                    Après la première année, des renseignements à l’intention
-                    des gestionnaires ont été ajoutés aux instructions des
-                    outils pour la publication d’annonces d’emploi. Ces
-                    renseignements étaient fondés sur les données tirées des
-                    processus de dotation qui ont réussi, par rapport aux
-                    processus qui ont échoué.
-                </p>
-
-                <!-- Basic Content -->
-                <p>
-                    Après la première année, des renseignements à l’intention
-                    des gestionnaires ont été ajoutés aux instructions des
-                    outils pour la publication d’annonces d’emploi. Ces
-                    renseignements étaient fondés sur les données tirées des
-                    processus de dotation qui ont réussi, par rapport aux
-                    processus qui ont échoué.
-                </p>
-
-                <figure data-h2-margin="b(top-bottom, l)">
-                    <!-- Graphics -->
-
-                    <img
-                        src="/assets/img/4.8-fr-smiley.png"
-                        alt="Une saisie d’écran d’un élément expérimental de l’outil de création d’une annonce d’emploi qui utilise des émoticônes y pour indiquer si le nombre de critères sélectionnés par le gestionnaire répond à une valeur optimale. L’interface offre des commentaires pour le nombre de compétences essentielles, ainsi que le nombre total de compétences sur l’affiche (y compris les actifs). Le nuage est divisé en 5 niveaux, commençant par « Trop peu » et se terminant par « Beaucoup trop ». L’objectif est d’orienter les gestionnaires dans la gamme optimale au centre, étiqueté « Formidable »."
-                        style="width: 100%"
-                        data-h2-display="b(block)"
-                        data-h2-radius="b(s)"
-                        data-h2-border="b(gray, all, solid, s)"
-                    />
-                </figure>
-
-                <!-- Titles -->
-                <h3
-                    data-h2-font-weight="b(800)"
-                    data-h2-font-size="b(h3)"
-                    data-h2-margin="b(top, xl) b(bottom, s)"
-                    style="letter-spacing: -1px"
-                >
-                    Les résultats
-                </h3>
-
-                <!-- Basic Content -->
-                <p>
-                    La présente étude fut l’une des expériences les plus
-                    complexes que les chercheurs ont eu à analyser, en raison du
-                    nombre de facteurs en jeu. Voici les renseignements qu’ils
-                    estiment avoir dégagés, bien qu’une étude de bien plus
-                    grande envergure comportant un échantillon beaucoup plus
-                    large sera ultimement nécessaire pour en valider les
-                    constatations :
-                </p>
-
-                <ul>
-                    <li>
-                        Il y a une relation transversale entre le nombre de
-                        critères de sélection (essentiels et atouts), le nombre
-                        d’étapes d’évaluation, la longueur de chacune de ces
-                        étapes, le nombre de candidats attirés par l’annonce
-                        d’emploi, le taux de réussite de l’embauche et la durée
-                        générale du processus de dotation.
-                    </li>
-
-                    <li>
-                        Les processus comportant moins de critères de sélection
-                        attirent un nombre plus élevé de candidats. Cela
-                        entraîne une augmentation du temps consacré à la phase
-                        de sélection initiale du processus d’embauche.
-                    </li>
-
-                    <li>
-                        Plus le nombre de critères de sélection augmente
-                        (essentiels et atouts), plus les gestionnaires ajoutent
-                        d’étapes d’évaluation. Cela entraîne une augmentation du
-                        temps consacré à la phase d’évaluation du processus
-                        d’embauche, ainsi que du temps consacré à l’élaboration
-                        des documents d’évaluation (il a été déterminé qu’en
-                        moyenne, chaque critère essentiel est évalué d’au moins
-                        deux façons par le gestionnaire d’embauche; les atouts
-                        sont évalués d’une ou deux façons).
-                    </li>
-
-                    <li>
-                        <strong
-                            style="letter-spacing: -1px"
-                            data-h2-font-weight="b(800)"
-                            data-h2-font-color="b(purple)"
-                            >Aucune corrélation n’a été constatée entre le
-                            nombre de critères de sélection et la durée générale
-                            du processus de dotation.</strong
-                        >
-                        Il est théorisé que les facteurs ayant une incidence sur
-                        la durée du processus de dotation (le nombre de
-                        candidats, le nombre d’étapes d’évaluation, le niveau
-                        d’énergie et d’enthousiasme du gestionnaire) pourraient
-                        s’équilibrer selon la fluctuation du nombre de critères
-                        de sélection et ainsi annuler les économies de temps.
-                    </li>
-
-                    <li>
-                        Les processus comportant plus de 8 critères essentiels
-                        n’ont pas réussi à attirer le nombre de candidats
-                        nécessaires pour obtenir un bassin suffisant de
-                        candidats qualifiés à l’issue de la phase d’évaluation.
-                        Concrètement, il ne restait alors qu’un seul candidat
-                        qualifié, dont le départ entraînerait l’échec du
-                        processus d’embauche (consulter l’entonnoir de
-                        recrutement à la section Optimiser le nombre de demandes
-                        du présent rapport).
-                    </li>
-
-                    <li>
-                        Les processus comportant moins de 4 critères essentiels
-                        n’ont pas été mis à l’essai sur la plateforme. S’il est
-                        possible de procéder à une solide embauche en
-                        n’utilisant que 1 à 3 critères essentiels, il est
-                        difficile de tenir compte des exigences en matière de
-                        compétences associées à une mise en correspondance à 5
-                        facteurs (compétences spécialisées et générales)
-                        lorsqu’il n’y a que 4 critères essentiels ou moins. En
-                        se fondant sur les critères de sélection choisis par les
-                        gestionnaires, les chercheurs estiment qu’il serait
-                        impossible d’exécuter une mise en correspondance à 5
-                        facteurs efficace en n’utilisant que 3 critères
-                        essentiels ou moins (bien que cela puisse s’avérer
-                        désirable lorsque le but est d’obtenir de grands bassins
-                        de talents génériques).
-                    </li>
-
-                    <li>
-                        <strong
-                            style="letter-spacing: -1px"
-                            data-h2-font-weight="b(800)"
-                            data-h2-font-color="b(purple)"
-                            >Une corrélation a bel et bien été établie entre le
-                            nombre de critères essentiels et les chances d’un
-                            processus d’embauche réussi. À la lumière d’un
-                            examen général de tous ces facteurs, la fourchette
-                            optimale de critères essentiels recommandée est de 4
-                            à 6, pour un maximum de 8 critères de sélection au
-                            total (essentiels et atouts combinés).</strong
-                        >
-                        En d’autres mots, un gestionnaire qui souhaite employer
-                        un grand nombre de critères essentiels devra se limiter
-                        à un petit nombre d’atouts.
-                    </li>
-
-                    <li>
-                        Le nombre de critères constituant un atout n’a pas
-                        d’incidence sur les résultats. Il en est autrement pour
-                        le nombre de critères essentiels. Il semble y avoir une
-                        fourchette de critères essentiels qui mène plus souvent
-                        à la réussite du processus. Un gestionnaire s’appuyant
-                        sur 5 critères essentiels semblait réussir tout autant
-                        qu’un gestionnaire s’appuyant sur 6 ou 7 critères
-                        essentiels, pourvu qu’ils se soient limités à 8 critères
-                        de sélection au total (les gestionnaires qui n’ont
-                        employé que 4 critères essentiels ont obtenu les
-                        meilleurs résultats, mais l’échantillon était très
-                        petit).
-                    </li>
-
-                    <li>
-                        Des interventions ont été conçues avec succès à même la
-                        plateforme, dans le but d’inciter les gestionnaires à
-                        adopter les fourchettes cibles de critères de sélection.
-                        Cela a eu une incidence positive sur les résultats
-                        généraux des processus d’embauche.
-                    </li>
-
-                    <li>
-                        <strong
-                            style="letter-spacing: -1px"
-                            data-h2-font-weight="b(800)"
-                            data-h2-font-color="b(purple)"
-                            >Les gestionnaires n’aiment pas nécessairement les
-                            incitatifs que les scientifiques du comportement
-                            considèrent comme efficaces.</strong
-                        >
-                        La présence d’un outil d’orientation a été applaudie par
-                        les gestionnaires, tout comme l’interactivité des
-                        commentaires s’affichant lorsque le nombre de critères
-                        est réduit ou augmenté. Ultimement, toutefois, les
-                        gestionnaires n’ont pas aimé travailler avec un outil
-                        qui affichait des émoticônes tristes et souriantes. En
-                        ce qui concerne les incitatifs eux-mêmes, la conclusion
-                        est que les couleurs et la tranche de numéros sont
-                        importantes. La prochaine fois, les émoticônes seront
-                        remplacées par quelque chose de plus subtil (bien
-                        entendu, il faudra alors mettre ces incitatifs à l’essai
-                        pour vérifier s’ils sont toujours efficaces).
-                    </li>
-                </ul>
-
-                <!-- Titles -->
-                <h3
-                    data-h2-font-weight="b(800)"
-                    data-h2-font-size="b(h3)"
-                    data-h2-margin="b(top, xl) b(bottom, s)"
-                    style="letter-spacing: -1px"
-                >
-                    Perspectives
-                </h3>
-
-                <!-- Basic Content -->
-                <p>
-                    Ces constatations constituent des signaux faibles, mais il
-                    serait sans doute utile de les étudier davantage dans le
-                    cadre d’une étude de plus grande envergure. Dans ce
-                    contexte, il est important de souligner que le Nuage de
-                    talents utilise des critères de sélection visant des
-                    compétences uniques, alors que d’autres plateformes
-                    utilisent parfois des critères de sélection composés
-                    d’exigences en matière d’expérience à volet multiple. Cela
-                    pourrait avoir une incidence sur la perception des candidats
-                    à l’égard des critères de sélection, à savoir s’il s’agit
-                    véritablement d’une exigence unique ou s’il s’agit d’un
-                    ensemble d’exigences regroupées. Toute étude ultérieure
-                    devra tenir compte de cette notion.
-                </p>
-
-                <!-- Basic Content -->
-                <p>
-                    Peu importe les résultats de la recherche sur le nombre
-                    optimal de critères de sélection, il a été constaté que
-                    l’inclusion d’incitatifs est étonnamment efficace pour
-                    provoquer des changements dans les comportements des
-                    gestionnaires. Les incitatifs utilisés combinaient des
-                    chiffres à des indicateurs de couleurs et des émoticônes.
-                    Ils étaient interactifs, afin de refléter les modifications
-                    apportées par le gestionnaire au nombre de critères
-                    essentiels et de critères constituant un atout. L’utilité de
-                    cet ajout à la plateforme pourrait avoir des incidences
-                    générales sur la façon d’influencer les comportements des
-                    gestionnaires sur d’autres types de plateformes.
-                </p>
-
-                <!-- Basic Content -->
-                <p>
-                    Il a également été constaté que les conseillers en
-                    ressources humaines demeurent une ressource inestimable pour
-                    les gestionnaires dans l’élaboration de critères de
-                    sélection.
-                </p>
-            </div>
-        </main>
-        <section style="background-color: #f8f8f8">
-            <div
-                data-h2-container="b(center, s)"
-                data-h2-padding="b(bottom, l) l(bottom, xxl)"
-            >
-                <div data-h2-flex-grid="b(top, expanded, flush, m)">
-                    <div
-                        data-h2-text-align="b(center) m(left)"
-                        data-h2-flex-item="b(1of2)"
-                    >
-                        <a
-                            class="prev"
-                            href="/fr/2000/01/01/407-volume.html"
-                            title="Allez à l'article précédent de la série."
-                        >
-                            <svg
-                                data-h2-margin="b(right, xxs)"
-                                style="width: 1rem; vertical-align: middle"
-                                xmlns="http://www.w3.org/2000/svg"
-                                class="h-6 w-6"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="#c90035"
-                            >
-                                <path
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="4"
-                                    d="M15 19l-7-7 7-7"
-                                /></svg
-                            >Article précédent</a
-                        >
-                    </div>
-                    <div
-                        data-h2-text-align="b(center) m(right)"
-                        data-h2-flex-item="b(1of2)"
-                    >
-                        <a
-                            class="next"
-                            href="/fr/2000/01/01/409-priority.html"
-                            title="Passez à l'article suivant de la série."
-                            >Article suivant<svg
-                                data-h2-margin="b(left, xxs)"
-                                style="width: 1rem; vertical-align: middle"
-                                xmlns="http://www.w3.org/2000/svg"
-                                class="h-6 w-6"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="#c90035"
-                            >
-                                <path
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="4"
-                                    d="M9 5l7 7-7 7"
-                                /></svg
-                        ></a>
-                    </div>
-                </div>
-                <p
-                    data-h2-margin="b(top, xxl)"
-                    data-h2-text-align="b(center)"
-                    data-h2-font-size="b(caption)"
-                >
-                    <a
-                        href="/fr/talent-cloud/report/#toc"
-                        title="Retour à la table des matières"
-                        >Retour à la table des matières</a
-                    >
-                </p>
-            </div>
-        </section>
-        <section
-            data-h2-border="b([light]gray, top, solid, s)"
-            data-h2-position="b(relative)"
-            style="background: rgba(240, 240, 240, 1)"
-            data-h2-overflow="b(x, hidden)"
-        >
-            <footer
-                data-h2-container="b(center, full)"
-                data-h2-padding="b(top-bottom, l)"
-            >
-                <div data-h2-flex-grid="b(middle, expanded, flush, xl)">
-                    <div
-                        data-h2-flex-item="b(1of1) m(1of2)"
-                        data-h2-padding="b(left, xl)"
-                        data-h2-text-align="b(center) m(left)"
-                    >
-                        <nav>
-                            <ul
-                                style="gap: 1rem"
-                                class="reset-ul"
-                                data-h2-display="b(flex)"
-                                data-h2-flex-wrap="b(wrap)"
-                                data-h2-justify-content="b(center) m(flex-start)"
-                                data-h2-margin="b(bottom, xs)"
-                            >
-                                <li
-                                    data-h2-display="b(inline-block)"
-                                    data-h2-margin="b(top-bottom, none)"
-                                >
-                                    <a
-                                        href="mailto:talent.cloud-nuage.de.talents@tbs-sct.gc.ca"
-                                        title="Soumettre des commentaires au Nuage de talents du GC par courriel."
-                                        >Retour d'information</a
-                                    >
-                                </li>
-
-                                <li
-                                    data-h2-display="b(inline-block)"
-                                    data-h2-margin="b(top-bottom, none)"
-                                >
-                                    <a
-                                        href="/fr/terms-and-conditions"
-                                        title="Voir nos avis."
-                                        >Avis</a
-                                    >
-                                </li>
-
-                                <li
-                                    data-h2-display="b(inline-block)"
-                                    data-h2-margin="b(top-bottom, none)"
-                                >
-                                    <a
-                                        href="/fr/privacy-notice"
-                                        title="Voir notre politique de confidentialité."
-                                        >Confidentialité</a
-                                    >
-                                </li>
-
-                                <li
-                                    data-h2-display="b(inline-block)"
-                                    data-h2-margin="b(top-bottom, none)"
-                                >
-                                    <a
-                                        href="https://www.canada.ca/fr.html"
-                                        title="Visiter Canada.ca."
-                                        >Canada.ca</a
-                                    >
-                                </li>
-                            </ul>
-                        </nav>
-                        <p
-                            data-h2-font-size="b(caption)"
-                            data-h2-font-color="b(black)"
-                            data-h2-margin="b(bottom, none) b(top, m)"
-                        >
-                            Date de modification: July 07, 2021
-                        </p>
-                    </div>
-                    <div
-                        data-h2-flex-item="b(1of1) m(1of2)"
-                        data-h2-padding="b(right, xl)"
-                        data-h2-text-align="b(center) m(right)"
-                    >
-                        <a
-                            href="https://www.canada.ca/fr.html"
-                            title="Visiter Canada.ca."
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            <img
-                                class="canada-logo"
-                                src="/assets/img/ui-canada.png"
-                                alt="Symbole du gouvernement du Canada."
-                            />
-                        </a>
-                    </div>
-                </div>
-            </footer>
-        </section>
-
-        <script type="text/javascript" src="/assets/js/app.js"></script>
-    </body>
+    <script type="text/javascript" src="/assets/js/app.js"></script>
+  </body>
 </html>

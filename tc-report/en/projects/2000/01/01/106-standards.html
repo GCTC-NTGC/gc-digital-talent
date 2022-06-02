@@ -1,831 +1,641 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>GC Talent | The Digital Standards in Practice</title>
-        <meta
-            name="description"
-            content="Talent Cloud is an experimental staffing solution created by the Government of Canada. Read our experiment's results report here!"
-        />
-        <!-- Google Tag Manager -->
-        <script>
-            (function (w, d, s, l, i) {
-                w[l] = w[l] || [];
-                w[l].push({
-                    "gtm.start": new Date().getTime(),
-                    event: "gtm.js",
-                });
-                var f = d.getElementsByTagName(s)[0],
-                    j = d.createElement(s),
-                    dl = l != "dataLayer" ? "&l=" + l : "";
-                j.async = true;
-                j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
-                f.parentNode.insertBefore(j, f);
-            })(window, document, "script", "dataLayer", "GTM-P27NF5V");
-        </script>
-        <!-- End Google Tag Manager -->
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GC Talent | The Digital Standards in Practice</title>
+  <meta name="description" content="Talent Cloud is an experimental staffing solution created by the Government of Canada. Read our experiment's results report here!">
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-P27NF5V');</script>
+    <!-- End Google Tag Manager -->
 
-        <!-- Global site tag (gtag.js) - Google Analytics -->
-        <script
-            async
-            src="https://www.googletagmanager.com/gtag/js?id=UA-115747902-1"
-        ></script>
-        <script>
-            window.dataLayer = window.dataLayer || [];
-            function gtag() {
-                dataLayer.push(arguments);
-            }
-            gtag("js", new Date());
-            gtag("config", "UA-115747902-1", {
-                cookie_flags: "secure",
-            });
-        </script>
-        <!-- Favicons -->
-        <link
-            rel="apple-touch-icon"
-            sizes="180x180"
-            href="/apple-touch-icon.png"
-        />
-        <link
-            rel="icon"
-            type="image/png"
-            sizes="32x32"
-            href="/favicon-32x32.png"
-        />
-        <link
-            rel="icon"
-            type="image/png"
-            sizes="16x16"
-            href="/favicon-16x16.png"
-        />
-        <link rel="manifest" href="/site.webmanifest" />
-        <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
-        <meta name="msapplication-TileColor" content="#da532c" />
-        <meta name="theme-color" content="#ffffff" />
-        <!-- Google Fonts -->
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link
-            href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap"
-            rel="stylesheet"
-        />
-        <!-- Hydrogen CSS -->
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script
+        async
+        src="https://www.googletagmanager.com/gtag/js?id=UA-115747902-1">
+    </script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-115747902-1', {
+          cookie_flags: 'secure'
+        });
+    </script>
+  <!-- Favicons -->
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap" rel="stylesheet">
+  <!-- Hydrogen CSS -->
+  
+    <!-- <link rel="stylesheet" href="/assets/css/hydrogen-tc.css"> -->
+    <link rel="stylesheet" href="/assets/css/hydrogen.css">
+  
+  <!-- App CSS -->
+  <link rel="stylesheet" href="/assets/css/app.css">
+</head>
 
-        <!-- <link rel="stylesheet" href="/assets/css/hydrogen-tc.css"> -->
-        <link rel="stylesheet" href="/assets/css/hydrogen.css" />
-
-        <!-- App CSS -->
-        <link rel="stylesheet" href="/assets/css/app.css" />
-    </head>
-
-    <body data-h2-font-family="b(sans)">
-        <a href="#mainContent" title="" class="skip-link"
-            >Skip to Main Content</a
+  <body data-h2-font-family="b(sans)">
+    <a href="#mainContent" title="" class="skip-link">Skip to Main Content</a>
+    <div data-h2-border="b([light]gray, bottom, solid, s)" >
+  <div data-h2-container="b(center, full)" data-h2-padding="b(top-bottom, s)">
+    <div data-h2-flex-grid="b(middle, expanded, flush, s)">
+      <div data-h2-flex-item="m(1of2)" data-h2-text-align="b(center) m(left)">
+        <a
+          data-h2-display="b(inline-block)"
+          style="max-width: 15rem; width: 100%;"
+          href="https://canada.ca/"
+          target="_blank"
+          title="Visit canada.ca."
+          rel="noopener noreferrer"
         >
-        <div data-h2-border="b([light]gray, bottom, solid, s)">
-            <div
-                data-h2-container="b(center, full)"
-                data-h2-padding="b(top-bottom, s)"
-            >
-                <div data-h2-flex-grid="b(middle, expanded, flush, s)">
-                    <div
-                        data-h2-flex-item="m(1of2)"
-                        data-h2-text-align="b(center) m(left)"
-                    >
-                        <a
-                            data-h2-display="b(inline-block)"
-                            style="max-width: 15rem; width: 100%"
-                            href="https://canada.ca/"
-                            target="_blank"
-                            title="Visit canada.ca."
-                            rel="noopener noreferrer"
-                        >
-                            <img
-                                data-h2-
-                                alt="goc logo"
-                                src="/assets/img/ui-goc.svg"
-                        /></a>
-                    </div>
-                    <div
-                        data-h2-flex-item="m(1of2)"
-                        data-h2-text-align="b(center) m(right)"
-                    >
-                        <a
-                            href="/fr/projects/2000/01/01/106-standards.html"
-                            title="Voir ce contenu en français."
-                            >Français</a
-                        >
-                    </div>
-                </div>
-            </div>
+          <img data-h2- alt="goc logo" src="/assets/img/ui-goc.svg"
+        /></a>
+      </div>
+      <div data-h2-flex-item="m(1of2)" data-h2-text-align="b(center) m(right)">
+         
+        <a href="/fr/projects/2000/01/01/106-standards.html" title="Voir ce contenu en français.">Français</a>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+<div data-h2-container="b(center, full)" >
+  <nav data-h2-padding="b(top-bottom, m)">
+    <ul class="reset-ul" data-h2-padding="b(all, none)" data-h2-margin="b(all, none)" data-h2-text-align="b(center) m(left)" style="margin-left: -.7rem;">
+      
+        <li data-h2-margin="b(all, none)" data-h2-padding="b(all, none)" data-h2-display="b(inline-block)">
+          <a href="/en/" title="Visit the GC Talent homepage."
+            
+            data-h2-display="b(block)"
+            data-h2-padding="b(all, xs) m(right-left, s)">Home</a>
+        </li>
+      
+        <li data-h2-margin="b(all, none)" data-h2-padding="b(all, none)" data-h2-display="b(inline-block)">
+          <a href="/en/talent-cloud/" title="Learn more about the Talent Cloud project."
+            
+            data-h2-display="b(block)"
+            data-h2-padding="b(all, xs) m(right-left, s)">Talent Cloud</a>
+        </li>
+      
+        <li data-h2-margin="b(all, none)" data-h2-padding="b(all, none)" data-h2-display="b(inline-block)">
+          <a href="/en/communities/digital-talent/" title="Learn more about the Digital Talent community."
+            
+            data-h2-display="b(block)"
+            data-h2-padding="b(all, xs) m(right-left, s)">Digital Talent</a>
+        </li>
+      
+    </ul>
+  </nav>
+</div>
+<section>
+  <div
+    data-h2-container="b(center, full)"
+    data-h2-text-align="b(center)">
+    
+    <h1
+  data-h2-font-weight="b(800)"
+  data-h2-font-size="b(h1)"
+  data-h2-padding='b(top, l) l(top, xxl) b(bottom, xxs)'
+  style="letter-spacing: -3px"
+  
+>
+  Talent Cloud Results Report
+</h1>
+
+    <div id="breadcrumbs" data-h2-margin="b(top-bottom, m)" >
+  
+  <a href="/en" title="Return to the homepage.">GC Talent</a>
+  <!-- If the page layout is post then use this breadcrumb list. -->
+  
+    / <a href="/en/talent-cloud" title="Return to the Talent Cloud page.">Talent Cloud</a>
+    / <a href="/en/talent-cloud/report" title="Return to the Talent Cloud results report.">Talent Cloud Resu...</a>
+    / <span>Section 1</span>
+    / <span data-h2-font-weight="b(800)">The Digital Stand...</span>
+  
+</div>
+  </div>
+</section>
+<header 
+  class="post-header"
+  id="mainContent"
+  style="background-image: url('/assets/img/1.6-tx-heading.jpg');"
+  data-h2-margin="b(top, xl)">
+  <div 
+    data-h2-container="b(center, m)" 
+    data-h2-font-color="b(white)"
+    data-h2-padding="b(top, l) b(bottom, xl) l(top, xl) l(bottom, xxl)"
+    data-h2-text-align="b(center)">
+    <h2
+  
+  data-h2-font-weight="b(200)"
+  data-h2-font-size="b(h2)"
+  
+  data-h2-padding='b(top, m)'
+  
+  
+  style="letter-spacing: -2px;">
+  The Digital Standards in Practice
+</h2>
+    
+  </div>
+</header>
+<main data-h2-padding="b(top-bottom, xs) l(top-bottom, xl)" style="background-color: #F8F8F8;">
+  <div data-h2-container="b(center, s)">
+    
+      
+        
+          <!-- Basic Content -->
+          <p>The Digital Standards were officially released by the Office of the Chief Information Officer in 2018. But for those working on government innovation and digital initiatives, they’d long been considered best practices for achieving meaningful results. To get different outcomes, you must adopt different business processes. To get citizen-centric, digital age results, that means embracing the Digital Standards in all aspects of the work.</p>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>For the Talent Cloud team, the Digital Standards act as a foundation. But unlike a physical foundation, our ability to work in line with the Digital Standards is dynamic. That means the foundation of our team can actually get stronger if we actively maintain what we’re doing well and challenge ourselves in the areas where we can do better. Here’s just a snapshot of how the Digital Standards have helped to shape the project and its outcomes.</p>
+        
+      
+    
+      
+        
+          <!-- Digital Standards -->
+          
+            <p data-h2-margin="b(top, xl) b(bottom, s)" data-h2-font-size="b(h4)" data-h2-font-weight="b(800)" data-h2-font-color="b(red)"><img data-h2-margin="b(right, xs)" style="vertical-align: middle; width: 1.8rem;" src="/assets/img/ds-disc-iterate.svg" aria-hidden="true">Iterate and improve frequently</p>
+            
+              <p>Our team uses the Agile method, working in two-week sprints. At the end of each sprint, the teams (back end, policy and design) show their progress and look for feedback. New input from live testing and any changes from emerging priorities are integrated into the forward plan the next day. This creates tight feedback loops that help us stay responsive to user input and maintain momentum as we develop and improve features.</p>
+            
+          
+            <p data-h2-margin="b(top, xl) b(bottom, s)" data-h2-font-size="b(h4)" data-h2-font-weight="b(800)" data-h2-font-color="b(red)"><img data-h2-margin="b(right, xs)" style="vertical-align: middle; width: 1.8rem;" src="/assets/img/ds-disc-open-work.svg" aria-hidden="true">Work in the open by default</p>
+            
+              <p>Talent Cloud is an open-by-default project, with information posted publicly on our website and under the group “Talent Cloud” on <a href="http://gccollab.ca/" title="Visit GCcollab." target="_blank" rel="noreferrer">GCcollab.ca</a>. This includes wire frames, prototypes, user stories, and blog posts. The team’s code and workflow are available on the open source site <a href="https://github.com/GCTC-NTGC/TalentCloud" title="Visit Talent Cloud on Github." target="_blank" rel="noreferrer">Github</a>.</p>
+            
+          
+            <p data-h2-margin="b(top, xl) b(bottom, s)" data-h2-font-size="b(h4)" data-h2-font-weight="b(800)" data-h2-font-color="b(red)"><img data-h2-margin="b(right, xs)" style="vertical-align: middle; width: 1.8rem;" src="/assets/img/ds-disc-open-standards.svg" aria-hidden="true">Use open standards and solutions</p>
+            
+              <p>Talent Cloud is an open source project and is a pioneer at TBS for using an Open Source software stack (e.g., PHP, Apache, Linux, React, Postgres, Docker, Storybook, Redux, SASS, Formik, Snyk) for hosting sites in a protected environment.</p>
+            
+              <p>Talent Cloud follows a "Mobile First" approach to design and development to ensure it can be easily used across various platforms. It uses common web standards to enable the greatest interoperability.</p>
+            
+          
+            <p data-h2-margin="b(top, xl) b(bottom, s)" data-h2-font-size="b(h4)" data-h2-font-weight="b(800)" data-h2-font-color="b(red)"><img data-h2-margin="b(right, xs)" style="vertical-align: middle; width: 1.8rem;" src="/assets/img/ds-disc-security.svg" aria-hidden="true">Address security and privacy risks</p>
+            
+              <p>Talent Cloud was one of the first protected applications in the Government of Canada to move into the cloud. To do this we had to pioneer a new approach to privacy that allowed for iterative improvements to the platform.</p>
+            
+              <p>We’re always in the process of updating our Privacy Impact Assessment (the ultimate government privacy document for applications). As we scope new features that will require collection of new data or handling the same data differently, we are also updating our privacy documentation. Currently we’re working on our third Privacy Impact Assessment, and we intend to keep it evergreen.</p>
+            
+          
+            <p data-h2-margin="b(top, xl) b(bottom, s)" data-h2-font-size="b(h4)" data-h2-font-weight="b(800)" data-h2-font-color="b(red)"><img data-h2-margin="b(right, xs)" style="vertical-align: middle; width: 1.8rem;" src="/assets/img/ds-disc-data.svg" aria-hidden="true">Be good data stewards</p>
+            
+              <p>People are tired of always being asked for the same information. This consistent feedback from users drove our commitment to making reusable skills central to our platform. By breaking up job requirements into individual skills, we allow applicants to only describe those skills once and re-use the same descriptions for future job applications.</p>
+            
+              <p>But that only scratches the surface of what candidates are asked for during the hiring process. To push this idea further, Talent Cloud is working to pilot the use of verifiable credentials. This work would generate trusted records that replace the need to repeatedly assess the same requirements.</p>
+            
+          
+            <p data-h2-margin="b(top, xl) b(bottom, s)" data-h2-font-size="b(h4)" data-h2-font-weight="b(800)" data-h2-font-color="b(red)"><img data-h2-margin="b(right, xs)" style="vertical-align: middle; width: 1.8rem;" src="/assets/img/ds-disc-ethics.svg" aria-hidden="true">Design ethical services</p>
+            
+              <p>Designing an ethical staffing platform is the core philosophy of the team. We sum this up as ‘making the good road the easy road’ for our users, and taking the right path to get there as a team, no matter how long or difficult it is in the build phase. This means diving deep into the way policy, product and human nature intersect. It requires working through the complexities of bias reduction, behavioural psychology, and intended and unintended outcomes, and carefully monitoring the outcomes for users.</p>
+            
+          
+            <p data-h2-margin="b(top, xl) b(bottom, s)" data-h2-font-size="b(h4)" data-h2-font-weight="b(800)" data-h2-font-color="b(red)"><img data-h2-margin="b(right, xs)" style="vertical-align: middle; width: 1.8rem;" src="/assets/img/ds-disc-empower-staff.svg" aria-hidden="true">Empower staff to deliver better services</p>
+            
+              <p>The team operates in a high trust environment that allows for open communications, where ideas are challenged in a productive way. Team members are accountable to each other for progress, which is reported openly through sprint cycle planning and results discussions.</p>
+            
+              <p>Senior management is supportive of the principle of experimentation, which creates an ecosystem in which the team can pursue data-driven results and challenge the status quo.</p>
+            
+          
+            <p data-h2-margin="b(top, xl) b(bottom, s)" data-h2-font-size="b(h4)" data-h2-font-weight="b(800)" data-h2-font-color="b(red)"><img data-h2-margin="b(right, xs)" style="vertical-align: middle; width: 1.8rem;" src="/assets/img/ds-disc-users.svg" aria-hidden="true">Design with users</p>
+            
+              <p>Talent Cloud designs for and with three main user groups: job applicants/employees, hiring managers, and HR Advisors. Our product development cycle includes workshops and early theory testing, followed by wire frame testing sessions with potential users. Once the product is live, we test again with real users, and observe findings over time (not just in the first release.)</p>
+            
+          
+            <p data-h2-margin="b(top, xl) b(bottom, s)" data-h2-font-size="b(h4)" data-h2-font-weight="b(800)" data-h2-font-color="b(red)"><img data-h2-margin="b(right, xs)" style="vertical-align: middle; width: 1.8rem;" src="/assets/img/ds-disc-accessibility.svg" aria-hidden="true">Build in accessibility from the start</p>
+            
+              <p>Talent Cloud has taken a number of steps to advance accessibility beyond meeting WCAG AA standards. One of the team’s earliest hires to the development team was someone with accessibility expertise. This has ensured that accessibility considerations have been part of all of our proposed features at an early stage of design - not as a retrofit of a predetermined feature. We also work with <a href="https://makeitfable.com/" title="Visit the Fable Tech Labs website." target="_blank" rel="noreferrer">Fable Tech Labs</a> who help coordinate testing of our products and features real people who require assistive technologies to access the web as early as possible during development. While WCAG AA provides a baseline, audits from real users lets us deliver a quality above and beyond the minimum requirements, because we want to make sure everyone has a pleasant experience on our platform.</p>
+            
+          
+            <p data-h2-margin="b(top, xl) b(bottom, s)" data-h2-font-size="b(h4)" data-h2-font-weight="b(800)" data-h2-font-color="b(red)"><img data-h2-margin="b(right, xs)" style="vertical-align: middle; width: 1.8rem;" src="/assets/img/ds-disc-collaboration.svg" aria-hidden="true">Collaborate widely</p>
+            
+              <p>Talent Cloud is a partner funded experiment, which makes collaboration a core part of our governance and operating model. Over the course of the experiment, fifteen departments and agencies from across the GC, including those not under the Public Sector Employment Act, making the platform a truly horizontal initiative.</p>
+            
+              <p>Beyond working with our partners and users, The team also collaborates widely on a national and international basis, sharing best practices and learning from experts around the world working in areas related to digital age service delivery, staffing modernization, the future of work, and citizen-inclusive design. The team engages with other governments at the working level, academia, not-for-profits, Indigenous communities and policy wonks keen to talk about reimagining government talent engines.</p>
+            
+          
+        
+      
+    
+      
         </div>
-
-        <div data-h2-container="b(center, full)">
-            <nav data-h2-padding="b(top-bottom, m)">
-                <ul
-                    class="reset-ul"
-                    data-h2-padding="b(all, none)"
-                    data-h2-margin="b(all, none)"
-                    data-h2-text-align="b(center) m(left)"
-                    style="margin-left: -0.7rem"
-                >
-                    <li
-                        data-h2-margin="b(all, none)"
-                        data-h2-padding="b(all, none)"
-                        data-h2-display="b(inline-block)"
-                    >
-                        <a
-                            href="/en/"
-                            title="Visit the GC Talent homepage."
-                            data-h2-display="b(block)"
-                            data-h2-padding="b(all, xs) m(right-left, s)"
-                            >Home</a
-                        >
-                    </li>
-
-                    <li
-                        data-h2-margin="b(all, none)"
-                        data-h2-padding="b(all, none)"
-                        data-h2-display="b(inline-block)"
-                    >
-                        <a
-                            href="/en/talent-cloud/"
-                            title="Learn more about the Talent Cloud project."
-                            data-h2-display="b(block)"
-                            data-h2-padding="b(all, xs) m(right-left, s)"
-                            >Talent Cloud</a
-                        >
-                    </li>
-
-                    <li
-                        data-h2-margin="b(all, none)"
-                        data-h2-padding="b(all, none)"
-                        data-h2-display="b(inline-block)"
-                    >
-                        <a
-                            href="/en/communities/digital-talent/"
-                            title="Learn more about the Digital Talent community."
-                            data-h2-display="b(block)"
-                            data-h2-padding="b(all, xs) m(right-left, s)"
-                            >Digital Talent</a
-                        >
-                    </li>
-                </ul>
-            </nav>
+        <!-- Images -->
+        <div 
+          data-h2-margin="b(top, xxl) b(bottom, l) l(top-bottom, xxl)"
+          style="background-image: url('/assets/img/1.6-tx-pride.jpg'); background-position: center; background-size: cover; min-height: 60vh; position: relative;"
+          title="A photo of a person's feet walking along a painted path made up of yellow, green, blue, indigo, and pink stripes.">
+          <a
+            href="#section1"
+            title="Click here to scroll past the image break to the next section of the article."
+            data-h2-bg-color="b(white)"
+            data-h2-display="b(inline-block)"
+            data-h2-font-size="b(caption)"
+            data-h2-text-align="b(center)"
+            data-h2-padding="b(top-bottom, xs) b(right-left, s)"
+            data-h2-radius="b(m)"
+            data-h2-shadow="b(m)"
+            style="position: absolute; top: 0; left: 50%; transform: translate(-50%, -50%); min-width: 15rem;">
+            <svg
+              data-h2-margin="b(right, xxs)" 
+              style="width: 1rem; vertical-align: middle;" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#c90035">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M19 9l-7 7-7-7" />
+            </svg>Article continues below</a>
         </div>
-        <section>
-            <div
-                data-h2-container="b(center, full)"
-                data-h2-text-align="b(center)"
-            >
-                <h1
-                    data-h2-font-weight="b(800)"
-                    data-h2-font-size="b(h1)"
-                    data-h2-padding="b(top, l) l(top, xxl) b(bottom, xxs)"
-                    style="letter-spacing: -3px"
-                >
-                    Talent Cloud Results Report
-                </h1>
+        <span id="section1"></span>
+        <div data-h2-container="b(center, s)">
+      
+    
+      
+        
+          <!-- Pullquotes -->
+          <blockquote
+            data-h2-border="b(red, left, solid, m)"
+            data-h2-margin="b(top-bottom, xl)"
+            data-h2-padding="b(left, m)">
+            
+            
+              <p data-h2-font-color="b(red)">“Designing with users” is key to modern service delivery. But it’s not only the engagement in design that matters. It’s also essential that government teams push themselves to think critically about the diversity of their product’s user base, and whether or not the users who come forward to help with product testing are reflective of that diversity. If not, the product may not perform as well as intended once it hits the real world... or worse, it may perform to the advantage of some user groups at the cost of others. “Designing with users” comes with responsibility. After all, we’re talking about real humans.<br><br>Talent Cloud’s user testers are drawn from a community that includes (among others) people from a multitude of life paths and regions, Indigenous users, and people with alternative accessibility considerations. Our team is also reflective of this diversity.<br><br>Canada is a community of communities. Responsible user-centered design must meaningfully embody that diversity all the way through product development - not as an afterthought or an add on. While this isn’t always easy, it’s an ethical imperative and the only way to get a truly high quality product.</p>
+            
+          </blockquote>
+        
+      
+    
+  </div>
+</main>
+<section style="background-color: #F8F8F8;">
+  <div data-h2-container="b(center, s)" data-h2-padding="b(bottom, l) l(bottom, xxl)">
+    <div data-h2-flex-grid="b(top, expanded, flush, m)">
+      <div
+        data-h2-text-align="b(center) m(left)" 
+        data-h2-flex-item="b(1of2)">
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            
+              <a class="prev" href="/en/projects/2000/01/01/105-partnerships.html" title="Go to the previous article in the series.">
+                <svg data-h2-margin="b(right, xxs)" 
+                  style="width: 1rem; vertical-align: middle;" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="#c90035">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M15 19l-7-7 7-7" />
+                </svg>Previous Article</a>
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      </div>
+      <div 
+        data-h2-text-align="b(center) m(right)"   
+        data-h2-flex-item="b(1of2)">
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            
+              <a class="next" href="/en/projects/2000/01/01/107-approach.html" title="Go to the next article in the series.">Next Article<svg data-h2-margin="b(left, xxs)" 
+                style="width: 1rem; vertical-align: middle;" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="#c90035">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M9 5l7 7-7 7" />
+                </svg></a>
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      </div>
+    </div>
+    <p
+      data-h2-margin="b(top, xxl)" 
+      data-h2-text-align="b(center)"
+      data-h2-font-size="b(caption)">
+      <a href="/en/talent-cloud/report/#toc" title="Return to Table of Contents">Return to Table of Contents</a>
+    </p>
+  </div>
+</section>
+<section data-h2-border="b([light]gray, top, solid, s)" data-h2-position="b(relative)" style="background: rgba(240, 240, 240, 1)" data-h2-overflow="b(x, hidden)">
+  <footer data-h2-container="b(center, full)" data-h2-padding="b(top-bottom, l)">
+    <div data-h2-flex-grid="b(middle, expanded, flush, xl)">
+      <div
+        data-h2-flex-item="b(1of1) m(1of2)"
+        data-h2-padding="b(left, xl)"
+        data-h2-text-align="b(center) m(left)">
+        
+          <nav>
+            <ul
+              style="gap: 1rem;"
+              class="reset-ul"
+              data-h2-display="b(flex)"
+              data-h2-flex-wrap="b(wrap)"
+              data-h2-justify-content="b(center) m(flex-start)"
+              data-h2-margin="b(bottom, xs)">
+              
+              <li data-h2-display="b(inline-block)" data-h2-margin="b(top-bottom, none)">
+                
+                  <a href="mailto:talent.cloud-nuage.de.talents@tbs-sct.gc.ca" title="Submit feedback to GC Talent Cloud via email.">Feedback</a>
+                
+              </li>
+              
+              <li data-h2-display="b(inline-block)" data-h2-margin="b(top-bottom, none)">
+                
+                  <a href="/en/terms-and-conditions" title="View our terms and conditions.">Terms & Conditions</a>
+                
+              </li>
+              
+              <li data-h2-display="b(inline-block)" data-h2-margin="b(top-bottom, none)">
+                
+                  <a href="/en/privacy-notice" title="View our privacy policy.">Privacy Policy</a>
+                
+              </li>
+              
+              <li data-h2-display="b(inline-block)" data-h2-margin="b(top-bottom, none)">
+                
+                  <a href="/en/https://www.canada.ca/en.html" title="Visit Canada.ca.">Canada.ca</a>
+                
+              </li>
+              
+            </ul>
+          </nav>
+          <p 
+            data-h2-font-size="b(caption)"
+            data-h2-font-color="b(black)" 
+            data-h2-margin="b(bottom, none) b(top, m)">
+            Date Modified: July 07, 2021
+          </p>
+        
+      </div>
+      <div
+        data-h2-flex-item="b(1of1) m(1of2)"
+        data-h2-padding="b(right, xl)"
+        data-h2-text-align="b(center) m(right)">
+        <a
+          href="https://www.canada.ca/en.html"
+          title="Visit Canada.ca."
+          target="_blank"
+          rel="noopener noreferrer">
+          <img
+            class="canada-logo"
+            src="/assets/img/ui-canada.png"
+            alt="Canada's Logo."/>
+        </a>
+      </div>
+    </div>
+  </footer>
+</section>
 
-                <div id="breadcrumbs" data-h2-margin="b(top-bottom, m)">
-                    <a href="/en" title="Return to the homepage.">GC Talent</a>
-                    <!-- If the page layout is post then use this breadcrumb list. -->
-
-                    /
-                    <a
-                        href="/en/talent-cloud"
-                        title="Return to the Talent Cloud page."
-                        >Talent Cloud</a
-                    >
-                    /
-                    <a
-                        href="/en/talent-cloud/report"
-                        title="Return to the Talent Cloud results report."
-                        >Talent Cloud Resu...</a
-                    >
-                    / <span>Section 1</span> /
-                    <span data-h2-font-weight="b(800)"
-                        >The Digital Stand...</span
-                    >
-                </div>
-            </div>
-        </section>
-        <header
-            class="post-header"
-            id="mainContent"
-            style="background-image: url('/assets/img/1.6-tx-heading.jpg')"
-            data-h2-margin="b(top, xl)"
-        >
-            <div
-                data-h2-container="b(center, m)"
-                data-h2-font-color="b(white)"
-                data-h2-padding="b(top, l) b(bottom, xl) l(top, xl) l(bottom, xxl)"
-                data-h2-text-align="b(center)"
-            >
-                <h2
-                    data-h2-font-weight="b(200)"
-                    data-h2-font-size="b(h2)"
-                    data-h2-padding="b(top, m)"
-                    style="letter-spacing: -2px"
-                >
-                    The Digital Standards in Practice
-                </h2>
-            </div>
-        </header>
-        <main
-            data-h2-padding="b(top-bottom, xs) l(top-bottom, xl)"
-            style="background-color: #f8f8f8"
-        >
-            <div data-h2-container="b(center, s)">
-                <!-- Basic Content -->
-                <p>
-                    The Digital Standards were officially released by the Office
-                    of the Chief Information Officer in 2018. But for those
-                    working on government innovation and digital initiatives,
-                    they’d long been considered best practices for achieving
-                    meaningful results. To get different outcomes, you must
-                    adopt different business processes. To get citizen-centric,
-                    digital age results, that means embracing the Digital
-                    Standards in all aspects of the work.
-                </p>
-
-                <!-- Basic Content -->
-                <p>
-                    For the Talent Cloud team, the Digital Standards act as a
-                    foundation. But unlike a physical foundation, our ability to
-                    work in line with the Digital Standards is dynamic. That
-                    means the foundation of our team can actually get stronger
-                    if we actively maintain what we’re doing well and challenge
-                    ourselves in the areas where we can do better. Here’s just a
-                    snapshot of how the Digital Standards have helped to shape
-                    the project and its outcomes.
-                </p>
-
-                <!-- Digital Standards -->
-
-                <p
-                    data-h2-margin="b(top, xl) b(bottom, s)"
-                    data-h2-font-size="b(h4)"
-                    data-h2-font-weight="b(800)"
-                    data-h2-font-color="b(red)"
-                >
-                    <img
-                        data-h2-margin="b(right, xs)"
-                        style="vertical-align: middle; width: 1.8rem"
-                        src="/assets/img/ds-disc-iterate.svg"
-                        aria-hidden="true"
-                    />Iterate and improve frequently
-                </p>
-
-                <p>
-                    Our team uses the Agile method, working in two-week sprints.
-                    At the end of each sprint, the teams (back end, policy and
-                    design) show their progress and look for feedback. New input
-                    from live testing and any changes from emerging priorities
-                    are integrated into the forward plan the next day. This
-                    creates tight feedback loops that help us stay responsive to
-                    user input and maintain momentum as we develop and improve
-                    features.
-                </p>
-
-                <p
-                    data-h2-margin="b(top, xl) b(bottom, s)"
-                    data-h2-font-size="b(h4)"
-                    data-h2-font-weight="b(800)"
-                    data-h2-font-color="b(red)"
-                >
-                    <img
-                        data-h2-margin="b(right, xs)"
-                        style="vertical-align: middle; width: 1.8rem"
-                        src="/assets/img/ds-disc-open-work.svg"
-                        aria-hidden="true"
-                    />Work in the open by default
-                </p>
-
-                <p>
-                    Talent Cloud is an open-by-default project, with information
-                    posted publicly on our website and under the group “Talent
-                    Cloud” on
-                    <a
-                        href="http://gccollab.ca/"
-                        title="Visit GCcollab."
-                        target="_blank"
-                        rel="noreferrer"
-                        >GCcollab.ca</a
-                    >. This includes wire frames, prototypes, user stories, and
-                    blog posts. The team’s code and workflow are available on
-                    the open source site
-                    <a
-                        href="https://github.com/GCTC-NTGC/TalentCloud"
-                        title="Visit Talent Cloud on Github."
-                        target="_blank"
-                        rel="noreferrer"
-                        >Github</a
-                    >.
-                </p>
-
-                <p
-                    data-h2-margin="b(top, xl) b(bottom, s)"
-                    data-h2-font-size="b(h4)"
-                    data-h2-font-weight="b(800)"
-                    data-h2-font-color="b(red)"
-                >
-                    <img
-                        data-h2-margin="b(right, xs)"
-                        style="vertical-align: middle; width: 1.8rem"
-                        src="/assets/img/ds-disc-open-standards.svg"
-                        aria-hidden="true"
-                    />Use open standards and solutions
-                </p>
-
-                <p>
-                    Talent Cloud is an open source project and is a pioneer at
-                    TBS for using an Open Source software stack (e.g., PHP,
-                    Apache, Linux, React, Postgres, Docker, Storybook, Redux,
-                    SASS, Formik, Snyk) for hosting sites in a protected
-                    environment.
-                </p>
-
-                <p>
-                    Talent Cloud follows a "Mobile First" approach to design and
-                    development to ensure it can be easily used across various
-                    platforms. It uses common web standards to enable the
-                    greatest interoperability.
-                </p>
-
-                <p
-                    data-h2-margin="b(top, xl) b(bottom, s)"
-                    data-h2-font-size="b(h4)"
-                    data-h2-font-weight="b(800)"
-                    data-h2-font-color="b(red)"
-                >
-                    <img
-                        data-h2-margin="b(right, xs)"
-                        style="vertical-align: middle; width: 1.8rem"
-                        src="/assets/img/ds-disc-security.svg"
-                        aria-hidden="true"
-                    />Address security and privacy risks
-                </p>
-
-                <p>
-                    Talent Cloud was one of the first protected applications in
-                    the Government of Canada to move into the cloud. To do this
-                    we had to pioneer a new approach to privacy that allowed for
-                    iterative improvements to the platform.
-                </p>
-
-                <p>
-                    We’re always in the process of updating our Privacy Impact
-                    Assessment (the ultimate government privacy document for
-                    applications). As we scope new features that will require
-                    collection of new data or handling the same data
-                    differently, we are also updating our privacy documentation.
-                    Currently we’re working on our third Privacy Impact
-                    Assessment, and we intend to keep it evergreen.
-                </p>
-
-                <p
-                    data-h2-margin="b(top, xl) b(bottom, s)"
-                    data-h2-font-size="b(h4)"
-                    data-h2-font-weight="b(800)"
-                    data-h2-font-color="b(red)"
-                >
-                    <img
-                        data-h2-margin="b(right, xs)"
-                        style="vertical-align: middle; width: 1.8rem"
-                        src="/assets/img/ds-disc-data.svg"
-                        aria-hidden="true"
-                    />Be good data stewards
-                </p>
-
-                <p>
-                    People are tired of always being asked for the same
-                    information. This consistent feedback from users drove our
-                    commitment to making reusable skills central to our
-                    platform. By breaking up job requirements into individual
-                    skills, we allow applicants to only describe those skills
-                    once and re-use the same descriptions for future job
-                    applications.
-                </p>
-
-                <p>
-                    But that only scratches the surface of what candidates are
-                    asked for during the hiring process. To push this idea
-                    further, Talent Cloud is working to pilot the use of
-                    verifiable credentials. This work would generate trusted
-                    records that replace the need to repeatedly assess the same
-                    requirements.
-                </p>
-
-                <p
-                    data-h2-margin="b(top, xl) b(bottom, s)"
-                    data-h2-font-size="b(h4)"
-                    data-h2-font-weight="b(800)"
-                    data-h2-font-color="b(red)"
-                >
-                    <img
-                        data-h2-margin="b(right, xs)"
-                        style="vertical-align: middle; width: 1.8rem"
-                        src="/assets/img/ds-disc-ethics.svg"
-                        aria-hidden="true"
-                    />Design ethical services
-                </p>
-
-                <p>
-                    Designing an ethical staffing platform is the core
-                    philosophy of the team. We sum this up as ‘making the good
-                    road the easy road’ for our users, and taking the right path
-                    to get there as a team, no matter how long or difficult it
-                    is in the build phase. This means diving deep into the way
-                    policy, product and human nature intersect. It requires
-                    working through the complexities of bias reduction,
-                    behavioural psychology, and intended and unintended
-                    outcomes, and carefully monitoring the outcomes for users.
-                </p>
-
-                <p
-                    data-h2-margin="b(top, xl) b(bottom, s)"
-                    data-h2-font-size="b(h4)"
-                    data-h2-font-weight="b(800)"
-                    data-h2-font-color="b(red)"
-                >
-                    <img
-                        data-h2-margin="b(right, xs)"
-                        style="vertical-align: middle; width: 1.8rem"
-                        src="/assets/img/ds-disc-empower-staff.svg"
-                        aria-hidden="true"
-                    />Empower staff to deliver better services
-                </p>
-
-                <p>
-                    The team operates in a high trust environment that allows
-                    for open communications, where ideas are challenged in a
-                    productive way. Team members are accountable to each other
-                    for progress, which is reported openly through sprint cycle
-                    planning and results discussions.
-                </p>
-
-                <p>
-                    Senior management is supportive of the principle of
-                    experimentation, which creates an ecosystem in which the
-                    team can pursue data-driven results and challenge the status
-                    quo.
-                </p>
-
-                <p
-                    data-h2-margin="b(top, xl) b(bottom, s)"
-                    data-h2-font-size="b(h4)"
-                    data-h2-font-weight="b(800)"
-                    data-h2-font-color="b(red)"
-                >
-                    <img
-                        data-h2-margin="b(right, xs)"
-                        style="vertical-align: middle; width: 1.8rem"
-                        src="/assets/img/ds-disc-users.svg"
-                        aria-hidden="true"
-                    />Design with users
-                </p>
-
-                <p>
-                    Talent Cloud designs for and with three main user groups:
-                    job applicants/employees, hiring managers, and HR Advisors.
-                    Our product development cycle includes workshops and early
-                    theory testing, followed by wire frame testing sessions with
-                    potential users. Once the product is live, we test again
-                    with real users, and observe findings over time (not just in
-                    the first release.)
-                </p>
-
-                <p
-                    data-h2-margin="b(top, xl) b(bottom, s)"
-                    data-h2-font-size="b(h4)"
-                    data-h2-font-weight="b(800)"
-                    data-h2-font-color="b(red)"
-                >
-                    <img
-                        data-h2-margin="b(right, xs)"
-                        style="vertical-align: middle; width: 1.8rem"
-                        src="/assets/img/ds-disc-accessibility.svg"
-                        aria-hidden="true"
-                    />Build in accessibility from the start
-                </p>
-
-                <p>
-                    Talent Cloud has taken a number of steps to advance
-                    accessibility beyond meeting WCAG AA standards. One of the
-                    team’s earliest hires to the development team was someone
-                    with accessibility expertise. This has ensured that
-                    accessibility considerations have been part of all of our
-                    proposed features at an early stage of design - not as a
-                    retrofit of a predetermined feature. We also work with
-                    <a
-                        href="https://makeitfable.com/"
-                        title="Visit the Fable Tech Labs website."
-                        target="_blank"
-                        rel="noreferrer"
-                        >Fable Tech Labs</a
-                    >
-                    who help coordinate testing of our products and features
-                    real people who require assistive technologies to access the
-                    web as early as possible during development. While WCAG AA
-                    provides a baseline, audits from real users lets us deliver
-                    a quality above and beyond the minimum requirements, because
-                    we want to make sure everyone has a pleasant experience on
-                    our platform.
-                </p>
-
-                <p
-                    data-h2-margin="b(top, xl) b(bottom, s)"
-                    data-h2-font-size="b(h4)"
-                    data-h2-font-weight="b(800)"
-                    data-h2-font-color="b(red)"
-                >
-                    <img
-                        data-h2-margin="b(right, xs)"
-                        style="vertical-align: middle; width: 1.8rem"
-                        src="/assets/img/ds-disc-collaboration.svg"
-                        aria-hidden="true"
-                    />Collaborate widely
-                </p>
-
-                <p>
-                    Talent Cloud is a partner funded experiment, which makes
-                    collaboration a core part of our governance and operating
-                    model. Over the course of the experiment, fifteen
-                    departments and agencies from across the GC, including those
-                    not under the Public Sector Employment Act, making the
-                    platform a truly horizontal initiative.
-                </p>
-
-                <p>
-                    Beyond working with our partners and users, The team also
-                    collaborates widely on a national and international basis,
-                    sharing best practices and learning from experts around the
-                    world working in areas related to digital age service
-                    delivery, staffing modernization, the future of work, and
-                    citizen-inclusive design. The team engages with other
-                    governments at the working level, academia, not-for-profits,
-                    Indigenous communities and policy wonks keen to talk about
-                    reimagining government talent engines.
-                </p>
-            </div>
-            <!-- Images -->
-            <div
-                data-h2-margin="b(top, xxl) b(bottom, l) l(top-bottom, xxl)"
-                style="
-                    background-image: url('/assets/img/1.6-tx-pride.jpg');
-                    background-position: center;
-                    background-size: cover;
-                    min-height: 60vh;
-                    position: relative;
-                "
-                title="A photo of a person's feet walking along a painted path made up of yellow, green, blue, indigo, and pink stripes."
-            >
-                <a
-                    href="#section1"
-                    title="Click here to scroll past the image break to the next section of the article."
-                    data-h2-bg-color="b(white)"
-                    data-h2-display="b(inline-block)"
-                    data-h2-font-size="b(caption)"
-                    data-h2-text-align="b(center)"
-                    data-h2-padding="b(top-bottom, xs) b(right-left, s)"
-                    data-h2-radius="b(m)"
-                    data-h2-shadow="b(m)"
-                    style="
-                        position: absolute;
-                        top: 0;
-                        left: 50%;
-                        transform: translate(-50%, -50%);
-                        min-width: 15rem;
-                    "
-                >
-                    <svg
-                        data-h2-margin="b(right, xxs)"
-                        style="width: 1rem; vertical-align: middle"
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="#c90035"
-                    >
-                        <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="4"
-                            d="M19 9l-7 7-7-7"
-                        /></svg
-                    >Article continues below</a
-                >
-            </div>
-            <span id="section1"></span>
-            <div data-h2-container="b(center, s)">
-                <!-- Pullquotes -->
-                <blockquote
-                    data-h2-border="b(red, left, solid, m)"
-                    data-h2-margin="b(top-bottom, xl)"
-                    data-h2-padding="b(left, m)"
-                >
-                    <p data-h2-font-color="b(red)">
-                        “Designing with users” is key to modern service
-                        delivery. But it’s not only the engagement in design
-                        that matters. It’s also essential that government teams
-                        push themselves to think critically about the diversity
-                        of their product’s user base, and whether or not the
-                        users who come forward to help with product testing are
-                        reflective of that diversity. If not, the product may
-                        not perform as well as intended once it hits the real
-                        world... or worse, it may perform to the advantage of
-                        some user groups at the cost of others. “Designing with
-                        users” comes with responsibility. After all, we’re
-                        talking about real humans.<br /><br />Talent Cloud’s
-                        user testers are drawn from a community that includes
-                        (among others) people from a multitude of life paths and
-                        regions, Indigenous users, and people with alternative
-                        accessibility considerations. Our team is also
-                        reflective of this diversity.<br /><br />Canada is a
-                        community of communities. Responsible user-centered
-                        design must meaningfully embody that diversity all the
-                        way through product development - not as an afterthought
-                        or an add on. While this isn’t always easy, it’s an
-                        ethical imperative and the only way to get a truly high
-                        quality product.
-                    </p>
-                </blockquote>
-            </div>
-        </main>
-        <section style="background-color: #f8f8f8">
-            <div
-                data-h2-container="b(center, s)"
-                data-h2-padding="b(bottom, l) l(bottom, xxl)"
-            >
-                <div data-h2-flex-grid="b(top, expanded, flush, m)">
-                    <div
-                        data-h2-text-align="b(center) m(left)"
-                        data-h2-flex-item="b(1of2)"
-                    >
-                        <a
-                            class="prev"
-                            href="/en/projects/2000/01/01/105-partnerships.html"
-                            title="Go to the previous article in the series."
-                        >
-                            <svg
-                                data-h2-margin="b(right, xxs)"
-                                style="width: 1rem; vertical-align: middle"
-                                xmlns="http://www.w3.org/2000/svg"
-                                class="h-6 w-6"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="#c90035"
-                            >
-                                <path
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="4"
-                                    d="M15 19l-7-7 7-7"
-                                /></svg
-                            >Previous Article</a
-                        >
-                    </div>
-                    <div
-                        data-h2-text-align="b(center) m(right)"
-                        data-h2-flex-item="b(1of2)"
-                    >
-                        <a
-                            class="next"
-                            href="/en/projects/2000/01/01/107-approach.html"
-                            title="Go to the next article in the series."
-                            >Next Article<svg
-                                data-h2-margin="b(left, xxs)"
-                                style="width: 1rem; vertical-align: middle"
-                                xmlns="http://www.w3.org/2000/svg"
-                                class="h-6 w-6"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="#c90035"
-                            >
-                                <path
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="4"
-                                    d="M9 5l7 7-7 7"
-                                /></svg
-                        ></a>
-                    </div>
-                </div>
-                <p
-                    data-h2-margin="b(top, xxl)"
-                    data-h2-text-align="b(center)"
-                    data-h2-font-size="b(caption)"
-                >
-                    <a
-                        href="/en/talent-cloud/report/#toc"
-                        title="Return to Table of Contents"
-                        >Return to Table of Contents</a
-                    >
-                </p>
-            </div>
-        </section>
-        <section
-            data-h2-border="b([light]gray, top, solid, s)"
-            data-h2-position="b(relative)"
-            style="background: rgba(240, 240, 240, 1)"
-            data-h2-overflow="b(x, hidden)"
-        >
-            <footer
-                data-h2-container="b(center, full)"
-                data-h2-padding="b(top-bottom, l)"
-            >
-                <div data-h2-flex-grid="b(middle, expanded, flush, xl)">
-                    <div
-                        data-h2-flex-item="b(1of1) m(1of2)"
-                        data-h2-padding="b(left, xl)"
-                        data-h2-text-align="b(center) m(left)"
-                    >
-                        <nav>
-                            <ul
-                                style="gap: 1rem"
-                                class="reset-ul"
-                                data-h2-display="b(flex)"
-                                data-h2-flex-wrap="b(wrap)"
-                                data-h2-justify-content="b(center) m(flex-start)"
-                                data-h2-margin="b(bottom, xs)"
-                            >
-                                <li
-                                    data-h2-display="b(inline-block)"
-                                    data-h2-margin="b(top-bottom, none)"
-                                >
-                                    <a
-                                        href="mailto:talent.cloud-nuage.de.talents@tbs-sct.gc.ca"
-                                        title="Submit feedback to GC Talent Cloud via email."
-                                        >Feedback</a
-                                    >
-                                </li>
-
-                                <li
-                                    data-h2-display="b(inline-block)"
-                                    data-h2-margin="b(top-bottom, none)"
-                                >
-                                    <a
-                                        href="/en/terms-and-conditions"
-                                        title="View our terms and conditions."
-                                        >Terms & Conditions</a
-                                    >
-                                </li>
-
-                                <li
-                                    data-h2-display="b(inline-block)"
-                                    data-h2-margin="b(top-bottom, none)"
-                                >
-                                    <a
-                                        href="/en/privacy-notice"
-                                        title="View our privacy policy."
-                                        >Privacy Policy</a
-                                    >
-                                </li>
-
-                                <li
-                                    data-h2-display="b(inline-block)"
-                                    data-h2-margin="b(top-bottom, none)"
-                                >
-                                    <a
-                                        href="https://www.canada.ca/en.html"
-                                        title="Visit Canada.ca."
-                                        >Canada.ca</a
-                                    >
-                                </li>
-                            </ul>
-                        </nav>
-                        <p
-                            data-h2-font-size="b(caption)"
-                            data-h2-font-color="b(black)"
-                            data-h2-margin="b(bottom, none) b(top, m)"
-                        >
-                            Date Modified: July 07, 2021
-                        </p>
-                    </div>
-                    <div
-                        data-h2-flex-item="b(1of1) m(1of2)"
-                        data-h2-padding="b(right, xl)"
-                        data-h2-text-align="b(center) m(right)"
-                    >
-                        <a
-                            href="https://www.canada.ca/en.html"
-                            title="Visit Canada.ca."
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            <img
-                                class="canada-logo"
-                                src="/assets/img/ui-canada.png"
-                                alt="Canada's Logo."
-                            />
-                        </a>
-                    </div>
-                </div>
-            </footer>
-        </section>
-
-        <script type="text/javascript" src="/assets/js/app.js"></script>
-    </body>
+    <script type="text/javascript" src="/assets/js/app.js"></script>
+  </body>
 </html>

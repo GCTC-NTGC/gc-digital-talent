@@ -1,806 +1,752 @@
 <!DOCTYPE html>
 <html lang="fr">
-    <head>
-        <meta charset="utf-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>
-            GC Talent | Autoévaluation des compétences selon le niveau
-        </title>
-        <meta
-            name="description"
-            content="Talent Cloud is an experimental staffing solution created by the Government of Canada. Read our experiment's results report here!"
-        />
-        <!-- Google Tag Manager -->
-        <script>
-            (function (w, d, s, l, i) {
-                w[l] = w[l] || [];
-                w[l].push({
-                    "gtm.start": new Date().getTime(),
-                    event: "gtm.js",
-                });
-                var f = d.getElementsByTagName(s)[0],
-                    j = d.createElement(s),
-                    dl = l != "dataLayer" ? "&l=" + l : "";
-                j.async = true;
-                j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
-                f.parentNode.insertBefore(j, f);
-            })(window, document, "script", "dataLayer", "GTM-P27NF5V");
-        </script>
-        <!-- End Google Tag Manager -->
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GC Talent | Autoévaluation des compétences selon le niveau</title>
+  <meta name="description" content="Talent Cloud is an experimental staffing solution created by the Government of Canada. Read our experiment's results report here!">
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-P27NF5V');</script>
+    <!-- End Google Tag Manager -->
 
-        <!-- Global site tag (gtag.js) - Google Analytics -->
-        <script
-            async
-            src="https://www.googletagmanager.com/gtag/js?id=UA-115747902-1"
-        ></script>
-        <script>
-            window.dataLayer = window.dataLayer || [];
-            function gtag() {
-                dataLayer.push(arguments);
-            }
-            gtag("js", new Date());
-            gtag("config", "UA-115747902-1", {
-                cookie_flags: "secure",
-            });
-        </script>
-        <!-- Favicons -->
-        <link
-            rel="apple-touch-icon"
-            sizes="180x180"
-            href="/apple-touch-icon.png"
-        />
-        <link
-            rel="icon"
-            type="image/png"
-            sizes="32x32"
-            href="/favicon-32x32.png"
-        />
-        <link
-            rel="icon"
-            type="image/png"
-            sizes="16x16"
-            href="/favicon-16x16.png"
-        />
-        <link rel="manifest" href="/site.webmanifest" />
-        <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
-        <meta name="msapplication-TileColor" content="#da532c" />
-        <meta name="theme-color" content="#ffffff" />
-        <!-- Google Fonts -->
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link
-            href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap"
-            rel="stylesheet"
-        />
-        <!-- Hydrogen CSS -->
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script
+        async
+        src="https://www.googletagmanager.com/gtag/js?id=UA-115747902-1">
+    </script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-115747902-1', {
+          cookie_flags: 'secure'
+        });
+    </script>
+  <!-- Favicons -->
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap" rel="stylesheet">
+  <!-- Hydrogen CSS -->
+  
+    <!-- <link rel="stylesheet" href="/assets/css/hydrogen-tc.css"> -->
+    <link rel="stylesheet" href="/assets/css/hydrogen.css">
+  
+  <!-- App CSS -->
+  <link rel="stylesheet" href="/assets/css/app.css">
+</head>
 
-        <!-- <link rel="stylesheet" href="/assets/css/hydrogen-tc.css"> -->
-        <link rel="stylesheet" href="/assets/css/hydrogen.css" />
-
-        <!-- App CSS -->
-        <link rel="stylesheet" href="/assets/css/app.css" />
-    </head>
-
-    <body data-h2-font-family="b(sans)">
-        <a href="#mainContent" title="" class="skip-link"
-            >Skip to Main Content</a
+  <body data-h2-font-family="b(sans)">
+    <a href="#mainContent" title="" class="skip-link">Skip to Main Content</a>
+    <div data-h2-border="b([light]gray, bottom, solid, s)" >
+  <div data-h2-container="b(center, full)" data-h2-padding="b(top-bottom, s)">
+    <div data-h2-flex-grid="b(middle, expanded, flush, s)">
+      <div data-h2-flex-item="m(1of2)" data-h2-text-align="b(center) m(left)">
+        <a
+          data-h2-display="b(inline-block)"
+          style="max-width: 15rem; width: 100%;"
+          href="https://canada.ca/"
+          target="_blank"
+          title="Visit canada.ca."
+          rel="noopener noreferrer"
         >
-        <div data-h2-border="b([light]gray, bottom, solid, s)">
-            <div
-                data-h2-container="b(center, full)"
-                data-h2-padding="b(top-bottom, s)"
-            >
-                <div data-h2-flex-grid="b(middle, expanded, flush, s)">
-                    <div
-                        data-h2-flex-item="m(1of2)"
-                        data-h2-text-align="b(center) m(left)"
-                    >
-                        <a
-                            data-h2-display="b(inline-block)"
-                            style="max-width: 15rem; width: 100%"
-                            href="https://canada.ca/"
-                            target="_blank"
-                            title="Visit canada.ca."
-                            rel="noopener noreferrer"
-                        >
-                            <img
-                                data-h2-
-                                alt="goc logo"
-                                src="/assets/img/ui-goc.svg"
-                        /></a>
-                    </div>
-                    <div
-                        data-h2-flex-item="m(1of2)"
-                        data-h2-text-align="b(center) m(right)"
-                    >
-                        <a
-                            href="/en/hiring/2000/01/01/209-skill-assessment.html"
-                            title="View this content in English."
-                            >English</a
-                        >
-                    </div>
-                </div>
-            </div>
-        </div>
+          <img data-h2- alt="goc logo" src="/assets/img/ui-goc.svg"
+        /></a>
+      </div>
+      <div data-h2-flex-item="m(1of2)" data-h2-text-align="b(center) m(right)">
+         
+        <a href="/en/hiring/2000/01/01/209-skill-assessment.html" title="View this content in English.">English</a>
+        
+      </div>
+    </div>
+  </div>
+</div>
 
-        <div data-h2-container="b(center, full)">
-            <nav data-h2-padding="b(top-bottom, m)">
-                <ul
-                    class="reset-ul"
-                    data-h2-padding="b(all, none)"
-                    data-h2-margin="b(all, none)"
-                    data-h2-text-align="b(center) m(left)"
-                    style="margin-left: -0.7rem"
-                >
-                    <li
-                        data-h2-margin="b(all, none)"
-                        data-h2-padding="b(all, none)"
-                        data-h2-display="b(inline-block)"
-                    >
-                        <a
-                            href="/fr/"
-                            title="Visitez la page d'accueil de GC Talent."
-                            data-h2-display="b(block)"
-                            data-h2-padding="b(all, xs) m(right-left, s)"
-                            >Accueil</a
-                        >
-                    </li>
+<div data-h2-container="b(center, full)" >
+  <nav data-h2-padding="b(top-bottom, m)">
+    <ul class="reset-ul" data-h2-padding="b(all, none)" data-h2-margin="b(all, none)" data-h2-text-align="b(center) m(left)" style="margin-left: -.7rem;">
+      
+        <li data-h2-margin="b(all, none)" data-h2-padding="b(all, none)" data-h2-display="b(inline-block)">
+          <a href="/fr/" title="Visitez la page d'accueil de GC Talent."
+            
+            data-h2-display="b(block)"
+            data-h2-padding="b(all, xs) m(right-left, s)">Accueil</a>
+        </li>
+      
+        <li data-h2-margin="b(all, none)" data-h2-padding="b(all, none)" data-h2-display="b(inline-block)">
+          <a href="/fr/talent-cloud/" title="En savoir plus sur le projet Nuage de talents."
+            
+            data-h2-display="b(block)"
+            data-h2-padding="b(all, xs) m(right-left, s)">Nuage de talents</a>
+        </li>
+      
+        <li data-h2-margin="b(all, none)" data-h2-padding="b(all, none)" data-h2-display="b(inline-block)">
+          <a href="/fr/communities/digital-talent/" title="En savoir plus sur la communauté des talents numériques."
+            
+            data-h2-display="b(block)"
+            data-h2-padding="b(all, xs) m(right-left, s)">Talent numérique</a>
+        </li>
+      
+    </ul>
+  </nav>
+</div>
+<section>
+  <div
+    data-h2-container="b(center, full)"
+    data-h2-text-align="b(center)">
+    
+    <h1
+  data-h2-font-weight="b(800)"
+  data-h2-font-size="b(h1)"
+  data-h2-padding='b(top, l) l(top, xxl) b(bottom, xxs)'
+  style="letter-spacing: -3px"
+  
+>
+  Rapport sur les résultats de Nuage de talents
+</h1>
 
-                    <li
-                        data-h2-margin="b(all, none)"
-                        data-h2-padding="b(all, none)"
-                        data-h2-display="b(inline-block)"
-                    >
-                        <a
-                            href="/fr/talent-cloud/"
-                            title="En savoir plus sur le projet Nuage de talents."
-                            data-h2-display="b(block)"
-                            data-h2-padding="b(all, xs) m(right-left, s)"
-                            >Nuage de talents</a
-                        >
-                    </li>
+    <div id="breadcrumbs" data-h2-margin="b(top-bottom, m)" >
+  
+  <a href="/fr" title="Retour à la page d'accueil.">GC Talent</a>
+  <!-- If the page layout is post then use this breadcrumb list. -->
+  
+    / <a href="/fr/talent-cloud" title="Retournez à la page de Nuage de talents.">Nuage de talents</a>
+    / <a href="/fr/talent-cloud/report" title="Retournez au rapport des résultats de Nuage de talents.">Rapport sur les r...</a>
+    / <span>Section 2</span>
+    / <span data-h2-font-weight="b(800)">Autoévaluation de...</span>
+  
+</div>
+  </div>
+</section>
+<header 
+  class="post-header"
+  id="mainContent"
+  style="background-image: url('/assets/img/2.9-tx-heading.jpg');"
+  data-h2-margin="b(top, xl)">
+  <div 
+    data-h2-container="b(center, m)" 
+    data-h2-font-color="b(white)"
+    data-h2-padding="b(top, l) b(bottom, xl) l(top, xl) l(bottom, xxl)"
+    data-h2-text-align="b(center)">
+    <h2
+  
+  data-h2-font-weight="b(200)"
+  data-h2-font-size="b(h2)"
+  
+  data-h2-padding='b(top, m)'
+  
+  
+  style="letter-spacing: -2px;">
+  Autoévaluation des compétences selon le niveau
+</h2>
+    
+  </div>
+</header>
+<main data-h2-padding="b(top-bottom, xs) l(top-bottom, xl)" style="background-color: #F8F8F8;">
+  <div data-h2-container="b(center, s)">
+    
+      
+        
+          <!-- Titles -->
+          <h3
+  
+  data-h2-font-weight="b(800)"
+  data-h2-font-size="b(h3)"
+  data-h2-margin='b(top, xl) b(bottom, s)'
+  
+  style="letter-spacing: -1px;">
+  Le problème
+</h3>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>L’un des objectifs de l’offre d’emploi et du processus de demande d’emploi est d’indiquer clairement aux candidats potentiels s’ils sont qualifiés ou non. Idéalement, seuls les candidats qualifiés postuleront. Mais en réalité, dans la plupart des processus de demande d’emploi du gouvernement du Canada, il y a un nombre important de personnes qui présentent une demande et qui ne sont pas jugées qualifiées, même à l’étape de la présélection initiale. La présélection des candidats qui ne sont pas qualifiés contribue au temps que les gestionnaires consacrent à un processus de dotation.</p>
+        
+      
+    
+      
+        
+          <!-- Titles -->
+          <h3
+  
+  data-h2-font-weight="b(800)"
+  data-h2-font-size="b(h3)"
+  data-h2-margin='b(top, xl) b(bottom, s)'
+  
+  style="letter-spacing: -1px;">
+  Les hypothèses
+</h3>
+        
+      
+    
+      
+        
+          
+            <ul>
+              
+                <li>Ce ne sont pas toutes les personnes qui postulent qui seront qualifiées, et certains candidats étirent sciemment la vérité pour que leur demande soit vue par un gestionnaire d’embauche.</li>
+              
+                <li>Plutôt que d’étirer la vérité, certains candidats préféreraient se décrire (de façon plus précise) comme n’ayant pas atteint les niveaux de compétence requis, pourvu que le gestionnaire ait quand même l’occasion d’examiner la demande qu’ils soumettent.</li>
+              
+                <li>La séparation de ces candidats permettrait aux gestionnaires d’économiser du temps, car ils pourraient ignorer ce groupe si un très grand nombre de demandes étaient reçues.</li>
+              
+                <li>Certains de ces candidats peuvent se tromper dans leur propre autoévaluation et être en fait qualifiés pour le poste.</li>
+              
+                <li>Les gestionnaires préféreraient sélectionner un bassin de candidats où un pourcentage plus élevé de candidats s’est avéré pleinement qualifié.</li>
+              
+            </ul>
+          
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>Dans le contexte de la conception de cette hypothèse en cascade, l’équipe était également au courant de la recherche externe indiquant qu’il y a des considérations de genre et de diversité dans l’autoévaluation. En particulier, <a href="https://hbr.org/2014/08/why-women-dont-apply-for-jobs-unless-theyre-100-qualified" target="_blank" rel="noreferrer" title="Voir la source.">des données indiquent que les hommes sont plus susceptibles que les femmes de s’autoévaluer favorablement lorsqu’il est question de préparation à l’emploi</a>. Toute conception de recherche élaborée par le Nuage de talents devrait tenir compte de la sensibilisation à ce risque et veiller à ce que les groupes en quête d’équité ne soient pas désavantagés inconsciemment par la conception.</p>
+        
+      
+    
+      
+        
+          <!-- Titles -->
+          <h3
+  
+  data-h2-font-weight="b(800)"
+  data-h2-font-size="b(h3)"
+  data-h2-margin='b(top, xl) b(bottom, s)'
+  
+  style="letter-spacing: -1px;">
+  L’expérience
+</h3>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>Le Nuage de talents a décidé d’inclure une étape active dans le processus de demande d’emploi, où les candidats devaient s’autoévaluer et indiquer leur niveau de maîtrise de chaque compétence. Nous étions d’avis que cette étape active réduirait le nombre de personnes qui prétendaient faussement posséder les compétences requises. Toutefois, nous craignions que cela ne fausse le bassin de candidats en affectant de façon disproportionnée les groupes en quête d’équité qui pourraient être plus susceptibles de s’autoévaluer en deçà du niveau requis.</p>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>Pour cette raison, nous avons décidé d’accepter toutes les demandes, peu importe le niveau de compétence indiqué par le candidat. Il est pratique courante dans les formulaires Web de bloquer la présentation des demandes jusqu’à ce que l’utilisateur ait indiqué qu’il répond à toutes les exigences. Dans ce cas-ci, nous avons pris la décision délibérée de ne pas forcer les candidats à prétendre qu’ils avaient les niveaux requis simplement pour présenter leur demande.</p>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>Cela a créé un nouveau groupe de candidats que nous avons séparé pour les gestionnaires avant qu’ils commencent leur examen (dans le cadre du tri dans le Système de suivi des candidats mis au point par le Nuage de talents sur le Portail des gestionnaires). Ce nouveau groupe pourrait être ignoré par les gestionnaires lorsque de nombreuses demandes étaient reçues, mais il pourrait également être utilisé pour explorer notre hypothèse selon laquelle certains candidats feraient une autoévaluation erronée et devraient en fait être pris en considération pour le poste. Si les gestionnaires pensaient régulièrement que les candidats avaient sous-évalué leurs compétences (et qu’ils étaient en fait bien qualifiés), il serait plausible que cette étape entraîne des résultats indésirables, et nous devrions approfondir l’enquête.</p>
+        
+      
+    
+      
+        
+          <!-- Titles -->
+          <h3
+  
+  data-h2-font-weight="b(800)"
+  data-h2-font-size="b(h3)"
+  data-h2-margin='b(top, xl) b(bottom, s)'
+  
+  style="letter-spacing: -1px;">
+  Interventions sur la plateforme
+</h3>
+        
+      
+    
+      
+        
+          
+            <ol>
+              
+                <li><strong style="letter-spacing: -1px;" data-h2-font-weight="b(800)" data-h2-font-color="b(purple)">Présenter une échelle des niveaux de maîtrise des compétences : </strong>Avant que les candidats puissent évaluer eux-mêmes leur niveau de maîtrise des compétences, nous avons dû décrire ces niveaux. Pour un test initial, nous avons séparé les compétences en compétences spécialisées (techniques et professionnelles) et en compétences générales  (comportementales et transférables) et avons décrit les niveaux de maîtrise pour chacune. Dans le cas des compétences spécialisées, l’augmentation des niveaux de maîtrise signifiait que vous étiez en mesure d’accomplir des tâches de plus en plus difficiles avec des niveaux de supervision ou de soutien décroissants. Pour les compétences générales, cependant, nous voulions une échelle distincte. Vous n’avez pas de « résilience avancée » comme compétence générale. Il faut plutôt faire preuve de résilience sur une longue période dans diverses situations. Donc, pour les compétences générales, nos niveaux de maîtrise croissants signifiaient que vous aviez démontré la compétence avec une constance croissante, dans des situations de plus en plus difficiles ou stressantes.</li>
+              
+                <li><strong style="letter-spacing: -1px;" data-h2-font-weight="b(800)" data-h2-font-color="b(purple)">Présenter l’étape d’autoévaluation pour chaque compétence : </strong>Pour chaque compétence, nous avons ajouté une liste déroulante simple permettant aux candidats d’entrer leur propre niveau de maîtrise. Cela a forcé les candidats à indiquer activement le niveau de maîtrise qu’ils croyaient avoir.</li>
+              
+                <li><strong style="letter-spacing: -1px;" data-h2-font-weight="b(800)" data-h2-font-color="b(purple)">Ne pas exiger le niveau de compétence requis pour présenter une demande : </strong>Afin de surveiller et de corriger le biais potentiel introduit par cette étape, nous avons autorisé la présentation des demandes, même si le candidat indiquait que son niveau de compétence était inférieur au niveau de maîtrise requis. Cela a donné aux gestionnaires l’occasion d’examiner ces demandes quand même et de corriger les inexactitudes possibles introduites par le processus d’autoévaluation.</li>
+              
+            </ol>
+          
+        
+      
+    
+      
+        
+          <figure data-h2-margin="b(top-bottom, l)">
+            <!-- Graphics -->
+            
+              <img 
+                src="/assets/img/2.9-fr-skills.png"
+                alt="Une capture d’écran d’un cadre filaire de faible fidélité présentant l’interface de sélection de niveau de compétence « dur » du Nuage de talents. L’utilisateur pouvait choisir parmi les niveaux de base, intermédiaire, avancé et principal pour le choix du niveau."
+                style="width: 100%;"
+                data-h2-display="b(block)"
+                data-h2-radius="b(s)"
+                data-h2-border="b(gray, all, solid, s)">
+                
+            
+          </figure>
+        
+      
+    
+      
+        
+          <!-- Titles -->
+          <h3
+  
+  data-h2-font-weight="b(800)"
+  data-h2-font-size="b(h3)"
+  data-h2-margin='b(top, xl) b(bottom, s)'
+  
+  style="letter-spacing: -1px;">
+  Les résultats
+</h3>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>Environ 15 % de tous les candidats (155 sur 1 004) ont indiqué qu’au moins un de leurs niveaux de compétence était inférieur au niveau requis. Si l’on examine la répartition entre les compétences générales et les compétences spécialisées, seulement 16 de ces 155 compétences étaient des compétences générales.</p>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>Dans <strong style="letter-spacing: -1px;" data-h2-font-weight="b(800)" data-h2-font-color="b(purple)">tous les cas</strong> où les gestionnaires ont examiné les demandes de ces candidats (et que le Nuage de talents a été en mesure d’effectuer un suivi auprès d’eux), le gestionnaire était d’accord pour dire que les candidats ne possédaient pas le niveau de compétence requis, et ces candidats n’ont pas été invités à subir d’autres tests.</p>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>Plusieurs candidats interrogés qui ont indiqué avoir un niveau de compétences inférieur ont dit qu’ils savaient qu’ils ne satisfaisaient pas aux exigences, mais qu’ils voulaient que le gestionnaire examine leur demande quand même. Cela indique que, du moins dans ces cas, les candidats n’ont pas accidentellement soumis des données erronées et que l’intervention sur la plateforme fonctionnait comme prévu. Cela dit, l’ajout de cette exigence au processus de demande a également créé une étape supplémentaire pour les candidats – une étape qui a fait en sorte que certains ont retardé la présentation de leurs demandes en raison de l’incertitude quant au niveau de compétence qu’ils devraient choisir eux-mêmes. Les candidats ont déclaré qu’ils étaient souvent incertains de leur niveau, ce qui les a amenés à remettre la présentation de leur demande. (Et bien sûr, nous ne pouvons pas voir qui n’a pas fait de demande à cause de cette fonction.)</p>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>Compte tenu des contraintes liées aux données que le Nuage de talents a été autorisé à recueillir sur la plateforme, nous n’avons pas été en mesure de faire des recoupements entre les données quantitatives sur l’équité en matière d’emploi et les demandes présentées qui prétendaient un niveau de compétence inférieur à celui requis pour le poste. Afin de corriger cette absence de données, l’équipe a effectué une analyse qualitative plus approfondie des candidats pour un petit nombre de processus exécutés sur la plateforme. Bien que la taille de l’échantillon était petite et que les résultats ne soient certainement pas concluants, il n’y avait pas de tendance manifeste sur la plateforme à l’égard des groupes en quête d’équité qui étaient plus susceptibles de s’autoévaluer à un niveau inférieur.</p>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>(Une étude plus approfondie serait nécessaire pour confirmer cette conclusion et pour déterminer si la conception de la réduction des biais dans le modèle de compétences a été un facteur permettant de s’assurer que les groupes en quête d’équité n’étaient pas surreprésentés dans l’autoévaluation à un niveau de compétence inférieur. Notre plateforme valorise et présente différents parcours de vie pour l’acquisition de compétences, et il pourrait y avoir un lien potentiel avec la façon dont les groupes en quête d’équité s’autoévaluent dans ce nouvel écosystème, comparativement aux processus de demande plus traditionnels. Voir aussi Les compétences au lieu de l’expérience, et l’importance de ce choix à la section 3 du présent rapport.)</p>
+        
+      
+    
+      
+        
+          <!-- Titles -->
+          <h3
+  
+  data-h2-font-weight="b(800)"
+  data-h2-font-size="b(h3)"
+  data-h2-margin='b(top, xl) b(bottom, s)'
+  
+  style="letter-spacing: -1px;">
+  Perspectives
+</h3>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>À première vue, une réduction de 10 à 15 % du nombre de candidats à la présélection semblerait utile aux gestionnaires. Mais ce n’est qu’une partie de l’histoire. Parmi les autres candidats, environ la moitié ont été éliminés par les gestionnaires d’embauche au moment de la présélection initiale, ce qui indique que la majorité des candidats surestimaient toujours leur niveau de compétence. En raison des économies de temps et d’autres composantes de gestion du volume sur la plateforme du Nuage de talents, les gestionnaires ont estimé que cette réduction de 10 à 15 % des demandes n’a permis d’économiser qu’une ou deux heures au cours de la phase de sélection initiale. Les candidats, quant à eux, ont indiqué que, dans certains cas, cet élément du processus de demande créait de l’incertitude et de l’anxiété au sujet de l’exactitude des autodéclarations et retardait la présentation des demandes.</p>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>Bien qu’il puisse y avoir de nombreux cas où l’autoévaluation est un outil utile pour faire progresser le processus de sélection des candidats, le Nuage de talents n’a pas trouvé qu’il s’agissait d’une composante aussi utile à la phase initiale de la demande que nous l’avions espéré. Cela s’appliquait autant aux compétences spécialisées (professionnelles) qu’aux compétences générales (comportementales).</p>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>Par conséquent, cette composante de la conception de la demande ne s’est pas retrouvée dans la refonte en profondeur du processus de demande (appelée « échéancier ») que l’équipe a lancée en 2021. (Pour en savoir plus sur le nouveau modèle, consultez la section 3 de la recherche Les compétences au lieu de l’expérience, et l’importance de ce choix.) Au lieu de cela, nous nous orientons davantage vers l’amélioration de la conversation à trois entre les gestionnaires, les candidats et les conseillers en RH sur ce à quoi ressemble un niveau « qualifié » pour une compétence donnée et les renseignements que les candidats doivent fournir pour aider les gestionnaires à prendre des décisions de sélection qui tiennent compte des divers parcours de vie pour acquérir et démontrer des compétences.</p>
+        
+      
+    
+  </div>
+</main>
+<section style="background-color: #F8F8F8;">
+  <div data-h2-container="b(center, s)" data-h2-padding="b(bottom, l) l(bottom, xxl)">
+    <div data-h2-flex-grid="b(top, expanded, flush, m)">
+      <div
+        data-h2-text-align="b(center) m(left)" 
+        data-h2-flex-item="b(1of2)">
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            
+              <a class="prev" href="/fr/hiring/2000/01/01/208-flexibility.html" title="Allez à l'article précédent de la série.">
+                <svg data-h2-margin="b(right, xxs)" 
+                  style="width: 1rem; vertical-align: middle;" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="#c90035">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M15 19l-7-7 7-7" />
+                </svg>Article précédent</a>
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      </div>
+      <div 
+        data-h2-text-align="b(center) m(right)"   
+        data-h2-flex-item="b(1of2)">
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            
+              <a class="next" href="/fr/diversity/2000/01/01/301-overview.html" title="Passez à l'article suivant de la série.">Article suivant<svg data-h2-margin="b(left, xxs)" 
+                style="width: 1rem; vertical-align: middle;" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="#c90035">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M9 5l7 7-7 7" />
+                </svg></a>
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      </div>
+    </div>
+    <p
+      data-h2-margin="b(top, xxl)" 
+      data-h2-text-align="b(center)"
+      data-h2-font-size="b(caption)">
+      <a href="/fr/talent-cloud/report/#toc" title="Retour à la table des matières">Retour à la table des matières</a>
+    </p>
+  </div>
+</section>
+<section data-h2-border="b([light]gray, top, solid, s)" data-h2-position="b(relative)" style="background: rgba(240, 240, 240, 1)" data-h2-overflow="b(x, hidden)">
+  <footer data-h2-container="b(center, full)" data-h2-padding="b(top-bottom, l)">
+    <div data-h2-flex-grid="b(middle, expanded, flush, xl)">
+      <div
+        data-h2-flex-item="b(1of1) m(1of2)"
+        data-h2-padding="b(left, xl)"
+        data-h2-text-align="b(center) m(left)">
+        
+          <nav>
+            <ul
+              style="gap: 1rem;"
+              class="reset-ul"
+              data-h2-display="b(flex)"
+              data-h2-flex-wrap="b(wrap)"
+              data-h2-justify-content="b(center) m(flex-start)"
+              data-h2-margin="b(bottom, xs)">
+              
+              <li data-h2-display="b(inline-block)" data-h2-margin="b(top-bottom, none)">
+                
+                  <a href="mailto:talent.cloud-nuage.de.talents@tbs-sct.gc.ca" title="Soumettre des commentaires au Nuage de talents du GC par courriel.">Retour d'information</a>
+                
+              </li>
+              
+              <li data-h2-display="b(inline-block)" data-h2-margin="b(top-bottom, none)">
+                
+                  <a href="/fr/terms-and-conditions" title="Voir nos avis.">Avis</a>
+                
+              </li>
+              
+              <li data-h2-display="b(inline-block)" data-h2-margin="b(top-bottom, none)">
+                
+                  <a href="/fr/privacy-notice" title="Voir notre politique de confidentialité.">Confidentialité</a>
+                
+              </li>
+              
+              <li data-h2-display="b(inline-block)" data-h2-margin="b(top-bottom, none)">
+                
+                  <a href="/fr/https://www.canada.ca/fr.html" title="Visiter Canada.ca.">Canada.ca</a>
+                
+              </li>
+              
+            </ul>
+          </nav>
+          <p 
+            data-h2-font-size="b(caption)"
+            data-h2-font-color="b(black)" 
+            data-h2-margin="b(bottom, none) b(top, m)">
+            Date de modification: July 07, 2021
+          </p>
+        
+      </div>
+      <div
+        data-h2-flex-item="b(1of1) m(1of2)"
+        data-h2-padding="b(right, xl)"
+        data-h2-text-align="b(center) m(right)">
+        <a
+          href="https://www.canada.ca/fr.html"
+          title="Visiter Canada.ca."
+          target="_blank"
+          rel="noopener noreferrer">
+          <img
+            class="canada-logo"
+            src="/assets/img/ui-canada.png"
+            alt="Symbole du gouvernement du Canada."/>
+        </a>
+      </div>
+    </div>
+  </footer>
+</section>
 
-                    <li
-                        data-h2-margin="b(all, none)"
-                        data-h2-padding="b(all, none)"
-                        data-h2-display="b(inline-block)"
-                    >
-                        <a
-                            href="/fr/communities/digital-talent/"
-                            title="En savoir plus sur la communauté des talents numériques."
-                            data-h2-display="b(block)"
-                            data-h2-padding="b(all, xs) m(right-left, s)"
-                            >Talent numérique</a
-                        >
-                    </li>
-                </ul>
-            </nav>
-        </div>
-        <section>
-            <div
-                data-h2-container="b(center, full)"
-                data-h2-text-align="b(center)"
-            >
-                <h1
-                    data-h2-font-weight="b(800)"
-                    data-h2-font-size="b(h1)"
-                    data-h2-padding="b(top, l) l(top, xxl) b(bottom, xxs)"
-                    style="letter-spacing: -3px"
-                >
-                    Rapport sur les résultats de Nuage de talents
-                </h1>
-
-                <div id="breadcrumbs" data-h2-margin="b(top-bottom, m)">
-                    <a href="/fr" title="Retour à la page d'accueil."
-                        >GC Talent</a
-                    >
-                    <!-- If the page layout is post then use this breadcrumb list. -->
-
-                    /
-                    <a
-                        href="/fr/talent-cloud"
-                        title="Retournez à la page de Nuage de talents."
-                        >Nuage de talents</a
-                    >
-                    /
-                    <a
-                        href="/fr/talent-cloud/report"
-                        title="Retournez au rapport des résultats de Nuage de talents."
-                        >Rapport sur les r...</a
-                    >
-                    / <span>Section 2</span> /
-                    <span data-h2-font-weight="b(800)"
-                        >Autoévaluation de...</span
-                    >
-                </div>
-            </div>
-        </section>
-        <header
-            class="post-header"
-            id="mainContent"
-            style="background-image: url('/assets/img/2.9-tx-heading.jpg')"
-            data-h2-margin="b(top, xl)"
-        >
-            <div
-                data-h2-container="b(center, m)"
-                data-h2-font-color="b(white)"
-                data-h2-padding="b(top, l) b(bottom, xl) l(top, xl) l(bottom, xxl)"
-                data-h2-text-align="b(center)"
-            >
-                <h2
-                    data-h2-font-weight="b(200)"
-                    data-h2-font-size="b(h2)"
-                    data-h2-padding="b(top, m)"
-                    style="letter-spacing: -2px"
-                >
-                    Autoévaluation des compétences selon le niveau
-                </h2>
-            </div>
-        </header>
-        <main
-            data-h2-padding="b(top-bottom, xs) l(top-bottom, xl)"
-            style="background-color: #f8f8f8"
-        >
-            <div data-h2-container="b(center, s)">
-                <!-- Titles -->
-                <h3
-                    data-h2-font-weight="b(800)"
-                    data-h2-font-size="b(h3)"
-                    data-h2-margin="b(top, xl) b(bottom, s)"
-                    style="letter-spacing: -1px"
-                >
-                    Le problème
-                </h3>
-
-                <!-- Basic Content -->
-                <p>
-                    L’un des objectifs de l’offre d’emploi et du processus de
-                    demande d’emploi est d’indiquer clairement aux candidats
-                    potentiels s’ils sont qualifiés ou non. Idéalement, seuls
-                    les candidats qualifiés postuleront. Mais en réalité, dans
-                    la plupart des processus de demande d’emploi du gouvernement
-                    du Canada, il y a un nombre important de personnes qui
-                    présentent une demande et qui ne sont pas jugées qualifiées,
-                    même à l’étape de la présélection initiale. La présélection
-                    des candidats qui ne sont pas qualifiés contribue au temps
-                    que les gestionnaires consacrent à un processus de dotation.
-                </p>
-
-                <!-- Titles -->
-                <h3
-                    data-h2-font-weight="b(800)"
-                    data-h2-font-size="b(h3)"
-                    data-h2-margin="b(top, xl) b(bottom, s)"
-                    style="letter-spacing: -1px"
-                >
-                    Les hypothèses
-                </h3>
-
-                <ul>
-                    <li>
-                        Ce ne sont pas toutes les personnes qui postulent qui
-                        seront qualifiées, et certains candidats étirent
-                        sciemment la vérité pour que leur demande soit vue par
-                        un gestionnaire d’embauche.
-                    </li>
-
-                    <li>
-                        Plutôt que d’étirer la vérité, certains candidats
-                        préféreraient se décrire (de façon plus précise) comme
-                        n’ayant pas atteint les niveaux de compétence requis,
-                        pourvu que le gestionnaire ait quand même l’occasion
-                        d’examiner la demande qu’ils soumettent.
-                    </li>
-
-                    <li>
-                        La séparation de ces candidats permettrait aux
-                        gestionnaires d’économiser du temps, car ils pourraient
-                        ignorer ce groupe si un très grand nombre de demandes
-                        étaient reçues.
-                    </li>
-
-                    <li>
-                        Certains de ces candidats peuvent se tromper dans leur
-                        propre autoévaluation et être en fait qualifiés pour le
-                        poste.
-                    </li>
-
-                    <li>
-                        Les gestionnaires préféreraient sélectionner un bassin
-                        de candidats où un pourcentage plus élevé de candidats
-                        s’est avéré pleinement qualifié.
-                    </li>
-                </ul>
-
-                <!-- Basic Content -->
-                <p>
-                    Dans le contexte de la conception de cette hypothèse en
-                    cascade, l’équipe était également au courant de la recherche
-                    externe indiquant qu’il y a des considérations de genre et
-                    de diversité dans l’autoévaluation. En particulier,
-                    <a
-                        href="https://hbr.org/2014/08/why-women-dont-apply-for-jobs-unless-theyre-100-qualified"
-                        target="_blank"
-                        rel="noreferrer"
-                        title="Voir la source."
-                        >des données indiquent que les hommes sont plus
-                        susceptibles que les femmes de s’autoévaluer
-                        favorablement lorsqu’il est question de préparation à
-                        l’emploi</a
-                    >. Toute conception de recherche élaborée par le Nuage de
-                    talents devrait tenir compte de la sensibilisation à ce
-                    risque et veiller à ce que les groupes en quête d’équité ne
-                    soient pas désavantagés inconsciemment par la conception.
-                </p>
-
-                <!-- Titles -->
-                <h3
-                    data-h2-font-weight="b(800)"
-                    data-h2-font-size="b(h3)"
-                    data-h2-margin="b(top, xl) b(bottom, s)"
-                    style="letter-spacing: -1px"
-                >
-                    L’expérience
-                </h3>
-
-                <!-- Basic Content -->
-                <p>
-                    Le Nuage de talents a décidé d’inclure une étape active dans
-                    le processus de demande d’emploi, où les candidats devaient
-                    s’autoévaluer et indiquer leur niveau de maîtrise de chaque
-                    compétence. Nous étions d’avis que cette étape active
-                    réduirait le nombre de personnes qui prétendaient faussement
-                    posséder les compétences requises. Toutefois, nous
-                    craignions que cela ne fausse le bassin de candidats en
-                    affectant de façon disproportionnée les groupes en quête
-                    d’équité qui pourraient être plus susceptibles de
-                    s’autoévaluer en deçà du niveau requis.
-                </p>
-
-                <!-- Basic Content -->
-                <p>
-                    Pour cette raison, nous avons décidé d’accepter toutes les
-                    demandes, peu importe le niveau de compétence indiqué par le
-                    candidat. Il est pratique courante dans les formulaires Web
-                    de bloquer la présentation des demandes jusqu’à ce que
-                    l’utilisateur ait indiqué qu’il répond à toutes les
-                    exigences. Dans ce cas-ci, nous avons pris la décision
-                    délibérée de ne pas forcer les candidats à prétendre qu’ils
-                    avaient les niveaux requis simplement pour présenter leur
-                    demande.
-                </p>
-
-                <!-- Basic Content -->
-                <p>
-                    Cela a créé un nouveau groupe de candidats que nous avons
-                    séparé pour les gestionnaires avant qu’ils commencent leur
-                    examen (dans le cadre du tri dans le Système de suivi des
-                    candidats mis au point par le Nuage de talents sur le
-                    Portail des gestionnaires). Ce nouveau groupe pourrait être
-                    ignoré par les gestionnaires lorsque de nombreuses demandes
-                    étaient reçues, mais il pourrait également être utilisé pour
-                    explorer notre hypothèse selon laquelle certains candidats
-                    feraient une autoévaluation erronée et devraient en fait
-                    être pris en considération pour le poste. Si les
-                    gestionnaires pensaient régulièrement que les candidats
-                    avaient sous-évalué leurs compétences (et qu’ils étaient en
-                    fait bien qualifiés), il serait plausible que cette étape
-                    entraîne des résultats indésirables, et nous devrions
-                    approfondir l’enquête.
-                </p>
-
-                <!-- Titles -->
-                <h3
-                    data-h2-font-weight="b(800)"
-                    data-h2-font-size="b(h3)"
-                    data-h2-margin="b(top, xl) b(bottom, s)"
-                    style="letter-spacing: -1px"
-                >
-                    Interventions sur la plateforme
-                </h3>
-
-                <ol>
-                    <li>
-                        <strong
-                            style="letter-spacing: -1px"
-                            data-h2-font-weight="b(800)"
-                            data-h2-font-color="b(purple)"
-                            >Présenter une échelle des niveaux de maîtrise des
-                            compétences : </strong
-                        >Avant que les candidats puissent évaluer eux-mêmes leur
-                        niveau de maîtrise des compétences, nous avons dû
-                        décrire ces niveaux. Pour un test initial, nous avons
-                        séparé les compétences en compétences spécialisées
-                        (techniques et professionnelles) et en compétences
-                        générales (comportementales et transférables) et avons
-                        décrit les niveaux de maîtrise pour chacune. Dans le cas
-                        des compétences spécialisées, l’augmentation des niveaux
-                        de maîtrise signifiait que vous étiez en mesure
-                        d’accomplir des tâches de plus en plus difficiles avec
-                        des niveaux de supervision ou de soutien décroissants.
-                        Pour les compétences générales, cependant, nous voulions
-                        une échelle distincte. Vous n’avez pas de « résilience
-                        avancée » comme compétence générale. Il faut plutôt
-                        faire preuve de résilience sur une longue période dans
-                        diverses situations. Donc, pour les compétences
-                        générales, nos niveaux de maîtrise croissants
-                        signifiaient que vous aviez démontré la compétence avec
-                        une constance croissante, dans des situations de plus en
-                        plus difficiles ou stressantes.
-                    </li>
-
-                    <li>
-                        <strong
-                            style="letter-spacing: -1px"
-                            data-h2-font-weight="b(800)"
-                            data-h2-font-color="b(purple)"
-                            >Présenter l’étape d’autoévaluation pour chaque
-                            compétence : </strong
-                        >Pour chaque compétence, nous avons ajouté une liste
-                        déroulante simple permettant aux candidats d’entrer leur
-                        propre niveau de maîtrise. Cela a forcé les candidats à
-                        indiquer activement le niveau de maîtrise qu’ils
-                        croyaient avoir.
-                    </li>
-
-                    <li>
-                        <strong
-                            style="letter-spacing: -1px"
-                            data-h2-font-weight="b(800)"
-                            data-h2-font-color="b(purple)"
-                            >Ne pas exiger le niveau de compétence requis pour
-                            présenter une demande : </strong
-                        >Afin de surveiller et de corriger le biais potentiel
-                        introduit par cette étape, nous avons autorisé la
-                        présentation des demandes, même si le candidat indiquait
-                        que son niveau de compétence était inférieur au niveau
-                        de maîtrise requis. Cela a donné aux gestionnaires
-                        l’occasion d’examiner ces demandes quand même et de
-                        corriger les inexactitudes possibles introduites par le
-                        processus d’autoévaluation.
-                    </li>
-                </ol>
-
-                <figure data-h2-margin="b(top-bottom, l)">
-                    <!-- Graphics -->
-
-                    <img
-                        src="/assets/img/2.9-fr-skills.png"
-                        alt="Une capture d’écran d’un cadre filaire de faible fidélité présentant l’interface de sélection de niveau de compétence « dur » du Nuage de talents. L’utilisateur pouvait choisir parmi les niveaux de base, intermédiaire, avancé et principal pour le choix du niveau."
-                        style="width: 100%"
-                        data-h2-display="b(block)"
-                        data-h2-radius="b(s)"
-                        data-h2-border="b(gray, all, solid, s)"
-                    />
-                </figure>
-
-                <!-- Titles -->
-                <h3
-                    data-h2-font-weight="b(800)"
-                    data-h2-font-size="b(h3)"
-                    data-h2-margin="b(top, xl) b(bottom, s)"
-                    style="letter-spacing: -1px"
-                >
-                    Les résultats
-                </h3>
-
-                <!-- Basic Content -->
-                <p>
-                    Environ 15 % de tous les candidats (155 sur 1 004) ont
-                    indiqué qu’au moins un de leurs niveaux de compétence était
-                    inférieur au niveau requis. Si l’on examine la répartition
-                    entre les compétences générales et les compétences
-                    spécialisées, seulement 16 de ces 155 compétences étaient
-                    des compétences générales.
-                </p>
-
-                <!-- Basic Content -->
-                <p>
-                    Dans
-                    <strong
-                        style="letter-spacing: -1px"
-                        data-h2-font-weight="b(800)"
-                        data-h2-font-color="b(purple)"
-                        >tous les cas</strong
-                    >
-                    où les gestionnaires ont examiné les demandes de ces
-                    candidats (et que le Nuage de talents a été en mesure
-                    d’effectuer un suivi auprès d’eux), le gestionnaire était
-                    d’accord pour dire que les candidats ne possédaient pas le
-                    niveau de compétence requis, et ces candidats n’ont pas été
-                    invités à subir d’autres tests.
-                </p>
-
-                <!-- Basic Content -->
-                <p>
-                    Plusieurs candidats interrogés qui ont indiqué avoir un
-                    niveau de compétences inférieur ont dit qu’ils savaient
-                    qu’ils ne satisfaisaient pas aux exigences, mais qu’ils
-                    voulaient que le gestionnaire examine leur demande quand
-                    même. Cela indique que, du moins dans ces cas, les candidats
-                    n’ont pas accidentellement soumis des données erronées et
-                    que l’intervention sur la plateforme fonctionnait comme
-                    prévu. Cela dit, l’ajout de cette exigence au processus de
-                    demande a également créé une étape supplémentaire pour les
-                    candidats – une étape qui a fait en sorte que certains ont
-                    retardé la présentation de leurs demandes en raison de
-                    l’incertitude quant au niveau de compétence qu’ils devraient
-                    choisir eux-mêmes. Les candidats ont déclaré qu’ils étaient
-                    souvent incertains de leur niveau, ce qui les a amenés à
-                    remettre la présentation de leur demande. (Et bien sûr, nous
-                    ne pouvons pas voir qui n’a pas fait de demande à cause de
-                    cette fonction.)
-                </p>
-
-                <!-- Basic Content -->
-                <p>
-                    Compte tenu des contraintes liées aux données que le Nuage
-                    de talents a été autorisé à recueillir sur la plateforme,
-                    nous n’avons pas été en mesure de faire des recoupements
-                    entre les données quantitatives sur l’équité en matière
-                    d’emploi et les demandes présentées qui prétendaient un
-                    niveau de compétence inférieur à celui requis pour le poste.
-                    Afin de corriger cette absence de données, l’équipe a
-                    effectué une analyse qualitative plus approfondie des
-                    candidats pour un petit nombre de processus exécutés sur la
-                    plateforme. Bien que la taille de l’échantillon était petite
-                    et que les résultats ne soient certainement pas concluants,
-                    il n’y avait pas de tendance manifeste sur la plateforme à
-                    l’égard des groupes en quête d’équité qui étaient plus
-                    susceptibles de s’autoévaluer à un niveau inférieur.
-                </p>
-
-                <!-- Basic Content -->
-                <p>
-                    (Une étude plus approfondie serait nécessaire pour confirmer
-                    cette conclusion et pour déterminer si la conception de la
-                    réduction des biais dans le modèle de compétences a été un
-                    facteur permettant de s’assurer que les groupes en quête
-                    d’équité n’étaient pas surreprésentés dans l’autoévaluation
-                    à un niveau de compétence inférieur. Notre plateforme
-                    valorise et présente différents parcours de vie pour
-                    l’acquisition de compétences, et il pourrait y avoir un lien
-                    potentiel avec la façon dont les groupes en quête d’équité
-                    s’autoévaluent dans ce nouvel écosystème, comparativement
-                    aux processus de demande plus traditionnels. Voir aussi Les
-                    compétences au lieu de l’expérience, et l’importance de ce
-                    choix à la section 3 du présent rapport.)
-                </p>
-
-                <!-- Titles -->
-                <h3
-                    data-h2-font-weight="b(800)"
-                    data-h2-font-size="b(h3)"
-                    data-h2-margin="b(top, xl) b(bottom, s)"
-                    style="letter-spacing: -1px"
-                >
-                    Perspectives
-                </h3>
-
-                <!-- Basic Content -->
-                <p>
-                    À première vue, une réduction de 10 à 15 % du nombre de
-                    candidats à la présélection semblerait utile aux
-                    gestionnaires. Mais ce n’est qu’une partie de l’histoire.
-                    Parmi les autres candidats, environ la moitié ont été
-                    éliminés par les gestionnaires d’embauche au moment de la
-                    présélection initiale, ce qui indique que la majorité des
-                    candidats surestimaient toujours leur niveau de compétence.
-                    En raison des économies de temps et d’autres composantes de
-                    gestion du volume sur la plateforme du Nuage de talents, les
-                    gestionnaires ont estimé que cette réduction de 10 à 15 %
-                    des demandes n’a permis d’économiser qu’une ou deux heures
-                    au cours de la phase de sélection initiale. Les candidats,
-                    quant à eux, ont indiqué que, dans certains cas, cet élément
-                    du processus de demande créait de l’incertitude et de
-                    l’anxiété au sujet de l’exactitude des autodéclarations et
-                    retardait la présentation des demandes.
-                </p>
-
-                <!-- Basic Content -->
-                <p>
-                    Bien qu’il puisse y avoir de nombreux cas où
-                    l’autoévaluation est un outil utile pour faire progresser le
-                    processus de sélection des candidats, le Nuage de talents
-                    n’a pas trouvé qu’il s’agissait d’une composante aussi utile
-                    à la phase initiale de la demande que nous l’avions espéré.
-                    Cela s’appliquait autant aux compétences spécialisées
-                    (professionnelles) qu’aux compétences générales
-                    (comportementales).
-                </p>
-
-                <!-- Basic Content -->
-                <p>
-                    Par conséquent, cette composante de la conception de la
-                    demande ne s’est pas retrouvée dans la refonte en profondeur
-                    du processus de demande (appelée « échéancier ») que
-                    l’équipe a lancée en 2021. (Pour en savoir plus sur le
-                    nouveau modèle, consultez la section 3 de la recherche Les
-                    compétences au lieu de l’expérience, et l’importance de ce
-                    choix.) Au lieu de cela, nous nous orientons davantage vers
-                    l’amélioration de la conversation à trois entre les
-                    gestionnaires, les candidats et les conseillers en RH sur ce
-                    à quoi ressemble un niveau « qualifié » pour une compétence
-                    donnée et les renseignements que les candidats doivent
-                    fournir pour aider les gestionnaires à prendre des décisions
-                    de sélection qui tiennent compte des divers parcours de vie
-                    pour acquérir et démontrer des compétences.
-                </p>
-            </div>
-        </main>
-        <section style="background-color: #f8f8f8">
-            <div
-                data-h2-container="b(center, s)"
-                data-h2-padding="b(bottom, l) l(bottom, xxl)"
-            >
-                <div data-h2-flex-grid="b(top, expanded, flush, m)">
-                    <div
-                        data-h2-text-align="b(center) m(left)"
-                        data-h2-flex-item="b(1of2)"
-                    >
-                        <a
-                            class="prev"
-                            href="/fr/hiring/2000/01/01/208-flexibility.html"
-                            title="Allez à l'article précédent de la série."
-                        >
-                            <svg
-                                data-h2-margin="b(right, xxs)"
-                                style="width: 1rem; vertical-align: middle"
-                                xmlns="http://www.w3.org/2000/svg"
-                                class="h-6 w-6"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="#c90035"
-                            >
-                                <path
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="4"
-                                    d="M15 19l-7-7 7-7"
-                                /></svg
-                            >Article précédent</a
-                        >
-                    </div>
-                    <div
-                        data-h2-text-align="b(center) m(right)"
-                        data-h2-flex-item="b(1of2)"
-                    >
-                        <a
-                            class="next"
-                            href="/fr/diversity/2000/01/01/301-overview.html"
-                            title="Passez à l'article suivant de la série."
-                            >Article suivant<svg
-                                data-h2-margin="b(left, xxs)"
-                                style="width: 1rem; vertical-align: middle"
-                                xmlns="http://www.w3.org/2000/svg"
-                                class="h-6 w-6"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="#c90035"
-                            >
-                                <path
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="4"
-                                    d="M9 5l7 7-7 7"
-                                /></svg
-                        ></a>
-                    </div>
-                </div>
-                <p
-                    data-h2-margin="b(top, xxl)"
-                    data-h2-text-align="b(center)"
-                    data-h2-font-size="b(caption)"
-                >
-                    <a
-                        href="/fr/talent-cloud/report/#toc"
-                        title="Retour à la table des matières"
-                        >Retour à la table des matières</a
-                    >
-                </p>
-            </div>
-        </section>
-        <section
-            data-h2-border="b([light]gray, top, solid, s)"
-            data-h2-position="b(relative)"
-            style="background: rgba(240, 240, 240, 1)"
-            data-h2-overflow="b(x, hidden)"
-        >
-            <footer
-                data-h2-container="b(center, full)"
-                data-h2-padding="b(top-bottom, l)"
-            >
-                <div data-h2-flex-grid="b(middle, expanded, flush, xl)">
-                    <div
-                        data-h2-flex-item="b(1of1) m(1of2)"
-                        data-h2-padding="b(left, xl)"
-                        data-h2-text-align="b(center) m(left)"
-                    >
-                        <nav>
-                            <ul
-                                style="gap: 1rem"
-                                class="reset-ul"
-                                data-h2-display="b(flex)"
-                                data-h2-flex-wrap="b(wrap)"
-                                data-h2-justify-content="b(center) m(flex-start)"
-                                data-h2-margin="b(bottom, xs)"
-                            >
-                                <li
-                                    data-h2-display="b(inline-block)"
-                                    data-h2-margin="b(top-bottom, none)"
-                                >
-                                    <a
-                                        href="mailto:talent.cloud-nuage.de.talents@tbs-sct.gc.ca"
-                                        title="Soumettre des commentaires au Nuage de talents du GC par courriel."
-                                        >Retour d'information</a
-                                    >
-                                </li>
-
-                                <li
-                                    data-h2-display="b(inline-block)"
-                                    data-h2-margin="b(top-bottom, none)"
-                                >
-                                    <a
-                                        href="/fr/terms-and-conditions"
-                                        title="Voir nos avis."
-                                        >Avis</a
-                                    >
-                                </li>
-
-                                <li
-                                    data-h2-display="b(inline-block)"
-                                    data-h2-margin="b(top-bottom, none)"
-                                >
-                                    <a
-                                        href="/fr/privacy-notice"
-                                        title="Voir notre politique de confidentialité."
-                                        >Confidentialité</a
-                                    >
-                                </li>
-
-                                <li
-                                    data-h2-display="b(inline-block)"
-                                    data-h2-margin="b(top-bottom, none)"
-                                >
-                                    <a
-                                        href="https://www.canada.ca/fr.html"
-                                        title="Visiter Canada.ca."
-                                        >Canada.ca</a
-                                    >
-                                </li>
-                            </ul>
-                        </nav>
-                        <p
-                            data-h2-font-size="b(caption)"
-                            data-h2-font-color="b(black)"
-                            data-h2-margin="b(bottom, none) b(top, m)"
-                        >
-                            Date de modification: July 07, 2021
-                        </p>
-                    </div>
-                    <div
-                        data-h2-flex-item="b(1of1) m(1of2)"
-                        data-h2-padding="b(right, xl)"
-                        data-h2-text-align="b(center) m(right)"
-                    >
-                        <a
-                            href="https://www.canada.ca/fr.html"
-                            title="Visiter Canada.ca."
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            <img
-                                class="canada-logo"
-                                src="/assets/img/ui-canada.png"
-                                alt="Symbole du gouvernement du Canada."
-                            />
-                        </a>
-                    </div>
-                </div>
-            </footer>
-        </section>
-
-        <script type="text/javascript" src="/assets/js/app.js"></script>
-    </body>
+    <script type="text/javascript" src="/assets/js/app.js"></script>
+  </body>
 </html>

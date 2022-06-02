@@ -1,1008 +1,866 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>GC Talent | Five Factor Matching</title>
-        <meta
-            name="description"
-            content="Talent Cloud is an experimental staffing solution created by the Government of Canada. Read our experiment's results report here!"
-        />
-        <!-- Google Tag Manager -->
-        <script>
-            (function (w, d, s, l, i) {
-                w[l] = w[l] || [];
-                w[l].push({
-                    "gtm.start": new Date().getTime(),
-                    event: "gtm.js",
-                });
-                var f = d.getElementsByTagName(s)[0],
-                    j = d.createElement(s),
-                    dl = l != "dataLayer" ? "&l=" + l : "";
-                j.async = true;
-                j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
-                f.parentNode.insertBefore(j, f);
-            })(window, document, "script", "dataLayer", "GTM-P27NF5V");
-        </script>
-        <!-- End Google Tag Manager -->
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GC Talent | Five Factor Matching</title>
+  <meta name="description" content="Talent Cloud is an experimental staffing solution created by the Government of Canada. Read our experiment's results report here!">
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-P27NF5V');</script>
+    <!-- End Google Tag Manager -->
 
-        <!-- Global site tag (gtag.js) - Google Analytics -->
-        <script
-            async
-            src="https://www.googletagmanager.com/gtag/js?id=UA-115747902-1"
-        ></script>
-        <script>
-            window.dataLayer = window.dataLayer || [];
-            function gtag() {
-                dataLayer.push(arguments);
-            }
-            gtag("js", new Date());
-            gtag("config", "UA-115747902-1", {
-                cookie_flags: "secure",
-            });
-        </script>
-        <!-- Favicons -->
-        <link
-            rel="apple-touch-icon"
-            sizes="180x180"
-            href="/apple-touch-icon.png"
-        />
-        <link
-            rel="icon"
-            type="image/png"
-            sizes="32x32"
-            href="/favicon-32x32.png"
-        />
-        <link
-            rel="icon"
-            type="image/png"
-            sizes="16x16"
-            href="/favicon-16x16.png"
-        />
-        <link rel="manifest" href="/site.webmanifest" />
-        <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
-        <meta name="msapplication-TileColor" content="#da532c" />
-        <meta name="theme-color" content="#ffffff" />
-        <!-- Google Fonts -->
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link
-            href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap"
-            rel="stylesheet"
-        />
-        <!-- Hydrogen CSS -->
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script
+        async
+        src="https://www.googletagmanager.com/gtag/js?id=UA-115747902-1">
+    </script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-115747902-1', {
+          cookie_flags: 'secure'
+        });
+    </script>
+  <!-- Favicons -->
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap" rel="stylesheet">
+  <!-- Hydrogen CSS -->
+  
+    <!-- <link rel="stylesheet" href="/assets/css/hydrogen-tc.css"> -->
+    <link rel="stylesheet" href="/assets/css/hydrogen.css">
+  
+  <!-- App CSS -->
+  <link rel="stylesheet" href="/assets/css/app.css">
+</head>
 
-        <!-- <link rel="stylesheet" href="/assets/css/hydrogen-tc.css"> -->
-        <link rel="stylesheet" href="/assets/css/hydrogen.css" />
-
-        <!-- App CSS -->
-        <link rel="stylesheet" href="/assets/css/app.css" />
-    </head>
-
-    <body data-h2-font-family="b(sans)">
-        <a href="#mainContent" title="" class="skip-link"
-            >Skip to Main Content</a
+  <body data-h2-font-family="b(sans)">
+    <a href="#mainContent" title="" class="skip-link">Skip to Main Content</a>
+    <div data-h2-border="b([light]gray, bottom, solid, s)" >
+  <div data-h2-container="b(center, full)" data-h2-padding="b(top-bottom, s)">
+    <div data-h2-flex-grid="b(middle, expanded, flush, s)">
+      <div data-h2-flex-item="m(1of2)" data-h2-text-align="b(center) m(left)">
+        <a
+          data-h2-display="b(inline-block)"
+          style="max-width: 15rem; width: 100%;"
+          href="https://canada.ca/"
+          target="_blank"
+          title="Visit canada.ca."
+          rel="noopener noreferrer"
         >
-        <div data-h2-border="b([light]gray, bottom, solid, s)">
-            <div
-                data-h2-container="b(center, full)"
-                data-h2-padding="b(top-bottom, s)"
-            >
-                <div data-h2-flex-grid="b(middle, expanded, flush, s)">
-                    <div
-                        data-h2-flex-item="m(1of2)"
-                        data-h2-text-align="b(center) m(left)"
-                    >
-                        <a
-                            data-h2-display="b(inline-block)"
-                            style="max-width: 15rem; width: 100%"
-                            href="https://canada.ca/"
-                            target="_blank"
-                            title="Visit canada.ca."
-                            rel="noopener noreferrer"
-                        >
-                            <img
-                                data-h2-
-                                alt="goc logo"
-                                src="/assets/img/ui-goc.svg"
-                        /></a>
-                    </div>
-                    <div
-                        data-h2-flex-item="m(1of2)"
-                        data-h2-text-align="b(center) m(right)"
-                    >
-                        <a
-                            href="/fr/hiring/2000/01/01/204-five-factor.html"
-                            title="Voir ce contenu en français."
-                            >Français</a
-                        >
-                    </div>
-                </div>
-            </div>
-        </div>
+          <img data-h2- alt="goc logo" src="/assets/img/ui-goc.svg"
+        /></a>
+      </div>
+      <div data-h2-flex-item="m(1of2)" data-h2-text-align="b(center) m(right)">
+         
+        <a href="/fr/hiring/2000/01/01/204-five-factor.html" title="Voir ce contenu en français.">Français</a>
+        
+      </div>
+    </div>
+  </div>
+</div>
 
-        <div data-h2-container="b(center, full)">
-            <nav data-h2-padding="b(top-bottom, m)">
-                <ul
-                    class="reset-ul"
-                    data-h2-padding="b(all, none)"
-                    data-h2-margin="b(all, none)"
-                    data-h2-text-align="b(center) m(left)"
-                    style="margin-left: -0.7rem"
-                >
-                    <li
-                        data-h2-margin="b(all, none)"
-                        data-h2-padding="b(all, none)"
-                        data-h2-display="b(inline-block)"
-                    >
-                        <a
-                            href="/en/"
-                            title="Visit the GC Talent homepage."
-                            data-h2-display="b(block)"
-                            data-h2-padding="b(all, xs) m(right-left, s)"
-                            >Home</a
-                        >
-                    </li>
+<div data-h2-container="b(center, full)" >
+  <nav data-h2-padding="b(top-bottom, m)">
+    <ul class="reset-ul" data-h2-padding="b(all, none)" data-h2-margin="b(all, none)" data-h2-text-align="b(center) m(left)" style="margin-left: -.7rem;">
+      
+        <li data-h2-margin="b(all, none)" data-h2-padding="b(all, none)" data-h2-display="b(inline-block)">
+          <a href="/en/" title="Visit the GC Talent homepage."
+            
+            data-h2-display="b(block)"
+            data-h2-padding="b(all, xs) m(right-left, s)">Home</a>
+        </li>
+      
+        <li data-h2-margin="b(all, none)" data-h2-padding="b(all, none)" data-h2-display="b(inline-block)">
+          <a href="/en/talent-cloud/" title="Learn more about the Talent Cloud project."
+            
+            data-h2-display="b(block)"
+            data-h2-padding="b(all, xs) m(right-left, s)">Talent Cloud</a>
+        </li>
+      
+        <li data-h2-margin="b(all, none)" data-h2-padding="b(all, none)" data-h2-display="b(inline-block)">
+          <a href="/en/communities/digital-talent/" title="Learn more about the Digital Talent community."
+            
+            data-h2-display="b(block)"
+            data-h2-padding="b(all, xs) m(right-left, s)">Digital Talent</a>
+        </li>
+      
+    </ul>
+  </nav>
+</div>
+<section>
+  <div
+    data-h2-container="b(center, full)"
+    data-h2-text-align="b(center)">
+    
+    <h1
+  data-h2-font-weight="b(800)"
+  data-h2-font-size="b(h1)"
+  data-h2-padding='b(top, l) l(top, xxl) b(bottom, xxs)'
+  style="letter-spacing: -3px"
+  
+>
+  Talent Cloud Results Report
+</h1>
 
-                    <li
-                        data-h2-margin="b(all, none)"
-                        data-h2-padding="b(all, none)"
-                        data-h2-display="b(inline-block)"
-                    >
-                        <a
-                            href="/en/talent-cloud/"
-                            title="Learn more about the Talent Cloud project."
-                            data-h2-display="b(block)"
-                            data-h2-padding="b(all, xs) m(right-left, s)"
-                            >Talent Cloud</a
-                        >
-                    </li>
-
-                    <li
-                        data-h2-margin="b(all, none)"
-                        data-h2-padding="b(all, none)"
-                        data-h2-display="b(inline-block)"
-                    >
-                        <a
-                            href="/en/communities/digital-talent/"
-                            title="Learn more about the Digital Talent community."
-                            data-h2-display="b(block)"
-                            data-h2-padding="b(all, xs) m(right-left, s)"
-                            >Digital Talent</a
-                        >
-                    </li>
-                </ul>
-            </nav>
-        </div>
-        <section>
-            <div
-                data-h2-container="b(center, full)"
-                data-h2-text-align="b(center)"
-            >
-                <h1
-                    data-h2-font-weight="b(800)"
-                    data-h2-font-size="b(h1)"
-                    data-h2-padding="b(top, l) l(top, xxl) b(bottom, xxs)"
-                    style="letter-spacing: -3px"
-                >
-                    Talent Cloud Results Report
-                </h1>
-
-                <div id="breadcrumbs" data-h2-margin="b(top-bottom, m)">
-                    <a href="/en" title="Return to the homepage.">GC Talent</a>
-                    <!-- If the page layout is post then use this breadcrumb list. -->
-
-                    /
-                    <a
-                        href="/en/talent-cloud"
-                        title="Return to the Talent Cloud page."
-                        >Talent Cloud</a
-                    >
-                    /
-                    <a
-                        href="/en/talent-cloud/report"
-                        title="Return to the Talent Cloud results report."
-                        >Talent Cloud Resu...</a
-                    >
-                    / <span>Section 2</span> /
-                    <span data-h2-font-weight="b(800)"
-                        >Five Factor Matching</span
-                    >
-                </div>
-            </div>
-        </section>
-        <header
-            class="post-header"
-            id="mainContent"
-            style="background-image: url('/assets/img/2.4-tx-heading.jpg')"
-            data-h2-margin="b(top, xl)"
-        >
-            <div
-                data-h2-container="b(center, m)"
-                data-h2-font-color="b(white)"
-                data-h2-padding="b(top, l) b(bottom, xl) l(top, xl) l(bottom, xxl)"
-                data-h2-text-align="b(center)"
-            >
-                <h2
-                    data-h2-font-weight="b(200)"
-                    data-h2-font-size="b(h2)"
-                    data-h2-padding="b(top, m)"
-                    style="letter-spacing: -2px"
-                >
-                    Five Factor Matching
-                </h2>
-            </div>
-        </header>
-        <main
-            data-h2-padding="b(top-bottom, xs) l(top-bottom, xl)"
-            style="background-color: #f8f8f8"
-        >
-            <div data-h2-container="b(center, s)">
-                <!-- Titles -->
-                <h3
-                    data-h2-font-weight="b(800)"
-                    data-h2-font-size="b(h3)"
-                    data-h2-margin="b(top, xl) b(bottom, s)"
-                    style="letter-spacing: -1px"
-                >
-                    The Problem
-                </h3>
-
-                <!-- Basic Content -->
-                <p>
-                    Many of the managers in Talent Cloud’s early workshops in
-                    2017 reported that the hires they had secured through pool
-                    staffing processes in previous years had proved to be poor
-                    fits in the long run. This had led to frustration, further
-                    staffing gaps, and time and effort wasted.
-                </p>
-
-                <!-- Basic Content -->
-                <p>
-                    Several managers mentioned in these same workshops that
-                    their preferred staffing process was through “internal
-                    networking” (basically, poaching talent from other
-                    departments using personal networks). Managers reported that
-                    this practice was common among peers. Significantly, it
-                    wasn’t their preferred staffing method only because it was
-                    faster. It also allowed managers to get insights (before
-                    committing to a hire) about the soft skills and culture fit
-                    side of recruitment that was hard to come by otherwise.
-                    However, hiring managers and GC senior management who
-                    participated in interviews reported that the practice of
-                    internal poaching was unsustainable and harmful in large
-                    numbers; it was creating internal instability in teams
-                    requiring high-demand skills, and was failing to refresh the
-                    GC talent pool. This was particularly acute in digital
-                    talent and, ironically, HR related positions.
-                </p>
-
-                <!-- Basic Content -->
-                <p>
-                    External applicants in workshops in 2017 reported
-                    frustration with applying for jobs where they knew nothing
-                    about the work environment or team they might be joining,
-                    and the absence of this information was a deterrent for
-                    highly qualified applicants with multiple employment
-                    choices. GC employee workshop participants who had
-                    previously been recruited to a team where the fit proved to
-                    be poor reported that they swiftly moved on to other
-                    positions (or intended to move on in the near future).
-                </p>
-
-                <!-- Titles -->
-                <h3
-                    data-h2-font-weight="b(800)"
-                    data-h2-font-size="b(h3)"
-                    data-h2-margin="b(top, xl) b(bottom, s)"
-                    style="letter-spacing: -1px"
-                >
-                    The Hypotheses
-                </h3>
-
+    <div id="breadcrumbs" data-h2-margin="b(top-bottom, m)" >
+  
+  <a href="/en" title="Return to the homepage.">GC Talent</a>
+  <!-- If the page layout is post then use this breadcrumb list. -->
+  
+    / <a href="/en/talent-cloud" title="Return to the Talent Cloud page.">Talent Cloud</a>
+    / <a href="/en/talent-cloud/report" title="Return to the Talent Cloud results report.">Talent Cloud Resu...</a>
+    / <span>Section 2</span>
+    / <span data-h2-font-weight="b(800)">Five Factor Matching</span>
+  
+</div>
+  </div>
+</section>
+<header 
+  class="post-header"
+  id="mainContent"
+  style="background-image: url('/assets/img/2.4-tx-heading.jpg');"
+  data-h2-margin="b(top, xl)">
+  <div 
+    data-h2-container="b(center, m)" 
+    data-h2-font-color="b(white)"
+    data-h2-padding="b(top, l) b(bottom, xl) l(top, xl) l(bottom, xxl)"
+    data-h2-text-align="b(center)">
+    <h2
+  
+  data-h2-font-weight="b(200)"
+  data-h2-font-size="b(h2)"
+  
+  data-h2-padding='b(top, m)'
+  
+  
+  style="letter-spacing: -2px;">
+  Five Factor Matching
+</h2>
+    
+  </div>
+</header>
+<main data-h2-padding="b(top-bottom, xs) l(top-bottom, xl)" style="background-color: #F8F8F8;">
+  <div data-h2-container="b(center, s)">
+    
+      
+        
+          <!-- Titles -->
+          <h3
+  
+  data-h2-font-weight="b(800)"
+  data-h2-font-size="b(h3)"
+  data-h2-margin='b(top, xl) b(bottom, s)'
+  
+  style="letter-spacing: -1px;">
+  The Problem
+</h3>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>Many of the managers in Talent Cloud’s early workshops in 2017 reported that the hires they had secured through pool staffing processes in previous years had proved to be poor fits in the long run. This had led to frustration, further staffing gaps, and time and effort wasted.</p>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>Several managers mentioned in these same workshops that their preferred staffing process was through “internal networking” (basically, poaching talent from other departments using personal networks). Managers reported that this practice was common among peers. Significantly, it wasn’t their preferred staffing method only because it was faster. It also allowed managers to get insights (before committing to a hire) about the soft skills and culture fit side of recruitment that was hard to come by otherwise. However, hiring managers and GC senior management who participated in interviews reported that the practice of internal poaching was unsustainable and harmful in large numbers; it was creating internal instability in teams requiring high-demand skills, and was failing to refresh the GC talent pool. This was particularly acute in digital talent and, ironically, HR related positions.</p>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>External applicants in workshops in 2017 reported frustration with applying for jobs where they knew nothing about the work environment or team they might be joining, and the absence of this information was a deterrent for highly qualified applicants with multiple employment choices. GC employee workshop participants who had previously been recruited to a team where the fit proved to be poor reported that they swiftly moved on to other positions (or intended to move on in the near future).</p>
+        
+      
+    
+      
+        
+          <!-- Titles -->
+          <h3
+  
+  data-h2-font-weight="b(800)"
+  data-h2-font-size="b(h3)"
+  data-h2-margin='b(top, xl) b(bottom, s)'
+  
+  style="letter-spacing: -1px;">
+  The Hypotheses
+</h3>
+        
+      
+    
+      
+        
+          
+            <ul>
+              
+                <li>Humans hire humans. This means that the person each manager or applicant is in a process matters to both the initial hiring decision and the longevity of the success of the hiring fit. It’s not an accurate representation of the hiring process for a staffing model to be based on the assumption that a neutral widget hires another widget to fill an organizational gap with a specific set of criteria, without any behavioural, cultural, historical or ecosystem considerations in play.</li>
+              
+                <li>By changing the information on the hiring poster to account for human factors, we can improve the optimization of the talent-to-team match for both the initial hiring result and longer term outcomes, such as retention rates and performance on the job.</li>
+              
+                <li>By democratizing access to information (giving applicants more internal information about the organization than they normally get), more applicants who are a poor fit will self-select out of the process, leading to a higher overall quality of applicant pool for managers to choose from.</li>
+              
+                <li>If managers factor human elements into the essential and asset requirements of the job itself, the final hiring selection will be more likely to result in a hire who can succeed in the role (not only doing the tasks of the job, but also working well with team members in a broader organizational context.)</li>
+              
+                <li>Factoring culture fit elements into the hiring process will function as a form of “pre-boarding”, acting to accelerate the onboarding success of new hires long before the moment when the new hire actually starts in the job.</li>
+              
+            </ul>
+          
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p><strong style="letter-spacing: -1px;" data-h2-font-weight="b(800)" data-h2-font-color="b(purple)">Note: The overarching hypothesis to factor in culture carries a risk</strong> - one that we had to not only be aware of, but also actively work to guard against. When staffing processes strengthen culture fit, there is also the potential for a model that facilitates the “like hires like” scenario, which exacerbates gaps in inclusion and diversity, and works against equity-seeking groups. Awareness of this risk led the team to develop bias reduction elements, working in tandem with elements designed to optimize the talent-to-team match. (See Research Section 3 on the team’s diversity and inclusion theory and designs.)</p>
+        
+      
+    
+      
+        <div data-h2-padding="b(top-bottom, l)">
+          <div data-h2-flex-grid="b(top, expanded, flush, l)">
+            
+              <div data-h2-flex-item="b(1of1) m(1of2)">
+                <p data-h2-text-align="b(center)">Most work isn't done in isolation. So why design hiring models like this?</p>
+                <img 
+                  src="/assets/img/2.4-2-factor.png"
+                  alt=""
+                  style="width: 100%;"
+                  data-h2-margin="b(top-bottom, l)">
+                <p data-h2-text-align="b(center)">Standard Process:<br>Two Factor Match</p>
                 <ul>
-                    <li>
-                        Humans hire humans. This means that the person each
-                        manager or applicant is in a process matters to both the
-                        initial hiring decision and the longevity of the success
-                        of the hiring fit. It’s not an accurate representation
-                        of the hiring process for a staffing model to be based
-                        on the assumption that a neutral widget hires another
-                        widget to fill an organizational gap with a specific set
-                        of criteria, without any behavioural, cultural,
-                        historical or ecosystem considerations in play.
-                    </li>
-
-                    <li>
-                        By changing the information on the hiring poster to
-                        account for human factors, we can improve the
-                        optimization of the talent-to-team match for both the
-                        initial hiring result and longer term outcomes, such as
-                        retention rates and performance on the job.
-                    </li>
-
-                    <li>
-                        By democratizing access to information (giving
-                        applicants more internal information about the
-                        organization than they normally get), more applicants
-                        who are a poor fit will self-select out of the process,
-                        leading to a higher overall quality of applicant pool
-                        for managers to choose from.
-                    </li>
-
-                    <li>
-                        If managers factor human elements into the essential and
-                        asset requirements of the job itself, the final hiring
-                        selection will be more likely to result in a hire who
-                        can succeed in the role (not only doing the tasks of the
-                        job, but also working well with team members in a
-                        broader organizational context.)
-                    </li>
-
-                    <li>
-                        Factoring culture fit elements into the hiring process
-                        will function as a form of “pre-boarding”, acting to
-                        accelerate the onboarding success of new hires long
-                        before the moment when the new hire actually starts in
-                        the job.
-                    </li>
+                  
+                    <li>Applicant</li>
+                  
+                    <li>Job</li>
+                  
                 </ul>
+              </div>
+            
+              <div data-h2-flex-item="b(1of1) m(1of2)">
+                <p data-h2-text-align="b(center)">Modern recruitment looks at human factors.</p>
+                <img 
+                  src="/assets/img/2.4-5-factor.png"
+                  alt=""
+                  style="width: 100%;"
+                  data-h2-margin="b(top-bottom, l)">
+                <p data-h2-text-align="b(center)">Talent Cloud's Process:<br>Five Factor Match</p>
+                <ul>
+                  
+                    <li>Applicant</li>
+                  
+                    <li>Job</li>
+                  
+                    <li>Manager</li>
+                  
+                    <li>Team Culture</li>
+                  
+                    <li>Work Environment</li>
+                  
+                </ul>
+              </div>
+            
+          </div>
+        </div>
+      
+    
+      
+        
+          <!-- Titles -->
+          <h3
+  
+  data-h2-font-weight="b(800)"
+  data-h2-font-size="b(h3)"
+  data-h2-margin='b(top, xl) b(bottom, s)'
+  
+  style="letter-spacing: -1px;">
+  The Experiment
+</h3>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>To begin, Talent Cloud needed to first identify which “human elements” to choose to test in a new type of GC job advertisement. The team held a series of workshops in 2017 to identify promising elements.</p>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>Taking the top 10 components of a job advertisement that recurred most often in workshops, Talent Cloud then conducted a survey (as a subset of other workshops) with internal and external applicants in 2017-18. This was a simple form that asked people to rank the order of importance for information on the job advertisement. The top three factors in our research were key tasks of the job, team culture, and impact.</p>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>Because Talent Cloud was already separately working on testing the intersection of key tasks, impact, and skills required (see Impact-Driven Staffing in this research section), we expanded on the concept of team culture. In the end, <strong style="letter-spacing: -1px;" data-h2-font-weight="b(800)" data-h2-font-color="b(purple)">Talent Cloud elected to add manager profile, team culture and work environment to the job advertisement</strong>.</p>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>Talent Cloud tested these elements in live job processes, and interviewed applicants about the influence of these factors on their decision to apply.</p>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>Talent Cloud realized that if the information about “human elements” was to influence the hiring outcome, it needed to also factor into the screening criteria at the heart of the hiring process. Otherwise, the new information being shared might influence an applicant’s decision to apply, but it would fail to shape the other half of the equation: how managers decide on their final hire.</p>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>In order to connect the three human factors (team culture, manager leadership style and work environment) to the selection criteria, Talent Cloud tested the correlation between different workplaces and behaviours that were successful in different contexts. Talent Cloud ran a series of workshops in 2018 with managers, asking them to identify “the good, the bad and the ugly” when it came to GC workplaces, and then to work together to identify who succeeded in each of these environments. The results produced a “map” of sorts that Talent Cloud then used to design a semi-automated tool for managers in selecting essential and asset criteria for the job advertisement.</p>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>For example, if in their checklist on the manager’s job advertisement tool, managers identified that a workplace was high stress, resilience would be suggested to them as a soft skill to add to the job poster. This wasn’t so much behavioural psychology as it was an exercise in giving individual managers the benefit of collective advice from their peers. Managers made the final decision on whether or not to include the suggested soft skills. Managers were also given draft text by the tool (based on what elements of the work environment they selected) to help them craft a work environment statement for the job advertisement. (We found that managers procrastinated with this task significantly - blank text boxes on culture were daunting - until we gave them some rough text to start with. Managers love to edit - it’s what they’re trained for. This resolved the procrastination issue and automated the acceleration towards stronger, faster job advertisement drafts for HR advisors to review.)</p>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>Following the mapping exercise in 2018, and live testing in 2018-19, Talent Cloud revalidated and refined the insights by repeating the exercise in 2019, as part of refining its taxonomy for transferable skills. A fuller automation of this work has been designed and is in early testing stages.</p>
+        
+      
+    
+      
+        </div>
+        <!-- Images -->
+        <div 
+          data-h2-margin="b(top, xxl) b(bottom, l) l(top-bottom, xxl)"
+          style="background-image: url('/assets/img/2.4-tx-camera.png'); background-position: center; background-size: cover; min-height: 60vh; position: relative;"
+          title="A photo of a Canon camera resting on the ground.">
+          <a
+            href="#section1"
+            title="Click here to scroll past the image break to the next section of the article."
+            data-h2-bg-color="b(white)"
+            data-h2-display="b(inline-block)"
+            data-h2-font-size="b(caption)"
+            data-h2-text-align="b(center)"
+            data-h2-padding="b(top-bottom, xs) b(right-left, s)"
+            data-h2-radius="b(m)"
+            data-h2-shadow="b(m)"
+            style="position: absolute; top: 0; left: 50%; transform: translate(-50%, -50%); min-width: 15rem;">
+            <svg
+              data-h2-margin="b(right, xxs)" 
+              style="width: 1rem; vertical-align: middle;" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#c90035">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M19 9l-7 7-7-7" />
+            </svg>Article continues below</a>
+        </div>
+        <span id="section1"></span>
+        <div data-h2-container="b(center, s)">
+      
+    
+      
+        
+          <!-- Titles -->
+          <h3
+  
+  data-h2-font-weight="b(800)"
+  data-h2-font-size="b(h3)"
+  data-h2-margin='b(top, xl) b(bottom, s)'
+  
+  style="letter-spacing: -1px;">
+  The Results
+</h3>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>While small in sample size, Talent Cloud found the five factor matching model enormously effective. Talent Cloud boasts an impressive rate of 9% of all applicants being “ready to receive an offer”. That’s to say, they’re deemed to be fully qualified for the position. In comparison, the <a href="https://www.glassdoor.com/research/time-to-hire-in-25-countries/" target="_blank" rel="noreferrer" title="View source.">private sector average is 2-3%</a>. (No statistics were available from the GC for a comparison.)</p>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>We also did follow-up interviews with managers 1-2 years after their initial hire to find out how the fit went, and what the long-term impact of the hiring approach had been for overall successful work delivery and government fit. The results were impressive. We were able to interview 55% of our hiring managers, many of whom had made multiple hires through the platform. Retention rates for the recruited talent were enormously high at 94% still in the Government of Canada 1-2 years after the initial term hire (bearing in mind that the initial term positions were for 6 months - 1 year). 77% of these hires were still on the same team, and many had already had a term extension or conversion into an indeterminate position. In all but one case, managers reported that they were happy with the hiring fit, and would repeat the approach.</p>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>Perhaps more importantly, managers reported that they thought the culture fit was strong and liked working with the employees hired. The applicants hired that we were able to interview reported the same thing, expressing fondness and loyalty to the team, and a strong culture fit. The hiring approach produced both productivity and happiness, which are workplace outcomes worth having. (See also Case Study: Manager and Applicant Interviews in Section 2 of this report.)</p>
+        
+      
+    
+      
+        
+          <!-- Titles -->
+          <h3
+  
+  data-h2-font-weight="b(800)"
+  data-h2-font-size="b(h3)"
+  data-h2-margin='b(top, xl) b(bottom, s)'
+  
+  style="letter-spacing: -1px;">
+  External Research
+</h3>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>In the academic literature on workplace recruitment and retention, there is strong consensus that organizational culture matters enormously. Whether an applicant is considering <span data-h2-font-style="b(underline)" title="Bock, Laszlo. Work Rules! 2015.">joining Google</span>, <span data-h2-font-style="b(underline)" title="Rosenblat, Alex. Uberland. Univ of California Press. 2018.; Kessler, Sarah. Gigged. St. Martin’s Press, 2018.">a gig-based employer</span>, <span data-h2-font-style="b(underline)" title="Marquet, L. David. Turn the Ship Around! Penguin, 2013.">the military</span> or <span data-h2-font-style="b(underline)" title="Sinek, Simon. The Infinite Game. Penguin, 2019.">the company that’s been around for 100 years</span>, the organization’s stated cultural values (and their demonstrated reputation for upholding them) are key factors in an organization’s ability to attract and retain the talent it needs to succeed. Consistently, the following things matter to applicants and employees: the work environment, who their manager and team is/will be, and what the overarching culture is in the organization.</p>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>One of the important things to note is that while there are certain leadership values that are consistently important (see Why Flexibility and Authenticity Matter in this report), there is significant diversity when it comes to successful organizational cultures. This is often dependent on the size of the organization, their mandate or product, and what they offer in terms of a value proposition to customers and employees. In this context, <strong style="letter-spacing: -1px;" data-h2-font-weight="b(800)" data-h2-font-color="b(purple)" title="PhD, Ron Friedman. The Best Place to Work. Penguin, 2014." data-h2-font-style="b(underline)">it’s not about promoting a single correct model for organizational culture  - it’s all about optimizing the fit between a diverse range of organizations and the employees they attract</strong>. Not all humans learn and work the same way, and neither do organizations. <span data-h2-font-style="b(underline)" title="Sheridan, Richard. Joy, Inc. Portfolio, 2015.">Organizations that succeed with recruitment and retention tend to have a strong level of organizational self-awareness, and design their recruitment strategies to attract talent that will be a strong fit to their specific culture.</span></p>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>Workplaces that wish to attract innovators and creative thinkers <span data-h2-font-style="b(underline)" title="Grant, Adam M. Originals. Penguin, 2016.">need to take special care to ensure that applicants are able to see themselves in the organization when being recruited, and that the organization is able to provide an environment where this type of talent can flourish</span>.</p>
+        
+      
+    
+      
+        
+          <!-- Titles -->
+          <h3
+  
+  data-h2-font-weight="b(800)"
+  data-h2-font-size="b(h3)"
+  data-h2-margin='b(top, xl) b(bottom, s)'
+  
+  style="letter-spacing: -1px;">
+  Insights
+</h3>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>The effort to optimize the hiring fit between applicants and teams has led to numerous elements on the Talent Cloud platform, large and small. <strong style="letter-spacing: -1px;" data-h2-font-weight="b(800)" data-h2-font-color="b(purple)">As with many “solutions”, it’s not about any one feature; it’s about adopting an approach that is considered in every feature.</strong> For us, our approach says that a strong fit between an incoming individual and their team is critical to successful work delivery. To account for this, systems and process design should approach actors in the system as humans, with emotions, work styles, preferences and lives beyond their jobs… and the fit between these humans will be as important as the skills each possesses individually. This base assumption has led to a platform that is radically different in feature design and operations than the standard GC hiring approach.</p>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>While there are ways to achieve this success through various features and design choices, systems that wish to optimize the talent-to-team match will need to extensively user test their choices, and should strongly consider including a focus on work environment, team culture and manager leadership style.</p>
+        
+      
+    
+      
+        
+          <!-- Pullquotes -->
+          <blockquote
+            data-h2-border="b(red, left, solid, m)"
+            data-h2-margin="b(top-bottom, xl)"
+            data-h2-padding="b(left, m)">
+            
+              <p
+                data-h2-font-color="b(red)" 
+                data-h2-font-weight="b(bold)">Who Uses Profiles and When?</p>
+            
+            
+              <p data-h2-font-color="b(red)">Talent Cloud introduced profiles for both managers and applicants. These profiles were voluntary. We wanted to see how they would get used and if they added value to the platform.</p>
+            
+              <p data-h2-font-color="b(red)">Interestingly, applicants reported that the presence of an authentic manager profile was extremely important to them in the application process, even if the profile was relatively brief. In the only two cases where a Talent Cloud hiring manager declined to provide a profile, the final qualified candidates accepted other positions after the interview phase, resulting in no hire being made. While this could also be a coincidence, we think not. We had an instance where a manager with a profile and a manager without a profile posting almost identical jobs in the same period. The manager with the profile received almost twice as many applications, and had twice as many qualified candidates after the interview stage, leading to multiple hires.</p>
+            
+              <p data-h2-font-color="b(red)">On the other hand, when it came to applicant profiles, managers reported almost never referring to them. Instead, they focused their screening efforts on the application itself. This showcased the importance of applicants understanding the need to include details about how they came to earn their skills in the application itself, and factored significantly into the Timeline design Talent Cloud released in early 2021. (See Skills, Not Experience in Research Section 3 for more information.)</p>
+            
+          </blockquote>
+        
+      
+    
+  </div>
+</main>
+<section style="background-color: #F8F8F8;">
+  <div data-h2-container="b(center, s)" data-h2-padding="b(bottom, l) l(bottom, xxl)">
+    <div data-h2-flex-grid="b(top, expanded, flush, m)">
+      <div
+        data-h2-text-align="b(center) m(left)" 
+        data-h2-flex-item="b(1of2)">
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            
+              <a class="prev" href="/en/hiring/2000/01/01/203-impact-staffing.html" title="Go to the previous article in the series.">
+                <svg data-h2-margin="b(right, xxs)" 
+                  style="width: 1rem; vertical-align: middle;" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="#c90035">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M15 19l-7-7 7-7" />
+                </svg>Previous Article</a>
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      </div>
+      <div 
+        data-h2-text-align="b(center) m(right)"   
+        data-h2-flex-item="b(1of2)">
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            
+              <a class="next" href="/en/hiring/2000/01/01/205-manager-employee-responses.html" title="Go to the next article in the series.">Next Article<svg data-h2-margin="b(left, xxs)" 
+                style="width: 1rem; vertical-align: middle;" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="#c90035">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M9 5l7 7-7 7" />
+                </svg></a>
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      </div>
+    </div>
+    <p
+      data-h2-margin="b(top, xxl)" 
+      data-h2-text-align="b(center)"
+      data-h2-font-size="b(caption)">
+      <a href="/en/talent-cloud/report/#toc" title="Return to Table of Contents">Return to Table of Contents</a>
+    </p>
+  </div>
+</section>
+<section data-h2-border="b([light]gray, top, solid, s)" data-h2-position="b(relative)" style="background: rgba(240, 240, 240, 1)" data-h2-overflow="b(x, hidden)">
+  <footer data-h2-container="b(center, full)" data-h2-padding="b(top-bottom, l)">
+    <div data-h2-flex-grid="b(middle, expanded, flush, xl)">
+      <div
+        data-h2-flex-item="b(1of1) m(1of2)"
+        data-h2-padding="b(left, xl)"
+        data-h2-text-align="b(center) m(left)">
+        
+          <nav>
+            <ul
+              style="gap: 1rem;"
+              class="reset-ul"
+              data-h2-display="b(flex)"
+              data-h2-flex-wrap="b(wrap)"
+              data-h2-justify-content="b(center) m(flex-start)"
+              data-h2-margin="b(bottom, xs)">
+              
+              <li data-h2-display="b(inline-block)" data-h2-margin="b(top-bottom, none)">
+                
+                  <a href="mailto:talent.cloud-nuage.de.talents@tbs-sct.gc.ca" title="Submit feedback to GC Talent Cloud via email.">Feedback</a>
+                
+              </li>
+              
+              <li data-h2-display="b(inline-block)" data-h2-margin="b(top-bottom, none)">
+                
+                  <a href="/en/terms-and-conditions" title="View our terms and conditions.">Terms & Conditions</a>
+                
+              </li>
+              
+              <li data-h2-display="b(inline-block)" data-h2-margin="b(top-bottom, none)">
+                
+                  <a href="/en/privacy-notice" title="View our privacy policy.">Privacy Policy</a>
+                
+              </li>
+              
+              <li data-h2-display="b(inline-block)" data-h2-margin="b(top-bottom, none)">
+                
+                  <a href="/en/https://www.canada.ca/en.html" title="Visit Canada.ca.">Canada.ca</a>
+                
+              </li>
+              
+            </ul>
+          </nav>
+          <p 
+            data-h2-font-size="b(caption)"
+            data-h2-font-color="b(black)" 
+            data-h2-margin="b(bottom, none) b(top, m)">
+            Date Modified: July 07, 2021
+          </p>
+        
+      </div>
+      <div
+        data-h2-flex-item="b(1of1) m(1of2)"
+        data-h2-padding="b(right, xl)"
+        data-h2-text-align="b(center) m(right)">
+        <a
+          href="https://www.canada.ca/en.html"
+          title="Visit Canada.ca."
+          target="_blank"
+          rel="noopener noreferrer">
+          <img
+            class="canada-logo"
+            src="/assets/img/ui-canada.png"
+            alt="Canada's Logo."/>
+        </a>
+      </div>
+    </div>
+  </footer>
+</section>
 
-                <!-- Basic Content -->
-                <p>
-                    <strong
-                        style="letter-spacing: -1px"
-                        data-h2-font-weight="b(800)"
-                        data-h2-font-color="b(purple)"
-                        >Note: The overarching hypothesis to factor in culture
-                        carries a risk</strong
-                    >
-                    - one that we had to not only be aware of, but also actively
-                    work to guard against. When staffing processes strengthen
-                    culture fit, there is also the potential for a model that
-                    facilitates the “like hires like” scenario, which
-                    exacerbates gaps in inclusion and diversity, and works
-                    against equity-seeking groups. Awareness of this risk led
-                    the team to develop bias reduction elements, working in
-                    tandem with elements designed to optimize the talent-to-team
-                    match. (See Research Section 3 on the team’s diversity and
-                    inclusion theory and designs.)
-                </p>
-
-                <div data-h2-padding="b(top-bottom, l)">
-                    <div data-h2-flex-grid="b(top, expanded, flush, l)">
-                        <div data-h2-flex-item="b(1of1) m(1of2)">
-                            <p data-h2-text-align="b(center)">
-                                Most work isn't done in isolation. So why design
-                                hiring models like this?
-                            </p>
-                            <img
-                                src="/assets/img/2.4-2-factor.png"
-                                alt=""
-                                style="width: 100%"
-                                data-h2-margin="b(top-bottom, l)"
-                            />
-                            <p data-h2-text-align="b(center)">
-                                Standard Process:<br />Two Factor Match
-                            </p>
-                            <ul>
-                                <li>Applicant</li>
-
-                                <li>Job</li>
-                            </ul>
-                        </div>
-
-                        <div data-h2-flex-item="b(1of1) m(1of2)">
-                            <p data-h2-text-align="b(center)">
-                                Modern recruitment looks at human factors.
-                            </p>
-                            <img
-                                src="/assets/img/2.4-5-factor.png"
-                                alt=""
-                                style="width: 100%"
-                                data-h2-margin="b(top-bottom, l)"
-                            />
-                            <p data-h2-text-align="b(center)">
-                                Talent Cloud's Process:<br />Five Factor Match
-                            </p>
-                            <ul>
-                                <li>Applicant</li>
-
-                                <li>Job</li>
-
-                                <li>Manager</li>
-
-                                <li>Team Culture</li>
-
-                                <li>Work Environment</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Titles -->
-                <h3
-                    data-h2-font-weight="b(800)"
-                    data-h2-font-size="b(h3)"
-                    data-h2-margin="b(top, xl) b(bottom, s)"
-                    style="letter-spacing: -1px"
-                >
-                    The Experiment
-                </h3>
-
-                <!-- Basic Content -->
-                <p>
-                    To begin, Talent Cloud needed to first identify which “human
-                    elements” to choose to test in a new type of GC job
-                    advertisement. The team held a series of workshops in 2017
-                    to identify promising elements.
-                </p>
-
-                <!-- Basic Content -->
-                <p>
-                    Taking the top 10 components of a job advertisement that
-                    recurred most often in workshops, Talent Cloud then
-                    conducted a survey (as a subset of other workshops) with
-                    internal and external applicants in 2017-18. This was a
-                    simple form that asked people to rank the order of
-                    importance for information on the job advertisement. The top
-                    three factors in our research were key tasks of the job,
-                    team culture, and impact.
-                </p>
-
-                <!-- Basic Content -->
-                <p>
-                    Because Talent Cloud was already separately working on
-                    testing the intersection of key tasks, impact, and skills
-                    required (see Impact-Driven Staffing in this research
-                    section), we expanded on the concept of team culture. In the
-                    end,
-                    <strong
-                        style="letter-spacing: -1px"
-                        data-h2-font-weight="b(800)"
-                        data-h2-font-color="b(purple)"
-                        >Talent Cloud elected to add manager profile, team
-                        culture and work environment to the job
-                        advertisement</strong
-                    >.
-                </p>
-
-                <!-- Basic Content -->
-                <p>
-                    Talent Cloud tested these elements in live job processes,
-                    and interviewed applicants about the influence of these
-                    factors on their decision to apply.
-                </p>
-
-                <!-- Basic Content -->
-                <p>
-                    Talent Cloud realized that if the information about “human
-                    elements” was to influence the hiring outcome, it needed to
-                    also factor into the screening criteria at the heart of the
-                    hiring process. Otherwise, the new information being shared
-                    might influence an applicant’s decision to apply, but it
-                    would fail to shape the other half of the equation: how
-                    managers decide on their final hire.
-                </p>
-
-                <!-- Basic Content -->
-                <p>
-                    In order to connect the three human factors (team culture,
-                    manager leadership style and work environment) to the
-                    selection criteria, Talent Cloud tested the correlation
-                    between different workplaces and behaviours that were
-                    successful in different contexts. Talent Cloud ran a series
-                    of workshops in 2018 with managers, asking them to identify
-                    “the good, the bad and the ugly” when it came to GC
-                    workplaces, and then to work together to identify who
-                    succeeded in each of these environments. The results
-                    produced a “map” of sorts that Talent Cloud then used to
-                    design a semi-automated tool for managers in selecting
-                    essential and asset criteria for the job advertisement.
-                </p>
-
-                <!-- Basic Content -->
-                <p>
-                    For example, if in their checklist on the manager’s job
-                    advertisement tool, managers identified that a workplace was
-                    high stress, resilience would be suggested to them as a soft
-                    skill to add to the job poster. This wasn’t so much
-                    behavioural psychology as it was an exercise in giving
-                    individual managers the benefit of collective advice from
-                    their peers. Managers made the final decision on whether or
-                    not to include the suggested soft skills. Managers were also
-                    given draft text by the tool (based on what elements of the
-                    work environment they selected) to help them craft a work
-                    environment statement for the job advertisement. (We found
-                    that managers procrastinated with this task significantly -
-                    blank text boxes on culture were daunting - until we gave
-                    them some rough text to start with. Managers love to edit -
-                    it’s what they’re trained for. This resolved the
-                    procrastination issue and automated the acceleration towards
-                    stronger, faster job advertisement drafts for HR advisors to
-                    review.)
-                </p>
-
-                <!-- Basic Content -->
-                <p>
-                    Following the mapping exercise in 2018, and live testing in
-                    2018-19, Talent Cloud revalidated and refined the insights
-                    by repeating the exercise in 2019, as part of refining its
-                    taxonomy for transferable skills. A fuller automation of
-                    this work has been designed and is in early testing stages.
-                </p>
-            </div>
-            <!-- Images -->
-            <div
-                data-h2-margin="b(top, xxl) b(bottom, l) l(top-bottom, xxl)"
-                style="
-                    background-image: url('/assets/img/2.4-tx-camera.png');
-                    background-position: center;
-                    background-size: cover;
-                    min-height: 60vh;
-                    position: relative;
-                "
-                title="A photo of a Canon camera resting on the ground."
-            >
-                <a
-                    href="#section1"
-                    title="Click here to scroll past the image break to the next section of the article."
-                    data-h2-bg-color="b(white)"
-                    data-h2-display="b(inline-block)"
-                    data-h2-font-size="b(caption)"
-                    data-h2-text-align="b(center)"
-                    data-h2-padding="b(top-bottom, xs) b(right-left, s)"
-                    data-h2-radius="b(m)"
-                    data-h2-shadow="b(m)"
-                    style="
-                        position: absolute;
-                        top: 0;
-                        left: 50%;
-                        transform: translate(-50%, -50%);
-                        min-width: 15rem;
-                    "
-                >
-                    <svg
-                        data-h2-margin="b(right, xxs)"
-                        style="width: 1rem; vertical-align: middle"
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="#c90035"
-                    >
-                        <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="4"
-                            d="M19 9l-7 7-7-7"
-                        /></svg
-                    >Article continues below</a
-                >
-            </div>
-            <span id="section1"></span>
-            <div data-h2-container="b(center, s)">
-                <!-- Titles -->
-                <h3
-                    data-h2-font-weight="b(800)"
-                    data-h2-font-size="b(h3)"
-                    data-h2-margin="b(top, xl) b(bottom, s)"
-                    style="letter-spacing: -1px"
-                >
-                    The Results
-                </h3>
-
-                <!-- Basic Content -->
-                <p>
-                    While small in sample size, Talent Cloud found the five
-                    factor matching model enormously effective. Talent Cloud
-                    boasts an impressive rate of 9% of all applicants being
-                    “ready to receive an offer”. That’s to say, they’re deemed
-                    to be fully qualified for the position. In comparison, the
-                    <a
-                        href="https://www.glassdoor.com/research/time-to-hire-in-25-countries/"
-                        target="_blank"
-                        rel="noreferrer"
-                        title="View source."
-                        >private sector average is 2-3%</a
-                    >. (No statistics were available from the GC for a
-                    comparison.)
-                </p>
-
-                <!-- Basic Content -->
-                <p>
-                    We also did follow-up interviews with managers 1-2 years
-                    after their initial hire to find out how the fit went, and
-                    what the long-term impact of the hiring approach had been
-                    for overall successful work delivery and government fit. The
-                    results were impressive. We were able to interview 55% of
-                    our hiring managers, many of whom had made multiple hires
-                    through the platform. Retention rates for the recruited
-                    talent were enormously high at 94% still in the Government
-                    of Canada 1-2 years after the initial term hire (bearing in
-                    mind that the initial term positions were for 6 months - 1
-                    year). 77% of these hires were still on the same team, and
-                    many had already had a term extension or conversion into an
-                    indeterminate position. In all but one case, managers
-                    reported that they were happy with the hiring fit, and would
-                    repeat the approach.
-                </p>
-
-                <!-- Basic Content -->
-                <p>
-                    Perhaps more importantly, managers reported that they
-                    thought the culture fit was strong and liked working with
-                    the employees hired. The applicants hired that we were able
-                    to interview reported the same thing, expressing fondness
-                    and loyalty to the team, and a strong culture fit. The
-                    hiring approach produced both productivity and happiness,
-                    which are workplace outcomes worth having. (See also Case
-                    Study: Manager and Applicant Interviews in Section 2 of this
-                    report.)
-                </p>
-
-                <!-- Titles -->
-                <h3
-                    data-h2-font-weight="b(800)"
-                    data-h2-font-size="b(h3)"
-                    data-h2-margin="b(top, xl) b(bottom, s)"
-                    style="letter-spacing: -1px"
-                >
-                    External Research
-                </h3>
-
-                <!-- Basic Content -->
-                <p>
-                    In the academic literature on workplace recruitment and
-                    retention, there is strong consensus that organizational
-                    culture matters enormously. Whether an applicant is
-                    considering
-                    <span
-                        data-h2-font-style="b(underline)"
-                        title="Bock, Laszlo. Work Rules! 2015."
-                        >joining Google</span
-                    >,
-                    <span
-                        data-h2-font-style="b(underline)"
-                        title="Rosenblat, Alex. Uberland. Univ of California Press. 2018.; Kessler, Sarah. Gigged. St. Martin’s Press, 2018."
-                        >a gig-based employer</span
-                    >,
-                    <span
-                        data-h2-font-style="b(underline)"
-                        title="Marquet, L. David. Turn the Ship Around! Penguin, 2013."
-                        >the military</span
-                    >
-                    or
-                    <span
-                        data-h2-font-style="b(underline)"
-                        title="Sinek, Simon. The Infinite Game. Penguin, 2019."
-                        >the company that’s been around for 100 years</span
-                    >, the organization’s stated cultural values (and their
-                    demonstrated reputation for upholding them) are key factors
-                    in an organization’s ability to attract and retain the
-                    talent it needs to succeed. Consistently, the following
-                    things matter to applicants and employees: the work
-                    environment, who their manager and team is/will be, and what
-                    the overarching culture is in the organization.
-                </p>
-
-                <!-- Basic Content -->
-                <p>
-                    One of the important things to note is that while there are
-                    certain leadership values that are consistently important
-                    (see Why Flexibility and Authenticity Matter in this
-                    report), there is significant diversity when it comes to
-                    successful organizational cultures. This is often dependent
-                    on the size of the organization, their mandate or product,
-                    and what they offer in terms of a value proposition to
-                    customers and employees. In this context,
-                    <strong
-                        style="letter-spacing: -1px"
-                        data-h2-font-weight="b(800)"
-                        data-h2-font-color="b(purple)"
-                        title="PhD, Ron Friedman. The Best Place to Work. Penguin, 2014."
-                        data-h2-font-style="b(underline)"
-                        >it’s not about promoting a single correct model for
-                        organizational culture - it’s all about optimizing the
-                        fit between a diverse range of organizations and the
-                        employees they attract</strong
-                    >. Not all humans learn and work the same way, and neither
-                    do organizations.
-                    <span
-                        data-h2-font-style="b(underline)"
-                        title="Sheridan, Richard. Joy, Inc. Portfolio, 2015."
-                        >Organizations that succeed with recruitment and
-                        retention tend to have a strong level of organizational
-                        self-awareness, and design their recruitment strategies
-                        to attract talent that will be a strong fit to their
-                        specific culture.</span
-                    >
-                </p>
-
-                <!-- Basic Content -->
-                <p>
-                    Workplaces that wish to attract innovators and creative
-                    thinkers
-                    <span
-                        data-h2-font-style="b(underline)"
-                        title="Grant, Adam M. Originals. Penguin, 2016."
-                        >need to take special care to ensure that applicants are
-                        able to see themselves in the organization when being
-                        recruited, and that the organization is able to provide
-                        an environment where this type of talent can
-                        flourish</span
-                    >.
-                </p>
-
-                <!-- Titles -->
-                <h3
-                    data-h2-font-weight="b(800)"
-                    data-h2-font-size="b(h3)"
-                    data-h2-margin="b(top, xl) b(bottom, s)"
-                    style="letter-spacing: -1px"
-                >
-                    Insights
-                </h3>
-
-                <!-- Basic Content -->
-                <p>
-                    The effort to optimize the hiring fit between applicants and
-                    teams has led to numerous elements on the Talent Cloud
-                    platform, large and small.
-                    <strong
-                        style="letter-spacing: -1px"
-                        data-h2-font-weight="b(800)"
-                        data-h2-font-color="b(purple)"
-                        >As with many “solutions”, it’s not about any one
-                        feature; it’s about adopting an approach that is
-                        considered in every feature.</strong
-                    >
-                    For us, our approach says that a strong fit between an
-                    incoming individual and their team is critical to successful
-                    work delivery. To account for this, systems and process
-                    design should approach actors in the system as humans, with
-                    emotions, work styles, preferences and lives beyond their
-                    jobs… and the fit between these humans will be as important
-                    as the skills each possesses individually. This base
-                    assumption has led to a platform that is radically different
-                    in feature design and operations than the standard GC hiring
-                    approach.
-                </p>
-
-                <!-- Basic Content -->
-                <p>
-                    While there are ways to achieve this success through various
-                    features and design choices, systems that wish to optimize
-                    the talent-to-team match will need to extensively user test
-                    their choices, and should strongly consider including a
-                    focus on work environment, team culture and manager
-                    leadership style.
-                </p>
-
-                <!-- Pullquotes -->
-                <blockquote
-                    data-h2-border="b(red, left, solid, m)"
-                    data-h2-margin="b(top-bottom, xl)"
-                    data-h2-padding="b(left, m)"
-                >
-                    <p
-                        data-h2-font-color="b(red)"
-                        data-h2-font-weight="b(bold)"
-                    >
-                        Who Uses Profiles and When?
-                    </p>
-
-                    <p data-h2-font-color="b(red)">
-                        Talent Cloud introduced profiles for both managers and
-                        applicants. These profiles were voluntary. We wanted to
-                        see how they would get used and if they added value to
-                        the platform.
-                    </p>
-
-                    <p data-h2-font-color="b(red)">
-                        Interestingly, applicants reported that the presence of
-                        an authentic manager profile was extremely important to
-                        them in the application process, even if the profile was
-                        relatively brief. In the only two cases where a Talent
-                        Cloud hiring manager declined to provide a profile, the
-                        final qualified candidates accepted other positions
-                        after the interview phase, resulting in no hire being
-                        made. While this could also be a coincidence, we think
-                        not. We had an instance where a manager with a profile
-                        and a manager without a profile posting almost identical
-                        jobs in the same period. The manager with the profile
-                        received almost twice as many applications, and had
-                        twice as many qualified candidates after the interview
-                        stage, leading to multiple hires.
-                    </p>
-
-                    <p data-h2-font-color="b(red)">
-                        On the other hand, when it came to applicant profiles,
-                        managers reported almost never referring to them.
-                        Instead, they focused their screening efforts on the
-                        application itself. This showcased the importance of
-                        applicants understanding the need to include details
-                        about how they came to earn their skills in the
-                        application itself, and factored significantly into the
-                        Timeline design Talent Cloud released in early 2021.
-                        (See Skills, Not Experience in Research Section 3 for
-                        more information.)
-                    </p>
-                </blockquote>
-            </div>
-        </main>
-        <section style="background-color: #f8f8f8">
-            <div
-                data-h2-container="b(center, s)"
-                data-h2-padding="b(bottom, l) l(bottom, xxl)"
-            >
-                <div data-h2-flex-grid="b(top, expanded, flush, m)">
-                    <div
-                        data-h2-text-align="b(center) m(left)"
-                        data-h2-flex-item="b(1of2)"
-                    >
-                        <a
-                            class="prev"
-                            href="/en/hiring/2000/01/01/203-impact-staffing.html"
-                            title="Go to the previous article in the series."
-                        >
-                            <svg
-                                data-h2-margin="b(right, xxs)"
-                                style="width: 1rem; vertical-align: middle"
-                                xmlns="http://www.w3.org/2000/svg"
-                                class="h-6 w-6"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="#c90035"
-                            >
-                                <path
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="4"
-                                    d="M15 19l-7-7 7-7"
-                                /></svg
-                            >Previous Article</a
-                        >
-                    </div>
-                    <div
-                        data-h2-text-align="b(center) m(right)"
-                        data-h2-flex-item="b(1of2)"
-                    >
-                        <a
-                            class="next"
-                            href="/en/hiring/2000/01/01/205-manager-employee-responses.html"
-                            title="Go to the next article in the series."
-                            >Next Article<svg
-                                data-h2-margin="b(left, xxs)"
-                                style="width: 1rem; vertical-align: middle"
-                                xmlns="http://www.w3.org/2000/svg"
-                                class="h-6 w-6"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="#c90035"
-                            >
-                                <path
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="4"
-                                    d="M9 5l7 7-7 7"
-                                /></svg
-                        ></a>
-                    </div>
-                </div>
-                <p
-                    data-h2-margin="b(top, xxl)"
-                    data-h2-text-align="b(center)"
-                    data-h2-font-size="b(caption)"
-                >
-                    <a
-                        href="/en/talent-cloud/report/#toc"
-                        title="Return to Table of Contents"
-                        >Return to Table of Contents</a
-                    >
-                </p>
-            </div>
-        </section>
-        <section
-            data-h2-border="b([light]gray, top, solid, s)"
-            data-h2-position="b(relative)"
-            style="background: rgba(240, 240, 240, 1)"
-            data-h2-overflow="b(x, hidden)"
-        >
-            <footer
-                data-h2-container="b(center, full)"
-                data-h2-padding="b(top-bottom, l)"
-            >
-                <div data-h2-flex-grid="b(middle, expanded, flush, xl)">
-                    <div
-                        data-h2-flex-item="b(1of1) m(1of2)"
-                        data-h2-padding="b(left, xl)"
-                        data-h2-text-align="b(center) m(left)"
-                    >
-                        <nav>
-                            <ul
-                                style="gap: 1rem"
-                                class="reset-ul"
-                                data-h2-display="b(flex)"
-                                data-h2-flex-wrap="b(wrap)"
-                                data-h2-justify-content="b(center) m(flex-start)"
-                                data-h2-margin="b(bottom, xs)"
-                            >
-                                <li
-                                    data-h2-display="b(inline-block)"
-                                    data-h2-margin="b(top-bottom, none)"
-                                >
-                                    <a
-                                        href="mailto:talent.cloud-nuage.de.talents@tbs-sct.gc.ca"
-                                        title="Submit feedback to GC Talent Cloud via email."
-                                        >Feedback</a
-                                    >
-                                </li>
-
-                                <li
-                                    data-h2-display="b(inline-block)"
-                                    data-h2-margin="b(top-bottom, none)"
-                                >
-                                    <a
-                                        href="/en/terms-and-conditions"
-                                        title="View our terms and conditions."
-                                        >Terms & Conditions</a
-                                    >
-                                </li>
-
-                                <li
-                                    data-h2-display="b(inline-block)"
-                                    data-h2-margin="b(top-bottom, none)"
-                                >
-                                    <a
-                                        href="/en/privacy-notice"
-                                        title="View our privacy policy."
-                                        >Privacy Policy</a
-                                    >
-                                </li>
-
-                                <li
-                                    data-h2-display="b(inline-block)"
-                                    data-h2-margin="b(top-bottom, none)"
-                                >
-                                    <a
-                                        href="https://www.canada.ca/en.html"
-                                        title="Visit Canada.ca."
-                                        >Canada.ca</a
-                                    >
-                                </li>
-                            </ul>
-                        </nav>
-                        <p
-                            data-h2-font-size="b(caption)"
-                            data-h2-font-color="b(black)"
-                            data-h2-margin="b(bottom, none) b(top, m)"
-                        >
-                            Date Modified: July 07, 2021
-                        </p>
-                    </div>
-                    <div
-                        data-h2-flex-item="b(1of1) m(1of2)"
-                        data-h2-padding="b(right, xl)"
-                        data-h2-text-align="b(center) m(right)"
-                    >
-                        <a
-                            href="https://www.canada.ca/en.html"
-                            title="Visit Canada.ca."
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            <img
-                                class="canada-logo"
-                                src="/assets/img/ui-canada.png"
-                                alt="Canada's Logo."
-                            />
-                        </a>
-                    </div>
-                </div>
-            </footer>
-        </section>
-
-        <script type="text/javascript" src="/assets/js/app.js"></script>
-    </body>
+    <script type="text/javascript" src="/assets/js/app.js"></script>
+  </body>
 </html>

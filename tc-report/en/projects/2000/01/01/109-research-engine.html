@@ -1,846 +1,939 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>GC Talent | Our Research Engine</title>
-        <meta
-            name="description"
-            content="Talent Cloud is an experimental staffing solution created by the Government of Canada. Read our experiment's results report here!"
-        />
-        <!-- Google Tag Manager -->
-        <script>
-            (function (w, d, s, l, i) {
-                w[l] = w[l] || [];
-                w[l].push({
-                    "gtm.start": new Date().getTime(),
-                    event: "gtm.js",
-                });
-                var f = d.getElementsByTagName(s)[0],
-                    j = d.createElement(s),
-                    dl = l != "dataLayer" ? "&l=" + l : "";
-                j.async = true;
-                j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
-                f.parentNode.insertBefore(j, f);
-            })(window, document, "script", "dataLayer", "GTM-P27NF5V");
-        </script>
-        <!-- End Google Tag Manager -->
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GC Talent | Our Research Engine</title>
+  <meta name="description" content="Talent Cloud is an experimental staffing solution created by the Government of Canada. Read our experiment's results report here!">
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-P27NF5V');</script>
+    <!-- End Google Tag Manager -->
 
-        <!-- Global site tag (gtag.js) - Google Analytics -->
-        <script
-            async
-            src="https://www.googletagmanager.com/gtag/js?id=UA-115747902-1"
-        ></script>
-        <script>
-            window.dataLayer = window.dataLayer || [];
-            function gtag() {
-                dataLayer.push(arguments);
-            }
-            gtag("js", new Date());
-            gtag("config", "UA-115747902-1", {
-                cookie_flags: "secure",
-            });
-        </script>
-        <!-- Favicons -->
-        <link
-            rel="apple-touch-icon"
-            sizes="180x180"
-            href="/apple-touch-icon.png"
-        />
-        <link
-            rel="icon"
-            type="image/png"
-            sizes="32x32"
-            href="/favicon-32x32.png"
-        />
-        <link
-            rel="icon"
-            type="image/png"
-            sizes="16x16"
-            href="/favicon-16x16.png"
-        />
-        <link rel="manifest" href="/site.webmanifest" />
-        <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
-        <meta name="msapplication-TileColor" content="#da532c" />
-        <meta name="theme-color" content="#ffffff" />
-        <!-- Google Fonts -->
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link
-            href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap"
-            rel="stylesheet"
-        />
-        <!-- Hydrogen CSS -->
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script
+        async
+        src="https://www.googletagmanager.com/gtag/js?id=UA-115747902-1">
+    </script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-115747902-1', {
+          cookie_flags: 'secure'
+        });
+    </script>
+  <!-- Favicons -->
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap" rel="stylesheet">
+  <!-- Hydrogen CSS -->
+  
+    <!-- <link rel="stylesheet" href="/assets/css/hydrogen-tc.css"> -->
+    <link rel="stylesheet" href="/assets/css/hydrogen.css">
+  
+  <!-- App CSS -->
+  <link rel="stylesheet" href="/assets/css/app.css">
+</head>
 
-        <!-- <link rel="stylesheet" href="/assets/css/hydrogen-tc.css"> -->
-        <link rel="stylesheet" href="/assets/css/hydrogen.css" />
-
-        <!-- App CSS -->
-        <link rel="stylesheet" href="/assets/css/app.css" />
-    </head>
-
-    <body data-h2-font-family="b(sans)">
-        <a href="#mainContent" title="" class="skip-link"
-            >Skip to Main Content</a
+  <body data-h2-font-family="b(sans)">
+    <a href="#mainContent" title="" class="skip-link">Skip to Main Content</a>
+    <div data-h2-border="b([light]gray, bottom, solid, s)" >
+  <div data-h2-container="b(center, full)" data-h2-padding="b(top-bottom, s)">
+    <div data-h2-flex-grid="b(middle, expanded, flush, s)">
+      <div data-h2-flex-item="m(1of2)" data-h2-text-align="b(center) m(left)">
+        <a
+          data-h2-display="b(inline-block)"
+          style="max-width: 15rem; width: 100%;"
+          href="https://canada.ca/"
+          target="_blank"
+          title="Visit canada.ca."
+          rel="noopener noreferrer"
         >
-        <div data-h2-border="b([light]gray, bottom, solid, s)">
-            <div
-                data-h2-container="b(center, full)"
-                data-h2-padding="b(top-bottom, s)"
-            >
-                <div data-h2-flex-grid="b(middle, expanded, flush, s)">
-                    <div
-                        data-h2-flex-item="m(1of2)"
-                        data-h2-text-align="b(center) m(left)"
-                    >
-                        <a
-                            data-h2-display="b(inline-block)"
-                            style="max-width: 15rem; width: 100%"
-                            href="https://canada.ca/"
-                            target="_blank"
-                            title="Visit canada.ca."
-                            rel="noopener noreferrer"
-                        >
-                            <img
-                                data-h2-
-                                alt="goc logo"
-                                src="/assets/img/ui-goc.svg"
-                        /></a>
-                    </div>
-                    <div
-                        data-h2-flex-item="m(1of2)"
-                        data-h2-text-align="b(center) m(right)"
-                    >
-                        <a
-                            href="/fr/projects/2000/01/01/109-research-engine.html"
-                            title="Voir ce contenu en français."
-                            >Français</a
-                        >
-                    </div>
-                </div>
-            </div>
-        </div>
+          <img data-h2- alt="goc logo" src="/assets/img/ui-goc.svg"
+        /></a>
+      </div>
+      <div data-h2-flex-item="m(1of2)" data-h2-text-align="b(center) m(right)">
+         
+        <a href="/fr/projects/2000/01/01/109-research-engine.html" title="Voir ce contenu en français.">Français</a>
+        
+      </div>
+    </div>
+  </div>
+</div>
 
-        <div data-h2-container="b(center, full)">
-            <nav data-h2-padding="b(top-bottom, m)">
-                <ul
-                    class="reset-ul"
-                    data-h2-padding="b(all, none)"
-                    data-h2-margin="b(all, none)"
-                    data-h2-text-align="b(center) m(left)"
-                    style="margin-left: -0.7rem"
-                >
-                    <li
-                        data-h2-margin="b(all, none)"
-                        data-h2-padding="b(all, none)"
-                        data-h2-display="b(inline-block)"
-                    >
-                        <a
-                            href="/en/"
-                            title="Visit the GC Talent homepage."
-                            data-h2-display="b(block)"
-                            data-h2-padding="b(all, xs) m(right-left, s)"
-                            >Home</a
-                        >
-                    </li>
+<div data-h2-container="b(center, full)" >
+  <nav data-h2-padding="b(top-bottom, m)">
+    <ul class="reset-ul" data-h2-padding="b(all, none)" data-h2-margin="b(all, none)" data-h2-text-align="b(center) m(left)" style="margin-left: -.7rem;">
+      
+        <li data-h2-margin="b(all, none)" data-h2-padding="b(all, none)" data-h2-display="b(inline-block)">
+          <a href="/en/" title="Visit the GC Talent homepage."
+            
+            data-h2-display="b(block)"
+            data-h2-padding="b(all, xs) m(right-left, s)">Home</a>
+        </li>
+      
+        <li data-h2-margin="b(all, none)" data-h2-padding="b(all, none)" data-h2-display="b(inline-block)">
+          <a href="/en/talent-cloud/" title="Learn more about the Talent Cloud project."
+            
+            data-h2-display="b(block)"
+            data-h2-padding="b(all, xs) m(right-left, s)">Talent Cloud</a>
+        </li>
+      
+        <li data-h2-margin="b(all, none)" data-h2-padding="b(all, none)" data-h2-display="b(inline-block)">
+          <a href="/en/communities/digital-talent/" title="Learn more about the Digital Talent community."
+            
+            data-h2-display="b(block)"
+            data-h2-padding="b(all, xs) m(right-left, s)">Digital Talent</a>
+        </li>
+      
+    </ul>
+  </nav>
+</div>
+<section>
+  <div
+    data-h2-container="b(center, full)"
+    data-h2-text-align="b(center)">
+    
+    <h1
+  data-h2-font-weight="b(800)"
+  data-h2-font-size="b(h1)"
+  data-h2-padding='b(top, l) l(top, xxl) b(bottom, xxs)'
+  style="letter-spacing: -3px"
+  
+>
+  Talent Cloud Results Report
+</h1>
 
-                    <li
-                        data-h2-margin="b(all, none)"
-                        data-h2-padding="b(all, none)"
-                        data-h2-display="b(inline-block)"
-                    >
-                        <a
-                            href="/en/talent-cloud/"
-                            title="Learn more about the Talent Cloud project."
-                            data-h2-display="b(block)"
-                            data-h2-padding="b(all, xs) m(right-left, s)"
-                            >Talent Cloud</a
-                        >
-                    </li>
+    <div id="breadcrumbs" data-h2-margin="b(top-bottom, m)" >
+  
+  <a href="/en" title="Return to the homepage.">GC Talent</a>
+  <!-- If the page layout is post then use this breadcrumb list. -->
+  
+    / <a href="/en/talent-cloud" title="Return to the Talent Cloud page.">Talent Cloud</a>
+    / <a href="/en/talent-cloud/report" title="Return to the Talent Cloud results report.">Talent Cloud Resu...</a>
+    / <span>Section 1</span>
+    / <span data-h2-font-weight="b(800)">Our Research Engine</span>
+  
+</div>
+  </div>
+</section>
+<header 
+  class="post-header"
+  id="mainContent"
+  style="background-image: url('/assets/img/1.9-tx-heading.jpg');"
+  data-h2-margin="b(top, xl)">
+  <div 
+    data-h2-container="b(center, m)" 
+    data-h2-font-color="b(white)"
+    data-h2-padding="b(top, l) b(bottom, xl) l(top, xl) l(bottom, xxl)"
+    data-h2-text-align="b(center)">
+    <h2
+  
+  data-h2-font-weight="b(200)"
+  data-h2-font-size="b(h2)"
+  
+  data-h2-padding='b(top, m)'
+  
+  
+  style="letter-spacing: -2px;">
+  Our Research Engine
+</h2>
+    
+      <div data-h2-padding="b(top, m)">
+        
+          <div 
+  data-h2-bg-color="b(white[.2])"
+  data-h2-border="b(white, all, solid, s)"
+  data-h2-display="b(inline-block)"
+  data-h2-margin="b(all, xxs) l(right-left, xxs)"
+  data-h2-padding="b(top, xxs) b(bottom, xs) b(right-left, s)"
+  data-h2-radius="b(m)"
+  style="line-height: 1;">
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <img 
+        data-h2-display="b(inline-block)"
+        data-h2-margin="b(right, xxs)"
+        style="vertical-align: middle; width: .8rem;"
+        src="/assets/img/ds-empower-staff.svg" aria-hidden="true">
+      <span data-h2-font-size="b(caption)">Empower Service Delivery</span>
+    
+  
+    
+  
+    
+  
+    
+  
+</div>
+        
+          <div 
+  data-h2-bg-color="b(white[.2])"
+  data-h2-border="b(white, all, solid, s)"
+  data-h2-display="b(inline-block)"
+  data-h2-margin="b(all, xxs) l(right-left, xxs)"
+  data-h2-padding="b(top, xxs) b(bottom, xs) b(right-left, s)"
+  data-h2-radius="b(m)"
+  style="line-height: 1;">
+  
+    
+      <img 
+        data-h2-display="b(inline-block)"
+        data-h2-margin="b(right, xxs)"
+        style="vertical-align: middle; width: .8rem;"
+        src="/assets/img/ds-iterate.svg" aria-hidden="true">
+      <span data-h2-font-size="b(caption)">Iterate and Improve</span>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+</div>
+        
+          <div 
+  data-h2-bg-color="b(white[.2])"
+  data-h2-border="b(white, all, solid, s)"
+  data-h2-display="b(inline-block)"
+  data-h2-margin="b(all, xxs) l(right-left, xxs)"
+  data-h2-padding="b(top, xxs) b(bottom, xs) b(right-left, s)"
+  data-h2-radius="b(m)"
+  style="line-height: 1;">
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <img 
+        data-h2-display="b(inline-block)"
+        data-h2-margin="b(right, xxs)"
+        style="vertical-align: middle; width: .8rem;"
+        src="/assets/img/ds-data.svg" aria-hidden="true">
+      <span data-h2-font-size="b(caption)">Data Stewardship</span>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+</div>
+        
+      </div>
+    
+  </div>
+</header>
+<main data-h2-padding="b(top-bottom, xs) l(top-bottom, xl)" style="background-color: #F8F8F8;">
+  <div data-h2-container="b(center, s)">
+    
+      
+        
+          <!-- Basic Content -->
+          <p>This section describes our most commonly used methods of collecting data, the types of data that we collected, how we used it, and some important constraints to consider, particularly when interpreting our research questions. It also looks at how we arrive at our research questions to begin with, and what we do with our research findings.</p>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>You hear a lot about breaking down silos in the public sector. Often in government, research is done by a separate team than those leading on experimentation, which are both separate from the development cycle of actual product delivery.</p>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>While breaking down silos between these areas if work is important, at Talent Cloud we went in a different direction, by putting each of the components of our development cycle in one place (see our Team Operations section). This helps us to work efficiently, keeps us on the same path, and promotes accountability across the whole product team.</p>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>So how does the research cycle map into the team’s development cycle? Here’s how our research cycle works, beginning with looking up what’s out there beyond government and ending with contributing findings back to the broader community.</p>
+        
+      
+    
+      
+        
+          <figure data-h2-margin="b(top-bottom, l)">
+            <!-- Graphics -->
+            
+              <img 
+                src="/assets/img/1.9-en-research-engine.jpg"
+                alt="A graphic representing Talent Cloud's research engine. It showcases the steps Talent Cloud takes to produce research in 10 steps that involve two key areas: External research from academia, the private sector, and experts, and research the Talent Cloud team produces itself. The first step of the process involves sourcing research from academic, private, and public sector studies. The second step requires Talent Cloud to hypothesize based on this research. The third step involves a Government of Canada policy and compliance check. The fourth step validates Talent Cloud's hypothesis and background theory with international experts. The fifth step takes that validated research and results in design work and product prototypes. The sixth step tests these designs with users so that behaviour can be recorded live. The seventh step is collecting and analyzing the results from user testing. The eighth step compares these results to external research findings. The ninth step uses these final research results to improve features on the Talent Cloud platform by the UX team, which results in a live service for users. The tenth and final step is sharing those research findings with the broader community."
+                style="width: 100%;"
+                data-h2-display="b(block)"
+                data-h2-radius="b(s)"
+                data-h2-border="b(gray, all, solid, s)">
+                
+            
+          </figure>
+        
+      
+    
+      
+        
+          <!-- Titles -->
+          <h3
+  
+  data-h2-font-weight="b(800)"
+  data-h2-font-size="b(h3)"
+  data-h2-margin='b(top, xl) b(bottom, s)'
+  
+  style="letter-spacing: -1px;">
+  Research Methodologies
+</h3>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>The platform and features that make up Talent Cloud can be broken down into a series of experiments. Each of those experiments began with external research. Sometimes there were widely adopted practices or standards that we could use, but sometimes the answers weren’t so easy to find.</p>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>With our initial desk research in hand, we moved on to running pilot projects with real people and job processes to test our hypotheses, all while running compliance checks against government policies. While we haven’t had the sample size to run randomized controlled trials, there are many, albeit less powerful, research methods available for this type of work. We also didn’t lean on a single approach, but instead adapted to identify the best tool for the job. Our methodologies draw from behavioural psychology, lean process re-engineering, human-centered design, and old school qualitative and quantitative research methods.</p>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>Once we had our pilot results, we went back to external data to validate our findings. Comparing or benchmarking results is always important, but it’s especially so when you’re dealing with very small sample sizes, as we were with jobs posted to the site. It also helped us better understand the machinery and behaviours that shape staffing and talent recruitment.</p>
+        
+      
+    
+      
+        
+          <!-- Titles -->
+          <h3
+  
+  data-h2-font-weight="b(800)"
+  data-h2-font-size="b(h3)"
+  data-h2-margin='b(top, xl) b(bottom, s)'
+  
+  style="letter-spacing: -1px;">
+  Qualitative Data
+</h3>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>Over the course of the project, we collected a huge amount of qualitative data. We conducted workshops with every user group before we started to design anything. Once we started to design, we tested wireframe prototypes early and often, observing whether people were using features the way we thought they would, and then talking to them about what they liked or didn’t. We also took them to presentations with us, when we were talking to our partner departments, or to the general public, and asked people to tell us what they thought.</p>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>We also didn’t stop collecting qualitative data on features once they were launched. Our Project Coordinator observed how the platform was being used, and flagged lots of issues that we were able to fix quickly, because we were watching. They also regularly compiled emails from users where patterns were identified and sent them to our user experience designers.</p>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>We also tried really hard to talk to everyone who used the platform, to get their thoughts. A lot of these were semi-structured interviews. Fairly early on, we developed an interview guide to help to focus the conversation of some of our key questions, but we left lots of room to digress and follow our participants' train of thought.</p>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>We also sent out surveys both to managers that posted jobs on the site, and the applicants to those jobs. While there were some quantitative questions on these forms, we got some of the richest information from the open text boxes.</p>
+        
+      
+    
+      
+        
+          <!-- Titles -->
+          <h3
+  
+  data-h2-font-weight="b(800)"
+  data-h2-font-size="b(h3)"
+  data-h2-margin='b(top, xl) b(bottom, s)'
+  
+  style="letter-spacing: -1px;">
+  Quantitative Data
+</h3>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>GC HR authorities collect a significant amount of data on the hiring process, which helps the GC understand trends and priorities. That said, when we looked at our two primary research goals (time to staff and diversity/culture fit) a lot of the questions that we had related to issues where data was either not collected or we weren’t able to easily access findings (e.g. through the Open Government Portal).</p>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>Data about real staffing processes that were run on Talent Cloud was an important line of evidence that we used to test our research questions. To do that we collected data on staffing that wasn’t readily available at this level of detail anywhere else in the GC. We kept track of how long every single step of the hiring process took, as well as the number of applicants that passed each phase of the assessment process. For example, we looked meticulously at things like how many times a job advertisement draft is passed back and forth between HR advisors and managers, how many applicants applied on the last day of a job advertisement, and how machinery steps like translation and data entry impact the order and timing of approvals.</p>
+        
+      
+    
+      
+        
+          <!-- Subtitles -->
+          <h4
+  
+  data-h2-font-weight="b(400)"
+  data-h2-font-size="b(h4)"
+  data-h2-margin='b(top, xl) b(bottom, s)'
+  style="letter-spacing: -1px;">
+  Detail In, Detail Out
+</h4>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>All of this data was logged manually in a seperate database by the system administrator. (Our plan had been that once the platform covered the staffing process end-to-end, this process would be automated using log files.) Having access to this detailed information helped us identify where processes bog down, and what required process improvements versus behavioural interventions.</p>
+        
+      
+    
+      
+        
+          <figure data-h2-margin="b(top-bottom, l)">
+            <!-- Graphics -->
+            
+              <img 
+                src="/assets/img/1.9-en-pilot-data.jpg"
+                alt="A screenshot of a spreadsheet application that shows how the team has tracked job process information. It contains data on each stage of a job process' life cycle to help the team better understand how we were improving targeted areas."
+                style="width: 100%;"
+                data-h2-display="b(block)"
+                data-h2-radius="b(s)"
+                data-h2-border="b(gray, all, solid, s)">
+                
+            
+          </figure>
+        
+      
+    
+      
+        
+          <!-- Subtitles -->
+          <h4
+  
+  data-h2-font-weight="b(400)"
+  data-h2-font-size="b(h4)"
+  data-h2-margin='b(top, xl) b(bottom, s)'
+  style="letter-spacing: -1px;">
+  Weak Signals
+</h4>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>Because of sample size constraints (53 jobs were posted since the platform went live, across many departments, classifications, and levels) conducting statistical analysis of the data is not yet possible. So, when we talk about our results on job processes, keep in mind that we’re talking about weak signals. We try to mitigate this by looking at multiple lines of evidence, and  benchmarking our data whenever possible.</p>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>However, on the applicant side, we passed the 1,000 applicant mark, which is beginning to approach the volume that we need for statistically significant results. Here, too, our ability to test some of our research questions has been limited by the information we can collect. Without a Protected B server, we aren’t able to do things like collect Employment Equity data on the site, pushing our research on diversity into the qualitative data realm.</p>
+        
+      
+    
+      
+        
+          <!-- Callout -->
+          <blockquote
+            data-h2-bg-color="b(purple[.1])"
+            data-h2-border="b(purple, all, solid, s)"
+            data-h2-margin="b(top-bottom, xl)"
+            data-h2-padding="b(right-left, m)"
+            data-h2-radius="b(s)">
+            
+            
+              <p data-h2-font-color="b(purple)">We don’t want to oversell our findings. We’re a small scale experiment and we don’t have a statistically sound sample size for running randomized control trials. While we’re cross-referencing external research with our quantitative and qualitative findings, our research results should be considered weak signals, not definitive solutions.</p>
+            
+          </blockquote>
+        
+      
+    
+      
+        
+          <!-- Titles -->
+          <h3
+  
+  data-h2-font-weight="b(800)"
+  data-h2-font-size="b(h3)"
+  data-h2-margin='b(top, xl) b(bottom, s)'
+  
+  style="letter-spacing: -1px;">
+  The Value of Hunches
+</h3>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>You can’t create evidence-based policy without a foundation of evidence. That was the goal of Talent Cloud.</p>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>When we present our results, we usually see a room of people nodding along. Whether they’re managers or HR Advisors, we find we’re confirming a lot of the things they’ve known for years but didn’t necessarily have numbers or stories to back it up. Often we hear the comment, “We knew that already. So what’s the next step?”</p>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>While nodding from a crowd isn’t a valid quantitative data point for confirming results, we follow up with interviews, group discussions and live testing of new features, which helps us validate the hard-to-validate hunches - long recognized but statistically unproven - at play in the GC staffing space.</p>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>After all, often “hunches” are just multi-year pattern recognition coming forward from experts on the ground, like HR advisors and seasoned managers. And we take time to listen to these hunches and explore the behavioural psychology and systems design behind the issue, hopefully leading towards potential solutions.</p>
+        
+      
+    
+      
+        
+          <!-- Callout -->
+          <blockquote
+            data-h2-bg-color="b(purple[.1])"
+            data-h2-border="b(purple, all, solid, s)"
+            data-h2-margin="b(top-bottom, xl)"
+            data-h2-padding="b(right-left, m)"
+            data-h2-radius="b(s)">
+            
+              <p
+                data-h2-font-color="b(purple)" 
+                data-h2-font-weight="b(bold)">The COVID Chilling Effect on Research</p>
+            
+            
+              <p data-h2-font-color="b(purple)">Like the rest of the world, COVID had a significant impact on Talent Cloud operations. When employees were sent home to telework indefinitely in mid-March, staffing all but ground to a halt. We had 10 job advertisements from April through June in 2019, but we didn’t post a single job during the equivalent time period in 2020. We also saw the job processes that were in the assessment phase slowed significantly, and we saw a greater proportion of jobs cancelled due to financial constraints by the department. (One side note to this: the few new jobs that did launch during the summer 2020 period were able to take advantage of platform upgrades, and as a result, we saw time to staff continue to come down significantly with these processes.)</p>
+            
+              <p data-h2-font-color="b(purple)">2020 was the year we planned to significantly scale up, and get the sample sizes that we needed to put some statistical power behind our results. Instead, we wound up pivoting quickly to try to help facilitate internal talent mobility across the GC as government organized to support people, businesses, and shifting internal needs (Read more about GC Talent Reserve in Section 5 of this report).</p>
+            
+          </blockquote>
+        
+      
+    
+  </div>
+</main>
+<section style="background-color: #F8F8F8;">
+  <div data-h2-container="b(center, s)" data-h2-padding="b(bottom, l) l(bottom, xxl)">
+    <div data-h2-flex-grid="b(top, expanded, flush, m)">
+      <div
+        data-h2-text-align="b(center) m(left)" 
+        data-h2-flex-item="b(1of2)">
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            
+              <a class="prev" href="/en/projects/2000/01/01/108-team.html" title="Go to the previous article in the series.">
+                <svg data-h2-margin="b(right, xxs)" 
+                  style="width: 1rem; vertical-align: middle;" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="#c90035">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M15 19l-7-7 7-7" />
+                </svg>Previous Article</a>
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      </div>
+      <div 
+        data-h2-text-align="b(center) m(right)"   
+        data-h2-flex-item="b(1of2)">
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            
+              <a class="next" href="/en/projects/2000/01/01/110-portals.html" title="Go to the next article in the series.">Next Article<svg data-h2-margin="b(left, xxs)" 
+                style="width: 1rem; vertical-align: middle;" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="#c90035">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M9 5l7 7-7 7" />
+                </svg></a>
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      </div>
+    </div>
+    <p
+      data-h2-margin="b(top, xxl)" 
+      data-h2-text-align="b(center)"
+      data-h2-font-size="b(caption)">
+      <a href="/en/talent-cloud/report/#toc" title="Return to Table of Contents">Return to Table of Contents</a>
+    </p>
+  </div>
+</section>
+<section data-h2-border="b([light]gray, top, solid, s)" data-h2-position="b(relative)" style="background: rgba(240, 240, 240, 1)" data-h2-overflow="b(x, hidden)">
+  <footer data-h2-container="b(center, full)" data-h2-padding="b(top-bottom, l)">
+    <div data-h2-flex-grid="b(middle, expanded, flush, xl)">
+      <div
+        data-h2-flex-item="b(1of1) m(1of2)"
+        data-h2-padding="b(left, xl)"
+        data-h2-text-align="b(center) m(left)">
+        
+          <nav>
+            <ul
+              style="gap: 1rem;"
+              class="reset-ul"
+              data-h2-display="b(flex)"
+              data-h2-flex-wrap="b(wrap)"
+              data-h2-justify-content="b(center) m(flex-start)"
+              data-h2-margin="b(bottom, xs)">
+              
+              <li data-h2-display="b(inline-block)" data-h2-margin="b(top-bottom, none)">
+                
+                  <a href="mailto:talent.cloud-nuage.de.talents@tbs-sct.gc.ca" title="Submit feedback to GC Talent Cloud via email.">Feedback</a>
+                
+              </li>
+              
+              <li data-h2-display="b(inline-block)" data-h2-margin="b(top-bottom, none)">
+                
+                  <a href="/en/terms-and-conditions" title="View our terms and conditions.">Terms & Conditions</a>
+                
+              </li>
+              
+              <li data-h2-display="b(inline-block)" data-h2-margin="b(top-bottom, none)">
+                
+                  <a href="/en/privacy-notice" title="View our privacy policy.">Privacy Policy</a>
+                
+              </li>
+              
+              <li data-h2-display="b(inline-block)" data-h2-margin="b(top-bottom, none)">
+                
+                  <a href="/en/https://www.canada.ca/en.html" title="Visit Canada.ca.">Canada.ca</a>
+                
+              </li>
+              
+            </ul>
+          </nav>
+          <p 
+            data-h2-font-size="b(caption)"
+            data-h2-font-color="b(black)" 
+            data-h2-margin="b(bottom, none) b(top, m)">
+            Date Modified: July 07, 2021
+          </p>
+        
+      </div>
+      <div
+        data-h2-flex-item="b(1of1) m(1of2)"
+        data-h2-padding="b(right, xl)"
+        data-h2-text-align="b(center) m(right)">
+        <a
+          href="https://www.canada.ca/en.html"
+          title="Visit Canada.ca."
+          target="_blank"
+          rel="noopener noreferrer">
+          <img
+            class="canada-logo"
+            src="/assets/img/ui-canada.png"
+            alt="Canada's Logo."/>
+        </a>
+      </div>
+    </div>
+  </footer>
+</section>
 
-                    <li
-                        data-h2-margin="b(all, none)"
-                        data-h2-padding="b(all, none)"
-                        data-h2-display="b(inline-block)"
-                    >
-                        <a
-                            href="/en/communities/digital-talent/"
-                            title="Learn more about the Digital Talent community."
-                            data-h2-display="b(block)"
-                            data-h2-padding="b(all, xs) m(right-left, s)"
-                            >Digital Talent</a
-                        >
-                    </li>
-                </ul>
-            </nav>
-        </div>
-        <section>
-            <div
-                data-h2-container="b(center, full)"
-                data-h2-text-align="b(center)"
-            >
-                <h1
-                    data-h2-font-weight="b(800)"
-                    data-h2-font-size="b(h1)"
-                    data-h2-padding="b(top, l) l(top, xxl) b(bottom, xxs)"
-                    style="letter-spacing: -3px"
-                >
-                    Talent Cloud Results Report
-                </h1>
-
-                <div id="breadcrumbs" data-h2-margin="b(top-bottom, m)">
-                    <a href="/en" title="Return to the homepage.">GC Talent</a>
-                    <!-- If the page layout is post then use this breadcrumb list. -->
-
-                    /
-                    <a
-                        href="/en/talent-cloud"
-                        title="Return to the Talent Cloud page."
-                        >Talent Cloud</a
-                    >
-                    /
-                    <a
-                        href="/en/talent-cloud/report"
-                        title="Return to the Talent Cloud results report."
-                        >Talent Cloud Resu...</a
-                    >
-                    / <span>Section 1</span> /
-                    <span data-h2-font-weight="b(800)"
-                        >Our Research Engine</span
-                    >
-                </div>
-            </div>
-        </section>
-        <header
-            class="post-header"
-            id="mainContent"
-            style="background-image: url('/assets/img/1.9-tx-heading.jpg')"
-            data-h2-margin="b(top, xl)"
-        >
-            <div
-                data-h2-container="b(center, m)"
-                data-h2-font-color="b(white)"
-                data-h2-padding="b(top, l) b(bottom, xl) l(top, xl) l(bottom, xxl)"
-                data-h2-text-align="b(center)"
-            >
-                <h2
-                    data-h2-font-weight="b(200)"
-                    data-h2-font-size="b(h2)"
-                    data-h2-padding="b(top, m)"
-                    style="letter-spacing: -2px"
-                >
-                    Our Research Engine
-                </h2>
-
-                <div data-h2-padding="b(top, m)">
-                    <div
-                        data-h2-bg-color="b(white[.2])"
-                        data-h2-border="b(white, all, solid, s)"
-                        data-h2-display="b(inline-block)"
-                        data-h2-margin="b(all, xxs) l(right-left, xxs)"
-                        data-h2-padding="b(top, xxs) b(bottom, xs) b(right-left, s)"
-                        data-h2-radius="b(m)"
-                        style="line-height: 1"
-                    >
-                        <img
-                            data-h2-display="b(inline-block)"
-                            data-h2-margin="b(right, xxs)"
-                            style="vertical-align: middle; width: 0.8rem"
-                            src="/assets/img/ds-empower-staff.svg"
-                            aria-hidden="true"
-                        />
-                        <span data-h2-font-size="b(caption)"
-                            >Empower Service Delivery</span
-                        >
-                    </div>
-
-                    <div
-                        data-h2-bg-color="b(white[.2])"
-                        data-h2-border="b(white, all, solid, s)"
-                        data-h2-display="b(inline-block)"
-                        data-h2-margin="b(all, xxs) l(right-left, xxs)"
-                        data-h2-padding="b(top, xxs) b(bottom, xs) b(right-left, s)"
-                        data-h2-radius="b(m)"
-                        style="line-height: 1"
-                    >
-                        <img
-                            data-h2-display="b(inline-block)"
-                            data-h2-margin="b(right, xxs)"
-                            style="vertical-align: middle; width: 0.8rem"
-                            src="/assets/img/ds-iterate.svg"
-                            aria-hidden="true"
-                        />
-                        <span data-h2-font-size="b(caption)"
-                            >Iterate and Improve</span
-                        >
-                    </div>
-
-                    <div
-                        data-h2-bg-color="b(white[.2])"
-                        data-h2-border="b(white, all, solid, s)"
-                        data-h2-display="b(inline-block)"
-                        data-h2-margin="b(all, xxs) l(right-left, xxs)"
-                        data-h2-padding="b(top, xxs) b(bottom, xs) b(right-left, s)"
-                        data-h2-radius="b(m)"
-                        style="line-height: 1"
-                    >
-                        <img
-                            data-h2-display="b(inline-block)"
-                            data-h2-margin="b(right, xxs)"
-                            style="vertical-align: middle; width: 0.8rem"
-                            src="/assets/img/ds-data.svg"
-                            aria-hidden="true"
-                        />
-                        <span data-h2-font-size="b(caption)"
-                            >Data Stewardship</span
-                        >
-                    </div>
-                </div>
-            </div>
-        </header>
-        <main
-            data-h2-padding="b(top-bottom, xs) l(top-bottom, xl)"
-            style="background-color: #f8f8f8"
-        >
-            <div data-h2-container="b(center, s)">
-                <!-- Basic Content -->
-                <p>
-                    This section describes our most commonly used methods of
-                    collecting data, the types of data that we collected, how we
-                    used it, and some important constraints to consider,
-                    particularly when interpreting our research questions. It
-                    also looks at how we arrive at our research questions to
-                    begin with, and what we do with our research findings.
-                </p>
-
-                <!-- Basic Content -->
-                <p>
-                    You hear a lot about breaking down silos in the public
-                    sector. Often in government, research is done by a separate
-                    team than those leading on experimentation, which are both
-                    separate from the development cycle of actual product
-                    delivery.
-                </p>
-
-                <!-- Basic Content -->
-                <p>
-                    While breaking down silos between these areas if work is
-                    important, at Talent Cloud we went in a different direction,
-                    by putting each of the components of our development cycle
-                    in one place (see our Team Operations section). This helps
-                    us to work efficiently, keeps us on the same path, and
-                    promotes accountability across the whole product team.
-                </p>
-
-                <!-- Basic Content -->
-                <p>
-                    So how does the research cycle map into the team’s
-                    development cycle? Here’s how our research cycle works,
-                    beginning with looking up what’s out there beyond government
-                    and ending with contributing findings back to the broader
-                    community.
-                </p>
-
-                <figure data-h2-margin="b(top-bottom, l)">
-                    <!-- Graphics -->
-
-                    <img
-                        src="/assets/img/1.9-en-research-engine.jpg"
-                        alt="A graphic representing Talent Cloud's research engine. It showcases the steps Talent Cloud takes to produce research in 10 steps that involve two key areas: External research from academia, the private sector, and experts, and research the Talent Cloud team produces itself. The first step of the process involves sourcing research from academic, private, and public sector studies. The second step requires Talent Cloud to hypothesize based on this research. The third step involves a Government of Canada policy and compliance check. The fourth step validates Talent Cloud's hypothesis and background theory with international experts. The fifth step takes that validated research and results in design work and product prototypes. The sixth step tests these designs with users so that behaviour can be recorded live. The seventh step is collecting and analyzing the results from user testing. The eighth step compares these results to external research findings. The ninth step uses these final research results to improve features on the Talent Cloud platform by the UX team, which results in a live service for users. The tenth and final step is sharing those research findings with the broader community."
-                        style="width: 100%"
-                        data-h2-display="b(block)"
-                        data-h2-radius="b(s)"
-                        data-h2-border="b(gray, all, solid, s)"
-                    />
-                </figure>
-
-                <!-- Titles -->
-                <h3
-                    data-h2-font-weight="b(800)"
-                    data-h2-font-size="b(h3)"
-                    data-h2-margin="b(top, xl) b(bottom, s)"
-                    style="letter-spacing: -1px"
-                >
-                    Research Methodologies
-                </h3>
-
-                <!-- Basic Content -->
-                <p>
-                    The platform and features that make up Talent Cloud can be
-                    broken down into a series of experiments. Each of those
-                    experiments began with external research. Sometimes there
-                    were widely adopted practices or standards that we could
-                    use, but sometimes the answers weren’t so easy to find.
-                </p>
-
-                <!-- Basic Content -->
-                <p>
-                    With our initial desk research in hand, we moved on to
-                    running pilot projects with real people and job processes to
-                    test our hypotheses, all while running compliance checks
-                    against government policies. While we haven’t had the sample
-                    size to run randomized controlled trials, there are many,
-                    albeit less powerful, research methods available for this
-                    type of work. We also didn’t lean on a single approach, but
-                    instead adapted to identify the best tool for the job. Our
-                    methodologies draw from behavioural psychology, lean process
-                    re-engineering, human-centered design, and old school
-                    qualitative and quantitative research methods.
-                </p>
-
-                <!-- Basic Content -->
-                <p>
-                    Once we had our pilot results, we went back to external data
-                    to validate our findings. Comparing or benchmarking results
-                    is always important, but it’s especially so when you’re
-                    dealing with very small sample sizes, as we were with jobs
-                    posted to the site. It also helped us better understand the
-                    machinery and behaviours that shape staffing and talent
-                    recruitment.
-                </p>
-
-                <!-- Titles -->
-                <h3
-                    data-h2-font-weight="b(800)"
-                    data-h2-font-size="b(h3)"
-                    data-h2-margin="b(top, xl) b(bottom, s)"
-                    style="letter-spacing: -1px"
-                >
-                    Qualitative Data
-                </h3>
-
-                <!-- Basic Content -->
-                <p>
-                    Over the course of the project, we collected a huge amount
-                    of qualitative data. We conducted workshops with every user
-                    group before we started to design anything. Once we started
-                    to design, we tested wireframe prototypes early and often,
-                    observing whether people were using features the way we
-                    thought they would, and then talking to them about what they
-                    liked or didn’t. We also took them to presentations with us,
-                    when we were talking to our partner departments, or to the
-                    general public, and asked people to tell us what they
-                    thought.
-                </p>
-
-                <!-- Basic Content -->
-                <p>
-                    We also didn’t stop collecting qualitative data on features
-                    once they were launched. Our Project Coordinator observed
-                    how the platform was being used, and flagged lots of issues
-                    that we were able to fix quickly, because we were watching.
-                    They also regularly compiled emails from users where
-                    patterns were identified and sent them to our user
-                    experience designers.
-                </p>
-
-                <!-- Basic Content -->
-                <p>
-                    We also tried really hard to talk to everyone who used the
-                    platform, to get their thoughts. A lot of these were
-                    semi-structured interviews. Fairly early on, we developed an
-                    interview guide to help to focus the conversation of some of
-                    our key questions, but we left lots of room to digress and
-                    follow our participants' train of thought.
-                </p>
-
-                <!-- Basic Content -->
-                <p>
-                    We also sent out surveys both to managers that posted jobs
-                    on the site, and the applicants to those jobs. While there
-                    were some quantitative questions on these forms, we got some
-                    of the richest information from the open text boxes.
-                </p>
-
-                <!-- Titles -->
-                <h3
-                    data-h2-font-weight="b(800)"
-                    data-h2-font-size="b(h3)"
-                    data-h2-margin="b(top, xl) b(bottom, s)"
-                    style="letter-spacing: -1px"
-                >
-                    Quantitative Data
-                </h3>
-
-                <!-- Basic Content -->
-                <p>
-                    GC HR authorities collect a significant amount of data on
-                    the hiring process, which helps the GC understand trends and
-                    priorities. That said, when we looked at our two primary
-                    research goals (time to staff and diversity/culture fit) a
-                    lot of the questions that we had related to issues where
-                    data was either not collected or we weren’t able to easily
-                    access findings (e.g. through the Open Government Portal).
-                </p>
-
-                <!-- Basic Content -->
-                <p>
-                    Data about real staffing processes that were run on Talent
-                    Cloud was an important line of evidence that we used to test
-                    our research questions. To do that we collected data on
-                    staffing that wasn’t readily available at this level of
-                    detail anywhere else in the GC. We kept track of how long
-                    every single step of the hiring process took, as well as the
-                    number of applicants that passed each phase of the
-                    assessment process. For example, we looked meticulously at
-                    things like how many times a job advertisement draft is
-                    passed back and forth between HR advisors and managers, how
-                    many applicants applied on the last day of a job
-                    advertisement, and how machinery steps like translation and
-                    data entry impact the order and timing of approvals.
-                </p>
-
-                <!-- Subtitles -->
-                <h4
-                    data-h2-font-weight="b(400)"
-                    data-h2-font-size="b(h4)"
-                    data-h2-margin="b(top, xl) b(bottom, s)"
-                    style="letter-spacing: -1px"
-                >
-                    Detail In, Detail Out
-                </h4>
-
-                <!-- Basic Content -->
-                <p>
-                    All of this data was logged manually in a seperate database
-                    by the system administrator. (Our plan had been that once
-                    the platform covered the staffing process end-to-end, this
-                    process would be automated using log files.) Having access
-                    to this detailed information helped us identify where
-                    processes bog down, and what required process improvements
-                    versus behavioural interventions.
-                </p>
-
-                <figure data-h2-margin="b(top-bottom, l)">
-                    <!-- Graphics -->
-
-                    <img
-                        src="/assets/img/1.9-en-pilot-data.jpg"
-                        alt="A screenshot of a spreadsheet application that shows how the team has tracked job process information. It contains data on each stage of a job process' life cycle to help the team better understand how we were improving targeted areas."
-                        style="width: 100%"
-                        data-h2-display="b(block)"
-                        data-h2-radius="b(s)"
-                        data-h2-border="b(gray, all, solid, s)"
-                    />
-                </figure>
-
-                <!-- Subtitles -->
-                <h4
-                    data-h2-font-weight="b(400)"
-                    data-h2-font-size="b(h4)"
-                    data-h2-margin="b(top, xl) b(bottom, s)"
-                    style="letter-spacing: -1px"
-                >
-                    Weak Signals
-                </h4>
-
-                <!-- Basic Content -->
-                <p>
-                    Because of sample size constraints (53 jobs were posted
-                    since the platform went live, across many departments,
-                    classifications, and levels) conducting statistical analysis
-                    of the data is not yet possible. So, when we talk about our
-                    results on job processes, keep in mind that we’re talking
-                    about weak signals. We try to mitigate this by looking at
-                    multiple lines of evidence, and benchmarking our data
-                    whenever possible.
-                </p>
-
-                <!-- Basic Content -->
-                <p>
-                    However, on the applicant side, we passed the 1,000
-                    applicant mark, which is beginning to approach the volume
-                    that we need for statistically significant results. Here,
-                    too, our ability to test some of our research questions has
-                    been limited by the information we can collect. Without a
-                    Protected B server, we aren’t able to do things like collect
-                    Employment Equity data on the site, pushing our research on
-                    diversity into the qualitative data realm.
-                </p>
-
-                <!-- Callout -->
-                <blockquote
-                    data-h2-bg-color="b(purple[.1])"
-                    data-h2-border="b(purple, all, solid, s)"
-                    data-h2-margin="b(top-bottom, xl)"
-                    data-h2-padding="b(right-left, m)"
-                    data-h2-radius="b(s)"
-                >
-                    <p data-h2-font-color="b(purple)">
-                        We don’t want to oversell our findings. We’re a small
-                        scale experiment and we don’t have a statistically sound
-                        sample size for running randomized control trials. While
-                        we’re cross-referencing external research with our
-                        quantitative and qualitative findings, our research
-                        results should be considered weak signals, not
-                        definitive solutions.
-                    </p>
-                </blockquote>
-
-                <!-- Titles -->
-                <h3
-                    data-h2-font-weight="b(800)"
-                    data-h2-font-size="b(h3)"
-                    data-h2-margin="b(top, xl) b(bottom, s)"
-                    style="letter-spacing: -1px"
-                >
-                    The Value of Hunches
-                </h3>
-
-                <!-- Basic Content -->
-                <p>
-                    You can’t create evidence-based policy without a foundation
-                    of evidence. That was the goal of Talent Cloud.
-                </p>
-
-                <!-- Basic Content -->
-                <p>
-                    When we present our results, we usually see a room of people
-                    nodding along. Whether they’re managers or HR Advisors, we
-                    find we’re confirming a lot of the things they’ve known for
-                    years but didn’t necessarily have numbers or stories to back
-                    it up. Often we hear the comment, “We knew that already. So
-                    what’s the next step?”
-                </p>
-
-                <!-- Basic Content -->
-                <p>
-                    While nodding from a crowd isn’t a valid quantitative data
-                    point for confirming results, we follow up with interviews,
-                    group discussions and live testing of new features, which
-                    helps us validate the hard-to-validate hunches - long
-                    recognized but statistically unproven - at play in the GC
-                    staffing space.
-                </p>
-
-                <!-- Basic Content -->
-                <p>
-                    After all, often “hunches” are just multi-year pattern
-                    recognition coming forward from experts on the ground, like
-                    HR advisors and seasoned managers. And we take time to
-                    listen to these hunches and explore the behavioural
-                    psychology and systems design behind the issue, hopefully
-                    leading towards potential solutions.
-                </p>
-
-                <!-- Callout -->
-                <blockquote
-                    data-h2-bg-color="b(purple[.1])"
-                    data-h2-border="b(purple, all, solid, s)"
-                    data-h2-margin="b(top-bottom, xl)"
-                    data-h2-padding="b(right-left, m)"
-                    data-h2-radius="b(s)"
-                >
-                    <p
-                        data-h2-font-color="b(purple)"
-                        data-h2-font-weight="b(bold)"
-                    >
-                        The COVID Chilling Effect on Research
-                    </p>
-
-                    <p data-h2-font-color="b(purple)">
-                        Like the rest of the world, COVID had a significant
-                        impact on Talent Cloud operations. When employees were
-                        sent home to telework indefinitely in mid-March,
-                        staffing all but ground to a halt. We had 10 job
-                        advertisements from April through June in 2019, but we
-                        didn’t post a single job during the equivalent time
-                        period in 2020. We also saw the job processes that were
-                        in the assessment phase slowed significantly, and we saw
-                        a greater proportion of jobs cancelled due to financial
-                        constraints by the department. (One side note to this:
-                        the few new jobs that did launch during the summer 2020
-                        period were able to take advantage of platform upgrades,
-                        and as a result, we saw time to staff continue to come
-                        down significantly with these processes.)
-                    </p>
-
-                    <p data-h2-font-color="b(purple)">
-                        2020 was the year we planned to significantly scale up,
-                        and get the sample sizes that we needed to put some
-                        statistical power behind our results. Instead, we wound
-                        up pivoting quickly to try to help facilitate internal
-                        talent mobility across the GC as government organized to
-                        support people, businesses, and shifting internal needs
-                        (Read more about GC Talent Reserve in Section 5 of this
-                        report).
-                    </p>
-                </blockquote>
-            </div>
-        </main>
-        <section style="background-color: #f8f8f8">
-            <div
-                data-h2-container="b(center, s)"
-                data-h2-padding="b(bottom, l) l(bottom, xxl)"
-            >
-                <div data-h2-flex-grid="b(top, expanded, flush, m)">
-                    <div
-                        data-h2-text-align="b(center) m(left)"
-                        data-h2-flex-item="b(1of2)"
-                    >
-                        <a
-                            class="prev"
-                            href="/en/projects/2000/01/01/108-team.html"
-                            title="Go to the previous article in the series."
-                        >
-                            <svg
-                                data-h2-margin="b(right, xxs)"
-                                style="width: 1rem; vertical-align: middle"
-                                xmlns="http://www.w3.org/2000/svg"
-                                class="h-6 w-6"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="#c90035"
-                            >
-                                <path
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="4"
-                                    d="M15 19l-7-7 7-7"
-                                /></svg
-                            >Previous Article</a
-                        >
-                    </div>
-                    <div
-                        data-h2-text-align="b(center) m(right)"
-                        data-h2-flex-item="b(1of2)"
-                    >
-                        <a
-                            class="next"
-                            href="/en/projects/2000/01/01/110-portals.html"
-                            title="Go to the next article in the series."
-                            >Next Article<svg
-                                data-h2-margin="b(left, xxs)"
-                                style="width: 1rem; vertical-align: middle"
-                                xmlns="http://www.w3.org/2000/svg"
-                                class="h-6 w-6"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="#c90035"
-                            >
-                                <path
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="4"
-                                    d="M9 5l7 7-7 7"
-                                /></svg
-                        ></a>
-                    </div>
-                </div>
-                <p
-                    data-h2-margin="b(top, xxl)"
-                    data-h2-text-align="b(center)"
-                    data-h2-font-size="b(caption)"
-                >
-                    <a
-                        href="/en/talent-cloud/report/#toc"
-                        title="Return to Table of Contents"
-                        >Return to Table of Contents</a
-                    >
-                </p>
-            </div>
-        </section>
-        <section
-            data-h2-border="b([light]gray, top, solid, s)"
-            data-h2-position="b(relative)"
-            style="background: rgba(240, 240, 240, 1)"
-            data-h2-overflow="b(x, hidden)"
-        >
-            <footer
-                data-h2-container="b(center, full)"
-                data-h2-padding="b(top-bottom, l)"
-            >
-                <div data-h2-flex-grid="b(middle, expanded, flush, xl)">
-                    <div
-                        data-h2-flex-item="b(1of1) m(1of2)"
-                        data-h2-padding="b(left, xl)"
-                        data-h2-text-align="b(center) m(left)"
-                    >
-                        <nav>
-                            <ul
-                                style="gap: 1rem"
-                                class="reset-ul"
-                                data-h2-display="b(flex)"
-                                data-h2-flex-wrap="b(wrap)"
-                                data-h2-justify-content="b(center) m(flex-start)"
-                                data-h2-margin="b(bottom, xs)"
-                            >
-                                <li
-                                    data-h2-display="b(inline-block)"
-                                    data-h2-margin="b(top-bottom, none)"
-                                >
-                                    <a
-                                        href="mailto:talent.cloud-nuage.de.talents@tbs-sct.gc.ca"
-                                        title="Submit feedback to GC Talent Cloud via email."
-                                        >Feedback</a
-                                    >
-                                </li>
-
-                                <li
-                                    data-h2-display="b(inline-block)"
-                                    data-h2-margin="b(top-bottom, none)"
-                                >
-                                    <a
-                                        href="/en/terms-and-conditions"
-                                        title="View our terms and conditions."
-                                        >Terms & Conditions</a
-                                    >
-                                </li>
-
-                                <li
-                                    data-h2-display="b(inline-block)"
-                                    data-h2-margin="b(top-bottom, none)"
-                                >
-                                    <a
-                                        href="/en/privacy-notice"
-                                        title="View our privacy policy."
-                                        >Privacy Policy</a
-                                    >
-                                </li>
-
-                                <li
-                                    data-h2-display="b(inline-block)"
-                                    data-h2-margin="b(top-bottom, none)"
-                                >
-                                    <a
-                                        href="https://www.canada.ca/en.html"
-                                        title="Visit Canada.ca."
-                                        >Canada.ca</a
-                                    >
-                                </li>
-                            </ul>
-                        </nav>
-                        <p
-                            data-h2-font-size="b(caption)"
-                            data-h2-font-color="b(black)"
-                            data-h2-margin="b(bottom, none) b(top, m)"
-                        >
-                            Date Modified: July 07, 2021
-                        </p>
-                    </div>
-                    <div
-                        data-h2-flex-item="b(1of1) m(1of2)"
-                        data-h2-padding="b(right, xl)"
-                        data-h2-text-align="b(center) m(right)"
-                    >
-                        <a
-                            href="https://www.canada.ca/en.html"
-                            title="Visit Canada.ca."
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            <img
-                                class="canada-logo"
-                                src="/assets/img/ui-canada.png"
-                                alt="Canada's Logo."
-                            />
-                        </a>
-                    </div>
-                </div>
-            </footer>
-        </section>
-
-        <script type="text/javascript" src="/assets/js/app.js"></script>
-    </body>
+    <script type="text/javascript" src="/assets/js/app.js"></script>
+  </body>
 </html>

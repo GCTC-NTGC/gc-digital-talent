@@ -1,693 +1,764 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>GC Talent | A Massive Interoperable Talent Repository</title>
-        <meta
-            name="description"
-            content="Talent Cloud is an experimental staffing solution created by the Government of Canada. Read our experiment's results report here!"
-        />
-        <!-- Google Tag Manager -->
-        <script>
-            (function (w, d, s, l, i) {
-                w[l] = w[l] || [];
-                w[l].push({
-                    "gtm.start": new Date().getTime(),
-                    event: "gtm.js",
-                });
-                var f = d.getElementsByTagName(s)[0],
-                    j = d.createElement(s),
-                    dl = l != "dataLayer" ? "&l=" + l : "";
-                j.async = true;
-                j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
-                f.parentNode.insertBefore(j, f);
-            })(window, document, "script", "dataLayer", "GTM-P27NF5V");
-        </script>
-        <!-- End Google Tag Manager -->
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GC Talent | A Massive Interoperable Talent Repository</title>
+  <meta name="description" content="Talent Cloud is an experimental staffing solution created by the Government of Canada. Read our experiment's results report here!">
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-P27NF5V');</script>
+    <!-- End Google Tag Manager -->
 
-        <!-- Global site tag (gtag.js) - Google Analytics -->
-        <script
-            async
-            src="https://www.googletagmanager.com/gtag/js?id=UA-115747902-1"
-        ></script>
-        <script>
-            window.dataLayer = window.dataLayer || [];
-            function gtag() {
-                dataLayer.push(arguments);
-            }
-            gtag("js", new Date());
-            gtag("config", "UA-115747902-1", {
-                cookie_flags: "secure",
-            });
-        </script>
-        <!-- Favicons -->
-        <link
-            rel="apple-touch-icon"
-            sizes="180x180"
-            href="/apple-touch-icon.png"
-        />
-        <link
-            rel="icon"
-            type="image/png"
-            sizes="32x32"
-            href="/favicon-32x32.png"
-        />
-        <link
-            rel="icon"
-            type="image/png"
-            sizes="16x16"
-            href="/favicon-16x16.png"
-        />
-        <link rel="manifest" href="/site.webmanifest" />
-        <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
-        <meta name="msapplication-TileColor" content="#da532c" />
-        <meta name="theme-color" content="#ffffff" />
-        <!-- Google Fonts -->
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link
-            href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap"
-            rel="stylesheet"
-        />
-        <!-- Hydrogen CSS -->
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script
+        async
+        src="https://www.googletagmanager.com/gtag/js?id=UA-115747902-1">
+    </script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-115747902-1', {
+          cookie_flags: 'secure'
+        });
+    </script>
+  <!-- Favicons -->
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap" rel="stylesheet">
+  <!-- Hydrogen CSS -->
+  
+    <!-- <link rel="stylesheet" href="/assets/css/hydrogen-tc.css"> -->
+    <link rel="stylesheet" href="/assets/css/hydrogen.css">
+  
+  <!-- App CSS -->
+  <link rel="stylesheet" href="/assets/css/app.css">
+</head>
 
-        <!-- <link rel="stylesheet" href="/assets/css/hydrogen-tc.css"> -->
-        <link rel="stylesheet" href="/assets/css/hydrogen.css" />
-
-        <!-- App CSS -->
-        <link rel="stylesheet" href="/assets/css/app.css" />
-    </head>
-
-    <body data-h2-font-family="b(sans)">
-        <a href="#mainContent" title="" class="skip-link"
-            >Skip to Main Content</a
+  <body data-h2-font-family="b(sans)">
+    <a href="#mainContent" title="" class="skip-link">Skip to Main Content</a>
+    <div data-h2-border="b([light]gray, bottom, solid, s)" >
+  <div data-h2-container="b(center, full)" data-h2-padding="b(top-bottom, s)">
+    <div data-h2-flex-grid="b(middle, expanded, flush, s)">
+      <div data-h2-flex-item="m(1of2)" data-h2-text-align="b(center) m(left)">
+        <a
+          data-h2-display="b(inline-block)"
+          style="max-width: 15rem; width: 100%;"
+          href="https://canada.ca/"
+          target="_blank"
+          title="Visit canada.ca."
+          rel="noopener noreferrer"
         >
-        <div data-h2-border="b([light]gray, bottom, solid, s)">
-            <div
-                data-h2-container="b(center, full)"
-                data-h2-padding="b(top-bottom, s)"
-            >
-                <div data-h2-flex-grid="b(middle, expanded, flush, s)">
-                    <div
-                        data-h2-flex-item="m(1of2)"
-                        data-h2-text-align="b(center) m(left)"
-                    >
-                        <a
-                            data-h2-display="b(inline-block)"
-                            style="max-width: 15rem; width: 100%"
-                            href="https://canada.ca/"
-                            target="_blank"
-                            title="Visit canada.ca."
-                            rel="noopener noreferrer"
-                        >
-                            <img
-                                data-h2-
-                                alt="goc logo"
-                                src="/assets/img/ui-goc.svg"
-                        /></a>
-                    </div>
-                    <div
-                        data-h2-flex-item="m(1of2)"
-                        data-h2-text-align="b(center) m(right)"
-                    >
-                        <a
-                            href="/fr/vision/2000/01/01/506-talent-repository.html"
-                            title="Voir ce contenu en français."
-                            >Français</a
-                        >
-                    </div>
-                </div>
-            </div>
-        </div>
+          <img data-h2- alt="goc logo" src="/assets/img/ui-goc.svg"
+        /></a>
+      </div>
+      <div data-h2-flex-item="m(1of2)" data-h2-text-align="b(center) m(right)">
+         
+        <a href="/fr/vision/2000/01/01/506-talent-repository.html" title="Voir ce contenu en français.">Français</a>
+        
+      </div>
+    </div>
+  </div>
+</div>
 
-        <div data-h2-container="b(center, full)">
-            <nav data-h2-padding="b(top-bottom, m)">
-                <ul
-                    class="reset-ul"
-                    data-h2-padding="b(all, none)"
-                    data-h2-margin="b(all, none)"
-                    data-h2-text-align="b(center) m(left)"
-                    style="margin-left: -0.7rem"
-                >
-                    <li
-                        data-h2-margin="b(all, none)"
-                        data-h2-padding="b(all, none)"
-                        data-h2-display="b(inline-block)"
-                    >
-                        <a
-                            href="/en/"
-                            title="Visit the GC Talent homepage."
-                            data-h2-display="b(block)"
-                            data-h2-padding="b(all, xs) m(right-left, s)"
-                            >Home</a
-                        >
-                    </li>
+<div data-h2-container="b(center, full)" >
+  <nav data-h2-padding="b(top-bottom, m)">
+    <ul class="reset-ul" data-h2-padding="b(all, none)" data-h2-margin="b(all, none)" data-h2-text-align="b(center) m(left)" style="margin-left: -.7rem;">
+      
+        <li data-h2-margin="b(all, none)" data-h2-padding="b(all, none)" data-h2-display="b(inline-block)">
+          <a href="/en/" title="Visit the GC Talent homepage."
+            
+            data-h2-display="b(block)"
+            data-h2-padding="b(all, xs) m(right-left, s)">Home</a>
+        </li>
+      
+        <li data-h2-margin="b(all, none)" data-h2-padding="b(all, none)" data-h2-display="b(inline-block)">
+          <a href="/en/talent-cloud/" title="Learn more about the Talent Cloud project."
+            
+            data-h2-display="b(block)"
+            data-h2-padding="b(all, xs) m(right-left, s)">Talent Cloud</a>
+        </li>
+      
+        <li data-h2-margin="b(all, none)" data-h2-padding="b(all, none)" data-h2-display="b(inline-block)">
+          <a href="/en/communities/digital-talent/" title="Learn more about the Digital Talent community."
+            
+            data-h2-display="b(block)"
+            data-h2-padding="b(all, xs) m(right-left, s)">Digital Talent</a>
+        </li>
+      
+    </ul>
+  </nav>
+</div>
+<section>
+  <div
+    data-h2-container="b(center, full)"
+    data-h2-text-align="b(center)">
+    
+    <h1
+  data-h2-font-weight="b(800)"
+  data-h2-font-size="b(h1)"
+  data-h2-padding='b(top, l) l(top, xxl) b(bottom, xxs)'
+  style="letter-spacing: -3px"
+  
+>
+  Talent Cloud Results Report
+</h1>
 
-                    <li
-                        data-h2-margin="b(all, none)"
-                        data-h2-padding="b(all, none)"
-                        data-h2-display="b(inline-block)"
-                    >
-                        <a
-                            href="/en/talent-cloud/"
-                            title="Learn more about the Talent Cloud project."
-                            data-h2-display="b(block)"
-                            data-h2-padding="b(all, xs) m(right-left, s)"
-                            >Talent Cloud</a
-                        >
-                    </li>
+    <div id="breadcrumbs" data-h2-margin="b(top-bottom, m)" >
+  
+  <a href="/en" title="Return to the homepage.">GC Talent</a>
+  <!-- If the page layout is post then use this breadcrumb list. -->
+  
+    / <a href="/en/talent-cloud" title="Return to the Talent Cloud page.">Talent Cloud</a>
+    / <a href="/en/talent-cloud/report" title="Return to the Talent Cloud results report.">Talent Cloud Resu...</a>
+    / <span>Section 5</span>
+    / <span data-h2-font-weight="b(800)">A Massive Interop...</span>
+  
+</div>
+  </div>
+</section>
+<header 
+  class="post-header"
+  id="mainContent"
+  style="background-image: url('/assets/img/5.6-tx-heading.png');"
+  data-h2-margin="b(top, xl)">
+  <div 
+    data-h2-container="b(center, m)" 
+    data-h2-font-color="b(white)"
+    data-h2-padding="b(top, l) b(bottom, xl) l(top, xl) l(bottom, xxl)"
+    data-h2-text-align="b(center)">
+    <h2
+  
+  data-h2-font-weight="b(200)"
+  data-h2-font-size="b(h2)"
+  
+  data-h2-padding='b(top, m)'
+  
+  
+  style="letter-spacing: -2px;">
+  A Massive Interoperable Talent Repository
+</h2>
+    
+      <div data-h2-padding="b(top, m)">
+        
+          <div 
+  data-h2-bg-color="b(white[.2])"
+  data-h2-border="b(white, all, solid, s)"
+  data-h2-display="b(inline-block)"
+  data-h2-margin="b(all, xxs) l(right-left, xxs)"
+  data-h2-padding="b(top, xxs) b(bottom, xs) b(right-left, s)"
+  data-h2-radius="b(m)"
+  style="line-height: 1;">
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <img 
+        data-h2-display="b(inline-block)"
+        data-h2-margin="b(right, xxs)"
+        style="vertical-align: middle; width: .8rem;"
+        src="/assets/img/ds-empower-staff.svg" aria-hidden="true">
+      <span data-h2-font-size="b(caption)">Empower Service Delivery</span>
+    
+  
+    
+  
+    
+  
+    
+  
+</div>
+        
+      </div>
+    
+  </div>
+</header>
+<main data-h2-padding="b(top-bottom, xs) l(top-bottom, xl)" style="background-color: #F8F8F8;">
+  <div data-h2-container="b(center, s)">
+    
+      
+        
+          <!-- Titles -->
+          <h3
+  
+  data-h2-font-weight="b(800)"
+  data-h2-font-size="b(h3)"
+  data-h2-margin='b(top, xl) b(bottom, s)'
+  
+  style="letter-spacing: -1px;">
+  The Idea
+</h3>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>Talent Cloud was able to dramatically reduce time to staff and optimize the hiring fit between applicants and teams. But even at this speed, with these results, our team has a nagging suspicion that the future of talent recruitment and mobility won’t be driven by staffing processes. It will come down to a massive interoperable repository of talent, where managers and applicants are continually validating and updating skills, and the ecosystem as a whole functions a lot more like a digital network - a learning system - than a collection of individual processes.</p>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>What if there was a system that could answer questions for GC hiring managers like:</p>
+        
+      
+    
+      
+        
+          
+            <ul>
+              
+                <li>Where can I find someone who can take on a CS-02 cloud architecture role, and is bilingual, resilient, collaborative, and in a pre-qualified pool ready to hire?</li>
+              
+                <li>Our department has a critical shortage of user experience designers. How many of our employees have ¾ of the skills required for this role, and could be upskilled to address this unmet need?</li>
+              
+                <li>When I search the database, there are no employees looking for work with a profile of skills that meets my needs. Where do I find external talent to fill this hiring need?</li>
+              
+            </ul>
+          
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>In Talent Cloud’s experience, these are the types of questions hiring managers have. And these are the types of questions that a digitally enabled public service should be able to answer, rapidly and with a high degree of data confidence.</p>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>At the moment, the Government of Canada does have pools of pre-assessed talent ready for hire without further competition, and a few departments have basic skills inventories for their employees. But this information is fractured, and the ecosystem is a long way from the type of interdepartmental, interoperable talent inventory that would be required to easily respond to the questions identified above.</p>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>Under the current model, access to pools is often restricted by departments, and the lists of available pools are not centrally searchable by managers without the aid of HR advisors. There is no way for managers to find talent by individual skill(s). If a hiring manager wants to pull talent from a pool, their needs must meet the original essential requirements for the position posted by the original manager. The essential criteria are not attached to the applicant; it is the applicants who are attached to the list of essential criteria. In effect, the “pools” system is an analogue operating model in both process design and technological functionality, and one that fails to meet the needs and timelines required for a digitally enabled government.</p>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>But what if there was a way to link all these pools together, and give GC hiring managers searchable access through a secure, validated portal? What if applicants who were qualified in processes had each individual criteria or skill validated separately, through a portable credential, allowing managers to “mix and match” skill requirements optimized for their individual needs?</p>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>What if applicants could then go into their profiles and fill out other information, like their availability, interests, additional skills and timeline of skills development? What if they could proactively get trusted, validated micro-references for these skills from past and current managers?</p>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>That’s what we’re talking about when we propose a massive interoperable talent repository - an interconnected marketplace platform, powered by portable credentials, that facilitates rapid matching between managers and talent.</p>
+        
+      
+    
+      
+        
+          <!-- Titles -->
+          <h3
+  
+  data-h2-font-weight="b(800)"
+  data-h2-font-size="b(h3)"
+  data-h2-margin='b(top, xl) b(bottom, s)'
+  
+  style="letter-spacing: -1px;">
+  Intended Outcomes
+</h3>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>Intended outcomes from this would be:</p>
+        
+      
+    
+      
+        
+          
+            <ul>
+              
+                <li>Benefits to Canadians emerging from the Government of Canada having a faster, stronger talent engine, capable of reducing staffing vacancies that slow and reduce services;</li>
+              
+                <li>A reduction in the time needed for managers to identify high-performing talent to fill vacancies;</li>
+              
+                <li>An improved, more tailored approach to identifying talent needs based on a flexible, responsive skills search model, capable of delivering a more optimized result;</li>
+              
+                <li>Richer skills data sets for departments on employee skills capacity and external talent sources, for more refined planning and forecasting; and</li>
+              
+                <li>Future potential to adapt the skills repository to be an upskilling engine for employees and external talent, with skills mapping on learning pathways, enabling both self-directed improvement and departmentally-driven planning for employee development.</li>
+              
+            </ul>
+          
+        
+      
+    
+      
+        
+          <!-- Titles -->
+          <h3
+  
+  data-h2-font-weight="b(800)"
+  data-h2-font-size="b(h3)"
+  data-h2-margin='b(top, xl) b(bottom, s)'
+  
+  style="letter-spacing: -1px;">
+  Leveraging Talent Cloud
+</h3>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>The most important prerequisite for a talent repository like this is a robust system of portable verifiable credentials and a skills framework optimized for the Government of Canada - work that Talent Cloud has already begun. This system will need to capture the skills that thousands of Canadians have demonstrated through on-the-job work, written tests, interviews or other assessments. And this work, or these assessments, could have been performed anywhere in over a hundred of different departments and agencies in the Government of Canada. On top of that we want Canadians to be in charge of their own data and we want to leave the door open to expanding the use of this system of credential recognition to provincial governments or even not-for-profit organizations and the private sector, allowing for true interoperability in skills recognition. It’s a massive technological challenge, but one that portable verifiable credentials are well designed to handle.</p>
+        
+      
+    
+      
+        
+          <!-- Pullquotes -->
+          <blockquote
+            data-h2-border="b(red, left, solid, m)"
+            data-h2-margin="b(top-bottom, xl)"
+            data-h2-padding="b(left, m)">
+            
+            
+              <p data-h2-font-color="b(red)">"Digital futures need digital solutions."</p>
+            
+          </blockquote>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>The platform features for running external recruitment that Talent Cloud has already built would be key to ensuring a steady stream of new entrants for the talent repository. Some relatively simple changes (already identified by our team) would be required to allow for broader recruitment initiatives in addition to the targeted hiring that Talent Cloud has focused on so far.</p>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>Making the massive talent repository searchable will also require tools that our team is already developing. This includes search functionality so managers can enter the skills they want to hire for, as well as other criteria such as location, job classification, and language ability. It will also require improved profiles for users, so they can better highlight their skills and preferences.</p>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>The majority of these features are already under development with Talent Cloud, and could be easily scaled up with the right resources.</p>
+        
+      
+    
+      
+        
+          <figure data-h2-margin="b(top-bottom, l)">
+            <!-- Graphics -->
+            
+              <img 
+                src="/assets/img/5.6-en-stats.jpg"
+                alt="A screenshot of a prototype that showcases what it might be like for a department to view their employee talent at scale. The interface offers quick stats about how Talent Cloud has been used over a variety of periods of time. It then describes how talent is distributed across the CS community levels. It then displays a double bar graph that explains skill distribution, and in particular, which skills in the department are most in demand during specific periods of time."
+                style="width: 100%;"
+                data-h2-display="b(block)"
+                data-h2-radius="b(s)"
+                data-h2-border="b(gray, all, solid, s)">
+                
+            
+          </figure>
+        
+      
+    
+  </div>
+</main>
+<section style="background-color: #F8F8F8;">
+  <div data-h2-container="b(center, s)" data-h2-padding="b(bottom, l) l(bottom, xxl)">
+    <div data-h2-flex-grid="b(top, expanded, flush, m)">
+      <div
+        data-h2-text-align="b(center) m(left)" 
+        data-h2-flex-item="b(1of2)">
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            
+              <a class="prev" href="/en/vision/2000/01/01/505-credentials.html" title="Go to the previous article in the series.">
+                <svg data-h2-margin="b(right, xxs)" 
+                  style="width: 1rem; vertical-align: middle;" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="#c90035">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M15 19l-7-7 7-7" />
+                </svg>Previous Article</a>
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      </div>
+      <div 
+        data-h2-text-align="b(center) m(right)"   
+        data-h2-flex-item="b(1of2)">
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            
+              <a class="next" href="/en/vision/diversity/2000/01/01/507-diversity-at-scale.html" title="Go to the next article in the series.">Next Article<svg data-h2-margin="b(left, xxs)" 
+                style="width: 1rem; vertical-align: middle;" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="#c90035">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M9 5l7 7-7 7" />
+                </svg></a>
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      </div>
+    </div>
+    <p
+      data-h2-margin="b(top, xxl)" 
+      data-h2-text-align="b(center)"
+      data-h2-font-size="b(caption)">
+      <a href="/en/talent-cloud/report/#toc" title="Return to Table of Contents">Return to Table of Contents</a>
+    </p>
+  </div>
+</section>
+<section data-h2-border="b([light]gray, top, solid, s)" data-h2-position="b(relative)" style="background: rgba(240, 240, 240, 1)" data-h2-overflow="b(x, hidden)">
+  <footer data-h2-container="b(center, full)" data-h2-padding="b(top-bottom, l)">
+    <div data-h2-flex-grid="b(middle, expanded, flush, xl)">
+      <div
+        data-h2-flex-item="b(1of1) m(1of2)"
+        data-h2-padding="b(left, xl)"
+        data-h2-text-align="b(center) m(left)">
+        
+          <nav>
+            <ul
+              style="gap: 1rem;"
+              class="reset-ul"
+              data-h2-display="b(flex)"
+              data-h2-flex-wrap="b(wrap)"
+              data-h2-justify-content="b(center) m(flex-start)"
+              data-h2-margin="b(bottom, xs)">
+              
+              <li data-h2-display="b(inline-block)" data-h2-margin="b(top-bottom, none)">
+                
+                  <a href="mailto:talent.cloud-nuage.de.talents@tbs-sct.gc.ca" title="Submit feedback to GC Talent Cloud via email.">Feedback</a>
+                
+              </li>
+              
+              <li data-h2-display="b(inline-block)" data-h2-margin="b(top-bottom, none)">
+                
+                  <a href="/en/terms-and-conditions" title="View our terms and conditions.">Terms & Conditions</a>
+                
+              </li>
+              
+              <li data-h2-display="b(inline-block)" data-h2-margin="b(top-bottom, none)">
+                
+                  <a href="/en/privacy-notice" title="View our privacy policy.">Privacy Policy</a>
+                
+              </li>
+              
+              <li data-h2-display="b(inline-block)" data-h2-margin="b(top-bottom, none)">
+                
+                  <a href="/en/https://www.canada.ca/en.html" title="Visit Canada.ca.">Canada.ca</a>
+                
+              </li>
+              
+            </ul>
+          </nav>
+          <p 
+            data-h2-font-size="b(caption)"
+            data-h2-font-color="b(black)" 
+            data-h2-margin="b(bottom, none) b(top, m)">
+            Date Modified: July 07, 2021
+          </p>
+        
+      </div>
+      <div
+        data-h2-flex-item="b(1of1) m(1of2)"
+        data-h2-padding="b(right, xl)"
+        data-h2-text-align="b(center) m(right)">
+        <a
+          href="https://www.canada.ca/en.html"
+          title="Visit Canada.ca."
+          target="_blank"
+          rel="noopener noreferrer">
+          <img
+            class="canada-logo"
+            src="/assets/img/ui-canada.png"
+            alt="Canada's Logo."/>
+        </a>
+      </div>
+    </div>
+  </footer>
+</section>
 
-                    <li
-                        data-h2-margin="b(all, none)"
-                        data-h2-padding="b(all, none)"
-                        data-h2-display="b(inline-block)"
-                    >
-                        <a
-                            href="/en/communities/digital-talent/"
-                            title="Learn more about the Digital Talent community."
-                            data-h2-display="b(block)"
-                            data-h2-padding="b(all, xs) m(right-left, s)"
-                            >Digital Talent</a
-                        >
-                    </li>
-                </ul>
-            </nav>
-        </div>
-        <section>
-            <div
-                data-h2-container="b(center, full)"
-                data-h2-text-align="b(center)"
-            >
-                <h1
-                    data-h2-font-weight="b(800)"
-                    data-h2-font-size="b(h1)"
-                    data-h2-padding="b(top, l) l(top, xxl) b(bottom, xxs)"
-                    style="letter-spacing: -3px"
-                >
-                    Talent Cloud Results Report
-                </h1>
-
-                <div id="breadcrumbs" data-h2-margin="b(top-bottom, m)">
-                    <a href="/en" title="Return to the homepage.">GC Talent</a>
-                    <!-- If the page layout is post then use this breadcrumb list. -->
-
-                    /
-                    <a
-                        href="/en/talent-cloud"
-                        title="Return to the Talent Cloud page."
-                        >Talent Cloud</a
-                    >
-                    /
-                    <a
-                        href="/en/talent-cloud/report"
-                        title="Return to the Talent Cloud results report."
-                        >Talent Cloud Resu...</a
-                    >
-                    / <span>Section 5</span> /
-                    <span data-h2-font-weight="b(800)"
-                        >A Massive Interop...</span
-                    >
-                </div>
-            </div>
-        </section>
-        <header
-            class="post-header"
-            id="mainContent"
-            style="background-image: url('/assets/img/5.6-tx-heading.png')"
-            data-h2-margin="b(top, xl)"
-        >
-            <div
-                data-h2-container="b(center, m)"
-                data-h2-font-color="b(white)"
-                data-h2-padding="b(top, l) b(bottom, xl) l(top, xl) l(bottom, xxl)"
-                data-h2-text-align="b(center)"
-            >
-                <h2
-                    data-h2-font-weight="b(200)"
-                    data-h2-font-size="b(h2)"
-                    data-h2-padding="b(top, m)"
-                    style="letter-spacing: -2px"
-                >
-                    A Massive Interoperable Talent Repository
-                </h2>
-
-                <div data-h2-padding="b(top, m)">
-                    <div
-                        data-h2-bg-color="b(white[.2])"
-                        data-h2-border="b(white, all, solid, s)"
-                        data-h2-display="b(inline-block)"
-                        data-h2-margin="b(all, xxs) l(right-left, xxs)"
-                        data-h2-padding="b(top, xxs) b(bottom, xs) b(right-left, s)"
-                        data-h2-radius="b(m)"
-                        style="line-height: 1"
-                    >
-                        <img
-                            data-h2-display="b(inline-block)"
-                            data-h2-margin="b(right, xxs)"
-                            style="vertical-align: middle; width: 0.8rem"
-                            src="/assets/img/ds-empower-staff.svg"
-                            aria-hidden="true"
-                        />
-                        <span data-h2-font-size="b(caption)"
-                            >Empower Service Delivery</span
-                        >
-                    </div>
-                </div>
-            </div>
-        </header>
-        <main
-            data-h2-padding="b(top-bottom, xs) l(top-bottom, xl)"
-            style="background-color: #f8f8f8"
-        >
-            <div data-h2-container="b(center, s)">
-                <!-- Titles -->
-                <h3
-                    data-h2-font-weight="b(800)"
-                    data-h2-font-size="b(h3)"
-                    data-h2-margin="b(top, xl) b(bottom, s)"
-                    style="letter-spacing: -1px"
-                >
-                    The Idea
-                </h3>
-
-                <!-- Basic Content -->
-                <p>
-                    Talent Cloud was able to dramatically reduce time to staff
-                    and optimize the hiring fit between applicants and teams.
-                    But even at this speed, with these results, our team has a
-                    nagging suspicion that the future of talent recruitment and
-                    mobility won’t be driven by staffing processes. It will come
-                    down to a massive interoperable repository of talent, where
-                    managers and applicants are continually validating and
-                    updating skills, and the ecosystem as a whole functions a
-                    lot more like a digital network - a learning system - than a
-                    collection of individual processes.
-                </p>
-
-                <!-- Basic Content -->
-                <p>
-                    What if there was a system that could answer questions for
-                    GC hiring managers like:
-                </p>
-
-                <ul>
-                    <li>
-                        Where can I find someone who can take on a CS-02 cloud
-                        architecture role, and is bilingual, resilient,
-                        collaborative, and in a pre-qualified pool ready to
-                        hire?
-                    </li>
-
-                    <li>
-                        Our department has a critical shortage of user
-                        experience designers. How many of our employees have ¾
-                        of the skills required for this role, and could be
-                        upskilled to address this unmet need?
-                    </li>
-
-                    <li>
-                        When I search the database, there are no employees
-                        looking for work with a profile of skills that meets my
-                        needs. Where do I find external talent to fill this
-                        hiring need?
-                    </li>
-                </ul>
-
-                <!-- Basic Content -->
-                <p>
-                    In Talent Cloud’s experience, these are the types of
-                    questions hiring managers have. And these are the types of
-                    questions that a digitally enabled public service should be
-                    able to answer, rapidly and with a high degree of data
-                    confidence.
-                </p>
-
-                <!-- Basic Content -->
-                <p>
-                    At the moment, the Government of Canada does have pools of
-                    pre-assessed talent ready for hire without further
-                    competition, and a few departments have basic skills
-                    inventories for their employees. But this information is
-                    fractured, and the ecosystem is a long way from the type of
-                    interdepartmental, interoperable talent inventory that would
-                    be required to easily respond to the questions identified
-                    above.
-                </p>
-
-                <!-- Basic Content -->
-                <p>
-                    Under the current model, access to pools is often restricted
-                    by departments, and the lists of available pools are not
-                    centrally searchable by managers without the aid of HR
-                    advisors. There is no way for managers to find talent by
-                    individual skill(s). If a hiring manager wants to pull
-                    talent from a pool, their needs must meet the original
-                    essential requirements for the position posted by the
-                    original manager. The essential criteria are not attached to
-                    the applicant; it is the applicants who are attached to the
-                    list of essential criteria. In effect, the “pools” system is
-                    an analogue operating model in both process design and
-                    technological functionality, and one that fails to meet the
-                    needs and timelines required for a digitally enabled
-                    government.
-                </p>
-
-                <!-- Basic Content -->
-                <p>
-                    But what if there was a way to link all these pools
-                    together, and give GC hiring managers searchable access
-                    through a secure, validated portal? What if applicants who
-                    were qualified in processes had each individual criteria or
-                    skill validated separately, through a portable credential,
-                    allowing managers to “mix and match” skill requirements
-                    optimized for their individual needs?
-                </p>
-
-                <!-- Basic Content -->
-                <p>
-                    What if applicants could then go into their profiles and
-                    fill out other information, like their availability,
-                    interests, additional skills and timeline of skills
-                    development? What if they could proactively get trusted,
-                    validated micro-references for these skills from past and
-                    current managers?
-                </p>
-
-                <!-- Basic Content -->
-                <p>
-                    That’s what we’re talking about when we propose a massive
-                    interoperable talent repository - an interconnected
-                    marketplace platform, powered by portable credentials, that
-                    facilitates rapid matching between managers and talent.
-                </p>
-
-                <!-- Titles -->
-                <h3
-                    data-h2-font-weight="b(800)"
-                    data-h2-font-size="b(h3)"
-                    data-h2-margin="b(top, xl) b(bottom, s)"
-                    style="letter-spacing: -1px"
-                >
-                    Intended Outcomes
-                </h3>
-
-                <!-- Basic Content -->
-                <p>Intended outcomes from this would be:</p>
-
-                <ul>
-                    <li>
-                        Benefits to Canadians emerging from the Government of
-                        Canada having a faster, stronger talent engine, capable
-                        of reducing staffing vacancies that slow and reduce
-                        services;
-                    </li>
-
-                    <li>
-                        A reduction in the time needed for managers to identify
-                        high-performing talent to fill vacancies;
-                    </li>
-
-                    <li>
-                        An improved, more tailored approach to identifying
-                        talent needs based on a flexible, responsive skills
-                        search model, capable of delivering a more optimized
-                        result;
-                    </li>
-
-                    <li>
-                        Richer skills data sets for departments on employee
-                        skills capacity and external talent sources, for more
-                        refined planning and forecasting; and
-                    </li>
-
-                    <li>
-                        Future potential to adapt the skills repository to be an
-                        upskilling engine for employees and external talent,
-                        with skills mapping on learning pathways, enabling both
-                        self-directed improvement and departmentally-driven
-                        planning for employee development.
-                    </li>
-                </ul>
-
-                <!-- Titles -->
-                <h3
-                    data-h2-font-weight="b(800)"
-                    data-h2-font-size="b(h3)"
-                    data-h2-margin="b(top, xl) b(bottom, s)"
-                    style="letter-spacing: -1px"
-                >
-                    Leveraging Talent Cloud
-                </h3>
-
-                <!-- Basic Content -->
-                <p>
-                    The most important prerequisite for a talent repository like
-                    this is a robust system of portable verifiable credentials
-                    and a skills framework optimized for the Government of
-                    Canada - work that Talent Cloud has already begun. This
-                    system will need to capture the skills that thousands of
-                    Canadians have demonstrated through on-the-job work, written
-                    tests, interviews or other assessments. And this work, or
-                    these assessments, could have been performed anywhere in
-                    over a hundred of different departments and agencies in the
-                    Government of Canada. On top of that we want Canadians to be
-                    in charge of their own data and we want to leave the door
-                    open to expanding the use of this system of credential
-                    recognition to provincial governments or even not-for-profit
-                    organizations and the private sector, allowing for true
-                    interoperability in skills recognition. It’s a massive
-                    technological challenge, but one that portable verifiable
-                    credentials are well designed to handle.
-                </p>
-
-                <!-- Pullquotes -->
-                <blockquote
-                    data-h2-border="b(red, left, solid, m)"
-                    data-h2-margin="b(top-bottom, xl)"
-                    data-h2-padding="b(left, m)"
-                >
-                    <p data-h2-font-color="b(red)">
-                        "Digital futures need digital solutions."
-                    </p>
-                </blockquote>
-
-                <!-- Basic Content -->
-                <p>
-                    The platform features for running external recruitment that
-                    Talent Cloud has already built would be key to ensuring a
-                    steady stream of new entrants for the talent repository.
-                    Some relatively simple changes (already identified by our
-                    team) would be required to allow for broader recruitment
-                    initiatives in addition to the targeted hiring that Talent
-                    Cloud has focused on so far.
-                </p>
-
-                <!-- Basic Content -->
-                <p>
-                    Making the massive talent repository searchable will also
-                    require tools that our team is already developing. This
-                    includes search functionality so managers can enter the
-                    skills they want to hire for, as well as other criteria such
-                    as location, job classification, and language ability. It
-                    will also require improved profiles for users, so they can
-                    better highlight their skills and preferences.
-                </p>
-
-                <!-- Basic Content -->
-                <p>
-                    The majority of these features are already under development
-                    with Talent Cloud, and could be easily scaled up with the
-                    right resources.
-                </p>
-
-                <figure data-h2-margin="b(top-bottom, l)">
-                    <!-- Graphics -->
-
-                    <img
-                        src="/assets/img/5.6-en-stats.jpg"
-                        alt="A screenshot of a prototype that showcases what it might be like for a department to view their employee talent at scale. The interface offers quick stats about how Talent Cloud has been used over a variety of periods of time. It then describes how talent is distributed across the CS community levels. It then displays a double bar graph that explains skill distribution, and in particular, which skills in the department are most in demand during specific periods of time."
-                        style="width: 100%"
-                        data-h2-display="b(block)"
-                        data-h2-radius="b(s)"
-                        data-h2-border="b(gray, all, solid, s)"
-                    />
-                </figure>
-            </div>
-        </main>
-        <section style="background-color: #f8f8f8">
-            <div
-                data-h2-container="b(center, s)"
-                data-h2-padding="b(bottom, l) l(bottom, xxl)"
-            >
-                <div data-h2-flex-grid="b(top, expanded, flush, m)">
-                    <div
-                        data-h2-text-align="b(center) m(left)"
-                        data-h2-flex-item="b(1of2)"
-                    >
-                        <a
-                            class="prev"
-                            href="/en/vision/2000/01/01/505-credentials.html"
-                            title="Go to the previous article in the series."
-                        >
-                            <svg
-                                data-h2-margin="b(right, xxs)"
-                                style="width: 1rem; vertical-align: middle"
-                                xmlns="http://www.w3.org/2000/svg"
-                                class="h-6 w-6"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="#c90035"
-                            >
-                                <path
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="4"
-                                    d="M15 19l-7-7 7-7"
-                                /></svg
-                            >Previous Article</a
-                        >
-                    </div>
-                    <div
-                        data-h2-text-align="b(center) m(right)"
-                        data-h2-flex-item="b(1of2)"
-                    >
-                        <a
-                            class="next"
-                            href="/en/vision/diversity/2000/01/01/507-diversity-at-scale.html"
-                            title="Go to the next article in the series."
-                            >Next Article<svg
-                                data-h2-margin="b(left, xxs)"
-                                style="width: 1rem; vertical-align: middle"
-                                xmlns="http://www.w3.org/2000/svg"
-                                class="h-6 w-6"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="#c90035"
-                            >
-                                <path
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="4"
-                                    d="M9 5l7 7-7 7"
-                                /></svg
-                        ></a>
-                    </div>
-                </div>
-                <p
-                    data-h2-margin="b(top, xxl)"
-                    data-h2-text-align="b(center)"
-                    data-h2-font-size="b(caption)"
-                >
-                    <a
-                        href="/en/talent-cloud/report/#toc"
-                        title="Return to Table of Contents"
-                        >Return to Table of Contents</a
-                    >
-                </p>
-            </div>
-        </section>
-        <section
-            data-h2-border="b([light]gray, top, solid, s)"
-            data-h2-position="b(relative)"
-            style="background: rgba(240, 240, 240, 1)"
-            data-h2-overflow="b(x, hidden)"
-        >
-            <footer
-                data-h2-container="b(center, full)"
-                data-h2-padding="b(top-bottom, l)"
-            >
-                <div data-h2-flex-grid="b(middle, expanded, flush, xl)">
-                    <div
-                        data-h2-flex-item="b(1of1) m(1of2)"
-                        data-h2-padding="b(left, xl)"
-                        data-h2-text-align="b(center) m(left)"
-                    >
-                        <nav>
-                            <ul
-                                style="gap: 1rem"
-                                class="reset-ul"
-                                data-h2-display="b(flex)"
-                                data-h2-flex-wrap="b(wrap)"
-                                data-h2-justify-content="b(center) m(flex-start)"
-                                data-h2-margin="b(bottom, xs)"
-                            >
-                                <li
-                                    data-h2-display="b(inline-block)"
-                                    data-h2-margin="b(top-bottom, none)"
-                                >
-                                    <a
-                                        href="mailto:talent.cloud-nuage.de.talents@tbs-sct.gc.ca"
-                                        title="Submit feedback to GC Talent Cloud via email."
-                                        >Feedback</a
-                                    >
-                                </li>
-
-                                <li
-                                    data-h2-display="b(inline-block)"
-                                    data-h2-margin="b(top-bottom, none)"
-                                >
-                                    <a
-                                        href="/en/terms-and-conditions"
-                                        title="View our terms and conditions."
-                                        >Terms & Conditions</a
-                                    >
-                                </li>
-
-                                <li
-                                    data-h2-display="b(inline-block)"
-                                    data-h2-margin="b(top-bottom, none)"
-                                >
-                                    <a
-                                        href="/en/privacy-notice"
-                                        title="View our privacy policy."
-                                        >Privacy Policy</a
-                                    >
-                                </li>
-
-                                <li
-                                    data-h2-display="b(inline-block)"
-                                    data-h2-margin="b(top-bottom, none)"
-                                >
-                                    <a
-                                        href="https://www.canada.ca/en.html"
-                                        title="Visit Canada.ca."
-                                        >Canada.ca</a
-                                    >
-                                </li>
-                            </ul>
-                        </nav>
-                        <p
-                            data-h2-font-size="b(caption)"
-                            data-h2-font-color="b(black)"
-                            data-h2-margin="b(bottom, none) b(top, m)"
-                        >
-                            Date Modified: July 07, 2021
-                        </p>
-                    </div>
-                    <div
-                        data-h2-flex-item="b(1of1) m(1of2)"
-                        data-h2-padding="b(right, xl)"
-                        data-h2-text-align="b(center) m(right)"
-                    >
-                        <a
-                            href="https://www.canada.ca/en.html"
-                            title="Visit Canada.ca."
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            <img
-                                class="canada-logo"
-                                src="/assets/img/ui-canada.png"
-                                alt="Canada's Logo."
-                            />
-                        </a>
-                    </div>
-                </div>
-            </footer>
-        </section>
-
-        <script type="text/javascript" src="/assets/js/app.js"></script>
-    </body>
+    <script type="text/javascript" src="/assets/js/app.js"></script>
+  </body>
 </html>
