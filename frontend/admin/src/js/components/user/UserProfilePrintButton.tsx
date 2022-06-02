@@ -16,6 +16,7 @@ export const UserProfilePrintButton: React.FunctionComponent<{
 }> = ({ userId, children }) => {
   const intl = useIntl();
 
+  // would be nice to only fire this if the button was clicked but you would need an imperative version of the query that you could await on
   const [{ data: initialData, fetching, error }] = useGetUserProfileQuery({
     variables: { id: userId },
   });
