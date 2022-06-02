@@ -80,11 +80,17 @@ const Fieldset: React.FC<FieldsetProps> = ({
               type="button"
               className="input-label-context-button"
               data-h2-margin="b(left, xxs)"
-              title="Toggle Context"
               onClick={() =>
                 setContextIsActive((currentState) => !currentState)
               }
             >
+              <span data-h2-visibility="b(invisible)">
+                {intl.formatMessage({
+                  defaultMessage: "Toggle context",
+                  description:
+                    "Label to toggle the context description of a field set.",
+                })}
+              </span>
               {contextIsActive ? (
                 <XCircleIcon
                   style={{ width: "calc(1rem/1.25)" }}

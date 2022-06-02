@@ -26,10 +26,6 @@ const Header: React.FunctionComponent<HeaderProps> = ({ baseUrl }) => {
         >
           <a
             href={`https://www.canada.ca/${locale}.html`}
-            title={intl.formatMessage({
-              defaultMessage: "Visit Canada.ca",
-              description: "Title for the Canada logo in the Header.",
-            })}
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -37,8 +33,8 @@ const Header: React.FunctionComponent<HeaderProps> = ({ baseUrl }) => {
               style={{ width: "20rem" }}
               src={imageUrl(baseUrl, "logo_goc_colour.svg")}
               alt={intl.formatMessage({
-                defaultMessage: "Canada's Logo.",
-                description: "Alt text for the Canada logo in the Header.",
+                defaultMessage: "Canada.ca",
+                description: "Alt text for the Canada logo link in the Header.",
               })}
             />
           </a>
