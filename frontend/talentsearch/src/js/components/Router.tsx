@@ -36,7 +36,7 @@ import BrowsePoolsPage from "./browse/BrowsePoolsPage";
 import BrowseIndividualPoolApi from "./browse/BrowseIndividualPool";
 import PoolApplyPage from "./pool/PoolApplyPage";
 import PoolApplicationThanksPage from "./pool/PoolApplicationThanksPage";
-import RegisterPage from "./auth/RegisterPage";
+import RegisterPage from "./register/RegisterPage";
 
 const talentRoutes = (
   talentPaths: TalentSearchRoutes,
