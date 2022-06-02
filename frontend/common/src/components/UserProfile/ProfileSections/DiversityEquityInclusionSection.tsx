@@ -8,11 +8,6 @@ import {
 } from "../../../constants/localizedConstants";
 import { Applicant } from "../../../api/generated";
 
-// add link to Equity groups <a> tags around a message
-function equityLinkText(msg: string) {
-  return <a href="/equity-groups">{msg}</a>;
-}
-
 const DiversityEquityInclusionSection: React.FunctionComponent<{
   applicant: Pick<
     Applicant,
@@ -49,10 +44,16 @@ const DiversityEquityInclusionSection: React.FunctionComponent<{
             })}{" "}
           </p>{" "}
           <ul data-h2-padding="b(left, l)">
-            {isIndigenous && <li>{indigenousLocalized.defaultMessage}</li>}{" "}
-            {isVisibleMinority && <li>{minorityLocalized.defaultMessage}</li>}{" "}
-            {isWoman && <li>{womanLocalized.defaultMessage}</li>}{" "}
-            {hasDisability && <li>{disabilityLocalized.defaultMessage}</li>}
+            {isIndigenous && (
+              <li>&quot;{indigenousLocalized.defaultMessage}&quot;</li>
+            )}{" "}
+            {isVisibleMinority && (
+              <li>&quot;{minorityLocalized.defaultMessage}&quot;</li>
+            )}{" "}
+            {isWoman && <li>&quot;{womanLocalized.defaultMessage}&quot;</li>}{" "}
+            {hasDisability && (
+              <li>&quot;{disabilityLocalized.defaultMessage}&quot;</li>
+            )}
           </ul>
         </div>
       )}
