@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
 import { useIntl } from "react-intl";
 
@@ -8,9 +7,9 @@ import { useApiRoutes } from "@common/hooks/useApiRoutes";
 
 import TALENTSEARCH_APP_DIR from "../../talentSearchConstants";
 
-// Not sure what link is right now
-// eslint-disable-next-line jsx-a11y/anchor-is-valid
-const keyRegistrationLink = (...chunks: string[]) => <a href="#">{chunks}</a>;
+const keyRegistrationLink = (path: string, ...chunks: string[]) => (
+  <a href={path}>{chunks}</a>
+);
 
 const RegisterPage: React.FC = () => {
   const intl = useIntl();
@@ -65,7 +64,7 @@ const RegisterPage: React.FC = () => {
                 "Instruction on what to do if user does not have a GC Key.",
             },
             {
-              a: keyRegistrationLink,
+              a: (chunks) => keyRegistrationLink(paths.login(), ...chunks),
             },
           )}
         </p>
@@ -85,10 +84,12 @@ const RegisterPage: React.FC = () => {
             </Link>
           </p>
           <p>
-            {
-              // jsx/a11y note: Need registration path first.
-            }
-            <Link href="#" mode="solid" type="button" color="primary">
+            <Link
+              href={paths.login()}
+              mode="solid"
+              type="button"
+              color="primary"
+            >
               {intl.formatMessage({
                 defaultMessage: "Continue to GC Key and Register",
                 description:
