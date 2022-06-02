@@ -1,6 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import commonMessages from "@common/messages/commonMessages";
+import Pending from "@common/components/Pending";
 import { imageUrl } from "@common/helpers/router";
 import { notEmpty } from "@common/helpers/util";
 import ExperienceSection from "@common/components/UserProfile/ExperienceSection";
@@ -107,22 +107,18 @@ export const ProfilePage: React.FunctionComponent = () => {
   };
   const userData = data ? dataToUser(data) : undefined;
 
-  if (fetching) return <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>;
-  if (error)
-    return (
-      <p>
-        {intl.formatMessage(commonMessages.loadingError)}
-        {error.message}
-      </p>
-    );
-
-  if (userData) return <ProfileForm profileDataInput={userData} />;
   return (
-    <p>
-      {intl.formatMessage({
-        defaultMessage: "No user data",
-        description: "No user data was found",
-      })}
-    </p>
+    <Pending fetching={fetching} error={error}>
+      {userData ? (
+        <ProfileForm profileDataInput={userData} />
+      ) : (
+        <p>
+          {intl.formatMessage({
+            defaultMessage: "No user data",
+            description: "No user data was found",
+          })}
+        </p>
+      )}
+    </Pending>
   );
 };
