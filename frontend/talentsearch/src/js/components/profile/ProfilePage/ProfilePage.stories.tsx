@@ -5,6 +5,9 @@ import fakeExperiences from "@common/fakeData/fakeExperiences";
 import { ProfilePage, ProfileForm } from "./ProfilePage";
 import { User } from "../../../api/generated";
 
+import { Provider as GraphqlProvider } from "urql";
+import { fromValue } from 'wonka';
+
 const fakeUserArray = fakeUsers(5);
 
 export default {
@@ -14,7 +17,20 @@ export default {
 } as Meta;
 
 const TemplateProfilePage: Story<User> = (args) => {
-  return <ProfileForm profileDataInput={args} />;
+  // Any GraphQL queries returns null data response.
+  // See: https://formidable.com/open-source/urql/docs/advanced/testing/#response-success
+  const responseState = {
+    executeQuery: () =>
+      fromValue({
+        data: null
+      })
+  }
+
+  return (
+    <GraphqlProvider value={responseState}>
+      <ProfileForm profileDataInput={args} />;
+    </GraphqlProvider>
+  )
 };
 
 export const ProfilePageStory1 = TemplateProfilePage.bind({});
