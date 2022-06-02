@@ -12,4 +12,5 @@
   - End-to-end testing (eventually)
   - Security scans (eventually)
   - Visual regression testing (eventually)
+  - Zero axe errors
 - Pull request labeled for Change Management Board (trivial / minor / major / emergency)
