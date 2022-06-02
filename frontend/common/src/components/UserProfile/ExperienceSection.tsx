@@ -1,10 +1,3 @@
-import {
-  BookOpenIcon,
-  BriefcaseIcon,
-  LightBulbIcon,
-  StarIcon,
-  UserGroupIcon,
-} from "@heroicons/react/solid";
 import * as React from "react";
 import { useIntl } from "react-intl";
 import ExperienceAccordion, {
@@ -14,85 +7,16 @@ import SkillAccordion from "./SkillAccordion/SkillAccordion";
 import { Tab, TabSet } from "../tabs";
 import { getLocale } from "../../helpers/localize";
 import {
+  compareByDate,
   isAwardExperience,
   isCommunityExperience,
   isEducationExperience,
   isPersonalExperience,
   isWorkExperience,
 } from "../../types/ExperienceUtils";
-import {
-  AwardExperience,
-  CommunityExperience,
-  Experience,
-  PersonalExperience,
-  Skill,
-  WorkExperience,
-  EducationExperience,
-} from "../../api/generated";
+import { AwardExperience, Experience, Skill } from "../../api/generated";
+import ExperienceByTypeListing from "./ExperienceByTypeListing";
 
-export type ExperienceForDate =
-  | (AwardExperience & { startDate: string; endDate: string })
-  | CommunityExperience
-  | EducationExperience
-  | PersonalExperience
-  | WorkExperience;
-
-export const compareByDate = (e1: ExperienceForDate, e2: ExperienceForDate) => {
-  const e1EndDate = e1.endDate ? new Date(e1.endDate).getTime() : null;
-  const e2EndDate = e2.endDate ? new Date(e2.endDate).getTime() : null;
-  const e1StartDate = e1.startDate ? new Date(e1.startDate).getTime() : -1;
-  const e2StartDate = e2.startDate ? new Date(e2.startDate).getTime() : -1;
-
-  // All items with no end date should be at the top and sorted by most recent start date.
-  if (!e1EndDate && !e2EndDate) {
-    return e2StartDate - e1StartDate;
-  }
-
-  if (!e1EndDate) {
-    return -1;
-  }
-
-  if (!e2EndDate) {
-    return 1;
-  }
-
-  // Items with end date should be sorted by most recent end date at top.
-  return e2EndDate - e1EndDate;
-};
-const ExperienceByType: React.FunctionComponent<{
-  title: string;
-  icon: React.ReactNode;
-  experiences: Experience[];
-  experienceEditPaths?: ExperiencePaths; // If experienceEditPaths is not defined, links to edit experiences will not appear.
-}> = ({ title, icon, experiences, experienceEditPaths }) => {
-  return (
-    <div>
-      <div data-h2-display="b(flex)" data-h2-margin="b(top-bottom, m)">
-        {icon}
-        <p
-          data-h2-font-size="b(h4)"
-          data-h2-margin="b(all, none)"
-          data-h2-padding="b(left, s)"
-        >
-          {title}
-        </p>
-      </div>
-      <div
-        data-h2-radius="b(s)"
-        data-h2-bg-color="b(lightgray)"
-        data-h2-padding="b(top-bottom, xxs) b(right-left, xs)"
-      >
-        {experiences.map((experience) => (
-          <ExperienceAccordion
-            key={experience.id}
-            experience={experience}
-            editPaths={experienceEditPaths}
-          />
-        ))}
-      </div>
-    </div>
-  );
-};
 export interface ExperienceSectionProps {
   experiences?: Experience[];
   experienceEditPaths?: ExperiencePaths; // If experienceEditPaths is not defined, links to edit experiences will not appear.
@@ -188,31 +112,7 @@ const ExperienceSection: React.FunctionComponent<ExperienceSectionProps> = ({
             "Tab title for experiences sorted by type in applicant profile.",
         })}
       >
-        <ExperienceByType
-          title={intl.formatMessage({ defaultMessage: "Personal" })}
-          icon={<LightBulbIcon style={{ width: "1.5rem" }} />}
-          experiences={personalExperiences}
-        />
-        <ExperienceByType
-          title={intl.formatMessage({ defaultMessage: "Community" })}
-          icon={<UserGroupIcon style={{ width: "1.5rem" }} />}
-          experiences={communityExperiences}
-        />
-        <ExperienceByType
-          title={intl.formatMessage({ defaultMessage: "Work" })}
-          icon={<BriefcaseIcon style={{ width: "1.5rem" }} />}
-          experiences={workExperiences}
-        />
-        <ExperienceByType
-          title={intl.formatMessage({ defaultMessage: "Education" })}
-          icon={<BookOpenIcon style={{ width: "1.5rem" }} />}
-          experiences={educationExperiences}
-        />
-        <ExperienceByType
-          title={intl.formatMessage({ defaultMessage: "Award" })}
-          icon={<StarIcon style={{ width: "1.5rem" }} />}
-          experiences={awardExperiences}
-        />
+        <ExperienceByTypeListing experiences={experiences} />
       </Tab>
       <Tab
         text={intl.formatMessage({

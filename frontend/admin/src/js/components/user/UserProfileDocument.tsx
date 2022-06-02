@@ -16,8 +16,8 @@ import WorkLocationSection from "@common/components/UserProfile/ProfileSections/
 import WorkPreferencesSection from "@common/components/UserProfile/ProfileSections/WorkPreferencesSection";
 import DiversityEquityInclusionSection from "@common/components/UserProfile/ProfileSections/DiversityEquityInclusionSection";
 import RoleSalarySection from "@common/components/UserProfile/ProfileSections/RoleSalarySection";
-import ExperienceSection from "@common/components/UserProfile/ExperienceSection";
 import { notEmpty } from "@common/helpers/util";
+import ExperienceByTypeListing from "@common/components/UserProfile/ExperienceByTypeListing";
 import { Applicant } from "../../api/generated";
 import AdminAboutSection from "./AdminAboutSection";
 
@@ -179,8 +179,9 @@ export const UserProfileDocument = React.forwardRef<
                 })}
               </Heading>
             </HeadingWrapper>
-            <ExperienceSection
+            <ExperienceByTypeListing
               experiences={applicant.experiences?.filter(notEmpty)}
+              defaultOpen
             />
           </div>
         </div>

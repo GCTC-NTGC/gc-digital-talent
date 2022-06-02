@@ -13,6 +13,7 @@ import { AwardExperience } from "../../../../api/generated";
 
 type AwardAccordionProps = AwardExperience & {
   editUrl?: string; // A link to edit the experience will only appear if editUrl is defined.
+  defaultOpen?: boolean;
 };
 
 const AwardAccordion: React.FunctionComponent<AwardAccordionProps> = ({
@@ -24,6 +25,7 @@ const AwardAccordion: React.FunctionComponent<AwardAccordionProps> = ({
   awardedScope,
   skills,
   editUrl,
+  defaultOpen = false,
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
@@ -68,6 +70,7 @@ const AwardAccordion: React.FunctionComponent<AwardAccordionProps> = ({
             )
       }
       Icon={BriefCaseIcon}
+      defaultOpen={defaultOpen}
     >
       <div data-h2-padding="b(left, l)">
         <p>
