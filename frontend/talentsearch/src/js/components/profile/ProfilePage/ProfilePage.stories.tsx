@@ -14,9 +14,12 @@ export default {
   component: ProfilePage,
   title: "Profile Form",
   args: {},
+  decorators: [
+    NullDataGraphqlDecorator,
+  ],
 } as Meta;
 
-const TemplateProfilePage: Story<User> = (args) => {
+function NullDataGraphqlDecorator(Story, context) {
   // Any GraphQL queries returns null data response.
   // See: https://formidable.com/open-source/urql/docs/advanced/testing/#response-success
   const responseState = {
@@ -28,9 +31,13 @@ const TemplateProfilePage: Story<User> = (args) => {
 
   return (
     <GraphqlProvider value={responseState}>
-      <ProfileForm profileDataInput={args} />;
+      <Story />
     </GraphqlProvider>
   )
+}
+
+const TemplateProfilePage: Story<User> = (args) => {
+  return <ProfileForm profileDataInput={args} />;
 };
 
 export const ProfilePageStory1 = TemplateProfilePage.bind({});
