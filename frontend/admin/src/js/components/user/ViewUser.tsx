@@ -14,6 +14,7 @@ import { commonMessages } from "@common/messages";
 import { useAdminRoutes } from "../../adminRoutes";
 import { User, useUserQuery } from "../../api/generated";
 import DashboardContentContainer from "../DashboardContentContainer";
+import GeneralInformationTab from "./GeneralInformationTab";
 
 interface ViewUserPageProps {
   user: User;
@@ -94,7 +95,9 @@ export const ViewUserPage: React.FC<ViewUserPageProps> = ({ user }) => {
             defaultMessage: "General Information",
             description: "Tabs title for the individual user general info.",
           })}
-        />
+        >
+          <GeneralInformationTab user={user} />
+        </Tab>
         <Tab
           text={intl.formatMessage({
             defaultMessage: "Candidate Profile",
