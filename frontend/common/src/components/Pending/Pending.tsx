@@ -4,6 +4,8 @@ import ErrorMessage from "./ErrorMessage";
 
 import Loading from "./Loading";
 
+import "./pending.css";
+
 interface PendingProps {
   fetching: boolean;
   error?: CombinedError;
