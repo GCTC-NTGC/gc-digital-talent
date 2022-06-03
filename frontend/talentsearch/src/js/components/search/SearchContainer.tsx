@@ -237,6 +237,12 @@ const candidateFilterToQueryArgs = (
   return {
     where: {
       ...filter,
+      equity: {
+        hasDisability: filter.equity?.hasDisability,
+        isIndigenous: filter.equity?.isIndigenous,
+        isVisibleMinority: filter.equity?.isVisibleMinority,
+        isWoman: filter.equity?.isWoman,
+      },
       classifications: filter.classifications
         ? pickMap(filter.classifications, ["group", "level"])
         : [],
