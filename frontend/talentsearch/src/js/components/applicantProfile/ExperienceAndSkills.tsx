@@ -11,6 +11,8 @@ import { notEmpty } from "@common/helpers/util";
 import { EducationExperience } from "@common/api/generated";
 import { commonMessages } from "@common/messages";
 import ExperienceSection from "@common/components/UserProfile/ExperienceSection";
+import Pending from "@common/components/Pending";
+import NotFound from "@common/components/NotFound";
 import {
   AwardExperience,
   CommunityExperience,
@@ -23,6 +25,7 @@ import {
 import { useApplicantProfileRoutes } from "../../applicantProfileRoutes";
 import ProfileFormFooter from "./ProfileFormFooter";
 import ProfileFormWrapper from "./ProfileFormWrapper";
+import profileMessages from "../profile/profileMessages";
 
 export type ExperienceForDate =
   | (AwardExperience & { startDate: string; endDate: string })
@@ -241,22 +244,16 @@ export const ExperienceAndSkillsRouterApi: React.FunctionComponent = () => {
   const intl = useIntl();
   const [result] = useGetMeQuery();
   const { data, fetching, error } = result;
-  if (fetching) return <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>;
-  if (error)
-    return (
-      <p>
-        {intl.formatMessage(commonMessages.loadingError)}
-        {error.message}
-      </p>
-    );
-  return data?.me ? (
-    <ExperienceAndSkillsApi applicantId={data.me.id} />
-  ) : (
-    <p>
-      {intl.formatMessage({
-        defaultMessage: "User not found.",
-        description: "Message displayed for user not found.",
-      })}
-    </p>
+
+  return (
+    <Pending fetching={fetching} error={error}>
+      {data?.me ? (
+        <ExperienceAndSkillsApi applicantId={data.me.id} />
+      ) : (
+        <NotFound headingMessage={intl.formatMessage(commonMessages.notFound)}>
+          <p>{intl.formatMessage(profileMessages.userNotFound)}</p>
+        </NotFound>
+      )}
+    </Pending>
   );
 };

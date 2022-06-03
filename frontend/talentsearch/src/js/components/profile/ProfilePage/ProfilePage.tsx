@@ -1,6 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import Pending, { NotFound } from "@common/components/Pending";
+import NotFound from "@common/components/NotFound";
+import Pending from "@common/components/Pending";
 import { imageUrl } from "@common/helpers/router";
 import { notEmpty } from "@common/helpers/util";
 import ExperienceSection from "@common/components/UserProfile/ExperienceSection";
@@ -8,10 +9,12 @@ import ExperienceSection from "@common/components/UserProfile/ExperienceSection"
 import UserProfile from "@common/components/UserProfile";
 import type { Applicant } from "@common/api/generated";
 
+import { commonMessages } from "@common/messages";
 import MyStatusApi from "../../myStatusForm/MyStatusForm";
 import TALENTSEARCH_APP_DIR from "../../../talentSearchConstants";
 import { useApplicantProfileRoutes } from "../../../applicantProfileRoutes";
 import { useGetMeQuery, User, GetMeQuery } from "../../../api/generated";
+import profileMessages from "../profileMessages";
 
 export interface ProfilePageProps {
   profileDataInput: User;
@@ -112,11 +115,8 @@ export const ProfilePage: React.FunctionComponent = () => {
       {userData ? (
         <ProfileForm profileDataInput={userData} />
       ) : (
-        <NotFound>
-          {intl.formatMessage({
-            defaultMessage: "No user data",
-            description: "No user data was found",
-          })}
+        <NotFound headingMessage={intl.formatMessage(commonMessages.notFound)}>
+          <p>{intl.formatMessage(profileMessages.userNotFound)}</p>
         </NotFound>
       )}
     </Pending>

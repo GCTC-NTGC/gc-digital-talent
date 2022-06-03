@@ -2,7 +2,7 @@ import React from "react";
 import { Story, Meta } from "@storybook/react";
 import type { CombinedError } from "urql";
 import Pending from "./Pending";
-import NotFound from "./NotFound";
+import NotFound from "../NotFound";
 
 export default {
   component: Pending,
@@ -47,7 +47,11 @@ const TemplatePending: Story = (args) => {
   return (
     <div style={{ width: "100%", height: "100vh" }}>
       <Pending fetching={isLoading} error={combinedError}>
-        {notFound ? <NotFound>{notFound}</NotFound> : <p>Finished Loading!</p>}
+        {notFound ? (
+          <NotFound headingMessage="Not Found">{notFound}</NotFound>
+        ) : (
+          <p>Finished Loading!</p>
+        )}
       </Pending>
     </div>
   );
