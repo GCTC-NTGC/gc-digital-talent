@@ -110,7 +110,7 @@
     "jest-environment-jsdom": "^28.0.2",
     "prettier": "^2.6.2",
     "storybook-addon-intl": "^2.4.1",
-    "ts-jest": "^28.0.1",
+    "ts-jest": "^28.0.4",
     "ts-loader": "^9.3.0",
     "typescript": "^4.6.4",
     "yargs": "^17.5.1"
