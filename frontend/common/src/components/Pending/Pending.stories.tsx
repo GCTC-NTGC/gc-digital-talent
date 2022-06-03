@@ -67,7 +67,7 @@ PendingError.args = {
 
 PendingNotFound.args = {
   wait: 1000,
-  NotFound: "Nothing found.",
+  notFound: "Nothing found.",
 };
 
 PendingSuccess.args = {
