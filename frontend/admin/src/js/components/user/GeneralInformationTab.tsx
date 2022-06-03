@@ -16,7 +16,7 @@ import { getLocale } from "@common/helpers/localize";
 import { isEmpty } from "lodash";
 import { Button } from "@common/components";
 import { ChangeStatusDialog } from "./GeneralInfoTabDialogs";
-import { User, JobLookingStatus } from "../../api/generated";
+import { User, JobLookingStatus, PoolCandidate } from "../../api/generated";
 
 interface ViewUserPageProps {
   user: User;
@@ -45,8 +45,10 @@ const PoolStatusTable: React.FC<ViewUserPageProps> = ({ user }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
 
-  const [isDialogChangeStatusOpen, setDialogChangeStatusOpen] =
-    React.useState<boolean>(false);
+  // const [isDialogChangeStatusOpen, setDialogChangeStatusOpen] =
+  //   React.useState<boolean>(false);
+  const [changeStatusDialogTarget, setChangeStatusDialogTarget] =
+    React.useState<PoolCandidate | null>(null);
 
   if (isEmpty(user.poolCandidates)) {
     return (
@@ -105,7 +107,6 @@ const PoolStatusTable: React.FC<ViewUserPageProps> = ({ user }) => {
               return (
                 <tr key={candidate.id}>
                   <td
-                    data-h2-font-style="b(underline)"
                     data-h2-bg-color="b(lightgray)"
                     data-h2-padding="b(top-bottom, xs)"
                   >
@@ -121,7 +122,7 @@ const PoolStatusTable: React.FC<ViewUserPageProps> = ({ user }) => {
                     {" - "}
                     <ModalButton
                       click={() => {
-                        setDialogChangeStatusOpen(true);
+                        setChangeStatusDialogTarget(candidate);
                       }}
                     >
                       {intl.formatMessage({
@@ -157,8 +158,9 @@ const PoolStatusTable: React.FC<ViewUserPageProps> = ({ user }) => {
         </tbody>
       </table>
       <ChangeStatusDialog
-        isOpen={isDialogChangeStatusOpen}
-        onDismiss={() => setDialogChangeStatusOpen(false)}
+        selectedCandidate={changeStatusDialogTarget}
+        user={user}
+        onDismiss={() => setChangeStatusDialogTarget(null)}
       />
     </>
   );
