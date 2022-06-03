@@ -38,10 +38,10 @@ const Accordion: React.FC<AccordionProps> = ({
     >
       <button
         type="button"
-        data-h2-text-align="b(left)"
+        // data-h2-text-align="b(left)"
         data-h2-bg-color="b(white)"
-        data-h2-padding="b(top-bottom, s) b(right, m) b(left, s)"
-        data-h2-width="b(100)"
+        // data-h2-padding="b(top-bottom, s) b(right, m) b(left, s)"
+        // data-h2-width="b(100)"
         onClick={() => handleOpen()}
         {...(isOpen && children
           ? { "data-h2-border": "b(lightpurple, left, solid, m)" }
@@ -52,12 +52,25 @@ const Accordion: React.FC<AccordionProps> = ({
           borderBottom: "none",
           borderLeft: simple ? "none" : "",
           cursor: "pointer",
+          transition: "all .2s ease",
+          width: "100%",
+          textAlign: "left",
+          paddingBottom: "1rem",
+          paddingTop: "1rem",
+          paddingRight: "1.5rem",
+          paddingLeft: "1rem",
         }}
         aria-expanded={isOpen}
       >
         <div
-          data-h2-flex-grid="b(middle, expanded, flush, s)"
-          data-h2-flex-wrap="b(nowrap)"
+          // data-h2-flex-grid="b(middle, expanded, flush, s)"
+          style={{
+            alignItems: "center",
+            display: "flex",
+            flexWrap: "wrap",
+            margin: "-.5rem",
+          }}
+          // data-h2-flex-wrap="b(nowrap)"
         >
           <span>
             {isOpen ? (
@@ -66,7 +79,11 @@ const Accordion: React.FC<AccordionProps> = ({
               <ChevronRightIcon style={{ width: "1.5rem" }} />
             )}
           </span>
-          <div data-h2-flex-item="b(auto)" data-h2-text-align="b(left)">
+          <div
+            // data-h2-flex-item="b(auto)"
+            style={{ flex: "auto", maxWidth: "100%", textAlign: "left" }}
+            // data-h2-text-align="b(left)"
+          >
             <p
               data-h2-margin="b(all, none)"
               data-h2-font-size="b(h5)"
@@ -78,11 +95,18 @@ const Accordion: React.FC<AccordionProps> = ({
             <p data-h2-margin="b(top, xxs) b(bottom, none)">{subtitle}</p>
           </div>
           <div
-            data-h2-flex-item="b(content)"
-            data-h2-display="b(flex)"
-            data-h2-align-items="b(center)"
-            data-h2-flex-direction="b(row)"
-            style={{ flexShrink: 0 }}
+            // data-h2-flex-item="b(content)"
+            // data-h2-display="b(flex)"
+            // data-h2-align-items="b(center)"
+            // data-h2-flex-direction="b(row)"
+            style={{
+              display: "flex",
+              flexShrink: 0,
+              flex: "initial",
+              maxWidth: "100%",
+              alignItems: "center",
+              flexDirection: "row",
+            }}
           >
             <p data-h2-font-size="b(normal)">{context}</p>
             {!simple && (
