@@ -86,8 +86,8 @@ export const UserProfileDocument = React.forwardRef<
             <AdminAboutSection applicant={applicant} />
           </div>
 
+          {/* Language Information */}
           <div className="page-section">
-            {/* Language Information */}
             <HeadingWrapper>
               <Heading icon={ChatAlt2Icon} style={{ flex: "1 1 0%" }}>
                 {intl.formatMessage({
