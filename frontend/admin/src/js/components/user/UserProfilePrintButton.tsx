@@ -23,28 +23,22 @@ export const UserProfilePrintButton: React.FunctionComponent<{
   const componentRef = useRef(null);
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
-    copyStyles: false,
-    pageStyle: `@page {
-    size: letter portrait;
-  }
+    pageStyle: `
+      @page {
+        size: letter portrait;
+      }
 
-  @media print {
+      @media print {
 
-    .page-section {
-      margin-bottom: 2rem;
-      display: block;
-      page-break-after: auto;
-      page-break-inside: avoid;
-      -webkit-region-break-inside: avoid;
-    }
+        .page-section {
+          margin-bottom: 2rem;
+          display: block;
+          page-break-after: auto;
+          page-break-inside: avoid;
+          -webkit-region-break-inside: avoid;
+        }
 
-    .heading-icon {
-      flex-shrink: 0;
-      height: 1.5rem;
-      width: 1.5rem;
-      margin-right: 1rem;
-    }
-  }`,
+      }`,
     documentTitle: "Candidate Profile",
   });
 

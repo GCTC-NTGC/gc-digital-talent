@@ -71,6 +71,37 @@ export const UserProfileDocument = React.forwardRef<
         display: "none",
       }}
     >
+      {/* a bunch of styling to tweak components for printing */}
+      <style type="text/css" media="print">{`
+
+        html{font-size:75%}
+
+        .heading-icon {
+          flex-shrink: 0;
+          height: 1.5rem;
+          width: 1.5rem;
+          margin-right: 1rem;
+        }
+
+        .accordion-header {
+          width: 100%;
+          text-align: left;
+          padding-bottom: 1rem;
+          padding-top: 1rem;
+          padding-right: 1.5rem;
+          padding-left: 1rem;
+        }
+
+        .accordion-header-context {
+          display: flex;
+          flex-shrink: 0;
+          flex: initial;
+          max-width: 100%;
+          align-items: center;
+          flex-direction: row;
+        }
+      }
+    `}</style>
       <div ref={ref}>
         <div className="print-container">
           {/* My Status */}
@@ -169,21 +200,19 @@ export const UserProfileDocument = React.forwardRef<
           </div>
 
           {/* Skills Experience */}
-          <div className="page-section">
-            <HeadingWrapper>
-              <Heading icon={LightningBoltIcon} style={{ flex: "1 1 0%" }}>
-                {intl.formatMessage({
-                  defaultMessage: "My skills and experience",
-                  description:
-                    "Title of the My skills and experience content section",
-                })}
-              </Heading>
-            </HeadingWrapper>
-            <ExperienceByTypeListing
-              experiences={applicant.experiences?.filter(notEmpty)}
-              defaultOpen
-            />
-          </div>
+          <HeadingWrapper>
+            <Heading icon={LightningBoltIcon} style={{ flex: "1 1 0%" }}>
+              {intl.formatMessage({
+                defaultMessage: "My skills and experience",
+                description:
+                  "Title of the My skills and experience content section",
+              })}
+            </Heading>
+          </HeadingWrapper>
+          <ExperienceByTypeListing
+            experiences={applicant.experiences?.filter(notEmpty)}
+            defaultOpen
+          />
         </div>
       </div>
     </div>
