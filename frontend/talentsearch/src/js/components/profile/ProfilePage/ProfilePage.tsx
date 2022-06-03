@@ -1,6 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import Pending from "@common/components/Pending";
+import Pending, { NotFound } from "@common/components/Pending";
 import { imageUrl } from "@common/helpers/router";
 import { notEmpty } from "@common/helpers/util";
 import ExperienceSection from "@common/components/UserProfile/ExperienceSection";
@@ -112,12 +112,12 @@ export const ProfilePage: React.FunctionComponent = () => {
       {userData ? (
         <ProfileForm profileDataInput={userData} />
       ) : (
-        <p>
+        <NotFound>
           {intl.formatMessage({
             defaultMessage: "No user data",
             description: "No user data was found",
           })}
-        </p>
+        </NotFound>
       )}
     </Pending>
   );
