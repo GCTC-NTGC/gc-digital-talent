@@ -6,15 +6,23 @@ import { fromValue } from 'wonka';
 export default function NullDataGraphqlDecorator(Story, context) {
   // TODO: Allow response to be set in story via useParameter hook.
   // See: https://johnclarke73.medium.com/mocking-react-context-in-storybook-bb57304f2f6c
-  const responseState = {
-    executeQuery: () =>
-      fromValue({
-        data: null
-      })
+  const mockClient = {
+    executeQuery: ({ query }) => {
+      const operationName = query?.definitions[0]?.name?.value
+      if (operationName === 'getMyStatus')
+        return fromValue({
+          data: {
+            me: {
+              isProfileComplete: true,
+              jobLookingStatus: "OPEN_TO_OPPORTUNITIES",
+            }
+          }
+        })
+    }
   }
 
   return (
-    <GraphqlProvider value={responseState}>
+    <GraphqlProvider value={mockClient}>
       <Story />
     </GraphqlProvider>
   )
