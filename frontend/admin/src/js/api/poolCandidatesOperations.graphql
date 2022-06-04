@@ -233,3 +233,9 @@ mutation updatePoolCandidate(
     status
   }
 }
+
+mutation deletePoolCandidate ($id:ID!) {
+  deletePoolCandidate (id: $id) {
+    id
+  }
+}

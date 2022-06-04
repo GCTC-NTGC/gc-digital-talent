@@ -15,7 +15,11 @@ import {
 import { getLocale } from "@common/helpers/localize";
 import { isEmpty } from "lodash";
 import { Button } from "@common/components";
-import { ChangeStatusDialog } from "./GeneralInfoTabDialogs";
+import {
+  ChangeDateDialog,
+  ChangeStatusDialog,
+  RemoveFromPoolDialog,
+} from "./GeneralInfoTabDialogs";
 import { User, JobLookingStatus, PoolCandidate } from "../../api/generated";
 
 interface ViewUserPageProps {
@@ -45,9 +49,11 @@ const PoolStatusTable: React.FC<ViewUserPageProps> = ({ user }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
 
-  // const [isDialogChangeStatusOpen, setDialogChangeStatusOpen] =
-  //   React.useState<boolean>(false);
   const [changeStatusDialogTarget, setChangeStatusDialogTarget] =
+    React.useState<PoolCandidate | null>(null);
+  const [changeDateDialogTarget, setChangeDateDialogTarget] =
+    React.useState<PoolCandidate | null>(null);
+  const [removeFromPoolDialogTarget, setRemoveFromPoolDialogTarget] =
     React.useState<PoolCandidate | null>(null);
 
   if (isEmpty(user.poolCandidates)) {
@@ -137,18 +143,30 @@ const PoolStatusTable: React.FC<ViewUserPageProps> = ({ user }) => {
                     data-h2-bg-color="b(lightgray)"
                     data-h2-padding="b(top-bottom, xs)"
                   >
-                    {candidate.expiryDate}
+                    <ModalButton
+                      click={() => {
+                        setChangeDateDialogTarget(candidate);
+                      }}
+                    >
+                      {candidate.expiryDate}
+                    </ModalButton>
                   </td>
                   <td
                     data-h2-font-style="b(underline)"
                     data-h2-bg-color="b(lightgray)"
                     data-h2-padding="b(top-bottom, xs)"
                   >
-                    {intl.formatMessage({
-                      defaultMessage: "Remove from pool",
-                      description:
-                        "Button to remove a user from a pool - located in the table on view-user page",
-                    })}
+                    <ModalButton
+                      click={() => {
+                        setRemoveFromPoolDialogTarget(candidate);
+                      }}
+                    >
+                      {intl.formatMessage({
+                        defaultMessage: "Remove from pool",
+                        description:
+                          "Button to remove a user from a pool - located in the table on view-user page",
+                      })}
+                    </ModalButton>
                   </td>
                 </tr>
               );
@@ -161,6 +179,16 @@ const PoolStatusTable: React.FC<ViewUserPageProps> = ({ user }) => {
         selectedCandidate={changeStatusDialogTarget}
         user={user}
         onDismiss={() => setChangeStatusDialogTarget(null)}
+      />
+      <ChangeDateDialog
+        selectedCandidate={changeDateDialogTarget}
+        user={user}
+        onDismiss={() => setChangeDateDialogTarget(null)}
+      />
+      <RemoveFromPoolDialog
+        selectedCandidate={removeFromPoolDialogTarget}
+        user={user}
+        onDismiss={() => setRemoveFromPoolDialogTarget(null)}
       />
     </>
   );
@@ -206,7 +234,7 @@ const AboutSection: React.FC<ViewUserPageProps> = ({ user }) => {
       </span>
       <div
         data-h2-flex-item="b(2of3) l(1of3)"
-        style={{ textDecoration: "underline" }}
+        data-h2-font-style="b(underline)"
       >
         {user.email}
       </div>
