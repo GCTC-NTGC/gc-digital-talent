@@ -18,6 +18,8 @@ import { unpackIds, enumToOptions } from "@common/helpers/formUtils";
 
 import { errorMessages, commonMessages } from "@common/messages";
 import { getSkillCategory } from "@common/constants/localizedConstants";
+import Pending from "@common/components/Pending";
+import NotFound from "@common/components/NotFound";
 import { useAdminRoutes } from "../../adminRoutes";
 import {
   Skill,
@@ -251,42 +253,32 @@ export const UpdateSkillFamily: React.FunctionComponent<{
       return Promise.reject(result.error);
     });
 
-  if (fetching)
-    return (
+  return (
+    <Pending fetching={fetching} error={error}>
       <DashboardContentContainer>
-        <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>
-      </DashboardContentContainer>
-    );
-  if (error)
-    return (
-      <DashboardContentContainer>
-        <p>
-          {intl.formatMessage(commonMessages.loadingError)}
-          {error.message}
-        </p>
-      </DashboardContentContainer>
-    );
-
-  return lookupData?.skillFamily ? (
-    <DashboardContentContainer>
-      <UpdateSkillFamilyForm
-        initialSkillFamily={lookupData?.skillFamily}
-        skills={skills}
-        handleUpdateSkillFamily={handleUpdateSkillFamily}
-      />
-    </DashboardContentContainer>
-  ) : (
-    <DashboardContentContainer>
-      <p>
-        {intl.formatMessage(
-          {
-            defaultMessage: "SkillFamily {skillFamilyId} not found.",
-            description: "Message displayed for skillFamily not found.",
-          },
-          { skillFamilyId },
+        {lookupData?.skillFamily ? (
+          <UpdateSkillFamilyForm
+            initialSkillFamily={lookupData?.skillFamily}
+            skills={skills}
+            handleUpdateSkillFamily={handleUpdateSkillFamily}
+          />
+        ) : (
+          <NotFound
+            headingMessage={intl.formatMessage(commonMessages.notFound)}
+          >
+            <p>
+              {intl.formatMessage(
+                {
+                  defaultMessage: "SkillFamily {skillFamilyId} not found.",
+                  description: "Message displayed for skillFamily not found.",
+                },
+                { skillFamilyId },
+              )}
+            </p>
+          </NotFound>
         )}
-      </p>
-    </DashboardContentContainer>
+      </DashboardContentContainer>
+    </Pending>
   );
 };
 

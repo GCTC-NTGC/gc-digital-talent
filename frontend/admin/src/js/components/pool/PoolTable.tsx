@@ -4,11 +4,10 @@ import { Link, Pill } from "@common/components";
 import { useLocation } from "@common/helpers/router";
 import { notEmpty } from "@common/helpers/util";
 import { getLocale } from "@common/helpers/localize";
-import { commonMessages } from "@common/messages";
 import { FromArray } from "@common/types/utilityTypes";
+import Pending from "@common/components/Pending";
 import { GetPoolsQuery, useGetPoolsQuery } from "../../api/generated";
 import Table, { ColumnsOf, tableEditButtonAccessor } from "../Table";
-import DashboardContentContainer from "../DashboardContentContainer";
 import { useAdminRoutes } from "../../adminRoutes";
 
 type Data = NonNullable<FromArray<GetPoolsQuery["pools"]>>;
@@ -117,26 +116,13 @@ export const PoolTable: React.FC<GetPoolsQuery & { editUrlRoot: string }> = ({
 };
 
 export const PoolTableApi: React.FunctionComponent = () => {
-  const intl = useIntl();
   const [result] = useGetPoolsQuery();
   const { data, fetching, error } = result;
   const { pathname } = useLocation();
 
-  if (fetching)
-    return (
-      <DashboardContentContainer>
-        <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>
-      </DashboardContentContainer>
-    );
-  if (error)
-    return (
-      <DashboardContentContainer>
-        <p>
-          {intl.formatMessage(commonMessages.loadingError)}
-          {error.message}
-        </p>
-      </DashboardContentContainer>
-    );
-
-  return <PoolTable pools={data?.pools ?? []} editUrlRoot={pathname} />;
+  return (
+    <Pending fetching={fetching} error={error}>
+      <PoolTable pools={data?.pools ?? []} editUrlRoot={pathname} />
+    </Pending>
+  );
 };

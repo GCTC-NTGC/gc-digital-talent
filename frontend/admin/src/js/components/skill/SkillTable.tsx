@@ -1,14 +1,13 @@
 import React, { useMemo } from "react";
 import { useIntl } from "react-intl";
 import { getLocale } from "@common/helpers/localize";
-import commonMessages from "@common/messages/commonMessages";
 import { useLocation } from "@common/helpers/router";
 import { notEmpty } from "@common/helpers/util";
 import { FromArray } from "@common/types/utilityTypes";
 import { Pill } from "@common/components";
+import Pending from "@common/components/Pending";
 import { AllSkillsQuery, useAllSkillsQuery } from "../../api/generated";
 import Table, { ColumnsOf, tableEditButtonAccessor } from "../Table";
-import DashboardContentContainer from "../DashboardContentContainer";
 
 type Data = NonNullable<FromArray<AllSkillsQuery["skills"]>>;
 
@@ -83,26 +82,13 @@ export const SkillTable: React.FC<AllSkillsQuery & { editUrlRoot: string }> = ({
 };
 
 export const SkillTableApi: React.FunctionComponent = () => {
-  const intl = useIntl();
   const [result] = useAllSkillsQuery();
   const { data, fetching, error } = result;
   const { pathname } = useLocation();
 
-  if (fetching)
-    return (
-      <DashboardContentContainer>
-        <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>
-      </DashboardContentContainer>
-    );
-  if (error)
-    return (
-      <DashboardContentContainer>
-        <p>
-          {intl.formatMessage(commonMessages.loadingError)}
-          {error.message}
-        </p>
-      </DashboardContentContainer>
-    );
-
-  return <SkillTable skills={data?.skills ?? []} editUrlRoot={pathname} />;
+  return (
+    <Pending fetching={fetching} error={error}>
+      <SkillTable skills={data?.skills ?? []} editUrlRoot={pathname} />
+    </Pending>
+  );
 };

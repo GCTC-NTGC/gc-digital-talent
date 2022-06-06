@@ -2,7 +2,7 @@ import { Input, Select, Submit, TextArea } from "@common/components/form";
 import * as React from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
-import { commonMessages, errorMessages } from "@common/messages";
+import { errorMessages } from "@common/messages";
 import { getLocale } from "@common/helpers/localize";
 import { Button } from "@common/components";
 import { notEmpty } from "@common/helpers/util";
@@ -14,6 +14,7 @@ import {
   removeFromSessionStorage,
   setInSessionStorage,
 } from "@common/helpers/storageUtils";
+import Pending from "@common/components/Pending";
 import { useTalentSearchRoutes } from "../../talentSearchRoutes";
 import {
   Department,
@@ -373,7 +374,6 @@ export const CreateRequest: React.FunctionComponent<{
   candidateCount: Maybe<number>;
   searchFormInitialValues: Maybe<SearchFormValues>;
 }> = ({ poolCandidateFilter, candidateCount, searchFormInitialValues }) => {
-  const intl = useIntl();
   const [lookupResult] = useGetPoolCandidateSearchRequestDataQuery();
   const { data: lookupData, fetching, error } = lookupResult;
 
@@ -391,23 +391,17 @@ export const CreateRequest: React.FunctionComponent<{
       return Promise.reject(result.error);
     });
 
-  if (fetching) return <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>;
-  if (error)
-    return (
-      <p>
-        {intl.formatMessage(commonMessages.loadingError)} {error.message}
-      </p>
-    );
-
   return (
-    <RequestForm
-      departments={departments}
-      poolCandidateFilter={poolCandidateFilter}
-      candidateCount={candidateCount}
-      searchFormInitialValues={searchFormInitialValues}
-      handleCreatePoolCandidateSearchRequest={
-        handleCreatePoolCandidateSearchRequest
-      }
-    />
+    <Pending fetching={fetching} error={error}>
+      <RequestForm
+        departments={departments}
+        poolCandidateFilter={poolCandidateFilter}
+        candidateCount={candidateCount}
+        searchFormInitialValues={searchFormInitialValues}
+        handleCreatePoolCandidateSearchRequest={
+          handleCreatePoolCandidateSearchRequest
+        }
+      />
+    </Pending>
   );
 };

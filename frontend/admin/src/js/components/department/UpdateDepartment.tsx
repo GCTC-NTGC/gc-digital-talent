@@ -6,6 +6,8 @@ import pick from "lodash/pick";
 import { navigate } from "@common/helpers/router";
 import { Input, Submit } from "@common/components/form";
 import { errorMessages, commonMessages } from "@common/messages";
+import Pending from "@common/components/Pending";
+import NotFound from "@common/components/NotFound";
 import { useAdminRoutes } from "../../adminRoutes";
 import {
   Department,
@@ -142,38 +144,30 @@ export const UpdateDepartment: React.FunctionComponent<{
       return Promise.reject(result.error);
     });
 
-  if (fetching)
-    return (
+  return (
+    <Pending fetching={fetching} error={error}>
       <DashboardContentContainer>
-        <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>
-      </DashboardContentContainer>
-    );
-  if (error)
-    return (
-      <DashboardContentContainer>
-        <p>
-          {intl.formatMessage(commonMessages.loadingError)} {error.message}
-        </p>
-      </DashboardContentContainer>
-    );
-  return departmentData?.department ? (
-    <DashboardContentContainer>
-      <UpdateDepartmentForm
-        initialDepartment={departmentData.department}
-        handleUpdateDepartment={handleUpdateDepartment}
-      />
-    </DashboardContentContainer>
-  ) : (
-    <DashboardContentContainer>
-      <p>
-        {intl.formatMessage(
-          {
-            defaultMessage: "Department {departmentId} not found.",
-            description: "Message displayed for department not found.",
-          },
-          { departmentId },
+        {departmentData?.department ? (
+          <UpdateDepartmentForm
+            initialDepartment={departmentData.department}
+            handleUpdateDepartment={handleUpdateDepartment}
+          />
+        ) : (
+          <NotFound
+            headingMessage={intl.formatMessage(commonMessages.notFound)}
+          >
+            <p>
+              {intl.formatMessage(
+                {
+                  defaultMessage: "Department {departmentId} not found.",
+                  description: "Message displayed for department not found.",
+                },
+                { departmentId },
+              )}
+            </p>
+          </NotFound>
         )}
-      </p>
-    </DashboardContentContainer>
+      </DashboardContentContainer>
+    </Pending>
   );
 };

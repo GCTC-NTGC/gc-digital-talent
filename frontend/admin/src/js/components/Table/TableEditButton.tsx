@@ -1,7 +1,6 @@
 import React, { ReactElement } from "react";
-import { Button, Link } from "@common/components";
+import { Link } from "@common/components";
 import { useIntl } from "react-intl";
-import { navigate } from "@common/helpers/router";
 
 export interface TableEditButtonProps {
   /** Id of the object in the table. */
