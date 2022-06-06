@@ -76,7 +76,7 @@ const RegisterPage: React.FC = () => {
           data-h2-justify-content="b(space-between)"
         >
           <p>
-            <Link href={paths.login()}>
+            <Link href={paths.login()} external>
               {intl.formatMessage({
                 defaultMessage: "Log in instead",
                 description: "Login link text on the registration page.",
@@ -89,6 +89,7 @@ const RegisterPage: React.FC = () => {
               mode="solid"
               type="button"
               color="primary"
+              external
             >
               {intl.formatMessage({
                 defaultMessage: "Continue to GC Key and Register",

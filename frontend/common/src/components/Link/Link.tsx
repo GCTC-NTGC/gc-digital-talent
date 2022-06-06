@@ -10,6 +10,7 @@ export interface LinkProps extends React.HTMLProps<HTMLAnchorElement> {
   mode?: "solid" | "outline" | "inline";
   block?: boolean;
   type?: "button" | "link";
+  external?: boolean;
 }
 
 const Link: React.FC<LinkProps> = ({
@@ -18,6 +19,7 @@ const Link: React.FC<LinkProps> = ({
   color,
   mode = "solid",
   block = false,
+  external = false,
   type = "link",
   children,
   className,
@@ -42,10 +44,14 @@ const Link: React.FC<LinkProps> = ({
         }
       : {})}
     {...rest}
-    onClick={(event): void => {
-      event.preventDefault();
-      if (href) navigate(href);
-    }}
+    onClick={
+      !external
+        ? (event): void => {
+            event.preventDefault();
+            if (href) navigate(href);
+          }
+        : undefined
+    }
   >
     {children}
   </a>
