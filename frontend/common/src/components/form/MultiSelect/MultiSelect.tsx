@@ -81,6 +81,7 @@ const MultiSelect: React.FunctionComponent<MultiSelectProps> = ({
             )}
             control={control}
             rules={rules}
+            aria-required={rules?.required ? "true" : undefined}
           />
         </div>
       </InputWrapper>

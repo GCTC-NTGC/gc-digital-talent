@@ -87,29 +87,26 @@
 }
 
 .learn-program__gloves {
-  bottom: -6rem;
-  left: 35%;
-  width: 80%;
+  bottom: -3rem;
+  left: 25%;
+  width: 100%;
   z-index: 2;
 }
 
 .learn-program__circles {
-  top: -4rem;
-  left: 40%;
+  top: -1rem;
+  left: auto;
+  right: -50%;
 }
 
 .who-program__ulu {
   height: auto;
-  bottom: -1rem;
-  right: -1rem;
+  bottom: -3rem;
+  right: -3rem;
   width: 65% !important;
   max-width: none;
   z-index: 3;
 }
-
-/* .who-program__ulu {
-    bottom: -1rem;
-} */
 
 .who-program__triangle {
   left: 0;
@@ -190,7 +187,7 @@
 
 .talent-portal-card {
   background-repeat: no-repeat;
-  background-size: 120% auto;
+  background-size: auto 45%;
   background-position: 50% 110%;
   z-index: 2;
 }
@@ -238,20 +235,26 @@
   }
 
   .about-program__feathers {
-    bottom: -8rem;
+    bottom: -2.5rem;
     right: -1rem;
-    width: 95%;
+    width: 110%;
+  }
+
+  .learn-program__circles {
+    top: -1rem;
+    left: auto;
+    right: -50%;
   }
 
   .learn-program__gloves {
     left: auto;
     right: -6rem;
-    width: 50%;
+    width: 65%;
   }
 
   .talent-portal-card {
-    background-position: 100% 10%;
-    background-size: auto 120%;
+    background-position: 500% 160%;
+    background-size: auto 75%;
   }
 }
 

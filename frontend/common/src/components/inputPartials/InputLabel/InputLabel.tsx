@@ -60,9 +60,15 @@ const InputLabel: React.FC<InputLabelProps> = ({
             type="button"
             className="input-label-context-button"
             data-h2-margin="b(left, xxs)"
-            title="Toggle Context"
             onClick={clickHandler}
           >
+            <span data-h2-visibility="b(invisible)">
+              {intl.formatMessage({
+                defaultMessage: "Toggle context",
+                description:
+                  "Label to toggle the context description of an input.",
+              })}
+            </span>
             {contextIsActive ? (
               <XCircleIcon
                 style={{ width: "calc(1rem/1.25)" }}

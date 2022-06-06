@@ -51,6 +51,7 @@ const TextArea: React.FunctionComponent<TextAreaProps> = ({
           style={{ width: "100%", resize: "vertical" }}
           id={id}
           {...register(name, rules)}
+          aria-required={rules.required ? "true" : undefined}
           aria-invalid={error ? "true" : "false"}
           {...rest}
         />

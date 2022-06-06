@@ -1,855 +1,934 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>GC Talent | Team Operations</title>
-        <meta
-            name="description"
-            content="Talent Cloud is an experimental staffing solution created by the Government of Canada. Read our experiment's results report here!"
-        />
-        <!-- Google Tag Manager -->
-        <script>
-            (function (w, d, s, l, i) {
-                w[l] = w[l] || [];
-                w[l].push({
-                    "gtm.start": new Date().getTime(),
-                    event: "gtm.js",
-                });
-                var f = d.getElementsByTagName(s)[0],
-                    j = d.createElement(s),
-                    dl = l != "dataLayer" ? "&l=" + l : "";
-                j.async = true;
-                j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
-                f.parentNode.insertBefore(j, f);
-            })(window, document, "script", "dataLayer", "GTM-P27NF5V");
-        </script>
-        <!-- End Google Tag Manager -->
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GC Talent | Team Operations</title>
+  <meta name="description" content="Talent Cloud is an experimental staffing solution created by the Government of Canada. Read our experiment's results report here!">
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-P27NF5V');</script>
+    <!-- End Google Tag Manager -->
 
-        <!-- Global site tag (gtag.js) - Google Analytics -->
-        <script
-            async
-            src="https://www.googletagmanager.com/gtag/js?id=UA-115747902-1"
-        ></script>
-        <script>
-            window.dataLayer = window.dataLayer || [];
-            function gtag() {
-                dataLayer.push(arguments);
-            }
-            gtag("js", new Date());
-            gtag("config", "UA-115747902-1", {
-                cookie_flags: "secure",
-            });
-        </script>
-        <!-- Favicons -->
-        <link
-            rel="apple-touch-icon"
-            sizes="180x180"
-            href="/apple-touch-icon.png"
-        />
-        <link
-            rel="icon"
-            type="image/png"
-            sizes="32x32"
-            href="/favicon-32x32.png"
-        />
-        <link
-            rel="icon"
-            type="image/png"
-            sizes="16x16"
-            href="/favicon-16x16.png"
-        />
-        <link rel="manifest" href="/site.webmanifest" />
-        <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
-        <meta name="msapplication-TileColor" content="#da532c" />
-        <meta name="theme-color" content="#ffffff" />
-        <!-- Google Fonts -->
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link
-            href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap"
-            rel="stylesheet"
-        />
-        <!-- Hydrogen CSS -->
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script
+        async
+        src="https://www.googletagmanager.com/gtag/js?id=UA-115747902-1">
+    </script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-115747902-1', {
+          cookie_flags: 'secure'
+        });
+    </script>
+  <!-- Favicons -->
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap" rel="stylesheet">
+  <!-- Hydrogen CSS -->
+  
+    <!-- <link rel="stylesheet" href="/assets/css/hydrogen-tc.css"> -->
+    <link rel="stylesheet" href="/assets/css/hydrogen.css">
+  
+  <!-- App CSS -->
+  <link rel="stylesheet" href="/assets/css/app.css">
+</head>
 
-        <!-- <link rel="stylesheet" href="/assets/css/hydrogen-tc.css"> -->
-        <link rel="stylesheet" href="/assets/css/hydrogen.css" />
-
-        <!-- App CSS -->
-        <link rel="stylesheet" href="/assets/css/app.css" />
-    </head>
-
-    <body data-h2-font-family="b(sans)">
-        <a href="#mainContent" title="" class="skip-link"
-            >Skip to Main Content</a
+  <body data-h2-font-family="b(sans)">
+    <a href="#mainContent" title="" class="skip-link">Skip to Main Content</a>
+    <div data-h2-border="b([light]gray, bottom, solid, s)" >
+  <div data-h2-container="b(center, full)" data-h2-padding="b(top-bottom, s)">
+    <div data-h2-flex-grid="b(middle, expanded, flush, s)">
+      <div data-h2-flex-item="m(1of2)" data-h2-text-align="b(center) m(left)">
+        <a
+          data-h2-display="b(inline-block)"
+          style="max-width: 15rem; width: 100%;"
+          href="https://canada.ca/"
+          target="_blank"
+          title="Visit canada.ca."
+          rel="noopener noreferrer"
         >
-        <div data-h2-border="b([light]gray, bottom, solid, s)">
-            <div
-                data-h2-container="b(center, full)"
-                data-h2-padding="b(top-bottom, s)"
-            >
-                <div data-h2-flex-grid="b(middle, expanded, flush, s)">
-                    <div
-                        data-h2-flex-item="m(1of2)"
-                        data-h2-text-align="b(center) m(left)"
-                    >
-                        <a
-                            data-h2-display="b(inline-block)"
-                            style="max-width: 15rem; width: 100%"
-                            href="https://canada.ca/"
-                            target="_blank"
-                            title="Visit canada.ca."
-                            rel="noopener noreferrer"
-                        >
-                            <img
-                                data-h2-
-                                alt="goc logo"
-                                src="/assets/img/ui-goc.svg"
-                        /></a>
-                    </div>
-                    <div
-                        data-h2-flex-item="m(1of2)"
-                        data-h2-text-align="b(center) m(right)"
-                    >
-                        <a
-                            href="/fr/projects/2000/01/01/108-team.html"
-                            title="Voir ce contenu en français."
-                            >Français</a
-                        >
-                    </div>
-                </div>
-            </div>
-        </div>
+          <img data-h2- alt="goc logo" src="/assets/img/ui-goc.svg"
+        /></a>
+      </div>
+      <div data-h2-flex-item="m(1of2)" data-h2-text-align="b(center) m(right)">
+         
+        <a href="/fr/projects/2000/01/01/108-team.html" title="Voir ce contenu en français.">Français</a>
+        
+      </div>
+    </div>
+  </div>
+</div>
 
-        <div data-h2-container="b(center, full)">
-            <nav data-h2-padding="b(top-bottom, m)">
-                <ul
-                    class="reset-ul"
-                    data-h2-padding="b(all, none)"
-                    data-h2-margin="b(all, none)"
-                    data-h2-text-align="b(center) m(left)"
-                    style="margin-left: -0.7rem"
-                >
-                    <li
-                        data-h2-margin="b(all, none)"
-                        data-h2-padding="b(all, none)"
-                        data-h2-display="b(inline-block)"
-                    >
-                        <a
-                            href="/en/"
-                            title="Visit the GC Talent homepage."
-                            data-h2-display="b(block)"
-                            data-h2-padding="b(all, xs) m(right-left, s)"
-                            >Home</a
-                        >
-                    </li>
+<div data-h2-container="b(center, full)" >
+  <nav data-h2-padding="b(top-bottom, m)">
+    <ul class="reset-ul" data-h2-padding="b(all, none)" data-h2-margin="b(all, none)" data-h2-text-align="b(center) m(left)" style="margin-left: -.7rem;">
+      
+        <li data-h2-margin="b(all, none)" data-h2-padding="b(all, none)" data-h2-display="b(inline-block)">
+          <a href="/en/" title="Visit the GC Talent homepage."
+            
+            data-h2-display="b(block)"
+            data-h2-padding="b(all, xs) m(right-left, s)">Home</a>
+        </li>
+      
+        <li data-h2-margin="b(all, none)" data-h2-padding="b(all, none)" data-h2-display="b(inline-block)">
+          <a href="/en/talent-cloud/" title="Learn more about the Talent Cloud project."
+            
+            data-h2-display="b(block)"
+            data-h2-padding="b(all, xs) m(right-left, s)">Talent Cloud</a>
+        </li>
+      
+        <li data-h2-margin="b(all, none)" data-h2-padding="b(all, none)" data-h2-display="b(inline-block)">
+          <a href="/en/communities/digital-talent/" title="Learn more about the Digital Talent community."
+            
+            data-h2-display="b(block)"
+            data-h2-padding="b(all, xs) m(right-left, s)">Digital Talent</a>
+        </li>
+      
+    </ul>
+  </nav>
+</div>
+<section>
+  <div
+    data-h2-container="b(center, full)"
+    data-h2-text-align="b(center)">
+    
+    <h1
+  data-h2-font-weight="b(800)"
+  data-h2-font-size="b(h1)"
+  data-h2-padding='b(top, l) l(top, xxl) b(bottom, xxs)'
+  style="letter-spacing: -3px"
+  
+>
+  Talent Cloud Results Report
+</h1>
 
-                    <li
-                        data-h2-margin="b(all, none)"
-                        data-h2-padding="b(all, none)"
-                        data-h2-display="b(inline-block)"
-                    >
-                        <a
-                            href="/en/talent-cloud/"
-                            title="Learn more about the Talent Cloud project."
-                            data-h2-display="b(block)"
-                            data-h2-padding="b(all, xs) m(right-left, s)"
-                            >Talent Cloud</a
-                        >
-                    </li>
+    <div id="breadcrumbs" data-h2-margin="b(top-bottom, m)" >
+  
+  <a href="/en" title="Return to the homepage.">GC Talent</a>
+  <!-- If the page layout is post then use this breadcrumb list. -->
+  
+    / <a href="/en/talent-cloud" title="Return to the Talent Cloud page.">Talent Cloud</a>
+    / <a href="/en/talent-cloud/report" title="Return to the Talent Cloud results report.">Talent Cloud Resu...</a>
+    / <span>Section 1</span>
+    / <span data-h2-font-weight="b(800)">Team Operations</span>
+  
+</div>
+  </div>
+</section>
+<header 
+  class="post-header"
+  id="mainContent"
+  style="background-image: url('/assets/img/1.8-tx-heading.jpg');"
+  data-h2-margin="b(top, xl)">
+  <div 
+    data-h2-container="b(center, m)" 
+    data-h2-font-color="b(white)"
+    data-h2-padding="b(top, l) b(bottom, xl) l(top, xl) l(bottom, xxl)"
+    data-h2-text-align="b(center)">
+    <h2
+  
+  data-h2-font-weight="b(200)"
+  data-h2-font-size="b(h2)"
+  
+  data-h2-padding='b(top, m)'
+  
+  
+  style="letter-spacing: -2px;">
+  Team Operations
+</h2>
+    
+      <div data-h2-padding="b(top, m)">
+        
+          <div 
+  data-h2-bg-color="b(white[.2])"
+  data-h2-border="b(white, all, solid, s)"
+  data-h2-display="b(inline-block)"
+  data-h2-margin="b(all, xxs) l(right-left, xxs)"
+  data-h2-padding="b(top, xxs) b(bottom, xs) b(right-left, s)"
+  data-h2-radius="b(m)"
+  style="line-height: 1;">
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <img 
+        data-h2-display="b(inline-block)"
+        data-h2-margin="b(right, xxs)"
+        style="vertical-align: middle; width: .8rem;"
+        src="/assets/img/ds-empower-staff.svg" aria-hidden="true">
+      <span data-h2-font-size="b(caption)">Empower Service Delivery</span>
+    
+  
+    
+  
+    
+  
+    
+  
+</div>
+        
+          <div 
+  data-h2-bg-color="b(white[.2])"
+  data-h2-border="b(white, all, solid, s)"
+  data-h2-display="b(inline-block)"
+  data-h2-margin="b(all, xxs) l(right-left, xxs)"
+  data-h2-padding="b(top, xxs) b(bottom, xs) b(right-left, s)"
+  data-h2-radius="b(m)"
+  style="line-height: 1;">
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <img 
+        data-h2-display="b(inline-block)"
+        data-h2-margin="b(right, xxs)"
+        style="vertical-align: middle; width: .8rem;"
+        src="/assets/img/ds-collaboration.svg" aria-hidden="true">
+      <span data-h2-font-size="b(caption)">Collaboration</span>
+    
+  
+</div>
+        
+          <div 
+  data-h2-bg-color="b(white[.2])"
+  data-h2-border="b(white, all, solid, s)"
+  data-h2-display="b(inline-block)"
+  data-h2-margin="b(all, xxs) l(right-left, xxs)"
+  data-h2-padding="b(top, xxs) b(bottom, xs) b(right-left, s)"
+  data-h2-radius="b(m)"
+  style="line-height: 1;">
+  
+    
+  
+    
+      <img 
+        data-h2-display="b(inline-block)"
+        data-h2-margin="b(right, xxs)"
+        style="vertical-align: middle; width: .8rem;"
+        src="/assets/img/ds-open-work.svg" aria-hidden="true">
+      <span data-h2-font-size="b(caption)">Work in the Open</span>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+</div>
+        
+      </div>
+    
+  </div>
+</header>
+<main data-h2-padding="b(top-bottom, xs) l(top-bottom, xl)" style="background-color: #F8F8F8;">
+  <div data-h2-container="b(center, s)">
+    
+      
+        
+          <!-- Basic Content -->
+          <p>The Talent Cloud Feature Pipeline: As a team, we used a five-step reinforcing feedback loop to develop and iterate on features for the platform:</p>
+        
+      
+    
+      
+        
+          <figure data-h2-margin="b(top-bottom, l)">
+            <!-- Graphics -->
+            
+              <img 
+                src="/assets/img/1.8-en-operations.png"
+                alt="A graphic representing Talent Cloud's team operations approach. The first section is the policy shop, which has the role of researching complex problems promising directions, developing theory, framing hypotheses for experiments, ensuring policy compliance, analyzing findings, providing presentations, advising on findings, and seeing the whole system to wayfind the best path. The classifications on this team are EC. The skills used by this team are research, analysis, systems thinking, strategic thinking, writing, and presenting. The second section is the UX design team, which has the role of translating business requirements into potential digital solutions for testing, performing research, collecting data, using insights to efficiently design the platform's layout, content, and features in a way that meets the needs of government and applicant users alike, advocating for our users, improving accessibility standards, and reducing bias in hiring. The classifications on this team are CS (UX). The skills used by this team are research methods, data analysis, prototyping, usability testing, design tools, and communication. The third section is the front-end development team, which has the role of bridging design and development by highlighting possible interface improvements and/or pitfalls, ensuring designs are coded into responsibe, accessible, and consistent interfaces, verifying that interfaces function on supported browsers and devices, and developing and maintaining the product's component library for fast and easy interface development. The classifications on this team are CS (Programming). The skills used by this team are web languages (HTML, CSS, JavaScript), critical thinking, responsive design, accessible web programming, communication. The fourth section is the back-end development team, which has the role of working with designers and front-end developers to turn prototypes and interface components into working solutions, supporting forward planning by providing technical advice and time estimates for the development of new features, and ensuring the talent.canada.ca site is up and running as designed. The classifications on this team are CS (Programming). The skills used by this team are PHP, cyber security, Azure, Git, critical thinking, automated testing. The fifth and final section is the HR concierge and project coordination team, which has the role of working with partner departments to move hiring processes through the experimental platform, engaging with users (HR advisors, managers, and applicants), observing and analyzing interactions, recognizing patters in findings, and recommending options and areas in need of further investigation to the policy and design teams. The classifications on this team are AS and EC. The skills used by this team are project coordination, client services, observation, analysis, industrial psychology, behavioural psychology, and framework and tools development. The graphic indicates that the teams act in a loop, starting with the policy shop through the HR concierge and project coordination team, which then passes its research findings and insights back to the policy shop to begin the process again."
+                style="width: 100%;"
+                data-h2-display="b(block)"
+                data-h2-radius="b(s)"
+                data-h2-border="b(gray, all, solid, s)">
+                
+            
+          </figure>
+        
+      
+    
+      
+        
+          <!-- Titles -->
+          <h3
+  
+  data-h2-font-weight="b(800)"
+  data-h2-font-size="b(h3)"
+  data-h2-margin='b(top, xl) b(bottom, s)'
+  
+  style="letter-spacing: -1px;">
+  Why a Multidisciplinary Team is Mission Critical
+</h3>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>To build a modern digital product, you need support from people with many different skill sets, which in government are classified as belonging to different occupational groups. At the same time, you don’t have the time to find external people and onboard them to the specific context of your product. Too much depends on the details of what you are building for external experts, who are not intimately familiar with the product, to be able to contribute significantly. (Not to be confused with engaging users, which is a constant outreach and engagement effort.) This means that to build a high quality, timely product, that expertise needs to be on your team.</p>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>In practice, our team is constantly bouncing ideas and work around between policy, project operation, design, development and client services. Designers regularly check-in with the policy team to ensure what they are proposing will work from a policy perspective. Project operations need to regularly check in with the developers to get details on new features being released. Our product development cycle is a constant loop that travels through multiple occupational groups. This is a daily collaboration, requiring dedicated resources from different occupational groups working together in a continuous feedback cycle of creation and iteration.</p>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>This multidisciplinary collaboration between team members is at the heart of what we do and we are constantly benefiting from it. To keep things moving at a pace that is fast enough for a product to maintain its relevance in a rapidly changing world, we think this is the only way to work (at least for these types of service-based products involving design, development and user testing.) In essence, the team’s structure allows for both the product owner (decisions on what needs building) and the product team (doing the actual building) to operate on the same team, improving flow for fast, insightful product iteration.</p>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>Although the Government of Canada has issued a bulletin to the heads of HR confirming that there is no policy barrier to multidisciplinary teams, in practice it remains difficult to put these types of teams together, especially for smaller units. This is particularly true in cases where a highly efficient team model would call for cross-classification supervision. In a tradition government hierarchical structure, this would rarely be needed. But this structure is commonplace in multifunctional agile teams in the private sector because of the nature of the work, which requires designers, developers, anthropologists, and client services working together to deliver a product. When governments want to build like this, using agile methods, it means that teams like this will be increasingly required. With some careful classification work and the flexible use of temporary “term” arrangements, Talent Cloud was able to set this up, but it’s not guaranteed that other teams will be able to do the same.</p>
+        
+      
+    
+      
+        
+          <!-- Titles -->
+          <h3
+  
+  data-h2-font-weight="b(800)"
+  data-h2-font-size="b(h3)"
+  data-h2-margin='b(top, xl) b(bottom, s)'
+  
+  style="letter-spacing: -1px;">
+  What We Mean by “Agile”
+</h3>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>Saying that a team uses “agile” in government has become a bit controversial because there are so many different versions of what teams and leaders mean by the term. While its sudden popularity is evident (bordering on ubiquitous), few agree on a concrete definition or a minimum bar for being able to legitimately claim use of the practice. Nevertheless, we’re sharing some of the “agile” concepts we use in our 2-week sprint cycle.</p>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>(For a real view of this, check out our code and content on GitHub.)</p>
+        
+      
+    
+      
+        
+          <!-- Subtitles -->
+          <h4
+  
+  data-h2-font-weight="b(400)"
+  data-h2-font-size="b(h4)"
+  data-h2-margin='b(top, xl) b(bottom, s)'
+  style="letter-spacing: -1px;">
+  Story Points
+</h4>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>As is common in agile builds, we use story points to talk about how difficult or complex something is for the development team. Before we decide to work on a specific task, the developers estimate how many story points it will take to complete; it doesn’t really matter if a story point usually takes an hour of a developer’s time to complete, or a full day. What’s important is that the story point becomes a useful way to communicate to the rest of the team how complex (and potentially time consuming) something will be to implement.</p>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>For example, we looked at a feature that interrupts someone who is completing a job application if the deadline for submitting it has passed. Without that interruption, you might waste some time completing an application, but when you hit the submit button, you would get an error message indicating the submission deadline was passed. It’s a desirable feature, though only a tiny fraction of users would ever benefit from it. The devs estimated this as 8 story points. In a good sprint, we can only complete about three tasks of that complexity. And given that so few users would benefit from this work, the team was able to make the call that it wasn’t worth building. Instead the dev time was spent on building higher value features that would impact more users. But if the “cost” of this had been one or two story points, we might have chosen differently.</p>
+        
+      
+    
+      
+        
+          <!-- Subtitles -->
+          <h4
+  
+  data-h2-font-weight="b(400)"
+  data-h2-font-size="b(h4)"
+  data-h2-margin='b(top, xl) b(bottom, s)'
+  style="letter-spacing: -1px;">
+  Daily Stand-up
+</h4>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>For our distributed team, the daily stand-up has become central to how we work. Each day at 11:00 the development team and designers join a zoom call and briefly describe:</p>
+        
+      
+    
+      
+        
+          
+            <ul>
+              
+                <li>What they worked on since yesterday (naming the issue or prototype they are working on is usually enough)</li>
+              
+                <li>What they will be working on today</li>
+              
+                <li>Any blockers they might have</li>
+              
+            </ul>
+          
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>We’ve managed to keep these stand-ups under 15 minutes in length, even with 9+ people. If discussions start breaking out, we can usually ask people to stay on the call after stand-up to finish their chat and move on. Stand up is great for making sure everyone is working the right things. With the designers there as well, it helps increase interaction between them and the developers, which is something we have been trying to improve.</p>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>With many people working from home, stand-up can sometimes be the only direct interaction you have with other humans in the work day. The format of stand-up is straight forward, each person briefly says what they worked on since the last stand-up, what they plan to work on until the next one and what blockers (if any) are preventing them from making progress. This also helps increase human interactions more by allowing the team to point out when two people should discuss their work. There’s always a balance to strike between keeping everyone involved and having enough focus time on our own.</p>
+        
+      
+    
+      
+        
+          <!-- Subtitles -->
+          <h4
+  
+  data-h2-font-weight="b(400)"
+  data-h2-font-size="b(h4)"
+  data-h2-margin='b(top, xl) b(bottom, s)'
+  style="letter-spacing: -1px;">
+  Sprint Review
+</h4>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>At the end of each 2-week sprint, the development team leads a demo session where they show what they’ve completed. Because we’re not really building for a client though, we don’t stress too much about what we’re committing too at the beginning of a sprint. Instead, the developers work hard to advance things as much as possible. If something is not complete, it can be saved for the next sprint review. Except in special circumstances there’s no rush with developers doing overtime to complete tasks.</p>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>To even things out a little, so it wasn’t always the developers presenting their work, and so the developers were better kept in the loop for what the rest of the team was doing, we started doing a “policy team” sprint review on alternating weeks with the developer sprint review. (For reference, the “policy team” is the research, policy and client interaction side of Talent Cloud, which uses a Trello board to track work, and tends to have different timelines and pressures than the dev team.) We’re still iterating on the exact format of policy team sprint review, but the goal is to give everyone a sense of what tricky things the policy team has had to deal with recently and remind everyone of that we’re building towards a longer term vision. Typically, we try to pick one or two artifacts that the team has completed, or made significant progress towards and have the person that worked on them present it to everyone else. Examples are design prototypes, presentations (decks), research, reports or some other tricky theory work like our tenth version of the skills framework at the heart of the recruitment model.</p>
+        
+      
+    
+      
+        
+          <!-- Titles -->
+          <h3
+  
+  data-h2-font-weight="b(800)"
+  data-h2-font-size="b(h3)"
+  data-h2-margin='b(top, xl) b(bottom, s)'
+  
+  style="letter-spacing: -1px;">
+  Running a Distributed Team
+</h3>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>The Talent Cloud team has been a distributed team since 2017 with members in cities across Canada including Halifax, Toronto, Montreal and Edmonton. This also means that team members in the Ottawa main office have always been able to work from home at their discretion, including our Indigenous Community Liaison, who works half time from her community farther north.</p>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>In March 2020, when offices shut down and governments around the world struggled to adapt to the new reality under COVID-19, this really just meant that our team took their computers home on a Friday and worked from home afterwards. Everyone was able to continue their work uninterrupted (with the possible exception of kids-not-at-school causing mayhem in the background).</p>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>It’s interesting, but distributed teams actually get easier the fewer people who are together in one place. With only one or two people out of the office, it’s easy to keep office-centric practices as the default while those in the regions just work around and fit in however they can (which is a habit our team spent a lot of time consciously trying to break out of.) But when half or more of the team are remote, you really just don’t have a choice.</p>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>Digital tools become extra important when working on a distributed team. For our developers this has been GitHub to collaborate on code and plan development sprints. Our designers have been making use of Adobe Creative Cloud to build and share designs, while everyone has been collaborating on documents using Google Drive.</p>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>Most important though, is a good messaging app because it becomes the main method of communication and culture hub for the team as a whole. Sharing photos, links and random thoughts becomes the replacement to watercooler conversations. Emoji become the replacement to seeing smiles on your colleagues faces.</p>
+        
+      
+    
+      
+        
+          <figure data-h2-margin="b(top-bottom, l)">
+            <!-- Graphics -->
+            
+              <img 
+                src="/assets/img/1.8-en-slack-1.jpg"
+                alt="A screenshot showing an example of team members having watercooler conversation using the Slack messaging application. Gray has posted saying: '98% of the time spider graphs are just bar graphs that are harder to read.' Multiple team members have reacted to his message with emojis."
+                style="width: 80%;"
+                data-h2-display="b(block)"
+                data-h2-margin="b(right-left, auto)"
+                data-h2-radius="b(s)"
+                data-h2-border="b(gray, all, solid, s)">
+                
+            
+          </figure>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>Messaging platforms also allow for improved productivity as team members can “leave” to do focused work and then return to the conversation where the whole history of it is preserved so they can jump right back in. It also helps keep track of what decisions were made and why, especially for key design components where multiple options were considered, particularly when messaging apps are paired with tools like Trello to track taskings and progress.</p>
+        
+      
+    
+      
+        
+          <figure data-h2-margin="b(top-bottom, l)">
+            <!-- Graphics -->
+            
+              <img 
+                src="/assets/img/1.8-en-slack-2.jpg"
+                alt="A screenshot showing an example of a team member organizing a holiday party using the Slack messaging application. Rosita has posted saying: 'hi, we are planning a team holiday party on Wednesday, December 19th that'll involve lunch, onesies, and a movie. More details to come, but I'll send you all a calendar invite.' Multiple team members have reacted to her message with emojis."
+                style="width: 60%;"
+                data-h2-display="b(block)"
+                data-h2-margin="b(right-left, auto)"
+                data-h2-radius="b(s)"
+                data-h2-border="b(gray, all, solid, s)">
+                
+            
+          </figure>
+        
+      
+    
+  </div>
+</main>
+<section style="background-color: #F8F8F8;">
+  <div data-h2-container="b(center, s)" data-h2-padding="b(bottom, l) l(bottom, xxl)">
+    <div data-h2-flex-grid="b(top, expanded, flush, m)">
+      <div
+        data-h2-text-align="b(center) m(left)" 
+        data-h2-flex-item="b(1of2)">
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            
+              <a class="prev" href="/en/projects/2000/01/01/107-approach.html" title="Go to the previous article in the series.">
+                <svg data-h2-margin="b(right, xxs)" 
+                  style="width: 1rem; vertical-align: middle;" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="#c90035">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M15 19l-7-7 7-7" />
+                </svg>Previous Article</a>
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      </div>
+      <div 
+        data-h2-text-align="b(center) m(right)"   
+        data-h2-flex-item="b(1of2)">
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            
+              <a class="next" href="/en/projects/2000/01/01/109-research-engine.html" title="Go to the next article in the series.">Next Article<svg data-h2-margin="b(left, xxs)" 
+                style="width: 1rem; vertical-align: middle;" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="#c90035">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M9 5l7 7-7 7" />
+                </svg></a>
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      </div>
+    </div>
+    <p
+      data-h2-margin="b(top, xxl)" 
+      data-h2-text-align="b(center)"
+      data-h2-font-size="b(caption)">
+      <a href="/en/talent-cloud/report/#toc" title="Return to Table of Contents">Return to Table of Contents</a>
+    </p>
+  </div>
+</section>
+<section data-h2-border="b([light]gray, top, solid, s)" data-h2-position="b(relative)" style="background: rgba(240, 240, 240, 1)" data-h2-overflow="b(x, hidden)">
+  <footer data-h2-container="b(center, full)" data-h2-padding="b(top-bottom, l)">
+    <div data-h2-flex-grid="b(middle, expanded, flush, xl)">
+      <div
+        data-h2-flex-item="b(1of1) m(1of2)"
+        data-h2-padding="b(left, xl)"
+        data-h2-text-align="b(center) m(left)">
+        
+          <nav>
+            <ul
+              style="gap: 1rem;"
+              class="reset-ul"
+              data-h2-display="b(flex)"
+              data-h2-flex-wrap="b(wrap)"
+              data-h2-justify-content="b(center) m(flex-start)"
+              data-h2-margin="b(bottom, xs)">
+              
+              <li data-h2-display="b(inline-block)" data-h2-margin="b(top-bottom, none)">
+                
+                  <a href="mailto:GCTalentGC@tbs-sct.gc.ca" title="Submit feedback to GC Talent Cloud via email.">Feedback</a>
+                
+              </li>
+              
+              <li data-h2-display="b(inline-block)" data-h2-margin="b(top-bottom, none)">
+                
+                  <a href="/en/terms-and-conditions" title="View our terms and conditions.">Terms & Conditions</a>
+                
+              </li>
+              
+              <li data-h2-display="b(inline-block)" data-h2-margin="b(top-bottom, none)">
+                
+                  <a href="/en/privacy-notice" title="View our privacy policy.">Privacy Policy</a>
+                
+              </li>
+              
+              <li data-h2-display="b(inline-block)" data-h2-margin="b(top-bottom, none)">
+                
+                  <a href="/en/https://www.canada.ca/en.html" title="Visit Canada.ca.">Canada.ca</a>
+                
+              </li>
+              
+            </ul>
+          </nav>
+          <p 
+            data-h2-font-size="b(caption)"
+            data-h2-font-color="b(black)" 
+            data-h2-margin="b(bottom, none) b(top, m)">
+            Date Modified: July 07, 2021
+          </p>
+        
+      </div>
+      <div
+        data-h2-flex-item="b(1of1) m(1of2)"
+        data-h2-padding="b(right, xl)"
+        data-h2-text-align="b(center) m(right)">
+        <a
+          href="https://www.canada.ca/en.html"
+          title="Visit Canada.ca."
+          target="_blank"
+          rel="noopener noreferrer">
+          <img
+            class="canada-logo"
+            src="/assets/img/ui-canada.png"
+            alt="Canada's Logo."/>
+        </a>
+      </div>
+    </div>
+  </footer>
+</section>
 
-                    <li
-                        data-h2-margin="b(all, none)"
-                        data-h2-padding="b(all, none)"
-                        data-h2-display="b(inline-block)"
-                    >
-                        <a
-                            href="/en/communities/digital-talent/"
-                            title="Learn more about the Digital Talent community."
-                            data-h2-display="b(block)"
-                            data-h2-padding="b(all, xs) m(right-left, s)"
-                            >Digital Talent</a
-                        >
-                    </li>
-                </ul>
-            </nav>
-        </div>
-        <section>
-            <div
-                data-h2-container="b(center, full)"
-                data-h2-text-align="b(center)"
-            >
-                <h1
-                    data-h2-font-weight="b(800)"
-                    data-h2-font-size="b(h1)"
-                    data-h2-padding="b(top, l) l(top, xxl) b(bottom, xxs)"
-                    style="letter-spacing: -3px"
-                >
-                    Talent Cloud Results Report
-                </h1>
-
-                <div id="breadcrumbs" data-h2-margin="b(top-bottom, m)">
-                    <a href="/en" title="Return to the homepage.">GC Talent</a>
-                    <!-- If the page layout is post then use this breadcrumb list. -->
-
-                    /
-                    <a
-                        href="/en/talent-cloud"
-                        title="Return to the Talent Cloud page."
-                        >Talent Cloud</a
-                    >
-                    /
-                    <a
-                        href="/en/talent-cloud/report"
-                        title="Return to the Talent Cloud results report."
-                        >Talent Cloud Resu...</a
-                    >
-                    / <span>Section 1</span> /
-                    <span data-h2-font-weight="b(800)">Team Operations</span>
-                </div>
-            </div>
-        </section>
-        <header
-            class="post-header"
-            id="mainContent"
-            style="background-image: url('/assets/img/1.8-tx-heading.jpg')"
-            data-h2-margin="b(top, xl)"
-        >
-            <div
-                data-h2-container="b(center, m)"
-                data-h2-font-color="b(white)"
-                data-h2-padding="b(top, l) b(bottom, xl) l(top, xl) l(bottom, xxl)"
-                data-h2-text-align="b(center)"
-            >
-                <h2
-                    data-h2-font-weight="b(200)"
-                    data-h2-font-size="b(h2)"
-                    data-h2-padding="b(top, m)"
-                    style="letter-spacing: -2px"
-                >
-                    Team Operations
-                </h2>
-
-                <div data-h2-padding="b(top, m)">
-                    <div
-                        data-h2-bg-color="b(white[.2])"
-                        data-h2-border="b(white, all, solid, s)"
-                        data-h2-display="b(inline-block)"
-                        data-h2-margin="b(all, xxs) l(right-left, xxs)"
-                        data-h2-padding="b(top, xxs) b(bottom, xs) b(right-left, s)"
-                        data-h2-radius="b(m)"
-                        style="line-height: 1"
-                    >
-                        <img
-                            data-h2-display="b(inline-block)"
-                            data-h2-margin="b(right, xxs)"
-                            style="vertical-align: middle; width: 0.8rem"
-                            src="/assets/img/ds-empower-staff.svg"
-                            aria-hidden="true"
-                        />
-                        <span data-h2-font-size="b(caption)"
-                            >Empower Service Delivery</span
-                        >
-                    </div>
-
-                    <div
-                        data-h2-bg-color="b(white[.2])"
-                        data-h2-border="b(white, all, solid, s)"
-                        data-h2-display="b(inline-block)"
-                        data-h2-margin="b(all, xxs) l(right-left, xxs)"
-                        data-h2-padding="b(top, xxs) b(bottom, xs) b(right-left, s)"
-                        data-h2-radius="b(m)"
-                        style="line-height: 1"
-                    >
-                        <img
-                            data-h2-display="b(inline-block)"
-                            data-h2-margin="b(right, xxs)"
-                            style="vertical-align: middle; width: 0.8rem"
-                            src="/assets/img/ds-collaboration.svg"
-                            aria-hidden="true"
-                        />
-                        <span data-h2-font-size="b(caption)"
-                            >Collaboration</span
-                        >
-                    </div>
-
-                    <div
-                        data-h2-bg-color="b(white[.2])"
-                        data-h2-border="b(white, all, solid, s)"
-                        data-h2-display="b(inline-block)"
-                        data-h2-margin="b(all, xxs) l(right-left, xxs)"
-                        data-h2-padding="b(top, xxs) b(bottom, xs) b(right-left, s)"
-                        data-h2-radius="b(m)"
-                        style="line-height: 1"
-                    >
-                        <img
-                            data-h2-display="b(inline-block)"
-                            data-h2-margin="b(right, xxs)"
-                            style="vertical-align: middle; width: 0.8rem"
-                            src="/assets/img/ds-open-work.svg"
-                            aria-hidden="true"
-                        />
-                        <span data-h2-font-size="b(caption)"
-                            >Work in the Open</span
-                        >
-                    </div>
-                </div>
-            </div>
-        </header>
-        <main
-            data-h2-padding="b(top-bottom, xs) l(top-bottom, xl)"
-            style="background-color: #f8f8f8"
-        >
-            <div data-h2-container="b(center, s)">
-                <!-- Basic Content -->
-                <p>
-                    The Talent Cloud Feature Pipeline: As a team, we used a
-                    five-step reinforcing feedback loop to develop and iterate
-                    on features for the platform:
-                </p>
-
-                <figure data-h2-margin="b(top-bottom, l)">
-                    <!-- Graphics -->
-
-                    <img
-                        src="/assets/img/1.8-en-operations.png"
-                        alt="A graphic representing Talent Cloud's team operations approach. The first section is the policy shop, which has the role of researching complex problems promising directions, developing theory, framing hypotheses for experiments, ensuring policy compliance, analyzing findings, providing presentations, advising on findings, and seeing the whole system to wayfind the best path. The classifications on this team are EC. The skills used by this team are research, analysis, systems thinking, strategic thinking, writing, and presenting. The second section is the UX design team, which has the role of translating business requirements into potential digital solutions for testing, performing research, collecting data, using insights to efficiently design the platform's layout, content, and features in a way that meets the needs of government and applicant users alike, advocating for our users, improving accessibility standards, and reducing bias in hiring. The classifications on this team are CS (UX). The skills used by this team are research methods, data analysis, prototyping, usability testing, design tools, and communication. The third section is the front-end development team, which has the role of bridging design and development by highlighting possible interface improvements and/or pitfalls, ensuring designs are coded into responsibe, accessible, and consistent interfaces, verifying that interfaces function on supported browsers and devices, and developing and maintaining the product's component library for fast and easy interface development. The classifications on this team are CS (Programming). The skills used by this team are web languages (HTML, CSS, JavaScript), critical thinking, responsive design, accessible web programming, communication. The fourth section is the back-end development team, which has the role of working with designers and front-end developers to turn prototypes and interface components into working solutions, supporting forward planning by providing technical advice and time estimates for the development of new features, and ensuring the talent.canada.ca site is up and running as designed. The classifications on this team are CS (Programming). The skills used by this team are PHP, cyber security, Azure, Git, critical thinking, automated testing. The fifth and final section is the HR concierge and project coordination team, which has the role of working with partner departments to move hiring processes through the experimental platform, engaging with users (HR advisors, managers, and applicants), observing and analyzing interactions, recognizing patters in findings, and recommending options and areas in need of further investigation to the policy and design teams. The classifications on this team are AS and EC. The skills used by this team are project coordination, client services, observation, analysis, industrial psychology, behavioural psychology, and framework and tools development. The graphic indicates that the teams act in a loop, starting with the policy shop through the HR concierge and project coordination team, which then passes its research findings and insights back to the policy shop to begin the process again."
-                        style="width: 100%"
-                        data-h2-display="b(block)"
-                        data-h2-radius="b(s)"
-                        data-h2-border="b(gray, all, solid, s)"
-                    />
-                </figure>
-
-                <!-- Titles -->
-                <h3
-                    data-h2-font-weight="b(800)"
-                    data-h2-font-size="b(h3)"
-                    data-h2-margin="b(top, xl) b(bottom, s)"
-                    style="letter-spacing: -1px"
-                >
-                    Why a Multidisciplinary Team is Mission Critical
-                </h3>
-
-                <!-- Basic Content -->
-                <p>
-                    To build a modern digital product, you need support from
-                    people with many different skill sets, which in government
-                    are classified as belonging to different occupational
-                    groups. At the same time, you don’t have the time to find
-                    external people and onboard them to the specific context of
-                    your product. Too much depends on the details of what you
-                    are building for external experts, who are not intimately
-                    familiar with the product, to be able to contribute
-                    significantly. (Not to be confused with engaging users,
-                    which is a constant outreach and engagement effort.) This
-                    means that to build a high quality, timely product, that
-                    expertise needs to be on your team.
-                </p>
-
-                <!-- Basic Content -->
-                <p>
-                    In practice, our team is constantly bouncing ideas and work
-                    around between policy, project operation, design,
-                    development and client services. Designers regularly
-                    check-in with the policy team to ensure what they are
-                    proposing will work from a policy perspective. Project
-                    operations need to regularly check in with the developers to
-                    get details on new features being released. Our product
-                    development cycle is a constant loop that travels through
-                    multiple occupational groups. This is a daily collaboration,
-                    requiring dedicated resources from different occupational
-                    groups working together in a continuous feedback cycle of
-                    creation and iteration.
-                </p>
-
-                <!-- Basic Content -->
-                <p>
-                    This multidisciplinary collaboration between team members is
-                    at the heart of what we do and we are constantly benefiting
-                    from it. To keep things moving at a pace that is fast enough
-                    for a product to maintain its relevance in a rapidly
-                    changing world, we think this is the only way to work (at
-                    least for these types of service-based products involving
-                    design, development and user testing.) In essence, the
-                    team’s structure allows for both the product owner
-                    (decisions on what needs building) and the product team
-                    (doing the actual building) to operate on the same team,
-                    improving flow for fast, insightful product iteration.
-                </p>
-
-                <!-- Basic Content -->
-                <p>
-                    Although the Government of Canada has issued a bulletin to
-                    the heads of HR confirming that there is no policy barrier
-                    to multidisciplinary teams, in practice it remains difficult
-                    to put these types of teams together, especially for smaller
-                    units. This is particularly true in cases where a highly
-                    efficient team model would call for cross-classification
-                    supervision. In a tradition government hierarchical
-                    structure, this would rarely be needed. But this structure
-                    is commonplace in multifunctional agile teams in the private
-                    sector because of the nature of the work, which requires
-                    designers, developers, anthropologists, and client services
-                    working together to deliver a product. When governments want
-                    to build like this, using agile methods, it means that teams
-                    like this will be increasingly required. With some careful
-                    classification work and the flexible use of temporary “term”
-                    arrangements, Talent Cloud was able to set this up, but it’s
-                    not guaranteed that other teams will be able to do the same.
-                </p>
-
-                <!-- Titles -->
-                <h3
-                    data-h2-font-weight="b(800)"
-                    data-h2-font-size="b(h3)"
-                    data-h2-margin="b(top, xl) b(bottom, s)"
-                    style="letter-spacing: -1px"
-                >
-                    What We Mean by “Agile”
-                </h3>
-
-                <!-- Basic Content -->
-                <p>
-                    Saying that a team uses “agile” in government has become a
-                    bit controversial because there are so many different
-                    versions of what teams and leaders mean by the term. While
-                    its sudden popularity is evident (bordering on ubiquitous),
-                    few agree on a concrete definition or a minimum bar for
-                    being able to legitimately claim use of the practice.
-                    Nevertheless, we’re sharing some of the “agile” concepts we
-                    use in our 2-week sprint cycle.
-                </p>
-
-                <!-- Basic Content -->
-                <p>
-                    (For a real view of this, check out our code and content on
-                    GitHub.)
-                </p>
-
-                <!-- Subtitles -->
-                <h4
-                    data-h2-font-weight="b(400)"
-                    data-h2-font-size="b(h4)"
-                    data-h2-margin="b(top, xl) b(bottom, s)"
-                    style="letter-spacing: -1px"
-                >
-                    Story Points
-                </h4>
-
-                <!-- Basic Content -->
-                <p>
-                    As is common in agile builds, we use story points to talk
-                    about how difficult or complex something is for the
-                    development team. Before we decide to work on a specific
-                    task, the developers estimate how many story points it will
-                    take to complete; it doesn’t really matter if a story point
-                    usually takes an hour of a developer’s time to complete, or
-                    a full day. What’s important is that the story point becomes
-                    a useful way to communicate to the rest of the team how
-                    complex (and potentially time consuming) something will be
-                    to implement.
-                </p>
-
-                <!-- Basic Content -->
-                <p>
-                    For example, we looked at a feature that interrupts someone
-                    who is completing a job application if the deadline for
-                    submitting it has passed. Without that interruption, you
-                    might waste some time completing an application, but when
-                    you hit the submit button, you would get an error message
-                    indicating the submission deadline was passed. It’s a
-                    desirable feature, though only a tiny fraction of users
-                    would ever benefit from it. The devs estimated this as 8
-                    story points. In a good sprint, we can only complete about
-                    three tasks of that complexity. And given that so few users
-                    would benefit from this work, the team was able to make the
-                    call that it wasn’t worth building. Instead the dev time was
-                    spent on building higher value features that would impact
-                    more users. But if the “cost” of this had been one or two
-                    story points, we might have chosen differently.
-                </p>
-
-                <!-- Subtitles -->
-                <h4
-                    data-h2-font-weight="b(400)"
-                    data-h2-font-size="b(h4)"
-                    data-h2-margin="b(top, xl) b(bottom, s)"
-                    style="letter-spacing: -1px"
-                >
-                    Daily Stand-up
-                </h4>
-
-                <!-- Basic Content -->
-                <p>
-                    For our distributed team, the daily stand-up has become
-                    central to how we work. Each day at 11:00 the development
-                    team and designers join a zoom call and briefly describe:
-                </p>
-
-                <ul>
-                    <li>
-                        What they worked on since yesterday (naming the issue or
-                        prototype they are working on is usually enough)
-                    </li>
-
-                    <li>What they will be working on today</li>
-
-                    <li>Any blockers they might have</li>
-                </ul>
-
-                <!-- Basic Content -->
-                <p>
-                    We’ve managed to keep these stand-ups under 15 minutes in
-                    length, even with 9+ people. If discussions start breaking
-                    out, we can usually ask people to stay on the call after
-                    stand-up to finish their chat and move on. Stand up is great
-                    for making sure everyone is working the right things. With
-                    the designers there as well, it helps increase interaction
-                    between them and the developers, which is something we have
-                    been trying to improve.
-                </p>
-
-                <!-- Basic Content -->
-                <p>
-                    With many people working from home, stand-up can sometimes
-                    be the only direct interaction you have with other humans in
-                    the work day. The format of stand-up is straight forward,
-                    each person briefly says what they worked on since the last
-                    stand-up, what they plan to work on until the next one and
-                    what blockers (if any) are preventing them from making
-                    progress. This also helps increase human interactions more
-                    by allowing the team to point out when two people should
-                    discuss their work. There’s always a balance to strike
-                    between keeping everyone involved and having enough focus
-                    time on our own.
-                </p>
-
-                <!-- Subtitles -->
-                <h4
-                    data-h2-font-weight="b(400)"
-                    data-h2-font-size="b(h4)"
-                    data-h2-margin="b(top, xl) b(bottom, s)"
-                    style="letter-spacing: -1px"
-                >
-                    Sprint Review
-                </h4>
-
-                <!-- Basic Content -->
-                <p>
-                    At the end of each 2-week sprint, the development team leads
-                    a demo session where they show what they’ve completed.
-                    Because we’re not really building for a client though, we
-                    don’t stress too much about what we’re committing too at the
-                    beginning of a sprint. Instead, the developers work hard to
-                    advance things as much as possible. If something is not
-                    complete, it can be saved for the next sprint review. Except
-                    in special circumstances there’s no rush with developers
-                    doing overtime to complete tasks.
-                </p>
-
-                <!-- Basic Content -->
-                <p>
-                    To even things out a little, so it wasn’t always the
-                    developers presenting their work, and so the developers were
-                    better kept in the loop for what the rest of the team was
-                    doing, we started doing a “policy team” sprint review on
-                    alternating weeks with the developer sprint review. (For
-                    reference, the “policy team” is the research, policy and
-                    client interaction side of Talent Cloud, which uses a Trello
-                    board to track work, and tends to have different timelines
-                    and pressures than the dev team.) We’re still iterating on
-                    the exact format of policy team sprint review, but the goal
-                    is to give everyone a sense of what tricky things the policy
-                    team has had to deal with recently and remind everyone of
-                    that we’re building towards a longer term vision. Typically,
-                    we try to pick one or two artifacts that the team has
-                    completed, or made significant progress towards and have the
-                    person that worked on them present it to everyone else.
-                    Examples are design prototypes, presentations (decks),
-                    research, reports or some other tricky theory work like our
-                    tenth version of the skills framework at the heart of the
-                    recruitment model.
-                </p>
-
-                <!-- Titles -->
-                <h3
-                    data-h2-font-weight="b(800)"
-                    data-h2-font-size="b(h3)"
-                    data-h2-margin="b(top, xl) b(bottom, s)"
-                    style="letter-spacing: -1px"
-                >
-                    Running a Distributed Team
-                </h3>
-
-                <!-- Basic Content -->
-                <p>
-                    The Talent Cloud team has been a distributed team since 2017
-                    with members in cities across Canada including Halifax,
-                    Toronto, Montreal and Edmonton. This also means that team
-                    members in the Ottawa main office have always been able to
-                    work from home at their discretion, including our Indigenous
-                    Community Liaison, who works half time from her community
-                    farther north.
-                </p>
-
-                <!-- Basic Content -->
-                <p>
-                    In March 2020, when offices shut down and governments around
-                    the world struggled to adapt to the new reality under
-                    COVID-19, this really just meant that our team took their
-                    computers home on a Friday and worked from home afterwards.
-                    Everyone was able to continue their work uninterrupted (with
-                    the possible exception of kids-not-at-school causing mayhem
-                    in the background).
-                </p>
-
-                <!-- Basic Content -->
-                <p>
-                    It’s interesting, but distributed teams actually get easier
-                    the fewer people who are together in one place. With only
-                    one or two people out of the office, it’s easy to keep
-                    office-centric practices as the default while those in the
-                    regions just work around and fit in however they can (which
-                    is a habit our team spent a lot of time consciously trying
-                    to break out of.) But when half or more of the team are
-                    remote, you really just don’t have a choice.
-                </p>
-
-                <!-- Basic Content -->
-                <p>
-                    Digital tools become extra important when working on a
-                    distributed team. For our developers this has been GitHub to
-                    collaborate on code and plan development sprints. Our
-                    designers have been making use of Adobe Creative Cloud to
-                    build and share designs, while everyone has been
-                    collaborating on documents using Google Drive.
-                </p>
-
-                <!-- Basic Content -->
-                <p>
-                    Most important though, is a good messaging app because it
-                    becomes the main method of communication and culture hub for
-                    the team as a whole. Sharing photos, links and random
-                    thoughts becomes the replacement to watercooler
-                    conversations. Emoji become the replacement to seeing smiles
-                    on your colleagues faces.
-                </p>
-
-                <figure data-h2-margin="b(top-bottom, l)">
-                    <!-- Graphics -->
-
-                    <img
-                        src="/assets/img/1.8-en-slack-1.jpg"
-                        alt="A screenshot showing an example of team members having watercooler conversation using the Slack messaging application. Gray has posted saying: '98% of the time spider graphs are just bar graphs that are harder to read.' Multiple team members have reacted to his message with emojis."
-                        style="width: 80%"
-                        data-h2-display="b(block)"
-                        data-h2-margin="b(right-left, auto)"
-                        data-h2-radius="b(s)"
-                        data-h2-border="b(gray, all, solid, s)"
-                    />
-                </figure>
-
-                <!-- Basic Content -->
-                <p>
-                    Messaging platforms also allow for improved productivity as
-                    team members can “leave” to do focused work and then return
-                    to the conversation where the whole history of it is
-                    preserved so they can jump right back in. It also helps keep
-                    track of what decisions were made and why, especially for
-                    key design components where multiple options were
-                    considered, particularly when messaging apps are paired with
-                    tools like Trello to track taskings and progress.
-                </p>
-
-                <figure data-h2-margin="b(top-bottom, l)">
-                    <!-- Graphics -->
-
-                    <img
-                        src="/assets/img/1.8-en-slack-2.jpg"
-                        alt="A screenshot showing an example of a team member organizing a holiday party using the Slack messaging application. Rosita has posted saying: 'hi, we are planning a team holiday party on Wednesday, December 19th that'll involve lunch, onesies, and a movie. More details to come, but I'll send you all a calendar invite.' Multiple team members have reacted to her message with emojis."
-                        style="width: 60%"
-                        data-h2-display="b(block)"
-                        data-h2-margin="b(right-left, auto)"
-                        data-h2-radius="b(s)"
-                        data-h2-border="b(gray, all, solid, s)"
-                    />
-                </figure>
-            </div>
-        </main>
-        <section style="background-color: #f8f8f8">
-            <div
-                data-h2-container="b(center, s)"
-                data-h2-padding="b(bottom, l) l(bottom, xxl)"
-            >
-                <div data-h2-flex-grid="b(top, expanded, flush, m)">
-                    <div
-                        data-h2-text-align="b(center) m(left)"
-                        data-h2-flex-item="b(1of2)"
-                    >
-                        <a
-                            class="prev"
-                            href="/en/projects/2000/01/01/107-approach.html"
-                            title="Go to the previous article in the series."
-                        >
-                            <svg
-                                data-h2-margin="b(right, xxs)"
-                                style="width: 1rem; vertical-align: middle"
-                                xmlns="http://www.w3.org/2000/svg"
-                                class="h-6 w-6"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="#c90035"
-                            >
-                                <path
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="4"
-                                    d="M15 19l-7-7 7-7"
-                                /></svg
-                            >Previous Article</a
-                        >
-                    </div>
-                    <div
-                        data-h2-text-align="b(center) m(right)"
-                        data-h2-flex-item="b(1of2)"
-                    >
-                        <a
-                            class="next"
-                            href="/en/projects/2000/01/01/109-research-engine.html"
-                            title="Go to the next article in the series."
-                            >Next Article<svg
-                                data-h2-margin="b(left, xxs)"
-                                style="width: 1rem; vertical-align: middle"
-                                xmlns="http://www.w3.org/2000/svg"
-                                class="h-6 w-6"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="#c90035"
-                            >
-                                <path
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="4"
-                                    d="M9 5l7 7-7 7"
-                                /></svg
-                        ></a>
-                    </div>
-                </div>
-                <p
-                    data-h2-margin="b(top, xxl)"
-                    data-h2-text-align="b(center)"
-                    data-h2-font-size="b(caption)"
-                >
-                    <a
-                        href="/en/talent-cloud/report/#toc"
-                        title="Return to Table of Contents"
-                        >Return to Table of Contents</a
-                    >
-                </p>
-            </div>
-        </section>
-        <section
-            data-h2-border="b([light]gray, top, solid, s)"
-            data-h2-position="b(relative)"
-            style="background: rgba(240, 240, 240, 1)"
-            data-h2-overflow="b(x, hidden)"
-        >
-            <footer
-                data-h2-container="b(center, full)"
-                data-h2-padding="b(top-bottom, l)"
-            >
-                <div data-h2-flex-grid="b(middle, expanded, flush, xl)">
-                    <div
-                        data-h2-flex-item="b(1of1) m(1of2)"
-                        data-h2-padding="b(left, xl)"
-                        data-h2-text-align="b(center) m(left)"
-                    >
-                        <nav>
-                            <ul
-                                style="gap: 1rem"
-                                class="reset-ul"
-                                data-h2-display="b(flex)"
-                                data-h2-flex-wrap="b(wrap)"
-                                data-h2-justify-content="b(center) m(flex-start)"
-                                data-h2-margin="b(bottom, xs)"
-                            >
-                                <li
-                                    data-h2-display="b(inline-block)"
-                                    data-h2-margin="b(top-bottom, none)"
-                                >
-                                    <a
-                                        href="mailto:talent.cloud-nuage.de.talents@tbs-sct.gc.ca"
-                                        title="Submit feedback to GC Talent Cloud via email."
-                                        >Feedback</a
-                                    >
-                                </li>
-
-                                <li
-                                    data-h2-display="b(inline-block)"
-                                    data-h2-margin="b(top-bottom, none)"
-                                >
-                                    <a
-                                        href="/en/terms-and-conditions"
-                                        title="View our terms and conditions."
-                                        >Terms & Conditions</a
-                                    >
-                                </li>
-
-                                <li
-                                    data-h2-display="b(inline-block)"
-                                    data-h2-margin="b(top-bottom, none)"
-                                >
-                                    <a
-                                        href="/en/privacy-notice"
-                                        title="View our privacy policy."
-                                        >Privacy Policy</a
-                                    >
-                                </li>
-
-                                <li
-                                    data-h2-display="b(inline-block)"
-                                    data-h2-margin="b(top-bottom, none)"
-                                >
-                                    <a
-                                        href="https://www.canada.ca/en.html"
-                                        title="Visit Canada.ca."
-                                        >Canada.ca</a
-                                    >
-                                </li>
-                            </ul>
-                        </nav>
-                        <p
-                            data-h2-font-size="b(caption)"
-                            data-h2-font-color="b(black)"
-                            data-h2-margin="b(bottom, none) b(top, m)"
-                        >
-                            Date Modified: July 07, 2021
-                        </p>
-                    </div>
-                    <div
-                        data-h2-flex-item="b(1of1) m(1of2)"
-                        data-h2-padding="b(right, xl)"
-                        data-h2-text-align="b(center) m(right)"
-                    >
-                        <a
-                            href="https://www.canada.ca/en.html"
-                            title="Visit Canada.ca."
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            <img
-                                class="canada-logo"
-                                src="/assets/img/ui-canada.png"
-                                alt="Canada's Logo."
-                            />
-                        </a>
-                    </div>
-                </div>
-            </footer>
-        </section>
-
-        <script type="text/javascript" src="/assets/js/app.js"></script>
-    </body>
+    <script type="text/javascript" src="/assets/js/app.js"></script>
+  </body>
 </html>

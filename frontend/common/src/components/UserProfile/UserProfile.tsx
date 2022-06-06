@@ -3,7 +3,6 @@ import { useIntl } from "react-intl";
 import {
   ChatAlt2Icon,
   CurrencyDollarIcon,
-  InformationCircleIcon,
   LibraryIcon,
   LightBulbIcon,
   LightningBoltIcon,
@@ -12,6 +11,8 @@ import {
   UserGroupIcon,
   UserIcon,
 } from "@heroicons/react/outline";
+
+import { UserCircleIcon } from "@heroicons/react/solid";
 
 import TableOfContents from "../TableOfContents";
 import AboutSection from "./ProfileSections/AboutSection";
@@ -130,11 +131,11 @@ const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
           </TableOfContents.AnchorLink>
         )}
         {showSection("employmentEquity") && (
-          <TableOfContents.AnchorLink id="ee-information-section">
+          <TableOfContents.AnchorLink id="diversity-equity-inclusion-section">
             {intl.formatMessage({
-              defaultMessage: "Employment Equity Information",
+              defaultMessage: "Diversity, equity and inclusion",
               description:
-                "Title of the Employment Equity Information link section",
+                "Title of the Diversity, equity and inclusion link section",
             })}
           </TableOfContents.AnchorLink>
         )}
@@ -381,16 +382,16 @@ const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
           </TableOfContents.Section>
         )}
         {showSection("employmentEquity") && (
-          <TableOfContents.Section id="ee-information-section">
+          <TableOfContents.Section id="diversity-equity-inclusion-section">
             <HeadingWrapper show={!!sections.employmentEquity?.editUrl}>
               <TableOfContents.Heading
-                icon={InformationCircleIcon}
+                icon={UserCircleIcon}
                 style={{ flex: "1 1 0%" }}
               >
                 {intl.formatMessage({
-                  defaultMessage: "Employment Equity Information",
+                  defaultMessage: "Diversity, equity and inclusion",
                   description:
-                    "Title of the Employment Equity Information content section",
+                    "Title of the Diversity, equity and inclusion content section",
                 })}
               </TableOfContents.Heading>
               {sections.employmentEquity?.editUrl && (

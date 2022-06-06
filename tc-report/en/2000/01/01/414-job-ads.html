@@ -1,1006 +1,1082 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>GC Talent | A Tool to Build Optimized Job Advertisements</title>
-        <meta
-            name="description"
-            content="Talent Cloud is an experimental staffing solution created by the Government of Canada. Read our experiment's results report here!"
-        />
-        <!-- Google Tag Manager -->
-        <script>
-            (function (w, d, s, l, i) {
-                w[l] = w[l] || [];
-                w[l].push({
-                    "gtm.start": new Date().getTime(),
-                    event: "gtm.js",
-                });
-                var f = d.getElementsByTagName(s)[0],
-                    j = d.createElement(s),
-                    dl = l != "dataLayer" ? "&l=" + l : "";
-                j.async = true;
-                j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
-                f.parentNode.insertBefore(j, f);
-            })(window, document, "script", "dataLayer", "GTM-P27NF5V");
-        </script>
-        <!-- End Google Tag Manager -->
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GC Talent | A Tool to Build Optimized Job Advertisements</title>
+  <meta name="description" content="Talent Cloud is an experimental staffing solution created by the Government of Canada. Read our experiment's results report here!">
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-P27NF5V');</script>
+    <!-- End Google Tag Manager -->
 
-        <!-- Global site tag (gtag.js) - Google Analytics -->
-        <script
-            async
-            src="https://www.googletagmanager.com/gtag/js?id=UA-115747902-1"
-        ></script>
-        <script>
-            window.dataLayer = window.dataLayer || [];
-            function gtag() {
-                dataLayer.push(arguments);
-            }
-            gtag("js", new Date());
-            gtag("config", "UA-115747902-1", {
-                cookie_flags: "secure",
-            });
-        </script>
-        <!-- Favicons -->
-        <link
-            rel="apple-touch-icon"
-            sizes="180x180"
-            href="/apple-touch-icon.png"
-        />
-        <link
-            rel="icon"
-            type="image/png"
-            sizes="32x32"
-            href="/favicon-32x32.png"
-        />
-        <link
-            rel="icon"
-            type="image/png"
-            sizes="16x16"
-            href="/favicon-16x16.png"
-        />
-        <link rel="manifest" href="/site.webmanifest" />
-        <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
-        <meta name="msapplication-TileColor" content="#da532c" />
-        <meta name="theme-color" content="#ffffff" />
-        <!-- Google Fonts -->
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link
-            href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap"
-            rel="stylesheet"
-        />
-        <!-- Hydrogen CSS -->
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script
+        async
+        src="https://www.googletagmanager.com/gtag/js?id=UA-115747902-1">
+    </script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-115747902-1', {
+          cookie_flags: 'secure'
+        });
+    </script>
+  <!-- Favicons -->
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap" rel="stylesheet">
+  <!-- Hydrogen CSS -->
+  
+    <!-- <link rel="stylesheet" href="/assets/css/hydrogen-tc.css"> -->
+    <link rel="stylesheet" href="/assets/css/hydrogen.css">
+  
+  <!-- App CSS -->
+  <link rel="stylesheet" href="/assets/css/app.css">
+</head>
 
-        <!-- <link rel="stylesheet" href="/assets/css/hydrogen-tc.css"> -->
-        <link rel="stylesheet" href="/assets/css/hydrogen.css" />
-
-        <!-- App CSS -->
-        <link rel="stylesheet" href="/assets/css/app.css" />
-    </head>
-
-    <body data-h2-font-family="b(sans)">
-        <a href="#mainContent" title="" class="skip-link"
-            >Skip to Main Content</a
+  <body data-h2-font-family="b(sans)">
+    <a href="#mainContent" title="" class="skip-link">Skip to Main Content</a>
+    <div data-h2-border="b([light]gray, bottom, solid, s)" >
+  <div data-h2-container="b(center, full)" data-h2-padding="b(top-bottom, s)">
+    <div data-h2-flex-grid="b(middle, expanded, flush, s)">
+      <div data-h2-flex-item="m(1of2)" data-h2-text-align="b(center) m(left)">
+        <a
+          data-h2-display="b(inline-block)"
+          style="max-width: 15rem; width: 100%;"
+          href="https://canada.ca/"
+          target="_blank"
+          title="Visit canada.ca."
+          rel="noopener noreferrer"
         >
-        <div data-h2-border="b([light]gray, bottom, solid, s)">
-            <div
-                data-h2-container="b(center, full)"
-                data-h2-padding="b(top-bottom, s)"
-            >
-                <div data-h2-flex-grid="b(middle, expanded, flush, s)">
-                    <div
-                        data-h2-flex-item="m(1of2)"
-                        data-h2-text-align="b(center) m(left)"
-                    >
-                        <a
-                            data-h2-display="b(inline-block)"
-                            style="max-width: 15rem; width: 100%"
-                            href="https://canada.ca/"
-                            target="_blank"
-                            title="Visit canada.ca."
-                            rel="noopener noreferrer"
-                        >
-                            <img
-                                data-h2-
-                                alt="goc logo"
-                                src="/assets/img/ui-goc.svg"
-                        /></a>
-                    </div>
-                    <div
-                        data-h2-flex-item="m(1of2)"
-                        data-h2-text-align="b(center) m(right)"
-                    >
-                        <a
-                            href="/fr/2000/01/01/414-job-ads.html"
-                            title="Voir ce contenu en français."
-                            >Français</a
-                        >
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div data-h2-container="b(center, full)">
-            <nav data-h2-padding="b(top-bottom, m)">
-                <ul
-                    class="reset-ul"
-                    data-h2-padding="b(all, none)"
-                    data-h2-margin="b(all, none)"
-                    data-h2-text-align="b(center) m(left)"
-                    style="margin-left: -0.7rem"
-                >
-                    <li
-                        data-h2-margin="b(all, none)"
-                        data-h2-padding="b(all, none)"
-                        data-h2-display="b(inline-block)"
-                    >
-                        <a
-                            href="/en/"
-                            title="Visit the GC Talent homepage."
-                            data-h2-display="b(block)"
-                            data-h2-padding="b(all, xs) m(right-left, s)"
-                            >Home</a
-                        >
-                    </li>
-
-                    <li
-                        data-h2-margin="b(all, none)"
-                        data-h2-padding="b(all, none)"
-                        data-h2-display="b(inline-block)"
-                    >
-                        <a
-                            href="/en/talent-cloud/"
-                            title="Learn more about the Talent Cloud project."
-                            data-h2-display="b(block)"
-                            data-h2-padding="b(all, xs) m(right-left, s)"
-                            >Talent Cloud</a
-                        >
-                    </li>
-
-                    <li
-                        data-h2-margin="b(all, none)"
-                        data-h2-padding="b(all, none)"
-                        data-h2-display="b(inline-block)"
-                    >
-                        <a
-                            href="/en/communities/digital-talent/"
-                            title="Learn more about the Digital Talent community."
-                            data-h2-display="b(block)"
-                            data-h2-padding="b(all, xs) m(right-left, s)"
-                            >Digital Talent</a
-                        >
-                    </li>
-                </ul>
-            </nav>
-        </div>
-        <section>
-            <div
-                data-h2-container="b(center, full)"
-                data-h2-text-align="b(center)"
-            >
-                <h1
-                    data-h2-font-weight="b(800)"
-                    data-h2-font-size="b(h1)"
-                    data-h2-padding="b(top, l) l(top, xxl) b(bottom, xxs)"
-                    style="letter-spacing: -3px"
-                >
-                    Talent Cloud Results Report
-                </h1>
-
-                <div id="breadcrumbs" data-h2-margin="b(top-bottom, m)">
-                    <a href="/en" title="Return to the homepage.">GC Talent</a>
-                    <!-- If the page layout is post then use this breadcrumb list. -->
-
-                    /
-                    <a
-                        href="/en/talent-cloud"
-                        title="Return to the Talent Cloud page."
-                        >Talent Cloud</a
-                    >
-                    /
-                    <a
-                        href="/en/talent-cloud/report"
-                        title="Return to the Talent Cloud results report."
-                        >Talent Cloud Resu...</a
-                    >
-                    / <span>Section 4</span> /
-                    <span data-h2-font-weight="b(800)"
-                        >A Tool to Build O...</span
-                    >
-                </div>
-            </div>
-        </section>
-        <header
-            class="post-header"
-            id="mainContent"
-            style="background-image: url('/assets/img/4.14-tx-heading.jpg')"
-            data-h2-margin="b(top, xl)"
-        >
-            <div
-                data-h2-container="b(center, m)"
-                data-h2-font-color="b(white)"
-                data-h2-padding="b(top, l) b(bottom, xl) l(top, xl) l(bottom, xxl)"
-                data-h2-text-align="b(center)"
-            >
-                <h2
-                    data-h2-font-weight="b(200)"
-                    data-h2-font-size="b(h2)"
-                    data-h2-padding="b(top, m)"
-                    style="letter-spacing: -2px"
-                >
-                    A Tool to Build Optimized Job Advertisements
-                </h2>
-
-                <div data-h2-padding="b(top, m)">
-                    <div
-                        data-h2-bg-color="b(white[.2])"
-                        data-h2-border="b(white, all, solid, s)"
-                        data-h2-display="b(inline-block)"
-                        data-h2-margin="b(all, xxs) l(right-left, xxs)"
-                        data-h2-padding="b(top, xxs) b(bottom, xs) b(right-left, s)"
-                        data-h2-radius="b(m)"
-                        style="line-height: 1"
-                    >
-                        <img
-                            data-h2-display="b(inline-block)"
-                            data-h2-margin="b(right, xxs)"
-                            style="vertical-align: middle; width: 0.8rem"
-                            src="/assets/img/ds-users.svg"
-                            aria-hidden="true"
-                        />
-                        <span data-h2-font-size="b(caption)"
-                            >Design with Users</span
-                        >
-                    </div>
-
-                    <div
-                        data-h2-bg-color="b(white[.2])"
-                        data-h2-border="b(white, all, solid, s)"
-                        data-h2-display="b(inline-block)"
-                        data-h2-margin="b(all, xxs) l(right-left, xxs)"
-                        data-h2-padding="b(top, xxs) b(bottom, xs) b(right-left, s)"
-                        data-h2-radius="b(m)"
-                        style="line-height: 1"
-                    >
-                        <img
-                            data-h2-display="b(inline-block)"
-                            data-h2-margin="b(right, xxs)"
-                            style="vertical-align: middle; width: 0.8rem"
-                            src="/assets/img/ds-data.svg"
-                            aria-hidden="true"
-                        />
-                        <span data-h2-font-size="b(caption)"
-                            >Data Stewardship</span
-                        >
-                    </div>
-
-                    <div
-                        data-h2-bg-color="b(white[.2])"
-                        data-h2-border="b(white, all, solid, s)"
-                        data-h2-display="b(inline-block)"
-                        data-h2-margin="b(all, xxs) l(right-left, xxs)"
-                        data-h2-padding="b(top, xxs) b(bottom, xs) b(right-left, s)"
-                        data-h2-radius="b(m)"
-                        style="line-height: 1"
-                    >
-                        <img
-                            data-h2-display="b(inline-block)"
-                            data-h2-margin="b(right, xxs)"
-                            style="vertical-align: middle; width: 0.8rem"
-                            src="/assets/img/ds-empower-staff.svg"
-                            aria-hidden="true"
-                        />
-                        <span data-h2-font-size="b(caption)"
-                            >Empower Service Delivery</span
-                        >
-                    </div>
-                </div>
-            </div>
-        </header>
-        <main
-            data-h2-padding="b(top-bottom, xs) l(top-bottom, xl)"
-            style="background-color: #f8f8f8"
-        >
-            <div data-h2-container="b(center, s)">
-                <!-- Titles -->
-                <h3
-                    data-h2-font-weight="b(800)"
-                    data-h2-font-size="b(h3)"
-                    data-h2-margin="b(top, xl) b(bottom, s)"
-                    style="letter-spacing: -1px"
-                >
-                    Purpose of the Tool
-                </h3>
-
-                <!-- Basic Content -->
-                <p>
-                    On Talent Cloud our job advertisement builder does more than
-                    create a document we can publish. The process of creating
-                    the job advertisement itself is used to help managers put
-                    together their thoughts about the job, and once drafted, the
-                    advertisement serves as an important tool to start a
-                    conversation with HR.
-                </p>
-
-                <!-- Basic Content -->
-                <p>
-                    Managers have expressed to us the challenges of putting
-                    together a job advertisement that properly translates their
-                    needs into something that also appeals to applicants and
-                    addresses the many requirements of Government HR. The job
-                    application builder tool is our attempt at making this
-                    process easy enough for anyone to finish, while ensuring HR
-                    advisors aren’t shouldering a large part of the workload in
-                    drafting content.
-                </p>
-
-                <!-- Basic Content -->
-                <p>
-                    This tool combines our research on optimizing the
-                    talent-to-team fit and reducing time to staff, helping
-                    managers produce optimized job advertisements that will lead
-                    to swift processes and strong hiring results, without
-                    managers even having to think about the behind-the-scenes
-                    research.
-                </p>
-
-                <!-- Titles -->
-                <h3
-                    data-h2-font-weight="b(800)"
-                    data-h2-font-size="b(h3)"
-                    data-h2-margin="b(top, xl) b(bottom, s)"
-                    style="letter-spacing: -1px"
-                >
-                    Current Status
-                </h3>
-
-                <!-- Basic Content -->
-                <p>
-                    The job application builder is currently available for
-                    managers to use and for HR advisors to review. The tool has
-                    been used for dozens of job processes since its release, and
-                    continues to be upgraded as new findings emerge.
-                </p>
-
-                <!-- Titles -->
-                <h3
-                    data-h2-font-weight="b(800)"
-                    data-h2-font-size="b(h3)"
-                    data-h2-margin="b(top, xl) b(bottom, s)"
-                    style="letter-spacing: -1px"
-                >
-                    Results
-                </h3>
-
-                <!-- Basic Content -->
-                <p>
-                    Managers using the job advertisement builder are able to put
-                    together job advertisements within a day or two (1-2 hours
-                    of active drafting time). These drafts are generally
-                    approved by their HR advisor with minimal changes, (although
-                    any back and forth on editorial changes can take time.) In
-                    our early workshops, managers reflected that this would
-                    normally take weeks or even months of back-and-forth, so we
-                    see this as a big improvement.
-                </p>
-
-                <!-- Basic Content -->
-                <p>
-                    The tool has also helped ensure that managers are made aware
-                    of, and encouraged to apply (through nudges and choice
-                    architecture), best practices that lead to better hiring
-                    outcomes and faster staffing processes. This includes steps
-                    to optimize the volume of applications (such as the number
-                    of selection criteria) and details on the team culture,
-                    operational requirements and work environment.
-                </p>
-
-                <!-- Basic Content -->
-                <p>
-                    Applicants generally expressed a high level of satisfaction
-                    with the job advertisements generated with our tool and have
-                    highlighted the work environment and team culture sections
-                    as being particularly valuable.
-                </p>
-
-                <!-- Titles -->
-                <h3
-                    data-h2-font-weight="b(800)"
-                    data-h2-font-size="b(h3)"
-                    data-h2-margin="b(top, xl) b(bottom, s)"
-                    style="letter-spacing: -1px"
-                >
-                    Insights
-                </h3>
-
-                <!-- Basic Content -->
-                <p>
-                    Early versions of the job advertisement builder worked well
-                    in some areas, but also failed in a few unexpected ways.
-                </p>
-
-                <!-- Basic Content -->
-                <p>
-                    One early blocker in 2018-19 was the sections for describing
-                    team culture and work environment. Some managers didn’t know
-                    where to start and found a blank text box daunting. It led
-                    to procrastination and some told their HR advisors it was
-                    too much work. To resolve this, Talent Cloud moved to
-                    providing tools that pre-populated default text, based on a
-                    checklist, which managers could then edit, making the task
-                    much easier. Managers spend a lot of time editing as part of
-                    their regular duties, so we redesigned the process to play
-                    to this strength. This behavioural redesign resolved the
-                    issue, and led to broader insights about procrastination
-                    behaviours on the part of managers and steps Talent Cloud
-                    could take to help address this.
-                </p>
-
-                <!-- Basic Content -->
-                <p>
-                    Another challenge we observed in 2018-19 was that managers
-                    on their own tended to add too many essential requirements
-                    to a job advertisement. In the course of a year, a human on
-                    the job uses a lot of different skills, and managers were
-                    prone to try to list as many as they could imagine on a job
-                    advertisement. To help managers arrive at an optimal number
-                    of selection criteria - one that would attract the right
-                    number of applicants and not be too long to process - Talent
-                    Cloud built nudges into the tool to help managers realize
-                    the detrimental impact of too many (or too few) selection
-                    criteria.
-                </p>
-
-                <!-- Titles -->
-                <h3
-                    data-h2-font-weight="b(800)"
-                    data-h2-font-size="b(h3)"
-                    data-h2-margin="b(top, xl) b(bottom, s)"
-                    style="letter-spacing: -1px"
-                >
-                    Key Components of the Tool
-                </h3>
-
-                <!-- Subtitles -->
-                <h4
-                    data-h2-font-weight="b(400)"
-                    data-h2-font-size="b(h4)"
-                    data-h2-margin="b(top, xl) b(bottom, s)"
-                    style="letter-spacing: -1px"
-                >
-                    Basic Data Entry
-                </h4>
-
-                <ul>
-                    <li>
-                        Drop down menus to help managers rapidly confirm the
-                        details of the job, such as classification, level,
-                        language, security.
-                    </li>
-
-                    <li>
-                        Multiple choice selection for work flexibilities
-                        including: Remote work, Telework, Flexible hours,
-                        Travel, Overtime (with nudges to promote best practices)
-                    </li>
-
-                    <li>
-                        Default education requirement text that allows for
-                        equivalencies but can be narrowed by managers as needed
-                        (with text written to promote inclusion and diversity by
-                        clarifying the value and acceptance of education
-                        equivalencies)
-                    </li>
-                </ul>
-
-                <figure data-h2-margin="b(top-bottom, l)">
-                    <!-- Graphics -->
-
-                    <img src="/assets/img/4.14-en-requirements.png" alt="A
-                    screenshot of an enhanced language requirements interface on
-                    the job post. It has been improved using iconography to make
-                    the requirement more glanceable. It reads: "Language
-                    requirements. Bilingual - intermediate. This position
-                    requires working knowledge of both French and English. This
-                    means that you can take on job duties in either French or
-                    English, and you have intermediate reading, writing, and
-                    verbal communication skills in both official languages. As
-                    part of this selection process, your language abilities will
-                    be tested by the Public Service Commission of Canada. You
-                    can complete all other steps of this assessment process in
-                    the official language of your choice, including the initial
-                    application, interview, exam, and any other evaluation
-                    components."" style="width: 100%;"
-                    data-h2-display="b(block)" data-h2-radius="b(s)"
-                    data-h2-border="b(gray, all, solid, s)">
-
-                    <figcaption
-                        data-h2-font-size="b(caption)"
-                        data-h2-font-color="b(red)"
-                        data-h2-display="b(block)"
-                        data-h2-margin="b(top, s) b(right-left, auto)"
-                        style="width: 100%"
-                    >
-                        Easily understandable text for applicants based on the
-                        manager’s selection and government policy.
-                    </figcaption>
-                </figure>
-
-                <!-- Subtitles -->
-                <h4
-                    data-h2-font-weight="b(400)"
-                    data-h2-font-size="b(h4)"
-                    data-h2-margin="b(top, xl) b(bottom, s)"
-                    style="letter-spacing: -1px"
-                >
-                    Work Environment & Culture
-                </h4>
-
-                <ul>
-                    <li>
-                        Checkbox list to describe Amenities, Access to
-                        technology, and Physical Environment
-                    </li>
-
-                    <li>
-                        Multiple choice questions on work culture to prepopulate
-                        a statement that can be further edited by the manager
-                    </li>
-
-                    <li>
-                        Work environment choice selection also informs the
-                        skills suggestions for managers when setting the
-                        essential and asset requirements of the position,
-                        helping ensure a soft skills fit between the applicant
-                        and the team
-                    </li>
-                </ul>
-
-                <figure data-h2-margin="b(top-bottom, l)">
-                    <!-- Graphics -->
-
-                    <img
-                        src="/assets/img/4.14-en-default-text.png"
-                        alt="A screenshot of the interface provided to managers that helps them automatically generate their work environment statement. The interface provides a handful of predetermined options that the manager can choose from, each with their own default text that can later be edited by the manager if they want to personalize it."
-                        style="width: 100%"
-                        data-h2-display="b(block)"
-                        data-h2-radius="b(s)"
-                        data-h2-border="b(gray, all, solid, s)"
-                    />
-
-                    <figcaption
-                        data-h2-font-size="b(caption)"
-                        data-h2-font-color="b(red)"
-                        data-h2-display="b(block)"
-                        data-h2-margin="b(top, s) b(right-left, auto)"
-                        style="width: 100%"
-                    >
-                        Simple tools that generate default text (that can be
-                        edited afterwards)
-                    </figcaption>
-                </figure>
-
-                <!-- Subtitles -->
-                <h4
-                    data-h2-font-weight="b(400)"
-                    data-h2-font-size="b(h4)"
-                    data-h2-margin="b(top, xl) b(bottom, s)"
-                    style="letter-spacing: -1px"
-                >
-                    Impact Statement
-                </h4>
-
-                <ul>
-                    <li>
-                        Helps managers craft a strong and concise impact
-                        statement that will appeal to applicants.
-                    </li>
-
-                    <li>
-                        Three sections: department impact, team impact and
-                        impact of the applicant in the job.
-                    </li>
-
-                    <li>
-                        Departmental mandate is prepopulated, based on the
-                        manager’s profile setting
-                    </li>
-                </ul>
-
-                <!-- Subtitles -->
-                <h4
-                    data-h2-font-weight="b(400)"
-                    data-h2-font-size="b(h4)"
-                    data-h2-margin="b(top, xl) b(bottom, s)"
-                    style="letter-spacing: -1px"
-                >
-                    Key Tasks
-                </h4>
-
-                <ul>
-                    <li>
-                        This is designed to help managers follow the logic flow
-                        that begins with the Impact Statement. In order to
-                        deliver the impact articulated, managers are asked to
-                        identify a list of specific tasks the person hired will
-                        be doing.
-                    </li>
-
-                    <li>
-                        Key tasks are open text fields, but the number is
-                        limited to 6, which proved to be the optimal number in
-                        user testing (workshops and live testing). This was
-                        chosen to strike a balance: on one hand, we wanted to
-                        help managers provide key information applicants wanted
-                        to see; on the other hand, we didn’t want managers to
-                        overwhelm applicants with a huge list of tasks (which
-                        generated negative behavioural associations with
-                        micromanagement practices during early user testing).
-                    </li>
-
-                    <li>
-                        Managers, when crafting key tasks, can draft as many as
-                        they like. They can then move them up and down the list,
-                        prioritizing and ordering their top six key tasks using
-                        a sorting system. This also lets managers hold onto
-                        draft content, in the event that HR advisors recommend
-                        different key tasks.
-                    </li>
-                </ul>
-
-                <figure data-h2-margin="b(top-bottom, l)">
-                    <!-- Graphics -->
-
-                    <img
-                        src="/assets/img/4.14-en-key-tasks.png"
-                        alt="A screenshot of the interface that notifies managers that they've added too many key tasks to their job post. The interface positions an error after the last valid key task, but allows the manager to continue adding more key tasks to help with brainstorming until they are ready to submit."
-                        style="width: 100%"
-                        data-h2-display="b(block)"
-                        data-h2-radius="b(s)"
-                        data-h2-border="b(gray, all, solid, s)"
-                    />
-
-                    <figcaption
-                        data-h2-font-size="b(caption)"
-                        data-h2-font-color="b(red)"
-                        data-h2-display="b(block)"
-                        data-h2-margin="b(top, s) b(right-left, auto)"
-                        style="width: 100%"
-                    >
-                        Feature to support managers in reaching the optimal
-                        number of key tasks with the flexibility to brainstorm
-                    </figcaption>
-                </figure>
-
-                <!-- Subtitles -->
-                <h4
-                    data-h2-font-weight="b(400)"
-                    data-h2-font-size="b(h4)"
-                    data-h2-margin="b(top, xl) b(bottom, s)"
-                    style="letter-spacing: -1px"
-                >
-                    Skills (Essential and Asset Criteria)
-                </h4>
-
-                <ul>
-                    <li>
-                        This is designed to follow the logic flow from impact to
-                        tasks to skills required to perform those tasks (and
-                        ultimately deliver the impact on Canadians for which the
-                        job is being filled).
-                    </li>
-
-                    <li>
-                        A curated list of occupational skills is available to
-                        choose from based on job classification, and a list of
-                        transferable skills is available for all
-                        classifications. This helps ensure consistent
-                        descriptions and translations across different jobs
-                        (paving the way towards interoperable talent pools for
-                        those who pass requirements). This also makes it easier
-                        for applicants to apply by allowing them to re-use work
-                        done in previous applications that had the same skills
-                        listed.
-                    </li>
-
-                    <li>
-                        Skills are grouped into logical categories for ease of
-                        browsing.
-                    </li>
-
-                    <li>
-                        Managers can add a personalised description to each
-                        skill if they feel a need to add further information or
-                        they can use this space to let applicants know the
-                        specific context in which the skill is applied on their
-                        team.
-                    </li>
-
-                    <li>
-                        Managers can also request new skills if none of the ones
-                        provided meet their needs. (This information is gathered
-                        through the tool, vetted through HR and added to the
-                        master database for skills.)
-                    </li>
-
-                    <li>
-                        Based on answers provided by the manager in the Work
-                        Environment and Team Culture sections, skills are
-                        suggested to the manager. (For example Resilience is
-                        often suggested when the manager indicates the work
-                        environment is high paced or relatively high stress;
-                        Collaboration is recommended when managers indicate that
-                        their team works with other teams regularly.)
-                    </li>
-
-                    <li>
-                        When the manager selects a skill, they are shown the
-                        skill description and prompted for the level of
-                        proficiency that is required.
-                    </li>
-
-                    <li>
-                        Managers are strongly encouraged (through various
-                        nudges) to keep the number of skills on their job
-                        advertisement within an optimised range. (See Optimizing
-                        the Number of Selection Criteria in this report.)
-                    </li>
-                </ul>
-
-                <!-- Subtitles -->
-                <h4
-                    data-h2-font-weight="b(400)"
-                    data-h2-font-size="b(h4)"
-                    data-h2-margin="b(top, xl) b(bottom, s)"
-                    style="letter-spacing: -1px"
-                >
-                    General Components
-                </h4>
-
-                <ul>
-                    <li>
-                        Step by step process designed to help managers keep
-                        focused, with lots of “win moments” built in to
-                        encourage managers to feel like they’re making progress
-                        and to complete the task at hand.
-                    </li>
-
-                    <li>
-                        Progress is shown to managers after each step is
-                        completed, also giving them a chance to see what an
-                        applicant will see when the job advertisement goes live.
-                    </li>
-                </ul>
-
-                <figure data-h2-margin="b(top-bottom, l)">
-                    <!-- Graphics -->
-
-                    <img
-                        src="/assets/img/4.14-en-progress.png"
-                        alt="A screenshot of the progress bar presented to managers to help them understand the steps involved in crafting a job post. It contains seven steps, each of which is identified by a status icon, status color, and label. The steps are: welcome, job information, work environment, impact, tasks, skills, and review."
-                        style="width: 100%"
-                        data-h2-display="b(block)"
-                        data-h2-radius="b(s)"
-                        data-h2-border="b(gray, all, solid, s)"
-                    />
-
-                    <figcaption
-                        data-h2-font-size="b(caption)"
-                        data-h2-font-color="b(red)"
-                        data-h2-display="b(block)"
-                        data-h2-margin="b(top, s) b(right-left, auto)"
-                        style="width: 100%"
-                    >
-                        Step by step process for managers
-                    </figcaption>
-                </figure>
-
-                <figure data-h2-margin="b(top-bottom, l)">
-                    <!-- Graphics -->
-
-                    <img
-                        src="/assets/img/4.14-en-review.png"
-                        alt="A screenshot of the preview that is presented to managers after they complete the job information step. These previews offer a sense of completion and gratification to the manager to encourage them to continue with the job post."
-                        style="width: 100%"
-                        data-h2-display="b(block)"
-                        data-h2-radius="b(s)"
-                        data-h2-border="b(gray, all, solid, s)"
-                    />
-
-                    <figcaption
-                        data-h2-font-size="b(caption)"
-                        data-h2-font-color="b(red)"
-                        data-h2-display="b(block)"
-                        data-h2-margin="b(top, s) b(right-left, auto)"
-                        style="width: 100%"
-                    >
-                        Helpful guidance at every step, tailored for the
-                        Government of Canada
-                    </figcaption>
-                </figure>
-
-                <ul>
-                    <li>
-                        Once drafted, managers can share the job advertisement
-                        with their HR advisors for comment and approval.
-                    </li>
-                </ul>
-            </div>
-        </main>
-        <section style="background-color: #f8f8f8">
-            <div
-                data-h2-container="b(center, s)"
-                data-h2-padding="b(bottom, l) l(bottom, xxl)"
-            >
-                <div data-h2-flex-grid="b(top, expanded, flush, m)">
-                    <div
-                        data-h2-text-align="b(center) m(left)"
-                        data-h2-flex-item="b(1of2)"
-                    >
-                        <a
-                            class="prev"
-                            href="/en/2000/01/01/413-platform-tools.html"
-                            title="Go to the previous article in the series."
-                        >
-                            <svg
-                                data-h2-margin="b(right, xxs)"
-                                style="width: 1rem; vertical-align: middle"
-                                xmlns="http://www.w3.org/2000/svg"
-                                class="h-6 w-6"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="#c90035"
-                            >
-                                <path
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="4"
-                                    d="M15 19l-7-7 7-7"
-                                /></svg
-                            >Previous Article</a
-                        >
-                    </div>
-                    <div
-                        data-h2-text-align="b(center) m(right)"
-                        data-h2-flex-item="b(1of2)"
-                    >
-                        <a
-                            class="next"
-                            href="/en/2000/01/01/415-assessment-planning.html"
-                            title="Go to the next article in the series."
-                            >Next Article<svg
-                                data-h2-margin="b(left, xxs)"
-                                style="width: 1rem; vertical-align: middle"
-                                xmlns="http://www.w3.org/2000/svg"
-                                class="h-6 w-6"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="#c90035"
-                            >
-                                <path
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="4"
-                                    d="M9 5l7 7-7 7"
-                                /></svg
-                        ></a>
-                    </div>
-                </div>
-                <p
-                    data-h2-margin="b(top, xxl)"
-                    data-h2-text-align="b(center)"
-                    data-h2-font-size="b(caption)"
-                >
-                    <a
-                        href="/en/talent-cloud/report/#toc"
-                        title="Return to Table of Contents"
-                        >Return to Table of Contents</a
-                    >
-                </p>
-            </div>
-        </section>
-        <section
-            data-h2-border="b([light]gray, top, solid, s)"
-            data-h2-position="b(relative)"
-            style="background: rgba(240, 240, 240, 1)"
-            data-h2-overflow="b(x, hidden)"
-        >
-            <footer
-                data-h2-container="b(center, full)"
-                data-h2-padding="b(top-bottom, l)"
-            >
-                <div data-h2-flex-grid="b(middle, expanded, flush, xl)">
-                    <div
-                        data-h2-flex-item="b(1of1) m(1of2)"
-                        data-h2-padding="b(left, xl)"
-                        data-h2-text-align="b(center) m(left)"
-                    >
-                        <nav>
-                            <ul
-                                style="gap: 1rem"
-                                class="reset-ul"
-                                data-h2-display="b(flex)"
-                                data-h2-flex-wrap="b(wrap)"
-                                data-h2-justify-content="b(center) m(flex-start)"
-                                data-h2-margin="b(bottom, xs)"
-                            >
-                                <li
-                                    data-h2-display="b(inline-block)"
-                                    data-h2-margin="b(top-bottom, none)"
-                                >
-                                    <a
-                                        href="mailto:talent.cloud-nuage.de.talents@tbs-sct.gc.ca"
-                                        title="Submit feedback to GC Talent Cloud via email."
-                                        >Feedback</a
-                                    >
-                                </li>
-
-                                <li
-                                    data-h2-display="b(inline-block)"
-                                    data-h2-margin="b(top-bottom, none)"
-                                >
-                                    <a
-                                        href="/en/terms-and-conditions"
-                                        title="View our terms and conditions."
-                                        >Terms & Conditions</a
-                                    >
-                                </li>
-
-                                <li
-                                    data-h2-display="b(inline-block)"
-                                    data-h2-margin="b(top-bottom, none)"
-                                >
-                                    <a
-                                        href="/en/privacy-notice"
-                                        title="View our privacy policy."
-                                        >Privacy Policy</a
-                                    >
-                                </li>
-
-                                <li
-                                    data-h2-display="b(inline-block)"
-                                    data-h2-margin="b(top-bottom, none)"
-                                >
-                                    <a
-                                        href="https://www.canada.ca/en.html"
-                                        title="Visit Canada.ca."
-                                        >Canada.ca</a
-                                    >
-                                </li>
-                            </ul>
-                        </nav>
-                        <p
-                            data-h2-font-size="b(caption)"
-                            data-h2-font-color="b(black)"
-                            data-h2-margin="b(bottom, none) b(top, m)"
-                        >
-                            Date Modified: July 07, 2021
-                        </p>
-                    </div>
-                    <div
-                        data-h2-flex-item="b(1of1) m(1of2)"
-                        data-h2-padding="b(right, xl)"
-                        data-h2-text-align="b(center) m(right)"
-                    >
-                        <a
-                            href="https://www.canada.ca/en.html"
-                            title="Visit Canada.ca."
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            <img
-                                class="canada-logo"
-                                src="/assets/img/ui-canada.png"
-                                alt="Canada's Logo."
-                            />
-                        </a>
-                    </div>
-                </div>
-            </footer>
-        </section>
-
-        <script type="text/javascript" src="/assets/js/app.js"></script>
-    </body>
+          <img data-h2- alt="goc logo" src="/assets/img/ui-goc.svg"
+        /></a>
+      </div>
+      <div data-h2-flex-item="m(1of2)" data-h2-text-align="b(center) m(right)">
+         
+        <a href="/fr/2000/01/01/414-job-ads.html" title="Voir ce contenu en français.">Français</a>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+<div data-h2-container="b(center, full)" >
+  <nav data-h2-padding="b(top-bottom, m)">
+    <ul class="reset-ul" data-h2-padding="b(all, none)" data-h2-margin="b(all, none)" data-h2-text-align="b(center) m(left)" style="margin-left: -.7rem;">
+      
+        <li data-h2-margin="b(all, none)" data-h2-padding="b(all, none)" data-h2-display="b(inline-block)">
+          <a href="/en/" title="Visit the GC Talent homepage."
+            
+            data-h2-display="b(block)"
+            data-h2-padding="b(all, xs) m(right-left, s)">Home</a>
+        </li>
+      
+        <li data-h2-margin="b(all, none)" data-h2-padding="b(all, none)" data-h2-display="b(inline-block)">
+          <a href="/en/talent-cloud/" title="Learn more about the Talent Cloud project."
+            
+            data-h2-display="b(block)"
+            data-h2-padding="b(all, xs) m(right-left, s)">Talent Cloud</a>
+        </li>
+      
+        <li data-h2-margin="b(all, none)" data-h2-padding="b(all, none)" data-h2-display="b(inline-block)">
+          <a href="/en/communities/digital-talent/" title="Learn more about the Digital Talent community."
+            
+            data-h2-display="b(block)"
+            data-h2-padding="b(all, xs) m(right-left, s)">Digital Talent</a>
+        </li>
+      
+    </ul>
+  </nav>
+</div>
+<section>
+  <div
+    data-h2-container="b(center, full)"
+    data-h2-text-align="b(center)">
+    
+    <h1
+  data-h2-font-weight="b(800)"
+  data-h2-font-size="b(h1)"
+  data-h2-padding='b(top, l) l(top, xxl) b(bottom, xxs)'
+  style="letter-spacing: -3px"
+  
+>
+  Talent Cloud Results Report
+</h1>
+
+    <div id="breadcrumbs" data-h2-margin="b(top-bottom, m)" >
+  
+  <a href="/en" title="Return to the homepage.">GC Talent</a>
+  <!-- If the page layout is post then use this breadcrumb list. -->
+  
+    / <a href="/en/talent-cloud" title="Return to the Talent Cloud page.">Talent Cloud</a>
+    / <a href="/en/talent-cloud/report" title="Return to the Talent Cloud results report.">Talent Cloud Resu...</a>
+    / <span>Section 4</span>
+    / <span data-h2-font-weight="b(800)">A Tool to Build O...</span>
+  
+</div>
+  </div>
+</section>
+<header 
+  class="post-header"
+  id="mainContent"
+  style="background-image: url('/assets/img/4.14-tx-heading.jpg');"
+  data-h2-margin="b(top, xl)">
+  <div 
+    data-h2-container="b(center, m)" 
+    data-h2-font-color="b(white)"
+    data-h2-padding="b(top, l) b(bottom, xl) l(top, xl) l(bottom, xxl)"
+    data-h2-text-align="b(center)">
+    <h2
+  
+  data-h2-font-weight="b(200)"
+  data-h2-font-size="b(h2)"
+  
+  data-h2-padding='b(top, m)'
+  
+  
+  style="letter-spacing: -2px;">
+  A Tool to Build Optimized Job Advertisements
+</h2>
+    
+      <div data-h2-padding="b(top, m)">
+        
+          <div 
+  data-h2-bg-color="b(white[.2])"
+  data-h2-border="b(white, all, solid, s)"
+  data-h2-display="b(inline-block)"
+  data-h2-margin="b(all, xxs) l(right-left, xxs)"
+  data-h2-padding="b(top, xxs) b(bottom, xs) b(right-left, s)"
+  data-h2-radius="b(m)"
+  style="line-height: 1;">
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <img 
+        data-h2-display="b(inline-block)"
+        data-h2-margin="b(right, xxs)"
+        style="vertical-align: middle; width: .8rem;"
+        src="/assets/img/ds-users.svg" aria-hidden="true">
+      <span data-h2-font-size="b(caption)">Design with Users</span>
+    
+  
+    
+  
+    
+  
+</div>
+        
+          <div 
+  data-h2-bg-color="b(white[.2])"
+  data-h2-border="b(white, all, solid, s)"
+  data-h2-display="b(inline-block)"
+  data-h2-margin="b(all, xxs) l(right-left, xxs)"
+  data-h2-padding="b(top, xxs) b(bottom, xs) b(right-left, s)"
+  data-h2-radius="b(m)"
+  style="line-height: 1;">
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <img 
+        data-h2-display="b(inline-block)"
+        data-h2-margin="b(right, xxs)"
+        style="vertical-align: middle; width: .8rem;"
+        src="/assets/img/ds-data.svg" aria-hidden="true">
+      <span data-h2-font-size="b(caption)">Data Stewardship</span>
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+</div>
+        
+          <div 
+  data-h2-bg-color="b(white[.2])"
+  data-h2-border="b(white, all, solid, s)"
+  data-h2-display="b(inline-block)"
+  data-h2-margin="b(all, xxs) l(right-left, xxs)"
+  data-h2-padding="b(top, xxs) b(bottom, xs) b(right-left, s)"
+  data-h2-radius="b(m)"
+  style="line-height: 1;">
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+  
+    
+      <img 
+        data-h2-display="b(inline-block)"
+        data-h2-margin="b(right, xxs)"
+        style="vertical-align: middle; width: .8rem;"
+        src="/assets/img/ds-empower-staff.svg" aria-hidden="true">
+      <span data-h2-font-size="b(caption)">Empower Service Delivery</span>
+    
+  
+    
+  
+    
+  
+    
+  
+</div>
+        
+      </div>
+    
+  </div>
+</header>
+<main data-h2-padding="b(top-bottom, xs) l(top-bottom, xl)" style="background-color: #F8F8F8;">
+  <div data-h2-container="b(center, s)">
+    
+      
+    
+      
+        
+          <!-- Titles -->
+          <h3
+  
+  data-h2-font-weight="b(800)"
+  data-h2-font-size="b(h3)"
+  data-h2-margin='b(top, xl) b(bottom, s)'
+  
+  style="letter-spacing: -1px;">
+  Purpose of the Tool
+</h3>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>On Talent Cloud our job advertisement builder does more than create a document we can publish. The process of creating the job advertisement itself is used to help managers put together their thoughts about the job, and once drafted, the advertisement serves as an important tool to start a conversation with HR.</p>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>Managers have expressed to us the challenges of putting together a job advertisement that properly translates their needs into something that also appeals to applicants and addresses the many requirements of Government HR. The job application builder tool is our attempt at making this process easy enough for anyone to finish, while ensuring HR advisors aren’t shouldering a large part of the workload in drafting content.</p>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>This tool combines our research on optimizing the talent-to-team fit and reducing time to staff, helping managers produce optimized job advertisements that will lead to swift processes and strong hiring results, without managers even having to think about the behind-the-scenes research.</p>
+        
+      
+    
+      
+        
+          <!-- Titles -->
+          <h3
+  
+  data-h2-font-weight="b(800)"
+  data-h2-font-size="b(h3)"
+  data-h2-margin='b(top, xl) b(bottom, s)'
+  
+  style="letter-spacing: -1px;">
+  Current Status
+</h3>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>The job application builder is currently available for managers to use and for HR advisors to review. The tool has been used for dozens of job processes since its release, and continues to be upgraded as new findings emerge.</p>
+        
+      
+    
+      
+        
+          <!-- Titles -->
+          <h3
+  
+  data-h2-font-weight="b(800)"
+  data-h2-font-size="b(h3)"
+  data-h2-margin='b(top, xl) b(bottom, s)'
+  
+  style="letter-spacing: -1px;">
+  Results
+</h3>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>Managers using the job advertisement builder are able to put together job advertisements within a day or two (1-2 hours of active drafting time). These drafts are generally approved by their HR advisor with minimal changes, (although any back and forth on editorial changes can take time.) In our early workshops, managers reflected that this would normally take weeks or even months of back-and-forth, so we see this as a big improvement.</p>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>The tool has also helped ensure that managers are made aware of, and encouraged to apply (through nudges and choice architecture), best practices that lead to better hiring outcomes and faster staffing processes. This includes steps to optimize the volume of applications (such as the number of selection criteria) and details on the team culture, operational requirements and work environment.</p>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>Applicants generally expressed a high level of satisfaction with the job advertisements generated with our tool and have highlighted the work environment and team culture sections as being particularly valuable.</p>
+        
+      
+    
+      
+        
+          <!-- Titles -->
+          <h3
+  
+  data-h2-font-weight="b(800)"
+  data-h2-font-size="b(h3)"
+  data-h2-margin='b(top, xl) b(bottom, s)'
+  
+  style="letter-spacing: -1px;">
+  Insights
+</h3>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>Early versions of the job advertisement builder worked well in some areas, but also failed in a few unexpected ways.</p>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>One early blocker in 2018-19 was the sections for describing team culture and work environment. Some managers didn’t know where to start and found a blank text box daunting. It led to procrastination and some told their HR advisors it was too much work. To resolve this, Talent Cloud moved to providing tools that pre-populated default text, based on a checklist, which managers could then edit, making the task much easier. Managers spend a lot of time editing as part of their regular duties, so we redesigned the process to play to this strength. This behavioural redesign resolved the issue, and led to broader insights about procrastination behaviours on the part of managers and steps Talent Cloud could take to help address this.</p>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>Another challenge we observed in 2018-19 was that managers on their own tended to add too many essential requirements to a job advertisement. In the course of a year, a human on the job uses a lot of different skills, and managers were prone to try to list as many as they could imagine on a job advertisement. To help managers arrive at an optimal number of selection criteria - one that would attract the right number of applicants and not be too long to process - Talent Cloud built nudges into the tool to help managers realize the detrimental impact of too many (or too few) selection criteria.</p>
+        
+      
+    
+      
+        
+          <!-- Titles -->
+          <h3
+  
+  data-h2-font-weight="b(800)"
+  data-h2-font-size="b(h3)"
+  data-h2-margin='b(top, xl) b(bottom, s)'
+  
+  style="letter-spacing: -1px;">
+  Key Components of the Tool
+</h3>
+        
+      
+    
+      
+        
+          <!-- Subtitles -->
+          <h4
+  
+  data-h2-font-weight="b(400)"
+  data-h2-font-size="b(h4)"
+  data-h2-margin='b(top, xl) b(bottom, s)'
+  style="letter-spacing: -1px;">
+  Basic Data Entry
+</h4>
+        
+      
+    
+      
+        
+          
+            <ul>
+              
+                <li>Drop down menus to help managers rapidly confirm the details of the job, such as classification, level, language, security.</li>
+              
+                <li>Multiple choice selection for work flexibilities including: Remote work, Telework, Flexible hours, Travel, Overtime (with nudges to promote best practices)</li>
+              
+                <li>Default education requirement text that allows for equivalencies but can be narrowed by managers as needed (with text written to promote inclusion and diversity by clarifying the value and acceptance of education equivalencies)</li>
+              
+            </ul>
+          
+        
+      
+    
+      
+        
+          <figure data-h2-margin="b(top-bottom, l)">
+            <!-- Graphics -->
+            
+              <img 
+                src="/assets/img/4.14-en-requirements.png"
+                alt="A screenshot of an enhanced language requirements interface on the job post. It has been improved using iconography to make the requirement more glanceable. It reads: "Language requirements. Bilingual - intermediate. This position requires working knowledge of both French and English. This means that you can take on job duties in either French or English, and you have intermediate reading, writing, and verbal communication skills in both official languages. As part of this selection process, your language abilities will be tested by the Public Service Commission of Canada. You can complete all other steps of this assessment process in the official language of your choice, including the initial application, interview, exam, and any other evaluation components.""
+                style="width: 100%;"
+                data-h2-display="b(block)"
+                data-h2-radius="b(s)"
+                data-h2-border="b(gray, all, solid, s)">
+                
+                  <figcaption data-h2-font-size="b(caption)" data-h2-font-color="b(red)" data-h2-display="b(block)" data-h2-margin="b(top, s) b(right-left, auto)" style="width: 100%;">Easily understandable text for applicants based on the manager’s selection and government policy.</figcaption>
+                
+            
+          </figure>
+        
+      
+    
+      
+        
+          <!-- Subtitles -->
+          <h4
+  
+  data-h2-font-weight="b(400)"
+  data-h2-font-size="b(h4)"
+  data-h2-margin='b(top, xl) b(bottom, s)'
+  style="letter-spacing: -1px;">
+  Work Environment & Culture
+</h4>
+        
+      
+    
+      
+        
+          
+            <ul>
+              
+                <li>Checkbox list to describe Amenities, Access to technology, and Physical Environment</li>
+              
+                <li>Multiple choice questions on work culture to prepopulate a statement that can be further edited by the manager</li>
+              
+                <li>Work environment choice selection also informs the skills suggestions for managers when setting the essential and asset requirements of the position, helping ensure a soft skills fit between the applicant and the team</li>
+              
+            </ul>
+          
+        
+      
+    
+      
+        
+          <figure data-h2-margin="b(top-bottom, l)">
+            <!-- Graphics -->
+            
+              <img 
+                src="/assets/img/4.14-en-default-text.png"
+                alt="A screenshot of the interface provided to managers that helps them automatically generate their work environment statement. The interface provides a handful of predetermined options that the manager can choose from, each with their own default text that can later be edited by the manager if they want to personalize it."
+                style="width: 100%;"
+                data-h2-display="b(block)"
+                data-h2-radius="b(s)"
+                data-h2-border="b(gray, all, solid, s)">
+                
+                  <figcaption data-h2-font-size="b(caption)" data-h2-font-color="b(red)" data-h2-display="b(block)" data-h2-margin="b(top, s) b(right-left, auto)" style="width: 100%;">Simple tools that generate default text (that can be edited afterwards)</figcaption>
+                
+            
+          </figure>
+        
+      
+    
+      
+        
+          <!-- Subtitles -->
+          <h4
+  
+  data-h2-font-weight="b(400)"
+  data-h2-font-size="b(h4)"
+  data-h2-margin='b(top, xl) b(bottom, s)'
+  style="letter-spacing: -1px;">
+  Impact Statement
+</h4>
+        
+      
+    
+      
+        
+          
+            <ul>
+              
+                <li>Helps managers craft a strong and concise impact statement that will appeal to applicants.</li>
+              
+                <li>Three sections: department impact, team impact and impact of the applicant in the job.</li>
+              
+                <li>Departmental mandate is prepopulated, based on the manager’s profile setting</li>
+              
+            </ul>
+          
+        
+      
+    
+      
+        
+          <!-- Subtitles -->
+          <h4
+  
+  data-h2-font-weight="b(400)"
+  data-h2-font-size="b(h4)"
+  data-h2-margin='b(top, xl) b(bottom, s)'
+  style="letter-spacing: -1px;">
+  Key Tasks
+</h4>
+        
+      
+    
+      
+        
+          
+            <ul>
+              
+                <li>This is designed to help managers follow the logic flow that begins with the Impact Statement. In order to deliver the impact articulated, managers are asked to identify a list of specific tasks the person hired will be doing.</li>
+              
+                <li>Key tasks are open text fields, but the number is limited to 6, which proved to be the optimal number in user testing (workshops and live testing). This was chosen to strike a balance: on one hand, we wanted to help managers provide key information applicants wanted to see;  on the other hand, we didn’t want managers to overwhelm applicants with a huge list of tasks (which generated negative behavioural associations with micromanagement practices during early user testing).</li>
+              
+                <li>Managers, when crafting key tasks, can draft as many as they like. They can then move them up and down the list, prioritizing and ordering their top six key tasks using a sorting system. This also lets managers hold onto draft content, in the event that HR advisors recommend different key tasks.</li>
+              
+            </ul>
+          
+        
+      
+    
+      
+        
+          <figure data-h2-margin="b(top-bottom, l)">
+            <!-- Graphics -->
+            
+              <img 
+                src="/assets/img/4.14-en-key-tasks.png"
+                alt="A screenshot of the interface that notifies managers that they've added too many key tasks to their job post. The interface positions an error after the last valid key task, but allows the manager to continue adding more key tasks to help with brainstorming until they are ready to submit."
+                style="width: 100%;"
+                data-h2-display="b(block)"
+                data-h2-radius="b(s)"
+                data-h2-border="b(gray, all, solid, s)">
+                
+                  <figcaption data-h2-font-size="b(caption)" data-h2-font-color="b(red)" data-h2-display="b(block)" data-h2-margin="b(top, s) b(right-left, auto)" style="width: 100%;">Feature to support managers in reaching the optimal number of key tasks with the flexibility to brainstorm</figcaption>
+                
+            
+          </figure>
+        
+      
+    
+      
+        
+          <!-- Subtitles -->
+          <h4
+  
+  data-h2-font-weight="b(400)"
+  data-h2-font-size="b(h4)"
+  data-h2-margin='b(top, xl) b(bottom, s)'
+  style="letter-spacing: -1px;">
+  Skills (Essential and Asset Criteria)
+</h4>
+        
+      
+    
+      
+        
+          
+            <ul>
+              
+                <li>This is designed to follow the logic flow from impact to tasks to skills required to perform those tasks (and ultimately deliver the impact on Canadians for which the job is being filled).</li>
+              
+                <li>A curated list of occupational skills is available to choose from based on job classification, and a list of transferable skills is available for all classifications. This helps ensure consistent descriptions and translations across different jobs (paving the way towards interoperable talent pools for those who pass requirements). This also makes it easier for applicants to apply by allowing them to re-use work done in previous applications that had the same skills listed.</li>
+              
+                <li>Skills are grouped into logical categories for ease of browsing.</li>
+              
+                <li>Managers can add a personalised description to each skill if they feel a need to add further information or they can use this space to let applicants know the specific context in which the skill is applied on their team.</li>
+              
+                <li>Managers can also request new skills if none of the ones provided meet their needs. (This information is gathered through the tool, vetted through HR and added to the master database for skills.)</li>
+              
+                <li>Based on answers provided by the manager in the Work Environment and Team Culture sections, skills are suggested to the manager. (For example Resilience is often suggested when the manager indicates the work environment is high paced or relatively high stress; Collaboration is recommended when managers indicate that their team works with other teams regularly.)</li>
+              
+                <li>When the manager selects a skill, they are shown the skill description and prompted for the level of proficiency that is required.</li>
+              
+                <li>Managers are strongly encouraged (through various nudges) to keep the number of skills on their job advertisement within an optimised range. (See Optimizing the Number of Selection Criteria in this report.)</li>
+              
+            </ul>
+          
+        
+      
+    
+      
+        
+          <!-- Subtitles -->
+          <h4
+  
+  data-h2-font-weight="b(400)"
+  data-h2-font-size="b(h4)"
+  data-h2-margin='b(top, xl) b(bottom, s)'
+  style="letter-spacing: -1px;">
+  General Components
+</h4>
+        
+      
+    
+      
+        
+          
+            <ul>
+              
+                <li>Step by step process designed to help managers keep focused, with lots of “win moments” built in to encourage managers to feel like they’re making progress and to complete the task at hand.</li>
+              
+                <li>Progress is shown to managers after each step is completed, also giving them a chance to see what an applicant will see when the job advertisement goes live.</li>
+              
+            </ul>
+          
+        
+      
+    
+      
+        
+          <figure data-h2-margin="b(top-bottom, l)">
+            <!-- Graphics -->
+            
+              <img 
+                src="/assets/img/4.14-en-progress.png"
+                alt="A screenshot of the progress bar presented to managers to help them understand the steps involved in crafting a job post. It contains seven steps, each of which is identified by a status icon, status color, and label. The steps are: welcome, job information, work environment, impact, tasks, skills, and review."
+                style="width: 100%;"
+                data-h2-display="b(block)"
+                data-h2-radius="b(s)"
+                data-h2-border="b(gray, all, solid, s)">
+                
+                  <figcaption data-h2-font-size="b(caption)" data-h2-font-color="b(red)" data-h2-display="b(block)" data-h2-margin="b(top, s) b(right-left, auto)" style="width: 100%;">Step by step process for managers</figcaption>
+                
+            
+          </figure>
+        
+      
+    
+      
+        
+          <figure data-h2-margin="b(top-bottom, l)">
+            <!-- Graphics -->
+            
+              <img 
+                src="/assets/img/4.14-en-review.png"
+                alt="A screenshot of the preview that is presented to managers after they complete the job information step. These previews offer a sense of completion and gratification to the manager to encourage them to continue with the job post."
+                style="width: 100%;"
+                data-h2-display="b(block)"
+                data-h2-radius="b(s)"
+                data-h2-border="b(gray, all, solid, s)">
+                
+                  <figcaption data-h2-font-size="b(caption)" data-h2-font-color="b(red)" data-h2-display="b(block)" data-h2-margin="b(top, s) b(right-left, auto)" style="width: 100%;">Helpful guidance at every step, tailored for the Government of Canada</figcaption>
+                
+            
+          </figure>
+        
+      
+    
+      
+        
+          
+            <ul>
+              
+                <li>Once drafted, managers can share the job advertisement with their HR advisors for comment and approval.</li>
+              
+            </ul>
+          
+        
+      
+    
+  </div>
+</main>
+<section style="background-color: #F8F8F8;">
+  <div data-h2-container="b(center, s)" data-h2-padding="b(bottom, l) l(bottom, xxl)">
+    <div data-h2-flex-grid="b(top, expanded, flush, m)">
+      <div
+        data-h2-text-align="b(center) m(left)" 
+        data-h2-flex-item="b(1of2)">
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            
+              <a class="prev" href="/en/2000/01/01/413-platform-tools.html" title="Go to the previous article in the series.">
+                <svg data-h2-margin="b(right, xxs)" 
+                  style="width: 1rem; vertical-align: middle;" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="#c90035">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M15 19l-7-7 7-7" />
+                </svg>Previous Article</a>
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      </div>
+      <div 
+        data-h2-text-align="b(center) m(right)"   
+        data-h2-flex-item="b(1of2)">
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            
+              <a class="next" href="/en/2000/01/01/415-assessment-planning.html" title="Go to the next article in the series.">Next Article<svg data-h2-margin="b(left, xxs)" 
+                style="width: 1rem; vertical-align: middle;" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="#c90035">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M9 5l7 7-7 7" />
+                </svg></a>
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      </div>
+    </div>
+    <p
+      data-h2-margin="b(top, xxl)" 
+      data-h2-text-align="b(center)"
+      data-h2-font-size="b(caption)">
+      <a href="/en/talent-cloud/report/#toc" title="Return to Table of Contents">Return to Table of Contents</a>
+    </p>
+  </div>
+</section>
+<section data-h2-border="b([light]gray, top, solid, s)" data-h2-position="b(relative)" style="background: rgba(240, 240, 240, 1)" data-h2-overflow="b(x, hidden)">
+  <footer data-h2-container="b(center, full)" data-h2-padding="b(top-bottom, l)">
+    <div data-h2-flex-grid="b(middle, expanded, flush, xl)">
+      <div
+        data-h2-flex-item="b(1of1) m(1of2)"
+        data-h2-padding="b(left, xl)"
+        data-h2-text-align="b(center) m(left)">
+        
+          <nav>
+            <ul
+              style="gap: 1rem;"
+              class="reset-ul"
+              data-h2-display="b(flex)"
+              data-h2-flex-wrap="b(wrap)"
+              data-h2-justify-content="b(center) m(flex-start)"
+              data-h2-margin="b(bottom, xs)">
+              
+              <li data-h2-display="b(inline-block)" data-h2-margin="b(top-bottom, none)">
+                
+                  <a href="mailto:GCTalentGC@tbs-sct.gc.ca" title="Submit feedback to GC Talent Cloud via email.">Feedback</a>
+                
+              </li>
+              
+              <li data-h2-display="b(inline-block)" data-h2-margin="b(top-bottom, none)">
+                
+                  <a href="/en/terms-and-conditions" title="View our terms and conditions.">Terms & Conditions</a>
+                
+              </li>
+              
+              <li data-h2-display="b(inline-block)" data-h2-margin="b(top-bottom, none)">
+                
+                  <a href="/en/privacy-notice" title="View our privacy policy.">Privacy Policy</a>
+                
+              </li>
+              
+              <li data-h2-display="b(inline-block)" data-h2-margin="b(top-bottom, none)">
+                
+                  <a href="/en/https://www.canada.ca/en.html" title="Visit Canada.ca.">Canada.ca</a>
+                
+              </li>
+              
+            </ul>
+          </nav>
+          <p 
+            data-h2-font-size="b(caption)"
+            data-h2-font-color="b(black)" 
+            data-h2-margin="b(bottom, none) b(top, m)">
+            Date Modified: July 07, 2021
+          </p>
+        
+      </div>
+      <div
+        data-h2-flex-item="b(1of1) m(1of2)"
+        data-h2-padding="b(right, xl)"
+        data-h2-text-align="b(center) m(right)">
+        <a
+          href="https://www.canada.ca/en.html"
+          title="Visit Canada.ca."
+          target="_blank"
+          rel="noopener noreferrer">
+          <img
+            class="canada-logo"
+            src="/assets/img/ui-canada.png"
+            alt="Canada's Logo."/>
+        </a>
+      </div>
+    </div>
+  </footer>
+</section>
+
+    <script type="text/javascript" src="/assets/js/app.js"></script>
+  </body>
 </html>

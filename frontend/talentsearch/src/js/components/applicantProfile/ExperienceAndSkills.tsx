@@ -166,7 +166,6 @@ const ExperienceAndSkills: React.FunctionComponent<
             <a
               key={title}
               href={href}
-              title={title}
               data-h2-display="b(flex)"
               data-h2-align-items="b(center)"
               data-h2-margin="b(top-bottom, xs) m(top-bottom, none)"
