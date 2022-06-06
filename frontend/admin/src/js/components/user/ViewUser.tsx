@@ -2,7 +2,7 @@ import * as React from "react";
 import { useIntl } from "react-intl";
 import {
   HomeIcon,
-  DownloadIcon,
+  PrinterIcon,
   UserCircleIcon,
 } from "@heroicons/react/outline";
 import Breadcrumbs from "@common/components/Breadcrumbs";
@@ -74,10 +74,10 @@ export const ViewUserPage: React.FC<ViewUserPageProps> = ({ user }) => {
         <div data-h2-margin="m(left, auto)">
           <UserProfilePrintButton userId={user.id}>
             <span>
-              <DownloadIcon style={{ width: "1rem" }} />{" "}
+              <PrinterIcon style={{ width: "1rem" }} />{" "}
               {intl.formatMessage({
-                defaultMessage: "Download Profile",
-                description: "Text for button to download a user",
+                defaultMessage: "Print Profile",
+                description: "Text for button to print a user profile",
               })}
             </span>
           </UserProfilePrintButton>
