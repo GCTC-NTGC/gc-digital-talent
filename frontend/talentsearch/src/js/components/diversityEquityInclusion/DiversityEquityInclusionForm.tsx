@@ -12,6 +12,7 @@ import {
 import type { UpdateUserAsUserMutation } from "../../api/generated";
 
 import EquityOptions from "./EquityOptions";
+import { EquityKeys } from "./types";
 
 export type DiversityInclusionUpdateHandler = (
   id: string,
@@ -20,6 +21,7 @@ export type DiversityInclusionUpdateHandler = (
 
 interface DiversityEquityInclusionFormProps {
   user: User;
+  isMutating: boolean;
   onUpdate: DiversityInclusionUpdateHandler;
 }
 
@@ -27,9 +29,21 @@ const boldText = (...chunks: string[]) => <strong>{chunks}</strong>;
 
 export const DiversityEquityInclusionForm: React.FC<
   DiversityEquityInclusionFormProps
-> = ({ user, onUpdate }) => {
+> = ({ user, onUpdate, isMutating }) => {
   const intl = useIntl();
-  const hasItems = Object.keys;
+
+  const handleAdd = (key: EquityKeys) => {
+    return onUpdate(user.id, {
+      [key]: true,
+    });
+  };
+
+  const handleRemove = (key: EquityKeys) => {
+    return onUpdate(user.id, {
+      [key]: false,
+    });
+  };
+
   return (
     <ProfileFormWrapper
       description={intl.formatMessage({
@@ -137,12 +151,13 @@ export const DiversityEquityInclusionForm: React.FC<
         </li>
       </ul>
       <EquityOptions
+        isDisabled={isMutating}
         isIndigenous={user.isIndigenous}
         isVisibleMinority={user.isVisibleMinority}
         isWoman={user.isWoman}
         hasDisability={user.hasDisability}
-        onAdd={(key) => console.log(key)}
-        onRemove={(key) => console.log(key)}
+        onAdd={handleAdd}
+        onRemove={handleRemove}
       />
     </ProfileFormWrapper>
   );
@@ -152,7 +167,8 @@ const DiversityEquityInclusionFormApi: React.FC = () => {
   const intl = useIntl();
 
   const [{ data, fetching, error }] = useGetMyDiversityInfoQuery();
-  const [, executeMutation] = useUpdateMyDiversityInfoMutation();
+  const [{ fetching: mutationFetching }, executeMutation] =
+    useUpdateMyDiversityInfoMutation();
 
   const handleUpdateUser = (id: string, values: UpdateUserAsUserInput) => {
     return executeMutation({ id, user: values }).then((res) => {
@@ -178,7 +194,11 @@ const DiversityEquityInclusionFormApi: React.FC = () => {
   }
 
   return data?.me ? (
-    <DiversityEquityInclusionForm user={data?.me} onUpdate={handleUpdateUser} />
+    <DiversityEquityInclusionForm
+      user={data?.me}
+      onUpdate={handleUpdateUser}
+      isMutating={mutationFetching}
+    />
   ) : null;
 };
 
