@@ -5,7 +5,7 @@ import fakeExperiences from "@common/fakeData/fakeExperiences";
 import { ProfilePage, ProfileForm } from "./ProfilePage";
 import { User } from "../../../api/generated";
 
-import NullDataGraphqlDecorator from "../../../../../.storybook/decorators/NullDataGraphqlDecorator";
+import MockGraphqlDecorator from "../../../../../.storybook/decorators/MockGraphqlDecorator";
 
 const fakeUserArray = fakeUsers(5);
 
@@ -14,14 +14,16 @@ export default {
   title: "Profile Form",
   args: {},
   decorators: [
-    NullDataGraphqlDecorator,
+    MockGraphqlDecorator,
   ],
   parameters: {
-    graphql: {
-      data: {
-        me: {
-          isProfileComplete: true,
-          jobLookingStatus: 'INACTIVE',
+    apiResponses: {
+      getMyStatus: {
+        data: {
+          me: {
+            isProfileComplete: true,
+            jobLookingStatus: 'INACTIVE',
+          }
         }
       }
     }
