@@ -16,6 +16,16 @@ export default {
   decorators: [
     NullDataGraphqlDecorator,
   ],
+  parameters: {
+    graphql: {
+      data: {
+        me: {
+          isProfileComplete: true,
+          jobLookingStatus: 'INACTIVE',
+        }
+      }
+    }
+  },
 } as Meta;
 
 const TemplateProfilePage: Story<User> = (args) => {
