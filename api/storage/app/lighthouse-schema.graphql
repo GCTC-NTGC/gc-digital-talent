@@ -121,6 +121,22 @@ input ClassificationFilterInput {
   level: Int!
 }
 
+enum ClassificationRole {
+  TECHNICIAN
+  ANALYST
+  TEAM_LEADER
+  TECHNICAL_ADVISOR
+  SENIOR_ADVISOR
+  MANAGER
+}
+
+type ClassificationRoles {
+  id: ID!
+  key: KeyString!
+  name: LocalizedString
+  level: Int
+}
+
 """
 e.g. Application Development, Quality Assurance, Enterprise Architecture, IT Project Management, etc.
 """
@@ -304,6 +320,7 @@ input CreateUserInput {
   communityExperiences: CommunityExperienceHasMany
   educationExperiences: EducationExperienceHasMany
   awardExperiences: AwardExperienceHasMany
+  expectedClassificationRoles: [ClassificationRole]
 }
 
 """A date string with format `Y-m-d`, e.g. `2011-05-23`."""

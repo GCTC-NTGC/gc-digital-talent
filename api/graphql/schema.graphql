@@ -306,6 +306,22 @@ enum SalaryRange {
     _100K_PLUS
 }
 
+enum ClassificationRole{
+    TECHNICIAN
+    ANALYST
+    TEAM_LEADER
+    TECHNICAL_ADVISOR
+    SENIOR_ADVISOR
+    MANAGER
+}
+
+type ClassificationRoles{
+    id: ID!
+    key: KeyString!
+    name: LocalizedString
+    level: Int
+}
+
 type Classification {
     id: ID!
     name: LocalizedString
@@ -659,6 +675,9 @@ input CreateUserInput {
     communityExperiences: CommunityExperienceHasMany
     educationExperiences: EducationExperienceHasMany
     awardExperiences: AwardExperienceHasMany
+
+    expectedClassificationRoles:[ClassificationRole] @rename(attribute: "role_name")
+
 }
 """
 When updating a User, all fields are optional

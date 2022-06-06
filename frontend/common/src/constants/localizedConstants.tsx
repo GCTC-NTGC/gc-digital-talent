@@ -314,6 +314,18 @@ export const Roles = defineMessages({
 export const getRole = (roleId: string | number): MessageDescriptor =>
   getOrThrowError(Roles, roleId, `Invalid role '${roleId}'`);
 
+export const ClassificationRoles = defineMessages({
+  [Role.Admin]: {
+    defaultMessage: "Administrator",
+    description: "The name of the Administrator user role.",
+  },
+});
+
+export const getClassificationRoles = (
+  roleId: string | number,
+): MessageDescriptor =>
+  getOrThrowError(ClassificationRoles, roleId, `Invalid role '${roleId}'`);
+
 export const awardedToMessages = defineMessages({
   [AwardedTo.Me]: {
     defaultMessage: "Me",
