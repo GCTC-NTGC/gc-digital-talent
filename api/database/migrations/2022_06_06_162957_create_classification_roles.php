@@ -25,7 +25,7 @@ class CreateClassificationRoles extends Migration
        Schema::create('classification_roles_user', function (Blueprint $table) {
             $table->uuid('id')->primary('id');
             $table->timestamps();
-            $table->uuid('classification_roles_id')->references('id')->on('classification_roles')->nullable(false);
+            $table->uuid('classification_role_id')->references('id')->on('classification_roles')->nullable(false);
             $table->uuid('user_id')->references('id')->on('users')->nullable(false);
         });
        DB::statement('ALTER TABLE classification_roles_user ALTER COLUMN id SET DEFAULT gen_random_uuid();');
