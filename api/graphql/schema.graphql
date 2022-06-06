@@ -676,7 +676,7 @@ input CreateUserInput {
     educationExperiences: EducationExperienceHasMany
     awardExperiences: AwardExperienceHasMany
 
-    expectedClassificationRoles:[ClassificationRole] @rename(attribute: "role_name")
+    classificationRoles: [ClassificationRole] @hasMany
 
 }
 """
