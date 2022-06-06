@@ -68,7 +68,7 @@
     "@typescript-eslint/eslint-plugin": "^5.27.0",
     "@typescript-eslint/parser": "^5.27.0",
     "babel-loader": "^8.2.5",
-    "babel-plugin-formatjs": "^10.3.20",
+    "babel-plugin-formatjs": "^10.3.24",
     "copy-webpack-plugin": "^11.0.0",
     "cross-env": "^7.0.3",
     "eslint": "^8.16.0",
