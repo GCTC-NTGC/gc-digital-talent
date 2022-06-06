@@ -3,6 +3,7 @@ import { commonMessages } from "@common/messages";
 import React, { useRef } from "react";
 import { useIntl } from "react-intl";
 import { useReactToPrint } from "react-to-print";
+import printStyles from "@common/constants/printStyles";
 import { Scalars, useGetUserProfileQuery } from "../../api/generated";
 import UserProfileDocument from "./UserProfileDocument";
 
@@ -23,22 +24,7 @@ export const UserProfilePrintButton: React.FunctionComponent<{
   const componentRef = useRef(null);
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
-    pageStyle: `
-      @page {
-        size: letter portrait;
-      }
-
-      @media print {
-
-        .page-section {
-          margin-bottom: 2rem;
-          display: block;
-          page-break-after: auto;
-          page-break-inside: avoid;
-          -webkit-region-break-inside: avoid;
-        }
-
-      }`,
+    pageStyle: printStyles,
     documentTitle: "Candidate Profile",
   });
 
