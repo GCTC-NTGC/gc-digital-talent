@@ -8,7 +8,11 @@ const Footer: React.FunctionComponent<{
   const intl = useIntl();
   const links = [
     {
-      route: "mailto:talent.cloud-nuage.de.talents@tbs-sct.gc.ca",
+      route: "mailto:GCTalentGC@tbs-sct.gc.ca",
+      title: intl.formatMessage({
+        defaultMessage: "Submit feedback to GC Talent Cloud via email.",
+        description: "Title for the feedback link in the Footer.",
+      }),
       label: intl.formatMessage({
         defaultMessage: "Feedback",
         description: "Label for the feedback link in the Footer.",
