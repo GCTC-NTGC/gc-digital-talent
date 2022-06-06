@@ -4,6 +4,8 @@ import React, { useRef } from "react";
 import { useIntl } from "react-intl";
 import { useReactToPrint } from "react-to-print";
 import printStyles from "@common/constants/printStyles";
+import NotFound from "@common/components/NotFound";
+import Pending from "@common/components/Pending";
 import { Scalars, useGetUserProfileQuery } from "../../api/generated";
 import UserProfileDocument from "./UserProfileDocument";
 
@@ -39,25 +41,32 @@ export const UserProfilePrintButton: React.FunctionComponent<{
       </p>
     );
 
-  return userData?.applicant ? (
-    <>
-      <Button
-        mode="outline"
-        color="primary"
-        type="button"
-        onClick={handlePrint}
-      >
-        {children}
-      </Button>
-      <UserProfileDocument applicant={userData.applicant} ref={componentRef} />
-    </>
-  ) : (
-    <p>
-      {intl.formatMessage({
-        defaultMessage: "No candidate data",
-        description: "No candidate data was found",
-      })}
-    </p>
+  return (
+    <Pending fetching={fetching} error={error}>
+      {userData?.applicant ? (
+        <>
+          <Button
+            mode="outline"
+            color="primary"
+            type="button"
+            onClick={handlePrint}
+          >
+            {children}
+          </Button>
+          <UserProfileDocument
+            applicant={userData.applicant}
+            ref={componentRef}
+          />
+        </>
+      ) : (
+        <NotFound headingMessage="Not found">
+          {intl.formatMessage({
+            defaultMessage: "No candidate data.",
+            description: "Message to display when no candidate data was found.",
+          })}
+        </NotFound>
+      )}
+    </Pending>
   );
 };
 
