@@ -24,7 +24,6 @@ const Breadcrumbs: React.FunctionComponent<BreadcrumbsProps> = ({ links }) => (
             data-h2-display="b(flex)"
             data-h2-align-items="b(center)"
             href={link.href}
-            title={link.title}
             key={link.title}
           >
             {link.icon || ""} {link.title}
