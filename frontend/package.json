@@ -19,6 +19,6 @@
     "@testing-library/cypress": "^8.0.3",
     "cypress": "^9.6.1",
     "cypress-multi-reporters": "^1.6.0",
-    "cypress-terminal-report": "^3.5.2"
+    "cypress-terminal-report": "^4.0.1"
   }
 }
