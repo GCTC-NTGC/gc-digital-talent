@@ -11,6 +11,8 @@ import {
 } from "../../api/generated";
 import type { UpdateUserAsUserMutation } from "../../api/generated";
 
+import EquityOptions from "./EquityOptions";
+
 export type DiversityInclusionUpdateHandler = (
   id: string,
   data: UpdateUserAsUserInput,
@@ -27,6 +29,7 @@ export const DiversityEquityInclusionForm: React.FC<
   DiversityEquityInclusionFormProps
 > = ({ user, onUpdate }) => {
   const intl = useIntl();
+  const hasItems = Object.keys;
   return (
     <ProfileFormWrapper
       description={intl.formatMessage({
@@ -133,7 +136,14 @@ export const DiversityEquityInclusionForm: React.FC<
           })}
         </li>
       </ul>
-      <p>{JSON.stringify(user)}</p>
+      <EquityOptions
+        isIndigenous={user.isIndigenous}
+        isVisibleMinority={user.isVisibleMinority}
+        isWoman={user.isWoman}
+        hasDisability={user.hasDisability}
+        onAdd={(key) => console.log(key)}
+        onRemove={(key) => console.log(key)}
+      />
     </ProfileFormWrapper>
   );
 };
