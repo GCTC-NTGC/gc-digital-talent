@@ -153,6 +153,7 @@ const Home: React.FunctionComponent = () => {
             </div>
             <div
               className="program__content"
+              data-h2-bg-color="b(white)"
               data-h2-padding="m(right-left, m) l(right-left, xl)"
             >
               <Heading
@@ -185,10 +186,7 @@ const Home: React.FunctionComponent = () => {
                   description: "Third paragraph about the program",
                 })}
               </p>
-              <div
-                data-h2-visibility="b(invisible) m(visible)"
-                data-h2-margin="b(top, l)"
-              >
+              <div data-h2-margin="b(top, l)">
                 <CTAButtons
                   onClickApply={() => setApplyDialogOpen(true)}
                   onClickLearn={() => setLearnDialogOpen(true)}
