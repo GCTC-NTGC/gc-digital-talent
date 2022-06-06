@@ -11,16 +11,16 @@ import DialogActions from "./DialogActions";
 
 // Question: Is this the correct URL?
 const statsCanLink = (...chunks: string[]) => (
-  <a href="https://www23.statcan.gc.ca/imdb/p3Var.pl?Function=DEC&Id=410445">
+  <a href="https://www23.statcan.gc.ca/imdb/p3Var.pl?Function=DECI&Id=1324435">
     {chunks}
   </a>
 );
 
 interface FormValues {
-  isWoman: boolean;
+  isIndigenous: boolean;
 }
 
-const WomanDialogFooter: React.FC<EquityDialogFooterProps> = ({
+const IndigenousDialogFooter: React.FC<EquityDialogFooterProps> = ({
   onSave,
   isAdded,
   children,
@@ -28,13 +28,13 @@ const WomanDialogFooter: React.FC<EquityDialogFooterProps> = ({
   const intl = useIntl();
   const methods = useForm<FormValues>({
     defaultValues: {
-      isWoman: isAdded,
+      isIndigenous: isAdded,
     },
   });
   const { handleSubmit } = methods;
 
   const submitHandler: SubmitHandler<FormValues> = async (data: FormValues) => {
-    onSave(data.isWoman);
+    onSave(data.isIndigenous);
   };
 
   return (
@@ -48,12 +48,12 @@ const WomanDialogFooter: React.FC<EquityDialogFooterProps> = ({
       </p>
       <form onSubmit={handleSubmit(submitHandler)}>
         <Checkbox
-          id="isWoman"
-          name="isWoman"
+          id="isIndigenous"
+          name="isIndigenous"
           label={intl.formatMessage({
-            defaultMessage: '"I identify as a woman."',
+            defaultMessage: '"I am Indigenous."',
             description:
-              "Label for the checkbox to identify as a woman under employment equity",
+              "Label for the checkbox to identify as indigenous under employment equity",
           })}
         />
         {children}
@@ -62,7 +62,7 @@ const WomanDialogFooter: React.FC<EquityDialogFooterProps> = ({
   );
 };
 
-const WomanDialog: React.FC<EquityDialogProps> = ({
+const IndigenousDialog: React.FC<EquityDialogProps> = ({
   isOpen,
   onDismiss,
   isAdded,
@@ -76,21 +76,21 @@ const WomanDialog: React.FC<EquityDialogProps> = ({
       onDismiss={onDismiss}
       color="ts-primary"
       title={intl.formatMessage({
-        defaultMessage: "Women (She/Her)",
+        defaultMessage: "Indigenous peoples",
         description:
-          "Title for equity dialog to add/remove women category to profile",
+          "Title for equity dialog to add/remove indigenous category to profile",
       })}
       footer={
-        <WomanDialogFooter isAdded={isAdded} onSave={onSave}>
+        <IndigenousDialogFooter isAdded={isAdded} onSave={onSave}>
           <DialogActions onDismiss={onDismiss} />
-        </WomanDialogFooter>
+        </IndigenousDialogFooter>
       }
     >
       <p>
         {intl.formatMessage({
           defaultMessage:
-            "Persons whose reported gender is female whether in whole or in part. It includes cisgender (cis) and transgender (trans) women.",
-          description: "Definition of accepted ways to identify as a women",
+            "Indigenous identity refers to whether the person identified with the Indigenous peoples of Canada. This includes those who identify as First Nations (North American Indian), Métis and/or Inuk (Inuit), and/or those who report being Registered or Treaty Indians (that is, registered under the Indian Act of Canada), and/or those who have membership in a First Nation or Indian band. Aboriginal peoples of Canada (referred to here as Indigenous peoples) are defined in the Constitution Act, 1982, Section 35 (2) as including the Indian, Inuit and Métis peoples of Canada.",
+          description: "Definition of accepted ways to identify as indigenous.",
         })}
       </p>
       <p>
@@ -98,7 +98,7 @@ const WomanDialog: React.FC<EquityDialogProps> = ({
           {
             defaultMessage: " As defined by <link>Statistics Canada</link>.",
             description:
-              "Text directing users to the statistics Canada definition of gender.",
+              "Text directing users to the statistics Canada definition of indigenous peoples.",
           },
           {
             link: statsCanLink,
@@ -109,4 +109,4 @@ const WomanDialog: React.FC<EquityDialogProps> = ({
   );
 };
 
-export default WomanDialog;
+export default IndigenousDialog;

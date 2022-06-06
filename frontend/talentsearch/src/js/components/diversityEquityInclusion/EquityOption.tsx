@@ -1,17 +1,18 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { MinusIcon, PlusIcon } from "@heroicons/react/outline";
-import Button from "@common/components/Button";
+
+import { Button } from "@common/components";
+
+const hiddenText = (...chunks: string[]) => (
+  <span data-h2-visibility="b(invisible)">{chunks}</span>
+);
 
 interface EquityOptionProps {
   isAdded: boolean;
   title: string;
   onOpen: () => void;
 }
-
-const hiddenText = (...chunks: string[]) => (
-  <span data-h2-visibility="b(invisible)">{chunks}</span>
-);
 
 const EquityOption: React.FC<EquityOptionProps> = ({
   isAdded,

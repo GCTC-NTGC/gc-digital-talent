@@ -1,4 +1,7 @@
-import type { UpdateUserAsUserMutation } from "../../api/generated";
+import type {
+  UpdateUserAsUserInput,
+  UpdateUserAsUserMutation,
+} from "../../api/generated";
 
 export type UserMutationPromise = Promise<
   UpdateUserAsUserMutation["updateUserAsUser"]
@@ -21,3 +24,8 @@ export type EquityDialogFooterProps = Pick<
   EquityDialogProps,
   "isAdded" | "onSave"
 >;
+
+export type DiversityInclusionUpdateHandler = (
+  id: string,
+  data: UpdateUserAsUserInput,
+) => Promise<UpdateUserAsUserMutation["updateUserAsUser"]>;

@@ -1,23 +1,20 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import type { UpdateUserAsUserInput, User } from "@common/api/generated";
 import { commonMessages } from "@common/messages";
+import type { UpdateUserAsUserInput, User } from "@common/api/generated";
 
 import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
+
 import {
   useGetMyDiversityInfoQuery,
   useUpdateMyDiversityInfoMutation,
 } from "../../api/generated";
-import type { UpdateUserAsUserMutation } from "../../api/generated";
 
 import EquityOptions from "./EquityOptions";
-import { EquityKeys } from "./types";
+import type { DiversityInclusionUpdateHandler, EquityKeys } from "./types";
 
-export type DiversityInclusionUpdateHandler = (
-  id: string,
-  data: UpdateUserAsUserInput,
-) => Promise<UpdateUserAsUserMutation["updateUserAsUser"]>;
+const boldText = (...chunks: string[]) => <strong>{chunks}</strong>;
 
 interface DiversityEquityInclusionFormProps {
   user: User;
@@ -25,22 +22,14 @@ interface DiversityEquityInclusionFormProps {
   onUpdate: DiversityInclusionUpdateHandler;
 }
 
-const boldText = (...chunks: string[]) => <strong>{chunks}</strong>;
-
 export const DiversityEquityInclusionForm: React.FC<
   DiversityEquityInclusionFormProps
 > = ({ user, onUpdate, isMutating }) => {
   const intl = useIntl();
 
-  const handleAdd = (key: EquityKeys) => {
+  const handleUpdate = (key: EquityKeys, value: boolean) => {
     return onUpdate(user.id, {
-      [key]: true,
-    });
-  };
-
-  const handleRemove = (key: EquityKeys) => {
-    return onUpdate(user.id, {
-      [key]: false,
+      [key]: value,
     });
   };
 
@@ -156,8 +145,8 @@ export const DiversityEquityInclusionForm: React.FC<
         isVisibleMinority={user.isVisibleMinority}
         isWoman={user.isWoman}
         hasDisability={user.hasDisability}
-        onAdd={handleAdd}
-        onRemove={handleRemove}
+        onAdd={(key) => handleUpdate(key, true)}
+        onRemove={(key) => handleUpdate(key, false)}
       />
     </ProfileFormWrapper>
   );
@@ -180,6 +169,9 @@ const DiversityEquityInclusionFormApi: React.FC = () => {
     });
   };
 
+  /**
+   * TO DO: Replace this logic with <Pending /> once merged
+   */
   if (fetching) {
     return <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>;
   }

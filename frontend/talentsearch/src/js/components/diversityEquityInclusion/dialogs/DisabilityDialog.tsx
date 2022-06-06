@@ -10,17 +10,17 @@ import type { EquityDialogProps, EquityDialogFooterProps } from "../types";
 import DialogActions from "./DialogActions";
 
 // Question: Is this the correct URL?
-const statsCanLink = (...chunks: string[]) => (
-  <a href="https://www23.statcan.gc.ca/imdb/p3Var.pl?Function=DEC&Id=410445">
+const acaLink = (...chunks: string[]) => (
+  <a href="https://www.canada.ca/en/employment-social-development/programs/accessible-people-disabilities/act-summary.html#h2.02">
     {chunks}
   </a>
 );
 
 interface FormValues {
-  isWoman: boolean;
+  hasDisability: boolean;
 }
 
-const WomanDialogFooter: React.FC<EquityDialogFooterProps> = ({
+const DisabilityDialogFooter: React.FC<EquityDialogFooterProps> = ({
   onSave,
   isAdded,
   children,
@@ -28,13 +28,13 @@ const WomanDialogFooter: React.FC<EquityDialogFooterProps> = ({
   const intl = useIntl();
   const methods = useForm<FormValues>({
     defaultValues: {
-      isWoman: isAdded,
+      hasDisability: isAdded,
     },
   });
   const { handleSubmit } = methods;
 
   const submitHandler: SubmitHandler<FormValues> = async (data: FormValues) => {
-    onSave(data.isWoman);
+    onSave(data.hasDisability);
   };
 
   return (
@@ -48,12 +48,12 @@ const WomanDialogFooter: React.FC<EquityDialogFooterProps> = ({
       </p>
       <form onSubmit={handleSubmit(submitHandler)}>
         <Checkbox
-          id="isWoman"
-          name="isWoman"
+          id="hasDisability"
+          name="hasDisability"
           label={intl.formatMessage({
-            defaultMessage: '"I identify as a woman."',
+            defaultMessage: '"I identify as a person with a disability."',
             description:
-              "Label for the checkbox to identify as a woman under employment equity",
+              "Label for the checkbox to identify as a person with a disability under employment equity",
           })}
         />
         {children}
@@ -62,7 +62,7 @@ const WomanDialogFooter: React.FC<EquityDialogFooterProps> = ({
   );
 };
 
-const WomanDialog: React.FC<EquityDialogProps> = ({
+const DisabilityDialog: React.FC<EquityDialogProps> = ({
   isOpen,
   onDismiss,
   isAdded,
@@ -76,32 +76,33 @@ const WomanDialog: React.FC<EquityDialogProps> = ({
       onDismiss={onDismiss}
       color="ts-primary"
       title={intl.formatMessage({
-        defaultMessage: "Women (She/Her)",
+        defaultMessage: "Persons with disabilities ",
         description:
-          "Title for equity dialog to add/remove women category to profile",
+          "Title for equity dialog to add/remove having a disability category to profile",
       })}
       footer={
-        <WomanDialogFooter isAdded={isAdded} onSave={onSave}>
+        <DisabilityDialogFooter isAdded={isAdded} onSave={onSave}>
           <DialogActions onDismiss={onDismiss} />
-        </WomanDialogFooter>
+        </DisabilityDialogFooter>
       }
     >
       <p>
         {intl.formatMessage({
           defaultMessage:
-            "Persons whose reported gender is female whether in whole or in part. It includes cisgender (cis) and transgender (trans) women.",
-          description: "Definition of accepted ways to identify as a women",
+            "Persons with any impairment, including a physical, mental, intellectual, cognitive, learning, communication or sensory impairment — or a functional limitation — whether permanent, temporary or episodic in nature, or evident or not, that, in interaction with a barrier, hinders a person’s full and equal participation in society.",
+          description:
+            "Definition of accepted ways to identify as person with a disability.",
         })}
       </p>
       <p>
         {intl.formatMessage(
           {
-            defaultMessage: " As defined by <link>Statistics Canada</link>.",
+            defaultMessage: "As defined by <link>Accessible Canada Act</link>.",
             description:
-              "Text directing users to the statistics Canada definition of gender.",
+              "Text directing users to the Accessible Canada Act definition of person with a disability.",
           },
           {
-            link: statsCanLink,
+            link: acaLink,
           },
         )}
       </p>
@@ -109,4 +110,4 @@ const WomanDialog: React.FC<EquityDialogProps> = ({
   );
 };
 
-export default WomanDialog;
+export default DisabilityDialog;

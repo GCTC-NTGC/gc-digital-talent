@@ -1,13 +1,19 @@
 import React from "react";
-import type { Maybe } from "@common/api/generated";
 import { useIntl } from "react-intl";
 import { toast } from "react-toastify";
 
-import Spinner from "../Spinner";
+import type { Maybe } from "@common/api/generated";
+
 import profileMessages from "../profile/profileMessages";
+import Spinner from "../Spinner";
 import EquityOption from "./EquityOption";
-import WomanDialog from "./dialogs/WomanDialog";
 import type { EquityKeys, UserMutationPromise } from "./types";
+import {
+  DisabilityDialog,
+  IndigenousDialog,
+  VisibleMinorityDialog,
+  WomanDialog,
+} from "./dialogs";
 
 interface EquityOptionsProps {
   hasDisability?: Maybe<boolean>;
@@ -31,6 +37,10 @@ const EquityOptions: React.FC<EquityOptionsProps> = ({
   isDisabled,
 }) => {
   const intl = useIntl();
+  const [hasDisabilityOpen, setDisabilityOpen] = React.useState<boolean>(false);
+  const [isIndigenousOpen, setIndigenousOpen] = React.useState<boolean>(false);
+  const [isVisibleMinorityOpen, setVisibleMinorityOpen] =
+    React.useState<boolean>(false);
   const [isWomanOpen, setWomanOpen] = React.useState<boolean>(false);
 
   const resolvedDisability = resolveMaybe(hasDisability);
@@ -45,10 +55,10 @@ const EquityOptions: React.FC<EquityOptionsProps> = ({
     resolvedWoman;
 
   const itemsAvailable =
-    !!resolvedDisability ||
-    !!resolvedIndigenous ||
-    !!resolvedMinority ||
-    !!resolvedWoman;
+    !resolvedDisability ||
+    !resolvedIndigenous ||
+    !resolvedMinority ||
+    !resolvedWoman;
 
   const handleOptionSave = (key: EquityKeys, value: boolean) => {
     const handler = value ? onAdd : onRemove;
@@ -82,7 +92,7 @@ const EquityOptions: React.FC<EquityOptionsProps> = ({
                 {resolvedDisability && (
                   <EquityOption
                     isAdded
-                    onOpen={() => {}}
+                    onOpen={() => setDisabilityOpen(true)}
                     title={intl.formatMessage({
                       defaultMessage:
                         '"I Identify as a person with a disability"',
@@ -94,7 +104,7 @@ const EquityOptions: React.FC<EquityOptionsProps> = ({
                 {resolvedIndigenous && (
                   <EquityOption
                     isAdded
-                    onOpen={() => {}}
+                    onOpen={() => setIndigenousOpen(true)}
                     title={intl.formatMessage({
                       defaultMessage: '"I am Indigenous"',
                       description:
@@ -105,7 +115,7 @@ const EquityOptions: React.FC<EquityOptionsProps> = ({
                 {resolvedMinority && (
                   <EquityOption
                     isAdded
-                    onOpen={() => {}}
+                    onOpen={() => setVisibleMinorityOpen(true)}
                     title={intl.formatMessage({
                       defaultMessage:
                         '"I Identify as a member of a visible minority"',
@@ -151,12 +161,12 @@ const EquityOptions: React.FC<EquityOptionsProps> = ({
                   "Heading for employment equity categories available to be added to user profile.",
               })}
             </h3>
-            {itemsAvailable ? (
+            {itemsAvailable || !hasItems ? (
               <div data-h2-display="b(flex)" data-h2-flex-direction="b(column)">
                 {!hasDisability && (
                   <EquityOption
                     isAdded={false}
-                    onOpen={() => {}}
+                    onOpen={() => setDisabilityOpen(true)}
                     title={intl.formatMessage({
                       defaultMessage: "Persons with disabilities",
                       description:
@@ -167,7 +177,7 @@ const EquityOptions: React.FC<EquityOptionsProps> = ({
                 {!resolvedIndigenous && (
                   <EquityOption
                     isAdded={false}
-                    onOpen={() => {}}
+                    onOpen={() => setIndigenousOpen(true)}
                     title={intl.formatMessage({
                       defaultMessage: "Indigenous Identity",
                       description:
@@ -178,7 +188,7 @@ const EquityOptions: React.FC<EquityOptionsProps> = ({
                 {!resolvedMinority && (
                   <EquityOption
                     isAdded={false}
-                    onOpen={() => {}}
+                    onOpen={() => setVisibleMinorityOpen(true)}
                     title={intl.formatMessage({
                       defaultMessage: "Member of visible minorities",
                       description:
@@ -236,6 +246,33 @@ const EquityOptions: React.FC<EquityOptionsProps> = ({
           </div>
         )}
       </div>
+      <DisabilityDialog
+        isAdded={resolvedDisability}
+        isOpen={hasDisabilityOpen}
+        onDismiss={() => setDisabilityOpen(false)}
+        onSave={(newValue: boolean) => {
+          handleOptionSave("hasDisability", newValue);
+          setDisabilityOpen(false);
+        }}
+      />
+      <IndigenousDialog
+        isAdded={resolvedIndigenous}
+        isOpen={isIndigenousOpen}
+        onDismiss={() => setIndigenousOpen(false)}
+        onSave={(newValue: boolean) => {
+          handleOptionSave("isIndigenous", newValue);
+          setIndigenousOpen(false);
+        }}
+      />
+      <VisibleMinorityDialog
+        isAdded={resolvedMinority}
+        isOpen={isVisibleMinorityOpen}
+        onDismiss={() => setVisibleMinorityOpen(false)}
+        onSave={(newValue: boolean) => {
+          handleOptionSave("isVisibleMinority", newValue);
+          setVisibleMinorityOpen(false);
+        }}
+      />
       <WomanDialog
         isAdded={resolvedWoman}
         isOpen={isWomanOpen}

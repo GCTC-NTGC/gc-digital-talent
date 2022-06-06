@@ -11,16 +11,16 @@ import DialogActions from "./DialogActions";
 
 // Question: Is this the correct URL?
 const statsCanLink = (...chunks: string[]) => (
-  <a href="https://www23.statcan.gc.ca/imdb/p3Var.pl?Function=DEC&Id=410445">
+  <a href="https://www23.statcan.gc.ca/imdb/p3Var.pl?Function=DEC&Id=45152">
     {chunks}
   </a>
 );
 
 interface FormValues {
-  isWoman: boolean;
+  isVisibleMinority: boolean;
 }
 
-const WomanDialogFooter: React.FC<EquityDialogFooterProps> = ({
+const VisibleMinorityDialogFooter: React.FC<EquityDialogFooterProps> = ({
   onSave,
   isAdded,
   children,
@@ -28,13 +28,13 @@ const WomanDialogFooter: React.FC<EquityDialogFooterProps> = ({
   const intl = useIntl();
   const methods = useForm<FormValues>({
     defaultValues: {
-      isWoman: isAdded,
+      isVisibleMinority: isAdded,
     },
   });
   const { handleSubmit } = methods;
 
   const submitHandler: SubmitHandler<FormValues> = async (data: FormValues) => {
-    onSave(data.isWoman);
+    onSave(data.isVisibleMinority);
   };
 
   return (
@@ -48,12 +48,13 @@ const WomanDialogFooter: React.FC<EquityDialogFooterProps> = ({
       </p>
       <form onSubmit={handleSubmit(submitHandler)}>
         <Checkbox
-          id="isWoman"
-          name="isWoman"
+          id="isVisibleMinority"
+          name="isVisibleMinority"
           label={intl.formatMessage({
-            defaultMessage: '"I identify as a woman."',
+            defaultMessage:
+              '"I identify as part of one or more visible minority groups."',
             description:
-              "Label for the checkbox to identify as a woman under employment equity",
+              "Label for the checkbox to identify as a visible minority under employment equity",
           })}
         />
         {children}
@@ -62,7 +63,7 @@ const WomanDialogFooter: React.FC<EquityDialogFooterProps> = ({
   );
 };
 
-const WomanDialog: React.FC<EquityDialogProps> = ({
+const VisibleMinorityDialog: React.FC<EquityDialogProps> = ({
   isOpen,
   onDismiss,
   isAdded,
@@ -76,21 +77,22 @@ const WomanDialog: React.FC<EquityDialogProps> = ({
       onDismiss={onDismiss}
       color="ts-primary"
       title={intl.formatMessage({
-        defaultMessage: "Women (She/Her)",
+        defaultMessage: "Members of visible minorities",
         description:
-          "Title for equity dialog to add/remove women category to profile",
+          "Title for equity dialog to add/remove visible minority category to profile",
       })}
       footer={
-        <WomanDialogFooter isAdded={isAdded} onSave={onSave}>
+        <VisibleMinorityDialogFooter isAdded={isAdded} onSave={onSave}>
           <DialogActions onDismiss={onDismiss} />
-        </WomanDialogFooter>
+        </VisibleMinorityDialogFooter>
       }
     >
       <p>
         {intl.formatMessage({
           defaultMessage:
-            "Persons whose reported gender is female whether in whole or in part. It includes cisgender (cis) and transgender (trans) women.",
-          description: "Definition of accepted ways to identify as a women",
+            "Visible minority persons, other than Indigenous persons, who are non-Caucasian in race or non-white in colour. Examples of visible minority groups are: South Asian, Chinese, Black, Filipino, Arab, Latin American, Southeast Asian, West Asian, Korean and Japanese.",
+          description:
+            "Definition of accepted ways to identify as a visible minority",
         })}
       </p>
       <p>
@@ -98,7 +100,7 @@ const WomanDialog: React.FC<EquityDialogProps> = ({
           {
             defaultMessage: " As defined by <link>Statistics Canada</link>.",
             description:
-              "Text directing users to the statistics Canada definition of gender.",
+              "Text directing users to the statistics Canada definition of visible minorities.",
           },
           {
             link: statsCanLink,
@@ -109,4 +111,4 @@ const WomanDialog: React.FC<EquityDialogProps> = ({
   );
 };
 
-export default WomanDialog;
+export default VisibleMinorityDialog;
