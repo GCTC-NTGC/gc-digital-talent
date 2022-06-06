@@ -518,6 +518,24 @@ class PoolCandidateTest extends TestCase
         'countPoolCandidates' => 3
       ]
     ]);
+    // Assert query above with empty selection in equity object will not break the code and matches the returned candidate count
+    $this->graphQL(/** @lang Graphql */ '
+      query countPoolCandidates($where: PoolCandidateFilterInput) {
+        countPoolCandidates(where: $where)
+      }
+    ', [
+      'where' => [
+        'equity' => [
+          'isIndigenous' => true,
+          'isWoman' => true,
+          'isVisibleMinority' => true,
+          ]
+      ]
+    ])->assertJson([
+      'data' => [
+        'countPoolCandidates' => 3
+      ]
+    ]);
     // Assert query with all equity filters true will return correct candidate count
     $this->graphQL(/** @lang Graphql */ '
       query countPoolCandidates($where: PoolCandidateFilterInput) {
@@ -549,6 +567,42 @@ class PoolCandidateTest extends TestCase
           'isWoman' => false,
           'isVisibleMinority' => false,
           'hasDisability' => false
+        ],
+      ]
+    ])->assertJson([
+      'data' => [
+        'countPoolCandidates' => 9
+      ]
+    ]);
+    // Assert query with all EmploymentEquity filters set to false will return all candidates
+    $this->graphQL(/** @lang Graphql */ '
+      query countPoolCandidates($where: PoolCandidateFilterInput) {
+        countPoolCandidates(where: $where)
+      }
+    ', [
+      'where' => [
+        'equity' => [
+          'isIndigenous' => false,
+          'isWoman' => false,
+          'isVisibleMinority' => false,
+          'hasDisability' => false
+        ],
+      ]
+    ])->assertJson([
+      'data' => [
+        'countPoolCandidates' => 9
+      ]
+    ]);
+    // Assert query with all EmploymentEquity filters set to null or not present will return all candidates same as above
+    $this->graphQL(/** @lang Graphql */ '
+      query countPoolCandidates($where: PoolCandidateFilterInput) {
+        countPoolCandidates(where: $where)
+      }
+    ', [
+      'where' => [
+        'equity' => [
+          'isIndigenous' => null,
+          'isWoman' => null,
         ],
       ]
     ])->assertJson([

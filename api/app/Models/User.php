@@ -410,6 +410,56 @@ RAWSQL2;
         }
         return $query;
     }
+
+    public function filterByEquity(Builder $query, array $equity): Builder
+    {
+        if (empty($equity)) {
+            return $query;
+        }
+
+        // OR filter - first find out how many booleans are true, create array of all true equity bools
+        // equity object has 4 keys with associated bools
+        $equityVars = [];
+        if (array_key_exists('is_woman', $equity)) {
+            if ($equity["is_woman"]) {
+                array_push($equityVars, "is_woman");
+            }
+        };
+        if (array_key_exists('has_disability', $equity)) {
+            if ($equity["has_disability"]) {
+                array_push($equityVars, "has_disability");
+            }
+        };
+        if (array_key_exists('is_indigenous', $equity)) {
+            if ($equity["is_indigenous"]) {
+                array_push($equityVars, "is_indigenous");
+            }
+        };
+        if (array_key_exists('is_visible_minority', $equity)) {
+            if ($equity["is_visible_minority"]) {
+                array_push($equityVars, "is_visible_minority");
+            }
+        };
+
+        // then return queries depending on above array count, special query syntax needed for multiple ORs to ensure proper SQL query formed
+        if (count($equityVars) == 0) {
+            return $query;
+        }
+        if (count($equityVars) >= 1) {
+            $query->where(function($query) use ($equityVars) {
+                foreach($equityVars as $index => $equityInstance) {
+                    if ($index === 0) {
+                        // First iteration must use where instead of orWhere, as seen in filterWorkRegions
+                        $query->where($equityVars[$index], true);
+                    } else {
+                        $query->orWhere($equityVars[$index], true);
+                    }
+                }
+            });
+            return $query;
+        }
+    }
+
     public function scopeIsGovEmployee(Builder $query, bool $isGovEmployee): Builder
     {
         if ($isGovEmployee) {

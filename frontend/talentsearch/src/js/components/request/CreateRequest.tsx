@@ -14,7 +14,7 @@ import {
   removeFromSessionStorage,
   setInSessionStorage,
 } from "@common/helpers/storageUtils";
-import { EquityObject } from "@common/api/generated";
+import { EquitySelections } from "@common/api/generated";
 import { useTalentSearchRoutes } from "../../talentSearchRoutes";
 import {
   Department,
@@ -46,12 +46,11 @@ type FormValues = {
     cmoAssets?: {
       sync?: Array<Maybe<CmoAsset["id"]>>;
     };
-    // equity?: EquityObject["hasDisability"];
     hasDiploma?: PoolCandidateFilter["hasDiploma"];
-    hasDisability?: EquityObject["hasDisability"];
-    isIndigenous?: EquityObject["isIndigenous"];
-    isVisibleMinority?: EquityObject["isVisibleMinority"];
-    isWoman?: EquityObject["isWoman"];
+    hasDisability?: EquitySelections["hasDisability"];
+    isIndigenous?: EquitySelections["isIndigenous"];
+    isVisibleMinority?: EquitySelections["isVisibleMinority"];
+    isWoman?: EquitySelections["isWoman"];
     languageAbility?: PoolCandidateFilter["languageAbility"];
     operationalRequirements?: Array<Maybe<OperationalRequirement>>;
     pools?: {

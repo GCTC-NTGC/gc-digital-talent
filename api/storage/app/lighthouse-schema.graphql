@@ -214,7 +214,7 @@ input CreatePoolCandidateFilterInput {
   classifications: ClassificationBelongsToMany
   cmoAssets: CmoAssetBelongsToMany
   hasDiploma: Boolean
-  equity: EquityObjectInput
+  equity: EquitySelectionsInput
   languageAbility: LanguageAbility
   operationalRequirements: [OperationalRequirement]
   workRegions: [WorkRegion]
@@ -374,14 +374,14 @@ enum EducationType {
 """A RFC 5321 compliant email."""
 scalar Email
 
-type EquityObject {
+type EquitySelections {
   isWoman: Boolean
   hasDisability: Boolean
   isIndigenous: Boolean
   isVisibleMinority: Boolean
 }
 
-input EquityObjectInput {
+input EquitySelectionsInput {
   isWoman: Boolean
   hasDisability: Boolean
   isIndigenous: Boolean
@@ -687,7 +687,7 @@ type PoolCandidateFilter {
   classifications: [Classification]
   cmoAssets: [CmoAsset]
   hasDiploma: Boolean
-  equity: EquityObject
+  equity: EquitySelections
   languageAbility: LanguageAbility
   operationalRequirements: [OperationalRequirement]
   workRegions: [WorkRegion]
@@ -702,7 +702,7 @@ input PoolCandidateFilterInput {
   classifications: [ClassificationFilterInput]
   cmoAssets: [KeyFilterInput]
   hasDiploma: Boolean
-  equity: EquityObjectInput
+  equity: EquitySelectionsInput
   languageAbility: LanguageAbility
   operationalRequirements: [OperationalRequirement]
   workRegions: [WorkRegion]
@@ -1161,7 +1161,7 @@ input UserFilterAndOrderInput {
   expectedClassifications: [ClassificationFilterInput]
   operationalRequirements: [OperationalRequirement]
   locationPreferences: [WorkRegion]
-  equity: EquityObjectInput
+  equity: EquitySelectionsInput
   hasDiploma: Boolean
   wouldAcceptTemporary: Boolean
   jobLookingStatus: [JobLookingStatus]
