@@ -1,18 +1,17 @@
 import React, { useMemo } from "react";
 import { IntlShape, useIntl } from "react-intl";
 import { getLocale } from "@common/helpers/localize";
-import commonMessages from "@common/messages/commonMessages";
 import { useLocation } from "@common/helpers/router";
 import { notEmpty } from "@common/helpers/util";
 import { FromArray } from "@common/types/utilityTypes";
 import { getSkillCategory } from "@common/constants/localizedConstants";
 import { SkillCategory } from "@common/api/generated";
+import Pending from "@common/components/Pending";
 import {
   AllSkillFamiliesQuery,
   useAllSkillFamiliesQuery,
 } from "../../api/generated";
 import Table, { ColumnsOf, tableEditButtonAccessor } from "../Table";
-import DashboardContentContainer from "../DashboardContentContainer";
 
 type Data = NonNullable<FromArray<AllSkillFamiliesQuery["skillFamilies"]>>;
 
@@ -82,31 +81,16 @@ export const SkillFamilyTable: React.FC<
 };
 
 export const SkillFamilyTableApi: React.FunctionComponent = () => {
-  const intl = useIntl();
   const [result] = useAllSkillFamiliesQuery();
   const { data, fetching, error } = result;
   const { pathname } = useLocation();
 
-  if (fetching)
-    return (
-      <DashboardContentContainer>
-        <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>
-      </DashboardContentContainer>
-    );
-  if (error)
-    return (
-      <DashboardContentContainer>
-        <p>
-          {intl.formatMessage(commonMessages.loadingError)}
-          {error.message}
-        </p>
-      </DashboardContentContainer>
-    );
-
   return (
-    <SkillFamilyTable
-      skillFamilies={data?.skillFamilies ?? []}
-      editUrlRoot={pathname}
-    />
+    <Pending fetching={fetching} error={error}>
+      <SkillFamilyTable
+        skillFamilies={data?.skillFamilies ?? []}
+        editUrlRoot={pathname}
+      />
+    </Pending>
   );
 };

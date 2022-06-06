@@ -7,6 +7,8 @@ import { enumToOptions } from "@common/helpers/formUtils";
 import { navigate } from "@common/helpers/router";
 import { toast } from "react-toastify";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
+import Pending from "@common/components/Pending";
+import NotFound from "@common/components/NotFound";
 import { useApplicantProfileRoutes } from "../../applicantProfileRoutes";
 import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
 import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
@@ -221,23 +223,23 @@ export const WorkPreferencesApi: React.FunctionComponent = () => {
       return Promise.reject(result.error);
     });
 
-  if (fetching) return <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>;
   if (error) {
-    toast.success(intl.formatMessage(profileMessages.updatingFailed));
-    return (
-      <p>
-        {intl.formatMessage(commonMessages.loadingError)}
-        {error.message}
-      </p>
-    );
+    toast.error(intl.formatMessage(profileMessages.updatingFailed));
   }
-  return initialData?.me ? (
-    <WorkPreferencesForm
-      initialData={initialData}
-      handleWorkPreferences={handleWorkPreferences}
-    />
-  ) : (
-    <p>{intl.formatMessage(profileMessages.userNotFound)}</p>
+
+  return (
+    <Pending fetching={fetching} error={error}>
+      {initialData?.me ? (
+        <WorkPreferencesForm
+          initialData={initialData}
+          handleWorkPreferences={handleWorkPreferences}
+        />
+      ) : (
+        <NotFound headingMessage={intl.formatMessage(commonMessages.notFound)}>
+          <p>{intl.formatMessage(profileMessages.userNotFound)}</p>
+        </NotFound>
+      )}
+    </Pending>
   );
 };
 

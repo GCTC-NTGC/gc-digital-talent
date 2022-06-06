@@ -2,13 +2,13 @@ import React, { useMemo } from "react";
 import { IntlShape, useIntl } from "react-intl";
 import { notEmpty } from "@common/helpers/util";
 import { useLocation } from "@common/helpers/router";
-import { commonMessages } from "@common/messages";
 import { FromArray } from "@common/types/utilityTypes";
 import { getLocale } from "@common/helpers/localize";
 import {
   getLanguage,
   getLanguageAbility,
 } from "@common/constants/localizedConstants";
+import Pending from "@common/components/Pending";
 import {
   GetPoolCandidatesQuery,
   Language,
@@ -20,7 +20,6 @@ import Table, {
   tableBooleanAccessor,
   tableEditButtonAccessor,
 } from "../Table";
-import DashboardContentContainer from "../DashboardContentContainer";
 
 type Data = NonNullable<FromArray<GetPoolCandidatesQuery["poolCandidates"]>>;
 
@@ -181,33 +180,18 @@ export default PoolCandidatesTable;
 export const PoolCandidatesTableApi: React.FC<{ poolId: string }> = ({
   poolId,
 }) => {
-  const intl = useIntl();
   const [result] = useGetPoolCandidatesByPoolQuery({
     variables: { id: poolId },
   });
   const { data, fetching, error } = result;
   const { pathname } = useLocation();
 
-  if (fetching)
-    return (
-      <DashboardContentContainer>
-        <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>
-      </DashboardContentContainer>
-    );
-  if (error)
-    return (
-      <DashboardContentContainer>
-        <p>
-          {intl.formatMessage(commonMessages.loadingError)}
-          {error.message}
-        </p>
-      </DashboardContentContainer>
-    );
-
   return (
-    <PoolCandidatesTable
-      poolCandidates={data?.pool?.poolCandidates ?? []}
-      editUrlRoot={pathname}
-    />
+    <Pending fetching={fetching} error={error}>
+      <PoolCandidatesTable
+        poolCandidates={data?.pool?.poolCandidates ?? []}
+        editUrlRoot={pathname}
+      />
+    </Pending>
   );
 };

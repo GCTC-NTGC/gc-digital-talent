@@ -28,8 +28,9 @@ import {
   getPoolCandidateStatus,
   getOperationalRequirement,
 } from "@common/constants/localizedConstants";
-import { errorMessages, commonMessages } from "@common/messages";
+import { errorMessages } from "@common/messages";
 import { phoneNumberRegex } from "@common/constants/regularExpressions";
+import Pending from "@common/components/Pending";
 import { useAdminRoutes } from "../../adminRoutes";
 import {
   CreatePoolCandidateAsAdminInput,
@@ -622,7 +623,6 @@ export const CreatePoolCandidateForm: React.FunctionComponent<
 export const CreatePoolCandidate: React.FunctionComponent<{
   poolId: string;
 }> = ({ poolId }) => {
-  const intl = useIntl();
   const [lookupResult] = useGetCreatePoolCandidateDataQuery();
   const { data: lookupData, fetching, error } = lookupResult;
   const classifications: Classification[] | [] =
@@ -640,32 +640,18 @@ export const CreatePoolCandidate: React.FunctionComponent<{
       return Promise.reject(result.error);
     });
 
-  if (fetching)
-    return (
-      <DashboardContentContainer>
-        <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>
-      </DashboardContentContainer>
-    );
-  if (error)
-    return (
-      <DashboardContentContainer>
-        <p>
-          {intl.formatMessage(commonMessages.loadingError)}
-          {error.message}
-        </p>
-      </DashboardContentContainer>
-    );
-
   return (
-    <DashboardContentContainer>
-      <CreatePoolCandidateForm
-        classifications={classifications}
-        cmoAssets={cmoAssets}
-        pools={pools}
-        poolId={poolId}
-        users={users}
-        handleCreatePoolCandidate={handleCreatePoolCandidate}
-      />
-    </DashboardContentContainer>
+    <Pending fetching={fetching} error={error}>
+      <DashboardContentContainer>
+        <CreatePoolCandidateForm
+          classifications={classifications}
+          cmoAssets={cmoAssets}
+          pools={pools}
+          poolId={poolId}
+          users={users}
+          handleCreatePoolCandidate={handleCreatePoolCandidate}
+        />
+      </DashboardContentContainer>
+    </Pending>
   );
 };

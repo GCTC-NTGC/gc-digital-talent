@@ -19,6 +19,8 @@ import {
   getOperationalRequirement,
   getPoolStatus,
 } from "@common/constants/localizedConstants";
+import Pending from "@common/components/Pending";
+import NotFound from "@common/components/NotFound";
 import { useAdminRoutes } from "../../adminRoutes";
 import {
   Classification,
@@ -390,43 +392,33 @@ export const UpdatePool: React.FunctionComponent<{
       return Promise.reject(result.error);
     });
 
-  if (fetching)
-    return (
+  return (
+    <Pending fetching={fetching} error={error}>
       <DashboardContentContainer>
-        <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>
-      </DashboardContentContainer>
-    );
-  if (error)
-    return (
-      <DashboardContentContainer>
-        <p>
-          {intl.formatMessage(commonMessages.loadingError)}
-          {error.message}
-        </p>
-      </DashboardContentContainer>
-    );
-
-  return lookupData?.pool ? (
-    <DashboardContentContainer>
-      <UpdatePoolForm
-        classifications={classifications}
-        cmoAssets={cmoAssets}
-        initialPool={lookupData.pool}
-        users={users}
-        handleUpdatePool={handleUpdatePool}
-      />
-    </DashboardContentContainer>
-  ) : (
-    <DashboardContentContainer>
-      <p>
-        {intl.formatMessage(
-          {
-            defaultMessage: "Pool {poolId} not found.",
-            description: "Message displayed for pool not found.",
-          },
-          { poolId },
+        {lookupData?.pool ? (
+          <UpdatePoolForm
+            classifications={classifications}
+            cmoAssets={cmoAssets}
+            initialPool={lookupData.pool}
+            users={users}
+            handleUpdatePool={handleUpdatePool}
+          />
+        ) : (
+          <NotFound
+            headingMessage={intl.formatMessage(commonMessages.notFound)}
+          >
+            <p>
+              {intl.formatMessage(
+                {
+                  defaultMessage: "Pool {poolId} not found.",
+                  description: "Message displayed for pool not found.",
+                },
+                { poolId },
+              )}
+            </p>
+          </NotFound>
         )}
-      </p>
-    </DashboardContentContainer>
+      </DashboardContentContainer>
+    </Pending>
   );
 };

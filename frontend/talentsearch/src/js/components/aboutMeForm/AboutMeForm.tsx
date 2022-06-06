@@ -15,6 +15,8 @@ import {
 } from "@common/constants/localizedConstants";
 import { SubmitHandler } from "react-hook-form";
 import pick from "lodash/pick";
+import Pending from "@common/components/Pending";
+import NotFound from "@common/components/NotFound";
 import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
 import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
 import {
@@ -44,7 +46,7 @@ export type AboutMeUpdateHandler = (
 ) => Promise<UpdateUserAsUserMutation["updateUserAsUser"]>;
 
 export interface AboutMeFormProps {
-  initialUser?: User | null;
+  initialUser: User | null;
   onUpdateAboutMe: AboutMeUpdateHandler;
 }
 
@@ -55,18 +57,6 @@ export const AboutMeForm: React.FunctionComponent<AboutMeFormProps> = ({
   const intl = useIntl();
   const locale = getLocale(intl);
   const paths = applicantProfileRoutes(locale);
-
-  if (!initialUser) {
-    return (
-      <p>
-        {intl.formatMessage({
-          defaultMessage: "Could not load user.",
-          description:
-            "Error message that appears when current user could not be retrieved.",
-        })}
-      </p>
-    );
-  }
 
   const initialDataToFormValues = (data?: User | null): FormValues => {
     return pick(data, [
@@ -313,21 +303,16 @@ const AboutMeFormContainer: React.FunctionComponent = () => {
     );
   };
 
-  if (fetching) {
-    return <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>;
-  }
-
-  if (error || !data) {
-    return (
-      <p>
-        {intl.formatMessage(commonMessages.loadingError)}
-        {error?.message || ""}
-      </p>
-    );
-  }
-
   return (
-    <AboutMeForm initialUser={data.me} onUpdateAboutMe={handleUpdateUser} />
+    <Pending fetching={fetching} error={error}>
+      {data?.me ? (
+        <AboutMeForm initialUser={data.me} onUpdateAboutMe={handleUpdateUser} />
+      ) : (
+        <NotFound headingMessage={intl.formatMessage(commonMessages.notFound)}>
+          <p>{intl.formatMessage(profileMessages.userNotFound)}</p>
+        </NotFound>
+      )}
+    </Pending>
   );
 };
 
