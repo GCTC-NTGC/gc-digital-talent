@@ -10,6 +10,8 @@ import type { BreadcrumbsProps } from "@common/components/Breadcrumbs";
 import PageHeader from "@common/components/PageHeader";
 import { Tab, TabSet } from "@common/components/tabs";
 import { commonMessages } from "@common/messages";
+import Pending from "@common/components/Pending";
+import NotFound from "@common/components/NotFound";
 import { useAdminRoutes } from "../../adminRoutes";
 import { User, useUserQuery } from "../../api/generated";
 import DashboardContentContainer from "../DashboardContentContainer";
@@ -113,40 +115,28 @@ const ViewUser: React.FC<ViewUserProps> = ({ userId }) => {
     variables: { id: userId },
   });
 
-  if (fetching) {
-    return (
-      <DashboardContentContainer>
-        <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>
-      </DashboardContentContainer>
-    );
-  }
-
-  if (error) {
-    <DashboardContentContainer>
-      <p>
-        {intl.formatMessage(commonMessages.loadingError)} {error.message}
-      </p>
-    </DashboardContentContainer>;
-  }
-
   return (
-    <DashboardContentContainer>
-      {data?.user ? (
-        <ViewUserPage user={data.user} />
-      ) : (
-        <p>
-          <p>
-            {intl.formatMessage(
-              {
-                defaultMessage: "User {userId} not found.",
-                description: "Message displayed for user not found.",
-              },
-              { userId },
-            )}
-          </p>
-        </p>
-      )}
-    </DashboardContentContainer>
+    <Pending fetching={fetching} error={error}>
+      <DashboardContentContainer>
+        {data?.user ? (
+          <ViewUserPage user={data.user} />
+        ) : (
+          <NotFound
+            headingMessage={intl.formatMessage(commonMessages.notFound)}
+          >
+            <p>
+              {intl.formatMessage(
+                {
+                  defaultMessage: "User {userId} not found.",
+                  description: "Message displayed for user not found.",
+                },
+                { userId },
+              )}
+            </p>
+          </NotFound>
+        )}
+      </DashboardContentContainer>
+    </Pending>
   );
 };
 

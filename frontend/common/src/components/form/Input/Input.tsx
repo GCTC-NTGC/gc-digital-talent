@@ -64,6 +64,7 @@ const Input: React.FunctionComponent<InputProps> = ({
           id={id}
           {...register(name, rules)}
           type={type}
+          aria-required={rules.required ? "true" : undefined}
           aria-invalid={error ? "true" : "false"}
           {...rest}
         />

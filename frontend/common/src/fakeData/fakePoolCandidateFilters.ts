@@ -24,10 +24,12 @@ const generatePoolCandidateFilters = (
     id: faker.datatype.uuid(),
     pools: faker.helpers.arrayElements(pools),
     classifications: faker.helpers.arrayElements(classifications),
-    isWoman: faker.datatype.boolean(),
-    hasDisability: faker.datatype.boolean(),
-    isIndigenous: faker.datatype.boolean(),
-    isVisibleMinority: faker.datatype.boolean(),
+    equity: {
+      isIndigenous: faker.datatype.boolean(),
+      isVisibleMinority: faker.datatype.boolean(),
+      isWoman: faker.datatype.boolean(),
+      hasDisability: faker.datatype.boolean(),
+    },
     hasDiploma: faker.datatype.boolean(),
     languageAbility: faker.helpers.arrayElement<LanguageAbility>(
       Object.values(LanguageAbility),

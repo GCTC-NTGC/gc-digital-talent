@@ -12,13 +12,14 @@ import {
 import { getLocale } from "@common/helpers/localize";
 import { notEmpty } from "@common/helpers/util";
 import { navigate } from "@common/helpers/router";
-import { errorMessages, commonMessages } from "@common/messages";
+import { errorMessages } from "@common/messages";
 import { keyStringRegex } from "@common/constants/regularExpressions";
 import { enumToOptions } from "@common/helpers/formUtils";
 import {
   getOperationalRequirement,
   getPoolStatus,
 } from "@common/constants/localizedConstants";
+import Pending from "@common/components/Pending";
 import { useAdminRoutes } from "../../adminRoutes";
 import {
   Classification,
@@ -356,7 +357,6 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
 };
 
 export const CreatePool: React.FunctionComponent = () => {
-  const intl = useIntl();
   const [lookupResult] = useGetCreatePoolDataQuery();
   const { data: lookupData, fetching, error } = lookupResult;
   const classifications: Classification[] | [] =
@@ -373,30 +373,16 @@ export const CreatePool: React.FunctionComponent = () => {
       return Promise.reject(result.error);
     });
 
-  if (fetching)
-    return (
-      <DashboardContentContainer>
-        <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>
-      </DashboardContentContainer>
-    );
-  if (error)
-    return (
-      <DashboardContentContainer>
-        <p>
-          {intl.formatMessage(commonMessages.loadingError)}
-          {error.message}
-        </p>
-      </DashboardContentContainer>
-    );
-
   return (
-    <DashboardContentContainer>
-      <CreatePoolForm
-        classifications={classifications}
-        cmoAssets={cmoAssets}
-        users={users}
-        handleCreatePool={handleCreatePool}
-      />
-    </DashboardContentContainer>
+    <Pending fetching={fetching} error={error}>
+      <DashboardContentContainer>
+        <CreatePoolForm
+          classifications={classifications}
+          cmoAssets={cmoAssets}
+          users={users}
+          handleCreatePool={handleCreatePool}
+        />
+      </DashboardContentContainer>
+    </Pending>
   );
 };
