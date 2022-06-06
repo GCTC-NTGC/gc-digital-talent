@@ -82,6 +82,7 @@ const Checklist: React.FunctionComponent<ChecklistProps> = ({
               {...register(name, rules)}
               value={value}
               type="checkbox"
+              aria-required={rules.required ? "true" : undefined}
               aria-invalid={error ? "true" : "false"}
             />
           </InputWrapper>
