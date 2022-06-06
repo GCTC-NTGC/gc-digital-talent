@@ -1,9 +1,11 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
+import Pending from "@common/components/Pending";
 import { commonMessages } from "@common/messages";
 import type { UpdateUserAsUserInput, User } from "@common/api/generated";
 
+import NotFound from "@common/components/NotFound";
 import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
 
 import {
@@ -13,10 +15,11 @@ import {
 
 import EquityOptions from "./EquityOptions";
 import type { DiversityInclusionUpdateHandler, EquityKeys } from "./types";
+import profileMessages from "../profile/profileMessages";
 
 const boldText = (...chunks: string[]) => <strong>{chunks}</strong>;
 
-interface DiversityEquityInclusionFormProps {
+export interface DiversityEquityInclusionFormProps {
   user: User;
   isMutating: boolean;
   onUpdate: DiversityInclusionUpdateHandler;
@@ -145,8 +148,8 @@ export const DiversityEquityInclusionForm: React.FC<
         isVisibleMinority={user.isVisibleMinority}
         isWoman={user.isWoman}
         hasDisability={user.hasDisability}
-        onAdd={(key) => handleUpdate(key, true)}
-        onRemove={(key) => handleUpdate(key, false)}
+        onAdd={(key: EquityKeys) => handleUpdate(key, true)}
+        onRemove={(key: EquityKeys) => handleUpdate(key, false)}
       />
     </ProfileFormWrapper>
   );
@@ -169,29 +172,21 @@ const DiversityEquityInclusionFormApi: React.FC = () => {
     });
   };
 
-  /**
-   * TO DO: Replace this logic with <Pending /> once merged
-   */
-  if (fetching) {
-    return <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>;
-  }
-
-  if (error || !data) {
-    return (
-      <p>
-        {intl.formatMessage(commonMessages.loadingError)}
-        {error?.message || ""}
-      </p>
-    );
-  }
-
-  return data?.me ? (
-    <DiversityEquityInclusionForm
-      user={data?.me}
-      onUpdate={handleUpdateUser}
-      isMutating={mutationFetching}
-    />
-  ) : null;
+  return (
+    <Pending fetching={fetching} error={error}>
+      {data?.me ? (
+        <DiversityEquityInclusionForm
+          user={data.me}
+          onUpdate={handleUpdateUser}
+          isMutating={mutationFetching}
+        />
+      ) : (
+        <NotFound headingMessage={intl.formatMessage(commonMessages.notFound)}>
+          <p>{intl.formatMessage(profileMessages.userNotFound)}</p>
+        </NotFound>
+      )}
+    </Pending>
+  );
 };
 
 export default DiversityEquityInclusionFormApi;
