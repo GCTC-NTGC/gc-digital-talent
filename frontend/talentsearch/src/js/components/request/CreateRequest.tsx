@@ -14,6 +14,7 @@ import {
   removeFromSessionStorage,
   setInSessionStorage,
 } from "@common/helpers/storageUtils";
+import { EquitySelections } from "@common/api/generated";
 import Pending from "@common/components/Pending";
 import { useTalentSearchRoutes } from "../../talentSearchRoutes";
 import {
@@ -47,10 +48,10 @@ type FormValues = {
       sync?: Array<Maybe<CmoAsset["id"]>>;
     };
     hasDiploma?: PoolCandidateFilter["hasDiploma"];
-    hasDisability?: PoolCandidateFilter["hasDisability"];
-    isIndigenous?: PoolCandidateFilter["isIndigenous"];
-    isVisibleMinority?: PoolCandidateFilter["isVisibleMinority"];
-    isWoman?: PoolCandidateFilter["isWoman"];
+    hasDisability?: EquitySelections["hasDisability"];
+    isIndigenous?: EquitySelections["isIndigenous"];
+    isVisibleMinority?: EquitySelections["isVisibleMinority"];
+    isWoman?: EquitySelections["isWoman"];
     languageAbility?: PoolCandidateFilter["languageAbility"];
     operationalRequirements?: Array<Maybe<OperationalRequirement>>;
     pools?: {
@@ -118,18 +119,20 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
           hasDiploma: poolCandidateFilter?.hasDiploma
             ? poolCandidateFilter?.hasDiploma
             : false,
-          hasDisability: poolCandidateFilter?.hasDisability
-            ? poolCandidateFilter?.hasDisability
-            : false,
-          isIndigenous: poolCandidateFilter?.isIndigenous
-            ? poolCandidateFilter?.isIndigenous
-            : false,
-          isVisibleMinority: poolCandidateFilter?.isVisibleMinority
-            ? poolCandidateFilter?.isVisibleMinority
-            : false,
-          isWoman: poolCandidateFilter?.isWoman
-            ? poolCandidateFilter?.isWoman
-            : false,
+          equity: {
+            hasDisability: values.poolCandidateFilter?.hasDisability
+              ? values.poolCandidateFilter?.hasDisability
+              : false,
+            isIndigenous: values.poolCandidateFilter?.isIndigenous
+              ? values.poolCandidateFilter?.isIndigenous
+              : false,
+            isVisibleMinority: values.poolCandidateFilter?.isVisibleMinority
+              ? values.poolCandidateFilter?.isVisibleMinority
+              : false,
+            isWoman: values.poolCandidateFilter?.isWoman
+              ? values.poolCandidateFilter?.isWoman
+              : false,
+          },
           languageAbility: poolCandidateFilter?.languageAbility,
           operationalRequirements: poolCandidateFilter?.operationalRequirements,
           pools: {
