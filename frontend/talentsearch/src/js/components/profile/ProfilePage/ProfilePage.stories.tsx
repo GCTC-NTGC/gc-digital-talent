@@ -5,7 +5,7 @@ import fakeExperiences from "@common/fakeData/fakeExperiences";
 import { ProfilePage, ProfileForm } from "./ProfilePage";
 import { User } from "../../../api/generated";
 
-import MockGraphqlDecorator from "../../../../../.storybook/decorators/MockGraphqlDecorator";
+import MockGraphqlDecorator from "@common/../.storybook/decorators/MockGraphqlDecorator";
 
 const fakeUserArray = fakeUsers(5);
 
