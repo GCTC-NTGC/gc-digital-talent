@@ -3,7 +3,6 @@ import { useIntl } from "react-intl";
 import type { IntlShape } from "react-intl";
 
 import { FromArray } from "@common/types/utilityTypes";
-import { commonMessages } from "@common/messages";
 import { getPoolCandidateSearchStatus } from "@common/constants/localizedConstants";
 import { getLocale } from "@common/helpers/localize";
 import type { PoolCandidateSearchStatus } from "@common/api/generated";

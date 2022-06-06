@@ -20,7 +20,6 @@ import Table, {
   tableBooleanAccessor,
   tableEditButtonAccessor,
 } from "../Table";
-import DashboardContentContainer from "../DashboardContentContainer";
 
 type Data = NonNullable<FromArray<GetPoolCandidatesQuery["poolCandidates"]>>;
 

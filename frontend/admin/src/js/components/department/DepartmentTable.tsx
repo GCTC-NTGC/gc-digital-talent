@@ -1,6 +1,5 @@
 import React, { useMemo } from "react";
 import { useIntl } from "react-intl";
-import commonMessages from "@common/messages/commonMessages";
 import { useLocation } from "@common/helpers/router";
 import { notEmpty } from "@common/helpers/util";
 import { FromArray } from "@common/types/utilityTypes";
@@ -8,7 +7,6 @@ import { getLocale } from "@common/helpers/localize";
 import Pending from "@common/components/Pending";
 import { DepartmentsQuery, useDepartmentsQuery } from "../../api/generated";
 import Table, { ColumnsOf, tableEditButtonAccessor } from "../Table";
-import DashboardContentContainer from "../DashboardContentContainer";
 
 type Data = NonNullable<FromArray<DepartmentsQuery["departments"]>>;
 

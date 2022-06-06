@@ -15,7 +15,6 @@ import NotFound from "@common/components/NotFound";
 import { useAdminRoutes } from "../../adminRoutes";
 import { useGetPoolQuery } from "../../api/generated";
 import type { Pool } from "../../api/generated";
-import DashboardContentContainer from "../DashboardContentContainer";
 
 interface ViewPoolPageProps {
   pool: Pool;

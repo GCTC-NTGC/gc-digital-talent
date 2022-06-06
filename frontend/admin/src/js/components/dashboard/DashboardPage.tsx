@@ -8,9 +8,6 @@ import {
 } from "@heroicons/react/outline";
 import { IconLink } from "@common/components/Link";
 import PageHeader from "@common/components/PageHeader";
-
-import { commonMessages } from "@common/messages";
-
 import Pending from "@common/components/Pending";
 import DashboardContentContainer from "../DashboardContentContainer";
 import { User, useMeQuery } from "../../api/generated";
