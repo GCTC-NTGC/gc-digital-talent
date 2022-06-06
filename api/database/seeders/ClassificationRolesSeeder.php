@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 
-class ClassificationRolesSeeder extends Seeder
+class ClassificationRoleSeeder extends Seeder
 {
     /**
      * Run the database seeds.
