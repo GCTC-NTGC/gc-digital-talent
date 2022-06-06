@@ -13,12 +13,7 @@ class CreateClassificationRoles extends Migration
      */
     public function up()
     {
-        Schema::create('classification_roles', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
-        });
-
-        Schema::create('classification_roles', function (Blueprint $table) {
+         Schema::create('classification_roles', function (Blueprint $table) {
             $table->uuid('id')->primary('id');
             $table->timestamps();
             $table->string('key')->nullable(false);
