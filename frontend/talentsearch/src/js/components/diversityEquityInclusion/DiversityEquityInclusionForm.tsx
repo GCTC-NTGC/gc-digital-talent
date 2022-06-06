@@ -1,6 +1,14 @@
 import React from "react";
 import { useIntl } from "react-intl";
+
+import type { UpdateUserAsUserInput } from "@common/api/generated";
+import { commonMessages } from "@common/messages";
+
 import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
+import {
+  useGetMyDiversityInfoQuery,
+  useUpdateMyDiversityInfoMutation,
+} from "../../api/generated";
 
 export const DiversityEquityInclusionForm: React.FC = () => {
   const intl = useIntl();
@@ -34,7 +42,35 @@ export const DiversityEquityInclusionForm: React.FC = () => {
   );
 };
 
-const DiversityEquityInclusionFormApi: React.FunctionComponent = () => {
+const DiversityEquityInclusionFormApi: React.FC = () => {
+  const intl = useIntl();
+
+  const [{ data, fetching, error }] = useGetMyDiversityInfoQuery();
+  const [, executeMutation] = useUpdateMyDiversityInfoMutation();
+
+  const handleUpdateUser = (id: string, values: UpdateUserAsUserInput) => {
+    return executeMutation({ id, user: values }).then((res) => {
+      if (res.data?.updateUserAsUser) {
+        return res.data.updateUserAsUser;
+      }
+
+      return Promise.reject(res.error);
+    });
+  };
+
+  if (fetching) {
+    return <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>;
+  }
+
+  if (error || !data) {
+    return (
+      <p>
+        {intl.formatMessage(commonMessages.loadingError)}
+        {error?.message || ""}
+      </p>
+    );
+  }
+
   return <DiversityEquityInclusionForm />;
 };
 
