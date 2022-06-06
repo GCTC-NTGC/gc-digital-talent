@@ -35,9 +35,9 @@ class ClassificationRoles extends Model
 
     ];
 
-    public function currentClassification(): BelongsTo
+    public function currentClassification(): HasMany
     {
-        return $this->belongsTo(Classification::class, "classification_id");
+        return $this->hasMany(Classification::class, "classification_id");
     }
 
 
