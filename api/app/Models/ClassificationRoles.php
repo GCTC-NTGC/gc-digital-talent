@@ -35,8 +35,13 @@ class ClassificationRoles extends Model
 
     ];
 
-    public function expectedClassificationRoles(): BelongsToMany
+    public function currentClassification(): BelongsTo
     {
-        return $this->belongsToMany(Classification::class, 'classification_role_user')->withTimestamps();
+        return $this->belongsTo(Classification::class, "classification_id");
+    }
+
+     public function user(): HasMany
+    {
+        return $this->hasMany(ClassificationRoles::class);
     }
 }
