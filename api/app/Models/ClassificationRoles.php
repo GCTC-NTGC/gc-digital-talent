@@ -40,8 +40,5 @@ class ClassificationRoles extends Model
         return $this->belongsTo(Classification::class, "classification_id");
     }
 
-     public function classifications(): BelongsTo
-    {
-        return $this->belongsTo(Classifications::class);
-    }
+
 }
