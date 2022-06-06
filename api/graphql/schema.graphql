@@ -355,7 +355,7 @@ type PoolCandidateFilter {
     classifications: [Classification] @belongsToMany
     cmoAssets: [CmoAsset] @belongsToMany
     hasDiploma: Boolean @rename(attribute: "has_diploma")
-    equity: EquitySelections @rename(attribute: "equity_object")
+    equity: EquitySelections @rename(attribute: "equity_selections")
     languageAbility: LanguageAbility @rename(attribute: "language_ability")
     operationalRequirements: [OperationalRequirement] @rename(attribute: "operational_requirements")
     workRegions: [WorkRegion] @rename(attribute: "work_regions")
