@@ -216,28 +216,26 @@ export const ExperienceAndSkillsApi: React.FunctionComponent<{
   const [{ data: applicantData, fetching, error }] =
     useGetAllApplicantExperiencesQuery({ variables: { id: applicantId } });
 
-  if (fetching) return <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>;
-  if (error)
-    return (
-      <p>
-        {intl.formatMessage(commonMessages.loadingError)}
-        {error.message}
-      </p>
-    );
-  return applicantData?.applicant ? (
-    <ExperienceAndSkills
-      experiences={applicantData.applicant.experiences?.filter(notEmpty)}
-    />
-  ) : (
-    <p>
-      {intl.formatMessage(
-        {
-          defaultMessage: "User {applicantId} not found.",
-          description: "Message displayed for user not found.",
-        },
-        { applicantId },
+  return (
+    <Pending fetching={fetching} error={error}>
+      {applicantData?.applicant ? (
+        <ExperienceAndSkills
+          experiences={applicantData.applicant.experiences?.filter(notEmpty)}
+        />
+      ) : (
+        <NotFound headingMessage={intl.formatMessage(commonMessages.notFound)}>
+          <p>
+            {intl.formatMessage(
+              {
+                defaultMessage: "User {applicantId} not found.",
+                description: "Message displayed for user not found.",
+              },
+              { applicantId },
+            )}
+          </p>
+        </NotFound>
       )}
-    </p>
+    </Pending>
   );
 };
 export const ExperienceAndSkillsRouterApi: React.FunctionComponent = () => {

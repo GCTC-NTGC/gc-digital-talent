@@ -11,6 +11,7 @@ import PageHeader from "@common/components/PageHeader";
 
 import { commonMessages } from "@common/messages";
 
+import Pending from "@common/components/Pending";
 import DashboardContentContainer from "../DashboardContentContainer";
 import { User, useMeQuery } from "../../api/generated";
 import { useAdminRoutes } from "../../adminRoutes";
@@ -109,30 +110,13 @@ const DashboardPage: React.FC<DashboardPageProps> = ({ currentUser }) => {
 };
 
 const DashboardPageApi: React.FC = () => {
-  const intl = useIntl();
-  const [result] = useMeQuery();
-  const { data, fetching, error } = result;
+  const [{ data, fetching, error }] = useMeQuery();
 
-  if (fetching) {
-    return (
-      <DashboardContentContainer>
-        <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>
-      </DashboardContentContainer>
-    );
-  }
-
-  if (error) {
-    return (
-      <DashboardContentContainer>
-        <p>
-          {intl.formatMessage(commonMessages.loadingError)}
-          {error.message}
-        </p>
-      </DashboardContentContainer>
-    );
-  }
-
-  return <DashboardPage currentUser={data?.me} />;
+  return (
+    <Pending fetching={fetching} error={error}>
+      <DashboardPage currentUser={data?.me} />
+    </Pending>
+  );
 };
 
 export default DashboardPageApi;
