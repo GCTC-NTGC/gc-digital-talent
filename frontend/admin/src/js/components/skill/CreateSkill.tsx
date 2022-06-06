@@ -8,7 +8,8 @@ import { getLocale } from "@common/helpers/localize";
 import { notEmpty } from "@common/helpers/util";
 import { navigate } from "@common/helpers/router";
 import { keyStringRegex } from "@common/constants/regularExpressions";
-import { errorMessages, commonMessages } from "@common/messages";
+import { errorMessages } from "@common/messages";
+import Pending from "@common/components/Pending";
 import { useAdminRoutes } from "../../adminRoutes";
 import {
   Skill,
@@ -226,7 +227,6 @@ export const CreateSkillForm: React.FunctionComponent<CreateSkillFormProps> = ({
 };
 
 export const CreateSkill: React.FunctionComponent = () => {
-  const intl = useIntl();
   const [lookupResult] = useAllSkillFamiliesQuery();
   const { data: lookupData, fetching, error } = lookupResult;
   const families = lookupData?.skillFamilies.filter(notEmpty) ?? [];
@@ -240,28 +240,14 @@ export const CreateSkill: React.FunctionComponent = () => {
       return Promise.reject(result.error);
     });
 
-  if (fetching)
-    return (
-      <DashboardContentContainer>
-        <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>
-      </DashboardContentContainer>
-    );
-  if (error)
-    return (
-      <DashboardContentContainer>
-        <p>
-          {intl.formatMessage(commonMessages.loadingError)}
-          {error.message}
-        </p>
-      </DashboardContentContainer>
-    );
-
   return (
-    <DashboardContentContainer>
-      <CreateSkillForm
-        handleCreateSkill={handleCreateSkill}
-        families={families}
-      />
-    </DashboardContentContainer>
+    <Pending fetching={fetching} error={error}>
+      <DashboardContentContainer>
+        <CreateSkillForm
+          handleCreateSkill={handleCreateSkill}
+          families={families}
+        />
+      </DashboardContentContainer>
+    </Pending>
   );
 };

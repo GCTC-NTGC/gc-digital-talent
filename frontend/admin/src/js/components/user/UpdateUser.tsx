@@ -10,6 +10,8 @@ import { errorMessages, commonMessages } from "@common/messages";
 import { getLanguage, getRole } from "@common/constants/localizedConstants";
 import { phoneNumberRegex } from "@common/constants/regularExpressions";
 import { emptyToNull } from "@common/helpers/util";
+import NotFound from "@common/components/NotFound";
+import Pending from "@common/components/Pending";
 import { useAdminRoutes } from "../../adminRoutes";
 import {
   Language,
@@ -297,40 +299,32 @@ export const UpdateUser: React.FunctionComponent<{ userId: string }> = ({
       return Promise.reject(result.error);
     });
 
-  if (fetching)
-    return (
+  return (
+    <Pending fetching={fetching} error={error}>
+      {" "}
       <DashboardContentContainer>
-        <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>
-      </DashboardContentContainer>
-    );
-  if (error)
-    return (
-      <DashboardContentContainer>
-        <p>
-          {intl.formatMessage(commonMessages.loadingError)}
-          {error.message}
-        </p>
-      </DashboardContentContainer>
-    );
-  return userData?.user ? (
-    <DashboardContentContainer>
-      <UpdateUserForm
-        initialUser={userData?.user}
-        handleUpdateUser={handleUpdateUser}
-      />
-    </DashboardContentContainer>
-  ) : (
-    <DashboardContentContainer>
-      <p>
-        {intl.formatMessage(
-          {
-            defaultMessage: "User {userId} not found.",
-            description: "Message displayed for user not found.",
-          },
-          { userId },
+        {userData?.user ? (
+          <UpdateUserForm
+            initialUser={userData?.user}
+            handleUpdateUser={handleUpdateUser}
+          />
+        ) : (
+          <NotFound
+            headingMessage={intl.formatMessage(commonMessages.notFound)}
+          >
+            <p>
+              {intl.formatMessage(
+                {
+                  defaultMessage: "User {userId} not found.",
+                  description: "Message displayed for user not found.",
+                },
+                { userId },
+              )}
+            </p>
+          </NotFound>
         )}
-      </p>
-    </DashboardContentContainer>
+      </DashboardContentContainer>
+    </Pending>
   );
 };
 

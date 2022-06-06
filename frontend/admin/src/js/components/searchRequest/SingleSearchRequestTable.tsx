@@ -3,17 +3,16 @@ import { useIntl } from "react-intl";
 import { Button, Pill } from "@common/components";
 import { notEmpty } from "@common/helpers/util";
 import { navigate } from "@common/helpers/router";
-import { commonMessages } from "@common/messages";
 import { FromArray } from "@common/types/utilityTypes";
 import { getLocale } from "@common/helpers/localize";
 import { getOperationalRequirement } from "@common/constants/localizedConstants";
+import Pending from "@common/components/Pending";
 import {
   SearchPoolCandidatesQuery,
   useSearchPoolCandidatesQuery,
   PoolCandidateFilterInput,
 } from "../../api/generated";
 import Table, { ColumnsOf } from "../Table";
-import DashboardContentContainer from "../DashboardContentContainer";
 import { useAdminRoutes } from "../../adminRoutes";
 
 type Data = NonNullable<
@@ -222,31 +221,16 @@ export const SingleSearchRequestTable: React.FunctionComponent<
 export const SingleSearchRequestTableApi: React.FunctionComponent<{
   poolCandidateFilter: PoolCandidateFilterInput;
 }> = ({ poolCandidateFilter }) => {
-  const intl = useIntl();
   const [result] = useSearchPoolCandidatesQuery({
     variables: { poolCandidateFilter },
   });
   const { data, fetching, error } = result;
 
-  if (fetching)
-    return (
-      <DashboardContentContainer>
-        <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>
-      </DashboardContentContainer>
-    );
-  if (error)
-    return (
-      <DashboardContentContainer>
-        <p>
-          {intl.formatMessage(commonMessages.loadingError)}
-          {error.message}
-        </p>
-      </DashboardContentContainer>
-    );
-
   return (
-    <SingleSearchRequestTable
-      searchPoolCandidates={data?.searchPoolCandidates ?? []}
-    />
+    <Pending fetching={fetching} error={error}>
+      <SingleSearchRequestTable
+        searchPoolCandidates={data?.searchPoolCandidates ?? []}
+      />
+    </Pending>
   );
 };

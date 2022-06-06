@@ -5,6 +5,8 @@ import { commonMessages } from "@common/messages";
 import Breadcrumbs from "@common/components/Breadcrumbs";
 import type { BreadcrumbsProps } from "@common/components/Breadcrumbs";
 import Link from "@common/components/Link";
+import Pending from "@common/components/Pending";
+import NotFound from "@common/components/NotFound";
 import { useDirectIntakeRoutes } from "../../directIntakeRoutes";
 import { useGetPoolQuery } from "../../api/generated";
 import type { Pool } from "../../api/generated";
@@ -92,31 +94,22 @@ const PoolApplicationThanksPage: React.FC<PoolApplicationThanksPageProps> = ({
     variables: { id },
   });
 
-  if (fetching) {
-    return <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>;
-  }
-
-  if (error) {
-    return (
-      <p>
-        {intl.formatMessage(commonMessages.loadingError)}
-        {error.message}
-      </p>
-    );
-  }
-
-  if (!data?.pool) {
-    return (
-      <p>
-        {intl.formatMessage({
-          defaultMessage: "Error, pool unable to be loaded",
-          description: "Error message, placeholder",
-        })}
-      </p>
-    );
-  }
-
-  return <PoolApplicationThanks pool={data?.pool} />;
+  return (
+    <Pending fetching={fetching} error={error}>
+      {data?.pool ? (
+        <PoolApplicationThanks pool={data?.pool} />
+      ) : (
+        <NotFound headingMessage={intl.formatMessage(commonMessages.notFound)}>
+          <p>
+            {intl.formatMessage({
+              defaultMessage: "Error, pool unable to be loaded",
+              description: "Error message, placeholder",
+            })}
+          </p>
+        </NotFound>
+      )}
+    </Pending>
+  );
 };
 
 export default PoolApplicationThanksPage;

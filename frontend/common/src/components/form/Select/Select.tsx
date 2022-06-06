@@ -54,6 +54,7 @@ const Select: React.FunctionComponent<SelectProps> = ({
           style={{ width: "100%", paddingTop: "4.5px", paddingBottom: "4.5px" }}
           {...register(name, rules)}
           aria-invalid={error ? "true" : "false"}
+          aria-required={rules?.required ? "true" : undefined}
           {...rest}
           defaultValue=""
         >

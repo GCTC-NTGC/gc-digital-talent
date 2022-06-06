@@ -8,6 +8,8 @@ import { useIntl } from "react-intl";
 import { commonMessages } from "@common/messages";
 import { notEmpty } from "@common/helpers/util";
 import { getPoolCandidateSearchStatus } from "@common/constants/localizedConstants";
+import Pending from "@common/components/Pending";
+import NotFound from "@common/components/NotFound";
 import {
   PoolCandidateFilterInput,
   PoolCandidateSearchRequest,
@@ -287,28 +289,26 @@ export const SingleSearchRequestApi: React.FunctionComponent<{
       variables: { id: searchRequestId },
     });
 
-  if (fetching) return <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>;
-  if (error)
-    return (
-      <p>
-        {intl.formatMessage(commonMessages.loadingError)}
-        {error.message}
-      </p>
-    );
-  return searchRequestData?.poolCandidateSearchRequest ? (
-    <SingleSearchRequest
-      searchRequest={searchRequestData?.poolCandidateSearchRequest}
-    />
-  ) : (
-    <p>
-      {intl.formatMessage(
-        {
-          defaultMessage: "Search Request {searchRequestId} not found.",
-          description:
-            "Message displayed for search request not found on single search request page.",
-        },
-        { searchRequestId },
+  return (
+    <Pending fetching={fetching} error={error}>
+      {searchRequestData?.poolCandidateSearchRequest ? (
+        <SingleSearchRequest
+          searchRequest={searchRequestData?.poolCandidateSearchRequest}
+        />
+      ) : (
+        <NotFound headingMessage={intl.formatMessage(commonMessages.notFound)}>
+          <p>
+            {intl.formatMessage(
+              {
+                defaultMessage: "Search Request {searchRequestId} not found.",
+                description:
+                  "Message displayed for search request not found on single search request page.",
+              },
+              { searchRequestId },
+            )}
+          </p>
+        </NotFound>
       )}
-    </p>
+    </Pending>
   );
 };

@@ -1,1174 +1,979 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>GC Talent | Optimizing the Volume of Applications</title>
-        <meta
-            name="description"
-            content="Talent Cloud is an experimental staffing solution created by the Government of Canada. Read our experiment's results report here!"
-        />
-        <!-- Google Tag Manager -->
-        <script>
-            (function (w, d, s, l, i) {
-                w[l] = w[l] || [];
-                w[l].push({
-                    "gtm.start": new Date().getTime(),
-                    event: "gtm.js",
-                });
-                var f = d.getElementsByTagName(s)[0],
-                    j = d.createElement(s),
-                    dl = l != "dataLayer" ? "&l=" + l : "";
-                j.async = true;
-                j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
-                f.parentNode.insertBefore(j, f);
-            })(window, document, "script", "dataLayer", "GTM-P27NF5V");
-        </script>
-        <!-- End Google Tag Manager -->
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GC Talent | Optimizing the Volume of Applications</title>
+  <meta name="description" content="Talent Cloud is an experimental staffing solution created by the Government of Canada. Read our experiment's results report here!">
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-P27NF5V');</script>
+    <!-- End Google Tag Manager -->
 
-        <!-- Global site tag (gtag.js) - Google Analytics -->
-        <script
-            async
-            src="https://www.googletagmanager.com/gtag/js?id=UA-115747902-1"
-        ></script>
-        <script>
-            window.dataLayer = window.dataLayer || [];
-            function gtag() {
-                dataLayer.push(arguments);
-            }
-            gtag("js", new Date());
-            gtag("config", "UA-115747902-1", {
-                cookie_flags: "secure",
-            });
-        </script>
-        <!-- Favicons -->
-        <link
-            rel="apple-touch-icon"
-            sizes="180x180"
-            href="/apple-touch-icon.png"
-        />
-        <link
-            rel="icon"
-            type="image/png"
-            sizes="32x32"
-            href="/favicon-32x32.png"
-        />
-        <link
-            rel="icon"
-            type="image/png"
-            sizes="16x16"
-            href="/favicon-16x16.png"
-        />
-        <link rel="manifest" href="/site.webmanifest" />
-        <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
-        <meta name="msapplication-TileColor" content="#da532c" />
-        <meta name="theme-color" content="#ffffff" />
-        <!-- Google Fonts -->
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link
-            href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap"
-            rel="stylesheet"
-        />
-        <!-- Hydrogen CSS -->
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script
+        async
+        src="https://www.googletagmanager.com/gtag/js?id=UA-115747902-1">
+    </script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-115747902-1', {
+          cookie_flags: 'secure'
+        });
+    </script>
+  <!-- Favicons -->
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap" rel="stylesheet">
+  <!-- Hydrogen CSS -->
+  
+    <!-- <link rel="stylesheet" href="/assets/css/hydrogen-tc.css"> -->
+    <link rel="stylesheet" href="/assets/css/hydrogen.css">
+  
+  <!-- App CSS -->
+  <link rel="stylesheet" href="/assets/css/app.css">
+</head>
 
-        <!-- <link rel="stylesheet" href="/assets/css/hydrogen-tc.css"> -->
-        <link rel="stylesheet" href="/assets/css/hydrogen.css" />
-
-        <!-- App CSS -->
-        <link rel="stylesheet" href="/assets/css/app.css" />
-    </head>
-
-    <body data-h2-font-family="b(sans)">
-        <a href="#mainContent" title="" class="skip-link"
-            >Skip to Main Content</a
+  <body data-h2-font-family="b(sans)">
+    <a href="#mainContent" title="" class="skip-link">Skip to Main Content</a>
+    <div data-h2-border="b([light]gray, bottom, solid, s)" >
+  <div data-h2-container="b(center, full)" data-h2-padding="b(top-bottom, s)">
+    <div data-h2-flex-grid="b(middle, expanded, flush, s)">
+      <div data-h2-flex-item="m(1of2)" data-h2-text-align="b(center) m(left)">
+        <a
+          data-h2-display="b(inline-block)"
+          style="max-width: 15rem; width: 100%;"
+          href="https://canada.ca/"
+          target="_blank"
+          title="Visit canada.ca."
+          rel="noopener noreferrer"
         >
-        <div data-h2-border="b([light]gray, bottom, solid, s)">
-            <div
-                data-h2-container="b(center, full)"
-                data-h2-padding="b(top-bottom, s)"
-            >
-                <div data-h2-flex-grid="b(middle, expanded, flush, s)">
-                    <div
-                        data-h2-flex-item="m(1of2)"
-                        data-h2-text-align="b(center) m(left)"
-                    >
-                        <a
-                            data-h2-display="b(inline-block)"
-                            style="max-width: 15rem; width: 100%"
-                            href="https://canada.ca/"
-                            target="_blank"
-                            title="Visit canada.ca."
-                            rel="noopener noreferrer"
-                        >
-                            <img
-                                data-h2-
-                                alt="goc logo"
-                                src="/assets/img/ui-goc.svg"
-                        /></a>
-                    </div>
-                    <div
-                        data-h2-flex-item="m(1of2)"
-                        data-h2-text-align="b(center) m(right)"
-                    >
-                        <a
-                            href="/fr/2000/01/01/407-volume.html"
-                            title="Voir ce contenu en français."
-                            >Français</a
-                        >
-                    </div>
-                </div>
-            </div>
+          <img data-h2- alt="goc logo" src="/assets/img/ui-goc.svg"
+        /></a>
+      </div>
+      <div data-h2-flex-item="m(1of2)" data-h2-text-align="b(center) m(right)">
+         
+        <a href="/fr/2000/01/01/407-volume.html" title="Voir ce contenu en français.">Français</a>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+<div data-h2-container="b(center, full)" >
+  <nav data-h2-padding="b(top-bottom, m)">
+    <ul class="reset-ul" data-h2-padding="b(all, none)" data-h2-margin="b(all, none)" data-h2-text-align="b(center) m(left)" style="margin-left: -.7rem;">
+      
+        <li data-h2-margin="b(all, none)" data-h2-padding="b(all, none)" data-h2-display="b(inline-block)">
+          <a href="/en/" title="Visit the GC Talent homepage."
+            
+            data-h2-display="b(block)"
+            data-h2-padding="b(all, xs) m(right-left, s)">Home</a>
+        </li>
+      
+        <li data-h2-margin="b(all, none)" data-h2-padding="b(all, none)" data-h2-display="b(inline-block)">
+          <a href="/en/talent-cloud/" title="Learn more about the Talent Cloud project."
+            
+            data-h2-display="b(block)"
+            data-h2-padding="b(all, xs) m(right-left, s)">Talent Cloud</a>
+        </li>
+      
+        <li data-h2-margin="b(all, none)" data-h2-padding="b(all, none)" data-h2-display="b(inline-block)">
+          <a href="/en/communities/digital-talent/" title="Learn more about the Digital Talent community."
+            
+            data-h2-display="b(block)"
+            data-h2-padding="b(all, xs) m(right-left, s)">Digital Talent</a>
+        </li>
+      
+    </ul>
+  </nav>
+</div>
+<section>
+  <div
+    data-h2-container="b(center, full)"
+    data-h2-text-align="b(center)">
+    
+    <h1
+  data-h2-font-weight="b(800)"
+  data-h2-font-size="b(h1)"
+  data-h2-padding='b(top, l) l(top, xxl) b(bottom, xxs)'
+  style="letter-spacing: -3px"
+  
+>
+  Talent Cloud Results Report
+</h1>
+
+    <div id="breadcrumbs" data-h2-margin="b(top-bottom, m)" >
+  
+  <a href="/en" title="Return to the homepage.">GC Talent</a>
+  <!-- If the page layout is post then use this breadcrumb list. -->
+  
+    / <a href="/en/talent-cloud" title="Return to the Talent Cloud page.">Talent Cloud</a>
+    / <a href="/en/talent-cloud/report" title="Return to the Talent Cloud results report.">Talent Cloud Resu...</a>
+    / <span>Section 4</span>
+    / <span data-h2-font-weight="b(800)">Optimizing the Vo...</span>
+  
+</div>
+  </div>
+</section>
+<header 
+  class="post-header"
+  id="mainContent"
+  style="background-image: url('/assets/img/4.7-tx-heading.jpg');"
+  data-h2-margin="b(top, xl)">
+  <div 
+    data-h2-container="b(center, m)" 
+    data-h2-font-color="b(white)"
+    data-h2-padding="b(top, l) b(bottom, xl) l(top, xl) l(bottom, xxl)"
+    data-h2-text-align="b(center)">
+    <h2
+  
+  data-h2-font-weight="b(200)"
+  data-h2-font-size="b(h2)"
+  
+  data-h2-padding='b(top, m)'
+  
+  
+  style="letter-spacing: -2px;">
+  Optimizing the Volume of Applications
+</h2>
+    
+  </div>
+</header>
+<main data-h2-padding="b(top-bottom, xs) l(top-bottom, xl)" style="background-color: #F8F8F8;">
+  <div data-h2-container="b(center, s)">
+    
+      
+        
+          <!-- Titles -->
+          <h3
+  
+  data-h2-font-weight="b(800)"
+  data-h2-font-size="b(h3)"
+  data-h2-margin='b(top, xl) b(bottom, s)'
+  
+  style="letter-spacing: -1px;">
+  The Problem
+</h3>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>High application volumes are a challenge for managers, especially if many of the applications turn out to be a poor fit for the position. But how many applications should managers be hoping for in order to yield a strong hiring result? And is it even possible to influence the behaviour patterns of applicants in order to optimize the volume of applications?</p>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>Talent Cloud ran a series of workshops in 2017 to better understand the steps and choices applicants were making in the staffing process. As part of that process, managers identified that their preferred number of applications to receive was 20-30 at the initial screening, and 5-10 for interview, but that the number of applications received was often several hundred. Managers reported that they found this volume overwhelming, leading to procrastination and cancelled processes.</p>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>One of the most illuminating findings from that user engagement was the identification of a specific behaviour that was, at an aggregate level, contributing to high application volume and low quality fit. HR advisors were aware of the behaviour as a factor in longer times to staff, and hiring managers associated it with poorer hiring outcomes.</p>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>The behaviour pattern we identified was referred to by applicants as the “brute force attack” application practice - a term workshop participants shared, not one we came up with ourselves. In our research, applicants reported using the “brute force attack” application practice as a common strategy. Basically, they applied for anything and everything where they thought they might even remotely meet the selection criteria.</p>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>Most applicants reported that they didn’t clearly understand why they got accepted into pools or jobs for some processes, but failed others they thought they were more qualified for… and applicants reported that they had low success rates overall in applying. As a result, applicants reported developing a “try everything” approach. Most in the workshops reported applying for at least 10 jobs in the last 6 months, with a similar pattern of feeling like they were only a strong fit for a couple of them. Some even reported applying for 30-50 jobs in the past year, and estimated that they were a good fit for only 5-10 of those jobs. This apply-despite-not-believing-I’m-qualified behaviour was consistent for both external applicants and internal GC employees looking for promotional opportunities. A sense of confusion about “what gets you in” was pervasive.</p>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>So why continue the practice, even with a low chance of success? Why apply, even in cases where applicants reported not wanting the actual job? Applicants told us it’s “common knowledge” - or at least common belief -  that once a person gets into government, they can move around easily, and seek a better fit job from the inside. (<a href="https://www.canada.ca/en/public-service-commission/services/publications/annual-report-2018-19.html" target="_blank" rel="noreferrer" title="View source.">An internal mobility rate of ~12% in 2019-20 in the Government of Canada, and a promotion rate of ~13 %, would seem to corroborate the idea that once inside government, many people move to a different position that appeals more to them.</a>)</p>
+        
+      
+    
+      
+        
+          <!-- Subtitles -->
+          <h4
+  
+  data-h2-font-weight="b(400)"
+  data-h2-font-size="b(h4)"
+  data-h2-margin='b(top, xl) b(bottom, s)'
+  style="letter-spacing: -1px;">
+  The Problem at Scale
+</h4>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>For some hiring processes, high volume is the targeted outcome, such as when the Government of Canada gathers large pools of talent through recruitment drives that are open for several months. Numerous hiring managers from various departments pull from these pools, applying generic work descriptions. As a result, there’s little rationale to take behavioural steps to reduce application volume and optimize applicant fit.</p>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>But for individual hiring managers running a process for their own team with limited time and energy reserves, high application volumes are a challenge.</p>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>While it’s easy to understand the rationale that creates the brute force application behaviour, if it occurs at a large scale this pattern can lead to a massive number of misaligned, long shot applications that bog down the entire hiring system, placing a time and energy burden on HR advisors and managers, who are already stretched thin.</p>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>There are also diversity and inclusion factors to consider. There is external behavioural research showing that men are more likely than other groups to claim that they are ready for advancement or qualified for jobs. As a group, <a href="https://hbr.org/2014/08/why-women-dont-apply-for-jobs-unless-theyre-100-qualified" target="_blank" rel="noreferrer" title="View source.">men reported often applying to jobs when they felt they were 60% qualified, compared with women, who reported waiting until they felt they were 100% qualified before applying</a>. If this external research holds true for applicants to Government of Canada jobs, this could have significant GBA+ implications for application rates and hiring outcomes. It’s something that we wanted to be aware of when intervening to deter applicants who weren’t fully qualified.</p>
+        
+      
+    
+      
+        
+          <!-- Titles -->
+          <h3
+  
+  data-h2-font-weight="b(800)"
+  data-h2-font-size="b(h3)"
+  data-h2-margin='b(top, xl) b(bottom, s)'
+  
+  style="letter-spacing: -1px;">
+  The Hypotheses
+</h3>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p><strong style="letter-spacing: -1px;" data-h2-font-weight="b(800)" data-h2-font-color="b(purple)">If managers say they prefer to see 20-30 applications, we should aim for this volume and test to see if it’s actually the number that produces the best hiring outcome.</strong> This would require several interventions to address the high volume of applicants typically seen in government HR processes.</p>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>Talent Cloud reasoned that if the brute force attack application approach was causing high-volume, poor-fit application practices, disincentivizing this behaviour might improve time to staff and help increase the average quality-of-fit in the applicant pool.</p>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>Talent Cloud hypothesized that the following interventions would help address the brute force attack approach by applicants and would lead to fewer, but higher average quality of applicants.</p>
+        
+      
+    
+      
+        
+          
+            <ol>
+              
+                <li><strong style="letter-spacing: -1px;" data-h2-font-weight="b(800)" data-h2-font-color="b(purple)">There is only one job, and here are all the details.</strong> We reasoned that if applicants were trying to come in any “door” to go somewhere else (and consequently all doorways were becoming jammed and impassable), it was worth testing to see what would happen when each “door” only led to a single location. One job, one manager, one team, one term appointment of finite length. No pools, no applying here to get hired over there. Come in this door to get to this location only. (This was one of the drivers behind our theory on the value of five factor talent-to-team matching.) If we provided the details of the only job on offer, and it didn’t actually appeal to an applicant, perhaps the applicant could be persuaded to invest their job search energy elsewhere.</li>
+              
+                <li><strong style="letter-spacing: -1px;" data-h2-font-weight="b(800)" data-h2-font-color="b(purple)">Give applicants a sense of exactly how much competition they have.</strong> We reasoned that applicants who want a job will be willing to put in the time to apply, especially when they have no idea who else is being considered. We reasoned that if applicants knew 300 other people had applied for something, they might not go to the effort unless they believed they were a really strong match. So we added an “applicant count” to the live job advertisement, showing applicants in real time how many other people had already applied.</li>
+              
+                <li><strong style="letter-spacing: -1px;" data-h2-font-weight="b(800)" data-h2-font-color="b(purple)">Acknowledge that applicants will be tempted to exaggerate, and factor this into the platform design.</strong> In addition, we hypothesized that applicants could sometimes be deterred from applying to jobs that they weren’t ready for by simply encouraging them to be honest about their skills and level of readiness to take on the role. We added a series of nudges on the job application to deter applicants who weren’t qualified from both applying and stretching the truth about their skills.</li>
+              
+                <li><strong style="letter-spacing: -1px;" data-h2-font-weight="b(800)" data-h2-font-color="b(purple)">Integrity matters.</strong> We added an honesty pledge, carefully reflecting behavioural sciences on how to make these work well, and added it to the application process. Based on behavioural science, we have chosen to base the honesty pledge on trust rather than legal formality.</li>
+              
+            </ol>
+          
+        
+      
+    
+      
+        
+          <!-- Callout -->
+          <blockquote
+            data-h2-bg-color="b(purple[.1])"
+            data-h2-border="b(purple, all, solid, s)"
+            data-h2-margin="b(top-bottom, xl)"
+            data-h2-padding="b(right-left, m)"
+            data-h2-radius="b(s)">
+            
+            
+              <p data-h2-font-color="b(purple)">While we needed to convince applicants that there was nothing to be gained from the brute force behaviour pattern when applying for jobs on our platform, we needed to do so in a way that was psychologically safe, not undermining. This was especially important in the context of encouraging diversity and inclusion on the platform. When designing, we needed to maintain a conscious awareness about not inadvertently deterring members of underrepresented, equity-seeking communities who might be more likely to self-select out, even when equivalently or more qualified than others.</p>
+            
+          </blockquote>
+        
+      
+    
+      
+        
+          <!-- Titles -->
+          <h3
+  
+  data-h2-font-weight="b(800)"
+  data-h2-font-size="b(h3)"
+  data-h2-margin='b(top, xl) b(bottom, s)'
+  
+  style="letter-spacing: -1px;">
+  The Experiment
+</h3>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>Confirming whether or not our four interventions to deter this brute force behaviour actually worked is challenging. This is because of other interventions on the platform that were simultaneously encouraging more applications from a diverse range of applicants, many of whom had not applied before to government jobs. (Basically, we wanted to increase applications from diverse, high-performing talent, and reduce low-fit applications.)</p>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>So we don’t have a conclusive statistical test that allows us to confirm if these are the right solutions to this specific problem.</p>
+        
+      
+    
+      
+        
+          <figure data-h2-margin="b(top-bottom, l)">
+            <!-- Graphics -->
+            
+              <img 
+                src="/assets/img/4.7-en-need.jpg"
+                alt="A screenshot of a behavioural nudge, designed to deter non-qualified candidates from applying or stretching the truth. It reads: "Need to Have. Remember, that you need all of these skills to apply to this job! Question: Really? I have most of these skills and I'm a quick learner. Answer: Sorry, you really do need all of them, and at the right level. Question: What if I stretch the truth a little? Once I'm interviewed they'll change their mind for sure! Answer: Don't do it. These will be assessed, and you're better than that.""
+                style="width: 100%;"
+                data-h2-display="b(block)"
+                data-h2-radius="b(s)"
+                data-h2-border="b(gray, all, solid, s)">
+                
+            
+          </figure>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>It’s important to note we couldn’t survey those who decided not to apply based on the nudges we made to change their behaviour pattern. Those who opted out simply never showed up as a data point for us. So instead, we started looking for what was not there: namely, were applicants in Talent Cloud processes applying for everything they could or were they more targeted?</p>
+        
+      
+    
+      
+        
+          <figure data-h2-margin="b(top-bottom, l)">
+            <!-- Graphics -->
+            
+              <img 
+                src="/assets/img/4.7-en-pledge.jpg"
+                alt="A screenshot of the application honesty pledge, in which applicants are required to read a statement and digitally sign their name. The statement reads: "You've made it! I understand that I am a part of a community of people who trust each other and by signing my name below, I am confirming that: I've reviewed everything written in my application, and I promise that the information I've provided is true." The pledge is followed by a inputs where the user can type in their name, as well as the current date.  "
+                style="width: 100%;"
+                data-h2-display="b(block)"
+                data-h2-radius="b(s)"
+                data-h2-border="b(gray, all, solid, s)">
+                
+            
+          </figure>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>In terms of applicant volume, we were able to track application rates, and monitor these as we introduced new features on the platform or changed our advice to managers (e.g. when we began limiting the volume of selection criteria to a more optimal range, we saw the volume of applications move into the target range.)</p>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>We conducted careful analysis of hiring outcomes in comparison to the volume of initial applications and the rate at which applicants were screened out during each successive assessment phase. We also looked at outcomes when managers were left with too few top applicants, and other factors (such as long completion times for security screening and HR finalization) that led to the top hire choosing another position, and leaving the manager without a hire. We also cross-referenced this quantitative data with qualitative interviews, to understand exactly how well managers were doing with the target range of applicants they told us they wanted (20-30) and whether or not it mattered if a manager was seasoned or new to hiring.</p>
+        
+      
+    
+      
+        
+          <!-- Pullquotes -->
+          <blockquote
+            data-h2-border="b(red, left, solid, m)"
+            data-h2-margin="b(top-bottom, xl)"
+            data-h2-padding="b(left, m)">
+            
+            
+              <p data-h2-font-color="b(red)">“Behaviour patterns matter in reducing time to staff.”</p>
+            
+          </blockquote>
+        
+      
+    
+      
         </div>
-
-        <div data-h2-container="b(center, full)">
-            <nav data-h2-padding="b(top-bottom, m)">
-                <ul
-                    class="reset-ul"
-                    data-h2-padding="b(all, none)"
-                    data-h2-margin="b(all, none)"
-                    data-h2-text-align="b(center) m(left)"
-                    style="margin-left: -0.7rem"
-                >
-                    <li
-                        data-h2-margin="b(all, none)"
-                        data-h2-padding="b(all, none)"
-                        data-h2-display="b(inline-block)"
-                    >
-                        <a
-                            href="/en/"
-                            title="Visit the GC Talent homepage."
-                            data-h2-display="b(block)"
-                            data-h2-padding="b(all, xs) m(right-left, s)"
-                            >Home</a
-                        >
-                    </li>
-
-                    <li
-                        data-h2-margin="b(all, none)"
-                        data-h2-padding="b(all, none)"
-                        data-h2-display="b(inline-block)"
-                    >
-                        <a
-                            href="/en/talent-cloud/"
-                            title="Learn more about the Talent Cloud project."
-                            data-h2-display="b(block)"
-                            data-h2-padding="b(all, xs) m(right-left, s)"
-                            >Talent Cloud</a
-                        >
-                    </li>
-
-                    <li
-                        data-h2-margin="b(all, none)"
-                        data-h2-padding="b(all, none)"
-                        data-h2-display="b(inline-block)"
-                    >
-                        <a
-                            href="/en/communities/digital-talent/"
-                            title="Learn more about the Digital Talent community."
-                            data-h2-display="b(block)"
-                            data-h2-padding="b(all, xs) m(right-left, s)"
-                            >Digital Talent</a
-                        >
-                    </li>
-                </ul>
-            </nav>
+        <!-- Images -->
+        <div 
+          data-h2-margin="b(top, xxl) b(bottom, l) l(top-bottom, xxl)"
+          style="background-image: url('/assets/img/4.7-tx-stairs.png'); background-position: center; background-size: cover; min-height: 60vh; position: relative;"
+          title="A photo of a series of people walking up an outdoor staircase.">
+          <a
+            href="#section1"
+            title="Click here to scroll past the image break to the next section of the article."
+            data-h2-bg-color="b(white)"
+            data-h2-display="b(inline-block)"
+            data-h2-font-size="b(caption)"
+            data-h2-text-align="b(center)"
+            data-h2-padding="b(top-bottom, xs) b(right-left, s)"
+            data-h2-radius="b(m)"
+            data-h2-shadow="b(m)"
+            style="position: absolute; top: 0; left: 50%; transform: translate(-50%, -50%); min-width: 15rem;">
+            <svg
+              data-h2-margin="b(right, xxs)" 
+              style="width: 1rem; vertical-align: middle;" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#c90035">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M19 9l-7 7-7-7" />
+            </svg>Article continues below</a>
         </div>
-        <section>
-            <div
-                data-h2-container="b(center, full)"
-                data-h2-text-align="b(center)"
-            >
-                <h1
-                    data-h2-font-weight="b(800)"
-                    data-h2-font-size="b(h1)"
-                    data-h2-padding="b(top, l) l(top, xxl) b(bottom, xxs)"
-                    style="letter-spacing: -3px"
-                >
-                    Talent Cloud Results Report
-                </h1>
+        <span id="section1"></span>
+        <div data-h2-container="b(center, s)">
+      
+    
+      
+        
+          <!-- Titles -->
+          <h3
+  
+  data-h2-font-weight="b(800)"
+  data-h2-font-size="b(h3)"
+  data-h2-margin='b(top, xl) b(bottom, s)'
+  
+  style="letter-spacing: -1px;">
+  The Results
+</h3>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p><strong style="letter-spacing: -1px;" data-h2-font-weight="b(800)" data-h2-font-color="b(purple)">Talent Cloud was able to provide a platform that encouraged managers to optimize their job advertisements and assessment plans to produce a smaller volume of applications, resulting in fast processes with strong hiring outcomes.</strong></p>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>Talent Cloud job advertisements drew an average of 21 applications. Of those, nearly half (44%) passed the initial screening, 14% passed testing, and 9% passed the interview, indicating they had all the skills required for the position and were qualified to receive an offer, pending language testing and security.</p>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>The proportion of candidates that make it through each phase of the hiring process, also known as the hiring funnel, is an important metric that looks at both the final outcome (did managers get a hire?) as well as the performance of the applicant pool at each step (the drop off rate at each successive assessment phase).</p>
+        
+      
+    
+      
+        
+          <!-- Callout -->
+          <blockquote
+            data-h2-bg-color="b(purple[.1])"
+            data-h2-border="b(purple, all, solid, s)"
+            data-h2-margin="b(top-bottom, xl)"
+            data-h2-padding="b(right-left, m)"
+            data-h2-radius="b(s)">
+            
+            
+              <p data-h2-font-color="b(purple)">Talent Cloud was able to impact the behavioural choices of the manager to help them design a job advertisement that would attract the targeted number of applications. By the end of the experiment, the team was able to predict with reasonable accuracy how many applications would be received by a manager based on the components of the job advertisement, and could work with the manager to amend the job advertisement to increase the chances of getting a hire into the target range.</p>
+            
+          </blockquote>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>The Talent Cloud hiring funnel is based on hiring processes that went to completion. That means that we include processes that didn’t go well, for example job advertisements that didn’t draw any qualified candidates. As long as the process isn’t still in progress in 2021, or was cancelled by the manager/department before it was completed, we included it in these results.</p>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>This diagram simplifies these findings, roughing it out into rounder numbers for managers and HR advisors to use as target values.</p>
+        
+      
+    
+      
+        
+          <figure data-h2-margin="b(top-bottom, l)">
+            <!-- Graphics -->
+            
+              <img 
+                src="/assets/img/4.7-en-funnel.jpg"
+                alt="A graphic representing Talent Cloud's 5 step hiring funnel. It begins with the "Applications received" step, where 20 applications exist. The second step is "Passed initial screening" and now contains only 10 applications. The third step shows applications that have "Passed testing", which contains 3. The fourth step has 2 applications that have "Passed interview and reference checks". These 2 candidates are deemed fully qualified based on assessment against the job's essential criteria. The fifth and final step showcases the final hire."
+                style="width: 100%;"
+                data-h2-display="b(block)"
+                data-h2-radius="b(s)"
+                data-h2-border="b(gray, all, solid, s)">
+                
+            
+          </figure>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>Although managers told us initially that they thought the optimal volume of applicants was 20-30 in the initial applicant pool, this proved to be too low a number for optimal results. Most Talent Cloud hiring processes successfully fell into this 20-30 range of applications, but based on data gathered, we’re recommending that a slightly higher volume of applications (30-60) is actually better. Our analysis led us to believe that this initial target of 20-30 applications reflected how many applicants managers felt they had the energy to deal with, rather than the optimal number for producing the best hiring outcome. That said, manager energy and enthusiasm levels have to be taken into account in a staffing process, otherwise it leads to long delays and cancelled processes.</p>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>There was a definite connection in our experiment between volume of applications, manager behaviour patterns, and hiring outcome. <strong style="letter-spacing: -1px;" data-h2-font-weight="b(800)" data-h2-font-color="b(purple)">We found that the optimal target range of applicants for a new hiring manager was 30-40. For seasoned managers, who had a larger frame of reference for screening applicants, the optimal range increased to 40-60.</strong> Based on the hiring funnel data, this would leave new managers (who followed other Talent Cloud steps as designed) with ~6-8 fully qualified applicants, and seasoned managers with ~8-12 fully qualified applicants. An applicant pool of only ~20 applicants ran the risk of failing to produce a hire, particularly if the hiring manager delayed, even a little, at any stage of the screening and assessment process.</p>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>Seasoned managers, on average, processed their applicant pool more quickly than new managers and were more likely to do it themselves. They were also often in a position to make multiple hires (either onto their team or by matchmaking in their organizations). On the other hand, receiving more than 35 applications for a new manager created delays - either through procrastination behaviours or because they sought additional help from HR services. This added several weeks to the hiring process (months, if the HR services were a procurement arrangement). These delays, in turn, cost new managers their top applicants, and led to several failed processes in our study. This is why, for newer managers, fewer applications and fewer fully qualified applicants can actually increase the chances of a successful hire. There is a balance to be struck between application volume and processing speed, which can impact the final outcome. (See also Impact of Speed on Retention of Top Talent in Research Section 4.)</p>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p><strong style="letter-spacing: -1px;" data-h2-font-weight="b(800)" data-h2-font-color="b(purple)">The research led to the discovery of an optimal target range for applications, but what about the other side? What about impacting behaviours so that applications arrived in a volume that optimized the hiring outcome?</strong></p>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>Talent Cloud had success in relation to the efforts to reduce the number of under-qualified applications. While it’s difficult to claim conclusively that these interventions worked, the “qualified to receive offer” rate for Talent Cloud is 9%, meaning roughly 1 in 11 people applying were assessed as having all the essential skills required for the job. The industry average is much lower, sitting ~2% or 1 out of every 50 applicants is fully qualified (<a href="https://www.jobvite.com/blog/recruiting-process/7-benchmark-metrics-to-help-you-master-your-recruiting-funnel/" target="_blank" rel="noreferrer" title="View source.">Jobvite</a>, <a href="https://hbr.org/2019/05/recruiting" target="_blank" rel="noreferrer" title="View source.">Harvard Business Review</a>, <a href="https://knowledge.wharton.upenn.edu/article/fix-the-hiring-process/" target="_blank" rel="noreferrer" title="View source.">Knowledge@Wharton</a>, <a href="https://www.glassdoor.com/employers/blog/50-hr-recruiting-stats-make-think/" target="_blank" rel="noreferrer" title="View source.">Glassdoor</a>).</p>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>In terms of multiple applications, out of the 1000+ individual users submitting applications through the Talent Cloud platform, which hosted 50+ positions, only a single person applied for more than 10 jobs. In essence, the brute force attack behaviour only accounted for 0.09% of total applicants. Talent Cloud did observe multiple applications in smaller volumes (approximately 7% of applicants submitted between 2 and 6 applications), but this occurred where we hoped to see applicants using their reusable profiles to apply to multiple jobs at similar levels and classifications. No applicants submitted 7-11 applications, indicating a break in the behaviour pattern between those who applied to multiple similar positions, and those applying for many distinct positions. In summary, Talent Cloud noted a clear absence of the brute force application behaviour on our site.</p>
+        
+      
+    
+      
+        
+          <!-- Titles -->
+          <h3
+  
+  data-h2-font-weight="b(800)"
+  data-h2-font-size="b(h3)"
+  data-h2-margin='b(top, xl) b(bottom, s)'
+  
+  style="letter-spacing: -1px;">
+  Insights
+</h3>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>The steps we designed and implemented on our platform to optimize application volume and specifically to deter the “brute force application” could be applied more broadly.  In order for the Government of Canada to see these benefits at scale, changes would need to be made to the platform managers were using to hire, in order to ensure system-wide change management.</p>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p><strong style="letter-spacing: -1px;" data-h2-font-weight="b(800)" data-h2-font-color="b(purple)">We believe the interventions listed above, as well as the five factor matching approach (optimizing talent-to-team fit), were significant factors in changing applicant behaviours and tailoring the volume of applications to the target range we aimed to produce.</strong> This wouldn’t be available as a deterrent in cases where departments are running larger pools with generic information. However, when running a pool, a larger volume of applications may not be a concern, and potentially the need for a rapid process is also less significant, reducing the rationale to apply these interventions.</p>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>But for managers looking to staff quickly for roles on a specific team, we strongly recommend deterrents in the language on the job advertisement that will dissuade those who are applying for any reason other than actually wanting to be selected for that specific job. We also recommend optimizing the process (to the extent possible on the platform being used) to target a range of applications optimized for the manager’s level of experience in hiring. This is one case where more is definitely not better - top talent will only wait so long, and speed is of the essence.</p>
+        
+      
+    
+  </div>
+</main>
+<section style="background-color: #F8F8F8;">
+  <div data-h2-container="b(center, s)" data-h2-padding="b(bottom, l) l(bottom, xxl)">
+    <div data-h2-flex-grid="b(top, expanded, flush, m)">
+      <div
+        data-h2-text-align="b(center) m(left)" 
+        data-h2-flex-item="b(1of2)">
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            
+              <a class="prev" href="/en/2000/01/01/406-top-talent.html" title="Go to the previous article in the series.">
+                <svg data-h2-margin="b(right, xxs)" 
+                  style="width: 1rem; vertical-align: middle;" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="#c90035">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M15 19l-7-7 7-7" />
+                </svg>Previous Article</a>
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      </div>
+      <div 
+        data-h2-text-align="b(center) m(right)"   
+        data-h2-flex-item="b(1of2)">
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            
+              <a class="next" href="/en/hiring/2000/01/01/408-criteria.html" title="Go to the next article in the series.">Next Article<svg data-h2-margin="b(left, xxs)" 
+                style="width: 1rem; vertical-align: middle;" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="#c90035">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M9 5l7 7-7 7" />
+                </svg></a>
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      </div>
+    </div>
+    <p
+      data-h2-margin="b(top, xxl)" 
+      data-h2-text-align="b(center)"
+      data-h2-font-size="b(caption)">
+      <a href="/en/talent-cloud/report/#toc" title="Return to Table of Contents">Return to Table of Contents</a>
+    </p>
+  </div>
+</section>
+<section data-h2-border="b([light]gray, top, solid, s)" data-h2-position="b(relative)" style="background: rgba(240, 240, 240, 1)" data-h2-overflow="b(x, hidden)">
+  <footer data-h2-container="b(center, full)" data-h2-padding="b(top-bottom, l)">
+    <div data-h2-flex-grid="b(middle, expanded, flush, xl)">
+      <div
+        data-h2-flex-item="b(1of1) m(1of2)"
+        data-h2-padding="b(left, xl)"
+        data-h2-text-align="b(center) m(left)">
+        
+          <nav>
+            <ul
+              style="gap: 1rem;"
+              class="reset-ul"
+              data-h2-display="b(flex)"
+              data-h2-flex-wrap="b(wrap)"
+              data-h2-justify-content="b(center) m(flex-start)"
+              data-h2-margin="b(bottom, xs)">
+              
+              <li data-h2-display="b(inline-block)" data-h2-margin="b(top-bottom, none)">
+                
+                  <a href="mailto:GCTalentGC@tbs-sct.gc.ca" title="Submit feedback to GC Talent Cloud via email.">Feedback</a>
+                
+              </li>
+              
+              <li data-h2-display="b(inline-block)" data-h2-margin="b(top-bottom, none)">
+                
+                  <a href="/en/terms-and-conditions" title="View our terms and conditions.">Terms & Conditions</a>
+                
+              </li>
+              
+              <li data-h2-display="b(inline-block)" data-h2-margin="b(top-bottom, none)">
+                
+                  <a href="/en/privacy-notice" title="View our privacy policy.">Privacy Policy</a>
+                
+              </li>
+              
+              <li data-h2-display="b(inline-block)" data-h2-margin="b(top-bottom, none)">
+                
+                  <a href="/en/https://www.canada.ca/en.html" title="Visit Canada.ca.">Canada.ca</a>
+                
+              </li>
+              
+            </ul>
+          </nav>
+          <p 
+            data-h2-font-size="b(caption)"
+            data-h2-font-color="b(black)" 
+            data-h2-margin="b(bottom, none) b(top, m)">
+            Date Modified: July 07, 2021
+          </p>
+        
+      </div>
+      <div
+        data-h2-flex-item="b(1of1) m(1of2)"
+        data-h2-padding="b(right, xl)"
+        data-h2-text-align="b(center) m(right)">
+        <a
+          href="https://www.canada.ca/en.html"
+          title="Visit Canada.ca."
+          target="_blank"
+          rel="noopener noreferrer">
+          <img
+            class="canada-logo"
+            src="/assets/img/ui-canada.png"
+            alt="Canada's Logo."/>
+        </a>
+      </div>
+    </div>
+  </footer>
+</section>
 
-                <div id="breadcrumbs" data-h2-margin="b(top-bottom, m)">
-                    <a href="/en" title="Return to the homepage.">GC Talent</a>
-                    <!-- If the page layout is post then use this breadcrumb list. -->
-
-                    /
-                    <a
-                        href="/en/talent-cloud"
-                        title="Return to the Talent Cloud page."
-                        >Talent Cloud</a
-                    >
-                    /
-                    <a
-                        href="/en/talent-cloud/report"
-                        title="Return to the Talent Cloud results report."
-                        >Talent Cloud Resu...</a
-                    >
-                    / <span>Section 4</span> /
-                    <span data-h2-font-weight="b(800)"
-                        >Optimizing the Vo...</span
-                    >
-                </div>
-            </div>
-        </section>
-        <header
-            class="post-header"
-            id="mainContent"
-            style="background-image: url('/assets/img/4.7-tx-heading.jpg')"
-            data-h2-margin="b(top, xl)"
-        >
-            <div
-                data-h2-container="b(center, m)"
-                data-h2-font-color="b(white)"
-                data-h2-padding="b(top, l) b(bottom, xl) l(top, xl) l(bottom, xxl)"
-                data-h2-text-align="b(center)"
-            >
-                <h2
-                    data-h2-font-weight="b(200)"
-                    data-h2-font-size="b(h2)"
-                    data-h2-padding="b(top, m)"
-                    style="letter-spacing: -2px"
-                >
-                    Optimizing the Volume of Applications
-                </h2>
-            </div>
-        </header>
-        <main
-            data-h2-padding="b(top-bottom, xs) l(top-bottom, xl)"
-            style="background-color: #f8f8f8"
-        >
-            <div data-h2-container="b(center, s)">
-                <!-- Titles -->
-                <h3
-                    data-h2-font-weight="b(800)"
-                    data-h2-font-size="b(h3)"
-                    data-h2-margin="b(top, xl) b(bottom, s)"
-                    style="letter-spacing: -1px"
-                >
-                    The Problem
-                </h3>
-
-                <!-- Basic Content -->
-                <p>
-                    High application volumes are a challenge for managers,
-                    especially if many of the applications turn out to be a poor
-                    fit for the position. But how many applications should
-                    managers be hoping for in order to yield a strong hiring
-                    result? And is it even possible to influence the behaviour
-                    patterns of applicants in order to optimize the volume of
-                    applications?
-                </p>
-
-                <!-- Basic Content -->
-                <p>
-                    Talent Cloud ran a series of workshops in 2017 to better
-                    understand the steps and choices applicants were making in
-                    the staffing process. As part of that process, managers
-                    identified that their preferred number of applications to
-                    receive was 20-30 at the initial screening, and 5-10 for
-                    interview, but that the number of applications received was
-                    often several hundred. Managers reported that they found
-                    this volume overwhelming, leading to procrastination and
-                    cancelled processes.
-                </p>
-
-                <!-- Basic Content -->
-                <p>
-                    One of the most illuminating findings from that user
-                    engagement was the identification of a specific behaviour
-                    that was, at an aggregate level, contributing to high
-                    application volume and low quality fit. HR advisors were
-                    aware of the behaviour as a factor in longer times to staff,
-                    and hiring managers associated it with poorer hiring
-                    outcomes.
-                </p>
-
-                <!-- Basic Content -->
-                <p>
-                    The behaviour pattern we identified was referred to by
-                    applicants as the “brute force attack” application practice
-                    - a term workshop participants shared, not one we came up
-                    with ourselves. In our research, applicants reported using
-                    the “brute force attack” application practice as a common
-                    strategy. Basically, they applied for anything and
-                    everything where they thought they might even remotely meet
-                    the selection criteria.
-                </p>
-
-                <!-- Basic Content -->
-                <p>
-                    Most applicants reported that they didn’t clearly understand
-                    why they got accepted into pools or jobs for some processes,
-                    but failed others they thought they were more qualified for…
-                    and applicants reported that they had low success rates
-                    overall in applying. As a result, applicants reported
-                    developing a “try everything” approach. Most in the
-                    workshops reported applying for at least 10 jobs in the last
-                    6 months, with a similar pattern of feeling like they were
-                    only a strong fit for a couple of them. Some even reported
-                    applying for 30-50 jobs in the past year, and estimated that
-                    they were a good fit for only 5-10 of those jobs. This
-                    apply-despite-not-believing-I’m-qualified behaviour was
-                    consistent for both external applicants and internal GC
-                    employees looking for promotional opportunities. A sense of
-                    confusion about “what gets you in” was pervasive.
-                </p>
-
-                <!-- Basic Content -->
-                <p>
-                    So why continue the practice, even with a low chance of
-                    success? Why apply, even in cases where applicants reported
-                    not wanting the actual job? Applicants told us it’s “common
-                    knowledge” - or at least common belief - that once a person
-                    gets into government, they can move around easily, and seek
-                    a better fit job from the inside. (<a
-                        href="https://www.canada.ca/en/public-service-commission/services/publications/annual-report-2018-19.html"
-                        target="_blank"
-                        rel="noreferrer"
-                        title="View source."
-                        >An internal mobility rate of ~12% in 2019-20 in the
-                        Government of Canada, and a promotion rate of ~13 %,
-                        would seem to corroborate the idea that once inside
-                        government, many people move to a different position
-                        that appeals more to them.</a
-                    >)
-                </p>
-
-                <!-- Subtitles -->
-                <h4
-                    data-h2-font-weight="b(400)"
-                    data-h2-font-size="b(h4)"
-                    data-h2-margin="b(top, xl) b(bottom, s)"
-                    style="letter-spacing: -1px"
-                >
-                    The Problem at Scale
-                </h4>
-
-                <!-- Basic Content -->
-                <p>
-                    For some hiring processes, high volume is the targeted
-                    outcome, such as when the Government of Canada gathers large
-                    pools of talent through recruitment drives that are open for
-                    several months. Numerous hiring managers from various
-                    departments pull from these pools, applying generic work
-                    descriptions. As a result, there’s little rationale to take
-                    behavioural steps to reduce application volume and optimize
-                    applicant fit.
-                </p>
-
-                <!-- Basic Content -->
-                <p>
-                    But for individual hiring managers running a process for
-                    their own team with limited time and energy reserves, high
-                    application volumes are a challenge.
-                </p>
-
-                <!-- Basic Content -->
-                <p>
-                    While it’s easy to understand the rationale that creates the
-                    brute force application behaviour, if it occurs at a large
-                    scale this pattern can lead to a massive number of
-                    misaligned, long shot applications that bog down the entire
-                    hiring system, placing a time and energy burden on HR
-                    advisors and managers, who are already stretched thin.
-                </p>
-
-                <!-- Basic Content -->
-                <p>
-                    There are also diversity and inclusion factors to consider.
-                    There is external behavioural research showing that men are
-                    more likely than other groups to claim that they are ready
-                    for advancement or qualified for jobs. As a group,
-                    <a
-                        href="https://hbr.org/2014/08/why-women-dont-apply-for-jobs-unless-theyre-100-qualified"
-                        target="_blank"
-                        rel="noreferrer"
-                        title="View source."
-                        >men reported often applying to jobs when they felt they
-                        were 60% qualified, compared with women, who reported
-                        waiting until they felt they were 100% qualified before
-                        applying</a
-                    >. If this external research holds true for applicants to
-                    Government of Canada jobs, this could have significant GBA+
-                    implications for application rates and hiring outcomes. It’s
-                    something that we wanted to be aware of when intervening to
-                    deter applicants who weren’t fully qualified.
-                </p>
-
-                <!-- Titles -->
-                <h3
-                    data-h2-font-weight="b(800)"
-                    data-h2-font-size="b(h3)"
-                    data-h2-margin="b(top, xl) b(bottom, s)"
-                    style="letter-spacing: -1px"
-                >
-                    The Hypotheses
-                </h3>
-
-                <!-- Basic Content -->
-                <p>
-                    <strong
-                        style="letter-spacing: -1px"
-                        data-h2-font-weight="b(800)"
-                        data-h2-font-color="b(purple)"
-                        >If managers say they prefer to see 20-30 applications,
-                        we should aim for this volume and test to see if it’s
-                        actually the number that produces the best hiring
-                        outcome.</strong
-                    >
-                    This would require several interventions to address the high
-                    volume of applicants typically seen in government HR
-                    processes.
-                </p>
-
-                <!-- Basic Content -->
-                <p>
-                    Talent Cloud reasoned that if the brute force attack
-                    application approach was causing high-volume, poor-fit
-                    application practices, disincentivizing this behaviour might
-                    improve time to staff and help increase the average
-                    quality-of-fit in the applicant pool.
-                </p>
-
-                <!-- Basic Content -->
-                <p>
-                    Talent Cloud hypothesized that the following interventions
-                    would help address the brute force attack approach by
-                    applicants and would lead to fewer, but higher average
-                    quality of applicants.
-                </p>
-
-                <ol>
-                    <li>
-                        <strong
-                            style="letter-spacing: -1px"
-                            data-h2-font-weight="b(800)"
-                            data-h2-font-color="b(purple)"
-                            >There is only one job, and here are all the
-                            details.</strong
-                        >
-                        We reasoned that if applicants were trying to come in
-                        any “door” to go somewhere else (and consequently all
-                        doorways were becoming jammed and impassable), it was
-                        worth testing to see what would happen when each “door”
-                        only led to a single location. One job, one manager, one
-                        team, one term appointment of finite length. No pools,
-                        no applying here to get hired over there. Come in this
-                        door to get to this location only. (This was one of the
-                        drivers behind our theory on the value of five factor
-                        talent-to-team matching.) If we provided the details of
-                        the only job on offer, and it didn’t actually appeal to
-                        an applicant, perhaps the applicant could be persuaded
-                        to invest their job search energy elsewhere.
-                    </li>
-
-                    <li>
-                        <strong
-                            style="letter-spacing: -1px"
-                            data-h2-font-weight="b(800)"
-                            data-h2-font-color="b(purple)"
-                            >Give applicants a sense of exactly how much
-                            competition they have.</strong
-                        >
-                        We reasoned that applicants who want a job will be
-                        willing to put in the time to apply, especially when
-                        they have no idea who else is being considered. We
-                        reasoned that if applicants knew 300 other people had
-                        applied for something, they might not go to the effort
-                        unless they believed they were a really strong match. So
-                        we added an “applicant count” to the live job
-                        advertisement, showing applicants in real time how many
-                        other people had already applied.
-                    </li>
-
-                    <li>
-                        <strong
-                            style="letter-spacing: -1px"
-                            data-h2-font-weight="b(800)"
-                            data-h2-font-color="b(purple)"
-                            >Acknowledge that applicants will be tempted to
-                            exaggerate, and factor this into the platform
-                            design.</strong
-                        >
-                        In addition, we hypothesized that applicants could
-                        sometimes be deterred from applying to jobs that they
-                        weren’t ready for by simply encouraging them to be
-                        honest about their skills and level of readiness to take
-                        on the role. We added a series of nudges on the job
-                        application to deter applicants who weren’t qualified
-                        from both applying and stretching the truth about their
-                        skills.
-                    </li>
-
-                    <li>
-                        <strong
-                            style="letter-spacing: -1px"
-                            data-h2-font-weight="b(800)"
-                            data-h2-font-color="b(purple)"
-                            >Integrity matters.</strong
-                        >
-                        We added an honesty pledge, carefully reflecting
-                        behavioural sciences on how to make these work well, and
-                        added it to the application process. Based on
-                        behavioural science, we have chosen to base the honesty
-                        pledge on trust rather than legal formality.
-                    </li>
-                </ol>
-
-                <!-- Callout -->
-                <blockquote
-                    data-h2-bg-color="b(purple[.1])"
-                    data-h2-border="b(purple, all, solid, s)"
-                    data-h2-margin="b(top-bottom, xl)"
-                    data-h2-padding="b(right-left, m)"
-                    data-h2-radius="b(s)"
-                >
-                    <p data-h2-font-color="b(purple)">
-                        While we needed to convince applicants that there was
-                        nothing to be gained from the brute force behaviour
-                        pattern when applying for jobs on our platform, we
-                        needed to do so in a way that was psychologically safe,
-                        not undermining. This was especially important in the
-                        context of encouraging diversity and inclusion on the
-                        platform. When designing, we needed to maintain a
-                        conscious awareness about not inadvertently deterring
-                        members of underrepresented, equity-seeking communities
-                        who might be more likely to self-select out, even when
-                        equivalently or more qualified than others.
-                    </p>
-                </blockquote>
-
-                <!-- Titles -->
-                <h3
-                    data-h2-font-weight="b(800)"
-                    data-h2-font-size="b(h3)"
-                    data-h2-margin="b(top, xl) b(bottom, s)"
-                    style="letter-spacing: -1px"
-                >
-                    The Experiment
-                </h3>
-
-                <!-- Basic Content -->
-                <p>
-                    Confirming whether or not our four interventions to deter
-                    this brute force behaviour actually worked is challenging.
-                    This is because of other interventions on the platform that
-                    were simultaneously encouraging more applications from a
-                    diverse range of applicants, many of whom had not applied
-                    before to government jobs. (Basically, we wanted to increase
-                    applications from diverse, high-performing talent, and
-                    reduce low-fit applications.)
-                </p>
-
-                <!-- Basic Content -->
-                <p>
-                    So we don’t have a conclusive statistical test that allows
-                    us to confirm if these are the right solutions to this
-                    specific problem.
-                </p>
-
-                <figure data-h2-margin="b(top-bottom, l)">
-                    <!-- Graphics -->
-
-                    <img src="/assets/img/4.7-en-need.jpg" alt="A screenshot of
-                    a behavioural nudge, designed to deter non-qualified
-                    candidates from applying or stretching the truth. It reads:
-                    "Need to Have. Remember, that you need all of these skills
-                    to apply to this job! Question: Really? I have most of these
-                    skills and I'm a quick learner. Answer: Sorry, you really do
-                    need all of them, and at the right level. Question: What if
-                    I stretch the truth a little? Once I'm interviewed they'll
-                    change their mind for sure! Answer: Don't do it. These will
-                    be assessed, and you're better than that."" style="width:
-                    100%;" data-h2-display="b(block)" data-h2-radius="b(s)"
-                    data-h2-border="b(gray, all, solid, s)">
-                </figure>
-
-                <!-- Basic Content -->
-                <p>
-                    It’s important to note we couldn’t survey those who decided
-                    not to apply based on the nudges we made to change their
-                    behaviour pattern. Those who opted out simply never showed
-                    up as a data point for us. So instead, we started looking
-                    for what was not there: namely, were applicants in Talent
-                    Cloud processes applying for everything they could or were
-                    they more targeted?
-                </p>
-
-                <figure data-h2-margin="b(top-bottom, l)">
-                    <!-- Graphics -->
-
-                    <img src="/assets/img/4.7-en-pledge.jpg" alt="A screenshot
-                    of the application honesty pledge, in which applicants are
-                    required to read a statement and digitally sign their name.
-                    The statement reads: "You've made it! I understand that I am
-                    a part of a community of people who trust each other and by
-                    signing my name below, I am confirming that: I've reviewed
-                    everything written in my application, and I promise that the
-                    information I've provided is true." The pledge is followed
-                    by a inputs where the user can type in their name, as well
-                    as the current date. " style="width: 100%;"
-                    data-h2-display="b(block)" data-h2-radius="b(s)"
-                    data-h2-border="b(gray, all, solid, s)">
-                </figure>
-
-                <!-- Basic Content -->
-                <p>
-                    In terms of applicant volume, we were able to track
-                    application rates, and monitor these as we introduced new
-                    features on the platform or changed our advice to managers
-                    (e.g. when we began limiting the volume of selection
-                    criteria to a more optimal range, we saw the volume of
-                    applications move into the target range.)
-                </p>
-
-                <!-- Basic Content -->
-                <p>
-                    We conducted careful analysis of hiring outcomes in
-                    comparison to the volume of initial applications and the
-                    rate at which applicants were screened out during each
-                    successive assessment phase. We also looked at outcomes when
-                    managers were left with too few top applicants, and other
-                    factors (such as long completion times for security
-                    screening and HR finalization) that led to the top hire
-                    choosing another position, and leaving the manager without a
-                    hire. We also cross-referenced this quantitative data with
-                    qualitative interviews, to understand exactly how well
-                    managers were doing with the target range of applicants they
-                    told us they wanted (20-30) and whether or not it mattered
-                    if a manager was seasoned or new to hiring.
-                </p>
-
-                <!-- Pullquotes -->
-                <blockquote
-                    data-h2-border="b(red, left, solid, m)"
-                    data-h2-margin="b(top-bottom, xl)"
-                    data-h2-padding="b(left, m)"
-                >
-                    <p data-h2-font-color="b(red)">
-                        “Behaviour patterns matter in reducing time to staff.”
-                    </p>
-                </blockquote>
-            </div>
-            <!-- Images -->
-            <div
-                data-h2-margin="b(top, xxl) b(bottom, l) l(top-bottom, xxl)"
-                style="
-                    background-image: url('/assets/img/4.7-tx-stairs.png');
-                    background-position: center;
-                    background-size: cover;
-                    min-height: 60vh;
-                    position: relative;
-                "
-                title="A photo of a series of people walking up an outdoor staircase."
-            >
-                <a
-                    href="#section1"
-                    title="Click here to scroll past the image break to the next section of the article."
-                    data-h2-bg-color="b(white)"
-                    data-h2-display="b(inline-block)"
-                    data-h2-font-size="b(caption)"
-                    data-h2-text-align="b(center)"
-                    data-h2-padding="b(top-bottom, xs) b(right-left, s)"
-                    data-h2-radius="b(m)"
-                    data-h2-shadow="b(m)"
-                    style="
-                        position: absolute;
-                        top: 0;
-                        left: 50%;
-                        transform: translate(-50%, -50%);
-                        min-width: 15rem;
-                    "
-                >
-                    <svg
-                        data-h2-margin="b(right, xxs)"
-                        style="width: 1rem; vertical-align: middle"
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="#c90035"
-                    >
-                        <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="4"
-                            d="M19 9l-7 7-7-7"
-                        /></svg
-                    >Article continues below</a
-                >
-            </div>
-            <span id="section1"></span>
-            <div data-h2-container="b(center, s)">
-                <!-- Titles -->
-                <h3
-                    data-h2-font-weight="b(800)"
-                    data-h2-font-size="b(h3)"
-                    data-h2-margin="b(top, xl) b(bottom, s)"
-                    style="letter-spacing: -1px"
-                >
-                    The Results
-                </h3>
-
-                <!-- Basic Content -->
-                <p>
-                    <strong
-                        style="letter-spacing: -1px"
-                        data-h2-font-weight="b(800)"
-                        data-h2-font-color="b(purple)"
-                        >Talent Cloud was able to provide a platform that
-                        encouraged managers to optimize their job advertisements
-                        and assessment plans to produce a smaller volume of
-                        applications, resulting in fast processes with strong
-                        hiring outcomes.</strong
-                    >
-                </p>
-
-                <!-- Basic Content -->
-                <p>
-                    Talent Cloud job advertisements drew an average of 21
-                    applications. Of those, nearly half (44%) passed the initial
-                    screening, 14% passed testing, and 9% passed the interview,
-                    indicating they had all the skills required for the position
-                    and were qualified to receive an offer, pending language
-                    testing and security.
-                </p>
-
-                <!-- Basic Content -->
-                <p>
-                    The proportion of candidates that make it through each phase
-                    of the hiring process, also known as the hiring funnel, is
-                    an important metric that looks at both the final outcome
-                    (did managers get a hire?) as well as the performance of the
-                    applicant pool at each step (the drop off rate at each
-                    successive assessment phase).
-                </p>
-
-                <!-- Callout -->
-                <blockquote
-                    data-h2-bg-color="b(purple[.1])"
-                    data-h2-border="b(purple, all, solid, s)"
-                    data-h2-margin="b(top-bottom, xl)"
-                    data-h2-padding="b(right-left, m)"
-                    data-h2-radius="b(s)"
-                >
-                    <p data-h2-font-color="b(purple)">
-                        Talent Cloud was able to impact the behavioural choices
-                        of the manager to help them design a job advertisement
-                        that would attract the targeted number of applications.
-                        By the end of the experiment, the team was able to
-                        predict with reasonable accuracy how many applications
-                        would be received by a manager based on the components
-                        of the job advertisement, and could work with the
-                        manager to amend the job advertisement to increase the
-                        chances of getting a hire into the target range.
-                    </p>
-                </blockquote>
-
-                <!-- Basic Content -->
-                <p>
-                    The Talent Cloud hiring funnel is based on hiring processes
-                    that went to completion. That means that we include
-                    processes that didn’t go well, for example job
-                    advertisements that didn’t draw any qualified candidates. As
-                    long as the process isn’t still in progress in 2021, or was
-                    cancelled by the manager/department before it was completed,
-                    we included it in these results.
-                </p>
-
-                <!-- Basic Content -->
-                <p>
-                    This diagram simplifies these findings, roughing it out into
-                    rounder numbers for managers and HR advisors to use as
-                    target values.
-                </p>
-
-                <figure data-h2-margin="b(top-bottom, l)">
-                    <!-- Graphics -->
-
-                    <img src="/assets/img/4.7-en-funnel.jpg" alt="A graphic
-                    representing Talent Cloud's 5 step hiring funnel. It begins
-                    with the "Applications received" step, where 20 applications
-                    exist. The second step is "Passed initial screening" and now
-                    contains only 10 applications. The third step shows
-                    applications that have "Passed testing", which contains 3.
-                    The fourth step has 2 applications that have "Passed
-                    interview and reference checks". These 2 candidates are
-                    deemed fully qualified based on assessment against the job's
-                    essential criteria. The fifth and final step showcases the
-                    final hire." style="width: 100%;" data-h2-display="b(block)"
-                    data-h2-radius="b(s)" data-h2-border="b(gray, all, solid,
-                    s)">
-                </figure>
-
-                <!-- Basic Content -->
-                <p>
-                    Although managers told us initially that they thought the
-                    optimal volume of applicants was 20-30 in the initial
-                    applicant pool, this proved to be too low a number for
-                    optimal results. Most Talent Cloud hiring processes
-                    successfully fell into this 20-30 range of applications, but
-                    based on data gathered, we’re recommending that a slightly
-                    higher volume of applications (30-60) is actually better.
-                    Our analysis led us to believe that this initial target of
-                    20-30 applications reflected how many applicants managers
-                    felt they had the energy to deal with, rather than the
-                    optimal number for producing the best hiring outcome. That
-                    said, manager energy and enthusiasm levels have to be taken
-                    into account in a staffing process, otherwise it leads to
-                    long delays and cancelled processes.
-                </p>
-
-                <!-- Basic Content -->
-                <p>
-                    There was a definite connection in our experiment between
-                    volume of applications, manager behaviour patterns, and
-                    hiring outcome.
-                    <strong
-                        style="letter-spacing: -1px"
-                        data-h2-font-weight="b(800)"
-                        data-h2-font-color="b(purple)"
-                        >We found that the optimal target range of applicants
-                        for a new hiring manager was 30-40. For seasoned
-                        managers, who had a larger frame of reference for
-                        screening applicants, the optimal range increased to
-                        40-60.</strong
-                    >
-                    Based on the hiring funnel data, this would leave new
-                    managers (who followed other Talent Cloud steps as designed)
-                    with ~6-8 fully qualified applicants, and seasoned managers
-                    with ~8-12 fully qualified applicants. An applicant pool of
-                    only ~20 applicants ran the risk of failing to produce a
-                    hire, particularly if the hiring manager delayed, even a
-                    little, at any stage of the screening and assessment
-                    process.
-                </p>
-
-                <!-- Basic Content -->
-                <p>
-                    Seasoned managers, on average, processed their applicant
-                    pool more quickly than new managers and were more likely to
-                    do it themselves. They were also often in a position to make
-                    multiple hires (either onto their team or by matchmaking in
-                    their organizations). On the other hand, receiving more than
-                    35 applications for a new manager created delays - either
-                    through procrastination behaviours or because they sought
-                    additional help from HR services. This added several weeks
-                    to the hiring process (months, if the HR services were a
-                    procurement arrangement). These delays, in turn, cost new
-                    managers their top applicants, and led to several failed
-                    processes in our study. This is why, for newer managers,
-                    fewer applications and fewer fully qualified applicants can
-                    actually increase the chances of a successful hire. There is
-                    a balance to be struck between application volume and
-                    processing speed, which can impact the final outcome. (See
-                    also Impact of Speed on Retention of Top Talent in Research
-                    Section 4.)
-                </p>
-
-                <!-- Basic Content -->
-                <p>
-                    <strong
-                        style="letter-spacing: -1px"
-                        data-h2-font-weight="b(800)"
-                        data-h2-font-color="b(purple)"
-                        >The research led to the discovery of an optimal target
-                        range for applications, but what about the other side?
-                        What about impacting behaviours so that applications
-                        arrived in a volume that optimized the hiring
-                        outcome?</strong
-                    >
-                </p>
-
-                <!-- Basic Content -->
-                <p>
-                    Talent Cloud had success in relation to the efforts to
-                    reduce the number of under-qualified applications. While
-                    it’s difficult to claim conclusively that these
-                    interventions worked, the “qualified to receive offer” rate
-                    for Talent Cloud is 9%, meaning roughly 1 in 11 people
-                    applying were assessed as having all the essential skills
-                    required for the job. The industry average is much lower,
-                    sitting ~2% or 1 out of every 50 applicants is fully
-                    qualified (<a
-                        href="https://www.jobvite.com/blog/recruiting-process/7-benchmark-metrics-to-help-you-master-your-recruiting-funnel/"
-                        target="_blank"
-                        rel="noreferrer"
-                        title="View source."
-                        >Jobvite</a
-                    >,
-                    <a
-                        href="https://hbr.org/2019/05/recruiting"
-                        target="_blank"
-                        rel="noreferrer"
-                        title="View source."
-                        >Harvard Business Review</a
-                    >,
-                    <a
-                        href="https://knowledge.wharton.upenn.edu/article/fix-the-hiring-process/"
-                        target="_blank"
-                        rel="noreferrer"
-                        title="View source."
-                        >Knowledge@Wharton</a
-                    >,
-                    <a
-                        href="https://www.glassdoor.com/employers/blog/50-hr-recruiting-stats-make-think/"
-                        target="_blank"
-                        rel="noreferrer"
-                        title="View source."
-                        >Glassdoor</a
-                    >).
-                </p>
-
-                <!-- Basic Content -->
-                <p>
-                    In terms of multiple applications, out of the 1000+
-                    individual users submitting applications through the Talent
-                    Cloud platform, which hosted 50+ positions, only a single
-                    person applied for more than 10 jobs. In essence, the brute
-                    force attack behaviour only accounted for 0.09% of total
-                    applicants. Talent Cloud did observe multiple applications
-                    in smaller volumes (approximately 7% of applicants submitted
-                    between 2 and 6 applications), but this occurred where we
-                    hoped to see applicants using their reusable profiles to
-                    apply to multiple jobs at similar levels and
-                    classifications. No applicants submitted 7-11 applications,
-                    indicating a break in the behaviour pattern between those
-                    who applied to multiple similar positions, and those
-                    applying for many distinct positions. In summary, Talent
-                    Cloud noted a clear absence of the brute force application
-                    behaviour on our site.
-                </p>
-
-                <!-- Titles -->
-                <h3
-                    data-h2-font-weight="b(800)"
-                    data-h2-font-size="b(h3)"
-                    data-h2-margin="b(top, xl) b(bottom, s)"
-                    style="letter-spacing: -1px"
-                >
-                    Insights
-                </h3>
-
-                <!-- Basic Content -->
-                <p>
-                    The steps we designed and implemented on our platform to
-                    optimize application volume and specifically to deter the
-                    “brute force application” could be applied more broadly. In
-                    order for the Government of Canada to see these benefits at
-                    scale, changes would need to be made to the platform
-                    managers were using to hire, in order to ensure system-wide
-                    change management.
-                </p>
-
-                <!-- Basic Content -->
-                <p>
-                    <strong
-                        style="letter-spacing: -1px"
-                        data-h2-font-weight="b(800)"
-                        data-h2-font-color="b(purple)"
-                        >We believe the interventions listed above, as well as
-                        the five factor matching approach (optimizing
-                        talent-to-team fit), were significant factors in
-                        changing applicant behaviours and tailoring the volume
-                        of applications to the target range we aimed to
-                        produce.</strong
-                    >
-                    This wouldn’t be available as a deterrent in cases where
-                    departments are running larger pools with generic
-                    information. However, when running a pool, a larger volume
-                    of applications may not be a concern, and potentially the
-                    need for a rapid process is also less significant, reducing
-                    the rationale to apply these interventions.
-                </p>
-
-                <!-- Basic Content -->
-                <p>
-                    But for managers looking to staff quickly for roles on a
-                    specific team, we strongly recommend deterrents in the
-                    language on the job advertisement that will dissuade those
-                    who are applying for any reason other than actually wanting
-                    to be selected for that specific job. We also recommend
-                    optimizing the process (to the extent possible on the
-                    platform being used) to target a range of applications
-                    optimized for the manager’s level of experience in hiring.
-                    This is one case where more is definitely not better - top
-                    talent will only wait so long, and speed is of the essence.
-                </p>
-            </div>
-        </main>
-        <section style="background-color: #f8f8f8">
-            <div
-                data-h2-container="b(center, s)"
-                data-h2-padding="b(bottom, l) l(bottom, xxl)"
-            >
-                <div data-h2-flex-grid="b(top, expanded, flush, m)">
-                    <div
-                        data-h2-text-align="b(center) m(left)"
-                        data-h2-flex-item="b(1of2)"
-                    >
-                        <a
-                            class="prev"
-                            href="/en/2000/01/01/406-top-talent.html"
-                            title="Go to the previous article in the series."
-                        >
-                            <svg
-                                data-h2-margin="b(right, xxs)"
-                                style="width: 1rem; vertical-align: middle"
-                                xmlns="http://www.w3.org/2000/svg"
-                                class="h-6 w-6"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="#c90035"
-                            >
-                                <path
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="4"
-                                    d="M15 19l-7-7 7-7"
-                                /></svg
-                            >Previous Article</a
-                        >
-                    </div>
-                    <div
-                        data-h2-text-align="b(center) m(right)"
-                        data-h2-flex-item="b(1of2)"
-                    >
-                        <a
-                            class="next"
-                            href="/en/hiring/2000/01/01/408-criteria.html"
-                            title="Go to the next article in the series."
-                            >Next Article<svg
-                                data-h2-margin="b(left, xxs)"
-                                style="width: 1rem; vertical-align: middle"
-                                xmlns="http://www.w3.org/2000/svg"
-                                class="h-6 w-6"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="#c90035"
-                            >
-                                <path
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="4"
-                                    d="M9 5l7 7-7 7"
-                                /></svg
-                        ></a>
-                    </div>
-                </div>
-                <p
-                    data-h2-margin="b(top, xxl)"
-                    data-h2-text-align="b(center)"
-                    data-h2-font-size="b(caption)"
-                >
-                    <a
-                        href="/en/talent-cloud/report/#toc"
-                        title="Return to Table of Contents"
-                        >Return to Table of Contents</a
-                    >
-                </p>
-            </div>
-        </section>
-        <section
-            data-h2-border="b([light]gray, top, solid, s)"
-            data-h2-position="b(relative)"
-            style="background: rgba(240, 240, 240, 1)"
-            data-h2-overflow="b(x, hidden)"
-        >
-            <footer
-                data-h2-container="b(center, full)"
-                data-h2-padding="b(top-bottom, l)"
-            >
-                <div data-h2-flex-grid="b(middle, expanded, flush, xl)">
-                    <div
-                        data-h2-flex-item="b(1of1) m(1of2)"
-                        data-h2-padding="b(left, xl)"
-                        data-h2-text-align="b(center) m(left)"
-                    >
-                        <nav>
-                            <ul
-                                style="gap: 1rem"
-                                class="reset-ul"
-                                data-h2-display="b(flex)"
-                                data-h2-flex-wrap="b(wrap)"
-                                data-h2-justify-content="b(center) m(flex-start)"
-                                data-h2-margin="b(bottom, xs)"
-                            >
-                                <li
-                                    data-h2-display="b(inline-block)"
-                                    data-h2-margin="b(top-bottom, none)"
-                                >
-                                    <a
-                                        href="mailto:talent.cloud-nuage.de.talents@tbs-sct.gc.ca"
-                                        title="Submit feedback to GC Talent Cloud via email."
-                                        >Feedback</a
-                                    >
-                                </li>
-
-                                <li
-                                    data-h2-display="b(inline-block)"
-                                    data-h2-margin="b(top-bottom, none)"
-                                >
-                                    <a
-                                        href="/en/terms-and-conditions"
-                                        title="View our terms and conditions."
-                                        >Terms & Conditions</a
-                                    >
-                                </li>
-
-                                <li
-                                    data-h2-display="b(inline-block)"
-                                    data-h2-margin="b(top-bottom, none)"
-                                >
-                                    <a
-                                        href="/en/privacy-notice"
-                                        title="View our privacy policy."
-                                        >Privacy Policy</a
-                                    >
-                                </li>
-
-                                <li
-                                    data-h2-display="b(inline-block)"
-                                    data-h2-margin="b(top-bottom, none)"
-                                >
-                                    <a
-                                        href="https://www.canada.ca/en.html"
-                                        title="Visit Canada.ca."
-                                        >Canada.ca</a
-                                    >
-                                </li>
-                            </ul>
-                        </nav>
-                        <p
-                            data-h2-font-size="b(caption)"
-                            data-h2-font-color="b(black)"
-                            data-h2-margin="b(bottom, none) b(top, m)"
-                        >
-                            Date Modified: July 07, 2021
-                        </p>
-                    </div>
-                    <div
-                        data-h2-flex-item="b(1of1) m(1of2)"
-                        data-h2-padding="b(right, xl)"
-                        data-h2-text-align="b(center) m(right)"
-                    >
-                        <a
-                            href="https://www.canada.ca/en.html"
-                            title="Visit Canada.ca."
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            <img
-                                class="canada-logo"
-                                src="/assets/img/ui-canada.png"
-                                alt="Canada's Logo."
-                            />
-                        </a>
-                    </div>
-                </div>
-            </footer>
-        </section>
-
-        <script type="text/javascript" src="/assets/js/app.js"></script>
-    </body>
+    <script type="text/javascript" src="/assets/js/app.js"></script>
+  </body>
 </html>

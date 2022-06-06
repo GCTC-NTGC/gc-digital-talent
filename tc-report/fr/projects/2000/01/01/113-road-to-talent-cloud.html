@@ -1,686 +1,585 @@
 <!DOCTYPE html>
 <html lang="fr">
-    <head>
-        <meta charset="utf-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>GC Talent | Le chemin vers le Nuage de talents</title>
-        <meta
-            name="description"
-            content="Talent Cloud is an experimental staffing solution created by the Government of Canada. Read our experiment's results report here!"
-        />
-        <!-- Google Tag Manager -->
-        <script>
-            (function (w, d, s, l, i) {
-                w[l] = w[l] || [];
-                w[l].push({
-                    "gtm.start": new Date().getTime(),
-                    event: "gtm.js",
-                });
-                var f = d.getElementsByTagName(s)[0],
-                    j = d.createElement(s),
-                    dl = l != "dataLayer" ? "&l=" + l : "";
-                j.async = true;
-                j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
-                f.parentNode.insertBefore(j, f);
-            })(window, document, "script", "dataLayer", "GTM-P27NF5V");
-        </script>
-        <!-- End Google Tag Manager -->
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GC Talent | Le chemin vers le Nuage de talents</title>
+  <meta name="description" content="Talent Cloud is an experimental staffing solution created by the Government of Canada. Read our experiment's results report here!">
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-P27NF5V');</script>
+    <!-- End Google Tag Manager -->
 
-        <!-- Global site tag (gtag.js) - Google Analytics -->
-        <script
-            async
-            src="https://www.googletagmanager.com/gtag/js?id=UA-115747902-1"
-        ></script>
-        <script>
-            window.dataLayer = window.dataLayer || [];
-            function gtag() {
-                dataLayer.push(arguments);
-            }
-            gtag("js", new Date());
-            gtag("config", "UA-115747902-1", {
-                cookie_flags: "secure",
-            });
-        </script>
-        <!-- Favicons -->
-        <link
-            rel="apple-touch-icon"
-            sizes="180x180"
-            href="/apple-touch-icon.png"
-        />
-        <link
-            rel="icon"
-            type="image/png"
-            sizes="32x32"
-            href="/favicon-32x32.png"
-        />
-        <link
-            rel="icon"
-            type="image/png"
-            sizes="16x16"
-            href="/favicon-16x16.png"
-        />
-        <link rel="manifest" href="/site.webmanifest" />
-        <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
-        <meta name="msapplication-TileColor" content="#da532c" />
-        <meta name="theme-color" content="#ffffff" />
-        <!-- Google Fonts -->
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link
-            href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap"
-            rel="stylesheet"
-        />
-        <!-- Hydrogen CSS -->
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script
+        async
+        src="https://www.googletagmanager.com/gtag/js?id=UA-115747902-1">
+    </script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-115747902-1', {
+          cookie_flags: 'secure'
+        });
+    </script>
+  <!-- Favicons -->
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap" rel="stylesheet">
+  <!-- Hydrogen CSS -->
+  
+    <!-- <link rel="stylesheet" href="/assets/css/hydrogen-tc.css"> -->
+    <link rel="stylesheet" href="/assets/css/hydrogen.css">
+  
+  <!-- App CSS -->
+  <link rel="stylesheet" href="/assets/css/app.css">
+</head>
 
-        <!-- <link rel="stylesheet" href="/assets/css/hydrogen-tc.css"> -->
-        <link rel="stylesheet" href="/assets/css/hydrogen.css" />
-
-        <!-- App CSS -->
-        <link rel="stylesheet" href="/assets/css/app.css" />
-    </head>
-
-    <body data-h2-font-family="b(sans)">
-        <a href="#mainContent" title="" class="skip-link"
-            >Skip to Main Content</a
+  <body data-h2-font-family="b(sans)">
+    <a href="#mainContent" title="" class="skip-link">Skip to Main Content</a>
+    <div data-h2-border="b([light]gray, bottom, solid, s)" >
+  <div data-h2-container="b(center, full)" data-h2-padding="b(top-bottom, s)">
+    <div data-h2-flex-grid="b(middle, expanded, flush, s)">
+      <div data-h2-flex-item="m(1of2)" data-h2-text-align="b(center) m(left)">
+        <a
+          data-h2-display="b(inline-block)"
+          style="max-width: 15rem; width: 100%;"
+          href="https://canada.ca/"
+          target="_blank"
+          title="Visit canada.ca."
+          rel="noopener noreferrer"
         >
-        <div data-h2-border="b([light]gray, bottom, solid, s)">
-            <div
-                data-h2-container="b(center, full)"
-                data-h2-padding="b(top-bottom, s)"
-            >
-                <div data-h2-flex-grid="b(middle, expanded, flush, s)">
-                    <div
-                        data-h2-flex-item="m(1of2)"
-                        data-h2-text-align="b(center) m(left)"
-                    >
-                        <a
-                            data-h2-display="b(inline-block)"
-                            style="max-width: 15rem; width: 100%"
-                            href="https://canada.ca/"
-                            target="_blank"
-                            title="Visit canada.ca."
-                            rel="noopener noreferrer"
-                        >
-                            <img
-                                data-h2-
-                                alt="goc logo"
-                                src="/assets/img/ui-goc.svg"
-                        /></a>
-                    </div>
-                    <div
-                        data-h2-flex-item="m(1of2)"
-                        data-h2-text-align="b(center) m(right)"
-                    >
-                        <a
-                            href="/en/projects/2000/01/01/113-road-to-talent-cloud.html"
-                            title="View this content in English."
-                            >English</a
-                        >
-                    </div>
-                </div>
-            </div>
-        </div>
+          <img data-h2- alt="goc logo" src="/assets/img/ui-goc.svg"
+        /></a>
+      </div>
+      <div data-h2-flex-item="m(1of2)" data-h2-text-align="b(center) m(right)">
+         
+        <a href="/en/projects/2000/01/01/113-road-to-talent-cloud.html" title="View this content in English.">English</a>
+        
+      </div>
+    </div>
+  </div>
+</div>
 
+<div data-h2-container="b(center, full)" >
+  <nav data-h2-padding="b(top-bottom, m)">
+    <ul class="reset-ul" data-h2-padding="b(all, none)" data-h2-margin="b(all, none)" data-h2-text-align="b(center) m(left)" style="margin-left: -.7rem;">
+      
+        <li data-h2-margin="b(all, none)" data-h2-padding="b(all, none)" data-h2-display="b(inline-block)">
+          <a href="/fr/" title="Visitez la page d'accueil de GC Talent."
+            
+            data-h2-display="b(block)"
+            data-h2-padding="b(all, xs) m(right-left, s)">Accueil</a>
+        </li>
+      
+        <li data-h2-margin="b(all, none)" data-h2-padding="b(all, none)" data-h2-display="b(inline-block)">
+          <a href="/fr/talent-cloud/" title="En savoir plus sur le projet Nuage de talents."
+            
+            data-h2-display="b(block)"
+            data-h2-padding="b(all, xs) m(right-left, s)">Nuage de talents</a>
+        </li>
+      
+        <li data-h2-margin="b(all, none)" data-h2-padding="b(all, none)" data-h2-display="b(inline-block)">
+          <a href="/fr/communities/digital-talent/" title="En savoir plus sur la communauté des talents numériques."
+            
+            data-h2-display="b(block)"
+            data-h2-padding="b(all, xs) m(right-left, s)">Talent numérique</a>
+        </li>
+      
+    </ul>
+  </nav>
+</div>
+<section>
+  <div
+    data-h2-container="b(center, full)"
+    data-h2-text-align="b(center)">
+    
+    <h1
+  data-h2-font-weight="b(800)"
+  data-h2-font-size="b(h1)"
+  data-h2-padding='b(top, l) l(top, xxl) b(bottom, xxs)'
+  style="letter-spacing: -3px"
+  
+>
+  Rapport sur les résultats de Nuage de talents
+</h1>
+
+    <div id="breadcrumbs" data-h2-margin="b(top-bottom, m)" >
+  
+  <a href="/fr" title="Retour à la page d'accueil.">GC Talent</a>
+  <!-- If the page layout is post then use this breadcrumb list. -->
+  
+    / <a href="/fr/talent-cloud" title="Retournez à la page de Nuage de talents.">Nuage de talents</a>
+    / <a href="/fr/talent-cloud/report" title="Retournez au rapport des résultats de Nuage de talents.">Rapport sur les r...</a>
+    / <span>Section 1</span>
+    / <span data-h2-font-weight="b(800)">Le chemin vers le...</span>
+  
+</div>
+  </div>
+</section>
+<header 
+  class="post-header"
+  id="mainContent"
+  style="background-image: url('/assets/img/1.13-tx-heading.jpg');"
+  data-h2-margin="b(top, xl)">
+  <div 
+    data-h2-container="b(center, m)" 
+    data-h2-font-color="b(white)"
+    data-h2-padding="b(top, l) b(bottom, xl) l(top, xl) l(bottom, xxl)"
+    data-h2-text-align="b(center)">
+    <h2
+  
+  data-h2-font-weight="b(200)"
+  data-h2-font-size="b(h2)"
+  
+  data-h2-padding='b(top, m)'
+  
+  
+  style="letter-spacing: -2px;">
+  Le chemin vers le Nuage de talents
+</h2>
+    
+  </div>
+</header>
+<main data-h2-padding="b(top-bottom, xs) l(top-bottom, xl)" style="background-color: #F8F8F8;">
+  <div data-h2-container="b(center, s)">
+    
+      
+        </div>
         <div data-h2-container="b(center, full)">
-            <nav data-h2-padding="b(top-bottom, m)">
-                <ul
-                    class="reset-ul"
-                    data-h2-padding="b(all, none)"
-                    data-h2-margin="b(all, none)"
-                    data-h2-text-align="b(center) m(left)"
-                    style="margin-left: -0.7rem"
-                >
-                    <li
-                        data-h2-margin="b(all, none)"
-                        data-h2-padding="b(all, none)"
-                        data-h2-display="b(inline-block)"
-                    >
-                        <a
-                            href="/fr/"
-                            title="Visitez la page d'accueil de GC Talent."
-                            data-h2-display="b(block)"
-                            data-h2-padding="b(all, xs) m(right-left, s)"
-                            >Accueil</a
-                        >
-                    </li>
-
-                    <li
-                        data-h2-margin="b(all, none)"
-                        data-h2-padding="b(all, none)"
-                        data-h2-display="b(inline-block)"
-                    >
-                        <a
-                            href="/fr/talent-cloud/"
-                            title="En savoir plus sur le projet Nuage de talents."
-                            data-h2-display="b(block)"
-                            data-h2-padding="b(all, xs) m(right-left, s)"
-                            >Nuage de talents</a
-                        >
-                    </li>
-
-                    <li
-                        data-h2-margin="b(all, none)"
-                        data-h2-padding="b(all, none)"
-                        data-h2-display="b(inline-block)"
-                    >
-                        <a
-                            href="/fr/communities/digital-talent/"
-                            title="En savoir plus sur la communauté des talents numériques."
-                            data-h2-display="b(block)"
-                            data-h2-padding="b(all, xs) m(right-left, s)"
-                            >Talent numérique</a
-                        >
-                    </li>
-                </ul>
-            </nav>
+          <div data-h2-flex-grid="b(top, expanded, flush, xxl)">
+            
+              <div data-h2-flex-item="b(1of1) m(1of2)">
+                <h3 data-h2-text-align="b(center)" data-h2-font-size="b(h5)" data-h2-font-weight="b(800)" data-h2-font-color="b(purple)">1: Les débuts</h3>
+                <img 
+                  src="/assets/img/1.13-fr-road-1.png"
+                  alt="Un graphique représentant la première des quatre phases de l’histoire du Nuage de talents. En 2012, Deloitte publie l’article théorique « GovCloud ». De 2014 à 2016, l’idée du Nuage de talents commence à prendre forme en novembre 2016, l’équipe commence à lancer l’idée. En mars 2017, le dirigeant principal de l’information du Canada, Alex Benay, se prépare à accueillir le Nuage de talents. En juin 2017, quatre ministères offrent chacun un employé à temps plein pour lancer le projet."
+                  style="width: 100%;"
+                  data-h2-margin="b(top-bottom, l)">
+                
+                  <p>L’équipe initiale qui a lancé le Nuage de talents a déjà travaillé ensemble au IN.spire Carrefour d’innovation à Ressources naturelles Canada de 2014 à 2017, où nous avons mené un certain nombre d’expériences sur la mobilité des talents, y compris certains des premiers travaux du gouvernement du Canada sur les micromissions et les titres portatifs de compétences en matière de numérique (insignes ouverts).</p>
+                
+                  <p>L’équipe a également conçu et lancé le programme original des agents libres, ainsi qu’un cinquième membre de l’équipe qui est devenu le premier gestionnaire de programme. Les agents libres sont devenus une initiative à part entière, mais elle a été conçue stratégiquement comme un test précoce de plusieurs des concepts que le Nuage de talents espérait développer à plus grande échelle, y compris la recherche sur l’incidence psychologique qu’a le travail axé sur les projets sur les employés. Comme engagement de ne pas faire de mal, l’équipe du Nuage de talents voulait veiller à ce qu’elle ne soit pas sur le point de construire quelque chose qui permettrait de gagner du temps et de générer des économies au détriment de la santé mentale des employés. Avant de pouvoir déterminer si le Nuage de talents <strong style="letter-spacing: -1px;" data-h2-font-weight="b(800)" data-h2-font-color="b(purple)">pourrait</strong> fonctionner, nous devions d’abord nous demander s’il <strong style="letter-spacing: -1px;" data-h2-font-weight="b(800)" data-h2-font-color="b(purple)">devrait</strong> être construit ou non. Lorsque les résultats des agents libres étaient positifs, l’équipe qui est devenue le Nuage de talents a commencé à lever des fonds et à présenter le nouveau projet aux cadres supérieurs.</p>
+                
+                  <p>Une fois que l’idée du Nuage de talents a commencé à prendre en compte des paramètres concrets et des objectifs de rendement, l’équipe a décidé d’essayer de mobiliser les ressources pour quelque chose d’inhabituel : une entreprise en démarrage populaire pluriannuelle au sein du gouvernement, visant à construire quelque chose d’expérimental à la fine pointe de la théorie sur l’avenir du travail.</p>
+                
+              </div>
+            
+              <div data-h2-flex-item="b(1of1) m(1of2)">
+                <h3 data-h2-text-align="b(center)" data-h2-font-size="b(h5)" data-h2-font-weight="b(800)" data-h2-font-color="b(purple)">2: Du démarrage au lancement de la plateforme</h3>
+                <img 
+                  src="/assets/img/1.13-fr-road-2.png"
+                  alt="Un graphique qui représente la deuxième des quatre phases de l’histoire du Nuage de talents. En juillet 2017, le projet commence officiellement. De 2017 à 2018, l’équipe organise des ateliers, des séances de conception et mobilise des experts. Au printemps 2018, l’équipe de développement commence à codifier la plateforme. En septembre 2018, l’équipe se présente au séminaire du Conseil national mixte et soumet son évaluation des facteurs relatifs à la vie privée aux fins d’approbation. En octobre 2018, l’autorisation d’exploiter est reçue et la version bêta du portail des candidats est mise en service avec de vrais affichages d’emploi."
+                  style="width: 100%;"
+                  data-h2-margin="b(top-bottom, l)">
+                
+                  <p>Le Nuage en talents a d’abord lancé son projet en juillet 2017, mais il a fallu encore 15 mois avant qu’il n’y ait une plateforme viable minimale. Au départ, l’équipe n’a pu recueillir que quatre ETP — et seulement pour des mandats. L’équipe était tellement dévouée à la vision que les quatre premiers membres ont abandonné leur statut d’employé nommé pour une période indéterminée et ont occupé des postes de durée déterminée dans un nouveau ministère. Ensuite, nous avons commencé le processus de recherche sur ce à quoi la plateforme devrait ressembler et comment tester les points d’intervention au service des trois objectifs de rendement du projet.</p>
+                
+                  <p>Le nouvel exercice financier 2018-2019 a apporté plus de financement et a donné une chance à un designer UX et à notre Liaison avec les communautés autochtones. Nous avons également embauché trois développeurs – un développeur frontal, un expert en accessibilité et un développeur dorsal. La plateforme a été lancée six mois plus tard, en octobre 2018. Il va sans dire qu’avec notre peu de personnel, notre produit viable minimal était très léger. Mais il a suffi de lancer de vrais processus et de commencer à tester de nombreuses interventions sur la conception de la publicité d’emploi et le volume de demandes.</p>
+                
+              </div>
+            
+              <div data-h2-flex-item="b(1of1) m(1of2)">
+                <h3 data-h2-text-align="b(center)" data-h2-font-size="b(h5)" data-h2-font-weight="b(800)" data-h2-font-color="b(purple)">3: Les hauts et les bas de l’expérimentation au gouvernement</h3>
+                <img 
+                  src="/assets/img/1.13-fr-road-3.png"
+                  alt="Un graphique qui représente la troisième des quatre phases de l’histoire du Nuage de talents. En janvier 2019, le premier employé est embauché à l’aide du Nuage de talents et le portail des gestionnaires est en service. En mai 2019, le projet pilote sur les blockcerts est lancé en collaboration avec les agents libres. À l’été 2019, les premiers prototypes complets du Portail des talents autochtones sont testés par les utilisateurs. À l’automne 2019, des mises à niveau importantes du portail des gestionnaires sont publiées, y compris de nouveaux outils. En janvier 2020, le portail des conseillers en RH est en ligne. En février 2020, l’authentification à deux facteurs est ajoutée au site."
+                  style="width: 100%;"
+                  data-h2-margin="b(top-bottom, l)">
+                
+                  <p>Après la mise en service de la plateforme en octobre 2018, l’équipe du Nuage de talents a connu une période de croissance. Plus de gens ont été embauchés, y compris un scientifique comportemental, un psychologue industriel et plus de développeurs. Les quatre premiers membres de l’équipe ont été reconvertis d’employés nommés pour une période déterminée en employés nommés pour une période indéterminée. De nouveaux ministères partenaires se sont joints à l’entreprise. Les emplois étaient en activité sur la plateforme, et le temps de travail du personnel diminuait lentement, mais régulièrement, alors que nous testions et affinions nos interventions. Les gestionnaires recruteurs trouvaient un talent unique (lorsqu’ils s’en tenaient au processus tel qu’il a été conçu), et les demandeurs nous envoyaient des courriels sur la grandeur de leur expérience, même lorsqu’ils n’étaient pas la personne qui avait obtenu le poste.</p>
+                
+                  <p>Mais il y avait aussi des défis. Les gestionnaires d’embauche et les conseillers en RH n’étaient pas toujours habitués à travailler avec des produits et des expériences viables minimes. Peu importe la façon dont nous avons tenté de cadrer cela, les utilisateurs gouvernementaux étaient souvent déçus que la plateforme n’ait pas encore été entièrement développée. Les partenaires voulaient financer le produit final, pas la phase de développement. Nous voulions aussi accélérer le calendrier de développement, mais c’est difficile à faire avec seulement une poignée de développeurs. Le Nuage de talents a trouvé difficile d’obtenir des ressources pour un projet expérimental qui coûtait plus cher que ce qu’un ministère pourrait financer seul, mais qui n’était pas d’une valeur raisonnable pour demander un mémorandum au Cabinet. Essentiellement, nous avions besoin d’une somme d’argent moyenne provenant d’une source stable, et de deux années de délai d’expérimentation, et ce n’est pas quelque chose que l’écosystème d’innovation du gouvernement du Canada est mis en place pour fournir facilement.</p>
+                
+              </div>
+            
+              <div data-h2-flex-item="b(1of1) m(1of2)">
+                <h3 data-h2-text-align="b(center)" data-h2-font-size="b(h5)" data-h2-font-weight="b(800)" data-h2-font-color="b(purple)">4: Perturbation et évolution : De la COVID-19 à maintenant</h3>
+                <img 
+                  src="/assets/img/1.13-fr-road-4.png"
+                  alt="Un graphique qui représente la quatrième et la dernière étape de l’histoire du Nuage de talents. En mars 2020, une pandémie mondiale est déclarée. En avril 2020, Nuage de talents lance la réserve du GC en tant qu’outil d’intervention contre la COVID-19. En mai 2020, le Nuage de talents reçoit une évaluation des facteurs relatifs à la vie privée à jour. En novembre 2020, la rédaction du rapport sur les résultats du projet commence. En mars 2021, un nouveau portail des candidats est lancé avec la fonction « Calendrier ». En avril 2021, l’expérience sur le Nuage de talents, dans sa configuration actuelle, s’achève."
+                  style="width: 100%;"
+                  data-h2-margin="b(top-bottom, l)">
+                
+                  <p>Au moment où le Nuage de talents trouvait sa cadence – avec le nouveau calendrier du demandeur prêt à être lancé, de multiples embauches provenant d’un seul processus et le temps nécessaire pour embaucher le personnel de loin – la COVID-19 frappait. C’était comme si soudainement, quelqu’un avait fermé l’interrupteur. Le Nuage de talents a vu un arrêt presque total du recrutement pour la dotation externe pour une période déterminée annoncée sur notre plateforme. Les expériences sont devenues une bonne chose à faire lorsque l’ensemble du gouvernement est passé au mode d’intervention pour répondre aux besoins essentiels. L’importance du moment historique n’a pas été perdue dans l’équipe du Nuage de talents. À la mi-mars 2020, le gouvernement du Canada a envoyé à la maison ses travailleurs de la région de la capitale nationale pour une période sans précédent de télétravail de masse prolongé. Le même jour, le Nuage de talents s’est lancé dans la réattribution de son site pour livrer une plateforme de mobilité interne, qui est devenue opérationnelle trois semaines plus tard. Le projet s’appelait Réserve de talents du GC et a duré quatre mois (voir la rédaction à la section 5).</p>
+                
+                  <p>Le Nuage de talents a dû faire face à des problèmes de financement en 2020-2021, et l’équipe a été forcée de rétrécir. En novembre, l’équipe a commencé à rédiger ce rapport et à se préparer à la transition. Puis, au moment où le rapport était presque terminé, une poignée de ministères ont demandé de poster des emplois pour une période déterminée sur le site. Nuage de talents a donc dû rapidement reprendre le travail de développement qui a été mis de côté pendant la pandémie, et a lancé un tout nouveau processus de demande, avec une conception améliorée pour promouvoir la diversité dans les résultats d’embauche et créer une meilleure expérience de présélection pour les gestionnaires et les conseillers en RH. Même si nous n’aurons probablement pas la chance de recueillir un échantillon de grande taille avant que le financement de notre projet ne soit épuisé à la fin de mars 2021, nous avons quatre offres d’emploi en direct sur la plateforme à l’aide du nouveau modèle. Et nous sommes heureux d’annoncer que, jusqu’à maintenant, il opère comme nous l’espérions.</p>
+                
+              </div>
+            
+          </div>
         </div>
-        <section>
-            <div
-                data-h2-container="b(center, full)"
-                data-h2-text-align="b(center)"
-            >
-                <h1
-                    data-h2-font-weight="b(800)"
-                    data-h2-font-size="b(h1)"
-                    data-h2-padding="b(top, l) l(top, xxl) b(bottom, xxs)"
-                    style="letter-spacing: -3px"
-                >
-                    Rapport sur les résultats de Nuage de talents
-                </h1>
+        <div data-h2-container="b(center, s)">
+      
+    
+  </div>
+</main>
+<section style="background-color: #F8F8F8;">
+  <div data-h2-container="b(center, s)" data-h2-padding="b(bottom, l) l(bottom, xxl)">
+    <div data-h2-flex-grid="b(top, expanded, flush, m)">
+      <div
+        data-h2-text-align="b(center) m(left)" 
+        data-h2-flex-item="b(1of2)">
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            
+              <a class="prev" href="/fr/projects/2000/01/01/112-process.html" title="Allez à l'article précédent de la série.">
+                <svg data-h2-margin="b(right, xxs)" 
+                  style="width: 1rem; vertical-align: middle;" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="#c90035">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M15 19l-7-7 7-7" />
+                </svg>Article précédent</a>
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      </div>
+      <div 
+        data-h2-text-align="b(center) m(right)"   
+        data-h2-flex-item="b(1of2)">
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            
+              <a class="next" href="/fr/projects/2000/01/01/114-pro-b.html" title="Passez à l'article suivant de la série.">Article suivant<svg data-h2-margin="b(left, xxs)" 
+                style="width: 1rem; vertical-align: middle;" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="#c90035">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M9 5l7 7-7 7" />
+                </svg></a>
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      </div>
+    </div>
+    <p
+      data-h2-margin="b(top, xxl)" 
+      data-h2-text-align="b(center)"
+      data-h2-font-size="b(caption)">
+      <a href="/fr/talent-cloud/report/#toc" title="Retour à la table des matières">Retour à la table des matières</a>
+    </p>
+  </div>
+</section>
+<section data-h2-border="b([light]gray, top, solid, s)" data-h2-position="b(relative)" style="background: rgba(240, 240, 240, 1)" data-h2-overflow="b(x, hidden)">
+  <footer data-h2-container="b(center, full)" data-h2-padding="b(top-bottom, l)">
+    <div data-h2-flex-grid="b(middle, expanded, flush, xl)">
+      <div
+        data-h2-flex-item="b(1of1) m(1of2)"
+        data-h2-padding="b(left, xl)"
+        data-h2-text-align="b(center) m(left)">
+        
+          <nav>
+            <ul
+              style="gap: 1rem;"
+              class="reset-ul"
+              data-h2-display="b(flex)"
+              data-h2-flex-wrap="b(wrap)"
+              data-h2-justify-content="b(center) m(flex-start)"
+              data-h2-margin="b(bottom, xs)">
+              
+              <li data-h2-display="b(inline-block)" data-h2-margin="b(top-bottom, none)">
+                
+                  <a href="mailto:GCTalentGC@tbs-sct.gc.ca" title="Soumettre des commentaires au Nuage de talents du GC par courriel.">Retour d'information</a>
+                
+              </li>
+              
+              <li data-h2-display="b(inline-block)" data-h2-margin="b(top-bottom, none)">
+                
+                  <a href="/fr/terms-and-conditions" title="Voir nos avis.">Avis</a>
+                
+              </li>
+              
+              <li data-h2-display="b(inline-block)" data-h2-margin="b(top-bottom, none)">
+                
+                  <a href="/fr/privacy-notice" title="Voir notre politique de confidentialité.">Confidentialité</a>
+                
+              </li>
+              
+              <li data-h2-display="b(inline-block)" data-h2-margin="b(top-bottom, none)">
+                
+                  <a href="/fr/https://www.canada.ca/fr.html" title="Visiter Canada.ca.">Canada.ca</a>
+                
+              </li>
+              
+            </ul>
+          </nav>
+          <p 
+            data-h2-font-size="b(caption)"
+            data-h2-font-color="b(black)" 
+            data-h2-margin="b(bottom, none) b(top, m)">
+            Date de modification: July 07, 2021
+          </p>
+        
+      </div>
+      <div
+        data-h2-flex-item="b(1of1) m(1of2)"
+        data-h2-padding="b(right, xl)"
+        data-h2-text-align="b(center) m(right)">
+        <a
+          href="https://www.canada.ca/fr.html"
+          title="Visiter Canada.ca."
+          target="_blank"
+          rel="noopener noreferrer">
+          <img
+            class="canada-logo"
+            src="/assets/img/ui-canada.png"
+            alt="Symbole du gouvernement du Canada."/>
+        </a>
+      </div>
+    </div>
+  </footer>
+</section>
 
-                <div id="breadcrumbs" data-h2-margin="b(top-bottom, m)">
-                    <a href="/fr" title="Retour à la page d'accueil."
-                        >GC Talent</a
-                    >
-                    <!-- If the page layout is post then use this breadcrumb list. -->
-
-                    /
-                    <a
-                        href="/fr/talent-cloud"
-                        title="Retournez à la page de Nuage de talents."
-                        >Nuage de talents</a
-                    >
-                    /
-                    <a
-                        href="/fr/talent-cloud/report"
-                        title="Retournez au rapport des résultats de Nuage de talents."
-                        >Rapport sur les r...</a
-                    >
-                    / <span>Section 1</span> /
-                    <span data-h2-font-weight="b(800)"
-                        >Le chemin vers le...</span
-                    >
-                </div>
-            </div>
-        </section>
-        <header
-            class="post-header"
-            id="mainContent"
-            style="background-image: url('/assets/img/1.13-tx-heading.jpg')"
-            data-h2-margin="b(top, xl)"
-        >
-            <div
-                data-h2-container="b(center, m)"
-                data-h2-font-color="b(white)"
-                data-h2-padding="b(top, l) b(bottom, xl) l(top, xl) l(bottom, xxl)"
-                data-h2-text-align="b(center)"
-            >
-                <h2
-                    data-h2-font-weight="b(200)"
-                    data-h2-font-size="b(h2)"
-                    data-h2-padding="b(top, m)"
-                    style="letter-spacing: -2px"
-                >
-                    Le chemin vers le Nuage de talents
-                </h2>
-            </div>
-        </header>
-        <main
-            data-h2-padding="b(top-bottom, xs) l(top-bottom, xl)"
-            style="background-color: #f8f8f8"
-        >
-            <div data-h2-container="b(center, s)"></div>
-            <div data-h2-container="b(center, full)">
-                <div data-h2-flex-grid="b(top, expanded, flush, xxl)">
-                    <div data-h2-flex-item="b(1of1) m(1of2)">
-                        <h3
-                            data-h2-text-align="b(center)"
-                            data-h2-font-size="b(h5)"
-                            data-h2-font-weight="b(800)"
-                            data-h2-font-color="b(purple)"
-                        >
-                            1: Les débuts
-                        </h3>
-                        <img
-                            src="/assets/img/1.13-fr-road-1.png"
-                            alt="Un graphique représentant la première des quatre phases de l’histoire du Nuage de talents. En 2012, Deloitte publie l’article théorique « GovCloud ». De 2014 à 2016, l’idée du Nuage de talents commence à prendre forme en novembre 2016, l’équipe commence à lancer l’idée. En mars 2017, le dirigeant principal de l’information du Canada, Alex Benay, se prépare à accueillir le Nuage de talents. En juin 2017, quatre ministères offrent chacun un employé à temps plein pour lancer le projet."
-                            style="width: 100%"
-                            data-h2-margin="b(top-bottom, l)"
-                        />
-
-                        <p>
-                            L’équipe initiale qui a lancé le Nuage de talents a
-                            déjà travaillé ensemble au IN.spire Carrefour
-                            d’innovation à Ressources naturelles Canada de 2014
-                            à 2017, où nous avons mené un certain nombre
-                            d’expériences sur la mobilité des talents, y compris
-                            certains des premiers travaux du gouvernement du
-                            Canada sur les micromissions et les titres portatifs
-                            de compétences en matière de numérique (insignes
-                            ouverts).
-                        </p>
-
-                        <p>
-                            L’équipe a également conçu et lancé le programme
-                            original des agents libres, ainsi qu’un cinquième
-                            membre de l’équipe qui est devenu le premier
-                            gestionnaire de programme. Les agents libres sont
-                            devenus une initiative à part entière, mais elle a
-                            été conçue stratégiquement comme un test précoce de
-                            plusieurs des concepts que le Nuage de talents
-                            espérait développer à plus grande échelle, y compris
-                            la recherche sur l’incidence psychologique qu’a le
-                            travail axé sur les projets sur les employés. Comme
-                            engagement de ne pas faire de mal, l’équipe du Nuage
-                            de talents voulait veiller à ce qu’elle ne soit pas
-                            sur le point de construire quelque chose qui
-                            permettrait de gagner du temps et de générer des
-                            économies au détriment de la santé mentale des
-                            employés. Avant de pouvoir déterminer si le Nuage de
-                            talents
-                            <strong
-                                style="letter-spacing: -1px"
-                                data-h2-font-weight="b(800)"
-                                data-h2-font-color="b(purple)"
-                                >pourrait</strong
-                            >
-                            fonctionner, nous devions d’abord nous demander s’il
-                            <strong
-                                style="letter-spacing: -1px"
-                                data-h2-font-weight="b(800)"
-                                data-h2-font-color="b(purple)"
-                                >devrait</strong
-                            >
-                            être construit ou non. Lorsque les résultats des
-                            agents libres étaient positifs, l’équipe qui est
-                            devenue le Nuage de talents a commencé à lever des
-                            fonds et à présenter le nouveau projet aux cadres
-                            supérieurs.
-                        </p>
-
-                        <p>
-                            Une fois que l’idée du Nuage de talents a commencé à
-                            prendre en compte des paramètres concrets et des
-                            objectifs de rendement, l’équipe a décidé d’essayer
-                            de mobiliser les ressources pour quelque chose
-                            d’inhabituel : une entreprise en démarrage populaire
-                            pluriannuelle au sein du gouvernement, visant à
-                            construire quelque chose d’expérimental à la fine
-                            pointe de la théorie sur l’avenir du travail.
-                        </p>
-                    </div>
-
-                    <div data-h2-flex-item="b(1of1) m(1of2)">
-                        <h3
-                            data-h2-text-align="b(center)"
-                            data-h2-font-size="b(h5)"
-                            data-h2-font-weight="b(800)"
-                            data-h2-font-color="b(purple)"
-                        >
-                            2: Du démarrage au lancement de la plateforme
-                        </h3>
-                        <img
-                            src="/assets/img/1.13-fr-road-2.png"
-                            alt="Un graphique qui représente la deuxième des quatre phases de l’histoire du Nuage de talents. En juillet 2017, le projet commence officiellement. De 2017 à 2018, l’équipe organise des ateliers, des séances de conception et mobilise des experts. Au printemps 2018, l’équipe de développement commence à codifier la plateforme. En septembre 2018, l’équipe se présente au séminaire du Conseil national mixte et soumet son évaluation des facteurs relatifs à la vie privée aux fins d’approbation. En octobre 2018, l’autorisation d’exploiter est reçue et la version bêta du portail des candidats est mise en service avec de vrais affichages d’emploi."
-                            style="width: 100%"
-                            data-h2-margin="b(top-bottom, l)"
-                        />
-
-                        <p>
-                            Le Nuage en talents a d’abord lancé son projet en
-                            juillet 2017, mais il a fallu encore 15 mois avant
-                            qu’il n’y ait une plateforme viable minimale. Au
-                            départ, l’équipe n’a pu recueillir que quatre ETP —
-                            et seulement pour des mandats. L’équipe était
-                            tellement dévouée à la vision que les quatre
-                            premiers membres ont abandonné leur statut d’employé
-                            nommé pour une période indéterminée et ont occupé
-                            des postes de durée déterminée dans un nouveau
-                            ministère. Ensuite, nous avons commencé le processus
-                            de recherche sur ce à quoi la plateforme devrait
-                            ressembler et comment tester les points
-                            d’intervention au service des trois objectifs de
-                            rendement du projet.
-                        </p>
-
-                        <p>
-                            Le nouvel exercice financier 2018-2019 a apporté
-                            plus de financement et a donné une chance à un
-                            designer UX et à notre Liaison avec les communautés
-                            autochtones. Nous avons également embauché trois
-                            développeurs – un développeur frontal, un expert en
-                            accessibilité et un développeur dorsal. La
-                            plateforme a été lancée six mois plus tard, en
-                            octobre 2018. Il va sans dire qu’avec notre peu de
-                            personnel, notre produit viable minimal était très
-                            léger. Mais il a suffi de lancer de vrais processus
-                            et de commencer à tester de nombreuses interventions
-                            sur la conception de la publicité d’emploi et le
-                            volume de demandes.
-                        </p>
-                    </div>
-
-                    <div data-h2-flex-item="b(1of1) m(1of2)">
-                        <h3
-                            data-h2-text-align="b(center)"
-                            data-h2-font-size="b(h5)"
-                            data-h2-font-weight="b(800)"
-                            data-h2-font-color="b(purple)"
-                        >
-                            3: Les hauts et les bas de l’expérimentation au
-                            gouvernement
-                        </h3>
-                        <img
-                            src="/assets/img/1.13-fr-road-3.png"
-                            alt="Un graphique qui représente la troisième des quatre phases de l’histoire du Nuage de talents. En janvier 2019, le premier employé est embauché à l’aide du Nuage de talents et le portail des gestionnaires est en service. En mai 2019, le projet pilote sur les blockcerts est lancé en collaboration avec les agents libres. À l’été 2019, les premiers prototypes complets du Portail des talents autochtones sont testés par les utilisateurs. À l’automne 2019, des mises à niveau importantes du portail des gestionnaires sont publiées, y compris de nouveaux outils. En janvier 2020, le portail des conseillers en RH est en ligne. En février 2020, l’authentification à deux facteurs est ajoutée au site."
-                            style="width: 100%"
-                            data-h2-margin="b(top-bottom, l)"
-                        />
-
-                        <p>
-                            Après la mise en service de la plateforme en octobre
-                            2018, l’équipe du Nuage de talents a connu une
-                            période de croissance. Plus de gens ont été
-                            embauchés, y compris un scientifique comportemental,
-                            un psychologue industriel et plus de développeurs.
-                            Les quatre premiers membres de l’équipe ont été
-                            reconvertis d’employés nommés pour une période
-                            déterminée en employés nommés pour une période
-                            indéterminée. De nouveaux ministères partenaires se
-                            sont joints à l’entreprise. Les emplois étaient en
-                            activité sur la plateforme, et le temps de travail
-                            du personnel diminuait lentement, mais
-                            régulièrement, alors que nous testions et affinions
-                            nos interventions. Les gestionnaires recruteurs
-                            trouvaient un talent unique (lorsqu’ils s’en
-                            tenaient au processus tel qu’il a été conçu), et les
-                            demandeurs nous envoyaient des courriels sur la
-                            grandeur de leur expérience, même lorsqu’ils
-                            n’étaient pas la personne qui avait obtenu le poste.
-                        </p>
-
-                        <p>
-                            Mais il y avait aussi des défis. Les gestionnaires
-                            d’embauche et les conseillers en RH n’étaient pas
-                            toujours habitués à travailler avec des produits et
-                            des expériences viables minimes. Peu importe la
-                            façon dont nous avons tenté de cadrer cela, les
-                            utilisateurs gouvernementaux étaient souvent déçus
-                            que la plateforme n’ait pas encore été entièrement
-                            développée. Les partenaires voulaient financer le
-                            produit final, pas la phase de développement. Nous
-                            voulions aussi accélérer le calendrier de
-                            développement, mais c’est difficile à faire avec
-                            seulement une poignée de développeurs. Le Nuage de
-                            talents a trouvé difficile d’obtenir des ressources
-                            pour un projet expérimental qui coûtait plus cher
-                            que ce qu’un ministère pourrait financer seul, mais
-                            qui n’était pas d’une valeur raisonnable pour
-                            demander un mémorandum au Cabinet. Essentiellement,
-                            nous avions besoin d’une somme d’argent moyenne
-                            provenant d’une source stable, et de deux années de
-                            délai d’expérimentation, et ce n’est pas quelque
-                            chose que l’écosystème d’innovation du gouvernement
-                            du Canada est mis en place pour fournir facilement.
-                        </p>
-                    </div>
-
-                    <div data-h2-flex-item="b(1of1) m(1of2)">
-                        <h3
-                            data-h2-text-align="b(center)"
-                            data-h2-font-size="b(h5)"
-                            data-h2-font-weight="b(800)"
-                            data-h2-font-color="b(purple)"
-                        >
-                            4: Perturbation et évolution : De la COVID-19 à
-                            maintenant
-                        </h3>
-                        <img
-                            src="/assets/img/1.13-fr-road-4.png"
-                            alt="Un graphique qui représente la quatrième et la dernière étape de l’histoire du Nuage de talents. En mars 2020, une pandémie mondiale est déclarée. En avril 2020, Nuage de talents lance la réserve du GC en tant qu’outil d’intervention contre la COVID-19. En mai 2020, le Nuage de talents reçoit une évaluation des facteurs relatifs à la vie privée à jour. En novembre 2020, la rédaction du rapport sur les résultats du projet commence. En mars 2021, un nouveau portail des candidats est lancé avec la fonction « Calendrier ». En avril 2021, l’expérience sur le Nuage de talents, dans sa configuration actuelle, s’achève."
-                            style="width: 100%"
-                            data-h2-margin="b(top-bottom, l)"
-                        />
-
-                        <p>
-                            Au moment où le Nuage de talents trouvait sa cadence
-                            – avec le nouveau calendrier du demandeur prêt à
-                            être lancé, de multiples embauches provenant d’un
-                            seul processus et le temps nécessaire pour embaucher
-                            le personnel de loin – la COVID-19 frappait. C’était
-                            comme si soudainement, quelqu’un avait fermé
-                            l’interrupteur. Le Nuage de talents a vu un arrêt
-                            presque total du recrutement pour la dotation
-                            externe pour une période déterminée annoncée sur
-                            notre plateforme. Les expériences sont devenues une
-                            bonne chose à faire lorsque l’ensemble du
-                            gouvernement est passé au mode d’intervention pour
-                            répondre aux besoins essentiels. L’importance du
-                            moment historique n’a pas été perdue dans l’équipe
-                            du Nuage de talents. À la mi-mars 2020, le
-                            gouvernement du Canada a envoyé à la maison ses
-                            travailleurs de la région de la capitale nationale
-                            pour une période sans précédent de télétravail de
-                            masse prolongé. Le même jour, le Nuage de talents
-                            s’est lancé dans la réattribution de son site pour
-                            livrer une plateforme de mobilité interne, qui est
-                            devenue opérationnelle trois semaines plus tard. Le
-                            projet s’appelait Réserve de talents du GC et a duré
-                            quatre mois (voir la rédaction à la section 5).
-                        </p>
-
-                        <p>
-                            Le Nuage de talents a dû faire face à des problèmes
-                            de financement en 2020-2021, et l’équipe a été
-                            forcée de rétrécir. En novembre, l’équipe a commencé
-                            à rédiger ce rapport et à se préparer à la
-                            transition. Puis, au moment où le rapport était
-                            presque terminé, une poignée de ministères ont
-                            demandé de poster des emplois pour une période
-                            déterminée sur le site. Nuage de talents a donc dû
-                            rapidement reprendre le travail de développement qui
-                            a été mis de côté pendant la pandémie, et a lancé un
-                            tout nouveau processus de demande, avec une
-                            conception améliorée pour promouvoir la diversité
-                            dans les résultats d’embauche et créer une meilleure
-                            expérience de présélection pour les gestionnaires et
-                            les conseillers en RH. Même si nous n’aurons
-                            probablement pas la chance de recueillir un
-                            échantillon de grande taille avant que le
-                            financement de notre projet ne soit épuisé à la fin
-                            de mars 2021, nous avons quatre offres d’emploi en
-                            direct sur la plateforme à l’aide du nouveau modèle.
-                            Et nous sommes heureux d’annoncer que, jusqu’à
-                            maintenant, il opère comme nous l’espérions.
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div data-h2-container="b(center, s)"></div>
-        </main>
-        <section style="background-color: #f8f8f8">
-            <div
-                data-h2-container="b(center, s)"
-                data-h2-padding="b(bottom, l) l(bottom, xxl)"
-            >
-                <div data-h2-flex-grid="b(top, expanded, flush, m)">
-                    <div
-                        data-h2-text-align="b(center) m(left)"
-                        data-h2-flex-item="b(1of2)"
-                    >
-                        <a
-                            class="prev"
-                            href="/fr/projects/2000/01/01/112-process.html"
-                            title="Allez à l'article précédent de la série."
-                        >
-                            <svg
-                                data-h2-margin="b(right, xxs)"
-                                style="width: 1rem; vertical-align: middle"
-                                xmlns="http://www.w3.org/2000/svg"
-                                class="h-6 w-6"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="#c90035"
-                            >
-                                <path
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="4"
-                                    d="M15 19l-7-7 7-7"
-                                /></svg
-                            >Article précédent</a
-                        >
-                    </div>
-                    <div
-                        data-h2-text-align="b(center) m(right)"
-                        data-h2-flex-item="b(1of2)"
-                    >
-                        <a
-                            class="next"
-                            href="/fr/projects/2000/01/01/114-pro-b.html"
-                            title="Passez à l'article suivant de la série."
-                            >Article suivant<svg
-                                data-h2-margin="b(left, xxs)"
-                                style="width: 1rem; vertical-align: middle"
-                                xmlns="http://www.w3.org/2000/svg"
-                                class="h-6 w-6"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="#c90035"
-                            >
-                                <path
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="4"
-                                    d="M9 5l7 7-7 7"
-                                /></svg
-                        ></a>
-                    </div>
-                </div>
-                <p
-                    data-h2-margin="b(top, xxl)"
-                    data-h2-text-align="b(center)"
-                    data-h2-font-size="b(caption)"
-                >
-                    <a
-                        href="/fr/talent-cloud/report/#toc"
-                        title="Retour à la table des matières"
-                        >Retour à la table des matières</a
-                    >
-                </p>
-            </div>
-        </section>
-        <section
-            data-h2-border="b([light]gray, top, solid, s)"
-            data-h2-position="b(relative)"
-            style="background: rgba(240, 240, 240, 1)"
-            data-h2-overflow="b(x, hidden)"
-        >
-            <footer
-                data-h2-container="b(center, full)"
-                data-h2-padding="b(top-bottom, l)"
-            >
-                <div data-h2-flex-grid="b(middle, expanded, flush, xl)">
-                    <div
-                        data-h2-flex-item="b(1of1) m(1of2)"
-                        data-h2-padding="b(left, xl)"
-                        data-h2-text-align="b(center) m(left)"
-                    >
-                        <nav>
-                            <ul
-                                style="gap: 1rem"
-                                class="reset-ul"
-                                data-h2-display="b(flex)"
-                                data-h2-flex-wrap="b(wrap)"
-                                data-h2-justify-content="b(center) m(flex-start)"
-                                data-h2-margin="b(bottom, xs)"
-                            >
-                                <li
-                                    data-h2-display="b(inline-block)"
-                                    data-h2-margin="b(top-bottom, none)"
-                                >
-                                    <a
-                                        href="mailto:talent.cloud-nuage.de.talents@tbs-sct.gc.ca"
-                                        title="Soumettre des commentaires au Nuage de talents du GC par courriel."
-                                        >Retour d'information</a
-                                    >
-                                </li>
-
-                                <li
-                                    data-h2-display="b(inline-block)"
-                                    data-h2-margin="b(top-bottom, none)"
-                                >
-                                    <a
-                                        href="/fr/terms-and-conditions"
-                                        title="Voir nos avis."
-                                        >Avis</a
-                                    >
-                                </li>
-
-                                <li
-                                    data-h2-display="b(inline-block)"
-                                    data-h2-margin="b(top-bottom, none)"
-                                >
-                                    <a
-                                        href="/fr/privacy-notice"
-                                        title="Voir notre politique de confidentialité."
-                                        >Confidentialité</a
-                                    >
-                                </li>
-
-                                <li
-                                    data-h2-display="b(inline-block)"
-                                    data-h2-margin="b(top-bottom, none)"
-                                >
-                                    <a
-                                        href="https://www.canada.ca/fr.html"
-                                        title="Visiter Canada.ca."
-                                        >Canada.ca</a
-                                    >
-                                </li>
-                            </ul>
-                        </nav>
-                        <p
-                            data-h2-font-size="b(caption)"
-                            data-h2-font-color="b(black)"
-                            data-h2-margin="b(bottom, none) b(top, m)"
-                        >
-                            Date de modification: July 07, 2021
-                        </p>
-                    </div>
-                    <div
-                        data-h2-flex-item="b(1of1) m(1of2)"
-                        data-h2-padding="b(right, xl)"
-                        data-h2-text-align="b(center) m(right)"
-                    >
-                        <a
-                            href="https://www.canada.ca/fr.html"
-                            title="Visiter Canada.ca."
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            <img
-                                class="canada-logo"
-                                src="/assets/img/ui-canada.png"
-                                alt="Symbole du gouvernement du Canada."
-                            />
-                        </a>
-                    </div>
-                </div>
-            </footer>
-        </section>
-
-        <script type="text/javascript" src="/assets/js/app.js"></script>
-    </body>
+    <script type="text/javascript" src="/assets/js/app.js"></script>
+  </body>
 </html>

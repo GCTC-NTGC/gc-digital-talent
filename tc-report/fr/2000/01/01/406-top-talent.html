@@ -1,747 +1,736 @@
 <!DOCTYPE html>
 <html lang="fr">
-    <head>
-        <meta charset="utf-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>
-            GC Talent | Incidence de la rapidité sur la rétention des meilleurs
-            talents
-        </title>
-        <meta
-            name="description"
-            content="Talent Cloud is an experimental staffing solution created by the Government of Canada. Read our experiment's results report here!"
-        />
-        <!-- Google Tag Manager -->
-        <script>
-            (function (w, d, s, l, i) {
-                w[l] = w[l] || [];
-                w[l].push({
-                    "gtm.start": new Date().getTime(),
-                    event: "gtm.js",
-                });
-                var f = d.getElementsByTagName(s)[0],
-                    j = d.createElement(s),
-                    dl = l != "dataLayer" ? "&l=" + l : "";
-                j.async = true;
-                j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
-                f.parentNode.insertBefore(j, f);
-            })(window, document, "script", "dataLayer", "GTM-P27NF5V");
-        </script>
-        <!-- End Google Tag Manager -->
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GC Talent | Incidence de la rapidité sur la rétention des meilleurs talents</title>
+  <meta name="description" content="Talent Cloud is an experimental staffing solution created by the Government of Canada. Read our experiment's results report here!">
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-P27NF5V');</script>
+    <!-- End Google Tag Manager -->
 
-        <!-- Global site tag (gtag.js) - Google Analytics -->
-        <script
-            async
-            src="https://www.googletagmanager.com/gtag/js?id=UA-115747902-1"
-        ></script>
-        <script>
-            window.dataLayer = window.dataLayer || [];
-            function gtag() {
-                dataLayer.push(arguments);
-            }
-            gtag("js", new Date());
-            gtag("config", "UA-115747902-1", {
-                cookie_flags: "secure",
-            });
-        </script>
-        <!-- Favicons -->
-        <link
-            rel="apple-touch-icon"
-            sizes="180x180"
-            href="/apple-touch-icon.png"
-        />
-        <link
-            rel="icon"
-            type="image/png"
-            sizes="32x32"
-            href="/favicon-32x32.png"
-        />
-        <link
-            rel="icon"
-            type="image/png"
-            sizes="16x16"
-            href="/favicon-16x16.png"
-        />
-        <link rel="manifest" href="/site.webmanifest" />
-        <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5" />
-        <meta name="msapplication-TileColor" content="#da532c" />
-        <meta name="theme-color" content="#ffffff" />
-        <!-- Google Fonts -->
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link
-            href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap"
-            rel="stylesheet"
-        />
-        <!-- Hydrogen CSS -->
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script
+        async
+        src="https://www.googletagmanager.com/gtag/js?id=UA-115747902-1">
+    </script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-115747902-1', {
+          cookie_flags: 'secure'
+        });
+    </script>
+  <!-- Favicons -->
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="msapplication-TileColor" content="#da532c">
+  <meta name="theme-color" content="#ffffff">
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap" rel="stylesheet">
+  <!-- Hydrogen CSS -->
+  
+    <!-- <link rel="stylesheet" href="/assets/css/hydrogen-tc.css"> -->
+    <link rel="stylesheet" href="/assets/css/hydrogen.css">
+  
+  <!-- App CSS -->
+  <link rel="stylesheet" href="/assets/css/app.css">
+</head>
 
-        <!-- <link rel="stylesheet" href="/assets/css/hydrogen-tc.css"> -->
-        <link rel="stylesheet" href="/assets/css/hydrogen.css" />
-
-        <!-- App CSS -->
-        <link rel="stylesheet" href="/assets/css/app.css" />
-    </head>
-
-    <body data-h2-font-family="b(sans)">
-        <a href="#mainContent" title="" class="skip-link"
-            >Skip to Main Content</a
+  <body data-h2-font-family="b(sans)">
+    <a href="#mainContent" title="" class="skip-link">Skip to Main Content</a>
+    <div data-h2-border="b([light]gray, bottom, solid, s)" >
+  <div data-h2-container="b(center, full)" data-h2-padding="b(top-bottom, s)">
+    <div data-h2-flex-grid="b(middle, expanded, flush, s)">
+      <div data-h2-flex-item="m(1of2)" data-h2-text-align="b(center) m(left)">
+        <a
+          data-h2-display="b(inline-block)"
+          style="max-width: 15rem; width: 100%;"
+          href="https://canada.ca/"
+          target="_blank"
+          title="Visit canada.ca."
+          rel="noopener noreferrer"
         >
-        <div data-h2-border="b([light]gray, bottom, solid, s)">
-            <div
-                data-h2-container="b(center, full)"
-                data-h2-padding="b(top-bottom, s)"
-            >
-                <div data-h2-flex-grid="b(middle, expanded, flush, s)">
-                    <div
-                        data-h2-flex-item="m(1of2)"
-                        data-h2-text-align="b(center) m(left)"
-                    >
-                        <a
-                            data-h2-display="b(inline-block)"
-                            style="max-width: 15rem; width: 100%"
-                            href="https://canada.ca/"
-                            target="_blank"
-                            title="Visit canada.ca."
-                            rel="noopener noreferrer"
-                        >
-                            <img
-                                data-h2-
-                                alt="goc logo"
-                                src="/assets/img/ui-goc.svg"
-                        /></a>
-                    </div>
-                    <div
-                        data-h2-flex-item="m(1of2)"
-                        data-h2-text-align="b(center) m(right)"
-                    >
-                        <a
-                            href="/en/2000/01/01/406-top-talent.html"
-                            title="View this content in English."
-                            >English</a
-                        >
-                    </div>
-                </div>
-            </div>
-        </div>
+          <img data-h2- alt="goc logo" src="/assets/img/ui-goc.svg"
+        /></a>
+      </div>
+      <div data-h2-flex-item="m(1of2)" data-h2-text-align="b(center) m(right)">
+         
+        <a href="/en/2000/01/01/406-top-talent.html" title="View this content in English.">English</a>
+        
+      </div>
+    </div>
+  </div>
+</div>
 
-        <div data-h2-container="b(center, full)">
-            <nav data-h2-padding="b(top-bottom, m)">
-                <ul
-                    class="reset-ul"
-                    data-h2-padding="b(all, none)"
-                    data-h2-margin="b(all, none)"
-                    data-h2-text-align="b(center) m(left)"
-                    style="margin-left: -0.7rem"
-                >
-                    <li
-                        data-h2-margin="b(all, none)"
-                        data-h2-padding="b(all, none)"
-                        data-h2-display="b(inline-block)"
-                    >
-                        <a
-                            href="/fr/"
-                            title="Visitez la page d'accueil de GC Talent."
-                            data-h2-display="b(block)"
-                            data-h2-padding="b(all, xs) m(right-left, s)"
-                            >Accueil</a
-                        >
-                    </li>
+<div data-h2-container="b(center, full)" >
+  <nav data-h2-padding="b(top-bottom, m)">
+    <ul class="reset-ul" data-h2-padding="b(all, none)" data-h2-margin="b(all, none)" data-h2-text-align="b(center) m(left)" style="margin-left: -.7rem;">
+      
+        <li data-h2-margin="b(all, none)" data-h2-padding="b(all, none)" data-h2-display="b(inline-block)">
+          <a href="/fr/" title="Visitez la page d'accueil de GC Talent."
+            
+            data-h2-display="b(block)"
+            data-h2-padding="b(all, xs) m(right-left, s)">Accueil</a>
+        </li>
+      
+        <li data-h2-margin="b(all, none)" data-h2-padding="b(all, none)" data-h2-display="b(inline-block)">
+          <a href="/fr/talent-cloud/" title="En savoir plus sur le projet Nuage de talents."
+            
+            data-h2-display="b(block)"
+            data-h2-padding="b(all, xs) m(right-left, s)">Nuage de talents</a>
+        </li>
+      
+        <li data-h2-margin="b(all, none)" data-h2-padding="b(all, none)" data-h2-display="b(inline-block)">
+          <a href="/fr/communities/digital-talent/" title="En savoir plus sur la communauté des talents numériques."
+            
+            data-h2-display="b(block)"
+            data-h2-padding="b(all, xs) m(right-left, s)">Talent numérique</a>
+        </li>
+      
+    </ul>
+  </nav>
+</div>
+<section>
+  <div
+    data-h2-container="b(center, full)"
+    data-h2-text-align="b(center)">
+    
+    <h1
+  data-h2-font-weight="b(800)"
+  data-h2-font-size="b(h1)"
+  data-h2-padding='b(top, l) l(top, xxl) b(bottom, xxs)'
+  style="letter-spacing: -3px"
+  
+>
+  Rapport sur les résultats de Nuage de talents
+</h1>
 
-                    <li
-                        data-h2-margin="b(all, none)"
-                        data-h2-padding="b(all, none)"
-                        data-h2-display="b(inline-block)"
-                    >
-                        <a
-                            href="/fr/talent-cloud/"
-                            title="En savoir plus sur le projet Nuage de talents."
-                            data-h2-display="b(block)"
-                            data-h2-padding="b(all, xs) m(right-left, s)"
-                            >Nuage de talents</a
-                        >
-                    </li>
+    <div id="breadcrumbs" data-h2-margin="b(top-bottom, m)" >
+  
+  <a href="/fr" title="Retour à la page d'accueil.">GC Talent</a>
+  <!-- If the page layout is post then use this breadcrumb list. -->
+  
+    / <a href="/fr/talent-cloud" title="Retournez à la page de Nuage de talents.">Nuage de talents</a>
+    / <a href="/fr/talent-cloud/report" title="Retournez au rapport des résultats de Nuage de talents.">Rapport sur les r...</a>
+    / <span>Section 4</span>
+    / <span data-h2-font-weight="b(800)">Incidence de la r...</span>
+  
+</div>
+  </div>
+</section>
+<header 
+  class="post-header"
+  id="mainContent"
+  style="background-image: url('/assets/img/4.6-tx-heading.jpg');"
+  data-h2-margin="b(top, xl)">
+  <div 
+    data-h2-container="b(center, m)" 
+    data-h2-font-color="b(white)"
+    data-h2-padding="b(top, l) b(bottom, xl) l(top, xl) l(bottom, xxl)"
+    data-h2-text-align="b(center)">
+    <h2
+  
+  data-h2-font-weight="b(200)"
+  data-h2-font-size="b(h2)"
+  
+  data-h2-padding='b(top, m)'
+  
+  
+  style="letter-spacing: -2px;">
+  Incidence de la rapidité sur la rétention des meilleurs talents
+</h2>
+    
+  </div>
+</header>
+<main data-h2-padding="b(top-bottom, xs) l(top-bottom, xl)" style="background-color: #F8F8F8;">
+  <div data-h2-container="b(center, s)">
+    
+      
+        
+          <!-- Titles -->
+          <h3
+  
+  data-h2-font-weight="b(800)"
+  data-h2-font-size="b(h3)"
+  data-h2-margin='b(top, xl) b(bottom, s)'
+  
+  style="letter-spacing: -1px;">
+  Le problème
+</h3>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p><a href="https://www.gartner.com/smarterwithgartner/canadian-cios-focus-on-in-demand-it-roles/" target="_blank" rel="noreferrer" title="View source.">Il existe une forte concurrence pour attirer des personnes très talentueuses ayant des compétences en demande, particulièrement en ce qui concerne les talents en matière de numérique et de technologique.</a> La rapidité est un facteur essentiel pour demeurer concurrentiel lorsque le talent recruté a de multiples possibilités à envisager.</p>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>Au cours des premiers ateliers avec les candidats, on a appris, grâce au Nuage de talents, que les meilleurs talents répondant aux offres d’emploi pourraient ne plus être intéressés s’ils n’étaient pas contactés dans les deux à trois semaines suivant la présentation de leur demande. Cela était également vrai pour chaque étape qui suit le processus de sélection initial (p. ex., évaluation/examen, entrevue, vérification des références, offre finale). Les candidats s’attendaient à ce qu’il ne s’écoule pas plus de quelques semaines entre les étapes clés, et pas plus de deux mois au total entre la candidature et l’offre.</p>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>Les participants à l’atelier ont énuméré trois raisons principales pour leur retrait des processus d’emploi pour lesquels ils avaient présenté une demande (gouvernement et autres). Les voici :</p>
+        
+      
+    
+      
+        
+          
+            <ul>
+              
+                <li>se voir offrir un autre emploi pour lequel ils avaient postulé en même temps ;</li>
+              
+                <li>recevoir une meilleure offre de leur employeur actuel ;</li>
+              
+                <li>interpréter la longue attente comme un signe indésirable du milieu de travail, du gestionnaire ou de la bureaucratie de l’employeur en général.</li>
+              
+            </ul>
+          
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>Dans les trois cas, la lenteur du processus de dotation moyen du gouvernement du Canada serait un obstacle important pour attirer une personne talentueuse, surtout si cette personne est motivée à trouver un nouveau poste et a présenté sa candidature à plusieurs employeurs potentiels.</p>
+        
+      
+    
+      
+        
+          <!-- Titles -->
+          <h3
+  
+  data-h2-font-weight="b(800)"
+  data-h2-font-size="b(h3)"
+  data-h2-margin='b(top, xl) b(bottom, s)'
+  
+  style="letter-spacing: -1px;">
+  Les hypothèses
+</h3>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>L’hypothèse pour cette partie de la recherche était assez simple : nous pensions que les meilleurs talents abandonneraient si les processus étaient longs. Ce que nous ne savions pas, c’est la vitesse à laquelle les processus devaient se dérouler pour qu’un nombre suffisant de meilleurs candidats restent dans le processus et que les gestionnaires puissent obtenir une embauche optimale (notamment, l’un des meilleurs candidats qu’ils avaient choisis). Nous avons décidé de mettre à l’essai la demande autodéclarée des participants à l’atelier selon laquelle les processus devaient avancer à des intervalles d’au plus deux à trois semaines par étape, et que le processus global devait prendre moins de deux mois (au moins jusqu’à ce qu’une offre verbale soit faite).</p>
+        
+      
+    
+      
+        
+          <!-- Titles -->
+          <h3
+  
+  data-h2-font-weight="b(800)"
+  data-h2-font-size="b(h3)"
+  data-h2-margin='b(top, xl) b(bottom, s)'
+  
+  style="letter-spacing: -1px;">
+  L’expérience
+</h3>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>Pour évaluer l’incidence de la durée du processus de dotation sur la capacité des gestionnaires de maintenir en poste les candidats, nous avons comparé le pourcentage de candidats qui ont abandonné au cours de la phase de sélection des candidatures, tout en faisant le suivi de la vitesse à laquelle le processus avançait.</p>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>Bien que nous ayons observé que les candidats abandonnaient le processus d’embauche à toutes les étapes, pendant cette période, rien n’a été demandé aux candidats au-delà de la demande. Cela permet d’éviter d’inclure les candidats non qualifiés qui abandonnent lorsqu’ils voient les outils d’évaluation, comme un examen.</p>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>Pour un petit sous-ensemble de postes affichés sur la plateforme Nuage de talents, l’équipe a effectué une analyse qualitative supplémentaire, en faisant le suivi des meilleurs candidats choisis par le gestionnaire à chaque étape, et en les interrogeant concernant leurs décisions et l’incidence de la rapidité du processus sur leur décision finale d’accepter ou de rejeter une offre d’emploi.</p>
+        
+      
+    
+      
+        
+          <!-- Titles -->
+          <h3
+  
+  data-h2-font-weight="b(800)"
+  data-h2-font-size="b(h3)"
+  data-h2-margin='b(top, xl) b(bottom, s)'
+  
+  style="letter-spacing: -1px;">
+  Les résultats
+</h3>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>Les données recueillies au cours du projet-pilote ont confirmé ce que nous avions entendu des candidats au cours de nos premiers ateliers. Lorsque la phase de sélection des candidats a pris moins de deux semaines, le taux moyen d’abandon était de 8 % ; lorsqu’il était de deux semaines ou plus, le taux d’abandon est passé à 13 %.</p>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>On a ensuite interviewé les gestionnaires sur la plateforme Nuage de talents pour voir qui, exactement, abandonnait. Dans la mesure du possible, on a également communiqué avec les candidats à l’aide de la plateforme pour savoir pourquoi ils avaient retiré leur nom. On a remarqué, dans la recherche qualitative, une tendance constante montrant que les candidats très performants ayant d’autres offres sur la table étaient les plus susceptibles d’abandonner un processus qui avançait lentement. Malheureusement, dans les cas où les gestionnaires ont agi très lentement, parfois, ils ne se sont pas rendu compte pendant un mois ou deux que leur premier choix de candidat était parti depuis longtemps. Cette situation a entraîné beaucoup de frustration pour les gestionnaires.</p>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>La situation s’est considérablement améliorée pour les processus affichés plus récemment sur la plateforme, lorsque des fonctions ont été ajoutées à la plateforme Nuage de talents et que celle-ci a été en mesure de fournir plus de conseils sur la vitesse exacte à laquelle les gestionnaires devraient agir afin de conserver leurs meilleurs candidats. Dans les emplois les plus récents affichés sur la plateforme, les gestionnaires ont été en mesure d’attirer et de maintenir en poste un nombre important de personnes de talent, avec entre 4 à 14 candidats solides et entièrement qualifiés provenant d’un groupe initial d’environ 40 à 50 candidats. Ces processus ont duré en moyenne environ 40 jours de l’offre d’emploi à l’offre verbale (suivi du temps nécessaire pour l’autorisation de sécurité). La rapidité a effectivement semblé aider à faire en sorte que le gouvernement du Canada soit le premier employeur à présenter une offre attrayante.</p>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>Dans le cadre d’ateliers et d’entrevues, les candidats ont déclaré que la nécessité de processus rapides s’appliquait à toutes les étapes. Cela indique que, pour garder les meilleurs candidats dans le bassin de candidats, les gestionnaires devraient passer par la présélection, les examens, les entrevues, les références et la finalisation de l’offre dans au plus un délai de trois semaines. Dans notre échantillon, un peu plus de la moitié des abandons se sont produits au cours de la phase initiale de sélection, ce qui pourrait être interprété comme le fait que les candidats s’investissent plus au fur et à mesure que le processus continue.</p>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>Lorsque les processus avançaient plus lentement, cela donnait souvent aux employeurs des meilleurs candidats la possibilité de proposer et de finaliser les promotions à l’interne. La majorité des principaux candidats qui ont refusé un poste (dans notre très petit échantillon) l’ont fait pour demeurer chez leur employeur actuel. Les autres se sont vu offrir un poste par une autre organisation avant que le gouvernement du Canada ait été en mesure de finaliser une offre, et ils ont choisi d’accepter l’offre ferme qui leur avait été présentée. Dans tous les cas sauf deux, les candidats ont confirmé que si le gouvernement du Canada avait été le premier à leur faire une offre ferme par écrit, leur décision aurait probablement changé. (Dans les autres cas, l’absence d’un profil de gestionnaire dans l’annonce s’est avérée un facteur important dans la décision finale des candidats d’accepter une offre ailleurs, citant une inadéquation quant à leur intégration dans l’équipe comme facteur influençant leur décision.)</p>
+        
+      
+    
+      
+        
+          <!-- Titles -->
+          <h3
+  
+  data-h2-font-weight="b(800)"
+  data-h2-font-size="b(h3)"
+  data-h2-margin='b(top, xl) b(bottom, s)'
+  
+  style="letter-spacing: -1px;">
+  Perspectives
+</h3>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>Afin de rendre le gouvernement du Canada plus attrayant pour les talents très performants qui ont d’autres possibilités d’emploi, la durée du processus de dotation du gouvernement du Canada doit être concurrentielle, non seulement dans son ensemble, mais à chacune des nombreuses étapes de sélection et d’évaluation. Pour déterminer à quelle vitesse exactement les gestionnaires d’embauche doivent agir, il faudrait mener une étude plus vaste, avec un échantillon plus grand.</p>
+        
+      
+    
+      
+        
+          <!-- Callout -->
+          <blockquote
+            data-h2-bg-color="b(purple[.1])"
+            data-h2-border="b(purple, all, solid, s)"
+            data-h2-margin="b(top-bottom, xl)"
+            data-h2-padding="b(right-left, m)"
+            data-h2-radius="b(s)">
+            
+              <p
+                data-h2-font-color="b(purple)" 
+                data-h2-font-weight="b(bold)">Pensez-vous avoir des mois pour sélectionner les candidats ? Pensez-y-bien.</p>
+            
+            
+              <p data-h2-font-color="b(purple)">Après plusieurs tentatives infructueuses de dotation et de contrats visant à trouver des talents rares pour un poste en particulier, un gestionnaire est arrivé au Nuage de talents avec une demande très spéciale. Nous savions qu’il serait difficile d’attirer quelqu’un du secteur privé pour se joindre au gouvernement pour ce rôle, et nous avons donc insisté auprès du gestionnaire sur le fait que la rapidité du processus serait un élément essentiel. Son processus de dotation a pris moins de six semaines pour arriver à une offre verbale, mais même à cette vitesse, ce n’était presque pas assez rapide. Voici une citation du meilleur candidat qui a fini par obtenir l’emploi.</p>
+            
+              <p data-h2-font-color="b(purple)">« Il m’a fallu près d’un mois pour que quelqu’un me parle du poste auquel j’avais postulé… c’était une longue période d’attente et j’ai pensé que ma candidature n’était pas retenue. Lorsque j’ai vu un courriel de la plateforme Nuage de talents dans ma boîte de réception, j’ai supposé qu’il s’agissait d’une note me disant « meilleure chance la prochaine fois », mais j’ai été enthousiasmé lorsque j’ai lu que j’étais passé à la deuxième étape du processus d’embauche. »</p>
+            
+          </blockquote>
+        
+      
+    
+      
+        
+          <!-- Basic Content -->
+          <p>Il y a toutefois des choses que les gestionnaires d’embauche peuvent faire aujourd’hui pour rendre leur poste plus attrayant pour les candidats. Le fait de tenir les candidats au courant pendant le processus d’embauche, même si c’est pour les informer que les choses prennent plus de temps que prévu, peut aider les gestionnaires à garder leurs meilleurs candidats tout au long du processus d’embauche. L’élaboration de plans d’évaluation à l’avance et le respect d’un plan de sélection peuvent également être des outils importants pour faire avancer rapidement le processus d’embauche… et mobiliser les talents à haut rendement.</p>
+        
+      
+    
+  </div>
+</main>
+<section style="background-color: #F8F8F8;">
+  <div data-h2-container="b(center, s)" data-h2-padding="b(bottom, l) l(bottom, xxl)">
+    <div data-h2-flex-grid="b(top, expanded, flush, m)">
+      <div
+        data-h2-text-align="b(center) m(left)" 
+        data-h2-flex-item="b(1of2)">
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            
+              <a class="prev" href="/fr/hiring/2000/01/01/405-intervention.html" title="Allez à l'article précédent de la série.">
+                <svg data-h2-margin="b(right, xxs)" 
+                  style="width: 1rem; vertical-align: middle;" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="#c90035">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M15 19l-7-7 7-7" />
+                </svg>Article précédent</a>
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      </div>
+      <div 
+        data-h2-text-align="b(center) m(right)"   
+        data-h2-flex-item="b(1of2)">
+        
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            
+              <a class="next" href="/fr/2000/01/01/407-volume.html" title="Passez à l'article suivant de la série.">Article suivant<svg data-h2-margin="b(left, xxs)" 
+                style="width: 1rem; vertical-align: middle;" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="#c90035">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M9 5l7 7-7 7" />
+                </svg></a>
+            
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+      </div>
+    </div>
+    <p
+      data-h2-margin="b(top, xxl)" 
+      data-h2-text-align="b(center)"
+      data-h2-font-size="b(caption)">
+      <a href="/fr/talent-cloud/report/#toc" title="Retour à la table des matières">Retour à la table des matières</a>
+    </p>
+  </div>
+</section>
+<section data-h2-border="b([light]gray, top, solid, s)" data-h2-position="b(relative)" style="background: rgba(240, 240, 240, 1)" data-h2-overflow="b(x, hidden)">
+  <footer data-h2-container="b(center, full)" data-h2-padding="b(top-bottom, l)">
+    <div data-h2-flex-grid="b(middle, expanded, flush, xl)">
+      <div
+        data-h2-flex-item="b(1of1) m(1of2)"
+        data-h2-padding="b(left, xl)"
+        data-h2-text-align="b(center) m(left)">
+        
+          <nav>
+            <ul
+              style="gap: 1rem;"
+              class="reset-ul"
+              data-h2-display="b(flex)"
+              data-h2-flex-wrap="b(wrap)"
+              data-h2-justify-content="b(center) m(flex-start)"
+              data-h2-margin="b(bottom, xs)">
+              
+              <li data-h2-display="b(inline-block)" data-h2-margin="b(top-bottom, none)">
+                
+                  <a href="mailto:GCTalentGC@tbs-sct.gc.ca" title="Soumettre des commentaires au Nuage de talents du GC par courriel.">Retour d'information</a>
+                
+              </li>
+              
+              <li data-h2-display="b(inline-block)" data-h2-margin="b(top-bottom, none)">
+                
+                  <a href="/fr/terms-and-conditions" title="Voir nos avis.">Avis</a>
+                
+              </li>
+              
+              <li data-h2-display="b(inline-block)" data-h2-margin="b(top-bottom, none)">
+                
+                  <a href="/fr/privacy-notice" title="Voir notre politique de confidentialité.">Confidentialité</a>
+                
+              </li>
+              
+              <li data-h2-display="b(inline-block)" data-h2-margin="b(top-bottom, none)">
+                
+                  <a href="/fr/https://www.canada.ca/fr.html" title="Visiter Canada.ca.">Canada.ca</a>
+                
+              </li>
+              
+            </ul>
+          </nav>
+          <p 
+            data-h2-font-size="b(caption)"
+            data-h2-font-color="b(black)" 
+            data-h2-margin="b(bottom, none) b(top, m)">
+            Date de modification: July 07, 2021
+          </p>
+        
+      </div>
+      <div
+        data-h2-flex-item="b(1of1) m(1of2)"
+        data-h2-padding="b(right, xl)"
+        data-h2-text-align="b(center) m(right)">
+        <a
+          href="https://www.canada.ca/fr.html"
+          title="Visiter Canada.ca."
+          target="_blank"
+          rel="noopener noreferrer">
+          <img
+            class="canada-logo"
+            src="/assets/img/ui-canada.png"
+            alt="Symbole du gouvernement du Canada."/>
+        </a>
+      </div>
+    </div>
+  </footer>
+</section>
 
-                    <li
-                        data-h2-margin="b(all, none)"
-                        data-h2-padding="b(all, none)"
-                        data-h2-display="b(inline-block)"
-                    >
-                        <a
-                            href="/fr/communities/digital-talent/"
-                            title="En savoir plus sur la communauté des talents numériques."
-                            data-h2-display="b(block)"
-                            data-h2-padding="b(all, xs) m(right-left, s)"
-                            >Talent numérique</a
-                        >
-                    </li>
-                </ul>
-            </nav>
-        </div>
-        <section>
-            <div
-                data-h2-container="b(center, full)"
-                data-h2-text-align="b(center)"
-            >
-                <h1
-                    data-h2-font-weight="b(800)"
-                    data-h2-font-size="b(h1)"
-                    data-h2-padding="b(top, l) l(top, xxl) b(bottom, xxs)"
-                    style="letter-spacing: -3px"
-                >
-                    Rapport sur les résultats de Nuage de talents
-                </h1>
-
-                <div id="breadcrumbs" data-h2-margin="b(top-bottom, m)">
-                    <a href="/fr" title="Retour à la page d'accueil."
-                        >GC Talent</a
-                    >
-                    <!-- If the page layout is post then use this breadcrumb list. -->
-
-                    /
-                    <a
-                        href="/fr/talent-cloud"
-                        title="Retournez à la page de Nuage de talents."
-                        >Nuage de talents</a
-                    >
-                    /
-                    <a
-                        href="/fr/talent-cloud/report"
-                        title="Retournez au rapport des résultats de Nuage de talents."
-                        >Rapport sur les r...</a
-                    >
-                    / <span>Section 4</span> /
-                    <span data-h2-font-weight="b(800)"
-                        >Incidence de la r...</span
-                    >
-                </div>
-            </div>
-        </section>
-        <header
-            class="post-header"
-            id="mainContent"
-            style="background-image: url('/assets/img/4.6-tx-heading.jpg')"
-            data-h2-margin="b(top, xl)"
-        >
-            <div
-                data-h2-container="b(center, m)"
-                data-h2-font-color="b(white)"
-                data-h2-padding="b(top, l) b(bottom, xl) l(top, xl) l(bottom, xxl)"
-                data-h2-text-align="b(center)"
-            >
-                <h2
-                    data-h2-font-weight="b(200)"
-                    data-h2-font-size="b(h2)"
-                    data-h2-padding="b(top, m)"
-                    style="letter-spacing: -2px"
-                >
-                    Incidence de la rapidité sur la rétention des meilleurs
-                    talents
-                </h2>
-            </div>
-        </header>
-        <main
-            data-h2-padding="b(top-bottom, xs) l(top-bottom, xl)"
-            style="background-color: #f8f8f8"
-        >
-            <div data-h2-container="b(center, s)">
-                <!-- Titles -->
-                <h3
-                    data-h2-font-weight="b(800)"
-                    data-h2-font-size="b(h3)"
-                    data-h2-margin="b(top, xl) b(bottom, s)"
-                    style="letter-spacing: -1px"
-                >
-                    Le problème
-                </h3>
-
-                <!-- Basic Content -->
-                <p>
-                    <a
-                        href="https://www.gartner.com/smarterwithgartner/canadian-cios-focus-on-in-demand-it-roles/"
-                        target="_blank"
-                        rel="noreferrer"
-                        title="View source."
-                        >Il existe une forte concurrence pour attirer des
-                        personnes très talentueuses ayant des compétences en
-                        demande, particulièrement en ce qui concerne les talents
-                        en matière de numérique et de technologique.</a
-                    >
-                    La rapidité est un facteur essentiel pour demeurer
-                    concurrentiel lorsque le talent recruté a de multiples
-                    possibilités à envisager.
-                </p>
-
-                <!-- Basic Content -->
-                <p>
-                    Au cours des premiers ateliers avec les candidats, on a
-                    appris, grâce au Nuage de talents, que les meilleurs talents
-                    répondant aux offres d’emploi pourraient ne plus être
-                    intéressés s’ils n’étaient pas contactés dans les deux à
-                    trois semaines suivant la présentation de leur demande. Cela
-                    était également vrai pour chaque étape qui suit le processus
-                    de sélection initial (p. ex., évaluation/examen, entrevue,
-                    vérification des références, offre finale). Les candidats
-                    s’attendaient à ce qu’il ne s’écoule pas plus de quelques
-                    semaines entre les étapes clés, et pas plus de deux mois au
-                    total entre la candidature et l’offre.
-                </p>
-
-                <!-- Basic Content -->
-                <p>
-                    Les participants à l’atelier ont énuméré trois raisons
-                    principales pour leur retrait des processus d’emploi pour
-                    lesquels ils avaient présenté une demande (gouvernement et
-                    autres). Les voici :
-                </p>
-
-                <ul>
-                    <li>
-                        se voir offrir un autre emploi pour lequel ils avaient
-                        postulé en même temps ;
-                    </li>
-
-                    <li>
-                        recevoir une meilleure offre de leur employeur actuel ;
-                    </li>
-
-                    <li>
-                        interpréter la longue attente comme un signe indésirable
-                        du milieu de travail, du gestionnaire ou de la
-                        bureaucratie de l’employeur en général.
-                    </li>
-                </ul>
-
-                <!-- Basic Content -->
-                <p>
-                    Dans les trois cas, la lenteur du processus de dotation
-                    moyen du gouvernement du Canada serait un obstacle important
-                    pour attirer une personne talentueuse, surtout si cette
-                    personne est motivée à trouver un nouveau poste et a
-                    présenté sa candidature à plusieurs employeurs potentiels.
-                </p>
-
-                <!-- Titles -->
-                <h3
-                    data-h2-font-weight="b(800)"
-                    data-h2-font-size="b(h3)"
-                    data-h2-margin="b(top, xl) b(bottom, s)"
-                    style="letter-spacing: -1px"
-                >
-                    Les hypothèses
-                </h3>
-
-                <!-- Basic Content -->
-                <p>
-                    L’hypothèse pour cette partie de la recherche était assez
-                    simple : nous pensions que les meilleurs talents
-                    abandonneraient si les processus étaient longs. Ce que nous
-                    ne savions pas, c’est la vitesse à laquelle les processus
-                    devaient se dérouler pour qu’un nombre suffisant de
-                    meilleurs candidats restent dans le processus et que les
-                    gestionnaires puissent obtenir une embauche optimale
-                    (notamment, l’un des meilleurs candidats qu’ils avaient
-                    choisis). Nous avons décidé de mettre à l’essai la demande
-                    autodéclarée des participants à l’atelier selon laquelle les
-                    processus devaient avancer à des intervalles d’au plus deux
-                    à trois semaines par étape, et que le processus global
-                    devait prendre moins de deux mois (au moins jusqu’à ce
-                    qu’une offre verbale soit faite).
-                </p>
-
-                <!-- Titles -->
-                <h3
-                    data-h2-font-weight="b(800)"
-                    data-h2-font-size="b(h3)"
-                    data-h2-margin="b(top, xl) b(bottom, s)"
-                    style="letter-spacing: -1px"
-                >
-                    L’expérience
-                </h3>
-
-                <!-- Basic Content -->
-                <p>
-                    Pour évaluer l’incidence de la durée du processus de
-                    dotation sur la capacité des gestionnaires de maintenir en
-                    poste les candidats, nous avons comparé le pourcentage de
-                    candidats qui ont abandonné au cours de la phase de
-                    sélection des candidatures, tout en faisant le suivi de la
-                    vitesse à laquelle le processus avançait.
-                </p>
-
-                <!-- Basic Content -->
-                <p>
-                    Bien que nous ayons observé que les candidats abandonnaient
-                    le processus d’embauche à toutes les étapes, pendant cette
-                    période, rien n’a été demandé aux candidats au-delà de la
-                    demande. Cela permet d’éviter d’inclure les candidats non
-                    qualifiés qui abandonnent lorsqu’ils voient les outils
-                    d’évaluation, comme un examen.
-                </p>
-
-                <!-- Basic Content -->
-                <p>
-                    Pour un petit sous-ensemble de postes affichés sur la
-                    plateforme Nuage de talents, l’équipe a effectué une analyse
-                    qualitative supplémentaire, en faisant le suivi des
-                    meilleurs candidats choisis par le gestionnaire à chaque
-                    étape, et en les interrogeant concernant leurs décisions et
-                    l’incidence de la rapidité du processus sur leur décision
-                    finale d’accepter ou de rejeter une offre d’emploi.
-                </p>
-
-                <!-- Titles -->
-                <h3
-                    data-h2-font-weight="b(800)"
-                    data-h2-font-size="b(h3)"
-                    data-h2-margin="b(top, xl) b(bottom, s)"
-                    style="letter-spacing: -1px"
-                >
-                    Les résultats
-                </h3>
-
-                <!-- Basic Content -->
-                <p>
-                    Les données recueillies au cours du projet-pilote ont
-                    confirmé ce que nous avions entendu des candidats au cours
-                    de nos premiers ateliers. Lorsque la phase de sélection des
-                    candidats a pris moins de deux semaines, le taux moyen
-                    d’abandon était de 8 % ; lorsqu’il était de deux semaines ou
-                    plus, le taux d’abandon est passé à 13 %.
-                </p>
-
-                <!-- Basic Content -->
-                <p>
-                    On a ensuite interviewé les gestionnaires sur la plateforme
-                    Nuage de talents pour voir qui, exactement, abandonnait.
-                    Dans la mesure du possible, on a également communiqué avec
-                    les candidats à l’aide de la plateforme pour savoir pourquoi
-                    ils avaient retiré leur nom. On a remarqué, dans la
-                    recherche qualitative, une tendance constante montrant que
-                    les candidats très performants ayant d’autres offres sur la
-                    table étaient les plus susceptibles d’abandonner un
-                    processus qui avançait lentement. Malheureusement, dans les
-                    cas où les gestionnaires ont agi très lentement, parfois,
-                    ils ne se sont pas rendu compte pendant un mois ou deux que
-                    leur premier choix de candidat était parti depuis longtemps.
-                    Cette situation a entraîné beaucoup de frustration pour les
-                    gestionnaires.
-                </p>
-
-                <!-- Basic Content -->
-                <p>
-                    La situation s’est considérablement améliorée pour les
-                    processus affichés plus récemment sur la plateforme, lorsque
-                    des fonctions ont été ajoutées à la plateforme Nuage de
-                    talents et que celle-ci a été en mesure de fournir plus de
-                    conseils sur la vitesse exacte à laquelle les gestionnaires
-                    devraient agir afin de conserver leurs meilleurs candidats.
-                    Dans les emplois les plus récents affichés sur la
-                    plateforme, les gestionnaires ont été en mesure d’attirer et
-                    de maintenir en poste un nombre important de personnes de
-                    talent, avec entre 4 à 14 candidats solides et entièrement
-                    qualifiés provenant d’un groupe initial d’environ 40 à 50
-                    candidats. Ces processus ont duré en moyenne environ 40
-                    jours de l’offre d’emploi à l’offre verbale (suivi du temps
-                    nécessaire pour l’autorisation de sécurité). La rapidité a
-                    effectivement semblé aider à faire en sorte que le
-                    gouvernement du Canada soit le premier employeur à présenter
-                    une offre attrayante.
-                </p>
-
-                <!-- Basic Content -->
-                <p>
-                    Dans le cadre d’ateliers et d’entrevues, les candidats ont
-                    déclaré que la nécessité de processus rapides s’appliquait à
-                    toutes les étapes. Cela indique que, pour garder les
-                    meilleurs candidats dans le bassin de candidats, les
-                    gestionnaires devraient passer par la présélection, les
-                    examens, les entrevues, les références et la finalisation de
-                    l’offre dans au plus un délai de trois semaines. Dans notre
-                    échantillon, un peu plus de la moitié des abandons se sont
-                    produits au cours de la phase initiale de sélection, ce qui
-                    pourrait être interprété comme le fait que les candidats
-                    s’investissent plus au fur et à mesure que le processus
-                    continue.
-                </p>
-
-                <!-- Basic Content -->
-                <p>
-                    Lorsque les processus avançaient plus lentement, cela
-                    donnait souvent aux employeurs des meilleurs candidats la
-                    possibilité de proposer et de finaliser les promotions à
-                    l’interne. La majorité des principaux candidats qui ont
-                    refusé un poste (dans notre très petit échantillon) l’ont
-                    fait pour demeurer chez leur employeur actuel. Les autres se
-                    sont vu offrir un poste par une autre organisation avant que
-                    le gouvernement du Canada ait été en mesure de finaliser une
-                    offre, et ils ont choisi d’accepter l’offre ferme qui leur
-                    avait été présentée. Dans tous les cas sauf deux, les
-                    candidats ont confirmé que si le gouvernement du Canada
-                    avait été le premier à leur faire une offre ferme par écrit,
-                    leur décision aurait probablement changé. (Dans les autres
-                    cas, l’absence d’un profil de gestionnaire dans l’annonce
-                    s’est avérée un facteur important dans la décision finale
-                    des candidats d’accepter une offre ailleurs, citant une
-                    inadéquation quant à leur intégration dans l’équipe comme
-                    facteur influençant leur décision.)
-                </p>
-
-                <!-- Titles -->
-                <h3
-                    data-h2-font-weight="b(800)"
-                    data-h2-font-size="b(h3)"
-                    data-h2-margin="b(top, xl) b(bottom, s)"
-                    style="letter-spacing: -1px"
-                >
-                    Perspectives
-                </h3>
-
-                <!-- Basic Content -->
-                <p>
-                    Afin de rendre le gouvernement du Canada plus attrayant pour
-                    les talents très performants qui ont d’autres possibilités
-                    d’emploi, la durée du processus de dotation du gouvernement
-                    du Canada doit être concurrentielle, non seulement dans son
-                    ensemble, mais à chacune des nombreuses étapes de sélection
-                    et d’évaluation. Pour déterminer à quelle vitesse exactement
-                    les gestionnaires d’embauche doivent agir, il faudrait mener
-                    une étude plus vaste, avec un échantillon plus grand.
-                </p>
-
-                <!-- Callout -->
-                <blockquote
-                    data-h2-bg-color="b(purple[.1])"
-                    data-h2-border="b(purple, all, solid, s)"
-                    data-h2-margin="b(top-bottom, xl)"
-                    data-h2-padding="b(right-left, m)"
-                    data-h2-radius="b(s)"
-                >
-                    <p
-                        data-h2-font-color="b(purple)"
-                        data-h2-font-weight="b(bold)"
-                    >
-                        Pensez-vous avoir des mois pour sélectionner les
-                        candidats ? Pensez-y-bien.
-                    </p>
-
-                    <p data-h2-font-color="b(purple)">
-                        Après plusieurs tentatives infructueuses de dotation et
-                        de contrats visant à trouver des talents rares pour un
-                        poste en particulier, un gestionnaire est arrivé au
-                        Nuage de talents avec une demande très spéciale. Nous
-                        savions qu’il serait difficile d’attirer quelqu’un du
-                        secteur privé pour se joindre au gouvernement pour ce
-                        rôle, et nous avons donc insisté auprès du gestionnaire
-                        sur le fait que la rapidité du processus serait un
-                        élément essentiel. Son processus de dotation a pris
-                        moins de six semaines pour arriver à une offre verbale,
-                        mais même à cette vitesse, ce n’était presque pas assez
-                        rapide. Voici une citation du meilleur candidat qui a
-                        fini par obtenir l’emploi.
-                    </p>
-
-                    <p data-h2-font-color="b(purple)">
-                        « Il m’a fallu près d’un mois pour que quelqu’un me
-                        parle du poste auquel j’avais postulé… c’était une
-                        longue période d’attente et j’ai pensé que ma
-                        candidature n’était pas retenue. Lorsque j’ai vu un
-                        courriel de la plateforme Nuage de talents dans ma boîte
-                        de réception, j’ai supposé qu’il s’agissait d’une note
-                        me disant « meilleure chance la prochaine fois », mais
-                        j’ai été enthousiasmé lorsque j’ai lu que j’étais passé
-                        à la deuxième étape du processus d’embauche. »
-                    </p>
-                </blockquote>
-
-                <!-- Basic Content -->
-                <p>
-                    Il y a toutefois des choses que les gestionnaires d’embauche
-                    peuvent faire aujourd’hui pour rendre leur poste plus
-                    attrayant pour les candidats. Le fait de tenir les candidats
-                    au courant pendant le processus d’embauche, même si c’est
-                    pour les informer que les choses prennent plus de temps que
-                    prévu, peut aider les gestionnaires à garder leurs meilleurs
-                    candidats tout au long du processus d’embauche.
-                    L’élaboration de plans d’évaluation à l’avance et le respect
-                    d’un plan de sélection peuvent également être des outils
-                    importants pour faire avancer rapidement le processus
-                    d’embauche… et mobiliser les talents à haut rendement.
-                </p>
-            </div>
-        </main>
-        <section style="background-color: #f8f8f8">
-            <div
-                data-h2-container="b(center, s)"
-                data-h2-padding="b(bottom, l) l(bottom, xxl)"
-            >
-                <div data-h2-flex-grid="b(top, expanded, flush, m)">
-                    <div
-                        data-h2-text-align="b(center) m(left)"
-                        data-h2-flex-item="b(1of2)"
-                    >
-                        <a
-                            class="prev"
-                            href="/fr/hiring/2000/01/01/405-intervention.html"
-                            title="Allez à l'article précédent de la série."
-                        >
-                            <svg
-                                data-h2-margin="b(right, xxs)"
-                                style="width: 1rem; vertical-align: middle"
-                                xmlns="http://www.w3.org/2000/svg"
-                                class="h-6 w-6"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="#c90035"
-                            >
-                                <path
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="4"
-                                    d="M15 19l-7-7 7-7"
-                                /></svg
-                            >Article précédent</a
-                        >
-                    </div>
-                    <div
-                        data-h2-text-align="b(center) m(right)"
-                        data-h2-flex-item="b(1of2)"
-                    >
-                        <a
-                            class="next"
-                            href="/fr/2000/01/01/407-volume.html"
-                            title="Passez à l'article suivant de la série."
-                            >Article suivant<svg
-                                data-h2-margin="b(left, xxs)"
-                                style="width: 1rem; vertical-align: middle"
-                                xmlns="http://www.w3.org/2000/svg"
-                                class="h-6 w-6"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="#c90035"
-                            >
-                                <path
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="4"
-                                    d="M9 5l7 7-7 7"
-                                /></svg
-                        ></a>
-                    </div>
-                </div>
-                <p
-                    data-h2-margin="b(top, xxl)"
-                    data-h2-text-align="b(center)"
-                    data-h2-font-size="b(caption)"
-                >
-                    <a
-                        href="/fr/talent-cloud/report/#toc"
-                        title="Retour à la table des matières"
-                        >Retour à la table des matières</a
-                    >
-                </p>
-            </div>
-        </section>
-        <section
-            data-h2-border="b([light]gray, top, solid, s)"
-            data-h2-position="b(relative)"
-            style="background: rgba(240, 240, 240, 1)"
-            data-h2-overflow="b(x, hidden)"
-        >
-            <footer
-                data-h2-container="b(center, full)"
-                data-h2-padding="b(top-bottom, l)"
-            >
-                <div data-h2-flex-grid="b(middle, expanded, flush, xl)">
-                    <div
-                        data-h2-flex-item="b(1of1) m(1of2)"
-                        data-h2-padding="b(left, xl)"
-                        data-h2-text-align="b(center) m(left)"
-                    >
-                        <nav>
-                            <ul
-                                style="gap: 1rem"
-                                class="reset-ul"
-                                data-h2-display="b(flex)"
-                                data-h2-flex-wrap="b(wrap)"
-                                data-h2-justify-content="b(center) m(flex-start)"
-                                data-h2-margin="b(bottom, xs)"
-                            >
-                                <li
-                                    data-h2-display="b(inline-block)"
-                                    data-h2-margin="b(top-bottom, none)"
-                                >
-                                    <a
-                                        href="mailto:talent.cloud-nuage.de.talents@tbs-sct.gc.ca"
-                                        title="Soumettre des commentaires au Nuage de talents du GC par courriel."
-                                        >Retour d'information</a
-                                    >
-                                </li>
-
-                                <li
-                                    data-h2-display="b(inline-block)"
-                                    data-h2-margin="b(top-bottom, none)"
-                                >
-                                    <a
-                                        href="/fr/terms-and-conditions"
-                                        title="Voir nos avis."
-                                        >Avis</a
-                                    >
-                                </li>
-
-                                <li
-                                    data-h2-display="b(inline-block)"
-                                    data-h2-margin="b(top-bottom, none)"
-                                >
-                                    <a
-                                        href="/fr/privacy-notice"
-                                        title="Voir notre politique de confidentialité."
-                                        >Confidentialité</a
-                                    >
-                                </li>
-
-                                <li
-                                    data-h2-display="b(inline-block)"
-                                    data-h2-margin="b(top-bottom, none)"
-                                >
-                                    <a
-                                        href="https://www.canada.ca/fr.html"
-                                        title="Visiter Canada.ca."
-                                        >Canada.ca</a
-                                    >
-                                </li>
-                            </ul>
-                        </nav>
-                        <p
-                            data-h2-font-size="b(caption)"
-                            data-h2-font-color="b(black)"
-                            data-h2-margin="b(bottom, none) b(top, m)"
-                        >
-                            Date de modification: July 07, 2021
-                        </p>
-                    </div>
-                    <div
-                        data-h2-flex-item="b(1of1) m(1of2)"
-                        data-h2-padding="b(right, xl)"
-                        data-h2-text-align="b(center) m(right)"
-                    >
-                        <a
-                            href="https://www.canada.ca/fr.html"
-                            title="Visiter Canada.ca."
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            <img
-                                class="canada-logo"
-                                src="/assets/img/ui-canada.png"
-                                alt="Symbole du gouvernement du Canada."
-                            />
-                        </a>
-                    </div>
-                </div>
-            </footer>
-        </section>
-
-        <script type="text/javascript" src="/assets/js/app.js"></script>
-    </body>
+    <script type="text/javascript" src="/assets/js/app.js"></script>
+  </body>
 </html>

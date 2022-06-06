@@ -214,9 +214,6 @@ const candidateFilterToQueryArgs = (
   filter: PoolCandidateFilterInput | undefined,
   poolId: string | undefined,
 ): CountPoolCandidatesQueryVariables => {
-  if (filter === undefined) {
-    return {};
-  }
   /* We must pick only the fields belonging to PoolCandidateFilterInput, because its possible
      the data object contains other props at runtime, and this will cause the
      graphql operation to fail.
@@ -234,22 +231,24 @@ const candidateFilterToQueryArgs = (
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ): any[] | undefined => list?.map((item) => pick(item, keys));
 
-  return {
-    where: {
-      ...filter,
-      equity: {
-        hasDisability: filter.equity?.hasDisability,
-        isIndigenous: filter.equity?.isIndigenous,
-        isVisibleMinority: filter.equity?.isVisibleMinority,
-        isWoman: filter.equity?.isWoman,
+  if (filter !== null || undefined)
+    return {
+      where: {
+        ...filter,
+        equity: {
+          hasDisability: filter?.equity?.hasDisability,
+          isIndigenous: filter?.equity?.isIndigenous,
+          isVisibleMinority: filter?.equity?.isVisibleMinority,
+          isWoman: filter?.equity?.isWoman,
+        },
+        classifications: filter?.classifications
+          ? pickMap(filter.classifications, ["group", "level"])
+          : [],
+        cmoAssets: filter?.cmoAssets ? pickMap(filter.cmoAssets, "key") : [],
+        pools: poolId ? [{ id: poolId }] : pickMap(filter?.pools, "id"),
       },
-      classifications: filter.classifications
-        ? pickMap(filter.classifications, ["group", "level"])
-        : [],
-      cmoAssets: filter.cmoAssets ? pickMap(filter.cmoAssets, "key") : [],
-      pools: poolId ? [{ id: poolId }] : pickMap(filter.pools, "id"),
-    },
-  };
+    };
+  return {};
 };
 
 export const SearchContainerApi: React.FC = () => {
