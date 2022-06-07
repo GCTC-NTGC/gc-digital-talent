@@ -8,7 +8,7 @@ describe('Auth flows (development)', () => {
 
   const loginViaUI = (role) => {
     cy.fixture('users.json').then(users => {
-      const user = users['admin']
+      const user = users[role]
       cy.get('input[name=username]').type(user.email)
     })
     cy.findByText('Sign-in').click()
@@ -95,7 +95,7 @@ describe('Auth flows (development)', () => {
       })
 
       onAuthLoginPage()
-      loginViaUI()
+      loginViaUI('admin')
 
       cy.url().should('equal', Cypress.config().baseUrl + '/en/admin/dashboard')
       // Confirm login status via button state.
@@ -112,14 +112,14 @@ describe('Auth flows (development)', () => {
       cy.visit(initialPath)
 
       onAuthLoginPage()
-      loginViaUI()
+      loginViaUI('admin')
 
       cy.url().should('equal', Cypress.config().baseUrl + initialPath)
     })
 
   })
 
-  context('Authenticated', () => {
+  context('Authenticated as admin', () => {
     beforeEach(() => cy.login('admin'))
 
     it('redirects by default to dashboard', () => {
@@ -154,6 +154,29 @@ describe('Auth flows (development)', () => {
         .should('not.exist')
       cy.findByRole('link', { name: 'Login' })
         .should('exist').and('be.visible')
+    })
+
+  })
+
+  context('Authenticated as applicant', () => {
+    beforeEach(() => cy.login('applicant'))
+
+    it('displays a not authorized message if logged in without the admin role', () => {
+      [
+        '/en/admin/dashboard',
+        '/en/admin/skills',
+        '/en/admin/search-requests',
+        '/en/admin/users',
+        '/en/admin/classifications',
+        '/en/admin/cmo-assets',
+        '/en/admin/pools',
+        '/en/admin/departments',
+        '/en/admin/skill-families',
+        '/en/admin/skills',
+      ].forEach(restrictedPath => {
+        cy.visit(restrictedPath)
+        cy.contains('not authorized');
+      });
     })
 
   })
