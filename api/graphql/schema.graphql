@@ -94,6 +94,8 @@ type User {
 
     # Profile Status
     isProfileComplete: Boolean
+    classificationRoles: [ClassificationRoles] @hasMany
+
 }
 
 enum ProvinceOrTerritory {
@@ -201,6 +203,8 @@ type Applicant {
     educationExperiences: [EducationExperience]
     personalExperiences: [PersonalExperience]
     workExperiences: [WorkExperience]
+    classificationRoles: [ClassificationRoles] @hasMany
+
 }
 
 type UserPublicProfile {
@@ -603,6 +607,8 @@ type Query {
     skillFamilies: [SkillFamily]! @all
     skill(id: ID! @eq): Skill @find
     skills: [Skill]! @all
+    classificationRole(id: ID! @eq):ClassificationRoles @find
+    classificationRoles:[ClassificationRoles]! @all
 }
 input ClassificationBelongsTo {
     connect: ID
@@ -668,7 +674,7 @@ input CreateUserInput {
     educationExperiences: EducationExperienceHasMany
     awardExperiences: AwardExperienceHasMany
 
-    classificationRoles: [ClassificationRole] @hasMany
+    classificationRoles: [ClassificationRoles] @rename(attribute: "name")
 
 }
 """
@@ -781,6 +787,8 @@ input UpdateUserAsUserInput {
     communityExperiences: CommunityExperienceHasMany
     educationExperiences: EducationExperienceHasMany
     awardExperiences: AwardExperienceHasMany
+    classificationRoles: [ClassificationRoles] @rename(attribute: "name")
+
 }
 
 input LocalizedStringInput {
