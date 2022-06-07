@@ -6,6 +6,8 @@ import { toast } from "react-toastify";
 import { Input, Submit, TextArea } from "@common/components/form";
 import { navigate } from "@common/helpers/router";
 import { errorMessages, commonMessages } from "@common/messages";
+import Pending from "@common/components/Pending";
+import NotFound from "@common/components/NotFound";
 import { useAdminRoutes } from "../../adminRoutes";
 import {
   CmoAsset,
@@ -144,39 +146,30 @@ export const UpdateCmoAsset: React.FunctionComponent<{
       return Promise.reject(result.error);
     });
 
-  if (fetching)
-    return (
+  return (
+    <Pending fetching={fetching} error={error}>
       <DashboardContentContainer>
-        <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>
-      </DashboardContentContainer>
-    );
-  if (error)
-    return (
-      <DashboardContentContainer>
-        <p>
-          {intl.formatMessage(commonMessages.loadingError)}
-          {error.message}
-        </p>
-      </DashboardContentContainer>
-    );
-  return cmoAssetData?.cmoAsset ? (
-    <DashboardContentContainer>
-      <UpdateCmoAssetForm
-        initialCmoAsset={cmoAssetData.cmoAsset}
-        handleUpdateCmoAsset={handleUpdateCmoAsset}
-      />
-    </DashboardContentContainer>
-  ) : (
-    <DashboardContentContainer>
-      <p>
-        {intl.formatMessage(
-          {
-            defaultMessage: "CMO Asset {cmoAssetId} not found.",
-            description: "Message displayed for cmo asset not found.",
-          },
-          { cmoAssetId },
+        {cmoAssetData?.cmoAsset ? (
+          <UpdateCmoAssetForm
+            initialCmoAsset={cmoAssetData.cmoAsset}
+            handleUpdateCmoAsset={handleUpdateCmoAsset}
+          />
+        ) : (
+          <NotFound
+            headingMessage={intl.formatMessage(commonMessages.notFound)}
+          >
+            <p>
+              {intl.formatMessage(
+                {
+                  defaultMessage: "CMO Asset {cmoAssetId} not found.",
+                  description: "Message displayed for cmo asset not found.",
+                },
+                { cmoAssetId },
+              )}
+            </p>
+          </NotFound>
         )}
-      </p>
-    </DashboardContentContainer>
+      </DashboardContentContainer>
+    </Pending>
   );
 };

@@ -2,7 +2,7 @@ import { Input, Select, Submit, TextArea } from "@common/components/form";
 import * as React from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
-import { commonMessages, errorMessages } from "@common/messages";
+import { errorMessages } from "@common/messages";
 import { getLocale } from "@common/helpers/localize";
 import { Button } from "@common/components";
 import { notEmpty } from "@common/helpers/util";
@@ -14,6 +14,8 @@ import {
   removeFromSessionStorage,
   setInSessionStorage,
 } from "@common/helpers/storageUtils";
+import { EquitySelections } from "@common/api/generated";
+import Pending from "@common/components/Pending";
 import { useTalentSearchRoutes } from "../../talentSearchRoutes";
 import {
   Department,
@@ -46,10 +48,10 @@ type FormValues = {
       sync?: Array<Maybe<CmoAsset["id"]>>;
     };
     hasDiploma?: PoolCandidateFilter["hasDiploma"];
-    hasDisability?: PoolCandidateFilter["hasDisability"];
-    isIndigenous?: PoolCandidateFilter["isIndigenous"];
-    isVisibleMinority?: PoolCandidateFilter["isVisibleMinority"];
-    isWoman?: PoolCandidateFilter["isWoman"];
+    hasDisability?: EquitySelections["hasDisability"];
+    isIndigenous?: EquitySelections["isIndigenous"];
+    isVisibleMinority?: EquitySelections["isVisibleMinority"];
+    isWoman?: EquitySelections["isWoman"];
     languageAbility?: PoolCandidateFilter["languageAbility"];
     operationalRequirements?: Array<Maybe<OperationalRequirement>>;
     pools?: {
@@ -117,18 +119,20 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
           hasDiploma: poolCandidateFilter?.hasDiploma
             ? poolCandidateFilter?.hasDiploma
             : false,
-          hasDisability: poolCandidateFilter?.hasDisability
-            ? poolCandidateFilter?.hasDisability
-            : false,
-          isIndigenous: poolCandidateFilter?.isIndigenous
-            ? poolCandidateFilter?.isIndigenous
-            : false,
-          isVisibleMinority: poolCandidateFilter?.isVisibleMinority
-            ? poolCandidateFilter?.isVisibleMinority
-            : false,
-          isWoman: poolCandidateFilter?.isWoman
-            ? poolCandidateFilter?.isWoman
-            : false,
+          equity: {
+            hasDisability: values.poolCandidateFilter?.hasDisability
+              ? values.poolCandidateFilter?.hasDisability
+              : false,
+            isIndigenous: values.poolCandidateFilter?.isIndigenous
+              ? values.poolCandidateFilter?.isIndigenous
+              : false,
+            isVisibleMinority: values.poolCandidateFilter?.isVisibleMinority
+              ? values.poolCandidateFilter?.isVisibleMinority
+              : false,
+            isWoman: values.poolCandidateFilter?.isWoman
+              ? values.poolCandidateFilter?.isWoman
+              : false,
+          },
           languageAbility: poolCandidateFilter?.languageAbility,
           operationalRequirements: poolCandidateFilter?.operationalRequirements,
           pools: {
@@ -373,7 +377,6 @@ export const CreateRequest: React.FunctionComponent<{
   candidateCount: Maybe<number>;
   searchFormInitialValues: Maybe<SearchFormValues>;
 }> = ({ poolCandidateFilter, candidateCount, searchFormInitialValues }) => {
-  const intl = useIntl();
   const [lookupResult] = useGetPoolCandidateSearchRequestDataQuery();
   const { data: lookupData, fetching, error } = lookupResult;
 
@@ -391,23 +394,17 @@ export const CreateRequest: React.FunctionComponent<{
       return Promise.reject(result.error);
     });
 
-  if (fetching) return <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>;
-  if (error)
-    return (
-      <p>
-        {intl.formatMessage(commonMessages.loadingError)} {error.message}
-      </p>
-    );
-
   return (
-    <RequestForm
-      departments={departments}
-      poolCandidateFilter={poolCandidateFilter}
-      candidateCount={candidateCount}
-      searchFormInitialValues={searchFormInitialValues}
-      handleCreatePoolCandidateSearchRequest={
-        handleCreatePoolCandidateSearchRequest
-      }
-    />
+    <Pending fetching={fetching} error={error}>
+      <RequestForm
+        departments={departments}
+        poolCandidateFilter={poolCandidateFilter}
+        candidateCount={candidateCount}
+        searchFormInitialValues={searchFormInitialValues}
+        handleCreatePoolCandidateSearchRequest={
+          handleCreatePoolCandidateSearchRequest
+        }
+      />
+    </Pending>
   );
 };

@@ -11,10 +11,13 @@ import PageHeader from "@common/components/PageHeader";
 import { Link } from "@common/components";
 import { Tab, TabSet } from "@common/components/tabs";
 import { commonMessages } from "@common/messages";
+import Pending from "@common/components/Pending";
+import NotFound from "@common/components/NotFound";
 import { useAdminRoutes } from "../../adminRoutes";
 import { User, useUserQuery } from "../../api/generated";
 import DashboardContentContainer from "../DashboardContentContainer";
 import GeneralInformationTab from "./GeneralInformationTab";
+import UserProfileApi from "./UserProfile";
 
 interface ViewUserPageProps {
   user: User;
@@ -103,7 +106,9 @@ export const ViewUserPage: React.FC<ViewUserPageProps> = ({ user }) => {
             defaultMessage: "Candidate Profile",
             description: "Tabs title for the individual user profile.",
           })}
-        />
+        >
+          <UserProfileApi userId={user.id} />
+        </Tab>
       </TabSet>
     </>
   );
@@ -119,40 +124,28 @@ const ViewUser: React.FC<ViewUserProps> = ({ userId }) => {
     variables: { id: userId },
   });
 
-  if (fetching) {
-    return (
-      <DashboardContentContainer>
-        <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>
-      </DashboardContentContainer>
-    );
-  }
-
-  if (error) {
-    <DashboardContentContainer>
-      <p>
-        {intl.formatMessage(commonMessages.loadingError)} {error.message}
-      </p>
-    </DashboardContentContainer>;
-  }
-
   return (
-    <DashboardContentContainer>
-      {data?.user ? (
-        <ViewUserPage user={data.user} />
-      ) : (
-        <p>
-          <p>
-            {intl.formatMessage(
-              {
-                defaultMessage: "User {userId} not found.",
-                description: "Message displayed for user not found.",
-              },
-              { userId },
-            )}
-          </p>
-        </p>
-      )}
-    </DashboardContentContainer>
+    <Pending fetching={fetching} error={error}>
+      <DashboardContentContainer>
+        {data?.user ? (
+          <ViewUserPage user={data.user} />
+        ) : (
+          <NotFound
+            headingMessage={intl.formatMessage(commonMessages.notFound)}
+          >
+            <p>
+              {intl.formatMessage(
+                {
+                  defaultMessage: "User {userId} not found.",
+                  description: "Message displayed for user not found.",
+                },
+                { userId },
+              )}
+            </p>
+          </NotFound>
+        )}
+      </DashboardContentContainer>
+    </Pending>
   );
 };
 

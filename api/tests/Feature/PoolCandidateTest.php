@@ -4,10 +4,12 @@ use App\Models\Classification;
 use App\Models\CmoAsset;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
+use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Nuwave\Lighthouse\Testing\ClearsSchemaCache;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Tests\TestCase;
+use Database\Helpers\ApiEnums;
 
 class PoolCandidateTest extends TestCase
 {
@@ -409,7 +411,12 @@ class PoolCandidateTest extends TestCase
       }
     ', [
       'where' => [
-        'isIndigenous' => true,
+        'equity' => [
+          'isIndigenous' => true,
+          'isWoman' => false,
+          'isVisibleMinority' => false,
+          'hasDisability' => false
+          ]
       ]
     ])->assertJson([
       'data' => [
@@ -423,7 +430,12 @@ class PoolCandidateTest extends TestCase
       }
     ', [
       'where' => [
-        'isVisibleMinority' => true,
+        'equity' => [
+          'isIndigenous' => false,
+          'isWoman' => false,
+          'isVisibleMinority' => true,
+          'hasDisability' => false
+          ]
       ]
     ])->assertJson([
       'data' => [
@@ -437,7 +449,12 @@ class PoolCandidateTest extends TestCase
       }
     ', [
       'where' => [
-        'hasDisability' => true,
+        'equity' => [
+          'isIndigenous' => false,
+          'isWoman' => false,
+          'isVisibleMinority' => false,
+          'hasDisability' => true
+          ]
       ]
     ])->assertJson([
       'data' => [
@@ -451,14 +468,93 @@ class PoolCandidateTest extends TestCase
       }
     ', [
       'where' => [
-        'isWoman' => true,
+        'equity' => [
+          'isIndigenous' => false,
+          'isWoman' => true,
+          'isVisibleMinority' => false,
+          'hasDisability' => false
+          ]
       ]
     ])->assertJson([
       'data' => [
         'countPoolCandidates' => 1
       ]
     ]);
-
+    // Assert query with isWoman OR isIndigenous filter will return correct candidate count
+    $this->graphQL(/** @lang Graphql */ '
+      query countPoolCandidates($where: PoolCandidateFilterInput) {
+        countPoolCandidates(where: $where)
+      }
+    ', [
+      'where' => [
+        'equity' => [
+          'isIndigenous' => true,
+          'isWoman' => true,
+          'isVisibleMinority' => false,
+          'hasDisability' => false
+          ]
+      ]
+    ])->assertJson([
+      'data' => [
+        'countPoolCandidates' => 2
+      ]
+    ]);
+    // Assert query with isWoman OR isIndigenous OR isMinority filter will return correct candidate count
+    $this->graphQL(/** @lang Graphql */ '
+      query countPoolCandidates($where: PoolCandidateFilterInput) {
+        countPoolCandidates(where: $where)
+      }
+    ', [
+      'where' => [
+        'equity' => [
+          'isIndigenous' => true,
+          'isWoman' => true,
+          'isVisibleMinority' => true,
+          'hasDisability' => false
+          ]
+      ]
+    ])->assertJson([
+      'data' => [
+        'countPoolCandidates' => 3
+      ]
+    ]);
+    // Assert query above with empty selection in equity object will not break the code and matches the returned candidate count
+    $this->graphQL(/** @lang Graphql */ '
+      query countPoolCandidates($where: PoolCandidateFilterInput) {
+        countPoolCandidates(where: $where)
+      }
+    ', [
+      'where' => [
+        'equity' => [
+          'isIndigenous' => true,
+          'isWoman' => true,
+          'isVisibleMinority' => true,
+          ]
+      ]
+    ])->assertJson([
+      'data' => [
+        'countPoolCandidates' => 3
+      ]
+    ]);
+    // Assert query with all equity filters true will return correct candidate count
+    $this->graphQL(/** @lang Graphql */ '
+      query countPoolCandidates($where: PoolCandidateFilterInput) {
+        countPoolCandidates(where: $where)
+      }
+    ', [
+      'where' => [
+        'equity' => [
+          'isIndigenous' => true,
+          'isWoman' => true,
+          'isVisibleMinority' => true,
+          'hasDisability' => true
+          ]
+      ]
+    ])->assertJson([
+      'data' => [
+        'countPoolCandidates' => 4
+      ]
+    ]);
     // Assert query with all EmploymentEquity filters set to false will return all candidates
     $this->graphQL(/** @lang Graphql */ '
       query countPoolCandidates($where: PoolCandidateFilterInput) {
@@ -466,10 +562,48 @@ class PoolCandidateTest extends TestCase
       }
     ', [
       'where' => [
-        'hasDisability' => false,
-        'isIndigenous' => false,
-        'isVisibleMinority' => false,
-        'isWoman' => false,
+        'equity' => [
+          'isIndigenous' => false,
+          'isWoman' => false,
+          'isVisibleMinority' => false,
+          'hasDisability' => false
+        ],
+      ]
+    ])->assertJson([
+      'data' => [
+        'countPoolCandidates' => 9
+      ]
+    ]);
+    // Assert query with all EmploymentEquity filters set to false will return all candidates
+    $this->graphQL(/** @lang Graphql */ '
+      query countPoolCandidates($where: PoolCandidateFilterInput) {
+        countPoolCandidates(where: $where)
+      }
+    ', [
+      'where' => [
+        'equity' => [
+          'isIndigenous' => false,
+          'isWoman' => false,
+          'isVisibleMinority' => false,
+          'hasDisability' => false
+        ],
+      ]
+    ])->assertJson([
+      'data' => [
+        'countPoolCandidates' => 9
+      ]
+    ]);
+    // Assert query with all EmploymentEquity filters set to null or not present will return all candidates same as above
+    $this->graphQL(/** @lang Graphql */ '
+      query countPoolCandidates($where: PoolCandidateFilterInput) {
+        countPoolCandidates(where: $where)
+      }
+    ', [
+      'where' => [
+        'equity' => [
+          'isIndigenous' => null,
+          'isWoman' => null,
+        ],
       ]
     ])->assertJson([
       'data' => [
@@ -810,6 +944,103 @@ class PoolCandidateTest extends TestCase
     ])->assertJson([
       'data' => [
         'countPoolCandidates' => 0
+      ]
+    ]);
+  }
+
+  public function testFilterByExpiryDate(): void
+  {
+    // Create admin user we run tests as
+    $newUser = new User;
+    $newUser->email = 'admin@test.com';
+    $newUser->sub = 'admin@test.com';
+    $newUser->roles = ['ADMIN'];
+    $newUser->save();
+
+    // Create some expired users
+    $expiredCandidates = PoolCandidate::factory()->count(2)->create([
+      'expiry_date' => '2000-05-13',
+    ]);
+
+    // Create some valid users
+    $futureCandidates = PoolCandidate::factory()->count(4)->create([
+      'expiry_date' => '3000-05-13',
+    ]);
+    $todayCandidate = PoolCandidate::factory()->create([
+      'expiry_date' => date("Y-m-d"),
+    ]);
+    $futureCandidates->concat($todayCandidate);
+    $nullCandidates = PoolCandidate::factory()->count(3)->create([
+      'expiry_date' => null,
+    ]);
+    $futureCandidates->concat($nullCandidates);
+
+    $allCandidates = $expiredCandidates;
+    $allCandidates->concat($futureCandidates);
+
+    // Assert countPoolCandidates query ignores expired candidates
+    $this->graphQL(/** @lang Graphql */ '
+      query countPoolCandidates {
+        countPoolCandidates
+      }
+    ')->assertJson([
+      'data' => [
+        'countPoolCandidates' => 8
+      ]
+    ]);
+
+    // Assert searchPoolCandidates query with no parameters returns correct candidates
+    $this->graphQL(/** @lang Graphql */ '
+      query searchPoolCandidates {
+        searchPoolCandidates {
+          id
+        }
+      }
+    ')->assertJson([
+      'data' => [
+        'searchPoolCandidates' => $futureCandidates->map->only(['id'])->toArray()
+      ]
+    ]);
+
+    // Assert searchPoolCandidates query with expiryStatus ACTIVE returns correct candidates
+    $activeStatus = ApiEnums::CANDIDATE_EXPIRY_FILTER_ACTIVE;
+    $this->graphQL(/** @lang Graphql */ "
+      query searchPoolCandidates {
+        searchPoolCandidates(expiryStatus: {$activeStatus}) {
+          id
+        }
+      }
+    ")->assertJson([
+      'data' => [
+        'searchPoolCandidates' => $futureCandidates->map->only(['id'])->toArray()
+      ]
+    ]);
+
+    // Assert searchPoolCandidates query with expiryStatus EXPIRED returns correct candidates
+    $expiredStatus = ApiEnums::CANDIDATE_EXPIRY_FILTER_EXPIRED;
+    $this->graphQL(/** @lang Graphql */ "
+      query searchPoolCandidates {
+        searchPoolCandidates(expiryStatus: {$expiredStatus}) {
+          id
+        }
+      }
+    ")->assertJson([
+      'data' => [
+        'searchPoolCandidates' => $expiredCandidates->map->only(['id'])->toArray()
+      ]
+    ]);
+
+    // Assert searchPoolCandidates query with expiryStatus ALL returns correct candidates
+    $allStatus = ApiEnums::CANDIDATE_EXPIRY_FILTER_ALL;
+    $this->graphQL(/** @lang Graphql */ "
+      query searchPoolCandidates {
+        searchPoolCandidates(expiryStatus: {$allStatus}) {
+          id
+        }
+      }
+    ")->assertJson([
+      'data' => [
+        'searchPoolCandidates' => $expiredCandidates->map->only(['id'])->toArray()
       ]
     ]);
   }

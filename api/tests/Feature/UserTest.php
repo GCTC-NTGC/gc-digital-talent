@@ -14,6 +14,7 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Nuwave\Lighthouse\Testing\ClearsSchemaCache;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Tests\TestCase;
+use Database\Helpers\ApiEnums;
 
 class UserTest extends TestCase
 {
@@ -37,7 +38,6 @@ class UserTest extends TestCase
 
     public function testCreateUserDefaultRoles()
     {
-        $this->markTestSkipped('Todo: Fix. https://github.com/GCTC-NTGC/gc-digital-talent/issues/1480');
         $this->graphQL(/** @lang GraphQL */ '
             mutation CreateUser($user: CreateUserInput!) {
                 createUser(user: $user) {
@@ -56,7 +56,7 @@ class UserTest extends TestCase
                 'email' => 'jane@test.com',
                 // If roles is not set, it should come back as empty array.
             ]
-        ])->seeJson([
+        ])->assertJson([
             'data' => [
                 'createUser' => [
                     'firstName' => 'Jane',
@@ -69,12 +69,11 @@ class UserTest extends TestCase
             ]
         ]);
         // Ensure user was saved
-        $this->seeInDatabase('users', ['email' => 'jane@test.com']);
+        $this->assertDatabaseHas('users', ['email' => 'jane@test.com']);
     }
 
     public function testCreateUserAdminRole()
     {
-        $this->markTestSkipped('Todo: Fix. https://github.com/GCTC-NTGC/gc-digital-talent/issues/1480');
         $this->graphQL(/** @lang GraphQL */ '
             mutation CreateUser($user: CreateUserInput!) {
                 createUser(user: $user) {
@@ -93,7 +92,7 @@ class UserTest extends TestCase
                 'email' => 'jane@test.com',
                 'roles' => ['ADMIN']
             ]
-        ])->seeJson([
+        ])->assertJson([
             'data' => [
                 'createUser' => [
                     'firstName' => 'Jane',
@@ -106,16 +105,15 @@ class UserTest extends TestCase
             ]
         ]);
         // Ensure user was saved
-        $this->seeInDatabase('users', ['email' => 'jane@test.com']);
+        $this->assertDatabaseHas('users', ['email' => 'jane@test.com']);
     }
 
     public function testUpdateUserRole()
     {
-        $this->markTestSkipped('Todo: Fix. https://github.com/GCTC-NTGC/gc-digital-talent/issues/1480');
         $user = User::factory()->create(['roles' => []]);
         $this->graphQL(/** @lang GraphQL */ '
-            mutation UpdateUser($id: ID!, $user: UpdateUserInput!) {
-                updateUser(id: $id, user: $user) {
+            mutation UpdateUser($id: ID!, $user: UpdateUserAsAdminInput!) {
+                updateUserAsAdmin(id: $id, user: $user) {
                     id
                     roles
                 }
@@ -125,9 +123,9 @@ class UserTest extends TestCase
             'user' => [
                 'roles' => ['ADMIN']
             ]
-        ])->seeJson([
+        ])->assertJson([
             'data' => [
-                'updateUser' => [
+                'updateUserAsAdmin' => [
                     'id' => strval($user->id),
                     'roles' => ['ADMIN']
                 ]
@@ -189,7 +187,9 @@ class UserTest extends TestCase
             }
         ', [
             'where' => [
-                'pools' => [$pool2['id']]
+                'poolCandidates' => [
+                    'pools' => [$pool2['id']]
+                ]
             ]
         ])->assertJson([
             'data' => [
@@ -212,13 +212,183 @@ class UserTest extends TestCase
             }
         ', [
             'where' => [
-                'pools' => ['00000000-0000-0000-0000-000000000000']
+                'poolCandidates' => [
+                    'pools' => ['00000000-0000-0000-0000-000000000000']
+                ]
             ]
         ])->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
                         'total' => 0
+                    ]
+                ]
+            ]
+        ]);
+    }
+
+    public function testFilterByCandidateExpiryDate(): void
+    {
+        // myPool will be people we're querying for and should be returned
+        $myPool = Pool::factory()->create(['name' => 'myPool']);
+        // otherPool will be people we're not querying for and should not be returned
+        $otherPool = Pool::factory()->create(['name' => 'otherPool']);
+
+        // Create some valid users in myPool
+        PoolCandidate::factory()->count(4)->create([
+            'expiry_date' => '3000-05-13',
+            'pool_id' => $myPool->id,
+        ]);
+        PoolCandidate::factory()->create([
+            'expiry_date' => date("Y-m-d"),
+            'pool_id' => $myPool->id,
+        ]);
+        PoolCandidate::factory()->count(3)->create([
+            'expiry_date' => null,
+            'pool_id' => $myPool->id,
+        ]);
+        // Create some expired users in myPool
+        PoolCandidate::factory()->count(2)->create([
+            'expiry_date' => '2000-05-13',
+            'pool_id' => $myPool->id,
+        ]);
+
+        // Create some valid users in otherPool
+        PoolCandidate::factory()->count(5)->create([
+            'expiry_date' => '3000-05-13',
+            'pool_id' => $otherPool->id,
+        ]);
+        PoolCandidate::factory()->create([
+            'expiry_date' => date("Y-m-d"),
+            'pool_id' => $otherPool->id,
+        ]);
+        PoolCandidate::factory()->create([
+            'expiry_date' => null,
+            'pool_id' => $otherPool->id,
+        ]);
+        // Create some expired users in otherPool
+        PoolCandidate::factory()->count(3)->create([
+            'expiry_date' => '2000-05-13',
+            'pool_id' => $otherPool->id,
+        ]);
+
+        // Assert query with no parameters returns all users
+        $this->graphQL(/** @lang Graphql */ '
+            query getUsersPaginated($where: UserFilterAndOrderInput) {
+                usersPaginated(where: $where) {
+                    paginatorInfo {
+                        total
+                    }
+                }
+            }
+        ')->assertJson([
+            'data' => [
+                'usersPaginated' => [
+                    'paginatorInfo' => [
+                        'total' => 23
+                    ]
+                ]
+            ]
+        ]);
+
+        // Assert query for pool with default expiryStatus returns correct users
+        $this->graphQL(/** @lang Graphql */ '
+            query getUsersPaginated($where: UserFilterAndOrderInput) {
+                usersPaginated(where: $where) {
+                    paginatorInfo {
+                        total
+                    }
+                }
+            }
+        ', [
+            'where' => [
+                'poolCandidates' => [
+                    'pools' => [$myPool->id]
+                ]
+            ]
+        ])->assertJson([
+            'data' => [
+                'usersPaginated' => [
+                    'paginatorInfo' => [
+                        'total' => 8
+                    ]
+                ]
+            ]
+        ]);
+
+        // Assert query with pool and expiryStatus ACTIVE returns correct users
+        $this->graphQL(/** @lang Graphql */ '
+            query getUsersPaginated($where: UserFilterAndOrderInput) {
+                usersPaginated(where: $where) {
+                    paginatorInfo {
+                        total
+                    }
+                }
+            }
+        ', [
+            'where' => [
+                'poolCandidates' => [
+                    'pools' => [$myPool->id],
+                    'expiryStatus' => ApiEnums::CANDIDATE_EXPIRY_FILTER_ACTIVE
+                ]
+            ]
+        ])->assertJson([
+            'data' => [
+                'usersPaginated' => [
+                    'paginatorInfo' => [
+                        'total' => 8
+                    ]
+                ]
+            ]
+        ]);
+
+        // Assert query with pool and expiryStatus EXPIRED returns correct users
+        $this->graphQL(/** @lang Graphql */ '
+            query getUsersPaginated($where: UserFilterAndOrderInput) {
+                usersPaginated(where: $where) {
+                    paginatorInfo {
+                        total
+                    }
+                }
+            }
+        ', [
+            'where' => [
+                'poolCandidates' => [
+                    'pools' => [$myPool->id],
+                    'expiryStatus' => ApiEnums::CANDIDATE_EXPIRY_FILTER_EXPIRED,
+                ]
+            ]
+        ])->assertJson([
+            'data' => [
+                'usersPaginated' => [
+                    'paginatorInfo' => [
+                        'total' => 2
+                    ]
+                ]
+            ]
+        ]);
+
+        // Assert query with pool and expiryStatus ALL returns all users in pool
+        $this->graphQL(/** @lang Graphql */ '
+            query getUsersPaginated($where: UserFilterAndOrderInput) {
+                usersPaginated(where: $where) {
+                    paginatorInfo {
+                        total
+                    }
+                }
+            }
+        ', [
+            'where' => [
+                'poolCandidates' => [
+                    'pools' => [$myPool->id],
+                    'expiryStatus' => ApiEnums::CANDIDATE_EXPIRY_FILTER_ALL,
+                ]
+            ]
+        ])->assertJson([
+            'data' => [
+                'usersPaginated' => [
+                    'paginatorInfo' => [
+                        'total' => 10
                     ]
                 ]
             ]
@@ -1136,6 +1306,256 @@ class UserTest extends TestCase
         ]);
     }
 
+    public function testFilterByEmploymentEquity(): void
+    {
+    // Create initial data.
+    PoolCandidate::factory()->count(5)->create([
+      'has_disability' => false,
+      'is_indigenous' => false,
+      'is_visible_minority' => false,
+      'is_woman' => false,
+    ]);
+
+    // Create one new candidate for each EmploymentEquity filter
+    PoolCandidate::factory()->create([
+      'has_disability' => true,
+      'is_indigenous' => false,
+      'is_visible_minority' => false,
+      'is_woman' => false,
+    ]);
+    PoolCandidate::factory()->create([
+      'has_disability' => false,
+      'is_indigenous' => true,
+      'is_visible_minority' => false,
+      'is_woman' => false,
+    ]);
+    PoolCandidate::factory()->create([
+      'has_disability' => false,
+      'is_indigenous' => false,
+      'is_visible_minority' => true,
+      'is_woman' => false,
+    ]);
+    PoolCandidate::factory()->create([
+      'has_disability' => false,
+      'is_indigenous' => false,
+      'is_visible_minority' => false,
+      'is_woman' => true,
+    ]);
+
+    // Assert query with no EmploymentEquity filter will return all candidates
+    $this->graphQL(/** @lang Graphql */ '
+      query countPoolCandidates($where: PoolCandidateFilterInput) {
+        countPoolCandidates(where: $where)
+      }
+    ', [
+      'where' => []
+    ])->assertJson([
+      'data' => [
+        'countPoolCandidates' => 9
+      ]
+    ]);
+    // Assert query with no EmploymentEquity filter will return all candidates
+    $this->graphQL(/** @lang Graphql */ '
+        query countPoolCandidates($where: PoolCandidateFilterInput) {
+          countPoolCandidates(where: $where)
+        }
+      ', [
+        'where' => []
+      ])->assertJson([
+        'data' => [
+          'countPoolCandidates' => 9
+        ]
+      ]);
+
+      // Assert query with isIndigenous filter will return correct candidate count
+      $this->graphQL(/** @lang Graphql */ '
+        query countPoolCandidates($where: PoolCandidateFilterInput) {
+          countPoolCandidates(where: $where)
+        }
+      ', [
+        'where' => [
+          'equity' => [
+            'isIndigenous' => true,
+            'isWoman' => false,
+            'isVisibleMinority' => false,
+            'hasDisability' => false
+            ]
+        ]
+      ])->assertJson([
+        'data' => [
+          'countPoolCandidates' => 1
+        ]
+      ]);
+      // Assert query with isVisibleMinority filter will return correct candidate count
+      $this->graphQL(/** @lang Graphql */ '
+        query countPoolCandidates($where: PoolCandidateFilterInput) {
+          countPoolCandidates(where: $where)
+        }
+      ', [
+        'where' => [
+          'equity' => [
+            'isIndigenous' => false,
+            'isWoman' => false,
+            'isVisibleMinority' => true,
+            'hasDisability' => false
+            ]
+        ]
+      ])->assertJson([
+        'data' => [
+          'countPoolCandidates' => 1
+        ]
+      ]);
+      // Assert query with hasDisability filter will return correct candidate count
+      $this->graphQL(/** @lang Graphql */ '
+        query countPoolCandidates($where: PoolCandidateFilterInput) {
+          countPoolCandidates(where: $where)
+        }
+      ', [
+        'where' => [
+          'equity' => [
+            'isIndigenous' => false,
+            'isWoman' => false,
+            'isVisibleMinority' => false,
+            'hasDisability' => true
+            ]
+        ]
+      ])->assertJson([
+        'data' => [
+          'countPoolCandidates' => 1
+        ]
+      ]);
+      // Assert query with isWoman filter will return correct candidate count
+      $this->graphQL(/** @lang Graphql */ '
+        query countPoolCandidates($where: PoolCandidateFilterInput) {
+          countPoolCandidates(where: $where)
+        }
+      ', [
+        'where' => [
+          'equity' => [
+            'isIndigenous' => false,
+            'isWoman' => true,
+            'isVisibleMinority' => false,
+            'hasDisability' => false
+            ]
+        ]
+      ])->assertJson([
+        'data' => [
+          'countPoolCandidates' => 1
+        ]
+      ]);
+      // Assert query with isWoman OR isIndigenous filter will return correct candidate count
+      $this->graphQL(/** @lang Graphql */ '
+        query countPoolCandidates($where: PoolCandidateFilterInput) {
+          countPoolCandidates(where: $where)
+        }
+      ', [
+        'where' => [
+          'equity' => [
+            'isIndigenous' => true,
+            'isWoman' => true,
+            'isVisibleMinority' => false,
+            'hasDisability' => false
+            ]
+        ]
+      ])->assertJson([
+        'data' => [
+          'countPoolCandidates' => 2
+        ]
+      ]);
+      // Assert query with isWoman OR isIndigenous OR isMinority filter will return correct candidate count
+      $this->graphQL(/** @lang Graphql */ '
+        query countPoolCandidates($where: PoolCandidateFilterInput) {
+          countPoolCandidates(where: $where)
+        }
+      ', [
+        'where' => [
+          'equity' => [
+            'isIndigenous' => true,
+            'isWoman' => true,
+            'isVisibleMinority' => true,
+            'hasDisability' => false
+            ]
+        ]
+      ])->assertJson([
+        'data' => [
+          'countPoolCandidates' => 3
+        ]
+      ]);
+      // Assert query above with empty selection in equity object will not break the code and matches the returned candidate count
+      $this->graphQL(/** @lang Graphql */ '
+        query countPoolCandidates($where: PoolCandidateFilterInput) {
+          countPoolCandidates(where: $where)
+        }
+      ', [
+        'where' => [
+          'equity' => [
+            'isIndigenous' => true,
+            'isWoman' => true,
+            'isVisibleMinority' => true,
+            ]
+        ]
+      ])->assertJson([
+        'data' => [
+          'countPoolCandidates' => 3
+        ]
+      ]);
+      // Assert query with all equity filters true will return correct candidate count
+      $this->graphQL(/** @lang Graphql */ '
+        query countPoolCandidates($where: PoolCandidateFilterInput) {
+          countPoolCandidates(where: $where)
+        }
+      ', [
+        'where' => [
+          'equity' => [
+            'isIndigenous' => true,
+            'isWoman' => true,
+            'isVisibleMinority' => true,
+            'hasDisability' => true
+            ]
+        ]
+      ])->assertJson([
+        'data' => [
+          'countPoolCandidates' => 4
+        ]
+      ]);
+      // Assert query with all EmploymentEquity filters set to false will return all candidates
+      $this->graphQL(/** @lang Graphql */ '
+        query countPoolCandidates($where: PoolCandidateFilterInput) {
+          countPoolCandidates(where: $where)
+        }
+      ', [
+        'where' => [
+          'equity' => [
+            'isIndigenous' => false,
+            'isWoman' => false,
+            'isVisibleMinority' => false,
+            'hasDisability' => false
+          ],
+        ]
+      ])->assertJson([
+        'data' => [
+          'countPoolCandidates' => 9
+        ]
+      ]);
+      // Assert query with all EmploymentEquity filters set to null or not present will return all candidates same as above
+      $this->graphQL(/** @lang Graphql */ '
+        query countPoolCandidates($where: PoolCandidateFilterInput) {
+          countPoolCandidates(where: $where)
+        }
+      ', [
+        'where' => [
+          'equity' => [
+            'isIndigenous' => null,
+            'isWoman' => null,
+          ],
+        ]
+      ])->assertJson([
+        'data' => [
+          'countPoolCandidates' => 9
+        ]
+      ]);
+    }
+
     public function testFilterBySkills(): void
     {
         // Create initial data set
@@ -1536,7 +1956,9 @@ class UserTest extends TestCase
             }
         ', [
             'where' => [
-                'pools' => [$myPool->id]
+                'poolCandidates' => [
+                    'pools' => [$myPool->id]
+                ]
             ]
         ])->assertJson([
             'data' => [
@@ -1559,7 +1981,9 @@ class UserTest extends TestCase
             }
         ', [
             'where' => [
-                'pools' => [$myPool->id],
+                'poolCandidates' => [
+                    'pools' => [$myPool->id]
+                ],
                 'expectedClassifications' => [['group' => 'ZZ', 'level' => 1]]
             ]
         ])->assertJson([
@@ -1583,7 +2007,9 @@ class UserTest extends TestCase
             }
         ', [
             'where' => [
-                'pools' => [$myPool->id],
+                'poolCandidates' => [
+                    'pools' => [$myPool->id]
+                ],
                 'expectedClassifications' => [['group' => 'UNKNOWN', 'level' => 1324234 ]],
             ]
         ])->assertJson([

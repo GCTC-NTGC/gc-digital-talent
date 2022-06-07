@@ -4,11 +4,10 @@ import { Link, Pill } from "@common/components";
 import { useLocation } from "@common/helpers/router";
 import { notEmpty } from "@common/helpers/util";
 import { getLocale } from "@common/helpers/localize";
-import { commonMessages } from "@common/messages";
 import { FromArray } from "@common/types/utilityTypes";
+import Pending from "@common/components/Pending";
 import { GetPoolsQuery, useGetPoolsQuery } from "../../api/generated";
 import Table, { ColumnsOf, tableEditButtonAccessor } from "../Table";
-import DashboardContentContainer from "../DashboardContentContainer";
 import { useAdminRoutes } from "../../adminRoutes";
 
 type Data = NonNullable<FromArray<GetPoolsQuery["pools"]>>;
@@ -51,13 +50,6 @@ export const PoolTable: React.FC<GetPoolsQuery & { editUrlRoot: string }> = ({
       },
       {
         Header: intl.formatMessage({
-          defaultMessage: "Key",
-          description: "Title displayed for the Pool table key column.",
-        }),
-        accessor: "key",
-      },
-      {
-        Header: intl.formatMessage({
           defaultMessage: "Candidates",
           description:
             "Header for the View Candidates column of the Pools table",
@@ -71,14 +63,6 @@ export const PoolTable: React.FC<GetPoolsQuery & { editUrlRoot: string }> = ({
           description: "Title displayed for the Pool table pool name column.",
         }),
         accessor: (d) => (d.name ? d.name[getLocale(intl)] : ""),
-      },
-      {
-        Header: intl.formatMessage({
-          defaultMessage: "Pool Description",
-          description:
-            "Title displayed for the Pool table pool description column.",
-        }),
-        accessor: (d) => (d.description ? d.description[getLocale(intl)] : ""),
       },
       {
         Header: intl.formatMessage({
@@ -108,6 +92,13 @@ export const PoolTable: React.FC<GetPoolsQuery & { editUrlRoot: string }> = ({
       },
       {
         Header: intl.formatMessage({
+          defaultMessage: "Status",
+          description: "Title displayed for the Pool table status column.",
+        }),
+        accessor: "status",
+      },
+      {
+        Header: intl.formatMessage({
           defaultMessage: "Edit",
           description: "Title displayed for the Pool table Edit column.",
         }),
@@ -125,26 +116,13 @@ export const PoolTable: React.FC<GetPoolsQuery & { editUrlRoot: string }> = ({
 };
 
 export const PoolTableApi: React.FunctionComponent = () => {
-  const intl = useIntl();
   const [result] = useGetPoolsQuery();
   const { data, fetching, error } = result;
   const { pathname } = useLocation();
 
-  if (fetching)
-    return (
-      <DashboardContentContainer>
-        <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>
-      </DashboardContentContainer>
-    );
-  if (error)
-    return (
-      <DashboardContentContainer>
-        <p>
-          {intl.formatMessage(commonMessages.loadingError)}
-          {error.message}
-        </p>
-      </DashboardContentContainer>
-    );
-
-  return <PoolTable pools={data?.pools ?? []} editUrlRoot={pathname} />;
+  return (
+    <Pending fetching={fetching} error={error}>
+      <PoolTable pools={data?.pools ?? []} editUrlRoot={pathname} />
+    </Pending>
+  );
 };

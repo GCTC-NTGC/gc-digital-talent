@@ -7,6 +7,8 @@ import React from "react";
 import { FormProvider, SubmitHandler, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
 import { toast } from "react-toastify";
+import Pending from "@common/components/Pending";
+import NotFound from "@common/components/NotFound";
 import { useApplicantProfileRoutes } from "../../applicantProfileRoutes";
 import {
   CreateUserInput,
@@ -187,23 +189,19 @@ export const WorkLocationPreferenceApi: React.FunctionComponent = () => {
       return Promise.reject(result.error);
     });
 
-  if (fetching) return <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>;
-  if (error) {
-    toast.error(intl.formatMessage(profileMessages.updatingFailed));
-    return (
-      <p>
-        {intl.formatMessage(commonMessages.loadingError)}
-        {error.message}
-      </p>
-    );
-  }
-  return userData?.me ? (
-    <WorkLocationPreferenceForm
-      initialData={userData}
-      handleWorkLocationPreference={handleWorkLocationPreference}
-    />
-  ) : (
-    <p>{intl.formatMessage(profileMessages.userNotFound)}</p>
+  return (
+    <Pending fetching={fetching} error={error}>
+      {userData?.me ? (
+        <WorkLocationPreferenceForm
+          initialData={userData}
+          handleWorkLocationPreference={handleWorkLocationPreference}
+        />
+      ) : (
+        <NotFound headingMessage={intl.formatMessage(commonMessages.notFound)}>
+          <p>{intl.formatMessage(profileMessages.userNotFound)}</p>
+        </NotFound>
+      )}
+    </Pending>
   );
 };
 

@@ -3,6 +3,8 @@ import { useIntl } from "react-intl";
 import { commonMessages, errorMessages } from "@common/messages";
 import { Checklist, RadioGroup, Select } from "@common/components/form";
 import { FormProvider, useForm } from "react-hook-form";
+import NotFound from "@common/components/NotFound";
+import Pending from "@common/components/Pending";
 import { enumToOptions } from "@common/helpers/formUtils";
 import { compact, omit } from "lodash";
 import { getLocale } from "@common/helpers/localize";
@@ -504,28 +506,19 @@ export const LanguageInformationFormContainer: React.FunctionComponent = () => {
       });
   };
 
-  if (fetching) {
-    return <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>;
-  }
-
-  if (error || !userData) {
-    return (
-      <p>
-        {intl.formatMessage(commonMessages.loadingError)}
-        {error?.message || ""}
-      </p>
-    );
-  }
-
-  if (!userId) {
-    return <p>{intl.formatMessage(profileMessages.userNotFound)}</p>;
-  }
-
   return (
-    <LanguageInformationForm
-      initialData={userData.me}
-      submitHandler={onSubmit}
-    />
+    <Pending fetching={fetching} error={error}>
+      {userData && userId ? (
+        <LanguageInformationForm
+          initialData={userData.me}
+          submitHandler={onSubmit}
+        />
+      ) : (
+        <NotFound headingMessage={intl.formatMessage(commonMessages.notFound)}>
+          <p>{intl.formatMessage(profileMessages.userNotFound)}</p>
+        </NotFound>
+      )}
+    </Pending>
   );
 };
 

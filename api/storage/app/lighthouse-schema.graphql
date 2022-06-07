@@ -25,6 +25,7 @@ type Applicant {
   isIndigenous: Boolean
   isVisibleMinority: Boolean
   jobLookingStatus: JobLookingStatus
+  poolCandidates: [PoolCandidate]
   hasDiploma: Boolean
   locationPreferences: [WorkRegion]
   locationExemptions: String
@@ -89,6 +90,12 @@ enum BilingualEvaluation {
   COMPLETED_ENGLISH
   COMPLETED_FRENCH
   NOT_COMPLETED
+}
+
+enum CANDIDATE_EXPIRY_FILTER {
+  ACTIVE
+  EXPIRED
+  ALL
 }
 
 type Classification {
@@ -207,10 +214,7 @@ input CreatePoolCandidateFilterInput {
   classifications: ClassificationBelongsToMany
   cmoAssets: CmoAssetBelongsToMany
   hasDiploma: Boolean
-  hasDisability: Boolean
-  isIndigenous: Boolean
-  isVisibleMinority: Boolean
-  isWoman: Boolean
+  equity: EquitySelectionsInput
   languageAbility: LanguageAbility
   operationalRequirements: [OperationalRequirement]
   workRegions: [WorkRegion]
@@ -235,6 +239,8 @@ input CreatePoolInput {
   assetCriteria: CmoAssetBelongsToMany
   essentialCriteria: CmoAssetBelongsToMany
   operationalRequirements: [OperationalRequirement]
+  keyTasks: LocalizedStringInput
+  status: PoolStatus = NOT_TAKING_APPLICATIONS
 }
 
 input CreateSkillFamilyInput {
@@ -367,6 +373,20 @@ enum EducationType {
 
 """A RFC 5321 compliant email."""
 scalar Email
+
+type EquitySelections {
+  isWoman: Boolean
+  hasDisability: Boolean
+  isIndigenous: Boolean
+  isVisibleMinority: Boolean
+}
+
+input EquitySelectionsInput {
+  isWoman: Boolean
+  hasDisability: Boolean
+  isIndigenous: Boolean
+  isVisibleMinority: Boolean
+}
 
 enum EstimatedLanguageAbility {
   BEGINNER
@@ -630,6 +650,8 @@ type Pool {
   essentialCriteria: [CmoAsset]
   operationalRequirements: [OperationalRequirement]
   poolCandidates: [PoolCandidate]
+  keyTasks: LocalizedString
+  status: PoolStatus
 }
 
 input PoolBelongsTo {
@@ -665,10 +687,7 @@ type PoolCandidateFilter {
   classifications: [Classification]
   cmoAssets: [CmoAsset]
   hasDiploma: Boolean
-  hasDisability: Boolean
-  isIndigenous: Boolean
-  isVisibleMinority: Boolean
-  isWoman: Boolean
+  equity: EquitySelections
   languageAbility: LanguageAbility
   operationalRequirements: [OperationalRequirement]
   workRegions: [WorkRegion]
@@ -683,10 +702,7 @@ input PoolCandidateFilterInput {
   classifications: [ClassificationFilterInput]
   cmoAssets: [KeyFilterInput]
   hasDiploma: Boolean
-  hasDisability: Boolean
-  isIndigenous: Boolean
-  isVisibleMinority: Boolean
-  isWoman: Boolean
+  equity: EquitySelectionsInput
   languageAbility: LanguageAbility
   operationalRequirements: [OperationalRequirement]
   workRegions: [WorkRegion]
@@ -725,6 +741,11 @@ input PoolFilterInput {
   id: ID!
 }
 
+enum PoolStatus {
+  TAKING_APPLICATIONS
+  NOT_TAKING_APPLICATIONS
+}
+
 input PoolsHasMany {
   create: [CreatePoolInput]
 }
@@ -757,7 +778,7 @@ type Query {
   poolCandidate(id: ID!): PoolCandidate
   poolCandidates: [PoolCandidate]!
   countPoolCandidates(where: PoolCandidateFilterInput): Int!
-  searchPoolCandidates(where: PoolCandidateFilterInput): [PoolCandidate]!
+  searchPoolCandidates(where: PoolCandidateFilterInput, expiryStatus: CANDIDATE_EXPIRY_FILTER): [PoolCandidate]!
   classification(id: ID!): Classification
   classifications: [Classification]!
   cmoAsset(id: ID!): CmoAsset
@@ -979,6 +1000,8 @@ input UpdatePoolInput {
   assetCriteria: CmoAssetBelongsToMany
   essentialCriteria: CmoAssetBelongsToMany
   operationalRequirements: [OperationalRequirement]
+  keyTasks: LocalizedStringInput
+  status: PoolStatus
 }
 
 input UpdateSkillFamilyInput {
@@ -1133,11 +1156,12 @@ input UserBelongsTo {
 }
 
 input UserFilterAndOrderInput {
-  pools: [ID]
+  poolCandidates: UserPoolFilterInput
   languageAbility: LanguageAbility
   expectedClassifications: [ClassificationFilterInput]
   operationalRequirements: [OperationalRequirement]
   locationPreferences: [WorkRegion]
+  equity: EquitySelectionsInput
   hasDiploma: Boolean
   wouldAcceptTemporary: Boolean
   jobLookingStatus: [JobLookingStatus]
@@ -1154,6 +1178,11 @@ type UserPaginator {
 
   """A list of User items."""
   data: [User!]!
+}
+
+input UserPoolFilterInput {
+  pools: [ID!]!
+  expiryStatus: CANDIDATE_EXPIRY_FILTER = ACTIVE
 }
 
 type UserPublicProfile {

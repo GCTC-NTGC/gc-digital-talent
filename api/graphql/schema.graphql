@@ -183,6 +183,7 @@ type Applicant {
 
     # Applicant info
     jobLookingStatus: JobLookingStatus @rename(attribute: "job_looking_status")
+    poolCandidates: [PoolCandidate] @hasMany @can(ability: "viewAny")
 
     hasDiploma: Boolean @rename(attribute: "has_diploma")
     locationPreferences: [WorkRegion] @rename(attribute: "location_preferences")
@@ -220,6 +221,13 @@ type Pool {
     essentialCriteria: [CmoAsset] @belongsToMany
     operationalRequirements: [OperationalRequirement] @rename(attribute: "operational_requirements")
     poolCandidates: [PoolCandidate] @hasMany @can(ability: "viewAny")
+    keyTasks: LocalizedString @rename(attribute: "key_tasks")
+    status: PoolStatus @rename(attribute: "pool_status")
+}
+
+enum PoolStatus {
+    TAKING_APPLICATIONS
+    NOT_TAKING_APPLICATIONS
 }
 
 enum PoolCandidateStatus {
@@ -328,15 +336,26 @@ enum PoolCandidateSearchStatus {
     DONE
 }
 
+type EquitySelections {
+    isWoman: Boolean @rename(attribute: "is_woman")
+    hasDisability: Boolean @rename(attribute: "has_disability")
+    isIndigenous: Boolean @rename(attribute: "is_indigenous")
+    isVisibleMinority: Boolean @rename(attribute: "is_visible_minority")
+}
+
+input EquitySelectionsInput {
+    isWoman: Boolean @rename(attribute: "is_woman")
+    hasDisability: Boolean @rename(attribute: "has_disability")
+    isIndigenous: Boolean @rename(attribute: "is_indigenous")
+    isVisibleMinority: Boolean @rename(attribute: "is_visible_minority")
+}
+
 type PoolCandidateFilter {
     id: ID!
     classifications: [Classification] @belongsToMany
     cmoAssets: [CmoAsset] @belongsToMany
     hasDiploma: Boolean @rename(attribute: "has_diploma")
-    hasDisability: Boolean @rename(attribute: "has_disability")
-    isIndigenous: Boolean @rename(attribute: "is_indigenous")
-    isVisibleMinority: Boolean @rename(attribute: "is_visible_minority")
-    isWoman: Boolean @rename(attribute: "is_woman")
+    equity: EquitySelections @rename(attribute: "equity_selections")
     languageAbility: LanguageAbility @rename(attribute: "language_ability")
     operationalRequirements: [OperationalRequirement] @rename(attribute: "operational_requirements")
     workRegions: [WorkRegion] @rename(attribute: "work_regions")
@@ -516,14 +535,22 @@ input PoolFilterInput {
     id: ID!
 }
 
+enum CANDIDATE_EXPIRY_FILTER {
+    ACTIVE
+    EXPIRED
+    ALL
+}
+
+input UserPoolFilterInput {
+    pools: [ID!]!
+    expiryStatus: CANDIDATE_EXPIRY_FILTER = ACTIVE
+}
+
 input PoolCandidateFilterInput {
     classifications: [ClassificationFilterInput] @builder(method: "App\\Models\\PoolCandidate@filterByClassifications")
     cmoAssets: [KeyFilterInput] @builder(method: "App\\Models\\PoolCandidate@filterByCmoAssets")
     hasDiploma: Boolean @scope
-    hasDisability: Boolean @scope
-    isIndigenous: Boolean @scope
-    isVisibleMinority: Boolean @scope
-    isWoman: Boolean @scope
+    equity: EquitySelectionsInput @builder(method: "App\\Models\\PoolCandidate@filterByEquity")
     languageAbility: LanguageAbility @builder(method: "App\\Models\\PoolCandidate@filterByLanguageAbility")
     operationalRequirements: [OperationalRequirement] @builder(method: "App\\Models\\PoolCandidate@filterByOperationalRequirements")
     workRegions: [WorkRegion] @builder(method: "App\\Models\\PoolCandidate@filterByWorkRegions")
@@ -531,11 +558,12 @@ input PoolCandidateFilterInput {
 }
 
 input UserFilterAndOrderInput {
-    pools: [ID] @builder(method: "App\\Models\\User@filterByPools")
+    poolCandidates: UserPoolFilterInput @builder(method: "App\\Models\\User@filterByPools")
     languageAbility: LanguageAbility @builder(method: "App\\Models\\User@filterByLanguageAbility")
     expectedClassifications: [ClassificationFilterInput] @builder(method: "App\\Models\\User@filterByClassifications")
     operationalRequirements: [OperationalRequirement] @builder(method: "App\\Models\\User@filterByOperationalRequirements")
     locationPreferences: [WorkRegion] @builder(method: "App\\Models\\User@filterByLocationPreferences")
+    equity: EquitySelectionsInput @builder(method: "App\\Models\\User@filterByEquity")
     hasDiploma: Boolean @scope
     wouldAcceptTemporary: Boolean @scope
     jobLookingStatus: [JobLookingStatus] @builder(method: "App\\Models\\User@filterByJobLookingStatus")
@@ -556,11 +584,11 @@ type Query {
     poolByKey(key: String! @eq): Pool @find
     pools: [Pool]! @all
     poolCandidate(id: ID! @eq): PoolCandidate @find @guard @can(ability: "view", query: true)
-    poolCandidates: [PoolCandidate]! @all @guard @can(ability: "viewAny")
+    poolCandidates: [PoolCandidate]! @all(scopes: ["expiryFilter"]) @guard @can(ability: "viewAny")
     # countPoolCandidates returns the number of candidates matching its filters, and requires no special permissions.
-    countPoolCandidates(where: PoolCandidateFilterInput): Int! @count(model: "PoolCandidate")
+    countPoolCandidates(where: PoolCandidateFilterInput): Int! @count(model: "PoolCandidate" scopes: ["expiryFilter"])
     # searchPoolCandidates returns the actual candidates matching a filter, and requires permissions.
-    searchPoolCandidates(where: PoolCandidateFilterInput): [PoolCandidate]! @all @guard @can(ability: "viewAny")
+    searchPoolCandidates(where: PoolCandidateFilterInput, expiryStatus: CANDIDATE_EXPIRY_FILTER): [PoolCandidate]! @all(scopes: ["expiryFilter"]) @guard @can(ability: "viewAny")
     classification(id: ID! @eq): Classification @find
     classifications: [Classification]! @all
     cmoAsset(id: ID! @eq): CmoAsset @find
@@ -822,6 +850,8 @@ input CreatePoolInput {
     assetCriteria: CmoAssetBelongsToMany
     essentialCriteria: CmoAssetBelongsToMany
     operationalRequirements: [OperationalRequirement] @rename(attribute: "operational_requirements")
+    keyTasks: LocalizedStringInput @rename(attribute: "key_tasks")
+    status: PoolStatus = NOT_TAKING_APPLICATIONS @rename(attribute: "pool_status")
 }
 
 input UpdateClassificationInput {
@@ -861,6 +891,8 @@ input UpdatePoolInput {
     assetCriteria: CmoAssetBelongsToMany
     essentialCriteria: CmoAssetBelongsToMany
     operationalRequirements: [OperationalRequirement] @rename(attribute: "operational_requirements")
+    keyTasks: LocalizedStringInput @rename(attribute: "key_tasks")
+    status: PoolStatus @rename(attribute: "pool_status")
 }
 
 input CreateDepartmentInput {
@@ -885,10 +917,7 @@ input CreatePoolCandidateFilterInput {
     classifications: ClassificationBelongsToMany
     cmoAssets: CmoAssetBelongsToMany
     hasDiploma: Boolean @rename(attribute: "has_diploma")
-    hasDisability: Boolean @rename(attribute: "has_disability")
-    isIndigenous: Boolean @rename(attribute: "is_indigenous")
-    isVisibleMinority: Boolean @rename(attribute: "is_visible_minority")
-    isWoman: Boolean @rename(attribute: "is_woman")
+    equity: EquitySelectionsInput
     languageAbility:LanguageAbility @rename(attribute: "language_ability")
     operationalRequirements: [OperationalRequirement] @rename(attribute: "operational_requirements")
     workRegions: [WorkRegion] @rename(attribute: "work_regions")

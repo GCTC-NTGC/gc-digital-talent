@@ -1,16 +1,18 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { getLocale } from "@common/helpers/localize";
-import { commonMessages } from "@common/messages";
 import Breadcrumbs from "@common/components/Breadcrumbs";
 import type { BreadcrumbsProps } from "@common/components/Breadcrumbs";
 import Link from "@common/components/Link";
+import NotFound from "@common/components/NotFound";
+import Pending from "@common/components/Pending";
 import { useDirectIntakeRoutes } from "../../directIntakeRoutes";
 import { useBrowsePoolQuery } from "../../api/generated";
 import type { Pool } from "../../api/generated";
+import commonMessages from "../commonMessages";
 
 interface BrowseIndividualPoolProps {
-  pool: Pool | undefined | null;
+  pool: Pool;
 }
 
 const BrowseIndividualPool: React.FC<BrowseIndividualPoolProps> = ({
@@ -36,32 +38,19 @@ const BrowseIndividualPool: React.FC<BrowseIndividualPoolProps> = ({
 
   return (
     <div>
-      {pool ? (
-        <div>
-          <Breadcrumbs links={links} />
-          <h1>{pool.name?.[locale]}</h1>
-          <Link
-            type="button"
-            mode="outline"
-            color="primary"
-            href={paths.poolApply(pool ? pool.id : "/")}
-          >
-            {intl.formatMessage({
-              defaultMessage: "Apply",
-              description: "Apply label for button to apply to pool",
-            })}
-          </Link>
-        </div>
-      ) : (
-        <div>
-          <p>
-            {intl.formatMessage({
-              defaultMessage: "Error, pool unable to be loaded",
-              description: "Error message, placeholder",
-            })}
-          </p>
-        </div>
-      )}
+      <Breadcrumbs links={links} />
+      <h1>{pool.name?.[locale]}</h1>
+      <Link
+        type="button"
+        mode="outline"
+        color="primary"
+        href={paths.poolApply(pool ? pool.id : "/")}
+      >
+        {intl.formatMessage({
+          defaultMessage: "Apply",
+          description: "Apply label for button to apply to pool",
+        })}
+      </Link>
     </div>
   );
 };
@@ -72,20 +61,20 @@ const BrowseIndividualPoolApi: React.FC<{ poolId: string }> = ({ poolId }) => {
     variables: { id: poolId },
   });
 
-  if (fetching) {
-    return <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>;
-  }
-
-  if (error) {
-    return (
-      <p>
-        {intl.formatMessage(commonMessages.loadingError)}
-        {error.message}
-      </p>
-    );
-  }
-
-  return <BrowseIndividualPool pool={data?.pool} />;
+  return (
+    <Pending fetching={fetching} error={error}>
+      {data?.pool ? (
+        <BrowseIndividualPool pool={data?.pool} />
+      ) : (
+        <NotFound headingMessage={intl.formatMessage(commonMessages.notFound)}>
+          {intl.formatMessage({
+            defaultMessage: "Error, pool unable to be loaded",
+            description: "Error message, placeholder",
+          })}
+        </NotFound>
+      )}
+    </Pending>
+  );
 };
 
 export default BrowseIndividualPoolApi;

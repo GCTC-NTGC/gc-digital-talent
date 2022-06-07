@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Relations\Relation;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -26,5 +28,13 @@ class AppServiceProvider extends ServiceProvider
             'personalExperience' => \App\Models\PersonalExperience::class,
             'workExperience' => \App\Models\WorkExperience::class,
         ]);
+        // enable below for database debugging
+        // DB::listen(function($query) {
+        //     Log::info(
+        //         $query->sql,
+        //         $query->bindings,
+        //         $query->time
+        //     );
+        // });
     }
 }

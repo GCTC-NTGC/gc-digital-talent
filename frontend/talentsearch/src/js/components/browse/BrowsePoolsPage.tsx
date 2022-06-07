@@ -1,8 +1,10 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { getLocale } from "@common/helpers/localize";
-import { commonMessages } from "@common/messages";
+import Pending from "@common/components/Pending";
 
+import NotFound from "@common/components/NotFound";
+import { commonMessages } from "@common/messages";
 import { useDirectIntakeRoutes } from "../../directIntakeRoutes";
 import { useBrowsePoolsQuery } from "../../api/generated";
 import type { Pool } from "../../api/generated";
@@ -34,41 +36,32 @@ const BrowsePools: React.FC<BrowsePoolsProps> = ({ pools }) => {
           ))}
         </ul>
       ) : (
-        <p>
-          {intl.formatMessage({
-            defaultMessage: "No pools found.",
-            description:
-              "Message displayed on the browse pools direct intake page when there are no pools.",
-          })}
-        </p>
+        <NotFound headingMessage={intl.formatMessage(commonMessages.notFound)}>
+          <p>
+            {intl.formatMessage({
+              defaultMessage: "No pools found.",
+              description:
+                "Message displayed on the browse pools direct intake page when there are no pools.",
+            })}
+          </p>
+        </NotFound>
       )}
     </>
   );
 };
 
 const BrowsePoolsApi: React.FC = () => {
-  const intl = useIntl();
   const [{ data, fetching, error }] = useBrowsePoolsQuery();
 
-  if (fetching) {
-    return <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>;
-  }
-
-  if (error) {
-    return (
-      <p>
-        {intl.formatMessage(commonMessages.loadingError)}
-        {error.message}
-      </p>
-    );
-  }
-
-  // Filter out undefined | null pools
   const filteredPools = data?.pools.filter(
     (pool) => typeof pool !== undefined && !!pool,
   ) as Pool[];
 
-  return <BrowsePools pools={filteredPools} />;
+  return (
+    <Pending fetching={fetching} error={error}>
+      <BrowsePools pools={filteredPools} />
+    </Pending>
+  );
 };
 
 export default BrowsePoolsApi;

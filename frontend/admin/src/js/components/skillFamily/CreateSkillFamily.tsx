@@ -14,8 +14,9 @@ import { getLocale } from "@common/helpers/localize";
 import { notEmpty } from "@common/helpers/util";
 import { navigate } from "@common/helpers/router";
 import { enumToOptions } from "@common/helpers/formUtils";
-import { errorMessages, commonMessages } from "@common/messages";
+import { errorMessages } from "@common/messages";
 import { getSkillCategory } from "@common/constants/localizedConstants";
+import Pending from "@common/components/Pending";
 import { useAdminRoutes } from "../../adminRoutes";
 import {
   Skill,
@@ -231,7 +232,6 @@ export const CreateSkillFamilyForm: React.FunctionComponent<
 };
 
 export const CreateSkillFamily: React.FunctionComponent = () => {
-  const intl = useIntl();
   const [lookupResult] = useGetCreateSkillFamilyDataQuery();
   const { data: lookupData, fetching, error } = lookupResult;
   const skills = lookupData?.skills.filter(notEmpty) ?? [];
@@ -245,28 +245,14 @@ export const CreateSkillFamily: React.FunctionComponent = () => {
       return Promise.reject(result.error);
     });
 
-  if (fetching)
-    return (
-      <DashboardContentContainer>
-        <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>
-      </DashboardContentContainer>
-    );
-  if (error)
-    return (
-      <DashboardContentContainer>
-        <p>
-          {intl.formatMessage(commonMessages.loadingError)}
-          {error.message}
-        </p>
-      </DashboardContentContainer>
-    );
-
   return (
-    <DashboardContentContainer>
-      <CreateSkillFamilyForm
-        handleCreateSkillFamily={handleCreateSkillFamily}
-        skills={skills}
-      />
-    </DashboardContentContainer>
+    <Pending fetching={fetching} error={error}>
+      <DashboardContentContainer>
+        <CreateSkillFamilyForm
+          handleCreateSkillFamily={handleCreateSkillFamily}
+          skills={skills}
+        />
+      </DashboardContentContainer>
+    </Pending>
   );
 };

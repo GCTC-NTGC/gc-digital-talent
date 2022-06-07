@@ -3,12 +3,12 @@ import { useIntl } from "react-intl";
 import type { IntlShape } from "react-intl";
 
 import { FromArray } from "@common/types/utilityTypes";
-import { commonMessages } from "@common/messages";
 import { getPoolCandidateSearchStatus } from "@common/constants/localizedConstants";
 import { getLocale } from "@common/helpers/localize";
 import type { PoolCandidateSearchStatus } from "@common/api/generated";
 
 import { notEmpty } from "@common/helpers/util";
+import Pending from "@common/components/Pending";
 import Table from "../Table";
 import type { ColumnsOf } from "../Table";
 
@@ -176,24 +176,13 @@ const LatestRequestsTable: React.FC<LatestRequestsTableProps> = ({ data }) => {
 };
 
 const LatestRequestsTableApi: React.FC = () => {
-  const intl = useIntl();
-  const [results] = useLatestRequestsQuery();
-  const { data, fetching, error } = results;
+  const [{ data, fetching, error }] = useLatestRequestsQuery();
 
-  if (fetching) {
-    return <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>;
-  }
-
-  if (error) {
-    return (
-      <p>
-        {intl.formatMessage(commonMessages.loadingError)}
-        {error.message}
-      </p>
-    );
-  }
-
-  return <LatestRequestsTable data={data} />;
+  return (
+    <Pending fetching={fetching} error={error}>
+      <LatestRequestsTable data={data} />
+    </Pending>
+  );
 };
 
 export default LatestRequestsTableApi;

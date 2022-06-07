@@ -10,6 +10,9 @@ import { useIntl } from "react-intl";
 import { notEmpty } from "@common/helpers/util";
 import { EducationExperience } from "@common/api/generated";
 import { commonMessages } from "@common/messages";
+import ExperienceSection from "@common/components/UserProfile/ExperienceSection";
+import Pending from "@common/components/Pending";
+import NotFound from "@common/components/NotFound";
 import {
   AwardExperience,
   CommunityExperience,
@@ -22,7 +25,7 @@ import {
 import { useApplicantProfileRoutes } from "../../applicantProfileRoutes";
 import ProfileFormFooter from "./ProfileFormFooter";
 import ProfileFormWrapper from "./ProfileFormWrapper";
-import ExperienceSection from "./ExperienceSection";
+import profileMessages from "../profile/profileMessages";
 
 export type ExperienceForDate =
   | (AwardExperience & { startDate: string; endDate: string })
@@ -62,6 +65,13 @@ const ExperienceAndSkills: React.FunctionComponent<
 > = ({ experiences }) => {
   const intl = useIntl();
   const paths = useApplicantProfileRoutes();
+  const experienceEditPaths = {
+    awardUrl: (id: string) => paths.editExperience("award", id),
+    communityUrl: (id: string) => paths.editExperience("community", id),
+    educationUrl: (id: string) => paths.editExperience("education", id),
+    personalUrl: (id: string) => paths.editExperience("personal", id),
+    workUrl: (id: string) => paths.editExperience("work", id),
+  };
 
   const links = [
     {
@@ -159,7 +169,6 @@ const ExperienceAndSkills: React.FunctionComponent<
             <a
               key={title}
               href={href}
-              title={title}
               data-h2-display="b(flex)"
               data-h2-align-items="b(center)"
               data-h2-margin="b(top-bottom, xs) m(top-bottom, none)"
@@ -186,7 +195,10 @@ const ExperienceAndSkills: React.FunctionComponent<
           </p>
         </div>
       ) : (
-        <ExperienceSection experiences={experiences} />
+        <ExperienceSection
+          experiences={experiences}
+          experienceEditPaths={experienceEditPaths}
+        />
       )}
 
       <ProfileFormFooter mode="cancelButton" />
@@ -203,50 +215,42 @@ export const ExperienceAndSkillsApi: React.FunctionComponent<{
   const [{ data: applicantData, fetching, error }] =
     useGetAllApplicantExperiencesQuery({ variables: { id: applicantId } });
 
-  if (fetching) return <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>;
-  if (error)
-    return (
-      <p>
-        {intl.formatMessage(commonMessages.loadingError)}
-        {error.message}
-      </p>
-    );
-  return applicantData?.applicant ? (
-    <ExperienceAndSkills
-      experiences={applicantData.applicant.experiences?.filter(notEmpty)}
-    />
-  ) : (
-    <p>
-      {intl.formatMessage(
-        {
-          defaultMessage: "User {applicantId} not found.",
-          description: "Message displayed for user not found.",
-        },
-        { applicantId },
+  return (
+    <Pending fetching={fetching} error={error}>
+      {applicantData?.applicant ? (
+        <ExperienceAndSkills
+          experiences={applicantData.applicant.experiences?.filter(notEmpty)}
+        />
+      ) : (
+        <NotFound headingMessage={intl.formatMessage(commonMessages.notFound)}>
+          <p>
+            {intl.formatMessage(
+              {
+                defaultMessage: "User {applicantId} not found.",
+                description: "Message displayed for user not found.",
+              },
+              { applicantId },
+            )}
+          </p>
+        </NotFound>
       )}
-    </p>
+    </Pending>
   );
 };
 export const ExperienceAndSkillsRouterApi: React.FunctionComponent = () => {
   const intl = useIntl();
   const [result] = useGetMeQuery();
   const { data, fetching, error } = result;
-  if (fetching) return <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>;
-  if (error)
-    return (
-      <p>
-        {intl.formatMessage(commonMessages.loadingError)}
-        {error.message}
-      </p>
-    );
-  return data?.me ? (
-    <ExperienceAndSkillsApi applicantId={data.me.id} />
-  ) : (
-    <p>
-      {intl.formatMessage({
-        defaultMessage: "User not found.",
-        description: "Message displayed for user not found.",
-      })}
-    </p>
+
+  return (
+    <Pending fetching={fetching} error={error}>
+      {data?.me ? (
+        <ExperienceAndSkillsApi applicantId={data.me.id} />
+      ) : (
+        <NotFound headingMessage={intl.formatMessage(commonMessages.notFound)}>
+          <p>{intl.formatMessage(profileMessages.userNotFound)}</p>
+        </NotFound>
+      )}
+    </Pending>
   );
 };

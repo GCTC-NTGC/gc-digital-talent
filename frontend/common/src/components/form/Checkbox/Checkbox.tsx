@@ -60,6 +60,7 @@ export const Checkbox: React.FunctionComponent<CheckboxProps> = ({
             {...register(name, rules)}
             type="checkbox"
             aria-invalid={error ? "true" : "false"}
+            aria-required={rules.required ? "true" : undefined}
             {...rest}
           />
         </InputWrapper>

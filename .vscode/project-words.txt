@@ -1,6 +1,9 @@
+Analyser
 APPLICANTPROFILE
 Authenticatable
 BEHAVIOURAL
+colour
+colours
 darkgold
 darkgray
 darknavy
@@ -22,6 +25,7 @@ lightgray
 lightnavy
 lightpurple
 Métis
+noninteractive
 nuage
 Nuwave
 pgsql
@@ -37,3 +41,4 @@ toastify
 Unencrypted
 unlocalized
 urql
+WCAG

@@ -12,10 +12,14 @@ import {
 import { getLocale } from "@common/helpers/localize";
 import { notEmpty } from "@common/helpers/util";
 import { navigate } from "@common/helpers/router";
-import { errorMessages, commonMessages } from "@common/messages";
+import { errorMessages } from "@common/messages";
 import { keyStringRegex } from "@common/constants/regularExpressions";
 import { enumToOptions } from "@common/helpers/formUtils";
-import { getOperationalRequirement } from "@common/constants/localizedConstants";
+import {
+  getOperationalRequirement,
+  getPoolStatus,
+} from "@common/constants/localizedConstants";
+import Pending from "@common/components/Pending";
 import { useAdminRoutes } from "../../adminRoutes";
 import {
   Classification,
@@ -27,12 +31,16 @@ import {
   useCreatePoolMutation,
   useGetCreatePoolDataQuery,
   User,
+  PoolStatus,
 } from "../../api/generated";
 import DashboardContentContainer from "../DashboardContentContainer";
 
 type Option<V> = { value: V; label: string };
 
-type FormValues = Pick<Pool, "description" | "operationalRequirements"> & {
+type FormValues = Pick<
+  Pool,
+  "description" | "operationalRequirements" | "keyTasks" | "status"
+> & {
   key: string;
   name: {
     en: string;
@@ -302,6 +310,44 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
                 required: intl.formatMessage(errorMessages.required),
               }}
             />
+            <TextArea
+              id="keyTasks_en"
+              name="keyTasks.en"
+              label={intl.formatMessage({
+                defaultMessage: "Key Tasks (English)",
+                description:
+                  "Label displayed on the pool form key tasks (English) field.",
+              })}
+            />
+            <TextArea
+              id="keyTasks_fr"
+              name="keyTasks.fr"
+              label={intl.formatMessage({
+                defaultMessage: "Key Tasks (French)",
+                description:
+                  "Label displayed on the pool form key tasks (French) field.",
+              })}
+            />
+            <Select
+              id="status"
+              label={intl.formatMessage({
+                defaultMessage: "Status",
+                description: "Label displayed on the pool form status field.",
+              })}
+              nullSelection={intl.formatMessage({
+                defaultMessage: "Select a status...",
+                description:
+                  "Placeholder displayed on the pool form status field.",
+              })}
+              name="status"
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
+              options={enumToOptions(PoolStatus).map(({ value }) => ({
+                value,
+                label: intl.formatMessage(getPoolStatus(value)),
+              }))}
+            />
             <Submit />
           </form>
         </FormProvider>
@@ -311,7 +357,6 @@ export const CreatePoolForm: React.FunctionComponent<CreatePoolFormProps> = ({
 };
 
 export const CreatePool: React.FunctionComponent = () => {
-  const intl = useIntl();
   const [lookupResult] = useGetCreatePoolDataQuery();
   const { data: lookupData, fetching, error } = lookupResult;
   const classifications: Classification[] | [] =
@@ -328,30 +373,16 @@ export const CreatePool: React.FunctionComponent = () => {
       return Promise.reject(result.error);
     });
 
-  if (fetching)
-    return (
-      <DashboardContentContainer>
-        <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>
-      </DashboardContentContainer>
-    );
-  if (error)
-    return (
-      <DashboardContentContainer>
-        <p>
-          {intl.formatMessage(commonMessages.loadingError)}
-          {error.message}
-        </p>
-      </DashboardContentContainer>
-    );
-
   return (
-    <DashboardContentContainer>
-      <CreatePoolForm
-        classifications={classifications}
-        cmoAssets={cmoAssets}
-        users={users}
-        handleCreatePool={handleCreatePool}
-      />
-    </DashboardContentContainer>
+    <Pending fetching={fetching} error={error}>
+      <DashboardContentContainer>
+        <CreatePoolForm
+          classifications={classifications}
+          cmoAssets={cmoAssets}
+          users={users}
+          handleCreatePool={handleCreatePool}
+        />
+      </DashboardContentContainer>
+    </Pending>
   );
 };

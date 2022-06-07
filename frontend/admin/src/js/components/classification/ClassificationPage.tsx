@@ -34,7 +34,6 @@ export const ClassificationPage: React.FC = () => {
           >
             <Link
               href={paths.classificationCreate()}
-              title=""
               color="white"
               mode="outline"
               type="button"

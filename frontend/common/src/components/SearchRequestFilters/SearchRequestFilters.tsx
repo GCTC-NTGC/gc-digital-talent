@@ -115,7 +115,7 @@ const SearchRequestFilters: React.FunctionComponent<
           "Education level message when candidate does not have a diploma found on the request page.",
       });
   const employmentEquity: string[] | undefined = [
-    ...(poolCandidateFilter?.isWoman
+    ...(poolCandidateFilter?.equity?.isWoman
       ? [
           intl.formatMessage({
             defaultMessage: "Woman",
@@ -124,7 +124,7 @@ const SearchRequestFilters: React.FunctionComponent<
           }),
         ]
       : []),
-    ...(poolCandidateFilter?.isVisibleMinority
+    ...(poolCandidateFilter?.equity?.isVisibleMinority
       ? [
           intl.formatMessage({
             defaultMessage: "Visible Minority",
@@ -133,7 +133,7 @@ const SearchRequestFilters: React.FunctionComponent<
           }),
         ]
       : []),
-    ...(poolCandidateFilter?.isIndigenous
+    ...(poolCandidateFilter?.equity?.isIndigenous
       ? [
           intl.formatMessage({
             defaultMessage: "Indigenous",
@@ -142,7 +142,7 @@ const SearchRequestFilters: React.FunctionComponent<
           }),
         ]
       : []),
-    ...(poolCandidateFilter?.hasDisability
+    ...(poolCandidateFilter?.equity?.hasDisability
       ? [
           intl.formatMessage({
             defaultMessage: "Disability",

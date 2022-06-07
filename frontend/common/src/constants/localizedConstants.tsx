@@ -16,27 +16,28 @@ import {
   ProvinceOrTerritory,
   EstimatedLanguageAbility,
   JobLookingStatus,
+  PoolStatus,
 } from "../api/generated";
 import { getOrThrowError } from "../helpers/util";
 
 export const womanLocalized = {
-  defaultMessage: "Woman",
-  description: "Woman",
+  defaultMessage: "I identify as a woman",
+  description: "Message for woman",
 };
 
 export const indigenousLocalized = {
-  defaultMessage: "Indigenous",
-  description: "Indigenous",
+  defaultMessage: "I am indigenous",
+  description: "Message for indigenous",
 };
 
 export const minorityLocalized = {
-  defaultMessage: "Member of a visible minority group",
-  description: "Member of a visible minority group",
+  defaultMessage: "I identify as a member of a visible minority group",
+  description: " Message for minority group",
 };
 
 export const disabilityLocalized = {
-  defaultMessage: "Person with a disability",
-  description: "Person with a disability",
+  defaultMessage: "I identify as a person with a disability",
+  description: "Message for person with a disability",
 };
 
 export const languageProficiency = {
@@ -609,14 +610,6 @@ export const provinceOrTerritory = defineMessages({
   },
 });
 
-export const getProvinceOrTerritory = (
-  provinceOrTerritoryId: string | number,
-): MessageDescriptor =>
-  getOrThrowError(
-    provinceOrTerritory,
-    provinceOrTerritoryId,
-    `Invalid province or territory '${provinceOrTerritoryId}'`,
-  );
 export const JobLookingStatusDescription = defineMessages({
   [JobLookingStatus.ActivelyLooking]: {
     defaultMessage:
@@ -642,4 +635,33 @@ export const getJobLookingStatusDescription = (
     JobLookingStatusDescription,
     jobLookingStatusDescriptionId,
     `Invalid Job Looking  Status '${jobLookingStatusDescriptionId}'`,
+  );
+
+export const getProvinceOrTerritory = (
+  provinceOrTerritoryId: string | number,
+): MessageDescriptor =>
+  getOrThrowError(
+    provinceOrTerritory,
+    provinceOrTerritoryId,
+    `Invalid province or territory '${provinceOrTerritoryId}'`,
+  );
+
+export const poolStatus = defineMessages({
+  [PoolStatus.NotTakingApplications]: {
+    defaultMessage: "Not taking applications",
+    description: "Pool Status described as not taking applications.",
+  },
+  [PoolStatus.TakingApplications]: {
+    defaultMessage: "Taking applications",
+    description: "Pool Status described as taking applications.",
+  },
+});
+
+export const getPoolStatus = (
+  poolStatusId: string | number,
+): MessageDescriptor =>
+  getOrThrowError(
+    poolStatus,
+    poolStatusId,
+    `Invalid Pool Status '${poolStatusId}'`,
   );

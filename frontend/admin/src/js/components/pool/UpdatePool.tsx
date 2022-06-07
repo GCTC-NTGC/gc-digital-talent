@@ -15,13 +15,19 @@ import { enumToOptions, unpackIds } from "@common/helpers/formUtils";
 import { getLocale } from "@common/helpers/localize";
 import { navigate } from "@common/helpers/router";
 import { errorMessages, commonMessages } from "@common/messages";
-import { getOperationalRequirement } from "@common/constants/localizedConstants";
+import {
+  getOperationalRequirement,
+  getPoolStatus,
+} from "@common/constants/localizedConstants";
+import Pending from "@common/components/Pending";
+import NotFound from "@common/components/NotFound";
 import { useAdminRoutes } from "../../adminRoutes";
 import {
   Classification,
   CmoAsset,
   OperationalRequirement,
   Pool,
+  PoolStatus,
   UpdatePoolInput,
   UpdatePoolMutation,
   useGetUpdatePoolDataQuery,
@@ -34,7 +40,7 @@ type Option<V> = { value: V; label: string };
 
 type FormValues = Pick<
   Pool,
-  "name" | "description" | "operationalRequirements"
+  "name" | "description" | "operationalRequirements" | "keyTasks" | "status"
 > & {
   assetCriteria: string[] | undefined;
   classifications: string[] | undefined;
@@ -92,6 +98,10 @@ export const UpdatePoolForm: React.FunctionComponent<UpdatePoolFormProps> = ({
     description: {
       en: values.description?.en,
       fr: values.description?.fr,
+    },
+    keyTasks: {
+      en: values.keyTasks?.en,
+      fr: values.keyTasks?.fr,
     },
   });
 
@@ -298,6 +308,44 @@ export const UpdatePoolForm: React.FunctionComponent<UpdatePoolFormProps> = ({
                 required: intl.formatMessage(errorMessages.required),
               }}
             />
+            <TextArea
+              id="keyTasks_en"
+              name="keyTasks.en"
+              label={intl.formatMessage({
+                defaultMessage: "Key Tasks (English)",
+                description:
+                  "Label displayed on the pool form key tasks (English) field.",
+              })}
+            />
+            <TextArea
+              id="keyTasks_fr"
+              name="keyTasks.fr"
+              label={intl.formatMessage({
+                defaultMessage: "Key Tasks (French)",
+                description:
+                  "Label displayed on the pool form key tasks (French) field.",
+              })}
+            />
+            <Select
+              id="status"
+              label={intl.formatMessage({
+                defaultMessage: "Status",
+                description: "Label displayed on the pool form status field.",
+              })}
+              nullSelection={intl.formatMessage({
+                defaultMessage: "Select a status...",
+                description:
+                  "Placeholder displayed on the pool form status field.",
+              })}
+              name="status"
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
+              options={enumToOptions(PoolStatus).map(({ value }) => ({
+                value,
+                label: intl.formatMessage(getPoolStatus(value)),
+              }))}
+            />
             <Submit />
           </form>
         </FormProvider>
@@ -330,6 +378,8 @@ export const UpdatePool: React.FunctionComponent<{
         "owner",
         "name",
         "description",
+        "keyTasks",
+        "status",
         "classifications",
         "assetCriteria",
         "essentialCriteria",
@@ -342,43 +392,33 @@ export const UpdatePool: React.FunctionComponent<{
       return Promise.reject(result.error);
     });
 
-  if (fetching)
-    return (
+  return (
+    <Pending fetching={fetching} error={error}>
       <DashboardContentContainer>
-        <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>
-      </DashboardContentContainer>
-    );
-  if (error)
-    return (
-      <DashboardContentContainer>
-        <p>
-          {intl.formatMessage(commonMessages.loadingError)}
-          {error.message}
-        </p>
-      </DashboardContentContainer>
-    );
-
-  return lookupData?.pool ? (
-    <DashboardContentContainer>
-      <UpdatePoolForm
-        classifications={classifications}
-        cmoAssets={cmoAssets}
-        initialPool={lookupData.pool}
-        users={users}
-        handleUpdatePool={handleUpdatePool}
-      />
-    </DashboardContentContainer>
-  ) : (
-    <DashboardContentContainer>
-      <p>
-        {intl.formatMessage(
-          {
-            defaultMessage: "Pool {poolId} not found.",
-            description: "Message displayed for pool not found.",
-          },
-          { poolId },
+        {lookupData?.pool ? (
+          <UpdatePoolForm
+            classifications={classifications}
+            cmoAssets={cmoAssets}
+            initialPool={lookupData.pool}
+            users={users}
+            handleUpdatePool={handleUpdatePool}
+          />
+        ) : (
+          <NotFound
+            headingMessage={intl.formatMessage(commonMessages.notFound)}
+          >
+            <p>
+              {intl.formatMessage(
+                {
+                  defaultMessage: "Pool {poolId} not found.",
+                  description: "Message displayed for pool not found.",
+                },
+                { poolId },
+              )}
+            </p>
+          </NotFound>
         )}
-      </p>
-    </DashboardContentContainer>
+      </DashboardContentContainer>
+    </Pending>
   );
 };
