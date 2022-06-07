@@ -20,7 +20,7 @@ class ClassificationRoleSeeder extends Seeder
             [
                 'key' => 'technician_it01',
                 'name' => [
-                    'en' => 'Technician ',
+                    'en' => 'Technician',
                     'fr' => ''
                 ],
                 'classification' => [
