@@ -16,8 +16,8 @@ import NotFound from "@common/components/NotFound";
 import { useAdminRoutes } from "../../adminRoutes";
 import { User, useUserQuery } from "../../api/generated";
 import DashboardContentContainer from "../DashboardContentContainer";
-import GeneralInformationTab from "./GeneralInformationTab";
 import UserProfileApi from "./UserProfile";
+import GeneralInfoTabApi from "./GeneralInformationTab";
 
 interface ViewUserPageProps {
   user: User;
@@ -99,7 +99,7 @@ export const ViewUserPage: React.FC<ViewUserPageProps> = ({ user }) => {
             description: "Tabs title for the individual user general info.",
           })}
         >
-          <GeneralInformationTab user={user} />
+          <GeneralInfoTabApi userId={user.id} />
         </Tab>
         <Tab
           text={intl.formatMessage({

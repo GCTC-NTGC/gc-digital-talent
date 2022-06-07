@@ -1,0 +1,34 @@
+query GetGeneralInfo($id: ID!) {
+  user(id: $id) {
+    id
+    email
+    sub
+    firstName
+    lastName
+    telephone
+    preferredLang
+    roles
+    currentProvince
+    currentCity
+    jobLookingStatus
+    poolCandidates {
+      id
+      pool {
+        id
+        name {
+          en
+          fr
+        }
+			}
+      status
+      expiryDate
+    }
+  }
+  pools {
+    id
+    name {
+      en
+      fr
+    }
+  }
+}

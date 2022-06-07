@@ -19,21 +19,6 @@ query User($id: ID!) {
     telephone
     preferredLang
     roles
-    currentProvince
-    currentCity
-    jobLookingStatus
-    poolCandidates {
-      id
-      pool {
-        id
-        name {
-          en
-          fr
-        }
-			}
-      status
-      expiryDate
-    }
   }
 }
 

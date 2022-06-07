@@ -15,23 +15,36 @@ import {
 import { getLocale } from "@common/helpers/localize";
 import { isEmpty } from "lodash";
 import { Button } from "@common/components";
+import Pending from "@common/components/Pending";
+import NotFound from "@common/components/NotFound";
+import { commonMessages } from "@common/messages";
 import {
+  AddToPoolDialog,
   ChangeDateDialog,
   ChangeStatusDialog,
   RemoveFromPoolDialog,
 } from "./GeneralInfoTabDialogs";
-import { User, JobLookingStatus, PoolCandidate } from "../../api/generated";
+import {
+  User,
+  JobLookingStatus,
+  PoolCandidate,
+  useGetGeneralInfoQuery,
+  GetGeneralInfoQuery,
+} from "../../api/generated";
 
-interface ViewUserPageProps {
+interface SectionProps {
   user: User;
 }
 
 // accessible button for modals - generate clickable inline elements resembling <a>
-interface ModalButtonProps {
+interface ModalTableButtonProps {
   click: (e: React.MouseEvent<HTMLSpanElement, MouseEvent>) => void;
   children?: React.ReactNode;
 }
-const ModalButton: React.FC<ModalButtonProps> = ({ click, children }) => {
+const ModalTableButton: React.FC<ModalTableButtonProps> = ({
+  click,
+  children,
+}) => {
   return (
     <Button
       color="black"
@@ -45,7 +58,7 @@ const ModalButton: React.FC<ModalButtonProps> = ({ click, children }) => {
   );
 };
 
-const PoolStatusTable: React.FC<ViewUserPageProps> = ({ user }) => {
+const PoolStatusTable: React.FC<SectionProps> = ({ user }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
 
@@ -126,7 +139,7 @@ const PoolStatusTable: React.FC<ViewUserPageProps> = ({ user }) => {
                       getPoolCandidateStatus(candidate.status as string),
                     )}
                     {" - "}
-                    <ModalButton
+                    <ModalTableButton
                       click={() => {
                         setChangeStatusDialogTarget(candidate);
                       }}
@@ -136,27 +149,27 @@ const PoolStatusTable: React.FC<ViewUserPageProps> = ({ user }) => {
                         description:
                           "Button to change a users status in a pool - located in the table on view-user page",
                       })}
-                    </ModalButton>
+                    </ModalTableButton>
                   </td>
                   <td
                     data-h2-font-style="b(underline)"
                     data-h2-bg-color="b(lightgray)"
                     data-h2-padding="b(top-bottom, xs)"
                   >
-                    <ModalButton
+                    <ModalTableButton
                       click={() => {
                         setChangeDateDialogTarget(candidate);
                       }}
                     >
                       {candidate.expiryDate}
-                    </ModalButton>
+                    </ModalTableButton>
                   </td>
                   <td
                     data-h2-font-style="b(underline)"
                     data-h2-bg-color="b(lightgray)"
                     data-h2-padding="b(top-bottom, xs)"
                   >
-                    <ModalButton
+                    <ModalTableButton
                       click={() => {
                         setRemoveFromPoolDialogTarget(candidate);
                       }}
@@ -166,7 +179,7 @@ const PoolStatusTable: React.FC<ViewUserPageProps> = ({ user }) => {
                         description:
                           "Button to remove a user from a pool - located in the table on view-user page",
                       })}
-                    </ModalButton>
+                    </ModalTableButton>
                   </td>
                 </tr>
               );
@@ -194,7 +207,7 @@ const PoolStatusTable: React.FC<ViewUserPageProps> = ({ user }) => {
   );
 };
 
-const AboutSection: React.FC<ViewUserPageProps> = ({ user }) => {
+const AboutSection: React.FC<SectionProps> = ({ user }) => {
   const intl = useIntl();
 
   return (
@@ -265,8 +278,12 @@ const AboutSection: React.FC<ViewUserPageProps> = ({ user }) => {
   );
 };
 
-const CandidateStatusSection: React.FC<ViewUserPageProps> = ({ user }) => {
+const CandidateStatusSection: React.FC<
+  Pick<GetGeneralInfoQuery, "pools"> & { user: User }
+> = ({ user, pools }) => {
   const intl = useIntl();
+
+  const [showAddToPoolDialog, setShowAddToPoolDialog] = React.useState(false);
 
   const purpleText = (msg: string) => {
     return (
@@ -343,19 +360,41 @@ const CandidateStatusSection: React.FC<ViewUserPageProps> = ({ user }) => {
             "Title of the 'Add user to pools' section of the view-user page",
         })}
       </h3>
+      <Button
+        color="primary"
+        mode="outline"
+        onClick={() => {
+          setShowAddToPoolDialog(true);
+        }}
+      >
+        <span data-h2-font-style="b(underline)">
+          {intl.formatMessage({
+            defaultMessage: "Add user to pool",
+            description: "Button to add user to pool on the view-user page",
+          })}
+        </span>
+      </Button>
+      <AddToPoolDialog
+        isVisible={showAddToPoolDialog}
+        user={user}
+        pools={pools}
+        onDismiss={() => setShowAddToPoolDialog(false)}
+      />
     </>
   );
 };
 
-const NotesSection: React.FC<ViewUserPageProps> = ({ user }) => {
+const NotesSection: React.FC<SectionProps> = ({ user }) => {
   return <p>details</p>;
 };
 
-const EmploymentEquitySection: React.FC<ViewUserPageProps> = ({ user }) => {
+const EmploymentEquitySection: React.FC<SectionProps> = ({ user }) => {
   return <p>details</p>;
 };
 
-const GeneralInformationTab: React.FC<ViewUserPageProps> = ({ user }) => {
+const GeneralInformationTab: React.FC<
+  Pick<GetGeneralInfoQuery, "pools"> & { user: User }
+> = ({ user, pools }) => {
   const intl = useIntl();
 
   const items = [
@@ -376,7 +415,7 @@ const GeneralInformationTab: React.FC<ViewUserPageProps> = ({ user }) => {
           "Title of the 'Candidate status' section of the view-user page",
       }),
       titleIcon: <CalculatorIcon style={{ width: "2rem" }} />,
-      content: <CandidateStatusSection user={user} />,
+      content: <CandidateStatusSection user={user} pools={pools} />,
     },
     {
       id: "notes",
@@ -422,4 +461,31 @@ const GeneralInformationTab: React.FC<ViewUserPageProps> = ({ user }) => {
   );
 };
 
-export default GeneralInformationTab;
+const GeneralInfoTabApi: React.FC<{
+  userId: string;
+}> = ({ userId }) => {
+  const intl = useIntl();
+
+  const [{ data, fetching, error }] = useGetGeneralInfoQuery({
+    variables: { id: userId },
+  });
+
+  return (
+    <Pending fetching={fetching} error={error}>
+      {data?.user && data?.pools ? (
+        <GeneralInformationTab user={data.user} pools={data.pools} />
+      ) : (
+        <NotFound headingMessage={intl.formatMessage(commonMessages.notFound)}>
+          <p>
+            {intl.formatMessage({
+              defaultMessage: "Failed fetching data for tab.",
+              description: "Message displayed for failed fetching data.",
+            })}
+          </p>
+        </NotFound>
+      )}
+    </Pending>
+  );
+};
+
+export default GeneralInfoTabApi;

@@ -9,15 +9,18 @@ import { InputError, InputWrapper } from "@common/components/inputPartials";
 import { toast } from "react-toastify";
 import { UserRemoveIcon } from "@heroicons/react/solid";
 import {
+  CreatePoolCandidateAsAdminInput,
+  GetGeneralInfoQuery,
   PoolCandidate,
   PoolCandidateStatus,
   UpdatePoolCandidateAsAdminInput,
+  useCreatePoolCandidateMutation,
   useDeletePoolCandidateMutation,
   User,
   useUpdatePoolCandidateMutation,
 } from "../../api/generated";
 
-export interface DialogProps {
+export interface TableDialogProps {
   selectedCandidate: PoolCandidate | null;
   user: User;
   onDismiss: () => void;
@@ -76,7 +79,7 @@ const ConfirmDialogButton: React.FC<ConfirmDialogButtonProps> = ({
   );
 };
 
-export const ChangeStatusDialog: React.FC<DialogProps> = ({
+export const ChangeStatusDialog: React.FC<TableDialogProps> = ({
   selectedCandidate,
   user,
   onDismiss,
@@ -233,7 +236,7 @@ export const ChangeStatusDialog: React.FC<DialogProps> = ({
   );
 };
 
-export const ChangeDateDialog: React.FC<DialogProps> = ({
+export const ChangeDateDialog: React.FC<TableDialogProps> = ({
   selectedCandidate,
   user,
   onDismiss,
@@ -372,7 +375,7 @@ export const ChangeDateDialog: React.FC<DialogProps> = ({
   );
 };
 
-export const RemoveFromPoolDialog: React.FC<DialogProps> = ({
+export const RemoveFromPoolDialog: React.FC<TableDialogProps> = ({
   selectedCandidate,
   user,
   onDismiss,
@@ -417,6 +420,10 @@ export const RemoveFromPoolDialog: React.FC<DialogProps> = ({
       });
   };
 
+  const boldText = (msg: string) => {
+    return <span data-h2-font-weight="b(bold)">{msg}</span>;
+  };
+
   return (
     <Dialog
       title={intl.formatMessage({
@@ -445,12 +452,17 @@ export const RemoveFromPoolDialog: React.FC<DialogProps> = ({
       }
     >
       <p>
-        {intl.formatMessage({
-          // TODO: Bold some of this
-          defaultMessage: "You're about to remove the following user:",
-          description:
-            "First section of text on the remove candidate from pool dialog",
-        })}
+        {intl.formatMessage(
+          {
+            defaultMessage:
+              "You're about to <boldText>remove the following user:</boldText>",
+            description:
+              "First section of text on the remove candidate from pool dialog, ignore things in <> tags please",
+          },
+          {
+            boldText,
+          },
+        )}
       </p>
       <p>
         - {user.firstName} {user.lastName}
@@ -463,6 +475,213 @@ export const RemoveFromPoolDialog: React.FC<DialogProps> = ({
         })}
       </p>
       <p>- {selectedCandidate?.pool?.name?.[locale]}</p>
+    </Dialog>
+  );
+};
+
+export const AddToPoolDialog: React.FC<
+  Pick<GetGeneralInfoQuery, "pools"> & {
+    user: User;
+    isVisible: boolean;
+    onDismiss: () => void;
+  }
+> = ({ isVisible, user, pools, onDismiss }) => {
+  const intl = useIntl();
+  const locale = getLocale(intl);
+
+  const [selectedPool, setSelectedPool] = useState("");
+  const [selectedDate, setSelectedDate] = useState("");
+  const [showPoolErrorMessage, setShowPoolErrorMessage] = useState(false);
+  const [showDateErrorMessage, setShowDateErrorMessage] = useState(false);
+
+  const [, executeMutation] = useCreatePoolCandidateMutation();
+
+  const resetAndClose = () => {
+    setSelectedPool("");
+    setSelectedDate("");
+    setShowPoolErrorMessage(false);
+    setShowDateErrorMessage(false);
+
+    onDismiss();
+  };
+
+  const handleCreateCandidate = async (
+    values: CreatePoolCandidateAsAdminInput,
+  ) => {
+    const res = await executeMutation({ poolCandidate: values });
+    if (res.data?.createPoolCandidateAsAdmin) {
+      return res.data.createPoolCandidateAsAdmin;
+    }
+    return Promise.reject(res.error);
+  };
+
+  const handleSubmit = async () => {
+    if (!selectedPool) {
+      setShowPoolErrorMessage(true);
+      return;
+    }
+    if (!selectedDate) {
+      setShowPoolErrorMessage(false);
+      setShowDateErrorMessage(true);
+      return;
+    }
+
+    await handleCreateCandidate({
+      pool: {
+        connect: selectedPool,
+      },
+      user: {
+        connect: user.id,
+      },
+      expiryDate: selectedDate,
+    })
+      .then(() => {
+        toast.success(
+          intl.formatMessage({
+            defaultMessage: "User added successfully",
+            description:
+              "Toast for successful add user to pool on view-user page",
+          }),
+        );
+        resetAndClose();
+      })
+      .catch(() => {
+        toast.error(
+          intl.formatMessage({
+            defaultMessage: "Failed adding user",
+            description: "Toast for failed add user to pool on view-user page",
+          }),
+        );
+      });
+  };
+
+  return (
+    <Dialog
+      title={intl.formatMessage({
+        defaultMessage: "Add to different pool",
+        description: "title for add to pool dialog on view-user page",
+      })}
+      color="ts-primary"
+      isOpen={isVisible}
+      onDismiss={resetAndClose}
+      footer={
+        <div
+          data-h2-display="b(flex)"
+          data-h2-justify-content="b(space-between))"
+        >
+          <CloseDialogButton close={resetAndClose} />
+          <ConfirmDialogButton
+            onConfirm={handleSubmit}
+            title={intl.formatMessage({
+              defaultMessage: "Add to new pool",
+              description: "Confirmation button for add to pool dialog",
+            })}
+          />
+        </div>
+      }
+    >
+      <p>
+        {intl.formatMessage({
+          defaultMessage: "You're about to add this user to a different pool:",
+          description: "First section of text on the add user to pool dialog",
+        })}
+      </p>
+      <p>
+        - {user.firstName} {user.lastName}
+      </p>
+      <p>
+        {intl.formatMessage({
+          defaultMessage: "Choose pool:",
+          description: "Second section of text on the add user to pool dialog",
+        })}
+      </p>
+      <div data-h2-margin="b(bottom, xxs)">
+        <InputWrapper
+          inputId="pool"
+          label={intl.formatMessage({
+            defaultMessage: "Pools",
+            description:
+              "Label displayed on the pools field of the add user to pool dialog",
+          })}
+          required
+        >
+          <select
+            data-h2-radius="b(s)"
+            data-h2-padding="b(all, xs)"
+            data-h2-font-size="b(normal)"
+            data-h2-width="b(100)"
+            id="pool"
+            defaultValue=""
+            onChange={(e) => setSelectedPool(e.target.value)}
+          >
+            <option value="" disabled>
+              {intl.formatMessage({
+                defaultMessage: "Select a pool...",
+                description:
+                  "Placeholder displayed on the pool field of the add user to pool dialog.",
+              })}
+            </option>
+            {pools.map((pool) => (
+              <option
+                data-h2-font-family="b(sans)"
+                key={pool?.id}
+                value={pool?.id}
+              >
+                {pool?.name?.[locale]}
+              </option>
+            ))}
+          </select>
+        </InputWrapper>
+        <div data-h2-display="block" data-h2-margin="b(top, xxs)">
+          <InputError
+            isVisible={showPoolErrorMessage}
+            error={intl.formatMessage({
+              defaultMessage: "Please select a pool",
+              description:
+                "Error displayed on the add user to pool dialog if no pool selected",
+            })}
+          />
+        </div>
+      </div>
+      <p>
+        {intl.formatMessage({
+          defaultMessage: "Set an expiry date for this candidate on this pool:",
+          description: "Third section of text on the add user to pool dialog",
+        })}
+      </p>
+      <div data-h2-margin="b(bottom, xxs)">
+        <InputWrapper
+          inputId="date"
+          label={intl.formatMessage({
+            defaultMessage: "Expiry date",
+            description:
+              "Label displayed on the date field of the add user to pool dialog",
+          })}
+          required
+        >
+          <input
+            data-h2-radius="b(s)"
+            data-h2-padding="b(all, xs)"
+            data-h2-width="b(100)"
+            data-h2-font-size="b(normal)"
+            data-h2-font-family="b(sans)"
+            data-h2-border="b(darkgray, all, solid, s)"
+            id="date"
+            type="date"
+            onChange={(e) => setSelectedDate(e.target.value)}
+          />
+        </InputWrapper>
+        <div data-h2-display="block" data-h2-margin="b(top, xxs)">
+          <InputError
+            isVisible={showDateErrorMessage}
+            error={intl.formatMessage({
+              defaultMessage: "Please select an expiry date",
+              description:
+                "Error displayed on the add user to pool dialog if no date selected",
+            })}
+          />
+        </div>
+      </div>
     </Dialog>
   );
 };
