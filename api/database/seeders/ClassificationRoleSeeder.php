@@ -93,9 +93,12 @@ class ClassificationRoleSeeder extends Seeder
             $identifier = [
                'key' => $role['key'],
             ];
-           ClassificationRoles::updateOrCreate($identifier, $role);
-           Classification::where(['group' => $role['classification']['group'], 'level' => $role['classification']['level']])->first()->id;
-
+            $classificationId = Classification::where([
+                    'group' => $role['classification']['group'],
+                    'level' => $role['classification']['level']
+                ])->first()->id;
+            $completeRole = array_merge($role, ['classification_id' => $classificationId]);
+            ClassificationRoles::updateOrCreate($identifier, $completeRole);
         }
     }
 }
