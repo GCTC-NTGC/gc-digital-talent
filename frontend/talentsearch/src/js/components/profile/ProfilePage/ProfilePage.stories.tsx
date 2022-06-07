@@ -8,7 +8,8 @@ import { User } from "../../../api/generated";
 
 import MockGraphqlDecorator from "../../../../../.storybook/decorators/MockGraphqlDecorator";
 
-const fakeUserArray = fakeUsers(5);
+const fakeUserData = fakeUsers(1)[0];
+const fakeExperienceArray = fakeExperiences(3);
 
 export default {
   component: ProfilePage,
@@ -29,63 +30,26 @@ export default {
   },
 } as Meta;
 
-const TemplateProfilePage: Story<User> = (args) => {
+const Template: Story<User> = (args) => {
   return <ProfileForm profileDataInput={args} />;
 };
 
-export const ProfilePageStory1 = TemplateProfilePage.bind({});
-export const ProfilePageStory2 = TemplateProfilePage.bind({});
-export const ProfilePageStory3 = TemplateProfilePage.bind({});
-export const ProfilePageStory4 = TemplateProfilePage.bind({});
-export const ProfilePageStory5 = TemplateProfilePage.bind({});
-export const ProfilePageNull = TemplateProfilePage.bind({});
+export const CompletedWithoutExperiences = Template.bind({});
+export const CompletedWithExperiences = Template.bind({});
+export const EmptyAllNull = Template.bind({});
 
-ProfilePageStory1.args = { ...fakeUserArray[0] };
-ProfilePageStory2.args = { ...fakeUserArray[1] };
-ProfilePageStory3.args = {
-  ...fakeUserArray[2],
-  experiences: fakeExperiences(3),
+CompletedWithoutExperiences.args = { ...fakeUserData };
+CompletedWithExperiences.args = {
+  ...fakeUserData,
+  experiences: fakeExperienceArray,
 };
-ProfilePageStory4.args = {
-  ...fakeUserArray[3],
-  experiences: fakeExperiences(4),
-};
-ProfilePageStory5.args = {
-  ...fakeUserArray[4],
-  experiences: fakeExperiences(5),
-};
-ProfilePageNull.args = {
-  firstName: null,
-  lastName: null,
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const nullUserData: any = {};
+Object.keys(fakeUserData).forEach((key) => {
+  nullUserData[key] = null;
+});
+EmptyAllNull.args = {
+  ...nullUserData,
   email: undefined,
-  telephone: null,
-  preferredLang: null,
-  currentCity: null,
-  currentProvince: null,
-  languageAbility: null,
-  lookingForEnglish: null,
-  lookingForFrench: null,
-  lookingForBilingual: null,
-  bilingualEvaluation: null,
-  comprehensionLevel: null,
-  writtenLevel: null,
-  verbalLevel: null,
-  estimatedLanguageAbility: null,
-  isGovEmployee: null,
-  interestedInLaterOrSecondment: null,
-  currentClassification: null,
-  isWoman: null,
-  hasDisability: null,
-  isIndigenous: null,
-  isVisibleMinority: null,
-  jobLookingStatus: null,
-  hasDiploma: null,
-  locationPreferences: null,
-  locationExemptions: null,
-  acceptedOperationalRequirements: null,
-  expectedSalary: null,
-  expectedClassifications: null,
-  wouldAcceptTemporary: null,
-  cmoAssets: null,
-  poolCandidates: null,
 };
