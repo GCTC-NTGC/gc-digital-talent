@@ -2,6 +2,7 @@ import React from "react";
 import { Meta, Story } from "@storybook/react";
 import { fakeUsers } from "@common/fakeData";
 import fakeExperiences from "@common/fakeData/fakeExperiences";
+import { JobLookingStatus } from "@common/api/generated";
 import { ProfilePage, ProfileForm } from "./ProfilePage";
 import { User } from "../../../api/generated";
 
@@ -13,20 +14,18 @@ export default {
   component: ProfilePage,
   title: "Profile Form",
   args: {},
-  decorators: [
-    MockGraphqlDecorator,
-  ],
+  decorators: [MockGraphqlDecorator],
   parameters: {
     apiResponses: {
       getMyStatus: {
         data: {
           me: {
             isProfileComplete: true,
-            jobLookingStatus: 'INACTIVE',
-          }
-        }
-      }
-    }
+            jobLookingStatus: JobLookingStatus.OpenToOpportunities,
+          },
+        },
+      },
+    },
   },
 } as Meta;
 
