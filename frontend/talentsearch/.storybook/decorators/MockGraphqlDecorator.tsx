@@ -1,6 +1,7 @@
-import { Provider as GraphqlProvider } from "urql";
+import { Client, getOperationName, Provider as GraphqlProvider } from "urql";
 import { fromValue } from 'wonka';
 import { useParameter } from "@storybook/addons";
+import { StoryContext, StoryFn } from "@storybook/react";
 
 /**
  * MockGraphqlDecorator
@@ -17,11 +18,11 @@ import { useParameter } from "@storybook/addons";
  * For examples of our usage, see:
  * /frontend/talentsearch/src/js/components/profile/ProfilePage/ProfilePage.stories.tsx
  */
-export default function MockGraphqlDecorator(Story, context) {
+export default function MockGraphqlDecorator(Story: StoryFn, context: StoryContext) {
   // Allow response to be set in story via parameters.
   // Source: https://johnclarke73.medium.com/mocking-react-context-in-storybook-bb57304f2f6c
   // See: https://storybook.js.org/docs/react/addons/addons-api#useparameter
-  const responseState = useParameter('apiResponses', {})
+  const responseData: any = useParameter('apiResponses', {})
 
   const defaultNullResponse = { data: null }
 
@@ -30,13 +31,14 @@ export default function MockGraphqlDecorator(Story, context) {
   const mockClient = {
     // Allow custom responses to GraphQL queries.
     executeQuery: ({ query }) => {
-      const operationName = query?.definitions[0]?.name?.value
-      return responseState[operationName]
-        ? fromValue(responseState[operationName])
+      const operationName = getOperationName(query)
+      const response = operationName && responseData[operationName]
+      return !!response
+        ? fromValue(response)
         : fromValue(defaultNullResponse)
-    },
+    }
     // TODO: Implement for mutations when required.
-  }
+  } as Client;
 
 
   return (
