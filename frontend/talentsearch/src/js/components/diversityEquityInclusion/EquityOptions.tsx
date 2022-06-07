@@ -73,7 +73,7 @@ const EquityOptions: React.FC<EquityOptionsProps> = ({
 
   return (
     <>
-      <div data-h2-position="b(relative)">
+      <div data-h2-position="b(relative)" data-h2-margin="b(bottom, l)">
         <div
           style={{ zIndex: 1 }}
           data-h2-position="b(relative)"
