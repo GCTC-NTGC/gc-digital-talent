@@ -9,6 +9,7 @@ import { WorkExperience } from "../../../../api/generated";
 
 type WorkAccordionProps = WorkExperience & {
   editUrl?: string; // A link to edit the experience will only appear if editUrl is defined.
+  defaultOpen?: boolean;
 };
 
 const WorkAccordion: React.FunctionComponent<WorkAccordionProps> = ({
@@ -20,6 +21,7 @@ const WorkAccordion: React.FunctionComponent<WorkAccordionProps> = ({
   division,
   skills,
   editUrl,
+  defaultOpen = false,
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
@@ -62,6 +64,7 @@ const WorkAccordion: React.FunctionComponent<WorkAccordionProps> = ({
             )
       }
       Icon={BriefCaseIcon}
+      defaultOpen={defaultOpen}
     >
       <div data-h2-padding="b(left, l)">
         <p>

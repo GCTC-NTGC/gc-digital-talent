@@ -9,6 +9,7 @@ import { getDateRange } from "../../../../helpers/dateUtils";
 
 type CommunityAccordionProps = CommunityExperience & {
   editUrl?: string; // A link to edit the experience will only appear if editUrl is defined.
+  defaultOpen?: boolean;
 };
 
 const CommunityAccordion: React.FunctionComponent<CommunityAccordionProps> = ({
@@ -20,6 +21,7 @@ const CommunityAccordion: React.FunctionComponent<CommunityAccordionProps> = ({
   project,
   skills,
   editUrl,
+  defaultOpen = false,
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
@@ -62,6 +64,7 @@ const CommunityAccordion: React.FunctionComponent<CommunityAccordionProps> = ({
             )
       }
       Icon={BriefCaseIcon}
+      defaultOpen={defaultOpen}
     >
       {" "}
       <div data-h2-padding="b(left, l)">
