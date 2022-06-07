@@ -1,23 +1,29 @@
 import React from "react";
 
-import { AuthenticationContainer } from "@common/components/Auth";
+import { AuthenticationContainer } from "../Auth";
+import { useApiRoutes } from "../../hooks/useApiRoutes";
+import { getRuntimeVariable } from "../../helpers/runtimeVariable";
 
-import { useApiRoutes } from "@common/hooks/useApiRoutes";
-import { LOGOUT_URI, POST_LOGOUT_REDIRECT } from "../../adminConstants";
-import { useAdminRoutes } from "../../adminRoutes";
+export interface AuthenticationProviderProps {
+  homePath: string;
+}
 
-const AuthenticationProvider: React.FC = ({ children }) => {
-  const adminPaths = useAdminRoutes();
+const AuthenticationProvider: React.FC<AuthenticationProviderProps> = ({
+  homePath,
+  children,
+}) => {
   const apiPaths = useApiRoutes();
-  const homePath = adminPaths.home();
   const refreshTokenSetPath = apiPaths.refreshAccessToken();
+
+  const logoutUri = getRuntimeVariable("OAUTH_LOGOUT_URI");
+  const postLogoutRedirect = getRuntimeVariable("OAUTH_POST_LOGOUT_REDIRECT");
 
   return (
     <AuthenticationContainer
       homePath={homePath}
       tokenRefreshPath={refreshTokenSetPath}
-      logoutUri={LOGOUT_URI}
-      logoutRedirectUri={POST_LOGOUT_REDIRECT}
+      logoutUri={logoutUri}
+      logoutRedirectUri={postLogoutRedirect}
     >
       {children}
     </AuthenticationContainer>

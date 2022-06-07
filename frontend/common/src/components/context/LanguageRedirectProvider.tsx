@@ -1,12 +1,17 @@
 import React from "react";
 
-import LanguageRedirectContainer from "@common/components/LanguageRedirectContainer";
-import type { Messages } from "@common/components/LanguageRedirectContainer";
+import LanguageRedirectContainer from "../LanguageRedirectContainer";
+import type { Messages } from "../LanguageRedirectContainer";
 
-import * as AdminFrench from "../../lang/frCompiled.json";
+export interface LanguageRedirectProviderProps {
+  messages: Messages;
+}
 
-const LanguageRedirectProvider: React.FC = ({ children }) => (
-  <LanguageRedirectContainer messages={AdminFrench as Messages}>
+const LanguageRedirectProvider: React.FC<LanguageRedirectProviderProps> = ({
+  messages,
+  children,
+}) => (
+  <LanguageRedirectContainer messages={messages}>
     {children}
   </LanguageRedirectContainer>
 );
