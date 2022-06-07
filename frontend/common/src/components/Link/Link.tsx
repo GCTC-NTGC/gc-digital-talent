@@ -10,6 +10,7 @@ export interface LinkProps extends React.HTMLProps<HTMLAnchorElement> {
   mode?: "solid" | "outline" | "inline";
   block?: boolean;
   type?: "button" | "link";
+  /** For use when linking to a domain outside of the application */
   external?: boolean;
 }
 
