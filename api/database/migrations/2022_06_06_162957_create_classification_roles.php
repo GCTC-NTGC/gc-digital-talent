@@ -16,6 +16,7 @@ class CreateClassificationRoles extends Migration
          Schema::create('classification_roles', function (Blueprint $table) {
             $table->uuid('id')->primary('id');
             $table->timestamps();
+            $table->softDeletes();
             $table->string('key')->nullable(false)->unique();
             $table->jsonb('name')->nullable(false)->default(json_encode(['en' => '', 'fr' => '']));
             $table->uuid('classification_id')->references('id')->on('classifications');
@@ -25,6 +26,7 @@ class CreateClassificationRoles extends Migration
        Schema::create('classification_roles_user', function (Blueprint $table) {
             $table->uuid('id')->primary('id');
             $table->timestamps();
+            $table->softDeletes();
             $table->uuid('classification_role_id')->references('id')->on('classification_roles')->nullable(false);
             $table->uuid('user_id')->references('id')->on('users')->nullable(false);
             $table->unique(['classification_role_id', 'user_id'], 'classification_role_user_unique');

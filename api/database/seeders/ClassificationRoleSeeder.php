@@ -3,6 +3,9 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use App\Models\ClassificationRoles;
+use App\Models\Classification;
+
 
 class ClassificationRoleSeeder extends Seeder
 {
@@ -15,18 +18,18 @@ class ClassificationRoleSeeder extends Seeder
     {
       $roles = [
             [
-                'key' => 'technician_it01 ',
+                'key' => 'technician_it01',
                 'name' => [
                     'en' => 'Technician ',
                     'fr' => ''
                 ],
                 'classification' => [
                     'group' => 'IT',
-                    'level' => 1,
+                    'level' => "1",
                 ],
             ],
             [
-                'key' => 'analyst_it02 ',
+                'key' => 'analyst_it02',
                 'name' => [
                     'en' => 'Analyst ',
                     'fr' => ''
@@ -88,9 +91,9 @@ class ClassificationRoleSeeder extends Seeder
 
         foreach ($roles as $role) {
             $identifier = [
-               'key' => $roles['key'],
+               'key' => $role['key'],
             ];
-           ClassificationRoles::updateOrCreate($identifier, $roles);
+           ClassificationRoles::updateOrCreate($identifier, $role);
            Classification::where(['group' => $role['classification']['group'], 'level' => $role['classification']['level']])->first()->id;
 
         }

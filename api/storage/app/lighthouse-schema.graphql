@@ -40,6 +40,7 @@ type Applicant {
   educationExperiences: [EducationExperience]
   personalExperiences: [PersonalExperience]
   workExperiences: [WorkExperience]
+  classificationRoles: [ClassificationRoles]
 }
 
 type AwardExperience implements Experience {
@@ -121,20 +122,15 @@ input ClassificationFilterInput {
   level: Int!
 }
 
-enum ClassificationRole {
-  TECHNICIAN
-  ANALYST
-  TEAM_LEADER
-  TECHNICAL_ADVISOR
-  SENIOR_ADVISOR
-  MANAGER
-}
-
 type ClassificationRoles {
   id: ID!
   key: KeyString!
   name: LocalizedString
   level: Int
+}
+
+input ClassificationRolesHasMany {
+  sync: [ID!]
 }
 
 """
@@ -317,7 +313,7 @@ input CreateUserInput {
   communityExperiences: CommunityExperienceHasMany
   educationExperiences: EducationExperienceHasMany
   awardExperiences: AwardExperienceHasMany
-  expectedClassificationRoles: [ClassificationRole]
+  classificationRoles: [ClassificationRoles]
 }
 
 """A date string with format `Y-m-d`, e.g. `2011-05-23`."""
@@ -811,6 +807,8 @@ type Query {
   skillFamilies: [SkillFamily]!
   skill(id: ID!): Skill
   skills: [Skill]!
+  classificationRole(id: ID!): ClassificationRoles
+  classificationRoles: [ClassificationRoles]!
   usersPaginated(
     where: UserFilterAndOrderInput
 
@@ -1122,6 +1120,7 @@ input UpdateUserAsUserInput {
   communityExperiences: CommunityExperienceHasMany
   educationExperiences: EducationExperienceHasMany
   awardExperiences: AwardExperienceHasMany
+  classificationRoles: ClassificationRolesHasMany
 }
 
 type User {
@@ -1170,6 +1169,7 @@ type User {
   workExperiences: [WorkExperience]
   pools: [Pool]
   isProfileComplete: Boolean
+  classificationRoles: [ClassificationRoles]
 }
 
 input UserBelongsTo {

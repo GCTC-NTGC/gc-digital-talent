@@ -799,7 +799,7 @@ input UpdateUserAsUserInput {
     communityExperiences: CommunityExperienceHasMany
     educationExperiences: EducationExperienceHasMany
     awardExperiences: AwardExperienceHasMany
-    classificationRoles: [ClassificationRoles] @rename(attribute: "name")
+    classificationRoles: ClassificationRolesHasMany
 
 }
 
@@ -1073,6 +1073,9 @@ input EducationExperienceHasMany {
 }
 input AwardExperienceHasMany {
     create: [AwardExperienceInput!]
+}
+input ClassificationRolesHasMany {
+  sync: [ID!]
 }
 
 type Mutation {

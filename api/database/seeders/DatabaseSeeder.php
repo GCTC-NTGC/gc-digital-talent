@@ -37,6 +37,7 @@ class DatabaseSeeder extends Seeder
         $this->call(ClassificationSeeder::class);
         $this->call(CmoAssetSeeder::class);
         $this->call(DepartmentSeeder::class);
+        $this->call(ClassificationRoleSeeder::class);
 
         SkillFamily::factory()
             ->count(10)
