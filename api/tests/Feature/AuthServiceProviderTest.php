@@ -3,6 +3,7 @@
 use App\Models\User;
 use App\Providers\AuthServiceProvider;
 use App\Services\OpenIdBearerTokenService;
+use Database\Helpers\ApiEnums;
 use Lcobucci\JWT\Token\DataSet;
 use Tests\TestCase;
 use Mockery\MockInterface;
@@ -91,7 +92,7 @@ class AuthServiceProviderTest extends TestCase
         $resolvedUser = $this->provider->resolveUserOrAbort($fakeToken, $mockTokenService);
 
         // they should exist now, but should not be admin
-        $this->assertDatabaseHas('users', ['sub' => $testSub, 'roles' => null]);
+        $this->assertDatabaseHas('users', ['sub' => $testSub, 'roles' => json_encode([ApiEnums::ROLE_APPLICANT])]);
     }
 
      /**
@@ -101,7 +102,7 @@ class AuthServiceProviderTest extends TestCase
     public function testUserIsNotAutoCreatedWhenAlreadyExisting()
     {
         $testSub = 'test-sub';
-        $testRoles = ["ADMIN"];
+        $testRoles = ["TEST"];
 
         $mockClaims = Mockery::mock(new DataSet(['sub' => $testSub], ''));
 
@@ -122,7 +123,7 @@ class AuthServiceProviderTest extends TestCase
 
         // they should exist now
         $this->assertDatabaseHas('users', ['sub' => $testSub, 'roles' => json_encode($testRoles)]);
-        // this should not recreate them - that would wipe out the ADMIN role on our test user
+        // this should not recreate them - that would wipe out the test role on our test user
         $resolvedUser = $this->provider->resolveUserOrAbort($fakeToken, $mockTokenService);
         // make sure our test user did not get roles wiped
         $this->assertDatabaseHas('users', ['sub' => $testSub, 'roles' => json_encode($testRoles)]);

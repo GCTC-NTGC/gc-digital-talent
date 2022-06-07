@@ -230,10 +230,7 @@ input CreatePoolCandidateFilterInput {
   classifications: ClassificationBelongsToMany
   cmoAssets: CmoAssetBelongsToMany
   hasDiploma: Boolean
-  hasDisability: Boolean
-  isIndigenous: Boolean
-  isVisibleMinority: Boolean
-  isWoman: Boolean
+  equity: EquitySelectionsInput
   languageAbility: LanguageAbility
   operationalRequirements: [OperationalRequirement]
   workRegions: [WorkRegion]
@@ -393,6 +390,20 @@ enum EducationType {
 
 """A RFC 5321 compliant email."""
 scalar Email
+
+type EquitySelections {
+  isWoman: Boolean
+  hasDisability: Boolean
+  isIndigenous: Boolean
+  isVisibleMinority: Boolean
+}
+
+input EquitySelectionsInput {
+  isWoman: Boolean
+  hasDisability: Boolean
+  isIndigenous: Boolean
+  isVisibleMinority: Boolean
+}
 
 enum EstimatedLanguageAbility {
   BEGINNER
@@ -693,10 +704,7 @@ type PoolCandidateFilter {
   classifications: [Classification]
   cmoAssets: [CmoAsset]
   hasDiploma: Boolean
-  hasDisability: Boolean
-  isIndigenous: Boolean
-  isVisibleMinority: Boolean
-  isWoman: Boolean
+  equity: EquitySelections
   languageAbility: LanguageAbility
   operationalRequirements: [OperationalRequirement]
   workRegions: [WorkRegion]
@@ -711,10 +719,7 @@ input PoolCandidateFilterInput {
   classifications: [ClassificationFilterInput]
   cmoAssets: [KeyFilterInput]
   hasDiploma: Boolean
-  hasDisability: Boolean
-  isIndigenous: Boolean
-  isVisibleMinority: Boolean
-  isWoman: Boolean
+  equity: EquitySelectionsInput
   languageAbility: LanguageAbility
   operationalRequirements: [OperationalRequirement]
   workRegions: [WorkRegion]
@@ -818,7 +823,11 @@ type Query {
 }
 
 enum Role {
+  """A user who has administrator privileges"""
   ADMIN
+
+  """A user who has a profile to apply to hiring pools"""
+  APPLICANT
 }
 
 """The available SQL operators that are used to filter query results."""
@@ -1173,6 +1182,7 @@ input UserFilterAndOrderInput {
   expectedClassifications: [ClassificationFilterInput]
   operationalRequirements: [OperationalRequirement]
   locationPreferences: [WorkRegion]
+  equity: EquitySelectionsInput
   hasDiploma: Boolean
   wouldAcceptTemporary: Boolean
   jobLookingStatus: [JobLookingStatus]

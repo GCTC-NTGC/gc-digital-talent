@@ -10,10 +10,11 @@ import { Tab, TabSet } from "@common/components/tabs";
 import { commonMessages } from "@common/messages";
 import { getLocale } from "@common/helpers/localize";
 
+import Pending from "@common/components/Pending";
+import NotFound from "@common/components/NotFound";
 import { useAdminRoutes } from "../../adminRoutes";
 import { useGetPoolQuery } from "../../api/generated";
 import type { Pool } from "../../api/generated";
-import DashboardContentContainer from "../DashboardContentContainer";
 
 interface ViewPoolPageProps {
   pool: Pool;
@@ -113,28 +114,12 @@ const ViewPool: React.FC<ViewPoolProps> = ({ poolId }) => {
     variables: { id: poolId },
   });
 
-  if (fetching) {
-    return (
-      <DashboardContentContainer>
-        <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>
-      </DashboardContentContainer>
-    );
-  }
-
-  if (error) {
-    <DashboardContentContainer>
-      <p>
-        {intl.formatMessage(commonMessages.loadingError)} {error.message}
-      </p>
-    </DashboardContentContainer>;
-  }
-
   return (
-    <DashboardContentContainer>
+    <Pending fetching={fetching} error={error}>
       {data?.pool ? (
         <ViewPoolPage pool={data.pool} />
       ) : (
-        <p>
+        <NotFound headingMessage={intl.formatMessage(commonMessages.notFound)}>
           <p>
             {intl.formatMessage(
               {
@@ -144,9 +129,9 @@ const ViewPool: React.FC<ViewPoolProps> = ({ poolId }) => {
               { poolId },
             )}
           </p>
-        </p>
+        </NotFound>
       )}
-    </DashboardContentContainer>
+    </Pending>
   );
 };
 

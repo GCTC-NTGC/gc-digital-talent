@@ -2,19 +2,21 @@ import * as React from "react";
 import { useIntl } from "react-intl";
 import {
   HomeIcon,
-  DownloadIcon,
+  PrinterIcon,
   UserCircleIcon,
 } from "@heroicons/react/outline";
 import Breadcrumbs from "@common/components/Breadcrumbs";
 import type { BreadcrumbsProps } from "@common/components/Breadcrumbs";
 import PageHeader from "@common/components/PageHeader";
-import { Link } from "@common/components";
 import { Tab, TabSet } from "@common/components/tabs";
 import { commonMessages } from "@common/messages";
+import Pending from "@common/components/Pending";
+import NotFound from "@common/components/NotFound";
 import { useAdminRoutes } from "../../adminRoutes";
 import { User, useUserQuery } from "../../api/generated";
 import DashboardContentContainer from "../DashboardContentContainer";
 import UserProfileApi from "./UserProfile";
+import UserProfilePrintButton from "./UserProfilePrintButton";
 
 interface ViewUserPageProps {
   user: User;
@@ -72,21 +74,15 @@ export const ViewUserPage: React.FC<ViewUserPageProps> = ({ user }) => {
           </h2>
         )}
         <div data-h2-margin="m(left, auto)">
-          <Link
-            mode="outline"
-            color="primary"
-            type="button"
-            href="/"
-            // download={ TODO }
-          >
+          <UserProfilePrintButton userId={user.id}>
             <span>
-              <DownloadIcon style={{ width: "1rem" }} />{" "}
+              <PrinterIcon style={{ width: "1rem" }} />{" "}
               {intl.formatMessage({
-                defaultMessage: "Download Profile",
-                description: "Text for button to download a user",
+                defaultMessage: "Print Profile",
+                description: "Text for button to print a user profile",
               })}
             </span>
-          </Link>
+          </UserProfilePrintButton>
         </div>
       </div>
       <TabSet>
@@ -119,40 +115,28 @@ const ViewUser: React.FC<ViewUserProps> = ({ userId }) => {
     variables: { id: userId },
   });
 
-  if (fetching) {
-    return (
-      <DashboardContentContainer>
-        <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>
-      </DashboardContentContainer>
-    );
-  }
-
-  if (error) {
-    <DashboardContentContainer>
-      <p>
-        {intl.formatMessage(commonMessages.loadingError)} {error.message}
-      </p>
-    </DashboardContentContainer>;
-  }
-
   return (
-    <DashboardContentContainer>
-      {data?.user ? (
-        <ViewUserPage user={data.user} />
-      ) : (
-        <p>
-          <p>
-            {intl.formatMessage(
-              {
-                defaultMessage: "User {userId} not found.",
-                description: "Message displayed for user not found.",
-              },
-              { userId },
-            )}
-          </p>
-        </p>
-      )}
-    </DashboardContentContainer>
+    <Pending fetching={fetching} error={error}>
+      <DashboardContentContainer>
+        {data?.user ? (
+          <ViewUserPage user={data.user} />
+        ) : (
+          <NotFound
+            headingMessage={intl.formatMessage(commonMessages.notFound)}
+          >
+            <p>
+              {intl.formatMessage(
+                {
+                  defaultMessage: "User {userId} not found.",
+                  description: "Message displayed for user not found.",
+                },
+                { userId },
+              )}
+            </p>
+          </NotFound>
+        )}
+      </DashboardContentContainer>
+    </Pending>
   );
 };
 

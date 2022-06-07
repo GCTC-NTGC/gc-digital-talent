@@ -24,7 +24,10 @@ enum Language {
 }
 
 enum Role {
-    ADMIN
+    "A user who has administrator privileges"
+    ADMIN,
+    "A user who has a profile to apply to hiring pools"
+    APPLICANT
 }
 
 type User {
@@ -348,15 +351,26 @@ enum PoolCandidateSearchStatus {
     DONE
 }
 
+type EquitySelections {
+    isWoman: Boolean @rename(attribute: "is_woman")
+    hasDisability: Boolean @rename(attribute: "has_disability")
+    isIndigenous: Boolean @rename(attribute: "is_indigenous")
+    isVisibleMinority: Boolean @rename(attribute: "is_visible_minority")
+}
+
+input EquitySelectionsInput {
+    isWoman: Boolean @rename(attribute: "is_woman")
+    hasDisability: Boolean @rename(attribute: "has_disability")
+    isIndigenous: Boolean @rename(attribute: "is_indigenous")
+    isVisibleMinority: Boolean @rename(attribute: "is_visible_minority")
+}
+
 type PoolCandidateFilter {
     id: ID!
     classifications: [Classification] @belongsToMany
     cmoAssets: [CmoAsset] @belongsToMany
     hasDiploma: Boolean @rename(attribute: "has_diploma")
-    hasDisability: Boolean @rename(attribute: "has_disability")
-    isIndigenous: Boolean @rename(attribute: "is_indigenous")
-    isVisibleMinority: Boolean @rename(attribute: "is_visible_minority")
-    isWoman: Boolean @rename(attribute: "is_woman")
+    equity: EquitySelections @rename(attribute: "equity_selections")
     languageAbility: LanguageAbility @rename(attribute: "language_ability")
     operationalRequirements: [OperationalRequirement] @rename(attribute: "operational_requirements")
     workRegions: [WorkRegion] @rename(attribute: "work_regions")
@@ -551,10 +565,7 @@ input PoolCandidateFilterInput {
     classifications: [ClassificationFilterInput] @builder(method: "App\\Models\\PoolCandidate@filterByClassifications")
     cmoAssets: [KeyFilterInput] @builder(method: "App\\Models\\PoolCandidate@filterByCmoAssets")
     hasDiploma: Boolean @scope
-    hasDisability: Boolean @scope
-    isIndigenous: Boolean @scope
-    isVisibleMinority: Boolean @scope
-    isWoman: Boolean @scope
+    equity: EquitySelectionsInput @builder(method: "App\\Models\\PoolCandidate@filterByEquity")
     languageAbility: LanguageAbility @builder(method: "App\\Models\\PoolCandidate@filterByLanguageAbility")
     operationalRequirements: [OperationalRequirement] @builder(method: "App\\Models\\PoolCandidate@filterByOperationalRequirements")
     workRegions: [WorkRegion] @builder(method: "App\\Models\\PoolCandidate@filterByWorkRegions")
@@ -567,6 +578,7 @@ input UserFilterAndOrderInput {
     expectedClassifications: [ClassificationFilterInput] @builder(method: "App\\Models\\User@filterByClassifications")
     operationalRequirements: [OperationalRequirement] @builder(method: "App\\Models\\User@filterByOperationalRequirements")
     locationPreferences: [WorkRegion] @builder(method: "App\\Models\\User@filterByLocationPreferences")
+    equity: EquitySelectionsInput @builder(method: "App\\Models\\User@filterByEquity")
     hasDiploma: Boolean @scope
     wouldAcceptTemporary: Boolean @scope
     jobLookingStatus: [JobLookingStatus] @builder(method: "App\\Models\\User@filterByJobLookingStatus")
@@ -927,10 +939,7 @@ input CreatePoolCandidateFilterInput {
     classifications: ClassificationBelongsToMany
     cmoAssets: CmoAssetBelongsToMany
     hasDiploma: Boolean @rename(attribute: "has_diploma")
-    hasDisability: Boolean @rename(attribute: "has_disability")
-    isIndigenous: Boolean @rename(attribute: "is_indigenous")
-    isVisibleMinority: Boolean @rename(attribute: "is_visible_minority")
-    isWoman: Boolean @rename(attribute: "is_woman")
+    equity: EquitySelectionsInput
     languageAbility:LanguageAbility @rename(attribute: "language_ability")
     operationalRequirements: [OperationalRequirement] @rename(attribute: "operational_requirements")
     workRegions: [WorkRegion] @rename(attribute: "work_regions")

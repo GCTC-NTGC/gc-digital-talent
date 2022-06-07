@@ -20,10 +20,6 @@ const Footer: React.FunctionComponent<{
     },
     {
       route: `/${intl.locale}/terms-and-conditions`,
-      title: intl.formatMessage({
-        defaultMessage: "View our terms and conditions.",
-        description: "Title for the terms and conditions link in the Footer.",
-      }),
       label: intl.formatMessage({
         defaultMessage: "Terms & Conditions",
         description: "Label for the terms and conditions link in the Footer.",
@@ -31,10 +27,6 @@ const Footer: React.FunctionComponent<{
     },
     {
       route: `/${intl.locale}/privacy-notice`,
-      title: intl.formatMessage({
-        defaultMessage: "View our privacy policy.",
-        description: "Title for the privacy link in the Footer.",
-      }),
       label: intl.formatMessage({
         defaultMessage: "Privacy Policy",
         description: "Label for the privacy link in the Footer.",
@@ -42,10 +34,6 @@ const Footer: React.FunctionComponent<{
     },
     {
       route: `https://www.canada.ca/${intl.locale}.html`,
-      title: intl.formatMessage({
-        defaultMessage: "Visit Canada.ca",
-        description: "Title for the Canada link in the Footer.",
-      }),
       label: intl.formatMessage({
         defaultMessage: "Canada.ca",
         description: "Label for the Canada link in the Footer.",
@@ -74,16 +62,14 @@ const Footer: React.FunctionComponent<{
               data-h2-justify-content="b(center) m(flex-start)"
               data-h2-margin="b(bottom, xs)"
             >
-              {links.map(({ route, title, label }) => (
+              {links.map(({ route, label }) => (
                 <li
                   key={label}
                   data-h2-display="b(inline-block)"
                   data-h2-margin="b(top-bottom, none)"
                 >
                   {/* These links must use real anchor links, not the history api, as they may direct to outside of this app. */}
-                  <a href={route} title={title}>
-                    {label}
-                  </a>
+                  <a href={route}>{label}</a>
                 </li>
               ))}
             </ul>
@@ -114,10 +100,6 @@ const Footer: React.FunctionComponent<{
         >
           <a
             href={`https://www.canada.ca/${intl.locale}.html`}
-            title={intl.formatMessage({
-              defaultMessage: "Visit Canada.ca",
-              description: "Title for the Canada logo in the Footer.",
-            })}
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -125,8 +107,8 @@ const Footer: React.FunctionComponent<{
               style={{ width: "12rem" }}
               src={imageUrl(baseUrl, "logo_canada.png")}
               alt={intl.formatMessage({
-                defaultMessage: "Canada's Logo.",
-                description: "Alt text for the Canada logo in the Footer.",
+                defaultMessage: "Canada.ca",
+                description: "Alt text for the Canada logo link in the Footer.",
               })}
             />
           </a>

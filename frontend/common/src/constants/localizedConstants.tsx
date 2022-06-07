@@ -21,23 +21,23 @@ import {
 import { getOrThrowError } from "../helpers/util";
 
 export const womanLocalized = {
-  defaultMessage: "Woman",
-  description: "Woman",
+  defaultMessage: "I identify as a woman",
+  description: "Message for woman",
 };
 
 export const indigenousLocalized = {
-  defaultMessage: "Indigenous",
-  description: "Indigenous",
+  defaultMessage: "I am indigenous",
+  description: "Message for indigenous",
 };
 
 export const minorityLocalized = {
-  defaultMessage: "Member of a visible minority group",
-  description: "Member of a visible minority group",
+  defaultMessage: "I identify as a member of a visible minority group",
+  description: " Message for minority group",
 };
 
 export const disabilityLocalized = {
-  defaultMessage: "Person with a disability",
-  description: "Person with a disability",
+  defaultMessage: "I identify as a person with a disability",
+  description: "Message for person with a disability",
 };
 
 export const languageProficiency = {
@@ -308,6 +308,10 @@ export const Roles = defineMessages({
   [Role.Admin]: {
     defaultMessage: "Administrator",
     description: "The name of the Administrator user role.",
+  },
+  [Role.Applicant]: {
+    defaultMessage: "Applicant",
+    description: "The name of the Applicant user role.",
   },
 });
 

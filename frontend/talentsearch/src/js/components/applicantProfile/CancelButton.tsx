@@ -16,10 +16,6 @@ const CancelButton: React.FunctionComponent<{ link?: string }> = ({ link }) => {
       data-h2-width="b(auto)"
       data-h2-align-items="b(center)"
       type="button"
-      title={intl.formatMessage({
-        defaultMessage: "Cancel and go back",
-        description: "Title for cancel link in applicant profile forms.",
-      })}
     >
       <ArrowCircleLeftIcon style={{ width: "1rem" }} />
       <span data-h2-margin="b(left, xxs)">

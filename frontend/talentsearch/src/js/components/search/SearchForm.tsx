@@ -125,18 +125,20 @@ export const SearchForm: React.FunctionComponent<SearchFormProps> = ({
           ? unpackMaybes(values.operationalRequirements)
           : [],
         hasDiploma: values.educationRequirement === "has_diploma",
-        hasDisability:
-          values.employmentEquity &&
-          values.employmentEquity?.includes("hasDisability"),
-        isIndigenous:
-          values.employmentEquity &&
-          values.employmentEquity?.includes("isIndigenous"),
-        isVisibleMinority:
-          values.employmentEquity &&
-          values.employmentEquity?.includes("isVisibleMinority"),
-        isWoman:
-          values.employmentEquity &&
-          values.employmentEquity?.includes("isWoman"),
+        equity: {
+          hasDisability:
+            values.employmentEquity &&
+            values.employmentEquity?.includes("hasDisability"),
+          isIndigenous:
+            values.employmentEquity &&
+            values.employmentEquity?.includes("isIndigenous"),
+          isVisibleMinority:
+            values.employmentEquity &&
+            values.employmentEquity?.includes("isVisibleMinority"),
+          isWoman:
+            values.employmentEquity &&
+            values.employmentEquity?.includes("isWoman"),
+        },
         ...(values.languageAbility !== NullSelection
           ? { languageAbility: values.languageAbility as LanguageAbility }
           : {}), // Ensure null in FormValues is converted to undefined

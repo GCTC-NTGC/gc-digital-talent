@@ -8,11 +8,6 @@ import {
 } from "../../../constants/localizedConstants";
 import { Applicant } from "../../../api/generated";
 
-// add link to Equity groups <a> tags around a message
-function equityLinkText(msg: string) {
-  return <a href="/equity-groups">{msg}</a>;
-}
-
 const DiversityEquityInclusionSection: React.FunctionComponent<{
   applicant: Pick<
     Applicant,
@@ -31,46 +26,33 @@ const DiversityEquityInclusionSection: React.FunctionComponent<{
     >
       {!isWoman && !isIndigenous && !isVisibleMinority && !hasDisability && (
         <p>
-          {intl.formatMessage(
-            {
-              defaultMessage:
-                "You have not identified as a member of any <equityLinkText>employment equity groups.</equityLinkText>",
-              description:
-                "Message indicating the user has not been marked as part of an equity group, Ignore things in <> please.",
-            },
-            { equityLinkText },
-          )}
+          {intl.formatMessage({
+            defaultMessage:
+              "You have not identified as a member of any employment equity groups.",
+            description:
+              "Message indicating the user has not been marked as part of an equity group, Ignore things in <> please.",
+          })}
         </p>
       )}
       {(isWoman || isIndigenous || isVisibleMinority || hasDisability) && (
         <div>
           <p>
             {intl.formatMessage({
-              defaultMessage: "I identify as:",
+              defaultMessage: "My employment equity information:",
               description:
                 "Label preceding what groups the user identifies as part of, followed by a colon",
             })}{" "}
           </p>{" "}
           <ul data-h2-padding="b(left, l)">
-            {isWoman && (
-              <li data-h2-font-weight="b(700)">
-                {womanLocalized.defaultMessage}
-              </li>
-            )}{" "}
             {isIndigenous && (
-              <li data-h2-font-weight="b(700)">
-                {indigenousLocalized.defaultMessage}
-              </li>
+              <li>&quot;{indigenousLocalized.defaultMessage}&quot;</li>
             )}{" "}
             {isVisibleMinority && (
-              <li data-h2-font-weight="b(700)">
-                {minorityLocalized.defaultMessage}
-              </li>
+              <li>&quot;{minorityLocalized.defaultMessage}&quot;</li>
             )}{" "}
+            {isWoman && <li>&quot;{womanLocalized.defaultMessage}&quot;</li>}{" "}
             {hasDisability && (
-              <li data-h2-font-weight="b(700)">
-                {disabilityLocalized.defaultMessage}
-              </li>
+              <li>&quot;{disabilityLocalized.defaultMessage}&quot;</li>
             )}
           </ul>
         </div>

@@ -67,10 +67,12 @@ const poolCandidateFilter: PoolCandidateFilter = {
     },
   ],
   hasDiploma: false,
-  hasDisability: false,
-  isIndigenous: false,
-  isVisibleMinority: false,
-  isWoman: false,
+  equity: {
+    hasDisability: false,
+    isIndigenous: false,
+    isVisibleMinority: false,
+    isWoman: false,
+  },
   languageAbility: null,
   operationalRequirements: [
     OperationalRequirement.DriversLicense,
