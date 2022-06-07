@@ -15,6 +15,7 @@ import {
   ApplicantProfileRoutes,
   useApplicantProfileRoutes,
 } from "../applicantProfileRoutes";
+import { AuthRoutes, useAuthRoutes } from "../authRoutes";
 import {
   DirectIntakeRoutes,
   useDirectIntakeRoutes,
@@ -35,6 +36,7 @@ import BrowsePoolsPage from "./browse/BrowsePoolsPage";
 import BrowseIndividualPoolApi from "./browse/BrowseIndividualPool";
 import PoolApplyPage from "./pool/PoolApplyPage";
 import PoolApplicationThanksPage from "./pool/PoolApplicationThanksPage";
+import RegisterPage from "./register/RegisterPage";
 
 const talentRoutes = (
   talentPaths: TalentSearchRoutes,
@@ -56,6 +58,15 @@ const talentRoutes = (
     path: talentPaths.request(),
     action: () => ({
       component: <RequestPage />,
+    }),
+  },
+];
+
+const authRoutes = (authPaths: AuthRoutes): Routes<RouterResult> => [
+  {
+    path: authPaths.register(),
+    action: () => ({
+      component: <RegisterPage />,
     }),
   },
 ];
@@ -198,6 +209,7 @@ const directIntakeRoutes = (
 
 export const Router: React.FC = () => {
   const intl = useIntl();
+  const authPaths = useAuthRoutes();
   const talentPaths = useTalentSearchRoutes();
   const profilePaths = useApplicantProfileRoutes();
   const directIntakePaths = useDirectIntakeRoutes();
@@ -226,6 +238,7 @@ export const Router: React.FC = () => {
         menuItems={menuItems}
         contentRoutes={[
           ...talentRoutes(talentPaths),
+          ...authRoutes(authPaths),
           ...(checkFeatureFlag("FEATURE_APPLICANTPROFILE")
             ? profileRoutes(profilePaths)
             : []),
