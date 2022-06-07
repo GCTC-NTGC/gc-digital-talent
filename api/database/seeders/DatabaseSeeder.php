@@ -19,6 +19,7 @@ use App\Models\EducationExperience;
 use App\Models\PersonalExperience;
 use App\Models\WorkExperience;
 use Faker;
+use Illuminate\Cache\RateLimiting\Limit;
 
 class DatabaseSeeder extends Seeder
 {
@@ -52,20 +53,61 @@ class DatabaseSeeder extends Seeder
         $this->call(UserSeederLocal::class);
         $this->call(PoolSeeder::class);
 
+        // fill digital_careers no salary, with classifications
+        // first 5 classifications in ClassificationSeeder are IT group, therefore take(5) grabs the five IT classifications
         User::factory()
-            ->count(60)
+            ->count(20)
             ->afterCreating(function (User $user) {
                 $assets = CmoAsset::inRandomOrder()->limit(4)->pluck('id')->toArray();
-                $classifications = Classification::inRandomOrder()->limit(3)->pluck('id')->toArray();
+                $classifications = Classification::take(5)->inRandomOrder()->limit(3)->get()->pluck('id')->toArray();
                 $user->cmoAssets()->sync($assets);
                 $user->expectedClassifications()->sync($classifications);
+                PoolCandidate::factory()->count(1)->sequence(fn () => [
+                    'pool_id' => Pool::pluck('id', 'key')->toArray()['digital_careers'],
+                    'expected_salary' => null
+                ])->for($user)->create();
+            })
+            ->create();
+        // fill digital_careers salary, no classifications
+        User::factory()
+            ->count(20)
+            ->afterCreating(function (User $user) {
+                $assets = CmoAsset::inRandomOrder()->limit(4)->pluck('id')->toArray();
+                $user->cmoAssets()->sync($assets);
+                PoolCandidate::factory()->count(1)->sequence(fn () => [
+                    'pool_id' => Pool::pluck('id', 'key')->toArray()['digital_careers'],
+                ])->for($user)->create();
             })
             ->create();
 
-        User::all()->each(function($user) use ($faker) {
+        // fill indigenous talent pool - classifications
+        // INCOMPLETE?
+        User::factory()
+        ->count(20)
+        ->afterCreating(function (User $user) {
+            $assets = CmoAsset::inRandomOrder()->limit(4)->pluck('id')->toArray();
+            $classifications = Classification::take(5)->inRandomOrder()->limit(3)->get()->pluck('id')->toArray();
+            $user->cmoAssets()->sync($assets);
+            $user->expectedClassifications()->sync($classifications);
             PoolCandidate::factory()->count(1)->sequence(fn () => [
-                'pool_id' => Pool::inRandomOrder()->first()->id,
+                'pool_id' => Pool::pluck('id', 'key')->toArray()['indigenous_apprenticeship'],
+                'expected_salary' => null
             ])->for($user)->create();
+        })
+        ->create();
+        // fill indigenous talent pool - salary
+        User::factory()
+        ->count(20)
+        ->afterCreating(function (User $user) {
+            $assets = CmoAsset::inRandomOrder()->limit(4)->pluck('id')->toArray();
+            $user->cmoAssets()->sync($assets);
+            PoolCandidate::factory()->count(1)->sequence(fn () => [
+                'pool_id' => Pool::pluck('id', 'key')->toArray()['indigenous_apprenticeship'],
+            ])->for($user)->create();
+        })
+        ->create();
+
+        User::all()->each(function($user) use ($faker) {
             AwardExperience::factory()
                 ->count($faker->biasedNumberBetween($min = 0, $max = 3, $function = 'Faker\Provider\Biased::linearLow'))
                 ->for($user)
@@ -129,7 +171,7 @@ class DatabaseSeeder extends Seeder
         });
 
         PoolCandidate::each(function($candidate) {
-            $classifications = Classification::inRandomOrder()->limit(3)->get();
+            $classifications = Classification::take(5)->inRandomOrder()->limit(3)->get();
             $candidate->expectedClassifications()->saveMany($classifications);
             $assets = CmoAsset::inRandomOrder()->limit(4)->get();
             $candidate->cmoAssets()->saveMany($assets);

@@ -43,9 +43,10 @@ class PoolFactory extends Factory
 
     public function configure()
     {
+        // take(5) will grab the first 5 classifications, in this case, all the IT classifications, restricting search to IT classifications
         return $this->afterCreating(function (Pool $pool) {
             $assets = CmoAsset::inRandomOrder()->limit(4)->get();
-            $classifications = Classification::inRandomOrder()->limit(3)->get();
+            $classifications = Classification::take(5)->get();
             $pool->essentialCriteria()->saveMany($assets->slice(0,2));
             $pool->assetCriteria()->saveMany($assets->slice(2,2));
             $pool->classifications()->saveMany($classifications);
