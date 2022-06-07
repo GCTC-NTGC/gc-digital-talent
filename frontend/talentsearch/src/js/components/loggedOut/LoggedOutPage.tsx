@@ -63,7 +63,10 @@ const LoggedOutPage: React.FC = () => {
               "Description of the links presented on the logged out page.",
           })}
         </p>
-        <div data-h2-flex-grid="b(normal, contained, flush, m)">
+        <div
+          data-h2-flex-grid="b(normal, contained, flush, s)"
+          style={{ margin: "0 -0.5rem" }}
+        >
           <div data-h2-flex-item="b(1of1) m(1of3)">
             <TileLink href={talentPaths.home()} color="primary">
               {intl.formatMessage({
