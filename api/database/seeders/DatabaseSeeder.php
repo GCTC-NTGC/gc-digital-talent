@@ -69,7 +69,12 @@ class DatabaseSeeder extends Seeder
                 PoolCandidate::factory()->count(1)->sequence(fn () => [
                     'pool_id' => Pool::pluck('id', 'key')->toArray()['digital_careers'],
                     'expected_salary' => null
-                ])->for($user)->create();
+                ])->for($user)->afterCreating(function (PoolCandidate $candidate){
+                        $classifications = Classification::take(5)->inRandomOrder()->limit(3)->get();
+                        $candidate->expectedClassifications()->saveMany($classifications);
+                        $assets = CmoAsset::inRandomOrder()->limit(4)->get();
+                        $candidate->cmoAssets()->saveMany($assets);
+                    })->create();
             })
             ->create();
         // fill digital_careers salary, no classifications
@@ -82,11 +87,14 @@ class DatabaseSeeder extends Seeder
                 $user->cmoAssets()->sync($assets);
                 PoolCandidate::factory()->count(1)->sequence(fn () => [
                     'pool_id' => Pool::pluck('id', 'key')->toArray()['digital_careers'],
-                ])->for($user)->create();
+                ])->for($user)->afterCreating(function (PoolCandidate $candidate){
+                    $assets = CmoAsset::inRandomOrder()->limit(4)->get();
+                    $candidate->cmoAssets()->saveMany($assets);
+                })->create();
             })
             ->create();
 
-        // fill indigenous talent pool - classifications
+        // fill indigenous talent pool - classifications only
         // INCOMPLETE?
         User::factory([
             'roles' => [ApiEnums::ROLE_APPLICANT]
@@ -100,10 +108,15 @@ class DatabaseSeeder extends Seeder
             PoolCandidate::factory()->count(1)->sequence(fn () => [
                 'pool_id' => Pool::pluck('id', 'key')->toArray()['indigenous_apprenticeship'],
                 'expected_salary' => null
-            ])->for($user)->create();
+            ])->for($user)->afterCreating(function (PoolCandidate $candidate){
+                $classifications = Classification::take(5)->inRandomOrder()->limit(3)->get();
+                $candidate->expectedClassifications()->saveMany($classifications);
+                $assets = CmoAsset::inRandomOrder()->limit(4)->get();
+                $candidate->cmoAssets()->saveMany($assets);
+            })->create();
         })
         ->create();
-        // fill indigenous talent pool - salary
+        // fill indigenous talent pool - salary only
         User::factory([
             'roles' => [ApiEnums::ROLE_APPLICANT]
        ])
@@ -113,7 +126,10 @@ class DatabaseSeeder extends Seeder
             $user->cmoAssets()->sync($assets);
             PoolCandidate::factory()->count(1)->sequence(fn () => [
                 'pool_id' => Pool::pluck('id', 'key')->toArray()['indigenous_apprenticeship'],
-            ])->for($user)->create();
+            ])->for($user)->afterCreating(function (PoolCandidate $candidate){
+                $assets = CmoAsset::inRandomOrder()->limit(4)->get();
+                $candidate->cmoAssets()->saveMany($assets);
+            })->create();
         })
         ->create();
 
@@ -179,13 +195,6 @@ class DatabaseSeeder extends Seeder
                     $model->skills()->sync($data);
                 })->create();
         });
-
-        PoolCandidate::each(function($candidate) {
-            $classifications = Classification::take(5)->inRandomOrder()->limit(3)->get();
-            $candidate->expectedClassifications()->saveMany($classifications);
-            $assets = CmoAsset::inRandomOrder()->limit(4)->get();
-            $candidate->cmoAssets()->saveMany($assets);
-          });
 
         PoolCandidateSearchRequest::factory()->count(10)->create();
     }
