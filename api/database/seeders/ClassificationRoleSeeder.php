@@ -31,7 +31,7 @@ class ClassificationRoleSeeder extends Seeder
             [
                 'key' => 'analyst_it02',
                 'name' => [
-                    'en' => 'Analyst ',
+                    'en' => 'Analyst',
                     'fr' => ''
                 ],
                 'classification' => [
