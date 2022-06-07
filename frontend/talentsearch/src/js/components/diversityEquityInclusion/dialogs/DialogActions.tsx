@@ -12,7 +12,6 @@ const DialogActions: React.FC<DialogActionsProps> = ({ onDismiss }) => {
   return (
     <div
       data-h2-display="b(flex)"
-      data-h2-flex-direction="b(column) m(row)"
       data-h2-align-items="b(center)"
       data-h2-justify-content="b(space-between)"
     >
