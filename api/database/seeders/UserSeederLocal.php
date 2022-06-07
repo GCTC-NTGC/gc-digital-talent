@@ -16,11 +16,16 @@ class UserSeederLocal extends Seeder
      */
     public function run()
     {
-        // shared Laravel auth user
+        // shared auth users for testing
         User::factory()->create([
             'email' => 'admin@test.com',
             'sub' => 'admin@test.com',
             'roles' => [ApiEnums::ROLE_ADMIN, ApiEnums::ROLE_APPLICANT]
+        ]);
+        User::factory()->create([
+            'email' => 'applicant@test.com',
+            'sub' => 'applicant@test.com',
+            'roles' => [ApiEnums::ROLE_APPLICANT]
         ]);
 
         $fakeEmailDomain = '@talent.test';
