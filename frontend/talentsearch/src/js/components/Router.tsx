@@ -37,6 +37,7 @@ import BrowseIndividualPoolApi from "./browse/BrowseIndividualPool";
 import PoolApplyPage from "./pool/PoolApplyPage";
 import PoolApplicationThanksPage from "./pool/PoolApplicationThanksPage";
 import RegisterPage from "./register/RegisterPage";
+import LoggedOutPage from "./loggedOut/LoggedOutPage";
 
 const talentRoutes = (
   talentPaths: TalentSearchRoutes,
@@ -67,6 +68,12 @@ const authRoutes = (authPaths: AuthRoutes): Routes<RouterResult> => [
     path: authPaths.register(),
     action: () => ({
       component: <RegisterPage />,
+    }),
+  },
+  {
+    path: authPaths.loggedOut(),
+    action: () => ({
+      component: <LoggedOutPage />,
     }),
   },
 ];

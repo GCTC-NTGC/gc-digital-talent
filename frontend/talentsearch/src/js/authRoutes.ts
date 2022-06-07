@@ -9,6 +9,7 @@ const authRoutes = (lang: string) => {
 
   return {
     register: (): string => path.join(home(), "register"),
+    loggedOut: (): string => path.join(home(), "logged-out"),
   };
 };
 
