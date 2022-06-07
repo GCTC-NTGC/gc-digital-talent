@@ -3,6 +3,7 @@ import "../src/css/app.css"
 import { setIntlConfig, withIntl } from 'storybook-addon-intl';
 import TalentSearchFrench from "../src/js/lang/frCompiled.json";
 import CommonFrench from "../../common/src/lang";
+import MockGraphqlDecorator from "../../common/.storybook/decorators/MockGraphqlDecorator";
 
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
@@ -27,6 +28,7 @@ setIntlConfig({
 })
 
 export const decorators = [
+    MockGraphqlDecorator,
     withIntl,
     (Story) => (
       <div data-h2-font-family="b(sans)">

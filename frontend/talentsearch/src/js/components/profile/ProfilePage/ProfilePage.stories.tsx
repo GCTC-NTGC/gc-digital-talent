@@ -6,8 +6,6 @@ import { JobLookingStatus } from "@common/api/generated";
 import { ProfilePage, ProfileForm } from "./ProfilePage";
 import { User } from "../../../api/generated";
 
-import MockGraphqlDecorator from "../../../../../.storybook/decorators/MockGraphqlDecorator";
-
 const fakeUserData = fakeUsers(1)[0];
 const fakeExperienceArray = fakeExperiences(3);
 
@@ -15,7 +13,6 @@ export default {
   component: ProfilePage,
   title: "Profile Form",
   args: {},
-  decorators: [MockGraphqlDecorator],
   parameters: {
     apiResponses: {
       getMyStatus: {
