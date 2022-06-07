@@ -102,7 +102,7 @@ class AuthServiceProviderTest extends TestCase
     public function testUserIsNotAutoCreatedWhenAlreadyExisting()
     {
         $testSub = 'test-sub';
-        $testRoles = ['TEST'];
+        $testRoles = ["TEST"];
 
         $mockClaims = Mockery::mock(new DataSet(['sub' => $testSub], ''));
 
