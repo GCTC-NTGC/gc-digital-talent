@@ -7,8 +7,12 @@ import { useApiRoutes } from "@common/hooks/useApiRoutes";
 
 import TALENTSEARCH_APP_DIR from "../../talentSearchConstants";
 
-const keyRegistrationLink = (path: string, ...chunks: string[]) => (
+const keyRegistrationLink = (path: string, ...chunks: React.ReactNode[]) => (
   <a href={path}>{chunks}</a>
+);
+
+const boldText = (...chunks: React.ReactNode[]) => (
+  <span data-h2-font-weight="b(800)">{chunks}</span>
 );
 
 const RegisterPage: React.FC = () => {
@@ -59,12 +63,13 @@ const RegisterPage: React.FC = () => {
           {intl.formatMessage(
             {
               defaultMessage:
-                "Don't have a GC Key account? <a>Register for one.</a>",
+                "<b>Don't have a GC Key account?</b> <a>Register for one.</a>",
               description:
                 "Instruction on what to do if user does not have a GC Key.",
             },
             {
-              a: (chunks) => keyRegistrationLink(paths.login(), ...chunks),
+              a: (...chunks) => keyRegistrationLink(paths.login(), chunks),
+              b: boldText,
             },
           )}
         </p>
