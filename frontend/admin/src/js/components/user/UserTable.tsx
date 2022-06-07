@@ -2,13 +2,12 @@ import React, { useMemo } from "react";
 import { IntlShape, useIntl } from "react-intl";
 import { Link, useLocation } from "@common/helpers/router";
 import { notEmpty } from "@common/helpers/util";
-import { commonMessages } from "@common/messages";
 import { FromArray } from "@common/types/utilityTypes";
 import { getLanguage } from "@common/constants/localizedConstants";
+import Pending from "@common/components/Pending";
 import { useAdminRoutes } from "../../adminRoutes";
 import { AllUsersQuery, Language, useAllUsersQuery } from "../../api/generated";
 import Table, { ColumnsOf, tableEditButtonAccessor } from "../Table";
-import DashboardContentContainer from "../DashboardContentContainer";
 
 type Data = NonNullable<FromArray<AllUsersQuery["users"]>>;
 
@@ -106,26 +105,13 @@ export const UserTable: React.FC<AllUsersQuery & { editUrlRoot: string }> = ({
 };
 
 export const UserTableApi: React.FunctionComponent = () => {
-  const intl = useIntl();
   const [result] = useAllUsersQuery();
   const { data, fetching, error } = result;
   const { pathname } = useLocation();
 
-  if (fetching)
-    return (
-      <DashboardContentContainer>
-        <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>
-      </DashboardContentContainer>
-    );
-  if (error)
-    return (
-      <DashboardContentContainer>
-        <p>
-          {intl.formatMessage(commonMessages.loadingError)}
-          {error.message}
-        </p>
-      </DashboardContentContainer>
-    );
-
-  return <UserTable users={data?.users ?? []} editUrlRoot={pathname} />;
+  return (
+    <Pending fetching={fetching} error={error}>
+      <UserTable users={data?.users ?? []} editUrlRoot={pathname} />
+    </Pending>
+  );
 };

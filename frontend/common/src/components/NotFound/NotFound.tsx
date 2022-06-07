@@ -10,6 +10,7 @@ const NotFound: React.FC<NotFoundProps> = ({ headingMessage, children }) => {
     <div
       data-h2-flex-grid="b(top, contained, flush, xl)"
       data-h2-container="b(center, l)"
+      aria-live="polite"
     >
       <div data-h2-flex-item="b(1of1)" data-h2-text-align="b(center)">
         <h3

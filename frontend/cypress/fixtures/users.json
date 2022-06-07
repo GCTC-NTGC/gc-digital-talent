@@ -5,10 +5,10 @@
     "email": "admin@test.com",
     "password": "Test123!"
   },
-  "user": {
-    "first": "Test User",
-    "last": "Test User",
-    "email": "test.user@talent.test",
+  "applicant": {
+    "first": "Test Applicant",
+    "last": "Test Applicant",
+    "email": "applicant@test.com",
     "password": "testpassword"
   }
 }

@@ -1,13 +1,12 @@
 import React, { useMemo } from "react";
 import { useIntl } from "react-intl";
-import commonMessages from "@common/messages/commonMessages";
 import { useLocation } from "@common/helpers/router";
 import { notEmpty } from "@common/helpers/util";
 import { FromArray } from "@common/types/utilityTypes";
 import { getLocale } from "@common/helpers/localize";
+import Pending from "@common/components/Pending";
 import { DepartmentsQuery, useDepartmentsQuery } from "../../api/generated";
 import Table, { ColumnsOf, tableEditButtonAccessor } from "../Table";
-import DashboardContentContainer from "../DashboardContentContainer";
 
 type Data = NonNullable<FromArray<DepartmentsQuery["departments"]>>;
 
@@ -50,31 +49,16 @@ export const DepartmentTable: React.FC<
 };
 
 export const DepartmentTableApi: React.FunctionComponent = () => {
-  const intl = useIntl();
   const [result] = useDepartmentsQuery();
   const { data, fetching, error } = result;
   const { pathname } = useLocation();
 
-  if (fetching)
-    return (
-      <DashboardContentContainer>
-        <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>
-      </DashboardContentContainer>
-    );
-  if (error)
-    return (
-      <DashboardContentContainer>
-        <p>
-          {intl.formatMessage(commonMessages.loadingError)}
-          {error.message}
-        </p>
-      </DashboardContentContainer>
-    );
-
   return (
-    <DepartmentTable
-      departments={data?.departments ?? []}
-      editUrlRoot={pathname}
-    />
+    <Pending fetching={fetching} error={error}>
+      <DepartmentTable
+        departments={data?.departments ?? []}
+        editUrlRoot={pathname}
+      />
+    </Pending>
   );
 };

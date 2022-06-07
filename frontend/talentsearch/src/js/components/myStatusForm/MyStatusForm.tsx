@@ -1,5 +1,5 @@
 import { navigate } from "@common/helpers/router";
-import { commonMessages, errorMessages } from "@common/messages";
+import { errorMessages } from "@common/messages";
 import React from "react";
 import { SubmitHandler } from "react-hook-form";
 import { useIntl } from "react-intl";
@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 import { enumToOptions } from "@common/helpers/formUtils";
 import { getJobLookingStatusDescription } from "@common/constants/localizedConstants";
 import { BasicForm, RadioGroup } from "@common/components/form";
+import Pending from "@common/components/Pending";
 import { useApplicantProfileRoutes } from "../../applicantProfileRoutes";
 import {
   UpdateUserAsUserInput,
@@ -16,6 +17,7 @@ import {
   UpdateMyStatusMutation,
   JobLookingStatus,
 } from "../../api/generated";
+import profileMessages from "../profile/profileMessages";
 
 export type FormValues = Pick<UpdateUserAsUserInput, "jobLookingStatus">;
 
@@ -171,7 +173,6 @@ const MyStatusApi: React.FunctionComponent = () => {
       return Promise.reject(result.error);
     });
 
-  if (fetching) return <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>;
   if (error) {
     toast.error(
       intl.formatMessage({
@@ -180,22 +181,19 @@ const MyStatusApi: React.FunctionComponent = () => {
           "Message displayed to user after user fails to get updated.",
       }),
     );
-    return (
-      <p>
-        {intl.formatMessage(commonMessages.loadingError)}
-        {error.message}
-      </p>
-    );
   }
-  return initialData?.me ? (
-    <MyStatusForm initialData={initialData} handleMyStatus={handleMyStatus} />
-  ) : (
-    <p>
-      {intl.formatMessage({
-        defaultMessage: "User not found.",
-        description: "Message displayed for user not found.",
-      })}
-    </p>
+
+  return (
+    <Pending fetching={fetching} error={error}>
+      {initialData?.me ? (
+        <MyStatusForm
+          initialData={initialData}
+          handleMyStatus={handleMyStatus}
+        />
+      ) : (
+        <p>{intl.formatMessage(profileMessages.userNotFound)}</p>
+      )}
+    </Pending>
   );
 };
 export default MyStatusApi;

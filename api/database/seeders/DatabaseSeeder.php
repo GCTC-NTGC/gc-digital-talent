@@ -19,7 +19,7 @@ use App\Models\EducationExperience;
 use App\Models\PersonalExperience;
 use App\Models\WorkExperience;
 use Faker;
-
+use Database\Helpers\ApiEnums;
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -52,7 +52,9 @@ class DatabaseSeeder extends Seeder
         $this->call(UserSeederLocal::class);
         $this->call(PoolSeeder::class);
 
-        User::factory()
+        User::factory([
+             'roles' => [ApiEnums::ROLE_APPLICANT]
+        ])
             ->count(60)
             ->afterCreating(function (User $user) {
                 $assets = CmoAsset::inRandomOrder()->limit(4)->pluck('id')->toArray();

@@ -17,6 +17,10 @@ const messages = defineMessages({
     defaultMessage: "Optional",
     description: "Displayed next to optional form inputs.",
   },
+  notFound: {
+    defaultMessage: "Not found",
+    description: "Title displayed when an item cannot be found.",
+  },
 });
 
 export default messages;

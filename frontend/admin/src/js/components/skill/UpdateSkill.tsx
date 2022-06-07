@@ -10,6 +10,8 @@ import { navigate } from "@common/helpers/router";
 import { getLocale } from "@common/helpers/localize";
 import { unpackIds } from "@common/helpers/formUtils";
 import { errorMessages, commonMessages } from "@common/messages";
+import Pending from "@common/components/Pending";
+import NotFound from "@common/components/NotFound";
 import { useAdminRoutes } from "../../adminRoutes";
 import {
   Skill,
@@ -237,42 +239,32 @@ export const UpdateSkill: React.FunctionComponent<{
       return Promise.reject(result.error);
     });
 
-  if (fetching)
-    return (
+  return (
+    <Pending fetching={fetching} error={error}>
       <DashboardContentContainer>
-        <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>
-      </DashboardContentContainer>
-    );
-  if (error)
-    return (
-      <DashboardContentContainer>
-        <p>
-          {intl.formatMessage(commonMessages.loadingError)}
-          {error.message}
-        </p>
-      </DashboardContentContainer>
-    );
-
-  return lookupData?.skill ? (
-    <DashboardContentContainer>
-      <UpdateSkillForm
-        initialSkill={lookupData?.skill}
-        families={families}
-        handleUpdateSkill={handleUpdateSkill}
-      />
-    </DashboardContentContainer>
-  ) : (
-    <DashboardContentContainer>
-      <p>
-        {intl.formatMessage(
-          {
-            defaultMessage: "Skill {skillId} not found.",
-            description: "Message displayed for skill not found.",
-          },
-          { skillId },
+        {lookupData?.skill ? (
+          <UpdateSkillForm
+            initialSkill={lookupData?.skill}
+            families={families}
+            handleUpdateSkill={handleUpdateSkill}
+          />
+        ) : (
+          <NotFound
+            headingMessage={intl.formatMessage(commonMessages.notFound)}
+          >
+            <p>
+              {intl.formatMessage(
+                {
+                  defaultMessage: "Skill {skillId} not found.",
+                  description: "Message displayed for skill not found.",
+                },
+                { skillId },
+              )}
+            </p>
+          </NotFound>
         )}
-      </p>
-    </DashboardContentContainer>
+      </DashboardContentContainer>
+    </Pending>
   );
 };
 

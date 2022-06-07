@@ -13,6 +13,7 @@ import { getDateRange } from "../../../../helpers/dateUtils";
 
 type EducationAccordionProps = EducationExperience & {
   editUrl?: string; // A link to edit the experience will only appear if editUrl is defined.
+  defaultOpen?: boolean;
 };
 
 const EducationAccordion: React.FunctionComponent<EducationAccordionProps> = ({
@@ -26,6 +27,7 @@ const EducationAccordion: React.FunctionComponent<EducationAccordionProps> = ({
   thesisTitle,
   skills,
   editUrl,
+  defaultOpen = false,
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
@@ -67,6 +69,7 @@ const EducationAccordion: React.FunctionComponent<EducationAccordionProps> = ({
             )
       }
       Icon={BriefCaseIcon}
+      defaultOpen={defaultOpen}
     >
       <div data-h2-padding="b(left, l)">
         <p>

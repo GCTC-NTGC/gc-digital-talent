@@ -2,17 +2,16 @@ import React, { useMemo } from "react";
 import { IntlShape, useIntl } from "react-intl";
 import { notEmpty } from "@common/helpers/util";
 import { useLocation } from "@common/helpers/router";
-import { commonMessages } from "@common/messages";
 import { FromArray } from "@common/types/utilityTypes";
 import { getLocale } from "@common/helpers/localize";
 import { getPoolCandidateSearchStatus } from "@common/constants/localizedConstants";
 import { PoolCandidateSearchStatus } from "@common/api/generated";
+import Pending from "@common/components/Pending";
 import {
   GetPoolCandidateSearchRequestsQuery,
   useGetPoolCandidateSearchRequestsQuery,
 } from "../../api/generated";
 import Table, { ColumnsOf, tableEditButtonAccessor } from "../Table";
-import DashboardContentContainer from "../DashboardContentContainer";
 import { useAdminRoutes } from "../../adminRoutes";
 
 type Data = NonNullable<
@@ -132,31 +131,16 @@ export const SearchRequestTable: React.FunctionComponent<
 };
 
 export const SearchRequestTableApi: React.FunctionComponent = () => {
-  const intl = useIntl();
   const [result] = useGetPoolCandidateSearchRequestsQuery();
   const { data, fetching, error } = result;
   const { pathname } = useLocation();
 
-  if (fetching)
-    return (
-      <DashboardContentContainer>
-        <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>
-      </DashboardContentContainer>
-    );
-  if (error)
-    return (
-      <DashboardContentContainer>
-        <p>
-          {intl.formatMessage(commonMessages.loadingError)}
-          {error.message}
-        </p>
-      </DashboardContentContainer>
-    );
-
   return (
-    <SearchRequestTable
-      poolCandidateSearchRequests={data?.poolCandidateSearchRequests ?? []}
-      editUrlRoot={pathname}
-    />
+    <Pending fetching={fetching} error={error}>
+      <SearchRequestTable
+        poolCandidateSearchRequests={data?.poolCandidateSearchRequests ?? []}
+        editUrlRoot={pathname}
+      />
+    </Pending>
   );
 };
