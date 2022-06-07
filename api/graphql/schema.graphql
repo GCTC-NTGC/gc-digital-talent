@@ -306,14 +306,6 @@ enum SalaryRange {
     _100K_PLUS
 }
 
-enum ClassificationRole{
-    TECHNICIAN
-    ANALYST
-    TEAM_LEADER
-    TECHNICAL_ADVISOR
-    SENIOR_ADVISOR
-    MANAGER
-}
 
 type ClassificationRoles{
     id: ID!

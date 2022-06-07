@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  *
  * @property int $id
  * @property string $key
- * @property array $role_name
+ * @property array $name
  * @property int $classification_id
  * @property Illuminate\Support\Carbon $created_at
  * @property Illuminate\Support\Carbon $updated_at
@@ -32,11 +32,11 @@ class ClassificationRoles extends Model
      * @var array
      */
     protected $casts = [
-        'role_name' => 'array',
+        'name' => 'array',
 
     ];
 
-    public function currentClassification(): HasMany
+    public function classification(): HasMany
     {
         return $this->hasMany(Classification::class, "classification_id");
     }

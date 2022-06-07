@@ -15,61 +15,85 @@ class ClassificationRoleSeeder extends Seeder
     {
       $roles = [
             [
-                'key' => 'technician ',
+                'key' => 'technician_it01 ',
                 'name' => [
                     'en' => 'Technician ',
                     'fr' => ''
                 ],
+                'classification' => [
+                    'group' => 'IT',
+                    'level' => 1,
+                ],
             ],
             [
-                'key' => 'analyst ',
+                'key' => 'analyst_it02 ',
                 'name' => [
                     'en' => 'Analyst ',
                     'fr' => ''
                 ],
+                'classification' => [
+                    'group' => 'IT',
+                    'level' => 2,
+                ],
             ],
             [
-                'key' => 'team_leader',
+                'key' => 'team_leader_it03',
                 'name' => [
                     'en' => 'Team leader',
                     'fr' => ''
                 ],
+                'classification' => [
+                    'group' => 'IT',
+                    'level' => 3,
+                ],
+
             ],
             [
-                'key' => 'technical_advisor',
+                'key' => 'technical_advisor_it03',
                 'name' => [
                     'en' => 'Technical advisor',
                     'fr' => ''
                 ],
+                'classification' => [
+                    'group' => 'IT',
+                    'level' => 3,
+                    ],
             ],
             [
-                'key' => 'senior_advisor',
+                'key' => 'senior_advisor_it04',
                 'name' => [
                     'en' => 'Senior advisor',
                     'fr' => 'Administration de bases de données'
                 ],
-            ],
-            [
-                'key' => 'enterprise_architecture',
-                'name' => [
-                    'en' => 'Enterprise Architecture (EA)',
-                    'fr' => 'Architecture d\'entreprise (EA)'
+                'classification' => [
+                    'group' => 'IT',
+                    'level' => 4,
                 ],
+
             ],
             [
-                'key' => 'manager',
+                'key' => 'manager_it04',
                 'name' => [
                     'en' => 'Manager',
                     'fr' => ''
                 ],
+                'classification' => [
+                    'group' => 'IT',
+                    'level' => 4,
+                ],
+
             ],
         ];
+
+
         foreach ($roles as $role) {
             $identifier = [
-                'key' => $roles['key'],
+               'key' => $roles['key'],
             ];
-            ClassificationRoles::updateOrCreate($identifier, $roles);
+           ClassificationRoles::updateOrCreate($identifier, $roles);
+           Classification::where(['group' => $role['classification']['group'], 'level' => $role['classification']['level']])->first()->id;
+
         }
-    }  
+    }
 }
 
