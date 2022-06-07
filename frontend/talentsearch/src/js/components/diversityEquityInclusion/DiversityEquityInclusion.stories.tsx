@@ -2,7 +2,6 @@ import React from "react";
 import type { Meta, Story } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 import { fakeUsers } from "@common/fakeData";
-import { User } from "../../api/generated";
 import type { UpdateUserAsUserInput } from "../../api/generated";
 import {
   DiversityEquityInclusionForm,

@@ -6,7 +6,6 @@ import { screen, fireEvent, waitFor } from "@testing-library/react";
 import React from "react";
 import { fakeUsers } from "@common/fakeData";
 import { act } from "react-dom/test-utils";
-import { UpdateUserAsUserInput } from "@common/api/generated";
 import {
   DiversityEquityInclusionForm,
   type DiversityEquityInclusionFormProps,
