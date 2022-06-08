@@ -318,7 +318,7 @@ type ClassificationRole{
     id: ID!
     key: KeyString!
     name: LocalizedString
-    classification: Classfication @belongsTo
+    classification: Classification @belongsTo
 }
 
 type Classification {
@@ -620,8 +620,8 @@ type Query {
     skillFamilies: [SkillFamily]! @all
     skill(id: ID! @eq): Skill @find
     skills: [Skill]! @all
-    classificationRole(id: ID! @eq):ClassificationRoles @find
-    classificationRoles:[ClassificationRoles]! @all
+    classificationRole(id: ID! @eq):ClassificationRole @find
+    classificationRoles:[ClassificationRole]! @all
 }
 input ClassificationBelongsTo {
     connect: ID
@@ -1077,8 +1077,8 @@ input EducationExperienceHasMany {
 input AwardExperienceHasMany {
     create: [AwardExperienceInput!]
 }
-input ClassificationRolesHasMany {
-  sync: [ID!]
+input ClassificationRoleBelongsToMany {
+    sync: [ID!]
 }
 
 type Mutation {
