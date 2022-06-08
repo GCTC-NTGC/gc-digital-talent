@@ -194,6 +194,7 @@ const directIntakeRoutes = (
     path: directIntakePaths.allPools(),
     action: () => ({
       component: <BrowsePoolsPage />,
+      authorizedRoles: [Role.Applicant],
     }),
   },
   {
@@ -202,6 +203,7 @@ const directIntakeRoutes = (
       const poolId = context.params.id as string;
       return {
         component: <BrowseIndividualPoolApi poolId={poolId} />,
+        authorizedRoles: [Role.Applicant],
       };
     },
   },
@@ -221,6 +223,7 @@ const directIntakeRoutes = (
       const poolId = context.params.id as string;
       return {
         component: <PoolApplicationThanksPage id={poolId} />,
+        authorizedRoles: [Role.Applicant],
       };
     },
   },
