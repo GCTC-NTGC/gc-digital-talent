@@ -1,4 +1,4 @@
-import React, { ReactElement, useRef } from "react";
+import React, { HTMLAttributes, ReactElement, useRef } from "react";
 import { Routes } from "universal-router";
 import { useIntl } from "react-intl";
 import NavMenu from "@common/components/NavMenu";
@@ -21,32 +21,42 @@ interface MenuLinkProps {
   href: string;
   text: string;
   title?: string;
+  as?: "a" | "button" | typeof Link;
   isActive?: (href: string, path: string) => boolean;
+  onClick?: () => void;
 }
 
 export const MenuLink: React.FC<MenuLinkProps> = ({
   href,
   text,
   title,
+  as = Link,
   isActive = exactMatch,
+  ...rest
 }) => {
   const location = useLocation();
+  const El = as;
   return (
-    <Link
+    <El
       href={href}
       title={title ?? ""}
-      {...{
-        "data-h2-font-color": "b(lightpurple)",
+      data-h2-font-color="b(lightpurple)"
+      data-h2-font-size="b(normal)"
+      style={{
+        border: "none",
+        background: "none",
+        textDecoration: "underline",
       }}
+      {...rest}
     >
-      <div
+      <span
         data-h2-font-weight={
           isActive(href, location.pathname) ? "b(700)" : "b(100)"
         }
       >
         {text}
-      </div>
-    </Link>
+      </span>
+    </El>
   );
 };
 
