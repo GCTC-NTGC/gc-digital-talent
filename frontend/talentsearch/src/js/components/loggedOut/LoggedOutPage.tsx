@@ -2,8 +2,10 @@ import React from "react";
 import { useIntl } from "react-intl";
 
 import TileLink from "@common/components/TileLink";
-import { imageUrl } from "@common/helpers/router";
+import { imageUrl, navigate } from "@common/helpers/router";
 import { useApiRoutes } from "@common/hooks/useApiRoutes";
+import Dialog from "@common/components/Dialog";
+import { Button, Link } from "@common/components";
 import { useDirectIntakeRoutes } from "../../directIntakeRoutes";
 import { useTalentSearchRoutes } from "../../talentSearchRoutes";
 
@@ -11,6 +13,8 @@ import TALENTSEARCH_APP_DIR from "../../talentSearchConstants";
 
 const LoggedOutPage: React.FC = () => {
   const intl = useIntl();
+  const isLoggedIn = true; // TO DO: Replace with AuthContext
+  const [isModalOpen, setModalOpen] = React.useState<boolean>(isLoggedIn);
   const apiPaths = useApiRoutes();
   const directIntakePaths = useDirectIntakeRoutes();
   const talentPaths = useTalentSearchRoutes();
@@ -93,6 +97,54 @@ const LoggedOutPage: React.FC = () => {
           </div>
         </div>
       </div>
+      <Dialog
+        confirmation
+        centered
+        isOpen={isModalOpen}
+        onDismiss={() => {
+          navigate(talentPaths.profile());
+        }}
+        title={intl.formatMessage({
+          defaultMessage: "Logout",
+          description:
+            "Title for the modal that appears when an authenticated user lands on /logged-out.",
+        })}
+        footer={
+          <div
+            data-h2-display="b(flex)"
+            data-h2-align-items="b(center)"
+            data-h2-justify-content="b(flex-end)"
+          >
+            <Link
+              mode="outline"
+              color="primary"
+              type="button"
+              href={talentPaths.home()}
+            >
+              {intl.formatMessage({
+                defaultMessage: "Cancel",
+                description: "Link text to cancel logging out.",
+              })}
+            </Link>
+            <span data-h2-margin="b(left, s)">
+              <Link mode="solid" color="primary" type="button" href="/logout">
+                {intl.formatMessage({
+                  defaultMessage: "Logout",
+                  description: "Link text to logout.",
+                })}
+              </Link>
+            </span>
+          </div>
+        }
+      >
+        <p data-h2-font-size="b(h5)">
+          {intl.formatMessage({
+            defaultMessage: "Are you sure you would like to logout?",
+            description:
+              "Question displayed when authenticated user lands on /logged-out.",
+          })}
+        </p>
+      </Dialog>
     </>
   );
 };
