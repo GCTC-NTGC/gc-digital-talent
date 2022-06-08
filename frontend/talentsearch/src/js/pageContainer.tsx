@@ -1,13 +1,18 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import LanguageRedirectContainer from "@common/components/LanguageRedirectContainer";
-import { Router } from "./components/Router";
 
-import * as TalentSearchFrench from "./lang/frCompiled.json";
+import ContextContainer from "@common/components/context";
+import { Messages } from "@common/components/LanguageRedirectContainer";
+import { Router } from "./components/Router";
+import talentSearchRoutes from "./talentSearchRoutes";
+import * as talentSearchFrench from "./lang/frCompiled.json";
 
 ReactDOM.render(
-  <LanguageRedirectContainer messages={TalentSearchFrench}>
+  <ContextContainer
+    homePath={talentSearchRoutes("").home()}
+    messages={talentSearchFrench as Messages}
+  >
     <Router />
-  </LanguageRedirectContainer>,
+  </ContextContainer>,
   document.getElementById("app"),
 );

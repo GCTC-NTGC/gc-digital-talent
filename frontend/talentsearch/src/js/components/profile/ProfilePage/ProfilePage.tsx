@@ -1,6 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import commonMessages from "@common/messages/commonMessages";
+import NotFound from "@common/components/NotFound";
+import Pending from "@common/components/Pending";
 import { imageUrl } from "@common/helpers/router";
 import { notEmpty } from "@common/helpers/util";
 import ExperienceSection from "@common/components/UserProfile/ExperienceSection";
@@ -8,10 +9,12 @@ import ExperienceSection from "@common/components/UserProfile/ExperienceSection"
 import UserProfile from "@common/components/UserProfile";
 import type { Applicant } from "@common/api/generated";
 
+import { commonMessages } from "@common/messages";
 import MyStatusApi from "../../myStatusForm/MyStatusForm";
 import TALENTSEARCH_APP_DIR from "../../../talentSearchConstants";
 import { useApplicantProfileRoutes } from "../../../applicantProfileRoutes";
 import { useGetMeQuery, User, GetMeQuery } from "../../../api/generated";
+import profileMessages from "../profileMessages";
 
 export interface ProfilePageProps {
   profileDataInput: User;
@@ -107,22 +110,15 @@ export const ProfilePage: React.FunctionComponent = () => {
   };
   const userData = data ? dataToUser(data) : undefined;
 
-  if (fetching) return <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>;
-  if (error)
-    return (
-      <p>
-        {intl.formatMessage(commonMessages.loadingError)}
-        {error.message}
-      </p>
-    );
-
-  if (userData) return <ProfileForm profileDataInput={userData} />;
   return (
-    <p>
-      {intl.formatMessage({
-        defaultMessage: "No user data",
-        description: "No user data was found",
-      })}
-    </p>
+    <Pending fetching={fetching} error={error}>
+      {userData ? (
+        <ProfileForm profileDataInput={userData} />
+      ) : (
+        <NotFound headingMessage={intl.formatMessage(commonMessages.notFound)}>
+          <p>{intl.formatMessage(profileMessages.userNotFound)}</p>
+        </NotFound>
+      )}
+    </Pending>
   );
 };

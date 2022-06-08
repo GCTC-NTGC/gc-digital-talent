@@ -1,16 +1,16 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { useForm, FormProvider } from "react-hook-form";
-import { errorMessages, commonMessages } from "@common/messages";
+import { errorMessages } from "@common/messages";
 import { Checkbox, RadioGroup, Select } from "@common/components/form";
 import { getLocale } from "@common/helpers/localize";
 import { strong } from "@common/helpers/format";
 import { toast } from "react-toastify";
 import { empty, notEmpty } from "@common/helpers/util";
 import { navigate } from "@common/helpers/router";
-
 import { getGovEmployeeType } from "@common/constants/localizedConstants";
 import { enumToOptions } from "@common/helpers/formUtils";
+import Pending from "@common/components/Pending";
 import {
   Classification,
   useGetAllClassificationsAndMeQuery,
@@ -393,19 +393,19 @@ export const GovInfoFormContainer: React.FunctionComponent = () => {
 
   // acquire classifications from graphQL to pass into component to render and pull "Me" at the same time
   const [lookUpResult] = useGetAllClassificationsAndMeQuery();
-  const { data: lookupData, fetching: fetchingLookupData } = lookUpResult;
-  const preProfileStatus = lookupData?.me?.isProfileComplete;
+  const { data, fetching, error } = lookUpResult;
+  const preProfileStatus = data?.me?.isProfileComplete;
   const classifications: Classification[] | [] =
-    lookupData?.classifications.filter(notEmpty) ?? [];
-  const meInfo = lookupData?.me;
+    data?.classifications.filter(notEmpty) ?? [];
+  const meInfo = data?.me;
   const meId = meInfo?.id;
 
   // submitting the form component values back out to graphQL, after smoothing form-values to appropriate type, then return to /profile
   const [, executeMutation] = useUpdateGovAsUserMutation();
-  const handleUpdateUser = (id: string, data: UpdateUserAsUserInput) =>
+  const handleUpdateUser = (id: string, updateData: UpdateUserAsUserInput) =>
     executeMutation({
       id,
-      user: data,
+      user: updateData,
     }).then((result) => {
       if (result.data?.updateUserAsUser) {
         return result.data.updateUserAsUser;
@@ -413,7 +413,7 @@ export const GovInfoFormContainer: React.FunctionComponent = () => {
       return Promise.reject(result.error);
     });
 
-  const onSubmit = async (data: UpdateUserAsUserInput) => {
+  const onSubmit = async (updateDate: UpdateUserAsUserInput) => {
     // tristan's suggestion to short-circuit this function if there is no id
     if (meId === undefined || meId === "") {
       toast.error(
@@ -424,7 +424,7 @@ export const GovInfoFormContainer: React.FunctionComponent = () => {
       );
       return;
     }
-    await handleUpdateUser(meId, data)
+    await handleUpdateUser(meId, updateDate)
       .then((res) => {
         if (res.isProfileComplete) {
           const currentProfileStatus = res.isProfileComplete;
@@ -441,16 +441,14 @@ export const GovInfoFormContainer: React.FunctionComponent = () => {
       });
   };
 
-  if (fetchingLookupData) {
-    return <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>;
-  }
-
   return (
-    <GovInfoFormWithProfileWrapper
-      classifications={classifications}
-      initialData={meInfo}
-      submitHandler={onSubmit}
-    />
+    <Pending fetching={fetching} error={error}>
+      <GovInfoFormWithProfileWrapper
+        classifications={classifications}
+        initialData={meInfo}
+        submitHandler={onSubmit}
+      />
+    </Pending>
   );
 };
 

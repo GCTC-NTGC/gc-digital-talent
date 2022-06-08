@@ -2,14 +2,13 @@ import React, { useMemo } from "react";
 import { useIntl } from "react-intl";
 import { useLocation } from "@common/helpers/router";
 import { notEmpty } from "@common/helpers/util";
-import { commonMessages } from "@common/messages";
 import { FromArray } from "@common/types/utilityTypes";
 import { getLocale } from "@common/helpers/localize";
+import Pending from "@common/components/Pending";
 import {
   GetClassificationsQuery,
   useGetClassificationsQuery,
 } from "../../api/generated";
-import DashboardContentContainer from "../DashboardContentContainer";
 import Table, { ColumnsOf, tableEditButtonAccessor } from "../Table";
 
 type Data = NonNullable<FromArray<GetClassificationsQuery["classifications"]>>;
@@ -95,30 +94,16 @@ export const ClassificationTable: React.FC<
 };
 
 export const ClassificationTableApi: React.FunctionComponent = () => {
-  const intl = useIntl();
   const [result] = useGetClassificationsQuery();
   const { data, fetching, error } = result;
   const { pathname } = useLocation();
 
-  if (fetching)
-    return (
-      <DashboardContentContainer>
-        <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>
-      </DashboardContentContainer>
-    );
-  if (error)
-    return (
-      <DashboardContentContainer>
-        <p>
-          {intl.formatMessage(commonMessages.loadingError)} {error.message}
-        </p>
-      </DashboardContentContainer>
-    );
-
   return (
-    <ClassificationTable
-      classifications={data?.classifications ?? []}
-      editUrlRoot={pathname}
-    />
+    <Pending fetching={fetching} error={error}>
+      <ClassificationTable
+        classifications={data?.classifications ?? []}
+        editUrlRoot={pathname}
+      />
+    </Pending>
   );
 };

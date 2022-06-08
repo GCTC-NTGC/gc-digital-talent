@@ -1,4 +1,5 @@
 schema: ../../api/storage/app/lighthouse-schema.graphql
+documents: ./src/**/*.graphql
 generates:
   ./src/api/generated.ts:
     plugins:

@@ -43,6 +43,20 @@ DirectorySlash off
     # Send localized talent requests also to talentsearch dist folder;
     RewriteRule ^(en|fr)/browse(/(.*))?$ frontend/talentsearch/dist/$3 [L]
 
+    # Send register requests to talentsearch dist folder (with or without public/ path prefix).
+    RewriteRule ^register/public(/(.*))?$ frontend/talentsearch/dist/$2 [L]
+    RewriteRule ^register(/(.*))?$ frontend/talentsearch/dist/$2 [L]
+
+    # Send localized talent requests also to talentsearch dist folder;
+    RewriteRule ^(en|fr)/register(/(.*))?$ frontend/talentsearch/dist/$3 [L]
+
+    # Send login-info requests to talentsearch dist folder (with or without public/ path prefix).
+    RewriteRule ^login-info/public(/(.*))?$ frontend/talentsearch/dist/$2 [L]
+    RewriteRule ^login-info(/(.*))?$ frontend/talentsearch/dist/$2 [L]
+
+    # Send localized talent requests also to talentsearch dist folder;
+    RewriteRule ^(en|fr)/login-info(/(.*))?$ frontend/talentsearch/dist/$3 [L]
+
     # Indigenous Apprenticeship routes
     RewriteRule ^indigenous-it-apprentice(/(.*))?$ frontend/indigenousapprenticeship/dist/$2 [L]
     RewriteRule ^(en|fr)/indigenous-it-apprentice(/(.*))?$ frontend/indigenousapprenticeship/dist/$3 [L]

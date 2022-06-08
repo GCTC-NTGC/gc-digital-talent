@@ -28,11 +28,13 @@ export interface ExperiencePaths {
 export interface AccordionProps {
   experience: AnyExperience;
   editPaths?: ExperiencePaths;
+  defaultOpen?: boolean;
 }
 
 const ExperienceAccordion: React.FunctionComponent<AccordionProps> = ({
   experience,
   editPaths,
+  defaultOpen = false,
 }) => {
   const intl = useIntl();
 
@@ -43,6 +45,7 @@ const ExperienceAccordion: React.FunctionComponent<AccordionProps> = ({
     return AwardAccordion({
       ...experience,
       editUrl,
+      defaultOpen,
     });
   }
   if (isCommunityExperience(experience)) {
@@ -52,6 +55,7 @@ const ExperienceAccordion: React.FunctionComponent<AccordionProps> = ({
     return CommunityAccordion({
       ...experience,
       editUrl,
+      defaultOpen,
     });
   }
   if (isEducationExperience(experience)) {
@@ -61,6 +65,7 @@ const ExperienceAccordion: React.FunctionComponent<AccordionProps> = ({
     return EducationAccordion({
       ...experience,
       editUrl,
+      defaultOpen,
     });
   }
   if (isPersonalExperience(experience)) {
@@ -70,6 +75,7 @@ const ExperienceAccordion: React.FunctionComponent<AccordionProps> = ({
     return PersonalAccordion({
       ...experience,
       editUrl,
+      defaultOpen,
     });
   }
   if (isWorkExperience(experience)) {
@@ -77,6 +83,7 @@ const ExperienceAccordion: React.FunctionComponent<AccordionProps> = ({
     return WorkAccordion({
       ...experience,
       editUrl,
+      defaultOpen,
     });
   }
 

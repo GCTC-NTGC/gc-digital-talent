@@ -3,7 +3,6 @@ import { useIntl } from "react-intl";
 import { toast } from "react-toastify";
 import { SubmitHandler } from "react-hook-form";
 import { BasicForm, TextArea } from "@common/components/form";
-import { commonMessages } from "@common/messages";
 import { getLocale } from "@common/helpers/localize";
 import { navigate } from "@common/helpers/router";
 import Dialog from "@common/components/Dialog";
@@ -12,6 +11,9 @@ import { Button } from "@common/components";
 import { TrashIcon } from "@heroicons/react/solid";
 
 import { removeFromSessionStorage } from "@common/helpers/storageUtils";
+import NotFound from "@common/components/NotFound";
+import Pending from "@common/components/Pending";
+import { commonMessages } from "@common/messages";
 import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
 import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
 
@@ -341,29 +343,33 @@ const ExperienceFormContainer: React.FunctionComponent<
     }
   };
 
-  if (fetchingSkills || fetchingMe || fetchingExperience) {
-    return <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>;
-  }
-
-  if (skillError || !skillsData || meError || !meData) {
-    return (
-      <p>
-        {intl.formatMessage(commonMessages.loadingError)}
-        {skillError?.message || ""}
-      </p>
-    );
-  }
-
   return (
-    <ExperienceForm
-      experience={experience as ExperienceQueryData}
-      experienceType={experienceType}
-      skills={skillsData.skills as Skill[]}
-      onUpdateExperience={handleUpdateExperience}
-      deleteExperience={handleDeleteExperience}
-      cacheKey={cacheKey}
-      edit={edit}
-    />
+    <Pending
+      fetching={fetchingSkills || fetchingMe || fetchingExperience}
+      error={skillError || meError}
+    >
+      {skillsData && meData ? (
+        <ExperienceForm
+          experience={experience as ExperienceQueryData}
+          experienceType={experienceType}
+          skills={skillsData.skills as Skill[]}
+          onUpdateExperience={handleUpdateExperience}
+          deleteExperience={handleDeleteExperience}
+          cacheKey={cacheKey}
+          edit={edit}
+        />
+      ) : (
+        <NotFound headingMessage={intl.formatMessage(commonMessages.notFound)}>
+          <p>
+            {intl.formatMessage({
+              defaultMessage: "No user found.",
+              description:
+                "Message displayed when no user is found for experience form.",
+            })}
+          </p>
+        </NotFound>
+      )}
+    </Pending>
   );
 };
 
