@@ -34,6 +34,7 @@ const Accordion: React.FC<AccordionProps> = ({
       data-h2-radius="b(none, s, s, none)"
       data-h2-overflow="b(all, hidden)"
       data-h2-border="b([light]primary, left, solid, m)"
+      className="accordion"
       {...rest}
     >
       <button
@@ -54,10 +55,12 @@ const Accordion: React.FC<AccordionProps> = ({
           cursor: "pointer",
         }}
         aria-expanded={isOpen}
+        className="accordion-header"
       >
         <div
           data-h2-flex-grid="b(middle, expanded, flush, s)"
           data-h2-flex-wrap="b(nowrap)"
+          className="accordion-header-wrapper"
         >
           <span>
             {isOpen ? (
@@ -83,6 +86,7 @@ const Accordion: React.FC<AccordionProps> = ({
             data-h2-align-items="b(center)"
             data-h2-flex-direction="b(row)"
             style={{ flexShrink: 0 }}
+            className="accordion-header-context"
           >
             <p data-h2-font-size="b(normal)">{context}</p>
             {!simple && (

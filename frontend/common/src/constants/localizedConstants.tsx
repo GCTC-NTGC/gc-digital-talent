@@ -309,6 +309,10 @@ export const Roles = defineMessages({
     defaultMessage: "Administrator",
     description: "The name of the Administrator user role.",
   },
+  [Role.Applicant]: {
+    defaultMessage: "Applicant",
+    description: "The name of the Applicant user role.",
+  },
 });
 
 export const getRole = (roleId: string | number): MessageDescriptor =>
