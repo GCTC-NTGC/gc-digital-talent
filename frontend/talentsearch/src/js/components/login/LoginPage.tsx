@@ -97,7 +97,7 @@ const LoginPage: React.FC = () => {
           </p>
           <p>
             <Link
-              href={paths.login()}
+              href={paths.login(talentPaths.profile())}
               mode="solid"
               type="button"
               color="primary"
