@@ -6,8 +6,8 @@ import React from "react";
 import { fakeClassifications, fakeUsers } from "@common/fakeData";
 import { render, screen, fireEvent, waitFor } from "../../tests/testUtils";
 import {
-  GovernmentInfoForm,
-  GovernmentInfoFormProps,
+  GovInfoFormWithProfileWrapper as GovernmentInfoForm,
+  GovInfoFormWithProfileWrapperProps as GovernmentInfoFormProps,
 } from "./GovernmentInfoForm";
 
 const mockClassifications = fakeClassifications();
