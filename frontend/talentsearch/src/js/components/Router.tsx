@@ -239,10 +239,42 @@ export const Router: React.FC = () => {
       })}
     />,
   ];
+
+  /**
+   * TO DO: Check auth state when available
+   */
+  const authLinks = [
+    <MenuLink
+      key="login-info"
+      href={authPaths.login()}
+      text={intl.formatMessage({
+        defaultMessage: "Login",
+        description: "Label displayed on the login link menu item.",
+      })}
+    />,
+    <MenuLink
+      key="logout"
+      href="/logout" // Replace with real logout
+      text={intl.formatMessage({
+        defaultMessage: "Logout",
+        description: "Label displayed on the logout link menu item.",
+      })}
+    />,
+    <MenuLink
+      key="register"
+      href={authPaths.register()}
+      text={intl.formatMessage({
+        defaultMessage: "Register",
+        description: "Label displayed on the register link menu item.",
+      })}
+    />,
+  ];
+
   return (
     <ClientProvider>
       <PageContainer
         menuItems={menuItems}
+        authLinks={authLinks}
         contentRoutes={[
           ...talentRoutes(talentPaths),
           ...authRoutes(authPaths),

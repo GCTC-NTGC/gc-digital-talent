@@ -94,8 +94,9 @@ const TalentSearchNotAuthorized: React.FC = () => {
 
 export const PageContainer: React.FC<{
   menuItems: ReactElement[];
+  authLinks: ReactElement[];
   contentRoutes: Routes<RouterResult>;
-}> = ({ menuItems, contentRoutes }) => {
+}> = ({ menuItems, contentRoutes, authLinks }) => {
   const intl = useIntl();
   // stabilize components that will not change during life of app, avoid render loops in router
   const notFoundComponent = useRef(<TalentSearchNotFound />);
@@ -122,7 +123,7 @@ export const PageContainer: React.FC<{
         >
           <div>
             <Header baseUrl={TALENTSEARCH_APP_DIR} />
-            <NavMenu items={menuItems} />
+            <NavMenu mainItems={menuItems} utilityItems={authLinks} />
           </div>
           <main id="main">{content}</main>
           <div style={{ marginTop: "auto" }}>
