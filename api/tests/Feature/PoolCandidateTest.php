@@ -11,6 +11,9 @@ use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Tests\TestCase;
 use Database\Helpers\ApiEnums;
 
+// for setting expiry dates so tests don't fail due to expired candidates when they are not supposed to
+const FAR_FUTURE_DATE = '2050-01-01';
+
 class PoolCandidateTest extends TestCase
 {
   use DatabaseMigrations;
@@ -30,7 +33,7 @@ class PoolCandidateTest extends TestCase
     Classification::factory()->count(3)->create();
     PoolCandidate::factory()->count(5)->create([
       'expected_salary' => [], // remove salaries to avoid accidental classification-to-salary matching
-      'expiry_date' => '2050-01-01', // ensure no candidates are expired for this test
+      'expiry_date' => FAR_FUTURE_DATE, // ensure no candidates are expired for this test
     ]);
 
     // Create new classification and attach to two new pool candidates.
@@ -38,7 +41,7 @@ class PoolCandidateTest extends TestCase
       'group' => 'ZZ',
       'level' => 1,
     ]);
-    PoolCandidate::factory()->count(2)->create(['expiry_date' => '2050-01-01'])->each(function($candidate) use ($classification) {
+    PoolCandidate::factory()->count(2)->create(['expiry_date' => FAR_FUTURE_DATE])->each(function($candidate) use ($classification) {
       $candidate->expectedClassifications()->save($classification);
     });
 
@@ -91,13 +94,13 @@ class PoolCandidateTest extends TestCase
 
     // Create initial data.
     CmoAsset::factory()->count(3)->create();
-    PoolCandidate::factory()->count(5)->create(['expiry_date' => '2050-01-01']);
+    PoolCandidate::factory()->count(5)->create(['expiry_date' => FAR_FUTURE_DATE]);
 
     // Create new cmoAsset and attach to two new pool candidates.
     $cmoAsset = CmoAsset::factory()->create([
       'key' => 'new_cmo_asset'
     ]);
-    PoolCandidate::factory()->count(2)->create(['expiry_date' => '2050-01-01'])->each(function($candidate) use ($cmoAsset) {
+    PoolCandidate::factory()->count(2)->create(['expiry_date' => FAR_FUTURE_DATE])->each(function($candidate) use ($cmoAsset) {
 
       $candidate->cmoAssets()->save($cmoAsset);
     });
@@ -151,7 +154,7 @@ class PoolCandidateTest extends TestCase
     // Create initial data.
     PoolCandidate::factory()->count(5)->create([
       'accepted_operational_requirements' => null,
-      'expiry_date' => '2050-01-01' // ensure no candidates are expired for this test
+      'expiry_date' => FAR_FUTURE_DATE // ensure no candidates are expired for this test
     ]);
     $operationalRequirement1 = 'OVERTIME_SCHEDULED';
     $operationalRequirement2 = 'SHIFT_WORK';
@@ -160,13 +163,13 @@ class PoolCandidateTest extends TestCase
     // Create a few with a op_req 1
     PoolCandidate::factory()->count(2)->create([
       'accepted_operational_requirements' => [$operationalRequirement1],
-      'expiry_date' => '2050-01-01'
+      'expiry_date' => FAR_FUTURE_DATE
     ]);
 
     // Create a few with op_req 1 and 2
     PoolCandidate::factory()->count(2)->create([
       'accepted_operational_requirements' => [$operationalRequirement1, $operationalRequirement2],
-      'expiry_date' => '2050-01-01'
+      'expiry_date' => FAR_FUTURE_DATE
     ]);
 
     // Assert query with no operationalRequirements filter will return all candidates
@@ -249,11 +252,11 @@ class PoolCandidateTest extends TestCase
 
     // Create initial data.
     Pool::factory()->count(3)->create();
-    PoolCandidate::factory()->count(5)->create(['expiry_date' => '2050-01-01']);
+    PoolCandidate::factory()->count(5)->create(['expiry_date' => FAR_FUTURE_DATE]);
 
     // Create new pool and attach to two new pool candidates.
     $pool = Pool::factory()->create();
-    PoolCandidate::factory()->count(2)->create(['expiry_date' => '2050-01-01'])->each(function($candidate) use ($pool) {
+    PoolCandidate::factory()->count(2)->create(['expiry_date' => FAR_FUTURE_DATE])->each(function($candidate) use ($pool) {
       $candidate->pool()->associate($pool);
       $candidate->save();
     });
@@ -307,14 +310,14 @@ class PoolCandidateTest extends TestCase
 
     // Create initial set of 5 candidates with no diploma.
     PoolCandidate::factory()->count(5)->create([
-      'expiry_date' => '2050-01-01',
+      'expiry_date' => FAR_FUTURE_DATE,
       'has_diploma' => false,
     ]);
 
     // Create two new pool candidates with a diploma.
     PoolCandidate::factory()->count(2)->create([
       'has_diploma' => true,
-      'expiry_date' => '2050-01-01',
+      'expiry_date' => FAR_FUTURE_DATE,
     ]);
 
     // Assert query no hasDiploma filter will return all candidates
@@ -370,7 +373,7 @@ class PoolCandidateTest extends TestCase
       'is_indigenous' => false,
       'is_visible_minority' => false,
       'is_woman' => false,
-      'expiry_date' => '2050-01-01',
+      'expiry_date' => FAR_FUTURE_DATE,
     ]);
 
     // Create one new candidate for each EmploymentEquity filter
@@ -379,28 +382,28 @@ class PoolCandidateTest extends TestCase
       'is_indigenous' => false,
       'is_visible_minority' => false,
       'is_woman' => false,
-      'expiry_date' => '2050-01-01',
+      'expiry_date' => FAR_FUTURE_DATE,
     ]);
     PoolCandidate::factory()->create([
       'has_disability' => false,
       'is_indigenous' => true,
       'is_visible_minority' => false,
       'is_woman' => false,
-      'expiry_date' => '2050-01-01',
+      'expiry_date' => FAR_FUTURE_DATE,
     ]);
     PoolCandidate::factory()->create([
       'has_disability' => false,
       'is_indigenous' => false,
       'is_visible_minority' => true,
       'is_woman' => false,
-      'expiry_date' => '2050-01-01',
+      'expiry_date' => FAR_FUTURE_DATE,
     ]);
     PoolCandidate::factory()->create([
       'has_disability' => false,
       'is_indigenous' => false,
       'is_visible_minority' => false,
       'is_woman' => true,
-      'expiry_date' => '2050-01-01',
+      'expiry_date' => FAR_FUTURE_DATE,
     ]);
 
     // Assert query with no EmploymentEquity filter will return all candidates
@@ -630,21 +633,21 @@ class PoolCandidateTest extends TestCase
     // Create initial data.
     PoolCandidate::factory()->count(5)->create([
       'language_ability' => 'TEST',
-      'expiry_date' => '2050-01-01',
+      'expiry_date' => FAR_FUTURE_DATE,
     ]);
 
     // Create new LanguageAbility and attach to 3 new pool candidates.
     PoolCandidate::factory()->create([
       'language_ability' => 'FRENCH',
-      'expiry_date' => '2050-01-01',
+      'expiry_date' => FAR_FUTURE_DATE,
     ]);
     PoolCandidate::factory()->create([
       'language_ability' => 'ENGLISH',
-      'expiry_date' => '2050-01-01',
+      'expiry_date' => FAR_FUTURE_DATE,
     ]);
     PoolCandidate::factory()->create([
       'language_ability' => 'BILINGUAL',
-      'expiry_date' => '2050-01-01',
+      'expiry_date' => FAR_FUTURE_DATE,
     ]);
 
     // Assert query with no LanguageAbility filter will return all candidates
@@ -723,13 +726,13 @@ class PoolCandidateTest extends TestCase
     // Create 5 new pool candidates with a ONTARIO location preference.
     PoolCandidate::factory()->count(5)->create([
       'location_preferences' => ["ONTARIO"],
-      'expiry_date' => '2050-01-01',
+      'expiry_date' => FAR_FUTURE_DATE,
     ]);
 
     // Create 2 new pool candidates with a TELEWORK location preference.
     PoolCandidate::factory()->count(2)->create([
       'location_preferences' => ["TELEWORK"],
-      'expiry_date' => '2050-01-01',
+      'expiry_date' => FAR_FUTURE_DATE,
     ]);
 
     // Assert query with no WorkRegion filter will return all candidates
@@ -782,7 +785,7 @@ class PoolCandidateTest extends TestCase
     Classification::factory()->count(3)->create();
     PoolCandidate::factory()->count(5)->create([
       'expected_salary' => [],
-      'expiry_date' => '2050-01-01'
+      'expiry_date' => FAR_FUTURE_DATE
     ]);
 
     // Create new classification.
@@ -796,7 +799,7 @@ class PoolCandidateTest extends TestCase
     // Attach new candidates that are in the expected salary range.
     $poolCandidate1 = PoolCandidate::factory()->create([
       'expected_salary' => ['_50_59K', '_70_79K'],
-      'expiry_date' => '2050-01-01',
+      'expiry_date' => FAR_FUTURE_DATE,
     ]);
     $poolCandidate1->expectedClassifications()->delete();
     $poolCandidate1->expectedClassifications()->save($classificationLvl1);
@@ -804,14 +807,14 @@ class PoolCandidateTest extends TestCase
     // Attach new candidates that overlap the expected salary range.
     $poolCandidate2 = PoolCandidate::factory()->create([
       'expected_salary' => ['_60_69K', '_80_89K'],
-      'expiry_date' => '2050-01-01',
+      'expiry_date' => FAR_FUTURE_DATE,
     ]);
     $poolCandidate2->expectedClassifications()->delete();
 
     // Attach new candidates that are over the expected salary range.
     $poolCandidate3 = PoolCandidate::factory()->create([
       'expected_salary' => ['_90_99K', '_100K_PLUS'],
-      'expiry_date' => '2050-01-01',
+      'expiry_date' => FAR_FUTURE_DATE,
     ]);
     $poolCandidate3->expectedClassifications()->delete();
 
@@ -880,7 +883,7 @@ class PoolCandidateTest extends TestCase
     $poolCandidate1 = PoolCandidate::factory()->create([
       'expected_salary' => [],
       'pool_id' => $myPool->id,
-      'expiry_date' => '2050-01-01',
+      'expiry_date' => FAR_FUTURE_DATE,
     ]);
     $poolCandidate1->expectedClassifications()->delete();
     $poolCandidate1->expectedClassifications()->save($myClassification);
@@ -889,7 +892,7 @@ class PoolCandidateTest extends TestCase
     $poolCandidate2 = PoolCandidate::factory()->create([
       'expected_salary' => ['_60_69K'],
       'pool_id' => $myPool->id,
-      'expiry_date' => '2050-01-01',
+      'expiry_date' => FAR_FUTURE_DATE,
     ]);
     $poolCandidate2->expectedClassifications()->delete();
 
@@ -897,7 +900,7 @@ class PoolCandidateTest extends TestCase
     $poolCandidate3 = PoolCandidate::factory()->create([
       'expected_salary' => ['_90_99K', '_100K_PLUS'],
       'pool_id' => $myPool->id,
-      'expiry_date' => '2050-01-01',
+      'expiry_date' => FAR_FUTURE_DATE,
     ]);
     $poolCandidate3->expectedClassifications()->delete();
 
@@ -907,7 +910,7 @@ class PoolCandidateTest extends TestCase
     $poolCandidate1WrongPool = PoolCandidate::factory()->create([
       'expected_salary' => [],
       'pool_id' => $otherPool->id,
-      'expiry_date' => '2050-01-01',
+      'expiry_date' => FAR_FUTURE_DATE,
     ]);
     $poolCandidate1WrongPool->expectedClassifications()->delete();
     $poolCandidate1WrongPool->expectedClassifications()->save($myClassification);
@@ -916,7 +919,7 @@ class PoolCandidateTest extends TestCase
     $poolCandidate2WrongPool = PoolCandidate::factory()->create([
       'expected_salary' => ['_60_69K'],
       'pool_id' => $otherPool->id,
-      'expiry_date' => '2050-01-01',
+      'expiry_date' => FAR_FUTURE_DATE,
     ]);
     $poolCandidate2WrongPool->expectedClassifications()->delete();
 
@@ -924,7 +927,7 @@ class PoolCandidateTest extends TestCase
     $poolCandidate3WrongPool = PoolCandidate::factory()->create([
       'expected_salary' => ['_90_99K', '_100K_PLUS'],
       'pool_id' => $otherPool->id,
-      'expiry_date' => '2050-01-01',
+      'expiry_date' => FAR_FUTURE_DATE,
     ]);
     $poolCandidate3WrongPool->expectedClassifications()->delete();
 

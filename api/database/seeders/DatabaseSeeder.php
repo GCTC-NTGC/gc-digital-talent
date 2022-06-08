@@ -54,23 +54,21 @@ class DatabaseSeeder extends Seeder
         $this->call(UserSeederLocal::class);
         $this->call(PoolSeeder::class);
 
-
         // fill digital_careers no salary, with classifications
-        // first 5 classifications in ClassificationSeeder are IT group, therefore take(5) grabs the five IT classifications
         User::factory([
             'roles' => [ApiEnums::ROLE_APPLICANT]
        ])
             ->count(20)
             ->afterCreating(function (User $user) {
                 $assets = CmoAsset::inRandomOrder()->limit(4)->pluck('id')->toArray();
-                $classifications = Classification::take(5)->inRandomOrder()->limit(3)->get()->pluck('id')->toArray();
+                $classifications = Classification::where('group', 'IT')->inRandomOrder()->limit(3)->get()->pluck('id')->toArray();
                 $user->cmoAssets()->sync($assets);
                 $user->expectedClassifications()->sync($classifications);
                 PoolCandidate::factory()->count(1)->sequence(fn () => [
-                    'pool_id' => Pool::pluck('id', 'key')->toArray()['digital_careers'],
+                    'pool_id' => Pool::where('key', 'digital_careers')->get()->pluck('id')->toArray()[0],
                     'expected_salary' => null
                 ])->for($user)->afterCreating(function (PoolCandidate $candidate){
-                        $classifications = Classification::take(5)->inRandomOrder()->limit(3)->get();
+                        $classifications = Classification::where('group', 'IT')->inRandomOrder()->limit(3)->get();
                         $candidate->expectedClassifications()->saveMany($classifications);
                         $assets = CmoAsset::inRandomOrder()->limit(4)->get();
                         $candidate->cmoAssets()->saveMany($assets);
@@ -86,7 +84,7 @@ class DatabaseSeeder extends Seeder
                 $assets = CmoAsset::inRandomOrder()->limit(4)->pluck('id')->toArray();
                 $user->cmoAssets()->sync($assets);
                 PoolCandidate::factory()->count(1)->sequence(fn () => [
-                    'pool_id' => Pool::pluck('id', 'key')->toArray()['digital_careers'],
+                    'pool_id' => Pool::where('key', 'digital_careers')->get()->pluck('id')->toArray()[0],
                 ])->for($user)->afterCreating(function (PoolCandidate $candidate){
                     $assets = CmoAsset::inRandomOrder()->limit(4)->get();
                     $candidate->cmoAssets()->saveMany($assets);
@@ -102,14 +100,14 @@ class DatabaseSeeder extends Seeder
         ->count(20)
         ->afterCreating(function (User $user) {
             $assets = CmoAsset::inRandomOrder()->limit(4)->pluck('id')->toArray();
-            $classifications = Classification::take(5)->inRandomOrder()->limit(3)->get()->pluck('id')->toArray();
+            $classifications = Classification::where('group', 'IT')->inRandomOrder()->limit(3)->get()->pluck('id')->toArray();
             $user->cmoAssets()->sync($assets);
             $user->expectedClassifications()->sync($classifications);
             PoolCandidate::factory()->count(1)->sequence(fn () => [
-                'pool_id' => Pool::pluck('id', 'key')->toArray()['indigenous_apprenticeship'],
+                'pool_id' => Pool::where('key', 'indigenous_apprenticeship')->get()->pluck('id')->toArray()[0],
                 'expected_salary' => null
             ])->for($user)->afterCreating(function (PoolCandidate $candidate){
-                $classifications = Classification::take(5)->inRandomOrder()->limit(3)->get();
+                $classifications = Classification::where('group', 'IT')->inRandomOrder()->limit(3)->get();
                 $candidate->expectedClassifications()->saveMany($classifications);
                 $assets = CmoAsset::inRandomOrder()->limit(4)->get();
                 $candidate->cmoAssets()->saveMany($assets);
@@ -125,7 +123,7 @@ class DatabaseSeeder extends Seeder
             $assets = CmoAsset::inRandomOrder()->limit(4)->pluck('id')->toArray();
             $user->cmoAssets()->sync($assets);
             PoolCandidate::factory()->count(1)->sequence(fn () => [
-                'pool_id' => Pool::pluck('id', 'key')->toArray()['indigenous_apprenticeship'],
+                'pool_id' => Pool::where('key', 'indigenous_apprenticeship')->get()->pluck('id')->toArray()[0],
             ])->for($user)->afterCreating(function (PoolCandidate $candidate){
                 $assets = CmoAsset::inRandomOrder()->limit(4)->get();
                 $candidate->cmoAssets()->saveMany($assets);
