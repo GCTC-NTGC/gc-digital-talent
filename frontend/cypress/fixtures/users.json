@@ -10,5 +10,11 @@
     "last": "Test Applicant",
     "email": "applicant@test.com",
     "password": "testpassword"
+  },
+  "noroles": {
+    "first": "Test NoRoles",
+    "last": "Test NoRoles",
+    "email": "noroles@test.com",
+    "password": "testpassword"
   }
 }

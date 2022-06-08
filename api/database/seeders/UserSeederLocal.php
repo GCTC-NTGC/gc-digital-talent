@@ -27,6 +27,11 @@ class UserSeederLocal extends Seeder
             'sub' => 'applicant@test.com',
             'roles' => [ApiEnums::ROLE_APPLICANT]
         ]);
+        User::factory()->create([
+            'email' => 'noroles@test.com',
+            'sub' => 'noroles@test.com',
+            'roles' => []
+        ]);
 
         $fakeEmailDomain = '@talent.test';
         // users with sub values from Sign In Canada, redirecting to localhost
