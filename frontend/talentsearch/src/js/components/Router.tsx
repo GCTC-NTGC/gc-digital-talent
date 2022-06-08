@@ -35,6 +35,7 @@ import BrowsePoolsPage from "./browse/BrowsePoolsPage";
 import BrowseIndividualPoolApi from "./browse/BrowseIndividualPool";
 import PoolApplyPage from "./pool/PoolApplyPage";
 import PoolApplicationThanksPage from "./pool/PoolApplicationThanksPage";
+import { CreateAccount } from "./createAccount/CreateAccountPage";
 
 const talentRoutes = (
   talentPaths: TalentSearchRoutes,
@@ -63,6 +64,12 @@ const talentRoutes = (
 const profileRoutes = (
   profilePaths: ApplicantProfileRoutes,
 ): Routes<RouterResult> => [
+  {
+    path: profilePaths.createAccount(),
+    action: () => ({
+      component: <CreateAccount />,
+    }),
+  },
   {
     path: profilePaths.home(),
     action: () => ({
