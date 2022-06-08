@@ -11,8 +11,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  *
  * @property int $id
  * @property array $name
- * @property string $group
- * @property int $level
+ * @property array $group
+ * @property array $level
  * @property int $min_salary
  * @property int $max_salary
  * @property Illuminate\Support\Carbon $created_at
@@ -34,6 +34,8 @@ class Classification extends Model
      */
     protected $casts = [
         'name' => 'array',
+        'group' => 'array',
+        'level' => 'array',
     ];
     public function classificationRole(): HasMany
     {

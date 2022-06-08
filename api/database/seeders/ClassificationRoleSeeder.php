@@ -21,7 +21,7 @@ class ClassificationRoleSeeder extends Seeder
                 'key' => 'technician_it01',
                 'name' => [
                     'en' => 'Technician',
-                    'fr' => ''
+                    'fr' => 'Technicien'
                 ],
                 'classification' => [
                     'group' => 'IT',
@@ -32,7 +32,7 @@ class ClassificationRoleSeeder extends Seeder
                 'key' => 'analyst_it02',
                 'name' => [
                     'en' => 'Analyst',
-                    'fr' => ''
+                    'fr' => 'Analyste'
                 ],
                 'classification' => [
                     'group' => 'IT',
@@ -43,7 +43,8 @@ class ClassificationRoleSeeder extends Seeder
                 'key' => 'team_leader_it03',
                 'name' => [
                     'en' => 'Team leader',
-                    'fr' => ''
+                    'fr' => 'Chef d’équipe
+'
                 ],
                 'classification' => [
                     'group' => 'IT',
@@ -55,7 +56,7 @@ class ClassificationRoleSeeder extends Seeder
                 'key' => 'technical_advisor_it03',
                 'name' => [
                     'en' => 'Technical advisor',
-                    'fr' => ''
+                    'fr' => 'Conseiller technique'
                 ],
                 'classification' => [
                     'group' => 'IT',
@@ -66,7 +67,7 @@ class ClassificationRoleSeeder extends Seeder
                 'key' => 'senior_advisor_it04',
                 'name' => [
                     'en' => 'Senior advisor',
-                    'fr' => 'Administration de bases de données'
+                    'fr' => 'Conseiller principal'
                 ],
                 'classification' => [
                     'group' => 'IT',
@@ -78,7 +79,7 @@ class ClassificationRoleSeeder extends Seeder
                 'key' => 'manager_it04',
                 'name' => [
                     'en' => 'Manager',
-                    'fr' => ''
+                    'fr' => 'Gestionnaire'
                 ],
                 'classification' => [
                     'group' => 'IT',
@@ -94,7 +95,7 @@ class ClassificationRoleSeeder extends Seeder
             ];
             $classificationId = Classification::where([
                     'group' => $role['classification']['group'],
-                    'level' => $role['classification']['level']
+                    'level' => $role['classification']['level'],
                 ])->first()->id;
             $completeRole = array_merge($role, ['classification_id' => $classificationId]);
             ClassificationRole::updateOrCreate($identifier, $completeRole);
