@@ -3,9 +3,9 @@ import { useIntl } from "react-intl";
 
 import TileLink from "@common/components/TileLink";
 import { imageUrl, navigate } from "@common/helpers/router";
-import { useApiRoutes } from "@common/hooks/useApiRoutes";
 import Dialog from "@common/components/Dialog";
 import { Button, Link } from "@common/components";
+import { AuthenticationContext } from "@common/components/Auth";
 import { useDirectIntakeRoutes } from "../../directIntakeRoutes";
 import { useTalentSearchRoutes } from "../../talentSearchRoutes";
 
@@ -13,17 +13,13 @@ import TALENTSEARCH_APP_DIR from "../../talentSearchConstants";
 
 const LoggedOutPage: React.FC = () => {
   const intl = useIntl();
-  const isLoggedIn = true; // TO DO: Replace with AuthContext
-  const [isModalOpen, setModalOpen] = React.useState<boolean>(isLoggedIn);
-  const apiPaths = useApiRoutes();
+  const { loggedIn, logout } = React.useContext(AuthenticationContext);
   const directIntakePaths = useDirectIntakeRoutes();
   const talentPaths = useTalentSearchRoutes();
 
   /**
    * TO DO:
-   *    - Check if user logged in and display logout modal if true
    *    - Add alert component once created in /create-account
-   *    - Use auth routes created in register page
    */
 
   return (
@@ -100,7 +96,7 @@ const LoggedOutPage: React.FC = () => {
       <Dialog
         confirmation
         centered
-        isOpen={isModalOpen}
+        isOpen={loggedIn}
         onDismiss={() => {
           navigate(talentPaths.profile());
         }}
@@ -127,12 +123,19 @@ const LoggedOutPage: React.FC = () => {
               })}
             </Link>
             <span data-h2-margin="b(left, s)">
-              <Link mode="solid" color="primary" type="button" href="/logout">
+              <Button
+                mode="solid"
+                color="primary"
+                type="button"
+                onClick={() => {
+                  logout();
+                }}
+              >
                 {intl.formatMessage({
                   defaultMessage: "Logout",
                   description: "Link text to logout.",
                 })}
-              </Link>
+              </Button>
             </span>
           </div>
         }
