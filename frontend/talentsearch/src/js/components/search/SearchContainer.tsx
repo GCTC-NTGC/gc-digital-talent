@@ -16,6 +16,7 @@ import {
   PoolFilterInput,
   ClassificationFilterInput,
   Maybe,
+  PoolCandidateStatus,
 } from "../../api/generated";
 import {
   DIGITAL_CAREERS_POOL_KEY,
@@ -235,6 +236,7 @@ const candidateFilterToQueryArgs = (
     return {
       where: {
         ...filter,
+        status: PoolCandidateStatus.Available,
         equity: {
           hasDisability: filter?.equity?.hasDisability,
           isIndigenous: filter?.equity?.isIndigenous,

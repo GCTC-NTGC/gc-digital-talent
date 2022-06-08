@@ -19,6 +19,7 @@ import {
   LanguageAbility,
   PoolCandidateFilter,
   PoolCandidateFilterInput,
+  PoolCandidateStatus,
 } from "../../api/generated";
 
 const NullSelection = "NULL_SELECTION";
@@ -113,6 +114,7 @@ export const SearchForm: React.FunctionComponent<SearchFormProps> = ({
   React.useEffect(() => {
     const formValuesToData = (values: FormValues): PoolCandidateFilterInput => {
       return {
+        status: PoolCandidateStatus.Available,
         classifications: values.classifications
           ? values.classifications?.map((id) =>
               id ? classificationMap.get(id) : undefined,

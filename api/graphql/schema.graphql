@@ -363,6 +363,7 @@ type PoolCandidateFilter {
     operationalRequirements: [OperationalRequirement] @rename(attribute: "operational_requirements")
     workRegions: [WorkRegion] @rename(attribute: "work_regions")
     pools: [Pool] @belongsToMany
+    status: PoolCandidateStatus @rename(attribute: "pool_candidate_status")
 }
 
 type PoolCandidateSearchRequest {
@@ -558,6 +559,7 @@ input PoolCandidateFilterInput {
     operationalRequirements: [OperationalRequirement] @builder(method: "App\\Models\\PoolCandidate@filterByOperationalRequirements")
     workRegions: [WorkRegion] @builder(method: "App\\Models\\PoolCandidate@filterByWorkRegions")
     pools: [PoolFilterInput] @builder(method: "App\\Models\\PoolCandidate@filterByPools")
+    status: PoolCandidateStatus @builder(method: "App\\Models\\PoolCandidate@filterByPoolCandidateStatus")
 }
 
 input UserFilterAndOrderInput {
@@ -574,6 +576,7 @@ input UserFilterAndOrderInput {
     skills: [ID] @builder(method: "App\\Models\\User@filterBySkills")
     isGovEmployee: Boolean @scope
     orderBy: String   # This needs to be the name of the field in the database eg. first_name
+    status: PoolCandidateStatus @builder(method: "App\\Models\\User@filterByPoolCandidateStatus")
 }
 
 type Query {
@@ -925,6 +928,7 @@ input CreatePoolCandidateFilterInput {
     operationalRequirements: [OperationalRequirement] @rename(attribute: "operational_requirements")
     workRegions: [WorkRegion] @rename(attribute: "work_regions")
     pools: PoolBelongsToMany
+    status: PoolCandidateStatus @rename(attribute: "pool_candidate_status")
 }
 
 input PoolCandidateFilterBelongsTo {

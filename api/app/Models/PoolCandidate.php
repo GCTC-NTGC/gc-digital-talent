@@ -270,6 +270,20 @@ RAWSQL2;
         return $query;
     }
 
+    public function filterByPoolCandidateStatus(Builder $query, ?string $poolCandidateStatus): Builder
+    {
+        if(empty($poolCandidateStatus)){
+            return $query;
+        }
+
+        if($poolCandidateStatus == 'AVAILABLE'){
+            $query->where('pool_candidate_status', 'AVAILABLE');
+            return $query;
+        }
+
+        return $query;
+    }
+
     public function scopeHasDiploma(Builder $query, bool $hasDiploma): Builder
     {
         if ($hasDiploma) {

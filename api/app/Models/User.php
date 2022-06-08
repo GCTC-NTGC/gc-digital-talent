@@ -447,6 +447,20 @@ RAWSQL2;
         return $query;
     }
 
+    public function filterByPoolCandidateStatus(Builder $query, ?string $poolCandidateStatus): Builder
+    {
+        if(empty($poolCandidateStatus)){
+            return $query;
+        }
+
+        if($poolCandidateStatus == 'AVAILABLE'){
+            $query->where('pool_candidate_status', 'AVAILABLE');
+            return $query;
+        }
+
+        return $query;
+    }
+
     public function scopeIsGovEmployee(Builder $query, bool $isGovEmployee): Builder
     {
         if ($isGovEmployee) {

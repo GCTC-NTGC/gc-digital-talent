@@ -14,6 +14,7 @@ fragment poolCandidateSearchRequest on PoolCandidateSearchRequest {
   additionalComments
   poolCandidateFilter {
     id
+    status
     classifications {
       id
       name {
@@ -68,6 +69,7 @@ query getPoolCandidateSearchRequest($id: ID!) {
 query searchPoolCandidates($poolCandidateFilter: PoolCandidateFilterInput) {
   searchPoolCandidates(where: $poolCandidateFilter) {
     id
+    status
     user {
       id
       email
