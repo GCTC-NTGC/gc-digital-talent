@@ -1,13 +1,23 @@
 import React from "react";
 
-import ClientProvider from "@common/components/ClientProvider";
+import ClientProvider from "../ClientProvider";
+import { Messages } from "../LanguageRedirectContainer";
 import AuthenticationProvider from "./AuthenticationProvider";
 import AuthorizationProvider from "./AuthorizationProvider";
 import LanguageRedirectProvider from "./LanguageRedirectProvider";
 
-const ContextContainer: React.FC = ({ children }) => (
-  <LanguageRedirectProvider>
-    <AuthenticationProvider>
+export interface ContextContainerProps {
+  homePath: string;
+  messages: Messages;
+}
+
+const ContextContainer: React.FC<ContextContainerProps> = ({
+  homePath,
+  messages,
+  children,
+}) => (
+  <LanguageRedirectProvider messages={messages}>
+    <AuthenticationProvider homePath={homePath}>
       <ClientProvider>
         <AuthorizationProvider>{children}</AuthorizationProvider>
       </ClientProvider>
