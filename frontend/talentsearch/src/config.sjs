@@ -7,6 +7,7 @@
  */
 
 const data = new Map([
+    ["OAUTH_POST_LOGOUT_REDIRECT", "<!--#echo var="OAUTH_POST_LOGOUT_REDIRECT" -->"],
     ["FEATURE_APPLICANTPROFILE", "<!--#echo var="FEATURE_APPLICANTPROFILE" -->"],
     ["FEATURE_DIRECTINTAKE", "<!--#echo var="FEATURE_DIRECTINTAKE" -->"],
 ]);
