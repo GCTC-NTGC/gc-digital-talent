@@ -6,7 +6,6 @@ use Illuminate\Database\Seeder;
 use App\Models\ClassificationRole;
 use App\Models\Classification;
 
-
 class ClassificationRoleSeeder extends Seeder
 {
     /**
@@ -95,9 +94,11 @@ class ClassificationRoleSeeder extends Seeder
             ];
             $classificationId = Classification::where([
                     'group' => $role['classification']['group'],
-                    'level' => $role['classification']['level'],
+                    'level' => $role['classification']['level']
                 ])->first()->id;
+
             $completeRole = array_merge($role, ['classification_id' => $classificationId]);
+            unset($completeRole['classification']);
             ClassificationRole::updateOrCreate($identifier, $completeRole);
         }
     }
