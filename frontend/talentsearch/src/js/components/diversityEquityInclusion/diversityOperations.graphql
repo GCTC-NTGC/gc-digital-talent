@@ -1,0 +1,18 @@
+query getMyDiversityInfo {
+  me {
+    id
+    isWoman
+    isIndigenous
+    isVisibleMinority
+    hasDisability
+  }
+}
+
+mutation updateMyDiversityInfo($id: ID!, $user: UpdateUserAsUserInput!) {
+  updateUserAsUser(id: $id, user: $user) {
+    isWoman
+    isIndigenous
+    isVisibleMinority
+    hasDisability
+  }
+}
