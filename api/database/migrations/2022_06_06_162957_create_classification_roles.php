@@ -23,7 +23,7 @@ class CreateClassificationRoles extends Migration
         });
        DB::statement('ALTER TABLE classification_roles ALTER COLUMN id SET DEFAULT gen_random_uuid();');
 
-       Schema::create('classification_roles_user', function (Blueprint $table) {
+       Schema::create('classification_role_user', function (Blueprint $table) {
             $table->uuid('id')->primary('id');
             $table->timestamps();
             $table->softDeletes();
