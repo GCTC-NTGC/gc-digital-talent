@@ -1,4 +1,4 @@
-import React, { HTMLAttributes, ReactElement, useRef } from "react";
+import React, { ReactElement, useRef } from "react";
 import { Routes } from "universal-router";
 import { useIntl } from "react-intl";
 import NavMenu from "@common/components/NavMenu";
