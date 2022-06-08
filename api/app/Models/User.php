@@ -88,7 +88,7 @@ class User extends Model implements Authenticatable
     }
     public function expectedClassificationRoles(): BelongsToMany
     {
-        return $this->belongsToMany(ClassificationRoles::class, 'classification_role_user')->withTimestamps();
+        return $this->belongsToMany(ClassificationRole::class, 'classification_role_user')->withTimestamps();
     }
     public function cmoAssets(): BelongsToMany
     {

@@ -35,4 +35,9 @@ class Classification extends Model
     protected $casts = [
         'name' => 'array',
     ];
+    public function classificationRole(): HasMany
+    {
+        return $this->hasMany(ClassificationRole::class);
+    }
+
 }

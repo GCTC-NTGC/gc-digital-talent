@@ -31,7 +31,7 @@ class CreateClassificationRoles extends Migration
             $table->uuid('user_id')->references('id')->on('users')->nullable(false);
             $table->unique(['classification_role_id', 'user_id'], 'classification_role_user_unique');
         });
-       DB::statement('ALTER TABLE classification_roles_user ALTER COLUMN id SET DEFAULT gen_random_uuid();');
+       DB::statement('ALTER TABLE classification_role_user ALTER COLUMN id SET DEFAULT gen_random_uuid();');
 
     }
 

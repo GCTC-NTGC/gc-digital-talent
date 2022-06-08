@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\ClassificationRoles;
+use App\Models\ClassificationRole;
 use App\Models\Classification;
 
 
@@ -88,7 +88,6 @@ class ClassificationRoleSeeder extends Seeder
             ],
         ];
 
-
         foreach ($roles as $role) {
             $identifier = [
                'key' => $role['key'],
@@ -98,7 +97,7 @@ class ClassificationRoleSeeder extends Seeder
                     'level' => $role['classification']['level']
                 ])->first()->id;
             $completeRole = array_merge($role, ['classification_id' => $classificationId]);
-            ClassificationRoles::updateOrCreate($identifier, $completeRole);
+            ClassificationRole::updateOrCreate($identifier, $completeRole);
         }
     }
 }

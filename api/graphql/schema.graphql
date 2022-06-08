@@ -97,7 +97,7 @@ type User {
 
     # Profile Status
     isProfileComplete: Boolean
-    classificationRoles: [ClassificationRoles] @hasMany
+    expectedClassificationRoles: [ClassificationRole] @belongsToMany
 
 }
 
@@ -206,7 +206,7 @@ type Applicant {
     educationExperiences: [EducationExperience]
     personalExperiences: [PersonalExperience]
     workExperiences: [WorkExperience]
-    classificationRoles: [ClassificationRoles] @hasMany
+    expectedClassificationRoles: [ClassificationRole] @belongsToMany
 
 }
 
@@ -314,11 +314,11 @@ enum SalaryRange {
 }
 
 
-type ClassificationRoles{
+type ClassificationRole{
     id: ID!
     key: KeyString!
     name: LocalizedString
-    level: Int
+    classification: Classfication @belongsTo
 }
 
 type Classification {
@@ -328,6 +328,7 @@ type Classification {
     level: Int!
     minSalary: Int @rename(attribute: "min_salary")
     maxSalary: Int @rename(attribute: "max_salary")
+    classificationRoles: [ClassificationRole] @belongsToMany
 }
 
 """
@@ -686,7 +687,7 @@ input CreateUserInput {
     educationExperiences: EducationExperienceHasMany
     awardExperiences: AwardExperienceHasMany
 
-    classificationRoles: [ClassificationRoles] @rename(attribute: "name")
+    classificationRoles: ClassificationRoleBelongsToMany
 
 }
 """
@@ -746,6 +747,8 @@ input UpdateUserAsAdminInput {
     communityExperiences: CommunityExperienceHasMany
     educationExperiences: EducationExperienceHasMany
     awardExperiences: AwardExperienceHasMany
+    classificationRoles: ClassificationRoleBelongsToMany
+
 }
 
 input UpdateUserAsUserInput {
@@ -799,7 +802,7 @@ input UpdateUserAsUserInput {
     communityExperiences: CommunityExperienceHasMany
     educationExperiences: EducationExperienceHasMany
     awardExperiences: AwardExperienceHasMany
-    classificationRoles: ClassificationRolesHasMany
+    classificationRoles: ClassificationRoleBelongsToMany
 
 }
 
