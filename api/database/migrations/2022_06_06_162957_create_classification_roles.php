@@ -43,6 +43,6 @@ class CreateClassificationRoles extends Migration
     public function down()
     {
         Schema::dropIfExists('classification_roles');
-        Schema::dropIfExists('classification_roles_user');
+        Schema::dropIfExists('classification_role_user');
     }
 }
