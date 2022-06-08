@@ -4,6 +4,7 @@ import { useForm, FormProvider } from "react-hook-form";
 import { errorMessages, commonMessages } from "@common/messages";
 import { Checkbox, RadioGroup, Select } from "@common/components/form";
 import { getLocale } from "@common/helpers/localize";
+import { strong } from "@common/helpers/format";
 import { toast } from "react-toastify";
 import { empty, notEmpty } from "@common/helpers/util";
 import { navigate } from "@common/helpers/router";
@@ -215,7 +216,9 @@ export const GovernmentInfoForm: React.FunctionComponent<
             }}
             items={enumToOptions(GovEmployeeType).map(({ value }) => ({
               value,
-              label: intl.formatMessage(getGovEmployeeType(value)),
+              label: intl.formatMessage(getGovEmployeeType(value), {
+                strong,
+              }),
             }))}
           />
         </div>
