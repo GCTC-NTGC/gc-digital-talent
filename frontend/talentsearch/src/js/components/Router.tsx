@@ -279,7 +279,6 @@ export const Router: React.FC = () => {
     authLinks = [
       <MenuLink
         key="logout"
-        href="/logout"
         as="button"
         onClick={() => {
           if (loggedIn) {

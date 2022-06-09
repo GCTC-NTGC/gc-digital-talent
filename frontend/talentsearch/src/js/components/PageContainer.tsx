@@ -15,14 +15,15 @@ import Footer from "@common/components/Footer";
 import NotAuthorized from "@common/components/NotAuthorized";
 import TALENTSEARCH_APP_DIR from "../talentSearchConstants";
 
-export const exactMatch = (ref: string, test: string): boolean => ref === test;
+export const exactMatch = (ref: string | null, test: string): boolean =>
+  ref === test;
 
 interface MenuLinkProps {
-  href: string;
+  href?: string;
   text: string;
   title?: string;
   as?: "a" | "button" | typeof Link;
-  isActive?: (href: string, path: string) => boolean;
+  isActive?: (href: string | null, path: string) => boolean;
   onClick?: () => void;
 }
 
@@ -39,7 +40,7 @@ export const MenuLink: React.FC<MenuLinkProps> = ({
   return (
     <El
       href={href}
-      title={title ?? ""}
+      title={title ?? undefined}
       data-h2-font-color="b(lightpurple)"
       data-h2-font-size="b(normal)"
       style={{
@@ -51,7 +52,7 @@ export const MenuLink: React.FC<MenuLinkProps> = ({
     >
       <span
         data-h2-font-weight={
-          isActive(href, location.pathname) ? "b(700)" : "b(100)"
+          isActive(href ?? null, location.pathname) ? "b(700)" : "b(100)"
         }
       >
         {text}
