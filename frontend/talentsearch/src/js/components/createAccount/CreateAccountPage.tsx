@@ -296,7 +296,7 @@ export const CreateAccount: React.FunctionComponent = () => {
     await handleCreateAccount(meId, data)
       .then(() => {
         navigate(paths.profile());
-        toast.error(
+        toast.success(
           intl.formatMessage({
             defaultMessage: "Account successfully created.",
             description:
