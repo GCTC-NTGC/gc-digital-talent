@@ -6,14 +6,14 @@ import { BellIcon } from "@heroicons/react/outline";
 import { FormProvider, useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { Input, RadioGroup, Submit } from "@common/components/form";
-import { commonMessages, errorMessages } from "@common/messages";
+import { errorMessages } from "@common/messages";
 import { enumToOptions } from "@common/helpers/formUtils";
 import { getLanguage } from "@common/constants";
 import { getLocale } from "@common/helpers/localize";
 import { notEmpty } from "@common/helpers/util";
+import Pending from "@common/components/Pending";
 import TALENTSEARCH_APP_DIR from "../../talentSearchConstants";
 import {
-  Department,
   Language,
   GovEmployeeType,
   Classification,
@@ -40,14 +40,12 @@ type FormValues = Pick<
 
 export interface CreateAccountFormProps {
   classifications: Classification[];
-  departments: Department[];
   handleCreateAccount: (data: UpdateUserAsUserInput) => Promise<void>;
 }
 
 export const CreateAccountForm: React.FunctionComponent<
   CreateAccountFormProps
-  // TODO: This never used error will be fixed after department is added to User model in separate issue.
-> = ({ classifications, departments, handleCreateAccount }) => {
+> = ({ classifications, handleCreateAccount }) => {
   const intl = useIntl();
 
   const methods = useForm<FormValues>();
@@ -263,13 +261,11 @@ export const CreateAccount: React.FunctionComponent = () => {
   const paths = talentSearchRoutes(locale);
 
   const [lookUpResult] = useGetCreateAccountFormDataQuery();
-  const { data: lookupData, fetching: fetchingLookupData } = lookUpResult;
+  const { data: lookupData, fetching, error } = lookUpResult;
   const meInfo = lookupData?.me;
   const meId = meInfo?.id;
   const classifications: Classification[] | [] =
     lookupData?.classifications.filter(notEmpty) ?? [];
-  const departments: Department[] | [] =
-    lookupData?.departments.filter(notEmpty) ?? []; // TODO: Add department field to User in separate issue.
 
   const [, executeMutation] = useCreateAccountMutation();
   const handleCreateAccount = (id: string, data: UpdateUserAsUserInput) =>
@@ -315,15 +311,12 @@ export const CreateAccount: React.FunctionComponent = () => {
       });
   };
 
-  if (fetchingLookupData) {
-    return <p>{intl.formatMessage(commonMessages.loadingTitle)}</p>;
-  }
-
   return (
-    <CreateAccountForm
-      classifications={classifications}
-      departments={departments}
-      handleCreateAccount={onSubmit}
-    />
+    <Pending fetching={fetching} error={error}>
+      <CreateAccountForm
+        classifications={classifications}
+        handleCreateAccount={onSubmit}
+      />
+    </Pending>
   );
 };
