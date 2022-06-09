@@ -17,6 +17,7 @@ import {
   EstimatedLanguageAbility,
   JobLookingStatus,
   PoolStatus,
+  GovEmployeeType,
 } from "../api/generated";
 import { getOrThrowError } from "../helpers/util";
 
@@ -668,4 +669,32 @@ export const getPoolStatus = (
     poolStatus,
     poolStatusId,
     `Invalid Pool Status '${poolStatusId}'`,
+  );
+
+export const govEmployeeType = defineMessages({
+  [GovEmployeeType.Student]: {
+    defaultMessage: "I am a <strong>student</strong>",
+    description: "Student selection for government employee type.",
+  },
+  [GovEmployeeType.Casual]: {
+    defaultMessage: "I have a <strong>casual</strong> contract",
+    description: "Casual selection for government employee type.",
+  },
+  [GovEmployeeType.Term]: {
+    defaultMessage: "I have a <strong>term</strong> position.",
+    description: "Term selection for government employee type.",
+  },
+  [GovEmployeeType.Indeterminate]: {
+    defaultMessage: "I am an <strong>indeterminate</strong> employee",
+    description: "Indeterminate selection for government employee type.",
+  },
+});
+
+export const getGovEmployeeType = (
+  govEmployeeTypeId: string | number,
+): MessageDescriptor =>
+  getOrThrowError(
+    govEmployeeType,
+    govEmployeeTypeId,
+    `Invalid Government of Employee Type '${govEmployeeTypeId}'`,
   );

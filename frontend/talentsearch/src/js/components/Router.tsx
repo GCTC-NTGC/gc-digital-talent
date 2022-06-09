@@ -38,6 +38,7 @@ import PoolApplyPage from "./pool/PoolApplyPage";
 import PoolApplicationThanksPage from "./pool/PoolApplicationThanksPage";
 import RegisterPage from "./register/RegisterPage";
 import LoginPage from "./login/LoginPage";
+import { CreateAccount } from "./createAccount/CreateAccountPage";
 import { Role } from "../api/generated";
 
 const talentRoutes = (
@@ -82,6 +83,12 @@ const authRoutes = (authPaths: AuthRoutes): Routes<RouterResult> => [
 const profileRoutes = (
   profilePaths: ApplicantProfileRoutes,
 ): Routes<RouterResult> => [
+  {
+    path: profilePaths.createAccount(),
+    action: () => ({
+      component: <CreateAccount />,
+    }),
+  },
   {
     path: profilePaths.home(),
     action: () => ({
