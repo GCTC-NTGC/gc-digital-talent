@@ -4,8 +4,9 @@ import { useIntl } from "react-intl";
 import TileLink from "@common/components/TileLink";
 import { imageUrl, navigate } from "@common/helpers/router";
 import Dialog from "@common/components/Dialog";
-import { Button, Link } from "@common/components";
+import { Alert, Button, Link } from "@common/components";
 import { AuthenticationContext } from "@common/components/Auth";
+import { BellIcon } from "@heroicons/react/outline";
 import { useDirectIntakeRoutes } from "../../directIntakeRoutes";
 import { useTalentSearchRoutes } from "../../talentSearchRoutes";
 
@@ -47,7 +48,19 @@ const LoggedOutPage: React.FC = () => {
         </h1>
       </div>
       <div data-h2-container="b(center, s)" data-h2-margin="b(top-bottom, xl)">
-        {/** TO DO: Add alert here */}
+        <Alert
+          type="success"
+          icon={<BellIcon style={{ width: "1rem" }} />}
+          title={intl.formatMessage({
+            defaultMessage: "You've successfully logged out of the platform",
+            description: "Title for the alert displayed after a user logs out",
+          })}
+          message={intl.formatMessage({
+            defaultMessage:
+              "Remember, to sign back in, you'll need to use your GC Key username and password. We hope to see you soon!",
+            description: "Message displayed to a user after logging out.",
+          })}
+        />
         <h2>
           {intl.formatMessage({
             defaultMessage: "Quick Links",
