@@ -102,6 +102,7 @@ export const useRouter = (
   routes: Routes<RouterResult>,
   missingRouteComponent: ReactElement,
   notAuthorizedComponent: ReactElement,
+  welcomeRoute?: string,
 ): React.ReactElement | null => {
   const location = useLocation();
   const router = useMemo(() => new UniversalRouter(routes), [routes]);
@@ -122,11 +123,11 @@ export const useRouter = (
 
         // Redirect authenticated user if no email exists yet
         if (
+          welcomeRoute &&
           loggedIn &&
           (typeof loggedInEmail === undefined || loggedInEmail === null)
         ) {
-          // Hardcoded path due to no easy way to share code
-          redirect(`/talent/profile/create-account`);
+          redirect(welcomeRoute);
           return null;
         }
 
