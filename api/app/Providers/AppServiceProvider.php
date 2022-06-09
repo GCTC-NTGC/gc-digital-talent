@@ -29,12 +29,12 @@ class AppServiceProvider extends ServiceProvider
             'workExperience' => \App\Models\WorkExperience::class,
         ]);
         // enable below for database debugging
-        DB::listen(function($query) {
-            Log::info(
-                $query->sql,
-                $query->bindings,
-                $query->time
-            );
-        });
+        // DB::listen(function($query) {
+        //     Log::info(
+        //         $query->sql,
+        //         $query->bindings,
+        //         $query->time
+        //     );
+        // });
     }
 }
