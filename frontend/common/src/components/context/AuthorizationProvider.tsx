@@ -8,7 +8,7 @@ const AuthorizationProvider: React.FC = ({ children }) => {
   const { data } = result;
 
   return (
-    <AuthorizationContainer userRoles={data?.me?.roles}>
+    <AuthorizationContainer userRoles={data?.me?.roles} email={data?.me?.email}>
       {children}
     </AuthorizationContainer>
   );

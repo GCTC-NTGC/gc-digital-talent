@@ -110,7 +110,8 @@ export const useRouter = (
   const apiRoutes = useApiRoutes();
   const locale = getLocale(useIntl());
   const { loggedIn } = React.useContext(AuthenticationContext);
-  const { loggedInUserRoles } = React.useContext(AuthorizationContext);
+  const { loggedInUserRoles, loggedInEmail } =
+    React.useContext(AuthorizationContext);
   // Render the result of routing
   useEffect((): void => {
     router
@@ -118,6 +119,16 @@ export const useRouter = (
       .then(async (routeMaybePromise) => {
         // may or may not be a promise, so attempt to resolve it. A non-promise value will simply resolve to itself.
         const route = await Promise.resolve(routeMaybePromise);
+
+        // Redirect authenticated user if no email exists yet
+        if (
+          loggedIn &&
+          (typeof loggedInEmail === undefined || loggedInEmail === null)
+        ) {
+          // Hardcoded path due to no easy way to share code
+          redirect(`/talent/profile/create-account`);
+          return null;
+        }
 
         // handling a redirect
         if (route?.redirect) {
@@ -168,6 +179,7 @@ export const useRouter = (
     loggedIn,
     locale,
     loggedInUserRoles,
+    loggedInEmail,
     missingRouteComponent,
     notAuthorizedComponent,
     pathName,
