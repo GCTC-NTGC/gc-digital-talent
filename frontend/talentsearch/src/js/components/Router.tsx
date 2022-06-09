@@ -4,6 +4,7 @@ import { Routes } from "universal-router";
 import { RouterResult } from "@common/helpers/router";
 import Toast from "@common/components/Toast";
 import { checkFeatureFlag } from "@common/helpers/runtimeVariable";
+import { AuthenticationContext } from "@common/components/Auth";
 import PageContainer, { MenuLink } from "./PageContainer";
 import SearchPage from "./search/SearchPage";
 import {
@@ -235,6 +236,7 @@ export const Router: React.FC = () => {
   const talentPaths = useTalentSearchRoutes();
   const profilePaths = useApplicantProfileRoutes();
   const directIntakePaths = useDirectIntakeRoutes();
+  const { loggedIn, logout } = React.useContext(AuthenticationContext);
 
   const menuItems = [
     <MenuLink
@@ -254,10 +256,58 @@ export const Router: React.FC = () => {
       })}
     />,
   ];
+
+  let authLinks = [
+    <MenuLink
+      key="login-info"
+      href={authPaths.login()}
+      text={intl.formatMessage({
+        defaultMessage: "Login",
+        description: "Label displayed on the login link menu item.",
+      })}
+    />,
+    <MenuLink
+      key="register"
+      href={authPaths.register()}
+      text={intl.formatMessage({
+        defaultMessage: "Register",
+        description: "Label displayed on the register link menu item.",
+      })}
+    />,
+  ];
+  if (loggedIn) {
+    authLinks = [
+      <MenuLink
+        key="logout"
+        as="button"
+        onClick={() => {
+          if (loggedIn) {
+            // Display a confirmation dialog before logging the user out
+            // At some point we may change this to use a modal
+            const message = intl.formatMessage({
+              defaultMessage: "Are you sure you want to logout?",
+              description: "Label displayed on the Logout confirmation dialog.",
+            });
+
+            // eslint-disable-next-line no-restricted-globals, no-alert
+            if (confirm(message)) {
+              logout();
+            }
+          }
+        }}
+        text={intl.formatMessage({
+          defaultMessage: "Logout",
+          description: "Label displayed on the logout link menu item.",
+        })}
+      />,
+    ];
+  }
+
   return (
     <>
       <PageContainer
         menuItems={menuItems}
+        authLinks={authLinks}
         contentRoutes={[
           ...talentRoutes(talentPaths),
           ...authRoutes(authPaths),
