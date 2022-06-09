@@ -197,6 +197,7 @@ export const useRouter = (
     pathName,
     router,
     welcomeRoute,
+    authorizationLoaded,
   ]);
 
   return component;
