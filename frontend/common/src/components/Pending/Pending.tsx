@@ -2,18 +2,23 @@ import React from "react";
 import type { CombinedError } from "urql";
 import ErrorMessage from "./ErrorMessage";
 
-import Loading from "./Loading";
+import Loading, { type LoadingProps } from "./Loading";
 
 import "./pending.css";
 
-interface PendingProps {
+interface PendingProps extends LoadingProps {
   fetching: boolean;
   error?: CombinedError;
 }
 
-const Pending: React.FC<PendingProps> = ({ fetching, error, children }) => {
+const Pending: React.FC<PendingProps> = ({
+  fetching,
+  error,
+  inline = false,
+  children,
+}) => {
   if (fetching) {
-    return <Loading />;
+    return <Loading inline={!!inline} />;
   }
 
   if (error) {
