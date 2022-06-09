@@ -264,6 +264,7 @@ type PoolCandidate {
     cmoAssets: [CmoAsset] @belongsToMany
 
     status: PoolCandidateStatus @rename(attribute: "pool_candidate_status")
+    notes: String
 }
 
 enum LanguageAbility {
@@ -839,6 +840,7 @@ input CreatePoolCandidateAsAdminInput {
     cmoAssets: CmoAssetBelongsToMany
     status: PoolCandidateStatus = AVAILABLE
         @rename(attribute: "pool_candidate_status")
+    notes: String
 }
 
 input CreatePoolInput {
@@ -881,6 +883,7 @@ input UpdatePoolCandidateAsAdminInput {
     expectedClassifications: ClassificationBelongsToMany
     cmoAssets: CmoAssetBelongsToMany
     status: PoolCandidateStatus @rename(attribute: "pool_candidate_status")
+    notes: String
 }
 
 input UpdatePoolInput {

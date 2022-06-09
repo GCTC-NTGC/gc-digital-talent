@@ -11,6 +11,10 @@ query GetGeneralInfo($id: ID!) {
     currentProvince
     currentCity
     jobLookingStatus
+    isIndigenous
+    hasDisability
+    isVisibleMinority
+    isWoman
     poolCandidates {
       id
       pool {
@@ -22,6 +26,7 @@ query GetGeneralInfo($id: ID!) {
 			}
       status
       expiryDate
+      notes
     }
   }
   pools {

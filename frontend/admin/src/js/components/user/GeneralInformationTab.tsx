@@ -6,6 +6,7 @@ import {
   InformationCircleIcon,
   PencilAltIcon,
   UserIcon,
+  CheckIcon,
 } from "@heroicons/react/outline";
 import {
   getLanguage,
@@ -18,6 +19,9 @@ import { Button } from "@common/components";
 import Pending from "@common/components/Pending";
 import NotFound from "@common/components/NotFound";
 import { commonMessages } from "@common/messages";
+import { BasicForm, TextArea } from "@common/components/form";
+import { unpackMaybes } from "@common/helpers/formUtils";
+import { toast } from "react-toastify";
 import {
   AddToPoolDialog,
   ChangeDateDialog,
@@ -29,11 +33,18 @@ import {
   JobLookingStatus,
   PoolCandidate,
   useGetGeneralInfoQuery,
-  GetGeneralInfoQuery,
+  Pool,
+  useUpdatePoolCandidateMutation,
+  UpdatePoolCandidateAsAdminInput,
 } from "../../api/generated";
 
-interface SectionProps {
+interface BasicSectionProps {
   user: User;
+}
+
+interface SectionWithPoolsProps {
+  user: User;
+  pools: Pool[];
 }
 
 // accessible button for modals - generate clickable inline elements resembling <a>
@@ -58,7 +69,7 @@ const ModalTableButton: React.FC<ModalTableButtonProps> = ({
   );
 };
 
-const PoolStatusTable: React.FC<SectionProps> = ({ user }) => {
+const PoolStatusTable: React.FC<BasicSectionProps> = ({ user }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
 
@@ -207,7 +218,7 @@ const PoolStatusTable: React.FC<SectionProps> = ({ user }) => {
   );
 };
 
-const AboutSection: React.FC<SectionProps> = ({ user }) => {
+const AboutSection: React.FC<BasicSectionProps> = ({ user }) => {
   const intl = useIntl();
 
   return (
@@ -278,9 +289,10 @@ const AboutSection: React.FC<SectionProps> = ({ user }) => {
   );
 };
 
-const CandidateStatusSection: React.FC<
-  Pick<GetGeneralInfoQuery, "pools"> & { user: User }
-> = ({ user, pools }) => {
+const CandidateStatusSection: React.FC<SectionWithPoolsProps> = ({
+  user,
+  pools,
+}) => {
   const intl = useIntl();
 
   const [showAddToPoolDialog, setShowAddToPoolDialog] = React.useState(false);
@@ -384,17 +396,187 @@ const CandidateStatusSection: React.FC<
   );
 };
 
-const NotesSection: React.FC<SectionProps> = ({ user }) => {
-  return <p>details</p>;
+const NotesSection: React.FC<BasicSectionProps> = ({ user }) => {
+  const intl = useIntl();
+  const locale = getLocale(intl);
+
+  const [, executeMutation] = useUpdatePoolCandidateMutation();
+
+  const handleUpdateCandidate = async (
+    id: string,
+    values: UpdatePoolCandidateAsAdminInput,
+  ) => {
+    const res = await executeMutation({ id, poolCandidate: values });
+    if (res.data?.updatePoolCandidateAsAdmin) {
+      return res.data.updatePoolCandidateAsAdmin;
+    }
+    return Promise.reject(res.error);
+  };
+
+  const handleSubmit = async (formValues: { [x: string]: string }) => {
+    user?.poolCandidates?.forEach(async (candidate) => {
+      if (candidate && (candidate.notes || "") !== formValues[candidate.id]) {
+        await handleUpdateCandidate(candidate.id, {
+          notes: formValues[candidate.id],
+        })
+          .then(() => {
+            toast.success(
+              intl
+                .formatMessage({
+                  defaultMessage: "Successfully updated notes for candidate in",
+                  description:
+                    "Toast notification for successful update of candidates notes",
+                })
+                .concat(` ${candidate.pool?.name?.[locale]}` || ""),
+            );
+          })
+          .catch(() => {
+            toast.error(
+              intl
+                .formatMessage({
+                  defaultMessage: "Failed updating notes for candidate in",
+                  description:
+                    "Toast notification for failed update of candidates notes",
+                })
+                .concat(` ${candidate.pool?.name?.[locale]}` || ""),
+            );
+          });
+      }
+    });
+  };
+
+  return (
+    <>
+      <p>
+        {intl.formatMessage({
+          defaultMessage:
+            "These notes are shared between all managers of this pool, but not to candidates.",
+          description:
+            "Message about the behavior of notes on the view-user page",
+        })}
+      </p>
+      {isEmpty(user.poolCandidates) ? (
+        <div
+          data-h2-bg-color="b(lightgray)"
+          data-h2-padding="b(all, s)"
+          data-h2-radius="b(s)"
+          data-h2-font-size="b(caption)"
+        >
+          {intl.formatMessage({
+            defaultMessage: "This user is not in any pools yet",
+            description:
+              "Message on view-user page that the user is not in any pools",
+          })}
+        </div>
+      ) : (
+        <BasicForm onSubmit={handleSubmit}>
+          {user?.poolCandidates?.map((candidate) => {
+            if (candidate) {
+              return (
+                <div data-h2-padding="b(bottom, s)" key={candidate.id}>
+                  <TextArea
+                    id={candidate.id}
+                    name={candidate.id}
+                    label={`${intl.formatMessage({
+                      defaultMessage: "Notes",
+                      description: "Title for a pool candidates notes field",
+                    })} - ${candidate.pool?.name?.[locale]}`}
+                    defaultValue={candidate.notes ? candidate.notes : ""}
+                    placeholder={intl.formatMessage({
+                      defaultMessage: "Start writing your notes here...",
+                      description:
+                        "Placeholder text for a pool candidates notes field",
+                    })}
+                    rows={4}
+                  />
+                </div>
+              );
+            }
+            return null;
+          })}
+          <Button type="submit" mode="solid" color="secondary">
+            <span data-h2-font-style="b(underline)">
+              {intl.formatMessage({
+                defaultMessage: "Save notes",
+                description:
+                  "Button to save notes for a pool candidate on the view-user page",
+              })}
+            </span>
+          </Button>
+        </BasicForm>
+      )}
+    </>
+  );
 };
 
-const EmploymentEquitySection: React.FC<SectionProps> = ({ user }) => {
-  return <p>details</p>;
+const EmploymentEquitySection: React.FC<BasicSectionProps> = ({ user }) => {
+  const intl = useIntl();
+
+  return (
+    <div
+      data-h2-bg-color="b(lightgray)"
+      data-h2-padding="b(right-left, s) b(top-bottom, xxs)"
+      data-h2-radius="b(s)"
+    >
+      {!user.isIndigenous &&
+        !user.hasDisability &&
+        !user.isVisibleMinority &&
+        !user.isWoman &&
+        intl.formatMessage({
+          defaultMessage: "Not a member of an employment equity group",
+          description:
+            "Text on view-user page that the user isn't part of an employment equity group",
+        })}
+      {user.isIndigenous && (
+        <div data-h2-padding="b(top-bottom, xxs)">
+          <CheckIcon style={{ width: "1rem" }} />
+          {"  "}
+          {intl.formatMessage({
+            defaultMessage: "Indigenous",
+            description: "Text on view-user page that the user is indigenous",
+          })}
+        </div>
+      )}
+      {user.hasDisability && (
+        <div data-h2-padding="b(top-bottom, xxs)">
+          <CheckIcon style={{ width: "1rem" }} />
+          {"  "}
+          {intl.formatMessage({
+            defaultMessage: "Person with disability",
+            description:
+              "Text on view-user page that the user has a disability",
+          })}
+        </div>
+      )}
+      {user.isVisibleMinority && (
+        <div data-h2-padding="b(top-bottom, xxs)">
+          <CheckIcon style={{ width: "1rem" }} />
+          {"  "}
+          {intl.formatMessage({
+            defaultMessage: "Visible minority",
+            description:
+              "Text on view-user page that the user is part of a visible minority",
+          })}
+        </div>
+      )}
+      {user.isWoman && (
+        <div data-h2-padding="b(top-bottom, xxs)">
+          <CheckIcon style={{ width: "1rem" }} />
+          {"  "}
+          {intl.formatMessage({
+            defaultMessage: "Woman",
+            description: "Text on view-user page that the user is a woman",
+          })}
+        </div>
+      )}
+    </div>
+  );
 };
 
-const GeneralInformationTab: React.FC<
-  Pick<GetGeneralInfoQuery, "pools"> & { user: User }
-> = ({ user, pools }) => {
+const GeneralInformationTab: React.FC<SectionWithPoolsProps> = ({
+  user,
+  pools,
+}) => {
   const intl = useIntl();
 
   const items = [
@@ -473,7 +655,10 @@ const GeneralInfoTabApi: React.FC<{
   return (
     <Pending fetching={fetching} error={error}>
       {data?.user && data?.pools ? (
-        <GeneralInformationTab user={data.user} pools={data.pools} />
+        <GeneralInformationTab
+          user={data.user}
+          pools={unpackMaybes(data.pools)}
+        />
       ) : (
         <NotFound headingMessage={intl.formatMessage(commonMessages.notFound)}>
           <p>
