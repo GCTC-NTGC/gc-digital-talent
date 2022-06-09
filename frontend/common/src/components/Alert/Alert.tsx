@@ -3,8 +3,8 @@ import * as React from "react";
 export type Color = "success";
 
 export interface AlertProps {
-  title: string;
-  message: string;
+  title: React.ReactNode | string;
+  message: React.ReactNode | string;
   icon: React.ReactNode;
   type: "success";
 }
