@@ -4,12 +4,11 @@
 import "@testing-library/jest-dom";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { IntlProvider, MessageFormatElement } from "react-intl";
-import { fakeClassifications, fakeDepartments } from "@common/fakeData";
+import { fakeClassifications } from "@common/fakeData";
 import React from "react";
 import { CreateAccountForm, CreateAccountFormProps } from "./CreateAccountPage";
 
 const mockClassifications = fakeClassifications();
-const mockDepartments = fakeDepartments();
 const mockSave = jest.fn();
 
 const renderWithReactIntl = (
@@ -26,14 +25,12 @@ const renderWithReactIntl = (
 
 const renderCreateAccountForm = ({
   classifications,
-  departments,
   handleCreateAccount,
 }: CreateAccountFormProps) => (
   <>
     {renderWithReactIntl(
       <CreateAccountForm
         classifications={classifications}
-        departments={departments}
         handleCreateAccount={handleCreateAccount}
       />,
     )}
@@ -44,7 +41,6 @@ describe("Create Account Form tests", () => {
   it("should render fields", () => {
     renderCreateAccountForm({
       classifications: mockClassifications,
-      departments: mockDepartments,
       handleCreateAccount: mockSave,
     });
 
@@ -72,7 +68,6 @@ describe("Create Account Form tests", () => {
   it("should not render with empty fields.", async () => {
     renderCreateAccountForm({
       classifications: mockClassifications,
-      departments: mockDepartments,
       handleCreateAccount: mockSave,
     });
 
@@ -84,7 +79,6 @@ describe("Create Account Form tests", () => {
   it("should submit successfully with required fields", async () => {
     renderCreateAccountForm({
       classifications: mockClassifications,
-      departments: mockDepartments,
       handleCreateAccount: mockSave,
     });
 
