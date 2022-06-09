@@ -779,6 +779,52 @@ class PoolCandidateTest extends TestCase
     ]);
   }
 
+  public function testFilterByCandidateStatus(): void
+  {
+    $nonAvailableStatuses = array('PLACED_INDETERMINATE', 'PLACED_TERM', 'NO_LONGER_INTERESTED');
+    // Create 3 pool candidates available status
+    PoolCandidate::factory()->count(3)->create([
+      'pool_candidate_status' => 'AVAILABLE',
+      'expiry_date' => FAR_FUTURE_DATE,
+    ]);
+
+    // Create 6 pool candidates with non-available statuses
+    PoolCandidate::factory()->count(6)->create([
+      'pool_candidate_status' => $nonAvailableStatuses[array_rand($nonAvailableStatuses)],
+      'expiry_date' => FAR_FUTURE_DATE,
+    ]);
+
+    // Assert query with available filter will return appropriate candidate count
+    $this->graphQL(/** @lang Graphql */ '
+      query countPoolCandidates($where: PoolCandidateFilterInput) {
+        countPoolCandidates(where: $where)
+      }
+    ', [
+      'where' => [
+        'status' => 'AVAILABLE',
+      ]
+    ])->assertJson([
+      'data' => [
+        'countPoolCandidates' => 3
+      ]
+    ]);
+
+    // Assert query with empty filter will return appropriate candidate count
+    $this->graphQL(/** @lang Graphql */ '
+      query countPoolCandidates($where: PoolCandidateFilterInput) {
+        countPoolCandidates(where: $where)
+      }
+    ', [
+      'where' => [
+        'status' => null,
+      ]
+    ])->assertJson([
+      'data' => [
+        'countPoolCandidates' => 9
+      ]
+    ]);
+  }
+
   public function testFilterByClassificationToSalary(): void
   {
     // Create initial data.
