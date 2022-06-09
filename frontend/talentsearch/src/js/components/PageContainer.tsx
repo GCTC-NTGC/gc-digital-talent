@@ -14,7 +14,6 @@ import Header from "@common/components/Header";
 import Footer from "@common/components/Footer";
 import NotAuthorized from "@common/components/NotAuthorized";
 import TALENTSEARCH_APP_DIR from "../talentSearchConstants";
-import { useApplicantProfileRoutes } from "../applicantProfileRoutes";
 
 export const exactMatch = (ref: string, test: string): boolean => ref === test;
 

@@ -185,6 +185,7 @@ export const useRouter = (
     notAuthorizedComponent,
     pathName,
     router,
+    welcomeRoute,
   ]);
 
   return component;
