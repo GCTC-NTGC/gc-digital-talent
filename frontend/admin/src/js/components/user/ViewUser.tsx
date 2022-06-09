@@ -2,13 +2,12 @@ import * as React from "react";
 import { useIntl } from "react-intl";
 import {
   HomeIcon,
-  DownloadIcon,
+  PrinterIcon,
   UserCircleIcon,
 } from "@heroicons/react/outline";
 import Breadcrumbs from "@common/components/Breadcrumbs";
 import type { BreadcrumbsProps } from "@common/components/Breadcrumbs";
 import PageHeader from "@common/components/PageHeader";
-import { Link } from "@common/components";
 import { Tab, TabSet } from "@common/components/tabs";
 import { commonMessages } from "@common/messages";
 import Pending from "@common/components/Pending";
@@ -18,6 +17,7 @@ import { User, useUserQuery } from "../../api/generated";
 import DashboardContentContainer from "../DashboardContentContainer";
 import UserProfileApi from "./UserProfile";
 import GeneralInfoTabApi from "./GeneralInformationTab";
+import UserProfilePrintButton from "./UserProfilePrintButton";
 
 interface ViewUserPageProps {
   user: User;
@@ -75,21 +75,15 @@ export const ViewUserPage: React.FC<ViewUserPageProps> = ({ user }) => {
           </h2>
         )}
         <div data-h2-margin="m(left, auto)">
-          <Link
-            mode="outline"
-            color="primary"
-            type="button"
-            href="/"
-            // download={ TODO }
-          >
+          <UserProfilePrintButton userId={user.id}>
             <span>
-              <DownloadIcon style={{ width: "1rem" }} />{" "}
+              <PrinterIcon style={{ width: "1rem" }} />{" "}
               {intl.formatMessage({
-                defaultMessage: "Download Profile",
-                description: "Text for button to download a user",
+                defaultMessage: "Print Profile",
+                description: "Text for button to print a user profile",
               })}
             </span>
-          </Link>
+          </UserProfilePrintButton>
         </div>
       </div>
       <TabSet>

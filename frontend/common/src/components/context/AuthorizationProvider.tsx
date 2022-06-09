@@ -1,7 +1,6 @@
 import React from "react";
 
-import { AuthorizationContainer } from "@common/components/Auth";
-
+import { AuthorizationContainer } from "../Auth";
 import { useGetMeQuery } from "../../api/generated";
 
 const AuthorizationProvider: React.FC = ({ children }) => {

@@ -64,4 +64,19 @@ class ApiEnums
     const CANDIDATE_EXPIRY_FILTER_ACTIVE = 'ACTIVE';
     const CANDIDATE_EXPIRY_FILTER_EXPIRED = 'EXPIRED';
     const CANDIDATE_EXPIRY_FILTER_ALL = 'ALL';
+
+    const ROLE_ADMIN = 'ADMIN';
+    const ROLE_APPLICANT = 'APPLICANT';
+    /**
+     * A collection of enums for Role in factories and seeders
+     *
+     * @return string[]
+     */
+    public static function roles() : array
+    {
+        return [
+            self::ROLE_ADMIN,
+            self::ROLE_APPLICANT,
+        ];
+    }
 }

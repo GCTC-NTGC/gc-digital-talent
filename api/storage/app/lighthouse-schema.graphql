@@ -808,7 +808,11 @@ type Query {
 }
 
 enum Role {
+  """A user who has administrator privileges"""
   ADMIN
+
+  """A user who has a profile to apply to hiring pools"""
+  APPLICANT
 }
 
 """The available SQL operators that are used to filter query results."""

@@ -27,6 +27,7 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Log;
 use Lcobucci\JWT\Validation\RequiredConstraintsViolated;
+use Database\Helpers\ApiEnums;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -101,7 +102,7 @@ class AuthServiceProvider extends ServiceProvider
                 $newUser = new User;
                 $newUser->first_name = $sub;  // displayed on the landing page so should help us find the user
                 $newUser->sub = $sub;
-                $newUser->roles = null;
+                $newUser->roles = [ApiEnums::ROLE_APPLICANT]; // every new user is automatically an APPLICANT
                 $newUser->save();
                 return $newUser;
             }

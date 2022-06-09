@@ -4,7 +4,6 @@ import { Routes } from "universal-router";
 import { RouterResult } from "@common/helpers/router";
 import Toast from "@common/components/Toast";
 import { checkFeatureFlag } from "@common/helpers/runtimeVariable";
-import ClientProvider from "./ClientProvider";
 import PageContainer, { MenuLink } from "./PageContainer";
 import SearchPage from "./search/SearchPage";
 import {
@@ -15,6 +14,7 @@ import {
   ApplicantProfileRoutes,
   useApplicantProfileRoutes,
 } from "../applicantProfileRoutes";
+import { AuthRoutes, useAuthRoutes } from "../authRoutes";
 import {
   DirectIntakeRoutes,
   useDirectIntakeRoutes,
@@ -35,6 +35,9 @@ import BrowsePoolsPage from "./browse/BrowsePoolsPage";
 import BrowseIndividualPoolApi from "./browse/BrowseIndividualPool";
 import PoolApplyPage from "./pool/PoolApplyPage";
 import PoolApplicationThanksPage from "./pool/PoolApplicationThanksPage";
+import RegisterPage from "./register/RegisterPage";
+import LoginPage from "./login/LoginPage";
+import { Role } from "../api/generated";
 
 const talentRoutes = (
   talentPaths: TalentSearchRoutes,
@@ -60,6 +63,21 @@ const talentRoutes = (
   },
 ];
 
+const authRoutes = (authPaths: AuthRoutes): Routes<RouterResult> => [
+  {
+    path: authPaths.register(),
+    action: () => ({
+      component: <RegisterPage />,
+    }),
+  },
+  {
+    path: authPaths.login(),
+    action: () => ({
+      component: <LoginPage />,
+    }),
+  },
+];
+
 const profileRoutes = (
   profilePaths: ApplicantProfileRoutes,
 ): Routes<RouterResult> => [
@@ -67,30 +85,35 @@ const profileRoutes = (
     path: profilePaths.home(),
     action: () => ({
       component: <ProfilePage />,
+      authorizedRoles: [Role.Applicant],
     }),
   },
   {
     path: profilePaths.governmentInformation(),
     action: () => ({
       component: <GovInfoFormContainer />,
+      authorizedRoles: [Role.Applicant],
     }),
   },
   {
     path: profilePaths.languageInformation(),
     action: () => ({
       component: <LanguageInformationFormContainer />,
+      authorizedRoles: [Role.Applicant],
     }),
   },
   {
     path: profilePaths.workLocation(),
     action: () => ({
       component: <WorkLocationPreferenceApi />,
+      authorizedRoles: [Role.Applicant],
     }),
   },
   {
     path: profilePaths.roleSalary(),
     action: () => ({
       component: <RoleSalaryFormContainer />,
+      authorizedRoles: [Role.Applicant],
     }),
   },
   {
@@ -99,6 +122,7 @@ const profileRoutes = (
       const experienceType = context.params.type as ExperienceType;
       return {
         component: <ExperienceFormContainer experienceType={experienceType} />,
+        authorizedRoles: [Role.Applicant],
       };
     },
   },
@@ -115,6 +139,7 @@ const profileRoutes = (
             edit
           />
         ),
+        authorizedRoles: [Role.Applicant],
       };
     },
   },
@@ -122,30 +147,35 @@ const profileRoutes = (
     path: profilePaths.workPreferences(),
     action: () => ({
       component: <WorkPreferencesApi />,
+      authorizedRoles: [Role.Applicant],
     }),
   },
   {
     path: profilePaths.aboutMe(),
     action: () => ({
       component: <AboutMeFormContainer />,
+      authorizedRoles: [Role.Applicant],
     }),
   },
   {
     path: profilePaths.diversityEquityInclusion(),
     action: () => ({
       component: <DiversityEquityInclusionFormApi />,
+      authorizedRoles: [Role.Applicant],
     }),
   },
   {
     path: profilePaths.skillsAndExperiences(),
     action: () => ({
       component: <ExperienceAndSkillsRouterApi />,
+      authorizedRoles: [Role.Applicant],
     }),
   },
   {
     path: profilePaths.profilePage(),
     action: () => ({
       component: <ProfilePage />,
+      authorizedRoles: [Role.Applicant],
     }),
   },
 ];
@@ -153,7 +183,6 @@ const profileRoutes = (
 const directIntakeRoutes = (
   directIntakePaths: DirectIntakeRoutes,
 ): Routes<RouterResult> => [
-  // placeholder, switch with real routes
   {
     path: directIntakePaths.home(),
     action: () => ({
@@ -165,6 +194,7 @@ const directIntakeRoutes = (
     path: directIntakePaths.allPools(),
     action: () => ({
       component: <BrowsePoolsPage />,
+      authorizedRoles: [Role.Applicant],
     }),
   },
   {
@@ -173,6 +203,7 @@ const directIntakeRoutes = (
       const poolId = context.params.id as string;
       return {
         component: <BrowseIndividualPoolApi poolId={poolId} />,
+        authorizedRoles: [Role.Applicant],
       };
     },
   },
@@ -182,6 +213,7 @@ const directIntakeRoutes = (
       const poolId = context.params.id as string;
       return {
         component: <PoolApplyPage id={poolId} />,
+        authorizedRoles: [Role.Applicant],
       };
     },
   },
@@ -191,6 +223,7 @@ const directIntakeRoutes = (
       const poolId = context.params.id as string;
       return {
         component: <PoolApplicationThanksPage id={poolId} />,
+        authorizedRoles: [Role.Applicant],
       };
     },
   },
@@ -198,6 +231,7 @@ const directIntakeRoutes = (
 
 export const Router: React.FC = () => {
   const intl = useIntl();
+  const authPaths = useAuthRoutes();
   const talentPaths = useTalentSearchRoutes();
   const profilePaths = useApplicantProfileRoutes();
   const directIntakePaths = useDirectIntakeRoutes();
@@ -221,11 +255,12 @@ export const Router: React.FC = () => {
     />,
   ];
   return (
-    <ClientProvider>
+    <>
       <PageContainer
         menuItems={menuItems}
         contentRoutes={[
           ...talentRoutes(talentPaths),
+          ...authRoutes(authPaths),
           ...(checkFeatureFlag("FEATURE_APPLICANTPROFILE")
             ? profileRoutes(profilePaths)
             : []),
@@ -235,7 +270,7 @@ export const Router: React.FC = () => {
         ]}
       />
       <Toast />
-    </ClientProvider>
+    </>
   );
 };
 

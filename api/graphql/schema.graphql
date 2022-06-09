@@ -24,7 +24,10 @@ enum Language {
 }
 
 enum Role {
-    ADMIN
+    "A user who has administrator privileges"
+    ADMIN,
+    "A user who has a profile to apply to hiring pools"
+    APPLICANT
 }
 
 type User {

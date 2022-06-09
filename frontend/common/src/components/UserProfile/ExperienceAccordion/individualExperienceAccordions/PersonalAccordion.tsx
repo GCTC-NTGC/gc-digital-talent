@@ -9,6 +9,7 @@ import { PersonalExperience } from "../../../../api/generated";
 
 type PersonalAccordionProps = PersonalExperience & {
   editUrl?: string; // A link to edit the experience will only appear if editUrl is defined.
+  defaultOpen?: boolean;
 };
 
 const PersonalAccordion: React.FunctionComponent<PersonalAccordionProps> = ({
@@ -19,6 +20,7 @@ const PersonalAccordion: React.FunctionComponent<PersonalAccordionProps> = ({
   description,
   skills,
   editUrl,
+  defaultOpen = false,
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
@@ -54,6 +56,7 @@ const PersonalAccordion: React.FunctionComponent<PersonalAccordionProps> = ({
             )
       }
       Icon={BriefCaseIcon}
+      defaultOpen={defaultOpen}
     >
       <div data-h2-padding="b(left, l)">
         <p>{description}</p>
