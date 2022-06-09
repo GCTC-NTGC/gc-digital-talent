@@ -19,7 +19,6 @@ use App\Models\EducationExperience;
 use App\Models\PersonalExperience;
 use App\Models\WorkExperience;
 use Faker;
-use Illuminate\Cache\RateLimiting\Limit;
 use Database\Helpers\ApiEnums;
 
 class DatabaseSeeder extends Seeder
@@ -54,83 +53,51 @@ class DatabaseSeeder extends Seeder
         $this->call(UserSeederLocal::class);
         $this->call(PoolSeeder::class);
 
-        // fill digital_careers no salary, with classifications
         User::factory([
             'roles' => [ApiEnums::ROLE_APPLICANT]
        ])
-            ->count(20)
-            ->afterCreating(function (User $user) {
-                $assets = CmoAsset::inRandomOrder()->limit(4)->pluck('id')->toArray();
-                $classifications = Classification::where('group', 'IT')->inRandomOrder()->limit(3)->get()->pluck('id')->toArray();
-                $user->cmoAssets()->sync($assets);
-                $user->expectedClassifications()->sync($classifications);
-                PoolCandidate::factory()->count(1)->sequence(fn () => [
-                    'pool_id' => Pool::where('key', 'digital_careers')->get()->pluck('id')->toArray()[0],
-                    'expected_salary' => null
-                ])->for($user)->afterCreating(function (PoolCandidate $candidate){
-                        $classifications = Classification::where('group', 'IT')->inRandomOrder()->limit(3)->get();
-                        $candidate->expectedClassifications()->saveMany($classifications);
-                        $assets = CmoAsset::inRandomOrder()->limit(4)->get();
-                        $candidate->cmoAssets()->saveMany($assets);
-                    })->create();
-            })
-            ->create();
-        // fill digital_careers salary, no classifications
-        User::factory([
-            'roles' => [ApiEnums::ROLE_APPLICANT]
-       ])
-            ->count(20)
-            ->afterCreating(function (User $user) {
+            ->count(60)
+            ->afterCreating(function (User $user) use ($faker) {
                 $assets = CmoAsset::inRandomOrder()->limit(4)->pluck('id')->toArray();
                 $user->cmoAssets()->sync($assets);
+
+                // pick a pool in which to place this user
+                $pool = Pool::inRandomOrder()->limit(1)->first();
+
+                // are they a government user?
+                if(rand(0, 1)) {
+                    // government users have a current classification and expected classifications but no salary
+                    $user->current_classification = Classification::inRandomOrder()->first()->id;
+                    $user->expected_salary = [];
+                    $user->save();
+
+                    $user->expectedClassifications()->sync(
+                        $faker->randomElements($pool->classifications()->pluck('classifications.id')->toArray(), 3)
+                    );
+                } else {
+                    // non-government users have no current classification or expected classifications but have salary
+                    $user->current_classification = null;
+                    $user->expected_salary = $faker->randomElements(ApiEnums::salaryRanges(), 3);
+                    $user->save();
+
+                    $user->expectedClassifications()->sync([]);
+                }
+
+                // create a pool candidate in the pool
                 PoolCandidate::factory()->count(1)->sequence(fn () => [
-                    'pool_id' => Pool::where('key', 'digital_careers')->get()->pluck('id')->toArray()[0],
-                ])->for($user)->afterCreating(function (PoolCandidate $candidate){
-                    $assets = CmoAsset::inRandomOrder()->limit(4)->get();
-                    $candidate->cmoAssets()->saveMany($assets);
+                    'pool_id' => $pool->id,
+                    'user_id' => $user->id,
+                    'expected_salary' => $user->expected_salary
+                ])->for($user)->afterCreating(function (PoolCandidate $candidate) use ($user) {
+                    // match arrays from the user
+                    $candidate->expectedClassifications()->sync($user->expectedClassifications()->pluck('classifications.id')->toArray());
+                    $candidate->cmoAssets()->sync($user->cmoAssets()->pluck('cmo_assets.id')->toArray());
+
                 })->create();
             })
             ->create();
 
-        // fill indigenous talent pool - classifications only
-        // INCOMPLETE?
-        User::factory([
-            'roles' => [ApiEnums::ROLE_APPLICANT]
-       ])
-        ->count(20)
-        ->afterCreating(function (User $user) {
-            $assets = CmoAsset::inRandomOrder()->limit(4)->pluck('id')->toArray();
-            $classifications = Classification::where('group', 'IT')->inRandomOrder()->limit(3)->get()->pluck('id')->toArray();
-            $user->cmoAssets()->sync($assets);
-            $user->expectedClassifications()->sync($classifications);
-            PoolCandidate::factory()->count(1)->sequence(fn () => [
-                'pool_id' => Pool::where('key', 'indigenous_apprenticeship')->get()->pluck('id')->toArray()[0],
-                'expected_salary' => null
-            ])->for($user)->afterCreating(function (PoolCandidate $candidate){
-                $classifications = Classification::where('group', 'IT')->inRandomOrder()->limit(3)->get();
-                $candidate->expectedClassifications()->saveMany($classifications);
-                $assets = CmoAsset::inRandomOrder()->limit(4)->get();
-                $candidate->cmoAssets()->saveMany($assets);
-            })->create();
-        })
-        ->create();
-        // fill indigenous talent pool - salary only
-        User::factory([
-            'roles' => [ApiEnums::ROLE_APPLICANT]
-       ])
-        ->count(20)
-        ->afterCreating(function (User $user) {
-            $assets = CmoAsset::inRandomOrder()->limit(4)->pluck('id')->toArray();
-            $user->cmoAssets()->sync($assets);
-            PoolCandidate::factory()->count(1)->sequence(fn () => [
-                'pool_id' => Pool::where('key', 'indigenous_apprenticeship')->get()->pluck('id')->toArray()[0],
-            ])->for($user)->afterCreating(function (PoolCandidate $candidate){
-                $assets = CmoAsset::inRandomOrder()->limit(4)->get();
-                $candidate->cmoAssets()->saveMany($assets);
-            })->create();
-        })
-        ->create();
-
+        // add experiences to all the users
         User::all()->each(function($user) use ($faker) {
             AwardExperience::factory()
                 ->count($faker->biasedNumberBetween($min = 0, $max = 3, $function = 'Faker\Provider\Biased::linearLow'))

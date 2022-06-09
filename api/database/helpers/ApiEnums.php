@@ -79,4 +79,21 @@ class ApiEnums
             self::ROLE_APPLICANT,
         ];
     }
+
+    /**
+     * A collection of enums for operation_requirement in factories and seeders
+     *
+     * @return string[]
+     */
+    public static function salaryRanges() : array
+    {
+        return [
+            '_50_59K',
+            '_60_69K',
+            '_70_79K',
+            '_80_89K',
+            '_90_99K',
+            '_100K_PLUS',
+        ];
+    }
 }
