@@ -1,8 +1,8 @@
 import React from "react";
-import { Role } from "../../api/generated";
+import { Maybe, Role } from "../../api/generated";
 
 export type PossibleUserRoles = (Role | null | undefined)[] | null | undefined;
-export type PossibleEmail = string | null;
+export type MaybeEmail = Maybe<string>;
 
 interface AuthorizationState {
   loggedInUserRoles: PossibleUserRoles;
