@@ -10,6 +10,7 @@ import { Role } from "../api/generated";
 import { AuthorizationContext } from "../components/Auth/AuthorizationContainer";
 import { useApiRoutes } from "../hooks/useApiRoutes";
 import { getLocale } from "./localize";
+import { empty } from "./util";
 
 export const HISTORY = createBrowserHistory();
 
@@ -111,8 +112,11 @@ export const useRouter = (
   const apiRoutes = useApiRoutes();
   const locale = getLocale(useIntl());
   const { loggedIn } = React.useContext(AuthenticationContext);
-  const { loggedInUserRoles, loggedInEmail } =
-    React.useContext(AuthorizationContext);
+  const {
+    loggedInUserRoles,
+    loggedInEmail,
+    isLoaded: authorizationLoaded,
+  } = React.useContext(AuthorizationContext);
   // Render the result of routing
   useEffect((): void => {
     router
@@ -121,11 +125,18 @@ export const useRouter = (
         // may or may not be a promise, so attempt to resolve it. A non-promise value will simply resolve to itself.
         const route = await Promise.resolve(routeMaybePromise);
 
-        // Redirect authenticated user if no email exists yet
+        /**
+         * Check the following then redirect to welcome page
+         *  - Application has a welcome page
+         *  - User Logged in
+         *  - Authorization query is not loading
+         *  - User has no email associated with account
+         */
         if (
           welcomeRoute &&
           loggedIn &&
-          (typeof loggedInEmail === undefined || loggedInEmail === null)
+          authorizationLoaded &&
+          empty(loggedInEmail)
         ) {
           redirect(welcomeRoute);
           return null;
