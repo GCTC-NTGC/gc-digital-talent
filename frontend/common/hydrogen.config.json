@@ -43,6 +43,13 @@
       ]
     },
     {
+      "key": "green",
+      "color": "#087835",
+      "opacities": [
+        ".1"
+      ]
+    },
+    {
       "key": "gold",
       "color": "#F9C160",
       "opacities": [
