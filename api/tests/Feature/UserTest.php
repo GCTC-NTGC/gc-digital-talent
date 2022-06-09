@@ -145,10 +145,10 @@ class UserTest extends TestCase
 
         // Create new pools and attach to new pool candidates.
         $pool1 = Pool::factory()->create([
-            'user_id' => $user['id'],
+            'user_id' => $user['id']
         ]);
         $pool2 = Pool::factory()->create([
-            'user_id' => $user['id'],
+            'user_id' => $user['id']
         ]);
 
         PoolCandidate::factory()->count(5)->create([

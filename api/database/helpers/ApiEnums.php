@@ -81,7 +81,7 @@ class ApiEnums
     }
 
     /**
-     * A collection of enums for operation_requirement in factories and seeders
+     * A collection of enums for salary ranges in factories and seeders
      *
      * @return string[]
      */
