@@ -1,0 +1,37 @@
+query getRoleSalaryInfo{
+   me {
+    id
+    currentClassification {
+      id
+      name {
+        en
+        fr
+      }
+      group
+      level
+  }
+  isProfileComplete
+  expectedClassificationRoles
+  {
+    name {
+        en
+        fr
+      }
+  }
+}
+}
+
+mutation UpdateRoleSalary($id: ID!, $user: UpdateUserAsUserInput!) {
+  updateUserAsUser(id: $id, user: $user) {
+    currentClassification {
+      id
+      classificationRoles {
+        name {
+          en
+          fr
+        }
+      }
+    }
+    isProfileComplete
+  }
+}

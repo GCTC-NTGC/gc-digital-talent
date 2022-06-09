@@ -7,6 +7,8 @@ export default {
   title: "Role Salary Expectation Form",
 } as Meta;
 
-const TemplateRoleSalaryForm: Story = () => <RoleSalaryForm />;
+const TemplateRoleSalaryForm: Story = () => (
+  <RoleSalaryForm initialUser={undefined} />
+);
 
 export const formNoArgs = TemplateRoleSalaryForm.bind({});

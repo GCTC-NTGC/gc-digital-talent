@@ -3,8 +3,12 @@ import { useIntl } from "react-intl";
 import { BasicForm, Checklist } from "@common/components/form";
 import { SubmitHandler } from "react-hook-form";
 import { InformationCircleIcon } from "@heroicons/react/solid";
-import { errorMessages } from "@common/messages";
+import { commonMessages, errorMessages } from "@common/messages";
 import Button from "@common/components/Button";
+import Pending from "@common/components/Pending";
+import NotFound from "@common/components/NotFound";
+import { toast } from "react-toastify";
+import { navigate } from "@common/helpers/router";
 import {
   DialogLevelOne,
   DialogLevelTwo,
@@ -13,11 +17,18 @@ import {
   DialogLevelFourLead,
   DialogLevelFourAdvisor,
 } from "./dialogs";
-import { UpdateUserAsUserInput, User } from "../../api/generated";
+import {
+  GetRoleSalaryInfoQuery,
+  UpdateUserAsUserInput,
+  useGetRoleSalaryInfoQuery,
+  useUpdateRoleSalaryMutation,
+} from "../../api/generated";
 import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
 import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
+import profileMessages from "../profile/profileMessages";
+import { useApplicantProfileRoutes } from "../../applicantProfileRoutes";
 
-export type FormValues = Pick<User, "firstName" | "lastName">;
+export type FormValues = Pick<UpdateUserAsUserInput, "classificationRoles">;
 
 export type RoleSalaryUpdateHandler = (
   id: string,
@@ -25,7 +36,7 @@ export type RoleSalaryUpdateHandler = (
 ) => void; // replace with Promise<void> when filling API in TODO
 
 export interface RoleSalaryFormProps {
-  initialUser?: User | null;
+  initialUser: GetRoleSalaryInfoQuery | undefined;
   onUpdateRoleSalary?: RoleSalaryUpdateHandler;
 }
 
@@ -69,23 +80,26 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
     React.useState<boolean>(false);
 
   // form submit logic, to be filled when API ready TODO
-  const initialDataToFormValues = (data?: User | null): FormValues => {
+
+  const dataToFormValues = (
+    data?: GetRoleSalaryInfoQuery | undefined,
+  ): FormValues => {
     return {
-      firstName: data?.firstName,
-      lastName: data?.lastName,
+      classificationRoles: data?.me?.expectedClassificationRoles,
     };
   };
-  const formValuesToSubmitData = (data: FormValues): UpdateUserAsUserInput => {
+  const formValuesToSubmitData = (
+    values: FormValues,
+  ): UpdateUserAsUserInput => {
     return {
-      firstName: data?.firstName,
-      lastName: data?.lastName,
+      classificationRoles: values.classificationRoles,
     };
   };
+
   const handleSubmit: SubmitHandler<FormValues> = async (formValues) => {
     await onUpdateRoleSalary;
     return formValuesToSubmitData(formValues);
   };
-
   // intl styling functions section
   // bolding, adding a link, and to add a button opening modals onto text
   function bold(msg: string) {
@@ -106,20 +120,6 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
       </ModalButton>
     );
   }
-
-  // TODO, uncomment after API connected
-  // if (!initialUser) {
-  //   return (
-  //     <p>
-  //       {intl.formatMessage({
-  //         defaultMessage: "Could not load user.",
-  //         description:
-  //           "Error message that appears when current user could not be retrieved.",
-  //       })}
-  //     </p>
-  //   );
-  // }
-
   return (
     <ProfileFormWrapper
       title={intl.formatMessage({
@@ -143,7 +143,7 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
       <BasicForm
         onSubmit={handleSubmit}
         options={{
-          defaultValues: initialDataToFormValues(initialUser),
+          defaultValues: dataToFormValues(initialUser),
         }}
       >
         <p data-h2-margin="b(bottom, l)">
@@ -166,10 +166,10 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
           rules={{
             required: intl.formatMessage(errorMessages.required),
           }}
-          name="roleSalary"
+          name="classificationRoles"
           items={[
             {
-              value: 1,
+              value: "Technician",
               label: intl.formatMessage(
                 {
                   defaultMessage:
@@ -184,7 +184,7 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
               ),
             },
             {
-              value: 2,
+              value: "Analyst",
               label: intl.formatMessage(
                 {
                   defaultMessage:
@@ -199,7 +199,7 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
               ),
             },
             {
-              value: 3,
+              value: "Team Leader",
               label: intl.formatMessage(
                 {
                   defaultMessage:
@@ -214,7 +214,7 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
               ),
             },
             {
-              value: 4,
+              value: "Technical advisor",
               label: intl.formatMessage(
                 {
                   defaultMessage:
@@ -229,7 +229,7 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
               ),
             },
             {
-              value: 5,
+              value: "Senior advisor",
               label: intl.formatMessage(
                 {
                   defaultMessage:
@@ -244,7 +244,7 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
               ),
             },
             {
-              value: 6,
+              value: "Manager",
               label: intl.formatMessage(
                 {
                   defaultMessage:
@@ -317,17 +317,53 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
 };
 
 const RoleSalaryFormContainer: React.FunctionComponent = () => {
-  // API logic
-  // see AboutForm for further scaffolding
-  const handleUpdateUser = (id: string, values: UpdateUserAsUserInput) => {
-    return {
+  const intl = useIntl();
+  const paths = useApplicantProfileRoutes();
+
+  const [{ data: initialData, fetching, error }] = useGetRoleSalaryInfoQuery();
+  const preProfileStatus = initialData?.me?.isProfileComplete;
+
+  const [, executeMutation] = useUpdateRoleSalaryMutation();
+  const handleRoleSalary = (id: string, data: UpdateUserAsUserInput) =>
+    executeMutation({
       id,
-      values,
-    };
-  };
+      user: data,
+    }).then((result) => {
+      if (result.data?.updateUserAsUser) {
+        if (result.data?.updateUserAsUser?.isProfileComplete) {
+          const currentProfileStatus =
+            result.data?.updateUserAsUser?.isProfileComplete;
+          const message = intl.formatMessage(profileMessages.profileCompleted);
+          if (!preProfileStatus && currentProfileStatus) {
+            toast.success(message);
+          }
+        }
+      }
+      navigate(paths.home());
+      toast.success(intl.formatMessage(profileMessages.userUpdated));
+      if (result.data?.updateUserAsUser) {
+        return result.data.updateUserAsUser;
+      }
+      return Promise.reject(result.error);
+    });
+
+  if (error) {
+    toast.error(intl.formatMessage(profileMessages.updatingFailed));
+  }
 
   return (
-    <RoleSalaryForm initialUser={null} onUpdateRoleSalary={handleUpdateUser} />
+    <Pending fetching={fetching} error={error}>
+      {initialData?.me ? (
+        <RoleSalaryForm
+          initialUser={initialData}
+          onUpdateRoleSalary={handleRoleSalary}
+        />
+      ) : (
+        <NotFound headingMessage={intl.formatMessage(commonMessages.notFound)}>
+          <p>{intl.formatMessage(profileMessages.userNotFound)}</p>
+        </NotFound>
+      )}
+    </Pending>
   );
 };
 
