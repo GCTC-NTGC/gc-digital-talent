@@ -1,7 +1,6 @@
 import React from "react";
 import { Story, Meta } from "@storybook/react";
 import TileLink from "./TileLink";
-import type { TileLinkProps } from "./TileLink";
 
 export default {
   component: TileLink,
@@ -28,7 +27,7 @@ export default {
       ],
     },
   },
-};
+} as Meta;
 
 const TemplateTileLink: Story = (args) => {
   const { label, color } = args;
