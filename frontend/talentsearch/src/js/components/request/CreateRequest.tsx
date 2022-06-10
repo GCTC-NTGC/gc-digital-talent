@@ -120,17 +120,17 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
             ? poolCandidateFilter?.hasDiploma
             : false,
           equity: {
-            hasDisability: values.poolCandidateFilter?.hasDisability
-              ? values.poolCandidateFilter?.hasDisability
+            hasDisability: poolCandidateFilter?.equity?.hasDisability
+              ? poolCandidateFilter?.equity?.hasDisability
               : false,
-            isIndigenous: values.poolCandidateFilter?.isIndigenous
-              ? values.poolCandidateFilter?.isIndigenous
+            isIndigenous: poolCandidateFilter?.equity?.isIndigenous
+              ? poolCandidateFilter?.equity?.isIndigenous
               : false,
-            isVisibleMinority: values.poolCandidateFilter?.isVisibleMinority
-              ? values.poolCandidateFilter?.isVisibleMinority
+            isVisibleMinority: poolCandidateFilter?.equity?.isVisibleMinority
+              ? poolCandidateFilter?.equity?.isVisibleMinority
               : false,
-            isWoman: values.poolCandidateFilter?.isWoman
-              ? values.poolCandidateFilter?.isWoman
+            isWoman: poolCandidateFilter?.equity?.isWoman
+              ? poolCandidateFilter?.equity?.isWoman
               : false,
           },
           languageAbility: poolCandidateFilter?.languageAbility,
