@@ -523,9 +523,10 @@ const EmploymentEquitySection: React.FC<BasicSectionProps> = ({ user }) => {
         !user.isVisibleMinority &&
         !user.isWoman &&
         intl.formatMessage({
-          defaultMessage: "Not a member of an employment equity group",
+          defaultMessage:
+            "Has not identified as a member of any employment equity groups.",
           description:
-            "Text on view-user page that the user isn't part of an employment equity group",
+            "Text on view-user page that the user isn't part of any employment equity groups",
         })}
       {user.isIndigenous && (
         <div data-h2-padding="b(top-bottom, xxs)">

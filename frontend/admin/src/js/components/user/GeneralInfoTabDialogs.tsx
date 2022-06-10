@@ -496,6 +496,13 @@ export const AddToPoolDialog: React.FC<{
 
   const [, executeMutation] = useCreatePoolCandidateMutation();
 
+  const currentPools: string[] = [];
+  user.poolCandidates?.forEach((candidate) => {
+    if (candidate?.pool?.id) {
+      currentPools.push(candidate?.pool?.id);
+    }
+  });
+
   const resetAndClose = () => {
     setSelectedPool("");
     setSelectedDate("");
@@ -621,18 +628,23 @@ export const AddToPoolDialog: React.FC<{
                   "Placeholder displayed on the pool field of the add user to pool dialog.",
               })}
             </option>
-            {pools.map(
-              (pool) =>
-                !isEmpty(pool?.name?.[locale]) && (
-                  <option
-                    data-h2-font-family="b(sans)"
-                    key={pool?.id}
-                    value={pool?.id}
-                  >
-                    {pool?.name?.[locale]}
-                  </option>
-                ),
-            )}
+            {pools.map((pool) => {
+              if (
+                isEmpty(pool?.name?.[locale]) ||
+                currentPools.includes(pool.id)
+              ) {
+                return null;
+              }
+              return (
+                <option
+                  data-h2-font-family="b(sans)"
+                  key={pool?.id}
+                  value={pool?.id}
+                >
+                  {pool?.name?.[locale]}
+                </option>
+              );
+            })}
           </select>
         </InputWrapper>
         <div data-h2-display="block" data-h2-margin="b(top, xxs)">
