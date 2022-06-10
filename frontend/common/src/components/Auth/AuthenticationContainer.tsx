@@ -62,13 +62,18 @@ const logoutAndRefreshPage = (
       tokenIsKnownToBeActive = Date.now() < decodedAccessToken.exp * 1000; // JWT expiry date in seconds, not milliseconds
     if (tokenIsKnownToBeActive) {
       // we probably have an active session with the auth provider so we need to sign out of it
-      authLogOutUri = `${logoutUri}?post_logout_redirect_uri=${logoutRedirectUri}`;
-      if (idToken) authLogOutUri += `&id_token_hint=${idToken}`;
+      authLogOutUri = new URL(logoutUri);
+      authLogOutUri.searchParams.append(
+        "post_logout_redirect_uri",
+        logoutRedirectUri,
+      );
+
+      if (idToken) authLogOutUri.searchParams.append("id_token_hint", idToken);
     }
   }
 
   // Navigate to auth log out to end the session or at least a hard refresh to home (to restart react app)
-  window.location.href = authLogOutUri ?? homePath;
+  window.location.href = authLogOutUri ? authLogOutUri.toString() : homePath;
 };
 
 const refreshTokenSet = async (

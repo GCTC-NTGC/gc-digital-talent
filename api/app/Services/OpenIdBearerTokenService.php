@@ -21,34 +21,21 @@ use Lcobucci\JWT\Validation\Constraint\IssuedBy;
 use Lcobucci\JWT\Validation\Constraint\RelatedTo;
 use Lcobucci\JWT\Validation\Constraint\LooseValidAt;
 use Lcobucci\JWT\Validation\Constraint\SignedWith;
+use Illuminate\Support\Facades\Log;
 
 class OpenIdBearerTokenService
 {
+    private OpenIdConfigurationService $configService;
     private Configuration $unsecuredConfig;
     private Clock $clock;
-    private string $configUri;
     private DateInterval $allowableClockSkew;
 
-    public function __construct(string $configUri, Clock $clock, DateInterval $allowableClockSkew)
+    public function __construct(OpenIdConfigurationService $configService, Clock $clock, DateInterval $allowableClockSkew)
     {
+        $this->configService = $configService;
         $this->unsecuredConfig = Configuration::forUnsecuredSigner(); // need a config to parse the token and get the key id
         $this->clock = $clock;
-        $this->configUri = $configUri;
         $this->allowableClockSkew = $allowableClockSkew;
-    }
-
-    // get a configuration property from the openid configuration json document
-    private function getConfigProperty(string $propertyName): string
-    {
-        $jsonString = Cache::remember('openid_config_json_string', 60, function() { // only get content every minute
-            return Http::get($this->configUri)->body();
-        });
-
-        $obj = json_decode($jsonString);;
-        $uri = data_get($obj, $propertyName);
-        if(!$uri)
-            throw new Exception('No ' . $propertyName . ' property found in OpenID configuration');
-        return $uri;
     }
 
     // get a Lcobucci\JWT\Configuration object for a given key ID
@@ -57,7 +44,7 @@ class OpenIdBearerTokenService
         if(!$keyId)
             throw new Exception('No key ID provided');
 
-        $jwks_uri = $this->getConfigProperty('jwks_uri');
+        $jwks_uri = $this->configService->getFieldValue('jwks_uri');
         $jsonString = Cache::remember('jwks_json_string', 60, function() use($jwks_uri) // only get jwks content every minute
         {
             return Http::get($jwks_uri)->body();
@@ -68,7 +55,7 @@ class OpenIdBearerTokenService
         $set = JWKSet::createFromKeyData(json_decode($jsonString, true));
         $jwk = $set->get($keyId);
 
-        switch ($jwk->get('alg')) {
+        switch ($jwk->get('alg', 'RS256')) {
             case 'RS256':
                 $signer = new Signer\Rsa\Sha256();
                 break;
@@ -98,21 +85,33 @@ class OpenIdBearerTokenService
     {
         $cacheKey = 'introspection_token_' . $accessToken;
 
-        if (Cache::has($cacheKey)) {
+        if (Cache::has($cacheKey))
+        {
             // use cached access token status if available
             $isTokenActive = Cache::get($cacheKey);
-        } else {
+        }
+        else
+        {
             // make api call to introspect endpoint
-            $introspectionUri = $this->getConfigProperty('introspection_endpoint');
-            $introspectionResponse = Http::asForm()
-                ->withToken($accessToken)
-                ->post($introspectionUri, [
-                    'token' => $accessToken,
-                ]);
+            $introspectionUri = $this->configService->getFieldValue('introspection_endpoint');
+            if(!empty($introspectionUri))
+            {
+                $introspectionResponse = Http::asForm()
+                    ->withToken($accessToken)
+                    ->post($introspectionUri, [
+                        'token' => $accessToken,
+                    ]);
 
-            $isTokenActive = boolval($introspectionResponse->json('active'));
-            if($isTokenActive) {
-                Cache::put($cacheKey, $isTokenActive, 3); // cache for a few seconds in case of multiple API calls for a page load
+                $isTokenActive = boolval($introspectionResponse->json('active'));
+                if($isTokenActive) {
+                    Cache::put($cacheKey, $isTokenActive, 3); // cache for a few seconds in case of multiple API calls for a page load
+                }
+            }
+            else
+            {
+                Log::warning('No introspection endpoint was found with which to validate tokens');
+                // no introspection endpoint is available (like Azure AD) so assume token is active
+                $isTokenActive = true;
             }
         }
 
@@ -135,7 +134,7 @@ class OpenIdBearerTokenService
 
         assert($token instanceof UnencryptedToken);
         $config->setValidationConstraints(
-            new IssuedBy($this->getConfigProperty('issuer')),
+            new IssuedBy($this->configService->getFieldValue('issuer')),
             new RelatedTo($token->claims()->get('sub')),
             new LooseValidAt($this->clock, $this->allowableClockSkew),
             new SignedWith($config->signer(), $config->verificationKey()),

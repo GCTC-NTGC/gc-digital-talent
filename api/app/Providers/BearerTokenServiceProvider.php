@@ -5,6 +5,7 @@ namespace App\Providers;
 use DateTimeZone;
 use Illuminate\Support\ServiceProvider;
 use App\Services\OpenIdBearerTokenService;
+use App\Services\OpenIdConfigurationService;
 use Lcobucci\Clock\SystemClock;
 
 class BearerTokenServiceProvider extends ServiceProvider
@@ -18,9 +19,9 @@ class BearerTokenServiceProvider extends ServiceProvider
     {
         $systemClock = new SystemClock(new DateTimeZone(config('app.timezone')));
 
-        $this->app->singleton(OpenIdBearerTokenService::class, function () use ($systemClock) {
+        $this->app->singleton(OpenIdBearerTokenService::class, function ($app) use ($systemClock) {
             return new OpenIdBearerTokenService(
-                config('oauth.server_root').'/.well-known/openid-configuration',
+                $app->make(OpenIdConfigurationService::class),
                 $systemClock,
                 config('oauth.allowable_clock_skew')
             );

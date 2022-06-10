@@ -195,6 +195,7 @@ MLL\GraphQLPlayground\GraphQLPlaygroundServiceProvider::class,
 
 App\Providers\GraphQLServiceProvider::class,
 App\Providers\BearerTokenServiceProvider::class,
+App\Providers\OpenIdConfigurationServiceProvider::class,
 
 
     ],

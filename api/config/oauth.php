@@ -3,7 +3,7 @@
 return [
     /*
     |--------------------------------------------------------------------------
-    | Server Root
+    | Config Endpoint
     |--------------------------------------------------------------------------
     |
     | This value is the root path of the authentication server.  If set
@@ -12,30 +12,7 @@ return [
     | further configuration.  Should not end in a trailing slash.
     |
     */
-    'server_root' => env('AUTH_SERVER_ROOT'),
-
-    /*
-    |--------------------------------------------------------------------------
-    | Server Issuer
-    |--------------------------------------------------------------------------
-    |
-    | If the server root configuration is not provided then this will be used
-    | as the server issuer value to validate tokens.
-    | https://datatracker.ietf.org/doc/html/rfc7519#section-4.1.1
-    |
-    */
-    'server_iss' => env('AUTH_SERVER_ISS'),
-
-    /*
-    |--------------------------------------------------------------------------
-    | Server Public Key
-    |--------------------------------------------------------------------------
-    |
-    | If the server root configuration is not provided then this will be used
-    | as the server public key to validate tokens.
-    |
-    */
-    'server_public_key' => env('AUTH_SERVER_PUBLIC_KEY'),
+    'config_endpoint' => env('OAUTH_CONFIG_ENDPOINT'),
 
     /*
     |--------------------------------------------------------------------------
@@ -64,8 +41,6 @@ return [
     /**
      * The urls of the OAuth server we connect to for authentication.
      */
-    'authorize_uri' => env('OAUTH_URI', null),
-    'token_uri' => env('OAUTH_TOKEN_URI', null),
     'redirect_uri' => env('OAUTH_REDIRECT_URI', config('app.url') . '/auth-callback'),
 
     /**
