@@ -1,12 +1,6 @@
 import { createBrowserHistory, Location, Path, State } from "history";
 import UniversalRouter, { Routes } from "universal-router";
-import React, {
-  useState,
-  useEffect,
-  useMemo,
-  ReactElement,
-  HTMLAttributes,
-} from "react";
+import React, { useState, useEffect, useMemo, ReactElement } from "react";
 import fromPairs from "lodash/fromPairs";
 import toPairs from "lodash/toPairs";
 import path from "path-browserify";
