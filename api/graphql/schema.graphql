@@ -334,8 +334,8 @@ enum ClassificationRoleType {
 
 type ClassificationRole {
     id: ID!
+    role: ClassificationRoleType!
     name: LocalizedString
-    role: ClassificationRoleType
     classification: Classification @belongsTo
 }
 
