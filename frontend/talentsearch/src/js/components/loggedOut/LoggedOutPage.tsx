@@ -7,6 +7,7 @@ import Dialog from "@common/components/Dialog";
 import { Alert, Button, Link } from "@common/components";
 import { AuthenticationContext } from "@common/components/Auth";
 import { BellIcon } from "@heroicons/react/outline";
+import { getLocale } from "@common/helpers/localize";
 import { useDirectIntakeRoutes } from "../../directIntakeRoutes";
 import { useTalentSearchRoutes } from "../../talentSearchRoutes";
 
@@ -14,6 +15,7 @@ import TALENTSEARCH_APP_DIR from "../../talentSearchConstants";
 
 const LoggedOutPage: React.FC = () => {
   const intl = useIntl();
+  const locale = getLocale(intl);
   const { loggedIn, logout } = React.useContext(AuthenticationContext);
   const directIntakePaths = useDirectIntakeRoutes();
   const talentPaths = useTalentSearchRoutes();
@@ -123,7 +125,8 @@ const LoggedOutPage: React.FC = () => {
               mode="outline"
               color="primary"
               type="button"
-              href={talentPaths.home()}
+              href={`/${locale}`}
+              external
             >
               {intl.formatMessage({
                 defaultMessage: "Cancel",
