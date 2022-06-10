@@ -920,7 +920,7 @@ input CreatePoolCandidateFilterInput {
     classifications: ClassificationBelongsToMany
     cmoAssets: CmoAssetBelongsToMany
     hasDiploma: Boolean @rename(attribute: "has_diploma")
-    equity: EquitySelectionsInput
+    equity: EquitySelectionsInput @spread
     languageAbility:LanguageAbility @rename(attribute: "language_ability")
     operationalRequirements: [OperationalRequirement] @rename(attribute: "operational_requirements")
     workRegions: [WorkRegion] @rename(attribute: "work_regions")
