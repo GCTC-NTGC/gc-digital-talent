@@ -18,11 +18,6 @@ const LoggedOutPage: React.FC = () => {
   const directIntakePaths = useDirectIntakeRoutes();
   const talentPaths = useTalentSearchRoutes();
 
-  /**
-   * TO DO:
-   *    - Add alert component once created in /create-account
-   */
-
   return (
     <>
       <div
