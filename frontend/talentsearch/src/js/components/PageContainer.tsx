@@ -52,7 +52,7 @@ export const MenuLink: React.FC<MenuLinkProps> = ({
     >
       <span
         data-h2-font-weight={
-          isActive(href ?? null, location.pathname) ? "b(700)" : "b(100)"
+          isActive(href ?? null, location.pathname) ? "b(700)" : "b(200)"
         }
       >
         {text}
