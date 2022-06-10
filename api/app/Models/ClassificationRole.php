@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * Class ClassificationRole
  *
  * @property int $id
- * @property string $key
+ * @property string $role
  * @property array $name
  * @property int $classification_id
  * @property Illuminate\Support\Carbon $created_at

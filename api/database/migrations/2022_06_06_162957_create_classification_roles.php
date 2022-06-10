@@ -17,7 +17,7 @@ class CreateClassificationRoles extends Migration
             $table->uuid('id')->primary('id');
             $table->timestamps();
             $table->softDeletes();
-            $table->string('key')->nullable(false)->unique();
+            $table->string('role')->nullable(false)->unique();
             $table->jsonb('name')->nullable(false)->default(json_encode(['en' => '', 'fr' => '']));
             $table->uuid('classification_id')->references('id')->on('classifications');
         });

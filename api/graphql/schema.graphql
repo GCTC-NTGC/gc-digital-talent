@@ -313,22 +313,30 @@ enum SalaryRange {
     _100K_PLUS
 }
 
-
-type ClassificationRole{
-    id: ID!
-    key: KeyString!
-    name: LocalizedString
-    classification: Classification @belongsTo
+type Classification {
+  id: ID!
+  name: LocalizedString
+  group: String!
+  level: Int!
+  minSalary: Int @rename(attribute: "min_salary")
+  maxSalary: Int @rename(attribute: "max_salary")
+  classificationRoles: [ClassificationRole] @belongsToMany
 }
 
-type Classification {
+enum ClassificationRoleType {
+  TECHNICIAN_IT01
+  ANALYST_IT02
+  TEAM_LEADER_IT03
+  TECHNICAL_ADVISOR_IT03
+  SENIOR_ADVISOR_IT04
+  MANAGER_IT04
+}
+
+type ClassificationRole {
     id: ID!
     name: LocalizedString
-    group: String!
-    level: Int!
-    minSalary: Int @rename(attribute: "min_salary")
-    maxSalary: Int @rename(attribute: "max_salary")
-    classificationRoles: [ClassificationRole] @belongsToMany
+    role: ClassificationRoleType
+    classification: Classification @belongsTo
 }
 
 """

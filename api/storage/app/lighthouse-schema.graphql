@@ -125,13 +125,22 @@ input ClassificationFilterInput {
 
 type ClassificationRole {
   id: ID!
-  key: KeyString!
   name: LocalizedString
+  role: ClassificationRoleType
   classification: Classification
 }
 
 input ClassificationRoleBelongsToMany {
   sync: [ID!]
+}
+
+enum ClassificationRoleType {
+  TECHNICIAN_IT01
+  ANALYST_IT02
+  TEAM_LEADER_IT03
+  TECHNICAL_ADVISOR_IT03
+  SENIOR_ADVISOR_IT04
+  MANAGER_IT04
 }
 
 """

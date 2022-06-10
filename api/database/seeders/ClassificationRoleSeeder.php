@@ -17,7 +17,7 @@ class ClassificationRoleSeeder extends Seeder
     {
       $roles = [
             [
-                'key' => 'technician_it01',
+                'role' => 'TECHNICIAN_IT01',
                 'name' => [
                     'en' => 'Technician',
                     'fr' => 'Technicien'
@@ -28,7 +28,7 @@ class ClassificationRoleSeeder extends Seeder
                 ],
             ],
             [
-                'key' => 'analyst_it02',
+                'role' => 'ANALYST_IT02',
                 'name' => [
                     'en' => 'Analyst',
                     'fr' => 'Analyste'
@@ -39,7 +39,7 @@ class ClassificationRoleSeeder extends Seeder
                 ],
             ],
             [
-                'key' => 'team_leader_it03',
+                'role' => 'TEAM_LEADER_IT03',
                 'name' => [
                     'en' => 'Team leader',
                     'fr' => 'Chef d’équipe
@@ -52,7 +52,7 @@ class ClassificationRoleSeeder extends Seeder
 
             ],
             [
-                'key' => 'technical_advisor_it03',
+                'role' => 'TECHNICAL_ADVISOR_IT03',
                 'name' => [
                     'en' => 'Technical advisor',
                     'fr' => 'Conseiller technique'
@@ -63,7 +63,7 @@ class ClassificationRoleSeeder extends Seeder
                     ],
             ],
             [
-                'key' => 'senior_advisor_it04',
+                'role' => 'SENIOR_ADVISOR_IT04',
                 'name' => [
                     'en' => 'Senior advisor',
                     'fr' => 'Conseiller principal'
@@ -75,7 +75,7 @@ class ClassificationRoleSeeder extends Seeder
 
             ],
             [
-                'key' => 'manager_it04',
+                'role' => 'MANAGER_IT04',
                 'name' => [
                     'en' => 'Manager',
                     'fr' => 'Gestionnaire'
@@ -90,7 +90,7 @@ class ClassificationRoleSeeder extends Seeder
 
         foreach ($roles as $role) {
             $identifier = [
-               'key' => $role['key'],
+               'role' => $role['role'],
             ];
             $classificationId = Classification::where([
                     'group' => $role['classification']['group'],
