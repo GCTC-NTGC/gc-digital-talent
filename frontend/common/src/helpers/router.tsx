@@ -206,7 +206,9 @@ export function queryParametersToSearchString(
   return queryString ? `?${queryString}` : "";
 }
 
-export const Link: React.FC<{ href: string; title: string }> = ({
+type LinkProps = React.HTMLProps<HTMLAnchorElement>;
+
+export const Link: React.FC<LinkProps> = ({
   href,
   title,
   children,
@@ -218,7 +220,9 @@ export const Link: React.FC<{ href: string; title: string }> = ({
     {...props}
     onClick={(event): void => {
       event.preventDefault();
-      navigate(href);
+      if (href) {
+        navigate(href);
+      }
     }}
   >
     {children}
