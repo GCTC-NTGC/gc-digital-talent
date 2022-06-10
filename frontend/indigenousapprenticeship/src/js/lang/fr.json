@@ -51,10 +51,6 @@
     "defaultMessage": "Fermer",
     "description": "Button text used to close an open modal"
   },
-  "5TfTRz": {
-    "defaultMessage": "L’exigence minimale en matière d’études est un diplôme d’études générales ou secondaires. Il n’est pas nécessaire d’avoir fait des études collégiales ou universitaires. (édité)",
-    "description": "Learn more dialog question twelve paragraph one"
-  },
   "6l9YH+": {
     "defaultMessage": "Les demandeurs doivent répondre aux exigences suivantes :",
     "description": "Heading for the applicant requirements dialog"
@@ -354,5 +350,9 @@
   "49UIne": {
     "defaultMessage": "Apprenti en TI du Gouvernement du Canada",
     "description": "author of testimonial number one"
+  },
+  "74Sg+4": {
+    "defaultMessage": "L’exigence minimale en matière d’études est un diplôme d’études générales ou secondaires. Il n’est pas nécessaire d’avoir fait des études collégiales ou universitaires.",
+    "description": "Learn more dialog question twelve paragraph one"
   }
 }
