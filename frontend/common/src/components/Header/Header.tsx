@@ -16,7 +16,8 @@ const Header: React.FunctionComponent<HeaderProps> = ({ baseUrl }) => {
   const locale = getLocale(intl);
 
   const location = useLocation();
-  const languageTogglePath = localizePath(location, oppositeLocale(locale));
+  const changeToLang = oppositeLocale(locale);
+  const languageTogglePath = localizePath(location, changeToLang);
   return (
     <header data-h2-border="b(gray, bottom, solid, s)">
       <div data-h2-flex-grid="b(middle, contained, flush, xl)">
@@ -45,12 +46,13 @@ const Header: React.FunctionComponent<HeaderProps> = ({ baseUrl }) => {
         >
           <Link
             href={languageTogglePath}
+            lang={changeToLang === "en" ? "en" : "fr"}
             title={intl.formatMessage({
               defaultMessage: "Change language",
               description: "Title for the language toggle link.",
             })}
           >
-            {oppositeLocale(locale) === "en" ? "English" : "Français"}
+            {changeToLang === "en" ? "English" : "Français"}
           </Link>
         </div>
       </div>
