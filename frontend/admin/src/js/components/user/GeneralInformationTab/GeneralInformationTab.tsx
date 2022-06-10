@@ -574,7 +574,7 @@ const EmploymentEquitySection: React.FC<BasicSectionProps> = ({ user }) => {
   );
 };
 
-const GeneralInformationTab: React.FC<SectionWithPoolsProps> = ({
+export const GeneralInformationTab: React.FC<SectionWithPoolsProps> = ({
   user,
   pools,
 }) => {
