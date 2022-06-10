@@ -1,36 +1,31 @@
-query getRoleSalaryInfo{
-   me {
+query getRoleSalaryInfo {
+  me {
     id
-    currentClassification {
+    isProfileComplete
+    expectedClassificationRoles {
       id
       name {
         en
         fr
       }
-      group
-      level
+      role
+    }
   }
-  isProfileComplete
-  expectedClassificationRoles
-  {
-    name {
-        en
-        fr
-      }
+  classificationRoles {
+    id
+    role
   }
-}
 }
 
 mutation UpdateRoleSalary($id: ID!, $user: UpdateUserAsUserInput!) {
   updateUserAsUser(id: $id, user: $user) {
-    currentClassification {
+    expectedClassificationRoles {
       id
-      classificationRoles {
-        name {
-          en
-          fr
-        }
+      name {
+        en
+        fr
       }
+      role
     }
     isProfileComplete
   }

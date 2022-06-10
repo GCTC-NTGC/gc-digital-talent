@@ -628,8 +628,8 @@ type Query {
     skillFamilies: [SkillFamily]! @all
     skill(id: ID! @eq): Skill @find
     skills: [Skill]! @all
-    classificationRole(id: ID! @eq):ClassificationRole @find
-    classificationRoles:[ClassificationRole]! @all
+    classificationRole(id: ID! @eq): ClassificationRole @find
+    classificationRoles: [ClassificationRole]! @all
 }
 input ClassificationBelongsTo {
     connect: ID
@@ -685,6 +685,7 @@ input CreateUserInput {
     acceptedOperationalRequirements: [OperationalRequirement] @rename(attribute: "accepted_operational_requirements")
     expectedSalary: [SalaryRange] @rename(attribute: "expected_salary")
     expectedClassifications: ClassificationBelongsToMany
+    expectedClassificationRoles: ClassificationRoleBelongsToMany
     wouldAcceptTemporary: Boolean @rename(attribute: "would_accept_temporary")
     cmoAssets: CmoAssetBelongsToMany
 
@@ -694,9 +695,6 @@ input CreateUserInput {
     communityExperiences: CommunityExperienceHasMany
     educationExperiences: EducationExperienceHasMany
     awardExperiences: AwardExperienceHasMany
-
-    classificationRoles: ClassificationRoleBelongsToMany
-
 }
 """
 When updating a User, all fields are optional
@@ -746,6 +744,7 @@ input UpdateUserAsAdminInput {
     acceptedOperationalRequirements: [OperationalRequirement] @rename(attribute: "accepted_operational_requirements")
     expectedSalary: [SalaryRange] @rename(attribute: "expected_salary")
     expectedClassifications: ClassificationBelongsToMany
+    expectedClassificationRoles: ClassificationRoleBelongsToMany
     wouldAcceptTemporary: Boolean @rename(attribute: "would_accept_temporary")
     cmoAssets: CmoAssetBelongsToMany
 
@@ -755,8 +754,6 @@ input UpdateUserAsAdminInput {
     communityExperiences: CommunityExperienceHasMany
     educationExperiences: EducationExperienceHasMany
     awardExperiences: AwardExperienceHasMany
-    classificationRoles: ClassificationRoleBelongsToMany
-
 }
 
 input UpdateUserAsUserInput {
@@ -801,6 +798,7 @@ input UpdateUserAsUserInput {
     acceptedOperationalRequirements: [OperationalRequirement] @rename(attribute: accepted_operational_requirements)
     expectedSalary: [SalaryRange] @rename(attribute: "expected_salary")
     expectedClassifications: ClassificationBelongsToMany
+    expectedClassificationRoles: ClassificationRoleBelongsToMany
     wouldAcceptTemporary: Boolean @rename(attribute: "would_accept_temporary")
     cmoAssets: CmoAssetBelongsToMany
 
@@ -810,8 +808,6 @@ input UpdateUserAsUserInput {
     communityExperiences: CommunityExperienceHasMany
     educationExperiences: EducationExperienceHasMany
     awardExperiences: AwardExperienceHasMany
-    classificationRoles: ClassificationRoleBelongsToMany
-
 }
 
 input LocalizedStringInput {

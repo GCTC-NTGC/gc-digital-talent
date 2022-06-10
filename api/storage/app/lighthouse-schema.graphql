@@ -316,6 +316,7 @@ input CreateUserInput {
   acceptedOperationalRequirements: [OperationalRequirement]
   expectedSalary: [SalaryRange]
   expectedClassifications: ClassificationBelongsToMany
+  expectedClassificationRoles: ClassificationRoleBelongsToMany
   wouldAcceptTemporary: Boolean
   cmoAssets: CmoAssetBelongsToMany
   workExperiences: WorkExperienceHasMany
@@ -323,7 +324,6 @@ input CreateUserInput {
   communityExperiences: CommunityExperienceHasMany
   educationExperiences: EducationExperienceHasMany
   awardExperiences: AwardExperienceHasMany
-  classificationRoles: ClassificationRoleBelongsToMany
 }
 
 """A date string with format `Y-m-d`, e.g. `2011-05-23`."""
@@ -1082,6 +1082,7 @@ input UpdateUserAsAdminInput {
   acceptedOperationalRequirements: [OperationalRequirement]
   expectedSalary: [SalaryRange]
   expectedClassifications: ClassificationBelongsToMany
+  expectedClassificationRoles: ClassificationRoleBelongsToMany
   wouldAcceptTemporary: Boolean
   cmoAssets: CmoAssetBelongsToMany
   workExperiences: WorkExperienceHasMany
@@ -1089,7 +1090,6 @@ input UpdateUserAsAdminInput {
   communityExperiences: CommunityExperienceHasMany
   educationExperiences: EducationExperienceHasMany
   awardExperiences: AwardExperienceHasMany
-  classificationRoles: ClassificationRoleBelongsToMany
 }
 
 input UpdateUserAsUserInput {
@@ -1124,6 +1124,7 @@ input UpdateUserAsUserInput {
   acceptedOperationalRequirements: [OperationalRequirement]
   expectedSalary: [SalaryRange]
   expectedClassifications: ClassificationBelongsToMany
+  expectedClassificationRoles: ClassificationRoleBelongsToMany
   wouldAcceptTemporary: Boolean
   cmoAssets: CmoAssetBelongsToMany
   workExperiences: WorkExperienceHasMany
@@ -1131,7 +1132,6 @@ input UpdateUserAsUserInput {
   communityExperiences: CommunityExperienceHasMany
   educationExperiences: EducationExperienceHasMany
   awardExperiences: AwardExperienceHasMany
-  classificationRoles: ClassificationRoleBelongsToMany
 }
 
 type User {
