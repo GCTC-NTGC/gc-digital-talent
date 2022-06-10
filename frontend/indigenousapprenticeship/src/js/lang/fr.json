@@ -24,7 +24,7 @@
     "description": "How it works, step 2 heading"
   },
   "/7NWbF": {
-    "defaultMessage": "Je vous remercie de votre intérêt dans ce programme. Nous attendons de vos nouvelles avec impatience!",
+    "defaultMessage": "Nous vous remercions de votre intérêt dans ce programme. Nous attendons de vos nouvelles avec impatience!",
     "description": "Third paragraph for apply now dialog"
   },
   "/ar49+": {
@@ -40,7 +40,7 @@
     "description": "IAP Requirement list item four"
   },
   "404R1N": {
-    "defaultMessage": "Ce programme a été pour moi une occasion de changer ma vie et je vois un <b>un meilleur avenir à l’horizon</b>.",
+    "defaultMessage": "Ce programme a été pour moi une occasion de changer ma vie et je vois <b>un meilleur avenir</b>.",
     "description": "testimonial number one"
   },
   "436DA5": {
@@ -50,10 +50,6 @@
   "4p0QdF": {
     "defaultMessage": "Fermer",
     "description": "Button text used to close an open modal"
-  },
-  "5TfTRz": {
-    "defaultMessage": "L’exigence minimale en matière d’études est un diplôme d’études générales ou secondaires. Il n’est pas nécessaire d’avoir fait des études collégiales ou universitaires. (édité)",
-    "description": "Learn more dialog question twelve paragraph one"
   },
   "6l9YH+": {
     "defaultMessage": "Les demandeurs doivent répondre aux exigences suivantes :",
@@ -104,7 +100,7 @@
     "description": "Description for strategy for the indigenous talent portal"
   },
   "EqVMCE": {
-    "defaultMessage": "Veuillez envoyer votre curriculum vitae et votre lettre de présentation expliquant votre passion pour la TI et pourquoi vous souhaitez vous joindre au programme, à  : <mailLink>edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca</mailLink>. Un membre de l’équipe communiquera avec vous dans 3 à 5 jours ouvrables.",
+    "defaultMessage": "Veuillez envoyer votre curriculum vitae et votre lettre de présentation expliquant votre passion pour la TI et pourquoi vous souhaitez vous joindre au programme, à : <mailLink>edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca</mailLink>. Un membre de l’équipe communiquera avec vous dans 3 à 5 jours ouvrables.",
     "description": "First paragraph for apply now dialog"
   },
   "GnmmgR": {
@@ -180,7 +176,7 @@
     "description": "heading for how the indigenous talent portal will work"
   },
   "UDHGGA": {
-    "defaultMessage": "Bientôt, les demandeurs pourront présenter leur demande à l’aide d’un outil interactif en ligne qui sera disponible à partir du présent site Web. Voici ce sur quoi nous travaillons :",
+    "defaultMessage": "Bientôt, les postulants pourront présenter leur demande à l’aide d’un outil interactif en ligne qui sera disponible à partir du présent site Web. Voici ce sur quoi nous travaillons :",
     "description": "Description of how the indigenous talent portal will work"
   },
   "UQlyXu": {
@@ -216,7 +212,7 @@
     "description": "First paragraph about who the program is for"
   },
   "b09U1u": {
-    "defaultMessage": "À la fin de leurs 24 mois, les apprentis auront des attestations et des compétences commercialisables et en demande, ainsi que la confiance nécessaire pour contribuer à la main-d’œuvre numérique du Canada, tant à l’intérieur qu’à l’extérieur de la fonction publique fédérale.",
+    "defaultMessage": "À la fin de leurs 24 mois, les apprentis auront des attestations et des compétences en demande, ainsi que la confiance nécessaire pour contribuer à la main-d’œuvre numérique du Canada, tant à l’intérieur qu’à l’extérieur de la fonction publique fédérale.",
     "description": "First paragraph what will you learn at the program"
   },
   "cNXORI": {
@@ -232,7 +228,7 @@
     "description": "Heading for the apply now dialog"
   },
   "dDHy5d": {
-    "defaultMessage": "Les apprentis suivent un programme structuré de 24 mois comprenant un mélange d’apprentissages en cours d’emploi et de formation officielle.",
+    "defaultMessage": "Les apprentis suivent un programme structuré de 24 mois comprenant un mélange d’apprentissages en cours d’emploi et de formation formelle.",
     "description": "First paragraph what will you learn at the program"
   },
   "dgG8md": {
@@ -272,7 +268,7 @@
     "description": "Learn more dialog question eight heading"
   },
   "osGGIt": {
-    "defaultMessage": "Programme d’apprentissage en TI pour les peuples autochtones + Portail des talents autochtones",
+    "defaultMessage": "Programme d’apprentissage en TI pour les personnes autochtones + Portail des talents autochtones",
     "description": "heading for indigenous talent portal section"
   },
   "p19YJ2": {
@@ -284,7 +280,7 @@
     "description": "Learn more dialog question one heading"
   },
   "pWoAv0": {
-    "defaultMessage": "Le Programme d’apprentissage en TI pour les peuples autochtones est une initiative du gouvernement du Canada visant particulièrement les Premières Nations, les Inuits et les Métis. C’est un chemin vers un emploi dans la fonction publique fédérale pour les peuples autochtones qui ont une passion pour la technologie de l’information (TI).",
+    "defaultMessage": "Le Programme d’apprentissage en TI pour les personnes autochtones est une initiative du gouvernement du Canada visant particulièrement les Premières Nations, les Inuits et les Métis. C’est un chemin vers un emploi dans la fonction publique fédérale pour les personnes autochtones qui ont une passion pour la technologie de l’information (TI).",
     "description": "First paragraph about the program"
   },
   "pkFLpT": {
@@ -316,7 +312,7 @@
     "description": "IAP Requirement list item two"
   },
   "wqwPhL": {
-    "defaultMessage": "En valorisant et en misant sur le potentiel d’une personne plutôt que sur son niveau de scolarité, le programme élimine l’un des plus grands obstacles qui existent en matière d’emploi dans l’économie numérique. Le programme a été élaboré par, avec et pour tous les peuples autochtones à travers le Canada. Il intègre les préférences et les besoins des apprenants autochtones tout en reconnaissant l’importance de la communauté.",
+    "defaultMessage": "En valorisant et en misant sur le potentiel d’une personne plutôt que sur son niveau de scolarité, le programme élimine l’un des plus grands obstacles qui existe en matière d’emploi dans l’économie numérique. Le programme a été élaboré par, avec et pour des personnes autochtones à travers le Canada. Il intègre les préférences et les besoins des apprenants autochtones tout en reconnaissant l’importance de la communauté.",
     "description": "Second paragraph about the program"
   },
   "yZMQ6j": {
@@ -340,7 +336,7 @@
     "description": "Learn more dialog question on paragraph one"
   },
   "nzcwrW": {
-    "defaultMessage": "Les apprentis seront associés à un pair afin de faciliter l’observation en situation de travail et le travail supervisé, et on leur attribuera un mentor qui saura leur fournir des conseils d’une personne expérimentée et une orientation au fil de la durée du programme.",
+    "defaultMessage": "Les apprentis seront jumelés à un pair afin de faciliter l’observation en situation de travail et le travail supervisé, et on leur attribuera un mentor qui saura leur fournir des conseils d’une personne expérimentée et une orientation au fil de la durée du programme.",
     "description": "First paragraph what will you learn at the program"
   },
   "pPOGwF": {
@@ -354,5 +350,9 @@
   "49UIne": {
     "defaultMessage": "Apprenti en TI du Gouvernement du Canada",
     "description": "author of testimonial number one"
+  },
+  "74Sg+4": {
+    "defaultMessage": "L’exigence minimale en matière d’études est un diplôme d’études générales ou secondaires. Il n’est pas nécessaire d’avoir fait des études collégiales ou universitaires.",
+    "description": "Learn more dialog question twelve paragraph one"
   }
 }
