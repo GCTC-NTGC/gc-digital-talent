@@ -1,6 +1,6 @@
 import * as React from "react";
 import { ToastContainer, Slide } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { injectStyle } from "react-toastify/dist/inject-style";
 import { XCircleIcon } from "@heroicons/react/solid";
 
 const contextClass = {
@@ -19,6 +19,7 @@ const CloseButton = ({
 }) => <XCircleIcon style={{ width: "1rem" }} onClick={closeToast} />;
 
 const Toast: React.FunctionComponent = () => {
+  injectStyle();
   return (
     <ToastContainer
       position="top-center"
