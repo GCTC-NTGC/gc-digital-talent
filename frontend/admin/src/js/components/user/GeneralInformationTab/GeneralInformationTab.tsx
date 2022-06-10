@@ -36,7 +36,7 @@ import {
   Pool,
   useUpdatePoolCandidateMutation,
   UpdatePoolCandidateAsAdminInput,
-} from "../../api/generated";
+} from "../../../api/generated";
 
 interface BasicSectionProps {
   user: User;

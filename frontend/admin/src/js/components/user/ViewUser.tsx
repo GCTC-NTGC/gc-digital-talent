@@ -16,7 +16,7 @@ import { useAdminRoutes } from "../../adminRoutes";
 import { User, useUserQuery } from "../../api/generated";
 import DashboardContentContainer from "../DashboardContentContainer";
 import UserProfileApi from "./UserProfile";
-import GeneralInfoTabApi from "./GeneralInformationTab";
+import GeneralInfoTabApi from "./GeneralInformationTab/GeneralInformationTab";
 import UserProfilePrintButton from "./UserProfilePrintButton";
 
 interface ViewUserPageProps {

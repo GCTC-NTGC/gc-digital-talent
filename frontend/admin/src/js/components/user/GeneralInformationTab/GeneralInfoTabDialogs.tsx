@@ -19,7 +19,7 @@ import {
   useDeletePoolCandidateMutation,
   User,
   useUpdatePoolCandidateMutation,
-} from "../../api/generated";
+} from "../../../api/generated";
 
 export interface TableDialogProps {
   selectedCandidate: PoolCandidate | null;
