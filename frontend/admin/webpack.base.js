@@ -23,11 +23,11 @@ module.exports = {
     new CopyPlugin({
       patterns: [
         {
+          context: "public/",
           from: "**/*",
-          context: "public",
           globOptions: {
             dot: true,
-            ignore: ["**/index.html"],
+            ignore: ["**/public/index.html"],
           },
         },
       ],
