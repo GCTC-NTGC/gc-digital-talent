@@ -6,7 +6,9 @@ import { action } from "@storybook/addon-actions";
 import { fakeClassifications, fakeUsers } from "@common/fakeData";
 import pick from "lodash/pick";
 import { GovEmployeeType } from "../../api/generated";
-import GovInfoFormContainer, { GovernmentInfoForm } from "./GovernmentInfoForm";
+import GovInfoFormContainer, {
+  GovInfoFormWithProfileWrapper,
+} from "./GovernmentInfoForm";
 
 const fakeClass = fakeClassifications();
 const fakeUser = fakeUsers(1)[0];
@@ -17,7 +19,7 @@ export default {
 } as Meta;
 
 const TemplateGovInfoForm: Story = (args) => (
-  <GovernmentInfoForm
+  <GovInfoFormWithProfileWrapper
     initialData={args.initialData}
     classifications={fakeClass}
     submitHandler={async (...data) => {

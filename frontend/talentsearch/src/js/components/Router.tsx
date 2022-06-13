@@ -4,6 +4,9 @@ import { Routes } from "universal-router";
 import { RouterResult } from "@common/helpers/router";
 import Toast from "@common/components/Toast";
 import { checkFeatureFlag } from "@common/helpers/runtimeVariable";
+import { AuthenticationContext } from "@common/components/Auth";
+import { Button } from "@common/components";
+import Dialog from "@common/components/Dialog";
 import PageContainer, { MenuLink } from "./PageContainer";
 import SearchPage from "./search/SearchPage";
 import {
@@ -36,7 +39,9 @@ import BrowseIndividualPoolApi from "./browse/BrowseIndividualPool";
 import PoolApplyPage from "./pool/PoolApplyPage";
 import PoolApplicationThanksPage from "./pool/PoolApplicationThanksPage";
 import RegisterPage from "./register/RegisterPage";
+import LoggedOutPage from "./loggedOut/LoggedOutPage";
 import LoginPage from "./login/LoginPage";
+import { CreateAccount } from "./createAccount/CreateAccountPage";
 import { Role } from "../api/generated";
 
 const talentRoutes = (
@@ -71,6 +76,12 @@ const authRoutes = (authPaths: AuthRoutes): Routes<RouterResult> => [
     }),
   },
   {
+    path: authPaths.loggedOut(),
+    action: () => ({
+      component: <LoggedOutPage />,
+    }),
+  },
+  {
     path: authPaths.login(),
     action: () => ({
       component: <LoginPage />,
@@ -81,6 +92,12 @@ const authRoutes = (authPaths: AuthRoutes): Routes<RouterResult> => [
 const profileRoutes = (
   profilePaths: ApplicantProfileRoutes,
 ): Routes<RouterResult> => [
+  {
+    path: profilePaths.createAccount(),
+    action: () => ({
+      component: <CreateAccount />,
+    }),
+  },
   {
     path: profilePaths.home(),
     action: () => ({
@@ -235,6 +252,9 @@ export const Router: React.FC = () => {
   const talentPaths = useTalentSearchRoutes();
   const profilePaths = useApplicantProfileRoutes();
   const directIntakePaths = useDirectIntakeRoutes();
+  const { loggedIn, logout } = React.useContext(AuthenticationContext);
+  const [isConfirmationOpen, setConfirmationOpen] =
+    React.useState<boolean>(false);
 
   const menuItems = [
     <MenuLink
@@ -254,10 +274,48 @@ export const Router: React.FC = () => {
       })}
     />,
   ];
+
+  let authLinks = [
+    <MenuLink
+      key="login-info"
+      href={authPaths.login()}
+      text={intl.formatMessage({
+        defaultMessage: "Login",
+        description: "Label displayed on the login link menu item.",
+      })}
+    />,
+    <MenuLink
+      key="register"
+      href={authPaths.register()}
+      text={intl.formatMessage({
+        defaultMessage: "Register",
+        description: "Label displayed on the register link menu item.",
+      })}
+    />,
+  ];
+  if (loggedIn) {
+    authLinks = [
+      <MenuLink
+        key="logout"
+        as="button"
+        onClick={() => {
+          if (loggedIn) {
+            setConfirmationOpen(true);
+          }
+        }}
+        text={intl.formatMessage({
+          defaultMessage: "Logout",
+          description: "Label displayed on the logout link menu item.",
+        })}
+      />,
+    ];
+  }
+
   return (
     <>
       <PageContainer
         menuItems={menuItems}
+        authLinks={authLinks}
         contentRoutes={[
           ...talentRoutes(talentPaths),
           ...authRoutes(authPaths),
@@ -270,6 +328,65 @@ export const Router: React.FC = () => {
         ]}
       />
       <Toast />
+      {loggedIn && (
+        <Dialog
+          confirmation
+          centered
+          isOpen={isConfirmationOpen}
+          onDismiss={() => {
+            setConfirmationOpen(false);
+          }}
+          title={intl.formatMessage({
+            defaultMessage: "Logout",
+            description:
+              "Title for the modal that appears when an authenticated user lands on /logged-out.",
+          })}
+          footer={
+            <div
+              data-h2-display="b(flex)"
+              data-h2-align-items="b(center)"
+              data-h2-justify-content="b(flex-end)"
+            >
+              <Button
+                mode="outline"
+                color="primary"
+                type="button"
+                onClick={() => {
+                  setConfirmationOpen(false);
+                }}
+              >
+                {intl.formatMessage({
+                  defaultMessage: "Cancel",
+                  description: "Link text to cancel logging out.",
+                })}
+              </Button>
+              <span data-h2-margin="b(left, s)">
+                <Button
+                  mode="solid"
+                  color="primary"
+                  type="button"
+                  onClick={() => {
+                    logout();
+                  }}
+                >
+                  {intl.formatMessage({
+                    defaultMessage: "Logout",
+                    description: "Link text to logout.",
+                  })}
+                </Button>
+              </span>
+            </div>
+          }
+        >
+          <p data-h2-font-size="b(h5)">
+            {intl.formatMessage({
+              defaultMessage: "Are you sure you would like to logout?",
+              description:
+                "Question displayed when authenticated user lands on /logged-out.",
+            })}
+          </p>
+        </Dialog>
+      )}
     </>
   );
 };

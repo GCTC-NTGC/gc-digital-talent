@@ -20,6 +20,7 @@ use App\Models\PersonalExperience;
 use App\Models\WorkExperience;
 use Faker;
 use Database\Helpers\ApiEnums;
+
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -53,21 +54,51 @@ class DatabaseSeeder extends Seeder
         $this->call(PoolSeeder::class);
 
         User::factory([
-             'roles' => [ApiEnums::ROLE_APPLICANT]
+            'roles' => [ApiEnums::ROLE_APPLICANT]
         ])
             ->count(60)
-            ->afterCreating(function (User $user) {
+            ->afterCreating(function (User $user) use ($faker) {
                 $assets = CmoAsset::inRandomOrder()->limit(4)->pluck('id')->toArray();
-                $classifications = Classification::inRandomOrder()->limit(3)->pluck('id')->toArray();
                 $user->cmoAssets()->sync($assets);
-                $user->expectedClassifications()->sync($classifications);
+
+                // pick a pool in which to place this user
+                $pool = Pool::inRandomOrder()->limit(1)->first();
+
+                // are they a government user?
+                if(rand(0, 1)) {
+                    // government users have a current classification and expected classifications but no salary
+                    $user->current_classification = Classification::inRandomOrder()->first()->id;
+                    $user->expected_salary = [];
+                    $user->save();
+
+                    $user->expectedClassifications()->sync(
+                        $faker->randomElements($pool->classifications()->pluck('classifications.id')->toArray(), 3)
+                    );
+                } else {
+                    // non-government users have no current classification or expected classifications but have salary
+                    $user->current_classification = null;
+                    $user->expected_salary = $faker->randomElements(ApiEnums::salaryRanges(), 3);
+                    $user->save();
+
+                    $user->expectedClassifications()->sync([]);
+                }
+
+                // create a pool candidate in the pool
+                PoolCandidate::factory()->count(1)->sequence(fn () => [
+                    'pool_id' => $pool->id,
+                    'user_id' => $user->id,
+                    'expected_salary' => $user->expected_salary
+                ])->for($user)->afterCreating(function (PoolCandidate $candidate) use ($user) {
+                    // match arrays from the user
+                    $candidate->expectedClassifications()->sync($user->expectedClassifications()->pluck('classifications.id')->toArray());
+                    $candidate->cmoAssets()->sync($user->cmoAssets()->pluck('cmo_assets.id')->toArray());
+
+                })->create();
             })
             ->create();
 
+        // add experiences to all the users
         User::all()->each(function($user) use ($faker) {
-            PoolCandidate::factory()->count(1)->sequence(fn () => [
-                'pool_id' => Pool::inRandomOrder()->first()->id,
-            ])->for($user)->create();
             AwardExperience::factory()
                 ->count($faker->biasedNumberBetween($min = 0, $max = 3, $function = 'Faker\Provider\Biased::linearLow'))
                 ->for($user)
@@ -129,13 +160,6 @@ class DatabaseSeeder extends Seeder
                     $model->skills()->sync($data);
                 })->create();
         });
-
-        PoolCandidate::each(function($candidate) {
-            $classifications = Classification::inRandomOrder()->limit(3)->get();
-            $candidate->expectedClassifications()->saveMany($classifications);
-            $assets = CmoAsset::inRandomOrder()->limit(4)->get();
-            $candidate->cmoAssets()->saveMany($assets);
-          });
 
         PoolCandidateSearchRequest::factory()->count(10)->create();
     }

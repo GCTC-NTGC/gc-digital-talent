@@ -42,3 +42,4 @@ Unencrypted
 unlocalized
 urql
 WCAG
+Gatineau

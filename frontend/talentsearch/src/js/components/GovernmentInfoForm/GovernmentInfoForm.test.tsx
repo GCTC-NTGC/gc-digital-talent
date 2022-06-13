@@ -6,8 +6,8 @@ import React from "react";
 import { fakeClassifications, fakeUsers } from "@common/fakeData";
 import { render, screen, fireEvent, waitFor } from "../../tests/testUtils";
 import {
-  GovernmentInfoForm,
-  GovernmentInfoFormProps,
+  GovInfoFormWithProfileWrapper as GovernmentInfoForm,
+  GovInfoFormWithProfileWrapperProps as GovernmentInfoFormProps,
 } from "./GovernmentInfoForm";
 
 const mockClassifications = fakeClassifications();
@@ -36,16 +36,21 @@ describe("Government Info Form tests", () => {
       submitHandler: mockSave,
     });
 
-    const button = screen.getByText(
-      "Yes, I am a Government of Canada employee",
-    );
-    const studentNotPresent = screen.queryByText("I am a student");
-    expect(studentNotPresent).toBeNull();
-    fireEvent.click(button); // Open the second form
-    expect(screen.getByText("I am a student")).toBeTruthy();
+    const isGovEmployee = screen.getByRole("radio", {
+      name: /yes, i am a government of canada employee/i,
+    });
+    expect(screen.queryByText("I am a student")).toBeNull();
+    fireEvent.click(isGovEmployee); // Open the second form
+    expect(
+      screen.getByRole("radio", {
+        name: /i am a student/i,
+      }),
+    ).toBeTruthy();
 
-    const button2 = screen.getByText("I have a term position");
-    fireEvent.click(button2); // Open the other forms
+    const termPos = screen.getByRole("radio", {
+      name: /i have a term position/i,
+    });
+    fireEvent.click(termPos); // Open the other forms
     expect(
       screen.getByText(
         "Please indicate if you are interested in lateral deployment or secondment. Learn more about this.",
@@ -60,13 +65,15 @@ describe("Government Info Form tests", () => {
       classifications: mockClassifications,
       submitHandler: mockSave,
     });
-    const button = screen.getByText(
-      "Yes, I am a Government of Canada employee",
-    );
-    fireEvent.click(button);
+    const isGovEmployee = screen.getByRole("radio", {
+      name: /yes, i am a government of canada employee/i,
+    });
+    fireEvent.click(isGovEmployee);
 
-    const button2 = screen.getByText("I am a student");
-    fireEvent.click(button2);
+    const isStudent = screen.getByRole("radio", {
+      name: /i am a student/i,
+    });
+    fireEvent.click(isStudent);
 
     fireEvent.submit(screen.getByRole("button", { name: /save/i }));
     await waitFor(() => {

@@ -16,6 +16,9 @@ use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Tests\TestCase;
 use Database\Helpers\ApiEnums;
 
+// for setting expiry dates so tests don't fail due to expired candidates when they are not supposed to
+const FAR_FUTURE_DATE = '2050-01-01';
+
 class UserTest extends TestCase
 {
     use DatabaseMigrations;
@@ -149,10 +152,12 @@ class UserTest extends TestCase
         ]);
 
         PoolCandidate::factory()->count(5)->create([
-            'pool_id' => $pool1['id']
+            'pool_id' => $pool1['id'],
+            'expiry_date' => FAR_FUTURE_DATE,
         ]);
         PoolCandidate::factory()->count(2)->create([
-            'pool_id' => $pool2['id']
+            'pool_id' => $pool2['id'],
+            'expiry_date' => FAR_FUTURE_DATE,
         ]);
 
         // Assert query with no pool filter will return all users
@@ -1314,6 +1319,7 @@ class UserTest extends TestCase
       'is_indigenous' => false,
       'is_visible_minority' => false,
       'is_woman' => false,
+      'expiry_date' => FAR_FUTURE_DATE,
     ]);
 
     // Create one new candidate for each EmploymentEquity filter
@@ -1322,24 +1328,28 @@ class UserTest extends TestCase
       'is_indigenous' => false,
       'is_visible_minority' => false,
       'is_woman' => false,
+      'expiry_date' => FAR_FUTURE_DATE,
     ]);
     PoolCandidate::factory()->create([
       'has_disability' => false,
       'is_indigenous' => true,
       'is_visible_minority' => false,
       'is_woman' => false,
+      'expiry_date' => FAR_FUTURE_DATE,
     ]);
     PoolCandidate::factory()->create([
       'has_disability' => false,
       'is_indigenous' => false,
       'is_visible_minority' => true,
       'is_woman' => false,
+      'expiry_date' => FAR_FUTURE_DATE,
     ]);
     PoolCandidate::factory()->create([
       'has_disability' => false,
       'is_indigenous' => false,
       'is_visible_minority' => false,
       'is_woman' => true,
+      'expiry_date' => FAR_FUTURE_DATE,
     ]);
 
     // Assert query with no EmploymentEquity filter will return all candidates
@@ -1889,7 +1899,8 @@ class UserTest extends TestCase
             })->create([
                 'expected_salary' => []
             ]),
-            'pool_id' => $myPool->id
+            'pool_id' => $myPool->id,
+            'expiry_date' => FAR_FUTURE_DATE,
         ]);
 
         // Attach new user in the pool that overlaps the expected salary range and has a matching class group (but not level).
@@ -1899,7 +1910,8 @@ class UserTest extends TestCase
             })->create([
                 'expected_salary' => ['_60_69K']
             ]),
-            'pool_id' => $myPool->id
+            'pool_id' => $myPool->id,
+            'expiry_date' => FAR_FUTURE_DATE,
         ]);
 
         // Attach new user in the pool that is over the expected salary range and has a matching class group (but not level).
@@ -1909,7 +1921,8 @@ class UserTest extends TestCase
             })->create([
                 'expected_salary' => ['_90_99K', '_100K_PLUS']
             ]),
-            'pool_id' => $myPool->id
+            'pool_id' => $myPool->id,
+            'expiry_date' => FAR_FUTURE_DATE,
         ]);
 
         // *** now make the same three users in the wrong pool
@@ -1922,7 +1935,8 @@ class UserTest extends TestCase
             })->create([
                 'expected_salary' => []
             ]),
-            'pool_id' => $otherPool->id
+            'pool_id' => $otherPool->id,
+            'expiry_date' => FAR_FUTURE_DATE,
         ]);
 
         // Attach new user in the pool that overlaps the expected salary range and has a matching class group (but not level). WRONG POOL
@@ -1932,7 +1946,8 @@ class UserTest extends TestCase
             })->create([
                 'expected_salary' => ['_60_69K']
             ]),
-            'pool_id' => $otherPool->id
+            'pool_id' => $otherPool->id,
+            'expiry_date' => FAR_FUTURE_DATE,
         ]);
 
         // Attach new user in the pool that is over the expected salary range and has a matching class group (but not level).  WRONG POOL
@@ -1942,7 +1957,8 @@ class UserTest extends TestCase
             })->create([
                 'expected_salary' => ['_90_99K', '_100K_PLUS']
             ]),
-            'pool_id' => $otherPool->id
+            'pool_id' => $otherPool->id,
+            'expiry_date' => FAR_FUTURE_DATE,
         ]);
 
         // Assert query with just pool filters will return all users in that pool

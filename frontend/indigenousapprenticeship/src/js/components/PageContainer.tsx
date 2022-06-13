@@ -119,7 +119,7 @@ export const PageContainer: React.FC<{
         >
           <div>
             <Header baseUrl={INDIGENOUSAPPRENTICESHIP_APP_DIR} />
-            <NavMenu items={menuItems} />
+            <NavMenu mainItems={menuItems} />
           </div>
           <main id="main">{content}</main>
           <div style={{ marginTop: "auto" }}>

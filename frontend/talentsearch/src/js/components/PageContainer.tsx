@@ -14,39 +14,51 @@ import Header from "@common/components/Header";
 import Footer from "@common/components/Footer";
 import NotAuthorized from "@common/components/NotAuthorized";
 import TALENTSEARCH_APP_DIR from "../talentSearchConstants";
+import { useApplicantProfileRoutes } from "../applicantProfileRoutes";
 
-export const exactMatch = (ref: string, test: string): boolean => ref === test;
+export const exactMatch = (ref: string | null, test: string): boolean =>
+  ref === test;
 
 interface MenuLinkProps {
-  href: string;
+  href?: string;
   text: string;
   title?: string;
-  isActive?: (href: string, path: string) => boolean;
+  as?: "a" | "button" | typeof Link;
+  isActive?: (href: string | null, path: string) => boolean;
+  onClick?: () => void;
 }
 
 export const MenuLink: React.FC<MenuLinkProps> = ({
   href,
   text,
   title,
+  as = Link,
   isActive = exactMatch,
+  ...rest
 }) => {
   const location = useLocation();
+  const El = as;
   return (
-    <Link
+    <El
       href={href}
-      title={title ?? ""}
-      {...{
-        "data-h2-font-color": "b(lightpurple)",
+      title={title ?? undefined}
+      data-h2-font-color="b(lightpurple)"
+      data-h2-font-size="b(normal)"
+      style={{
+        border: "none",
+        background: "none",
+        textDecoration: "underline",
       }}
+      {...rest}
     >
-      <div
+      <span
         data-h2-font-weight={
-          isActive(href, location.pathname) ? "b(700)" : "b(100)"
+          isActive(href ?? null, location.pathname) ? "b(700)" : "b(200)"
         }
       >
         {text}
-      </div>
-    </Link>
+      </span>
+    </El>
   );
 };
 
@@ -94,9 +106,11 @@ const TalentSearchNotAuthorized: React.FC = () => {
 
 export const PageContainer: React.FC<{
   menuItems: ReactElement[];
+  authLinks: ReactElement[];
   contentRoutes: Routes<RouterResult>;
-}> = ({ menuItems, contentRoutes }) => {
+}> = ({ menuItems, contentRoutes, authLinks }) => {
   const intl = useIntl();
+  const paths = useApplicantProfileRoutes();
   // stabilize components that will not change during life of app, avoid render loops in router
   const notFoundComponent = useRef(<TalentSearchNotFound />);
   const notAuthorizedComponent = useRef(<TalentSearchNotAuthorized />);
@@ -104,6 +118,7 @@ export const PageContainer: React.FC<{
     contentRoutes,
     notFoundComponent.current,
     notAuthorizedComponent.current,
+    paths.createAccount(),
   );
   return (
     <ScrollToTop>
@@ -122,7 +137,7 @@ export const PageContainer: React.FC<{
         >
           <div>
             <Header baseUrl={TALENTSEARCH_APP_DIR} />
-            <NavMenu items={menuItems} />
+            <NavMenu mainItems={menuItems} utilityItems={authLinks} />
           </div>
           <main id="main">{content}</main>
           <div style={{ marginTop: "auto" }}>
