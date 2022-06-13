@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
-
+use Illuminate\Support\Facades\Log;
 /**
  * Class PoolCandidateFilter
  *
@@ -60,5 +60,25 @@ class PoolCandidateFilter extends Model
     public function poolCandidateSearchRequest(): HasOne
     {
         return $this->hasOne(PoolCandidateSearchRequest::class);
+    }
+
+    /* these fields are factored out into a sub-object by this accessor to mirror the way they are queried */
+    public function getEquityAttribute()
+    {
+        return [
+            "is_woman"=>$this->is_woman,
+            "has_disability"=>$this->has_disability,
+            "is_indigenous"=>$this->is_indigenous,
+            "is_visible_minority"=>$this->is_visible_minority
+        ];
+    }
+
+    /* this fields are factored out into a sub-object by this mutator so they can be OR'd together by the query builder */
+    public function setEquityAttribute($equityInput)
+    {
+        $this->is_woman = $equityInput['is_woman'];
+        $this->has_disability = $equityInput['has_disability'];
+        $this->is_indigenous = $equityInput['is_indigenous'];
+        $this->is_visible_minority = $equityInput['is_visible_minority'];
     }
 }
