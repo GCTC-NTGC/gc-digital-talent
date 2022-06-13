@@ -30,7 +30,6 @@ import {
   Classification,
   OperationalRequirement,
   Pool,
-  PoolCandidateStatus,
 } from "../../api/generated";
 import { FormValues as SearchFormValues } from "../search/SearchForm";
 

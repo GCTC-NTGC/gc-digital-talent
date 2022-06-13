@@ -19,7 +19,6 @@ import {
   LanguageAbility,
   PoolCandidateFilter,
   PoolCandidateFilterInput,
-  PoolCandidateStatus,
 } from "../../api/generated";
 
 const NullSelection = "NULL_SELECTION";

@@ -16,7 +16,6 @@ import {
   PoolFilterInput,
   ClassificationFilterInput,
   Maybe,
-  PoolCandidateStatus,
 } from "../../api/generated";
 import {
   DIGITAL_CAREERS_POOL_KEY,
