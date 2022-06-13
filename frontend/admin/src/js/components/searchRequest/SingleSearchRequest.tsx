@@ -174,6 +174,13 @@ export const SingleSearchRequest: React.FunctionComponent<
   const intl = useIntl();
   const locale = getLocale(intl);
   const { additionalComments, poolCandidateFilter } = searchRequest;
+  // append equity values to poolCandidateFilter.equity, the latter is NULL
+  poolCandidateFilter.equity = {
+    hasDisability: poolCandidateFilter.hasDisability,
+    isIndigenous: poolCandidateFilter.isIndigenous,
+    isVisibleMinority: poolCandidateFilter.isVisibleMinority,
+    isWoman: poolCandidateFilter.isWoman,
+  };
 
   const poolCandidateFilterInput: PoolCandidateFilterInput = {
     classifications: [
@@ -209,10 +216,10 @@ export const SingleSearchRequest: React.FunctionComponent<
     ],
     hasDiploma: poolCandidateFilter.hasDiploma,
     equity: {
-      hasDisability: poolCandidateFilter.equity?.hasDisability,
-      isIndigenous: poolCandidateFilter.equity?.isIndigenous,
-      isVisibleMinority: poolCandidateFilter.equity?.isVisibleMinority,
-      isWoman: poolCandidateFilter.equity?.isWoman,
+      hasDisability: poolCandidateFilter.hasDisability,
+      isIndigenous: poolCandidateFilter.isIndigenous,
+      isVisibleMinority: poolCandidateFilter.isVisibleMinority,
+      isWoman: poolCandidateFilter.isWoman,
     },
     languageAbility: poolCandidateFilter.languageAbility || undefined,
     workRegions: poolCandidateFilter.workRegions,

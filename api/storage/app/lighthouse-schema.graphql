@@ -687,6 +687,10 @@ type PoolCandidateFilter {
   classifications: [Classification]
   cmoAssets: [CmoAsset]
   hasDiploma: Boolean
+  isWoman: Boolean
+  hasDisability: Boolean
+  isIndigenous: Boolean
+  isVisibleMinority: Boolean
   equity: EquitySelections
   languageAbility: LanguageAbility
   operationalRequirements: [OperationalRequirement]

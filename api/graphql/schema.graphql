@@ -358,6 +358,10 @@ type PoolCandidateFilter {
     classifications: [Classification] @belongsToMany
     cmoAssets: [CmoAsset] @belongsToMany
     hasDiploma: Boolean @rename(attribute: "has_diploma")
+    isWoman: Boolean @rename(attribute: "is_woman")
+    hasDisability: Boolean @rename(attribute: "has_disability")
+    isIndigenous: Boolean @rename(attribute: "is_indigenous")
+    isVisibleMinority: Boolean @rename(attribute: "is_visible_minority")
     equity: EquitySelections @rename(attribute: "equity_selections")
     languageAbility: LanguageAbility @rename(attribute: "language_ability")
     operationalRequirements: [OperationalRequirement] @rename(attribute: "operational_requirements")
