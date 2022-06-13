@@ -559,7 +559,7 @@ input PoolCandidateFilterInput {
     operationalRequirements: [OperationalRequirement] @builder(method: "App\\Models\\PoolCandidate@filterByOperationalRequirements")
     workRegions: [WorkRegion] @builder(method: "App\\Models\\PoolCandidate@filterByWorkRegions")
     pools: [PoolFilterInput] @builder(method: "App\\Models\\PoolCandidate@filterByPools")
-    status: PoolCandidateStatus @builder(method: "App\\Models\\PoolCandidate@filterByPoolCandidateStatus")
+    status: PoolCandidateStatus @scope(name: "PoolCandidateStatus")
 }
 
 input UserFilterAndOrderInput {

@@ -270,7 +270,7 @@ RAWSQL2;
         return $query;
     }
 
-    public function filterByPoolCandidateStatus(Builder $query, ?string $poolCandidateStatus): Builder
+    public function scopePoolCandidateStatus(Builder $query, ?string $poolCandidateStatus): Builder
     {
         if(empty($poolCandidateStatus)){
             return $query;

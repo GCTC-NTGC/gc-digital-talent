@@ -154,13 +154,20 @@ class UserTest extends TestCase
         PoolCandidate::factory()->count(5)->create([
             'pool_id' => $pool1['id'],
             'expiry_date' => FAR_FUTURE_DATE,
+            'pool_candidate_status' => 'AVAILABLE',
+        ]);
+        PoolCandidate::factory()->count(4)->create([
+            'pool_id' => $pool1['id'],
+            'expiry_date' => FAR_FUTURE_DATE,
+            'pool_candidate_status' => 'PLACED_TERM',
         ]);
         PoolCandidate::factory()->count(2)->create([
             'pool_id' => $pool2['id'],
             'expiry_date' => FAR_FUTURE_DATE,
+            'pool_candidate_status' => null,
         ]);
 
-        // Assert query with no pool filter will return all users
+        // Assert query with no pool filter will return all users, including unavailable
         $this->graphQL(/** @lang Graphql */ '
             query getUsersPaginated($where: UserFilterAndOrderInput) {
                 usersPaginated(where: $where) {
@@ -175,13 +182,13 @@ class UserTest extends TestCase
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
-                        'total' => 8
+                        'total' => 12
                     ]
                 ]
             ]
         ]);
 
-        // Assert query with pool filter will return correct number of users
+        // Assert query with pool filter will return correct number of users, available only
         $this->graphQL(/** @lang Graphql */ '
             query getUsersPaginated($where: UserFilterAndOrderInput) {
                 usersPaginated(where: $where) {
@@ -193,14 +200,14 @@ class UserTest extends TestCase
         ', [
             'where' => [
                 'poolCandidates' => [
-                    'pools' => [$pool2['id']]
+                    'pools' => [$pool1['id']]
                 ]
             ]
         ])->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
-                        'total' => 2
+                        'total' => 5
                     ]
                 ]
             ]
@@ -239,42 +246,50 @@ class UserTest extends TestCase
         // otherPool will be people we're not querying for and should not be returned
         $otherPool = Pool::factory()->create(['name' => 'otherPool']);
 
-        // Create some valid users in myPool
+        // Create some valid users in myPool, AVAILABLE status to ensure filter by pool only changes off expiry date in this test
         PoolCandidate::factory()->count(4)->create([
             'expiry_date' => '3000-05-13',
             'pool_id' => $myPool->id,
+            'pool_candidate_status' => 'AVAILABLE',
         ]);
         PoolCandidate::factory()->create([
             'expiry_date' => date("Y-m-d"),
             'pool_id' => $myPool->id,
+            'pool_candidate_status' => 'AVAILABLE',
         ]);
         PoolCandidate::factory()->count(3)->create([
             'expiry_date' => null,
             'pool_id' => $myPool->id,
+            'pool_candidate_status' => 'AVAILABLE',
         ]);
         // Create some expired users in myPool
         PoolCandidate::factory()->count(2)->create([
             'expiry_date' => '2000-05-13',
             'pool_id' => $myPool->id,
+            'pool_candidate_status' => 'AVAILABLE',
         ]);
 
         // Create some valid users in otherPool
         PoolCandidate::factory()->count(5)->create([
             'expiry_date' => '3000-05-13',
             'pool_id' => $otherPool->id,
+            'pool_candidate_status' => 'AVAILABLE',
         ]);
         PoolCandidate::factory()->create([
             'expiry_date' => date("Y-m-d"),
             'pool_id' => $otherPool->id,
+            'pool_candidate_status' => 'AVAILABLE',
         ]);
         PoolCandidate::factory()->create([
             'expiry_date' => null,
             'pool_id' => $otherPool->id,
+            'pool_candidate_status' => 'AVAILABLE',
         ]);
         // Create some expired users in otherPool
         PoolCandidate::factory()->count(3)->create([
             'expiry_date' => '2000-05-13',
             'pool_id' => $otherPool->id,
+            'pool_candidate_status' => 'AVAILABLE',
         ]);
 
         // Assert query with no parameters returns all users
@@ -1311,52 +1326,6 @@ class UserTest extends TestCase
         ]);
     }
 
-    public function testFilterByCandidateStatus(): void
-    {
-      $nonAvailableStatuses = array('PLACED_INDETERMINATE', 'PLACED_TERM', 'NO_LONGER_INTERESTED');
-      // Create 3 pool candidates available status
-      PoolCandidate::factory()->count(3)->create([
-        'pool_candidate_status' => 'AVAILABLE',
-        'expiry_date' => FAR_FUTURE_DATE,
-      ]);
-
-      // Create 6 pool candidates with non-available statuses
-      PoolCandidate::factory()->count(6)->create([
-        'pool_candidate_status' => $nonAvailableStatuses[array_rand($nonAvailableStatuses)],
-        'expiry_date' => FAR_FUTURE_DATE,
-      ]);
-
-      // Assert query with available filter will return appropriate candidate count
-      $this->graphQL(/** @lang Graphql */ '
-        query countPoolCandidates($where: PoolCandidateFilterInput) {
-          countPoolCandidates(where: $where)
-        }
-      ', [
-        'where' => [
-          'status' => 'AVAILABLE',
-        ]
-      ])->assertJson([
-        'data' => [
-          'countPoolCandidates' => 3
-        ]
-      ]);
-
-      // Assert query with empty filter will return appropriate candidate count
-      $this->graphQL(/** @lang Graphql */ '
-        query countPoolCandidates($where: PoolCandidateFilterInput) {
-          countPoolCandidates(where: $where)
-        }
-      ', [
-        'where' => [
-          'status' => null,
-        ]
-      ])->assertJson([
-        'data' => [
-          'countPoolCandidates' => 9
-        ]
-      ]);
-    }
-
     public function testFilterByEmploymentEquity(): void
     {
     // Create initial data.
@@ -1936,7 +1905,7 @@ class UserTest extends TestCase
         ]);
 
         // *** first make three users in the right pool - 1 has an exact classification match, 1 has a salary to classification match, 1 has no match
-
+        // attach AVAILABLE status to ensure filtering by pools doesn't filter by status
         // Attach new user in the pool with the desired classification
         PoolCandidate::factory()->create([
             'user_id' => User::factory()->afterCreating(function($user) use ($myClassification) {
@@ -1947,6 +1916,7 @@ class UserTest extends TestCase
             ]),
             'pool_id' => $myPool->id,
             'expiry_date' => FAR_FUTURE_DATE,
+            'pool_candidate_status' => 'AVAILABLE',
         ]);
 
         // Attach new user in the pool that overlaps the expected salary range and has a matching class group (but not level).
@@ -1958,6 +1928,7 @@ class UserTest extends TestCase
             ]),
             'pool_id' => $myPool->id,
             'expiry_date' => FAR_FUTURE_DATE,
+            'pool_candidate_status' => 'AVAILABLE',
         ]);
 
         // Attach new user in the pool that is over the expected salary range and has a matching class group (but not level).
@@ -1969,6 +1940,7 @@ class UserTest extends TestCase
             ]),
             'pool_id' => $myPool->id,
             'expiry_date' => FAR_FUTURE_DATE,
+            'pool_candidate_status' => 'AVAILABLE',
         ]);
 
         // *** now make the same three users in the wrong pool
@@ -1983,6 +1955,7 @@ class UserTest extends TestCase
             ]),
             'pool_id' => $otherPool->id,
             'expiry_date' => FAR_FUTURE_DATE,
+            'pool_candidate_status' => 'AVAILABLE',
         ]);
 
         // Attach new user in the pool that overlaps the expected salary range and has a matching class group (but not level). WRONG POOL
@@ -1994,6 +1967,7 @@ class UserTest extends TestCase
             ]),
             'pool_id' => $otherPool->id,
             'expiry_date' => FAR_FUTURE_DATE,
+            'pool_candidate_status' => 'AVAILABLE',
         ]);
 
         // Attach new user in the pool that is over the expected salary range and has a matching class group (but not level).  WRONG POOL
@@ -2005,6 +1979,7 @@ class UserTest extends TestCase
             ]),
             'pool_id' => $otherPool->id,
             'expiry_date' => FAR_FUTURE_DATE,
+            'pool_candidate_status' => 'AVAILABLE',
         ]);
 
         // Assert query with just pool filters will return all users in that pool
