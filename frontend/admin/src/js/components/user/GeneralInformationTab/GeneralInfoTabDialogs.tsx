@@ -376,6 +376,7 @@ export const ChangeDateDialog: React.FC<TableDialogProps> = ({
   );
 };
 
+// Currently unused - keeping this incase we want to bring it back later
 export const RemoveFromPoolDialog: React.FC<TableDialogProps> = ({
   selectedCandidate,
   user,

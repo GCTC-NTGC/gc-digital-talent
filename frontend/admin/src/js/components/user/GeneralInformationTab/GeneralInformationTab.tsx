@@ -26,7 +26,6 @@ import {
   AddToPoolDialog,
   ChangeDateDialog,
   ChangeStatusDialog,
-  RemoveFromPoolDialog,
 } from "./GeneralInfoTabDialogs";
 import {
   User,
@@ -76,8 +75,6 @@ const PoolStatusTable: React.FC<BasicSectionProps> = ({ user }) => {
   const [changeStatusDialogTarget, setChangeStatusDialogTarget] =
     React.useState<PoolCandidate | null>(null);
   const [changeDateDialogTarget, setChangeDateDialogTarget] =
-    React.useState<PoolCandidate | null>(null);
-  const [removeFromPoolDialogTarget, setRemoveFromPoolDialogTarget] =
     React.useState<PoolCandidate | null>(null);
 
   if (isEmpty(user.poolCandidates)) {
@@ -178,19 +175,14 @@ const PoolStatusTable: React.FC<BasicSectionProps> = ({ user }) => {
                   <td
                     data-h2-font-style="b(underline)"
                     data-h2-bg-color="b(lightgray)"
+                    data-h2-font-color="b(darkgray)"
                     data-h2-padding="b(top-bottom, xs)"
                   >
-                    <ModalTableButton
-                      click={() => {
-                        setRemoveFromPoolDialogTarget(candidate);
-                      }}
-                    >
-                      {intl.formatMessage({
-                        defaultMessage: "Remove from pool",
-                        description:
-                          "Button to remove a user from a pool - located in the table on view-user page",
-                      })}
-                    </ModalTableButton>
+                    {intl.formatMessage({
+                      defaultMessage: "Remove from pool",
+                      description:
+                        "Button to remove a user from a pool - located in the table on view-user page",
+                    })}
                   </td>
                 </tr>
               );
@@ -208,11 +200,6 @@ const PoolStatusTable: React.FC<BasicSectionProps> = ({ user }) => {
         selectedCandidate={changeDateDialogTarget}
         user={user}
         onDismiss={() => setChangeDateDialogTarget(null)}
-      />
-      <RemoveFromPoolDialog
-        selectedCandidate={removeFromPoolDialogTarget}
-        user={user}
-        onDismiss={() => setRemoveFromPoolDialogTarget(null)}
       />
     </>
   );
