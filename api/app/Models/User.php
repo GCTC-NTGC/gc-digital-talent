@@ -134,7 +134,11 @@ class User extends Model implements Authenticatable
 
     // getIsProfileCompleteAttribute function is correspondent to isProfileComplete attribute in graphql schema
     public function getIsProfileCompleteAttribute(): bool
-    {if(is_null($this->attributes['first_name']) Or
+    {
+        // $userRole =$this->belongsToMany(ClassificationRole::class,'name','role')
+        // ->withPivot('classification_role_id', 'user_id');
+
+        if(is_null($this->attributes['first_name']) Or
         is_null($this->attributes['last_name']) Or
         is_null($this->attributes['email']) Or
         is_null($this->attributes['telephone']) Or
@@ -147,13 +151,20 @@ class User extends Model implements Authenticatable
         is_null($this->attributes['is_gov_employee']) Or
         is_null($this->attributes['location_preferences']) Or
         is_null($this->attributes['expected_salary']) Or
-        is_null($this->attributes['would_accept_temporary'])
+        is_null($this->attributes['would_accept_temporary']) // Or
+      // is_null($this->attributes['current_classification'])  Or
+      // is_null($userRole)
+       // is_null($this->attributes['expectedClassificationRoles'])
+       //is_null($this->morphToMany(ClassificationRole::class, 'name'))
+       //is_null($model->relation)
+
         )   {
             return false;
             }
         else{
             return true;
         }
+
     }
 
      /**

@@ -31,6 +31,15 @@ query getMe {
         fr
       }
     }
+    expectedClassificationRoles {
+      id
+      name {
+        en
+        fr
+      }
+      role
+    }
+  
     isWoman
     hasDisability
     isIndigenous
@@ -153,4 +162,5 @@ query getMe {
     }
     isProfileComplete
   }
+
 }

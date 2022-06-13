@@ -443,7 +443,10 @@ const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
             {sections.roleSalary?.override ? (
               sections.roleSalary.override
             ) : (
-              <RoleSalarySection applicant={applicant} />
+              <RoleSalarySection
+                applicant={applicant}
+                editPath={sections.roleSalary?.editUrl}
+              />
             )}
           </TableOfContents.Section>
         )}

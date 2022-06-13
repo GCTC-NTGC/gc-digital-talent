@@ -8,6 +8,7 @@ import {
   PoolCandidateSearchStatus,
   SkillCategory,
   Role,
+  ClassificationRoleType,
   AwardedTo,
   AwardedScope,
   EducationType,
@@ -319,16 +320,40 @@ export const getRole = (roleId: string | number): MessageDescriptor =>
   getOrThrowError(Roles, roleId, `Invalid role '${roleId}'`);
 
 export const ClassificationRoles = defineMessages({
-  [Role.Admin]: {
-    defaultMessage: "Administrator",
-    description: "The name of the Administrator user role.",
+  [ClassificationRoleType.TechnicianIt01]: {
+    defaultMessage: "Level 1: Technician",
+    description: "The name of the Technician classification role.",
+  },
+  [ClassificationRoleType.AnalystIt02]: {
+    defaultMessage: "Level 2: Analyst",
+    description: "The name of the Technician Analyst role.",
+  },
+  [ClassificationRoleType.TeamLeaderIt03]: {
+    defaultMessage: "Level 3: Team leader",
+    description: "The name of the Team leader Analyst role.",
+  },
+  [ClassificationRoleType.TechnicalAdvisorIt03]: {
+    defaultMessage: "Level 3: Technical advisor",
+    description: "The name of the Technical advisor role.",
+  },
+  [ClassificationRoleType.SeniorAdvisorIt04]: {
+    defaultMessage: "Level 4: Senior advisor",
+    description: "The name of the Senior advisor role.",
+  },
+  [ClassificationRoleType.ManagerIt04]: {
+    defaultMessage: "Level 4: Manager",
+    description: "The name of the Senior advisor role.",
   },
 });
 
 export const getClassificationRoles = (
-  roleId: string | number,
+  classificationRoleId: string | number,
 ): MessageDescriptor =>
-  getOrThrowError(ClassificationRoles, roleId, `Invalid role '${roleId}'`);
+  getOrThrowError(
+    ClassificationRoles,
+    classificationRoleId,
+    `Invalid role '${classificationRoleId}'`,
+  );
 
 export const awardedToMessages = defineMessages({
   [AwardedTo.Me]: {
