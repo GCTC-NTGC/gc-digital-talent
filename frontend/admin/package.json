@@ -118,6 +118,6 @@
     "react-toastify": "^9.0.3",
     "regenerator-runtime": "^0.13.9",
     "universal-router": "^9.1.0",
-    "urql": "^2.2.1"
+    "urql": "^2.2.2"
   }
 }
