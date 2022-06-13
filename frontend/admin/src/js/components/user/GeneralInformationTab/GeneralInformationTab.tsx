@@ -574,7 +574,7 @@ export const GeneralInformationTab: React.FC<SectionWithPoolsProps> = ({
         defaultMessage: "About",
         description: "Title of the 'About' section of the view-user page",
       }),
-      titleIcon: <UserIcon style={{ width: "2rem" }} />,
+      titleIcon: UserIcon,
       content: <AboutSection user={user} />,
     },
     {
@@ -584,7 +584,7 @@ export const GeneralInformationTab: React.FC<SectionWithPoolsProps> = ({
         description:
           "Title of the 'Candidate status' section of the view-user page",
       }),
-      titleIcon: <CalculatorIcon style={{ width: "2rem" }} />,
+      titleIcon: CalculatorIcon,
       content: <CandidateStatusSection user={user} pools={pools} />,
     },
     {
@@ -593,7 +593,7 @@ export const GeneralInformationTab: React.FC<SectionWithPoolsProps> = ({
         defaultMessage: "Notes",
         description: "Title of the 'Notes' section of the view-user page",
       }),
-      titleIcon: <PencilAltIcon style={{ width: "2rem" }} />,
+      titleIcon: PencilAltIcon,
       content: <NotesSection user={user} />,
     },
     {
@@ -603,7 +603,7 @@ export const GeneralInformationTab: React.FC<SectionWithPoolsProps> = ({
         description:
           "Title of the 'Employment equity' section of the view-user page",
       }),
-      titleIcon: <InformationCircleIcon style={{ width: "2rem" }} />,
+      titleIcon: InformationCircleIcon,
       content: <EmploymentEquitySection user={user} />,
     },
   ];
@@ -620,8 +620,8 @@ export const GeneralInformationTab: React.FC<SectionWithPoolsProps> = ({
       <TableOfContents.Content>
         {items.map((item) => (
           <TableOfContents.Section key={item.id} id={item.id}>
-            <TableOfContents.Heading>
-              {item.titleIcon} {item.title}
+            <TableOfContents.Heading icon={item.titleIcon}>
+              {item.title}
             </TableOfContents.Heading>
             {item.content}
           </TableOfContents.Section>
