@@ -10,6 +10,7 @@ import { Role } from "../api/generated";
 import { AuthorizationContext } from "../components/Auth/AuthorizationContainer";
 import { useApiRoutes } from "../hooks/useApiRoutes";
 import { getLocale } from "./localize";
+import { empty } from "./util";
 
 export const HISTORY = createBrowserHistory();
 
@@ -102,6 +103,7 @@ export const useRouter = (
   routes: Routes<RouterResult>,
   missingRouteComponent: ReactElement,
   notAuthorizedComponent: ReactElement,
+  welcomeRoute?: string,
 ): React.ReactElement | null => {
   const location = useLocation();
   const router = useMemo(() => new UniversalRouter(routes), [routes]);
@@ -110,7 +112,11 @@ export const useRouter = (
   const apiRoutes = useApiRoutes();
   const locale = getLocale(useIntl());
   const { loggedIn } = React.useContext(AuthenticationContext);
-  const { loggedInUserRoles } = React.useContext(AuthorizationContext);
+  const {
+    loggedInUserRoles,
+    loggedInEmail,
+    isLoaded: authorizationLoaded,
+  } = React.useContext(AuthorizationContext);
   // Render the result of routing
   useEffect((): void => {
     router
@@ -118,6 +124,23 @@ export const useRouter = (
       .then(async (routeMaybePromise) => {
         // may or may not be a promise, so attempt to resolve it. A non-promise value will simply resolve to itself.
         const route = await Promise.resolve(routeMaybePromise);
+
+        /**
+         * Check the following then redirect to welcome page
+         *  - Application has a welcome page
+         *  - User Logged in
+         *  - Authorization query is not loading
+         *  - User has no email associated with account
+         */
+        if (
+          welcomeRoute &&
+          loggedIn &&
+          authorizationLoaded &&
+          empty(loggedInEmail)
+        ) {
+          redirect(welcomeRoute);
+          return null;
+        }
 
         // handling a redirect
         if (route?.redirect) {
@@ -168,10 +191,13 @@ export const useRouter = (
     loggedIn,
     locale,
     loggedInUserRoles,
+    loggedInEmail,
     missingRouteComponent,
     notAuthorizedComponent,
     pathName,
     router,
+    welcomeRoute,
+    authorizationLoaded,
   ]);
 
   return component;
