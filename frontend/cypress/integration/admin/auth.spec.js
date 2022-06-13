@@ -82,9 +82,9 @@ describe('Auth flows (development)', () => {
       // Click login button.
       // Limit to nav because two login buttons on main page.
       cy.get('nav').within(() => {
-        cy.findByRole('button', {name: 'Logout'})
+        cy.findByRole('button', { name: 'Logout' })
           .should('not.exist')
-        cy.findByRole('link', {name: 'Login'})
+        cy.findByRole('link', { name: 'Login' })
           .should('exist').and('be.visible')
           .click()
       })
@@ -95,9 +95,9 @@ describe('Auth flows (development)', () => {
       cy.url().should('equal', Cypress.config().baseUrl + '/en/admin/dashboard')
       // Confirm login status via button state.
       cy.get('nav').within(() => {
-        cy.findByRole('link', {name: 'Login'})
+        cy.findByRole('link', { name: 'Login' })
           .should('not.exist')
-        cy.findByRole('button', {name: 'Logout'})
+        cy.findByRole('button', { name: 'Logout' })
           .should('exist').and('be.visible')
       })
     })
@@ -119,7 +119,7 @@ describe('Auth flows (development)', () => {
 
     it('redirects by default to dashboard', () => {
       const onDashboard = () => {
-        cy.url().should('match', new RegExp(`^${ Cypress.config().baseUrl }/en/admin/dashboard$`))
+        cy.url().should('match', new RegExp(`^${Cypress.config().baseUrl}/en/admin/dashboard$`))
         // Heading won't render until we know user details.
         userDataLoaded()
         cy.findByRole('heading', { name: /^Welcome back,/ })
@@ -136,16 +136,26 @@ describe('Auth flows (development)', () => {
 
     it('performs logout and removes token data from local storage', () => {
       cy.visit('/admin')
-      cy.findByRole('button', { name: 'Logout' }).as('logout')
-      cy.get('@logout')
+      cy.findByRole('button', { name: 'Logout' }).as('logoutToggle')
+      cy.get('@logoutToggle')
         .should('exist').and('be.visible')
         .click().then(() => {
-          expect(localStorage.getItem('id_token')).not.to.exist
-          expect(localStorage.getItem('access_token')).not.to.exist
-          expect(localStorage.getItem('refresh_token')).not.to.exist
-        })
 
-      cy.get('@logout')
+          cy.findByRole('dialog', { name: 'Logout' }).as('logoutModal');
+          cy.get('@logoutModal')
+            .should('exist').and('be.visible')
+            .findByRole('button', { name: 'Logout' }).as('logoutBtn');
+
+          cy.get('@logoutBtn')
+            .should('exist').and('be.visible')
+            .click().then(() => {
+              expect(localStorage.getItem('id_token')).not.to.exist
+              expect(localStorage.getItem('access_token')).not.to.exist
+              expect(localStorage.getItem('refresh_token')).not.to.exist
+            });
+        });
+
+      cy.get('@logoutToggle')
         .should('not.exist')
       cy.findByRole('link', { name: 'Login' })
         .should('exist').and('be.visible')
