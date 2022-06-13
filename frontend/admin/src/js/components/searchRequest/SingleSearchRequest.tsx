@@ -35,7 +35,7 @@ const ManagerInfo: React.FunctionComponent<{
 
   return (
     <>
-      <h2 data-h2-font-size="b(h4)">
+      <h2 data-h2-font-size="b(h4, 1.3)">
         {intl.formatMessage({
           defaultMessage: "Manager Information",
           description:
@@ -43,14 +43,14 @@ const ManagerInfo: React.FunctionComponent<{
         })}
       </h2>
       <div
-        data-h2-flex-grid="b(top, contained, flush, none)"
+        data-h2-flex-grid="b(flex-start, 0, 0)"
         style={{ overflowWrap: "break-word" }}
       >
         <div
           data-h2-flex-item="b(1of1) s(1of4)"
-          data-h2-border="s(lightgray, right, solid, s)"
+          data-h2-border="s(right, 1px, solid, light.dt-gray)"
         >
-          <div data-h2-padding="s(right, s)">
+          <div data-h2-padding="s(0, x.5, 0, 0)">
             <FilterBlock
               title={intl.formatMessage({
                 defaultMessage: "Full Name",
@@ -71,10 +71,10 @@ const ManagerInfo: React.FunctionComponent<{
         </div>
         <div
           data-h2-flex-item="b(1of1) s(1of4)"
-          data-h2-border="s(lightgray, right, solid, s)"
+          data-h2-border="s(right, 1px, solid, light.dt-gray)"
         >
           <div
-            data-h2-padding="s(right-left, s)"
+            data-h2-padding="s(0, x.5)"
             data-h2-text-align="b(left) s(center)"
           >
             <FilterBlock
@@ -97,10 +97,10 @@ const ManagerInfo: React.FunctionComponent<{
         </div>
         <div
           data-h2-flex-item="b(1of1) s(1of4)"
-          data-h2-border="s(lightgray, right, solid, s)"
+          data-h2-border="s(right, 1px, solid, light.dt-gray)"
         >
           <div
-            data-h2-padding="s(right-left, s)"
+            data-h2-padding="s(0, x.5)"
             data-h2-text-align="b(left) s(center)"
           >
             <FilterBlock
@@ -138,7 +138,7 @@ const ManagerInfo: React.FunctionComponent<{
         </div>
         <div data-h2-flex-item="b(1of1) s(1of4)">
           <div
-            data-h2-padding="s(left, s)"
+            data-h2-padding="s(0, 0, 0, x.5)"
             data-h2-text-align="b(left) s(center)"
           >
             <FilterBlock
@@ -249,9 +249,9 @@ export const SingleSearchRequest: React.FunctionComponent<
         </h2>
         <SearchRequestFilters poolCandidateFilter={poolCandidateFilter} />
         <div
-          data-h2-padding="s(top-bottom, s)"
-          data-h2-margin="s(top-bottom, s)"
-          data-h2-border="s(lightgray, top-bottom, solid, s)"
+          data-h2-padding="s(x.5, 0)"
+          data-h2-margin="s(x.5, auto)"
+          data-h2-border="s(top-bottom, 1px, solid, light.dt-gray)"
         >
           <FilterBlock
             title={intl.formatMessage({
@@ -264,7 +264,7 @@ export const SingleSearchRequest: React.FunctionComponent<
         </div>
       </div>
       <div>
-        <h2 data-h2-font-size="b(h4)">
+        <h2 data-h2-font-size="b(h4, 1.3)">
           {intl.formatMessage({
             defaultMessage: "Candidate Results",
             description:

@@ -68,7 +68,7 @@ const OpenMenuButton: React.FC<OpenMenuButtonProps> = ({
   <div
     data-h2-visibility="b(visible) m(hidden)"
     data-h2-position="b(fixed)"
-    data-h2-location="b(bottom-right, xs)"
+    data-h2-offset="b(auto, x.25, x.25, auto)"
     style={{ zIndex: 9998, opacity: show ? 1 : 0 }}
   >
     <Button
@@ -135,7 +135,7 @@ const Dashboard: React.FC<DashboardProps> = ({ contentRoutes }) => {
             data-h2-align-items="b(space-between)"
           >
             <Header baseUrl={ADMIN_APP_DIR} />
-            <main id="main" data-h2-margin="b(bottom, auto)">
+            <main id="main" data-h2-margin="b(auto)">
               {content}
             </main>
             <Footer baseUrl={ADMIN_APP_DIR} />

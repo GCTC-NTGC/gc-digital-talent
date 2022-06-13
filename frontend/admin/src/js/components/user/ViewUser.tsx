@@ -63,17 +63,17 @@ export const ViewUserPage: React.FC<ViewUserPageProps> = ({ user }) => {
         data-h2-align-items="b(center)"
         data-h2-display="b(flex)"
         data-h2-flex-direction="b(column) m(row)"
-        data-h2-margin="b(top-bottom, l)"
+        data-h2-margin="b(x2, auto)"
       >
         {userName !== " " && (
           <h2
-            data-h2-margin="b(top-bottom, s) m(top-bottom, none)"
+            data-h2-margin="b(x.5, auto) m(0, auto)"
             data-h2-font-weight="b(800)"
           >
             {userName}
           </h2>
         )}
-        <div data-h2-margin="m(left, auto)">
+        <div data-h2-margin="m(auto)">
           <UserProfilePrintButton userId={user.id}>
             <span>
               <PrinterIcon style={{ width: "1rem" }} />{" "}

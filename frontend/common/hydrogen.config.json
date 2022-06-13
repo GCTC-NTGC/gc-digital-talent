@@ -1,213 +1,338 @@
 {
-  "debug": false,
-  "mediaWarnings": false,
-  "folders": {
-    "markup": "../*/src/views/*.html",
-    "scripts": ["../talentsearch/src/js", "../indigenousapprenticeship/src/js", "../admin/src/js", "../common/src"],
-    "styles": "src/css"
+  "info": {
+    "docs": "https://beta.hydrogen.design",
+    "settings": "https://beta.hydrogen.design/settings",
+    "code": "https://github.com/hydrogen-design-system/hydrogen",
+    "roadmap": "https://github.com/orgs/hydrogen-design-system/projects/1"
   },
+  "temp": [
+    "../*/src/views/*.html",
+    "../talentsearch/src/js",
+    "../indigenousapprenticeship/src/js",
+    "../common/src"
+  ],
+  "input": [
+    "../admin/src/js"
+  ],
+  "output": "src/css",
+  "variables": {
+    "css": false,
+    "sass": false
+  },
+  "resetStyles": true,
   "colors": [
     {
-      "key": "white",
+      "key": "dt-black",
+      "color": "#1E1E23",
+      "scale": {
+        "light": "auto",
+        "lighter": "auto",
+        "lightest": "auto",
+        "dark": "auto",
+        "darker": "auto",
+        "darkest": "auto"
+      }
+    },
+    {
+      "key": "dt-white",
       "color": "#FFFFFF",
-      "opacities": [
-        "0",
-        ".1"
-      ]
+      "scale": {
+        "light": "auto",
+        "lighter": "auto",
+        "lightest": "auto",
+        "dark": "auto",
+        "darker": "auto",
+        "darkest": "auto"
+      }
     },
     {
-      "key": "black",
-      "color": "#1E1E23"
+      "key": "dt-gray",
+      "color": "#B9B9B9",
+      "scale": {
+        "light": "#F0F0F0",
+        "lighter": "auto",
+        "lightest": "auto",
+        "dark": "#646464",
+        "darker": "auto",
+        "darkest": "auto"
+      }
     },
     {
-      "key": "gray",
-      "color": "#B9B9B9"
-    },
-    {
-      "key": "darkgray",
-      "color": "#646464"
-    },
-    {
-      "key": "lightgray",
-      "color": "#F0F0F0",
-      "opacities": [
-        ".1",
-        ".6"
-      ]
-    },
-    {
-      "key": "red",
-      "color": "#e90101",
-      "opacities": [
-        ".1"
-      ]
-    },
-    {
-      "key": "green",
-      "color": "#087835",
-      "opacities": [
-        ".1"
-      ]
-    },
-    {
-      "key": "gold",
-      "color": "#F9C160",
-      "opacities": [
-        ".1"
-      ]
-    },
-    {
-      "key": "darkgold",
-      "color": "#F8A812",
-      "opacities": [
-        ".1"
-      ]
-    },
-    {
-      "key": "lightgold",
-      "color": "#FBDCA5"
-    },
-    {
-      "key": "darknavy",
-      "color": "#072131"
-    },
-    {
-      "key": "lightnavy",
-      "color": "#1D2C4C",
-      "opacities": [
-        ".1"
-      ]
-    },
-    {
-      "key": "darkpurple",
-      "color": "#363661"
-    },
-    {
-      "key": "lightpurple",
+      "key": "dt-primary",
       "color": "#674C90",
-      "opacities": [
-        ".1"
-      ]
+      "scale": {
+        "light": "auto",
+        "lighter": "auto",
+        "lightest": "auto",
+        "dark": "#363661",
+        "darker": "auto",
+        "darkest": "auto"
+      }
     },
     {
-      "key": "ia-darkpink",
-      "color": "#781443"
+      "key": "dt-secondary",
+      "color": "#072131",
+      "scale": {
+        "light": "#1D2C4C",
+        "lighter": "auto",
+        "lightest": "auto",
+        "dark": "auto",
+        "darker": "auto",
+        "darkest": "auto"
+      }
     },
     {
-      "key": "ia-pink",
-      "color": "#C01E5A"
+      "key": "dt-accent",
+      "color": "#F8A812",
+      "scale": {
+        "light": "#FBDCA5",
+        "lighter": "auto",
+        "lightest": "auto",
+        "dark": "#F8A812",
+        "darker": "auto",
+        "darkest": "auto"
+      }
     },
     {
-      "key": "ia-lightpink",
-      "color": "#E9568A"
+      "key": "dt-success",
+      "color": "#087835",
+      "scale": {
+        "light": "auto",
+        "lighter": "auto",
+        "lightest": "auto",
+        "dark": "auto",
+        "darker": "auto",
+        "darkest": "auto"
+      }
     },
     {
-      "key": "ia-darkpurple",
-      "color": "#211C53"
-    },
-    {
-      "key": "ia-purple",
-      "color": "#272F6B"
-    },
-    {
-      "key": "ia-lightpurple",
-      "color": "#4D5194"
+      "key": "dt-error",
+      "color": "#e90101",
+      "scale": {
+        "light": "auto",
+        "lighter": "auto",
+        "lightest": "auto",
+        "dark": "auto",
+        "darker": "auto",
+        "darkest": "auto"
+      }
     },
     {
       "key": "ia-black",
-      "color": "#1E1E23"
-    },
-    {
-      "key": "ia-error",
-      "color": "#AE0000"
+      "color": "#1E1E23",
+      "scale": {
+        "light": "auto",
+        "lighter": "auto",
+        "lightest": "auto",
+        "dark": "auto",
+        "darker": "auto",
+        "darkest": "auto"
+      }
     },
     {
       "key": "ia-white",
-      "color": "#FFFFFF"
-    },
-    {
-      "key": "ia-darkgray",
-      "color": "#646464"
+      "color": "#FFFFFF",
+      "scale": {
+        "light": "auto",
+        "lighter": "auto",
+        "lightest": "auto",
+        "dark": "auto",
+        "darker": "auto",
+        "darkest": "auto"
+      }
     },
     {
       "key": "ia-gray",
-      "color": "#B9B9B9"
+      "color": "#B9B9B9",
+      "scale": {
+        "light": "#F0F0F0",
+        "lighter": "auto",
+        "lightest": "auto",
+        "dark": "#646464",
+        "darker": "auto",
+        "darkest": "auto"
+      }
     },
     {
-      "key": "ia-lightgray",
-      "color": "#F0F0F0"
+      "key": "ia-primary",
+      "color": "#C01E5A",
+      "scale": {
+        "light": "#E9568A",
+        "lighter": "auto",
+        "lightest": "auto",
+        "dark": "#781443",
+        "darker": "auto",
+        "darkest": "auto"
+      }
+    },
+    {
+      "key": "ia-secondary",
+      "color": "#272F6B",
+      "scale": {
+        "light": "#4D5194",
+        "lighter": "auto",
+        "lightest": "auto",
+        "dark": "#211C53",
+        "darker": "auto",
+        "darkest": "auto"
+      }
+    },
+    {
+      "key": "ia-error",
+      "color": "#AE0000",
+      "scale": {
+        "light": "auto",
+        "lighter": "auto",
+        "lightest": "auto",
+        "dark": "auto",
+        "darker": "auto",
+        "darkest": "auto"
+      }
     }
   ],
-  "flexgrid": {
-    "enabled": true,
-    "columns": 12
-  },
+  "containers": [
+    {
+      "key": "s",
+      "maxWidth": "39rem"
+    },
+    {
+      "key": "m",
+      "maxWidth": "60rem"
+    },
+    {
+      "key": "l",
+      "maxWidth": "80rem"
+    },
+    {
+      "key": "full",
+      "maxWidth": "none"
+    }
+  ],
   "fonts": [
     {
       "key": "sans",
-      "loadType": "webfont",
-      "value": "'Open Sans', sans-serif",
-      "url": "https://fonts.googleapis.com/css2?family=Open+Sans&display=swap"
+      "family": "'Open Sans', sans-serif"
+    },
+    {
+      "key": "serif",
+      "family": "serif"
+    },
+    {
+      "key": "script",
+      "family": "script"
+    },
+    {
+      "key": "mono",
+      "family": "monospace"
     }
   ],
-  "fontBaseSize": "112.5%",
-  "fontScale": "1.25",
   "gradients": [
     {
-      "type": "linear",
-      "angle": "70deg",
-      "colorStops": [
-        {
-          "key": "lightpurple",
-          "color": "#674C90"
-        },
-        {
-          "key": "lightnavy",
-          "color": "#1D2C4C"
-        }
-      ]
+      "key": "dt-linear",
+      "gradient": "linear-gradient(#674C90, #1D2C4C)",
+      "fallback": "#674C90"
     },
     {
-      "type": "linear",
-      "angle": "90deg",
-      "colorStops": [
-        {
-          "key": "ia-lightpurple",
-          "color": "#272F6B"
-        },
-        {
-          "key": "ia-darkpurple",
-          "color": "#0F1037"
-        }
-      ]
+      "key": "ia-linear-primary",
+      "gradient": "linear-gradient(#272F6B, #0F1037)",
+      "fallback": "#272F6B"
     },
     {
-      "type": "linear",
-      "angle": "90deg",
-      "colorStops": [
-        {
-          "key": "ia-pink",
-          "color": "#C01E5A"
-        },
-        {
-          "key": "ia-darkpink",
-          "color": "#781443"
-        }
-      ]
+      "key": "ia-linear-secondary",
+      "gradient": "linear-gradient(#C01E5A, #781443)",
+      "fallback": "#C01E5A"
+    }
+  ],
+  "media": [
+    {
+      "key": "b",
+      "query": null
+    },
+    {
+      "key": "p",
+      "query": "print"
+    },
+    {
+      "key": "s",
+      "query": "screen and (min-width: 48em)"
+    },
+    {
+      "key": "m",
+      "query": "screen and (min-width: 64em)"
+    },
+    {
+      "key": "l",
+      "query": "screen and (min-width: 100em)"
     }
   ],
   "radius": [
     {
       "key": "s",
-      "value": "10px"
+      "radius": "10px"
     },
     {
       "key": "m",
-      "value": "50rem"
-    },{
+      "radius": "50rem"
+    },
+    {
       "key": "l",
-      "value": "100%"
+      "radius": "100%"
     }
   ],
-  "whitespaceScale": "1.5"
+  "shadows": [
+    {
+      "key": "s",
+      "shadow": "0 0.1rem 0.2rem 0 rgba(0, 0, 0, .2)"
+    },
+    {
+      "key": "m",
+      "shadow": "0 0.25rem 0.5rem -0.05rem rgba(0, 0, 0, .2)"
+    },
+    {
+      "key": "l",
+      "shadow": "0 0.4rem 0.7rem -0.1rem rgba(0, 0, 0, .2)"
+    },
+    {
+      "key": "xl",
+      "shadow": "0 0.55rem 1rem -0.2rem rgba(0, 0, 0, .2)"
+    },
+    {
+      "key": "xxl",
+      "shadow": "0 0.7rem 1.5rem -0.3rem rgba(0, 0, 0, .2)"
+    }
+  ],
+  "transitions": {
+    "durations": [
+      {
+        "key": "default",
+        "duration": ".2s"
+      }
+    ],
+    "functions": [
+      {
+        "key": "ease",
+        "function": "ease"
+      }
+    ],
+    "delays": [
+      {
+        "key": "none",
+        "delay": "0s"
+      }
+    ]
+  },
+  "typography": [
+    {
+      "size": "100%",
+      "lineHeight": "1.3",
+      "queryKey": "b",
+      "typeScale": "1.25"
+    },
+    {
+      "size": "112.5%",
+      "lineHeight": "1.3",
+      "queryKey": "l",
+      "typeScale": "1.25"
+    }
+  ]
 }

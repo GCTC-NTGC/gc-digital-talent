@@ -96,8 +96,8 @@ function Table<T extends Record<string, unknown>>({
   return (
     <div>
       {filter ? (
-        <div data-h2-padding="b(top-bottom, m) b(right-left, xl)">
-          <div data-h2-flex-grid="b(middle, expanded, flush, m)">
+        <div data-h2-padding="b(x1, x3)">
+          <div data-h2-flex-grid="b(center, 0, x1)">
             <div data-h2-flex-item="b(1of1) m(1of3)">
               <GlobalFilter
                 globalFilter={state.globalFilter}
@@ -124,11 +124,11 @@ function Table<T extends Record<string, unknown>>({
                 {showList ? (
                   <div
                     data-h2-position="b(absolute)"
-                    data-h2-margin="b(right-left, s)"
-                    data-h2-padding="b(all, s)"
-                    data-h2-border="b(gray, all, solid, s)"
+                    data-h2-margin="b(auto, x.5)"
+                    data-h2-padding="b(x.5)"
+                    data-h2-border="b(all, 1px, solid, dt-gray)"
                     data-h2-radius="b(s)"
-                    data-h2-bg-color="b(white)"
+                    data-h2-background-color="b(dt-white)"
                     style={{
                       textAlign: "left",
                     }}
@@ -160,13 +160,13 @@ function Table<T extends Record<string, unknown>>({
         </div>
       ) : null}
       <div
-        data-h2-overflow="b(all, auto)"
+        data-h2-overflow="b(auto, all)"
         style={{ maxWidth: "100%" }}
         data-h2-shadow="b(s)"
       >
         <table
           aria-labelledby={labelledBy}
-          data-h2-width="b(100)"
+          data-h2-width="b(100%)"
           {...getTableProps()}
         >
           <thead>
@@ -176,10 +176,10 @@ function Table<T extends Record<string, unknown>>({
                   <th
                     {...column.getHeaderProps(column.getSortByToggleProps())}
                     key={column.id}
-                    data-h2-bg-color="b(lightnavy)"
-                    data-h2-font-color="b(white)"
+                    data-h2-background-color="b(light.secondary)"
+                    data-h2-color="b(dt-white)"
                     data-h2-font-weight="b(800)"
-                    data-h2-padding="b(right-left, m) b(top-bottom, s)"
+                    data-h2-padding="b(x.5, x1)"
                     data-h2-text-align="b(left)"
                     data-h2-font-size="b(caption)"
                   >
@@ -206,7 +206,7 @@ function Table<T extends Record<string, unknown>>({
                     return (
                       <td
                         {...cell.getCellProps()}
-                        data-h2-padding="b(all, s)"
+                        data-h2-padding="b(x.5)"
                         data-h2-text-align="b(left)"
                         data-h2-font-size="b(caption)"
                       >

@@ -53,9 +53,9 @@ const DashboardPage: React.FC<DashboardPageProps> = ({ currentUser }) => {
       <div
         data-h2-display="b(flex)"
         data-h2-flex-wrap="b(wrap)"
-        data-h2-margin="b(top-bottom, m)"
+        data-h2-margin="b(x1, auto)"
       >
-        <span data-h2-margin="b(bottom-right, s)">
+        <span data-h2-margin="b(auto, x.5, x.5, auto)">
           <IconLink
             mode="solid"
             color="secondary"
@@ -70,7 +70,7 @@ const DashboardPage: React.FC<DashboardPageProps> = ({ currentUser }) => {
             })}
           </IconLink>
         </span>
-        <span data-h2-margin="b(bottom-right, s)">
+        <span data-h2-margin="b(auto, x.5, x.5, auto)">
           <IconLink
             mode="solid"
             color="secondary"
@@ -85,7 +85,7 @@ const DashboardPage: React.FC<DashboardPageProps> = ({ currentUser }) => {
             })}
           </IconLink>
         </span>
-        <span data-h2-margin="b(bottom-right, s)">
+        <span data-h2-margin="b(auto, x.5, x.5, auto)">
           <IconLink
             mode="solid"
             color="secondary"

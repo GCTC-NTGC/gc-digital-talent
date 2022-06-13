@@ -113,7 +113,7 @@ export const UpdateSkillForm: React.FunctionComponent<UpdateSkillFormProps> = ({
 
   return (
     <section>
-      <h2 data-h2-text-align="b(center)" data-h2-margin="b(top, none)">
+      <h2 data-h2-text-align="b(center)" data-h2-margin="b(0, auto, auto, auto)">
         {intl.formatMessage({
           defaultMessage: "Update Skill",
           description: "Title displayed on the update a skill form.",

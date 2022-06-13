@@ -62,17 +62,17 @@ export const ViewPoolPage: React.FC<ViewPoolPageProps> = ({ pool }) => {
         data-h2-align-items="b(center)"
         data-h2-display="b(flex)"
         data-h2-flex-direction="b(column) m(row)"
-        data-h2-margin="b(top-bottom, l)"
+        data-h2-margin="b(x2, auto)"
       >
         {pool.name && (
           <h2
-            data-h2-margin="b(top-bottom, s) m(top-bottom, none)"
+            data-h2-margin="b(x.5, auto) m(0, auto)"
             data-h2-font-weight="b(800)"
           >
             {poolName}
           </h2>
         )}
-        <div data-h2-margin="m(left, auto)">
+        <div data-h2-margin="m(auto)">
           <Link
             mode="outline"
             color="primary"

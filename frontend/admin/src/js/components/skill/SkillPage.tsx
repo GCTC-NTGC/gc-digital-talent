@@ -10,15 +10,15 @@ export const SkillPage: React.FC = () => {
   return (
     <div>
       <header
-        data-h2-bg-color="b(linear-70[lightpurple][lightnavy])"
-        data-h2-padding="b(top-bottom, l) b(right-left, xl)"
+        data-h2-background-color="b(dt-linear)"
+        data-h2-padding="b(x2, x3)"
       >
-        <div data-h2-flex-grid="b(middle, expanded, flush, l)">
+        <div data-h2-flex-grid="b(center, 0, x2)">
           <div data-h2-flex-item="b(1of1) m(3of5)">
             <h1
-              data-h2-font-color="b(white)"
+              data-h2-color="b(dt-white)"
               data-h2-font-weight="b(800)"
-              data-h2-margin="b(all, none)"
+              data-h2-margin="b(0)"
               style={{ letterSpacing: "-2px" }}
             >
               {intl.formatMessage({

@@ -92,7 +92,7 @@ const UserFormSection: React.FunctionComponent<{
     <>
       <div
         {...(userMode === "existing"
-          ? { "data-h2-visibility": "initial" }
+          ? { "data-h2-visibility": "b(visible)" }
           : { "data-h2-visibility": "b(hidden)" })}
       >
         <Select
@@ -119,7 +119,7 @@ const UserFormSection: React.FunctionComponent<{
       </div>
       <div
         {...(userMode === "new"
-          ? { "data-h2-visibility": "initial" }
+          ? { "data-h2-visibility": "b(visible)" }
           : { "data-h2-visibility": "b(hidden)" })}
       >
         <Input
@@ -344,7 +344,7 @@ export const CreatePoolCandidateForm: React.FunctionComponent<
 
   return (
     <section>
-      <h2 data-h2-text-align="b(center)" data-h2-margin="b(top, none)">
+      <h2 data-h2-text-align="b(center)" data-h2-margin="b(0, auto, auto, auto)">
         {intl.formatMessage({
           defaultMessage: "Create Pool Candidate",
           description: "Title displayed on the create a user form.",
