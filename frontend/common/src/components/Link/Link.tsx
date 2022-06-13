@@ -1,5 +1,6 @@
 import React from "react";
 import { navigate } from "../../helpers/router";
+import sanitizeUrl from "../../helpers/sanitizeUrl";
 import type { Color } from "../Button";
 import { colorMap } from "../Button/Button";
 
@@ -27,7 +28,7 @@ const Link: React.FC<LinkProps> = ({
   ...rest
 }): React.ReactElement => (
   <a
-    href={href}
+    href={sanitizeUrl(href)}
     title={title}
     className={`${type === "button" && `button `}${className}`}
     {...(type === "button"
