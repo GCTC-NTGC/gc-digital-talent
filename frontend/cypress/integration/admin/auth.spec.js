@@ -1,4 +1,4 @@
-import { aliasQuery } from '../../support/graphql-test-utils'
+import { setUpGraphqlIntercepts } from '../../support/graphql-test-utils'
 
 describe('Auth flows (development)', () => {
   // Helpers
@@ -16,12 +16,7 @@ describe('Auth flows (development)', () => {
 
   // Prepare to intercept/detect relevant GraphQL requests.
   beforeEach(() => {
-    cy.intercept('POST', '/graphql', (req) => {
-      // Creates aliases for use later.
-      // E.g., cy.wait('@gqlgetMeQuery')
-      aliasQuery(req, 'getMe')
-      aliasQuery(req, 'me')
-    })
+    setUpGraphqlIntercepts()
   })
 
   context('Anonymous visitor', () => {
