@@ -74,7 +74,7 @@
     "@formatjs/ts-transformer": "^3.9.8",
     "@graphql-codegen/add": "^3.1.0",
     "@graphql-codegen/cli": "^2.6.2",
-    "@graphql-codegen/typescript": "^2.4.7",
+    "@graphql-codegen/typescript": "^2.5.1",
     "@graphql-codegen/typescript-operations": "^2.4.1",
     "@graphql-codegen/typescript-urql": "^3.5.11",
     "@hydrogen-design-system/hydrogen.css": "^1.1.19",
