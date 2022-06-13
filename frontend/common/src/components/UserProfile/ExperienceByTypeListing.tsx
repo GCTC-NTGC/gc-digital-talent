@@ -65,11 +65,12 @@ const ExperienceByType: React.FunctionComponent<{
 export interface ExperienceSectionProps {
   experiences?: Experience[];
   defaultOpen?: boolean;
+  editPaths?: ExperiencePaths;
 }
 
 const ExperienceByTypeListing: React.FunctionComponent<
   ExperienceSectionProps
-> = ({ experiences, defaultOpen = false }) => {
+> = ({ experiences, editPaths, defaultOpen = false }) => {
   const intl = useIntl();
 
   const awardExperiences =
@@ -100,30 +101,35 @@ const ExperienceByTypeListing: React.FunctionComponent<
         icon={<LightBulbIcon style={{ width: "1.5rem" }} />}
         experiences={personalExperiences}
         defaultOpen={defaultOpen}
+        experienceEditPaths={editPaths}
       />
       <ExperienceByType
         title={intl.formatMessage({ defaultMessage: "Community" })}
         icon={<UserGroupIcon style={{ width: "1.5rem" }} />}
         experiences={communityExperiences}
         defaultOpen={defaultOpen}
+        experienceEditPaths={editPaths}
       />
       <ExperienceByType
         title={intl.formatMessage({ defaultMessage: "Work" })}
         icon={<BriefcaseIcon style={{ width: "1.5rem" }} />}
         experiences={workExperiences}
         defaultOpen={defaultOpen}
+        experienceEditPaths={editPaths}
       />
       <ExperienceByType
         title={intl.formatMessage({ defaultMessage: "Education" })}
         icon={<BookOpenIcon style={{ width: "1.5rem" }} />}
         experiences={educationExperiences}
         defaultOpen={defaultOpen}
+        experienceEditPaths={editPaths}
       />
       <ExperienceByType
         title={intl.formatMessage({ defaultMessage: "Award" })}
         icon={<StarIcon style={{ width: "1.5rem" }} />}
         experiences={awardExperiences}
         defaultOpen={defaultOpen}
+        experienceEditPaths={editPaths}
       />
     </>
   );

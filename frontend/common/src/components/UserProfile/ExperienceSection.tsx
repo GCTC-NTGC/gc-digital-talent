@@ -112,7 +112,10 @@ const ExperienceSection: React.FunctionComponent<ExperienceSectionProps> = ({
             "Tab title for experiences sorted by type in applicant profile.",
         })}
       >
-        <ExperienceByTypeListing experiences={experiences} />
+        <ExperienceByTypeListing
+          experiences={experiences}
+          editPaths={experienceEditPaths}
+        />
       </Tab>
       <Tab
         text={intl.formatMessage({

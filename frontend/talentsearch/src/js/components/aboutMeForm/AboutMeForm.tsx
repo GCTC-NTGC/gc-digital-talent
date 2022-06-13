@@ -231,7 +231,7 @@ export const AboutMeForm: React.FunctionComponent<AboutMeFormProps> = ({
               name="firstName"
               type="text"
               label={intl.formatMessage({
-                defaultMessage: "First Name and middle Name",
+                defaultMessage: "First Name and Middle Name",
                 description:
                   "Label for first and middle name field in About Me form",
               })}

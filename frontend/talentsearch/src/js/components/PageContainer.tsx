@@ -14,6 +14,7 @@ import Header from "@common/components/Header";
 import Footer from "@common/components/Footer";
 import NotAuthorized from "@common/components/NotAuthorized";
 import TALENTSEARCH_APP_DIR from "../talentSearchConstants";
+import { useApplicantProfileRoutes } from "../applicantProfileRoutes";
 
 export const exactMatch = (ref: string | null, test: string): boolean =>
   ref === test;
@@ -52,7 +53,7 @@ export const MenuLink: React.FC<MenuLinkProps> = ({
     >
       <span
         data-h2-font-weight={
-          isActive(href ?? null, location.pathname) ? "b(700)" : "b(100)"
+          isActive(href ?? null, location.pathname) ? "b(700)" : "b(200)"
         }
       >
         {text}
@@ -109,6 +110,7 @@ export const PageContainer: React.FC<{
   contentRoutes: Routes<RouterResult>;
 }> = ({ menuItems, contentRoutes, authLinks }) => {
   const intl = useIntl();
+  const paths = useApplicantProfileRoutes();
   // stabilize components that will not change during life of app, avoid render loops in router
   const notFoundComponent = useRef(<TalentSearchNotFound />);
   const notAuthorizedComponent = useRef(<TalentSearchNotAuthorized />);
@@ -116,6 +118,7 @@ export const PageContainer: React.FC<{
     contentRoutes,
     notFoundComponent.current,
     notAuthorizedComponent.current,
+    paths.createAccount(),
   );
   return (
     <ScrollToTop>

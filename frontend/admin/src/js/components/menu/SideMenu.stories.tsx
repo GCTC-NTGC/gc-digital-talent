@@ -31,6 +31,7 @@ const Template: Story<TemplateProps> = (args) => {
     () => ({
       ...AuthorizationContext,
       loggedInUserRoles: isLoggedIn ? [Role.Admin] : null,
+      isLoaded: true,
     }),
     [isLoggedIn],
   );

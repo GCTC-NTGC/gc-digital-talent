@@ -14,6 +14,7 @@ import { removeFromSessionStorage } from "@common/helpers/storageUtils";
 import NotFound from "@common/components/NotFound";
 import Pending from "@common/components/Pending";
 import { commonMessages } from "@common/messages";
+import { notEmpty } from "@common/helpers/util";
 import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
 import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
 
@@ -299,9 +300,13 @@ const ExperienceFormContainer: React.FunctionComponent<
 
   let experience: ExperienceQueryData | null = null;
   if (experienceId && experienceData?.me?.experiences) {
-    experience = experienceData.me.experiences.find(
-      (e) => e?.id === experienceId,
-    ) as ExperienceQueryData;
+    experience = experienceData.me.experiences.find((e) => {
+      // eslint-disable-next-line no-underscore-dangle
+      const type = e?.__typename;
+      return (
+        e?.id === experienceId && type?.toLowerCase().includes(experienceType)
+      );
+    }) as ExperienceQueryData;
   }
 
   const { executeMutation, getMutationArgs } = useExperienceMutations(
@@ -343,12 +348,17 @@ const ExperienceFormContainer: React.FunctionComponent<
     }
   };
 
+  let found = true;
+  if (experienceId) {
+    found = found && notEmpty(experience);
+  }
+
   return (
     <Pending
       fetching={fetchingSkills || fetchingMe || fetchingExperience}
       error={skillError || meError}
     >
-      {skillsData && meData ? (
+      {skillsData && meData && found ? (
         <ExperienceForm
           experience={experience as ExperienceQueryData}
           experienceType={experienceType}
@@ -362,9 +372,9 @@ const ExperienceFormContainer: React.FunctionComponent<
         <NotFound headingMessage={intl.formatMessage(commonMessages.notFound)}>
           <p>
             {intl.formatMessage({
-              defaultMessage: "No user found.",
+              defaultMessage: "No experience found.",
               description:
-                "Message displayed when no user is found for experience form.",
+                "Message displayed when no experience is found for experience form.",
             })}
           </p>
         </NotFound>

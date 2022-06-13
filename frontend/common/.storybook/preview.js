@@ -2,6 +2,7 @@ import "../src/css/hydrogen.css"
 import "../src/css/common.css"
 import { setIntlConfig, withIntl } from 'storybook-addon-intl';
 import frCompiled from "../src/lang/frCompiled.json";
+import MockGraphqlDecorator from "../../common/.storybook/decorators/MockGraphqlDecorator";
 
 export const parameters = {
   actions: { argTypesRegex: "^on[A-Z].*" },
@@ -26,6 +27,7 @@ setIntlConfig({
 })
 
 export const decorators = [
+  MockGraphqlDecorator,
   withIntl,
   (Story) => (
     <div data-h2-font-family="b(sans)">
