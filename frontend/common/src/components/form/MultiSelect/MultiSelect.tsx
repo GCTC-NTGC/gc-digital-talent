@@ -49,7 +49,7 @@ const MultiSelect: React.FunctionComponent<MultiSelectProps> = ({
     label: optionMap.get(v) ?? String(v),
   });
   return (
-    <div data-h2-margin="b(bottom, xxs)">
+    <div data-h2-margin="b(auto, auto, x.125, auto)">
       <InputWrapper
         inputId={id}
         label={label}

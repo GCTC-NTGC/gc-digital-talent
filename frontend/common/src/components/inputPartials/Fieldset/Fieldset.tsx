@@ -43,19 +43,19 @@ const Fieldset: React.FC<FieldsetProps> = ({
         border: "0 none",
         padding: "0",
       }}
-      data-h2-margin="b(bottom, xxs)"
+      data-h2-margin="b(auto, auto, x.125, auto)"
     >
       <legend data-h2-visibility="b(invisible)">{legend}</legend>
       <div
         data-h2-display="b(flex)"
         data-h2-flex-wrap="b(wrap)"
-        data-h2-margin="b(bottom, xxs)"
+        data-h2-margin="b(auto, auto, x.125, auto)"
       >
         <div style={{ flex: "1" }}>
           <span
             aria-hidden="true"
             role="presentation"
-            data-h2-font-size="b(caption)"
+            data-h2-font-size="b(copy)"
           >
             {legend}
           </span>
@@ -67,8 +67,8 @@ const Fieldset: React.FC<FieldsetProps> = ({
               <span
                 data-h2-font-size="b(caption)"
                 {...(required
-                  ? { "data-h2-font-color": "b(red)" }
-                  : { "data-h2-font-color": "b(darkgray" })}
+                  ? { "data-h2-color": "b(dt-error)" }
+                  : { "data-h2-color": "b(dark.dt-gray)" })}
               >
                 {required
                   ? intl.formatMessage(commonMessages.required)
@@ -80,7 +80,7 @@ const Fieldset: React.FC<FieldsetProps> = ({
             <button
               type="button"
               className="input-label-context-button"
-              data-h2-margin="b(left, xxs)"
+              data-h2-margin="b(auto, auto, auto, x.125)"
               onClick={() =>
                 setContextIsActive((currentState) => !currentState)
               }
@@ -95,12 +95,12 @@ const Fieldset: React.FC<FieldsetProps> = ({
               {contextIsActive ? (
                 <XCircleIcon
                   style={{ width: "calc(1rem/1.25)" }}
-                  data-h2-font-color="b(lightpurple)"
+                  data-h2-color="b(dt-primary)"
                 />
               ) : (
                 <QuestionMarkCircleIcon
                   style={{ width: "calc(1rem/1.25)" }}
-                  data-h2-font-color="b(lightpurple)"
+                  data-h2-color="b(dt-primary)"
                 />
               )}
             </button>
@@ -108,19 +108,19 @@ const Fieldset: React.FC<FieldsetProps> = ({
         </div>
       </div>
       <div
-        data-h2-border="b(darkgray, all, solid, s)"
+        data-h2-border="b(all, 1px, solid, dark.dt-gray)"
         data-h2-radius="b(s)"
-        data-h2-padding="b(right-left, s) b(top, xxs)"
+        data-h2-padding="b(x.125, x.5, 0, x.5)"
       >
         {children}
       </div>
       {error && (
-        <div data-h2-display="block" data-h2-margin="b(top, xxs)">
+        <div data-h2-display="block" data-h2-margin="b(x.125, auto, auto, auto)">
           <InputError isVisible={!!error} error={error} />
         </div>
       )}
       {contextIsActive && context && (
-        <div data-h2-display="block" data-h2-margin="b(top, xxs)">
+        <div data-h2-display="block" data-h2-margin="b(x.125, auto, auto, auto)">
           <InputContext
             isVisible={contextIsActive && !!context}
             context={context}

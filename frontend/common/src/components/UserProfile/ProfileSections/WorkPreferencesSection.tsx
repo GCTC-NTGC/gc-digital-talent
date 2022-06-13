@@ -30,8 +30,8 @@ const WorkPreferencesSection: React.FunctionComponent<{
     : null;
   return (
     <div
-      data-h2-bg-color="b(lightgray)"
-      data-h2-padding="b(all, m)"
+      data-h2-background-color="b(light.dt-gray)"
+      data-h2-padding="b(x1)"
       data-h2-radius="b(s)"
     >
       {wouldAcceptTemporary !== null && (
@@ -44,7 +44,7 @@ const WorkPreferencesSection: React.FunctionComponent<{
         </p>
       )}
       {wouldAcceptTemporary && (
-        <ul data-h2-padding="b(left, l)">
+        <ul data-h2-padding="b(0, 0, 0, x2)">
           <li data-h2-font-weight="b(700)">
             {intl.formatMessage({
               defaultMessage:
@@ -56,7 +56,7 @@ const WorkPreferencesSection: React.FunctionComponent<{
         </ul>
       )}
       {wouldAcceptTemporary === false && (
-        <ul data-h2-padding="b(left, l)">
+        <ul data-h2-padding="b(0, 0, 0, x2)">
           <li data-h2-font-weight="b(700)">
             {intl.formatMessage({
               defaultMessage: "Permanent duration",
@@ -76,7 +76,7 @@ const WorkPreferencesSection: React.FunctionComponent<{
             })}
           </p>
         )}
-      <ul data-h2-padding="b(left, l)">{acceptedOperationalArray}</ul>
+      <ul data-h2-padding="b(0, 0, 0, x2)">{acceptedOperationalArray}</ul>
       {wouldAcceptTemporary === null && (
         <p>
           {intl.formatMessage({

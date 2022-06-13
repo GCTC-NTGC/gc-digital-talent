@@ -20,8 +20,8 @@ const RoleSalarySection: React.FunctionComponent<{
   return (
     <div id="role-and-salary-expectations">
       <div
-        data-h2-bg-color="b(lightgray)"
-        data-h2-padding="b(all, m)"
+        data-h2-background-color="b(light.dt-gray)"
+        data-h2-padding="b(x1)"
         data-h2-radius="b(s)"
       >
         {expectedSalaryArray !== null && expectedSalaryArray.length > 0 && (
@@ -33,7 +33,7 @@ const RoleSalarySection: React.FunctionComponent<{
             })}
           </p>
         )}
-        <ul data-h2-padding="b(left, l)">{expectedSalaryArray}</ul>
+        <ul data-h2-padding="b(0, 0, 0, x2)">{expectedSalaryArray}</ul>
       </div>
     </div>
   );

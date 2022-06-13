@@ -16,16 +16,16 @@ export interface CardLinkProps {
 
 export const colorMap: Record<Color, Record<string, string>> = {
   "ts-primary": {
-    "data-h2-bg-color": "b(linear-70[lightpurple][lightnavy])",
-    "data-h2-font-color": "b(white)",
+    "data-h2-background-color": "b(dt-linear)",
+    "data-h2-color": "b(dt-white)",
   },
   "ia-primary": {
-    "data-h2-bg-color": "b(linear-90[ia-lightpurple][ia-darkpurple])",
-    "data-h2-font-color": "b(white)",
+    "data-h2-background-color": "b(ia-linear-secondary)",
+    "data-h2-color": "b(ia-white)",
   },
   "ia-secondary": {
-    "data-h2-bg-color": "b(linear-90[ia-pink][ia-darkpink])",
-    "data-h2-font-color": "b(white)",
+    "data-h2-background-color": "b(ia-linear-primary)",
+    "data-h2-color": "b(ia-white)",
   },
 };
 
@@ -61,20 +61,20 @@ const CardLink: React.FC<CardLinkProps> = ({
         data-h2-display="b(block)"
         data-h2-font-size="b(h4) l(h3)"
         data-h2-font-weight="b(800)"
-        data-h2-padding="b(all, s)"
-        data-h2-radius="b(s, s, none, none)"
+        data-h2-padding="b(x.5)"
+        data-h2-radius="b(s, s, 0px, 0px)"
         {...{ ...colorMap[color] }}
       >
         {children}
       </span>
       <span
         className="card-link__label"
-        data-h2-bg-color="b(white)"
+        data-h2-background-color="b(dt-white)"
         data-h2-display="b(flex)"
         data-h2-align-items="b(center)"
         data-h2-justify-content="b(flex-start)"
-        data-h2-radius="b(none, none, s, s)"
-        data-h2-padding="b(all, s)"
+        data-h2-radius="b(0, 0, s, s)"
+        data-h2-padding="b(x.5)"
       >
         {Icon && <Icon className="card-link__icon" />}
         <span>{label}</span>

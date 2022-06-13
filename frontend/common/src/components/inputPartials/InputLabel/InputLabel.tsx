@@ -32,7 +32,7 @@ const InputLabel: React.FC<InputLabelProps> = ({
     <div
       data-h2-display="b(flex)"
       data-h2-flex-wrap="b(wrap)"
-      data-h2-margin="b(bottom, xxs)"
+      data-h2-margin="b(auto, auto, x.125, auto)"
     >
       <div style={{ flex: "1" }}>
         <label data-h2-font-size="b(caption)" htmlFor={inputId}>
@@ -46,8 +46,8 @@ const InputLabel: React.FC<InputLabelProps> = ({
             <span
               data-h2-font-size="b(caption)"
               {...(required
-                ? { "data-h2-font-color": "b(red)" }
-                : { "data-h2-font-color": "b(darkgray)" })}
+                ? { "data-h2-color": "b(dt-error)" }
+                : { "data-h2-color": "b(dark.dt-gray)" })}
             >
               {required
                 ? intl.formatMessage(commonMessages.required)
@@ -59,7 +59,7 @@ const InputLabel: React.FC<InputLabelProps> = ({
           <button
             type="button"
             className="input-label-context-button"
-            data-h2-margin="b(left, xxs)"
+            data-h2-margin="b(auto, auto, auto, x.125)"
             onClick={clickHandler}
           >
             <span data-h2-visibility="b(invisible)">
@@ -72,12 +72,12 @@ const InputLabel: React.FC<InputLabelProps> = ({
             {contextIsActive ? (
               <XCircleIcon
                 style={{ width: "calc(1rem/1.25)" }}
-                data-h2-font-color="b(lightpurple)"
+                data-h2-color="b(dt-primary)"
               />
             ) : (
               <QuestionMarkCircleIcon
                 style={{ width: "calc(1rem/1.25)" }}
-                data-h2-font-color="b(lightpurple)"
+                data-h2-color="b(dt-primary)"
               />
             )}
           </button>

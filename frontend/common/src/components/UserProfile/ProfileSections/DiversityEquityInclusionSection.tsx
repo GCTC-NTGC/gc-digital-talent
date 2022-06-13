@@ -20,8 +20,8 @@ const DiversityEquityInclusionSection: React.FunctionComponent<{
 
   return (
     <div
-      data-h2-bg-color="b(lightgray)"
-      data-h2-padding="b(all, m)"
+      data-h2-background-color="b(light.dt-gray)"
+      data-h2-padding="b(x1)"
       data-h2-radius="b(s)"
     >
       {!isWoman && !isIndigenous && !isVisibleMinority && !hasDisability && (
@@ -43,7 +43,7 @@ const DiversityEquityInclusionSection: React.FunctionComponent<{
                 "Label preceding what groups the user identifies as part of, followed by a colon",
             })}{" "}
           </p>{" "}
-          <ul data-h2-padding="b(left, l)">
+          <ul data-h2-padding="b(0, 0, 0, x2)">
             {isIndigenous && (
               <li>&quot;{indigenousLocalized.defaultMessage}&quot;</li>
             )}{" "}

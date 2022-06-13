@@ -5,7 +5,7 @@ import { getLanguageProficiency } from "../../../constants/localizedConstants";
 
 // styling a text bit with red colour within intls
 function redText(msg: string) {
-  return <span data-h2-font-color="b(red)">{msg}</span>;
+  return <span data-h2-color="b(dt-error)">{msg}</span>;
 }
 
 const LanguageInformationSection: React.FunctionComponent<{
@@ -37,8 +37,8 @@ const LanguageInformationSection: React.FunctionComponent<{
 
   return (
     <div
-      data-h2-bg-color="b(lightgray)"
-      data-h2-padding="b(all, m)"
+      data-h2-background-color="b(light.dt-gray)"
+      data-h2-padding="b(x1)"
       data-h2-radius="b(s)"
     >
       {lookingForEnglish && !lookingForFrench && !lookingForBilingual && (

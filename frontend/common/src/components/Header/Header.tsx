@@ -19,8 +19,8 @@ const Header: React.FunctionComponent<HeaderProps> = ({ baseUrl }) => {
   const changeToLang = oppositeLocale(locale);
   const languageTogglePath = localizePath(location, changeToLang);
   return (
-    <header data-h2-border="b(gray, bottom, solid, s)">
-      <div data-h2-flex-grid="b(middle, contained, flush, xl)">
+    <header data-h2-border="b(all, 1px, solid, dt-gray)">
+      <div data-h2-flex-grid="b(center, 0, x3)">
         <div
           data-h2-flex-item="b(1of1) m(1of2)"
           data-h2-text-align="b(center) m(left)"

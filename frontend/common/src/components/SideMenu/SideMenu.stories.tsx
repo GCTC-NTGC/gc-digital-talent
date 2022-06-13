@@ -49,7 +49,7 @@ const TemplateSideMenu: Story = (args) => {
           Home
         </SideMenuItem>
       </SideMenuComponent>
-      <div data-h2-padding="b(all, m)" data-h2-width="b(100)">
+      <div data-h2-padding="b(x1)" data-h2-width="b(100%)">
         <Button color="primary" mode="solid" onClick={handleToggle}>
           Toggle Menu
         </Button>

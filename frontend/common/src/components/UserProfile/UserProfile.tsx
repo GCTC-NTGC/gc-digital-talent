@@ -173,7 +173,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
               {sections.myStatus?.editUrl && (
                 <Link
                   href={sections.myStatus.editUrl}
-                  data-h2-font-color="b(lightpurple)"
+                  data-h2-color="b(dt-primary)"
                 >
                   {intl.formatMessage({
                     defaultMessage: "Edit My Status",
@@ -200,7 +200,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
               {sections.hiringPools?.editUrl && (
                 <Link
                   href={sections.hiringPools.editUrl}
-                  data-h2-font-color="b(lightpurple)"
+                  data-h2-color="b(dt-primary)"
                 >
                   {intl.formatMessage({
                     defaultMessage: "Edit My Hiring Pools",
@@ -231,7 +231,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
               {sections.about?.editUrl && (
                 <Link
                   href={sections.about.editUrl}
-                  data-h2-font-color="b(lightpurple)"
+                  data-h2-color="b(dt-primary)"
                 >
                   {intl.formatMessage({
                     defaultMessage: "Edit About Me",
@@ -267,7 +267,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
               {sections.language?.editUrl && (
                 <Link
                   href={sections.language.editUrl}
-                  data-h2-font-color="b(lightpurple)"
+                  data-h2-color="b(dt-primary)"
                 >
                   {intl.formatMessage({
                     defaultMessage: "Edit Language Information",
@@ -300,7 +300,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
               {sections.government?.editUrl && (
                 <Link
                   href={sections.government.editUrl}
-                  data-h2-font-color="b(lightpurple)"
+                  data-h2-color="b(dt-primary)"
                 >
                   {intl.formatMessage({
                     defaultMessage: "Edit Government Information",
@@ -332,7 +332,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
               {sections.workLocation?.editUrl && (
                 <Link
                   href={sections.workLocation.editUrl}
-                  data-h2-font-color="b(lightpurple)"
+                  data-h2-color="b(dt-primary)"
                 >
                   {intl.formatMessage({
                     defaultMessage: "Edit Work Location",
@@ -364,7 +364,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
               {sections.workPreferences?.editUrl && (
                 <Link
                   href={sections.workPreferences.editUrl}
-                  data-h2-font-color="b(lightpurple)"
+                  data-h2-color="b(dt-primary)"
                 >
                   {intl.formatMessage({
                     defaultMessage: "Edit Work Preferences",
@@ -397,7 +397,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
               {sections.employmentEquity?.editUrl && (
                 <Link
                   href={sections.employmentEquity.editUrl}
-                  data-h2-font-color="b(lightpurple)"
+                  data-h2-color="b(dt-primary)"
                 >
                   {intl.formatMessage({
                     defaultMessage: "Edit Diversity, Equity and Inclusion",
@@ -430,7 +430,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
               {sections.roleSalary?.editUrl && (
                 <Link
                   href={sections.roleSalary.editUrl}
-                  data-h2-font-color="b(lightpurple)"
+                  data-h2-color="b(dt-primary)"
                 >
                   {intl.formatMessage({
                     defaultMessage: "Edit Role and Salary",
@@ -463,7 +463,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
               {sections.skillsExperience?.editUrl && (
                 <Link
                   href={sections.skillsExperience.editUrl}
-                  data-h2-font-color="b(lightpurple)"
+                  data-h2-color="b(dt-primary)"
                 >
                   {intl.formatMessage({
                     defaultMessage: "Edit Skills and Experience",

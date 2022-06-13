@@ -10,7 +10,7 @@ const Section: React.FC<SectionProps & HTMLAttributes<HTMLDivElement>> = ({
   ...rest
 }) => (
   <div id={id} {...rest}>
-    <div data-h2-padding="b(top, l)">{children}</div>
+    <div data-h2-padding="b(x2, 0, 0, 0)">{children}</div>
   </div>
 );
 

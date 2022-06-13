@@ -32,7 +32,7 @@ const CommunityAccordion: React.FunctionComponent<CommunityAccordionProps> = ({
         // eslint-disable-next-line react/no-array-index-key
         <ul key={index}>
           <li>
-            <p data-h2-font-color="b(lightpurple)">{skill.name?.[locale]}</p>
+            <p data-h2-color="b(dt-primary)">{skill.name?.[locale]}</p>
             <p>{skill.description?.[locale]}</p>
           </li>
         </ul>
@@ -67,7 +67,7 @@ const CommunityAccordion: React.FunctionComponent<CommunityAccordionProps> = ({
       defaultOpen={defaultOpen}
     >
       {" "}
-      <div data-h2-padding="b(left, l)">
+      <div data-h2-padding="b(0, 0, 0, x2)">
         <p>
           {intl.formatMessage(
             {
@@ -80,8 +80,8 @@ const CommunityAccordion: React.FunctionComponent<CommunityAccordionProps> = ({
         <p>{project}</p>
       </div>
       <hr />
-      <div data-h2-padding="b(left, l)">{skillsList}</div>
-      <div data-h2-padding="b(left, l)">
+      <div data-h2-padding="b(0, 0, 0, x2)">{skillsList}</div>
+      <div data-h2-padding="b(0, 0, 0, x2)">
         <p>
           {intl.formatMessage(
             {
@@ -93,7 +93,7 @@ const CommunityAccordion: React.FunctionComponent<CommunityAccordionProps> = ({
         </p>
       </div>
       {editUrl && (
-        <div data-h2-padding="b(left, l)">
+        <div data-h2-padding="b(0, 0, 0, x2)">
           <Link href={editUrl} color="primary" mode="outline" type="button">
             {intl.formatMessage({
               defaultMessage: "Edit Experience",

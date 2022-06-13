@@ -11,9 +11,9 @@ export interface AlertProps {
 
 const typeMap = {
   success: {
-    "data-h2-border": "b(green, all, solid, s)",
-    "data-h2-bg-color": "b([light]green[.1])",
-    "data-h2-font-color": "b(green)",
+    "data-h2-border": "b(all, 1px, solid, dt-success)",
+    "data-h2-background-color": "b(light.dt-succes.1)",
+    "data-h2-color": "b(dt-success)",
   },
 };
 
@@ -29,8 +29,8 @@ const Alert: React.FunctionComponent<AlertProps> = ({
       data-h2-display="b(flex)"
       data-h2-flex-direction="b(column)"
       data-h2-radius="b(s)"
-      data-h2-padding="b(right-left, s)"
-      data-h2-margin="b(top-bottom, m)"
+      data-h2-padding="b(0, x.5)"
+      data-h2-margin="b(x1, auto)"
       {...typeMap[type]}
       {...rest}
     >
@@ -39,10 +39,10 @@ const Alert: React.FunctionComponent<AlertProps> = ({
         data-h2-align-items="b(center)"
         data-h2-font-weight="b(600)"
       >
-        <span data-h2-margin="b(right, xs)">{icon}</span>
+        <span data-h2-margin="b(auto, x.25, auto, auto)">{icon}</span>
         {title}
       </p>
-      <p data-h2-margin="b(top, none)">{message}</p>
+      <p data-h2-margin="b(0, auto, auto, auto)">{message}</p>
     </div>
   );
 };

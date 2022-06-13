@@ -7,10 +7,10 @@ export interface NavMenuProps {
 
 const ListItem: React.FC = ({ children }) => (
   <li
-    data-h2-margin="b(top, none) b(bottom, s) b(right, m)"
+    data-h2-margin="b(0, x1, x.5, auto)"
     data-h2-display="b(block) m(inline-block)"
   >
-    <span data-h2-margin="b(bottom, s)" data-h2-font-style="b:h(reset)">
+    <span data-h2-margin="b(auto, auto, x.5, auto)" data-h2-font-style="b:h(reset)">
       {children}
     </span>
   </li>
@@ -21,7 +21,7 @@ const NavMenu: React.FunctionComponent<NavMenuProps> = ({
   utilityItems,
 }) => {
   return (
-    <div data-h2-flex-grid="b(middle, contained, flush, xl)">
+    <div data-h2-flex-grid="b(center, 0, x3)">
       <div
         data-h2-flex-item="b(1of1) m(1of2)"
         data-h2-text-align="b(center) m(left)"

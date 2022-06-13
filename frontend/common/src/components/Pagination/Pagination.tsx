@@ -70,7 +70,7 @@ const Pagination: React.FunctionComponent<PaginationProps> = ({
   const isRightArrowDisabled = currentPage === lastPage;
   return (
     <div
-      data-h2-padding="b(all, s)"
+      data-h2-padding="b(x.5)"
       data-h2-display="b(flex)"
       data-h2-align-items="b(center)"
       data-h2-flex-direction="b(column) s(row)"
@@ -78,17 +78,17 @@ const Pagination: React.FunctionComponent<PaginationProps> = ({
       <nav
         role="navigation"
         aria-label={ariaLabel}
-        data-h2-margin="b(bottom, s) s(right, s) s(bottom, none)"
+        data-h2-margin="b(auto, auto, x.5, auto) s(auto, x.5, auto, auto)"
       >
         <ul
           className="reset-ul"
           data-h2-display="b(flex)"
           data-h2-align-items="b(center)"
-          data-h2-margin="b(top, none)"
+          data-h2-margin="b(0, auto, auto, auto)"
           {...rest}
         >
           {/* left navigation arrow */}
-          <li data-h2-margin="b(all, none)">
+          <li data-h2-margin="b(0)">
             <Button
               classNames={
                 isLeftArrowDisabled || lessThanTwoItems ? "disabled" : ""
@@ -104,8 +104,8 @@ const Pagination: React.FunctionComponent<PaginationProps> = ({
                   "Aria label for previous page button in pagination nav",
               })}
               onClick={previousPage}
-              data-h2-margin="b(right, xxs)"
-              data-h2-padding="b(top-bottom, xxs) b(right-left, xs)"
+              data-h2-margin="b(auto, x.125, auto, auto)"
+              data-h2-padding="b(x.125, x.25)"
               data-testid="leftArrowButton"
             >
               <ArrowLeftIcon style={{ width: "1.125rem" }} />
@@ -118,7 +118,7 @@ const Pagination: React.FunctionComponent<PaginationProps> = ({
                 <li
                   key={`${index + 1}-dots`}
                   data-h2-display="b(flex)"
-                  data-h2-margin="b(right-left, xs) b(top, none)"
+                  data-h2-margin="b(0, x.25)"
                   data-testid="dots"
                 >
                   <DotsHorizontalIcon style={{ width: "1.125rem" }} />
@@ -129,7 +129,7 @@ const Pagination: React.FunctionComponent<PaginationProps> = ({
             return (
               <li
                 key={`${pageNumber}-pageNumber`}
-                data-h2-margin="b(all, none)"
+                data-h2-margin="b(0)"
               >
                 <Button
                   classNames={lessThanTwoItems ? "disabled" : ""}
@@ -148,8 +148,8 @@ const Pagination: React.FunctionComponent<PaginationProps> = ({
                   )}
                   aria-current={current}
                   onClick={() => handlePageChange(Number(pageNumber))}
-                  data-h2-margin="b(right-left, xxs)"
-                  data-h2-padding="b(top-bottom, xxs) b(right-left, xs)"
+                  data-h2-margin="b(auto, x.125)"
+                  data-h2-padding="b(x.125, x.25)"
                 >
                   {pageNumber}
                 </Button>
@@ -157,7 +157,7 @@ const Pagination: React.FunctionComponent<PaginationProps> = ({
             );
           })}
           {/* right navigation arrow */}
-          <li data-h2-margin="b(all, none)">
+          <li data-h2-margin="b(0)">
             <Button
               classNames={
                 isRightArrowDisabled || lessThanTwoItems ? "disabled" : ""
@@ -173,8 +173,8 @@ const Pagination: React.FunctionComponent<PaginationProps> = ({
                   "Aria label for next page button in pagination nav",
               })}
               onClick={nextPage}
-              data-h2-margin="b(left, xxs)"
-              data-h2-padding="b(top-bottom, xxs) b(right-left, xs)"
+              data-h2-margin="b(auto, auto, auto, x.125)"
+              data-h2-padding="b(x.125, x.25)"
               data-testid="rightArrowButton"
             >
               <ArrowRightIcon style={{ width: "1.125rem" }} />
@@ -182,7 +182,7 @@ const Pagination: React.FunctionComponent<PaginationProps> = ({
           </li>
         </ul>
       </nav>
-      <div data-h2-margin="b(bottom, s) s(right, s) s(bottom, none)">
+      <div data-h2-margin="b(auto, auto, x.5, auto) s(auto, x.5, auto, auto)">
         <span>
           {intl.formatMessage({
             defaultMessage: "Go to page:",

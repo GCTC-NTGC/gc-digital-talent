@@ -42,7 +42,7 @@ export const Checkbox: React.FunctionComponent<CheckboxProps> = ({
   const error = get(errors, name)?.message;
 
   return (
-    <div data-h2-margin="b(bottom, xxs)">
+    <div data-h2-margin="b(auto, auto, x.125, auto)">
       {!boundingBox ? (
         <InputWrapper
           inputId={id}
@@ -55,7 +55,7 @@ export const Checkbox: React.FunctionComponent<CheckboxProps> = ({
         >
           <input
             style={{ order: -1 }}
-            data-h2-margin="b(bottom-right, xxs)"
+            data-h2-margin="b(auto, x.125, x.125, auto)"
             id={id}
             {...register(name, rules)}
             type="checkbox"
@@ -73,9 +73,9 @@ export const Checkbox: React.FunctionComponent<CheckboxProps> = ({
           error={error}
         >
           <div
-            data-h2-border="b(darkgray, all, solid, s)"
+            data-h2-border="b(all, 1px, solid, dark.dt-gray)"
             data-h2-radius="b(s)"
-            data-h2-padding="b(right-left, s) b(top-bottom, xxs)"
+            data-h2-padding="b(x.125, x.5)"
             data-h2-display="b(flex)"
             data-h2-align-items="b(center)"
             style={{ width: "100%" }}
@@ -89,7 +89,7 @@ export const Checkbox: React.FunctionComponent<CheckboxProps> = ({
                 {...rest}
               />
               <span
-                data-h2-margin="b(all, none) b(left, xs)"
+                data-h2-margin="b(0, 0, 0, x.25)"
                 data-h2-font-size="b(caption)"
               >
                 {label}

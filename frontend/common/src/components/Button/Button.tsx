@@ -26,121 +26,121 @@ export const colorMap: Record<
 > = {
   primary: {
     solid: {
-      "data-h2-border": "b(lightpurple, all, solid, s)",
-      "data-h2-bg-color": "b(lightpurple)",
-      "data-h2-font-color": "b(white)",
+      "data-h2-border": "b(all, 1px, solid, dt-primary)",
+      "data-h2-background-color": "b(dt-primary)",
+      "data-h2-color": "b(dt-white)",
     },
     outline: {
-      "data-h2-border": "b(lightpurple, all, solid, s)",
-      "data-h2-bg-color": "b([light]lightpurple[.1])",
-      "data-h2-font-color": "b(lightpurple)",
+      "data-h2-border": "b(all, 1px, solid, dt-primary)",
+      "data-h2-background-color": "b(dt-primary.1)",
+      "data-h2-color": "b(dt-primary)",
     },
     inline: {
-      "data-h2-border": "b([light]white[0], all, solid, s)",
-      "data-h2-bg-color": "b([light]white[0])",
-      "data-h2-font-color": "b(lightpurple)",
+      "data-h2-border": "b(all, 1px, solid, transparent)",
+      "data-h2-background-color": "b(transparent)",
+      "data-h2-color": "b(dt-primary)",
     },
   },
   secondary: {
     solid: {
-      "data-h2-border": "b(lightnavy, all, solid, s)",
-      "data-h2-bg-color": "b(lightnavy)",
-      "data-h2-font-color": "b(white)",
+      "data-h2-border": "b(all, 1px, solid, dt-secondary)",
+      "data-h2-background-color": "b(dt-secondary)",
+      "data-h2-color": "b(dt-white)",
     },
     outline: {
-      "data-h2-border": "b(lightnavy, all, solid, s)",
-      "data-h2-bg-color": "b([light]lightnavy[.1])",
-      "data-h2-font-color": "b(lightnavy)",
+      "data-h2-border": "b(all, 1px, solid, dt-secondary)",
+      "data-h2-background-color": "b(dt-secondary.1)",
+      "data-h2-color": "b(dt-secondary)",
     },
     inline: {
-      "data-h2-border": "b([light]white[0], all, solid, s)",
-      "data-h2-bg-color": "b([light]white[0])",
-      "data-h2-font-color": "b(lightnavy)",
+      "data-h2-border": "b(all, 1px, solid, transparent)",
+      "data-h2-background-color": "b(transparent)",
+      "data-h2-color": "b(dt-secondary)",
     },
   },
   cta: {
     solid: {
-      "data-h2-border": "b(darkgold, all, solid, s)",
-      "data-h2-bg-color": "b(darkgold)",
-      "data-h2-font-color": "b(black)",
+      "data-h2-border": "b(all, 1px, solid, dark.dt-accent)",
+      "data-h2-background-color": "b(dark.dt-accent)",
+      "data-h2-color": "b(dt-black)",
     },
     outline: {
-      "data-h2-border": "b(darkgold, all, solid, s)",
-      "data-h2-bg-color": "b([light]darkgold[.1])",
-      "data-h2-font-color": "b(darkgold)",
+      "data-h2-border": "b(all, 1px, solid, dark.dt-accent)",
+      "data-h2-background-color": "b(light.dt-accent.1)",
+      "data-h2-color": "b(dark.dt-accent)",
     },
     inline: {
-      "data-h2-border": "b([light]white[0], all, solid, s)",
-      "data-h2-bg-color": "b([light]white[0])",
-      "data-h2-font-color": "b(darkgold)",
+      "data-h2-border": "b(all, 1px, solid, transparent)",
+      "data-h2-background-color": "b(transparent)",
+      "data-h2-color": "b(dark.dt-accent)",
     },
   },
   white: {
     solid: {
-      "data-h2-border": "b(white, all, solid, s)",
-      "data-h2-bg-color": "b(white)",
-      "data-h2-font-color": "b(lightpurple)",
+      "data-h2-border": "b(all, 1px, solid, dt-white)",
+      "data-h2-background-color": "b(dt-white)",
+      "data-h2-color": "b(light.dt-primary)",
     },
     outline: {
-      "data-h2-border": "b(white, all, solid, s)",
-      "data-h2-bg-color": "b([light]white[0])",
-      "data-h2-font-color": "b(white)",
+      "data-h2-border": "b(all, 1px, solid, dt-white)",
+      "data-h2-background-color": "b(transparent)",
+      "data-h2-color": "b(dt-white)",
     },
     inline: {
-      "data-h2-border": "b([light]white[0], all, solid, s)",
-      "data-h2-bg-color": "b([light]white[0])",
-      "data-h2-font-color": "b(white)",
+      "data-h2-border": "b(all, 1px, solid, transparent)",
+      "data-h2-background-color": "b(transparent)",
+      "data-h2-color": "b(dt-white)",
     },
   },
   black: {
     solid: {
-      "data-h2-border": "b(white, all, solid, s)",
-      "data-h2-bg-color": "b(black)",
-      "data-h2-font-color": "b(white)",
+      "data-h2-border": "b(all, 1px, solid, dt-white)",
+      "data-h2-background-color": "b(dt-black)",
+      "data-h2-color": "b(dt-white)",
     },
     outline: {
-      "data-h2-border": "b(white, all, solid, s)",
-      "data-h2-bg-color": "b([light]white[0])",
-      "data-h2-font-color": "b(black)",
+      "data-h2-border": "b(all, 1px, solid, dt-white)",
+      "data-h2-background-color": "b(transparent)",
+      "data-h2-color": "b(dt-black)",
     },
     inline: {
-      "data-h2-border": "b([light]white[0], all, solid, s)",
-      "data-h2-bg-color": "b([light]white[0])",
-      "data-h2-font-color": "b(black)",
+      "data-h2-border": "b(all, 1px, solid, transparent)",
+      "data-h2-background-color": "b(transparent)",
+      "data-h2-color": "b(dt-black)",
     },
   },
   "ia-primary": {
     solid: {
-      "data-h2-border": "b(ia-pink, all, solid, s)",
-      "data-h2-bg-color": "b(ia-pink)",
-      "data-h2-font-color": "b(white)",
+      "data-h2-border": "b(all, 1px, solid, ia-primary)",
+      "data-h2-background-color": "b(ia-primary)",
+      "data-h2-color": "b(ia-white)",
     },
     outline: {
-      "data-h2-border": "b(ia-pink, all, solid, s)",
-      "data-h2-bg-color": "b([light]ia-pink[.1])",
-      "data-h2-font-color": "b(ia-pink)",
+      "data-h2-border": "b(all, 1px, solid, ia-primary)",
+      "data-h2-background-color": "b(light.ia-primary.1)",
+      "data-h2-color": "b(ia-primary)",
     },
     inline: {
-      "data-h2-border": "b([light]white[0], all, solid, s)",
-      "data-h2-bg-color": "b([light]white[0])",
-      "data-h2-font-color": "b(ia-pink)",
+      "data-h2-border": "b(all, 1px, solid, transparent)",
+      "data-h2-background-color": "b(transparent)",
+      "data-h2-color": "b(ia-primary)",
     },
   },
   "ia-secondary": {
     solid: {
-      "data-h2-border": "b(ia-purple, all, solid, s)",
-      "data-h2-bg-color": "b(ia-purple)",
-      "data-h2-font-color": "b(white)",
+      "data-h2-border": "b(all, 1px, solid, ia-secondary)",
+      "data-h2-background-color": "b(ia-secondary)",
+      "data-h2-color": "b(ia-white)",
     },
     outline: {
-      "data-h2-border": "b(ia-purple, all, solid, s)",
-      "data-h2-bg-color": "b([light]ia-purple[.1])",
-      "data-h2-font-color": "b(ia-purple)",
+      "data-h2-border": "b(all, 1px, solid, ia-secondary)",
+      "data-h2-background-color": "b(light.ia-secondary.1)",
+      "data-h2-color": "b(ia-secondary)",
     },
     inline: {
-      "data-h2-border": "b([light]white[0], all, solid, s)",
-      "data-h2-bg-color": "b([light]white[0])",
-      "data-h2-font-color": "b(ia-purple)",
+      "data-h2-border": "b(all, 1px, solid, transparent)",
+      "data-h2-background-color": "b(transparent)",
+      "data-h2-color": "b(ia-secondary)",
     },
   },
 };
@@ -160,8 +160,8 @@ const Button: React.FC<ButtonProps> = ({
       // eslint-disable-next-line react/button-has-type
       type={type || "button"}
       data-h2-radius="b(s)"
-      data-h2-padding="b(top-bottom, xs) b(right-left, s)"
-      data-h2-font-size="b(caption) m(normal)"
+      data-h2-padding="b(x.5, x.25)"
+      data-h2-font-size="b(caption) m(copy)"
       data-h2-font-family="b(sans)"
       {...(block
         ? { "data-h2-display": "b(block)" }

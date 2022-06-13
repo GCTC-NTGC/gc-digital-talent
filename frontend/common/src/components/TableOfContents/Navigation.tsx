@@ -13,9 +13,9 @@ const Navigation: React.FC = ({ children }) => {
     >
       <p
         id="toc-heading"
-        data-h2-font-size="b(h5)"
+        data-h2-font-size="b(h5, 1.3)"
         data-h2-font-weight="b(800)"
-        data-h2-margin="b(top, l)"
+        data-h2-margin="b(x2, auto, auto, auto)"
       >
         {intl.formatMessage({
           defaultMessage: "On this page",

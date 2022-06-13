@@ -53,12 +53,12 @@ const SideMenu: React.FC<SideMenuProps> = ({
     >
       <RemoveScroll
         enabled={isSmallScreen && isOpen}
-        data-h2-padding="b(all, xs)"
-        data-h2-overflow="b(y, auto)"
-        data-h2-bg-color="b(lightnavy)"
+        data-h2-padding="b(x.25)"
+        data-h2-overflow="b(auto, y)"
+        data-h2-background-color="b(light.dt-secondary)"
         data-h2-shadow="m(m)"
         data-h2-position="b(fixed)"
-        data-h2-width="b(100)"
+        data-h2-width="b(100%)"
       >
         <nav
           /**
@@ -73,20 +73,20 @@ const SideMenu: React.FC<SideMenuProps> = ({
           data-h2-align-items="b(stretch)"
           data-h2-justify-content="b(space-between)"
         >
-          <div data-h2-margin="(top-bottom, s)" className="side-menu__header">
+          <div data-h2-margin="b(x.5, auto)" className="side-menu__header">
             <SideMenuItem as="button" onClick={handleToggle} icon={MenuIcon}>
               {isOpen ? "Close" : "Open"} Menu
             </SideMenuItem>
             {header}
           </div>
           <div
-            data-h2-margin="b(top, m) m(top, l) l(top, xl)"
+            data-h2-margin="b(x1, auto, auto, auto) m(x2, auto, auto, auto) l(x3, auto, auto, auto)"
             className="side-menu__content"
           >
             {children}
           </div>
           {footer && (
-            <div data-h2-margin="(top-bottom, s)" className="side-menu__footer">
+            <div data-h2-margin="b(x.5, auto)" className="side-menu__footer">
               {footer}
             </div>
           )}

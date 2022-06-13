@@ -65,11 +65,11 @@ RadioGroupOfElements.args = {
   items: [
     {
       value: "one",
-      label: <span data-h2-bg-color="b(red)">Red Selection</span>,
+      label: <span data-h2-background-color="b(dt-error)">Red Selection</span>,
     },
     {
       value: "two",
-      label: <span data-h2-bg-color="b(white)">White Selection</span>,
+      label: <span data-h2-background-color="b(dt-white)">White Selection</span>,
     },
     {
       value: "three",

@@ -2,11 +2,11 @@ import React from "react";
 
 const styleMap: Record<"active" | "inactive", Record<string, string>> = {
   active: {
-    "data-h2-font-color": "b(lightpurple)",
+    "data-h2-color": "b(dt-primary)",
     "data-h2-font-weight": "b(bold)",
   },
   inactive: {
-    "data-h2-font-color": "b(black)",
+    "data-h2-color": "b(dt-black)",
   },
 };
 
@@ -98,9 +98,9 @@ const Tab: React.FC<TabProps> = ({
   // build the data attribute collection for this tab
   const tabAttributes: Record<string, unknown> = {
     // margin & padding same for each tab
-    "data-h2-padding": "b(top-bottom, xs) b(right-left, s)",
+    "data-h2-padding": "b(x.25, x.5)",
     // the *end* layout needs this margin to push it to the right
-    ...(placement === "end" && { "data-h2-margin": "b(left, auto)" }),
+    ...(placement === "end" && { "data-h2-margin": "b(auto)" }),
     // styles based on active/inactive
     ...styleMap[tabAppearance],
   };

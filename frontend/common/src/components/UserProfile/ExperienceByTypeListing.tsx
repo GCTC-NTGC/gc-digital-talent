@@ -35,20 +35,20 @@ const ExperienceByType: React.FunctionComponent<{
 }) => {
   return (
     <div>
-      <div data-h2-display="b(flex)" data-h2-margin="b(top-bottom, m)">
+      <div data-h2-display="b(flex)" data-h2-margin="b(x1, auto)">
         {icon}
         <p
           data-h2-font-size="b(h4)"
-          data-h2-margin="b(all, none)"
-          data-h2-padding="b(left, s)"
+          data-h2-margin="b(0)"
+          data-h2-padding="b(0, 0, 0, x.5)"
         >
           {title}
         </p>
       </div>
       <div
         data-h2-radius="b(s)"
-        data-h2-bg-color="b(lightgray)"
-        data-h2-padding="b(top-bottom, xxs) b(right-left, xs)"
+        data-h2-background-color="b(light.dt-gray)"
+        data-h2-padding="b(x.125, x.25)"
       >
         {experiences.map((experience) => (
           <ExperienceAccordion

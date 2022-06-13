@@ -15,39 +15,39 @@ const colorMap: Record<
 > = {
   primary: {
     solid: {
-      "data-h2-border": "b(darkpurple, all, solid, s)",
-      "data-h2-bg-color": "b(lightpurple)",
-      "data-h2-font-color": "b(white)",
+      "data-h2-border": "b(all, 1px, solid, dark.dt-primary)",
+      "data-h2-background-color": "b(dt-primary)",
+      "data-h2-color": "b(dt-white)",
     },
     outline: {
-      "data-h2-border": "b(darkpurple, all, solid, s)",
-      "data-h2-bg-color": "b(lightpurple[.1])",
-      "data-h2-font-color": "b(darkpurple)",
+      "data-h2-border": "b(all, 1px, solid, dark.dt-primary)",
+      "data-h2-background-color": "b(light.dt-primary.1)",
+      "data-h2-color": "b(dark.dt-primary)",
     },
   },
   secondary: {
     solid: {
-      "data-h2-border": "b(darknavy, all, solid, s)",
-      "data-h2-bg-color": "b(lightnavy)",
-      "data-h2-font-color": "b(white)",
+      "data-h2-border": "b(all, 1px, solid, dark.dt-secondary)",
+      "data-h2-background-color": "b(light.dt-secondary)",
+      "data-h2-color": "b(dt-white)",
     },
     outline: {
-      "data-h2-border": "b(darknavy, all, solid, s)",
-      "data-h2-bg-color": "b(lightnavy[.1])",
-      "data-h2-font-color": "b(darknavy)",
+      "data-h2-border": "b(all, 1px, solid, dark.dt-secondary)",
+      "data-h2-background-color": "b(light.dt-secondary.1)",
+      "data-h2-color": "b(dark.dt-secondary)",
     },
   },
   neutral: {
     solid: {
       /* not very visible - should probably be fixed before using */
-      "data-h2-border": "b(darkgray, all, solid, s)",
-      "data-h2-bg-color": "b(gray)",
-      "data-h2-font-color": "b(white)",
+      "data-h2-border": "b(all, 1px, solid, dark.dt-gray)",
+      "data-h2-background-color": "b(dark.dt-gray)",
+      "data-h2-color": "b(dt-white)",
     },
     outline: {
-      "data-h2-border": "b(darkgray, all, solid, s)",
-      "data-h2-bg-color": "b(lightgray[.1])",
-      "data-h2-font-color": "b(darkgray)",
+      "data-h2-border": "b(all, 1px, solid, dark.dt-gray)",
+      "data-h2-background-color": "b(dt-gray.1)",
+      "data-h2-color": "b(dark.dt-gray)",
     },
   },
 };
@@ -61,7 +61,7 @@ const Pill: React.FC<PillProps> = ({
 }): React.ReactElement => {
   return (
     <span
-      data-h2-padding="b(all, xs)"
+      data-h2-padding="b(x.5)"
       {...(block
         ? { "data-h2-display": "b(block)" }
         : { "data-h2-display": "b(inline-block)" })}
@@ -69,7 +69,7 @@ const Pill: React.FC<PillProps> = ({
       data-h2-font-size="b(caption)"
       data-h2-font-family="b(sans)"
       {...colorMap[color][mode]}
-      data-h2-margin="b(all, xxs)"
+      data-h2-margin="b(x.125)"
       data-h2-text-align="b(center)"
       {...rest}
     >

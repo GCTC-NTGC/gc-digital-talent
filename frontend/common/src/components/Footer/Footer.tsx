@@ -43,14 +43,14 @@ const Footer: React.FunctionComponent<{
   return (
     <footer
       className="footer"
-      data-h2-border="b(gray, top, solid, s)"
-      data-h2-bg-color="b(lightgray[.6])"
+      data-h2-border="b(top, 1px, solid, dt-gray)"
+      data-h2-background-color="b(light.dt-gray.6)"
       style={{ marginTop: "auto" }}
     >
-      <div data-h2-flex-grid="b(middle, contained, flush, xl)">
+      <div data-h2-flex-grid="b(center, 0, x3)">
         <div
           data-h2-flex-item="b(1of1) m(1of2)"
-          data-h2-padding="b(left, xl)"
+          data-h2-padding="b(0, 0, 0, x3)"
           data-h2-text-align="b(center) m(left)"
         >
           <nav>
@@ -60,13 +60,13 @@ const Footer: React.FunctionComponent<{
               data-h2-display="b(flex)"
               data-h2-flex-wrap="b(wrap)"
               data-h2-justify-content="b(center) m(flex-start)"
-              data-h2-margin="b(bottom, xs)"
+              data-h2-margin="b(auto, auto, x.25, auto)"
             >
               {links.map(({ route, label }) => (
                 <li
                   key={label}
                   data-h2-display="b(inline-block)"
-                  data-h2-margin="b(top-bottom, none)"
+                  data-h2-margin="b(0, auto)"
                 >
                   {/* These links must use real anchor links, not the history api, as they may direct to outside of this app. */}
                   <a href={route}>{label}</a>
@@ -76,8 +76,8 @@ const Footer: React.FunctionComponent<{
           </nav>
           <p
             data-h2-font-size="b(caption)"
-            data-h2-font-color="b(darkgray)"
-            data-h2-margin="b(bottom, none) b(top, m)"
+            data-h2-color="b(dark.dt-gray)"
+            data-h2-margin="b(x1, auto, 0, auto)"
           >
             {intl.formatMessage(
               {
@@ -95,7 +95,7 @@ const Footer: React.FunctionComponent<{
         </div>
         <div
           data-h2-flex-item="b(1of1) m(1of2)"
-          data-h2-padding="b(right, xl)"
+          data-h2-padding="b(0, x2, 0, 0)"
           data-h2-text-align="b(center) m(right)"
         >
           <a

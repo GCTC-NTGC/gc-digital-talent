@@ -24,8 +24,8 @@ const WorkLocationSection: React.FunctionComponent<{
     : "";
   return (
     <div
-      data-h2-bg-color="b(lightgray)"
-      data-h2-padding="b(all, m)"
+      data-h2-background-color="b(light.dt-gray)"
+      data-h2-padding="b(x1)"
       data-h2-radius="b(s)"
     >
       {!!applicant.locationPreferences &&

@@ -34,7 +34,7 @@ const TextArea: React.FunctionComponent<TextAreaProps> = ({
   const error = get(errors, name)?.message;
 
   return (
-    <div data-h2-margin="b(bottom, xxs)">
+    <div data-h2-margin="b(auto, auto, x.125, auto)">
       <InputWrapper
         inputId={id}
         label={label}
@@ -43,10 +43,10 @@ const TextArea: React.FunctionComponent<TextAreaProps> = ({
         error={error}
       >
         <textarea
-          data-h2-padding="b(all, xxs)"
+          data-h2-padding="b(x.125)"
           data-h2-radius="b(s)"
-          data-h2-border="b(darkgray, all, solid, s)"
-          data-h2-font-size="b(normal)"
+          data-h2-border="b(all, 1px, solid, dark.dt-gray)"
+          data-h2-font-size="b(copy)"
           data-h2-font-family="b(sans)"
           style={{ width: "100%", resize: "vertical" }}
           id={id}

@@ -8,10 +8,10 @@
   "temp": [
     "../*/src/views/*.html",
     "../talentsearch/src/js",
-    "../indigenousapprenticeship/src/js",
-    "../common/src"
+    "../indigenousapprenticeship/src/js"
   ],
   "input": [
+    "../common/src/components",
     "../admin/src/js"
   ],
   "output": "src/css",

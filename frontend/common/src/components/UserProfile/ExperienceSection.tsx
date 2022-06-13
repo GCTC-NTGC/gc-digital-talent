@@ -93,8 +93,8 @@ const ExperienceSection: React.FunctionComponent<ExperienceSectionProps> = ({
       >
         <div
           data-h2-radius="b(s)"
-          data-h2-bg-color="b(lightgray)"
-          data-h2-padding="b(top-bottom, xxs) b(right-left, xs)"
+          data-h2-background-color="b(light.dt-gray)"
+          data-h2-padding="b(x.125, x.25)"
         >
           {sortedByDate.map((experience) => (
             <ExperienceAccordion
@@ -126,8 +126,8 @@ const ExperienceSection: React.FunctionComponent<ExperienceSectionProps> = ({
       >
         <div
           data-h2-radius="b(s)"
-          data-h2-bg-color="b(lightgray)"
-          data-h2-padding="b(top-bottom, xxs) b(right-left, xs)"
+          data-h2-background-color="b(light.dt-gray)"
+          data-h2-padding="b(x.125, x.25)"
         >
           {sortedBySkills.map((skill) => (
             <SkillAccordion key={skill.id} skill={skill} />

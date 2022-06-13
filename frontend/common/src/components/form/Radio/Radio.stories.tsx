@@ -35,5 +35,5 @@ export const RadioElement = TemplateRadio.bind({});
 RadioElement.args = {
   id: "element",
   name: "element",
-  label: <span data-h2-bg-color="b(red)">Red Selection</span>,
+  label: <span data-h2-background-color="b(error)">Red Selection</span>,
 };

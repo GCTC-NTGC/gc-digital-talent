@@ -43,7 +43,7 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
     const { title, description, startDate, endDate, details } = experience;
     return (
       <>
-        <p data-h2-font-color="b(lightpurple)"> {title} </p>
+        <p data-h2-color="b(dt-primary)"> {title} </p>
         <p>{getDateRange({ endDate, startDate, intl, locale })}</p>
         <p> {description} </p>
         <p> {details} </p>
@@ -66,7 +66,7 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
     return (
       <div>
         <p>
-          <span data-h2-font-color="b(lightpurple)"> {areaOfStudy} </span>
+          <span data-h2-color="b(dt-primary)"> {areaOfStudy} </span>
           {intl.formatMessage(
             {
               defaultMessage: " at {institution}",
@@ -79,7 +79,7 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
           {" "}
           {type ? intl.formatMessage(getEducationType(type)) : ""}{" "}
           <span
-            data-h2-font-color="b(lightpurple)"
+            data-h2-color="b(dt-primary)"
             data-h2-font-style="b(italic)"
           >
             {" "}
@@ -110,7 +110,7 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
     return (
       <>
         <p>
-          <span data-h2-font-color="b(lightpurple)" title="award">
+          <span data-h2-color="b(dt-primary)" title="award">
             {" "}
             {title}{" "}
           </span>
@@ -158,7 +158,7 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
     return (
       <>
         <p>
-          <span data-h2-font-color="b(lightpurple)"> {title} </span>
+          <span data-h2-color="b(dt-primary)"> {title} </span>
           {intl.formatMessage(
             {
               defaultMessage: " at {organization}",
@@ -198,7 +198,7 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
     return (
       <>
         <p>
-          <span data-h2-font-color="b(lightpurple)" title="work">
+          <span data-h2-color="b(dt-primary)" title="work">
             {role}{" "}
           </span>
           {intl.formatMessage(
@@ -284,10 +284,10 @@ const SkillAccordion: React.FunctionComponent<SkillAccordionProps> = ({
             )
       }
     >
-      <div data-h2-padding="b(left, l)" data-testid="detail">
+      <div data-h2-padding="b(0, 0, 0, x2)" data-testid="detail">
         {renderDetail()}
       </div>
-      <div data-h2-padding="b(left, l)" />
+      <div data-h2-padding="b(0, 0, 0, x2)" />
     </Accordion>
   );
 };

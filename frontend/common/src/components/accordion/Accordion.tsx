@@ -29,24 +29,24 @@ const Accordion: React.FC<AccordionProps> = ({
 
   return (
     <div
-      data-h2-margin="b(top, xxs)"
+      data-h2-margin="b(x.25, auto, auto, auto)"
       data-h2-shadow="b(m)"
-      data-h2-radius="b(none, s, s, none)"
-      data-h2-overflow="b(all, hidden)"
-      data-h2-border="b([light]primary, left, solid, m)"
+      data-h2-radius="b(0px, s, s, 0px)"
+      data-h2-overflow="b(hidden, all)"
+      data-h2-border="b(left, .5rem, solid, light.dt-primary)"
       className="accordion"
       {...rest}
     >
       <button
         type="button"
         data-h2-text-align="b(left)"
-        data-h2-bg-color="b(white)"
-        data-h2-padding="b(top-bottom, s) b(right, m) b(left, s)"
-        data-h2-width="b(100)"
+        data-h2-background-color="b(dt-white)"
+        data-h2-padding="b(x.5, x1, x.5, x.5)"
+        data-h2-width="b(100%)"
         onClick={() => handleOpen()}
         {...(isOpen && children
-          ? { "data-h2-border": "b(lightpurple, left, solid, m)" }
-          : { "data-h2-border": "b(darkpurple, left, solid, m)" })}
+          ? { "data-h2-border": "b(left, .5rem, solid, light.dt-primary)" }
+          : { "data-h2-border": "b(left, .5rem, solid, dark.dt-primary)" })}
         style={{
           borderTop: "none",
           borderRight: "none",
@@ -58,7 +58,7 @@ const Accordion: React.FC<AccordionProps> = ({
         className="accordion-header"
       >
         <div
-          data-h2-flex-grid="b(middle, expanded, flush, s)"
+          data-h2-flex-grid="b(center, 0, x.5)"
           data-h2-flex-wrap="b(nowrap)"
           className="accordion-header-wrapper"
         >
@@ -69,16 +69,16 @@ const Accordion: React.FC<AccordionProps> = ({
               <ChevronRightIcon style={{ width: "1.5rem" }} />
             )}
           </span>
-          <div data-h2-flex-item="b(auto)" data-h2-text-align="b(left)">
+          <div data-h2-flex-item="b(fill)" data-h2-text-align="b(left)">
             <p
-              data-h2-margin="b(all, none)"
-              data-h2-font-size="b(h5)"
-              data-h2-font-color="b(black)"
+              data-h2-margin="b(0)"
+              data-h2-font-size="b(h5, 1.3)"
+              data-h2-color="b(dt-black)"
             >
               {title}
             </p>
 
-            <p data-h2-margin="b(top, xxs) b(bottom, none)">{subtitle}</p>
+            <p data-h2-margin="b(x.5, auto, 0, auto)">{subtitle}</p>
           </div>
           <div
             data-h2-flex-item="b(content)"
@@ -88,9 +88,9 @@ const Accordion: React.FC<AccordionProps> = ({
             style={{ flexShrink: 0 }}
             className="accordion-header-context"
           >
-            <p data-h2-font-size="b(normal)">{context}</p>
+            <p data-h2-font-size="b(copy)">{context}</p>
             {!simple && (
-              <span className="icon" data-h2-margin="b(left, xs)">
+              <span className="icon" data-h2-margin="b(auto, auto, auto, x.25)">
                 {Icon && <Icon style={{ width: "1.5rem", height: "1.5rem" }} />}
               </span>
             )}
@@ -100,16 +100,16 @@ const Accordion: React.FC<AccordionProps> = ({
       <div
         {...(!simple &&
           (isOpen
-            ? { "data-h2-border": "b(lightpurple, left, solid, m)" }
-            : { "data-h2-border": "b(darkpurple, left, solid, m)" }))}
+            ? { "data-h2-border": "b(left, .5rem, solid, light.dt-primary)" }
+            : { "data-h2-border": "b(left, .5rem, solid, dark.dt-primary)" }))}
         id="content"
-        data-h2-bg-color="b(white)"
+        data-h2-background-color="b(dt-white)"
       >
         <div
-          data-h2-padding="b(top, none) b(right, l) b(bottom, m) b(left, l)"
+          data-h2-padding="b(0, x2, x1, x2)"
           style={{ display: isOpen ? "block" : "none" }}
         >
-          <hr data-h2-margin="b(top, none) b(bottom, m, b(left, l))" />
+          <hr data-h2-margin="b(0, auto, x1, x2)" />
           {children}
         </div>
       </div>

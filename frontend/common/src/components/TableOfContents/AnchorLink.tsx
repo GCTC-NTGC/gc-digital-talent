@@ -25,7 +25,7 @@ const AnchorLink: React.FC<AnchorLinkProps> = ({ id, children }) => {
   };
 
   return (
-    <a href={`#${id}`} data-h2-margin="b(bottom, s)" onClick={handleClick}>
+    <a href={`#${id}`} data-h2-margin="b(auto, auto, x.5, auto)" onClick={handleClick}>
       {children}
     </a>
   );
