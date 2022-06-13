@@ -16,7 +16,7 @@ const NotFound: React.FC<NotFoundProps> = ({ headingMessage, children }) => {
         <h3
           data-h2-font-size="b(h4, 1.3)"
           data-h2-font-weight="b(700)"
-          data-h2-margin="b(auto, auto, x1, auto)"
+          data-h2-margin="b(0, 0, x1, 0)"
         >
           {headingMessage}
         </h3>

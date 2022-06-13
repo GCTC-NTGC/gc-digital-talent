@@ -44,19 +44,19 @@ const InputWrapper: React.FC<InputWrapperProps> = ({
           />
         </div>
         {error && errorPosition === "top" && (
-          <div data-h2-display="block" data-h2-margin="b(auto, auto, x.125, auto)">
+          <div data-h2-display="b(block)" data-h2-margin="b(0, 0, x.125, 0)">
             <InputError isVisible={!!error} error={error} />
           </div>
         )}
         {children}
       </div>
       {error && errorPosition === "bottom" && (
-        <div data-h2-display="block" data-h2-margin="b(x.125, auto, auto, auto)">
+        <div data-h2-display="b(block)" data-h2-margin="b(x.125, 0, 0, 0)">
           <InputError isVisible={!!error} error={error} />
         </div>
       )}
       {contextVisible && context && (
-        <div data-h2-display="block" data-h2-margin="b(x.125, auto, auto, auto)">
+        <div data-h2-display="b(block)" data-h2-margin="b(x.125, 0, 0, 0)">
           <InputContext
             isVisible={contextVisible && !!context}
             context={context}

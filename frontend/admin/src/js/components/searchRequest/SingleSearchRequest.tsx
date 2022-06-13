@@ -250,7 +250,7 @@ export const SingleSearchRequest: React.FunctionComponent<
         <SearchRequestFilters poolCandidateFilter={poolCandidateFilter} />
         <div
           data-h2-padding="s(x.5, 0)"
-          data-h2-margin="s(x.5, auto)"
+          data-h2-margin="s(x.5, 0)"
           data-h2-border="s(top-bottom, 1px, solid, light.dt-gray)"
         >
           <FilterBlock

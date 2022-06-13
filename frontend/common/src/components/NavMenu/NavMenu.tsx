@@ -7,10 +7,10 @@ export interface NavMenuProps {
 
 const ListItem: React.FC = ({ children }) => (
   <li
-    data-h2-margin="b(0, x1, x.5, auto)"
+    data-h2-margin="b(0, x1, x.5, 0)"
     data-h2-display="b(block) m(inline-block)"
   >
-    <span data-h2-margin="b(auto, auto, x.5, auto)" data-h2-font-style="b:h(reset)">
+    <span data-h2-margin="b(0, 0, x.5, 0)" data-h2-font-style="b:hover(reset)">
       {children}
     </span>
   </li>

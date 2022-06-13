@@ -53,7 +53,7 @@ const ExperienceSkills: React.FC<ExperienceSkillsProps> = ({ skills }) => {
 
   return (
     <>
-      <h2 data-h2-font-size="b(h3)">
+      <h2 data-h2-font-size="b(h3, 1.3)">
         {intl.formatMessage({
           defaultMessage: "2. Skills displayed during this experience",
           description: "Title for skills on Experience form",

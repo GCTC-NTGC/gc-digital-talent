@@ -27,7 +27,7 @@ const HomePage: React.FC = () => {
             "Instructional text for the talent cloud pool manager portal home page.",
         })}
       </p>
-      <div data-h2-width="b(100%) m(50%) l(25%)" data-h2-margin="b(x2, auto, auto, auto)">
+      <div data-h2-width="b(100%) m(50%) l(25%)" data-h2-margin="b(x2, 0, 0, 0)">
         <CardLink
           external
           href={apiRoutes.login(location.pathname, getLocale(intl))}

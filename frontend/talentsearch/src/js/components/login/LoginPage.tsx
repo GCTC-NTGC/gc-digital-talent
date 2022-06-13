@@ -24,8 +24,8 @@ const LoginPage: React.FC = () => {
   return (
     <>
       <div
-        data-h2-padding="b(top-bottom, m) b(right-left, s)"
-        data-h2-font-color="b(white)"
+        data-h2-padding="b(x1, x.5)"
+        data-h2-color="b(dt-white)"
         data-h2-text-align="b(center)"
         style={{
           background: `url(${imageUrl(
@@ -37,14 +37,14 @@ const LoginPage: React.FC = () => {
           backgroundRepeat: "no-repeat",
         }}
       >
-        <h1 data-h2-margin="b(top-bottom, l)">
+        <h1 data-h2-margin="b(x2, 0)">
           {intl.formatMessage({
             defaultMessage: "Login using GC Key",
             description: "Title for the login page for applicant profiles.",
           })}
         </h1>
       </div>
-      <div data-h2-container="b(center, s)" data-h2-margin="b(top-bottom, xl)">
+      <div data-h2-container="b(center, s)" data-h2-margin="b(x3, 0)">
         <p>
           {intl.formatMessage({
             defaultMessage:
@@ -74,7 +74,7 @@ const LoginPage: React.FC = () => {
             },
           )}
         </p>
-        <hr data-h2-margin="b(top-bottom, l)" />
+        <hr data-h2-margin="b(x2, 0)" />
         <div
           data-h2-display="b(flex)"
           data-h2-flex-direction="b(column) m(row)"

@@ -10,8 +10,8 @@ const SearchHeading: React.FunctionComponent = () => {
     <header>
       <div
         data-h2-position="b(relative)"
-        data-h2-padding="b(bottom, l)"
-        data-h2-margin="b(bottom, xxl)"
+        data-h2-padding="b(0, 0, x2, 0)"
+        data-h2-margin="b(0, 0, x4, 0)"
         style={{
           background: `linear-gradient(70deg, rgba(103, 76, 144, 0.9), rgba(29, 44, 76, 1)), url(${imageUrl(
             paths.home(),
@@ -22,10 +22,10 @@ const SearchHeading: React.FunctionComponent = () => {
         }}
       >
         <h1
-          data-h2-margin="b(all, none)"
-          data-h2-padding="b(top, l) b(right-left, s)"
+          data-h2-margin="b(0)"
+          data-h2-padding="b(x2, x.5, 0, x.5)"
           data-h2-text-align="b(center)"
-          data-h2-font-color="b(white)"
+          data-h2-color="b(dt-white)"
           data-h2-font-weight="b(800)"
           style={{ letterSpacing: "-2px" }}
         >
@@ -36,16 +36,16 @@ const SearchHeading: React.FunctionComponent = () => {
           })}
         </h1>
         <div
-          data-h2-bg-color="b(white)"
-          data-h2-margin="b(top, xs) b(bottom, -xxl) b(right-left, xs) s(right-left, xxl)"
-          data-h2-padding="b(top, m) b(bottom, s) b(right-left, m)"
+          data-h2-background-color="b(dt-white)"
+          data-h2-margin="b(x.25, x.25, -x4, x.25) s(x.25, x4, -x4, x4)"
+          data-h2-padding="b(x1, x1, x.5, x1)"
           data-h2-radius="b(s)"
           data-h2-shadow="b(s)"
         >
           <h2
-            data-h2-font-color="b(black)"
+            data-h2-color="b(dt-black)"
             data-h2-font-weight="b(300)"
-            data-h2-margin="b(all, none)"
+            data-h2-margin="b(0)"
           >
             {intl.formatMessage({
               defaultMessage: "About the Digital Talent Pool",

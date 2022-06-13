@@ -135,7 +135,7 @@ const Dashboard: React.FC<DashboardProps> = ({ contentRoutes }) => {
             data-h2-align-items="b(space-between)"
           >
             <Header baseUrl={ADMIN_APP_DIR} />
-            <main id="main" data-h2-margin="b(auto)">
+            <main id="main" data-h2-margin="b(0, 0, 0, auto)">
               {content}
             </main>
             <Footer baseUrl={ADMIN_APP_DIR} />

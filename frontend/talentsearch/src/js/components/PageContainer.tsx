@@ -37,11 +37,12 @@ export const MenuLink: React.FC<MenuLinkProps> = ({
 }) => {
   const location = useLocation();
   const El = as;
+  const activeWeight: Record<string, unknown> = isActive(href ?? null, location.pathname) ? {"data-h2-font-weight": "b(700)"} : {"data-h2-font-weight": "b(100)"};
   return (
     <El
       href={href}
       title={title ?? undefined}
-      data-h2-font-color="b(lightpurple)"
+      data-h2-color="b(dt-primary)"
       data-h2-font-size="b(normal)"
       style={{
         border: "none",
@@ -50,11 +51,7 @@ export const MenuLink: React.FC<MenuLinkProps> = ({
       }}
       {...rest}
     >
-      <span
-        data-h2-font-weight={
-          isActive(href ?? null, location.pathname) ? "b(700)" : "b(100)"
-        }
-      >
+      <span {...activeWeight}>
         {text}
       </span>
     </El>

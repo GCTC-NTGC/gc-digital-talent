@@ -29,12 +29,12 @@ const RequestPage: React.FunctionComponent = () => {
         backgroundSize: "calc(100%) calc(85%)",
         backgroundPosition: "bottom",
       }}
-      data-h2-padding="b(bottom, l)"
+      data-h2-padding="b(0, 0, x2, 0)"
     >
       <h1
-        data-h2-margin="b(top, s)"
+        data-h2-margin="b(x.5, 0, 0, 0)"
         data-h2-text-align="b(center)"
-        data-h2-bg-color="b(white)"
+        data-h2-background-color="b(dt-white)"
       >
         {intl.formatMessage({
           defaultMessage: "Search the Digital Talent Pool",
@@ -45,8 +45,8 @@ const RequestPage: React.FunctionComponent = () => {
         data-h2-container="b(center, xl)"
         data-h2-radius="b(s)"
         data-h2-shadow="b(s)"
-        data-h2-padding="b(all, l) b(right, xxl)"
-        data-h2-bg-color="b(white)"
+        data-h2-padding="b(x2, x4, x2, x2)"
+        data-h2-background-color="b(dt-white)"
         data-h2-display="b(flex)"
         data-h2-justify-content="b(center)"
         data-h2-align-items="b(center)"

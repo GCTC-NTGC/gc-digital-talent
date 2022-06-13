@@ -55,7 +55,7 @@ export const UpdateCmoAssetForm: React.FunctionComponent<
   };
   return (
     <section>
-      <h2 data-h2-text-align="b(center)" data-h2-margin="b(0, auto, auto, auto)">
+      <h2 data-h2-text-align="b(center)" data-h2-margin="b(0)">
         {intl.formatMessage({
           defaultMessage: "Update CMO Asset",
           description: "Title displayed on the update a cmo asset form.",

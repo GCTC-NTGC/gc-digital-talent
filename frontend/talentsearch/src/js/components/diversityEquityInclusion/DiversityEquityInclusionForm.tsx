@@ -75,11 +75,11 @@ export const DiversityEquityInclusionForm: React.FC<
         })}
       </p>
       <div
-        data-h2-bg-color="b(lightgray)"
+        data-h2-background-color="b(light.dt-gray)"
         data-h2-radius="b(s)"
-        data-h2-padding="b(all, m)"
+        data-h2-padding="b(x1)"
       >
-        <p data-h2-margin="b(top, none)">
+        <p data-h2-margin="b(0, auto, auto, auto)">
           {intl.formatMessage(
             {
               defaultMessage:

@@ -6,7 +6,7 @@ const Wrapper: React.FC = ({ children }) => (
     data-h2-flex-grid="b(flex-start, 0, 0)"
     data-h2-container="b(center, l)"
     data-h2-padding="b(0, x.5)"
-    data-h2-margin="b(auto, auto, x2, auto)"
+    data-h2-margin="b(0, 0, x2, 0)"
   >
     {children}
   </div>

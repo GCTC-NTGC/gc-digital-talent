@@ -18,6 +18,7 @@ import {
   JobLookingStatus,
 } from "../../api/generated";
 import profileMessages from "../profile/profileMessages";
+import { stringify } from "querystring";
 
 export type FormValues = Pick<UpdateUserAsUserInput, "jobLookingStatus">;
 
@@ -67,10 +68,7 @@ export const MyStatusForm: React.FC<MyStatusFormProps> = ({
     }
   };
 
-  let disabledColor = "";
-  if (!isFormActive) {
-    disabledColor = "b([dark]gray)";
-  }
+  const disabledColor: Record<string, unknown> = !isFormActive ? {"data-h2-color": "b(dark.dt-gray)"} : {};
 
   return (
     <div>
@@ -91,10 +89,10 @@ export const MyStatusForm: React.FC<MyStatusFormProps> = ({
         </div>
         {!isFormActive && (
           <div
-            data-h2-font-color="b(lightpurple)"
-            data-h2-padding="b(all, m)"
+            data-h2-color="b(dt-primary)"
+            data-h2-padding="b(x1)"
             data-h2-radius="b(s)"
-            data-h2-bg-color="b([light]lightpurple[.1])"
+            data-h2-background-color="b(light.dt-primary.1)"
           >
             <p>
               {intl.formatMessage(
@@ -117,7 +115,7 @@ export const MyStatusForm: React.FC<MyStatusFormProps> = ({
           </div>
         )}
 
-        <div data-h2-padding="b(top, s)" data-h2-font-color={disabledColor}>
+        <div data-h2-padding="b(x.5, 0, 0, 0)" {...disabledColor}>
           <RadioGroup
             idPrefix="myStatus"
             legend={intl.formatMessage({

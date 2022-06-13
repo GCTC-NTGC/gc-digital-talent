@@ -187,12 +187,12 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
   );
 
   function span(msg: string): JSX.Element {
-    return <span data-h2-font-color="b(lightpurple)">{msg}</span>;
+    return <span data-h2-color="b(dt-primary)">{msg}</span>;
   }
 
   return (
     <section>
-      <h2 data-h2-margin="b(top, none)">
+      <h2 data-h2-margin="b(0)">
         {intl.formatMessage({
           defaultMessage: "Request Form",
           description: "Heading for request form.",
@@ -207,9 +207,9 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
       </p>
       <FormProvider {...formMethods}>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <div data-h2-flex-grid="b(top, contained, padded, none)">
+          <div data-h2-flex-grid="b(flex-start, 0, 0)">
             <div data-h2-flex-item="b(1of1) m(1of2)">
-              <div data-h2-padding="b(right, none) m(right, l)">
+              <div data-h2-padding="b(0) m(0, x2, 0, 0)">
                 <Input
                   id="fullName"
                   type="text"
@@ -231,7 +231,7 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
               </div>
             </div>
             <div data-h2-flex-item="b(1of1) m(1of2)">
-              <div data-h2-padding="b(left, none) m(left, l)">
+              <div data-h2-padding="b(0) m(0, 0, 0, x2)">
                 <Select
                   id="department"
                   name="department"
@@ -253,7 +253,7 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
               </div>
             </div>
             <div data-h2-flex-item="b(1of1) m(1of2)">
-              <div data-h2-padding="b(right, none) m(right, l)">
+              <div data-h2-padding="b(0) m(0, x2, 0, 0)">
                 <Input
                   id="email"
                   type="email"
@@ -275,7 +275,7 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
               </div>
             </div>
             <div data-h2-flex-item="b(1of1) m(1of2)">
-              <div data-h2-padding="b(left, none) m(left, l)">
+              <div data-h2-padding="b(0) m(0, 0, 0, x2)">
                 <Input
                   id="jobTitle"
                   type="text"
@@ -343,7 +343,7 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
             <Button
               color="primary"
               mode="outline"
-              data-h2-margin="b(right, s)"
+              data-h2-margin="b(0, x.5, 0, 0)"
               onClick={() => {
                 // Save the initial search form values to the state so they are available to user when click back.
                 pushToStateThenNavigate(paths.search(), {

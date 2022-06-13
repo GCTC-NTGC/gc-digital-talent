@@ -48,7 +48,7 @@ const Radio: React.FunctionComponent<RadioProps> = ({
     >
       <input
         style={{ order: -1 }}
-        data-h2-margin="b(auto, x.125, x.125, auto)"
+        data-h2-margin="b(0, x.125, x.125, 0)"
         id={id}
         {...register(name, rules)}
         type="radio"

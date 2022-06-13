@@ -27,7 +27,7 @@ const Family: React.FunctionComponent<FamilyProps> = ({
   return (
     <div
       {...(checked ? checkedStyle : uncheckedStyle)}
-      data-h2-padding="b(all, xxs)"
+      data-h2-padding="b(x.125)"
       key={family.key}
     >
       <label>
@@ -143,7 +143,7 @@ const SkillChecklist: React.FunctionComponent<SkillChecklistProps> = ({
 
   return (
     <div
-      data-h2-flex-grid="b(normal, expanded, flush, m)"
+      data-h2-flex-grid="b(normal, 0, x1)"
       data-testid="skillChecklist"
     >
       {Object.keys(skillCategories).map((category) => {

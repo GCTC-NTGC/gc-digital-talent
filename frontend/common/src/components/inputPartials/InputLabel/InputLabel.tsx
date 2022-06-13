@@ -32,7 +32,7 @@ const InputLabel: React.FC<InputLabelProps> = ({
     <div
       data-h2-display="b(flex)"
       data-h2-flex-wrap="b(wrap)"
-      data-h2-margin="b(auto, auto, x.125, auto)"
+      data-h2-margin="b(0, 0, x.125, 0)"
     >
       <div style={{ flex: "1" }}>
         <label data-h2-font-size="b(caption)" htmlFor={inputId}>
@@ -59,7 +59,7 @@ const InputLabel: React.FC<InputLabelProps> = ({
           <button
             type="button"
             className="input-label-context-button"
-            data-h2-margin="b(auto, auto, auto, x.125)"
+            data-h2-margin="b(0, 0, 0, x.125)"
             onClick={clickHandler}
           >
             <span data-h2-visibility="b(invisible)">

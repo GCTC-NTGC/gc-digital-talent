@@ -156,13 +156,13 @@ const ExperienceAndSkills: React.FunctionComponent<
           })}
         </p>
         <div
-          data-h2-margin="b(bottom, m) s(top, m) s(left, m)"
-          data-h2-padding="b(all, m)"
+          data-h2-margin="b(auto, auto, x1, auto) s(x1, auto, auto, x1)"
+          data-h2-padding="b(x1)"
           data-h2-display="b(flex)"
           data-h2-flex-direction="b(column) s(row)"
           data-h2-justify-content="b(center) m(space-between)"
           data-h2-radius="b(s)"
-          data-h2-bg-color="b(lightgray)"
+          data-h2-background-color="b(light.dt-gray)"
           style={{ flexGrow: "2" }}
         >
           {links.map(({ title, href, icon }) => (
@@ -171,10 +171,10 @@ const ExperienceAndSkills: React.FunctionComponent<
               href={href}
               data-h2-display="b(flex)"
               data-h2-align-items="b(center)"
-              data-h2-margin="b(top-bottom, xs) m(top-bottom, none)"
+              data-h2-margin="b(x.25, auto) m(0, auto)"
             >
               {icon}
-              <span data-h2-padding="b(left, xxs) b(right, xs)">{title}</span>
+              <span data-h2-padding="b(0, x.25, 0, x.125)">{title}</span>
             </a>
           ))}
         </div>
@@ -182,8 +182,8 @@ const ExperienceAndSkills: React.FunctionComponent<
       {!experiences || experiences?.length === 0 ? (
         <div
           data-h2-radius="b(s)"
-          data-h2-bg-color="b(lightgray)"
-          data-h2-padding="b(all, m)"
+          data-h2-background-color="b(light.dt-gray)"
+          data-h2-padding="b(x1)"
         >
           <p data-h2-font-style="b(italic)">
             {intl.formatMessage({

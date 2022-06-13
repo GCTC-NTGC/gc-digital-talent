@@ -7,12 +7,12 @@
   },
   "temp": [
     "../*/src/views/*.html",
-    "../talentsearch/src/js",
     "../indigenousapprenticeship/src/js"
   ],
   "input": [
     "../common/src/components",
-    "../admin/src/js"
+    "../admin/src/js",
+    "../talentsearch/src/js"
   ],
   "output": "src/css",
   "variables": {

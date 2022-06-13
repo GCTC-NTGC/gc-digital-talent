@@ -75,7 +75,7 @@ const Dialog: React.FC<DialogProps> = ({
             className="dialog-close"
             data-h2-padding="b(x.5)"
             data-h2-position="b(absolute)"
-            data-h2-offset="b(x.5, x.5, auto, auto)"
+            data-h2-offset="b(x.5, x.5, 0, 0)"
             {...(confirmation
               ? {
                   "data-h2-color": "b(dt-black)",
@@ -101,7 +101,7 @@ const Dialog: React.FC<DialogProps> = ({
             </h1>
             {subtitle && (
               <p
-                data-h2-margin="b(x.25, auto, 0, auto)"
+                data-h2-margin="b(x.25, 0, 0, 0)"
                 {...(confirmation
                   ? {
                       "data-h2-color": "b(dt-primary)",
@@ -117,7 +117,7 @@ const Dialog: React.FC<DialogProps> = ({
         {footer ? (
           <div
             className="dialog__footer"
-            data-h2-margin="b(x1, auto, auto, auto)"
+            data-h2-margin="b(x1, 0, 0, 0)"
             data-h2-padding="b(x1, 0, 0, 0)"
             data-h2-border="b(top, 1px, solid, dark.dt-gray)"
           >

@@ -203,7 +203,7 @@ export const GovernmentInfoForm: React.FunctionComponent<
         />
       </div>
       {govEmployee === "yes" && (
-        <div data-h2-padding="b(top-bottom, m)" data-h2-flex-item="b(1of3)">
+        <div data-h2-padding="b(x1, 0)" data-h2-flex-item="b(1of3)">
           <RadioGroup
             idPrefix="govEmployeeType"
             legend={intl.formatMessage({
@@ -238,7 +238,7 @@ export const GovernmentInfoForm: React.FunctionComponent<
       {govEmployee === "yes" &&
         (govEmployeeStatus === GovEmployeeType.Term ||
           govEmployeeStatus === GovEmployeeType.Indeterminate) && (
-          <div data-h2-padding="b(bottom, m)">
+          <div data-h2-padding="b(0, 0, x1, 0)">
             <Checkbox
               id="lateralDeployBool"
               label={intl.formatMessage({
@@ -270,7 +270,7 @@ export const GovernmentInfoForm: React.FunctionComponent<
           (govEmployeeStatus === GovEmployeeType.Term ||
             govEmployeeStatus === GovEmployeeType.Indeterminate ||
             govEmployeeStatus === GovEmployeeType.Casual) && (
-            <div data-h2-padding="s(right, l)" style={{ width: "100%" }}>
+            <div data-h2-padding="s(0, x2, 0, 0)" style={{ width: "100%" }}>
               <Select
                 id="currentClassificationGroup"
                 label={intl.formatMessage({

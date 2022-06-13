@@ -37,8 +37,8 @@ const ProfileFormWrapper: React.FunctionComponent<ProfileFormWrapperProps> = ({
 
   const breadcrumbs = (
     <div
-      data-h2-padding="b(top-bottom, m) b(right-left, s) s(right-left, xxl)"
-      data-h2-font-color="b(white)"
+      data-h2-padding="b(x1, x.5) s(x1, x4)"
+      data-h2-color="b(dt-white)"
       style={{
         background: `url(${imageUrl(
           TALENTSEARCH_APP_DIR,
@@ -55,15 +55,15 @@ const ProfileFormWrapper: React.FunctionComponent<ProfileFormWrapperProps> = ({
     <section>
       {breadcrumbs}
       <div
-        data-h2-margin="b(right-left, none) s(right-left, xxl)"
-        data-h2-width="b(100) s(75)"
+        data-h2-margin="b(auto, 0) s(auto, x4)"
+        data-h2-width="b(100%) s(75%)"
       >
-        <div data-h2-margin="b(top-bottom, l)">
+        <div data-h2-margin="b(x2, auto)">
           <CancelButton link={cancelLink} />
         </div>
         <h1
-          data-h2-margin="b(all, none)"
-          data-h2-font-size="b(h2)"
+          data-h2-margin="b(0)"
+          data-h2-font-size="b(h2, 1.3)"
           data-h2-font-weight="b(200)"
         >
           {title}

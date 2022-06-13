@@ -31,8 +31,8 @@ const SkillsInDetail: React.FunctionComponent<SkillsInDetailProps> = ({
   const MAX_WORDS = 160;
 
   return (
-    <section data-h2-margin="b(bottom, l)">
-      <h2 data-h2-font-size="b(h3)">
+    <section data-h2-margin="b(0, 0, x2, 0)">
+      <h2 data-h2-font-size="b(h3, 1.3)">
         {intl.formatMessage({
           defaultMessage: "3. Skills in detail",
           description:
@@ -48,8 +48,8 @@ const SkillsInDetail: React.FunctionComponent<SkillsInDetailProps> = ({
         })}
       </p>
       <ul
-        data-h2-margin="b(bottom, m)"
-        data-h2-font-color="b(darkgray)"
+        data-h2-margin="b(0, 0, x1, 0)"
+        data-h2-color="b(dark.dt-gray)"
         data-h2-font-style="b(italic)"
       >
         <li>
@@ -86,8 +86,8 @@ const SkillsInDetail: React.FunctionComponent<SkillsInDetailProps> = ({
         </li>
       </ul>
       <div
-        data-h2-padding="b(all, m)"
-        data-h2-bg-color="b(lightgray)"
+        data-h2-padding="b(x1)"
+        data-h2-background-color="b(light.dt-gray)"
         data-h2-radius="b(s)"
       >
         {skills.length > 0 ? (
@@ -103,7 +103,7 @@ const SkillsInDetail: React.FunctionComponent<SkillsInDetailProps> = ({
                 <Button
                   color="secondary"
                   mode="inline"
-                  data-h2-padding="b(top-bottom, s) b(right-left, none)"
+                  data-h2-padding="b(x.5, 0)"
                   data-h2-font-style="b(underline)"
                   data-h2-display="b(flex)"
                   data-h2-align-items="b(center)"
@@ -113,7 +113,7 @@ const SkillsInDetail: React.FunctionComponent<SkillsInDetailProps> = ({
                 >
                   <TrashIcon style={{ width: "1rem" }} />
                   <span
-                    data-h2-padding="b(left, xs)"
+                    data-h2-padding="b(0, 0, 0, x.25)"
                     data-h2-visibility="b(invisible) s(visible)"
                   >
                     {intl.formatMessage({

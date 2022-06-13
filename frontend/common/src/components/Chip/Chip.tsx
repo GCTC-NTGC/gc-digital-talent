@@ -60,7 +60,7 @@ const Chip: React.FC<ChipProps> = ({
       {onDismiss && (
         <XCircleIcon
           style={{ width: "1.25rem", cursor: "pointer" }}
-          data-h2-margin="b(auto, auto, auto, x.125)"
+          data-h2-margin="b(0, 0, 0, x.125)"
           {...colorMap[color][mode]}
           role="button"
           onClick={onDismiss}

@@ -73,20 +73,20 @@ const SideMenu: React.FC<SideMenuProps> = ({
           data-h2-align-items="b(stretch)"
           data-h2-justify-content="b(space-between)"
         >
-          <div data-h2-margin="b(x.5, auto)" className="side-menu__header">
+          <div data-h2-margin="b(x.5, 0)" className="side-menu__header">
             <SideMenuItem as="button" onClick={handleToggle} icon={MenuIcon}>
               {isOpen ? "Close" : "Open"} Menu
             </SideMenuItem>
             {header}
           </div>
           <div
-            data-h2-margin="b(x1, auto, auto, auto) m(x2, auto, auto, auto) l(x3, auto, auto, auto)"
+            data-h2-margin="b(x1, 0, 0, 0) m(x2, 0, 0, 0) l(x3, 0, 0, 0)"
             className="side-menu__content"
           >
             {children}
           </div>
           {footer && (
-            <div data-h2-margin="b(x.5, auto)" className="side-menu__footer">
+            <div data-h2-margin="b(x.5, 0)" className="side-menu__footer">
               {footer}
             </div>
           )}

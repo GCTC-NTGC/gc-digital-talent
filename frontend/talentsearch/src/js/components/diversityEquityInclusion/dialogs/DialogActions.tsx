@@ -19,7 +19,7 @@ const DialogActions: React.FC<DialogActionsProps> = ({ onDismiss }) => {
         <Button type="submit" mode="solid" color="cta">
           <SaveIcon
             style={{ height: "1rem", width: "1rem" }}
-            data-h2-margin="b(right, xxs)"
+            data-h2-margin="b(0, x.125, 0, 0)"
           />
           <span>
             {intl.formatMessage({

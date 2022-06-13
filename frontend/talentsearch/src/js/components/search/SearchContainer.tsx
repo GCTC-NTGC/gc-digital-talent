@@ -63,7 +63,7 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
 
   function span(msg: string) {
     return (
-      <span data-h2-font-color="b(lightpurple)" data-testid="candidateCount">
+      <span data-h2-color="b(dt-primary)" data-testid="candidateCount">
         {msg}
       </span>
     );
@@ -84,8 +84,8 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
     return candidateCount > 0 ? (
       <div
         data-h2-shadow="b(m)"
-        data-h2-border="b(lightnavy, left, solid, l)"
-        data-h2-margin="b(top, s) b(bottom, m)"
+        data-h2-border="b(left, 1rem, solid, light.dt-secondary)"
+        data-h2-margin="b(x.5, 0, x1, 0)"
         data-h2-flex-grid="b(middle, contained, flush, xl)"
       >
         <SearchPools
@@ -98,18 +98,18 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
     ) : (
       <div
         data-h2-shadow="b(m)"
-        data-h2-margin="b(top, s) b(bottom, m)"
-        data-h2-padding="b(top-bottom, xs) b(left, s)"
-        data-h2-border="b(darkgray, left, solid, l)"
+        data-h2-margin="b(x.5, 0, x1, 0)"
+        data-h2-padding="b(x.25, 0, x.25, x.5)"
+        data-h2-border="b(left, 1rem, solid, dark.dt-gray)"
       >
-        <p data-h2-margin="b(bottom, none)">
+        <p data-h2-margin="b(x1, 0, 0, 0)">
           {intl.formatMessage({
             defaultMessage: "We can still help!",
             description:
               "Heading for helping user if no candidates matched the filters chosen.",
           })}
         </p>
-        <p data-h2-margin="b(top, xxs)" data-h2-font-size="b(caption)">
+        <p data-h2-margin="b(x.125, 0, x1, 0)" data-h2-font-size="b(caption)">
           {intl.formatMessage(
             {
               defaultMessage:
@@ -130,15 +130,15 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
     <div>
       <div
         data-h2-position="b(relative)"
-        data-h2-flex-grid="b(top, contained, flush, none)"
+        data-h2-flex-grid="b(flex-start, 0, 0)"
         data-h2-container="b(center, l)"
       >
         <div data-h2-flex-item="b(1of1) s(2of3)">
-          <div data-h2-padding="b(right, l)">
+          <div data-h2-padding="b(0, x2, 0, 0)">
             <h2
-              data-h2-font-color="b(black)"
+              data-h2-color="b(dt-black)"
               data-h2-font-weight="b(300)"
-              data-h2-margin="b(all, none)"
+              data-h2-margin="b(0)"
             >
               {intl.formatMessage({
                 defaultMessage: "How to use this tool",
@@ -177,9 +177,9 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
       <div data-h2-container="b(center, l)">
         <div>
           <h3
-            data-h2-font-size="b(h4)"
+            data-h2-font-size="b(h4, 1.3)"
             data-h2-font-weight="b(700)"
-            data-h2-margin="b(bottom, m)"
+            data-h2-margin="b(x3, 0, x1, 0)"
           >
             {intl.formatMessage(
               {

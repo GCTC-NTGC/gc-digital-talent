@@ -43,13 +43,13 @@ const Fieldset: React.FC<FieldsetProps> = ({
         border: "0 none",
         padding: "0",
       }}
-      data-h2-margin="b(auto, auto, x.125, auto)"
+      data-h2-margin="b(0, 0, x.125, 0)"
     >
       <legend data-h2-visibility="b(invisible)">{legend}</legend>
       <div
         data-h2-display="b(flex)"
         data-h2-flex-wrap="b(wrap)"
-        data-h2-margin="b(auto, auto, x.125, auto)"
+        data-h2-margin="b(0, 0, x.125, 0)"
       >
         <div style={{ flex: "1" }}>
           <span
@@ -80,7 +80,7 @@ const Fieldset: React.FC<FieldsetProps> = ({
             <button
               type="button"
               className="input-label-context-button"
-              data-h2-margin="b(auto, auto, auto, x.125)"
+              data-h2-margin="b(0, 0, 0, x.125)"
               onClick={() =>
                 setContextIsActive((currentState) => !currentState)
               }
@@ -115,12 +115,12 @@ const Fieldset: React.FC<FieldsetProps> = ({
         {children}
       </div>
       {error && (
-        <div data-h2-display="block" data-h2-margin="b(x.125, auto, auto, auto)">
+        <div data-h2-display="b(block)" data-h2-margin="b(x.125, 0, 0, 0)">
           <InputError isVisible={!!error} error={error} />
         </div>
       )}
       {contextIsActive && context && (
-        <div data-h2-display="block" data-h2-margin="b(x.125, auto, auto, auto)">
+        <div data-h2-display="b(block)" data-h2-margin="b(x.125, 0, 0, 0)">
           <InputContext
             isVisible={contextIsActive && !!context}
             context={context}

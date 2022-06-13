@@ -156,7 +156,7 @@ const LatestRequestsTable: React.FC<LatestRequestsTableProps> = ({ data }) => {
       <h2
         id="latest-requests-heading"
         data-h2-font-weight="b(800)"
-        data-h2-margin="b(x1, auto)"
+        data-h2-margin="b(x1, 0)"
       >
         {intl.formatMessage({
           defaultMessage: "Latests requests",

@@ -154,7 +154,7 @@ export const UpdatePoolForm: React.FunctionComponent<UpdatePoolFormProps> = ({
 
   return (
     <section>
-      <h2 data-h2-text-align="b(center)" data-h2-margin="b(0, auto, auto, auto)">
+      <h2 data-h2-text-align="b(center)" data-h2-margin="b(0)">
         {intl.formatMessage({
           defaultMessage: "Update Pool",
           description: "Title displayed on the update a pool form.",

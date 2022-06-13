@@ -60,13 +60,13 @@ const Footer: React.FunctionComponent<{
               data-h2-display="b(flex)"
               data-h2-flex-wrap="b(wrap)"
               data-h2-justify-content="b(center) m(flex-start)"
-              data-h2-margin="b(auto, auto, x.25, auto)"
+              data-h2-margin="b(0, 0, x.25, 0)"
             >
               {links.map(({ route, label }) => (
                 <li
                   key={label}
                   data-h2-display="b(inline-block)"
-                  data-h2-margin="b(0, auto)"
+                  data-h2-margin="b(0)"
                 >
                   {/* These links must use real anchor links, not the history api, as they may direct to outside of this app. */}
                   <a href={route}>{label}</a>
@@ -77,7 +77,7 @@ const Footer: React.FunctionComponent<{
           <p
             data-h2-font-size="b(caption)"
             data-h2-color="b(dark.dt-gray)"
-            data-h2-margin="b(x1, auto, 0, auto)"
+            data-h2-margin="b(x1, 0, 0, 0)"
           >
             {intl.formatMessage(
               {

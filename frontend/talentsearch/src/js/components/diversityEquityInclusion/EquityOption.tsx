@@ -50,17 +50,17 @@ const EquityOption: React.FC<EquityOptionProps> = ({
 
   return (
     <div
-      data-h2-margin="b(top, xxs)"
-      data-h2-padding="b(all, s)"
+      data-h2-margin="b(x.125, 0, 0, 0)"
+      data-h2-padding="b(x.5)"
       data-h2-shadow="b(m)"
-      data-h2-radius="b(none, s, s, none)"
-      data-h2-overflow="b(all, hidden)"
+      data-h2-radius="b(0px, s, s, 0px)"
+      data-h2-overflow="b(hidden, all)"
       data-h2-display="b(flex)"
       data-h2-align-items="b(center)"
       data-h2-justify-content="b(space-between)"
       {...(isAdded
-        ? { "data-h2-border": "b(darkpurple, left, solid, m)" }
-        : { "data-h2-border": "b(lightpurple, left, solid, m)" })}
+        ? { "data-h2-border": "b(left, .5rem, solid, dark.dt-primary)" }
+        : { "data-h2-border": "b(left, .5rem, solid, dt-primary)" })}
     >
       <span>{title}</span>
       <span style={{ flexShrink: 0 }}>
@@ -73,7 +73,7 @@ const EquityOption: React.FC<EquityOptionProps> = ({
           <span data-h2-display="b(flex)" data-h2-align-items="b(center)">
             <Icon
               style={{ height: iconSize, width: iconSize }}
-              data-h2-margin="b(right, xxs)"
+              data-h2-margin="b(0, x.125, 0, 0)"
             />
             <span>{isAdded ? removeText : addText}</span>
           </span>

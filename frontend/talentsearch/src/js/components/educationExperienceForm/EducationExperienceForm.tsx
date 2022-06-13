@@ -21,7 +21,7 @@ export const EducationExperienceForm: React.FunctionComponent = () => {
 
   return (
     <div>
-      <h2 data-h2-font-size="b(h3)">
+      <h2 data-h2-font-size="b(h3, 1.3)">
         {intl.formatMessage({
           defaultMessage: "1. Education Details",
           description: "Title for Education Details Form",
@@ -36,10 +36,10 @@ export const EducationExperienceForm: React.FunctionComponent = () => {
       </p>
       <div
         data-h2-display="b(flex)"
-        data-h2-padding="b(top, m)"
+        data-h2-padding="b(x1, 0, 0, 0)"
         data-h2-flex-direction="s(row) b(column)"
       >
-        <div data-h2-padding="l(right, l) m(right, l)">
+        <div data-h2-padding="m(0, x2, 0, 0)">
           <Select
             id="educationType"
             label={intl.formatMessage({
@@ -165,7 +165,7 @@ export const EducationExperienceForm: React.FunctionComponent = () => {
             data-h2-display="b(flex)"
             data-h2-flex-direction="s(row) b(column)"
           >
-            <div data-h2-padding="l(right, l) m(right, l)">
+            <div data-h2-padding="m(0, x2, 0, 0)">
               <Input
                 id="startDate"
                 label={intl.formatMessage({

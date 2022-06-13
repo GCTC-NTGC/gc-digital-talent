@@ -15,7 +15,7 @@ export const PersonalExperienceForm: React.FunctionComponent = () => {
 
   return (
     <div>
-      <h2 data-h2-font-size="b(h3)">
+      <h2 data-h2-font-size="b(h3, 1.3)">
         {intl.formatMessage({
           defaultMessage: "1. Personal Experience Details",
           description: "Title for Personal Experience Details form",
@@ -99,7 +99,7 @@ export const PersonalExperienceForm: React.FunctionComponent = () => {
           data-h2-display="b(flex)"
           data-h2-flex-direction="b(column) s(row)"
         >
-          <div data-h2-padding="b(right, none) s(right, l)">
+          <div data-h2-padding="b(0) s(0, x2, 0, 0)">
             <Input
               id="startDate"
               label={intl.formatMessage({

@@ -29,7 +29,7 @@ const Accordion: React.FC<AccordionProps> = ({
 
   return (
     <div
-      data-h2-margin="b(x.25, auto, auto, auto)"
+      data-h2-margin="b(x.25, 0, 0, 0)"
       data-h2-shadow="b(m)"
       data-h2-radius="b(0px, s, s, 0px)"
       data-h2-overflow="b(hidden, all)"
@@ -78,7 +78,7 @@ const Accordion: React.FC<AccordionProps> = ({
               {title}
             </p>
 
-            <p data-h2-margin="b(x.5, auto, 0, auto)">{subtitle}</p>
+            <p data-h2-margin="b(x.5, 0, 0, 0)">{subtitle}</p>
           </div>
           <div
             data-h2-flex-item="b(content)"
@@ -90,7 +90,7 @@ const Accordion: React.FC<AccordionProps> = ({
           >
             <p data-h2-font-size="b(copy)">{context}</p>
             {!simple && (
-              <span className="icon" data-h2-margin="b(auto, auto, auto, x.25)">
+              <span className="icon" data-h2-margin="b(0, 0, 0, x.25)">
                 {Icon && <Icon style={{ width: "1.5rem", height: "1.5rem" }} />}
               </span>
             )}

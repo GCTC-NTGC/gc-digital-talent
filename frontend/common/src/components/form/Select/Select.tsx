@@ -38,7 +38,7 @@ const Select: React.FunctionComponent<SelectProps> = ({
 
   const error = get(errors, name)?.message;
   return (
-    <div data-h2-margin="b(auto, auto, x.125, auto)">
+    <div data-h2-margin="b(0, 0, x.125, 0)">
       <InputWrapper
         inputId={id}
         label={label}

@@ -18,7 +18,7 @@ const CancelButton: React.FunctionComponent<{ link?: string }> = ({ link }) => {
       type="button"
     >
       <ArrowCircleLeftIcon style={{ width: "1rem" }} />
-      <span data-h2-margin="b(left, xxs)">
+      <span data-h2-margin="b(auto, auto, auto, x.125)">
         {intl.formatMessage({
           defaultMessage: "Cancel and go back",
           description: "Label for cancel button on profile form.",

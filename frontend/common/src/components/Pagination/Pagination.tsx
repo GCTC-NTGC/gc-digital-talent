@@ -78,13 +78,13 @@ const Pagination: React.FunctionComponent<PaginationProps> = ({
       <nav
         role="navigation"
         aria-label={ariaLabel}
-        data-h2-margin="b(auto, auto, x.5, auto) s(auto, x.5, auto, auto)"
+        data-h2-margin="b(0, 0, x.5, 0) s(0, x.5, 0, 0)"
       >
         <ul
           className="reset-ul"
           data-h2-display="b(flex)"
           data-h2-align-items="b(center)"
-          data-h2-margin="b(0, auto, auto, auto)"
+          data-h2-margin="b(0, 0, 0, 0)"
           {...rest}
         >
           {/* left navigation arrow */}
@@ -104,7 +104,7 @@ const Pagination: React.FunctionComponent<PaginationProps> = ({
                   "Aria label for previous page button in pagination nav",
               })}
               onClick={previousPage}
-              data-h2-margin="b(auto, x.125, auto, auto)"
+              data-h2-margin="b(0, x.125, 0, 0)"
               data-h2-padding="b(x.125, x.25)"
               data-testid="leftArrowButton"
             >
@@ -148,7 +148,7 @@ const Pagination: React.FunctionComponent<PaginationProps> = ({
                   )}
                   aria-current={current}
                   onClick={() => handlePageChange(Number(pageNumber))}
-                  data-h2-margin="b(auto, x.125)"
+                  data-h2-margin="b(0, x.125)"
                   data-h2-padding="b(x.125, x.25)"
                 >
                   {pageNumber}
@@ -173,7 +173,7 @@ const Pagination: React.FunctionComponent<PaginationProps> = ({
                   "Aria label for next page button in pagination nav",
               })}
               onClick={nextPage}
-              data-h2-margin="b(auto, auto, auto, x.125)"
+              data-h2-margin="b(0, 0, 0, x.125)"
               data-h2-padding="b(x.125, x.25)"
               data-testid="rightArrowButton"
             >
@@ -182,7 +182,7 @@ const Pagination: React.FunctionComponent<PaginationProps> = ({
           </li>
         </ul>
       </nav>
-      <div data-h2-margin="b(auto, auto, x.5, auto) s(auto, x.5, auto, auto)">
+      <div data-h2-margin="b(0, 0, x.5, 0) s(0, x.5, 0, 0)">
         <span>
           {intl.formatMessage({
             defaultMessage: "Go to page:",

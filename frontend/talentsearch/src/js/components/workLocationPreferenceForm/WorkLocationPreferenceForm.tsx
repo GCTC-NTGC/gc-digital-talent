@@ -97,8 +97,8 @@ export const WorkLocationPreferenceForm: React.FC<
       <FormProvider {...methods}>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div>
-            <div data-h2-flex-item="b(1of1)" data-h2-padding="b(top, m)">
-              <div data-h2-padding="b(right, l)" data-testid="workLocation">
+            <div data-h2-flex-item="b(1of1)" data-h2-padding="b(x1, 0, 0, 0)">
+              <div data-h2-padding="b(0, x2, 0, 0)" data-testid="workLocation">
                 <Checklist
                   idPrefix="work-location"
                   legend={intl.formatMessage({
@@ -119,8 +119,8 @@ export const WorkLocationPreferenceForm: React.FC<
                 />
               </div>
             </div>
-            <div data-h2-flex-item="b(1of1)" data-h2-padding="b(top, m)">
-              <div data-h2-padding="b(right, l)">
+            <div data-h2-flex-item="b(1of1)" data-h2-padding="b(x1, 0, 0, 0)">
+              <div data-h2-padding="b(0, x2, 0, 0)">
                 <p>
                   {intl.formatMessage({
                     defaultMessage:
@@ -129,7 +129,7 @@ export const WorkLocationPreferenceForm: React.FC<
                       "Explanation text for Location exemptions field in work location preference form",
                   })}
                 </p>
-                <p data-h2-font-color="b([dark]gray)">
+                <p data-h2-color="b(dark.dt-gray)">
                   {intl.formatMessage({
                     defaultMessage:
                       "E.g.: You want to be considered for the Quebec region, but not for Montréal.",
@@ -139,8 +139,8 @@ export const WorkLocationPreferenceForm: React.FC<
                 </p>
               </div>
             </div>
-            <div data-h2-flex-item="b(1of2)" data-h2-padding="b(top, m)">
-              <div data-h2-padding="b(right, l)">
+            <div data-h2-flex-item="b(1of2)" data-h2-padding="b(x1, 0, 0, 0)">
+              <div data-h2-padding="b(0, x2, 0, 0)">
                 <TextArea
                   id="location-exemptions"
                   label="Location exemptions"

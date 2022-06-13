@@ -24,7 +24,7 @@ const SearchPools: React.FunctionComponent<SearchPoolsProps> = ({
     return (
       <span
         data-h2-font-weight="b(700)"
-        data-h2-font-color="b(lightpurple)"
+        data-h2-color="b(dt-primary)"
         data-testid="candidateCount"
       >
         {msg}
@@ -37,11 +37,11 @@ const SearchPools: React.FunctionComponent<SearchPoolsProps> = ({
         data-h2-flex-item="b(1of1) m(1of2)"
         style={{ padding: "0", paddingLeft: "1rem" }}
       >
-        <p data-h2-margin="b(bottom, none)" data-h2-font-weight="b(700)">
+        <p data-h2-margin="b(x1, 0, 0, 0)" data-h2-font-weight="b(700)">
           {pool?.name?.[locale]}
         </p>
         <p
-          data-h2-margin="b(top, xxs) b(bottom, m)"
+          data-h2-margin="b(x.125, 0, x1, 0)"
           data-h2-font-weight="b(200)"
         >
           {intl.formatMessage(
@@ -57,7 +57,7 @@ const SearchPools: React.FunctionComponent<SearchPoolsProps> = ({
             },
           )}
         </p>
-        <p data-h2-margin="b(bottom, none)" data-h2-font-size="b(caption)">
+        <p data-h2-margin="b(x1, 0, 0, 0)" data-h2-font-size="b(caption)">
           {intl.formatMessage(
             {
               defaultMessage: "Pool Owner: {firstName} {lastName}",
@@ -69,7 +69,7 @@ const SearchPools: React.FunctionComponent<SearchPoolsProps> = ({
             },
           )}
         </p>
-        <p data-h2-margin="b(bottom, s)" data-h2-font-size="b(caption)">
+        <p data-h2-margin="b(x1, 0, x.5, 0)" data-h2-font-size="b(caption)">
           {pool?.description?.[locale]}
         </p>
       </div>

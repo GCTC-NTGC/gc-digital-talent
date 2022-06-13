@@ -14,7 +14,7 @@ const PageHeader: React.FC<PageHeaderProps> = ({ icon, children, ...rest }) => {
       data-h2-display="b(flex)"
       data-h2-font-weight="b(300)"
       data-h2-align-items="b(center)"
-      data-h2-margin="b(0, auto, x1, auto)"
+      data-h2-margin="b(0, 0, x1, 0)"
       data-h2-justify-content="b(start)"
       {...rest}
     >

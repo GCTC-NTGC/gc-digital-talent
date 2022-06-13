@@ -124,7 +124,7 @@ function Table<T extends Record<string, unknown>>({
                 {showList ? (
                   <div
                     data-h2-position="b(absolute)"
-                    data-h2-margin="b(auto, x.5)"
+                    data-h2-margin="b(0, x.5)"
                     data-h2-padding="b(x.5)"
                     data-h2-border="b(all, 1px, solid, dt-gray)"
                     data-h2-radius="b(s)"

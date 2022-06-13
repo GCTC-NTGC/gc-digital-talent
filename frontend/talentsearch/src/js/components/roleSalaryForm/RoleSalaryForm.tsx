@@ -39,7 +39,7 @@ const ModalButton: React.FC<ModalButtonProps> = ({ click, children }) => {
     <Button
       color="black"
       mode="inline"
-      data-h2-padding="b(all, none)"
+      data-h2-padding="b(0)"
       data-h2-font-size="b(caption)"
       onClick={click}
     >
@@ -146,7 +146,7 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
           defaultValues: initialDataToFormValues(initialUser),
         }}
       >
-        <p data-h2-margin="b(bottom, l)">
+        <p data-h2-margin="b(0, 0, x2, 0)">
           {intl.formatMessage(
             {
               defaultMessage:
@@ -261,11 +261,11 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
           ]}
         />
         <div
-          data-h2-bg-color="b(lightgray)"
-          data-h2-margin="b(top, m)"
+          data-h2-background-color="b(light.dt-gray)"
+          data-h2-margin="b(x1, 0, 0, 0)"
           data-h2-radius="b(s)"
         >
-          <p data-h2-padding="b(top-bottom, m) b(left, s)">
+          <p data-h2-padding="b(x1, 0, x1, x.5)">
             <span>
               <InformationCircleIcon style={{ width: "0.9rem" }} />{" "}
               {intl.formatMessage(

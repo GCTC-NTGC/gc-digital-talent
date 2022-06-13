@@ -10,8 +10,8 @@ const CandidatePoolsSection: React.FunctionComponent<{
   const locale = getLocale(intl);
   return (
     <div
-      data-h2-bg-color="b(lightgray)"
-      data-h2-padding="b(all, m)"
+      data-h2-background-color="b(light.dt-gray)"
+      data-h2-padding="b(x1)"
       data-h2-radius="b(s)"
     >
       {(!poolCandidates || poolCandidates.length === 0) && (
@@ -30,7 +30,7 @@ const CandidatePoolsSection: React.FunctionComponent<{
             data-h2-display="b(flex)"
             data-h2-flex-direction="b(row)"
             data-h2-justify-content="b(space-between)"
-            data-h2-padding="b(top-bottom, m)"
+            data-h2-padding="b(x1, 0)"
           >
             <div>
               <p>{poolCandidate?.pool?.name?.[locale]}</p>

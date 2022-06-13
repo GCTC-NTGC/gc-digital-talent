@@ -20,18 +20,18 @@ const EstimatedCandidates: React.FunctionComponent<
 
   return (
     <div
-      data-h2-bg-color="b(white)"
-      data-h2-border="b(lightgray, all, solid, s)"
+      data-h2-background-color="b(dt-white)"
+      data-h2-border="b(all, 1px, solid, light.dt-gray)"
       data-h2-shadow="b(m)"
     >
       <div
-        data-h2-bg-color="b(linear-70[lightpurple][lightnavy])"
-        data-h2-padding="b(top-bottom, s) b(left, s) b(right, s)"
+        data-h2-background-color="b(dt-linear)"
+        data-h2-padding="b(x.5)"
       >
         <p
-          data-h2-font-color="b(white)"
-          data-h2-font-size="b(h4)"
-          data-h2-margin="b(all, none)"
+          data-h2-color="b(dt-white)"
+          data-h2-font-size="b(h4, 1.3)"
+          data-h2-margin="b(0)"
           data-h2-font-weight="b(700)"
         >
           {intl.formatMessage({
@@ -42,7 +42,7 @@ const EstimatedCandidates: React.FunctionComponent<
         </p>
       </div>
       <div
-        data-h2-margin="b(top-bottom, m) b(right-left, l)"
+        data-h2-margin="b(x1, x2)"
         aria-live="polite"
       >
         <p data-h2-text-align="b(center)">

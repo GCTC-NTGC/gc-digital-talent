@@ -30,7 +30,7 @@ const Alert: React.FunctionComponent<AlertProps> = ({
       data-h2-flex-direction="b(column)"
       data-h2-radius="b(s)"
       data-h2-padding="b(0, x.5)"
-      data-h2-margin="b(x1, auto)"
+      data-h2-margin="b(x1, 0)"
       {...typeMap[type]}
       {...rest}
     >
@@ -39,10 +39,10 @@ const Alert: React.FunctionComponent<AlertProps> = ({
         data-h2-align-items="b(center)"
         data-h2-font-weight="b(600)"
       >
-        <span data-h2-margin="b(auto, x.25, auto, auto)">{icon}</span>
+        <span data-h2-margin="b(0, x.25, 0, 0)">{icon}</span>
         {title}
       </p>
-      <p data-h2-margin="b(0, auto, auto, auto)">{message}</p>
+      <p data-h2-margin="b(0, 0, 0, 0)">{message}</p>
     </div>
   );
 };

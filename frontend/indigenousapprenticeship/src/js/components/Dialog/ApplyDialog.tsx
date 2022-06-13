@@ -9,8 +9,7 @@ import type { BasicDialogProps } from "./types";
 const mailAccessor = (...chunks: string[]) => (
   <a
     href="mailto:edsc.pda-iap.esdc@hrsdc-rhdcc.gc.ca"
-    data-h2-font-color="b(ia-pink) b:h(ia-darkpink)"
-    data-h2-un
+    data-h2-font-color="b(ia-pink) b:hover(ia-darkpink)"
   >
     {chunks}
   </a>

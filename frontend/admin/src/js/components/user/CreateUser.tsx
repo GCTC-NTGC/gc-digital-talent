@@ -68,7 +68,7 @@ export const CreateUserForm: React.FunctionComponent<CreateUserFormProps> = ({
 
   return (
     <section>
-      <h2 data-h2-text-align="b(center)" data-h2-margin="b(0, auto, auto, auto)">
+      <h2 data-h2-text-align="b(center)" data-h2-margin="b(0)">
         {intl.formatMessage({
           defaultMessage: "Create User",
           description: "Title displayed on the create a user form.",

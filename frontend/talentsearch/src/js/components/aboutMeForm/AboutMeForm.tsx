@@ -117,7 +117,7 @@ export const AboutMeForm: React.FunctionComponent<AboutMeFormProps> = ({
           defaultValues: initialDataToFormValues(initialUser),
         }}
       >
-        <h2 data-h2-font-size="b(h3)" data-h2-font-weight="b(700)">
+        <h2 data-h2-font-size="b(h3, 1.3)" data-h2-font-weight="b(700)">
           {intl.formatMessage({
             defaultMessage: "Personal Information",
             description:
@@ -132,8 +132,8 @@ export const AboutMeForm: React.FunctionComponent<AboutMeFormProps> = ({
               "Description for Personal Information section of the About Me form",
           })}
         </p>
-        <div data-h2-flex-item="b(1of1)" data-h2-padding="b(top, m)">
-          <div data-h2-padding="b(right, l)">
+        <div data-h2-flex-item="b(1of1)" data-h2-padding="b(x1, 0, 0, 0)">
+          <div data-h2-padding="b(0, x2, 0, 0)">
             <RadioGroup
               idPrefix="required-lang-preferences"
               legend={intl.formatMessage({
@@ -209,7 +209,7 @@ export const AboutMeForm: React.FunctionComponent<AboutMeFormProps> = ({
             />
           </div>
         </div>
-        <h2 data-h2-font-size="b(h3)" data-h2-font-weight="b(700)">
+        <h2 data-h2-font-size="b(h3, 1.3)" data-h2-font-weight="b(700)">
           {intl.formatMessage({
             defaultMessage: "Account Details",
             description:
@@ -224,8 +224,8 @@ export const AboutMeForm: React.FunctionComponent<AboutMeFormProps> = ({
               "Description for Account Details section of the About Me form",
           })}
         </p>
-        <div data-h2-flex-item="b(1of1)" data-h2-padding="b(top, m)">
-          <div data-h2-padding="b(right, l)">
+        <div data-h2-flex-item="b(1of1)" data-h2-padding="b(x1, 0, 0, 0)">
+          <div data-h2-padding="b(0, x2, 0, 0)">
             <Input
               id="firstName"
               name="firstName"

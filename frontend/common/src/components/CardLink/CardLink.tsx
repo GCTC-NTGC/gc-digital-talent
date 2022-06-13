@@ -53,7 +53,7 @@ const CardLink: React.FC<CardLinkProps> = ({
       className="card-link"
       data-h2-display="b(inline-block)"
       data-h2-radius="b(s)"
-      data-h2-shadow="b(s) b:h(l)"
+      data-h2-shadow="b(s) b:hover(l)"
       {...rest}
     >
       <span

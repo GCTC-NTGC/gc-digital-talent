@@ -101,7 +101,7 @@ export const UpdateSearchRequestForm: React.FunctionComponent<
           <form onSubmit={handleSubmit(handleStatusChangeToDone)}>
             <div
               data-h2-border="b(bottom, 1px, solid, light.dt-gray)"
-              data-h2-margin="b(auto, auto, x1, auto)"
+              data-h2-margin="b(0, 0, x1, 0)"
               data-h2-padding="b(0, 0, x1, 0)"
             >
               <TextArea
@@ -130,14 +130,14 @@ export const UpdateSearchRequestForm: React.FunctionComponent<
                 </Button>
               </div>
             </div>
-            <div data-h2-margin="b(auto, auto, x1, auto)">
+            <div data-h2-margin="b(0, 0, x1, 0)">
               <Button
                 color="primary"
                 mode="outline"
                 onClick={() => {
                   navigate(paths.searchRequestTable());
                 }}
-                data-h2-margin="b(x1, x1, auto, auto)"
+                data-h2-margin="b(x1, x1, 0, 0)"
               >
                 {intl.formatMessage({
                   defaultMessage: "Back to All Requests",
