@@ -1335,6 +1335,7 @@ class UserTest extends TestCase
       'is_visible_minority' => false,
       'is_woman' => false,
       'expiry_date' => FAR_FUTURE_DATE,
+      'pool_candidate_status' => 'AVAILABLE',
     ]);
 
     // Create one new candidate for each EmploymentEquity filter
@@ -1344,6 +1345,7 @@ class UserTest extends TestCase
       'is_visible_minority' => false,
       'is_woman' => false,
       'expiry_date' => FAR_FUTURE_DATE,
+      'pool_candidate_status' => 'AVAILABLE',
     ]);
     PoolCandidate::factory()->create([
       'has_disability' => false,
@@ -1351,6 +1353,7 @@ class UserTest extends TestCase
       'is_visible_minority' => false,
       'is_woman' => false,
       'expiry_date' => FAR_FUTURE_DATE,
+      'pool_candidate_status' => 'AVAILABLE',
     ]);
     PoolCandidate::factory()->create([
       'has_disability' => false,
@@ -1358,6 +1361,7 @@ class UserTest extends TestCase
       'is_visible_minority' => true,
       'is_woman' => false,
       'expiry_date' => FAR_FUTURE_DATE,
+      'pool_candidate_status' => 'AVAILABLE',
     ]);
     PoolCandidate::factory()->create([
       'has_disability' => false,
@@ -1365,6 +1369,7 @@ class UserTest extends TestCase
       'is_visible_minority' => false,
       'is_woman' => true,
       'expiry_date' => FAR_FUTURE_DATE,
+      'pool_candidate_status' => 'AVAILABLE',
     ]);
 
     // Assert query with no EmploymentEquity filter will return all candidates
@@ -1379,18 +1384,6 @@ class UserTest extends TestCase
         'countPoolCandidates' => 9
       ]
     ]);
-    // Assert query with no EmploymentEquity filter will return all candidates
-    $this->graphQL(/** @lang Graphql */ '
-        query countPoolCandidates($where: PoolCandidateFilterInput) {
-          countPoolCandidates(where: $where)
-        }
-      ', [
-        'where' => []
-      ])->assertJson([
-        'data' => [
-          'countPoolCandidates' => 9
-        ]
-      ]);
 
       // Assert query with isIndigenous filter will return correct candidate count
       $this->graphQL(/** @lang Graphql */ '
