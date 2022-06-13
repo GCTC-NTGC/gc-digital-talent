@@ -219,7 +219,6 @@ input CreatePoolCandidateFilterInput {
   operationalRequirements: [OperationalRequirement]
   workRegions: [WorkRegion]
   pools: PoolBelongsToMany
-  status: PoolCandidateStatus
 }
 
 input CreatePoolCandidateSearchRequestInput {
@@ -693,7 +692,6 @@ type PoolCandidateFilter {
   operationalRequirements: [OperationalRequirement]
   workRegions: [WorkRegion]
   pools: [Pool]
-  status: PoolCandidateStatus
 }
 
 input PoolCandidateFilterBelongsTo {
@@ -709,7 +707,6 @@ input PoolCandidateFilterInput {
   operationalRequirements: [OperationalRequirement]
   workRegions: [WorkRegion]
   pools: [PoolFilterInput]
-  status: PoolCandidateStatus
 }
 
 type PoolCandidateSearchRequest {
@@ -1176,7 +1173,6 @@ input UserFilterAndOrderInput {
   skills: [ID]
   isGovEmployee: Boolean
   orderBy: String
-  status: PoolCandidateStatus
 }
 
 """A paginated list of User items."""
@@ -1191,6 +1187,7 @@ type UserPaginator {
 input UserPoolFilterInput {
   pools: [ID!]!
   expiryStatus: CANDIDATE_EXPIRY_FILTER = ACTIVE
+  status: PoolCandidateStatus
 }
 
 type UserPublicProfile {

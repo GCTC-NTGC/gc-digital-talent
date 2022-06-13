@@ -270,18 +270,19 @@ RAWSQL2;
         return $query;
     }
 
-    public function scopePoolCandidateStatus(Builder $query, ?string $poolCandidateStatus): Builder
+    public function scopePoolCandidateStatus(Builder $query, ?array $poolCandidateStatuses): Builder
     {
-        if(empty($poolCandidateStatus)){
+        if(empty($poolCandidateStatuses)){
             return $query;
         }
 
-        if($poolCandidateStatus == 'AVAILABLE'){
-            $query->where('pool_candidate_status', 'AVAILABLE');
-            return $query;
-        }
-
+        $query->whereIn('pool_candidate_status', $poolCandidateStatuses);
         return $query;
+    }
+
+    public function scopeAvailable(Builder $query): Builder
+    {
+        return $query->where('pool_candidate_status', 'AVAILABLE');
     }
 
     public function scopeHasDiploma(Builder $query, bool $hasDiploma): Builder

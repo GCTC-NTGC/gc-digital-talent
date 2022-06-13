@@ -14,7 +14,6 @@ fragment poolCandidateSearchRequest on PoolCandidateSearchRequest {
   additionalComments
   poolCandidateFilter {
     id
-    status
     classifications {
       id
       name {
@@ -51,7 +50,6 @@ fragment poolCandidateSearchRequest on PoolCandidateSearchRequest {
     }
   }
   requestedDate
-  status
   adminNotes
 }
 query getPoolCandidateSearchRequests {
