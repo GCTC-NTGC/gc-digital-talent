@@ -103,7 +103,6 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
       additionalComments: values.additionalComments,
       poolCandidateFilter: {
         create: {
-          status: PoolCandidateStatus.Available,
           classifications: {
             sync: poolCandidateFilter?.classifications
               ? poolCandidateFilter?.classifications

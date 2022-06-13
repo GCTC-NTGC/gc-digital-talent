@@ -236,7 +236,6 @@ const candidateFilterToQueryArgs = (
     return {
       where: {
         ...filter,
-        status: PoolCandidateStatus.Available,
         equity: {
           hasDisability: filter?.equity?.hasDisability,
           isIndigenous: filter?.equity?.isIndigenous,
