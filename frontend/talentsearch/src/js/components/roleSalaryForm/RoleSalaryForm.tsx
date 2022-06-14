@@ -21,8 +21,8 @@ import {
   DialogLevelFourAdvisor,
 } from "./dialogs";
 import {
-  ClassificationRole,
-  ClassificationRoleType,
+  GenericJobTitle,
+  GenericJobTitleType,
   GetRoleSalaryInfoQuery,
   UpdateUserAsUserInput,
   useGetRoleSalaryInfoQuery,
@@ -34,7 +34,7 @@ import profileMessages from "../profile/profileMessages";
 import { useApplicantProfileRoutes } from "../../applicantProfileRoutes";
 
 export type FormValues = {
-  expectedClassificationRoles: ClassificationRoleType[];
+  expectedGenericJobTitles: GenericJobTitleType[];
 };
 
 export type RoleSalaryUpdateHandler = (
@@ -143,7 +143,7 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
           )}
         </p>
         <Checklist
-          idPrefix="expectedClassificationRoles"
+          idPrefix="expectedGenericJobTitles"
           legend={intl.formatMessage({
             defaultMessage:
               "I would like to be referred for jobs at the following levels:",
@@ -152,10 +152,10 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
           rules={{
             required: intl.formatMessage(errorMessages.required),
           }}
-          name="expectedClassificationRoles"
+          name="expectedGenericJobTitles"
           items={[
             {
-              value: ClassificationRoleType.TechnicianIt01,
+              value: GenericJobTitleType.TechnicianIt01,
               label: intl.formatMessage(
                 {
                   defaultMessage:
@@ -170,7 +170,7 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
               ),
             },
             {
-              value: ClassificationRoleType.AnalystIt02,
+              value: GenericJobTitleType.AnalystIt02,
               label: intl.formatMessage(
                 {
                   defaultMessage:
@@ -185,7 +185,7 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
               ),
             },
             {
-              value: ClassificationRoleType.TeamLeaderIt03,
+              value: GenericJobTitleType.TeamLeaderIt03,
               label: intl.formatMessage(
                 {
                   defaultMessage:
@@ -200,7 +200,7 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
               ),
             },
             {
-              value: ClassificationRoleType.TechnicalAdvisorIt03,
+              value: GenericJobTitleType.TechnicalAdvisorIt03,
               label: intl.formatMessage(
                 {
                   defaultMessage:
@@ -215,7 +215,7 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
               ),
             },
             {
-              value: ClassificationRoleType.SeniorAdvisorIt04,
+              value: GenericJobTitleType.SeniorAdvisorIt04,
               label: intl.formatMessage(
                 {
                   defaultMessage:
@@ -230,7 +230,7 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
               ),
             },
             {
-              value: ClassificationRoleType.ManagerIt04,
+              value: GenericJobTitleType.ManagerIt04,
               label: intl.formatMessage(
                 {
                   defaultMessage:
@@ -304,8 +304,8 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
 
 const dataToFormValues = (data: GetRoleSalaryInfoQuery): FormValues => {
   return {
-    expectedClassificationRoles:
-      data?.me?.expectedClassificationRoles
+    expectedGenericJobTitles:
+      data?.me?.expectedGenericJobTitles
         ?.map((c) => c?.role)
         .filter(notEmpty) ?? [],
   };
@@ -313,16 +313,14 @@ const dataToFormValues = (data: GetRoleSalaryInfoQuery): FormValues => {
 
 const formValuesToSubmitData = (
   values: FormValues,
-  classificationRoles: ClassificationRole[],
+  GenericJobTitles: GenericJobTitle[],
 ): UpdateUserAsUserInput => {
-  const ids = values.expectedClassificationRoles
-    .map((role: ClassificationRoleType) =>
-      find(classificationRoles, ["role", role]),
-    )
+  const ids = values.expectedGenericJobTitles
+    .map((role: GenericJobTitleType) => find(GenericJobTitles, ["role", role]))
     .filter(notEmpty)
-    .map((c: ClassificationRole) => c.id);
+    .map((c: GenericJobTitle) => c.id);
   return {
-    expectedClassificationRoles: {
+    expectedGenericJobTitles: {
       sync: ids,
     },
   };
@@ -334,7 +332,7 @@ const RoleSalaryFormContainer: React.FunctionComponent = () => {
 
   const [{ data: initialData, fetching, error }] = useGetRoleSalaryInfoQuery();
   const preProfileStatus = initialData?.me?.isProfileComplete;
-  const classificationRoles = unpackMaybes(initialData?.classificationRoles);
+  const GenericJobTitles = unpackMaybes(initialData?.GenericJobTitles);
 
   const [, executeMutation] = useUpdateRoleSalaryMutation();
   const handleRoleSalary = (id: string, data: UpdateUserAsUserInput) =>
@@ -376,7 +374,7 @@ const RoleSalaryFormContainer: React.FunctionComponent = () => {
             }
             return handleRoleSalary(
               userId,
-              formValuesToSubmitData(formValues, classificationRoles),
+              formValuesToSubmitData(formValues, GenericJobTitles),
             );
           }}
         />

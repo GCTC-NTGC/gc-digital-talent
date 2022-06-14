@@ -97,7 +97,7 @@ type User {
 
     # Profile Status
     isProfileComplete: Boolean
-    expectedClassificationRoles: [ClassificationRole] @belongsToMany
+    expectedGenericJobTitles: [GenericJobTitle] @belongsToMany
 
 }
 
@@ -206,7 +206,7 @@ type Applicant {
     educationExperiences: [EducationExperience]
     personalExperiences: [PersonalExperience]
     workExperiences: [WorkExperience]
-    expectedClassificationRoles: [ClassificationRole] @belongsToMany
+    expectedGenericJobTitles: [GenericJobTitle] @belongsToMany
 
 }
 
@@ -320,10 +320,10 @@ type Classification {
   level: Int!
   minSalary: Int @rename(attribute: "min_salary")
   maxSalary: Int @rename(attribute: "max_salary")
-  classificationRoles: [ClassificationRole] @belongsToMany
+  GenericJobTitles: [GenericJobTitle] @belongsToMany
 }
 
-enum ClassificationRoleType {
+enum GenericJobTitleType {
   TECHNICIAN_IT01
   ANALYST_IT02
   TEAM_LEADER_IT03
@@ -332,9 +332,9 @@ enum ClassificationRoleType {
   MANAGER_IT04
 }
 
-type ClassificationRole {
+type GenericJobTitle {
     id: ID!
-    role: ClassificationRoleType!
+    role: GenericJobTitleType!
     name: LocalizedString
     classification: Classification @belongsTo
 }
@@ -628,8 +628,8 @@ type Query {
     skillFamilies: [SkillFamily]! @all
     skill(id: ID! @eq): Skill @find
     skills: [Skill]! @all
-    classificationRole(id: ID! @eq): ClassificationRole @find
-    classificationRoles: [ClassificationRole]! @all
+    GenericJobTitle(id: ID! @eq): GenericJobTitle @find
+    GenericJobTitles: [GenericJobTitle]! @all
 }
 input ClassificationBelongsTo {
     connect: ID
@@ -685,7 +685,7 @@ input CreateUserInput {
     acceptedOperationalRequirements: [OperationalRequirement] @rename(attribute: "accepted_operational_requirements")
     expectedSalary: [SalaryRange] @rename(attribute: "expected_salary")
     expectedClassifications: ClassificationBelongsToMany
-    expectedClassificationRoles: ClassificationRoleBelongsToMany
+    expectedGenericJobTitles: GenericJobTitleBelongsToMany
     wouldAcceptTemporary: Boolean @rename(attribute: "would_accept_temporary")
     cmoAssets: CmoAssetBelongsToMany
 
@@ -744,7 +744,7 @@ input UpdateUserAsAdminInput {
     acceptedOperationalRequirements: [OperationalRequirement] @rename(attribute: "accepted_operational_requirements")
     expectedSalary: [SalaryRange] @rename(attribute: "expected_salary")
     expectedClassifications: ClassificationBelongsToMany
-    expectedClassificationRoles: ClassificationRoleBelongsToMany
+    expectedGenericJobTitles: GenericJobTitleBelongsToMany
     wouldAcceptTemporary: Boolean @rename(attribute: "would_accept_temporary")
     cmoAssets: CmoAssetBelongsToMany
 
@@ -798,7 +798,7 @@ input UpdateUserAsUserInput {
     acceptedOperationalRequirements: [OperationalRequirement] @rename(attribute: accepted_operational_requirements)
     expectedSalary: [SalaryRange] @rename(attribute: "expected_salary")
     expectedClassifications: ClassificationBelongsToMany
-    expectedClassificationRoles: ClassificationRoleBelongsToMany
+    expectedGenericJobTitles: GenericJobTitleBelongsToMany
     wouldAcceptTemporary: Boolean @rename(attribute: "would_accept_temporary")
     cmoAssets: CmoAssetBelongsToMany
 
@@ -1081,7 +1081,7 @@ input EducationExperienceHasMany {
 input AwardExperienceHasMany {
     create: [AwardExperienceInput!]
 }
-input ClassificationRoleBelongsToMany {
+input GenericJobTitleBelongsToMany {
     sync: [ID!]
 }
 

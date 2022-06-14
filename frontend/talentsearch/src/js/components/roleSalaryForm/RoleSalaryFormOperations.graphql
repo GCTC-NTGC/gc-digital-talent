@@ -2,7 +2,7 @@ query getRoleSalaryInfo {
   me {
     id
     isProfileComplete
-    expectedClassificationRoles {
+    expectedGenericJobTitles {
       id
       name {
         en
@@ -11,7 +11,7 @@ query getRoleSalaryInfo {
       role
     }
   }
-  classificationRoles {
+  GenericJobTitles {
     id
     role
   }
@@ -20,7 +20,7 @@ query getRoleSalaryInfo {
 
 mutation UpdateRoleSalary($id: ID!, $user: UpdateUserAsUserInput!) {
   updateUserAsUser(id: $id, user: $user) {
-    expectedClassificationRoles {
+    expectedGenericJobTitles {
       id
       name {
         en

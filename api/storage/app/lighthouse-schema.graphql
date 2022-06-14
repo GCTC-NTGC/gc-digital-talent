@@ -40,7 +40,7 @@ type Applicant {
   educationExperiences: [EducationExperience]
   personalExperiences: [PersonalExperience]
   workExperiences: [WorkExperience]
-  expectedClassificationRoles: [ClassificationRole]
+  expectedGenericJobTitles: [GenericJobTitle]
 }
 
 type AwardExperience implements Experience {
@@ -106,7 +106,7 @@ type Classification {
   level: Int!
   minSalary: Int
   maxSalary: Int
-  classificationRoles: [ClassificationRole]
+  GenericJobTitles: [GenericJobTitle]
 }
 
 input ClassificationBelongsTo {
@@ -121,26 +121,6 @@ input ClassificationBelongsToMany {
 input ClassificationFilterInput {
   group: String!
   level: Int!
-}
-
-type ClassificationRole {
-  id: ID!
-  role: ClassificationRoleType!
-  name: LocalizedString
-  classification: Classification
-}
-
-input ClassificationRoleBelongsToMany {
-  sync: [ID!]
-}
-
-enum ClassificationRoleType {
-  TECHNICIAN_IT01
-  ANALYST_IT02
-  TEAM_LEADER_IT03
-  TECHNICAL_ADVISOR_IT03
-  SENIOR_ADVISOR_IT04
-  MANAGER_IT04
 }
 
 """
@@ -316,7 +296,7 @@ input CreateUserInput {
   acceptedOperationalRequirements: [OperationalRequirement]
   expectedSalary: [SalaryRange]
   expectedClassifications: ClassificationBelongsToMany
-  expectedClassificationRoles: ClassificationRoleBelongsToMany
+  expectedGenericJobTitles: GenericJobTitleBelongsToMany
   wouldAcceptTemporary: Boolean
   cmoAssets: CmoAssetBelongsToMany
   workExperiences: WorkExperienceHasMany
@@ -436,6 +416,26 @@ interface Experience {
 
 type ExperienceSkillRecord {
   details: String
+}
+
+type GenericJobTitle {
+  id: ID!
+  role: GenericJobTitleType!
+  name: LocalizedString
+  classification: Classification
+}
+
+input GenericJobTitleBelongsToMany {
+  sync: [ID!]
+}
+
+enum GenericJobTitleType {
+  TECHNICIAN_IT01
+  ANALYST_IT02
+  TEAM_LEADER_IT03
+  TECHNICAL_ADVISOR_IT03
+  SENIOR_ADVISOR_IT04
+  MANAGER_IT04
 }
 
 enum GovEmployeeType {
@@ -817,8 +817,8 @@ type Query {
   skillFamilies: [SkillFamily]!
   skill(id: ID!): Skill
   skills: [Skill]!
-  classificationRole(id: ID!): ClassificationRole
-  classificationRoles: [ClassificationRole]!
+  GenericJobTitle(id: ID!): GenericJobTitle
+  GenericJobTitles: [GenericJobTitle]!
   usersPaginated(
     where: UserFilterAndOrderInput
 
@@ -1082,7 +1082,7 @@ input UpdateUserAsAdminInput {
   acceptedOperationalRequirements: [OperationalRequirement]
   expectedSalary: [SalaryRange]
   expectedClassifications: ClassificationBelongsToMany
-  expectedClassificationRoles: ClassificationRoleBelongsToMany
+  expectedGenericJobTitles: GenericJobTitleBelongsToMany
   wouldAcceptTemporary: Boolean
   cmoAssets: CmoAssetBelongsToMany
   workExperiences: WorkExperienceHasMany
@@ -1124,7 +1124,7 @@ input UpdateUserAsUserInput {
   acceptedOperationalRequirements: [OperationalRequirement]
   expectedSalary: [SalaryRange]
   expectedClassifications: ClassificationBelongsToMany
-  expectedClassificationRoles: ClassificationRoleBelongsToMany
+  expectedGenericJobTitles: GenericJobTitleBelongsToMany
   wouldAcceptTemporary: Boolean
   cmoAssets: CmoAssetBelongsToMany
   workExperiences: WorkExperienceHasMany
@@ -1180,7 +1180,7 @@ type User {
   workExperiences: [WorkExperience]
   pools: [Pool]
   isProfileComplete: Boolean
-  expectedClassificationRoles: [ClassificationRole]
+  expectedGenericJobTitles: [GenericJobTitle]
 }
 
 input UserBelongsTo {

@@ -3,10 +3,10 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\ClassificationRole;
+use App\Models\GenericJobTitle;
 use App\Models\Classification;
 
-class ClassificationRoleSeeder extends Seeder
+class GenericJobTitleSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -99,7 +99,7 @@ class ClassificationRoleSeeder extends Seeder
 
             $completeRole = array_merge($role, ['classification_id' => $classificationId]);
             unset($completeRole['classification']);
-            ClassificationRole::updateOrCreate($identifier, $completeRole);
+            GenericJobTitle::updateOrCreate($identifier, $completeRole);
         }
     }
 }

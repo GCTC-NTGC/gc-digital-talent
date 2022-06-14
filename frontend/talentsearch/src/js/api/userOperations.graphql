@@ -31,7 +31,7 @@ query getMe {
         fr
       }
     }
-    expectedClassificationRoles {
+    expectedGenericJobTitles {
       id
       name {
         en
@@ -39,7 +39,7 @@ query getMe {
       }
       role
     }
-  
+
     isWoman
     hasDisability
     isIndigenous

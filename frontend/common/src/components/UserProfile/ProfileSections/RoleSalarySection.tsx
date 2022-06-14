@@ -1,19 +1,19 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { getClassificationRoles } from "../../../constants/localizedConstants";
+import { getGenericJobTitles } from "../../../constants/localizedConstants";
 import { Applicant } from "../../../api/generated";
 
 const RoleSalarySection: React.FunctionComponent<{
-  applicant: Pick<Applicant, "expectedClassificationRoles">;
+  applicant: Pick<Applicant, "expectedGenericJobTitles">;
   editPath?: string;
 }> = ({ applicant, editPath }) => {
   const intl = useIntl();
-  const { expectedClassificationRoles } = applicant;
+  const { expectedGenericJobTitles } = applicant;
   // generate array of  expectedRole
-  const expectedClassificationArray = expectedClassificationRoles
-    ? expectedClassificationRoles.map((es) => (
+  const expectedClassificationArray = expectedGenericJobTitles
+    ? expectedGenericJobTitles.map((es) => (
         <li data-h2-font-weight="b(700)" key={es?.role}>
-          {es ? getClassificationRoles(es.role).defaultMessage : ""}
+          {es ? getGenericJobTitles(es.role).defaultMessage : ""}
         </li>
       ))
     : null;

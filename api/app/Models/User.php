@@ -86,9 +86,9 @@ class User extends Model implements Authenticatable
     {
         return $this->belongsToMany(Classification::class, 'classification_user')->withTimestamps();
     }
-    public function expectedClassificationRoles(): BelongsToMany
+    public function expectedGenericJobTitles(): BelongsToMany
     {
-        return $this->belongsToMany(ClassificationRole::class, 'classification_role_user')->withTimestamps();
+        return $this->belongsToMany(GenericJobTitle::class, 'classification_role_user')->withTimestamps();
     }
     public function cmoAssets(): BelongsToMany
     {
@@ -149,7 +149,7 @@ class User extends Model implements Authenticatable
         is_null($this->attributes['location_preferences']) Or
         empty($this->attributes['location_preferences']) Or
         is_null($this->attributes['would_accept_temporary'])  Or
-       $this->expectedClassificationRoles->isEmpty()
+       $this->expectedGenericJobTitles->isEmpty()
                )   {
             return false;
             }

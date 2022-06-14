@@ -8,7 +8,7 @@ import {
   PoolCandidateSearchStatus,
   SkillCategory,
   Role,
-  ClassificationRoleType,
+  GenericJobTitleType,
   AwardedTo,
   AwardedScope,
   EducationType,
@@ -319,40 +319,40 @@ export const Roles = defineMessages({
 export const getRole = (roleId: string | number): MessageDescriptor =>
   getOrThrowError(Roles, roleId, `Invalid role '${roleId}'`);
 
-export const ClassificationRoles = defineMessages({
-  [ClassificationRoleType.TechnicianIt01]: {
+export const GenericJobTitles = defineMessages({
+  [GenericJobTitleType.TechnicianIt01]: {
     defaultMessage: "Level 1: Technician",
     description: "The name of the Technician classification role.",
   },
-  [ClassificationRoleType.AnalystIt02]: {
+  [GenericJobTitleType.AnalystIt02]: {
     defaultMessage: "Level 2: Analyst",
     description: "The name of the Technician Analyst role.",
   },
-  [ClassificationRoleType.TeamLeaderIt03]: {
+  [GenericJobTitleType.TeamLeaderIt03]: {
     defaultMessage: "Level 3: Team leader",
     description: "The name of the Team leader Analyst role.",
   },
-  [ClassificationRoleType.TechnicalAdvisorIt03]: {
+  [GenericJobTitleType.TechnicalAdvisorIt03]: {
     defaultMessage: "Level 3: Technical advisor",
     description: "The name of the Technical advisor role.",
   },
-  [ClassificationRoleType.SeniorAdvisorIt04]: {
+  [GenericJobTitleType.SeniorAdvisorIt04]: {
     defaultMessage: "Level 4: Senior advisor",
     description: "The name of the Senior advisor role.",
   },
-  [ClassificationRoleType.ManagerIt04]: {
+  [GenericJobTitleType.ManagerIt04]: {
     defaultMessage: "Level 4: Manager",
     description: "The name of the Senior advisor role.",
   },
 });
 
-export const getClassificationRoles = (
-  classificationRoleId: string | number,
+export const getGenericJobTitles = (
+  GenericJobTitleId: string | number,
 ): MessageDescriptor =>
   getOrThrowError(
-    ClassificationRoles,
-    classificationRoleId,
-    `Invalid role '${classificationRoleId}'`,
+    GenericJobTitles,
+    GenericJobTitleId,
+    `Invalid role '${GenericJobTitleId}'`,
   );
 
 export const awardedToMessages = defineMessages({

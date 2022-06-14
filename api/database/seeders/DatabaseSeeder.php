@@ -37,7 +37,7 @@ class DatabaseSeeder extends Seeder
         $this->call(ClassificationSeeder::class);
         $this->call(CmoAssetSeeder::class);
         $this->call(DepartmentSeeder::class);
-        $this->call(ClassificationRoleSeeder::class);
+        $this->call(GenericJobTitleSeeder::class);
 
         SkillFamily::factory()
             ->count(10)
@@ -152,7 +152,6 @@ class DatabaseSeeder extends Seeder
         SkillFamily::truncate();
         Skill::truncate();
         DB::table('skill_skill_family')->truncate();
-
         PoolCandidateFilter::truncate();
         PoolCandidateSearchRequest::truncate();
         User::truncate();

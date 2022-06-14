@@ -1,7 +1,7 @@
 import React from "react";
 import type { Meta, Story } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
-import { ClassificationRoleType } from "@common/api/generated";
+import { GenericJobTitleType } from "@common/api/generated";
 import { RoleSalaryForm } from "./RoleSalaryForm";
 
 export default {
@@ -22,16 +22,16 @@ export const formEmpty = TemplateRoleSalaryForm.bind({});
 export const formSomeSelected = TemplateRoleSalaryForm.bind({});
 
 formEmpty.args = {
-  initialFormValues: { expectedClassificationRoles: [] },
+  initialFormValues: { expectedGenericJobTitles: [] },
   handleSubmit: action("handleSubmit"),
 };
 
 formSomeSelected.args = {
   ...formEmpty.args,
   initialFormValues: {
-    expectedClassificationRoles: [
-      ClassificationRoleType.AnalystIt02,
-      ClassificationRoleType.TechnicalAdvisorIt03,
+    expectedGenericJobTitles: [
+      GenericJobTitleType.AnalystIt02,
+      GenericJobTitleType.TechnicalAdvisorIt03,
     ],
   },
 };

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
- * Class ClassificationRole
+ * Class GenericJobTitle
  *
  * @property int $id
  * @property string $role
@@ -18,9 +18,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property Illuminate\Support\Carbon $updated_at
  */
 
-
-
-class ClassificationRole extends Model
+class GenericJobTitle extends Model
 {
     use HasFactory;
     use SoftDeletes;
@@ -41,6 +39,4 @@ class ClassificationRole extends Model
     {
         return $this->belongsTo(Classification::class);
     }
-
-
 }

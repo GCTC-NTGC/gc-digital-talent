@@ -35,9 +35,9 @@ class Classification extends Model
     protected $casts = [
         'name' => 'array',
     ];
-    public function classificationRoles(): HasMany
+    public function genericJobTitles(): HasMany
     {
-        return $this->hasMany(ClassificationRole::class);
+        return $this->hasMany(GenericJobTitle::class);
     }
 
 }
