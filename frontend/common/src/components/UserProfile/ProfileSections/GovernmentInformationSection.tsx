@@ -8,6 +8,7 @@ const GovernmentInformationSection: React.FunctionComponent<{
     | "isGovEmployee"
     | "govEmployeeType"
     | "interestedInLaterOrSecondment"
+    | "department"
     | "currentClassification"
   >;
 }> = ({ applicant }) => {
@@ -27,6 +28,17 @@ const GovernmentInformationSection: React.FunctionComponent<{
                 description: "Message to state user is employed by government",
               })}
             </li>
+            {applicant.department && (
+              <li>
+                {intl.formatMessage(
+                  {
+                    defaultMessage: "Department: {department}",
+                    description: "Message to state what department user is in.",
+                  },
+                  { department: applicant.department },
+                )}
+              </li>
+            )}
             {applicant.govEmployeeType && (
               <li>
                 {applicant.govEmployeeType === GovEmployeeType.Student &&
