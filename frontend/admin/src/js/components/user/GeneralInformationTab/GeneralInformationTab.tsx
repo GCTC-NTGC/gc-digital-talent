@@ -60,7 +60,6 @@ const ModalTableButton: React.FC<ModalTableButtonProps> = ({
       color="black"
       mode="inline"
       data-h2-padding="b(all, none)"
-      data-h2-font-size="b(caption)"
       onClick={click}
     >
       <span data-h2-font-style="b(underline)">{children}</span>
@@ -83,7 +82,6 @@ const PoolStatusTable: React.FC<BasicSectionProps> = ({ user }) => {
         data-h2-bg-color="b(lightgray)"
         data-h2-padding="b(all, s)"
         data-h2-radius="b(s)"
-        data-h2-font-size="b(caption)"
       >
         {intl.formatMessage({
           defaultMessage: "This user is not in any pools yet",
@@ -95,7 +93,7 @@ const PoolStatusTable: React.FC<BasicSectionProps> = ({ user }) => {
   }
   return (
     <>
-      <table data-h2-font-size="b(caption)" data-h2-text-align="b(center)">
+      <table data-h2-text-align="b(center)">
         <thead>
           <tr data-h2-bg-color="b(darkgray)" data-h2-font-color="b(white)">
             <th data-h2-padding="b(top-bottom, xs)" data-h2-width="b(25)">
@@ -305,7 +303,6 @@ const CandidateStatusSection: React.FC<SectionWithPoolsProps> = ({
         data-h2-bg-color="b(lightgray)"
         data-h2-padding="b(all, s)"
         data-h2-radius="b(s)"
-        data-h2-font-size="b(caption)"
       >
         {user.jobLookingStatus === JobLookingStatus.ActivelyLooking &&
           intl.formatMessage(
@@ -447,7 +444,6 @@ const NotesSection: React.FC<BasicSectionProps> = ({ user }) => {
           data-h2-bg-color="b(lightgray)"
           data-h2-padding="b(all, s)"
           data-h2-radius="b(s)"
-          data-h2-font-size="b(caption)"
         >
           {intl.formatMessage({
             defaultMessage: "This user is not in any pools yet",
