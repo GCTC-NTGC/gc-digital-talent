@@ -10,7 +10,7 @@ use App\Models\CommunityExperience;
 use App\Models\EducationExperience;
 use App\Models\PersonalExperience;
 use App\Models\WorkExperience;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nuwave\Lighthouse\Testing\ClearsSchemaCache;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Tests\TestCase;
@@ -21,7 +21,7 @@ const FAR_FUTURE_DATE = '2050-01-01';
 
 class UserTest extends TestCase
 {
-    use DatabaseMigrations;
+    use RefreshDatabase;
     use MakesGraphQLRequests;
     use ClearsSchemaCache;
 
