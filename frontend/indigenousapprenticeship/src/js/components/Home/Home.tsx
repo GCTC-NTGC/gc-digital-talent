@@ -41,20 +41,20 @@ const Home: React.FunctionComponent = () => {
 
   return (
     <>
-      <div data-h2-overflow="b(x, hidden)">
+      <div data-h2-overflow="b(hidden, x)">
         <div
           className="hero"
           data-h2-position="b(relative)"
-          data-h2-overflow="b(all, hidden)"
+          data-h2-overflow="b(hidden, all)"
         >
           <div
             className="hero__content"
             data-h2-position="b(absolute)"
-            data-h2-width="b(100)"
+            data-h2-width="b(100%)"
           >
             <div data-h2-container="b(center, full)">
               <div
-                data-h2-padding="b(left-right, s) s(left-right, l)"
+                data-h2-padding="b(0, x.5) s(0, x2)"
                 data-h2-display="b(flex)"
                 data-h2-flex-direction="b(column)"
                 data-h2-align-items="b(center)"
@@ -62,13 +62,13 @@ const Home: React.FunctionComponent = () => {
               >
                 <div
                   className="hero__logo"
-                  data-h2-margin="l(top, m)"
-                  data-h2-width="m(50)"
+                  data-h2-margin="l(x1, 0, 0, 0)"
+                  data-h2-width="m(50%)"
                 >
                   <h1>
                     <img
-                      data-h2-margin="b(top, m)"
-                      data-h2-width="b(100)"
+                      data-h2-margin="b(x1, 0, 0, 0)"
+                      data-h2-width="b(100%)"
                       src={imageUrl(
                         INDIGENOUSAPPRENTICESHIP_APP_DIR,
                         `logo-${intl.locale}.svg`,
@@ -86,7 +86,7 @@ const Home: React.FunctionComponent = () => {
                   className="hero__apply"
                   data-h2-display="b(flex)"
                   data-h2-justify-content="b(center)"
-                  data-h2-width="m(25)"
+                  data-h2-width="m(25%)"
                 >
                   <Button
                     color="ia-primary"
@@ -112,17 +112,17 @@ const Home: React.FunctionComponent = () => {
         </div>
         <div
           className="about-program"
-          data-h2-margin="m(bottom, xxl)"
-          data-h2-padding="b(right-left, m) m(all, xl)"
+          data-h2-margin="m(0, 0, x4, 0)"
+          data-h2-padding="b(0, x1) m(x1)"
           data-h2-position="b(relative)"
-          data-h2-bg-color="b(white)"
+          data-h2-bg-color="b(ia-white)"
           data-h2-radius="b(s)"
         >
           <div data-h2-display="m(flex)" data-h2-align-items="m(flex-start))">
             <div
               className="program__image-wrapper about-program__image-wrapper"
               data-h2-position="b(relative)"
-              data-h2-padding="m(right-left, m) l(right-left, xxl)"
+              data-h2-padding="m(0, x1) l(0, x4)"
             >
               <img
                 src={imageUrl(
@@ -137,12 +137,12 @@ const Home: React.FunctionComponent = () => {
               <div
                 className="circle circle--top-right"
                 data-h2-position="b(absolute)"
-                data-h2-bg-color="b(ia-pink)"
+                data-h2-background-color="b(ia-primary)"
               />
               <div
                 className="circle circle--lg circle--bottom-left"
                 data-h2-position="b(absolute)"
-                data-h2-bg-color="b(ia-purple)"
+                data-h2-background-color="b(ia-secondary)"
               />
               <img
                 src={imageUrl(INDIGENOUSAPPRENTICESHIP_APP_DIR, "feathers.png")}
@@ -153,12 +153,12 @@ const Home: React.FunctionComponent = () => {
             </div>
             <div
               className="program__content"
-              data-h2-bg-color="b(white)"
-              data-h2-padding="m(right-left, m) l(right-left, xl)"
+              data-h2-background-color="b(ia-white)"
+              data-h2-padding="m(0, x1) l(0, x3)"
             >
               <Heading
                 className="about-program__title"
-                data-h2-font-size="b(h3)"
+                data-h2-font-size="b(h3, 1.3)"
               >
                 {intl.formatMessage({
                   defaultMessage: "About the Program",
@@ -186,7 +186,7 @@ const Home: React.FunctionComponent = () => {
                   description: "Third paragraph about the program",
                 })}
               </p>
-              <div data-h2-margin="b(top, l)">
+              <div data-h2-margin="b(x2, 0, 0, 0)">
                 <CTAButtons
                   onClickApply={() => setApplyDialogOpen(true)}
                   onClickLearn={() => setLearnDialogOpen(true)}
@@ -198,16 +198,16 @@ const Home: React.FunctionComponent = () => {
         <div
           className="learn-program"
           data-h2-container="m(center, m)"
-          data-h2-margin="m(top-bottom, xxl)"
+          data-h2-margin="m(x4, 0)"
           data-h2-position="b(relative)"
-          data-h2-bg-color="b(white)"
+          data-h2-background-color="b(ia-white)"
           data-h2-radius="b(s)"
         >
           <div data-h2-display="m(flex)">
             <div
               className="program__image-wrapper learn-program__image-wrapper"
               data-h2-position="b(relative)"
-              data-h2-padding="m(right-left, m)"
+              data-h2-padding="m(0, x1)"
             >
               <img
                 src={imageUrl(
@@ -226,19 +226,19 @@ const Home: React.FunctionComponent = () => {
               />
               <RadiatingCircles
                 className="learn-program__circles"
-                data-h2-font-color="b(ia-gray)"
+                data-h2-color="b(ia-gray)"
                 data-h2-position="b(absolute)"
-                data-h2-width="b(100)"
+                data-h2-width="b(100%)"
               />
             </div>
             <div
               className="learn-program__content"
               data-h2-position="b(relative)"
-              data-h2-margin="b(bottom, l) m(bottom, xxs)"
+              data-h2-margin="b(0, 0, x2, 0) m(0, 0, x.125, 0)"
             >
               <Heading
-                data-h2-font-size="b(h3)"
-                data-h2-margin="b(top, l) m(top, xxs)"
+                data-h2-font-size="b(h3, 1.3)"
+                data-h2-margin="b(x2, 0, 0, 0) m(x.125, 0, 0, 0)"
                 className="learn-program__title"
               >
                 {intl.formatMessage({
@@ -282,16 +282,16 @@ const Home: React.FunctionComponent = () => {
         <div
           className="who-program"
           data-h2-container="m(center, m)"
-          data-h2-margin="m(top-bottom, xxl)"
+          data-h2-margin="m(x4, 0)"
           data-h2-position="b(relative)"
-          data-h2-bg-color="b(white)"
+          data-h2-background-color="b(ia-white)"
           data-h2-radius="b(s)"
         >
           <div data-h2-display="m(flex)">
             <div
               className="program__image-wrapper who-program__image-wrapper"
               data-h2-position="b(relative)"
-              data-h2-padding="b(right-left, m)"
+              data-h2-padding="b(0, x1)"
             >
               <img
                 src={imageUrl(
@@ -305,8 +305,8 @@ const Home: React.FunctionComponent = () => {
               <Triangle
                 className="who-program__triangle"
                 data-h2-position="b(absolute)"
-                data-h2-width="b(100)"
-                data-h2-font-color="b(ia-purple)"
+                data-h2-width="b(100%)"
+                data-h2-color="b(ia-secondary)"
               />
               <img
                 src={imageUrl(INDIGENOUSAPPRENTICESHIP_APP_DIR, "ulu.png")}
@@ -318,12 +318,12 @@ const Home: React.FunctionComponent = () => {
             </div>
             <div
               className="who-program__content"
-              data-h2-margin="b(bottom, xl) m(bottom, xxs"
+              data-h2-margin="b(0, 0, x3, 0) m(0, 0, x.125, 0)"
             >
               <Heading
                 className="about-program__title"
-                data-h2-font-size="b(h3)"
-                data-h2-margin="b(top, xl) m(top, xxs)"
+                data-h2-font-size="b(h3, 1.3)"
+                data-h2-margin="b(x3, 0, 0, 0) m(x.125, 0, 0, 0)"
               >
                 {intl.formatMessage({
                   defaultMessage: "Who is the program for?",
@@ -347,8 +347,8 @@ const Home: React.FunctionComponent = () => {
               </p>
               <div data-h2-display="m(flex)">
                 <div
-                  data-h2-width="m(50)"
-                  data-h2-margin="b(bottom, m) m(right, s)"
+                  data-h2-width="m(50%)"
+                  data-h2-margin="b(0, 0, x1, 0) m(0, x.5, x1, 0)"
                 >
                   <Button
                     color="ia-primary"
@@ -376,7 +376,7 @@ const Home: React.FunctionComponent = () => {
         </div>
         <div
           className="quote-wrapper"
-          data-h2-padding="b(top-bottom, xxl)"
+          data-h2-padding="b(x4, 0)"
           style={{
             backgroundImage: `url(${imageUrl(
               INDIGENOUSAPPRENTICESHIP_APP_DIR,
@@ -387,7 +387,7 @@ const Home: React.FunctionComponent = () => {
           <div data-h2-container="b(center, m)">
             <Heading
               light
-              data-h2-font-color="b(white)"
+              data-h2-color="b(ia-white)"
               data-h2-text-align="b(center)"
             >
               {intl.formatMessage({

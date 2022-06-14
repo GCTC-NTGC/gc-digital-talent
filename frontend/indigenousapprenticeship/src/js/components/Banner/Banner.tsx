@@ -11,9 +11,9 @@ const Banner: React.FC = ({ children }) => (
     <BannerFold position="before" />
     <div
       className="banner__content"
-      data-h2-bg-color="b(ia-pink)"
+      data-h2-background-color="b(ia-primary)"
       data-h2-position="b(relative)"
-      data-h2-margin="b(top-bottom, m)"
+      data-h2-margin="b(x1, 0)"
     >
       {children}
     </div>

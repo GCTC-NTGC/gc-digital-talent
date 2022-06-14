@@ -31,14 +31,13 @@ export const MenuLink: React.FC<MenuLinkProps> = ({
   isActive = exactMatch,
 }) => {
   const location = useLocation();
+  const activeWeight: Record<string, unknown> = isActive(href ?? null, location.pathname) ? {"data-h2-font-weight": "b(700)"} : {"data-h2-font-weight": "b(100)"};
   return (
     <Link
       href={href}
       title={title ?? ""}
-      data-h2-font-color="b(ia-pink)"
-      data-h2-font-weight={
-        isActive(href, location.pathname) ? "b(700)" : "b(100)"
-      }
+      data-h2-color="b(ia-primary)"
+      {...activeWeight}
     >
       {text}
     </Link>

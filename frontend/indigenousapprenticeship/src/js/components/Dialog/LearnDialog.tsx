@@ -27,8 +27,8 @@ const LearnDialog: React.FC<BasicDialogProps> = ({ isOpen, onDismiss }) => {
     >
       <Heading
         as="h3"
-        data-h2-font-size="b(h6)"
-        data-h2-margin="b(bottom, xxs)"
+        data-h2-font-size="b(h6, 1.3)"
+        data-h2-margin="b(0, 0, x.125, 0)"
       >
         {intl.formatMessage({
           defaultMessage:
@@ -45,8 +45,8 @@ const LearnDialog: React.FC<BasicDialogProps> = ({ isOpen, onDismiss }) => {
       </p>
       <Heading
         as="h3"
-        data-h2-font-size="b(h6)"
-        data-h2-margin="b(bottom, xxs)"
+        data-h2-font-size="b(h6, 1.3)"
+        data-h2-margin="b(0, 0, x.125, 0)"
       >
         {intl.formatMessage({
           defaultMessage: "How long is the program?",
@@ -69,8 +69,8 @@ const LearnDialog: React.FC<BasicDialogProps> = ({ isOpen, onDismiss }) => {
       </p>
       <Heading
         as="h3"
-        data-h2-font-size="b(h6)"
-        data-h2-margin="b(bottom, xxs)"
+        data-h2-font-size="b(h6, 1.3)"
+        data-h2-margin="b(0, 0, x.125, 0)"
       >
         {intl.formatMessage({
           defaultMessage:
@@ -87,8 +87,8 @@ const LearnDialog: React.FC<BasicDialogProps> = ({ isOpen, onDismiss }) => {
       </p>
       <Heading
         as="h3"
-        data-h2-font-size="b(h6)"
-        data-h2-margin="b(bottom, xxs)"
+        data-h2-font-size="b(h6, 1.3)"
+        data-h2-margin="b(0, 0, x.125, 0)"
       >
         {intl.formatMessage({
           defaultMessage: "Will apprentices be paid?",
@@ -104,8 +104,8 @@ const LearnDialog: React.FC<BasicDialogProps> = ({ isOpen, onDismiss }) => {
       </p>
       <Heading
         as="h3"
-        data-h2-font-size="b(h6)"
-        data-h2-margin="b(bottom, xxs)"
+        data-h2-font-size="b(h6, 1.3)"
+        data-h2-margin="b(0, 0, x.125, 0)"
       >
         {intl.formatMessage({
           defaultMessage: "Will apprentices be entitled to any benefits?",
@@ -121,8 +121,8 @@ const LearnDialog: React.FC<BasicDialogProps> = ({ isOpen, onDismiss }) => {
       </p>
       <Heading
         as="h3"
-        data-h2-font-size="b(h6)"
-        data-h2-margin="b(bottom, xxs)"
+        data-h2-font-size="b(h6, 1.3)"
+        data-h2-margin="b(0, 0, x.125, 0)"
       >
         {intl.formatMessage({
           defaultMessage:
@@ -139,8 +139,8 @@ const LearnDialog: React.FC<BasicDialogProps> = ({ isOpen, onDismiss }) => {
       </p>
       <Heading
         as="h3"
-        data-h2-font-size="b(h6)"
-        data-h2-margin="b(bottom, xxs)"
+        data-h2-font-size="b(h6, 1.3)"
+        data-h2-margin="b(0, 0, x.125, 0)"
       >
         {intl.formatMessage({
           defaultMessage: "How do I know if this program is for me?",
@@ -156,8 +156,8 @@ const LearnDialog: React.FC<BasicDialogProps> = ({ isOpen, onDismiss }) => {
       </p>
       <Heading
         as="h3"
-        data-h2-font-size="b(h6)"
-        data-h2-margin="b(bottom, xxs)"
+        data-h2-font-size="b(h6, 1.3)"
+        data-h2-margin="b(0, 0, x.125, 0)"
       >
         {intl.formatMessage({
           defaultMessage:
@@ -174,8 +174,8 @@ const LearnDialog: React.FC<BasicDialogProps> = ({ isOpen, onDismiss }) => {
       </p>
       <Heading
         as="h3"
-        data-h2-font-size="b(h6)"
-        data-h2-margin="b(bottom, xxs)"
+        data-h2-font-size="b(h6, 1.3)"
+        data-h2-margin="b(0, 0, x.125, 0)"
       >
         {intl.formatMessage({
           defaultMessage:
@@ -192,8 +192,8 @@ const LearnDialog: React.FC<BasicDialogProps> = ({ isOpen, onDismiss }) => {
       </p>
       <Heading
         as="h3"
-        data-h2-font-size="b(h6)"
-        data-h2-margin="b(bottom, xxs)"
+        data-h2-font-size="b(h6, 1.3)"
+        data-h2-margin="b(0, 0, x.125, 0)"
       >
         {intl.formatMessage({
           defaultMessage: "Is there a cost to participate in the program?",
@@ -209,8 +209,8 @@ const LearnDialog: React.FC<BasicDialogProps> = ({ isOpen, onDismiss }) => {
       </p>
       <Heading
         as="h3"
-        data-h2-font-size="b(h6)"
-        data-h2-margin="b(bottom, xxs)"
+        data-h2-font-size="b(h6, 1.3)"
+        data-h2-margin="b(0, 0, x.125, 0)"
       >
         {intl.formatMessage({
           defaultMessage: "How can a person apply to become an apprentice?",
@@ -226,8 +226,8 @@ const LearnDialog: React.FC<BasicDialogProps> = ({ isOpen, onDismiss }) => {
       </p>
       <Heading
         as="h3"
-        data-h2-font-size="b(h6)"
-        data-h2-margin="b(bottom, xxs)"
+        data-h2-font-size="b(h6, 1.3)"
+        data-h2-margin="b(0, 0, x.125, 0)"
       >
         {intl.formatMessage({
           defaultMessage:
