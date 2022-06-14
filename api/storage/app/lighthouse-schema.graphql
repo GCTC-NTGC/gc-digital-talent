@@ -11,6 +11,7 @@ type Applicant {
   govEmployeeType: GovEmployeeType
   interestedInLaterOrSecondment: Boolean
   currentClassification: Classification
+  department: Department
   languageAbility: LanguageAbility
   lookingForEnglish: Boolean
   lookingForFrench: Boolean
@@ -283,6 +284,7 @@ input CreateUserInput {
   govEmployeeType: GovEmployeeType
   interestedInLaterOrSecondment: Boolean
   currentClassification: ClassificationBelongsTo
+  department: DepartmentBelongsTo
   isWoman: Boolean
   hasDisability: Boolean
   isIndigenous: Boolean
@@ -1046,6 +1048,7 @@ input UpdateUserAsAdminInput {
   govEmployeeType: GovEmployeeType
   interestedInLaterOrSecondment: Boolean
   currentClassification: ClassificationBelongsTo
+  department: DepartmentBelongsTo
   isWoman: Boolean
   hasDisability: Boolean
   isIndigenous: Boolean
@@ -1087,6 +1090,7 @@ input UpdateUserAsUserInput {
   govEmployeeType: GovEmployeeType
   interestedInLaterOrSecondment: Boolean
   currentClassification: ClassificationBelongsTo
+  department: DepartmentBelongsTo
   isWoman: Boolean
   hasDisability: Boolean
   isIndigenous: Boolean
@@ -1131,6 +1135,7 @@ type User {
   govEmployeeType: GovEmployeeType
   interestedInLaterOrSecondment: Boolean
   currentClassification: Classification
+  department: Department
   isWoman: Boolean
   hasDisability: Boolean
   isIndigenous: Boolean

@@ -64,6 +64,8 @@ type User {
     interestedInLaterOrSecondment: Boolean
         @rename(attribute: "interested_in_later_or_secondment")
     currentClassification: Classification @belongsTo # Users current classification
+    department: Department @belongsTo
+
     # Employment equity
     isWoman: Boolean @rename(attribute: "is_woman")
     hasDisability: Boolean @rename(attribute: "has_disability")
@@ -166,6 +168,7 @@ type Applicant {
     govEmployeeType: GovEmployeeType @rename(attribute: "gov_employee_type")
     interestedInLaterOrSecondment: Boolean @rename(attribute: "interested_in_later_or_secondment")
     currentClassification: Classification @belongsTo # Users current classification
+    department: Department @belongsTo
 
     # Language
     languageAbility: LanguageAbility @rename(attribute: "language_ability")
@@ -647,6 +650,7 @@ input CreateUserInput {
     govEmployeeType: GovEmployeeType @rename(attribute: "gov_employee_type")
     interestedInLaterOrSecondment: Boolean @rename(attribute: "interested_in_later_or_secondment")
     currentClassification: ClassificationBelongsTo
+    department: DepartmentBelongsTo
 
     # Employment equity
     isWoman: Boolean @rename(attribute: "is_woman")
@@ -704,6 +708,7 @@ input UpdateUserAsAdminInput {
     govEmployeeType: GovEmployeeType @rename(attribute: "gov_employee_type")
     interestedInLaterOrSecondment: Boolean @rename(attribute: "interested_in_later_or_secondment")
     currentClassification: ClassificationBelongsTo
+    department: DepartmentBelongsTo
 
     # Employment equity
     isWoman: Boolean @rename(attribute: "is_woman")
@@ -757,6 +762,7 @@ input UpdateUserAsUserInput {
     govEmployeeType: GovEmployeeType @rename(attribute: "gov_employee_type")
     interestedInLaterOrSecondment: Boolean @rename(attribute: "interested_in_later_or_secondment")
     currentClassification: ClassificationBelongsTo
+    department: DepartmentBelongsTo
 
     # Employment equity
     isWoman: Boolean @rename(attribute: "is_woman")

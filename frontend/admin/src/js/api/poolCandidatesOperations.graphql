@@ -262,6 +262,14 @@ query getCandidateProfile($id: ID!) {
       isVisibleMinority
       hasDisability
       expectedSalary
+      department {
+        id
+        departmentNumber
+        name {
+          en
+          fr
+        }
+      }
       currentClassification {
         id
         group
@@ -363,6 +371,14 @@ query getUserProfile($id: ID!) {
     isVisibleMinority
     hasDisability
     expectedSalary
+    department {
+      id
+      departmentNumber
+      name {
+        en
+        fr
+      }
+    }
     currentClassification {
       id
       group

@@ -22,6 +22,14 @@ query getMe {
     isGovEmployee
     govEmployeeType
     interestedInLaterOrSecondment
+    department {
+      id
+      departmentNumber
+      name {
+        en
+        fr
+      }
+    }
     currentClassification {
       id
       group
