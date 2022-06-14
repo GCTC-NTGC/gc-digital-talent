@@ -1190,7 +1190,7 @@ type UserPaginator {
 input UserPoolFilterInput {
   pools: [ID!]!
   expiryStatus: CANDIDATE_EXPIRY_FILTER = ACTIVE
-  statuses: [PoolCandidateStatus!]!
+  statuses: [PoolCandidateStatus!]
 }
 
 type UserPublicProfile {
