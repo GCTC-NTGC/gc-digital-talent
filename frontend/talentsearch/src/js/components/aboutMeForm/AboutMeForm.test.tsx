@@ -2,7 +2,13 @@
  * @jest-environment jsdom
  */
 import "@testing-library/jest-dom";
-import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import {
+  render,
+  screen,
+  fireEvent,
+  waitFor,
+  act,
+} from "@testing-library/react";
 import React from "react";
 import { IntlProvider, MessageFormatElement } from "react-intl";
 import { fakeUsers } from "@common/fakeData";
@@ -37,35 +43,46 @@ const renderAboutMeForm = ({
 );
 
 describe("AboutMeForm", () => {
-  it("should render fields", () => {
+  it("should render fields", async () => {
     const mockSave = jest.fn();
-    renderAboutMeForm({
-      initialUser: mockUser,
-      onUpdateAboutMe: mockSave,
+
+    await act(async () => {
+      renderAboutMeForm({
+        initialUser: mockUser,
+        onUpdateAboutMe: mockSave,
+      });
     });
 
-    expect(screen.getByRole("radio", { name: /english/i })).toBeInTheDocument();
-    expect(screen.getByRole("radio", { name: /french/i })).toBeInTheDocument();
-
     expect(
-      screen.getByRole("combobox", { name: /province/i }),
+      await screen.getByRole("radio", { name: /english/i }),
     ).toBeInTheDocument();
-
-    expect(screen.getByRole("textbox", { name: /city/i })).toBeInTheDocument();
-
     expect(
-      screen.getByRole("textbox", { name: /telephone/i }),
+      await screen.getByRole("radio", { name: /french/i }),
     ).toBeInTheDocument();
 
     expect(
-      screen.getByRole("textbox", { name: /first name/i }),
+      await screen.getByRole("combobox", { name: /province/i }),
     ).toBeInTheDocument();
 
     expect(
-      screen.getByRole("textbox", { name: /last name/i }),
+      await screen.getByRole("textbox", { name: /city/i }),
     ).toBeInTheDocument();
 
-    expect(screen.getByRole("textbox", { name: /email/i })).toBeInTheDocument();
+    expect(
+      await screen.getByRole("textbox", { name: /telephone/i }),
+    ).toBeInTheDocument();
+
+    expect(
+      await screen.getByRole("textbox", { name: /first name/i }),
+    ).toBeInTheDocument();
+
+    expect(
+      await screen.getByRole("textbox", { name: /last name/i }),
+    ).toBeInTheDocument();
+
+    expect(
+      await screen.getByRole("textbox", { name: /email/i }),
+    ).toBeInTheDocument();
   });
 
   it("Should not submit with empty fields.", async () => {
@@ -84,13 +101,14 @@ describe("AboutMeForm", () => {
       onUpdateAboutMe: mockSave,
     });
 
-    fireEvent.submit(screen.getByRole("button", { name: /save/i }));
+    fireEvent.submit(await screen.getByRole("button", { name: /save/i }));
     expect(await screen.findAllByRole("alert")).toHaveLength(7);
     expect(mockSave).not.toHaveBeenCalled();
   });
 
   it("Should not submit invalid phone number", async () => {
     const mockSave = jest.fn();
+
     renderAboutMeForm({
       initialUser: {
         ...mockUser,
@@ -99,19 +117,20 @@ describe("AboutMeForm", () => {
       onUpdateAboutMe: mockSave,
     });
 
-    fireEvent.submit(screen.getByRole("button", { name: /save/i }));
+    fireEvent.submit(await screen.getByRole("button", { name: /save/i }));
     expect(await screen.findAllByRole("alert")).toHaveLength(1);
     expect(mockSave).not.toHaveBeenCalled();
   });
 
   it("Should submit successfully with required fields", async () => {
     const mockSave = jest.fn(() => Promise.resolve(mockUser));
+
     renderAboutMeForm({
       initialUser: mockUser,
       onUpdateAboutMe: mockSave,
     });
 
-    fireEvent.submit(screen.getByRole("button", { name: /save/i }));
+    fireEvent.submit(await screen.getByRole("button", { name: /save/i }));
     await waitFor(() => {
       expect(mockSave).toHaveBeenCalled();
     });

@@ -14,14 +14,17 @@ import {
 const renderWorkLocationPreferenceForm = ({
   initialData,
   handleWorkLocationPreference,
-}: WorkLocationPreferenceFormProps) => {
-  return render(
-    <WorkLocationPreferenceForm
-      initialData={initialData}
-      handleWorkLocationPreference={handleWorkLocationPreference}
-    />,
-  );
-};
+}: WorkLocationPreferenceFormProps) => (
+  <>
+    {render(
+      <WorkLocationPreferenceForm
+        initialData={initialData}
+        handleWorkLocationPreference={handleWorkLocationPreference}
+      />,
+    )}
+  </>
+);
+
 const mockUser = fakeUsers()[0];
 
 const mockInitialData: WorkLocationPreferenceQuery | undefined = {
@@ -43,75 +46,84 @@ const mockInitialEmptyData: WorkLocationPreferenceQuery | undefined = {
   },
 };
 
-describe("Work Location Preference Form tests", () => {
-  test("should render fields", () => {
-    const onClick = jest.fn();
-    renderWorkLocationPreferenceForm({
-      initialData: mockInitialData,
-      handleWorkLocationPreference: onClick,
+describe("WorkLocationPreferenceForm", () => {
+  it("should render fields", async () => {
+    const mockSave = jest.fn(() => Promise.resolve(mockUser));
+
+    await act(async () => {
+      renderWorkLocationPreferenceForm({
+        initialData: mockInitialData,
+        handleWorkLocationPreference: mockSave,
+      });
     });
+
     expect(
-      screen.getByRole("button", {
+      await screen.getByRole("button", {
         name: /Save and go back/i,
       }),
     ).toBeInTheDocument();
     expect(
-      screen.getByRole("checkbox", {
+      await screen.getByRole("checkbox", {
         name: /Virtual: Work from home/i,
       }),
     ).toBeInTheDocument();
     expect(
-      screen.getByRole("checkbox", {
+      await screen.getByRole("checkbox", {
         name: /National Capital Region: Ottawa/i,
       }),
     ).toBeInTheDocument();
     expect(
-      screen.getByRole("checkbox", {
+      await screen.getByRole("checkbox", {
         name: /Atlantic Region: New Brunswick/i,
       }),
     ).toBeInTheDocument();
     expect(
-      screen.getByRole("checkbox", {
+      await screen.getByRole("checkbox", {
         name: /Quebec Region: excluding Gatineau/i,
       }),
     ).toBeInTheDocument();
     expect(
-      screen.getByRole("checkbox", {
+      await screen.getByRole("checkbox", {
         name: /Ontario Region: excluding Ottawa/i,
       }),
     ).toBeInTheDocument();
     expect(
-      screen.getByRole("checkbox", {
+      await screen.getByRole("checkbox", {
         name: /Prairie Region: Manitoba, Saskatchewan/i,
       }),
     ).toBeInTheDocument();
     expect(
-      screen.getByRole("checkbox", {
+      await screen.getByRole("checkbox", {
         name: /British Columbia Region/i,
       }),
     ).toBeInTheDocument();
-    const textarea1 = screen.getByLabelText(/Location exemptions/i);
-    act(() => {
-      fireEvent.change(textarea1, { target: { value: "Woodstock" } });
-    });
-    expect(textarea1).toHaveValue("Woodstock");
+    expect(
+      await screen.getByLabelText(/Location exemptions/i),
+    ).toBeInTheDocument();
   });
-  test("Can't submit unless form is valid (at least one location selected)", async () => {
+  it("Can't submit unless form is valid (at least one location selected)", async () => {
     const onClick = jest.fn();
+
     renderWorkLocationPreferenceForm({
       initialData: { ...mockInitialEmptyData },
       handleWorkLocationPreference: onClick,
     });
-    fireEvent.submit(screen.getByRole("button", { name: /save/i }));
-    expect(onClick).not.toHaveBeenCalled();
+
+    fireEvent.submit(await screen.getByRole("button", { name: /save/i }));
+    await waitFor(() => {
+      expect(onClick).not.toHaveBeenCalled();
+    });
   });
-  test("Should submit successfully with required fields", async () => {
+  it("Should submit successfully with required fields", async () => {
     const onClick = jest.fn(() => Promise.resolve(mockUser));
+
     renderWorkLocationPreferenceForm({
       initialData: { ...mockInitialData },
       handleWorkLocationPreference: onClick,
     });
-    fireEvent.submit(screen.getByRole("button", { name: /save/i }));
+
+    fireEvent.submit(await screen.getByRole("button", { name: /save/i }));
+
     await waitFor(() => {
       expect(onClick).toHaveBeenCalled();
     });
