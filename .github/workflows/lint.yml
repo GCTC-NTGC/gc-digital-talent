@@ -45,7 +45,4 @@ jobs:
 
       - name: "Run ESlint: all workspaces"
         working-directory: frontend
-        # Temporarily ignore until we fix existing issues.
-        # See: https://github.com/GCTC-NTGC/gc-digital-talent/issues/2043
-        continue-on-error: true
         run: npm run lint --workspaces --if-present

@@ -209,6 +209,7 @@ input CreatePoolCandidateAsAdminInput {
   expectedClassifications: ClassificationBelongsToMany
   cmoAssets: CmoAssetBelongsToMany
   status: PoolCandidateStatus = AVAILABLE
+  notes: String
 }
 
 input CreatePoolCandidateFilterInput {
@@ -682,6 +683,7 @@ type PoolCandidate {
   expectedClassifications: [Classification]
   cmoAssets: [CmoAsset]
   status: PoolCandidateStatus
+  notes: String
 }
 
 type PoolCandidateFilter {
@@ -991,6 +993,7 @@ input UpdatePoolCandidateAsAdminInput {
   expectedClassifications: ClassificationBelongsToMany
   cmoAssets: CmoAssetBelongsToMany
   status: PoolCandidateStatus
+  notes: String
 }
 
 input UpdatePoolCandidateSearchRequestInput {
