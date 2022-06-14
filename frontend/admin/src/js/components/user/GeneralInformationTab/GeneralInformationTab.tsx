@@ -294,13 +294,13 @@ const CandidateStatusSection: React.FC<SectionWithPoolsProps> = ({
 
   return (
     <>
-      <h3>
+      <h5>
         {intl.formatMessage({
           defaultMessage: "Personal status",
           description:
             "Title of the 'Personal status' section of the view-user page",
         })}
-      </h3>
+      </h5>
       <div
         data-h2-bg-color="b(lightgray)"
         data-h2-padding="b(all, s)"
@@ -344,21 +344,21 @@ const CandidateStatusSection: React.FC<SectionWithPoolsProps> = ({
             },
           )}
       </div>
-      <h3>
+      <h5>
         {intl.formatMessage({
           defaultMessage: "Pool status",
           description:
             "Title of the 'Pool status' section of the view-user page",
         })}
-      </h3>
+      </h5>
       <PoolStatusTable user={user} />
-      <h3>
+      <h5>
         {intl.formatMessage({
           defaultMessage: "Add user to other pools",
           description:
             "Title of the 'Add user to pools' section of the view-user page",
         })}
-      </h3>
+      </h5>
       <Button
         color="primary"
         mode="outline"
@@ -620,7 +620,7 @@ export const GeneralInformationTab: React.FC<SectionWithPoolsProps> = ({
       <TableOfContents.Content>
         {items.map((item) => (
           <TableOfContents.Section key={item.id} id={item.id}>
-            <TableOfContents.Heading icon={item.titleIcon}>
+            <TableOfContents.Heading icon={item.titleIcon} as="h4">
               {item.title}
             </TableOfContents.Heading>
             {item.content}
