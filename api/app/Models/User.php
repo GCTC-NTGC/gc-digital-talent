@@ -182,12 +182,23 @@ class User extends Model implements Authenticatable
                     } else if ($poolCandidates['expiryStatus'] == ApiEnums::CANDIDATE_EXPIRY_FILTER_EXPIRED) {
                         $query->whereDate('expiry_date', '<', date("Y-m-d"));
                     }
-                    $query->poolCandidateStatus($poolCandidates['statuses']);
+                    $query->poolCandidateStatuses($poolCandidates['statuses']);
                   });
         });
 
         return $query;
     }
+
+    public function scopePoolCandidateStatuses(Builder $query, ?array $poolCandidateStatuses): Builder
+    {
+        if(empty($poolCandidateStatuses)){
+            return $query;
+        }
+
+        $query->whereIn('pool_candidate_status', $poolCandidateStatuses);
+        return $query;
+    }
+
     public function filterByLanguageAbility(Builder $query, ?string $languageAbility): Builder
     {
         // If filtering for a specific language the query should return candidates of that language OR bilingual.
