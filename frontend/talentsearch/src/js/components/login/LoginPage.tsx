@@ -2,6 +2,7 @@ import React from "react";
 import { useIntl } from "react-intl";
 
 import { Link } from "@common/components";
+import { getLocale } from "@common/helpers/localize";
 import { imageUrl } from "@common/helpers/router";
 import { useApiRoutes } from "@common/hooks/useApiRoutes";
 
@@ -20,6 +21,7 @@ const LoginPage: React.FC = () => {
   const intl = useIntl();
   const paths = useApiRoutes();
   const talentPaths = useTalentSearchRoutes();
+  const loginPath = paths.login(talentPaths.profile(), getLocale(intl));
 
   return (
     <>
@@ -69,7 +71,7 @@ const LoginPage: React.FC = () => {
                 "Instruction on what to do if user does not have a GC Key.",
             },
             {
-              a: (...chunks) => keyRegistrationLink(paths.login(), chunks),
+              a: (...chunks) => keyRegistrationLink(loginPath, chunks),
               b: boldText,
             },
           )}
@@ -82,12 +84,7 @@ const LoginPage: React.FC = () => {
           data-h2-justify-content="b(space-between)"
         >
           <p>
-            <Link
-              href={talentPaths.home()}
-              mode="outline"
-              color="primary"
-              type="button"
-            >
+            <Link href={loginPath} mode="outline" color="primary" type="button">
               {intl.formatMessage({
                 defaultMessage: "Cancel",
                 description:
@@ -97,7 +94,7 @@ const LoginPage: React.FC = () => {
           </p>
           <p>
             <Link
-              href={paths.login(talentPaths.profile())}
+              href={loginPath}
               mode="solid"
               type="button"
               color="primary"

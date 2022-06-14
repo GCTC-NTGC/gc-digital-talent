@@ -16,6 +16,7 @@ import { useAdminRoutes } from "../../adminRoutes";
 import { User, useUserQuery } from "../../api/generated";
 import DashboardContentContainer from "../DashboardContentContainer";
 import UserProfileApi from "./UserProfile";
+import GeneralInfoTabApi from "./GeneralInformationTab/GeneralInformationTab";
 import UserProfilePrintButton from "./UserProfilePrintButton";
 
 interface ViewUserPageProps {
@@ -66,12 +67,12 @@ export const ViewUserPage: React.FC<ViewUserPageProps> = ({ user }) => {
         data-h2-margin="b(top-bottom, l)"
       >
         {userName !== " " && (
-          <h2
+          <h3
             data-h2-margin="b(top-bottom, s) m(top-bottom, none)"
             data-h2-font-weight="b(800)"
           >
             {userName}
-          </h2>
+          </h3>
         )}
         <div data-h2-margin="m(left, auto)">
           <UserProfilePrintButton userId={user.id}>
@@ -91,7 +92,9 @@ export const ViewUserPage: React.FC<ViewUserPageProps> = ({ user }) => {
             defaultMessage: "General Information",
             description: "Tabs title for the individual user general info.",
           })}
-        />
+        >
+          <GeneralInfoTabApi userId={user.id} />
+        </Tab>
         <Tab
           text={intl.formatMessage({
             defaultMessage: "Candidate Profile",

@@ -1,4 +1,8 @@
 {
+  "defaultCommandTimeout": 8000,
+  "pageLoadTimeout": 60000,
+  "requestTimeout": 5000,
+  "responseTimeout": 30000,
   "reporter": "cypress-multi-reporters",
   "reporterOptions": {
     "configFile": "cypress/reporters-config.json"

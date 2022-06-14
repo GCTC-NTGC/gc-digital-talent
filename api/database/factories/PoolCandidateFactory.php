@@ -68,6 +68,7 @@ class PoolCandidateFactory extends Factory
             'user_id' => User::factory(),
             'pool_id' => Pool::factory(),
             'accepted_operational_requirements' => $this->faker->optional->randomElements(ApiEnums::operationalRequirements(), 2),
+            'notes' => $this->faker->paragraphs(3, true),
         ];
     }
 }
