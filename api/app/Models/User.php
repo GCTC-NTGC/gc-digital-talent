@@ -168,20 +168,23 @@ class User extends Model implements Authenticatable
         if (empty($poolCandidates)) {
             return $query;
         }
-
         // Pool acts as an OR filter. The query should return valid candidates in ANY of the pools.
         $query->whereExists(function ($query) use ($poolCandidates) {
             $query->select('id')
                   ->from('pool_candidates')
                   ->whereColumn('pool_candidates.user_id', 'users.id')
                   ->whereIn('pool_candidates.pool_id', $poolCandidates['pools'])
-                  ->whereIn('pool_candidate_status', $poolCandidates['statuses'])
                   ->where(function ($query) use ($poolCandidates) {
                     if ($poolCandidates['expiryStatus'] == ApiEnums::CANDIDATE_EXPIRY_FILTER_ACTIVE) {
                         $query->whereDate('expiry_date', '>=', date("Y-m-d"))
                               ->orWhereNull('expiry_date');
                     } else if ($poolCandidates['expiryStatus'] == ApiEnums::CANDIDATE_EXPIRY_FILTER_EXPIRED) {
                         $query->whereDate('expiry_date', '<', date("Y-m-d"));
+                    }
+                  })
+                  ->where(function ($query) use ($poolCandidates) {
+                    if (array_key_exists('statuses', $poolCandidates) && !empty($poolCandidates['statuses'])) {
+                        $query->whereIn('pool_candidates.pool_candidate_status', $poolCandidates['statuses']);
                     }
                   });
         });

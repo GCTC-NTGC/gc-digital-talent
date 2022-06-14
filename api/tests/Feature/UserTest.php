@@ -138,7 +138,7 @@ class UserTest extends TestCase
         $this->assertContains('ADMIN', $user->fresh()->roles);
     }
 
-    public function testFilterByPool(): void
+    public function testFilterByPoolCandidateStatuses(): void
     {
         // Get the ID of the base admin user
         $user = User::All()->first();
@@ -161,6 +161,11 @@ class UserTest extends TestCase
             'expiry_date' => FAR_FUTURE_DATE,
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_EXPIRED,
         ]);
+        PoolCandidate::factory()->count(3)->create([
+            'pool_id' => $pool1['id'],
+            'expiry_date' => FAR_FUTURE_DATE,
+            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_PLACED_TERM,
+        ]);
         PoolCandidate::factory()->count(2)->create([
             'pool_id' => $pool2['id'],
             'expiry_date' => FAR_FUTURE_DATE,
@@ -182,13 +187,13 @@ class UserTest extends TestCase
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
-                        'total' => 12
+                        'total' => 15
                     ]
                 ]
             ]
         ]);
 
-        // Assert query with pool filter will return correct number of users, available only
+        // Assert query with pool filter but no statuses filter
         $this->graphQL(/** @lang Graphql */ '
             query getUsersPaginated($where: UserFilterAndOrderInput) {
                 usersPaginated(where: $where) {
@@ -201,20 +206,19 @@ class UserTest extends TestCase
             'where' => [
                 'poolCandidates' => [
                     'pools' => [$pool1['id']],
-                    'statuses' => [ApiEnums::CANDIDATE_STATUS_AVAILABLE],
                 ]
             ]
         ])->assertJson([
             'data' => [
                 'usersPaginated' => [
                     'paginatorInfo' => [
-                        'total' => 5
+                        'total' => 12
                     ]
                 ]
             ]
         ]);
 
-        // Assert query with pool filter, expired will return correct number of users
+        // Assert query with pool filter, only expired status
         $this->graphQL(/** @lang Graphql */ '
             query getUsersPaginated($where: UserFilterAndOrderInput) {
                 usersPaginated(where: $where) {
@@ -240,7 +244,7 @@ class UserTest extends TestCase
             ]
         ]);
 
-        // Assert query with pool filter, expired + available will return correct number of users
+        // Assert query with pool filter, expired + available statuses
         $this->graphQL(/** @lang Graphql */ '
             query getUsersPaginated($where: UserFilterAndOrderInput) {
                 usersPaginated(where: $where) {
@@ -261,6 +265,32 @@ class UserTest extends TestCase
                 'usersPaginated' => [
                     'paginatorInfo' => [
                         'total' => 9
+                    ]
+                ]
+            ]
+        ]);
+
+        // Assert query with pool filter, empty array of statuses will return all candidates in pool.
+        $this->graphQL(/** @lang Graphql */ '
+            query getUsersPaginated($where: UserFilterAndOrderInput) {
+                usersPaginated(where: $where) {
+                    paginatorInfo {
+                        total
+                    }
+                }
+            }
+        ', [
+            'where' => [
+                'poolCandidates' => [
+                    'pools' => [$pool1['id']],
+                    'statuses' => [],
+                ]
+            ]
+        ])->assertJson([
+            'data' => [
+                'usersPaginated' => [
+                    'paginatorInfo' => [
+                        'total' => 12
                     ]
                 ]
             ]
