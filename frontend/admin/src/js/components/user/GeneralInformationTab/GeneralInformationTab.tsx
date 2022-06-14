@@ -405,24 +405,32 @@ const NotesSection: React.FC<BasicSectionProps> = ({ user }) => {
         })
           .then(() => {
             toast.success(
-              intl
-                .formatMessage({
-                  defaultMessage: "Successfully updated notes for candidate in",
+              intl.formatMessage(
+                {
+                  defaultMessage:
+                    "Successfully updated notes for candidate in {poolName}",
                   description:
-                    "Toast notification for successful update of candidates notes",
-                })
-                .concat(` ${candidate.pool?.name?.[locale]}` || ""),
+                    "Toast notification for successful update of candidates notes in specified pool",
+                },
+                {
+                  poolName: candidate.pool?.name?.[locale],
+                },
+              ),
             );
           })
           .catch(() => {
             toast.error(
-              intl
-                .formatMessage({
-                  defaultMessage: "Failed updating notes for candidate in",
+              intl.formatMessage(
+                {
+                  defaultMessage:
+                    "Failed updating notes for candidate in {poolName}",
                   description:
-                    "Toast notification for failed update of candidates notes",
-                })
-                .concat(` ${candidate.pool?.name?.[locale]}` || ""),
+                    "Toast notification for failed update of candidates notes in specified pool",
+                },
+                {
+                  poolName: candidate.pool?.name?.[locale],
+                },
+              ),
             );
           });
       }
