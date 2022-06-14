@@ -271,6 +271,9 @@ export const SearchContainerApi: React.FC = () => {
 
   const paths = useTalentSearchRoutes();
   const onSubmit = async () => {
+    // pool ID is not in the form so it must be added manually
+    if (candidateFilter && pool) candidateFilter.pools = [{ id: pool.id }];
+
     return pushToStateThenNavigate(paths.request(), {
       candidateFilter,
       candidateCount,
