@@ -17,6 +17,14 @@ const mockExperiences = fakeExperiences(5);
 const renderExperienceForm = (props: ExperienceFormProps) =>
   render(<ExperienceForm {...props} />);
 
+/**
+ * HACK: Suppress key error
+ * TO DO: Fix mock data to provide keys
+ */
+beforeAll(() => {
+  jest.spyOn(console, "error").mockImplementation(() => null);
+});
+
 describe("ExperienceForm", () => {
   it("should render award fields", () => {
     const mockSave = jest.fn();
