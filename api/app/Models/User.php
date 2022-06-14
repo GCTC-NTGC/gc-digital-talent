@@ -88,7 +88,7 @@ class User extends Model implements Authenticatable
     }
     public function expectedGenericJobTitles(): BelongsToMany
     {
-        return $this->belongsToMany(GenericJobTitle::class, 'classification_role_user')->withTimestamps();
+        return $this->belongsToMany(GenericJobTitle::class, 'generic_job_title_user')->withTimestamps();
     }
     public function cmoAssets(): BelongsToMany
     {
