@@ -15,7 +15,7 @@ module.exports = {
     },
     {
       path: "frontend/admin/dist/app.js",
-      maxSize: "250 kB",
+      maxSize: "280 kB",
     },
   ]
 };

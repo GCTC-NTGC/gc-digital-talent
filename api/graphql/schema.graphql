@@ -267,6 +267,7 @@ type PoolCandidate {
     cmoAssets: [CmoAsset] @belongsToMany
 
     status: PoolCandidateStatus @rename(attribute: "pool_candidate_status")
+    notes: String
 }
 
 enum LanguageAbility {
@@ -358,7 +359,7 @@ type PoolCandidateFilter {
     classifications: [Classification] @belongsToMany
     cmoAssets: [CmoAsset] @belongsToMany
     hasDiploma: Boolean @rename(attribute: "has_diploma")
-    equity: EquitySelections @rename(attribute: "equity_selections")
+    equity: EquitySelections
     languageAbility: LanguageAbility @rename(attribute: "language_ability")
     operationalRequirements: [OperationalRequirement] @rename(attribute: "operational_requirements")
     workRegions: [WorkRegion] @rename(attribute: "work_regions")
@@ -843,6 +844,7 @@ input CreatePoolCandidateAsAdminInput {
     cmoAssets: CmoAssetBelongsToMany
     status: PoolCandidateStatus = AVAILABLE
         @rename(attribute: "pool_candidate_status")
+    notes: String
 }
 
 input CreatePoolInput {
@@ -885,6 +887,7 @@ input UpdatePoolCandidateAsAdminInput {
     expectedClassifications: ClassificationBelongsToMany
     cmoAssets: CmoAssetBelongsToMany
     status: PoolCandidateStatus @rename(attribute: "pool_candidate_status")
+    notes: String
 }
 
 input UpdatePoolInput {
