@@ -548,7 +548,7 @@ enum CANDIDATE_EXPIRY_FILTER {
 input UserPoolFilterInput {
     pools: [ID!]!
     expiryStatus: CANDIDATE_EXPIRY_FILTER = ACTIVE
-    statuses: [PoolCandidateStatus!]! @scope(name: "PoolCandidateStatuses")
+    statuses: [PoolCandidateStatus!]!
 }
 
 input PoolCandidateFilterInput {

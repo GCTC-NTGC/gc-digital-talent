@@ -240,6 +240,32 @@ class UserTest extends TestCase
             ]
         ]);
 
+        // Assert query with pool filter, expired + available will return correct number of users
+        $this->graphQL(/** @lang Graphql */ '
+            query getUsersPaginated($where: UserFilterAndOrderInput) {
+                usersPaginated(where: $where) {
+                    paginatorInfo {
+                        total
+                    }
+                }
+            }
+        ', [
+            'where' => [
+                'poolCandidates' => [
+                    'pools' => [$pool1['id']],
+                    'statuses' => [ApiEnums::CANDIDATE_STATUS_AVAILABLE, ApiEnums::CANDIDATE_STATUS_EXPIRED],
+                ]
+            ]
+        ])->assertJson([
+            'data' => [
+                'usersPaginated' => [
+                    'paginatorInfo' => [
+                        'total' => 9
+                    ]
+                ]
+            ]
+        ]);
+
         // Assert query with unknown pool filter will return zero
         $this->graphQL(/** @lang Graphql */ '
             query getUsersPaginated($where: UserFilterAndOrderInput) {
@@ -252,7 +278,8 @@ class UserTest extends TestCase
         ', [
             'where' => [
                 'poolCandidates' => [
-                    'pools' => ['00000000-0000-0000-0000-000000000000']
+                    'pools' => ['00000000-0000-0000-0000-000000000000'],
+                    'statuses' => [ApiEnums::CANDIDATE_STATUS_AVAILABLE],
                 ]
             ]
         ])->assertJson([

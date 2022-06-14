@@ -175,6 +175,7 @@ class User extends Model implements Authenticatable
                   ->from('pool_candidates')
                   ->whereColumn('pool_candidates.user_id', 'users.id')
                   ->whereIn('pool_candidates.pool_id', $poolCandidates['pools'])
+                  ->whereIn('pool_candidate_status', $poolCandidates['statuses'])
                   ->where(function ($query) use ($poolCandidates) {
                     if ($poolCandidates['expiryStatus'] == ApiEnums::CANDIDATE_EXPIRY_FILTER_ACTIVE) {
                         $query->whereDate('expiry_date', '>=', date("Y-m-d"))
@@ -182,20 +183,9 @@ class User extends Model implements Authenticatable
                     } else if ($poolCandidates['expiryStatus'] == ApiEnums::CANDIDATE_EXPIRY_FILTER_EXPIRED) {
                         $query->whereDate('expiry_date', '<', date("Y-m-d"));
                     }
-                    $query->poolCandidateStatuses($poolCandidates['statuses']);
                   });
         });
 
-        return $query;
-    }
-
-    public function scopePoolCandidateStatuses(Builder $query, ?array $poolCandidateStatuses): Builder
-    {
-        if(empty($poolCandidateStatuses)){
-            return $query;
-        }
-
-        $query->whereIn('pool_candidate_status', $poolCandidateStatuses);
         return $query;
     }
 
