@@ -10,11 +10,14 @@ use App\Models\CommunityExperience;
 use App\Models\EducationExperience;
 use App\Models\PersonalExperience;
 use App\Models\WorkExperience;
+use App\Models\GenericJobTitle;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nuwave\Lighthouse\Testing\ClearsSchemaCache;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Tests\TestCase;
 use Database\Helpers\ApiEnums;
+use Database\Seeders\ClassificationSeeder;
+use Database\Seeders\GenericJobTitleSeeder;
 
 // for setting expiry dates so tests don't fail due to expired candidates when they are not supposed to
 const FAR_FUTURE_DATE = '2050-01-01';
@@ -1307,6 +1310,10 @@ class UserTest extends TestCase
 
     public function testFilterByProfileComplete(): void
     {
+        // need some generic job titles for a complete profile
+        $this->seed(ClassificationSeeder::class);
+        $this->seed(GenericJobTitleSeeder::class);
+
         // Create initial set of 5 users with incomplete profiles.
         User::factory()->count(5)->create([
             'current_province' => null,
@@ -1333,18 +1340,22 @@ class UserTest extends TestCase
         ]);
 
         // Create some complete users.
-        User::factory()->count(3)->create([
-            'current_province' => 'ONTARIO',
-            'location_preferences' => ['PRAIRIE'],
-            'looking_for_english' => null,
-            'looking_for_french' => true,
-            'looking_for_bilingual' => null,
-            'telephone' => '+15407608748',
-            'current_city' => 'Somewhere random',
-            'is_gov_employee' => false,
-            'expected_salary' => ['_50_59K'],
-            'would_accept_temporary' => false,
-        ]);
+        User::factory()->count(3)
+            ->afterCreating(function($user) {
+                $user->expectedGenericJobTitles()->sync([GenericJobTitle::first()->id]);
+            })
+            ->create([
+                'current_province' => 'ONTARIO',
+                'location_preferences' => ['PRAIRIE'],
+                'looking_for_english' => null,
+                'looking_for_french' => true,
+                'looking_for_bilingual' => null,
+                'telephone' => '+15407608748',
+                'current_city' => 'Somewhere random',
+                'is_gov_employee' => false,
+                'expected_salary' => ['_50_59K'],
+                'would_accept_temporary' => false,
+            ]);
 
         // Assert query no isProfileComplete filter will return all users
         $this->graphQL(/** @lang Graphql */ '

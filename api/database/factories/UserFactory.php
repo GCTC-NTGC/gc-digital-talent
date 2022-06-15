@@ -40,7 +40,7 @@ class UserFactory extends Factory
         return [
             'first_name' => $this->faker->firstName(),
             'last_name' => $this->faker->lastName(),
-            'email' => $this->faker->boolean(75) ? $this->faker->unique()->safeEmail : null,
+            'email' => $this->faker->unique()->safeEmail(),
             'sub' => $this->faker->boolean(75) ? $this->faker->unique()->uuid() : null,
             'telephone' => $this->faker->e164PhoneNumber(),
             'preferred_lang' => $this->faker->randomElement(['en', 'fr']),
