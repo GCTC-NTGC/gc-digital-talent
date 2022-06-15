@@ -370,6 +370,14 @@ query getUserProfile($id: ID!) {
     isVisibleMinority
     hasDisability
     expectedSalary
+    expectedGenericJobTitles {
+      id
+      key
+      name {
+        en
+        fr
+      }
+    }
     currentClassification {
       id
       group
