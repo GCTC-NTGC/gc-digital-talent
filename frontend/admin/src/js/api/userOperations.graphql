@@ -47,6 +47,14 @@ mutation CreateUser($user: CreateUserInput!) {
 
     isGovEmployee
     interestedInLaterOrSecondment
+    department {
+      id
+      departmentNumber
+      name {
+        en
+        fr
+      }
+    }
     currentClassification {
       id
       name {
@@ -109,6 +117,14 @@ mutation UpdateUserAsUser($id: ID!, $user: UpdateUserAsUserInput!) {
 
     isGovEmployee
     interestedInLaterOrSecondment
+    department {
+      id
+      departmentNumber
+      name {
+        en
+        fr
+      }
+    }
     currentClassification {
       id
       name {
@@ -171,6 +187,14 @@ mutation UpdateUserAsAdmin($id: ID!, $user: UpdateUserAsAdminInput!) {
 
     isGovEmployee
     interestedInLaterOrSecondment
+    department {
+      id
+      departmentNumber
+      name {
+        en
+        fr
+      }
+    }
     currentClassification {
       id
       name {

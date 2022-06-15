@@ -4,10 +4,11 @@
 import "@testing-library/jest-dom";
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { IntlProvider, MessageFormatElement } from "react-intl";
-import { fakeClassifications } from "@common/fakeData";
+import { fakeClassifications, fakeDepartments } from "@common/fakeData";
 import React from "react";
 import { CreateAccountForm, CreateAccountFormProps } from "./CreateAccountPage";
 
+const mockDepartments = fakeDepartments();
 const mockClassifications = fakeClassifications();
 const mockSave = jest.fn();
 
@@ -24,12 +25,14 @@ const renderWithReactIntl = (
 };
 
 const renderCreateAccountForm = ({
+  departments,
   classifications,
   handleCreateAccount,
 }: CreateAccountFormProps) => (
   <>
     {renderWithReactIntl(
       <CreateAccountForm
+        departments={departments}
         classifications={classifications}
         handleCreateAccount={handleCreateAccount}
       />,
@@ -40,6 +43,7 @@ const renderCreateAccountForm = ({
 describe("Create Account Form tests", () => {
   it("should render fields", () => {
     renderCreateAccountForm({
+      departments: mockDepartments,
       classifications: mockClassifications,
       handleCreateAccount: mockSave,
     });
@@ -59,7 +63,9 @@ describe("Create Account Form tests", () => {
     ).toBeInTheDocument();
 
     expect(
-      screen.getByRole("group", { name: /goc employee status/i }),
+      screen.getByRole("group", {
+        name: /currently work for the government of canada/i,
+      }),
     ).toBeInTheDocument();
 
     // Government info fields conditional rendering is tested in GovernmentInfoForm.test.tsx
@@ -67,6 +73,7 @@ describe("Create Account Form tests", () => {
 
   it("should not render with empty fields.", async () => {
     renderCreateAccountForm({
+      departments: mockDepartments,
       classifications: mockClassifications,
       handleCreateAccount: mockSave,
     });
@@ -78,6 +85,7 @@ describe("Create Account Form tests", () => {
 
   it("should submit successfully with required fields", async () => {
     renderCreateAccountForm({
+      departments: mockDepartments,
       classifications: mockClassifications,
       handleCreateAccount: mockSave,
     });
@@ -97,9 +105,17 @@ describe("Create Account Form tests", () => {
     fireEvent.click(preferredLangEnglish);
 
     const isGovEmployee = screen.getByRole("radio", {
-      name: /yes, i am a government of canada employee/i,
+      name: /i am a government of canada employee/i,
     });
     fireEvent.click(isGovEmployee);
+
+    const department = screen.getByRole("combobox", {
+      name: /which department do you work for/i,
+    }) as HTMLSelectElement;
+    const options = Array.from(
+      department.querySelectorAll("option"),
+    ) as HTMLOptionElement[];
+    fireEvent.change(department, { target: { value: options[1].value } }); // Set to second value after null selection.
 
     const isStudent = screen.getByRole("radio", {
       name: /i am a student/i,

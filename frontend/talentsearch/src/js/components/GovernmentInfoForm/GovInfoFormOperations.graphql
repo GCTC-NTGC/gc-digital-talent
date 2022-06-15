@@ -1,4 +1,12 @@
-query getAllClassificationsAndMe {
+query getGovInfoFormLookupData {
+  departments {
+      id
+      departmentNumber
+      name {
+        en
+        fr
+      }
+  }
   classifications {
     id
     name {
@@ -15,6 +23,14 @@ query getAllClassificationsAndMe {
     isGovEmployee
     isProfileComplete
     govEmployeeType
+    department {
+      id
+      departmentNumber
+      name {
+        en
+        fr
+      }
+    }
     currentClassification {
       id
       name {
@@ -36,6 +52,14 @@ mutation UpdateGovAsUser($id: ID!, $user: UpdateUserAsUserInput!) {
     govEmployeeType
     interestedInLaterOrSecondment
     isProfileComplete
+    department {
+      id
+      departmentNumber
+      name {
+        en
+        fr
+      }
+    }
     currentClassification {
       id
       name {

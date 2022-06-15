@@ -33,6 +33,14 @@ mutation CreateAccount($id: ID!, $user: UpdateUserAsUserInput!) {
     govEmployeeType
     interestedInLaterOrSecondment
     isProfileComplete
+    department {
+      id
+      departmentNumber
+      name {
+        en
+        fr
+      }
+    }
     currentClassification {
       id
       name {
