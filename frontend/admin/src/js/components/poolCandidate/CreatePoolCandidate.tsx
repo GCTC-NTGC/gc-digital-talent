@@ -17,7 +17,7 @@ import {
   RadioGroup,
 } from "@common/components/form";
 import { empty, notEmpty } from "@common/helpers/util";
-import { currentDate, enumToOptions } from "@common/helpers/formUtils";
+import { enumToOptions } from "@common/helpers/formUtils";
 import { navigate } from "@common/helpers/router";
 import { getLocale } from "@common/helpers/localize";
 import {

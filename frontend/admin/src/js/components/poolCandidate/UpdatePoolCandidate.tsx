@@ -12,7 +12,6 @@ import {
 } from "@common/components/form";
 import { notEmpty } from "@common/helpers/util";
 import {
-  currentDate,
   unpackIds,
   unpackMaybes,
   enumToOptions,
