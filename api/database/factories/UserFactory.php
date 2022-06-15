@@ -35,6 +35,7 @@ class UserFactory extends Factory
 
         $randomDepartment = Department::inRandomOrder()->first();
         $randomClassification = Classification::inRandomOrder()->first();
+        $isGovEmployee = $this->faker->boolean();
 
         return [
             'first_name' => $this->faker->firstName(),
@@ -87,9 +88,9 @@ class UserFactory extends Factory
                 'INTERMEDIATE',
                 'ADVANCED'
             ]),
-            'is_gov_employee' => $this->faker->boolean(),
+            'is_gov_employee' => $isGovEmployee,
             'interested_in_later_or_secondment' => $this->faker->boolean(),
-            'department' => $randomDepartment ? $randomDepartment->id : null,
+            'department' => $isGovEmployee && $randomDepartment ? $randomDepartment->id : null,
             'current_classification' => $randomClassification ? $randomClassification->id : null,
             'is_woman' => $this->faker->boolean(),
             'has_disability' => $this->faker->boolean(),
