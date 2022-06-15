@@ -8,7 +8,7 @@ const colorMap: Record<Color, Record<string, string>> = {
     "data-h2-border": "b(left, .5rem, solid, dt-primary)",
   },
   secondary: {
-    "data-h2-border": "b(left, .5rem, solid, dt-primary) b(lightnavy, left, solid, m)",
+    "data-h2-border": "b(left, .5rem, solid, dt-secondary)",
   },
   cta: {
     "data-h2-border": "b(left, .5rem, solid, dark.dt-accent)",

@@ -59,7 +59,7 @@ const ModalTableButton: React.FC<ModalTableButtonProps> = ({
     <Button
       color="black"
       mode="inline"
-      data-h2-padding="b(all, none)"
+      data-h2-padding="b(0)"
       onClick={click}
     >
       <span data-h2-font-style="b(underline)">{children}</span>
@@ -79,8 +79,8 @@ const PoolStatusTable: React.FC<BasicSectionProps> = ({ user }) => {
   if (isEmpty(user.poolCandidates)) {
     return (
       <div
-        data-h2-bg-color="b(lightgray)"
-        data-h2-padding="b(all, s)"
+        data-h2-background-color="b(light.dt-gray)"
+        data-h2-padding="b(x.5)"
         data-h2-radius="b(s)"
       >
         {intl.formatMessage({
@@ -95,29 +95,29 @@ const PoolStatusTable: React.FC<BasicSectionProps> = ({ user }) => {
     <>
       <table data-h2-text-align="b(center)">
         <thead>
-          <tr data-h2-bg-color="b(darkgray)" data-h2-font-color="b(white)">
-            <th data-h2-padding="b(top-bottom, xs)" data-h2-width="b(25)">
+          <tr data-h2-background-color="b(dark.dt-gray)" data-h2-color="b(dt-white)">
+            <th data-h2-padding="b(x.25, 0)" data-h2-width="b(25%)">
               {intl.formatMessage({
                 defaultMessage: "Pool",
                 description:
                   "Title of the 'Pool' column for the table on view-user page",
               })}
             </th>
-            <th data-h2-padding="b(top-bottom, xs)" data-h2-width="b(25)">
+            <th data-h2-padding="b(x.25, 0)" data-h2-width="b(25%)">
               {intl.formatMessage({
                 defaultMessage: "Status",
                 description:
                   "Title of the 'Status' column for the table on view-user page",
               })}
             </th>
-            <th data-h2-padding="b(top-bottom, xs)" data-h2-width="b(25)">
+            <th data-h2-padding="b(x.25, 0)" data-h2-width="b(25%)">
               {intl.formatMessage({
                 defaultMessage: "Expiry date",
                 description:
                   "Title of the 'Expiry date' column for the table on view-user page",
               })}
             </th>
-            <th data-h2-padding="b(top-bottom, xs)" data-h2-width="b(25)">
+            <th data-h2-padding="b(x.25, 0)" data-h2-width="b(25%)">
               {intl.formatMessage({
                 defaultMessage: "Actions",
                 description:
@@ -132,14 +132,14 @@ const PoolStatusTable: React.FC<BasicSectionProps> = ({ user }) => {
               return (
                 <tr key={candidate.id}>
                   <td
-                    data-h2-bg-color="b(lightgray)"
-                    data-h2-padding="b(top-bottom, xs)"
+                    data-h2-background-color="b(light.dt-gray)"
+                    data-h2-padding="b(x.25, 0)"
                   >
                     {candidate.pool?.name?.[locale]}
                   </td>
                   <td
-                    data-h2-bg-color="b(lightgray)"
-                    data-h2-padding="b(top-bottom, xs)"
+                    data-h2-background-color="b(light.dt-gray)"
+                    data-h2-padding="b(x.25, 0)"
                   >
                     {intl.formatMessage(
                       getPoolCandidateStatus(candidate.status as string),
@@ -159,8 +159,8 @@ const PoolStatusTable: React.FC<BasicSectionProps> = ({ user }) => {
                   </td>
                   <td
                     data-h2-font-style="b(underline)"
-                    data-h2-bg-color="b(lightgray)"
-                    data-h2-padding="b(top-bottom, xs)"
+                    data-h2-background-color="b(light.dt-gray)"
+                    data-h2-padding="b(x.25, 0)"
                   >
                     <ModalTableButton
                       click={() => {
@@ -172,9 +172,9 @@ const PoolStatusTable: React.FC<BasicSectionProps> = ({ user }) => {
                   </td>
                   <td
                     data-h2-font-style="b(underline)"
-                    data-h2-bg-color="b(lightgray)"
-                    data-h2-font-color="b(darkgray)"
-                    data-h2-padding="b(top-bottom, xs)"
+                    data-h2-background-color="b(light.dt-gray)"
+                    data-h2-color="b(dark.dt-gray)"
+                    data-h2-padding="b(x.25, 0)"
                   >
                     {intl.formatMessage({
                       defaultMessage: "Remove from pool",
@@ -208,9 +208,9 @@ const AboutSection: React.FC<BasicSectionProps> = ({ user }) => {
 
   return (
     <div
-      data-h2-bg-color="b(lightgray)"
-      data-h2-padding="b(right-left, m) b(top-bottom, s)"
-      data-h2-flex-grid="b(normal, expanded, flush, xs)"
+      data-h2-background-color="b(light.dt-gray)"
+      data-h2-padding="b(x.5, x1)"
+      data-h2-flex-grid="b(normal, 0, x.25)"
       data-h2-radius="b(s)"
     >
       <span data-h2-flex-item="b(1of3) l(1of6)">
@@ -284,7 +284,7 @@ const CandidateStatusSection: React.FC<SectionWithPoolsProps> = ({
 
   const purpleText = (msg: string) => {
     return (
-      <span data-h2-font-color="b(lightpurple)" data-h2-font-weight="b(800)">
+      <span data-h2-color="b(dt-primary)" data-h2-font-weight="b(800)">
         {msg}
       </span>
     );
@@ -300,8 +300,8 @@ const CandidateStatusSection: React.FC<SectionWithPoolsProps> = ({
         })}
       </h5>
       <div
-        data-h2-bg-color="b(lightgray)"
-        data-h2-padding="b(all, s)"
+        data-h2-background-color="b(light.dt-gray)"
+        data-h2-padding="b(x.5)"
         data-h2-radius="b(s)"
       >
         {user.jobLookingStatus === JobLookingStatus.ActivelyLooking &&
@@ -449,8 +449,8 @@ const NotesSection: React.FC<BasicSectionProps> = ({ user }) => {
       </p>
       {isEmpty(user.poolCandidates) ? (
         <div
-          data-h2-bg-color="b(lightgray)"
-          data-h2-padding="b(all, s)"
+          data-h2-background-color="b(light.dt-gray)"
+          data-h2-padding="b(x.5)"
           data-h2-radius="b(s)"
         >
           {intl.formatMessage({
@@ -464,7 +464,7 @@ const NotesSection: React.FC<BasicSectionProps> = ({ user }) => {
           {user?.poolCandidates?.map((candidate) => {
             if (candidate) {
               return (
-                <div data-h2-padding="b(bottom, s)" key={candidate.id}>
+                <div data-h2-padding="b(0, 0, x.5, 0)" key={candidate.id}>
                   <TextArea
                     id={candidate.id}
                     name={candidate.id}
@@ -505,8 +505,8 @@ const EmploymentEquitySection: React.FC<BasicSectionProps> = ({ user }) => {
 
   return (
     <div
-      data-h2-bg-color="b(lightgray)"
-      data-h2-padding="b(right-left, s) b(top-bottom, xxs)"
+      data-h2-background-color="b(light.dt-gray)"
+      data-h2-padding="b(x.125, x.5)"
       data-h2-radius="b(s)"
     >
       {!user.isIndigenous &&
@@ -520,7 +520,7 @@ const EmploymentEquitySection: React.FC<BasicSectionProps> = ({ user }) => {
             "Text on view-user page that the user isn't part of any employment equity groups",
         })}
       {user.isIndigenous && (
-        <div data-h2-padding="b(top-bottom, xxs)">
+        <div data-h2-padding="b(x.125, 0)">
           <CheckIcon style={{ width: "1rem" }} />
           {"  "}
           {intl.formatMessage({
@@ -530,7 +530,7 @@ const EmploymentEquitySection: React.FC<BasicSectionProps> = ({ user }) => {
         </div>
       )}
       {user.hasDisability && (
-        <div data-h2-padding="b(top-bottom, xxs)">
+        <div data-h2-padding="b(x.125, 0)">
           <CheckIcon style={{ width: "1rem" }} />
           {"  "}
           {intl.formatMessage({
@@ -541,7 +541,7 @@ const EmploymentEquitySection: React.FC<BasicSectionProps> = ({ user }) => {
         </div>
       )}
       {user.isVisibleMinority && (
-        <div data-h2-padding="b(top-bottom, xxs)">
+        <div data-h2-padding="b(x.125, 0)">
           <CheckIcon style={{ width: "1rem" }} />
           {"  "}
           {intl.formatMessage({
@@ -552,7 +552,7 @@ const EmploymentEquitySection: React.FC<BasicSectionProps> = ({ user }) => {
         </div>
       )}
       {user.isWoman && (
-        <div data-h2-padding="b(top-bottom, xxs)">
+        <div data-h2-padding="b(x.125, 0)">
           <CheckIcon style={{ width: "1rem" }} />
           {"  "}
           {intl.formatMessage({

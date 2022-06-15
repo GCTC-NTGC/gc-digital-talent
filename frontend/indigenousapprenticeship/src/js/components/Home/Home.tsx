@@ -118,7 +118,7 @@ const Home: React.FunctionComponent = () => {
           data-h2-bg-color="b(ia-white)"
           data-h2-radius="b(s)"
         >
-          <div data-h2-display="m(flex)" data-h2-align-items="m(flex-start))">
+          <div data-h2-display="m(flex)" data-h2-align-items="m(flex-start)">
             <div
               className="program__image-wrapper about-program__image-wrapper"
               data-h2-position="b(relative)"

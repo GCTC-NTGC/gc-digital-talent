@@ -176,7 +176,7 @@ function Table<T extends Record<string, unknown>>({
                   <th
                     {...column.getHeaderProps(column.getSortByToggleProps())}
                     key={column.id}
-                    data-h2-background-color="b(light.secondary)"
+                    data-h2-background-color="b(light.dt-secondary)"
                     data-h2-color="b(dt-white)"
                     data-h2-font-weight="b(800)"
                     data-h2-padding="b(x.5, x1)"
