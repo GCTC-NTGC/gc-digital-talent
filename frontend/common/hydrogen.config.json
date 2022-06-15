@@ -5,7 +5,7 @@
     "code": "https://github.com/hydrogen-design-system/hydrogen",
     "roadmap": "https://github.com/orgs/hydrogen-design-system/projects/1"
   },
-  "debug": false,
+  "debug": true,
   "temp": [
     "../*/src/views/*.html"
   ],
