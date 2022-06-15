@@ -64,7 +64,7 @@ export const formValuesToSubmitData = (
       isGovEmployee: false,
       govEmployeeType: null,
       interestedInLaterOrSecondment: null,
-      department: values.department ? { connect: values.department } : null,
+      department: null,
       currentClassification: {
         connect: null,
       },
