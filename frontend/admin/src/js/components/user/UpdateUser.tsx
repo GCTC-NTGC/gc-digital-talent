@@ -5,7 +5,7 @@ import pick from "lodash/pick";
 import { toast } from "react-toastify";
 import { Select, Submit, Input, MultiSelect } from "@common/components/form";
 import { navigate } from "@common/helpers/router";
-import { enumToOptions, unpackIds } from "@common/helpers/formUtils";
+import { enumToOptions } from "@common/helpers/formUtils";
 import { errorMessages, commonMessages } from "@common/messages";
 import { getLanguage, getRole } from "@common/constants/localizedConstants";
 import { phoneNumberRegex } from "@common/constants/regularExpressions";
