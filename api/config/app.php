@@ -194,8 +194,6 @@ MLL\GraphQLPlayground\GraphQLPlaygroundServiceProvider::class,
 \Laravel\Tinker\TinkerServiceProvider::class,
 
 App\Providers\GraphQLServiceProvider::class,
-App\Providers\BearerTokenServiceProvider::class,
-App\Providers\OpenIdConfigurationServiceProvider::class,
 
 
     ],

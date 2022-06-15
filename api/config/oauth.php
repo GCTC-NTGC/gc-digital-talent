@@ -25,7 +25,7 @@ return [
     | based thereupon.
     |
     */
-    'allowable_clock_skew' =>  DateInterval::createFromDateString('4 minutes'),
+    'allowable_clock_skew' =>  '4 minutes',
 
     /*
     |--------------------------------------------------------------------------

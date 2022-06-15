@@ -30,12 +30,12 @@ class OpenIdBearerTokenService
     private Clock $clock;
     private DateInterval $allowableClockSkew;
 
-    public function __construct(OpenIdConfigurationService $configService, Clock $clock, DateInterval $allowableClockSkew)
+    public function __construct(OpenIdConfigurationService $configService, Clock $clock, string $allowableClockSkew)
     {
         $this->configService = $configService;
         $this->unsecuredConfig = Configuration::forUnsecuredSigner(); // need a config to parse the token and get the key id
         $this->clock = $clock;
-        $this->allowableClockSkew = $allowableClockSkew;
+        $this->allowableClockSkew = DateInterval::createFromDateString($allowableClockSkew);
     }
 
     // get a Lcobucci\JWT\Configuration object for a given key ID

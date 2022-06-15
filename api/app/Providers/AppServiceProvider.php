@@ -6,6 +6,11 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use App\Services\OpenIdConfigurationService;
+use App\Services\OpenIdBearerTokenService;
+use DateTimeZone;
+use Lcobucci\Clock\Clock;
+use Lcobucci\Clock\SystemClock;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -16,7 +21,15 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->instance(Clock::class, new SystemClock(new DateTimeZone(config('app.timezone'))));
+
+        $this->app->when(OpenIdConfigurationService::class)
+            ->needs('$configUri')
+            ->giveConfig('oauth.config_endpoint');
+
+        $this->app->when(OpenIdBearerTokenService::class)
+            ->needs('$allowableClockSkew')
+            ->giveConfig('oauth.allowable_clock_skew');
     }
 
     public function boot()
