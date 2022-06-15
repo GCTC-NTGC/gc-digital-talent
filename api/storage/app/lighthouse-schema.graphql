@@ -40,6 +40,7 @@ type Applicant {
   educationExperiences: [EducationExperience]
   personalExperiences: [PersonalExperience]
   workExperiences: [WorkExperience]
+  expectedGenericJobTitles: [GenericJobTitle]
 }
 
 type AwardExperience implements Experience {
@@ -105,6 +106,7 @@ type Classification {
   level: Int!
   minSalary: Int
   maxSalary: Int
+  genericJobTitles: [GenericJobTitle]
 }
 
 input ClassificationBelongsTo {
@@ -208,6 +210,7 @@ input CreatePoolCandidateAsAdminInput {
   expectedClassifications: ClassificationBelongsToMany
   cmoAssets: CmoAssetBelongsToMany
   status: PoolCandidateStatus = AVAILABLE
+  notes: String
 }
 
 input CreatePoolCandidateFilterInput {
@@ -294,6 +297,7 @@ input CreateUserInput {
   acceptedOperationalRequirements: [OperationalRequirement]
   expectedSalary: [SalaryRange]
   expectedClassifications: ClassificationBelongsToMany
+  expectedGenericJobTitles: GenericJobTitleBelongsToMany
   wouldAcceptTemporary: Boolean
   cmoAssets: CmoAssetBelongsToMany
   workExperiences: WorkExperienceHasMany
@@ -413,6 +417,26 @@ interface Experience {
 
 type ExperienceSkillRecord {
   details: String
+}
+
+type GenericJobTitle {
+  id: ID!
+  key: GenericJobTitleKey!
+  name: LocalizedString
+  classification: Classification
+}
+
+input GenericJobTitleBelongsToMany {
+  sync: [ID!]
+}
+
+enum GenericJobTitleKey {
+  TECHNICIAN_IT01
+  ANALYST_IT02
+  TEAM_LEADER_IT03
+  TECHNICAL_ADVISOR_IT03
+  SENIOR_ADVISOR_IT04
+  MANAGER_IT04
 }
 
 enum GovEmployeeType {
@@ -680,6 +704,7 @@ type PoolCandidate {
   expectedClassifications: [Classification]
   cmoAssets: [CmoAsset]
   status: PoolCandidateStatus
+  notes: String
 }
 
 type PoolCandidateFilter {
@@ -794,6 +819,8 @@ type Query {
   skillFamilies: [SkillFamily]!
   skill(id: ID!): Skill
   skills: [Skill]!
+  genericJobTitle(id: ID!): GenericJobTitle
+  genericJobTitles: [GenericJobTitle]!
   usersPaginated(
     where: UserFilterAndOrderInput
 
@@ -989,6 +1016,7 @@ input UpdatePoolCandidateAsAdminInput {
   expectedClassifications: ClassificationBelongsToMany
   cmoAssets: CmoAssetBelongsToMany
   status: PoolCandidateStatus
+  notes: String
 }
 
 input UpdatePoolCandidateSearchRequestInput {
@@ -1057,6 +1085,7 @@ input UpdateUserAsAdminInput {
   acceptedOperationalRequirements: [OperationalRequirement]
   expectedSalary: [SalaryRange]
   expectedClassifications: ClassificationBelongsToMany
+  expectedGenericJobTitles: GenericJobTitleBelongsToMany
   wouldAcceptTemporary: Boolean
   cmoAssets: CmoAssetBelongsToMany
   workExperiences: WorkExperienceHasMany
@@ -1098,6 +1127,7 @@ input UpdateUserAsUserInput {
   acceptedOperationalRequirements: [OperationalRequirement]
   expectedSalary: [SalaryRange]
   expectedClassifications: ClassificationBelongsToMany
+  expectedGenericJobTitles: GenericJobTitleBelongsToMany
   wouldAcceptTemporary: Boolean
   cmoAssets: CmoAssetBelongsToMany
   workExperiences: WorkExperienceHasMany
@@ -1153,6 +1183,7 @@ type User {
   workExperiences: [WorkExperience]
   pools: [Pool]
   isProfileComplete: Boolean
+  expectedGenericJobTitles: [GenericJobTitle]
 }
 
 input UserBelongsTo {

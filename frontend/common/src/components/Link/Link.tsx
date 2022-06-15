@@ -1,5 +1,6 @@
 import React from "react";
 import { navigate } from "../../helpers/router";
+import sanitizeUrl from "../../helpers/sanitizeUrl";
 import type { Color } from "../Button";
 import { colorMap } from "../Button/Button";
 
@@ -25,37 +26,40 @@ const Link: React.FC<LinkProps> = ({
   children,
   className,
   ...rest
-}): React.ReactElement => (
-  <a
-    href={href}
-    title={title}
-    className={`${type === "button" && `button `}${className}`}
-    {...(type === "button"
-      ? {
-          "data-h2-radius": "b(s)",
-          "data-h2-padding": "b(x.25, x.5)",
-          "data-h2-font-size": "b(caption) m(copy)",
-          ...(color && mode ? { ...colorMap[color][mode] } : {}),
-          ...(block
-            ? {
-                "data-h2-display": "b(block)",
-                "data-h2-text-align": "b(center)",
-              }
-            : { "data-h2-display": "b(inline-block)" }),
-        }
-      : {})}
-    {...rest}
-    onClick={
-      !external
-        ? (event): void => {
-            event.preventDefault();
-            if (href) navigate(href);
+}): React.ReactElement => {
+  const url = sanitizeUrl(href);
+  return (
+    <a
+      href={url}
+      title={title}
+      className={`${type === "button" && `button `}${className}`}
+      {...(type === "button"
+        ? {
+            "data-h2-radius": "b(s)",
+            "data-h2-padding": "b(x.25, x.5)",
+            "data-h2-font-size": "b(caption) m(copy)",
+            ...(color && mode ? { ...colorMap[color][mode] } : {}),
+            ...(block
+              ? {
+                  "data-h2-display": "b(block)",
+                  "data-h2-text-align": "b(center)",
+                }
+              : { "data-h2-display": "b(inline-block)" }),
           }
-        : undefined
-    }
-  >
-    {children}
-  </a>
-);
+        : {})}
+      {...rest}
+      onClick={
+        !external
+          ? (event): void => {
+              event.preventDefault();
+              if (href) navigate(href);
+            }
+          : undefined
+      }
+    >
+      {children}
+    </a>
+  );
+};
 
 export default Link;

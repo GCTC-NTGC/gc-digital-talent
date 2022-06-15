@@ -5,7 +5,7 @@ use App\Models\CmoAsset;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
 use App\Models\User;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nuwave\Lighthouse\Testing\ClearsSchemaCache;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Tests\TestCase;
@@ -16,7 +16,7 @@ const FAR_FUTURE_DATE = '2050-01-01';
 
 class PoolCandidateTest extends TestCase
 {
-  use DatabaseMigrations;
+  use \Illuminate\Foundation\Testing\RefreshDatabase;
   use MakesGraphQLRequests;
   use ClearsSchemaCache;
 

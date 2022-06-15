@@ -48,10 +48,7 @@ type FormValues = {
       sync?: Array<Maybe<CmoAsset["id"]>>;
     };
     hasDiploma?: PoolCandidateFilter["hasDiploma"];
-    hasDisability?: EquitySelections["hasDisability"];
-    isIndigenous?: EquitySelections["isIndigenous"];
-    isVisibleMinority?: EquitySelections["isVisibleMinority"];
-    isWoman?: EquitySelections["isWoman"];
+    equity?: EquitySelections;
     languageAbility?: PoolCandidateFilter["languageAbility"];
     operationalRequirements?: Array<Maybe<OperationalRequirement>>;
     pools?: {
@@ -119,20 +116,7 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
           hasDiploma: poolCandidateFilter?.hasDiploma
             ? poolCandidateFilter?.hasDiploma
             : false,
-          equity: {
-            hasDisability: values.poolCandidateFilter?.hasDisability
-              ? values.poolCandidateFilter?.hasDisability
-              : false,
-            isIndigenous: values.poolCandidateFilter?.isIndigenous
-              ? values.poolCandidateFilter?.isIndigenous
-              : false,
-            isVisibleMinority: values.poolCandidateFilter?.isVisibleMinority
-              ? values.poolCandidateFilter?.isVisibleMinority
-              : false,
-            isWoman: values.poolCandidateFilter?.isWoman
-              ? values.poolCandidateFilter?.isWoman
-              : false,
-          },
+          equity: poolCandidateFilter?.equity,
           languageAbility: poolCandidateFilter?.languageAbility,
           operationalRequirements: poolCandidateFilter?.operationalRequirements,
           pools: {

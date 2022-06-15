@@ -2,6 +2,7 @@ import React from "react";
 import { useIntl } from "react-intl";
 import { useFieldArray, useFormContext } from "react-hook-form";
 
+import { notEmpty } from "@common/helpers/util";
 import type { Skill } from "../../api/generated";
 
 import AddSkillsToExperience from "../skills/AddSkillsToExperience/AddSkillsToExperience";
@@ -15,9 +16,8 @@ export interface ExperienceSkillsProps {
 
 const ExperienceSkills: React.FC<ExperienceSkillsProps> = ({ skills }) => {
   const intl = useIntl();
-  const { control, watch, getValues } = useFormContext();
-  const initialSkills = getValues("skills");
-  const [addedSkills, setAddedSkills] = React.useState<Skill[]>(initialSkills);
+  const { control, watch } = useFormContext();
+  const [addedSkills, setAddedSkills] = React.useState<Skill[]>([]);
   const watchedSkills = watch("skills");
   const { fields, append, remove } = useFieldArray({
     control,
@@ -25,12 +25,13 @@ const ExperienceSkills: React.FC<ExperienceSkillsProps> = ({ skills }) => {
   });
 
   React.useEffect(() => {
-    const newSkills = watchedSkills
+    const newSkills = notEmpty(watchedSkills)
       ? watchedSkills.map((watchedSkill: FormSkill) => {
-          return skills.find((s) => s.id === watchedSkill.skillId);
+          const newSkill = skills.find((s) => s.id === watchedSkill.skillId);
+          return newSkill || undefined;
         })
       : [];
-    setAddedSkills(newSkills);
+    setAddedSkills(notEmpty(newSkills) ? newSkills : []);
   }, [watchedSkills, setAddedSkills, skills]);
 
   const handleAddSkill = (id: string) => {
@@ -68,7 +69,7 @@ const ExperienceSkills: React.FC<ExperienceSkillsProps> = ({ skills }) => {
       </p>
       <AddSkillsToExperience
         frequentSkills={[]}
-        addedSkills={addedSkills as Skill[]}
+        addedSkills={addedSkills || []}
         allSkills={skills}
         onAddSkill={handleAddSkill}
         onRemoveSkill={handleRemoveSkill}

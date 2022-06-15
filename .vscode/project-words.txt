@@ -4,6 +4,7 @@ Authenticatable
 BEHAVIOURAL
 colour
 colours
+corejs
 darkgold
 darkgray
 darknavy
@@ -12,6 +13,7 @@ darkpurple
 datetime
 dedup
 DIRECTINTAKE
+Gatineau
 gctalent
 heroicons
 INDIGENOUSAPPRENTICESHIP
@@ -42,4 +44,3 @@ Unencrypted
 unlocalized
 urql
 WCAG
-Gatineau

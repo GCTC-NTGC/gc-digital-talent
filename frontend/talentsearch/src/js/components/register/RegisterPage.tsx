@@ -2,10 +2,12 @@ import React from "react";
 import { useIntl } from "react-intl";
 
 import { Link } from "@common/components";
+import { getLocale } from "@common/helpers/localize";
 import { imageUrl } from "@common/helpers/router";
 import { useApiRoutes } from "@common/hooks/useApiRoutes";
 
 import TALENTSEARCH_APP_DIR from "../../talentSearchConstants";
+import { useTalentSearchRoutes } from "../../talentSearchRoutes";
 
 const keyRegistrationLink = (path: string, ...chunks: React.ReactNode[]) => (
   <a href={path}>{chunks}</a>
@@ -17,7 +19,9 @@ const boldText = (...chunks: React.ReactNode[]) => (
 
 const RegisterPage: React.FC = () => {
   const intl = useIntl();
+  const talentPaths = useTalentSearchRoutes();
   const paths = useApiRoutes();
+  const loginPath = paths.login(talentPaths.profile(), getLocale(intl));
 
   return (
     <>
@@ -68,7 +72,7 @@ const RegisterPage: React.FC = () => {
                 "Instruction on what to do if user does not have a GC Key.",
             },
             {
-              a: (...chunks) => keyRegistrationLink(paths.login(), chunks),
+              a: (...chunks) => keyRegistrationLink(loginPath, chunks),
               b: boldText,
             },
           )}
@@ -81,7 +85,7 @@ const RegisterPage: React.FC = () => {
           data-h2-justify-content="b(space-between)"
         >
           <p>
-            <Link href={paths.login()} external>
+            <Link href={loginPath} external>
               {intl.formatMessage({
                 defaultMessage: "Log in instead",
                 description: "Login link text on the registration page.",
@@ -90,7 +94,7 @@ const RegisterPage: React.FC = () => {
           </p>
           <p>
             <Link
-              href={paths.login()}
+              href={loginPath}
               mode="solid"
               type="button"
               color="primary"

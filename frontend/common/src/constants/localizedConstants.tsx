@@ -8,6 +8,7 @@ import {
   PoolCandidateSearchStatus,
   SkillCategory,
   Role,
+  GenericJobTitleKey,
   AwardedTo,
   AwardedScope,
   EducationType,
@@ -318,6 +319,42 @@ export const Roles = defineMessages({
 
 export const getRole = (roleId: string | number): MessageDescriptor =>
   getOrThrowError(Roles, roleId, `Invalid role '${roleId}'`);
+
+export const GenericJobTitles = defineMessages({
+  [GenericJobTitleKey.TechnicianIt01]: {
+    defaultMessage: "Level 1: Technician",
+    description: "The name of the Technician classification role.",
+  },
+  [GenericJobTitleKey.AnalystIt02]: {
+    defaultMessage: "Level 2: Analyst",
+    description: "The name of the Technician Analyst role.",
+  },
+  [GenericJobTitleKey.TeamLeaderIt03]: {
+    defaultMessage: "Level 3: Team leader",
+    description: "The name of the Team leader Analyst role.",
+  },
+  [GenericJobTitleKey.TechnicalAdvisorIt03]: {
+    defaultMessage: "Level 3: Technical advisor",
+    description: "The name of the Technical advisor role.",
+  },
+  [GenericJobTitleKey.SeniorAdvisorIt04]: {
+    defaultMessage: "Level 4: Senior advisor",
+    description: "The name of the Senior advisor role.",
+  },
+  [GenericJobTitleKey.ManagerIt04]: {
+    defaultMessage: "Level 4: Manager",
+    description: "The name of the Senior advisor role.",
+  },
+});
+
+export const getGenericJobTitles = (
+  GenericJobTitleId: string | number,
+): MessageDescriptor =>
+  getOrThrowError(
+    GenericJobTitles,
+    GenericJobTitleId,
+    `Invalid role '${GenericJobTitleId}'`,
+  );
 
 export const awardedToMessages = defineMessages({
   [AwardedTo.Me]: {

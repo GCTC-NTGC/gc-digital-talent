@@ -5,6 +5,8 @@ import { RouterResult } from "@common/helpers/router";
 import Toast from "@common/components/Toast";
 import { checkFeatureFlag } from "@common/helpers/runtimeVariable";
 import { AuthenticationContext } from "@common/components/Auth";
+import { Button } from "@common/components";
+import Dialog from "@common/components/Dialog";
 import PageContainer, { MenuLink } from "./PageContainer";
 import SearchPage from "./search/SearchPage";
 import {
@@ -37,6 +39,7 @@ import BrowseIndividualPoolApi from "./browse/BrowseIndividualPool";
 import PoolApplyPage from "./pool/PoolApplyPage";
 import PoolApplicationThanksPage from "./pool/PoolApplicationThanksPage";
 import RegisterPage from "./register/RegisterPage";
+import LoggedOutPage from "./loggedOut/LoggedOutPage";
 import LoginPage from "./login/LoginPage";
 import { CreateAccount } from "./createAccount/CreateAccountPage";
 import { Role } from "../api/generated";
@@ -70,6 +73,12 @@ const authRoutes = (authPaths: AuthRoutes): Routes<RouterResult> => [
     path: authPaths.register(),
     action: () => ({
       component: <RegisterPage />,
+    }),
+  },
+  {
+    path: authPaths.loggedOut(),
+    action: () => ({
+      component: <LoggedOutPage />,
     }),
   },
   {
@@ -244,6 +253,8 @@ export const Router: React.FC = () => {
   const profilePaths = useApplicantProfileRoutes();
   const directIntakePaths = useDirectIntakeRoutes();
   const { loggedIn, logout } = React.useContext(AuthenticationContext);
+  const [isConfirmationOpen, setConfirmationOpen] =
+    React.useState<boolean>(false);
 
   const menuItems = [
     <MenuLink
@@ -289,17 +300,7 @@ export const Router: React.FC = () => {
         as="button"
         onClick={() => {
           if (loggedIn) {
-            // Display a confirmation dialog before logging the user out
-            // At some point we may change this to use a modal
-            const message = intl.formatMessage({
-              defaultMessage: "Are you sure you want to logout?",
-              description: "Label displayed on the Logout confirmation dialog.",
-            });
-
-            // eslint-disable-next-line no-restricted-globals, no-alert
-            if (confirm(message)) {
-              logout();
-            }
+            setConfirmationOpen(true);
           }
         }}
         text={intl.formatMessage({
@@ -327,6 +328,65 @@ export const Router: React.FC = () => {
         ]}
       />
       <Toast />
+      {loggedIn && (
+        <Dialog
+          confirmation
+          centered
+          isOpen={isConfirmationOpen}
+          onDismiss={() => {
+            setConfirmationOpen(false);
+          }}
+          title={intl.formatMessage({
+            defaultMessage: "Logout",
+            description:
+              "Title for the modal that appears when an authenticated user lands on /logged-out.",
+          })}
+          footer={
+            <div
+              data-h2-display="b(flex)"
+              data-h2-align-items="b(center)"
+              data-h2-justify-content="b(flex-end)"
+            >
+              <Button
+                mode="outline"
+                color="primary"
+                type="button"
+                onClick={() => {
+                  setConfirmationOpen(false);
+                }}
+              >
+                {intl.formatMessage({
+                  defaultMessage: "Cancel",
+                  description: "Link text to cancel logging out.",
+                })}
+              </Button>
+              <span data-h2-margin="b(left, s)">
+                <Button
+                  mode="solid"
+                  color="primary"
+                  type="button"
+                  onClick={() => {
+                    logout();
+                  }}
+                >
+                  {intl.formatMessage({
+                    defaultMessage: "Logout",
+                    description: "Link text to logout.",
+                  })}
+                </Button>
+              </span>
+            </div>
+          }
+        >
+          <p data-h2-font-size="b(h5)">
+            {intl.formatMessage({
+              defaultMessage: "Are you sure you would like to logout?",
+              description:
+                "Question displayed when authenticated user lands on /logged-out.",
+            })}
+          </p>
+        </Dialog>
+      )}
     </>
   );
 };
