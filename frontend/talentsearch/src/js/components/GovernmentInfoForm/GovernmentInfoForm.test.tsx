@@ -8,6 +8,7 @@ import {
   fakeDepartments,
   fakeUsers,
 } from "@common/fakeData";
+import { act } from "react-dom/test-utils";
 import { render, screen, fireEvent, waitFor } from "../../tests/testUtils";
 import {
   GovInfoFormWithProfileWrapper as GovernmentInfoForm,
@@ -35,13 +36,15 @@ const renderGovInfoForm = ({
   );
 };
 
-describe("Government Info Form tests", () => {
-  test("Form conditional rendering", async () => {
-    renderGovInfoForm({
-      initialData: mockUser,
-      departments: mockDepartments,
-      classifications: mockClassifications,
-      submitHandler: mockSave,
+describe("GovernmentInfoForm", () => {
+  it("should render the form", async () => {
+    await act(async () => {
+      renderGovInfoForm({
+        initialData: mockUser,
+        departments: mockDepartments,
+        classifications: mockClassifications,
+        submitHandler: mockSave,
+      });
     });
 
     // Ensure conditional form elements don't exist yet.
@@ -63,7 +66,7 @@ describe("Government Info Form tests", () => {
       }),
     );
     expect(
-      screen.getByRole("radio", {
+      await screen.getByRole("radio", {
         name: /i am a student/i,
       }),
     ).toBeInTheDocument();
@@ -94,24 +97,39 @@ describe("Government Info Form tests", () => {
     ).toBeInTheDocument();
   });
 
-  test("Submit functionality", async () => {
-    renderGovInfoForm({
-      initialData: mockUser,
-      departments: mockDepartments,
-      classifications: mockClassifications,
-      submitHandler: mockSave,
+  it("should submit the form", async () => {
+    await act(async () => {
+      renderGovInfoForm({
+        initialData: mockUser,
+        departments: mockDepartments,
+        classifications: mockClassifications,
+        submitHandler: mockSave,
+      });
     });
-    const isGovEmployee = screen.getByRole("radio", {
+    const isGovEmployee = await screen.getByRole("radio", {
       name: /i am a government of canada employee/i,
     });
     fireEvent.click(isGovEmployee);
 
-    const isStudent = screen.getByRole("radio", {
+    const termPos = await screen.getByRole("radio", {
+      name: /i have a term position/i,
+    });
+    fireEvent.click(termPos); // Open the other forms
+
+    expect(
+      await screen.getByText(
+        "Please indicate if you are interested in lateral deployment or secondment. Learn more about this.",
+      ),
+    ).toBeTruthy();
+
+    expect(await screen.getByText("Current Classification Group")).toBeTruthy();
+
+    const isStudent = await screen.getByRole("radio", {
       name: /i am a student/i,
     });
     fireEvent.click(isStudent);
 
-    fireEvent.submit(screen.getByRole("button", { name: /save/i }));
+    fireEvent.submit(await screen.getByRole("button", { name: /save/i }));
     await waitFor(() => {
       expect(mockSave).toHaveBeenCalled();
     });
