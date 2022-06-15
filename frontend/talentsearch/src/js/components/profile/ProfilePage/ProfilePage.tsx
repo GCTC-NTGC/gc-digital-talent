@@ -78,6 +78,7 @@ export const ProfileForm: React.FC<ProfilePageProps> = ({
             isVisible: true,
             editUrl: paths.diversityEquityInclusion(),
           },
+          roleSalary: { isVisible: true, editUrl: paths.roleSalary() },
           skillsExperience: {
             isVisible: true,
             editUrl: paths.skillsAndExperiences(),

@@ -39,6 +39,15 @@ query getMe {
         fr
       }
     }
+    expectedGenericJobTitles {
+      id
+      key
+      name {
+        en
+        fr
+      }
+    }
+
     isWoman
     hasDisability
     isIndigenous
@@ -161,4 +170,5 @@ query getMe {
     }
     isProfileComplete
   }
+
 }

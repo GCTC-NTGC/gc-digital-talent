@@ -4,25 +4,22 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
- * Class Classification
+ * Class GenericJobTitle
  *
  * @property int $id
+ * @property string $key
  * @property array $name
- * @property string $group
- * @property int $level
- * @property int $min_salary
- * @property int $max_salary
+ * @property int $classification_id
  * @property Illuminate\Support\Carbon $created_at
  * @property Illuminate\Support\Carbon $updated_at
  */
 
-class Classification extends Model
+class GenericJobTitle extends Model
 {
-
     use HasFactory;
     use SoftDeletes;
 
@@ -35,11 +32,11 @@ class Classification extends Model
      */
     protected $casts = [
         'name' => 'array',
+
     ];
 
-    public function genericJobTitles(): HasMany
+    public function classification(): BelongsTo
     {
-        return $this->hasMany(GenericJobTitle::class);
+        return $this->belongsTo(Classification::class);
     }
-
 }
