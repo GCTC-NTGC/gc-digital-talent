@@ -5,14 +5,15 @@
     "code": "https://github.com/hydrogen-design-system/hydrogen",
     "roadmap": "https://github.com/orgs/hydrogen-design-system/projects/1"
   },
+  "debug": false,
   "temp": [
-    "../*/src/views/*.html",
-    "../indigenousapprenticeship/src/js"
+    "../*/src/views/*.html"
   ],
   "input": [
     "../common/src/components",
     "../admin/src/js",
-    "../talentsearch/src/js"
+    "../talentsearch/src/js",
+    "../indigenousapprenticeship/src/js"
   ],
   "output": "src/css",
   "variables": {

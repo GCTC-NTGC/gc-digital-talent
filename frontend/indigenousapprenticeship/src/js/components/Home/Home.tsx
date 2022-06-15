@@ -400,7 +400,7 @@ const Home: React.FunctionComponent = () => {
         </div>
         <div
           className="apply-program"
-          data-h2-padding="b(top, xl) m(top, xxl)"
+          data-h2-padding="b(x3, 0, 0, 0) m(x4, 0, 0, 0)"
           data-h2-position="b(relative)"
         >
           <div
@@ -410,8 +410,8 @@ const Home: React.FunctionComponent = () => {
           >
             <div
               className="apply-program__box"
-              data-h2-bg-color="b(ia-lightpurple)"
-              data-h2-font-color="b(ia-white)"
+              data-h2-background-color="b(light.ia-secondary)"
+              data-h2-color="b(ia-white)"
               data-h2-shadow="b(m)"
             >
               <div
@@ -425,15 +425,15 @@ const Home: React.FunctionComponent = () => {
               />
               <div
                 className="apply-program__box__text"
-                data-h2-padding="b(all, m) m(left, xxl) m(right, l)"
+                data-h2-padding="b(x1) m(x1, x2, x1, x4)"
               >
                 <Heading
                   light
                   data-h2-display="b(flex)"
                   data-h2-flex-direction="b(column)"
-                  data-h2-margin="b(top, xxs)"
-                  data-h2-font-color="b(ia-white)"
-                  data-h2-font-size="b(h3)"
+                  data-h2-margin="b(x.125, 0, 0, 0)"
+                  data-h2-color="b(ia-white)"
+                  data-h2-font-size="b(h3, 1.3)"
                 >
                   <span>
                     {intl.formatMessage({
@@ -492,10 +492,10 @@ const Home: React.FunctionComponent = () => {
         </div>
         <div
           className="portal-panel"
-          data-h2-bg-color="b(ia-purple)"
-          data-h2-font-color="b(ia-white)"
+          data-h2-background-color="b(ia-secondary)"
+          data-h2-color="b(ia-white)"
           data-h2-position="b(relative)"
-          data-h2-padding="b(bottom, xl)"
+          data-h2-padding="b(0, 0, x3, 0)"
         >
           <div
             className="portal-panel__inner"
@@ -510,7 +510,7 @@ const Home: React.FunctionComponent = () => {
               <Banner>
                 <Heading
                   color="white"
-                  data-h2-margin="b(top-bottom, xxs)"
+                  data-h2-margin="b(x.125, 0)"
                   data-h2-font-size="b(h3)"
                 >
                   {intl.formatMessage({
@@ -521,7 +521,7 @@ const Home: React.FunctionComponent = () => {
               </Banner>
             </div>
             <div data-h2-text-align="b(center)">
-              <Heading light color="white" data-h2-margin="b(top, xxs)">
+              <Heading light color="white" data-h2-margin="b(x.125, 0, 0, 0)">
                 {intl.formatMessage({
                   defaultMessage:
                     "IT Apprenticeship Program for Indigenous Peoples + The Indigenous Talent Portal",
@@ -530,7 +530,7 @@ const Home: React.FunctionComponent = () => {
               </Heading>
               <div
                 data-h2-container="b(center, s)"
-                data-h2-margin="b(top-bottom, xl)"
+                data-h2-margin="b(x3, 0)"
               >
                 <Heading as="h3" color="white">
                   {intl.formatMessage({
@@ -550,7 +550,7 @@ const Home: React.FunctionComponent = () => {
               </div>
               <div
                 data-h2-display="m(flex)"
-                data-h2-margin="b(top-bottom, xl)"
+                data-h2-margin="b(x3, 0)"
                 className="portal-panel__steps"
               >
                 <div className="portal-panel__step">
@@ -634,7 +634,7 @@ const Home: React.FunctionComponent = () => {
               </div>
               <div
                 data-h2-container="b(center, s)"
-                data-h2-margin="b(top-bottom, xl)"
+                data-h2-margin="b(x3, 0)"
               >
                 <Heading as="h3" color="white">
                   {intl.formatMessage({
@@ -654,12 +654,12 @@ const Home: React.FunctionComponent = () => {
               </div>
               <div
                 data-h2-display="m(flex)"
-                data-h2-margin="b(top-bottom, m) m(top-bottom, xl)"
+                data-h2-margin="b(x1, 0) m(x3, 0)"
                 className="portal-panel__strategy"
               >
                 <div
                   className="portal-panel__strategy__item"
-                  data-h2-width="b(100) s(50) m(25)"
+                  data-h2-width="b(100%) s(50%) m(25%)"
                 >
                   <Card
                     Icon={People}
@@ -679,7 +679,7 @@ const Home: React.FunctionComponent = () => {
                 </div>
                 <div
                   className="portal-panel__strategy__item"
-                  data-h2-width="b(100) s(50) m(25)"
+                  data-h2-width="b(100%) s(50%) m(25%)"
                 >
                   <Card
                     Icon={TrendingUp}
@@ -699,7 +699,7 @@ const Home: React.FunctionComponent = () => {
                 </div>
                 <div
                   className="portal-panel__strategy__item"
-                  data-h2-width="b(100) s(50) m(25)"
+                  data-h2-width="b(100%) s(50%) m(25%)"
                 >
                   <Card
                     Icon={BarChart}
@@ -719,7 +719,7 @@ const Home: React.FunctionComponent = () => {
                 </div>
                 <div
                   className="portal-panel__strategy__item"
-                  data-h2-width="b(100) s(50) m(25)"
+                  data-h2-width="b(100%) s(50%) m(25%)"
                 >
                   <Card
                     Icon={Calendar}
@@ -742,14 +742,14 @@ const Home: React.FunctionComponent = () => {
             <div
               className="talent-portal-wrapper"
               data-h2-position="b(relative)"
-              data-h2-margin="m(top, xxl)"
+              data-h2-margin="m(x4, 0, 0, 0)"
             >
               <div
                 className="talent-portal-card"
                 data-h2-position="b(relative)"
-                data-h2-margin="m(top-bottom, l)"
-                data-h2-bg-color="b(ia-lightpurple)"
-                data-h2-font-color="b(ia-white)"
+                data-h2-margin="m(x2, 0)"
+                data-h2-background-color="b(light.ia-secondary)"
+                data-h2-color="b(ia-white)"
                 style={{
                   backgroundImage: `url(${imageUrl(
                     INDIGENOUSAPPRENTICESHIP_APP_DIR,
@@ -760,9 +760,9 @@ const Home: React.FunctionComponent = () => {
                 <div data-h2-display="m(flex)">
                   <div
                     className="talent-portal-card__content"
-                    data-h2-padding="b(all, l)"
+                    data-h2-padding="b(x2)"
                   >
-                    <Heading color="white" light data-h2-margin="b(top, xxs)">
+                    <Heading color="white" light data-h2-margin="b(x.125, 0, 0, 0)">
                       {intl.formatMessage({
                         defaultMessage: "About the Indigenous Talent Portal",
                         description: "Talent Portal information heading",
@@ -796,16 +796,16 @@ const Home: React.FunctionComponent = () => {
               <Triangle
                 className="talent-portal__triangle"
                 data-h2-position="b(absolute)"
-                data-h2-width="b(75)"
-                data-h2-font-color="b(ia-lightpurple)"
+                data-h2-width="b(75%)"
+                data-h2-color="b(light.ia-secondary)"
               />
             </div>
           </div>
           <RadiatingCircles
             className="portal-panel__bg-item portal-panel__circles"
-            data-h2-font-color="b(ia-pink)"
+            data-h2-color="b(ia-primary)"
             data-h2-position="b(absolute)"
-            data-h2-width="b(50)"
+            data-h2-width="b(50%)"
           />
           <ThickCircle
             className="portal-panel__bg-item portal-panel__thick-circle"
