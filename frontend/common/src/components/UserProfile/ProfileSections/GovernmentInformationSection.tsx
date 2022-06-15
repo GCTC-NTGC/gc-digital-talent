@@ -1,7 +1,7 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { enumToOptions, getValues } from "@common/helpers/formUtils";
-import { getGovEmployeeType } from "@common/constants/localizedConstants";
+import { enumToOptions } from "../../../helpers/formUtils";
+import { getGovEmployeeType } from "../../../constants/localizedConstants";
 import { getLocale } from "../../../helpers/localize";
 import { strong } from "../../../helpers/format";
 import { Applicant, GovEmployeeType } from "../../../api/generated";
