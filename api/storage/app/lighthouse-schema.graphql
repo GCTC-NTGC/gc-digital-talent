@@ -106,7 +106,7 @@ type Classification {
   level: Int!
   minSalary: Int
   maxSalary: Int
-  GenericJobTitles: [GenericJobTitle]
+  genericJobTitles: [GenericJobTitle]
 }
 
 input ClassificationBelongsTo {
@@ -817,8 +817,8 @@ type Query {
   skillFamilies: [SkillFamily]!
   skill(id: ID!): Skill
   skills: [Skill]!
-  GenericJobTitle(id: ID!): GenericJobTitle
-  GenericJobTitles: [GenericJobTitle]!
+  genericJobTitle(id: ID!): GenericJobTitle
+  genericJobTitles: [GenericJobTitle]!
   usersPaginated(
     where: UserFilterAndOrderInput
 

@@ -334,7 +334,7 @@ const RoleSalaryFormContainer: React.FunctionComponent = () => {
 
   const [{ data: initialData, fetching, error }] = useGetRoleSalaryInfoQuery();
   const preProfileStatus = initialData?.me?.isProfileComplete;
-  const GenericJobTitles = unpackMaybes(initialData?.GenericJobTitles);
+  const GenericJobTitles = unpackMaybes(initialData?.genericJobTitles);
 
   const [, executeMutation] = useUpdateRoleSalaryMutation();
   const handleRoleSalary = (id: string, data: UpdateUserAsUserInput) =>

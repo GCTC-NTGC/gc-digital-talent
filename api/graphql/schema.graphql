@@ -320,7 +320,7 @@ type Classification {
   level: Int!
   minSalary: Int @rename(attribute: "min_salary")
   maxSalary: Int @rename(attribute: "max_salary")
-  GenericJobTitles: [GenericJobTitle] @belongsToMany
+  genericJobTitles: [GenericJobTitle] @belongsToMany
 }
 
 enum GenericJobTitleKey {
@@ -628,8 +628,8 @@ type Query {
     skillFamilies: [SkillFamily]! @all
     skill(id: ID! @eq): Skill @find
     skills: [Skill]! @all
-    GenericJobTitle(id: ID! @eq): GenericJobTitle @find
-    GenericJobTitles: [GenericJobTitle]! @all
+    genericJobTitle(id: ID! @eq): GenericJobTitle @find
+    genericJobTitles: [GenericJobTitle]! @all
 }
 input ClassificationBelongsTo {
     connect: ID
