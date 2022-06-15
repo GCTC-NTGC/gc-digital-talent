@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * Class GenericJobTitle
  *
  * @property int $id
- * @property string $role
+ * @property string $key
  * @property array $name
  * @property int $classification_id
  * @property Illuminate\Support\Carbon $created_at

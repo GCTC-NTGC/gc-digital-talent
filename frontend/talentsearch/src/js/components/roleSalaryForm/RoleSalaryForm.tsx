@@ -22,7 +22,7 @@ import {
 } from "./dialogs";
 import {
   GenericJobTitle,
-  GenericJobTitleType,
+  GenericJobTitleKey,
   GetRoleSalaryInfoQuery,
   UpdateUserAsUserInput,
   useGetRoleSalaryInfoQuery,
@@ -34,7 +34,7 @@ import profileMessages from "../profile/profileMessages";
 import { useApplicantProfileRoutes } from "../../applicantProfileRoutes";
 
 export type FormValues = {
-  expectedGenericJobTitles: GenericJobTitleType[];
+  expectedGenericJobTitles: GenericJobTitleKey[];
 };
 
 export type RoleSalaryUpdateHandler = (
@@ -155,7 +155,7 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
           name="expectedGenericJobTitles"
           items={[
             {
-              value: GenericJobTitleType.TechnicianIt01,
+              value: GenericJobTitleKey.TechnicianIt01,
               label: intl.formatMessage(
                 {
                   defaultMessage:
@@ -170,7 +170,7 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
               ),
             },
             {
-              value: GenericJobTitleType.AnalystIt02,
+              value: GenericJobTitleKey.AnalystIt02,
               label: intl.formatMessage(
                 {
                   defaultMessage:
@@ -185,7 +185,7 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
               ),
             },
             {
-              value: GenericJobTitleType.TeamLeaderIt03,
+              value: GenericJobTitleKey.TeamLeaderIt03,
               label: intl.formatMessage(
                 {
                   defaultMessage:
@@ -200,7 +200,7 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
               ),
             },
             {
-              value: GenericJobTitleType.TechnicalAdvisorIt03,
+              value: GenericJobTitleKey.TechnicalAdvisorIt03,
               label: intl.formatMessage(
                 {
                   defaultMessage:
@@ -215,7 +215,7 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
               ),
             },
             {
-              value: GenericJobTitleType.SeniorAdvisorIt04,
+              value: GenericJobTitleKey.SeniorAdvisorIt04,
               label: intl.formatMessage(
                 {
                   defaultMessage:
@@ -230,7 +230,7 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
               ),
             },
             {
-              value: GenericJobTitleType.ManagerIt04,
+              value: GenericJobTitleKey.ManagerIt04,
               label: intl.formatMessage(
                 {
                   defaultMessage:
@@ -306,7 +306,7 @@ const dataToFormValues = (data: GetRoleSalaryInfoQuery): FormValues => {
   return {
     expectedGenericJobTitles:
       data?.me?.expectedGenericJobTitles
-        ?.map((c) => c?.role)
+        ?.map((genericJobTitle) => genericJobTitle?.key)
         .filter(notEmpty) ?? [],
   };
 };
@@ -316,7 +316,9 @@ const formValuesToSubmitData = (
   GenericJobTitles: GenericJobTitle[],
 ): UpdateUserAsUserInput => {
   const ids = values.expectedGenericJobTitles
-    .map((role: GenericJobTitleType) => find(GenericJobTitles, ["role", role]))
+    .map((key: GenericJobTitleKey) =>
+      GenericJobTitles.find((generic) => generic.key === key),
+    )
     .filter(notEmpty)
     .map((c: GenericJobTitle) => c.id);
   return {

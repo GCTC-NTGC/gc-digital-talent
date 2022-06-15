@@ -323,7 +323,7 @@ type Classification {
   GenericJobTitles: [GenericJobTitle] @belongsToMany
 }
 
-enum GenericJobTitleType {
+enum GenericJobTitleKey {
   TECHNICIAN_IT01
   ANALYST_IT02
   TEAM_LEADER_IT03
@@ -334,7 +334,7 @@ enum GenericJobTitleType {
 
 type GenericJobTitle {
     id: ID!
-    role: GenericJobTitleType!
+    key: GenericJobTitleKey!
     name: LocalizedString
     classification: Classification @belongsTo
 }

@@ -15,9 +15,9 @@ class GenericJobTitleSeeder extends Seeder
      */
     public function run()
     {
-      $roles = [
+      $genericJobTitles = [
             [
-                'role' => 'TECHNICIAN_IT01',
+                'key' => 'TECHNICIAN_IT01',
                 'name' => [
                     'en' => 'Technician',
                     'fr' => 'Technicien'
@@ -28,7 +28,7 @@ class GenericJobTitleSeeder extends Seeder
                 ],
             ],
             [
-                'role' => 'ANALYST_IT02',
+                'key' => 'ANALYST_IT02',
                 'name' => [
                     'en' => 'Analyst',
                     'fr' => 'Analyste'
@@ -39,7 +39,7 @@ class GenericJobTitleSeeder extends Seeder
                 ],
             ],
             [
-                'role' => 'TEAM_LEADER_IT03',
+                'key' => 'TEAM_LEADER_IT03',
                 'name' => [
                     'en' => 'Team leader',
                     'fr' => 'Chef d’équipe
@@ -52,7 +52,7 @@ class GenericJobTitleSeeder extends Seeder
 
             ],
             [
-                'role' => 'TECHNICAL_ADVISOR_IT03',
+                'key' => 'TECHNICAL_ADVISOR_IT03',
                 'name' => [
                     'en' => 'Technical advisor',
                     'fr' => 'Conseiller technique'
@@ -63,7 +63,7 @@ class GenericJobTitleSeeder extends Seeder
                     ],
             ],
             [
-                'role' => 'SENIOR_ADVISOR_IT04',
+                'key' => 'SENIOR_ADVISOR_IT04',
                 'name' => [
                     'en' => 'Senior advisor',
                     'fr' => 'Conseiller principal'
@@ -75,7 +75,7 @@ class GenericJobTitleSeeder extends Seeder
 
             ],
             [
-                'role' => 'MANAGER_IT04',
+                'key' => 'MANAGER_IT04',
                 'name' => [
                     'en' => 'Manager',
                     'fr' => 'Gestionnaire'
@@ -88,18 +88,18 @@ class GenericJobTitleSeeder extends Seeder
             ],
         ];
 
-        foreach ($roles as $role) {
+        foreach ($genericJobTitles as $genericJobTitle) {
             $identifier = [
-               'role' => $role['role'],
+               'key' => $genericJobTitle['key'],
             ];
             $classificationId = Classification::where([
-                    'group' => $role['classification']['group'],
-                    'level' => $role['classification']['level']
+                    'group' => $genericJobTitle['classification']['group'],
+                    'level' => $genericJobTitle['classification']['level']
                 ])->first()->id;
 
-            $completeRole = array_merge($role, ['classification_id' => $classificationId]);
-            unset($completeRole['classification']);
-            GenericJobTitle::updateOrCreate($identifier, $completeRole);
+            $finalValue = array_merge($genericJobTitle, ['classification_id' => $classificationId]);
+            unset($finalValue['classification']);
+            GenericJobTitle::updateOrCreate($identifier, $finalValue);
         }
     }
 }

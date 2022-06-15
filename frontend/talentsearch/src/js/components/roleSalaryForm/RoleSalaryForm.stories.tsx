@@ -1,7 +1,7 @@
 import React from "react";
 import type { Meta, Story } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
-import { GenericJobTitleType } from "@common/api/generated";
+import { GenericJobTitleKey } from "@common/api/generated";
 import { RoleSalaryForm } from "./RoleSalaryForm";
 
 export default {
@@ -30,8 +30,8 @@ formSomeSelected.args = {
   ...formEmpty.args,
   initialFormValues: {
     expectedGenericJobTitles: [
-      GenericJobTitleType.AnalystIt02,
-      GenericJobTitleType.TechnicalAdvisorIt03,
+      GenericJobTitleKey.AnalystIt02,
+      GenericJobTitleKey.TechnicalAdvisorIt03,
     ],
   },
 };

@@ -9,11 +9,10 @@ const RoleSalarySection: React.FunctionComponent<{
 }> = ({ applicant, editPath }) => {
   const intl = useIntl();
   const { expectedGenericJobTitles } = applicant;
-  // generate array of  expectedRole
   const expectedClassificationArray = expectedGenericJobTitles
     ? expectedGenericJobTitles.map((es) => (
-        <li data-h2-font-weight="b(700)" key={es?.role}>
-          {es ? getGenericJobTitles(es.role).defaultMessage : ""}
+        <li data-h2-font-weight="b(700)" key={es?.key}>
+          {es ? getGenericJobTitles(es.key).defaultMessage : ""}
         </li>
       ))
     : null;

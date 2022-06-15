@@ -8,7 +8,7 @@ import {
   PoolCandidateSearchStatus,
   SkillCategory,
   Role,
-  GenericJobTitleType,
+  GenericJobTitleKey,
   AwardedTo,
   AwardedScope,
   EducationType,
@@ -320,27 +320,27 @@ export const getRole = (roleId: string | number): MessageDescriptor =>
   getOrThrowError(Roles, roleId, `Invalid role '${roleId}'`);
 
 export const GenericJobTitles = defineMessages({
-  [GenericJobTitleType.TechnicianIt01]: {
+  [GenericJobTitleKey.TechnicianIt01]: {
     defaultMessage: "Level 1: Technician",
     description: "The name of the Technician classification role.",
   },
-  [GenericJobTitleType.AnalystIt02]: {
+  [GenericJobTitleKey.AnalystIt02]: {
     defaultMessage: "Level 2: Analyst",
     description: "The name of the Technician Analyst role.",
   },
-  [GenericJobTitleType.TeamLeaderIt03]: {
+  [GenericJobTitleKey.TeamLeaderIt03]: {
     defaultMessage: "Level 3: Team leader",
     description: "The name of the Team leader Analyst role.",
   },
-  [GenericJobTitleType.TechnicalAdvisorIt03]: {
+  [GenericJobTitleKey.TechnicalAdvisorIt03]: {
     defaultMessage: "Level 3: Technical advisor",
     description: "The name of the Technical advisor role.",
   },
-  [GenericJobTitleType.SeniorAdvisorIt04]: {
+  [GenericJobTitleKey.SeniorAdvisorIt04]: {
     defaultMessage: "Level 4: Senior advisor",
     description: "The name of the Senior advisor role.",
   },
-  [GenericJobTitleType.ManagerIt04]: {
+  [GenericJobTitleKey.ManagerIt04]: {
     defaultMessage: "Level 4: Manager",
     description: "The name of the Senior advisor role.",
   },

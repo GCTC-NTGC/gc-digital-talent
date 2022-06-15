@@ -33,11 +33,11 @@ query getMe {
     }
     expectedGenericJobTitles {
       id
+      key
       name {
         en
         fr
       }
-      role
     }
 
     isWoman
