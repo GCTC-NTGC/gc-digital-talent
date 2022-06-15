@@ -274,10 +274,6 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<
               name="expiryDate"
               rules={{
                 required: intl.formatMessage(errorMessages.required),
-                min: {
-                  value: currentDate(),
-                  message: intl.formatMessage(errorMessages.futureDate),
-                },
               }}
             />
             <Checkbox
