@@ -135,28 +135,53 @@ class User extends Model implements Authenticatable
     // getIsProfileCompleteAttribute function is correspondent to isProfileComplete attribute in graphql schema
     public function getIsProfileCompleteAttribute(): bool
     {
-        if(is_null($this->attributes['first_name']) Or
-        is_null($this->attributes['last_name']) Or
-        is_null($this->attributes['email']) Or
-        is_null($this->attributes['telephone']) Or
-        is_null($this->attributes['preferred_lang']) Or
-        is_null($this->attributes['current_province']) Or
-        is_null($this->attributes['current_city']) Or
-            (is_null($this->attributes['looking_for_english']) &&
-            is_null($this->attributes['looking_for_french']) &&
-            is_null($this->attributes['looking_for_bilingual'])) Or
-        is_null($this->attributes['is_gov_employee']) Or
-        is_null($this->attributes['location_preferences']) Or
-        empty($this->attributes['location_preferences']) Or
-        is_null($this->attributes['would_accept_temporary'])  Or
-       $this->expectedGenericJobTitles->isEmpty()
-               )   {
+        if (
+            is_null($this->attributes['first_name']) Or
+            is_null($this->attributes['last_name']) Or
+            is_null($this->attributes['email']) Or
+            is_null($this->attributes['telephone']) Or
+            is_null($this->attributes['preferred_lang']) Or
+            is_null($this->attributes['current_province']) Or
+            is_null($this->attributes['current_city']) Or
+            (
+                is_null($this->attributes['looking_for_english']) &&
+                is_null($this->attributes['looking_for_french']) &&
+                is_null($this->attributes['looking_for_bilingual'])
+            ) Or
+            is_null($this->attributes['is_gov_employee']) Or
+            is_null($this->attributes['location_preferences']) Or
+            empty($this->attributes['location_preferences']) Or
+            is_null($this->attributes['would_accept_temporary']) Or
+            $this->expectedGenericJobTitles->isEmpty()
+        ) {
             return false;
-            }
-        else{
+        } else {
             return true;
         }
 
+    }
+    public function scopeIsProfileComplete(Builder $query, bool $isProfileComplete): Builder
+    {
+        if ($isProfileComplete) {
+            $query->whereNotNull('first_name');
+            $query->whereNotNull('last_name');
+            $query->whereNotNull('email');
+            $query->whereNotNull('telephone');
+            $query->whereNotNull('preferred_lang');
+            $query->whereNotNull('current_province');
+            $query->whereNotNull('current_city');
+            $query->where(function ($query) {
+                $query->whereNotNull('looking_for_english');
+                $query->orWhereNotNull('looking_for_french');
+                $query->orWhereNotNull('looking_for_bilingual');
+            });
+            $query->whereNotNull('is_gov_employee');
+            $query->whereNotNull('location_preferences');
+            $query->whereJsonLength('location_preferences', '>', 0);
+            $query->whereNotNull('would_accept_temporary');
+            $query->has('expectedGenericJobTitles');
+        }
+        return $query;
     }
 
      /**
@@ -399,24 +424,7 @@ RAWSQL2;
         }
         return $query;
     }
-    public function scopeIsProfileComplete(Builder $query, bool $isProfileComplete): Builder
-    {
-        if ($isProfileComplete) {
-            $query->whereNotNull('telephone');
-            $query->whereNotNull('current_province');
-            $query->whereNotNull('current_city');
-            $query->where(function ($query) {
-                $query->whereNotNull('looking_for_english');
-                $query->orWhereNotNull('looking_for_french');
-                $query->orWhereNotNull('looking_for_bilingual');
-            });
-            $query->whereNotNull('is_gov_employee');
-            $query->whereNotNull('location_preferences');
-            $query->whereNotNull('expected_salary');
-            $query->whereNotNull('would_accept_temporary');
-        }
-        return $query;
-    }
+
 
     public function filterByEquity(Builder $query, array $equity): Builder
     {
