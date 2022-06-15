@@ -59,7 +59,7 @@ describe("Government Info Form tests", () => {
     // Open second round of form elements
     fireEvent.click(
       screen.getByRole("radio", {
-        name: /yes, i am a government of canada employee/i,
+        name: /i am a government of canada employee/i,
       }),
     );
     expect(
@@ -102,7 +102,7 @@ describe("Government Info Form tests", () => {
       submitHandler: mockSave,
     });
     const isGovEmployee = screen.getByRole("radio", {
-      name: /yes, i am a government of canada employee/i,
+      name: /i am a government of canada employee/i,
     });
     fireEvent.click(isGovEmployee);
 
