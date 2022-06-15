@@ -200,7 +200,6 @@ class User extends Model implements Authenticatable
         if (empty($poolCandidates)) {
             return $query;
         }
-
         // Pool acts as an OR filter. The query should return valid candidates in ANY of the pools.
         $query->whereExists(function ($query) use ($poolCandidates) {
             $query->select('id')
@@ -214,11 +213,17 @@ class User extends Model implements Authenticatable
                     } else if ($poolCandidates['expiryStatus'] == ApiEnums::CANDIDATE_EXPIRY_FILTER_EXPIRED) {
                         $query->whereDate('expiry_date', '<', date("Y-m-d"));
                     }
+                  })
+                  ->where(function ($query) use ($poolCandidates) {
+                    if (array_key_exists('statuses', $poolCandidates) && !empty($poolCandidates['statuses'])) {
+                        $query->whereIn('pool_candidates.pool_candidate_status', $poolCandidates['statuses']);
+                    }
                   });
         });
 
         return $query;
     }
+
     public function filterByLanguageAbility(Builder $query, ?string $languageAbility): Builder
     {
         // If filtering for a specific language the query should return candidates of that language OR bilingual.
