@@ -89,7 +89,7 @@
     "mini-css-extract-plugin": "^2.6.0",
     "postcss": "^8.4.13",
     "prettier": "^2.6.2",
-    "react-refresh": "^0.13.0",
+    "react-refresh": "^0.14.0",
     "storybook-addon-intl": "^2.4.1",
     "ts-jest": "^28.0.4",
     "ts-loader": "^9.3.0",
