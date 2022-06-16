@@ -55,7 +55,9 @@ export const ProfileForm: React.FC<ProfilePageProps> = ({
           backgroundRepeat: "no-repeat",
         }}
       >
-        <h1 data-h2-margin="b(top-bottom, l)">{`${firstName} ${lastName}`}</h1>
+        <h1 data-h2-margin="b(top-bottom, l)">
+          {firstName} {lastName}
+        </h1>
       </div>
 
       <UserProfile
