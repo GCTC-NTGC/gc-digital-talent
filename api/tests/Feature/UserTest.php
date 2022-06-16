@@ -2154,4 +2154,108 @@ class UserTest extends TestCase
             ]
         ]);
     }
+
+    public function testAdminTableFilter(): void
+    {
+        // Create 5 users
+        User::factory()->create([
+            'first_name' => 'bob',
+            'last_name' => 'rob',
+            'email' => "bob@user.com",
+            'telephone' => "12345",
+        ]);
+        User::factory()->create([
+            'first_name' => 'sam',
+            'last_name' => 'ram',
+            'email' => "sam@user.com",
+            'telephone' => "67890",
+        ]);
+        User::factory()->create([
+            'first_name' => 'dan',
+            'last_name' => 'man',
+            'email' => "dan@user.com",
+            'telephone' => "99999",
+        ]);
+        User::factory()->create([
+            'first_name' => 'sir',
+            'last_name' => 'whir',
+            'email' => "sir@user.com",
+            'telephone' => "22222",
+        ]);
+        User::factory()->create([
+            'first_name' => 'zak',
+            'last_name' => 'pak',
+            'email' => "zak@admin.com",
+            'telephone' => "333333",
+        ]);
+
+        // Assert no filters returns all five users plus admin@test.com
+        $this->graphQL(/** @lang Graphql */ '
+            query getUsersPaginated($where: UserFilterAndOrderInput) {
+                usersPaginated(where: $where) {
+                    paginatorInfo {
+                        total
+                    }
+                }
+            }
+        ', [
+            'where' => []
+        ])->assertJson([
+            'data' => [
+                'usersPaginated' => [
+                    'paginatorInfo' => [
+                        'total' => 6
+                    ]
+                ]
+            ]
+        ]);
+
+        // Name filtering TODO
+
+        // Assert email filter with partial email returns correct count
+        $this->graphQL(/** @lang Graphql */ '
+            query getUsersPaginated($where: UserFilterAndOrderInput) {
+                usersPaginated(where: $where) {
+                    paginatorInfo {
+                        total
+                    }
+                }
+            }
+        ', [
+            'where' => [
+                'email' => 'user.com',
+            ]
+        ])->assertJson([
+            'data' => [
+                'usersPaginated' => [
+                    'paginatorInfo' => [
+                        'total' => 4
+                    ]
+                ]
+            ]
+        ]);
+
+        // Assert filtering for phone digit in general search returns correct count
+        $this->graphQL(/** @lang Graphql */ '
+            query getUsersPaginated($where: UserFilterAndOrderInput) {
+                usersPaginated(where: $where) {
+                    paginatorInfo {
+                        total
+                    }
+                }
+            }
+        ', [
+            'where' => [
+                'generalSearch' => '9',
+            ]
+        ])->assertJson([
+            'data' => [
+                'usersPaginated' => [
+                    'paginatorInfo' => [
+                        'total' => 2
+                    ]
+                ]
+            ]
+        ]);
+    }
 }
