@@ -11,9 +11,9 @@ export type Color =
 
 export interface ButtonProps extends React.HTMLProps<HTMLButtonElement> {
   /** The style type of the element. */
-  color: Color;
+  color?: Color;
   /** The style mode of the element. */
-  mode: "solid" | "outline" | "inline";
+  mode?: "solid" | "outline" | "inline";
   /** Determines whether the element should be block level and 100% width. */
   block?: boolean;
   type?: "button" | "submit" | "reset";
@@ -148,8 +148,8 @@ export const colorMap: Record<
 const Button: React.FC<ButtonProps> = ({
   children,
   type = "button",
-  color,
-  mode,
+  color = "primary",
+  mode = "solid",
   block = false,
   classNames,
   ...rest
