@@ -68,42 +68,54 @@ const WorkPreferencesSection: React.FunctionComponent<{
 
       {acceptedOperationalArray !== null &&
         acceptedOperationalArray.length > 0 && (
+          <>
+            <p>
+              {intl.formatMessage({
+                defaultMessage: "I would consider accepting a job that:",
+                description:
+                  "Label for what conditions a user will accept, followed by a colon",
+              })}
+            </p>
+            <ul data-h2-padding="b(left, l)">{acceptedOperationalArray}</ul>
+          </>
+        )}
+
+      {wouldAcceptTemporary === null && editPath && (
+        <>
           <p>
             {intl.formatMessage({
-              defaultMessage: "I would consider accepting a job that:",
-              description:
-                "Label for what conditions a user will accept, followed by a colon",
+              defaultMessage: "You haven't added any information here yet.",
+              description: "Message for when no data exists for the section",
             })}
           </p>
-        )}
-      <ul data-h2-padding="b(left, l)">{acceptedOperationalArray}</ul>
-      {wouldAcceptTemporary === null && (
+          <p>
+            {intl.formatMessage(
+              {
+                defaultMessage:
+                  "There are <redText>required</redText> fields missing.",
+                description:
+                  "Message that there are required fields missing. Please ignore things in <> tags.",
+              },
+              {
+                redText,
+              },
+            )}{" "}
+            <a href={editPath}>
+              {intl.formatMessage({
+                defaultMessage: "Click here to get started.",
+                description: "Message to click on the words to begin something",
+              })}
+            </a>
+          </p>
+        </>
+      )}
+      {wouldAcceptTemporary === null && !editPath && (
         <p>
           {intl.formatMessage({
-            defaultMessage: "You haven't added any information here yet.",
-            description: "Message for when no data exists for the section",
+            defaultMessage: "No information has been provided.",
+            description:
+              "Message on Admin side when user not filled WorkPreferences section.",
           })}
-        </p>
-      )}
-      {wouldAcceptTemporary === null && (
-        <p>
-          {intl.formatMessage(
-            {
-              defaultMessage:
-                "There are <redText>required</redText> fields missing.",
-              description:
-                "Message that there are required fields missing. Please ignore things in <> tags.",
-            },
-            {
-              redText,
-            },
-          )}{" "}
-          <a href={editPath}>
-            {intl.formatMessage({
-              defaultMessage: "Click here to get started.",
-              description: "Message to click on the words to begin something",
-            })}
-          </a>
         </p>
       )}
     </div>

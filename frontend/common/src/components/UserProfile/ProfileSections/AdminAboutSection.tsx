@@ -1,5 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
+import { empty } from "../../../helpers/util";
 
 import type { Applicant } from "../../../api/generated";
 
@@ -19,7 +20,7 @@ const AdminAboutSection: React.FC<AdminAboutSectionProps> = ({
         data-h2-padding="b(all, m)"
         data-h2-radius="b(s)"
       >
-        {!!firstName && !!lastName && (
+        {(!!firstName || !!lastName) && (
           <p>
             {intl.formatMessage({
               defaultMessage: "Name:",
@@ -28,6 +29,16 @@ const AdminAboutSection: React.FC<AdminAboutSectionProps> = ({
             <span data-h2-font-weight="b(700)">
               {firstName} {lastName}
             </span>
+          </p>
+        )}
+        {console.log(firstName)}
+
+        {firstName === null && lastName === null && (
+          <p>
+            {intl.formatMessage({
+              defaultMessage: "Admin",
+              description: "Name label and colon",
+            })}{" "}
           </p>
         )}
       </div>

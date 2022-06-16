@@ -45,37 +45,50 @@ const RoleSalarySection: React.FunctionComponent<{
             </>
           )}
         {(expectedClassificationArray === null ||
-          expectedClassificationArray.length <= 0) && (
-          <>
+          expectedClassificationArray.length <= 0) &&
+          editPath && (
+            <>
+              <p>
+                {intl.formatMessage({
+                  defaultMessage: "You haven't added any information here yet.",
+                  description:
+                    "Message for when no data exists for the section",
+                })}
+              </p>
+
+              <p>
+                {intl.formatMessage(
+                  {
+                    defaultMessage:
+                      "There are <redText>required</redText> fields missing.",
+                    description:
+                      "Message that there are required fields missing. Please ignore things in <> tags.",
+                  },
+                  {
+                    redText,
+                  },
+                )}{" "}
+                <a href={editPath}>
+                  {intl.formatMessage({
+                    defaultMessage: "Click here to get started.",
+                    description:
+                      "Message to click on the words to begin something",
+                  })}
+                </a>
+              </p>
+            </>
+          )}
+        {(expectedClassificationArray === null ||
+          expectedClassificationArray.length <= 0) &&
+          !editPath && (
             <p>
               {intl.formatMessage({
-                defaultMessage: "You haven't added any information here yet.",
-                description: "Message for when no data exists for the section",
+                defaultMessage: "No information has been provided.",
+                description:
+                  "Message on Admin side when user not filled RoleSalary section.",
               })}
             </p>
-
-            <p>
-              {intl.formatMessage(
-                {
-                  defaultMessage:
-                    "There are <redText>required</redText> fields missing.",
-                  description:
-                    "Message that there are required fields missing. Please ignore things in <> tags.",
-                },
-                {
-                  redText,
-                },
-              )}{" "}
-              <a href={editPath}>
-                {intl.formatMessage({
-                  defaultMessage: "Click here to get started.",
-                  description:
-                    "Message to click on the words to begin something",
-                })}
-              </a>
-            </p>
-          </>
-        )}
+          )}
       </div>
     </div>
   );
