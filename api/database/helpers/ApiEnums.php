@@ -107,4 +107,17 @@ class ApiEnums
 
     const POOL_STATUS_NOT_TAKING_APPLICATIONS = 'NOT_TAKING_APPLICATIONS';
     const POOL_STATUS_TAKING_APPLICATIONS = 'TAKING_APPLICATIONS';
+
+    /**
+     * A collection of enums for pool statuses in factories and seeders
+     *
+     * @return string[]
+     */
+    public static function poolStatuses() : array
+    {
+        return [
+            self::POOL_STATUS_NOT_TAKING_APPLICATIONS,
+            self::POOL_STATUS_TAKING_APPLICATIONS,
+        ];
+    }
 }
