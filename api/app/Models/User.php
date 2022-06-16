@@ -472,6 +472,49 @@ RAWSQL2;
         return $query;
     }
 
+    public function filterByGeneralSearch(Builder $query, ?string $search): Builder
+    {
+        if ($search) {
+            $query->where('first_name', "like", "%{$search}%")
+                  ->orWhere('last_name', "like", "%{$search}%")
+                  ->orWhere('email', "like", "%{$search}%")
+                  ->orWhere('telephone', "like", "%{$search}%");
+        }
+        return $query;
+    }
+
+    public function scopeTelephone(Builder $query, ?string $telephone): Builder
+    {
+        if ($telephone) {
+            $query->where('telephone', 'like', "%{$telephone}%");
+        }
+        return $query;
+    }
+
+    public function scopeEmail(Builder $query, ?string $email): Builder
+    {
+        if ($email) {
+            $query->where('email', 'like', "%{$email}%");
+        }
+        return $query;
+    }
+
+    public function scopeFirstName(Builder $query, ?string $firstName): Builder
+    {
+        if ($firstName) {
+            $query->where('first_name', 'like', "%{$firstName}%");
+        }
+        return $query;
+    }
+
+    public function scopeLastName(Builder $query, ?string $lastName): Builder
+    {
+        if ($lastName) {
+            $query->where('last_name', 'like', "%{$lastName}%");
+        }
+        return $query;
+    }
+
     public function scopeIsGovEmployee(Builder $query, bool $isGovEmployee): Builder
     {
         if ($isGovEmployee) {

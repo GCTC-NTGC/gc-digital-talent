@@ -599,6 +599,11 @@ input UserFilterAndOrderInput {
     isProfileComplete: Boolean @scope
     skills: [ID] @builder(method: "App\\Models\\User@filterBySkills")
     isGovEmployee: Boolean @scope
+    telephone: String @scope
+    email: String @scope
+    firstName: String @scope
+    lastName: String @scope
+    generalSearch: String @builder(method: "App\\Models\\User@filterByGeneralSearch")
     orderBy: String   # This needs to be the name of the field in the database eg. first_name
 }
 

@@ -1208,6 +1208,11 @@ input UserFilterAndOrderInput {
   isProfileComplete: Boolean
   skills: [ID]
   isGovEmployee: Boolean
+  telephone: String
+  email: String
+  firstName: String
+  lastName: String
+  generalSearch: String
   orderBy: String
 }
 
