@@ -1210,8 +1210,7 @@ input UserFilterAndOrderInput {
   isGovEmployee: Boolean
   telephone: String
   email: String
-  firstName: String
-  lastName: String
+  name: String
   generalSearch: String
   orderBy: String
 }

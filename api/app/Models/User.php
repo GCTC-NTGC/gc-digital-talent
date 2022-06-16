@@ -483,6 +483,18 @@ RAWSQL2;
         return $query;
     }
 
+    public function filterByName(Builder $query, ?string $name): Builder
+    {
+        if ($name) {
+            $splitName = explode(" ", $name);
+            foreach($splitName as $index => $value){
+                $query->where('first_name', "like", "%{$value}%")
+                      ->orWhere('last_name', "like", "%{$value}%");
+            }
+        }
+        return $query;
+    }
+
     public function scopeTelephone(Builder $query, ?string $telephone): Builder
     {
         if ($telephone) {
@@ -495,22 +507,6 @@ RAWSQL2;
     {
         if ($email) {
             $query->where('email', 'like', "%{$email}%");
-        }
-        return $query;
-    }
-
-    public function scopeFirstName(Builder $query, ?string $firstName): Builder
-    {
-        if ($firstName) {
-            $query->where('first_name', 'like', "%{$firstName}%");
-        }
-        return $query;
-    }
-
-    public function scopeLastName(Builder $query, ?string $lastName): Builder
-    {
-        if ($lastName) {
-            $query->where('last_name', 'like', "%{$lastName}%");
         }
         return $query;
     }

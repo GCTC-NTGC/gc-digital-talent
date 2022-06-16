@@ -601,8 +601,7 @@ input UserFilterAndOrderInput {
     isGovEmployee: Boolean @scope
     telephone: String @scope
     email: String @scope
-    firstName: String @scope
-    lastName: String @scope
+    name: String @builder(method: "App\\Models\\User@filterByName")
     generalSearch: String @builder(method: "App\\Models\\User@filterByGeneralSearch")
     orderBy: String   # This needs to be the name of the field in the database eg. first_name
 }
