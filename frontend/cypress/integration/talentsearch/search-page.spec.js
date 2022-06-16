@@ -1,8 +1,14 @@
-import { setUpGraphqlIntercepts } from '../../support/graphql-test-utils'
+import { setUpCommonGraphqlIntercepts, aliasQuery } from '../../support/graphql-test-utils'
 
 describe("Talentsearch Search Page", () => {
   beforeEach(() => {
-    setUpGraphqlIntercepts()
+    // common requests
+    setUpCommonGraphqlIntercepts()
+    // page specific requests
+    cy.intercept('POST', '/graphql', (req) => {
+      aliasQuery(req, 'countPoolCandidates')
+    })
+
     cy.visit("/en/talent/search")
   });
 

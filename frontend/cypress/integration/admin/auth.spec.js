@@ -1,4 +1,4 @@
-import { setUpGraphqlIntercepts } from '../../support/graphql-test-utils'
+import { setUpCommonGraphqlIntercepts } from '../../support/graphql-test-utils'
 
 describe('Auth flows (development)', () => {
   // Helpers
@@ -16,7 +16,7 @@ describe('Auth flows (development)', () => {
 
   // Prepare to intercept/detect relevant GraphQL requests.
   beforeEach(() => {
-    setUpGraphqlIntercepts()
+    setUpCommonGraphqlIntercepts()
   })
 
   context('Anonymous visitor', () => {
