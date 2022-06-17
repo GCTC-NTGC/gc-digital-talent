@@ -31,6 +31,7 @@ export interface TableProps<
   pagination?: boolean;
   hiddenCols?: string[];
   labelledBy?: string;
+  onSearchSubmit?: () => void;
 }
 
 const IndeterminateCheckbox: React.FC<
@@ -84,6 +85,7 @@ function Table<T extends Record<string, unknown>>({
   labelledBy,
   title,
   addBtn,
+  onSearchSubmit,
   filter = true,
   pagination = true,
   hiddenCols = [],
@@ -93,8 +95,6 @@ function Table<T extends Record<string, unknown>>({
     getTableBodyProps,
     headerGroups,
     prepareRow,
-    setGlobalFilter,
-    state,
     allColumns,
     getToggleHideAllColumnsProps,
     rows,
@@ -118,8 +118,14 @@ function Table<T extends Record<string, unknown>>({
   const [showList, setShowList] = useState(false);
   const intl = useIntl();
 
+  const handleSubmit = () => {
+    if (onSearchSubmit) {
+      onSearchSubmit();
+    }
+  };
+
   return (
-    <>
+    <div data-h2-margin="b(top-bottom, m)">
       {filter && (
         <div
           data-h2-align-items="b(center)"
@@ -130,12 +136,12 @@ function Table<T extends Record<string, unknown>>({
           data-h2-padding="b(all, s)"
         >
           <div>
-            {title && <span data-h2-font-weight="b(700)">{title}</span>}
+            {title && <span data-h2-font-weight="b(800)">{title}</span>}
           </div>
           <div style={{ flexShrink: 0 }} data-h2-display="b(flex)">
             <SearchForm
               onChange={(term) => window.console.log(term)}
-              onSubmit={() => window.console.log("submit")}
+              onSubmit={handleSubmit}
             />
             <Spacer>
               <Button
@@ -294,21 +300,60 @@ function Table<T extends Record<string, unknown>>({
           </tbody>
         </table>
       </div>
-      {pagination && (
-        <Pagination
-          currentPage={pageIndex + 1}
-          handlePageChange={(pageNumber) => gotoPage(pageNumber - 1)}
-          handlePageSize={setPageSize}
-          pageSize={pageSize}
-          pageSizes={[10, 20, 30, 40, 50]}
-          totalCount={rows.length}
-          ariaLabel={intl.formatMessage({ defaultMessage: "Table results" })}
-          color="black"
-          mode="outline"
-          data-h2-margin="b(all, none)"
-        />
-      )}
-    </>
+      <div
+        data-h2-align-items="b(center)"
+        data-h2-display="b(flex)"
+        data-h2-bg-color="b(lightgray)"
+        data-h2-justify-content="b(space-between)"
+        data-h2-radius="b(none, none, s, s)"
+        data-h2-padding="b(all, s)"
+      >
+        <div
+          data-h2-display="b(flex)"
+          data-h2-align-items="b(center)"
+          data-h2-margin="b(right, s)"
+        >
+          <p>
+            {intl.formatMessage({
+              defaultMessage: "Selected actions:",
+              description: "Label for action buttons in footer of admin table.",
+            })}
+          </p>
+          <Spacer>
+            <Button type="button" mode="solid" color="primary">
+              {intl.formatMessage({
+                defaultMessage: "Download CSV",
+                description:
+                  "Text label for button to download a csv of items in a table.",
+              })}
+            </Button>
+          </Spacer>
+          <Spacer>
+            <Button type="button" mode="solid" color="primary">
+              {intl.formatMessage({
+                defaultMessage: "Download PDF",
+                description:
+                  "Text label for button to download a pdf of items in a table.",
+              })}
+            </Button>
+          </Spacer>
+        </div>
+        {pagination && (
+          <Pagination
+            currentPage={pageIndex + 1}
+            handlePageChange={(pageNumber) => gotoPage(pageNumber - 1)}
+            handlePageSize={setPageSize}
+            pageSize={pageSize}
+            pageSizes={[10, 20, 30, 40, 50]}
+            totalCount={rows.length}
+            ariaLabel={intl.formatMessage({ defaultMessage: "Table results" })}
+            color="black"
+            mode="outline"
+            data-h2-margin="b(all, none)"
+          />
+        )}
+      </div>
+    </div>
   );
 }
 
