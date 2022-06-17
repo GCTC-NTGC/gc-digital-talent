@@ -44,6 +44,18 @@ type Applicant {
   expectedGenericJobTitles: [GenericJobTitle]
 }
 
+input ApplicantFilterInput {
+  pools: [ID!]!
+  languageAbility: LanguageAbility
+  expectedClassifications: [ClassificationFilterInput]
+  operationalRequirements: [OperationalRequirement]
+  locationPreferences: [WorkRegion]
+  equity: EquitySelectionsInput
+  hasDiploma: Boolean
+  wouldAcceptTemporary: Boolean
+  skills: [ID]
+}
+
 type AwardExperience implements Experience {
   id: ID!
   applicant: Applicant!
@@ -799,12 +811,13 @@ type Query {
   users: [User]!
   applicant(id: ID!): Applicant
   applicants: [Applicant]!
+  countApplicants(where: ApplicantFilterInput): Int!
   pool(id: ID!): Pool
   poolByKey(key: String!): Pool
   pools: [Pool]!
   poolCandidate(id: ID!): PoolCandidate
   poolCandidates: [PoolCandidate]!
-  countPoolCandidates(where: PoolCandidateFilterInput): Int!
+  countPoolCandidates(where: PoolCandidateFilterInput): Int! @deprecated(reason: "Replaced by countApplicants")
   searchPoolCandidates(where: PoolCandidateFilterInput, expiryStatus: CANDIDATE_EXPIRY_FILTER): [PoolCandidate]!
   classification(id: ID!): Classification
   classifications: [Classification]!
@@ -1223,7 +1236,7 @@ type UserPaginator {
 input UserPoolFilterInput {
   pools: [ID!]!
   expiryStatus: CANDIDATE_EXPIRY_FILTER = ACTIVE
-  statuses: [PoolCandidateStatus!]
+  statuses: [PoolCandidateStatus!] = []
 }
 
 type UserPublicProfile {

@@ -205,6 +205,7 @@ class User extends Model implements Authenticatable
         if (empty($poolCandidates)) {
             return $query;
         }
+
         // Pool acts as an OR filter. The query should return valid candidates in ANY of the pools.
         $query->whereExists(function ($query) use ($poolCandidates) {
             $query->select('id')
@@ -220,12 +221,23 @@ class User extends Model implements Authenticatable
                     }
                   })
                   ->where(function ($query) use ($poolCandidates) {
-                    if (array_key_exists('statuses', $poolCandidates) && !empty($poolCandidates['statuses'])) {
+                    if (!empty($poolCandidates['statuses'])) {
                         $query->whereIn('pool_candidates.pool_candidate_status', $poolCandidates['statuses']);
                     }
                   });
         });
 
+        return $query;
+    }
+    public function filterApplicantByPools(Builder $query, array $pools): Builder
+    {
+        $poolCandidates = [
+            'pools' => $pools,
+            'expiryStatus' => ApiEnums::CANDIDATE_EXPIRY_FILTER_ACTIVE,
+            'statuses' => [ApiEnums::CANDIDATE_STATUS_AVAILABLE]
+        ];
+
+        $this->filterByPools($query, $poolCandidates);
         return $query;
     }
 

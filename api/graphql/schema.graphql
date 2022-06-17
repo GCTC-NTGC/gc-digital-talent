@@ -572,7 +572,7 @@ enum CANDIDATE_EXPIRY_FILTER {
 input UserPoolFilterInput {
     pools: [ID!]!
     expiryStatus: CANDIDATE_EXPIRY_FILTER = ACTIVE
-    statuses: [PoolCandidateStatus!]
+    statuses: [PoolCandidateStatus!] = []
 }
 
 input PoolCandidateFilterInput {
@@ -602,6 +602,18 @@ input UserFilterAndOrderInput {
     orderBy: String   # This needs to be the name of the field in the database eg. first_name
 }
 
+input ApplicantFilterInput {
+    pools: [ID!]! @builder(method: "App\\Models\\User@filterApplicantByPools")
+    languageAbility: LanguageAbility @builder(method: "App\\Models\\User@filterByLanguageAbility")
+    expectedClassifications: [ClassificationFilterInput] @builder(method: "App\\Models\\User@filterByClassifications")
+    operationalRequirements: [OperationalRequirement] @builder(method: "App\\Models\\User@filterByOperationalRequirements")
+    locationPreferences: [WorkRegion] @builder(method: "App\\Models\\User@filterByLocationPreferences")
+    equity: EquitySelectionsInput @builder(method: "App\\Models\\User@filterByEquity")
+    hasDiploma: Boolean @scope
+    wouldAcceptTemporary: Boolean @scope
+    skills: [ID] @builder(method: "App\\Models\\User@filterBySkills")
+}
+
 type Query {
     me: User @auth
     user(id: ID! @eq): User @find @guard @can(ability: "view", query: true)
@@ -609,13 +621,14 @@ type Query {
     usersPaginated(where: UserFilterAndOrderInput): [User]! @paginate(defaultCount: 10, maxCount: 1000 scopes: ["order"]) @guard @can(ability: "viewAny")
     applicant(id: ID! @eq): Applicant @find(model: "User") @guard @can(ability: "viewApplicant", query: true, model: "User")
     applicants: [Applicant]! @all(model: "User") @guard @can(ability: "viewAnyApplicants", model: "User")
+    countApplicants(where: ApplicantFilterInput): Int! @count(model: "User")
     pool(id: ID! @eq): Pool @find
     poolByKey(key: String! @eq): Pool @find
     pools: [Pool]! @all
     poolCandidate(id: ID! @eq): PoolCandidate @find @guard @can(ability: "view", query: true)
     poolCandidates: [PoolCandidate]! @all(scopes: ["expiryFilter"]) @guard @can(ability: "viewAny")
     # countPoolCandidates returns the number of candidates matching its filters, and requires no special permissions.
-    countPoolCandidates(where: PoolCandidateFilterInput): Int! @count(model: "PoolCandidate" scopes: ["expiryFilter", "available"])
+    countPoolCandidates(where: PoolCandidateFilterInput): Int! @deprecated(reason: "Replaced by countApplicants") @count(model: "PoolCandidate" scopes: ["expiryFilter", "available"])
     # searchPoolCandidates returns the actual candidates matching a filter, and requires permissions.
     searchPoolCandidates(where: PoolCandidateFilterInput, expiryStatus: CANDIDATE_EXPIRY_FILTER): [PoolCandidate]! @all(scopes: ["expiryFilter", "available"]) @guard @can(ability: "viewAny")
     classification(id: ID! @eq): Classification @find

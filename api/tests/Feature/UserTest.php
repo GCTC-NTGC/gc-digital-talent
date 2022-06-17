@@ -1427,250 +1427,250 @@ class UserTest extends TestCase
 
     public function testFilterByEmploymentEquity(): void
     {
-    // Create initial data.
-    PoolCandidate::factory()->count(5)->create([
-      'has_disability' => false,
-      'is_indigenous' => false,
-      'is_visible_minority' => false,
-      'is_woman' => false,
-      'expiry_date' => FAR_FUTURE_DATE,
-      'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE,
-    ]);
+        // Create initial data.
+        PoolCandidate::factory()->count(5)->create([
+        'has_disability' => false,
+        'is_indigenous' => false,
+        'is_visible_minority' => false,
+        'is_woman' => false,
+        'expiry_date' => FAR_FUTURE_DATE,
+        'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE,
+        ]);
 
-    // Create one new candidate for each EmploymentEquity filter
-    PoolCandidate::factory()->create([
-      'has_disability' => true,
-      'is_indigenous' => false,
-      'is_visible_minority' => false,
-      'is_woman' => false,
-      'expiry_date' => FAR_FUTURE_DATE,
-      'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE,
-    ]);
-    PoolCandidate::factory()->create([
-      'has_disability' => false,
-      'is_indigenous' => true,
-      'is_visible_minority' => false,
-      'is_woman' => false,
-      'expiry_date' => FAR_FUTURE_DATE,
-      'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE,
-    ]);
-    PoolCandidate::factory()->create([
-      'has_disability' => false,
-      'is_indigenous' => false,
-      'is_visible_minority' => true,
-      'is_woman' => false,
-      'expiry_date' => FAR_FUTURE_DATE,
-      'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE,
-    ]);
-    PoolCandidate::factory()->create([
-      'has_disability' => false,
-      'is_indigenous' => false,
-      'is_visible_minority' => false,
-      'is_woman' => true,
-      'expiry_date' => FAR_FUTURE_DATE,
-      'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE,
-    ]);
+        // Create one new candidate for each EmploymentEquity filter
+        PoolCandidate::factory()->create([
+        'has_disability' => true,
+        'is_indigenous' => false,
+        'is_visible_minority' => false,
+        'is_woman' => false,
+        'expiry_date' => FAR_FUTURE_DATE,
+        'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE,
+        ]);
+        PoolCandidate::factory()->create([
+        'has_disability' => false,
+        'is_indigenous' => true,
+        'is_visible_minority' => false,
+        'is_woman' => false,
+        'expiry_date' => FAR_FUTURE_DATE,
+        'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE,
+        ]);
+        PoolCandidate::factory()->create([
+        'has_disability' => false,
+        'is_indigenous' => false,
+        'is_visible_minority' => true,
+        'is_woman' => false,
+        'expiry_date' => FAR_FUTURE_DATE,
+        'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE,
+        ]);
+        PoolCandidate::factory()->create([
+        'has_disability' => false,
+        'is_indigenous' => false,
+        'is_visible_minority' => false,
+        'is_woman' => true,
+        'expiry_date' => FAR_FUTURE_DATE,
+        'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE,
+        ]);
 
-    // Assert query with no EmploymentEquity filter will return all candidates
-    $this->graphQL(/** @lang Graphql */ '
-      query countPoolCandidates($where: PoolCandidateFilterInput) {
-        countPoolCandidates(where: $where)
-      }
-    ', [
-      'where' => []
-    ])->assertJson([
-      'data' => [
-        'countPoolCandidates' => 9
-      ]
-    ]);
+        // Assert query with no EmploymentEquity filter will return all candidates
+        $this->graphQL(/** @lang Graphql */ '
+        query countPoolCandidates($where: PoolCandidateFilterInput) {
+            countPoolCandidates(where: $where)
+        }
+        ', [
+        'where' => []
+        ])->assertJson([
+        'data' => [
+            'countPoolCandidates' => 9
+        ]
+        ]);
 
-      // Assert query with isIndigenous filter will return correct candidate count
-      $this->graphQL(/** @lang Graphql */ '
-        query countPoolCandidates($where: PoolCandidateFilterInput) {
-          countPoolCandidates(where: $where)
-        }
-      ', [
-        'where' => [
-          'equity' => [
-            'isIndigenous' => true,
-            'isWoman' => false,
-            'isVisibleMinority' => false,
-            'hasDisability' => false
+        // Assert query with isIndigenous filter will return correct candidate count
+        $this->graphQL(/** @lang Graphql */ '
+            query countPoolCandidates($where: PoolCandidateFilterInput) {
+            countPoolCandidates(where: $where)
+            }
+        ', [
+            'where' => [
+            'equity' => [
+                'isIndigenous' => true,
+                'isWoman' => false,
+                'isVisibleMinority' => false,
+                'hasDisability' => false
+                ]
             ]
-        ]
-      ])->assertJson([
-        'data' => [
-          'countPoolCandidates' => 1
-        ]
-      ]);
-      // Assert query with isVisibleMinority filter will return correct candidate count
-      $this->graphQL(/** @lang Graphql */ '
-        query countPoolCandidates($where: PoolCandidateFilterInput) {
-          countPoolCandidates(where: $where)
-        }
-      ', [
-        'where' => [
-          'equity' => [
-            'isIndigenous' => false,
-            'isWoman' => false,
-            'isVisibleMinority' => true,
-            'hasDisability' => false
+        ])->assertJson([
+            'data' => [
+            'countPoolCandidates' => 1
             ]
-        ]
-      ])->assertJson([
-        'data' => [
-          'countPoolCandidates' => 1
-        ]
-      ]);
-      // Assert query with hasDisability filter will return correct candidate count
-      $this->graphQL(/** @lang Graphql */ '
-        query countPoolCandidates($where: PoolCandidateFilterInput) {
-          countPoolCandidates(where: $where)
-        }
-      ', [
-        'where' => [
-          'equity' => [
-            'isIndigenous' => false,
-            'isWoman' => false,
-            'isVisibleMinority' => false,
-            'hasDisability' => true
+        ]);
+        // Assert query with isVisibleMinority filter will return correct candidate count
+        $this->graphQL(/** @lang Graphql */ '
+            query countPoolCandidates($where: PoolCandidateFilterInput) {
+            countPoolCandidates(where: $where)
+            }
+        ', [
+            'where' => [
+            'equity' => [
+                'isIndigenous' => false,
+                'isWoman' => false,
+                'isVisibleMinority' => true,
+                'hasDisability' => false
+                ]
             ]
-        ]
-      ])->assertJson([
-        'data' => [
-          'countPoolCandidates' => 1
-        ]
-      ]);
-      // Assert query with isWoman filter will return correct candidate count
-      $this->graphQL(/** @lang Graphql */ '
-        query countPoolCandidates($where: PoolCandidateFilterInput) {
-          countPoolCandidates(where: $where)
-        }
-      ', [
-        'where' => [
-          'equity' => [
-            'isIndigenous' => false,
-            'isWoman' => true,
-            'isVisibleMinority' => false,
-            'hasDisability' => false
+        ])->assertJson([
+            'data' => [
+            'countPoolCandidates' => 1
             ]
-        ]
-      ])->assertJson([
-        'data' => [
-          'countPoolCandidates' => 1
-        ]
-      ]);
-      // Assert query with isWoman OR isIndigenous filter will return correct candidate count
-      $this->graphQL(/** @lang Graphql */ '
-        query countPoolCandidates($where: PoolCandidateFilterInput) {
-          countPoolCandidates(where: $where)
-        }
-      ', [
-        'where' => [
-          'equity' => [
-            'isIndigenous' => true,
-            'isWoman' => true,
-            'isVisibleMinority' => false,
-            'hasDisability' => false
+        ]);
+        // Assert query with hasDisability filter will return correct candidate count
+        $this->graphQL(/** @lang Graphql */ '
+            query countPoolCandidates($where: PoolCandidateFilterInput) {
+            countPoolCandidates(where: $where)
+            }
+        ', [
+            'where' => [
+            'equity' => [
+                'isIndigenous' => false,
+                'isWoman' => false,
+                'isVisibleMinority' => false,
+                'hasDisability' => true
+                ]
             ]
-        ]
-      ])->assertJson([
-        'data' => [
-          'countPoolCandidates' => 2
-        ]
-      ]);
-      // Assert query with isWoman OR isIndigenous OR isMinority filter will return correct candidate count
-      $this->graphQL(/** @lang Graphql */ '
-        query countPoolCandidates($where: PoolCandidateFilterInput) {
-          countPoolCandidates(where: $where)
-        }
-      ', [
-        'where' => [
-          'equity' => [
-            'isIndigenous' => true,
-            'isWoman' => true,
-            'isVisibleMinority' => true,
-            'hasDisability' => false
+        ])->assertJson([
+            'data' => [
+            'countPoolCandidates' => 1
             ]
-        ]
-      ])->assertJson([
-        'data' => [
-          'countPoolCandidates' => 3
-        ]
-      ]);
-      // Assert query above with empty selection in equity object will not break the code and matches the returned candidate count
-      $this->graphQL(/** @lang Graphql */ '
-        query countPoolCandidates($where: PoolCandidateFilterInput) {
-          countPoolCandidates(where: $where)
-        }
-      ', [
-        'where' => [
-          'equity' => [
-            'isIndigenous' => true,
-            'isWoman' => true,
-            'isVisibleMinority' => true,
+        ]);
+        // Assert query with isWoman filter will return correct candidate count
+        $this->graphQL(/** @lang Graphql */ '
+            query countPoolCandidates($where: PoolCandidateFilterInput) {
+            countPoolCandidates(where: $where)
+            }
+        ', [
+            'where' => [
+            'equity' => [
+                'isIndigenous' => false,
+                'isWoman' => true,
+                'isVisibleMinority' => false,
+                'hasDisability' => false
+                ]
             ]
-        ]
-      ])->assertJson([
-        'data' => [
-          'countPoolCandidates' => 3
-        ]
-      ]);
-      // Assert query with all equity filters true will return correct candidate count
-      $this->graphQL(/** @lang Graphql */ '
-        query countPoolCandidates($where: PoolCandidateFilterInput) {
-          countPoolCandidates(where: $where)
-        }
-      ', [
-        'where' => [
-          'equity' => [
-            'isIndigenous' => true,
-            'isWoman' => true,
-            'isVisibleMinority' => true,
-            'hasDisability' => true
+        ])->assertJson([
+            'data' => [
+            'countPoolCandidates' => 1
             ]
-        ]
-      ])->assertJson([
-        'data' => [
-          'countPoolCandidates' => 4
-        ]
-      ]);
-      // Assert query with all EmploymentEquity filters set to false will return all candidates
-      $this->graphQL(/** @lang Graphql */ '
-        query countPoolCandidates($where: PoolCandidateFilterInput) {
-          countPoolCandidates(where: $where)
-        }
-      ', [
-        'where' => [
-          'equity' => [
-            'isIndigenous' => false,
-            'isWoman' => false,
-            'isVisibleMinority' => false,
-            'hasDisability' => false
-          ],
-        ]
-      ])->assertJson([
-        'data' => [
-          'countPoolCandidates' => 9
-        ]
-      ]);
-      // Assert query with all EmploymentEquity filters set to null or not present will return all candidates same as above
-      $this->graphQL(/** @lang Graphql */ '
-        query countPoolCandidates($where: PoolCandidateFilterInput) {
-          countPoolCandidates(where: $where)
-        }
-      ', [
-        'where' => [
-          'equity' => [
-            'isIndigenous' => null,
-            'isWoman' => null,
-          ],
-        ]
-      ])->assertJson([
-        'data' => [
-          'countPoolCandidates' => 9
-        ]
-      ]);
+        ]);
+        // Assert query with isWoman OR isIndigenous filter will return correct candidate count
+        $this->graphQL(/** @lang Graphql */ '
+            query countPoolCandidates($where: PoolCandidateFilterInput) {
+            countPoolCandidates(where: $where)
+            }
+        ', [
+            'where' => [
+            'equity' => [
+                'isIndigenous' => true,
+                'isWoman' => true,
+                'isVisibleMinority' => false,
+                'hasDisability' => false
+                ]
+            ]
+        ])->assertJson([
+            'data' => [
+            'countPoolCandidates' => 2
+            ]
+        ]);
+        // Assert query with isWoman OR isIndigenous OR isMinority filter will return correct candidate count
+        $this->graphQL(/** @lang Graphql */ '
+            query countPoolCandidates($where: PoolCandidateFilterInput) {
+            countPoolCandidates(where: $where)
+            }
+        ', [
+            'where' => [
+            'equity' => [
+                'isIndigenous' => true,
+                'isWoman' => true,
+                'isVisibleMinority' => true,
+                'hasDisability' => false
+                ]
+            ]
+        ])->assertJson([
+            'data' => [
+            'countPoolCandidates' => 3
+            ]
+        ]);
+        // Assert query above with empty selection in equity object will not break the code and matches the returned candidate count
+        $this->graphQL(/** @lang Graphql */ '
+            query countPoolCandidates($where: PoolCandidateFilterInput) {
+            countPoolCandidates(where: $where)
+            }
+        ', [
+            'where' => [
+            'equity' => [
+                'isIndigenous' => true,
+                'isWoman' => true,
+                'isVisibleMinority' => true,
+                ]
+            ]
+        ])->assertJson([
+            'data' => [
+            'countPoolCandidates' => 3
+            ]
+        ]);
+        // Assert query with all equity filters true will return correct candidate count
+        $this->graphQL(/** @lang Graphql */ '
+            query countPoolCandidates($where: PoolCandidateFilterInput) {
+            countPoolCandidates(where: $where)
+            }
+        ', [
+            'where' => [
+            'equity' => [
+                'isIndigenous' => true,
+                'isWoman' => true,
+                'isVisibleMinority' => true,
+                'hasDisability' => true
+                ]
+            ]
+        ])->assertJson([
+            'data' => [
+            'countPoolCandidates' => 4
+            ]
+        ]);
+        // Assert query with all EmploymentEquity filters set to false will return all candidates
+        $this->graphQL(/** @lang Graphql */ '
+            query countPoolCandidates($where: PoolCandidateFilterInput) {
+            countPoolCandidates(where: $where)
+            }
+        ', [
+            'where' => [
+            'equity' => [
+                'isIndigenous' => false,
+                'isWoman' => false,
+                'isVisibleMinority' => false,
+                'hasDisability' => false
+            ],
+            ]
+        ])->assertJson([
+            'data' => [
+            'countPoolCandidates' => 9
+            ]
+        ]);
+        // Assert query with all EmploymentEquity filters set to null or not present will return all candidates same as above
+        $this->graphQL(/** @lang Graphql */ '
+            query countPoolCandidates($where: PoolCandidateFilterInput) {
+            countPoolCandidates(where: $where)
+            }
+        ', [
+            'where' => [
+            'equity' => [
+                'isIndigenous' => null,
+                'isWoman' => null,
+            ],
+            ]
+        ])->assertJson([
+            'data' => [
+            'countPoolCandidates' => 9
+            ]
+        ]);
     }
 
     public function testFilterBySkills(): void
@@ -2151,6 +2151,92 @@ class UserTest extends TestCase
                         'total' => 0
                     ]
                 ]
+            ]
+        ]);
+    }
+
+    public function testCountApplicantsQuery(): void
+    {
+        // Get the ID of the base admin user
+        $user = User::All()->first();
+
+        // Create new pools and attach to new pool candidates.
+        $pool1 = Pool::factory()->create([
+            'user_id' => $user['id']
+        ]);
+        $pool2 = Pool::factory()->create([
+            'user_id' => $user['id']
+        ]);
+
+        PoolCandidate::factory()->count(8)->create([
+            'pool_id' => $pool1['id'],
+            'expiry_date' => FAR_FUTURE_DATE,
+            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE,
+            'user_id' => User::factory([
+                'language_ability' => ApiEnums::LANGUAGE_ABILITY_ENGLISH
+            ])
+        ]);
+        PoolCandidate::factory()->count(4)->create([
+            'pool_id' => $pool1['id'],
+            'expiry_date' => FAR_FUTURE_DATE,
+            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE,
+            'user_id' => User::factory([
+                'language_ability' => ApiEnums::LANGUAGE_ABILITY_FRENCH
+            ])
+        ]);
+        PoolCandidate::factory()->create([
+            'pool_id' => $pool2['id'],
+            'expiry_date' => FAR_FUTURE_DATE,
+            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE,
+            'user_id' => User::factory([
+                'language_ability' => ApiEnums::LANGUAGE_ABILITY_ENGLISH
+            ])
+        ]);
+        PoolCandidate::factory()->create([
+            'pool_id' => $pool1['id'],
+            'expiry_date' => '2000-01-01',
+            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE,
+            'user_id' => User::factory([
+                'language_ability' => ApiEnums::LANGUAGE_ABILITY_ENGLISH
+            ])
+        ]);
+        PoolCandidate::factory()->create([
+            'pool_id' => $pool1['id'],
+            'expiry_date' => FAR_FUTURE_DATE,
+            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_PLACED_TERM,
+            'user_id' => User::factory([
+                'language_ability' => ApiEnums::LANGUAGE_ABILITY_ENGLISH
+            ])
+        ]);
+
+        // Assert query with only pools filter will return proper count
+        $this->graphQL(/** @lang Graphql */ '
+            query countApplicants($where: ApplicantFilterInput) {
+                countApplicants (where: $where)
+            }
+        ', [
+            'where' => [
+                'pools' => [$pool1['id']]
+            ]
+        ])->assertJson([
+            'data' => [
+                'countApplicants' => 12
+            ]
+        ]);
+
+        // Assert query with another filter will return proper count
+        $this->graphQL(/** @lang Graphql */ '
+            query countApplicants($where: ApplicantFilterInput) {
+                countApplicants (where: $where)
+            }
+        ', [
+            'where' => [
+                'pools' => [$pool1['id']],
+                'languageAbility' => ApiEnums::LANGUAGE_ABILITY_ENGLISH
+            ]
+        ])->assertJson([
+            'data' => [
+                'countApplicants' => 8
             ]
         ]);
     }
