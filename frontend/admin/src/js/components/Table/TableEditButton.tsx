@@ -1,32 +1,44 @@
-import React, { ReactElement } from "react";
-import { Link } from "@common/components";
+import React from "react";
 import { useIntl } from "react-intl";
+
+import { Link } from "@common/components";
+import { hidden } from "@common/helpers/format";
 
 export interface TableEditButtonProps {
   /** Id of the object in the table. */
   id: string;
   /** The current url root. */
   editUrlRoot: string;
+  /** Label for link text  */
+  label?: string;
 }
 
 function TableEditButton({
   id,
   editUrlRoot,
-}: TableEditButtonProps): ReactElement {
+  label,
+}: TableEditButtonProps): React.ReactElement {
   const intl = useIntl();
   const href = `${editUrlRoot}/${id}/edit`;
   return (
     <Link href={href} type="button" mode="inline" color="primary">
-      {intl.formatMessage({
-        defaultMessage: "Edit",
-        description: "Title displayed for the Edit column.",
-      })}
+      {intl.formatMessage(
+        {
+          defaultMessage: "Edit <hidden>{label}</hidden>",
+          description: "Title displayed for the Edit column.",
+        },
+        { label, hidden },
+      )}
     </Link>
   );
 }
 
 export default TableEditButton;
 
-export function tableEditButtonAccessor(id: string, editUrlRoot: string) {
-  return <TableEditButton id={id} editUrlRoot={editUrlRoot} />;
+export function tableEditButtonAccessor(
+  id: string,
+  editUrlRoot: string,
+  label?: string,
+) {
+  return <TableEditButton id={id} editUrlRoot={editUrlRoot} label={label} />;
 }
