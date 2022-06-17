@@ -162,7 +162,7 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
       const aName: Maybe<string> = a.name[locale];
       const bName: Maybe<string> = b.name[locale];
       if (aName && bName) {
-        return aName.localeCompare(bName);
+        return aName.localeCompare(bName, locale);
       }
 
       return 0;
