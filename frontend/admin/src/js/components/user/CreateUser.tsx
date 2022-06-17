@@ -7,7 +7,6 @@ import { navigate } from "@common/helpers/router";
 import { enumToOptions } from "@common/helpers/formUtils";
 import { getLanguage, getRole } from "@common/constants/localizedConstants";
 import { errorMessages } from "@common/messages";
-import { phoneNumberRegex } from "@common/constants/regularExpressions";
 import { emptyToNull } from "@common/helpers/util";
 import { useAdminRoutes } from "../../adminRoutes";
 import {
@@ -119,13 +118,10 @@ export const CreateUserForm: React.FunctionComponent<CreateUserFormProps> = ({
                 description:
                   "Label displayed on the user form telephone field.",
               })}
-              type="tel"
+              type="text"
               name="telephone"
               rules={{
-                pattern: {
-                  value: phoneNumberRegex,
-                  message: intl.formatMessage(errorMessages.telephone),
-                },
+                required: intl.formatMessage(errorMessages.required),
               }}
             />
             <Select

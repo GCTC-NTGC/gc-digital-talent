@@ -5,7 +5,6 @@ import Input from ".";
 import type { InputProps } from ".";
 import Form from "../BasicForm";
 import Submit from "../Submit";
-import { phoneNumberRegex } from "../../../constants/regularExpressions";
 
 export default {
   component: Input,
@@ -73,16 +72,12 @@ PasswordInput.args = {
 export const TelephoneInput = TemplateInput.bind({});
 
 TelephoneInput.args = {
-  type: "tel",
+  type: "text",
   id: "telephone",
   name: "telephone",
   label: "Telephone",
   rules: {
-    required: "This field is required",
-    pattern: {
-      value: phoneNumberRegex,
-      message: "This field must follow the pattern +123243234.",
-    },
+    required: true,
   },
 };
 
