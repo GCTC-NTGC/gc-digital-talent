@@ -32,8 +32,10 @@ export const ViewUserPage: React.FC<ViewUserPageProps> = ({ user }) => {
     description: "Title for the page when viewing an individual user.",
   });
 
-  const userName = `${user?.firstName} ${user?.lastName}`;
-
+  let userName = `${user?.firstName} ${user?.lastName}`;
+  if (user?.firstName === null && user?.lastName === null) {
+    userName = "(Missing name)";
+  }
   const links = [
     {
       title: intl.formatMessage({
