@@ -4,7 +4,7 @@ import * as React from "react";
 import { useIntl } from "react-intl";
 import { Pool, UserPublicProfile } from "../../api/generated";
 
-interface SearchPoolsProps {
+export interface SearchPoolsProps {
   candidateCount: number;
   pool?: Pick<Pool, "name" | "description">;
   poolOwner?: Pick<UserPublicProfile, "firstName" | "lastName">;
