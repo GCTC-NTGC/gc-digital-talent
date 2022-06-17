@@ -494,7 +494,10 @@ const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
             {sections.skillsExperience?.override ? (
               sections.skillsExperience.override
             ) : (
-              <ExperienceSection experiences={experiences?.filter(notEmpty)} />
+              <ExperienceSection
+                experiences={experiences?.filter(notEmpty)}
+                editPath={sections.skillsExperience?.editUrl}
+              />
             )}
           </TableOfContents.Section>
         )}
