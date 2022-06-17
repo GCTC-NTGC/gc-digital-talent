@@ -108,7 +108,7 @@ export const UserTable: React.FC<AllUsersQuery & { editUrlRoot: string }> = ({
       data={data}
       columns={columns}
       title={intl.formatMessage({
-        defaultMessage: "All Users",
+        defaultMessage: "All users",
         description: "Title for the admin users table",
       })}
       addBtn={{
