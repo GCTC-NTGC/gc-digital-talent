@@ -12,7 +12,6 @@ import {
 import { Button, Link } from "@common/components";
 import Pagination from "@common/components/Pagination";
 import { FilterIcon, PlusIcon, TableIcon } from "@heroicons/react/outline";
-import GlobalFilter from "../GlobalFilter";
 import SortIcon from "./SortIcon";
 import SearchForm from "./SearchForm";
 
@@ -121,115 +120,119 @@ function Table<T extends Record<string, unknown>>({
 
   return (
     <>
-      <div
-        data-h2-align-items="b(center)"
-        data-h2-display="b(flex)"
-        data-h2-bg-color="b(lightgray)"
-        data-h2-justify-content="b(space-between)"
-        data-h2-radius="b(s, s, none, none)"
-        data-h2-padding="b(all, s)"
-      >
-        <div>{title && <span data-h2-font-weight="b(700)">{title}</span>}</div>
-        <div style={{ flexShrink: 0 }} data-h2-display="b(flex)">
-          <SearchForm
-            onChange={(term) => window.console.log(term)}
-            onSubmit={() => window.console.log("submit")}
-          />
-          <Spacer>
-            <Button
-              mode="outline"
-              color="black"
-              type="button"
-              data-h2-display="b(inline-flex)"
-              data-h2-align-items="b(center)"
-            >
-              <ButtonIcon icon={FilterIcon} />
-              <span>
-                {intl.formatMessage({
-                  defaultMessage: "Filters",
-                  description:
-                    "Text label for button to open filter dialog on admin tables.",
-                })}
-              </span>
-            </Button>
-          </Spacer>
-          <Spacer>
-            <div data-h2-position="b(relative)">
+      {filter && (
+        <div
+          data-h2-align-items="b(center)"
+          data-h2-display="b(flex)"
+          data-h2-bg-color="b(lightgray)"
+          data-h2-justify-content="b(space-between)"
+          data-h2-radius="b(s, s, none, none)"
+          data-h2-padding="b(all, s)"
+        >
+          <div>
+            {title && <span data-h2-font-weight="b(700)">{title}</span>}
+          </div>
+          <div style={{ flexShrink: 0 }} data-h2-display="b(flex)">
+            <SearchForm
+              onChange={(term) => window.console.log(term)}
+              onSubmit={() => window.console.log("submit")}
+            />
+            <Spacer>
               <Button
                 mode="outline"
                 color="black"
                 type="button"
                 data-h2-display="b(inline-flex)"
                 data-h2-align-items="b(center)"
-                onClick={() => setShowList(!showList)}
               >
-                <ButtonIcon icon={TableIcon} />
+                <ButtonIcon icon={FilterIcon} />
                 <span>
                   {intl.formatMessage({
-                    defaultMessage: "Columns",
+                    defaultMessage: "Filters",
                     description:
-                      "Label displayed on the Table Columns toggle button.",
+                      "Text label for button to open filter dialog on admin tables.",
                   })}
                 </span>
               </Button>
-              {showList ? (
-                <div
-                  data-h2-position="b(absolute)"
-                  data-h2-padding="b(all, xs)"
-                  data-h2-display="b(flex)"
-                  data-h2-flex-direction="b(column)"
-                  data-h2-margin="b(top, xxs)"
-                  data-h2-border="b(gray, all, solid, s)"
-                  data-h2-radius="b(s)"
-                  data-h2-shadow="b(s)"
-                  data-h2-bg-color="b(white)"
-                  style={{
-                    textAlign: "left",
-                    width: "12rem",
-                    right: 0,
-                  }}
-                >
-                  <div data-h2-margin="b(top-bottom, xxs)">
-                    <IndeterminateCheckbox
-                      {...(getToggleHideAllColumnsProps() as React.ComponentProps<
-                        typeof IndeterminateCheckbox
-                      >)}
-                    />
-                  </div>
-                  {allColumns.map((column) => (
-                    <div key={column.id} data-h2-margin="b(top-bottom, xxs)">
-                      <label htmlFor={column.Header?.toString()}>
-                        <input
-                          id={column.Header?.toString()}
-                          type="checkbox"
-                          {...column.getToggleHiddenProps()}
-                        />{" "}
-                        {column.Header}
-                      </label>
-                    </div>
-                  ))}
-                </div>
-              ) : null}
-            </div>
-          </Spacer>
-          {addBtn && (
-            <Spacer>
-              <Link
-                mode="outline"
-                color="black"
-                type="button"
-                data-h2-display="b(inline-flex)"
-                data-h2-align-items="b(center)"
-                style={{ textDecoration: "none" }}
-                href={addBtn.path}
-              >
-                <ButtonIcon icon={PlusIcon} />
-                <span>{addBtn.label}</span>
-              </Link>
             </Spacer>
-          )}
+            <Spacer>
+              <div data-h2-position="b(relative)">
+                <Button
+                  mode="outline"
+                  color="black"
+                  type="button"
+                  data-h2-display="b(inline-flex)"
+                  data-h2-align-items="b(center)"
+                  onClick={() => setShowList(!showList)}
+                >
+                  <ButtonIcon icon={TableIcon} />
+                  <span>
+                    {intl.formatMessage({
+                      defaultMessage: "Columns",
+                      description:
+                        "Label displayed on the Table Columns toggle button.",
+                    })}
+                  </span>
+                </Button>
+                {showList ? (
+                  <div
+                    data-h2-position="b(absolute)"
+                    data-h2-padding="b(all, xs)"
+                    data-h2-display="b(flex)"
+                    data-h2-flex-direction="b(column)"
+                    data-h2-margin="b(top, xxs)"
+                    data-h2-border="b(gray, all, solid, s)"
+                    data-h2-radius="b(s)"
+                    data-h2-shadow="b(s)"
+                    data-h2-bg-color="b(white)"
+                    style={{
+                      textAlign: "left",
+                      width: "12rem",
+                      right: 0,
+                    }}
+                  >
+                    <div data-h2-margin="b(top-bottom, xxs)">
+                      <IndeterminateCheckbox
+                        {...(getToggleHideAllColumnsProps() as React.ComponentProps<
+                          typeof IndeterminateCheckbox
+                        >)}
+                      />
+                    </div>
+                    {allColumns.map((column) => (
+                      <div key={column.id} data-h2-margin="b(top-bottom, xxs)">
+                        <label htmlFor={column.Header?.toString()}>
+                          <input
+                            id={column.Header?.toString()}
+                            type="checkbox"
+                            {...column.getToggleHiddenProps()}
+                          />{" "}
+                          {column.Header}
+                        </label>
+                      </div>
+                    ))}
+                  </div>
+                ) : null}
+              </div>
+            </Spacer>
+            {addBtn && (
+              <Spacer>
+                <Link
+                  mode="outline"
+                  color="black"
+                  type="button"
+                  data-h2-display="b(inline-flex)"
+                  data-h2-align-items="b(center)"
+                  style={{ textDecoration: "none" }}
+                  href={addBtn.path}
+                >
+                  <ButtonIcon icon={PlusIcon} />
+                  <span>{addBtn.label}</span>
+                </Link>
+              </Spacer>
+            )}
+          </div>
         </div>
-      </div>
+      )}
       <div
         data-h2-overflow="b(all, auto)"
         style={{ maxWidth: "100%" }}
