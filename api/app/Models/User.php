@@ -475,10 +475,12 @@ RAWSQL2;
     public function filterByGeneralSearch(Builder $query, ?string $search): Builder
     {
         if ($search) {
-            $query->where('first_name', "like", "%{$search}%")
-                  ->orWhere('last_name', "like", "%{$search}%")
-                  ->orWhere('email', "like", "%{$search}%")
-                  ->orWhere('telephone', "like", "%{$search}%");
+            $query->where(function($query) use ($search) {
+                $query->where('first_name', "like", "%{$search}%")
+                      ->orWhere('last_name', "like", "%{$search}%")
+                      ->orWhere('email', "like", "%{$search}%")
+                      ->orWhere('telephone', "like", "%{$search}%");
+            });
         }
         return $query;
     }
@@ -487,10 +489,12 @@ RAWSQL2;
     {
         if ($name) {
             $splitName = explode(" ", $name);
-            foreach($splitName as $index => $value){
-                $query->where('first_name', "like", "%{$value}%")
-                      ->orWhere('last_name', "like", "%{$value}%");
-            }
+            $query->where(function($query) use ($splitName) {
+                foreach($splitName as $index => $value){
+                    $query->where('first_name', "like", "%{$value}%")
+                        ->orWhere('last_name', "like", "%{$value}%");
+                }
+            });
         }
         return $query;
     }
