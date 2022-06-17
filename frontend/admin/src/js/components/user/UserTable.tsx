@@ -103,7 +103,16 @@ export const UserTable: React.FC<AllUsersQuery & { editUrlRoot: string }> = ({
 
   const data = useMemo(() => users.filter(notEmpty), [users]);
 
-  return <Table data={data} columns={columns} />;
+  return (
+    <Table
+      data={data}
+      columns={columns}
+      title={intl.formatMessage({
+        defaultMessage: "All Users",
+        description: "Title for the admin users table",
+      })}
+    />
+  );
 };
 
 export const UserTableApi: React.FunctionComponent = () => {

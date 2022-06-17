@@ -11,8 +11,10 @@ import {
 } from "react-table";
 import { Button } from "@common/components";
 import Pagination from "@common/components/Pagination";
+import { FilterIcon } from "@heroicons/react/outline";
 import GlobalFilter from "../GlobalFilter";
 import SortIcon from "./SortIcon";
+import SearchForm from "./SearchForm";
 
 export type ColumnsOf<T extends Record<string, unknown>> = Array<Column<T>>;
 
@@ -21,6 +23,7 @@ export interface TableProps<
 > {
   columns: Array<Column<T>>;
   data: Array<T>;
+  title?: string;
   filter?: boolean;
   pagination?: boolean;
   hiddenCols?: string[];
@@ -59,6 +62,7 @@ function Table<T extends Record<string, unknown>>({
   columns,
   data,
   labelledBy,
+  title,
   filter = true,
   pagination = true,
   hiddenCols = [],
@@ -159,6 +163,44 @@ function Table<T extends Record<string, unknown>>({
           </div>
         </div>
       ) : null}
+
+      <div
+        data-h2-align-items="b(center)"
+        data-h2-display="b(flex)"
+        data-h2-bg-color="b(lightgray)"
+        data-h2-justify-content="b(space-between)"
+        data-h2-radius="b(s, s, none, none)"
+        data-h2-padding="b(all, s)"
+      >
+        <div>{title && <span data-h2-font-weight="b(700)">{title}</span>}</div>
+        <div style={{ flexShrink: 0 }} data-h2-display="b(flex)">
+          <SearchForm
+            onChange={(term) => window.console.log(term)}
+            onSubmit={() => window.console.log("submit")}
+          />
+          <div data-h2-margin="b(left, s)">
+            <Button
+              mode="outline"
+              color="black"
+              type="button"
+              data-h2-display="b(inline-flex)"
+              data-h2-align-items="b(center)"
+            >
+              <FilterIcon
+                style={{ height: "1em", width: "1rem" }}
+                data-h2-margin="b(right, xs)"
+              />
+              <span>
+                {intl.formatMessage({
+                  defaultMessage: "Filters",
+                  description:
+                    "Text label for button to open filter dialog on admin tables.",
+                })}
+              </span>
+            </Button>
+          </div>
+        </div>
+      </div>
       <div
         data-h2-overflow="b(all, auto)"
         style={{ maxWidth: "100%" }}

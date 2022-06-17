@@ -94,12 +94,12 @@ export const colorMap: Record<
   },
   black: {
     solid: {
-      "data-h2-border": "b(white, all, solid, s)",
+      "data-h2-border": "b(black, all, solid, s)",
       "data-h2-bg-color": "b(black)",
       "data-h2-font-color": "b(white)",
     },
     outline: {
-      "data-h2-border": "b(white, all, solid, s)",
+      "data-h2-border": "b(black, all, solid, s)",
       "data-h2-bg-color": "b([light]white[0])",
       "data-h2-font-color": "b(black)",
     },
