@@ -476,10 +476,10 @@ RAWSQL2;
     {
         if ($search) {
             $query->where(function($query) use ($search) {
-                $query->where('first_name', "like", "%{$search}%")
-                      ->orWhere('last_name', "like", "%{$search}%")
-                      ->orWhere('email', "like", "%{$search}%")
-                      ->orWhere('telephone', "like", "%{$search}%");
+                $query->where('first_name', "ilike", "%{$search}%")
+                      ->orWhere('last_name', "ilike", "%{$search}%")
+                      ->orWhere('email', "ilike", "%{$search}%")
+                      ->orWhere('telephone', "ilike", "%{$search}%");
             });
         }
         return $query;
@@ -491,8 +491,8 @@ RAWSQL2;
             $splitName = explode(" ", $name);
             $query->where(function($query) use ($splitName) {
                 foreach($splitName as $index => $value){
-                    $query->where('first_name', "like", "%{$value}%")
-                        ->orWhere('last_name', "like", "%{$value}%");
+                    $query->where('first_name', "ilike", "%{$value}%")
+                        ->orWhere('last_name', "ilike", "%{$value}%");
                 }
             });
         }
@@ -502,7 +502,7 @@ RAWSQL2;
     public function scopeTelephone(Builder $query, ?string $telephone): Builder
     {
         if ($telephone) {
-            $query->where('telephone', 'like', "%{$telephone}%");
+            $query->where('telephone', 'ilike', "%{$telephone}%");
         }
         return $query;
     }
@@ -510,7 +510,7 @@ RAWSQL2;
     public function scopeEmail(Builder $query, ?string $email): Builder
     {
         if ($email) {
-            $query->where('email', 'like', "%{$email}%");
+            $query->where('email', 'ilike', "%{$email}%");
         }
         return $query;
     }

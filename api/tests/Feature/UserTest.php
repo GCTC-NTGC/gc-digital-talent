@@ -2210,7 +2210,75 @@ class UserTest extends TestCase
             ]
         ]);
 
-        // Name filtering TODO
+        // Name filtering  //
+        // casing should not matter
+        $this->graphQL(/** @lang Graphql */ '
+            query getUsersPaginated($where: UserFilterAndOrderInput) {
+                usersPaginated(where: $where) {
+                    paginatorInfo {
+                        total
+                    }
+                }
+            }
+        ', [
+            'where' => [
+                'name' => 'sAm',
+            ]
+        ])->assertJson([
+            'data' => [
+                'usersPaginated' => [
+                    'paginatorInfo' => [
+                        'total' => 1
+                    ]
+                ]
+            ]
+        ]);
+        // ensure single letter returns all relevant results
+        $this->graphQL(/** @lang Graphql */ '
+            query getUsersPaginated($where: UserFilterAndOrderInput) {
+                usersPaginated(where: $where) {
+                    paginatorInfo {
+                        total
+                    }
+                }
+            }
+        ', [
+            'where' => [
+                'name' => 'r',
+            ]
+        ])->assertJson([
+            'data' => [
+                'usersPaginated' => [
+                    'paginatorInfo' => [
+                        'total' => 3
+                    ]
+                ]
+            ]
+        ]);
+
+        // ensure queries with multiple filter variables apply separately as AND operations (builds off assertion above)
+        $this->graphQL(/** @lang Graphql */ '
+            query getUsersPaginated($where: UserFilterAndOrderInput) {
+                usersPaginated(where: $where) {
+                    paginatorInfo {
+                        total
+                    }
+                }
+            }
+        ', [
+            'where' => [
+                'name' => 'r',
+                'telephone' => "12345",
+            ]
+        ])->assertJson([
+            'data' => [
+                'usersPaginated' => [
+                    'paginatorInfo' => [
+                        'total' => 1
+                    ]
+                ]
+            ]
+        ]);
 
         // Assert email filter with partial email returns correct count
         $this->graphQL(/** @lang Graphql */ '
@@ -2253,6 +2321,53 @@ class UserTest extends TestCase
                 'usersPaginated' => [
                     'paginatorInfo' => [
                         'total' => 2
+                    ]
+                ]
+            ]
+        ]);
+
+        // Assert filtering for last name in general search returns correct count
+        $this->graphQL(/** @lang Graphql */ '
+            query getUsersPaginated($where: UserFilterAndOrderInput) {
+                usersPaginated(where: $where) {
+                    paginatorInfo {
+                        total
+                    }
+                }
+            }
+        ', [
+            'where' => [
+                'generalSearch' => 'man',
+            ]
+        ])->assertJson([
+            'data' => [
+                'usersPaginated' => [
+                    'paginatorInfo' => [
+                        'total' => 1
+                    ]
+                ]
+            ]
+        ]);
+
+        // Assert filtering general search and name search (both subqueries) filter as AND
+        $this->graphQL(/** @lang Graphql */ '
+            query getUsersPaginated($where: UserFilterAndOrderInput) {
+                usersPaginated(where: $where) {
+                    paginatorInfo {
+                        total
+                    }
+                }
+            }
+        ', [
+            'where' => [
+                'generalSearch' => '@user.com',
+                'name' => 'zak',
+            ]
+        ])->assertJson([
+            'data' => [
+                'usersPaginated' => [
+                    'paginatorInfo' => [
+                        'total' => 0
                     ]
                 ]
             ]
