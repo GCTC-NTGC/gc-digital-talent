@@ -88,6 +88,7 @@ export const ProfileForm: React.FC<ProfilePageProps> = ({
               <ExperienceSection
                 experiences={experiences?.filter(notEmpty)}
                 experienceEditPaths={experienceEditPaths}
+                editPath={paths.skillsAndExperiences()}
               />
             ),
           },

@@ -152,20 +152,29 @@ const ExperienceSection: React.FunctionComponent<ExperienceSectionProps> = ({
       {!isExperience && !editPath && (
         <p>
           {intl.formatMessage({
-            defaultMessage: "No information has been provided.",
+            defaultMessage: "No information has been provided",
             description:
               "Message on Admin side when user not filled Experience section.",
           })}
         </p>
       )}
       {!isExperience && editPath && (
-        <p>
-          {intl.formatMessage({
-            defaultMessage: "Hi",
-            description:
-              "Message on Admin side when user not filled Experience section.",
-          })}
-        </p>
+        <>
+          <p>
+            {intl.formatMessage({
+              defaultMessage: "You haven't added any information here yet.",
+              description: "Message for when no data exists for the section",
+            })}
+          </p>
+          <p>
+            <a href={editPath}>
+              {intl.formatMessage({
+                defaultMessage: "Click here to get started.",
+                description: "Message to click on the words to begin something",
+              })}
+            </a>
+          </p>
+        </>
       )}
     </div>
   );
