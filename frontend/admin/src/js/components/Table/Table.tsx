@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-key */
-import React, { ReactElement, useState } from "react";
+import React, { HTMLAttributes, ReactElement, useState } from "react";
 import { useIntl } from "react-intl";
 
 import {
@@ -9,9 +9,9 @@ import {
   Column,
   usePagination,
 } from "react-table";
-import { Button } from "@common/components";
+import { Button, Link } from "@common/components";
 import Pagination from "@common/components/Pagination";
-import { FilterIcon } from "@heroicons/react/outline";
+import { FilterIcon, PlusIcon, TableIcon } from "@heroicons/react/outline";
 import GlobalFilter from "../GlobalFilter";
 import SortIcon from "./SortIcon";
 import SearchForm from "./SearchForm";
@@ -24,6 +24,10 @@ export interface TableProps<
   columns: Array<Column<T>>;
   data: Array<T>;
   title?: string;
+  addBtn?: {
+    path: string;
+    label: string;
+  };
   filter?: boolean;
   pagination?: boolean;
   hiddenCols?: string[];
@@ -58,11 +62,29 @@ const IndeterminateCheckbox: React.FC<
   );
 };
 
+const Spacer: React.FC = ({ children }) => (
+  <div data-h2-margin="b(left, s)">{children}</div>
+);
+
+const ButtonIcon: React.FC<{
+  icon: React.FC<HTMLAttributes<HTMLOrSVGElement>>;
+}> = ({ icon }) => {
+  const Icon = icon;
+
+  return (
+    <Icon
+      style={{ height: "1em", width: "1rem" }}
+      data-h2-margin="b(right, xs)"
+    />
+  );
+};
+
 function Table<T extends Record<string, unknown>>({
   columns,
   data,
   labelledBy,
   title,
+  addBtn,
   filter = true,
   pagination = true,
   hiddenCols = [],
@@ -98,72 +120,7 @@ function Table<T extends Record<string, unknown>>({
   const intl = useIntl();
 
   return (
-    <div>
-      {filter ? (
-        <div data-h2-padding="b(top-bottom, m) b(right-left, xl)">
-          <div data-h2-flex-grid="b(middle, expanded, flush, m)">
-            <div data-h2-flex-item="b(1of1) m(1of3)">
-              <GlobalFilter
-                globalFilter={state.globalFilter}
-                setGlobalFilter={setGlobalFilter}
-              />
-            </div>
-            <div
-              data-h2-flex-item="b(1of1) m(2of3)"
-              data-h2-text-align="b(center) m(right)"
-            >
-              <div data-h2-position="b(relative)" style={{ float: "right" }}>
-                <Button
-                  color="secondary"
-                  mode="inline"
-                  onClick={() => {
-                    setShowList((currentState) => !currentState);
-                  }}
-                >
-                  {intl.formatMessage({
-                    defaultMessage: "Hide/Show Table Columns",
-                    description: "Label displayed on the Table Columns toggle.",
-                  })}
-                </Button>
-                {showList ? (
-                  <div
-                    data-h2-position="b(absolute)"
-                    data-h2-margin="b(right-left, s)"
-                    data-h2-padding="b(all, s)"
-                    data-h2-border="b(gray, all, solid, s)"
-                    data-h2-radius="b(s)"
-                    data-h2-bg-color="b(white)"
-                    style={{
-                      textAlign: "left",
-                    }}
-                  >
-                    <div>
-                      <IndeterminateCheckbox
-                        {...(getToggleHideAllColumnsProps() as React.ComponentProps<
-                          typeof IndeterminateCheckbox
-                        >)}
-                      />
-                    </div>
-                    {allColumns.map((column) => (
-                      <div key={column.id}>
-                        <label htmlFor={column.Header?.toString()}>
-                          <input
-                            id={column.Header?.toString()}
-                            type="checkbox"
-                            {...column.getToggleHiddenProps()}
-                          />{" "}
-                          {column.Header}
-                        </label>
-                      </div>
-                    ))}
-                  </div>
-                ) : null}
-              </div>
-            </div>
-          </div>
-        </div>
-      ) : null}
-
+    <>
       <div
         data-h2-align-items="b(center)"
         data-h2-display="b(flex)"
@@ -178,7 +135,7 @@ function Table<T extends Record<string, unknown>>({
             onChange={(term) => window.console.log(term)}
             onSubmit={() => window.console.log("submit")}
           />
-          <div data-h2-margin="b(left, s)">
+          <Spacer>
             <Button
               mode="outline"
               color="black"
@@ -186,10 +143,7 @@ function Table<T extends Record<string, unknown>>({
               data-h2-display="b(inline-flex)"
               data-h2-align-items="b(center)"
             >
-              <FilterIcon
-                style={{ height: "1em", width: "1rem" }}
-                data-h2-margin="b(right, xs)"
-              />
+              <ButtonIcon icon={FilterIcon} />
               <span>
                 {intl.formatMessage({
                   defaultMessage: "Filters",
@@ -198,7 +152,82 @@ function Table<T extends Record<string, unknown>>({
                 })}
               </span>
             </Button>
-          </div>
+          </Spacer>
+          <Spacer>
+            <div data-h2-position="b(relative)">
+              <Button
+                mode="outline"
+                color="black"
+                type="button"
+                data-h2-display="b(inline-flex)"
+                data-h2-align-items="b(center)"
+                onClick={() => setShowList(!showList)}
+              >
+                <ButtonIcon icon={TableIcon} />
+                <span>
+                  {intl.formatMessage({
+                    defaultMessage: "Columns",
+                    description:
+                      "Label displayed on the Table Columns toggle button.",
+                  })}
+                </span>
+              </Button>
+              {showList ? (
+                <div
+                  data-h2-position="b(absolute)"
+                  data-h2-padding="b(all, xs)"
+                  data-h2-display="b(flex)"
+                  data-h2-flex-direction="b(column)"
+                  data-h2-margin="b(top, xxs)"
+                  data-h2-border="b(gray, all, solid, s)"
+                  data-h2-radius="b(s)"
+                  data-h2-shadow="b(s)"
+                  data-h2-bg-color="b(white)"
+                  style={{
+                    textAlign: "left",
+                    width: "12rem",
+                    right: 0,
+                  }}
+                >
+                  <div data-h2-margin="b(top-bottom, xxs)">
+                    <IndeterminateCheckbox
+                      {...(getToggleHideAllColumnsProps() as React.ComponentProps<
+                        typeof IndeterminateCheckbox
+                      >)}
+                    />
+                  </div>
+                  {allColumns.map((column) => (
+                    <div key={column.id} data-h2-margin="b(top-bottom, xxs)">
+                      <label htmlFor={column.Header?.toString()}>
+                        <input
+                          id={column.Header?.toString()}
+                          type="checkbox"
+                          {...column.getToggleHiddenProps()}
+                        />{" "}
+                        {column.Header}
+                      </label>
+                    </div>
+                  ))}
+                </div>
+              ) : null}
+            </div>
+          </Spacer>
+          {addBtn && (
+            <Spacer>
+              <Link
+                mode="outline"
+                color="black"
+                type="button"
+                data-h2-display="b(inline-flex)"
+                data-h2-align-items="b(center)"
+                style={{ textDecoration: "none" }}
+                href={addBtn.path}
+              >
+                <ButtonIcon icon={PlusIcon} />
+                <span>{addBtn.label}</span>
+              </Link>
+            </Spacer>
+          )}
         </div>
       </div>
       <div
@@ -276,7 +305,7 @@ function Table<T extends Record<string, unknown>>({
           data-h2-margin="b(all, none)"
         />
       )}
-    </div>
+    </>
   );
 }
 

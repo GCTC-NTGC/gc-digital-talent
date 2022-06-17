@@ -111,6 +111,13 @@ export const UserTable: React.FC<AllUsersQuery & { editUrlRoot: string }> = ({
         defaultMessage: "All Users",
         description: "Title for the admin users table",
       })}
+      addBtn={{
+        label: intl.formatMessage({
+          defaultMessage: "New user",
+          description: "Text label for link to create new user on admin table",
+        }),
+        path: paths.userCreate(),
+      }}
     />
   );
 };
