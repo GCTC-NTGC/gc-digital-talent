@@ -115,7 +115,7 @@ const Home: React.FunctionComponent = () => {
           data-h2-margin="m(0, 0, x4, 0)"
           data-h2-padding="b(0, x1) m(x1)"
           data-h2-position="b(relative)"
-          data-h2-bg-color="b(ia-white)"
+          data-h2-background-color="b(ia-white)"
           data-h2-radius="b(s)"
         >
           <div data-h2-display="m(flex)" data-h2-align-items="m(flex-start)">

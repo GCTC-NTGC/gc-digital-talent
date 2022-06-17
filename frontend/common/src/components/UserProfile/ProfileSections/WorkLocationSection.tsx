@@ -7,7 +7,7 @@ import { Applicant } from "../../../api/generated";
 
 // styling a text bit with red colour within intls
 function redText(msg: string) {
-  return <span data-h2-font-color="b(red)">{msg}</span>;
+  return <span data-h2-color="b(dt-error)">{msg}</span>;
 }
 
 const WorkLocationSection: React.FunctionComponent<{

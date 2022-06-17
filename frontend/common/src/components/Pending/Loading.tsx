@@ -7,7 +7,7 @@ const Loading: React.FC = () => {
   return (
     <div
       data-h2-position="b(fixed)"
-      data-h2-bg-color="b(dt-white.2))"
+      data-h2-background-color="b(dt-white.2)"
       data-h2-display="b(flex)"
       data-h2-align-items="b(center)"
       data-h2-justify-content="b(center)"

@@ -18,7 +18,7 @@ const RoleSalarySection: React.FunctionComponent<{
     : null;
   // styling a text bit with red colour within intl
   function redText(msg: string) {
-    return <span data-h2-font-color="b(red)">{msg}</span>;
+    return <span data-h2-color="b(dt-error)">{msg}</span>;
   }
 
   return (

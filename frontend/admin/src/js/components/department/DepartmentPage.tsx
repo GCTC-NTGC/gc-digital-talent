@@ -16,7 +16,7 @@ export const DepartmentPage: React.FC = () => {
         <div data-h2-flex-grid="b(center, 0, x2)">
           <div data-h2-flex-item="b(1of1) m(3of5)">
             <h1
-              data-h2-font-color="b(dt-white)"
+              data-h2-color="b(dt-white)"
               data-h2-font-weight="b(800)"
               data-h2-margin="b(0)"
               style={{ letterSpacing: "-2px" }}
