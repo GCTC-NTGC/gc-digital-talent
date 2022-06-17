@@ -38,6 +38,10 @@ export const ProfileForm: React.FC<ProfilePageProps> = ({
     personalUrl: (id: string) => paths.editExperience("personal", id),
     workUrl: (id: string) => paths.editExperience("work", id),
   };
+  let userName = `${firstName} ${lastName}`;
+  if (firstName === null && lastName === null) {
+    userName = "(Missing name)";
+  }
 
   return (
     <>
@@ -55,9 +59,7 @@ export const ProfileForm: React.FC<ProfilePageProps> = ({
           backgroundRepeat: "no-repeat",
         }}
       >
-        <h1 data-h2-margin="b(top-bottom, l)">
-          {firstName} {lastName}
-        </h1>
+        <h1 data-h2-margin="b(top-bottom, l)">{userName}</h1>
       </div>
 
       <UserProfile
