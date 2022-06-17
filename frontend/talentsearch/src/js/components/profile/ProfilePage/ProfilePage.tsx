@@ -10,6 +10,7 @@ import UserProfile from "@common/components/UserProfile";
 import type { Applicant } from "@common/api/generated";
 
 import { commonMessages } from "@common/messages";
+import { isEmpty } from "lodash";
 import MyStatusApi from "../../myStatusForm/MyStatusForm";
 import TALENTSEARCH_APP_DIR from "../../../talentSearchConstants";
 import { useApplicantProfileRoutes } from "../../../applicantProfileRoutes";
@@ -39,8 +40,16 @@ export const ProfileForm: React.FC<ProfilePageProps> = ({
     workUrl: (id: string) => paths.editExperience("work", id),
   };
   let userName = `${firstName} ${lastName}`;
-  if (firstName === null && lastName === null) {
-    userName = "(Missing name)";
+  const intl = useIntl();
+
+  if (
+    (firstName === null || isEmpty(firstName)) &&
+    (lastName === null || isEmpty(firstName))
+  ) {
+    userName = intl.formatMessage({
+      defaultMessage: "(Missing name)",
+      description: "Message for Missing names in profile",
+    });
   }
 
   return (

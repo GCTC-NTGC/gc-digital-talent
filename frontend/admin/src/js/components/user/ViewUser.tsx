@@ -12,6 +12,7 @@ import { Tab, TabSet } from "@common/components/tabs";
 import { commonMessages } from "@common/messages";
 import Pending from "@common/components/Pending";
 import NotFound from "@common/components/NotFound";
+import { isEmpty } from "lodash";
 import { useAdminRoutes } from "../../adminRoutes";
 import { User, useUserQuery } from "../../api/generated";
 import DashboardContentContainer from "../DashboardContentContainer";
@@ -33,9 +34,16 @@ export const ViewUserPage: React.FC<ViewUserPageProps> = ({ user }) => {
   });
 
   let userName = `${user?.firstName} ${user?.lastName}`;
-  if (user?.firstName === null && user?.lastName === null) {
-    userName = "(Missing name)";
+  if (
+    (user?.firstName === null || isEmpty(user?.firstName)) &&
+    (user?.lastName === null || isEmpty(user?.firstName))
+  ) {
+    userName = intl.formatMessage({
+      defaultMessage: "(Missing names)",
+      description: "Message for Missing names in profile",
+    });
   }
+
   const links = [
     {
       title: intl.formatMessage({
