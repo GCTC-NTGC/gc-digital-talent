@@ -48,12 +48,6 @@ jobs:
         working-directory: frontend
         run: |
           npm install
-          # Work-around until Hydrogen is updated: we trick hydrogen into thinking its installed in the package path.
-          # See: https://github.com/hydrogen-design-system/hydrogen.css/issues/72
-          mkdir -p admin/node_modules common/node_modules talentsearch/node_modules
-          (cd admin/node_modules && ln -s ../../node_modules/@hydrogen-design-system .)
-          (cd common/node_modules && ln -s ../../node_modules/@hydrogen-design-system .)
-          (cd talentsearch/node_modules && ln -s ../../node_modules/@hydrogen-design-system .)
 
       - name: "Build: common"
         working-directory: frontend/common
