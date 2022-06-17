@@ -120,9 +120,6 @@ export const CreateUserForm: React.FunctionComponent<CreateUserFormProps> = ({
               })}
               type="text"
               name="telephone"
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
             />
             <Select
               id="preferredLang"
