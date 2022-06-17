@@ -20,6 +20,7 @@ import {
   UpdateUserAsUserInput,
   useCreateAccountMutation,
   useGetCreateAccountFormDataQuery,
+  Department,
 } from "../../api/generated";
 import {
   formValuesToSubmitData,
@@ -34,18 +35,20 @@ type FormValues = Pick<
   govEmployeeYesNo: "yes" | "no";
   govEmployeeType: GovEmployeeType | null;
   lateralDeployBool: boolean;
+  department: string;
   currentClassificationGroup: string;
   currentClassificationLevel: string;
 };
 
 export interface CreateAccountFormProps {
+  departments: Department[];
   classifications: Classification[];
   handleCreateAccount: (data: UpdateUserAsUserInput) => Promise<void>;
 }
 
 export const CreateAccountForm: React.FunctionComponent<
   CreateAccountFormProps
-> = ({ classifications, handleCreateAccount }) => {
+> = ({ departments, classifications, handleCreateAccount }) => {
   const intl = useIntl();
 
   const methods = useForm<FormValues>();
@@ -82,7 +85,7 @@ export const CreateAccountForm: React.FunctionComponent<
         }}
       >
         <h1
-          data-h2-margin="b(x3, auto, x.5, auto)"
+          data-h2-margin="b(x3, 0, x.5, 0)"
           data-h2-font-weight="b(700)"
         >
           {intl.formatMessage({
@@ -111,7 +114,7 @@ export const CreateAccountForm: React.FunctionComponent<
           })}
           icon={<BellIcon style={{ width: "1.4rem" }} />}
           type="success"
-          data-h2-margin="b(x3, auto, auto, auto)"
+          data-h2-margin="b(x3, 0, 0, 0)"
         />
         <FormProvider {...methods}>
           <form onSubmit={handleSubmit(onSubmit)}>
@@ -130,7 +133,7 @@ export const CreateAccountForm: React.FunctionComponent<
               })}
             </p>
             <div>
-              <div data-h2-display="b(flex)" data-h2-margin="b(auto, auto, x1, auto)">
+              <div data-h2-display="b(flex)" data-h2-margin="b(0, 0, x1, 0)">
                 <div style={{ flex: 1 }} data-h2-padding="b(0, x1, 0, 0)">
                   <Input
                     id="firstName"
@@ -172,7 +175,7 @@ export const CreateAccountForm: React.FunctionComponent<
                   />
                 </div>
               </div>
-              <div data-h2-margin="b(auto, auto, x1, auto)">
+              <div data-h2-margin="b(0, 0, x1, 0)">
                 <Input
                   id="email"
                   type="email"
@@ -208,7 +211,7 @@ export const CreateAccountForm: React.FunctionComponent<
                 }))}
                 defaultSelected={Language.En}
               />
-              <p data-h2-margin="b(x2, auto, auto, auto)">
+              <p data-h2-margin="b(x2, 0, 0, 0)">
                 {intl.formatMessage({
                   defaultMessage:
                     "Below we’d like to know if you’re already an employee with the Government of Canada. We collect this information because it helps us understand, at an aggregate level, how digital skills are distributed amongst departments.",
@@ -216,7 +219,7 @@ export const CreateAccountForm: React.FunctionComponent<
                     "First message before is a government of canada radio group in create account form.",
                 })}
               </p>
-              <p data-h2-margin="b(auto, auto, x1, auto)">
+              <p data-h2-margin="b(0, 0, x1, 0)">
                 {intl.formatMessage({
                   defaultMessage:
                     "We also use this information to provide you with more contextualized opportunities and suggestions based on your employment status.",
@@ -225,13 +228,14 @@ export const CreateAccountForm: React.FunctionComponent<
                 })}
               </p>
               <GovernmentInfoForm
+                departments={departments}
                 classifications={classifications}
                 govEmployee={govEmployee}
                 govEmployeeStatus={govEmployeeStatus}
                 groupSelection={groupSelection}
               />
               <div
-                data-h2-margin="b(x2, auto)"
+                data-h2-margin="b(x2, 0)"
                 data-h2-padding="b(x2, 0)"
                 data-h2-border="b(top, 1px, solid, light.dt-gray)"
                 data-h2-display="b(flex)"
@@ -264,6 +268,8 @@ export const CreateAccount: React.FunctionComponent = () => {
   const { data: lookupData, fetching, error } = lookUpResult;
   const meInfo = lookupData?.me;
   const meId = meInfo?.id;
+  const departments: Department[] | [] =
+    lookupData?.departments.filter(notEmpty) ?? [];
   const classifications: Classification[] | [] =
     lookupData?.classifications.filter(notEmpty) ?? [];
 
@@ -314,6 +320,7 @@ export const CreateAccount: React.FunctionComponent = () => {
   return (
     <Pending fetching={fetching} error={error}>
       <CreateAccountForm
+        departments={departments}
         classifications={classifications}
         handleCreateAccount={onSubmit}
       />

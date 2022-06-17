@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\User;
 use App\Models\Classification;
+use App\Models\Department;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Database\Helpers\ApiEnums;
 
@@ -32,12 +33,14 @@ class UserFactory extends Factory
             'P',
         ];
 
+        $randomDepartment = Department::inRandomOrder()->first();
         $randomClassification = Classification::inRandomOrder()->first();
+        $isGovEmployee = $this->faker->boolean();
 
         return [
             'first_name' => $this->faker->firstName(),
             'last_name' => $this->faker->lastName(),
-            'email' => $this->faker->boolean(75) ? $this->faker->unique()->safeEmail : null,
+            'email' => $this->faker->unique()->safeEmail(),
             'sub' => $this->faker->boolean(75) ? $this->faker->unique()->uuid() : null,
             'telephone' => $this->faker->e164PhoneNumber(),
             'preferred_lang' => $this->faker->randomElement(['en', 'fr']),
@@ -85,8 +88,9 @@ class UserFactory extends Factory
                 'INTERMEDIATE',
                 'ADVANCED'
             ]),
-            'is_gov_employee' => $this->faker->boolean(),
+            'is_gov_employee' => $isGovEmployee,
             'interested_in_later_or_secondment' => $this->faker->boolean(),
+            'department' => $isGovEmployee && $randomDepartment ? $randomDepartment->id : null,
             'current_classification' => $randomClassification ? $randomClassification->id : null,
             'is_woman' => $this->faker->boolean(),
             'has_disability' => $this->faker->boolean(),

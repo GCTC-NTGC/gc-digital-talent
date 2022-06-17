@@ -22,11 +22,14 @@ module.exports = {
     // plain copy files to target folder
     new CopyPlugin({
       patterns: [
-        { from: "src/images", to: "images" },
-        { from: "src/.htaccess" },
-        { from: "src/config.sjs" },
-        { from: "src/robots.txt" },
-        { from: "src/site.webmanifest" },
+        {
+          context: "public/",
+          from: "**/*",
+          globOptions: {
+            dot: true,
+            ignore: ["**/public/index.html"],
+          },
+        },
       ],
     }),
 
@@ -43,7 +46,7 @@ module.exports = {
     // generate an index.html file based on given template
     new HtmlWebpackPlugin({
       title: "Admin",
-      template: path.resolve(__dirname, "./src/views/dashboard.html"),
+      template: path.resolve(__dirname, "public/index.html"),
     }),
 
     // run some checks before compilation begins

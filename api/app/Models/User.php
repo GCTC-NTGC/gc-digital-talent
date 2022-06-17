@@ -38,6 +38,7 @@ use Illuminate\Support\Facades\DB;
  * @property string $estimated_language_ability
  * @property string $is_gov_employee
  * @property string $interested_in_later_or_secondment
+ * @property string $department
  * @property string $current_classification
  * @property boolean $is_woman
  * @property boolean $has_disability
@@ -77,6 +78,10 @@ class User extends Model implements Authenticatable
     public function poolCandidates(): HasMany
     {
         return $this->hasMany(PoolCandidate::class);
+    }
+    public function department(): BelongsTo
+    {
+        return $this->belongsTo(Department::class, "department");
     }
     public function currentClassification(): BelongsTo
     {
