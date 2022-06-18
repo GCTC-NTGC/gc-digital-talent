@@ -42,6 +42,7 @@ const Input: React.FunctionComponent<InputProps> = ({
   const {
     register,
     formState: { errors },
+    setValue,
   } = useFormContext();
   // To grab errors in nested objects we need to use lodash's get helper.
   const error = get(errors, name)?.message;
@@ -50,6 +51,7 @@ const Input: React.FunctionComponent<InputProps> = ({
     if (whitespaceTrim) {
       const ele = document.getElementById(`${id}`) as HTMLInputElement;
       ele.value = ele.value.trim();
+      setValue(name, ele.value);
     }
   };
 
