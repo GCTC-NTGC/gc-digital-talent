@@ -621,6 +621,7 @@ type Query {
     usersPaginated(where: UserFilterAndOrderInput): [User]! @paginate(defaultCount: 10, maxCount: 1000 scopes: ["order"]) @guard @can(ability: "viewAny")
     applicant(id: ID! @eq): Applicant @find(model: "User") @guard @can(ability: "viewApplicant", query: true, model: "User")
     applicants: [Applicant]! @all(model: "User") @guard @can(ability: "viewAnyApplicants", model: "User")
+    # countApplicants returns the number of candidates matching its filters, and requires no special permissions.
     countApplicants(where: ApplicantFilterInput): Int! @count(model: "User")
     pool(id: ID! @eq): Pool @find
     poolByKey(key: String! @eq): Pool @find
