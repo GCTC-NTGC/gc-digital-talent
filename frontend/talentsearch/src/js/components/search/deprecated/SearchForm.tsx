@@ -1,32 +1,57 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
-import debounce from "lodash/debounce";
-
 import { Checklist, MultiSelect, RadioGroup } from "@common/components/form";
+import { getLocale } from "@common/helpers/localize";
+import { enumToOptions, unpackMaybes } from "@common/helpers/formUtils";
 import { getLanguageAbility } from "@common/constants";
+import { debounce } from "debounce";
+import { useLocation } from "@common/helpers/router";
 import {
   getOperationalRequirement,
   getWorkRegion,
 } from "@common/constants/localizedConstants";
-import { enumToOptions, unpackMaybes } from "@common/helpers/formUtils";
-import { getLocale } from "@common/helpers/localize";
-import { useLocation } from "@common/helpers/router";
 import {
   Classification,
   CmoAsset,
-  LanguageAbility,
   OperationalRequirement,
+  WorkRegion,
+  LanguageAbility,
   PoolCandidateFilter,
   PoolCandidateFilterInput,
-  WorkRegion,
-} from "../../api/generated";
-import FilterBlock from "./FilterBlock";
+} from "../../../api/generated";
 
 const NullSelection = "NULL_SELECTION";
 
-function mapIdToValue<T extends { id: string }>(objects: T[]): Map<string, T> {
-  return objects.reduce((map, obj) => {
+const FilterBlock: React.FunctionComponent<{
+  id: string;
+  title: string | React.ReactNode;
+  text: string;
+}> = ({ id, title, text, children }) => {
+  return (
+    <div>
+      <h3
+        id={id}
+        data-h2-font-size="b(h4)"
+        data-h2-font-weight="b(700)"
+        data-h2-margin="b(bottom, m)"
+      >
+        {title}
+      </h3>
+      <p
+        data-h2-font-size="b(caption)"
+        data-h2-margin="b(bottom, m)"
+        data-h2-padding="b(right, xl)"
+      >
+        {text}
+      </p>
+      {children && <div style={{ maxWidth: "30rem" }}>{children}</div>}
+    </div>
+  );
+};
+
+function mapIdToValue<T extends { id: string }>(objs: T[]): Map<string, T> {
+  return objs.reduce((map, obj) => {
     map.set(obj.id, obj);
     return map;
   }, new Map());
@@ -50,31 +75,31 @@ type LocationState = {
     initialValues: FormValues;
   };
 };
-
 export interface SearchFormProps {
   classifications: Classification[];
   cmoAssets: CmoAsset[];
-  onUpdateCandidateFilter: (filter: PoolCandidateFilterInput) => void;
+  updateCandidateFilter: (filter: PoolCandidateFilterInput) => void;
+  updateInitialValues: (initialValues: FormValues) => void;
 }
 
-const SearchForm: React.FC<SearchFormProps> = ({
+export const SearchForm: React.FunctionComponent<SearchFormProps> = ({
   classifications,
   cmoAssets,
-  onUpdateCandidateFilter,
+  updateCandidateFilter,
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const location = useLocation();
 
-  const classificationMap = React.useMemo(
+  const classificationMap = useMemo(
     () => mapIdToValue(classifications),
     [classifications],
   );
-  const assetMap = React.useMemo(() => mapIdToValue(cmoAssets), [cmoAssets]);
+  const assetMap = useMemo(() => mapIdToValue(cmoAssets), [cmoAssets]);
 
   // The location state holds the initial values plugged in from user. This is required if the user decides to click back and change any values.
   const state = location.state as LocationState;
-  const initialValues = React.useMemo(
+  const initialValues = useMemo(
     () => (state ? state.some.initialValues : {}),
     [state],
   );
@@ -82,16 +107,16 @@ const SearchForm: React.FC<SearchFormProps> = ({
   const { watch } = methods;
 
   React.useEffect(() => {
-    onUpdateCandidateFilter(initialValues);
-  }, [initialValues, onUpdateCandidateFilter]);
+    updateCandidateFilter(initialValues);
+  }, [initialValues, updateCandidateFilter]);
 
   React.useEffect(() => {
     const formValuesToData = (values: FormValues): PoolCandidateFilterInput => {
       return {
         classifications: values.classifications
-          ? values.classifications
-              ?.filter((id) => !!id)
-              .map((id) => (id ? classificationMap.get(id) : undefined))
+          ? values.classifications?.map((id) =>
+              id ? classificationMap.get(id) : undefined,
+            )
           : [],
         cmoAssets: values.cmoAssets
           ? values.cmoAssets?.map((id) => (id ? assetMap.get(id) : undefined))
@@ -122,8 +147,8 @@ const SearchForm: React.FC<SearchFormProps> = ({
     };
 
     const debounceUpdate = debounce((values: PoolCandidateFilterInput) => {
-      if (onUpdateCandidateFilter) {
-        onUpdateCandidateFilter(values);
+      if (updateCandidateFilter) {
+        updateCandidateFilter(values);
       }
     }, 200);
 
@@ -133,9 +158,9 @@ const SearchForm: React.FC<SearchFormProps> = ({
     });
 
     return () => subscription.unsubscribe();
-  }, [watch, classificationMap, assetMap, onUpdateCandidateFilter]);
+  }, [watch, classificationMap, assetMap, updateCandidateFilter]);
 
-  const classificationOptions: Option<string>[] = React.useMemo(
+  const classificationOptions: Option<string>[] = useMemo(
     () =>
       classifications.map(({ id, group, level }) => ({
         value: id,
@@ -144,7 +169,7 @@ const SearchForm: React.FC<SearchFormProps> = ({
     [classifications],
   );
 
-  const cmoAssetOptions: Option<string>[] = React.useMemo(
+  const cmoAssetOptions: Option<string>[] = useMemo(
     () =>
       cmoAssets.map(({ id, name }) => ({
         value: id,
@@ -415,5 +440,3 @@ const SearchForm: React.FC<SearchFormProps> = ({
     </FormProvider>
   );
 };
-
-export default SearchForm;

@@ -19,7 +19,6 @@ const renderSearchContainer = ({
   candidateCount,
 }: MockSearchContainerProps) => {
   const mockUpdate = jest.fn();
-  const mockValues = jest.fn();
   const mockSubmit = jest.fn();
   return (
     <>
@@ -28,9 +27,8 @@ const renderSearchContainer = ({
           classifications={mockClassifications}
           cmoAssets={mockCmoAssets}
           candidateCount={candidateCount}
-          updateCandidateFilter={mockUpdate}
-          updateInitialValues={mockValues}
-          handleSubmit={mockSubmit}
+          onUpdateCandidateFilter={mockUpdate}
+          onSubmit={mockSubmit}
         />,
       )}
     </>
