@@ -141,7 +141,7 @@ export const UpdateUserForm: React.FunctionComponent<UpdateUserFormProps> = ({
                 description:
                   "Label displayed on the user form telephone field.",
               })}
-              type="text"
+              type="tel"
               name="telephone"
               rules={{
                 required: intl.formatMessage(errorMessages.required),

@@ -72,7 +72,7 @@ PasswordInput.args = {
 export const TelephoneInput = TemplateInput.bind({});
 
 TelephoneInput.args = {
-  type: "text",
+  type: "tel",
   id: "telephone",
   name: "telephone",
   label: "Telephone",

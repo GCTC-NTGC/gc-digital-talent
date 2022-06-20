@@ -188,7 +188,7 @@ export const AboutMeForm: React.FunctionComponent<AboutMeFormProps> = ({
             <Input
               id="telephone"
               name="telephone"
-              type="text"
+              type="tel"
               label={intl.formatMessage({
                 defaultMessage: "Telephone",
                 description: "Label for telephone field in About Me form",

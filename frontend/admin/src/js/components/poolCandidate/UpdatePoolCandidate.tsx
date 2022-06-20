@@ -223,7 +223,7 @@ export const UpdatePoolCandidateForm: React.FunctionComponent<
                 description:
                   "Label displayed on the user form telephone field.",
               })}
-              type="text"
+              type="tel"
               name="telephone"
               disabled
             />

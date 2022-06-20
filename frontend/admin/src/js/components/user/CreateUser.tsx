@@ -118,7 +118,7 @@ export const CreateUserForm: React.FunctionComponent<CreateUserFormProps> = ({
                 description:
                   "Label displayed on the user form telephone field.",
               })}
-              type="text"
+              type="tel"
               name="telephone"
             />
             <Select

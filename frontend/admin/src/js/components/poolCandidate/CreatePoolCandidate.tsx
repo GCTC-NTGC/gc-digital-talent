@@ -172,7 +172,7 @@ const UserFormSection: React.FunctionComponent<{
             defaultMessage: "Telephone",
             description: "Label displayed on the user form telephone field.",
           })}
-          type="text"
+          type="tel"
           name="telephone"
           rules={{
             required:
