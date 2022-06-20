@@ -45,7 +45,7 @@ type Applicant {
 }
 
 input ApplicantFilterInput {
-  pools: [ID!]!
+  poolCandidates: ApplicantPoolFilterInput!
   languageAbility: LanguageAbility
   expectedClassifications: [ClassificationFilterInput]
   operationalRequirements: [OperationalRequirement]
@@ -54,6 +54,12 @@ input ApplicantFilterInput {
   hasDiploma: Boolean
   wouldAcceptTemporary: Boolean
   skills: [ID]
+}
+
+input ApplicantPoolFilterInput {
+  pools: [ID!]!
+  expiryStatus: CANDIDATE_EXPIRY_FILTER = ACTIVE
+  statuses: [PoolCandidateStatus!] = [AVAILABLE]
 }
 
 type AwardExperience implements Experience {

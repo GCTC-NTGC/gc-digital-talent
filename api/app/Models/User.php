@@ -229,18 +229,6 @@ class User extends Model implements Authenticatable
 
         return $query;
     }
-    public function filterApplicantByPools(Builder $query, array $pools): Builder
-    {
-        $poolCandidates = [
-            'pools' => $pools,
-            'expiryStatus' => ApiEnums::CANDIDATE_EXPIRY_FILTER_ACTIVE,
-            'statuses' => [ApiEnums::CANDIDATE_STATUS_AVAILABLE]
-        ];
-
-        $this->filterByPools($query, $poolCandidates);
-        return $query;
-    }
-
     public function filterByLanguageAbility(Builder $query, ?string $languageAbility): Builder
     {
         // If filtering for a specific language the query should return candidates of that language OR bilingual.
