@@ -352,6 +352,38 @@ class User extends Model implements Authenticatable
 
         return $query;
     }
+     public function filterByExpectedGenericJobTitle(Builder $query, array $classifications): Builder
+    {
+        // if no filters provided then return query unchanged
+        if (empty($classifications)) {
+            return $query;
+        }
+
+        // Classifications act as an OR filter. The query should return candidates with any of the classifications.
+        // A single whereHas clause for the relationship, containing multiple orWhere clauses accomplishes this.
+
+        // group these in a subquery to properly handle "OR" condition
+        $query->where(function($query) use ($classifications) {
+            $query->whereHas('expectedClassifications', function ($query) use ($classifications) {
+                foreach ($classifications as $index => $classification) {
+                    if ($index === 0) {
+                        // First iteration must use where instead of orWhere
+                        $query->where(function($query) use ($classification) {
+                            $query->where('group', $classification['group'])->where('level', $classification['level']);
+                        });
+                    } else {
+                        $query->orWhere(function($query) use ($classification) {
+                            $query->where('group', $classification['group'])->where('level', $classification['level']);
+                        });
+                    }
+                }
+            });
+
+            $this->orFilterByClassificationToSalary($query, $classifications);
+        });
+
+        return $query;
+    }
     private function orFilterByClassificationToSalary(Builder $query, array $classifications): Builder
     {
         // When managers search for a classification, also return any users whose expected salary
