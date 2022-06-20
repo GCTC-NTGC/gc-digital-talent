@@ -42,18 +42,6 @@ updates:
       interval: "weekly"
     open-pull-requests-limit: 15
 
-  - package-ecosystem: "composer"
-    directory: "/frontend/admin"
-    schedule:
-      interval: "weekly"
-    open-pull-requests-limit: 15
-
-  - package-ecosystem: "composer"
-    directory: "/frontend/talentsearch"
-    schedule:
-      interval: "weekly"
-    open-pull-requests-limit: 15
-
   # DOCKER image updates
 
   - directory: "/api"
