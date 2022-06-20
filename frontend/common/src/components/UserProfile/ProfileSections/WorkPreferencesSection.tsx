@@ -28,13 +28,16 @@ const WorkPreferencesSection: React.FunctionComponent<{
         </li>
       ))
     : null;
+
+  const anyCriteriaSelected =
+    acceptedOperationalArray !== null && acceptedOperationalArray.length > 0;
   return (
     <div
       data-h2-bg-color="b(lightgray)"
       data-h2-padding="b(all, m)"
       data-h2-radius="b(s)"
     >
-      {wouldAcceptTemporary !== null && (
+      {anyCriteriaSelected && (
         <p>
           {intl.formatMessage({
             defaultMessage: "I would consider accepting a job that lasts for:",
@@ -66,21 +69,20 @@ const WorkPreferencesSection: React.FunctionComponent<{
         </ul>
       )}
 
-      {acceptedOperationalArray !== null &&
-        acceptedOperationalArray.length > 0 && (
-          <>
-            <p>
-              {intl.formatMessage({
-                defaultMessage: "I would consider accepting a job that:",
-                description:
-                  "Label for what conditions a user will accept, followed by a colon",
-              })}
-            </p>
-            <ul data-h2-padding="b(left, l)">{acceptedOperationalArray}</ul>
-          </>
-        )}
+      {anyCriteriaSelected && (
+        <>
+          <p>
+            {intl.formatMessage({
+              defaultMessage: "I would consider accepting a job that:",
+              description:
+                "Label for what conditions a user will accept, followed by a colon",
+            })}
+          </p>
+          <ul data-h2-padding="b(left, l)">{acceptedOperationalArray}</ul>
+        </>
+      )}
 
-      {wouldAcceptTemporary === null && editPath && (
+      {!anyCriteriaSelected && editPath && (
         <>
           <p>
             {intl.formatMessage({
@@ -109,7 +111,7 @@ const WorkPreferencesSection: React.FunctionComponent<{
           </p>
         </>
       )}
-      {wouldAcceptTemporary === null && !editPath && (
+      {!anyCriteriaSelected && !editPath && (
         <p>
           {intl.formatMessage({
             defaultMessage: "No information has been provided.",

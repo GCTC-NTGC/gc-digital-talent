@@ -21,6 +21,10 @@ const RoleSalarySection: React.FunctionComponent<{
     return <span data-h2-font-color="b(red)">{msg}</span>;
   }
 
+  const anyCriteriaSelected =
+    expectedClassificationArray !== null &&
+    expectedClassificationArray.length > 0;
+
   return (
     <div id="role-and-salary-expectations">
       <div
@@ -28,67 +32,58 @@ const RoleSalarySection: React.FunctionComponent<{
         data-h2-padding="b(all, m)"
         data-h2-radius="b(s)"
       >
-        {expectedClassificationArray !== null &&
-          expectedClassificationArray.length > 0 && (
-            <>
-              <p>
-                {intl.formatMessage({
-                  defaultMessage:
-                    "I would like to be referred for jobs at the following levels:",
-                  description:
-                    "Label for Role and salary expectations sections",
-                })}
-              </p>
-              <ul data-h2-padding="b(left, l)">
-                {expectedClassificationArray}
-              </ul>
-            </>
-          )}
-        {(expectedClassificationArray === null ||
-          expectedClassificationArray.length <= 0) &&
-          editPath && (
-            <>
-              <p>
-                {intl.formatMessage({
-                  defaultMessage: "You haven't added any information here yet.",
-                  description:
-                    "Message for when no data exists for the section",
-                })}
-              </p>
-
-              <p>
-                {intl.formatMessage(
-                  {
-                    defaultMessage:
-                      "There are <redText>required</redText> fields missing.",
-                    description:
-                      "Message that there are required fields missing. Please ignore things in <> tags.",
-                  },
-                  {
-                    redText,
-                  },
-                )}{" "}
-                <a href={editPath}>
-                  {intl.formatMessage({
-                    defaultMessage: "Click here to get started.",
-                    description:
-                      "Message to click on the words to begin something",
-                  })}
-                </a>
-              </p>
-            </>
-          )}
-        {(expectedClassificationArray === null ||
-          expectedClassificationArray.length <= 0) &&
-          !editPath && (
+        {anyCriteriaSelected && (
+          <>
             <p>
               {intl.formatMessage({
-                defaultMessage: "No information has been provided.",
-                description:
-                  "Message on Admin side when user not filled RoleSalary section.",
+                defaultMessage:
+                  "I would like to be referred for jobs at the following levels:",
+                description: "Label for Role and salary expectations sections",
               })}
             </p>
-          )}
+            <ul data-h2-padding="b(left, l)">{expectedClassificationArray}</ul>
+          </>
+        )}
+        {!anyCriteriaSelected && editPath && (
+          <>
+            <p>
+              {intl.formatMessage({
+                defaultMessage: "You haven't added any information here yet.",
+                description: "Message for when no data exists for the section",
+              })}
+            </p>
+
+            <p>
+              {intl.formatMessage(
+                {
+                  defaultMessage:
+                    "There are <redText>required</redText> fields missing.",
+                  description:
+                    "Message that there are required fields missing. Please ignore things in <> tags.",
+                },
+                {
+                  redText,
+                },
+              )}{" "}
+              <a href={editPath}>
+                {intl.formatMessage({
+                  defaultMessage: "Click here to get started.",
+                  description:
+                    "Message to click on the words to begin something",
+                })}
+              </a>
+            </p>
+          </>
+        )}
+        {!anyCriteriaSelected && !editPath && (
+          <p>
+            {intl.formatMessage({
+              defaultMessage: "No information has been provided.",
+              description:
+                "Message on Admin side when user not filled RoleSalary section.",
+            })}
+          </p>
+        )}
       </div>
     </div>
   );

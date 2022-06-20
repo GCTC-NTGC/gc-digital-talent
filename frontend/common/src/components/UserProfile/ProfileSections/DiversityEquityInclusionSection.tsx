@@ -18,52 +18,27 @@ const DiversityEquityInclusionSection: React.FunctionComponent<{
   const intl = useIntl();
 
   const { isWoman, hasDisability, isIndigenous, isVisibleMinority } = applicant;
-  let isAdminEmpty = false;
-  let isTalentEmpty = false;
-  if (
-    !isWoman &&
-    !isIndigenous &&
-    !isVisibleMinority &&
-    !hasDisability &&
-    !editPath
-  ) {
-    isAdminEmpty = true;
-  }
-  if (
-    !isWoman &&
-    !isIndigenous &&
-    !isVisibleMinority &&
-    !hasDisability &&
-    editPath
-  ) {
-    isTalentEmpty = true;
-  }
+  const anyCriteriaSelected =
+    isWoman || isIndigenous || isVisibleMinority || hasDisability;
+
   return (
     <div
       data-h2-bg-color="b(lightgray)"
       data-h2-padding="b(all, m)"
       data-h2-radius="b(s)"
     >
-      {isTalentEmpty && (
+      {!anyCriteriaSelected && (
         <p>
           {intl.formatMessage({
             defaultMessage:
-              "You have not identified as a member of any employment equity groups.",
+              "I am not identified as a member of any employment equity groups.",
             description:
               "Message indicating the user has not been marked as part of an equity group, Ignore things in <> please.",
           })}
         </p>
       )}
-      {isAdminEmpty && (
-        <p>
-          {intl.formatMessage({
-            defaultMessage: "No information has been provided.",
-            description:
-              "Message on Admin side when user not filled DiversityEquityInclusion section.",
-          })}
-        </p>
-      )}
-      {(isWoman || isIndigenous || isVisibleMinority || hasDisability) && (
+
+      {anyCriteriaSelected && (
         <div>
           <p>
             {intl.formatMessage({
