@@ -34,10 +34,7 @@ export const ViewUserPage: React.FC<ViewUserPageProps> = ({ user }) => {
   });
 
   let userName = `${user?.firstName} ${user?.lastName}`;
-  if (
-    (user?.firstName === null || isEmpty(user?.firstName)) &&
-    (user?.lastName === null || isEmpty(user?.firstName))
-  ) {
+  if (isEmpty(user?.firstName) && isEmpty(user?.firstName)) {
     userName = intl.formatMessage({
       defaultMessage: "(Missing name)",
       description: "Message for Missing names in profile",
