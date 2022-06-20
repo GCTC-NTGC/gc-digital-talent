@@ -41,8 +41,7 @@ const DisabilityDialogFooter: React.FC<EquityDialogFooterProps> = ({
           id="hasDisability"
           name="hasDisability"
           label={intl.formatMessage({
-            defaultMessage:
-              "I identify as part of one or more visible minority groups.",
+            defaultMessage: "I identify as a person with a disability.",
             description:
               "Label for the checkbox to identify as a person with a disability under employment equity",
           })}
