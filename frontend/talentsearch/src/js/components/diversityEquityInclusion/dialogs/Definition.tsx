@@ -21,7 +21,7 @@ const Definition: React.FC<DefinitionProps> = ({ url }) => {
       {intl.formatMessage(
         {
           defaultMessage:
-            "Accordion to <link>Statistics Canada's definition.</link>",
+            "According to <link>Statistics Canada's definition.</link>",
           description:
             "Link to Statistics Canada's employment equity definitions",
         },
