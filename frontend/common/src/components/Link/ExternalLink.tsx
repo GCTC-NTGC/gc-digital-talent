@@ -24,9 +24,12 @@ const ExternalLink: React.FC<ExternalLinkProps> = ({
     >
       <ChildWrap>{children}</ChildWrap>
       {newTab && (
-        <ExternalLinkIcon
-          style={{ height: "1em", marginLeft: "0.25rem", width: "1em" }}
-        />
+        <>
+          <ExternalLinkIcon
+            style={{ height: "1em", marginLeft: "0.25rem", width: "1em" }}
+          />
+          <span data-h2-visibility="b(invisible)"> (opens in new tab)</span>
+        </>
       )}
     </a>
   );
