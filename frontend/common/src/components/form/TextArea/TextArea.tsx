@@ -15,6 +15,8 @@ export interface TextAreaProps
   name: string;
   /** Set of validation rules and error messages to impose on input. */
   rules?: RegisterOptions;
+  // Whether to trim leading/ending whitespace upon blurring of an input, default on
+  whitespaceTrim?: boolean;
 }
 
 const TextArea: React.FunctionComponent<TextAreaProps> = ({
@@ -24,14 +26,23 @@ const TextArea: React.FunctionComponent<TextAreaProps> = ({
   name,
   rules = {},
   children,
+  whitespaceTrim = true,
   ...rest
 }) => {
   const {
     register,
     formState: { errors },
+    setValue,
   } = useFormContext();
   // To grab errors in nested objects we need to use lodash's get helper.
   const error = get(errors, name)?.message;
+
+  const whitespaceTrimmer = (e: React.FocusEvent<HTMLTextAreaElement>) => {
+    if (whitespaceTrim) {
+      const value = e.target.value.trim();
+      setValue(name, value);
+    }
+  };
 
   return (
     <div data-h2-margin="b(bottom, xxs)">
@@ -51,6 +62,7 @@ const TextArea: React.FunctionComponent<TextAreaProps> = ({
           style={{ width: "100%", resize: "vertical" }}
           id={id}
           {...register(name, rules)}
+          onBlur={whitespaceTrimmer}
           aria-required={rules.required ? "true" : undefined}
           aria-invalid={error ? "true" : "false"}
           {...rest}
