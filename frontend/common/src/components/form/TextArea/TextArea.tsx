@@ -37,11 +37,10 @@ const TextArea: React.FunctionComponent<TextAreaProps> = ({
   // To grab errors in nested objects we need to use lodash's get helper.
   const error = get(errors, name)?.message;
 
-  const whitespaceTrimmer = () => {
+  const whitespaceTrimmer = (e: React.FocusEvent<HTMLTextAreaElement>) => {
     if (whitespaceTrim) {
-      const ele = document.getElementById(`${id}`) as HTMLInputElement;
-      ele.value = ele.value.trim();
-      setValue(name, ele.value);
+      const value = e.target.value.trim();
+      setValue(name, value);
     }
   };
 
