@@ -1,5 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
+import { isEmpty } from "lodash";
 import { getWorkRegion } from "../../../constants/localizedConstants";
 import { insertBetween } from "../../../helpers/util";
 
@@ -23,8 +24,7 @@ const WorkLocationSection: React.FunctionComponent<{
     ? insertBetween(", ", regionPreferencesSquished)
     : "";
 
-  const anyCriteriaSelected =
-    !!applicant.locationPreferences && !!applicant.locationPreferences.length;
+  const anyCriteriaSelected = !isEmpty(regionPreferences);
   return (
     <div
       data-h2-bg-color="b(lightgray)"

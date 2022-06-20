@@ -1,5 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
+import { isEmpty } from "lodash";
 import { getGenericJobTitles } from "../../../constants/localizedConstants";
 import { Applicant } from "../../../api/generated";
 
@@ -21,9 +22,7 @@ const RoleSalarySection: React.FunctionComponent<{
     return <span data-h2-font-color="b(red)">{msg}</span>;
   }
 
-  const anyCriteriaSelected =
-    expectedClassificationArray !== null &&
-    expectedClassificationArray.length > 0;
+  const anyCriteriaSelected = !isEmpty(expectedClassificationArray);
 
   return (
     <div id="role-and-salary-expectations">

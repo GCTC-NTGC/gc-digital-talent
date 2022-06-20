@@ -1,5 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
+import { isEmpty } from "lodash";
 import { getOperationalRequirement } from "../../../constants/localizedConstants";
 import { Applicant } from "../../../api/generated";
 
@@ -29,8 +30,7 @@ const WorkPreferencesSection: React.FunctionComponent<{
       ))
     : null;
 
-  const anyCriteriaSelected =
-    acceptedOperationalArray !== null && acceptedOperationalArray.length > 0;
+  const anyCriteriaSelected = !isEmpty(acceptedOperationalArray);
   return (
     <div
       data-h2-bg-color="b(lightgray)"
