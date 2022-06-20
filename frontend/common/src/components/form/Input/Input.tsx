@@ -23,6 +23,8 @@ export interface InputProps
   /** If input is not required, hide the 'Optional' label */
   hideOptional?: boolean;
   errorPosition?: "top" | "bottom";
+  // Whether to trim leading/ending whitespace upon blurring of an input, default on
+  whitespaceTrim?: boolean;
 }
 
 const Input: React.FunctionComponent<InputProps> = ({
@@ -34,14 +36,23 @@ const Input: React.FunctionComponent<InputProps> = ({
   type,
   errorPosition = "bottom",
   hideOptional,
+  whitespaceTrim = true,
   ...rest
 }) => {
   const {
     register,
     formState: { errors },
+    setValue,
   } = useFormContext();
   // To grab errors in nested objects we need to use lodash's get helper.
   const error = get(errors, name)?.message;
+
+  const whitespaceTrimmer = (e: React.FocusEvent<HTMLInputElement>) => {
+    if (whitespaceTrim) {
+      const value = e.target.value.trim();
+      setValue(name, value);
+    }
+  };
 
   return (
     <div data-h2-margin="b(bottom, xxs)">
@@ -63,6 +74,7 @@ const Input: React.FunctionComponent<InputProps> = ({
           data-h2-font-family="b(sans)"
           id={id}
           {...register(name, rules)}
+          onBlur={whitespaceTrimmer}
           type={type}
           aria-required={rules.required ? "true" : undefined}
           aria-invalid={error ? "true" : "false"}
