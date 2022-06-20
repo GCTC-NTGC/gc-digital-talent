@@ -7,14 +7,10 @@ import { Checkbox } from "@common/components/form";
 
 import type { EquityDialogProps, EquityDialogFooterProps } from "../types";
 
+import AddToProfile from "./AddToProfile";
+import Definition from "./Definition";
 import DialogActions from "./DialogActions";
-
-// Question: Is this the correct URL?
-const acaLink = (...chunks: string[]) => (
-  <a href="https://www.canada.ca/en/employment-social-development/programs/accessible-people-disabilities/act-summary.html#h2.02">
-    {chunks}
-  </a>
-);
+import UnderReview from "./UnderReview";
 
 interface FormValues {
   hasDisability: boolean;
@@ -39,19 +35,14 @@ const DisabilityDialogFooter: React.FC<EquityDialogFooterProps> = ({
 
   return (
     <FormProvider {...methods}>
-      <p>
-        {intl.formatMessage({
-          defaultMessage: '"I have read the provided definition and..."',
-          description:
-            "Message on employment equity forms confirming user read the provided definition",
-        })}
-      </p>
+      <AddToProfile />
       <form onSubmit={handleSubmit(submitHandler)}>
         <Checkbox
           id="hasDisability"
           name="hasDisability"
           label={intl.formatMessage({
-            defaultMessage: '"I identify as a person with a disability."',
+            defaultMessage:
+              "I identify as part of one or more visible minority groups.",
             description:
               "Label for the checkbox to identify as a person with a disability under employment equity",
           })}
@@ -86,26 +77,16 @@ const DisabilityDialog: React.FC<EquityDialogProps> = ({
         </DisabilityDialogFooter>
       }
     >
+      <UnderReview />
       <p>
         {intl.formatMessage({
           defaultMessage:
-            "Persons with any impairment, including a physical, mental, intellectual, cognitive, learning, communication or sensory impairment — or a functional limitation — whether permanent, temporary or episodic in nature, or evident or not, that, in interaction with a barrier, hinders a person’s full and equal participation in society.",
+            "Refers to a person whose daily activities are limited as a result of an impairment or difficulty with particular tasks. The only exception to this is for developmental disabilities where a person is considered to be disabled if the respondent has been diagnosed with this condition.",
           description:
             "Definition of accepted ways to identify as person with a disability.",
         })}
       </p>
-      <p>
-        {intl.formatMessage(
-          {
-            defaultMessage: "As defined by <link>Accessible Canada Act</link>.",
-            description:
-              "Text directing users to the Accessible Canada Act definition of person with a disability.",
-          },
-          {
-            link: acaLink,
-          },
-        )}
-      </p>
+      <Definition url="https://www23.statcan.gc.ca/imdb/p3VD.pl?Function=getVD&TVD=247841&CVD=247841&CLV=0&MLV=1&D=1" />
     </Dialog>
   );
 };
