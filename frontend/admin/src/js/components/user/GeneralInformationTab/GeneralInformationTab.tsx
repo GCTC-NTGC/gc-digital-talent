@@ -22,6 +22,7 @@ import { commonMessages } from "@common/messages";
 import { BasicForm, TextArea } from "@common/components/form";
 import { unpackMaybes } from "@common/helpers/formUtils";
 import { toast } from "react-toastify";
+import Heading from "@common/components/Heading";
 import {
   AddToPoolDialog,
   ChangeDateDialog,
@@ -292,13 +293,13 @@ const CandidateStatusSection: React.FC<SectionWithPoolsProps> = ({
 
   return (
     <>
-      <h5>
+      <Heading level="h4">
         {intl.formatMessage({
           defaultMessage: "Personal status",
           description:
             "Title of the 'Personal status' section of the view-user page",
         })}
-      </h5>
+      </Heading>
       <div
         data-h2-bg-color="b(lightgray)"
         data-h2-padding="b(all, s)"
@@ -624,7 +625,7 @@ export const GeneralInformationTab: React.FC<SectionWithPoolsProps> = ({
       <TableOfContents.Content>
         {items.map((item) => (
           <TableOfContents.Section key={item.id} id={item.id}>
-            <TableOfContents.Heading icon={item.titleIcon} as="h4">
+            <TableOfContents.Heading icon={item.titleIcon} as="h3">
               {item.title}
             </TableOfContents.Heading>
             {item.content}
