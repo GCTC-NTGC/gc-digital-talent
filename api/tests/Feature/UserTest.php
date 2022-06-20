@@ -2255,6 +2255,72 @@ class UserTest extends TestCase
                 ]
             ]
         ]);
+        // test a full name
+        $this->graphQL(/** @lang Graphql */ '
+            query getUsersPaginated($where: UserFilterAndOrderInput) {
+                usersPaginated(where: $where) {
+                    paginatorInfo {
+                        total
+                    }
+                }
+            }
+        ', [
+            'where' => [
+                'name' => 'BoB rOb',
+            ]
+        ])->assertJson([
+            'data' => [
+                'usersPaginated' => [
+                    'paginatorInfo' => [
+                        'total' => 1
+                    ]
+                ]
+            ]
+        ]);
+        // test name segments
+        $this->graphQL(/** @lang Graphql */ '
+            query getUsersPaginated($where: UserFilterAndOrderInput) {
+                usersPaginated(where: $where) {
+                    paginatorInfo {
+                        total
+                    }
+                }
+            }
+        ', [
+            'where' => [
+                'name' => 'bo ro',
+            ]
+        ])->assertJson([
+            'data' => [
+                'usersPaginated' => [
+                    'paginatorInfo' => [
+                        'total' => 1
+                    ]
+                ]
+            ]
+        ]);
+        // test name segments but in reverse
+        $this->graphQL(/** @lang Graphql */ '
+            query getUsersPaginated($where: UserFilterAndOrderInput) {
+                usersPaginated(where: $where) {
+                    paginatorInfo {
+                        total
+                    }
+                }
+            }
+        ', [
+            'where' => [
+                'name' => 'ro bo',
+            ]
+        ])->assertJson([
+            'data' => [
+                'usersPaginated' => [
+                    'paginatorInfo' => [
+                        'total' => 1
+                    ]
+                ]
+            ]
+        ]);
 
         // ensure queries with multiple filter variables apply separately as AND operations (builds off assertion above)
         $this->graphQL(/** @lang Graphql */ '
