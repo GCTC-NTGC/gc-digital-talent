@@ -143,9 +143,6 @@ export const UpdateUserForm: React.FunctionComponent<UpdateUserFormProps> = ({
               })}
               type="tel"
               name="telephone"
-              rules={{
-                required: intl.formatMessage(errorMessages.required),
-              }}
             />
             <Select
               id="preferredLang"
