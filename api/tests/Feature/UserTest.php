@@ -19,14 +19,14 @@ use Database\Helpers\ApiEnums;
 use Database\Seeders\ClassificationSeeder;
 use Database\Seeders\GenericJobTitleSeeder;
 
-// for setting expiry dates so tests don't fail due to expired candidates when they are not supposed to
-const FAR_FUTURE_DATE = '2050-01-01';
-
 class UserTest extends TestCase
 {
     use RefreshDatabase;
     use MakesGraphQLRequests;
     use ClearsSchemaCache;
+
+    // for setting expiry dates so tests don't fail due to expired candidates when they are not supposed to
+    const FAR_FUTURE_DATE = '2050-01-01';
 
     protected function setUp(): void
     {
