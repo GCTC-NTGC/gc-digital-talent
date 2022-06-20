@@ -18,7 +18,6 @@ import {
   useGetSearchFormDataQuery,
   UserPublicProfile,
 } from "../../api/generated";
-import type { FormValues } from "./SearchForm";
 import EstimatedCandidates from "./EstimatedCandidates";
 import SearchFilterAdvice from "./SearchFilterAdvice";
 import Spinner from "../Spinner";
@@ -198,9 +197,6 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
 };
 
 const SearchContainerApi: React.FC = () => {
-  const [initialValues, setInitialValues] = React.useState<FormValues | null>(
-    null,
-  );
   const [{ data }] = useGetSearchFormDataQuery({
     variables: { poolKey: DIGITAL_CAREERS_POOL_KEY },
   });
@@ -225,7 +221,7 @@ const SearchContainerApi: React.FC = () => {
     return pushToStateThenNavigate(paths.request(), {
       candidateFilter,
       candidateCount,
-      initialValues,
+      initialValues: null,
     });
   };
 
