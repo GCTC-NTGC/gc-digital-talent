@@ -157,8 +157,17 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
       });
   };
 
-  const departmentOptions: Option<string>[] = departments.map(
-    ({ id, name }) => ({
+  const departmentOptions: Option<string>[] = departments
+    .sort((a, b) => {
+      const aName: Maybe<string> = a.name[locale];
+      const bName: Maybe<string> = b.name[locale];
+      if (aName && bName) {
+        return aName.localeCompare(bName, locale);
+      }
+
+      return 0;
+    })
+    .map(({ id, name }) => ({
       value: id,
       label:
         name[locale] ??
@@ -167,8 +176,7 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
           description:
             "Error message when department name is not found on request page.",
         }),
-    }),
-  );
+    }));
 
   function span(msg: string): JSX.Element {
     return <span data-h2-font-color="b(lightpurple)">{msg}</span>;
