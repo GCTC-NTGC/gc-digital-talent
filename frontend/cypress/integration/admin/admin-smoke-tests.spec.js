@@ -29,8 +29,15 @@ describe("Admin Smoke Tests", () => {
     cy.findByRole("textbox", { name: /Search/i })
       .clear()
       .type("Applicant");
-    cy.findByRole("link", { name: /Link to user profile/i })
-      .findByText(/applicant@test.com/i)
+
+    // wait for table to rerender
+    cy.findByText("applicant@test.com")
+      .should("exist")
+      .and("be.visible");
+
+    cy.findByRole("table")
+      .findByRole("row", { name: /applicant/i })
+      .findByText("applicant@test.com") // findByRole link doesn't work here
       .click();
 
     // exercise profile page
@@ -63,6 +70,11 @@ describe("Admin Smoke Tests", () => {
     cy.findByRole("textbox", { name: /Search/i })
       .clear()
       .type("Applicant");
+
+    // wait for table to rerender
+    cy.findByText("applicant@test.com")
+      .should("exist")
+      .and("be.visible");
 
     cy.findByRole("table")
       .findByRole("row", { name: /applicant/i })
