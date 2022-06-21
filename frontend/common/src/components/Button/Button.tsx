@@ -145,36 +145,34 @@ export const colorMap: Record<
   },
 };
 
-const Button: React.FC<ButtonProps> = ({
-  children,
-  type,
-  color,
-  mode,
-  block = false,
-  classNames,
-  ...rest
-}): React.ReactElement => {
-  return (
-    <button
-      className={`button ${classNames}`}
-      // eslint-disable-next-line react/button-has-type
-      type={type || "button"}
-      data-h2-radius="b(s)"
-      data-h2-padding="b(top-bottom, xs) b(right-left, s)"
-      data-h2-font-size="b(caption) m(normal)"
-      data-h2-font-family="b(sans)"
-      {...(block
-        ? { "data-h2-display": "b(block)" }
-        : { "data-h2-display": "b(inline-block)" })}
-      {...colorMap[color][mode]}
-      style={{
-        width: block ? "100%" : "auto",
-      }}
-      {...rest}
-    >
-      {children}
-    </button>
-  );
-};
+const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
+  (
+    { children, type, color, mode, block = false, classNames, ...rest },
+    ref,
+  ) => {
+    return (
+      <button
+        ref={ref}
+        className={`button ${classNames}`}
+        // eslint-disable-next-line react/button-has-type
+        type={type || "button"}
+        data-h2-radius="b(s)"
+        data-h2-padding="b(top-bottom, xs) b(right-left, s)"
+        data-h2-font-size="b(caption) m(normal)"
+        data-h2-font-family="b(sans)"
+        {...(block
+          ? { "data-h2-display": "b(block)" }
+          : { "data-h2-display": "b(inline-block)" })}
+        {...colorMap[color][mode]}
+        style={{
+          width: block ? "100%" : "auto",
+        }}
+        {...rest}
+      >
+        {children}
+      </button>
+    );
+  },
+);
 
 export default Button;
