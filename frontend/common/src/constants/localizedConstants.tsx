@@ -500,6 +500,54 @@ export const getEducationType = (
     `Invalid educationType ${educationTypeId}`,
   );
 
+export const OperationalRequirementSearchDescription = defineMessages({
+  [OperationalRequirement.ShiftWork]: {
+    defaultMessage: "Shift-work",
+    description: "The operational requirement described as shift work.",
+  },
+  [OperationalRequirement.OnCall]: {
+    defaultMessage: "24/7 on call-shifts",
+    description: "The operational requirement described as 24/7 on-call.",
+  },
+  [OperationalRequirement.Travel]: {
+    defaultMessage: "Travel as required",
+    description: "The operational requirement described as travel as required.",
+  },
+  [OperationalRequirement.TransportEquipment]: {
+    defaultMessage:
+      "Transport, lift, and set down equipment weighing up to 20kg",
+    description:
+      "The operational requirement described as transport equipment up to 20kg.",
+  },
+  [OperationalRequirement.DriversLicense]: {
+    defaultMessage:
+      "Valid driver's license or personal mobility to the degree normally associated with possession of a valid driver's license",
+    description: "The operational requirement described as driver's license.",
+  },
+  [OperationalRequirement.WorkWeekends]: {
+    defaultMessage: "Work weekends",
+    description: "The operational requirement described as work weekends.",
+  },
+  [OperationalRequirement.OvertimeScheduled]: {
+    defaultMessage: "Work scheduled overtime",
+    description: "The operational requirement described as scheduled overtime.",
+  },
+  [OperationalRequirement.OvertimeShortNotice]: {
+    defaultMessage: "Work overtime on short notice",
+    description:
+      "The operational requirement described as short notice overtime.",
+  },
+});
+
+export const getOperationalRequirementSearchDescription = (
+  operationalRequirementId: string | number,
+): MessageDescriptor =>
+  getOrThrowError(
+    OperationalRequirementSearchDescription,
+    operationalRequirementId,
+    `Invalid Operational Requirement '${operationalRequirementId}'`,
+  );
+
 export const OperationalRequirementCandidateDescription = defineMessages({
   [OperationalRequirement.ShiftWork]: {
     defaultMessage: "...has <bold>shift-work</bold>.",
