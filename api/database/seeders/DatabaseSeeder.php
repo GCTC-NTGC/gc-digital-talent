@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\AwardExperience;
 use App\Models\CommunityExperience;
 use App\Models\EducationExperience;
+use App\Models\GenericJobTitle;
 use App\Models\PersonalExperience;
 use App\Models\WorkExperience;
 use Faker;
@@ -61,6 +62,9 @@ class DatabaseSeeder extends Seeder
             ->afterCreating(function (User $user) use ($faker) {
                 $assets = CmoAsset::inRandomOrder()->limit(4)->pluck('id')->toArray();
                 $user->cmoAssets()->sync($assets);
+
+                $genericJobTitles = GenericJobTitle::inRandomOrder()->limit(2)->pluck('id')->toArray();
+                $user->expectedGenericJobTitles()->sync($genericJobTitles);
 
                 // pick a pool in which to place this user
                 $pool = Pool::inRandomOrder()->limit(1)->first();

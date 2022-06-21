@@ -71,6 +71,7 @@ UserProfileNull.args = {
   estimatedLanguageAbility: null,
   isGovEmployee: null,
   interestedInLaterOrSecondment: null,
+  department: null,
   currentClassification: null,
   isWoman: null,
   hasDisability: null,

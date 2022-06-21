@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Database\Helpers\ApiEnums;
 
 class UpdatePoolsTableWithKeyTasksAndStatus extends Migration
 {
@@ -15,7 +16,7 @@ class UpdatePoolsTableWithKeyTasksAndStatus extends Migration
     {
         Schema::table('pools', function (Blueprint $table) {
             $table->jsonb('key_tasks')->nullable(false)->default(json_encode(['en' => '', 'fr' => '']));
-            $table->string('pool_status')->nullable(false);
+            $table->string('pool_status')->nullable(false)->default(ApiEnums::POOL_STATUS_NOT_TAKING_APPLICATIONS);
         });
     }
 

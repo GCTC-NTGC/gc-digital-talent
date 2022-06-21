@@ -1,5 +1,9 @@
 import React from "react";
 import { useIntl } from "react-intl";
+import { enumToOptions } from "../../../helpers/formUtils";
+import { getGovEmployeeType } from "../../../constants/localizedConstants";
+import { getLocale } from "../../../helpers/localize";
+import { strong } from "../../../helpers/format";
 import { Applicant, GovEmployeeType } from "../../../api/generated";
 
 // styling a text bit with red colour within intls
@@ -13,11 +17,17 @@ const GovernmentInformationSection: React.FunctionComponent<{
     | "isGovEmployee"
     | "govEmployeeType"
     | "interestedInLaterOrSecondment"
+    | "department"
     | "currentClassification"
   >;
   editPath?: string;
 }> = ({ applicant, editPath }) => {
   const intl = useIntl();
+  const locale = getLocale(intl);
+  const govEmployeeTypeId =
+    enumToOptions(GovEmployeeType).find(
+      (govEmployeeType) => govEmployeeType.value === applicant.govEmployeeType,
+    )?.value || "";
   return (
     <div
       data-h2-bg-color="b(lightgray)"
@@ -28,37 +38,32 @@ const GovernmentInformationSection: React.FunctionComponent<{
         {applicant.isGovEmployee && (
           <>
             <li>
-              {intl.formatMessage({
-                defaultMessage: "Yes, I am a Government of Canada employee.",
-                description: "Message to state user is employed by government",
-              })}
+              {intl.formatMessage(
+                {
+                  defaultMessage:
+                    "<strong>Yes</strong>, I am a Government of Canada employee.",
+                  description:
+                    "Message to state user is employed by government",
+                },
+                { strong },
+              )}
             </li>
+            {applicant.department && (
+              <li>
+                {intl.formatMessage(
+                  {
+                    defaultMessage: "Department: <strong>{department}</strong>",
+                    description: "Message to state what department user is in.",
+                  },
+                  { strong, department: applicant.department.name[locale] },
+                )}
+              </li>
+            )}
             {applicant.govEmployeeType && (
               <li>
-                {applicant.govEmployeeType === GovEmployeeType.Student &&
-                  intl.formatMessage({
-                    defaultMessage: "I have a student position",
-                    description:
-                      "Message to state user is employed federally in a student position",
-                  })}
-                {applicant.govEmployeeType === GovEmployeeType.Casual &&
-                  intl.formatMessage({
-                    defaultMessage: "I have a casual position",
-                    description:
-                      "Message to state user is employed federally in a casual position",
-                  })}
-                {applicant.govEmployeeType === GovEmployeeType.Term &&
-                  intl.formatMessage({
-                    defaultMessage: "I have a term position",
-                    description:
-                      "Message to state user is employed federally in a term position",
-                  })}
-                {applicant.govEmployeeType === GovEmployeeType.Indeterminate &&
-                  intl.formatMessage({
-                    defaultMessage: "I have an indeterminate position",
-                    description:
-                      "Message to state user is employed federally in an indeterminate position",
-                  })}
+                {intl.formatMessage(getGovEmployeeType(govEmployeeTypeId), {
+                  strong,
+                })}
               </li>
             )}
             {applicant.interestedInLaterOrSecondment && (

@@ -20,6 +20,7 @@ import {
   UpdateUserAsUserInput,
   useCreateAccountMutation,
   useGetCreateAccountFormDataQuery,
+  Department,
 } from "../../api/generated";
 import {
   formValuesToSubmitData,
@@ -34,18 +35,20 @@ type FormValues = Pick<
   govEmployeeYesNo: "yes" | "no";
   govEmployeeType: GovEmployeeType | null;
   lateralDeployBool: boolean;
+  department: string;
   currentClassificationGroup: string;
   currentClassificationLevel: string;
 };
 
 export interface CreateAccountFormProps {
+  departments: Department[];
   classifications: Classification[];
   handleCreateAccount: (data: UpdateUserAsUserInput) => Promise<void>;
 }
 
 export const CreateAccountForm: React.FunctionComponent<
   CreateAccountFormProps
-> = ({ classifications, handleCreateAccount }) => {
+> = ({ departments, classifications, handleCreateAccount }) => {
   const intl = useIntl();
 
   const methods = useForm<FormValues>();
@@ -225,6 +228,7 @@ export const CreateAccountForm: React.FunctionComponent<
                 })}
               </p>
               <GovernmentInfoForm
+                departments={departments}
                 classifications={classifications}
                 govEmployee={govEmployee}
                 govEmployeeStatus={govEmployeeStatus}
@@ -264,6 +268,8 @@ export const CreateAccount: React.FunctionComponent = () => {
   const { data: lookupData, fetching, error } = lookUpResult;
   const meInfo = lookupData?.me;
   const meId = meInfo?.id;
+  const departments: Department[] | [] =
+    lookupData?.departments.filter(notEmpty) ?? [];
   const classifications: Classification[] | [] =
     lookupData?.classifications.filter(notEmpty) ?? [];
 
@@ -314,6 +320,7 @@ export const CreateAccount: React.FunctionComponent = () => {
   return (
     <Pending fetching={fetching} error={error}>
       <CreateAccountForm
+        departments={departments}
         classifications={classifications}
         handleCreateAccount={onSubmit}
       />
