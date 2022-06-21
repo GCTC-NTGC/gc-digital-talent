@@ -1,4 +1,5 @@
 import React from "react";
+
 /**
  * Wraps text in strong tags.
  * @param text text to wrap.

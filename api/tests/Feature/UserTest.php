@@ -2258,4 +2258,289 @@ class UserTest extends TestCase
             ]
         ]);
     }
+
+    public function testAdminTableFilter(): void
+    {
+        // Create 5 users
+        User::factory()->create([
+            'first_name' => 'bob',
+            'last_name' => 'rob',
+            'email' => "bob@user.com",
+            'telephone' => "12345",
+        ]);
+        User::factory()->create([
+            'first_name' => 'sam',
+            'last_name' => 'ram',
+            'email' => "sam@user.com",
+            'telephone' => "67890",
+        ]);
+        User::factory()->create([
+            'first_name' => 'dan',
+            'last_name' => 'man',
+            'email' => "dan@user.com",
+            'telephone' => "99999",
+        ]);
+        User::factory()->create([
+            'first_name' => 'sir',
+            'last_name' => 'whir',
+            'email' => "sir@user.com",
+            'telephone' => "22222",
+        ]);
+        User::factory()->create([
+            'first_name' => 'zak',
+            'last_name' => 'pak',
+            'email' => "zak@admin.com",
+            'telephone' => "333333",
+        ]);
+
+        // Assert no filters returns all five users plus admin@test.com
+        $this->graphQL(/** @lang Graphql */ '
+            query getUsersPaginated($where: UserFilterAndOrderInput) {
+                usersPaginated(where: $where) {
+                    paginatorInfo {
+                        total
+                    }
+                }
+            }
+        ', [
+            'where' => []
+        ])->assertJson([
+            'data' => [
+                'usersPaginated' => [
+                    'paginatorInfo' => [
+                        'total' => 6
+                    ]
+                ]
+            ]
+        ]);
+
+        // Name filtering  //
+        // casing should not matter
+        $this->graphQL(/** @lang Graphql */ '
+            query getUsersPaginated($where: UserFilterAndOrderInput) {
+                usersPaginated(where: $where) {
+                    paginatorInfo {
+                        total
+                    }
+                }
+            }
+        ', [
+            'where' => [
+                'name' => 'sAm',
+            ]
+        ])->assertJson([
+            'data' => [
+                'usersPaginated' => [
+                    'paginatorInfo' => [
+                        'total' => 1
+                    ]
+                ]
+            ]
+        ]);
+        // ensure single letter returns all relevant results
+        $this->graphQL(/** @lang Graphql */ '
+            query getUsersPaginated($where: UserFilterAndOrderInput) {
+                usersPaginated(where: $where) {
+                    paginatorInfo {
+                        total
+                    }
+                }
+            }
+        ', [
+            'where' => [
+                'name' => 'r',
+            ]
+        ])->assertJson([
+            'data' => [
+                'usersPaginated' => [
+                    'paginatorInfo' => [
+                        'total' => 3
+                    ]
+                ]
+            ]
+        ]);
+        // test a full name
+        $this->graphQL(/** @lang Graphql */ '
+            query getUsersPaginated($where: UserFilterAndOrderInput) {
+                usersPaginated(where: $where) {
+                    paginatorInfo {
+                        total
+                    }
+                }
+            }
+        ', [
+            'where' => [
+                'name' => 'BoB rOb',
+            ]
+        ])->assertJson([
+            'data' => [
+                'usersPaginated' => [
+                    'paginatorInfo' => [
+                        'total' => 1
+                    ]
+                ]
+            ]
+        ]);
+        // test name segments
+        $this->graphQL(/** @lang Graphql */ '
+            query getUsersPaginated($where: UserFilterAndOrderInput) {
+                usersPaginated(where: $where) {
+                    paginatorInfo {
+                        total
+                    }
+                }
+            }
+        ', [
+            'where' => [
+                'name' => 'bo ro',
+            ]
+        ])->assertJson([
+            'data' => [
+                'usersPaginated' => [
+                    'paginatorInfo' => [
+                        'total' => 1
+                    ]
+                ]
+            ]
+        ]);
+        // test name segments but in reverse
+        $this->graphQL(/** @lang Graphql */ '
+            query getUsersPaginated($where: UserFilterAndOrderInput) {
+                usersPaginated(where: $where) {
+                    paginatorInfo {
+                        total
+                    }
+                }
+            }
+        ', [
+            'where' => [
+                'name' => 'ro bo',
+            ]
+        ])->assertJson([
+            'data' => [
+                'usersPaginated' => [
+                    'paginatorInfo' => [
+                        'total' => 1
+                    ]
+                ]
+            ]
+        ]);
+
+        // ensure queries with multiple filter variables apply separately as AND operations (builds off assertion above)
+        $this->graphQL(/** @lang Graphql */ '
+            query getUsersPaginated($where: UserFilterAndOrderInput) {
+                usersPaginated(where: $where) {
+                    paginatorInfo {
+                        total
+                    }
+                }
+            }
+        ', [
+            'where' => [
+                'name' => 'r',
+                'telephone' => "12345",
+            ]
+        ])->assertJson([
+            'data' => [
+                'usersPaginated' => [
+                    'paginatorInfo' => [
+                        'total' => 1
+                    ]
+                ]
+            ]
+        ]);
+
+        // Assert email filter with partial email returns correct count
+        $this->graphQL(/** @lang Graphql */ '
+            query getUsersPaginated($where: UserFilterAndOrderInput) {
+                usersPaginated(where: $where) {
+                    paginatorInfo {
+                        total
+                    }
+                }
+            }
+        ', [
+            'where' => [
+                'email' => 'user.com',
+            ]
+        ])->assertJson([
+            'data' => [
+                'usersPaginated' => [
+                    'paginatorInfo' => [
+                        'total' => 4
+                    ]
+                ]
+            ]
+        ]);
+
+        // Assert filtering for phone digit in general search returns correct count
+        $this->graphQL(/** @lang Graphql */ '
+            query getUsersPaginated($where: UserFilterAndOrderInput) {
+                usersPaginated(where: $where) {
+                    paginatorInfo {
+                        total
+                    }
+                }
+            }
+        ', [
+            'where' => [
+                'generalSearch' => '9',
+            ]
+        ])->assertJson([
+            'data' => [
+                'usersPaginated' => [
+                    'paginatorInfo' => [
+                        'total' => 2
+                    ]
+                ]
+            ]
+        ]);
+
+        // Assert filtering for last name in general search returns correct count
+        $this->graphQL(/** @lang Graphql */ '
+            query getUsersPaginated($where: UserFilterAndOrderInput) {
+                usersPaginated(where: $where) {
+                    paginatorInfo {
+                        total
+                    }
+                }
+            }
+        ', [
+            'where' => [
+                'generalSearch' => 'man',
+            ]
+        ])->assertJson([
+            'data' => [
+                'usersPaginated' => [
+                    'paginatorInfo' => [
+                        'total' => 1
+                    ]
+                ]
+            ]
+        ]);
+
+        // Assert filtering general search and name search (both subqueries) filter as AND
+        $this->graphQL(/** @lang Graphql */ '
+            query getUsersPaginated($where: UserFilterAndOrderInput) {
+                usersPaginated(where: $where) {
+                    paginatorInfo {
+                        total
+                    }
+                }
+            }
+        ', [
+            'where' => [
+                'generalSearch' => '@user.com',
+                'name' => 'zak',
+            ]
+        ])->assertJson([
+            'data' => [
+                'usersPaginated' => [
+                    'paginatorInfo' => [
+                        'total' => 0
+                    ]
+                ]
+            ]
+        ]);
+    }
 }

@@ -34,10 +34,7 @@ class PoolFactory extends Factory
             'user_id' => User::factory(),
             'operational_requirements' => $this->faker->optional->randomElements(ApiEnums::operationalRequirements(), 2),
             'key_tasks' => ['en' => $this->faker->paragraph().' EN', 'fr' => $this->faker->paragraph().' FR'],
-            'pool_status' => $this->faker->randomElement([
-                'TAKING_APPLICATIONS',
-                'NOT_TAKING_APPLICATIONS',
-            ]),
+            'pool_status' => $this->faker->randomElement(ApiEnums::poolStatuses()),
         ];
     }
 

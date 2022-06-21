@@ -10,6 +10,7 @@ import UserProfile from "@common/components/UserProfile";
 import type { Applicant } from "@common/api/generated";
 
 import { commonMessages } from "@common/messages";
+import { isEmpty } from "lodash";
 import MyStatusApi from "../../myStatusForm/MyStatusForm";
 import TALENTSEARCH_APP_DIR from "../../../talentSearchConstants";
 import { useApplicantProfileRoutes } from "../../../applicantProfileRoutes";
@@ -38,6 +39,18 @@ export const ProfileForm: React.FC<ProfilePageProps> = ({
     personalUrl: (id: string) => paths.editExperience("personal", id),
     workUrl: (id: string) => paths.editExperience("work", id),
   };
+  let userName = `${firstName} ${lastName}`;
+  const intl = useIntl();
+
+  if (
+    (firstName === null || isEmpty(firstName)) &&
+    (lastName === null || isEmpty(firstName))
+  ) {
+    userName = intl.formatMessage({
+      defaultMessage: "(Missing name)",
+      description: "Message for Missing names in profile",
+    });
+  }
 
   return (
     <>
@@ -55,7 +68,7 @@ export const ProfileForm: React.FC<ProfilePageProps> = ({
           backgroundRepeat: "no-repeat",
         }}
       >
-        <h1 data-h2-margin="b(top-bottom, l)">{`${firstName} ${lastName}`}</h1>
+        <h1 data-h2-margin="b(top-bottom, l)">{userName}</h1>
       </div>
 
       <UserProfile
@@ -86,6 +99,7 @@ export const ProfileForm: React.FC<ProfilePageProps> = ({
               <ExperienceSection
                 experiences={experiences?.filter(notEmpty)}
                 experienceEditPaths={experienceEditPaths}
+                editPath={paths.skillsAndExperiences()}
               />
             ),
           },

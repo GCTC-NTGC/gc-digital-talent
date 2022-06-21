@@ -7,7 +7,7 @@ scalar DateTime @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date
 "A RFC 5321 compliant email."
 scalar Email @scalar(class: "MLL\\GraphQLScalars\\Email")
 
-"A phone number string which must comply with E.164 international notation, including country code and preceding '+'."
+"A phone number string, accepts any string"
 scalar PhoneNumber
 
 "A human readable ID"
@@ -604,6 +604,10 @@ input UserFilterAndOrderInput {
     isProfileComplete: Boolean @scope
     skills: [ID] @builder(method: "App\\Models\\User@filterBySkills")
     isGovEmployee: Boolean @scope
+    telephone: String @scope
+    email: String @scope
+    name: String @builder(method: "App\\Models\\User@filterByName")
+    generalSearch: String @builder(method: "App\\Models\\User@filterByGeneralSearch")
     orderBy: String   # This needs to be the name of the field in the database eg. first_name
 }
 

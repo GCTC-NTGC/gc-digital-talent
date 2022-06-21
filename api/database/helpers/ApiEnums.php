@@ -108,4 +108,20 @@ class ApiEnums
     const USER_STATUS_ACTIVELY_LOOKING = 'ACTIVELY_LOOKING';
     const USER_STATUS_OPEN_TO_OPPORTUNITIES = 'OPEN_TO_OPPORTUNITIES';
     const USER_STATUS_INACTIVE = 'INACTIVE';
+
+    const POOL_STATUS_NOT_TAKING_APPLICATIONS = 'NOT_TAKING_APPLICATIONS';
+    const POOL_STATUS_TAKING_APPLICATIONS = 'TAKING_APPLICATIONS';
+
+    /**
+     * A collection of enums for pool statuses in factories and seeders
+     *
+     * @return string[]
+     */
+    public static function poolStatuses() : array
+    {
+        return [
+            self::POOL_STATUS_NOT_TAKING_APPLICATIONS,
+            self::POOL_STATUS_TAKING_APPLICATIONS,
+        ];
+    }
 }

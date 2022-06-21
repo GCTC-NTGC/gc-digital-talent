@@ -106,22 +106,6 @@ describe("AboutMeForm", () => {
     expect(mockSave).not.toHaveBeenCalled();
   });
 
-  it("Should not submit invalid phone number", async () => {
-    const mockSave = jest.fn();
-
-    renderAboutMeForm({
-      initialUser: {
-        ...mockUser,
-        telephone: "invalidPhone",
-      },
-      onUpdateAboutMe: mockSave,
-    });
-
-    fireEvent.submit(await screen.getByRole("button", { name: /save/i }));
-    expect(await screen.findAllByRole("alert")).toHaveLength(1);
-    expect(mockSave).not.toHaveBeenCalled();
-  });
-
   it("Should submit successfully with required fields", async () => {
     const mockSave = jest.fn(() => Promise.resolve(mockUser));
 

@@ -44,12 +44,12 @@
   "peerDependencies": {
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-hook-form": "^7.32.0"
+    "react-hook-form": "^7.32.2"
   },
   "dependencies": {
     "@heroicons/react": "^1.0.6",
     "@reach/dialog": "^0.17.0",
-    "@testing-library/react-hooks": "^8.0.0",
+    "@testing-library/react-hooks": "^8.0.1",
     "@urql/exchange-auth": "^0.1.7",
     "graphql": "^16.4.0",
     "history": "^5.3.0",
@@ -59,17 +59,17 @@
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-focus-lock": "^2.9.1",
-    "react-hook-form": "^7.32.0",
+    "react-hook-form": "^7.32.2",
     "react-intl": "^6.0.4",
     "react-remove-scroll": "^2.5.4",
     "react-select": "^5.3.1",
-    "react-toastify": "^9.0.4",
+    "react-toastify": "^9.0.5",
     "universal-router": "^9.1.0",
     "urql": "^2.2.2"
   },
   "devDependencies": {
     "@babel/core": "^7.18.5",
-    "@faker-js/faker": "^7.2.0",
+    "@faker-js/faker": "^7.3.0",
     "@formatjs/cli": "^4.8.4",
     "@formatjs/ts-transformer": "^3.9.8",
     "@graphql-codegen/add": "^3.1.0",
@@ -86,16 +86,16 @@
     "@storybook/react": "^6.4.16",
     "@testing-library/jest-dom": "^5.16.3",
     "@testing-library/react": "^12.1.4",
-    "@testing-library/react-hooks": "^8.0.0",
-    "@types/jest": "^28.1.1",
+    "@testing-library/react-hooks": "^8.0.1",
+    "@types/jest": "^28.1.2",
     "@types/lodash": "^4.14.182",
     "@types/node": "^17.0.42",
     "@types/path-browserify": "^1.0.0",
     "@types/react": "^17.0.43",
     "@types/react-select": "^5.0.1",
-    "@typescript-eslint/eslint-plugin": "^5.28.0",
-    "@typescript-eslint/parser": "^5.28.0",
-    "eslint": "^8.17.0",
+    "@typescript-eslint/eslint-plugin": "^5.29.0",
+    "@typescript-eslint/parser": "^5.29.0",
+    "eslint": "^8.18.0",
     "eslint-config-airbnb": "^19.0.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-formatjs": "^3.1.5",
@@ -112,7 +112,7 @@
     "storybook-addon-intl": "^2.4.1",
     "ts-jest": "^28.0.4",
     "ts-loader": "^9.3.0",
-    "typescript": "^4.7.3",
+    "typescript": "^4.7.4",
     "yargs": "^17.5.1"
   }
 }
