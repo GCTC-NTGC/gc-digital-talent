@@ -334,7 +334,7 @@ function Table<T extends Record<string, unknown>>({
               {intl.formatMessage({
                 defaultMessage: "Download XML",
                 description:
-                  "Text label for button to download a csv of items in a table.",
+                  "Text label for button to download an xml file of items in a table.",
               })}
             </Button>
           </Spacer>
