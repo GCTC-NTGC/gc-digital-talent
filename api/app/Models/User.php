@@ -348,11 +348,14 @@ class User extends Model implements Authenticatable
             });
 
             $this->orFilterByClassificationToSalary($query, $classifications);
+           $this->orfilterByClassificationToGenericJobTitles($query, $classifications);
+
+
         });
 
         return $query;
     }
-     public function filterByExpectedGenericJobTitle(Builder $query, array $classifications): Builder
+     public function orfilterByClassificationToGenericJobTitles(Builder $query, array $classifications): Builder
     {
         // if no filters provided then return query unchanged
         if (empty($classifications)) {
@@ -363,8 +366,8 @@ class User extends Model implements Authenticatable
         // A single whereHas clause for the relationship, containing multiple orWhere clauses accomplishes this.
 
         // group these in a subquery to properly handle "OR" condition
-        $query->where(function($query) use ($classifications) {
-            $query->whereHas('expectedClassifications', function ($query) use ($classifications) {
+        $query->orWhereHas('expectedGenericJobTitles', function ($query) use ($classifications) {
+            $query->whereHas('classification', function ($query) use ($classifications){
                 foreach ($classifications as $index => $classification) {
                     if ($index === 0) {
                         // First iteration must use where instead of orWhere
@@ -379,7 +382,6 @@ class User extends Model implements Authenticatable
                 }
             });
 
-            $this->orFilterByClassificationToSalary($query, $classifications);
         });
 
         return $query;
