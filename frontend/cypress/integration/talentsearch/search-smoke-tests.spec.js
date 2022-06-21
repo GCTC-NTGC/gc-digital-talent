@@ -1,15 +1,8 @@
-import {
-  aliasMutation,
-  aliasQuery,
-  setUpCommonGraphqlIntercepts,
-} from "../../support/graphql-test-utils";
+import { aliasMutation, aliasQuery } from "../../support/graphql-test-utils";
 import { getInputByLabel } from "../../support/helpers";
 
 describe("Talent Search Smoke Tests", () => {
   beforeEach(() => {
-    // common requests
-    setUpCommonGraphqlIntercepts();
-    // page specific requests
     cy.intercept("POST", "/graphql", (req) => {
       aliasQuery(req, "countPoolCandidates");
       aliasQuery(req, "getPoolCandidateSearchRequestData");

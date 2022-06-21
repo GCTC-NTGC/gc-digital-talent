@@ -1,8 +1,4 @@
-import {
-  aliasMutation,
-  aliasQuery,
-  setUpCommonGraphqlIntercepts,
-} from "../../support/graphql-test-utils";
+import { aliasMutation, aliasQuery } from "../../support/graphql-test-utils";
 import { getInputByLabel } from "../../support/helpers";
 
 describe("User Profile Smoke Tests", () => {
@@ -15,10 +11,8 @@ describe("User Profile Smoke Tests", () => {
   };
 
   beforeEach(() => {
-    // common requests
-    setUpCommonGraphqlIntercepts();
-    // page specific requests
     cy.intercept("POST", "/graphql", (req) => {
+      aliasQuery(req, "getMe");
       aliasMutation(req, "UpdateUserAsUser");
       aliasMutation(req, "createWorkLocationPreference");
     });

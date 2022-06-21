@@ -1,5 +1,4 @@
-import { setUpCommonGraphqlIntercepts } from '../../support/graphql-test-utils'
-
+import { aliasQuery } from "../../support/graphql-test-utils";
 describe('Auth flows (development)', () => {
   // Helpers
   const onAuthLoginPage = () => {
@@ -16,7 +15,10 @@ describe('Auth flows (development)', () => {
 
   // Prepare to intercept/detect relevant GraphQL requests.
   beforeEach(() => {
-    setUpCommonGraphqlIntercepts()
+    cy.intercept('POST', '/graphql', (req) => {
+      aliasQuery(req, 'me')
+    })
+
   })
 
   context('Anonymous visitor', () => {

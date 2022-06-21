@@ -1,8 +1,4 @@
-import {
-  aliasMutation,
-  aliasQuery,
-  setUpCommonGraphqlIntercepts,
-} from "../../support/graphql-test-utils";
+import { aliasMutation, aliasQuery } from "../../support/graphql-test-utils";
 import { getInputByLabel } from "../../support/helpers";
 
 describe("Admin Smoke Tests", () => {
@@ -15,9 +11,6 @@ describe("Admin Smoke Tests", () => {
   };
 
   beforeEach(() => {
-    // common requests
-    setUpCommonGraphqlIntercepts();
-    // page specific requests
     cy.intercept("POST", "/graphql", (req) => {
       aliasQuery(req, "AllUsers");
       aliasQuery(req, "User");
