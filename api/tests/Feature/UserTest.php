@@ -156,22 +156,22 @@ class UserTest extends TestCase
 
         PoolCandidate::factory()->count(5)->create([
             'pool_id' => $pool1['id'],
-            'expiry_date' => FAR_FUTURE_DATE,
+            'expiry_date' => self::FAR_FUTURE_DATE,
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE,
         ]);
         PoolCandidate::factory()->count(4)->create([
             'pool_id' => $pool1['id'],
-            'expiry_date' => FAR_FUTURE_DATE,
+            'expiry_date' => self::FAR_FUTURE_DATE,
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_EXPIRED,
         ]);
         PoolCandidate::factory()->count(3)->create([
             'pool_id' => $pool1['id'],
-            'expiry_date' => FAR_FUTURE_DATE,
+            'expiry_date' => self::FAR_FUTURE_DATE,
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_PLACED_TERM,
         ]);
         PoolCandidate::factory()->count(2)->create([
             'pool_id' => $pool2['id'],
-            'expiry_date' => FAR_FUTURE_DATE,
+            'expiry_date' => self::FAR_FUTURE_DATE,
             'pool_candidate_status' => null,
         ]);
 
@@ -1433,7 +1433,7 @@ class UserTest extends TestCase
         'is_indigenous' => false,
         'is_visible_minority' => false,
         'is_woman' => false,
-        'expiry_date' => FAR_FUTURE_DATE,
+        'expiry_date' => self::FAR_FUTURE_DATE,
         'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE,
         ]);
 
@@ -1443,7 +1443,7 @@ class UserTest extends TestCase
         'is_indigenous' => false,
         'is_visible_minority' => false,
         'is_woman' => false,
-        'expiry_date' => FAR_FUTURE_DATE,
+        'expiry_date' => self::FAR_FUTURE_DATE,
         'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE,
         ]);
         PoolCandidate::factory()->create([
@@ -1451,7 +1451,7 @@ class UserTest extends TestCase
         'is_indigenous' => true,
         'is_visible_minority' => false,
         'is_woman' => false,
-        'expiry_date' => FAR_FUTURE_DATE,
+        'expiry_date' => self::FAR_FUTURE_DATE,
         'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE,
         ]);
         PoolCandidate::factory()->create([
@@ -1459,7 +1459,7 @@ class UserTest extends TestCase
         'is_indigenous' => false,
         'is_visible_minority' => true,
         'is_woman' => false,
-        'expiry_date' => FAR_FUTURE_DATE,
+        'expiry_date' => self::FAR_FUTURE_DATE,
         'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE,
         ]);
         PoolCandidate::factory()->create([
@@ -1467,7 +1467,7 @@ class UserTest extends TestCase
         'is_indigenous' => false,
         'is_visible_minority' => false,
         'is_woman' => true,
-        'expiry_date' => FAR_FUTURE_DATE,
+        'expiry_date' => self::FAR_FUTURE_DATE,
         'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE,
         ]);
 
@@ -2007,7 +2007,7 @@ class UserTest extends TestCase
                 'expected_salary' => []
             ]),
             'pool_id' => $myPool->id,
-            'expiry_date' => FAR_FUTURE_DATE,
+            'expiry_date' => self::FAR_FUTURE_DATE,
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE,
         ]);
 
@@ -2019,7 +2019,7 @@ class UserTest extends TestCase
                 'expected_salary' => ['_60_69K']
             ]),
             'pool_id' => $myPool->id,
-            'expiry_date' => FAR_FUTURE_DATE,
+            'expiry_date' => self::FAR_FUTURE_DATE,
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE,
         ]);
 
@@ -2031,7 +2031,7 @@ class UserTest extends TestCase
                 'expected_salary' => ['_90_99K', '_100K_PLUS']
             ]),
             'pool_id' => $myPool->id,
-            'expiry_date' => FAR_FUTURE_DATE,
+            'expiry_date' => self::FAR_FUTURE_DATE,
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE,
         ]);
 
@@ -2046,7 +2046,7 @@ class UserTest extends TestCase
                 'expected_salary' => []
             ]),
             'pool_id' => $otherPool->id,
-            'expiry_date' => FAR_FUTURE_DATE,
+            'expiry_date' => self::FAR_FUTURE_DATE,
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE,
         ]);
 
@@ -2058,7 +2058,7 @@ class UserTest extends TestCase
                 'expected_salary' => ['_60_69K']
             ]),
             'pool_id' => $otherPool->id,
-            'expiry_date' => FAR_FUTURE_DATE,
+            'expiry_date' => self::FAR_FUTURE_DATE,
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE,
         ]);
 
@@ -2070,7 +2070,7 @@ class UserTest extends TestCase
                 'expected_salary' => ['_90_99K', '_100K_PLUS']
             ]),
             'pool_id' => $otherPool->id,
-            'expiry_date' => FAR_FUTURE_DATE,
+            'expiry_date' => self::FAR_FUTURE_DATE,
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE,
         ]);
 
@@ -2170,26 +2170,29 @@ class UserTest extends TestCase
 
         PoolCandidate::factory()->count(8)->create([
             'pool_id' => $pool1['id'],
-            'expiry_date' => FAR_FUTURE_DATE,
+            'expiry_date' => self::FAR_FUTURE_DATE,
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE,
             'user_id' => User::factory([
-                'language_ability' => ApiEnums::LANGUAGE_ABILITY_ENGLISH
+                'language_ability' => ApiEnums::LANGUAGE_ABILITY_ENGLISH,
+                'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING
             ])
         ]);
-        PoolCandidate::factory()->count(4)->create([
+        PoolCandidate::factory()->count(5)->create([
             'pool_id' => $pool1['id'],
-            'expiry_date' => FAR_FUTURE_DATE,
+            'expiry_date' => self::FAR_FUTURE_DATE,
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE,
             'user_id' => User::factory([
-                'language_ability' => ApiEnums::LANGUAGE_ABILITY_FRENCH
+                'language_ability' => ApiEnums::LANGUAGE_ABILITY_FRENCH,
+                'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING
             ])
         ]);
         PoolCandidate::factory()->create([
             'pool_id' => $pool2['id'],
-            'expiry_date' => FAR_FUTURE_DATE,
+            'expiry_date' => self::FAR_FUTURE_DATE,
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE,
             'user_id' => User::factory([
-                'language_ability' => ApiEnums::LANGUAGE_ABILITY_ENGLISH
+                'language_ability' => ApiEnums::LANGUAGE_ABILITY_ENGLISH,
+                'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING
             ])
         ]);
         PoolCandidate::factory()->create([
@@ -2197,15 +2200,26 @@ class UserTest extends TestCase
             'expiry_date' => '2000-01-01',
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE,
             'user_id' => User::factory([
-                'language_ability' => ApiEnums::LANGUAGE_ABILITY_ENGLISH
+                'language_ability' => ApiEnums::LANGUAGE_ABILITY_ENGLISH,
+                'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING
             ])
         ]);
         PoolCandidate::factory()->create([
             'pool_id' => $pool1['id'],
-            'expiry_date' => FAR_FUTURE_DATE,
+            'expiry_date' => self::FAR_FUTURE_DATE,
             'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_PLACED_TERM,
             'user_id' => User::factory([
-                'language_ability' => ApiEnums::LANGUAGE_ABILITY_ENGLISH
+                'language_ability' => ApiEnums::LANGUAGE_ABILITY_ENGLISH,
+                'job_looking_status' => ApiEnums::USER_STATUS_ACTIVELY_LOOKING
+            ])
+        ]);
+        PoolCandidate::factory()->create([
+            'pool_id' => $pool1['id'],
+            'expiry_date' => self::FAR_FUTURE_DATE,
+            'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE,
+            'user_id' => User::factory([
+                'language_ability' => ApiEnums::LANGUAGE_ABILITY_ENGLISH,
+                'job_looking_status' => ApiEnums::USER_STATUS_INACTIVE
             ])
         ]);
 
@@ -2222,7 +2236,7 @@ class UserTest extends TestCase
             ]
         ])->assertJson([
             'data' => [
-                'countApplicants' => 12
+                'countApplicants' => 13
             ]
         ]);
 
