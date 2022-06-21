@@ -1,23 +1,34 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { ExternalLink } from "@common/components/Link";
+import { getLocale } from "@common/helpers/localize";
 
-const actLink = (chunks: string[]) => (
-  <ExternalLink href="https://laws-lois.justice.gc.ca/eng/acts/e-5.401/" newTab>
-    {...chunks}
-  </ExternalLink>
-);
-const reviewLink = (chunks: string[]) => (
-  <ExternalLink
-    href="https://www.canada.ca/en/employment-social-development/corporate/portfolio/labour/programs/employment-equity/task-force.html"
-    newTab
-  >
-    {...chunks}
-  </ExternalLink>
-);
+const actLink = (locale: string, chunks: string[]) => {
+  const href =
+    locale === "en"
+      ? "https://laws-lois.justice.gc.ca/eng/acts/e-5.401/"
+      : "https://laws-lois.justice.gc.ca/fra/lois/e-5.401/";
+  return (
+    <ExternalLink href={href} newTab>
+      {...chunks}
+    </ExternalLink>
+  );
+};
+const reviewLink = (locale: string, chunks: string[]) => {
+  const href =
+    locale === "en"
+      ? "https://www.canada.ca/en/employment-social-development/corporate/portfolio/labour/programs/employment-equity/task-force.html"
+      : "https://www.canada.ca/fr/emploi-developpement-social/ministere/portefeuille/travail/programmes/equite-emploi/groupe-travail.html";
+  return (
+    <ExternalLink href={href} newTab>
+      {...chunks}
+    </ExternalLink>
+  );
+};
 
 const UnderReview: React.FC = () => {
   const intl = useIntl();
+  const locale = getLocale(intl);
 
   return (
     <p>
@@ -29,8 +40,8 @@ const UnderReview: React.FC = () => {
             "Text that appears in Employment equity dialogs explaining the act is under review.",
         },
         {
-          actLink,
-          reviewLink,
+          actLink: (chunks) => actLink(locale, chunks),
+          reviewLink: (chunks) => reviewLink(locale, chunks),
         },
       )}
     </p>
