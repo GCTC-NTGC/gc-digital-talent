@@ -65,7 +65,11 @@ const SearchForm: React.FC<SearchFormProps> = ({
       </Button>
       {searchBy && searchBy.length ? (
         <DropdownMenu>
-          <MenuButton color="black" data-h2-radius="b(none)">
+          <MenuButton
+            color="black"
+            data-h2-radius="b(none)"
+            style={{ flexShrink: 0 }}
+          >
             {column
               ? column.label
               : intl.formatMessage({
@@ -104,7 +108,6 @@ const SearchForm: React.FC<SearchFormProps> = ({
         data-h2-padding="b(top-bottom, xs) b(right-left, s)"
         data-h2-font-size="b(caption) m(normal)"
         data-h2-font-family="b(sans)"
-        data-h2-width="b(100)"
       />
     </div>
   );

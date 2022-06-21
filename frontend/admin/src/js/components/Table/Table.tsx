@@ -12,6 +12,8 @@ import {
 import { Button, Link } from "@common/components";
 import Pagination from "@common/components/Pagination";
 import { FilterIcon, PlusIcon, TableIcon } from "@heroicons/react/outline";
+import Dialog from "@common/components/Dialog";
+import { Fieldset } from "@common/components/inputPartials";
 import SortIcon from "./SortIcon";
 import SearchForm, { type SearchFormProps } from "./SearchForm";
 
@@ -63,7 +65,9 @@ const IndeterminateCheckbox: React.FC<
 };
 
 const Spacer: React.FC = ({ children }) => (
-  <div data-h2-margin="b(left, s)">{children}</div>
+  <div data-h2-margin="b(left, s)" style={{ flexShrink: 0 }}>
+    {children}
+  </div>
 );
 
 const ButtonIcon: React.FC<{
@@ -136,10 +140,14 @@ function Table<T extends Record<string, unknown>>({
           data-h2-radius="b(s, s, none, none)"
           data-h2-padding="b(all, s)"
         >
-          <div>
+          <div style={{ flexShrink: 0 }}>
             {title && <span data-h2-font-weight="b(800)">{title}</span>}
           </div>
-          <div style={{ flexShrink: 0 }} data-h2-display="b(flex)">
+          <div
+            style={{ flexShrink: 0 }}
+            data-h2-display="b(flex)"
+            data-h2-justify-content="b(flex-end)"
+          >
             <SearchForm
               onChange={(term) => window.console.log(term)}
               onSubmit={handleSubmit}
@@ -182,22 +190,22 @@ function Table<T extends Record<string, unknown>>({
                     })}
                   </span>
                 </Button>
-                {showList ? (
-                  <div
-                    data-h2-position="b(absolute)"
-                    data-h2-padding="b(all, xs)"
-                    data-h2-display="b(flex)"
-                    data-h2-flex-direction="b(column)"
-                    data-h2-margin="b(top, xxs)"
-                    data-h2-border="b(gray, all, solid, s)"
-                    data-h2-radius="b(s)"
-                    data-h2-shadow="b(s)"
-                    data-h2-bg-color="b(white)"
-                    style={{
-                      textAlign: "left",
-                      width: "12rem",
-                      right: 0,
-                    }}
+                <Dialog
+                  color="ts-primary"
+                  isOpen={showList}
+                  onDismiss={() => setShowList(false)}
+                  title={intl.formatMessage({
+                    defaultMessage: "Table columns",
+                    description:
+                      "Dialog title for the admin tables columns toggle.",
+                  })}
+                >
+                  <Fieldset
+                    legend={intl.formatMessage({
+                      defaultMessage: "Visible columns",
+                      description:
+                        "Legend for the column toggle in admin tables.",
+                    })}
                   >
                     <div data-h2-margin="b(top-bottom, xxs)">
                       <IndeterminateCheckbox
@@ -218,8 +226,8 @@ function Table<T extends Record<string, unknown>>({
                         </label>
                       </div>
                     ))}
-                  </div>
-                ) : null}
+                  </Fieldset>
+                </Dialog>
               </div>
             </Spacer>
             {addBtn && (
@@ -324,7 +332,7 @@ function Table<T extends Record<string, unknown>>({
           <Spacer>
             <Button type="button" mode="solid" color="primary">
               {intl.formatMessage({
-                defaultMessage: "Download CSV",
+                defaultMessage: "Download XML",
                 description:
                   "Text label for button to download a csv of items in a table.",
               })}

@@ -7,7 +7,8 @@ import {
 
 import Button, { type ButtonProps } from "../Button";
 
-type DropdownMenuButtonProps = Pick<ButtonProps, "color">;
+type DropdownMenuButtonProps = Pick<ButtonProps, "color"> &
+  React.HTMLAttributes<HTMLButtonElement>;
 
 const MenuButton: React.FC<DropdownMenuButtonProps> = ({
   children,
