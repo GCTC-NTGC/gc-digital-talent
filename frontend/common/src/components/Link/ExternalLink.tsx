@@ -18,6 +18,7 @@ const ExternalLink: React.FC<ExternalLinkProps> = ({
     <a
       {...(newTab && {
         target: "_blank",
+        rel: "noopener noreferrer",
         "data-h2-display": "b(inline-flex)",
         "data-h2-align-items": "b(center)",
       })}
