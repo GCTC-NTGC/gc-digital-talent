@@ -9,7 +9,6 @@ describe("Talent Search Smoke Tests", () => {
     });
 
     cy.visit("/en/talent/search");
-    cy.wait("@gqlcountPoolCandidatesQuery");
   });
 
   const searchReturnsGreaterThanZeroCandidates = () => {
