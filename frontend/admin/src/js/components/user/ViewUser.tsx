@@ -12,6 +12,7 @@ import { Tab, TabSet } from "@common/components/tabs";
 import { commonMessages } from "@common/messages";
 import Pending from "@common/components/Pending";
 import NotFound from "@common/components/NotFound";
+import Heading from "@common/components/Heading";
 import { useAdminRoutes } from "../../adminRoutes";
 import { User, useUserQuery } from "../../api/generated";
 import DashboardContentContainer from "../DashboardContentContainer";
@@ -67,12 +68,12 @@ export const ViewUserPage: React.FC<ViewUserPageProps> = ({ user }) => {
         data-h2-margin="b(top-bottom, l)"
       >
         {userName !== " " && (
-          <h3
+          <Heading
+            level="h2"
             data-h2-margin="b(top-bottom, s) m(top-bottom, none)"
-            data-h2-font-weight="b(800)"
           >
             {userName}
-          </h3>
+          </Heading>
         )}
         <div data-h2-margin="m(left, auto)">
           <UserProfilePrintButton userId={user.id}>
