@@ -284,7 +284,10 @@ const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
             {sections.language?.override ? (
               sections.language.override
             ) : (
-              <LanguageInformationSection applicant={applicant} />
+              <LanguageInformationSection
+                applicant={applicant}
+                editPath={sections.workLocation?.editUrl}
+              />
             )}
           </TableOfContents.Section>
         )}
@@ -318,7 +321,10 @@ const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
             {sections.government?.override ? (
               sections.government.override
             ) : (
-              <GovernmentInformationSection applicant={applicant} />
+              <GovernmentInformationSection
+                applicant={applicant}
+                editPath={sections.government?.editUrl}
+              />
             )}
           </TableOfContents.Section>
         )}
@@ -351,7 +357,10 @@ const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
             {sections.workLocation?.override ? (
               sections.workLocation.override
             ) : (
-              <WorkLocationSection applicant={applicant} />
+              <WorkLocationSection
+                applicant={applicant}
+                editPath={sections.workLocation?.editUrl}
+              />
             )}
           </TableOfContents.Section>
         )}
@@ -384,7 +393,10 @@ const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
             {sections.workPreferences?.override ? (
               sections.workPreferences.override
             ) : (
-              <WorkPreferencesSection applicant={applicant} />
+              <WorkPreferencesSection
+                applicant={applicant}
+                editPath={sections.workPreferences?.editUrl}
+              />
             )}
           </TableOfContents.Section>
         )}
@@ -418,7 +430,10 @@ const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
             {sections.employmentEquity?.override ? (
               sections.employmentEquity.override
             ) : (
-              <DiversityEquityInclusionSection applicant={applicant} />
+              <DiversityEquityInclusionSection
+                applicant={applicant}
+                editPath={sections.employmentEquity?.editUrl}
+              />
             )}
           </TableOfContents.Section>
         )}
