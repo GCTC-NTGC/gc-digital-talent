@@ -13,10 +13,7 @@ const MenuButton: React.FC<DropdownMenuButtonProps> = ({
   children,
   ...rest
 }) => {
-  const ctx = useMenuButtonContext();
-  const { isExpanded } = ctx;
-  window.console.log(ctx);
-
+  const { isExpanded } = useMenuButtonContext();
   return (
     <ReachButton as={Button} mode={isExpanded ? "solid" : "outline"} {...rest}>
       <span data-h2-display="b(flex)" data-h2-align-items="b(center)">
