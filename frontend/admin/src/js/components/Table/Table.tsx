@@ -13,13 +13,13 @@ import { Button, Link } from "@common/components";
 import Pagination from "@common/components/Pagination";
 import { FilterIcon, PlusIcon, TableIcon } from "@heroicons/react/outline";
 import SortIcon from "./SortIcon";
-import SearchForm from "./SearchForm";
+import SearchForm, { type SearchFormProps } from "./SearchForm";
 
 export type ColumnsOf<T extends Record<string, unknown>> = Array<Column<T>>;
 
 export interface TableProps<
   T extends Record<string, unknown> = Record<string, unknown>,
-> {
+> extends Pick<SearchFormProps, "searchBy"> {
   columns: Array<Column<T>>;
   data: Array<T>;
   title?: string;
@@ -86,6 +86,7 @@ function Table<T extends Record<string, unknown>>({
   title,
   addBtn,
   onSearchSubmit,
+  searchBy,
   filter = true,
   pagination = true,
   hiddenCols = [],
@@ -142,6 +143,7 @@ function Table<T extends Record<string, unknown>>({
             <SearchForm
               onChange={(term) => window.console.log(term)}
               onSubmit={handleSubmit}
+              searchBy={searchBy}
             />
             <Spacer>
               <Button

@@ -3,16 +3,32 @@ import { useIntl } from "react-intl";
 import { SearchIcon } from "@heroicons/react/outline";
 import { debounce } from "lodash";
 
+import DropdownMenu, {
+  MenuButton,
+  MenuItem,
+  MenuList,
+} from "@common/components/DropdownMenu";
 import { Button } from "@common/components";
 
-interface SearchFormProps {
-  onChange: (term: string) => void;
-  onSubmit: () => void;
+export interface SearchColumn {
+  value: string;
+  label: string;
 }
 
-const SearchForm: React.FC<SearchFormProps> = ({ onChange, onSubmit }) => {
+export interface SearchFormProps {
+  onChange: (term: string) => void;
+  onSubmit: () => void;
+  searchBy?: SearchColumn[];
+}
+
+const SearchForm: React.FC<SearchFormProps> = ({
+  onChange,
+  onSubmit,
+  searchBy,
+}) => {
   const intl = useIntl();
   const [searchTerm, setSearchTerm] = React.useState<string>("");
+  const [column, setColumn] = React.useState<SearchColumn | null>(null);
   const debouncedUpdate = debounce(onChange, 100);
 
   React.useEffect(() => {
@@ -47,6 +63,26 @@ const SearchForm: React.FC<SearchFormProps> = ({ onChange, onSubmit }) => {
           })}
         </span>
       </Button>
+      {searchBy && searchBy.length ? (
+        <DropdownMenu>
+          <MenuButton color="black" data-h2-radius="b(none)">
+            {column
+              ? column.label
+              : intl.formatMessage({
+                  defaultMessage: "All table",
+                  description:
+                    "Text in table search form column dropdown when no column is selected.",
+                })}
+          </MenuButton>
+          <MenuList>
+            {searchBy.map((col) => (
+              <MenuItem key={col.value} onSelect={() => setColumn(col)}>
+                {col.label}
+              </MenuItem>
+            ))}
+          </MenuList>
+        </DropdownMenu>
+      ) : null}
       <input
         name="search"
         id="tableSearch"
