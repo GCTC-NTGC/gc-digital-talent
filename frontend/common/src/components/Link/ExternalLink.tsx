@@ -13,7 +13,6 @@ const ExternalLink: React.FC<ExternalLinkProps> = ({
   ...rest
 }) => {
   const intl = useIntl();
-  const ChildWrap = newTab ? "span" : React.Fragment;
 
   return (
     <a
@@ -24,9 +23,9 @@ const ExternalLink: React.FC<ExternalLinkProps> = ({
       })}
       {...rest}
     >
-      <ChildWrap>{children}</ChildWrap>
-      {newTab && (
+      {newTab ? (
         <>
+          <span>{children}</span>
           <ExternalLinkIcon
             style={{ height: "1em", marginLeft: "0.25rem", width: "1em" }}
           />
@@ -38,6 +37,8 @@ const ExternalLink: React.FC<ExternalLinkProps> = ({
             })}
           </span>
         </>
+      ) : (
+        children
       )}
     </a>
   );
