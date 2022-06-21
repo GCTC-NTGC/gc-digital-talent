@@ -1,13 +1,15 @@
 import { aliasMutation, aliasQuery } from "../../support/graphql-test-utils";
-import { getInputByLabel } from "../../support/helpers";
 
 describe("Admin Smoke Tests", () => {
-  const loginViaUI = (role) => {
-    cy.fixture("users.json").then((users) => {
-      const user = users[role];
-      cy.get("input[name=username]").type(user.email);
-    });
-    cy.findByText("Sign-in").click();
+  const loginAndGoToDashboard = () => {
+    cy.login("admin");
+    cy.visit("/en/admin");
+
+    // make sure we end up on the dashboard
+    cy.findByRole("heading", { name: /Welcome back/i })
+      .should("exist")
+      .and("be.visible");
+    cy.url().should("contain", "/dashboard");
   };
 
   beforeEach(() => {
@@ -17,45 +19,69 @@ describe("Admin Smoke Tests", () => {
       aliasMutation(req, "UpdateUserAsAdmin");
     });
 
-    cy.visit("/en/admin");
+    loginAndGoToDashboard();
   });
 
-  it("Searches for a user, reviews the profile, and edits the phone number", () => {
-    // hit the home page, login, hit the dashboard
-    cy.contains("h1", "Home");
-    cy.contains("a", "Login").click();
-    loginViaUI("admin");
-    cy.contains("h1", "Welcome back");
-    cy.url().should("contain", "/dashboard");
-
-    // find the applicant user to play with
-    cy.contains("a", "Manage users").click();
+  it("Searches for a user and reviews the profile", () => {
+    // find the applicant user to review
+    cy.findByRole("link", { name: /Manage users/i }).click();
     cy.wait("@gqlAllUsersQuery");
-    getInputByLabel("Search").clear().type("Applicant");
-    cy.contains("a", "applicant@test.com").click();
+    cy.findByRole("textbox", { name: /Search/i })
+      .clear()
+      .type("Applicant");
+    cy.findByRole("link", { name: /Link to user profile/i })
+      .findByText(/applicant@test.com/i)
+      .click();
 
     // exercise profile page
-    cy.contains("h1", "Candidate Details");
-    cy.contains("button", "Print Profile");
-    cy.contains("General Information").click();
-    cy.contains("span", "About");
-    cy.contains("Candidate Profile").click();
-    cy.contains("span", "About");
+    cy.findByRole("heading", { name: /Candidate Details/i })
+      .should("exist")
+      .and("be.visible");
 
-    // find the applicant user to play with
-    cy.contains("a", "Users").click();
-    //cy.wait("@gqlAllUsersQuery");  // will be cached and not fired a second time
-    getInputByLabel("Search").clear().type("Applicant");
-    cy.contains("td", "applicant@test.com")
-      .siblings()
-      .contains("a", "Edit")
+    cy.findByRole("button", { name: /Print Profile/i })
+      .should("exist")
+      .and("be.visible")
+      .and("be.enabled");
+
+    cy.findByRole("tab", { name: /General Information/i }).click();
+
+    cy.findByRole("heading", { name: /About/i })
+      .should("exist")
+      .and("be.visible");
+
+    cy.findByRole("tab", { name: /Candidate Profile/i }).click();
+
+    cy.findByRole("heading", { name: /About/i })
+      .should("exist")
+      .and("be.visible");
+  });
+
+  it("Searches for a user and edits the phone number", () => {
+    // find the applicant user to edit
+    cy.findByRole("link", { name: /Manage users/i }).click();
+    cy.wait("@gqlAllUsersQuery");
+    cy.findByRole("textbox", { name: /Search/i })
+      .clear()
+      .type("Applicant");
+
+    cy.findByRole("table")
+      .findByRole("row", { name: /applicant/i })
+      .findByRole("link", { name: /Edit/i })
       .click();
+
     cy.wait("@gqlUserQuery");
 
     // edit the user in a small way
-    getInputByLabel("Telephone").clear().type("+10123456789");
-    cy.contains("button", "Submit").click();
+    cy.findByRole("textbox", { name: /Telephone/i })
+      .clear()
+      .type("+10123456789");
+    cy.findByRole("button", { name: /Submit/i }).click();
+
     cy.wait("@gqlUpdateUserAsAdminMutation");
-    cy.contains("User updated successfully");
+
+    cy.findByRole("alert")
+      .findByText(/User updated successfully/i)
+      .should("exist")
+      .and("be.visible");
   });
 });

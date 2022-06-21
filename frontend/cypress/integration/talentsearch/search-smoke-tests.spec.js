@@ -1,5 +1,4 @@
 import { aliasMutation, aliasQuery } from "../../support/graphql-test-utils";
-import { getInputByLabel } from "../../support/helpers";
 
 describe("Talent Search Smoke Tests", () => {
   beforeEach(() => {
@@ -10,40 +9,63 @@ describe("Talent Search Smoke Tests", () => {
     });
 
     cy.visit("/en/talent/search");
+    cy.wait("@gqlcountPoolCandidatesQuery");
   });
 
-  it("searches for candidates and submits a request", () => {
-    cy.get("form")
-      .findByRole("radio", {
-        name: /Required diploma from post-secondary institution/i,
-      })
-      .check();
-
+  const searchReturnsGreaterThanZeroCandidates = () => {
     cy.wait("@gqlcountPoolCandidatesQuery");
+    cy.findByRole("heading", {
+      name: /Results: [1-9][0-9]* matching candidate/i,
+    });
+  };
 
-    // integer greater than 0
-    cy.contains(/Results: [1-9][0-9]* matching candidate/i);
+  it("searches for candidates and submits a request", () => {
+    searchReturnsGreaterThanZeroCandidates();
+
+    cy.findByRole("radio", {
+      name: /Required diploma from post-secondary institution/i,
+    }).check();
+
+    searchReturnsGreaterThanZeroCandidates();
 
     cy.findByRole("button", { name: /Request Candidates/i }).click();
 
     cy.wait("@gqlgetPoolCandidateSearchRequestDataQuery");
 
-    getInputByLabel("Full Name").clear().type("Test Full Name");
-    getInputByLabel("Government e-mail").clear().type("test@tbs-sct.gc.ca");
-    getInputByLabel("What is the job title for this position?")
+    cy.findByRole("textbox", { name: /Full Name/i })
+      .clear()
+      .type("Test Full Name");
+
+    cy.findByRole("textbox", { name: /Government e-mail/i })
+      .clear()
+      .type("test@tbs-sct.gc.ca");
+
+    cy.findByRole("textbox", {
+      name: /What is the job title for this position\?/i,
+    })
       .clear()
       .type("Test Job Title");
-    getInputByLabel("Additional Comments").clear().type("Test Comments");
-    getInputByLabel("Department / Hiring Organization").select(
+
+    cy.findByRole("textbox", { name: /Additional Comments/i })
+      .clear()
+      .type("Test Comments");
+
+    cy.findByRole("combobox", { name: /Department/i }).select(
       "Treasury Board Secretariat",
     );
 
-    cy.contains("Required diploma from post-secondary institution");
+    // will actually exist twice in the DOM
+    cy.findAllByText("Required diploma from post-secondary institution").should(
+      "exist",
+    );
 
     cy.findByRole("button", { name: /Submit Request/i }).click();
 
     cy.wait("@gqlcreatePoolCandidateSearchRequestMutation");
 
-    cy.contains("Request created successfully");
+    cy.findByRole("alert")
+      .findByText(/Request created successfully/i)
+      .should("exist")
+      .and("be.visible");
   });
 });

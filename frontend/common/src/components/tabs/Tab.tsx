@@ -110,7 +110,11 @@ const Tab: React.FC<TabProps> = ({
     case "normal":
       // open selected tab is not clickable
       if (isTabSetOpen && isTabSelected)
-        assembledTab = <div {...tabAttributes}>{label}</div>;
+        assembledTab = (
+          <div role="tab" {...tabAttributes}>
+            {label}
+          </div>
+        );
       // otherwise, *normal* tabs are clickable
       else
         assembledTab = (

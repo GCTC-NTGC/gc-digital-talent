@@ -1,13 +1,17 @@
 import { aliasMutation, aliasQuery } from "../../support/graphql-test-utils";
-import { getInputByLabel } from "../../support/helpers";
 
 describe("User Profile Smoke Tests", () => {
-  const loginViaUI = (role) => {
-    cy.fixture("users.json").then((users) => {
-      const user = users[role];
-      cy.get("input[name=username]").type(user.email);
-    });
-    cy.findByText("Sign-in").click();
+
+  const loginAndGoToProfile = () => {
+    cy.login("applicant");
+    cy.visit("/en/talent/profile");
+
+    // make sure we end up on the profile page
+    cy.wait("@gqlgetMeQuery");
+    cy.findByRole("heading", { name: /My Status/i })
+      .should("exist")
+      .and("be.visible");
+    cy.url().should("contain", "/profile");
   };
 
   beforeEach(() => {
@@ -17,30 +21,34 @@ describe("User Profile Smoke Tests", () => {
       aliasMutation(req, "createWorkLocationPreference");
     });
 
-    cy.visit("/en/talent/profile");
+    loginAndGoToProfile();
   });
 
   it("Reviews a user profile and makes some edits", () => {
-    // hit the home page, login, hit the dashboard
-    loginViaUI("applicant");
-    cy.wait("@gqlgetMeQuery");
-    cy.contains("span", "My Status");
-    cy.url().should("contain", "/profile");
-
     // about me
-    cy.contains("a", "Edit About Me").click();
-    getInputByLabel("Current city").clear().type("Test City");
-    cy.contains("Save and go back").click();
+    cy.findByRole("link", { name: /Edit About Me/i }).click();
+    cy.findByRole("textbox", { name: /Current city/i })
+      .clear()
+      .type("Test City");
+    cy.findByRole("button", { name: /Save and go back/i }).click();
     cy.wait("@gqlUpdateUserAsUserMutation");
-    cy.contains("User updated successfully");
+    cy.findByRole("alert")
+      .findByText(/User updated successfully/i)
+      .should("exist")
+      .and("be.visible");
     cy.url().should("contain", "/profile");
 
     // work location
-    cy.contains("a", "Edit Work Location").click();
-    getInputByLabel("Location exemptions").clear().type("Test Locations");
-    cy.contains("Save and go back").click();
+    cy.findByRole("link", { name: /Edit Work Location/i }).click();
+    cy.findByRole("textbox", { name: /Location exemptions/i })
+      .clear()
+      .type("Test Locations");
+    cy.findByRole("button", { name: /Save and go back/i }).click();
     cy.wait("@gqlcreateWorkLocationPreferenceMutation");
-    cy.contains("User updated successfully");
+    cy.findByRole("alert")
+      .findByText(/User updated successfully/i)
+      .should("exist")
+      .and("be.visible");
     cy.url().should("contain", "/profile");
   });
 });
