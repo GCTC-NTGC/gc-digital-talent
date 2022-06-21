@@ -660,9 +660,7 @@ input PersonalExperienceInput {
   skills: UpdateExperienceSkills
 }
 
-"""
-A phone number string which must comply with E.164 international notation, including country code and preceding '+'.
-"""
+"""A phone number string, accepts any string"""
 scalar PhoneNumber
 
 type Pool {
@@ -1208,6 +1206,10 @@ input UserFilterAndOrderInput {
   isProfileComplete: Boolean
   skills: [ID]
   isGovEmployee: Boolean
+  telephone: String
+  email: String
+  name: String
+  generalSearch: String
   orderBy: String
 }
 

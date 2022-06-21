@@ -1,5 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
+import { isEmpty } from "lodash";
 import { getOperationalRequirement } from "../../../constants/localizedConstants";
 import { Applicant } from "../../../api/generated";
 
@@ -28,13 +29,15 @@ const WorkPreferencesSection: React.FunctionComponent<{
         </li>
       ))
     : null;
+
+  const anyCriteriaSelected = !isEmpty(acceptedOperationalArray);
   return (
     <div
       data-h2-bg-color="b(lightgray)"
       data-h2-padding="b(all, m)"
       data-h2-radius="b(s)"
     >
-      {wouldAcceptTemporary !== null && (
+      {anyCriteriaSelected && (
         <p>
           {intl.formatMessage({
             defaultMessage: "I would consider accepting a job that lasts for:",
@@ -66,8 +69,8 @@ const WorkPreferencesSection: React.FunctionComponent<{
         </ul>
       )}
 
-      {acceptedOperationalArray !== null &&
-        acceptedOperationalArray.length > 0 && (
+      {anyCriteriaSelected && (
+        <>
           <p>
             {intl.formatMessage({
               defaultMessage: "I would consider accepting a job that:",
@@ -75,35 +78,46 @@ const WorkPreferencesSection: React.FunctionComponent<{
                 "Label for what conditions a user will accept, followed by a colon",
             })}
           </p>
-        )}
-      <ul data-h2-padding="b(left, l)">{acceptedOperationalArray}</ul>
-      {wouldAcceptTemporary === null && (
+          <ul data-h2-padding="b(left, l)">{acceptedOperationalArray}</ul>
+        </>
+      )}
+
+      {!anyCriteriaSelected && editPath && (
+        <>
+          <p>
+            {intl.formatMessage({
+              defaultMessage: "You haven't added any information here yet.",
+              description: "Message for when no data exists for the section",
+            })}
+          </p>
+          <p>
+            {intl.formatMessage(
+              {
+                defaultMessage:
+                  "There are <redText>required</redText> fields missing.",
+                description:
+                  "Message that there are required fields missing. Please ignore things in <> tags.",
+              },
+              {
+                redText,
+              },
+            )}{" "}
+            <a href={editPath}>
+              {intl.formatMessage({
+                defaultMessage: "Click here to get started.",
+                description: "Message to click on the words to begin something",
+              })}
+            </a>
+          </p>
+        </>
+      )}
+      {!anyCriteriaSelected && !editPath && (
         <p>
           {intl.formatMessage({
-            defaultMessage: "You haven't added any information here yet.",
-            description: "Message for when no data exists for the section",
+            defaultMessage: "No information has been provided.",
+            description:
+              "Message on Admin side when user not filled WorkPreferences section.",
           })}
-        </p>
-      )}
-      {wouldAcceptTemporary === null && (
-        <p>
-          {intl.formatMessage(
-            {
-              defaultMessage:
-                "There are <redText>required</redText> fields missing.",
-              description:
-                "Message that there are required fields missing. Please ignore things in <> tags.",
-            },
-            {
-              redText,
-            },
-          )}{" "}
-          <a href={editPath}>
-            {intl.formatMessage({
-              defaultMessage: "Click here to get started.",
-              description: "Message to click on the words to begin something",
-            })}
-          </a>
         </p>
       )}
     </div>

@@ -49,7 +49,7 @@ const AboutSection: React.FC<AboutSectionProps> = ({
         data-h2-justify-content="b(space-between)"
       >
         <div>
-          {!!firstName && !!lastName && (
+          {(!!firstName || !!lastName) && (
             <p>
               {intl.formatMessage({
                 defaultMessage: "Name:",

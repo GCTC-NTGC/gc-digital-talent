@@ -9,6 +9,7 @@ import type { PoolCandidateSearchStatus } from "@common/api/generated";
 
 import { notEmpty } from "@common/helpers/util";
 import Pending from "@common/components/Pending";
+import Heading from "@common/components/Heading";
 import Table from "../Table";
 import type { ColumnsOf } from "../Table";
 
@@ -153,9 +154,9 @@ const LatestRequestsTable: React.FC<LatestRequestsTableProps> = ({ data }) => {
 
   return (
     <>
-      <h2
+      <Heading
         id="latest-requests-heading"
-        data-h2-font-weight="b(800)"
+        level="h2"
         data-h2-margin="b(top-bottom, m)"
       >
         {intl.formatMessage({
@@ -163,7 +164,7 @@ const LatestRequestsTable: React.FC<LatestRequestsTableProps> = ({ data }) => {
           description:
             "Title for the latests requests table in the admin dashboard",
         })}
-      </h2>
+      </Heading>
       <Table
         labelledBy="latest-requests-heading"
         data={tableData || []}

@@ -6,6 +6,11 @@ import { getLocale } from "../../../helpers/localize";
 import { strong } from "../../../helpers/format";
 import { Applicant, GovEmployeeType } from "../../../api/generated";
 
+// styling a text bit with red colour within intls
+function redText(msg: string) {
+  return <span data-h2-font-color="b(red)">{msg}</span>;
+}
+
 const GovernmentInformationSection: React.FunctionComponent<{
   applicant: Pick<
     Applicant,
@@ -15,7 +20,8 @@ const GovernmentInformationSection: React.FunctionComponent<{
     | "department"
     | "currentClassification"
   >;
-}> = ({ applicant }) => {
+  editPath?: string;
+}> = ({ applicant, editPath }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const govEmployeeTypeId =
@@ -87,23 +93,63 @@ const GovernmentInformationSection: React.FunctionComponent<{
               )}
           </>
         )}
-        {applicant.isGovEmployee === null && (
-          <li>
-            {intl.formatMessage({
-              defaultMessage: "You haven't added any information here yet.",
-              description: "Message for when no data exists for the section",
-            })}
-          </li>
+        {applicant.isGovEmployee === null && editPath && (
+          <>
+            <p>
+              {intl.formatMessage({
+                defaultMessage: "You haven't added any information here yet.",
+                description: "Message for when no data exists for the section",
+              })}
+            </p>
+            <p>
+              {intl.formatMessage(
+                {
+                  defaultMessage:
+                    "There are <redText>required</redText> fields missing.",
+                  description:
+                    "Message that there are required fields missing. Please ignore things in <> tags.",
+                },
+                {
+                  redText,
+                },
+              )}
+              <a href={editPath}>
+                {intl.formatMessage({
+                  defaultMessage: "Click here to get started.",
+                  description:
+                    "Message to click on the words to begin something",
+                })}
+              </a>
+            </p>
+          </>
         )}
-        {applicant.isGovEmployee === false && (
-          <li>
+        {applicant.isGovEmployee === null && !editPath && (
+          <p>
+            {intl.formatMessage({
+              defaultMessage: "No information has been provided.",
+              description:
+                "Message on Admin side when user not filled GovernmentInformation section.",
+            })}
+          </p>
+        )}
+        {applicant.isGovEmployee === false && editPath && (
+          <p>
             {intl.formatMessage({
               defaultMessage:
-                "You are not entered as a current government employee",
+                "You are not entered as a current government employee.",
               description:
                 "Message indicating the user is not marked in the system as being federally employed currently",
             })}
-          </li>
+          </p>
+        )}
+        {applicant.isGovEmployee === false && !editPath && (
+          <p>
+            {intl.formatMessage({
+              defaultMessage: "I am not a current government employee.",
+              description:
+                "Message indicating the user is not marked in the system as being federally employed currently",
+            })}
+          </p>
         )}
       </ul>
     </div>

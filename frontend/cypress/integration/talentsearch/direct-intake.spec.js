@@ -56,6 +56,7 @@ describe("Talentsearch Direct Intake Page", () => {
       cy.visit('/en/browse/pools');
 
       cy.location('pathname').should('eq', '/en/talent/profile/create-account');
+      cy.contains("successfully logged in");
     });
   })
 
