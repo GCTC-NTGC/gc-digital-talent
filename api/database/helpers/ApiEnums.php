@@ -105,6 +105,19 @@ class ApiEnums
     const CANDIDATE_STATUS_EXPIRED = 'EXPIRED';
     const CANDIDATE_STATUS_PLACED_CASUAL = 'PLACED_CASUAL';
 
+    public static function candidateStatuses() : array
+    {
+        return [
+            'AVAILABLE',
+            'PLACED_INDETERMINATE',
+            'PLACED_TERM',
+            'NO_LONGER_INTERESTED',
+            'UNAVAILABLE',
+            'EXPIRED',
+            'PLACED_CASUAL',
+        ];
+    }
+
     const POOL_STATUS_NOT_TAKING_APPLICATIONS = 'NOT_TAKING_APPLICATIONS';
     const POOL_STATUS_TAKING_APPLICATIONS = 'TAKING_APPLICATIONS';
 
