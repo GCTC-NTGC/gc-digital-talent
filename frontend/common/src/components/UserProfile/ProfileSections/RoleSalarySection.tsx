@@ -1,5 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
+import { isEmpty } from "lodash";
 import { getGenericJobTitles } from "../../../constants/localizedConstants";
 import { Applicant } from "../../../api/generated";
 
@@ -21,6 +22,8 @@ const RoleSalarySection: React.FunctionComponent<{
     return <span data-h2-font-color="b(red)">{msg}</span>;
   }
 
+  const anyCriteriaSelected = !isEmpty(expectedClassificationArray);
+
   return (
     <div id="role-and-salary-expectations">
       <div
@@ -28,24 +31,19 @@ const RoleSalarySection: React.FunctionComponent<{
         data-h2-padding="b(all, m)"
         data-h2-radius="b(s)"
       >
-        {expectedClassificationArray !== null &&
-          expectedClassificationArray.length > 0 && (
-            <>
-              <p>
-                {intl.formatMessage({
-                  defaultMessage:
-                    "I would like to be referred for jobs at the following levels:",
-                  description:
-                    "Label for Role and salary expectations sections",
-                })}
-              </p>
-              <ul data-h2-padding="b(left, l)">
-                {expectedClassificationArray}
-              </ul>
-            </>
-          )}
-        {(expectedClassificationArray === null ||
-          expectedClassificationArray.length <= 0) && (
+        {anyCriteriaSelected && (
+          <>
+            <p>
+              {intl.formatMessage({
+                defaultMessage:
+                  "I would like to be referred for jobs at the following levels:",
+                description: "Label for Role and salary expectations sections",
+              })}
+            </p>
+            <ul data-h2-padding="b(left, l)">{expectedClassificationArray}</ul>
+          </>
+        )}
+        {!anyCriteriaSelected && editPath && (
           <>
             <p>
               {intl.formatMessage({
@@ -75,6 +73,15 @@ const RoleSalarySection: React.FunctionComponent<{
               </a>
             </p>
           </>
+        )}
+        {!anyCriteriaSelected && !editPath && (
+          <p>
+            {intl.formatMessage({
+              defaultMessage: "No information has been provided.",
+              description:
+                "Message on Admin side when user not filled RoleSalary section.",
+            })}
+          </p>
         )}
       </div>
     </div>
