@@ -108,13 +108,13 @@ class ApiEnums
     public static function candidateStatuses() : array
     {
         return [
-            'AVAILABLE',
-            'PLACED_INDETERMINATE',
-            'PLACED_TERM',
-            'NO_LONGER_INTERESTED',
-            'UNAVAILABLE',
-            'EXPIRED',
-            'PLACED_CASUAL',
+            self::CANDIDATE_STATUS_AVAILABLE,
+            self::CANDIDATE_STATUS_PLACED_INDETERMINATE,
+            self::CANDIDATE_STATUS_PLACED_TERM,
+            self::CANDIDATE_STATUS_NO_LONGER_INTERESTED,
+            self::CANDIDATE_STATUS_UNAVAILABLE,
+            self::CANDIDATE_STATUS_EXPIRED,
+            self::CANDIDATE_STATUS_PLACED_CASUAL,
         ];
     }
 
