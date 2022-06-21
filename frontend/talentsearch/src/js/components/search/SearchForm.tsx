@@ -6,7 +6,7 @@ import debounce from "lodash/debounce";
 import { Checklist, MultiSelect, RadioGroup } from "@common/components/form";
 import { getLanguageAbility } from "@common/constants";
 import {
-  getOperationalRequirementSearchDescription,
+  getOperationalRequirement,
   getWorkRegion,
 } from "@common/constants/localizedConstants";
 import { enumToOptions, unpackMaybes } from "@common/helpers/formUtils";
@@ -263,9 +263,7 @@ const SearchForm: React.FC<SearchFormProps> = ({
             name="operationalRequirements"
             items={operationalRequirementsSubset.map((value) => ({
               value,
-              label: intl.formatMessage(
-                getOperationalRequirementSearchDescription(value),
-              ),
+              label: intl.formatMessage(getOperationalRequirement(value)),
             }))}
           />
         </FilterBlock>
