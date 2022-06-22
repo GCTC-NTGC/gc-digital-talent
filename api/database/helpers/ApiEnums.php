@@ -120,4 +120,27 @@ class ApiEnums
             self::POOL_STATUS_TAKING_APPLICATIONS,
         ];
     }
+
+    const GENERIC_JOB_TITLE_KEY_TECHNICIAN_IT01 = 'TECHNICIAN_IT01';
+    const GENERIC_JOB_TITLE_KEY_ANALYST_IT02 = 'ANALYST_IT02';
+    const GENERIC_JOB_TITLE_KEY_TEAM_LEADER_IT03 = 'TEAM_LEADER_IT03';
+    const GENERIC_JOB_TITLE_KEY_TECHNICAL_ADVISOR_IT03 = 'TECHNICAL_ADVISOR_IT03';
+    const GENERIC_JOB_TITLE_KEY_SENIOR_ADVISOR_IT04 = 'SENIOR_ADVISOR_IT04';
+    const GENERIC_JOB_TITLE_KEY_MANAGER_IT04 = 'MANAGER_IT04';
+    /**
+     * A collection of enums for GenericJobTitles in factories and seeders
+     *
+     * @return string[]
+     */
+    public static function genericJobTitleKeys() : array
+    {
+        return [
+            self::GENERIC_JOB_TITLE_KEY_TECHNICIAN_IT01,
+            self::GENERIC_JOB_TITLE_KEY_ANALYST_IT02,
+            self::GENERIC_JOB_TITLE_KEY_TEAM_LEADER_IT03,
+            self::GENERIC_JOB_TITLE_KEY_TECHNICAL_ADVISOR_IT03,
+            self::GENERIC_JOB_TITLE_KEY_SENIOR_ADVISOR_IT04,
+            self::GENERIC_JOB_TITLE_KEY_MANAGER_IT04,
+        ];
+    }
 }
