@@ -294,7 +294,7 @@ RAWSQL2;
         return $query;
     }
 
-    public function scopeWouldAcceptTemporary(Builder $query, bool $wouldAcceptTemporary): Builder
+    public function scopeWouldAcceptTemporary(Builder $query, ?bool $wouldAcceptTemporary): Builder
     {
         if ($wouldAcceptTemporary) {
             $query->where('would_accept_temporary', true);
