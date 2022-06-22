@@ -181,4 +181,5 @@ ExternalLinkNewTab.args = {
 
 ExternalLinkNotNewTab.args = {
   newTab: false,
+  href: "https://example.com",
 };
