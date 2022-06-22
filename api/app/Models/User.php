@@ -348,14 +348,14 @@ class User extends Model implements Authenticatable
             });
 
             $this->orFilterByClassificationToSalary($query, $classifications);
-           $this->orfilterByClassificationToGenericJobTitles($query, $classifications);
+           $this->orFilterByClassificationToGenericJobTitles($query, $classifications);
 
 
         });
 
         return $query;
     }
-     public function orfilterByClassificationToGenericJobTitles(Builder $query, array $classifications): Builder
+     public function orFilterByClassificationToGenericJobTitles(Builder $query, array $classifications): Builder
     {
         // if no filters provided then return query unchanged
         if (empty($classifications)) {
