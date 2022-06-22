@@ -49,6 +49,7 @@
   "dependencies": {
     "@heroicons/react": "^1.0.6",
     "@reach/dialog": "^0.17.0",
+    "@reach/menu-button": "^0.17.0",
     "@testing-library/react-hooks": "^8.0.1",
     "@urql/exchange-auth": "^0.1.7",
     "graphql": "^16.4.0",
