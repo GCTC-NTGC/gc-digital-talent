@@ -18,10 +18,24 @@ const flawedUserData = [
 const stories = storiesOf("Users", module);
 
 stories.add("Users Table", () => (
-  <UserTable users={userData} editUrlRoot="#" />
+  <UserTable
+    users={userData}
+    editUrlRoot="#"
+    onChangePageNumber={(pageNumber) =>
+      action(`onChangePageNumber: ${pageNumber}`)
+    }
+    onChangePageSize={(pageSize) => action(`onChangePageSize: ${pageSize}`)}
+  />
 ));
 stories.add("Users Table with flawed data", () => (
-  <UserTable users={flawedUserData} editUrlRoot="#" />
+  <UserTable
+    users={flawedUserData}
+    editUrlRoot="#"
+    onChangePageNumber={(pageNumber) =>
+      action(`onChangePageNumber: ${pageNumber}`)
+    }
+    onChangePageSize={(pageSize) => action(`onChangePageSize: ${pageSize}`)}
+  />
 ));
 
 stories.add("Create User Form", () => {

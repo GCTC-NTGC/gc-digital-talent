@@ -1,15 +1,20 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import { IntlShape, useIntl } from "react-intl";
 import { Link, useLocation } from "@common/helpers/router";
 import { notEmpty } from "@common/helpers/util";
 import { FromArray } from "@common/types/utilityTypes";
 import { getLanguage } from "@common/constants/localizedConstants";
 import Pending from "@common/components/Pending";
+import { PaginatorInfo } from "@common/api/generated";
 import { useAdminRoutes } from "../../adminRoutes";
-import { AllUsersQuery, Language, useAllUsersQuery } from "../../api/generated";
-import Table, { ColumnsOf, tableEditButtonAccessor } from "../Table";
+import {
+  Language,
+  useAllUsersPaginatedQuery,
+  UserPaginator,
+} from "../../api/generated";
+import Table, { ColumnsOf, tableEditButtonAccessor } from "../TableServerSide";
 
-type Data = NonNullable<FromArray<AllUsersQuery["users"]>>;
+type Data = NonNullable<FromArray<UserPaginator["data"]>>;
 
 // callbacks extracted to separate function to stabilize memoized component
 const languageAccessor = (
@@ -39,8 +44,28 @@ const profileLinkAccessor = (
   );
 };
 
-export const UserTable: React.FC<AllUsersQuery & { editUrlRoot: string }> = ({
+interface UserTableProps {
+  users: Array<Data | null>;
+  onChangePageNumber: (pageNumber: number) => void;
+  onChangePageSize: (pageSize: number) => void;
+  paginatorInfo?: PaginatorInfo;
+  editUrlRoot: string;
+}
+
+const defaultPaginationInfo = {
+  count: 0,
+  currentPage: 0,
+  hasMorePages: false,
+  lastPage: 0,
+  perPage: 0,
+  total: 0,
+};
+
+export const UserTable: React.FC<UserTableProps> = ({
   users,
+  onChangePageNumber,
+  onChangePageSize,
+  paginatorInfo = defaultPaginationInfo,
   editUrlRoot,
 }) => {
   const intl = useIntl();
@@ -101,17 +126,39 @@ export const UserTable: React.FC<AllUsersQuery & { editUrlRoot: string }> = ({
 
   const data = useMemo(() => users.filter(notEmpty), [users]);
 
-  return <Table data={data} columns={columns} />;
+  return (
+    <Table
+      data={data}
+      columns={columns}
+      onChangePageNumber={onChangePageNumber}
+      onChangePageSize={onChangePageSize}
+      paginatorInfo={paginatorInfo}
+    />
+  );
 };
 
 export const UserTableApi: React.FunctionComponent = () => {
-  const [result] = useAllUsersQuery();
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize, setPageSize] = useState(10);
+
+  const [result] = useAllUsersPaginatedQuery({
+    variables: {
+      page: currentPage,
+      first: pageSize,
+    },
+  });
   const { data, fetching, error } = result;
   const { pathname } = useLocation();
 
   return (
     <Pending fetching={fetching} error={error}>
-      <UserTable users={data?.users ?? []} editUrlRoot={pathname} />
+      <UserTable
+        users={data?.usersPaginated?.data ?? []}
+        onChangePageNumber={setCurrentPage}
+        onChangePageSize={setPageSize}
+        paginatorInfo={data?.usersPaginated?.paginatorInfo}
+        editUrlRoot={pathname}
+      />
     </Pending>
   );
 };
