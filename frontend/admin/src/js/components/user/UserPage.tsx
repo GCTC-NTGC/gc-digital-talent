@@ -1,53 +1,31 @@
 import React from "react";
 import { useIntl } from "react-intl";
-import { Link } from "@common/components";
-import { useAdminRoutes } from "../../adminRoutes";
+import { UserGroupIcon } from "@heroicons/react/outline";
+import PageHeader from "@common/components/PageHeader";
+
 import { UserTableApi } from "./UserTable";
+import DashboardContentContainer from "../DashboardContentContainer";
 
 export const UserPage: React.FC = () => {
   const intl = useIntl();
-  const paths = useAdminRoutes();
   return (
-    <div>
-      <header
-        data-h2-bg-color="b(linear-70[lightpurple][lightnavy])"
-        data-h2-padding="b(top-bottom, l) b(right-left, xl)"
-      >
-        <div data-h2-flex-grid="b(middle, expanded, flush, l)">
-          <div data-h2-flex-item="b(1of1) m(3of5)">
-            <h1
-              data-h2-font-color="b(white)"
-              data-h2-font-weight="b(800)"
-              data-h2-margin="b(all, none)"
-              style={{ letterSpacing: "-2px" }}
-            >
-              {intl.formatMessage({
-                defaultMessage: "Users",
-                description:
-                  "Heading displayed above the User Table component.",
-              })}
-            </h1>
-          </div>
-          <div
-            data-h2-flex-item="b(1of1) m(2of5)"
-            data-h2-text-align="m(right)"
-          >
-            <Link
-              href={paths.userCreate()}
-              color="white"
-              mode="outline"
-              type="button"
-            >
-              {intl.formatMessage({
-                defaultMessage: "Create User",
-                description: "Heading displayed above the Create User form.",
-              })}
-            </Link>
-          </div>
-        </div>
-      </header>
+    <DashboardContentContainer>
+      <PageHeader icon={UserGroupIcon}>
+        {intl.formatMessage({
+          defaultMessage: "Users",
+          description: "Title for users page on the admin portal.",
+        })}
+      </PageHeader>
+      <p>
+        {intl.formatMessage({
+          defaultMessage:
+            "The following is a list of active users along with some of their details.",
+          description:
+            "Descriptive text about the list of users in the admin portal.",
+        })}
+      </p>
       <UserTableApi />
-    </div>
+    </DashboardContentContainer>
   );
 };
 
