@@ -176,6 +176,7 @@ export const ExternalLinkNotNewTab = TemplateExternalLink.bind({});
 
 ExternalLinkNewTab.args = {
   newTab: true,
+  href: "https://example.com",
 };
 
 ExternalLinkNotNewTab.args = {
