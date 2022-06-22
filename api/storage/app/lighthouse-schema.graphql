@@ -733,6 +733,7 @@ type PoolCandidateFilter {
   hasDiploma: Boolean
   equity: EquitySelections
   languageAbility: LanguageAbility
+  wouldAcceptTemporary: Boolean
   operationalRequirements: [OperationalRequirement]
   workRegions: [WorkRegion]
   pools: [Pool]
@@ -748,6 +749,7 @@ input PoolCandidateFilterInput {
   hasDiploma: Boolean
   equity: EquitySelectionsInput
   languageAbility: LanguageAbility
+  wouldAcceptTemporary: Boolean
   operationalRequirements: [OperationalRequirement]
   workRegions: [WorkRegion]
   pools: [PoolFilterInput]

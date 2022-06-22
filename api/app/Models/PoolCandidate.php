@@ -21,6 +21,7 @@ use Illuminate\Database\Eloquent\Builder;
  * @property boolean $is_indigenous
  * @property boolean $is_visible_minority
  * @property boolean $has_diploma
+ * @property boolean $would_accept_temporary
  * @property string $language_ability
  * @property array $location_preferences
  * @property array $expected_salary
@@ -289,6 +290,14 @@ RAWSQL2;
     {
         if ($hasDiploma) {
             $query->where('has_diploma', true);
+        }
+        return $query;
+    }
+
+    public function scopeWouldAcceptTemporary(Builder $query, bool $wouldAcceptTemporary): Builder
+    {
+        if ($wouldAcceptTemporary) {
+            $query->where('would_accept_temporary', true);
         }
         return $query;
     }

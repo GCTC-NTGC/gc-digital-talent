@@ -385,6 +385,7 @@ type PoolCandidateFilter {
     hasDiploma: Boolean @rename(attribute: "has_diploma")
     equity: EquitySelections
     languageAbility: LanguageAbility @rename(attribute: "language_ability")
+    wouldAcceptTemporary: Boolean @rename(attribute: "would_accept_temporary")
     operationalRequirements: [OperationalRequirement] @rename(attribute: "operational_requirements")
     workRegions: [WorkRegion] @rename(attribute: "work_regions")
     pools: [Pool] @belongsToMany
@@ -586,6 +587,7 @@ input PoolCandidateFilterInput {
     hasDiploma: Boolean @scope
     equity: EquitySelectionsInput @builder(method: "App\\Models\\PoolCandidate@filterByEquity")
     languageAbility: LanguageAbility @builder(method: "App\\Models\\PoolCandidate@filterByLanguageAbility")
+    wouldAcceptTemporary: Boolean @scope
     operationalRequirements: [OperationalRequirement] @builder(method: "App\\Models\\PoolCandidate@filterByOperationalRequirements")
     workRegions: [WorkRegion] @builder(method: "App\\Models\\PoolCandidate@filterByWorkRegions")
     pools: [PoolFilterInput] @builder(method: "App\\Models\\PoolCandidate@filterByPools")
