@@ -1,7 +1,6 @@
 import React from "react";
 import { useIntl } from "react-intl";
 import { SearchIcon } from "@heroicons/react/outline";
-import { debounce } from "lodash";
 
 import DropdownMenu, {
   MenuButton,
@@ -9,42 +8,70 @@ import DropdownMenu, {
   MenuList,
 } from "@common/components/DropdownMenu";
 import { Button } from "@common/components";
+import { Maybe } from "../../api/generated";
 
+export interface SearchBy {
+  column?: string;
+  term?: string;
+}
 export interface SearchColumn {
   value: string;
   label: string;
 }
 
 export interface SearchFormProps {
-  onChange: (term: string) => void;
-  onSubmit: () => void;
+  onSearch: (by: Maybe<SearchBy>) => void;
   searchBy?: SearchColumn[];
+  initial: Maybe<SearchBy>;
 }
 
+const getInitialColumn = (
+  initialColumn?: string,
+  columns?: SearchColumn[],
+): SearchColumn | undefined => {
+  if (!initialColumn || !columns?.length) {
+    return undefined;
+  }
+
+  return columns.find((column) => column.value === initialColumn);
+};
+
 const SearchForm: React.FC<SearchFormProps> = ({
-  onChange,
-  onSubmit,
+  onSearch,
   searchBy,
+  initial,
 }) => {
   const intl = useIntl();
-  const [searchTerm, setSearchTerm] = React.useState<string>("");
-  const [column, setColumn] = React.useState<SearchColumn | null>(null);
-  const debouncedUpdate = debounce(onChange, 100);
-
-  React.useEffect(() => {
-    debouncedUpdate(searchTerm);
-  }, [searchTerm, debouncedUpdate]);
+  const [searchTerm, setSearchTerm] = React.useState<string>(
+    initial?.term || "",
+  );
+  const [column, setColumn] = React.useState<SearchColumn | undefined>(
+    getInitialColumn(initial?.column, searchBy),
+  );
 
   const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
     e.preventDefault();
     setSearchTerm(e.currentTarget.value);
   };
 
+  const handleSearch = () => {
+    onSearch({
+      column: column?.value,
+      term: searchTerm,
+    });
+  };
+
+  const allTableMsg = intl.formatMessage({
+    defaultMessage: "All table",
+    description:
+      "Text in table search form column dropdown when no column is selected.",
+  });
+
   return (
     <div data-h2-display="b(flex)" data-h2-margin="b(left, s)">
       <Button
         type="button"
-        onClick={onSubmit}
+        onClick={handleSearch}
         color="black"
         mode="outline"
         data-h2-radius="b(s, none, none, s)"
@@ -70,15 +97,12 @@ const SearchForm: React.FC<SearchFormProps> = ({
             data-h2-radius="b(none)"
             style={{ flexShrink: 0 }}
           >
-            {column
-              ? column.label
-              : intl.formatMessage({
-                  defaultMessage: "All table",
-                  description:
-                    "Text in table search form column dropdown when no column is selected.",
-                })}
+            {column ? column.label : allTableMsg}
           </MenuButton>
           <MenuList>
+            <MenuItem onSelect={() => setColumn(undefined)}>
+              {allTableMsg}
+            </MenuItem>
             {searchBy.map((col) => (
               <MenuItem key={col.value} onSelect={() => setColumn(col)}>
                 {col.label}

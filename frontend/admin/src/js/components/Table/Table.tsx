@@ -15,7 +15,8 @@ import { FilterIcon, PlusIcon, TableIcon } from "@heroicons/react/outline";
 import Dialog from "@common/components/Dialog";
 import { Fieldset } from "@common/components/inputPartials";
 import SortIcon from "./SortIcon";
-import SearchForm, { type SearchFormProps } from "./SearchForm";
+import SearchForm, { type SearchFormProps, type SearchBy } from "./SearchForm";
+import { Maybe } from "../../api/generated";
 
 export type ColumnsOf<T extends Record<string, unknown>> = Array<Column<T>>;
 
@@ -33,7 +34,10 @@ export interface TableProps<
   pagination?: boolean;
   hiddenCols?: string[];
   labelledBy?: string;
-  onSearchSubmit?: () => void;
+  initialFilters?: {
+    searchTerm: Maybe<SearchBy>;
+  };
+  onSearch?: (input: Maybe<SearchBy>) => void;
 }
 
 const IndeterminateCheckbox: React.FC<
@@ -89,7 +93,8 @@ function Table<T extends Record<string, unknown>>({
   labelledBy,
   title,
   addBtn,
-  onSearchSubmit,
+  onSearch,
+  initialFilters,
   searchBy,
   filter = true,
   pagination = true,
@@ -123,9 +128,9 @@ function Table<T extends Record<string, unknown>>({
   const [showList, setShowList] = useState(false);
   const intl = useIntl();
 
-  const handleSubmit = () => {
-    if (onSearchSubmit) {
-      onSearchSubmit();
+  const handleSearch = (by: Maybe<SearchBy>) => {
+    if (onSearch) {
+      onSearch(by);
     }
   };
 
@@ -149,9 +154,9 @@ function Table<T extends Record<string, unknown>>({
             data-h2-justify-content="b(flex-end)"
           >
             <SearchForm
-              onChange={(term) => window.console.log(term)}
-              onSubmit={handleSubmit}
+              onSearch={handleSearch}
               searchBy={searchBy}
+              initial={initialFilters?.searchTerm}
             />
             <Spacer>
               <Button

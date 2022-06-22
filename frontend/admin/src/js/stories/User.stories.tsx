@@ -18,10 +18,20 @@ const flawedUserData = [
 const stories = storiesOf("Users", module);
 
 stories.add("Users Table", () => (
-  <UserTable users={userData} editUrlRoot="#" />
+  <UserTable
+    users={userData || []}
+    editUrlRoot="#"
+    search={{}}
+    onSearch={(by) => action(JSON.stringify(by))}
+  />
 ));
 stories.add("Users Table with flawed data", () => (
-  <UserTable users={flawedUserData} editUrlRoot="#" />
+  <UserTable
+    search={{}}
+    users={flawedUserData || []}
+    editUrlRoot="#"
+    onSearch={(by) => action(JSON.stringify(by))}
+  />
 ));
 
 stories.add("Create User Form", () => {

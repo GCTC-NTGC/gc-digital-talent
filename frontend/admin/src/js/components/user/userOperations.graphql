@@ -1,0 +1,17 @@
+query getUsersPaginated($where: UserFilterAndOrderInput) {
+  usersPaginated(where: $where) {
+    paginatorInfo {
+      currentPage
+      perPage
+      total
+    }
+    data {
+      id
+      email
+      firstName
+      lastName
+      telephone
+      preferredLang
+    }
+  }
+}

@@ -9,12 +9,70 @@ import { useAdminRoutes } from "../../adminRoutes";
 import {
   AllUsersQuery,
   Language,
-  useAllUsersQuery,
+  Maybe,
+  useGetUsersPaginatedQuery,
   User,
+  UserFilterAndOrderInput,
 } from "../../api/generated";
 import Table, { ColumnsOf, tableEditButtonAccessor } from "../Table";
+import { SearchBy } from "../Table/SearchForm";
 
 type Data = NonNullable<FromArray<AllUsersQuery["users"]>>;
+
+interface FilterInput {
+  search: Maybe<SearchBy>;
+}
+
+const filtersToQueryArgs = (
+  input: FilterInput,
+): UserFilterAndOrderInput | undefined => {
+  if (!input || typeof input === "undefined") {
+    return undefined;
+  }
+
+  const { search } = input;
+
+  return {
+    generalSearch: search?.term && !search?.column ? search.term : undefined,
+    email: search?.column === "email" ? search.term : undefined,
+    name: search?.column === "name" ? search.term : undefined,
+    telephone: search?.column === "phone" ? search.term : undefined,
+  };
+};
+
+const queryArgsToSearchTerm = (
+  input: UserFilterAndOrderInput | undefined,
+): Maybe<SearchBy> => {
+  if (input?.generalSearch) {
+    return {
+      column: undefined,
+      term: input.generalSearch,
+    };
+  }
+  if (input?.email) {
+    return {
+      column: "email",
+      term: input.email,
+    };
+  }
+  if (input?.name) {
+    return {
+      column: "name",
+      term: input.name,
+    };
+  }
+  if (input?.telephone) {
+    return {
+      column: "phone",
+      term: input.telephone,
+    };
+  }
+
+  return {
+    column: undefined,
+    term: undefined,
+  };
+};
 
 const fullName = (u: User): string => `${u.firstName} ${u.lastName}`;
 
@@ -46,9 +104,18 @@ const profileLinkAccessor = (
   );
 };
 
-export const UserTable: React.FC<AllUsersQuery & { editUrlRoot: string }> = ({
+interface UserTableProps {
+  users: Array<User | null>;
+  editUrlRoot: string;
+  onSearch: (by: FilterInput) => void;
+  search: Maybe<SearchBy>;
+}
+
+export const UserTable: React.FC<UserTableProps> = ({
   users,
   editUrlRoot,
+  onSearch,
+  search,
 }) => {
   const intl = useIntl();
   const paths = useAdminRoutes();
@@ -103,6 +170,14 @@ export const UserTable: React.FC<AllUsersQuery & { editUrlRoot: string }> = ({
 
   const data = useMemo(() => users.filter(notEmpty), [users]);
 
+  const handleSearch = (by: Maybe<SearchBy>) => {
+    if (onSearch) {
+      onSearch({
+        search: by,
+      });
+    }
+  };
+
   return (
     <Table
       data={data}
@@ -111,6 +186,8 @@ export const UserTable: React.FC<AllUsersQuery & { editUrlRoot: string }> = ({
         defaultMessage: "All users",
         description: "Title for the admin users table",
       })}
+      onSearch={handleSearch}
+      initialFilters={{ searchTerm: search }}
       searchBy={[
         {
           value: "name",
@@ -149,13 +226,30 @@ export const UserTable: React.FC<AllUsersQuery & { editUrlRoot: string }> = ({
 };
 
 export const UserTableApi: React.FunctionComponent = () => {
-  const [result] = useAllUsersQuery();
-  const { data, fetching, error } = result;
   const { pathname } = useLocation();
+  const [filters, setFilters] = React.useState<
+    UserFilterAndOrderInput | undefined
+  >(undefined);
+
+  const [{ data, fetching, error }] = useGetUsersPaginatedQuery({
+    variables: {
+      where: filters,
+    },
+  });
+
+  const handleSearch = (input: FilterInput) => {
+    const newFilters = filtersToQueryArgs(input);
+    setFilters(newFilters);
+  };
 
   return (
     <Pending fetching={fetching} error={error}>
-      <UserTable users={data?.users ?? []} editUrlRoot={pathname} />
+      <UserTable
+        users={data?.usersPaginated?.data ?? []}
+        editUrlRoot={pathname}
+        onSearch={handleSearch}
+        search={queryArgsToSearchTerm(filters)}
+      />
     </Pending>
   );
 };
