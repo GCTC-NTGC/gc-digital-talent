@@ -14,6 +14,7 @@ import {
   Pool,
   PoolCandidateFilterInput,
   PoolFilterInput,
+  Skill,
   useCountPoolCandidatesQuery,
   useGetSearchFormDataQuery,
   UserPublicProfile,
@@ -72,6 +73,7 @@ export interface SearchContainerProps {
   cmoAssets: CmoAsset[];
   pool?: Pick<Pool, "name" | "description">;
   poolOwner?: Pick<UserPublicProfile, "firstName" | "lastName" | "email">;
+  skills?: Skill[];
   candidateCount: number;
   updatePending?: boolean;
   candidateFilter?: PoolCandidateFilterInput | undefined;
@@ -90,6 +92,7 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
   cmoAssets,
   pool,
   poolOwner,
+  skills,
   candidateCount,
   updatePending,
   candidateFilter,
@@ -136,6 +139,7 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
           <SearchForm
             classifications={classifications}
             cmoAssets={cmoAssets}
+            skills={skills}
             onUpdateCandidateFilter={onUpdateCandidateFilter}
           />
         </div>
@@ -201,6 +205,7 @@ const SearchContainerApi: React.FC = () => {
     variables: { poolKey: DIGITAL_CAREERS_POOL_KEY },
   });
   const pool = data?.poolByKey;
+  const skills = data?.skills;
 
   const [candidateFilter, setCandidateFilter] = React.useState<
     PoolCandidateFilterInput | undefined
@@ -230,6 +235,7 @@ const SearchContainerApi: React.FC = () => {
       classifications={pool?.classifications?.filter(notEmpty) ?? []}
       cmoAssets={pool?.assetCriteria?.filter(notEmpty) ?? []}
       pool={pool ?? undefined}
+      skills={skills as Skill[]}
       poolOwner={pool?.owner ?? undefined}
       candidateFilter={candidateFilter}
       candidateCount={candidateCount}

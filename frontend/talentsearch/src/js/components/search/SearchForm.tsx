@@ -19,9 +19,11 @@ import {
   OperationalRequirement,
   PoolCandidateFilter,
   PoolCandidateFilterInput,
+  Skill,
   WorkRegion,
 } from "../../api/generated";
 import FilterBlock from "./FilterBlock";
+import AddSkillsToFilter from "../skills/AddSkillsToFilter";
 
 const NullSelection = "NULL_SELECTION";
 
@@ -54,12 +56,14 @@ type LocationState = {
 export interface SearchFormProps {
   classifications: Classification[];
   cmoAssets: CmoAsset[];
+  skills?: Skill[];
   onUpdateCandidateFilter: (filter: PoolCandidateFilterInput) => void;
 }
 
 const SearchForm: React.FC<SearchFormProps> = ({
   classifications,
   cmoAssets,
+  skills,
   onUpdateCandidateFilter,
 }) => {
   const intl = useIntl();
@@ -390,27 +394,12 @@ const SearchForm: React.FC<SearchFormProps> = ({
             ]}
           />
         </FilterBlock>
-        <FilterBlock
-          id="cmoAssetFilter"
-          title={intl.formatMessage({
-            defaultMessage: "Skill filters",
-            description:
-              "Heading for skill filters section of the search form.",
-          })}
-          text={intl.formatMessage({
-            defaultMessage:
-              "All applicants in this pool have been assessed for several soft skills.",
-            description:
-              "Message describing the skill filter in the search form.",
-          })}
-        >
-          <Checklist
-            idPrefix="cmoAssets"
-            legend="Skills organized by stream"
-            name="cmoAssets"
-            items={cmoAssetOptions}
-          />
-        </FilterBlock>
+        <AddSkillsToFilter
+          addedSkills={[]}
+          allSkills={skills ?? []}
+          onAddSkill={(skill) => window.console.log(skill)}
+          onRemoveSkill={(skill) => window.console.log(skill)}
+        />
       </form>
     </FormProvider>
   );
