@@ -55,7 +55,6 @@ export const UserTable: React.FC<AllUsersQuery & { editUrlRoot: string }> = ({
 
   const setSelectedRows = (newSelection: User[]) => {
     selectedRows = newSelection;
-    console.log(selectedRows);
   };
 
   const columns = useMemo<ColumnsOf<Data>>(
