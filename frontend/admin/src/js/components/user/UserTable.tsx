@@ -6,7 +6,12 @@ import { FromArray } from "@common/types/utilityTypes";
 import { getLanguage } from "@common/constants/localizedConstants";
 import Pending from "@common/components/Pending";
 import { useAdminRoutes } from "../../adminRoutes";
-import { AllUsersQuery, Language, useAllUsersQuery } from "../../api/generated";
+import {
+  AllUsersQuery,
+  Language,
+  useAllUsersQuery,
+  User,
+} from "../../api/generated";
 import Table, { ColumnsOf, tableEditButtonAccessor } from "../Table";
 
 type Data = NonNullable<FromArray<AllUsersQuery["users"]>>;
@@ -45,6 +50,13 @@ export const UserTable: React.FC<AllUsersQuery & { editUrlRoot: string }> = ({
 }) => {
   const intl = useIntl();
   const paths = useAdminRoutes();
+
+  let selectedRows: User[] = [];
+
+  const setSelectedRows = (newSelection: User[]) => {
+    selectedRows = newSelection;
+  };
+
   const columns = useMemo<ColumnsOf<Data>>(
     () => [
       {
@@ -101,7 +113,9 @@ export const UserTable: React.FC<AllUsersQuery & { editUrlRoot: string }> = ({
 
   const data = useMemo(() => users.filter(notEmpty), [users]);
 
-  return <Table data={data} columns={columns} />;
+  return (
+    <Table data={data} columns={columns} setSelectedRows={setSelectedRows} />
+  );
 };
 
 export const UserTableApi: React.FunctionComponent = () => {

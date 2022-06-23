@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-key */
-import React, { ReactElement, useState } from "react";
+import React, { ReactElement, useEffect, useState } from "react";
 import { useIntl } from "react-intl";
 
 import {
@@ -8,6 +8,7 @@ import {
   useSortBy,
   Column,
   usePagination,
+  useRowSelect,
 } from "react-table";
 import { Button } from "@common/components";
 import Pagination from "@common/components/Pagination";
@@ -25,9 +26,10 @@ export interface TableProps<
   pagination?: boolean;
   hiddenCols?: string[];
   labelledBy?: string;
+  setSelectedRows?: (newSelection: T[]) => void;
 }
 
-const IndeterminateCheckbox: React.FC<
+const IndeterminateFilterCheckbox: React.FC<
   React.HTMLProps<HTMLInputElement> & { indeterminate: boolean }
 > = ({ indeterminate, ...rest }) => {
   const intl = useIntl();
@@ -54,6 +56,47 @@ const IndeterminateCheckbox: React.FC<
     </label>
   );
 };
+const IndeterminateSelectionCheckbox: React.FC<
+  React.HTMLProps<HTMLInputElement> & { indeterminate: boolean }
+> = ({ indeterminate, ...rest }) => {
+  const ref = React.useRef<HTMLInputElement>(null);
+
+  React.useEffect(() => {
+    if (ref.current) {
+      ref.current.indeterminate = indeterminate;
+    }
+  }, [ref, indeterminate]);
+
+  return <input type="checkbox" ref={ref} {...rest} />;
+};
+
+// TODO: Try to fix these types
+const HeaderCheckbox = ({ getToggleAllRowsSelectedProps }) => {
+  const intl = useIntl();
+
+  return (
+    <div data-h2-font-size="b(caption)">
+      <label htmlFor="selection-toggle-all">
+        <IndeterminateSelectionCheckbox
+          id="selection-toggle-all"
+          {...getToggleAllRowsSelectedProps()}
+        />{" "}
+        {intl.formatMessage({
+          defaultMessage: "List",
+          description:
+            "Label displayed on the Table selection toggle fieldset.",
+        })}
+      </label>
+    </div>
+  );
+};
+const RowCheckbox = ({ row }) => {
+  return (
+    <div data-h2-text-align="b(center)">
+      <IndeterminateSelectionCheckbox {...row.getToggleRowSelectedProps()} />
+    </div>
+  );
+};
 
 function Table<T extends Record<string, unknown>>({
   columns,
@@ -62,6 +105,7 @@ function Table<T extends Record<string, unknown>>({
   filter = true,
   pagination = true,
   hiddenCols = [],
+  setSelectedRows,
 }: TableProps<T>): ReactElement {
   const {
     getTableProps,
@@ -77,6 +121,7 @@ function Table<T extends Record<string, unknown>>({
     gotoPage,
     setPageSize,
     page,
+    selectedFlatRows,
   } = useTable<T>(
     {
       columns,
@@ -84,11 +129,37 @@ function Table<T extends Record<string, unknown>>({
       initialState: {
         hiddenColumns: hiddenCols,
       },
+      autoResetPage: false,
+      autoResetSelectedRows: false,
     },
     useGlobalFilter,
     useSortBy,
     usePagination,
+    useRowSelect,
+    (hooks) => {
+      if (setSelectedRows) {
+        hooks.visibleColumns.push((columns2) => [
+          // Let's make a column for selection
+          {
+            id: "selection",
+            // The header can use the table's getToggleAllRowsSelectedProps method
+            // to render a checkbox
+            Header: HeaderCheckbox,
+            // The cell can use the individual row's getToggleRowSelectedProps method
+            // to the render a checkbox
+            Cell: RowCheckbox,
+          },
+          ...columns2,
+        ]);
+      }
+    },
   );
+
+  useEffect(() => {
+    if (setSelectedRows) {
+      setSelectedRows(selectedFlatRows.map((row) => row.original));
+    }
+  }, [setSelectedRows, selectedFlatRows]);
 
   const [showList, setShowList] = useState(false);
   const intl = useIntl();
@@ -134,24 +205,27 @@ function Table<T extends Record<string, unknown>>({
                     }}
                   >
                     <div>
-                      <IndeterminateCheckbox
+                      <IndeterminateFilterCheckbox
                         {...(getToggleHideAllColumnsProps() as React.ComponentProps<
-                          typeof IndeterminateCheckbox
+                          typeof IndeterminateFilterCheckbox
                         >)}
                       />
                     </div>
-                    {allColumns.map((column) => (
-                      <div key={column.id}>
-                        <label htmlFor={column.Header?.toString()}>
-                          <input
-                            id={column.Header?.toString()}
-                            type="checkbox"
-                            {...column.getToggleHiddenProps()}
-                          />{" "}
-                          {column.Header}
-                        </label>
-                      </div>
-                    ))}
+                    {allColumns.map(
+                      (column) =>
+                        typeof column.Header === "string" && (
+                          <div key={column.id}>
+                            <label htmlFor={column.Header}>
+                              <input
+                                id={column.Header}
+                                type="checkbox"
+                                {...column.getToggleHiddenProps()}
+                              />{" "}
+                              {column.Header}
+                            </label>
+                          </div>
+                        ),
+                    )}
                   </div>
                 ) : null}
               </div>
