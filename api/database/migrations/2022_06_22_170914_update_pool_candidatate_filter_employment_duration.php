@@ -13,10 +13,6 @@ class UpdatePoolCandidatateFilterEmploymentDuration extends Migration
      */
     public function up()
     {
-        Schema::table('pool_candidates', function (Blueprint $table) {
-            $table->boolean('would_accept_temporary')->nullable();
-        });
-
         Schema::table('pool_candidate_filters', function (Blueprint $table) {
             $table->boolean('would_accept_temporary')->nullable();
         });
@@ -29,10 +25,6 @@ class UpdatePoolCandidatateFilterEmploymentDuration extends Migration
      */
     public function down()
     {
-        Schema::table('pool_candidates', function (Blueprint $table) {
-            $table->dropColumn('would_accept_temporary');
-        });
-
         Schema::table('pool_candidate_filters', function (Blueprint $table) {
             $table->dropColumn('would_accept_temporary');
         });
