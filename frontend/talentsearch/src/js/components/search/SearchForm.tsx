@@ -96,9 +96,7 @@ const SearchForm: React.FC<SearchFormProps> = ({
               .map((id) => (id ? classificationMap.get(id) : undefined))
           : [],
         poolCandidates: {
-          expiryStatus: null,
           pools: [values.poolId],
-          statuses: null,
         },
         operationalRequirements: values.operationalRequirements
           ? unpackMaybes(values.operationalRequirements)

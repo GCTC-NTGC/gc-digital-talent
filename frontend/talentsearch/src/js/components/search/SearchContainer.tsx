@@ -71,8 +71,6 @@ const candidateFilterToQueryArgs = (
           ? pickMap(filter.expectedClassifications, ["group", "level"])
           : [],
         poolCandidates: {
-          expiryStatus: null,
-          statuses: null,
           pools: poolId ? [poolId] : poolCandidatesTypeChange(filter),
         },
       },
