@@ -71,7 +71,7 @@ const IndeterminateSelectionCheckbox: React.FC<
 };
 
 // TODO: Try to fix these types
-const HeaderCheckbox = ({ getToggleAllRowsSelectedProps }) => {
+const HeaderCheckbox = ({ getToggleAllPageRowsSelectedProps }) => {
   const intl = useIntl();
 
   return (
@@ -79,7 +79,7 @@ const HeaderCheckbox = ({ getToggleAllRowsSelectedProps }) => {
       <label htmlFor="selection-toggle-all">
         <IndeterminateSelectionCheckbox
           id="selection-toggle-all"
-          {...getToggleAllRowsSelectedProps()}
+          {...getToggleAllPageRowsSelectedProps()}
         />{" "}
         {intl.formatMessage({
           defaultMessage: "List",
