@@ -575,7 +575,7 @@ input UserPoolFilterInput {
     statuses: [PoolCandidateStatus!] = []
 }
 input ApplicantPoolFilterInput {
-    pools: [ID!]!
+    pools: [ID]!
     expiryStatus: CANDIDATE_EXPIRY_FILTER = ACTIVE
     statuses: [PoolCandidateStatus!] = [AVAILABLE]
 }
@@ -612,7 +612,7 @@ input UserFilterAndOrderInput {
 }
 
 input ApplicantFilterInput {
-    poolCandidates: ApplicantPoolFilterInput! @builder(method: "App\\Models\\User@filterByPools")
+    poolCandidates: ApplicantPoolFilterInput @builder(method: "App\\Models\\User@filterByPools")
     jobLookingStatus: [JobLookingStatus] = [ACTIVELY_LOOKING, OPEN_TO_OPPORTUNITIES] @builder(method: "App\\Models\\User@filterByJobLookingStatus")
     languageAbility: LanguageAbility @builder(method: "App\\Models\\User@filterByLanguageAbility")
     expectedClassifications: [ClassificationFilterInput] @builder(method: "App\\Models\\User@filterByClassifications")
