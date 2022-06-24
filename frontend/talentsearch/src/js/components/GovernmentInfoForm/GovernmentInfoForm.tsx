@@ -4,18 +4,22 @@ import { useForm, FormProvider } from "react-hook-form";
 import { errorMessages } from "@common/messages";
 import { Checkbox, RadioGroup, Select } from "@common/components/form";
 import { getLocale } from "@common/helpers/localize";
+import { strong } from "@common/helpers/format";
 import { toast } from "react-toastify";
 import { empty, notEmpty } from "@common/helpers/util";
 import { navigate } from "@common/helpers/router";
-
+import { getGovEmployeeType } from "@common/constants/localizedConstants";
+import { enumToOptions } from "@common/helpers/formUtils";
 import Pending from "@common/components/Pending";
 import {
   Classification,
-  useGetAllClassificationsAndMeQuery,
+  useGetGovInfoFormLookupDataQuery,
   useUpdateGovAsUserMutation,
   UpdateUserAsUserInput,
-  GetAllClassificationsAndMeQuery,
+  GetGovInfoFormLookupDataQuery,
   GovEmployeeType,
+  Maybe,
+  Department,
 } from "../../api/generated";
 import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
 import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
@@ -26,6 +30,7 @@ type FormValues = {
   govEmployeeYesNo?: "yes" | "no";
   govEmployeeType?: GovEmployeeType | null;
   lateralDeployBool?: boolean;
+  department?: string;
   currentClassificationGroup?: string;
   currentClassificationLevel?: string;
 };
@@ -43,7 +48,7 @@ const classificationFormToId = (
   )?.id;
 };
 
-const formValuesToSubmitData = (
+export const formValuesToSubmitData = (
   values: FormValues,
   classifications: Classification[],
 ): UpdateUserAsUserInput => {
@@ -59,6 +64,7 @@ const formValuesToSubmitData = (
       isGovEmployee: false,
       govEmployeeType: null,
       interestedInLaterOrSecondment: null,
+      department: null,
       currentClassification: {
         connect: null,
       },
@@ -69,6 +75,7 @@ const formValuesToSubmitData = (
       isGovEmployee: values.govEmployeeYesNo === "yes",
       govEmployeeType: values.govEmployeeType,
       interestedInLaterOrSecondment: null,
+      department: values.department ? { connect: values.department } : null,
       currentClassification: {
         disconnect: true,
       },
@@ -79,6 +86,7 @@ const formValuesToSubmitData = (
       isGovEmployee: values.govEmployeeYesNo === "yes",
       govEmployeeType: values.govEmployeeType,
       interestedInLaterOrSecondment: null,
+      department: values.department ? { connect: values.department } : null,
       currentClassification: classificationId
         ? {
             connect: classificationId,
@@ -90,6 +98,7 @@ const formValuesToSubmitData = (
     isGovEmployee: values.govEmployeeYesNo === "yes",
     govEmployeeType: values.govEmployeeType,
     interestedInLaterOrSecondment: values.lateralDeployBool,
+    department: values.department ? { connect: values.department } : null,
     currentClassification: classificationId
       ? {
           connect: classificationId,
@@ -99,7 +108,7 @@ const formValuesToSubmitData = (
 };
 
 const dataToFormValues = (
-  data: GetAllClassificationsAndMeQuery["me"],
+  data: GetGovInfoFormLookupDataQuery["me"],
 ): FormValues => {
   const boolToYesNo = (
     bool: boolean | null | undefined,
@@ -115,6 +124,7 @@ const dataToFormValues = (
     lateralDeployBool: empty(data?.interestedInLaterOrSecondment)
       ? undefined
       : data?.interestedInLaterOrSecondment,
+    department: data?.department?.id,
     currentClassificationGroup: data?.currentClassification?.group,
     currentClassificationLevel: data?.currentClassification?.level
       ? String(data.currentClassification.level)
@@ -123,33 +133,25 @@ const dataToFormValues = (
 };
 
 export interface GovernmentInfoFormProps {
-  initialData: GetAllClassificationsAndMeQuery["me"] | undefined;
+  departments: Department[];
   classifications: Classification[];
-  submitHandler: (data: UpdateUserAsUserInput) => Promise<void>;
+  govEmployee: Maybe<string>;
+  govEmployeeStatus: Maybe<GovEmployeeType>;
+  groupSelection: Maybe<string>;
 }
 
 // inner component
 export const GovernmentInfoForm: React.FunctionComponent<
   GovernmentInfoFormProps
-> = ({ classifications, initialData, submitHandler }) => {
+> = ({
+  departments,
+  classifications,
+  govEmployee,
+  govEmployeeStatus,
+  groupSelection,
+}) => {
   const intl = useIntl();
-
-  const defaultValues = dataToFormValues(initialData);
-
-  const methods = useForm({
-    defaultValues,
-  });
-
-  const onSubmit = (values: FormValues) =>
-    submitHandler(formValuesToSubmitData(values, classifications));
-
-  // hooks to watch, needed for conditional rendering
-  const [govEmployee, govEmployeeStatus, groupSelection] = methods.watch([
-    "govEmployeeYesNo",
-    "govEmployeeType",
-    "currentClassificationGroup",
-  ]);
-
+  const locale = getLocale(intl);
   // create array of objects containing the classifications, then map it into an array of strings, and then remove duplicates, and then map into Select options
   // https://stackoverflow.com/questions/11246758/how-to-get-unique-values-in-an-array#comment87157537_42123984
   const classGroupsWithDupes: { value: string; label: string }[] =
@@ -181,7 +183,229 @@ export const GovernmentInfoForm: React.FunctionComponent<
       };
     });
 
+  const departmentOptions: { value: string; label: string }[] = departments.map(
+    ({ id, name }) => ({
+      value: id,
+      label:
+        name[locale] ??
+        intl.formatMessage({
+          defaultMessage: "Error: department name not found.",
+          description:
+            "Error message when department name is not found on request page.",
+        }),
+    }),
+  );
+
   // render the actual form
+  return (
+    <div>
+      <div data-h2-flex-item="b(1of1) s(1of2) m(1of6) l(1of12)">
+        <RadioGroup
+          idPrefix="govEmployeeYesNo"
+          legend={intl.formatMessage({
+            defaultMessage:
+              "Do you currently work for the government of Canada?",
+            description: "Employee Status in Government Info Form",
+          })}
+          name="govEmployeeYesNo"
+          rules={{
+            required: intl.formatMessage(errorMessages.required),
+          }}
+          items={[
+            {
+              value: "no",
+              label: intl.formatMessage(
+                {
+                  defaultMessage:
+                    "<strong>No</strong>, I am not a Government of Canada employee",
+                  description:
+                    "Label displayed for is not a government employee option",
+                },
+                { strong },
+              ),
+            },
+            {
+              value: "yes",
+              label: intl.formatMessage(
+                {
+                  defaultMessage:
+                    "<strong>Yes</strong>, I am a Government of Canada employee",
+                  description:
+                    "Label displayed for is a government employee option",
+                },
+                { strong },
+              ),
+            },
+          ]}
+        />
+      </div>
+      {govEmployee === "yes" && (
+        <>
+          <div data-h2-padding="b(top-bottom, m)">
+            <Select
+              id="department"
+              name="department"
+              label={intl.formatMessage({
+                defaultMessage: "Which department do you work for?",
+                description:
+                  "Label for department select input in the request form",
+              })}
+              nullSelection={intl.formatMessage({
+                defaultMessage: "Select a department...",
+                description:
+                  "Null selection for department select input in the request form.",
+              })}
+              options={departmentOptions}
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
+            />
+          </div>
+          <div data-h2-padding="b(bottom, s)" data-h2-flex-item="b(1of3)">
+            <RadioGroup
+              idPrefix="govEmployeeType"
+              legend={intl.formatMessage({
+                defaultMessage:
+                  "As an employee, what is your employment status?",
+                description: "Employee Status in Government Info Form",
+              })}
+              name="govEmployeeType"
+              rules={{
+                required: intl.formatMessage(errorMessages.required),
+              }}
+              items={enumToOptions(GovEmployeeType).map(({ value }) => ({
+                value,
+                label: intl.formatMessage(getGovEmployeeType(value), {
+                  strong,
+                }),
+              }))}
+            />
+          </div>
+        </>
+      )}
+      {govEmployee === "yes" &&
+        (govEmployeeStatus === GovEmployeeType.Term ||
+          govEmployeeStatus === GovEmployeeType.Indeterminate) && (
+          <p>
+            {intl.formatMessage({
+              defaultMessage:
+                "Please indicate if you are interested in lateral deployment or secondment. Learn more about this.",
+              description:
+                "Text blurb, asking about interest in deployment/secondment in the government info form",
+            })}
+          </p>
+        )}
+      {govEmployee === "yes" &&
+        (govEmployeeStatus === GovEmployeeType.Term ||
+          govEmployeeStatus === GovEmployeeType.Indeterminate) && (
+          <div data-h2-padding="b(bottom, s)">
+            <Checkbox
+              id="lateralDeployBool"
+              label={intl.formatMessage({
+                defaultMessage:
+                  "I am interested in lateral deployment or secondment.",
+                description: "Label displayed on lateral/secondment checkbox",
+              })}
+              name="lateralDeployBool"
+              boundingBox
+              boundingBoxLabel="Lateral Deployment"
+            />
+          </div>
+        )}
+      {govEmployee === "yes" &&
+        (govEmployeeStatus === GovEmployeeType.Term ||
+          govEmployeeStatus === GovEmployeeType.Indeterminate ||
+          govEmployeeStatus === GovEmployeeType.Casual) && (
+          <p>
+            {intl.formatMessage({
+              defaultMessage:
+                "Please indicate your current substantive group classification and level.",
+              description:
+                "Text blurb, asking about classification and level in the government info form",
+            })}
+          </p>
+        )}
+      <div data-h2-display="b(flex)" data-h2-flex-direction="b(column) s(row)">
+        {govEmployee === "yes" &&
+          (govEmployeeStatus === GovEmployeeType.Term ||
+            govEmployeeStatus === GovEmployeeType.Indeterminate ||
+            govEmployeeStatus === GovEmployeeType.Casual) && (
+            <div data-h2-padding="s(right, l)" style={{ width: "100%" }}>
+              <Select
+                id="currentClassificationGroup"
+                label={intl.formatMessage({
+                  defaultMessage: "Current Classification Group",
+                  description: "Label displayed on classification group input",
+                })}
+                name="currentClassificationGroup"
+                nullSelection={intl.formatMessage({
+                  defaultMessage: "Choose Group",
+                  description: "Null selection for form.",
+                })}
+                rules={{
+                  required: intl.formatMessage(errorMessages.required),
+                }}
+                options={groupOptions}
+              />
+            </div>
+          )}
+        {govEmployee === "yes" &&
+          (govEmployeeStatus === GovEmployeeType.Term ||
+            govEmployeeStatus === GovEmployeeType.Indeterminate ||
+            govEmployeeStatus === GovEmployeeType.Casual) &&
+          groupSelection !== "Choose Department" && (
+            <div style={{ width: "100%" }}>
+              <Select
+                id="currentClassificationLevel"
+                label={intl.formatMessage({
+                  defaultMessage: "Current Classification Level",
+                  description: "Label displayed on classification level input",
+                })}
+                name="currentClassificationLevel"
+                rules={{
+                  required: intl.formatMessage(errorMessages.required),
+                }}
+                nullSelection={intl.formatMessage({
+                  defaultMessage: "Choose Level",
+                  description: "Null selection for form.",
+                })}
+                options={levelOptions}
+              />
+            </div>
+          )}
+      </div>
+    </div>
+  );
+};
+
+export interface GovInfoFormWithProfileWrapperProps {
+  departments: Department[];
+  classifications: Classification[];
+  initialData: GetGovInfoFormLookupDataQuery["me"] | undefined;
+  submitHandler: (data: UpdateUserAsUserInput) => Promise<void>;
+}
+
+export const GovInfoFormWithProfileWrapper: React.FunctionComponent<
+  GovInfoFormWithProfileWrapperProps
+> = ({ departments, classifications, initialData, submitHandler }) => {
+  const intl = useIntl();
+
+  const defaultValues = dataToFormValues(initialData);
+
+  const methods = useForm({
+    defaultValues,
+  });
+
+  const onSubmit = (values: FormValues) =>
+    submitHandler(formValuesToSubmitData(values, classifications));
+
+  // hooks to watch, needed for conditional rendering
+  const [govEmployee, govEmployeeStatus, groupSelection] = methods.watch([
+    "govEmployeeYesNo",
+    "govEmployeeType",
+    "currentClassificationGroup",
+  ]);
+
   return (
     <ProfileFormWrapper
       description={intl.formatMessage({
@@ -207,184 +431,13 @@ export const GovernmentInfoForm: React.FunctionComponent<
     >
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(onSubmit)}>
-          <div>
-            <div data-h2-flex-item="b(1of1) s(1of2) m(1of6) l(1of12)">
-              <RadioGroup
-                idPrefix="govEmployeeYesNo"
-                legend={intl.formatMessage({
-                  defaultMessage: "GoC Employee Status",
-                  description: "Employee Status in Government Info Form",
-                })}
-                name="govEmployeeYesNo"
-                rules={{
-                  required: intl.formatMessage(errorMessages.required),
-                }}
-                items={[
-                  {
-                    value: "no",
-                    label: intl.formatMessage({
-                      defaultMessage:
-                        "No, I am not a Government of Canada employee",
-                      description:
-                        "Label displayed for is not a government employee option",
-                    }),
-                  },
-                  {
-                    value: "yes",
-                    label: intl.formatMessage({
-                      defaultMessage:
-                        "Yes, I am a Government of Canada employee",
-                      description:
-                        "Label displayed for is a government employee option",
-                    }),
-                  },
-                ]}
-              />
-            </div>
-            <div data-h2-padding="b(top-bottom, m)" data-h2-flex-item="b(1of3)">
-              {" "}
-              {govEmployee === "yes" && (
-                <RadioGroup
-                  idPrefix="govEmployeeType"
-                  legend={intl.formatMessage({
-                    defaultMessage: "GoC Employee Status",
-                    description: "Employee Status in Government Info Form",
-                  })}
-                  name="govEmployeeType"
-                  rules={{
-                    required: intl.formatMessage(errorMessages.required),
-                  }}
-                  items={[
-                    {
-                      value: GovEmployeeType.Student,
-                      label: intl.formatMessage({
-                        defaultMessage: "I am a student",
-                        description: "Label displayed for student option",
-                      }),
-                    },
-                    {
-                      value: GovEmployeeType.Casual,
-                      label: intl.formatMessage({
-                        defaultMessage: "I have a casual contract",
-                        description: "Label displayed for casual option",
-                      }),
-                    },
-                    {
-                      value: GovEmployeeType.Term,
-                      label: intl.formatMessage({
-                        defaultMessage: "I have a term position",
-                        description: "Label displayed for term option",
-                      }),
-                    },
-                    {
-                      value: GovEmployeeType.Indeterminate,
-                      label: intl.formatMessage({
-                        defaultMessage: "I have an indeterminate position",
-                        description: "Label displayed for indeterminate option",
-                      }),
-                    },
-                  ]}
-                />
-              )}
-            </div>
-            {govEmployee === "yes" &&
-              (govEmployeeStatus === GovEmployeeType.Term ||
-                govEmployeeStatus === GovEmployeeType.Indeterminate) && (
-                <p>
-                  {intl.formatMessage({
-                    defaultMessage:
-                      "Please indicate if you are interested in lateral deployment or secondment. Learn more about this.",
-                    description:
-                      "Text blurb, asking about interest in deployment/secondment in the government info form",
-                  })}
-                </p>
-              )}
-            <div data-h2-padding="b(bottom, m)">
-              {govEmployee === "yes" &&
-                (govEmployeeStatus === GovEmployeeType.Term ||
-                  govEmployeeStatus === GovEmployeeType.Indeterminate) && (
-                  <Checkbox
-                    id="lateralDeployBool"
-                    label={intl.formatMessage({
-                      defaultMessage:
-                        "I am interested in lateral deployment or secondment.",
-                      description:
-                        "Label displayed on lateral/secondment checkbox",
-                    })}
-                    name="lateralDeployBool"
-                    boundingBox
-                    boundingBoxLabel="Lateral Deployment"
-                  />
-                )}
-            </div>
-            {govEmployee === "yes" &&
-              (govEmployeeStatus === GovEmployeeType.Term ||
-                govEmployeeStatus === GovEmployeeType.Indeterminate ||
-                govEmployeeStatus === GovEmployeeType.Casual) && (
-                <p>
-                  {intl.formatMessage({
-                    defaultMessage:
-                      "Please indicate your current substantive group classification and level.",
-                    description:
-                      "Text blurb, asking about classification and level in the government info form",
-                  })}
-                </p>
-              )}
-            <div
-              data-h2-display="b(flex)"
-              data-h2-flex-direction="b(column) s(row)"
-            >
-              <div data-h2-padding="s(right, l)" style={{ width: "100%" }}>
-                {govEmployee === "yes" &&
-                  (govEmployeeStatus === GovEmployeeType.Term ||
-                    govEmployeeStatus === GovEmployeeType.Indeterminate ||
-                    govEmployeeStatus === GovEmployeeType.Casual) && (
-                    <Select
-                      id="currentClassificationGroup"
-                      label={intl.formatMessage({
-                        defaultMessage: "Current Classification Group",
-                        description:
-                          "Label displayed on classification group input",
-                      })}
-                      name="currentClassificationGroup"
-                      nullSelection={intl.formatMessage({
-                        defaultMessage: "Choose Group",
-                        description: "Null selection for form.",
-                      })}
-                      rules={{
-                        required: intl.formatMessage(errorMessages.required),
-                      }}
-                      options={groupOptions}
-                    />
-                  )}
-              </div>
-              <div style={{ width: "100%" }}>
-                {govEmployee === "yes" &&
-                  (govEmployeeStatus === GovEmployeeType.Term ||
-                    govEmployeeStatus === GovEmployeeType.Indeterminate ||
-                    govEmployeeStatus === GovEmployeeType.Casual) &&
-                  groupSelection !== "Choose Department" && (
-                    <Select
-                      id="currentClassificationLevel"
-                      label={intl.formatMessage({
-                        defaultMessage: "Current Classification Level",
-                        description:
-                          "Label displayed on classification level input",
-                      })}
-                      name="currentClassificationLevel"
-                      rules={{
-                        required: intl.formatMessage(errorMessages.required),
-                      }}
-                      nullSelection={intl.formatMessage({
-                        defaultMessage: "Choose Level",
-                        description: "Null selection for form.",
-                      })}
-                      options={levelOptions}
-                    />
-                  )}
-              </div>
-            </div>
-          </div>
+          <GovernmentInfoForm
+            departments={departments}
+            classifications={classifications}
+            govEmployee={govEmployee}
+            govEmployeeStatus={govEmployeeStatus}
+            groupSelection={groupSelection}
+          />
           <ProfileFormFooter mode="saveButton" />
         </form>
       </FormProvider>
@@ -400,10 +453,12 @@ export const GovInfoFormContainer: React.FunctionComponent = () => {
   const locale = getLocale(intl);
   const paths = talentSearchRoutes(locale);
 
-  // acquire classifications from graphQL to pass into component to render and pull "Me" at the same time
-  const [lookUpResult] = useGetAllClassificationsAndMeQuery();
+  // Fetch departments and classifications from graphQL to pass into component to render and pull "Me" at the same time
+  const [lookUpResult] = useGetGovInfoFormLookupDataQuery();
   const { data, fetching, error } = lookUpResult;
   const preProfileStatus = data?.me?.isProfileComplete;
+  const departments: Department[] | [] =
+    data?.departments.filter(notEmpty) ?? [];
   const classifications: Classification[] | [] =
     data?.classifications.filter(notEmpty) ?? [];
   const meInfo = data?.me;
@@ -452,7 +507,8 @@ export const GovInfoFormContainer: React.FunctionComponent = () => {
 
   return (
     <Pending fetching={fetching} error={error}>
-      <GovernmentInfoForm
+      <GovInfoFormWithProfileWrapper
+        departments={departments}
         classifications={classifications}
         initialData={meInfo}
         submitHandler={onSubmit}

@@ -22,6 +22,14 @@ query getMe {
     isGovEmployee
     govEmployeeType
     interestedInLaterOrSecondment
+    department {
+      id
+      departmentNumber
+      name {
+        en
+        fr
+      }
+    }
     currentClassification {
       id
       group
@@ -31,6 +39,15 @@ query getMe {
         fr
       }
     }
+    expectedGenericJobTitles {
+      id
+      key
+      name {
+        en
+        fr
+      }
+    }
+
     isWoman
     hasDisability
     isIndigenous
@@ -153,4 +170,5 @@ query getMe {
     }
     isProfileComplete
   }
+
 }

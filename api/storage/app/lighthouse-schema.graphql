@@ -11,6 +11,7 @@ type Applicant {
   govEmployeeType: GovEmployeeType
   interestedInLaterOrSecondment: Boolean
   currentClassification: Classification
+  department: Department
   languageAbility: LanguageAbility
   lookingForEnglish: Boolean
   lookingForFrench: Boolean
@@ -40,6 +41,26 @@ type Applicant {
   educationExperiences: [EducationExperience]
   personalExperiences: [PersonalExperience]
   workExperiences: [WorkExperience]
+  expectedGenericJobTitles: [GenericJobTitle]
+}
+
+input ApplicantFilterInput {
+  poolCandidates: ApplicantPoolFilterInput
+  jobLookingStatus: [JobLookingStatus] = [ACTIVELY_LOOKING, OPEN_TO_OPPORTUNITIES]
+  languageAbility: LanguageAbility
+  expectedClassifications: [ClassificationFilterInput]
+  operationalRequirements: [OperationalRequirement]
+  locationPreferences: [WorkRegion]
+  equity: EquitySelectionsInput
+  hasDiploma: Boolean
+  wouldAcceptTemporary: Boolean
+  skills: [ID]
+}
+
+input ApplicantPoolFilterInput {
+  pools: [ID]!
+  expiryStatus: CANDIDATE_EXPIRY_FILTER = ACTIVE
+  statuses: [PoolCandidateStatus!] = [AVAILABLE]
 }
 
 type AwardExperience implements Experience {
@@ -105,6 +126,7 @@ type Classification {
   level: Int!
   minSalary: Int
   maxSalary: Int
+  genericJobTitles: [GenericJobTitle]
 }
 
 input ClassificationBelongsTo {
@@ -208,6 +230,7 @@ input CreatePoolCandidateAsAdminInput {
   expectedClassifications: ClassificationBelongsToMany
   cmoAssets: CmoAssetBelongsToMany
   status: PoolCandidateStatus = AVAILABLE
+  notes: String
 }
 
 input CreatePoolCandidateFilterInput {
@@ -283,6 +306,7 @@ input CreateUserInput {
   govEmployeeType: GovEmployeeType
   interestedInLaterOrSecondment: Boolean
   currentClassification: ClassificationBelongsTo
+  department: DepartmentBelongsTo
   isWoman: Boolean
   hasDisability: Boolean
   isIndigenous: Boolean
@@ -294,6 +318,7 @@ input CreateUserInput {
   acceptedOperationalRequirements: [OperationalRequirement]
   expectedSalary: [SalaryRange]
   expectedClassifications: ClassificationBelongsToMany
+  expectedGenericJobTitles: GenericJobTitleBelongsToMany
   wouldAcceptTemporary: Boolean
   cmoAssets: CmoAssetBelongsToMany
   workExperiences: WorkExperienceHasMany
@@ -413,6 +438,26 @@ interface Experience {
 
 type ExperienceSkillRecord {
   details: String
+}
+
+type GenericJobTitle {
+  id: ID!
+  key: GenericJobTitleKey!
+  name: LocalizedString
+  classification: Classification
+}
+
+input GenericJobTitleBelongsToMany {
+  sync: [ID!]
+}
+
+enum GenericJobTitleKey {
+  TECHNICIAN_IT01
+  ANALYST_IT02
+  TEAM_LEADER_IT03
+  TECHNICAL_ADVISOR_IT03
+  SENIOR_ADVISOR_IT04
+  MANAGER_IT04
 }
 
 enum GovEmployeeType {
@@ -634,9 +679,7 @@ input PersonalExperienceInput {
   skills: UpdateExperienceSkills
 }
 
-"""
-A phone number string which must comply with E.164 international notation, including country code and preceding '+'.
-"""
+"""A phone number string, accepts any string"""
 scalar PhoneNumber
 
 type Pool {
@@ -680,6 +723,7 @@ type PoolCandidate {
   expectedClassifications: [Classification]
   cmoAssets: [CmoAsset]
   status: PoolCandidateStatus
+  notes: String
 }
 
 type PoolCandidateFilter {
@@ -772,12 +816,13 @@ type Query {
   users: [User]!
   applicant(id: ID!): Applicant
   applicants: [Applicant]!
+  countApplicants(where: ApplicantFilterInput): Int!
   pool(id: ID!): Pool
   poolByKey(key: String!): Pool
   pools: [Pool]!
   poolCandidate(id: ID!): PoolCandidate
   poolCandidates: [PoolCandidate]!
-  countPoolCandidates(where: PoolCandidateFilterInput): Int!
+  countPoolCandidates(where: PoolCandidateFilterInput): Int! @deprecated(reason: "Replaced by countApplicants")
   searchPoolCandidates(where: PoolCandidateFilterInput, expiryStatus: CANDIDATE_EXPIRY_FILTER): [PoolCandidate]!
   classification(id: ID!): Classification
   classifications: [Classification]!
@@ -794,6 +839,8 @@ type Query {
   skillFamilies: [SkillFamily]!
   skill(id: ID!): Skill
   skills: [Skill]!
+  genericJobTitle(id: ID!): GenericJobTitle
+  genericJobTitles: [GenericJobTitle]!
   usersPaginated(
     where: UserFilterAndOrderInput
 
@@ -989,6 +1036,7 @@ input UpdatePoolCandidateAsAdminInput {
   expectedClassifications: ClassificationBelongsToMany
   cmoAssets: CmoAssetBelongsToMany
   status: PoolCandidateStatus
+  notes: String
 }
 
 input UpdatePoolCandidateSearchRequestInput {
@@ -1046,6 +1094,7 @@ input UpdateUserAsAdminInput {
   govEmployeeType: GovEmployeeType
   interestedInLaterOrSecondment: Boolean
   currentClassification: ClassificationBelongsTo
+  department: DepartmentBelongsTo
   isWoman: Boolean
   hasDisability: Boolean
   isIndigenous: Boolean
@@ -1057,6 +1106,7 @@ input UpdateUserAsAdminInput {
   acceptedOperationalRequirements: [OperationalRequirement]
   expectedSalary: [SalaryRange]
   expectedClassifications: ClassificationBelongsToMany
+  expectedGenericJobTitles: GenericJobTitleBelongsToMany
   wouldAcceptTemporary: Boolean
   cmoAssets: CmoAssetBelongsToMany
   workExperiences: WorkExperienceHasMany
@@ -1087,6 +1137,7 @@ input UpdateUserAsUserInput {
   govEmployeeType: GovEmployeeType
   interestedInLaterOrSecondment: Boolean
   currentClassification: ClassificationBelongsTo
+  department: DepartmentBelongsTo
   isWoman: Boolean
   hasDisability: Boolean
   isIndigenous: Boolean
@@ -1098,6 +1149,7 @@ input UpdateUserAsUserInput {
   acceptedOperationalRequirements: [OperationalRequirement]
   expectedSalary: [SalaryRange]
   expectedClassifications: ClassificationBelongsToMany
+  expectedGenericJobTitles: GenericJobTitleBelongsToMany
   wouldAcceptTemporary: Boolean
   cmoAssets: CmoAssetBelongsToMany
   workExperiences: WorkExperienceHasMany
@@ -1131,6 +1183,7 @@ type User {
   govEmployeeType: GovEmployeeType
   interestedInLaterOrSecondment: Boolean
   currentClassification: Classification
+  department: Department
   isWoman: Boolean
   hasDisability: Boolean
   isIndigenous: Boolean
@@ -1153,6 +1206,7 @@ type User {
   workExperiences: [WorkExperience]
   pools: [Pool]
   isProfileComplete: Boolean
+  expectedGenericJobTitles: [GenericJobTitle]
 }
 
 input UserBelongsTo {
@@ -1172,6 +1226,10 @@ input UserFilterAndOrderInput {
   isProfileComplete: Boolean
   skills: [ID]
   isGovEmployee: Boolean
+  telephone: String
+  email: String
+  name: String
+  generalSearch: String
   orderBy: String
 }
 
@@ -1187,6 +1245,7 @@ type UserPaginator {
 input UserPoolFilterInput {
   pools: [ID!]!
   expiryStatus: CANDIDATE_EXPIRY_FILTER = ACTIVE
+  statuses: [PoolCandidateStatus!] = []
 }
 
 type UserPublicProfile {

@@ -3,13 +3,16 @@
 import React from "react";
 import { Meta, Story } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
-import { fakeClassifications, fakeUsers } from "@common/fakeData";
+import {
+  fakeClassifications,
+  fakeDepartments,
+  fakeUsers,
+} from "@common/fakeData";
 import pick from "lodash/pick";
 import { GovEmployeeType } from "../../api/generated";
-import GovInfoFormContainer, { GovernmentInfoForm } from "./GovernmentInfoForm";
-
-const fakeClass = fakeClassifications();
-const fakeUser = fakeUsers(1)[0];
+import GovInfoFormContainer, {
+  GovInfoFormWithProfileWrapper,
+} from "./GovernmentInfoForm";
 
 export default {
   component: GovInfoFormContainer,
@@ -17,9 +20,10 @@ export default {
 } as Meta;
 
 const TemplateGovInfoForm: Story = (args) => (
-  <GovernmentInfoForm
+  <GovInfoFormWithProfileWrapper
+    departments={fakeDepartments()}
+    classifications={fakeClassifications()}
     initialData={args.initialData}
-    classifications={fakeClass}
     submitHandler={async (...data) => {
       action("Submit")(data);
     }}
@@ -28,11 +32,12 @@ const TemplateGovInfoForm: Story = (args) => (
 
 export const ADefaultArgs = TemplateGovInfoForm.bind({});
 ADefaultArgs.args = {
-  initialData: pick(fakeUser, [
+  initialData: pick(fakeUsers(1)[0], [
     "id",
     "isGovEmployee",
     "govEmployeeType",
     "interestedInLaterOrSecondment",
+    "department",
     "currentClassification",
   ]),
 };

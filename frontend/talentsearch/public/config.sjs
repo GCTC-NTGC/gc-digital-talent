@@ -7,8 +7,11 @@
  */
 
 const data = new Map([
+    ["OAUTH_POST_LOGOUT_REDIRECT", "<!--#echo var="OAUTH_POST_LOGOUT_REDIRECT" -->"],
+    ["OAUTH_LOGOUT_URI", "<!--#echo var="OAUTH_LOGOUT_URI" -->"],
     ["FEATURE_APPLICANTPROFILE", "<!--#echo var="FEATURE_APPLICANTPROFILE" -->"],
     ["FEATURE_DIRECTINTAKE", "<!--#echo var="FEATURE_DIRECTINTAKE" -->"],
+    ["FEATURE_APPLICANTSEARCH", "<!--#echo var="FEATURE_APPLICANTSEARCH" -->"],
 ]);
 
 window.__SERVER_CONFIG__ = data;

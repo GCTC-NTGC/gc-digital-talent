@@ -4,6 +4,7 @@ import "../src/css/app.css"
 import { setIntlConfig, withIntl } from 'storybook-addon-intl';
 import AdminFrench from "../src/js/lang/frCompiled.json";
 import CommonFrench from "../../common/src/lang";
+import MockGraphqlDecorator from "../../common/.storybook/decorators/MockGraphqlDecorator";
 
 // CSS files required for building with `MERGE_STORYBOOKS=true`.
 import "../../talentsearch/src/css/app.css";
@@ -32,6 +33,7 @@ setIntlConfig({
 })
 
 export const decorators = [
+    MockGraphqlDecorator,
     withIntl,
     (Story) => (
       <div data-h2-font-family="b(sans)">

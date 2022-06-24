@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -35,4 +36,10 @@ class Classification extends Model
     protected $casts = [
         'name' => 'array',
     ];
+
+    public function genericJobTitles(): HasMany
+    {
+        return $this->hasMany(GenericJobTitle::class);
+    }
+
 }

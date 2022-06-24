@@ -16,5 +16,11 @@
     "last": "Test NoRoles",
     "email": "noroles@test.com",
     "password": "testpassword"
+  },
+  "noemail": {
+    "first": "Test NoEmail",
+    "last": "Test NoEmail",
+    "email": null,
+    "password": "testpassword"
   }
 }

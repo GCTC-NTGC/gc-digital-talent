@@ -1,6 +1,15 @@
 import React from "react";
 import { useIntl } from "react-intl";
+import { enumToOptions } from "../../../helpers/formUtils";
+import { getGovEmployeeType } from "../../../constants/localizedConstants";
+import { getLocale } from "../../../helpers/localize";
+import { strong } from "../../../helpers/format";
 import { Applicant, GovEmployeeType } from "../../../api/generated";
+
+// styling a text bit with red colour within intls
+function redText(msg: string) {
+  return <span data-h2-font-color="b(red)">{msg}</span>;
+}
 
 const GovernmentInformationSection: React.FunctionComponent<{
   applicant: Pick<
@@ -8,10 +17,17 @@ const GovernmentInformationSection: React.FunctionComponent<{
     | "isGovEmployee"
     | "govEmployeeType"
     | "interestedInLaterOrSecondment"
+    | "department"
     | "currentClassification"
   >;
-}> = ({ applicant }) => {
+  editPath?: string;
+}> = ({ applicant, editPath }) => {
   const intl = useIntl();
+  const locale = getLocale(intl);
+  const govEmployeeTypeId =
+    enumToOptions(GovEmployeeType).find(
+      (govEmployeeType) => govEmployeeType.value === applicant.govEmployeeType,
+    )?.value || "";
   return (
     <div
       data-h2-bg-color="b(lightgray)"
@@ -22,37 +38,32 @@ const GovernmentInformationSection: React.FunctionComponent<{
         {applicant.isGovEmployee && (
           <>
             <li>
-              {intl.formatMessage({
-                defaultMessage: "Yes, I am a Government of Canada employee.",
-                description: "Message to state user is employed by government",
-              })}
+              {intl.formatMessage(
+                {
+                  defaultMessage:
+                    "<strong>Yes</strong>, I am a Government of Canada employee.",
+                  description:
+                    "Message to state user is employed by government",
+                },
+                { strong },
+              )}
             </li>
+            {applicant.department && (
+              <li>
+                {intl.formatMessage(
+                  {
+                    defaultMessage: "Department: <strong>{department}</strong>",
+                    description: "Message to state what department user is in.",
+                  },
+                  { strong, department: applicant.department.name[locale] },
+                )}
+              </li>
+            )}
             {applicant.govEmployeeType && (
               <li>
-                {applicant.govEmployeeType === GovEmployeeType.Student &&
-                  intl.formatMessage({
-                    defaultMessage: "I have a student position",
-                    description:
-                      "Message to state user is employed federally in a student position",
-                  })}
-                {applicant.govEmployeeType === GovEmployeeType.Casual &&
-                  intl.formatMessage({
-                    defaultMessage: "I have a casual position",
-                    description:
-                      "Message to state user is employed federally in a casual position",
-                  })}
-                {applicant.govEmployeeType === GovEmployeeType.Term &&
-                  intl.formatMessage({
-                    defaultMessage: "I have a term position",
-                    description:
-                      "Message to state user is employed federally in a term position",
-                  })}
-                {applicant.govEmployeeType === GovEmployeeType.Indeterminate &&
-                  intl.formatMessage({
-                    defaultMessage: "I have an indeterminate position",
-                    description:
-                      "Message to state user is employed federally in an indeterminate position",
-                  })}
+                {intl.formatMessage(getGovEmployeeType(govEmployeeTypeId), {
+                  strong,
+                })}
               </li>
             )}
             {applicant.interestedInLaterOrSecondment && (
@@ -82,23 +93,63 @@ const GovernmentInformationSection: React.FunctionComponent<{
               )}
           </>
         )}
-        {applicant.isGovEmployee === null && (
-          <li>
-            {intl.formatMessage({
-              defaultMessage: "You haven't added any information here yet.",
-              description: "Message for when no data exists for the section",
-            })}
-          </li>
+        {applicant.isGovEmployee === null && editPath && (
+          <>
+            <p>
+              {intl.formatMessage({
+                defaultMessage: "You haven't added any information here yet.",
+                description: "Message for when no data exists for the section",
+              })}
+            </p>
+            <p>
+              {intl.formatMessage(
+                {
+                  defaultMessage:
+                    "There are <redText>required</redText> fields missing.",
+                  description:
+                    "Message that there are required fields missing. Please ignore things in <> tags.",
+                },
+                {
+                  redText,
+                },
+              )}
+              <a href={editPath}>
+                {intl.formatMessage({
+                  defaultMessage: "Click here to get started.",
+                  description:
+                    "Message to click on the words to begin something",
+                })}
+              </a>
+            </p>
+          </>
         )}
-        {applicant.isGovEmployee === false && (
-          <li>
+        {applicant.isGovEmployee === null && !editPath && (
+          <p>
+            {intl.formatMessage({
+              defaultMessage: "No information has been provided.",
+              description:
+                "Message on Admin side when user not filled GovernmentInformation section.",
+            })}
+          </p>
+        )}
+        {applicant.isGovEmployee === false && editPath && (
+          <p>
             {intl.formatMessage({
               defaultMessage:
-                "You are not entered as a current government employee",
+                "You are not entered as a current government employee.",
               description:
                 "Message indicating the user is not marked in the system as being federally employed currently",
             })}
-          </li>
+          </p>
+        )}
+        {applicant.isGovEmployee === false && !editPath && (
+          <p>
+            {intl.formatMessage({
+              defaultMessage: "I am not a current government employee.",
+              description:
+                "Message indicating the user is not marked in the system as being federally employed currently",
+            })}
+          </p>
         )}
       </ul>
     </div>

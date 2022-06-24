@@ -1,3 +1,12 @@
+button,
+input,
+optgroup,
+select,
+textarea {
+	font-family: inherit;
+	font-size: 100%;
+}
+
 .reset-ul {
   list-style: none;
   padding: 0;

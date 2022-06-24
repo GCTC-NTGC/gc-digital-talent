@@ -233,6 +233,13 @@ mutation updatePoolCandidate(
     status
   }
 }
+
+mutation deletePoolCandidate ($id:ID!) {
+  deletePoolCandidate (id: $id) {
+    id
+  }
+}
+
 query getCandidateProfile($id: ID!) {
   poolCandidate(id: $id) {
     user {
@@ -262,6 +269,14 @@ query getCandidateProfile($id: ID!) {
       isVisibleMinority
       hasDisability
       expectedSalary
+      department {
+        id
+        departmentNumber
+        name {
+          en
+          fr
+        }
+      }
       currentClassification {
         id
         group
@@ -363,6 +378,22 @@ query getUserProfile($id: ID!) {
     isVisibleMinority
     hasDisability
     expectedSalary
+    expectedGenericJobTitles {
+      id
+      key
+      name {
+        en
+        fr
+      }
+    }
+    department {
+      id
+      departmentNumber
+      name {
+        en
+        fr
+      }
+    }
     currentClassification {
       id
       group

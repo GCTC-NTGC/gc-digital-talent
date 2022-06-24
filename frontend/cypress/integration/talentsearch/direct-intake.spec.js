@@ -49,4 +49,15 @@ describe("Talentsearch Direct Intake Page", () => {
     });
   })
 
+  context('logged in with no email', () => {
+    beforeEach(() => cy.login('noemail'));
+
+    it("redirects to create account", () => {
+      cy.visit('/en/browse/pools');
+
+      cy.location('pathname').should('eq', '/en/talent/profile/create-account');
+      cy.contains("successfully logged in");
+    });
+  })
+
 });

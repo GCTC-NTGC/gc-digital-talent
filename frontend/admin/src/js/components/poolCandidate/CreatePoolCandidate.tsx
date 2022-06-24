@@ -17,7 +17,7 @@ import {
   RadioGroup,
 } from "@common/components/form";
 import { empty, notEmpty } from "@common/helpers/util";
-import { currentDate, enumToOptions } from "@common/helpers/formUtils";
+import { enumToOptions } from "@common/helpers/formUtils";
 import { navigate } from "@common/helpers/router";
 import { getLocale } from "@common/helpers/localize";
 import {
@@ -29,7 +29,6 @@ import {
   getOperationalRequirement,
 } from "@common/constants/localizedConstants";
 import { errorMessages } from "@common/messages";
-import { phoneNumberRegex } from "@common/constants/regularExpressions";
 import Pending from "@common/components/Pending";
 import { useAdminRoutes } from "../../adminRoutes";
 import {
@@ -176,10 +175,10 @@ const UserFormSection: React.FunctionComponent<{
           type="tel"
           name="telephone"
           rules={{
-            pattern: {
-              value: phoneNumberRegex,
-              message: intl.formatMessage(errorMessages.telephone),
-            },
+            required:
+              userMode === "new"
+                ? intl.formatMessage(errorMessages.required)
+                : undefined,
           }}
         />
         <Select
@@ -432,10 +431,6 @@ export const CreatePoolCandidateForm: React.FunctionComponent<
               name="expiryDate"
               rules={{
                 required: intl.formatMessage(errorMessages.required),
-                min: {
-                  value: currentDate(),
-                  message: intl.formatMessage(errorMessages.futureDate),
-                },
               }}
             />
             <Checkbox

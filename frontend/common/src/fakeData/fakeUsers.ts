@@ -22,11 +22,14 @@ import {
   WorkExperience,
   GovEmployeeType,
   Applicant,
+  Department,
 } from "../api/generated";
 import fakeClassifications from "./fakeClassifications";
 import fakeCmoAssets from "./fakeCmoAssets";
+import fakeDepartments from "./fakeDepartments";
 
 const generateUser = (
+  departments: Department[],
   classifications: Classification[], // all classifications
   cmoAssets: CmoAsset[], // all CmoAssets
 
@@ -91,6 +94,7 @@ const generateUser = (
       GovEmployeeType.Indeterminate,
     ]),
     interestedInLaterOrSecondment: faker.datatype.boolean(),
+    department: faker.helpers.arrayElement<Department>(departments),
     currentClassification:
       faker.helpers.arrayElement<Classification>(classifications),
 
@@ -142,6 +146,7 @@ const generateUser = (
 
 // Default generator will not include any experiences, poolCandidates or pools
 export const defaultGenerator = (numToGenerate = 20): User[] => {
+  const departments = fakeDepartments();
   const classifications = fakeClassifications();
   const cmoAssets = fakeCmoAssets();
 
@@ -154,6 +159,7 @@ export const defaultGenerator = (numToGenerate = 20): User[] => {
   faker.seed(0); // repeatable results
   return [...Array(numToGenerate)].map(() =>
     generateUser(
+      departments,
       classifications,
       cmoAssets,
       awardExperiences,

@@ -3,8 +3,14 @@ import { useIntl } from "react-intl";
 import { BasicForm, Checklist } from "@common/components/form";
 import { SubmitHandler } from "react-hook-form";
 import { InformationCircleIcon } from "@heroicons/react/solid";
-import { errorMessages } from "@common/messages";
+import { commonMessages, errorMessages } from "@common/messages";
 import Button from "@common/components/Button";
+import Pending from "@common/components/Pending";
+import NotFound from "@common/components/NotFound";
+import { toast } from "react-toastify";
+import { navigate } from "@common/helpers/router";
+import { notEmpty } from "@common/helpers/util";
+import { unpackMaybes } from "@common/helpers/formUtils";
 import {
   DialogLevelOne,
   DialogLevelTwo,
@@ -13,11 +19,22 @@ import {
   DialogLevelFourLead,
   DialogLevelFourAdvisor,
 } from "./dialogs";
-import { UpdateUserAsUserInput, User } from "../../api/generated";
+import {
+  GenericJobTitle,
+  GenericJobTitleKey,
+  GetRoleSalaryInfoQuery,
+  UpdateUserAsUserInput,
+  useGetRoleSalaryInfoQuery,
+  useUpdateRoleSalaryMutation,
+} from "../../api/generated";
 import ProfileFormWrapper from "../applicantProfile/ProfileFormWrapper";
 import ProfileFormFooter from "../applicantProfile/ProfileFormFooter";
+import profileMessages from "../profile/profileMessages";
+import { useApplicantProfileRoutes } from "../../applicantProfileRoutes";
 
-export type FormValues = Pick<User, "firstName" | "lastName">;
+export type FormValues = {
+  expectedGenericJobTitles: GenericJobTitleKey[];
+};
 
 export type RoleSalaryUpdateHandler = (
   id: string,
@@ -25,8 +42,8 @@ export type RoleSalaryUpdateHandler = (
 ) => void; // replace with Promise<void> when filling API in TODO
 
 export interface RoleSalaryFormProps {
-  initialUser?: User | null;
-  onUpdateRoleSalary?: RoleSalaryUpdateHandler;
+  initialFormValues: FormValues;
+  handleSubmit: SubmitHandler<FormValues>;
 }
 
 // accessible button for modals - generate clickable inline elements resembling <a>
@@ -49,8 +66,8 @@ const ModalButton: React.FC<ModalButtonProps> = ({ click, children }) => {
 };
 
 export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
-  initialUser,
-  onUpdateRoleSalary,
+  initialFormValues,
+  handleSubmit,
 }) => {
   const intl = useIntl();
 
@@ -67,24 +84,6 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
     React.useState<boolean>(false);
   const [isDialogLevel4AdvisorOpen, setDialogLevel4AdvisorOpen] =
     React.useState<boolean>(false);
-
-  // form submit logic, to be filled when API ready TODO
-  const initialDataToFormValues = (data?: User | null): FormValues => {
-    return {
-      firstName: data?.firstName,
-      lastName: data?.lastName,
-    };
-  };
-  const formValuesToSubmitData = (data: FormValues): UpdateUserAsUserInput => {
-    return {
-      firstName: data?.firstName,
-      lastName: data?.lastName,
-    };
-  };
-  const handleSubmit: SubmitHandler<FormValues> = async (formValues) => {
-    await onUpdateRoleSalary;
-    return formValuesToSubmitData(formValues);
-  };
 
   // intl styling functions section
   // bolding, adding a link, and to add a button opening modals onto text
@@ -106,20 +105,6 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
       </ModalButton>
     );
   }
-
-  // TODO, uncomment after API connected
-  // if (!initialUser) {
-  //   return (
-  //     <p>
-  //       {intl.formatMessage({
-  //         defaultMessage: "Could not load user.",
-  //         description:
-  //           "Error message that appears when current user could not be retrieved.",
-  //       })}
-  //     </p>
-  //   );
-  // }
-
   return (
     <ProfileFormWrapper
       title={intl.formatMessage({
@@ -143,7 +128,7 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
       <BasicForm
         onSubmit={handleSubmit}
         options={{
-          defaultValues: initialDataToFormValues(initialUser),
+          defaultValues: initialFormValues,
         }}
       >
         <p data-h2-margin="b(bottom, l)">
@@ -157,7 +142,7 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
           )}
         </p>
         <Checklist
-          idPrefix="roleSalary"
+          idPrefix="expectedGenericJobTitles"
           legend={intl.formatMessage({
             defaultMessage:
               "I would like to be referred for jobs at the following levels:",
@@ -166,10 +151,10 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
           rules={{
             required: intl.formatMessage(errorMessages.required),
           }}
-          name="roleSalary"
+          name="expectedGenericJobTitles"
           items={[
             {
-              value: 1,
+              value: GenericJobTitleKey.TechnicianIt01,
               label: intl.formatMessage(
                 {
                   defaultMessage:
@@ -184,7 +169,7 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
               ),
             },
             {
-              value: 2,
+              value: GenericJobTitleKey.AnalystIt02,
               label: intl.formatMessage(
                 {
                   defaultMessage:
@@ -199,7 +184,7 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
               ),
             },
             {
-              value: 3,
+              value: GenericJobTitleKey.TeamLeaderIt03,
               label: intl.formatMessage(
                 {
                   defaultMessage:
@@ -214,7 +199,7 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
               ),
             },
             {
-              value: 4,
+              value: GenericJobTitleKey.TechnicalAdvisorIt03,
               label: intl.formatMessage(
                 {
                   defaultMessage:
@@ -229,7 +214,7 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
               ),
             },
             {
-              value: 5,
+              value: GenericJobTitleKey.SeniorAdvisorIt04,
               label: intl.formatMessage(
                 {
                   defaultMessage:
@@ -244,7 +229,7 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
               ),
             },
             {
-              value: 6,
+              value: GenericJobTitleKey.ManagerIt04,
               label: intl.formatMessage(
                 {
                   defaultMessage:
@@ -316,18 +301,90 @@ export const RoleSalaryForm: React.FunctionComponent<RoleSalaryFormProps> = ({
   );
 };
 
-const RoleSalaryFormContainer: React.FunctionComponent = () => {
-  // API logic
-  // see AboutForm for further scaffolding
-  const handleUpdateUser = (id: string, values: UpdateUserAsUserInput) => {
-    return {
-      id,
-      values,
-    };
+const dataToFormValues = (data: GetRoleSalaryInfoQuery): FormValues => {
+  return {
+    expectedGenericJobTitles:
+      data?.me?.expectedGenericJobTitles
+        ?.map((genericJobTitle) => genericJobTitle?.key)
+        .filter(notEmpty) ?? [],
   };
+};
+
+const formValuesToSubmitData = (
+  values: FormValues,
+  GenericJobTitles: GenericJobTitle[],
+): UpdateUserAsUserInput => {
+  const ids = values.expectedGenericJobTitles
+    .map((key: GenericJobTitleKey) =>
+      GenericJobTitles.find((generic) => generic.key === key),
+    )
+    .filter(notEmpty)
+    .map((c: GenericJobTitle) => c.id);
+  return {
+    expectedGenericJobTitles: {
+      sync: ids,
+    },
+  };
+};
+
+const RoleSalaryFormContainer: React.FunctionComponent = () => {
+  const intl = useIntl();
+  const paths = useApplicantProfileRoutes();
+
+  const [{ data: initialData, fetching, error }] = useGetRoleSalaryInfoQuery();
+  const preProfileStatus = initialData?.me?.isProfileComplete;
+  const GenericJobTitles = unpackMaybes(initialData?.genericJobTitles);
+
+  const [, executeMutation] = useUpdateRoleSalaryMutation();
+  const handleRoleSalary = (id: string, data: UpdateUserAsUserInput) =>
+    executeMutation({
+      id,
+      user: data,
+    }).then((result) => {
+      if (result.data?.updateUserAsUser) {
+        if (result.data?.updateUserAsUser?.isProfileComplete) {
+          const currentProfileStatus =
+            result.data?.updateUserAsUser?.isProfileComplete;
+          const message = intl.formatMessage(profileMessages.profileCompleted);
+          if (!preProfileStatus && currentProfileStatus) {
+            toast.success(message);
+          }
+        }
+      }
+      navigate(paths.home());
+      toast.success(intl.formatMessage(profileMessages.userUpdated));
+      if (result.data?.updateUserAsUser) {
+        return result.data.updateUserAsUser;
+      }
+      return Promise.reject(result.error);
+    });
+
+  if (error) {
+    toast.error(intl.formatMessage(profileMessages.updatingFailed));
+  }
 
   return (
-    <RoleSalaryForm initialUser={null} onUpdateRoleSalary={handleUpdateUser} />
+    <Pending fetching={fetching} error={error}>
+      {initialData?.me ? (
+        <RoleSalaryForm
+          initialFormValues={dataToFormValues(initialData)}
+          handleSubmit={async (formValues) => {
+            const userId = initialData?.me?.id;
+            if (userId === undefined) {
+              return Promise.reject();
+            }
+            return handleRoleSalary(
+              userId,
+              formValuesToSubmitData(formValues, GenericJobTitles),
+            );
+          }}
+        />
+      ) : (
+        <NotFound headingMessage={intl.formatMessage(commonMessages.notFound)}>
+          <p>{intl.formatMessage(profileMessages.userNotFound)}</p>
+        </NotFound>
+      )}
+    </Pending>
   );
 };
 

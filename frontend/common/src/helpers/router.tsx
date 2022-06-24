@@ -10,6 +10,7 @@ import { Role } from "../api/generated";
 import { AuthorizationContext } from "../components/Auth/AuthorizationContainer";
 import { useApiRoutes } from "../hooks/useApiRoutes";
 import { getLocale } from "./localize";
+import { empty } from "./util";
 
 export const HISTORY = createBrowserHistory();
 
@@ -102,6 +103,7 @@ export const useRouter = (
   routes: Routes<RouterResult>,
   missingRouteComponent: ReactElement,
   notAuthorizedComponent: ReactElement,
+  welcomeRoute?: string,
 ): React.ReactElement | null => {
   const location = useLocation();
   const router = useMemo(() => new UniversalRouter(routes), [routes]);
@@ -110,7 +112,11 @@ export const useRouter = (
   const apiRoutes = useApiRoutes();
   const locale = getLocale(useIntl());
   const { loggedIn } = React.useContext(AuthenticationContext);
-  const { loggedInUserRoles } = React.useContext(AuthorizationContext);
+  const {
+    loggedInUserRoles,
+    loggedInEmail,
+    isLoaded: authorizationLoaded,
+  } = React.useContext(AuthorizationContext);
   // Render the result of routing
   useEffect((): void => {
     router
@@ -118,6 +124,22 @@ export const useRouter = (
       .then(async (routeMaybePromise) => {
         // may or may not be a promise, so attempt to resolve it. A non-promise value will simply resolve to itself.
         const route = await Promise.resolve(routeMaybePromise);
+
+        /**
+         * Check the following then redirect to welcome page
+         *  - Application has a welcome page
+         *  - User Logged in
+         *  - Authorization query is not loading
+         *  - User has no email associated with account
+         */
+        if (
+          welcomeRoute &&
+          loggedIn &&
+          authorizationLoaded &&
+          empty(loggedInEmail)
+        ) {
+          navigate(welcomeRoute);
+        }
 
         // handling a redirect
         if (route?.redirect) {
@@ -138,7 +160,7 @@ export const useRouter = (
         let isAuthorized: boolean;
 
         // if there is a list of authorized roles required then let's see if the user is authorized
-        if (authorizationRequired) {
+        if (authorizationLoaded && authorizationRequired) {
           // the user is considered authorized if there are no roles needed or they have at least one of the required roles
           isAuthorized =
             authorizedRoles.length === 0 ||
@@ -168,10 +190,13 @@ export const useRouter = (
     loggedIn,
     locale,
     loggedInUserRoles,
+    loggedInEmail,
     missingRouteComponent,
     notAuthorizedComponent,
     pathName,
     router,
+    welcomeRoute,
+    authorizationLoaded,
   ]);
 
   return component;
@@ -206,7 +231,9 @@ export function queryParametersToSearchString(
   return queryString ? `?${queryString}` : "";
 }
 
-export const Link: React.FC<{ href: string; title: string }> = ({
+type LinkProps = React.HTMLProps<HTMLAnchorElement>;
+
+export const Link: React.FC<LinkProps> = ({
   href,
   title,
   children,
@@ -218,7 +245,9 @@ export const Link: React.FC<{ href: string; title: string }> = ({
     {...props}
     onClick={(event): void => {
       event.preventDefault();
-      navigate(href);
+      if (href) {
+        navigate(href);
+      }
     }}
   >
     {children}

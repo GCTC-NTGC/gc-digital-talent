@@ -3,6 +3,7 @@ import { useIntl } from "react-intl";
 import Chip, { Chips } from "@common/components/Chip";
 import { Scalars, Skill } from "@common/api/generated";
 import { getLocale } from "@common/helpers/localize";
+import { notEmpty } from "@common/helpers/util";
 
 export interface AddedSkillsProps {
   skills: Skill[];
@@ -17,6 +18,9 @@ const AddedSkills: React.FunctionComponent<AddedSkillsProps> = ({
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
+
+  const filteredSkills = skills.filter((s) => typeof s !== "undefined");
+
   return (
     <>
       <h3 data-h2-font-size="b(h5)">
@@ -26,9 +30,9 @@ const AddedSkills: React.FunctionComponent<AddedSkillsProps> = ({
             "Section header for a list of skills attached to this experience",
         })}
       </h3>
-      {skills.length ? (
+      {notEmpty(filteredSkills) ? (
         <Chips>
-          {skills.map((skill) => {
+          {filteredSkills.map((skill) => {
             const handleDismiss = () => onRemoveSkill(skill.id);
             return (
               <Chip
@@ -42,7 +46,7 @@ const AddedSkills: React.FunctionComponent<AddedSkillsProps> = ({
           })}
         </Chips>
       ) : null}
-      {skills.length === 0 && (
+      {filteredSkills.length === 0 && (
         <i>
           {intl.formatMessage({
             defaultMessage:
@@ -53,7 +57,7 @@ const AddedSkills: React.FunctionComponent<AddedSkillsProps> = ({
         </i>
       )}
 
-      {skills.length >= 6 && (
+      {filteredSkills.length >= 6 && (
         <div
           data-h2-border="b(gold, all, solid, s)"
           data-h2-bg-color="b(gold[.1])"

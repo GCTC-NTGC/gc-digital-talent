@@ -38,6 +38,7 @@ use Illuminate\Support\Facades\DB;
  * @property string $estimated_language_ability
  * @property string $is_gov_employee
  * @property string $interested_in_later_or_secondment
+ * @property string $department
  * @property string $current_classification
  * @property boolean $is_woman
  * @property boolean $has_disability
@@ -78,6 +79,10 @@ class User extends Model implements Authenticatable
     {
         return $this->hasMany(PoolCandidate::class);
     }
+    public function department(): BelongsTo
+    {
+        return $this->belongsTo(Department::class, "department");
+    }
     public function currentClassification(): BelongsTo
     {
         return $this->belongsTo(Classification::class, "current_classification");
@@ -85,6 +90,10 @@ class User extends Model implements Authenticatable
     public function expectedClassifications(): BelongsToMany
     {
         return $this->belongsToMany(Classification::class, 'classification_user')->withTimestamps();
+    }
+    public function expectedGenericJobTitles(): BelongsToMany
+    {
+        return $this->belongsToMany(GenericJobTitle::class, 'generic_job_title_user')->withTimestamps();
     }
     public function cmoAssets(): BelongsToMany
     {
@@ -130,26 +139,54 @@ class User extends Model implements Authenticatable
 
     // getIsProfileCompleteAttribute function is correspondent to isProfileComplete attribute in graphql schema
     public function getIsProfileCompleteAttribute(): bool
-    {if(is_null($this->attributes['first_name']) Or
-        is_null($this->attributes['last_name']) Or
-        is_null($this->attributes['email']) Or
-        is_null($this->attributes['telephone']) Or
-        is_null($this->attributes['preferred_lang']) Or
-        is_null($this->attributes['current_province']) Or
-        is_null($this->attributes['current_city']) Or
-            (is_null($this->attributes['looking_for_english']) &&
-            is_null($this->attributes['looking_for_french']) &&
-            is_null($this->attributes['looking_for_bilingual'])) Or
-        is_null($this->attributes['is_gov_employee']) Or
-        is_null($this->attributes['location_preferences']) Or
-        is_null($this->attributes['expected_salary']) Or
-        is_null($this->attributes['would_accept_temporary'])
-        )   {
+    {
+        if (
+            is_null($this->attributes['first_name']) Or
+            is_null($this->attributes['last_name']) Or
+            is_null($this->attributes['email']) Or
+            is_null($this->attributes['telephone']) Or
+            is_null($this->attributes['preferred_lang']) Or
+            is_null($this->attributes['current_province']) Or
+            is_null($this->attributes['current_city']) Or
+            (
+                is_null($this->attributes['looking_for_english']) &&
+                is_null($this->attributes['looking_for_french']) &&
+                is_null($this->attributes['looking_for_bilingual'])
+            ) Or
+            is_null($this->attributes['is_gov_employee']) Or
+            is_null($this->attributes['location_preferences']) Or
+            empty($this->attributes['location_preferences']) Or
+            is_null($this->attributes['would_accept_temporary']) Or
+            $this->expectedGenericJobTitles->isEmpty()
+        ) {
             return false;
-            }
-        else{
+        } else {
             return true;
         }
+
+    }
+    public function scopeIsProfileComplete(Builder $query, bool $isProfileComplete): Builder
+    {
+        if ($isProfileComplete) {
+            $query->whereNotNull('first_name');
+            $query->whereNotNull('last_name');
+            $query->whereNotNull('email');
+            $query->whereNotNull('telephone');
+            $query->whereNotNull('preferred_lang');
+            $query->whereNotNull('current_province');
+            $query->whereNotNull('current_city');
+            $query->where(function ($query) {
+                $query->whereNotNull('looking_for_english');
+                $query->orWhereNotNull('looking_for_french');
+                $query->orWhereNotNull('looking_for_bilingual');
+            });
+            $query->whereNotNull('is_gov_employee');
+            $query->whereNotNull('location_preferences');
+            $query->whereJsonLength('location_preferences', '>', 0);
+            $query->whereNotNull('would_accept_temporary');
+            $query->has('expectedGenericJobTitles');
+        }
+        return $query;
     }
 
      /**
@@ -181,6 +218,11 @@ class User extends Model implements Authenticatable
                               ->orWhereNull('expiry_date');
                     } else if ($poolCandidates['expiryStatus'] == ApiEnums::CANDIDATE_EXPIRY_FILTER_EXPIRED) {
                         $query->whereDate('expiry_date', '<', date("Y-m-d"));
+                    }
+                  })
+                  ->where(function ($query) use ($poolCandidates) {
+                    if (!empty($poolCandidates['statuses'])) {
+                        $query->whereIn('pool_candidates.pool_candidate_status', $poolCandidates['statuses']);
                     }
                   });
         });
@@ -392,24 +434,7 @@ RAWSQL2;
         }
         return $query;
     }
-    public function scopeIsProfileComplete(Builder $query, bool $isProfileComplete): Builder
-    {
-        if ($isProfileComplete) {
-            $query->whereNotNull('telephone');
-            $query->whereNotNull('current_province');
-            $query->whereNotNull('current_city');
-            $query->where(function ($query) {
-                $query->whereNotNull('looking_for_english');
-                $query->orWhereNotNull('looking_for_french');
-                $query->orWhereNotNull('looking_for_bilingual');
-            });
-            $query->whereNotNull('is_gov_employee');
-            $query->whereNotNull('location_preferences');
-            $query->whereNotNull('expected_salary');
-            $query->whereNotNull('would_accept_temporary');
-        }
-        return $query;
-    }
+
 
     public function filterByEquity(Builder $query, array $equity): Builder
     {
@@ -444,6 +469,49 @@ RAWSQL2;
                 }
             }
         });
+        return $query;
+    }
+
+    public function filterByGeneralSearch(Builder $query, ?string $search): Builder
+    {
+        if ($search) {
+            $query->where(function($query) use ($search) {
+                $query->where('first_name', "ilike", "%{$search}%")
+                      ->orWhere('last_name', "ilike", "%{$search}%")
+                      ->orWhere('email', "ilike", "%{$search}%")
+                      ->orWhere('telephone', "ilike", "%{$search}%");
+            });
+        }
+        return $query;
+    }
+
+    public function filterByName(Builder $query, ?string $name): Builder
+    {
+        if ($name) {
+            $splitName = explode(" ", $name);
+            $query->where(function($query) use ($splitName) {
+                foreach($splitName as $index => $value){
+                    $query->where('first_name', "ilike", "%{$value}%")
+                        ->orWhere('last_name', "ilike", "%{$value}%");
+                }
+            });
+        }
+        return $query;
+    }
+
+    public function scopeTelephone(Builder $query, ?string $telephone): Builder
+    {
+        if ($telephone) {
+            $query->where('telephone', 'ilike', "%{$telephone}%");
+        }
+        return $query;
+    }
+
+    public function scopeEmail(Builder $query, ?string $email): Builder
+    {
+        if ($email) {
+            $query->where('email', 'ilike', "%{$email}%");
+        }
         return $query;
     }
 

@@ -7,14 +7,10 @@ import { Checkbox } from "@common/components/form";
 
 import type { EquityDialogProps, EquityDialogFooterProps } from "../types";
 
+import AddToProfile from "./AddToProfile";
+import Definition from "./Definition";
 import DialogActions from "./DialogActions";
-
-// Question: Is this the correct URL?
-const statsCanLink = (...chunks: string[]) => (
-  <a href="https://www23.statcan.gc.ca/imdb/p3Var.pl?Function=DEC&Id=45152">
-    {chunks}
-  </a>
-);
+import UnderReview from "./UnderReview";
 
 interface FormValues {
   isVisibleMinority: boolean;
@@ -39,20 +35,14 @@ const VisibleMinorityDialogFooter: React.FC<EquityDialogFooterProps> = ({
 
   return (
     <FormProvider {...methods}>
-      <p>
-        {intl.formatMessage({
-          defaultMessage: '"I have read the provided definition and..."',
-          description:
-            "Message on employment equity forms confirming user read the provided definition",
-        })}
-      </p>
+      <AddToProfile />
       <form onSubmit={handleSubmit(submitHandler)}>
         <Checkbox
           id="isVisibleMinority"
           name="isVisibleMinority"
           label={intl.formatMessage({
             defaultMessage:
-              '"I identify as part of one or more visible minority groups."',
+              "I identify as part of one or more visible minority groups.",
             description:
               "Label for the checkbox to identify as a visible minority under employment equity",
           })}
@@ -87,26 +77,16 @@ const VisibleMinorityDialog: React.FC<EquityDialogProps> = ({
         </VisibleMinorityDialogFooter>
       }
     >
+      <UnderReview />
       <p>
         {intl.formatMessage({
           defaultMessage:
-            "Visible minority persons, other than Indigenous persons, who are non-Caucasian in race or non-white in colour. Examples of visible minority groups are: South Asian, Chinese, Black, Filipino, Arab, Latin American, Southeast Asian, West Asian, Korean and Japanese.",
+            'Visible minority refers to whether a person is a visible minority or not, as defined by the Employment Equity Act. The Employment Equity Act defines visible minorities as "persons, other than Aboriginal peoples, who are non-Caucasian in race or non-white in colour". The visible minority population consists mainly of the following groups: South Asian, Chinese, Black, Filipino, Arab, Latin American, Southeast Asian, West Asian, Korean and Japanese.',
           description:
             "Definition of accepted ways to identify as a visible minority",
         })}
       </p>
-      <p>
-        {intl.formatMessage(
-          {
-            defaultMessage: " As defined by <link>Statistics Canada</link>.",
-            description:
-              "Text directing users to the statistics Canada definition of visible minorities.",
-          },
-          {
-            link: statsCanLink,
-          },
-        )}
-      </p>
+      <Definition url="https://www23.statcan.gc.ca/imdb/p3Var.pl?Function=DEC&Id=45152" />
     </Dialog>
   );
 };

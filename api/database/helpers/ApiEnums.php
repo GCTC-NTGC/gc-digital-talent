@@ -79,4 +79,49 @@ class ApiEnums
             self::ROLE_APPLICANT,
         ];
     }
+
+    /**
+     * A collection of enums for salary ranges in factories and seeders
+     *
+     * @return string[]
+     */
+    public static function salaryRanges() : array
+    {
+        return [
+            '_50_59K',
+            '_60_69K',
+            '_70_79K',
+            '_80_89K',
+            '_90_99K',
+            '_100K_PLUS',
+        ];
+    }
+
+    const CANDIDATE_STATUS_AVAILABLE = 'AVAILABLE';
+    const CANDIDATE_STATUS_PLACED_INDETERMINATE = 'PLACED_INDETERMINATE';
+    const CANDIDATE_STATUS_PLACED_TERM = 'PLACED_TERM';
+    const CANDIDATE_STATUS_NO_LONGER_INTERESTED = 'NO_LONGER_INTERESTED';
+    const CANDIDATE_STATUS_UNAVAILABLE = 'UNAVAILABLE';
+    const CANDIDATE_STATUS_EXPIRED = 'EXPIRED';
+    const CANDIDATE_STATUS_PLACED_CASUAL = 'PLACED_CASUAL';
+
+    const USER_STATUS_ACTIVELY_LOOKING = 'ACTIVELY_LOOKING';
+    const USER_STATUS_OPEN_TO_OPPORTUNITIES = 'OPEN_TO_OPPORTUNITIES';
+    const USER_STATUS_INACTIVE = 'INACTIVE';
+
+    const POOL_STATUS_NOT_TAKING_APPLICATIONS = 'NOT_TAKING_APPLICATIONS';
+    const POOL_STATUS_TAKING_APPLICATIONS = 'TAKING_APPLICATIONS';
+
+    /**
+     * A collection of enums for pool statuses in factories and seeders
+     *
+     * @return string[]
+     */
+    public static function poolStatuses() : array
+    {
+        return [
+            self::POOL_STATUS_NOT_TAKING_APPLICATIONS,
+            self::POOL_STATUS_TAKING_APPLICATIONS,
+        ];
+    }
 }

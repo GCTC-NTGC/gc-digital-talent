@@ -48,10 +48,7 @@ type FormValues = {
       sync?: Array<Maybe<CmoAsset["id"]>>;
     };
     hasDiploma?: PoolCandidateFilter["hasDiploma"];
-    hasDisability?: EquitySelections["hasDisability"];
-    isIndigenous?: EquitySelections["isIndigenous"];
-    isVisibleMinority?: EquitySelections["isVisibleMinority"];
-    isWoman?: EquitySelections["isWoman"];
+    equity?: EquitySelections;
     languageAbility?: PoolCandidateFilter["languageAbility"];
     operationalRequirements?: Array<Maybe<OperationalRequirement>>;
     pools?: {
@@ -119,20 +116,7 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
           hasDiploma: poolCandidateFilter?.hasDiploma
             ? poolCandidateFilter?.hasDiploma
             : false,
-          equity: {
-            hasDisability: values.poolCandidateFilter?.hasDisability
-              ? values.poolCandidateFilter?.hasDisability
-              : false,
-            isIndigenous: values.poolCandidateFilter?.isIndigenous
-              ? values.poolCandidateFilter?.isIndigenous
-              : false,
-            isVisibleMinority: values.poolCandidateFilter?.isVisibleMinority
-              ? values.poolCandidateFilter?.isVisibleMinority
-              : false,
-            isWoman: values.poolCandidateFilter?.isWoman
-              ? values.poolCandidateFilter?.isWoman
-              : false,
-          },
+          equity: poolCandidateFilter?.equity,
           languageAbility: poolCandidateFilter?.languageAbility,
           operationalRequirements: poolCandidateFilter?.operationalRequirements,
           pools: {
@@ -173,8 +157,17 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
       });
   };
 
-  const departmentOptions: Option<string>[] = departments.map(
-    ({ id, name }) => ({
+  const departmentOptions: Option<string>[] = departments
+    .sort((a, b) => {
+      const aName: Maybe<string> = a.name[locale];
+      const bName: Maybe<string> = b.name[locale];
+      if (aName && bName) {
+        return aName.localeCompare(bName, locale);
+      }
+
+      return 0;
+    })
+    .map(({ id, name }) => ({
       value: id,
       label:
         name[locale] ??
@@ -183,8 +176,7 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
           description:
             "Error message when department name is not found on request page.",
         }),
-    }),
-  );
+    }));
 
   function span(msg: string): JSX.Element {
     return <span data-h2-font-color="b(lightpurple)">{msg}</span>;

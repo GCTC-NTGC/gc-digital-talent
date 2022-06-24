@@ -34,10 +34,7 @@ class PoolFactory extends Factory
             'user_id' => User::factory(),
             'operational_requirements' => $this->faker->optional->randomElements(ApiEnums::operationalRequirements(), 2),
             'key_tasks' => ['en' => $this->faker->paragraph().' EN', 'fr' => $this->faker->paragraph().' FR'],
-            'pool_status' => $this->faker->randomElement([
-                'TAKING_APPLICATIONS',
-                'NOT_TAKING_APPLICATIONS',
-            ]),
+            'pool_status' => $this->faker->randomElement(ApiEnums::poolStatuses()),
         ];
     }
 
@@ -45,7 +42,7 @@ class PoolFactory extends Factory
     {
         return $this->afterCreating(function (Pool $pool) {
             $assets = CmoAsset::inRandomOrder()->limit(4)->get();
-            $classifications = Classification::inRandomOrder()->limit(3)->get();
+            $classifications = Classification::inRandomOrder()->limit(5)->get();
             $pool->essentialCriteria()->saveMany($assets->slice(0,2));
             $pool->assetCriteria()->saveMany($assets->slice(2,2));
             $pool->classifications()->saveMany($classifications);

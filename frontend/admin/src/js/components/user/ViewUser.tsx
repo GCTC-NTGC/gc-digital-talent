@@ -12,10 +12,13 @@ import { Tab, TabSet } from "@common/components/tabs";
 import { commonMessages } from "@common/messages";
 import Pending from "@common/components/Pending";
 import NotFound from "@common/components/NotFound";
+import { isEmpty } from "lodash";
+import Heading from "@common/components/Heading";
 import { useAdminRoutes } from "../../adminRoutes";
 import { User, useUserQuery } from "../../api/generated";
 import DashboardContentContainer from "../DashboardContentContainer";
 import UserProfileApi from "./UserProfile";
+import GeneralInfoTabApi from "./GeneralInformationTab/GeneralInformationTab";
 import UserProfilePrintButton from "./UserProfilePrintButton";
 
 interface ViewUserPageProps {
@@ -31,7 +34,13 @@ export const ViewUserPage: React.FC<ViewUserPageProps> = ({ user }) => {
     description: "Title for the page when viewing an individual user.",
   });
 
-  const userName = `${user?.firstName} ${user?.lastName}`;
+  let userName = `${user?.firstName} ${user?.lastName}`;
+  if (isEmpty(user?.firstName) && isEmpty(user?.firstName)) {
+    userName = intl.formatMessage({
+      defaultMessage: "(Missing name)",
+      description: "Message for Missing names in profile",
+    });
+  }
 
   const links = [
     {
@@ -66,12 +75,12 @@ export const ViewUserPage: React.FC<ViewUserPageProps> = ({ user }) => {
         data-h2-margin="b(top-bottom, l)"
       >
         {userName !== " " && (
-          <h2
+          <Heading
+            level="h2"
             data-h2-margin="b(top-bottom, s) m(top-bottom, none)"
-            data-h2-font-weight="b(800)"
           >
             {userName}
-          </h2>
+          </Heading>
         )}
         <div data-h2-margin="m(left, auto)">
           <UserProfilePrintButton userId={user.id}>
@@ -91,7 +100,9 @@ export const ViewUserPage: React.FC<ViewUserPageProps> = ({ user }) => {
             defaultMessage: "General Information",
             description: "Tabs title for the individual user general info.",
           })}
-        />
+        >
+          <GeneralInfoTabApi userId={user.id} />
+        </Tab>
         <Tab
           text={intl.formatMessage({
             defaultMessage: "Candidate Profile",

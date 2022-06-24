@@ -23,6 +23,6 @@ DESCRIPTION;
 
     public static function regex(): string
     {
-        return '/^\+[1-9]\d{1,14}$/';
+        return '/./';
     }
 }

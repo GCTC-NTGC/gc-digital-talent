@@ -5,10 +5,9 @@ import pick from "lodash/pick";
 import { toast } from "react-toastify";
 import { Select, Submit, Input, MultiSelect } from "@common/components/form";
 import { navigate } from "@common/helpers/router";
-import { enumToOptions, unpackIds } from "@common/helpers/formUtils";
+import { enumToOptions } from "@common/helpers/formUtils";
 import { errorMessages, commonMessages } from "@common/messages";
 import { getLanguage, getRole } from "@common/constants/localizedConstants";
-import { phoneNumberRegex } from "@common/constants/regularExpressions";
 import { emptyToNull } from "@common/helpers/util";
 import NotFound from "@common/components/NotFound";
 import Pending from "@common/components/Pending";
@@ -27,44 +26,14 @@ import DashboardContentContainer from "../DashboardContentContainer";
 
 type FormValues = Pick<
   UpdateUserAsAdminInput,
-  | "bilingualEvaluation"
-  | "comprehensionLevel"
-  | "currentCity"
-  | "currentProvince"
   | "email"
-  | "estimatedLanguageAbility"
-  | "expectedSalary"
   | "firstName"
-  | "hasDiploma"
-  | "hasDisability"
-  | "isGovEmployee"
-  | "interestedInLaterOrSecondment"
-  | "isIndigenous"
-  | "isVisibleMinority"
-  | "isWoman"
-  | "jobLookingStatus"
-  | "languageAbility"
   | "lastName"
-  | "locationExemptions"
-  | "acceptedOperationalRequirements"
-  | "locationPreferences"
-  | "lookingForBilingual"
-  | "lookingForEnglish"
-  | "lookingForFrench"
   | "roles"
   | "preferredLang"
   | "telephone"
-  | "verbalLevel"
-  | "wouldAcceptTemporary"
-  | "writtenLevel"
   | "sub"
-> & {
-  cmoAssets: string[] | undefined;
-  currentClassification: string;
-  expectedClassifications: string[] | undefined;
-  pools: string[] | undefined;
-  poolCandidates: string[] | undefined;
-};
+>;
 interface UpdateUserFormProps {
   initialUser: User;
   handleUpdateUser: (
@@ -80,17 +49,6 @@ export const UpdateUserForm: React.FunctionComponent<UpdateUserFormProps> = ({
   const intl = useIntl();
   const paths = useAdminRoutes();
 
-  const dataToFormValues = (data: User): FormValues => ({
-    ...data,
-    cmoAssets: unpackIds(data.cmoAssets),
-    currentClassification: data.currentClassification
-      ? data.currentClassification.id
-      : "",
-    expectedClassifications: unpackIds(data.expectedClassifications),
-    pools: unpackIds(data.pools),
-    poolCandidates: unpackIds(data.poolCandidates),
-  });
-
   const formValuesToSubmitData = (
     values: FormValues,
   ): UpdateUserAsAdminInput => ({
@@ -100,19 +58,10 @@ export const UpdateUserForm: React.FunctionComponent<UpdateUserFormProps> = ({
     // empty string will violate uniqueness constraints
     email: emptyToNull(values.email),
     sub: emptyToNull(values.sub),
-    cmoAssets: {
-      sync: values.cmoAssets,
-    },
-    currentClassification: {
-      connect: values.currentClassification,
-    },
-    expectedClassifications: {
-      sync: values.expectedClassifications,
-    },
   });
 
   const methods = useForm<FormValues>({
-    defaultValues: dataToFormValues(initialUser),
+    defaultValues: initialUser,
   });
   const { handleSubmit } = methods;
 
@@ -194,12 +143,6 @@ export const UpdateUserForm: React.FunctionComponent<UpdateUserFormProps> = ({
               })}
               type="tel"
               name="telephone"
-              rules={{
-                pattern: {
-                  value: phoneNumberRegex,
-                  message: intl.formatMessage(errorMessages.telephone),
-                },
-              }}
             />
             <Select
               id="preferredLang"

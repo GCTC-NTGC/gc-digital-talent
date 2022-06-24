@@ -238,7 +238,7 @@ const LearnDialog: React.FC<BasicDialogProps> = ({ isOpen, onDismiss }) => {
       <p>
         {intl.formatMessage({
           defaultMessage:
-            "The minimum education requirement is a GED or high school diploma. A college or university education is not required. (edited) ",
+            "The minimum education requirement is a GED or high school diploma. A college or university education is not required.",
           description: "Learn more dialog question twelve paragraph one",
         })}
       </p>
