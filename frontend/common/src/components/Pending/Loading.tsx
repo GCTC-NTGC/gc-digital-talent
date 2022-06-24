@@ -4,6 +4,12 @@ import { useIntl } from "react-intl";
 export interface LoadingProps {
   inline?: boolean;
   /**
+   * Determine if the loading state should
+   * be announced to users
+   *
+   * This should be used sparingly and usually
+   * only with the inline={true}
+   *
    * polite: wait for idle state (recommended)
    * assertive: interrupt the current user workflow
    *
