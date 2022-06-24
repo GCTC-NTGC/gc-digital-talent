@@ -12,9 +12,11 @@ import { matchStringCaseDiacriticInsensitive } from "@common/helpers/formUtils";
 import { getLocale } from "@common/helpers/localize";
 import { Tab, TabSet } from "@common/components/tabs";
 import { invertSkillTree } from "@common/helpers/skillUtils";
+import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/solid";
 import SkillResults from "../SkillResults";
 import SkillFamiliesRadioList from "../SkillFamiliesRadioList/SkillFamiliesRadioList";
 import AddedSkills from "../AddedSkills";
+import SearchBar from "../SearchBar";
 
 export interface AddSkillsToFilterProps {
   allSkills: Skill[];
@@ -263,8 +265,46 @@ const AddSkillsToFilter: React.FC<AddSkillsToFilterProps> = ({
               "Button text for the search skills tab on skills filter",
           })}
         >
-          Search Skills
+          <SearchBar handleSearch={handleSearch} />
+          <SkillResults
+            title={intl.formatMessage(
+              {
+                defaultMessage: "Results ({skillCount})",
+                description: "A title for a list of results",
+              },
+              {
+                skillCount: searchSkills.length,
+              },
+            )}
+            skills={searchSkillsPagination.currentTableData}
+            addedSkills={addedSkills || []}
+            handleAddSkill={onAddSkill}
+            handleRemoveSkill={onRemoveSkill}
+          />
+          <Pagination
+            ariaLabel={intl.formatMessage({
+              defaultMessage: "keyword search skills results",
+            })}
+            color="primary"
+            mode="outline"
+            currentPage={searchSkillsPagination.currentPage}
+            pageSize={resultsPaginationPageSize}
+            totalCount={searchSkills.length}
+            handlePageChange={(page) =>
+              searchSkillsPagination.setCurrentPage(page)
+            }
+            handlePageSize={searchSkillsPagination.setPageSize}
+          />
         </Tab>
+        <Tab
+          tabType="closer"
+          iconPosition="right"
+          iconOpen={<ChevronUpIcon style={{ width: "1.25rem" }} />}
+          textOpen="Close"
+          iconClosed={<ChevronDownIcon style={{ width: "1.25rem" }} />}
+          textClosed="Open"
+          placement="end"
+        />
       </TabSet>
       <AddedSkills
         skills={addedSkills}
