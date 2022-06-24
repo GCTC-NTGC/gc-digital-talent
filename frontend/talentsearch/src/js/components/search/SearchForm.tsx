@@ -215,7 +215,11 @@ const SearchForm: React.FC<SearchFormProps> = ({
         >
           <RadioGroup
             idPrefix="education_requirement"
-            legend="Education Requirement filter"
+            legend={intl.formatMessage({
+              defaultMessage: "Education Requirement filter",
+              description:
+                "Legend for the Education Requirement filter radio group",
+            })}
             name="educationRequirement"
             defaultSelected="no_diploma"
             items={[
@@ -257,7 +261,11 @@ const SearchForm: React.FC<SearchFormProps> = ({
         >
           <Checklist
             idPrefix="operationalRequirements"
-            legend="Conditions of employment"
+            legend={intl.formatMessage({
+              defaultMessage: "Conditions of employment",
+              description:
+                "Legend for the Conditions of Employment filter checklist",
+            })}
             name="operationalRequirements"
             items={operationalRequirementsSubset.map((value) => ({
               value,
@@ -313,7 +321,11 @@ const SearchForm: React.FC<SearchFormProps> = ({
         >
           <RadioGroup
             idPrefix="languageAbility"
-            legend="Language"
+            legend={intl.formatMessage({
+              defaultMessage: "Language",
+              description:
+                "Legend for the Working Language Ability radio buttons",
+            })}
             name="languageAbility"
             defaultSelected={NullSelection}
             items={[
@@ -348,7 +360,10 @@ const SearchForm: React.FC<SearchFormProps> = ({
         >
           <Checklist
             idPrefix="employmentEquity"
-            legend="Conditions of employment"
+            legend={intl.formatMessage({
+              defaultMessage: "Conditions of employment",
+              description: "Legend for the Conditions of employment checklist",
+            })}
             name="employmentEquity"
             context={intl.formatMessage({
               defaultMessage:
@@ -408,7 +423,10 @@ const SearchForm: React.FC<SearchFormProps> = ({
         >
           <Checklist
             idPrefix="cmoAssets"
-            legend="Skills organized by stream"
+            legend={intl.formatMessage({
+              defaultMessage: "Skills organized by stream",
+              description: "Legend for Skills filter checklist",
+            })}
             name="cmoAssets"
             items={cmoAssetOptions}
           />

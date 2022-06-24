@@ -6,15 +6,12 @@
   "/DbKFl": {
     "defaultMessage": "Filtres de compétences ({cmoAssetFilterCount})"
   },
-  "0/8x/z": {
-    "defaultMessage": "N’importe quelle langue"
-  },
   "086Xpp": {
     "defaultMessage": "Personne handicapée",
     "description": "Checklist option for employment equity filter in search form."
   },
   "09x+E7": {
-    "defaultMessage": "Nombre approximative de candidats",
+    "defaultMessage": "Nombre approximatif de candidats",
     "description": "Heading for total estimated candidates box next to search form."
   },
   "5U+V2Y": {
@@ -70,7 +67,7 @@
     "description": "Explanation message for request form."
   },
   "HvD7jI": {
-    "defaultMessage": "Comment se servir de cet outil",
+    "defaultMessage": "Comment utiliser cet outil",
     "description": "Heading displayed in the How To area of the hero section of the Search page."
   },
   "IT6Djp": {
@@ -109,10 +106,6 @@
     "defaultMessage": "Nom complet...",
     "description": "Placeholder for full name input in the request form."
   },
-  "OrembA": {
-    "defaultMessage": "Après avoir cliqué sur soumettre, vous recevrez un courriel de confirmation de votre demande.",
-    "description": "Message before submit button on the request form."
-  },
   "S7e4QT": {
     "defaultMessage": "Remarque : Si vous sélectionnez plus d’un groupe visé par l’équité en matière d’emploi, TOUS les candidats qui se sont déclarés membres de N’IMPORTE LEQUEL des groupes visés par l’équité en matière d’emploi sélectionnés seront recommandés. Si vous avez des exigences plus détaillées concernant l’équité en matière d’emploi, veuillez nous en faire part dans la section des commentaires du formulaire de soumission.",
     "description": "Context for employment equity filter in search form."
@@ -122,7 +115,7 @@
     "description": "Title displayed in the hero section of the Search page."
   },
   "Tg8a57": {
-    "defaultMessage": "Utilisez les filtres ci-dessous pour préciser vos besoins d’embauche. En tout temps, vous pouvez consulter les résultats situés en bas de cette page pour voir combien de candidats correspondent aux exigences que vous avez saisies. Lorsque vous êtes satisfait des filtres que vous avez sélectionnés, cliquez sur le bouton demander des candidats pour ajouter plus de détails et soumettre un formulaire de demande.",
+    "defaultMessage": "Utilisez les filtres ci-dessous pour préciser vos besoins d’embauche. En tout temps, vous pouvez consulter les résultats situés en bas de cette page pour voir combien de candidats correspondent aux exigences que vous avez entrées. Lorsque vous êtes satisfait des filtres que vous avez sélectionnés, cliquez sur le bouton demander des candidats pour ajouter des renseignements et soumettre un formulaire de demande.",
     "description": "Content displayed in the How To area of the hero section of the Search page."
   },
   "TxVbLI": {
@@ -146,7 +139,7 @@
     "description": "Error message when department name is not found on request page."
   },
   "XSxaGk": {
-    "defaultMessage": "Ce bassin est ouvert à la plupart des ministères et organismes. Les candidats dans le bassin sont aussi bien des personnes en début de carrière que des professionnels chevronnés ayant plusieurs années d’expérience professionnelle. Il s’agit d’un bassin de recrutement continu, ce qui signifie que d’autres candidats sont ajoutés chaque semaine.",
+    "defaultMessage": "Ce bassin est ouvert à la plupart des ministères et organismes. Les candidats dans le bassin sont à la fois des professionnels en début de carrière et des professionnels chevronnés ayant plusieurs années d’expérience de travail. Il s’agit d’un bassin de recrutement continu, ce qui signifie que de nouveauxd candidats sont ajoutés chaque semaine.",
     "description": "Content displayed in the About area of the hero section of the Search page."
   },
   "Za/qCZ": {
@@ -158,7 +151,7 @@
     "description": "Blurb before additional comments textarea in the request form."
   },
   "asqSAJ": {
-    "defaultMessage": "Sélectionnez un emplacement...",
+    "defaultMessage": "Sélectionnez un lieu...",
     "description": "Placeholder for work location filter in search form."
   },
   "cQNacY": {
@@ -248,10 +241,6 @@
   "LRysDa": {
     "defaultMessage": "Filtres de classification ({classificationFilterCount}),"
   },
-  "ertbzM": {
-    "defaultMessage": "Il y a actuellement environ <weight>{candidateCount}</weight> candidats qui répondent à vos critères.",
-    "description": "Message for total estimated candidates box next to search form."
-  },
   "ky585k": {
     "defaultMessage": "Conditions d’emploi ({operationalRequirementFilterCount}),"
   },
@@ -280,7 +269,7 @@
     "description": "Message describing the work language ability filter in the search form."
   },
   "9hdbFi": {
-    "defaultMessage": "À propos du Bassin de talents numériques",
+    "defaultMessage": "À propos du bassin de talents numériques",
     "description": "Heading displayed in the About area of the hero section of the Search page."
   },
   "/sQHOb": {
@@ -358,10 +347,6 @@
   "BjRuMw": {
     "defaultMessage": "Voir la définition",
     "description": "Text displayed when skill block is open."
-  },
-  "CG/fQJ": {
-    "defaultMessage": "Avis de non-responsabilité ",
-    "description": "Title displayed above disclaimer checkbox"
   },
   "DyaaHi": {
     "defaultMessage": "Portée du prix",
@@ -555,10 +540,6 @@
     "defaultMessage": "Date de fin",
     "description": "Label displayed on Personal Experience form for end date input"
   },
-  "rXuCtB": {
-    "defaultMessage": "Expérience actuelle",
-    "description": "Title displayed above current experience checkbox"
-  },
   "sIM1t+": {
     "defaultMessage": "Choisir un...",
     "description": "Null selection for select input in the award scope form."
@@ -582,5 +563,21 @@
   "yx7EDY": {
     "defaultMessage": "C’est beaucoup de compétences!",
     "description": "Title of alert when there are many skills added."
+  },
+  "hafgad": {
+    "defaultMessage": "{candidateCount, plural, one {Il y a actuellement environ <weight>{candidateCount}</weight> candidat qui répond à vos critères.} other {Il y a actuelment environ <weight>{candidateCount}</weight> candidats qui répondent à vos critères.} }",
+    "description": "Message for total estimated candidates box next to search form."
+  },
+  "/JQ6DD": {
+    "defaultMessage": "Filtre des exigences en matière d’études",
+    "description": "Legend for the Education Requirement filter radio group"
+  },
+  "bKvvaI": {
+    "defaultMessage": "Conditions d’emploi",
+    "description": "Legend for the Conditions of Employment filter checklist"
+  },
+  "YyHN1i": {
+    "defaultMessage": "Toute langue (français ou anglais)",
+    "description": "No preference for language ability - will accept English or French"
   }
 }

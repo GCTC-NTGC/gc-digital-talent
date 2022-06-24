@@ -107,11 +107,11 @@
     "description": "Label for the privacy link in the Footer."
   },
   "ZE77nf": {
-    "defaultMessage": "canada.ca",
+    "defaultMessage": "Canada.ca",
     "description": "Label for the Canada link in the Footer."
   },
   "ZGpncy": {
-    "defaultMessage": "Modalités",
+    "defaultMessage": "Avis",
     "description": "Label for the terms and conditions link in the Footer."
   },
   "ZumF63": {
@@ -348,7 +348,7 @@
     "description": "Displayed next to required form inputs."
   },
   "WUC9pX": {
-    "defaultMessage": "Champ facultatif",
+    "defaultMessage": "Facultatif",
     "description": "Displayed next to optional form inputs."
   },
   "5gS1sZ": {
