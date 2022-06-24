@@ -9,6 +9,9 @@ import {
   Column,
   usePagination,
   useRowSelect,
+  UseRowSelectInstanceProps,
+  TableToggleAllRowsSelectedProps,
+  UseTableCellProps,
 } from "react-table";
 import { Button } from "@common/components";
 import Pagination from "@common/components/Pagination";
@@ -57,7 +60,7 @@ const IndeterminateFilterCheckbox: React.FC<
   );
 };
 const IndeterminateSelectionCheckbox: React.FC<
-  React.HTMLProps<HTMLInputElement> & { indeterminate: boolean }
+  TableToggleAllRowsSelectedProps & { id?: string; indeterminate: boolean }
 > = ({ indeterminate, ...rest }) => {
   const ref = React.useRef<HTMLInputElement>(null);
 
@@ -70,8 +73,9 @@ const IndeterminateSelectionCheckbox: React.FC<
   return <input type="checkbox" ref={ref} {...rest} />;
 };
 
-// TODO: Try to fix these types
-const HeaderCheckbox = ({ getToggleAllPageRowsSelectedProps }) => {
+const HeaderCheckbox = ({
+  getToggleAllPageRowsSelectedProps,
+}: UseRowSelectInstanceProps<Record<string, unknown>>) => {
   const intl = useIntl();
 
   return (
@@ -79,6 +83,7 @@ const HeaderCheckbox = ({ getToggleAllPageRowsSelectedProps }) => {
       <label htmlFor="selection-toggle-all">
         <IndeterminateSelectionCheckbox
           id="selection-toggle-all"
+          indeterminate={false}
           {...getToggleAllPageRowsSelectedProps()}
         />{" "}
         {intl.formatMessage({
@@ -90,10 +95,13 @@ const HeaderCheckbox = ({ getToggleAllPageRowsSelectedProps }) => {
     </div>
   );
 };
-const RowCheckbox = ({ row }) => {
+const RowCheckbox = ({ row }: UseTableCellProps<Record<string, unknown>>) => {
   return (
     <div data-h2-text-align="b(center)">
-      <IndeterminateSelectionCheckbox {...row.getToggleRowSelectedProps()} />
+      <IndeterminateSelectionCheckbox
+        {...row.getToggleRowSelectedProps()}
+        indeterminate={false}
+      />
     </div>
   );
 };
