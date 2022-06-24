@@ -28,6 +28,6 @@ export const setUpGraphqlIntercepts = () => {
     // E.g., cy.wait('@gqlgetMeQuery')
     aliasQuery(req, 'getMe')
     aliasQuery(req, 'me')
-    aliasQuery(req, 'countPoolCandidates')
+    aliasQuery(req, 'countApplicants')
   })
 }

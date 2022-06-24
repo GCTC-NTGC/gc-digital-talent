@@ -8,14 +8,15 @@ import {
   Classification,
   ClassificationFilterInput,
   CmoAsset,
-  CountPoolCandidatesQueryVariables,
+  CountApplicantsQueryVariables,
   KeyFilterInput,
   Maybe,
   Pool,
-  PoolCandidateFilterInput,
+  ApplicantFilterInput,
   PoolFilterInput,
   Skill,
   useCountPoolCandidatesQuery,
+  useCountApplicantsQuery,
   useGetSearchFormDataQuery,
   UserPublicProfile,
 } from "../../api/generated";
@@ -28,9 +29,9 @@ import { useTalentSearchRoutes } from "../../talentSearchRoutes";
 import { DIGITAL_CAREERS_POOL_KEY } from "../../talentSearchConstants";
 
 const candidateFilterToQueryArgs = (
-  filter: PoolCandidateFilterInput | undefined,
+  filter: ApplicantFilterInput | undefined,
   poolId: string | undefined,
-): CountPoolCandidatesQueryVariables => {
+): CountApplicantsQueryVariables => {
   /* We must pick only the fields belonging to PoolCandidateFilterInput, because its possible
      the data object contains other props at runtime, and this will cause the
      graphql operation to fail.
@@ -48,6 +49,16 @@ const candidateFilterToQueryArgs = (
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ): any[] | undefined => list?.map((item) => pick(item, keys));
 
+  // coercing type from maybe undefined to definitely not undefined
+  const poolCandidatesTypeChange = (
+    poolObject: ApplicantFilterInput | undefined,
+  ) => {
+    if (poolObject?.poolCandidates?.pools) {
+      return poolObject.poolCandidates.pools;
+    }
+    return [];
+  };
+
   if (filter !== null || undefined)
     return {
       where: {
@@ -58,11 +69,12 @@ const candidateFilterToQueryArgs = (
           isVisibleMinority: filter?.equity?.isVisibleMinority,
           isWoman: filter?.equity?.isWoman,
         },
-        classifications: filter?.classifications
-          ? pickMap(filter.classifications, ["group", "level"])
+        expectedClassifications: filter?.expectedClassifications
+          ? pickMap(filter.expectedClassifications, ["group", "level"])
           : [],
-        cmoAssets: filter?.cmoAssets ? pickMap(filter.cmoAssets, "key") : [],
-        pools: poolId ? [{ id: poolId }] : pickMap(filter?.pools, "id"),
+        poolCandidates: {
+          pools: poolId ? [poolId] : poolCandidatesTypeChange(filter),
+        },
       },
     };
   return {};
@@ -76,8 +88,8 @@ export interface SearchContainerProps {
   skills?: Skill[];
   candidateCount: number;
   updatePending?: boolean;
-  candidateFilter?: PoolCandidateFilterInput | undefined;
-  onUpdateCandidateFilter: (candidateFilter: PoolCandidateFilterInput) => void;
+  candidateFilter?: ApplicantFilterInput | undefined;
+  onUpdateCandidateFilter: (candidateFilter: ApplicantFilterInput) => void;
   onSubmit: () => Promise<void>;
 }
 
@@ -102,8 +114,8 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
   const intl = useIntl();
 
   const classificationFilterCount =
-    candidateFilter?.classifications?.length ?? 0;
-  const cmoAssetFilterCount = candidateFilter?.cmoAssets?.length ?? 0;
+    candidateFilter?.expectedClassifications?.length ?? 0;
+  const cmoAssetFilterCount = 0; // TODO REMOVE WHEN REPLACING CMO ASSETS
   const operationalRequirementFilterCount =
     candidateFilter?.operationalRequirements?.length ?? 0;
 
@@ -208,20 +220,21 @@ const SearchContainerApi: React.FC = () => {
   const skills = data?.skills;
 
   const [candidateFilter, setCandidateFilter] = React.useState<
-    PoolCandidateFilterInput | undefined
+    ApplicantFilterInput | undefined
   >(undefined);
 
   const [{ data: countData, fetching: countFetching }] =
-    useCountPoolCandidatesQuery({
+    useCountApplicantsQuery({
       variables: candidateFilterToQueryArgs(candidateFilter, pool?.id),
     });
 
-  const candidateCount = countData?.countPoolCandidates ?? 0;
+  const candidateCount = countData?.countApplicants ?? 0;
 
   const paths = useTalentSearchRoutes();
   const onSubmit = async () => {
     // pool ID is not in the form so it must be added manually
-    if (candidateFilter && pool) candidateFilter.pools = [{ id: pool.id }];
+    if (candidateFilter?.poolCandidates && pool)
+      candidateFilter.poolCandidates.pools = [pool.id];
 
     return pushToStateThenNavigate(paths.request(), {
       candidateFilter,

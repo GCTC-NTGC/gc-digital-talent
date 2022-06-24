@@ -12,7 +12,7 @@ describe("Talentsearch Search Page", () => {
 
   it("checks, submits, and navigates to /request", () => {
     const doneLoading = () => {
-      cy.wait('@gqlcountPoolCandidatesQuery')
+      cy.wait('@gqlcountApplicantsQuery')
     }
 
     cy.get("form")

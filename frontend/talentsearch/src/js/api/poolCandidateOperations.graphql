@@ -2,6 +2,10 @@ query countPoolCandidates($where: PoolCandidateFilterInput) {
   countPoolCandidates(where: $where)
 }
 
+query countApplicants($where: ApplicantFilterInput) {
+  countApplicants(where: $where)
+}
+
 query getSearchFormData($poolKey: String!) {
   poolByKey(key: $poolKey) {
     id
