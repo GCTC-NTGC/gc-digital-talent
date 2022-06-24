@@ -8,6 +8,7 @@ import { notEmpty } from "@common/helpers/util";
 export interface AddedSkillsProps {
   skills: Skill[];
   onRemoveSkill: (id: Scalars["ID"]) => void;
+  showHighAlert?: boolean;
 }
 
 const strong = (child: HTMLElement) => <strong>{child}</strong>;
@@ -15,6 +16,7 @@ const strong = (child: HTMLElement) => <strong>{child}</strong>;
 const AddedSkills: React.FunctionComponent<AddedSkillsProps> = ({
   skills,
   onRemoveSkill,
+  showHighAlert = true,
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
@@ -56,7 +58,7 @@ const AddedSkills: React.FunctionComponent<AddedSkillsProps> = ({
         </i>
       )}
 
-      {filteredSkills.length >= 6 && (
+      {showHighAlert && filteredSkills.length >= 6 && (
         <div
           data-h2-border="b(gold, all, solid, s)"
           data-h2-bg-color="b(gold[.1])"

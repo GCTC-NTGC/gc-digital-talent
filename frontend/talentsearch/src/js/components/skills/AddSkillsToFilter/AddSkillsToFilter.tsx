@@ -228,7 +228,11 @@ const AddSkillsToFilter: React.FC<AddSkillsToFilterProps> = ({
           Search Skills
         </Tab>
       </TabSet>
-      <AddedSkills skills={addedSkills} onRemoveSkill={onRemoveSkill} />
+      <AddedSkills
+        skills={addedSkills}
+        onRemoveSkill={onRemoveSkill}
+        showHighAlert={false}
+      />
     </>
   );
 };
