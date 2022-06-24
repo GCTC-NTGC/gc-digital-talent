@@ -1,7 +1,6 @@
 import { aliasMutation, aliasQuery } from "../../support/graphql-test-utils";
 
-describe("User Profile Smoke Tests", () => {
-
+describe("User Profile Workflow Tests", () => {
   const loginAndGoToProfile = () => {
     cy.login("applicant");
     cy.visit("/en/talent/profile");

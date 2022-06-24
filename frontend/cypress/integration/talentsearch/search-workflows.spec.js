@@ -1,9 +1,9 @@
 import { aliasMutation, aliasQuery } from "../../support/graphql-test-utils";
 
-describe("Talent Search Smoke Tests", () => {
+describe("Talent Search Workflow Tests", () => {
   beforeEach(() => {
     cy.intercept("POST", "/graphql", (req) => {
-      aliasQuery(req, "countPoolCandidates");
+      aliasQuery(req, "countApplicants");
       aliasQuery(req, "getPoolCandidateSearchRequestData");
       aliasMutation(req, "createPoolCandidateSearchRequest");
     });
@@ -11,21 +11,25 @@ describe("Talent Search Smoke Tests", () => {
     cy.visit("/en/talent/search");
   });
 
-  const searchReturnsGreaterThanZeroCandidates = () => {
-    cy.wait("@gqlcountPoolCandidatesQuery");
+  const searchReturnsGreaterThanZeroApplicants = () => {
+    cy.wait("@gqlcountApplicantsQuery");
     cy.findByRole("heading", {
       name: /Results: [1-9][0-9]* matching candidate/i,
     });
   };
 
   it("searches for candidates and submits a request", () => {
-    searchReturnsGreaterThanZeroCandidates();
+    // first request is without any filters
+    cy.wait("@gqlcountApplicantsQuery");
+
+    // second request is properly filtered
+    searchReturnsGreaterThanZeroApplicants();
 
     cy.findByRole("radio", {
       name: /Required diploma from post-secondary institution/i,
-    }).check();
+    }).click();
 
-    searchReturnsGreaterThanZeroCandidates();
+    searchReturnsGreaterThanZeroApplicants();
 
     cy.findByRole("button", { name: /Request Candidates/i }).click();
 

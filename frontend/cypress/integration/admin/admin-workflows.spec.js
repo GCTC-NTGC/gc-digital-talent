@@ -1,6 +1,6 @@
 import { aliasMutation, aliasQuery } from "../../support/graphql-test-utils";
 
-describe("Admin Smoke Tests", () => {
+describe("Admin Workflow Tests", () => {
   const loginAndGoToDashboard = () => {
     cy.login("admin");
     cy.visit("/en/admin");
@@ -13,12 +13,19 @@ describe("Admin Smoke Tests", () => {
   };
 
   const searchForUser = (name) => {
-    cy.findByRole("textbox", { name: /Search/i })
-    .clear()
-    .type(name);
+    // search not yet implemented in new table
+    // cy.findByRole("textbox", { name: /Search/i })
+    // .clear()
+    // .type(name)
+    // .type("{enter}");
+
+    cy.findByRole("table")
+      .findByText(/Candidate Name/i)
+      .click();
 
     // wait for table to rerender
-    cy.findByText(name)
+    cy.findByRole("table")
+      .contains(name) // not sure why this doesn't work: .findByRole("row", name)
       .should("exist")
       .and("be.visible");
   };
@@ -38,10 +45,10 @@ describe("Admin Smoke Tests", () => {
     cy.findByRole("link", { name: /Manage users/i }).click();
     cy.wait("@gqlAllUsersQuery");
 
-    searchForUser("Applicant");
+    searchForUser("Applicant Test");
 
     cy.findByRole("table")
-      .findByRole("row", { name:  /applicant/i})
+      .findByRole("row", { name: /applicant test/i })
       .findByText("applicant@test.com") // findByRole link doesn't work here
       .click();
 
@@ -95,10 +102,9 @@ describe("Admin Smoke Tests", () => {
 
     // check that the expected new phone number shows
     cy.findByRole("table")
-      .findByRole("row", { name:  /applicant/i})
+      .findByRole("row", { name: /applicant/i })
       .findByText("+10123456789")
       .should("exist")
       .and("be.visible");
-
   });
 });
