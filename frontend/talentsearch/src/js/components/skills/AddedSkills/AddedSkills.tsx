@@ -48,14 +48,14 @@ const AddedSkills: React.FunctionComponent<AddedSkillsProps> = ({
         </Chips>
       ) : null}
       {filteredSkills.length === 0 && (
-        <i>
+        <p data-h2-font-style="b(italic)">
           {intl.formatMessage({
             defaultMessage:
               "There are no skills selected yet. You can add some using the provided links.",
             description:
               "Invitation to add skills when there aren't any added yet.",
           })}
-        </i>
+        </p>
       )}
 
       {showHighAlert && filteredSkills.length >= 6 && (
@@ -67,8 +67,8 @@ const AddedSkills: React.FunctionComponent<AddedSkillsProps> = ({
           data-h2-font-color="b([dark]darkgold)"
           role="alert"
         >
-          <i>
-            <div>
+          <div data-h2-font-style="b(italic)">
+            <p>
               <strong>
                 {intl.formatMessage({
                   defaultMessage: "That's a lot of skills!",
@@ -76,8 +76,8 @@ const AddedSkills: React.FunctionComponent<AddedSkillsProps> = ({
                     "Title of alert when there are many skills added.",
                 })}
               </strong>
-            </div>
-            <div>
+            </p>
+            <p>
               {intl.formatMessage(
                 {
                   defaultMessage:
@@ -89,8 +89,8 @@ const AddedSkills: React.FunctionComponent<AddedSkillsProps> = ({
                   strong,
                 },
               )}
-            </div>
-          </i>
+            </p>
+          </div>
         </div>
       )}
     </>
