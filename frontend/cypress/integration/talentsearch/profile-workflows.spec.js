@@ -32,10 +32,7 @@ describe("User Profile Smoke Tests", () => {
       .type("Test City");
     cy.findByRole("button", { name: /Save and go back/i }).click();
     cy.wait("@gqlUpdateUserAsUserMutation");
-    cy.findByRole("alert")
-      .findByText(/User updated successfully/i)
-      .should("exist")
-      .and("be.visible");
+    cy.expectToast(/User updated successfully/i);
     cy.url().should("contain", "/profile");
 
     // work location
@@ -45,10 +42,7 @@ describe("User Profile Smoke Tests", () => {
       .type("Test Locations");
     cy.findByRole("button", { name: /Save and go back/i }).click();
     cy.wait("@gqlcreateWorkLocationPreferenceMutation");
-    cy.findByRole("alert")
-      .findByText(/User updated successfully/i)
-      .should("exist")
-      .and("be.visible");
+    cy.expectToast(/User updated successfully/i);
     cy.url().should("contain", "/profile");
   });
 });

@@ -62,9 +62,6 @@ describe("Talent Search Smoke Tests", () => {
 
     cy.wait("@gqlcreatePoolCandidateSearchRequestMutation");
 
-    cy.findByRole("alert")
-      .findByText(/Request created successfully/i)
-      .should("exist")
-      .and("be.visible");
+    cy.expectToast(/Request created successfully/i);
   });
 });

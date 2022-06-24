@@ -91,9 +91,6 @@ describe("Admin Smoke Tests", () => {
 
     cy.wait("@gqlUpdateUserAsAdminMutation");
 
-    cy.findByRole("alert")
-      .findByText(/User updated successfully/i)
-      .should("exist")
-      .and("be.visible");
+    cy.expectToast(/User updated successfully/i);
   });
 });
