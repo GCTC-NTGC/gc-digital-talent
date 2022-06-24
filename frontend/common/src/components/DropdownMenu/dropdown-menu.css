@@ -1,0 +1,11 @@
+[data-reach-menu-list], [data-reach-menu-items] {
+  padding: 0.5rem 0;
+}
+
+[data-reach-menu-item] {
+  font-family: "Open Sans", sans-serif;
+}
+
+[data-reach-menu-item][data-selected] {
+  background-color: #674C90;
+}

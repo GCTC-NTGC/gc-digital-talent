@@ -18,8 +18,9 @@ import {
   LanguageAbility,
   OperationalRequirement,
   PoolCandidateFilter,
-  PoolCandidateFilterInput,
+  ApplicantFilterInput,
   WorkRegion,
+  ApplicantPoolFilterInput,
 } from "../../api/generated";
 import FilterBlock from "./FilterBlock";
 
@@ -39,10 +40,11 @@ export type FormValues = Pick<
 > & {
   languageAbility: LanguageAbility | typeof NullSelection;
   classifications: string[] | undefined;
-  cmoAssets: string[] | undefined;
+  cmoAssets: string[] | undefined; // TODO REMOVE WHEN REPLACING CMOASSETS
   employmentEquity: string[] | undefined;
   educationRequirement: "has_diploma" | "no_diploma";
   poolId: string;
+  poolCandidates: ApplicantPoolFilterInput;
 };
 
 type LocationState = {
@@ -54,7 +56,7 @@ type LocationState = {
 export interface SearchFormProps {
   classifications: Classification[];
   cmoAssets: CmoAsset[];
-  onUpdateCandidateFilter: (filter: PoolCandidateFilterInput) => void;
+  onUpdateCandidateFilter: (filter: ApplicantFilterInput) => void;
 }
 
 const SearchForm: React.FC<SearchFormProps> = ({
@@ -86,16 +88,16 @@ const SearchForm: React.FC<SearchFormProps> = ({
   }, [initialValues, onUpdateCandidateFilter]);
 
   React.useEffect(() => {
-    const formValuesToData = (values: FormValues): PoolCandidateFilterInput => {
+    const formValuesToData = (values: FormValues): ApplicantFilterInput => {
       return {
-        classifications: values.classifications
+        expectedClassifications: values.classifications
           ? values.classifications
               ?.filter((id) => !!id)
               .map((id) => (id ? classificationMap.get(id) : undefined))
           : [],
-        cmoAssets: values.cmoAssets
-          ? values.cmoAssets?.map((id) => (id ? assetMap.get(id) : undefined))
-          : [],
+        poolCandidates: {
+          pools: [values.poolId],
+        },
         operationalRequirements: values.operationalRequirements
           ? unpackMaybes(values.operationalRequirements)
           : [],
@@ -117,11 +119,11 @@ const SearchForm: React.FC<SearchFormProps> = ({
         ...(values.languageAbility !== NullSelection
           ? { languageAbility: values.languageAbility as LanguageAbility }
           : {}), // Ensure null in FormValues is converted to undefined
-        workRegions: values.workRegions || [],
+        locationPreferences: values.workRegions || [],
       };
     };
 
-    const debounceUpdate = debounce((values: PoolCandidateFilterInput) => {
+    const debounceUpdate = debounce((values: ApplicantFilterInput) => {
       if (onUpdateCandidateFilter) {
         onUpdateCandidateFilter(values);
       }
