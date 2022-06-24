@@ -12,6 +12,17 @@ describe("Admin Smoke Tests", () => {
     cy.url().should("contain", "/dashboard");
   };
 
+  const searchForUser = (name) => {
+    cy.findByRole("textbox", { name: /Search/i })
+    .clear()
+    .type(name);
+
+    // wait for table to rerender
+    cy.findByText(name)
+      .should("exist")
+      .and("be.visible");
+  };
+
   beforeEach(() => {
     cy.intercept("POST", "/graphql", (req) => {
       aliasQuery(req, "AllUsers");
@@ -26,17 +37,11 @@ describe("Admin Smoke Tests", () => {
     // find the applicant user to review
     cy.findByRole("link", { name: /Manage users/i }).click();
     cy.wait("@gqlAllUsersQuery");
-    cy.findByRole("textbox", { name: /Search/i })
-      .clear()
-      .type("Applicant");
 
-    // wait for table to rerender
-    cy.findByText("applicant@test.com")
-      .should("exist")
-      .and("be.visible");
+    searchForUser("Applicant");
 
     cy.findByRole("table")
-      .findByRole("row", { name: /applicant/i })
+      .findByRole("row", { name:  /applicant/i})
       .findByText("applicant@test.com") // findByRole link doesn't work here
       .click();
 
@@ -67,14 +72,7 @@ describe("Admin Smoke Tests", () => {
     // find the applicant user to edit
     cy.findByRole("link", { name: /Manage users/i }).click();
     cy.wait("@gqlAllUsersQuery");
-    cy.findByRole("textbox", { name: /Search/i })
-      .clear()
-      .type("Applicant");
-
-    // wait for table to rerender
-    cy.findByText("applicant@test.com")
-      .should("exist")
-      .and("be.visible");
+    searchForUser("Applicant");
 
     cy.findByRole("table")
       .findByRole("row", { name: /applicant/i })
@@ -92,5 +90,15 @@ describe("Admin Smoke Tests", () => {
     cy.wait("@gqlUpdateUserAsAdminMutation");
 
     cy.expectToast(/User updated successfully/i);
+
+    searchForUser("Applicant");
+
+    // check that the expected new phone number shows
+    cy.findByRole("table")
+      .findByRole("row", { name:  /applicant/i})
+      .findByText("+10123456789")
+      .should("exist")
+      .and("be.visible");
+
   });
 });
