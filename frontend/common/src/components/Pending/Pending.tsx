@@ -14,11 +14,12 @@ interface PendingProps extends LoadingProps {
 const Pending: React.FC<PendingProps> = ({
   fetching,
   error,
+  live,
   inline = false,
   children,
 }) => {
   if (fetching) {
-    return <Loading inline={!!inline} />;
+    return <Loading inline={!!inline} live={live} />;
   }
 
   if (error) {
