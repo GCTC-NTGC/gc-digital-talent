@@ -168,7 +168,6 @@ const SearchForm: React.FC<SearchFormProps> = ({
     OperationalRequirement.Travel,
     OperationalRequirement.TransportEquipment,
     OperationalRequirement.DriversLicense,
-    OperationalRequirement.WorkWeekends,
   ];
 
   return (
