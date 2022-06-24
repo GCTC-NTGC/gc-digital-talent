@@ -132,6 +132,11 @@ const AddSkillsToFilter: React.FC<AddSkillsToFilterProps> = ({
     [technicalSkills],
   );
 
+  const transferableSkillFamilies = React.useMemo(
+    () => invertSkillTree(transferableSkills),
+    [transferableSkills],
+  );
+
   return (
     <>
       <h3
@@ -216,7 +221,40 @@ const AddSkillsToFilter: React.FC<AddSkillsToFilterProps> = ({
               "Button text for the transferable skills tab on skills filter",
           })}
         >
-          Transferable Skills
+          <SkillFamiliesRadioList
+            skillFamilies={transferableSkillFamilies}
+            callback={(checked) =>
+              handleSkillFamilyChange(checked, SkillCategory.Behavioural)
+            }
+          />
+          <SkillResults
+            title={intl.formatMessage(
+              {
+                defaultMessage: "Results ({skillCount})",
+                description: "A title for a skill list of results",
+              },
+              { skillCount: filteredTransferableSkills.length },
+            )}
+            skills={transferableSkillsPagination.currentTableData}
+            addedSkills={addedSkills}
+            handleAddSkill={onAddSkill}
+            handleRemoveSkill={onRemoveSkill}
+          />
+          <Pagination
+            ariaLabel={intl.formatMessage({
+              defaultMessage: "Transferable skills results",
+              description: "Title for transferable skills pagination",
+            })}
+            color="primary"
+            mode="outline"
+            currentPage={transferableSkillsPagination.currentPage}
+            pageSize={resultsPaginationPageSize}
+            totalCount={filteredTransferableSkills.length}
+            handlePageChange={(page: number) =>
+              transferableSkillsPagination.setCurrentPage(page)
+            }
+            handlePageSize={transferableSkillsPagination.setPageSize}
+          />
         </Tab>
         <Tab
           text={intl.formatMessage({
