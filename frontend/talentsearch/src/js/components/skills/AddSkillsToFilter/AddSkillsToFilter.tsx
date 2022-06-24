@@ -14,17 +14,18 @@ import { Tab, TabSet } from "@common/components/tabs";
 import { invertSkillTree } from "@common/helpers/skillUtils";
 import SkillResults from "../SkillResults";
 import SkillFamiliesRadioList from "../SkillFamiliesRadioList/SkillFamiliesRadioList";
+import AddedSkills from "../AddedSkills";
 
 export interface AddSkillsToFilterProps {
   allSkills: Skill[];
-  addedSkills: Skill[];
+  addedSkillIds: Scalars["ID"][];
   onAddSkill: (id: Scalars["ID"]) => void;
   onRemoveSkill: (id: Scalars["ID"]) => void;
 }
 
 const AddSkillsToFilter: React.FC<AddSkillsToFilterProps> = ({
   allSkills,
-  addedSkills,
+  addedSkillIds,
   onAddSkill,
   onRemoveSkill,
 }) => {
@@ -41,6 +42,10 @@ const AddSkillsToFilter: React.FC<AddSkillsToFilterProps> = ({
   const [filteredTransferableSkills, setFilteredTransferableSkills] =
     React.useState<Skill[]>([]);
   const [searchSkills, setSearchSkills] = React.useState<Skill[]>([]);
+
+  const addedSkills = addedSkillIds
+    .map((id) => allSkills.find((skill) => skill.id === id))
+    .filter((skill) => typeof skill !== "undefined") as Skill[];
 
   React.useEffect(() => {
     const technical = allSkills.filter((skill) => {
@@ -184,7 +189,7 @@ const AddSkillsToFilter: React.FC<AddSkillsToFilterProps> = ({
               { skillCount: filteredTechnicalSkills.length },
             )}
             skills={technicalSkillsPagination.currentTableData}
-            addedSkills={addedSkills || []}
+            addedSkills={addedSkills}
             handleAddSkill={onAddSkill}
             handleRemoveSkill={onRemoveSkill}
           />
@@ -223,6 +228,7 @@ const AddSkillsToFilter: React.FC<AddSkillsToFilterProps> = ({
           Search Skills
         </Tab>
       </TabSet>
+      <AddedSkills skills={addedSkills} onRemoveSkill={onRemoveSkill} />
     </>
   );
 };

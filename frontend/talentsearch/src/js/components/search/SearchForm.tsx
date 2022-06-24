@@ -22,6 +22,7 @@ import {
   ApplicantFilterInput,
   WorkRegion,
   ApplicantPoolFilterInput,
+  Scalars,
 } from "../../api/generated";
 import FilterBlock from "./FilterBlock";
 import AddSkillsToFilter from "../skills/AddSkillsToFilter";
@@ -71,6 +72,9 @@ const SearchForm: React.FC<SearchFormProps> = ({
   const intl = useIntl();
   const locale = getLocale(intl);
   const location = useLocation();
+  const [addedSkills, setAddedSkills] = React.useState<Array<Scalars["ID"]>>(
+    [],
+  );
 
   const classificationMap = React.useMemo(
     () => mapIdToValue(classifications),
@@ -163,6 +167,22 @@ const SearchForm: React.FC<SearchFormProps> = ({
       })),
     [cmoAssets, locale, intl],
   );
+
+  const handleAddSkill = (id: Scalars["ID"]) => {
+    if (!addedSkills.includes(id)) {
+      const newSkills = [id, ...addedSkills];
+      setAddedSkills(newSkills);
+    }
+  };
+
+  const handleRemoveSkill = (id: Scalars["ID"]) => {
+    if (addedSkills.includes(id)) {
+      const newSkills = [...addedSkills].filter(
+        (existingId) => existingId !== id,
+      );
+      setAddedSkills(newSkills);
+    }
+  };
 
   const operationalRequirementsSubset = [
     OperationalRequirement.ShiftWork,
@@ -397,10 +417,10 @@ const SearchForm: React.FC<SearchFormProps> = ({
           />
         </FilterBlock>
         <AddSkillsToFilter
-          addedSkills={[]}
+          addedSkillIds={addedSkills}
           allSkills={skills ?? []}
-          onAddSkill={(skill) => window.console.log(skill)}
-          onRemoveSkill={(skill) => window.console.log(skill)}
+          onAddSkill={handleAddSkill}
+          onRemoveSkill={handleRemoveSkill}
         />
       </form>
     </FormProvider>

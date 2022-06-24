@@ -25,9 +25,8 @@ const AddedSkills: React.FunctionComponent<AddedSkillsProps> = ({
     <>
       <h3 data-h2-font-size="b(h5)">
         {intl.formatMessage({
-          defaultMessage: "Skills attached to this experience",
-          description:
-            "Section header for a list of skills attached to this experience",
+          defaultMessage: "Selected skills",
+          description: "Section header for a list of skills selected",
         })}
       </h3>
       {notEmpty(filteredSkills) ? (
@@ -38,7 +37,7 @@ const AddedSkills: React.FunctionComponent<AddedSkillsProps> = ({
               <Chip
                 key={skill?.id}
                 label={skill?.name?.[locale] ?? "Missing Name"}
-                color="neutral"
+                color="primary"
                 mode="outline"
                 onDismiss={handleDismiss}
               />
@@ -50,7 +49,7 @@ const AddedSkills: React.FunctionComponent<AddedSkillsProps> = ({
         <i>
           {intl.formatMessage({
             defaultMessage:
-              "There are no skills attached to this experience yet. You can add some using the links below.",
+              "There are no skills selected yet. You can add some using the provided links.",
             description:
               "Invitation to add skills when there aren't any added yet.",
           })}
