@@ -126,7 +126,7 @@ export const ProfilePage: React.FunctionComponent = () => {
   const userData = data ? dataToUser(data) : undefined;
 
   return (
-    <Pending fetching error={error} inline>
+    <Pending fetching={fetching} error={error}>
       {userData ? (
         <ProfileForm profileDataInput={userData} />
       ) : (
