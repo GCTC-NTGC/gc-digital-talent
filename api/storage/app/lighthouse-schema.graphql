@@ -44,6 +44,25 @@ type Applicant {
   expectedGenericJobTitles: [GenericJobTitle]
 }
 
+input ApplicantFilterInput {
+  poolCandidates: ApplicantPoolFilterInput
+  jobLookingStatus: [JobLookingStatus] = [ACTIVELY_LOOKING, OPEN_TO_OPPORTUNITIES]
+  languageAbility: LanguageAbility
+  expectedClassifications: [ClassificationFilterInput]
+  operationalRequirements: [OperationalRequirement]
+  locationPreferences: [WorkRegion]
+  equity: EquitySelectionsInput
+  hasDiploma: Boolean
+  wouldAcceptTemporary: Boolean
+  skills: [ID]
+}
+
+input ApplicantPoolFilterInput {
+  pools: [ID]!
+  expiryStatus: CANDIDATE_EXPIRY_FILTER = ACTIVE
+  statuses: [PoolCandidateStatus!] = [AVAILABLE]
+}
+
 type AwardExperience implements Experience {
   id: ID!
   applicant: Applicant!
@@ -660,9 +679,7 @@ input PersonalExperienceInput {
   skills: UpdateExperienceSkills
 }
 
-"""
-A phone number string which must comply with E.164 international notation, including country code and preceding '+'.
-"""
+"""A phone number string, accepts any string"""
 scalar PhoneNumber
 
 type Pool {
@@ -799,12 +816,13 @@ type Query {
   users: [User]!
   applicant(id: ID!): Applicant
   applicants: [Applicant]!
+  countApplicants(where: ApplicantFilterInput): Int!
   pool(id: ID!): Pool
   poolByKey(key: String!): Pool
   pools: [Pool]!
   poolCandidate(id: ID!): PoolCandidate
   poolCandidates: [PoolCandidate]!
-  countPoolCandidates(where: PoolCandidateFilterInput): Int!
+  countPoolCandidates(where: PoolCandidateFilterInput): Int! @deprecated(reason: "Replaced by countApplicants")
   searchPoolCandidates(where: PoolCandidateFilterInput, expiryStatus: CANDIDATE_EXPIRY_FILTER): [PoolCandidate]!
   classification(id: ID!): Classification
   classifications: [Classification]!
@@ -1208,6 +1226,10 @@ input UserFilterAndOrderInput {
   isProfileComplete: Boolean
   skills: [ID]
   isGovEmployee: Boolean
+  telephone: String
+  email: String
+  name: String
+  generalSearch: String
   orderBy: String
 }
 
@@ -1223,7 +1245,7 @@ type UserPaginator {
 input UserPoolFilterInput {
   pools: [ID!]!
   expiryStatus: CANDIDATE_EXPIRY_FILTER = ACTIVE
-  statuses: [PoolCandidateStatus!]
+  statuses: [PoolCandidateStatus!] = []
 }
 
 type UserPublicProfile {

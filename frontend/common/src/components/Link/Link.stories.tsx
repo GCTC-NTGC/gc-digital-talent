@@ -1,6 +1,7 @@
 import React from "react";
 import { Story, Meta } from "@storybook/react";
 import Link from "./Link";
+import ExternalLink, { ExternalLinkProps } from "./ExternalLink";
 import type { LinkProps } from "./Link";
 
 export default {
@@ -27,6 +28,13 @@ const TemplateLink: Story<LinkProps & { label: string }> = (args) => {
       <span>{label}</span>
     </Link>
   );
+};
+
+const TemplateExternalLink: Story<ExternalLinkProps & { label: string }> = (
+  args,
+) => {
+  const { label, ...rest } = args;
+  return <ExternalLink {...rest}>{label}</ExternalLink>;
 };
 
 export const LinkDefault = TemplateLink.bind({});
@@ -161,4 +169,17 @@ LinkButtonWhiteOutline.parameters = {
 
 LinkButtonWhiteInline.parameters = {
   backgrounds: { default: "dark" },
+};
+
+export const ExternalLinkNewTab = TemplateExternalLink.bind({});
+export const ExternalLinkNotNewTab = TemplateExternalLink.bind({});
+
+ExternalLinkNewTab.args = {
+  newTab: true,
+  href: "https://example.com",
+};
+
+ExternalLinkNotNewTab.args = {
+  newTab: false,
+  href: "https://example.com",
 };

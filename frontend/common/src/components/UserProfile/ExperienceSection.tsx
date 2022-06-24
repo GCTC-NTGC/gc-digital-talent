@@ -20,11 +20,13 @@ import ExperienceByTypeListing from "./ExperienceByTypeListing";
 export interface ExperienceSectionProps {
   experiences?: Experience[];
   experienceEditPaths?: ExperiencePaths; // If experienceEditPaths is not defined, links to edit experiences will not appear.
+  editPath?: string;
 }
 
 const ExperienceSection: React.FunctionComponent<ExperienceSectionProps> = ({
   experiences,
   experienceEditPaths,
+  editPath,
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
@@ -74,67 +76,107 @@ const ExperienceSection: React.FunctionComponent<ExperienceSectionProps> = ({
       return skill1Name.localeCompare(skill2Name);
     }); // Sort skills alphabetically
 
+  let isExperience = false;
+  if (allExperiences.length >= 1) {
+    isExperience = true;
+  }
+
   return (
-    <TabSet>
-      <Tab
-        tabType="label"
-        text={intl.formatMessage({
-          defaultMessage: "See Experience:",
-          description:
-            "Tabs title for the users experience list in applicant profile.",
-        })}
-      />
-      <Tab
-        text={intl.formatMessage({
-          defaultMessage: "By Date",
-          description:
-            "Tab title for experiences sorted by date in applicant profile.",
-        })}
-      >
-        <div
-          data-h2-radius="b(s)"
-          data-h2-bg-color="b(lightgray)"
-          data-h2-padding="b(top-bottom, xxs) b(right-left, xs)"
-        >
-          {sortedByDate.map((experience) => (
-            <ExperienceAccordion
-              key={experience.id}
-              experience={experience}
+    <div
+      data-h2-bg-color="b(lightgray)"
+      data-h2-padding="b(all, m)"
+      data-h2-radius="b(s)"
+    >
+      {isExperience && (
+        <TabSet>
+          <Tab
+            tabType="label"
+            text={intl.formatMessage({
+              defaultMessage: "See Experience:",
+              description:
+                "Tabs title for the users experience list in applicant profile.",
+            })}
+          />
+          <Tab
+            text={intl.formatMessage({
+              defaultMessage: "By Date",
+              description:
+                "Tab title for experiences sorted by date in applicant profile.",
+            })}
+          >
+            <div
+              data-h2-radius="b(s)"
+              data-h2-bg-color="b(lightgray)"
+              data-h2-padding="b(top-bottom, xxs) b(right-left, xs)"
+            >
+              {sortedByDate.map((experience) => (
+                <ExperienceAccordion
+                  key={experience.id}
+                  experience={experience}
+                  editPaths={experienceEditPaths}
+                />
+              ))}
+            </div>
+          </Tab>
+          <Tab
+            text={intl.formatMessage({
+              defaultMessage: "By Type",
+              description:
+                "Tab title for experiences sorted by type in applicant profile.",
+            })}
+          >
+            <ExperienceByTypeListing
+              experiences={experiences}
               editPaths={experienceEditPaths}
             />
-          ))}
-        </div>
-      </Tab>
-      <Tab
-        text={intl.formatMessage({
-          defaultMessage: "By Type",
-          description:
-            "Tab title for experiences sorted by type in applicant profile.",
-        })}
-      >
-        <ExperienceByTypeListing
-          experiences={experiences}
-          editPaths={experienceEditPaths}
-        />
-      </Tab>
-      <Tab
-        text={intl.formatMessage({
-          defaultMessage: "By Skills",
-          description:
-            "Tab title for experiences sorted by skills in applicant profile.",
-        })}
-      >
-        <div
-          data-h2-radius="b(s)"
-          data-h2-bg-color="b(lightgray)"
-          data-h2-padding="b(top-bottom, xxs) b(right-left, xs)"
-        >
-          {sortedBySkills.map((skill) => (
-            <SkillAccordion key={skill.id} skill={skill} />
-          ))}
-        </div>
-      </Tab>
-    </TabSet>
+          </Tab>
+          <Tab
+            text={intl.formatMessage({
+              defaultMessage: "By Skills",
+              description:
+                "Tab title for experiences sorted by skills in applicant profile.",
+            })}
+          >
+            <div
+              data-h2-radius="b(s)"
+              data-h2-bg-color="b(lightgray)"
+              data-h2-padding="b(top-bottom, xxs) b(right-left, xs)"
+            >
+              {sortedBySkills.map((skill) => (
+                <SkillAccordion key={skill.id} skill={skill} />
+              ))}
+            </div>
+          </Tab>
+        </TabSet>
+      )}
+      {!isExperience && !editPath && (
+        <p>
+          {intl.formatMessage({
+            defaultMessage: "No information has been provided",
+            description:
+              "Message on Admin side when user not filled Experience section.",
+          })}
+        </p>
+      )}
+      {!isExperience && editPath && (
+        <>
+          <p>
+            {intl.formatMessage({
+              defaultMessage: "You haven't added any information here yet.",
+              description: "Message for when no data exists for the section",
+            })}
+          </p>
+          <p>
+            <a href={editPath}>
+              {intl.formatMessage({
+                defaultMessage: "Click here to get started.",
+                description: "Message to click on the words to begin something",
+              })}
+            </a>
+          </p>
+        </>
+      )}
+    </div>
   );
 };
 

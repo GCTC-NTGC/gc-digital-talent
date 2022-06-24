@@ -211,6 +211,15 @@ const LanguageInformationSection: React.FunctionComponent<{
               })}
             </a>
           )}
+          {!editPath && (
+            <p>
+              {intl.formatMessage({
+                defaultMessage: "No information has been provided.",
+                description:
+                  "Message on Admin side when user not filled language section.",
+              })}
+            </p>
+          )}
         </p>
       )}
     </div>

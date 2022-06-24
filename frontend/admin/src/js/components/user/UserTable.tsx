@@ -6,10 +6,17 @@ import { FromArray } from "@common/types/utilityTypes";
 import { getLanguage } from "@common/constants/localizedConstants";
 import Pending from "@common/components/Pending";
 import { useAdminRoutes } from "../../adminRoutes";
-import { AllUsersQuery, Language, useAllUsersQuery } from "../../api/generated";
+import {
+  AllUsersQuery,
+  Language,
+  useAllUsersQuery,
+  User,
+} from "../../api/generated";
 import Table, { ColumnsOf, tableEditButtonAccessor } from "../Table";
 
 type Data = NonNullable<FromArray<AllUsersQuery["users"]>>;
+
+const fullName = (u: User): string => `${u.firstName} ${u.lastName}`;
 
 // callbacks extracted to separate function to stabilize memoized component
 const languageAccessor = (
@@ -49,17 +56,11 @@ export const UserTable: React.FC<AllUsersQuery & { editUrlRoot: string }> = ({
     () => [
       {
         Header: intl.formatMessage({
-          defaultMessage: "First Name",
-          description: "Title displayed on the User table First Name column.",
+          defaultMessage: "Candidate Name",
+          description:
+            "Title displayed on the User table Candidate Name column.",
         }),
-        accessor: "firstName",
-      },
-      {
-        Header: intl.formatMessage({
-          defaultMessage: "Last Name",
-          description: "Title displayed for the User table Last Name column.",
-        }),
-        accessor: "lastName",
+        accessor: (user) => fullName(user),
       },
       {
         Header: intl.formatMessage({
@@ -93,7 +94,8 @@ export const UserTable: React.FC<AllUsersQuery & { editUrlRoot: string }> = ({
           defaultMessage: "Edit",
           description: "Title displayed for the User table Edit column.",
         }),
-        accessor: (d) => tableEditButtonAccessor(d.id, editUrlRoot), // callback extracted to separate function to stabilize memoized component
+        accessor: (d) =>
+          tableEditButtonAccessor(d.id, editUrlRoot, fullName(d)), // callback extracted to separate function to stabilize memoized component
       },
     ],
     [editUrlRoot, intl, paths],
@@ -101,7 +103,49 @@ export const UserTable: React.FC<AllUsersQuery & { editUrlRoot: string }> = ({
 
   const data = useMemo(() => users.filter(notEmpty), [users]);
 
-  return <Table data={data} columns={columns} />;
+  return (
+    <Table
+      data={data}
+      columns={columns}
+      title={intl.formatMessage({
+        defaultMessage: "All users",
+        description: "Title for the admin users table",
+      })}
+      searchBy={[
+        {
+          value: "name",
+          label: intl.formatMessage({
+            defaultMessage: "Name",
+            description:
+              "Text displayed in user table search form dropdown for name column",
+          }),
+        },
+        {
+          value: "email",
+          label: intl.formatMessage({
+            defaultMessage: "Email",
+            description:
+              "Text displayed in user table search form dropdown for email column",
+          }),
+        },
+        {
+          value: "phone",
+          label: intl.formatMessage({
+            defaultMessage: "Phone number",
+            description:
+              "Text displayed in user table search form dropdown for phone number column",
+          }),
+        },
+      ]}
+      addBtn={{
+        label: intl.formatMessage({
+          defaultMessage: "New user",
+          description: "Text label for link to create new user on admin table",
+        }),
+        path: paths.userCreate(),
+      }}
+    />
+  );
 };
 
 export const UserTableApi: React.FunctionComponent = () => {
