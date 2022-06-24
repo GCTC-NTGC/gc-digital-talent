@@ -29,7 +29,6 @@ import {
   getOperationalRequirement,
 } from "@common/constants/localizedConstants";
 import { errorMessages } from "@common/messages";
-import { phoneNumberRegex } from "@common/constants/regularExpressions";
 import Pending from "@common/components/Pending";
 import { useAdminRoutes } from "../../adminRoutes";
 import {
@@ -176,10 +175,10 @@ const UserFormSection: React.FunctionComponent<{
           type="tel"
           name="telephone"
           rules={{
-            pattern: {
-              value: phoneNumberRegex,
-              message: intl.formatMessage(errorMessages.telephone),
-            },
+            required:
+              userMode === "new"
+                ? intl.formatMessage(errorMessages.required)
+                : undefined,
           }}
         />
         <Select

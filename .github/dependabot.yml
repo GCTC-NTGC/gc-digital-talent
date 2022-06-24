@@ -15,7 +15,7 @@ updates:
 
   # This ignores all updates to tc-report, since it's now served as a static website.
   #
-  #   * We will occassionally still get security vulnerability warnings, for
+  #   * We will occasionally still get security vulnerability warnings, for
   #     which merging the dependabot PR will NOT update the static website.
   #     Update would require a manually rebuild.
   #
@@ -38,18 +38,6 @@ updates:
 
   - package-ecosystem: "composer"
     directory: "/api"
-    schedule:
-      interval: "weekly"
-    open-pull-requests-limit: 15
-
-  - package-ecosystem: "composer"
-    directory: "/frontend/admin"
-    schedule:
-      interval: "weekly"
-    open-pull-requests-limit: 15
-
-  - package-ecosystem: "composer"
-    directory: "/frontend/talentsearch"
     schedule:
       interval: "weekly"
     open-pull-requests-limit: 15

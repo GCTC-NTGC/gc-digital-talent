@@ -162,6 +162,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
           <TableOfContents.Section id="status-section">
             <HeadingWrapper show={!!sections.myStatus?.editUrl}>
               <TableOfContents.Heading
+                as="h3"
                 icon={LightBulbIcon}
                 style={{ flex: "1 1 0%" }}
               >
@@ -189,6 +190,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
           <TableOfContents.Section id="pools-section">
             <HeadingWrapper show={!!sections.hiringPools?.editUrl}>
               <TableOfContents.Heading
+                as="h3"
                 icon={UserGroupIcon}
                 style={{ flex: "1 1 0%" }}
               >
@@ -220,6 +222,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
           <TableOfContents.Section id="about-section">
             <HeadingWrapper show={!!sections.about?.editUrl}>
               <TableOfContents.Heading
+                as="h3"
                 icon={UserIcon}
                 style={{ flex: "1 1 0%" }}
               >
@@ -255,6 +258,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
           <TableOfContents.Section id="language-section">
             <HeadingWrapper show={!!sections.language?.editUrl}>
               <TableOfContents.Heading
+                as="h3"
                 icon={ChatAlt2Icon}
                 style={{ flex: "1 1 0%" }}
               >
@@ -280,7 +284,10 @@ const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
             {sections.language?.override ? (
               sections.language.override
             ) : (
-              <LanguageInformationSection applicant={applicant} />
+              <LanguageInformationSection
+                applicant={applicant}
+                editPath={sections.workLocation?.editUrl}
+              />
             )}
           </TableOfContents.Section>
         )}
@@ -288,6 +295,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
           <TableOfContents.Section id="government-section">
             <HeadingWrapper show={!!sections.government?.editUrl}>
               <TableOfContents.Heading
+                as="h3"
                 icon={LibraryIcon}
                 style={{ flex: "1 1 0%" }}
               >
@@ -313,7 +321,10 @@ const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
             {sections.government?.override ? (
               sections.government.override
             ) : (
-              <GovernmentInformationSection applicant={applicant} />
+              <GovernmentInformationSection
+                applicant={applicant}
+                editPath={sections.government?.editUrl}
+              />
             )}
           </TableOfContents.Section>
         )}
@@ -321,6 +332,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
           <TableOfContents.Section id="work-location-section">
             <HeadingWrapper show={!!sections.workLocation?.editUrl}>
               <TableOfContents.Heading
+                as="h3"
                 icon={LocationMarkerIcon}
                 style={{ flex: "1 1 0%" }}
               >
@@ -345,7 +357,10 @@ const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
             {sections.workLocation?.override ? (
               sections.workLocation.override
             ) : (
-              <WorkLocationSection applicant={applicant} />
+              <WorkLocationSection
+                applicant={applicant}
+                editPath={sections.workLocation?.editUrl}
+              />
             )}
           </TableOfContents.Section>
         )}
@@ -353,6 +368,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
           <TableOfContents.Section id="work-preferences-section">
             <HeadingWrapper show={!!sections.workPreferences?.editUrl}>
               <TableOfContents.Heading
+                as="h3"
                 icon={ThumbUpIcon}
                 style={{ flex: "1 1 0%" }}
               >
@@ -377,7 +393,10 @@ const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
             {sections.workPreferences?.override ? (
               sections.workPreferences.override
             ) : (
-              <WorkPreferencesSection applicant={applicant} />
+              <WorkPreferencesSection
+                applicant={applicant}
+                editPath={sections.workPreferences?.editUrl}
+              />
             )}
           </TableOfContents.Section>
         )}
@@ -385,6 +404,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
           <TableOfContents.Section id="diversity-equity-inclusion-section">
             <HeadingWrapper show={!!sections.employmentEquity?.editUrl}>
               <TableOfContents.Heading
+                as="h3"
                 icon={UserCircleIcon}
                 style={{ flex: "1 1 0%" }}
               >
@@ -410,7 +430,10 @@ const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
             {sections.employmentEquity?.override ? (
               sections.employmentEquity.override
             ) : (
-              <DiversityEquityInclusionSection applicant={applicant} />
+              <DiversityEquityInclusionSection
+                applicant={applicant}
+                editPath={sections.employmentEquity?.editUrl}
+              />
             )}
           </TableOfContents.Section>
         )}
@@ -418,6 +441,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
           <TableOfContents.Section id="role-and-salary-section">
             <HeadingWrapper show={!!sections.roleSalary?.editUrl}>
               <TableOfContents.Heading
+                as="h3"
                 icon={CurrencyDollarIcon}
                 style={{ flex: "1 1 0%" }}
               >
@@ -454,6 +478,7 @@ const UserProfile: React.FC<UserProfileProps> = ({ applicant, sections }) => {
           <TableOfContents.Section id="skills-and-experience-section">
             <HeadingWrapper show={!!sections.skillsExperience?.editUrl}>
               <TableOfContents.Heading
+                as="h3"
                 icon={LightningBoltIcon}
                 style={{ flex: "1 1 0%" }}
               >

@@ -7,14 +7,10 @@ import { Checkbox } from "@common/components/form";
 
 import type { EquityDialogProps, EquityDialogFooterProps } from "../types";
 
+import AddToProfile from "./AddToProfile";
+import Definition from "./Definition";
 import DialogActions from "./DialogActions";
-
-// Question: Is this the correct URL?
-const statsCanLink = (...chunks: string[]) => (
-  <a href="https://www23.statcan.gc.ca/imdb/p3Var.pl?Function=DECI&Id=1324435">
-    {chunks}
-  </a>
-);
+import UnderReview from "./UnderReview";
 
 interface FormValues {
   isIndigenous: boolean;
@@ -39,19 +35,13 @@ const IndigenousDialogFooter: React.FC<EquityDialogFooterProps> = ({
 
   return (
     <FormProvider {...methods}>
-      <p>
-        {intl.formatMessage({
-          defaultMessage: '"I have read the provided definition and..."',
-          description:
-            "Message on employment equity forms confirming user read the provided definition",
-        })}
-      </p>
+      <AddToProfile />
       <form onSubmit={handleSubmit(submitHandler)}>
         <Checkbox
           id="isIndigenous"
           name="isIndigenous"
           label={intl.formatMessage({
-            defaultMessage: '"I am Indigenous."',
+            defaultMessage: "I am Indigenous.",
             description:
               "Label for the checkbox to identify as indigenous under employment equity",
           })}
@@ -86,6 +76,7 @@ const IndigenousDialog: React.FC<EquityDialogProps> = ({
         </IndigenousDialogFooter>
       }
     >
+      <UnderReview />
       <p>
         {intl.formatMessage({
           defaultMessage:
@@ -93,18 +84,7 @@ const IndigenousDialog: React.FC<EquityDialogProps> = ({
           description: "Definition of accepted ways to identify as indigenous.",
         })}
       </p>
-      <p>
-        {intl.formatMessage(
-          {
-            defaultMessage: " As defined by <link>Statistics Canada</link>.",
-            description:
-              "Text directing users to the statistics Canada definition of indigenous peoples.",
-          },
-          {
-            link: statsCanLink,
-          },
-        )}
-      </p>
+      <Definition url="https://www23.statcan.gc.ca/imdb/p3Var.pl?Function=DEC&Id=42927" />
     </Dialog>
   );
 };

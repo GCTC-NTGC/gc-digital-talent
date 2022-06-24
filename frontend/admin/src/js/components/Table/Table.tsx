@@ -1,5 +1,10 @@
 /* eslint-disable react/jsx-key */
-import React, { ReactElement, useEffect, useState } from "react";
+import React, {
+  HTMLAttributes,
+  ReactElement,
+  useEffect,
+  useState,
+} from "react";
 import { useIntl } from "react-intl";
 
 import {
@@ -13,23 +18,32 @@ import {
   TableToggleAllRowsSelectedProps,
   UseTableCellProps,
 } from "react-table";
-import { Button } from "@common/components";
+import { Button, Link } from "@common/components";
 import Pagination from "@common/components/Pagination";
-import GlobalFilter from "../GlobalFilter";
+import { FilterIcon, PlusIcon, TableIcon } from "@heroicons/react/outline";
+import Dialog from "@common/components/Dialog";
+import { Fieldset } from "@common/components/inputPartials";
 import SortIcon from "./SortIcon";
+import SearchForm, { type SearchFormProps } from "./SearchForm";
 
 export type ColumnsOf<T extends Record<string, unknown>> = Array<Column<T>>;
 
 export interface TableProps<
   T extends Record<string, unknown> = Record<string, unknown>,
-> {
+> extends Pick<SearchFormProps, "searchBy"> {
   columns: Array<Column<T>>;
   data: Array<T>;
+  title?: string;
+  addBtn?: {
+    path: string;
+    label: string;
+  };
   filter?: boolean;
   pagination?: boolean;
   hiddenCols?: string[];
   labelledBy?: string;
   setSelectedRows?: (newSelection: T[]) => void;
+  onSearchSubmit?: () => void;
 }
 
 const IndeterminateFilterCheckbox: React.FC<
@@ -106,10 +120,33 @@ const RowCheckbox = ({ row }: UseTableCellProps<Record<string, unknown>>) => {
   );
 };
 
+const Spacer: React.FC = ({ children }) => (
+  <div data-h2-margin="b(left, s)" style={{ flexShrink: 0 }}>
+    {children}
+  </div>
+);
+
+const ButtonIcon: React.FC<{
+  icon: React.FC<HTMLAttributes<HTMLOrSVGElement>>;
+}> = ({ icon }) => {
+  const Icon = icon;
+
+  return (
+    <Icon
+      style={{ height: "1em", width: "1rem" }}
+      data-h2-margin="b(right, xs)"
+    />
+  );
+};
+
 function Table<T extends Record<string, unknown>>({
   columns,
   data,
   labelledBy,
+  title,
+  addBtn,
+  onSearchSubmit,
+  searchBy,
   filter = true,
   pagination = true,
   hiddenCols = [],
@@ -120,8 +157,6 @@ function Table<T extends Record<string, unknown>>({
     getTableBodyProps,
     headerGroups,
     prepareRow,
-    setGlobalFilter,
-    state,
     allColumns,
     getToggleHideAllColumnsProps,
     rows,
@@ -172,47 +207,91 @@ function Table<T extends Record<string, unknown>>({
   const [showList, setShowList] = useState(false);
   const intl = useIntl();
 
+  const handleSubmit = () => {
+    if (onSearchSubmit) {
+      onSearchSubmit();
+    }
+  };
+
   return (
-    <div>
-      {filter ? (
-        <div data-h2-padding="b(top-bottom, m) b(right-left, xl)">
-          <div data-h2-flex-grid="b(middle, expanded, flush, m)">
-            <div data-h2-flex-item="b(1of1) m(1of3)">
-              <GlobalFilter
-                globalFilter={state.globalFilter}
-                setGlobalFilter={setGlobalFilter}
-              />
-            </div>
-            <div
-              data-h2-flex-item="b(1of1) m(2of3)"
-              data-h2-text-align="b(center) m(right)"
-            >
-              <div data-h2-position="b(relative)" style={{ float: "right" }}>
-                <Button
-                  color="secondary"
-                  mode="inline"
-                  onClick={() => {
-                    setShowList((currentState) => !currentState);
-                  }}
-                >
+    <div data-h2-margin="b(top-bottom, m)">
+      {filter && (
+        <div
+          data-h2-align-items="b(center)"
+          data-h2-display="b(flex)"
+          data-h2-bg-color="b(lightgray)"
+          data-h2-justify-content="b(space-between)"
+          data-h2-radius="b(s, s, none, none)"
+          data-h2-padding="b(all, s)"
+        >
+          <div style={{ flexShrink: 0 }}>
+            {title && <span data-h2-font-weight="b(800)">{title}</span>}
+          </div>
+          <div
+            style={{ flexShrink: 0 }}
+            data-h2-display="b(flex)"
+            data-h2-justify-content="b(flex-end)"
+          >
+            <SearchForm
+              onChange={(term) => window.console.log(term)}
+              onSubmit={handleSubmit}
+              searchBy={searchBy}
+            />
+            <Spacer>
+              <Button
+                mode="outline"
+                color="black"
+                type="button"
+                data-h2-display="b(inline-flex)"
+                data-h2-align-items="b(center)"
+              >
+                <ButtonIcon icon={FilterIcon} />
+                <span>
                   {intl.formatMessage({
-                    defaultMessage: "Hide/Show Table Columns",
-                    description: "Label displayed on the Table Columns toggle.",
+                    defaultMessage: "Filters",
+                    description:
+                      "Text label for button to open filter dialog on admin tables.",
                   })}
+                </span>
+              </Button>
+            </Spacer>
+            <Spacer>
+              <div data-h2-position="b(relative)">
+                <Button
+                  mode="outline"
+                  color="black"
+                  type="button"
+                  data-h2-display="b(inline-flex)"
+                  data-h2-align-items="b(center)"
+                  onClick={() => setShowList(!showList)}
+                >
+                  <ButtonIcon icon={TableIcon} />
+                  <span>
+                    {intl.formatMessage({
+                      defaultMessage: "Columns",
+                      description:
+                        "Label displayed on the Table Columns toggle button.",
+                    })}
+                  </span>
                 </Button>
-                {showList ? (
-                  <div
-                    data-h2-position="b(absolute)"
-                    data-h2-margin="b(right-left, s)"
-                    data-h2-padding="b(all, s)"
-                    data-h2-border="b(gray, all, solid, s)"
-                    data-h2-radius="b(s)"
-                    data-h2-bg-color="b(white)"
-                    style={{
-                      textAlign: "left",
-                    }}
+                <Dialog
+                  color="ts-primary"
+                  isOpen={showList}
+                  onDismiss={() => setShowList(false)}
+                  title={intl.formatMessage({
+                    defaultMessage: "Table columns",
+                    description:
+                      "Dialog title for the admin tables columns toggle.",
+                  })}
+                >
+                  <Fieldset
+                    legend={intl.formatMessage({
+                      defaultMessage: "Visible columns",
+                      description:
+                        "Legend for the column toggle in admin tables.",
+                    })}
                   >
-                    <div>
+                    <div data-h2-margin="b(top-bottom, xxs)">
                       <IndeterminateFilterCheckbox
                         {...(getToggleHideAllColumnsProps() as React.ComponentProps<
                           typeof IndeterminateFilterCheckbox
@@ -222,7 +301,10 @@ function Table<T extends Record<string, unknown>>({
                     {allColumns.map(
                       (column) =>
                         typeof column.Header === "string" && (
-                          <div key={column.id}>
+                          <div
+                            key={column.id}
+                            data-h2-margin="b(top-bottom, xxs)"
+                          >
                             <label htmlFor={column.Header}>
                               <input
                                 id={column.Header}
@@ -234,13 +316,29 @@ function Table<T extends Record<string, unknown>>({
                           </div>
                         ),
                     )}
-                  </div>
-                ) : null}
+                  </Fieldset>
+                </Dialog>
               </div>
-            </div>
+            </Spacer>
+            {addBtn && (
+              <Spacer>
+                <Link
+                  mode="outline"
+                  color="black"
+                  type="button"
+                  data-h2-display="b(inline-flex)"
+                  data-h2-align-items="b(center)"
+                  style={{ textDecoration: "none" }}
+                  href={addBtn.path}
+                >
+                  <ButtonIcon icon={PlusIcon} />
+                  <span>{addBtn.label}</span>
+                </Link>
+              </Spacer>
+            )}
           </div>
         </div>
-      ) : null}
+      )}
       <div
         data-h2-overflow="b(all, auto)"
         style={{ maxWidth: "100%" }}
@@ -302,20 +400,59 @@ function Table<T extends Record<string, unknown>>({
           </tbody>
         </table>
       </div>
-      {pagination && (
-        <Pagination
-          currentPage={pageIndex + 1}
-          handlePageChange={(pageNumber) => gotoPage(pageNumber - 1)}
-          handlePageSize={setPageSize}
-          pageSize={pageSize}
-          pageSizes={[10, 20, 30, 40, 50]}
-          totalCount={rows.length}
-          ariaLabel={intl.formatMessage({ defaultMessage: "Table results" })}
-          color="black"
-          mode="outline"
-          data-h2-margin="b(all, none)"
-        />
-      )}
+      <div
+        data-h2-align-items="b(center)"
+        data-h2-display="b(flex)"
+        data-h2-bg-color="b(lightgray)"
+        data-h2-justify-content="b(space-between)"
+        data-h2-radius="b(none, none, s, s)"
+        data-h2-padding="b(all, s)"
+      >
+        <div
+          data-h2-display="b(flex)"
+          data-h2-align-items="b(center)"
+          data-h2-margin="b(right, s)"
+        >
+          <p>
+            {intl.formatMessage({
+              defaultMessage: "Selected actions:",
+              description: "Label for action buttons in footer of admin table.",
+            })}
+          </p>
+          <Spacer>
+            <Button type="button" mode="solid" color="primary">
+              {intl.formatMessage({
+                defaultMessage: "Download XML",
+                description:
+                  "Text label for button to download an xml file of items in a table.",
+              })}
+            </Button>
+          </Spacer>
+          <Spacer>
+            <Button type="button" mode="solid" color="primary">
+              {intl.formatMessage({
+                defaultMessage: "Download PDF",
+                description:
+                  "Text label for button to download a pdf of items in a table.",
+              })}
+            </Button>
+          </Spacer>
+        </div>
+        {pagination && (
+          <Pagination
+            currentPage={pageIndex + 1}
+            handlePageChange={(pageNumber) => gotoPage(pageNumber - 1)}
+            handlePageSize={setPageSize}
+            pageSize={pageSize}
+            pageSizes={[10, 20, 30, 40, 50]}
+            totalCount={rows.length}
+            ariaLabel={intl.formatMessage({ defaultMessage: "Table results" })}
+            color="black"
+            mode="outline"
+            data-h2-margin="b(all, none)"
+          />
+        )}
+      </div>
     </div>
   );
 }
