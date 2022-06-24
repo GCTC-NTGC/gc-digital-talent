@@ -15,7 +15,6 @@ import {
   ApplicantFilterInput,
   PoolFilterInput,
   Skill,
-  useCountPoolCandidatesQuery,
   useCountApplicantsQuery,
   useGetSearchFormDataQuery,
   UserPublicProfile,

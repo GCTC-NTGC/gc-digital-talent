@@ -1,18 +1,15 @@
 import React from "react";
 import { useIntl } from "react-intl";
 
-import {
-  Scalars,
-  Skill,
-  SkillCategory,
-  SkillFamily,
-} from "@common/api/generated";
+import { Skill, SkillCategory, SkillFamily } from "@common/api/generated";
 import Pagination, { usePaginationVars } from "@common/components/Pagination";
 import { matchStringCaseDiacriticInsensitive } from "@common/helpers/formUtils";
 import { getLocale } from "@common/helpers/localize";
 import { Tab, TabSet } from "@common/components/tabs";
 import { invertSkillTree } from "@common/helpers/skillUtils";
 import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/solid";
+import { useFieldArray, useFormContext } from "react-hook-form";
+import { notEmpty } from "@common/helpers/util";
 import SkillResults from "../SkillResults";
 import SkillFamiliesRadioList from "../SkillFamiliesRadioList/SkillFamiliesRadioList";
 import AddedSkills from "../AddedSkills";
@@ -20,19 +17,20 @@ import SearchBar from "../SearchBar";
 
 export interface AddSkillsToFilterProps {
   allSkills: Skill[];
-  addedSkillIds: Scalars["ID"][];
-  onAddSkill: (id: Scalars["ID"]) => void;
-  onRemoveSkill: (id: Scalars["ID"]) => void;
 }
 
-const AddSkillsToFilter: React.FC<AddSkillsToFilterProps> = ({
-  allSkills,
-  addedSkillIds,
-  onAddSkill,
-  onRemoveSkill,
-}) => {
+const AddSkillsToFilter: React.FC<AddSkillsToFilterProps> = ({ allSkills }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
+  const { control, watch } = useFormContext();
+  const watchedSkills = watch("skills");
+  const { append, remove } = useFieldArray({
+    control,
+    name: "skills",
+  });
+  const [addedSkillIds, setAddedSkillIds] = React.useState<string[]>(
+    watchedSkills || [],
+  );
 
   const [technicalSkills, setTechnicalSkills] = React.useState<Skill[]>([]);
   const [filteredTechnicalSkills, setFilteredTechnicalSkills] = React.useState<
@@ -45,9 +43,11 @@ const AddSkillsToFilter: React.FC<AddSkillsToFilterProps> = ({
     React.useState<Skill[]>([]);
   const [searchSkills, setSearchSkills] = React.useState<Skill[]>([]);
 
-  const addedSkills = addedSkillIds
-    .map((id) => allSkills.find((skill) => skill.id === id))
-    .filter((skill) => typeof skill !== "undefined") as Skill[];
+  const addedSkills: Skill[] = React.useMemo(() => {
+    return addedSkillIds
+      .map((id) => allSkills.find((skill) => skill.id === id))
+      .filter((skill) => typeof skill !== "undefined") as Skill[];
+  }, [addedSkillIds, allSkills]);
 
   React.useEffect(() => {
     const technical = allSkills.filter((skill) => {
@@ -63,6 +63,27 @@ const AddSkillsToFilter: React.FC<AddSkillsToFilterProps> = ({
     });
     setTransferableSkills(transferable);
   }, [allSkills, setTechnicalSkills, setTransferableSkills]);
+
+  React.useEffect(() => {
+    const newSkills = notEmpty(watchedSkills)
+      ? watchedSkills.map((watchedSkill: string) => {
+          const newSkill = allSkills.find((s) => s.id === watchedSkill);
+          return newSkill?.id || undefined;
+        })
+      : [];
+    setAddedSkillIds(newSkills.length > 0 ? newSkills : []);
+  }, [watchedSkills, setAddedSkillIds, allSkills]);
+
+  const handleAddSkill = (id: string) => {
+    append(id);
+  };
+
+  const handleRemoveSkill = (id: string) => {
+    const index = watchedSkills.findIndex((field: string) => field === id);
+    if (index >= 0) {
+      remove(index);
+    }
+  };
 
   const resultsPaginationPageSize = 5;
   const technicalSkillsPagination = usePaginationVars<Skill>(
@@ -197,8 +218,8 @@ const AddSkillsToFilter: React.FC<AddSkillsToFilterProps> = ({
             )}
             skills={technicalSkillsPagination.currentTableData}
             addedSkills={addedSkills}
-            handleAddSkill={onAddSkill}
-            handleRemoveSkill={onRemoveSkill}
+            handleAddSkill={handleAddSkill}
+            handleRemoveSkill={handleRemoveSkill}
           />
           <Pagination
             ariaLabel={intl.formatMessage({
@@ -239,8 +260,8 @@ const AddSkillsToFilter: React.FC<AddSkillsToFilterProps> = ({
             )}
             skills={transferableSkillsPagination.currentTableData}
             addedSkills={addedSkills}
-            handleAddSkill={onAddSkill}
-            handleRemoveSkill={onRemoveSkill}
+            handleAddSkill={handleAddSkill}
+            handleRemoveSkill={handleRemoveSkill}
           />
           <Pagination
             ariaLabel={intl.formatMessage({
@@ -278,8 +299,8 @@ const AddSkillsToFilter: React.FC<AddSkillsToFilterProps> = ({
             )}
             skills={searchSkillsPagination.currentTableData}
             addedSkills={addedSkills || []}
-            handleAddSkill={onAddSkill}
-            handleRemoveSkill={onRemoveSkill}
+            handleAddSkill={handleAddSkill}
+            handleRemoveSkill={handleRemoveSkill}
           />
           <Pagination
             ariaLabel={intl.formatMessage({
@@ -308,7 +329,7 @@ const AddSkillsToFilter: React.FC<AddSkillsToFilterProps> = ({
       </TabSet>
       <AddedSkills
         skills={addedSkills}
-        onRemoveSkill={onRemoveSkill}
+        onRemoveSkill={handleRemoveSkill}
         showHighAlert={false}
       />
     </>

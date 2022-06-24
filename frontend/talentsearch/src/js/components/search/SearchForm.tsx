@@ -10,7 +10,6 @@ import {
   getWorkRegion,
 } from "@common/constants/localizedConstants";
 import { enumToOptions, unpackMaybes } from "@common/helpers/formUtils";
-import { getLocale } from "@common/helpers/localize";
 import { useLocation } from "@common/helpers/router";
 import {
   Classification,
@@ -22,7 +21,6 @@ import {
   ApplicantFilterInput,
   WorkRegion,
   ApplicantPoolFilterInput,
-  Scalars,
 } from "../../api/generated";
 import FilterBlock from "./FilterBlock";
 import AddSkillsToFilter from "../skills/AddSkillsToFilter";
@@ -43,6 +41,7 @@ export type FormValues = Pick<
 > & {
   languageAbility: LanguageAbility | typeof NullSelection;
   classifications: string[] | undefined;
+  skills: string[] | undefined;
   cmoAssets: string[] | undefined; // TODO REMOVE WHEN REPLACING CMOASSETS
   employmentEquity: string[] | undefined;
   educationRequirement: "has_diploma" | "no_diploma";
@@ -70,11 +69,7 @@ const SearchForm: React.FC<SearchFormProps> = ({
   onUpdateCandidateFilter,
 }) => {
   const intl = useIntl();
-  const locale = getLocale(intl);
   const location = useLocation();
-  const [addedSkills, setAddedSkills] = React.useState<Array<Scalars["ID"]>>(
-    [],
-  );
 
   const classificationMap = React.useMemo(
     () => mapIdToValue(classifications),
@@ -106,6 +101,7 @@ const SearchForm: React.FC<SearchFormProps> = ({
         poolCandidates: {
           pools: [values.poolId],
         },
+        skills: values.skills,
         operationalRequirements: values.operationalRequirements
           ? unpackMaybes(values.operationalRequirements)
           : [],
@@ -153,36 +149,6 @@ const SearchForm: React.FC<SearchFormProps> = ({
       })),
     [classifications],
   );
-
-  const cmoAssetOptions: Option<string>[] = React.useMemo(
-    () =>
-      cmoAssets.map(({ id, name }) => ({
-        value: id,
-        label:
-          name[locale] ??
-          intl.formatMessage({
-            defaultMessage: "Error: name not loaded",
-            description: "Error message for cmo asset filer on search form.",
-          }),
-      })),
-    [cmoAssets, locale, intl],
-  );
-
-  const handleAddSkill = (id: Scalars["ID"]) => {
-    if (!addedSkills.includes(id)) {
-      const newSkills = [id, ...addedSkills];
-      setAddedSkills(newSkills);
-    }
-  };
-
-  const handleRemoveSkill = (id: Scalars["ID"]) => {
-    if (addedSkills.includes(id)) {
-      const newSkills = [...addedSkills].filter(
-        (existingId) => existingId !== id,
-      );
-      setAddedSkills(newSkills);
-    }
-  };
 
   const operationalRequirementsSubset = [
     OperationalRequirement.ShiftWork,
@@ -416,12 +382,7 @@ const SearchForm: React.FC<SearchFormProps> = ({
             ]}
           />
         </FilterBlock>
-        <AddSkillsToFilter
-          addedSkillIds={addedSkills}
-          allSkills={skills ?? []}
-          onAddSkill={handleAddSkill}
-          onRemoveSkill={handleRemoveSkill}
-        />
+        <AddSkillsToFilter allSkills={skills ?? []} />
       </form>
     </FormProvider>
   );
