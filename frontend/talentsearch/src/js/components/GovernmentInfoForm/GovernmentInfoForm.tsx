@@ -495,10 +495,11 @@ export const GovInfoFormContainer: React.FunctionComponent = () => {
           const message = intl.formatMessage(profileMessages.profileCompleted);
           if (!preProfileStatus && currentProfileStatus) {
             toast.success(message);
+            navigate(paths.profile());
           }
-          navigate(paths.profile());
-          toast.success(intl.formatMessage(profileMessages.userUpdated));
         }
+        navigate(paths.profile());
+        toast.success(intl.formatMessage(profileMessages.userUpdated));
       })
       .catch(() => {
         toast.error(intl.formatMessage(profileMessages.updatingFailed));
