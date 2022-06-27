@@ -15,7 +15,7 @@ export interface FieldsetProps {
   /** If an error string is provided, it will appear below the fieldset inputs. */
   error?: string;
   /** If a context string is provided, a small button will appear which, when toggled, shows the context string. */
-  context?: string;
+  context?: string | React.ReactNode;
   /** If true, all input elements in this fieldset will be disabled. */
   disabled?: boolean;
   /** If true, and required is false, 'Optional' will not be shown above the fieldset. */
