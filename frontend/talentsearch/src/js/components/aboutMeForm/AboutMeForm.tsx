@@ -5,7 +5,6 @@ import { OperationResult } from "urql";
 import { BasicForm, Input, RadioGroup, Select } from "@common/components/form";
 import { ProvinceOrTerritory, Language } from "@common/api/generated";
 import { commonMessages, errorMessages } from "@common/messages";
-import { phoneNumberRegex } from "@common/constants/regularExpressions";
 import { enumToOptions } from "@common/helpers/formUtils";
 import { getLocale } from "@common/helpers/localize";
 import { navigate } from "@common/helpers/router";
@@ -201,10 +200,6 @@ export const AboutMeForm: React.FunctionComponent<AboutMeFormProps> = ({
               })}
               rules={{
                 required: intl.formatMessage(errorMessages.required),
-                pattern: {
-                  value: phoneNumberRegex,
-                  message: intl.formatMessage(errorMessages.telephone),
-                },
               }}
             />
           </div>

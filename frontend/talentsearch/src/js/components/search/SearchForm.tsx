@@ -1,57 +1,33 @@
-import React, { useMemo } from "react";
+import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useIntl } from "react-intl";
+import debounce from "lodash/debounce";
+
 import { Checklist, MultiSelect, RadioGroup } from "@common/components/form";
-import { getLocale } from "@common/helpers/localize";
-import { enumToOptions, unpackMaybes } from "@common/helpers/formUtils";
 import { getLanguageAbility } from "@common/constants";
-import { debounce } from "debounce";
-import { useLocation } from "@common/helpers/router";
 import {
   getOperationalRequirement,
   getWorkRegion,
 } from "@common/constants/localizedConstants";
+import { enumToOptions, unpackMaybes } from "@common/helpers/formUtils";
+import { getLocale } from "@common/helpers/localize";
+import { useLocation } from "@common/helpers/router";
 import {
   Classification,
   CmoAsset,
-  OperationalRequirement,
-  WorkRegion,
   LanguageAbility,
+  OperationalRequirement,
   PoolCandidateFilter,
-  PoolCandidateFilterInput,
+  ApplicantFilterInput,
+  WorkRegion,
+  ApplicantPoolFilterInput,
 } from "../../api/generated";
+import FilterBlock from "./FilterBlock";
 
 const NullSelection = "NULL_SELECTION";
 
-const FilterBlock: React.FunctionComponent<{
-  id: string;
-  title: string | React.ReactNode;
-  text: string;
-}> = ({ id, title, text, children }) => {
-  return (
-    <div>
-      <h3
-        id={id}
-        data-h2-font-size="b(h4)"
-        data-h2-font-weight="b(700)"
-        data-h2-margin="b(bottom, m)"
-      >
-        {title}
-      </h3>
-      <p
-        data-h2-font-size="b(caption)"
-        data-h2-margin="b(bottom, m)"
-        data-h2-padding="b(right, xl)"
-      >
-        {text}
-      </p>
-      {children && <div style={{ maxWidth: "30rem" }}>{children}</div>}
-    </div>
-  );
-};
-
-function mapIdToValue<T extends { id: string }>(objs: T[]): Map<string, T> {
-  return objs.reduce((map, obj) => {
+function mapIdToValue<T extends { id: string }>(objects: T[]): Map<string, T> {
+  return objects.reduce((map, obj) => {
     map.set(obj.id, obj);
     return map;
   }, new Map());
@@ -63,11 +39,13 @@ export type FormValues = Pick<
   "workRegions" | "operationalRequirements"
 > & {
   languageAbility: LanguageAbility | typeof NullSelection;
+  employmentDuration: string | typeof NullSelection;
   classifications: string[] | undefined;
-  cmoAssets: string[] | undefined;
+  cmoAssets: string[] | undefined; // TODO REMOVE WHEN REPLACING CMOASSETS
   employmentEquity: string[] | undefined;
   educationRequirement: "has_diploma" | "no_diploma";
   poolId: string;
+  poolCandidates: ApplicantPoolFilterInput;
 };
 
 type LocationState = {
@@ -75,31 +53,31 @@ type LocationState = {
     initialValues: FormValues;
   };
 };
+
 export interface SearchFormProps {
   classifications: Classification[];
   cmoAssets: CmoAsset[];
-  updateCandidateFilter: (filter: PoolCandidateFilterInput) => void;
-  updateInitialValues: (initialValues: FormValues) => void;
+  onUpdateCandidateFilter: (filter: ApplicantFilterInput) => void;
 }
 
-export const SearchForm: React.FunctionComponent<SearchFormProps> = ({
+const SearchForm: React.FC<SearchFormProps> = ({
   classifications,
   cmoAssets,
-  updateCandidateFilter,
+  onUpdateCandidateFilter,
 }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
   const location = useLocation();
 
-  const classificationMap = useMemo(
+  const classificationMap = React.useMemo(
     () => mapIdToValue(classifications),
     [classifications],
   );
-  const assetMap = useMemo(() => mapIdToValue(cmoAssets), [cmoAssets]);
+  const assetMap = React.useMemo(() => mapIdToValue(cmoAssets), [cmoAssets]);
 
   // The location state holds the initial values plugged in from user. This is required if the user decides to click back and change any values.
   const state = location.state as LocationState;
-  const initialValues = useMemo(
+  const initialValues = React.useMemo(
     () => (state ? state.some.initialValues : {}),
     [state],
   );
@@ -107,20 +85,20 @@ export const SearchForm: React.FunctionComponent<SearchFormProps> = ({
   const { watch } = methods;
 
   React.useEffect(() => {
-    updateCandidateFilter(initialValues);
-  }, [initialValues, updateCandidateFilter]);
+    onUpdateCandidateFilter(initialValues);
+  }, [initialValues, onUpdateCandidateFilter]);
 
   React.useEffect(() => {
-    const formValuesToData = (values: FormValues): PoolCandidateFilterInput => {
+    const formValuesToData = (values: FormValues): ApplicantFilterInput => {
       return {
-        classifications: values.classifications
-          ? values.classifications?.map((id) =>
-              id ? classificationMap.get(id) : undefined,
-            )
+        expectedClassifications: values.classifications
+          ? values.classifications
+              ?.filter((id) => !!id)
+              .map((id) => (id ? classificationMap.get(id) : undefined))
           : [],
-        cmoAssets: values.cmoAssets
-          ? values.cmoAssets?.map((id) => (id ? assetMap.get(id) : undefined))
-          : [],
+        poolCandidates: {
+          pools: [values.poolId],
+        },
         operationalRequirements: values.operationalRequirements
           ? unpackMaybes(values.operationalRequirements)
           : [],
@@ -142,13 +120,15 @@ export const SearchForm: React.FunctionComponent<SearchFormProps> = ({
         ...(values.languageAbility !== NullSelection
           ? { languageAbility: values.languageAbility as LanguageAbility }
           : {}), // Ensure null in FormValues is converted to undefined
-        workRegions: values.workRegions || [],
+        wouldAcceptTemporary:
+          values.employmentDuration === "true" ? true : null,
+        locationPreferences: values.workRegions || [],
       };
     };
 
-    const debounceUpdate = debounce((values: PoolCandidateFilterInput) => {
-      if (updateCandidateFilter) {
-        updateCandidateFilter(values);
+    const debounceUpdate = debounce((values: ApplicantFilterInput) => {
+      if (onUpdateCandidateFilter) {
+        onUpdateCandidateFilter(values);
       }
     }, 200);
 
@@ -158,9 +138,9 @@ export const SearchForm: React.FunctionComponent<SearchFormProps> = ({
     });
 
     return () => subscription.unsubscribe();
-  }, [watch, classificationMap, assetMap, updateCandidateFilter]);
+  }, [watch, classificationMap, assetMap, onUpdateCandidateFilter]);
 
-  const classificationOptions: Option<string>[] = useMemo(
+  const classificationOptions: Option<string>[] = React.useMemo(
     () =>
       classifications.map(({ id, group, level }) => ({
         value: id,
@@ -169,7 +149,7 @@ export const SearchForm: React.FunctionComponent<SearchFormProps> = ({
     [classifications],
   );
 
-  const cmoAssetOptions: Option<string>[] = useMemo(
+  const cmoAssetOptions: Option<string>[] = React.useMemo(
     () =>
       cmoAssets.map(({ id, name }) => ({
         value: id,
@@ -356,6 +336,52 @@ export const SearchForm: React.FunctionComponent<SearchFormProps> = ({
           />
         </FilterBlock>
         <FilterBlock
+          id="employmentDurationFilter"
+          title={intl.formatMessage({
+            defaultMessage: "Employment Duration",
+            description:
+              "Heading for employment duration section of the search form.",
+          })}
+          text={intl.formatMessage({
+            defaultMessage:
+              "The selected duration will be compared to the one chosen by candidates in their applications. Change this only if the job offer has a determined duration.",
+            description:
+              "Message describing the employment duration filter in the search form.",
+          })}
+        >
+          <RadioGroup
+            idPrefix="employmentDuration"
+            legend="Duration"
+            name="employmentDuration"
+            defaultSelected={NullSelection}
+            items={[
+              {
+                value: NullSelection,
+                label: intl.formatMessage({
+                  defaultMessage:
+                    "Any duration (short term, long term or indeterminate) (Recommended)",
+                  description:
+                    "No preference for employment duration - will accept any",
+                }),
+              },
+              {
+                value: "true",
+                label: intl.formatMessage({
+                  defaultMessage: "Term duration (short term, long term)",
+                  description: "Duration of a non-permanent length",
+                }),
+              },
+              {
+                value: "nothing",
+                label: intl.formatMessage({
+                  defaultMessage: "Indeterminate duration (permanent)",
+                  description: "Duration that is permanent",
+                }),
+              },
+            ]}
+          />
+        </FilterBlock>
+        <FilterBlock
           id="employmentEquityFilter"
           title={intl.formatMessage({
             defaultMessage: "Employment equity",
@@ -440,3 +466,5 @@ export const SearchForm: React.FunctionComponent<SearchFormProps> = ({
     </FormProvider>
   );
 };
+
+export default SearchForm;

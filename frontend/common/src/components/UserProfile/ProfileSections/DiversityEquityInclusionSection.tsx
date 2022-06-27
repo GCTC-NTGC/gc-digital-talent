@@ -13,10 +13,13 @@ const DiversityEquityInclusionSection: React.FunctionComponent<{
     Applicant,
     "isWoman" | "hasDisability" | "isIndigenous" | "isVisibleMinority"
   >;
-}> = ({ applicant }) => {
+  editPath?: string;
+}> = ({ applicant, editPath }) => {
   const intl = useIntl();
 
   const { isWoman, hasDisability, isIndigenous, isVisibleMinority } = applicant;
+  const anyCriteriaSelected =
+    isWoman || isIndigenous || isVisibleMinority || hasDisability;
 
   return (
     <div
@@ -24,17 +27,37 @@ const DiversityEquityInclusionSection: React.FunctionComponent<{
       data-h2-padding="b(all, m)"
       data-h2-radius="b(s)"
     >
-      {!isWoman && !isIndigenous && !isVisibleMinority && !hasDisability && (
+      {!anyCriteriaSelected && editPath && (
+        <>
+          <p>
+            {intl.formatMessage({
+              defaultMessage:
+                "You have not identified as a member of any employment equity groups.",
+              description:
+                "Message indicating the user has not been marked as part of an equity group, Ignore things in <> please.",
+            })}
+          </p>
+          <p>
+            <a href={editPath}>
+              {intl.formatMessage({
+                defaultMessage: "Click here to get started.",
+                description: "Message to click on the words to begin something",
+              })}
+            </a>
+          </p>
+        </>
+      )}
+      {!anyCriteriaSelected && !editPath && (
         <p>
           {intl.formatMessage({
             defaultMessage:
-              "You have not identified as a member of any employment equity groups.",
+              "I am not identified as a member of any employment equity groups.",
             description:
-              "Message indicating the user has not been marked as part of an equity group, Ignore things in <> please.",
+              "Message on Admin side when user not filled DiversityEquityInclusion section.",
           })}
         </p>
       )}
-      {(isWoman || isIndigenous || isVisibleMinority || hasDisability) && (
+      {anyCriteriaSelected && (
         <div>
           <p>
             {intl.formatMessage({

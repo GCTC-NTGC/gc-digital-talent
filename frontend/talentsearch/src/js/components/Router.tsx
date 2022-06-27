@@ -7,6 +7,8 @@ import { checkFeatureFlag } from "@common/helpers/runtimeVariable";
 import { AuthenticationContext } from "@common/components/Auth";
 import { Button } from "@common/components";
 import Dialog from "@common/components/Dialog";
+import { Helmet } from "react-helmet";
+import { getLocale } from "@common/helpers/localize";
 import PageContainer, { MenuLink } from "./PageContainer";
 import SearchPage from "./search/SearchPage";
 import {
@@ -327,6 +329,9 @@ export const Router: React.FC = () => {
             : []),
         ]}
       />
+      <Helmet>
+        <html lang={getLocale(intl)} />
+      </Helmet>
       <Toast />
       {loggedIn && (
         <Dialog

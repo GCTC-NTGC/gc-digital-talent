@@ -1,25 +1,23 @@
 import React, { HTMLAttributes } from "react";
 
+import Heading, { type HeadingLevel } from "../Heading";
+
 import "./heading.css";
 
 export interface HeadingProps {
-  as?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
+  as?: HeadingLevel;
   icon?: React.FC<{ className: string }>;
 }
 
-const Heading: React.FC<HeadingProps & HTMLAttributes<HTMLHeadingElement>> = ({
-  icon,
-  children,
-  as = "h2",
-  ...rest
-}) => {
-  const El = as;
+const TOCHeading: React.FC<
+  HeadingProps & HTMLAttributes<HTMLHeadingElement>
+> = ({ icon, children, as = "h2", ...rest }) => {
   const Icon = icon || null;
 
   return (
-    <El
+    <Heading
+      level={as}
       data-h2-display="b(flex)"
-      data-h2-font-weight="b(800)"
       data-h2-align-items="b(center)"
       data-h2-margin="b(top, none) b(bottom, m)"
       data-h2-justify-content="b(start)"
@@ -27,8 +25,8 @@ const Heading: React.FC<HeadingProps & HTMLAttributes<HTMLHeadingElement>> = ({
     >
       {Icon && <Icon className="toc-heading__icon" />}
       <span>{children}</span>
-    </El>
+    </Heading>
   );
 };
 
-export default Heading;
+export default TOCHeading;

@@ -203,6 +203,7 @@ class User extends Model implements Authenticatable
         if (empty($poolCandidates)) {
             return $query;
         }
+
         // Pool acts as an OR filter. The query should return valid candidates in ANY of the pools.
         $query->whereExists(function ($query) use ($poolCandidates) {
             $query->select('id')
@@ -226,7 +227,6 @@ class User extends Model implements Authenticatable
 
         return $query;
     }
-
     public function filterByLanguageAbility(Builder $query, ?string $languageAbility): Builder
     {
         // If filtering for a specific language the query should return candidates of that language OR bilingual.
@@ -458,7 +458,7 @@ RAWSQL2;
         }
         return $query;
     }
-    public function scopeWouldAcceptTemporary(Builder $query, bool $wouldAcceptTemporary): Builder
+    public function scopeWouldAcceptTemporary(Builder $query, ?bool $wouldAcceptTemporary): Builder
     {
         if ($wouldAcceptTemporary) {
             $query->where('would_accept_temporary', true);
@@ -500,6 +500,49 @@ RAWSQL2;
                 }
             }
         });
+        return $query;
+    }
+
+    public function filterByGeneralSearch(Builder $query, ?string $search): Builder
+    {
+        if ($search) {
+            $query->where(function($query) use ($search) {
+                $query->where('first_name', "ilike", "%{$search}%")
+                      ->orWhere('last_name', "ilike", "%{$search}%")
+                      ->orWhere('email', "ilike", "%{$search}%")
+                      ->orWhere('telephone', "ilike", "%{$search}%");
+            });
+        }
+        return $query;
+    }
+
+    public function filterByName(Builder $query, ?string $name): Builder
+    {
+        if ($name) {
+            $splitName = explode(" ", $name);
+            $query->where(function($query) use ($splitName) {
+                foreach($splitName as $index => $value){
+                    $query->where('first_name', "ilike", "%{$value}%")
+                        ->orWhere('last_name', "ilike", "%{$value}%");
+                }
+            });
+        }
+        return $query;
+    }
+
+    public function scopeTelephone(Builder $query, ?string $telephone): Builder
+    {
+        if ($telephone) {
+            $query->where('telephone', 'ilike', "%{$telephone}%");
+        }
+        return $query;
+    }
+
+    public function scopeEmail(Builder $query, ?string $email): Builder
+    {
+        if ($email) {
+            $query->where('email', 'ilike', "%{$email}%");
+        }
         return $query;
     }
 
