@@ -720,7 +720,7 @@
     "description": "The name of the Technician Analyst role."
   },
   "WPJrmN": {
-    "defaultMessage": "{wordsLeft, plural, one {word over limit} other {words over limit}}.",
+    "defaultMessage": "{wordsLeft, plural, one {mot au-dessus de la limite} other {mots au-dessus de la limite}}.",
     "description": "Message for when user goes over word limit."
   },
   "Xh6xay": {
