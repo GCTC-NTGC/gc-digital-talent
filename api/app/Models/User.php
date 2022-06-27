@@ -320,7 +320,7 @@ class User extends Model implements Authenticatable
         });
         return $query;
     }
-    public function filterByClassifications(Builder $query, array $classifications): Builder
+    public function scopeClassifications(Builder $query, array $classifications): Builder
     {
         // if no filters provided then return query unchanged
         if (empty($classifications)) {
@@ -344,7 +344,6 @@ class User extends Model implements Authenticatable
                     }
                 }
             });
-
             $this->orFilterByClassificationToSalary($query, $classifications);
             $this->orFilterByClassificationToGenericJobTitles($query, $classifications);
         });
@@ -357,7 +356,6 @@ class User extends Model implements Authenticatable
         if (empty($classifications)) {
             return $query;
         }
-
         // Classifications act as an OR filter. The query should return candidates with any of the classifications.
         // A single whereHas clause for the relationship, containing multiple orWhere clauses accomplishes this.
 

@@ -576,7 +576,7 @@ input UserPoolFilterInput {
 }
 
 input PoolCandidateFilterInput {
-    classifications: [ClassificationFilterInput] @builder(method: "App\\Models\\PoolCandidate@filterByClassifications")
+    classifications: [ClassificationFilterInput] @scope
     cmoAssets: [KeyFilterInput] @builder(method: "App\\Models\\PoolCandidate@filterByCmoAssets")
     hasDiploma: Boolean @scope
     equity: EquitySelectionsInput @builder(method: "App\\Models\\PoolCandidate@filterByEquity")
@@ -589,7 +589,7 @@ input PoolCandidateFilterInput {
 input UserFilterAndOrderInput {
     poolCandidates: UserPoolFilterInput @builder(method: "App\\Models\\User@filterByPools")
     languageAbility: LanguageAbility @builder(method: "App\\Models\\User@filterByLanguageAbility")
-    expectedClassifications: [ClassificationFilterInput] @builder(method: "App\\Models\\User@filterByClassifications")
+    expectedClassifications: [ClassificationFilterInput] @scope(name: "classifications")
     operationalRequirements: [OperationalRequirement] @builder(method: "App\\Models\\User@filterByOperationalRequirements")
     locationPreferences: [WorkRegion] @builder(method: "App\\Models\\User@filterByLocationPreferences")
     equity: EquitySelectionsInput @builder(method: "App\\Models\\User@filterByEquity")

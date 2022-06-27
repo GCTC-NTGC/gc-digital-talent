@@ -70,7 +70,7 @@ class PoolCandidate extends Model
     }
 
 
-    public function filterByClassifications(Builder $query, array $classifications): Builder
+    public function scopeClassifications(Builder $query, array $classifications): Builder
     {
         // if no filters provided then return query unchanged
         if (empty($classifications)) {
