@@ -5,8 +5,7 @@ import { InputWrapper } from "../../inputPartials";
 
 export type Option = { value: string | number; label: string };
 
-export interface MultiSelectProps
-  extends React.SelectHTMLAttributes<HTMLSelectElement> {
+export interface MultiSelectProps {
   /** HTML id used to identify the element. */
   id: string;
   /** Optional context which user can view by toggling a button. */
