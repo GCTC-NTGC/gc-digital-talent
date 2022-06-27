@@ -11,7 +11,7 @@ module.exports = {
   files: [
     {
       path: "frontend/talentsearch/dist/app.js",
-      maxSize: "270 kB",
+      maxSize: "280 kB",
     },
     {
       path: "frontend/admin/dist/app.js",
