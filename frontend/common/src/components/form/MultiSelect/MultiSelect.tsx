@@ -37,6 +37,7 @@ const MultiSelect: React.FunctionComponent<MultiSelectProps> = ({
     formState: { errors },
   } = useFormContext();
   const error = errors[name]?.message;
+  const isRequired = !!rules?.required;
   const optionMap = useMemo(() => {
     const map = new Map();
     options.forEach((option) => {
@@ -53,7 +54,7 @@ const MultiSelect: React.FunctionComponent<MultiSelectProps> = ({
       <InputWrapper
         inputId={id}
         label={label}
-        required={!!rules?.required}
+        required={isRequired}
         context={context}
         error={error}
       >
@@ -81,7 +82,7 @@ const MultiSelect: React.FunctionComponent<MultiSelectProps> = ({
             )}
             control={control}
             rules={rules}
-            aria-required={rules?.required ? "true" : undefined}
+            aria-required={isRequired}
           />
         </div>
       </InputWrapper>
