@@ -11,7 +11,7 @@ export default {
   title: "Form/MultiSelect",
 } as ComponentMeta<typeof MultiSelect>;
 
-const TemplateMultiSelect: ComponentStory<typeof MultiSelect> = (args) => {
+const Template: ComponentStory<typeof MultiSelect> = (args) => {
   return (
     <Form
       onSubmit={action("Submit Form")}
@@ -25,7 +25,7 @@ const TemplateMultiSelect: ComponentStory<typeof MultiSelect> = (args) => {
   );
 };
 
-export const Default = TemplateMultiSelect.bind({});
+export const Default = Template.bind({});
 Default.args = {
   id: uniqueId(),
   label: "Select a dept",
@@ -37,26 +37,26 @@ Default.args = {
   ],
 };
 
-export const Required = TemplateMultiSelect.bind({});
+export const Required = Template.bind({});
 Required.args = {
   ...Default.args,
   rules: { required: "This must be accepted to continue." },
 };
 
-export const RequiredWithInfo = TemplateMultiSelect.bind({});
+export const RequiredWithInfo = Template.bind({});
 RequiredWithInfo.args = {
   ...Default.args,
   context: "We collect the above data for account purposes.",
   rules: { required: "This must be accepted to continue." },
 };
 
-export const RequiredWithError = TemplateMultiSelect.bind({});
+export const RequiredWithError = Template.bind({});
 RequiredWithError.args = {
   ...Default.args,
   rules: { required: "This must be accepted to continue." },
 };
 
-export const RequiredWithErrorAndContext = TemplateMultiSelect.bind({});
+export const RequiredWithErrorAndContext = Template.bind({});
 RequiredWithErrorAndContext.args = {
   ...Default.args,
   context: "We collect the above data for account purposes.",
