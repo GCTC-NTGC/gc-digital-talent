@@ -5,13 +5,13 @@ import { useGetMeQuery } from "../../api/generated";
 
 const AuthorizationProvider: React.FC = ({ children }) => {
   const [result] = useGetMeQuery();
-  const { data, fetching } = result;
+  const { data, fetching, stale } = result;
 
   return (
     <AuthorizationContainer
       userRoles={data?.me?.roles}
       email={data?.me?.email}
-      isLoaded={!fetching}
+      isLoaded={!fetching && !stale}
     >
       {children}
     </AuthorizationContainer>
