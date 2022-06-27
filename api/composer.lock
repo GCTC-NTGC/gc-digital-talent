@@ -2914,16 +2914,16 @@
         },
         {
             "name": "nuwave/lighthouse",
-            "version": "v5.53.0",
+            "version": "v5.55.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nuwave/lighthouse.git",
-                "reference": "1d6bfba264ae1ce68af84e1b97f50bd7ecd250b1"
+                "reference": "4676619e2ddc1b516715885bb32142bd0658b6bd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nuwave/lighthouse/zipball/1d6bfba264ae1ce68af84e1b97f50bd7ecd250b1",
-                "reference": "1d6bfba264ae1ce68af84e1b97f50bd7ecd250b1",
+                "url": "https://api.github.com/repos/nuwave/lighthouse/zipball/4676619e2ddc1b516715885bb32142bd0658b6bd",
+                "reference": "4676619e2ddc1b516715885bb32142bd0658b6bd",
                 "shasum": ""
             },
             "require": {
@@ -2981,6 +2981,7 @@
                     "providers": [
                         "Nuwave\\Lighthouse\\LighthouseServiceProvider",
                         "Nuwave\\Lighthouse\\Auth\\AuthServiceProvider",
+                        "Nuwave\\Lighthouse\\Cache\\CacheServiceProvider",
                         "Nuwave\\Lighthouse\\GlobalId\\GlobalIdServiceProvider",
                         "Nuwave\\Lighthouse\\OrderBy\\OrderByServiceProvider",
                         "Nuwave\\Lighthouse\\Pagination\\PaginationServiceProvider",
@@ -3040,7 +3041,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2022-06-09T09:06:14+00:00"
+            "time": "2022-06-22T13:21:15+00:00"
         },
         {
             "name": "opis/closure",
