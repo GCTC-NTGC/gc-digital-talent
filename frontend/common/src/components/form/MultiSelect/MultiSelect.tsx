@@ -52,25 +52,23 @@ const MultiSelect: React.FunctionComponent<MultiSelectProps> = ({
   return (
     <div data-h2-margin="b(bottom, xxs)">
       <InputWrapper
+        {...{ label, context, error }}
         inputId={id}
-        label={label}
         required={isRequired}
-        context={context}
-        error={error}
       >
         <div style={{ width: "100%" }}>
           <Controller
-            name={name}
+            {...{ name, control, rules }}
+            aria-required={isRequired}
             render={({ field }) => (
               <ReactSelect
                 isMulti
                 {...field}
+                {...{ placeholder, options }}
                 value={field.value ? field.value.map(valueToOption) : []}
                 onChange={
                   (x) => field.onChange(x ? x.map((option) => option.value) : x) // If x is null or undefined, return it to form
                 }
-                placeholder={placeholder}
-                options={options}
                 aria-label={label}
                 styles={{
                   placeholder: (provided) => ({
@@ -80,9 +78,6 @@ const MultiSelect: React.FunctionComponent<MultiSelectProps> = ({
                 }}
               />
             )}
-            control={control}
-            rules={rules}
-            aria-required={isRequired}
           />
         </div>
       </InputWrapper>
