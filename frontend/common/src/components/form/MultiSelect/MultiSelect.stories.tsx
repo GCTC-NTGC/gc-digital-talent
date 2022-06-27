@@ -2,7 +2,7 @@ import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 import { uniqueId } from "lodash";
 import React from "react";
-import Form from "../BasicForm";
+import BasicForm from "../BasicForm";
 import Submit from "../Submit";
 import MultiSelect from "./MultiSelect";
 
@@ -13,7 +13,7 @@ export default {
 
 const Template: ComponentStory<typeof MultiSelect> = (args) => {
   return (
-    <Form
+    <BasicForm
       onSubmit={action("Submit Form")}
       options={{ defaultValues: { departments: "" } }}
     >
@@ -21,7 +21,7 @@ const Template: ComponentStory<typeof MultiSelect> = (args) => {
         <MultiSelect {...args} />
         <Submit />
       </div>
-    </Form>
+    </BasicForm>
   );
 };
 
