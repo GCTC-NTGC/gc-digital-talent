@@ -147,15 +147,22 @@ export const colorMap: Record<
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   (
-    { children, type, color, mode, block = false, classNames, ...rest },
+    {
+      children,
+      type = "button",
+      color = "primary",
+      mode = "solid",
+      block = false,
+      classNames,
+      ...rest
+    },
     ref,
   ) => {
     return (
       <button
-        ref={ref}
         className={`button ${classNames}`}
         // eslint-disable-next-line react/button-has-type
-        type={type || "button"}
+        {...{ ref, type }}
         data-h2-radius="b(s)"
         data-h2-padding="b(top-bottom, xs) b(right-left, s)"
         data-h2-font-size="b(caption) m(normal)"
