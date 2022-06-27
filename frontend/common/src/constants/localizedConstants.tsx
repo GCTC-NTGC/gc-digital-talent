@@ -585,6 +585,10 @@ export const operationalRequirements = defineMessages({
     description:
       "The operational requirement described as occasional overtime.",
   },
+  [OperationalRequirement.WorkWeekends]: {
+    defaultMessage: "Work weekends",
+    description: "The operational requirement described as work weekends.",
+  },
 });
 
 export const getOperationalRequirement = (
