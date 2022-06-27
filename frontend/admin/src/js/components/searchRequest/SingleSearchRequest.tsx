@@ -1,8 +1,7 @@
 import { getLocale } from "@common/helpers/localize";
-import {
-  SearchRequestFilters,
+import SearchRequestFilters, {
   FilterBlock,
-} from "@common/components/SearchRequestFilters";
+} from "@common/components/SearchRequestFilters/deprecated/SearchRequestFilters";
 import * as React from "react";
 import { useIntl } from "react-intl";
 import { commonMessages } from "@common/messages";
