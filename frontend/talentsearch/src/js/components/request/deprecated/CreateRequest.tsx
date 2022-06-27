@@ -16,7 +16,7 @@ import {
 } from "@common/helpers/storageUtils";
 import { EquitySelections } from "@common/api/generated";
 import Pending from "@common/components/Pending";
-import { useTalentSearchRoutes } from "../../talentSearchRoutes";
+import { useTalentSearchRoutes } from "../../../talentSearchRoutes";
 import {
   Department,
   PoolCandidateFilter,
@@ -30,8 +30,6 @@ import {
   Classification,
   OperationalRequirement,
   Pool,
-  Skill,
-  ApplicantFilterInput,
 } from "../../api/generated";
 import { FormValues as SearchFormValues } from "../search/SearchForm";
 
@@ -62,8 +60,7 @@ type FormValues = {
 };
 export interface RequestFormProps {
   departments: Department[];
-  skills: Skill[];
-  poolCandidateFilter: Maybe<PoolCandidateFilter & ApplicantFilterInput>;
+  poolCandidateFilter: Maybe<PoolCandidateFilter>;
   candidateCount: Maybe<number>;
   searchFormInitialValues: Maybe<SearchFormValues>;
   handleCreatePoolCandidateSearchRequest: (
@@ -75,7 +72,6 @@ export interface RequestFormProps {
 
 export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
   departments,
-  skills,
   poolCandidateFilter,
   candidateCount,
   searchFormInitialValues,
@@ -319,10 +315,7 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
               description: "Title of Summary of filters section",
             })}
           </h2>
-          <SearchRequestFilters
-            poolCandidateFilter={poolCandidateFilter}
-            allSkills={skills}
-          />
+          <SearchRequestFilters poolCandidateFilter={poolCandidateFilter} />
           <p data-h2-font-weight="b(600)">
             {intl.formatMessage(
               {
@@ -381,7 +374,6 @@ export const CreateRequest: React.FunctionComponent<{
 
   const departments: Department[] =
     lookupData?.departments.filter(notEmpty) ?? [];
-  const skills: Skill[] = lookupData?.skills.filter(notEmpty) ?? [];
 
   const [, executeMutation] = useCreatePoolCandidateSearchRequestMutation();
   const handleCreatePoolCandidateSearchRequest = (
@@ -398,7 +390,6 @@ export const CreateRequest: React.FunctionComponent<{
     <Pending fetching={fetching} error={error}>
       <RequestForm
         departments={departments}
-        skills={skills}
         poolCandidateFilter={poolCandidateFilter}
         candidateCount={candidateCount}
         searchFormInitialValues={searchFormInitialValues}

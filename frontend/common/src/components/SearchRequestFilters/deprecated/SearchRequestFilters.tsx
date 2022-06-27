@@ -2,18 +2,13 @@ import uniqueId from "lodash/uniqueId";
 import isEmpty from "lodash/isEmpty";
 import * as React from "react";
 import { useIntl } from "react-intl";
-import {
-  ApplicantFilterInput,
-  Maybe,
-  PoolCandidateFilter,
-  Skill,
-} from "../../api/generated";
+import { Maybe, PoolCandidateFilter } from "../../../api/generated";
 import {
   getLanguageAbility,
   getOperationalRequirement,
   getWorkRegion,
-} from "../../constants/localizedConstants";
-import { getLocale } from "../../helpers/localize";
+} from "../../../constants/localizedConstants";
+import { getLocale } from "../../../helpers/localize";
 
 export interface FilterBlockProps {
   title: string;
@@ -91,13 +86,12 @@ const FilterBlock: React.FunctionComponent<FilterBlockProps> = ({
 };
 
 export interface SearchRequestFiltersProps {
-  poolCandidateFilter: Maybe<PoolCandidateFilter & ApplicantFilterInput>;
-  allSkills: Skill[];
+  poolCandidateFilter: Maybe<PoolCandidateFilter>;
 }
 
 const SearchRequestFilters: React.FunctionComponent<
   SearchRequestFiltersProps
-> = ({ poolCandidateFilter, allSkills }) => {
+> = ({ poolCandidateFilter }) => {
   const intl = useIntl();
   const locale = getLocale(intl);
 
@@ -176,19 +170,14 @@ const SearchRequestFilters: React.FunctionComponent<
     : intl.formatMessage({
         defaultMessage: "Any language",
       });
-  const skills: string[] | undefined = poolCandidateFilter?.skills?.map(
-    (skillId) => {
-      const foundSkill = allSkills.find((skill) => skill.id === skillId);
-
-      return (
-        foundSkill?.name[locale] ||
-        intl.formatMessage({
-          defaultMessage: "Error: skill name not found",
-          description:
-            "Error message when cmo asset name is not found on request page.",
-        })
-      );
-    },
+  const skills: string[] | undefined = poolCandidateFilter?.cmoAssets?.map(
+    (cmoAsset) =>
+      cmoAsset?.name[locale] ||
+      intl.formatMessage({
+        defaultMessage: "Error: skill name not found",
+        description:
+          "Error message when cmo asset name is not found on request page.",
+      }),
   );
   const typeOfOpportunity = ""; // TODO: Replace with data fetched from api
 
