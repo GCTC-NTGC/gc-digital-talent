@@ -13,7 +13,6 @@ import { enumToOptions, unpackMaybes } from "@common/helpers/formUtils";
 import { useLocation } from "@common/helpers/router";
 import {
   Classification,
-  CmoAsset,
   LanguageAbility,
   OperationalRequirement,
   PoolCandidateFilter,
@@ -42,7 +41,6 @@ export type FormValues = Pick<
   languageAbility: LanguageAbility | typeof NullSelection;
   classifications: string[] | undefined;
   skills: string[] | undefined;
-  cmoAssets: string[] | undefined; // TODO REMOVE WHEN REPLACING CMOASSETS
   employmentEquity: string[] | undefined;
   educationRequirement: "has_diploma" | "no_diploma";
   poolId: string;
@@ -57,14 +55,12 @@ type LocationState = {
 
 export interface SearchFormProps {
   classifications: Classification[];
-  cmoAssets: CmoAsset[];
   skills?: Skill[];
   onUpdateCandidateFilter: (filter: ApplicantFilterInput) => void;
 }
 
 const SearchForm: React.FC<SearchFormProps> = ({
   classifications,
-  cmoAssets,
   skills,
   onUpdateCandidateFilter,
 }) => {
@@ -75,7 +71,6 @@ const SearchForm: React.FC<SearchFormProps> = ({
     () => mapIdToValue(classifications),
     [classifications],
   );
-  const assetMap = React.useMemo(() => mapIdToValue(cmoAssets), [cmoAssets]);
 
   // The location state holds the initial values plugged in from user. This is required if the user decides to click back and change any values.
   const state = location.state as LocationState;
@@ -139,7 +134,7 @@ const SearchForm: React.FC<SearchFormProps> = ({
     });
 
     return () => subscription.unsubscribe();
-  }, [watch, classificationMap, assetMap, onUpdateCandidateFilter]);
+  }, [watch, classificationMap, onUpdateCandidateFilter]);
 
   const classificationOptions: Option<string>[] = React.useMemo(
     () =>

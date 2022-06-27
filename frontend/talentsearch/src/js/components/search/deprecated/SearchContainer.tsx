@@ -23,7 +23,7 @@ import {
 } from "../../../talentSearchConstants";
 import EstimatedCandidates from "../EstimatedCandidates";
 import { FormValues, SearchForm } from "./SearchForm";
-import SearchFilterAdvice from "../SearchFilterAdvice";
+import SearchFilterAdvice from "./SearchFilterAdvice";
 import SearchPools from "../SearchPools";
 import Spinner from "../../Spinner";
 import { useTalentSearchRoutes } from "../../../talentSearchRoutes";

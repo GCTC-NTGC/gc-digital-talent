@@ -7,7 +7,6 @@ import pick from "lodash/pick";
 import {
   Classification,
   ClassificationFilterInput,
-  CmoAsset,
   CountApplicantsQueryVariables,
   KeyFilterInput,
   Maybe,
@@ -81,7 +80,6 @@ const candidateFilterToQueryArgs = (
 
 export interface SearchContainerProps {
   classifications: Classification[];
-  cmoAssets: CmoAsset[];
   pool?: Pick<Pool, "name" | "description">;
   poolOwner?: Pick<UserPublicProfile, "firstName" | "lastName" | "email">;
   skills?: Skill[];
@@ -100,7 +98,6 @@ const candidateCountMsg = (msg: string) => (
 
 export const SearchContainer: React.FC<SearchContainerProps> = ({
   classifications,
-  cmoAssets,
   pool,
   poolOwner,
   skills,
@@ -114,7 +111,6 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
 
   const classificationFilterCount =
     candidateFilter?.expectedClassifications?.length ?? 0;
-  const cmoAssetFilterCount = 0; // TODO REMOVE WHEN REPLACING CMO ASSETS
   const operationalRequirementFilterCount =
     candidateFilter?.operationalRequirements?.length ?? 0;
 
@@ -149,7 +145,6 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
           </div>
           <SearchForm
             classifications={classifications}
-            cmoAssets={cmoAssets}
             skills={skills}
             onUpdateCandidateFilter={onUpdateCandidateFilter}
           />
@@ -188,7 +183,6 @@ export const SearchContainer: React.FC<SearchContainerProps> = ({
           </h3>
           <SearchFilterAdvice
             classificationFilterCount={classificationFilterCount}
-            cmoAssetFilterCount={cmoAssetFilterCount}
             operationalRequirementFilterCount={
               operationalRequirementFilterCount
             }
@@ -245,7 +239,6 @@ const SearchContainerApi: React.FC = () => {
   return (
     <SearchContainer
       classifications={pool?.classifications?.filter(notEmpty) ?? []}
-      cmoAssets={pool?.assetCriteria?.filter(notEmpty) ?? []}
       pool={pool ?? undefined}
       skills={skills as Skill[]}
       poolOwner={pool?.owner ?? undefined}
