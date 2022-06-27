@@ -23,6 +23,10 @@ import {
 
 const NullSelection = "NULL_SELECTION";
 
+const bold = (msg: string) => {
+  return <span data-h2-font-weight="b(700)">{msg}</span>;
+};
+
 const FilterBlock: React.FunctionComponent<{
   id: string;
   title: string | React.ReactNode;
@@ -388,12 +392,17 @@ export const SearchForm: React.FunctionComponent<SearchFormProps> = ({
               description: "Legend for the Conditions of employment checklist",
             })}
             name="employmentEquity"
-            context={intl.formatMessage({
-              defaultMessage:
-                "Note: If you select more than one employment equity group, ALL candidates who have self-declared as being members of ANY of the selected EE groups will be referred. If you have more detailed EE requirements, let us know in the comment section of the submission form.",
-              description:
-                "Context for employment equity filter in search form.",
-            })}
+            context={intl.formatMessage(
+              {
+                defaultMessage:
+                  "<bold>Note:</bold> If you select more than one employment equity group, ALL candidates who have self-declared as being members of ANY of the selected EE groups will be referred. If you have more detailed EE requirements, let us know in the comment section of the submission form.",
+                description:
+                  "Context for employment equity filter in search form.",
+              },
+              {
+                bold,
+              },
+            )}
             items={[
               {
                 value: "isIndigenous",

@@ -106,10 +106,6 @@
     "defaultMessage": "Nom complet...",
     "description": "Placeholder for full name input in the request form."
   },
-  "S7e4QT": {
-    "defaultMessage": "<bold>Remarque :</bold> Si vous sélectionnez plus d’un groupe visé par l’équité en matière d’emploi, TOUS les candidats qui se sont déclarés membres de N’IMPORTE LEQUEL des groupes visés par l’équité en matière d’emploi sélectionnés seront recommandés. Si vous avez des exigences plus détaillées concernant l’équité en matière d’emploi, veuillez nous en faire part dans la section des commentaires du formulaire de soumission.",
-    "description": "Context for employment equity filter in search form."
-  },
   "SZTFJq": {
     "defaultMessage": "Recherche dans le bassin de talents numériques",
     "description": "Title displayed in the hero section of the Search page."
@@ -604,10 +600,6 @@
     "defaultMessage": "Quelle est votre langue de contact préférée?",
     "description": "Legend text for required language preference in create account form"
   },
-  "0YzDof": {
-    "defaultMessage": "Tel que défini par la <link>Loi canadienne sur l'accessibilité</link>.",
-    "description": "Text directing users to the Accessible Canada Act definition of person with a disability."
-  },
   "0m7BIV": {
     "defaultMessage": "Bienvenue à Talent numérique",
     "description": "Title for the create account page for applicant profiles."
@@ -758,10 +750,6 @@
   "8QN6ZC": {
     "defaultMessage": "Sélectionnez un niveau…",
     "description": "Placeholder displayed on the language information form comprehension field."
-  },
-  "8zYcs3": {
-    "defaultMessage": "Les personnes dont le sexe est déclaré sont des femmes, en tout ou en partie. Cela comprend les femmes cisgenres (cis) et transgenres (trans).",
-    "description": "Definition of accepted ways to identify as a women"
   },
   "9yMdpm": {
     "defaultMessage": "Continuer vers CléGC et s'inscrire",
@@ -963,10 +951,6 @@
     "defaultMessage": "Débutant <greyText>– J'ai des compétences de base en lecture, écriture et communication verbale.</greyText>",
     "description": "Message pour l'option d'aptitude linguistique débutant"
   },
-  "MkssFY": {
-    "defaultMessage": "\"Je m'identifie comme une femme.\"",
-    "description": "Label for the checkbox to identify as a woman under employment equity"
-  },
   "MtONBT": {
     "defaultMessage": "Travaillez-vous actuellement pour le gouvernement du Canada?",
     "description": "Employee Status in Government Info Form"
@@ -1107,10 +1091,6 @@
     "defaultMessage": "Merci d'avoir postulé",
     "description": "Breadcrumb title for the pools 'thanks for applying page' link."
   },
-  "VmJ7Vl": {
-    "defaultMessage": "Tel que défini par <link>Statistique Canada</link>.",
-    "description": "Text directing users to the statistics Canada definition of indigenous peoples."
-  },
   "W4Svkd": {
     "defaultMessage": "Compréhension",
     "description": "Label displayed on the language information form comprehension field."
@@ -1234,10 +1214,6 @@
     "defaultMessage": "Sélectionnez un niveau…",
     "description": "Placeholder displayed on the language information form written field."
   },
-  "b65kL3": {
-    "defaultMessage": "\"Je m'identifie comme faisant partie d'un ou de plusieurs groupes de minorités visibles.\"",
-    "description": "Label for the checkbox to identify as a visible minority under employment equity"
-  },
   "b9/MXQ": {
     "defaultMessage": "Quel était votre niveau de responsabilité dans ce rôle?",
     "description": "Question for user in skills in detail section of experience form."
@@ -1274,10 +1250,6 @@
     "defaultMessage": "Retour au bassin",
     "description": "Label for button to return to view pool"
   },
-  "dJzqyg": {
-    "defaultMessage": "\"Je suis autochtone.\"",
-    "description": "Label for the checkbox to identify as indigenous under employment equity"
-  },
   "dTMBj9": {
     "defaultMessage": "Après avoir ajouté quelques compétences, veuillez expliquer comment vous les avez utilisées, essayez de répondre à une ou plusieurs de ces questions :",
     "description": "Description for skills in detail section of experience form."
@@ -1293,10 +1265,6 @@
   "dh2xc5": {
     "defaultMessage": "Ces renseignements seront communiqués aux gestionnaires d'embauche.",
     "description": "Explanation on how employment equity information will be used, item one"
-  },
-  "dySfDg": {
-    "defaultMessage": "\"J'ai lu la définition fournie et…\"",
-    "description": "Message on employment equity forms confirming user read the provided definition"
   },
   "e/ez/m": {
     "defaultMessage": "Choisir un niveau",
@@ -1362,7 +1330,7 @@
     "description": "Message displayed to user when user profile completed."
   },
   "hafgad": {
-    "defaultMessage": "{candidateCount, plural, one {There is approximately <weight>{candidateCount}</weight> candidate right now who meets your criteria.} other {There are approximately <weight>{candidateCount}</weight> candidates right now who meet your criteria.} }",
+    "defaultMessage": "{candidateCount, plural, one {Il y a actuellement environ <weight>{candidateCount}</weight> candidat qui répond à vos critères.} other {Il y a actuellement environ <weight>{candidateCount}</weight> candidats qui répondent à vos critères.} }",
     "description": "Message for total estimated candidates box next to search form."
   },
   "hizC89": {
@@ -1392,10 +1360,6 @@
   "jPLaDk": {
     "defaultMessage": "Désolé, vous n'êtes pas autorisé(e) à consulter cette page.",
     "description": "Heading for the message saying the page to view is not authorized."
-  },
-  "jS7Qdy": {
-    "defaultMessage": "Personnes appartenant à une minorité visible, autres que les autochtones, qui ne sont pas de race blanche ou qui n'ont pas la peau blanche. Voici des exemples de groupes de minorités visibles : Sud-Asiatique, Chinois, Noir, Philippin, Arabe, Latino-Américain, Asiatique du Sud-Est, Asiatique occidental, Coréen et Japonais.",
-    "description": "Definition of accepted ways to identify as a visible minority"
   },
   "jbftvG": {
     "defaultMessage": "<strong>Oui</strong>, je suis un(e) employé(e) du gouvernement du Canada",
@@ -1549,10 +1513,6 @@
     "defaultMessage": "Les analystes (TI-02) fournissent des services techniques, des conseils, des analyses et de la recherche dans leur domaine d'expertise pour appuyer la prestation de services aux clients et aux intervenants. Les analystes de la TI se retrouvent dans tous les volets de travail.",
     "description": "blurb describing IT-02"
   },
-  "rm0yL9": {
-    "defaultMessage": "Les personnes ayant une déficience, y compris une déficience physique, intellectuelle, cognitive, mentale ou sensorielle, un trouble d'apprentissage ou de la communication ou une limitation fonctionnelle, de nature permanente, temporaire ou épisodique, manifeste ou non et dont l'interaction avec un obstacle nuit à la participation pleine et égale d'une personne dans la société.",
-    "description": "Definition of accepted ways to identify as person with a disability."
-  },
   "rywI3C": {
     "defaultMessage": "Verbal",
     "description": "Label displayed on the language information form verbal field."
@@ -1601,10 +1561,6 @@
     "defaultMessage": "Les classifications gouvernementales sont des étiquettes que le gouvernement du Canada utilise pour regrouper des types de travail similaires. Dans le gouvernement du Canada, le salaire est lié à la façon dont les postes sont classés.",
     "description": "Description for the role and salary expectation form"
   },
-  "uPknsL": {
-    "defaultMessage": "Tel que défini par <link>Statistique Canada</link>.",
-    "description": "Text directing users to the statistics Canada definition of visible minorities."
-  },
   "uQYCfd": {
     "defaultMessage": "Ces quatre groupes sont les \"femmes, les Autochtones, les personnes handicapées et les membres des minorités visibles.\"",
     "description": "List of the employment equity categories"
@@ -1649,10 +1605,6 @@
     "defaultMessage": "Commencez à écrire ici…",
     "description": "Placeholder displayed on the About Me form current city field."
   },
-  "y1j0Ol": {
-    "defaultMessage": "\"Je m'identifie comme une personne handicapée.\"",
-    "description": "Label for the checkbox to identify as a person with a disability under employment equity"
-  },
   "yQ2dDL": {
     "defaultMessage": "J'envisagerais d'accepter un emploi qui exige…",
     "description": "Legend for optional work preferences check list in work preferences form"
@@ -1665,8 +1617,56 @@
     "defaultMessage": "S'inscrire à l'aide de la CléGC",
     "description": "Title for the registration page for applicant profiles."
   },
-  "ztxu8l": {
+  "/JQ6DD": {
+    "defaultMessage": "Filtre des exigences en matière d'études",
+    "description": "Legend for the Education Requirement filter radio group"
+  },
+  "/h+Ub4": {
+    "defaultMessage": "Je m'identifie comme une femme.",
+    "description": "Label for the checkbox to identify as a woman under employment equity"
+  },
+  "07bCT2": {
+    "defaultMessage": "Je m'identifie comme une personne handicapée.",
+    "description": "Label for the checkbox to identify as a person with a disability under employment equity"
+  },
+  "3nKkyo": {
+    "defaultMessage": "Compétences organisées par volet",
+    "description": "Legend for Skills filter checklist"
+  },
+  "E1WElo": {
+    "defaultMessage": "Les personnes dont le sexe est déclaré sont des femmes, en tout ou en partie. Cela comprend les femmes cisgenres (cis) et transgenres (trans).",
+    "description": "Definition of accepted ways to identify as a women"
+  },
+  "Jtz3yb": {
+    "defaultMessage": "Je suis autochtone.",
+    "description": "Label for the checkbox to identify as indigenous under employment equity"
+  },
+  "NFL+q8": {
+    "defaultMessage": "Personnes appartenant à une minorité visible, autres que les autochtones, qui ne sont pas de race blanche ou qui n'ont pas la peau blanche. Voici des exemples de groupes de minorités visibles : Sud-Asiatique, Chinois, Noir, Philippin, Arabe, Latino-Américain, Asiatique du Sud-Est, Asiatique occidental, Coréen et Japonais.",
+    "description": "Definition of accepted ways to identify as a visible minority"
+  },
+  "bKvvaI": {
+    "defaultMessage": "Conditions d'emploi",
+    "description": "Legend for the Conditions of Employment filter checklist"
+  },
+  "hz8OYx": {
+    "defaultMessage": "Les personnes ayant une déficience, y compris une déficience physique, intellectuelle, cognitive, mentale ou sensorielle, un trouble d'apprentissage ou de la communication ou une limitation fonctionnelle, de nature permanente, temporaire ou épisodique, manifeste ou non et dont l'interaction avec un obstacle nuit à la participation pleine et égale d'une personne dans la société.",
+    "description": "Definition of accepted ways to identify as person with a disability."
+  },
+  "jrpXvX": {
+    "defaultMessage": "<bold>Remarque :</bold> Si vous sélectionnez plus d'un groupe visé par l'équité en matière d'emploi, TOUS les candidats qui se sont déclarés membres de N'IMPORTE LEQUEL des groupes visés par l'équité en matière d'emploi sélectionnés seront recommandés. Si vous avez des exigences plus détaillées concernant l'équité en matière d'emploi, veuillez nous en faire part dans la section des commentaires du formulaire de soumission.",
+    "description": "Context for employment equity filter in search form."
+  },
+  "ps2IK6": {
+    "defaultMessage": "Conditions d'emploi",
+    "description": "Legend for the Conditions of employment checklist"
+  },
+  "sdUnnh": {
+    "defaultMessage": "Je m'identifie comme faisant partie d'un ou de plusieurs groupes de minorités visibles.",
+    "description": "Label for the checkbox to identify as a visible minority under employment equity"
+  },
+  "z44LTK": {
     "defaultMessage": "Tel que défini par <link>Statistique Canada</link>.",
-    "description": "Text directing users to the statistics Canada definition of gender."
+    "description": "Link to Statistics Canada's employment equity definitions"
   }
 }
