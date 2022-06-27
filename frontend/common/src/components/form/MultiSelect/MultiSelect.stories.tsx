@@ -1,19 +1,17 @@
-import { Meta, Story } from "@storybook/react";
+import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 import { uniqueId } from "lodash";
 import React from "react";
 import Form from "../BasicForm";
 import Submit from "../Submit";
 import MultiSelect from "./MultiSelect";
-import type { MultiSelectProps } from ".";
 
 export default {
   component: MultiSelect,
   title: "Form/MultiSelect",
-  args: {},
-} as Meta;
+} as ComponentMeta<typeof MultiSelect>;
 
-const TemplateMultiSelect: Story<MultiSelectProps> = (args) => {
+const TemplateMultiSelect: ComponentStory<typeof MultiSelect> = (args) => {
   return (
     <Form
       onSubmit={action("Submit Form")}
