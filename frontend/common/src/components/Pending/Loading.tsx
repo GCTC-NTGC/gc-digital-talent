@@ -18,7 +18,7 @@ export interface LoadingProps {
   live?: "polite" | "assertive";
 }
 
-const Loading: React.FC<LoadingProps> = ({ inline, live }) => {
+const Loading = ({ inline = false, live }: LoadingProps): JSX.Element => {
   const intl = useIntl();
 
   return (

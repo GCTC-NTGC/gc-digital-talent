@@ -9,17 +9,18 @@ import "./pending.css";
 interface PendingProps extends LoadingProps {
   fetching: boolean;
   error?: CombinedError;
+  children: React.ReactNode;
 }
 
-const Pending: React.FC<PendingProps> = ({
+const Pending = ({
   fetching,
   error,
   live,
   inline = false,
   children,
-}) => {
+}: PendingProps): JSX.Element => {
   if (fetching) {
-    return <Loading inline={!!inline} live={live} />;
+    return <Loading inline={inline} live={live} />;
   }
 
   if (error) {
