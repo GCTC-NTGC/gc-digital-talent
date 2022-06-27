@@ -28,7 +28,7 @@ const Template: ComponentStory<typeof MultiSelect> = (args) => {
 export const Default = Template.bind({});
 Default.args = {
   id: uniqueId(),
-  label: "Select a dept",
+  label: "Departments",
   name: "departments",
   options: [
     { value: 1, label: "CRA" },

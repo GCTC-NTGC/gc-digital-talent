@@ -32,9 +32,9 @@ const MultiSelect = ({
   placeholder,
 }: MultiSelectProps): JSX.Element => {
   const {
-    control,
     formState: { errors },
   } = useFormContext();
+
   const error = errors[name]?.message;
   const isRequired = !!rules?.required;
   const optionMap = useMemo(() => {
@@ -57,7 +57,7 @@ const MultiSelect = ({
       >
         <div style={{ width: "100%" }}>
           <Controller
-            {...{ name, control, rules }}
+            {...{ name, rules }}
             aria-required={isRequired}
             render={({ field }) => (
               <ReactSelect
