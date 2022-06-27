@@ -344,13 +344,17 @@ class User extends Model implements Authenticatable
                     }
                 }
             });
-            $this->orFilterByClassificationToSalary($query, $classifications);
-            $this->orFilterByClassificationToGenericJobTitles($query, $classifications);
+            $query->orWhere(function ($query) use ($classifications) {
+                $this->filterByClassificationToSalary($query, $classifications);
+            });
+            $query->orWhere(function ($query) use ($classifications) {
+                $this->filterByClassificationToGenericJobTitles($query, $classifications);
+            });
         });
 
         return $query;
     }
-    public function orFilterByClassificationToGenericJobTitles(Builder $query, array $classifications): Builder
+    public function filterByClassificationToGenericJobTitles(Builder $query, array $classifications): Builder
     {
         // if no filters provided then return query unchanged
         if (empty($classifications)) {
@@ -360,7 +364,7 @@ class User extends Model implements Authenticatable
         // A single whereHas clause for the relationship, containing multiple orWhere clauses accomplishes this.
 
         // group these in a subquery to properly handle "OR" condition
-        $query->orWhereHas('expectedGenericJobTitles', function ($query) use ($classifications) {
+        $query->whereHas('expectedGenericJobTitles', function ($query) use ($classifications) {
             $query->whereHas('classification', function ($query) use ($classifications) {
                 foreach ($classifications as $index => $classification) {
                     if ($index === 0) {
@@ -379,7 +383,7 @@ class User extends Model implements Authenticatable
 
         return $query;
     }
-    private function orFilterByClassificationToSalary(Builder $query, array $classifications): Builder
+    private function filterByClassificationToSalary(Builder $query, array $classifications): Builder
     {
         // When managers search for a classification, also return any users whose expected salary
         // ranges overlap with the min/max salaries of any of those classifications.
@@ -444,7 +448,7 @@ RAWSQL1;
 
 RAWSQL2;
 
-        return $query->orWhereRaw('EXISTS (' . $sql . ')', $parameters);
+        return $query->whereRaw('EXISTS (' . $sql . ')', $parameters);
     }
 
     public function scopeHasDiploma(Builder $query, bool $hasDiploma): Builder
