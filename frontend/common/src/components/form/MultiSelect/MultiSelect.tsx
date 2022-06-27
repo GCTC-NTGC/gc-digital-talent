@@ -22,7 +22,7 @@ export interface MultiSelectProps {
   placeholder?: string;
 }
 
-const MultiSelect: React.FunctionComponent<MultiSelectProps> = ({
+const MultiSelect = ({
   id,
   context,
   label,
@@ -30,7 +30,7 @@ const MultiSelect: React.FunctionComponent<MultiSelectProps> = ({
   options,
   rules,
   placeholder,
-}) => {
+}: MultiSelectProps): JSX.Element => {
   const {
     control,
     formState: { errors },
