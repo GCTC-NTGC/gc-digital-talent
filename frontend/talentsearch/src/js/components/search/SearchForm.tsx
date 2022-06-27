@@ -164,10 +164,13 @@ const SearchForm: React.FC<SearchFormProps> = ({
   );
 
   const operationalRequirementsSubset = [
-    OperationalRequirement.ShiftWork,
-    OperationalRequirement.WorkWeekends,
-    OperationalRequirement.OvertimeScheduled,
     OperationalRequirement.OvertimeShortNotice,
+    OperationalRequirement.OvertimeScheduled,
+    OperationalRequirement.ShiftWork,
+    OperationalRequirement.OnCall,
+    OperationalRequirement.Travel,
+    OperationalRequirement.TransportEquipment,
+    OperationalRequirement.DriversLicense,
   ];
 
   return (
