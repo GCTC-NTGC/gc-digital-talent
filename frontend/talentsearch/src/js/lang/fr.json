@@ -6,9 +6,6 @@
   "/DbKFl": {
     "defaultMessage": "Filtres de compétences ({cmoAssetFilterCount})"
   },
-  "0/8x/z": {
-    "defaultMessage": "N’importe quelle langue"
-  },
   "086Xpp": {
     "defaultMessage": "Personne handicapée",
     "description": "Checklist option for employment equity filter in search form."
@@ -108,10 +105,6 @@
   "OjhS6t": {
     "defaultMessage": "Nom complet...",
     "description": "Placeholder for full name input in the request form."
-  },
-  "OrembA": {
-    "defaultMessage": "Après avoir cliqué sur soumettre, vous recevrez un courriel de confirmation de votre demande.",
-    "description": "Message before submit button on the request form."
   },
   "S7e4QT": {
     "defaultMessage": "Remarque : Si vous sélectionnez plus d’un groupe visé par l’équité en matière d’emploi, TOUS les candidats qui se sont déclarés membres de N’IMPORTE LEQUEL des groupes visés par l’équité en matière d’emploi sélectionnés seront recommandés. Si vous avez des exigences plus détaillées concernant l’équité en matière d’emploi, veuillez nous en faire part dans la section des commentaires du formulaire de soumission.",
@@ -248,10 +241,6 @@
   "LRysDa": {
     "defaultMessage": "Filtres de classification ({classificationFilterCount}),"
   },
-  "ertbzM": {
-    "defaultMessage": "Il y a actuellement environ <weight>{candidateCount}</weight> candidats qui répondent à vos critères.",
-    "description": "Message for total estimated candidates box next to search form."
-  },
   "ky585k": {
     "defaultMessage": "Conditions d’emploi ({operationalRequirementFilterCount}),"
   },
@@ -358,10 +347,6 @@
   "BjRuMw": {
     "defaultMessage": "Voir la définition",
     "description": "Text displayed when skill block is open."
-  },
-  "CG/fQJ": {
-    "defaultMessage": "Avis de non-responsabilité ",
-    "description": "Title displayed above disclaimer checkbox"
   },
   "DyaaHi": {
     "defaultMessage": "Portée du prix",
@@ -555,10 +540,6 @@
     "defaultMessage": "Date de fin",
     "description": "Label displayed on Personal Experience form for end date input"
   },
-  "rXuCtB": {
-    "defaultMessage": "Expérience actuelle",
-    "description": "Title displayed above current experience checkbox"
-  },
   "sIM1t+": {
     "defaultMessage": "Choisir un...",
     "description": "Null selection for select input in the award scope form."
@@ -582,5 +563,1110 @@
   "yx7EDY": {
     "defaultMessage": "C’est beaucoup de compétences!",
     "description": "Title of alert when there are many skills added."
+  },
+  "+wdTbk": {
+    "defaultMessage": "Veuillez remplir tous les champs obligatoires de votre profil avant de définir votre statut comme actif.",
+    "description": "Message in My Status Form."
+  },
+  "/AJCvK": {
+    "defaultMessage": "Ajouter<hidden>{title} </hidden>au profil",
+    "description": "Text label for button to add employment equity category to profile."
+  },
+  "/DCykA": {
+    "defaultMessage": "J'envisagerais d'accepter un emploi d'une durée de…",
+    "description": "Legend Text for required work preferences options in work preferences form"
+  },
+  "/K1/1n": {
+    "defaultMessage": "Groupe de classifications actuel ",
+    "description": "Label displayed on classification group input"
+  },
+  "/K6DRU": {
+    "defaultMessage": "Je suis bilingue (En/Fr) et <bold>j'ai</bold> terminé une <languageEvaluationPageLink></languageEvaluationPageLink> officielle en <bold>FRANÇAIS</bold>",
+    "description": "Message for the completed french bilingual evaluation option"
+  },
+  "/Qysld": {
+    "defaultMessage": "Les données ici seront utilisées pour vous faire correspondre aux emplois prioritaires.",
+    "description": "Explanation on how employment equity information will be used, item two"
+  },
+  "/k21MP": {
+    "defaultMessage": "Informations linguistiques",
+    "description": "Display Text for Language Information Form Page Link"
+  },
+  "/qN7tM": {
+    "defaultMessage": "Expérience supprimée",
+    "description": "Message displayed to user after experience deleted."
+  },
+  "0O/eV0": {
+    "defaultMessage": "Bienvenue sur la plateforme Talent numérique. À l'avenir, vous pouvez vous connecter à votre profil en utilisant le même nom d'utilisateur et le même mot de passe que cléGC.",
+    "description": "Message for successful login alert in create account page."
+  },
+  "0ScnOT": {
+    "defaultMessage": "Quelle est votre langue de contact préférée?",
+    "description": "Legend text for required language preference in create account form"
+  },
+  "0YzDof": {
+    "defaultMessage": "Tel que défini par la <link>Loi canadienne sur l'accessibilité</link>.",
+    "description": "Text directing users to the Accessible Canada Act definition of person with a disability."
+  },
+  "0m7BIV": {
+    "defaultMessage": "Bienvenue à Talent numérique",
+    "description": "Title for the create account page for applicant profiles."
+  },
+  "0yHGnL": {
+    "defaultMessage": "Avancé <greyText>– Je suis parfaitement bilingue.</greyText>",
+    "description": "Message for the advanced language ability option"
+  },
+  "1CuGS6": {
+    "defaultMessage": "Indiquez s'il y a une ville que vous souhaitez exclure d'une région.",
+    "description": "Explanation text for Location exemptions field in work location preference form"
+  },
+  "1X8uf7": {
+    "defaultMessage": "Je suis bilingue (En/Fr) et <bold>je n'ai PAS</bold> terminé une <languageEvaluationPageLink></languageEvaluationPageLink> officielle",
+    "description": "Message for the haven't completed bilingual evaluation option"
+  },
+  "1Yqt8K": {
+    "defaultMessage": "Vous êtes sur le point de supprimer une expérience de votre profil. Vous perdrez tous les renseignements qui y sont rattachés. Voulez-vous vraiment supprimer cette expérience?",
+    "description": "Warning prior to experience deletion"
+  },
+  "248YQT": {
+    "defaultMessage": "Pas encore prêt à partir? Retournez à la page d'accueil, découvrez de nouvelles possibilités, ou apprenez-en plus sur certaines recherches derrière cette plateforme.",
+    "description": "Description of the links presented on the logged out page."
+  },
+  "2K7dVp": {
+    "defaultMessage": "P. ex. : Vous voulez postuler pour la région du Québec, mais pas pour Montréal.",
+    "description": "Example for Location exemptions field in work location preference form"
+  },
+  "2KjiDn": {
+    "defaultMessage": "Niveau 4 : Gestionnaire",
+    "description": "title for IT-04 manager dialog"
+  },
+  "2VprXV": {
+    "defaultMessage": "Niveau 4 : Conseiller principal",
+    "description": "title for IT-04 senior advisor dialog"
+  },
+  "2cUBGT": {
+    "defaultMessage": "Utilisateur introuvable.",
+    "description": "Message displayed for user not found."
+  },
+  "2t3Cqv": {
+    "defaultMessage": "Rôle actuel",
+    "description": "Label displayed on Work Experience form for current role bounded box"
+  },
+  "3f9P13": {
+    "defaultMessage": "En tant qu'employé, quel est votre statut d'emploi?",
+    "description": "Employee Status in Government Info Form"
+  },
+  "3vDhoc": {
+    "defaultMessage": "Déconnexion",
+    "description": "Étiquette affichée dans l'élément de menu du lien Déconnexion."
+  },
+  "44bgIY": {
+    "defaultMessage": "Niveau 3 : Conseiller technique (88 000 $ à 110 000 $). <openModal>En savoir plus sur TI-03</openModal>",
+    "description": "Checkbox label for Level IT-03 advisor selection, ignore things in <> tags please"
+  },
+  "4EacDM": {
+    "defaultMessage": "Veuillez indiquer si vous êtes intéressé par la mutation latérale ou le détachement. Pour en savoir plus sur ce sujet.",
+    "description": "Text blurb, asking about interest in deployment/secondment in the government info form"
+  },
+  "4FEV7d": {
+    "defaultMessage": "Vous vous êtes connecté avec succès",
+    "description": "Title for successful login alert in create account page."
+  },
+  "4bjh8X": {
+    "defaultMessage": "Erreur : utilisateur introuvable",
+    "description": "Message displayed to user if user is not found"
+  },
+  "4gU976": {
+    "defaultMessage": "<bold>Cheminement en gestion</bold> : Chefs d'équipe de la TI (TI-03) sont chargés de superviser le travail et les équipes de projet pour les services et les opérations de la TI dans leur domaine d'expertise afin de soutenir la prestation de services aux clients et aux intervenants. Les chefs d'équipe de la TI se trouvent dans tous les volets de travail.",
+    "description": "IT-03 team lead path description, ignore things in <> tags please"
+  },
+  "4xzq2Y": {
+    "defaultMessage": "(Nom manquant)",
+    "description": "Message for Missing names in profile"
+  },
+  "5FFRV2": {
+    "defaultMessage": "Erreur : échec de la mise à jour de l'utilisateur",
+    "description": "Message displayed to user after user fails to get updated."
+  },
+  "5U4C61": {
+    "defaultMessage": "Nous utilisons également ces renseignements pour vous offrir des possibilités et des suggestions plus contextualisées en fonction de votre situation d'emploi.",
+    "description": "Second message before is a government of canada radio group in create account form."
+  },
+  "5pQfyv": {
+    "defaultMessage": "Postes en français",
+    "description": "Message for the french positions option"
+  },
+  "6H4uc8": {
+    "defaultMessage": "\"Je m'identifie comme une personne handicapée\"",
+    "description": "Title for when someone indicates they have a disability on their profile"
+  },
+  "6LTC0y": {
+    "defaultMessage": "Gestion de la base de données de la TI",
+    "description": "work stream example"
+  },
+  "6St+Jm": {
+    "defaultMessage": "<bold>Contributeur individuel</bold> : Les conseillers principaux en TI (TI-04) fournissent des conseils techniques et une orientation stratégique d'experts dans leur domaine d'expertise en matière de fourniture de solutions et de services à des clients internes ou externes et à des intervenants. Les conseillers principaux en TI se retrouvent principalement dans six volets de travail :",
+    "description": "IT-04 senior advisor description precursor to work stream list, ignore things in <> tags please"
+  },
+  "6UCzgs": {
+    "defaultMessage": "N'oubliez pas que, pour vous reconnecter, vous devez utiliser votre nom d'utilisateur et votre mot de passe de la CléGC. Nous espérons vous voir bientôt!",
+    "description": "Message displayed to a user after logging out."
+  },
+  "6cYs7i": {
+    "defaultMessage": "Vous êtes membre d'un ou de plusieurs de ces groupes d'équité en matière d'emploi.",
+    "description": "Instruction on when to fill out equity information, item one"
+  },
+  "6l1+3n": {
+    "defaultMessage": "résultats des compétences de la recherche par mot clé"
+  },
+  "6rhyxk": {
+    "defaultMessage": "Déconnexion",
+    "description": "Link text to logout."
+  },
+  "6vsgLY": {
+    "defaultMessage": "Veuillez indiquer si vous êtes actuellement un employé du gouvernement du Canada.",
+    "description": "Description blurb for Profile Form Wrapper in the Government Information Form"
+  },
+  "70bx4O": {
+    "defaultMessage": "Retirer de l'expérience",
+    "description": "Message in skills in details section to remove skill from the experience."
+  },
+  "75nLSV": {
+    "defaultMessage": "Niveau 4 : Gestionnaire (101 000 $ à 126 000 $). <openModal>En savoir plus sur TI-04</openModal>",
+    "description": "Checkbox label for Level IT-04 manager selection, ignore things in <> tags please"
+  },
+  "7OWQgZ": {
+    "defaultMessage": "Préférences de travail",
+    "description": "Display Text for Work Preferences Form Page Link"
+  },
+  "7qR4UK": {
+    "defaultMessage": "Renseignements personnels",
+    "description": "Title for Personal Information section of the About Me form"
+  },
+  "8/aBOG": {
+    "defaultMessage": "Postuler",
+    "description": "Breadcrumb title for the pool application link."
+  },
+  "87nFC8": {
+    "defaultMessage": "Il y a deux types d'employés du TI-04 : ceux qui suivent un cheminement en gestion et les contributeurs individuels.",
+    "description": "IT-04 description precursor"
+  },
+  "8NJbCH": {
+    "defaultMessage": "Indiquez tous les emplacements où vous êtes prêt à travailler, y compris votre emplacement actuel (si vous souhaitez y travailler).",
+    "description": "Description text for Profile Form wrapper in Work Location Preferences Form"
+  },
+  "8QN6ZC": {
+    "defaultMessage": "Sélectionnez un niveau…",
+    "description": "Placeholder displayed on the language information form comprehension field."
+  },
+  "8zYcs3": {
+    "defaultMessage": "Les personnes dont le sexe est déclaré sont des femmes, en tout ou en partie. Cela comprend les femmes cisgenres (cis) et transgenres (trans).",
+    "description": "Definition of accepted ways to identify as a women"
+  },
+  "9yMdpm": {
+    "defaultMessage": "Continuer vers CléGC et s'inscrire",
+    "description": "GC Key registration link text on the registration page."
+  },
+  "9zqf5E": {
+    "defaultMessage": "… seulement ceux d'une durée indéterminée. (permanent)",
+    "description": "Label displayed on Work Preferences form for indeterminate duration option."
+  },
+  "AcsOrg": {
+    "defaultMessage": "Êtes-vous certain(e)?",
+    "description": "Delete confirmation"
+  },
+  "AhNR6n": {
+    "defaultMessage": "Annuler",
+    "description": "Link text to cancel logging out."
+  },
+  "AjEdUz": {
+    "defaultMessage": "L'identité autochtone signifie que la personne s'est identifiée avec les peuples autochtones du Canada. Elles comprennent les personnes qui s'identifient comme étant des Premières Nations (Indiens de l'Amérique du Nord), Métis ou Inuk (Inuits) et qui déclarent être Indien inscrit ou Indien des traités (c'est-à-dire inscrits en vertu de la Loi sur les Indiens) et ceux qui sont membres d'une Première Nation ou d'une bande indienne. Les peuples autochtones du Canada (appelés ici les peuples autochtones) sont définis à l'article 35(2) de la Loi constitutionnelle de 1982 comme comprenant les peuples indiens, inuits et métis du Canada.",
+    "description": "Definition of accepted ways to identify as indigenous."
+  },
+  "AtZhfR": {
+    "defaultMessage": "3. Compétences en détail",
+    "description": "Heading for skills in detail section of experience form."
+  },
+  "B/LE8S": {
+    "defaultMessage": "Cette information est utilisée à des fins de gestion des comptes et de communication, elle n'a aucune incidence sur la correspondance des tâches ou les recommandations d'emploi.",
+    "description": "Description text for the Profile Form wrapper in the About Me form"
+  },
+  "BruLeg": {
+    "defaultMessage": "Erreur : échec de la création du compte.",
+    "description": "Message displayed to user if account fails to get updated."
+  },
+  "CPRJ61": {
+    "defaultMessage": "ID :",
+    "description": "The ID and colon"
+  },
+  "CZcsxM": {
+    "defaultMessage": "Continuer vers CléGC et se connecter",
+    "description": "GC Key login link text on the login page."
+  },
+  "CuHYqt": {
+    "defaultMessage": "Sauvegarder et revenir en arrière",
+    "description": "Text for save button on profile form."
+  },
+  "D8IMp7": {
+    "defaultMessage": "Préférence linguistique pour la communication",
+    "description": "Legend text for required language preference in About Me form"
+  },
+  "DGnBW+": {
+    "defaultMessage": "Personnes handicapées",
+    "description": "Title for button to learn more information about disabled equity definition"
+  },
+  "DK870a": {
+    "defaultMessage": "Compte créé avec succès.",
+    "description": "Message displayed to user if account is created successfully."
+  },
+  "DZ775N": {
+    "defaultMessage": "Expérience ajoutée avec succès!",
+    "description": "Success message displayed after adding experience to profile"
+  },
+  "DcEinN": {
+    "defaultMessage": "Erreur, incapable de charger le bassin",
+    "description": "Error message, placeholder"
+  },
+  "DrR60L": {
+    "defaultMessage": "J'aimerais être recommandé(e) à des emplois aux niveaux suivants :",
+    "description": "Legend for role and salary checklist form"
+  },
+  "Dy5kjx": {
+    "defaultMessage": "Qu'avez-vous accompli, créé ou produit en utilisant cette compétence?",
+    "description": "Question for user in skills in detail section of experience form."
+  },
+  "EzgYXr": {
+    "defaultMessage": "Peuples autochtones",
+    "description": "Title for equity dialog to add/remove indigenous category to profile"
+  },
+  "FTMoH9": {
+    "defaultMessage": "Femmes",
+    "description": "Title for button to learn more information about women equity definition"
+  },
+  "FayQOt": {
+    "defaultMessage": "Niveau 4 : Conseiller principal (101 000 $ à 126 000 $). <openModal>En savoir plus sur TI-04</openModal>",
+    "description": "Checkbox label for Level IT-04 senior advisor selection, ignore things in <> tags please"
+  },
+  "Fj5UsM": {
+    "defaultMessage": "Personnes handicapées",
+    "description": "Title for equity dialog to add/remove having a disability category to profile"
+  },
+  "FmN1eN": {
+    "defaultMessage": "+123243234",
+    "description": "Placeholder displayed on the About Me form telephone field."
+  },
+  "FtlwFY": {
+    "defaultMessage": "Afficher les bassins ouverts",
+    "description": "Link text to view all open pools"
+  },
+  "GAjpqU": {
+    "defaultMessage": "Voici où vous pouvez ajouter des expériences et des compétences à votre profil. Cela pourrait aller d'aider les membres de la communauté à résoudre leurs problèmes d'ordinateur au travail à temps plein dans une organisme de TI.",
+    "description": "Description for the experience and skills page in applicant profile."
+  },
+  "GqVBqi": {
+    "defaultMessage": "Détails du compte",
+    "description": "Title for Account Details section of the About Me form"
+  },
+  "H05wXr": {
+    "defaultMessage": "Il n'y a pas encore de compétences rattachées à cette expérience. Vous pouvez en ajouter quelques-unes à l'étape ci-dessus.",
+    "description": "Message to user when no skills have been attached to experience."
+  },
+  "H1J8wl": {
+    "defaultMessage": "p. ex., Thomas",
+    "description": "Placeholder displayed for the first name field in create account form."
+  },
+  "H3Za3e": {
+    "defaultMessage": "Enregistrer et aller sur mon profil",
+    "description": "Button label for submit button on create account form."
+  },
+  "HZB4iF": {
+    "defaultMessage": "\"Je m'identifie comme une femme\"",
+    "description": "Title for when someone indicates they are a woman on their profile"
+  },
+  "Hgd/PL": {
+    "defaultMessage": "Retour à l'accueil",
+    "description": "Link text to return to the home page"
+  },
+  "Hiv/2m": {
+    "defaultMessage": "Déconnexion",
+    "description": "Title for the modal that appears when an authenticated user lands on /logged-out."
+  },
+  "IU0lH8": {
+    "defaultMessage": "Membre des minorités visibles",
+    "description": "Title for button to learn more information about visible minority equity definition"
+  },
+  "Igrveg": {
+    "defaultMessage": "Liens rapides",
+    "description": "Title displayed for helpful links on logged out page."
+  },
+  "J5oMC8": {
+    "defaultMessage": "Compétence en détail",
+    "description": "Label for the textarea in the skills in detail section."
+  },
+  "JBRqD9": {
+    "defaultMessage": "Postes en anglais",
+    "description": "Message for the english positions option"
+  },
+  "JUk80l": {
+    "defaultMessage": "Éducation",
+    "description": "Title for education experience form button."
+  },
+  "JjPpGt": {
+    "defaultMessage": "Ces renseignements personnels supplémentaires ne seront utilisés qu'à des fins de communication.",
+    "description": "Description for Personal Information section of the About Me form"
+  },
+  "K7wsxV": {
+    "defaultMessage": "Vous pouvez vous connecter à votre profil Talent numérique à l'aide de votre CléGC existante, même si vous n'avez jamais utilisé cette plateforme auparavant.",
+    "description": "Instructions on how to login with GC Key."
+  },
+  "KE49r9": {
+    "defaultMessage": "Mon expérience et mes compétences",
+    "description": "Heading for experience and skills page in applicant profile."
+  },
+  "KT3jUW": {
+    "defaultMessage": "<link>Cliquez ici pour en savoir plus sur les classifications dans la collectivité numérique du gouvernement du Canada.</link>",
+    "description": "Link to learn more about classifications"
+  },
+  "KmKbA6": {
+    "defaultMessage": "Renseignements supplémentaires",
+    "description": "Label displayed on experience form for additional information input"
+  },
+  "KnE2Rk": {
+    "defaultMessage": "Annuler",
+    "description": "Cancel confirmation"
+  },
+  "L9mWLV": {
+    "defaultMessage": "Rapport sur le Nuage de talents",
+    "description": "Link text to read the report on talent cloud"
+  },
+  "LMGaDQ": {
+    "defaultMessage": "S'inscrire",
+    "description": "Label displayed on the register link menu item."
+  },
+  "LjE48l": {
+    "defaultMessage": "Annuler",
+    "description": "Button text to close employment equity form."
+  },
+  "M6PbPI": {
+    "defaultMessage": "Sélectionner une province ou un territoire…",
+    "description": "Placeholder displayed on the About Me form province or territory field."
+  },
+  "MNVv3A": {
+    "defaultMessage": "Niveau 2 : Analystes",
+    "description": "title for IT-02 dialog"
+  },
+  "MTwQ3S": {
+    "defaultMessage": "À quel courriel souhaitez-vous être contacté(e)?",
+    "description": "Label displayed for the email field in create account form."
+  },
+  "Mg4cD2": {
+    "defaultMessage": "Débutant <greyText>– J'ai des compétences de base en lecture, écriture et communication verbale.</greyText>",
+    "description": "Message pour l'option d'aptitude linguistique débutant"
+  },
+  "MkssFY": {
+    "defaultMessage": "\"Je m'identifie comme une femme.\"",
+    "description": "Label for the checkbox to identify as a woman under employment equity"
+  },
+  "MtONBT": {
+    "defaultMessage": "Travaillez-vous actuellement pour le gouvernement du Canada?",
+    "description": "Employee Status in Government Info Form"
+  },
+  "Mu+1pI": {
+    "defaultMessage": "Postes bilingues (en anglais et en français)",
+    "description": "Message for the bilingual positions option"
+  },
+  "N+S2bh": {
+    "defaultMessage": "Vous aimeriez être pris(e) en considération pour les possibilités offertes aux groupes sous-représentés.",
+    "description": "Instruction on when to fill out equity information, item two"
+  },
+  "NP/fsS": {
+    "defaultMessage": "Pour quel ministère travaillez-vous?",
+    "description": "Label for department select input in the request form"
+  },
+  "NamQ1+": {
+    "defaultMessage": "Vous avez réussi à vous déconnecter de la plateforme",
+    "description": "Title for the alert displayed after a user logs out"
+  },
+  "NrivlZ": {
+    "defaultMessage": "Modifier l'expérience",
+    "description": "Display text for edit experience form in breadcrumbs"
+  },
+  "OAOnyY": {
+    "defaultMessage": "Expérience actuelle",
+    "description": "Label displayed on Personal Experience form for current experience bounded box"
+  },
+  "OQ+K+X": {
+    "defaultMessage": "Retirer<hidden>{title} </hidden>du profil",
+    "description": "Text label for button to remove employment equity category from profile."
+  },
+  "OT0QP3": {
+    "defaultMessage": "Annuler",
+    "description": "Link text to cancel logging in and return to talent search home."
+  },
+  "Or11km": {
+    "defaultMessage": "La Loi sur l'équité en matière d'emploi du Canada (1995) identifie quatre groupes qui ont connu des obstacles systémiques à l'emploi et un certain nombre d'obligations pour le gouvernement du Canada de surmonte ces obstacles.",
+    "description": "Description text for Profile Form wrapper in DiversityEquityInclusionForm"
+  },
+  "P/Mm5G": {
+    "defaultMessage": "Expérience et compétences",
+    "description": "Display text for My experience and skills Form Page Link"
+  },
+  "PF2m1d": {
+    "defaultMessage": "Expérience et compétences",
+    "description": "Breadcrumb for experience and skills page in applicant profile."
+  },
+  "PH8qp2": {
+    "defaultMessage": "Avez-vous utilisé des techniques ou des approches particulières?",
+    "description": "Question for user in skills in detail section of experience form."
+  },
+  "PIgh3U": {
+    "defaultMessage": "Faites-nous savoir si vous voulez être contacté(e) pour de nouveaux emplois. Veuillez mettre à jour ce statut si votre situation change.",
+    "description": "Description for My Status Form"
+  },
+  "PcYOnN": {
+    "defaultMessage": "Niveau 2 : Analyste (de 75 000 $ à 91 000 $). <openModal>En savoir plus sur TI-02</openModal>",
+    "description": "Checkbox label for Level IT-02 selection, ignore things in <> tags please"
+  },
+  "Q2+VXx": {
+    "defaultMessage": "Si vous n'êtes pas sûr(e) d'avoir un compte CléGC existant, continuez vers le site Web et essayez de vous connecter. Si vous ne pouvez pas vous souvenir de votre mot de passe, vous pouvez également le réinitialiser là.",
+    "description": "Instructions on what to do if user doesn't know if they have a GC Key"
+  },
+  "Q96xMb": {
+    "defaultMessage": "Mes renseignements sur l'équité en matière d'emploi :",
+    "description": "Heading for employment equity categories added to user profile."
+  },
+  "QZ9FZB": {
+    "defaultMessage": "Activités d'infrastructure de TI",
+    "description": "work stream example"
+  },
+  "R5aTZ9": {
+    "defaultMessage": "Informations linguistiques",
+    "description": "Title for Profile Form wrapper in Language Information Form"
+  },
+  "RF51Bp": {
+    "defaultMessage": "Travail",
+    "description": "Title for work experience form button."
+  },
+  "RdrUZz": {
+    "defaultMessage": "Retour à la liste des bassins",
+    "description": "Label for button to the browse pools page"
+  },
+  "Rgh/Qb": {
+    "defaultMessage": "4. Renseignements complémentaires pour cette expérience",
+    "description": "Title for addition information on Experience form"
+  },
+  "SDDp1t": {
+    "defaultMessage": "Solutions logicielles de la TI",
+    "description": "work stream example"
+  },
+  "Srs7a4": {
+    "defaultMessage": "Passer au contenu principal",
+    "description": "Assistive technology skip link"
+  },
+  "T1TKNL": {
+    "defaultMessage": "Niveau de compétence en langue seconde",
+    "description": "Legend for second language proficiency level in language information form"
+  },
+  "TGCq/w": {
+    "defaultMessage": "Utilisez le formulaire ci-dessous pour nous aider à mieux comprendre vos préférences et vos capacités linguistiques",
+    "description": "Description text for Profile Form wrapper in Language Information Form"
+  },
+  "TS63OC": {
+    "defaultMessage": "Veuillez indiquer la classification et le niveau de votre groupe de travail actuel.",
+    "description": "Text blurb, asking about classification and level in the government info form"
+  },
+  "TV4UWm": {
+    "defaultMessage": "Enregistré",
+    "description": "Submitted text for save button on profile form."
+  },
+  "TfoHYi": {
+    "defaultMessage": "Diversité, équité et inclusion",
+    "description": "Title for Profile Form wrapper  in DiversityEquityInclusionForm"
+  },
+  "Tr5Pga": {
+    "defaultMessage": "Ajouter une nouvelle expérience :",
+    "description": "Message to user when no experiences have been attached to profile"
+  },
+  "TuhgU0": {
+    "defaultMessage": "Options d'équité en matière d'emploi :",
+    "description": "Heading for employment equity categories available to be added to user profile."
+  },
+  "UIkTbl": {
+    "defaultMessage": "p. ex. thomas.edison@example.com",
+    "description": "Placeholder displayed for the first name field in create account form."
+  },
+  "Ugr5Yt": {
+    "defaultMessage": "Évaluation linguistique du gouvernement du Canada.",
+    "description": "Message on links to the language evaluation tests"
+  },
+  "Uh9Yj4": {
+    "defaultMessage": "Renseignements du gouvernement",
+    "description": "Display Text for Government Information Form Page Link"
+  },
+  "Uyo9WO": {
+    "defaultMessage": "Merci d'avoir postulé",
+    "description": "Breadcrumb title for the pools 'thanks for applying page' link."
+  },
+  "VmJ7Vl": {
+    "defaultMessage": "Tel que défini par <link>Statistique Canada</link>.",
+    "description": "Text directing users to the statistics Canada definition of indigenous peoples."
+  },
+  "W4Svkd": {
+    "defaultMessage": "Compréhension",
+    "description": "Label displayed on the language information form comprehension field."
+  },
+  "W7io0W": {
+    "defaultMessage": "Mon statut a été mis à jour avec succès!",
+    "description": "Message displayed to user after user is updated successfully."
+  },
+  "WE0OGe": {
+    "defaultMessage": "Niveau 3 : Conseillers techniques",
+    "description": "title for IT-03 advisor dialog"
+  },
+  "WpRB7Z": {
+    "defaultMessage": "Prénom(s)",
+    "description": "Label displayed for the first name field in create account form."
+  },
+  "WyKJsK": {
+    "defaultMessage": "Erreur : échec de la mise à jour de l'expérience",
+    "description": "Message displayed to user after experience fails to be updated."
+  },
+  "WyhfVn": {
+    "defaultMessage": "Ces données seront utilisées sous une forme anonyme à des fins statistiques.",
+    "description": "Explanation on how employment equity information will be used, item three"
+  },
+  "X2Ivfb": {
+    "defaultMessage": "… toute durée (à court terme, à long terme ou indéterminée)",
+    "description": "Label displayed on Work Preferences form for any duration option"
+  },
+  "X354at": {
+    "defaultMessage": "Évaluation bilingue",
+    "description": "Legend bilingual evaluation status in language information form"
+  },
+  "X9IdZQ": {
+    "defaultMessage": "p. ex, Edison",
+    "description": "Placeholder displayed for the first name field in create account form."
+  },
+  "XBfLOu": {
+    "defaultMessage": "Mon statut",
+    "description": "Legend for my status option in my status form"
+  },
+  "XF4Ok2": {
+    "defaultMessage": "Prix",
+    "description": "Title for award experience form button."
+  },
+  "XY19Sh": {
+    "defaultMessage": "À propos de moi",
+    "description": "Title for Profile Form wrapper in About me form"
+  },
+  "XijxiY": {
+    "defaultMessage": "Nous aimerions savoir ci-dessous si vous êtes déjà un(e) employé(e) du gouvernement du Canada. Nous recueillons ces renseignements parce qu'ils nous aident à comprendre, au niveau global, comment les compétences numériques sont réparties entre les ministères.",
+    "description": "First message before is a government of canada radio group in create account form."
+  },
+  "XkrePe": {
+    "defaultMessage": "Identité autochtone",
+    "description": "Title for button to learn more information about indigenous equity definition"
+  },
+  "XoLxsc": {
+    "defaultMessage": "Je suis bilingue (En/Fr) et <bold>j'ai</bold> terminé une <languageEvaluationPageLink></languageEvaluationPageLink> officiale en <bold>ANGLAIS</bold>",
+    "description": "Message for the completed english bilingual evaluation option"
+  },
+  "Y+d/yO": {
+    "defaultMessage": "Résultats fréquents des compétences"
+  },
+  "Y7jEXr": {
+    "defaultMessage": "Sélectionnez un niveau…",
+    "description": "Placeholder displayed on the language information form verbal field."
+  },
+  "Y7l4/n": {
+    "defaultMessage": "Veuillez indiquer les niveaux linguistiques que vous avez acquis de votre évaluation linguistique du gouvernement du Canada.",
+    "description": "Text requesting language levels given from bilingual evaluation in language information form"
+  },
+  "YA/7nb": {
+    "defaultMessage": "Erreur : groupe de classification introuvable.",
+    "description": "Error message if classification group is not defined."
+  },
+  "Yhd/hk": {
+    "defaultMessage": "Aucune expérience trouvée.",
+    "description": "Message displayed when no experience is found for experience form."
+  },
+  "YiRUHR": {
+    "defaultMessage": "<bold>Cheminement en gestion</bold> : les gestionnaires de la TI (TI-04) sont responsables de la gestion du développement et de la prestation des services et des activités de TI par l'entremise de chefs d'équipe subalternes, de conseillers techniques et d'équipes de projet, pour la prestation des services aux clients et aux intervenants. Les gestionnaires de la TI se trouvent dans tous les volets de travail.",
+    "description": "IT-04 manager path description, ignore things in <> tags please"
+  },
+  "YyHN1i": {
+    "defaultMessage": "Toute langue (anglais ou français)",
+    "description": "No preference for language ability - will accept English or French"
+  },
+  "Z3prc4": {
+    "defaultMessage": "Connexion à l'aide de la CléGC",
+    "description": "Title for the login page for applicant profiles."
+  },
+  "Z9Uex5": {
+    "defaultMessage": "Les techniciens (TI-01) fournissent un soutien technique pour l'élaboration, la mise en œuvre, l'intégration et la maintenance de la prestation de services aux clients et aux intervenants",
+    "description": "blurb describing IT-01"
+  },
+  "ZSAzrR": {
+    "defaultMessage": "Date d'expiration :",
+    "description": "The expiry date label and colon"
+  },
+  "Zn10pO": {
+    "defaultMessage": "Niveau 1 : Technicien(ne) (de 60 000 $ à 78 000 $). <openModal>En savoir plus sur TI-01</openModal>",
+    "description": "Checkbox label for Level IT-01 selection, ignore things in <> tags please"
+  },
+  "ZodXqQ": {
+    "defaultMessage": "Femme (Elle/Elle)",
+    "description": "Title for equity dialog to add/remove women category to profile"
+  },
+  "Zx3BVC": {
+    "defaultMessage": "Êtes-vous sûr(e) de vouloir vous déconnecter?",
+    "description": "Question displayed when authenticated user lands on /logged-out."
+  },
+  "aDRIDD": {
+    "defaultMessage": "Éducation actuelle",
+    "description": "Label displayed on Education Experience form for current education bounded box"
+  },
+  "aLMroa": {
+    "defaultMessage": "Niveau 1 : Techniciens",
+    "description": "title for IT-01 dialog"
+  },
+  "aQJOd0": {
+    "defaultMessage": "Sélectionnez un niveau…",
+    "description": "Placeholder displayed on the language information form written field."
+  },
+  "b65kL3": {
+    "defaultMessage": "\"Je m'identifie comme faisant partie d'un ou de plusieurs groupes de minorités visibles.\"",
+    "description": "Label for the checkbox to identify as a visible minority under employment equity"
+  },
+  "b9/MXQ": {
+    "defaultMessage": "Quel était votre niveau de responsabilité dans ce rôle?",
+    "description": "Question for user in skills in detail section of experience form."
+  },
+  "bUeJy1": {
+    "defaultMessage": "\"Je m'identifie comme membre d'une minorité visible\"",
+    "description": "Title for when someone indicates they are a visible minority on their profile"
+  },
+  "c/Qp8R": {
+    "defaultMessage": "Préférence pour le lieu de travail",
+    "description": "Display Text for the current page in Work Location Preference Form Page"
+  },
+  "c2hEkz": {
+    "defaultMessage": "<b>Vous n'avez pas de compte de CléGC?</b> <a>Inscrivez-vous.</a>",
+    "description": "Instruction on what to do if user does not have a GC Key."
+  },
+  "c3CV4P": {
+    "defaultMessage": "Vous pouvez vous connecter à votre profil Talent numérique à l'aide de votre CléGC existante, même si vous n'avez jamais utilisé cette plateforme auparavant.",
+    "description": "Instructions on how to login with GC Key."
+  },
+  "cZmuts": {
+    "defaultMessage": "À la prochaine fois!",
+    "description": "Title for the page users land on after successful logout."
+  },
+  "csD/wq": {
+    "defaultMessage": "Sélectionnez les compétences qui correspondent aux capacités que vous avez affichées pendant cette période d'expérience. Vous expliquerez comment vous les avez utilisés à l'étape suivante.",
+    "description": "Description blurb for skills on Experience form"
+  },
+  "d0qGas": {
+    "defaultMessage": "Quelles tâches ou activités avez-vous effectuées qui ont trait à cette compétence?",
+    "description": "Question for user in skills in detail section of experience form."
+  },
+  "dHLkSE": {
+    "defaultMessage": "Retour au bassin",
+    "description": "Label for button to return to view pool"
+  },
+  "dJzqyg": {
+    "defaultMessage": "\"Je suis autochtone.\"",
+    "description": "Label for the checkbox to identify as indigenous under employment equity"
+  },
+  "dTMBj9": {
+    "defaultMessage": "Après avoir ajouté quelques compétences, veuillez expliquer comment vous les avez utilisées, essayez de répondre à une ou plusieurs de ces questions :",
+    "description": "Description for skills in detail section of experience form."
+  },
+  "de/Vcy": {
+    "defaultMessage": "Ville actuelle",
+    "description": "Label for current city field in About Me form"
+  },
+  "dgOYID": {
+    "defaultMessage": "Rôle et salaire escomptés",
+    "description": "Label for role and salary link"
+  },
+  "dh2xc5": {
+    "defaultMessage": "Ces renseignements seront communiqués aux gestionnaires d'embauche.",
+    "description": "Explanation on how employment equity information will be used, item one"
+  },
+  "dySfDg": {
+    "defaultMessage": "\"J'ai lu la définition fournie et…\"",
+    "description": "Message on employment equity forms confirming user read the provided definition"
+  },
+  "e/ez/m": {
+    "defaultMessage": "Choisir un niveau",
+    "description": "Null selection for form."
+  },
+  "evxvnW": {
+    "defaultMessage": "L'utilisateur a été mis à jour avec succès!",
+    "description": "Message displayed to user after user is updated successfully."
+  },
+  "fCQ4aB": {
+    "defaultMessage": "Utilisateur{applicantId} introuvable.",
+    "description": "Message displayed for user not found."
+  },
+  "fK7jxe": {
+    "defaultMessage": "Vous n'avez ajouté aucune option d'équité en matière d'emploi à votre profil.",
+    "description": "Message displayed when a user has no employment equity information."
+  },
+  "fOCbBa": {
+    "defaultMessage": "Résultats pour les compétences fréquentes"
+  },
+  "g097KT": {
+    "defaultMessage": "Prénom et second prénom",
+    "description": "Label for first and middle name field in About Me form"
+  },
+  "gBWsuB": {
+    "defaultMessage": "Téléphone",
+    "description": "Label for telephone field in About Me form"
+  },
+  "gKyog2": {
+    "defaultMessage": "Oups, on dirait que vous avez atterri sur une page que vous n'êtes pas autorisé(e) à consulter.",
+    "description": "Detailed message saying the page to view is not authorized."
+  },
+  "gWEfA9": {
+    "defaultMessage": "Vous n'avez pas encore été accepté(e) dans un bassin d'embauche.",
+    "description": "Message for if user not part of any hiring pools"
+  },
+  "ghmTOo": {
+    "defaultMessage": "Ces renseignements servent à gérer votre compte et à communiquer.",
+    "description": "Description for Account Details section of the About Me form"
+  },
+  "gnGAe8": {
+    "defaultMessage": "Niveau de classification actuel",
+    "description": "Label displayed on classification level input"
+  },
+  "h1wsiL": {
+    "defaultMessage": "Toute autre chose au sujet de cette expérience que vous aimeriez partager.",
+    "description": "Description blurb for additional information on Experience form"
+  },
+  "h9q52R": {
+    "defaultMessage": "Nom(s) de famille",
+    "description": "Label displayed for the last name field in create account form."
+  },
+  "hCgrxA": {
+    "defaultMessage": "Il y a deux types d'employés du TI-03 : ceux qui suivent un cheminement en gestion et les contributeurs individuels.",
+    "description": "IT-03 description precursor"
+  },
+  "hDSk9d": {
+    "defaultMessage": "Merci d'avoir postulé au {poolName}",
+    "description": "Title for page thanking user for applying to a pool"
+  },
+  "hTJgV2": {
+    "defaultMessage": "Tous les champs obligatoires sont remplis. Vous pouvez maintenant modifier votre statut.",
+    "description": "Message displayed to user when user profile completed."
+  },
+  "hafgad": {
+    "defaultMessage": "{candidateCount, plural, one {There is approximately <weight>{candidateCount}</weight> candidate right now who meets your criteria.} other {There are approximately <weight>{candidateCount}</weight> candidates right now who meet your criteria.} }",
+    "description": "Message for total estimated candidates box next to search form."
+  },
+  "hizC89": {
+    "defaultMessage": "Niveau 3 : Chef d'équipe (88 000 $ à 110 000 $). <openModal>En savoir plus sur TI-03</openModal>",
+    "description": "Checkbox label for Level IT-03 leader selection, ignore things in <> tags please"
+  },
+  "hqfTBB": {
+    "defaultMessage": "Intermédiaire <greyText>– J'ai des compétences robustes en lecture, écriture et communication verbale.</greyText>",
+    "description": "Message for the intermediate language ability option"
+  },
+  "i5xxbe": {
+    "defaultMessage": "Courriel",
+    "description": "Label for email field in About Me form"
+  },
+  "i99arX": {
+    "defaultMessage": "Comment j'ai utilisé cette compétence...",
+    "description": "Placeholder message for textarea in the skills in detail section."
+  },
+  "iCb9eG": {
+    "defaultMessage": "Les techniciens en TI se retrouvent principalement dans trois volets de travail :",
+    "description": "Preceding list description"
+  },
+  "jF5ZYY": {
+    "defaultMessage": "Membres des minorités visibles",
+    "description": "Title for equity dialog to add/remove visible minority category to profile"
+  },
+  "jPLaDk": {
+    "defaultMessage": "Désolé, vous n'êtes pas autorisé(e) à consulter cette page.",
+    "description": "Heading for the message saying the page to view is not authorized."
+  },
+  "jS7Qdy": {
+    "defaultMessage": "Personnes appartenant à une minorité visible, autres que les autochtones, qui ne sont pas de race blanche ou qui n'ont pas la peau blanche. Voici des exemples de groupes de minorités visibles : Sud-Asiatique, Chinois, Noir, Philippin, Arabe, Latino-Américain, Asiatique du Sud-Est, Asiatique occidental, Coréen et Japonais.",
+    "description": "Definition of accepted ways to identify as a visible minority"
+  },
+  "jbftvG": {
+    "defaultMessage": "<strong>Oui</strong>, je suis un(e) employé(e) du gouvernement du Canada",
+    "description": "Label displayed for is a government employee option"
+  },
+  "jrjPWp": {
+    "defaultMessage": "Expérience mise à jour avec succès!",
+    "description": "Success message displayed after updating experience on profile"
+  },
+  "k0++o0": {
+    "defaultMessage": "Préférences de travail",
+    "description": "Title for Profile Form wrapper  in Work Preferences Form"
+  },
+  "kCBLsJ": {
+    "defaultMessage": "Rôle et salaire escomptés",
+    "description": "Title role and salary expectations form"
+  },
+  "lai6E5": {
+    "defaultMessage": "Enregistrement…",
+    "description": "Submitting text for save button on profile form."
+  },
+  "mJ1HE4": {
+    "defaultMessage": "Ajouter une expérience",
+    "description": "Display text for add experience form in breadcrumbs"
+  },
+  "mMGycA": {
+    "defaultMessage": "Postuler",
+    "description": "Apply label for button to apply to pool"
+  },
+  "mTlHta": {
+    "defaultMessage": "Niveau 3 : Chef d'équipe",
+    "description": "title for IT-03 lead dialog"
+  },
+  "mW0/n1": {
+    "defaultMessage": "Aucun bassin n'a été trouvé.",
+    "description": "Message displayed on the browse pools direct intake page when there are no pools."
+  },
+  "md7Klw": {
+    "defaultMessage": "Connexion",
+    "description": "Label displayed on the login link menu item."
+  },
+  "moKAQP": {
+    "defaultMessage": "Erreur : l'ajout de l'expérience a échoué",
+    "description": "Message displayed to user after experience fails to be created."
+  },
+  "mrhpJS": {
+    "defaultMessage": "Collectivité",
+    "description": "Title for community experience form button."
+  },
+  "nOE+8s": {
+    "defaultMessage": "Lieu de travail",
+    "description": "Title for Profile Form wrapper  in Work Location Preferences Form"
+  },
+  "nVh2Qh": {
+    "defaultMessage": "Si vous voulez connaître vos niveaux de compétence linguistique, cliquez ici pour le savoir<selfAssessmentLink></selfAssessmentLink>.",
+    "description": "Text including link to language proficiency evaluation in language information form"
+  },
+  "nrBkon": {
+    "defaultMessage": "Sécurité de la TI",
+    "description": "work stream example"
+  },
+  "ntUOoz": {
+    "defaultMessage": "Sélectionnez les postes pour lesquels vous souhaitez postuler",
+    "description": "Legend for considered position languages check list in language information form"
+  },
+  "nuP1BG": {
+    "defaultMessage": "Personnelle",
+    "description": "Title for personal experience form button."
+  },
+  "nueuS8": {
+    "defaultMessage": "Lieu de travail",
+    "description": "Legend for optional work preferences check list in work preferences form"
+  },
+  "o/YTo0": {
+    "defaultMessage": "Pour commencer",
+    "description": "Main heading in create account page."
+  },
+  "oEFd6y": {
+    "defaultMessage": "\"Je suis autochtone\"",
+    "description": "Title for when someone indicates they are indigenous on their profile"
+  },
+  "oG9dAi": {
+    "defaultMessage": "Parcourir les bassins",
+    "description": "Page title for the direct intake browse pools page."
+  },
+  "oOcegG": {
+    "defaultMessage": "Architecture intégrée de la TI ",
+    "description": "work stream example"
+  },
+  "ocv0Z5": {
+    "defaultMessage": "Cette plateforme met l'accent sur l'embauche de talents numériques pour travailler dans des postes classifiés comme TI (technologie de l'information). Examinez les niveaux suivants dans la classification TI et <bold>sélectionnez uniquement</bold> ceux qui représentent le travail que vous voulez faire.",
+    "description": "Blurb describing the purpose of the form"
+  },
+  "omBOZT": {
+    "defaultMessage": "Mon expérience et mes compétences",
+    "description": "Title for the experience profile form"
+  },
+  "pFRKUT": {
+    "defaultMessage": "Voici où vous pouvez ajouter de l'expérience et des compétences à votre profil. Cela pourrait aller d'aider les membres de la communauté à résoudre leurs problèmes d'ordinateur au travail à temps plein dans une organisme de TI.",
+    "description": "Description for the experience profile form"
+  },
+  "pGTTrp": {
+    "defaultMessage": "Diversité, équité et inclusion",
+    "description": "Display Text for Diversity, equity and inclusion Page"
+  },
+  "pQnXH9": {
+    "defaultMessage": "<b>Cette section est facultative</b>. Si vous êtes membre d'un ou de plusieurs de ces groupes d'équité en matière d'emploi et que vous ne souhaitez pas vous identifier sur cette plateforme, il n'y a aucune obligation de le faire. <b>Remplissez le formulaire ci-dessous si vous remplissez ces deux conditions</b> :",
+    "description": "Explanation that employment equity information is optional."
+  },
+  "pYGf4h": {
+    "defaultMessage": "2. Compétences affichées pendant cette expérience",
+    "description": "Title for skills on Experience form"
+  },
+  "pcnr9A": {
+    "defaultMessage": "Si vous n'êtes pas sûr(e) d'avoir un compte CléGC existant, continuez vers le site Web et essayez de vous connecter. Si vous ne pouvez pas vous souvenir de votre mot de passe, vous pouvez également le réinitialiser là.",
+    "description": "Instructions on what to do if user doesn't know if they have a GC Key"
+  },
+  "px7yu1": {
+    "defaultMessage": "Il n'y a pas d'options d'équité en matière d'emploi.",
+    "description": "Message displayed when there are no employment equity categories available to be added."
+  },
+  "qSxmx0": {
+    "defaultMessage": "Fermer",
+    "description": "Close Confirmations"
+  },
+  "qvzCzB": {
+    "defaultMessage": "<bold>Pourquoi ne puis-je pas modifier mon statut?</bold>",
+    "description": "Message in My Status Form."
+  },
+  "r4PFx0": {
+    "defaultMessage": "Province ou territoire actuel",
+    "description": "Label for current province or territory field in About Me form"
+  },
+  "rGNWy6": {
+    "defaultMessage": "Nom(s) de famille",
+    "description": "Label for last name field in About Me form"
+  },
+  "rJMWiV": {
+    "defaultMessage": "<strong>Non</strong>, je ne suis pas un(e) employé(e) du gouvernement du Canada",
+    "description": "Label displayed for is not a government employee option"
+  },
+  "rMYmPd": {
+    "defaultMessage": "Annuler et revenir en arrière",
+    "description": "Label for cancel button on profile form."
+  },
+  "rUFZwt": {
+    "defaultMessage": "Connectez-vous à la place",
+    "description": "Login link text on the registration page."
+  },
+  "raFdbB": {
+    "defaultMessage": "Les analystes (TI-02) fournissent des services techniques, des conseils, des analyses et de la recherche dans leur domaine d'expertise pour appuyer la prestation de services aux clients et aux intervenants. Les analystes de la TI se retrouvent dans tous les volets de travail.",
+    "description": "blurb describing IT-02"
+  },
+  "rm0yL9": {
+    "defaultMessage": "Les personnes ayant une déficience, y compris une déficience physique, intellectuelle, cognitive, mentale ou sensorielle, un trouble d'apprentissage ou de la communication ou une limitation fonctionnelle, de nature permanente, temporaire ou épisodique, manifeste ou non et dont l'interaction avec un obstacle nuit à la participation pleine et égale d'une personne dans la société.",
+    "description": "Definition of accepted ways to identify as person with a disability."
+  },
+  "rywI3C": {
+    "defaultMessage": "Verbal",
+    "description": "Label displayed on the language information form verbal field."
+  },
+  "sBksyQ": {
+    "defaultMessage": "Supprimer",
+    "description": "Delete confirmation"
+  },
+  "sapxcU": {
+    "defaultMessage": "Avertissement",
+    "description": "Label displayed on Personal Experience form for disclaimer bounded box"
+  },
+  "sifjUN": {
+    "defaultMessage": "Il n'y a pas encore d'expérience sur votre profil. Vous pouvez en ajouter quelques-unes en utilisant les liens ci-dessus.",
+    "description": "Message to user when no experiences have been attached to profile."
+  },
+  "t12bCU": {
+    "defaultMessage": "Sauvegarder et revenir en arrière",
+    "description": "Button text to submit employment equity form."
+  },
+  "tf/wEc": {
+    "defaultMessage": "Index des bassins",
+    "description": "Breadcrumb title for the pools index link."
+  },
+  "tlsomU": {
+    "defaultMessage": "Mon profil",
+    "description": "Breadcrumb from applicant profile wrapper."
+  },
+  "tm3zLD": {
+    "defaultMessage": "Gestion du portefeuille de projets de TI",
+    "description": "work stream example"
+  },
+  "ttRVSp": {
+    "defaultMessage": "Comment ces données seront-elles utilisées?",
+    "description": "Heading for how employment equity information will be used."
+  },
+  "u4v1RB": {
+    "defaultMessage": "Choisir un groupe",
+    "description": "Null selection for form."
+  },
+  "uG2MuI": {
+    "defaultMessage": "À propos de moi",
+    "description": "Display text for About Me Form Page Link"
+  },
+  "uIpPFZ": {
+    "defaultMessage": "Les classifications gouvernementales sont des étiquettes que le gouvernement du Canada utilise pour regrouper des types de travail similaires. Dans le gouvernement du Canada, le salaire est lié à la façon dont les postes sont classés.",
+    "description": "Description for the role and salary expectation form"
+  },
+  "uPknsL": {
+    "defaultMessage": "Tel que défini par <link>Statistique Canada</link>.",
+    "description": "Text directing users to the statistics Canada definition of visible minorities."
+  },
+  "uQYCfd": {
+    "defaultMessage": "Ces quatre groupes sont les \"femmes, les Autochtones, les personnes handicapées et les membres des minorités visibles.\"",
+    "description": "List of the employment equity categories"
+  },
+  "uqoN4k": {
+    "defaultMessage": "Supprimer l'expérience de mon profil",
+    "description": "Label on button for delete this experience"
+  },
+  "usb0gM": {
+    "defaultMessage": "Bien que le libellé de ces catégories ait besoin d'être mis à jour, le gouvernement du Canada utilisera parfois ces catégories lors de l'embauche afin de s'assurer qu'il respecte les objectifs de l'équité en matière d'emploi.",
+    "description": "Description of how the Government of Canada uses employment equity categories in hiring."
+  },
+  "w6vHXf": {
+    "defaultMessage": "Recherche…",
+    "description": "Message to display when a search is in progress."
+  },
+  "wFQlTB": {
+    "defaultMessage": "<bold>Contributeur individuel</bold> : Les conseillers techniques en TI (TI-03) fournissent des conseils techniques spécialisés, des recommandations et du soutien sur les solutions et les services dans leur domaine d'expertise pour appuyer la prestation de services aux clients et aux intervenants. Les conseillers techniques en TI se trouvent dans tous les volets de travail.",
+    "description": "IT-03 advisor description, ignore things in <> tags please"
+  },
+  "wKIVFc": {
+    "defaultMessage": "Certains emplois exigent que vous travailliez des heures inhabituelles ou que vous accomplissiez des tâches qui sont un peu en dehors de la normale. Veuillez indiquer les exigences spéciales avec lesquelles vous êtes à l'aise.",
+    "description": "Description text for Profile Form wrapper  in Work Preferences Form"
+  },
+  "wPcJH7": {
+    "defaultMessage": "Je suis intéressé(e) à la mutation latérale ou au détachement.",
+    "description": "Label displayed on lateral/secondment checkbox"
+  },
+  "x5C9Ab": {
+    "defaultMessage": "Écrit",
+    "description": "Label displayed on the language information form written field."
+  },
+  "x6saT3": {
+    "defaultMessage": "Avant de vous amener à votre profil, nous devons recueillir les renseignements nécessaires pour compléter la configuration de votre compte.",
+    "description": "Message after main heading in create account page."
+  },
+  "xDgNfZ": {
+    "defaultMessage": "Renseignements du gouvernement",
+    "description": "Title for Profile Form Wrapper in Government Information Form"
+  },
+  "xq6TbG": {
+    "defaultMessage": "Commencez à écrire ici…",
+    "description": "Placeholder displayed on the About Me form current city field."
+  },
+  "y1j0Ol": {
+    "defaultMessage": "\"Je m'identifie comme une personne handicapée.\"",
+    "description": "Label for the checkbox to identify as a person with a disability under employment equity"
+  },
+  "yQ2dDL": {
+    "defaultMessage": "J'envisagerais d'accepter un emploi qui exige…",
+    "description": "Legend for optional work preferences check list in work preferences form"
+  },
+  "yfVLxM": {
+    "defaultMessage": "Rôle actuel",
+    "description": "Label displayed on Community Experience form for current role bounded box"
+  },
+  "zILELf": {
+    "defaultMessage": "S'inscrire à l'aide de la CléGC",
+    "description": "Title for the registration page for applicant profiles."
+  },
+  "ztxu8l": {
+    "defaultMessage": "Tel que défini par <link>Statistique Canada</link>.",
+    "description": "Text directing users to the statistics Canada definition of gender."
   }
 }
