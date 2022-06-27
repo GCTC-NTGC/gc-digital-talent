@@ -96,14 +96,15 @@ class PoolCandidate extends Model
                     }
                 }
             });
-
-            $this->orFilterByClassificationToSalary($query, $classifications);
+            $query->orWhere(function($query) use ($classifications) {
+                $this->filterByClassificationToSalary($query, $classifications);
+            });
         });
 
         return $query;
     }
 
-    private function orFilterByClassificationToSalary(Builder $query, array $classifications): Builder
+    private function filterByClassificationToSalary(Builder $query, array $classifications): Builder
     {
         // When managers search for a classification, also return any users whose expected salary
         // ranges overlap with the min/max salaries of any of those classifications.
@@ -168,7 +169,7 @@ RAWSQL1;
 
 RAWSQL2;
 
-        return $query->orWhereRaw('EXISTS (' . $sql . ')', $parameters);
+        return $query->whereRaw('EXISTS (' . $sql . ')', $parameters);
     }
 
     public function filterByCmoAssets(Builder $query, array $cmoAssets): Builder
