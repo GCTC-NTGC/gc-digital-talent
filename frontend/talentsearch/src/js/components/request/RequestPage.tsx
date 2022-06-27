@@ -58,7 +58,7 @@ const RequestPage: React.FunctionComponent = () => {
         data-h2-align-items="b(center)"
         style={{ minHeight: "70rem" }}
       >
-        <CreateRequest
+        <CreateRequestForm
           poolCandidateFilter={poolCandidateFilter}
           searchFormInitialValues={initialValues}
           candidateCount={candidateCount}

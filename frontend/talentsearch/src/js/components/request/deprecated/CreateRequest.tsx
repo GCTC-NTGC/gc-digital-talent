@@ -8,7 +8,7 @@ import { Button } from "@common/components";
 import { notEmpty } from "@common/helpers/util";
 import { toast } from "react-toastify";
 import { navigate, pushToStateThenNavigate } from "@common/helpers/router";
-import { SearchRequestFilters } from "@common/components/SearchRequestFilters";
+import SearchRequestFilters from "@common/components/SearchRequestFilters/deprecated/SearchRequestFilters";
 import {
   getFromSessionStorage,
   removeFromSessionStorage,
@@ -30,8 +30,8 @@ import {
   Classification,
   OperationalRequirement,
   Pool,
-} from "../../api/generated";
-import { FormValues as SearchFormValues } from "../search/SearchForm";
+} from "../../../api/generated";
+import { FormValues as SearchFormValues } from "../../search/SearchForm";
 
 type Option<V> = { value: V; label: string };
 // Have to explicitly define this type since the backing object of the form has to be fully nullable.
