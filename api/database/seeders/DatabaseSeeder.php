@@ -58,7 +58,7 @@ class DatabaseSeeder extends Seeder
         User::factory([
             'roles' => [ApiEnums::ROLE_APPLICANT]
         ])
-            ->count(60)
+            ->count(120)
             ->afterCreating(function (User $user) use ($faker) {
                 $assets = CmoAsset::inRandomOrder()->limit(4)->pluck('id')->toArray();
                 $user->cmoAssets()->sync($assets);

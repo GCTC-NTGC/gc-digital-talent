@@ -43,6 +43,7 @@ export type FormValues = Pick<
   "workRegions" | "operationalRequirements"
 > & {
   languageAbility: LanguageAbility | typeof NullSelection;
+  employmentDuration: string | typeof NullSelection;
   classifications: string[] | undefined;
   cmoAssets: string[] | undefined; // TODO REMOVE WHEN REPLACING CMOASSETS
   employmentEquity: string[] | undefined;
@@ -123,6 +124,8 @@ const SearchForm: React.FC<SearchFormProps> = ({
         ...(values.languageAbility !== NullSelection
           ? { languageAbility: values.languageAbility as LanguageAbility }
           : {}), // Ensure null in FormValues is converted to undefined
+        wouldAcceptTemporary:
+          values.employmentDuration === "true" ? true : null,
         locationPreferences: values.workRegions || [],
       };
     };
@@ -165,10 +168,13 @@ const SearchForm: React.FC<SearchFormProps> = ({
   );
 
   const operationalRequirementsSubset = [
-    OperationalRequirement.ShiftWork,
-    OperationalRequirement.WorkWeekends,
-    OperationalRequirement.OvertimeScheduled,
     OperationalRequirement.OvertimeShortNotice,
+    OperationalRequirement.OvertimeScheduled,
+    OperationalRequirement.ShiftWork,
+    OperationalRequirement.OnCall,
+    OperationalRequirement.Travel,
+    OperationalRequirement.TransportEquipment,
+    OperationalRequirement.DriversLicense,
   ];
 
   return (
@@ -345,6 +351,52 @@ const SearchForm: React.FC<SearchFormProps> = ({
                 value,
                 label: intl.formatMessage(getLanguageAbility(value)),
               })),
+            ]}
+          />
+        </FilterBlock>
+        <FilterBlock
+          id="employmentDurationFilter"
+          title={intl.formatMessage({
+            defaultMessage: "Employment Duration",
+            description:
+              "Heading for employment duration section of the search form.",
+          })}
+          text={intl.formatMessage({
+            defaultMessage:
+              "The selected duration will be compared to the one chosen by candidates in their applications. Change this only if the job offer has a determined duration.",
+            description:
+              "Message describing the employment duration filter in the search form.",
+          })}
+        >
+          <RadioGroup
+            idPrefix="employmentDuration"
+            legend="Duration"
+            name="employmentDuration"
+            defaultSelected={NullSelection}
+            items={[
+              {
+                value: NullSelection,
+                label: intl.formatMessage({
+                  defaultMessage:
+                    "Any duration (short term, long term or indeterminate) (Recommended)",
+                  description:
+                    "No preference for employment duration - will accept any",
+                }),
+              },
+              {
+                value: "true",
+                label: intl.formatMessage({
+                  defaultMessage: "Term duration (short term, long term)",
+                  description: "Duration of a non-permanent length",
+                }),
+              },
+              {
+                value: "nothing",
+                label: intl.formatMessage({
+                  defaultMessage: "Indeterminate duration (permanent)",
+                  description: "Duration that is permanent",
+                }),
+              },
             ]}
           />
         </FilterBlock>

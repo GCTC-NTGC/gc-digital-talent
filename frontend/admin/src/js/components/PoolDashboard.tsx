@@ -3,6 +3,9 @@ import { Routes } from "universal-router";
 import { RouterResult } from "@common/helpers/router";
 import Toast from "@common/components/Toast";
 import { AuthenticationContext } from "@common/components/Auth";
+import { Helmet } from "react-helmet";
+import { getLocale } from "@common/helpers/localize";
+import { useIntl } from "react-intl";
 import { AdminRoutes, useAdminRoutes } from "../adminRoutes";
 import { CreateClassification } from "./classification/CreateClassification";
 import { UpdateClassification } from "./classification/UpdateClassification";
@@ -266,9 +269,13 @@ const routes = (
 export const PoolDashboard: React.FC = () => {
   const { loggedIn } = React.useContext(AuthenticationContext);
   const paths = useAdminRoutes();
+  const intl = useIntl();
   return (
     <>
       <Dashboard contentRoutes={routes(paths, loggedIn)} />
+      <Helmet>
+        <html lang={getLocale(intl)} />
+      </Helmet>
       <Toast />
     </>
   );
