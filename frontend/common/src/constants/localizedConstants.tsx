@@ -550,38 +550,40 @@ export const getOperationalRequirementCandidateDescription = (
 
 export const operationalRequirements = defineMessages({
   [OperationalRequirement.ShiftWork]: {
-    defaultMessage: "Shift work",
+    defaultMessage: "Availability, willingness and ability to work shift-work.",
     description: "The operational requirement described as shift work.",
   },
   [OperationalRequirement.OnCall]: {
-    defaultMessage: "24/7 on-call",
+    defaultMessage:
+      "Availability, willingness and ability to work 24/7 on-call status.",
     description: "The operational requirement described as 24/7 on-call.",
   },
   [OperationalRequirement.Travel]: {
-    defaultMessage: "Travel as required",
+    defaultMessage:
+      "Availability, willingness and ability to travel as required.",
     description: "The operational requirement described as travel as required.",
   },
   [OperationalRequirement.TransportEquipment]: {
-    defaultMessage: "Transport equipment up to 20kg",
+    defaultMessage:
+      "Availability, willingness and ability to transport, lift and set down equipment weighing up to 20kg.",
     description:
       "The operational requirement described as transport equipment up to 20kg.",
   },
   [OperationalRequirement.DriversLicense]: {
-    defaultMessage: "Driver's license",
+    defaultMessage:
+      "Must possess a valid driver's license or personal mobility to the degree normally associated with possession of a valid driver's license.",
     description: "The operational requirement described as driver's license.",
   },
-  [OperationalRequirement.WorkWeekends]: {
-    defaultMessage: "Work weekends",
-    description: "The operational requirement described as work weekends.",
-  },
   [OperationalRequirement.OvertimeScheduled]: {
-    defaultMessage: "Work scheduled overtime",
-    description: "The operational requirement described as scheduled overtime.",
+    defaultMessage:
+      "Availability, willingness and ability to work overtime (Regularly).",
+    description: "The operational requirement described as regular overtime.",
   },
   [OperationalRequirement.OvertimeShortNotice]: {
-    defaultMessage: "Work overtime on short notice",
+    defaultMessage:
+      "Availability, willingness and ability to work overtime (Occasionally).",
     description:
-      "The operational requirement described as short notice overtime.",
+      "The operational requirement described as occasional overtime.",
   },
 });
 
