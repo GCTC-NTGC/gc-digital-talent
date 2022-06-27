@@ -7,6 +7,7 @@ use App\Models\CmoAsset;
 use App\Models\Pool;
 use App\Models\User;
 use Illuminate\Database\Seeder;
+use Database\Helpers\ApiEnums;
 
 class PoolSeederUat extends Seeder
 {
@@ -37,7 +38,7 @@ class PoolSeederUat extends Seeder
                 //     'en' => '',
                 //     'fr' => ''
                 // ], // TODO: Replace with real world text.
-                'pool_status' => 'TAKING_APPLICATIONS'
+                'pool_status' => ApiEnums::POOL_STATUS_NOT_TAKING_APPLICATIONS
             ]
         );
 

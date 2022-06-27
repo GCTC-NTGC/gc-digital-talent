@@ -5,8 +5,7 @@ import { InputWrapper } from "../../inputPartials";
 
 export type Option = { value: string | number; label: string };
 
-export interface MultiSelectProps
-  extends React.SelectHTMLAttributes<HTMLSelectElement> {
+export interface MultiSelectProps {
   /** HTML id used to identify the element. */
   id: string;
   /** Optional context which user can view by toggling a button. */
@@ -23,7 +22,7 @@ export interface MultiSelectProps
   placeholder?: string;
 }
 
-const MultiSelect: React.FunctionComponent<MultiSelectProps> = ({
+const MultiSelect = ({
   id,
   context,
   label,
@@ -31,12 +30,13 @@ const MultiSelect: React.FunctionComponent<MultiSelectProps> = ({
   options,
   rules,
   placeholder,
-}) => {
+}: MultiSelectProps): JSX.Element => {
   const {
-    control,
     formState: { errors },
   } = useFormContext();
+
   const error = errors[name]?.message;
+  const isRequired = !!rules?.required;
   const optionMap = useMemo(() => {
     const map = new Map();
     options.forEach((option) => {
@@ -51,25 +51,23 @@ const MultiSelect: React.FunctionComponent<MultiSelectProps> = ({
   return (
     <div data-h2-margin="b(bottom, xxs)">
       <InputWrapper
+        {...{ label, context, error }}
         inputId={id}
-        label={label}
-        required={!!rules?.required}
-        context={context}
-        error={error}
+        required={isRequired}
       >
         <div style={{ width: "100%" }}>
           <Controller
-            name={name}
+            {...{ name, rules }}
+            aria-required={isRequired}
             render={({ field }) => (
               <ReactSelect
                 isMulti
                 {...field}
+                {...{ placeholder, options }}
                 value={field.value ? field.value.map(valueToOption) : []}
                 onChange={
                   (x) => field.onChange(x ? x.map((option) => option.value) : x) // If x is null or undefined, return it to form
                 }
-                placeholder={placeholder}
-                options={options}
                 aria-label={label}
                 styles={{
                   placeholder: (provided) => ({
@@ -79,9 +77,6 @@ const MultiSelect: React.FunctionComponent<MultiSelectProps> = ({
                 }}
               />
             )}
-            control={control}
-            rules={rules}
-            aria-required={rules?.required ? "true" : undefined}
           />
         </div>
       </InputWrapper>
