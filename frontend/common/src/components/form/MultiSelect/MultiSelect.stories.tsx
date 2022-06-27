@@ -27,8 +27,8 @@ const TemplateMultiSelect: Story<MultiSelectProps> = (args) => {
   );
 };
 
-export const MultiSelectDefault = TemplateMultiSelect.bind({});
-MultiSelectDefault.args = {
+export const Default = TemplateMultiSelect.bind({});
+Default.args = {
   id: uniqueId(),
   label: "Select a dept",
   name: "departments",
@@ -39,30 +39,28 @@ MultiSelectDefault.args = {
   ],
 };
 
-export const MultiSelectRequired = TemplateMultiSelect.bind({});
-MultiSelectRequired.args = {
-  ...MultiSelectDefault.args,
+export const Required = TemplateMultiSelect.bind({});
+Required.args = {
+  ...Default.args,
   rules: { required: "This must be accepted to continue." },
 };
 
-export const MultiSelectRequiredWithInfo = TemplateMultiSelect.bind({});
-MultiSelectRequiredWithInfo.args = {
-  ...MultiSelectDefault.args,
+export const RequiredWithInfo = TemplateMultiSelect.bind({});
+RequiredWithInfo.args = {
+  ...Default.args,
   context: "We collect the above data for account purposes.",
   rules: { required: "This must be accepted to continue." },
 };
 
-export const MultiSelectRequiredWithError = TemplateMultiSelect.bind({});
-MultiSelectRequiredWithError.args = {
-  ...MultiSelectDefault.args,
+export const RequiredWithError = TemplateMultiSelect.bind({});
+RequiredWithError.args = {
+  ...Default.args,
   rules: { required: "This must be accepted to continue." },
 };
 
-export const MultiSelectRequiredWithErrorAndContext = TemplateMultiSelect.bind(
-  {},
-);
-MultiSelectRequiredWithErrorAndContext.args = {
-  ...MultiSelectDefault.args,
+export const RequiredWithErrorAndContext = TemplateMultiSelect.bind({});
+RequiredWithErrorAndContext.args = {
+  ...Default.args,
   context: "We collect the above data for account purposes.",
   rules: { required: "This must be accepted to continue." },
 };
