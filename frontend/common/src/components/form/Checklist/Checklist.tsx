@@ -23,7 +23,7 @@ export interface ChecklistProps {
   /** Set of validation rules and error messages to impose on all input elements. */
   rules?: RegisterOptions;
   /** If a context string is provided, a small button will appear which, when toggled, shows the context string below the inputs. */
-  context?: string;
+  context?: string | React.ReactNode;
   /** If true, all input elements in this fieldset will be disabled. */
   disabled?: boolean;
   /** If true, and this input is not required, 'Optional' will not be shown above the fieldset. */
