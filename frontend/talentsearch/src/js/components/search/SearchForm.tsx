@@ -12,6 +12,7 @@ import {
 import { enumToOptions, unpackMaybes } from "@common/helpers/formUtils";
 import { getLocale } from "@common/helpers/localize";
 import { useLocation } from "@common/helpers/router";
+import { strong } from "@common/helpers/format";
 import {
   Classification,
   CmoAsset,
@@ -221,7 +222,11 @@ const SearchForm: React.FC<SearchFormProps> = ({
         >
           <RadioGroup
             idPrefix="education_requirement"
-            legend="Education Requirement filter"
+            legend={intl.formatMessage({
+              defaultMessage: "Education Requirement filter",
+              description:
+                "Legend for the Education Requirement filter radio group",
+            })}
             name="educationRequirement"
             defaultSelected="no_diploma"
             items={[
@@ -263,7 +268,11 @@ const SearchForm: React.FC<SearchFormProps> = ({
         >
           <Checklist
             idPrefix="operationalRequirements"
-            legend="Conditions of employment"
+            legend={intl.formatMessage({
+              defaultMessage: "Conditions of employment",
+              description:
+                "Legend for the Conditions of Employment filter checklist",
+            })}
             name="operationalRequirements"
             items={operationalRequirementsSubset.map((value) => ({
               value,
@@ -319,7 +328,11 @@ const SearchForm: React.FC<SearchFormProps> = ({
         >
           <RadioGroup
             idPrefix="languageAbility"
-            legend="Language"
+            legend={intl.formatMessage({
+              defaultMessage: "Language",
+              description:
+                "Legend for the Working Language Ability radio buttons",
+            })}
             name="languageAbility"
             defaultSelected={NullSelection}
             items={[
@@ -400,14 +413,22 @@ const SearchForm: React.FC<SearchFormProps> = ({
         >
           <Checklist
             idPrefix="employmentEquity"
-            legend="Conditions of employment"
-            name="employmentEquity"
-            context={intl.formatMessage({
-              defaultMessage:
-                "Note: If you select more than one employment equity group, ALL candidates who have self-declared as being members of ANY of the selected EE groups will be referred. If you have more detailed EE requirements, let us know in the comment section of the submission form.",
-              description:
-                "Context for employment equity filter in search form.",
+            legend={intl.formatMessage({
+              defaultMessage: "Conditions of employment",
+              description: "Legend for the Conditions of employment checklist",
             })}
+            name="employmentEquity"
+            context={intl.formatMessage(
+              {
+                defaultMessage:
+                  "<bold>Note:</bold> If you select more than one employment equity group, ALL candidates who have self-declared as being members of ANY of the selected EE groups will be referred. If you have more detailed EE requirements, let us know in the comment section of the submission form.",
+                description:
+                  "Context for employment equity filter in search form.",
+              },
+              {
+                bold: strong,
+              },
+            )}
             items={[
               {
                 value: "isIndigenous",
@@ -460,7 +481,10 @@ const SearchForm: React.FC<SearchFormProps> = ({
         >
           <Checklist
             idPrefix="cmoAssets"
-            legend="Skills organized by stream"
+            legend={intl.formatMessage({
+              defaultMessage: "Skills organized by stream",
+              description: "Legend for Skills filter checklist",
+            })}
             name="cmoAssets"
             items={cmoAssetOptions}
           />

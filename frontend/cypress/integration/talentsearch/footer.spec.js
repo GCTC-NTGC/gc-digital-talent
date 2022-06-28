@@ -38,13 +38,13 @@ describe('Footer', () => {
 
     it('links to Privacy Policy (french)', () => {
       cy.findByRole('contentinfo').within(() => {
-        cy.findByText('Modalités').should('have.attr', 'href', '/fr/terms-and-conditions')
+        cy.findByText('Avis').should('have.attr', 'href', '/fr/terms-and-conditions')
       })
     })
 
     it('links to Canada.ca (french)', () => {
       cy.findByRole('contentinfo').within(() => {
-        cy.findByText('canada.ca').should('have.attr', 'href', 'https://www.canada.ca/fr.html')
+        cy.findByText('Canada.ca').should('have.attr', 'href', 'https://www.canada.ca/fr.html')
       })
     })
   })
