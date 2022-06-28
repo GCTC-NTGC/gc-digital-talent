@@ -354,5 +354,13 @@
   "74Sg+4": {
     "defaultMessage": "L’exigence minimale en matière d’études est un diplôme d’études générales ou secondaires. Il n’est pas nécessaire d’avoir fait des études collégiales ou universitaires.",
     "description": "Learn more dialog question twelve paragraph one"
+  },
+  "gKyog2": {
+    "defaultMessage": "Oups, on dirait que vous avez atterri sur une page que vous n'êtes pas autorisé(e) à consulter.",
+    "description": "Detailed message saying the page to view is not authorized."
+  },
+  "jPLaDk": {
+    "defaultMessage": "Désolé, vous n'êtes pas autorisé(e) à consulter cette page.",
+    "description": "Heading for the message saying the page to view is not authorized."
   }
 }

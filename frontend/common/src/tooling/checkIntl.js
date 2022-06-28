@@ -2,6 +2,8 @@
 /* eslint-disable no-console */
 const fs = require("fs");
 const yargs = require("yargs");
+const path = require("path");
+const yaml = require("js-yaml");
 
 const { argv } = yargs(process.argv.slice(2))
   .option("en", {
@@ -38,15 +40,34 @@ const { argv } = yargs(process.argv.slice(2))
   })
   .help();
 
+/**
+ * Loads data from a json or yml file as a js object or array.
+ * @param {*} filename
+ * @param {*} defaultData
+ * @returns Returns defaultData if filename is undefined or null or empty string.
+ */
+const readDataFile = (filename, defaultData) => {
+  if (!filename) {
+    return defaultData;
+  }
+  const ext = path.extname(filename);
+  if (ext === ".json") {
+    return JSON.parse(fs.readFileSync(filename));
+  }
+  if (ext === ".yml" || ext === ".yaml") {
+    return yaml.load(fs.readFileSync(filename));
+  }
+  // For unknown file types, throw error
+  throw new Error(
+    `Filename must be a .json, .yml or .yaml file. '${filename}' is not valid.`,
+  );
+};
+
 // First read all relevant files and convert to js objects.
-const en = JSON.parse(fs.readFileSync(argv.en));
-const frOriginal = JSON.parse(fs.readFileSync(argv.fr));
-const whitelist = argv.whitelist
-  ? JSON.parse(fs.readFileSync(argv.whitelist))
-  : [];
-const frNew = argv["merge-fr"]
-  ? JSON.parse(fs.readFileSync(argv["merge-fr"]))
-  : {};
+const en = readDataFile(argv.en, {});
+const frOriginal = readDataFile(argv.fr, {});
+const whitelist = readDataFile(argv.whitelist, []);
+const frNew = readDataFile(argv["merge-fr"], {});
 
 // If merge-fr file was specified, use it to overwrite values from frOriginal.
 const fr = { ...frOriginal, ...frNew };
