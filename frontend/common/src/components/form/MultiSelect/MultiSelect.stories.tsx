@@ -1,21 +1,19 @@
-import { Meta, Story } from "@storybook/react";
+import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 import { uniqueId } from "lodash";
 import React from "react";
-import Form from "../BasicForm";
+import BasicForm from "../BasicForm";
 import Submit from "../Submit";
 import MultiSelect from "./MultiSelect";
-import type { MultiSelectProps } from ".";
 
 export default {
   component: MultiSelect,
   title: "Form/MultiSelect",
-  args: {},
-} as Meta;
+} as ComponentMeta<typeof MultiSelect>;
 
-const TemplateMultiSelect: Story<MultiSelectProps> = (args) => {
+const Template: ComponentStory<typeof MultiSelect> = (args) => {
   return (
-    <Form
+    <BasicForm
       onSubmit={action("Submit Form")}
       options={{ defaultValues: { departments: "" } }}
     >
@@ -23,14 +21,14 @@ const TemplateMultiSelect: Story<MultiSelectProps> = (args) => {
         <MultiSelect {...args} />
         <Submit />
       </div>
-    </Form>
+    </BasicForm>
   );
 };
 
-export const MultiSelectDefault = TemplateMultiSelect.bind({});
-MultiSelectDefault.args = {
+export const Default = Template.bind({});
+Default.args = {
   id: uniqueId(),
-  label: "Select a dept",
+  label: "Departments",
   name: "departments",
   options: [
     { value: 1, label: "CRA" },
@@ -39,30 +37,28 @@ MultiSelectDefault.args = {
   ],
 };
 
-export const MultiSelectRequired = TemplateMultiSelect.bind({});
-MultiSelectRequired.args = {
-  ...MultiSelectDefault.args,
+export const Required = Template.bind({});
+Required.args = {
+  ...Default.args,
   rules: { required: "This must be accepted to continue." },
 };
 
-export const MultiSelectRequiredWithInfo = TemplateMultiSelect.bind({});
-MultiSelectRequiredWithInfo.args = {
-  ...MultiSelectDefault.args,
+export const RequiredWithInfo = Template.bind({});
+RequiredWithInfo.args = {
+  ...Default.args,
   context: "We collect the above data for account purposes.",
   rules: { required: "This must be accepted to continue." },
 };
 
-export const MultiSelectRequiredWithError = TemplateMultiSelect.bind({});
-MultiSelectRequiredWithError.args = {
-  ...MultiSelectDefault.args,
+export const RequiredWithError = Template.bind({});
+RequiredWithError.args = {
+  ...Default.args,
   rules: { required: "This must be accepted to continue." },
 };
 
-export const MultiSelectRequiredWithErrorAndContext = TemplateMultiSelect.bind(
-  {},
-);
-MultiSelectRequiredWithErrorAndContext.args = {
-  ...MultiSelectDefault.args,
+export const RequiredWithErrorAndContext = Template.bind({});
+RequiredWithErrorAndContext.args = {
+  ...Default.args,
   context: "We collect the above data for account purposes.",
   rules: { required: "This must be accepted to continue." },
 };
