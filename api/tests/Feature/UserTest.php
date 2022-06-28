@@ -177,7 +177,7 @@ class UserTest extends TestCase
 
         // Assert query with no pool filter will return all users, including unavailable
         $this->graphQL(/** @lang Graphql */ '
-            query getUsersPaginated($where: UserFilterAndOrderInput) {
+            query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
                         total
@@ -198,7 +198,7 @@ class UserTest extends TestCase
 
         // Assert query with pool filter but no statuses filter
         $this->graphQL(/** @lang Graphql */ '
-            query getUsersPaginated($where: UserFilterAndOrderInput) {
+            query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
                         total
@@ -223,7 +223,7 @@ class UserTest extends TestCase
 
         // Assert query with pool filter, only expired status
         $this->graphQL(/** @lang Graphql */ '
-            query getUsersPaginated($where: UserFilterAndOrderInput) {
+            query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
                         total
@@ -249,7 +249,7 @@ class UserTest extends TestCase
 
         // Assert query with pool filter, expired + available statuses
         $this->graphQL(/** @lang Graphql */ '
-            query getUsersPaginated($where: UserFilterAndOrderInput) {
+            query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
                         total
@@ -275,7 +275,7 @@ class UserTest extends TestCase
 
         // Assert query with pool filter, empty array of statuses will return all candidates in pool.
         $this->graphQL(/** @lang Graphql */ '
-            query getUsersPaginated($where: UserFilterAndOrderInput) {
+            query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
                         total
@@ -301,7 +301,7 @@ class UserTest extends TestCase
 
         // Assert query with unknown pool filter will return zero
         $this->graphQL(/** @lang Graphql */ '
-            query getUsersPaginated($where: UserFilterAndOrderInput) {
+            query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
                         total
@@ -381,7 +381,7 @@ class UserTest extends TestCase
 
         // Assert query with no parameters returns all users
         $this->graphQL(/** @lang Graphql */ '
-            query getUsersPaginated($where: UserFilterAndOrderInput) {
+            query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
                         total
@@ -400,7 +400,7 @@ class UserTest extends TestCase
 
         // Assert query for pool with default expiryStatus returns correct users
         $this->graphQL(/** @lang Graphql */ '
-            query getUsersPaginated($where: UserFilterAndOrderInput) {
+            query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
                         total
@@ -426,7 +426,7 @@ class UserTest extends TestCase
 
         // Assert query with pool and expiryStatus ACTIVE returns correct users
         $this->graphQL(/** @lang Graphql */ '
-            query getUsersPaginated($where: UserFilterAndOrderInput) {
+            query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
                         total
@@ -453,7 +453,7 @@ class UserTest extends TestCase
 
         // Assert query with pool and expiryStatus EXPIRED returns correct users
         $this->graphQL(/** @lang Graphql */ '
-            query getUsersPaginated($where: UserFilterAndOrderInput) {
+            query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
                         total
@@ -480,7 +480,7 @@ class UserTest extends TestCase
 
         // Assert query with pool and expiryStatus ALL returns all users in pool
         $this->graphQL(/** @lang Graphql */ '
-            query getUsersPaginated($where: UserFilterAndOrderInput) {
+            query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
                         total
@@ -525,7 +525,7 @@ class UserTest extends TestCase
 
         // Assert query with no LanguageAbility filter will return all users
         $this->graphQL(/** @lang Graphql */ '
-            query getUsersPaginated($where: UserFilterAndOrderInput) {
+            query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
                         total
@@ -546,7 +546,7 @@ class UserTest extends TestCase
 
         // Assert query with ENGLISH filter will return correct user count
         $this->graphQL(/** @lang Graphql */ '
-            query getUsersPaginated($where: UserFilterAndOrderInput) {
+            query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
                         total
@@ -569,7 +569,7 @@ class UserTest extends TestCase
 
         // Assert query with FRENCH filter will return correct user count
         $this->graphQL(/** @lang Graphql */ '
-            query getUsersPaginated($where: UserFilterAndOrderInput) {
+            query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
                         total
@@ -592,7 +592,7 @@ class UserTest extends TestCase
 
         // Assert query with BILINGUAL filter will return correct user count
         $this->graphQL(/** @lang Graphql */ '
-            query getUsersPaginated($where: UserFilterAndOrderInput) {
+            query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
                         total
@@ -632,7 +632,7 @@ class UserTest extends TestCase
 
         // Assert query with no classifications filter will return all users
         $this->graphQL(/** @lang Graphql */ '
-            query getUsersPaginated($where: UserFilterAndOrderInput) {
+            query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
                         total
@@ -653,7 +653,7 @@ class UserTest extends TestCase
 
         // Assert query with classification filter will return correct number of users
         $this->graphQL(/** @lang Graphql */ '
-            query getUsersPaginated($where: UserFilterAndOrderInput) {
+            query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
                         total
@@ -676,7 +676,7 @@ class UserTest extends TestCase
 
         // Assert query with unknown classification filter will return zero
         $this->graphQL(/** @lang Graphql */ '
-            query getUsersPaginated($where: UserFilterAndOrderInput) {
+            query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
                         total
@@ -734,7 +734,7 @@ class UserTest extends TestCase
 
         // Assert query with no classifications filter will return all users
         $this->graphQL(/** @lang Graphql */ '
-            query getUsersPaginated($where: UserFilterAndOrderInput) {
+            query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
                         total
@@ -755,7 +755,7 @@ class UserTest extends TestCase
 
         // Assert query with classification filter will return users in range and overlapping.
         $this->graphQL(/** @lang Graphql */ '
-            query getUsersPaginated($where: UserFilterAndOrderInput) {
+            query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
                         total
@@ -778,7 +778,7 @@ class UserTest extends TestCase
 
         // Assert query with unknown classification filter will return zero
         $this->graphQL(/** @lang Graphql */ '
-            query getUsersPaginated($where: UserFilterAndOrderInput) {
+            query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
                         total
@@ -822,7 +822,7 @@ class UserTest extends TestCase
 
         // Assert query with no operationalRequirements filter will return all users
         $this->graphQL(/** @lang Graphql */ '
-            query getUsersPaginated($where: UserFilterAndOrderInput) {
+            query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
                         total
@@ -843,7 +843,7 @@ class UserTest extends TestCase
 
         // Assert query with empty operationalRequirements filter will return all users
         $this->graphQL(/** @lang Graphql */ '
-            query getUsersPaginated($where: UserFilterAndOrderInput) {
+            query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
                         total
@@ -866,7 +866,7 @@ class UserTest extends TestCase
 
         // Assert query with one operationalRequirement filter will return correct user count
         $this->graphQL(/** @lang Graphql */ '
-            query getUsersPaginated($where: UserFilterAndOrderInput) {
+            query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
                         total
@@ -889,7 +889,7 @@ class UserTest extends TestCase
 
         // Assert query with two operationalRequirement filters will return correct user count
         $this->graphQL(/** @lang Graphql */ '
-            query getUsersPaginated($where: UserFilterAndOrderInput) {
+            query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
                         total
@@ -912,7 +912,7 @@ class UserTest extends TestCase
 
         // Assert query with an unused operationalRequirement filter will return zero
         $this->graphQL(/** @lang Graphql */ '
-            query getUsersPaginated($where: UserFilterAndOrderInput) {
+            query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
                         total
@@ -948,7 +948,7 @@ class UserTest extends TestCase
 
         // Assert query with no locationPreferences filter will return all users
         $this->graphQL(/** @lang Graphql */ '
-            query getUsersPaginated($where: UserFilterAndOrderInput) {
+            query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
                         total
@@ -969,7 +969,7 @@ class UserTest extends TestCase
 
         // Assert query with locationPreferences filter will return correct user count
         $this->graphQL(/** @lang Graphql */ '
-            query getUsersPaginated($where: UserFilterAndOrderInput) {
+            query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
                         total
@@ -992,7 +992,7 @@ class UserTest extends TestCase
 
         // Assert query with empty locationPreferences filter will return all users
         $this->graphQL(/** @lang Graphql */ '
-            query getUsersPaginated($where: UserFilterAndOrderInput) {
+            query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
                         total
@@ -1028,7 +1028,7 @@ class UserTest extends TestCase
 
         // Assert query no hasDiploma filter will return all users
         $this->graphQL(/** @lang Graphql */ '
-            query getUsersPaginated($where: UserFilterAndOrderInput) {
+            query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
                         total
@@ -1049,7 +1049,7 @@ class UserTest extends TestCase
 
         // Assert query with hasDiploma filter set to true will return correct user count
         $this->graphQL(/** @lang Graphql */ '
-            query getUsersPaginated($where: UserFilterAndOrderInput) {
+            query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
                         total
@@ -1072,7 +1072,7 @@ class UserTest extends TestCase
 
         // Assert query with hasDiploma filter set to false will return all users
         $this->graphQL(/** @lang Graphql */ '
-            query getUsersPaginated($where: UserFilterAndOrderInput) {
+            query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
                         total
@@ -1108,7 +1108,7 @@ class UserTest extends TestCase
 
         // Assert query no wouldAcceptTemporary filter will return all users
         $this->graphQL(/** @lang Graphql */ '
-            query getUsersPaginated($where: UserFilterAndOrderInput) {
+            query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
                         total
@@ -1129,7 +1129,7 @@ class UserTest extends TestCase
 
         // Assert query with wouldAcceptTemporary filter set to true will return correct user count
         $this->graphQL(/** @lang Graphql */ '
-            query getUsersPaginated($where: UserFilterAndOrderInput) {
+            query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
                         total
@@ -1152,7 +1152,7 @@ class UserTest extends TestCase
 
         // Assert query with wouldAcceptTemporary filter set to false will return all users
         $this->graphQL(/** @lang Graphql */ '
-            query getUsersPaginated($where: UserFilterAndOrderInput) {
+            query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
                         total
@@ -1196,7 +1196,7 @@ class UserTest extends TestCase
 
         // Assert query with no jobLookingStatus filter will return all users
         $this->graphQL(/** @lang Graphql */ '
-            query getUsersPaginated($where: UserFilterAndOrderInput) {
+            query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
                         total
@@ -1217,7 +1217,7 @@ class UserTest extends TestCase
 
         // Assert query with empty jobLookingStatus filter will return all users
         $this->graphQL(/** @lang Graphql */ '
-            query getUsersPaginated($where: UserFilterAndOrderInput) {
+            query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
                         total
@@ -1240,7 +1240,7 @@ class UserTest extends TestCase
 
         // Assert query with one jobLookingStatus filter will return correct user count
         $this->graphQL(/** @lang Graphql */ '
-            query getUsersPaginated($where: UserFilterAndOrderInput) {
+            query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
                         total
@@ -1263,7 +1263,7 @@ class UserTest extends TestCase
 
         // Assert query with two jobLookingStatus filters will return correct user count
         $this->graphQL(/** @lang Graphql */ '
-            query getUsersPaginated($where: UserFilterAndOrderInput) {
+            query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
                         total
@@ -1286,7 +1286,7 @@ class UserTest extends TestCase
 
         // Assert query with an unused jobLookingStatus filter will return zero
         $this->graphQL(/** @lang Graphql */ '
-            query getUsersPaginated($where: UserFilterAndOrderInput) {
+            query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
                         total
@@ -1359,7 +1359,7 @@ class UserTest extends TestCase
 
         // Assert query no isProfileComplete filter will return all users
         $this->graphQL(/** @lang Graphql */ '
-            query getUsersPaginated($where: UserFilterAndOrderInput) {
+            query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
                         total
@@ -1380,7 +1380,7 @@ class UserTest extends TestCase
 
         // Assert query with isProfileComplete filter set to true will return correct user count
         $this->graphQL(/** @lang Graphql */ '
-            query getUsersPaginated($where: UserFilterAndOrderInput) {
+            query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
                         total
@@ -1403,7 +1403,7 @@ class UserTest extends TestCase
 
         // Assert query with isProfileComplete filter set to false will return all users
         $this->graphQL(/** @lang Graphql */ '
-            query getUsersPaginated($where: UserFilterAndOrderInput) {
+            query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
                         total
@@ -1741,7 +1741,7 @@ class UserTest extends TestCase
 
         // Assert query no skills filter will return all users
         $this->graphQL(/** @lang Graphql */ '
-            query getUsersPaginated($where: UserFilterAndOrderInput) {
+            query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
                         total
@@ -1762,7 +1762,7 @@ class UserTest extends TestCase
 
         // Assert query empty skills filter array will return all users
         $this->graphQL(/** @lang Graphql */ '
-            query getUsersPaginated($where: UserFilterAndOrderInput) {
+            query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
                         total
@@ -1785,7 +1785,7 @@ class UserTest extends TestCase
 
         // Assert query with one skills filter will return correct user count
         $this->graphQL(/** @lang Graphql */ '
-            query getUsersPaginated($where: UserFilterAndOrderInput) {
+            query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
                         total
@@ -1808,7 +1808,7 @@ class UserTest extends TestCase
 
         // Assert query with two skills will return correct user count
         $this->graphQL(/** @lang Graphql */ '
-            query getUsersPaginated($where: UserFilterAndOrderInput) {
+            query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
                         total
@@ -1831,7 +1831,7 @@ class UserTest extends TestCase
 
         // Assert query with unused skill will return correct user count
         $this->graphQL(/** @lang Graphql */ '
-            query getUsersPaginated($where: UserFilterAndOrderInput) {
+            query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
                         total
@@ -1867,7 +1867,7 @@ class UserTest extends TestCase
 
         // Assert query no isGovEmployee filter will return all users
         $this->graphQL(/** @lang Graphql */ '
-            query getUsersPaginated($where: UserFilterAndOrderInput) {
+            query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
                         total
@@ -1888,7 +1888,7 @@ class UserTest extends TestCase
 
         // Assert query with isGovEmployee filter set to true will return correct user count
         $this->graphQL(/** @lang Graphql */ '
-            query getUsersPaginated($where: UserFilterAndOrderInput) {
+            query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
                         total
@@ -1911,7 +1911,7 @@ class UserTest extends TestCase
 
         // Assert query with isGovEmployee filter set to false will return all users
         $this->graphQL(/** @lang Graphql */ '
-            query getUsersPaginated($where: UserFilterAndOrderInput) {
+            query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
                         total
@@ -1940,37 +1940,21 @@ class UserTest extends TestCase
         $usersByName = User::select('id')->orderBy('first_name')->get()->toArray();
         $usersById = User::select('id')->orderBy('id')->get()->toArray();
 
-        // Assert query no orderBy given defaults to id
-        $this->graphQL(/** @lang Graphql */ '
-            query getUsersPaginated($where: UserFilterAndOrderInput) {
-                usersPaginated(where: $where) {
-                    data {
-                        id
-                    }
-                }
-            }
-        ', [
-            'where' => []
-        ])->assertJson([
-            'data' => [
-                'usersPaginated' => [
-                    'data' => $usersById
-                ]
-            ]
-        ]);
-
         // Assert query orders by given attribute
         $this->graphQL(/** @lang Graphql */ '
-            query getUsersPaginated($where: UserFilterAndOrderInput) {
-                usersPaginated(where: $where) {
+            query getUsersPaginated($orderBy: [OrderByClause!]) {
+                usersPaginated(orderBy: $orderBy) {
                     data {
                         id
                     }
                 }
             }
         ', [
-            'where' => [
-                'orderBy' => 'first_name',
+            'orderBy' => [
+                [
+                'column' => 'first_name',
+                'order' => 'ASC'
+                ]
             ]
         ])->assertJson([
             'data' => [
@@ -2076,7 +2060,7 @@ class UserTest extends TestCase
 
         // Assert query with just pool filters will return all users in that pool
         $this->graphQL(/** @lang Graphql */ '
-            query getUsersPaginated($where: UserFilterAndOrderInput) {
+            query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
                         total
@@ -2102,7 +2086,7 @@ class UserTest extends TestCase
 
         // Assert query with classification filter will return users in range and overlapping in that pool
         $this->graphQL(/** @lang Graphql */ '
-            query getUsersPaginated($where: UserFilterAndOrderInput) {
+            query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
                         total
@@ -2129,7 +2113,7 @@ class UserTest extends TestCase
 
         // Assert query with unknown classification filter will return zero
         $this->graphQL(/** @lang Graphql */ '
-            query getUsersPaginated($where: UserFilterAndOrderInput) {
+            query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
                         total
@@ -2295,7 +2279,7 @@ class UserTest extends TestCase
 
         // Assert no filters returns all five users plus admin@test.com
         $this->graphQL(/** @lang Graphql */ '
-            query getUsersPaginated($where: UserFilterAndOrderInput) {
+            query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
                         total
@@ -2317,7 +2301,7 @@ class UserTest extends TestCase
         // Name filtering  //
         // casing should not matter
         $this->graphQL(/** @lang Graphql */ '
-            query getUsersPaginated($where: UserFilterAndOrderInput) {
+            query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
                         total
@@ -2339,7 +2323,7 @@ class UserTest extends TestCase
         ]);
         // ensure single letter returns all relevant results
         $this->graphQL(/** @lang Graphql */ '
-            query getUsersPaginated($where: UserFilterAndOrderInput) {
+            query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
                         total
@@ -2361,7 +2345,7 @@ class UserTest extends TestCase
         ]);
         // test a full name
         $this->graphQL(/** @lang Graphql */ '
-            query getUsersPaginated($where: UserFilterAndOrderInput) {
+            query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
                         total
@@ -2383,7 +2367,7 @@ class UserTest extends TestCase
         ]);
         // test name segments
         $this->graphQL(/** @lang Graphql */ '
-            query getUsersPaginated($where: UserFilterAndOrderInput) {
+            query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
                         total
@@ -2405,7 +2389,7 @@ class UserTest extends TestCase
         ]);
         // test name segments but in reverse
         $this->graphQL(/** @lang Graphql */ '
-            query getUsersPaginated($where: UserFilterAndOrderInput) {
+            query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
                         total
@@ -2428,7 +2412,7 @@ class UserTest extends TestCase
 
         // ensure queries with multiple filter variables apply separately as AND operations (builds off assertion above)
         $this->graphQL(/** @lang Graphql */ '
-            query getUsersPaginated($where: UserFilterAndOrderInput) {
+            query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
                         total
@@ -2452,7 +2436,7 @@ class UserTest extends TestCase
 
         // Assert email filter with partial email returns correct count
         $this->graphQL(/** @lang Graphql */ '
-            query getUsersPaginated($where: UserFilterAndOrderInput) {
+            query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
                         total
@@ -2475,7 +2459,7 @@ class UserTest extends TestCase
 
         // Assert filtering for phone digit in general search returns correct count
         $this->graphQL(/** @lang Graphql */ '
-            query getUsersPaginated($where: UserFilterAndOrderInput) {
+            query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
                         total
@@ -2498,7 +2482,7 @@ class UserTest extends TestCase
 
         // Assert filtering for last name in general search returns correct count
         $this->graphQL(/** @lang Graphql */ '
-            query getUsersPaginated($where: UserFilterAndOrderInput) {
+            query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
                         total
@@ -2521,7 +2505,7 @@ class UserTest extends TestCase
 
         // Assert filtering general search and name search (both subqueries) filter as AND
         $this->graphQL(/** @lang Graphql */ '
-            query getUsersPaginated($where: UserFilterAndOrderInput) {
+            query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
                         total

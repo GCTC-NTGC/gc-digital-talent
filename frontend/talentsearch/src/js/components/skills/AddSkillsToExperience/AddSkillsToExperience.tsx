@@ -134,10 +134,10 @@ const AddSkillsToExperience: React.FunctionComponent<
             currentPage={frequentSkillsPagination.currentPage}
             pageSize={resultsPaginationPageSize}
             totalCount={frequentSkills.length}
-            handlePageChange={(page) =>
+            onCurrentPageChange={(page) =>
               frequentSkillsPagination.setCurrentPage(page)
             }
-            handlePageSize={frequentSkillsPagination.setPageSize}
+            onPageSizeChange={frequentSkillsPagination.setPageSize}
           />
         </Tab>
         <Tab
@@ -175,10 +175,10 @@ const AddSkillsToExperience: React.FunctionComponent<
             currentPage={mainstreamSkillsPagination.currentPage}
             pageSize={resultsPaginationPageSize}
             totalCount={familyFilteredSkills.length}
-            handlePageChange={(page) =>
+            onCurrentPageChange={(page) =>
               mainstreamSkillsPagination.setCurrentPage(page)
             }
-            handlePageSize={mainstreamSkillsPagination.setPageSize}
+            onPageSizeChange={mainstreamSkillsPagination.setPageSize}
           />
         </Tab>
         <Tab
@@ -213,10 +213,10 @@ const AddSkillsToExperience: React.FunctionComponent<
             currentPage={keywordSearchPagination.currentPage}
             pageSize={resultsPaginationPageSize}
             totalCount={searchFilteredSkills.length}
-            handlePageChange={(page) =>
+            onCurrentPageChange={(page) =>
               keywordSearchPagination.setCurrentPage(page)
             }
-            handlePageSize={keywordSearchPagination.setPageSize}
+            onPageSizeChange={keywordSearchPagination.setPageSize}
           />
         </Tab>
         <Tab
