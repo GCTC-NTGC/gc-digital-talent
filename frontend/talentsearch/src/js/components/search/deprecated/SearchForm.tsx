@@ -11,6 +11,7 @@ import {
   getOperationalRequirement,
   getWorkRegion,
 } from "@common/constants/localizedConstants";
+import { strong } from "@common/helpers/format";
 import {
   Classification,
   CmoAsset,
@@ -22,10 +23,6 @@ import {
 } from "../../../api/generated";
 
 const NullSelection = "NULL_SELECTION";
-
-const bold = (msg: string) => {
-  return <span data-h2-font-weight="b(700)">{msg}</span>;
-};
 
 const FilterBlock: React.FunctionComponent<{
   id: string;
@@ -400,7 +397,7 @@ export const SearchForm: React.FunctionComponent<SearchFormProps> = ({
                   "Context for employment equity filter in search form.",
               },
               {
-                bold,
+                bold: strong,
               },
             )}
             items={[

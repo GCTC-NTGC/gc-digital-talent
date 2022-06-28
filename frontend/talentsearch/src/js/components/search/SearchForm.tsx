@@ -12,6 +12,7 @@ import {
 import { enumToOptions, unpackMaybes } from "@common/helpers/formUtils";
 import { getLocale } from "@common/helpers/localize";
 import { useLocation } from "@common/helpers/router";
+import { strong } from "@common/helpers/format";
 import {
   Classification,
   CmoAsset,
@@ -32,10 +33,6 @@ function mapIdToValue<T extends { id: string }>(objects: T[]): Map<string, T> {
     return map;
   }, new Map());
 }
-
-const bold = (msg: string) => {
-  return <span data-h2-font-weight="b(700)">{msg}</span>;
-};
 
 type Option<V> = { value: V; label: string };
 export type FormValues = Pick<
@@ -429,7 +426,7 @@ const SearchForm: React.FC<SearchFormProps> = ({
                   "Context for employment equity filter in search form.",
               },
               {
-                bold,
+                bold: strong,
               },
             )}
             items={[
