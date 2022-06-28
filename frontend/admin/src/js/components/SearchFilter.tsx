@@ -12,7 +12,7 @@ const SearchFilterFooter = ({
   handleClear,
   handleSubmit,
 }: SearchFilterFooterProps): JSX.Element => (
-  <>
+  <div style={{ display: "flex", placeContent: "space-between" }}>
     <Button type="reset" color="secondary" mode="outline" onClick={handleClear}>
       <FormattedMessage
         description="Reset button within the search filter dialog"
@@ -25,7 +25,7 @@ const SearchFilterFooter = ({
         defaultMessage="Show results"
       />
     </Button>
-  </>
+  </div>
 );
 
 type SearchFilterProps = {
