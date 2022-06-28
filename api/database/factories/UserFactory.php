@@ -36,6 +36,7 @@ class UserFactory extends Factory
         $randomDepartment = Department::inRandomOrder()->first();
         $randomClassification = Classification::inRandomOrder()->first();
         $isGovEmployee = $this->faker->boolean();
+        $hasBeenEvaluated = $this->faker->boolean();
 
         return [
             'first_name' => $this->faker->firstName(),
@@ -69,21 +70,21 @@ class UserFactory extends Factory
             'looking_for_english' => $this->faker->boolean(),
             'looking_for_french' => $this->faker->boolean(),
             'looking_for_bilingual' => $this->faker->boolean(),
-            'bilingual_evaluation' => $this->faker->optional->randomElement([
-                'COMPLETED_ENGLISH',
-                'COMPLETED_FRENCH',
-                'NOT_COMPLETED',
-            ]),
-            'comprehension_level' => $this->faker->randomElement(
+            'bilingual_evaluation' => $hasBeenEvaluated ? $this->faker->randomElement([
+                    'COMPLETED_ENGLISH',
+                    'COMPLETED_FRENCH',
+                    ]) : 'NOT_COMPLETED',
+
+            'comprehension_level' => $hasBeenEvaluated ? $this->faker->randomElement(
                 $evaluatedLanguageAbility
-            ),
-            'written_level' => $this->faker->randomElement(
+            ) : null,
+            'written_level' => $hasBeenEvaluated ? $this->faker->randomElement(
                 $evaluatedLanguageAbility
-            ),
-            'verbal_level' => $this->faker->randomElement(
+            ) : null,
+            'verbal_level' => $hasBeenEvaluated ? $this->faker->randomElement(
                 $evaluatedLanguageAbility
-            ),
-            'estimated_language_ability' => $this->faker->optional->randomElement([
+            ) : null,
+            'estimated_language_ability' => $hasBeenEvaluated ? null : $this->faker->randomElement([
                 'BEGINNER',
                 'INTERMEDIATE',
                 'ADVANCED'
