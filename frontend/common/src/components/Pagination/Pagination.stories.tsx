@@ -72,12 +72,12 @@ const TemplatePaginationWithData: Story<PaginationProps> = () => {
         ariaLabel="Pagination table"
         color="black"
         mode="outline"
-        handlePageSize={setPageSize}
+        onPageSizeChange={setPageSize}
         currentPage={currentPage}
         pageSize={pageSize}
         siblingCount={1}
         totalCount={skills.length}
-        handlePageChange={(page) => setCurrentPage(page)}
+        onCurrentPageChange={(page) => setCurrentPage(page)}
       />
     </div>
   );
