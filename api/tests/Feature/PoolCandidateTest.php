@@ -5,11 +5,13 @@ use App\Models\CmoAsset;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Factories\Sequence;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nuwave\Lighthouse\Testing\ClearsSchemaCache;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Tests\TestCase;
 use Database\Helpers\ApiEnums;
+
 class PoolCandidateTest extends TestCase
 {
   use RefreshDatabase;
@@ -1045,23 +1047,56 @@ class PoolCandidateTest extends TestCase
     $newUser->roles = ['ADMIN'];
     $newUser->save();
 
+    // Sequential Array of UUIDs for testing.
+    $fakeSequentialUuidArray = [
+      '00000000-0000-0000-0000-000000000001',
+      '00000000-0000-0000-0000-000000000002',
+      '00000000-0000-0000-0000-000000000003',
+      '00000000-0000-0000-0000-000000000004',
+      '00000000-0000-0000-0000-000000000005',
+      '00000000-0000-0000-0000-000000000006',
+      '00000000-0000-0000-0000-000000000007',
+      '00000000-0000-0000-0000-000000000008',
+      '00000000-0000-0000-0000-000000000009',
+      '00000000-0000-0000-0000-000000000010',
+    ];
+
     // Create some expired users
-    $expiredCandidates = PoolCandidate::factory()->count(2)->create([
+    $expiredCandidates = PoolCandidate::factory()->count(2)
+    ->state(new Sequence(
+      ['id' => $fakeSequentialUuidArray[0]],
+      ['id' => $fakeSequentialUuidArray[1]],
+    ))
+    ->create([
       'expiry_date' => '2000-05-13',
       'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE,
     ]);
 
     // Create some valid users
-    $futureCandidates = PoolCandidate::factory()->count(4)->create([
+    $futureCandidates = PoolCandidate::factory()->count(4)
+    ->state(new Sequence(
+      ['id' => $fakeSequentialUuidArray[2]],
+      ['id' => $fakeSequentialUuidArray[3]],
+      ['id' => $fakeSequentialUuidArray[4]],
+      ['id' => $fakeSequentialUuidArray[5]],
+    ))
+    ->create([
       'expiry_date' => '3000-05-13',
       'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE,
     ]);
     $todayCandidate = PoolCandidate::factory()->create([
+      'id' => $fakeSequentialUuidArray[6],
       'expiry_date' => date("Y-m-d"),
       'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE,
     ]);
     $futureCandidates->concat($todayCandidate);
-    $nullCandidates = PoolCandidate::factory()->count(3)->create([
+    $nullCandidates = PoolCandidate::factory()->count(3)
+    ->state(new Sequence(
+      ['id' => $fakeSequentialUuidArray[7]],
+      ['id' => $fakeSequentialUuidArray[8]],
+      ['id' => $fakeSequentialUuidArray[9]],
+    ))
+    ->create([
       'expiry_date' => null,
       'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE,
     ]);
