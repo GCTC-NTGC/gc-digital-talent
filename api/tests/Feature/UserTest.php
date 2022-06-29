@@ -1938,9 +1938,9 @@ class UserTest extends TestCase
         // Create users for testing
         User::factory()->count(8)->create();
         $usersByName = User::select('id')->orderBy('first_name')->get()->toArray();
-        $usersById = User::select('id')->orderBy('id')->get()->toArray();
+        $usersByCreated = User::select('id')->orderByDesc('created_at')->get()->toArray();
 
-        // Assert query no orderBy given defaults to id
+        // Assert query no orderBy given defaults to created_at desc
         $this->graphQL(/** @lang Graphql */ '
             query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
@@ -1954,7 +1954,7 @@ class UserTest extends TestCase
         ])->assertJson([
             'data' => [
                 'usersPaginated' => [
-                    'data' => $usersById
+                    'data' => $usersByCreated
                 ]
             ]
         ]);
