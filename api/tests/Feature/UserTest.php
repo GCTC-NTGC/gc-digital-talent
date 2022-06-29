@@ -800,6 +800,144 @@ class UserTest extends TestCase
         ]);
     }
 
+    public function testFilterByClassificationToGenericJobTitle(): void
+    {
+        // Create initial data.
+        User::factory()->count(5)->create([
+            'expected_salary' => []
+        ]);
+
+        // Create classifications and Generics
+        $this->seed(ClassificationSeeder::class);
+        $this->seed(GenericJobTitleSeeder::class);
+
+        // Create 3 users which correspond to IT-03
+        User::factory()->count(1)->create(['expected_salary' => []])->each(function($user) {
+            $user->expectedGenericJobTitles()->sync(
+                GenericJobTitle::where('key', ApiEnums::GENERIC_JOB_TITLE_KEY_TEAM_LEADER_IT03)->get()
+            );
+        });
+        User::factory()->count(2)->create(['expected_salary' => []])->each(function($user) {
+            $user->expectedGenericJobTitles()->sync(
+                GenericJobTitle::where('key', ApiEnums::GENERIC_JOB_TITLE_KEY_TECHNICAL_ADVISOR_IT03)->get()
+            );
+        });
+        // Create 4 users which correspond to IT-04
+        User::factory()->count(4)->create(['expected_salary' => []])->each(function($user) {
+            $user->expectedGenericJobTitles()->sync(
+                GenericJobTitle::where('key', ApiEnums::GENERIC_JOB_TITLE_KEY_SENIOR_ADVISOR_IT04)->get()
+            );
+        });
+        // Create 7 users which correspond to both IT-03 and IT-04
+        User::factory()->count(7)->create(['expected_salary' => []])->each(function($user) {
+            $user->expectedGenericJobTitles()->sync(
+                GenericJobTitle::whereIn('key', [
+                    ApiEnums::GENERIC_JOB_TITLE_KEY_SENIOR_ADVISOR_IT04,
+                    ApiEnums::GENERIC_JOB_TITLE_KEY_TECHNICAL_ADVISOR_IT03
+                ])->get()
+            );
+        });
+
+
+        // Assert query with no classifications filter will return all users
+        $this->graphQL(/** @lang Graphql */ '
+            query getUsersPaginated($where: UserFilterAndOrderInput) {
+                usersPaginated(where: $where) {
+                    paginatorInfo {
+                        total
+                    }
+                }
+            }
+        ', [
+            'where' => []
+        ])->assertJson([
+            'data' => [
+                'usersPaginated' => [
+                    'paginatorInfo' => [
+                        'total' => 20
+                    ]
+                ]
+            ]
+        ]);
+
+        // Assert query with one classification filter will return correct number of users.
+        $results = $this->graphQL(/** @lang Graphql */ '
+            query getUsersPaginated($where: UserFilterAndOrderInput) {
+                usersPaginated(where: $where) {
+                    paginatorInfo {
+                        total
+                    }
+                }
+            }
+        ', [
+            'where' => [
+                'expectedClassifications' => [['group' => 'IT', 'level' => 3 ]],
+            ]
+        ]);
+        $results->assertJson([
+            'data' => [
+                'usersPaginated' => [
+                    'paginatorInfo' => [
+                        'total' => 10
+                    ]
+                ]
+            ]
+        ]);
+
+        // Assert query with two classification filters will return correct number of users
+        $this->graphQL(/** @lang Graphql */ '
+            query getUsersPaginated($where: UserFilterAndOrderInput) {
+                usersPaginated(where: $where) {
+                    paginatorInfo {
+                        total
+                    }
+                }
+            }
+        ', [
+            'where' => [
+                'expectedClassifications' => [
+                    ['group' => 'IT', 'level' => 3 ],
+                    ['group' => 'IT', 'level' => 4 ]
+                ]
+            ]
+        ])->assertJson([
+            'data' => [
+                'usersPaginated' => [
+                    'paginatorInfo' => [
+                        'total' => 14
+                    ]
+                ]
+            ]
+        ]);
+
+        // Assert that adding an unknown classification to query to classification won't reduce number of users
+        $this->graphQL(/** @lang Graphql */ '
+            query getUsersPaginated($where: UserFilterAndOrderInput) {
+                usersPaginated(where: $where) {
+                    paginatorInfo {
+                        total
+                    }
+                }
+            }
+        ', [
+            'where' => [
+                'expectedClassifications' => [
+                    ['group' => 'IT', 'level' => 3 ],
+                    ['group' => 'IT', 'level' => 4 ],
+                    ['group' => 'QQ', 'level' => 9]
+                ]
+            ]
+        ])->assertJson([
+            'data' => [
+                'usersPaginated' => [
+                    'paginatorInfo' => [
+                        'total' => 14
+                    ]
+                ]
+            ]
+        ]);
+    }
+
     public function testFilterByOperationalRequirements(): void
     {
         // Create initial data.
