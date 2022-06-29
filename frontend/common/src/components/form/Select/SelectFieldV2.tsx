@@ -57,7 +57,6 @@ const SelectFieldV2 = ({
         <div style={{ width: "100%" }}>
           <Controller
             {...{ name, rules }}
-            aria-required={isRequired}
             render={({ field }) => {
               /** Converts our react-hook-form state to Option format that
                * react-select understands. */
@@ -83,6 +82,7 @@ const SelectFieldV2 = ({
                   // This only affects react-hook-form state, not internal react-select state.
                   onChange={convertSingleOrMultiOptionsToValues}
                   aria-label={label}
+                  aria-required={isRequired}
                   styles={{
                     placeholder: (provided) => ({
                       ...provided,
