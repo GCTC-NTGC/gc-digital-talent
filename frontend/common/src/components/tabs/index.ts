@@ -1,7 +1,9 @@
-import TabSet from "./TabSet";
+import { Tabs, TabList } from "@reach/tabs";
 import Tab from "./Tab";
-import type { TabProps } from "./Tab";
-import type { TabSetProps } from "./TabSet";
+import TabPanel from "./TabPanel";
+import TabPanels from "./TabPanels";
 
-export { Tab, TabSet };
-export type { TabSetProps, TabProps };
+import "@reach/tabs/styles.css";
+import "./tabs.css";
+
+export { Tabs, TabList, Tab, TabPanels, TabPanel };
