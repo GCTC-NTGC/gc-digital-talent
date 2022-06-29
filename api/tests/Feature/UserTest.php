@@ -841,7 +841,7 @@ class UserTest extends TestCase
 
         // Assert query with no classifications filter will return all users
         $this->graphQL(/** @lang Graphql */ '
-            query getUsersPaginated($where: UserFilterAndOrderInput) {
+            query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
                         total
@@ -862,7 +862,7 @@ class UserTest extends TestCase
 
         // Assert query with one classification filter will return correct number of users.
         $results = $this->graphQL(/** @lang Graphql */ '
-            query getUsersPaginated($where: UserFilterAndOrderInput) {
+            query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
                         total
@@ -886,7 +886,7 @@ class UserTest extends TestCase
 
         // Assert query with two classification filters will return correct number of users
         $this->graphQL(/** @lang Graphql */ '
-            query getUsersPaginated($where: UserFilterAndOrderInput) {
+            query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
                         total
@@ -912,7 +912,7 @@ class UserTest extends TestCase
 
         // Assert that adding an unknown classification to query to classification won't reduce number of users
         $this->graphQL(/** @lang Graphql */ '
-            query getUsersPaginated($where: UserFilterAndOrderInput) {
+            query getUsersPaginated($where: UserFilterInput) {
                 usersPaginated(where: $where) {
                     paginatorInfo {
                         total
