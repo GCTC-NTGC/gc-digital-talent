@@ -24,6 +24,19 @@ const TemplateFrenchHome: Story = () => {
   );
 };
 
+const VIEWPORTS = [
+  375, // Modern iPhone
+  1366, // Most common viewport size that falls within chromatic range
+];
+
 export const EnglishHomeStory = TemplateEnglishHome.bind({});
 
+EnglishHomeStory.parameters = {
+  chromatic: { viewports: VIEWPORTS },
+};
+
 export const FrenchHomeStory = TemplateFrenchHome.bind({});
+
+FrenchHomeStory.parameters = {
+  chromatic: { viewports: VIEWPORTS },
+};
