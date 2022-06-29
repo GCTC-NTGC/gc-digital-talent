@@ -12,7 +12,7 @@ use Tests\TestCase;
 use Database\Helpers\ApiEnums;
 class PoolCandidateTest extends TestCase
 {
-  use \Illuminate\Foundation\Testing\RefreshDatabase;
+  use RefreshDatabase;
   use MakesGraphQLRequests;
   use ClearsSchemaCache;
 
