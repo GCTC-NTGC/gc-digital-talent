@@ -827,7 +827,7 @@ input UpdateUserAsUserInput {
     hasDiploma: Boolean @rename(attribute: "has_diploma")
     locationPreferences: [WorkRegion] @rename(attribute: "location_preferences")
     locationExemptions: String @rename(attribute: "location_exemptions")
-    acceptedOperationalRequirements: [OperationalRequirement] @rename(attribute: accepted_operational_requirements)
+    acceptedOperationalRequirements: [OperationalRequirement] @rename(attribute: "accepted_operational_requirements")
     expectedSalary: [SalaryRange] @rename(attribute: "expected_salary")
     expectedClassifications: ClassificationBelongsToMany
     expectedGenericJobTitles: GenericJobTitleBelongsToMany

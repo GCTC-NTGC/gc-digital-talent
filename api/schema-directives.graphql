@@ -19,6 +19,17 @@ directive @canAsParent(
   ability: String!
 ) repeatable on FIELD_DEFINITION
 
+# Directive class: Nuwave\Lighthouse\Testing\MockDirective
+"""
+Allows you to easily hook up a resolver for an endpoint.
+"""
+directive @mock(
+    """
+    Specify a unique key for the mock resolver.
+    """
+    key: String = "default"
+) on FIELD_DEFINITION
+
 # Directive class: Nuwave\Lighthouse\Auth\AuthDirective
 """
 Return the currently authenticated user as the result of a query.
@@ -71,7 +82,7 @@ directive @can(
   """
   Statically defined arguments that are passed to `Gate::check`.
 
-  You may pass pass arbitrary GraphQL literals,
+  You may pass arbitrary GraphQL literals,
   e.g.: [1, 2, 3] or { foo: "bar" }
   """
   args: CanArgs
@@ -754,69 +765,6 @@ Any constant literal value: https://graphql.github.io/graphql-spec/draft/#sec-In
 """
 scalar BuilderValue
 
-# Directive class: Nuwave\Lighthouse\Schema\Directives\CacheDirective
-"""
-Cache the result of a resolver.
-"""
-directive @cache(
-  """
-  Set the duration it takes for the cache to expire in seconds.
-  If not given, the result will be stored forever.
-  """
-  maxAge: Int
-
-  """
-  Limit access to cached data to the currently authenticated user.
-  When the field is accessible by guest users, this will not have
-  any effect, they will access a shared cache.
-  """
-  private: Boolean = false
-) on FIELD_DEFINITION
-
-# Directive class: Nuwave\Lighthouse\Schema\Directives\CacheKeyDirective
-"""
-Specify the field to use as a key when creating a cache.
-"""
-directive @cacheKey on ARGUMENT_DEFINITION | INPUT_FIELD_DEFINITION
-
-# Directive class: Nuwave\Lighthouse\Schema\Directives\ClearCacheDirective
-"""
-Clear a resolver cache by tags.
-"""
-directive @clearCache(
-  """
-  Name of the parent type of the field to clear.
-  """
-  type: String!
-
-  """
-  Source of the parent ID to clear.
-  """
-  idSource: ClearCacheId
-
-  """
-  Name of the field to clear.
-  """
-  field: String
-) on FIELD_DEFINITION
-
-"""
-Options for the `id` argument on `@clearCache`.
-
-Exactly one of the fields must be given.
-"""
-input ClearCacheIdSource {
-  """
-  Path of an argument the client passes to the field `@clearCache` is applied to.
-  """
-  argument: String
-
-  """
-  Path of a field in the result returned from the field `@clearCache` is applied to.
-  """
-  field: String
-}
-
 # Directive class: Nuwave\Lighthouse\Schema\Directives\ComplexityDirective
 """
 Customize the calculation of a fields complexity score before execution.
@@ -829,6 +777,12 @@ directive @complexity(
   """
   resolver: String
 ) on FIELD_DEFINITION
+
+# Directive class: Nuwave\Lighthouse\Schema\Directives\ConvertEmptyStringsToNullDirective
+"""
+Replaces `""` with `null`.
+"""
+directive @convertEmptyStringsToNull on ARGUMENT_DEFINITION | INPUT_FIELD_DEFINITION | FIELD_DEFINITION
 
 # Directive class: Nuwave\Lighthouse\Schema\Directives\CountDirective
 """
@@ -851,6 +805,17 @@ directive @count(
   Apply scopes to the underlying query.
   """
   scopes: [String!]
+
+  """
+  Count only rows where the given columns are non-null.
+  `*` counts every row.
+  """
+  columns: [String!]! = ["*"]
+
+  """
+  Should exclude duplicated rows?
+  """
+  distinct: Boolean! = false
 ) on FIELD_DEFINITION
 
 # Directive class: Nuwave\Lighthouse\Schema\Directives\CreateDirective
@@ -912,6 +877,18 @@ directive @deprecated(
   """
   reason: String = "No longer supported"
 ) on FIELD_DEFINITION | ENUM_VALUE
+
+# Directive class: Nuwave\Lighthouse\Schema\Directives\DropArgsDirective
+"""
+Apply the @drop directives on the incoming arguments.
+"""
+directive @dropArgs on FIELD_DEFINITION
+
+# Directive class: Nuwave\Lighthouse\Schema\Directives\DropDirective
+"""
+Ignore the user given value, don't pass it to the resolver.
+"""
+directive @drop on ARGUMENT_DEFINITION | INPUT_FIELD_DEFINITION
 
 # Directive class: Nuwave\Lighthouse\Schema\Directives\EnumDirective
 """
@@ -1339,7 +1316,51 @@ directive @morphToMany(
   Apply scopes to the underlying query.
   """
   scopes: [String!]
+
+  """
+  Allows to resolve the relation as a paginated list.
+  """
+  type: MorphToManyType
+
+  """
+  Allow clients to query paginated lists without specifying the amount of items.
+  Overrules the `pagination.default_count` setting from `lighthouse.php`.
+  """
+  defaultCount: Int
+
+  """
+  Limit the maximum amount of items that clients can request from paginated lists.
+  Overrules the `pagination.max_count` setting from `lighthouse.php`.
+  """
+  maxCount: Int
+
+  """
+  Specify a custom type that implements the Edge interface
+  to extend edge object.
+  Only applies when using Relay style "connection" pagination.
+  """
+  edgeType: String
 ) on FIELD_DEFINITION
+
+"""
+Options for the `type` argument of `@morphToMany`.
+"""
+enum MorphToManyType {
+    """
+    Offset-based pagination, similar to the Laravel default.
+    """
+    PAGINATOR
+
+    """
+    Offset-based pagination like the Laravel "Simple Pagination", which does not count the total number of records.
+    """
+    SIMPLE
+
+    """
+    Cursor-based pagination, compatible with the Relay specification.
+    """
+    CONNECTION
+}
 
 # Directive class: Nuwave\Lighthouse\Schema\Directives\NamespaceDirective
 """
