@@ -1940,6 +1940,25 @@ class UserTest extends TestCase
         $usersByName = User::select('id')->orderBy('first_name')->get()->toArray();
         $usersById = User::select('id')->orderBy('id')->get()->toArray();
 
+        // Assert query no orderBy given defaults to id
+        $this->graphQL(/** @lang Graphql */ '
+            query getUsersPaginated($where: UserFilterInput) {
+                usersPaginated(where: $where) {
+                    data {
+                        id
+                    }
+                }
+            }
+        ', [
+            'where' => []
+        ])->assertJson([
+            'data' => [
+                'usersPaginated' => [
+                    'data' => $usersById
+                ]
+            ]
+        ]);
+
         // Assert query orders by given attribute
         $this->graphQL(/** @lang Graphql */ '
             query getUsersPaginated($orderBy: [OrderByClause!]) {
