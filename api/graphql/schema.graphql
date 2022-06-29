@@ -591,7 +591,7 @@ input PoolCandidateFilterInput {
     pools: [PoolFilterInput] @builder(method: "App\\Models\\PoolCandidate@filterByPools")
 }
 
-input UserFilterAndOrderInput {
+input UserFilterInput {
     poolCandidates: UserPoolFilterInput @builder(method: "App\\Models\\User@filterByPools")
     languageAbility: LanguageAbility @builder(method: "App\\Models\\User@filterByLanguageAbility")
     expectedClassifications: [ClassificationFilterInput] @scope(name: "classifications")
@@ -608,7 +608,6 @@ input UserFilterAndOrderInput {
     email: String @scope
     name: String @builder(method: "App\\Models\\User@filterByName")
     generalSearch: String @builder(method: "App\\Models\\User@filterByGeneralSearch")
-    orderBy: String   # This needs to be the name of the field in the database eg. first_name
 }
 
 input ApplicantFilterInput {
@@ -628,7 +627,7 @@ type Query {
     me: User @auth
     user(id: ID! @eq): User @find @guard @can(ability: "view", query: true)
     users: [User]! @all @guard @can(ability: "viewAny")
-    usersPaginated(where: UserFilterAndOrderInput): [User]! @paginate(defaultCount: 10, maxCount: 1000 scopes: ["order"]) @guard @can(ability: "viewAny")
+    usersPaginated(where: UserFilterInput orderBy: [OrderByClause!] @orderBy): [User]! @orderBy(column: "created_at", direction: DESC) @paginate(defaultCount: 10, maxCount: 1000 ) @guard @can(ability: "viewAny")
     applicant(id: ID! @eq): Applicant @find(model: "User") @guard @can(ability: "viewApplicant", query: true, model: "User")
     applicants: [Applicant]! @all(model: "User") @guard @can(ability: "viewAnyApplicants", model: "User")
     # countApplicants returns the number of candidates matching its filters, and requires no special permissions.
@@ -827,7 +826,7 @@ input UpdateUserAsUserInput {
     hasDiploma: Boolean @rename(attribute: "has_diploma")
     locationPreferences: [WorkRegion] @rename(attribute: "location_preferences")
     locationExemptions: String @rename(attribute: "location_exemptions")
-    acceptedOperationalRequirements: [OperationalRequirement] @rename(attribute: accepted_operational_requirements)
+    acceptedOperationalRequirements: [OperationalRequirement] @rename(attribute: "accepted_operational_requirements")
     expectedSalary: [SalaryRange] @rename(attribute: "expected_salary")
     expectedClassifications: ClassificationBelongsToMany
     expectedGenericJobTitles: GenericJobTitleBelongsToMany
