@@ -3,10 +3,10 @@ import Dialog from "@common/components/Dialog";
 import { Button } from "@common/components";
 import { FormattedMessage } from "react-intl";
 
-type SearchFilterFooterProps = {
+interface SearchFilterFooterProps {
   handleClear: () => void;
   handleSubmit: () => void;
-};
+}
 
 const SearchFilterFooter = ({
   handleClear,
@@ -28,10 +28,10 @@ const SearchFilterFooter = ({
   </div>
 );
 
-type SearchFilterProps = {
+interface SearchFilterProps {
   isOpen: boolean;
   onDismiss: (e: React.MouseEvent | React.KeyboardEvent) => void;
-};
+}
 
 const SearchFilter = ({
   isOpen,
