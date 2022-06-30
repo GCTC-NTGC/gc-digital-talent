@@ -4,7 +4,7 @@ import Button from "@common/components/Button";
 import SearchFilter from "./SearchFilter";
 
 export default {
-  title: 'Admin/SearchFilter'
+  title: "Admin/SearchFilter",
   component: SearchFilter,
 } as ComponentMeta<typeof SearchFilter>;
 
