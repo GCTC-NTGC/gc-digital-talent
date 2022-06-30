@@ -69,7 +69,7 @@ class Pool extends Model
     }
 
     /* accessor to obtain Advertisement Status, depends on two variables regarding published and expiry */
-    public function getAdvertisementStatus()
+    public function getAdvertisementStatusAccessorAttribute()
     {
         $isPublished = $this->is_published;
         $expiryDate = $this->expiry_date;

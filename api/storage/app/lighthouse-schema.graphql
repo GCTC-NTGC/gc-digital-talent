@@ -1,3 +1,9 @@
+enum AdvertisementStatusEnum {
+  DRAFT
+  PUBLISHED
+  EXPIRED
+}
+
 type Applicant {
   id: ID!
   firstName: String
@@ -697,6 +703,25 @@ type Pool {
   status: PoolStatus
 }
 
+type PoolAdvertisement {
+  id: ID!
+  expiryDate: String
+  isPublished: Boolean
+  name: LocalizedString
+  description: LocalizedString
+  classifications: [Classification]
+  assetCriteria: [CmoAsset]
+  essentialCriteria: [CmoAsset]
+  operationalRequirements: [OperationalRequirement]
+  keyTasks: LocalizedString
+  status: PoolStatus
+  advertisementStatusAccessor: PoolAdvertisementStatus
+}
+
+type PoolAdvertisementStatus {
+  advertisementStatus: AdvertisementStatusEnum
+}
+
 input PoolBelongsTo {
   connect: ID!
 }
@@ -818,6 +843,7 @@ type Query {
   applicants: [Applicant]!
   countApplicants(where: ApplicantFilterInput): Int!
   pool(id: ID!): Pool
+  poolAdvertisement(id: ID!): PoolAdvertisement
   poolByKey(key: String!): Pool
   pools: [Pool]!
   poolCandidate(id: ID!): PoolCandidate

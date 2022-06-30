@@ -240,6 +240,31 @@ enum PoolStatus {
     NOT_TAKING_APPLICATIONS
 }
 
+type PoolAdvertisement {
+    id: ID!
+    expiryDate: String @rename(attribute: "expiry_date")
+    isPublished: Boolean @rename(attribute: "is_published")
+    name: LocalizedString
+    description: LocalizedString
+    classifications: [Classification] @belongsToMany
+    assetCriteria: [CmoAsset] @belongsToMany
+    essentialCriteria: [CmoAsset] @belongsToMany
+    operationalRequirements: [OperationalRequirement] @rename(attribute: "operational_requirements")
+    keyTasks: LocalizedString @rename(attribute: "key_tasks")
+    status: PoolStatus @rename(attribute: "pool_status")
+    advertisementStatusAccessor: PoolAdvertisementStatus
+}
+
+type PoolAdvertisementStatus {
+    advertisementStatus: AdvertisementStatusEnum @rename(attribute: "advertisement_status")
+}
+
+enum AdvertisementStatusEnum {
+    DRAFT
+    PUBLISHED
+    EXPIRED
+}
+
 enum PoolCandidateStatus {
     AVAILABLE
     PLACED_INDETERMINATE
@@ -633,6 +658,7 @@ type Query {
     # countApplicants returns the number of candidates matching its filters, and requires no special permissions.
     countApplicants(where: ApplicantFilterInput): Int! @count(model: "User")
     pool(id: ID! @eq): Pool @find
+    poolAdvertisement(id: ID! @eq): PoolAdvertisement @find(model: "Pool")
     poolByKey(key: String! @eq): Pool @find
     pools: [Pool]! @all
     poolCandidate(id: ID! @eq): PoolCandidate @find @guard @can(ability: "view", query: true)
