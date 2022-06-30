@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import { IntlShape, useIntl } from "react-intl";
 import { Link, useLocation } from "@common/helpers/router";
 import { notEmpty } from "@common/helpers/util";
@@ -7,14 +7,26 @@ import { getLanguage } from "@common/constants/localizedConstants";
 import Pending from "@common/components/Pending";
 import { useAdminRoutes } from "../../adminRoutes";
 import {
-  AllUsersQuery,
+  InputMaybe,
   Language,
-  useAllUsersQuery,
+  useAllUsersPaginatedQuery,
   User,
+  UserFilterInput,
+  UserPaginator,
 } from "../../api/generated";
-import Table, { ColumnsOf, tableEditButtonAccessor } from "../Table";
+import BasicTable from "../apiManagedTable/BasicTable";
+import {
+  ColumnsOf,
+  SortingRule,
+  sortingRuleToOrderByClause,
+  IdType,
+  handleColumnHiddenChange,
+} from "../apiManagedTable/basicTableHelpers";
+import { tableEditButtonAccessor } from "../Table";
+import TableFooter from "../apiManagedTable/TableFooter";
+import TableHeader from "../apiManagedTable/TableHeader";
 
-type Data = NonNullable<FromArray<AllUsersQuery["users"]>>;
+type Data = NonNullable<FromArray<UserPaginator["data"]>>;
 
 const fullName = (u: User): string => `${u.firstName} ${u.lastName}`;
 
@@ -46,24 +58,24 @@ const profileLinkAccessor = (
   );
 };
 
-export const UserTable: React.FC<AllUsersQuery & { editUrlRoot: string }> = ({
-  users,
-  editUrlRoot,
-}) => {
+export const UserTable: React.FC = () => {
   const intl = useIntl();
   const paths = useAdminRoutes();
+  const { pathname } = useLocation();
   const columns = useMemo<ColumnsOf<Data>>(
     () => [
       {
-        Header: intl.formatMessage({
+        label: intl.formatMessage({
           defaultMessage: "Candidate Name",
           description:
             "Title displayed on the User table Candidate Name column.",
         }),
         accessor: (user) => fullName(user),
+        id: "candidateName",
+        sortColumnName: "first_name",
       },
       {
-        Header: intl.formatMessage({
+        label: intl.formatMessage({
           defaultMessage: "Email",
           description: "Title displayed for the User table Email column.",
         }),
@@ -73,89 +85,140 @@ export const UserTable: React.FC<AllUsersQuery & { editUrlRoot: string }> = ({
             user.email ?? "email",
             intl,
           ),
+        id: "email",
+        sortColumnName: "email",
       },
       {
-        Header: intl.formatMessage({
+        label: intl.formatMessage({
           defaultMessage: "Telephone",
           description: "Title displayed for the User table Telephone column.",
         }),
-        accessor: "telephone",
+        accessor: (user) => user.telephone,
+        id: "telephone",
+        sortColumnName: "telephone",
       },
       {
-        Header: intl.formatMessage({
+        label: intl.formatMessage({
           defaultMessage: "Preferred Language",
           description:
             "Title displayed for the User table Preferred Language column.",
         }),
         accessor: (user) => languageAccessor(user.preferredLang, intl),
+        id: "preferredLanguage",
+        sortColumnName: "preferred_lang",
       },
       {
-        Header: intl.formatMessage({
+        label: intl.formatMessage({
           defaultMessage: "Edit",
           description: "Title displayed for the User table Edit column.",
         }),
-        accessor: (d) =>
-          tableEditButtonAccessor(d.id, editUrlRoot, fullName(d)), // callback extracted to separate function to stabilize memoized component
+        accessor: (d) => tableEditButtonAccessor(d.id, pathname, fullName(d)), // callback extracted to separate function to stabilize memoized component
+        id: "edit",
       },
     ],
-    [editUrlRoot, intl, paths],
+    [pathname, intl, paths],
   );
 
-  const data = useMemo(() => users.filter(notEmpty), [users]);
+  const searchBy = [
+    {
+      value: "name",
+      label: intl.formatMessage({
+        defaultMessage: "Name",
+        description:
+          "Text displayed in user table search form dropdown for name column",
+      }),
+    },
+    {
+      value: "email",
+      label: intl.formatMessage({
+        defaultMessage: "Email",
+        description:
+          "Text displayed in user table search form dropdown for email column",
+      }),
+    },
+    {
+      value: "phone",
+      label: intl.formatMessage({
+        defaultMessage: "Phone number",
+        description:
+          "Text displayed in user table search form dropdown for phone number column",
+      }),
+    },
+  ];
 
-  return (
-    <Table
-      data={data}
-      columns={columns}
-      title={intl.formatMessage({
-        defaultMessage: "All users",
-        description: "Title for the admin users table",
-      })}
-      searchBy={[
-        {
-          value: "name",
-          label: intl.formatMessage({
-            defaultMessage: "Name",
-            description:
-              "Text displayed in user table search form dropdown for name column",
-          }),
-        },
-        {
-          value: "email",
-          label: intl.formatMessage({
-            defaultMessage: "Email",
-            description:
-              "Text displayed in user table search form dropdown for email column",
-          }),
-        },
-        {
-          value: "phone",
-          label: intl.formatMessage({
-            defaultMessage: "Phone number",
-            description:
-              "Text displayed in user table search form dropdown for phone number column",
-          }),
-        },
-      ]}
-      addBtn={{
-        label: intl.formatMessage({
-          defaultMessage: "New user",
-          description: "Text label for link to create new user on admin table",
-        }),
-        path: paths.userCreate(),
-      }}
-    />
-  );
-};
+  const searchStateToFilterInput = (
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    search: unknown,
+  ): InputMaybe<UserFilterInput> => {
+    // logic here to turn search into query filters
+    return undefined;
+  };
 
-export const UserTableApi: React.FunctionComponent = () => {
-  const [result] = useAllUsersQuery();
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize, setPageSize] = useState(10);
+  const [sortingRule, setSortingRule] = useState<SortingRule<Data>>();
+  const [hiddenColumnIds, setHiddenColumnIds] = useState<IdType<Data>[]>([]);
+  const [searchState, setSearchState] = useState<unknown>();
+
+  const [result] = useAllUsersPaginatedQuery({
+    variables: {
+      where: searchStateToFilterInput(searchState),
+      page: currentPage,
+      first: pageSize,
+      orderBy: sortingRuleToOrderByClause(sortingRule),
+    },
+  });
+
   const { data, fetching, error } = result;
-  const { pathname } = useLocation();
+
+  const filteredData: Array<Data> = useMemo(() => {
+    const users = data?.usersPaginated?.data ?? [];
+    return users.filter(notEmpty);
+  }, [data?.usersPaginated?.data]);
+
+  const allColumnIds = columns.map((c) => c.id);
 
   return (
-    <Pending fetching={fetching} error={error}>
-      <UserTable users={data?.users ?? []} editUrlRoot={pathname} />
-    </Pending>
+    <div data-h2-margin="b(top-bottom, m)">
+      <TableHeader
+        onSearchChange={(s: string) => setSearchState(s)}
+        onSearchSubmit={() => setSearchState(null)}
+        columns={columns}
+        searchBy={searchBy}
+        addBtn={{
+          label: intl.formatMessage({
+            defaultMessage: "New user",
+            description:
+              "Text label for link to create new user on admin table",
+          }),
+          path: paths.userCreate(),
+        }}
+        onColumnHiddenChange={(event) =>
+          handleColumnHiddenChange(
+            allColumnIds,
+            hiddenColumnIds,
+            setHiddenColumnIds,
+            event,
+          )
+        }
+        hiddenColumnIds={hiddenColumnIds}
+      />
+      <Pending fetching={fetching} error={error} inline>
+        <BasicTable
+          data={filteredData}
+          columns={columns}
+          onSortingRuleChange={setSortingRule}
+          sortingRule={sortingRule}
+          hiddenColumnIds={hiddenColumnIds}
+        />
+      </Pending>
+      <TableFooter
+        paginatorInfo={data?.usersPaginated?.paginatorInfo}
+        onCurrentPageChange={setCurrentPage}
+        onPageSizeChange={setPageSize}
+      />
+    </div>
   );
 };
+
+export default UserTable;
