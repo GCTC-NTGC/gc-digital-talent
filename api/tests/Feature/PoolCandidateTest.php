@@ -5,12 +5,13 @@ use App\Models\CmoAsset;
 use App\Models\Pool;
 use App\Models\PoolCandidate;
 use App\Models\User;
-use Illuminate\Database\Eloquent\Factories\Sequence;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Database\Eloquent\Factories\Sequence;
 use Nuwave\Lighthouse\Testing\ClearsSchemaCache;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
 use Tests\TestCase;
 use Database\Helpers\ApiEnums;
+use Database\Helpers\UuidHelpers;
 
 class PoolCandidateTest extends TestCase
 {
@@ -1047,25 +1048,11 @@ class PoolCandidateTest extends TestCase
     $newUser->roles = ['ADMIN'];
     $newUser->save();
 
-    // Sequential Array of UUIDs for testing.
-    $fakeSequentialUuidArray = [
-      '00000000-0000-0000-0000-000000000001',
-      '00000000-0000-0000-0000-000000000002',
-      '00000000-0000-0000-0000-000000000003',
-      '00000000-0000-0000-0000-000000000004',
-      '00000000-0000-0000-0000-000000000005',
-      '00000000-0000-0000-0000-000000000006',
-      '00000000-0000-0000-0000-000000000007',
-      '00000000-0000-0000-0000-000000000008',
-      '00000000-0000-0000-0000-000000000009',
-      '00000000-0000-0000-0000-000000000010',
-    ];
-
     // Create some expired users
     $expiredCandidates = PoolCandidate::factory()->count(2)
     ->state(new Sequence(
-      ['id' => $fakeSequentialUuidArray[0]],
-      ['id' => $fakeSequentialUuidArray[1]],
+      ['id' => UuidHelpers::integerToUuid(1)],
+      ['id' => UuidHelpers::integerToUuid(2)],
     ))
     ->create([
       'expiry_date' => '2000-05-13',
@@ -1075,26 +1062,26 @@ class PoolCandidateTest extends TestCase
     // Create some valid users
     $futureCandidates = PoolCandidate::factory()->count(4)
     ->state(new Sequence(
-      ['id' => $fakeSequentialUuidArray[2]],
-      ['id' => $fakeSequentialUuidArray[3]],
-      ['id' => $fakeSequentialUuidArray[4]],
-      ['id' => $fakeSequentialUuidArray[5]],
+      ['id' => UuidHelpers::integerToUuid(3)],
+      ['id' => UuidHelpers::integerToUuid(4)],
+      ['id' => UuidHelpers::integerToUuid(5)],
+      ['id' => UuidHelpers::integerToUuid(6)],
     ))
     ->create([
       'expiry_date' => '3000-05-13',
       'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE,
     ]);
     $todayCandidate = PoolCandidate::factory()->create([
-      'id' => $fakeSequentialUuidArray[6],
+      'id' => UuidHelpers::integerToUuid(7),
       'expiry_date' => date("Y-m-d"),
       'pool_candidate_status' => ApiEnums::CANDIDATE_STATUS_AVAILABLE,
     ]);
     $futureCandidates->concat($todayCandidate);
     $nullCandidates = PoolCandidate::factory()->count(3)
     ->state(new Sequence(
-      ['id' => $fakeSequentialUuidArray[7]],
-      ['id' => $fakeSequentialUuidArray[8]],
-      ['id' => $fakeSequentialUuidArray[9]],
+      ['id' => UuidHelpers::integerToUuid(8)],
+      ['id' => UuidHelpers::integerToUuid(9)],
+      ['id' => UuidHelpers::integerToUuid(10)],
     ))
     ->create([
       'expiry_date' => null,
@@ -1118,58 +1105,87 @@ class PoolCandidateTest extends TestCase
 
     // Assert searchPoolCandidates query with no parameters returns correct candidates
     $this->graphQL(/** @lang Graphql */ '
-      query searchPoolCandidates {
-        searchPoolCandidates {
+      query searchPoolCandidates($orderBy: [OrderByClause!]) {
+        searchPoolCandidates(orderBy: $orderBy) {
           id
         }
       }
-    ')->assertJson([
+    ', [
+      'orderBy' => [
+          [
+          'column' => 'id',
+          'order' => 'ASC'
+          ]
+      ]
+    ])->assertJson([
       'data' => [
         'searchPoolCandidates' => $futureCandidates->map->only(['id'])->toArray()
       ]
     ]);
 
     // Assert searchPoolCandidates query with expiryStatus ACTIVE returns correct candidates
-    $activeStatus = ApiEnums::CANDIDATE_EXPIRY_FILTER_ACTIVE;
-    $this->graphQL(/** @lang Graphql */ "
-      query searchPoolCandidates {
-        searchPoolCandidates(expiryStatus: {$activeStatus}) {
+    $this->graphQL(/** @lang Graphql */ '
+      query searchPoolCandidates($orderBy: [OrderByClause!], $expiryStatus: CANDIDATE_EXPIRY_FILTER) {
+        searchPoolCandidates(orderBy: $orderBy, expiryStatus: $expiryStatus) {
           id
         }
       }
-    ")->assertJson([
+    ', [
+      'orderBy' => [
+          [
+            'column' => 'id',
+            'order' => 'ASC'
+          ]
+      ],
+      'expiryStatus' => ApiEnums::CANDIDATE_EXPIRY_FILTER_ACTIVE
+    ])->assertJson([
       'data' => [
         'searchPoolCandidates' => $futureCandidates->map->only(['id'])->toArray()
       ]
     ]);
 
     // Assert searchPoolCandidates query with expiryStatus EXPIRED returns correct candidates
-    $expiredStatus = ApiEnums::CANDIDATE_EXPIRY_FILTER_EXPIRED;
-    $this->graphQL(/** @lang Graphql */ "
-      query searchPoolCandidates {
-        searchPoolCandidates(expiryStatus: {$expiredStatus}) {
+    $this->graphQL(/** @lang Graphql */ '
+      query searchPoolCandidates($orderBy: [OrderByClause!], $expiryStatus: CANDIDATE_EXPIRY_FILTER) {
+        searchPoolCandidates(orderBy: $orderBy, expiryStatus: $expiryStatus) {
           id
         }
       }
-    ")->assertJson([
+    ', [
+      'orderBy' => [
+          [
+          'column' => 'id',
+          'order' => 'ASC'
+          ]
+      ],
+      'expiryStatus' => ApiEnums::CANDIDATE_EXPIRY_FILTER_EXPIRED
+    ])->assertJson([
       'data' => [
         'searchPoolCandidates' => $expiredCandidates->map->only(['id'])->toArray()
       ]
     ]);
 
     // Assert searchPoolCandidates query with expiryStatus ALL returns correct candidates
-    $allStatus = ApiEnums::CANDIDATE_EXPIRY_FILTER_ALL;
-    $this->graphQL(/** @lang Graphql */ "
-      query searchPoolCandidates {
-        searchPoolCandidates(expiryStatus: {$allStatus}) {
+    $this->graphQL(/** @lang Graphql */ '
+      query searchPoolCandidates($orderBy: [OrderByClause!], $expiryStatus: CANDIDATE_EXPIRY_FILTER) {
+        searchPoolCandidates(orderBy: $orderBy, expiryStatus: $expiryStatus) {
           id
         }
       }
-    ")->assertJson([
+    ', [
+      'orderBy' => [
+          [
+          'column' => 'id',
+          'order' => 'ASC'
+          ]
+      ],
+      'expiryStatus' => ApiEnums::CANDIDATE_EXPIRY_FILTER_ALL
+    ])->assertJson([
       'data' => [
         'searchPoolCandidates' => $expiredCandidates->map->only(['id'])->toArray()
       ]
     ]);
   }
+
 }
 
