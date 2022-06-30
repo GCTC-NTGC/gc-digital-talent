@@ -1,3 +1,4 @@
+import { Button } from "@common/components";
 import React, { ReactElement } from "react";
 import { useIntl } from "react-intl";
 import SortIcon from "../Table/SortIcon";
@@ -52,22 +53,18 @@ function BasicTable<T extends Record<string, unknown>>({
     }
   };
 
-  // add props for making column headers clickable if there is a sortColumnName
-  const calculateSortProps = (column: Column<T>): Record<string, unknown> => {
-    if (column.sortColumnName) {
+  // add props for table header based on sortingRule
+  const calculateTableHeaderProps = (
+    column: Column<T>,
+  ): Record<string, unknown> => {
+    if (sortingRule?.column.id === column.id) {
       return {
-        title: intl.formatMessage({
-          defaultMessage: "Toggle SortBy",
-          description: "Title to toggle sorting order of a table",
-        }),
-        style: { cursor: "pointer" },
-        onClick: () => handleColumnSelect(column),
+        "aria-sort": sortingRule?.desc === true ? "descending" : "ascending",
       };
     }
 
     return {};
   };
-
   return (
     <div
       data-h2-overflow="b(all, auto)"
@@ -83,23 +80,28 @@ function BasicTable<T extends Record<string, unknown>>({
                 <th
                   key={column.id}
                   data-h2-bg-color="b(lightnavy)"
-                  data-h2-font-color="b(white)"
-                  data-h2-font-weight="b(800)"
                   data-h2-padding="b(right-left, m) b(top-bottom, s)"
-                  data-h2-text-align="b(left)"
-                  data-h2-font-size="b(caption)"
                   role="columnheader"
-                  {...calculateSortProps(column)}
+                  {...calculateTableHeaderProps(column)}
                 >
-                  <span
+                  <Button
                     data-h2-display="b(flex)"
                     data-h2-align-items="b(center)"
+                    type="button"
+                    mode="tableHeader"
+                    color="secondary"
+                    disabled={!column.sortColumnName}
+                    title={intl.formatMessage({
+                      defaultMessage: "Toggle SortBy",
+                      description: "Title to toggle sorting order of a table",
+                    })}
+                    onClick={() => handleColumnSelect(column)}
                   >
                     {column.label}
                     {sortingRule?.column.id === column.id && (
                       <SortIcon isSortedDesc={sortingRule.desc} />
                     )}
-                  </span>
+                  </Button>
                 </th>
               ))}
           </tr>

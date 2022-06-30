@@ -180,6 +180,9 @@ export const UserTable: React.FC = () => {
 
   return (
     <div data-h2-margin="b(top-bottom, m)">
+      <h2 id="user-table-heading" data-h2-visibility="b(invisible)">
+        All Users
+      </h2>
       <TableHeader
         onSearchChange={(s: string) => setSearchState(s)}
         onSearchSubmit={() => setSearchState(null)}
@@ -205,6 +208,7 @@ export const UserTable: React.FC = () => {
       />
       <Pending fetching={fetching} error={error} inline>
         <BasicTable
+          labelledBy="user-table-heading"
           data={filteredData}
           columns={columns}
           onSortingRuleChange={setSortingRule}
