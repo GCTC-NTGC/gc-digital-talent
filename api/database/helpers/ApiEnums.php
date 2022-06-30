@@ -160,4 +160,11 @@ class ApiEnums
             self::GENERIC_JOB_TITLE_KEY_MANAGER_IT04,
         ];
     }
+
+    /**
+     * Pool Advertisement statuses
+     */
+    const POOL_ADVERTISEMENT_IS_DRAFT = 'DRAFT';
+    const POOL_ADVERTISEMENT_IS_PUBLISHED = 'PUBLISHED';
+    const POOL_ADVERTISEMENT_IS_EXPIRED = 'EXPIRED';
 }

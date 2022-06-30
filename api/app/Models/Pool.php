@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Database\Helpers\ApiEnums;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -20,8 +21,10 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property array $operational_requirements
  * @property array $key_tasks
  * @property array $pool_status
+ * @property boolean $is_published
  * @property Illuminate\Support\Carbon $created_at
  * @property Illuminate\Support\Carbon $updated_at
+ * @property Illuminate\Support\Carbon $expiry_date
  */
 
 class Pool extends Model
@@ -41,6 +44,7 @@ class Pool extends Model
         'description' => 'array',
         'operational_requirements' => 'array',
         'key_tasks' => 'array',
+        'expiry_date' => 'date',
     ];
 
     public function user(): BelongsTo
@@ -62,5 +66,32 @@ class Pool extends Model
     public function poolCandidates(): HasMany
     {
         return $this->hasMany(PoolCandidate::class);
+    }
+
+    /* accessor to obtain Advertisement Status, depends on two variables regarding published and expiry */
+    public function getAdvertisementStatus()
+    {
+        $isPublished = $this->is_published;
+        $expiryDate = $this->expiry_date;
+        $currentTime = date("Y-m-d H:i:s");
+        $isExpired = $currentTime>$expiryDate ? true : false;
+
+        if(!$isPublished){
+            return [
+               "advertisement_status" => ApiEnums::POOL_ADVERTISEMENT_IS_DRAFT,
+            ];
+        } elseif($isPublished && !$isExpired){
+            return [
+                "advertisement_status" => ApiEnums::POOL_ADVERTISEMENT_IS_PUBLISHED,
+            ];
+        } elseif($isPublished && $isExpired){
+            return [
+                "advertisement_status" => ApiEnums::POOL_ADVERTISEMENT_IS_EXPIRED,
+            ];
+        } else{
+            return [
+                "advertisement_status" => null,
+            ];
+        }
     }
 }
