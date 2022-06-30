@@ -48,24 +48,20 @@ export function handleColumnHiddenChange<T>(
   setHiddenColumnIds: (ids: IdType<T>[]) => void,
   { columnId, setHidden }: ColumnHiddenEvent<T>,
 ): void {
-  if (columnId) {
-    // column ID is provided -> toggle that single column
-    if (setHidden) {
-      // add column to hidden list
-      setHiddenColumnIds([...hiddenColumnIds, columnId]);
-    } else {
-      // remove column from hidden list
-      setHiddenColumnIds(hiddenColumnIds.filter((id) => id !== columnId));
-    }
-  } else {
-    // column ID not provided -> toggle all columns
-    // eslint-disable-next-line no-lonely-if
-    if (setHidden) {
-      // add column to hidden list
-      setHiddenColumnIds([...allColumnIds]);
-    } else {
-      // remove column from hidden list
-      setHiddenColumnIds([]);
-    }
+  if (columnId && setHidden) {
+    // column ID is provided, add column to hidden list
+    setHiddenColumnIds([...hiddenColumnIds, columnId]);
+  }
+  if (columnId && !setHidden) {
+    // column ID is provided, remove column from hidden list
+    setHiddenColumnIds(hiddenColumnIds.filter((id) => id !== columnId));
+  }
+  if (!columnId && setHidden) {
+    // column ID not provided, add all columns to hidden list
+    setHiddenColumnIds([...allColumnIds]);
+  }
+  if (!columnId && !setHidden) {
+    // column ID not provided, remove all columns from hidden list
+    setHiddenColumnIds([]);
   }
 }
