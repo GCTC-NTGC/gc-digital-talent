@@ -36,7 +36,7 @@ class PoolFactory extends Factory
             'key_tasks' => ['en' => $this->faker->paragraph().' EN', 'fr' => $this->faker->paragraph().' FR'],
             'pool_status' => $this->faker->randomElement(ApiEnums::poolStatuses()),
             'is_published' => $this->faker->boolean(),
-            'expiry_date' => $this->faker->dateTimeBetween('-1 months', '1 months'),
+            'expiry_date' => $this->faker->dateTimeBetween('-1 months', '1 months', 'America/Vancouver'),
         ];
     }
 

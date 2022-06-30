@@ -71,6 +71,7 @@ class Pool extends Model
     /* accessor to obtain Advertisement Status, depends on two variables regarding published and expiry */
     public function getAdvertisementStatusAccessorAttribute()
     {
+        date_default_timezone_set('America/Vancouver');
         $isPublished = $this->is_published;
         $expiryDate = $this->expiry_date;
         $currentTime = date("Y-m-d H:i:s");

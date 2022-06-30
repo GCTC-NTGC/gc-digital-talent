@@ -14,7 +14,7 @@ class UpdatePoolWithAdvertisement extends Migration
     public function up()
     {
         Schema::table('pools', function (Blueprint $table) {
-            $table->date('expiry_date')->nullable();
+            $table->timestamptz('expiry_date')->nullable();
         });
 
         Schema::table('pools', function (Blueprint $table) {

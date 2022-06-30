@@ -29,22 +29,22 @@ class PoolTest extends TestCase
     $pool1 = Pool::factory()->create([
         'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11',
         'is_published' => true,
-        'expiry_date' => '2050-01-01',
+        'expiry_date' => '2050-01-01 15:00:00-0800',
     ]);
     $pool2 = Pool::factory()->create([
         'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a12',
         'is_published' => true,
-        'expiry_date' => '2020-01-01',
+        'expiry_date' => '2020-01-01 15:00:00-0800',
     ]);
     $pool3 = Pool::factory()->create([
         'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a13',
         'is_published' => false,
-        'expiry_date' => '2050-01-01',
+        'expiry_date' => '2050-01-01 15:00:00-0800',
     ]);
     $pool4 = Pool::factory()->create([
         'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a14',
         'is_published' => false,
-        'expiry_date' => '2020-01-01',
+        'expiry_date' => '2020-01-01 15:00:00-0800',
     ]);
 
     // Assert query with pool 1 will return accessor as published
