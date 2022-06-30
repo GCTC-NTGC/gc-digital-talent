@@ -641,7 +641,7 @@ type Query {
     # countPoolCandidates returns the number of candidates matching its filters, and requires no special permissions.
     countPoolCandidates(where: PoolCandidateFilterInput): Int! @deprecated(reason: "Replaced by countApplicants") @count(model: "PoolCandidate" scopes: ["expiryFilter", "available"])
     # searchPoolCandidates returns the actual candidates matching a filter, and requires permissions.
-    searchPoolCandidates(where: PoolCandidateFilterInput, expiryStatus: CANDIDATE_EXPIRY_FILTER): [PoolCandidate]! @all(scopes: ["expiryFilter", "available"]) @orderBy(column: "id", direction: ASC) @guard @can(ability: "viewAny")
+    searchPoolCandidates(where: PoolCandidateFilterInput orderBy: [OrderByClause!] @orderBy, expiryStatus: CANDIDATE_EXPIRY_FILTER): [PoolCandidate]! @all(scopes: ["expiryFilter", "available"]) @orderBy(column: "created_at", direction: DESC) @guard @can(ability: "viewAny")
     classification(id: ID! @eq): Classification @find
     classifications: [Classification]! @all
     cmoAsset(id: ID! @eq): CmoAsset @find
