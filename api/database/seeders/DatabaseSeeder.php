@@ -21,6 +21,8 @@ use App\Models\PersonalExperience;
 use App\Models\WorkExperience;
 use Faker;
 use Database\Helpers\ApiEnums;
+use Error;
+use Illuminate\Support\Facades\App;
 
 class DatabaseSeeder extends Seeder
 {
@@ -32,6 +34,10 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $faker = Faker\Factory::create();
+
+        if (App::environment() == "production") {
+            throw new Error("This seeder will truncate all tables, do not run in production! Maybe you meant to run ProdSeeder.");
+        }
 
 
         $this->truncateTables();
