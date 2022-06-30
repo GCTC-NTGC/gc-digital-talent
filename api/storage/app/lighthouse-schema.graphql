@@ -736,6 +736,8 @@ type PoolCandidateFilter {
   operationalRequirements: [OperationalRequirement]
   workRegions: [WorkRegion]
   pools: [Pool]
+  wouldAcceptTemporary: Boolean
+  skills: [Skill]
 }
 
 input PoolCandidateFilterBelongsTo {

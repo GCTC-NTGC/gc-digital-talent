@@ -388,6 +388,8 @@ type PoolCandidateFilter {
     operationalRequirements: [OperationalRequirement] @rename(attribute: "operational_requirements")
     workRegions: [WorkRegion] @rename(attribute: "work_regions")
     pools: [Pool] @belongsToMany
+    wouldAcceptTemporary: Boolean @rename(attribute: "would_accept_temporary")
+    skills: [Skill] @belongsToMany
 }
 
 type PoolCandidateSearchRequest {

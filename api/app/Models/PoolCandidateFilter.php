@@ -18,9 +18,11 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @property boolean $is_visible_minority
  * @property boolean $is_woman
  * @property string $language_ability
+ * @property boolean $would_accept_temporary
  * @property array $work_regions
  * @property array $expected_salary
  * @property array $operational_requirements
+ * @property array $skills
  * @property Illuminate\Support\Carbon $created_at
  * @property Illuminate\Support\Carbon $updated_at
  * @property Illuminate\Support\Carbon $deleted_at
@@ -56,6 +58,10 @@ class PoolCandidateFilter extends Model
     public function pools(): BelongsToMany
     {
         return $this->belongsToMany(Pool::class, 'pool_pool_candidate_filter');
+    }
+    public function skills(): BelongsToMany
+    {
+        return $this->belongsToMany(Skill::class, 'pool_candidate_filter_skill');
     }
     public function poolCandidateSearchRequest(): HasOne
     {
