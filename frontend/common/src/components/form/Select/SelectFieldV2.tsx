@@ -1,19 +1,20 @@
 import React from "react";
 import { Controller, RegisterOptions, useFormContext } from "react-hook-form";
 import ReactSelect, { Options, PropsValue } from "react-select";
+import camelCase from "lodash/camelCase";
 import { InputWrapper } from "../../inputPartials";
 
 export type Option = { value: string | number; label: string };
 
 export interface SelectFieldV2Props {
-  /** HTML id used to identify the element. */
-  id: string;
+  /** Optional HTML id used to identify the element. Default: camelCase of `label`. */
+  id?: string;
   /** Optional context which user can view by toggling a button. */
   context?: string;
   /** The text for the label associated with the select input. */
   label: string;
-  /** A string specifying a name for the input control. */
-  name: string;
+  /** Optional string specifying a name for the input control. Default: `id` value. */
+  name?: string;
   /** List of options for the select element. */
   options?: Options<Option>;
   /** Object set of validation rules to impose on input. */
@@ -40,6 +41,10 @@ const SelectFieldV2 = ({
   placeholder,
   isMulti = false,
 }: SelectFieldV2Props): JSX.Element => {
+  // Defaults from minimal attributes.
+  id ??= camelCase(label); // eslint-disable-line no-param-reassign
+  name ??= id; // eslint-disable-line no-param-reassign
+
   const {
     formState: { errors },
   } = useFormContext();
