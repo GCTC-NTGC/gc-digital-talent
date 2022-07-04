@@ -1,7 +1,6 @@
 import React from "react";
 import { Routes } from "universal-router";
 import { RouterResult } from "@common/helpers/router";
-import Toast from "@common/components/Toast";
 import { AuthenticationContext } from "@common/components/Auth";
 import { Helmet } from "react-helmet";
 import { getLocale } from "@common/helpers/localize";
@@ -276,7 +275,6 @@ export const PoolDashboard: React.FC = () => {
       <Helmet>
         <html lang={getLocale(intl)} />
       </Helmet>
-      <Toast />
     </>
   );
 };

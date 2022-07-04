@@ -33,7 +33,7 @@ const Loading = ({ inline = false, live }: LoadingProps): JSX.Element => {
       data-h2-align-items="b(center)"
       data-h2-justify-content="b(center)"
       style={{
-        backgroundColor: `rgba(255,255,255,0.9)`,
+        backgroundColor: `rgba(255,255,255,0.95)`,
         bottom: 0,
         left: 0,
         right: 0,
