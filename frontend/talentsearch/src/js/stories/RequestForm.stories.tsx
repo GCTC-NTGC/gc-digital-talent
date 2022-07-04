@@ -46,7 +46,7 @@ const poolCandidateFilter: PoolCandidateFilter = {
       key: "app_testing",
       name: {
         en: "Application Testing / Quality Assurance",
-        fr: "Test d'application / Assurance qualité",
+        fr: "Mise à l'essai des applications / Assurance de la qualité",
       },
     },
     {
@@ -54,7 +54,7 @@ const poolCandidateFilter: PoolCandidateFilter = {
       key: "cybersecurity",
       name: {
         en: "Cybersecurity / Information Security / IT Security",
-        fr: "Cybersécurité / Sécurité de l'information / Sécurité informatique",
+        fr: "Cybersécurité / Sécurité de l'information / Sécurité de la TI",
       },
     },
     {
@@ -62,7 +62,7 @@ const poolCandidateFilter: PoolCandidateFilter = {
       key: "data_science",
       name: {
         en: "Data Science / Analysis",
-        fr: "Science des données / Analyse",
+        fr: "Science / analyse des données",
       },
     },
   ],

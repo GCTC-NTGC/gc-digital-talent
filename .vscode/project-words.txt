@@ -45,4 +45,5 @@ toastify
 Unencrypted
 unlocalized
 urql
+viewports
 WCAG

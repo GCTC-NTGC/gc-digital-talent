@@ -823,7 +823,7 @@ type Query {
   poolCandidate(id: ID!): PoolCandidate
   poolCandidates: [PoolCandidate]!
   countPoolCandidates(where: PoolCandidateFilterInput): Int! @deprecated(reason: "Replaced by countApplicants")
-  searchPoolCandidates(where: PoolCandidateFilterInput, expiryStatus: CANDIDATE_EXPIRY_FILTER): [PoolCandidate]!
+  searchPoolCandidates(where: PoolCandidateFilterInput, orderBy: [OrderByClause!], expiryStatus: CANDIDATE_EXPIRY_FILTER): [PoolCandidate]!
   classification(id: ID!): Classification
   classifications: [Classification]!
   cmoAsset(id: ID!): CmoAsset
@@ -842,7 +842,8 @@ type Query {
   genericJobTitle(id: ID!): GenericJobTitle
   genericJobTitles: [GenericJobTitle]!
   usersPaginated(
-    where: UserFilterAndOrderInput
+    where: UserFilterInput
+    orderBy: [OrderByClause!]
 
     """Limits number of fetched items. Maximum allowed value: 1000."""
     first: Int = 10
@@ -1213,7 +1214,7 @@ input UserBelongsTo {
   connect: ID
 }
 
-input UserFilterAndOrderInput {
+input UserFilterInput {
   poolCandidates: UserPoolFilterInput
   languageAbility: LanguageAbility
   expectedClassifications: [ClassificationFilterInput]
@@ -1230,7 +1231,6 @@ input UserFilterAndOrderInput {
   email: String
   name: String
   generalSearch: String
-  orderBy: String
 }
 
 """A paginated list of User items."""

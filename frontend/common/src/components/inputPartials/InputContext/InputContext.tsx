@@ -2,7 +2,7 @@ import React from "react";
 
 export interface InputContextProps {
   isVisible: boolean;
-  context: string;
+  context: string | React.ReactNode;
 }
 
 export const InputContext: React.FC<InputContextProps> = ({

@@ -33,7 +33,7 @@ const InputWrapper: React.FC<InputWrapperProps> = ({
         data-h2-align-items="b(flex-start)"
         {...rest}
       >
-        <div style={{ width: "100%" }}>
+        <div>
           <InputLabel
             inputId={inputId}
             label={label}

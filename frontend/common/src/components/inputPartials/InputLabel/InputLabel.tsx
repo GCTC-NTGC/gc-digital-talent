@@ -32,14 +32,18 @@ const InputLabel: React.FC<InputLabelProps> = ({
     <div
       data-h2-display="b(flex)"
       data-h2-flex-wrap="b(wrap)"
+      data-h2-align-items="b(center)"
+      data-h2-justify-content="b(flex-start)"
       data-h2-margin="b(bottom, xxs)"
     >
-      <div style={{ flex: "1" }}>
-        <label data-h2-font-size="b(caption)" htmlFor={inputId}>
-          {label}
-        </label>
-      </div>
-      <div>
+      <label
+        data-h2-font-size="b(caption)"
+        data-h2-margin="b(right, xxs)"
+        htmlFor={inputId}
+      >
+        {label}
+      </label>
+      <div data-h2-display="b(flex)" data-h2-align-items="b(center)">
         {
           /** If hideOptional is true, only show text if required is true. */
           (required || !hideOptional) && (
@@ -49,9 +53,11 @@ const InputLabel: React.FC<InputLabelProps> = ({
                 ? { "data-h2-font-color": "b(red)" }
                 : { "data-h2-font-color": "b(darkgray)" })}
             >
+              (
               {required
                 ? intl.formatMessage(commonMessages.required)
                 : intl.formatMessage(commonMessages.optional)}
+              )
             </span>
           )
         }

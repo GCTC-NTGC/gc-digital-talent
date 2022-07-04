@@ -581,7 +581,7 @@ input ApplicantPoolFilterInput {
 }
 
 input PoolCandidateFilterInput {
-    classifications: [ClassificationFilterInput] @builder(method: "App\\Models\\PoolCandidate@filterByClassifications")
+    classifications: [ClassificationFilterInput] @scope
     cmoAssets: [KeyFilterInput] @builder(method: "App\\Models\\PoolCandidate@filterByCmoAssets")
     hasDiploma: Boolean @scope
     equity: EquitySelectionsInput @builder(method: "App\\Models\\PoolCandidate@filterByEquity")
@@ -591,10 +591,10 @@ input PoolCandidateFilterInput {
     pools: [PoolFilterInput] @builder(method: "App\\Models\\PoolCandidate@filterByPools")
 }
 
-input UserFilterAndOrderInput {
+input UserFilterInput {
     poolCandidates: UserPoolFilterInput @builder(method: "App\\Models\\User@filterByPools")
     languageAbility: LanguageAbility @builder(method: "App\\Models\\User@filterByLanguageAbility")
-    expectedClassifications: [ClassificationFilterInput] @builder(method: "App\\Models\\User@filterByClassifications")
+    expectedClassifications: [ClassificationFilterInput] @scope(name: "classifications")
     operationalRequirements: [OperationalRequirement] @builder(method: "App\\Models\\User@filterByOperationalRequirements")
     locationPreferences: [WorkRegion] @builder(method: "App\\Models\\User@filterByLocationPreferences")
     equity: EquitySelectionsInput @builder(method: "App\\Models\\User@filterByEquity")
@@ -608,14 +608,13 @@ input UserFilterAndOrderInput {
     email: String @scope
     name: String @builder(method: "App\\Models\\User@filterByName")
     generalSearch: String @builder(method: "App\\Models\\User@filterByGeneralSearch")
-    orderBy: String   # This needs to be the name of the field in the database eg. first_name
 }
 
 input ApplicantFilterInput {
     poolCandidates: ApplicantPoolFilterInput @builder(method: "App\\Models\\User@filterByPools")
     jobLookingStatus: [JobLookingStatus] = [ACTIVELY_LOOKING, OPEN_TO_OPPORTUNITIES] @builder(method: "App\\Models\\User@filterByJobLookingStatus")
     languageAbility: LanguageAbility @builder(method: "App\\Models\\User@filterByLanguageAbility")
-    expectedClassifications: [ClassificationFilterInput] @builder(method: "App\\Models\\User@filterByClassifications")
+    expectedClassifications: [ClassificationFilterInput] @scope(name: "classifications")
     operationalRequirements: [OperationalRequirement] @builder(method: "App\\Models\\User@filterByOperationalRequirements")
     locationPreferences: [WorkRegion] @builder(method: "App\\Models\\User@filterByLocationPreferences")
     equity: EquitySelectionsInput @builder(method: "App\\Models\\User@filterByEquity")
@@ -628,7 +627,7 @@ type Query {
     me: User @auth
     user(id: ID! @eq): User @find @guard @can(ability: "view", query: true)
     users: [User]! @all @guard @can(ability: "viewAny")
-    usersPaginated(where: UserFilterAndOrderInput): [User]! @paginate(defaultCount: 10, maxCount: 1000 scopes: ["order"]) @guard @can(ability: "viewAny")
+    usersPaginated(where: UserFilterInput orderBy: [OrderByClause!] @orderBy): [User]! @orderBy(column: "created_at", direction: DESC) @paginate(defaultCount: 10, maxCount: 1000 ) @guard @can(ability: "viewAny")
     applicant(id: ID! @eq): Applicant @find(model: "User") @guard @can(ability: "viewApplicant", query: true, model: "User")
     applicants: [Applicant]! @all(model: "User") @guard @can(ability: "viewAnyApplicants", model: "User")
     # countApplicants returns the number of candidates matching its filters, and requires no special permissions.
@@ -641,7 +640,7 @@ type Query {
     # countPoolCandidates returns the number of candidates matching its filters, and requires no special permissions.
     countPoolCandidates(where: PoolCandidateFilterInput): Int! @deprecated(reason: "Replaced by countApplicants") @count(model: "PoolCandidate" scopes: ["expiryFilter", "available"])
     # searchPoolCandidates returns the actual candidates matching a filter, and requires permissions.
-    searchPoolCandidates(where: PoolCandidateFilterInput, expiryStatus: CANDIDATE_EXPIRY_FILTER): [PoolCandidate]! @all(scopes: ["expiryFilter", "available"]) @guard @can(ability: "viewAny")
+    searchPoolCandidates(where: PoolCandidateFilterInput orderBy: [OrderByClause!] @orderBy, expiryStatus: CANDIDATE_EXPIRY_FILTER): [PoolCandidate]! @all(scopes: ["expiryFilter", "available"]) @orderBy(column: "created_at", direction: DESC) @guard @can(ability: "viewAny")
     classification(id: ID! @eq): Classification @find
     classifications: [Classification]! @all
     cmoAsset(id: ID! @eq): CmoAsset @find
@@ -827,7 +826,7 @@ input UpdateUserAsUserInput {
     hasDiploma: Boolean @rename(attribute: "has_diploma")
     locationPreferences: [WorkRegion] @rename(attribute: "location_preferences")
     locationExemptions: String @rename(attribute: "location_exemptions")
-    acceptedOperationalRequirements: [OperationalRequirement] @rename(attribute: accepted_operational_requirements)
+    acceptedOperationalRequirements: [OperationalRequirement] @rename(attribute: "accepted_operational_requirements")
     expectedSalary: [SalaryRange] @rename(attribute: "expected_salary")
     expectedClassifications: ClassificationBelongsToMany
     expectedGenericJobTitles: GenericJobTitleBelongsToMany

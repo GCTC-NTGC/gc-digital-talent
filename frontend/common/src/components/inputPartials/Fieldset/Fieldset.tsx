@@ -15,7 +15,7 @@ export interface FieldsetProps {
   /** If an error string is provided, it will appear below the fieldset inputs. */
   error?: string;
   /** If a context string is provided, a small button will appear which, when toggled, shows the context string. */
-  context?: string;
+  context?: string | React.ReactNode;
   /** If true, all input elements in this fieldset will be disabled. */
   disabled?: boolean;
   /** If true, and required is false, 'Optional' will not be shown above the fieldset. */
@@ -49,18 +49,19 @@ const Fieldset: React.FC<FieldsetProps> = ({
       <div
         data-h2-display="b(flex)"
         data-h2-flex-wrap="b(wrap)"
+        data-h2-align-items="b(center)"
+        data-h2-justify-content="b(flex-start)"
         data-h2-margin="b(bottom, xxs)"
       >
-        <div style={{ flex: "1" }}>
-          <span
-            aria-hidden="true"
-            role="presentation"
-            data-h2-font-size="b(caption)"
-          >
-            {legend}
-          </span>
-        </div>
-        <div>
+        <span
+          aria-hidden="true"
+          role="presentation"
+          data-h2-font-size="b(caption)"
+          data-h2-margin="b(right, xxs)"
+        >
+          {legend}
+        </span>
+        <div data-h2-display="b(flex)" data-h2-align-items="(center)">
           {
             /** If hideOptional is true, only show text if required is true. */
             (required || !hideOptional) && (
@@ -68,11 +69,13 @@ const Fieldset: React.FC<FieldsetProps> = ({
                 data-h2-font-size="b(caption)"
                 {...(required
                   ? { "data-h2-font-color": "b(red)" }
-                  : { "data-h2-font-color": "b(darkgray" })}
+                  : { "data-h2-font-color": "b(darkgray)" })}
               >
+                (
                 {required
                   ? intl.formatMessage(commonMessages.required)
                   : intl.formatMessage(commonMessages.optional)}
+                )
               </span>
             )
           }

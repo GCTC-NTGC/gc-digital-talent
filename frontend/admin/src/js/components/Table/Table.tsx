@@ -1,4 +1,5 @@
 /* eslint-disable react/jsx-key */
+import "regenerator-runtime/runtime"; // Hack: Needed for react-table?
 import React, { HTMLAttributes, ReactElement, useState } from "react";
 import { useIntl } from "react-intl";
 
@@ -11,17 +12,17 @@ import {
 } from "react-table";
 import { Button, Link } from "@common/components";
 import Pagination from "@common/components/Pagination";
-import { FilterIcon, PlusIcon, TableIcon } from "@heroicons/react/outline";
+import { PlusIcon, TableIcon } from "@heroicons/react/outline";
 import Dialog from "@common/components/Dialog";
 import { Fieldset } from "@common/components/inputPartials";
 import SortIcon from "./SortIcon";
-import SearchForm, { type SearchFormProps } from "./SearchForm";
+import SearchForm from "./SearchForm";
 
 export type ColumnsOf<T extends Record<string, unknown>> = Array<Column<T>>;
 
 export interface TableProps<
   T extends Record<string, unknown> = Record<string, unknown>,
-> extends Pick<SearchFormProps, "searchBy"> {
+> {
   columns: Array<Column<T>>;
   data: Array<T>;
   title?: string;
@@ -33,7 +34,6 @@ export interface TableProps<
   pagination?: boolean;
   hiddenCols?: string[];
   labelledBy?: string;
-  onSearchSubmit?: () => void;
 }
 
 const IndeterminateCheckbox: React.FC<
@@ -89,8 +89,6 @@ function Table<T extends Record<string, unknown>>({
   labelledBy,
   title,
   addBtn,
-  onSearchSubmit,
-  searchBy,
   filter = true,
   pagination = true,
   hiddenCols = [],
@@ -103,6 +101,7 @@ function Table<T extends Record<string, unknown>>({
     allColumns,
     getToggleHideAllColumnsProps,
     rows,
+    setGlobalFilter,
     state: { pageIndex, pageSize },
     gotoPage,
     setPageSize,
@@ -123,12 +122,6 @@ function Table<T extends Record<string, unknown>>({
   const [showList, setShowList] = useState(false);
   const intl = useIntl();
 
-  const handleSubmit = () => {
-    if (onSearchSubmit) {
-      onSearchSubmit();
-    }
-  };
-
   return (
     <div data-h2-margin="b(top-bottom, m)">
       {filter && (
@@ -148,29 +141,7 @@ function Table<T extends Record<string, unknown>>({
             data-h2-display="b(flex)"
             data-h2-justify-content="b(flex-end)"
           >
-            <SearchForm
-              onChange={(term) => window.console.log(term)}
-              onSubmit={handleSubmit}
-              searchBy={searchBy}
-            />
-            <Spacer>
-              <Button
-                mode="outline"
-                color="black"
-                type="button"
-                data-h2-display="b(inline-flex)"
-                data-h2-align-items="b(center)"
-              >
-                <ButtonIcon icon={FilterIcon} />
-                <span>
-                  {intl.formatMessage({
-                    defaultMessage: "Filters",
-                    description:
-                      "Text label for button to open filter dialog on admin tables.",
-                  })}
-                </span>
-              </Button>
-            </Spacer>
+            <SearchForm onChange={setGlobalFilter} />
             <Spacer>
               <div data-h2-position="b(relative)">
                 <Button
@@ -351,8 +322,8 @@ function Table<T extends Record<string, unknown>>({
         {pagination && (
           <Pagination
             currentPage={pageIndex + 1}
-            handlePageChange={(pageNumber) => gotoPage(pageNumber - 1)}
-            handlePageSize={setPageSize}
+            onCurrentPageChange={(pageNumber) => gotoPage(pageNumber - 1)}
+            onPageSizeChange={setPageSize}
             pageSize={pageSize}
             pageSizes={[10, 20, 30, 40, 50]}
             totalCount={rows.length}
