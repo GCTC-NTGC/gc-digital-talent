@@ -4,7 +4,7 @@ import ExperienceAccordion, {
   ExperiencePaths,
 } from "./ExperienceAccordion/ExperienceAccordion";
 import SkillAccordion from "./SkillAccordion/SkillAccordion";
-import { Tab, TabSet } from "../tabs";
+import { Tabs, TabList, Tab, TabPanels, TabPanel } from "../Tabs";
 import { getLocale } from "../../helpers/localize";
 import {
   compareByDate,
@@ -81,6 +81,24 @@ const ExperienceSection: React.FunctionComponent<ExperienceSectionProps> = ({
     isExperience = true;
   }
 
+  const tabs = [
+    intl.formatMessage({
+      defaultMessage: "By Date",
+      description:
+        "Tab title for experiences sorted by date in applicant profile.",
+    }),
+    intl.formatMessage({
+      defaultMessage: "By Type",
+      description:
+        "Tab title for experiences sorted by type in applicant profile.",
+    }),
+    intl.formatMessage({
+      defaultMessage: "By Skills",
+      description:
+        "Tab title for experiences sorted by skills in applicant profile.",
+    }),
+  ];
+
   return (
     <div
       data-h2-bg-color="b(lightgray)"
@@ -88,66 +106,49 @@ const ExperienceSection: React.FunctionComponent<ExperienceSectionProps> = ({
       data-h2-radius="b(s)"
     >
       {isExperience && (
-        <TabSet>
-          <Tab
-            tabType="label"
-            text={intl.formatMessage({
-              defaultMessage: "See Experience:",
-              description:
-                "Tabs title for the users experience list in applicant profile.",
-            })}
-          />
-          <Tab
-            text={intl.formatMessage({
-              defaultMessage: "By Date",
-              description:
-                "Tab title for experiences sorted by date in applicant profile.",
-            })}
-          >
-            <div
-              data-h2-radius="b(s)"
-              data-h2-bg-color="b(lightgray)"
-              data-h2-padding="b(top-bottom, xxs) b(right-left, xs)"
-            >
-              {sortedByDate.map((experience) => (
-                <ExperienceAccordion
-                  key={experience.id}
-                  experience={experience}
-                  editPaths={experienceEditPaths}
-                />
-              ))}
-            </div>
-          </Tab>
-          <Tab
-            text={intl.formatMessage({
-              defaultMessage: "By Type",
-              description:
-                "Tab title for experiences sorted by type in applicant profile.",
-            })}
-          >
-            <ExperienceByTypeListing
-              experiences={experiences}
-              editPaths={experienceEditPaths}
-            />
-          </Tab>
-          <Tab
-            text={intl.formatMessage({
-              defaultMessage: "By Skills",
-              description:
-                "Tab title for experiences sorted by skills in applicant profile.",
-            })}
-          >
-            <div
-              data-h2-radius="b(s)"
-              data-h2-bg-color="b(lightgray)"
-              data-h2-padding="b(top-bottom, xxs) b(right-left, xs)"
-            >
-              {sortedBySkills.map((skill) => (
-                <SkillAccordion key={skill.id} skill={skill} />
-              ))}
-            </div>
-          </Tab>
-        </TabSet>
+        <Tabs>
+          <TabList>
+            {tabs.map((tab, index) => (
+              <Tab key={tab} index={index}>
+                {tab}
+              </Tab>
+            ))}
+          </TabList>
+          <TabPanels>
+            <TabPanel>
+              <div
+                data-h2-radius="b(s)"
+                data-h2-bg-color="b(lightgray)"
+                data-h2-padding="b(top-bottom, xxs) b(right-left, xs)"
+              >
+                {sortedByDate.map((experience) => (
+                  <ExperienceAccordion
+                    key={experience.id}
+                    experience={experience}
+                    editPaths={experienceEditPaths}
+                  />
+                ))}
+              </div>
+            </TabPanel>
+            <TabPanel>
+              <ExperienceByTypeListing
+                experiences={experiences}
+                editPaths={experienceEditPaths}
+              />
+            </TabPanel>
+            <TabPanel>
+              <div
+                data-h2-radius="b(s)"
+                data-h2-bg-color="b(lightgray)"
+                data-h2-padding="b(top-bottom, xxs) b(right-left, xs)"
+              >
+                {sortedBySkills.map((skill) => (
+                  <SkillAccordion key={skill.id} skill={skill} />
+                ))}
+              </div>
+            </TabPanel>
+          </TabPanels>
+        </Tabs>
       )}
       {!isExperience && !editPath && (
         <p>

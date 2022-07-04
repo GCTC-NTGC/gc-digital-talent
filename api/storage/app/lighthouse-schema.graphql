@@ -844,7 +844,8 @@ type Query {
   genericJobTitle(id: ID!): GenericJobTitle
   genericJobTitles: [GenericJobTitle]!
   usersPaginated(
-    where: UserFilterAndOrderInput
+    where: UserFilterInput
+    orderBy: [OrderByClause!]
 
     """Limits number of fetched items. Maximum allowed value: 1000."""
     first: Int = 10
@@ -1215,7 +1216,7 @@ input UserBelongsTo {
   connect: ID
 }
 
-input UserFilterAndOrderInput {
+input UserFilterInput {
   poolCandidates: UserPoolFilterInput
   languageAbility: LanguageAbility
   expectedClassifications: [ClassificationFilterInput]
@@ -1232,7 +1233,6 @@ input UserFilterAndOrderInput {
   email: String
   name: String
   generalSearch: String
-  orderBy: String
 }
 
 """A paginated list of User items."""

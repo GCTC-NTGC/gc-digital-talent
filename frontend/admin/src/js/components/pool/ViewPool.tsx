@@ -6,7 +6,13 @@ import Breadcrumbs from "@common/components/Breadcrumbs";
 import type { BreadcrumbsProps } from "@common/components/Breadcrumbs";
 import PageHeader from "@common/components/PageHeader";
 import { Link } from "@common/components";
-import { Tab, TabSet } from "@common/components/tabs";
+import {
+  Tabs,
+  TabList,
+  Tab,
+  TabPanels,
+  TabPanel,
+} from "@common/components/Tabs";
 import { commonMessages } from "@common/messages";
 import { getLocale } from "@common/helpers/localize";
 
@@ -54,6 +60,17 @@ export const ViewPoolPage: React.FC<ViewPoolPageProps> = ({ pool }) => {
     },
   ] as BreadcrumbsProps["links"];
 
+  const tabs = [
+    intl.formatMessage({
+      defaultMessage: "Pool details",
+      description: "Tabs title for the individual pool details.",
+    }),
+    intl.formatMessage({
+      defaultMessage: "Pool candidates",
+      description: "Tabs title for the individual pool candidates.",
+    }),
+  ];
+
   return (
     <>
       <PageHeader icon={ViewGridIcon}>{pageTitle}</PageHeader>
@@ -86,20 +103,19 @@ export const ViewPoolPage: React.FC<ViewPoolPageProps> = ({ pool }) => {
           </Link>
         </div>
       </div>
-      <TabSet>
-        <Tab
-          text={intl.formatMessage({
-            defaultMessage: "Pool details",
-            description: "Tabs title for the individual pool details.",
-          })}
-        />
-        <Tab
-          text={intl.formatMessage({
-            defaultMessage: "Pool candidates",
-            description: "Tabs title for the individual pool candidates.",
-          })}
-        />
-      </TabSet>
+      <Tabs>
+        <TabList>
+          {tabs.map((tab, index) => (
+            <Tab key={tab} index={index}>
+              {tab}
+            </Tab>
+          ))}
+        </TabList>
+        <TabPanels>
+          <TabPanel>{tabs[0]}</TabPanel>
+          <TabPanel>{tabs[1]}</TabPanel>
+        </TabPanels>
+      </Tabs>
     </>
   );
 };

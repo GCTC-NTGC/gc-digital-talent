@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-key */
-import React, { HTMLAttributes, ReactElement, useState } from "react";
+import React, { ReactElement, useState } from "react";
 import { useIntl } from "react-intl";
 
 import {
@@ -16,6 +16,7 @@ import Dialog from "@common/components/Dialog";
 import { Fieldset } from "@common/components/inputPartials";
 import SortIcon from "./SortIcon";
 import SearchForm, { type SearchFormProps } from "./SearchForm";
+import { IndeterminateCheckbox, Spacer, ButtonIcon } from "./tableComponents";
 
 export type ColumnsOf<T extends Record<string, unknown>> = Array<Column<T>>;
 
@@ -35,53 +36,6 @@ export interface TableProps<
   labelledBy?: string;
   onSearchSubmit?: () => void;
 }
-
-const IndeterminateCheckbox: React.FC<
-  React.HTMLProps<HTMLInputElement> & { indeterminate: boolean }
-> = ({ indeterminate, ...rest }) => {
-  const intl = useIntl();
-  const ref = React.useRef<HTMLInputElement>(null);
-
-  React.useEffect(() => {
-    if (ref.current) {
-      ref.current.indeterminate = indeterminate;
-    }
-  }, [ref, indeterminate]);
-
-  return (
-    <label htmlFor="column-fieldset-toggle-all">
-      <input
-        id="column-fieldset-toggle-all"
-        type="checkbox"
-        ref={ref}
-        {...rest}
-      />{" "}
-      {intl.formatMessage({
-        defaultMessage: "Toggle All",
-        description: "Label displayed on the Table Columns toggle fieldset.",
-      })}
-    </label>
-  );
-};
-
-const Spacer: React.FC = ({ children }) => (
-  <div data-h2-margin="b(left, s)" style={{ flexShrink: 0 }}>
-    {children}
-  </div>
-);
-
-const ButtonIcon: React.FC<{
-  icon: React.FC<HTMLAttributes<HTMLOrSVGElement>>;
-}> = ({ icon }) => {
-  const Icon = icon;
-
-  return (
-    <Icon
-      style={{ height: "1em", width: "1rem" }}
-      data-h2-margin="b(right, xs)"
-    />
-  );
-};
 
 function Table<T extends Record<string, unknown>>({
   columns,
@@ -351,8 +305,8 @@ function Table<T extends Record<string, unknown>>({
         {pagination && (
           <Pagination
             currentPage={pageIndex + 1}
-            handlePageChange={(pageNumber) => gotoPage(pageNumber - 1)}
-            handlePageSize={setPageSize}
+            onCurrentPageChange={(pageNumber) => gotoPage(pageNumber - 1)}
+            onPageSizeChange={setPageSize}
             pageSize={pageSize}
             pageSizes={[10, 20, 30, 40, 50]}
             totalCount={rows.length}
