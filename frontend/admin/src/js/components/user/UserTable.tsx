@@ -119,46 +119,21 @@ export const UserTable: React.FC = () => {
     [pathname, intl, paths],
   );
 
-  const searchBy = [
-    {
-      value: "name",
-      label: intl.formatMessage({
-        defaultMessage: "Name",
-        description:
-          "Text displayed in user table search form dropdown for name column",
-      }),
-    },
-    {
-      value: "email",
-      label: intl.formatMessage({
-        defaultMessage: "Email",
-        description:
-          "Text displayed in user table search form dropdown for email column",
-      }),
-    },
-    {
-      value: "phone",
-      label: intl.formatMessage({
-        defaultMessage: "Phone number",
-        description:
-          "Text displayed in user table search form dropdown for phone number column",
-      }),
-    },
-  ];
-
   const searchStateToFilterInput = (
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    search: unknown,
+    val: string | undefined,
   ): InputMaybe<UserFilterInput> => {
-    // logic here to turn search into query filters
-    return undefined;
+    if (!val) return undefined;
+
+    return {
+      name: val,
+    };
   };
 
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
   const [sortingRule, setSortingRule] = useState<SortingRule<Data>>();
   const [hiddenColumnIds, setHiddenColumnIds] = useState<IdType<Data>[]>([]);
-  const [searchState, setSearchState] = useState<unknown>();
+  const [searchState, setSearchState] = useState<string | undefined>();
 
   const [result] = useAllUsersPaginatedQuery({
     variables: {
