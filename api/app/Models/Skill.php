@@ -107,4 +107,28 @@ class Skill extends Model
         $collection = $collection->merge($this->workExperiences);
         return $collection;
     }
+
+    public function poolsEssentialSkills()
+    {
+        return $this->morphedByMany(
+            Pool::class,
+            'pools',
+            'pools_essential_skills'
+        )
+        ->withTimestamps()
+        ->withPivot('details')
+        ->as('pools_essential_skills_pivot');
+    }
+
+    public function poolsNonessentialSkills()
+    {
+        return $this->morphedByMany(
+            Pool::class,
+            'pools',
+            'pools_nonessential_skills'
+        )
+        ->withTimestamps()
+        ->withPivot('details')
+        ->as('pools_nonessential_skills_pivot');
+    }
 }

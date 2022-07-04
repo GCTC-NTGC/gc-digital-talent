@@ -260,6 +260,8 @@ type PoolAdvertisement {
     posterAdLanguage: PoolAdLanguages @rename(attribute: "poster_ad_language")
     status: PoolStatus @rename(attribute: "pool_status")
     advertisementStatus: AdvertisementStatusEnum @rename(attribute: "advertisement_status")
+    essentialSkills: [Skill!] @morphToMany
+    nonessentialSkills: [Skill!] @morphToMany
 }
 
 enum AdvertisementStatusEnum {

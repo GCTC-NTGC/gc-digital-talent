@@ -36,6 +36,28 @@ class UpdatePoolWithAdvertisement extends Migration
         Schema::table('pools', function (Blueprint $table) {
             $table->string('poster_ad_language')->nullable();
         });
+
+        Schema::create('pools_essential_skills', function (Blueprint $table) {
+            $table->text('details')->nullable();
+            $table->uuid('skill_id')->nullable();
+            $table->foreign('skill_id')->references('id')->on('skills');
+            $table->uuid('pool_id')->nullable();
+            $table->foreign('pool_id')->references('id')->on('pools');
+            $table->string('pool_type')->nullable();
+            $table->unique(['skill_id', 'pool_id']);
+            $table->timestamps();
+        });
+
+        Schema::create('pools_nonessential_skills', function (Blueprint $table) {
+            $table->text('details')->nullable();
+            $table->uuid('skill_id')->nullable();
+            $table->foreign('skill_id')->references('id')->on('skills');
+            $table->uuid('pool_id')->nullable();
+            $table->foreign('pool_id')->references('id')->on('pools');
+            $table->string('pool_type')->nullable();
+            $table->unique(['skill_id', 'pool_id']);
+            $table->timestamps();
+        });
     }
 
     /**
@@ -55,5 +77,7 @@ class UpdatePoolWithAdvertisement extends Migration
                 'poster_ad_language',
             ]);
         });
+        Schema::dropIfExists('pools_essential_skills');
+        Schema::dropIfExists('pools_nonessential_skills');
     }
 }

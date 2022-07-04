@@ -5,6 +5,7 @@ namespace Database\Factories;
 use App\Models\Classification;
 use App\Models\CmoAsset;
 use App\Models\Pool;
+use App\Models\Skill;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Database\Helpers\KeyStringHelpers;
@@ -51,6 +52,10 @@ class PoolFactory extends Factory
             $pool->essentialCriteria()->saveMany($assets->slice(0,2));
             $pool->assetCriteria()->saveMany($assets->slice(2,2));
             $pool->classifications()->saveMany($classifications);
+            $skills = Skill::inRandomOrder()->limit(5)->get();
+            $pool->essentialSkills()->sync($skills);
+            $skills = Skill::inRandomOrder()->limit(5)->get();
+            $pool->nonessentialSkills()->sync($skills);
         });
     }
 }

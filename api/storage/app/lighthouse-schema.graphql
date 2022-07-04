@@ -733,6 +733,8 @@ type PoolAdvertisement {
   posterAdLanguage: PoolAdLanguages
   status: PoolStatus
   advertisementStatus: AdvertisementStatusEnum
+  essentialSkills: [Skill!]
+  nonessentialSkills: [Skill!]
 }
 
 input PoolBelongsTo {
