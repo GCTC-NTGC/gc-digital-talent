@@ -89,6 +89,8 @@ const SearchFilter = ({
     skillFilter: ["Data Analysis", "Data Cleaning", "Database Design"].map(
       generateOptionsFromValues,
     ),
+    profileComplete: ["Yes", "No"].map(generateOptionsFromValues),
+    govEmployee: ["Yes", "No"].map(generateOptionsFromValues),
   };
 
   return (
@@ -166,6 +168,13 @@ const SearchFilter = ({
               options={optionsData.availability}
             />
           </div>
+          <div style={{ marginLeft: 20 }}>
+            <SelectFieldV2
+              id="profileComplete"
+              label="Profile Complete"
+              options={optionsData.profileComplete}
+            />
+          </div>
         </div>
         <div style={{ display: "flex" }}>
           <div style={{ flexGrow: 1 }}>
@@ -173,6 +182,13 @@ const SearchFilter = ({
               id="skillFilter"
               label="Skill filter"
               options={optionsData.skillFilter}
+            />
+          </div>
+          <div style={{ marginLeft: 20 }}>
+            <SelectFieldV2
+              id="govEmployee"
+              label="Government Employee"
+              options={optionsData.govEmployee}
             />
           </div>
         </div>
