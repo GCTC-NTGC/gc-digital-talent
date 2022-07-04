@@ -20,12 +20,7 @@ const Pending = ({
   children,
 }: PendingProps): JSX.Element => {
   if (fetching) {
-    return (
-      <>
-        <Loading inline={inline} live={live} />
-        {children}
-      </>
-    );
+    return <Loading inline={inline} live={live} />;
   }
 
   if (error) {
