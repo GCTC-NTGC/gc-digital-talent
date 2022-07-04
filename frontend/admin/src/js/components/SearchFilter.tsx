@@ -1,7 +1,7 @@
 import React from "react";
 import Dialog from "@common/components/Dialog";
 import { Button } from "@common/components";
-import { FormattedMessage } from "react-intl";
+import { FormattedMessage, useIntl } from "react-intl";
 import { BasicForm } from "@common/components/form";
 import SelectFieldV2 from "@common/components/form/Select/SelectFieldV2";
 import MultiSelectFieldV2 from "@common/components/form/MultiSelect/MultiSelectFieldV2";
@@ -48,6 +48,7 @@ const SearchFilter = ({
 }: SearchFilterProps): JSX.Element => {
   const handleSubmit = () => {};
   const handleClear = () => {};
+  const { formatMessage } = useIntl();
 
   const optionsData = {
     pools: [
@@ -97,28 +98,32 @@ const SearchFilter = ({
     <Dialog
       isOpen={isOpen}
       onDismiss={onDismiss}
-      title="Select filters"
-      subtitle="Narrow down you table results using the following filters."
-      footer={
-        <SearchFilterFooter
-          handleClear={handleClear}
-          handleSubmit={handleSubmit}
-        />
-      }
+      title={formatMessage({
+        defaultMessage: "Select filters",
+      })}
+      subtitle={formatMessage({
+        defaultMessage:
+          "Narrow down your table results using the following filters.",
+      })}
+      footer={<SearchFilterFooter handleSubmit={handleSubmit} />}
     >
       <BasicForm onSubmit={() => {}}>
         <div style={{ display: "flex" }}>
           <div style={{ flexGrow: 1 }}>
             <MultiSelectFieldV2
               id="pools"
-              label="Pools"
+              label={formatMessage({
+                defaultMessage: "Pools",
+              })}
               options={optionsData.pools}
             />
           </div>
           <div style={{ minWidth: 200, marginLeft: 20 }}>
             <SelectFieldV2
               id="languages"
-              label="Languages"
+              label={formatMessage({
+                defaultMessage: "Languages",
+              })}
               options={optionsData.languages}
             />
           </div>
@@ -127,21 +132,27 @@ const SearchFilter = ({
           <div style={{ flexGrow: 1, minWidth: 175 }}>
             <MultiSelectFieldV2
               id="classifications"
-              label="Classifications"
+              label={formatMessage({
+                defaultMessage: "Classifications",
+              })}
               options={optionsData.classifications}
             />
           </div>
           <div style={{ flexGrow: 1, marginLeft: 20 }}>
             <MultiSelectFieldV2
               id="workPreferences"
-              label="Work Preferences"
+              label={formatMessage({
+                defaultMessage: "Work Preferences",
+              })}
               options={optionsData.workPreferences}
             />
           </div>
           <div style={{ flexGrow: 1, marginLeft: 20 }}>
             <MultiSelectFieldV2
-              id="workLocation"
-              label="Work Location"
+              id="workLocations"
+              label={formatMessage({
+                defaultMessage: "Work Locations",
+              })}
               options={optionsData.workLocations}
             />
           </div>
@@ -150,28 +161,36 @@ const SearchFilter = ({
           <div style={{ flexGrow: 1 }}>
             <SelectFieldV2
               id="education"
-              label="Education"
+              label={formatMessage({
+                defaultMessage: "Education",
+              })}
               options={optionsData.education}
             />
           </div>
           <div style={{ flexGrow: 1, marginLeft: 20 }}>
             <SelectFieldV2
               id="durationPreference"
-              label="Duration Preference"
+              label={formatMessage({
+                defaultMessage: "Duration Preference",
+              })}
               options={optionsData.durationPreferences}
             />
           </div>
           <div style={{ flexGrow: 1, marginLeft: 20 }}>
             <MultiSelectFieldV2
               id="availability"
-              label="Availability"
+              label={formatMessage({
+                defaultMessage: "Availability",
+              })}
               options={optionsData.availability}
             />
           </div>
           <div style={{ marginLeft: 20 }}>
             <SelectFieldV2
               id="profileComplete"
-              label="Profile Complete"
+              label={formatMessage({
+                defaultMessage: "Profile Complete",
+              })}
               options={optionsData.profileComplete}
             />
           </div>
@@ -180,14 +199,18 @@ const SearchFilter = ({
           <div style={{ flexGrow: 1 }}>
             <MultiSelectFieldV2
               id="skillFilter"
-              label="Skill filter"
+              label={formatMessage({
+                defaultMessage: "Skill Filter",
+              })}
               options={optionsData.skillFilter}
             />
           </div>
           <div style={{ marginLeft: 20 }}>
             <SelectFieldV2
               id="govEmployee"
-              label="Government Employee"
+              label={formatMessage({
+                defaultMessage: "Government Employee",
+              })}
               options={optionsData.govEmployee}
             />
           </div>
