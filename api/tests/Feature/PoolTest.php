@@ -1,10 +1,6 @@
 <?php
 
-use App\Models\Classification;
-use App\Models\CmoAsset;
 use App\Models\Pool;
-use App\Models\PoolCandidate;
-use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Nuwave\Lighthouse\Testing\ClearsSchemaCache;
 use Nuwave\Lighthouse\Testing\MakesGraphQLRequests;
@@ -13,7 +9,7 @@ use Database\Helpers\ApiEnums;
 
 class PoolTest extends TestCase
 {
-  use \Illuminate\Foundation\Testing\RefreshDatabase;
+  use RefreshDatabase;
   use MakesGraphQLRequests;
   use ClearsSchemaCache;
 
@@ -29,22 +25,22 @@ class PoolTest extends TestCase
     $pool1 = Pool::factory()->create([
         'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11',
         'is_published' => true,
-        'expiry_date' => '2050-01-01 15:00:00-0800',
+        'expiry_date' => config('constants.far_future_date'),
     ]);
     $pool2 = Pool::factory()->create([
         'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a12',
         'is_published' => true,
-        'expiry_date' => '2020-01-01 15:00:00-0800',
+        'expiry_date' => config('constants.past_date'),
     ]);
     $pool3 = Pool::factory()->create([
         'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a13',
         'is_published' => false,
-        'expiry_date' => '2050-01-01 15:00:00-0800',
+        'expiry_date' => config('constants.far_future_date'),
     ]);
     $pool4 = Pool::factory()->create([
         'id' => 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a14',
         'is_published' => false,
-        'expiry_date' => '2020-01-01 15:00:00-0800',
+        'expiry_date' => config('constants.past_date'),
     ]);
 
     // Assert query with pool 1 will return accessor as published

@@ -167,4 +167,47 @@ class ApiEnums
     const POOL_ADVERTISEMENT_IS_DRAFT = 'DRAFT';
     const POOL_ADVERTISEMENT_IS_PUBLISHED = 'PUBLISHED';
     const POOL_ADVERTISEMENT_IS_EXPIRED = 'EXPIRED';
+    public static function poolAdvertisementStatuses() : array
+    {
+        return [
+            self::POOL_ADVERTISEMENT_IS_DRAFT,
+            self::POOL_ADVERTISEMENT_IS_PUBLISHED,
+            self::POOL_ADVERTISEMENT_IS_EXPIRED,
+        ];
+    }
+
+    /**
+     * Pool Advertisement languages
+     */
+    const POOL_ADVERTISEMENT_ENGLISH = 'ENGLISH';
+    const POOL_ADVERTISEMENT_FRENCH = 'FRENCH';
+    const POOL_ADVERTISEMENT_VARIOUS = 'VARIOUS';
+    const POOL_ADVERTISEMENT_BILINGUAL_INTERMEDIATE = 'BILINGUAL_INTERMEDIATE';
+    const POOL_ADVERTISEMENT_BILINGUAL_ADVANCED = 'BILINGUAL_ADVANCED';
+    public static function poolAdvertisementLanguages() : array
+    {
+        return [
+            self::POOL_ADVERTISEMENT_ENGLISH,
+            self::POOL_ADVERTISEMENT_FRENCH,
+            self::POOL_ADVERTISEMENT_VARIOUS,
+            self::POOL_ADVERTISEMENT_BILINGUAL_INTERMEDIATE,
+            self::POOL_ADVERTISEMENT_BILINGUAL_ADVANCED,
+        ];
+    }
+
+    /**
+     * Pool Advertisement security clearances
+     */
+    const POOL_ADVERTISEMENT_RELIABILITY = 'RELIABILITY';
+    const POOL_ADVERTISEMENT_SECRET = 'SECRET';
+    const POOL_ADVERTISEMENT_TOP_SECRET = 'TOP_SECRET';
+    public static function poolAdvertisementSecurity() : array
+    {
+        return [
+            self::POOL_ADVERTISEMENT_RELIABILITY,
+            self::POOL_ADVERTISEMENT_SECRET,
+            self::POOL_ADVERTISEMENT_TOP_SECRET,
+        ];
+    }
+
 }

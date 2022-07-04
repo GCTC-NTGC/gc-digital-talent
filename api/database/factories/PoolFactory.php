@@ -34,9 +34,12 @@ class PoolFactory extends Factory
             'user_id' => User::factory(),
             'operational_requirements' => $this->faker->optional->randomElements(ApiEnums::operationalRequirements(), 2),
             'key_tasks' => ['en' => $this->faker->paragraph().' EN', 'fr' => $this->faker->paragraph().' FR'],
+            'your_impact' => ['en' => $this->faker->paragraph().' EN', 'fr' => $this->faker->paragraph().' FR'],
             'pool_status' => $this->faker->randomElement(ApiEnums::poolStatuses()),
             'is_published' => $this->faker->boolean(),
             'expiry_date' => $this->faker->dateTimeBetween('-1 months', '1 months', 'America/Vancouver'),
+            'security_clearance' => $this->faker->randomElement(ApiEnums::poolAdvertisementSecurity()),
+            'poster_ad_language' => $this->faker->randomElement(ApiEnums::poolAdvertisementLanguages()),
         ];
     }
 

@@ -4,6 +4,9 @@ scalar Date @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date")
 "A datetime string with format `Y-m-d H:i:s`, e.g. `2018-05-23 13:43:32`."
 scalar DateTime @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\DateTime")
 
+"A datetime and timezone string in ISO 8601 format `Y-m-dTH:i:sP`, e.g. `2020-04-20T13:53:12+02:00`."
+scalar DateTimeTz @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\DateTimeTz")
+
 "A RFC 5321 compliant email."
 scalar Email @scalar(class: "MLL\\GraphQLScalars\\Email")
 
@@ -242,7 +245,7 @@ enum PoolStatus {
 
 type PoolAdvertisement {
     id: ID!
-    expiryDate: String @rename(attribute: "expiry_date")
+    expiryDate: DateTimeTz @rename(attribute: "expiry_date")
     isPublished: Boolean @rename(attribute: "is_published")
     name: LocalizedString
     description: LocalizedString
@@ -251,6 +254,10 @@ type PoolAdvertisement {
     essentialCriteria: [CmoAsset] @belongsToMany
     operationalRequirements: [OperationalRequirement] @rename(attribute: "operational_requirements")
     keyTasks: LocalizedString @rename(attribute: "key_tasks")
+    yourImpact: LocalizedString @rename(attribute: "your_impact")
+    posterLocation: LocalizedString @rename(attribute: "poster_location")
+    securityClearance: SecurityStatus @rename(attribute: "security_clearance")
+    posterAdLanguage: PoolAdLanguages @rename(attribute: "poster_ad_language")
     status: PoolStatus @rename(attribute: "pool_status")
     advertisementStatus: AdvertisementStatusEnum @rename(attribute: "advertisement_status")
 }
@@ -269,6 +276,20 @@ enum PoolCandidateStatus {
     UNAVAILABLE
     EXPIRED
     PLACED_CASUAL
+}
+
+enum SecurityStatus{
+    RELIABILITY
+    SECRET
+    TOP_SECRET
+}
+
+enum PoolAdLanguages {
+    ENGLISH
+    FRENCH
+    VARIOUS
+    BILINGUAL_INTERMEDIATE
+    BILINGUAL_ADVANCED
 }
 
 type PoolCandidate {

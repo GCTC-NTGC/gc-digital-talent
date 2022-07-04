@@ -20,7 +20,11 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property int $user_id
  * @property array $operational_requirements
  * @property array $key_tasks
+ * @property array $your_impact
  * @property array $pool_status
+ * @property string $poster_location
+ * @property string $security_clearance
+ * @property string $poster_ad_language
  * @property boolean $is_published
  * @property Illuminate\Support\Carbon $created_at
  * @property Illuminate\Support\Carbon $updated_at
@@ -44,6 +48,7 @@ class Pool extends Model
         'description' => 'array',
         'operational_requirements' => 'array',
         'key_tasks' => 'array',
+        'your_impact' => 'array',
         'expiry_date' => 'date',
     ];
 
