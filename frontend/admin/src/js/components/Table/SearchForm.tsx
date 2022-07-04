@@ -4,10 +4,9 @@ import { useAsyncDebounce } from "react-table";
 
 export interface SearchFormProps {
   onChange: (val: string | undefined) => void;
-  value: string | undefined;
 }
 
-const SearchForm: React.FC<SearchFormProps> = ({ onChange, value }) => {
+const SearchForm: React.FC<SearchFormProps> = ({ onChange }) => {
   const intl = useIntl();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

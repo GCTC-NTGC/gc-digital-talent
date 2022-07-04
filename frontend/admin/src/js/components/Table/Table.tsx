@@ -102,7 +102,7 @@ function Table<T extends Record<string, unknown>>({
     getToggleHideAllColumnsProps,
     rows,
     setGlobalFilter,
-    state: { globalFilter, pageIndex, pageSize },
+    state: { pageIndex, pageSize },
     gotoPage,
     setPageSize,
     page,
@@ -141,10 +141,7 @@ function Table<T extends Record<string, unknown>>({
             data-h2-display="b(flex)"
             data-h2-justify-content="b(flex-end)"
           >
-            <SearchForm
-              onChange={setGlobalFilter}
-              value={globalFilter?.target?.value}
-            />
+            <SearchForm onChange={setGlobalFilter} />
             <Spacer>
               <div data-h2-position="b(relative)">
                 <Button
