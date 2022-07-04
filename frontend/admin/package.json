@@ -83,7 +83,7 @@
     "eslint-plugin-react-hooks": "^4.5.0",
     "html-webpack-plugin": "^5.5.0",
     "jest": "^28.1.1",
-    "jest-environment-jsdom": "^28.1.1",
+    "jest-environment-jsdom": "^28.1.2",
     "mini-css-extract-plugin": "^2.6.0",
     "postcss": "^8.4.13",
     "prettier": "^2.6.2",
