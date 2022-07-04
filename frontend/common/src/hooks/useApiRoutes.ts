@@ -2,6 +2,7 @@ import path from "path-browserify";
 
 export interface ApiRoutes {
   login: (from?: string, locale?: string) => string;
+  register: (from?: string, locale?: string) => string;
   refreshAccessToken: () => string;
 }
 
@@ -16,6 +17,18 @@ const apiRoutes = {
 
     const url =
       path.join(apiRoot(), "login") + (searchString ? `?${searchString}` : "");
+
+    return url;
+  },
+  register: (from?: string, locale?: string): string => {
+    const searchTerms: string[] = [];
+    if (from) searchTerms.push(`from=${encodeURI(from)}`);
+    if (locale) searchTerms.push(`locale=${encodeURI(locale)}`);
+    const searchString = searchTerms.join("&");
+
+    const url =
+      path.join(apiRoot(), "register") +
+      (searchString ? `?${searchString}` : "");
 
     return url;
   },
