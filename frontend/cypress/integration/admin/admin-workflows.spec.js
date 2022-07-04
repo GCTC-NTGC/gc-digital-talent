@@ -13,11 +13,9 @@ describe("Admin Workflow Tests", () => {
   };
 
   const searchForUser = (name) => {
-    // search not yet implemented in new table
-    // cy.findByRole("textbox", { name: /Search/i })
-    // .clear()
-    // .type(name)
-    // .type("{enter}");
+    cy.findByRole("textbox", { name: /search/i })
+     .clear()
+     .type(name);
 
     cy.findByRole("table")
       .findByText(/Candidate Name/i)
