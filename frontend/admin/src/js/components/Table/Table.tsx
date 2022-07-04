@@ -1,5 +1,6 @@
 /* eslint-disable react/jsx-key */
-import React, { ReactElement, useState } from "react";
+import "regenerator-runtime/runtime"; // Hack: Needed for react-table?
+import React, { HTMLAttributes, ReactElement, useState } from "react";
 import { useIntl } from "react-intl";
 
 import {
@@ -11,18 +12,17 @@ import {
 } from "react-table";
 import { Button, Link } from "@common/components";
 import Pagination from "@common/components/Pagination";
-import { FilterIcon, PlusIcon, TableIcon } from "@heroicons/react/outline";
+import { PlusIcon, TableIcon } from "@heroicons/react/outline";
 import Dialog from "@common/components/Dialog";
 import { Fieldset } from "@common/components/inputPartials";
 import SortIcon from "./SortIcon";
-import SearchForm, { type SearchFormProps } from "./SearchForm";
-import { IndeterminateCheckbox, Spacer, ButtonIcon } from "./tableComponents";
+import SearchForm from "./SearchForm";
 
 export type ColumnsOf<T extends Record<string, unknown>> = Array<Column<T>>;
 
 export interface TableProps<
   T extends Record<string, unknown> = Record<string, unknown>,
-> extends Pick<SearchFormProps, "searchBy"> {
+> {
   columns: Array<Column<T>>;
   data: Array<T>;
   title?: string;
@@ -34,8 +34,54 @@ export interface TableProps<
   pagination?: boolean;
   hiddenCols?: string[];
   labelledBy?: string;
-  onSearchSubmit?: () => void;
 }
+
+const IndeterminateCheckbox: React.FC<
+  React.HTMLProps<HTMLInputElement> & { indeterminate: boolean }
+> = ({ indeterminate, ...rest }) => {
+  const intl = useIntl();
+  const ref = React.useRef<HTMLInputElement>(null);
+
+  React.useEffect(() => {
+    if (ref.current) {
+      ref.current.indeterminate = indeterminate;
+    }
+  }, [ref, indeterminate]);
+
+  return (
+    <label htmlFor="column-fieldset-toggle-all">
+      <input
+        id="column-fieldset-toggle-all"
+        type="checkbox"
+        ref={ref}
+        {...rest}
+      />{" "}
+      {intl.formatMessage({
+        defaultMessage: "Toggle All",
+        description: "Label displayed on the Table Columns toggle fieldset.",
+      })}
+    </label>
+  );
+};
+
+const Spacer: React.FC = ({ children }) => (
+  <div data-h2-margin="b(left, s)" style={{ flexShrink: 0 }}>
+    {children}
+  </div>
+);
+
+const ButtonIcon: React.FC<{
+  icon: React.FC<HTMLAttributes<HTMLOrSVGElement>>;
+}> = ({ icon }) => {
+  const Icon = icon;
+
+  return (
+    <Icon
+      style={{ height: "1em", width: "1rem" }}
+      data-h2-margin="b(right, xs)"
+    />
+  );
+};
 
 function Table<T extends Record<string, unknown>>({
   columns,
@@ -43,8 +89,6 @@ function Table<T extends Record<string, unknown>>({
   labelledBy,
   title,
   addBtn,
-  onSearchSubmit,
-  searchBy,
   filter = true,
   pagination = true,
   hiddenCols = [],
@@ -57,7 +101,8 @@ function Table<T extends Record<string, unknown>>({
     allColumns,
     getToggleHideAllColumnsProps,
     rows,
-    state: { pageIndex, pageSize },
+    setGlobalFilter,
+    state: { globalFilter, pageIndex, pageSize },
     gotoPage,
     setPageSize,
     page,
@@ -76,12 +121,6 @@ function Table<T extends Record<string, unknown>>({
 
   const [showList, setShowList] = useState(false);
   const intl = useIntl();
-
-  const handleSubmit = () => {
-    if (onSearchSubmit) {
-      onSearchSubmit();
-    }
-  };
 
   return (
     <div data-h2-margin="b(top-bottom, m)">
@@ -103,28 +142,9 @@ function Table<T extends Record<string, unknown>>({
             data-h2-justify-content="b(flex-end)"
           >
             <SearchForm
-              onChange={(term) => window.console.log(term)}
-              onSubmit={handleSubmit}
-              searchBy={searchBy}
+              onChange={setGlobalFilter}
+              value={globalFilter?.target?.value}
             />
-            <Spacer>
-              <Button
-                mode="outline"
-                color="black"
-                type="button"
-                data-h2-display="b(inline-flex)"
-                data-h2-align-items="b(center)"
-              >
-                <ButtonIcon icon={FilterIcon} />
-                <span>
-                  {intl.formatMessage({
-                    defaultMessage: "Filters",
-                    description:
-                      "Text label for button to open filter dialog on admin tables.",
-                  })}
-                </span>
-              </Button>
-            </Spacer>
             <Spacer>
               <div data-h2-position="b(relative)">
                 <Button

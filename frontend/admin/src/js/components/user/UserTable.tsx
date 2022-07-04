@@ -111,32 +111,6 @@ export const UserTable: React.FC<AllUsersQuery & { editUrlRoot: string }> = ({
         defaultMessage: "All users",
         description: "Title for the admin users table",
       })}
-      searchBy={[
-        {
-          value: "name",
-          label: intl.formatMessage({
-            defaultMessage: "Name",
-            description:
-              "Text displayed in user table search form dropdown for name column",
-          }),
-        },
-        {
-          value: "email",
-          label: intl.formatMessage({
-            defaultMessage: "Email",
-            description:
-              "Text displayed in user table search form dropdown for email column",
-          }),
-        },
-        {
-          value: "phone",
-          label: intl.formatMessage({
-            defaultMessage: "Phone number",
-            description:
-              "Text displayed in user table search form dropdown for phone number column",
-          }),
-        },
-      ]}
       addBtn={{
         label: intl.formatMessage({
           defaultMessage: "New user",
