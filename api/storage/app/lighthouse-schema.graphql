@@ -715,10 +715,6 @@ type PoolAdvertisement {
   operationalRequirements: [OperationalRequirement]
   keyTasks: LocalizedString
   status: PoolStatus
-  advertisementStatusAccessor: PoolAdvertisementStatus
-}
-
-type PoolAdvertisementStatus {
   advertisementStatus: AdvertisementStatusEnum
 }
 

@@ -252,10 +252,6 @@ type PoolAdvertisement {
     operationalRequirements: [OperationalRequirement] @rename(attribute: "operational_requirements")
     keyTasks: LocalizedString @rename(attribute: "key_tasks")
     status: PoolStatus @rename(attribute: "pool_status")
-    advertisementStatusAccessor: PoolAdvertisementStatus
-}
-
-type PoolAdvertisementStatus {
     advertisementStatus: AdvertisementStatusEnum @rename(attribute: "advertisement_status")
 }
 

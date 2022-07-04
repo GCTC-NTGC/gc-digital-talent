@@ -18,7 +18,7 @@ class UpdatePoolWithAdvertisement extends Migration
         });
 
         Schema::table('pools', function (Blueprint $table) {
-            $table->boolean('is_published')->nullable();
+            $table->boolean('is_published')->default(false);
         });
     }
 

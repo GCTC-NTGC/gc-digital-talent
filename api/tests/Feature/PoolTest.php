@@ -51,17 +51,13 @@ class PoolTest extends TestCase
     $this->graphQL(/** @lang Graphql */ '
         query poolAdvertisement {
             poolAdvertisement(id: "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11") {
-                advertisementStatusAccessor {
-                    advertisementStatus
-                }
+                advertisementStatus
             }
         }
     ')->assertJson([
          "data" => [
             "poolAdvertisement" => [
-                "advertisementStatusAccessor" => [
-                    "advertisementStatus" => ApiEnums::POOL_ADVERTISEMENT_IS_PUBLISHED,
-                ]
+               "advertisementStatus" => ApiEnums::POOL_ADVERTISEMENT_IS_PUBLISHED,
             ]
         ]
     ]);
@@ -70,17 +66,13 @@ class PoolTest extends TestCase
     $this->graphQL(/** @lang Graphql */ '
         query poolAdvertisement {
             poolAdvertisement(id: "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a12") {
-                advertisementStatusAccessor {
-                    advertisementStatus
-                }
+                advertisementStatus
             }
         }
     ')->assertJson([
          "data" => [
             "poolAdvertisement" => [
-                "advertisementStatusAccessor" => [
-                    "advertisementStatus" => ApiEnums::POOL_ADVERTISEMENT_IS_EXPIRED,
-                ]
+                "advertisementStatus" => ApiEnums::POOL_ADVERTISEMENT_IS_EXPIRED,
             ]
         ]
     ]);
@@ -89,17 +81,13 @@ class PoolTest extends TestCase
     $this->graphQL(/** @lang Graphql */ '
         query poolAdvertisement {
             poolAdvertisement(id: "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a13") {
-                advertisementStatusAccessor {
-                    advertisementStatus
-                }
+                advertisementStatus
             }
         }
     ')->assertJson([
          "data" => [
             "poolAdvertisement" => [
-                "advertisementStatusAccessor" => [
-                    "advertisementStatus" => ApiEnums::POOL_ADVERTISEMENT_IS_DRAFT,
-                ]
+                "advertisementStatus" => ApiEnums::POOL_ADVERTISEMENT_IS_DRAFT,
             ]
         ]
     ]);
@@ -108,19 +96,16 @@ class PoolTest extends TestCase
     $this->graphQL(/** @lang Graphql */ '
         query poolAdvertisement {
             poolAdvertisement(id: "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a14") {
-                advertisementStatusAccessor {
-                    advertisementStatus
-                }
+                advertisementStatus
             }
         }
     ')->assertJson([
          "data" => [
             "poolAdvertisement" => [
-                "advertisementStatusAccessor" => [
-                    "advertisementStatus" => ApiEnums::POOL_ADVERTISEMENT_IS_DRAFT,
-                ]
+                "advertisementStatus" => ApiEnums::POOL_ADVERTISEMENT_IS_DRAFT,
             ]
         ]
     ]);
   }
+
 }

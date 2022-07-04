@@ -69,30 +69,26 @@ class Pool extends Model
     }
 
     /* accessor to obtain Advertisement Status, depends on two variables regarding published and expiry */
-    public function getAdvertisementStatusAccessorAttribute()
+    public function getAdvertisementStatusAttribute()
     {
         date_default_timezone_set('America/Vancouver');
         $isPublished = $this->is_published;
         $expiryDate = $this->expiry_date;
         $currentTime = date("Y-m-d H:i:s");
-        $isExpired = $currentTime>$expiryDate ? true : false;
+        $isExpired = $currentTime > $expiryDate ? true : false;
 
         if(!$isPublished){
-            return [
-               "advertisement_status" => ApiEnums::POOL_ADVERTISEMENT_IS_DRAFT,
-            ];
+            return ApiEnums::POOL_ADVERTISEMENT_IS_DRAFT;
+
         } elseif($isPublished && !$isExpired){
-            return [
-                "advertisement_status" => ApiEnums::POOL_ADVERTISEMENT_IS_PUBLISHED,
-            ];
+            return ApiEnums::POOL_ADVERTISEMENT_IS_PUBLISHED;
+
         } elseif($isPublished && $isExpired){
-            return [
-                "advertisement_status" => ApiEnums::POOL_ADVERTISEMENT_IS_EXPIRED,
-            ];
+            return ApiEnums::POOL_ADVERTISEMENT_IS_EXPIRED;
+
         } else{
-            return [
-                "advertisement_status" => null,
-            ];
+            return null;
+
         }
     }
 }
