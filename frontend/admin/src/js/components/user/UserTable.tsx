@@ -184,10 +184,8 @@ export const UserTable: React.FC = () => {
         All Users
       </h2>
       <TableHeader
-        onSearchChange={(s: string) => setSearchState(s)}
-        onSearchSubmit={() => setSearchState(null)}
+        onSearchChange={(val: string | undefined) => setSearchState(val)}
         columns={columns}
-        searchBy={searchBy}
         addBtn={{
           label: intl.formatMessage({
             defaultMessage: "New user",

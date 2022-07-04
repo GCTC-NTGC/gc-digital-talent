@@ -4,7 +4,7 @@ import { Fieldset } from "@common/components/inputPartials";
 import React, { ReactElement, useState } from "react";
 import { useIntl } from "react-intl";
 import { FilterIcon, PlusIcon, TableIcon } from "@heroicons/react/outline";
-import SearchForm, { SearchColumn } from "../Table/SearchForm";
+import SearchForm from "../Table/SearchForm";
 import {
   ButtonIcon,
   IndeterminateCheckbox,
@@ -13,10 +13,8 @@ import {
 import { ColumnHiddenEvent, ColumnsOf, IdType } from "./basicTableHelpers";
 
 export interface TableHeaderProps<T extends Record<string, unknown>> {
-  onSearchChange: (s: string) => void;
-  onSearchSubmit: () => void;
+  onSearchChange: (val: string | undefined) => void;
   columns: ColumnsOf<T>;
-  searchBy?: SearchColumn[];
   addBtn?: {
     path: string;
     label: string;
@@ -29,9 +27,7 @@ export interface TableHeaderProps<T extends Record<string, unknown>> {
 
 function TableHeader<T extends Record<string, unknown>>({
   onSearchChange,
-  onSearchSubmit,
   columns,
-  searchBy,
   addBtn,
   filter = true,
   title,
@@ -62,11 +58,7 @@ function TableHeader<T extends Record<string, unknown>>({
             data-h2-display="b(flex)"
             data-h2-justify-content="b(flex-end)"
           >
-            <SearchForm
-              onChange={onSearchChange}
-              onSubmit={onSearchSubmit}
-              searchBy={searchBy}
-            />
+            <SearchForm onChange={onSearchChange} />
             <Spacer>
               <Button
                 mode="outline"
