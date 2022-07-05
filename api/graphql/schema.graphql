@@ -390,6 +390,26 @@ type PoolCandidateFilter {
     pools: [Pool] @belongsToMany
 }
 
+type ApplicantFilterPoolRecord {
+    pool: Pool!
+    expiryStatus: CandidateExpiryFilter
+    statuses: [PoolCandidateStatus] @rename(attribute: "pool_candidate_statuses")
+}
+
+type ApplicantFilter {
+    id: ID!
+    expectedClassifications: [Classification]
+    hasDiploma: Boolean @rename(attribute: "has_diploma")
+    equity: EquitySelections
+    languageAbility: LanguageAbility @rename(attribute: "language_ability")
+    operationalRequirements: [OperationalRequirement] @rename(attribute: "operational_requirements")
+    locationPreferences: [WorkRegion]
+    wouldAcceptTemporary: Boolean
+    skills: [Skill]
+    jobLookingStatus: [JobLookingStatus]
+    pools: [ApplicantFilterPoolRecord]
+}
+
 type PoolCandidateSearchRequest {
     id: ID!
     fullName: String @rename(attribute: "full_name")
@@ -606,7 +626,7 @@ input UserFilterInput {
 }
 
 input ApplicantFilterInput {
-    poolCandidates: UserPoolFilterInput @builder(method: "App\\Models\\User@filterByPools")
+    pools: UserPoolFilterInput @builder(method: "App\\Models\\User@filterByPools")
     jobLookingStatus: [JobLookingStatus] = [ACTIVELY_LOOKING, OPEN_TO_OPPORTUNITIES] @builder(method: "App\\Models\\User@filterByJobLookingStatus")
     languageAbility: LanguageAbility @builder(method: "App\\Models\\User@filterByLanguageAbility")
     expectedClassifications: [ClassificationFilterInput] @scope(name: "classifications")

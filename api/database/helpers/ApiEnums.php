@@ -64,6 +64,19 @@ class ApiEnums
     const CANDIDATE_EXPIRY_FILTER_ACTIVE = 'ACTIVE';
     const CANDIDATE_EXPIRY_FILTER_EXPIRED = 'EXPIRED';
     const CANDIDATE_EXPIRY_FILTER_ALL = 'ALL';
+    /**
+     * A collection of enums for CandiateExpiryStatus in factories and seeders
+     *
+     * @return string[]
+     */
+    public static function candidateExpiryFilters() : array
+    {
+        return [
+            self::CANDIDATE_EXPIRY_FILTER_ACTIVE,
+            self::CANDIDATE_EXPIRY_FILTER_EXPIRED,
+            self::CANDIDATE_EXPIRY_FILTER_ALL,
+        ];
+    }
 
     const ROLE_ADMIN = 'ADMIN';
     const ROLE_APPLICANT = 'APPLICANT';
@@ -158,6 +171,43 @@ class ApiEnums
             self::GENERIC_JOB_TITLE_KEY_TECHNICAL_ADVISOR_IT03,
             self::GENERIC_JOB_TITLE_KEY_SENIOR_ADVISOR_IT04,
             self::GENERIC_JOB_TITLE_KEY_MANAGER_IT04,
+        ];
+    }
+
+    // enum WorkRegion {
+    //     TELEWORK
+    //     NATIONAL_CAPITAL
+    //     ATLANTIC
+    //     QUEBEC
+    //     ONTARIO
+    //     PRAIRIE
+    //     BRITISH_COLUMBIA
+    //     NORTH
+    // }
+    const WORK_REGION_TELEWORK = 'TELEWORK';
+    const WORK_REGION_NATIONAL_CAPITAL = 'NATIONAL_CAPITAL';
+    const WORK_REGION_ATLANTIC = 'ATLANTIC';
+    const WORK_REGION_QUEBEC = 'QUEBEC';
+    const WORK_REGION_ONTARIO = 'ONTARIO';
+    const WORK_REGION_PRAIRIE = 'PRAIRIE';
+    const WORK_REGION_BRITISH_COLUMBIA = 'BRITISH_COLUMBIA';
+    const WORK_REGION_NORTH = 'NORTH';
+    /**
+     * A collection of enums for WorkRegions in factories and seeders
+     *
+     * @return string[]
+     */
+    public static function workRegions() : array
+    {
+        return [
+            self::WORK_REGION_TELEWORK,
+            self::WORK_REGION_NATIONAL_CAPITAL,
+            self::WORK_REGION_ATLANTIC,
+            self::WORK_REGION_QUEBEC,
+            self::WORK_REGION_ONTARIO,
+            self::WORK_REGION_PRAIRIE,
+            self::WORK_REGION_BRITISH_COLUMBIA,
+            self::WORK_REGION_NORTH,
         ];
     }
 }

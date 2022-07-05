@@ -57,6 +57,12 @@ input ApplicantFilterInput {
   skills: [ID]
 }
 
+type ApplicantFilterPoolRecord {
+  pool: Pool!
+  expiryStatus: CandidateExpiryFilter
+  statuses: [PoolCandidateStatus]
+}
+
 type AwardExperience implements Experience {
   id: ID!
   applicant: Applicant!
