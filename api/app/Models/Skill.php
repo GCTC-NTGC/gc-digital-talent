@@ -108,25 +108,13 @@ class Skill extends Model
         return $collection;
     }
 
-    public function poolsEssentialSkills()
+    public function poolsEssentialSkills() : BelongsToMany
     {
-        return $this->morphedByMany(
-            Pool::class,
-            'pools',
-            'pools_essential_skills'
-        )
-        ->withTimestamps()
-        ->as('pools_essential_skills_pivot');
+        return $this->belongsToMany(Pool::class, 'pools_essential_skills');
     }
 
-    public function poolsNonessentialSkills()
+    public function poolsNonessentialSkills() : BelongsToMany
     {
-        return $this->morphedByMany(
-            Pool::class,
-            'pools',
-            'pools_nonessential_skills'
-        )
-        ->withTimestamps()
-        ->as('pools_nonessential_skills_pivot');
+        return $this->belongsToMany(Pool::class, 'pools_essential_skills');
     }
 }

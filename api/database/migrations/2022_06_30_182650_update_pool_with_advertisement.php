@@ -27,7 +27,6 @@ class UpdatePoolWithAdvertisement extends Migration
             $table->foreign('skill_id')->references('id')->on('skills');
             $table->uuid('pool_id')->nullable();
             $table->foreign('pool_id')->references('id')->on('pools');
-            $table->string('pool_type')->nullable();
             $table->unique(['skill_id', 'pool_id']);
             $table->timestamps();
         });
@@ -37,7 +36,6 @@ class UpdatePoolWithAdvertisement extends Migration
             $table->foreign('skill_id')->references('id')->on('skills');
             $table->uuid('pool_id')->nullable();
             $table->foreign('pool_id')->references('id')->on('pools');
-            $table->string('pool_type')->nullable();
             $table->unique(['skill_id', 'pool_id']);
             $table->timestamps();
         });

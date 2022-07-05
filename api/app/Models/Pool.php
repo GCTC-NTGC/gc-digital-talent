@@ -9,7 +9,6 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\MorphToMany;
 
 /**
  * Class Pool
@@ -75,18 +74,14 @@ class Pool extends Model
         return $this->hasMany(PoolCandidate::class);
     }
 
-    public function essentialSkills(): MorphToMany
+    public function essentialSkills(): BelongsToMany
     {
-        return $this->morphToMany(Skill::class, 'pool', 'pools_essential_skills')
-            ->withTimestamps()
-            ->as('pools_essential_skills_pivot');
+        return $this->belongsToMany(Skill::class, 'pools_essential_skills');
     }
 
-    public function nonessentialSkills(): MorphToMany
+    public function nonessentialSkills(): BelongsToMany
     {
-        return $this->morphToMany(Skill::class, 'pool', 'pools_nonessential_skills')
-            ->withTimestamps()
-            ->as('pools_nonessential_skills_pivot');
+        return $this->belongsToMany(Skill::class, 'pools_nonessential_skills');
     }
 
     /* accessor to obtain Advertisement Status, depends on two variables regarding published and expiry */
