@@ -42,6 +42,7 @@ export const ButtonPrimaryInline = TemplateButton.bind({});
 export const ButtonSecondary = TemplateButton.bind({});
 export const ButtonSecondaryOutline = TemplateButton.bind({});
 export const ButtonSecondaryInline = TemplateButton.bind({});
+export const ButtonSecondaryTableHeader = TemplateButton.bind({});
 export const ButtonCTA = TemplateButton.bind({});
 export const ButtonCTAOutline = TemplateButton.bind({});
 export const ButtonCTAInline = TemplateButton.bind({});
@@ -89,6 +90,12 @@ ButtonSecondaryOutline.args = {
 ButtonSecondaryInline.args = {
   color: "secondary",
   mode: "inline",
+  onClick: action("Button clicked"),
+};
+
+ButtonSecondaryTableHeader.args = {
+  color: "secondary",
+  mode: "tableHeader",
   onClick: action("Button clicked"),
 };
 
