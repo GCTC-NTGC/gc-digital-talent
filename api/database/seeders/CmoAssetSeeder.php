@@ -67,8 +67,8 @@ class CmoAssetSeeder extends Seeder
             [
                 'key' => 'infrastructure_ops',
                 'name' => [
-                    'en' => 'Infrastructure/Operations',
-                    'fr' => 'Infrastructure/Opérations'
+                    'en' => 'Infrastructure / Operations',
+                    'fr' => 'Infrastructure / Opérations'
                 ],
             ],
             [
