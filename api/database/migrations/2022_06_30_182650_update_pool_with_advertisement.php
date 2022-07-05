@@ -15,30 +15,14 @@ class UpdatePoolWithAdvertisement extends Migration
     {
         Schema::table('pools', function (Blueprint $table) {
             $table->timestamptz('expiry_date')->nullable();
-        });
-
-        Schema::table('pools', function (Blueprint $table) {
             $table->boolean('is_published')->default(false);
-        });
-
-        Schema::table('pools', function (Blueprint $table) {
             $table->jsonb('your_impact')->nullable()->default(json_encode(['en' => '', 'fr' => '']));
-        });
-
-        Schema::table('pools', function (Blueprint $table) {
             $table->jsonb('advertisement_location')->nullable()->default(json_encode(['en' => '', 'fr' => '']));
-        });
-
-        Schema::table('pools', function (Blueprint $table) {
             $table->string('security_clearance')->nullable();
-        });
-
-        Schema::table('pools', function (Blueprint $table) {
             $table->string('advertisement_language')->nullable();
         });
 
         Schema::create('pools_essential_skills', function (Blueprint $table) {
-            $table->text('details')->nullable();
             $table->uuid('skill_id')->nullable();
             $table->foreign('skill_id')->references('id')->on('skills');
             $table->uuid('pool_id')->nullable();
@@ -49,7 +33,6 @@ class UpdatePoolWithAdvertisement extends Migration
         });
 
         Schema::create('pools_nonessential_skills', function (Blueprint $table) {
-            $table->text('details')->nullable();
             $table->uuid('skill_id')->nullable();
             $table->foreign('skill_id')->references('id')->on('skills');
             $table->uuid('pool_id')->nullable();

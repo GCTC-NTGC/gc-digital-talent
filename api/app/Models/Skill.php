@@ -116,7 +116,6 @@ class Skill extends Model
             'pools_essential_skills'
         )
         ->withTimestamps()
-        ->withPivot('details')
         ->as('pools_essential_skills_pivot');
     }
 
@@ -128,7 +127,6 @@ class Skill extends Model
             'pools_nonessential_skills'
         )
         ->withTimestamps()
-        ->withPivot('details')
         ->as('pools_nonessential_skills_pivot');
     }
 }

@@ -79,7 +79,6 @@ class Pool extends Model
     {
         return $this->morphToMany(Skill::class, 'pool', 'pools_essential_skills')
             ->withTimestamps()
-            ->withPivot('details')
             ->as('pools_essential_skills_pivot');
     }
 
@@ -87,7 +86,6 @@ class Pool extends Model
     {
         return $this->morphToMany(Skill::class, 'pool', 'pools_nonessential_skills')
             ->withTimestamps()
-            ->withPivot('details')
             ->as('pools_nonessential_skills_pivot');
     }
 
