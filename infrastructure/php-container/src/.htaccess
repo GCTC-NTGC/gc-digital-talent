@@ -19,6 +19,7 @@ DirectorySlash off
 
     # Send api login request to api
     RewriteRule ^login$ api/public/login [L]
+    RewriteRule ^register$ api/public/register [L]
     RewriteRule ^auth-callback$ api/public/auth-callback [L]
     RewriteRule ^refresh$ api/public/refresh [L]
 
@@ -51,11 +52,11 @@ DirectorySlash off
     RewriteRule ^(en|fr)/browse(/(.*))?$ frontend/talentsearch/dist/$3 [L]
 
     # Send register requests to talentsearch dist folder (with or without public/ path prefix).
-    RewriteRule ^register/public(/(.*))?$ frontend/talentsearch/dist/$2 [L]
-    RewriteRule ^register(/(.*))?$ frontend/talentsearch/dist/$2 [L]
+    RewriteRule ^register-info/public(/(.*))?$ frontend/talentsearch/dist/$2 [L]
+    RewriteRule ^register-info(/(.*))?$ frontend/talentsearch/dist/$2 [L]
 
     # Send localized talent requests also to talentsearch dist folder;
-    RewriteRule ^(en|fr)/register(/(.*))?$ frontend/talentsearch/dist/$3 [L]
+    RewriteRule ^(en|fr)/register-info(/(.*))?$ frontend/talentsearch/dist/$3 [L]
 
     # Send login-info requests to talentsearch dist folder (with or without public/ path prefix).
     RewriteRule ^login-info/public(/(.*))?$ frontend/talentsearch/dist/$2 [L]
