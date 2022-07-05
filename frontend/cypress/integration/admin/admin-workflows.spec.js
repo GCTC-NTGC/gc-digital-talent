@@ -43,7 +43,7 @@ describe("Admin Workflow Tests", () => {
     cy.findByRole("link", { name: /Manage users/i }).click();
     cy.wait("@gqlAllUsersPaginatedQuery");
 
-    searchForUser("Applicant Test");
+    searchForUser("Applicant");
 
     cy.findByRole("table")
       .findByRole("row", { name: /applicant test/i })
