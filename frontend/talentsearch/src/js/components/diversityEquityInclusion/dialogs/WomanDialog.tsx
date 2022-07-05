@@ -84,7 +84,13 @@ const WomanDialog: React.FC<EquityDialogProps> = ({
           description: "Definition of accepted ways to identify as a women",
         })}
       </p>
-      <Definition url="https://www23.statcan.gc.ca/imdb/p3VD.pl?Function=getVD&TVD=1326727&CVD=1326727&CLV=0&MLV=1&D=1" />
+      <Definition
+        url={
+          intl.locale === "en"
+            ? "https://www23.statcan.gc.ca/imdb/p3VD.pl?Function=getVD&TVD=1326727&CVD=1326727&CLV=0&MLV=1&D=1"
+            : "https://www23.statcan.gc.ca/imdb/p3VD_f.pl?Function=getVD&TVD=1326727&CVD=1326727&CLV=0&MLV=1&D=1"
+        }
+      />
     </Dialog>
   );
 };
