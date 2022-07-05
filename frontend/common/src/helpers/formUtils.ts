@@ -122,15 +122,21 @@ export const countNumberOfWords = (text: string): number => {
   return 0;
 };
 
+/**
+ * Maps a list of objects to sorted options
+ * @param objects An array of objects with an id and name property
+ * @param intl The current intl of the page
+ * @returns An array of sorted options
+ */
 export const objectsToSortedOptions = (
-  namedEntities: {
+  objects: {
     id: Scalars["ID"];
     name: LocalizedString;
   }[],
   intl: IntlShape,
 ): { value: string; label: string }[] => {
   const locale = getLocale(intl);
-  return namedEntities
+  return objects
     .sort((a, b) => {
       const aName: Maybe<string> = a.name[locale];
       const bName: Maybe<string> = b.name[locale];
