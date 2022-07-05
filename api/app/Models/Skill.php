@@ -107,4 +107,14 @@ class Skill extends Model
         $collection = $collection->merge($this->workExperiences);
         return $collection;
     }
+
+    public function poolsEssentialSkills() : BelongsToMany
+    {
+        return $this->belongsToMany(Pool::class, 'pools_essential_skills');
+    }
+
+    public function poolsNonessentialSkills() : BelongsToMany
+    {
+        return $this->belongsToMany(Pool::class, 'pools_essential_skills');
+    }
 }
