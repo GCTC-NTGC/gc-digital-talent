@@ -26,7 +26,7 @@ class UpdatePoolWithAdvertisement extends Migration
         });
 
         Schema::table('pools', function (Blueprint $table) {
-            $table->string('poster_location')->nullable();
+            $table->jsonb('advertisement_location')->nullable()->default(json_encode(['en' => '', 'fr' => '']));
         });
 
         Schema::table('pools', function (Blueprint $table) {
@@ -34,7 +34,7 @@ class UpdatePoolWithAdvertisement extends Migration
         });
 
         Schema::table('pools', function (Blueprint $table) {
-            $table->string('poster_ad_language')->nullable();
+            $table->string('advertisement_language')->nullable();
         });
 
         Schema::create('pools_essential_skills', function (Blueprint $table) {
@@ -72,9 +72,9 @@ class UpdatePoolWithAdvertisement extends Migration
                 'expiry_date',
                 'is_published',
                 'your_impact',
-                'poster_location',
+                'advertisement_location',
                 'security_clearance',
-                'poster_ad_language',
+                'advertisement_language',
             ]);
         });
         Schema::dropIfExists('pools_essential_skills');

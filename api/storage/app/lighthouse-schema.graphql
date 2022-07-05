@@ -1,4 +1,4 @@
-enum AdvertisementStatusEnum {
+enum AdvertisementStatus {
   DRAFT
   PUBLISHED
   EXPIRED
@@ -708,14 +708,6 @@ type Pool {
   status: PoolStatus
 }
 
-enum PoolAdLanguages {
-  ENGLISH
-  FRENCH
-  VARIOUS
-  BILINGUAL_INTERMEDIATE
-  BILINGUAL_ADVANCED
-}
-
 type PoolAdvertisement {
   id: ID!
   expiryDate: DateTimeTz
@@ -728,13 +720,21 @@ type PoolAdvertisement {
   operationalRequirements: [OperationalRequirement]
   keyTasks: LocalizedString
   yourImpact: LocalizedString
-  posterLocation: LocalizedString
+  advertisementLocation: LocalizedString
   securityClearance: SecurityStatus
-  posterAdLanguage: PoolAdLanguages
+  advertisementLanguage: PoolAdvertisementLanguage
   status: PoolStatus
-  advertisementStatus: AdvertisementStatusEnum
+  advertisementStatus: AdvertisementStatus
   essentialSkills: [Skill!]
   nonessentialSkills: [Skill!]
+}
+
+enum PoolAdvertisementLanguage {
+  ENGLISH
+  FRENCH
+  VARIOUS
+  BILINGUAL_INTERMEDIATE
+  BILINGUAL_ADVANCED
 }
 
 input PoolBelongsTo {

@@ -255,16 +255,16 @@ type PoolAdvertisement {
     operationalRequirements: [OperationalRequirement] @rename(attribute: "operational_requirements")
     keyTasks: LocalizedString @rename(attribute: "key_tasks")
     yourImpact: LocalizedString @rename(attribute: "your_impact")
-    posterLocation: LocalizedString @rename(attribute: "poster_location")
+    advertisementLocation: LocalizedString @rename(attribute: "advertisement_location")
     securityClearance: SecurityStatus @rename(attribute: "security_clearance")
-    posterAdLanguage: PoolAdLanguages @rename(attribute: "poster_ad_language")
+    advertisementLanguage: PoolAdvertisementLanguage @rename(attribute: "advertisement_language")
     status: PoolStatus @rename(attribute: "pool_status")
-    advertisementStatus: AdvertisementStatusEnum @rename(attribute: "advertisement_status")
+    advertisementStatus: AdvertisementStatus @rename(attribute: "advertisement_status")
     essentialSkills: [Skill!] @morphToMany
     nonessentialSkills: [Skill!] @morphToMany
 }
 
-enum AdvertisementStatusEnum {
+enum AdvertisementStatus {
     DRAFT
     PUBLISHED
     EXPIRED
@@ -286,7 +286,7 @@ enum SecurityStatus{
     TOP_SECRET
 }
 
-enum PoolAdLanguages {
+enum PoolAdvertisementLanguage {
     ENGLISH
     FRENCH
     VARIOUS

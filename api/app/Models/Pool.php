@@ -23,9 +23,9 @@ use Illuminate\Database\Eloquent\Relations\MorphToMany;
  * @property array $key_tasks
  * @property array $your_impact
  * @property array $pool_status
- * @property string $poster_location
+ * @property array $advertisement_location
  * @property string $security_clearance
- * @property string $poster_ad_language
+ * @property string $advertisement_language
  * @property boolean $is_published
  * @property Illuminate\Support\Carbon $created_at
  * @property Illuminate\Support\Carbon $updated_at
@@ -49,8 +49,9 @@ class Pool extends Model
         'description' => 'array',
         'operational_requirements' => 'array',
         'key_tasks' => 'array',
+        'advertisement_location' => 'array',
         'your_impact' => 'array',
-        'expiry_date' => 'date',
+        'expiry_date' => 'datetime',
     ];
 
     public function user(): BelongsTo

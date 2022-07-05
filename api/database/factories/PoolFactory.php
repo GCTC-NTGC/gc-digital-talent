@@ -40,7 +40,8 @@ class PoolFactory extends Factory
             'is_published' => $this->faker->boolean(),
             'expiry_date' => $this->faker->dateTimeBetween('-1 months', '1 months', 'America/Vancouver'),
             'security_clearance' => $this->faker->randomElement(ApiEnums::poolAdvertisementSecurity()),
-            'poster_ad_language' => $this->faker->randomElement(ApiEnums::poolAdvertisementLanguages()),
+            'advertisement_language' => $this->faker->randomElement(ApiEnums::poolAdvertisementLanguages()),
+            'advertisement_location' => ['en' => $this->faker->country(), 'fr' => $this->faker->country()],
         ];
     }
 
