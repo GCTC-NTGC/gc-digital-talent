@@ -16,7 +16,7 @@ import {
 } from "@common/helpers/storageUtils";
 import { EquitySelections } from "@common/api/generated";
 import Pending from "@common/components/Pending";
-import { entitiesToSortedOptions } from "@common/helpers/formUtils";
+import { objectsToSortedOptions } from "@common/helpers/formUtils";
 import { useTalentSearchRoutes } from "../../talentSearchRoutes";
 import {
   Department,
@@ -216,7 +216,7 @@ export const RequestForm: React.FunctionComponent<RequestFormProps> = ({
                     description:
                       "Null selection for department select input in the request form.",
                   })}
-                  options={entitiesToSortedOptions(departments, intl)}
+                  options={objectsToSortedOptions(departments, intl)}
                   rules={{
                     required: intl.formatMessage(errorMessages.required),
                   }}

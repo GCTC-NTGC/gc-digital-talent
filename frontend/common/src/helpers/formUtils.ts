@@ -122,7 +122,7 @@ export const countNumberOfWords = (text: string): number => {
   return 0;
 };
 
-export const entitiesToSortedOptions = (
+export const objectsToSortedOptions = (
   namedEntities: {
     id: Scalars["ID"];
     name: LocalizedString;
