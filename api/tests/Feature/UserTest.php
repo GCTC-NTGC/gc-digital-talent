@@ -2369,7 +2369,8 @@ class UserTest extends TestCase
         ', [
             'where' => [
                 'poolCandidates' => [
-                    'pools' => [$pool1['id']]
+                    'pools' => [$pool1['id']],
+                    'statuses' => [ApiEnums::CANDIDATE_STATUS_AVAILABLE]
                 ]
             ]
         ])->assertJson([
@@ -2386,7 +2387,8 @@ class UserTest extends TestCase
         ', [
             'where' => [
                 'poolCandidates' => [
-                    'pools' => [$pool1['id']]
+                    'pools' => [$pool1['id']],
+                    'statuses' => [ApiEnums::CANDIDATE_STATUS_AVAILABLE]
                 ],
                 'languageAbility' => ApiEnums::LANGUAGE_ABILITY_ENGLISH
             ]

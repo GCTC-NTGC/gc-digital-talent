@@ -45,7 +45,7 @@ type Applicant {
 }
 
 input ApplicantFilterInput {
-  poolCandidates: ApplicantPoolFilterInput
+  poolCandidates: UserPoolFilterInput
   jobLookingStatus: [JobLookingStatus] = [ACTIVELY_LOOKING, OPEN_TO_OPPORTUNITIES]
   languageAbility: LanguageAbility
   expectedClassifications: [ClassificationFilterInput]
@@ -55,12 +55,6 @@ input ApplicantFilterInput {
   hasDiploma: Boolean
   wouldAcceptTemporary: Boolean
   skills: [ID]
-}
-
-input ApplicantPoolFilterInput {
-  pools: [ID]!
-  expiryStatus: CANDIDATE_EXPIRY_FILTER = ACTIVE
-  statuses: [PoolCandidateStatus!] = [AVAILABLE]
 }
 
 type AwardExperience implements Experience {
@@ -113,7 +107,7 @@ enum BilingualEvaluation {
   NOT_COMPLETED
 }
 
-enum CANDIDATE_EXPIRY_FILTER {
+enum CandidateExpiryFilter {
   ACTIVE
   EXPIRED
   ALL
@@ -823,7 +817,7 @@ type Query {
   poolCandidate(id: ID!): PoolCandidate
   poolCandidates: [PoolCandidate]!
   countPoolCandidates(where: PoolCandidateFilterInput): Int! @deprecated(reason: "Replaced by countApplicants")
-  searchPoolCandidates(where: PoolCandidateFilterInput, orderBy: [OrderByClause!], expiryStatus: CANDIDATE_EXPIRY_FILTER): [PoolCandidate]!
+  searchPoolCandidates(where: PoolCandidateFilterInput, orderBy: [OrderByClause!], expiryStatus: CandidateExpiryFilter): [PoolCandidate]!
   classification(id: ID!): Classification
   classifications: [Classification]!
   cmoAsset(id: ID!): CmoAsset
@@ -1244,7 +1238,7 @@ type UserPaginator {
 
 input UserPoolFilterInput {
   pools: [ID!]!
-  expiryStatus: CANDIDATE_EXPIRY_FILTER = ACTIVE
+  expiryStatus: CandidateExpiryFilter = ACTIVE
   statuses: [PoolCandidateStatus!] = []
 }
 
