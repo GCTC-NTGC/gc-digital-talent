@@ -12,18 +12,13 @@ describe("Admin Workflow Tests", () => {
     cy.url().should("contain", "/dashboard");
   };
 
-  const searchForUser = (name) => {
+  const searchForUser = (name, expectedEmail) => {
     cy.findByRole("textbox", { name: /search/i })
      .clear()
      .type(name);
 
-    cy.findByRole("table")
-      .findByText(/Candidate Name/i)
-      .click();
-
     // wait for table to rerender
-    cy.findByRole("table")
-      .contains(name) // not sure why this doesn't work: .findByRole("row", name)
+    cy.contains(expectedEmail)
       .should("exist")
       .and("be.visible");
   };
@@ -43,7 +38,7 @@ describe("Admin Workflow Tests", () => {
     cy.findByRole("link", { name: /Manage users/i }).click();
     cy.wait("@gqlAllUsersPaginatedQuery");
 
-    searchForUser("Applicant");
+    searchForUser("Applicant", "applicant@test.com");
 
     cy.findByRole("table")
       .findByRole("row", { name: /applicant test/i })
@@ -77,7 +72,7 @@ describe("Admin Workflow Tests", () => {
     // find the applicant user to edit
     cy.findByRole("link", { name: /Manage users/i }).click();
     cy.wait("@gqlAllUsersPaginatedQuery");
-    searchForUser("Applicant");
+    searchForUser("Applicant", "applicant@test.com");
 
     cy.findByRole("table")
       .findByRole("row", { name: /applicant/i })
@@ -96,7 +91,7 @@ describe("Admin Workflow Tests", () => {
 
     cy.expectToast(/User updated successfully/i);
 
-    searchForUser("Applicant");
+    searchForUser("Applicant", "applicant@test.com");
 
     // check that the expected new phone number shows
     cy.findByRole("table")
