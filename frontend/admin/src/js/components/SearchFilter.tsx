@@ -79,9 +79,10 @@ interface SearchFilterProps {
   isOpen: boolean;
   onDismiss: (e: React.MouseEvent | React.KeyboardEvent) => void;
   onSubmit: SubmitHandler<FormValues>;
+  activeFilters: FormValues;
 }
 
-const generateOptionsFromValues = (item: string, index: number) => ({
+const generateOptionsFromValues = (item: string) => ({
   label: item,
   value: item.toLowerCase().replace(" ", "-"),
 });
