@@ -38,7 +38,7 @@ interface SearchFilterProps {
 
 const generateOptionsFromValues = (item: string, index: number) => ({
   label: item,
-  value: index,
+  value: item.toLowerCase().replace(" ", "-"),
 });
 
 const SearchFilter = ({
@@ -95,8 +95,7 @@ const SearchFilter = ({
 
   return (
     <Dialog
-      isOpen={isOpen}
-      onDismiss={onDismiss}
+      {...{ isOpen, onDismiss }}
       title={formatMessage({
         defaultMessage: "Select filters",
       })}
@@ -170,9 +169,9 @@ const SearchFilter = ({
           <div style={{ flexGrow: 1, marginLeft: 20 }}>
             <SelectFieldV2
               forceArrayFormValue
-              id="durationPreference"
+              id="durationPreferences"
               label={formatMessage({
-                defaultMessage: "Duration Preference",
+                defaultMessage: "Duration Preferences",
               })}
               options={optionsData.durationPreferences}
             />
