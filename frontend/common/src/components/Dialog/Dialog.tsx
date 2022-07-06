@@ -124,7 +124,7 @@ const Header = ({
         )}
       </div>
     </div>
-  )
+  );
 };
 
 const Dialog = ({
