@@ -9,6 +9,19 @@ import "./SearchFilter.css";
 import { useFormContext } from "react-hook-form";
 import type { SubmitHandler } from "react-hook-form";
 import type { Option } from "@common/components/form/Select/SelectFieldV2";
+import { enumToOptions } from "@common/helpers/formUtils";
+import {
+  getLanguage,
+  getWorkRegion,
+} from "@common/constants/localizedConstants";
+import {
+  WorkRegion,
+  OperationalRequirement,
+  JobLookingStatus,
+  EducationType,
+  GovEmployeeType,
+  Language,
+} from "../api/generated";
 
 const SearchFilterFooter = (): JSX.Element => {
   const { reset } = useFormContext();
@@ -86,42 +99,28 @@ const SearchFilter = ({
       "Women in STEM",
       "Indigenous Apprenticeship Program",
     ].map(generateOptionsFromValues),
-    languages: ["Any", "English only", "French only", "Bilingual"].map(
-      generateOptionsFromValues,
-    ),
+    languages: enumToOptions(Language).map(({ value }) => ({
+      value,
+      label: formatMessage(getLanguage(value)),
+    })),
     classifications: ["CS-01", "CS-02", "CS-03", "CS-04", "CS-05"].map(
       generateOptionsFromValues,
     ),
-    workPreferences: [
-      "Overtime",
-      "Shift-work",
-      "24/7 on-call",
-      "Travel",
-      "Transport & Lift (20kg)",
-      "Driver license",
-    ].map(generateOptionsFromValues),
-    workLocations: [
-      "Virtual",
-      "National Capital Region",
-      "Atlantic Region",
-      "Quebec Region",
-      "Ontario Region",
-      "Prairie Region",
-      "British Columbia Region",
-      "North Region",
-    ].map(generateOptionsFromValues),
-    education: ["Combination", "Has diploma"].map(generateOptionsFromValues),
+    workPreferences: enumToOptions(OperationalRequirement),
+    workLocations: enumToOptions(WorkRegion).map(({ value }) => ({
+      value,
+      label: formatMessage(getWorkRegion(value)),
+    })),
+    education: enumToOptions(EducationType),
     durationPreferences: ["Term", "Indeterminate"].map(
       generateOptionsFromValues,
     ),
-    availability: ["Actively looking", "Open to opportunities", "Inactive"].map(
-      generateOptionsFromValues,
-    ),
+    availability: enumToOptions(JobLookingStatus),
     skillFilter: ["Data Analysis", "Data Cleaning", "Database Design"].map(
       generateOptionsFromValues,
     ),
     profileComplete: ["Yes", "No"].map(generateOptionsFromValues),
-    govEmployee: ["Yes", "No"].map(generateOptionsFromValues),
+    govEmployee: enumToOptions(GovEmployeeType),
   };
 
   return (
@@ -129,10 +128,12 @@ const SearchFilter = ({
       {...{ isOpen, onDismiss }}
       title={formatMessage({
         defaultMessage: "Select filters",
+        description: "Candidate search filter dialog: title",
       })}
       subtitle={formatMessage({
         defaultMessage:
           "Narrow down your table results using the following filters.",
+        description: "Candidate search filter dialog: subtitle",
       })}
     >
       <BasicForm
