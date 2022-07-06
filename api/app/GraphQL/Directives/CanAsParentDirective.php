@@ -30,6 +30,7 @@ GRAPHQL;
      */
     public function handleField(FieldValue $fieldValue, Closure $next): FieldValue
     {
+        try{
         $previousResolver = $fieldValue->getResolver();
         $ability = $this->directiveArgValue('ability');
 
@@ -45,7 +46,11 @@ GRAPHQL;
                 return $previousResolver($root, $args, $context, $resolveInfo);
             }
         );
+    }
+    catch (Exception $e) {
+        echo 'Caught exception: ',  $e->getMessage(), "\n";
 
+    }
         return $next($fieldValue);
     }
 }
